@@ -1,0 +1,76 @@
+Could not find platform independent libraries <prefix>
+
+==============================================================================
+Firenze: pooled now 0.0664% (16 infested of 24100 drupes, 241 visits, 73 groves)
+  matched seasons 14; lower 14, higher 0, tied 0
+  season shared     now%    then%        now n/N       then n/N   2-prop p
+    2012     10    0.027     0.05         1/3700         2/4000   6.10e-01
+    2013     10    0.027     0.55         1/3700        22/4000   2.65e-05
+    2014     12    0.093     11.0         4/4300       440/4000   0.00e+00
+    2015     18   0.0597   2.4925         4/6700       167/6700   0.00e+00
+    2016     20   0.0548   6.0122         4/7300       493/8200   0.00e+00
+    2017     21   0.0909   0.8553         7/7700        65/7600   4.94e-12
+    2018     25   0.1075     1.04        10/9300      104/10000   0.00e+00
+    2019     27   0.0891   7.5116        9/10100       646/8600   0.00e+00
+    2020     29   0.1009   1.0991       11/10900      122/11100   0.00e+00
+    2021     28   0.1048    3.383       11/10500       318/9400   0.00e+00
+    2022     37    0.087   0.1704       12/13800       23/13500   5.41e-02
+    2023     36   0.0942   7.0446       13/13800      789/11200   0.00e+00
+    2024     43   0.0875      0.2       14/16000       34/17000   7.36e-03
+    2025     51   0.0794   2.2271       15/18900      304/13650   0.00e+00
+
+  NULL A  naive sign test, 14 of 14: p = 1.221e-04
+          (assumes 14 independent pairs; they share one 'now', so this is wrong)
+  NULL B  exchangeable-season rank: the rule fires when at most 2 of 14 prior seasons read higher,
+          i.e. when this season ranks in the bottom 3 of 15. Uniform rank => p = 3/15 = 0.2000
+  NULL C  grove cluster bootstrap, B=5000: BELOW_HISTORICAL 5000 (100.0%)
+          bootstrap 'lower' count: median 14.0, 2.5-97.5 pct [13, 14] of 14
+
+==============================================================================
+Siena: pooled now 0.6909% (127 infested of 18383 drupes, 186 visits, 61 groves)
+  matched seasons 17; lower 14, higher 3, tied 0
+  season shared     now%    then%        now n/N       then n/N   2-prop p
+    2009      8      0.6   0.7097        18/3000        22/3100   5.96e-01
+    2010      9   0.5294   1.1143        18/3400        39/3500   7.29e-03
+    2011      8   0.5625   0.8772        18/3200        25/2850   1.46e-01
+    2012      8   0.5625   1.3103        18/3200        38/2900   2.23e-03
+    2013      8   0.5625   2.1304        18/3200        49/2300   1.71e-07
+    2014      8   0.5625   4.5926        18/3200       124/2700   0.00e+00
+    2015     12    1.025   1.6739        41/4000        77/4600   9.87e-03
+    2016     15   1.1158    6.692        53/4750       247/3691   0.00e+00
+    2017     14   1.1236   0.7416        50/4450        33/4450   6.08e-02
+    2018     15   1.1368   0.8545        54/4750        47/5500   1.49e-01
+    2019     15   0.7238   5.2619        38/5250       221/4200   0.00e+00
+    2020     22    1.191   1.1951        79/6633        98/8200   9.82e-01
+    2021     20   1.1211   4.4576        71/6333       263/5900   0.00e+00
+    2022     15   0.5965   1.0175        34/5700        58/5700   1.20e-02
+    2023     15   0.5965   9.0417        34/5700       434/4800   0.00e+00
+    2024     13   1.7058   0.5574        56/3283        17/3050   1.89e-05
+    2025     27   0.7266   5.8675        66/9083       443/7550   0.00e+00
+
+  NULL A  naive sign test, 14 of 17: p = 1.273e-02
+          (assumes 14 independent pairs; they share one 'now', so this is wrong)
+  NULL B  exchangeable-season rank: the rule fires when at most 3 of 17 prior seasons read higher,
+          i.e. when this season ranks in the bottom 4 of 18. Uniform rank => p = 4/18 = 0.2222
+  NULL C  grove cluster bootstrap, B=5000: BELOW_HISTORICAL 1802 (36.0%), TYPICAL 3198 (64.0%)
+          bootstrap 'lower' count: median 13.0, 2.5-97.5 pct [11, 15] of 17
+
+==============================================================================
+Arezzo: pooled now 0.1636% (9 infested of 5500 drupes, 55 visits, 17 groves)
+  matched seasons 6; lower 4, higher 2, tied 0
+  season shared     now%    then%        now n/N       then n/N   2-prop p
+    2020      9   0.3462   0.5909         9/2600        13/2200   2.11e-01
+    2021      9   0.3462   0.4865         9/2600        18/3700   4.01e-01
+    2022     10   0.3103     0.15         9/2900         6/4000   1.58e-01
+    2023     13   0.2195   2.5122         9/4100       103/4100   0.00e+00
+    2024     14      0.2   0.0851         9/4500         4/4700   1.43e-01
+    2025     15   0.1837   1.6744         9/4900        72/4300   2.22e-14
+
+  NULL A  naive sign test, 4 of 6: p = 6.875e-01
+          (assumes 14 independent pairs; they share one 'now', so this is wrong)
+  NULL B  exchangeable-season rank: the rule fires when at most 1 of 6 prior seasons read higher,
+          i.e. when this season ranks in the bottom 2 of 7. Uniform rank => p = 2/7 = 0.2857
+  NULL C  grove cluster bootstrap, B=5000: BELOW_HISTORICAL 471 (9.4%), TYPICAL 4529 (90.6%)
+          bootstrap 'lower' count: median 4.0, 2.5-97.5 pct [2, 5] of 6
+
+wrote rt5_02_signtest.json

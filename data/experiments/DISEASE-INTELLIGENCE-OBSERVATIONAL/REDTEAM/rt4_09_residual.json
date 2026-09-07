@@ -1,0 +1,64 @@
+{
+ "A_TIE_WINDOWS": {
+  "detail": [
+   {
+    "metric": "ACTIVE_INFESTATION_COUNT",
+    "province": "Siena",
+    "baseline_season": 2025,
+    "n_addends": 102,
+    "addends_that_are_NOT_integers": 0,
+    "sample_of_non_integer_addends": [],
+    "sum_is_EXACT_in_float_so_order_cannot_move_it": true
+   },
+   {
+    "metric": "TOTAL_INFESTATION_COUNT",
+    "province": "Livorno",
+    "baseline_season": 2020,
+    "n_addends": 64,
+    "addends_that_are_NOT_integers": 0,
+    "sample_of_non_integer_addends": [],
+    "sum_is_EXACT_in_float_so_order_cannot_move_it": true
+   }
+  ],
+  "ALL_TIE_WINDOWS_HAVE_INTEGER_ONLY_ADDENDS": true,
+  "CONCLUSION": "the exact ties are built from integer-only addends, so summation order cannot move them by even one ULP; the tie is settled by round-half-to-even and reproduces on any IEEE-754 platform. The two risks - a tie, and order-sensitivity - do not intersect on this data."
+ },
+ "B_BAND_HOLE_ON_REAL_WINDOWS": {
+  "windows_scored": 669,
+  "windows_landing_in_the_(0,0.01)_hole": 1,
+  "detail": [
+   {
+    "metric": "DAMAGING_INFESTATION_COUNT",
+    "province": "Grosseto",
+    "window": "baseline_2024",
+    "rate_pct": 0.0081,
+    "num": 3.6,
+    "den": 44649.0,
+    "band": null
+   }
+  ],
+  "smallest_non_zero_published_rate_pct": 0.0081,
+  "MEANING": "THE HOLE IS HIT: band_for returns None and di_render raises TypeError"
+ },
+ "C_GLOB_CASE_SENSITIVITY": {
+  "probe_dir": "C:\\Users\\London1\\AppData\\Local\\Temp\\rt4_glob_n12g7lkj",
+  "files_created": [
+   "c2_s1_V1_2099.json",
+   "c2_s1_v1_2099.json"
+  ],
+  "matched_by_pattern_*_v1_*.json": [
+   "c2_s1_V1_2099.json"
+  ],
+  "CASE_INSENSITIVE_HERE": false,
+  "MEANING": "case-sensitive here; the pattern binds exactly one case"
+ },
+ "D_VARIABLE_READ_ORDER": {
+  "per_permutation": {
+   "SAMPLE_SIZE / DENOMINATOR | ACTIVE_INFESTATION_COUNT | DAMAGING_INFESTATION_COUNT | TOTAL_INFESTATION_COUNT": "669116bae3f4fd151ef8140a3f922f9f262ac3f9eccf5c5edec8ed5f06946db4",
+   "TOTAL_INFESTATION_COUNT | DAMAGING_INFESTATION_COUNT | ACTIVE_INFESTATION_COUNT | SAMPLE_SIZE / DENOMINATOR": "a9d6f6f064f72a42c68b06e50628ee039786aaa2afbb7070d5be8ed8975fdd25",
+   "DAMAGING_INFESTATION_COUNT | SAMPLE_SIZE / DENOMINATOR | TOTAL_INFESTATION_COUNT | ACTIVE_INFESTATION_COUNT": "b6ba0d42d07ba9a82d0d20eddc9f64032b0a5c2924668e705317633898c33ce5"
+  },
+  "distinct": 3,
+  "INVARIANT_TO_THE_ORDER_THE_VARIABLES_ARE_REQUESTED_IN": false
+ }
+}

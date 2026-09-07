@@ -1,0 +1,365 @@
+{
+ "committed_file": "C:/rt4-fresh/committed_report.json",
+ "regenerated_file": "C:/rt4-fresh/clone/data/experiments/DISEASE-INTELLIGENCE-OBSERVATIONAL/OUT/report_ACTIVE_INFESTATION_COUNT_2026-09-06.json",
+ "n_leaves_committed": 3690,
+ "n_leaves_regenerated": 3700,
+ "n_leaves_present_only_in_committed": 3,
+ "n_leaves_present_only_in_regenerated": 13,
+ "leaves_only_in_committed_sample": [
+  ".loaded.exclusions.denominator_missing",
+  ".loaded.exclusions.denominator_zero_or_negative",
+  ".loaded.n_visits_usable_for_rates"
+ ],
+ "leaves_only_in_regenerated_sample": [
+  ".loaded.exclusions.denominator_missing:ACTIVE_INFESTATION_COUNT",
+  ".loaded.exclusions.denominator_missing:DAMAGING_INFESTATION_COUNT",
+  ".loaded.exclusions.denominator_missing:TOTAL_INFESTATION_COUNT",
+  ".loaded.exclusions.denominator_zero_or_negative:ACTIVE_INFESTATION_COUNT",
+  ".loaded.exclusions.denominator_zero_or_negative:DAMAGING_INFESTATION_COUNT",
+  ".loaded.exclusions.denominator_zero_or_negative:TOTAL_INFESTATION_COUNT",
+  ".loaded.exclusions.value_missing:ACTIVE_INFESTATION_COUNT",
+  ".loaded.exclusions.value_missing:DAMAGING_INFESTATION_COUNT",
+  ".loaded.exclusions.value_missing:TOTAL_INFESTATION_COUNT",
+  ".loaded.n_visits_usable_by_measurement.ACTIVE_INFESTATION_COUNT",
+  ".loaded.n_visits_usable_by_measurement.DAMAGING_INFESTATION_COUNT",
+  ".loaded.n_visits_usable_by_measurement.TOTAL_INFESTATION_COUNT",
+  ".loaded.n_visits_usable_for_at_least_one_measurement"
+ ],
+ "n_shared_leaves_that_DIFFER": 55,
+ "differing_leaves_by_field": {
+  ".cells": 55
+ },
+ "differing_leaves": [
+  {
+   "path": ".cells[1].analysis.baseline_detail[17].drupes_sampled",
+   "committed": 22200,
+   "regenerated": 22300,
+   "delta": 100
+  },
+  {
+   "path": ".cells[1].analysis.baseline_detail[17].n_visits",
+   "committed": 222,
+   "regenerated": 223,
+   "delta": 1
+  },
+  {
+   "path": ".cells[1].analysis.baseline_detail[17].rate_pct",
+   "committed": 6.5225,
+   "regenerated": 6.6009,
+   "delta": 0.07840000000000025
+  },
+  {
+   "path": ".cells[2].analysis.baseline_detail[10].drupes_sampled",
+   "committed": 11204,
+   "regenerated": 11214,
+   "delta": 10
+  },
+  {
+   "path": ".cells[2].analysis.baseline_detail[10].n_visits",
+   "committed": 112,
+   "regenerated": 113,
+   "delta": 1
+  },
+  {
+   "path": ".cells[2].analysis.baseline_detail[10].rate_pct",
+   "committed": 6.1228,
+   "regenerated": 6.1174,
+   "delta": -0.005399999999999849
+  },
+  {
+   "path": ".cells[2].analysis.baseline_detail[19].drupes_sampled",
+   "committed": 34960,
+   "regenerated": 35060,
+   "delta": 100
+  },
+  {
+   "path": ".cells[2].analysis.baseline_detail[19].n_visits",
+   "committed": 312,
+   "regenerated": 313,
+   "delta": 1
+  },
+  {
+   "path": ".cells[2].analysis.baseline_detail[19].rate_pct",
+   "committed": 4.5255,
+   "regenerated": 4.6466,
+   "delta": 0.12110000000000021
+  },
+  {
+   "path": ".cells[2].analysis.baseline_detail[8].drupes_sampled",
+   "committed": 5000,
+   "regenerated": 5010,
+   "delta": 10
+  },
+  {
+   "path": ".cells[2].analysis.baseline_detail[8].n_visits",
+   "committed": 50,
+   "regenerated": 51,
+   "delta": 1
+  },
+  {
+   "path": ".cells[2].analysis.baseline_detail[8].rate_pct",
+   "committed": 5.92,
+   "regenerated": 5.9082,
+   "delta": -0.011800000000000033
+  },
+  {
+   "path": ".cells[2].analysis.baseline_rate_pct_max",
+   "committed": 6.1228,
+   "regenerated": 6.1174,
+   "delta": -0.005399999999999849
+  },
+  {
+   "path": ".cells[2].analysis.matched_panel_comparisons[1].drupes_then",
+   "committed": 24560,
+   "regenerated": 24660,
+   "delta": 100
+  },
+  {
+   "path": ".cells[2].analysis.matched_panel_comparisons[1].rate_then_on_those_groves_pct",
+   "committed": 4.1413,
+   "regenerated": 4.3151,
+   "delta": 0.17379999999999995
+  },
+  {
+   "path": ".cells[2].analysis.observed_trend_points[1].drupes_sampled",
+   "committed": 49135,
+   "regenerated": 49235,
+   "delta": 100
+  },
+  {
+   "path": ".cells[2].analysis.observed_trend_points[1].n_visits",
+   "committed": 441,
+   "regenerated": 442,
+   "delta": 1
+  },
+  {
+   "path": ".cells[2].analysis.observed_trend_points[1].rate_pct",
+   "committed": 0.8249,
+   "regenerated": 0.8374,
+   "delta": 0.012500000000000067
+  },
+  {
+   "path": ".cells[2].analysis.observed_trend_reason",
+   "committed": "0.5876% -> 0.8249% -> 0.6575% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0699 percentage points. This describes windows that have already happened.",
+   "regenerated": "0.5876% -> 0.8374% -> 0.6575% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0699 percentage points. This describes windows that have already happened.",
+   "delta": null
+  },
+  {
+   "path": ".cells[3].analysis.baseline_detail[19].drupes_sampled",
+   "committed": 11400,
+   "regenerated": 11700,
+   "delta": 300
+  },
+  {
+   "path": ".cells[3].analysis.baseline_detail[19].n_sites",
+   "committed": 51,
+   "regenerated": 52,
+   "delta": 1
+  },
+  {
+   "path": ".cells[3].analysis.baseline_detail[19].n_visits",
+   "committed": 114,
+   "regenerated": 117,
+   "delta": 3
+  },
+  {
+   "path": ".cells[3].analysis.baseline_detail[19].rate_pct",
+   "committed": 9.4912,
+   "regenerated": 9.453,
+   "delta": -0.03819999999999979
+  },
+  {
+   "path": ".cells[3].analysis.matched_panel_comparisons[0].drupes_now",
+   "committed": 8000,
+   "regenerated": 8300,
+   "delta": 300
+  },
+  {
+   "path": ".cells[3].analysis.matched_panel_comparisons[0].drupes_then",
+   "committed": 6200,
+   "regenerated": 6500,
+   "delta": 300
+  },
+  {
+   "path": ".cells[3].analysis.matched_panel_comparisons[0].n_groves_shared",
+   "committed": 27,
+   "regenerated": 28,
+   "delta": 1
+  },
+  {
+   "path": ".cells[3].analysis.matched_panel_comparisons[0].rate_now_on_those_groves_pct",
+   "committed": 0.8,
+   "regenerated": 0.7952,
+   "delta": -0.0048000000000000265
+  },
+  {
+   "path": ".cells[3].analysis.matched_panel_comparisons[0].rate_then_on_those_groves_pct",
+   "committed": 10.5484,
+   "regenerated": 10.4308,
+   "delta": -0.11760000000000126
+  },
+  {
+   "path": ".cells[3].analysis.observed_trend_points[1].drupes_sampled",
+   "committed": 15500,
+   "regenerated": 15700,
+   "delta": 200
+  },
+  {
+   "path": ".cells[3].analysis.observed_trend_points[1].n_visits",
+   "committed": 155,
+   "regenerated": 157,
+   "delta": 2
+  },
+  {
+   "path": ".cells[3].analysis.observed_trend_points[1].rate_pct",
+   "committed": 1.8387,
+   "regenerated": 1.8153,
+   "delta": -0.023400000000000087
+  },
+  {
+   "path": ".cells[3].analysis.observed_trend_reason",
+   "committed": "0.4722% -> 1.8387% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. This describes windows that have already happened.",
+   "regenerated": "0.4722% -> 1.8153% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. This describes windows that have already happened.",
+   "delta": null
+  },
+  {
+   "path": ".cells[3].analysis.panel_overlap_with_baseline_seasons.max",
+   "committed": 27,
+   "regenerated": 28,
+   "delta": 1
+  },
+  {
+   "path": ".cells[4].analysis.baseline_detail[19].drupes_sampled",
+   "committed": 6000,
+   "regenerated": 6200,
+   "delta": 200
+  },
+  {
+   "path": ".cells[4].analysis.baseline_detail[19].n_visits",
+   "committed": 60,
+   "regenerated": 62,
+   "delta": 2
+  },
+  {
+   "path": ".cells[4].analysis.baseline_detail[19].rate_pct",
+   "committed": 5.6833,
+   "regenerated": 5.6935,
+   "delta": 0.010200000000000209
+  },
+  {
+   "path": ".cells[4].analysis.baseline_detail[8].drupes_sampled",
+   "committed": 5300,
+   "regenerated": 5400,
+   "delta": 100
+  },
+  {
+   "path": ".cells[4].analysis.baseline_detail[8].n_visits",
+   "committed": 53,
+   "regenerated": 54,
+   "delta": 1
+  },
+  {
+   "path": ".cells[4].analysis.baseline_detail[8].rate_pct",
+   "committed": 16.6792,
+   "regenerated": 16.6481,
+   "delta": -0.031100000000002126
+  },
+  {
+   "path": ".cells[4].analysis.baseline_rate_pct_max",
+   "committed": 16.6792,
+   "regenerated": 16.6481,
+   "delta": -0.031100000000002126
+  },
+  {
+   "path": ".cells[4].analysis.matched_panel_comparisons[2].drupes_then",
+   "committed": 4600,
+   "regenerated": 4800,
+   "delta": 200
+  },
+  {
+   "path": ".cells[4].analysis.matched_panel_comparisons[2].rate_then_on_those_groves_pct",
+   "committed": 5.7174,
+   "regenerated": 5.7292,
+   "delta": 0.011800000000000033
+  },
+  {
+   "path": ".cells[5].analysis.baseline_detail[8].drupes_sampled",
+   "committed": 3822,
+   "regenerated": 3919,
+   "delta": 97
+  },
+  {
+   "path": ".cells[5].analysis.baseline_detail[8].n_sites",
+   "committed": 11,
+   "regenerated": 12,
+   "delta": 1
+  },
+  {
+   "path": ".cells[5].analysis.baseline_detail[8].n_visits",
+   "committed": 35,
+   "regenerated": 37,
+   "delta": 2
+  },
+  {
+   "path": ".cells[5].analysis.baseline_detail[8].rate_pct",
+   "committed": 3.1842,
+   "regenerated": 4.7538,
+   "delta": 1.5695999999999999
+  },
+  {
+   "path": ".cells[6].analysis.baseline_detail[14].drupes_sampled",
+   "committed": 14050,
+   "regenerated": 14100,
+   "delta": 50
+  },
+  {
+   "path": ".cells[6].analysis.baseline_detail[14].n_sites",
+   "committed": 48,
+   "regenerated": 49,
+   "delta": 1
+  },
+  {
+   "path": ".cells[6].analysis.baseline_detail[14].n_visits",
+   "committed": 138,
+   "regenerated": 139,
+   "delta": 1
+  },
+  {
+   "path": ".cells[6].analysis.baseline_detail[14].rate_pct",
+   "committed": 3.1722,
+   "regenerated": 3.2035,
+   "delta": 0.031299999999999883
+  },
+  {
+   "path": ".cells[9].analysis.baseline_detail[15].drupes_sampled",
+   "committed": 12750,
+   "regenerated": 12900,
+   "delta": 150
+  },
+  {
+   "path": ".cells[9].analysis.baseline_detail[15].n_visits",
+   "committed": 132,
+   "regenerated": 135,
+   "delta": 3
+  },
+  {
+   "path": ".cells[9].analysis.baseline_detail[15].rate_pct",
+   "committed": 3.7333,
+   "regenerated": 3.845,
+   "delta": 0.11170000000000035
+  },
+  {
+   "path": ".cells[9].analysis.matched_panel_comparisons[12].drupes_then",
+   "committed": 5750,
+   "regenerated": 5900,
+   "delta": 150
+  },
+  {
+   "path": ".cells[9].analysis.matched_panel_comparisons[12].rate_then_on_those_groves_pct",
+   "committed": 4.2261,
+   "regenerated": 4.4576,
+   "delta": 0.23150000000000048
+  }
+ ],
+ "IDENTICAL": false
+}

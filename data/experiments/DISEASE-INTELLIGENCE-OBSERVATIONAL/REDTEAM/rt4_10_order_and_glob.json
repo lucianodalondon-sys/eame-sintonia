@@ -1,0 +1,97 @@
+{
+ "C_GLOB_CASE_SENSITIVITY_REDONE": {
+  "one_file_created": "c2_s1_V1_2099.json",
+  "os.listdir_says": [
+   "c2_s1_V1_2099.json"
+  ],
+  "pattern_*_v1_*.json_matches": [
+   "c2_s1_V1_2099.json"
+  ],
+  "pattern_*_V1_*.json_matches": [
+   "c2_s1_V1_2099.json"
+  ],
+  "GLOB_IS_CASE_INSENSITIVE_ON_THIS_FILESYSTEM": true,
+  "MEANING": "the loader's pattern *_v1_*.json matches a file named ..._V1_... here and would NOT match it on a case-sensitive filesystem. Same bytes, different platform, different file set, different denominator. No such file exists in CASES today, so this is a portability hazard and not a live defect."
+ },
+ "D_WHY_VARIABLE_ORDER_MATTERS": {
+  "n_visits": 79251,
+  "per_visit_field_disagreements": {
+   "exclusion_reasons_ORDER_ONLY": 25
+  },
+  "examples": {
+   "exclusion_reasons_ORDER_ONLY": [
+    {
+     "visit_key": [
+      2641,
+      "2007-10-10"
+     ],
+     "canonical": [
+      "count_exceeds_sample:DAMAGING_INFESTATION_COUNT",
+      "count_exceeds_sample:TOTAL_INFESTATION_COUNT"
+     ],
+     "reversed": [
+      "count_exceeds_sample:TOTAL_INFESTATION_COUNT",
+      "count_exceeds_sample:DAMAGING_INFESTATION_COUNT"
+     ]
+    },
+    {
+     "visit_key": [
+      1204,
+      "2009-07-20"
+     ],
+     "canonical": [
+      "count_exceeds_sample:ACTIVE_INFESTATION_COUNT",
+      "count_exceeds_sample:TOTAL_INFESTATION_COUNT"
+     ],
+     "reversed": [
+      "count_exceeds_sample:TOTAL_INFESTATION_COUNT",
+      "count_exceeds_sample:ACTIVE_INFESTATION_COUNT"
+     ]
+    },
+    {
+     "visit_key": [
+      3658,
+      "2009-10-14"
+     ],
+     "canonical": [
+      "count_exceeds_sample:ACTIVE_INFESTATION_COUNT",
+      "count_exceeds_sample:DAMAGING_INFESTATION_COUNT",
+      "count_exceeds_sample:TOTAL_INFESTATION_COUNT"
+     ],
+     "reversed": [
+      "count_exceeds_sample:TOTAL_INFESTATION_COUNT",
+      "count_exceeds_sample:DAMAGING_INFESTATION_COUNT",
+      "count_exceeds_sample:ACTIVE_INFESTATION_COUNT"
+     ]
+    },
+    {
+     "visit_key": [
+      1373,
+      "2011-08-31"
+     ],
+     "canonical": [
+      "denominator_zero_or_negative",
+      "negative_count:ACTIVE_INFESTATION_COUNT",
+      "negative_count:DAMAGING_INFESTATION_COUNT",
+      "negative_count:TOTAL_INFESTATION_COUNT"
+     ],
+     "reversed": [
+      "denominator_zero_or_negative",
+      "negative_count:TOTAL_INFESTATION_COUNT",
+      "negative_count:DAMAGING_INFESTATION_COUNT",
+      "negative_count:ACTIVE_INFESTATION_COUNT"
+     ]
+    }
+   ]
+  },
+  "top_level_summary_fields_that_disagree": {},
+  "SEMANTIC_OR_COSMETIC": "COSMETIC - only the ORDER of exclusion_reasons differs; every value, date, province and measurement is identical. The published report always uses the default order, so nothing published is affected.",
+  "WHY_IT_IS_POSSIBLE_AT_ALL": "di_core.load_visits picks the row that supplies date/province/comune/org/week with   any_row = next((per_var[c][k]['row'] for c in wanted if k in per_var[c]), None)  so the FIRST variable in `wanted` that has the key wins. Nothing checks that the four variables agree about that visit's date or province."
+ },
+ "D2_DO_THE_FOUR_VARIABLES_EVER_DISAGREE_ABOUT_A_VISIT": {
+  "keys_checked": 79251,
+  "keys_where_the_four_files_disagree_about_a_field": {},
+  "examples": [],
+  "MEANING": "the four files agree about every visit, so 'whichever variable is first wins' can never change a date or a province on this archive. It is an unguarded assumption that happens to hold, not a checked invariant."
+ }
+}

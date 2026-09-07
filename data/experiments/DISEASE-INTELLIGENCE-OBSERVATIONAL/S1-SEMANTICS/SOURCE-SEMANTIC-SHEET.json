@@ -1,7 +1,6 @@
 {
- "SHEET_VERSION": "1.0",
+ "SHEET_VERSION": "2.0",
  "WHY_THIS_FILE_EXISTS": "A directory called FRUMENTO-SEPTORIA collected id_survey_var 372, which that same case's own metadata calls 'Intensita' Oidio'. The engine believed the folder name. From now on no column enters the engine unless it has an entry here, and every entry carries the evidence that produced it. A column with no entry is REFUSED, not guessed.",
-
  "SOURCE": {
   "api": "https://agroambiente.info.regione.toscana.it/agro18/api/dati/get_aedita_data",
   "operator": "Regione Toscana - AgroAmbiente.info",
@@ -10,18 +9,22 @@
   "schema_meaning": "olive-fly drupe sampling: a fixed sample of olives is taken per visit and dissected, and each developmental stage is counted",
   "evidence": "collection_index.json 'vars' block, served by the API itself"
  },
-
  "VISIT_KEY": {
-  "KEY": ["id_field", "date"],
+  "KEY": [
+   "id_field",
+   "date"
+  ],
   "MEANING": "one monitored grove, one calendar day = one visit",
   "EVIDENCE": "s1_key_and_fingerprint.json: 79,251 distinct keys over 79,251 rows, 0 repeats, in EVERY one of the four collected variables",
   "REJECTED_KEYS": {
    "uid": "59 distinct keys over 79,251 rows - not a row identifier at all",
    "id_survey": "52,250 distinct over 79,251; 14,649 keys repeat, and where they repeat the VALUE conflicts in 2,443 to 13,641 cases depending on the variable. This is the key the previous engine joined its denominator on."
   },
-  "ALSO_UNIQUE_AND_ACCEPTABLE": ["id_survey+collection_year", "id_survey+source_file"]
+  "ALSO_UNIQUE_AND_ACCEPTABLE": [
+   "id_survey+collection_year",
+   "id_survey+source_file"
+  ]
  },
-
  "VARIABLES": [
   {
    "SOURCE_VARIABLE": 1,
@@ -40,15 +43,21 @@
     "a denominator when it is 0 or missing: 2,351 of 78,008 visits (3.01%) report a sample size of 0, and a rate over 0 is not a rate"
    ],
    "EVIDENCE": "the source's own description string is 'Olive campionate'; the value is an integer in 100% of readable rows; it equals exactly 100 in 73,499 of 78,008 visits (94.2%); it carries no colour legend, unlike the three infestation columns",
-   "QUALITY": {"n_rows": 79251, "n_null": 177, "zero_valued": 3381, "min": 0, "max": 1400}
+   "QUALITY": {
+    "n_rows": 79251,
+    "n_null": 177,
+    "zero_valued": 3381,
+    "min": 0,
+    "max": 1400
+   }
   },
   {
    "SOURCE_VARIABLE": -1001,
    "SOURCE_VAR_NAME": "attiva",
    "SOURCE_LABEL": "Attiva",
    "SOURCE_DESCRIPTION": "Infestazione Attiva",
-   "MEANING": "drupes carrying infestation that is still alive on the day of the visit",
-   "UNIT": "count of drupes, out of `tot`",
+   "MEANING": "the share of sampled drupes carrying EGGS or LIVE FIRST- OR SECOND-INSTAR larvae - the stages still open to control",
+   "UNIT": "percent of sampled drupes from 2020 onward; count of drupes up to 2019",
    "CANONICAL_MEANING": "ACTIVE_INFESTATION_COUNT",
    "CAN_USE_FOR": [
     "an observed rate: attiva / tot",
@@ -56,19 +65,26 @@
    ],
    "CANNOT_USE_FOR": [
     "damage that has already occurred - that is a different column",
-    "being read as a percentage directly, unless tot == 100 (see UNIT_TRAP below)",
-    "any statement about a future date"
+    "any statement about a future date",
+    "being divided by tot in the 2020+ era: the source already did that",
+    "all live infestation: it EXCLUDES live third-instar larvae (l3v) and live pupae (pv), which an independent lens measured at 20.92% of all live individuals recorded, and it reads 0 on 2,737 of 18,798 visits where live L3 or pupae are present"
    ],
-   "EVIDENCE": "source description 'Infestazione Attiva'; server-computed (negative id, order_n -1); integer in 99.56% of readable rows; bounded by tot in 99.94%",
-   "QUALITY": {"n_rows": 79251, "n_null": 1217, "negative_values": 2, "exceeds_sample_size": 46}
+   "EVIDENCE": "the source's own SQL: (u + l1v + l2v) / tot * 100",
+   "QUALITY": {
+    "n_rows": 79251,
+    "n_null": 1217,
+    "negative_values": 2,
+    "exceeds_sample_size": 46
+   },
+   "ERA_RULE": "infested_drupes = val * tot / 100 if year >= 2020 else val"
   },
   {
    "SOURCE_VARIABLE": -1002,
    "SOURCE_VAR_NAME": "dannosa",
    "SOURCE_LABEL": "Dannosa",
    "SOURCE_DESCRIPTION": "Infestazione Dannosa",
-   "MEANING": "drupes carrying infestation that has already done damage",
-   "UNIT": "count of drupes, out of `tot`",
+   "MEANING": "the share of sampled drupes at or past the third instar - third-instar larvae alive or dead, pupae alive or dead, and exit holes",
+   "UNIT": "percent of sampled drupes from 2020 onward; count of drupes up to 2019",
    "CANONICAL_MEANING": "DAMAGING_INFESTATION_COUNT",
    "CAN_USE_FOR": [
     "an observed rate: dannosa / tot",
@@ -76,63 +92,103 @@
    ],
    "CANNOT_USE_FOR": [
     "the current state of the pest - it is a lagging record. Measured: 24,834 of 78,012 visits (31.8%) have attiva > 0 while dannosa reads 0",
-    "being read as a percentage directly, unless tot == 100",
-    "any statement about a future date"
+    "any statement about a future date",
+    "being divided by tot in the 2020+ era: the source already did that",
+    "'damage already done' as a synonym for 'dead insects': an independent lens measured that 38.53% of what it counts is LIVE insects (l3v, pv). It is the stages past the point of control, whether alive or not."
    ],
-   "EVIDENCE": "source description 'Infestazione Dannosa'; this is the column the previous pilot published; integer in 99.81%; bounded by tot in 99.96%",
-   "QUALITY": {"n_rows": 79251, "n_null": 1232, "negative_values": 4, "exceeds_sample_size": 35}
+   "EVIDENCE": "the source's own SQL: (l3v + l3m + pm + pv + fu) / tot * 100",
+   "QUALITY": {
+    "n_rows": 79251,
+    "n_null": 1232,
+    "negative_values": 4,
+    "exceeds_sample_size": 35
+   },
+   "ERA_RULE": "infested_drupes = val * tot / 100 if year >= 2020 else val"
   },
   {
    "SOURCE_VARIABLE": -1003,
    "SOURCE_VAR_NAME": "totale",
    "SOURCE_LABEL": "Totale",
    "SOURCE_DESCRIPTION": null,
-   "MEANING": "drupes carrying infestation of any kind. NOT the sum of attiva and dannosa.",
-   "UNIT": "count of drupes, out of `tot`",
+   "MEANING": "the share of sampled drupes carrying any of the ten counted stages",
+   "UNIT": "percent of sampled drupes from 2020 onward; count of drupes up to 2019",
    "CANONICAL_MEANING": "TOTAL_INFESTATION_COUNT",
    "CAN_USE_FOR": [
     "an observed rate of any infestation: totale / tot"
    ],
    "CANNOT_USE_FOR": [
     "being decomposed into active + damaging. Measured on 78,008 visits: attiva + dannosa == totale in 55.67%, is LESS in 44.33%, and is greater in 1 visit. So a component exists that is counted in totale and in neither of the other two.",
-    "being read as a percentage directly, unless tot == 100"
+    "being divided by tot in the 2020+ era: the source already did that"
    ],
-   "EVIDENCE": "totale >= max(attiva, dannosa) in 99.995% of visits and totale >= attiva + dannosa in 99.9987%. The source declares, in the same schema, the stage columns u (Uova, eggs), fu (fori di uscita, exit holes) and ps (punture sterili, sterile stings) - components that are infestation but neither still-alive nor damaging. That is a plausible reading of the gap and it is NOT proved here: vars 2 to 11 and 21 were never collected, so the composition of totale is UNKNOWN from the bytes on disk.",
-   "WHAT_WOULD_SETTLE_IT": "collect id_survey_var 2,3,4,5,6,7,8,9,10,11,21 for the same visits and test the identity stage by stage",
-   "QUALITY": {"n_rows": 79251, "n_null": 1241, "negative_values": 4, "exceeds_sample_size": 141}
+   "EVIDENCE": "the source's own SQL: (u+l1v+l1m+l2v+l2m+l3v+l3m+pm+pv+fu) / tot * 100",
+   "WHAT_WOULD_SETTLE_IT": "SETTLED. An independent lens fetched the stage columns in 231 requests and found the missing component is l1m + l2m - dead first- and second-instar larvae - in 34,540 of 34,555 visits (99.96%) where the gap is non-zero. It is 38.43% of everything totale counts across the archive and 66.32% in 2026. Sheet 1.0 guessed eggs (7.87%), exit holes (4.44%) or both (8.41%) and all three guesses were wrong.",
+   "QUALITY": {
+    "n_rows": 79251,
+    "n_null": 1241,
+    "negative_values": 4,
+    "exceeds_sample_size": 141
+   },
+   "ERA_RULE": "infested_drupes = val * tot / 100 if year >= 2020 else val",
+   "ALSO": "ps (punture sterili) is OUTSIDE totale in 17,992 of 17,992 visits, hiding 100,214 sterile stings"
   }
  ],
-
  "DECLARED_BY_THE_SOURCE_BUT_NEVER_COLLECTED": {
   "2": "u - Uova (eggs)",
   "3": "l1v - larval stage 1, alive",
   "4": "l1m - larval stage 1, dead",
-  "5": "l2v", "6": "l2m", "7": "l3v", "8": "l3m",
-  "9": "pv - pupa alive", "10": "pm - pupa dead",
+  "5": "l2v",
+  "6": "l2m",
+  "7": "l3v",
+  "8": "l3m",
+  "9": "pv - pupa alive",
+  "10": "pm - pupa dead",
   "11": "fu - fori di uscita (exit holes)",
   "21": "ps - punture sterili (sterile stings)",
   "CONSEQUENCE": "the composition of `totale` cannot be settled, and no stage-level statement may be made"
  },
-
  "UNIT_TRAP": {
-  "WHAT": "The source attaches a colour legend to attiva, dannosa and totale whose labels are PERCENTAGES: 0 = 'Nessuna Infestazione', 0.01 = '0-6%' (green), 6 = '7-9%' (yellow), 10 = '>=10%' (red). The thresholds are compared against the RAW VALUE.",
-  "WHY_IT_WORKS_ANYWAY": "because the protocol samples 100 olives: tot == 100 in 73,499 of 78,008 visits (94.2%), and there a count out of 100 IS the percentage",
-  "WHERE_IT_BREAKS": "in the other 4,509 visits (5.8%) tot is 0, 50, 150, 200, 300, 80, 99, 101, 102 and so on. Reading the raw value as a percentage there is simply wrong - a dannosa of 6 out of 200 drupes is 3%, which the legend would paint yellow.",
-  "RULE_ADOPTED": "this engine NEVER reads the raw value as a percentage. It computes value / tot, refuses when tot <= 0, and applies the source's bands to the computed rate expressed in percent."
+  "CORRECTED": "Sheet 1.0 had this exactly backwards and the engine followed it.",
+  "WHAT_IS_TRUE": "the source's colour legend labels are percentages BECAUSE the values are percentages from 2020 onward, computed by the SQL above. Up to 2019 the served values are counts, and there the legend only works because tot is 100 in 94.2% of visits.",
+  "RULE_ADOPTED": "infested_drupes = val * tot / 100 when the observation year is 2020 or later, and val before that. tot <= 0 is refused in both eras, exactly as the source's own where clause does."
  },
-
  "SOURCE_ACTION_BANDS": {
-  "APPLIES_TO": [-1001, -1002, -1003],
+  "APPLIES_TO": [
+   -1001,
+   -1002,
+   -1003
+  ],
   "BANDS": [
-   {"from_pct": 0, "to_pct": 0, "label": "Nessuna Infestazione", "colour": "#FFFFFF"},
-   {"from_pct": 0.01, "to_pct": 6, "label": "0-6%", "colour": "#4CAF50", "meaning": "green"},
-   {"from_pct": 6, "to_pct": 10, "label": "7-9%", "colour": "#FFEB3B", "meaning": "yellow"},
-   {"from_pct": 10, "to_pct": null, "label": ">=10%", "colour": "#F44336", "meaning": "red"}
+   {
+    "from_pct": 0,
+    "to_pct": 0,
+    "label": "Nessuna Infestazione",
+    "colour": "#FFFFFF"
+   },
+   {
+    "from_pct": 0.01,
+    "to_pct": 6,
+    "label": "0-6%",
+    "colour": "#4CAF50",
+    "meaning": "green"
+   },
+   {
+    "from_pct": 6,
+    "to_pct": 10,
+    "label": "7-9%",
+    "colour": "#FFEB3B",
+    "meaning": "yellow"
+   },
+   {
+    "from_pct": 10,
+    "to_pct": null,
+    "label": ">=10%",
+    "colour": "#F44336",
+    "meaning": "red"
+   }
   ],
   "EVIDENCE": "collection_index.json, vars[-1001/-1002/-1003].json.style, served by the source",
   "WHY_IT_MATTERS": "this is an ABSOLUTE scale the source itself publishes. A percentile against the archive's own past says whether a reading is unusual; this says whether it is large. Both must be printed, and the previous pilot printed only the first."
  },
-
  "SANITY_RULES_A_VISIT_MUST_PASS": {
   "tot_gt_0": "a rate needs a denominator",
   "value_not_negative": "a count of drupes cannot be negative",
@@ -140,11 +196,61 @@
   "MEASURED_FAILURE_RATE": "2,444 of 78,008 visits (3.13%) fail at least one, concentrated in 2006-2019 (253 in 2006, 271 in 2007) and nearly gone since 2020 (21 in 2020, 13 in 2021, 2 in 2022, 8 in 2023, 16 in 2025, 3 in 2026)",
   "RULE_ADOPTED": "a visit that fails any of these is EXCLUDED from every rate and COUNTED in the output, never silently dropped"
  },
-
  "WHAT_THIS_SHEET_DOES_NOT_ESTABLISH": [
   "the composition of `totale`",
   "whether a grove was treated between visits: the schema has no defence column, and the collector requested difesa='all', so the regime is not on disk",
   "anything about groves that were not visited",
   "any threshold of economic damage - the source's bands are the source's, and this engine reports them as the source's, not as ADAMA's"
+ ],
+ "GROVE_IDENTITY": {
+  "KEY": [
+   "id_field",
+   "admin_code"
+  ],
+  "WHY": "id_field alone is NOT a stable identity for a grove. It is recycled between seasons.",
+  "EVIDENCE": "id_field 5700 is 'Via Fonda - oliveto' in CERRETO GUIDI, province Firenze, through 2019, and 'Toiano - oliveto' in PALAIA, province Pisa, through 2020 - a different grove 20 km away, with a different name, comune, province and recording organisation. Across the archive, 25 of 2,686 distinct id_field values carry more than one comune and 1 carries more than one province. Found by an independent geography lens and reproduced here.",
+  "CONSEQUENCE": "the matched-panel comparison intersects (id_field, admin_code), not id_field. A visit whose admin_code is missing cannot take part in a matched comparison at all, and is counted as such.",
+  "WHAT_THIS_DOES_NOT_FIX": "two different groves that share both an id_field AND a comune would still be treated as one. Nothing in the served data can rule that out; the source's own name field is free text and is not used as a key."
+ },
+ "REGION_PROVINCES": {
+  "REGION": "Toscana",
+  "COUNTRY": "Italy",
+  "PROVINCES": [
+   "Arezzo",
+   "Firenze",
+   "Grosseto",
+   "Livorno",
+   "Lucca",
+   "Massa-Carrara",
+   "Pisa",
+   "Pistoia",
+   "Prato",
+   "Siena"
+  ],
+  "WHY": "the engine derived its province set from whatever the data contained, so a province that disappeared from the source would disappear from the report and the coverage line would still read '10 of 10'. An independent geography lens showed that dropping Lucca's rows turns the report into '9 of 9' - still 100% - and silently removes the only INCREASING_OBSERVED trend and the only INVESTIGATE class in the whole run.",
+  "RULE": "every province in this list is emitted, with NO_DATA where the source has none, and a province string that is not in this list after trimming is REFUSED, not published."
+ },
+ "CORRECTION_LOG": [
+  {
+   "VERSION": "1.0 -> 2.0",
+   "WHAT_WAS_WRONG": "Sheet 1.0 said attiva, dannosa and totale are COUNTS OF DRUPES out of tot, and built a whole UNIT_TRAP section on it: 'this engine NEVER reads the raw value as a percentage; it computes value / tot'. That is exactly backwards for the modern era. The source computes those three columns as PERCENTAGES already, and the engine was dividing by tot a second time.",
+   "HOW_IT_WAS_FOUND": "an independent semantics lens fetched the API's own filter metadata, which publishes the SQL. Verified here by fetching it again.",
+   "THE_SOURCE_SQL_VERBATIM": {
+    "attiva": "trunc(((u + l1v + l2v) / tot) * 100, 1)",
+    "dannosa": "trunc(((l3v + l3m + pm + pv + fu) / tot) * 100, 1)",
+    "totale": "trunc(((u+l1v+l1m+l2v+l2m+l3v+l3m+pm+pv+fu) / tot) * 100, 1)",
+    "guard": "every one carries a where clause requiring tot <> '' AND tot <> '0'"
+   },
+   "THE_ERA_BREAK": {
+    "WHAT": "the served values are COUNTS up to 2019 and PERCENTAGES from 2020",
+    "MY_EVIDENCE": [
+     "non-integer values appear in 0 of 4,458 rows in 2006 and in 0 rows in every season through 2019, then in 150 of 4,431 (3.39%) in 2020 and 0.72%-1.14% every season since. A count of drupes is always an integer; trunc(x,1) is not.",
+     "on the 615 visits between 2006 and 2019 where tot is not 100 and the value is non-zero, 611 (99.3%) are consistent with a COUNT and 204 (33.2%) with a PERCENTAGE.",
+     "on the 571 such visits from 2020, only 222 (38.9%) are consistent with a COUNT: 61.1% are values a count cannot take."
+    ],
+    "CONSEQUENCE": "a baseline that spans 2019/2020 compares two conventions. The engine now applies the era rule and emits it in every cell. The definitive fix is to stop reading the server-computed columns at all and compute the rate from the stage columns, which the same independent lens fetched and verified: the three identities hold in 75,657 of 75,657 visits under the era rule."
+   },
+   "IMPACT_MEASURED_BY_THE_LENS": "band changes in 32 of 2,302 gate-passing 2020+ windows (1.39%). On the 2026-09-06 publication, 0 band changes: all ten provinces are green under either reading."
+  }
  ]
 }

@@ -1,0 +1,18 @@
+{
+ "WHAT_THIS_REMOVES": "the sorted() around glob.glob inside di_core._read_variable",
+ "per_condition": {
+  "ascending": "61ac20d6b5be53707ccc7261e4d0091d4ef72ed91ac4e6d78cd9b6db043546d8",
+  "descending": "e4d260b33ae577d62be47f32e4c35c0d14ead78c2f0495896057941557ca7d9e",
+  "by_basename_reversed": "8b8efb0e7bbebbd34f3df1219d7bb26933363d114831de2db4c24ea6131ced5e",
+  "shuffle_seed_1": "925b39f01040ff5a608601eabdeb019dfdc3d90d6289b5459f2807b7e12c91cc",
+  "shuffle_seed_2": "c9390bedf5be639ebe9d42e2136eafca67098d4c9a665777cac4c69cf3fe3f1e",
+  "shuffle_seed_3": "8110fc5764ec453ad3d6547fbde4319284a512ceaf9fec05cfcf1d9b4aac6989"
+ },
+ "errors": {},
+ "distinct_results": 6,
+ "ORDER_INVARIANT_EVEN_WITHOUT_THE_SORT": false,
+ "matches_the_published_hash": [
+  "ascending"
+ ],
+ "WHY_THE_TOOLS_OWN_CONDITION_A_CANNOT_FAIL": "it permutes glob.glob's return value, which _read_variable immediately re-sorts, so all 8 of its conditions read the files in one and the same ascending order"
+}

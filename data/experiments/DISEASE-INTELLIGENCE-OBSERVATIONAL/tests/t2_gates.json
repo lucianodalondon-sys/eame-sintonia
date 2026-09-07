@@ -72,8 +72,8 @@
   "STATUS": "PROVED",
   "EVIDENCE_REAL": {
    "hashes": [
-    "e5d634be8eab3cbc1b5510b679b23ff4af98dbe6e2c0b30abd3fc1070c7d3fcd",
-    "e5d634be8eab3cbc1b5510b679b23ff4af98dbe6e2c0b30abd3fc1070c7d3fcd"
+    "f597a151515f5a289dc67217f4d546bad8e9fe25496ba7a9bdf1a3b1d2d75feb",
+    "f597a151515f5a289dc67217f4d546bad8e9fe25496ba7a9bdf1a3b1d2d75feb"
    ],
    "distinct": 1
   },
@@ -100,7 +100,7 @@
   },
   "EVIDENCE_MUTATED": {
    "honest_pct": 0.0664,
-   "with_a_future_row_pct": 80.5931,
+   "with_a_future_row_pct": 80580.1902,
    "honest_n": 241,
    "with_a_future_row_n": 242
   }
@@ -197,7 +197,7 @@
     "Pistoia": "INSUFFICIENT_DATA",
     "Prato": "INSUFFICIENT_DATA",
     "Firenze": "BELOW_HISTORICAL",
-    "Siena": "BELOW_HISTORICAL"
+    "Siena": "TYPICAL"
    },
    "provinces_whose_panel_rotated_are_silent": true,
    "provinces_with_a_stable_panel_still_speak": true,
@@ -205,7 +205,7 @@
     "Pistoia": 0,
     "Prato": 0,
     "Firenze": 14,
-    "Siena": 17
+    "Siena": 12
    }
   },
   "EVIDENCE_MUTATED": {
@@ -213,7 +213,7 @@
     "Pistoia": "BELOW_HISTORICAL",
     "Prato": "BELOW_HISTORICAL",
     "Firenze": "BELOW_HISTORICAL",
-    "Siena": "TYPICAL"
+    "Siena": "BELOW_HISTORICAL"
    },
    "provinces_whose_panel_rotated_are_silent": false,
    "provinces_with_a_stable_panel_still_speak": true,
@@ -221,7 +221,7 @@
     "Pistoia": 0,
     "Prato": 0,
     "Firenze": 14,
-    "Siena": 17
+    "Siena": 12
    }
   }
  },
@@ -243,10 +243,10 @@
     "Livorno": "STABLE_OBSERVED",
     "Lucca": "INCREASING_OBSERVED",
     "Massa-Carrara": "STABLE_OBSERVED",
-    "Pisa": "STABLE_OBSERVED",
+    "Pisa": "INCREASING_OBSERVED",
     "Pistoia": "STABLE_OBSERVED",
     "Prato": "UNKNOWN",
-    "Siena": "STABLE_OBSERVED"
+    "Siena": "INCREASING_OBSERVED"
    }
   },
   "EVIDENCE_MUTATED": {
@@ -262,10 +262,10 @@
     "Livorno": "STABLE_OBSERVED",
     "Lucca": "INCREASING_OBSERVED",
     "Massa-Carrara": "STABLE_OBSERVED",
-    "Pisa": "STABLE_OBSERVED",
+    "Pisa": "INCREASING_OBSERVED",
     "Pistoia": "STABLE_OBSERVED",
     "Prato": "UNKNOWN",
-    "Siena": "STABLE_OBSERVED"
+    "Siena": "INCREASING_OBSERVED"
    }
   }
  },
@@ -291,6 +291,48 @@
    "hash_does_not_match_disk": []
   }
  },
+ "G11_PROVINCE_LIST_IS_CANONICAL": {
+  "PROPERTY": "a province cannot vanish silently and a stray string cannot invent one",
+  "MUTATION": "MUTATION: the province validation is removed and the raw string passes through",
+  "VERDICT_ON_REAL_DATA": "PASS",
+  "VERDICT_UNDER_ITS_MUTATION": "FAIL",
+  "MUTATION_KILLED_IT": true,
+  "STATUS": "PROVED",
+  "EVIDENCE_REAL": {
+   "canonical_provinces": 10,
+   "provinces_seen_in_the_data": [
+    "Arezzo",
+    "Firenze",
+    "Grosseto",
+    "Livorno",
+    "Lucca",
+    "Massa-Carrara",
+    "Pisa",
+    "Pistoia",
+    "Prato",
+    "Siena"
+   ],
+   "an_unknown_province_name_is_refused": true,
+   "a_stray_space_does_not_create_a_new_province": true
+  },
+  "EVIDENCE_MUTATED": {
+   "canonical_provinces": 10,
+   "provinces_seen_in_the_data": [
+    "Arezzo",
+    "Firenze",
+    "Grosseto",
+    "Livorno",
+    "Lucca",
+    "Massa-Carrara",
+    "Pisa",
+    "Pistoia",
+    "Prato",
+    "Siena"
+   ],
+   "an_unknown_province_name_is_refused": false,
+   "a_stray_space_does_not_create_a_new_province": false
+  }
+ },
  "G10_NO_COMMERCIAL_CONVERSION": {
   "PROPERTY": "the output contains no commercial action vocabulary",
   "MUTATION": "MUTATION: an ACT_NOW / SALES_READY block is attached to a cell",
@@ -299,19 +341,25 @@
   "MUTATION_KILLED_IT": true,
   "STATUS": "PROVED",
   "EVIDENCE_REAL": {
-   "banned_vocabulary_found": []
+   "tested": "the shipped report payload AND the shipped human reading",
+   "banned_in_report_json": [],
+   "banned_in_human_text": [],
+   "note": "the module's own FORBIDDEN_OUTPUTS_NOT_EMITTED list is data and is excluded"
   },
   "EVIDENCE_MUTATED": {
-   "banned_vocabulary_found": [
+   "tested": "the shipped report payload AND the shipped human reading",
+   "banned_in_report_json": [
     "ACT_NOW",
     "SALES_READY"
-   ]
+   ],
+   "banned_in_human_text": [],
+   "note": "the module's own FORBIDDEN_OUTPUTS_NOT_EMITTED list is data and is excluded"
   }
  },
  "_SUMMARY": {
-  "GATES": 10,
-  "PASS_ON_REAL_DATA": 10,
-  "PROVED_BY_THEIR_MUTATION": 10,
+  "GATES": 11,
+  "PASS_ON_REAL_DATA": 11,
+  "PROVED_BY_THEIR_MUTATION": 11,
   "SURVIVED_THEIR_MUTATION": 0
  }
 }

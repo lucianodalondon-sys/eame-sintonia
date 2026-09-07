@@ -1,0 +1,73 @@
+Could not find platform independent libraries <prefix>
+province                   pooled        mean_visit      median_visit        mean_grove      median_grove
+-- point estimate of the current window, % of sampled drupes --
+Arezzo                     0.1636            0.1636               0.0            0.1765               0.0
+Firenze                    0.0664            0.0664               0.0            0.0651               0.0
+Grosseto                   0.6575            0.7035               0.0            0.6872               0.0
+Livorno                    0.9216            0.9216               0.0            1.0974            0.6667
+Lucca                      1.1509            1.1509               0.0            1.1667             0.125
+Massa-Carrara               0.566              0.75               0.0            0.6544               0.5
+Pisa                         1.02            1.0781               0.0            1.2326            0.6667
+Pistoia                    0.0278            0.0278               0.0            0.0156               0.0
+Prato                      0.0417            0.0417               0.0            0.0357               0.0
+Siena                      0.6909            0.8451               0.0            0.9269              0.25
+
+-- historical_state --
+Arezzo                    TYPICAL           TYPICAL           TYPICAL           TYPICAL           TYPICAL
+Firenze          BELOW_HISTORICAL  BELOW_HISTORICAL           TYPICAL  BELOW_HISTORICAL           TYPICAL
+Grosseto        INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA
+Livorno         INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA
+Lucca           INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA
+Massa-Carrara   INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA
+Pisa            INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA
+Pistoia         INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA
+Prato           INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA INSUFFICIENT_DATA
+Siena            BELOW_HISTORICAL           TYPICAL           TYPICAL           TYPICAL  BELOW_HISTORICAL
+
+-- observed_trend --
+Arezzo                    UNKNOWN           UNKNOWN           UNKNOWN           UNKNOWN           UNKNOWN
+Firenze           STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED
+Grosseto          STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED
+Livorno           STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED
+Lucca           INCREASING_OBSERVED INCREASING_OBSERVED   STABLE_OBSERVED INCREASING_OBSERVED   STABLE_OBSERVED
+Massa-Carrara     STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED
+Pisa              STABLE_OBSERVED INCREASING_OBSERVED   STABLE_OBSERVED INCREASING_OBSERVED   STABLE_OBSERVED
+Pistoia           STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED
+Prato                     UNKNOWN           UNKNOWN           UNKNOWN           UNKNOWN           UNKNOWN
+Siena             STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED   STABLE_OBSERVED
+
+-- matched-panel counts (lower of matched) --
+Arezzo                        4/6               4/6               2/6               4/6               4/6
+Firenze                     14/14             14/14              7/14             13/14             11/14
+Grosseto                None/None         None/None         None/None         None/None         None/None
+Livorno                 None/None         None/None         None/None         None/None         None/None
+Lucca                   None/None         None/None         None/None         None/None         None/None
+Massa-Carrara           None/None         None/None         None/None         None/None         None/None
+Pisa                    None/None         None/None         None/None         None/None         None/None
+Pistoia                 None/None         None/None         None/None         None/None         None/None
+Prato                   None/None         None/None         None/None         None/None         None/None
+Siena                       14/17             13/17             11/17             13/17             14/17
+
+HISTORICAL VERDICT FLIPS vs pooled:
+   Firenze         median_visit   BELOW_HISTORICAL -> TYPICAL
+   Firenze         median_grove   BELOW_HISTORICAL -> TYPICAL
+   Siena           mean_visit     BELOW_HISTORICAL -> TYPICAL
+   Siena           median_visit   BELOW_HISTORICAL -> TYPICAL
+   Siena           mean_grove     BELOW_HISTORICAL -> TYPICAL
+TREND FLIPS vs pooled:
+   Lucca           median_visit   INCREASING_OBSERVED -> STABLE_OBSERVED
+   Lucca           median_grove   INCREASING_OBSERVED -> STABLE_OBSERVED
+   Pisa            mean_visit     STABLE_OBSERVED -> INCREASING_OBSERVED
+   Pisa            mean_grove     STABLE_OBSERVED -> INCREASING_OBSERVED
+
+-- what pooling weights by, in the published window --
+Arezzo          groves   17  visits   55  visits/grove min 2 med 3 max 4  top-1 7.3% top-5 36.4%  effective groves (Kish) 16.53 of 17
+Firenze         groves   73  visits  241  visits/grove min 1 med 4 max 4  top-1 1.7% top-5 8.3%  effective groves (Kish) 66.23 of 73
+Grosseto        groves  157  visits  320  visits/grove min 1 med 2 max 4  top-1 1.7% top-5 6.6%  effective groves (Kish) 121.44 of 157
+Livorno         groves   77  visits  153  visits/grove min 1 med 2 max 4  top-1 2.6% top-5 10.5%  effective groves (Kish) 61.77 of 77
+Lucca           groves   14  visits   53  visits/grove min 3 med 4.0 max 4  top-1 7.5% top-5 37.7%  effective groves (Kish) 13.84 of 14
+Massa-Carrara   groves   10  visits   40  visits/grove min 4 med 4.0 max 4  top-1 32.1% top-5 62.3%  effective groves (Kish) 6.49 of 10
+Pisa            groves   45  visits   85  visits/grove min 1 med 2 max 4  top-1 5.7% top-5 23.9%  effective groves (Kish) 33.93 of 45
+Pistoia         groves   16  visits   36  visits/grove min 1 med 3.0 max 4  top-1 11.1% top-5 47.2%  effective groves (Kish) 12.71 of 16
+Prato           groves    7  visits   24  visits/grove min 1 med 4 max 4  top-1 16.7% top-5 83.3%  effective groves (Kish) 6.4 of 7
+Siena           groves   61  visits  186  visits/grove min 1 med 3 max 4  top-1 2.2% top-5 10.9%  effective groves (Kish) 53.2 of 61

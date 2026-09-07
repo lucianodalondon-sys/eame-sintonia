@@ -38,6 +38,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 API = "https://agroambiente.info.regione.toscana.it/agro18/api/dati/get_aedita_data"
 
 NO_UPDATE, NEW_OBSERVATIONS = "NO_UPDATE", "NEW_OBSERVATIONS"
+SOURCE_INCOMPLETE = "SOURCE_INCOMPLETE"
 SOURCE_UNAVAILABLE, SOURCE_EMPTY = "SOURCE_UNAVAILABLE", "SOURCE_EMPTY"
 SCHEMA_CHANGED, INVALID_DATA = "SCHEMA_CHANGED", "INVALID_DATA"
 
@@ -110,6 +111,30 @@ def refresh_one(canonical_dir, staging_dir, crop, schema, var, year, _transport=
 
     status, detail, rows, filt = validate(r["body"])
     rec["detail"] = detail
+
+    # A payload can be 200 OK, ok:true, well formed AND INCOMPLETE. An independent time lens
+    # fed back 2,245 of 2,928 real rows - a truncated but perfectly valid response - and it was
+    # promoted: Siena went from 0.6909% on 18,383 drupes to 0.0% on 13,200, band green to
+    # "Nessuna Infestazione", and it stayed publishable. Nothing refused it, because validate()
+    # only ever looked at the payload and never at what canonical already held.
+    if status == "OK" and os.path.exists(canon_path):
+        try:
+            prev_rows = json.loads(open(canon_path, "rb").read().decode("utf-8"))
+        except Exception:
+            prev_rows = []
+        prev_n = len(prev_rows)
+        prev_dates = [x.get("date") for x in prev_rows if isinstance(x, dict) and x.get("date")]
+        prev_max = max(prev_dates) if prev_dates else None
+        new_max = detail.get("latest_observation")
+        lost = prev_n - detail["n_rows"]
+        if lost > 0 or (prev_max and new_max and new_max < prev_max):
+            status = SOURCE_INCOMPLETE
+            detail = {"reason": "the response holds fewer rows, or an older newest "
+                                "observation, than the copy already on disk",
+                      "rows_now": detail["n_rows"], "rows_in_canonical": prev_n,
+                      "rows_lost": lost,
+                      "newest_now": new_max, "newest_in_canonical": prev_max}
+            rec["detail"] = detail
     if status != "OK":
         rec.update({"REFRESH_STATUS": status, "canonical_touched": False,
                     "note": "refused: a bad payload never reaches canonical"})

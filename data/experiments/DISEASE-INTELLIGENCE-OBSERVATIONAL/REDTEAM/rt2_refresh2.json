@@ -1,0 +1,109 @@
+{
+ "R1c_NO_OP_PROMOTE_ON_THE_REAL_INDEX": {
+  "REFRESH_STATUS": "NO_UPDATE",
+  "canonical_touched_field_says": false,
+  "promoted": [],
+  "index_bytes_identical": false,
+  "index_bytes_before": 23101,
+  "index_bytes_after": 23101,
+  "sha_before": "4ecd1b4f0e36f13e",
+  "sha_after": "807ad9bd303e0662",
+  "entries_before": 84,
+  "entries_after": 84,
+  "first_five_files_before": [
+   "c2_s1_v-1003_2006.json",
+   "c2_s1_v-1003_2007.json",
+   "c2_s1_v-1003_2008.json",
+   "c2_s1_v-1003_2009.json",
+   "c2_s1_v-1003_2010.json"
+  ],
+  "first_five_files_after": [
+   "c2_s1_v-1001_2006.json",
+   "c2_s1_v-1001_2007.json",
+   "c2_s1_v-1001_2008.json",
+   "c2_s1_v-1001_2009.json",
+   "c2_s1_v-1001_2010.json"
+  ],
+  "entry_order_changed": true,
+  "same_set_of_entries": true,
+  "any_entry_lost_a_field": []
+ },
+ "R1c_SECOND_NO_OP_IS_STABLE": {
+  "identical": true,
+  "REFRESH_STATUS": "NO_UPDATE"
+ },
+ "R2c_A_TRUNCATION_THAT_PUBLISHES_A_WRONG_NUMBER": {
+  "rows_in_the_real_2026_payload": 2928,
+  "rows_the_source_returned": 2245,
+  "share": "2245 of 2928 = 76.7%",
+  "REFRESH_STATUS": "NEW_OBSERVATIONS",
+  "validate_detail": {
+   "n_rows": 2245,
+   "n_readable": 2245,
+   "latest_observation": "2026-09-04"
+  },
+  "promoted": [
+   "c2_s1_v-1001_2026.json"
+  ],
+  "SIENA_BEFORE": {
+   "value_pct": 0.6909,
+   "infested": 127,
+   "drupes": 18383,
+   "n_visits": 186,
+   "band": "green",
+   "publishable": true,
+   "trend": "INCREASING_OBSERVED",
+   "last_observation": "2026-09-03"
+  },
+  "SIENA_AFTER": {
+   "value_pct": 0.0,
+   "infested": 0,
+   "drupes": 13200,
+   "n_visits": 132,
+   "band": "none",
+   "publishable": true,
+   "trend": "STABLE_OBSERVED",
+   "last_observation": "2026-09-03"
+  },
+  "PISA_BEFORE": {
+   "value_pct": 1.02,
+   "infested": 93,
+   "drupes": 9196,
+   "n_visits": 85,
+   "band": "green",
+   "publishable": true,
+   "trend": "INCREASING_OBSERVED",
+   "last_observation": "2026-09-02"
+  },
+  "PISA_AFTER": {
+   "value_pct": 0.0,
+   "infested": 0,
+   "drupes": 4787,
+   "n_visits": 45,
+   "band": "none",
+   "publishable": true,
+   "trend": "STABLE_OBSERVED",
+   "last_observation": "2026-09-02"
+  },
+  "anything_refused_it": false,
+  "t3_simulates_this_shape": false
+ },
+ "R6_THE_REAL_ARCHIVES_WINTER_MASS": {
+  "rows_in_the_ACTIVE_variable": 79251,
+  "rows_by_month": {
+   "01": 7,
+   "02": 14,
+   "03": 56,
+   "04": 24,
+   "05": 36,
+   "06": 510,
+   "07": 17413,
+   "08": 25390,
+   "09": 24849,
+   "10": 10938,
+   "11": 14
+  },
+  "december_plus_january": "7 of 79251 = 0.009%",
+  "VERDICT": "the year-crossing window defect is arithmetically real but this archive carries almost nothing in the crossing window, so on THIS case it is unreachable in practice"
+ }
+}

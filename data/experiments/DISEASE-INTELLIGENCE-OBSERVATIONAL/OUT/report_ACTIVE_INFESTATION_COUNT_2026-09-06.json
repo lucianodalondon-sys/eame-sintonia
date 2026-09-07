@@ -6,17 +6,29 @@
    "date"
   ],
   "n_visits": 79251,
-  "n_visits_usable_for_rates": 75600,
+  "n_visits_usable_for_at_least_one_measurement": 75683,
+  "n_visits_usable_by_measurement": {
+   "ACTIVE_INFESTATION_COUNT": 75663,
+   "DAMAGING_INFESTATION_COUNT": 75655,
+   "TOTAL_INFESTATION_COUNT": 75565
+  },
   "n_rows_dropped_because_dated_after_as_of": 0,
   "exclusions": {
    "count_exceeds_sample:ACTIVE_INFESTATION_COUNT": 17,
    "count_exceeds_sample:DAMAGING_INFESTATION_COUNT": 9,
    "count_exceeds_sample:TOTAL_INFESTATION_COUNT": 89,
-   "denominator_missing": 177,
-   "denominator_zero_or_negative": 3381,
+   "denominator_missing:ACTIVE_INFESTATION_COUNT": 177,
+   "denominator_missing:DAMAGING_INFESTATION_COUNT": 177,
+   "denominator_missing:TOTAL_INFESTATION_COUNT": 177,
+   "denominator_zero_or_negative:ACTIVE_INFESTATION_COUNT": 3381,
+   "denominator_zero_or_negative:DAMAGING_INFESTATION_COUNT": 3381,
+   "denominator_zero_or_negative:TOTAL_INFESTATION_COUNT": 3381,
    "negative_count:ACTIVE_INFESTATION_COUNT": 2,
    "negative_count:DAMAGING_INFESTATION_COUNT": 4,
-   "negative_count:TOTAL_INFESTATION_COUNT": 4
+   "negative_count:TOTAL_INFESTATION_COUNT": 4,
+   "value_missing:ACTIVE_INFESTATION_COUNT": 1217,
+   "value_missing:DAMAGING_INFESTATION_COUNT": 1232,
+   "value_missing:TOTAL_INFESTATION_COUNT": 1241
   },
   "provenance": {
    "SAMPLE_SIZE / DENOMINATOR": {
@@ -500,16 +512,27 @@
     "n_sites": 17,
     "n_orgs": 2,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-12",
     "last_observation": "2026-09-02",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 2.0,
+    "visits_above_green": 0,
+    "visits_red": 0,
     "value_pct": 0.1636,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "worst_single_visit_pct": 2.0,
+    "worst_single_visit_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 0,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -681,33 +704,17 @@
      }
     ],
     "percentile_against_own_history": 0.05,
-    "historical_state": "TYPICAL",
-    "historical_reason": "on the groves shared with each prior season, this window reads lower than 4 of 6 of them and higher than 2",
+    "historical_state": "INSUFFICIENT_DATA",
+    "historical_reason": "4 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "panel_overlap_with_baseline_seasons": {
      "median_groves_shared": 2.0,
      "min": 0,
      "max": 15,
-     "seasons_sharing_at_least_the_declared_minimum": 6,
+     "seasons_sharing_at_least_the_declared_minimum": 4,
      "of_seasons": 20,
      "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
     },
     "matched_panel_comparisons": [
-     {
-      "season": 2020,
-      "n_groves_shared": 9,
-      "rate_now_on_those_groves_pct": 0.3462,
-      "rate_then_on_those_groves_pct": 0.5909,
-      "drupes_now": 2600,
-      "drupes_then": 2200
-     },
-     {
-      "season": 2021,
-      "n_groves_shared": 9,
-      "rate_now_on_those_groves_pct": 0.3462,
-      "rate_then_on_those_groves_pct": 0.4865,
-      "drupes_now": 2600,
-      "drupes_then": 3700
-     },
      {
       "season": 2022,
       "n_groves_shared": 10,
@@ -741,11 +748,9 @@
       "drupes_then": 4300
      }
     ],
-    "matched_panel_seasons": 6,
-    "matched_seasons_now_is_higher_than_then": 2,
-    "matched_seasons_now_is_lower_than_then": 4,
-    "historical_state_matched": "TYPICAL",
-    "historical_matched_reason": "on the groves shared with each prior season, this window reads lower than 4 of 6 of them and higher than 2",
+    "matched_panel_seasons": 4,
+    "historical_state_matched": "INSUFFICIENT_DATA",
+    "historical_matched_reason": "4 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "UNKNOWN",
     "observed_trend_reason": "2 usable consecutive windows, below the declared minimum of 3",
@@ -754,13 +759,15 @@
       "window_end": "2026-08-09",
       "rate_pct": 0.0185,
       "n_visits": 54,
-      "drupes_sampled": 5400
+      "drupes_sampled": 5400,
+      "infested": 1
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.1636,
       "n_visits": 55,
-      "drupes_sampled": 5500
+      "drupes_sampled": 5500,
+      "infested": 9
      }
     ]
    },
@@ -770,9 +777,9 @@
     "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
     "n_visits_excluded_by_sanity_rules": 0,
     "historical_comparison_is_matched_panel": true,
-    "matched_panel_seasons": 6,
+    "matched_panel_seasons": 4,
     "observation_publishable": true,
-    "historical_comparison_publishable": true,
+    "historical_comparison_publishable": false,
     "publishable": true,
     "publishable_reason": "enough visits and enough sampled drupes for the observation"
    },
@@ -789,7 +796,7 @@
    },
    "adama": {
     "relevance": "NO",
-    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 0 product-label matches for the crop - its olive material is content and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
+    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 1 product-label relationship for the CROP in the whole file - a herbicide, MORAINE, targeting weeds - and 0 for this PROBLEM. Its olive material is otherwise content items and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
     "portfolio_evidence": {
      "readings_consulted": [
       "italia-portale/client/italy-label-verdicts.js",
@@ -849,7 +856,16 @@
        "mosca dell'olivo / delle olive": 35,
        "olive fruit fly": 1
       },
-      "product_label_matches_for_olive": 0,
+      "olive_label_use_relationships_found_by_an_independent_lens": {
+       "count": 1,
+       "entry": "IT-LBL-1932",
+       "product": "MORAINE",
+       "registration": "018101",
+       "target": "weeds",
+       "HOW": "an independent product lens resolved this file's 2,277-entry string table; this module's flat regex cannot see through it and previously ASSERTED a hardcoded 0 here, which was wrong. The corrected count is 1 of 2,030 label-use relationships, and it is a herbicide.",
+       "FOR_THE_OLIVE_FLY": 0
+      },
+      "COVERAGE_LIMIT_OF_THIS_MODULE": "the flat regex sees 161 of the 203 CROP keys in this file (79.3%). It is used for orientation, never as the basis of the verdict, which rests on the adjudicated triples in italy-label-verdicts.js.",
       "NOTE": "the olive material in this file is content items and scientific references, not PRODUCT x CROP x ISSUE label matches"
      }
     },
@@ -863,12 +879,14 @@
     ]
    },
    "attention": {
-    "attention_class": "MONITOR",
+    "attention_class": "NO_ESCALATION",
     "rule_applied": [
-     "a publishable observation with a matched historical comparison that is not above its own history"
+     "a publishable observation with no matched historical comparison available"
     ],
     "NOT_A_COMMERCIAL_INSTRUCTION": true,
-    "adama_relevance": "NO"
+    "attention_is_agronomic_only": true,
+    "adama_relevance": "NO",
+    "WHY_THE_TWO_ARE_PRINTED_APART": "the attention class describes the OBSERVATION. ADAMA_RELEVANCE describes the PORTFOLIO. Reading them as one sentence is the error this separation exists to prevent, whichever way the relevance falls."
    },
    "provenance": {
     "source": -1001,
@@ -974,16 +992,27 @@
     "n_sites": 73,
     "n_orgs": 4,
     "n_visits_excluded_by_sanity_rules": 2,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-09-02",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 2.0,
+    "visits_above_green": 0,
+    "visits_red": 0,
     "value_pct": 0.0664,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "worst_single_visit_pct": 2.0,
+    "worst_single_visit_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 0,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -1134,10 +1163,10 @@
      },
      {
       "season": 2023,
-      "rate_pct": 6.5225,
-      "n_visits": 222,
+      "rate_pct": 6.6009,
+      "n_visits": 223,
       "n_sites": 72,
-      "drupes_sampled": 22200
+      "drupes_sampled": 22300
      },
      {
       "season": 2024,
@@ -1224,51 +1253,51 @@
      },
      {
       "season": 2019,
-      "n_groves_shared": 27,
-      "rate_now_on_those_groves_pct": 0.0891,
-      "rate_then_on_those_groves_pct": 7.5116,
-      "drupes_now": 10100,
-      "drupes_then": 8600
+      "n_groves_shared": 26,
+      "rate_now_on_those_groves_pct": 0.0928,
+      "rate_then_on_those_groves_pct": 7.5357,
+      "drupes_now": 9700,
+      "drupes_then": 8400
      },
      {
       "season": 2020,
-      "n_groves_shared": 29,
-      "rate_now_on_those_groves_pct": 0.1009,
-      "rate_then_on_those_groves_pct": 1.0991,
-      "drupes_now": 10900,
-      "drupes_then": 11100
+      "n_groves_shared": 28,
+      "rate_now_on_those_groves_pct": 0.1048,
+      "rate_then_on_those_groves_pct": 1.1009,
+      "drupes_now": 10500,
+      "drupes_then": 10900
      },
      {
       "season": 2021,
-      "n_groves_shared": 28,
-      "rate_now_on_those_groves_pct": 0.1048,
-      "rate_then_on_those_groves_pct": 3.383,
-      "drupes_now": 10500,
-      "drupes_then": 9400
+      "n_groves_shared": 27,
+      "rate_now_on_those_groves_pct": 0.1089,
+      "rate_then_on_those_groves_pct": 3.2903,
+      "drupes_now": 10100,
+      "drupes_then": 9300
      },
      {
       "season": 2022,
-      "n_groves_shared": 37,
-      "rate_now_on_those_groves_pct": 0.087,
-      "rate_then_on_those_groves_pct": 0.1704,
-      "drupes_now": 13800,
-      "drupes_then": 13500
+      "n_groves_shared": 36,
+      "rate_now_on_those_groves_pct": 0.0896,
+      "rate_then_on_those_groves_pct": 0.1756,
+      "drupes_now": 13400,
+      "drupes_then": 13100
      },
      {
       "season": 2023,
-      "n_groves_shared": 36,
-      "rate_now_on_those_groves_pct": 0.0942,
-      "rate_then_on_those_groves_pct": 7.0446,
-      "drupes_now": 13800,
-      "drupes_then": 11200
+      "n_groves_shared": 35,
+      "rate_now_on_those_groves_pct": 0.097,
+      "rate_then_on_those_groves_pct": 7.1,
+      "drupes_now": 13400,
+      "drupes_then": 11000
      },
      {
       "season": 2024,
-      "n_groves_shared": 43,
-      "rate_now_on_those_groves_pct": 0.0875,
-      "rate_then_on_those_groves_pct": 0.2,
-      "drupes_now": 16000,
-      "drupes_then": 17000
+      "n_groves_shared": 42,
+      "rate_now_on_those_groves_pct": 0.0897,
+      "rate_then_on_those_groves_pct": 0.1988,
+      "drupes_now": 15600,
+      "drupes_then": 16600
      },
      {
       "season": 2025,
@@ -1286,25 +1315,28 @@
     "historical_matched_reason": "on the groves shared with each prior season, this window reads lower than 14 of 14 of them and higher than 0",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.0159% -> 0.156% -> 0.0664% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0505 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.0159% -> 0.156% -> 0.0664% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0505 percentage points. First window 95% interval [0.0028, 0.0899]%, last [0.0409, 0.1078]%; they overlap, so a direction is NOT named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.0159,
       "n_visits": 63,
-      "drupes_sampled": 6300
+      "drupes_sampled": 6300,
+      "infested": 1
      },
      {
       "window_end": "2026-08-09",
       "rate_pct": 0.156,
       "n_visits": 250,
-      "drupes_sampled": 25000
+      "drupes_sampled": 25000,
+      "infested": 39
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.0664,
       "n_visits": 241,
-      "drupes_sampled": 24100
+      "drupes_sampled": 24100,
+      "infested": 16
      }
     ]
    },
@@ -1333,7 +1365,7 @@
    },
    "adama": {
     "relevance": "NO",
-    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 0 product-label matches for the crop - its olive material is content and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
+    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 1 product-label relationship for the CROP in the whole file - a herbicide, MORAINE, targeting weeds - and 0 for this PROBLEM. Its olive material is otherwise content items and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
     "portfolio_evidence": {
      "readings_consulted": [
       "italia-portale/client/italy-label-verdicts.js",
@@ -1393,7 +1425,16 @@
        "mosca dell'olivo / delle olive": 35,
        "olive fruit fly": 1
       },
-      "product_label_matches_for_olive": 0,
+      "olive_label_use_relationships_found_by_an_independent_lens": {
+       "count": 1,
+       "entry": "IT-LBL-1932",
+       "product": "MORAINE",
+       "registration": "018101",
+       "target": "weeds",
+       "HOW": "an independent product lens resolved this file's 2,277-entry string table; this module's flat regex cannot see through it and previously ASSERTED a hardcoded 0 here, which was wrong. The corrected count is 1 of 2,030 label-use relationships, and it is a herbicide.",
+       "FOR_THE_OLIVE_FLY": 0
+      },
+      "COVERAGE_LIMIT_OF_THIS_MODULE": "the flat regex sees 161 of the 203 CROP keys in this file (79.3%). It is used for orientation, never as the basis of the verdict, which rests on the adjudicated triples in italy-label-verdicts.js.",
       "NOTE": "the olive material in this file is content items and scientific references, not PRODUCT x CROP x ISSUE label matches"
      }
     },
@@ -1412,7 +1453,9 @@
      "a publishable observation with a matched historical comparison that is not above its own history"
     ],
     "NOT_A_COMMERCIAL_INSTRUCTION": true,
-    "adama_relevance": "NO"
+    "attention_is_agronomic_only": true,
+    "adama_relevance": "NO",
+    "WHY_THE_TWO_ARE_PRINTED_APART": "the attention class describes the OBSERVATION. ADAMA_RELEVANCE describes the PORTFOLIO. Reading them as one sentence is the error this separation exists to prevent, whichever way the relevance falls."
    },
    "provenance": {
     "source": -1001,
@@ -1518,16 +1561,27 @@
     "n_sites": 157,
     "n_orgs": 3,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-09-04",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 8.0,
+    "visits_above_green": 10,
+    "visits_red": 0,
     "value_pct": 0.6575,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "worst_single_visit_pct": 8.0,
+    "worst_single_visit_band": {
+     "label": "7-9%",
+     "meaning": "yellow",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 10,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -1555,7 +1609,7 @@
     "baseline_n": 20,
     "baseline_rate_pct_median": 2.5627,
     "baseline_rate_pct_min": 0.2909,
-    "baseline_rate_pct_max": 6.1228,
+    "baseline_rate_pct_max": 6.1174,
     "baseline_detail": [
      {
       "season": 2006,
@@ -1615,10 +1669,10 @@
      },
      {
       "season": 2014,
-      "rate_pct": 5.92,
-      "n_visits": 50,
+      "rate_pct": 5.9082,
+      "n_visits": 51,
       "n_sites": 21,
-      "drupes_sampled": 5000
+      "drupes_sampled": 5010
      },
      {
       "season": 2015,
@@ -1629,10 +1683,10 @@
      },
      {
       "season": 2016,
-      "rate_pct": 6.1228,
-      "n_visits": 112,
+      "rate_pct": 6.1174,
+      "n_visits": 113,
       "n_sites": 54,
-      "drupes_sampled": 11204
+      "drupes_sampled": 11214
      },
      {
       "season": 2017,
@@ -1692,10 +1746,10 @@
      },
      {
       "season": 2025,
-      "rate_pct": 4.5255,
-      "n_visits": 312,
+      "rate_pct": 4.6466,
+      "n_visits": 313,
       "n_sites": 111,
-      "drupes_sampled": 34960
+      "drupes_sampled": 35060
      }
     ],
     "percentile_against_own_history": 0.1,
@@ -1722,9 +1776,9 @@
       "season": 2025,
       "n_groves_shared": 75,
       "rate_now_on_those_groves_pct": 0.7053,
-      "rate_then_on_those_groves_pct": 4.1413,
+      "rate_then_on_those_groves_pct": 4.3151,
       "drupes_now": 18050,
-      "drupes_then": 24560
+      "drupes_then": 24660
      }
     ],
     "matched_panel_seasons": 2,
@@ -1732,25 +1786,28 @@
     "historical_matched_reason": "2 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.5876% -> 0.8249% -> 0.6575% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0699 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.5876% -> 0.8374% -> 0.6575% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0699 percentage points. First window 95% interval [0.4874, 0.7083]%, last [0.577, 0.7473]%; they overlap, so a direction is NOT named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.5876,
       "n_visits": 185,
-      "drupes_sampled": 18550
+      "drupes_sampled": 18550,
+      "infested": 109
      },
      {
       "window_end": "2026-08-09",
-      "rate_pct": 0.8249,
-      "n_visits": 441,
-      "drupes_sampled": 49135
+      "rate_pct": 0.8374,
+      "n_visits": 442,
+      "drupes_sampled": 49235,
+      "infested": 412
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.6575,
       "n_visits": 320,
-      "drupes_sampled": 34720
+      "drupes_sampled": 34720,
+      "infested": 228
      }
     ]
    },
@@ -1779,7 +1836,7 @@
    },
    "adama": {
     "relevance": "NO",
-    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 0 product-label matches for the crop - its olive material is content and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
+    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 1 product-label relationship for the CROP in the whole file - a herbicide, MORAINE, targeting weeds - and 0 for this PROBLEM. Its olive material is otherwise content items and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
     "portfolio_evidence": {
      "readings_consulted": [
       "italia-portale/client/italy-label-verdicts.js",
@@ -1839,7 +1896,16 @@
        "mosca dell'olivo / delle olive": 35,
        "olive fruit fly": 1
       },
-      "product_label_matches_for_olive": 0,
+      "olive_label_use_relationships_found_by_an_independent_lens": {
+       "count": 1,
+       "entry": "IT-LBL-1932",
+       "product": "MORAINE",
+       "registration": "018101",
+       "target": "weeds",
+       "HOW": "an independent product lens resolved this file's 2,277-entry string table; this module's flat regex cannot see through it and previously ASSERTED a hardcoded 0 here, which was wrong. The corrected count is 1 of 2,030 label-use relationships, and it is a herbicide.",
+       "FOR_THE_OLIVE_FLY": 0
+      },
+      "COVERAGE_LIMIT_OF_THIS_MODULE": "the flat regex sees 161 of the 203 CROP keys in this file (79.3%). It is used for orientation, never as the basis of the verdict, which rests on the adjudicated triples in italy-label-verdicts.js.",
       "NOTE": "the olive material in this file is content items and scientific references, not PRODUCT x CROP x ISSUE label matches"
      }
     },
@@ -1858,7 +1924,9 @@
      "a publishable observation with no matched historical comparison available"
     ],
     "NOT_A_COMMERCIAL_INSTRUCTION": true,
-    "adama_relevance": "NO"
+    "attention_is_agronomic_only": true,
+    "adama_relevance": "NO",
+    "WHY_THE_TWO_ARE_PRINTED_APART": "the attention class describes the OBSERVATION. ADAMA_RELEVANCE describes the PORTFOLIO. Reading them as one sentence is the error this separation exists to prevent, whichever way the relevance falls."
    },
    "provenance": {
     "source": -1001,
@@ -1964,16 +2032,27 @@
     "n_sites": 77,
     "n_orgs": 2,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-09-04",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 6.0,
+    "visits_above_green": 5,
+    "visits_red": 0,
     "value_pct": 0.9216,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "worst_single_visit_pct": 6.0,
+    "worst_single_visit_band": {
+     "label": "7-9%",
+     "meaning": "yellow",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 5,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -2138,10 +2217,10 @@
      },
      {
       "season": 2025,
-      "rate_pct": 9.4912,
-      "n_visits": 114,
-      "n_sites": 51,
-      "drupes_sampled": 11400
+      "rate_pct": 9.453,
+      "n_visits": 117,
+      "n_sites": 52,
+      "drupes_sampled": 11700
      }
     ],
     "percentile_against_own_history": 0.0,
@@ -2150,7 +2229,7 @@
     "panel_overlap_with_baseline_seasons": {
      "median_groves_shared": 0.0,
      "min": 0,
-     "max": 27,
+     "max": 28,
      "seasons_sharing_at_least_the_declared_minimum": 1,
      "of_seasons": 20,
      "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
@@ -2158,11 +2237,11 @@
     "matched_panel_comparisons": [
      {
       "season": 2025,
-      "n_groves_shared": 27,
-      "rate_now_on_those_groves_pct": 0.8,
-      "rate_then_on_those_groves_pct": 10.5484,
-      "drupes_now": 8000,
-      "drupes_then": 6200
+      "n_groves_shared": 28,
+      "rate_now_on_those_groves_pct": 0.7952,
+      "rate_then_on_those_groves_pct": 10.4308,
+      "drupes_now": 8300,
+      "drupes_then": 6500
      }
     ],
     "matched_panel_seasons": 1,
@@ -2170,25 +2249,28 @@
     "historical_matched_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.4722% -> 1.8387% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.4722% -> 1.8153% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. First window 95% interval [0.3381, 0.6591]%, last [0.782, 1.0858]%; they do not overlap, so a direction is NOT named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.4722,
       "n_visits": 72,
-      "drupes_sampled": 7200
+      "drupes_sampled": 7200,
+      "infested": 34
      },
      {
       "window_end": "2026-08-09",
-      "rate_pct": 1.8387,
-      "n_visits": 155,
-      "drupes_sampled": 15500
+      "rate_pct": 1.8153,
+      "n_visits": 157,
+      "drupes_sampled": 15700,
+      "infested": 285
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.9216,
       "n_visits": 153,
-      "drupes_sampled": 15300
+      "drupes_sampled": 15300,
+      "infested": 141
      }
     ]
    },
@@ -2217,7 +2299,7 @@
    },
    "adama": {
     "relevance": "NO",
-    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 0 product-label matches for the crop - its olive material is content and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
+    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 1 product-label relationship for the CROP in the whole file - a herbicide, MORAINE, targeting weeds - and 0 for this PROBLEM. Its olive material is otherwise content items and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
     "portfolio_evidence": {
      "readings_consulted": [
       "italia-portale/client/italy-label-verdicts.js",
@@ -2277,7 +2359,16 @@
        "mosca dell'olivo / delle olive": 35,
        "olive fruit fly": 1
       },
-      "product_label_matches_for_olive": 0,
+      "olive_label_use_relationships_found_by_an_independent_lens": {
+       "count": 1,
+       "entry": "IT-LBL-1932",
+       "product": "MORAINE",
+       "registration": "018101",
+       "target": "weeds",
+       "HOW": "an independent product lens resolved this file's 2,277-entry string table; this module's flat regex cannot see through it and previously ASSERTED a hardcoded 0 here, which was wrong. The corrected count is 1 of 2,030 label-use relationships, and it is a herbicide.",
+       "FOR_THE_OLIVE_FLY": 0
+      },
+      "COVERAGE_LIMIT_OF_THIS_MODULE": "the flat regex sees 161 of the 203 CROP keys in this file (79.3%). It is used for orientation, never as the basis of the verdict, which rests on the adjudicated triples in italy-label-verdicts.js.",
       "NOTE": "the olive material in this file is content items and scientific references, not PRODUCT x CROP x ISSUE label matches"
      }
     },
@@ -2296,7 +2387,9 @@
      "a publishable observation with no matched historical comparison available"
     ],
     "NOT_A_COMMERCIAL_INSTRUCTION": true,
-    "adama_relevance": "NO"
+    "attention_is_agronomic_only": true,
+    "adama_relevance": "NO",
+    "WHY_THE_TWO_ARE_PRINTED_APART": "the attention class describes the OBSERVATION. ADAMA_RELEVANCE describes the PORTFOLIO. Reading them as one sentence is the error this separation exists to prevent, whichever way the relevance falls."
    },
    "provenance": {
     "source": -1001,
@@ -2402,16 +2495,27 @@
     "n_sites": 14,
     "n_orgs": 1,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-08-31",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 9.0,
+    "visits_above_green": 2,
+    "visits_red": 0,
     "value_pct": 1.1509,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "worst_single_visit_pct": 9.0,
+    "worst_single_visit_band": {
+     "label": "7-9%",
+     "meaning": "yellow",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 2,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -2439,7 +2543,7 @@
     "baseline_n": 20,
     "baseline_rate_pct_median": 3.5238,
     "baseline_rate_pct_min": 0.7826,
-    "baseline_rate_pct_max": 16.6792,
+    "baseline_rate_pct_max": 16.6481,
     "baseline_detail": [
      {
       "season": 2006,
@@ -2499,10 +2603,10 @@
      },
      {
       "season": 2014,
-      "rate_pct": 16.6792,
-      "n_visits": 53,
+      "rate_pct": 16.6481,
+      "n_visits": 54,
       "n_sites": 20,
-      "drupes_sampled": 5300
+      "drupes_sampled": 5400
      },
      {
       "season": 2015,
@@ -2576,10 +2680,10 @@
      },
      {
       "season": 2025,
-      "rate_pct": 5.6833,
-      "n_visits": 60,
+      "rate_pct": 5.6935,
+      "n_visits": 62,
       "n_sites": 17,
-      "drupes_sampled": 6000
+      "drupes_sampled": 6200
      }
     ],
     "percentile_against_own_history": 0.15,
@@ -2614,9 +2718,9 @@
       "season": 2025,
       "n_groves_shared": 13,
       "rate_now_on_those_groves_pct": 1.2245,
-      "rate_then_on_those_groves_pct": 5.7174,
+      "rate_then_on_those_groves_pct": 5.7292,
       "drupes_now": 4900,
-      "drupes_then": 4600
+      "drupes_then": 4800
      }
     ],
     "matched_panel_seasons": 3,
@@ -2624,25 +2728,28 @@
     "historical_matched_reason": "3 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "INCREASING_OBSERVED",
-    "observed_trend_reason": "0.0769% -> 0.4464% -> 1.1509% over 3 consecutive 28-day windows ending 2026-09-06; change 1.074 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.0769% -> 0.4464% -> 1.1509% over 3 consecutive 28-day windows ending 2026-09-06; change 1.074 percentage points. First window 95% interval [0.0136, 0.4345]%, last [0.8971, 1.4756]%; they do not overlap, so a direction is named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.0769,
       "n_visits": 13,
-      "drupes_sampled": 1300
+      "drupes_sampled": 1300,
+      "infested": 1
      },
      {
       "window_end": "2026-08-09",
       "rate_pct": 0.4464,
       "n_visits": 56,
-      "drupes_sampled": 5600
+      "drupes_sampled": 5600,
+      "infested": 25
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 1.1509,
       "n_visits": 53,
-      "drupes_sampled": 5300
+      "drupes_sampled": 5300,
+      "infested": 61
      }
     ]
    },
@@ -2671,7 +2778,7 @@
    },
    "adama": {
     "relevance": "NO",
-    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 0 product-label matches for the crop - its olive material is content and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
+    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 1 product-label relationship for the CROP in the whole file - a herbicide, MORAINE, targeting weeds - and 0 for this PROBLEM. Its olive material is otherwise content items and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
     "portfolio_evidence": {
      "readings_consulted": [
       "italia-portale/client/italy-label-verdicts.js",
@@ -2731,7 +2838,16 @@
        "mosca dell'olivo / delle olive": 35,
        "olive fruit fly": 1
       },
-      "product_label_matches_for_olive": 0,
+      "olive_label_use_relationships_found_by_an_independent_lens": {
+       "count": 1,
+       "entry": "IT-LBL-1932",
+       "product": "MORAINE",
+       "registration": "018101",
+       "target": "weeds",
+       "HOW": "an independent product lens resolved this file's 2,277-entry string table; this module's flat regex cannot see through it and previously ASSERTED a hardcoded 0 here, which was wrong. The corrected count is 1 of 2,030 label-use relationships, and it is a herbicide.",
+       "FOR_THE_OLIVE_FLY": 0
+      },
+      "COVERAGE_LIMIT_OF_THIS_MODULE": "the flat regex sees 161 of the 203 CROP keys in this file (79.3%). It is used for orientation, never as the basis of the verdict, which rests on the adjudicated triples in italy-label-verdicts.js.",
       "NOTE": "the olive material in this file is content items and scientific references, not PRODUCT x CROP x ISSUE label matches"
      }
     },
@@ -2750,7 +2866,9 @@
      "historical_state is ABOVE_HISTORICAL, or observed_trend is INCREASING_OBSERVED, on a publishable observation"
     ],
     "NOT_A_COMMERCIAL_INSTRUCTION": true,
-    "adama_relevance": "NO"
+    "attention_is_agronomic_only": true,
+    "adama_relevance": "NO",
+    "WHY_THE_TWO_ARE_PRINTED_APART": "the attention class describes the OBSERVATION. ADAMA_RELEVANCE describes the PORTFOLIO. Reading them as one sentence is the error this separation exists to prevent, whichever way the relevance falls."
    },
    "provenance": {
     "source": -1001,
@@ -2856,16 +2974,27 @@
     "n_sites": 10,
     "n_orgs": 1,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-08-31",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 6.0,
+    "visits_above_green": 1,
+    "visits_red": 0,
     "value_pct": 0.566,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "worst_single_visit_pct": 6.0,
+    "worst_single_visit_band": {
+     "label": "7-9%",
+     "meaning": "yellow",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 1,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -2947,10 +3076,10 @@
      },
      {
       "season": 2020,
-      "rate_pct": 3.1842,
-      "n_visits": 35,
-      "n_sites": 11,
-      "drupes_sampled": 3822
+      "rate_pct": 4.7538,
+      "n_visits": 37,
+      "n_sites": 12,
+      "drupes_sampled": 3919
      },
      {
       "season": 2021,
@@ -3014,25 +3143,28 @@
     "historical_matched_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "TYPICAL",
     "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.0% -> 0.7838% -> 0.566% over 3 consecutive 28-day windows ending 2026-09-06; change 0.566 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.0% -> 0.7838% -> 0.566% over 3 consecutive 28-day windows ending 2026-09-06; change 0.566 percentage points. First window 95% interval [0.0, 0.425]%, last [0.3968, 0.8069]%; they overlap, so a direction is NOT named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.0,
       "n_visits": 9,
-      "drupes_sampled": 900
+      "drupes_sampled": 900,
+      "infested": 0
      },
      {
       "window_end": "2026-08-09",
       "rate_pct": 0.7838,
       "n_visits": 37,
-      "drupes_sampled": 3700
+      "drupes_sampled": 3700,
+      "infested": 29
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.566,
       "n_visits": 40,
-      "drupes_sampled": 5300
+      "drupes_sampled": 5300,
+      "infested": 30
      }
     ]
    },
@@ -3061,7 +3193,7 @@
    },
    "adama": {
     "relevance": "NO",
-    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 0 product-label matches for the crop - its olive material is content and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
+    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 1 product-label relationship for the CROP in the whole file - a herbicide, MORAINE, targeting weeds - and 0 for this PROBLEM. Its olive material is otherwise content items and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
     "portfolio_evidence": {
      "readings_consulted": [
       "italia-portale/client/italy-label-verdicts.js",
@@ -3121,7 +3253,16 @@
        "mosca dell'olivo / delle olive": 35,
        "olive fruit fly": 1
       },
-      "product_label_matches_for_olive": 0,
+      "olive_label_use_relationships_found_by_an_independent_lens": {
+       "count": 1,
+       "entry": "IT-LBL-1932",
+       "product": "MORAINE",
+       "registration": "018101",
+       "target": "weeds",
+       "HOW": "an independent product lens resolved this file's 2,277-entry string table; this module's flat regex cannot see through it and previously ASSERTED a hardcoded 0 here, which was wrong. The corrected count is 1 of 2,030 label-use relationships, and it is a herbicide.",
+       "FOR_THE_OLIVE_FLY": 0
+      },
+      "COVERAGE_LIMIT_OF_THIS_MODULE": "the flat regex sees 161 of the 203 CROP keys in this file (79.3%). It is used for orientation, never as the basis of the verdict, which rests on the adjudicated triples in italy-label-verdicts.js.",
       "NOTE": "the olive material in this file is content items and scientific references, not PRODUCT x CROP x ISSUE label matches"
      }
     },
@@ -3140,7 +3281,9 @@
      "a publishable observation with no matched historical comparison available"
     ],
     "NOT_A_COMMERCIAL_INSTRUCTION": true,
-    "adama_relevance": "NO"
+    "attention_is_agronomic_only": true,
+    "adama_relevance": "NO",
+    "WHY_THE_TWO_ARE_PRINTED_APART": "the attention class describes the OBSERVATION. ADAMA_RELEVANCE describes the PORTFOLIO. Reading them as one sentence is the error this separation exists to prevent, whichever way the relevance falls."
    },
    "provenance": {
     "source": -1001,
@@ -3246,16 +3389,27 @@
     "n_sites": 45,
     "n_orgs": 4,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-09-02",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 7.0,
+    "visits_above_green": 3,
+    "visits_red": 0,
     "value_pct": 1.02,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "worst_single_visit_pct": 7.0,
+    "worst_single_visit_band": {
+     "label": "7-9%",
+     "meaning": "yellow",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 3,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -3385,10 +3539,10 @@
      },
      {
       "season": 2020,
-      "rate_pct": 3.1722,
-      "n_visits": 138,
-      "n_sites": 48,
-      "drupes_sampled": 14050
+      "rate_pct": 3.2035,
+      "n_visits": 139,
+      "n_sites": 49,
+      "drupes_sampled": 14100
      },
      {
       "season": 2021,
@@ -3451,26 +3605,29 @@
     "historical_state_matched": "INSUFFICIENT_DATA",
     "historical_matched_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
-    "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.04% -> 0.5022% -> 1.02% over 3 consecutive 28-day windows ending 2026-09-06; change 0.98 percentage points. This describes windows that have already happened.",
+    "observed_trend": "INCREASING_OBSERVED",
+    "observed_trend_reason": "0.04% -> 0.5022% -> 1.02% over 3 consecutive 28-day windows ending 2026-09-06; change 0.98 percentage points. First window 95% interval [0.0071, 0.2262]%, last [0.8263, 1.2372]%; they do not overlap, so a direction is named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.04,
       "n_visits": 25,
-      "drupes_sampled": 2500
+      "drupes_sampled": 2500,
+      "infested": 1
      },
      {
       "window_end": "2026-08-09",
       "rate_pct": 0.5022,
       "n_visits": 65,
-      "drupes_sampled": 7786
+      "drupes_sampled": 7786,
+      "infested": 39
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 1.02,
       "n_visits": 85,
-      "drupes_sampled": 9196
+      "drupes_sampled": 9196,
+      "infested": 93
      }
     ]
    },
@@ -3499,7 +3656,7 @@
    },
    "adama": {
     "relevance": "NO",
-    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 0 product-label matches for the crop - its olive material is content and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
+    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 1 product-label relationship for the CROP in the whole file - a herbicide, MORAINE, targeting weeds - and 0 for this PROBLEM. Its olive material is otherwise content items and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
     "portfolio_evidence": {
      "readings_consulted": [
       "italia-portale/client/italy-label-verdicts.js",
@@ -3559,7 +3716,16 @@
        "mosca dell'olivo / delle olive": 35,
        "olive fruit fly": 1
       },
-      "product_label_matches_for_olive": 0,
+      "olive_label_use_relationships_found_by_an_independent_lens": {
+       "count": 1,
+       "entry": "IT-LBL-1932",
+       "product": "MORAINE",
+       "registration": "018101",
+       "target": "weeds",
+       "HOW": "an independent product lens resolved this file's 2,277-entry string table; this module's flat regex cannot see through it and previously ASSERTED a hardcoded 0 here, which was wrong. The corrected count is 1 of 2,030 label-use relationships, and it is a herbicide.",
+       "FOR_THE_OLIVE_FLY": 0
+      },
+      "COVERAGE_LIMIT_OF_THIS_MODULE": "the flat regex sees 161 of the 203 CROP keys in this file (79.3%). It is used for orientation, never as the basis of the verdict, which rests on the adjudicated triples in italy-label-verdicts.js.",
       "NOTE": "the olive material in this file is content items and scientific references, not PRODUCT x CROP x ISSUE label matches"
      }
     },
@@ -3573,12 +3739,14 @@
     ]
    },
    "attention": {
-    "attention_class": "NO_ESCALATION",
+    "attention_class": "INVESTIGATE",
     "rule_applied": [
-     "a publishable observation with no matched historical comparison available"
+     "historical_state is ABOVE_HISTORICAL, or observed_trend is INCREASING_OBSERVED, on a publishable observation"
     ],
     "NOT_A_COMMERCIAL_INSTRUCTION": true,
-    "adama_relevance": "NO"
+    "attention_is_agronomic_only": true,
+    "adama_relevance": "NO",
+    "WHY_THE_TWO_ARE_PRINTED_APART": "the attention class describes the OBSERVATION. ADAMA_RELEVANCE describes the PORTFOLIO. Reading them as one sentence is the error this separation exists to prevent, whichever way the relevance falls."
    },
    "provenance": {
     "source": -1001,
@@ -3684,16 +3852,27 @@
     "n_sites": 16,
     "n_orgs": 2,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-09-02",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 1.0,
+    "visits_above_green": 0,
+    "visits_red": 0,
     "value_pct": 0.0278,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "worst_single_visit_pct": 1.0,
+    "worst_single_visit_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 0,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -3881,25 +4060,28 @@
     "historical_matched_reason": "0 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.0% -> 0.0% -> 0.0278% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0278 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.0% -> 0.0% -> 0.0278% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0278 percentage points. First window 95% interval [0.0, 0.2736]%, last [0.0049, 0.1572]%; they overlap, so a direction is NOT named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.0,
       "n_visits": 14,
-      "drupes_sampled": 1400
+      "drupes_sampled": 1400,
+      "infested": 0
      },
      {
       "window_end": "2026-08-09",
       "rate_pct": 0.0,
       "n_visits": 35,
-      "drupes_sampled": 3500
+      "drupes_sampled": 3500,
+      "infested": 0
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.0278,
       "n_visits": 36,
-      "drupes_sampled": 3600
+      "drupes_sampled": 3600,
+      "infested": 1
      }
     ]
    },
@@ -3928,7 +4110,7 @@
    },
    "adama": {
     "relevance": "NO",
-    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 0 product-label matches for the crop - its olive material is content and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
+    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 1 product-label relationship for the CROP in the whole file - a herbicide, MORAINE, targeting weeds - and 0 for this PROBLEM. Its olive material is otherwise content items and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
     "portfolio_evidence": {
      "readings_consulted": [
       "italia-portale/client/italy-label-verdicts.js",
@@ -3988,7 +4170,16 @@
        "mosca dell'olivo / delle olive": 35,
        "olive fruit fly": 1
       },
-      "product_label_matches_for_olive": 0,
+      "olive_label_use_relationships_found_by_an_independent_lens": {
+       "count": 1,
+       "entry": "IT-LBL-1932",
+       "product": "MORAINE",
+       "registration": "018101",
+       "target": "weeds",
+       "HOW": "an independent product lens resolved this file's 2,277-entry string table; this module's flat regex cannot see through it and previously ASSERTED a hardcoded 0 here, which was wrong. The corrected count is 1 of 2,030 label-use relationships, and it is a herbicide.",
+       "FOR_THE_OLIVE_FLY": 0
+      },
+      "COVERAGE_LIMIT_OF_THIS_MODULE": "the flat regex sees 161 of the 203 CROP keys in this file (79.3%). It is used for orientation, never as the basis of the verdict, which rests on the adjudicated triples in italy-label-verdicts.js.",
       "NOTE": "the olive material in this file is content items and scientific references, not PRODUCT x CROP x ISSUE label matches"
      }
     },
@@ -4007,7 +4198,9 @@
      "a publishable observation with no matched historical comparison available"
     ],
     "NOT_A_COMMERCIAL_INSTRUCTION": true,
-    "adama_relevance": "NO"
+    "attention_is_agronomic_only": true,
+    "adama_relevance": "NO",
+    "WHY_THE_TWO_ARE_PRINTED_APART": "the attention class describes the OBSERVATION. ADAMA_RELEVANCE describes the PORTFOLIO. Reading them as one sentence is the error this separation exists to prevent, whichever way the relevance falls."
    },
    "provenance": {
     "source": -1001,
@@ -4113,16 +4306,27 @@
     "n_sites": 7,
     "n_orgs": 2,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-09-02",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 1.0,
+    "visits_above_green": 0,
+    "visits_red": 0,
     "value_pct": 0.0417,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "worst_single_visit_pct": 1.0,
+    "worst_single_visit_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 0,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -4316,13 +4520,15 @@
       "window_end": "2026-08-09",
       "rate_pct": 0.0,
       "n_visits": 24,
-      "drupes_sampled": 2400
+      "drupes_sampled": 2400,
+      "infested": 0
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.0417,
       "n_visits": 24,
-      "drupes_sampled": 2400
+      "drupes_sampled": 2400,
+      "infested": 1
      }
     ]
    },
@@ -4351,7 +4557,7 @@
    },
    "adama": {
     "relevance": "NO",
-    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 0 product-label matches for the crop - its olive material is content and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
+    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 1 product-label relationship for the CROP in the whole file - a herbicide, MORAINE, targeting weeds - and 0 for this PROBLEM. Its olive material is otherwise content items and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
     "portfolio_evidence": {
      "readings_consulted": [
       "italia-portale/client/italy-label-verdicts.js",
@@ -4411,7 +4617,16 @@
        "mosca dell'olivo / delle olive": 35,
        "olive fruit fly": 1
       },
-      "product_label_matches_for_olive": 0,
+      "olive_label_use_relationships_found_by_an_independent_lens": {
+       "count": 1,
+       "entry": "IT-LBL-1932",
+       "product": "MORAINE",
+       "registration": "018101",
+       "target": "weeds",
+       "HOW": "an independent product lens resolved this file's 2,277-entry string table; this module's flat regex cannot see through it and previously ASSERTED a hardcoded 0 here, which was wrong. The corrected count is 1 of 2,030 label-use relationships, and it is a herbicide.",
+       "FOR_THE_OLIVE_FLY": 0
+      },
+      "COVERAGE_LIMIT_OF_THIS_MODULE": "the flat regex sees 161 of the 203 CROP keys in this file (79.3%). It is used for orientation, never as the basis of the verdict, which rests on the adjudicated triples in italy-label-verdicts.js.",
       "NOTE": "the olive material in this file is content items and scientific references, not PRODUCT x CROP x ISSUE label matches"
      }
     },
@@ -4430,7 +4645,9 @@
      "a publishable observation with no matched historical comparison available"
     ],
     "NOT_A_COMMERCIAL_INSTRUCTION": true,
-    "adama_relevance": "NO"
+    "attention_is_agronomic_only": true,
+    "adama_relevance": "NO",
+    "WHY_THE_TWO_ARE_PRINTED_APART": "the attention class describes the OBSERVATION. ADAMA_RELEVANCE describes the PORTFOLIO. Reading them as one sentence is the error this separation exists to prevent, whichever way the relevance falls."
    },
    "provenance": {
     "source": -1001,
@@ -4536,16 +4753,27 @@
     "n_sites": 61,
     "n_orgs": 6,
     "n_visits_excluded_by_sanity_rules": 6,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-11",
     "last_observation": "2026-09-03",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 18.1818,
+    "visits_above_green": 7,
+    "visits_red": 3,
     "value_pct": 0.6909,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "worst_single_visit_pct": 18.1818,
+    "worst_single_visit_band": {
+     "label": ">=10%",
+     "meaning": "red",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 7,
+    "visits_in_the_red_band": 3
    },
    "analysis": {
     "baseline_seasons": [
@@ -4682,10 +4910,10 @@
      },
      {
       "season": 2021,
-      "rate_pct": 3.7333,
-      "n_visits": 132,
+      "rate_pct": 3.845,
+      "n_visits": 135,
       "n_sites": 44,
-      "drupes_sampled": 12750
+      "drupes_sampled": 12900
      },
      {
       "season": 2022,
@@ -4717,136 +4945,96 @@
      }
     ],
     "percentile_against_own_history": 0.25,
-    "historical_state": "BELOW_HISTORICAL",
-    "historical_reason": "on the groves shared with each prior season, this window reads lower than 14 of 17 of them and higher than 3",
+    "historical_state": "TYPICAL",
+    "historical_reason": "on the groves shared with each prior season, this window reads lower than 8 of 12 of them and higher than 4",
     "panel_overlap_with_baseline_seasons": {
-     "median_groves_shared": 12.5,
+     "median_groves_shared": 12.0,
      "min": 3,
-     "max": 27,
-     "seasons_sharing_at_least_the_declared_minimum": 17,
+     "max": 25,
+     "seasons_sharing_at_least_the_declared_minimum": 12,
      "of_seasons": 20,
      "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
     },
     "matched_panel_comparisons": [
      {
-      "season": 2009,
+      "season": 2010,
       "n_groves_shared": 8,
-      "rate_now_on_those_groves_pct": 0.6,
-      "rate_then_on_those_groves_pct": 0.7097,
+      "rate_now_on_those_groves_pct": 0.5667,
+      "rate_then_on_those_groves_pct": 1.0323,
       "drupes_now": 3000,
       "drupes_then": 3100
      },
      {
-      "season": 2010,
-      "n_groves_shared": 9,
-      "rate_now_on_those_groves_pct": 0.5294,
-      "rate_then_on_those_groves_pct": 1.1143,
-      "drupes_now": 3400,
-      "drupes_then": 3500
-     },
-     {
-      "season": 2011,
-      "n_groves_shared": 8,
-      "rate_now_on_those_groves_pct": 0.5625,
-      "rate_then_on_those_groves_pct": 0.8772,
-      "drupes_now": 3200,
-      "drupes_then": 2850
-     },
-     {
-      "season": 2012,
-      "n_groves_shared": 8,
-      "rate_now_on_those_groves_pct": 0.5625,
-      "rate_then_on_those_groves_pct": 1.3103,
-      "drupes_now": 3200,
-      "drupes_then": 2900
-     },
-     {
-      "season": 2013,
-      "n_groves_shared": 8,
-      "rate_now_on_those_groves_pct": 0.5625,
-      "rate_then_on_those_groves_pct": 2.1304,
-      "drupes_now": 3200,
-      "drupes_then": 2300
-     },
-     {
-      "season": 2014,
-      "n_groves_shared": 8,
-      "rate_now_on_those_groves_pct": 0.5625,
-      "rate_then_on_those_groves_pct": 4.5926,
-      "drupes_now": 3200,
-      "drupes_then": 2700
-     },
-     {
       "season": 2015,
-      "n_groves_shared": 12,
-      "rate_now_on_those_groves_pct": 1.025,
-      "rate_then_on_those_groves_pct": 1.6739,
-      "drupes_now": 4000,
-      "drupes_then": 4600
-     },
-     {
-      "season": 2016,
-      "n_groves_shared": 15,
-      "rate_now_on_those_groves_pct": 1.1158,
-      "rate_then_on_those_groves_pct": 6.692,
-      "drupes_now": 4750,
-      "drupes_then": 3691
-     },
-     {
-      "season": 2017,
-      "n_groves_shared": 14,
-      "rate_now_on_those_groves_pct": 1.1236,
-      "rate_then_on_those_groves_pct": 0.7416,
-      "drupes_now": 4450,
-      "drupes_then": 4450
-     },
-     {
-      "season": 2018,
-      "n_groves_shared": 15,
-      "rate_now_on_those_groves_pct": 1.1368,
-      "rate_then_on_those_groves_pct": 0.8545,
-      "drupes_now": 4750,
-      "drupes_then": 5500
-     },
-     {
-      "season": 2019,
-      "n_groves_shared": 15,
-      "rate_now_on_those_groves_pct": 0.7238,
-      "rate_then_on_those_groves_pct": 5.2619,
-      "drupes_now": 5250,
+      "n_groves_shared": 11,
+      "rate_now_on_those_groves_pct": 1.1111,
+      "rate_then_on_those_groves_pct": 1.7143,
+      "drupes_now": 3600,
       "drupes_then": 4200
      },
      {
+      "season": 2016,
+      "n_groves_shared": 14,
+      "rate_now_on_those_groves_pct": 1.1954,
+      "rate_then_on_those_groves_pct": 7.166,
+      "drupes_now": 4350,
+      "drupes_then": 3391
+     },
+     {
+      "season": 2017,
+      "n_groves_shared": 13,
+      "rate_now_on_those_groves_pct": 1.2099,
+      "rate_then_on_those_groves_pct": 0.7654,
+      "drupes_now": 4050,
+      "drupes_then": 4050
+     },
+     {
+      "season": 2018,
+      "n_groves_shared": 13,
+      "rate_now_on_those_groves_pct": 1.2911,
+      "rate_then_on_those_groves_pct": 0.8298,
+      "drupes_now": 3950,
+      "drupes_then": 4700
+     },
+     {
+      "season": 2019,
+      "n_groves_shared": 13,
+      "rate_now_on_those_groves_pct": 0.7865,
+      "rate_then_on_those_groves_pct": 5.6316,
+      "drupes_now": 4450,
+      "drupes_then": 3800
+     },
+     {
       "season": 2020,
-      "n_groves_shared": 22,
-      "rate_now_on_those_groves_pct": 1.191,
-      "rate_then_on_those_groves_pct": 1.1951,
-      "drupes_now": 6633,
-      "drupes_then": 8200
+      "n_groves_shared": 20,
+      "rate_now_on_those_groves_pct": 1.3029,
+      "rate_then_on_those_groves_pct": 1.1486,
+      "drupes_now": 5833,
+      "drupes_then": 7400
      },
      {
       "season": 2021,
-      "n_groves_shared": 20,
-      "rate_now_on_those_groves_pct": 1.1211,
-      "rate_then_on_those_groves_pct": 4.2261,
-      "drupes_now": 6333,
-      "drupes_then": 5750
+      "n_groves_shared": 19,
+      "rate_now_on_those_groves_pct": 1.1798,
+      "rate_then_on_those_groves_pct": 4.7091,
+      "drupes_now": 5933,
+      "drupes_then": 5500
      },
      {
       "season": 2022,
-      "n_groves_shared": 15,
-      "rate_now_on_those_groves_pct": 0.5965,
-      "rate_then_on_those_groves_pct": 1.0175,
-      "drupes_now": 5700,
-      "drupes_then": 5700
+      "n_groves_shared": 14,
+      "rate_now_on_those_groves_pct": 0.6226,
+      "rate_then_on_those_groves_pct": 1.0943,
+      "drupes_now": 5300,
+      "drupes_then": 5300
      },
      {
       "season": 2023,
-      "n_groves_shared": 15,
-      "rate_now_on_those_groves_pct": 0.5965,
-      "rate_then_on_those_groves_pct": 9.0417,
-      "drupes_now": 5700,
-      "drupes_then": 4800
+      "n_groves_shared": 14,
+      "rate_now_on_those_groves_pct": 0.6226,
+      "rate_then_on_those_groves_pct": 9.8409,
+      "drupes_now": 5300,
+      "drupes_then": 4400
      },
      {
       "season": 2024,
@@ -4858,39 +5046,42 @@
      },
      {
       "season": 2025,
-      "n_groves_shared": 27,
-      "rate_now_on_those_groves_pct": 0.7266,
-      "rate_then_on_those_groves_pct": 5.8675,
-      "drupes_now": 9083,
-      "drupes_then": 7550
+      "n_groves_shared": 25,
+      "rate_now_on_those_groves_pct": 0.7606,
+      "rate_then_on_those_groves_pct": 6.0,
+      "drupes_now": 8283,
+      "drupes_then": 6950
      }
     ],
-    "matched_panel_seasons": 17,
-    "matched_seasons_now_is_higher_than_then": 3,
-    "matched_seasons_now_is_lower_than_then": 14,
-    "historical_state_matched": "BELOW_HISTORICAL",
-    "historical_matched_reason": "on the groves shared with each prior season, this window reads lower than 14 of 17 of them and higher than 3",
+    "matched_panel_seasons": 12,
+    "matched_seasons_now_is_higher_than_then": 4,
+    "matched_seasons_now_is_lower_than_then": 8,
+    "historical_state_matched": "TYPICAL",
+    "historical_matched_reason": "on the groves shared with each prior season, this window reads lower than 8 of 12 of them and higher than 4",
     "historical_state_unmatched": "TYPICAL",
-    "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.0% -> 0.2718% -> 0.6909% over 3 consecutive 28-day windows ending 2026-09-06; change 0.6909 percentage points. This describes windows that have already happened.",
+    "observed_trend": "INCREASING_OBSERVED",
+    "observed_trend_reason": "0.0% -> 0.2718% -> 0.6909% over 3 consecutive 28-day windows ending 2026-09-06; change 0.6909 percentage points. First window 95% interval [0.0, 0.1238]%, last [0.581, 0.8213]%; they do not overlap, so a direction is named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.0,
       "n_visits": 31,
-      "drupes_sampled": 3100
+      "drupes_sampled": 3100,
+      "infested": 0
      },
      {
       "window_end": "2026-08-09",
       "rate_pct": 0.2718,
       "n_visits": 144,
-      "drupes_sampled": 14350
+      "drupes_sampled": 14350,
+      "infested": 39
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.6909,
       "n_visits": 186,
-      "drupes_sampled": 18383
+      "drupes_sampled": 18383,
+      "infested": 127
      }
     ]
    },
@@ -4900,7 +5091,7 @@
     "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
     "n_visits_excluded_by_sanity_rules": 6,
     "historical_comparison_is_matched_panel": true,
-    "matched_panel_seasons": 17,
+    "matched_panel_seasons": 12,
     "observation_publishable": true,
     "historical_comparison_publishable": true,
     "publishable": true,
@@ -4919,7 +5110,7 @@
    },
    "adama": {
     "relevance": "NO",
-    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 0 product-label matches for the crop - its olive material is content and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
+    "reason": "3 product(s) were checked against this exact pair and none was found on a label for it in the 2026-09-02 reading of 163 official Italian labels. The wider object set from the same audit carries 11 olive objects and 1 product-label relationship for the CROP in the whole file - a herbicide, MORAINE, targeting weeds - and 0 for this PROBLEM. Its olive material is otherwise content items and scientific references. ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to the products actually adjudicated, not to the portfolio.",
     "portfolio_evidence": {
      "readings_consulted": [
       "italia-portale/client/italy-label-verdicts.js",
@@ -4979,7 +5170,16 @@
        "mosca dell'olivo / delle olive": 35,
        "olive fruit fly": 1
       },
-      "product_label_matches_for_olive": 0,
+      "olive_label_use_relationships_found_by_an_independent_lens": {
+       "count": 1,
+       "entry": "IT-LBL-1932",
+       "product": "MORAINE",
+       "registration": "018101",
+       "target": "weeds",
+       "HOW": "an independent product lens resolved this file's 2,277-entry string table; this module's flat regex cannot see through it and previously ASSERTED a hardcoded 0 here, which was wrong. The corrected count is 1 of 2,030 label-use relationships, and it is a herbicide.",
+       "FOR_THE_OLIVE_FLY": 0
+      },
+      "COVERAGE_LIMIT_OF_THIS_MODULE": "the flat regex sees 161 of the 203 CROP keys in this file (79.3%). It is used for orientation, never as the basis of the verdict, which rests on the adjudicated triples in italy-label-verdicts.js.",
       "NOTE": "the olive material in this file is content items and scientific references, not PRODUCT x CROP x ISSUE label matches"
      }
     },
@@ -4993,12 +5193,14 @@
     ]
    },
    "attention": {
-    "attention_class": "MONITOR",
+    "attention_class": "INVESTIGATE",
     "rule_applied": [
-     "a publishable observation with a matched historical comparison that is not above its own history"
+     "historical_state is ABOVE_HISTORICAL, or observed_trend is INCREASING_OBSERVED, on a publishable observation"
     ],
     "NOT_A_COMMERCIAL_INSTRUCTION": true,
-    "adama_relevance": "NO"
+    "attention_is_agronomic_only": true,
+    "adama_relevance": "NO",
+    "WHY_THE_TWO_ARE_PRINTED_APART": "the attention class describes the OBSERVATION. ADAMA_RELEVANCE describes the PORTFOLIO. Reading them as one sentence is the error this separation exists to prevent, whichever way the relevance falls."
    },
    "provenance": {
     "source": -1001,

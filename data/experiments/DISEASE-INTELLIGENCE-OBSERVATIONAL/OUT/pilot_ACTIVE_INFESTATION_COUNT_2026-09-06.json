@@ -512,16 +512,30 @@
     "n_sites": 17,
     "n_orgs": 2,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-12",
     "last_observation": "2026-09-02",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 2.0,
+    "visits_above_green": 0,
+    "visits_red": 0,
     "value_pct": 0.1636,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "data_age_days": 4,
+    "data_is_stale": false,
+    "stale_after_days": 14,
+    "worst_single_visit_pct": 2.0,
+    "worst_single_visit_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 0,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -686,40 +700,24 @@
      },
      {
       "season": 2025,
-      "rate_pct": 1.8564,
+      "rate_pct": 1.8667,
       "n_visits": 105,
       "n_sites": 36,
       "drupes_sampled": 10596
      }
     ],
     "percentile_against_own_history": 0.05,
-    "historical_state": "TYPICAL",
-    "historical_reason": "on the groves shared with each prior season, this window reads lower than 4 of 6 of them and higher than 2",
+    "historical_state": "INSUFFICIENT_DATA",
+    "historical_reason": "4 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "panel_overlap_with_baseline_seasons": {
      "median_groves_shared": 2.0,
      "min": 0,
      "max": 15,
-     "seasons_sharing_at_least_the_declared_minimum": 6,
+     "seasons_sharing_at_least_the_declared_minimum": 4,
      "of_seasons": 20,
      "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
     },
     "matched_panel_comparisons": [
-     {
-      "season": 2020,
-      "n_groves_shared": 9,
-      "rate_now_on_those_groves_pct": 0.3462,
-      "rate_then_on_those_groves_pct": 0.5909,
-      "drupes_now": 2600,
-      "drupes_then": 2200
-     },
-     {
-      "season": 2021,
-      "n_groves_shared": 9,
-      "rate_now_on_those_groves_pct": 0.3462,
-      "rate_then_on_those_groves_pct": 0.4865,
-      "drupes_now": 2600,
-      "drupes_then": 3700
-     },
      {
       "season": 2022,
       "n_groves_shared": 10,
@@ -753,11 +751,9 @@
       "drupes_then": 4300
      }
     ],
-    "matched_panel_seasons": 6,
-    "matched_seasons_now_is_higher_than_then": 2,
-    "matched_seasons_now_is_lower_than_then": 4,
-    "historical_state_matched": "TYPICAL",
-    "historical_matched_reason": "on the groves shared with each prior season, this window reads lower than 4 of 6 of them and higher than 2",
+    "matched_panel_seasons": 4,
+    "historical_state_matched": "INSUFFICIENT_DATA",
+    "historical_matched_reason": "4 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "UNKNOWN",
     "observed_trend_reason": "2 usable consecutive windows, below the declared minimum of 3",
@@ -766,13 +762,15 @@
       "window_end": "2026-08-09",
       "rate_pct": 0.0185,
       "n_visits": 54,
-      "drupes_sampled": 5400
+      "drupes_sampled": 5400,
+      "infested": 1
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.1636,
       "n_visits": 55,
-      "drupes_sampled": 5500
+      "drupes_sampled": 5500,
+      "infested": 9
      }
     ]
    },
@@ -782,9 +780,9 @@
     "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
     "n_visits_excluded_by_sanity_rules": 0,
     "historical_comparison_is_matched_panel": true,
-    "matched_panel_seasons": 6,
+    "matched_panel_seasons": 4,
     "observation_publishable": true,
-    "historical_comparison_publishable": true,
+    "historical_comparison_publishable": false,
     "publishable": true,
     "publishable_reason": "enough visits and enough sampled drupes for the observation"
    },
@@ -797,7 +795,8 @@
     "LOW_PCTL": 0.2,
     "TREND_MIN_WINDOWS": 3,
     "TREND_MIN_ABS_CHANGE_PCT": 1.0,
-    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8,
+    "STALE_AFTER_DAYS": 14
    }
   },
   {
@@ -830,16 +829,30 @@
     "n_sites": 73,
     "n_orgs": 4,
     "n_visits_excluded_by_sanity_rules": 2,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-09-02",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 2.0,
+    "visits_above_green": 0,
+    "visits_red": 0,
     "value_pct": 0.0664,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "data_age_days": 4,
+    "data_is_stale": false,
+    "stale_after_days": 14,
+    "worst_single_visit_pct": 2.0,
+    "worst_single_visit_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 0,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -976,7 +989,7 @@
      },
      {
       "season": 2021,
-      "rate_pct": 3.0286,
+      "rate_pct": 3.0022,
       "n_visits": 229,
       "n_sites": 65,
       "drupes_sampled": 22750
@@ -1004,7 +1017,7 @@
      },
      {
       "season": 2025,
-      "rate_pct": 2.8536,
+      "rate_pct": 2.8224,
       "n_visits": 161,
       "n_sites": 63,
       "drupes_sampled": 16050
@@ -1080,57 +1093,57 @@
      },
      {
       "season": 2019,
-      "n_groves_shared": 27,
-      "rate_now_on_those_groves_pct": 0.0891,
-      "rate_then_on_those_groves_pct": 7.5116,
-      "drupes_now": 10100,
-      "drupes_then": 8600
+      "n_groves_shared": 26,
+      "rate_now_on_those_groves_pct": 0.0928,
+      "rate_then_on_those_groves_pct": 7.5357,
+      "drupes_now": 9700,
+      "drupes_then": 8400
      },
      {
       "season": 2020,
-      "n_groves_shared": 29,
-      "rate_now_on_those_groves_pct": 0.1009,
-      "rate_then_on_those_groves_pct": 1.0991,
-      "drupes_now": 10900,
-      "drupes_then": 11100
+      "n_groves_shared": 28,
+      "rate_now_on_those_groves_pct": 0.1048,
+      "rate_then_on_those_groves_pct": 1.1009,
+      "drupes_now": 10500,
+      "drupes_then": 10900
      },
      {
       "season": 2021,
-      "n_groves_shared": 28,
-      "rate_now_on_those_groves_pct": 0.1048,
-      "rate_then_on_those_groves_pct": 3.383,
-      "drupes_now": 10500,
-      "drupes_then": 9400
+      "n_groves_shared": 27,
+      "rate_now_on_those_groves_pct": 0.1089,
+      "rate_then_on_those_groves_pct": 3.2903,
+      "drupes_now": 10100,
+      "drupes_then": 9300
      },
      {
       "season": 2022,
-      "n_groves_shared": 37,
-      "rate_now_on_those_groves_pct": 0.087,
-      "rate_then_on_those_groves_pct": 0.1704,
-      "drupes_now": 13800,
-      "drupes_then": 13500
+      "n_groves_shared": 36,
+      "rate_now_on_those_groves_pct": 0.0896,
+      "rate_then_on_those_groves_pct": 0.1756,
+      "drupes_now": 13400,
+      "drupes_then": 13100
      },
      {
       "season": 2023,
-      "n_groves_shared": 36,
-      "rate_now_on_those_groves_pct": 0.0942,
-      "rate_then_on_those_groves_pct": 7.0446,
-      "drupes_now": 13800,
-      "drupes_then": 11200
+      "n_groves_shared": 35,
+      "rate_now_on_those_groves_pct": 0.097,
+      "rate_then_on_those_groves_pct": 7.1,
+      "drupes_now": 13400,
+      "drupes_then": 11000
      },
      {
       "season": 2024,
-      "n_groves_shared": 43,
-      "rate_now_on_those_groves_pct": 0.0875,
-      "rate_then_on_those_groves_pct": 0.2,
-      "drupes_now": 16000,
-      "drupes_then": 17000
+      "n_groves_shared": 42,
+      "rate_now_on_those_groves_pct": 0.0897,
+      "rate_then_on_those_groves_pct": 0.1988,
+      "drupes_now": 15600,
+      "drupes_then": 16600
      },
      {
       "season": 2025,
       "n_groves_shared": 51,
       "rate_now_on_those_groves_pct": 0.0794,
-      "rate_then_on_those_groves_pct": 2.2271,
+      "rate_then_on_those_groves_pct": 2.1905,
       "drupes_now": 18900,
       "drupes_then": 13650
      }
@@ -1142,25 +1155,28 @@
     "historical_matched_reason": "on the groves shared with each prior season, this window reads lower than 14 of 14 of them and higher than 0",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.0159% -> 0.156% -> 0.0664% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0505 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.0159% -> 0.156% -> 0.0664% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0505 percentage points. First window 95% interval [0.0028, 0.0899]%, last [0.0409, 0.1078]%; they overlap, so a direction is NOT named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.0159,
       "n_visits": 63,
-      "drupes_sampled": 6300
+      "drupes_sampled": 6300,
+      "infested": 1
      },
      {
       "window_end": "2026-08-09",
       "rate_pct": 0.156,
       "n_visits": 250,
-      "drupes_sampled": 25000
+      "drupes_sampled": 25000,
+      "infested": 39
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.0664,
       "n_visits": 241,
-      "drupes_sampled": 24100
+      "drupes_sampled": 24100,
+      "infested": 16
      }
     ]
    },
@@ -1185,7 +1201,8 @@
     "LOW_PCTL": 0.2,
     "TREND_MIN_WINDOWS": 3,
     "TREND_MIN_ABS_CHANGE_PCT": 1.0,
-    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8,
+    "STALE_AFTER_DAYS": 14
    }
   },
   {
@@ -1211,23 +1228,37 @@
      "2026-08-10",
      "2026-09-06"
     ],
-    "rate_pct": 0.6575,
-    "infested_drupes": 228,
+    "rate_pct": 0.6784,
+    "infested_drupes": 235,
     "drupes_sampled": 34720,
     "n_visits": 320,
     "n_sites": 157,
     "n_orgs": 3,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-09-04",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 8.0,
-    "value_pct": 0.6575,
+    "visits_above_green": 10,
+    "visits_red": 0,
+    "value_pct": 0.6784,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "data_age_days": 2,
+    "data_is_stale": false,
+    "stale_after_days": 14,
+    "worst_single_visit_pct": 8.0,
+    "worst_single_visit_band": {
+     "label": "7-9%",
+     "meaning": "yellow",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 10,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -1357,14 +1388,14 @@
      },
      {
       "season": 2020,
-      "rate_pct": 1.6185,
+      "rate_pct": 1.6427,
       "n_visits": 500,
       "n_sites": 178,
       "drupes_sampled": 55707
      },
      {
       "season": 2021,
-      "rate_pct": 2.0118,
+      "rate_pct": 2.0181,
       "n_visits": 275,
       "n_sites": 100,
       "drupes_sampled": 31316
@@ -1385,14 +1416,14 @@
      },
      {
       "season": 2024,
-      "rate_pct": 0.6844,
+      "rate_pct": 0.7074,
       "n_visits": 415,
       "n_sites": 118,
       "drupes_sampled": 44649
      },
      {
       "season": 2025,
-      "rate_pct": 4.6466,
+      "rate_pct": 4.8407,
       "n_visits": 313,
       "n_sites": 111,
       "drupes_sampled": 35060
@@ -1414,15 +1445,15 @@
       "season": 2024,
       "n_groves_shared": 8,
       "rate_now_on_those_groves_pct": 0.2581,
-      "rate_then_on_those_groves_pct": 0.3462,
+      "rate_then_on_those_groves_pct": 0.2308,
       "drupes_now": 3100,
       "drupes_then": 2600
      },
      {
       "season": 2025,
       "n_groves_shared": 75,
-      "rate_now_on_those_groves_pct": 0.7053,
-      "rate_then_on_those_groves_pct": 4.3151,
+      "rate_now_on_those_groves_pct": 0.7454,
+      "rate_then_on_those_groves_pct": 4.5911,
       "drupes_now": 18050,
       "drupes_then": 24660
      }
@@ -1432,25 +1463,28 @@
     "historical_matched_reason": "2 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.5876% -> 0.8374% -> 0.6575% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0699 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.5822% -> 0.908% -> 0.6784% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0962 percentage points. First window 95% interval [0.4825, 0.7024]%, last [0.5959, 0.7687]%; they overlap, so a direction is NOT named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
-      "rate_pct": 0.5876,
+      "rate_pct": 0.5822,
       "n_visits": 185,
-      "drupes_sampled": 18550
+      "drupes_sampled": 18550,
+      "infested": 108
      },
      {
       "window_end": "2026-08-09",
-      "rate_pct": 0.8374,
+      "rate_pct": 0.908,
       "n_visits": 442,
-      "drupes_sampled": 49235
+      "drupes_sampled": 49235,
+      "infested": 447
      },
      {
       "window_end": "2026-09-06",
-      "rate_pct": 0.6575,
+      "rate_pct": 0.6784,
       "n_visits": 320,
-      "drupes_sampled": 34720
+      "drupes_sampled": 34720,
+      "infested": 235
      }
     ]
    },
@@ -1475,7 +1509,8 @@
     "LOW_PCTL": 0.2,
     "TREND_MIN_WINDOWS": 3,
     "TREND_MIN_ABS_CHANGE_PCT": 1.0,
-    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8,
+    "STALE_AFTER_DAYS": 14
    }
   },
   {
@@ -1508,16 +1543,30 @@
     "n_sites": 77,
     "n_orgs": 2,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-09-04",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 6.0,
+    "visits_above_green": 5,
+    "visits_red": 0,
     "value_pct": 0.9216,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "data_age_days": 2,
+    "data_is_stale": false,
+    "stale_after_days": 14,
+    "worst_single_visit_pct": 6.0,
+    "worst_single_visit_band": {
+     "label": "7-9%",
+     "meaning": "yellow",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 5,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -1714,25 +1763,28 @@
     "historical_matched_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.4722% -> 1.8153% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.4722% -> 1.8153% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. First window 95% interval [0.3381, 0.6591]%, last [0.782, 1.0858]%; they do not overlap, so a direction is NOT named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.4722,
       "n_visits": 72,
-      "drupes_sampled": 7200
+      "drupes_sampled": 7200,
+      "infested": 34
      },
      {
       "window_end": "2026-08-09",
       "rate_pct": 1.8153,
       "n_visits": 157,
-      "drupes_sampled": 15700
+      "drupes_sampled": 15700,
+      "infested": 285
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.9216,
       "n_visits": 153,
-      "drupes_sampled": 15300
+      "drupes_sampled": 15300,
+      "infested": 141
      }
     ]
    },
@@ -1757,7 +1809,8 @@
     "LOW_PCTL": 0.2,
     "TREND_MIN_WINDOWS": 3,
     "TREND_MIN_ABS_CHANGE_PCT": 1.0,
-    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8,
+    "STALE_AFTER_DAYS": 14
    }
   },
   {
@@ -1790,16 +1843,30 @@
     "n_sites": 14,
     "n_orgs": 1,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-08-31",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 9.0,
+    "visits_above_green": 2,
+    "visits_red": 0,
     "value_pct": 1.1509,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "data_age_days": 6,
+    "data_is_stale": false,
+    "stale_after_days": 14,
+    "worst_single_visit_pct": 9.0,
+    "worst_single_visit_band": {
+     "label": "7-9%",
+     "meaning": "yellow",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 2,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -2012,25 +2079,28 @@
     "historical_matched_reason": "3 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "INCREASING_OBSERVED",
-    "observed_trend_reason": "0.0769% -> 0.4464% -> 1.1509% over 3 consecutive 28-day windows ending 2026-09-06; change 1.074 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.0769% -> 0.4464% -> 1.1509% over 3 consecutive 28-day windows ending 2026-09-06; change 1.074 percentage points. First window 95% interval [0.0136, 0.4345]%, last [0.8971, 1.4756]%; they do not overlap, so a direction is named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.0769,
       "n_visits": 13,
-      "drupes_sampled": 1300
+      "drupes_sampled": 1300,
+      "infested": 1
      },
      {
       "window_end": "2026-08-09",
       "rate_pct": 0.4464,
       "n_visits": 56,
-      "drupes_sampled": 5600
+      "drupes_sampled": 5600,
+      "infested": 25
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 1.1509,
       "n_visits": 53,
-      "drupes_sampled": 5300
+      "drupes_sampled": 5300,
+      "infested": 61
      }
     ]
    },
@@ -2055,7 +2125,8 @@
     "LOW_PCTL": 0.2,
     "TREND_MIN_WINDOWS": 3,
     "TREND_MIN_ABS_CHANGE_PCT": 1.0,
-    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8,
+    "STALE_AFTER_DAYS": 14
    }
   },
   {
@@ -2088,16 +2159,30 @@
     "n_sites": 10,
     "n_orgs": 1,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-08-31",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 6.0,
+    "visits_above_green": 1,
+    "visits_red": 0,
     "value_pct": 0.566,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "data_age_days": 6,
+    "data_is_stale": false,
+    "stale_after_days": 14,
+    "worst_single_visit_pct": 6.0,
+    "worst_single_visit_band": {
+     "label": "7-9%",
+     "meaning": "yellow",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 1,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -2117,7 +2202,7 @@
      2025
     ],
     "baseline_n": 14,
-    "baseline_rate_pct_median": 2.4008,
+    "baseline_rate_pct_median": 2.4184,
     "baseline_rate_pct_min": 0.2,
     "baseline_rate_pct_max": 18.2963,
     "baseline_detail": [
@@ -2179,7 +2264,7 @@
      },
      {
       "season": 2020,
-      "rate_pct": 4.7538,
+      "rate_pct": 4.18,
       "n_visits": 37,
       "n_sites": 12,
       "drupes_sampled": 3919
@@ -2193,14 +2278,14 @@
      },
      {
       "season": 2022,
-      "rate_pct": 2.7107,
+      "rate_pct": 2.7459,
       "n_visits": 21,
       "n_sites": 7,
       "drupes_sampled": 2136
      },
      {
       "season": 2023,
-      "rate_pct": 4.8635,
+      "rate_pct": 4.1017,
       "n_visits": 15,
       "n_sites": 6,
       "drupes_sampled": 1355
@@ -2246,25 +2331,28 @@
     "historical_matched_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "TYPICAL",
     "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.0% -> 0.7838% -> 0.566% over 3 consecutive 28-day windows ending 2026-09-06; change 0.566 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.0% -> 0.7838% -> 0.566% over 3 consecutive 28-day windows ending 2026-09-06; change 0.566 percentage points. First window 95% interval [0.0, 0.425]%, last [0.3968, 0.8069]%; they overlap, so a direction is NOT named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.0,
       "n_visits": 9,
-      "drupes_sampled": 900
+      "drupes_sampled": 900,
+      "infested": 0
      },
      {
       "window_end": "2026-08-09",
       "rate_pct": 0.7838,
       "n_visits": 37,
-      "drupes_sampled": 3700
+      "drupes_sampled": 3700,
+      "infested": 29
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.566,
       "n_visits": 40,
-      "drupes_sampled": 5300
+      "drupes_sampled": 5300,
+      "infested": 30
      }
     ]
    },
@@ -2289,7 +2377,8 @@
     "LOW_PCTL": 0.2,
     "TREND_MIN_WINDOWS": 3,
     "TREND_MIN_ABS_CHANGE_PCT": 1.0,
-    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8,
+    "STALE_AFTER_DAYS": 14
    }
   },
   {
@@ -2315,23 +2404,37 @@
      "2026-08-10",
      "2026-09-06"
     ],
-    "rate_pct": 1.02,
-    "infested_drupes": 93,
+    "rate_pct": 1.0708,
+    "infested_drupes": 98,
     "drupes_sampled": 9196,
     "n_visits": 85,
     "n_sites": 45,
     "n_orgs": 4,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-09-02",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 7.0,
-    "value_pct": 1.02,
+    "visits_above_green": 3,
+    "visits_red": 0,
+    "value_pct": 1.0708,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "data_age_days": 4,
+    "data_is_stale": false,
+    "stale_after_days": 14,
+    "worst_single_visit_pct": 7.0,
+    "worst_single_visit_band": {
+     "label": "7-9%",
+     "meaning": "yellow",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 3,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -2357,7 +2460,7 @@
      2025
     ],
     "baseline_n": 20,
-    "baseline_rate_pct_median": 2.8663,
+    "baseline_rate_pct_median": 2.8775,
     "baseline_rate_pct_min": 0.5207,
     "baseline_rate_pct_max": 11.5319,
     "baseline_detail": [
@@ -2461,42 +2564,42 @@
      },
      {
       "season": 2020,
-      "rate_pct": 3.2035,
+      "rate_pct": 3.2145,
       "n_visits": 139,
       "n_sites": 49,
       "drupes_sampled": 14100
      },
      {
       "season": 2021,
-      "rate_pct": 3.0049,
+      "rate_pct": 3.0273,
       "n_visits": 92,
       "n_sites": 34,
       "drupes_sampled": 9308
      },
      {
       "season": 2022,
-      "rate_pct": 1.3212,
+      "rate_pct": 1.2616,
       "n_visits": 134,
       "n_sites": 43,
       "drupes_sampled": 13465
      },
      {
       "season": 2023,
-      "rate_pct": 5.554,
+      "rate_pct": 5.716,
       "n_visits": 55,
       "n_sites": 24,
       "drupes_sampled": 5713
      },
      {
       "season": 2024,
-      "rate_pct": 1.7535,
+      "rate_pct": 1.7785,
       "n_visits": 69,
       "n_sites": 26,
       "drupes_sampled": 7197
      },
      {
       "season": 2025,
-      "rate_pct": 8.9403,
+      "rate_pct": 8.9719,
       "n_visits": 107,
       "n_sites": 45,
       "drupes_sampled": 10899
@@ -2517,8 +2620,8 @@
      {
       "season": 2025,
       "n_groves_shared": 18,
-      "rate_now_on_those_groves_pct": 0.9745,
-      "rate_then_on_those_groves_pct": 12.3301,
+      "rate_now_on_those_groves_pct": 1.0081,
+      "rate_then_on_those_groves_pct": 12.4084,
       "drupes_now": 5336,
       "drupes_then": 4399
      }
@@ -2527,26 +2630,29 @@
     "historical_state_matched": "INSUFFICIENT_DATA",
     "historical_matched_reason": "1 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
-    "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.04% -> 0.5022% -> 1.02% over 3 consecutive 28-day windows ending 2026-09-06; change 0.98 percentage points. This describes windows that have already happened.",
+    "observed_trend": "INCREASING_OBSERVED",
+    "observed_trend_reason": "0.04% -> 0.7555% -> 1.0708% over 3 consecutive 28-day windows ending 2026-09-06; change 1.0308 percentage points. First window 95% interval [0.0071, 0.2262]%, last [0.8753, 1.2969]%; they do not overlap, so a direction is named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.04,
       "n_visits": 25,
-      "drupes_sampled": 2500
+      "drupes_sampled": 2500,
+      "infested": 1
      },
      {
       "window_end": "2026-08-09",
-      "rate_pct": 0.5022,
+      "rate_pct": 0.7555,
       "n_visits": 65,
-      "drupes_sampled": 7786
+      "drupes_sampled": 7786,
+      "infested": 58
      },
      {
       "window_end": "2026-09-06",
-      "rate_pct": 1.02,
+      "rate_pct": 1.0708,
       "n_visits": 85,
-      "drupes_sampled": 9196
+      "drupes_sampled": 9196,
+      "infested": 98
      }
     ]
    },
@@ -2571,7 +2677,8 @@
     "LOW_PCTL": 0.2,
     "TREND_MIN_WINDOWS": 3,
     "TREND_MIN_ABS_CHANGE_PCT": 1.0,
-    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8,
+    "STALE_AFTER_DAYS": 14
    }
   },
   {
@@ -2604,16 +2711,30 @@
     "n_sites": 16,
     "n_orgs": 2,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-09-02",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 1.0,
+    "visits_above_green": 0,
+    "visits_red": 0,
     "value_pct": 0.0278,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "data_age_days": 4,
+    "data_is_stale": false,
+    "stale_after_days": 14,
+    "worst_single_visit_pct": 1.0,
+    "worst_single_visit_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 0,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -2801,25 +2922,28 @@
     "historical_matched_reason": "0 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
     "historical_state_unmatched": "BELOW_HISTORICAL",
     "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.0% -> 0.0% -> 0.0278% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0278 percentage points. This describes windows that have already happened.",
+    "observed_trend_reason": "0.0% -> 0.0% -> 0.0278% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0278 percentage points. First window 95% interval [0.0, 0.2736]%, last [0.0049, 0.1572]%; they overlap, so a direction is NOT named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.0,
       "n_visits": 14,
-      "drupes_sampled": 1400
+      "drupes_sampled": 1400,
+      "infested": 0
      },
      {
       "window_end": "2026-08-09",
       "rate_pct": 0.0,
       "n_visits": 35,
-      "drupes_sampled": 3500
+      "drupes_sampled": 3500,
+      "infested": 0
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.0278,
       "n_visits": 36,
-      "drupes_sampled": 3600
+      "drupes_sampled": 3600,
+      "infested": 1
      }
     ]
    },
@@ -2844,7 +2968,8 @@
     "LOW_PCTL": 0.2,
     "TREND_MIN_WINDOWS": 3,
     "TREND_MIN_ABS_CHANGE_PCT": 1.0,
-    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8,
+    "STALE_AFTER_DAYS": 14
    }
   },
   {
@@ -2877,16 +3002,30 @@
     "n_sites": 7,
     "n_orgs": 2,
     "n_visits_excluded_by_sanity_rules": 0,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-10",
     "last_observation": "2026-09-02",
     "per_visit_rate_pct_median": 0.0,
     "per_visit_rate_pct_max": 1.0,
+    "visits_above_green": 0,
+    "visits_red": 0,
     "value_pct": 0.0417,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "data_age_days": 4,
+    "data_is_stale": false,
+    "stale_after_days": 14,
+    "worst_single_visit_pct": 1.0,
+    "worst_single_visit_band": {
+     "label": "0-6%",
+     "meaning": "green",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 0,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -3080,13 +3219,15 @@
       "window_end": "2026-08-09",
       "rate_pct": 0.0,
       "n_visits": 24,
-      "drupes_sampled": 2400
+      "drupes_sampled": 2400,
+      "infested": 0
      },
      {
       "window_end": "2026-09-06",
       "rate_pct": 0.0417,
       "n_visits": 24,
-      "drupes_sampled": 2400
+      "drupes_sampled": 2400,
+      "infested": 1
      }
     ]
    },
@@ -3111,7 +3252,8 @@
     "LOW_PCTL": 0.2,
     "TREND_MIN_WINDOWS": 3,
     "TREND_MIN_ABS_CHANGE_PCT": 1.0,
-    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8,
+    "STALE_AFTER_DAYS": 14
    }
   },
   {
@@ -3137,23 +3279,37 @@
      "2026-08-10",
      "2026-09-06"
     ],
-    "rate_pct": 0.6909,
-    "infested_drupes": 127,
+    "rate_pct": 0.62,
+    "infested_drupes": 113,
     "drupes_sampled": 18383,
     "n_visits": 186,
     "n_sites": 61,
     "n_orgs": 6,
     "n_visits_excluded_by_sanity_rules": 6,
+    "n_visits_with_no_usable_grove_identity": 0,
     "first_observation": "2026-08-11",
     "last_observation": "2026-09-03",
     "per_visit_rate_pct_median": 0.0,
-    "per_visit_rate_pct_max": 18.1818,
-    "value_pct": 0.6909,
+    "per_visit_rate_pct_max": 8.0,
+    "visits_above_green": 6,
+    "visits_red": 0,
+    "value_pct": 0.62,
     "source_band": {
      "label": "0-6%",
      "meaning": "green",
      "source": "the source's own legend"
-    }
+    },
+    "data_age_days": 3,
+    "data_is_stale": false,
+    "stale_after_days": 14,
+    "worst_single_visit_pct": 8.0,
+    "worst_single_visit_band": {
+     "label": "7-9%",
+     "meaning": "yellow",
+     "source": "the source's own legend"
+    },
+    "visits_above_the_green_band": 6,
+    "visits_in_the_red_band": 0
    },
    "analysis": {
     "baseline_seasons": [
@@ -3290,7 +3446,7 @@
      },
      {
       "season": 2021,
-      "rate_pct": 3.845,
+      "rate_pct": 3.6124,
       "n_visits": 135,
       "n_sites": 44,
       "drupes_sampled": 12900
@@ -3318,187 +3474,150 @@
      },
      {
       "season": 2025,
-      "rate_pct": 5.7188,
+      "rate_pct": 5.1146,
       "n_visits": 102,
       "n_sites": 35,
       "drupes_sampled": 9600
      }
     ],
-    "percentile_against_own_history": 0.25,
-    "historical_state": "BELOW_HISTORICAL",
-    "historical_reason": "on the groves shared with each prior season, this window reads lower than 14 of 17 of them and higher than 3",
+    "percentile_against_own_history": 0.2,
+    "historical_state": "TYPICAL",
+    "historical_reason": "on the groves shared with each prior season, this window reads lower than 9 of 12 of them and higher than 3",
     "panel_overlap_with_baseline_seasons": {
-     "median_groves_shared": 12.5,
+     "median_groves_shared": 12.0,
      "min": 3,
-     "max": 27,
-     "seasons_sharing_at_least_the_declared_minimum": 17,
+     "max": 25,
+     "seasons_sharing_at_least_the_declared_minimum": 12,
      "of_seasons": 20,
      "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
     },
     "matched_panel_comparisons": [
      {
-      "season": 2009,
+      "season": 2010,
       "n_groves_shared": 8,
-      "rate_now_on_those_groves_pct": 0.6,
-      "rate_then_on_those_groves_pct": 0.7097,
+      "rate_now_on_those_groves_pct": 0.5667,
+      "rate_then_on_those_groves_pct": 1.0323,
       "drupes_now": 3000,
       "drupes_then": 3100
      },
      {
-      "season": 2010,
-      "n_groves_shared": 9,
-      "rate_now_on_those_groves_pct": 0.5294,
-      "rate_then_on_those_groves_pct": 1.1143,
-      "drupes_now": 3400,
-      "drupes_then": 3500
-     },
-     {
-      "season": 2011,
-      "n_groves_shared": 8,
-      "rate_now_on_those_groves_pct": 0.5625,
-      "rate_then_on_those_groves_pct": 0.8772,
-      "drupes_now": 3200,
-      "drupes_then": 2850
-     },
-     {
-      "season": 2012,
-      "n_groves_shared": 8,
-      "rate_now_on_those_groves_pct": 0.5625,
-      "rate_then_on_those_groves_pct": 1.3103,
-      "drupes_now": 3200,
-      "drupes_then": 2900
-     },
-     {
-      "season": 2013,
-      "n_groves_shared": 8,
-      "rate_now_on_those_groves_pct": 0.5625,
-      "rate_then_on_those_groves_pct": 2.1304,
-      "drupes_now": 3200,
-      "drupes_then": 2300
-     },
-     {
-      "season": 2014,
-      "n_groves_shared": 8,
-      "rate_now_on_those_groves_pct": 0.5625,
-      "rate_then_on_those_groves_pct": 4.5926,
-      "drupes_now": 3200,
-      "drupes_then": 2700
-     },
-     {
       "season": 2015,
-      "n_groves_shared": 12,
-      "rate_now_on_those_groves_pct": 1.025,
-      "rate_then_on_those_groves_pct": 1.6739,
-      "drupes_now": 4000,
-      "drupes_then": 4600
-     },
-     {
-      "season": 2016,
-      "n_groves_shared": 15,
-      "rate_now_on_those_groves_pct": 1.1158,
-      "rate_then_on_those_groves_pct": 6.692,
-      "drupes_now": 4750,
-      "drupes_then": 3691
-     },
-     {
-      "season": 2017,
-      "n_groves_shared": 14,
-      "rate_now_on_those_groves_pct": 1.1236,
-      "rate_then_on_those_groves_pct": 0.7416,
-      "drupes_now": 4450,
-      "drupes_then": 4450
-     },
-     {
-      "season": 2018,
-      "n_groves_shared": 15,
-      "rate_now_on_those_groves_pct": 1.1368,
-      "rate_then_on_those_groves_pct": 0.8545,
-      "drupes_now": 4750,
-      "drupes_then": 5500
-     },
-     {
-      "season": 2019,
-      "n_groves_shared": 15,
-      "rate_now_on_those_groves_pct": 0.7238,
-      "rate_then_on_those_groves_pct": 5.2619,
-      "drupes_now": 5250,
+      "n_groves_shared": 11,
+      "rate_now_on_those_groves_pct": 1.1111,
+      "rate_then_on_those_groves_pct": 1.7143,
+      "drupes_now": 3600,
       "drupes_then": 4200
      },
      {
+      "season": 2016,
+      "n_groves_shared": 14,
+      "rate_now_on_those_groves_pct": 1.1034,
+      "rate_then_on_those_groves_pct": 7.166,
+      "drupes_now": 4350,
+      "drupes_then": 3391
+     },
+     {
+      "season": 2017,
+      "n_groves_shared": 13,
+      "rate_now_on_those_groves_pct": 1.1111,
+      "rate_then_on_those_groves_pct": 0.7654,
+      "drupes_now": 4050,
+      "drupes_then": 4050
+     },
+     {
+      "season": 2018,
+      "n_groves_shared": 13,
+      "rate_now_on_those_groves_pct": 1.1899,
+      "rate_then_on_those_groves_pct": 0.8298,
+      "drupes_now": 3950,
+      "drupes_then": 4700
+     },
+     {
+      "season": 2019,
+      "n_groves_shared": 13,
+      "rate_now_on_those_groves_pct": 0.6966,
+      "rate_then_on_those_groves_pct": 5.6316,
+      "drupes_now": 4450,
+      "drupes_then": 3800
+     },
+     {
       "season": 2020,
-      "n_groves_shared": 22,
-      "rate_now_on_those_groves_pct": 1.191,
-      "rate_then_on_those_groves_pct": 1.1951,
-      "drupes_now": 6633,
-      "drupes_then": 8200
+      "n_groves_shared": 20,
+      "rate_now_on_those_groves_pct": 1.114,
+      "rate_then_on_those_groves_pct": 1.1486,
+      "drupes_now": 5833,
+      "drupes_then": 7400
      },
      {
       "season": 2021,
-      "n_groves_shared": 20,
-      "rate_now_on_those_groves_pct": 1.1211,
-      "rate_then_on_those_groves_pct": 4.4576,
-      "drupes_now": 6333,
-      "drupes_then": 5900
+      "n_groves_shared": 19,
+      "rate_now_on_those_groves_pct": 0.9941,
+      "rate_then_on_those_groves_pct": 4.4,
+      "drupes_now": 5933,
+      "drupes_then": 5500
      },
      {
       "season": 2022,
-      "n_groves_shared": 15,
-      "rate_now_on_those_groves_pct": 0.5965,
-      "rate_then_on_those_groves_pct": 1.0175,
-      "drupes_now": 5700,
-      "drupes_then": 5700
+      "n_groves_shared": 14,
+      "rate_now_on_those_groves_pct": 0.6226,
+      "rate_then_on_those_groves_pct": 1.0943,
+      "drupes_now": 5300,
+      "drupes_then": 5300
      },
      {
       "season": 2023,
-      "n_groves_shared": 15,
-      "rate_now_on_those_groves_pct": 0.5965,
-      "rate_then_on_those_groves_pct": 9.0417,
-      "drupes_now": 5700,
-      "drupes_then": 4800
+      "n_groves_shared": 14,
+      "rate_now_on_those_groves_pct": 0.6226,
+      "rate_then_on_those_groves_pct": 9.8409,
+      "drupes_now": 5300,
+      "drupes_then": 4400
      },
      {
       "season": 2024,
       "n_groves_shared": 13,
-      "rate_now_on_those_groves_pct": 1.7058,
+      "rate_now_on_those_groves_pct": 1.3092,
       "rate_then_on_those_groves_pct": 0.5574,
       "drupes_now": 3283,
       "drupes_then": 3050
      },
      {
       "season": 2025,
-      "n_groves_shared": 27,
-      "rate_now_on_those_groves_pct": 0.7266,
-      "rate_then_on_those_groves_pct": 5.8675,
-      "drupes_now": 9083,
-      "drupes_then": 7550
+      "n_groves_shared": 25,
+      "rate_now_on_those_groves_pct": 0.6034,
+      "rate_then_on_those_groves_pct": 5.1799,
+      "drupes_now": 8283,
+      "drupes_then": 6950
      }
     ],
-    "matched_panel_seasons": 17,
+    "matched_panel_seasons": 12,
     "matched_seasons_now_is_higher_than_then": 3,
-    "matched_seasons_now_is_lower_than_then": 14,
-    "historical_state_matched": "BELOW_HISTORICAL",
-    "historical_matched_reason": "on the groves shared with each prior season, this window reads lower than 14 of 17 of them and higher than 3",
-    "historical_state_unmatched": "TYPICAL",
-    "observed_trend": "STABLE_OBSERVED",
-    "observed_trend_reason": "0.0% -> 0.2718% -> 0.6909% over 3 consecutive 28-day windows ending 2026-09-06; change 0.6909 percentage points. This describes windows that have already happened.",
+    "matched_seasons_now_is_lower_than_then": 9,
+    "historical_state_matched": "TYPICAL",
+    "historical_matched_reason": "on the groves shared with each prior season, this window reads lower than 9 of 12 of them and higher than 3",
+    "historical_state_unmatched": "BELOW_HISTORICAL",
+    "observed_trend": "INCREASING_OBSERVED",
+    "observed_trend_reason": "0.0% -> 0.2718% -> 0.62% over 3 consecutive 28-day windows ending 2026-09-06; change 0.62 percentage points. First window 95% interval [0.0, 0.1238]%, last [0.5116, 0.7385]%; they do not overlap, so a direction is named. This describes windows that have already ended.",
     "observed_trend_points": [
      {
       "window_end": "2026-07-12",
       "rate_pct": 0.0,
       "n_visits": 31,
-      "drupes_sampled": 3100
+      "drupes_sampled": 3100,
+      "infested": 0
      },
      {
       "window_end": "2026-08-09",
       "rate_pct": 0.2718,
       "n_visits": 144,
-      "drupes_sampled": 14350
+      "drupes_sampled": 14350,
+      "infested": 39
      },
      {
       "window_end": "2026-09-06",
-      "rate_pct": 0.6909,
+      "rate_pct": 0.62,
       "n_visits": 186,
-      "drupes_sampled": 18383
+      "drupes_sampled": 18383,
+      "infested": 113
      }
     ]
    },
@@ -3508,7 +3627,7 @@
     "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF",
     "n_visits_excluded_by_sanity_rules": 6,
     "historical_comparison_is_matched_panel": true,
-    "matched_panel_seasons": 17,
+    "matched_panel_seasons": 12,
     "observation_publishable": true,
     "historical_comparison_publishable": true,
     "publishable": true,
@@ -3523,7 +3642,8 @@
     "LOW_PCTL": 0.2,
     "TREND_MIN_WINDOWS": 3,
     "TREND_MIN_ABS_CHANGE_PCT": 1.0,
-    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8
+    "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8,
+    "STALE_AFTER_DAYS": 14
    }
   }
  ]

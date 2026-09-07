@@ -1,0 +1,988 @@
+{
+ "T1_NON_CONSECUTIVE_WINDOWS_CALLED_CONSECUTIVE": {
+  "province_x_as_of_scanned": 2200,
+  "combinations_whose_kept_windows_have_a_hole": 0,
+  "confirmed_through_the_real_cell": []
+ },
+ "T2_DIRECTION_FROM_FEWER_THAN_THREE_POINTS": {
+  "count_by_(n_points,label)": {
+   "0pts/UNKNOWN": 1541,
+   "1pts/UNKNOWN": 309,
+   "2pts/UNKNOWN": 269,
+   "3pts/INCREASING_OBSERVED": 7,
+   "3pts/STABLE_OBSERVED": 74
+  },
+  "any_direction_named_on_fewer_than_3_points": false
+ },
+ "T2b_THE_PARAMETER_IS_BOTH_THE_MINIMUM_AND_THE_LOOP_BOUND": {
+  "with_TREND_MIN_WINDOWS=2": {
+   "trend": "STABLE_OBSERVED",
+   "n_points": 3,
+   "sentence": "0.0% -> 0.2718% -> 0.6909% over 3 consecutive 28-day windows ending 2026-09-06; change 0.6909 percentage points. This describes windows that have already happened."
+  },
+  "NOTE": "range(TREND_MIN_WINDOWS+1) means the parameter sets BOTH how many windows are built and how many are required, so it can never build fewer than the minimum. That is what makes a 2-point direction impossible with the shipped code."
+ },
+ "T3_THE_1_POINT_0_PP_RULE_ON_2026_09_06": {
+  "Firenze": {
+   "sequence_pct": [
+    0.0159,
+    0.156,
+    0.0664
+   ],
+   "delta_pp": 0.0505,
+   "monotone_non_decreasing": false,
+   "published_trend": "STABLE_OBSERVED",
+   "infested_over_sampled_by_window": [
+    [
+     1,
+     6300
+    ],
+    [
+     39,
+     25000
+    ],
+    [
+     16,
+     24100
+    ]
+   ],
+   "relative_change_last_over_first": 4.18,
+   "z_first_vs_last": 1.51,
+   "pp_from_the_last_reading_to_the_source_yellow_band_at_6pct": 5.9336
+  },
+  "Grosseto": {
+   "sequence_pct": [
+    0.5876,
+    0.8374,
+    0.6575
+   ],
+   "delta_pp": 0.0699,
+   "monotone_non_decreasing": false,
+   "published_trend": "STABLE_OBSERVED",
+   "infested_over_sampled_by_window": [
+    [
+     109,
+     18550
+    ],
+    [
+     412,
+     49235
+    ],
+    [
+     228,
+     34720
+    ]
+   ],
+   "relative_change_last_over_first": 1.12,
+   "z_first_vs_last": 0.96,
+   "pp_from_the_last_reading_to_the_source_yellow_band_at_6pct": 5.3425
+  },
+  "Livorno": {
+   "sequence_pct": [
+    0.4722,
+    1.8153,
+    0.9216
+   ],
+   "delta_pp": 0.4494,
+   "monotone_non_decreasing": false,
+   "published_trend": "STABLE_OBSERVED",
+   "infested_over_sampled_by_window": [
+    [
+     34,
+     7200
+    ],
+    [
+     285,
+     15700
+    ],
+    [
+     141,
+     15300
+    ]
+   ],
+   "relative_change_last_over_first": 1.95,
+   "z_first_vs_last": 3.58,
+   "pp_from_the_last_reading_to_the_source_yellow_band_at_6pct": 5.0784
+  },
+  "Lucca": {
+   "sequence_pct": [
+    0.0769,
+    0.4464,
+    1.1509
+   ],
+   "delta_pp": 1.074,
+   "monotone_non_decreasing": true,
+   "published_trend": "INCREASING_OBSERVED",
+   "infested_over_sampled_by_window": [
+    [
+     1,
+     1300
+    ],
+    [
+     25,
+     5600
+    ],
+    [
+     61,
+     5300
+    ]
+   ],
+   "relative_change_last_over_first": 14.96,
+   "z_first_vs_last": 3.6,
+   "pp_from_the_last_reading_to_the_source_yellow_band_at_6pct": 4.8491
+  },
+  "Massa-Carrara": {
+   "sequence_pct": [
+    0.0,
+    0.7838,
+    0.566
+   ],
+   "delta_pp": 0.566,
+   "monotone_non_decreasing": false,
+   "published_trend": "STABLE_OBSERVED",
+   "infested_over_sampled_by_window": [
+    [
+     0,
+     900
+    ],
+    [
+     29,
+     3700
+    ],
+    [
+     30,
+     5300
+    ]
+   ],
+   "relative_change_last_over_first": "from zero",
+   "z_first_vs_last": 2.26,
+   "pp_from_the_last_reading_to_the_source_yellow_band_at_6pct": 5.434
+  },
+  "Pisa": {
+   "sequence_pct": [
+    0.04,
+    0.5022,
+    1.02
+   ],
+   "delta_pp": 0.98,
+   "monotone_non_decreasing": true,
+   "published_trend": "STABLE_OBSERVED",
+   "infested_over_sampled_by_window": [
+    [
+     1,
+     2500
+    ],
+    [
+     39,
+     7786
+    ],
+    [
+     94,
+     9196
+    ]
+   ],
+   "relative_change_last_over_first": 25.55,
+   "z_first_vs_last": 4.85,
+   "pp_from_the_last_reading_to_the_source_yellow_band_at_6pct": 4.98
+  },
+  "Pistoia": {
+   "sequence_pct": [
+    0.0,
+    0.0,
+    0.0278
+   ],
+   "delta_pp": 0.0278,
+   "monotone_non_decreasing": true,
+   "published_trend": "STABLE_OBSERVED",
+   "infested_over_sampled_by_window": [
+    [
+     0,
+     1400
+    ],
+    [
+     0,
+     3500
+    ],
+    [
+     1,
+     3600
+    ]
+   ],
+   "relative_change_last_over_first": "from zero",
+   "z_first_vs_last": 0.62,
+   "pp_from_the_last_reading_to_the_source_yellow_band_at_6pct": 5.9722
+  },
+  "Siena": {
+   "sequence_pct": [
+    0.0,
+    0.2718,
+    0.6909
+   ],
+   "delta_pp": 0.6909,
+   "monotone_non_decreasing": true,
+   "published_trend": "STABLE_OBSERVED",
+   "infested_over_sampled_by_window": [
+    [
+     0,
+     3100
+    ],
+    [
+     39,
+     14350
+    ],
+    [
+     127,
+     18383
+    ]
+   ],
+   "relative_change_last_over_first": "from zero",
+   "z_first_vs_last": 4.64,
+   "pp_from_the_last_reading_to_the_source_yellow_band_at_6pct": 5.3091
+  }
+ },
+ "T3b_MONOTONE_RISES_LABELLED_STABLE": {
+  "cells_with_a_publishable_trend_in_the_scan": 81,
+  "of_those_monotone_up_but_labelled_STABLE": 30,
+  "largest_such_rise_pp": 0.9875,
+  "worst_five": [
+   {
+    "province": "Pisa",
+    "as_of": "2026-09-01",
+    "seq": [
+     0.0,
+     0.4831,
+     0.9875
+    ],
+    "delta_pp": 0.9875,
+    "trend": "STABLE_OBSERVED",
+    "monotone_up": true,
+    "ends": [
+     "2026-07-07",
+     "2026-08-04",
+     "2026-09-01"
+    ],
+    "drupes": [
+     1700,
+     7886,
+     9296
+    ]
+   },
+   {
+    "province": "Pisa",
+    "as_of": "2026-09-06",
+    "seq": [
+     0.04,
+     0.5022,
+     1.02
+    ],
+    "delta_pp": 0.98,
+    "trend": "STABLE_OBSERVED",
+    "monotone_up": true,
+    "ends": [
+     "2026-07-12",
+     "2026-08-09",
+     "2026-09-06"
+    ],
+    "drupes": [
+     2500,
+     7786,
+     9196
+    ]
+   },
+   {
+    "province": "Pisa",
+    "as_of": "2026-09-05",
+    "seq": [
+     0.04,
+     0.5022,
+     1.02
+    ],
+    "delta_pp": 0.98,
+    "trend": "STABLE_OBSERVED",
+    "monotone_up": true,
+    "ends": [
+     "2026-07-11",
+     "2026-08-08",
+     "2026-09-05"
+    ],
+    "drupes": [
+     2500,
+     7786,
+     9196
+    ]
+   },
+   {
+    "province": "Pisa",
+    "as_of": "2026-09-04",
+    "seq": [
+     0.04,
+     0.5022,
+     1.02
+    ],
+    "delta_pp": 0.98,
+    "trend": "STABLE_OBSERVED",
+    "monotone_up": true,
+    "ends": [
+     "2026-07-10",
+     "2026-08-07",
+     "2026-09-04"
+    ],
+    "drupes": [
+     2500,
+     7786,
+     9196
+    ]
+   },
+   {
+    "province": "Pisa",
+    "as_of": "2026-09-03",
+    "seq": [
+     0.04,
+     0.5022,
+     1.02
+    ],
+    "delta_pp": 0.98,
+    "trend": "STABLE_OBSERVED",
+    "monotone_up": true,
+    "ends": [
+     "2026-07-09",
+     "2026-08-06",
+     "2026-09-03"
+    ],
+    "drupes": [
+     2500,
+     7786,
+     9196
+    ]
+   }
+  ],
+  "how_many_of_those_would_have_crossed_the_sources_own_6pct_band": 0
+ },
+ "T4_TRAILING_WINDOW_IS_STILL_FILLING": {
+  "Arezzo": [
+   {
+    "i": 0,
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "last_observation": "2026-09-02",
+    "trailing_days_of_the_window_with_no_data": 4,
+    "n_visits": 55,
+    "rate_pct": 0.1636
+   },
+   {
+    "i": 1,
+    "window": [
+     "2026-07-13",
+     "2026-08-09"
+    ],
+    "last_observation": "2026-08-05",
+    "trailing_days_of_the_window_with_no_data": 4,
+    "n_visits": 54,
+    "rate_pct": 0.0185
+   },
+   {
+    "i": 2,
+    "window": [
+     "2026-06-15",
+     "2026-07-12"
+    ],
+    "empty": true
+   },
+   {
+    "i": 3,
+    "window": [
+     "2026-05-18",
+     "2026-06-14"
+    ],
+    "empty": true
+   }
+  ],
+  "Firenze": [
+   {
+    "i": 0,
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "last_observation": "2026-09-02",
+    "trailing_days_of_the_window_with_no_data": 4,
+    "n_visits": 241,
+    "rate_pct": 0.0664
+   },
+   {
+    "i": 1,
+    "window": [
+     "2026-07-13",
+     "2026-08-09"
+    ],
+    "last_observation": "2026-08-06",
+    "trailing_days_of_the_window_with_no_data": 3,
+    "n_visits": 250,
+    "rate_pct": 0.156
+   },
+   {
+    "i": 2,
+    "window": [
+     "2026-06-15",
+     "2026-07-12"
+    ],
+    "last_observation": "2026-07-09",
+    "trailing_days_of_the_window_with_no_data": 3,
+    "n_visits": 63,
+    "rate_pct": 0.0159
+   },
+   {
+    "i": 3,
+    "window": [
+     "2026-05-18",
+     "2026-06-14"
+    ],
+    "empty": true
+   }
+  ],
+  "Grosseto": [
+   {
+    "i": 0,
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "last_observation": "2026-09-04",
+    "trailing_days_of_the_window_with_no_data": 2,
+    "n_visits": 320,
+    "rate_pct": 0.6575
+   },
+   {
+    "i": 1,
+    "window": [
+     "2026-07-13",
+     "2026-08-09"
+    ],
+    "last_observation": "2026-08-07",
+    "trailing_days_of_the_window_with_no_data": 2,
+    "n_visits": 442,
+    "rate_pct": 0.8374
+   },
+   {
+    "i": 2,
+    "window": [
+     "2026-06-15",
+     "2026-07-12"
+    ],
+    "last_observation": "2026-07-11",
+    "trailing_days_of_the_window_with_no_data": 1,
+    "n_visits": 185,
+    "rate_pct": 0.5876
+   },
+   {
+    "i": 3,
+    "window": [
+     "2026-05-18",
+     "2026-06-14"
+    ],
+    "empty": true
+   }
+  ],
+  "Livorno": [
+   {
+    "i": 0,
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "last_observation": "2026-09-04",
+    "trailing_days_of_the_window_with_no_data": 2,
+    "n_visits": 153,
+    "rate_pct": 0.9216
+   },
+   {
+    "i": 1,
+    "window": [
+     "2026-07-13",
+     "2026-08-09"
+    ],
+    "last_observation": "2026-08-07",
+    "trailing_days_of_the_window_with_no_data": 2,
+    "n_visits": 157,
+    "rate_pct": 1.8153
+   },
+   {
+    "i": 2,
+    "window": [
+     "2026-06-15",
+     "2026-07-12"
+    ],
+    "last_observation": "2026-07-09",
+    "trailing_days_of_the_window_with_no_data": 3,
+    "n_visits": 72,
+    "rate_pct": 0.4722
+   },
+   {
+    "i": 3,
+    "window": [
+     "2026-05-18",
+     "2026-06-14"
+    ],
+    "empty": true
+   }
+  ],
+  "Lucca": [
+   {
+    "i": 0,
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "last_observation": "2026-08-31",
+    "trailing_days_of_the_window_with_no_data": 6,
+    "n_visits": 53,
+    "rate_pct": 1.1509
+   },
+   {
+    "i": 1,
+    "window": [
+     "2026-07-13",
+     "2026-08-09"
+    ],
+    "last_observation": "2026-08-03",
+    "trailing_days_of_the_window_with_no_data": 6,
+    "n_visits": 56,
+    "rate_pct": 0.4464
+   },
+   {
+    "i": 2,
+    "window": [
+     "2026-06-15",
+     "2026-07-12"
+    ],
+    "last_observation": "2026-07-06",
+    "trailing_days_of_the_window_with_no_data": 6,
+    "n_visits": 13,
+    "rate_pct": 0.0769
+   },
+   {
+    "i": 3,
+    "window": [
+     "2026-05-18",
+     "2026-06-14"
+    ],
+    "empty": true
+   }
+  ],
+  "Massa-Carrara": [
+   {
+    "i": 0,
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "last_observation": "2026-08-31",
+    "trailing_days_of_the_window_with_no_data": 6,
+    "n_visits": 40,
+    "rate_pct": 0.566
+   },
+   {
+    "i": 1,
+    "window": [
+     "2026-07-13",
+     "2026-08-09"
+    ],
+    "last_observation": "2026-08-03",
+    "trailing_days_of_the_window_with_no_data": 6,
+    "n_visits": 37,
+    "rate_pct": 0.7838
+   },
+   {
+    "i": 2,
+    "window": [
+     "2026-06-15",
+     "2026-07-12"
+    ],
+    "last_observation": "2026-07-07",
+    "trailing_days_of_the_window_with_no_data": 5,
+    "n_visits": 9,
+    "rate_pct": 0.0
+   },
+   {
+    "i": 3,
+    "window": [
+     "2026-05-18",
+     "2026-06-14"
+    ],
+    "empty": true
+   }
+  ],
+  "Pisa": [
+   {
+    "i": 0,
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "last_observation": "2026-09-02",
+    "trailing_days_of_the_window_with_no_data": 4,
+    "n_visits": 85,
+    "rate_pct": 1.02
+   },
+   {
+    "i": 1,
+    "window": [
+     "2026-07-13",
+     "2026-08-09"
+    ],
+    "last_observation": "2026-08-05",
+    "trailing_days_of_the_window_with_no_data": 4,
+    "n_visits": 65,
+    "rate_pct": 0.5022
+   },
+   {
+    "i": 2,
+    "window": [
+     "2026-06-15",
+     "2026-07-12"
+    ],
+    "last_observation": "2026-07-09",
+    "trailing_days_of_the_window_with_no_data": 3,
+    "n_visits": 25,
+    "rate_pct": 0.04
+   },
+   {
+    "i": 3,
+    "window": [
+     "2026-05-18",
+     "2026-06-14"
+    ],
+    "empty": true
+   }
+  ],
+  "Pistoia": [
+   {
+    "i": 0,
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "last_observation": "2026-09-02",
+    "trailing_days_of_the_window_with_no_data": 4,
+    "n_visits": 36,
+    "rate_pct": 0.0278
+   },
+   {
+    "i": 1,
+    "window": [
+     "2026-07-13",
+     "2026-08-09"
+    ],
+    "last_observation": "2026-08-05",
+    "trailing_days_of_the_window_with_no_data": 4,
+    "n_visits": 35,
+    "rate_pct": 0.0
+   },
+   {
+    "i": 2,
+    "window": [
+     "2026-06-15",
+     "2026-07-12"
+    ],
+    "last_observation": "2026-07-09",
+    "trailing_days_of_the_window_with_no_data": 3,
+    "n_visits": 14,
+    "rate_pct": 0.0
+   },
+   {
+    "i": 3,
+    "window": [
+     "2026-05-18",
+     "2026-06-14"
+    ],
+    "empty": true
+   }
+  ],
+  "Prato": [
+   {
+    "i": 0,
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "last_observation": "2026-09-02",
+    "trailing_days_of_the_window_with_no_data": 4,
+    "n_visits": 24,
+    "rate_pct": 0.0417
+   },
+   {
+    "i": 1,
+    "window": [
+     "2026-07-13",
+     "2026-08-09"
+    ],
+    "last_observation": "2026-08-05",
+    "trailing_days_of_the_window_with_no_data": 4,
+    "n_visits": 24,
+    "rate_pct": 0.0
+   },
+   {
+    "i": 2,
+    "window": [
+     "2026-06-15",
+     "2026-07-12"
+    ],
+    "last_observation": "2026-07-08",
+    "trailing_days_of_the_window_with_no_data": 4,
+    "n_visits": 3,
+    "rate_pct": 0.0
+   },
+   {
+    "i": 3,
+    "window": [
+     "2026-05-18",
+     "2026-06-14"
+    ],
+    "empty": true
+   }
+  ],
+  "Siena": [
+   {
+    "i": 0,
+    "window": [
+     "2026-08-10",
+     "2026-09-06"
+    ],
+    "last_observation": "2026-09-03",
+    "trailing_days_of_the_window_with_no_data": 3,
+    "n_visits": 186,
+    "rate_pct": 0.6909
+   },
+   {
+    "i": 1,
+    "window": [
+     "2026-07-13",
+     "2026-08-09"
+    ],
+    "last_observation": "2026-08-07",
+    "trailing_days_of_the_window_with_no_data": 2,
+    "n_visits": 144,
+    "rate_pct": 0.2718
+   },
+   {
+    "i": 2,
+    "window": [
+     "2026-06-15",
+     "2026-07-12"
+    ],
+    "last_observation": "2026-07-08",
+    "trailing_days_of_the_window_with_no_data": 4,
+    "n_visits": 31,
+    "rate_pct": 0.0
+   },
+   {
+    "i": 3,
+    "window": [
+     "2026-05-18",
+     "2026-06-14"
+    ],
+    "empty": true
+   }
+  ]
+ },
+ "T4_SUMMARY": {
+  "windows_measured": 29,
+  "trailing_dead_days_min": 1,
+  "max": 6,
+  "newest_window_dead_days_by_province": {
+   "Arezzo": 4,
+   "Firenze": 4,
+   "Grosseto": 2,
+   "Livorno": 2,
+   "Lucca": 6,
+   "Massa-Carrara": 6,
+   "Pisa": 4,
+   "Pistoia": 4,
+   "Prato": 4,
+   "Siena": 3
+  }
+ },
+ "T4b_WHAT_THE_MISSING_TAIL_IS_WORTH": {
+  "complete_windows_measured": 19,
+  "median_difference_pp": 0.0,
+  "max_difference_pp": 0.0343,
+  "min_difference_pp": -0.0703,
+  "windows_where_the_full_window_reads_HIGHER_than_the_truncated_one": 1,
+  "of": 19,
+  "detail": [
+   {
+    "province": "Arezzo",
+    "window_end": "2026-08-09",
+    "rate_full_28d_pct": 0.0185,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.0185,
+    "difference_pp": 0.0,
+    "drupes_full": 5400,
+    "drupes_truncated": 5400
+   },
+   {
+    "province": "Firenze",
+    "window_end": "2026-08-09",
+    "rate_full_28d_pct": 0.156,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.1595,
+    "difference_pp": -0.0035,
+    "drupes_full": 25000,
+    "drupes_truncated": 23200
+   },
+   {
+    "province": "Firenze",
+    "window_end": "2026-07-12",
+    "rate_full_28d_pct": 0.0159,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.0161,
+    "difference_pp": -0.0002,
+    "drupes_full": 6300,
+    "drupes_truncated": 6200
+   },
+   {
+    "province": "Grosseto",
+    "window_end": "2026-08-09",
+    "rate_full_28d_pct": 0.8374,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.891,
+    "difference_pp": -0.0536,
+    "drupes_full": 49235,
+    "drupes_truncated": 45655
+   },
+   {
+    "province": "Grosseto",
+    "window_end": "2026-07-12",
+    "rate_full_28d_pct": 0.5876,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.6579,
+    "difference_pp": -0.0703,
+    "drupes_full": 18550,
+    "drupes_truncated": 15200
+   },
+   {
+    "province": "Livorno",
+    "window_end": "2026-08-09",
+    "rate_full_28d_pct": 1.8153,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 1.8658,
+    "difference_pp": -0.0505,
+    "drupes_full": 15700,
+    "drupes_truncated": 14900
+   },
+   {
+    "province": "Livorno",
+    "window_end": "2026-07-12",
+    "rate_full_28d_pct": 0.4722,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.5397,
+    "difference_pp": -0.0675,
+    "drupes_full": 7200,
+    "drupes_truncated": 6300
+   },
+   {
+    "province": "Lucca",
+    "window_end": "2026-08-09",
+    "rate_full_28d_pct": 0.4464,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.4464,
+    "difference_pp": 0.0,
+    "drupes_full": 5600,
+    "drupes_truncated": 5600
+   },
+   {
+    "province": "Lucca",
+    "window_end": "2026-07-12",
+    "rate_full_28d_pct": 0.0769,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.0769,
+    "difference_pp": 0.0,
+    "drupes_full": 1300,
+    "drupes_truncated": 1300
+   },
+   {
+    "province": "Massa-Carrara",
+    "window_end": "2026-08-09",
+    "rate_full_28d_pct": 0.7838,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.7838,
+    "difference_pp": 0.0,
+    "drupes_full": 3700,
+    "drupes_truncated": 3700
+   },
+   {
+    "province": "Massa-Carrara",
+    "window_end": "2026-07-12",
+    "rate_full_28d_pct": 0.0,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.0,
+    "difference_pp": 0.0,
+    "drupes_full": 900,
+    "drupes_truncated": 900
+   },
+   {
+    "province": "Pisa",
+    "window_end": "2026-08-09",
+    "rate_full_28d_pct": 0.5022,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.5022,
+    "difference_pp": 0.0,
+    "drupes_full": 7786,
+    "drupes_truncated": 7786
+   },
+   {
+    "province": "Pisa",
+    "window_end": "2026-07-12",
+    "rate_full_28d_pct": 0.04,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.0417,
+    "difference_pp": -0.0017,
+    "drupes_full": 2500,
+    "drupes_truncated": 2400
+   },
+   {
+    "province": "Pistoia",
+    "window_end": "2026-08-09",
+    "rate_full_28d_pct": 0.0,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.0,
+    "difference_pp": 0.0,
+    "drupes_full": 3500,
+    "drupes_truncated": 3500
+   },
+   {
+    "province": "Pistoia",
+    "window_end": "2026-07-12",
+    "rate_full_28d_pct": 0.0,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.0,
+    "difference_pp": 0.0,
+    "drupes_full": 1400,
+    "drupes_truncated": 1300
+   },
+   {
+    "province": "Prato",
+    "window_end": "2026-08-09",
+    "rate_full_28d_pct": 0.0,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.0,
+    "difference_pp": 0.0,
+    "drupes_full": 2400,
+    "drupes_truncated": 2400
+   },
+   {
+    "province": "Prato",
+    "window_end": "2026-07-12",
+    "rate_full_28d_pct": 0.0,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.0,
+    "difference_pp": 0.0,
+    "drupes_full": 300,
+    "drupes_truncated": 300
+   },
+   {
+    "province": "Siena",
+    "window_end": "2026-08-09",
+    "rate_full_28d_pct": 0.2718,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.2375,
+    "difference_pp": 0.0343,
+    "drupes_full": 14350,
+    "drupes_truncated": 13050
+   },
+   {
+    "province": "Siena",
+    "window_end": "2026-07-12",
+    "rate_full_28d_pct": 0.0,
+    "rate_if_last_4_days_were_not_yet_collected_pct": 0.0,
+    "difference_pp": 0.0,
+    "drupes_full": 3100,
+    "drupes_truncated": 3100
+   }
+  ]
+ }
+}

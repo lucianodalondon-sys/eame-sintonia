@@ -75,7 +75,18 @@ def read_wider_handoff(crop_tokens=("OLIVE", "OLIVO")):
                 "Bactrocera": s.lower().count("bactrocera"),
                 "mosca dell'olivo / delle olive": s.lower().count("mosca dell"),
                 "olive fruit fly": s.lower().count("olive fruit fly")},
-            "product_label_matches_for_olive": 0,
+            "olive_label_use_relationships_found_by_an_independent_lens": {
+                "count": 1, "entry": "IT-LBL-1932", "product": "MORAINE",
+                "registration": "018101", "target": "weeds",
+                "HOW": "an independent product lens resolved this file's 2,277-entry string "
+                       "table; this module's flat regex cannot see through it and previously "
+                       "ASSERTED a hardcoded 0 here, which was wrong. The corrected count is "
+                       "1 of 2,030 label-use relationships, and it is a herbicide.",
+                "FOR_THE_OLIVE_FLY": 0},
+            "COVERAGE_LIMIT_OF_THIS_MODULE": (
+                "the flat regex sees 161 of the 203 CROP keys in this file (79.3%). It is used "
+                "for orientation, never as the basis of the verdict, which rests on the "
+                "adjudicated triples in italy-label-verdicts.js."),
             "NOTE": "the olive material in this file is content items and scientific "
                     "references, not PRODUCT x CROP x ISSUE label matches"}
 
@@ -112,8 +123,9 @@ def relevance(crop_label, issue_label):
             f"found on a label for it in the {ev.get('audit_date')} reading of 163 official "
             f"Italian labels. The wider object set from the same audit carries "
             f"{(wh or {}).get('olive_objects', 0)} olive objects and "
-            f"{(wh or {}).get('product_label_matches_for_olive', 0)} product-label matches "
-            f"for the crop - its olive material is content and scientific references. "
+            f"1 product-label relationship for the CROP in the whole file - a herbicide, "
+            f"MORAINE, targeting weeds - and 0 for this PROBLEM. Its olive material is "
+            f"otherwise content items and scientific references. "
             f"ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD, and this NO is scoped to "
             f"the products actually adjudicated, not to the portfolio.")
     else:
@@ -130,6 +142,13 @@ def attention_class(cell, adama):
     """An internal attention class, never a commercial instruction. The rule is printed."""
     a, q = cell["analysis"], cell["quality"]
     rule = []
+    # The relevance is READ, not decoration. An independent product lens showed this function
+    # never branched on it: fed a real YES verdict it printed "YES ... INVESTIGATE" under one
+    # heading, which reads as a buying signal. It cannot now.
+    rel = adama.get("relevance")
+    if rel == "YES":
+        rule.append("ADAMA_RELEVANCE is YES, so any attention class here is agronomic only "
+                    "and a product decision belongs to the regulatory owner, not to this tool")
     if not q.get("observation_publishable"):
         cls, rule = "UNKNOWN", ["the observation itself is not publishable"]
     elif a["historical_state"] == "ABOVE_HISTORICAL" or \
@@ -145,4 +164,9 @@ def attention_class(cell, adama):
                                       "comparison available"]
     return {"attention_class": cls, "rule_applied": rule,
             "NOT_A_COMMERCIAL_INSTRUCTION": True,
-            "adama_relevance": adama["relevance"]}
+            "attention_is_agronomic_only": True,
+            "adama_relevance": rel,
+            "WHY_THE_TWO_ARE_PRINTED_APART": (
+                "the attention class describes the OBSERVATION. ADAMA_RELEVANCE describes the "
+                "PORTFOLIO. Reading them as one sentence is the error this separation exists "
+                "to prevent, whichever way the relevance falls.")}

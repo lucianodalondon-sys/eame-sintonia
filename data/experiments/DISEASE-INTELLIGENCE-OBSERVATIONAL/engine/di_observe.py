@@ -34,7 +34,24 @@ PARAMS = {
     "TREND_MIN_WINDOWS": 3,          # consecutive windows required before naming a direction
     "TREND_MIN_ABS_CHANGE_PCT": 1.0, # percentage points; below this the change is called STABLE
     "MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE": 8,   # groves shared with a baseline season
+    "STALE_AFTER_DAYS": 14,          # p90 of grove revisit intervals is 9 days, p99 is 21
 }
+
+# The season from which the source serves percentages instead of counts. Declared,
+# evidenced in the semantic sheet CORRECTION_LOG, and emitted in every cell.
+ERA_PERCENT_FROM = 2020
+
+
+def _wilson(k, n, z=1.96):
+    """A 95% interval for a proportion, in percent. Used so the trend rule calibrates itself
+    to the sample size instead of to a threshold somebody picked."""
+    if not n:
+        return (None, None)
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = (z / d) * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5)
+    return (round(100 * max(0.0, c - h), 4), round(100 * min(1.0, c + h), 4))
 
 
 def _win(as_of, days):
@@ -48,23 +65,40 @@ def _shift(d, y):
         return d.replace(year=y, day=28)
 
 
+def _shift_window(lo, hi, y):
+    """Move a whole window into season y, keeping its LENGTH.
+
+    Shifting the two endpoints independently is wrong whenever the window crosses 31 December:
+    it produces an interval of NEGATIVE length that no row can fall inside, so the baseline
+    silently empties and the printed reason blames grove rotation. An independent time lens
+    measured it firing on 27 of 365 as_of dates and demonstrated it on a synthetic year-round
+    case: 0 of 8 baseline seasons on 15 January against 8 of 8 on 28 January, identical data.
+    Unreachable on the olive archive - December and January together hold 7 of 79,251 rows -
+    and fatal for any crop that is scouted through the winter."""
+    nhi = _shift(hi, y)
+    return nhi - (hi - lo), nhi
+
+
 def pooled(visits, lo, hi, province, metric, only_sites=None):
+    """province=None pools the WHOLE region."""
     """The observation: infested drupes over drupes sampled, pooled over the window.
 
     Only visits the core marked usable_for_rates take part. The ones excluded are counted
     and returned, never silently dropped."""
     num = den = 0.0
     n_visits = 0
-    sites, dates, orgs, excluded = set(), [], set(), 0
+    sites, dates, orgs, excluded, ungrovable = set(), [], set(), 0, 0
     per_site = []
     for v in visits:
-        if v["province"] != province:
+        if province is not None and v["province"] != province:
             continue
         d = dt.date.fromisoformat(v["observation_date"])
         if not (lo <= d <= hi):
             continue
-        if only_sites is not None and v["visit_key"]["id_field"] not in only_sites:
-            continue
+        if only_sites is not None:
+            gk0 = v.get("grove_key")
+            if gk0 is None or tuple(gk0) not in only_sites:
+                continue
         um = v.get("usable_by_measurement", {}).get(metric)
         if um is not None:
             if not um["usable"]:
@@ -78,24 +112,40 @@ def pooled(visits, lo, hi, province, metric, only_sites=None):
         if c is None or t is None:
             excluded += 1
             continue
+        # THE ERA RULE. From 2020 the source's own SQL already divides by tot and multiplies
+        # by 100, so the served value IS the percentage. Before 2020 it is a count of drupes.
+        # Dividing twice was this engine's central error; see the sheet's CORRECTION_LOG.
+        # Both eras are converted to infested drupes so the two can be pooled at all.
+        if d.year >= ERA_PERCENT_FROM:
+            c = c * t / 100.0
         num += c
         den += t
         n_visits += 1
-        sites.add(v["visit_key"]["id_field"])
+        gk = v.get("grove_key")
+        if gk is not None:
+            sites.add(tuple(gk))
+        else:
+            ungrovable += 1
         dates.append(d)
         if v["org"]:
             orgs.add(v["org"])
         per_site.append(100.0 * c / t)
     if n_visits == 0:
         return None
+    # int() on a float sum truncates: the determinism lens found a window that publishes 690
+    # or 689 depending on summation order, and four current cells printing a whole number while
+    # the rate underneath was built on a fraction. The rate never moved; the printed count did.
     return {"rate_pct": round(100.0 * num / den, 4) if den else None,
-            "infested_drupes": int(num), "drupes_sampled": int(den),
+            "infested_drupes": round(num, 2), "drupes_sampled": round(den, 2),
             "n_visits": n_visits, "n_sites": len(sites), "n_orgs": len(orgs),
             "n_visits_excluded_by_sanity_rules": excluded,
+            "n_visits_with_no_usable_grove_identity": ungrovable,
             "first_observation": min(dates).isoformat(),
             "last_observation": max(dates).isoformat(),
             "per_visit_rate_pct_median": round(statistics.median(per_site), 4),
             "per_visit_rate_pct_max": round(max(per_site), 4),
+            "visits_above_green": sum(1 for x in per_site if x >= 6.0),
+            "visits_red": sum(1 for x in per_site if x >= 10.0),
             "sites": sites}
 
 
@@ -114,11 +164,32 @@ def cell(visits, sheet, province, metric, as_of, params=PARAMS, first_year=2006)
         obs.update({k: v for k, v in cur.items() if k != "sites"})
         obs["value_pct"] = cur["rate_pct"]
     obs["source_band"] = di_core.band_for(sheet, obs.get("value_pct"))
+    # How old is this? The window is 28 days, so a silent archive publishes nothing after 28
+    # days - but at 21 days stale it still publishes with the age never shown. Median grove
+    # revisit is 7 days, p90 9, p99 21, so 14 is the declared alarm.
+    if obs.get("last_observation"):
+        age = (as_of - dt.date.fromisoformat(obs["last_observation"])).days
+        obs["data_age_days"] = age
+        obs["data_is_stale"] = age > P["STALE_AFTER_DAYS"]
+        obs["stale_after_days"] = P["STALE_AFTER_DAYS"]
+    else:
+        obs["data_age_days"] = None
+        obs["data_is_stale"] = None
+    # A province rate is a pooled average and it HIDES its own extremes. An independent lens
+    # found visits sitting in the source's RED band inside a province the report was calling
+    # green. The worst single visit and the count above the green band are published beside
+    # the average, always.
+    if cur:
+        obs["worst_single_visit_pct"] = cur["per_visit_rate_pct_max"]
+        obs["worst_single_visit_band"] = di_core.band_for(sheet, cur["per_visit_rate_pct_max"])
+        obs["visits_above_the_green_band"] = cur["visits_above_green"]
+        obs["visits_in_the_red_band"] = cur["visits_red"]
 
     # ── baseline: the same calendar window in every prior season ─────────────────
     base, overlap = [], []
     for y in range(first_year, as_of.year):
-        b = pooled(visits, _shift(lo, y), _shift(hi, y), province, metric)
+        blo, bhi = _shift_window(lo, hi, y)
+        b = pooled(visits, blo, bhi, province, metric)
         if b and b["n_visits"] >= P["MIN_VISITS"] and b["drupes_sampled"] >= P["MIN_DRUPES"]:
             base.append({"season": y, "rate_pct": b["rate_pct"],
                          "n_visits": b["n_visits"], "n_sites": b["n_sites"],
@@ -182,15 +253,15 @@ def cell(visits, sheet, province, metric, as_of, params=PARAMS, first_year=2006)
     matched = []
     if cur:
         for y in range(first_year, as_of.year):
-            b_all = pooled(visits, _shift(lo, y), _shift(hi, y), province, metric)
+            blo, bhi = _shift_window(lo, hi, y)
+            b_all = pooled(visits, blo, bhi, province, metric)
             if not b_all:
                 continue
             shared = cur["sites"] & b_all["sites"]
             if len(shared) < P["MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE"]:
                 continue
             now = pooled(visits, lo, hi, province, metric, only_sites=shared)
-            then = pooled(visits, _shift(lo, y), _shift(hi, y), province, metric,
-                          only_sites=shared)
+            then = pooled(visits, blo, bhi, province, metric, only_sites=shared)
             if not now or not then or not then["drupes_sampled"] or not now["drupes_sampled"]:
                 continue
             matched.append({"season": y, "n_groves_shared": len(shared),
@@ -236,26 +307,48 @@ def cell(visits, sheet, province, metric, as_of, params=PARAMS, first_year=2006)
         w = pooled(visits, l, h, province, metric)
         if w and w["n_visits"] >= P["MIN_VISITS"] and w["drupes_sampled"] >= P["MIN_DRUPES"]:
             pts.append({"window_end": h.isoformat(), "rate_pct": w["rate_pct"],
-                        "n_visits": w["n_visits"], "drupes_sampled": w["drupes_sampled"]})
+                        "n_visits": w["n_visits"], "drupes_sampled": w["drupes_sampled"],
+                        "infested": w["infested_drupes"]})
     pts.reverse()
+    # "N consecutive windows" was asserted in the sentence and never checked. An independent
+    # time lens built a case where the printed sentence claimed three consecutive windows while
+    # the ends were 56 and 28 days apart and the deleted middle window held the highest value
+    # of the four. The check is now made, and a gap refuses the direction.
+    ends = [dt.date.fromisoformat(x["window_end"]) for x in pts]
+    consecutive = all((b - a).days == P["WINDOW_DAYS"] for a, b in zip(ends, ends[1:]))
+    if not consecutive:
+        ana["observed_trend"] = "UNKNOWN"
+        ana["observed_trend_reason"] = (
+            f"the usable windows are not consecutive: their ends are "
+            f"{[e.isoformat() for e in ends]}, which are not "
+            f"{P['WINDOW_DAYS']} days apart. No direction is named from a series with a hole "
+            f"in it.")
+        ana["observed_trend_points"] = pts
+        pts = []
     if len(pts) < P["TREND_MIN_WINDOWS"]:
         trend, treason = "UNKNOWN", (f"{len(pts)} usable consecutive windows, below the "
                                      f"declared minimum of {P['TREND_MIN_WINDOWS']}")
     else:
         seq = [p["rate_pct"] for p in pts]
         delta = seq[-1] - seq[0]
-        if abs(delta) < P["TREND_MIN_ABS_CHANGE_PCT"]:
-            trend = "STABLE_OBSERVED"
-        elif all(b >= a for a, b in zip(seq, seq[1:])):
+        a_lo, a_hi = _wilson(pts[0]["infested"], pts[0]["drupes_sampled"])
+        b_lo, b_hi = _wilson(pts[-1]["infested"], pts[-1]["drupes_sampled"])
+        separated = (b_lo > a_hi) or (a_lo > b_hi)
+        monotone_up = all(b >= a for a, b in zip(seq, seq[1:]))
+        monotone_down = all(b <= a for a, b in zip(seq, seq[1:]))
+        if separated and monotone_up:
             trend = "INCREASING_OBSERVED"
-        elif all(b <= a for a, b in zip(seq, seq[1:])):
+        elif separated and monotone_down:
             trend = "DECREASING_OBSERVED"
         else:
             trend = "STABLE_OBSERVED"
-        treason = (f"{' -> '.join(f'{s}%' for s in seq)} over "
-                   f"{len(seq)} consecutive {P['WINDOW_DAYS']}-day windows ending "
-                   f"{as_of.isoformat()}; change {round(delta, 4)} percentage points. "
-                   f"This describes windows that have already happened.")
+        treason = (f"{' -> '.join(f'{x}%' for x in seq)} over {len(seq)} consecutive "
+                   f"{P['WINDOW_DAYS']}-day windows ending {as_of.isoformat()}; change "
+                   f"{round(delta, 4)} percentage points. First window 95% interval "
+                   f"[{a_lo}, {a_hi}]%, last [{b_lo}, {b_hi}]%; they "
+                   f"{'do not overlap' if separated else 'overlap'}, so a direction is "
+                   f"{'named' if separated and (monotone_up or monotone_down) else 'NOT named'}. "
+                   f"This describes windows that have already ended.")
     ana["observed_trend"] = trend
     ana["observed_trend_reason"] = treason
     ana["observed_trend_points"] = pts
@@ -286,4 +379,23 @@ def cell(visits, sheet, province, metric, as_of, params=PARAMS, first_year=2006)
                         "source_label": "Infestazione mosca dell'olivo",
                         "evidence": "source survey_schema id 1"},
             "observation": obs, "analysis": ana, "quality": qual,
-            "params": dict(PARAMS)}
+            "params": dict(P)}
+
+
+def region_cell(visits, sheet, metric, as_of, params=PARAMS, first_year=2006,
+                region="Toscana", country="Italy"):
+    """The same measurement pooled over the WHOLE region.
+
+    This exists because an independent statistical lens showed it is far more robust than any
+    province-level class: the province panels rotate, but the region's panel is the union of
+    all of them and is large. The region statement should be read first and the province
+    statements second, not the other way round.
+    """
+    c = cell(visits, sheet, None, metric, as_of, params=params, first_year=first_year)
+    c["province"] = None
+    c["region"] = region
+    c["country"] = country
+    c["scope"] = "REGION"
+    c["NOTE"] = ("pooled over every province: infested drupes over drupes sampled, with the "
+                 "matched-panel comparison computed on the region's whole grove panel")
+    return c

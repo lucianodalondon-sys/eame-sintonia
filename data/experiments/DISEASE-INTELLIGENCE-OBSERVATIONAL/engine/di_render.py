@@ -10,13 +10,26 @@ The last block is the one that matters most, and it is generated, not written by
 WHAT WE CANNOT CONCLUDE.
 """
 
+def _wrap(text, w):
+    out, line = [], ""
+    for word in str(text).split():
+        if len(line) + len(word) + 1 > w:
+            out.append(line)
+            line = word
+        else:
+            line = (line + " " + word).strip()
+    if line:
+        out.append(line)
+    return out
+
+
 CANNOT_CONCLUDE = [
     "that the infestation will rise or fall - this tool contains no forecast of any kind",
     "that an outbreak is coming",
     "anything about groves nobody visited: the panel is the monitored network, not a random "
     "sample of the region",
-    "that there is a commercial opportunity - a disease-pressure reading is not an opportunity "
-    "and this tool may not turn it into one",
+    "that this justifies any commercial decision - a disease-pressure reading is an agronomic "
+    "fact, and turning it into a sales instruction is exactly what this tool refuses to do",
 ]
 
 
@@ -70,7 +83,8 @@ def render_province(cell, adama, attention, lang="pt"):
 
     L.append("RELEVÂNCIA ADAMA")
     L.append(f"  {adama['relevance']}")
-    L.append(f"  {adama['reason']}")
+    for line in _wrap(adama["reason"], 88):
+        L.append(f"    {line}")
     L.append(f"  classe de atenção interna: {attention['attention_class']} "
              f"(regra: {attention['rule_applied'][0]})")
     L.append("")
@@ -115,7 +129,11 @@ def render_region(cells, adama, lang="pt"):
     L.append(f"  a subir nas janelas já ocorridas: {[c['province'] for c in rising]}")
     L.append("")
     L.append("RELEVÂNCIA ADAMA")
-    L.append(f"  {adama['relevance']} — {adama['reason'][:200]}")
+    # never truncated: the 244 characters an independent lens found being cut off here were
+    # exactly the caveat "ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD"
+    L.append(f"  {adama['relevance']}")
+    for line in _wrap(adama["reason"], 88):
+        L.append(f"    {line}")
     L.append("")
     L.append("O QUE NÃO PODEMOS CONCLUIR")
     for c in CANNOT_CONCLUDE:

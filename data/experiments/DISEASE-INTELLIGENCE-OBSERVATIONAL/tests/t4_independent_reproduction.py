@@ -19,7 +19,13 @@ CASE = os.path.abspath(os.path.join(HERE, "..", "..", "DISEASE-INTELLIGENCE-ITAL
 AS_OF = dt.date(2026, 9, 6)
 W, MIN_VISITS, MIN_DRUPES, MIN_BASE, MIN_OVERLAP = 28, 8, 400, 5, 8
 HIGH = 0.80
-TREND_N, TREND_MIN = 3, 1.0
+TREND_N = 3
+# The contract moved twice while this file existed and this file follows it, in its own shape:
+#  - a grove is (id_field, admin_code), because id_field alone is recycled between seasons
+#  - a trend direction is named only when the first and last windows' 95% intervals separate,
+#    because a fixed percentage-point threshold was uncalibrated to the sample
+#  - the served value is a PERCENTAGE from 2020 and a COUNT before it: the source's own SQL
+#    already divides by tot and multiplies by 100, so dividing again is wrong
 VAR = {"num": -1001, "den": 1}          # active infestation over olives sampled
 
 
@@ -43,7 +49,9 @@ def read():
                 except ValueError:
                     val = None
                 table[k][role] = val
-                meta[k] = {"province": r.get("nome_area"), "date": r["date"]}
+                meta[k] = {"province": r.get("nome_area"), "date": r["date"],
+                           "grove": (None if r.get("admin_code") is None
+                                     else (r["id_field"], r["admin_code"]))}
     return table, meta, hashes
 
 
@@ -66,22 +74,35 @@ def window(table, meta, lo, hi, province, sites=None):
         d = dt.date.fromisoformat(m["date"])
         if not (lo <= d <= hi):
             continue
-        if sites is not None and k[0] not in sites:
+        if sites is not None and m.get("grove") not in sites:
             continue
         if not usable(rec):
             continue
         c, n = rec.get("num"), rec.get("den")
         if c is None or n is None:
             continue
+        if d.year >= 2020:
+            c = c * n / 100.0
         num += c
         den += n
         nv += 1
-        groves.add(k[0])
+        if m.get("grove") is not None:
+            groves.add(m["grove"])
         dates.append(d)
     if nv == 0:
         return None
-    return {"pct": round(100.0 * num / den, 4), "num": int(num), "den": int(den),
+    return {"pct": round(100.0 * num / den, 4), "num": round(num, 2), "den": round(den, 2),
             "n_visits": nv, "groves": groves, "last": max(dates).isoformat()}
+
+
+def wilson(k, n, z=1.96):
+    if not n:
+        return (None, None)
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = (z / d) * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5)
+    return (round(100 * max(0.0, c - h), 4), round(100 * min(1.0, c + h), 4))
 
 
 def shift(d, y):
@@ -127,25 +148,24 @@ def cell_road_two(table, meta, province, as_of=AS_OF):
         out["matched_lower"] = lower
         out["matched_higher"] = higher
 
-    pts = []
+    ws = []
     for i in range(TREND_N + 1):
         h = as_of - dt.timedelta(days=W * i)
         w = window(table, meta, h - dt.timedelta(days=W - 1), h, province)
         if w and w["n_visits"] >= MIN_VISITS and w["den"] >= MIN_DRUPES:
-            pts.append(w["pct"])
-    pts.reverse()
-    if len(pts) < TREND_N:
+            ws.append(w)
+    ws.reverse()
+    pts = [w["pct"] for w in ws]
+    if len(ws) < TREND_N:
         out["observed_trend"] = "UNKNOWN"
     else:
-        delta = pts[-1] - pts[0]
-        if abs(delta) < TREND_MIN:
-            out["observed_trend"] = "STABLE_OBSERVED"
-        elif all(b >= a for a, b in zip(pts, pts[1:])):
-            out["observed_trend"] = "INCREASING_OBSERVED"
-        elif all(b <= a for a, b in zip(pts, pts[1:])):
-            out["observed_trend"] = "DECREASING_OBSERVED"
-        else:
-            out["observed_trend"] = "STABLE_OBSERVED"
+        alo, ahi = wilson(ws[0]["num"], ws[0]["den"])
+        blo, bhi = wilson(ws[-1]["num"], ws[-1]["den"])
+        sep = (blo > ahi) or (alo > bhi)
+        up = all(b >= a for a, b in zip(pts, pts[1:]))
+        dn = all(b <= a for a, b in zip(pts, pts[1:]))
+        out["observed_trend"] = ("INCREASING_OBSERVED" if sep and up else
+                                 "DECREASING_OBSERVED" if sep and dn else "STABLE_OBSERVED")
     out["trend_points"] = pts
     return out
 

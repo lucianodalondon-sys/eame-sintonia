@@ -1,0 +1,212 @@
+{
+ "R1_IDEMPOTENCE": {
+  "runs": [
+   {
+    "run": 1,
+    "REFRESH_STATUS": "NO_UPDATE",
+    "canonical_touched_claimed": false,
+    "promoted": [],
+    "files_whose_bytes_changed_since_run_0": [],
+    "files_whose_bytes_changed_since_the_previous_run": []
+   },
+   {
+    "run": 2,
+    "REFRESH_STATUS": "NO_UPDATE",
+    "canonical_touched_claimed": false,
+    "promoted": [],
+    "files_whose_bytes_changed_since_run_0": [],
+    "files_whose_bytes_changed_since_the_previous_run": []
+   },
+   {
+    "run": 3,
+    "REFRESH_STATUS": "NO_UPDATE",
+    "canonical_touched_claimed": false,
+    "promoted": [],
+    "files_whose_bytes_changed_since_run_0": [],
+    "files_whose_bytes_changed_since_the_previous_run": []
+   }
+  ],
+  "RAW_files_unchanged_across_all_three_runs": true,
+  "collection_index_changed_on_run_1": false,
+  "collection_index_changed_on_run_2": false,
+  "index_entry_count_before": 6,
+  "NOTE": "promote() writes collection_index.json unconditionally, even when it promotes nothing, and re-sorts requests by filename."
+ },
+ "R1b_A_NO_OP_PROMOTE_STILL_REWRITES_THE_INDEX": {
+  "refresh_status": "NO_UPDATE",
+  "canonical_touched_field_says": false,
+  "index_bytes_identical": true,
+  "index_sha_before": "ec08a885eb1f1522",
+  "index_sha_after": "ec08a885eb1f1522",
+  "order_before": [
+   "c2_s1_v-1002_2024.json",
+   "c2_s1_v-1002_2025.json",
+   "c2_s1_v-1002_2026.json",
+   "c2_s1_v1_2024.json",
+   "c2_s1_v1_2025.json",
+   "c2_s1_v1_2026.json"
+  ],
+  "order_after": [
+   "c2_s1_v-1002_2024.json",
+   "c2_s1_v-1002_2025.json",
+   "c2_s1_v-1002_2026.json",
+   "c2_s1_v1_2024.json",
+   "c2_s1_v1_2025.json",
+   "c2_s1_v1_2026.json"
+  ],
+  "top_level_keys_before": [
+   "DENOMINATOR_VAR",
+   "api",
+   "codes",
+   "crop",
+   "requests",
+   "schema",
+   "vars"
+  ],
+  "top_level_keys_after": [
+   "DENOMINATOR_VAR",
+   "api",
+   "codes",
+   "crop",
+   "requests",
+   "schema",
+   "vars"
+  ],
+  "entries_before": 6,
+  "entries_after": 6
+ },
+ "R2_A_VALID_BUT_TRUNCATED_PAYLOAD": {
+  "rows_in_canonical_before": 2928,
+  "rows_the_source_returned": 10,
+  "share_returned": "10 of 2928 = 0.34%",
+  "REFRESH_STATUS": "NEW_OBSERVATIONS",
+  "validate_detail": {
+   "n_rows": 10,
+   "n_readable": 10,
+   "latest_observation": "2026-08-26"
+  },
+  "promoted": [
+   "c2_s1_v-1002_2026.json"
+  ],
+  "rows_in_canonical_after": 10,
+  "ANSWER_BEFORE": {
+   "n_visits": 10487,
+   "last_observation": "2026-09-04",
+   "firenze_pct": 0.0,
+   "firenze_n_visits": 241,
+   "firenze_drupes": 24100
+  },
+  "ANSWER_AFTER": {
+   "n_visits": 10487,
+   "last_observation": "2026-09-04",
+   "firenze_pct": null,
+   "firenze_n_visits": 0,
+   "firenze_drupes": 0
+  },
+  "LAST_GOOD_OBSERVATION_AT_before": "2026-09-04",
+  "LAST_GOOD_OBSERVATION_AT_after": "2026-08-26",
+  "the_clock_went_backwards": true,
+  "anything_flagged_it": false,
+  "t3_simulates_this_shape": false
+ },
+ "R2b_ONE_ROW": {
+  "REFRESH_STATUS": "NEW_OBSERVATIONS",
+  "promoted": [
+   "c2_s1_v-1002_2026.json"
+  ],
+  "rows_in_canonical_after": 1,
+  "LAST_GOOD_OBSERVATION_AT": "2026-01-16",
+  "answer_after": {
+   "n_visits": 10488,
+   "last_observation": "2026-09-04",
+   "firenze_pct": null,
+   "firenze_n_visits": 0,
+   "firenze_drupes": 0
+  }
+ },
+ "R3_THE_SIX_CLOCKS": {
+  "record_keys": [
+   "COLLECTION_TIME",
+   "LAST_GOOD_OBSERVATION_AT",
+   "REFRESH_ATTEMPT_AT",
+   "REFRESH_STATUS",
+   "SOURCE_PUBLICATION_TIME",
+   "SOURCE_UPDATE_TIME",
+   "bytes",
+   "canonical_touched",
+   "detail",
+   "file",
+   "note",
+   "previous_sha256",
+   "sha256",
+   "staged_at",
+   "var",
+   "year"
+  ],
+  "declared_clock_present_in_the_record": {
+   "OBSERVATION_TIME": false,
+   "COLLECTION_TIME": true,
+   "SOURCE_PUBLICATION_TIME": true,
+   "SOURCE_UPDATE_TIME": true,
+   "PROCESSING_TIME": false,
+   "LAST_GOOD_OBSERVATION_AT": true
+  },
+  "REFRESH_ATTEMPT_AT": "2026-09-07T00:15:23+00:00",
+  "COLLECTION_TIME": "2026-09-07T00:15:23+00:00",
+  "attempt_and_collection_are_the_same_string": true,
+  "the_transport_took_seconds": 2.0,
+  "wall_clock_when_refresh_one_was_called": "2026-09-07T00:15:23+00:00",
+  "wall_clock_when_it_returned": "2026-09-07T00:15:25+00:00",
+  "COLLECTION_TIME_is_stamped_BEFORE_the_request": true,
+  "NOTE": "`now` is computed on the first line of refresh_one and reused for both REFRESH_ATTEMPT_AT and COLLECTION_TIME. With timeout=90 the gap between the stamp and the actual collection can be up to 90 s, and on SOURCE_UNAVAILABLE a COLLECTION_TIME is emitted for a collection that never happened."
+ },
+ "R3b_COLLECTION_TIME_ON_A_FAILED_FETCH": {
+  "REFRESH_STATUS": "SOURCE_UNAVAILABLE",
+  "COLLECTION_TIME": "2026-09-07T00:15:25+00:00",
+  "nothing_was_collected": true
+ },
+ "R4_CLOCKS_IN_THE_REAL_CANONICAL_INDEX": {
+  "index_entries": 84,
+  "entries_carrying_each_field": {
+   "COLLECTION_TIME": 0,
+   "REFRESH_ATTEMPT_AT": 0,
+   "LAST_GOOD_OBSERVATION_AT": 0,
+   "SOURCE_PUBLICATION_TIME": 0,
+   "SOURCE_UPDATE_TIME": 0,
+   "PROCESSING_TIME": 0,
+   "sha256": 84
+  },
+  "entry_keys_seen": [
+   "file",
+   "n_rows",
+   "ok",
+   "rowCount",
+   "sha256",
+   "var",
+   "year"
+  ],
+  "VERDICT": "0 of 84 canonical entries record when they were fetched"
+ },
+ "R5_THE_YEAR_ECHO_IS_DISCARDED": {
+  "requested_year": 2019,
+  "filter_the_source_echoed": {
+   "year": 2026,
+   "crop": 2
+  },
+  "validate_returns_it_as": "filt (4th return value)",
+  "refresh_one_uses_it": false,
+  "file_written": "c2_s1_v-1002_2019.json",
+  "REFRESH_STATUS": "NEW_OBSERVATIONS",
+  "promoted": [
+   "c2_s1_v-1002_2019.json"
+  ],
+  "observation_years_actually_inside_the_2019_file": [
+   "2026"
+  ],
+  "IMPACT": "the file name says 2019 and every row inside it is 2026. di_core reads dates from rows, not filenames, so the values are not corrupted - but the 2019 season is now silently absent and the index says it was collected."
+ },
+ "CASES_UNTOUCHED": {
+  "files": 86,
+  "files_changed": []
+ }
+}

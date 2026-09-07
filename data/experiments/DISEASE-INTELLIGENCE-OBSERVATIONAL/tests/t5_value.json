@@ -3,19 +3,18 @@
  "RULE": "HIGH: publishable AND (a matched historical class that is not TYPICAL, OR a named direction of change, OR a reading outside the source's green band). MEDIUM: publishable, matched history available, and TYPICAL. LOW: publishable observation only. UNKNOWN: the observation is not publishable.",
  "POPULATION": 20,
  "DISTRIBUTION": {
-  "MEDIUM": 2,
-  "HIGH": 5,
-  "LOW": 13
+  "LOW": 14,
+  "HIGH": 6
  },
- "CELLS_PRODUCING_AN_ACTIONABLE_SENTENCE": 5,
+ "CELLS_PRODUCING_AN_ACTIONABLE_SENTENCE": 6,
  "ROWS": [
   {
    "province": "Arezzo",
    "metric": "ACTIVE_INFESTATION_COUNT",
-   "VALUE": "MEDIUM",
-   "why": "matched history available and it says TYPICAL",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.1636% of sampled drupes (9 of 5500), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.1636% of sampled drupes (9.0 of 5500.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "55 visits to 17 groves by 2 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -26,9 +25,9 @@
      "as_of": "2026-09-06"
     },
     "D_AGAINST_ITS_OWN_HISTORY": {
-     "state": "TYPICAL",
-     "reason": "on the groves shared with each prior season, this window reads lower than 4 of 6 of them and higher than 2",
-     "matched_seasons": 6
+     "state": "INSUFFICIENT_DATA",
+     "reason": "4 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 4
     },
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
@@ -38,18 +37,19 @@
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
      "observation": true,
-     "historical_comparison": true,
+     "historical_comparison": false,
      "reason": "enough visits and enough sampled drupes for the observation"
     },
     "I_ADAMA_RELEVANCE": {
      "relevance": "NO",
-     "attention_class": "MONITOR"
+     "attention_class": "NO_ESCALATION"
     },
     "WHY_DM_MIGHT_CARE": null,
     "WHAT_WE_CANNOT_CONCLUDE": [
      "that this will rise or fall - there is no forecast in this tool",
      "anything about groves nobody visited",
-     "that there is a commercial opportunity"
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
     ]
    }
   },
@@ -59,7 +59,7 @@
    "VALUE": "HIGH",
    "why": "matched history says BELOW_HISTORICAL",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.0664% of sampled drupes (16 of 24100), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.0664% of sampled drupes (16.0 of 24100.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "241 visits to 73 groves by 4 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -77,7 +77,7 @@
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "STABLE_OBSERVED",
-     "reason": "0.0159% -> 0.156% -> 0.0664% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0505 percentage points. This describes windows that have already happened."
+     "reason": "0.0159% -> 0.156% -> 0.0664% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0505 percentage points. First window 95% interval [0.0028, 0.0899]%, last [0.0409, 0.1078]%; they overlap, so a direction is NOT named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -103,7 +103,7 @@
    "VALUE": "LOW",
    "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.6575% of sampled drupes (228 of 34720), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.6784% of sampled drupes (235.55 of 34720.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "320 visits to 157 groves by 3 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -121,7 +121,7 @@
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "STABLE_OBSERVED",
-     "reason": "0.5876% -> 0.8374% -> 0.6575% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0699 percentage points. This describes windows that have already happened."
+     "reason": "0.5822% -> 0.908% -> 0.6784% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0962 percentage points. First window 95% interval [0.4825, 0.7024]%, last [0.5974, 0.7704]%; they overlap, so a direction is NOT named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -148,7 +148,7 @@
    "VALUE": "LOW",
    "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.9216% of sampled drupes (141 of 15300), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.9216% of sampled drupes (141.0 of 15300.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "153 visits to 77 groves by 2 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -166,7 +166,7 @@
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "STABLE_OBSERVED",
-     "reason": "0.4722% -> 1.8153% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. This describes windows that have already happened."
+     "reason": "0.4722% -> 1.8153% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. First window 95% interval [0.3381, 0.6591]%, last [0.782, 1.0858]%; they do not overlap, so a direction is NOT named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -193,7 +193,7 @@
    "VALUE": "HIGH",
    "why": "a named direction: INCREASING_OBSERVED",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "1.1509% of sampled drupes (61 of 5300), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "1.1509% of sampled drupes (61.0 of 5300.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "53 visits to 14 groves by 1 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -211,7 +211,7 @@
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "INCREASING_OBSERVED",
-     "reason": "0.0769% -> 0.4464% -> 1.1509% over 3 consecutive 28-day windows ending 2026-09-06; change 1.074 percentage points. This describes windows that have already happened."
+     "reason": "0.0769% -> 0.4464% -> 1.1509% over 3 consecutive 28-day windows ending 2026-09-06; change 1.074 percentage points. First window 95% interval [0.0136, 0.4345]%, last [0.8971, 1.4756]%; they do not overlap, so a direction is named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -223,7 +223,7 @@
      "relevance": "NO",
      "attention_class": "INVESTIGATE"
     },
-    "WHY_DM_MIGHT_CARE": "observed infestation in Lucca rose across three windows that have already ended, ending at 1.1509% of 5300 sampled drupes; its own history is NOT comparable",
+    "WHY_DM_MIGHT_CARE": "observed infestation in Lucca rose across three windows that have already ended, ending at 1.1509% of 5300.0 sampled drupes; its own history is NOT comparable",
     "WHAT_WE_CANNOT_CONCLUDE": [
      "that this will rise or fall - there is no forecast in this tool",
      "anything about groves nobody visited",
@@ -238,7 +238,7 @@
    "VALUE": "LOW",
    "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.566% of sampled drupes (30 of 5300), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.566% of sampled drupes (30.0 of 5300.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "40 visits to 10 groves by 1 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -256,7 +256,7 @@
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "STABLE_OBSERVED",
-     "reason": "0.0% -> 0.7838% -> 0.566% over 3 consecutive 28-day windows ending 2026-09-06; change 0.566 percentage points. This describes windows that have already happened."
+     "reason": "0.0% -> 0.7838% -> 0.566% over 3 consecutive 28-day windows ending 2026-09-06; change 0.566 percentage points. First window 95% interval [0.0, 0.425]%, last [0.3968, 0.8069]%; they overlap, so a direction is NOT named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -280,10 +280,10 @@
   {
    "province": "Pisa",
    "metric": "ACTIVE_INFESTATION_COUNT",
-   "VALUE": "LOW",
-   "why": "an observation with no comparable history and no named direction",
+   "VALUE": "HIGH",
+   "why": "a named direction: INCREASING_OBSERVED",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "1.02% of sampled drupes (93 of 9196), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "1.0708% of sampled drupes (98.47 of 9196.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "85 visits to 45 groves by 4 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -300,8 +300,8 @@
     },
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
-     "trend": "STABLE_OBSERVED",
-     "reason": "0.04% -> 0.5022% -> 1.02% over 3 consecutive 28-day windows ending 2026-09-06; change 0.98 percentage points. This describes windows that have already happened."
+     "trend": "INCREASING_OBSERVED",
+     "reason": "0.04% -> 0.7555% -> 1.0708% over 3 consecutive 28-day windows ending 2026-09-06; change 1.0308 percentage points. First window 95% interval [0.0071, 0.2262]%, last [0.8799, 1.3025]%; they do not overlap, so a direction is named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -311,9 +311,9 @@
     },
     "I_ADAMA_RELEVANCE": {
      "relevance": "NO",
-     "attention_class": "NO_ESCALATION"
+     "attention_class": "INVESTIGATE"
     },
-    "WHY_DM_MIGHT_CARE": null,
+    "WHY_DM_MIGHT_CARE": "observed infestation in Pisa rose across three windows that have already ended, ending at 1.0708% of 9196.0 sampled drupes; its own history is NOT comparable",
     "WHAT_WE_CANNOT_CONCLUDE": [
      "that this will rise or fall - there is no forecast in this tool",
      "anything about groves nobody visited",
@@ -328,7 +328,7 @@
    "VALUE": "LOW",
    "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.0278% of sampled drupes (1 of 3600), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.0278% of sampled drupes (1.0 of 3600.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "36 visits to 16 groves by 2 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -346,7 +346,7 @@
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "STABLE_OBSERVED",
-     "reason": "0.0% -> 0.0% -> 0.0278% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0278 percentage points. This describes windows that have already happened."
+     "reason": "0.0% -> 0.0% -> 0.0278% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0278 percentage points. First window 95% interval [0.0, 0.2736]%, last [0.0049, 0.1572]%; they overlap, so a direction is NOT named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -373,7 +373,7 @@
    "VALUE": "LOW",
    "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.0417% of sampled drupes (1 of 2400), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.0417% of sampled drupes (1.0 of 2400.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "24 visits to 7 groves by 2 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -416,9 +416,9 @@
    "province": "Siena",
    "metric": "ACTIVE_INFESTATION_COUNT",
    "VALUE": "HIGH",
-   "why": "matched history says BELOW_HISTORICAL",
+   "why": "a named direction: INCREASING_OBSERVED",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.6909% of sampled drupes (127 of 18383), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.62% of sampled drupes (113.98 of 18383.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "186 visits to 61 groves by 6 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -429,14 +429,14 @@
      "as_of": "2026-09-06"
     },
     "D_AGAINST_ITS_OWN_HISTORY": {
-     "state": "BELOW_HISTORICAL",
-     "reason": "on the groves shared with each prior season, this window reads lower than 14 of 17 of them and higher than 3",
-     "matched_seasons": 17
+     "state": "TYPICAL",
+     "reason": "on the groves shared with each prior season, this window reads lower than 9 of 12 of them and higher than 3",
+     "matched_seasons": 12
     },
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
-     "trend": "STABLE_OBSERVED",
-     "reason": "0.0% -> 0.2718% -> 0.6909% over 3 consecutive 28-day windows ending 2026-09-06; change 0.6909 percentage points. This describes windows that have already happened."
+     "trend": "INCREASING_OBSERVED",
+     "reason": "0.0% -> 0.2718% -> 0.62% over 3 consecutive 28-day windows ending 2026-09-06; change 0.62 percentage points. First window 95% interval [0.0, 0.1238]%, last [0.5164, 0.7443]%; they do not overlap, so a direction is named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -446,9 +446,9 @@
     },
     "I_ADAMA_RELEVANCE": {
      "relevance": "NO",
-     "attention_class": "MONITOR"
+     "attention_class": "INVESTIGATE"
     },
-    "WHY_DM_MIGHT_CARE": "Siena reads below its own matched history in 14 of 17 comparable seasons",
+    "WHY_DM_MIGHT_CARE": "observed infestation in Siena rose across three windows that have already ended, ending at 0.62% of 18383.0 sampled drupes; its own history is comparable",
     "WHAT_WE_CANNOT_CONCLUDE": [
      "that this will rise or fall - there is no forecast in this tool",
      "anything about groves nobody visited",
@@ -459,10 +459,10 @@
   {
    "province": "Arezzo",
    "metric": "DAMAGING_INFESTATION_COUNT",
-   "VALUE": "MEDIUM",
-   "why": "matched history available and it says TYPICAL",
+   "VALUE": "LOW",
+   "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0 of 5500), source band Nessuna Infestazione",
+    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0.0 of 5500.0), source band Nessuna Infestazione",
     "B_HOW_MANY_OBSERVATIONS": "55 visits to 17 groves by 2 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -473,9 +473,9 @@
      "as_of": "2026-09-06"
     },
     "D_AGAINST_ITS_OWN_HISTORY": {
-     "state": "TYPICAL",
-     "reason": "on the groves shared with each prior season, this window reads lower than 2 of 6 of them and higher than 0",
-     "matched_seasons": 6
+     "state": "INSUFFICIENT_DATA",
+     "reason": "4 prior seasons share at least 8 groves with this window, below the declared minimum of 5. A comparison against a different set of groves is not a comparison, so none is published.",
+     "matched_seasons": 4
     },
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
@@ -485,18 +485,19 @@
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
      "observation": true,
-     "historical_comparison": true,
+     "historical_comparison": false,
      "reason": "enough visits and enough sampled drupes for the observation"
     },
     "I_ADAMA_RELEVANCE": {
      "relevance": "NO",
-     "attention_class": "MONITOR"
+     "attention_class": "NO_ESCALATION"
     },
     "WHY_DM_MIGHT_CARE": null,
     "WHAT_WE_CANNOT_CONCLUDE": [
      "that this will rise or fall - there is no forecast in this tool",
      "anything about groves nobody visited",
-     "that there is a commercial opportunity"
+     "that there is a commercial opportunity",
+     "how this compares with this province's own past: the groves monitored now are not the ones monitored then"
     ]
    }
   },
@@ -504,9 +505,9 @@
    "province": "Firenze",
    "metric": "DAMAGING_INFESTATION_COUNT",
    "VALUE": "HIGH",
-   "why": "matched history says BELOW_HISTORICAL",
+   "why": "matched history says BELOW_HISTORICAL; a named direction: DECREASING_OBSERVED",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0 of 24100), source band Nessuna Infestazione",
+    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0.0 of 24100.0), source band Nessuna Infestazione",
     "B_HOW_MANY_OBSERVATIONS": "241 visits to 73 groves by 4 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -523,8 +524,8 @@
     },
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
-     "trend": "STABLE_OBSERVED",
-     "reason": "0.127% -> 0.0% -> 0.0% over 3 consecutive 28-day windows ending 2026-09-06; change -0.127 percentage points. This describes windows that have already happened."
+     "trend": "DECREASING_OBSERVED",
+     "reason": "0.127% -> 0.0% -> 0.0% over 3 consecutive 28-day windows ending 2026-09-06; change -0.127 percentage points. First window 95% interval [0.0644, 0.2504]%, last [0.0, 0.0159]%; they do not overlap, so a direction is named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -550,7 +551,7 @@
    "VALUE": "LOW",
    "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.0578% of sampled drupes (20 of 34620), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.0751% of sampled drupes (26.0 of 34620.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "319 visits to 156 groves by 3 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -568,7 +569,7 @@
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "STABLE_OBSERVED",
-     "reason": "0.1186% -> 0.0193% -> 0.0578% over 3 consecutive 28-day windows ending 2026-09-06; change -0.0608 percentage points. This describes windows that have already happened."
+     "reason": "0.1186% -> 0.0224% -> 0.0751% over 3 consecutive 28-day windows ending 2026-09-06; change -0.0435 percentage points. First window 95% interval [0.0783, 0.1795]%, last [0.0513, 0.11]%; they overlap, so a direction is NOT named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -595,7 +596,7 @@
    "VALUE": "LOW",
    "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.1242% of sampled drupes (19 of 15300), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.1242% of sampled drupes (19.0 of 15300.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "153 visits to 77 groves by 2 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -613,7 +614,7 @@
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "STABLE_OBSERVED",
-     "reason": "0.0694% -> 0.0833% -> 0.1242% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0548 percentage points. This describes windows that have already happened."
+     "reason": "0.0694% -> 0.0833% -> 0.1242% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0548 percentage points. First window 95% interval [0.0297, 0.1625]%, last [0.0795, 0.1939]%; they overlap, so a direction is NOT named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -640,7 +641,7 @@
    "VALUE": "LOW",
    "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0 of 5300), source band Nessuna Infestazione",
+    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0.0 of 5300.0), source band Nessuna Infestazione",
     "B_HOW_MANY_OBSERVATIONS": "53 visits to 14 groves by 1 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -658,7 +659,7 @@
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "STABLE_OBSERVED",
-     "reason": "0.0% -> 0.0% -> 0.0% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0 percentage points. This describes windows that have already happened."
+     "reason": "0.0% -> 0.0% -> 0.0% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0 percentage points. First window 95% interval [0.0, 0.2946]%, last [0.0, 0.0724]%; they overlap, so a direction is NOT named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -685,7 +686,7 @@
    "VALUE": "LOW",
    "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.4151% of sampled drupes (22 of 5300), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.4151% of sampled drupes (22.0 of 5300.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "40 visits to 10 groves by 1 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -703,7 +704,7 @@
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "STABLE_OBSERVED",
-     "reason": "0.0% -> 0.1622% -> 0.4151% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4151 percentage points. This describes windows that have already happened."
+     "reason": "0.0% -> 0.1622% -> 0.4151% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4151 percentage points. First window 95% interval [0.0, 0.425]%, last [0.2743, 0.6277]%; they overlap, so a direction is NOT named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -730,7 +731,7 @@
    "VALUE": "LOW",
    "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.1077% of sampled drupes (9 of 9196), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.1084% of sampled drupes (9.97 of 9196.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "85 visits to 45 groves by 4 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -748,7 +749,7 @@
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "STABLE_OBSERVED",
-     "reason": "0.0% -> 0.0128% -> 0.1077% over 3 consecutive 28-day windows ending 2026-09-06; change 0.1077 percentage points. This describes windows that have already happened."
+     "reason": "0.0% -> 0.0128% -> 0.1084% over 3 consecutive 28-day windows ending 2026-09-06; change 0.1084 percentage points. First window 95% interval [0.0, 0.1534]%, last [0.0588, 0.1997]%; they overlap, so a direction is NOT named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -775,7 +776,7 @@
    "VALUE": "LOW",
    "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0 of 3600), source band Nessuna Infestazione",
+    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0.0 of 3600.0), source band Nessuna Infestazione",
     "B_HOW_MANY_OBSERVATIONS": "36 visits to 16 groves by 2 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -793,7 +794,7 @@
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "STABLE_OBSERVED",
-     "reason": "0.0% -> 0.0% -> 0.0% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0 percentage points. This describes windows that have already happened."
+     "reason": "0.0% -> 0.0% -> 0.0% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0 percentage points. First window 95% interval [0.0, 0.2736]%, last [0.0, 0.1066]%; they overlap, so a direction is NOT named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -820,7 +821,7 @@
    "VALUE": "LOW",
    "why": "an observation with no comparable history and no named direction",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0 of 2400), source band Nessuna Infestazione",
+    "A_WHAT_WAS_OBSERVED": "0.0% of sampled drupes (0.0 of 2400.0), source band Nessuna Infestazione",
     "B_HOW_MANY_OBSERVATIONS": "24 visits to 7 groves by 2 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -865,7 +866,7 @@
    "VALUE": "HIGH",
    "why": "matched history says BELOW_HISTORICAL",
    "questions": {
-    "A_WHAT_WAS_OBSERVED": "0.0816% of sampled drupes (15 of 18383), source band 0-6%",
+    "A_WHAT_WAS_OBSERVED": "0.0816% of sampled drupes (15.0 of 18383.0), source band 0-6%",
     "B_HOW_MANY_OBSERVATIONS": "186 visits to 61 groves by 6 organisations",
     "C_HOW_RECENT": {
      "window": [
@@ -877,13 +878,13 @@
     },
     "D_AGAINST_ITS_OWN_HISTORY": {
      "state": "BELOW_HISTORICAL",
-     "reason": "on the groves shared with each prior season, this window reads lower than 16 of 17 of them and higher than 0",
-     "matched_seasons": 17
+     "reason": "on the groves shared with each prior season, this window reads lower than 12 of 12 of them and higher than 0",
+     "matched_seasons": 12
     },
     "E_AGAINST_OTHER_PROVINCES": "computed at the region level, not here",
     "F_OBSERVED_CHANGE": {
      "trend": "STABLE_OBSERVED",
-     "reason": "0.0% -> 0.0209% -> 0.0816% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0816 percentage points. This describes windows that have already happened."
+     "reason": "0.0% -> 0.0139% -> 0.0816% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0816 percentage points. First window 95% interval [0.0, 0.1238]%, last [0.0495, 0.1346]%; they overlap, so a direction is NOT named. This describes windows that have already ended."
     },
     "G_ANOMALY": "NOT_DEFINED: this build has no anomaly definition it can defend, so it publishes none",
     "H_PUBLISHABLE": {
@@ -895,7 +896,7 @@
      "relevance": "NO",
      "attention_class": "MONITOR"
     },
-    "WHY_DM_MIGHT_CARE": "Siena reads below its own matched history in 16 of 17 comparable seasons",
+    "WHY_DM_MIGHT_CARE": "Siena reads below its own matched history in 12 of 12 comparable seasons",
     "WHAT_WE_CANNOT_CONCLUDE": [
      "that this will rise or fall - there is no forecast in this tool",
      "anything about groves nobody visited",

@@ -34,6 +34,27 @@ class JoinConflict(Exception):
     """Raised when the visit key is not unique. Never resolved silently."""
 
 
+def code_fingerprint():
+    """Every input the answer depends on, not only the data files.
+
+    The determinism lens found 8 such inputs carrying no hash at all, the semantic sheet among
+    them: moving one band edge in it repaints a province green to yellow, and nothing recorded
+    that the sheet had moved. A receipt that names the data but not the code or the definitions
+    is not a receipt."""
+    import sys as _s
+    out = {"python": _s.version.split()[0]}
+    for f in ("di_core.py", "di_observe.py", "di_adama.py", "di_render.py", "di_refresh.py"):
+        fp = os.path.join(HERE, f)
+        if os.path.exists(fp):
+            out[f] = hashlib.sha256(open(fp, "rb").read()).hexdigest()[:16]
+    sp = os.path.abspath(SHEET_PATH)
+    if os.path.exists(sp):
+        out["SOURCE-SEMANTIC-SHEET.json"] = hashlib.sha256(
+            open(sp, "rb").read()).hexdigest()[:16]
+        out["sheet_version"] = json.load(open(sp, encoding="utf-8")).get("SHEET_VERSION")
+    return out
+
+
 def load_sheet(path=SHEET_PATH):
     s = json.load(open(path, encoding="utf-8"))
     s["_by_canonical"] = {v["CANONICAL_MEANING"]: v for v in s["VARIABLES"]}
@@ -49,6 +70,24 @@ def var_for(sheet, canonical):
             f"Known: {sorted(sheet['_by_canonical'])}. A column is not usable because its "
             f"name looks right.")
     return v
+
+
+def _province(sheet, raw):
+    """Trim and check against the region's canonical list. An unrecognised province is a
+    refusal, not a new column in the report: without this, a stray trailing space publishes
+    an eleventh Tuscan province with its own contradictory verdict."""
+    known = (sheet.get("REGION_PROVINCES") or {}).get("PROVINCES")
+    if raw is None:
+        return None
+    v = " ".join(str(raw).split())
+    if not known:
+        return v
+    for k in known:
+        if k.lower() == v.lower():
+            return k
+    raise SemanticRefusal(
+        f"REFUSED: province {raw!r} is not in the canonical list for "
+        f"{sheet['REGION_PROVINCES']['REGION']}: {known}")
 
 
 def _num(v):
@@ -122,9 +161,15 @@ def load_visits(case_dir, sheet, as_of, wanted=("SAMPLE_SIZE / DENOMINATOR",
             dropped_future += 1
             continue
 
+        # A grove is the same grove only if BOTH the id and the comune match. id_field alone
+        # is recycled between seasons - see GROVE_IDENTITY in the semantic sheet.
+        gk = sheet.get("GROVE_IDENTITY", {}).get("KEY", ["id_field"])
+        grove = tuple(any_row.get(f) for f in gk)
         rec = {"visit_key": {"id_field": k[0], "date": k[1]},
+               "grove_key": None if any(x is None for x in grove) else list(grove),
                "observation_date": d.isoformat(),
-               "province": any_row.get("nome_area"),
+               "province": _province(sheet, any_row.get("nome_area")),
+               "province_raw": any_row.get("nome_area"),
                "comune": any_row.get("name_4"),
                "comune_code": any_row.get("admin_code"),
                "org": any_row.get("org_name"),
@@ -175,6 +220,7 @@ def load_visits(case_dir, sheet, as_of, wanted=("SAMPLE_SIZE / DENOMINATOR",
         visits.append(rec)
 
     return {"AS_OF": as_of.isoformat(),
+            "CODE_AND_DEFINITIONS": code_fingerprint(),
             "VISIT_KEY": sheet["VISIT_KEY"]["KEY"],
             "n_visits": len(visits),
             "n_visits_usable_for_at_least_one_measurement":

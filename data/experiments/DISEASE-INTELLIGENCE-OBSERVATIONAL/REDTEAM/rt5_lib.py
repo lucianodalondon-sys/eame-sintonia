@@ -20,6 +20,11 @@ CASE = os.path.abspath(os.path.join(HERE, "..", "..",
 CACHE = os.path.join(HERE, "_cache_visits.pkl")
 sys.path.insert(0, ENGINE)
 
+# The engine changed under this audit on 2026-09-06 (per-measurement usability
+# replaced per-visit usability in di_core.load_visits). Everything here is pinned
+# to the version whose sha256 is recorded by rt5_00_verify.py; if the hash moves,
+# rerun rt5_00_verify.py and rt5_00b_verify_offdefault.py before trusting a number.
+
 PARAMS = {
     "WINDOW_DAYS": 28,
     "MIN_VISITS": 8,
@@ -60,13 +65,19 @@ def load_raw(as_of=dt.date(2026, 9, 6), force=False):
             "usable": v["usable_for_rates"],
             "den": v["measurements"][DENOM]["value"],
         }
+        # engine >= 2026-09-06 21:00 decides usability PER MEASUREMENT
+        um = v.get("usable_by_measurement")
         for m in METRICS:
             rec[m] = v["measurements"][m]["value"]
+            rec["usable_" + m] = (um[m]["usable"] if um and m in um
+                                  else v["usable_for_rates"])
         slim.append(rec)
     bands = sheet["SOURCE_ACTION_BANDS"]
     out = {"visits": slim, "bands": bands,
            "n_visits": loaded["n_visits"],
-           "n_usable": loaded["n_visits_usable_for_rates"]}
+           "n_usable": loaded.get("n_visits_usable_for_at_least_one_measurement",
+                                  loaded.get("n_visits_usable_for_rates")),
+           "n_usable_by_measurement": loaded.get("n_visits_usable_by_measurement")}
     with open(CACHE, "wb") as f:
         pickle.dump(out, f)
     return out
@@ -77,6 +88,7 @@ class Index:
 
     def __init__(self, visits, metric):
         self.metric = metric
+        self.ukey = "usable_" + metric
         self.by_prov = {}
         for v in visits:
             p = v["province"]
@@ -114,7 +126,7 @@ class Index:
                 continue
             if only_sites is not None and v["id_field"] not in only_sites:
                 continue
-            if not v["usable"]:
+            if not v[self.ukey]:
                 excluded += 1
                 continue
             c = v[m]
@@ -242,10 +254,12 @@ def cell(idx, province, as_of, P=None, first_year=2006, how="pooled",
     if want_matched_detail:
         out["matched"] = matched
 
-    if not enough:
-        out["historical_state"] = "INSUFFICIENT_DATA"
-        out["hist_reason"] = "observation gate"
-    elif len(matched) < P["MIN_BASELINE_SEASONS"]:
+    # NOTE, and this is a finding in its own right: the engine's published
+    # historical_state is set from the MATCHED branch alone. MIN_VISITS and
+    # MIN_DRUPES (`enough`) never touch it -- they only set quality.publishable.
+    # So a province can be given a historical class on a window the engine itself
+    # says is too thin to publish.
+    if len(matched) < P["MIN_BASELINE_SEASONS"]:
         out["historical_state"] = "INSUFFICIENT_DATA"
         out["hist_reason"] = f"{len(matched)} matched seasons"
     else:
@@ -259,13 +273,6 @@ def cell(idx, province, as_of, P=None, first_year=2006, how="pooled",
             "BELOW_HISTORICAL" if share_lower >= P["HIGH_PCTL"] else
             "ABOVE_HISTORICAL" if (higher / len(matched)) >= P["HIGH_PCTL"] else "TYPICAL")
         out["hist_reason"] = f"lower than {lower} of {len(matched)}"
-
-    # NOTE: the engine reaches the matched branch even when `enough` is False and
-    # then overwrites historical_state with the matched verdict. Reproduced above
-    # by testing `enough` first, which is what the engine's quality gate does.
-    if not enough:
-        out["historical_state"] = "INSUFFICIENT_DATA" if len(matched) < P["MIN_BASELINE_SEASONS"] \
-            else out["historical_state"]
 
     # trend
     pts = []

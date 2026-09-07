@@ -1,0 +1,45 @@
+Could not find platform independent libraries <prefix>
+
+ACTIVE_INFESTATION_COUNT
+  province-windows passing the tool's own gates, 2006-2026, 7-day step: 2,437
+  monotone over 3 windows                : 1,029 of 2,437 (42.22%)
+  end-to-end change of at least 1.0 pp   : 1,702 of 2,437 (69.84%)
+  BOTH, i.e. a direction is named        : 872 of 2,437 (35.78%)
+  |change| percentiles: p50 2.0538  p75 4.3439  p90 7.5026  p95 10.1369  p99 18.9799  max 33.8611
+  a threshold of 6.4091 pp would name a direction in the top 20% of monotone cases
+  the SAME 1.0 pp threshold, season by season (share of province-windows that name a direction):
+    2006:60%  2007:38%  2008:17%  2009:25%  2010:49%  2011:20%  2012:12%  2013:65%  2014:32%  2015:65%  2016:35%  2017:15%  2018:34%  2019:63%  2020:16%  2021:22%  2022:60%  2023:33%  2024:26%  2025:36%  2026:8%
+
+DAMAGING_INFESTATION_COUNT
+  province-windows passing the tool's own gates, 2006-2026, 7-day step: 2,437
+  monotone over 3 windows                : 2,031 of 2,437 (83.34%)
+  end-to-end change of at least 1.0 pp   : 1,800 of 2,437 (73.86%)
+  BOTH, i.e. a direction is named        : 1,569 of 2,437 (64.38%)
+  |change| percentiles: p50 2.433  p75 5.3819  p90 11.2346  p95 16.275  p99 27.1538  max 49.5824
+  a threshold of 7.3675 pp would name a direction in the top 20% of monotone cases
+  the SAME 1.0 pp threshold, season by season (share of province-windows that name a direction):
+    2006:90%  2007:95%  2008:54%  2009:51%  2010:78%  2011:58%  2012:28%  2013:80%  2014:91%  2015:78%  2016:79%  2017:29%  2018:49%  2019:82%  2020:62%  2021:72%  2022:54%  2023:66%  2024:36%  2025:65%  2026:0%
+
+TOTAL_INFESTATION_COUNT
+  province-windows passing the tool's own gates, 2006-2026, 7-day step: 2,435
+  monotone over 3 windows                : 1,633 of 2,435 (67.06%)
+  end-to-end change of at least 1.0 pp   : 2,161 of 2,435 (88.75%)
+  BOTH, i.e. a direction is named        : 1,579 of 2,435 (64.85%)
+  |change| percentiles: p50 5.6632  p75 12.3732  p90 21.7227  p95 29.8522  p99 52.7778  max 83.0818
+  a threshold of 18.1279 pp would name a direction in the top 20% of monotone cases
+  the SAME 1.0 pp threshold, season by season (share of province-windows that name a direction):
+    2006:92%  2007:54%  2008:58%  2009:45%  2010:80%  2011:50%  2012:50%  2013:81%  2014:87%  2015:95%  2016:60%  2017:52%  2018:76%  2019:85%  2020:46%  2021:53%  2022:84%  2023:50%  2024:41%  2025:62%  2026:77%
+
+TODAY'S TEN SEQUENCES (ACTIVE_INFESTATION_COUNT, as_of 2026-09-06)
+  Arezzo          0.0185 -> 0.1636                              delta     None  ratio    8.843  UNKNOWN
+  Firenze         0.0159 -> 0.156 -> 0.0664                     delta   0.0505  ratio    4.176  STABLE_OBSERVED
+  Grosseto        0.5876 -> 0.8374 -> 0.6575                    delta   0.0699  ratio    1.119  STABLE_OBSERVED
+  Livorno         0.4722 -> 1.8153 -> 0.9216                    delta   0.4494  ratio    1.952  STABLE_OBSERVED
+  Lucca           0.0769 -> 0.4464 -> 1.1509                    delta    1.074  ratio   14.966  INCREASING_OBSERVED
+  Massa-Carrara   0.0 -> 0.7838 -> 0.566                        delta    0.566  ratio     None  STABLE_OBSERVED
+  Pisa            0.04 -> 0.5022 -> 1.02                        delta     0.98  ratio     25.5  STABLE_OBSERVED
+  Pistoia         0.0 -> 0.0 -> 0.0278                          delta   0.0278  ratio     None  STABLE_OBSERVED
+  Prato           0.0 -> 0.0417                                 delta     None  ratio     None  UNKNOWN
+  Siena           0.0 -> 0.2718 -> 0.6909                       delta   0.6909  ratio     None  STABLE_OBSERVED
+
+wrote rt5_05_trend.json

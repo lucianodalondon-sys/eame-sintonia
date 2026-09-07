@@ -1,0 +1,102 @@
+{
+ "A_COVERAGE": {
+  "raw_files_on_disk": 84,
+  "raw_files_matched_by_the_four_globs": 84,
+  "distinct_files_carrying_a_published_hash": 84,
+  "per_variable": {
+   "SAMPLE_SIZE / DENOMINATOR": {
+    "source_variable": 1,
+    "n_files": 21
+   },
+   "ACTIVE_INFESTATION_COUNT": {
+    "source_variable": -1001,
+    "n_files": 21
+   },
+   "DAMAGING_INFESTATION_COUNT": {
+    "source_variable": -1002,
+    "n_files": 21
+   },
+   "TOTAL_INFESTATION_COUNT": {
+    "source_variable": -1003,
+    "n_files": 21
+   }
+  },
+  "expected_21_per_variable_x_4": 84,
+  "raw_files_on_disk_with_NO_published_hash": [],
+  "COVERS_EVERY_RAW_FILE": true
+ },
+ "B_AGREEMENT": {
+  "files_checked": 84,
+  "hash_mismatches_vs_disk": [],
+  "published_files_absent_from_disk": [],
+  "ALL_MATCH": true,
+  "WHAT_THIS_DOES_AND_DOES_NOT_PROVE": "The engine COMPUTES these hashes from the same disk it reads. Agreement is therefore circular: it proves the artifact records what it read, not that what it read is what was collected. There is no stored expectation to compare against."
+ },
+ "C_COMPLETENESS": {
+  "other_inputs_the_answer_depends_on": {
+   "S1-SEMANTICS/SOURCE-SEMANTIC-SHEET.json": {
+    "exists": true,
+    "sha256": "b5c0a6b55356a53ba95186416fcc5e7cc1edb9097d6f4b3acb19a8693239bb5e",
+    "bytes": 9039,
+    "appears_anywhere_in_the_artifact": false,
+    "why_the_answer_depends_on_it": "supplies SOURCE_VARIABLE ids, VISIT_KEY, SOURCE_ACTION_BANDS. Change a band edge and the published colour changes; change a SOURCE_VARIABLE and a different column is read."
+   },
+   "engine/di_core.py": {
+    "exists": true,
+    "sha256": "e56dc697a3d57acdb85b97f7aeb615f57021657c74dac31f95badc29caf2821b",
+    "bytes": 10671,
+    "appears_anywhere_in_the_artifact": false,
+    "why_the_answer_depends_on_it": "the loader, the visit key, the sanity rules"
+   },
+   "engine/di_observe.py": {
+    "exists": true,
+    "sha256": "8fb727f137b6e2d0593a21912a61e2220a8c8c04ce4f64ed33aa33bda2b52f39",
+    "bytes": 15548,
+    "appears_anywhere_in_the_artifact": false,
+    "why_the_answer_depends_on_it": "every published number and every declared parameter"
+   },
+   "engine/di_adama.py": {
+    "exists": true,
+    "sha256": "6ad50fe9a4079632c060c1849b55bc37bdfc18ff8815ae7ed929ae2e8742d3f5",
+    "bytes": 7628,
+    "appears_anywhere_in_the_artifact": false,
+    "why_the_answer_depends_on_it": "the ADAMA block"
+   },
+   "engine/di_render.py": {
+    "exists": true,
+    "sha256": "b60ba28c9c6b73a04e1b55ae29f1be72b1fa2db107cbd7eecf06798602163326",
+    "bytes": 5844,
+    "appears_anywhere_in_the_artifact": false,
+    "why_the_answer_depends_on_it": "the human text, which is the artifact a person reads"
+   },
+   "engine/di_report.py": {
+    "exists": true,
+    "sha256": "a60affebf9548fe9cec0b29e7ee194814d2497bc956568a3733625790f977353",
+    "bytes": 2490,
+    "appears_anywhere_in_the_artifact": false,
+    "why_the_answer_depends_on_it": "the orchestration"
+   },
+   "italia-portale/client/italy-label-verdicts.js": {
+    "exists": true,
+    "sha256": "af3e39a7acf9baf3c757faa267badc70b1f0571a944d8c5899518b23aff0f417",
+    "bytes": 3282,
+    "appears_anywhere_in_the_artifact": false,
+    "why_the_answer_depends_on_it": "ADAMA_RELEVANCE YES/NO/UNKNOWN and its printed reason come from this file"
+   },
+   "italia-portale/client/italy-handoff-v21.js": {
+    "exists": true,
+    "sha256": "a0cebd9ba02eadc5618cda777cffff7f2f40c3541792a82de57f5cc00d1e9b77",
+    "bytes": 5919126,
+    "appears_anywhere_in_the_artifact": false,
+    "why_the_answer_depends_on_it": "olive_objects counts printed inside the ADAMA reason string"
+   }
+  },
+  "n_such_inputs_carrying_no_hash_in_the_artifact": 8,
+  "python_version_recorded_in_artifact": false,
+  "commit_or_code_version_recorded_in_artifact": false
+ },
+ "D_IS_THERE_ANY_VERIFICATION": {
+  "lines_in_engine_that_compare_a_sha256_to_anything": [],
+  "THE_READER_VERIFIES_NOTHING": true
+ }
+}

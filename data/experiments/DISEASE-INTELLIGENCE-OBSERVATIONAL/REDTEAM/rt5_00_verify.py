@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """RT5 · gate 0. The fast harness must reproduce engine/di_observe.cell() exactly
 on the published configuration, for all ten provinces, or nothing below counts."""
-import os, sys, json, datetime as dt
+import os, sys, json, glob, hashlib, datetime as dt
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import rt5_lib as L
@@ -10,6 +10,13 @@ import di_core, di_observe
 
 AS_OF = dt.date(2026, 9, 6)
 METRIC = "ACTIVE_INFESTATION_COUNT"
+
+# The engine is being edited while this audit runs. Pin the exact bytes.
+ENGINE_HASH = {os.path.basename(f): hashlib.sha256(open(f, "rb").read()).hexdigest()
+               for f in sorted(glob.glob(os.path.join(L.ENGINE, "*.py")))}
+for k in ("di_core.py", "di_observe.py"):
+    print(f"engine {k}  sha256 {ENGINE_HASH[k]}")
+L.load_raw(force=True)          # never sweep against a stale cache
 
 sheet = di_core.load_sheet()
 loaded = di_core.load_visits(L.CASE, sheet, AS_OF)
@@ -55,7 +62,9 @@ for p in provs:
 
 print(f"\n{len(provs) - bad} of {len(provs)} provinces reproduce the engine exactly.")
 json.dump({"as_of": AS_OF.isoformat(), "metric": METRIC,
+           "engine_sha256": ENGINE_HASH,
            "n_visits_loaded": loaded["n_visits"],
-           "n_visits_usable": loaded["n_visits_usable_for_rates"],
+           "n_visits_usable_by_measurement":
+               loaded.get("n_visits_usable_by_measurement"),
            "provinces_matching": len(provs) - bad, "of": len(provs), "rows": rows},
           open(os.path.join(HERE, "rt5_00_verify.json"), "w"), indent=1)

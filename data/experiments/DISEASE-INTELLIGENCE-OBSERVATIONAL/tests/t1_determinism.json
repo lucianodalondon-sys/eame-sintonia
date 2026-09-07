@@ -4,30 +4,61 @@
   "ACTIVE_INFESTATION_COUNT",
   "DAMAGING_INFESTATION_COUNT"
  ],
- "A_FILE_ORDER": {
+ "RECEIPT": {
+  "python": "3.12.10",
+  "di_core.py": "37b9f74e7409a0e6",
+  "di_observe.py": "1966dbace09c05b1",
+  "di_adama.py": "1301ffbeeff8096a",
+  "di_render.py": "1654d6bbb33a4c43",
+  "di_refresh.py": "66b995ea0967607a",
+  "SOURCE-SEMANTIC-SHEET.json": "51ed1989158edd6d",
+  "sheet_version": "2.0"
+ },
+ "A_FILE_ORDER_SHIPPED": {
   "per_condition": {
-   "asc": "e21711b959ed647d65834326c2f21fce4f138885de458bbf7c06e435f77c60b3",
-   "desc": "e21711b959ed647d65834326c2f21fce4f138885de458bbf7c06e435f77c60b3",
-   "shuffle:1": "e21711b959ed647d65834326c2f21fce4f138885de458bbf7c06e435f77c60b3",
-   "shuffle:2": "e21711b959ed647d65834326c2f21fce4f138885de458bbf7c06e435f77c60b3",
-   "shuffle:3": "e21711b959ed647d65834326c2f21fce4f138885de458bbf7c06e435f77c60b3",
-   "shuffle:4": "e21711b959ed647d65834326c2f21fce4f138885de458bbf7c06e435f77c60b3",
-   "shuffle:5": "e21711b959ed647d65834326c2f21fce4f138885de458bbf7c06e435f77c60b3",
-   "shuffle:6": "e21711b959ed647d65834326c2f21fce4f138885de458bbf7c06e435f77c60b3"
+   "asc": "f5e337785ef5c07b178f15b08c41fd4821b1ab79c8032158ad56fb675bfb1082",
+   "desc": "f5e337785ef5c07b178f15b08c41fd4821b1ab79c8032158ad56fb675bfb1082",
+   "shuffle:1": "f5e337785ef5c07b178f15b08c41fd4821b1ab79c8032158ad56fb675bfb1082",
+   "shuffle:2": "f5e337785ef5c07b178f15b08c41fd4821b1ab79c8032158ad56fb675bfb1082",
+   "shuffle:3": "f5e337785ef5c07b178f15b08c41fd4821b1ab79c8032158ad56fb675bfb1082",
+   "shuffle:4": "f5e337785ef5c07b178f15b08c41fd4821b1ab79c8032158ad56fb675bfb1082",
+   "shuffle:5": "f5e337785ef5c07b178f15b08c41fd4821b1ab79c8032158ad56fb675bfb1082",
+   "shuffle:6": "f5e337785ef5c07b178f15b08c41fd4821b1ab79c8032158ad56fb675bfb1082"
   },
-  "distinct_results": 1,
+  "distinct_full_payloads": 1,
+  "distinct_published_answers": 1,
   "DETERMINISTIC": true
  },
+ "A_CONTROL_WITH_THE_LOADERS_SORT_REMOVED": {
+  "per_condition": {
+   "asc": "f5e337785ef5c07b178f15b08c41fd4821b1ab79c8032158ad56fb675bfb1082",
+   "desc": "ce9b2b84e2e1dd0a2a6198084ec6e5c2fa5f7a479a127e2a9ebf6cbe34e9a1ad",
+   "shuffle:1": "41ddb1c75c312fe0167b04d3fd64d1e99102a325fb5e8d2c0e1d703aa9e5c3c4",
+   "shuffle:2": "17d006ce36c22a67281d0d93f2cadc843ee2bdd8ed95e3c3b958080ce25b02a6",
+   "shuffle:3": "ee22d863b107666091a6a5754db8dfdbb9102378a978ab84aead6b92c8f96ee6",
+   "shuffle:4": "0406bf378c3c2130f87b9bb2f3ea13402f19481172bf42ade634a805f0586072",
+   "shuffle:5": "c79206d5f22d13ca4fd31821190eb32eed97c4482bd8689de79bd217a9867b75",
+   "shuffle:6": "dfdcede8b214cf06ce167ae8603240caee750fff0d0a34f31db567dc5e21c399"
+  },
+  "distinct_full_payloads": 8,
+  "distinct_published_answers": 1,
+  "CONDITION_A_IS_NOT_VACUOUS": true,
+  "READ": "if this row shows 1 as well, condition A proves nothing, because the loader's own sort would be hiding the permutation. It shows 8 distinct payloads and 1 distinct published answers - so the receipt moves with the file order and the ANSWER does not, because the visit key is unique and a collision raises. The sort makes the receipt reproducible; the key makes the answer reproducible. Both are needed and they are different claims."
+ },
  "C_SAME_PROCESS_TWICE": {
-  "h1": "e21711b959ed647d65834326c2f21fce4f138885de458bbf7c06e435f77c60b3",
-  "h2": "e21711b959ed647d65834326c2f21fce4f138885de458bbf7c06e435f77c60b3",
+  "h1": "f5e337785ef5c07b178f15b08c41fd4821b1ab79c8032158ad56fb675bfb1082",
+  "h2": "f5e337785ef5c07b178f15b08c41fd4821b1ab79c8032158ad56fb675bfb1082",
   "IDENTICAL": true
  },
  "D_INJECTED_KEY_COLLISION_RAISES": {
   "RAISED": true,
-  "message": "visit key (1, '2026-09-01') appears twice with values 3.0 and 9.0"
+  "message": "REFUSED: visit key (5995, '2026-07-29') appears twice in variable -1001 with different values (0.0 then 7.0). The key ['id_field', 'date'] is not unique on this data and no winner will be picked for y",
+  "method": "the shipped loader, on a real case with a duplicated key"
  },
- "B_HASH_SEED": "varied across processes by t1_determinism.sh; see its output",
+ "B_HASH_SEED": {
+  "script": "t1b_hashseed.py (this directory)",
+  "NOTE": "the first version of this file cited t1_determinism.sh, which does not exist in any commit. The property was true and the citation was not."
+ },
  "NOT_TESTED_HERE": [
   "a non-Windows filesystem",
   "a non-UTF8 locale for READING (the reader opens raw bytes and decodes utf-8 explicitly)"

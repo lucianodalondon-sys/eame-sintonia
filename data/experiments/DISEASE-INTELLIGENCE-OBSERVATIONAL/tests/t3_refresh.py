@@ -2,9 +2,9 @@
 """
 DISEASE INTELLIGENCE · OBSERVATIONAL · TEST 3 — CAN THIS FEED ITSELF WITHOUT BREAKING ITSELF?
 
-Six scenarios, all through the real refresh code, on a COPY of a real case. The canonical
+Eight scenarios, all through the real refresh code, on a COPY of a real case. The canonical
 archive under CASES/ is never written to. Five scenarios use a canned transport so they are
-reproducible offline; the sixth makes one real request, so the answer to "is the endpoint
+reproducible offline; a final one makes one real request, so the answer to "is the endpoint
 alive" is measured rather than assumed.
 
 The property: after any refresh, good or bad, the canonical archive must still produce the
@@ -62,7 +62,7 @@ def answer(canon):
         return {"RAISED": f"{type(e).__name__}: {str(e)[:120]}"}
     dates = [v["observation_date"] for v in loaded["visits"]]
     return {"n_visits": loaded["n_visits"],
-            "n_usable": loaded["n_visits_usable_for_rates"],
+            "n_usable": loaded["n_visits_usable_for_at_least_one_measurement"],
             "last_observation": max(dates) if dates else None,
             "hash": hashlib.sha256(json.dumps(
                 {k: v for k, v in loaded.items() if k != "visits"},
@@ -83,6 +83,16 @@ def canned(kind, real_rows):
                                         "data": []}}).encode("utf-8")
         if kind == "garbage":
             return b"<html>503 Service Unavailable</html>"
+        if kind == "truncated":
+            # 2,245 of 2,928 rows: a perfectly well-formed, 200 OK, ok:true response that is
+            # simply INCOMPLETE. Found by an independent time lens; it flipped Siena from
+            # 0.6909% on 18,383 drupes to 0.0% on 13,200 and stayed publishable.
+            return json.dumps({"data": {"ok": True,
+                                        "data": real_rows[:int(len(real_rows) * 0.767)]}}
+                              ).encode("utf-8")
+        if kind == "older_only":
+            keep = [r for r in real_rows if (r.get("date") or "") < "2026-08-01"]
+            return json.dumps({"data": {"ok": True, "data": keep}}).encode("utf-8")
         if kind == "new_rows":
             extra = dict(real_rows[0], date="2026-09-05", id_field=999999, val="1")
             return json.dumps({"data": {"ok": True,
@@ -99,7 +109,8 @@ def main():
                                encoding="utf-8"))
     out = {"BEFORE": before, "SCENARIOS": []}
 
-    for kind in ("identical", "all_null", "not_ok", "garbage", "network_error", "new_rows"):
+    for kind in ("identical", "all_null", "not_ok", "garbage", "network_error",
+                 "truncated", "older_only", "new_rows"):
         rec = di_refresh.refresh_one(canon, stag, CROP, SCHEMA, VAR, YEAR,
                                      _transport=canned(kind, real_rows))
         prom = di_refresh.promote(canon, stag, [rec])

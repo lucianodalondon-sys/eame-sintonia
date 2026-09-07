@@ -1,0 +1,530 @@
+{
+ "L1_WHEN_THE_FALLBACK_FIRES": {
+  "dates_scanned": 3288,
+  "dates_where_replace(year=2026)_raises": [
+   "2020-02-29",
+   "2024-02-29",
+   "2028-02-29"
+  ],
+  "the_fallback_sets_day=28": true,
+  "is_that_correct_for_every_firing_date": true,
+  "NOTE": "the fallback is only reachable for 29 Feb, so day=28 is right today. It is written as a day-of-month rewrite, not as 'the last day of that month', so it would be silently wrong if the guard ever widened."
+ },
+ "L2_WINDOW_LENGTH_ACROSS_LEAP_YEARS": [
+  {
+   "as_of": "2028-03-10",
+   "current_window": [
+    "2028-02-12",
+    "2028-03-10"
+   ],
+   "current_window_days": 28,
+   "baselines": [
+    {
+     "season": 2024,
+     "window": [
+      "2024-02-12",
+      "2024-03-10"
+     ],
+     "days": 28,
+     "days_vs_current": 0
+    },
+    {
+     "season": 2025,
+     "window": [
+      "2025-02-12",
+      "2025-03-10"
+     ],
+     "days": 27,
+     "days_vs_current": -1
+    },
+    {
+     "season": 2026,
+     "window": [
+      "2026-02-12",
+      "2026-03-10"
+     ],
+     "days": 27,
+     "days_vs_current": -1
+    },
+    {
+     "season": 2027,
+     "window": [
+      "2027-02-12",
+      "2027-03-10"
+     ],
+     "days": 27,
+     "days_vs_current": -1
+    }
+   ]
+  },
+  {
+   "as_of": "2028-03-27",
+   "current_window": [
+    "2028-02-29",
+    "2028-03-27"
+   ],
+   "current_window_days": 28,
+   "baselines": [
+    {
+     "season": 2024,
+     "window": [
+      "2024-02-29",
+      "2024-03-27"
+     ],
+     "days": 28,
+     "days_vs_current": 0
+    },
+    {
+     "season": 2025,
+     "window": [
+      "2025-02-28",
+      "2025-03-27"
+     ],
+     "days": 28,
+     "days_vs_current": 0
+    },
+    {
+     "season": 2026,
+     "window": [
+      "2026-02-28",
+      "2026-03-27"
+     ],
+     "days": 28,
+     "days_vs_current": 0
+    },
+    {
+     "season": 2027,
+     "window": [
+      "2027-02-28",
+      "2027-03-27"
+     ],
+     "days": 28,
+     "days_vs_current": 0
+    }
+   ]
+  },
+  {
+   "as_of": "2028-02-29",
+   "current_window": [
+    "2028-02-02",
+    "2028-02-29"
+   ],
+   "current_window_days": 28,
+   "baselines": [
+    {
+     "season": 2024,
+     "window": [
+      "2024-02-02",
+      "2024-02-29"
+     ],
+     "days": 28,
+     "days_vs_current": 0
+    },
+    {
+     "season": 2025,
+     "window": [
+      "2025-02-02",
+      "2025-02-28"
+     ],
+     "days": 27,
+     "days_vs_current": -1
+    },
+    {
+     "season": 2026,
+     "window": [
+      "2026-02-02",
+      "2026-02-28"
+     ],
+     "days": 27,
+     "days_vs_current": -1
+    },
+    {
+     "season": 2027,
+     "window": [
+      "2027-02-02",
+      "2027-02-28"
+     ],
+     "days": 27,
+     "days_vs_current": -1
+    }
+   ]
+  },
+  {
+   "as_of": "2027-03-10",
+   "current_window": [
+    "2027-02-11",
+    "2027-03-10"
+   ],
+   "current_window_days": 28,
+   "baselines": [
+    {
+     "season": 2024,
+     "window": [
+      "2024-02-11",
+      "2024-03-10"
+     ],
+     "days": 29,
+     "days_vs_current": 1
+    },
+    {
+     "season": 2025,
+     "window": [
+      "2025-02-11",
+      "2025-03-10"
+     ],
+     "days": 28,
+     "days_vs_current": 0
+    },
+    {
+     "season": 2026,
+     "window": [
+      "2026-02-11",
+      "2026-03-10"
+     ],
+     "days": 28,
+     "days_vs_current": 0
+    },
+    {
+     "season": 2027,
+     "window": [
+      "2027-02-11",
+      "2027-03-10"
+     ],
+     "days": 28,
+     "days_vs_current": 0
+    }
+   ]
+  }
+ ],
+ "L2_SUMMARY": {
+  "baseline_windows_examined": 16,
+  "baseline_windows_shorter_or_longer_than_the_current_one": 7,
+  "worst_difference_days": 1,
+  "as_a_share_of_the_window": "1 of 28 days = 3.6%"
+ },
+ "L2b_SYNTHETIC_CONSTANT_5PCT": {
+  "as_of": "2028-03-10",
+  "current_window": [
+   "2028-02-12",
+   "2028-03-10"
+  ],
+  "current_drupes": 56000,
+  "current_n_visits": 560,
+  "baseline_detail": [
+   {
+    "season": 2020,
+    "rate_pct": 5.0,
+    "n_visits": 560,
+    "n_sites": 20,
+    "drupes_sampled": 56000
+   },
+   {
+    "season": 2021,
+    "rate_pct": 5.0,
+    "n_visits": 540,
+    "n_sites": 20,
+    "drupes_sampled": 54000
+   },
+   {
+    "season": 2022,
+    "rate_pct": 5.0,
+    "n_visits": 540,
+    "n_sites": 20,
+    "drupes_sampled": 54000
+   },
+   {
+    "season": 2023,
+    "rate_pct": 5.0,
+    "n_visits": 540,
+    "n_sites": 20,
+    "drupes_sampled": 54000
+   },
+   {
+    "season": 2024,
+    "rate_pct": 5.0,
+    "n_visits": 560,
+    "n_sites": 20,
+    "drupes_sampled": 56000
+   },
+   {
+    "season": 2025,
+    "rate_pct": 5.0,
+    "n_visits": 540,
+    "n_sites": 20,
+    "drupes_sampled": 54000
+   },
+   {
+    "season": 2026,
+    "rate_pct": 5.0,
+    "n_visits": 540,
+    "n_sites": 20,
+    "drupes_sampled": 54000
+   },
+   {
+    "season": 2027,
+    "rate_pct": 5.0,
+    "n_visits": 540,
+    "n_sites": 20,
+    "drupes_sampled": 54000
+   }
+  ],
+  "rates_are_all_equal": true,
+  "drupes_by_season": {
+   "2020": 56000,
+   "2021": 54000,
+   "2022": 54000,
+   "2023": 54000,
+   "2024": 56000,
+   "2025": 54000,
+   "2026": 54000,
+   "2027": 54000
+  },
+  "historical_state": "TYPICAL",
+  "NOTE": "with a constant rate the missing day changes the DENOMINATOR, not the rate. It matters only where a season sits near MIN_VISITS or MIN_DRUPES."
+ },
+ "L2c_HOW_MANY_REAL_BASELINE_SEASONS_SIT_WITHIN_ONE_DAY_OF_THE_GATE": {
+  "baseline_season_cells": 194,
+  "that_a_27_day_window_would_drop": 1,
+  "examples": [
+   {
+    "province": "Prato",
+    "season": 2025,
+    "n_visits": 8,
+    "drupes": 800,
+    "visits_above_gate": 0,
+    "drupes_above_gate": 400,
+    "would_a_4pct_smaller_window_drop_it": true
+   }
+  ]
+ },
+ "S1_ARCHIVE_400_DAYS_OLD": {
+  "as_of": "2026-09-06",
+  "newest_observation_in_the_archive": "2025-08-02",
+  "age_of_the_newest_observation_days": 400,
+  "provinces": {
+   "Arezzo": {
+    "value_pct": null,
+    "n_visits": 0,
+    "last_observation": null,
+    "observation_publishable": false,
+    "historical_state": "INSUFFICIENT_DATA",
+    "trend": "UNKNOWN",
+    "attention_class": "UNKNOWN",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF"
+   },
+   "Firenze": {
+    "value_pct": null,
+    "n_visits": 0,
+    "last_observation": null,
+    "observation_publishable": false,
+    "historical_state": "INSUFFICIENT_DATA",
+    "trend": "UNKNOWN",
+    "attention_class": "UNKNOWN",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF"
+   },
+   "Grosseto": {
+    "value_pct": null,
+    "n_visits": 0,
+    "last_observation": null,
+    "observation_publishable": false,
+    "historical_state": "INSUFFICIENT_DATA",
+    "trend": "UNKNOWN",
+    "attention_class": "UNKNOWN",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF"
+   },
+   "Livorno": {
+    "value_pct": null,
+    "n_visits": 0,
+    "last_observation": null,
+    "observation_publishable": false,
+    "historical_state": "INSUFFICIENT_DATA",
+    "trend": "UNKNOWN",
+    "attention_class": "UNKNOWN",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF"
+   },
+   "Lucca": {
+    "value_pct": null,
+    "n_visits": 0,
+    "last_observation": null,
+    "observation_publishable": false,
+    "historical_state": "INSUFFICIENT_DATA",
+    "trend": "UNKNOWN",
+    "attention_class": "UNKNOWN",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF"
+   },
+   "Massa-Carrara": {
+    "value_pct": null,
+    "n_visits": 0,
+    "last_observation": null,
+    "observation_publishable": false,
+    "historical_state": "INSUFFICIENT_DATA",
+    "trend": "UNKNOWN",
+    "attention_class": "UNKNOWN",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF"
+   },
+   "Pisa": {
+    "value_pct": null,
+    "n_visits": 0,
+    "last_observation": null,
+    "observation_publishable": false,
+    "historical_state": "INSUFFICIENT_DATA",
+    "trend": "UNKNOWN",
+    "attention_class": "UNKNOWN",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF"
+   },
+   "Pistoia": {
+    "value_pct": null,
+    "n_visits": 0,
+    "last_observation": null,
+    "observation_publishable": false,
+    "historical_state": "INSUFFICIENT_DATA",
+    "trend": "UNKNOWN",
+    "attention_class": "UNKNOWN",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF"
+   },
+   "Prato": {
+    "value_pct": null,
+    "n_visits": 0,
+    "last_observation": null,
+    "observation_publishable": false,
+    "historical_state": "INSUFFICIENT_DATA",
+    "trend": "UNKNOWN",
+    "attention_class": "UNKNOWN",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF"
+   },
+   "Siena": {
+    "value_pct": null,
+    "n_visits": 0,
+    "last_observation": null,
+    "observation_publishable": false,
+    "historical_state": "INSUFFICIENT_DATA",
+    "trend": "UNKNOWN",
+    "attention_class": "UNKNOWN",
+    "temporal_validity": "NO_OBSERVATION_AFTER_AS_OF"
+   }
+  },
+  "provinces_with_a_publishable_observation": 0,
+  "of": 10
+ },
+ "S1b_ARCHIVE_29_DAYS_OLD": {
+  "newest_observation": "2026-08-08",
+  "provinces_publishable": 0,
+  "of": 10,
+  "detail": [
+   [
+    "Arezzo",
+    null,
+    0,
+    false
+   ],
+   [
+    "Firenze",
+    null,
+    0,
+    false
+   ],
+   [
+    "Grosseto",
+    null,
+    0,
+    false
+   ],
+   [
+    "Livorno",
+    null,
+    0,
+    false
+   ],
+   [
+    "Lucca",
+    null,
+    0,
+    false
+   ],
+   [
+    "Massa-Carrara",
+    null,
+    0,
+    false
+   ],
+   [
+    "Pisa",
+    null,
+    0,
+    false
+   ],
+   [
+    "Pistoia",
+    null,
+    0,
+    false
+   ],
+   [
+    "Prato",
+    null,
+    0,
+    false
+   ],
+   [
+    "Siena",
+    null,
+    0,
+    false
+   ]
+  ],
+  "NOTE": "at 29 days the whole archive falls outside the 28-day window, so every province goes silent. Between 1 and 28 days of staleness the tool publishes a window that is partly empty and says nothing about it."
+ },
+ "S2_IS_THERE_A_LATENCY_THRESHOLD": {
+  "engine_bytes_searched": 49389,
+  "hits": {
+   "MAX_AGE": 0,
+   "STALE": 0,
+   "stale": 0,
+   "latency": 0,
+   "LATENCY": 0,
+   "freshness": 0,
+   "FRESHNESS": 0,
+   "age_days": 0,
+   "MAX_LAG": 0,
+   "too_old": 0
+  },
+  "last_observation_is_reported": true,
+  "last_observation_is_compared_to_anything": false,
+  "renderer_prints_it": true
+ },
+ "S3_WHAT_A_THRESHOLD_WOULD_BE_BUILT_ON": {
+  "groves_with_at_least_two_2026_visits": 373,
+  "revisit_intervals_measured": 2430,
+  "median_days_between_visits_to_the_same_grove": 7.0,
+  "p90_days": 9,
+  "p99_days": 21,
+  "max_days": 92,
+  "most_common_intervals": [
+   [
+    7,
+    1243
+   ],
+   [
+    6,
+    416
+   ],
+   [
+    8,
+    392
+   ],
+   [
+    9,
+    80
+   ],
+   [
+    14,
+    62
+   ],
+   [
+    5,
+    47
+   ]
+  ],
+  "days_since_the_newest_observation_in_the_real_archive_at_as_of_2026_09_06": 2
+ }
+}

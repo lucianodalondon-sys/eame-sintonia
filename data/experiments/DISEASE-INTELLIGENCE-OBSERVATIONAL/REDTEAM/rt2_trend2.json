@@ -1,0 +1,366 @@
+{
+ "ENGINE_SHA256": {
+  "di_core.py": "2ba3abc24895ee86f176f0e0182ebc4a29b81cc39e47c46e6bb486294d05f7c4",
+  "di_observe.py": "093d95c9684fbea3ee08a13a929fc979d3b6cb126f6d45638f7d9a9dc27977f7",
+  "di_refresh.py": "81f8240a01c428fae98c71e28c995815c8cf4cd28ccdbc96e937e773fd769258"
+ },
+ "MEASURED_AT_UTC": "2026-09-07T00:26:14+00:00",
+ "N1_TRENDS_ON_THE_CURRENT_ENGINE": {
+  "Arezzo": {
+   "value_pct": 0.1636,
+   "sequence": [
+    0.0185,
+    0.1636
+   ],
+   "infested_over_drupes": [
+    [
+     1,
+     5400
+    ],
+    [
+     9,
+     5500
+    ]
+   ],
+   "n_visits_per_window": [
+    54,
+    55
+   ],
+   "delta_pp": 0.1451,
+   "trend_now": "UNKNOWN",
+   "reason_now": "2 usable consecutive windows, below the declared minimum of 3",
+   "historical_state": "INSUFFICIENT_DATA"
+  },
+  "Firenze": {
+   "value_pct": 0.0664,
+   "sequence": [
+    0.0159,
+    0.156,
+    0.0664
+   ],
+   "infested_over_drupes": [
+    [
+     1,
+     6300
+    ],
+    [
+     39,
+     25000
+    ],
+    [
+     16,
+     24100
+    ]
+   ],
+   "n_visits_per_window": [
+    63,
+    250,
+    241
+   ],
+   "delta_pp": 0.0505,
+   "trend_now": "STABLE_OBSERVED",
+   "reason_now": "0.0159% -> 0.156% -> 0.0664% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0505 percentage points. First window 95% interval [0.0028, 0.0899]%, last [0.0409, 0.1078]%; they overlap, so a direction is NOT named. Thi",
+   "historical_state": "BELOW_HISTORICAL"
+  },
+  "Grosseto": {
+   "value_pct": 0.6575,
+   "sequence": [
+    0.5876,
+    0.8374,
+    0.6575
+   ],
+   "infested_over_drupes": [
+    [
+     109,
+     18550
+    ],
+    [
+     412,
+     49235
+    ],
+    [
+     228,
+     34720
+    ]
+   ],
+   "n_visits_per_window": [
+    185,
+    442,
+    320
+   ],
+   "delta_pp": 0.0699,
+   "trend_now": "STABLE_OBSERVED",
+   "reason_now": "0.5876% -> 0.8374% -> 0.6575% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0699 percentage points. First window 95% interval [0.4874, 0.7083]%, last [0.577, 0.7473]%; they overlap, so a direction is NOT named. Thi",
+   "historical_state": "INSUFFICIENT_DATA"
+  },
+  "Livorno": {
+   "value_pct": 0.9216,
+   "sequence": [
+    0.4722,
+    1.8153,
+    0.9216
+   ],
+   "infested_over_drupes": [
+    [
+     34,
+     7200
+    ],
+    [
+     285,
+     15700
+    ],
+    [
+     141,
+     15300
+    ]
+   ],
+   "n_visits_per_window": [
+    72,
+    157,
+    153
+   ],
+   "delta_pp": 0.4494,
+   "trend_now": "STABLE_OBSERVED",
+   "reason_now": "0.4722% -> 1.8153% -> 0.9216% over 3 consecutive 28-day windows ending 2026-09-06; change 0.4494 percentage points. First window 95% interval [0.3381, 0.6591]%, last [0.782, 1.0858]%; they do not overlap, so a direction is NOT nam",
+   "historical_state": "INSUFFICIENT_DATA"
+  },
+  "Lucca": {
+   "value_pct": 1.1509,
+   "sequence": [
+    0.0769,
+    0.4464,
+    1.1509
+   ],
+   "infested_over_drupes": [
+    [
+     1,
+     1300
+    ],
+    [
+     25,
+     5600
+    ],
+    [
+     61,
+     5300
+    ]
+   ],
+   "n_visits_per_window": [
+    13,
+    56,
+    53
+   ],
+   "delta_pp": 1.074,
+   "trend_now": "INCREASING_OBSERVED",
+   "reason_now": "0.0769% -> 0.4464% -> 1.1509% over 3 consecutive 28-day windows ending 2026-09-06; change 1.074 percentage points. First window 95% interval [0.0136, 0.4345]%, last [0.8971, 1.4756]%; they do not overlap, so a direction is named. ",
+   "historical_state": "INSUFFICIENT_DATA"
+  },
+  "Massa-Carrara": {
+   "value_pct": 0.566,
+   "sequence": [
+    0.0,
+    0.7838,
+    0.566
+   ],
+   "infested_over_drupes": [
+    [
+     0,
+     900
+    ],
+    [
+     29,
+     3700
+    ],
+    [
+     30,
+     5300
+    ]
+   ],
+   "n_visits_per_window": [
+    9,
+    37,
+    40
+   ],
+   "delta_pp": 0.566,
+   "trend_now": "STABLE_OBSERVED",
+   "reason_now": "0.0% -> 0.7838% -> 0.566% over 3 consecutive 28-day windows ending 2026-09-06; change 0.566 percentage points. First window 95% interval [0.0, 0.425]%, last [0.3968, 0.8069]%; they overlap, so a direction is NOT named. This descri",
+   "historical_state": "INSUFFICIENT_DATA"
+  },
+  "Pisa": {
+   "value_pct": 1.02,
+   "sequence": [
+    0.04,
+    0.5022,
+    1.02
+   ],
+   "infested_over_drupes": [
+    [
+     1,
+     2500
+    ],
+    [
+     39,
+     7786
+    ],
+    [
+     93,
+     9196
+    ]
+   ],
+   "n_visits_per_window": [
+    25,
+    65,
+    85
+   ],
+   "delta_pp": 0.98,
+   "trend_now": "INCREASING_OBSERVED",
+   "reason_now": "0.04% -> 0.5022% -> 1.02% over 3 consecutive 28-day windows ending 2026-09-06; change 0.98 percentage points. First window 95% interval [0.0071, 0.2262]%, last [0.8263, 1.2372]%; they do not overlap, so a direction is named. This ",
+   "historical_state": "INSUFFICIENT_DATA"
+  },
+  "Pistoia": {
+   "value_pct": 0.0278,
+   "sequence": [
+    0.0,
+    0.0,
+    0.0278
+   ],
+   "infested_over_drupes": [
+    [
+     0,
+     1400
+    ],
+    [
+     0,
+     3500
+    ],
+    [
+     1,
+     3600
+    ]
+   ],
+   "n_visits_per_window": [
+    14,
+    35,
+    36
+   ],
+   "delta_pp": 0.0278,
+   "trend_now": "STABLE_OBSERVED",
+   "reason_now": "0.0% -> 0.0% -> 0.0278% over 3 consecutive 28-day windows ending 2026-09-06; change 0.0278 percentage points. First window 95% interval [0.0, 0.2736]%, last [0.0049, 0.1572]%; they overlap, so a direction is NOT named. This descri",
+   "historical_state": "INSUFFICIENT_DATA"
+  },
+  "Prato": {
+   "value_pct": 0.0417,
+   "sequence": [
+    0.0,
+    0.0417
+   ],
+   "infested_over_drupes": [
+    [
+     0,
+     2400
+    ],
+    [
+     1,
+     2400
+    ]
+   ],
+   "n_visits_per_window": [
+    24,
+    24
+   ],
+   "delta_pp": 0.0417,
+   "trend_now": "UNKNOWN",
+   "reason_now": "2 usable consecutive windows, below the declared minimum of 3",
+   "historical_state": "INSUFFICIENT_DATA"
+  },
+  "Siena": {
+   "value_pct": 0.6909,
+   "sequence": [
+    0.0,
+    0.2718,
+    0.6909
+   ],
+   "infested_over_drupes": [
+    [
+     0,
+     3100
+    ],
+    [
+     39,
+     14350
+    ],
+    [
+     127,
+     18383
+    ]
+   ],
+   "n_visits_per_window": [
+    31,
+    144,
+    186
+   ],
+   "delta_pp": 0.6909,
+   "trend_now": "INCREASING_OBSERVED",
+   "reason_now": "0.0% -> 0.2718% -> 0.6909% over 3 consecutive 28-day windows ending 2026-09-06; change 0.6909 percentage points. First window 95% interval [0.0, 0.1238]%, last [0.581, 0.8213]%; they do not overlap, so a direction is named. This d",
+   "historical_state": "TYPICAL"
+  }
+ },
+ "N1b_WHAT_THE_OLD_1_0_PP_RULE_WOULD_HAVE_SAID": {
+  "Firenze": "STABLE_OBSERVED",
+  "Grosseto": "STABLE_OBSERVED",
+  "Livorno": "STABLE_OBSERVED",
+  "Lucca": "INCREASING_OBSERVED",
+  "Massa-Carrara": "STABLE_OBSERVED",
+  "Pisa": "STABLE_OBSERVED",
+  "Pistoia": "STABLE_OBSERVED",
+  "Siena": "STABLE_OBSERVED"
+ },
+ "N1c_PROVINCES_WHOSE_LABEL_THE_FIX_CHANGED": [
+  "Pisa",
+  "Siena"
+ ],
+ "N2_A_DEAD_PARAMETER_STILL_PUBLISHED": {
+  "lines_mentioning_it_in_di_observe": [
+   "\"TREND_MIN_ABS_CHANGE_PCT\": 1.0, # percentage points; below this the change is called STABLE"
+  ],
+  "it_is_emitted_in_every_cell_params_block": true,
+  "value_emitted": 1.0,
+  "trend_with_the_parameter_at_0": "INCREASING_OBSERVED",
+  "trend_with_the_parameter_at_9999": "INCREASING_OBSERVED",
+  "trend_at_the_declared_1_0": "INCREASING_OBSERVED",
+  "changing_it_from_0_to_9999_changes_nothing": true,
+  "the_docstring_says": "EVERY parameter is declared here, emitted in PARAMS, and varied by the sensitivity test. A parameter that never appears in the output is a parameter nobody can audit."
+ },
+ "N3_HOLES_ON_THE_REAL_ARCHIVE": {
+  "province_x_as_of_scanned": 2200,
+  "with_a_hole": 0
+ },
+ "N3b_SYNTHETIC_CASE_WITH_A_HOLE": {
+  "design": "windows ending at as_of-0d, -28d, -84d are rich; the window ending -56d has 2 groves x 4 days = 8 visits but only 800 drupes... measured below",
+  "window_ends_kept": [
+   "2026-06-14",
+   "2026-07-12",
+   "2026-08-09",
+   "2026-09-06"
+  ],
+  "gaps_between_kept_window_ends_days": [
+   28,
+   28,
+   28
+  ],
+  "they_are_28_days_apart": true,
+  "published_trend": "INCREASING_OBSERVED",
+  "published_sentence": "1.0% -> 1.0% -> 3.0% -> 5.0% over 4 consecutive 28-day windows ending 2026-09-06; change 4.0 percentage points. First window 95% interval [0.8043, 1.2428]%, last [4.5436, 5.4996]%; they do not overlap, so a direction is named. This describes windows that have already ended.",
+  "the_sentence_uses_the_word_consecutive": true,
+  "n_points": 4
+ },
+ "N4_WHAT_THE_INTERVAL_TREATS_AS_INDEPENDENT": {
+  "province": "Siena",
+  "window_end": "2026-09-06",
+  "drupes_the_interval_treats_as_independent_trials": 18383,
+  "visits_they_actually_came_from": 186,
+  "groves_those_visits_came_from": 62,
+  "drupes_per_visit": 98.8,
+  "NOTE": "a Wilson interval on 18,383 drupes is far narrower than one on 186 visits or 61 groves. Clustering is not modelled, so 'the intervals do not overlap' is easier to achieve than the sentence implies. This is a statistics point, not a time point, but it is what now decides the direction."
+ }
+}

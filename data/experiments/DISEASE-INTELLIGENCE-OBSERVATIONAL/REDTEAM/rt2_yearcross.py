@@ -83,7 +83,7 @@ def build_synth():
                 for g in range(20):
                     peryear[season].append({
                         "id_field": 9000 + g, "date": d.isoformat(), "val": str(value),
-                        "nome_area": "Winterland", "name_4": "W", "admin_code": 1,
+                        "nome_area": "Prato", "name_4": "W", "admin_code": 1,
                         "org_name": "rt2", "week": "1", "id_survey": f"{season}{g}{d}"})
                 d += dt.timedelta(days=1)
         for season, rws in peryear.items():
@@ -99,7 +99,7 @@ synth = {"visits_loaded": sl["n_visits"],
 for iso in ("2026-01-15", "2026-01-28", "2026-01-29", "2026-02-25", "2025-12-20"):
     a = dt.date.fromisoformat(iso)
     ld = di_core.load_visits(LAB, sheet, a)
-    c = di_observe.cell(ld["visits"], sheet, "Winterland", "ACTIVE_INFESTATION_COUNT", a,
+    c = di_observe.cell(ld["visits"], sheet, "Prato", "ACTIVE_INFESTATION_COUNT", a,
                         first_year=2018)
     lo, hi = di_observe._win(a, 28)
     synth[iso] = {

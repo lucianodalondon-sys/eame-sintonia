@@ -1,0 +1,161 @@
+{
+ "F1_FUTURE_ROWS_IN_THE_RAW_BYTES": {
+  "poison_dates": [
+   "2026-09-07",
+   "2026-09-20",
+   "2026-12-31",
+   "2027-08-20",
+   "2099-08-20"
+  ],
+  "poison_value": "100000 infested of 100000 sampled = 100% in Firenze",
+  "rows_dropped_because_dated_after_as_of": 5,
+  "rows_dropped_in_the_clean_run": 0,
+  "visits_loaded_clean": 79251,
+  "visits_loaded_poisoned": 79251,
+  "HONEST": {
+   "value_pct": 0.0664,
+   "n_visits": 241,
+   "n_sites": 73,
+   "drupes_sampled": 24100,
+   "infested_drupes": 16,
+   "last_observation": "2026-09-02",
+   "per_visit_rate_pct_max": 2.0,
+   "source_band": "green",
+   "baseline_n": 20,
+   "baseline_median": 1.4073,
+   "matched_panel_seasons": 14,
+   "historical_state": "BELOW_HISTORICAL",
+   "trend": "STABLE_OBSERVED",
+   "trend_points": [
+    [
+     "2026-07-12",
+     0.0159
+    ],
+    [
+     "2026-08-09",
+     0.156
+    ],
+    [
+     "2026-09-06",
+     0.0664
+    ]
+   ],
+   "panel_overlap": {
+    "median_groves_shared": 19.0,
+    "min": 5,
+    "max": 51,
+    "seasons_sharing_at_least_the_declared_minimum": 14,
+    "of_seasons": 20,
+    "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
+   }
+  },
+  "POISONED": {
+   "value_pct": 0.0664,
+   "n_visits": 241,
+   "n_sites": 73,
+   "drupes_sampled": 24100,
+   "infested_drupes": 16,
+   "last_observation": "2026-09-02",
+   "per_visit_rate_pct_max": 2.0,
+   "source_band": "green",
+   "baseline_n": 20,
+   "baseline_median": 1.4073,
+   "matched_panel_seasons": 14,
+   "historical_state": "BELOW_HISTORICAL",
+   "trend": "STABLE_OBSERVED",
+   "trend_points": [
+    [
+     "2026-07-12",
+     0.0159
+    ],
+    [
+     "2026-08-09",
+     0.156
+    ],
+    [
+     "2026-09-06",
+     0.0664
+    ]
+   ],
+   "panel_overlap": {
+    "median_groves_shared": 19.0,
+    "min": 5,
+    "max": 51,
+    "seasons_sharing_at_least_the_declared_minimum": 14,
+    "of_seasons": 20,
+    "NOTE": "the unmatched baseline is the same calendar window, not the same groves"
+   }
+  },
+  "FIELDS_THAT_MOVED": [],
+  "IDENTICAL": true
+ },
+ "F2_EVERY_PROVINCE_EVERY_METRIC": {
+  "cells_compared": 20,
+  "cells_that_moved": 0,
+  "detail": {}
+ },
+ "F2c_A_LATER_AS_OF_LETS_THE_ROW_IN_LEGITIMATELY": {
+  "as_of": "2028-08-20",
+  "clean_baseline_n": 21,
+  "poisoned_baseline_n": 21,
+  "clean_baseline_max_pct": 11.9787,
+  "poisoned_baseline_max_pct": 11.9787,
+  "clean_historical_state": "INSUFFICIENT_DATA",
+  "poisoned_historical_state": "INSUFFICIENT_DATA",
+  "NOTE": "at as_of 2028-08-20 the 2027-08-20 row is NOT in the future any more, so di_core admits it by design. This measures what a row that was future when written does to the archive later - the filter is relative to as_of, and an archive is not re-audited when as_of moves past a poisoned date."
+ },
+ "F3_WHAT_date_fromisoformat_ACCEPTS": {
+  "python": "3.12.10",
+  "probes": {
+   "2026-09-07": "2026-09-07",
+   "20260907": "2026-09-07",
+   "2026-W38-1": "2026-09-14",
+   "2026-09-07T23:59:59": "REJECTED ValueError",
+   "2026-09-07T00:00:00+14:00": "REJECTED ValueError",
+   "2026-250": "REJECTED ValueError",
+   "2026-09": "REJECTED ValueError",
+   "0001-01-01": "0001-01-01",
+   "9999-12-31": "9999-12-31",
+   "2026-9-7": "REJECTED ValueError",
+   " 2026-09-07": "REJECTED ValueError",
+   "2026-09-07 ": "REJECTED ValueError",
+   "2026-02-30": "REJECTED ValueError"
+  },
+  "any_string_that_parses_to_a_PAST_date_while_meaning_a_future_one": []
+ },
+ "F3b_TIMEZONE": {
+  "does_the_engine_ever_convert_a_timezone": false,
+  "evidence": "di_core parses date-only strings with dt.date.fromisoformat and never constructs a datetime, so there is no tz conversion to exploit. The source ships date-only strings (checked: every row).",
+  "rows_whose_date_field_is_not_a_bare_YYYY_MM_DD": "0 of 317004"
+ },
+ "F4_THE_REFRESH_HAS_NO_AS_OF": {
+  "validate_status": "OK",
+  "validate_detail": {
+   "n_rows": 2,
+   "n_readable": 2,
+   "latest_observation": "2099-01-01"
+  },
+  "LAST_GOOD_OBSERVATION_AT_written_into_the_index": "2099-01-01",
+  "REFRESH_STATUS": "NEW_OBSERVATIONS",
+  "the_row_that_produced_it": "2099-01-01",
+  "VERDICT": "a future-dated row sets LAST_GOOD_OBSERVATION_AT to the future"
+ },
+ "F4b_STRING_MAX_IS_NOT_A_DATE_MAX": {
+  "rows": [
+   "2026-09-04",
+   "20260905",
+   "not-a-date"
+  ],
+  "validate_status": "OK",
+  "detail": {
+   "n_rows": 3,
+   "n_readable": 3,
+   "latest_observation": "not-a-date"
+  },
+  "NOTE": "latest_observation is max() over raw strings; no row is parsed as a date anywhere in validate()"
+ },
+ "F4c_MIXED_TYPE_DATE": {
+  "RAISED_OUT_OF_VALIDATE": "TypeError: '>' not supported between instances of 'int' and 'str'",
+  "NOTE": "fetch() promises never to raise; validate() carries no such guard and refresh_one calls it without a try, so this kills the whole refresh run"
+ }
+}

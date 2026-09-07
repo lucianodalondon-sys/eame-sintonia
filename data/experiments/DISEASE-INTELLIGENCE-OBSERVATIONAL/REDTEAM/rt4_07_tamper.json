@@ -1,0 +1,67 @@
+{
+ "shadow": "C:\\rt4-fresh\\tamper2",
+ "tampered_file": "c2_s1_v-1001_2026.json",
+ "T0_BASELINE": {
+  "value_pct": 0.0664,
+  "infested": 16,
+  "sampled": 24100,
+  "n_visits": 241,
+  "band": "0-6%",
+  "historical_state": "BELOW_HISTORICAL",
+  "trend": "STABLE_OBSERVED",
+  "published_hash_for_the_tampered_file": "0320dac27e4c2f14cb36de5142bc71ec7bcf4ca17c74d1ccd62d2ac098cf30b3",
+  "engine_raised": null,
+  "engine_warned": null
+ },
+ "T1_CHANGE_ONE_VALUE": {
+  "row_index": 112,
+  "date": "2026-09-01",
+  "id_field": 5121,
+  "old_val": "2.0",
+  "new_val": "99",
+  "after": {
+   "value_pct": 0.4689,
+   "infested": 113,
+   "sampled": 24100,
+   "n_visits": 241,
+   "band": "0-6%",
+   "historical_state": "TYPICAL",
+   "trend": "STABLE_OBSERVED",
+   "published_hash_for_the_tampered_file": "0cb3c934f0128df56c593cbe7adb3828f9848bf8f821ea79a82dd7381cf53cac",
+   "engine_raised": false,
+   "engine_warned": null
+  },
+  "value_pct_moved": 0.4025,
+  "published_hash_changed": true,
+  "ENGINE_OBJECTED": false
+ },
+ "T2_INJECTED_COLLISION_DIFFERENT_VALUE": {
+  "duplicated_key": {
+   "id_field": 5995,
+   "date": "2026-07-29"
+  },
+  "original_val": "0.0",
+  "injected_val": "7.0",
+  "LOADER_RAISED": true,
+  "exception_type": "JoinConflict",
+  "message": "REFUSED: visit key (5995, '2026-07-29') appears twice in variable -1001 with different values (0.0 then 7.0). The key ['id_field', 'date'] is not unique on this data and no winner will be picked for you."
+ },
+ "T3_INJECTED_DUPLICATE_SAME_VALUE": {
+  "duplicated_key": {
+   "id_field": 5995,
+   "date": "2026-07-29"
+  },
+  "val": "0.0",
+  "LOADER_RAISED": false,
+  "n_keys_returned": 79251,
+  "NOTE": "a same-key same-value duplicate is accepted in silence and is invisible in the output: nothing counts it, nothing reports it"
+ },
+ "T4_EDIT_THE_SEMANTIC_SHEET": {
+  "edit": "SOURCE_ACTION_BANDS green band upper edge 6 -> 0.5",
+  "band_before": "0-6%",
+  "band_after": "0-6%",
+  "BAND_CHANGED": false,
+  "any_hash_in_the_artifact_covers_the_sheet": false,
+  "ENGINE_OBJECTED": false
+ }
+}

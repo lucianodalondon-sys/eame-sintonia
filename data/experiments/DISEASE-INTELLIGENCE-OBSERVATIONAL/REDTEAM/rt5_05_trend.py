@@ -84,6 +84,20 @@ for metric in METRICS:
           f"max {r['abs_delta_percentiles']['max']}")
     print(f"  a threshold of {thr20} pp would name a direction in the top 20% of "
           f"monotone cases")
+    # the threshold is FIXED but the scale of the quantity is not: per-season rates
+    by_season = {}
+    for r in recs:
+        y = int(r["date"][:4])
+        b = by_season.setdefault(y, {"n": 0, "named": 0, "big": 0})
+        b["n"] += 1
+        b["named"] += r["named"]
+        b["big"] += abs(r["delta"]) >= 1.0
+    out[metric]["by_season"] = {y: {**v, "pct_named": round(100 * v["named"] / v["n"], 1)}
+                                for y, v in sorted(by_season.items())}
+    print("  the SAME 1.0 pp threshold, season by season "
+          "(share of province-windows that name a direction):")
+    print("    " + "  ".join(f"{y}:{v['pct_named']:.0f}%"
+                             for y, v in sorted(out[metric]["by_season"].items())))
 
 # ── today's ten sequences, and what a ratio rule would say ───────────────────
 print("\nTODAY'S TEN SEQUENCES (ACTIVE_INFESTATION_COUNT, as_of 2026-09-06)")

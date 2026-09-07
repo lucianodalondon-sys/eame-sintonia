@@ -1,15 +1,15 @@
 {
  "BEFORE": {
   "n_visits": 10487,
-  "n_usable": 10087,
+  "n_usable": 10074,
   "last_observation": "2026-09-04",
-  "hash": "880b90d7d63cf014"
+  "hash": "3ce6f2980a7ea54c"
  },
  "SCENARIOS": [
   {
    "SCENARIO": "identical",
    "REFRESH_STATUS": "NO_UPDATE",
-   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:21+00:00",
+   "REFRESH_ATTEMPT_AT": "2026-09-07T00:38:43+00:00",
    "LAST_GOOD_OBSERVATION_AT": "2026-09-04",
    "detail": {
     "n_rows": 2928,
@@ -20,9 +20,9 @@
    "index_entries_after": 6,
    "AFTER": {
     "n_visits": 10487,
-    "n_usable": 10087,
+    "n_usable": 10074,
     "last_observation": "2026-09-04",
-    "hash": "880b90d7d63cf014"
+    "hash": "3ce6f2980a7ea54c"
    },
    "CANONICAL_UNCHANGED": true,
    "STILL_READABLE": true
@@ -30,7 +30,7 @@
   {
    "SCENARIO": "all_null",
    "REFRESH_STATUS": "SOURCE_EMPTY",
-   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:22+00:00",
+   "REFRESH_ATTEMPT_AT": "2026-09-07T00:38:44+00:00",
    "LAST_GOOD_OBSERVATION_AT": "UNKNOWN",
    "detail": {
     "reason": "a full row skeleton with no readable value - the shape this source returns for a variable that is not in the requested schema",
@@ -40,9 +40,9 @@
    "index_entries_after": 6,
    "AFTER": {
     "n_visits": 10487,
-    "n_usable": 10087,
+    "n_usable": 10074,
     "last_observation": "2026-09-04",
-    "hash": "880b90d7d63cf014"
+    "hash": "3ce6f2980a7ea54c"
    },
    "CANONICAL_UNCHANGED": true,
    "STILL_READABLE": true
@@ -50,7 +50,7 @@
   {
    "SCENARIO": "not_ok",
    "REFRESH_STATUS": "SOURCE_EMPTY",
-   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:22+00:00",
+   "REFRESH_ATTEMPT_AT": "2026-09-07T00:38:45+00:00",
    "LAST_GOOD_OBSERVATION_AT": "UNKNOWN",
    "detail": {
     "reason": "the source said not ok: 'season not started'"
@@ -59,9 +59,9 @@
    "index_entries_after": 6,
    "AFTER": {
     "n_visits": 10487,
-    "n_usable": 10087,
+    "n_usable": 10074,
     "last_observation": "2026-09-04",
-    "hash": "880b90d7d63cf014"
+    "hash": "3ce6f2980a7ea54c"
    },
    "CANONICAL_UNCHANGED": true,
    "STILL_READABLE": true
@@ -69,7 +69,7 @@
   {
    "SCENARIO": "garbage",
    "REFRESH_STATUS": "INVALID_DATA",
-   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:23+00:00",
+   "REFRESH_ATTEMPT_AT": "2026-09-07T00:38:45+00:00",
    "LAST_GOOD_OBSERVATION_AT": "UNKNOWN",
    "detail": {
     "reason": "not JSON: JSONDecodeError"
@@ -78,9 +78,9 @@
    "index_entries_after": 6,
    "AFTER": {
     "n_visits": 10487,
-    "n_usable": 10087,
+    "n_usable": 10074,
     "last_observation": "2026-09-04",
-    "hash": "880b90d7d63cf014"
+    "hash": "3ce6f2980a7ea54c"
    },
    "CANONICAL_UNCHANGED": true,
    "STILL_READABLE": true
@@ -88,16 +88,64 @@
   {
    "SCENARIO": "network_error",
    "REFRESH_STATUS": "SOURCE_UNAVAILABLE",
-   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:23+00:00",
+   "REFRESH_ATTEMPT_AT": "2026-09-07T00:38:46+00:00",
    "LAST_GOOD_OBSERVATION_AT": "UNKNOWN",
    "detail": "OSError: simulated: the endpoint did not answer",
    "promoted": [],
    "index_entries_after": 6,
    "AFTER": {
     "n_visits": 10487,
-    "n_usable": 10087,
+    "n_usable": 10074,
     "last_observation": "2026-09-04",
-    "hash": "880b90d7d63cf014"
+    "hash": "3ce6f2980a7ea54c"
+   },
+   "CANONICAL_UNCHANGED": true,
+   "STILL_READABLE": true
+  },
+  {
+   "SCENARIO": "truncated",
+   "REFRESH_STATUS": "SOURCE_INCOMPLETE",
+   "REFRESH_ATTEMPT_AT": "2026-09-07T00:38:47+00:00",
+   "LAST_GOOD_OBSERVATION_AT": "UNKNOWN",
+   "detail": {
+    "reason": "the response holds fewer rows, or an older newest observation, than the copy already on disk",
+    "rows_now": 2245,
+    "rows_in_canonical": 2928,
+    "rows_lost": 683,
+    "newest_now": "2026-09-04",
+    "newest_in_canonical": "2026-09-04"
+   },
+   "promoted": [],
+   "index_entries_after": 6,
+   "AFTER": {
+    "n_visits": 10487,
+    "n_usable": 10074,
+    "last_observation": "2026-09-04",
+    "hash": "3ce6f2980a7ea54c"
+   },
+   "CANONICAL_UNCHANGED": true,
+   "STILL_READABLE": true
+  },
+  {
+   "SCENARIO": "older_only",
+   "REFRESH_STATUS": "SOURCE_INCOMPLETE",
+   "REFRESH_ATTEMPT_AT": "2026-09-07T00:38:47+00:00",
+   "LAST_GOOD_OBSERVATION_AT": "UNKNOWN",
+   "detail": {
+    "reason": "the response holds fewer rows, or an older newest observation, than the copy already on disk",
+    "rows_now": 1392,
+    "rows_in_canonical": 2928,
+    "rows_lost": 1536,
+    "newest_now": "2026-07-31",
+    "newest_in_canonical": "2026-09-04"
+   },
+   "promoted": [],
+   "index_entries_after": 6,
+   "AFTER": {
+    "n_visits": 10487,
+    "n_usable": 10074,
+    "last_observation": "2026-09-04",
+    "hash": "3ce6f2980a7ea54c"
    },
    "CANONICAL_UNCHANGED": true,
    "STILL_READABLE": true
@@ -105,7 +153,7 @@
   {
    "SCENARIO": "new_rows",
    "REFRESH_STATUS": "NEW_OBSERVATIONS",
-   "REFRESH_ATTEMPT_AT": "2026-09-06T23:44:24+00:00",
+   "REFRESH_ATTEMPT_AT": "2026-09-07T00:38:48+00:00",
    "LAST_GOOD_OBSERVATION_AT": "2026-09-05",
    "detail": {
     "n_rows": 2929,
@@ -118,9 +166,9 @@
    "index_entries_after": 6,
    "AFTER": {
     "n_visits": 10488,
-    "n_usable": 10087,
+    "n_usable": 10074,
     "last_observation": "2026-09-05",
-    "hash": "8588af6d86da2416"
+    "hash": "37b22ece03d3ab5c"
    },
    "CANONICAL_UNCHANGED": false,
    "STILL_READABLE": true
@@ -129,7 +177,7 @@
  "NEW_ROWS_CHANGED_THE_ANSWER": true,
  "LIVE_PROBE": {
   "reachable": true,
-  "seconds": 3.2,
+  "seconds": 3.28,
   "validation": "OK",
   "detail": {
    "n_rows": 2928,
@@ -147,6 +195,7 @@
    "NEW_OBSERVATIONS",
    "NO_UPDATE",
    "SOURCE_EMPTY",
+   "SOURCE_INCOMPLETE",
    "SOURCE_UNAVAILABLE"
   ],
   "SAFE_REFRESH": "YES"

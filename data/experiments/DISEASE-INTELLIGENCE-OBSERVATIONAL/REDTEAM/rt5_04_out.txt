@@ -1,0 +1,40 @@
+Could not find platform independent libraries <prefix>
+(a) SLIDING as_of.  h=historical_state  t=observed_trend
+       as_of                 FI                 SI                 AR speak below above  dH  dT  FI/SI/AR trend
+  2026-08-09   BELOW_HISTORICAL            TYPICAL   BELOW_HISTORICAL     3     2     0   2   8  UNKN/UNKN/UNKN
+  2026-08-16   BELOW_HISTORICAL            TYPICAL   BELOW_HISTORICAL     3     2     0   2   8  UNKN/UNKN/UNKN
+  2026-08-23   BELOW_HISTORICAL            TYPICAL   BELOW_HISTORICAL     3     2     0   2   8  UNKN/UNKN/UNKN
+  2026-08-30   BELOW_HISTORICAL            TYPICAL            TYPICAL     3     1     0   1   3  STAB/STAB/UNKN
+  2026-09-03   BELOW_HISTORICAL   BELOW_HISTORICAL            TYPICAL     3     2     0   0   0  STAB/STAB/UNKN
+  2026-09-05   BELOW_HISTORICAL   BELOW_HISTORICAL            TYPICAL     3     2     0   0   0  STAB/STAB/UNKN
+  2026-09-06   BELOW_HISTORICAL   BELOW_HISTORICAL            TYPICAL     3     2     0   0   0  STAB/STAB/UNKN
+  2026-09-07   BELOW_HISTORICAL            TYPICAL   BELOW_HISTORICAL     3     2     0   2   1  STAB/STAB/UNKN
+  2026-09-09   BELOW_HISTORICAL            TYPICAL            TYPICAL     3     1     0   1   2  STAB/STAB/UNKN
+  2026-09-13   BELOW_HISTORICAL   BELOW_HISTORICAL   BELOW_HISTORICAL     3     3     0   1   2  STAB/STAB/UNKN
+  2026-09-20   BELOW_HISTORICAL   BELOW_HISTORICAL   BELOW_HISTORICAL     3     3     0   1   4  STAB/STAB/STAB
+  2026-09-27   BELOW_HISTORICAL            TYPICAL   BELOW_HISTORICAL     3     2     0   2   3  STAB/STAB/STAB
+  2026-10-04  INSUFFICIENT_DATA  INSUFFICIENT_DATA  INSUFFICIENT_DATA     0     0     0   3   0  STAB/STAB/UNKN
+   Firenze    keeps its published class on 51 of 57 as_of days in +/-28; classes seen: ['BELOW_HISTORICAL', 'INSUFFICIENT_DATA']
+   Siena      keeps its published class on 13 of 57 as_of days in +/-28; classes seen: ['BELOW_HISTORICAL', 'INSUFFICIENT_DATA', 'TYPICAL']
+   Arezzo     keeps its published class on 20 of 57 as_of days in +/-28; classes seen: ['BELOW_HISTORICAL', 'INSUFFICIENT_DATA', 'TYPICAL']
+
+(b) RIGHT-EDGE TRUNCATION
+   Firenze    last observation 2026-09-02 -> 4 dead days inside the 28-day window; this season covers 24 of 28 days
+              published            : BELOW_HISTORICAL   lower 14 of 14
+              baseline cut to match: BELOW_HISTORICAL   lower 14 of 14
+   Siena      last observation 2026-09-03 -> 3 dead days inside the 28-day window; this season covers 25 of 28 days
+              published            : BELOW_HISTORICAL   lower 14 of 17
+              baseline cut to match: BELOW_HISTORICAL   lower 14 of 17
+   Arezzo     last observation 2026-09-02 -> 4 dead days inside the 28-day window; this season covers 24 of 28 days
+              published            : TYPICAL            lower 4 of 6
+              baseline cut to match: TYPICAL            lower 4 of 6
+
+(c) STEEPNESS: pooled rate in the 28-day window ending on each date, prior seasons
+   Firenze    n=20 prior seasons; median change -0.056 percentage points per week (range -2.583 to +5.201)
+   Siena      n=20 prior seasons; median change +0.036 percentage points per week (range -0.466 to +0.472)
+   Arezzo     n=20 prior seasons; median change +0.120 percentage points per week (range -1.078 to +1.255)
+   Grosseto   n=20 prior seasons; median change +0.029 percentage points per week (range -0.704 to +0.581)
+   Livorno    n=20 prior seasons; median change +0.347 percentage points per week (range -0.580 to +3.562)
+   Pisa       n=20 prior seasons; median change -0.035 percentage points per week (range -1.494 to +2.977)
+
+wrote rt5_04_seasonality.json

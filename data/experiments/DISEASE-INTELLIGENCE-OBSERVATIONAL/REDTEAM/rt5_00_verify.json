@@ -1,8 +1,21 @@
 {
  "as_of": "2026-09-06",
  "metric": "ACTIVE_INFESTATION_COUNT",
+ "engine_sha256": {
+  "di_adama.py": "6ad50fe9a4079632c060c1849b55bc37bdfc18ff8815ae7ed929ae2e8742d3f5",
+  "di_core.py": "e56dc697a3d57acdb85b97f7aeb615f57021657c74dac31f95badc29caf2821b",
+  "di_observe.py": "8fb727f137b6e2d0593a21912a61e2220a8c8c04ce4f64ed33aa33bda2b52f39",
+  "di_refresh.py": "81f8240a01c428fae98c71e28c995815c8cf4cd28ccdbc96e937e773fd769258",
+  "di_render.py": "b60ba28c9c6b73a04e1b55ae29f1be72b1fa2db107cbd7eecf06798602163326",
+  "di_report.py": "a60affebf9548fe9cec0b29e7ee194814d2497bc956568a3733625790f977353",
+  "run_pilot.py": "23cbf344c143cb3639dc9cd7dc3ce7cfaba57169f40a403591cf63650c67cd10"
+ },
  "n_visits_loaded": 79251,
- "n_visits_usable": 75600,
+ "n_visits_usable_by_measurement": {
+  "ACTIVE_INFESTATION_COUNT": 75663,
+  "DAMAGING_INFESTATION_COUNT": 75655,
+  "TOTAL_INFESTATION_COUNT": 75565
+ },
  "provinces_matching": 10,
  "of": 10,
  "rows": [
@@ -51,7 +64,7 @@
     "trend": "STABLE_OBSERVED",
     "trend_points": [
      0.5876,
-     0.8249,
+     0.8374,
      0.6575
     ]
    }
@@ -68,7 +81,7 @@
     "trend": "STABLE_OBSERVED",
     "trend_points": [
      0.4722,
-     1.8387,
+     1.8153,
      0.9216
     ]
    }

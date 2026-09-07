@@ -310,14 +310,66 @@ def g9(mutate=False):
 
 # ─────────────────────────────────────────────────────────────── G10 no selling
 def g10(mutate=False):
+    """REWRITTEN after an independent product lens showed the first version tested nothing that
+    ships: it built bare cells with no adama block, no attention block and no rendered text, so
+    the words it hunted for could only ever have come from a place they never appear. It now
+    runs the SHIPPED report and the SHIPPED human reading."""
+    import di_adama, di_render
     sheet, loaded = base_load()
+    adama = di_adama.relevance("Olive", "Olive Fruit Fly")
     cs = cells(loaded, sheet)
+    for c in cs:
+        c["adama"] = adama
+        c["attention"] = di_adama.attention_class(c, adama)
     if mutate:
-        cs[0]["adama"] = {"relevance": "YES", "action": "ACT_NOW", "status": "SALES_READY"}
-    text = json.dumps(cs, default=str).upper()
-    banned = [w for w in ("ACT_NOW", "SALES_READY", "BUY", "SELL", "OPPORTUNITY",
-                          "CONTACT_NOW", "COMMERCIAL_OPPORTUNITY") if w in text]
-    return (PASS if not banned else FAIL), {"banned_vocabulary_found": banned}
+        cs[0]["adama"] = {"relevance": "YES", "reason": "x",
+                          "action": "ACT_NOW", "status": "SALES_READY"}
+    payload = json.dumps(cs, default=str).upper()
+    parts = [di_render.render_region(cs, cs[0]["adama"])]
+    for c in cs:
+        parts.append(di_render.render_province(c, c["adama"], c["attention"]))
+    human = chr(10).join(parts).upper()
+    BANNED = ("ACT_NOW", "SALES_READY", "BUY ", "SELL ", "OPPORTUNITY", "CONTACT_NOW",
+              "COMMERCIAL_OPPORTUNITY")
+    in_json = [w for w in BANNED if w in payload]
+    in_text = [w for w in BANNED if w in human]
+    # the module's own FORBIDDEN list is data, not a decision, so it is excluded from the hunt
+    allowed_container = "FORBIDDEN_OUTPUTS_NOT_EMITTED"
+    stripped = payload.replace(json.dumps(
+        adama["FORBIDDEN_OUTPUTS_NOT_EMITTED"]).upper(), "")
+    in_json = [w for w in BANNED if w in stripped]
+    return (PASS if not in_json and not in_text else FAIL), {
+        "tested": "the shipped report payload AND the shipped human reading",
+        "banned_in_report_json": in_json, "banned_in_human_text": in_text,
+        "note": f"the module's own {allowed_container} list is data and is excluded"}
+
+
+def g11(mutate=False):
+    """A province may not vanish silently, and a province string may not invent one.
+
+    MUTATION v1 was a no-op: it offered a VALID name where an invalid one was expected and then
+    set the flag from `mutate` itself, so the gate could not fail. v2 removes the validation
+    entirely, which is the state the engine was in before this gate existed."""
+    sheet, loaded = base_load()
+    known = sheet["REGION_PROVINCES"]["PROVINCES"]
+    real = di_core._province
+    if mutate:
+        di_core._province = lambda sh, raw: raw      # straight through, as before
+    try:
+        unknown_refused = False
+        try:
+            di_core._province(sheet, "Bologna")
+        except di_core.SemanticRefusal:
+            unknown_refused = True
+        trimmed = di_core._province(sheet, "  SIENA  ") == "Siena"
+    finally:
+        di_core._province = real
+    seen = sorted({v["province"] for v in loaded["visits"] if v["province"]})
+    ok = set(seen) <= set(known) and unknown_refused and trimmed and len(known) == 10
+    return (PASS if ok else FAIL), {
+        "canonical_provinces": len(known), "provinces_seen_in_the_data": seen,
+        "an_unknown_province_name_is_refused": unknown_refused,
+        "a_stray_space_does_not_create_a_new_province": trimmed}
 
 
 GATES = [
@@ -348,6 +400,9 @@ GATES = [
  ("G9_PROVENANCE_COVERS_EVERY_INPUT", g9,
   "every file the output depends on is hashed, and the hash matches the disk",
   "MUTATION: a file is read but never hashed"),
+ ("G11_PROVINCE_LIST_IS_CANONICAL", g11,
+  "a province cannot vanish silently and a stray string cannot invent one",
+  "MUTATION: the province validation is removed and the raw string passes through"),
  ("G10_NO_COMMERCIAL_CONVERSION", g10,
   "the output contains no commercial action vocabulary",
   "MUTATION: an ACT_NOW / SALES_READY block is attached to a cell"),

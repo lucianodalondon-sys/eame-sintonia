@@ -1,0 +1,31 @@
+Could not find platform independent libraries <prefix>
+SHARED GROVES vs SEASON: is the gate a recency filter?
+  Arezzo          Spearman(season, shared groves) =  0.9457   gate admits 6 of 20 seasons, earliest 2020
+  Firenze         Spearman(season, shared groves) =   0.989   gate admits 14 of 20 seasons, earliest 2012
+  Grosseto        Spearman(season, shared groves) =  0.9383   gate admits 2 of 20 seasons, earliest 2024
+  Livorno         Spearman(season, shared groves) =  0.7559   gate admits 1 of 20 seasons, earliest 2025
+  Lucca           Spearman(season, shared groves) =  0.9491   gate admits 3 of 20 seasons, earliest 2023
+  Massa-Carrara   Spearman(season, shared groves) =  0.6674   gate admits 1 of 14 seasons, earliest 2025
+  Pisa            Spearman(season, shared groves) =  0.9443   gate admits 1 of 20 seasons, earliest 2025
+  Pistoia         Spearman(season, shared groves) =   0.378   gate admits 0 of 20 seasons, earliest -
+  Prato           Spearman(season, shared groves) =   0.378   gate admits 0 of 20 seasons, earliest -
+  Siena           Spearman(season, shared groves) =  0.8837   gate admits 17 of 20 seasons, earliest 2009
+
+MATCHED (published) vs UNMATCHED (computed, not published)
+  province                   matched   k           unmatched   k   2026 rate prior median    lower than
+  Arezzo                     TYPICAL   6    BELOW_HISTORICAL  20      0.1636       0.6418      19 of 20
+  Firenze           BELOW_HISTORICAL  14    BELOW_HISTORICAL  20      0.0664       1.4073      20 of 20
+  Grosseto         INSUFFICIENT_DATA   -    BELOW_HISTORICAL  20      0.6575       2.5627      18 of 20
+  Livorno          INSUFFICIENT_DATA   -    BELOW_HISTORICAL  20      0.9216       4.1552      20 of 20
+  Lucca            INSUFFICIENT_DATA   -    BELOW_HISTORICAL  20      1.1509       3.5238      17 of 20
+  Massa-Carrara    INSUFFICIENT_DATA   -             TYPICAL  14       0.566       2.4008      10 of 14
+  Pisa             INSUFFICIENT_DATA   -    BELOW_HISTORICAL  20        1.02       2.8663      16 of 20
+  Pistoia          INSUFFICIENT_DATA   -    BELOW_HISTORICAL  20      0.0278       1.3308      20 of 20
+  Prato            INSUFFICIENT_DATA   -    BELOW_HISTORICAL  20      0.0417       0.6368      19 of 20
+  Siena             BELOW_HISTORICAL  17             TYPICAL  20      0.6909       1.2975      15 of 20
+
+  matched and unmatched DISAGREE where both speak:
+    Arezzo          matched says TYPICAL, full history says BELOW_HISTORICAL
+    Siena           matched says BELOW_HISTORICAL, full history says TYPICAL
+
+wrote rt5_10_panel_recency.json

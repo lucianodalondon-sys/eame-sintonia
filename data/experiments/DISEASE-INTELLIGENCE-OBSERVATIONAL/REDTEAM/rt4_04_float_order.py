@@ -152,8 +152,16 @@ for metric in METRICS:
                               "num": repr(base[1]), "den": repr(base[2])})
 
 worst.sort(key=lambda x: x["distance_in_ULPs_of_q"])
-report["Q2_order"] = {"n_windows_where_any_order_changed_something": len(disagreements),
-                      "detail": disagreements[:20]}
+n_flag = sum(1 for x in disagreements if x.get("SAME_ROUNDED_DIFFERENT_FLOAT"))
+report["Q2_order"] = {
+    "n_windows_where_any_order_changed_something": len(disagreements),
+    # counted over ALL disagreements, not over the capped detail list below
+    "n_where_ONLY_the_exact_float_sum_moved": n_flag,
+    "n_where_the_PUBLISHED_rounded_rate_or_int_count_moved": len(disagreements) - n_flag,
+    # every window where a PUBLISHED number moved, uncapped - this is the one that matters
+    "detail_where_a_PUBLISHED_number_moved":
+        [x for x in disagreements if not x.get("SAME_ROUNDED_DIFFERENT_FLOAT")],
+    "detail": disagreements[:20]}
 report["Q3_boundary"] = {"n_windows_scored": len(worst),
                          "closest_20_to_a_rounding_boundary": worst[:20],
                          "n_within_1000_ULPs": sum(1 for w in worst

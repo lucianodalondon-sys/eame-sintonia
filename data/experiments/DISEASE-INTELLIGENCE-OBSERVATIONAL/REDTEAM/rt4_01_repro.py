@@ -64,6 +64,9 @@ if __name__ == "__main__":
         "EXT_RENDERED_TEXT_HASH": ren,
         "ADAMA_RELEVANCE": rel,
         "n_visits": loaded["n_visits"],
-        "n_usable": loaded["n_visits_usable_for_rates"],
+        # the key was renamed between 8efec08 and b05b6cf; accept either so the SAME probe
+        # can be run against both commits
+        "n_usable": loaded.get("n_visits_usable_for_rates",
+                               loaded.get("n_visits_usable_for_at_least_one_measurement")),
         "n_provinces": len({c["province"] for c in cells}),
     }, sort_keys=True))

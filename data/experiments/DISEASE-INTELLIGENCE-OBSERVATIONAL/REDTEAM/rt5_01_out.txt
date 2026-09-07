@@ -1,0 +1,127 @@
+Could not find platform independent libraries <prefix>
+published today: {'Arezzo': 'TYPICAL', 'Firenze': 'BELOW_HISTORICAL', 'Grosseto': 'INSUFFICIENT_DATA', 'Livorno': 'INSUFFICIENT_DATA', 'Lucca': 'INSUFFICIENT_DATA', 'Massa-Carrara': 'INSUFFICIENT_DATA', 'Pisa': 'INSUFFICIENT_DATA', 'Pistoia': 'INSUFFICIENT_DATA', 'Prato': 'INSUFFICIENT_DATA', 'Siena': 'BELOW_HISTORICAL'}
+published trend: {'Arezzo': 'UNKNOWN', 'Firenze': 'STABLE_OBSERVED', 'Grosseto': 'STABLE_OBSERVED', 'Livorno': 'STABLE_OBSERVED', 'Lucca': 'INCREASING_OBSERVED', 'Massa-Carrara': 'STABLE_OBSERVED', 'Pisa': 'STABLE_OBSERVED', 'Pistoia': 'STABLE_OBSERVED', 'Prato': 'UNKNOWN', 'Siena': 'STABLE_OBSERVED'}
+
+parameter                              n_vals hist moves trend moves    FI stable over   SI stable over   AR stable over
+WINDOW_DAYS                                16         13          15             16/16            10/16             7/16
+MIN_VISITS                                 17          0           8             17/17            17/17            17/17
+MIN_DRUPES                                 14          0           7             14/14            14/14            14/14
+MIN_BASELINE_SEASONS                       15         12           0             11/15            13/15             6/15
+HIGH_PCTL                                  11          8           0             11/11             7/11             7/11
+LOW_PCTL                                   11          0           0             11/11            11/11            11/11
+TREND_MIN_WINDOWS                           9          0           8               9/9              9/9              9/9
+TREND_MIN_ABS_CHANGE_PCT                   12          0          11             12/12            12/12            12/12
+MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE        18         17           0             16/18             4/18             9/18
+
+--- detail: values at which any province verdict differs from published ---
+
+WINDOW_DAYS
+          7  speak= 2 below=1 above=0 typ=1  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=INSUFFICIENT_DATA dH=2 dT=2
+         10  speak= 2 below=1 above=0 typ=1  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=INSUFFICIENT_DATA dH=2 dT=2
+         14  speak= 3 below=1 above=0 typ=2  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=1 dT=3
+         17  speak= 3 below=1 above=0 typ=2  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=1 dT=4
+         21  speak= 3 below=1 above=0 typ=2  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=1 dT=4
+         24  speak= 3 below=1 above=0 typ=2  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=1 dT=3
+         28  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=0  <== published default
+         31  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=3
+         35  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=8
+         42  speak= 3 below=3 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=BELOW_HISTORICAL  dH=1 dT=8
+         49  speak= 3 below=3 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=BELOW_HISTORICAL  dH=1 dT=8
+         56  speak= 3 below=3 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=BELOW_HISTORICAL  dH=1 dT=8
+         63  speak= 3 below=3 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=BELOW_HISTORICAL  dH=1 dT=8
+         70  speak= 3 below=3 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=BELOW_HISTORICAL  dH=1 dT=8
+         84  speak= 3 below=3 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=BELOW_HISTORICAL  dH=1 dT=8
+         91  speak= 3 below=3 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=BELOW_HISTORICAL  dH=1 dT=8
+
+MIN_VISITS
+          8  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=0  <== published default
+         10  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=1
+         12  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=1
+         15  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=3
+         20  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=3
+         25  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=3
+         30  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=4
+         40  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=5
+         60  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=5
+
+MIN_DRUPES
+        400  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=0  <== published default
+       1000  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=1
+       1500  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=3
+       2000  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=3
+       3000  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=4
+       5000  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=5
+      10000  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=7
+      20000  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=8
+
+MIN_BASELINE_SEASONS
+          1  speak= 8 below=6 above=0 typ=2  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=5 dT=0
+          2  speak= 5 below=3 above=0 typ=2  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=2 dT=0
+          3  speak= 4 below=2 above=0 typ=2  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=1 dT=0
+          5  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=0  <== published default
+          7  speak= 2 below=2 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=INSUFFICIENT_DATA dH=1 dT=0
+          8  speak= 2 below=2 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=INSUFFICIENT_DATA dH=1 dT=0
+         10  speak= 2 below=2 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=INSUFFICIENT_DATA dH=1 dT=0
+         12  speak= 2 below=2 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=INSUFFICIENT_DATA dH=1 dT=0
+         14  speak= 2 below=2 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=INSUFFICIENT_DATA dH=1 dT=0
+         15  speak= 1 below=1 above=0 typ=0  FI=INSUFFICIENT_DATA SI=BELOW_HISTORICAL  AR=INSUFFICIENT_DATA dH=2 dT=0
+         17  speak= 1 below=1 above=0 typ=0  FI=INSUFFICIENT_DATA SI=BELOW_HISTORICAL  AR=INSUFFICIENT_DATA dH=2 dT=0
+         18  speak= 0 below=0 above=0 typ=0  FI=INSUFFICIENT_DATA SI=INSUFFICIENT_DATA AR=INSUFFICIENT_DATA dH=3 dT=0
+         20  speak= 0 below=0 above=0 typ=0  FI=INSUFFICIENT_DATA SI=INSUFFICIENT_DATA AR=INSUFFICIENT_DATA dH=3 dT=0
+
+HIGH_PCTL
+        0.5  speak= 3 below=3 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=BELOW_HISTORICAL  dH=1 dT=0
+       0.55  speak= 3 below=3 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=BELOW_HISTORICAL  dH=1 dT=0
+        0.6  speak= 3 below=3 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=BELOW_HISTORICAL  dH=1 dT=0
+       0.65  speak= 3 below=3 above=0 typ=0  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=BELOW_HISTORICAL  dH=1 dT=0
+        0.8  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=0  <== published default
+       0.85  speak= 3 below=1 above=0 typ=2  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=1 dT=0
+        0.9  speak= 3 below=1 above=0 typ=2  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=1 dT=0
+       0.95  speak= 3 below=1 above=0 typ=2  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=1 dT=0
+        1.0  speak= 3 below=1 above=0 typ=2  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=1 dT=0
+LOW_PCTL                               DECORATION: no value in [0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5] changes any verdict
+
+TREND_MIN_WINDOWS
+          2  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=2
+          3  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=0  <== published default
+          4  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=8
+          5  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=8
+          6  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=8
+          7  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=8
+          8  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=8
+         10  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=8
+         12  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=8
+
+TREND_MIN_ABS_CHANGE_PCT
+        0.0  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=3
+       0.05  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=2
+        0.1  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=2
+        0.2  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=2
+        0.3  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=2
+        0.5  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=2
+       0.75  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=1
+        1.0  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=0  <== published default
+        1.5  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=1
+        2.0  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=1
+        3.0  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=1
+        5.0  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=1
+
+MIN_PANEL_OVERLAP_FOR_LIKE_FOR_LIKE
+          1  speak= 8 below=5 above=0 typ=3  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=5 dT=0
+          2  speak= 7 below=4 above=0 typ=3  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=4 dT=0
+          3  speak= 7 below=4 above=0 typ=3  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=4 dT=0
+          4  speak= 5 below=2 above=0 typ=3  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=3 dT=0
+          5  speak= 5 below=2 above=0 typ=3  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=3 dT=0
+          6  speak= 5 below=2 above=0 typ=3  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=3 dT=0
+          7  speak= 4 below=1 above=0 typ=3  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=2 dT=0
+          8  speak= 3 below=2 above=0 typ=1  FI=BELOW_HISTORICAL  SI=BELOW_HISTORICAL  AR=TYPICAL           dH=0 dT=0  <== published default
+          9  speak= 3 below=1 above=0 typ=2  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=TYPICAL           dH=1 dT=0
+         10  speak= 2 below=1 above=0 typ=1  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=INSUFFICIENT_DATA dH=2 dT=0
+         12  speak= 2 below=1 above=0 typ=1  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=INSUFFICIENT_DATA dH=2 dT=0
+         14  speak= 2 below=1 above=0 typ=1  FI=BELOW_HISTORICAL  SI=TYPICAL           AR=INSUFFICIENT_DATA dH=2 dT=0
+         16  speak= 1 below=1 above=0 typ=0  FI=BELOW_HISTORICAL  SI=INSUFFICIENT_DATA AR=INSUFFICIENT_DATA dH=2 dT=0
+         18  speak= 1 below=1 above=0 typ=0  FI=BELOW_HISTORICAL  SI=INSUFFICIENT_DATA AR=INSUFFICIENT_DATA dH=2 dT=0
+         20  speak= 1 below=1 above=0 typ=0  FI=BELOW_HISTORICAL  SI=INSUFFICIENT_DATA AR=INSUFFICIENT_DATA dH=2 dT=0
+         25  speak= 1 below=1 above=0 typ=0  FI=BELOW_HISTORICAL  SI=INSUFFICIENT_DATA AR=INSUFFICIENT_DATA dH=2 dT=0
+         30  speak= 0 below=0 above=0 typ=0  FI=INSUFFICIENT_DATA SI=INSUFFICIENT_DATA AR=INSUFFICIENT_DATA dH=3 dT=0
+         40  speak= 0 below=0 above=0 typ=0  FI=INSUFFICIENT_DATA SI=INSUFFICIENT_DATA AR=INSUFFICIENT_DATA dH=3 dT=0
