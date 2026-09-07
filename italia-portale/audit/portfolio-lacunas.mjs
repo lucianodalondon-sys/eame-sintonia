@@ -44,7 +44,16 @@ export async function medirLacunas() {
     if (!(p.aiList || []).length && !p.ai) falta.push('PRINCIPIO_ATIVO');
     if (!moa) falta.push('MECANISMO_DE_ACAO');
     if (!ligacoes) falta.push('USO_DE_ROTULO');
-    if (!(p.crops || []).length) falta.push('CULTURA');
+    /* A CULTURA PODE VIR DE DOIS SITIOS, E BASTA UM.
+       `p.crops` e a lista que o CATALOGO declara. Mas o Avastel tem trinta
+       linhas de uso, cada uma com a sua cultura lida no rotulo, e a regua
+       dizia-lhe «falta CULTURA» na mesma — porque olhava so para o catalogo.
+       Uma lacuna que se anuncia com o dado a vista ao lado nao e uma lacuna:
+       e a regua a medir o sitio errado. */
+    const culturasDeRotulo = new Set();
+    for (const k of ['verifiedLinks', 'relatedLinks', 'checkNeededLinks', 'rejectedLinks'])
+      for (const l of (p[k] || [])) if (l.crop || l.cropOnLabel) culturasDeRotulo.add(l.crop || l.cropOnLabel);
+    if (!(p.crops || []).length && !culturasDeRotulo.size) falta.push('CULTURA');
     return {
       nome: p.name, reg: p.reg || null, categoria: p.category || null,
       etiqueta: !!p.labelUrl, ligacoes, moa: !!moa,
