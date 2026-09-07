@@ -677,3 +677,72 @@ nomear `40477d5`; o id anterior entra em `STALE_KNOWN_BUILD_IDS` **com a razão
 pela qual saiu**. O `H2` — que existe para apanhar linhas que somem em silêncio
 — foi actualizado com a justificação escrita ao lado: 2030 → 2389 não é deriva,
 é ter lido mais do mesmo documento.
+
+---
+
+## 12 · A FICHA DO PRODUTO — O LITERAL VOLTA, E AS LINHAS VIRAM GRUPOS
+
+### 12.1 · O defeito: «Barley · » repetido seis vezes
+
+O `MAXENTIS` mostrava seis linhas com a cultura e **nada** depois do ponto, e
+uma delas sem cultura nenhuma. Não era dado em falta — era dado **deitado fora
+no caminho**.
+
+O registo tem duas metades: o código canónico (`ISSUE_IDS`) e a palavra do
+rótulo (`TARGET_ON_LABEL`, `TARGET_AS_WRITTEN`). **1.589 das 2.389 ligações não
+têm alvo canónico** e **913 não têm cultura**, porque o alvo do rótulo não está
+nas dezanove do vocabulário. A projeção `e.links.push({...})` levava só os
+códigos, e `cl`/`il` caíam no próprio código — que era nulo.
+
+    PERDER O LITERAL PARA FICAR COM O PALPITE É PERDER O FACTO.
+
+É a lei do próprio `rotulos_ler.py`: quando não se sabe mapear sai
+`NAO_MAPEADO`, «e o literal continua lá, inteiro». Agora atravessa.
+
+### 12.2 · O desenho: uma linha por cultura, não por par
+
+22 linhas iguais, com a mesma frase de evidência repetida 22 vezes →
+**4 grupos de cultura** com pastilhas por baixo, e a frase **uma vez** no pé.
+
+```
+Frumento tenero  8   ● Blumeria graminis  ● Fusariosi Fusarium spp  ● Oidio
+                     ● Ruggine Puccinia striiformis  ● Ruggine Puccinia recondita …
+Orzo             8   ● Elmintosporiosi Helminthosporium gramineum  ● Ramularia …
+Segale           2   Triticale  4
+```
+
+- **cor** = a linha ADAMA do produto (`CATEGORY_UI`), excepto a planta
+  infestante, que tem o verde próprio do manual;
+- **traço cheio** = leitura canónica, que liga a uma janela colturale;
+  **traço a meio-tom** = a palavra do rótulo, que nomeia mas não liga;
+- **nome científico ao lado** quando distingue: `Puccinia striiformis` e
+  `Puccinia recondita` canonizam ambos para *Ruggine*, e sem o binómio o ecrã
+  mostrava «Ruggine» duas vezes como se fosse repetição. Onde só repete a raiz
+  (`Fusariosi · fusario`), cala-se;
+- **ícone oficial** da linha no cabeçalho, do `CATEGORY_UI`, nunca desenhado
+  por nós.
+
+### 12.3 · A varredura das lacunas — `audit/portfolio-lacunas.mjs`
+
+«Vazio» não é diagnóstico. A régua separa as três causas e dá dono a cada uma:
+
+```
+completos                  20/51
+COMPLETO (com ligações)    30
+LEITOR_DE_ROTULO           11   a etiqueta está cá; o leitor não achou a tabela
+NAO_HA_O_QUE_COLHER_AQUI   10   não estão no registo lido
+RECOLHA                     0   ← nada precisa de nova recolha
+```
+
+Entra em `run.mjs` como **PL1**, e falha fechado numa só condição: nenhum
+produto pode ter uma etiqueta que temos e que nunca abrimos. As outras duas
+ficam contadas e à vista, sem falhar — um número que falha todos os dias deixa
+de ser lido.
+
+### 12.4 · Sobre recolher mais
+
+O servlet da etiqueta do Ministero responde daqui, com a cadeia de certificados
+completada. **O portal de dados abertos (`dati.salute.gov.it`) recusa o
+handshake TLS** — é aí, e só aí, que um IP italiano mudaria alguma coisa. E o
+VPN do cliente corre na máquina dele, não neste contentor: o tráfego daqui não
+passa por ele.

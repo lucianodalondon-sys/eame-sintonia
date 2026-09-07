@@ -2203,7 +2203,15 @@
       <sc-if value="{{ hasPd }}" hint-placeholder-val="{{ true }}">
       <div style="border-radius:16px;border:1px solid rgba(0,152,69,0.35);background:rgba(0,152,69,0.06);border-top:4px solid #009845;padding:17px 20px;display:flex;flex-direction:column;gap:9px">
         <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.16em;color:#8F8886">{{ pd.kindL }}</span>
-        <h1 style="margin:0;font-size:28px;font-weight:700;letter-spacing:-0.01em;color:#fff;line-height:1.05">{{ pd.name }}</h1>
+        <!-- O ICONE OFICIAL DA LINHA, NAO UM DESENHO NOSSO. Vem de CATEGORY_UI,
+             que e o mesmo sitio de onde o cartao da grelha o tira: a dois metros
+             ve-se a linha comercial do produto sem ler uma palavra. -->
+        <div style="display:flex;align-items:center;gap:13px">
+          <sc-if value="{{ pd.temIcone }}" hint-placeholder-val="{{ true }}">
+            <span role="img" aria-label="" style="flex:0 0 44px;width:44px;height:44px;border-radius:50%;background:{{ pd.linhaCor }};display:inline-block;position:relative"><span style="position:absolute;left:11px;top:11px;width:22px;height:22px;background:url({{ pd.linhaIcone }}) center/contain no-repeat"></span></span>
+          </sc-if>
+          <h1 style="margin:0;font-size:28px;font-weight:700;letter-spacing:-0.01em;color:#fff;line-height:1.05">{{ pd.name }}</h1>
+        </div>
         <sc-if value="{{ pd.hasExternalHolder }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(245,179,23,0.14);border:1px solid #F5B317;color:#F5B317;font-size:10px;font-weight:700;letter-spacing:0.06em;width:max-content">{{ t.prodHolderExternal }} · {{ pd.holderL }}</span></sc-if>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;padding-top:4px">
           <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:10px;letter-spacing:0.12em;color:#8F8886">{{ t.prodCategory }}</span><span style="font-size:12.5px;font-weight:700;color:#EDEAE9">{{ pd.category }}</span></span>
@@ -2220,25 +2228,77 @@
           <sc-if value="{{ pd.hasVerified }}" hint-placeholder-val="{{ true }}">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #00B152">
             <span style="font-size:10px;font-weight:700;letter-spacing:0.11em;color:#00B152">{{ t.prodVerifiedRel }}</span>
-            <sc-for list="{{ pd.verified }}" as="r" hint-placeholder-count="2"><span onClick="{{ r.go }}" style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:11.5px;font-weight:600;color:#fff">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:10px;color:#8F8886">{{ r.evidence }}</span></span></sc-for>
+            <sc-for list="{{ pd.verGroups }}" as="g" hint-placeholder-count="2">
+              <div style="display:flex;flex-direction:column;gap:6px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
+                <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+                  <span style="font-size:13px;font-weight:700;color:#fff">{{ g.crop }}</span>
+                  <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;color:#8F8886;font-variant-numeric:tabular-nums">{{ g.n }}</span>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:5px">
+                  <sc-for list="{{ g.alvos }}" as="a" hint-placeholder-count="3">
+                    <span onClick="{{ a.go }}" style="display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:8px;border:1px solid {{ a.edge }};cursor:pointer" style-hover="border-color:{{ a.ponto }}"><span aria-hidden="true" style="width:6px;height:6px;border-radius:50%;background:{{ a.ponto }};flex:0 0 6px"></span><span style="font-size:11.5px;font-weight:600;color:{{ a.ink }}">{{ a.nome }}</span><sc-if value="{{ a.temLatim }}" hint-placeholder-val="{{ true }}"><span style="font-size:10px;font-style:italic;color:#8F8886">{{ a.latim }}</span></sc-if></span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <span style="font-size:10px;line-height:1.45;color:#8F8886">{{ pd.verLegenda }}</span>
           </div>
           </sc-if>
           <sc-if value="{{ pd.hasCheckNeeded }}" hint-placeholder-val="{{ false }}">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #F5B317">
             <span style="font-size:10px;font-weight:700;letter-spacing:0.11em;color:#F5B317">{{ t.prodCheckRel }}</span>
-            <sc-for list="{{ pd.checkNeeded }}" as="r" hint-placeholder-count="2"><span onClick="{{ r.go }}" style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:11.5px;font-weight:600;color:#fff">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:10px;color:#8F8886">{{ r.evidence }}</span></span></sc-for>
+            <sc-for list="{{ pd.chkGroups }}" as="g" hint-placeholder-count="2">
+              <div style="display:flex;flex-direction:column;gap:6px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
+                <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+                  <span style="font-size:13px;font-weight:700;color:#fff">{{ g.crop }}</span>
+                  <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;color:#8F8886;font-variant-numeric:tabular-nums">{{ g.n }}</span>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:5px">
+                  <sc-for list="{{ g.alvos }}" as="a" hint-placeholder-count="3">
+                    <span onClick="{{ a.go }}" style="display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:8px;border:1px solid {{ a.edge }};cursor:pointer" style-hover="border-color:{{ a.ponto }}"><span aria-hidden="true" style="width:6px;height:6px;border-radius:50%;background:{{ a.ponto }};flex:0 0 6px"></span><span style="font-size:11.5px;font-weight:600;color:{{ a.ink }}">{{ a.nome }}</span><sc-if value="{{ a.temLatim }}" hint-placeholder-val="{{ true }}"><span style="font-size:10px;font-style:italic;color:#8F8886">{{ a.latim }}</span></sc-if></span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <span style="font-size:10px;line-height:1.45;color:#8F8886">{{ pd.chkLegenda }}</span>
           </div>
           </sc-if>
           <sc-if value="{{ pd.hasRelated }}" hint-placeholder-val="{{ false }}">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #5CC3EE">
             <span style="font-size:10px;font-weight:700;letter-spacing:0.11em;color:#5CC3EE">{{ t.prodRelatedRel }}</span>
-            <sc-for list="{{ pd.related }}" as="r" hint-placeholder-count="2"><span onClick="{{ r.go }}" style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:11.5px;font-weight:600;color:#fff">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:10px;color:#8F8886">{{ r.evidence }}</span></span></sc-for>
+            <sc-for list="{{ pd.relGroups }}" as="g" hint-placeholder-count="2">
+              <div style="display:flex;flex-direction:column;gap:6px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
+                <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+                  <span style="font-size:13px;font-weight:700;color:#fff">{{ g.crop }}</span>
+                  <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;color:#8F8886;font-variant-numeric:tabular-nums">{{ g.n }}</span>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:5px">
+                  <sc-for list="{{ g.alvos }}" as="a" hint-placeholder-count="3">
+                    <span onClick="{{ a.go }}" style="display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:8px;border:1px solid {{ a.edge }};cursor:pointer" style-hover="border-color:{{ a.ponto }}"><span aria-hidden="true" style="width:6px;height:6px;border-radius:50%;background:{{ a.ponto }};flex:0 0 6px"></span><span style="font-size:11.5px;font-weight:600;color:{{ a.ink }}">{{ a.nome }}</span><sc-if value="{{ a.temLatim }}" hint-placeholder-val="{{ true }}"><span style="font-size:10px;font-style:italic;color:#8F8886">{{ a.latim }}</span></sc-if></span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <span style="font-size:10px;line-height:1.45;color:#8F8886">{{ pd.relLegenda }}</span>
           </div>
           </sc-if>
           <sc-if value="{{ pd.hasRejected }}" hint-placeholder-val="{{ false }}">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #978B87">
             <span style="font-size:10px;font-weight:700;letter-spacing:0.11em;color:#B1A9A7">{{ t.prodRejectedRel }}</span>
-            <sc-for list="{{ pd.rejected }}" as="r" hint-placeholder-count="1"><span style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span style="font-size:11.5px;font-weight:600;color:#C9C3C1">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:10px;color:#8F8886">{{ r.evidence }}</span></span></sc-for>
+            <sc-for list="{{ pd.rejGroups }}" as="g" hint-placeholder-count="1">
+              <div style="display:flex;flex-direction:column;gap:6px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
+                <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+                  <span style="font-size:13px;font-weight:700;color:#fff">{{ g.crop }}</span>
+                  <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;color:#8F8886;font-variant-numeric:tabular-nums">{{ g.n }}</span>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:5px">
+                  <sc-for list="{{ g.alvos }}" as="a" hint-placeholder-count="3">
+                    <span onClick="{{ a.go }}" style="display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:8px;border:1px solid {{ a.edge }};cursor:pointer" style-hover="border-color:{{ a.ponto }}"><span aria-hidden="true" style="width:6px;height:6px;border-radius:50%;background:{{ a.ponto }};flex:0 0 6px"></span><span style="font-size:11.5px;font-weight:600;color:{{ a.ink }}">{{ a.nome }}</span><sc-if value="{{ a.temLatim }}" hint-placeholder-val="{{ true }}"><span style="font-size:10px;font-style:italic;color:#8F8886">{{ a.latim }}</span></sc-if></span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <span style="font-size:10px;line-height:1.45;color:#8F8886">{{ pd.rejLegenda }}</span>
             <span style="font-size:10px;color:#8F8886;line-height:1.5">{{ t.absenceRule }}</span>
           </div>
           </sc-if>
@@ -7901,6 +7961,15 @@ class Component extends DCLogic {
         const winIdx = {};
         CWR.forEach((x) => { const k = U0(x.crop) + '|' + U0(x.issue); (winIdx[k] = winIdx[k] || []).push(x); });
 
+        /* A PALAVRA DO ROTULO, NA CAIXA EM QUE SE LE.
+           O pacote escreve `FRUMENTO`, `MACULATURA RETICOLARE`. O manual ADAMA
+           reserva a caixa alta para palavra unica; uma frase inteira em
+           maiusculas grita. O nome latino ja chega bem escrito e nao se toca. */
+        const daRotulo = (x) => {
+          const t0 = String(x || '').trim();
+          if (!t0 || /[a-z]/.test(t0)) return t0;
+          return t0.toLowerCase().replace(/^(.)/, (c) => c.toUpperCase());
+        };
         const relRow = (l) => {
           const hit = winIdx[U0(l.crop) + '|' + U0(l.issue)] || [];
           /* One window -> a real destination. Several windows (same crop x issue in
@@ -7911,9 +7980,97 @@ class Component extends DCLogic {
              no region, and the old name told the markup otherwise. `region` is kept as a
              deprecated alias only so nothing outside this file breaks. */
           const ev = evLine(l.strength);
-          return { crop: cl(l.crop), issue: il(l.issue), evidence: ev, region: ev, go: () => dest && this.openWindow(dest) };
+          /* ══ O CANONICO SERVE PARA LIGAR. O LITERAL E O FACTO. ═════════════
+             `cl` e `il` caem no proprio codigo quando nao ha frase, e o codigo
+             aqui e NULO: 1.589 das 2.389 ligacoes nao tem alvo canonico, porque
+             o alvo do rotulo nao esta nas dezanove do vocabulario. O ecra
+             escrevia «Barley · » — o ponto, e nada depois dele.
+
+                 UMA LINHA QUE NAO NOMEIA O ALVO NAO E UMA LINHA DE ALVO.
+
+             A palavra do rotulo estava no registo o tempo todo. Entra agora,
+             pela ordem em que o documento a oferece: o nome comum italiano
+             primeiro, o binomio latino a seguir. Onde nao ha nem um nem outro
+             fica escrito que nao se sabe — nunca um espaco em branco, que se le
+             como se nada houvesse para dizer. */
+          const cropTxt = l.crop ? cl(l.crop) : daRotulo(l.cropOnLabel);
+          const alvoDoRotulo = (l.target && l.target !== 'NAO_MAPEADO')
+            ? daRotulo(l.target) : (l.targetAsWritten || '');
+          const issueTxt = l.issue ? il(l.issue) : alvoDoRotulo;
+          const NS = T.ksNotKnown || 'non noto';
+          return {
+            crop: cropTxt || NS, issue: issueTxt || NS,
+            /* Marca-se de onde veio cada metade: a leitura canonica liga-se a
+               uma janela colturale, a palavra do rotulo nao. Sao dois estados de
+               conhecimento diferentes e o leitor tem direito a distingui-los. */
+            cropCanon: !!l.crop, issueCanon: !!l.issue,
+            doRotulo: !l.crop || !l.issue,
+            semAlvo: !issueTxt, semCultura: !cropTxt,
+            kind: l.targetKind || null,
+            /* O NOME CIENTIFICO DISTINGUE O QUE O NOME COMUM JUNTA.
+               `Puccinia striiformis` e `Puccinia recondita` sao duas linhas do
+               rotulo e ambas canonizam para RUGGINE. Mostrar «Ruggine» duas
+               vezes le-se como repeticao; mostrar o binomio ao lado devolve a
+               diferenca que o documento tinha. So aparece quando acrescenta:
+               onde repete o nome comum, cala-se. */
+            latim: (() => {
+              const w = String(l.targetAsWritten || '').trim();
+              const c = String(issueTxt || '').trim();
+              if (!w || w.toLowerCase() === c.toLowerCase()) return '';
+              /* `Fusariosi · fusario` nao acrescenta nada: e a mesma palavra
+                 noutra grafia. `Ruggine bruna` acrescenta — e a ferrugem
+                 castanha, que nao e a amarela. A regra e o SEGUNDO TERMO: uma
+                 so palavra que partilha a raiz e ruido; duas palavras nomeiam
+                 outra coisa. */
+              const raiz = (x) => x.toLowerCase().replace(/[^a-zà-ÿ]/g, '').slice(0, 5);
+              if (w.split(/\s+/).length < 2 && raiz(w) && raiz(w) === raiz(c)) return '';
+              return w;
+            })(),
+            evidence: ev, region: ev, labelUrl: l.labelUrl || null,
+            go: () => dest && this.openWindow(dest) };
         };
         const byCropIssue = (a, b) => String(a.crop).localeCompare(String(b.crop)) || String(a.issue).localeCompare(String(b.issue));
+        /* ══ A LINHA ADAMA DO PRODUTO, E O VERDE DA DANINHA ═════════════════
+           A cor nao e decoracao: e a linha comercial a que o produto pertence,
+           a mesma que pinta o cartao na grelha do portafoglio. O unico alvo que
+           foge a linha do produto e a planta infestante, que tem verde proprio
+           no manual — e um fungicida de cereais que liste uma daninha tem de a
+           mostrar como daninha, nao como doenca. A fonte e sempre CATEGORY_UI;
+           nenhum hexadecimal nasce aqui. */
+        const CUP = (AM && AM.CATEGORY_UI) || {};
+        const LINHA_DO_PRODUTO = {
+          ERBICIDI: CUP.weed, FUNGICIDI: CUP.disease, INSETTICIDI: CUP.pest,
+        };
+        /* ══ UMA LINHA POR CULTURA, NAO UMA LINHA POR PAR ═══════════════════
+           O MAXENTIS tinha vinte e duas linhas, e vinte e duas repeticoes da
+           mesma frase «mesma linha da tabela de uso, lida no rotulo oficial».
+           A frase e verdadeira e e a mesma para todas: repeti-la vinte e duas
+           vezes nao a torna mais verdadeira, torna o ecra ilegivel.
+
+               O QUE E IGUAL EM TODAS AS LINHAS E LEGENDA, NAO E LINHA.
+
+           A cultura passa a encabecar o grupo e os alvos entram como pastilhas
+           por baixo dela. Duas culturas e vinte e dois alvos leem-se de uma vez;
+           vinte e duas linhas iguais nao se leem de todo. */
+        const porCultura = (rows, ui) => {
+          const m = new Map();
+          for (const r of rows) {
+            const k = r.crop;
+            if (!m.has(k)) m.set(k, { crop: k, cropCanon: r.cropCanon, alvos: [] });
+            const daninha = r.kind === 'PLANTA_INFESTANTE';
+            const cor = daninha ? ((CUP.weed || {}).color || '#7DB41E')
+              : ((ui || {}).color || (CUP.unknown || {}).color || '#8F8886');
+            m.get(k).alvos.push({
+              nome: r.issue, latim: r.latim || '', temLatim: !!r.latim,
+              /* A pastilha diz de onde vem a palavra: o traco cheio e leitura
+                 canonica, que liga a uma janela colturale; o traco a meio-tom e
+                 a palavra do rotulo, que nomeia mas nao liga. */
+              edge: r.issueCanon ? cor : 'rgba(203,197,195,0.28)',
+              ink: r.issueCanon ? '#fff' : '#EDEAE9',
+              ponto: cor, canon: r.issueCanon, go: r.go });
+          }
+          return [...m.values()].map((g) => Object.assign(g, { n: g.alvos.length }));
+        };
         const verified = e.verifiedLinks.map(relRow).sort(byCropIssue);
         const related = e.relatedLinks.map(relRow).sort(byCropIssue);
         const checkNeeded = e.checkNeededLinks.map(relRow).sort(byCropIssue);
@@ -8017,6 +8174,22 @@ class Component extends DCLogic {
             : (e.expiresInDays !== undefined && e.expiresInDays !== null && e.expiresInDays < 0) ? '#F5B317'
             : '#00B152',
           verified, hasVerified: verified.length > 0,
+          /* Os mesmos factos, agrupados pela cultura que os une. As listas
+             planas ficam: o portao conta-as, e um portao que perde a contagem
+             deixa de saber se alguma linha se perdeu pelo caminho. */
+          verGroups: porCultura(verified, LINHA_DO_PRODUTO[e.category] || null),
+          chkGroups: porCultura(checkNeeded, LINHA_DO_PRODUTO[e.category] || null),
+          relGroups: porCultura(related, LINHA_DO_PRODUTO[e.category] || null),
+          rejGroups: porCultura(rejected, LINHA_DO_PRODUTO[e.category] || null),
+          /* A frase da evidencia e igual em todas as linhas do mesmo escalao:
+             sobe uma vez para o pe do cartao, onde e legenda. */
+          verLegenda: (verified[0] || {}).evidence || '',
+          chkLegenda: (checkNeeded[0] || {}).evidence || '',
+          relLegenda: (related[0] || {}).evidence || '',
+          rejLegenda: (rejected[0] || {}).evidence || '',
+          linhaCor: ((LINHA_DO_PRODUTO[e.category] || CUP.unknown || {}).color) || '#8F8886',
+          linhaIcone: ((LINHA_DO_PRODUTO[e.category] || {}).iconAsset) || '',
+          temIcone: !!((LINHA_DO_PRODUTO[e.category] || {}).iconAsset),
           /* RELATED_PORTFOLIO is 217 of 236 rows and is the only class 16 of the 26
              connected products have. It has no card in the markup yet — see the
              report; until that card lands these rows are computed and not shown. */

@@ -2203,7 +2203,23 @@
       || PKEY_ALTS(r.product).map((a) => byName[a]).find(Boolean)
       || (r.reg ? perRegistrazione[String(r.reg)] : null);
     if (e) {
-      e.links.push({ crop: r.crop, issue: r.issue, strength: r.strength, evidence: r.evidence, source: r.source, windowId: r.windowId, region: r.region, evidenceKind: r.evidenceKind, labelUrl: r.labelUrl, caseId: null });
+      /* ══ O CANONICO SERVE PARA LIGAR. O LITERAL E O FACTO. ══════════════
+         Esta projeccao levava `crop` e `issue` — os codigos canonicos — e
+         deixava para tras `cropOnLabel`, `target` e `targetAsWritten`, que sao
+         as palavras do proprio rotulo. Medido: 1.589 das 2.389 linhas nao tem
+         issue canonico e 913 nao tem crop, porque o alvo do rotulo nao esta nas
+         dezanove do vocabulario. O ecra da ficha do produto mostrava entao
+         «Barley · » — o ponto e nada depois dele, dezenas de vezes seguidas.
+
+             PERDER O LITERAL PARA FICAR COM O PALPITE E PERDER O FACTO.
+
+         E a lei do proprio leitor de rotulos, escrita em `rotulos_ler.py`:
+         quando nao se sabe mapear sai NAO_MAPEADO, «e o literal continua la,
+         inteiro». O registo completo sempre esteve em `e.relationships`; o que
+         faltava era atravessar a fronteira ate a linha que se desenha. */
+      e.links.push({ crop: r.crop, issue: r.issue, strength: r.strength, evidence: r.evidence, source: r.source, windowId: r.windowId, region: r.region, evidenceKind: r.evidenceKind, labelUrl: r.labelUrl, caseId: null,
+        cropOnLabel: r.cropOnLabel, target: r.target, targetAsWritten: r.targetAsWritten,
+        targetKind: r.targetKind, weedGroup: r.weedGroup, quote: r.quote });
       e.relationships.push(r);
     }
   });

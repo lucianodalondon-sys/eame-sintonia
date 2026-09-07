@@ -79,6 +79,33 @@ if (!only) {
   if (!r.pass && r.detail) for (const line of r.detail) console.log(`        ${DIM}${String(line).slice(0, 150)}${X}`);
 }
 
+/* ══ PL1 · NENHUM PRODUTO FICA COM A ETIQUETA POR ABRIR ═════════════════════
+   A regua das lacunas separa tres coisas que o cartao vazio confundia: nao ter
+   registo, ter registo e o leitor nao achar a tabela, e ter tudo e ninguem ter
+   lido. So a ultima e uma divida NOSSA — as outras duas sao o mundo e o
+   parser, e cada uma tem o seu dono.
+
+       TER A ETIQUETA E NAO A ABRIR E A UNICA DAS TRES QUE NAO TEM DESCULPA.
+
+   Por isso o portao exige zero em RECOLHA e deixa as outras duas contadas, a
+   vista, sem falhar: um numero que falha todos os dias deixa de ser lido. */
+{
+  const pl = await import('./portfolio-lacunas.mjs');
+  const r0 = await pl.medirLacunas();
+  const porColher = r0.porAccao.RECOLHA || 0;
+  results.push({
+    id: 'PL1', title: 'No product has a label we hold and never read',
+    pass: porColher === 0, expected: '0 por colher',
+    measured: porColher + ' por colher · ' + r0.completos + '/' + r0.total + ' completos · '
+      + (r0.porAccao.LEITOR_DE_ROTULO || 0) + ' no leitor · '
+      + (r0.porAccao.NAO_HA_O_QUE_COLHER_AQUI || 0) + ' fora do registo',
+    detail: porColher ? r0.linhas.filter((l) => l.accao === 'RECOLHA').map((l) => l.nome) : undefined,
+  });
+  const r = results[results.length - 1];
+  console.log(`  ${r.pass ? `${G}PASS${X}` : `${R}FAIL${X}`}  ${pad(r.id, 5)} ${pad(r.title, 58)} ${DIM}exp${X} ${pad(r.expected, 12)} ${DIM}got${X} ${r.measured}`);
+  if (!r.pass && r.detail) for (const line of r.detail) console.log(`        ${DIM}${String(line).slice(0, 150)}${X}`);
+}
+
 const nonMisurati = results.filter((r) => r.notTestable);
 const misurabili = results.filter((r) => !r.notTestable);
 const ok = misurabili.filter((r) => r.pass).length;
