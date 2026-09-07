@@ -599,11 +599,23 @@ def alvos_da_linha(texto):
 #
 # O cabeçalho da seção é outro, e é por isso que `CABECALHO` não o alcançava:
 # ele fala de DOSE e IMPIEGO, nunca de «parassiti».
+# ══ «MODALITÀ» LEVA ACENTO, E O ACENTO ESCONDIA QUARENTA E SEIS ETIQUETAS ══
+#
+# O padrao pedia `MODALITA` sem acento. O rotulo escreve `DOSI E MODALITÀ
+# D'IMPIEGO`, que e como se escreve em italiano. Medido nas 163: quarenta e seis
+# tem essa linha, e o padrao nao apanhava NENHUMA. A seccao de uso inteira —
+# doses, culturas, alvos — ficava do outro lado de um acento.
+#
+#     UM CARACTERE NAO E UM DETALHE QUANDO E O UNICO QUE SEPARA
+#     O LEITOR DA SECCAO QUE ELE VEIO LER.
+#
+# `MODALIT[AÀ]` e o unico alargamento: nao se aceita mais nenhuma palavra nova,
+# so a mesma palavra escrita como o documento a escreve.
 CABECALHO_IMPIEGO = re.compile(
-    r'^\s*(DOSI[,\s]+MODALITA|DOSI\s+E\s+MODALITA|MODALITA.{0,3}\s+E\s+DOSI|'
+    r'^\s*(DOSI[,\s]+MODALIT[AÀ]|DOSI\s+E\s+MODALIT[AÀ]|MODALIT[AÀ].{0,3}\s+E\s+DOSI|'
     r'CAMPI\s+E\s+DOSI|DOSI\s+D.IMPIEGO|CAMPI\s+D.IMPIEGO|EPOCHE\s+E\s+DOSI|'
-    r'DOSI\s+E\s+EPOCHE|MODALITA.{0,3}\s+D.IMPIEGO\s+E\s+DOSI|'
-    r'DOSI[,\s]+MODALITA.{0,3}\s+E\s+CAMPI)', re.I | re.M)
+    r'DOSI\s+E\s+EPOCHE|MODALIT[AÀ].{0,3}\s+D.IMPIEGO\s+E\s+DOSI|'
+    r'DOSI[,\s]+MODALIT[AÀ].{0,3}\s+E\s+CAMPI)', re.I | re.M)
 
 # Dentro do bloco, a frase que apresenta os alvos.
 ABRE_ALVOS_NO_BLOCO = re.compile(
