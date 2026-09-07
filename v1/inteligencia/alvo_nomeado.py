@@ -31,8 +31,31 @@ delas costuma estar inteira noutra, e o que se procura aqui e a PRESENCA da
 palavra, nao a estrutura em volta dela.
 
     TARGET_NAME_LITERAL                    o nome esta no rotulo
+    TARGET_NAME_INFLECTED_IN_LABEL         nao esta assim, mas o documento escreve
+                                           a MESMA palavra flexionada
     TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL   nao esta em nenhuma das tres leituras
     TARGET_NAME_NOT_CHECKED                nao ha texto para conferir
+
+## O ESTADO DO MEIO, QUE ESTA REGRA NAO TINHA E A IRMA TINHA
+
+R-21 distingue `CROP_NAME_INFLECTED_IN_LABEL` ("cavoli" e CAVOLO, 31 pares) de
+`CROP_NAME_NOT_IN_LABEL`, e o `payload.py` argumenta, com razao, que recusar por
+causa de um plural "seria esconder fato verdadeiro para a regra parecer severa".
+R-17 nao tinha esse estado — e por isso dizia, sobre 34 pares, uma frase falsa:
+
+    "este nome nao esta escrito no rotulo. O documento nomeia a praga pelo
+     binomio (Cydia pomonella) e a ferramenta publica o nome comum"
+
+Em 015232 a celula desenhada de "Aglio, Cipolla (uso in serra)" escreve
+literalmente **"Ruggini (Puccinia spp.)"**, e o par publicado diz RUGGINE. Nao e
+taxonomia: e o plural italiano.
+
+    RUGGINE / "Ruggini"        15      MOSCA / "mosche"     6
+    COCCINIGLIE / "cocciniglia" 12      NOTTUE / "nottua"    1
+
+Doze desses 34 viram FATO com o estado novo — todos com R-14 ja absolvendo o par
+e a cultura literal. Esconder fato verdadeiro e tao caro quanto publicar fato
+falso, e a assimetria entre as duas regras irmas nao tinha motivo escrito.
 
 ## O QUALIFICADOR QUE O NOME CURTO JOGA FORA
 
@@ -122,6 +145,25 @@ NAO_QUALIFICA = {'', 'e', 'o', 'a', 'ed', 'di', 'del', 'della', 'dei', 'delle',
 CORTES_DO_EXTRATOR = {80, 180, 200}
 
 
+def radical(w):
+    """A mesma raiz de R-14 e R-21: corta a ultima vogal e o h de apoio."""
+    w = re.sub(r'[^a-z]', '', sa(w))
+    if len(w) >= 5:
+        r = re.sub(r'h?[aeiou]$', '', w)
+        if len(r) >= 4:
+            return r
+    return w
+
+
+_RAIZES = {}
+
+
+def raizes_do_texto(reg, t):
+    if reg not in _RAIZES:
+        _RAIZES[reg] = {radical(w) for w in re.findall(r"[a-z']+", t)}
+    return _RAIZES[reg]
+
+
 def qualificadores(nome, bruto):
     """Palavras que SEMPRE acompanham o nome do alvo na celula como escrita.
 
@@ -191,6 +233,8 @@ def main():
             est = 'TARGET_NAME_NOT_CHECKED'
         elif nome and (nome in t or (partes and all(p in t for p in partes))):
             est = 'TARGET_NAME_LITERAL'
+        elif partes and all(radical(q) in raizes_do_texto(reg, t) for q in partes):
+            est = 'TARGET_NAME_INFLECTED_IN_LABEL'
         else:
             est = 'TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL'
             det.append({'KEY': chave, 'REGISTRATION_ID': reg, 'PRODUCT': x.get('PRODUCT'),

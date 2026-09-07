@@ -26,9 +26,11 @@ A rodada 3 achou dois casos e os dois eram desta familia:
 
 ## A regra, e por que ela e DIFERENTE por familia
 
-Cada citacao e conferida contra o documento lido de quatro formas (coluna
-reconstruida por fios verticais, `-layout`, fluxo e `-raw`), porque uma frase
-partida entre colunas numa leitura costuma estar inteira noutra.
+Cada citacao e conferida contra o documento lido de tres formas (`-layout`,
+fluxo e `-raw`), porque uma frase partida entre colunas numa leitura costuma
+estar inteira noutra. As tres sao LEITURAS: o pdftotext le o papel. A coluna
+que este projeto remonta colando linhas por faixa vertical NAO entra, e a
+rodada 5 tirou-a daqui — ver `leituras()`.
 
 Mas nem toda citacao e uma FRASE, e tratar as tres como uma so foi a primeira
 versao desta regra — que acusou 846 "truncamentos" e estava errada:
@@ -63,7 +65,11 @@ versao desta regra — que acusou 846 "truncamentos" e estava errada:
     dizer que e remontagem, e nao "citacao do documento".
 
     QUOTE_VERBATIM                     existe, literal e contigua
-    QUOTE_NOT_CONTIGUOUS_IN_DOCUMENT   nao existe contigua em leitura nenhuma
+    QUOTE_NOT_CONTIGUOUS_IN_DOCUMENT   nao existe contigua em leitura nenhuma, nem
+                                       sequer na coluna remontada pelo projeto
+    QUOTE_ONLY_IN_COLUMN_RECONSTRUCTION  so existe na coluna que ESTE projeto
+                                       remontou colando linhas; o autor da
+                                       frase e o extrator, nao a etichetta
     QUOTE_IS_PREFIX_OF_LONGER_QUOTE    e prefixo estrito de outra do mesmo
                                        rotulo — pode inverter escopo (so FRASE)
     QUOTE_CUT_MID_WORD                 o corte caiu dentro de uma palavra
@@ -150,19 +156,44 @@ def main():
     memo = {}
 
     def leituras(reg):
-        """As quatro leituras do documento, normalizadas."""
+        """As tres leituras PLANAS do documento — fluxo, -layout e -raw.
+
+        LER O DOCUMENTO E RECONSTRUIR O DOCUMENTO SAO DUAS COISAS.
+
+        Ate a rodada 5 esta funcao devolvia QUATRO leituras, e a primeira delas
+        era `texto_por_coluna` — a coluna que o proprio projeto reconstroi
+        colando as linhas que caem dentro da mesma faixa vertical. Uma citacao
+        que so aparecesse ali era carimbada QUOTE_VERBATIM, isto e, "o rotulo
+        escreve isto".
+
+        A remontagem cola linhas por faixa vertical e NAO olha os fios
+        horizontais desenhados: medido, ela produz 755 sentencas que atravessam
+        um fio, ou seja, junta o fim de uma celula com o comeco da celula de
+        BAIXO. Uma frase assim nao esta escrita em lugar nenhum do papel — ela
+        nasce da cola. Usar a cola como prova de que a frase existe e circular:
+        o instrumento que montou o texto vira a testemunha de que o texto e
+        real.
+
+        Medido no payload desta rodada: 72 citacoes de par estavam
+        QUOTE_VERBATIM apenas por causa da remontagem (12 de cultura, 60 de
+        alvo), e nenhuma das outras oito familias dependia dela. Duas delas:
+
+            017968  "in una fascia patata, melone, zucchino, cetriolino,"
+            008401  "2 l/ha (200 ml/hl) contro Peronospora (Phytophthora ..."
+
+        A segunda e uma LINHA DE DOSE inteira publicada no campo do alvo. Com a
+        cola fora, as duas perdem as aspas e ganham nome proprio.
+
+        A remontagem continua existindo, em `remontagem()`, e continua servindo
+        para a pergunta em que ela e confiavel: quais PALAVRAS estao na pagina.
+        Ela e feita das caixas de palavra reais do PDF — o que ela inventa e a
+        ADJACENCIA, nunca o vocabulario.
+        """
         if reg in memo:
             return memo[reg]
         pdf = os.path.join(a.pdfs, f'{reg}.pdf')
         out = []
         if os.path.exists(pdf):
-            try:
-                for pi, pg in enumerate(caixas(pdf, a.bbox)):
-                    r = F.fios(pdf, pi + 1, cache=a.fios)
-                    out += [nz(c) for c in texto_por_coluna(
-                        pg, r.get('V') or [], r.get('PAGE_WIDTH_PT') or 0)]
-            except Exception:
-                pass
             for modo, suf in (([], 'fluxo'), (['-layout'], 'layout'), (['-raw'], 'raw')):
                 f = os.path.join(a.cache, f'{reg}.{suf}.txt')
                 if not os.path.exists(f) or os.path.getsize(f) == 0:
@@ -176,6 +207,32 @@ def main():
                 except OSError:
                     pass
         memo[reg] = out
+        return out
+
+    memo_r = {}
+
+    def remontagem(reg):
+        """A coluna reconstruida pelo projeto. NAO e leitura do documento.
+
+        Serve para duas perguntas onde a cola nao atrapalha:
+          * a linha de tabela (`LINHA`): as PALAVRAS dela estao na pagina?
+          * a citacao que nao existe em leitura plana nenhuma: ela ao menos
+            sai da coluna certa, ou nao sai de lugar nenhum? Sao dois defeitos
+            diferentes e merecem dois nomes.
+        """
+        if reg in memo_r:
+            return memo_r[reg]
+        pdf = os.path.join(a.pdfs, f'{reg}.pdf')
+        out = []
+        if os.path.exists(pdf):
+            try:
+                for pi, pg in enumerate(caixas(pdf, a.bbox)):
+                    r = F.fios(pdf, pi + 1, cache=a.fios)
+                    out += [nz(c) for c in texto_por_coluna(
+                        pg, r.get('V') or [], r.get('PAGE_WIDTH_PT') or 0)]
+            except Exception:
+                pass
+        memo_r[reg] = out
         return out
 
     # A LEITURA COM A ESTRUTURA DE LINHA PRESERVADA, so para uma pergunta: o
@@ -221,12 +278,24 @@ def main():
             return 'QUOTE_NOT_CHECKED_NO_TEXT'
         if tipo == 'LINHA':
             # uma linha de tabela nao e contigua por construcao: a pergunta e se
-            # as palavras dela existem no documento
+            # as palavras dela existem no documento. Aqui a remontagem por
+            # coluna ENTRA, porque a pergunta e de vocabulario e nao de
+            # adjacencia: ela e feita das caixas de palavra reais do PDF, e a
+            # unica coisa que ela inventa e a ordem em que as palavras se
+            # encostam.
+            todas = ls + remontagem(reg)
             faltam = [w for w in re.findall(r'[a-z]{4,}', f)
-                      if not any(w in t for t in ls)]
+                      if not any(w in t for t in todas)]
             return ('ROW_RECONSTRUCTED_FROM_CELLS' if not faltam
                     else 'ROW_HAS_WORDS_NOT_ON_THE_PAGE')
         if not any(f in t for t in ls):
+            # DOIS DEFEITOS, DOIS NOMES. Uma frase que nao esta em leitura plana
+            # nenhuma mas ESTA na coluna que o projeto remontou saiu da cola do
+            # proprio projeto — quem a le tem de saber que o autor da frase e o
+            # extrator. Uma frase que nao esta nem la nao veio de lugar nenhum
+            # que este modulo saiba nomear, e continua com o nome antigo.
+            if any(f in t for t in remontagem(reg)):
+                return 'QUOTE_ONLY_IN_COLUMN_RECONSTRUCTION'
             return 'QUOTE_NOT_CONTIGUOUS_IN_DOCUMENT'
         # CORTE NO MEIO DA LINHA. O documento tem estrutura: uma celula acaba
         # onde acaba a coluna (salto de 3+ espacos no -layout) ou onde a linha
@@ -320,7 +389,8 @@ def main():
             ver[chave_cit(nome, reg, frase)] = e
             if e in ('QUOTE_NOT_CONTIGUOUS_IN_DOCUMENT', 'QUOTE_IS_PREFIX_OF_LONGER_QUOTE',
                      'QUOTE_CUT_MID_WORD', 'ROW_HAS_WORDS_NOT_ON_THE_PAGE',
-                     'QUOTE_HAS_UNBALANCED_PARENTHESIS', 'QUOTE_CUT_MID_LINE'):
+                     'QUOTE_HAS_UNBALANCED_PARENTHESIS', 'QUOTE_CUT_MID_LINE',
+                     'QUOTE_ONLY_IN_COLUMN_RECONSTRUCTION'):
                 det.append({'FAMILY': nome, 'TYPE': tipo, 'REGISTRATION_ID': reg, 'STATE': e,
                             'WHERE': onde, 'QUOTE': str(frase)[:200]})
         fam[nome] = dict(c.most_common())
@@ -373,7 +443,11 @@ def main():
         'O_QUE_ISTO_E': 'toda frase que a ferramenta imprime entre aspas existe no documento?',
         'O_QUE_ISTO_NAO_E': ('nao julga se a frase e relevante nem se o fato esta certo: julga '
                              'se ela esta escrita no PDF oficial'),
-        'READINGS': 'coluna reconstruida por fios + pdftotext -layout, fluxo e -raw',
+        'READINGS': ('pdftotext -layout, fluxo e -raw. A coluna reconstruida por fios NAO conta '
+                     'como leitura do documento: ela cola linhas por faixa vertical sem olhar os '
+                     'fios horizontais e produz 755 sentencas que atravessam um fio desenhado. '
+                     'Ela responde so por VOCABULARIO (as palavras da linha de tabela) e por '
+                     'QUOTE_ONLY_IN_COLUMN_RECONSTRUCTION'),
         'TOTAL': dict(tot.most_common()),
         'BY_FAMILY': fam,
         'KEY': ('FAMILIA|REGISTRO|sha1(frase normalizada)[:16]. A frase normalizada e a '

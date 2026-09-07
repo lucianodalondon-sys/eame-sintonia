@@ -62,6 +62,7 @@ from collections import Counter
 
 COBRE = 0.6      # a mesma fracao de fios.mesma_celula e de par_validar
 FOLGA = 0.5      # pontos: o fio tem de estar por DENTRO da banda, nao na borda
+JUNTA_FIO = 1.5  # pontos: dois riscos a menos que isto sao o MESMO fio (igual R-14)
 
 
 def main():
@@ -122,10 +123,56 @@ def main():
             bx1 = max(w[2] for w in dentro)
             larg = max(bx1 - bx0, 1e-6)
             cys = [w[1] for w in dentro]
+            # O TEXTO DOS DOIS LADOS TEM DE ESTAR DEBAIXO DO PROPRIO FIO.
+            #
+            # A primeira versao testava texto acima/abaixo so em Y, e por isso
+            # aceitava como "o outro lado do risco" palavra que esta FORA do
+            # alcance horizontal dele — de outra tabela da mesma folha, ou de
+            # uma celula mesclada numa coluna que o fio nem cruza. E o mesmo
+            # defeito que a lente L consertou em par_validar (juntar numa linha
+            # palavras de blocos diferentes na mesma altura da folha) e que eu
+            # nao apliquei aqui.
+            #
+            # Medido pelo arbitro com geometria VETORIAL e reproduzido aqui:
+            #   013560#58 / 013590#58 — banda 87,91-98,29 da p.2. O fio y=97,34
+            #     vai de x=428,4 a 806,2, que e a tabela da DIREITA. O "texto
+            #     abaixo" que o codigo aceitava era "giorni)" em x 379,4-404,4,
+            #     cabecalho da tabela da ESQUERDA. Do lado direito nao ha nada
+            #     abaixo do fio dentro da banda: ele e a borda inferior da linha.
+            #     A dose suprimida — 560-800 g/ha para Frumento x Nottue — esta
+            #     certa no papel.
+            #   015275#43 / 017687#43 — o "texto abaixo" era o "1" em x=389,8,
+            #     celula MESCLADA de n. applicazioni que o fio (x 178,2-364,9)
+            #     nao atravessa.
+            # Dez doses corretas sairam da tela por causa disto.
+            def _tem_dos_dois_lados(y, xa, xb):
+                acima = abaixo = False
+                for wx0, wcy, wx1 in dentro:
+                    if min(xb, wx1) - max(xa, wx0) <= 0:      # fora do fio, em x
+                        continue
+                    if wcy < y:
+                        acima = True
+                    elif wcy > y:
+                        abaixo = True
+                return acima and abaixo
+
             cruzam = [round(y, 2) for y, xa, xb in seg
                       if y0 + FOLGA < y < y1 - FOLGA
                       and (min(bx1, xb) - max(bx0, xa)) / larg >= COBRE
-                      and any(v < y for v in cys) and any(v > y for v in cys)]
+                      and _tem_dos_dois_lados(y, xa, xb)]
+            # UM RISCO GROSSO NAO SAO TRES FIOS. O raster entrega o mesmo traco
+            # em duas ou tres alturas vizinhas, e par_validar funde isso desde a
+            # rodada 3 — este modulo nao fundia, e a prova publicada na tela
+            # dizia "tem 3 fio(s) desenhado(s) por dentro (y=[96.48, 96.96,
+            # 97.44])" onde a geometria vetorial tem UM retangulo de 0,48 pt.
+            # Afirmacao falsa sobre o documento na frase que justifica a
+            # supressao.
+            fundidos, ultimo = [], None
+            for y in sorted(cruzam):
+                if ultimo is None or y - ultimo > JUNTA_FIO:
+                    fundidos.append(y)
+                ultimo = y
+            cruzam = fundidos
             if cruzam:
                 ver[chave] = 'DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE'
                 det.append({

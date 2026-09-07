@@ -273,9 +273,17 @@ ok("COVERAGE_NOT_SINGLE_NUMBER", f"{len(cov)} coberturas separadas") if len(cov)
     else fail("COVERAGE_NOT_SINGLE_NUMBER", f"so {len(cov)} coberturas")
 
 # --- 14. o filtro de ruido passa
+# A DESCRICAO DESTE PORTAO DIZIA "11 testes adversariais passam" com a suite ja
+# em 13. Numero escrito a mao num portao envelhece calado, e este projeto conta
+# 24 constantes medidas a cada execucao justamente para isso nao acontecer. Agora
+# o numero e lido da propria saida.
 r = subprocess.run(["python3", "v1/testes/test_ruido.py"], capture_output=True, text=True)
-ok("FALSE_CHANGE_NOISE_TEST", "11 testes adversariais passam") if r.returncode == 0 \
-    else fail("FALSE_CHANGE_NOISE_TEST", "a suite de ruido falhou")
+_nr = re.search(r"(\d+) passaram, (\d+) falharam", r.stdout)
+ok("FALSE_CHANGE_NOISE_TEST",
+   f"{_nr.group(1)} testes adversariais passam" if _nr else "a suite de ruido passa") \
+    if r.returncode == 0 and _nr and _nr.group(2) == "0" \
+    else fail("FALSE_CHANGE_NOISE_TEST",
+              "a suite de ruido falhou: " + (r.stdout[-300:] or r.stderr[-300:]))
 
 # --- 15. EXCLUSAO NAO E PERMISSAO (R-10)
 exc = json.load(open("v1/dados/EXCLUSAO.json", encoding="utf-8"))
@@ -705,6 +713,9 @@ try:
             continue
         _d = json.load(open(os.path.join("v1/dados", _art), encoding="utf-8"))
         _pb = _d.get("PRODUCED_BY") if isinstance(_d, dict) else None
+        if _art == "CASCO-PAYLOAD.json" and not _pb:
+            _sl.append("CASCO-PAYLOAD.json — o arquivo que a TELA le — nao carrega selo. "
+                       "Rode v1/casco/payload.py")
         if not _pb:
             continue
         _conf_sl += 1
@@ -743,7 +754,7 @@ try:
     # mexer nele) some do campo de visao em silencio — que e exatamente o
     # defeito que este portao existe para fechar.
     _esperados = 0
-    for _dir in ("v1/inteligencia", "v1/coleta"):
+    for _dir in ("v1/inteligencia", "v1/coleta", "v1/casco"):
         for _f in sorted(os.listdir(_dir)):
             if not _f.endswith(".py"):
                 continue
@@ -772,6 +783,174 @@ ok("ARTIFACTS_MATCH_THE_CODE_THAT_MADE_THEM",
    f"{_conf_sl} artefatos carregam o sha256 do modulo que os produziu e os {_conf_sl} conferem "
    f"com o codigo em disco; {_esperados} modulos sabem se selar e os {_esperados} selaram") \
     if not _sl else fail("ARTIFACTS_MATCH_THE_CODE_THAT_MADE_THEM", " | ".join(_sl[:4]))
+
+# --- 15k. o HTML ENTREGUE carrega exatamente o payload versionado
+#
+# O arbitro independente editou `v1/casco/label-intelligence.html` — o arquivo
+# que a pessoa abre — trocando "dose_ha":"0.76" por "7.65" no payload embutido,
+# uma sobredose de dez vezes em PIRIMOR 50. Os 27 portoes ficaram verdes: nenhum
+# comparava o entregavel com a sua fonte. O HTML e o que sai daqui; se ele pode
+# ser editado sem que nada acuse, todo o resto e decoracao.
+#
+# Este portao extrai o payload de dentro do HTML e compara o sha256 com o do
+# arquivo versionado. Byte a byte, sem tolerancia.
+_ht = []
+try:
+    import hashlib as _hl2
+    _m1 = re.search(r'<script[^>]*id="payload"[^>]*>', HTML)
+    if not _m1:
+        _m1 = re.search(r'<script[^>]*type="application/json"[^>]*>', HTML)
+    if not _m1:
+        _ht.append("nao achei o bloco de payload dentro do HTML entregue")
+    else:
+        _ini = _m1.end()
+        _fim = HTML.index("</script>", _ini)
+        _emb = HTML[_ini:_fim].strip()
+        _disco = open("v1/dados/CASCO-PAYLOAD.json", encoding="utf-8").read().strip()
+        _sh_emb = _hl2.sha256(_emb.encode()).hexdigest()
+        _sh_dis = _hl2.sha256(_disco.encode()).hexdigest()
+        if _sh_emb != _sh_dis:
+            _ht.append(f"o payload dentro do HTML entregue NAO e o versionado "
+                       f"(html {_sh_emb[:12]}, disco {_sh_dis[:12]}) — o HTML foi editado a mao "
+                       f"ou o build esta velho; rode sh v1/casco/build.sh")
+        else:
+            _pj = json.loads(_emb)
+            _pbh = _pj.get("PRODUCED_BY") or {}
+            _corpo2 = {k: v for k, v in _pj.items() if k != "PRODUCED_BY"}
+            _real2 = _hl2.sha256(json.dumps(_corpo2, ensure_ascii=False, sort_keys=True,
+                                            separators=(",", ":")).encode()).hexdigest()
+            if _real2 != _pbh.get("CONTENT_SHA256"):
+                _ht.append("o payload dentro do HTML tem selo de conteudo que nao bate com o "
+                           "proprio conteudo")
+except Exception as _e:
+    _ht.append(f"o HTML entregue nao pode ser conferido: {_e}")
+
+ok("DELIVERED_HTML_CARRIES_THE_VERSIONED_PAYLOAD",
+   "o payload embutido no HTML entregue e byte-identico ao versionado, e o selo de conteudo "
+   "dele bate") \
+    if not _ht else fail("DELIVERED_HTML_CARRIES_THE_VERSIONED_PAYLOAD", " | ".join(_ht[:3]))
+
+# --- 15l. TODA ASPA VEM DE UMA LEITURA DO PDF, NUNCA DA REMONTAGEM DA PROPRIA
+#         FERRAMENTA
+#
+# R-18 conferia cada citacao contra QUATRO leituras, e a primeira delas nao era
+# uma leitura: era `texto_por_coluna`, a coluna que este projeto reconstroi
+# colando as linhas que caem na mesma faixa vertical. A cola nao olha os fios
+# horizontais desenhados e, medido, produz 755 sentencas que atravessam um fio —
+# o fim de uma celula grudado no comeco da celula de BAIXO.
+#
+# Uma frase dessas era carimbada QUOTE_VERBATIM, e a tela imprimia "o rotulo
+# escreve" sobre um texto que o rotulo nunca escreveu. Circular: o instrumento
+# que montou o texto virava a testemunha de que o texto e real. Medido no
+# payload: 85 citacoes de par (12 de cultura, 73 de alvo) — entre elas uma LINHA
+# DE DOSE inteira publicada no campo do alvo de 008401.
+#
+# Este portao NAO confia no codigo: ele pega TODA citacao carimbada
+# QUOTE_VERBATIM e a procura, ele mesmo, no texto plano do pdftotext. Se o cache
+# de texto nao existir o portao FALHA, porque "nao pude conferir" nao e "esta
+# certo".
+_fv = []
+try:
+    _CIT = json.load(open("v1/dados/CITACAO-CHECK.json", encoding="utf-8"))
+    import hashlib as _hl3, unicodedata as _ud3
+
+    def _nz3(t):
+        t = _ud3.normalize("NFD", str(t or ""))
+        t = "".join(c for c in t if _ud3.category(c) != "Mn").lower()
+        return re.sub(r"\s+", " ", t).strip()
+
+    _plano = {}
+
+    def _pl(reg):
+        if reg not in _plano:
+            out = []
+            for _suf in ("fluxo", "layout", "raw"):
+                _f = f"/tmp/nomecache/{reg}.{_suf}.txt"
+                if os.path.exists(_f):
+                    out.append(_nz3(open(_f, encoding="utf-8", errors="replace").read()))
+            _plano[reg] = out
+        return _plano[reg]
+
+    # as frases que a tela imprime, por familia, do proprio payload
+    _FAMS = {
+        "PAIR_CROP_AS_WRITTEN": [(x["reg"], u.get("crop_raw")) for x in PAY["products"]
+                                 for u in (x.get("uses") or [])],
+        "PAIR_TARGET_AS_WRITTEN": [(x["reg"], u.get("target_raw")) for x in PAY["products"]
+                                   for u in (x.get("uses") or [])],
+        "DOSE_CROP_CELL": [(x["reg"], d.get("crop")) for x in PAY["products"]
+                           for d in (x.get("doses") or [])],
+        "DOSE_TARGET_CELL": [(x["reg"], d.get("target")) for x in PAY["products"]
+                             for d in (x.get("doses") or [])],
+        "EXCLUSION_WINDOW": [(x["reg"], w.get("TEXT")) for x in PAY["products"]
+                             for w in (x.get("exclusion_windows") or [])],
+        "CEILING_LITERAL": [(x["reg"], t.get("LITERAL")) for x in PAY["products"]
+                            for t in (x.get("ceilings") or [])],
+        "APP_LIMIT_NOTE": [(x["reg"], n.get("TEXT")) for x in PAY["products"]
+                           for n in (x.get("label_app_limit_notes") or [])],
+        "ROTATION_TEXT": [(x["reg"], w.get("ROTATION_TEXT")) for x in PAY["products"]
+                          for w in (x.get("uses_rotacao") or [])],
+        "WITHDRAWAL_TEXT": [(x["reg"], w.get("EXCLUSION_TEXT")) for x in PAY["products"]
+                            for w in (x.get("uses_retirados") or [])],
+        # NOT_PRESENT e NOT_CHECKED sao TOKENS DE IGNORANCIA, nao citacoes: entram
+        # aqui e o portao passaria a exigir texto de PDF para rotulo que nunca
+        # declarou vigencia nenhuma. Medido: sem este filtro o portao acusava
+        # 009322, 014225 e 014227 de "sem texto plano" — e os tres nao tem aspa
+        # nenhuma para conferir.
+        "LABEL_VALIDITY_QUOTE": [(x["reg"], x.get("label_validity_quote"))
+                                 for x in PAY["products"]
+                                 if x.get("label_validity_quote")
+                                 not in (None, "NOT_PRESENT", "NOT_CHECKED")],
+    }
+    # AS DEZ FAMILIAS, E NAO SETE. A primeira versao deste portao conferia sete
+    # e dizia "4170 aspas" quando o artefato carimba 4177 QUOTE_VERBATIM. Sete
+    # aspas fora da conta e um buraco pequeno e e um buraco: a frase de sucessao,
+    # a que retirou um uso e a unica vigencia declarada do acervo — justamente as
+    # tres familias mais citadas numa reuniao.
+    _conf, _maus, _sem_cache = 0, [], set()
+    for _nome, _its in _FAMS.items():
+        for _reg, _fr in _its:
+            if not _fr or _fr == "NOT_PRESERVED":
+                continue
+            _f = _nz3(_fr)
+            _k = f"{_nome}|{_reg}|" + _hl3.sha1(_f.encode()).hexdigest()[:16]
+            if _CIT["VERDICT"].get(_k) != "QUOTE_VERBATIM":
+                continue
+            _ls = _pl(_reg)
+            if not _ls:
+                # "nao pude ler o documento" nao e "a aspa esta certa": esta aspa
+                # esta carimbada QUOTE_VERBATIM e ninguem a conferiu.
+                _sem_cache.add(_reg)
+                continue
+            _conf += 1
+            if not any(_f in _t for _t in _ls):
+                _maus.append(f"{_reg} {_nome} {_f[:60]!r}")
+    # A CONTA TEM DE FECHAR CONTRA O ARTEFATO. Portao que confere um subconjunto
+    # e nao diz qual subconjunto e uma aprovacao com buraco.
+    _tot_vb = sum(1 for _e2 in _CIT["VERDICT"].values() if _e2 == "QUOTE_VERBATIM")
+    _dist = len({(_n2, _r2, _hl3.sha1(_nz3(_f2).encode()).hexdigest()[:16])
+                 for _n2, _i2 in _FAMS.items() for _r2, _f2 in _i2
+                 if _f2 and _f2 != "NOT_PRESERVED" and _pl(_r2)
+                 and _CIT["VERDICT"].get(
+                     f"{_n2}|{_r2}|" + _hl3.sha1(_nz3(_f2).encode()).hexdigest()[:16])
+                 == "QUOTE_VERBATIM"})
+    if _dist != _tot_vb:
+        _fv.append(f"o portao alcancou {_dist} das {_tot_vb} citacoes que o artefato carimba "
+                   f"QUOTE_VERBATIM — faltam {_tot_vb - _dist} sem conferencia")
+    if _sem_cache:
+        _fv.append(f"{len(_sem_cache)} rotulos tem aspa carimbada QUOTE_VERBATIM e nao tem texto "
+                   f"plano em /tmp/nomecache para conferir (rode "
+                   f"v1/inteligencia/citacao_verificar.py): {sorted(_sem_cache)[:3]}")
+    elif _conf < 500:
+        _fv.append(f"so {_conf} aspas conferidas — poucas demais para este portao significar algo")
+    if _maus:
+        _fv.append(f"{len(_maus)} aspas com selo QUOTE_VERBATIM que NAO existem em nenhuma "
+                   f"leitura plana do PDF: {_maus[:3]}")
+except Exception as _e:
+    _fv.append(f"nao pude conferir as aspas contra o texto plano: {_e}")
+
+ok("QUOTED_TEXT_IS_IN_A_FLAT_READING",
+   f"{_conf} aspas com selo QUOTE_VERBATIM reencontradas, uma a uma, no pdftotext do PDF "
+   f"oficial — nenhuma depende da coluna que esta ferramenta remonta")     if not _fv else fail("QUOTED_TEXT_IS_IN_A_FLAT_READING", " | ".join(_fv[:3]))
 
 # --- 16. dose nunca escolhida entre candidatas discordantes
 r = subprocess.run(["node", "v1/testes/test_casco.js"], capture_output=True, text=True)

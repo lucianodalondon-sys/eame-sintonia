@@ -538,6 +538,9 @@ function celulaCitada(txt, estado, oque) {
        nao a frase que o rotulo escreve`
     : estado === 'QUOTE_IS_PREFIX_OF_LONGER_QUOTE'
     ? `e <b>prefixo estrito de outra frase do mesmo rotulo</b>, e prefixo inverte escopo`
+    : estado === 'QUOTE_ONLY_IN_COLUMN_RECONSTRUCTION'
+    ? `so existe na <b>coluna que esta ferramenta remontou</b>, colando linhas por faixa vertical:
+       nao esta assim em nenhuma leitura do PDF. Quem escreveu essa frase foi o extrator`
     : `<b>nao foi conferido</b> contra o documento`;
   return `<span class="unknown">${esc(estado)}</span>
     <div class="meta">o texto que o extrator montou para ${esc(oque)} ${porque}. O que ele leu foi
@@ -1501,6 +1504,11 @@ const PAR_ROTULO = {
 //
 // FATO = as TRES colunas fecham. Medido: 1.264 dos 2.875 pares publicados.
 function nomeDoAlvo(u) {
+  if (u.target_name === 'TARGET_NAME_INFLECTED_IN_LABEL')
+    return `<div class="meta"><span class="unknown">TARGET_NAME_INFLECTED_IN_LABEL</span>
+      a etichetta escreve a <b>mesma palavra flexionada</b> — &ldquo;Ruggini&rdquo; para RUGGINE,
+      &ldquo;cocciniglia&rdquo; para COCCINIGLIE. E o plural italiano, nao taxonomia: a raiz e a
+      mesma, e por isso este par continua podendo ser FATO</div>`;
   if (u.target_name !== 'TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL') return '';
   return `<div class="meta"><span class="unknown">TARGET_NAME_BY_TAXONOMY_NOT_IN_LABEL</span>
     <b>este nome nao esta escrito no rotulo.</b> O documento nomeia a praga pelo binomio

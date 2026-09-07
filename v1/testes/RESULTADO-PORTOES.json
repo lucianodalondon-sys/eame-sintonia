@@ -1,6 +1,6 @@
 {
  "SUITE": "PORTOES-V1",
- "PASS": 27,
+ "PASS": 29,
  "FAIL": 0,
  "RESULTS": [
   {
@@ -41,12 +41,12 @@
   {
    "GATE": "UNKNOWN_HIDDEN_OR_FILLED",
    "STATE": "PASS",
-   "DETALHE": "nenhuma celula com traco/N-A em 10783209 caracteres de tela renderizada (render: 3556 blocos, 10783209 caracteres)"
+   "DETALHE": "nenhuma celula com traco/N-A em 10746570 caracteres de tela renderizada (render: 3556 blocos, 10746570 caracteres)"
   },
   {
    "GATE": "UNKNOWN_VISIBLE",
    "STATE": "PASS",
-   "DETALHE": "44 tokens de ignorancia distintos aparecem com o proprio nome na tela"
+   "DETALHE": "45 tokens de ignorancia distintos aparecem com o proprio nome na tela"
   },
   {
    "GATE": "EXPIRY_AS_WITHDRAWAL",
@@ -66,7 +66,7 @@
   {
    "GATE": "CANONICAL_TOUCHED",
    "STATE": "PASS",
-   "DETALHE": "nenhum dos 49 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
+   "DETALHE": "nenhum dos 50 commits desta missao esta em canonical (head de canonical agora: 10af4a7a, movido por outra sessao)"
   },
   {
    "GATE": "REUSE_ANCHORED_ON_FILE_HASH",
@@ -81,7 +81,7 @@
   {
    "GATE": "FALSE_CHANGE_NOISE_TEST",
    "STATE": "PASS",
-   "DETALHE": "11 testes adversariais passam"
+   "DETALHE": "13 testes adversariais passam"
   },
   {
    "GATE": "EXCLUSION_IS_NOT_PERMISSION",
@@ -131,7 +131,17 @@
   {
    "GATE": "ARTIFACTS_MATCH_THE_CODE_THAT_MADE_THEM",
    "STATE": "PASS",
-   "DETALHE": "12 artefatos carregam o sha256 do modulo que os produziu e os 12 conferem com o codigo em disco; 12 modulos sabem se selar e os 12 selaram"
+   "DETALHE": "13 artefatos carregam o sha256 do modulo que os produziu e os 13 conferem com o codigo em disco; 13 modulos sabem se selar e os 13 selaram"
+  },
+  {
+   "GATE": "DELIVERED_HTML_CARRIES_THE_VERSIONED_PAYLOAD",
+   "STATE": "PASS",
+   "DETALHE": "o payload embutido no HTML entregue e byte-identico ao versionado, e o selo de conteudo dele bate"
+  },
+  {
+   "GATE": "QUOTED_TEXT_IS_IN_A_FLAT_READING",
+   "STATE": "PASS",
+   "DETALHE": "4177 aspas com selo QUOTE_VERBATIM reencontradas, uma a uma, no pdftotext do PDF oficial — nenhuma depende da coluna que esta ferramenta remonta"
   },
   {
    "GATE": "CASCO_RENDER_TEST",

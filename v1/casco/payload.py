@@ -8,6 +8,9 @@ ele viaja como NOT_KNOWN / NOT_PRESENT / NOT_PROVED ate a tela — a interface n
 tem permissao de inventar o que a coleta nao trouxe.
 """
 import argparse, csv, datetime, hashlib, json, os, re, sys, unicodedata
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))), 'inteligencia'))
+from selo import selo, conteudo_sha
 from collections import Counter
 
 # A lista de pares vinha de sintonia/canonical, que nao esta neste repositorio e
@@ -181,6 +184,24 @@ def main():
     # 575 pares publicados trazem um deles no CROP_AS_WRITTEN e nenhum chegava a
     # tela. "VITE da vino" nao e "VITE": um produto autorizado so em uva de vinho
     # aparecia sob o mesmo nome de um autorizado tambem em uva de mesa.
+    def _sa_txt(t):
+        t = unicodedata.normalize("NFD", str(t or ""))
+        return "".join(c for c in t if unicodedata.category(c) != "Mn").lower()
+
+    def _radical_txt(w):
+        w = re.sub(r"[^a-z]", "", w)
+        if len(w) >= 5:
+            r = re.sub(r"h?[aeiou]$", "", w)
+            if len(r) >= 4:
+                return r
+        return w
+
+    # vocabulario de cultura do acervo, em radical: quem pode ser DONO de um
+    # qualificador dentro da celula
+    VOCAB_RAD = {r for r in (_radical_txt(_sa_txt(str(y.get("CROP") or "")).split("_")[0])
+                             for y in json.load(open(a.pares, encoding="utf-8"))["PAIRS"])
+                 if len(r) >= 4}
+
     RX_ESCOPO = re.compile(
         r"\b(da vino|da tavola|da zucchero|da foraggio|da olio|da granella|da seme|"
         r"da industria|dolce|in serra|uso in serra|pieno campo|sotto tunnel|in vivai|"
@@ -247,7 +268,38 @@ def main():
             contraditos_por_reg.setdefault(reg, []).append(w)
             continue
         _craw = str(x.get("CROP_AS_WRITTEN") or "")
-        _esc = sorted({m.group(1).lower() for m in RX_ESCOPO.finditer(_craw)})
+        # O QUALIFICADOR TEM DONO, E O DONO ESTA ESCRITO ANTES DELE.
+        #
+        # A versao anterior colava no par TODO qualificador que aparecesse na
+        # celula. Em 015096/018270 e irmaos a celula escreve
+        #   "ARBOREE (AGRUMI, DRUPACEE, OLIVO DA OLIO E DA TAVOLA, MELO, PERO,
+        #    VITE DA VINO E DA TAVOLA, NOCE, NOCCIOLO, MANDORLO)"
+        # e a ficha imprimia, em negrito, "a etichetta qualifica esta cultura:
+        # da olio · da tavola · da vino" para AGRUMI, MELO, PERO, NOCE, NOCCIOLO
+        # e MANDORLO. "da olio" e do OLIVO e "da vino" e da VITE. O documento
+        # nunca escreve "agrumi da vino". Mesmo mecanismo em 008259 e irmaos:
+        # "Foraggere (prati-pascoli, loglio, mais, barbabietola da foraggio,
+        # erba medica)" dava "da foraggio" ao MAIS e a ERBA_MEDICA.
+        # Medido: 107 usos, 73 deles com selo FATO.
+        #
+        # A regra e o texto: cada ocorrencia pertence a ULTIMA cultura nomeada
+        # antes dela. Qualificador que vem ANTES de qualquer nome de cultura e
+        # do grupo inteiro e vale para todos — "Orticole in pieno campo:
+        # Fragola, pomodoro, ..." qualifica a lista toda, e tirar isso seria
+        # esconder escopo verdadeiro.
+        def _dono_do_escopo(craw, cultura):
+            baixo = _sa_txt(craw)
+            meu = _radical_txt(_sa_txt(str(cultura or "")).split("_")[0])
+            fica = set()
+            for m in RX_ESCOPO.finditer(baixo):
+                antes = [w for w in re.findall(r"[a-z]+", baixo[:m.start()])
+                         if _radical_txt(w) in VOCAB_RAD]
+                dono = _radical_txt(antes[-1]) if antes else None
+                if dono is None or dono == meu:
+                    fica.add(m.group(1).lower())
+            return sorted(fica)
+
+        _esc = _dono_do_escopo(_craw, x.get("CROP"))
         _nome = vnome.get(chave, "TARGET_NAME_NOT_CHECKED")
         _cnome = vcnome.get(chave, "CROP_NAME_NOT_CHECKED")
         usos.setdefault(reg, []).append({
@@ -296,8 +348,14 @@ def main():
                       else "USE_PAIR_NOT_VERIFIED_BY_ANY_RULE"),
             "target_name": _nome,
             "crop_name": _cnome,
+            # A FLEXAO FECHA DOS DOIS LADOS, e ate a rodada 4 fechava so de um.
+            # R-21 aceitava "cavoli" para CAVOLO e R-17 recusava "Ruggini" para
+            # RUGGINE — a mesma lingua, a mesma raiz, duas respostas. Em 015232
+            # a celula desenhada de "Aglio, Cipolla (uso in serra)" escreve
+            # literalmente "Ruggini (Puccinia spp.)" e a tela dizia que o nome
+            # tinha vindo de taxonomia. Sao 34 pares; 12 viram FATO.
             "fact": (vp == "PAIR_CONSISTENT_WITH_RULES"
-                     and _nome == "TARGET_NAME_LITERAL"
+                     and _nome in ("TARGET_NAME_LITERAL", "TARGET_NAME_INFLECTED_IN_LABEL")
                      and _cnome in ("CROP_NAME_LITERAL", "CROP_NAME_INFLECTED_IN_LABEL")),
             "crop_scope": _esc,
             "target_scope": vqual.get(chave) or [],
@@ -661,8 +719,23 @@ def main():
         "by_type": io_["BY_TYPE"],
         "by_proof": io_["BY_PROOF_STATE"],
         "by_window": io_["BY_TIME_WINDOW"],
+        # O ARQUIVO QUE A TELA LE PRECISA DO MESMO SELO DOS OUTROS.
+        #
+        # Doze artefatos de v1/dados/ ganharam selo de modulo e de conteudo na
+        # rodada 4, e o portao que os confere varria v1/inteligencia e v1/coleta.
+        # payload.py mora em v1/casco e escapava do laco — entao o UNICO
+        # artefato sem selo era exatamente o que o casco carrega.
+        #
+        # O arbitro independente mediu o preco: injetou em CUSTODIA ULTRA o par
+        # VITE x FUSARIOSI com fact=true e selo TABLE_GEOMETRY (a etichetta so
+        # da OIDIO a VITE), e trocou a dose de PIRIMOR 50 de 0,76 para 7,65
+        # Kg/ha — uma sobredose de dez vezes. Os 27 portoes, os 50 testes de
+        # render e os 13 de ruido ficaram VERDES, e o numero apareceu 17 vezes
+        # na tela.
+        "PRODUCED_BY": selo(__file__),
     }
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
+    payload["PRODUCED_BY"]["CONTENT_SHA256"] = conteudo_sha(payload)
     json.dump(payload, open(a.out, "w", encoding="utf-8"), ensure_ascii=False,
               separators=(",", ":"))
     print(f'  produtos {len(produtos)} | objetos {len(objetos)} | versoes {len(versoes)}',

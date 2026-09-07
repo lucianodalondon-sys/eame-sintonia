@@ -2,8 +2,8 @@
  "DATASET": "V1-BANDA-FIO-CHECK",
  "PRODUCED_BY": {
   "MODULE": "banda_fio.py",
-  "MODULE_SHA256": "2086187cdb0c5f863bdac13c908442bfa2c1e7e52ca5bcef333e14ebbd0d0d0b",
-  "CONTENT_SHA256": "4a0129260606e76bb495b079b386f8adbd80bc7a3e9cbcf9b2ae01c079d844ad"
+  "MODULE_SHA256": "140dd482b44c8d1512f954cc97eaef25cf25baf782fb10232570154feed95668",
+  "CONTENT_SHA256": "e6f7beacc7b197d573d388e506303b3fa6b07c27e857aeb95e90e14a0055f456"
  },
  "RULE_ID": "R-22",
  "O_QUE_ISTO_E": "a banda que o extrator leu como UMA linha de dose contem um fio horizontal desenhado por dentro?",
@@ -12,8 +12,8 @@
  "COBERTURA_MINIMA_DO_FIO": 0.6,
  "ROWS": 839,
  "COUNTS": {
-  "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW": 808,
-  "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE": 29,
+  "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW": 827,
+  "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE": 10,
   "DOSE_ROW_BAND_NOT_CHECKED": 2
  },
  "VERDICT": {
@@ -204,8 +204,8 @@
   "008259#132": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "008259#133": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "008259#134": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "008259#135": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
-  "008259#136": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "008259#135": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
+  "008259#136": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "008259#137": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "008259#138": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "008259#139": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -282,8 +282,8 @@
   "013560#55": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013560#56": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013560#57": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "013560#58": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
-  "013560#59": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "013560#58": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
+  "013560#59": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013560#60": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013560#61": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013560#62": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -358,8 +358,8 @@
   "013560#131": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013560#132": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013560#133": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "013560#134": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
-  "013560#135": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "013560#134": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
+  "013560#135": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013560#136": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013560#137": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013560#138": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -434,8 +434,8 @@
   "013590#55": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013590#56": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013590#57": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "013590#58": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
-  "013590#59": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "013590#58": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
+  "013590#59": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013590#60": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013590#61": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013590#62": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -510,8 +510,8 @@
   "013590#131": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013590#132": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013590#133": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "013590#134": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
-  "013590#135": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "013590#134": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
+  "013590#135": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013590#136": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013590#137": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "013590#138": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -595,7 +595,7 @@
   "015275#15": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#16": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#17": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "015275#18": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "015275#18": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#19": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#20": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#21": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -620,7 +620,7 @@
   "015275#40": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#41": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#42": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "015275#43": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "015275#43": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#44": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#45": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#46": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -632,7 +632,7 @@
   "015275#52": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#53": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#54": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "015275#55": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "015275#55": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#56": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#57": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "015275#58": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -708,7 +708,7 @@
   "017687#15": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#16": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#17": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "017687#18": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "017687#18": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#19": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#20": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#21": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -733,7 +733,7 @@
   "017687#40": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#41": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#42": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "017687#43": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "017687#43": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#44": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#45": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#46": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -745,7 +745,7 @@
   "017687#52": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#53": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#54": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "017687#55": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "017687#55": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#56": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#57": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#58": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -785,7 +785,7 @@
   "017687#92": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#93": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#94": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "017687#95": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "017687#95": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#96": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#97": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#98": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -819,10 +819,10 @@
   "017687#126": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#127": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#128": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "017687#129": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "017687#129": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#130": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#131": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
-  "017687#132": "DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE",
+  "017687#132": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#133": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#134": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
   "017687#135": "DOSE_ROW_BAND_IS_ONE_DRAWN_ROW",
@@ -871,11 +871,9 @@
     84.75
    ],
    "RULE_Y": [
-    74.4,
-    74.88,
-    75.36
+    74.4
    ],
-   "PROOF": "na pagina 3 a banda y 61.0-84.8, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[74.4, 74.88, 75.36]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
+   "PROOF": "na pagina 3 a banda y 61.0-84.8, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[74.4]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
   },
   {
    "KEY": "007876#10",
@@ -890,11 +888,9 @@
     98.65
    ],
    "RULE_Y": [
-    86.88,
-    87.36,
-    87.84
+    86.88
    ],
-   "PROOF": "na pagina 4 a banda y 74.3-98.7, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[86.88, 87.36, 87.84]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
+   "PROOF": "na pagina 4 a banda y 74.3-98.7, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[86.88]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
   },
   {
    "KEY": "007876#23",
@@ -909,11 +905,9 @@
     98.65
    ],
    "RULE_Y": [
-    86.88,
-    87.36,
-    87.84
+    86.88
    ],
-   "PROOF": "na pagina 8 a banda y 74.3-98.7, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[86.88, 87.36, 87.84]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
+   "PROOF": "na pagina 8 a banda y 74.3-98.7, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[86.88]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
   },
   {
    "KEY": "008259#65",
@@ -928,191 +922,9 @@
     116.53
    ],
    "RULE_Y": [
-    106.08,
-    106.56,
-    107.04
+    106.08
    ],
-   "PROOF": "na pagina 3 a banda y 91.0-116.5, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[106.08, 106.56, 107.04]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "008259#135",
-   "REGISTRATION_ID": "008259",
-   "PRODUCT": "LAMDEX EXTRA",
-   "CROP": "Frumento, orzo, avena, sorgo",
-   "TARGET": "Nottue (allo scoperto)",
-   "DOSE_PER_HECTARE": "560-800",
-   "SOURCE_PAGE": 7,
-   "SOURCE_Y": [
-    87.91,
-    98.29
-   ],
-   "RULE_Y": [
-    96.48,
-    96.96,
-    97.44
-   ],
-   "PROOF": "na pagina 7 a banda y 87.9-98.3, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[96.48, 96.96, 97.44]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "008259#136",
-   "REGISTRATION_ID": "008259",
-   "PRODUCT": "LAMDEX EXTRA",
-   "CROP": "Segale",
-   "TARGET": "Afidi, lema, tripidi, cecidomia, idrellia",
-   "DOSE_PER_HECTARE": "max 600",
-   "SOURCE_PAGE": 7,
-   "SOURCE_Y": [
-    98.29,
-    108.61
-   ],
-   "RULE_Y": [
-    107.52
-   ],
-   "PROOF": "na pagina 7 a banda y 98.3-108.6, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[107.52]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "013560#58",
-   "REGISTRATION_ID": "013560",
-   "PRODUCT": "FORZA",
-   "CROP": "Frumento, orzo, avena, sorgo",
-   "TARGET": "Nottue (allo scoperto)",
-   "DOSE_PER_HECTARE": "560-800",
-   "SOURCE_PAGE": 2,
-   "SOURCE_Y": [
-    87.91,
-    98.29
-   ],
-   "RULE_Y": [
-    96.48,
-    96.96,
-    97.44
-   ],
-   "PROOF": "na pagina 2 a banda y 87.9-98.3, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[96.48, 96.96, 97.44]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "013560#59",
-   "REGISTRATION_ID": "013560",
-   "PRODUCT": "FORZA",
-   "CROP": "Segale",
-   "TARGET": "Afidi, lema, tripidi, cecidomia, idrellia",
-   "DOSE_PER_HECTARE": "max 600",
-   "SOURCE_PAGE": 2,
-   "SOURCE_Y": [
-    98.29,
-    108.61
-   ],
-   "RULE_Y": [
-    107.52
-   ],
-   "PROOF": "na pagina 2 a banda y 98.3-108.6, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[107.52]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "013560#134",
-   "REGISTRATION_ID": "013560",
-   "PRODUCT": "FORZA",
-   "CROP": "Frumento, orzo, avena, sorgo",
-   "TARGET": "Nottue (allo scoperto)",
-   "DOSE_PER_HECTARE": "560-800",
-   "SOURCE_PAGE": 6,
-   "SOURCE_Y": [
-    87.91,
-    98.29
-   ],
-   "RULE_Y": [
-    96.48,
-    96.96,
-    97.44
-   ],
-   "PROOF": "na pagina 6 a banda y 87.9-98.3, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[96.48, 96.96, 97.44]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "013560#135",
-   "REGISTRATION_ID": "013560",
-   "PRODUCT": "FORZA",
-   "CROP": "Segale",
-   "TARGET": "Afidi, lema, tripidi, cecidomia, idrellia",
-   "DOSE_PER_HECTARE": "max 600",
-   "SOURCE_PAGE": 6,
-   "SOURCE_Y": [
-    98.29,
-    108.61
-   ],
-   "RULE_Y": [
-    107.52
-   ],
-   "PROOF": "na pagina 6 a banda y 98.3-108.6, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[107.52]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "013590#58",
-   "REGISTRATION_ID": "013590",
-   "PRODUCT": "NINJA",
-   "CROP": "Frumento, orzo, avena, sorgo",
-   "TARGET": "Nottue (allo scoperto)",
-   "DOSE_PER_HECTARE": "560-800",
-   "SOURCE_PAGE": 2,
-   "SOURCE_Y": [
-    87.91,
-    98.29
-   ],
-   "RULE_Y": [
-    96.48,
-    96.96,
-    97.44
-   ],
-   "PROOF": "na pagina 2 a banda y 87.9-98.3, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[96.48, 96.96, 97.44]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "013590#59",
-   "REGISTRATION_ID": "013590",
-   "PRODUCT": "NINJA",
-   "CROP": "Segale",
-   "TARGET": "Afidi, lema, tripidi, cecidomia, idrellia",
-   "DOSE_PER_HECTARE": "max 600",
-   "SOURCE_PAGE": 2,
-   "SOURCE_Y": [
-    98.29,
-    108.61
-   ],
-   "RULE_Y": [
-    107.52
-   ],
-   "PROOF": "na pagina 2 a banda y 98.3-108.6, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[107.52]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "013590#134",
-   "REGISTRATION_ID": "013590",
-   "PRODUCT": "NINJA",
-   "CROP": "Frumento, orzo, avena, sorgo",
-   "TARGET": "Nottue (allo scoperto)",
-   "DOSE_PER_HECTARE": "560-800",
-   "SOURCE_PAGE": 7,
-   "SOURCE_Y": [
-    87.91,
-    98.29
-   ],
-   "RULE_Y": [
-    96.48,
-    96.96,
-    97.44
-   ],
-   "PROOF": "na pagina 7 a banda y 87.9-98.3, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[96.48, 96.96, 97.44]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "013590#135",
-   "REGISTRATION_ID": "013590",
-   "PRODUCT": "NINJA",
-   "CROP": "Segale",
-   "TARGET": "Afidi, lema, tripidi, cecidomia, idrellia",
-   "DOSE_PER_HECTARE": "max 600",
-   "SOURCE_PAGE": 7,
-   "SOURCE_Y": [
-    98.29,
-    108.61
-   ],
-   "RULE_Y": [
-    107.52
-   ],
-   "PROOF": "na pagina 7 a banda y 98.3-108.6, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[107.52]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
+   "PROOF": "na pagina 3 a banda y 91.0-116.5, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[106.08]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
   },
   {
    "KEY": "014091#10",
@@ -1127,11 +939,9 @@
     98.65
    ],
    "RULE_Y": [
-    86.88,
-    87.36,
-    87.84
+    86.88
    ],
-   "PROOF": "na pagina 3 a banda y 74.3-98.7, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[86.88, 87.36, 87.84]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
+   "PROOF": "na pagina 3 a banda y 74.3-98.7, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[86.88]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
   },
   {
    "KEY": "014091#24",
@@ -1146,63 +956,9 @@
     98.65
    ],
    "RULE_Y": [
-    86.88,
-    87.36,
-    87.84
+    86.88
    ],
-   "PROOF": "na pagina 7 a banda y 74.3-98.7, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[86.88, 87.36, 87.84]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "015275#18",
-   "REGISTRATION_ID": "015275",
-   "PRODUCT": "DURAVIS",
-   "CROP": "Fragola",
-   "TARGET": "Afidi (foglie non accartocciate)",
-   "DOSE_PER_HECTARE": "NOT_PRESENT",
-   "SOURCE_PAGE": 3,
-   "SOURCE_Y": [
-    342.9,
-    358.02
-   ],
-   "RULE_Y": [
-    357.12
-   ],
-   "PROOF": "na pagina 3 a banda y 342.9-358.0, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[357.12]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "015275#43",
-   "REGISTRATION_ID": "015275",
-   "PRODUCT": "DURAVIS",
-   "CROP": "Tabacco",
-   "TARGET": "Tripidi e pulce del tabacco",
-   "DOSE_PER_HECTARE": "420-800",
-   "SOURCE_PAGE": 4,
-   "SOURCE_Y": [
-    227.14,
-    238.06
-   ],
-   "RULE_Y": [
-    236.64
-   ],
-   "PROOF": "na pagina 4 a banda y 227.1-238.1, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[236.64]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "015275#55",
-   "REGISTRATION_ID": "015275",
-   "PRODUCT": "DURAVIS",
-   "CROP": "Barbabietola da zucchero",
-   "TARGET": "Afidi (foglie non accartocciate)",
-   "DOSE_PER_HECTARE": "280-600",
-   "SOURCE_PAGE": 3,
-   "SOURCE_Y": [
-    57.72,
-    67.81
-   ],
-   "RULE_Y": [
-    66.72,
-    67.2
-   ],
-   "PROOF": "na pagina 3 a banda y 57.7-67.8, que o extrator leu como UMA linha, tem 2 fio(s) horizontal(is) desenhado(s) por dentro (y=[66.72, 67.2]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
+   "PROOF": "na pagina 7 a banda y 74.3-98.7, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[86.88]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
   },
   {
    "KEY": "017340#11",
@@ -1217,11 +973,9 @@
     84.75
    ],
    "RULE_Y": [
-    74.4,
-    74.88,
-    75.36
+    74.4
    ],
-   "PROOF": "na pagina 3 a banda y 61.0-84.8, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[74.4, 74.88, 75.36]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
+   "PROOF": "na pagina 3 a banda y 61.0-84.8, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[74.4]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
   },
   {
    "KEY": "017409#11",
@@ -1236,118 +990,9 @@
     84.75
    ],
    "RULE_Y": [
-    74.4,
-    74.88,
-    75.36
+    74.4
    ],
-   "PROOF": "na pagina 3 a banda y 61.0-84.8, que o extrator leu como UMA linha, tem 3 fio(s) horizontal(is) desenhado(s) por dentro (y=[74.4, 74.88, 75.36]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "017687#18",
-   "REGISTRATION_ID": "017687",
-   "PRODUCT": "ELTIRA",
-   "CROP": "Fragola",
-   "TARGET": "Afidi (foglie non accartocciate)",
-   "DOSE_PER_HECTARE": "NOT_PRESENT",
-   "SOURCE_PAGE": 3,
-   "SOURCE_Y": [
-    342.9,
-    358.02
-   ],
-   "RULE_Y": [
-    357.12
-   ],
-   "PROOF": "na pagina 3 a banda y 342.9-358.0, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[357.12]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "017687#43",
-   "REGISTRATION_ID": "017687",
-   "PRODUCT": "ELTIRA",
-   "CROP": "Tabacco",
-   "TARGET": "Tripidi e pulce del tabacco",
-   "DOSE_PER_HECTARE": "420-800",
-   "SOURCE_PAGE": 4,
-   "SOURCE_Y": [
-    227.14,
-    238.06
-   ],
-   "RULE_Y": [
-    236.64
-   ],
-   "PROOF": "na pagina 4 a banda y 227.1-238.1, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[236.64]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "017687#55",
-   "REGISTRATION_ID": "017687",
-   "PRODUCT": "ELTIRA",
-   "CROP": "Barbabietola da zucchero",
-   "TARGET": "Afidi (foglie non accartocciate)",
-   "DOSE_PER_HECTARE": "280-600",
-   "SOURCE_PAGE": 3,
-   "SOURCE_Y": [
-    57.72,
-    67.81
-   ],
-   "RULE_Y": [
-    66.72,
-    67.2
-   ],
-   "PROOF": "na pagina 3 a banda y 57.7-67.8, que o extrator leu como UMA linha, tem 2 fio(s) horizontal(is) desenhado(s) por dentro (y=[66.72, 67.2]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "017687#95",
-   "REGISTRATION_ID": "017687",
-   "PRODUCT": "ELTIRA",
-   "CROP": "Fragola",
-   "TARGET": "Afidi (foglie non accartocciate)",
-   "DOSE_PER_HECTARE": "NOT_PRESENT",
-   "SOURCE_PAGE": 8,
-   "SOURCE_Y": [
-    342.9,
-    358.02
-   ],
-   "RULE_Y": [
-    357.12
-   ],
-   "PROOF": "na pagina 8 a banda y 342.9-358.0, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[357.12]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "017687#129",
-   "REGISTRATION_ID": "017687",
-   "PRODUCT": "ELTIRA",
-   "CROP": "Orticole aglio, cipolla, carota, cavolfiore, cavolo broccolo, cavolini di Bruxelles, carciofo, cetriolo, cocomero, fagiolo, fagiolino, fava, lenticchia, melanzana, melone, patata, peperone, pisello, pomodoro, ravanello, zucchino sedano",
-   "TARGET": "Afidi",
-   "DOSE_PER_HECTARE": "400",
-   "SOURCE_PAGE": 8,
-   "SOURCE_Y": [
-    508.52,
-    524.06
-   ],
-   "RULE_Y": [
-    510.24,
-    520.32,
-    520.8,
-    521.28
-   ],
-   "PROOF": "na pagina 8 a banda y 508.5-524.1, que o extrator leu como UMA linha, tem 4 fio(s) horizontal(is) desenhado(s) por dentro (y=[510.24, 520.32, 520.8]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
-  },
-  {
-   "KEY": "017687#132",
-   "REGISTRATION_ID": "017687",
-   "PRODUCT": "ELTIRA",
-   "CROP": "Barbabietola da zucchero",
-   "TARGET": "Afidi (foglie non accartocciate)",
-   "DOSE_PER_HECTARE": "280-600",
-   "SOURCE_PAGE": 8,
-   "SOURCE_Y": [
-    79.33,
-    89.41
-   ],
-   "RULE_Y": [
-    88.32,
-    88.8
-   ],
-   "PROOF": "na pagina 8 a banda y 79.3-89.4, que o extrator leu como UMA linha, tem 2 fio(s) horizontal(is) desenhado(s) por dentro (y=[88.32, 88.8]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
+   "PROOF": "na pagina 3 a banda y 61.0-84.8, que o extrator leu como UMA linha, tem 1 fio(s) horizontal(is) desenhado(s) por dentro (y=[74.4]), atravessando ao menos 60% da largura da propria linha, com texto acima e abaixo. A etichetta desenhou a separacao e o extrator leu as duas linhas como uma"
   },
   {
    "KEY": "018270#0",

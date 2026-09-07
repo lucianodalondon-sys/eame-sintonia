@@ -310,8 +310,12 @@ teste('PORTFOLIO · autorizado NA CULTURA nao vira autorizado PARA O ALVO', () =
     // BYTE-IDENTICO e nenhum teste caia — e se um dia crop_name passasse a
     // pesar, era este teste que reprovaria o comportamento CORRETO. Medido pela
     // lente P: `target_name` estava protegido e `crop_name` nao.
+    // A FLEXAO FECHA DOS DOIS LADOS. Enquanto so `crop_name` a aceitava, a tela
+    // dizia "veio de taxonomia" sobre 34 pares em que a etichetta escreve a
+    // MESMA palavra no plural ("Ruggini" para RUGGINE, "cocciniglia" para
+    // COCCINIGLIE) — 12 deles eram fato verdadeiro escondido.
     const deveria = u.pair_check === 'PAIR_CONSISTENT_WITH_RULES'
-                 && u.target_name === 'TARGET_NAME_LITERAL'
+                 && ['TARGET_NAME_LITERAL', 'TARGET_NAME_INFLECTED_IN_LABEL'].includes(u.target_name)
                  && ['CROP_NAME_LITERAL', 'CROP_NAME_INFLECTED_IN_LABEL'].includes(u.crop_name);
     if (u.fact !== deveria) { colapso++; ex = ex || [p.reg, u.crop, u.target]; }
   }));
