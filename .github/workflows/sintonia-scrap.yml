@@ -171,7 +171,7 @@ jobs:
       # onde `navegador.py` procura. Perguntar antes custa um segundo.
       - name: 2 · a porta de coleta (só para fase de navegador)
         if: contains(fromJSON('["janela","janela-perfis","janela-objetos","diario","transcrever","yt-canais","yt-objetos","yt-legendas"]'), inputs.fase)
-        run: PYTHONIOENCODING=utf-8 $PY scripts/navegador.py
+        run: PYTHONIOENCODING=utf-8 $PY ferramentas/navegador.py
 
       # A transcricao vive fora do repositorio, em ~/.sintonia-libs, e precisa do
       # ffmpeg no PATH. Sem um dos dois ela morre no meio do lote — depois de ja
@@ -213,7 +213,7 @@ jobs:
       # Presenca e formato — nunca valor. Só a fase que fala com a Apify precisa.
       - name: 4 · censo do pool (só para fase que usa Apify)
         if: contains(fromJSON('["contratos","plano","bio","posts","reels","comentarios","liquidar"]'), inputs.fase)
-        run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
+        run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py
 
       # O portao de dado pessoal e' o unico que nao aceita ser aberto por engano:
       # ele exige IG_COMENTARIOS_AUTORIZADO=1, que NAO esta definido aqui de
@@ -221,7 +221,7 @@ jobs:
       - name: 5 · o portão de dado pessoal (só para `comentarios`)
         if: inputs.fase == 'comentarios'
         run: |
-          PYTHONIOENCODING=utf-8 $PY scripts/instagram_pessoal.py estado
+          PYTHONIOENCODING=utf-8 $PY coleta/instagram_pessoal.py estado
           echo "--- este workflow NAO define IG_COMENTARIOS_AUTORIZADO ---"
           echo "Se o portao estiver CLOSED, a fase abaixo para sozinha. E' o desenho."
 
@@ -231,30 +231,30 @@ jobs:
           TETO='${{ inputs.teto }}'
           CONTA='${{ inputs.conta }}'
           case "${{ inputs.fase }}" in
-            janela)          PYTHONIOENCODING=utf-8 $PY scripts/instagram_janela.py tudo    $TETO ;;
-            janela-perfis)   PYTHONIOENCODING=utf-8 $PY scripts/instagram_janela.py perfis  $TETO ;;
-            janela-objetos)  PYTHONIOENCODING=utf-8 $PY scripts/instagram_janela.py objetos $TETO ;;
-            transcrever)     PYTHONIOENCODING=utf-8 $PY scripts/instagram_transcrever.py rodar "${{ inputs.modelo }}" $TETO ;;
-            transcrever-alvos) PYTHONIOENCODING=utf-8 $PY scripts/instagram_transcrever.py alvos ;;
-            diario)          PYTHONIOENCODING=utf-8 $PY scripts/instagram_diario.py rodar   $CONTA ;;
-            diario-fila)     PYTHONIOENCODING=utf-8 $PY scripts/instagram_diario.py fila ;;
-            diario-noticia)  PYTHONIOENCODING=utf-8 $PY scripts/instagram_diario.py noticia ;;
-            portao-pessoal)  PYTHONIOENCODING=utf-8 $PY scripts/instagram_pessoal.py estado ;;
-            yt-canais)       PYTHONIOENCODING=utf-8 $PY scripts/youtube_janela.py canais ;;
-            yt-objetos)      PYTHONIOENCODING=utf-8 $PY scripts/youtube_janela.py objetos $TETO ;;
-            yt-legendas)     PYTHONIOENCODING=utf-8 $PY scripts/youtube_janela.py legendas $TETO ;;
-            yt-relevancia)   PYTHONIOENCODING=utf-8 $PY scripts/youtube_relevancia.py tudo ;;
-            yt-calibrar)     PYTHONIOENCODING=utf-8 $PY scripts/youtube_relevancia.py calibrar ;;
-            yt-alvos)        PYTHONIOENCODING=utf-8 $PY scripts/youtube_transcrever.py alvos ;;
-            yt-transcrever)  PYTHONIOENCODING=utf-8 $PY scripts/youtube_transcrever.py rodar "${{ inputs.modelo }}" $TETO ;;
-            *)               PYTHONIOENCODING=utf-8 $PY scripts/instagram_coleta.py "${{ inputs.fase }}" ;;
+            janela)          PYTHONIOENCODING=utf-8 $PY coleta/instagram_janela.py tudo    $TETO ;;
+            janela-perfis)   PYTHONIOENCODING=utf-8 $PY coleta/instagram_janela.py perfis  $TETO ;;
+            janela-objetos)  PYTHONIOENCODING=utf-8 $PY coleta/instagram_janela.py objetos $TETO ;;
+            transcrever)     PYTHONIOENCODING=utf-8 $PY ferramentas/instagram_transcrever.py rodar "${{ inputs.modelo }}" $TETO ;;
+            transcrever-alvos) PYTHONIOENCODING=utf-8 $PY ferramentas/instagram_transcrever.py alvos ;;
+            diario)          PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py rodar   $CONTA ;;
+            diario-fila)     PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py fila ;;
+            diario-noticia)  PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py noticia ;;
+            portao-pessoal)  PYTHONIOENCODING=utf-8 $PY coleta/instagram_pessoal.py estado ;;
+            yt-canais)       PYTHONIOENCODING=utf-8 $PY coleta/youtube_janela.py canais ;;
+            yt-objetos)      PYTHONIOENCODING=utf-8 $PY coleta/youtube_janela.py objetos $TETO ;;
+            yt-legendas)     PYTHONIOENCODING=utf-8 $PY coleta/youtube_janela.py legendas $TETO ;;
+            yt-relevancia)   PYTHONIOENCODING=utf-8 $PY coleta/youtube_relevancia.py tudo ;;
+            yt-calibrar)     PYTHONIOENCODING=utf-8 $PY coleta/youtube_relevancia.py calibrar ;;
+            yt-alvos)        PYTHONIOENCODING=utf-8 $PY ferramentas/youtube_transcrever.py alvos ;;
+            yt-transcrever)  PYTHONIOENCODING=utf-8 $PY ferramentas/youtube_transcrever.py rodar "${{ inputs.modelo }}" $TETO ;;
+            *)               PYTHONIOENCODING=utf-8 $PY coleta/instagram_coleta.py "${{ inputs.fase }}" ;;
           esac
 
       # Depois de CADA fase paga, a fatura. Quem autoriza a fase seguinte precisa
       # ver o custo REAL da anterior, nao a estimativa dela.
       - name: 7 · liquidar o custo real (depois de fase paga)
         if: always() && contains(fromJSON('["bio","posts","reels","comentarios"]'), inputs.fase)
-        run: PYTHONIOENCODING=utf-8 $PY scripts/instagram_coleta.py liquidar || true
+        run: PYTHONIOENCODING=utf-8 $PY coleta/instagram_coleta.py liquidar || true
 
       - name: 8 · devolver o resultado (só os caminhos DESTA missão)
         if: always()

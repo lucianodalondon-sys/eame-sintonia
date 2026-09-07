@@ -10,7 +10,7 @@ Não coletou "mais Espanha". Nenhuma cultura nova, nenhum crawl amplo, nenhuma r
 
 ## O freeze deixou de ser adjetivo
 
-`SPAIN-DEMO-CONTENT-V1` agora carrega sha256, tamanho e último commit de cada um dos 13 artefatos canônicos, mais o HEAD que os sustenta. `scripts/freeze_es.py` confere e sai com código 1 se qualquer um divergir.
+`SPAIN-DEMO-CONTENT-V1` agora carrega sha256, tamanho e último commit de cada um dos 13 artefatos canônicos, mais o HEAD que os sustenta. `provas/freeze_es.py` confere e sai com código 1 se qualquer um divergir.
 
 **E ele reprovou sozinho no meio da noite** — quando o cartão do cereal mudou. O re-freeze para `V1.1` é deliberado e datado, com a lista dos dois artefatos que mudaram e o motivo. Era exatamente para isso que ele existia.
 
@@ -58,7 +58,7 @@ O contrato de relação tem os 17 campos, os 9 tipos e **zero registros**. Docum
 
 ## Um protótipo, oito perguntas, oito nãos
 
-`scripts/proto_es.py` gera a tela inteira do pacote congelado. **Nenhum texto de caso foi escrito na interface.**
+`superficie/proto_es.py` gera a tela inteira do pacote congelado. **Nenhum texto de caso foi escrito na interface.**
 
 O componente que carrega a tese é a **tripla**: valor, suporte amostral e idade do dado em três células inseparáveis. Huelva aparece com 8,83 % — o maior número da página — e ao lado, no mesmo peso, "18 leituras · 7 parcelas · menor n da série".
 

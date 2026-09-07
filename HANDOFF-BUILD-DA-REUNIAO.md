@@ -148,7 +148,7 @@ git diff --stat a14b9e1 a54e287
 # HANDOFF-BUILD-DA-REUNIAO.md | 363 +
 # meeting-intelligence-snapshot.js | 3 +
 # meeting-intelligence-snapshot.json | 17873 +
-# scripts/meeting_snapshot.py | 210 +
+# pacote/meeting_snapshot.py | 210 +
 ```
 
 Quatro ficheiros. `italy-app-model.js` era **byte-a-byte igual** a `a14b9e1`.
@@ -332,7 +332,7 @@ servido e comparar com o ficheiro local.**
 ```bash
 # 1 · o pacote canónico (a branch da reunião não o traz: é ignorado pelo git)
 git worktree add /tmp/canon claude/opportunity-commercial-priority-v1   # b3935bd
-cd /tmp/canon && bash scripts/v21_cadeia.sh                            # ~40s
+cd /tmp/canon && bash motor/v21_cadeia.sh                            # ~40s
 cp -r /tmp/canon/build/ITALY-REALITY-HANDOFF-V2.1 build/
 # esperado: BUILD_ID V21-358954754db5ea2f · 43 RECORDS · 0 violações
 
@@ -479,7 +479,7 @@ outra.
 ```bash
 # 1 · construir o pacote na inteligência canônica
 git checkout claude/opportunity-commercial-priority-v1     # b3935bd
-bash scripts/v21_cadeia.sh                                  # ~40s
+bash motor/v21_cadeia.sh                                  # ~40s
 python3 -c "import json;d=json.load(open('build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/OPPORTUNITIES.json'));print(d['BUILD_ID'],len(d['RECORDS']))"
 # esperado: V21-358954754db5ea2f 43
 
@@ -487,7 +487,7 @@ python3 -c "import json;d=json.load(open('build/ITALY-REALITY-HANDOFF-V2.1/DESIG
 git checkout claude/meeting-intelligence-integration
 
 # 3 · gerar o snapshot, declarando o HEAD da INTELIGÊNCIA
-python3 scripts/meeting_snapshot.py --source-head b3935bd --cutoff 2026-09-04T00:52:54Z
+python3 pacote/meeting_snapshot.py --source-head b3935bd --cutoff 2026-09-04T00:52:54Z
 ```
 
 ⚠️ `--source-head` é obrigatório e validado. Sem ele o script para. `git rev-parse
@@ -498,7 +498,7 @@ procedência que não é a sua.
 
 ## 2 · O QUE JÁ ESTÁ FEITO
 
-### `scripts/meeting_snapshot.py` · o snapshot client-safe ✅
+### `pacote/meeting_snapshot.py` · o snapshot client-safe ✅
 
 Gera `italia-portale/client/meeting-intelligence-snapshot.{json,js}`
 (`window.MEETING_INTELLIGENCE`). Lista de PERMISSÃO campo a campo — copia o que

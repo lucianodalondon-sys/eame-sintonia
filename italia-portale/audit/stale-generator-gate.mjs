@@ -181,7 +181,7 @@ teste('PROVENANCE_GATE_RUNS_BEFORE_PREVIEW', () => {
 
    A chamada e uma ATRIBUICAO: `<alvos> = recusas_de_proveniencia(...)`. `def`
    nunca satisfaz isso, porque `def` nao tem `=` antes do nome. */
-const ENXERTO = path.join(RAIZ, 'scripts', 'site_v21_ingest.py');
+const ENXERTO = path.join(RAIZ, 'portoes', 'site_v21_ingest.py');
 
 /* Uma linha executavel que ATRIBUI o resultado da funcao. Nao casa `def`. */
 const RE_CHAMADA = /^[ \t]*[A-Za-z_][\w, ]*=\s*recusas_de_proveniencia\s*\(/m;

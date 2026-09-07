@@ -16,10 +16,10 @@ Ambas as árvores limpas na leitura. Toda afirmação deste documento é sobre e
 | BRAZIL_LESSON | BRAZIL_OWNER | BRAZIL_TEST | EAME_EQUIVALENT | STATUS | ACTION |
 |---|---|---|---|---|---|
 | Autor de conteúdo entra pseudonimizado, nunca nome/@ | `supabase-conteudo.sql` → `documentos.autor_hash` | constraint + `v_acervo` conta `distinct autor_hash` | `docs/regras/LIMITES-DE-DADO-PESSOAL-EAME.md` (P-008 **aberta**) | **ADAPT** | virar coluna `char(64)` em `comentario`; a regra sai do documento e entra no schema |
-| Dedupe é constraint, não auditoria posterior | `documentos` → `unique(fonte_id, hash_conteudo)` | o banco recusa a segunda inserção | portão `PIPELINE_DEDUPE` em `scripts/portao.py` | **ADAPT** | manter o portão *e* ganhar o unique — um denuncia, o outro impede |
+| Dedupe é constraint, não auditoria posterior | `documentos` → `unique(fonte_id, hash_conteudo)` | o banco recusa a segunda inserção | portão `PIPELINE_DEDUPE` em `regras/portao.py` | **ADAPT** | manter o portão *e* ganhar o unique — um denuncia, o outro impede |
 | Razão publicada exige denominador declarado | `termos_medicoes.base_comentarios/base_pessoas` NOT NULL | `unique(termo, período, praça, cultura)` | `ES-T4-005-denominadores-ropf.json`, `metricas_canonicas.py` | **ALREADY_EXISTS** (regra) / **ADAPT** (lugar) | `observacao.base_denominador` NOT NULL |
-| Execução vazia ≠ execução concluída | `coletas.status` inclui `'vazia'` | — | `scripts/coletor.py` (SUCCEEDED com 0 itens → PARTIAL) | **ALREADY_EXISTS** | portar o enum `run_status` com `vazia` separado |
-| Custo e ator ficam gravados por execução | `coletas.ator/run_id/custo_usd` | — | `RUN-MANIFEST.json` + `scripts/proveniencia.py` (22 campos) | **ALREADY_EXISTS** | `collection_run` é transporte campo-a-campo, não redesenho |
+| Execução vazia ≠ execução concluída | `coletas.status` inclui `'vazia'` | — | `coleta/coletor.py` (SUCCEEDED com 0 itens → PARTIAL) | **ALREADY_EXISTS** | portar o enum `run_status` com `vazia` separado |
+| Custo e ator ficam gravados por execução | `coletas.ator/run_id/custo_usd` | — | `RUN-MANIFEST.json` + `leis/proveniencia.py` (22 campos) | **ALREADY_EXISTS** | `collection_run` é transporte campo-a-campo, não redesenho |
 | Cultura é conjunto, não valor único | `fontes.culturas text[]` | — | `ES-RESEARCHERS-OLIVE.json` já traz `CROP` como lista | **ALREADY_EXISTS** | — |
 | A porta muda a distribuição; não eleger cultura por uma porta só | `seletor-por-porta.py`, `censo-das-portas.py` | `SHADOW-SELETOR-POR-PORTA.md` | *nenhum* | **EAME_GAP** | `conteudo.tipo` + view `v_par_por_porta`; a pergunta vira `GROUP BY` |
 | CROP × ISSUE é par explícito, nunca `cult_top` | `par-explicito.py`, `contrato-multi-cultura.py` | `PAR-EXPLICITO-PORTAL-SHADOW.md` | *nenhum* — o EAME tem `CROP` e `ISSUE` como listas paralelas, não como par | **EAME_GAP** | tabela `crop_issue` + `conteudo_crop_issue` |
@@ -28,7 +28,7 @@ Ambas as árvores limpas na leitura. Toda afirmação deste documento é sobre e
 | "Temos para?" ≠ "existe lacuna?" | `temos-para.py`, `tem-registro-para.sql` | — | *nenhum* | **EAME_GAP** | `lacuna_candidata` com CHECK que proíbe zero virar lacuna sem diagnóstico |
 | Zero inesperado é chave quebrada até prova em contrário | `duas-fontes-do-portfolio.py`, `nome_do_produto.py`, `impacto-da-normalizacao.py` | `ERRO-DE-ESCRITA-MEDIDO.md` | `X-006-substance-normalisation.json`, `normalize_substance.py` | **ADAPT** | o normalizador existe; falta o *reflexo* — `lacuna_candidata.zero_diagnosticado` |
 | Status atual não apaga a história | `registro_mapa.sql`, `termo_snapshot` | `prova-do-relogio.sql` | `CHANGE-EVENTS-es-2025-2026.json`, `DATA-CLOCK-manifest.json` | **ALREADY_EXISTS** | `fonte_versao` entra na chave de `registro_regulatorio` |
-| Uma regra, um dono | `FERRAMENTAS-MESTRAS.md`, `invariantes-do-dado.py` | `travas.py` | `scripts/metricas_canonicas.py` + `--sync` (medido nesta sessão: reprova quando o número diverge) | **ALREADY_EXISTS** | não replicar lógica dentro do banco; views leem, não recalculam |
+| Uma regra, um dono | `FERRAMENTAS-MESTRAS.md`, `invariantes-do-dado.py` | `travas.py` | `pacote/metricas_canonicas.py` + `--sync` (medido nesta sessão: reprova quando o número diverge) | **ALREADY_EXISTS** | não replicar lógica dentro do banco; views leem, não recalculam |
 | Sombra antes de trocar produção | `sombra-multi-cultura.py`, `folha-cega-v2.py` | `FOLHA-CEGA-MULTI-CULTURA-V2.md` | `BENCHMARK-ORDENACAO-B2.json` (mesma pergunta, quatro ordenações) | **ALREADY_EXISTS** | usar o padrão ao trocar qualquer régua de prioridade espanhola |
 | Uma leitura, N pares | `radar-do-campo.py`, `radar-multi.py` | `PRE-VOO-RADAR-MULTI-REAL.md` | *nenhum* | **EAME_GAP** | `conteudo_crop_issue` é N:N — uma leitura do acervo alimenta N pares |
 | 1 pessoa → N canais | `vozes` com colunas `linkedin_url/instagram/youtube/tiktok` | — | *nenhum* | **ADAPT — não copiar** | o Brasil resolveu com colunas e trava na quinta plataforma; EAME usa `origem` → `canal` (N:N) |
@@ -52,7 +52,7 @@ Três coisas que estavam prestes a nascer do zero aqui e já existem lá, testad
 Não é transferência de mão única:
 
 - **`SOURCE_LOCATION` ≠ `FACT_LOCATION`.** O Brasil tem UM campo (`praca`) para as duas. É o confundidor de Córdoba impossível de expressar. O EAME já separa em contrato, e o schema proposto separa em coluna.
-- **`NOT_PRESERVED` como estado declarado.** `scripts/proveniencia.py` distingue "não preservado" de "vazio". Vira CHECK em `raw_asset`.
+- **`NOT_PRESERVED` como estado declarado.** `leis/proveniencia.py` distingue "não preservado" de "vazio". Vira CHECK em `raw_asset`.
 - **Verificação adversarial com SHA congelado.** `VERIFICACAO-ADVERSARIAL-PORTOES.json` carimba o commit auditado. Não achei equivalente no Brasil.
 
 ---

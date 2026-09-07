@@ -141,7 +141,7 @@ Origem dos registros: `PREVIOUS_HANDOFF 3.276 · LAST_MILE 3.441 · DERIVED_V2_1
 
 | Camada | O que fez |
 |---|---|
-| trava mecânica (`scripts/v21_traducao_trava.py`) | número, data, negação, incerteza, nome de lugar e CAIXA ALTA preservados |
+| trava mecânica (`motor/v21_traducao_trava.py`) | número, data, negação, incerteza, nome de lugar e CAIXA ALTA preservados |
 | conferente adversarial (workflow, 61 lotes) | um agente independente por lote tentou **derrubar** cada tradução → **33 frases refeitas** |
 | autoteste da trava (`tests/test_v21_traducao_trava.py`) | **23 testes**, todos passando, com mentiras plantadas de propósito |
 
@@ -224,7 +224,7 @@ comandos exatos foram entregues ao usuário. Não retomar sem pedido explícito.
 ## 7. CURRENT COUNTS / MEASUREMENTS
 
 Lidos de `build/ITALY-REALITY-HANDOFF-V2.1/ACCEPTANCE-REPORT.json` (dentro do ZIP
-commitado). Para recontar: `py scripts/v21_aceitacao.py`.
+commitado). Para recontar: `py motor/v21_aceitacao.py`.
 
 | Coleção | Total | Client-safe |
 |---|---:|---:|
@@ -330,11 +330,11 @@ esses testes começarem a falhar, a trava parou de proteger.**
 
 ### O passo que apaga sem avisar
 
-`scripts/v21_ingest.py` faz `rmtree` da pasta do pacote. Rodar um passo do meio
+`motor/v21_ingest.py` faz `rmtree` da pasta do pacote. Rodar um passo do meio
 da cadeia sozinho apaga em silêncio carimbos, rechaveamento e traduções.
 
 > **O passo que apaga sem avisar é pior que o passo que falha. O que falha, se
-> vê.** Rode sempre `bash scripts/v21_cadeia.sh` inteiro.
+> vê.** Rode sempre `bash motor/v21_cadeia.sh` inteiro.
 
 ---
 
@@ -388,7 +388,7 @@ docs/design/ITALY-V2.1-README-FIRST.md   ← a porta de entrada do pacote
 **A cadeia de construção, em ordem de execução:**
 
 ```
-scripts/v21_cadeia.sh              ← rode ISTO, não os passos soltos
+motor/v21_cadeia.sh              ← rode ISTO, não os passos soltos
   1 v21_ingest.py                  ⚠️ faz rmtree da pasta do pacote
     v21_ingest_b.py
   2 v21_crossings.py               as 8 invariantes
@@ -404,9 +404,9 @@ scripts/v21_cadeia.sh              ← rode ISTO, não os passos soltos
 **Apoio:**
 
 ```
-scripts/v21_normalizar.py          CROP/ISSUE/REGION_ID + guarda anti-prosa
-scripts/v21_campos_de_lingua.py    qual campo se traduz e qual não
-scripts/v21_tm_colher.py           colhe saída de workflow para a memória
+motor/v21_normalizar.py          CROP/ISSUE/REGION_ID + guarda anti-prosa
+motor/v21_campos_de_lingua.py    qual campo se traduz e qual não
+motor/v21_tm_colher.py           colhe saída de workflow para a memória
 data/i18n/v21-traducoes.json       1.017 frases PT→IT/EN (a memória)
 data/i18n/v21-traducoes-nucleo.json  as 11 que se repetem milhares de vezes
 tests/test_v21_traducao_trava.py   23 testes com mentiras plantadas
@@ -445,7 +445,7 @@ git status --short                       # ⚠️ há trabalho de OUTRA sessão 
 ```
 
 ```bash
-export PYTHONIOENCODING=utf-8:replace && py scripts/v21_aceitacao.py
+export PYTHONIOENCODING=utf-8:replace && py motor/v21_aceitacao.py
 ```
 
 ```bash
@@ -453,7 +453,7 @@ export PYTHONIOENCODING=utf-8:replace && py -c "import sys;sys.path[:0]=['tests'
 ```
 
 ```bash
-export PYTHONIOENCODING=utf-8:replace && bash scripts/v21_cadeia.sh
+export PYTHONIOENCODING=utf-8:replace && bash motor/v21_cadeia.sh
 ```
 
 **Receitas que custaram para descobrir — não redescubra:**
@@ -524,7 +524,7 @@ FAÇA NESTA ORDEM:
    (italia-portale/, scripts/instagram_*, tests/test_adama_es_gate.py, act.json,
    b.json, st*.json, tmp_ce/). Nunca os inclua num commit desta missão.
 5. Rode a verificação leve, que reconta tudo dos arquivos:
-       export PYTHONIOENCODING=utf-8:replace && py scripts/v21_aceitacao.py
+       export PYTHONIOENCODING=utf-8:replace && py motor/v21_aceitacao.py
    Esperado: 0 violações de QA, 0 IDs duplicados, 0 cruzamento com apoio inseguro,
    0 fonte citada sem cadastro, 0 campo só em português.
 6. Rode os 23 testes da trava de tradução:
@@ -554,7 +554,7 @@ NÃO FAÇA:
 - não reabra as decisões da §8 do handoff (portão de QA, cruzamento com
   CLIENT_SAFE=false, citação que não se traduz, vista que não é coleção);
 - não rode um passo do meio da cadeia sozinho — o passo 1 faz rmtree da pasta do
-  pacote e apaga em silêncio o que veio depois. Rode `bash scripts/v21_cadeia.sh`
+  pacote e apaga em silêncio o que veio depois. Rode `bash motor/v21_cadeia.sh`
   inteiro;
 - não aplique as migrations do Supabase sem pedido explícito do usuário.
 

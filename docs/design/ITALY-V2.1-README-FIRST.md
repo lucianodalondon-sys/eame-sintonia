@@ -120,7 +120,7 @@ ficam na língua em que foram publicados.
 
 ### Como se sabe que a tradução não mentiu
 
-Passou por uma trava automática (`scripts/v21_traducao_trava.py`) que confere,
+Passou por uma trava automática (`motor/v21_traducao_trava.py`) que confere,
 frase por frase: número preservado, data preservada, negação preservada, nome de
 lugar preservado, palavra de incerteza preservada, CAIXA ALTA preservada.
 
@@ -325,7 +325,7 @@ ausência declarada do dado.
 ## 10 · Como o pacote se reconstrói
 
 ```bash
-bash scripts/v21_cadeia.sh
+bash motor/v21_cadeia.sh
 ```
 
 A ordem importa e não é adivinhável: o passo 1 apaga a pasta inteira e reescreve

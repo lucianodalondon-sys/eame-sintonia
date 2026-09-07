@@ -9,7 +9,7 @@ mesclado, Supabase intocado.
 >
 > São dois portões, e não um. Um nome estava fazendo dois trabalhos — a engenharia de
 > importar o catálogo regulatório, que não tem lugar de fato, e a entrada da coleta em
-> geral, que tem. Estados derivados em `scripts/portoes_eame.py`; nenhum deles é digitado.
+> geral, que tem. Estados derivados em `regras/portoes_eame.py`; nenhum deles é digitado.
 
 ---
 
@@ -34,7 +34,7 @@ campo, e cada campo tem uma tentativa de violá-lo que o banco recusa.
 `BRAZIL_LESSON` · `ONDE_NO_BRASIL` · `WHY_IT_EXISTS` · `EAME_APPLICABLE` · `EAME_STATUS` ·
 `OWNER` · `EXECUTABLE_PROOF` · `GAP` · `MINIMAL_ACTION`.
 
-**`PROVED` exige testemunha executável.** `scripts/cicatrizes_brasil.py` confere cada uma
+**`PROVED` exige testemunha executável.** `leis/cicatrizes_brasil.py` confere cada uma
 contra o acervo — teste, constraint, função ou afirmação nomeada — e **rebaixa para
 `NOT_MEASURED`** o que não encontrar. Há mutação provando que o verificador reprova:
 uma testemunha inventada em tempo de execução derruba a linha.
@@ -143,7 +143,7 @@ voltou + zero `raw_asset` = `PAGO_E_NAO_PRESERVADO`**. E uma rodada sem item sai
 > e deu à lei um dono capaz de 0..N. Ver
 > `docs/relatorios/RELATORIO-LUGAR-DO-FATO.md`.
 >
-> **Os cinco de infraestrutura foram fechados na rodada anterior** (016 · 017 · `scripts/coleta_checkpoint.py`
+> **Os cinco de infraestrutura foram fechados na rodada anterior** (016 · 017 · `coleta/coleta_checkpoint.py`
 > · `supabase/tests/regressoes_coleta.sql` · `tests/test_coleta_resiliente.py`). A tabela
 > acima fica como estava porque é o registro do que se sabia então — ver
 > `docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md` para o estado corrente e para
@@ -177,7 +177,7 @@ brasileiras mais novas foram passadas por cima dele e cinco não fecharam; e vol
 quando as cinco foram fechadas com testemunha executável e mutação.
 
 O que mudou de vez foi o **mecanismo**: nenhum destes valores é mais escrito à mão. Todos
-saem de `scripts/portoes_eame.py`, derivados da matriz de cicatrizes, pela mesma regra dos
+saem de `regras/portoes_eame.py`, derivados da matriz de cicatrizes, pela mesma regra dos
 portões. Enquanto era uma frase, ele pôde dizer YES ao lado de uma lacuna aberta — e disse.
 
 ## Ordem canônica das migrations
@@ -212,4 +212,4 @@ O padrão é sempre o mesmo: **a proibição escrita no lugar que a proibição 
 ---
 
 O detalhe linha a linha está em `data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json`, e ele é
-regenerável: `python3 scripts/cicatrizes_brasil.py --build`.
+regenerável: `python3 leis/cicatrizes_brasil.py --build`.

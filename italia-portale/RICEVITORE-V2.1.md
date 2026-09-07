@@ -13,7 +13,7 @@ O V2.1 chegou. Agora descreve o que ele aceitou, e por onde.
 ```
 build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/
         │
-        │  scripts/site_v21_ingest.py      ← escolhe O QUE atravessa
+        │  portoes/site_v21_ingest.py      ← escolhe O QUE atravessa
         ▼
 client/italy-handoff-v21.js               window.ITALY_HANDOFF_V21
         │

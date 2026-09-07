@@ -537,7 +537,7 @@ check('CURRENT_OPPORTUNITIES_OWNER_DERIVED', () => {
   }
   return { pass: !bad.length, detail: bad.length ? bad : [
     `${OA.TOTALE} = ${OA.OPPORTUNITA} opportunita + ${OA.RADAR} radar + ${OA.SEGNALI} segnali + ${OA.ERRORE} errore, refeitos a partir do snapshot ${MI.BUILD_ID}`,
-    `a lei de relevancia vive em scripts/adama_relevance.py · A=${OA.RILEVANZA_PER_CLASSE.A} B=${OA.RILEVANZA_PER_CLASSE.B} C=${OA.RILEVANZA_PER_CLASSE.C} D=${OA.RILEVANZA_PER_CLASSE.D} E=${OA.RILEVANZA_PER_CLASSE.E}`,
+    `a lei de relevancia vive em leis/adama_relevance.py · A=${OA.RILEVANZA_PER_CLASSE.A} B=${OA.RILEVANZA_PER_CLASSE.B} C=${OA.RILEVANZA_PER_CLASSE.C} D=${OA.RILEVANZA_PER_CLASSE.D} E=${OA.RILEVANZA_PER_CLASSE.E}`,
     `a regra prioridade->estado lida de meeting-surface.js: ${Object.entries(mapa).map(([a, b]) => `${a}->${b}`).join(' · ')}`,
   ] };
 });
@@ -550,7 +550,7 @@ check('HARDCODE_43_CANNOT_PASS', () => {
          SE O NUMERO ESTA NO CODIGO, DEIXOU DE SER MEDIDO. */
   const OA = CASA.OPPORTUNITA_ATTUALI;
   const html = fs.readFileSync(path.join(CLIENTE, 'casa.html'), 'utf8');
-  const gerador = fs.readFileSync(path.resolve(AQUI, '..', '..', 'scripts', 'it_casa_dados.py'), 'utf8');
+  const gerador = fs.readFileSync(path.resolve(AQUI, '..', '..', 'superficie', 'it_casa_dados.py'), 'utf8');
   const bad = [];
   /* So o CODIGO, nunca o comentario: um numero citado numa nota nao desenha
      nada, e proibi-lo obrigaria a escrever notas que nao podem explicar-se. */

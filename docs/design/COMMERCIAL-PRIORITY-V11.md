@@ -75,7 +75,7 @@ O boletim traz uma lista plana de culturas e uma lista plana de alvos, e o motor
 cruzava as duas. Um documento com dez culturas e um alvo normalizado produzia
 dez pares.
 
-**Reproduzido antes de corrigir** (`python3 scripts/v21_necessidade.py`):
+**Reproduzido antes de corrigir** (`python3 motor/v21_necessidade.py`):
 
 | | |
 |---|---:|
@@ -485,7 +485,7 @@ coleta, e está fora desta missão. **Nada foi mapeado.**
 esta missão (procedência de amostras em `data/samples/`, gate de import ES,
 sentinela de contagem do handoff). As 6 falhas que sumiram eram desvio de
 marcador de métrica, resolvido com a ferramenta que o próprio teste manda rodar
-(`scripts/metricas_canonicas.py --sync`) — o desvio tinha piorado porque os meus
+(`pacote/metricas_canonicas.py --sync`) — o desvio tinha piorado porque os meus
 34 testes mudaram a contagem.
 
 ---

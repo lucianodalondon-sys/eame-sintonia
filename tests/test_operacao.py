@@ -17,7 +17,8 @@ import sys
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+sys.path.insert(0, ROOT)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 
 import source_health as sh                                     # noqa: E402
 from coverage import Coverage, CoverageError                   # noqa: E402
@@ -424,7 +425,7 @@ class TestCadeiasDeclaram(unittest.TestCase):
 
     def test_o_rebaixamento_de_tls_nunca_desliga_a_verificacao(self):
         """Aceitar cifra antiga é uma coisa; não verificar o certificado é outra."""
-        fonte = open(os.path.join(ROOT, 'scripts', 'chain.py'), encoding='utf-8').read()
+        fonte = open(os.path.join(ROOT, 'motor', 'chain.py'), encoding='utf-8').read()
         for proibido in ('CERT_NONE', 'check_hostname = False', '_create_unverified'):
             with self.subTest(proibido=proibido):
                 self.assertNotIn(proibido, fonte)

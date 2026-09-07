@@ -67,6 +67,27 @@ prova("a_familia_vem_da_zona_e_nao_da_peca",
                              if z["id"] == n["territory"]) for n in S["NODES"]),
       "peca a declarar familia diferente da sua zona cria dois agrupamentos")
 
+# ── a prateleira ─────────────────────────────────────────────────────────────
+GAVETAS = {z["folder"] for z in S["TERRITORIES"] if z.get("folder")}
+PASTA_DA_ZONA = {z["id"]: z.get("folder") for z in S["TERRITORIES"]}
+prova("cada_zona_com_codigo_tem_gaveta",
+      all(PASTA_DA_ZONA.get(n["territory"])
+          for n in S["NODES"]
+          for f in n["files"] if f.split("/")[0] in GAVETAS),
+      "zona com ficheiro em gaveta tem de dizer qual e a sua")
+prova("nenhum_ficheiro_na_gaveta_errada",
+      all(f.split("/")[0] == PASTA_DA_ZONA.get(n["territory"])
+          for n in S["NODES"] for f in n["files"]
+          if f.split("/")[0] in GAVETAS),
+      "a prateleira e o mapa tem de contar a mesma historia")
+prova("a_pasta_antiga_scripts_nao_voltou",
+      not (RAIZ / "scripts").exists()
+      or not any((RAIZ / "scripts").glob("*.py")),
+      "ficheiro novo em scripts/ e ficheiro sem gaveta")
+prova("existe_um_so_lugar_com_a_lista_de_gavetas",
+      (RAIZ / "_gavetas.py").exists(),
+      "duas listas de gavetas sao duas verdades")
+
 # ── arestas ──────────────────────────────────────────────────────────────────
 conhecidos = set(ids)
 prova("nenhuma_aresta_solta",

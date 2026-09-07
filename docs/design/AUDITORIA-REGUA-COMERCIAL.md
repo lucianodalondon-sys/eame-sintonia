@@ -2,7 +2,7 @@
 
 > Auditoria, não alteração. `v21_oportunidades.py` não foi tocado: portões,
 > score, arquétipos, red team, status, dados e evidências estão como estavam.
-> Todo número desta página sai de `scripts/auditoria_regua_comercial.py`, que lê
+> Todo número desta página sai de `leis/auditoria_regua_comercial.py`, que lê
 > `DESIGN-INGEST/OPPORTUNITIES.json` (do diretório reconstruído ou do zip
 > versionado) e grava
 > `data/samples/AUDITORIA-SOMBRA/AUDITORIA-REGUA-COMERCIAL-37.json`.
@@ -235,7 +235,7 @@ vivem MAXENTIS, MAGANIC e SORATEL, **não pode ser nomeada** por este motor.
 
 ## 5 · DOIS DEFEITOS, REPRODUZIDOS
 
-Ambos são verificados por `scripts/auditoria_regua_comercial.py`, no bloco
+Ambos são verificados por `leis/auditoria_regua_comercial.py`, no bloco
 `DEFEITOS_REPRODUZIDOS`. Nenhum foi corrigido.
 
 ### D1 · O red team de O4 dispara na própria frase do arquétipo
@@ -412,7 +412,7 @@ a necessidade; falta a normalização de cultura do lado do rótulo.
 ## 10 · COMO REPRODUZIR
 
 ```bash
-python3 scripts/auditoria_regua_comercial.py
+python3 leis/auditoria_regua_comercial.py
 ```
 
 Lê o pacote (diretório reconstruído ou `build/SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip`),

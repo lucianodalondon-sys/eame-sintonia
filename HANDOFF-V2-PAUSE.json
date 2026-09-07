@@ -94,7 +94,7 @@
   "handoff/paused-v2/MANIFESTO.json",
   "handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json",
   "docs/design/ITALY-V2.1-README-FIRST.md",
-  "scripts/v21_cadeia.sh",
+  "motor/v21_cadeia.sh",
   "data/i18n/v21-traducoes.json",
   "build/SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip",
   "build/ITALY-REALITY-HANDOFF-V2/"
@@ -252,8 +252,8 @@
  },
  "commands": {
   "python": "py (nao 'python'). SEMPRE com: export PYTHONIOENCODING=utf-8:replace",
-  "verificacao_leve": "export PYTHONIOENCODING=utf-8:replace && py scripts/v21_aceitacao.py",
-  "reconstruir_pacote": "export PYTHONIOENCODING=utf-8:replace && bash scripts/v21_cadeia.sh",
+  "verificacao_leve": "export PYTHONIOENCODING=utf-8:replace && py motor/v21_aceitacao.py",
+  "reconstruir_pacote": "export PYTHONIOENCODING=utf-8:replace && bash motor/v21_cadeia.sh",
   "testes_da_trava": "export PYTHONIOENCODING=utf-8:replace && py -c \"import sys;sys.path[:0]=['tests','scripts'];import test_v21_traducao_trava as T;[getattr(T,n)() for n in dir(T) if n.startswith('test_')];print('ok')\"",
   "AVISO_DA_CADEIA": "v21_ingest.py faz rmtree da pasta do pacote. Rodar um passo do meio sozinho apaga EM SILENCIO carimbos, rechaveamento e traducoes. Rode a cadeia INTEIRA."
  },

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "592284cf33bad4386a58be92bd0661f43516e3cd",
+    "HEAD": "b4991571c0037e9e81848f545e42a8c8df69a196",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -147,7 +147,7 @@
       "territory_name": "Regulatorio",
       "type": "",
       "url": "https://servicio.mapa.gob.es/regfiweb/",
-      "access_method": "as rotas que o próprio frontend chama, declaradas em texto aberto na página (<input type=\"hidden\">) e em /regfiweb/js/site.min.js: GET  Productos/ProductosGrid?NumRegistro=&Titular=&IdEstado= GET  Productos/GetProductoById?idProducto=N GET  Productos/ExportFichaProductoPdfGet?idProducto=N POST Exportaciones/ExportJsonProductos  (dataDto[...]) Cliente: scripts/mapa_regfi.py",
+      "access_method": "as rotas que o próprio frontend chama, declaradas em texto aberto na página (<input type=\"hidden\">) e em /regfiweb/js/site.min.js: GET  Productos/ProductosGrid?NumRegistro=&Titular=&IdEstado= GET  Productos/GetProductoById?idProducto=N GET  Productos/ExportFichaProductoPdfGet?idProducto=N POST Exportaciones/ExportJsonProductos  (dataDto[...]) Cliente: coleta/mapa_regfi.py",
       "language": "",
       "update_frequency": "semanal — a página declara a data da última atualização da base (\"viernes, 28 de agosto de 2026 14:00\")",
       "historical_depth": "",
@@ -164,7 +164,7 @@
         "snippet": "bloco ES-T4-005 no atlas de fontes"
       },
       "contract": {
-        "retrieval_method": "scripts/mapa_regfi.py {producto|export|total|divergencia}",
+        "retrieval_method": "coleta/mapa_regfi.py {producto|export|total|divergencia}",
         "http_method": "GET (grade, ficha, PDF) · POST (export)",
         "parameters": "NumRegistro · Titular · Fabricante · IdEstado · IdSustancia … (export: dataDto[<filtro>])",
         "auth_required": "não",
@@ -307,7 +307,7 @@
       "territory_name": "Substancia ativa",
       "type": "",
       "url": "",
-      "access_method": "**a mesma infraestrutura já provada em EU-T4-001** — SPARQL + content negotiation. Muda apenas a consulta. `./scripts/cellar.sh sparql \"<consulta>\"`",
+      "access_method": "**a mesma infraestrutura já provada em EU-T4-001** — SPARQL + content negotiation. Muda apenas a consulta. `./coleta/cellar.sh sparql \"<consulta>\"`",
       "language": "",
       "update_frequency": "contínua",
       "historical_depth": "todo o acervo CELEX",
@@ -316,7 +316,7 @@
       "risk": "BAIXO",
       "use_case": "EAME / COUNTRY / REGULATORY: mudanças de política que afetam o produtor antes de afetarem o mercado.",
       "real_example": "CELEX 32026R0148 e 32026R0149, ambos de 21/01/2026, alterando regulamentos de execução e delegado da **política agrícola comum**.",
-      "evidence_path": "mesma cadeia de EU-T4-001; consulta registrada em scripts/cellar.sh",
+      "evidence_path": "mesma cadeia de EU-T4-001; consulta registrada em coleta/cellar.sh",
       "verdict": "GREEN",
       "evidence": {
         "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -452,7 +452,7 @@
       "update_frequency": "contínua (cada edição do Jornal Oficial)",
       "historical_depth": "todo o acervo CELEX",
       "automation": "ALTA — endpoint público, sem chave, sem scraping de HTML",
-      "collection": "ALTA — `scripts/cellar.sh` reproduz a coleta",
+      "collection": "ALTA — `coleta/cellar.sh` reproduz a coleta",
       "risk": "BAIXO — legislação pública oficial; sem dado pessoal",
       "use_case": "REGULATORY e PORTFOLIO — saber, na data, que substância entra, é renovada (e até quando) ou sai do mercado europeu.",
       "real_example": "CELEX 32026R1696 — Reg. Exec. (UE) 2026/1696, de 14/07/2026, renova a aprovação da substância ativa ácido pelargônico (CAS 112-05-0, CIPAC 888), pureza >= 889 g/kg, aprovação 2026-10-01, expiração 2041-09-30. Texto integral obtido em EN, FR, ES e IT.",
@@ -464,7 +464,7 @@
         "snippet": "bloco EU-T4-001 no atlas de fontes"
       },
       "contract": {
-        "retrieval_method": "scripts/cellar.sh {sparql|act|substances}",
+        "retrieval_method": "coleta/cellar.sh {sparql|act|substances}",
         "http_method": "GET",
         "parameters": "query SPARQL · CELEX · iso3 do idioma",
         "auth_required": "não",
@@ -635,7 +635,7 @@
       "territory_name": "Regulatorio",
       "type": "Registro oficial de autorizações (AMM), dados abertos",
       "url": "https://www.data.gouv.fr/datasets/donnees-ouvertes-du-catalogue-e-phy-des-produits-phytopharmaceutiques-matieres-fertilisantes-et-supports-de-culture-adjuvants-produits-mixtes-et-melanges",
-      "access_method": "CSV e XML em ZIP, resolvidos pela API do data.gouv.fr. Sem chave, sem scraping. `scripts/ephy.sh download`.",
+      "access_method": "CSV e XML em ZIP, resolvidos pela API do data.gouv.fr. Sem chave, sem scraping. `coleta/ephy.sh download`.",
       "language": "FR",
       "update_frequency": "semanal (declarada e confirmada: versão de 2026-08-25)",
       "historical_depth": "estado atual + datas de 1ª autorização e de retirada; série histórica exige arquivar as versões semanais",
@@ -652,7 +652,7 @@
         "snippet": "bloco FR-T4-001 no atlas de fontes"
       },
       "contract": {
-        "retrieval_method": "scripts/ephy.sh download [destino]",
+        "retrieval_method": "coleta/ephy.sh download [destino]",
         "http_method": "GET (API do catálogo) + GET (ZIP resolvido)",
         "parameters": "nenhum — o id do dataset é fixo",
         "auth_required": "não",
@@ -728,7 +728,7 @@
         "snippet": "bloco IT-T4-001 no atlas de fontes"
       },
       "contract": {
-        "retrieval_method": "scripts/chain.py run it-prothioconazole — o nome datado do arquivo é DESCOBERTO na página do dataset, nunca chutado",
+        "retrieval_method": "motor/chain.py run it-prothioconazole — o nome datado do arquivo é DESCOBERTO na página do dataset, nunca chutado",
         "http_method": "GET (página) + GET (CSV)",
         "parameters": "nenhum",
         "auth_required": "não",
@@ -1183,7 +1183,7 @@
     "autorizadas": 22
   },
   "INTAKE": {
-    "porta": "scripts/fonte_nova.py",
+    "porta": "fontes/fonte_nova.py",
     "fila_file": "data/samples/FONTES-CANDIDATAS.json",
     "tipos_aceites": [],
     "escada": [
@@ -1226,7 +1226,7 @@
   },
   "SEARCH_TERMS": [
     {
-      "file": "scripts/rotulos_censo.py",
+      "file": "regras/rotulos_censo.py",
       "line": 48,
       "variavel": "TERMOS",
       "grupos": [
@@ -1371,8 +1371,8 @@
       "total_palavras": 35
     },
     {
-      "file": "scripts/sensor_coleta.py",
-      "line": 131,
+      "file": "regras/sensor_coleta.py",
+      "line": 132,
       "variavel": "TERMOS",
       "grupos": [
         {
@@ -1537,23 +1537,23 @@
       "endpoint": "https://api.apify.com/v2",
       "usado_por": [
         {
-          "file": "scripts/apify_contrato.py",
-          "line": 127
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 129
         },
         {
-          "file": "scripts/comunicacao_coleta.py",
+          "file": "ferramentas/apify_contrato.py",
           "line": 128
         },
         {
-          "file": "scripts/contrato_ator.py",
+          "file": "ferramentas/contrato_ator.py",
           "line": 26
         },
         {
-          "file": "scripts/corrigir_custo.py",
+          "file": "provas/corrigir_custo.py",
           "line": 44
         },
         {
-          "file": "scripts/rede.py",
+          "file": "superficie/rede.py",
           "line": 32
         }
       ]
@@ -1562,19 +1562,19 @@
       "endpoint": "https://api.openalex.org/works'",
       "usado_por": [
         {
-          "file": "scripts/corpus_es.py",
+          "file": "coleta/corpus_es.py",
           "line": 34
         },
         {
-          "file": "scripts/corpus_pesquisador.py",
+          "file": "coleta/corpus_pesquisador.py",
           "line": 102
         },
         {
-          "file": "scripts/speaker_universo.py",
+          "file": "coleta/speaker_universo.py",
           "line": 67
         },
         {
-          "file": "scripts/universo_ciencia_it.py",
+          "file": "coleta/universo_ciencia_it.py",
           "line": 51
         }
       ]
@@ -1583,71 +1583,20 @@
       "endpoint": "https://www.instagram.com/p",
       "usado_por": [
         {
-          "file": "scripts/instagram_coleta.py",
-          "line": 182
+          "file": "coleta/instagram_coleta.py",
+          "line": 183
         },
         {
-          "file": "scripts/instagram_diario.py",
-          "line": 483
+          "file": "coleta/instagram_diario.py",
+          "line": 484
         },
         {
-          "file": "scripts/instagram_janela.py",
-          "line": 672
+          "file": "coleta/instagram_janela.py",
+          "line": 673
         },
         {
-          "file": "scripts/instagram_transcrever.py",
-          "line": 186
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.hracglobal.com/tools",
-      "usado_por": [
-        {
-          "file": "scripts/adama_it_intelligence.py",
-          "line": 46
-        },
-        {
-          "file": "scripts/adama_it_moa.py",
-          "line": 20
-        },
-        {
-          "file": "scripts/v21_ingest_c.py",
-          "line": 171
-        }
-      ]
-    },
-    {
-      "endpoint": "https://irac-online.org/mode-of-action",
-      "usado_por": [
-        {
-          "file": "scripts/adama_it_intelligence.py",
-          "line": 47
-        },
-        {
-          "file": "scripts/adama_it_moa.py",
-          "line": 21
-        },
-        {
-          "file": "scripts/v21_ingest_c.py",
-          "line": 172
-        }
-      ]
-    },
-    {
-      "endpoint": "https://api.apify.com/v2'",
-      "usado_por": [
-        {
-          "file": "scripts/apify_recuperar.py",
-          "line": 60
-        },
-        {
-          "file": "scripts/coletor.py",
-          "line": 78
-        },
-        {
-          "file": "scripts/contrato_ator.py",
-          "line": 64
+          "file": "ferramentas/instagram_transcrever.py",
+          "line": 187
         }
       ]
     },
@@ -1655,16 +1604,33 @@
       "endpoint": "https://publications.europa.eu/webapi",
       "usado_por": [
         {
-          "file": "scripts/cellar.sh",
+          "file": "coleta/cellar.sh",
           "line": 13
         },
         {
-          "file": "scripts/eu_substancia_adama_it.py",
+          "file": "coleta/eu_substancia_adama_it.py",
           "line": 141
         },
         {
-          "file": "scripts/pacote_camadas2.py",
-          "line": 37
+          "file": "pacote/pacote_camadas2.py",
+          "line": 38
+        }
+      ]
+    },
+    {
+      "endpoint": "https://api.apify.com/v2'",
+      "usado_por": [
+        {
+          "file": "coleta/coletor.py",
+          "line": 79
+        },
+        {
+          "file": "ferramentas/apify_recuperar.py",
+          "line": 61
+        },
+        {
+          "file": "ferramentas/contrato_ator.py",
+          "line": 65
         }
       ]
     },
@@ -1672,68 +1638,50 @@
       "endpoint": "https://pub.orcid.org/v3.0",
       "usado_por": [
         {
-          "file": "scripts/corpus_pesquisador.py",
+          "file": "coleta/corpus_pesquisador.py",
           "line": 103
         },
         {
-          "file": "scripts/rede.py",
-          "line": 26
-        },
-        {
-          "file": "scripts/speaker_identidade.py",
+          "file": "coleta/speaker_identidade.py",
           "line": 78
+        },
+        {
+          "file": "superficie/rede.py",
+          "line": 26
         }
       ]
     },
     {
-      "endpoint": "https://www.adama.com'",
+      "endpoint": "https://www.hracglobal.com/tools",
       "usado_por": [
         {
-          "file": "scripts/adama_catalogo_ler.py",
-          "line": 130
+          "file": "fontes/adama_it_intelligence.py",
+          "line": 46
         },
         {
-          "file": "scripts/adama_catalogo_montar.py",
-          "line": 53
+          "file": "fontes/adama_it_moa.py",
+          "line": 20
+        },
+        {
+          "file": "motor/v21_ingest_c.py",
+          "line": 172
         }
       ]
     },
     {
-      "endpoint": "https://www.adama.com/france",
+      "endpoint": "https://irac-online.org/mode-of-action",
       "usado_por": [
         {
-          "file": "scripts/adama_es_gate.py",
-          "line": 434
+          "file": "fontes/adama_it_intelligence.py",
+          "line": 47
         },
         {
-          "file": "scripts/navegador.py",
-          "line": 15
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.frac.info/media",
-      "usado_por": [
-        {
-          "file": "scripts/adama_it_frac.py",
-          "line": 28
+          "file": "fontes/adama_it_moa.py",
+          "line": 21
         },
         {
-          "file": "scripts/adama_it_intelligence.py",
-          "line": 48
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.fitosanitari.salute.gov.it/",
-      "usado_por": [
-        {
-          "file": "scripts/adama_it_labels.py",
-          "line": 72
-        },
-        {
-          "file": "scripts/rotulos_baixar.py",
-          "line": 125
+          "file": "motor/v21_ingest_c.py",
+          "line": 173
         }
       ]
     },
@@ -1741,12 +1689,12 @@
       "endpoint": "https://www.ec.europa.eu/agrifood",
       "usado_por": [
         {
-          "file": "scripts/agrifood_ue.py",
+          "file": "coleta/agrifood_ue.py",
           "line": 33
         },
         {
-          "file": "scripts/pacote_camadas2.py",
-          "line": 41
+          "file": "pacote/pacote_camadas2.py",
+          "line": 42
         }
       ]
     },
@@ -1754,25 +1702,12 @@
       "endpoint": "https://publications.europa.eu/resource",
       "usado_por": [
         {
-          "file": "scripts/cellar.sh",
+          "file": "coleta/cellar.sh",
           "line": 14
         },
         {
-          "file": "scripts/texto_fonte.py",
+          "file": "leis/texto_fonte.py",
           "line": 26
-        }
-      ]
-    },
-    {
-      "endpoint": "https://it.linkedin.com/company",
-      "usado_por": [
-        {
-          "file": "scripts/comunicacao_identidade.py",
-          "line": 399
-        },
-        {
-          "file": "tests/test_comunicacao.py",
-          "line": 57
         }
       ]
     },
@@ -1780,64 +1715,25 @@
       "endpoint": "https://www.instagram.com/%s",
       "usado_por": [
         {
-          "file": "scripts/instagram_diario.py",
-          "line": 373
+          "file": "coleta/instagram_diario.py",
+          "line": 374
         },
         {
-          "file": "scripts/instagram_janela.py",
-          "line": 670
+          "file": "coleta/instagram_janela.py",
+          "line": 671
         }
       ]
     },
     {
-      "endpoint": "https://exemplo.invalid',",
+      "endpoint": "https://www.fitosanitari.salute.gov.it/",
       "usado_por": [
         {
-          "file": "scripts/navegador.py",
-          "line": 236
+          "file": "coleta/rotulos_baixar.py",
+          "line": 125
         },
         {
-          "file": "tests/test_navegador.py",
-          "line": 108
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com',",
-      "usado_por": [
-        {
-          "file": "scripts/pacote_camadas2.py",
-          "line": 56
-        },
-        {
-          "file": "scripts/rede.py",
-          "line": 30
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.adama.com/italia",
-      "usado_por": [
-        {
-          "file": "scripts/pacote_camadas3.py",
-          "line": 43
-        },
-        {
-          "file": "scripts/v21_ingest.py",
-          "line": 280
-        }
-      ]
-    },
-    {
-      "endpoint": "https://github.com/lucianodalondon-sys",
-      "usado_por": [
-        {
-          "file": "scripts/pacote_camadas3.py",
-          "line": 302
-        },
-        {
-          "file": "scripts/v21_handoff_json.py",
-          "line": 23
+          "file": "fontes/adama_it_labels.py",
+          "line": 72
         }
       ]
     },
@@ -1845,12 +1741,197 @@
       "endpoint": "https://www.youtube.com/watch?v='",
       "usado_por": [
         {
-          "file": "scripts/youtube_janela.py",
-          "line": 328
+          "file": "coleta/youtube_janela.py",
+          "line": 329
         },
         {
-          "file": "scripts/youtube_transcrever.py",
-          "line": 150
+          "file": "ferramentas/youtube_transcrever.py",
+          "line": 151
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.adama.com/france",
+      "usado_por": [
+        {
+          "file": "ferramentas/navegador.py",
+          "line": 15
+        },
+        {
+          "file": "regras/adama_es_gate.py",
+          "line": 435
+        }
+      ]
+    },
+    {
+      "endpoint": "https://exemplo.invalid',",
+      "usado_por": [
+        {
+          "file": "ferramentas/navegador.py",
+          "line": 236
+        },
+        {
+          "file": "tests/test_navegador.py",
+          "line": 109
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.adama.com'",
+      "usado_por": [
+        {
+          "file": "fontes/adama_catalogo_ler.py",
+          "line": 130
+        },
+        {
+          "file": "fontes/adama_catalogo_montar.py",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.frac.info/media",
+      "usado_por": [
+        {
+          "file": "fontes/adama_it_frac.py",
+          "line": 28
+        },
+        {
+          "file": "fontes/adama_it_intelligence.py",
+          "line": 48
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.adama.com/italia",
+      "usado_por": [
+        {
+          "file": "motor/v21_ingest.py",
+          "line": 281
+        },
+        {
+          "file": "pacote/pacote_camadas3.py",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com',",
+      "usado_por": [
+        {
+          "file": "pacote/pacote_camadas2.py",
+          "line": 57
+        },
+        {
+          "file": "superficie/rede.py",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "endpoint": "https://github.com/lucianodalondon-sys",
+      "usado_por": [
+        {
+          "file": "pacote/pacote_camadas3.py",
+          "line": 303
+        },
+        {
+          "file": "pacote/v21_handoff_json.py",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "endpoint": "https://it.linkedin.com/company",
+      "usado_por": [
+        {
+          "file": "regras/comunicacao_identidade.py",
+          "line": 399
+        },
+        {
+          "file": "tests/test_comunicacao.py",
+          "line": 58
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.instagram.com/exemplo",
+      "usado_por": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 146
+        }
+      ]
+    },
+    {
+      "endpoint": "https://doi.org/',",
+      "usado_por": [
+        {
+          "file": "coleta/corpus_pesquisador.py",
+          "line": 390
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.data.gouv.fr/api",
+      "usado_por": [
+        {
+          "file": "coleta/ephy.sh",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "endpoint": "https://gd.eppo.int/taxon",
+      "usado_por": [
+        {
+          "file": "coleta/eppo_gd.py",
+          "line": 28
+        }
+      ]
+    },
+    {
+      "endpoint": "https://ipinfo.io/json',",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 442
+        }
+      ]
+    },
+    {
+      "endpoint": "https://servicio.mapa.gob.es/regfiweb'",
+      "usado_por": [
+        {
+          "file": "coleta/mapa_regfi.py",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.fitosanitari.salute.gov.it/',",
+      "usado_por": [
+        {
+          "file": "coleta/rotulos_baixar.py",
+          "line": 59
+        }
+      ]
+    },
+    {
+      "endpoint": "https://orcid.org/0000-...'.",
+      "usado_por": [
+        {
+          "file": "coleta/speaker_identidade.py",
+          "line": 128
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/'",
+      "usado_por": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 169
         }
       ]
     },
@@ -1864,29 +1945,11 @@
       ]
     },
     {
-      "endpoint": "https://eur-lex.europa.eu/legal-content",
-      "usado_por": [
-        {
-          "file": "scripts/adama_it_eu.py",
-          "line": 29
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.linkedin.com/in",
       "usado_por": [
         {
-          "file": "scripts/apify_contrato.py",
-          "line": 62
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.adama.com/spain",
-      "usado_por": [
-        {
-          "file": "scripts/catalogo_importar.py",
-          "line": 139
+          "file": "ferramentas/apify_contrato.py",
+          "line": 63
         }
       ]
     },
@@ -1894,7 +1957,7 @@
       "endpoint": "https://exemplo.invalid",
       "usado_por": [
         {
-          "file": "scripts/cdp.py",
+          "file": "ferramentas/cdp.py",
           "line": 5
         }
       ]
@@ -1903,8 +1966,26 @@
       "endpoint": "https://example.com'",
       "usado_por": [
         {
-          "file": "scripts/cdp.py",
-          "line": 381
+          "file": "ferramentas/cdp.py",
+          "line": 382
+        }
+      ]
+    },
+    {
+      "endpoint": "https://eur-lex.europa.eu/legal-content",
+      "usado_por": [
+        {
+          "file": "fontes/adama_it_eu.py",
+          "line": 29
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.adama.com/spain",
+      "usado_por": [
+        {
+          "file": "guarda/catalogo_importar.py",
+          "line": 139
         }
       ]
     },
@@ -1912,8 +1993,8 @@
       "endpoint": "https://www.dati.salute.gov.it/it",
       "usado_por": [
         {
-          "file": "scripts/chain.py",
-          "line": 278
+          "file": "motor/chain.py",
+          "line": 279
         }
       ]
     },
@@ -1921,8 +2002,8 @@
       "endpoint": "https://www.dati.salute.gov.it'",
       "usado_por": [
         {
-          "file": "scripts/chain.py",
-          "line": 279
+          "file": "motor/chain.py",
+          "line": 280
         }
       ]
     },
@@ -1930,98 +2011,17 @@
       "endpoint": "https://www.juntadeandalucia.es/datosabiertos",
       "usado_por": [
         {
-          "file": "scripts/chain.py",
-          "line": 434
+          "file": "motor/chain.py",
+          "line": 435
         }
       ]
     },
     {
-      "endpoint": "https://www.instagram.com/exemplo",
+      "endpoint": "https://esploradati.istat.it',ARRAY['ESTATISTICA_OFICIAL']::fonte_natureza[],",
       "usado_por": [
         {
-          "file": "scripts/comunicacao_coleta.py",
-          "line": 145
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/@BayerAgri'],",
-      "usado_por": [
-        {
-          "file": "scripts/comunicacao_identidade.py",
-          "line": 344
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.facebook.com/Syngenta-2007689772789481',",
-      "usado_por": [
-        {
-          "file": "scripts/comunicacao_identidade.py",
-          "line": 352
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.syngenta.it/'],",
-      "usado_por": [
-        {
-          "file": "scripts/comunicacao_identidade.py",
-          "line": 353
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.facebook.com/BASF-Agricultural-Solutions-1741459832625091",
-      "usado_por": [
-        {
-          "file": "scripts/comunicacao_identidade.py",
-          "line": 361
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.agro.basf.it/it'],",
-      "usado_por": [
-        {
-          "file": "scripts/comunicacao_identidade.py",
-          "line": 362
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/company",
-      "usado_por": [
-        {
-          "file": "scripts/comunicacao_identidade.py",
-          "line": 383
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.facebook.com/dekalbfr'],",
-      "usado_por": [
-        {
-          "file": "scripts/comunicacao_identidade.py",
-          "line": 412
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/@CortevaBiologicals'],",
-      "usado_por": [
-        {
-          "file": "scripts/comunicacao_identidade.py",
-          "line": 426
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.instagram.com/cortevabiologicals",
-      "usado_por": [
-        {
-          "file": "scripts/comunicacao_identidade.py",
-          "line": 438
+          "file": "pacote/lastmile_para_supabase.py",
+          "line": 217
         }
       ]
     }

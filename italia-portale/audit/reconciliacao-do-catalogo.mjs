@@ -31,7 +31,7 @@
    Prova por ARITMETICA DE CONJUNTOS sobre campos que o proprio pacote declara:
    nao reimplementa a normalizacao. Duas implementacoes da mesma regra divergem,
    e a divergencia aparece quando ja custou. O dono da normalizacao e
-   `scripts/v21_ingest.py`, na linhagem claude/opportunity-commercial-priority-v1.
+   `motor/v21_ingest.py`, na linhagem claude/opportunity-commercial-priority-v1.
 
    Por isso a pergunta «quantos dos pares vieram SO da pagina de cultura» fica
    NAO MEDIDA aqui, com o motivo escrito: mapear termo -> CROP_ID exigiria uma
@@ -144,7 +144,7 @@ const cobertura = declaradas ? (reconhecidas / declaradas) : null;
 naoMedidos.push({
   t: 'ORIGEM_DOS_PARES_DE_PAGINA_DE_CULTURA',
   porque: 'mapear termo -> CROP_ID exigiria uma SEGUNDA normalizacao, e o dono e '
-    + 'scripts/v21_ingest.py na linhagem claude/opportunity-commercial-priority-v1. '
+    + 'motor/v21_ingest.py na linhagem claude/opportunity-commercial-priority-v1. '
     + 'Medido aqui: ' + viaPagina + ' ocorrencias via pagina de cultura. Quantos PARES vem SO '
     + 'dai nao se mede sem reimplementar a regra. A origem declara 2; alegacao NAO verificada.',
 });

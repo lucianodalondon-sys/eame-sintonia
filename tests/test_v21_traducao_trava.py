@@ -23,8 +23,9 @@ mecânica sabe, e fingir que sabe é pior do que dizer que não sabe.
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
-    os.path.abspath(__file__))), 'scripts'))
+sys.path.insert(0, os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))))
+import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho
 from v21_traducao_trava import conferir  # noqa: E402
 
 

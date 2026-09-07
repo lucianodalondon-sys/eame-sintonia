@@ -28,7 +28,7 @@ CAMPO × CIÊNCIA × CLIMA × REGULATÓRIO × PORTFÓLIO ADAMA LOCAL × CONCORR�
 | `tests/test_competitor_layer.py` | **novo** — 45 regressões |
 
 O atlas passa de 36 para **37 SOURCE_IDs**, e os sete documentos que publicam esse número
-foram sincronizados pelo dono (`scripts/metricas_canonicas.py`).
+foram sincronizados pelo dono (`pacote/metricas_canonicas.py`).
 
 ## B · Contrato da camada COMPETITOR
 

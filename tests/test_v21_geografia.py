@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """O CONTRATO DE GEOGRAFIA, com mentiras plantadas de propósito.
 
-    python3 -c "import sys;sys.path[:0]=['tests','scripts'];import test_v21_geografia as T;[getattr(T,n)() for n in dir(T) if n.startswith('test_')];print('ok')"
+    python3 -c "import sys;sys.path[:0]=['tests','.'];import test_v21_geografia as T;[getattr(T,n)() for n in dir(T) if n.startswith('test_')];print('ok')"
 
 POR QUE ESTES TESTES EXISTEM
 -----------------------------
@@ -16,7 +16,8 @@ Cada teste aqui reproduz um defeito real que chegou a sair no pacote V2.1.
 import sys
 import os
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'scripts'))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import v21_normalizar as N  # noqa: E402
 
 

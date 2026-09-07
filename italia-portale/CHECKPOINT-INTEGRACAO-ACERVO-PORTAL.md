@@ -309,13 +309,13 @@ do próprio grounding). Os outros por medição: nomes de campo que não existem
 causas alegadas que o teste não confirmou.
 
 **E um blocker do árbitro é refutado por medição minha.** Ele diz que esta
-linhagem editou `scripts/site_v21_ingest.py` "apesar de scripts/ ser território
+linhagem editou `portoes/site_v21_ingest.py` "apesar de scripts/ ser território
 da branch paralela". A regra é grossa demais. Medido por ficheiro:
 
 ```
-scripts/site_v21_ingest.py    NÃO existe em 5fac11f — só nesta linhagem
-scripts/meeting_snapshot.py   NÃO existe em 5fac11f — só nesta linhagem
-scripts/it_casa_dados.py      NÃO existe em 5fac11f — só nesta linhagem
+portoes/site_v21_ingest.py    NÃO existe em 5fac11f — só nesta linhagem
+pacote/meeting_snapshot.py   NÃO existe em 5fac11f — só nesta linhagem
+superficie/it_casa_dados.py      NÃO existe em 5fac11f — só nesta linhagem
 git diff --name-only 84f0375 5fac11f -- <os três>  →  0 ficheiros
 ```
 
@@ -353,7 +353,7 @@ audit/click-audit.mjs ................. NÃO EXECUTADO (excedeu 600 s)
    exactamente assim que a minha regressão de contraste passou por uma suite que
    dizia 71/71.
 2. **`negative-control.mjs` está 6/7 FAIL por razão alheia ao que mede** — o seu
-   controlo-da-cópia lê `scripts/it_casa_dados.py`, fora da árvore que ele copia,
+   controlo-da-cópia lê `superficie/it_casa_dados.py`, fora da árvore que ele copia,
    logo ENOENT. Um vermelho permanente que ninguém corre torna um FAIL novo
    indistinguível de um velho.
 
@@ -373,13 +373,13 @@ sessão para que os portões de browser corressem — não estava presente.
 ```bash
 # o pacote canónico, do gerador
 git worktree add --detach /tmp/wt 5fac11f
-cd /tmp/wt && bash scripts/v21_cadeia.sh          # exit 0, ~20 s
+cd /tmp/wt && bash motor/v21_cadeia.sh          # exit 0, ~20 s
 cp -r /tmp/wt/build/ITALY-REALITY-HANDOFF-V2.1 build/
 
 # os três artefactos que o portal lê
-python3 scripts/site_v21_ingest.py
-python3 scripts/meeting_snapshot.py --source-head 5fac11f --cutoff 2026-09-06T22:27:00Z
-python3 scripts/it_casa_dados.py
+python3 portoes/site_v21_ingest.py
+python3 pacote/meeting_snapshot.py --source-head 5fac11f --cutoff 2026-09-06T22:27:00Z
+python3 superficie/it_casa_dados.py
 
 # medir
 node italia-portale/audit/run.mjs

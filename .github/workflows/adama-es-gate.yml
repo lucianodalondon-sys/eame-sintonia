@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'scripts/adama_es_gate.py'
+      - 'regras/adama_es_gate.py'
       - 'supabase/ensaios/**'
       - 'tests/test_adama_es_gate.py'
       - '.github/workflows/adama-es-gate.yml'
@@ -77,7 +77,7 @@ jobs:
       - name: 3 · o portao mede, e o red team se testa por mutacao
         run: |
           set -e
-          python3 scripts/adama_es_gate.py --dsn "$CINCO" \
+          python3 regras/adama_es_gate.py --dsn "$CINCO" \
             --dsn-interferencia "$PGURL" | tee /tmp/g
           grep -q "NAO_PEGOU_TESTE_INUTIL" /tmp/g \
             && { echo "PARADO: mutacao nao pegou — o red team perdeu os dentes"; exit 1; } \
@@ -86,7 +86,7 @@ jobs:
       - name: 4 · o artefato no Git bate com a medicao de agora?
         run: |
           set -e
-          python3 scripts/adama_es_gate.py --dsn "$CINCO" \
+          python3 regras/adama_es_gate.py --dsn "$CINCO" \
             --dsn-interferencia "$PGURL" --build >/dev/null
           git diff --exit-code -- data/samples/ADAMA-ES-HANDOFF-GATE-V1.json \
             && echo "PORTAO_REPRODUZIVEL=PASS" \

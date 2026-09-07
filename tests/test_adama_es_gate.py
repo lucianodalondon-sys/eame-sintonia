@@ -364,7 +364,7 @@ class TestOEnsaioNaoEImportacao(unittest.TestCase):
         # Categoria E do inventario: ferramenta de coleta e de envio moram na
         # maquina do operador. Se aparecerem aqui, houve merge.
         so_do_operador = ('storage_preservar.py', 'recolher_lote.sh', 'adama_es.py')
-        scripts = os.listdir(os.path.join(RAIZ, 'scripts'))
+        scripts = [f for _g in __import__('_gavetas').GAVETAS for f in os.listdir(os.path.join(RAIZ, _g))]
         for f in so_do_operador:
             self.assertNotIn(f, scripts,
                              '%s e da maquina do operador — se subiu, foi merge' % f)

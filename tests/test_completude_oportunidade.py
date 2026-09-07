@@ -17,12 +17,12 @@ import unittest
 import zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCRIPTS = os.path.join(ROOT, 'scripts')
 ZIP = os.path.join(ROOT, 'build', 'SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip')
 ING = os.path.join(ROOT, 'build', 'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST')
 MEDIDA = os.path.join(ROOT, 'data', 'samples', 'IT-COMPLETUDE',
                       'IT-COMPLETUDE-OPORTUNIDADE.json')
-sys.path.insert(0, SCRIPTS)
+sys.path.insert(0, ROOT)
+import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho
 
 
 def _prepara_ingest():

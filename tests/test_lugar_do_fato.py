@@ -5,8 +5,8 @@ O risco desta familia nao e errar uma regra. E ter DUAS regras para a mesma
 pergunta, divergindo devagar ate que a mesma frase receba dois vereditos —
 um do leitor que le o texto, outro da trava que grava a linha.
 
-Por isso o core (scripts/lugar_do_fato.py) declara o vocabulario, o leitor
-italiano (scripts/fato_local.py, portado da branch da Italia) usa as mesmas
+Por isso o core (leis/lugar_do_fato.py) declara o vocabulario, o leitor
+italiano (leis/fato_local.py, portado da branch da Italia) usa as mesmas
 palavras, e o banco aceita exatamente esse conjunto. Estes testes comparam
 os tres. Qualquer um que ande sozinho reprova.
 """
@@ -17,7 +17,8 @@ import sys
 import unittest
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(RAIZ, 'scripts'))
+sys.path.insert(0, RAIZ)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import lugar_do_fato as L                                          # noqa: E402
 import fato_local as IT                                            # noqa: E402
 

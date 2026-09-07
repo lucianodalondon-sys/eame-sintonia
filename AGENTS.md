@@ -118,6 +118,7 @@ Recarimbar sem reler é o único jeito de mentir neste sistema. Não faça isso.
 | `P1_SEM_DRIFT` | o mapa commitado é o que o repositório de hoje produz |
 | `P2_IDS_UNICOS` | nenhum id repetido; todo território existe |
 | `P2_ZONA_TEM_FAMILIA` | toda zona pertence a COLETA, INTELIGÊNCIA ou ENTREGA |
+| `P2_PASTA_BATE_COM_MAPA` | **todo ficheiro está na gaveta da sua peça** |
 | `P3_SEM_PONTA_SOLTA` | nenhuma ligação aponta para peça inexistente |
 | `P4_FICHEIROS_REAIS` | todo ficheiro citado pelo mapa existe |
 | `P5_ARESTA_PROVADA` | nenhuma ligação técnica sem linha de código que a prove |
@@ -131,6 +132,69 @@ Recarimbar sem reler é o único jeito de mentir neste sistema. Não faça isso.
 Corre no CI em
 [`.github/workflows/system-map.yml`](.github/workflows/system-map.yml), em cada
 push e cada pull request. **Falha fechado**: erro inesperado também é `FAIL`.
+
+---
+
+## ⚖️ A PRATELEIRA TEM DE BATER COM O MAPA
+
+**O visual e o projeto contam a mesma história. Sempre. Sem exceção.**
+
+Cada zona do mapa tem uma pasta no repositório, e todo ficheiro de código vive na
+pasta da sua peça:
+
+| passo | zona | pasta |
+|---|---|---|
+| | **COLETA** | |
+| 1 | QUEM DISPARA | `.github/workflows/` |
+| 2 | AS FONTES | `fontes/` |
+| 3 | AS FERRAMENTAS | `ferramentas/` |
+| 4 | OS VEÍCULOS | `coleta/` |
+| 5 | AS REGRAS E AS PALAVRAS | `regras/` |
+| 6 | ONDE GUARDA A COLETA | `guarda/` |
+| | **INTELIGÊNCIA** | |
+| | RÉGUAS E LEIS | `leis/` |
+| | MOTOR — CADEIA V2.1 | `motor/` |
+| | PROVAS E MEDIÇÃO | `provas/` |
+| | **ENTREGA** | |
+| | PACOTE CANÔNICO | `pacote/` |
+| | FRONTEIRA E PORTÕES | `portoes/` |
+| | SUPERFÍCIES | `superficie/` |
+
+`P2_PASTA_BATE_COM_MAPA` **reprova** quando um ficheiro está numa gaveta que não é
+a da sua peça. Mover ficheiro sem mover a peça reprova. Mudar a peça de zona sem
+mover o ficheiro reprova. As duas verdades não voltam a divergir em silêncio.
+
+### Não existe mais `scripts/`
+
+Uma pasta com 149 ficheiros empilhados deixava o mapa dizer "isto é uma regra" e
+"aquilo é uma ferramenta" sem que nada no repositório confirmasse. Quem abria a
+pasta via a verdade errada primeiro.
+
+**Ficheiro novo vai direto para a gaveta do que ele é.** Se não souber qual,
+pergunte-se: *isto vai buscar alguma coisa?* Se não vai, não é veículo — é
+informação, regra ou ferramenta.
+
+### As gavetas ficam na RAIZ, e isso não é gosto
+
+90 dos ficheiros acham a raiz do projeto com
+`dirname(dirname(abspath(__file__)))` — sobem duas pastas. De `coleta/x.py` isso
+dá na raiz, tal como dava de `scripts/x.py`. Se as gavetas estivessem dentro de
+`scripts/`, esses 90 passariam a apontar para o sítio errado e escreveriam dado
+onde não devem — **sem dar erro**.
+
+### Import entre gavetas
+
+Os scripts importam-se pelo nome curto (`import proveniencia`). Como cada um vive
+agora na sua gaveta, quem precisa de um vizinho de outra gaveta leva duas linhas
+à vista, no topo:
+
+```python
+sys.path.insert(0, os.path.dirname(HERE))   # a raiz
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
+```
+
+[`_gavetas.py`](_gavetas.py) é o **único** sítio com a lista das gavetas. O
+scanner do mapa lê-a de lá. Duas listas seriam duas verdades.
 
 ---
 
@@ -162,8 +226,8 @@ O acervo de fontes é **capital parado**: consulta-se antes de coletar, não se
 coleta para descobrir o que já se sabe. Fonte nova entra por uma porta só:
 
 ```bash
-py scripts/fonte_nova.py --tipos     # os tipos aceites
-py scripts/fonte_nova.py --listar    # a fila, agrupada por tipo
+py fontes/fonte_nova.py --tipos     # os tipos aceites
+py fontes/fonte_nova.py --listar    # a fila, agrupada por tipo
 ```
 
 **O que entra pela porta é candidata, nunca fonte.** Escrever direto no

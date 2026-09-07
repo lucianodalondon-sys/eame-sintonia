@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
-    "w": 10835,
+    "w": 11540,
     "h": 2140
   },
   "INVENTORY": {
@@ -20,6 +20,7 @@
       "PORTAL-CAPABILITY-INVENTORY.md",
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
+      "_gavetas.py",
       "package.json",
       "vercel.json"
     ],
@@ -148,6 +149,40 @@
       "build/ITALY-REALITY-HANDOFF-V2/TOP-CROSSINGS.json",
       "build/ITALY-REALITY-HANDOFF-V2/VALIDATION-MANIFEST.json",
       "build/sintonia-es.html"
+    ],
+    "coleta": [
+      "coleta/agrifood_ue.py",
+      "coleta/cellar.sh",
+      "coleta/coleta_checkpoint.py",
+      "coleta/coletor.py",
+      "coleta/comunicacao_classificar.py",
+      "coleta/comunicacao_coleta.py",
+      "coleta/comunicacao_medir.py",
+      "coleta/corpus_es.py",
+      "coleta/corpus_pesquisador.py",
+      "coleta/cruzar_regua_rotulo.py",
+      "coleta/denominaciones.py",
+      "coleta/ephy.sh",
+      "coleta/eppo_gd.py",
+      "coleta/eu_substancia_adama_it.py",
+      "coleta/filas.py",
+      "coleta/instagram_coleta.py",
+      "coleta/instagram_diario.py",
+      "coleta/instagram_janela.py",
+      "coleta/instagram_pessoal.py",
+      "coleta/mapa_regfi.py",
+      "coleta/pdf_text.py",
+      "coleta/preservar_pdf.py",
+      "coleta/regulatorio_importar.py",
+      "coleta/ropf_pre_requisito.py",
+      "coleta/rotulos_baixar.py",
+      "coleta/rotulos_ler.py",
+      "coleta/sensor_canal_identidade.py",
+      "coleta/speaker_identidade.py",
+      "coleta/speaker_universo.py",
+      "coleta/universo_ciencia_it.py",
+      "coleta/youtube_janela.py",
+      "coleta/youtube_relevancia.py"
     ],
     "data": [
       "data/i18n/v21-traducoes-nucleo.json",
@@ -497,6 +532,33 @@
       "docs/relatorios/RELATORIO-RADAR-DO-FUTURO.md",
       "docs/relatorios/RELATORIO-TRES-HERO-CASES-ES.md"
     ],
+    "ferramentas": [
+      "ferramentas/apify_contrato.py",
+      "ferramentas/apify_pool.py",
+      "ferramentas/apify_recuperar.py",
+      "ferramentas/cdp.py",
+      "ferramentas/contrato_ator.py",
+      "ferramentas/instagram_transcrever.py",
+      "ferramentas/navegador.py",
+      "ferramentas/youtube_transcrever.py"
+    ],
+    "fontes": [
+      "fontes/adama_catalogo_ler.py",
+      "fontes/adama_catalogo_montar.py",
+      "fontes/adama_it_eu.py",
+      "fontes/adama_it_frac.py",
+      "fontes/adama_it_gaps.py",
+      "fontes/adama_it_intelligence.py",
+      "fontes/adama_it_labels.py",
+      "fontes/adama_it_moa.py",
+      "fontes/adama_it_qa.py",
+      "fontes/fonte_nova.py"
+    ],
+    "guarda": [
+      "guarda/catalogo_importar.py",
+      "guarda/importar_italia.py",
+      "guarda/sql_conferir.py"
+    ],
     "handoff": [
       "handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json",
       "handoff/paused-v2/MANIFEST.md",
@@ -732,10 +794,114 @@
       "italia-portale/client/upstream/UPSTREAM-PINS.json",
       "italia-portale/client/vercel.json"
     ],
+    "leis": [
+      "leis/adama_relevance.py",
+      "leis/auditoria_regua_comercial.py",
+      "leis/calendario_handoff.py",
+      "leis/cicatrizes_brasil.py",
+      "leis/data_clock.py",
+      "leis/fato_local.py",
+      "leis/gire_mapas.py",
+      "leis/lugar_do_fato.py",
+      "leis/proveniencia.py",
+      "leis/regua_italia.py",
+      "leis/texto_fonte.py",
+      "leis/v21_carimbar_origem.py",
+      "leis/v21_datas.py",
+      "leis/v21_geografia_contrato.py",
+      "leis/v21_procedencia_contrato.py",
+      "leis/v21_procedencia_religar.py",
+      "leis/voz.py"
+    ],
+    "motor": [
+      "motor/cadeia_canonica.sh",
+      "motor/chain.py",
+      "motor/consolidar_leque.py",
+      "motor/matriz_recorte.py",
+      "motor/normalize_agro.py",
+      "motor/normalize_substance.py",
+      "motor/pacote_convergencia.py",
+      "motor/pacote_normalizar.py",
+      "motor/v21_aceitacao.py",
+      "motor/v21_adama_registro_validar.py",
+      "motor/v21_antes_e_depois.py",
+      "motor/v21_cadeia.sh",
+      "motor/v21_campos_de_lingua.py",
+      "motor/v21_comercial.py",
+      "motor/v21_completude_oportunidade.py",
+      "motor/v21_contrato_do_pacote.py",
+      "motor/v21_crossings.py",
+      "motor/v21_dominio_da_alegacao.py",
+      "motor/v21_fechar.py",
+      "motor/v21_fontes_faltantes.py",
+      "motor/v21_fontes_rechavear.py",
+      "motor/v21_ingest.py",
+      "motor/v21_ingest_b.py",
+      "motor/v21_ingest_c.py",
+      "motor/v21_necessidade.py",
+      "motor/v21_normalizar.py",
+      "motor/v21_oportunidades.py",
+      "motor/v21_reavaliar_35.py",
+      "motor/v21_reverificacao_ledger.py",
+      "motor/v21_tm_colher.py",
+      "motor/v21_traducao_trava.py",
+      "motor/v21_vozes_reconciliar.py",
+      "motor/v2_conflitos.py",
+      "motor/v2_cruzamentos.py",
+      "motor/v2_dedup_e_familias.py",
+      "motor/v2_fechar.py",
+      "motor/v2_montar_handoff.py",
+      "motor/v2_qa_atribuir.py",
+      "motor/v2_relatorio.py"
+    ],
+    "pacote": [
+      "pacote/lastmile_entregar.py",
+      "pacote/lastmile_inventario.py",
+      "pacote/lastmile_para_supabase.py",
+      "pacote/lastmile_relatorio.py",
+      "pacote/ler_saida_leque.py",
+      "pacote/meeting_snapshot.py",
+      "pacote/metricas_canonicas.py",
+      "pacote/pacote.py",
+      "pacote/pacote_camadas.py",
+      "pacote/pacote_camadas2.py",
+      "pacote/pacote_camadas3.py",
+      "pacote/pacote_docs.py",
+      "pacote/pacote_fenologia.py",
+      "pacote/pacote_mercado.py",
+      "pacote/pacote_montar.py",
+      "pacote/pacote_relacoes_convergencia.py",
+      "pacote/v21_handoff_json.py"
+    ],
+    "portoes": [
+      "portoes/build_portal.py",
+      "portoes/site_v21_ingest.py"
+    ],
     "prototype": [
       "prototype/portal/.gitkeep",
       "prototype/portal/CONGELADO.md",
       "prototype/portal/index.html"
+    ],
+    "provas": [
+      "provas/auditoria.py",
+      "provas/corrigir_custo.py",
+      "provas/coverage.py",
+      "provas/freeze_es.py",
+      "provas/inventario_esperado.py",
+      "provas/testa_rota_italia.py"
+    ],
+    "regras": [
+      "regras/adama_es_gate.py",
+      "regras/adama_es_import_rules.py",
+      "regras/comunicacao_identidade.py",
+      "regras/comunicacao_lote.py",
+      "regras/comunicacao_universo.py",
+      "regras/portao.py",
+      "regras/portoes_eame.py",
+      "regras/rotulos_censo.py",
+      "regras/sensor_coleta.py",
+      "regras/sensor_medir.py",
+      "regras/source_health.py"
     ],
     "research": [
       "research/adama-italy-product-intelligence-deep/ACTIVE-INGREDIENTS.json",
@@ -817,156 +983,7 @@
       "research/spain/.gitkeep"
     ],
     "scripts": [
-      "scripts/.gitkeep",
-      "scripts/adama_catalogo_ler.py",
-      "scripts/adama_catalogo_montar.py",
-      "scripts/adama_es_gate.py",
-      "scripts/adama_es_import_rules.py",
-      "scripts/adama_it_eu.py",
-      "scripts/adama_it_frac.py",
-      "scripts/adama_it_gaps.py",
-      "scripts/adama_it_intelligence.py",
-      "scripts/adama_it_labels.py",
-      "scripts/adama_it_moa.py",
-      "scripts/adama_it_qa.py",
-      "scripts/adama_relevance.py",
-      "scripts/agrifood_ue.py",
-      "scripts/apify_contrato.py",
-      "scripts/apify_pool.py",
-      "scripts/apify_recuperar.py",
-      "scripts/ask_sintonia.py",
-      "scripts/auditoria.py",
-      "scripts/auditoria_regua_comercial.py",
-      "scripts/build_portal.py",
-      "scripts/cadeia_canonica.sh",
-      "scripts/calendario_handoff.py",
-      "scripts/catalogo_importar.py",
-      "scripts/cdp.py",
-      "scripts/cellar.sh",
-      "scripts/chain.py",
-      "scripts/cicatrizes_brasil.py",
-      "scripts/coleta_checkpoint.py",
-      "scripts/coletor.py",
-      "scripts/comunicacao_classificar.py",
-      "scripts/comunicacao_coleta.py",
-      "scripts/comunicacao_identidade.py",
-      "scripts/comunicacao_lote.py",
-      "scripts/comunicacao_medir.py",
-      "scripts/comunicacao_universo.py",
-      "scripts/consolidar_leque.py",
-      "scripts/contrato_ator.py",
-      "scripts/corpus_es.py",
-      "scripts/corpus_pesquisador.py",
-      "scripts/corrigir_custo.py",
-      "scripts/coverage.py",
-      "scripts/cruzar_regua_rotulo.py",
-      "scripts/data_clock.py",
-      "scripts/denominaciones.py",
-      "scripts/ephy.sh",
-      "scripts/eppo_gd.py",
-      "scripts/eu_substancia_adama_it.py",
-      "scripts/fato_local.py",
-      "scripts/filas.py",
-      "scripts/fonte_nova.py",
-      "scripts/freeze_es.py",
-      "scripts/gire_mapas.py",
-      "scripts/importar_italia.py",
-      "scripts/instagram_coleta.py",
-      "scripts/instagram_diario.py",
-      "scripts/instagram_janela.py",
-      "scripts/instagram_pessoal.py",
-      "scripts/instagram_transcrever.py",
-      "scripts/inventario_esperado.py",
-      "scripts/it_casa_dados.py",
-      "scripts/lastmile_entregar.py",
-      "scripts/lastmile_inventario.py",
-      "scripts/lastmile_para_supabase.py",
-      "scripts/lastmile_relatorio.py",
-      "scripts/ler_saida_leque.py",
-      "scripts/lugar_do_fato.py",
-      "scripts/mapa_regfi.py",
-      "scripts/matriz_recorte.py",
-      "scripts/meeting_snapshot.py",
-      "scripts/metricas_canonicas.py",
-      "scripts/navegador.py",
-      "scripts/normalize_agro.py",
-      "scripts/normalize_substance.py",
-      "scripts/pacote.py",
-      "scripts/pacote_camadas.py",
-      "scripts/pacote_camadas2.py",
-      "scripts/pacote_camadas3.py",
-      "scripts/pacote_convergencia.py",
-      "scripts/pacote_docs.py",
-      "scripts/pacote_fenologia.py",
-      "scripts/pacote_mercado.py",
-      "scripts/pacote_montar.py",
-      "scripts/pacote_normalizar.py",
-      "scripts/pacote_relacoes_convergencia.py",
-      "scripts/pdf_text.py",
-      "scripts/portao.py",
-      "scripts/portoes_eame.py",
-      "scripts/preservar_pdf.py",
-      "scripts/proto_es.py",
-      "scripts/proveniencia.py",
-      "scripts/rede.py",
-      "scripts/regua_italia.py",
-      "scripts/regulatorio_importar.py",
-      "scripts/ropf_pre_requisito.py",
-      "scripts/rotulos_baixar.py",
-      "scripts/rotulos_censo.py",
-      "scripts/rotulos_ler.py",
-      "scripts/sensor_canal_identidade.py",
-      "scripts/sensor_coleta.py",
-      "scripts/sensor_medir.py",
-      "scripts/site_v21_ingest.py",
-      "scripts/source_health.py",
-      "scripts/speaker_identidade.py",
-      "scripts/speaker_universo.py",
-      "scripts/sql_conferir.py",
-      "scripts/testa_rota_italia.py",
-      "scripts/texto_fonte.py",
-      "scripts/universo_ciencia_it.py",
-      "scripts/v21_aceitacao.py",
-      "scripts/v21_adama_registro_validar.py",
-      "scripts/v21_antes_e_depois.py",
-      "scripts/v21_cadeia.sh",
-      "scripts/v21_campos_de_lingua.py",
-      "scripts/v21_carimbar_origem.py",
-      "scripts/v21_comercial.py",
-      "scripts/v21_completude_oportunidade.py",
-      "scripts/v21_contrato_do_pacote.py",
-      "scripts/v21_crossings.py",
-      "scripts/v21_datas.py",
-      "scripts/v21_dominio_da_alegacao.py",
-      "scripts/v21_fechar.py",
-      "scripts/v21_fontes_faltantes.py",
-      "scripts/v21_fontes_rechavear.py",
-      "scripts/v21_geografia_contrato.py",
-      "scripts/v21_handoff_json.py",
-      "scripts/v21_ingest.py",
-      "scripts/v21_ingest_b.py",
-      "scripts/v21_ingest_c.py",
-      "scripts/v21_necessidade.py",
-      "scripts/v21_normalizar.py",
-      "scripts/v21_oportunidades.py",
-      "scripts/v21_procedencia_contrato.py",
-      "scripts/v21_procedencia_religar.py",
-      "scripts/v21_reavaliar_35.py",
-      "scripts/v21_reverificacao_ledger.py",
-      "scripts/v21_tm_colher.py",
-      "scripts/v21_traducao_trava.py",
-      "scripts/v21_vozes_reconciliar.py",
-      "scripts/v2_conflitos.py",
-      "scripts/v2_cruzamentos.py",
-      "scripts/v2_dedup_e_familias.py",
-      "scripts/v2_fechar.py",
-      "scripts/v2_montar_handoff.py",
-      "scripts/v2_qa_atribuir.py",
-      "scripts/v2_relatorio.py",
-      "scripts/voz.py",
-      "scripts/youtube_janela.py",
-      "scripts/youtube_relevancia.py",
-      "scripts/youtube_transcrever.py"
+      "scripts/.gitkeep"
     ],
     "supabase": [
       "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
@@ -1011,6 +1028,12 @@
       "supabase/tests/regressoes_coleta.sql",
       "supabase/tests/regressoes_lugar_do_fato.sql",
       "supabase/tests/regressoes_regulatorio_es.sql"
+    ],
+    "superficie": [
+      "superficie/ask_sintonia.py",
+      "superficie/it_casa_dados.py",
+      "superficie/proto_es.py",
+      "superficie/rede.py"
     ],
     "system-map": [
       "system-map/README.md",
@@ -1061,7 +1084,7 @@
   },
   "SEARCH_TERMS": [
     {
-      "file": "scripts/rotulos_censo.py",
+      "file": "regras/rotulos_censo.py",
       "line": 48,
       "variavel": "TERMOS",
       "grupos": [
@@ -1206,8 +1229,8 @@
       "total_palavras": 35
     },
     {
-      "file": "scripts/sensor_coleta.py",
-      "line": 131,
+      "file": "regras/sensor_coleta.py",
+      "line": 132,
       "variavel": "TERMOS",
       "grupos": [
         {
@@ -1370,8 +1393,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "592284cf33bad4386a58be92bd0661f43516e3cd",
-    "GENERATED_AT": "2026-09-07T11:31:54-03:00"
+    "HEAD": "b4991571c0037e9e81848f545e42a8c8df69a196",
+    "GENERATED_AT": "2026-09-07T11:59:23-03:00"
   },
   "FAMILIES": [
     {
@@ -1380,13 +1403,14 @@
       "why": "Trazer para dentro o que existe la fora. Nada no SINTONIA comeca sem passar por aqui.",
       "x": 260,
       "y": 60,
-      "w": 3720,
+      "w": 4425,
       "h": 1820,
       "zones": [
+        "Z-DISPARA",
         "Z-FONTES",
+        "Z-FERRAMENTAS",
         "Z-VEICULOS",
         "Z-REGRAS",
-        "Z-FERRAMENTAS",
         "Z-GUARDA"
       ],
       "count": 23
@@ -1395,7 +1419,7 @@
       "id": "F-INTELIGENCIA",
       "name": "INTELIGENCIA",
       "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa.",
-      "x": 4200,
+      "x": 4905,
       "y": 60,
       "w": 3845,
       "h": 1820,
@@ -1411,7 +1435,7 @@
       "id": "F-ENTREGA",
       "name": "ENTREGA",
       "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado.",
-      "x": 8265,
+      "x": 8970,
       "y": 60,
       "w": 2310,
       "h": 1820,
@@ -1425,29 +1449,61 @@
   ],
   "TERRITORIES": [
     {
+      "id": "Z-DISPARA",
+      "family": "F-COLETA",
+      "name": "1 · QUEM DISPARA",
+      "why": "O botao. Nada sai para buscar sem alguem mandar — e o que rodou fica no historico",
+      "views": [
+        "infra"
+      ],
+      "folder": null,
+      "x": 300,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 2
+    },
+    {
       "id": "Z-FONTES",
       "family": "F-COLETA",
-      "name": "1 · AS FONTES",
+      "name": "2 · AS FONTES",
       "why": "De onde o dado vem — de fora e de dentro. O acervo que se consulta ANTES de coletar, o que a ADAMA ja sabe de si, e a porta por onde entra fonte nova",
       "views": [
         "acervo"
       ],
-      "x": 300,
+      "folder": "fontes",
+      "x": 1005,
       "y": 190,
       "w": 405,
       "h": 1650,
       "count": 3
     },
     {
+      "id": "Z-FERRAMENTAS",
+      "family": "F-COLETA",
+      "name": "3 · AS FERRAMENTAS",
+      "why": "Com o que se vai: a rota paga, a rota gratis pelo navegador e a transcricao local",
+      "views": [
+        "infra"
+      ],
+      "folder": "ferramentas",
+      "x": 1710,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 4
+    },
+    {
       "id": "Z-VEICULOS",
       "family": "F-COLETA",
-      "name": "2 · OS VEICULOS",
+      "name": "4 · OS VEICULOS",
       "why": "Quem VAI BUSCAR. Se nao sai daqui para trazer alguma coisa, nao e veiculo — e informacao, regra ou ferramenta",
       "views": [
         "acervo",
         "infra"
       ],
-      "x": 1005,
+      "folder": "coleta",
+      "x": 2415,
       "y": 190,
       "w": 820,
       "h": 1650,
@@ -1456,45 +1512,33 @@
     {
       "id": "Z-REGRAS",
       "family": "F-COLETA",
-      "name": "3 · AS REGRAS E AS PALAVRAS",
+      "name": "5 · AS REGRAS E AS PALAVRAS",
       "why": "O que pode ser coletado, de quem, e com que termo escrito na lingua do pais. Veiculo sem regra atropela",
       "views": [
         "acervo",
         "audit"
       ],
-      "x": 2125,
+      "folder": "regras",
+      "x": 3535,
       "y": 190,
       "w": 405,
       "h": 1650,
       "count": 5
     },
     {
-      "id": "Z-FERRAMENTAS",
-      "family": "F-COLETA",
-      "name": "4 · AS FERRAMENTAS",
-      "why": "Com o que se vai: a rota paga, a rota gratis pelo navegador, o despachador e a transcricao local",
-      "views": [
-        "infra"
-      ],
-      "x": 2830,
-      "y": 190,
-      "w": 405,
-      "h": 1650,
-      "count": 4
-    },
-    {
       "id": "Z-GUARDA",
       "family": "F-COLETA",
-      "name": "5 · ONDE FICA E QUEM DISPARA",
-      "why": "Onde o que voltou dorme entre uma corrida e outra, e o botao que manda ir",
+      "name": "6 · ONDE GUARDA A COLETA",
+      "why": "Onde o que voltou dorme entre uma corrida e outra",
       "views": [
         "infra"
       ],
-      "x": 3535,
+      "folder": "guarda",
+      "x": 4240,
       "y": 190,
       "w": 405,
       "h": 1650,
-      "count": 4
+      "count": 2
     },
     {
       "id": "Z-LINEAGE",
@@ -1505,7 +1549,8 @@
         "lineage",
         "official"
       ],
-      "x": 4240,
+      "folder": null,
+      "x": 4945,
       "y": 190,
       "w": 405,
       "h": 1650,
@@ -1520,7 +1565,8 @@
         "opportunity",
         "science"
       ],
-      "x": 4945,
+      "folder": "leis",
+      "x": 5650,
       "y": 190,
       "w": 820,
       "h": 1650,
@@ -1535,7 +1581,8 @@
         "generator",
         "opportunity"
       ],
-      "x": 6065,
+      "folder": "motor",
+      "x": 6770,
       "y": 190,
       "w": 820,
       "h": 1650,
@@ -1550,7 +1597,8 @@
         "audit",
         "infra"
       ],
-      "x": 7185,
+      "folder": "provas",
+      "x": 7890,
       "y": 190,
       "w": 820,
       "h": 1650,
@@ -1565,7 +1613,8 @@
         "generator",
         "portal"
       ],
-      "x": 8305,
+      "folder": "pacote",
+      "x": 9010,
       "y": 190,
       "w": 405,
       "h": 1650,
@@ -1580,7 +1629,8 @@
         "portal",
         "audit"
       ],
-      "x": 9010,
+      "folder": "portoes",
+      "x": 9715,
       "y": 190,
       "w": 820,
       "h": 1650,
@@ -1595,7 +1645,8 @@
         "portal",
         "meeting"
       ],
-      "x": 10130,
+      "folder": "superficie",
+      "x": 10835,
       "y": 190,
       "w": 405,
       "h": 1650,
@@ -1634,8 +1685,8 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/adama_es_gate.py",
-        "scripts/adama_es_import_rules.py"
+        "regras/adama_es_gate.py",
+        "regras/adama_es_import_rules.py"
       ],
       "file_count": 2,
       "status": "PROVEN",
@@ -1648,7 +1699,7 @@
       "outbound": [
         "C-SUPABASE"
       ],
-      "x": 2185,
+      "x": 3595,
       "y": 360
     },
     {
@@ -1672,15 +1723,15 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/adama_catalogo_ler.py",
-        "scripts/adama_catalogo_montar.py",
-        "scripts/adama_it_eu.py",
-        "scripts/adama_it_frac.py",
-        "scripts/adama_it_gaps.py",
-        "scripts/adama_it_intelligence.py",
-        "scripts/adama_it_labels.py",
-        "scripts/adama_it_moa.py",
-        "scripts/adama_it_qa.py"
+        "fontes/adama_catalogo_ler.py",
+        "fontes/adama_catalogo_montar.py",
+        "fontes/adama_it_eu.py",
+        "fontes/adama_it_frac.py",
+        "fontes/adama_it_gaps.py",
+        "fontes/adama_it_intelligence.py",
+        "fontes/adama_it_labels.py",
+        "fontes/adama_it_moa.py",
+        "fontes/adama_it_qa.py"
       ],
       "file_count": 9,
       "status": "UNKNOWN",
@@ -1688,7 +1739,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 360,
+      "x": 1065,
       "y": 360
     },
     {
@@ -1710,10 +1761,10 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/apify_contrato.py",
-        "scripts/apify_pool.py",
-        "scripts/apify_recuperar.py",
-        "scripts/contrato_ator.py"
+        "ferramentas/apify_contrato.py",
+        "ferramentas/apify_pool.py",
+        "ferramentas/apify_recuperar.py",
+        "ferramentas/contrato_ator.py"
       ],
       "file_count": 4,
       "status": "PROVEN",
@@ -1729,7 +1780,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 2890,
+      "x": 1770,
       "y": 360
     },
     {
@@ -1763,7 +1814,7 @@
         "C-PORTAL-CASCO"
       ],
       "outbound": [],
-      "x": 8365,
+      "x": 9070,
       "y": 360
     },
     {
@@ -1903,7 +1954,7 @@
               "atualiza": "semanal — a página declara a data da última atualização da base (\"viernes, 28 de agosto de",
               "exemplo": "ES-01717 · SORATEL MAX · titular ADAMA Agriculture España S.A. · fabricante ADAMA Agricultural Solutions Ltd. · planta (Neot Hovav) · azoxistrobina 20% + protioconazol 15% · Vigente · cebada, centeno, trigo, triticale",
               "contrato": {
-                "retrieval_method": "scripts/mapa_regfi.py {producto|export|total|divergencia}",
+                "retrieval_method": "coleta/mapa_regfi.py {producto|export|total|divergencia}",
                 "http_method": "GET (grade, ficha, PDF) · POST (export)",
                 "parameters": "NumRegistro · Titular · Fabricante · IdEstado · IdSustancia … (export: dataDto[<filtro>])",
                 "auth_required": "não",
@@ -1992,7 +2043,7 @@
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
-              "como_se_entra": "**a mesma infraestrutura já provada em EU-T4-001** — SPARQL + content negotiation. Muda apenas a consulta. `./scripts/cellar.sh sparql \"<consulta>\"`",
+              "como_se_entra": "**a mesma infraestrutura já provada em EU-T4-001** — SPARQL + content negotiation. Muda apenas a consulta. `./coleta/cellar.sh sparql \"<consulta>\"`",
               "dono": "Publications Office of the European Union",
               "url": "",
               "atualiza": "contínua",
@@ -2073,7 +2124,7 @@
               "atualiza": "contínua (cada edição do Jornal Oficial)",
               "exemplo": "CELEX 32026R1696 — Reg. Exec. (UE) 2026/1696, de 14/07/2026, renova a aprovação da substância ativa ácido pelargônico (CAS 112-05-0, CIPAC 888), pureza >= 889 g/kg, aprovação 2026-10-01, expiração 2041-09-30. Texto integral obtido em EN, FR, ES e IT.",
               "contrato": {
-                "retrieval_method": "scripts/cellar.sh {sparql|act|substances}",
+                "retrieval_method": "coleta/cellar.sh {sparql|act|substances}",
                 "http_method": "GET",
                 "parameters": "query SPARQL · CELEX · iso3 do idioma",
                 "auth_required": "não",
@@ -2177,13 +2228,13 @@
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": true,
-              "como_se_entra": "CSV e XML em ZIP, resolvidos pela API do data.gouv.fr. Sem chave, sem scraping. `scripts/ephy.sh download`.",
+              "como_se_entra": "CSV e XML em ZIP, resolvidos pela API do data.gouv.fr. Sem chave, sem scraping. `coleta/ephy.sh download`.",
               "dono": "ANSES (Agence nationale de sécurité sanitaire) via data.gouv.fr",
               "url": "https://www.data.gouv.fr/datasets/donnees-ouvertes-du-catalogue-e-phy-des-produits-phytopharmaceutiques-matieres-fertilisantes-et-supports-de-culture-adjuvants-produits-mixtes-et-melanges",
               "atualiza": "semanal (declarada e confirmada: versão de 2026-08-25)",
               "exemplo": "15.140 produtos; 18.558 usos autorizados. AMM 2080088 \"NEMO\" (ADAMA FRANCE SAS), nicosulfuron 40 g/L, herbicida, uso Maïs*Désherbage, dose 1,5 L/ha, ZNT aquática 20 m, decisão de 08/07/2014.",
               "contrato": {
-                "retrieval_method": "scripts/ephy.sh download [destino]",
+                "retrieval_method": "coleta/ephy.sh download [destino]",
                 "http_method": "GET (API do catálogo) + GET (ZIP resolvido)",
                 "parameters": "nenhum — o id do dataset é fixo",
                 "auth_required": "não",
@@ -2233,7 +2284,7 @@
               "atualiza": "o nome do arquivo é datado; versão obtida de 2026-08-24",
               "exemplo": "17.695 produtos; 3.712 em vigor. ADAMA ITALIA S.R.L. com 155 autorizações de vencimento futuro — 58 nos próximos 6 meses. Reg. 008929 TOPIK 240 EC (clodinafop + cloquintocet mexyl), vencimento 31/07/2027.",
               "contrato": {
-                "retrieval_method": "scripts/chain.py run it-prothioconazole — o nome datado do arquivo é DESCOBERTO na página do dataset, nunca chutado",
+                "retrieval_method": "motor/chain.py run it-prothioconazole — o nome datado do arquivo é DESCOBERTO na página do dataset, nunca chutado",
                 "http_method": "GET (página) + GET (CSV)",
                 "parameters": "nenhum",
                 "auth_required": "não",
@@ -2960,7 +3011,7 @@
         "leitura": "O cabecalho do atlas diz 37 fontes registradas; fichas completas, com SOURCE_ID valido, ha 23. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
       },
       "intake": {
-        "porta": "scripts/fonte_nova.py",
+        "porta": "fontes/fonte_nova.py",
         "fila_file": "data/samples/FONTES-CANDIDATAS.json",
         "tipos_aceites": [],
         "escada": [
@@ -3002,7 +3053,7 @@
         "nao_verificadas": 5
       },
       "file_count": 3,
-      "x": 360,
+      "x": 1065,
       "y": 682
     },
     {
@@ -3027,8 +3078,8 @@
       "lane": "official",
       "family": "F-ENTREGA",
       "files": [
-        "scripts/ask_sintonia.py",
-        "scripts/rede.py"
+        "superficie/ask_sintonia.py",
+        "superficie/rede.py"
       ],
       "file_count": 2,
       "status": "PROVEN",
@@ -3038,7 +3089,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 10190,
+      "x": 10895,
       "y": 360
     },
     {
@@ -3092,7 +3143,7 @@
       "outbound": [
         "C-AUDIT-HARNESS"
       ],
-      "x": 9070,
+      "x": 9775,
       "y": 360
     },
     {
@@ -3141,7 +3192,7 @@
         "C-AUDIT-HARNESS",
         "C-PORTAL-CASCO"
       ],
-      "x": 9485,
+      "x": 10190,
       "y": 360
     },
     {
@@ -3229,7 +3280,7 @@
         "C-AUDIT-HARNESS",
         "C-PORTAO-BUILD"
       ],
-      "x": 9070,
+      "x": 9775,
       "y": 682
     },
     {
@@ -3270,7 +3321,7 @@
         "C-PORTAO-BUILD"
       ],
       "outbound": [],
-      "x": 9485,
+      "x": 10190,
       "y": 682
     },
     {
@@ -3308,7 +3359,7 @@
         "C-AUDIT-HARNESS",
         "C-RELEVANCIA"
       ],
-      "x": 9070,
+      "x": 9775,
       "y": 1004
     },
     {
@@ -3331,9 +3382,9 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/cadeia_canonica.sh",
-        "scripts/chain.py",
-        "scripts/v21_cadeia.sh"
+        "motor/cadeia_canonica.sh",
+        "motor/chain.py",
+        "motor/v21_cadeia.sh"
       ],
       "file_count": 3,
       "status": "PROVEN",
@@ -3343,7 +3394,6 @@
         "C-CI-PERSIST",
         "C-CI-REGRESSAO",
         "C-PACOTE-CAMADAS",
-        "C-REGRA-COLETA",
         "C-TESTES"
       ],
       "outbound": [
@@ -3360,13 +3410,13 @@
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
       ],
-      "x": 6125,
+      "x": 6830,
       "y": 360
     },
     {
       "id": "C-CI-COLETA",
       "name": "Os botoes que disparam a coleta",
-      "territory": "Z-GUARDA",
+      "territory": "Z-DISPARA",
       "kind": "workflow",
       "what": "Os botoes que disparam coleta paga, sempre com a fase gratuita rodando primeiro.",
       "why_here": "Coleta paga sem contrato conferido antes ja queimou execucoes.",
@@ -3401,7 +3451,7 @@
         "C-PALAVRAS",
         "C-TESTES"
       ],
-      "x": 3595,
+      "x": 360,
       "y": 360
     },
     {
@@ -3437,13 +3487,13 @@
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR"
       ],
-      "x": 7245,
+      "x": 7950,
       "y": 360
     },
     {
       "id": "C-CI-PERSIST",
       "name": "Os botoes que cuidam do banco",
-      "territory": "Z-GUARDA",
+      "territory": "Z-DISPARA",
       "kind": "workflow",
       "what": "Conferem a conexao com o banco, rodam migracao e provam que o dado volta igual ao que entrou.",
       "why_here": "Migracao sem prova de ida e volta e perda de dado com aparencia de sucesso.",
@@ -3474,7 +3524,7 @@
         "C-CADEIA-V21",
         "C-MEDICAO"
       ],
-      "x": 3595,
+      "x": 360,
       "y": 682
     },
     {
@@ -3509,7 +3559,7 @@
         "C-IMPORTAR",
         "C-MEDICAO"
       ],
-      "x": 7660,
+      "x": 8365,
       "y": 360
     },
     {
@@ -3532,7 +3582,7 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/cicatrizes_brasil.py"
+        "leis/cicatrizes_brasil.py"
       ],
       "file_count": 1,
       "status": "PROVEN",
@@ -3546,7 +3596,7 @@
         "C-PROVENIENCIA",
         "C-TESTES"
       ],
-      "x": 5005,
+      "x": 5710,
       "y": 360
     },
     {
@@ -3569,9 +3619,9 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/coleta_checkpoint.py",
-        "scripts/coletor.py",
-        "scripts/filas.py"
+        "coleta/coleta_checkpoint.py",
+        "coleta/coletor.py",
+        "coleta/filas.py"
       ],
       "file_count": 3,
       "status": "PROVEN",
@@ -3587,7 +3637,7 @@
         "C-APIFY-POOL",
         "C-PROVENIENCIA"
       ],
-      "x": 1065,
+      "x": 2475,
       "y": 360
     },
     {
@@ -3610,17 +3660,16 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/instagram_coleta.py",
-        "scripts/instagram_diario.py",
-        "scripts/instagram_janela.py",
-        "scripts/instagram_pessoal.py"
+        "coleta/instagram_coleta.py",
+        "coleta/instagram_diario.py",
+        "coleta/instagram_janela.py",
+        "coleta/instagram_pessoal.py"
       ],
       "file_count": 4,
       "status": "PROVEN",
       "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
       "changed_since_declared": [],
       "inbound": [
-        "C-PORTA-FONTE",
         "C-SINTONIA-SCRAP",
         "C-TRANSCRICAO"
       ],
@@ -3631,7 +3680,7 @@
         "C-NAVEGADOR",
         "C-PROVENIENCIA"
       ],
-      "x": 1480,
+      "x": 2890,
       "y": 360
     },
     {
@@ -3655,9 +3704,9 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/comunicacao_classificar.py",
-        "scripts/comunicacao_coleta.py",
-        "scripts/comunicacao_medir.py"
+        "coleta/comunicacao_classificar.py",
+        "coleta/comunicacao_coleta.py",
+        "coleta/comunicacao_medir.py"
       ],
       "file_count": 3,
       "status": "PROVEN",
@@ -3671,7 +3720,7 @@
         "C-APIFY-POOL",
         "C-COLETA-BASE"
       ],
-      "x": 1065,
+      "x": 2475,
       "y": 682
     },
     {
@@ -3695,8 +3744,8 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/youtube_janela.py",
-        "scripts/youtube_relevancia.py"
+        "coleta/youtube_janela.py",
+        "coleta/youtube_relevancia.py"
       ],
       "file_count": 2,
       "status": "PROVEN",
@@ -3709,7 +3758,7 @@
         "C-NAVEGADOR",
         "C-PALAVRAS"
       ],
-      "x": 1480,
+      "x": 2890,
       "y": 682
     },
     {
@@ -3734,12 +3783,12 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/corpus_es.py",
-        "scripts/corpus_pesquisador.py",
-        "scripts/sensor_canal_identidade.py",
-        "scripts/speaker_identidade.py",
-        "scripts/speaker_universo.py",
-        "scripts/universo_ciencia_it.py"
+        "coleta/corpus_es.py",
+        "coleta/corpus_pesquisador.py",
+        "coleta/sensor_canal_identidade.py",
+        "coleta/speaker_identidade.py",
+        "coleta/speaker_universo.py",
+        "coleta/universo_ciencia_it.py"
       ],
       "file_count": 6,
       "status": "UNKNOWN",
@@ -3747,7 +3796,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 1065,
+      "x": 2475,
       "y": 1004
     },
     {
@@ -3771,9 +3820,9 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/calendario_handoff.py",
-        "scripts/data_clock.py",
-        "scripts/v21_datas.py"
+        "leis/calendario_handoff.py",
+        "leis/data_clock.py",
+        "leis/v21_datas.py"
       ],
       "file_count": 3,
       "status": "PROVEN",
@@ -3787,7 +3836,7 @@
       "outbound": [
         "C-SUPABASE"
       ],
-      "x": 5420,
+      "x": 6125,
       "y": 360
     },
     {
@@ -3839,7 +3888,7 @@
         "C-PORTAL-CASCO"
       ],
       "outbound": [],
-      "x": 10190,
+      "x": 10895,
       "y": 682
     },
     {
@@ -3864,13 +3913,13 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/agrifood_ue.py",
-        "scripts/cellar.sh",
-        "scripts/denominaciones.py",
-        "scripts/ephy.sh",
-        "scripts/eppo_gd.py",
-        "scripts/eu_substancia_adama_it.py",
-        "scripts/regulatorio_importar.py"
+        "coleta/agrifood_ue.py",
+        "coleta/cellar.sh",
+        "coleta/denominaciones.py",
+        "coleta/ephy.sh",
+        "coleta/eppo_gd.py",
+        "coleta/eu_substancia_adama_it.py",
+        "coleta/regulatorio_importar.py"
       ],
       "file_count": 7,
       "status": "PROVEN",
@@ -3878,14 +3927,13 @@
       "changed_since_declared": [],
       "inbound": [
         "C-CADEIA-V21",
-        "C-REGRA-COLETA",
         "C-TESTES",
         "C-V21-INGEST"
       ],
       "outbound": [
         "C-ROTULOS"
       ],
-      "x": 1480,
+      "x": 2890,
       "y": 1004
     },
     {
@@ -3910,9 +3958,9 @@
       "family": "F-COLETA",
       "files": [
         "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json",
-        "scripts/comunicacao_identidade.py",
-        "scripts/comunicacao_lote.py",
-        "scripts/comunicacao_universo.py"
+        "regras/comunicacao_identidade.py",
+        "regras/comunicacao_lote.py",
+        "regras/comunicacao_universo.py"
       ],
       "file_count": 4,
       "status": "PROVEN",
@@ -3923,7 +3971,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 2185,
+      "x": 3595,
       "y": 682
     },
     {
@@ -3945,8 +3993,8 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/catalogo_importar.py",
-        "scripts/importar_italia.py"
+        "guarda/catalogo_importar.py",
+        "guarda/importar_italia.py"
       ],
       "file_count": 2,
       "status": "PROVEN",
@@ -3956,8 +4004,8 @@
         "C-CI-REGRESSAO"
       ],
       "outbound": [],
-      "x": 3595,
-      "y": 1004
+      "x": 4300,
+      "y": 360
     },
     {
       "id": "C-LASTMILE",
@@ -3980,12 +4028,12 @@
       "lane": "official",
       "family": "F-ENTREGA",
       "files": [
-        "scripts/lastmile_entregar.py",
-        "scripts/lastmile_inventario.py",
-        "scripts/lastmile_para_supabase.py",
-        "scripts/lastmile_relatorio.py",
-        "scripts/ler_saida_leque.py",
-        "scripts/meeting_snapshot.py"
+        "pacote/lastmile_entregar.py",
+        "pacote/lastmile_inventario.py",
+        "pacote/lastmile_para_supabase.py",
+        "pacote/lastmile_relatorio.py",
+        "pacote/ler_saida_leque.py",
+        "pacote/meeting_snapshot.py"
       ],
       "file_count": 6,
       "status": "UNKNOWN",
@@ -3993,7 +4041,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 8365,
+      "x": 9070,
       "y": 682
     },
     {
@@ -4017,10 +4065,10 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/fato_local.py",
-        "scripts/gire_mapas.py",
-        "scripts/lugar_do_fato.py",
-        "scripts/v21_geografia_contrato.py"
+        "leis/fato_local.py",
+        "leis/gire_mapas.py",
+        "leis/lugar_do_fato.py",
+        "leis/v21_geografia_contrato.py"
       ],
       "file_count": 4,
       "status": "PROVEN",
@@ -4033,7 +4081,7 @@
       "outbound": [
         "C-V21-INGEST"
       ],
-      "x": 5005,
+      "x": 5710,
       "y": 682
     },
     {
@@ -4069,7 +4117,7 @@
         "C-MAPA-GERADOR"
       ],
       "outbound": [],
-      "x": 7245,
+      "x": 7950,
       "y": 682
     },
     {
@@ -4108,7 +4156,7 @@
         "C-MAPA-SCAN",
         "lineage_stale"
       ],
-      "x": 7660,
+      "x": 8365,
       "y": 682
     },
     {
@@ -4147,7 +4195,7 @@
         "C-AS-FONTES",
         "C-PORTA-FONTE"
       ],
-      "x": 7245,
+      "x": 7950,
       "y": 1004
     },
     {
@@ -4182,7 +4230,7 @@
       "outbound": [
         "C-AS-FONTES"
       ],
-      "x": 7660,
+      "x": 8365,
       "y": 1004
     },
     {
@@ -4218,7 +4266,7 @@
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN"
       ],
-      "x": 7245,
+      "x": 7950,
       "y": 1326
     },
     {
@@ -4242,12 +4290,12 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/auditoria.py",
-        "scripts/corrigir_custo.py",
-        "scripts/coverage.py",
-        "scripts/freeze_es.py",
-        "scripts/inventario_esperado.py",
-        "scripts/testa_rota_italia.py"
+        "provas/auditoria.py",
+        "provas/corrigir_custo.py",
+        "provas/coverage.py",
+        "provas/freeze_es.py",
+        "provas/inventario_esperado.py",
+        "provas/testa_rota_italia.py"
       ],
       "file_count": 6,
       "status": "PROVEN",
@@ -4258,11 +4306,10 @@
         "C-CI-PERSIST",
         "C-CI-REGRESSAO",
         "C-COLETA-INSTAGRAM",
-        "C-REGRA-COLETA",
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 7660,
+      "x": 8365,
       "y": 1326
     },
     {
@@ -4284,8 +4331,8 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/cdp.py",
-        "scripts/navegador.py"
+        "ferramentas/cdp.py",
+        "ferramentas/navegador.py"
       ],
       "file_count": 2,
       "status": "PROVEN",
@@ -4299,7 +4346,7 @@
         "C-TRANSCRICAO"
       ],
       "outbound": [],
-      "x": 2890,
+      "x": 1770,
       "y": 682
     },
     {
@@ -4322,17 +4369,17 @@
       "lane": "official",
       "family": "F-ENTREGA",
       "files": [
-        "scripts/metricas_canonicas.py",
-        "scripts/pacote.py",
-        "scripts/pacote_camadas.py",
-        "scripts/pacote_camadas2.py",
-        "scripts/pacote_camadas3.py",
-        "scripts/pacote_docs.py",
-        "scripts/pacote_fenologia.py",
-        "scripts/pacote_mercado.py",
-        "scripts/pacote_montar.py",
-        "scripts/pacote_relacoes_convergencia.py",
-        "scripts/v21_handoff_json.py"
+        "pacote/metricas_canonicas.py",
+        "pacote/pacote.py",
+        "pacote/pacote_camadas.py",
+        "pacote/pacote_camadas2.py",
+        "pacote/pacote_camadas3.py",
+        "pacote/pacote_docs.py",
+        "pacote/pacote_fenologia.py",
+        "pacote/pacote_mercado.py",
+        "pacote/pacote_montar.py",
+        "pacote/pacote_relacoes_convergencia.py",
+        "pacote/v21_handoff_json.py"
       ],
       "file_count": 11,
       "status": "PROVEN",
@@ -4348,7 +4395,7 @@
         "C-V21-CRUZAMENTO",
         "C-V21-INGEST"
       ],
-      "x": 8365,
+      "x": 9070,
       "y": 1004
     },
     {
@@ -4372,9 +4419,9 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/rotulos_censo.py",
-        "scripts/sensor_coleta.py",
-        "scripts/sensor_medir.py"
+        "regras/rotulos_censo.py",
+        "regras/sensor_coleta.py",
+        "regras/sensor_medir.py"
       ],
       "file_count": 3,
       "status": "PROVEN",
@@ -4390,7 +4437,7 @@
         "C-COLETA-BASE",
         "C-PROVENIENCIA"
       ],
-      "x": 2185,
+      "x": 3595,
       "y": 1004
     },
     {
@@ -4413,7 +4460,7 @@
       "family": "F-COLETA",
       "files": [
         "data/samples/FONTES-CANDIDATAS.json",
-        "scripts/fonte_nova.py"
+        "fontes/fonte_nova.py"
       ],
       "file_count": 2,
       "status": "PENDING",
@@ -4422,10 +4469,8 @@
       "inbound": [
         "C-MAPA-SCAN"
       ],
-      "outbound": [
-        "C-COLETA-INSTAGRAM"
-      ],
-      "x": 360,
+      "outbound": [],
+      "x": 1065,
       "y": 1004
     },
     {
@@ -4468,7 +4513,7 @@
         "C-PORTAL-DADOS",
         "C-PORTAL-MODELO"
       ],
-      "x": 10190,
+      "x": 10895,
       "y": 1004
     },
     {
@@ -4507,8 +4552,8 @@
         "italia-portale/client/meeting-intelligence-snapshot.js",
         "italia-portale/client/meeting-labels.js",
         "italia-portale/client/meeting-surface.js",
-        "scripts/it_casa_dados.py",
-        "scripts/proto_es.py"
+        "superficie/it_casa_dados.py",
+        "superficie/proto_es.py"
       ],
       "file_count": 15,
       "status": "PROVEN",
@@ -4521,7 +4566,7 @@
       "outbound": [
         "C-RELEVANCIA"
       ],
-      "x": 10190,
+      "x": 10895,
       "y": 1326
     },
     {
@@ -4560,7 +4605,7 @@
       "outbound": [
         "C-PORTAL-DADOS"
       ],
-      "x": 10190,
+      "x": 10895,
       "y": 1648
     },
     {
@@ -4599,7 +4644,7 @@
         "C-AUDIT-HARNESS",
         "lineage_stale"
       ],
-      "x": 9485,
+      "x": 10190,
       "y": 1004
     },
     {
@@ -4623,10 +4668,10 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/proveniencia.py",
-        "scripts/v21_carimbar_origem.py",
-        "scripts/v21_procedencia_contrato.py",
-        "scripts/v21_procedencia_religar.py"
+        "leis/proveniencia.py",
+        "leis/v21_carimbar_origem.py",
+        "leis/v21_procedencia_contrato.py",
+        "leis/v21_procedencia_religar.py"
       ],
       "file_count": 4,
       "status": "PROVEN",
@@ -4642,7 +4687,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 5420,
+      "x": 6125,
       "y": 682
     },
     {
@@ -4668,8 +4713,8 @@
       "files": [
         "docs/operacao/PORTOES-DE-COLETA-10B.md",
         "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md",
-        "scripts/portao.py",
-        "scripts/portoes_eame.py"
+        "regras/portao.py",
+        "regras/portoes_eame.py"
       ],
       "file_count": 4,
       "status": "PROVEN",
@@ -4679,14 +4724,11 @@
         "C-TESTES"
       ],
       "outbound": [
-        "C-CADEIA-V21",
         "C-CICATRIZES-BR",
-        "C-FONTES-EU",
-        "C-MEDICAO",
         "C-PROVENIENCIA",
         "C-VOZ"
       ],
-      "x": 2185,
+      "x": 3595,
       "y": 1326
     },
     {
@@ -4710,9 +4752,9 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/adama_relevance.py",
-        "scripts/auditoria_regua_comercial.py",
-        "scripts/regua_italia.py"
+        "leis/adama_relevance.py",
+        "leis/auditoria_regua_comercial.py",
+        "leis/regua_italia.py"
       ],
       "file_count": 3,
       "status": "PROVEN",
@@ -4726,7 +4768,7 @@
       "outbound": [
         "C-PALAVRAS"
       ],
-      "x": 5005,
+      "x": 5710,
       "y": 1004
     },
     {
@@ -4750,13 +4792,13 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/cruzar_regua_rotulo.py",
-        "scripts/mapa_regfi.py",
-        "scripts/pdf_text.py",
-        "scripts/preservar_pdf.py",
-        "scripts/ropf_pre_requisito.py",
-        "scripts/rotulos_baixar.py",
-        "scripts/rotulos_ler.py"
+        "coleta/cruzar_regua_rotulo.py",
+        "coleta/mapa_regfi.py",
+        "coleta/pdf_text.py",
+        "coleta/preservar_pdf.py",
+        "coleta/ropf_pre_requisito.py",
+        "coleta/rotulos_baixar.py",
+        "coleta/rotulos_ler.py"
       ],
       "file_count": 7,
       "status": "PROVEN",
@@ -4768,7 +4810,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 1065,
+      "x": 2475,
       "y": 1326
     },
     {
@@ -4791,7 +4833,7 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/source_health.py"
+        "regras/source_health.py"
       ],
       "file_count": 1,
       "status": "PROVEN",
@@ -4802,7 +4844,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 2185,
+      "x": 3595,
       "y": 1648
     },
     {
@@ -4840,7 +4882,7 @@
         "C-NAVEGADOR",
         "C-TRANSCRICAO"
       ],
-      "x": 2890,
+      "x": 1770,
       "y": 1004
     },
     {
@@ -4863,8 +4905,8 @@
       "lane": "official",
       "family": "F-ENTREGA",
       "files": [
-        "scripts/build_portal.py",
-        "scripts/site_v21_ingest.py"
+        "portoes/build_portal.py",
+        "portoes/site_v21_ingest.py"
       ],
       "file_count": 2,
       "status": "PENDING",
@@ -4875,7 +4917,7 @@
         "C-AS-FONTES",
         "lineage_stale"
       ],
-      "x": 9070,
+      "x": 9775,
       "y": 1326
     },
     {
@@ -4897,7 +4939,7 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/sql_conferir.py",
+        "guarda/sql_conferir.py",
         "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
         "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql",
         "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql",
@@ -4951,8 +4993,8 @@
         "C-DATA-CLOCK"
       ],
       "outbound": [],
-      "x": 3595,
-      "y": 1326
+      "x": 4300,
+      "y": 682
     },
     {
       "id": "C-TESTES",
@@ -5040,7 +5082,7 @@
         "C-V21-OPORTUNIDADE",
         "C-VOZ"
       ],
-      "x": 7245,
+      "x": 7950,
       "y": 1648
     },
     {
@@ -5063,8 +5105,8 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "scripts/instagram_transcrever.py",
-        "scripts/youtube_transcrever.py"
+        "ferramentas/instagram_transcrever.py",
+        "ferramentas/youtube_transcrever.py"
       ],
       "file_count": 2,
       "status": "PROVEN",
@@ -5077,7 +5119,7 @@
         "C-COLETA-INSTAGRAM",
         "C-NAVEGADOR"
       ],
-      "x": 2890,
+      "x": 1770,
       "y": 1326
     },
     {
@@ -5100,13 +5142,13 @@
       "lane": "legacy",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/v2_conflitos.py",
-        "scripts/v2_cruzamentos.py",
-        "scripts/v2_dedup_e_familias.py",
-        "scripts/v2_fechar.py",
-        "scripts/v2_montar_handoff.py",
-        "scripts/v2_qa_atribuir.py",
-        "scripts/v2_relatorio.py"
+        "motor/v2_conflitos.py",
+        "motor/v2_cruzamentos.py",
+        "motor/v2_dedup_e_familias.py",
+        "motor/v2_fechar.py",
+        "motor/v2_montar_handoff.py",
+        "motor/v2_qa_atribuir.py",
+        "motor/v2_relatorio.py"
       ],
       "file_count": 7,
       "status": "UNKNOWN",
@@ -5114,7 +5156,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 6540,
+      "x": 7245,
       "y": 360
     },
     {
@@ -5139,15 +5181,15 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/v21_adama_registro_validar.py",
-        "scripts/v21_antes_e_depois.py",
-        "scripts/v21_campos_de_lingua.py",
-        "scripts/v21_comercial.py",
-        "scripts/v21_completude_oportunidade.py",
-        "scripts/v21_necessidade.py",
-        "scripts/v21_reavaliar_35.py",
-        "scripts/v21_reverificacao_ledger.py",
-        "scripts/v21_tm_colher.py"
+        "motor/v21_adama_registro_validar.py",
+        "motor/v21_antes_e_depois.py",
+        "motor/v21_campos_de_lingua.py",
+        "motor/v21_comercial.py",
+        "motor/v21_completude_oportunidade.py",
+        "motor/v21_necessidade.py",
+        "motor/v21_reavaliar_35.py",
+        "motor/v21_reverificacao_ledger.py",
+        "motor/v21_tm_colher.py"
       ],
       "file_count": 9,
       "status": "PROVEN",
@@ -5163,7 +5205,7 @@
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
       ],
-      "x": 6125,
+      "x": 6830,
       "y": 682
     },
     {
@@ -5187,9 +5229,9 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/v21_aceitacao.py",
-        "scripts/v21_contrato_do_pacote.py",
-        "scripts/v21_traducao_trava.py"
+        "motor/v21_aceitacao.py",
+        "motor/v21_contrato_do_pacote.py",
+        "motor/v21_traducao_trava.py"
       ],
       "file_count": 3,
       "status": "PROVEN",
@@ -5203,7 +5245,7 @@
       "outbound": [
         "C-V21-COMERCIAL"
       ],
-      "x": 6540,
+      "x": 7245,
       "y": 682
     },
     {
@@ -5227,10 +5269,10 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/consolidar_leque.py",
-        "scripts/matriz_recorte.py",
-        "scripts/pacote_convergencia.py",
-        "scripts/v21_crossings.py"
+        "motor/consolidar_leque.py",
+        "motor/matriz_recorte.py",
+        "motor/pacote_convergencia.py",
+        "motor/v21_crossings.py"
       ],
       "file_count": 4,
       "status": "PROVEN",
@@ -5243,7 +5285,7 @@
       "outbound": [
         "C-V21-INGEST"
       ],
-      "x": 6125,
+      "x": 6830,
       "y": 1004
     },
     {
@@ -5267,9 +5309,9 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/v21_fontes_faltantes.py",
-        "scripts/v21_fontes_rechavear.py",
-        "scripts/v21_vozes_reconciliar.py"
+        "motor/v21_fontes_faltantes.py",
+        "motor/v21_fontes_rechavear.py",
+        "motor/v21_vozes_reconciliar.py"
       ],
       "file_count": 3,
       "status": "PROVEN",
@@ -5279,7 +5321,7 @@
         "C-CADEIA-V21"
       ],
       "outbound": [],
-      "x": 6540,
+      "x": 7245,
       "y": 1004
     },
     {
@@ -5302,13 +5344,13 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/normalize_agro.py",
-        "scripts/normalize_substance.py",
-        "scripts/pacote_normalizar.py",
-        "scripts/v21_ingest.py",
-        "scripts/v21_ingest_b.py",
-        "scripts/v21_ingest_c.py",
-        "scripts/v21_normalizar.py"
+        "motor/normalize_agro.py",
+        "motor/normalize_substance.py",
+        "motor/pacote_normalizar.py",
+        "motor/v21_ingest.py",
+        "motor/v21_ingest_b.py",
+        "motor/v21_ingest_c.py",
+        "motor/v21_normalizar.py"
       ],
       "file_count": 7,
       "status": "PROVEN",
@@ -5326,7 +5368,7 @@
         "C-DATA-CLOCK",
         "C-FONTES-EU"
       ],
-      "x": 6125,
+      "x": 6830,
       "y": 1326
     },
     {
@@ -5351,9 +5393,9 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/v21_dominio_da_alegacao.py",
-        "scripts/v21_fechar.py",
-        "scripts/v21_oportunidades.py"
+        "motor/v21_dominio_da_alegacao.py",
+        "motor/v21_fechar.py",
+        "motor/v21_oportunidades.py"
       ],
       "file_count": 3,
       "status": "PROVEN",
@@ -5368,7 +5410,7 @@
         "C-DATA-CLOCK",
         "C-V21-COMERCIAL"
       ],
-      "x": 6540,
+      "x": 7245,
       "y": 1326
     },
     {
@@ -5392,8 +5434,8 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "scripts/texto_fonte.py",
-        "scripts/voz.py"
+        "leis/texto_fonte.py",
+        "leis/voz.py"
       ],
       "file_count": 2,
       "status": "PROVEN",
@@ -5404,7 +5446,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 5420,
+      "x": 6125,
       "y": 1004
     },
     {
@@ -5414,7 +5456,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 592284cf33bad4386a58be92bd0661f43516e3cd"
+        "HEAD b4991571c0037e9e81848f545e42a8c8df69a196"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -5439,7 +5481,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 4300,
+      "x": 5005,
       "y": 360
     },
     {
@@ -5476,7 +5518,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 4300,
+      "x": 5005,
       "y": 682
     },
     {
@@ -5512,7 +5554,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 4300,
+      "x": 5005,
       "y": 1004
     },
     {
@@ -5551,7 +5593,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 4300,
+      "x": 5005,
       "y": 1326
     }
   ],
@@ -5566,62 +5608,9 @@
       "reason": "O portao do catalogo espanhol le O banco onde o dado fica guardado. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/adama_es_gate.py",
-          "line": 723,
+          "file": "regras/adama_es_gate.py",
+          "line": 724,
           "snippet": "'ONDE_FOI_RESOLVIDO': 'supabase/migrations/013_captura_nao_e_registro.sql',"
-        }
-      ]
-    },
-    {
-      "from": "C-AS-FONTES",
-      "to": "C-CADEIA-V21",
-      "type": "RETRIEVED_BY",
-      "payload": "coleta",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "1 fonte(s) declaram, no contrato de busca, que quem vai la buscar e «Cadeia canonica V2.1».",
-      "evidence": [
-        {
-          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
-          "line": 136,
-          "snippet": "IT-T4-001 RETRIEVAL_METHOD scripts/chain.py run it-prothioconazole — o nome datado do arquivo é DESCOBERTO na página "
-        }
-      ]
-    },
-    {
-      "from": "C-AS-FONTES",
-      "to": "C-FONTES-EU",
-      "type": "RETRIEVED_BY",
-      "payload": "coleta",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "2 fonte(s) declaram, no contrato de busca, que quem vai la buscar e «Ler as bases oficiais da Europa».",
-      "evidence": [
-        {
-          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
-          "line": 208,
-          "snippet": "EU-T4-001 RETRIEVAL_METHOD scripts/cellar.sh {sparql|act|substances}"
-        },
-        {
-          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
-          "line": 34,
-          "snippet": "FR-T4-001 RETRIEVAL_METHOD scripts/ephy.sh download [destino]"
-        }
-      ]
-    },
-    {
-      "from": "C-AS-FONTES",
-      "to": "C-ROTULOS",
-      "type": "RETRIEVED_BY",
-      "payload": "coleta",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "1 fonte(s) declaram, no contrato de busca, que quem vai la buscar e «Baixar e ler os rotulos oficiais».",
-      "evidence": [
-        {
-          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
-          "line": 69,
-          "snippet": "ES-T4-005 RETRIEVAL_METHOD scripts/mapa_regfi.py {producto|export|total|divergencia}"
         }
       ]
     },
@@ -6120,7 +6109,7 @@
         {
           "file": "italia-portale/audit/adama-relevance-gate.mjs",
           "line": 88,
-          "snippet": "if (REL.DONO_DA_LEI !== 'scripts/adama_relevance.py') bad.push(`dono declarado: ${REL.DONO_DA_LEI}`);"
+          "snippet": "if (REL.DONO_DA_LEI !== 'leis/adama_relevance.py') bad.push(`dono declarado: ${REL.DONO_DA_LEI}`);"
         }
       ]
     },
@@ -6134,8 +6123,8 @@
       "reason": "Cadeia canonica V2.1 importa Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/chain.py",
-          "line": 219,
+          "file": "motor/chain.py",
+          "line": 220,
           "snippet": "from denominaciones import read, split_rows"
         }
       ]
@@ -6150,9 +6139,9 @@
       "reason": "Cadeia canonica V2.1 manda rodar Regua do lugar do fato. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 174,
-          "snippet": "\"$PY\" scripts/v21_geografia_contrato.py"
+          "snippet": "\"$PY\" leis/v21_geografia_contrato.py"
         }
       ]
     },
@@ -6166,8 +6155,8 @@
       "reason": "Cadeia canonica V2.1 importa Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/chain.py",
-          "line": 41,
+          "file": "motor/chain.py",
+          "line": 42,
           "snippet": "from coverage import Coverage                                  # noqa: E402"
         }
       ]
@@ -6182,19 +6171,19 @@
       "reason": "Cadeia canonica V2.1 manda rodar Regua de procedencia. Provado por 3 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 97,
-          "snippet": "\"$PY\" scripts/v21_carimbar_origem.py"
+          "snippet": "\"$PY\" leis/v21_carimbar_origem.py"
         },
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 112,
-          "snippet": "\"$PY\" scripts/v21_procedencia_religar.py"
+          "snippet": "\"$PY\" leis/v21_procedencia_religar.py"
         },
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 175,
-          "snippet": "\"$PY\" scripts/v21_procedencia_contrato.py"
+          "snippet": "\"$PY\" leis/v21_procedencia_contrato.py"
         }
       ]
     },
@@ -6208,8 +6197,8 @@
       "reason": "Cadeia canonica V2.1 importa Baixar e ler os rotulos oficiais. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/chain.py",
-          "line": 187,
+          "file": "motor/chain.py",
+          "line": 188,
           "snippet": "import mapa_regfi"
         }
       ]
@@ -6224,8 +6213,8 @@
       "reason": "Cadeia canonica V2.1 importa A saude de cada fonte. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/chain.py",
-          "line": 42,
+          "file": "motor/chain.py",
+          "line": 43,
           "snippet": "import source_health as sh                                     # noqa: E402"
         }
       ]
@@ -6240,9 +6229,9 @@
       "reason": "Cadeia canonica V2.1 manda rodar O banco onde o dado fica guardado. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/cadeia_canonica.sh",
+          "file": "motor/cadeia_canonica.sh",
           "line": 138,
-          "snippet": "if ! python3 \"$RAIZ/scripts/sql_conferir.py\" \"$RAIZ/$f\"; then"
+          "snippet": "if ! python3 \"$RAIZ/guarda/sql_conferir.py\" \"$RAIZ/$f\"; then"
         }
       ]
     },
@@ -6256,19 +6245,19 @@
       "reason": "Cadeia canonica V2.1 manda rodar Contrato do pacote. Provado por 3 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 117,
-          "snippet": "\"$PY\" scripts/v21_contrato_do_pacote.py --rota"
+          "snippet": "\"$PY\" motor/v21_contrato_do_pacote.py --rota"
         },
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 133,
-          "snippet": "\"$PY\" scripts/v21_traducao_trava.py --aplicar"
+          "snippet": "\"$PY\" motor/v21_traducao_trava.py --aplicar"
         },
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 150,
-          "snippet": "\"$PY\" scripts/v21_aceitacao.py"
+          "snippet": "\"$PY\" motor/v21_aceitacao.py"
         }
       ]
     },
@@ -6282,9 +6271,9 @@
       "reason": "Cadeia canonica V2.1 manda rodar Cruzamentos e convergencia. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 87,
-          "snippet": "\"$PY\" scripts/v21_crossings.py"
+          "snippet": "\"$PY\" motor/v21_crossings.py"
         }
       ]
     },
@@ -6298,19 +6287,19 @@
       "reason": "Cadeia canonica V2.1 manda rodar Religacao de fontes do pacote. Provado por 3 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 91,
-          "snippet": "\"$PY\" scripts/v21_vozes_reconciliar.py"
+          "snippet": "\"$PY\" motor/v21_vozes_reconciliar.py"
         },
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 101,
-          "snippet": "\"$PY\" scripts/v21_fontes_rechavear.py"
+          "snippet": "\"$PY\" motor/v21_fontes_rechavear.py"
         },
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 105,
-          "snippet": "\"$PY\" scripts/v21_fontes_faltantes.py"
+          "snippet": "\"$PY\" motor/v21_fontes_faltantes.py"
         }
       ]
     },
@@ -6324,19 +6313,19 @@
       "reason": "Cadeia canonica V2.1 manda rodar Ingestao V2.1. Provado por 3 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 75,
-          "snippet": "\"$PY\" scripts/v21_ingest.py"
+          "snippet": "\"$PY\" motor/v21_ingest.py"
         },
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 76,
-          "snippet": "\"$PY\" scripts/v21_ingest_b.py"
+          "snippet": "\"$PY\" motor/v21_ingest_b.py"
         },
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 82,
-          "snippet": "\"$PY\" scripts/v21_ingest_c.py"
+          "snippet": "\"$PY\" motor/v21_ingest_c.py"
         }
       ]
     },
@@ -6350,19 +6339,19 @@
       "reason": "Cadeia canonica V2.1 manda rodar Motor de Oportunidade. Provado por 3 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 122,
-          "snippet": "\"$PY\" scripts/v21_dominio_da_alegacao.py"
+          "snippet": "\"$PY\" motor/v21_dominio_da_alegacao.py"
         },
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 128,
-          "snippet": "\"$PY\" scripts/v21_oportunidades.py"
+          "snippet": "\"$PY\" motor/v21_oportunidades.py"
         },
         {
-          "file": "scripts/v21_cadeia.sh",
+          "file": "motor/v21_cadeia.sh",
           "line": 141,
-          "snippet": "\"$PY\" scripts/v21_fechar.py"
+          "snippet": "\"$PY\" motor/v21_fechar.py"
         }
       ]
     },
@@ -6378,7 +6367,7 @@
         {
           "file": ".github/workflows/adama-es-gate.yml",
           "line": 16,
-          "snippet": "- 'scripts/adama_es_gate.py'"
+          "snippet": "- 'regras/adama_es_gate.py'"
         }
       ]
     },
@@ -6394,7 +6383,7 @@
         {
           "file": ".github/workflows/adama-es-gate.yml",
           "line": 16,
-          "snippet": "- 'scripts/adama_es_gate.py'"
+          "snippet": "- 'regras/adama_es_gate.py'"
         }
       ]
     },
@@ -6410,17 +6399,17 @@
         {
           "file": ".github/workflows/apify-conexao.yml",
           "line": 21,
-          "snippet": "# `scripts/apify_pool.py` já é o dono desta regra: `censo()` devolve presença,"
+          "snippet": "# `ferramentas/apify_pool.py` já é o dono desta regra: `censo()` devolve presença,"
         },
         {
           "file": ".github/workflows/apify-sensores.yml",
           "line": 99,
-          "snippet": "run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py"
+          "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py"
         },
         {
           "file": ".github/workflows/comunicacao-publica.yml",
           "line": 92,
-          "snippet": "run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py"
+          "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py"
         }
       ]
     },
@@ -6452,17 +6441,17 @@
         {
           "file": ".github/workflows/comunicacao-publica.yml",
           "line": 133,
-          "snippet": "PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_coleta.py contratos"
+          "snippet": "PYTHONIOENCODING=utf-8 $PY coleta/comunicacao_coleta.py contratos"
         },
         {
           "file": ".github/workflows/comunicacao-publica.yml",
           "line": 142,
-          "snippet": "PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_classificar.py || true"
+          "snippet": "PYTHONIOENCODING=utf-8 $PY coleta/comunicacao_classificar.py || true"
         },
         {
           "file": ".github/workflows/comunicacao-publica.yml",
           "line": 143,
-          "snippet": "PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_medir.py || true"
+          "snippet": "PYTHONIOENCODING=utf-8 $PY coleta/comunicacao_medir.py || true"
         }
       ]
     },
@@ -6478,7 +6467,7 @@
         {
           "file": ".github/workflows/comunicacao-publica.yml",
           "line": 104,
-          "snippet": "PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_identidade.py"
+          "snippet": "PYTHONIOENCODING=utf-8 $PY regras/comunicacao_identidade.py"
         }
       ]
     },
@@ -6494,7 +6483,7 @@
         {
           "file": ".github/workflows/apify-sensores.yml",
           "line": 106,
-          "snippet": "PYTHONIOENCODING=utf-8 $PY scripts/sensor_coleta.py \\"
+          "snippet": "PYTHONIOENCODING=utf-8 $PY regras/sensor_coleta.py \\"
         }
       ]
     },
@@ -6616,7 +6605,7 @@
         {
           "file": ".github/workflows/supabase-migrate.yml",
           "line": 4,
-          "snippet": "# A ordem NAO mora aqui: mora em scripts/cadeia_canonica.sh, que o CI usa"
+          "snippet": "# A ordem NAO mora aqui: mora em motor/cadeia_canonica.sh, que o CI usa"
         }
       ]
     },
@@ -6632,7 +6621,7 @@
         {
           "file": ".github/workflows/supabase-migrate.yml",
           "line": 80,
-          "snippet": "\"$(python3 scripts/inventario_esperado.py --sql)\")"
+          "snippet": "\"$(python3 provas/inventario_esperado.py --sql)\")"
         }
       ]
     },
@@ -6648,7 +6637,7 @@
         {
           "file": ".github/workflows/calendario-regressoes.yml",
           "line": 159,
-          "snippet": "# os dois chamam o MESMO scripts/cadeia_canonica.sh. Se a ordem mudar"
+          "snippet": "# os dois chamam o MESMO motor/cadeia_canonica.sh. Se a ordem mudar"
         }
       ]
     },
@@ -6664,7 +6653,7 @@
         {
           "file": ".github/workflows/calendario-regressoes.yml",
           "line": 235,
-          "snippet": "python3 scripts/catalogo_importar.py --sql >/dev/null"
+          "snippet": "python3 guarda/catalogo_importar.py --sql >/dev/null"
         }
       ]
     },
@@ -6680,7 +6669,7 @@
         {
           "file": ".github/workflows/calendario-regressoes.yml",
           "line": 167,
-          "snippet": "psql \"$CADEIA\" -tAc \"$(python3 scripts/inventario_esperado.py --sql)\" | \\"
+          "snippet": "psql \"$CADEIA\" -tAc \"$(python3 provas/inventario_esperado.py --sql)\" | \\"
         }
       ]
     },
@@ -6694,8 +6683,8 @@
       "reason": "Cicatrizes do Brasil (lei portada) le Regua de procedencia. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/cicatrizes_brasil.py",
-          "line": 176,
+          "file": "leis/cicatrizes_brasil.py",
+          "line": 179,
           "snippet": "'ONDE_NO_BRASIL': 'proveniencia.py',"
         }
       ]
@@ -6710,8 +6699,8 @@
       "reason": "Cicatrizes do Brasil (lei portada) le Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/cicatrizes_brasil.py",
-          "line": 156,
+          "file": "leis/cicatrizes_brasil.py",
+          "line": 159,
           "snippet": "'OWNER': 'tests/test_operacao.py',"
         }
       ]
@@ -6726,8 +6715,8 @@
       "reason": "O motor de buscar importa Apify — a rota paga. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/coleta_checkpoint.py",
-          "line": 44,
+          "file": "coleta/coleta_checkpoint.py",
+          "line": 45,
           "snippet": "import apify_pool as ap  # noqa: E402  — dono único da rotação"
         }
       ]
@@ -6742,8 +6731,8 @@
       "reason": "O motor de buscar importa Regua de procedencia. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/coletor.py",
-          "line": 75,
+          "file": "coleta/coletor.py",
+          "line": 76,
           "snippet": "import proveniencia as pv  # noqa: E402"
         }
       ]
@@ -6758,13 +6747,13 @@
       "reason": "Colher o Instagram importa Apify — a rota paga. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/instagram_coleta.py",
-          "line": 69,
+          "file": "coleta/instagram_coleta.py",
+          "line": 70,
           "snippet": "import apify_pool as ap          # noqa: E402  — dono único da rotação de chave"
         },
         {
-          "file": "scripts/instagram_coleta.py",
-          "line": 71,
+          "file": "coleta/instagram_coleta.py",
+          "line": 72,
           "snippet": "import contrato_ator as ca       # noqa: E402  — o portão grátis do gasto"
         }
       ]
@@ -6779,8 +6768,8 @@
       "reason": "Colher o Instagram importa O motor de buscar. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/instagram_coleta.py",
-          "line": 70,
+          "file": "coleta/instagram_coleta.py",
+          "line": 71,
           "snippet": "import coletor                   # noqa: E402  — porta única das rotas pagas"
         }
       ]
@@ -6795,8 +6784,8 @@
       "reason": "Colher o Instagram importa Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/instagram_coleta.py",
-          "line": 555,
+          "file": "coleta/instagram_coleta.py",
+          "line": 556,
           "snippet": "import corrigir_custo as cc"
         }
       ]
@@ -6811,13 +6800,13 @@
       "reason": "Colher o Instagram importa O navegador — a rota gratis. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/instagram_diario.py",
-          "line": 82,
+          "file": "coleta/instagram_diario.py",
+          "line": 83,
           "snippet": "import cdp                       # noqa: E402"
         },
         {
-          "file": "scripts/instagram_janela.py",
-          "line": 72,
+          "file": "coleta/instagram_janela.py",
+          "line": 73,
           "snippet": "import cdp                       # noqa: E402  — o navegador, em biblioteca padrão"
         }
       ]
@@ -6832,8 +6821,8 @@
       "reason": "Colher o Instagram importa Regua de procedencia. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/instagram_janela.py",
-          "line": 73,
+          "file": "coleta/instagram_janela.py",
+          "line": 74,
           "snippet": "import proveniencia as pv        # noqa: E402"
         }
       ]
@@ -6848,13 +6837,13 @@
       "reason": "Colher o que o concorrente publica importa Apify — a rota paga. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/comunicacao_coleta.py",
-          "line": 56,
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 57,
           "snippet": "import apify_pool as ap        # noqa: E402  — dono único da rotação de chave"
         },
         {
-          "file": "scripts/comunicacao_coleta.py",
-          "line": 141,
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 142,
           "snippet": "import contrato_ator as ca"
         }
       ]
@@ -6869,8 +6858,8 @@
       "reason": "Colher o que o concorrente publica importa O motor de buscar. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/comunicacao_coleta.py",
-          "line": 57,
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 58,
           "snippet": "import coletor                 # noqa: E402  — porta única das rotas pagas"
         }
       ]
@@ -6885,8 +6874,8 @@
       "reason": "Colher o YouTube importa O navegador — a rota gratis. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/youtube_janela.py",
-          "line": 66,
+          "file": "coleta/youtube_janela.py",
+          "line": 67,
           "snippet": "import cdp                       # noqa: E402  — o navegador, em biblioteca padrão"
         }
       ]
@@ -6901,8 +6890,8 @@
       "reason": "Colher o YouTube importa As palavras que a busca digita. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/youtube_relevancia.py",
-          "line": 74,
+          "file": "coleta/youtube_relevancia.py",
+          "line": 75,
           "snippet": "import sensor_medir as sm        # noqa: E402  — dono do léxico multilíngue desta casa"
         }
       ]
@@ -6917,27 +6906,27 @@
       "reason": "Regua do tempo le O banco onde o dado fica guardado. Provado por 5 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/calendario_handoff.py",
+          "file": "leis/calendario_handoff.py",
           "line": 294,
           "snippet": "\"supabase/migrations/010_calendario_agronomico.sql\","
         },
         {
-          "file": "scripts/calendario_handoff.py",
+          "file": "leis/calendario_handoff.py",
           "line": 295,
           "snippet": "\"supabase/migrations/011_calendario_consultas.sql\","
         },
         {
-          "file": "scripts/calendario_handoff.py",
+          "file": "leis/calendario_handoff.py",
           "line": 296,
           "snippet": "\"supabase/migrations/012_contexto_temporal_do_caso.sql\","
         },
         {
-          "file": "scripts/calendario_handoff.py",
+          "file": "leis/calendario_handoff.py",
           "line": 297,
           "snippet": "\"supabase/fixtures/es_calendario_mvp.sql\","
         },
         {
-          "file": "scripts/calendario_handoff.py",
+          "file": "leis/calendario_handoff.py",
           "line": 298,
           "snippet": "\"supabase/tests/regressoes_calendario.sql\","
         }
@@ -6953,8 +6942,8 @@
       "reason": "Ler as bases oficiais da Europa importa Baixar e ler os rotulos oficiais. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/denominaciones.py",
-          "line": 35,
+          "file": "coleta/denominaciones.py",
+          "line": 36,
           "snippet": "from pdf_text import text                                     # noqa: E402"
         }
       ]
@@ -6969,8 +6958,8 @@
       "reason": "Regua do lugar do fato importa Ingestao V2.1. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_geografia_contrato.py",
-          "line": 25,
+          "file": "leis/v21_geografia_contrato.py",
+          "line": 26,
           "snippet": "import v21_normalizar as N  # noqa: E402"
         }
       ]
@@ -7097,7 +7086,7 @@
         {
           "file": "system-map/scripts/scan_sources.py",
           "line": 295,
-          "snippet": "\"porta\": \"scripts/fonte_nova.py\","
+          "snippet": "\"porta\": \"fontes/fonte_nova.py\","
         }
       ]
     },
@@ -7112,7 +7101,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 142,
+          "line": 163,
           "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
         }
       ]
@@ -7164,7 +7153,7 @@
       "reason": "Montagem do pacote por camadas le AS FONTES. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/metricas_canonicas.py",
+          "file": "pacote/metricas_canonicas.py",
           "line": 117,
           "snippet": "source='docs/fontes/ATLAS-DE-FONTES-EAME.md',"
         }
@@ -7180,9 +7169,9 @@
       "reason": "Montagem do pacote por camadas le Cadeia canonica V2.1. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_handoff_json.py",
+          "file": "pacote/v21_handoff_json.py",
           "line": 109,
-          "snippet": "\"scripts/v21_cadeia.sh\","
+          "snippet": "\"motor/v21_cadeia.sh\","
         }
       ]
     },
@@ -7196,7 +7185,7 @@
       "reason": "Montagem do pacote por camadas le Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_handoff_json.py",
+          "file": "pacote/v21_handoff_json.py",
           "line": 155,
           "snippet": "\"file\": \"tests/test_v21_traducao_trava.py\", \"count\": 23,"
         }
@@ -7212,8 +7201,8 @@
       "reason": "Montagem do pacote por camadas importa Cruzamentos e convergencia. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/pacote.py",
-          "line": 34,
+          "file": "pacote/pacote.py",
+          "line": 35,
           "snippet": "from pacote_convergencia import camada_convergencia              # noqa: E402"
         }
       ]
@@ -7228,33 +7217,33 @@
       "reason": "Montagem do pacote por camadas importa Ingestao V2.1. Provado por 6 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/pacote.py",
-          "line": 26,
+          "file": "pacote/pacote.py",
+          "line": 27,
           "snippet": "from pacote_normalizar import camada_adama, DR                      # noqa: E402"
         },
         {
-          "file": "scripts/pacote_camadas.py",
-          "line": 19,
-          "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
-        },
-        {
-          "file": "scripts/pacote_camadas2.py",
+          "file": "pacote/pacote_camadas.py",
           "line": 20,
           "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
         },
         {
-          "file": "scripts/pacote_camadas3.py",
-          "line": 24,
+          "file": "pacote/pacote_camadas2.py",
+          "line": 21,
           "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
         },
         {
-          "file": "scripts/pacote_fenologia.py",
-          "line": 32,
+          "file": "pacote/pacote_camadas3.py",
+          "line": 25,
+          "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
+        },
+        {
+          "file": "pacote/pacote_fenologia.py",
+          "line": 33,
           "snippet": "from pacote_normalizar import grava, env, novo_id, DR  # noqa: E402"
         },
         {
-          "file": "scripts/pacote_mercado.py",
-          "line": 31,
+          "file": "pacote/pacote_mercado.py",
+          "line": 32,
           "snippet": "from pacote_normalizar import grava, env, novo_id, DR, ROOT, local_json  # noqa: E402"
         }
       ]
@@ -7269,8 +7258,8 @@
       "reason": "As palavras que a busca digita importa Apify — a rota paga. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/sensor_coleta.py",
-          "line": 61,
+          "file": "regras/sensor_coleta.py",
+          "line": 62,
           "snippet": "import apify_pool as ap        # noqa: E402  — dono único da rotação"
         }
       ]
@@ -7285,8 +7274,8 @@
       "reason": "As palavras que a busca digita importa O motor de buscar. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/sensor_coleta.py",
-          "line": 62,
+          "file": "regras/sensor_coleta.py",
+          "line": 63,
           "snippet": "import coletor                 # noqa: E402  — porta única das rotas pagas"
         }
       ]
@@ -7301,25 +7290,9 @@
       "reason": "As palavras que a busca digita importa Regua de procedencia. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/sensor_coleta.py",
-          "line": 63,
+          "file": "regras/sensor_coleta.py",
+          "line": 64,
           "snippet": "import proveniencia as pv      # noqa: E402"
-        }
-      ]
-    },
-    {
-      "from": "C-PORTA-FONTE",
-      "to": "C-COLETA-INSTAGRAM",
-      "type": "READS",
-      "payload": "artefacto",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A porta de entrada de fonte nova le Colher o Instagram. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/fonte_nova.py",
-          "line": 49,
-          "snippet": "url=..., para_que=..., quem_viu=\"instagram_coleta.py\","
         }
       ]
     },
@@ -7517,8 +7490,8 @@
       "reason": "Camadas de dado do portal importa Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/it_casa_dados.py",
-          "line": 76,
+          "file": "superficie/it_casa_dados.py",
+          "line": 77,
           "snippet": "from adama_relevance import (CONTRATO as LEI_ADAMA, classificar, contar,"
         }
       ]
@@ -7535,12 +7508,12 @@
         {
           "file": "italia-portale/client/adama-relevance.js",
           "line": 6,
-          "snippet": "\"DONO_DA_LEI\": \"scripts/adama_relevance.py\","
+          "snippet": "\"DONO_DA_LEI\": \"leis/adama_relevance.py\","
         },
         {
-          "file": "scripts/it_casa_dados.py",
-          "line": 1026,
-          "snippet": "'DONO_DA_LEI': 'scripts/adama_relevance.py',"
+          "file": "superficie/it_casa_dados.py",
+          "line": 1027,
+          "snippet": "'DONO_DA_LEI': 'leis/adama_relevance.py',"
         }
       ]
     },
@@ -7561,7 +7534,7 @@
         {
           "file": "italia-portale/client/italy-casa.js",
           "line": 209,
-          "snippet": "\"GERADO_POR\": \"scripts/it_casa_dados.py\","
+          "snippet": "\"GERADO_POR\": \"superficie/it_casa_dados.py\","
         }
       ]
     },
@@ -7667,22 +7640,6 @@
     },
     {
       "from": "C-REGRA-COLETA",
-      "to": "C-CADEIA-V21",
-      "type": "READS",
-      "payload": "artefacto",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A regra de coleta externa le Cadeia canonica V2.1. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/portoes_eame.py",
-          "line": 254,
-          "snippet": "('a cadeia canônica', ('scripts', 'cadeia_canonica.sh'))):"
-        }
-      ]
-    },
-    {
-      "from": "C-REGRA-COLETA",
       "to": "C-CICATRIZES-BR",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -7691,8 +7648,8 @@
       "reason": "A regra de coleta externa importa Cicatrizes do Brasil (lei portada). Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/portoes_eame.py",
-          "line": 40,
+          "file": "regras/portoes_eame.py",
+          "line": 41,
           "snippet": "from cicatrizes_brasil import monta as monta_cicatrizes           # noqa: E402"
         }
       ]
@@ -7707,41 +7664,9 @@
       "reason": "A regra de coleta externa le Cicatrizes do Brasil (lei portada). Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/portoes_eame.py",
-          "line": 295,
-          "snippet": "'DERIVADO_DE': ['scripts/cicatrizes_brasil.py',"
-        }
-      ]
-    },
-    {
-      "from": "C-REGRA-COLETA",
-      "to": "C-FONTES-EU",
-      "type": "READS",
-      "payload": "artefacto",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A regra de coleta externa le Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/portoes_eame.py",
-          "line": 241,
-          "snippet": "if not existe('scripts', 'regulatorio_importar.py'):"
-        }
-      ]
-    },
-    {
-      "from": "C-REGRA-COLETA",
-      "to": "C-MEDICAO",
-      "type": "READS",
-      "payload": "artefacto",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A regra de coleta externa le Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "scripts/portoes_eame.py",
-          "line": 268,
-          "snippet": "if 'inventario_esperado.py' not in t:"
+          "file": "regras/portoes_eame.py",
+          "line": 296,
+          "snippet": "'DERIVADO_DE': ['leis/cicatrizes_brasil.py',"
         }
       ]
     },
@@ -7755,8 +7680,8 @@
       "reason": "A regra de coleta externa importa Regua de procedencia. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/portao.py",
-          "line": 19,
+          "file": "regras/portao.py",
+          "line": 20,
           "snippet": "import proveniencia as pv  # noqa: E402"
         }
       ]
@@ -7771,8 +7696,8 @@
       "reason": "A regra de coleta externa importa Regua da voz. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/portao.py",
-          "line": 20,
+          "file": "regras/portao.py",
+          "line": 21,
           "snippet": "import voz                 # noqa: E402"
         }
       ]
@@ -7787,7 +7712,7 @@
       "reason": "Regua de relevancia ADAMA importa As palavras que a busca digita. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/regua_italia.py",
+          "file": "leis/regua_italia.py",
           "line": 57,
           "snippet": "from sensor_medir import plateia_do_canal as _pdc"
         }
@@ -7805,7 +7730,7 @@
         {
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 216,
-          "snippet": "run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py"
+          "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py"
         }
       ]
     },
@@ -7821,22 +7746,22 @@
         {
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 224,
-          "snippet": "PYTHONIOENCODING=utf-8 $PY scripts/instagram_pessoal.py estado"
+          "snippet": "PYTHONIOENCODING=utf-8 $PY coleta/instagram_pessoal.py estado"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 234,
-          "snippet": "janela)          PYTHONIOENCODING=utf-8 $PY scripts/instagram_janela.py tudo    $TETO ;;"
+          "snippet": "janela)          PYTHONIOENCODING=utf-8 $PY coleta/instagram_janela.py tudo    $TETO ;;"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 239,
-          "snippet": "diario)          PYTHONIOENCODING=utf-8 $PY scripts/instagram_diario.py rodar   $CONTA ;;"
+          "snippet": "diario)          PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py rodar   $CONTA ;;"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 250,
-          "snippet": "*)               PYTHONIOENCODING=utf-8 $PY scripts/instagram_coleta.py \"${{ inputs.fase }}\" ;;"
+          "snippet": "*)               PYTHONIOENCODING=utf-8 $PY coleta/instagram_coleta.py \"${{ inputs.fase }}\" ;;"
         }
       ]
     },
@@ -7852,12 +7777,12 @@
         {
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 243,
-          "snippet": "yt-canais)       PYTHONIOENCODING=utf-8 $PY scripts/youtube_janela.py canais ;;"
+          "snippet": "yt-canais)       PYTHONIOENCODING=utf-8 $PY coleta/youtube_janela.py canais ;;"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 246,
-          "snippet": "yt-relevancia)   PYTHONIOENCODING=utf-8 $PY scripts/youtube_relevancia.py tudo ;;"
+          "snippet": "yt-relevancia)   PYTHONIOENCODING=utf-8 $PY coleta/youtube_relevancia.py tudo ;;"
         }
       ]
     },
@@ -7873,7 +7798,7 @@
         {
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 174,
-          "snippet": "run: PYTHONIOENCODING=utf-8 $PY scripts/navegador.py"
+          "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/navegador.py"
         }
       ]
     },
@@ -7889,12 +7814,12 @@
         {
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 237,
-          "snippet": "transcrever)     PYTHONIOENCODING=utf-8 $PY scripts/instagram_transcrever.py rodar \"${{ inputs.modelo }}\" $TETO ;;"
+          "snippet": "transcrever)     PYTHONIOENCODING=utf-8 $PY ferramentas/instagram_transcrever.py rodar \"${{ inputs.modelo }}\" $TETO ;;"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 248,
-          "snippet": "yt-alvos)        PYTHONIOENCODING=utf-8 $PY scripts/youtube_transcrever.py alvos ;;"
+          "snippet": "yt-alvos)        PYTHONIOENCODING=utf-8 $PY ferramentas/youtube_transcrever.py alvos ;;"
         }
       ]
     },
@@ -7908,7 +7833,7 @@
       "reason": "Ingestao do pacote no site le AS FONTES. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/build_portal.py",
+          "file": "portoes/build_portal.py",
           "line": 422,
           "snippet": "'docs/fontes/ATLAS-DE-FONTES-EAME.md',"
         }
@@ -7924,7 +7849,7 @@
       "reason": "Ingestao do pacote no site le Safras atrasadas conhecidas (4). Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/site_v21_ingest.py",
+          "file": "portoes/site_v21_ingest.py",
           "line": 763,
           "snippet": "'italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json' % ING)"
         }
@@ -7941,7 +7866,7 @@
       "evidence": [
         {
           "file": "tests/test_adama_es_import_rules.py",
-          "line": 15,
+          "line": 16,
           "snippet": "import adama_es_import_rules as R  # noqa: E402"
         }
       ]
@@ -7957,7 +7882,7 @@
       "evidence": [
         {
           "file": "tests/test_coleta_resiliente.py",
-          "line": 18,
+          "line": 19,
           "snippet": "import apify_pool as ap          # noqa: E402"
         }
       ]
@@ -7973,7 +7898,7 @@
       "evidence": [
         {
           "file": "tests/test_coleta_externa.py",
-          "line": 550,
+          "line": 551,
           "snippet": "import rede"
         }
       ]
@@ -7989,8 +7914,8 @@
       "evidence": [
         {
           "file": "tests/test_coleta_externa.py",
-          "line": 654,
-          "snippet": "self.assertIn('scripts/rede.py', self.atual['QUEM_MANDA'])"
+          "line": 655,
+          "snippet": "self.assertIn('superficie/rede.py', self.atual['QUEM_MANDA'])"
         }
       ]
     },
@@ -8005,7 +7930,7 @@
       "evidence": [
         {
           "file": "tests/test_operacao.py",
-          "line": 349,
+          "line": 350,
           "snippet": "import chain"
         }
       ]
@@ -8021,12 +7946,12 @@
       "evidence": [
         {
           "file": "tests/test_cicatrizes_brasil.py",
-          "line": 76,
+          "line": 77,
           "snippet": "import cicatrizes_brasil as C"
         },
         {
           "file": "tests/test_portoes_eame.py",
-          "line": 104,
+          "line": 105,
           "snippet": "from cicatrizes_brasil import monta as mc"
         }
       ]
@@ -8042,7 +7967,7 @@
       "evidence": [
         {
           "file": "tests/test_coleta_resiliente.py",
-          "line": 19,
+          "line": 20,
           "snippet": "import coleta_checkpoint as C    # noqa: E402"
         }
       ]
@@ -8058,7 +7983,7 @@
       "evidence": [
         {
           "file": "tests/test_comunicacao.py",
-          "line": 26,
+          "line": 27,
           "snippet": "import comunicacao_classificar as cl      # noqa: E402"
         }
       ]
@@ -8074,7 +7999,7 @@
       "evidence": [
         {
           "file": "tests/test_v21_datas.py",
-          "line": 12,
+          "line": 13,
           "snippet": "import v21_datas as DT  # noqa: E402"
         }
       ]
@@ -8090,7 +8015,7 @@
       "evidence": [
         {
           "file": "tests/test_operacao.py",
-          "line": 24,
+          "line": 25,
           "snippet": "from denominaciones import parse_text, read, split_rows, fold   # noqa: E402"
         }
       ]
@@ -8106,12 +8031,12 @@
       "evidence": [
         {
           "file": "tests/test_comunicacao.py",
-          "line": 27,
+          "line": 28,
           "snippet": "import comunicacao_identidade as ident    # noqa: E402"
         },
         {
           "file": "tests/test_comunicacao.py",
-          "line": 28,
+          "line": 29,
           "snippet": "import comunicacao_universo as uni        # noqa: E402"
         }
       ]
@@ -8127,12 +8052,12 @@
       "evidence": [
         {
           "file": "tests/test_lugar_do_fato.py",
-          "line": 21,
+          "line": 22,
           "snippet": "import lugar_do_fato as L                                          # noqa: E402"
         },
         {
           "file": "tests/test_lugar_do_fato.py",
-          "line": 22,
+          "line": 23,
           "snippet": "import fato_local as IT                                            # noqa: E402"
         }
       ]
@@ -8148,17 +8073,17 @@
       "evidence": [
         {
           "file": "tests/test_operacao.py",
-          "line": 23,
+          "line": 24,
           "snippet": "from coverage import Coverage, CoverageError                   # noqa: E402"
         },
         {
           "file": "tests/test_portao.py",
-          "line": 323,
+          "line": 324,
           "snippet": "import auditoria as au"
         },
         {
           "file": "tests/test_proveniencia.py",
-          "line": 15,
+          "line": 16,
           "snippet": "import auditoria as au      # noqa: E402"
         }
       ]
@@ -8174,7 +8099,7 @@
       "evidence": [
         {
           "file": "tests/test_navegador.py",
-          "line": 24,
+          "line": 25,
           "snippet": "import navegador as nav                                        # noqa: E402"
         }
       ]
@@ -8190,12 +8115,12 @@
       "evidence": [
         {
           "file": "tests/test_handoff.py",
-          "line": 96,
+          "line": 97,
           "snippet": "import metricas_canonicas as mc"
         },
         {
           "file": "tests/test_metricas.py",
-          "line": 24,
+          "line": 25,
           "snippet": "from metricas_canonicas import build, Ledger                    # noqa: E402"
         }
       ]
@@ -8211,17 +8136,17 @@
       "evidence": [
         {
           "file": "tests/test_handoff.py",
-          "line": 156,
+          "line": 157,
           "snippet": "import proveniencia as pv"
         },
         {
           "file": "tests/test_portao.py",
-          "line": 12,
+          "line": 13,
           "snippet": "import proveniencia as pv          # noqa: E402"
         },
         {
           "file": "tests/test_proveniencia.py",
-          "line": 14,
+          "line": 15,
           "snippet": "import proveniencia as pv   # noqa: E402"
         }
       ]
@@ -8237,12 +8162,12 @@
       "evidence": [
         {
           "file": "tests/test_portao.py",
-          "line": 11,
+          "line": 12,
           "snippet": "import portao, filas, voz          # noqa: E402"
         },
         {
           "file": "tests/test_portoes_eame.py",
-          "line": 19,
+          "line": 20,
           "snippet": "import portoes_eame as P                                          # noqa: E402"
         }
       ]
@@ -8258,7 +8183,7 @@
       "evidence": [
         {
           "file": "tests/test_adama_relevance.py",
-          "line": 21,
+          "line": 22,
           "snippet": "from adama_relevance import (classificar, contar, produto_que_prova,   # noqa: E402"
         }
       ]
@@ -8274,7 +8199,7 @@
       "evidence": [
         {
           "file": "tests/test_operacao.py",
-          "line": 25,
+          "line": 26,
           "snippet": "from mapa_regfi import explain_divergence, selling_off          # noqa: E402"
         }
       ]
@@ -8290,7 +8215,7 @@
       "evidence": [
         {
           "file": "tests/test_operacao.py",
-          "line": 22,
+          "line": 23,
           "snippet": "import source_health as sh                                     # noqa: E402"
         }
       ]
@@ -8306,12 +8231,12 @@
       "evidence": [
         {
           "file": "tests/test_prioridade_comercial.py",
-          "line": 20,
+          "line": 21,
           "snippet": "import v21_comercial as CM  # noqa: E402"
         },
         {
           "file": "tests/test_prioridade_comercial.py",
-          "line": 21,
+          "line": 22,
           "snippet": "import v21_necessidade as NE  # noqa: E402"
         }
       ]
@@ -8327,7 +8252,7 @@
       "evidence": [
         {
           "file": "tests/test_v21_traducao_trava.py",
-          "line": 28,
+          "line": 29,
           "snippet": "from v21_traducao_trava import conferir  # noqa: E402"
         }
       ]
@@ -8343,12 +8268,12 @@
       "evidence": [
         {
           "file": "tests/test_v21_geografia.py",
-          "line": 20,
+          "line": 21,
           "snippet": "import v21_normalizar as N  # noqa: E402"
         },
         {
           "file": "tests/test_v21_mercado.py",
-          "line": 16,
+          "line": 17,
           "snippet": "import v21_normalizar as N  # noqa: E402"
         }
       ]
@@ -8369,7 +8294,7 @@
         },
         {
           "file": "tests/test_prioridade_comercial.py",
-          "line": 22,
+          "line": 23,
           "snippet": "import v21_oportunidades as OP  # noqa: E402"
         }
       ]
@@ -8385,17 +8310,17 @@
       "evidence": [
         {
           "file": "tests/test_coleta_externa.py",
-          "line": 13,
+          "line": 14,
           "snippet": "import voz  # noqa: E402"
         },
         {
           "file": "tests/test_pipeline.py",
-          "line": 17,
+          "line": 18,
           "snippet": "import voz  # noqa: E402"
         },
         {
           "file": "tests/test_voz.py",
-          "line": 316,
+          "line": 317,
           "snippet": "import voz as _voz"
         }
       ]
@@ -8410,8 +8335,8 @@
       "reason": "A fala vira texto, sem fatura importa Colher o Instagram. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/instagram_transcrever.py",
-          "line": 183,
+          "file": "ferramentas/instagram_transcrever.py",
+          "line": 184,
           "snippet": "import instagram_janela as ij"
         }
       ]
@@ -8426,8 +8351,8 @@
       "reason": "A fala vira texto, sem fatura importa O navegador — a rota gratis. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/instagram_transcrever.py",
-          "line": 182,
+          "file": "ferramentas/instagram_transcrever.py",
+          "line": 183,
           "snippet": "import cdp"
         }
       ]
@@ -8442,8 +8367,8 @@
       "reason": "Leitura comercial e completude importa Contrato do pacote. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_tm_colher.py",
-          "line": 40,
+          "file": "motor/v21_tm_colher.py",
+          "line": 41,
           "snippet": "from v21_traducao_trava import conferir"
         }
       ]
@@ -8458,13 +8383,13 @@
       "reason": "Leitura comercial e completude importa Ingestao V2.1. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_comercial.py",
+          "file": "motor/v21_comercial.py",
           "line": 305,
           "snippet": "import v21_normalizar as N"
         },
         {
-          "file": "scripts/v21_necessidade.py",
-          "line": 69,
+          "file": "motor/v21_necessidade.py",
+          "line": 70,
           "snippet": "import v21_normalizar as N  # noqa: E402"
         }
       ]
@@ -8479,9 +8404,9 @@
       "reason": "Leitura comercial e completude le Motor de Oportunidade. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_completude_oportunidade.py",
+          "file": "motor/v21_completude_oportunidade.py",
           "line": 147,
-          "snippet": "src = open(os.path.join(ROOT, 'scripts', 'v21_oportunidades.py'),"
+          "snippet": "src = open(os.path.join(ROOT, 'motor', 'v21_oportunidades.py'),"
         }
       ]
     },
@@ -8495,13 +8420,13 @@
       "reason": "Contrato do pacote importa Leitura comercial e completude. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_aceitacao.py",
-          "line": 38,
+          "file": "motor/v21_aceitacao.py",
+          "line": 39,
           "snippet": "from v21_campos_de_lingua import (LEITURA, MISTO, campos_do_registro,  # noqa"
         },
         {
-          "file": "scripts/v21_traducao_trava.py",
-          "line": 53,
+          "file": "motor/v21_traducao_trava.py",
+          "line": 54,
           "snippet": "from v21_campos_de_lingua import (LEITURA, MISTO, PROMOVE, campos_do_registro,  # noqa"
         }
       ]
@@ -8516,7 +8441,7 @@
       "reason": "Cruzamentos e convergencia importa Ingestao V2.1. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/pacote_convergencia.py",
+          "file": "motor/pacote_convergencia.py",
           "line": 34,
           "snippet": "from pacote_normalizar import DR, env, grava, local_json, novo_id  # noqa: F401"
         }
@@ -8532,8 +8457,8 @@
       "reason": "Ingestao V2.1 importa Regua do tempo. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_ingest_b.py",
-          "line": 36,
+          "file": "motor/v21_ingest_b.py",
+          "line": 37,
           "snippet": "import v21_datas as DT            # noqa: E402"
         }
       ]
@@ -8548,8 +8473,8 @@
       "reason": "Ingestao V2.1 importa Ler as bases oficiais da Europa. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/normalize_agro.py",
-          "line": 28,
+          "file": "motor/normalize_agro.py",
+          "line": 29,
           "snippet": "from eppo_gd import names as eppo_names"
         }
       ]
@@ -8564,8 +8489,8 @@
       "reason": "Motor de Oportunidade importa Regua do tempo. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_oportunidades.py",
-          "line": 43,
+          "file": "motor/v21_oportunidades.py",
+          "line": 44,
           "snippet": "import v21_datas as DT  # noqa: E402"
         }
       ]
@@ -8580,13 +8505,13 @@
       "reason": "Motor de Oportunidade importa Leitura comercial e completude. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": "scripts/v21_oportunidades.py",
-          "line": 44,
+          "file": "motor/v21_oportunidades.py",
+          "line": 45,
           "snippet": "import v21_necessidade as NE  # noqa: E402"
         },
         {
-          "file": "scripts/v21_oportunidades.py",
-          "line": 45,
+          "file": "motor/v21_oportunidades.py",
+          "line": 46,
           "snippet": "import v21_comercial as CM  # noqa: E402"
         }
       ]
@@ -8631,7 +8556,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 635,
+  "UNCLAIMED_FILES_COUNT": 636,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 65,
@@ -8639,11 +8564,11 @@
     "components_pending": 6,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 145,
-    "edges_proven": 145,
+    "edges": 138,
+    "edges_proven": 138,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1027,
+    "files_tracked": 1028,
     "files_covered": 392,
     "files_code_unclaimed": 0
   }

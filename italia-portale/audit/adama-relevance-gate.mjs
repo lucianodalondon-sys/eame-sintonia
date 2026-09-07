@@ -85,7 +85,7 @@ check('O_VALUTADOR_E_UM_SO', () => {
      `meeting-surface.js` reavaliasse, haveria duas leis com o mesmo nome. */
   const bad = [];
   const js = fs.readFileSync(path.join(CLIENTE, 'meeting-surface.js'), 'utf8');
-  if (REL.DONO_DA_LEI !== 'scripts/adama_relevance.py') bad.push(`dono declarado: ${REL.DONO_DA_LEI}`);
+  if (REL.DONO_DA_LEI !== 'leis/adama_relevance.py') bad.push(`dono declarado: ${REL.DONO_DA_LEI}`);
   if (!/window\.ADAMA_RELEVANCE/.test(js)) bad.push('meeting-surface nao le o veredito');
   for (const marca of ['DECLARED_ON_CATALOG_PAGE', 'ON_MINISTERIAL_LABEL', 'AUTHORIZATION_LIVE']) {
     if (new RegExp(`${marca}['"]\\s*(===|==|!==)`).test(js)) bad.push(`meeting-surface reavalia a lei (${marca})`);

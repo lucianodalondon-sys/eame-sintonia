@@ -28,51 +28,66 @@
   },
   "TERRITORIES": [
     {
+      "id": "Z-DISPARA",
+      "family": "F-COLETA",
+      "name": "1 · QUEM DISPARA",
+      "why": "O botao. Nada sai para buscar sem alguem mandar — e o que rodou fica no historico",
+      "views": [
+        "infra"
+      ],
+      "folder": null
+    },
+    {
       "id": "Z-FONTES",
       "family": "F-COLETA",
-      "name": "1 · AS FONTES",
+      "name": "2 · AS FONTES",
       "why": "De onde o dado vem — de fora e de dentro. O acervo que se consulta ANTES de coletar, o que a ADAMA ja sabe de si, e a porta por onde entra fonte nova",
       "views": [
         "acervo"
-      ]
-    },
-    {
-      "id": "Z-VEICULOS",
-      "family": "F-COLETA",
-      "name": "2 · OS VEICULOS",
-      "why": "Quem VAI BUSCAR. Se nao sai daqui para trazer alguma coisa, nao e veiculo — e informacao, regra ou ferramenta",
-      "views": [
-        "acervo",
-        "infra"
-      ]
-    },
-    {
-      "id": "Z-REGRAS",
-      "family": "F-COLETA",
-      "name": "3 · AS REGRAS E AS PALAVRAS",
-      "why": "O que pode ser coletado, de quem, e com que termo escrito na lingua do pais. Veiculo sem regra atropela",
-      "views": [
-        "acervo",
-        "audit"
-      ]
+      ],
+      "folder": "fontes"
     },
     {
       "id": "Z-FERRAMENTAS",
       "family": "F-COLETA",
-      "name": "4 · AS FERRAMENTAS",
-      "why": "Com o que se vai: a rota paga, a rota gratis pelo navegador, o despachador e a transcricao local",
+      "name": "3 · AS FERRAMENTAS",
+      "why": "Com o que se vai: a rota paga, a rota gratis pelo navegador e a transcricao local",
       "views": [
         "infra"
-      ]
+      ],
+      "folder": "ferramentas"
+    },
+    {
+      "id": "Z-VEICULOS",
+      "family": "F-COLETA",
+      "name": "4 · OS VEICULOS",
+      "why": "Quem VAI BUSCAR. Se nao sai daqui para trazer alguma coisa, nao e veiculo — e informacao, regra ou ferramenta",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "folder": "coleta"
+    },
+    {
+      "id": "Z-REGRAS",
+      "family": "F-COLETA",
+      "name": "5 · AS REGRAS E AS PALAVRAS",
+      "why": "O que pode ser coletado, de quem, e com que termo escrito na lingua do pais. Veiculo sem regra atropela",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "folder": "regras"
     },
     {
       "id": "Z-GUARDA",
       "family": "F-COLETA",
-      "name": "5 · ONDE FICA E QUEM DISPARA",
-      "why": "Onde o que voltou dorme entre uma corrida e outra, e o botao que manda ir",
+      "name": "6 · ONDE GUARDA A COLETA",
+      "why": "Onde o que voltou dorme entre uma corrida e outra",
       "views": [
         "infra"
-      ]
+      ],
+      "folder": "guarda"
     },
     {
       "id": "Z-LINEAGE",
@@ -82,7 +97,8 @@
       "views": [
         "lineage",
         "official"
-      ]
+      ],
+      "folder": null
     },
     {
       "id": "Z-REGUAS",
@@ -92,7 +108,8 @@
       "views": [
         "opportunity",
         "science"
-      ]
+      ],
+      "folder": "leis"
     },
     {
       "id": "Z-MOTOR",
@@ -102,7 +119,8 @@
       "views": [
         "generator",
         "opportunity"
-      ]
+      ],
+      "folder": "motor"
     },
     {
       "id": "Z-PROVA",
@@ -112,7 +130,8 @@
       "views": [
         "audit",
         "infra"
-      ]
+      ],
+      "folder": "provas"
     },
     {
       "id": "Z-PACOTE",
@@ -122,7 +141,8 @@
       "views": [
         "generator",
         "portal"
-      ]
+      ],
+      "folder": "pacote"
     },
     {
       "id": "Z-PORTOES",
@@ -132,7 +152,8 @@
       "views": [
         "portal",
         "audit"
-      ]
+      ],
+      "folder": "portoes"
     },
     {
       "id": "Z-SUPERFICIE",
@@ -142,7 +163,8 @@
       "views": [
         "portal",
         "meeting"
-      ]
+      ],
+      "folder": "superficie"
     }
   ],
   "COMPONENTS": [
@@ -161,8 +183,8 @@
         "ENGENHARIA"
       ],
       "files": [
-        "scripts/catalogo_importar.py",
-        "scripts/importar_italia.py"
+        "guarda/catalogo_importar.py",
+        "guarda/importar_italia.py"
       ]
     },
     {
@@ -181,8 +203,8 @@
         "INTELIGENCIA"
       ],
       "files": [
-        "scripts/youtube_janela.py",
-        "scripts/youtube_relevancia.py"
+        "coleta/youtube_janela.py",
+        "coleta/youtube_relevancia.py"
       ]
     },
     {
@@ -204,8 +226,8 @@
       "files": [
         "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md",
         "docs/operacao/PORTOES-DE-COLETA-10B.md",
-        "scripts/portao.py",
-        "scripts/portoes_eame.py"
+        "regras/portao.py",
+        "regras/portoes_eame.py"
       ]
     },
     {
@@ -224,9 +246,9 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "files": [
-        "scripts/sensor_coleta.py",
-        "scripts/sensor_medir.py",
-        "scripts/rotulos_censo.py"
+        "regras/sensor_coleta.py",
+        "regras/sensor_medir.py",
+        "regras/rotulos_censo.py"
       ]
     },
     {
@@ -246,9 +268,9 @@
         "INTELIGENCIA"
       ],
       "files": [
-        "scripts/comunicacao_identidade.py",
-        "scripts/comunicacao_lote.py",
-        "scripts/comunicacao_universo.py",
+        "regras/comunicacao_identidade.py",
+        "regras/comunicacao_lote.py",
+        "regras/comunicacao_universo.py",
         "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json"
       ]
     },
@@ -268,7 +290,7 @@
         "ENGENHARIA"
       ],
       "files": [
-        "scripts/source_health.py"
+        "regras/source_health.py"
       ]
     },
     {
@@ -306,8 +328,8 @@
         "ENGENHARIA"
       ],
       "files": [
-        "scripts/navegador.py",
-        "scripts/cdp.py"
+        "ferramentas/navegador.py",
+        "ferramentas/cdp.py"
       ]
     },
     {
@@ -326,8 +348,8 @@
         "TECNICO_CIENCIA"
       ],
       "files": [
-        "scripts/instagram_transcrever.py",
-        "scripts/youtube_transcrever.py"
+        "ferramentas/instagram_transcrever.py",
+        "ferramentas/youtube_transcrever.py"
       ]
     },
     {
@@ -345,7 +367,7 @@
         "acervo"
       ],
       "files": [
-        "scripts/fonte_nova.py",
+        "fontes/fonte_nova.py",
         "data/samples/FONTES-CANDIDATAS.json"
       ]
     },
@@ -360,10 +382,10 @@
         "ENGENHARIA"
       ],
       "files": [
-        "scripts/apify_pool.py",
-        "scripts/apify_contrato.py",
-        "scripts/apify_recuperar.py",
-        "scripts/contrato_ator.py"
+        "ferramentas/apify_pool.py",
+        "ferramentas/apify_contrato.py",
+        "ferramentas/apify_recuperar.py",
+        "ferramentas/contrato_ator.py"
       ],
       "views": [],
       "icon": "€"
@@ -380,9 +402,9 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "files": [
-        "scripts/comunicacao_coleta.py",
-        "scripts/comunicacao_classificar.py",
-        "scripts/comunicacao_medir.py"
+        "coleta/comunicacao_coleta.py",
+        "coleta/comunicacao_classificar.py",
+        "coleta/comunicacao_medir.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -398,10 +420,10 @@
         "INTELIGENCIA"
       ],
       "files": [
-        "scripts/instagram_coleta.py",
-        "scripts/instagram_diario.py",
-        "scripts/instagram_janela.py",
-        "scripts/instagram_pessoal.py"
+        "coleta/instagram_coleta.py",
+        "coleta/instagram_diario.py",
+        "coleta/instagram_janela.py",
+        "coleta/instagram_pessoal.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -417,9 +439,9 @@
         "ENGENHARIA"
       ],
       "files": [
-        "scripts/coletor.py",
-        "scripts/coleta_checkpoint.py",
-        "scripts/filas.py"
+        "coleta/coletor.py",
+        "coleta/coleta_checkpoint.py",
+        "coleta/filas.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -436,13 +458,13 @@
         "TECNICO_CIENCIA"
       ],
       "files": [
-        "scripts/eppo_gd.py",
-        "scripts/ephy.sh",
-        "scripts/agrifood_ue.py",
-        "scripts/denominaciones.py",
-        "scripts/cellar.sh",
-        "scripts/eu_substancia_adama_it.py",
-        "scripts/regulatorio*.py"
+        "coleta/eppo_gd.py",
+        "coleta/ephy.sh",
+        "coleta/agrifood_ue.py",
+        "coleta/denominaciones.py",
+        "coleta/cellar.sh",
+        "coleta/eu_substancia_adama_it.py",
+        "coleta/regulatorio*.py"
       ],
       "views": [
         "science"
@@ -461,10 +483,10 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "files": [
-        "scripts/corpus_*.py",
-        "scripts/speaker*.py",
-        "scripts/sensor_canal_identidade.py",
-        "scripts/universo_ciencia_it.py"
+        "coleta/corpus_*.py",
+        "coleta/speaker*.py",
+        "coleta/sensor_canal_identidade.py",
+        "coleta/universo_ciencia_it.py"
       ],
       "views": [
         "science"
@@ -483,10 +505,10 @@
         "INTELIGENCIA"
       ],
       "files": [
-        "scripts/proveniencia.py",
-        "scripts/v21_procedencia_contrato.py",
-        "scripts/v21_procedencia_religar.py",
-        "scripts/v21_carimbar_origem.py"
+        "leis/proveniencia.py",
+        "leis/v21_procedencia_contrato.py",
+        "leis/v21_procedencia_religar.py",
+        "leis/v21_carimbar_origem.py"
       ],
       "views": [],
       "icon": "§"
@@ -503,10 +525,10 @@
         "INTELIGENCIA"
       ],
       "files": [
-        "scripts/fato_local.py",
-        "scripts/lugar*.py",
-        "scripts/v21_geografia_contrato.py",
-        "scripts/gire_mapas.py"
+        "leis/fato_local.py",
+        "leis/lugar*.py",
+        "leis/v21_geografia_contrato.py",
+        "leis/gire_mapas.py"
       ],
       "views": [],
       "icon": "§"
@@ -523,9 +545,9 @@
         "REGULATORIO_PORTFOLIO"
       ],
       "files": [
-        "scripts/data_clock.py",
-        "scripts/v21_datas*.py",
-        "scripts/calendario_*.py"
+        "leis/data_clock.py",
+        "leis/v21_datas*.py",
+        "leis/calendario_*.py"
       ],
       "views": [],
       "icon": "§"
@@ -542,9 +564,9 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "files": [
-        "scripts/adama_relevance.py",
-        "scripts/regua*.py",
-        "scripts/auditoria_regua_comercial.py"
+        "leis/adama_relevance.py",
+        "leis/regua*.py",
+        "leis/auditoria_regua_comercial.py"
       ],
       "views": [
         "opportunity"
@@ -562,7 +584,7 @@
         "ENGENHARIA"
       ],
       "files": [
-        "scripts/cicatrizes_brasil.py"
+        "leis/cicatrizes_brasil.py"
       ],
       "views": [],
       "icon": "§"
@@ -579,8 +601,8 @@
         "MARKETING"
       ],
       "files": [
-        "scripts/voz.py",
-        "scripts/texto*.py"
+        "leis/voz.py",
+        "leis/texto*.py"
       ],
       "views": [],
       "icon": "§"
@@ -597,15 +619,15 @@
         "TECNICO_CIENCIA"
       ],
       "files": [
-        "scripts/adama_it_eu.py",
-        "scripts/adama_it_frac.py",
-        "scripts/adama_it_gaps.py",
-        "scripts/adama_it_intelligence.py",
-        "scripts/adama_it_labels.py",
-        "scripts/adama_it_moa.py",
-        "scripts/adama_it_qa.py",
-        "scripts/adama_catalogo_ler.py",
-        "scripts/adama_catalogo_montar.py"
+        "fontes/adama_it_eu.py",
+        "fontes/adama_it_frac.py",
+        "fontes/adama_it_gaps.py",
+        "fontes/adama_it_intelligence.py",
+        "fontes/adama_it_labels.py",
+        "fontes/adama_it_moa.py",
+        "fontes/adama_it_qa.py",
+        "fontes/adama_catalogo_ler.py",
+        "fontes/adama_catalogo_montar.py"
       ],
       "views": [
         "science"
@@ -623,8 +645,8 @@
         "REGULATORIO_PORTFOLIO"
       ],
       "files": [
-        "scripts/adama_es_gate.py",
-        "scripts/adama_es_import_rules.py"
+        "regras/adama_es_gate.py",
+        "regras/adama_es_import_rules.py"
       ],
       "views": [],
       "icon": "⛨"
@@ -641,13 +663,13 @@
         "TECNICO_CIENCIA"
       ],
       "files": [
-        "scripts/rotulos_baixar.py",
-        "scripts/rotulos_ler.py",
-        "scripts/cruzar_regua_rotulo.py",
-        "scripts/pdf_text.py",
-        "scripts/preservar_pdf.py",
-        "scripts/mapa_regfi.py",
-        "scripts/ropf_pre_requisito.py"
+        "coleta/rotulos_baixar.py",
+        "coleta/rotulos_ler.py",
+        "coleta/cruzar_regua_rotulo.py",
+        "coleta/pdf_text.py",
+        "coleta/preservar_pdf.py",
+        "coleta/mapa_regfi.py",
+        "coleta/ropf_pre_requisito.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -664,7 +686,7 @@
       ],
       "legacy": true,
       "files": [
-        "scripts/v2_*.py"
+        "motor/v2_*.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -681,15 +703,15 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "files": [
-        "scripts/v21_comercial.py",
-        "scripts/v21_completude_oportunidade.py",
-        "scripts/v21_necessidade.py",
-        "scripts/v21_reavaliar_35.py",
-        "scripts/v21_reverificacao_ledger.py",
-        "scripts/v21_antes_e_depois.py",
-        "scripts/v21_campos_de_lingua.py",
-        "scripts/v21_adama_registro_validar.py",
-        "scripts/v21_tm_colher.py"
+        "motor/v21_comercial.py",
+        "motor/v21_completude_oportunidade.py",
+        "motor/v21_necessidade.py",
+        "motor/v21_reavaliar_35.py",
+        "motor/v21_reverificacao_ledger.py",
+        "motor/v21_antes_e_depois.py",
+        "motor/v21_campos_de_lingua.py",
+        "motor/v21_adama_registro_validar.py",
+        "motor/v21_tm_colher.py"
       ],
       "views": [
         "meeting",
@@ -709,9 +731,9 @@
         "COMERCIAL"
       ],
       "files": [
-        "scripts/lastmile_*.py",
-        "scripts/ler_saida_leque.py",
-        "scripts/meeting_snapshot.py"
+        "pacote/lastmile_*.py",
+        "pacote/ler_saida_leque.py",
+        "pacote/meeting_snapshot.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -729,8 +751,8 @@
         "LIDERANCA"
       ],
       "files": [
-        "scripts/ask_sintonia.py",
-        "scripts/rede.py"
+        "superficie/ask_sintonia.py",
+        "superficie/rede.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -747,12 +769,12 @@
         "LIDERANCA"
       ],
       "files": [
-        "scripts/auditoria.py",
-        "scripts/coverage.py",
-        "scripts/corrigir_custo.py",
-        "scripts/inventario_esperado.py",
-        "scripts/freeze_es.py",
-        "scripts/testa_rota_italia.py"
+        "provas/auditoria.py",
+        "provas/coverage.py",
+        "provas/corrigir_custo.py",
+        "provas/inventario_esperado.py",
+        "provas/freeze_es.py",
+        "provas/testa_rota_italia.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -768,9 +790,9 @@
         "ENGENHARIA"
       ],
       "files": [
-        "scripts/v21_cadeia.sh",
-        "scripts/cadeia_canonica.sh",
-        "scripts/chain.py"
+        "motor/v21_cadeia.sh",
+        "motor/cadeia_canonica.sh",
+        "motor/chain.py"
       ],
       "views": [],
       "icon": "⛓"
@@ -786,10 +808,10 @@
         "ENGENHARIA"
       ],
       "files": [
-        "scripts/v21_ingest*.py",
-        "scripts/v21_normalizar.py",
-        "scripts/normalize*.py",
-        "scripts/pacote_normalizar.py"
+        "motor/v21_ingest*.py",
+        "motor/v21_normalizar.py",
+        "motor/normalize*.py",
+        "motor/pacote_normalizar.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -806,10 +828,10 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "files": [
-        "scripts/v21_crossings.py",
-        "scripts/pacote_convergencia.py",
-        "scripts/consolidar_leque.py",
-        "scripts/matriz*.py"
+        "motor/v21_crossings.py",
+        "motor/pacote_convergencia.py",
+        "motor/consolidar_leque.py",
+        "motor/matriz*.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -827,9 +849,9 @@
         "FIELD_SALES"
       ],
       "files": [
-        "scripts/v21_oportunidades.py",
-        "scripts/v21_dominio_da_alegacao.py",
-        "scripts/v21_fechar.py"
+        "motor/v21_oportunidades.py",
+        "motor/v21_dominio_da_alegacao.py",
+        "motor/v21_fechar.py"
       ],
       "views": [
         "opportunity"
@@ -847,9 +869,9 @@
         "ENGENHARIA"
       ],
       "files": [
-        "scripts/v21_contrato_do_pacote.py",
-        "scripts/v21_aceitacao.py",
-        "scripts/v21_traducao_trava.py"
+        "motor/v21_contrato_do_pacote.py",
+        "motor/v21_aceitacao.py",
+        "motor/v21_traducao_trava.py"
       ],
       "views": [
         "audit"
@@ -868,14 +890,14 @@
         "INTELIGENCIA"
       ],
       "files": [
-        "scripts/v21_fontes_*.py",
-        "scripts/v21_vozes_reconciliar.py",
-        "scripts/source*.py"
+        "motor/v21_fontes_*.py",
+        "motor/v21_vozes_reconciliar.py",
+        "motor/source*.py"
       ],
       "views": [],
       "icon": "⚙",
       "exclude": [
-        "scripts/source_health.py"
+        "motor/source_health.py"
       ]
     },
     {
@@ -889,13 +911,13 @@
         "ENGENHARIA"
       ],
       "files": [
-        "scripts/pacote*.py",
-        "scripts/metricas_canonicas.py",
-        "scripts/v21_handoff_json.py"
+        "pacote/pacote*.py",
+        "pacote/metricas_canonicas.py",
+        "pacote/v21_handoff_json.py"
       ],
       "exclude": [
-        "scripts/pacote_normalizar.py",
-        "scripts/pacote_convergencia.py"
+        "pacote/pacote_normalizar.py",
+        "pacote/pacote_convergencia.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -911,8 +933,8 @@
         "ENGENHARIA"
       ],
       "files": [
-        "scripts/site_v21_ingest.py",
-        "scripts/build_portal.py"
+        "portoes/site_v21_ingest.py",
+        "portoes/build_portal.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -992,8 +1014,8 @@
         "italia-portale/client/italy-*.js",
         "italia-portale/client/meeting-*.js",
         "italia-portale/client/adama-relevance.js",
-        "scripts/it_casa_dados.py",
-        "scripts/proto_es.py"
+        "superficie/it_casa_dados.py",
+        "superficie/proto_es.py"
       ],
       "exclude": [
         "italia-portale/client/italy-app-model.js",
@@ -1144,8 +1166,8 @@
       ],
       "files": [
         "supabase/**",
-        "scripts/sql*.py",
-        "scripts/supabase*.py"
+        "guarda/sql*.py",
+        "guarda/supabase*.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -1153,7 +1175,7 @@
     {
       "id": "C-CI-COLETA",
       "name": "Os botoes que disparam a coleta",
-      "territory": "Z-GUARDA",
+      "territory": "Z-DISPARA",
       "kind": "workflow",
       "what": "Os botoes que disparam coleta paga, sempre com a fase gratuita rodando primeiro.",
       "why_here": "Coleta paga sem contrato conferido antes ja queimou execucoes.",
@@ -1171,7 +1193,7 @@
     {
       "id": "C-CI-PERSIST",
       "name": "Os botoes que cuidam do banco",
-      "territory": "Z-GUARDA",
+      "territory": "Z-DISPARA",
       "kind": "workflow",
       "what": "Conferem a conexao com o banco, rodam migracao e provam que o dado volta igual ao que entrou.",
       "why_here": "Migracao sem prova de ida e volta e perda de dado com aparencia de sucesso.",
@@ -1376,22 +1398,75 @@
   ],
   "EXPECTED_EDGES": [],
   "DECLARED_BLOBS": {
-    ".github/workflows/adama-es-gate.yml": "79fe63a1072c71323b7fe52661274d26fc67850f",
-    ".github/workflows/apify-conexao.yml": "83e87906d637232ce2aa41ed5a21110cd7d99119",
-    ".github/workflows/apify-sensores.yml": "645c739e2079b67fe4867a8de0349670652c1077",
-    ".github/workflows/calendario-regressoes.yml": "c9c11c591e8dd07b7e53e41afd09d56416e837dd",
-    ".github/workflows/comunicacao-publica.yml": "fefdff114ac800ef60d764fe5140c3e09099d3be",
-    ".github/workflows/sintonia-scrap.yml": "e7a4576d9b61c6ee9ba01e604df27b4491f94161",
+    ".github/workflows/adama-es-gate.yml": "caa7ab7fd35549a88bc26574e3e30b882c1aa891",
+    ".github/workflows/apify-conexao.yml": "7f2b6b30c4b4cedb77677d876f3ff34105e925e7",
+    ".github/workflows/apify-sensores.yml": "87f9cf2eb1c034b3abd09f841643e9851c23a444",
+    ".github/workflows/calendario-regressoes.yml": "5b35bd8b0b33c53926e3592139a159b8f6014b4d",
+    ".github/workflows/comunicacao-publica.yml": "3f3aef1b75e05cc9dfdb5cae0b1358a55364223b",
+    ".github/workflows/sintonia-scrap.yml": "19c73d933a507b1e0aeace0d2d0e3220bf64ce36",
     ".github/workflows/supabase-conexao.yml": "573173a3964780b6d76fffacc654ee8248737b44",
-    ".github/workflows/supabase-fichas-adama.yml": "4a0af73478a00107ea0ee4077a4574cfea0eb61a",
-    ".github/workflows/supabase-migrate.yml": "b103d3a0a67af1b1cd867c65e07f751f5a02adf3",
+    ".github/workflows/supabase-fichas-adama.yml": "48dea6f4d22485fa25b47e34ef5461757995fae7",
+    ".github/workflows/supabase-migrate.yml": "2b64939552d5f7313faa6f8ab4e3b9eb8ce88b0d",
     ".github/workflows/supabase-raw-roundtrip.yml": "7b8f182ab89d1176299913069a05220d1e90ae82",
     ".github/workflows/supabase-storage.yml": "cf95ae286c72c84f23aa906392b6c88dc4f88cd2",
     ".github/workflows/system-map.yml": "825d7a0dfb28cd37d69df980e60b9b2036ae267b",
+    "coleta/agrifood_ue.py": "09f2ce3b2b1c1fdaacfba006236981715c43e180",
+    "coleta/cellar.sh": "c54325c0bf44cc0fde8e43bc7123ad7ecce43d97",
+    "coleta/coleta_checkpoint.py": "a4a3d73a914c77348a8e21f5e291c3f7671ea301",
+    "coleta/coletor.py": "0049a50ceeb298059343dc91e38e6d23eadb06db",
+    "coleta/comunicacao_classificar.py": "1c10c198c1c3bfe76b1414fa76e053cfd29fd507",
+    "coleta/comunicacao_coleta.py": "caf81bbb5e57818351d3d58a9fa89b4c6f81cb07",
+    "coleta/comunicacao_medir.py": "52f8087890b02c7d5cb9399c7792fd1565f0930c",
+    "coleta/corpus_es.py": "110592b1a0fd1680d69d964a7833c0ae121661fe",
+    "coleta/corpus_pesquisador.py": "e5613f75a2ed65eb2c314e542bcb094574d849ab",
+    "coleta/cruzar_regua_rotulo.py": "da033e807912912d1f2623d6d04aa81489cba94f",
+    "coleta/denominaciones.py": "bee60fe6b25b6cc06685058c0f0a25c4322ca24c",
+    "coleta/ephy.sh": "2b66037fe43b0b4abe198b5c66aab4310698e9b9",
+    "coleta/eppo_gd.py": "1f648008e6773ab9e71bc267ab4907ee5bc259d1",
+    "coleta/eu_substancia_adama_it.py": "ca7616bcc42ca0ae40eaddea1ed97e6142d7be48",
+    "coleta/filas.py": "bf3dbf0b8baf5919b0c1a0bedc01315e5fdbe82d",
+    "coleta/instagram_coleta.py": "d31845151d7b70bcb6eb41ecb6aff41ad932096c",
+    "coleta/instagram_diario.py": "5de534f894d437afcdfbb076df362cbfe8160cc0",
+    "coleta/instagram_janela.py": "fdc73e0ed394882cca514441cd3f8d00e49b5df0",
+    "coleta/instagram_pessoal.py": "18d4ff1c3308b7ac09a516e3e96147f9fc5d7363",
+    "coleta/mapa_regfi.py": "865a1708eaed2a5d15f295551e00e0466a5afc17",
+    "coleta/pdf_text.py": "53a53feff1a9679d74c08b22e57616434e92b522",
+    "coleta/preservar_pdf.py": "c234c140644c39c0c655bdc413ad70eae7ae1620",
+    "coleta/regulatorio_importar.py": "c4554f9f717875972201d30a50ced28969eb29bd",
+    "coleta/ropf_pre_requisito.py": "76645586edf88ce1938c3193e1a6b460c54412aa",
+    "coleta/rotulos_baixar.py": "9b71f29e6ad90171eca7f0afc21a9664e9f8eab2",
+    "coleta/rotulos_ler.py": "c938ffe22f94fd9a308f6fd9ec042f1f61a844bf",
+    "coleta/sensor_canal_identidade.py": "8cc634ed2b7df760a41eb04dbcd42faa6e7d76d5",
+    "coleta/speaker_identidade.py": "8fd4a8523a04e940692e4a9e569dcbad14079917",
+    "coleta/speaker_universo.py": "792aba2108b0461a5fb960db6090385ea81ffceb",
+    "coleta/universo_ciencia_it.py": "b3762073beeee185530f34d14deefcd54064fb16",
+    "coleta/youtube_janela.py": "0a6d282083699c420288ca7036391507138c646f",
+    "coleta/youtube_relevancia.py": "fb9f96174ae4be313aa2c0b21d4c6ed1558e3e39",
     "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "dce86043d875046110e7cf3e8e1ee2f35b364d52",
     "data/samples/FONTES-CANDIDATAS.json": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
-    "docs/operacao/PORTOES-DE-COLETA-10B.md": "94380052d0793303f9b62c63163b69644c733112",
-    "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md": "d92be7f6dd52b8d9099f73d3612348bc62d3f9db",
+    "docs/operacao/PORTOES-DE-COLETA-10B.md": "814fb81c878bbfde008f5b2725c0feaa0c56f4eb",
+    "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md": "7ca3b74a4ecd4f6a8e1c476bf2641863f9071102",
+    "ferramentas/apify_contrato.py": "b20e59e7fd180da05022046a30dd5e13c25ebe9f",
+    "ferramentas/apify_pool.py": "886ba25ef5b3b58570fb5e9aec96bcdbf46c3671",
+    "ferramentas/apify_recuperar.py": "9d77a396c095551647c46769c32ecbe7157c49a4",
+    "ferramentas/cdp.py": "6686df7ef8508d4a55c93140f28a31742f797d58",
+    "ferramentas/contrato_ator.py": "f11b2b1ee7fa5f8b30e72b779e3c79a18c15fb0b",
+    "ferramentas/instagram_transcrever.py": "119d1bf0082b63d0cf493f85f524342b005bec8b",
+    "ferramentas/navegador.py": "1036720e34f532b7c9743ceadf11b919f7be5917",
+    "ferramentas/youtube_transcrever.py": "20cb560327529d6029e7cf4607cf420666cecbac",
+    "fontes/adama_catalogo_ler.py": "3e2baac26bef2697ff12ec5aa841d16036471d1b",
+    "fontes/adama_catalogo_montar.py": "55fe6ac5d1a2b944a6e0d46db058687bee2bc284",
+    "fontes/adama_it_eu.py": "b12fbbae103038aa861cd549b3e3a5b4e4bc84a4",
+    "fontes/adama_it_frac.py": "1450897d206a44ddc2835b111a3a54a2bc287a15",
+    "fontes/adama_it_gaps.py": "a131a4f6967a2223512ec485bfd80b30cd5381b8",
+    "fontes/adama_it_intelligence.py": "a157879d52af0d02899d83c549e86e3aeb8bf488",
+    "fontes/adama_it_labels.py": "98697e2ca2c430307959967b2e058bb3033eb53d",
+    "fontes/adama_it_moa.py": "57b26541315e0350ef066f8a83cb88821829acf9",
+    "fontes/adama_it_qa.py": "70ecc42de14172e60e4a657a37dcbb10b7ae3bf2",
+    "fontes/fonte_nova.py": "0abc32e7cb5c24e9b9f62f2c285292fea622b95a",
+    "guarda/catalogo_importar.py": "fb56f21c646d7c12c0d58292dbee9c09cc56f531",
+    "guarda/importar_italia.py": "46304462a2d72ea658415c3ca8ffcfff0cea585f",
+    "guarda/sql_conferir.py": "8e27ab6e65c9d53f0e2607f07a287f4b769ae2d8",
     "italia-portale/BASELINE/_ds/adama-brandwell/_adherence.oxlintrc.json": "33b460a7e2a4606240e3ce74c734a2ca6a4ae703",
     "italia-portale/BASELINE/_ds/adama-brandwell/_ds_bundle.js": "5181841ff9f5e3a465908bcdcbd563655bbd6b67",
     "italia-portale/BASELINE/_ds/adama-brandwell/_ds_manifest.json": "1a13f1400c39b3d0e066cf95835bbb7d2e56aeff",
@@ -1406,7 +1481,7 @@
     "italia-portale/audit/acceptance.mjs": "236fa520700aa04d51e9ce62a0d91e5bf332d1f7",
     "italia-portale/audit/action-map-consistency.mjs": "77fdb965145b28079e6681d0b18e43e88d6f710f",
     "italia-portale/audit/adama-product-claim.mjs": "8cfae1475523fac03573ac8e298d4735dd1313f0",
-    "italia-portale/audit/adama-relevance-gate.mjs": "3038920c5967aee449ea5091b617efb4428b80cc",
+    "italia-portale/audit/adama-relevance-gate.mjs": "39c5fdc86a91648a932c7e0c86aefb762c39eb72",
     "italia-portale/audit/blocks.mjs": "3597dad50c78cae39e0f141684bd8feeff0c031e",
     "italia-portale/audit/blocks/archive.js": "6b148f72ed8dbf726241f5f3a9ea731cccae7acd",
     "italia-portale/audit/blocks/brief.js": "b14151e0a45d8a02a9a9d20aca8f095e61431fc7",
@@ -1430,8 +1505,8 @@
     "italia-portale/audit/browser-deep.mjs": "83a902e4f3f22ce88b30395033edac09554d08d5",
     "italia-portale/audit/browser.mjs": "62e89adec9a9f2710199e9f2e8cbc4d0ef0d4bde",
     "italia-portale/audit/build-gate.mjs": "5f55a42e9871a4c0db2aef21534e9b0805934a96",
-    "italia-portale/audit/cadeia-de-familias.mjs": "8cb044a28f1284408955ee18635967fdcc127cf3",
-    "italia-portale/audit/casa-gate.mjs": "b33a4403e979a9ef344b10ef8933e2c4bfb431cd",
+    "italia-portale/audit/cadeia-de-familias.mjs": "d12b05bf439eb5fb90e6a0c6893ccf786dfb0dd1",
+    "italia-portale/audit/casa-gate.mjs": "97e116eb9dfcc4f169663ad02191d3018feb8305",
     "italia-portale/audit/casco/brandwell-parita.mjs": "670d9e740427082596af423d2de0d58a2a277b40",
     "italia-portale/audit/casco/censo-demo.mjs": "21aec5439919c73c2208a75400c4320d12977a8b",
     "italia-portale/audit/casco/censo-precedenza.mjs": "0f4c317e7f028562bbc88efaa0cee05ea01da6a7",
@@ -1455,9 +1530,9 @@
     "italia-portale/audit/client-surface.mjs": "83fb110487fd314fe82c3028ddebe172a71f1256",
     "italia-portale/audit/competitor-population.mjs": "be370cd1554ca864ff76de594387b71470deb8aa",
     "italia-portale/audit/contract-numbers.mjs": "fa7a93a02372745c7b8e7b63b4decec332b17273",
-    "italia-portale/audit/counters.mjs": "2eaa8c77dff6b24d89b90aad61ed6148d309b8d6",
+    "italia-portale/audit/counters.mjs": "67467d05ffc8a2bd14d6e267dcb502852ed11eab",
     "italia-portale/audit/cta-navigation.mjs": "fb0571589f440a30b4be8695d7465c8e0c5ef903",
-    "italia-portale/audit/deploy-surface.mjs": "2688a44d626080d0b280985cf6403433603921dc",
+    "italia-portale/audit/deploy-surface.mjs": "2c869a80ee1f6fb8f07ef001756470e612df83a0",
     "italia-portale/audit/do-not-show.mjs": "fbeef183796cb064ae11daf4faf0e0e4c26cc9c7",
     "italia-portale/audit/external-only.mjs": "0ecd5883d7e3333abfccded2ea6ac2d386f1eca7",
     "italia-portale/audit/future-ruler.mjs": "f68d2147ab6ceabd5505c9ecd7dab1e809f8a098",
@@ -1490,7 +1565,7 @@
     "italia-portale/audit/prova-da-build.mjs": "1d3b103a74c8e0709035ef6316ba33fdcf2d2881",
     "italia-portale/audit/publication-boundary.mjs": "1b1670e49f1a6c1fab1d8286edd48b480a26f092",
     "italia-portale/audit/reachability.mjs": "c3af263707f2c816a2f6dff52b59ae9f0be75b83",
-    "italia-portale/audit/reconciliacao-do-catalogo.mjs": "d48a30895a877ea182ff8d0e00620fb3d3d36b6a",
+    "italia-portale/audit/reconciliacao-do-catalogo.mjs": "fd28e9ea661387b9f65b8f968886e37c641d7e06",
     "italia-portale/audit/responsive.mjs": "71cf370d7c75fb93bf05d858c26a4343b0f430f5",
     "italia-portale/audit/rtv-gate.mjs": "a63cf95aedfb57df450eed6272dc2499b9c919b4",
     "italia-portale/audit/run.mjs": "b2f161200d3daf5439cd8d34fffc0f7026782d6b",
@@ -1498,10 +1573,10 @@
     "italia-portale/audit/serve.mjs": "2b8787c6b3ad9010b4455669641c78b8b766206e",
     "italia-portale/audit/snapshot-failure.mjs": "5a22091619172e14dbe1e085dd3a20b9f4e75aa2",
     "italia-portale/audit/splice.mjs": "a685c9f2aa9dc9aa198b21b0152533eb998e63a2",
-    "italia-portale/audit/stale-generator-gate.mjs": "6752d142706d02b692946794eb1623bb4d72c631",
+    "italia-portale/audit/stale-generator-gate.mjs": "633d6ebce48f3d049558845b08343e0aa1f1d15e",
     "italia-portale/audit/surface-contract.mjs": "75eac136423410612e8f8810cbed79070f790506",
     "italia-portale/audit/upstream-ingestion.mjs": "390c9686ee9a96c6a4931dff047b7c507a455b9b",
-    "italia-portale/audit/v21-gate.mjs": "d1a7637c60d4dc57814c03ffbba872e30c95b6ac",
+    "italia-portale/audit/v21-gate.mjs": "f2b6b350a9db2b1850f38a10c706e2d764ba66a7",
     "italia-portale/client/_ds/adama-brandwell/_adherence.oxlintrc.json": "33b460a7e2a4606240e3ce74c734a2ca6a4ae703",
     "italia-portale/client/_ds/adama-brandwell/_ds_bundle.js": "5181841ff9f5e3a465908bcdcbd563655bbd6b67",
     "italia-portale/client/_ds/adama-brandwell/_ds_manifest.json": "1a13f1400c39b3d0e066cf95835bbb7d2e56aeff",
@@ -1513,16 +1588,16 @@
     "italia-portale/client/_ds/adama-brandwell/tokens/spacing.css": "8223f888cfe4f45733d9bf06aeaa0daecd0b9d54",
     "italia-portale/client/_ds/adama-brandwell/tokens/typography.css": "08dea8bd33e596b66c0c7e6f52e012182b855993",
     "italia-portale/client/accesso.html": "7c568bb918cb7f94e2c6ac69c550b51fcbcdfdfe",
-    "italia-portale/client/adama-relevance.js": "4ef3e5389ed4a46c8243a66494cdaa217f5dfe2c",
+    "italia-portale/client/adama-relevance.js": "bb1c6670f652d9076e0f356b2baeaeba759a35d0",
     "italia-portale/client/casa.html": "ceb0e72e4f6e62849c0b2e1a1abcb97bedab4640",
     "italia-portale/client/index.html": "5600cfb46d54bd2f4cf76ad0489d8155db7c3fd3",
     "italia-portale/client/italy-app-model.js": "ea1a40c8750dfdedbb4016875829f046f654dcc2",
     "italia-portale/client/italy-briefs.js": "f26e0fd5f554eff59ce7af699bab5ab5838bff18",
     "italia-portale/client/italy-canonical-windows.js": "29419598ad376ee7fb1273b3d1d7188e620a0683",
-    "italia-portale/client/italy-casa.js": "d816e15de2463d625adcded8c592c5795e72b43a",
+    "italia-portale/client/italy-casa.js": "3c87fcb0198f69e9c907671e084544d921b3400d",
     "italia-portale/client/italy-catalog.js": "3d414b4147a5ca8e6d5d8b8eb964067f1b961a24",
     "italia-portale/client/italy-demo-data.js": "31d2b1e3afb3bf7fded5798a768485de8778c404",
-    "italia-portale/client/italy-handoff-v21.js": "bdf864aec05085424d8c8af727a153404c9fd220",
+    "italia-portale/client/italy-handoff-v21.js": "ffec00438b3dd309b809e622f0f98307bb5de304",
     "italia-portale/client/italy-i18n.js": "efb575bf66109f9ea49d72984294a0ade49bc61d",
     "italia-portale/client/italy-ingested.js": "53bcf4a3c40f9f98120d3b5b5a2494dbb84b3437",
     "italia-portale/client/italy-label-verdicts.js": "5ca55b6aff7d7f5c3cf8ce603c8d9ed4ab49e990",
@@ -1530,160 +1605,103 @@
     "italia-portale/client/italy-pdf.js": "dbd891879039ec4f07698d2d9a27dbeebb553ab8",
     "italia-portale/client/italy-real-intelligence.js": "ccca2071aa5865f5ae0408987eef1dc94ab8405e",
     "italia-portale/client/italy-science-business.js": "94f897e77d635161cc0060712dba81375d7ffd4c",
-    "italia-portale/client/meeting-intelligence-snapshot.js": "434a476268607f14be208dc96155dffd2d600d91",
-    "italia-portale/client/meeting-labels.js": "39b504d25b451ec208981cd9be73d6eef2ebdc52",
-    "italia-portale/client/meeting-surface.js": "a60fc34cc410211cccd9ad6e6a9ab406ba847ef7",
-    "italia-portale/client/portale.html": "77d347546bdef5c9d73a9bda995b4752ed8e66da",
+    "italia-portale/client/meeting-intelligence-snapshot.js": "14cb8a517260b1b6430285d4a4d9e07f69b5b38c",
+    "italia-portale/client/meeting-labels.js": "15426752e1234ba5e5a34ff1bbf5d3a80e10071a",
+    "italia-portale/client/meeting-surface.js": "ef67af20e21f4a2b77ce98ac6cc30b08ea9467c2",
+    "italia-portale/client/portale.html": "9bdab2326705d50606b89dab2c61fc205a1bea58",
     "italia-portale/client/support.js": "5d75829d4340877d95f162d7f09569a980ce634c",
-    "scripts/adama_catalogo_ler.py": "6b989da2b8ed60187d0a6e93f06131f6ad41c160",
-    "scripts/adama_catalogo_montar.py": "a390b207f1cd738197c132ef81f0102ae50727eb",
-    "scripts/adama_es_gate.py": "1bf8c5850e3e053a01446fd6f811ea976eb9a00c",
-    "scripts/adama_es_import_rules.py": "f8389d4b1e0c04be3673146c690be3b0ef100be2",
-    "scripts/adama_it_eu.py": "5fd6a0e35325e6e035f664ee447d99f56692cfff",
-    "scripts/adama_it_frac.py": "2e946353782a54f06af039a51c1fa40bc8cd5c18",
-    "scripts/adama_it_gaps.py": "234af2175bdf416612da205590f4f710433c1f0f",
-    "scripts/adama_it_intelligence.py": "98c864092944cd528f227a83aa2f8210ac3f09bf",
-    "scripts/adama_it_labels.py": "445223e4e7ce11f0e0a8d50a96e3c17b98b97c59",
-    "scripts/adama_it_moa.py": "a42fb65ebdca5de99f45fb1ca9e982c6ab7c27c0",
-    "scripts/adama_it_qa.py": "2de49a16dd77f6f1751f8563ad3e5eb032d5ab55",
-    "scripts/adama_relevance.py": "449bdc6277f0891f6a2be48a0e693f83994fd998",
-    "scripts/agrifood_ue.py": "a8f0d1d1aa3f58cb75569a38886b5116c9710237",
-    "scripts/apify_contrato.py": "eebb4b5d8567a34044e31b5bc44bf5ecf1bffd74",
-    "scripts/apify_pool.py": "886ba25ef5b3b58570fb5e9aec96bcdbf46c3671",
-    "scripts/apify_recuperar.py": "3690087e6ccfcfa62042c1f007202d52b9e18437",
-    "scripts/ask_sintonia.py": "9ebc54ad886e04af986810795b4b7d670e1c0a4f",
-    "scripts/auditoria.py": "8c6a990ba9dcce2cd7c5a4003872a963b02f30cf",
-    "scripts/auditoria_regua_comercial.py": "b14a95d280e67f81eaa6c78d0f469ee6e0146131",
-    "scripts/build_portal.py": "df285d9d8397af938a853880da7a6f656f2c83ba",
-    "scripts/cadeia_canonica.sh": "9346fa396de3f2f33be23aecb135d4bb61ca956c",
-    "scripts/calendario_handoff.py": "aed41b7d229a374401ac9d8958889b64369ebd02",
-    "scripts/catalogo_importar.py": "d57d903d9d393fca6068cc42c04c36d92b22af16",
-    "scripts/cdp.py": "ec3976ebb148a926050dd52df15c4b8cd5f00f0c",
-    "scripts/cellar.sh": "d13197b37291ae662f5f5f73c0fbe02652286ef2",
-    "scripts/chain.py": "683d0fefd6af450e85762f87fa753aecfb95217a",
-    "scripts/cicatrizes_brasil.py": "fbb81ef89f5f06cc52bce8d8366360d5ff633e9d",
-    "scripts/coleta_checkpoint.py": "bd310a469a53202292f520ea2b06bb35abfec445",
-    "scripts/coletor.py": "03f60bae250cfdf9e72d91e91750264071eea4ba",
-    "scripts/comunicacao_classificar.py": "0ef4c9271119dc5af38502d57adbb2e4e096b2c5",
-    "scripts/comunicacao_coleta.py": "b4c6f270d3b67db70b09c8710fdf20bb7bf70895",
-    "scripts/comunicacao_identidade.py": "c4a14e20f3dbcf050b505937e72a103845187e7c",
-    "scripts/comunicacao_lote.py": "3075aef0f68fb93f84a6e95e3dcc69d4ab5782dc",
-    "scripts/comunicacao_medir.py": "74c3c60a179a676bb2d9cc2e216600b01b3f655c",
-    "scripts/comunicacao_universo.py": "1020f5869d2c414bc03eae1ce8d17db0e1975615",
-    "scripts/consolidar_leque.py": "61a4901023126981651c8a227dbbc3eee7b66e8f",
-    "scripts/contrato_ator.py": "bba5c8f455f450680c27abecc8fad758bb6ac267",
-    "scripts/corpus_es.py": "f72859e11f33e0c27e4359087f9a908a231d6845",
-    "scripts/corpus_pesquisador.py": "05e15cab00fe87404c80842affbe1618d7c89627",
-    "scripts/corrigir_custo.py": "8cf617c5d06de0721a84c6a187361a127e8aa1c6",
-    "scripts/coverage.py": "7bb882a2ee00ad189593a1e159c108c5541458b8",
-    "scripts/cruzar_regua_rotulo.py": "09c20f7040be7a5e88103d5e4d2699df6f08e770",
-    "scripts/data_clock.py": "bea8ed8885043772748a67a2068f987800b55670",
-    "scripts/denominaciones.py": "28f182db469bb3724e5add3443ad1b98d1944e19",
-    "scripts/ephy.sh": "35434f6c367f511324f6d85503674ffb927c1f39",
-    "scripts/eppo_gd.py": "9465cdd48057cca61918d1511d7beae923d63c0e",
-    "scripts/eu_substancia_adama_it.py": "149cbea94a58627f9a53fa4f8b1ece824cee5fa5",
-    "scripts/fato_local.py": "413bc2bc6e92faedf549783ca7e93d01e0bbe190",
-    "scripts/filas.py": "bf3dbf0b8baf5919b0c1a0bedc01315e5fdbe82d",
-    "scripts/fonte_nova.py": "44d24214a8908b28bf70e4dc64715e680f267cce",
-    "scripts/freeze_es.py": "a4c1a68b9d00c9df3f6e98d08206d93138f841bd",
-    "scripts/gire_mapas.py": "5f824e1b9b88998a25d9d4eb32cd9e8410bd29a5",
-    "scripts/importar_italia.py": "28be63edb25361062b4d605d866e482294392a26",
-    "scripts/instagram_coleta.py": "d2a57d550979d19f14f983fe2f3fe6f260554ca3",
-    "scripts/instagram_diario.py": "b0f5c2854ce2d65e4642eb05bfac05bc86f743d5",
-    "scripts/instagram_janela.py": "828aabaa676aef53dd89e68b9ceb23cb1afbdda2",
-    "scripts/instagram_pessoal.py": "46422ae84e9061777ed147812bccd1d63121a8c5",
-    "scripts/instagram_transcrever.py": "0100a527a428d86dbdf05f06dc869663c74b7756",
-    "scripts/inventario_esperado.py": "5af4922e51b992edf570c0c091e524be65736e36",
-    "scripts/it_casa_dados.py": "4b4f4e15ec9513b64802d67f55f4bab2e152d233",
-    "scripts/lastmile_entregar.py": "60c33d51a9926288aab9a1d5dab1c79240c56b43",
-    "scripts/lastmile_inventario.py": "c6800b82c5973482d0d955c4af02b8c0be9b6f72",
-    "scripts/lastmile_para_supabase.py": "5a74c1c5c5de42d1f74381182d825f6cf2d78b9b",
-    "scripts/lastmile_relatorio.py": "b6bf8c0ec7e1219611aefe598e26377079cf16f0",
-    "scripts/ler_saida_leque.py": "4564a618b932b9f51c76cfe0cc590a6b70993b6d",
-    "scripts/lugar_do_fato.py": "fcf935c7b02be798fff17a483e3cf21df4e3db15",
-    "scripts/mapa_regfi.py": "c7bfea8a080085aab7971deb339b24994e62b053",
-    "scripts/matriz_recorte.py": "a1af7df10080191a7da0f818d28042a14d40fe50",
-    "scripts/meeting_snapshot.py": "8e6493dd2dd02198877350a4ccbd0b81b69cc1af",
-    "scripts/metricas_canonicas.py": "ce8763961dbb6d5ca9685f7096d848c13df7c973",
-    "scripts/navegador.py": "adcf25679ee6ef1472a9b8cf36934ee4d338d4ee",
-    "scripts/normalize_agro.py": "8db16c1ad61f22a0e3b7032b182544e837e4c2fc",
-    "scripts/normalize_substance.py": "659095421054d66a2d1df4dd800f5407103bfde0",
-    "scripts/pacote.py": "75e8ae5c23dbb8cd3819bfb916dcbf837b3f5c91",
-    "scripts/pacote_camadas.py": "e860a4cd76446d671797fab0497a8f0b79fe6ebb",
-    "scripts/pacote_camadas2.py": "4737324bdc277a386271ee62b5df0bb143c5154b",
-    "scripts/pacote_camadas3.py": "d38271d8e6e5a783580b7d5eb4710a91ef26ecd3",
-    "scripts/pacote_convergencia.py": "6c4d7fb84c2065d93e53373f0ed9e171b3ce4ce3",
-    "scripts/pacote_docs.py": "e1c72ee164367550a9b60b1babcaf8b402255494",
-    "scripts/pacote_fenologia.py": "cf46472f68744324a42708d068001a9951ba2bec",
-    "scripts/pacote_mercado.py": "e1b39209451663c131cb7229f37ba381bc396668",
-    "scripts/pacote_montar.py": "b3bf1c82bb988a7aa618a123a131822e2749197d",
-    "scripts/pacote_normalizar.py": "b86ff2ed1839929cc3e6630e9996d08db52aa6d8",
-    "scripts/pacote_relacoes_convergencia.py": "71f42d9734f451b296b5df3c8aeb5ba441e90262",
-    "scripts/pdf_text.py": "2ecc50c2d92e17c5301790490be904373f7803c4",
-    "scripts/portao.py": "6a31907cba0810695bb9665d8514a4faad414f9b",
-    "scripts/portoes_eame.py": "31b8966390fcc49b24751f6edc42406823506d03",
-    "scripts/preservar_pdf.py": "812bdf77a179223caaee1b807d4a0c999a2ada2f",
-    "scripts/proto_es.py": "b8aef4d12a08a4b48593578cb62fd1935b5bc364",
-    "scripts/proveniencia.py": "aa6e06690c0e9e7527dcb7da36a300dce31d93d6",
-    "scripts/rede.py": "17d3ba5845cd836a163851b1b1071b676d6d5da3",
-    "scripts/regua_italia.py": "9d07f395db3e8fb7ba27adea5f95603f98ee53e2",
-    "scripts/regulatorio_importar.py": "e980f7862d0f2860d24251b4d8c3869a8f42fbf9",
-    "scripts/ropf_pre_requisito.py": "d003336bc91a482d549d171b707fa6b21b6b543e",
-    "scripts/rotulos_baixar.py": "f8a7b595c8a9c85b9fe98c3586c08cfac485a6fd",
-    "scripts/rotulos_censo.py": "3f635e9885d5627b7f8030577143eb3358a02cd1",
-    "scripts/rotulos_ler.py": "8bd2d1d9cd56c7f4428287ab05772fbb3ec54067",
-    "scripts/sensor_canal_identidade.py": "dcbaa557baeecf43088313d2ceba8d1b78647e32",
-    "scripts/sensor_coleta.py": "00400df0f41d7d6a53626bfe832237466da9147f",
-    "scripts/sensor_medir.py": "90fec896e35f67657cbae7464b057c6e7e0b6469",
-    "scripts/site_v21_ingest.py": "92ccbfff23d039809f713e6414701a4db5649329",
-    "scripts/source_health.py": "76805b822db70cca3f72ee7b8adb9627ce9ec8d8",
-    "scripts/speaker_identidade.py": "4cca9f39bb0d72589e072b46098a3ac36082d7ef",
-    "scripts/speaker_universo.py": "6a7b40ab6031bd97d6f3bb4710ce698e73c0018d",
-    "scripts/sql_conferir.py": "ad09c424029397bd1bb5a33c551e515ce8e0805c",
-    "scripts/testa_rota_italia.py": "6c74b437a1977ae43fa56d51186bb98d5d8bef79",
-    "scripts/texto_fonte.py": "26c627fb4ef3392e46396ac280d692d72e8b385b",
-    "scripts/universo_ciencia_it.py": "11f0a65b158b41512ecbaf839bf785c4a05b8622",
-    "scripts/v21_aceitacao.py": "e921b074e5e8772d644ec8922b498bc176896e6e",
-    "scripts/v21_adama_registro_validar.py": "c59af437094595445a9a59d1b7b00d757e33e9e9",
-    "scripts/v21_antes_e_depois.py": "21a5cd51d922cea351c6c16d5c932613884df4dd",
-    "scripts/v21_cadeia.sh": "39079440214ea05de85a0422390ef8175c1e7fdc",
-    "scripts/v21_campos_de_lingua.py": "0cf5cbd813a988bc82db5f8a26a63d8233ae5661",
-    "scripts/v21_carimbar_origem.py": "22a6499047cbad84de19367fbdf3c1292c0d67f9",
-    "scripts/v21_comercial.py": "56a48c27e304e4ddbebd7c369fcfe418116b84dc",
-    "scripts/v21_completude_oportunidade.py": "af4a6048d8cc076b19141b32a4432ce58904c662",
-    "scripts/v21_contrato_do_pacote.py": "99d085fe8de704eb8aaa1937922d36f25ebdc1a2",
-    "scripts/v21_crossings.py": "8ad339ee912ce550fe4f6f60ef727a9f9d200690",
-    "scripts/v21_datas.py": "fb461b975f5558dd5c31f40d5d5201dde5f172a7",
-    "scripts/v21_dominio_da_alegacao.py": "00bb9698bbb4c007163980cc3d0b0f9079261bcd",
-    "scripts/v21_fechar.py": "b5572db28005be94742094af04c6cb4de728f870",
-    "scripts/v21_fontes_faltantes.py": "7c41bc715bd2846da24aefad202711a27475c426",
-    "scripts/v21_fontes_rechavear.py": "80dada5a0707aefe57633328560e2b9f99a041b5",
-    "scripts/v21_geografia_contrato.py": "3c7e2ae6ccdb3a5cad8b897b7b14dc9c66f99237",
-    "scripts/v21_handoff_json.py": "9a4cbab5091fe8661defff79373d88a98cc70b7a",
-    "scripts/v21_ingest.py": "1c2aaa4cb4415869f14066d901c2edf6b8ce0de0",
-    "scripts/v21_ingest_b.py": "4b8f2389cf4435d42b402d74c950410fd90a313e",
-    "scripts/v21_ingest_c.py": "8f745efbe4dcffdb356817d286d896590d78e3be",
-    "scripts/v21_necessidade.py": "62cd2773cb97326efd7a19d980b176816ee6f0dc",
-    "scripts/v21_normalizar.py": "daab341123458d15ed9cba9e3ad36ab22c23fc9b",
-    "scripts/v21_oportunidades.py": "b4df2820a4edc3e16e2a67075cf9754753972651",
-    "scripts/v21_procedencia_contrato.py": "969f5c7ac4b613d165c203063373f10b3ec3ffea",
-    "scripts/v21_procedencia_religar.py": "767072e49b3de4fbc21c8720ff4897d220198868",
-    "scripts/v21_reavaliar_35.py": "caa173cbca973f89040ccd46b0c9b00b6fa16fa7",
-    "scripts/v21_reverificacao_ledger.py": "917b3771df4e9e28da7ffc84cc2c94338d9568c4",
-    "scripts/v21_tm_colher.py": "4226b6155efe0b624bce67cd7e12d82aaa0e7093",
-    "scripts/v21_traducao_trava.py": "f17ec74d579f4fd199a7174487f45d1e05a27992",
-    "scripts/v21_vozes_reconciliar.py": "79988d6e80547af37fde0ca2837173153e4d4aa5",
-    "scripts/v2_conflitos.py": "c8d812a3b6f85cb24e033352353b42ceb0020669",
-    "scripts/v2_cruzamentos.py": "475a9c5700566701fbadf8f9f431da2731cdb90b",
-    "scripts/v2_dedup_e_familias.py": "3b3c462a623657edfafd535cd8d63a09e45f24bd",
-    "scripts/v2_fechar.py": "b2ed313a6ea76fd9de1412d7fa3f5d896242b2c2",
-    "scripts/v2_montar_handoff.py": "4bffd990aed391168684b8bb83fc1108dc46b939",
-    "scripts/v2_qa_atribuir.py": "b7eceb2a34b5840b8aaa7aa750c41edf28126089",
-    "scripts/v2_relatorio.py": "7004e0377e5127bb15345f16d2dd39faaa37ceba",
-    "scripts/voz.py": "94c454b64a1c13a6fb6059918f1edbdd358cd791",
-    "scripts/youtube_janela.py": "ac85bb1d3ebd91ba115ad8bd4bae79de48ceba90",
-    "scripts/youtube_relevancia.py": "05be03a25a7a86651d22c8fb80d6e5a3527d26fa",
-    "scripts/youtube_transcrever.py": "72ae22c8328df367238ff04a935b04bc43236a7d",
+    "leis/adama_relevance.py": "449bdc6277f0891f6a2be48a0e693f83994fd998",
+    "leis/auditoria_regua_comercial.py": "f4c57edd52b3543446bcab37eb58b1509a832c74",
+    "leis/calendario_handoff.py": "f7861c8391ae6e9bd73ce0a63366733dbaabb7d2",
+    "leis/cicatrizes_brasil.py": "2e5fa7f0fde22b637e2ea5e1374230ec127d0be7",
+    "leis/data_clock.py": "fc57e8b4ca2ed0e5f18d360cd8a4a336e681960c",
+    "leis/fato_local.py": "453ccb5f6abcc0fb0a7073a02a1286efa944c792",
+    "leis/gire_mapas.py": "5f824e1b9b88998a25d9d4eb32cd9e8410bd29a5",
+    "leis/lugar_do_fato.py": "9e7688b665c7b8484eb95355fab5c686541314a6",
+    "leis/proveniencia.py": "1c618b33846dbbb8cdb35f777397afafd7a1cf40",
+    "leis/regua_italia.py": "2ac576dca4e1491d5567a2b232fcd8c3814d6f03",
+    "leis/texto_fonte.py": "b6fbe3bde53f2481aba9cb4b30e5b4c31fe8d956",
+    "leis/v21_carimbar_origem.py": "e44370c9e292301a337dd918a78752b504c4f2fc",
+    "leis/v21_datas.py": "fb461b975f5558dd5c31f40d5d5201dde5f172a7",
+    "leis/v21_geografia_contrato.py": "06641a95c5dde96c03916f7f437a8b0c825c7918",
+    "leis/v21_procedencia_contrato.py": "a8d6cf098593117b3dccee4a018af08fc6f10c8f",
+    "leis/v21_procedencia_religar.py": "74b9d675263db47d5f41a3b3bffa35f31a607ab7",
+    "leis/voz.py": "94c454b64a1c13a6fb6059918f1edbdd358cd791",
+    "motor/cadeia_canonica.sh": "60c11fcbabbf4918bcbff10f204a64916f4ee17c",
+    "motor/chain.py": "7cd239225904c8db581701a15f6e07c396c3d3a9",
+    "motor/consolidar_leque.py": "8c1cb9623019c9fb50461c1cac5ee8d9677f9dbf",
+    "motor/matriz_recorte.py": "cc3a9b2705010a94716750487004fa4b0f1b60ab",
+    "motor/normalize_agro.py": "95bd1ed11557603293d17c6cc00178264d9e9405",
+    "motor/normalize_substance.py": "a5f7deb6702471cf762c196dc8b8b7db4d4e0633",
+    "motor/pacote_convergencia.py": "6c4d7fb84c2065d93e53373f0ed9e171b3ce4ce3",
+    "motor/pacote_normalizar.py": "eae88520501b80c21fcbc3e40496c01dd4869b00",
+    "motor/v21_aceitacao.py": "678c6f6f4c376e0598b81a9e6f5d115da286a9b5",
+    "motor/v21_adama_registro_validar.py": "c7413c072efd36743ab749425860c3da1243451b",
+    "motor/v21_antes_e_depois.py": "a3a4468ea22f3a6febceb90f47fb4f1381a25c9c",
+    "motor/v21_cadeia.sh": "73c4c5b76055aa9a3724ed9fe639f72777dcccf1",
+    "motor/v21_campos_de_lingua.py": "5ee999d0301b878de6fe5ac7415bfaf241f74427",
+    "motor/v21_comercial.py": "56a48c27e304e4ddbebd7c369fcfe418116b84dc",
+    "motor/v21_completude_oportunidade.py": "37f6843fddd0b05be653a85a4753a2f1a6dd11dd",
+    "motor/v21_contrato_do_pacote.py": "1966c99dbca10ae93c919066a083adff07e13e8a",
+    "motor/v21_crossings.py": "34c37cefcf9bcf5d9fe4db0ed4ef1d156f672bc3",
+    "motor/v21_dominio_da_alegacao.py": "117147a0765fa13c9efbb540a7d627c83987db8f",
+    "motor/v21_fechar.py": "597745223201ca2fdf12f2762f0466bd44921dc7",
+    "motor/v21_fontes_faltantes.py": "1b172be5abae72c565ec65e8c9a8550dc76701e7",
+    "motor/v21_fontes_rechavear.py": "635794969b7ce38c734390e2bd71ed2cee26351a",
+    "motor/v21_ingest.py": "a1df9d62149e13ebadb4db7de1d3c12976d75175",
+    "motor/v21_ingest_b.py": "1f00f00c8bca3d1789719ade3a99e99c6a4b0335",
+    "motor/v21_ingest_c.py": "96b80cb80d59c453513599972de2d65be869edd5",
+    "motor/v21_necessidade.py": "b7102e40f8ab4040fe9cf20065d61c208f327c8d",
+    "motor/v21_normalizar.py": "daab341123458d15ed9cba9e3ad36ab22c23fc9b",
+    "motor/v21_oportunidades.py": "062c03c2e3183553fb78105477594b8b71792da8",
+    "motor/v21_reavaliar_35.py": "d7c9137db80267e62d758ef37b262f2637f61e89",
+    "motor/v21_reverificacao_ledger.py": "d6c7535a99df86f59977f5dc08df37f305411586",
+    "motor/v21_tm_colher.py": "30b5da0d16f526f40372aa4c357e568dc8429266",
+    "motor/v21_traducao_trava.py": "5e301080a25ffcff37cf9b3ec707d64a65a1712e",
+    "motor/v21_vozes_reconciliar.py": "f7d447009ee3cbf8e7d66bfb359d502bb73a81c4",
+    "motor/v2_conflitos.py": "791120fdaca2bba9262499f0897fe9c539530877",
+    "motor/v2_cruzamentos.py": "f860d0e9e8799aa6bbcf7b2ab8eb4b54f4b29863",
+    "motor/v2_dedup_e_familias.py": "038c058147e85fa2519b994402db6e45c5cedbce",
+    "motor/v2_fechar.py": "ba0cad734f128e1caf0807b7f8ad7e26b68ab09e",
+    "motor/v2_montar_handoff.py": "9a1aaa5db40a978b54a94af3c1a9caecfff166fd",
+    "motor/v2_qa_atribuir.py": "d917a8e1b98a65f260457082827b6630fde6ddd5",
+    "motor/v2_relatorio.py": "1bbf0055bc3eaac94a8cc3d7ac07b01ca2d35dfa",
+    "pacote/lastmile_entregar.py": "4a84dfe96efd6940b8758fdd3eb037084909c7b1",
+    "pacote/lastmile_inventario.py": "1fc017bbdb1e2c812719e94fc6bb6aea1c7b61a7",
+    "pacote/lastmile_para_supabase.py": "1e05c22d3892c04e37dac40bbd025e08a5104f4f",
+    "pacote/lastmile_relatorio.py": "aca3c41bc96b53e38f16d47e591fddbd11d618d9",
+    "pacote/ler_saida_leque.py": "25e64a35eab8db162b5a7d16e4e26ec0224ab89b",
+    "pacote/meeting_snapshot.py": "b5d037f1a4ce98c34e244d6e1a64169a37821c36",
+    "pacote/metricas_canonicas.py": "64162157d121e812e85070cd78e1a6591c7334c0",
+    "pacote/pacote.py": "81727cedec71b95930516b7b39ada84713e10483",
+    "pacote/pacote_camadas.py": "a550bb4681f7eb3f83b61b92affde2084ca111aa",
+    "pacote/pacote_camadas2.py": "09332c52ccf815d8cc4e749671af0814e748239b",
+    "pacote/pacote_camadas3.py": "bccc8cd0d58a9776d640bb62bcae6eaa607445ad",
+    "pacote/pacote_docs.py": "61afeaa62f1e950a0473366027c474a924d67cbd",
+    "pacote/pacote_fenologia.py": "1a360da49673b3dadc3e3f1e5a3640d7e071b7fc",
+    "pacote/pacote_mercado.py": "95751e2305b0ef86af80a6f8facf89c37ad50d34",
+    "pacote/pacote_montar.py": "2c9f8d004d141751d304b0d31a65844f807bc329",
+    "pacote/pacote_relacoes_convergencia.py": "71f42d9734f451b296b5df3c8aeb5ba441e90262",
+    "pacote/v21_handoff_json.py": "4f5ac76484aff2bb0470bd078ede173d1300a561",
+    "portoes/build_portal.py": "de19a89cb1ed6cb6d346935cb0ede74aea37f93d",
+    "portoes/site_v21_ingest.py": "39376bfde4839bacacf544d9b673d2a5238ee6f5",
+    "provas/auditoria.py": "8c6a990ba9dcce2cd7c5a4003872a963b02f30cf",
+    "provas/corrigir_custo.py": "8cf617c5d06de0721a84c6a187361a127e8aa1c6",
+    "provas/coverage.py": "7bb882a2ee00ad189593a1e159c108c5541458b8",
+    "provas/freeze_es.py": "a4c1a68b9d00c9df3f6e98d08206d93138f841bd",
+    "provas/inventario_esperado.py": "d3043da78bdd927622cfedb11a67afbcb85382bb",
+    "provas/testa_rota_italia.py": "4fb25815bd63df037ca315f8530d1d420b23fa3d",
+    "regras/adama_es_gate.py": "d434caf8e0556c6e0a1f393d38f87e612a4ad33d",
+    "regras/adama_es_import_rules.py": "0c65d3b5950ec2628b45db7d99b7bf17ba9009f9",
+    "regras/comunicacao_identidade.py": "3afe6c18b66d13826a262a184787271a8ee3211f",
+    "regras/comunicacao_lote.py": "098fc6d67af9fa697025f2afe8bf0bcf40749254",
+    "regras/comunicacao_universo.py": "37e4638950e2619cb19b218f3ab73be0700625a0",
+    "regras/portao.py": "967ff47ca35bbf781f6bd8b34976f08ad1c760ae",
+    "regras/portoes_eame.py": "6ff3af42aab4d0717ac3def4c81a3135b0bf558e",
+    "regras/rotulos_censo.py": "0fc53eb5edcbd7126f89cfd2a0a3e33dab69546b",
+    "regras/sensor_coleta.py": "9c9be3ce17d64eed2ce2532f3d463b88b8d656ac",
+    "regras/sensor_medir.py": "a7e3471c929cc7d62d0c412706d6ec8f71218f34",
+    "regras/source_health.py": "76805b822db70cca3f72ee7b8adb9627ce9ec8d8",
     "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql": "11570d02661fe076cb03e6709398d503c4974e31",
     "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql": "9b8e725253337e098aa586a4df9b131ac4d55dbd",
     "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql": "8c49ffa85d7f83a46bba0adfed7fd59c66bebe82",
@@ -1726,44 +1744,48 @@
     "supabase/tests/regressoes_coleta.sql": "87516f571d050ce0abf4eabe0f0291fb4b29882e",
     "supabase/tests/regressoes_lugar_do_fato.sql": "a5abde721e6f06cb4ef4e793699dce2d396d4a3a",
     "supabase/tests/regressoes_regulatorio_es.sql": "7c806a2cda0a2adc3b24e9e3e8e3bb406acd72d7",
+    "superficie/ask_sintonia.py": "eabd46db157e09be24cc700d111dc37cf1ce31de",
+    "superficie/it_casa_dados.py": "f51b5a7ce31fd613adc7ed6f7c026bb554ef06a1",
+    "superficie/proto_es.py": "85553d1be3db4a959aed2fc3301b32165a817ae2",
+    "superficie/rede.py": "90a85f14923b6d9dfa88b560070aec08329f35ae",
     "system-map/app/index.html": "cd2fedf7baae6ace57be8d81dbe950f9ab1aef1d",
     "system-map/app/map.css": "d70a895270eca4dd5684c116772153890a648a55",
     "system-map/app/map.js": "f04eb0b54571fc61b3b088212ed010e082e811ae",
-    "system-map/scripts/generate_system_map.py": "ef4454dbfad29eeb7aa71390ee243385cadd12d3",
-    "system-map/scripts/scan_repo.py": "78e8e36dd295159a4055d788c9b8be2fb98ff269",
-    "system-map/scripts/scan_sources.py": "d0f92cd8327f4c49287509058d87dc7eefc76903",
-    "system-map/scripts/validate_system_map.py": "62710dacf74abc5ee9ed695720057fd202d4e9a7",
-    "system-map/tests/test_system_map.py": "fc9a1034c1a801eb5492ac2d8b018be7e95730c5",
-    "tests/test_adama_es_gate.py": "3c7bbce2f3f2b88ac9474fda1ecc2bf3da66674c",
-    "tests/test_adama_es_import_rules.py": "590e552c5e2520b975dd002a0cb6a85b2686cc78",
-    "tests/test_adama_relevance.py": "1c9230263667227d67e3b082dd1c2cd23cdbf5d2",
+    "system-map/scripts/generate_system_map.py": "03c054adf2458778e32fd63e437ba8196cb5cc48",
+    "system-map/scripts/scan_repo.py": "35067d4568bd72ee2c40c143fca4c0303aa90afa",
+    "system-map/scripts/scan_sources.py": "5d658ac626c1c479f939a393b426384f9b076565",
+    "system-map/scripts/validate_system_map.py": "90db5bed5eaf40806c1ef83da6c96cbeb8906030",
+    "system-map/tests/test_system_map.py": "91530ca778e788452d99b2c6f594302d68a53145",
+    "tests/test_adama_es_gate.py": "eb7990d2ab9941216546941ae913f7ef2592c7f9",
+    "tests/test_adama_es_import_rules.py": "527228ffc3f90a1f5df0611ec4d24eb37b1e2b39",
+    "tests/test_adama_relevance.py": "09313593290772438fb08514cd00f33e8eb7c8de",
     "tests/test_calendario_temporal.py": "74c6cafdec4763b7d7aa34473be378c43778befd",
-    "tests/test_canonico.py": "cac448bdbb86ad62c604817f9dfbb08b442a3184",
-    "tests/test_cicatrizes_brasil.py": "799b99d87a5b51aa444b8f1ddbdfcdf66a987cbd",
-    "tests/test_coleta_externa.py": "f126b9e94f72979b7656e011edeb0c6551149767",
-    "tests/test_coleta_resiliente.py": "d66be514d5fa571689b49a0a8d2014c1d3b2a4da",
+    "tests/test_canonico.py": "837666d1d5ae4cc20045683d01be2ab3abae684b",
+    "tests/test_cicatrizes_brasil.py": "cb8042d7815e126d06ff662fbb7f717bcacfe392",
+    "tests/test_coleta_externa.py": "220ef1007ff7b200e9a23f5602eb36814a57a1f1",
+    "tests/test_coleta_resiliente.py": "2c773b0e8135f070becf8ef024a1f3565f10108d",
     "tests/test_competitor_layer.py": "f34a9b4dc1872ce4bb40b490addb0fc40675a6c3",
-    "tests/test_completude_oportunidade.py": "9a473c10ba83fe2a013f17fba94eddf0decae312",
-    "tests/test_comunicacao.py": "5c4c7917891e426d23fb62f794202389b3ffaee2",
+    "tests/test_completude_oportunidade.py": "832dc3194fbe092c17617dd2f44d0c051e30ed37",
+    "tests/test_comunicacao.py": "73f042a06fba424800de38b9dcfea0d640c9bdee",
     "tests/test_evidence.py": "c1efcd244c2096478816b6a3ebe8a2a758a8a285",
-    "tests/test_handoff.py": "85a6be114ceff051e818153b94abe1f4079f3136",
+    "tests/test_handoff.py": "132fe6ae31399146dac5e5d5f827a71201babde4",
     "tests/test_hero_cases_v1.py": "8aeab80c87371a136b9470ba4b0cd87581c57c49",
-    "tests/test_lugar_do_fato.py": "8cba47f224124563e4e41e34f6b11bdc89ec4ee4",
-    "tests/test_metricas.py": "dba28bf29ab3aca4b835125bbd0c8724e6f80bc5",
+    "tests/test_lugar_do_fato.py": "a773fc4e77d633a688de27d2cc1f7b7bff8335dc",
+    "tests/test_metricas.py": "9c962935a3d6a7a67375c978352036ee70da5295",
     "tests/test_migrations.py": "5e7fd2d7e6d313019dda9208e2a36ec15dd8e458",
-    "tests/test_navegador.py": "506acd9cfd6c06980e1f8adfc3cf399c1b98b4f5",
-    "tests/test_operacao.py": "af634eac8f0680494ce6307988eac1e94bc71518",
-    "tests/test_pipeline.py": "843bbc49965977adfc9beb8744be2ae4fb57c63c",
-    "tests/test_portao.py": "774f26b8b19ba96cac7c7e998e095305af24f846",
-    "tests/test_portoes_eame.py": "10324bd30a8db8287e3f3ef0bfffe9710a1b7753",
-    "tests/test_prioridade_comercial.py": "bcc8ad8ea84dac4b279a98573aed4fb334a69cd5",
-    "tests/test_proveniencia.py": "2d187d8d58952ccb19a4d01c5c2b2eebc5c5ce5d",
+    "tests/test_navegador.py": "721da8f23f75f28713b9b0d06087a494296dd5d3",
+    "tests/test_operacao.py": "c9e6ffd47695621bf045af6079781d2c5d9d5a32",
+    "tests/test_pipeline.py": "3dee515e5a1f50a1f76783245cd067e509b8a457",
+    "tests/test_portao.py": "2516da79fe3a60c7dc4bb6addd22040cd887abc7",
+    "tests/test_portoes_eame.py": "7a676c00beb69ccfd1c35630b2da820d00887675",
+    "tests/test_prioridade_comercial.py": "51b2bc2c31828a0ec177bf5e557d30cb6a215c35",
+    "tests/test_proveniencia.py": "a8fcb631b640abb5ffd9ffb4ecfdd8481ca09abb",
     "tests/test_radar_futuro.py": "90ac58d8099d6d67aca46abd561a61c9afd46c7a",
-    "tests/test_v21_datas.py": "67330a1419146bedc367d6b4d7764e620c9c6523",
-    "tests/test_v21_geografia.py": "aa6825f390aeee14e24699f57839b8befb943275",
-    "tests/test_v21_mercado.py": "cc462990a085e5e60e0ceebd0842c4eb1b77033f",
-    "tests/test_v21_traducao_trava.py": "a05a588245f717fdbfe61a31cf40e2f93547889c",
-    "tests/test_voz.py": "96d769756e52344c2b0f45ad915cea8866e74768"
+    "tests/test_v21_datas.py": "445167667b858a5617084ec7a67d6a8d84c3476f",
+    "tests/test_v21_geografia.py": "ee8a32a0e6ec19337e0eaaf80bb6b1d7286fe151",
+    "tests/test_v21_mercado.py": "59ed12bc81f8a64a5f5ffb128f6b5c9a643111a3",
+    "tests/test_v21_traducao_trava.py": "a2a6c427707565030124988ccf91d691d3a80e2e",
+    "tests/test_voz.py": "638f2e81dc7522a9f4d747718ce1647a8e6b70f4"
   },
   "FAMILIES": [
     {

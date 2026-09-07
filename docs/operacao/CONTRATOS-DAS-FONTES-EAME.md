@@ -12,7 +12,7 @@ Aqui está **como se busca, o que se espera de volta, e o que acontece quando n�
 
 ## SAÚDE DE FONTE — definição objetiva
 
-Implementada em `scripts/source_health.py`, não em prosa.
+Implementada em `regras/source_health.py`, não em prosa.
 
 | estado | condição |
 |---|---|
@@ -37,7 +37,7 @@ COUNTRY                   FRANCE
 PRIMARY/SECONDARY         PRIMARY · OPEN DATA
 PURPOSE                   BQ1, BQ3, CASE-014, cross-market cereal
 CANONICAL_URL             https://www.data.gouv.fr/api/1/datasets/575e9fac88ee38072a640390/
-RETRIEVAL_METHOD          scripts/ephy.sh download [destino]
+RETRIEVAL_METHOD          coleta/ephy.sh download [destino]
 HTTP_METHOD               GET (API do catálogo) + GET (ZIP resolvido)
 PARAMETERS                nenhum — o id do dataset é fixo
 AUTH_REQUIRED             não
@@ -72,7 +72,7 @@ COUNTRY                   SPAIN
 PRIMARY/SECONDARY         PRIMARY · **PUBLIC APPLICATION ROUTE**
 PURPOSE                   BQ1, BQ3, CASE-015, modelo de identidade
 CANONICAL_URL             https://servicio.mapa.gob.es/regfiweb/
-RETRIEVAL_METHOD          scripts/mapa_regfi.py {producto|export|total|divergencia}
+RETRIEVAL_METHOD          coleta/mapa_regfi.py {producto|export|total|divergencia}
 HTTP_METHOD               GET (grade, ficha, PDF) · POST (export)
 PARAMETERS                NumRegistro · Titular · Fabricante · IdEstado · IdSustancia …
                           (export: dataDto[<filtro>])
@@ -139,7 +139,7 @@ COUNTRY                   ITALY
 PRIMARY/SECONDARY         PRIMARY · WEB (arquivo estático datado)
 PURPOSE                   BQ1, BQ3, CASE-014, cross-market cereal
 CANONICAL_URL             https://www.dati.salute.gov.it/it/dataset/fitosanitari/
-RETRIEVAL_METHOD          scripts/chain.py run it-prothioconazole — o nome datado do
+RETRIEVAL_METHOD          motor/chain.py run it-prothioconazole — o nome datado do
                           arquivo é DESCOBERTO na página do dataset, nunca chutado
 HTTP_METHOD               GET (página) + GET (CSV)
 PARAMETERS                nenhum
@@ -211,7 +211,7 @@ COUNTRY                   EUROPE
 PRIMARY/SECONDARY         PRIMARY · OPEN DATA (SPARQL + content negotiation)
 PURPOSE                   BQ1, BQ3, CASE-014
 CANONICAL_URL             https://publications.europa.eu/webapi/rdf/sparql
-RETRIEVAL_METHOD          scripts/cellar.sh {sparql|act|substances}
+RETRIEVAL_METHOD          coleta/cellar.sh {sparql|act|substances}
 HTTP_METHOD               GET
 PARAMETERS                query SPARQL · CELEX · iso3 do idioma
 AUTH_REQUIRED             não

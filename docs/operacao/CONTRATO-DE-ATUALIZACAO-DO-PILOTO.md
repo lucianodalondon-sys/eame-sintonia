@@ -88,7 +88,7 @@ de poder ser apresentado como atual.
 | | |
 |---|---|
 | **SOURCE** | todas as acima |
-| **FRESHNESS** | medida pergunta a pergunta em `scripts/ask_sintonia.py::FRESHNESS` |
+| **FRESHNESS** | medida pergunta a pergunta em `superficie/ask_sintonia.py::FRESHNESS` |
 | **PLACAR** | **19 CURRENT · 14 STRUCTURAL · 2 HISTORICAL**; 16 exigem frescor, 13 não, 6 dependem |
 | **STALE CONDITION** | qualquer pergunta `CURRENT + FRESHNESS SIM` cuja fonte esteja stale |
 | **NOTA** | **a recusa também envelhece.** 4 recusas (`B08`, `B17`, `B19`, `B33`) deixam de ser corretas quando a fonte abrir — foi o que aconteceu com `B03` e `B24` na MISSÃO 07 |

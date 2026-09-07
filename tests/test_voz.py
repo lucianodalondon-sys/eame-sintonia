@@ -312,7 +312,8 @@ class TestCropNaoDesempataEmSilencio(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         import sys
-        sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+        sys.path.insert(0, ROOT)
+        import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
         import voz as _voz
         cls.voz = _voz
 

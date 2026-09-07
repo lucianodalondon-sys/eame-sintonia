@@ -11,8 +11,8 @@
 
 ## A · O QUE CADA PORTÃO EXIGE, E COMO FOI MEDIDO
 
-Todos os estados vêm de `scripts/portao.py`, que **deriva** cada um dos artefatos.
-Nenhum foi digitado. `python3 scripts/portao.py --json` reproduz `PORTAO-10B-ES.json`.
+Todos os estados vêm de `regras/portao.py`, que **deriva** cada um dos artefatos.
+Nenhum foi digitado. `python3 regras/portao.py --json` reproduz `PORTAO-10B-ES.json`.
 
 | portão | estado | medida |
 |---|---|---|
@@ -31,7 +31,7 @@ O defeito da auditoria anterior: ela leu um branch que continuava recebendo comm
 auditor afirmou que a regra não existia em `docs/regras/` e listou 4 arquivos onde havia 5 —
 tinha lido antes do commit que a criou.
 
-`scripts/auditoria.py` cria um **worktree `--detach`** num SHA fixo. O auditor lê o snapshot;
+`provas/auditoria.py` cria um **worktree `--detach`** num SHA fixo. O auditor lê o snapshot;
 o branch pode receber commits sem contaminar nada.
 
 **A auditoria é INVÁLIDA — não "com ressalva" — em quatro casos, todos testados:**
@@ -66,7 +66,7 @@ fonte não informar.
 
 ### O portão foi provado rodando, não afirmado
 
-`scripts/coletor.py` é a porta única das rotas pagas: grava o **RAW antes de normalizar** e
+`coleta/coletor.py` é a porta única das rotas pagas: grava o **RAW antes de normalizar** e
 captura da própria plataforma os cinco campos que faltavam. Quatro execuções de verificação
 contra a API real.
 

@@ -461,7 +461,7 @@
 
            UNA SUPERFICIE NUOVA NON PORTA UN SECONDO DIZIONARIO.
 
-       `scripts/it_casa_dados.py` le legge da qui e le imballa in
+       `superficie/it_casa_dados.py` le legge da qui e le imballa in
        italy-casa.js: la casa legge il pacchetto, mai questo file. */
     casaTitle:         ['Cosa conta oggi in Italia', 'What matters today in Italy'],
     casaLede:          ['Ogni numero qui è una decisione — quante opportunità sono sul tavolo adesso, quante vanno preparate, quante solo osservate — mai la dimensione dell\u2019archivio. Ciò che porta un metodo viaggia sempre con il suo limite accanto.',
@@ -605,7 +605,7 @@
            CHE RISOLVE IL PROBLEMA.
 
        Niente si cancella: cambia il nome con cui il caso viene chiamato e il
-       posto in cui compare. La legge sta in scripts/adama_relevance.py e si
+       posto in cui compare. La legge sta in leis/adama_relevance.py e si
        decide LA; queste sono soltanto le sue letture. */
     surfOPPORTUNITA:   ['OPPORTUNITÀ', 'OPPORTUNITIES'],
     surfRADAR:         ['RADAR · DA VALIDARE', 'RADAR · TO VALIDATE'],

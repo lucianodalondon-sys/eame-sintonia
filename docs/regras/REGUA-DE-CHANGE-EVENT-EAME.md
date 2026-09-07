@@ -150,7 +150,7 @@ diferença entre duas versões de um documento regulatório.
 A §2 diz **quais** eventos existem. Esta diz **como** cada um é decidido, e é a parte que
 impede o radar de inventar mudança.
 
-**Antes de qualquer tipo, o portão de versão.** `scripts/source_health.py::version_state`
+**Antes de qualquer tipo, o portão de versão.** `regras/source_health.py::version_state`
 devolve cinco estados e **só um autoriza emitir evento**:
 
 | estado | pode emitir? |

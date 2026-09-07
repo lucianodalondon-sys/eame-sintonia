@@ -11,8 +11,8 @@
 > | o que conta como mudança e o que é só nova versão | [`REGUA-DE-CHANGE-EVENT-EAME.md`](REGUA-DE-CHANGE-EVENT-EAME.md) |
 > | quando um sinal vira `WATCH`, `INVESTIGATE` ou `ALERT` | [`REGUA-DE-ALERTA-EAME.md`](REGUA-DE-ALERTA-EAME.md) |
 > | chave Apify descartável: autonomia e limites | [`POLITICA-DE-CHAVES-DESCARTAVEIS.md`](POLITICA-DE-CHAVES-DESCARTAVEIS.md) |
-> | estados de saúde de fonte e cobertura | `scripts/source_health.py` · `scripts/coverage.py` |
-> | contrato de campos por vídeo, em código | `scripts/voz.py` |
+> | estados de saúde de fonte e cobertura | `regras/source_health.py` · `provas/coverage.py` |
+> | contrato de campos por vídeo, em código | `leis/voz.py` |
 
 ---
 
@@ -48,7 +48,7 @@ outra camada da rodada chegou perto disso por unidade de custo.
 
 ## 3 · O CONTRATO DE CAMPOS POR VÍDEO
 
-A lista vive em **`scripts/voz.py`**, em `CAMPOS_VIDEO` — **32 campos**. Ela está em código
+A lista vive em **`leis/voz.py`**, em `CAMPOS_VIDEO` — **32 campos**. Ela está em código
 para que o próximo país não a redigite e não a encolha em silêncio.
 
 ```
@@ -211,7 +211,7 @@ Manter: `RUN_ID` · `SOURCE_ID` · `CAPTURE_DATE` · `EXTERNAL_ID` · `RAW_EVIDE
 ### A exceção que a rota paga cria — e que muda a decisão D-003
 
 A decisão **D-003** mantém `data/raw/` fora do git porque o bruto é um **cache reproduzível**:
-perdeu-se, roda-se a cadeia de novo (`scripts/chain.py`).
+perdeu-se, roda-se a cadeia de novo (`motor/chain.py`).
 
 **Para rota paga com chave descartável essa premissa é falsa.** A chave morre quando o crédito
 acaba, e a rota **não pode ser replicada**. Ou a evidência é versionada, ou ela se perde.
@@ -222,14 +222,14 @@ normalizado **e** transcrição. `data/raw/` continua sendo cache para o que a c
 ## 14-B · O PORTÃO ANTES DE COLETAR (2026-08-29)
 
 Antes de escalar coleta, seis coisas precisam estar provadas — derivadas por
-`scripts/portao.py`, nunca digitadas:
+`regras/portao.py`, nunca digitadas:
 
 `RUN_MANIFEST` · `PIPELINE_DEDUPE` · `VIDEO_TAXONOMY_APPLIED` · `VIDEO_ORIGINALITY` ·
 `PAID_RAW_POLICY` · `COLLECTION_TIMESTAMPS`
 
 Qualquer um aberto = **não coletar**, e o motivo é o portão que barrou.
 
-**Toda rota paga passa por `scripts/coletor.py`**, que grava o RAW antes de normalizar e
+**Toda rota paga passa por `coleta/coletor.py`**, que grava o RAW antes de normalizar e
 captura da plataforma `ACTOR_VERSION`, `STARTED_AT`, `FINISHED_AT`, `DATASET_ID` e
 `COST_USD`. O `RUN_ID` passa a **resolver**: `CONTENT → RUN_MANIFEST → INPUT / ACTOR /
 DATASET / RAW`.

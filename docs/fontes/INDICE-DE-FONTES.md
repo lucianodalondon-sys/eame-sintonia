@@ -46,13 +46,13 @@ gente: nenhum degrau se sobe sozinho.
 
 ### A porta de entrada
 
-Fonte nova entra por `scripts/fonte_nova.py` — na mão, ou de dentro de uma coleta
+Fonte nova entra por `fontes/fonte_nova.py` — na mão, ou de dentro de uma coleta
 que tropeçou nela. **O que entra é candidata, nunca fonte.**
 
 ```bash
-py scripts/fonte_nova.py --tipos          # os tipos aceites
-py scripts/fonte_nova.py --listar         # a fila, agrupada por tipo
-py scripts/fonte_nova.py \
+py fontes/fonte_nova.py --tipos          # os tipos aceites
+py fontes/fonte_nova.py --listar         # a fila, agrupada por tipo
+py fontes/fonte_nova.py \
     --tipo BASE_OFICIAL --pais ES --nome "..." --url https://... \
     --para-que "para que serve" --quem-viu voce --onde-viu "onde viu"
 ```
@@ -146,7 +146,7 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 Na língua do país, sempre. Buscar em inglês devolve literatura
 internacional, não a conversa técnica local.
 
-### `scripts/rotulos_censo.py:48` · 35 palavras
+### `regras/rotulos_censo.py:48` · 35 palavras
 
 | grupo | palavras |
 |---|---|
@@ -168,7 +168,7 @@ internacional, não a conversa técnica local.
 | `POPILLIA` | popillia japonica |
 | `XYLELLA` | xylella |
 
-### `scripts/sensor_coleta.py:131` · 68 palavras
+### `regras/sensor_coleta.py:132` · 68 palavras
 
 | grupo | palavras |
 |---|---|

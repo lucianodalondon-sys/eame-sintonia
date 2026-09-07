@@ -153,6 +153,36 @@ def main() -> int:
     prova("P2_PECA_TEM_FAMILIA", "toda peca herda a familia da sua zona",
           not sem_fam, ", ".join(sem_fam[:8]))
 
+    # ── P2c · A PRATELEIRA BATE COM O MAPA ───────────────────────────────────
+    #
+    #     ESTA E A LEI. O VISUAL TEM DE ESTAR 100% DE ACORDO COM O PROJETO.
+    #
+    # Enquanto os 149 scripts viviam empilhados numa pasta so, o mapa podia dizer
+    # "isto e uma regra" e "aquilo e uma ferramenta" sem que nada no repositorio
+    # confirmasse. Duas verdades sobre a mesma coisa — e a que se ve primeiro ao
+    # abrir a pasta era a errada.
+    #
+    # Agora cada zona tem a sua gaveta, e este portao recusa qualquer ficheiro que
+    # esteja numa gaveta que nao e a da sua peca. Mover um ficheiro sem mover a
+    # peca no mapa reprova. Mudar a peca de zona sem mover o ficheiro reprova.
+    # Nao ha como as duas verdades voltarem a divergir em silencio.
+    gavetas = {z["folder"] for z in S["TERRITORIES"] if z.get("folder")}
+    pasta_da_zona = {z["id"]: z.get("folder") for z in S["TERRITORIES"]}
+    fora_do_lugar = []
+    for n in S["NODES"]:
+        certa = pasta_da_zona.get(n["territory"])
+        for f in n["files"]:
+            g = f.split("/")[0]
+            if g in gavetas and g != certa:
+                fora_do_lugar.append(f"{f} esta em {g}/ e a peca «{n['name']}» "
+                                     f"mora em {certa or 'nenhuma gaveta'}/")
+    prova("P2_PASTA_BATE_COM_MAPA",
+          "todo ficheiro esta na gaveta da sua peca",
+          not fora_do_lugar,
+          "\n        ".join(fora_do_lugar[:8]) +
+          ("\n        A PRATELEIRA E O MAPA TEM DE CONTAR A MESMA HISTORIA."
+           if fora_do_lugar else ""))
+
     # ── P3 · ligacoes apontam para peca existente ────────────────────────────
     soltas = sorted({f"{e['from']}->{e['to']}" for e in S["EDGES"]
                      if e["from"] not in nos or e["to"] not in nos})

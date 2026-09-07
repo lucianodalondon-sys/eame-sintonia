@@ -27,6 +27,7 @@ Tres regras que este ficheiro nunca quebra:
 SAIDA: system-map/data/architecture.generated.json
 """
 
+import ast
 import hashlib
 import json
 import os
@@ -44,8 +45,28 @@ LEGIVEIS = {".py", ".mjs", ".js", ".sh", ".yml", ".yaml", ".html"}
 
 # Diretorios de codigo: mexer aqui e mexer na arquitetura. Um ficheiro novo
 # nestes caminhos que ninguem declarou faz o validador reprovar. E de proposito.
-DIRS_DE_CODIGO = ("scripts/", "italia-portale/audit/", "tests/", "system-map/",
-                  ".github/workflows/", "italia-portale/client/")
+def _gavetas() -> tuple:
+    """A lista das gavetas do processo, lida de `_gavetas.py`.
+
+    Uma segunda lista aqui seria uma segunda verdade: bastava alguem criar uma
+    gaveta nova e esquecer-se deste ficheiro para o scanner deixar de ver metade
+    do repositorio — sem reclamar, porque o que ele nao ve nao existe para ele.
+    """
+    f = RAIZ / "_gavetas.py"
+    if not f.exists():
+        return ()
+    for no in ast.parse(f.read_text(encoding="utf-8")).body:
+        if isinstance(no, ast.Assign) and any(
+                getattr(t, "id", "") == "GAVETAS" for t in no.targets):
+            return tuple(ast.literal_eval(no.value))
+    return ()
+
+
+GAVETAS = _gavetas()
+
+DIRS_DE_CODIGO = tuple(g + "/" for g in GAVETAS) + (
+    "scripts/", "italia-portale/audit/", "tests/", "system-map/",
+    ".github/workflows/", "italia-portale/client/")
 
 # Ruido que nao e arquitetura: dependencia de terceiro, fonte, binario.
 # `italia-portale/client/system-map/` e COPIA da app, gerada pelo build para a
@@ -170,12 +191,13 @@ RE_ESCRITA = re.compile(
     r"savefig|mkdir|>\s*[\"']?\$?\w"
 )
 # `run:` de workflow chamando script do repo
-RE_RUN_SCRIPT = re.compile(
-    r"((?:scripts|tests|system-map/scripts|system-map/tests)/[\w./-]+\.(?:py|sh|mjs))")
+_PASTAS_CHAMAVEIS = "|".join(list(GAVETAS) + [
+    "scripts", "tests", "system-map/scripts", "system-map/tests"])
+RE_RUN_SCRIPT = re.compile(rf"((?:{_PASTAS_CHAMAVEIS})/[\w./-]+\.(?:py|sh|mjs))")
 
 
 def modulo_para_ficheiro(mod: str, origem: str, arquivos: dict) -> str | None:
-    """`import apify_pool` dentro de scripts/ resolve para scripts/apify_pool.py.
+    """`import apify_pool` dentro de scripts/ resolve para ferramentas/apify_pool.py.
 
     So devolve caminho que EXISTE no censo. Import de biblioteca de terceiro
     (json, pathlib, requests) nao resolve e portanto nao vira aresta — o mapa
@@ -183,9 +205,13 @@ def modulo_para_ficheiro(mod: str, origem: str, arquivos: dict) -> str | None:
     """
     base = mod.split(".")[0]
     pasta = str(Path(origem).parent).replace("\\", "/")
-    for tentativa in (f"{pasta}/{base}.py", f"scripts/{base}.py", f"{base}.py"):
-        if tentativa in arquivos:
-            return tentativa
+    # A propria gaveta primeiro; depois as outras, porque `_gavetas.py` poe todas
+    # no caminho e por isso o Python tambem as encontraria.
+    tentativas = [f"{pasta}/{base}.py", f"scripts/{base}.py", f"{base}.py"]
+    tentativas += [f"{g}/{base}.py" for g in GAVETAS]
+    for t in tentativas:
+        if t in arquivos:
+            return t
     return None
 
 

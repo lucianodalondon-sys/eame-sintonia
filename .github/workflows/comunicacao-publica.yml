@@ -89,7 +89,7 @@ jobs:
           echo "INTERPRETADOR=NENHUM"; exit 1
 
       - name: 1 · censo do pool (presença e quantidade — nunca valor)
-        run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
+        run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py
 
       # A régua de identidade roda de novo, de graça, ANTES da fase paga. Ela é
       # determinística sobre a evidência gravada: se o resultado mudar aqui,
@@ -101,7 +101,7 @@ jobs:
       # decisão humana, não conserto silencioso de máquina.
       - name: 2 · reconferir a régua e os testes (grátis, não regera o lote)
         run: |
-          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_identidade.py
+          PYTHONIOENCODING=utf-8 $PY regras/comunicacao_identidade.py
           PYTHONIOENCODING=utf-8 $PY tests/test_comunicacao.py
           PYTHONIOENCODING=utf-8 $PY - <<'PYEOF'
           import json
@@ -130,17 +130,17 @@ jobs:
         run: |
           echo "FASE=${{ inputs.fase }} · PLATAFORMA=${{ inputs.plataforma }}"
           if [ "${{ inputs.fase }}" = "contratos" ]; then
-            PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_coleta.py contratos
+            PYTHONIOENCODING=utf-8 $PY coleta/comunicacao_coleta.py contratos
           else
-            PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_coleta.py posts \
+            PYTHONIOENCODING=utf-8 $PY coleta/comunicacao_coleta.py posts \
               "${{ inputs.plataforma }}"
           fi
 
       - name: 4 · classificar e medir (grátis, sobre o que acabou de chegar)
         if: always()
         run: |
-          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_classificar.py || true
-          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_medir.py || true
+          PYTHONIOENCODING=utf-8 $PY coleta/comunicacao_classificar.py || true
+          PYTHONIOENCODING=utf-8 $PY coleta/comunicacao_medir.py || true
 
       - name: 5 · devolver o resultado ao repositório
         run: |

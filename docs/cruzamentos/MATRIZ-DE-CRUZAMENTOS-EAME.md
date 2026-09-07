@@ -188,7 +188,7 @@ A França escreve em francês (`mancozèbe`, `zinèbe`, `carbendazime`, `folpel`
 inglês (`MANCOZEB`, `COPPER OXYCHLORIDE`), e 560 usos franceses citam
 `glyphosate sel d'isopropylamine` — um **sal**, não a molécula-mãe.
 
-**Método** (`scripts/normalize_substance.py`), em ordem de confiança declarada:
+**Método** (`motor/normalize_substance.py`), em ordem de confiança declarada:
 
 | Método | O que faz | Confiança |
 |---|---|---|

@@ -271,7 +271,7 @@ def a_porta(fontes: list, contratos: dict) -> dict:
 
     O acervo de fontes e capital parado: consulta-se antes de coletar. Mas capital
     parado sem porta apodrece — fonte nova aparece no meio de uma coleta e morre no
-    historico do terminal de quem a viu. A porta e `scripts/fonte_nova.py`, e o que
+    historico do terminal de quem a viu. A porta e `fontes/fonte_nova.py`, e o que
     entra por ela e CANDIDATA, nunca fonte.
 
     A distancia entre os degraus e o trabalho que falta. Um numero por degrau diz,
@@ -292,7 +292,7 @@ def a_porta(fontes: list, contratos: dict) -> dict:
 
     registadas = [f for f in fontes if f["verdict"] in ("GREEN", "YELLOW")]
     return {
-        "porta": "scripts/fonte_nova.py",
+        "porta": "fontes/fonte_nova.py",
         "fila_file": FILA,
         "tipos_aceites": sorted(por_tipo) or [],
         "escada": [
