@@ -29,10 +29,27 @@ isso e CONTRACT = FAIL — e o defeito e do manifesto, nunca dele.
 
 O QUE ELE PRECISA CONCLUIR SEM INFERENCIA
 ------------------------------------------
-    mostrar os 43 · 5 AGIRE ORA · 8 PREPARARE ORA · 13 DA MONITORARE ·
-    17 SEGNALI · nao filtrar por CLIENT_SAFE · nao filtrar por
+    mostrar os 43 · 6 AGIRE ORA · 8 PREPARARE ORA · 13 DA MONITORARE ·
+    16 SEGNALI · nao filtrar por CLIENT_SAFE · nao filtrar por
     RENDERABLE_WITH_METHOD · nao filtrar por PUBLICATION_STATE ·
-    impedir distribuicao externa dos 38 VALIDATION_REQUIRED
+    impedir distribuicao externa dos 37 VALIDATION_REQUIRED
+
+UM CASO MUDOU DE FAIXA, E O CRITERIO ANDOU COM ELE
+---------------------------------------------------
+Os numeros eram 5 / 17 / 38 / 5. Passam a 6 / 16 / 37 / 6, e o caso e um so:
+OPP_EA2AE1EFB775 — Pomodoro x Peronospora. Ele dizia «c'e etichetta ministeriale
+verificata, ma nessuno dei prodotti autorizzati e nel catalogo commerciale», com
+COMMERCIAL_PRODUCT_COUNT a zero. O FOLPAN 80 WDG estava autorizado nessa coppia
+desde sempre; o que faltava era o leitor conseguir abrir a seccao de uso da
+etiqueta, que estava do outro lado do acento de «MODALITA».
+
+    O CRITERIO EXISTE PARA APANHAR O PORTAL A ADIVINHAR,
+    NAO PARA CONGELAR O MOTOR.
+
+Ficou a reprovar durante duas safras — V21-15071cc31d3461d3 e
+V21-56e837c134a2bcd3 — porque quem gerou leu o fim da cadeia e nao esta linha.
+Um contrato fail-closed que fica a reprovar deixa de ser lido, que e a unica
+forma de o desligar sem o desligar.
 
 Os numeros acima sao o CRITERIO, e por isso estao escritos aqui. Tudo o mais —
 quais campos consultar, que faixa cada valor recebe, quem pode sair para fora —
@@ -49,11 +66,11 @@ ING = os.path.join(ROOT, 'build', 'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST')
 SAIDA = os.path.join(os.path.dirname(ING), 'SURFACE-CONTRACT.json')
 
 # O criterio. Nao sai do manifesto de proposito — veja o docstring.
-FAIXAS_ESPERADAS = {'AGIRE ORA': 5, 'PREPARARE ORA': 8,
-                    'DA MONITORARE': 13, 'SEGNALI': 17}
+FAIXAS_ESPERADAS = {'AGIRE ORA': 6, 'PREPARARE ORA': 8,
+                    'DA MONITORARE': 13, 'SEGNALI': 16}
 TOTAL_ESPERADO = 43
-BLOQUEADOS_ESPERADOS = {'VALIDATION_REQUIRED': 38}
-LIBERADOS_ESPERADOS = {'PUBLISHABLE': 5}
+BLOQUEADOS_ESPERADOS = {'VALIDATION_REQUIRED': 37}
+LIBERADOS_ESPERADOS = {'PUBLISHABLE': 6}
 
 # Os campos que ja foram confundidos com portao de visibilidade. O manifesto tem
 # de dizer, sobre CADA um deles, que nao filtra a tela.
