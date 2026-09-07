@@ -382,6 +382,7 @@
       "data/samples/IT-V2/IT-V2-CONFLITOS.json",
       "data/samples/IT-V2/IT-V2-QA-ATRIBUIDO.json",
       "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
+      "data/samples/PADRAO-DA-COLETA-CHAO.json",
       "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
       "data/samples/PIEMONTE-FD/aggiornamento_2025_strategie2026_pt.txt",
       "data/samples/PIEMONTE-FD/area_delimitata_2026_pt.txt",
@@ -894,6 +895,7 @@
       "regras/comunicacao_universo.py",
       "regras/fato_local.py",
       "regras/lugar_do_fato.py",
+      "regras/padrao_da_coleta.py",
       "regras/portao.py",
       "regras/portoes_eame.py",
       "regras/proveniencia.py",
@@ -1439,8 +1441,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "4d1e3589d7f439a14d6d10c3ea33011cf707c269",
-    "GENERATED_AT": "2026-09-07T13:02:07-03:00"
+    "HEAD": "13f0275b9a486014a3ea0e4de9d8827f6004bb6e",
+    "GENERATED_AT": "2026-09-07T13:09:39-03:00"
   },
   "FAMILIES": [
     {
@@ -1459,7 +1461,7 @@
         "Z-REGRAS",
         "Z-GUARDA"
       ],
-      "count": 27
+      "count": 28
     },
     {
       "id": "F-INTELIGENCIA",
@@ -1569,7 +1571,7 @@
       "y": 190,
       "w": 820,
       "h": 1650,
-      "count": 8
+      "count": 9
     },
     {
       "id": "Z-GUARDA",
@@ -3959,6 +3961,28 @@
           ]
         },
         {
+          "ficheiro": "regras/padrao_da_coleta.py",
+          "como_se_chama": "regras/padrao_da_coleta.py            mede e compara com o chao",
+          "carimba_data": [
+            "CAPTURED_AT",
+            "CAPTURE_DATE",
+            "FACT_DATE",
+            "PUBLICATION_DATE"
+          ],
+          "carimba_lugar": [
+            "COUNTRY",
+            "FACT_LOCATION",
+            "SOURCE_LOCATION"
+          ],
+          "separa_fonte_do_fato": true,
+          "leis_que_obedece": [],
+          "regista_descarte": [
+            "EXCLUSION_REASON",
+            "DESCARTAD",
+            "RECUSAD"
+          ]
+        },
+        {
           "ficheiro": "regras/portao.py",
           "como_se_chama": "regras/portao.py",
           "carimba_data": [],
@@ -4568,7 +4592,8 @@
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
-        "C-MAPA-VALIDADOR"
+        "C-MAPA-VALIDADOR",
+        "C-PADRAO-COLETA"
       ],
       "x": 7950,
       "y": 360
@@ -5661,6 +5686,44 @@
       "y": 1004
     },
     {
+      "id": "C-PADRAO-COLETA",
+      "name": "O padrao do departamento de coleta",
+      "territory": "Z-REGRAS",
+      "kind": "gate",
+      "what": "Mede seis coisas em toda a coleta — ficha antes de coletar, carimbo de data, fonte separada do fato, descarte registado, rendimento e custo — e reprova se alguma piorar.",
+      "why_here": "Medir uma vez nao conserta nada. Ele nao exige que esteja tudo certo hoje: exige NAO PIORAR. «Esta tudo certo» nao e executavel hoje; «nao piorou» e. A divida fica a vista, com nome e numero, em vez de virar silencio.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "⚖",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "data/samples/PADRAO-DA-COLETA-CHAO.json",
+        "regras/padrao_da_coleta.py"
+      ],
+      "file_count": 2,
+      "status": "PROVEN",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-AS-FONTES",
+        "C-CI-MAPA",
+        "C-PROCEDENCIA"
+      ],
+      "outbound": [],
+      "x": 3595,
+      "y": 1004
+    },
+    {
       "id": "C-PALAVRAS",
       "name": "As palavras que a busca digita",
       "territory": "Z-REGRAS",
@@ -5705,7 +5768,7 @@
         "C-PROCEDENCIA",
         "C-V21-CRUZAMENTO"
       ],
-      "x": 3595,
+      "x": 4010,
       "y": 1004
     },
     {
@@ -5989,11 +6052,12 @@
         "C-CICATRIZES-BR",
         "C-DATA-CLOCK",
         "C-MAPA-SCAN",
+        "C-PADRAO-COLETA",
         "C-REGRA-COLETA",
         "C-TESTES"
       ],
-      "x": 4010,
-      "y": 1004
+      "x": 3595,
+      "y": 1326
     },
     {
       "id": "C-PROVENIENCIA",
@@ -6123,7 +6187,7 @@
         "C-PROCEDENCIA",
         "C-TESTES"
       ],
-      "x": 3595,
+      "x": 4010,
       "y": 1326
     },
     {
@@ -6261,8 +6325,8 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 4010,
-      "y": 1326
+      "x": 3595,
+      "y": 1648
     },
     {
       "id": "C-SINTONIA-SCRAP",
@@ -6932,7 +6996,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 4d1e3589d7f439a14d6d10c3ea33011cf707c269"
+        "HEAD 13f0275b9a486014a3ea0e4de9d8827f6004bb6e"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -7414,6 +7478,27 @@
           "file": "pacote/metricas_canonicas.py",
           "line": 105,
           "snippet": "atlas = _doc('fontes', 'ATLAS-DE-FONTES-EAME.md')"
+        }
+      ]
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "C-PADRAO-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES alimenta O padrao do departamento de coleta. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "regras/padrao_da_coleta.py",
+          "line": 61,
+          "snippet": "ATLAS = os.path.join(ROOT, 'docs', 'fontes', 'ATLAS-DE-FONTES-EAME.md')"
+        },
+        {
+          "file": "regras/padrao_da_coleta.py",
+          "line": 62,
+          "snippet": "CONTRATOS = os.path.join(ROOT, 'docs', 'operacao', 'CONTRATOS-DAS-FONTES-EAME.md')"
         }
       ]
     },
@@ -8328,7 +8413,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 77,
+          "line": 80,
           "snippet": "run: python3 system-map/tests/test_system_map.py"
         }
       ]
@@ -8346,6 +8431,22 @@
           "file": ".github/workflows/system-map.yml",
           "line": 74,
           "snippet": "run: python3 system-map/scripts/validate_system_map.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-PADRAO-COLETA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar O padrao do departamento de coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 77,
+          "snippet": "run: python3 regras/padrao_da_coleta.py"
         }
       ]
     },
@@ -10072,6 +10173,22 @@
           "file": "system-map/scripts/scan_sources.py",
           "line": 353,
           "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
+        }
+      ]
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-PADRAO-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta alimenta O padrao do departamento de coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/padrao_da_coleta.py",
+          "line": 63,
+          "snippet": "MANIFESTO = os.path.join(ROOT, 'data', 'samples', 'RUN-MANIFEST.json')"
         }
       ]
     },
@@ -12055,17 +12172,17 @@
   "UNCLAIMED_FILES_COUNT": 585,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 68,
-    "components_proven": 53,
+    "components": 69,
+    "components_proven": 54,
     "components_pending": 15,
     "components_broken": 0,
     "components_unknown": 0,
-    "edges": 238,
-    "edges_proven": 238,
+    "edges": 241,
+    "edges_proven": 241,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1029,
-    "files_covered": 444,
+    "files_tracked": 1031,
+    "files_covered": 446,
     "files_code_unclaimed": 0
   }
 }

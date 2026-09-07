@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "4d1e3589d7f439a14d6d10c3ea33011cf707c269",
+    "HEAD": "13f0275b9a486014a3ea0e4de9d8827f6004bb6e",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -2016,6 +2016,28 @@
       ]
     },
     {
+      "ficheiro": "regras/padrao_da_coleta.py",
+      "como_se_chama": "regras/padrao_da_coleta.py            mede e compara com o chao",
+      "carimba_data": [
+        "CAPTURED_AT",
+        "CAPTURE_DATE",
+        "FACT_DATE",
+        "PUBLICATION_DATE"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "EXCLUSION_REASON",
+        "DESCARTAD",
+        "RECUSAD"
+      ]
+    },
+    {
       "ficheiro": "regras/portao.py",
       "como_se_chama": "regras/portao.py",
       "carimba_data": [],
@@ -3032,11 +3054,11 @@
     "search_terms": 103,
     "endpoints": 40,
     "candidates": 0,
-    "coletores": 44,
-    "coletores_com_data": 13,
-    "coletores_com_lugar": 27,
-    "coletores_que_separam_fonte_do_fato": 21,
-    "coletores_que_registam_descarte": 10,
+    "coletores": 45,
+    "coletores_com_data": 14,
+    "coletores_com_lugar": 28,
+    "coletores_que_separam_fonte_do_fato": 22,
+    "coletores_que_registam_descarte": 11,
     "corridas_registadas": 10,
     "fontes_ja_coletadas": 4,
     "fontes_nunca_coletadas": 22,

@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "4d1e3589d7f439a14d6d10c3ea33011cf707c269",
-    "GENERATED_AT": "2026-09-07T13:02:07-03:00"
+    "HEAD": "13f0275b9a486014a3ea0e4de9d8827f6004bb6e",
+    "GENERATED_AT": "2026-09-07T13:09:39-03:00"
   },
   "FILES": [
     {
@@ -100,7 +100,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "825d7a0dfb28cd37d69df980e60b9b2036ae267b",
+      "sha": "f451704b088cb0b4c2640ed5e1a3e1606a31e8c6",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -2565,6 +2565,13 @@
     {
       "path": "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
       "sha": "55aad943f727f7ae10b63547bcb9afd73a224357",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/PADRAO-DA-COLETA-CHAO.json",
+      "sha": "24c41c23e4c17b62182dcf260a3fa0cd612df57e",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -5979,6 +5986,13 @@
       "code_dir": true
     },
     {
+      "path": "regras/padrao_da_coleta.py",
+      "sha": "655885ba9a4381d8687322b696528b64e0b294df",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "regras/portao.py",
       "sha": "967ff47ca35bbf781f6bd8b34976f08ad1c760ae",
       "ext": ".py",
@@ -6932,7 +6946,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "3167fe9fa77506e3059dbe3b042b2c72846e1dfc",
+      "sha": "ad82fab581cf00601270644a6393a9f081f37e22",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7874,6 +7888,17 @@
     },
     {
       "from_file": ".github/workflows/system-map.yml",
+      "to_file": "regras/padrao_da_coleta.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 77,
+        "snippet": "run: python3 regras/padrao_da_coleta.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
       "to_file": "system-map/scripts/generate_system_map.py",
       "type": "RUNS",
       "payload": "execucao",
@@ -7923,7 +7948,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 77,
+        "line": 80,
         "snippet": "run: python3 system-map/tests/test_system_map.py"
       }
     },
@@ -19258,6 +19283,72 @@
       }
     },
     {
+      "from_file": "regras/padrao_da_coleta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/padrao_da_coleta.py",
+        "line": 59,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "regras/padrao_da_coleta.py",
+      "to_file": "data/samples/PADRAO-DA-COLETA-CHAO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/padrao_da_coleta.py",
+        "line": 223,
+        "snippet": "open(CHAO, 'leitura')  # CHAO = data/samples/PADRAO-DA-COLETA-CHAO.json"
+      }
+    },
+    {
+      "from_file": "regras/padrao_da_coleta.py",
+      "to_file": "data/samples/PADRAO-DA-COLETA-CHAO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/padrao_da_coleta.py",
+        "line": 211,
+        "snippet": "open(CHAO, 'w')  # CHAO = data/samples/PADRAO-DA-COLETA-CHAO.json"
+      }
+    },
+    {
+      "from_file": "regras/padrao_da_coleta.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/padrao_da_coleta.py",
+        "line": 63,
+        "snippet": "MANIFESTO = os.path.join(ROOT, 'data', 'samples', 'RUN-MANIFEST.json')"
+      }
+    },
+    {
+      "from_file": "regras/padrao_da_coleta.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/padrao_da_coleta.py",
+        "line": 61,
+        "snippet": "ATLAS = os.path.join(ROOT, 'docs', 'fontes', 'ATLAS-DE-FONTES-EAME.md')"
+      }
+    },
+    {
+      "from_file": "regras/padrao_da_coleta.py",
+      "to_file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/padrao_da_coleta.py",
+        "line": 62,
+        "snippet": "CONTRATOS = os.path.join(ROOT, 'docs', 'operacao', 'CONTRATOS-DAS-FONTES-EAME.md')"
+      }
+    },
+    {
       "from_file": "regras/portao.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -22636,10 +22727,10 @@
     }
   ],
   "COUNTS": {
-    "files_tracked": 1029,
-    "files_readable": 345,
-    "files_code_dir": 386,
-    "file_edges": 1402,
+    "files_tracked": 1031,
+    "files_readable": 346,
+    "files_code_dir": 387,
+    "file_edges": 1409,
     "declared_missing_here": 1
   },
   "ELSEWHERE": {

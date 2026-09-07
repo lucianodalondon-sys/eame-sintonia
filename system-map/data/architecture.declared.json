@@ -169,6 +169,27 @@
   ],
   "COMPONENTS": [
     {
+      "id": "C-PADRAO-COLETA",
+      "name": "O padrao do departamento de coleta",
+      "territory": "Z-REGRAS",
+      "kind": "gate",
+      "icon": "⚖",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "Mede seis coisas em toda a coleta — ficha antes de coletar, carimbo de data, fonte separada do fato, descarte registado, rendimento e custo — e reprova se alguma piorar.",
+      "why_here": "Medir uma vez nao conserta nada. Ele nao exige que esteja tudo certo hoje: exige NAO PIORAR. «Esta tudo certo» nao e executavel hoje; «nao piorou» e. A divida fica a vista, com nome e numero, em vez de virar silencio.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "regras/padrao_da_coleta.py",
+        "data/samples/PADRAO-DA-COLETA-CHAO.json"
+      ]
+    },
+    {
       "id": "C-PROCEDENCIA",
       "name": "De onde veio — carimbado na coleta",
       "territory": "Z-REGRAS",
@@ -1467,7 +1488,7 @@
     ".github/workflows/supabase-migrate.yml": "2b64939552d5f7313faa6f8ab4e3b9eb8ce88b0d",
     ".github/workflows/supabase-raw-roundtrip.yml": "7b8f182ab89d1176299913069a05220d1e90ae82",
     ".github/workflows/supabase-storage.yml": "cf95ae286c72c84f23aa906392b6c88dc4f88cd2",
-    ".github/workflows/system-map.yml": "825d7a0dfb28cd37d69df980e60b9b2036ae267b",
+    ".github/workflows/system-map.yml": "f451704b088cb0b4c2640ed5e1a3e1606a31e8c6",
     "coleta/agrifood_ue.py": "09f2ce3b2b1c1fdaacfba006236981715c43e180",
     "coleta/cellar.sh": "c54325c0bf44cc0fde8e43bc7123ad7ecce43d97",
     "coleta/coleta_checkpoint.py": "a4a3d73a914c77348a8e21f5e291c3f7671ea301",
@@ -1504,6 +1525,7 @@
     "coleta/youtube_relevancia.py": "fb9f96174ae4be313aa2c0b21d4c6ed1558e3e39",
     "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "dce86043d875046110e7cf3e8e1ee2f35b364d52",
     "data/samples/FONTES-CANDIDATAS.json": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
+    "data/samples/PADRAO-DA-COLETA-CHAO.json": "24c41c23e4c17b62182dcf260a3fa0cd612df57e",
     "docs/operacao/PORTOES-DE-COLETA-10B.md": "814fb81c878bbfde008f5b2725c0feaa0c56f4eb",
     "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md": "6322b416ebe3e817d498b0413de06d4188a3f96b",
     "ferramentas/apify_contrato.py": "b20e59e7fd180da05022046a30dd5e13c25ebe9f",
@@ -1752,6 +1774,7 @@
     "regras/comunicacao_universo.py": "37e4638950e2619cb19b218f3ab73be0700625a0",
     "regras/fato_local.py": "c8dae2ca5a82dc3ba634db715ede5a1180e765bc",
     "regras/lugar_do_fato.py": "a47380e9624322d50243060908cfd94036547c65",
+    "regras/padrao_da_coleta.py": "655885ba9a4381d8687322b696528b64e0b294df",
     "regras/portao.py": "967ff47ca35bbf781f6bd8b34976f08ad1c760ae",
     "regras/portoes_eame.py": "ea3ad259d8dd594578cb9c4c62f1d21d5520fead",
     "regras/proveniencia.py": "23dafffefa884d2e095509a2bbe7984575f05636",

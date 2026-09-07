@@ -73,10 +73,13 @@ jobs:
       - name: 2 · o validador (provas anti-drift, falha fechado)
         run: python3 system-map/scripts/validate_system_map.py
 
-      - name: 3 · as regras do mapa não afrouxaram
+      - name: 3 · o padrão do departamento de coleta não piorou
+        run: python3 regras/padrao_da_coleta.py
+
+      - name: 4 · as regras do mapa não afrouxaram
         run: python3 system-map/tests/test_system_map.py
 
-      - name: 4 · o que vai ser publicado existe e é servível
+      - name: 5 · o que vai ser publicado existe e é servível
         run: |
           set -e
           for f in index.html map.js map.css state.generated.json; do
@@ -100,7 +103,7 @@ jobs:
                 f"· ligações={c['edges']} · cobertura={c['files_covered']}/{c['files_tracked']}")
           PY
 
-      - name: 5 · nenhum segredo atravessa para o que é publicado
+      - name: 6 · nenhum segredo atravessa para o que é publicado
         run: |
           # O repositório é público e o mapa é servido. Ele carrega caminho de
           # ficheiro e trecho de linha — e trecho de linha é exatamente onde um
