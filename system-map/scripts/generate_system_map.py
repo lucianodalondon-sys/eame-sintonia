@@ -825,6 +825,24 @@ def as_ferramentas() -> tuple[list, list]:
 
 
 
+# ── UMA SETA SO PARA TRES COISAS DIFERENTES ────────────────────────────────
+# O mapa desenhava com o mesmo traco «o dado corre daqui para ali», «esta peca
+# e feita com aquela» e «aquela manda esta correr». Sao relacoes de naturezas
+# diferentes, e misturadas produzem o novelo que faz a corrente da coleta
+# desaparecer: de 316 setas, 108 nao sao caminho de dado nenhum.
+#
+# Quem pergunta «depois das fontes vem o que?» quer seguir O DADO. As outras
+# duas sao verdadeiras e uteis, mas respondem a outra pergunta — e mostradas ao
+# mesmo tempo, com o mesmo peso, tapam a resposta.
+NATUREZA_DA_SETA = {
+    "READS": "FLUXO",       # o conteudo daquilo entra aqui
+    "WRITES": "FLUXO",      # isto sai daqui e vai para ali
+    "FEEDS": "FLUXO",       # a camada de dado alimenta a tela
+    "VIAJA_POR": "FLUXO",   # a coleta sai por este canal
+    "IMPORTS": "MONTAGEM",  # esta peca e construida com aquela
+    "RUNS": "DISPARO",      # aquela manda esta correr
+}
+
 def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
     """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
     direita — que e a direcao em que o dado corre: fonte → motor → pacote → tela."""
@@ -1526,6 +1544,7 @@ def main_uma_vez(stamp: bool) -> int:
         chave = (a, b, e["type"])
         alvo = ligacoes.setdefault(chave, {
             "from": a, "to": b, "type": e["type"], "payload": e["payload"],
+            "natureza": NATUREZA_DA_SETA.get(e["type"], "FLUXO"),
             "kind": "technical", "status": VERDE,
             "reason": "", "evidence": [],
         })
@@ -1656,7 +1675,8 @@ def main_uma_vez(stamp: bool) -> int:
         chave = ("C-AS-FONTES", alvo, "RETRIEVED_BY")
         alvo_lig = ligacoes.setdefault(chave, {
             "from": chave[0], "to": alvo, "type": "RETRIEVED_BY",
-            "payload": "coleta", "kind": "technical", "status": VERDE,
+            "payload": "coleta", "natureza": "FLUXO",
+            "kind": "technical", "status": VERDE,
             "reason": "", "evidence": [],
         })
         alvo_lig["evidence"].append(lf["evidence"])
@@ -1668,7 +1688,8 @@ def main_uma_vez(stamp: bool) -> int:
         chave = (lv["acao"], lv["veiculo"], "VIAJA_POR")
         alvo_lig = ligacoes.setdefault(chave, {
             "from": lv["acao"], "to": lv["veiculo"], "type": "VIAJA_POR",
-            "payload": "coleta", "kind": "technical", "status": VERDE,
+            "payload": "coleta", "natureza": "FLUXO",
+            "kind": "technical", "status": VERDE,
             "reason": (f"«{nome_da_peca.get(lv['acao'], lv['acao'])}» chama este "
                        f"canal no proprio codigo."),
             "evidence": [],
@@ -1685,7 +1706,8 @@ def main_uma_vez(stamp: bool) -> int:
         chave = (origem, lt["node"], "FEEDS")
         alvo_lig = ligacoes.setdefault(chave, {
             "from": origem, "to": lt["node"], "type": "FEEDS",
-            "payload": "dado", "kind": "technical", "status": VERDE,
+            "payload": "dado", "natureza": "FLUXO",
+            "kind": "technical", "status": VERDE,
             "reason": "", "evidence": [],
         })
         if lt["evidence"] not in alvo_lig["evidence"]:

@@ -135,7 +135,8 @@ function render() {
     const d = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
     const cls = e.kind === 'expected' ? 'unknown'
       : (a.ui_status === 'red' || b.ui_status === 'red') ? 'broken' : '';
-    return `<g class="dyn" data-edge="${i}" data-from="${esc(e.from)}" data-to="${esc(e.to)}">
+    return `<g class="dyn nat${esc(e.natureza || 'FLUXO')}" data-edge="${i}" data-nat="${
+      esc(e.natureza || 'FLUXO')}" data-from="${esc(e.from)}" data-to="${esc(e.to)}">
       <path d="${d}" class="edgePath ${cls}"></path>
       <path d="${d}" class="edgeHit"></path></g>`;
   }).join('');
@@ -610,8 +611,12 @@ function applyFilters() {
     z.style.opacity = viva ? '' : '.25';
   });
 
+  // que naturezas de seta estao ligadas — vazio nao esconde tudo, mostra tudo
+  const nats = new Set([...document.querySelectorAll('input[name=nat]:checked')]
+    .map(x => x.value));
   document.querySelectorAll('#edgeLayer .dyn').forEach(g => {
-    const dentro = vis.has(g.dataset.from) && vis.has(g.dataset.to);
+    const dentro = vis.has(g.dataset.from) && vis.has(g.dataset.to)
+      && (!nats.size || nats.has(g.dataset.nat || 'FLUXO'));
     g.style.display = dentro ? '' : 'none';
     const p = g.querySelector('.edgePath');
     p.classList.toggle('highlight',
@@ -751,7 +756,7 @@ function bind() {
   };
 
   $('search').addEventListener('input', applyFilters);
-  document.querySelectorAll('input[name=dept],input[name=status],input[name=pais]')
+  document.querySelectorAll('input[name=dept],input[name=status],input[name=pais],input[name=nat]')
     .forEach(x => x.addEventListener('change', applyFilters));
   document.querySelectorAll('.sideBtn[data-view]').forEach(b =>
     b.addEventListener('click', () => {
