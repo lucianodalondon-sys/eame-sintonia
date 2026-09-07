@@ -1087,10 +1087,10 @@
   },
   "ACHADOS": [
     {
-      "id": "coleta-larga-entrega-estreita",
-      "titulo": "A coleta cobre quatro paises. A entrega tem uma porta so.",
-      "texto": "As fontes com ficha estao repartidas assim: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. Mas o unico diretorio publicado e «italia-portale/client» — uma superficie so, e o nome dela e de um pais. Italia tem 2 fonte(s), o menor numero de todos, e e o unico com porta de saida.",
-      "porque_importa": "Nao ha nada de errado no codigo: o espanhol le e escreve so artefatos espanhois. O que falta e caminho de saida para o que nao e italiano — e enquanto faltar, coletar mais em Espanha ou em Franca aumenta o acervo sem aumentar o que chega a alguem.",
+      "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
+      "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 447 ficheiros (83%) · ESPANHA 76 ficheiros (14%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 447 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1441,8 +1441,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "13f0275b9a486014a3ea0e4de9d8827f6004bb6e",
-    "GENERATED_AT": "2026-09-07T13:09:39-03:00"
+    "HEAD": "81d25f952509dd4fbb7beb116e4b4941301bed12",
+    "GENERATED_AT": "2026-09-07T13:14:35-03:00"
   },
   "FAMILIES": [
     {
@@ -1751,6 +1751,10 @@
         "C-CI-COLETA",
         "C-TESTES"
       ],
+      "paises": {
+        "ESPANHA": 8
+      },
+      "pais": "ESPANHA",
       "x": 4715,
       "y": 360
     },
@@ -1799,6 +1803,11 @@
         "C-LASTMILE",
         "C-V21-INGEST"
       ],
+      "paises": {
+        "ITALIA": 6,
+        "EUROPA": 6
+      },
+      "pais": "TRANSVERSAL",
       "x": 1065,
       "y": 360
     },
@@ -1841,6 +1850,8 @@
         "C-TESTES"
       ],
       "outbound": [],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 1770,
       "y": 360
     },
@@ -1882,6 +1893,8 @@
         "C-SITE-INGEST",
         "C-V21-COMERCIAL"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 9070,
       "y": 360
     },
@@ -1920,7 +1933,18 @@
       "legacy": false,
       "changed_since_declared": [],
       "inbound": [],
-      "outbound": [],
+      "outbound": [
+        "C-CI-COLETA",
+        "C-COLETA-PUBLICA",
+        "C-IDENTIDADE",
+        "C-MAPA-GERADOR",
+        "C-MAPA-SCAN",
+        "C-MAPA-TESTES",
+        "C-PACOTE-CAMADAS",
+        "C-PADRAO-COLETA",
+        "C-SITE-INGEST",
+        "C-TESTES"
+      ],
       "groups": [
         {
           "titulo": "BASES OFICIAIS E ABERTAS",
@@ -4114,6 +4138,8 @@
         "nao_verificadas": 5
       },
       "file_count": 3,
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 1065,
       "y": 682
     },
@@ -4155,6 +4181,11 @@
       "outbound": [
         "C-TESTES"
       ],
+      "paises": {
+        "ESPANHA": 1,
+        "EUROPA": 1
+      },
+      "pais": "TRANSVERSAL",
       "x": 10895,
       "y": 360
     },
@@ -4212,6 +4243,8 @@
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 9775,
       "y": 360
     },
@@ -4264,6 +4297,8 @@
       "outbound": [
         "C-AUDIT-HARNESS"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 10190,
       "y": 360
     },
@@ -4364,6 +4399,10 @@
         "C-AUDIT-HARNESS",
         "C-PORTAO-BUILD"
       ],
+      "paises": {
+        "ITALIA": 11
+      },
+      "pais": "ITALIA",
       "x": 9775,
       "y": 682
     },
@@ -4416,6 +4455,8 @@
         "C-AUDIT-MARCA",
         "C-PORTAO-BUILD"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 10190,
       "y": 682
     },
@@ -4461,6 +4502,8 @@
       "outbound": [
         "C-AUDIT-HARNESS"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 9775,
       "y": 1004
     },
@@ -4510,6 +4553,11 @@
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
       ],
+      "paises": {
+        "ESPANHA": 2,
+        "ITALIA": 1
+      },
+      "pais": "ESPANHA",
       "x": 6830,
       "y": 360
     },
@@ -4557,6 +4605,10 @@
         "C-PALAVRAS",
         "C-TESTES"
       ],
+      "paises": {
+        "ESPANHA": 3
+      },
+      "pais": "ESPANHA",
       "x": 360,
       "y": 360
     },
@@ -4595,6 +4647,8 @@
         "C-MAPA-VALIDADOR",
         "C-PADRAO-COLETA"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 7950,
       "y": 360
     },
@@ -4636,6 +4690,8 @@
         "C-MEDICAO",
         "C-REGRA-COLETA"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 4715,
       "y": 682
     },
@@ -4674,6 +4730,10 @@
         "C-IMPORTAR",
         "C-MEDICAO"
       ],
+      "paises": {
+        "ESPANHA": 3
+      },
+      "pais": "ESPANHA",
       "x": 8365,
       "y": 360
     },
@@ -4715,6 +4775,8 @@
         "C-REGRA-COLETA",
         "C-TESTES"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 3595,
       "y": 360
     },
@@ -4757,6 +4819,10 @@
         "C-APIFY-POOL",
         "C-PROCEDENCIA"
       ],
+      "paises": {
+        "ESPANHA": 2
+      },
+      "pais": "ESPANHA",
       "x": 2475,
       "y": 360
     },
@@ -4803,6 +4869,8 @@
         "C-PORTA-FONTE",
         "C-PROCEDENCIA"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 2890,
       "y": 360
     },
@@ -4846,6 +4914,8 @@
         "C-APIFY-POOL",
         "C-COLETA-BASE"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 2475,
       "y": 682
     },
@@ -4886,6 +4956,8 @@
         "C-NAVEGADOR",
         "C-PALAVRAS"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 2890,
       "y": 682
     },
@@ -4922,6 +4994,8 @@
         "C-TESTES"
       ],
       "outbound": [],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 4010,
       "y": 360
     },
@@ -4970,6 +5044,10 @@
         "C-PACOTE-CAMADAS",
         "C-PALAVRAS"
       ],
+      "paises": {
+        "ITALIA": 2
+      },
+      "pais": "ITALIA",
       "x": 2475,
       "y": 1004
     },
@@ -5017,6 +5095,11 @@
         "C-SAUDE-FONTE",
         "C-TESTES"
       ],
+      "paises": {
+        "ESPANHA": 8,
+        "FRANCA": 1
+      },
+      "pais": "ESPANHA",
       "x": 6125,
       "y": 360
     },
@@ -5070,6 +5153,8 @@
       "outbound": [
         "C-PORTAL-CASCO"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 10895,
       "y": 682
     },
@@ -5124,6 +5209,11 @@
         "C-ROTULOS",
         "C-SUPABASE"
       ],
+      "paises": {
+        "ESPANHA": 3,
+        "ITALIA": 2
+      },
+      "pais": "ESPANHA",
       "x": 2890,
       "y": 1004
     },
@@ -5174,6 +5264,8 @@
         "C-SINTONIA-SCRAP",
         "C-TESTES"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 3595,
       "y": 682
     },
@@ -5212,6 +5304,11 @@
       "outbound": [
         "C-SUPABASE"
       ],
+      "paises": {
+        "ESPANHA": 7,
+        "ITALIA": 4
+      },
+      "pais": "ESPANHA",
       "x": 4715,
       "y": 1004
     },
@@ -5265,6 +5362,10 @@
         "C-TESTES",
         "C-V21-COMERCIAL"
       ],
+      "paises": {
+        "ITALIA": 31
+      },
+      "pais": "ITALIA",
       "x": 9070,
       "y": 682
     },
@@ -5301,6 +5402,8 @@
         "C-TESTES"
       ],
       "outbound": [],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 4010,
       "y": 682
     },
@@ -5338,6 +5441,8 @@
       "outbound": [
         "C-V21-INGEST"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 6125,
       "y": 682
     },
@@ -5377,6 +5482,8 @@
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 7950,
       "y": 682
     },
@@ -5418,6 +5525,8 @@
       "outbound": [
         "C-MAPA-VALIDADOR"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 8365,
       "y": 682
     },
@@ -5461,6 +5570,8 @@
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 7950,
       "y": 1004
     },
@@ -5499,6 +5610,8 @@
         "C-MAPA-VALIDADOR"
       ],
       "outbound": [],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 8365,
       "y": 1004
     },
@@ -5538,6 +5651,8 @@
       "outbound": [
         "C-MAPA-TESTES"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 7950,
       "y": 1326
     },
@@ -5584,6 +5699,10 @@
       "outbound": [
         "C-REGRA-COLETA"
       ],
+      "paises": {
+        "ESPANHA": 1
+      },
+      "pais": "ESPANHA",
       "x": 8365,
       "y": 1326
     },
@@ -5622,6 +5741,8 @@
         "C-TRANSCRICAO"
       ],
       "outbound": [],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 1770,
       "y": 682
     },
@@ -5682,6 +5803,11 @@
         "C-V21-CRUZAMENTO",
         "C-V21-INGEST"
       ],
+      "paises": {
+        "ITALIA": 99,
+        "ESPANHA": 8
+      },
+      "pais": "ITALIA",
       "x": 9070,
       "y": 1004
     },
@@ -5720,6 +5846,8 @@
         "C-PROCEDENCIA"
       ],
       "outbound": [],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 3595,
       "y": 1004
     },
@@ -5768,6 +5896,10 @@
         "C-PROCEDENCIA",
         "C-V21-CRUZAMENTO"
       ],
+      "paises": {
+        "ITALIA": 3
+      },
+      "pais": "ITALIA",
       "x": 4010,
       "y": 1004
     },
@@ -5804,6 +5936,8 @@
       "outbound": [
         "C-MAPA-SCAN"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 1065,
       "y": 1004
     },
@@ -5849,6 +5983,8 @@
         "C-AUDIT-CASCO",
         "C-PORTAO-BUILD"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 10895,
       "y": 1004
     },
@@ -5914,6 +6050,10 @@
         "C-PORTAO-BUILD",
         "C-RELEVANCIA"
       ],
+      "paises": {
+        "ESPANHA": 3
+      },
+      "pais": "ESPANHA",
       "x": 10895,
       "y": 1326
     },
@@ -5961,6 +6101,8 @@
         "C-PORTAO-BUILD",
         "C-V21-COMERCIAL"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 10895,
       "y": 1648
     },
@@ -6007,6 +6149,8 @@
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 10190,
       "y": 1004
     },
@@ -6056,6 +6200,8 @@
         "C-REGRA-COLETA",
         "C-TESTES"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 3595,
       "y": 1326
     },
@@ -6094,6 +6240,10 @@
         "C-V21-FONTES"
       ],
       "outbound": [],
+      "paises": {
+        "ITALIA": 3
+      },
+      "pais": "ITALIA",
       "x": 6125,
       "y": 1004
     },
@@ -6134,6 +6284,8 @@
         "C-SAUDE-FONTE",
         "C-TESTES"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 7950,
       "y": 1648
     },
@@ -6187,6 +6339,10 @@
         "C-PROCEDENCIA",
         "C-TESTES"
       ],
+      "paises": {
+        "ESPANHA": 3
+      },
+      "pais": "ESPANHA",
       "x": 4010,
       "y": 1326
     },
@@ -6235,6 +6391,10 @@
         "C-ROTULOS",
         "C-V21-CRUZAMENTO"
       ],
+      "paises": {
+        "ITALIA": 3
+      },
+      "pais": "ITALIA",
       "x": 6125,
       "y": 1326
     },
@@ -6289,6 +6449,11 @@
         "C-SUPABASE",
         "C-V21-CRUZAMENTO"
       ],
+      "paises": {
+        "ITALIA": 10,
+        "ESPANHA": 3
+      },
+      "pais": "ITALIA",
       "x": 2475,
       "y": 1326
     },
@@ -6325,6 +6490,8 @@
         "C-TESTES"
       ],
       "outbound": [],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 3595,
       "y": 1648
     },
@@ -6366,6 +6533,8 @@
         "C-NAVEGADOR",
         "C-TRANSCRICAO"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 1770,
       "y": 1004
     },
@@ -6406,6 +6575,13 @@
       "outbound": [
         "C-AUDIT-GERAL"
       ],
+      "paises": {
+        "ITALIA": 10,
+        "ESPANHA": 4,
+        "EUROPA": 2,
+        "FRANCA": 1
+      },
+      "pais": "ITALIA",
       "x": 9775,
       "y": 1326
     },
@@ -6496,6 +6672,11 @@
         "C-ROTULOS",
         "C-TESTES"
       ],
+      "paises": {
+        "ESPANHA": 11,
+        "ITALIA": 2
+      },
+      "pais": "ESPANHA",
       "x": 4715,
       "y": 1326
     },
@@ -6601,6 +6782,12 @@
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
       ],
+      "paises": {
+        "ESPANHA": 43,
+        "ITALIA": 2,
+        "EUROPA": 2
+      },
+      "pais": "ESPANHA",
       "x": 8365,
       "y": 1648
     },
@@ -6639,6 +6826,8 @@
         "C-COLETA-INSTAGRAM",
         "C-NAVEGADOR"
       ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 1770,
       "y": 1326
     },
@@ -6688,6 +6877,10 @@
         "C-V21-FONTES",
         "C-V21-OPORTUNIDADE"
       ],
+      "paises": {
+        "ITALIA": 60
+      },
+      "pais": "ITALIA",
       "x": 7245,
       "y": 360
     },
@@ -6748,6 +6941,10 @@
         "C-V21-CONTRATO",
         "C-V21-INGEST"
       ],
+      "paises": {
+        "ITALIA": 10
+      },
+      "pais": "ITALIA",
       "x": 6830,
       "y": 682
     },
@@ -6790,6 +6987,10 @@
       "outbound": [
         "C-V21-COMERCIAL"
       ],
+      "paises": {
+        "ITALIA": 5
+      },
+      "pais": "ITALIA",
       "x": 7245,
       "y": 682
     },
@@ -6837,6 +7038,10 @@
       "outbound": [
         "C-V21-INGEST"
       ],
+      "paises": {
+        "ITALIA": 16
+      },
+      "pais": "ITALIA",
       "x": 6830,
       "y": 1004
     },
@@ -6888,6 +7093,10 @@
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
       ],
+      "paises": {
+        "ITALIA": 8
+      },
+      "pais": "ITALIA",
       "x": 7245,
       "y": 1004
     },
@@ -6942,6 +7151,13 @@
         "C-FONTES-EU",
         "C-PACOTE-CAMADAS"
       ],
+      "paises": {
+        "ITALIA": 38,
+        "ESPANHA": 1,
+        "FRANCA": 1,
+        "EUROPA": 1
+      },
+      "pais": "ITALIA",
       "x": 6830,
       "y": 1326
     },
@@ -6986,6 +7202,10 @@
         "C-DATA-CLOCK",
         "C-V21-COMERCIAL"
       ],
+      "paises": {
+        "ITALIA": 14
+      },
+      "pais": "ITALIA",
       "x": 7245,
       "y": 1326
     },
@@ -6996,7 +7216,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 13f0275b9a486014a3ea0e4de9d8827f6004bb6e"
+        "HEAD 81d25f952509dd4fbb7beb116e4b4941301bed12"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -7021,6 +7241,8 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 5420,
       "y": 360
     },
@@ -7058,6 +7280,8 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 5420,
       "y": 682
     },
@@ -7094,6 +7318,8 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 5420,
       "y": 1004
     },
@@ -7132,7 +7358,14 @@
       "legacy": false,
       "changed_since_declared": [],
       "inbound": [],
-      "outbound": [],
+      "outbound": [
+        "C-AUDIT-HARNESS",
+        "C-MAPA-GERADOR",
+        "C-PORTAO-BUILD",
+        "C-SITE-INGEST"
+      ],
+      "paises": {},
+      "pais": "TRANSVERSAL",
       "x": 5420,
       "y": 1326
     }
@@ -7418,7 +7651,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 610,
+          "line": 690,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ]
@@ -9302,17 +9535,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 711,
+          "line": 786,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 711,
+          "line": 786,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 712,
+          "line": 787,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -9402,12 +9635,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 980,
+          "line": 1067,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 980,
+          "line": 1067,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]

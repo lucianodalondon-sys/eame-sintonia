@@ -566,6 +566,69 @@ def indice_de_fontes() -> None:
     destino.write_text(chr(10).join(L), encoding="utf-8")
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# DE QUE PAIS E CADA PECA — medido, nunca adivinhado
+# ─────────────────────────────────────────────────────────────────────────────
+# O repositorio e italiano: 447 ficheiros de Italia contra 76 de Espanha. Mas nada
+# no mapa dizia isso, e por isso uma peca espanhola sentava-se ao lado de uma
+# italiana com a mesma cara.
+#
+#     NAO MISTURAR PAISES SO E POSSIVEL SE DER PARA VER DE QUE PAIS CADA COISA E.
+#
+# O pais sai da CONVENCAO QUE O PROPRIO ATLAS ESCREVE — «<PAIS>-<TERRITORIO>-<seq>»
+# — aplicada aos ficheiros que a peca toca, e ao nome das pastas de trabalho. Nao
+# e adivinhacao a partir do nome do script: e a convencao da casa, escrita, a ser
+# lida.
+#
+# Peca sem marca de pais nenhuma fica TRANSVERSAL — que e a verdade sobre ela, e
+# nao um pais escolhido a sorte.
+MARCA_PAIS = re.compile(
+    r"(?:^|/|-)(EU|FR|ES|IT)-|(?:^|/)(italy|italia|spain|espana|france|francia)[-_.]",
+    re.I)
+TRADUZ_PAIS = {"IT": "ITALIA", "ITALY": "ITALIA", "ES": "ESPANHA", "SPAIN": "ESPANHA",
+               "ESPANA": "ESPANHA", "FR": "FRANCA", "FRANCE": "FRANCA",
+               "FRANCIA": "FRANCA", "EU": "EUROPA"}
+
+
+def pais_de(caminho: str) -> str | None:
+    m = MARCA_PAIS.search(caminho)
+    if not m:
+        return None
+    return TRADUZ_PAIS.get((m.group(1) or m.group(2)).upper())
+
+
+def paises_das_pecas(nos: list, G: dict, dono: dict) -> None:
+    """Poe em cada peca os paises que ela realmente toca, e quantas vezes."""
+    conta: dict[str, dict] = {}
+    for n in nos:
+        c = conta.setdefault(n["id"], {})
+        for f in n["files"]:
+            p = pais_de(f)
+            if p:
+                c[p] = c.get(p, 0) + 1
+    # e os artefatos que ela le e escreve
+    for e in G["FILE_EDGES"]:
+        for lado, outro in (("from_file", "to_file"), ("to_file", "from_file")):
+            d = dono.get(e[lado])
+            if not d:
+                continue
+            p = pais_de(e[outro])
+            if p:
+                c = conta.setdefault(d, {})
+                c[p] = c.get(p, 0) + 1
+    for n in nos:
+        c = conta.get(n["id"], {})
+        n["paises"] = dict(sorted(c.items(), key=lambda x: -x[1]))
+        # o pais da peca e o que ela toca MAIS, e so quando ha maioria clara.
+        # Empate nao vira escolha: vira TRANSVERSAL, que e o que ele e.
+        if not c:
+            n["pais"] = "TRANSVERSAL"
+        else:
+            top = max(c.values())
+            donos = [k for k, v in c.items() if v == top]
+            n["pais"] = donos[0] if len(donos) == 1 else "TRANSVERSAL"
+
+
 def achados(arquivos: dict) -> list:
     """FACTOS que o mapa nota sozinho e que ninguem pediu para ele notar.
 
@@ -590,48 +653,43 @@ def achados(arquivos: dict) -> list:
         servido = ""
         if vj.exists():
             servido = json.loads(vj.read_text(encoding="utf-8")).get("outputDirectory", "")
-        if paises and servido:
-            menor = min(paises, key=paises.get)
+        # o repositorio, por pais — a marca de pais no proprio caminho
+        marca = re.compile(r"(?:^|/|-)(EU|FR|ES|IT)-|(?:^|/)"
+                           r"(italy|italia|spain|espana|france|francia)[-_.]", re.I)
+        traduz = {"IT": "ITALIA", "ITALY": "ITALIA", "ES": "ESPANHA",
+                  "SPAIN": "ESPANHA", "FR": "FRANCA", "FRANCE": "FRANCA",
+                  "FRANCIA": "FRANCA", "EU": "EUROPA", "ESPANA": "ESPANHA"}
+        obra: dict[str, int] = {}
+        for caminho in arquivos:
+            m = marca.search(caminho)
+            if m:
+                k = (m.group(1) or m.group(2)).upper()
+                k = traduz.get(k, k)
+                obra[k] = obra.get(k, 0) + 1
+        total = sum(obra.values())
+
+        if obra and paises:
+            maior = max(obra, key=obra.get)
             saida.append({
-                "id": "coleta-larga-entrega-estreita",
-                "titulo": "A coleta cobre quatro paises. A entrega tem uma porta so.",
+                "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
+                "titulo": (f"O trabalho e de {maior.title()}. A procura de fontes "
+                           f"foi noutro sitio."),
                 "texto": (
-                    "As fontes com ficha estao repartidas assim: "
+                    "O REPOSITORIO, por pais: "
+                    + " · ".join(f"{k} {v} ficheiros ({round(100*v/total)}%)"
+                                 for k, v in sorted(obra.items(), key=lambda x: -x[1]))
+                    + ". O ATLAS DE FONTES, por pais: "
                     + " · ".join(f"{k} {v}" for k, v in paises.items())
-                    + f". Mas o unico diretorio publicado e «{servido}» — uma "
-                      f"superficie so, e o nome dela e de um pais. "
-                      f"{menor.capitalize()} tem {paises[menor]} fonte(s), o menor "
-                      f"numero de todos, e e o unico com porta de saida."),
+                    + f". E o unico diretorio publicado e «{servido}»."),
                 "porque_importa": (
-                    "Nao ha nada de errado no codigo: o espanhol le e escreve so "
-                    "artefatos espanhois. O que falta e caminho de saida para o que "
-                    "nao e italiano — e enquanto faltar, coletar mais em Espanha ou "
-                    "em Franca aumenta o acervo sem aumentar o que chega a alguem."),
+                    "O atlas conta o que foi PROCURADO; o repositorio conta o que foi "
+                    f"FEITO. Confundir os dois faz um exercicio de descoberta parecer o "
+                    f"corpo do trabalho. {maior.title()} tem {obra[maior]} ficheiros e "
+                    f"{paises.get(maior, 0)} fontes com ficha — a obra esta muito a frente "
+                    f"do acervo que a sustenta."),
                 "evidencia": ["vercel.json", "docs/fontes/ATLAS-DE-FONTES-EAME.md"],
             })
 
-    # ── a lei do Brasil, medida ficheiro a ficheiro ──────────────────────────
-    # Duas coisas que o Brasil ensinou a esta casa, e que so valem se estiverem
-    # NO MOMENTO DA COLETA — depois e tarde, porque o dado ja entrou sem elas:
-    #
-    #   · todo registo tem de dizer QUANDO foi capturado;
-    #   · o lugar de onde o DOCUMENTO veio nao e o lugar onde o FACTO aconteceu.
-    #
-    # Uma fonte italiana a falar de Espanha nao torna o facto italiano. Por isso
-    # `SOURCE_LOCATION` e `FACT_LOCATION` sao dois campos, e nao um.
-    import re as _re
-    grava = _re.compile(r"open\(|json\.dump|write_text")
-    sem_carimbo, com_lei = [], []
-    for f in sorted((RAIZ / "coleta").glob("*.py")) if (RAIZ / "coleta").is_dir() else []:
-        t = f.read_text(encoding="utf-8", errors="replace")
-        if not grava.search(t):
-            continue
-        rel = f"coleta/{f.name}"
-        if "SOURCE_LOCATION" in t and "FACT_LOCATION" in t:
-            com_lei.append(rel)
-        if not any(c in t for c in ("SOURCE_LOCATION", "FACT_LOCATION",
-                                    "CAPTURED_AT", "PUBLICATION_DATE", "FACT_DATE")):
-            sem_carimbo.append(rel)
     fs = DADOS / "sources.generated.json"
     if fs.exists():
         S2 = json.loads(fs.read_text(encoding="utf-8"))
@@ -671,6 +729,23 @@ def achados(arquivos: dict) -> list:
                     "não provou que funciona nos outros."),
                 "evidencia": [F.get("ficheiro", "")],
             })
+
+    # ── a lei do Brasil, medida ficheiro a ficheiro ──────────────────────────
+    # Data e lugar so valem se estiverem NO MOMENTO DA COLETA — depois e tarde,
+    # porque o dado ja entrou sem eles. E o lugar de onde o DOCUMENTO veio nao e
+    # o lugar onde o FACTO aconteceu: por isso sao dois campos, e nao um.
+    grava = re.compile(r"open\(|json\.dump|write_text")
+    sem_carimbo, com_lei = [], []
+    for f in (sorted((RAIZ / "coleta").glob("*.py")) if (RAIZ / "coleta").is_dir() else []):
+        t = f.read_text(encoding="utf-8", errors="replace")
+        if not grava.search(t):
+            continue
+        rel = f"coleta/{f.name}"
+        if "SOURCE_LOCATION" in t and "FACT_LOCATION" in t:
+            com_lei.append(rel)
+        if not any(c in t for c in ("SOURCE_LOCATION", "FACT_LOCATION",
+                                    "CAPTURED_AT", "PUBLICATION_DATE", "FACT_DATE")):
+            sem_carimbo.append(rel)
 
     if sem_carimbo:
         saida.append({
@@ -892,6 +967,18 @@ def main_uma_vez(stamp: bool) -> int:
     nao_reivindicados = sorted(p for p in arquivos if p not in dono)
 
     nos = nos + gerados
+
+    # As setas de cada peca, calculadas de uma vez para TODAS — declaradas e
+    # geradas. Enquanto isto vivia dentro do laco dos componentes declarados, as
+    # pecas geradas ficavam eternamente a dizer «recebe: ninguem», mesmo tendo
+    # nove ligacoes medidas. Um cartao que diz «ninguem» quando ha nove e pior
+    # que um cartao em branco: em branco, quem le pergunta.
+    tecnicas = [l for l in ligacoes.values() if l["kind"] == "technical"]
+    for n in nos:
+        n["inbound"] = sorted({l["from"] for l in tecnicas if l["to"] == n["id"]})
+        n["outbound"] = sorted({l["to"] for l in tecnicas if l["from"] == n["id"]})
+
+    paises_das_pecas(nos, G, dono)
 
     # A fonte aponta para o componente que a busca. A prova e a linha do contrato
     # que NOMEIA o script — a mesma regra de sempre: sem linha, sem seta.

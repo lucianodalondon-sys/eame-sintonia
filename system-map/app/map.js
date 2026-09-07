@@ -88,7 +88,8 @@ function render() {
         <div class="nodeIcon">${esc(n.icon || '●')}</div>
         <div class="nodeHeadText">
           <div class="nodeName">${esc(n.name)}</div>
-          <div class="nodeType">${esc(n.kind)}${n.legacy ? ' · legado' : ''}</div>
+          <div class="nodeType">${esc(n.kind)}${n.legacy ? ' · legado' : ''}${
+            n.pais && n.pais !== 'TRANSVERSAL' ? ' · ' + esc(n.pais) : ''}</div>
         </div>
         <div class="statusPill status-${n.ui_status}">${statusLabel(n.ui_status)}</div>
       </div>
@@ -134,7 +135,10 @@ function showNodeTip(e, n) {
        de.length ? esc(de.slice(0, 3).join(' · ')) : '— ninguém'}</div>
      <div class="ttLabel">Envia para</div><div class="ttText">${
        pa.length ? esc(pa.slice(0, 3).join(' · ')) : '— ninguém'}</div>
-     <div class="ttLabel">Motivo do estado</div><div class="ttText">${esc(n.status_reason)}</div>`;
+     <div class="ttLabel">Motivo do estado</div><div class="ttText">${esc(n.status_reason)}</div>
+     ${n.paises && Object.keys(n.paises).length ? `<div class="ttLabel">Países que toca</div>
+       <div class="ttText">${esc(Object.entries(n.paises)
+         .map(([k, v]) => `${k} ${v}`).join(' · '))}</div>` : ''}`;
   tooltip.style.display = 'block'; moveTip(e);
 }
 function showEdgeTip(e, d) {
@@ -331,6 +335,14 @@ function openDetail(id) {
       <div class="sec"><h4>Motivo do estado</h4>
         <div class="evidence">${esc(n.status_reason)}</div></div>
 
+      ${n.paises && Object.keys(n.paises).length ? `<div class="sec">
+        <h4>Países que esta peça toca</h4><div class="tags">${
+        Object.entries(n.paises).map(([k, v]) =>
+          `<span class="tag">${esc(k)} · ${v}</span>`).join('')}</div>
+        <p style="font-size:10px;color:#8a827e;margin-top:6px">Medido pelos arquivos
+          que ela toca, seguindo a convenção do atlas (PAÍS-TERRITÓRIO-seq).
+          Sem maioria clara, fica transversal.</p></div>` : ''}
+
       ${n.departments?.length ? `<div class="sec"><h4>Departamentos</h4><div class="tags">${
         n.departments.map(d => `<span class="tag" title="${esc(S.DEPARTMENTS[d] || '')}"
           >${esc(d.replace(/_/g, ' '))}</span>`).join('')}</div></div>` : ''}
@@ -439,7 +451,7 @@ function applyFilters() {
     if (currentFam) ok = ok && n.family === currentFam;
     // O pais so filtra quem TEM pais. Uma peca de codigo nao e de pais nenhum, e
     // escondê-la ao filtrar por Espanha faria o mapa parecer que ela nao existe.
-    if (pais) ok = ok && n.country === pais;
+    if (pais) ok = ok && n.pais === pais;
     if (dept !== 'Todos') ok = ok && (n.departments || []).includes(dept);
     const palheiro = [n.name, n.kind, n.what, n.why_here, n.id, ...(n.files || [])]
       .join(' ').toLowerCase();
@@ -632,12 +644,12 @@ async function arrancar() {
     : '<b>Nenhuma peça em NÃO SEI neste commit.</b> Toda peça tem pelo menos uma '
       + 'ligação provada por linha de código.';
 
-  const paises = [...new Set(S.NODES.map(n => n.country).filter(Boolean))].sort();
+  const paises = [...new Set(S.NODES.map(n => n.pais).filter(Boolean))].sort();
   $('paises').innerHTML = '<label class="check"><input type="radio" name="pais" '
     + 'value="" checked>Todos os países</label>'
     + paises.map(x => `<label class="check"><input type="radio" name="pais"
         value="${esc(x)}">${esc(x)} · ${
-        S.NODES.filter(n => n.country === x).length}</label>`).join('');
+        S.NODES.filter(n => n.pais === x).length}</label>`).join('');
 
   $('fams').innerHTML = S.FAMILIES.map(f =>
     `<button class="famBtn" data-fam="${esc(f.id)}">
