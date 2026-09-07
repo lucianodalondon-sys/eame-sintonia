@@ -462,6 +462,7 @@
       "data/samples/ITALY-T3-005-MONITORAGGIO/monitoraggio-2026-09-07.html",
       "data/samples/ITALY-T3-005-MONITORAGGIO/points-2026-09-07.json",
       "data/samples/LIVRO-DE-DECISOES.json",
+      "data/samples/PADRAO-DA-COLETA-CHAO.json",
       "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
       "data/samples/PIEMONTE-FD/aggiornamento_2025_strategie2026_pt.txt",
       "data/samples/PIEMONTE-FD/area_delimitata_2026_pt.txt",
@@ -1585,8 +1586,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "603258dda32810b033d84e85044a49c835019691",
-    "GENERATED_AT": "2026-09-07T17:24:21-03:00"
+    "HEAD": "0bfac81d56af7cd929c7a90b331fc38e880a1575",
+    "GENERATED_AT": "2026-09-07T17:44:45-03:00"
   },
   "FAMILIES": [
     {
@@ -7245,18 +7246,9 @@
           }
         }
       ],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "medidas/PADRAO-DA-COLETA-CHAO.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 6830,
       "y": 682
     },
@@ -11075,7 +11067,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 603258dda32810b033d84e85044a49c835019691"
+        "HEAD 0bfac81d56af7cd929c7a90b331fc38e880a1575"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -14569,7 +14561,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_repo.py",
-          "line": 355,
+          "line": 376,
           "snippet": "\"\"\"`'PUBLIC-COMM-FIRST-BATCH-EAME.json'` -> o unico ficheiro com esse nome."
         }
       ]
@@ -15535,7 +15527,7 @@
         },
         {
           "file": "system-map/scripts/scan_repo.py",
-          "line": 365,
+          "line": 386,
           "snippet": "\"\"\"`<script src=\"italy-v21.js\">` e um caminho relativo a propria pasta."
         }
       ]
@@ -17998,7 +17990,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 644,
+  "UNCLAIMED_FILES_COUNT": 645,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 97,
@@ -18010,7 +18002,7 @@
     "edges_proven": 322,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1143,
+    "files_tracked": 1144,
     "files_covered": 499,
     "files_code_unclaimed": 0
   }

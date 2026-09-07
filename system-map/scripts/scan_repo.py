@@ -107,8 +107,29 @@ def sha_do_disco(caminho: str) -> str:
     e faria tudo parecer alterado sem nada ter mudado.
 
     Conteudo em disco e a unica medida que so mente se o conteudo mentir.
+
+    MAS O DISCO NAO GUARDA O MESMO EM TODA A MAQUINA.
+    Com `core.autocrlf=true` — o valor por omissao do Windows — o git escreve as
+    linhas terminadas em CRLF no disco e guarda-as em LF no repositorio. Neste
+    repositorio isso sao 858 ficheiros.
+
+    O resultado era invisivel e fatal: o mapa gerado no Windows levava SHAs de
+    CRLF, o CI regerava em Linux com SHAs de LF, e o validador acusava drift em
+    TODOS eles. Nao havia conserto possivel do lado de quem gerava — regerar
+    outra vez dava exatamente o mesmo desencontro.
+
+        UM PORTAO QUE REPROVA POR CAUSA DO SISTEMA OPERATIVO NAO MEDE CONTEUDO.
+
+    Por isso o texto e normalizado para LF antes de ser medido, que e a forma
+    como o git o guarda. Assim o SHA passa a ser o mesmo em qualquer maquina — e
+    igual ao que `git hash-object` devolve.
+
+    O binario nao se toca: um ficheiro com byte zero nao tem «linhas», e trocar
+    bytes la dentro estragaria a medicao em vez de a corrigir.
     """
     dados = (RAIZ / caminho).read_bytes()
+    if b"\0" not in dados:                      # texto: normaliza como o git guarda
+        dados = dados.replace(b"\r\n", b"\n")
     return hashlib.sha1(b"blob %d\0" % len(dados) + dados).hexdigest()
 
 
