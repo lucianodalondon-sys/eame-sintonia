@@ -45,8 +45,12 @@
 
 <div class="workspace" id="workspace">
   <aside class="sidebar">
-    <div class="sideTitle">Visão</div>
-    <div id="views"></div>
+    <div class="sideTitle">As três partes</div>
+    <div id="fams"></div>
+    <div class="filter">
+      <div class="sideTitle">Visão</div>
+      <div id="views"></div>
+    </div>
     <div class="filter">
       <div class="sideTitle">Departamento / dono</div>
       <div id="depts"></div>
@@ -67,8 +71,9 @@
 
   <main class="mapWrap">
     <div class="canvasTitle">
-      <b>Sistema atual, da fonte até a tela</b>
-      <span>Arraste · zoom · hover · clique · “mostrar caminho completo”</span>
+      <b>COLETA → INTELIGÊNCIA → ENTREGA</b>
+      <span>O sistema inteiro em três partes. Arraste · zoom · passe o mouse ·
+        clique · “mostrar caminho completo”</span>
     </div>
     <div class="warning" id="warning"></div>
 
@@ -79,6 +84,7 @@
           <path d="M0,0 L0,6 L8,3 z" fill="#6e7e78"/></marker></defs>
         <g id="edgeLayer"></g>
       </svg>
+      <div id="families"></div>
       <div id="zones"></div>
       <div id="nodes"></div>
     </div></div>

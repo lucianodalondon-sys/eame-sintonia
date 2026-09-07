@@ -1,8 +1,8 @@
 {
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
-    "w": 8015,
-    "h": 2462
+    "w": 8430,
+    "h": 2140
   },
   "INVENTORY": {
     "(raiz)": [
@@ -1054,129 +1054,175 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "a638dd94bc6789fec9b7bd685b0fc659d1eeff2d",
-    "GENERATED_AT": "2026-09-07T10:29:28-03:00"
+    "HEAD": "a4420c12b2abc452c1cf227b67ad97ed1ccb4829",
+    "GENERATED_AT": "2026-09-07T10:43:45-03:00"
   },
-  "TERRITORIES": [
+  "FAMILIES": [
     {
-      "id": "Z-LINEAGE",
-      "name": "LINHAGENS E DONOS",
-      "why": "Qual branch decide, qual branch consome e qual pacote e o canonico",
-      "band": "corporate",
-      "views": [
-        "lineage",
-        "official"
+      "id": "F-COLETA",
+      "name": "COLETA",
+      "why": "Trazer para dentro o que existe la fora. Nada no SINTONIA comeca sem passar por aqui.",
+      "x": 260,
+      "y": 60,
+      "w": 1315,
+      "h": 1820,
+      "zones": [
+        "Z-FONTES"
       ],
-      "x": 300,
-      "y": 190,
-      "w": 405,
-      "h": 1972,
-      "count": 4
+      "count": 13
     },
     {
-      "id": "Z-ACERVO",
-      "name": "ACERVO PINADO",
-      "why": "De onde o dado entra. Nada existe no SINTONIA sem passar por aqui primeiro",
-      "band": "earth",
+      "id": "F-INTELIGENCIA",
+      "name": "INTELIGENCIA",
+      "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa.",
+      "x": 1795,
+      "y": 60,
+      "w": 3845,
+      "h": 1820,
+      "zones": [
+        "Z-LINEAGE",
+        "Z-REGUAS",
+        "Z-MOTOR",
+        "Z-PROVA"
+      ],
+      "count": 27
+    },
+    {
+      "id": "F-ENTREGA",
+      "name": "ENTREGA",
+      "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado.",
+      "x": 5860,
+      "y": 60,
+      "w": 2310,
+      "h": 1820,
+      "zones": [
+        "Z-PACOTE",
+        "Z-PORTOES",
+        "Z-SUPERFICIE"
+      ],
+      "count": 15
+    }
+  ],
+  "TERRITORIES": [
+    {
+      "id": "Z-FONTES",
+      "family": "F-COLETA",
+      "name": "FONTES, COLETA E GUARDA",
+      "why": "De onde o dado entra, quem dispara a coleta e onde ele fica guardado entre uma corrida e outra",
       "views": [
         "acervo",
         "infra"
       ],
-      "x": 1005,
+      "x": 300,
       "y": 190,
-      "w": 820,
-      "h": 1972,
-      "count": 10
+      "w": 1235,
+      "h": 1650,
+      "count": 13
     },
     {
-      "id": "Z-GERADOR",
-      "name": "GERADOR CANONICO V2.1",
-      "why": "A cadeia que constroi o pacote; a ordem e lei, nao convencao",
-      "band": "corporate",
+      "id": "Z-LINEAGE",
+      "family": "F-INTELIGENCIA",
+      "name": "LINHAGENS E DONOS",
+      "why": "Qual branch decide, qual consome e qual pacote e o canonico. A inteligencia tem UM dono",
       "views": [
-        "generator",
-        "acervo"
+        "lineage",
+        "official"
       ],
-      "x": 2125,
+      "x": 1835,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 4
+    },
+    {
+      "id": "Z-REGUAS",
+      "family": "F-INTELIGENCIA",
+      "name": "REGUAS E LEIS",
+      "why": "As leis que decidem o que conta como verdade: procedencia, lugar do fato, tempo, relevancia, voz",
+      "views": [
+        "opportunity",
+        "science"
+      ],
+      "x": 2540,
       "y": 190,
       "w": 820,
-      "h": 1972,
+      "h": 1650,
+      "count": 6
+    },
+    {
+      "id": "Z-MOTOR",
+      "family": "F-INTELIGENCIA",
+      "name": "MOTOR — CADEIA V2.1",
+      "why": "Onde o dado bruto vira caso. A ordem e lei, nao convencao",
+      "views": [
+        "generator",
+        "opportunity"
+      ],
+      "x": 3660,
+      "y": 190,
+      "w": 820,
+      "h": 1650,
       "count": 8
     },
     {
-      "id": "Z-PACOTE",
-      "name": "PACOTE CANONICO",
-      "why": "Artefato derivado e reproduzivel — nao e a fonte; e gerado",
-      "band": "earth",
-      "views": [
-        "generator",
-        "portal"
-      ],
-      "x": 3245,
-      "y": 190,
-      "w": 405,
-      "h": 1972,
-      "count": 3
-    },
-    {
-      "id": "Z-FRONTEIRA",
-      "name": "FRONTEIRA PACOTE -> PORTAL",
-      "why": "Fail-closed: o unico ponto por onde o pacote atravessa para a tela",
-      "band": "corporate",
-      "views": [
-        "portal"
-      ],
-      "x": 3950,
-      "y": 190,
-      "w": 405,
-      "h": 1972,
-      "count": 2
-    },
-    {
-      "id": "Z-MODELO",
-      "name": "MODELO E REGUAS DE APRESENTACAO",
-      "why": "Dao forma e significado sem voltar a decidir o que o motor ja decidiu",
-      "band": "earth",
-      "views": [
-        "opportunity",
-        "portal",
-        "science"
-      ],
-      "x": 4655,
-      "y": 190,
-      "w": 820,
-      "h": 1972,
-      "count": 7
-    },
-    {
-      "id": "Z-SUPERFICIE",
-      "name": "SUPERFICIES",
-      "why": "O que o cliente e a reuniao realmente conseguem ver",
-      "band": "corporate",
-      "views": [
-        "portal",
-        "meeting"
-      ],
-      "x": 5775,
-      "y": 190,
-      "w": 405,
-      "h": 1972,
-      "count": 3
-    },
-    {
-      "id": "Z-INFRA",
-      "name": "AUDITORIA, CI E INFRA",
-      "why": "Portoes, testes, design system, coleta e persistencia fora da rota principal",
-      "band": "earth",
+      "id": "Z-PROVA",
+      "family": "F-INTELIGENCIA",
+      "name": "PROVAS E MEDICAO",
+      "why": "O que separa 'esta escrito' de 'esta provado'. Guarda as tres familias, e vive aqui porque provar e como o sistema sabe o que sabe",
       "views": [
         "audit",
         "infra"
       ],
-      "x": 6480,
+      "x": 4780,
       "y": 190,
-      "w": 1235,
-      "h": 1972,
-      "count": 18
+      "w": 820,
+      "h": 1650,
+      "count": 9
+    },
+    {
+      "id": "Z-PACOTE",
+      "family": "F-ENTREGA",
+      "name": "PACOTE CANONICO",
+      "why": "O artefato fechado que sai daqui. Derivado e reproduzivel — nunca dono da lei",
+      "views": [
+        "generator",
+        "portal"
+      ],
+      "x": 5900,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 3
+    },
+    {
+      "id": "Z-PORTOES",
+      "family": "F-ENTREGA",
+      "name": "FRONTEIRA E PORTOES",
+      "why": "O unico ponto por onde o pacote atravessa para a tela, e tudo o que impede coisa errada de atravessar",
+      "views": [
+        "portal",
+        "audit"
+      ],
+      "x": 6605,
+      "y": 190,
+      "w": 820,
+      "h": 1650,
+      "count": 7
+    },
+    {
+      "id": "Z-SUPERFICIE",
+      "family": "F-ENTREGA",
+      "name": "SUPERFICIES",
+      "why": "O que o cliente e a reuniao realmente veem. Apresenta decisao ja tomada; nao recalcula nada",
+      "views": [
+        "portal",
+        "meeting"
+      ],
+      "x": 7725,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 5
     }
   ],
   "DEPARTMENTS": {
@@ -1194,7 +1240,7 @@
     {
       "id": "C-ADAMA-CATALOGO",
       "name": "Catalogo de produtos ADAMA",
-      "territory": "Z-ACERVO",
+      "territory": "Z-FONTES",
       "kind": "engine",
       "what": "Monta e le o catalogo de produtos da propria ADAMA em cada pais.",
       "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel.",
@@ -1210,6 +1256,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         "scripts/adama_catalogo_ler.py",
         "scripts/adama_catalogo_montar.py",
@@ -1229,13 +1276,13 @@
         "C-PORTAL-DADOS",
         "C-RELEVANCIA"
       ],
-      "x": 1065,
+      "x": 360,
       "y": 360
     },
     {
       "id": "C-ADAMA-ES",
       "name": "Portao e importacao ADAMA Espanha",
-      "territory": "Z-ACERVO",
+      "territory": "Z-FONTES",
       "kind": "gate",
       "what": "Confere as regras de importacao do catalogo espanhol antes de ele entrar.",
       "why_here": "A Espanha entrou depois e com fonte diferente; sem portao proprio ela contaminaria a base.",
@@ -1250,6 +1297,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         "scripts/adama_es_gate.py",
         "scripts/adama_es_import_rules.py",
@@ -1267,13 +1315,13 @@
       "outbound": [
         "C-SUPABASE"
       ],
-      "x": 1480,
+      "x": 775,
       "y": 360
     },
     {
       "id": "C-ADAMA-IT",
       "name": "Inteligencia de produto ADAMA Italia",
-      "territory": "Z-ACERVO",
+      "territory": "Z-FONTES",
       "kind": "engine",
       "what": "Le rotulo, modo de acao, substancia europeia e lacuna de portfolio da ADAMA na Italia.",
       "why_here": "A Italia e o piloto: e onde a leitura de portfolio foi provada primeiro.",
@@ -1290,6 +1338,7 @@
         "science"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         "scripts/adama_it_eu.py",
         "scripts/adama_it_frac.py",
@@ -1307,13 +1356,13 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 1065,
-      "y": 682
+      "x": 1190,
+      "y": 360
     },
     {
       "id": "C-APIFY-POOL",
       "name": "Pool de tokens Apify",
-      "territory": "Z-ACERVO",
+      "territory": "Z-FONTES",
       "kind": "library",
       "what": "Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.",
       "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica.",
@@ -1328,6 +1377,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         "scripts/apify_contrato.py",
         "scripts/apify_pool.py",
@@ -1347,7 +1397,7 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 1480,
+      "x": 360,
       "y": 682
     },
     {
@@ -1368,6 +1418,7 @@
         "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "italia-portale/client/italy-handoff-v21.js",
         "italia-portale/client/italy-ingested.js"
@@ -1380,7 +1431,7 @@
         "C-PORTAL-CASCO"
       ],
       "outbound": [],
-      "x": 3305,
+      "x": 5960,
       "y": 360
     },
     {
@@ -1403,6 +1454,7 @@
         "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "scripts/ask_sintonia.py",
         "scripts/navegador.py",
@@ -1417,13 +1469,13 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 5835,
+      "x": 7785,
       "y": 360
     },
     {
       "id": "C-AUDIT-BLOCOS",
       "name": "Auditoria de blocos do portal",
-      "territory": "Z-INFRA",
+      "territory": "Z-PORTOES",
       "kind": "gate",
       "what": "Confere bloco por bloco se a tela mostra o que o contrato daquele bloco manda.",
       "why_here": "Bloco e a unidade de contrato da superficie.",
@@ -1435,9 +1487,10 @@
       "icon": "⛨",
       "views": [
         "audit",
-        "infra"
+        "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "italia-portale/audit/BLOCK-CONTRACTS.md",
         "italia-portale/audit/blocks.mjs",
@@ -1470,13 +1523,13 @@
       "outbound": [
         "C-AUDIT-HARNESS"
       ],
-      "x": 6540,
+      "x": 6665,
       "y": 360
     },
     {
       "id": "C-AUDIT-CASCO",
       "name": "Auditoria do casco",
-      "territory": "Z-INFRA",
+      "territory": "Z-PORTOES",
       "kind": "gate",
       "what": "Confere a paridade visual, a demo, os falsos zeros e a fuga de conteudo do casco.",
       "why_here": "Casco quebrado engana antes de o dado ser lido.",
@@ -1488,9 +1541,10 @@
       "icon": "⛨",
       "views": [
         "audit",
-        "infra"
+        "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "italia-portale/audit/casco/censo-demo.mjs",
         "italia-portale/audit/casco/censo-precedenza.mjs",
@@ -1518,13 +1572,13 @@
         "C-AUDIT-HARNESS",
         "C-PORTAL-CASCO"
       ],
-      "x": 6955,
+      "x": 7080,
       "y": 360
     },
     {
       "id": "C-AUDIT-GERAL",
       "name": "Demais auditorias do portal",
-      "territory": "Z-INFRA",
+      "territory": "Z-PORTOES",
       "kind": "gate",
       "what": "O resto das conferencias: aceitacao, numeros do contrato, superficie, navegacao, idioma.",
       "why_here": "Cada uma prova uma promessa diferente da tela.",
@@ -1536,9 +1590,10 @@
       "icon": "⛨",
       "views": [
         "audit",
-        "infra"
+        "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "italia-portale/audit/acceptance.mjs",
         "italia-portale/audit/action-map-consistency.mjs",
@@ -1605,13 +1660,13 @@
         "C-AUDIT-HARNESS",
         "C-PORTAO-BUILD"
       ],
-      "x": 7370,
-      "y": 360
+      "x": 6665,
+      "y": 682
     },
     {
       "id": "C-AUDIT-HARNESS",
       "name": "Harness de auditoria",
-      "territory": "Z-INFRA",
+      "territory": "Z-PORTOES",
       "kind": "library",
       "what": "A base comum que todas as auditorias usam para rodar e relatar do mesmo jeito.",
       "why_here": "E o ficheiro mais importado do repositorio inteiro.",
@@ -1623,9 +1678,10 @@
       "icon": "▤",
       "views": [
         "audit",
-        "infra"
+        "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "italia-portale/audit/lib/drive.mjs",
         "italia-portale/audit/lib/harness.mjs",
@@ -1645,13 +1701,13 @@
         "C-PORTAO-BUILD"
       ],
       "outbound": [],
-      "x": 6540,
+      "x": 7080,
       "y": 682
     },
     {
       "id": "C-AUDIT-MARCA",
       "name": "Auditoria de marca ADAMA",
-      "territory": "Z-INFRA",
+      "territory": "Z-PORTOES",
       "kind": "gate",
       "what": "Confere se a tela obedece ao Design System oficial da ADAMA.",
       "why_here": "A forma tambem tem lei, e ela nao e opcional.",
@@ -1664,9 +1720,10 @@
       "icon": "⛨",
       "views": [
         "audit",
-        "infra"
+        "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "italia-portale/audit/adama-product-claim.mjs",
         "italia-portale/audit/adama-relevance-gate.mjs",
@@ -1682,13 +1739,13 @@
         "C-AUDIT-HARNESS",
         "C-RELEVANCIA"
       ],
-      "x": 6955,
-      "y": 682
+      "x": 6665,
+      "y": 1004
     },
     {
       "id": "C-CADEIA-V21",
       "name": "Cadeia canonica V2.1",
-      "territory": "Z-GERADOR",
+      "territory": "Z-MOTOR",
       "kind": "chain",
       "what": "O roteiro que roda os trinta passos do motor na ordem certa, do dado bruto ate o pacote fechado.",
       "why_here": "A ordem nao e adivinhavel. Rodar um passo sozinho produz um pacote que parece bom e esta errado.",
@@ -1699,10 +1756,11 @@
       "ui_status": "green",
       "icon": "⛓",
       "views": [
-        "acervo",
-        "generator"
+        "generator",
+        "opportunity"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/cadeia_canonica.sh",
         "scripts/chain.py",
@@ -1732,13 +1790,13 @@
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
       ],
-      "x": 2185,
+      "x": 3720,
       "y": 360
     },
     {
       "id": "C-CI-COLETA",
       "name": "Workflows de coleta",
-      "territory": "Z-INFRA",
+      "territory": "Z-FONTES",
       "kind": "workflow",
       "what": "Os botoes que disparam coleta paga, sempre com a fase gratuita rodando primeiro.",
       "why_here": "Coleta paga sem contrato conferido antes ja queimou execucoes.",
@@ -1749,10 +1807,11 @@
       "ui_status": "green",
       "icon": "▶",
       "views": [
-        "audit",
+        "acervo",
         "infra"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         ".github/workflows/adama-es-gate.yml",
         ".github/workflows/apify-conexao.yml",
@@ -1771,13 +1830,13 @@
         "C-CORPUS",
         "C-TESTES"
       ],
-      "x": 7370,
+      "x": 775,
       "y": 682
     },
     {
       "id": "C-CI-MAPA",
       "name": "Workflow do System Map",
-      "territory": "Z-INFRA",
+      "territory": "Z-PROVA",
       "kind": "workflow",
       "what": "Em cada mudanca, regera o mapa e reprova se o que foi commitado nao bate com o repositorio.",
       "why_here": "E o que impede o 'depois alguem atualiza o mapa'.",
@@ -1792,6 +1851,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         ".github/workflows/system-map.yml"
       ],
@@ -1806,13 +1866,13 @@
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR"
       ],
-      "x": 6540,
-      "y": 1004
+      "x": 4840,
+      "y": 360
     },
     {
       "id": "C-CI-PERSIST",
       "name": "Workflows de persistencia",
-      "territory": "Z-INFRA",
+      "territory": "Z-FONTES",
       "kind": "workflow",
       "what": "Conferem a conexao com o banco, rodam migracao e provam que o dado volta igual ao que entrou.",
       "why_here": "Migracao sem prova de ida e volta e perda de dado com aparencia de sucesso.",
@@ -1823,10 +1883,11 @@
       "ui_status": "green",
       "icon": "▶",
       "views": [
-        "audit",
+        "acervo",
         "infra"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         ".github/workflows/supabase-conexao.yml",
         ".github/workflows/supabase-fichas-adama.yml",
@@ -1843,13 +1904,13 @@
         "C-CADEIA-V21",
         "C-MEDICAO"
       ],
-      "x": 6955,
-      "y": 1004
+      "x": 1190,
+      "y": 682
     },
     {
       "id": "C-CI-REGRESSAO",
       "name": "Calendario de regressoes",
-      "territory": "Z-INFRA",
+      "territory": "Z-PROVA",
       "kind": "workflow",
       "what": "Roda de tempos em tempos as provas que garantem que nada quebrou sozinho.",
       "why_here": "Coisa que passou ontem pode falhar hoje sem ninguem ter mexido nela.",
@@ -1864,6 +1925,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         ".github/workflows/calendario-regressoes.yml"
       ],
@@ -1877,13 +1939,13 @@
         "C-CADEIA-V21",
         "C-MEDICAO"
       ],
-      "x": 7370,
-      "y": 1004
+      "x": 5255,
+      "y": 360
     },
     {
       "id": "C-CICATRIZES-BR",
       "name": "Cicatrizes do Brasil (lei portada)",
-      "territory": "Z-MODELO",
+      "territory": "Z-REGUAS",
       "kind": "contract",
       "what": "Traz para o EAME as leis que o Brasil ja aprendeu na dor, em vez de reinventar cada uma.",
       "why_here": "O EAME nao inventa contrato novo quando o Brasil ja tem lei madura para a mesma pergunta.",
@@ -1895,10 +1957,10 @@
       "icon": "§",
       "views": [
         "opportunity",
-        "portal",
         "science"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/cicatrizes_brasil.py"
       ],
@@ -1914,13 +1976,13 @@
         "C-PROVENIENCIA",
         "C-TESTES"
       ],
-      "x": 4715,
+      "x": 2600,
       "y": 360
     },
     {
       "id": "C-COLETA-BASE",
       "name": "Coletor e portoes de coleta",
-      "territory": "Z-ACERVO",
+      "territory": "Z-FONTES",
       "kind": "engine",
       "what": "O motor generico de coleta e o portao que decide, de graca, se vale gastar maquina antes de gastar.",
       "why_here": "Coletar sem portao ja custou execucoes pagas que devolveram o alvo errado.",
@@ -1935,6 +1997,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         "scripts/cdp.py",
         "scripts/coleta_checkpoint.py",
@@ -1963,13 +2026,13 @@
         "C-PROVENIENCIA",
         "C-VOZ"
       ],
-      "x": 1065,
+      "x": 360,
       "y": 1004
     },
     {
       "id": "C-COLETA-INSTAGRAM",
       "name": "Coleta Instagram",
-      "territory": "Z-ACERVO",
+      "territory": "Z-FONTES",
       "kind": "engine",
       "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
       "why_here": "Boa parte da fala real de produtor e de tecnico nao esta em texto — esta em video.",
@@ -1984,6 +2047,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         "scripts/instagram_coleta.py",
         "scripts/instagram_diario.py",
@@ -2002,13 +2066,13 @@
         "C-MEDICAO",
         "C-PROVENIENCIA"
       ],
-      "x": 1480,
+      "x": 775,
       "y": 1004
     },
     {
       "id": "C-COLETA-PUBLICA",
       "name": "Coleta de comunicacao publica do concorrente",
-      "territory": "Z-ACERVO",
+      "territory": "Z-FONTES",
       "kind": "engine",
       "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
       "why_here": "Saber o que o concorrente esta dizendo em publico, sem depender de ninguem contar.",
@@ -2024,6 +2088,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         "scripts/comunicacao_classificar.py",
         "scripts/comunicacao_coleta.py",
@@ -2044,13 +2109,13 @@
         "C-APIFY-POOL",
         "C-COLETA-BASE"
       ],
-      "x": 1065,
-      "y": 1326
+      "x": 1190,
+      "y": 1004
     },
     {
       "id": "C-CORPUS",
       "name": "Corpus de voz e de pesquisador",
-      "territory": "Z-ACERVO",
+      "territory": "Z-FONTES",
       "kind": "engine",
       "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
       "why_here": "A voz do campo e a ciencia sao duas evidencias diferentes e nao podem virar a mesma coisa.",
@@ -2067,6 +2132,7 @@
         "science"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         "scripts/corpus_es.py",
         "scripts/corpus_pesquisador.py",
@@ -2089,13 +2155,13 @@
         "C-COLETA-BASE",
         "C-PROVENIENCIA"
       ],
-      "x": 1480,
+      "x": 360,
       "y": 1326
     },
     {
       "id": "C-DATA-CLOCK",
       "name": "Regua do tempo",
-      "territory": "Z-MODELO",
+      "territory": "Z-REGUAS",
       "kind": "contract",
       "what": "Decide qual data vale: a do fato, nao a da publicacao, e nunca a data regulatoria virando janela agronomica.",
       "why_here": "Trocar data de publicacao por data do fato desloca a safra inteira.",
@@ -2108,10 +2174,10 @@
       "icon": "§",
       "views": [
         "opportunity",
-        "portal",
         "science"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/calendario_handoff.py",
         "scripts/data_clock.py",
@@ -2129,13 +2195,13 @@
       "outbound": [
         "C-SUPABASE"
       ],
-      "x": 5130,
+      "x": 3015,
       "y": 360
     },
     {
       "id": "C-DS-ADAMA",
       "name": "Extrato local do ADAMA Design System",
-      "territory": "Z-INFRA",
+      "territory": "Z-SUPERFICIE",
       "kind": "library",
       "what": "As cores, tipografia, espacamentos e fontes oficiais da ADAMA, versionados aqui como extrato.",
       "why_here": "Extrato local nao e o Design System — serve para o codigo nao divergir dos tokens.",
@@ -2146,10 +2212,11 @@
       "ui_status": "green",
       "icon": "▤",
       "views": [
-        "audit",
-        "infra"
+        "meeting",
+        "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "italia-portale/BASELINE/_ds/adama-brandwell/_adherence.oxlintrc.json",
         "italia-portale/BASELINE/_ds/adama-brandwell/_ds_bundle.js",
@@ -2180,13 +2247,13 @@
         "C-PORTAL-CASCO"
       ],
       "outbound": [],
-      "x": 6540,
-      "y": 1326
+      "x": 7785,
+      "y": 682
     },
     {
       "id": "C-FONTES-EU",
       "name": "Fontes regulatorias e cientificas europeias",
-      "territory": "Z-ACERVO",
+      "territory": "Z-FONTES",
       "kind": "engine",
       "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
       "why_here": "Fonte oficial e o unico chao que nao depende de alguem ter postado.",
@@ -2203,6 +2270,7 @@
         "science"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         "scripts/agrifood_ue.py",
         "scripts/cellar.sh",
@@ -2225,8 +2293,8 @@
       "outbound": [
         "C-ROTULOS"
       ],
-      "x": 1065,
-      "y": 1648
+      "x": 775,
+      "y": 1326
     },
     {
       "id": "C-LASTMILE",
@@ -2247,6 +2315,7 @@
         "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "scripts/lastmile_entregar.py",
         "scripts/lastmile_inventario.py",
@@ -2261,13 +2330,13 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 3305,
+      "x": 5960,
       "y": 682
     },
     {
       "id": "C-LUGAR-DO-FATO",
       "name": "Regua do lugar do fato",
-      "territory": "Z-MODELO",
+      "territory": "Z-REGUAS",
       "kind": "contract",
       "what": "Separa o lugar onde o fato aconteceu do lugar de onde o documento foi publicado.",
       "why_here": "Fonte italiana falando de Espanha nao torna o fato italiano. Esta lei impede essa troca.",
@@ -2280,10 +2349,10 @@
       "icon": "§",
       "views": [
         "opportunity",
-        "portal",
         "science"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/fato_local.py",
         "scripts/gire_mapas.py",
@@ -2301,13 +2370,13 @@
       "outbound": [
         "C-V21-INGEST"
       ],
-      "x": 4715,
+      "x": 2600,
       "y": 682
     },
     {
       "id": "C-MAPA-APP",
       "name": "Interface do System Map",
-      "territory": "Z-INFRA",
+      "territory": "Z-PROVA",
       "kind": "surface",
       "what": "A tela do mapa: navegar, aproximar, buscar, filtrar e clicar em cada peca.",
       "why_here": "So renderiza. Nenhum fato arquitetural mora dentro dela.",
@@ -2323,6 +2392,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "system-map/app/index.html",
         "system-map/app/map.css",
@@ -2336,13 +2406,13 @@
         "C-MAPA-GERADOR"
       ],
       "outbound": [],
-      "x": 6955,
-      "y": 1326
+      "x": 4840,
+      "y": 682
     },
     {
       "id": "C-MAPA-GERADOR",
       "name": "Gerador do System Map",
-      "territory": "Z-INFRA",
+      "territory": "Z-PROVA",
       "kind": "engine",
       "what": "Junta o que a maquina mediu com o que o humano declarou e calcula o status de cada peca.",
       "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando.",
@@ -2357,6 +2427,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "system-map/scripts/generate_system_map.py"
       ],
@@ -2372,13 +2443,13 @@
         "C-MAPA-APP",
         "C-MAPA-SCAN"
       ],
-      "x": 7370,
-      "y": 1326
+      "x": 5255,
+      "y": 682
     },
     {
       "id": "C-MAPA-SCAN",
       "name": "Scanner do System Map",
-      "territory": "Z-INFRA",
+      "territory": "Z-PROVA",
       "kind": "engine",
       "what": "Le o repositorio e devolve so os fatos: que ficheiro existe, quem importa quem, quem roda o que.",
       "why_here": "E a unica fonte de aresta tecnica do mapa. Sem ele, o mapa seria opiniao desenhada.",
@@ -2393,6 +2464,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "system-map/scripts/scan_repo.py"
       ],
@@ -2406,13 +2478,13 @@
         "C-MAPA-VALIDADOR"
       ],
       "outbound": [],
-      "x": 6540,
-      "y": 1648
+      "x": 4840,
+      "y": 1004
     },
     {
       "id": "C-MAPA-TESTES",
       "name": "Testes do System Map",
-      "territory": "Z-INFRA",
+      "territory": "Z-PROVA",
       "kind": "test",
       "what": "Provam que o mapa nao inventa aresta, nao pinta verde sem evidencia e nao perde o NAO SEI.",
       "why_here": "Um mapa de auditoria que nao e auditado nao vale nada.",
@@ -2427,6 +2499,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "system-map/tests/test_system_map.py"
       ],
@@ -2438,13 +2511,13 @@
         "C-CI-MAPA"
       ],
       "outbound": [],
-      "x": 6955,
-      "y": 1648
+      "x": 5255,
+      "y": 1004
     },
     {
       "id": "C-MAPA-VALIDADOR",
       "name": "Validador do System Map",
-      "territory": "Z-INFRA",
+      "territory": "Z-PROVA",
       "kind": "gate",
       "what": "Reprova a mudanca quando o mapa fica desatualizado, quando ha aresta sem prova ou verde sem evidencia.",
       "why_here": "E o dente da lei. Sem ele, AGENTS.md seria so um texto pedindo por favor.",
@@ -2459,6 +2532,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "system-map/scripts/validate_system_map.py"
       ],
@@ -2473,13 +2547,13 @@
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN"
       ],
-      "x": 7370,
-      "y": 1648
+      "x": 4840,
+      "y": 1326
     },
     {
       "id": "C-MEDICAO",
       "name": "Auditoria, cobertura e custo",
-      "territory": "Z-INFRA",
+      "territory": "Z-PROVA",
       "kind": "engine",
       "what": "Mede o proprio sistema: o que foi coberto, o que era esperado e quanto custou.",
       "why_here": "Sistema que nao se mede nao sabe o que esta faltando nele.",
@@ -2495,6 +2569,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/auditoria.py",
         "scripts/corrigir_custo.py",
@@ -2514,8 +2589,8 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 6540,
-      "y": 1970
+      "x": 5255,
+      "y": 1326
     },
     {
       "id": "C-PACOTE-CAMADAS",
@@ -2535,6 +2610,7 @@
         "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "scripts/metricas_canonicas.py",
         "scripts/pacote.py",
@@ -2561,7 +2637,7 @@
         "C-V21-CRUZAMENTO",
         "C-V21-INGEST"
       ],
-      "x": 3305,
+      "x": 5960,
       "y": 1004
     },
     {
@@ -2584,6 +2660,7 @@
         "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "italia-portale/client/accesso.html",
         "italia-portale/client/casa.html",
@@ -2603,8 +2680,8 @@
         "C-PORTAL-DADOS",
         "C-PORTAL-MODELO"
       ],
-      "x": 5835,
-      "y": 682
+      "x": 7785,
+      "y": 1004
     },
     {
       "id": "C-PORTAL-DADOS",
@@ -2627,6 +2704,7 @@
         "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "italia-portale/client/adama-relevance.js",
         "italia-portale/client/italy-briefs.js",
@@ -2654,13 +2732,13 @@
       "outbound": [
         "C-RELEVANCIA"
       ],
-      "x": 5835,
-      "y": 1004
+      "x": 7785,
+      "y": 1326
     },
     {
       "id": "C-PORTAL-MODELO",
       "name": "Modelo de aplicacao do portal",
-      "territory": "Z-MODELO",
+      "territory": "Z-SUPERFICIE",
       "kind": "surface",
       "what": "A logica de tela: o que aparece, em que ordem, com que rotulo.",
       "why_here": "Guarda a leitura, nao a decisao.",
@@ -2672,11 +2750,11 @@
       "ui_status": "green",
       "icon": "▣",
       "views": [
-        "opportunity",
-        "portal",
-        "science"
+        "meeting",
+        "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "italia-portale/client/italy-app-model.js",
         "italia-portale/client/italy-casa.js",
@@ -2694,13 +2772,13 @@
         "C-ADAMA-CATALOGO",
         "C-PORTAL-DADOS"
       ],
-      "x": 5130,
-      "y": 682
+      "x": 7785,
+      "y": 1648
     },
     {
       "id": "C-PORTAO-BUILD",
       "name": "Portao da build",
-      "territory": "Z-FRONTEIRA",
+      "territory": "Z-PORTOES",
       "kind": "gate",
       "what": "Roda antes de qualquer publicacao e barra pacote atrasado ou artefacto que nao prove sua origem.",
       "why_here": "Nao ha bandeira para desligar. Portao que se chama a parte e disciplina; no caminho, e regra.",
@@ -2715,6 +2793,7 @@
         "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "italia-portale/audit/build-gate.mjs",
         "italia-portale/audit/casa-gate.mjs",
@@ -2731,13 +2810,13 @@
         "C-AUDIT-GERAL",
         "C-AUDIT-HARNESS"
       ],
-      "x": 4010,
-      "y": 360
+      "x": 7080,
+      "y": 1004
     },
     {
       "id": "C-PROVENIENCIA",
       "name": "Regua de procedencia",
-      "territory": "Z-MODELO",
+      "territory": "Z-REGUAS",
       "kind": "contract",
       "what": "Decide de onde cada afirmacao veio e nao deixa a origem se perder no caminho.",
       "why_here": "Sem procedencia, um numero vira verdade so porque esta escrito.",
@@ -2750,10 +2829,10 @@
       "icon": "§",
       "views": [
         "opportunity",
-        "portal",
         "science"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/proveniencia.py",
         "scripts/v21_carimbar_origem.py",
@@ -2773,13 +2852,13 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 4715,
-      "y": 1004
+      "x": 3015,
+      "y": 682
     },
     {
       "id": "C-RELEVANCIA",
       "name": "Regua de relevancia ADAMA",
-      "territory": "Z-MODELO",
+      "territory": "Z-REGUAS",
       "kind": "contract",
       "what": "Decide se um sinal interessa a ADAMA, e o quanto.",
       "why_here": "Ha um unico dono da relevancia. Duas reguas de relevancia sao duas verdades.",
@@ -2792,10 +2871,10 @@
       "icon": "§",
       "views": [
         "opportunity",
-        "portal",
         "science"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/adama_relevance.py",
         "scripts/auditoria_regua_comercial.py",
@@ -2814,13 +2893,13 @@
       "outbound": [
         "C-CORPUS"
       ],
-      "x": 5130,
+      "x": 2600,
       "y": 1004
     },
     {
       "id": "C-ROTULOS",
       "name": "Rotulos",
-      "territory": "Z-ACERVO",
+      "territory": "Z-FONTES",
       "kind": "engine",
       "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
       "why_here": "O rotulo e o unico documento que diz o que e legalmente permitido fazer com o produto.",
@@ -2836,6 +2915,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         "scripts/cruzar_regua_rotulo.py",
         "scripts/mapa_regfi.py",
@@ -2856,13 +2936,13 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 1480,
-      "y": 1648
+      "x": 1190,
+      "y": 1326
     },
     {
       "id": "C-SITE-INGEST",
       "name": "Ingestao do pacote no site",
-      "territory": "Z-FRONTEIRA",
+      "territory": "Z-PORTOES",
       "kind": "engine",
       "what": "Pega o pacote fechado e o transforma no ficheiro que o portal carrega.",
       "why_here": "Unica porta entre o motor e a tela. Recusa pacote que nao prove a propria procedencia.",
@@ -2873,9 +2953,11 @@
       "ui_status": "gray",
       "icon": "⚙",
       "views": [
+        "audit",
         "portal"
       ],
       "lane": "official",
+      "family": "F-ENTREGA",
       "files": [
         "scripts/build_portal.py",
         "scripts/site_v21_ingest.py"
@@ -2886,13 +2968,13 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 4010,
-      "y": 682
+      "x": 6665,
+      "y": 1326
     },
     {
       "id": "C-SUPABASE",
       "name": "Persistencia Supabase",
-      "territory": "Z-INFRA",
+      "territory": "Z-FONTES",
       "kind": "engine",
       "what": "Onde o dado coletado fica guardado, e as migracoes que mudam o formato dessa guarda.",
       "why_here": "Entre uma corrida e outra o dado precisa existir em algum lugar que nao seja a memoria da maquina.",
@@ -2903,10 +2985,11 @@
       "ui_status": "green",
       "icon": "⚙",
       "views": [
-        "audit",
+        "acervo",
         "infra"
       ],
       "lane": "official",
+      "family": "F-COLETA",
       "files": [
         "scripts/sql_conferir.py",
         "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
@@ -2962,13 +3045,13 @@
         "C-DATA-CLOCK"
       ],
       "outbound": [],
-      "x": 6955,
-      "y": 1970
+      "x": 360,
+      "y": 1648
     },
     {
       "id": "C-TESTES",
       "name": "Suite de testes",
-      "territory": "Z-INFRA",
+      "territory": "Z-PROVA",
       "kind": "test",
       "what": "As provas executaveis do repositorio, uma por lei ou por peca.",
       "why_here": "E o que separa 'esta escrito' de 'esta provado'.",
@@ -2983,6 +3066,7 @@
         "infra"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "tests/test_adama_es_gate.py",
         "tests/test_adama_es_import_rules.py",
@@ -3047,13 +3131,13 @@
         "C-V21-OPORTUNIDADE",
         "C-VOZ"
       ],
-      "x": 7370,
-      "y": 1970
+      "x": 4840,
+      "y": 1648
     },
     {
       "id": "C-V2-LEGADO",
       "name": "Cadeia V2 (legado)",
-      "territory": "Z-GERADOR",
+      "territory": "Z-MOTOR",
       "kind": "engine",
       "what": "A geracao anterior do motor, antes da V2.1.",
       "why_here": "Continua no repositorio e por isso aparece no mapa — mas nao e a cadeia oficial de hoje.",
@@ -3064,10 +3148,11 @@
       "ui_status": "gray",
       "icon": "⚙",
       "views": [
-        "acervo",
-        "generator"
+        "generator",
+        "opportunity"
       ],
       "lane": "legacy",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/v2_conflitos.py",
         "scripts/v2_cruzamentos.py",
@@ -3083,13 +3168,13 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 2600,
+      "x": 4135,
       "y": 360
     },
     {
       "id": "C-V21-COMERCIAL",
       "name": "Leitura comercial e completude",
-      "territory": "Z-GERADOR",
+      "territory": "Z-MOTOR",
       "kind": "engine",
       "what": "Mede se o caso esta completo o bastante para virar conversa comercial, e reavalia quando muda.",
       "why_here": "Caso incompleto virando pedido de venda e o erro mais caro que este sistema pode cometer.",
@@ -3101,12 +3186,12 @@
       "ui_status": "green",
       "icon": "⚙",
       "views": [
-        "acervo",
         "generator",
         "meeting",
         "opportunity"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/v21_adama_registro_validar.py",
         "scripts/v21_antes_e_depois.py",
@@ -3132,13 +3217,13 @@
         "C-V21-INGEST",
         "C-V21-OPORTUNIDADE"
       ],
-      "x": 2185,
+      "x": 3720,
       "y": 682
     },
     {
       "id": "C-V21-CONTRATO",
       "name": "Contrato do pacote",
-      "territory": "Z-GERADOR",
+      "territory": "Z-MOTOR",
       "kind": "contract",
       "what": "Confere se o pacote fechado obedece as contagens e as regras antes de existir.",
       "why_here": "Pacote que nao prova a si mesmo nao pode chegar ao portal.",
@@ -3149,11 +3234,12 @@
       "ui_status": "green",
       "icon": "§",
       "views": [
-        "acervo",
         "audit",
-        "generator"
+        "generator",
+        "opportunity"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/v21_aceitacao.py",
         "scripts/v21_contrato_do_pacote.py",
@@ -3171,13 +3257,13 @@
       "outbound": [
         "C-V21-COMERCIAL"
       ],
-      "x": 2600,
+      "x": 4135,
       "y": 682
     },
     {
       "id": "C-V21-CRUZAMENTO",
       "name": "Cruzamentos e convergencia",
-      "territory": "Z-GERADOR",
+      "territory": "Z-MOTOR",
       "kind": "engine",
       "what": "Cruza sinais de origens diferentes e ve onde eles se encontram.",
       "why_here": "Um sinal sozinho e ruido. O valor esta no encontro de dois.",
@@ -3189,10 +3275,11 @@
       "ui_status": "green",
       "icon": "⚙",
       "views": [
-        "acervo",
-        "generator"
+        "generator",
+        "opportunity"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/consolidar_leque.py",
         "scripts/matriz_recorte.py",
@@ -3210,13 +3297,13 @@
       "outbound": [
         "C-V21-INGEST"
       ],
-      "x": 2185,
+      "x": 3720,
       "y": 1004
     },
     {
       "id": "C-V21-FONTES",
       "name": "Religacao de fontes do pacote",
-      "territory": "Z-GERADOR",
+      "territory": "Z-MOTOR",
       "kind": "engine",
       "what": "Garante que cada caso do pacote continua ligado a fonte que o provou.",
       "why_here": "Caso sem fonte religada e afirmacao orfa.",
@@ -3228,10 +3315,11 @@
       "ui_status": "green",
       "icon": "⚙",
       "views": [
-        "acervo",
-        "generator"
+        "generator",
+        "opportunity"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/source_health.py",
         "scripts/v21_fontes_faltantes.py",
@@ -3247,13 +3335,13 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 2600,
+      "x": 4135,
       "y": 1004
     },
     {
       "id": "C-V21-INGEST",
       "name": "Ingestao V2.1",
-      "territory": "Z-GERADOR",
+      "territory": "Z-MOTOR",
       "kind": "engine",
       "what": "Entrada do motor: le o dado bruto e o coloca no formato que o resto da cadeia entende.",
       "why_here": "Primeiro degrau da cadeia. Tudo depois depende do que entra aqui.",
@@ -3264,10 +3352,11 @@
       "ui_status": "green",
       "icon": "⚙",
       "views": [
-        "acervo",
-        "generator"
+        "generator",
+        "opportunity"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/normalize_agro.py",
         "scripts/normalize_substance.py",
@@ -3293,13 +3382,13 @@
         "C-DATA-CLOCK",
         "C-FONTES-EU"
       ],
-      "x": 2185,
+      "x": 3720,
       "y": 1326
     },
     {
       "id": "C-V21-OPORTUNIDADE",
       "name": "Motor de Oportunidade",
-      "territory": "Z-GERADOR",
+      "territory": "Z-MOTOR",
       "kind": "engine",
       "what": "Transforma cruzamento provado em caso de oportunidade, com dono, lugar e momento.",
       "why_here": "E aqui que o sistema decide. A tela nao recalcula nada disto.",
@@ -3312,11 +3401,11 @@
       "ui_status": "green",
       "icon": "⚙",
       "views": [
-        "acervo",
         "generator",
         "opportunity"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/v21_dominio_da_alegacao.py",
         "scripts/v21_fechar.py",
@@ -3335,13 +3424,13 @@
         "C-DATA-CLOCK",
         "C-V21-COMERCIAL"
       ],
-      "x": 2600,
+      "x": 4135,
       "y": 1326
     },
     {
       "id": "C-VOZ",
       "name": "Regua da voz",
-      "territory": "Z-MODELO",
+      "territory": "Z-REGUAS",
       "kind": "contract",
       "what": "Guarda como o sistema fala: sinal nao vira pedido, ausencia nao vira negativo.",
       "why_here": "A maior parte do erro de leitura nasce na frase, nao no numero.",
@@ -3354,10 +3443,10 @@
       "icon": "§",
       "views": [
         "opportunity",
-        "portal",
         "science"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "files": [
         "scripts/texto_fonte.py",
         "scripts/voz.py"
@@ -3371,8 +3460,8 @@
         "C-TESTES"
       ],
       "outbound": [],
-      "x": 4715,
-      "y": 1326
+      "x": 3015,
+      "y": 1004
     },
     {
       "id": "lineage_consumer",
@@ -3381,7 +3470,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD a638dd94bc6789fec9b7bd685b0fc659d1eeff2d"
+        "HEAD a4420c12b2abc452c1cf227b67ad97ed1ccb4829"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -3401,11 +3490,12 @@
         "official"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "legacy": false,
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 360,
+      "x": 1895,
       "y": 360
     },
     {
@@ -3437,11 +3527,12 @@
         "official"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "legacy": false,
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 360,
+      "x": 1895,
       "y": 682
     },
     {
@@ -3472,11 +3563,12 @@
         "official"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "legacy": false,
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 360,
+      "x": 1895,
       "y": 1004
     },
     {
@@ -3510,11 +3602,12 @@
         "official"
       ],
       "lane": "official",
+      "family": "F-INTELIGENCIA",
       "legacy": false,
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [],
-      "x": 360,
+      "x": 1895,
       "y": 1326
     }
   ],
@@ -5039,17 +5132,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 291,
+          "line": 311,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 291,
+          "line": 311,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 292,
+          "line": 312,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -5065,7 +5158,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 495,
+          "line": 519,
           "snippet": "subprocess.run([sys.executable, str(Path(__file__).with_name(\"scan_repo.py\"))],"
         }
       ]

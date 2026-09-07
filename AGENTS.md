@@ -14,10 +14,17 @@ O SINTONIA System Map é uma **projeção canónica e auditável da arquitetura 
 do repositório**. Vive em [`system-map/`](system-map/) e publica-se em
 `/system-map/`.
 
-Ele responde, sem exigir que se saiba programar: o que cada peça faz, por que
-existe, de onde recebe, para onde envia, que régua atua ali, que ficheiros a
-implementam, que provas a sustentam, e se está a funcionar, pendente, quebrada
-ou desconhecida.
+Ele lê-se em três palavras, da esquerda para a direita:
+
+```
+COLETA  →  INTELIGÊNCIA  →  ENTREGA
+```
+
+Cada uma é uma faixa colorida com os seus blocos dentro, e **toda zona pertence a
+uma delas**. Dentro disso, ele responde sem exigir que se saiba programar: o que
+cada peça faz, por que existe, de onde recebe, para onde envia, que régua atua
+ali, que ficheiros a implementam, que provas a sustentam, e se está a funcionar,
+pendente, quebrada ou desconhecida.
 
 ```
         REPOSITÓRIO
@@ -110,6 +117,7 @@ Recarimbar sem reler é o único jeito de mentir neste sistema. Não faça isso.
 |---|---|
 | `P1_SEM_DRIFT` | o mapa commitado é o que o repositório de hoje produz |
 | `P2_IDS_UNICOS` | nenhum id repetido; todo território existe |
+| `P2_ZONA_TEM_FAMILIA` | toda zona pertence a COLETA, INTELIGÊNCIA ou ENTREGA |
 | `P3_SEM_PONTA_SOLTA` | nenhuma ligação aponta para peça inexistente |
 | `P4_FICHEIROS_REAIS` | todo ficheiro citado pelo mapa existe |
 | `P5_ARESTA_PROVADA` | nenhuma ligação técnica sem linha de código que a prove |

@@ -50,6 +50,23 @@ prova("todo_no_tem_frase_de_gente",
 prova("todo_no_tem_motivo_de_status",
       all(n["status_reason"].strip() for n in S["NODES"]))
 
+# ── as tres partes ───────────────────────────────────────────────────────────
+FAMS = {f["id"] for f in S["FAMILIES"]}
+prova("existem_exatamente_tres_partes", len(FAMS) == 3,
+      f"o mapa le-se em COLETA -> INTELIGENCIA -> ENTREGA; encontrei {len(FAMS)}")
+prova("toda_zona_tem_familia",
+      all(z.get("family") in FAMS for z in S["TERRITORIES"]),
+      "zona sem familia e bloco sem cor, fora da historia")
+prova("toda_peca_tem_familia",
+      all(n.get("family") in FAMS for n in S["NODES"]))
+prova("nenhuma_parte_ficou_vazia",
+      all(any(n["family"] == f for n in S["NODES"]) for f in FAMS),
+      "parte sem nenhuma peca e um retangulo colorido a prometer o que nao tem")
+prova("a_familia_vem_da_zona_e_nao_da_peca",
+      all(n["family"] == next(z["family"] for z in S["TERRITORIES"]
+                             if z["id"] == n["territory"]) for n in S["NODES"]),
+      "peca a declarar familia diferente da sua zona cria dois agrupamentos")
+
 # ── arestas ──────────────────────────────────────────────────────────────────
 conhecidos = set(ids)
 prova("nenhuma_aresta_solta",
@@ -153,6 +170,9 @@ prova("README_aponta_agentes_para_AGENTS_md",
 js = (RAIZ / "system-map" / "app" / "map.js").read_text(encoding="utf-8")
 prova("a_tela_le_o_estado_de_um_ficheiro", "state.generated.json" in js)
 css = (RAIZ / "system-map" / "app" / "map.css").read_text(encoding="utf-8")
+prova("as_tres_partes_tem_cor_propria",
+      all(f"--fam-{n}:" in css for n in ("coleta", "inteligencia", "entrega")),
+      "cada parte tem de ter a sua cor num token, nao espalhada a mao")
 prova("a_tela_usa_tokens_do_design_system", "--adama:#009845" in css,
       "o verde ADAMA tem de estar no token, nao espalhado a mao pela folha")
 prova("a_rampa_de_estado_e_separada_da_marca",

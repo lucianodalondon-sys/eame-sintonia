@@ -56,10 +56,70 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 .tooltip{position:fixed;width:330px;z-index:2000;background:#263f37;color:#fff;border-radius:12px;padding:13px 14px;box-shadow:0 18px 50px rgba(0,0,0,.3);display:none;pointer-events:none}.ttName{font-weight:800;font-size:12px}.ttStatus{font-size:8px;color:#b7d0c6;margin:4px 0 9px}.ttLabel{font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:#99bdb0;font-weight:800;margin-top:7px}.ttText{font-size:10px;line-height:1.4;color:#eef7f2;margin-top:2px}
 .detail{background:#fff;border-left:1px solid var(--earth20);overflow:auto;z-index:55}.empty{padding:24px;font-size:11px;color:#8a827e}.detailHead{position:sticky;top:0;background:#fff;border-bottom:1px solid #ece8e6;padding:16px;z-index:2}.close{float:right;border:0;background:#f1efee;border-radius:8px;width:31px;height:31px;cursor:pointer}.detailSub{font-size:9px;color:#968e8a;text-transform:uppercase;letter-spacing:.07em}.detailTitle{font-size:19px;font-weight:800;color:#315048;margin:4px 0 8px}.detailBody{padding:16px}.sec{margin-bottom:18px}.sec h4{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#958d89;margin:0 0 7px}.sec p{font-size:11px;line-height:1.5;margin:0}.tags{display:flex;flex-wrap:wrap;gap:5px}.tag{font-size:9px;background:#f5f3f2;border:1px solid #e9e5e3;padding:5px 7px;border-radius:999px}.file{font:9px/1.45 monospace;background:#faf9f8;border:1px solid #ece8e6;border-radius:7px;padding:6px 7px;margin:4px 0;word-break:break-all}.evidence{border-left:4px solid var(--adama);background:#edf7f1;padding:9px 10px;border-radius:7px;font-size:10px;line-height:1.45}.action{width:100%;border:1px solid var(--adama);background:#fff;color:var(--adama-dark);border-radius:9px;padding:10px;font-size:10px;font-weight:800;cursor:pointer}
 .modal{position:fixed;inset:0;background:rgba(25,24,23,.46);z-index:3000;display:none;padding:4vh 5vw}.modal.open{display:block}.modalCard{height:92vh;background:#fff;border-radius:16px;box-shadow:0 25px 70px rgba(0,0,0,.3);display:flex;flex-direction:column;overflow:hidden}.modalHead{padding:15px 18px;border-bottom:1px solid var(--earth20);display:flex;align-items:center;gap:12px}.modalHead h2{font-size:18px;margin:0;color:#315048}.modalBody{padding:15px 18px;overflow:auto}.invGroup{margin-bottom:18px}.invGroup h3{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#827b77}.invGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:5px}.invFile{font:9px/1.35 monospace;border:1px solid #eeeae8;background:#faf9f8;border-radius:6px;padding:6px}.modalSearch{flex:1;max-width:480px;border:1px solid var(--earth20);border-radius:9px;padding:9px 10px}.modalClose{border:0;background:#f1efee;border-radius:8px;width:34px;height:34px;cursor:pointer}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   AS TRES FAMILIAS — COLETA · INTELIGENCIA · ENTREGA
+
+   A cor aqui responde a UMA pergunta: "em que parte da historia este bloco
+   esta?". Nao e categoria de produto ADAMA. As tres cores vem do BrandWell
+   (Disease Control, ADAMA Green, Crop Enhancement) porque sao as cores da casa
+   e ja se distinguem bem umas das outras — mas neste mapa carregam o
+   significado do PROCESSO, e isso esta escrito aqui para ninguem ler um bloco
+   azul e pensar "fungicida".
+
+       COLETA        azul     trazer para dentro
+       INTELIGENCIA  verde    transformar e provar
+       ENTREGA       laranja  levar ate quem precisa
+
+   O ESTADO (verde/amarelo/vermelho/cinza da pastilha) continua noutra rampa,
+   noutro sitio do cartao. Familia diz DE QUE ASSUNTO E; estado diz SE FUNCIONA.
+   Dois significados nunca partilham o mesmo pixel.
+   ══════════════════════════════════════════════════════════════════════════ */
+:root{
+ --fam-coleta:#00a0df;--fam-coleta-bg:#eaf7fd;
+ --fam-inteligencia:#009845;--fam-inteligencia-bg:#ecf7f0;
+ --fam-entrega:#f89e18;--fam-entrega-bg:#fef4e6;
+}
+.family{position:absolute;border-radius:34px;border:2px dashed;z-index:1;pointer-events:none}
+.family.F-COLETA{border-color:var(--fam-coleta);background:var(--fam-coleta-bg)}
+.family.F-INTELIGENCIA{border-color:var(--fam-inteligencia);background:var(--fam-inteligencia-bg)}
+.family.F-ENTREGA{border-color:var(--fam-entrega);background:var(--fam-entrega-bg)}
+.familyHead{position:absolute;left:50%;transform:translateX(-50%);top:-1px;text-align:center;padding:10px 22px;border-radius:0 0 18px 18px;color:#fff;white-space:nowrap}
+.family.F-COLETA .familyHead{background:var(--fam-coleta)}
+.family.F-INTELIGENCIA .familyHead{background:var(--fam-inteligencia)}
+.family.F-ENTREGA .familyHead{background:var(--fam-entrega)}
+.familyName{font-size:30px;font-weight:800;letter-spacing:.06em;line-height:1}
+.familyWhy{font-size:12px;margin-top:6px;opacity:.92;max-width:760px;white-space:normal;margin-inline:auto}
+.family.dim{opacity:.18}
+
+/* A zona herda a cor da familia no topo — assim o bloco pequeno continua a
+   dizer a que parte da historia pertence, mesmo com a faixa fora do ecra. */
+.zone{z-index:2}
+.zone.F-COLETA{border-top:5px solid var(--fam-coleta)}
+.zone.F-INTELIGENCIA{border-top:5px solid var(--fam-inteligencia)}
+.zone.F-ENTREGA{border-top:5px solid var(--fam-entrega)}
+.zoneFam{font-size:8.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.zone.F-COLETA .zoneFam{color:var(--fam-coleta)}
+.zone.F-INTELIGENCIA .zoneFam{color:var(--fam-inteligencia)}
+.zone.F-ENTREGA .zoneFam{color:var(--fam-entrega)}
+.zoneHead{height:auto;min-height:78px}
+
+/* A barra lateral: escolher uma familia e a primeira coisa que se faz. */
+.famBtn{width:100%;border:1px solid var(--earth20);background:#fff;border-radius:10px;
+ padding:9px 11px;text-align:left;cursor:pointer;font-size:11px;font-weight:700;
+ display:flex;gap:9px;align-items:center;margin-bottom:6px;color:#4d5f59}
+.famBtn .swatch{width:13px;height:13px;border-radius:4px;flex:none}
+.famBtn.active{color:#fff;border-color:transparent}
+.famBtn.active[data-fam="F-COLETA"]{background:var(--fam-coleta)}
+.famBtn.active[data-fam="F-INTELIGENCIA"]{background:var(--fam-inteligencia)}
+.famBtn.active[data-fam="F-ENTREGA"]{background:var(--fam-entrega)}
+.famBtn.active .swatch{background:#fff}
+.famBtn small{display:block;font-weight:400;font-size:9px;opacity:.8;margin-top:2px}
+
 @media(max-width:1050px){
  .topbar{height:74px;padding:0 11px;gap:8px}.brand{min-width:0;flex:1}.brandTitle{font-size:17px}.brandSub{font-size:9px}.snapshotTop{display:none}.search{flex:0 0 58px}.search input{height:46px;padding:0;font-size:0}.search:before{left:19px;top:8px}
  .workspace,.workspace.detailOpen{display:block;height:calc(100vh - 74px);height:calc(100dvh - 74px);position:relative}.sidebar,.detail{display:none}.mapWrap{position:absolute;inset:0}
  #world{transform:translate(2px,18px) scale(.105)}.canvasTitle{left:9px;top:9px;padding:7px 9px;max-width:68%}.warning{left:9px;top:61px;max-width:72%;font-size:7.5px;padding:6px 7px}
- .mini{display:none}.kpis{left:9px;bottom:9px;padding:6px 7px}.kpi:nth-child(n+3){display:none}.controls{right:9px;bottom:9px}.ctrl{width:35px;height:35px}
+ .mini{display:none}.familyName{font-size:22px}.familyWhy{display:none}.kpis{left:9px;bottom:9px;padding:6px 7px}.kpi:nth-child(n+3){display:none}.controls{right:9px;bottom:9px}.ctrl{width:35px;height:35px}
  .modal{padding:1vh 2vw}.modalCard{height:98vh}.invGrid{grid-template-columns:1fr}
 }

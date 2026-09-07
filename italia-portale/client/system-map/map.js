@@ -37,7 +37,9 @@ const VISOES = [
 
 let S, nodes = [], edges = [], nodeById = {}, MUNDO = { w: 1, h: 1 };
 let scale = .145, tx = 8, ty = 18, drag = false, lx = 0, ly = 0;
-let currentView = 'all', pathSet = null;
+let currentView = 'all', pathSet = null, currentFam = '';
+
+const famNome = id => S.FAMILIES.find(f => f.id === id)?.name || '';
 
 const viewport = $('viewport'), world = $('world'), tooltip = $('tooltip'),
       workspace = $('workspace'), detail = $('detail');
@@ -52,10 +54,22 @@ function render() {
   svg.style.height = MUNDO.h + 'px';
   $('miniSvg').setAttribute('viewBox', `0 0 ${MUNDO.w} ${MUNDO.h}`);
 
+  // A FAIXA vem primeiro no DOM porque fica por baixo: ela e o pano de fundo
+  // que agrupa, nao mais uma caixa a competir com as zonas.
+  $('families').innerHTML = S.FAMILIES.map(f => `
+    <section class="family ${f.id}" data-fam="${esc(f.id)}"
+             style="left:${f.x}px;top:${f.y}px;width:${f.w}px;height:${f.h}px">
+      <div class="familyHead">
+        <div class="familyName">${esc(f.name)}</div>
+        <div class="familyWhy">${esc(f.why)} · ${f.count} peças</div>
+      </div>
+    </section>`).join('');
+
   $('zones').innerHTML = S.TERRITORIES.map(z => `
-    <section class="zone ${z.band === 'earth' ? 'earth' : 'corporate'}"
+    <section class="zone ${esc(z.family)}" data-zone="${esc(z.id)}"
              style="left:${z.x}px;top:${z.y}px;width:${z.w}px;height:${z.h}px">
       <div class="zoneHead">
+        <div class="zoneFam">${esc(famNome(z.family))}</div>
         <div class="zoneTitle">${esc(z.name)}</div>
         <div class="zoneSub">${esc(z.why)}</div>
       </div>
@@ -254,6 +268,7 @@ function applyFilters() {
 
   nodes.forEach(n => {
     let ok = stats.has(n.ui_status) && activeView(n);
+    if (currentFam) ok = ok && n.family === currentFam;
     if (dept !== 'Todos') ok = ok && (n.departments || []).includes(dept);
     const palheiro = [n.name, n.kind, n.what, n.why_here, n.id, ...(n.files || [])]
       .join(' ').toLowerCase();
@@ -264,6 +279,17 @@ function applyFilters() {
     el.classList.toggle('hidden', !(ok && acha));
     el.classList.toggle('searchHit', !!q && acha && ok);
     el.classList.toggle('highlight', !!(pathSet && pathSet.has(n.id)));
+  });
+
+  // A faixa apaga-se quando nenhuma peca dela esta visivel — assim o filtro
+  // nao deixa um retangulo colorido vazio a dizer que ali ha alguma coisa.
+  document.querySelectorAll('.family').forEach(f => {
+    const viva = nodes.some(n => n.family === f.dataset.fam && vis.has(n.id));
+    f.classList.toggle('dim', !viva);
+  });
+  document.querySelectorAll('.zone').forEach(z => {
+    const viva = nodes.some(n => n.territory === z.dataset.zone && vis.has(n.id));
+    z.style.opacity = viva ? '' : '.25';
   });
 
   document.querySelectorAll('#edgeLayer .dyn').forEach(g => {
@@ -370,7 +396,8 @@ function bind() {
   $('minus').onclick = () => { scale *= .84; transform(); };
   $('fit').onclick = fit;
   $('reset').onclick = () => {
-    pathSet = null; $('search').value = '';
+    pathSet = null; currentFam = ''; $('search').value = '';
+    document.querySelectorAll('.famBtn').forEach(x => x.classList.remove('active'));
     workspace.classList.remove('detailOpen'); applyFilters();
   };
 
@@ -384,6 +411,14 @@ function bind() {
       b.classList.add('active'); currentView = b.dataset.view;
       pathSet = null; applyFilters();
     }));
+
+  document.querySelectorAll('.famBtn').forEach(b => b.onclick = () => {
+    const era = b.classList.contains('active');
+    document.querySelectorAll('.famBtn').forEach(x => x.classList.remove('active'));
+    if (!era) { b.classList.add('active'); currentFam = b.dataset.fam; }
+    else currentFam = '';
+    pathSet = null; applyFilters();
+  });
 
   const modal = $('inventoryModal');
   $('openInventory').onclick = () => { renderInventory(); modal.classList.add('open'); };
@@ -423,6 +458,13 @@ async function arrancar() {
         que falta.`
     : '<b>Nenhuma peça em NÃO SEI neste commit.</b> Toda peça tem pelo menos uma '
       + 'ligação provada por linha de código.';
+
+  $('fams').innerHTML = S.FAMILIES.map(f =>
+    `<button class="famBtn" data-fam="${esc(f.id)}">
+       <span class="swatch" style="background:var(--fam-${
+         f.id.replace('F-', '').toLowerCase()})"></span>
+       <span>${esc(f.name)} · ${f.count}<small>${esc(f.why.split('.')[0])}</small></span>
+     </button>`).join('');
 
   $('views').innerHTML = VISOES.map(([v, ic, rot]) =>
     `<button class="sideBtn ${v === 'all' ? 'active' : ''}" data-view="${v}">

@@ -156,6 +156,7 @@ GAP_Y, GAP_X = 190, 130         # entre cartoes: respiro para a seta passar
 ZONA_PAD, ZONA_CAB = 60, 110    # margem interna e cabecalho da zona
 ZONA_GAP = 300                 # entre zonas: a fronteira tem de se ver
 TOPO = 190
+FAM_TOPO, FAM_PAD = 60, 40      # a faixa da familia abraca as zonas dela
 
 
 def linhagem() -> list:
@@ -193,6 +194,7 @@ def linhagem() -> list:
                       "file_count": len(reais), "status_reason": reason,
                       "evidence_text": evidence, "departments": ["ENGENHARIA"],
                       "views": ["lineage", "official"], "lane": "official",
+                      "family": "F-INTELIGENCIA",
                       "legacy": False, "changed_since_declared": [],
                       "inbound": [], "outbound": []})
 
@@ -243,7 +245,7 @@ def linhagem() -> list:
     return saida
 
 
-def desenhar(zonas: list, nos: list) -> tuple[list, list, int, int]:
+def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
     """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
     direita — que e a direcao em que o dado corre: fonte → motor → pacote → tela."""
     por_zona: dict[str, list] = {z["id"]: [] for z in zonas}
@@ -262,13 +264,31 @@ def desenhar(zonas: list, nos: list) -> tuple[list, list, int, int]:
         for i, n in enumerate(membros):
             n["x"] = x + ZONA_PAD + (i % cols) * (NO_L + GAP_X)
             n["y"] = TOPO + ZONA_CAB + ZONA_PAD + (i // cols) * (NO_A + GAP_Y)
-        caixas.append({**z, "x": x, "y": TOPO, "w": larg, "h": alt, "count": len(membros)})
+        caixas.append({**z, "x": x, "y": TOPO, "w": larg, "h": alt,
+                       "count": len(membros)})
         x += larg + ZONA_GAP
 
     altura = max(c["y"] + c["h"] for c in caixas) + ZONA_GAP
     for c in caixas:
         c["h"] = altura - TOPO - ZONA_GAP  # todas as zonas com a mesma altura
-    return caixas, nos, x, altura
+
+    # A FAIXA DA FAMILIA. E ela que faz COLETA -> INTELIGENCIA -> ENTREGA ler-se
+    # de longe, quando as letras da zona ja sao pequenas demais para ler. Cada
+    # faixa abraca as zonas da sua familia, do inicio da primeira ao fim da
+    # ultima — nao ha faixa desenhada a mao, e por isso ela nunca pode descrever
+    # um agrupamento que ja nao existe.
+    faixas = []
+    for f in familias:
+        minhas = [c for c in caixas if c["family"] == f["id"]]
+        if not minhas:
+            continue
+        x0 = min(c["x"] for c in minhas) - FAM_PAD
+        x1 = max(c["x"] + c["w"] for c in minhas) + FAM_PAD
+        faixas.append({**f, "x": x0, "y": FAM_TOPO, "w": x1 - x0,
+                       "h": altura - FAM_TOPO - ZONA_GAP + FAM_PAD,
+                       "zones": [c["id"] for c in minhas],
+                       "count": sum(c["count"] for c in minhas)})
+    return caixas, nos, faixas, x, altura
 
 
 def construir(estado: dict) -> None:
@@ -420,6 +440,8 @@ def main_uma_vez(stamp: bool) -> int:
                             | set(next(t.get("views", []) for t in D["TERRITORIES"]
                                        if t["id"] == c["territory"]))),
             "lane": "legacy" if c.get("legacy") else "official",
+            "family": next(t["family"] for t in D["TERRITORIES"]
+                           if t["id"] == c["territory"]),
             "files": fs, "file_count": len(fs),
             "status": status, "status_reason": motivo,
             "changed_since_declared": mudou,
@@ -433,7 +455,8 @@ def main_uma_vez(stamp: bool) -> int:
     nao_reivindicados = sorted(p for p in arquivos if p not in dono)
 
     nos = nos + linhagem()
-    zonas, nos, mundo_w, mundo_h = desenhar(D["TERRITORIES"], nos)
+    zonas, nos, faixas, mundo_w, mundo_h = desenhar(
+        D["TERRITORIES"], nos, D["FAMILIES"])
 
     # INVENTARIO: os ficheiros rastreados, agrupados pela pasta de topo. E o que
     # responde "o mapa esta a olhar para o meu repositorio todo?" sem obrigar
@@ -448,6 +471,7 @@ def main_uma_vez(stamp: bool) -> int:
         "WORLD": {"w": mundo_w, "h": mundo_h},
         "INVENTORY": inventario,
         "PROVENANCE": G["PROVENANCE"],
+        "FAMILIES": faixas,
         "TERRITORIES": zonas,
         "DEPARTMENTS": D["DEPARTMENTS"],
         "NODES": sorted(nos, key=lambda n: n["id"]),

@@ -127,6 +127,21 @@ def main() -> int:
     prova("P2_TERRITORIO", "toda peca vive num territorio que existe",
           not sem_terr, ", ".join(sem_terr))
 
+    # ── P2b · toda zona pertence a uma das tres partes ───────────────────────
+    # COLETA -> INTELIGENCIA -> ENTREGA e a leitura mais simples que este mapa
+    # tem. Uma zona sem familia seria um bloco sem cor, a flutuar fora da
+    # historia — e a proxima pessoa a criar uma zona nao vai lembrar-se desta
+    # regra sozinha.
+    fams = {f["id"] for f in S["FAMILIES"]}
+    orfas = sorted(z["id"] for z in S["TERRITORIES"] if z.get("family") not in fams)
+    prova("P2_ZONA_TEM_FAMILIA",
+          "toda zona pertence a COLETA, INTELIGENCIA ou ENTREGA",
+          not orfas, ", ".join(orfas))
+
+    sem_fam = sorted({n["id"] for n in S["NODES"] if n.get("family") not in fams})
+    prova("P2_PECA_TEM_FAMILIA", "toda peca herda a familia da sua zona",
+          not sem_fam, ", ".join(sem_fam[:8]))
+
     # ── P3 · ligacoes apontam para peca existente ────────────────────────────
     soltas = sorted({f"{e['from']}->{e['to']}" for e in S["EDGES"]
                      if e["from"] not in nos or e["to"] not in nos})

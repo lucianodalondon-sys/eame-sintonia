@@ -25,7 +25,7 @@ quem está errado é ele, e o CI reprova.
 
 ```bash
 py system-map/scripts/generate_system_map.py    # regerar (scan + estado + build)
-py system-map/scripts/validate_system_map.py    # validar (11 provas, falha fechado)
+py system-map/scripts/validate_system_map.py    # validar (13 provas, falha fechado)
 py system-map/tests/test_system_map.py          # provar que as regras não afrouxaram
 py system-map/scripts/scan_repo.py              # só medir o repositório
 ```
@@ -120,14 +120,50 @@ Recarimbar sem reler é o único jeito de mentir neste sistema.
 
 ---
 
-## AS OITO ZONAS
+## AS TRÊS PARTES
 
-O mapa corre da esquerda para a direita, na direção em que o dado corre:
+O mapa lê-se em três palavras, da esquerda para a direita:
 
 ```
-LINHAGENS  →  ACERVO  →  GERADOR  →  PACOTE  →  FRONTEIRA  →  MODELO  →  SUPERFÍCIES     AUDITORIA
- E DONOS      PINADO     V2.1       CANÔNICO   PACOTE→PORTAL  E RÉGUAS                    CI E INFRA
+COLETA  →  INTELIGÊNCIA  →  ENTREGA
 ```
+
+Cada parte é uma faixa colorida, e dentro dela ficam os blocos com o detalhe.
+De longe vê-se a história inteira; aproximando, vê-se onde exatamente na história
+cada peça está.
+
+**COLETA** · 13 peças — Trazer para dentro o que existe la fora. Nada no SINTONIA comeca sem passar por aqui.
+
+- `FONTES, COLETA E GUARDA` · 13 peças — De onde o dado entra, quem dispara a coleta e onde ele fica guardado entre uma corrida e outra
+
+**INTELIGENCIA** · 27 peças — Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa.
+
+- `LINHAGENS E DONOS` · 4 peças — Qual branch decide, qual consome e qual pacote e o canonico. A inteligencia tem UM dono
+- `REGUAS E LEIS` · 6 peças — As leis que decidem o que conta como verdade: procedencia, lugar do fato, tempo, relevancia, voz
+- `MOTOR — CADEIA V2.1` · 8 peças — Onde o dado bruto vira caso. A ordem e lei, nao convencao
+- `PROVAS E MEDICAO` · 9 peças — O que separa 'esta escrito' de 'esta provado'. Guarda as tres familias, e vive aqui porque provar e como o sistema sabe o que sabe
+
+**ENTREGA** · 15 peças — Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado.
+
+- `PACOTE CANONICO` · 3 peças — O artefato fechado que sai daqui. Derivado e reproduzivel — nunca dono da lei
+- `FRONTEIRA E PORTOES` · 7 peças — O unico ponto por onde o pacote atravessa para a tela, e tudo o que impede coisa errada de atravessar
+- `SUPERFICIES` · 5 peças — O que o cliente e a reuniao realmente veem. Apresenta decisao ja tomada; nao recalcula nada
+
+**Toda zona pertence a uma das três.** Não há bloco a flutuar fora da história:
+o validador reprova zona sem família (`P2_ZONA_TEM_FAMILIA`) e peça cuja família
+não seja a da sua zona.
+
+### A cor diz o assunto; a pastilha diz se funciona
+
+| | |
+|---|---|
+| **família** (faixa e topo do bloco) | azul COLETA · verde INTELIGÊNCIA · laranja ENTREGA |
+| **estado** (pastilha no cartão) | 🟢 provado · 🟡 pendência · 🔴 quebrado · ⚪ NÃO SEI |
+
+As três cores vêm do BrandWell (Disease Control, ADAMA Green, Crop Enhancement)
+porque são as cores da casa e distinguem-se bem — mas neste mapa carregam o
+significado do **processo**, não de categoria de produto. Está escrito no topo de
+`app/map.css` para ninguém ler um bloco azul e pensar "fungicida".
 
 **LINHAGENS E DONOS** é a única zona que não é código. As peças dela são factos
 sobre *quem manda*, e por isso cada uma declara em `proof` de onde vem a prova:
