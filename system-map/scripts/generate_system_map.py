@@ -564,6 +564,53 @@ def indice_de_fontes() -> None:
     destino.write_text(chr(10).join(L), encoding="utf-8")
 
 
+def achados(arquivos: dict) -> list:
+    """FACTOS que o mapa nota sozinho e que ninguem pediu para ele notar.
+
+    Nao sao opiniao nem alerta inventado: cada um sai de duas medicoes que ja
+    existem, postas lado a lado. Uma medicao sozinha nao diz nada; duas juntas,
+    as vezes, dizem tudo.
+
+    O primeiro nasceu de uma pergunta do dono do sistema — «porque coisa de
+    catalogo espanhol esta na Italia?» — e a resposta foi que nao esta: o codigo
+    espanhol e espanhol. O que ha e uma saida so, e o nome dela e italiano.
+    """
+    saida = []
+
+    f = DADOS / "sources.generated.json"
+    if f.exists():
+        S = json.loads(f.read_text(encoding="utf-8"))
+        paises = S["COUNTS"]["by_country"]
+        # O que e publicado sai do `vercel.json`, que e contrato, e nao do nome
+        # de nenhum ficheiro. Inferir pais pelo nome do ficheiro seria
+        # exatamente o que este mapa proibe.
+        vj = RAIZ / "vercel.json"
+        servido = ""
+        if vj.exists():
+            servido = json.loads(vj.read_text(encoding="utf-8")).get("outputDirectory", "")
+        if paises and servido:
+            menor = min(paises, key=paises.get)
+            saida.append({
+                "id": "coleta-larga-entrega-estreita",
+                "titulo": "A coleta cobre quatro paises. A entrega tem uma porta so.",
+                "texto": (
+                    "As fontes com ficha estao repartidas assim: "
+                    + " · ".join(f"{k} {v}" for k, v in paises.items())
+                    + f". Mas o unico diretorio publicado e «{servido}» — uma "
+                      f"superficie so, e o nome dela e de um pais. "
+                      f"{menor.capitalize()} tem {paises[menor]} fonte(s), o menor "
+                      f"numero de todos, e e o unico com porta de saida."),
+                "porque_importa": (
+                    "Nao ha nada de errado no codigo: o espanhol le e escreve so "
+                    "artefatos espanhois. O que falta e caminho de saida para o que "
+                    "nao e italiano — e enquanto faltar, coletar mais em Espanha ou "
+                    "em Franca aumenta o acervo sem aumentar o que chega a alguem."),
+                "evidencia": ["vercel.json", "docs/fontes/ATLAS-DE-FONTES-EAME.md"],
+            })
+
+    return saida
+
+
 def construir(estado: dict) -> None:
     """Publica a app dentro do que a Vercel serve, numa rota SEPARADA.
 
@@ -801,6 +848,7 @@ def main_uma_vez(stamp: bool) -> int:
         "SCHEMA": "sintonia.system-map.state/1",
         "WORLD": {"w": mundo_w, "h": mundo_h},
         "INVENTORY": inventario,
+        "ACHADOS": achados(arquivos),
         "SEARCH_TERMS": termos_de_busca(),
         "PROVENANCE": G["PROVENANCE"],
         "FAMILIES": faixas,

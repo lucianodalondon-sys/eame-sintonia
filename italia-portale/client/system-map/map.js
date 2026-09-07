@@ -616,6 +616,15 @@ async function arrancar() {
        <span>${esc(f.name)} · ${f.count}<small>${esc(f.why.split('.')[0])}</small></span>
      </button>`).join('');
 
+  if (S.ACHADOS?.length) {
+    $('warning').innerHTML += S.ACHADOS.map(a =>
+      `<div style="margin-top:7px;padding-top:7px;border-top:1px solid #eedb9e">
+        <b>${esc(a.titulo)}</b><br>${esc(a.texto)}<br>
+        <i>${esc(a.porque_importa)}</i><br>
+        <span style="opacity:.7">medido em: ${esc(a.evidencia.join(' · '))}</span>
+      </div>`).join('');
+  }
+
   $('views').innerHTML = VISOES.map(([v, ic, rot]) =>
     `<button class="sideBtn ${v === 'all' ? 'active' : ''}" data-view="${v}">
       <span>${ic}</span>${esc(rot)}</button>`).join('');

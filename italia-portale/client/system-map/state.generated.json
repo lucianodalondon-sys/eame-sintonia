@@ -1083,6 +1083,18 @@
       "tests/test_voz.py"
     ]
   },
+  "ACHADOS": [
+    {
+      "id": "coleta-larga-entrega-estreita",
+      "titulo": "A coleta cobre quatro paises. A entrega tem uma porta so.",
+      "texto": "As fontes com ficha estao repartidas assim: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. Mas o unico diretorio publicado e «italia-portale/client» — uma superficie so, e o nome dela e de um pais. Italia tem 2 fonte(s), o menor numero de todos, e e o unico com porta de saida.",
+      "porque_importa": "Nao ha nada de errado no codigo: o espanhol le e escreve so artefatos espanhois. O que falta e caminho de saida para o que nao e italiano — e enquanto faltar, coletar mais em Espanha ou em Franca aumenta o acervo sem aumentar o que chega a alguem.",
+      "evidencia": [
+        "vercel.json",
+        "docs/fontes/ATLAS-DE-FONTES-EAME.md"
+      ]
+    }
+  ],
   "SEARCH_TERMS": [
     {
       "file": "regras/rotulos_censo.py",
@@ -1394,8 +1406,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "b8321b07de052c69f1c15fc640927fc18749ec3a",
-    "GENERATED_AT": "2026-09-07T12:27:39-03:00"
+    "HEAD": "8e1a1c4a65ecd5a48215d6f3e9e0387a3f5ddd6b",
+    "GENERATED_AT": "2026-09-07T12:39:11-03:00"
   },
   "FAMILIES": [
     {
@@ -5815,7 +5827,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD b8321b07de052c69f1c15fc640927fc18749ec3a"
+        "HEAD 8e1a1c4a65ecd5a48215d6f3e9e0387a3f5ddd6b"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -6228,12 +6240,17 @@
       "payload": "artefacto",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "AS FONTES alimenta Gerador do System Map. Provado por 1 linha de codigo.",
+      "reason": "AS FONTES alimenta Gerador do System Map. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
           "line": 392,
           "snippet": "CONTRATOS_REL = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\""
+        },
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 608,
+          "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ]
     },
@@ -8159,17 +8176,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 584,
+          "line": 631,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 584,
+          "line": 631,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 585,
+          "line": 632,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -8259,12 +8276,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 852,
+          "line": 900,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 852,
+          "line": 900,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]

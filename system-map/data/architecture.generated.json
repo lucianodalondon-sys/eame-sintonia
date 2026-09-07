@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "b8321b07de052c69f1c15fc640927fc18749ec3a",
-    "GENERATED_AT": "2026-09-07T12:27:39-03:00"
+    "HEAD": "8e1a1c4a65ecd5a48215d6f3e9e0387a3f5ddd6b",
+    "GENERATED_AT": "2026-09-07T12:39:11-03:00"
   },
   "FILES": [
     {
@@ -6925,21 +6925,21 @@
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "96659e02a2579359a4d99dc9efa4bacdbf80873f",
+      "sha": "fabe11fa4e7477c7a64f76b1edbbd6b89b1c45db",
       "ext": ".js",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "cb5cb455ea40fff8122fd6a8bb10a4b9c084a5b8",
+      "sha": "0a2e965ea1b279e834a40ffa1dcd3a3e5a589c38",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "27ed233645afe97ae3ecb9247cb3e63774586c3f",
+      "sha": "51ebd86c893eb0837e638eea309e3e9458bde4f7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19941,6 +19941,17 @@
     },
     {
       "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 608,
+        "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
       "to_file": "docs/fontes/INDICE-DE-FONTES.md",
       "type": "READS",
       "payload": "artefacto",
@@ -19979,7 +19990,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 584,
+        "line": 631,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -19990,7 +20001,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 585,
+        "line": 632,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -20001,7 +20012,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 584,
+        "line": 631,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -20023,7 +20034,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 852,
+        "line": 900,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -20034,8 +20045,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 852,
+        "line": 900,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "vercel.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 587,
+        "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
     {
@@ -22606,11 +22628,12 @@
     "files_tracked": 1029,
     "files_readable": 345,
     "files_code_dir": 386,
-    "file_edges": 1399,
+    "file_edges": 1401,
     "declared_missing_here": 1
   },
   "ELSEWHERE": {
     "italia-portale/client/italy-v21.js": [
+      "origin/claude/italy-recurrent-source-pilot-v1",
       "origin/claude/italy-source-browser-v1",
       "origin/claude/italy-source-contracts-v1",
       "origin/claude/italy-source-master-v1"
