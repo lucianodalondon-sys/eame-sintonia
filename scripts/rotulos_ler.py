@@ -292,7 +292,11 @@ def ler_herbicida(texto):
         vistos = set()
         for b in BINOMIO.finditer(bloco):
             lit = re.sub(r'\s+', ' ', b.group(0)).strip()
-            if NAO_E_ALVO.match(lit) or len(lit) < 7 or lit.lower() in vistos:
+            # As mesmas duas guardas da leitura por linha: um verbo no
+            # infinitivo e um titulo de faixa de sensibilidade tem a forma de
+            # binomio latino, e o espectro do herbicida esta cheio dos dois.
+            if (NAO_E_ALVO.match(lit) or len(lit) < 7 or lit.lower() in vistos
+                    or VERBO_ITALIANO.match(lit) or LEGENDA_DA_TABELA.match(lit)):
                 continue
             vistos.add(lit.lower())
             daninhas.append(lit)
@@ -518,6 +522,17 @@ def _e_nome_de_cultura_solto(lit):
 # O infinitivo italiano, na abertura de um falso binomio.
 VERBO_ITALIANO = re.compile(r'^[A-Z][a-z]*(?:are|ere|ire)\s', re.U)
 
+# A LEGENDA DA TABELA NAO E UM ORGANISMO.
+# «Moderatamente suscettibili» e «Moderatamente tollerante» sao os TITULOS das
+# faixas de sensibilidade de um espectro de herbicida, e «Cereali autunno» e a
+# epoca de semeadura. As tres tem a forma de binomio e entraram como alvo do
+# EDAPTIS. Medido contra os 386 literais distintos lidos: apanha exatamente
+# estas tres. Nenhum organismo comeca por um adverbio italiano.
+LEGENDA_DA_TABELA = re.compile(
+    r'^(?:Moderatamente|Mediamente|Poco|Molto|Altamente|Scarsamente|Sensibili|'
+    r'Tolleranti|Suscettibili|Cereali|Colture|Dose|Dosi|Volume|Volumi|Epoca|'
+    r'Epoche|Stadio|Trattamento|Trattamenti|Miscela|Avvertenz|Fasce|Fascia)\b', re.I)
+
 
 def alvos_da_linha(texto):
     """→ [(literal, canonico)]. O literal é o fato; o canônico é nossa leitura."""
@@ -540,7 +555,7 @@ def alvos_da_linha(texto):
         # Medido contra os 343 literais distintos ja lidos: apanha 11, e as 11
         # sao frases de instrucao («Applicare alla», «Irrorare omogeneamente»,
         # «Svuotare completamente»). Nenhum alvo verdadeiro cai aqui.
-        if VERBO_ITALIANO.match(lit):
+        if VERBO_ITALIANO.match(lit) or LEGENDA_DA_TABELA.match(lit):
             continue
         if _e_nome_de_cultura_solto(lit):
             continue
@@ -703,7 +718,23 @@ def main():
             continue
         texto = texto.replace('\x00', ' ')
 
-        blocos = regiao_da_tabela(texto)
+        # UMA TABELA SEM NENHUMA LINHA DE CULTURA NAO E UMA TABELA.
+        #
+        # O cabecalho pede «coltura» a menos de 60 caracteres de «infestant»,
+        # e a frase «...la coltura abbia almeno 3 foglie ed infestanti fra lo
+        # stadio...» cumpre isso sem ser cabecalho de coisa nenhuma. O bloco
+        # que vinha a seguir era prosa sobre volumes de agua, o divisor nao
+        # achava uma unica linha de cultura, e o produto saia TABELA_SEM_PAR —
+        # com a porta do herbicida fechada atras, porque `ler_herbicida` so e
+        # tentado quando NAO ha blocos. TOPIK 240 EC, TOPIK 80 EC, PRESSING 500
+        # e VIP sao herbicidas com SPETTRO D'AZIONE por ler, barrados por uma
+        # frase.
+        #
+        #     UM CABECALHO FALSO NAO PODE FECHAR UMA PORTA VERDADEIRA.
+        #
+        # O filtro nao afrouxa a lei do par: continua a nascer so dentro da
+        # linha. Apenas deixa de chamar tabela ao que nao tem linhas.
+        blocos = [b for b in regiao_da_tabela(texto) if linhas_da_tabela(b['TEXTO'])]
         if not blocos:
             # A tabela nao existe. Antes do herbicida, o bloco de cultura em prosa.
             achados = []
