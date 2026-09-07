@@ -162,7 +162,15 @@ function showNodeTip(e, n) {
           parar onde? */
        const dest = n.o_que_entra_vai_para || [];
        if (n.kind === 'veiculo') {
-         return `<div class="ttLabel">O que entra aqui vai parar em</div>
+         const r = n.o_que_recebe;
+         return (r ? `<div class="ttLabel">O que ele recebe</div><div class="ttText">
+             a lista de onde ir: <b>${r.contas} conta(s)</b> nesta plataforma,
+             <b>${r.autorizadas} autorizada(s)</b> a coletar${
+             r.exemplos.length ? '<br>' + esc(r.exemplos.slice(0, 3).join(' · ')) : ''}
+           </div>` : `<div class="ttLabel">O que ele recebe</div><div class="ttText">
+             — nenhuma lista de contas: este canal não vai a página de ninguém,
+             vai a base oficial ou a ficheiro solto</div>`)
+           + `<div class="ttLabel">O que entra aqui vai parar em</div>
            <div class="ttText">${dest.length
              ? esc(dest.slice(0, 3).map(d => d.ficheiro).join(' · '))
                + (dest.length > 3 ? ` · e mais ${dest.length - 3}` : '')
@@ -481,6 +489,22 @@ function openDetail(id) {
       ${n.groups ? blocoFontes(n) : ''}
 
       ${n.ligado_nela ? blocoCasco(n) : ''}
+
+      ${n.o_que_recebe ? `<div class="sec">
+        <h4>O que este canal recebe</h4>
+        <p style="font-size:11px;color:#4a443f;margin-bottom:8px">Um canal não recebe
+          dado — recebe <b>a lista de onde ir</b>. Sem ela, «colher o YouTube» não
+          quer dizer nada: colher o YouTube de quem?</p>
+        <div class="file"><b>${n.o_que_recebe.contas} conta(s) nesta plataforma</b>,
+          ${n.o_que_recebe.autorizadas} autorizada(s) a coletar
+          <div style="font-size:10px;color:#8a827e">${esc(n.o_que_recebe.ficheiro)}${
+          n.o_que_recebe.exemplos.length
+            ? '<br>' + esc(n.o_que_recebe.exemplos.join(' · ')) : ''}</div>
+        </div>${n.o_que_recebe.autorizadas === 0 ? `<div class="file"
+          style="border-left:3px solid #b07d2b">Nenhuma das ${n.o_que_recebe.contas}
+          está autorizada. Este canal tem lista e não pode ser usado — a régua de
+          autorização barrou todas, e o motivo de cada uma está na ficha.</div>` : ''}
+      </div>` : ''}
 
       ${n.nao_guarda_nada ? `<div class="sec">
         <h4>O que entra por aqui vai parar onde?</h4>

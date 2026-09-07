@@ -507,6 +507,21 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
     acoes = [c for c in comps if c.get("territory") == "Z-ACOES"]
     nos, ligacoes = [], []
 
+    # ── O QUE UM CANAL RECEBE ────────────────────────────────────────────────
+    # Um canal nao recebe dado — recebe A LISTA DE ONDE IR. Sem ela, «colher o
+    # YouTube» nao quer dizer nada: colher o YouTube de quem?
+    #
+    # Essa lista ja existe medida: 44 contas publicas do concorrente, agrupadas
+    # por plataforma, cada uma com identidade provada ou rejeitada e o motivo
+    # escrito. Enquanto o canal nao a mostrava, ele parecia nascer do nada — e a
+    # pergunta «e o que ele recebe?» nao tinha resposta no mapa.
+    contas_por_plataforma = {}
+    f_fontes = DADOS / "sources.generated.json"
+    if f_fontes.is_file():
+        _S = json.loads(f_fontes.read_text(encoding="utf-8"))
+        contas_por_plataforma = (_S.get("ACCOUNTS") or {}).get("por_plataforma") or {}
+        ficheiro_das_contas = (_S.get("ACCOUNTS") or {}).get("file", "")
+
     for vid, nome, padrao, o_que in CANAIS:
         rx = _re.compile(padrao, _re.I)
         quem, provas = [], []
@@ -564,6 +579,18 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
                                   "snippet": e.get("snippet", "")[:120]},
                     })
 
+        # as contas desta plataforma — o que entra no canal antes de sair dele
+        plat = nome.split(" ")[0].upper()
+        c_plat = contas_por_plataforma.get(plat) or {}
+        recebe = {
+            "de": "C-AS-FONTES",
+            "contas": c_plat.get("total", 0),
+            "autorizadas": c_plat.get("autorizadas", 0),
+            "ficheiro": ficheiro_das_contas if contas_por_plataforma else "",
+            "exemplos": [x.get("handle") for x in (c_plat.get("contas") or [])
+                         if x.get("autorizada")][:5],
+        } if c_plat else None
+
         nos.append({
             "id": vid, "name": nome, "kind": "veiculo", "icon": "◈",
             "territory": "Z-VEICULOS", "family": "F-COLETA",
@@ -577,7 +604,10 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
                          "permite fazer a pergunta que antes nao tinha onde ser feita: "
                          "o que e que nos fazemos, exatamente, dentro deste canal?"),
             "files": [],
-            "facts": [f"acoes da coleta que passam por aqui: {len(quem)}"]
+            "facts": ([f"contas publicas mapeadas neste canal: {recebe['contas']}",
+                       f"dessas, autorizadas a coletar: {recebe['autorizadas']}"]
+                      if recebe else [])
+                     + [f"acoes da coleta que passam por aqui: {len(quem)}"]
                      + [f"prova: {p['file']}:{p['line']}" for p in provas[:5]],
             "status_reason": (
                 f"{len(quem)} acao(oes) chamam este canal, e cada uma tem ficheiro e "
@@ -588,6 +618,7 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
             "evidence_text": "", "departments": [], "views": ["acervo"],
             "lane": "official", "legacy": False, "changed_since_declared": [],
             "inbound": [], "outbound": [], "file_count": 0,
+            "o_que_recebe": recebe,
             "o_que_entra_vai_para": destinos,
             # QUEM SAI POR AQUI E NAO DIZ ONDE GUARDA. E a pergunta «o que o
             # YouTube colhe vai pra onde?» aplicada acao a acao: das quatro que
@@ -608,6 +639,13 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
                 "no codigo, um ficheiro onde escreve o que trouxe."),
         })
         ligacoes += provas
+        if recebe and recebe["contas"] and recebe["ficheiro"]:
+            ligacoes.append({
+                "acao": "C-AS-FONTES", "veiculo": vid, "entrega_lista": True,
+                "file": recebe["ficheiro"], "line": 1,
+                "snippet": (f"{recebe['contas']} conta(s) de {plat} em ficha, "
+                            f"{recebe['autorizadas']} autorizada(s) a coletar"),
+            })
     return nos, ligacoes
 
 
@@ -844,6 +882,7 @@ def as_ferramentas() -> tuple[list, list]:
 # mesmo tempo, com o mesmo peso, tapam a resposta.
 NATUREZA_DA_SETA = {
     "READS": "FLUXO",       # o conteudo daquilo entra aqui
+    "ENTREGA_A_LISTA": "FLUXO",  # as fontes dizem ao canal onde ir
     "WRITES": "FLUXO",      # isto sai daqui e vai para ali
     "FEEDS": "FLUXO",       # a camada de dado alimenta a tela
     "VIAJA_POR": "FLUXO",   # a coleta sai por este canal
@@ -1706,6 +1745,23 @@ def main_uma_vez(stamp: bool) -> int:
     # o dado.
     nome_da_peca = {c["id"]: c["name"] for c in comps}
     for lv in lig_veiculos:
+        # AS FONTES entregam ao canal a lista de onde ir. E a unica coisa que um
+        # canal recebe, e sem ela «colher o YouTube» nao quer dizer nada:
+        # colher o YouTube de quem?
+        if lv.get("entrega_lista"):
+            chave = ("C-AS-FONTES", lv["veiculo"], "ENTREGA_A_LISTA")
+            alvo_lig = ligacoes.setdefault(chave, {
+                "from": "C-AS-FONTES", "to": lv["veiculo"], "type": "ENTREGA_A_LISTA",
+                "payload": "contas", "natureza": "FLUXO",
+                "kind": "technical", "status": VERDE,
+                "reason": ("AS FONTES entregam a este canal a lista de contas a "
+                           "visitar, com a identidade de cada uma provada ou "
+                           "rejeitada e o motivo escrito."),
+                "evidence": [],
+            })
+            alvo_lig["evidence"].append(
+                {k: lv[k] for k in ("file", "line", "snippet")})
+            continue
         chave = (lv["veiculo"], lv["acao"], "VIAJA_POR")
         alvo_lig = ligacoes.setdefault(chave, {
             "from": lv["veiculo"], "to": lv["acao"], "type": "VIAJA_POR",

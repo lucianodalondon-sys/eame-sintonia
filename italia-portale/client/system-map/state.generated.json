@@ -1583,8 +1583,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "1bae7c9638978e89c282316eaa32f8f6697a7469",
-    "GENERATED_AT": "2026-09-07T16:48:28-03:00"
+    "HEAD": "802bdf9f832498793db2a1799dd342bbee54a8b5",
+    "GENERATED_AT": "2026-09-07T16:51:57-03:00"
   },
   "FAMILIES": [
     {
@@ -2294,7 +2294,11 @@
         "C-PACOTE-CAMADAS",
         "C-PADRAO-COLETA",
         "C-SITE-INGEST",
-        "C-TESTES"
+        "C-TESTES",
+        "V-FACEBOOK",
+        "V-INSTAGRAM",
+        "V-LINKEDIN",
+        "V-YOUTUBE"
       ],
       "groups": [
         {
@@ -10453,6 +10457,8 @@
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
+        "contas publicas mapeadas neste canal: 17",
+        "dessas, autorizadas a coletar: 10",
         "acoes da coleta que passam por aqui: 2",
         "prova: coleta/comunicacao_classificar.py:55",
         "prova: coleta/instagram_janela.py:127"
@@ -10466,12 +10472,27 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "C-AS-FONTES"
+      ],
       "outbound": [
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA"
       ],
       "file_count": 0,
+      "o_que_recebe": {
+        "de": "C-AS-FONTES",
+        "contas": 17,
+        "autorizadas": 10,
+        "ficheiro": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+        "exemplos": [
+          "BASF.Agro.Espana",
+          "BASF-Agricultural-Solutions-1741459832625091",
+          "Bayer4CropsES",
+          "BayerCropScienceItalia",
+          "CortevaES"
+        ]
+      },
       "o_que_entra_vai_para": [
         {
           "_chave": "data/samples/COMPETITOR-PUBLIC-COMM",
@@ -10539,6 +10560,7 @@
         "C-ROTULOS"
       ],
       "file_count": 0,
+      "o_que_recebe": null,
       "o_que_entra_vai_para": [
         {
           "_chave": "data/raw",
@@ -10732,6 +10754,8 @@
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
+        "contas publicas mapeadas neste canal: 7",
+        "dessas, autorizadas a coletar: 5",
         "acoes da coleta que passam por aqui: 5",
         "prova: coleta/youtube_janela.py:16",
         "prova: coleta/comunicacao_classificar.py:55",
@@ -10748,7 +10772,9 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "C-AS-FONTES"
+      ],
       "outbound": [
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
@@ -10757,6 +10783,19 @@
         "C-CORPUS"
       ],
       "file_count": 0,
+      "o_que_recebe": {
+        "de": "C-AS-FONTES",
+        "contas": 7,
+        "autorizadas": 5,
+        "ficheiro": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+        "exemplos": [
+          "basf_agroes",
+          "bayer4cropses",
+          "bayer_italia",
+          "syngenta.es",
+          "syngentaitalia"
+        ]
+      },
       "o_que_entra_vai_para": [
         {
           "_chave": "data/samples/COMPETITOR-PUBLIC-COMM",
@@ -10861,6 +10900,8 @@
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
+        "contas publicas mapeadas neste canal: 6",
+        "dessas, autorizadas a coletar: 0",
         "acoes da coleta que passam por aqui: 3",
         "prova: coleta/comunicacao_classificar.py:55",
         "prova: coleta/filas.py:82",
@@ -10875,13 +10916,22 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "C-AS-FONTES"
+      ],
       "outbound": [
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
         "C-CORPUS"
       ],
       "file_count": 0,
+      "o_que_recebe": {
+        "de": "C-AS-FONTES",
+        "contas": 6,
+        "autorizadas": 0,
+        "ficheiro": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+        "exemplos": []
+      },
       "o_que_entra_vai_para": [
         {
           "_chave": "data/samples/COMPETITOR-PUBLIC-COMM",
@@ -10984,6 +11034,8 @@
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
+        "contas publicas mapeadas neste canal: 14",
+        "dessas, autorizadas a coletar: 7",
         "acoes da coleta que passam por aqui: 4",
         "prova: coleta/youtube_janela.py:3",
         "prova: coleta/comunicacao_classificar.py:55",
@@ -10999,7 +11051,9 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "C-AS-FONTES"
+      ],
       "outbound": [
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
@@ -11007,6 +11061,19 @@
         "C-CORPUS"
       ],
       "file_count": 0,
+      "o_que_recebe": {
+        "de": "C-AS-FONTES",
+        "contas": 14,
+        "autorizadas": 7,
+        "ficheiro": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+        "exemplos": [
+          "BayerCropScienceEspaña",
+          "BayerAgri",
+          "BayerCropScienceIT",
+          "nufarmespana",
+          "SyngentaES"
+        ]
+      },
       "o_que_entra_vai_para": [
         {
           "_chave": "data/samples/COMPETITOR-PUBLIC-COMM",
@@ -11103,7 +11170,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 1bae7c9638978e89c282316eaa32f8f6697a7469"
+        "HEAD 802bdf9f832498793db2a1799dd342bbee54a8b5"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -11636,7 +11703,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1243,
+          "line": 1282,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ]
@@ -11760,6 +11827,74 @@
           "file": "tests/test_competitor_layer.py",
           "line": 334,
           "snippet": "t = doc('fontes', 'ATLAS-DE-FONTES-EAME.md')"
+        }
+      ]
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "V-FACEBOOK",
+      "type": "ENTREGA_A_LISTA",
+      "payload": "contas",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES entregam a este canal a lista de contas a visitar, com a identidade de cada uma provada ou rejeitada e o motivo escrito.",
+      "evidence": [
+        {
+          "file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "line": 1,
+          "snippet": "17 conta(s) de FACEBOOK em ficha, 10 autorizada(s) a coletar"
+        }
+      ]
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "V-INSTAGRAM",
+      "type": "ENTREGA_A_LISTA",
+      "payload": "contas",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES entregam a este canal a lista de contas a visitar, com a identidade de cada uma provada ou rejeitada e o motivo escrito.",
+      "evidence": [
+        {
+          "file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "line": 1,
+          "snippet": "7 conta(s) de INSTAGRAM em ficha, 5 autorizada(s) a coletar"
+        }
+      ]
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "V-LINKEDIN",
+      "type": "ENTREGA_A_LISTA",
+      "payload": "contas",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES entregam a este canal a lista de contas a visitar, com a identidade de cada uma provada ou rejeitada e o motivo escrito.",
+      "evidence": [
+        {
+          "file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "line": 1,
+          "snippet": "6 conta(s) de LINKEDIN em ficha, 0 autorizada(s) a coletar"
+        }
+      ]
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "V-YOUTUBE",
+      "type": "ENTREGA_A_LISTA",
+      "payload": "contas",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES entregam a este canal a lista de contas a visitar, com a identidade de cada uma provada ou rejeitada e o motivo escrito.",
+      "evidence": [
+        {
+          "file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "line": 1,
+          "snippet": "14 conta(s) de YOUTUBE em ficha, 7 autorizada(s) a coletar"
         }
       ]
     },
@@ -13643,7 +13778,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1265,
+          "line": 1304,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ]
@@ -14113,17 +14248,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1466,
+          "line": 1505,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1466,
+          "line": 1505,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1467,
+          "line": 1506,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -14218,12 +14353,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1836,
+          "line": 1892,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1836,
+          "line": 1892,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]
@@ -17928,8 +18063,8 @@
     "components_pending": 27,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 316,
-    "edges_proven": 316,
+    "edges": 320,
+    "edges_proven": 320,
     "edges_unknown": 0,
     "business_edges": 4,
     "files_tracked": 1143,
