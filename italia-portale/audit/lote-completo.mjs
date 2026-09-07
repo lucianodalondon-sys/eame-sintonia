@@ -28,6 +28,7 @@
    código, meeting-surface a ler o fixture).
    --------------------------------------------------------------------------- */
 import fs from 'node:fs';
+import { CHECKPOINT, mesmoCheckpoint } from './lib/pacote.mjs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { CLIENT, readPortal } from './lib/harness.mjs';
@@ -84,7 +85,7 @@ check('RAW_OPPORTUNITIES_FAMILY_CANNOT_REPLACE_CANONICAL_43',
   if (s.TOTAL_CASES !== 43 || ids.length !== 43) bad.push(`o snapshot traz ${s.TOTAL_CASES}/${ids.length} casos, nao 43`);
   for (const i of ids) if (!/^OPP_/.test(i)) bad.push(`id canonico sem prefixo OPP_: ${i}`);
   for (const i of ids) if (/IT-OPP-/.test(i)) bad.push(`id da familia crua no snapshot: ${i}`);
-  if (s.SOURCE_HEAD !== '55c2674') bad.push(`SOURCE_HEAD ${s.SOURCE_HEAD}`);
+  if (!mesmoCheckpoint(s.SOURCE_HEAD)) bad.push(`SOURCE_HEAD ${s.SOURCE_HEAD}, autorizado ${CHECKPOINT.sha7}`);
   if (!/^V21-/.test(s.BUILD_ID || '')) bad.push('o snapshot nao declara BUILD_ID da cadeia');
   /* Nenhum handoff deste lote pode trazer um id da familia crua. */
   for (const f of fs.readdirSync(UP)) {

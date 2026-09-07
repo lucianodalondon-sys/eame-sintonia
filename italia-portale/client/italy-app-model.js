@@ -615,6 +615,14 @@
      as it did when the sentinel arrived as Portuguese prose. */
   const v21S = (v) => { const t = S(v); return t && t !== 'NOT_ESTABLISHED' ? t : null; };
   const v21Known = (v) => S(v) === 'NOT_ESTABLISHED' ? KNOWLEDGE.NOT_ESTABLISHED : (S(v) ? KNOWLEDGE.CLEAR : KNOWLEDGE.NOT_ESTABLISHED);
+  /* NEM TODO NOT_ESTABLISHED E UMA AUSENCIA. Em alguns campos ele e a RESPOSTA:
+     «procurei e nao sei» nao e o mesmo facto que «nao ha campo». `v21S` devolve
+     null para o sentinela — certo onde o campo e opcional, errado onde o
+     sentinela E o estado declarado. `v21Estado` deixa-o passar inteiro.
+
+         UM UNKNOWN QUE VIRA null DEIXA DE SE DISTINGUIR DE UM CAMPO VAZIO,
+         E AS DUAS COISAS SAO FACTOS DIFERENTES SOBRE O CONHECIMENTO. */
+  const v21Estado = (v) => S(v);
 
   /* ── 6 · PRESENTATION TOKENS ─────────────────────────────────────────────
      Icon, colour, order and grouping only. Physically separated from the fact
@@ -2337,6 +2345,27 @@
         issueScope: speciesIssues.length ? 'SPECIES' : issues.length ? 'GENERIC_TERM' : 'NOT_OBSERVED',
         speciesIssues,
         text: v21S(a.CREATIVE_TEXT), textExcerpt: v21S(a.CREATIVE_TEXT), url: v21S(a.AD_URL),
+        /* TRE FORME, NON DUE. Sopra c'e la forma dell'ANNUNCIO PAGATO:
+           CREATIVE_TEXT e AD_URL. I 147 ORGANIC_VIDEO non hanno nessuno dei
+           due — hanno TITLE, URL, PUBLISHED_AT, VIEWS, COMMENTS_COUNT e
+           CHANNEL, e arrivavano al modello come buste vuote perche la
+           frontiera del pacchetto non li dichiarava e questo adattatore non li
+           leggeva. Due frontiere, lo stesso silenzio.
+
+           Campi PROPRI, non riusati: `url`, `hasDate`, `startDate` e
+           `daysFromRef` portano il significato dell'annuncio pagato, e uno
+           schermo dichiara «89 undated ORGANIC_VIDEO» contando su di loro.
+           Riempirli con la data di pubblicazione cambierebbe un numero che la
+           tela afferma. Il video porta i suoi. */
+        videoTitle: v21S(a.TITLE), videoUrl: v21S(a.URL),
+        channelName: v21S(a.CHANNEL), publishedAt: v21S(a.PUBLISHED_AT),
+        views: N(a.VIEWS), commentsCount: N(a.COMMENTS_COUNT),
+        /* L'UNICA PROVA DI PAESE CHE QUESTI 147 PORTANO. COUNTRY_REACHED e
+           nullo in 147/147. Misurato sui CASE_ID: 111 IT, 26 ES, 10 FR. Il
+           campo viaggia COSI COM'E: nessun paese viene dedotto qui da un
+           prefisso — chi decide cosa e italiano e il proprietario del
+           pacchetto, non questa frontiera. */
+        caseId: v21S(a.CASE_ID),
         hasDate, dateState: hasDate ? 'OBSERVED' : 'NOT_OBSERVED',
         /* Still structurally empty, and for the same reason: the advertiser
            writes a Latin binomial and the window writes an English issue name.
@@ -2773,6 +2802,97 @@
       validate: (r) => (!r.id ? 'no ID' : !r.title ? 'no title' : null),
     },
   ], 'real scientific records with a resolvable source');
+
+  /* ── A FALA, COM A ESCADA INTEIRA ─────────────────────────────────────────
+     184 transcricoes. A escada tem CINCO degraus e NENHUM implica o seguinte:
+     o video existe, a transcricao existe, e utilizavel, entrou no pacote, e
+     foi usada como evidencia. Medido: 184 · 184 · 160 · 160 · ZERO.
+
+         URL DE VIDEO NAO E TRANSCRICAO, E TRANSCRICAO NAO E EVIDENCIA.
+         O ULTIMO DEGRAU E false EM 184 DE 184, E DIZ-SE false — NAO SE OMITE.
+
+     `usedAsEvidence` nao se deriva aqui de nada. Ele so vira true quando um
+     cartao APOIAR uma afirmacao nestes bytes, e nenhum o faz hoje. Derivar
+     «tem texto, logo e prova» seria fabricar a conclusao que a escada existe
+     para impedir.
+
+     TRES PAISES, TRES PERGUNTAS. `sourceCountry` e de quem publicou,
+     `collectionCountry` de quem recolheu, `factCountry` do facto — e cada um
+     traz a sua origem e a sua evidencia. Medido: sourceCountry IT em 126,
+     factCountry UNKNOWN em 177. O texto integral NAO viaja: viajam a contagem
+     e o SHA, e o link leva a fonte. */
+  const transcripts = build('transcripts', [
+    V21('transcripts', (t) => Object.assign(v21Env(t), {
+      id: t.ID, videoId: v21S(t.VIDEO_ID), platform: v21S(t.PLATFORM),
+      title: v21S(t.TITLE), channel: v21S(t.CHANNEL_NAME), channelId: v21S(t.CHANNEL_ID),
+      publishedAt: v21S(t.PUBLICATION_DATE), durationS: N(t.DURATION_S),
+      /* o pais de quem publica NAO e o pais do facto */
+      sourceCountry: v21Estado(t.SOURCE_COUNTRY), sourceCountryOrigin: v21Estado(t.SOURCE_COUNTRY_ORIGIN),
+      collectionCountry: v21Estado(t.COLLECTION_COUNTRY),
+      factCountry: v21Estado(t.FACT_COUNTRY), factCountryOrigin: v21Estado(t.FACT_COUNTRY_ORIGIN),
+      factCountryEvidence: v21S(t.FACT_COUNTRY_EVIDENCE),
+      language: v21Estado(t.SOURCE_LANGUAGE),
+      caseId: v21S(t.CASE_ID), caseCountry: v21S(t.CASE_COUNTRY),
+      /* o escopo da ROTA nao e o lugar nem o assunto do facto: viaja nomeado */
+      routeCrop: v21S(t.CROP_DECLARED_BY_THE_ROUTE),
+      routeIssue: v21S(t.ISSUE_DECLARED_BY_THE_ROUTE),
+      routeRegion: v21S(t.REGION_NAMED_BY_THE_ROUTE),
+      captionSource: v21S(t.CAPTION_SOURCE), collectionId: v21S(t.COLLECTION_ID),
+      observedAt: v21S(t.OBSERVED_AT),
+      videoExists: t.VIDEO_EXISTS === true,
+      transcriptExists: t.TRANSCRIPT_EXISTS === true,
+      usable: t.TRANSCRIPT_USABLE === true,
+      inPackage: t.TRANSCRIPT_INCLUDED_IN_PACKAGE === true,
+      usedAsEvidence: t.TRANSCRIPT_USED_AS_EVIDENCE === true,
+      quality: v21Estado(t.TRANSCRIPT_QUALITY),
+      state: v21Estado(t.STATE), stateReason: v21S(t.STATE_REASON),
+      chars: N(t.CHARS), textSha256: v21S(t.TEXT_SHA256),
+      citedInPackage: t.CITED_IN_PACKAGE === true,
+      sameVideoAsActivityId: v21S(t.SAME_VIDEO_AS_ACTIVITY_ID),
+      evidenceWhy: v21Text(t, 'EVIDENCE_STATUS_WHY'),
+    }), (r) => (!r.id ? 'no ID' : !r.videoId ? 'no video id' : null)),
+  ], 'transcript ladder; five steps, and none implies the next');
+
+  /* ── O CORPUS CIENTIFICO, E A DISTINCAO QUE FALTAVA ───────────────────────
+     763 materiais, dos quais os 88 de scienceRecords sao SUBCONJUNTO (86 casam
+     por DOI). A diferenca nunca foi filtro: nenhum passo da cadeia lia este
+     ficheiro.
+
+         QUERY_CROP E O TERMO DA BUSCA. PROVED_CROP E O QUE O TEXTO SUSTENTA.
+         SAO DUAS COISAS, E CHEGAM AS DUAS, COM A EVIDENCIA DE CADA UMA.
+
+     `abstract` e a palavra da fonte, na lingua em que foi publicada, e NUNCA e
+     substituido. `abstractTranslated` viaja ao lado e esta vazio em 763/763 —
+     viaja vazio de proposito, para que a ausencia de traducao se veja em vez
+     de se adivinhar. E a morada da instituicao nao e o lugar do facto:
+     `institutionCountry` e `countryOfFact` sao campos diferentes. */
+  const scienceCorpus = build('scienceCorpus', [
+    V21('scienceCorpus', (r) => Object.assign(v21Env(r), {
+      id: r.ID, materialId: v21S(r.MATERIAL_ID), doi: v21S(r.DOI),
+      title: v21S(r.TITLE), author: v21S(r.AUTHOR), orcid: v21S(r.ORCID),
+      institution: v21S(r.INSTITUTION), institutionCountry: v21S(r.INSTITUTION_COUNTRY),
+      publishedAt: v21S(r.PUBLISHED_AT), year: (v21S(r.PUBLISHED_AT) || '').slice(0, 4) || null,
+      venue: v21S(r.VENUE), venueKind: v21S(r.VENUE_KIND),
+      materialType: v21S(r.MATERIAL_TYPE), materialRole: v21S(r.MATERIAL_ROLE),
+      language: v21S(r.LANGUAGE), citedBy: N(r.CITED_BY), retracted: r.IS_RETRACTED === true,
+      queryCrop: v21S(r.QUERY_CROP), queryIssue: v21S(r.QUERY_ISSUE),
+      provedCrop: v21Estado(r.PROVED_CROP), provedCropEvidence: v21S(r.PROVED_CROP_EVIDENCE),
+      provedIssue: v21Estado(r.PROVED_ISSUE), provedIssueEvidence: v21S(r.PROVED_ISSUE_EVIDENCE),
+      caseAdherence: v21Estado(r.CASE_ADHERENCE), caseIdDeclared: v21S(r.CASE_ID_DECLARED),
+      countryOfFact: v21Estado(r.COUNTRY_OF_FACT), countryOfFactEvidence: v21S(r.COUNTRY_OF_FACT_EVIDENCE),
+      regionOfFact: v21S(r.REGION_OF_FACT),
+      personProof: v21S(r.PERSON_PROOF), personProofEvidence: v21S(r.PERSON_PROOF_EVIDENCE),
+      domainState: v21Estado(r.DOMAIN_STATE), domainField: v21S(r.DOMAIN_FIELD),
+      abstract: v21S(r.ABSTRACT_ORIGINAL), abstractLanguage: v21S(r.ABSTRACT_LANGUAGE),
+      abstractChars: N(r.ABSTRACT_CHARS), abstractSha256: v21S(r.ABSTRACT_SHA256),
+      abstractSource: v21S(r.ABSTRACT_SOURCE),
+      abstractTranslated: v21S(r.ABSTRACT_TRANSLATED_TEXT),
+      abstractTranslationMethod: v21S(r.ABSTRACT_TRANSLATION_METHOD),
+      state: v21Estado(r.STATE), stateReason: v21S(r.STATE_REASON),
+      inScienceJson: r.IN_SCIENCE_JSON === true, sameEntityAs: v21S(r.SAME_ENTITY_AS),
+      evidenceWhy: v21Text(r, 'EVIDENCE_STATUS_WHY'),
+    }), (r) => (!r.id ? 'no ID' : !r.title ? 'no title' : null)),
+  ], 'the scientific corpus; the 88 published records are a subset of it');
 
   /* AFFILIATION_CAVEAT is the source registry's own limitation, restated as a
      value so it can travel with every institution the portal shows. An
@@ -3379,8 +3499,18 @@
     },
   ], 'traceable source registry; the group is derived from TYPE through a table written out in full');
 
-  const futureEvents = build('futureEvents', [
-    V21('futureEvents', (e) => {
+  /* ── UM EVENTO E UM EVENTO, VENHA DE QUAL FAMILIA VIER ───────────────────
+     O pacote publica DUAS familias de evento e elas partilham 62 campos:
+     `events` (40) e o registo do sector, `futureEvents` (14) e o recorte de
+     quem ja teve a participacao verificada. O adaptador e o mesmo, e por isso
+     esta escrito UMA vez — duas copias divergem, e a divergencia so aparece
+     quando ja custou.
+
+     START_DATE nao existe em EVENTS.json; o que existe e DATE, que traz a
+     faixa ('2026-02-04 a 2026-02-07'). `isoRange` ja a parte. Um evento sem
+     nome nao e um evento: `validate` recusa-o, a recusa e contada, e a
+     aritmetica do motor continua a fechar. */
+  const v21Evento = (e) => {
       /* The package parses the date itself and says how precisely. A range that
          it could not parse arrives as a state, not as a guessed day. */
       const startDate = v21S(e.START_DATE) || isoRange(v21S(e.DATE))[0];
@@ -3402,7 +3532,11 @@
         note: v21Text(e, 'NOTE'),
         daysFromRef: daysFrom(startDate), daysToStart: daysFrom(startDate),
       });
-    }, (r) => (!r.id ? 'no ID' : !r.name ? 'no event name' : null)),
+  };
+  const v21EventoValido = (r) => (!r.id ? 'no ID' : !r.name ? 'no event name' : null);
+
+  const futureEvents = build('futureEvents', [
+    V21('futureEvents', v21Evento, v21EventoValido),
     {
       source: 'ITALY_INGEST.EVENTS',
       precedence: P.REAL_SOURCE,
@@ -3442,6 +3576,24 @@
       validate: (r) => (!r.id ? 'no ID' : !r.name ? 'no event name' : null),
     },
   ], 'real sector events; a date range is split, never flattened');
+
+  /* ── O REGISTO DO SECTOR, QUE ANTES NINGUEM LIA ──────────────────────────
+     `events` era um ALIAS de `futureEvents` na tabela das coleccoes. O modelo
+     expunha uma coleccao com o nome de uma familia do pacote e o conteudo de
+     outra: 40 registos publicados, 2 alcancaveis, e nenhum numero vermelho em
+     lado nenhum.
+
+         UM ALIAS E UMA PERDA QUE SE APRESENTA COMO UM NUMERO CERTO.
+
+     Medido no pacote canonico: dos 40, DEZOITO trazem nome, data, local,
+     organizador, sector e URL oficial — Fieragricola 2026, Macfrut 2026,
+     Enovitis in Campo 2026, os campos da Universita di Perugia e as giornate
+     in campo da Emilia-Romagna, Piemonte, Lombardia, Puglia e Veneto. Os
+     outros 22 nao tem nome nenhum e sao recusados aqui, contados na recusa.
+     `audit/cadeia-de-familias.mjs` T1/T4 e o portao que apanhou isto. */
+  const events = build('events', [
+    V21('events', v21Evento, v21EventoValido),
+  ], 'sector event registry; an event without a name is refused, not renamed');
 
   const news = build('news', [
     V21('news', (n) => Object.assign(v21Env(n), {
@@ -4550,13 +4702,14 @@
     competitorWindowMoments, communicationAxis,
     /* science */
     scienceRecords, researchers, scienceThemes, resistance, scienceInstitutions,
+    scienceCorpus, transcripts,
     /* voices and people */
     publicVoices, publicChannels, publicPeople, people,
     /* future */
     regulatoryFuture, regulatoryFutureFacts, agrometConditions, futureEvents,
     opportunities, futureSignals,
     /* registry */
-    sources, events: futureEvents, news,
+    sources, events, news,
     /* graph */
     relationships, clientSafeCrossings,
     /* derived */

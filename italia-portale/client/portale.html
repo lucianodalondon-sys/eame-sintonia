@@ -754,11 +754,15 @@
         </sc-for>
         <div style="display:flex;flex-direction:column;gap:4px">
           <sc-for list="{{ mcEvidence }}" as="e" hint-placeholder-count="6">
-            <div data-evidence-role="{{ e.roleToken }}" style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding:6px 9px;border-radius:8px;background:#211D1C">
-              <span style="font-size:10px;font-variant-numeric:tabular-nums;color:#8F8886">{{ e.id }}</span>
+            <div data-evidence-role="{{ e.roleToken }}" data-evidence-id="{{ e.id }}" style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding:6px 9px;border-radius:8px;background:#211D1C">
+              <span style="width:6px;height:6px;border-radius:50%;background:{{ e.famColor }};flex:0 0 6px;align-self:center"></span>
+              <span style="font-size:11.5px;color:#fff">{{ e.short }}</span>
+              <span style="font-size:10px;color:#C9C3C1">{{ e.meta }}</span>
               <span style="font-size:11px;color:#EDEAE9">{{ e.role }}</span>
               <span style="font-size:10px;color:#C9C3C1">{{ e.why }}</span>
               <span style="font-size:10px;color:#8F8886">{{ e.familyLabel }}</span>
+              <span onClick="{{ e.go }}" style="font-size:10px;font-weight:700;letter-spacing:0.06em;color:{{ e.openColor }};cursor:{{ e.cursor }}">{{ e.openL }}</span>
+              <span style="font-size:10px;font-variant-numeric:tabular-nums;color:#8F8886">{{ e.ref }}</span>
             </div>
           </sc-for>
         </div>
@@ -2431,7 +2435,7 @@
           <sc-for list="{{ records }}" as="r" hint-placeholder-count="12">
             <div style="display:grid;grid-template-columns:minmax(40px,0.7fr) minmax(90px,2.4fr) minmax(64px,1.3fr) minmax(68px,1.1fr);gap:8px;align-items:center;font-size:11px;padding:6px 0;border-bottom:1px dotted rgba(151,139,135,0.35)">
               <span style="color:#B1A9A7;font-weight:700">{{ r.year }}</span>
-              <div style="display:flex;flex-direction:column;min-width:0"><span style="color:#EDEAE9;display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:{{ r.category.color }};flex:0 0 6px"></span>{{ r.descriptor }}</span><span style="font-size:10px;color:#8F8886">{{ r.why }} · {{ r.locationShort }}</span></div>
+              <div style="display:flex;flex-direction:column;min-width:0"><span style="color:#EDEAE9;display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:{{ r.category.color }};flex:0 0 6px"></span>{{ r.descriptor }}</span><span style="font-size:10px;color:#8F8886">{{ r.why }} · {{ r.locationShort }}<sc-if value="{{ r.hasUrl }}" hint-placeholder-val="{{ true }}"> · <a href="{{ r.url }}" target="_blank" rel="noopener noreferrer" style="font-weight:700;letter-spacing:0.06em;color:#93CC23;text-decoration:none">{{ t.vociOpenSource }} →</a></sc-if></span></div>
               <span style="color:#C9C3C1;font-size:10.5px;line-height:1.35">{{ r.institution }}</span>
               <span onClick="{{ r.openImpact }}" style="font-size:10px;font-weight:700;letter-spacing:0.06em;color:#B1A9A7;cursor:{{ r.impactCursor }};line-height:1.35;min-width:0;overflow-wrap:anywhere">{{ r.materialRoleL }}</span>
             </div>
@@ -2582,7 +2586,7 @@
             <div style="display:flex;flex-wrap:wrap;gap:4px"><sc-if value="{{ dr.cropL }}" hint-placeholder-val="{{ true }}"><span style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.06);font-size:10px;color:#C9C3C1">{{ dr.cropL }}</span></sc-if><sc-if value="{{ dr.issueL }}" hint-placeholder-val="{{ true }}"><span style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.06);font-size:10px;color:#C9C3C1">{{ dr.issueL }}</span></sc-if></div>
             <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;display:flex;flex-direction:column;gap:6px">
               <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.arcConnected }}</div>
-              <sc-for list="{{ dr.links }}" as="l" hint-placeholder-count="3"><div onClick="{{ l.go }}" style="display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;padding:6px 9px;border-radius:8px;background:rgba(255,255,255,0.04);cursor:pointer" style-hover="background:rgba(255,255,255,0.08)"><span style="color:#8F8886;font-size:10px;letter-spacing:0.06em">{{ l.kind }}</span><span style="color:#fff;font-weight:600;flex:1;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.label }}</span><span style="color:#00B152">→</span></div></sc-for>
+              <sc-for list="{{ dr.links }}" as="l" hint-placeholder-count="3"><div onClick="{{ l.go }}" style="display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;padding:6px 9px;border-radius:8px;background:rgba(255,255,255,0.04);cursor:{{ l.cursor }}" style-hover="background:rgba(255,255,255,0.08)"><span style="color:#8F8886;font-size:10px;letter-spacing:0.06em">{{ l.kind }}</span><span style="color:#8F8886;font-size:10px">{{ l.note }}</span><span style="color:#fff;font-weight:600;flex:1;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.label }}</span><span style="color:#00B152">{{ l.arrow }}</span></div></sc-for>
             </div>
           </div>
         </sc-if>
@@ -4948,7 +4952,18 @@ class Component extends DCLogic {
       }
       return m;
     })();
-    const csEvDate = (v) => { const d = AM && AM.asDate ? AM.asDate(v) : null; return d && AM.fmtDate ? AM.fmtDate(d) : (v || ''); };
+    /* «fino al null» CHEGOU AO ECRA DO CLIENTE, EM SETE DAS 43 FICHAS.
+       A funcao convertia para Date com asDate() e so depois chamava fmtDate(),
+       que aceita STRING ISO e devolve null para um objecto Date. Provado:
+       fmtDate('2026-09-30') = '30 Set' · fmtDate(asDate('2026-09-30')) = null.
+       O resultado ia inteiro para a linha: «FENPROPIDIN · approved · fino al null».
+
+           UMA CONVERSAO A MAIS ANTES DO FORMATADOR APAGA A DATA,
+           E O QUE SOBRA NAO E UM ESPACO EM BRANCO: E A PALAVRA «null».
+
+       fmtDate ja faz o isoOf por dentro. Passa-se o valor cru; se ele nao
+       formatar, imprime-se o valor tal como veio — nunca a palavra null. */
+    const csEvDate = (v) => (AM && AM.fmtDate && AM.fmtDate(v)) || (v ? String(v) : '');
     /* Un nome per collezione, sui campi che il record scrive davvero. */
     const CS_NAME = {
       marketObservations: (r) => [r.product, r.market, r.priceRaw && (r.priceRaw + (r.unit ? '/' + String(r.unit).toLowerCase() : ''))].filter(Boolean).join(' · '),
@@ -5048,6 +5063,59 @@ class Component extends DCLogic {
       n: csEvidenceRows.filter((r) => r.famL === (csEVFAM[f] || f)).length
     }));
     const csEvUnresolved = csEvidenceRows.filter((r) => !r.resolved).length;
+
+    /* ── LE STESSE PROVE, NELLA SCHEDA CHE LA RIUNIONE APRE ──────────────────
+       Lo stesso caso ha DUE schede. La `case`, raggiungibile dal radar, risolve
+       ogni prova in un nome umano e offre «Apri». La `mcase` — quella che il
+       portale apre — stampava l'IDENTIFICATIVO NUDO: misurato, 384 righe nelle
+       43 schede e ZERO con nome, mentre la `case` degli stessi 43 ne nomina
+       639 su 639.
+
+           DUE SCHEDE DELLO STESSO CASO, E QUELLA CHE SI APRE ERA LA POVERA.
+
+       Non si scrive un secondo risolutore: si usa QUESTO. `csAllIdx`,
+       `CS_NAME`, `CS_GO`, `CS_FAM_OF_COLL` e `CS_FAM_OF_PFX` sono gia il
+       registro vivo del modello, e la legge di sopra vale identica qui:
+
+           SE IL NOME NON C'E, SI DICE LA FAMIGLIA — MAI L'ID AL SUO POSTO.
+           L'ID RESTA ACCANTO, COME RIFERIMENTO.
+
+       La riga della riunione tiene RUOLO e PERCHE (che la `case` non ha, e che
+       sono la lettura commerciale) e guadagna il nome, la famiglia e «Apri». */
+    const mcEvidenceRows = ((mcCase && mcCase.evidence && mcCase.evidence.rows) || []).map((e) => {
+      const eid = e.id;
+      const hit = csAllIdx[eid];
+      const fam = (hit ? (CS_FAM_OF_COLL[hit.coll] || '') : '')
+        || e.family
+        || ((CS_FAM_OF_PFX.find((x) => String(eid).startsWith(x[0])) || [])[1] || '');
+      const famL = fam ? (csEVFAM[fam] || String(fam).replace(/_/g, ' ')) : '';
+      const nameFn = hit && CS_NAME[hit.coll];
+      const label = (nameFn && String(nameFn(hit.r) || '').trim()) || '';
+      const goFn = (hit && CS_GO[hit.coll]) ? CS_GO[hit.coll](hit.r) : null;
+      const human = label || (famL
+        ? famL + (hit ? '' : ' · ' + (T.lblUnresolvedRef || 'cited, not in this package'))
+        : (T.lblUnresolvedRef || 'cited, not in this package'));
+      const r0 = hit ? hit.r : null;
+      const evPair = r0 ? [r0.crop, r0.issue].filter(Boolean).join(' × ') : '';
+      const evWhen = r0 ? (r0.date || r0.dateISO || r0.publishedAt || '') : '';
+      const evWhere = r0 ? (r0.region || (r0.regionNames || []).join(', ') || '') : '';
+      return Object.assign({}, e, {
+        famL, fam,
+        famColor: (AM && AM.evidenceUI) ? AM.evidenceUI(fam) : '#978B87',
+        label: human.slice(0, 100),
+        short: human.length > 62 ? human.slice(0, 62).replace(/[\s·—-]+$/, '') + '…' : human,
+        fact: (evPair && human.indexOf(evPair) < 0) ? evPair : '',
+        meta: [evWhen, evWhere].filter(Boolean).join(' · '),
+        ref: eid,
+        resolved: !!hit,
+        go: goFn || (() => {}),
+        canOpen: !!goFn,
+        openL: goFn ? (T.lblOpenRecord || 'Open') : '',
+        cursor: goFn ? 'pointer' : 'default',
+        openColor: goFn ? '#00B152' : '#8F8886',
+      });
+    });
+    const mcEvUnresolved = mcEvidenceRows.filter((r) => !r.resolved).length;
 
     /* ── i prodotti, per NOME ─────────────────────────────────────────────── */
     const csProductRows = ((csRec && csRec.productLinks) || []).map((l) => {
@@ -5916,7 +5984,20 @@ class Component extends DCLogic {
       /* was the case fixture's prose ("Vector treatments · mid-June → late July").
          LAST_VALIDATED is filled 29/29 and is the one fact this tile can carry
          without repeating the status line below it. */
-      calLabel: w.lastValidated ? ((wIT ? 'Validato ' : 'Validated ') + wDate(w.lastValidated) + ' ' + String(w.lastValidated).slice(0, 4)) : '',
+      /* «Validato» AFIRMAVA UM ACTO QUE NINGUEM PODE MOSTRAR.
+         Medido: LAST_VALIDATED vale 2026-09-02 em 29/29 janelas, e 2026-09-02 e
+         exactamente o referenceDate do pacote. Um valor unico, igual a data de
+         referencia, e um CARIMBO DE GERACAO — nao um acto de validacao por
+         janela. Imprimir «Validato 02 SET 2026» transformava o carimbo numa
+         afirmacao sobre trabalho feito, e as 29 incluem 5 cujo estado de data e
+         DATE_TO_CONFIRM.
+
+             UM CARIMBO DE GERACAO NAO E UMA VALIDACAO.
+             DIZER A DATA E HONESTO. DIZER QUEM VALIDOU, SEM PROVA, NAO E.
+
+         A data continua impressa, com a palavra certa: e a data a que os dados
+         se referem, e nao a data em que alguem os conferiu. */
+      calLabel: w.lastValidated ? ((wIT ? 'Dati al ' : 'Data as of ') + wDate(w.lastValidated) + ' ' + String(w.lastValidated).slice(0, 4)) : '',
     });
 
     const wins = WROWS.filter(w => (!s.wCrop || w.crop === s.wCrop) && (!s.wBucket || w.status === s.wBucket)).map(wDeco);
@@ -5977,9 +6058,23 @@ class Component extends DCLogic {
       return hit ? hit.id : null;
     })();
     const wd = Object.assign(wDeco(wdR), {
-      /* the case link survives only because LEGACY_CASE_ID is filled 29/29 */
-      openCase: () => wdR.legacyCaseId && this.openCase(wdR.legacyCaseId),
-      nowRelevant: wdR.status === 'WINDOW_OPEN' && !!wdR.legacyCaseId,
+      /* LEGACY_CASE_ID ESTA PREENCHIDO 29/29 E NAO RESOLVE NENHUMA VEZ.
+         A pastilha verde «WINDOW NOW RELEVANT · VIEW OPPORTUNITY →» acendia
+         para 6 janelas e as 6 caiam em «CASO NON TROVATO»: os identificadores
+         herdados sao IT-OPP-006..022 e os casos correntes sao OPP_<hex>.
+
+             UM CAMPO PREENCHIDO NAO E UM DESTINO. A PROVA E RESOLVER.
+
+         `briefTarget`, logo acima, JA fazia a resolucao certa — por
+         identificador, contra os casos que o modelo tem — e devolvia null. A
+         promessa lia o campo cru e ignorava a resposta. Agora as duas leem a
+         mesma coisa: onde o caso nao resolve, a pastilha nao se imprime e o
+         resto da ficha da janela fica igual.
+
+             UN'AFFORDANCE E UNA PROMESSA. DOVE NON C'E NIENTE DIETRO,
+             SI TOGLIE LA PROMESSA, NON L'AZIONE. */
+      openCase: () => briefTarget && this.openCase(briefTarget),
+      nowRelevant: wdR.status === 'WINDOW_OPEN' && !!briefTarget,
       /* kind was CONFIRMED / SEASONAL / EXPECTED WINDOW, and "CONFIRMED" required an
          observation class of OFFICIAL_OBSERVED_CURRENT or FIELD_REPORTED_CURRENT —
          measured NOT_OBSERVED 29/29, so that branch could never fire. DATE_STATE is
@@ -7664,7 +7759,15 @@ class Component extends DCLogic {
     const CISS = CX('competitorIssueDensity');
     const CMX = CX('competitorMatrix');
     const CWM = CX('competitorWindowMoments').records;
-    const CEVENTS = CX('futureEvents').records;
+    /* O REGISTO DO SECTOR, NAO O RECORTE DA PARTICIPACAO.
+       Esta lista mostra os eventos do sector; `futureEvents` e o recorte de 14
+       de quem ja teve a participacao verificada, e o modelo so aceita 2 deles
+       (os outros 12 chegam sem nome, sem cultura e sem data propria). Ler o
+       recorte pelo registo punha DOIS cartoes onde o pacote tem DEZOITO com
+       nome, data, local, organizador e URL oficial. Os 14 continuam aqui: sao
+       um subconjunto de `events`, e os que trazem CONFIRMED_PARTICIPATION
+       continuam a traze-la. */
+    const CEVENTS = CX('events').records;
     const EN = s.lang === 'en';
     const TX = (it, en) => (EN ? en : it);
     /* THE NARRATIVE RULE · upstream prose is a Portuguese working note unless an
@@ -8396,6 +8499,12 @@ class Component extends DCLogic {
          Those 5 kept cursor:pointer and an onclick that did nothing — measured
          dead by CTA_DEAD_BUTTON_GATE. The role stays readable; only the
          invitation is withdrawn where nothing is behind it. */
+      /* IL PAPER ESISTE, E IL PORTALE NON CI PORTAVA. 88/88 righe portano una
+         url https reale (doi.org) e 86/88 un DOI, misurati; la riga ne
+         mostrava sei campi su ventotto e nessun modo di aprire l'articolo.
+         `hasUrl` e la guardia: dove non c'e destinazione non si stampa link,
+         come per le voci dal campo. UN'AFFORDANCE E UNA PROMESSA. */
+      hasUrl: /^https?:\/\//.test(String(r.url || '')),
       canImpact: !!r.themeKey,
       impactCursor: r.themeKey ? 'pointer' : 'default',
       openImpact: r.themeKey ? (() => this.setState({ sciImpactId: r.themeKey })) : null,
@@ -8800,9 +8909,35 @@ class Component extends DCLogic {
       summary: dr0.quote ? '« ' + dr0.quote + ' »' : '',
       region: '',
       links: [
-        dr0.legacyCaseId && { kind: ARL('OPPORTUNITÀ COLLEGATA', 'RELATED OPPORTUNITY'), label: dr0.legacyCaseId, go: () => this.openCase(dr0.legacyCaseId) },
-        dr0.company && { kind: ARL('CONCORRENTE', 'COMPETITOR'), label: dr0.company, go: () => this.openCompany(dr0.company) },
-        dr0.sourceId && { kind: ARL('FONTE', 'SOURCE'), label: dr0.sourceName || dr0.sourceId, go: () => this.openSource(dr0.sourceId) }
+        /* O GEMEO EXACTO DO DEFEITO QUE 6f79552 CUROU NAS JANELAS, AINDA VIVO AQUI.
+           MEDIDO: 29 registos do arquivo trazem legacyCaseId e ZERO resolvem — os
+           identificadores herdados sao IT-OPP-001.. e os casos correntes sao
+           OPP_<hex>. A linha dizia «OPPORTUNITA COLLEGATA · IT-OPP-001» com seta
+           e cursor de mao, e o clique caia em «CASO NON TROVATO».
+
+               UM CAMPO PREENCHIDO NAO E UM DESTINO. A PROVA E RESOLVER.
+
+           A citacao NAO se apaga: o arquivo continua a dizer que aquele registo
+           cita um caso, e o identificador fica la como referencia. O que se
+           retira e a PROMESSA — a seta e o cursor — quando nao ha para onde ir.
+
+               UN'AFFORDANCE E UNA PROMESSA. DOVE NON C'E NIENTE DIETRO,
+               SI TOGLIE LA PROMESSA, NON L'AZIONE. */
+        dr0.legacyCaseId && (() => {
+          const rec = (APP0 && APP0.opportunities && APP0.opportunities.records) || [];
+          const hit = rec.find((o) => o.id === dr0.legacyCaseId
+            || String(o.legacyCaseId || '') === String(dr0.legacyCaseId));
+          return { kind: ARL('OPPORTUNITÀ COLLEGATA', 'RELATED OPPORTUNITY'),
+            label: hit ? (hit.title || hit.id) : dr0.legacyCaseId,
+            ref: dr0.legacyCaseId,
+            canOpen: !!hit,
+            cursor: hit ? 'pointer' : 'default',
+            arrow: hit ? '→' : '',
+            note: hit ? '' : ARL('citato, non tra i casi correnti', 'cited, not among current cases'),
+            go: hit ? (() => this.openCase(hit.id)) : (() => {}) };
+        })(),
+        dr0.company && { kind: ARL('CONCORRENTE', 'COMPETITOR'), label: dr0.company, canOpen: true, cursor: 'pointer', arrow: '→', note: '', go: () => this.openCompany(dr0.company) },
+        dr0.sourceId && { kind: ARL('FONTE', 'SOURCE'), label: dr0.sourceName || dr0.sourceId, canOpen: true, cursor: 'pointer', arrow: '→', note: '', go: () => this.openSource(dr0.sourceId) }
       ].filter(Boolean)
     }) : null;
 
@@ -9466,7 +9601,7 @@ class Component extends DCLogic {
       mcChain: mcCase ? mcCase.whyNow.links.map((l) => Object.assign({}, l, { dot: l.ok ? '#1AB963' : '#F5B317' })) : [],
       mcWhyCodes: mcCase ? mcCase.whyNow.codes : [],
       mcWhyCommercialCodes: mcCase ? mcCase.whyCommercialCodes : [],
-      mcEvidence: mcCase ? mcCase.evidence.rows : [],
+      mcEvidence: mcEvidenceRows, mcEvUnresolved,
       mcNegatives: mcCase ? mcCase.evidence.negatives : [],
       mcCooling: mcCase ? mcCase.evidence.cooling : [],
       mcMissingList: mcCase ? mcCase.missing : [],

@@ -26,6 +26,7 @@
    d'accordo con se stesso.
    --------------------------------------------------------------------------- */
 import fs from 'node:fs';
+import { CHECKPOINT, mesmoCheckpoint } from './lib/pacote.mjs';
 import path from 'node:path';
 import { mount, CLIENT } from './lib/harness.mjs';
 
@@ -166,8 +167,8 @@ check('INGESTION_CHECKPOINT_IS_THE_AUTHORISED_ONE', 'snapshot, package and manif
   const bad = [];
   const ids = new Set([SNAP.BUILD_ID, PKG.BUILD_ID, MAN.BUILD_ID]);
   if (ids.size !== 1) bad.push(`build drift: snapshot ${SNAP.BUILD_ID} · package ${PKG.BUILD_ID} · manifest ${MAN.BUILD_ID}`);
-  if (SNAP.SOURCE_HEAD !== '55c2674') bad.push(`SOURCE_HEAD=${SNAP.SOURCE_HEAD}, authorised 55c2674`);
-  if (SNAP.BUILD_ID !== 'V21-69bf448ac934a6d9') bad.push(`BUILD_ID=${SNAP.BUILD_ID}, authorised V21-69bf448ac934a6d9`);
+  if (!mesmoCheckpoint(SNAP.SOURCE_HEAD)) bad.push(`SOURCE_HEAD=${SNAP.SOURCE_HEAD}, authorised ${CHECKPOINT.sha7}`);
+  if (SNAP.BUILD_ID !== CHECKPOINT.buildId) bad.push(`BUILD_ID=${SNAP.BUILD_ID}, authorised ${CHECKPOINT.buildId}`);
   return { pass: !bad.length, expected: 0, measured: `${SNAP.SOURCE_HEAD} · ${SNAP.BUILD_ID}`, detail: bad };
 });
 

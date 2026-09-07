@@ -20,6 +20,7 @@
    Se un testimone passa anche sulla legacy, non sta misurando niente e lo dice.
    --------------------------------------------------------------------------- */
 import fs from 'node:fs';
+import { CHECKPOINT, mesmoCheckpoint } from './lib/pacote.mjs';
 import path from 'node:path';
 import { mount, loadData, CLIENT, readPortal, extractMarkup } from './lib/harness.mjs';
 
@@ -136,7 +137,7 @@ check('SNAPSHOT_SOURCE_HEAD_VALID', 'SOURCE_HEAD names the intelligence commit, 
      `latest`. 55c2674 e il checkpoint della disambiguazione dei contratti;
      b3935bd era quello precedente e portava gli stessi 43 casi con gli stessi
      valori — a cambiare e stato il CONTRATTO, non il dato. */
-  if (SNAP.SOURCE_HEAD !== '55c2674') bad.push(`SOURCE_HEAD=${SNAP.SOURCE_HEAD}, expected the authorised ingestion checkpoint 55c2674`);
+  if (!mesmoCheckpoint(SNAP.SOURCE_HEAD)) bad.push(`SOURCE_HEAD=${SNAP.SOURCE_HEAD}, expected the authorised ingestion checkpoint ${CHECKPOINT.sha7}`);
   const pkg = path.resolve(CLIENT, '..', '..', 'build', 'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST', 'OPPORTUNITIES.json');
   if (fs.existsSync(pkg)) {
     const d = JSON.parse(fs.readFileSync(pkg, 'utf8'));
@@ -464,7 +465,7 @@ check('NO_OLD_SNAPSHOT_FALLBACK', 'The canonical surface never reads the older p
      permanente che il pacchetto imbarcato E canonico vive in
      audit/ingestion-provenance.mjs, che rifiuta anche il pacchetto stale. */
   const CONVERGED = oldBuild && oldBuild === SNAP.BUILD_ID;
-  if (CONVERGED && oldBuild !== 'V21-69bf448ac934a6d9') {
+  if (CONVERGED && oldBuild !== CHECKPOINT.buildId) {
     bad.push(`the two builds agree on ${oldBuild}, which is not the canonical build`);
   }
 

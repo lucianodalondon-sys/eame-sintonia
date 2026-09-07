@@ -1126,11 +1126,57 @@ check('O1', 'The same opportunity ids reach the package, the handoff, the model 
   same('model.publishable', Cpub, 'screen.publishable', Dpub);
   if (!Apub.length) bad.push('the canonical package authorises no publishable case at all');
 
-  /* E la ragione per cui questa missione e esistita: pubblicabile deve voler
-     dire VISIBILE APRENDO, non raggiungibile dopo un clic su «vedi tutte». */
-  const firstPage = (mount().vals({ view: 'radar', lang: 'it' }).visibleCases || []).map((c) => c.id);
-  const buried = Apub.filter((id) => !firstPage.includes(id));
-  if (buried.length) bad.push(`${buried.length} publishable case(s) are not on the first page: ${buried.slice(0, 5).join(', ')}`);
+  /* ── LA QUINTA FRONTIERA: RAGGIUNGIBILE, NON «IN PRIMA PAGINA» ───────────
+     Questa riga chiedeva che ogni caso RENDERABLE_WITH_METHOD stesse nella
+     prima pagina del `radar`. Chiedeva due cose sbagliate, e nessuna delle due
+     si era mai vista perche il controllo non aveva mai potuto misurare: senza
+     pacchetto canonico sul disco esce prima, a NON MISURABILE.
+
+     UNO · RENDERABLE_WITH_METHOD non e un portone di visibilita. Il contratto
+     canonico lo dichiara per iscritto, e in due posti:
+         RENDERABLE_WITH_METHOD_IS_VISIBILITY_GATE: false
+         «CLIENT_SAFE, RENDERABLE_WITH_METHOD e PUBLICATION_STATE NAO filtram a
+          tela: respondem outras tres perguntas.»
+     (MEETING_SURFACE_RULE, e docs/design/DESAMBIGUACAO-DOS-CONTRATOS.md.)
+
+     DUE · il portale non apre sul `radar`. VIEW_FROM_HASH torna `meeting`.
+     Misurare la prima pagina di uno schermo che nessuno apre non misura
+     l'apertura di nessuno.
+
+         UN CONTROLLO CHE USA COME PORTONE UN CAMPO CHE IL CONTRATTO DICHIARA
+         NON ESSERE UN PORTONE NON MISURA IL PORTALE: MISURA SE STESSO.
+
+     Quello che va davvero garantito lo dichiara la superficie della riunione,
+     e con parole sue: quattro insiemi disgiunti la cui somma e SEMPRE il
+     totale dei casi. Un caso fuori da tutti e quattro sparisce senza che
+     nessuno se ne accorga — ed e esattamente il difetto che questa riga
+     doveva prendere. Adesso lo prende.
+
+     NON si chiede che siano ELENCATI: `errored` non e in elenco di proposito
+     («NON PUBBLICABILE perche e un errore da correggere»). Si chiede che
+     ESISTANO in un insieme e che il dettaglio APRA — nascondere non e
+     cancellare, ma cadere fuori dalla partizione sarebbe cancellare. */
+  const MS = ctx.MEETING_SURFACE && ctx.MEETING_SURFACE.build('it');
+  if (!MS) bad.push('la superficie della riunione non si costruisce: nessuna partizione da verificare');
+  else {
+    const insiemi = { OPPORTUNITA: MS.commercial, RADAR: MS.radar, SEGNALI: MS.signals, ERRORE: MS.errored };
+    const dove = new Map();
+    for (const [nome, arr] of Object.entries(insiemi)) {
+      for (const c of arr || []) {
+        if (dove.has(c.id)) bad.push(`${c.id} sta in due insiemi: ${dove.get(c.id)} e ${nome}`);
+        dove.set(c.id, nome);
+      }
+    }
+    const fuori = C.filter((id) => !dove.has(id));
+    if (fuori.length) bad.push(`${fuori.length} caso/i fuori da tutti e quattro gli insiemi: ${fuori.slice(0, 5).join(', ')}`);
+    if (dove.size !== C.length) bad.push(`la partizione somma ${dove.size}, il modello ha ${C.length}`);
+    /* E ognuno deve APRIRE, comunque si chiami l'insieme che lo ospita. */
+    const nonApre = C.filter((id) => {
+      const v = mount().vals({ view: 'mcase', lang: 'it', mCaseId: id });
+      return !v.hasMc || v.mcMissing;
+    });
+    if (nonApre.length) bad.push(`${nonApre.length} caso/i non aprono il dettaglio: ${nonApre.slice(0, 5).join(', ')}`);
+  }
 
   return { pass: bad.length === 0, expected: 0, measured: bad.length,
     detail: bad.length ? bad : [`${A.length} ids · ${Apub.length} publishable · identical at every boundary`] };
