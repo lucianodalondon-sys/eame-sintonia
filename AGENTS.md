@@ -145,23 +145,27 @@ pasta da sua peça:
 | passo | zona | pasta |
 |---|---|---|
 | | **COLETA** | |
-| 1 | QUEM DISPARA | `.github/workflows/` |
-| 2 | DE ONDE VEM UMA FONTE | `candidatas/` |
-| 3 | AS FONTES | `fontes/` |
-| 4 | AS FERRAMENTAS | `ferramentas/` |
-| 5 | OS VEÍCULOS | *(sem pasta — cartões medidos)* |
-| 6 | AS AÇÕES DA COLETA | `coleta/` |
-| 7 | AS REGRAS E AS PALAVRAS | `regras/` |
+| 1 | O PEDIDO E O PLANO | `pedido/` |
+| 2 | QUEM DISPARA | `.github/workflows/` |
+| 3 | DE ONDE VEM UMA FONTE | `candidatas/` |
+| 4 | AS FONTES | `fontes/` |
+| 5 | AS FERRAMENTAS | `ferramentas/` |
+| 6 | AS ACOES DA COLETA | `coleta/` |
+| 7 | OS VEICULOS | *(sem pasta — cartões medidos)* |
+| 8 | AS REGRAS E AS PALAVRAS | `regras/` |
+| 9 | A PORTA DE ADMISSAO | `admissao/` |
 | | **A ESPERA** *(faixa cinzenta)* | |
-| | A SALA DE ESPERA | `guarda/` |
+|  | A SALA DE ESPERA | `guarda/` |
 | | **INTELIGÊNCIA** | |
-| | RÉGUAS E LEIS | `leis/` |
-| | MOTOR — CADEIA V2.1 | `motor/` |
-| | PROVAS E MEDIÇÃO | `provas/` |
+|  | LINHAGENS E DONOS | *(sem pasta — cartões medidos)* |
+|  | REGUAS E LEIS | `leis/` |
+|  | MOTOR — CADEIA V2.1 | `motor/` |
+|  | PROVAS E MEDICAO | `provas/` |
 | | **ENTREGA** | |
-| | PACOTE CANÔNICO | `pacote/` |
-| | FRONTEIRA E PORTÕES | `portoes/` |
-| | SUPERFÍCIES | `superficie/` |
+|  | PACOTE CANONICO | `pacote/` |
+|  | FRONTEIRA E PORTOES | `portoes/` |
+|  | SUPERFICIES | `superficie/` |
+|  | AS ONZE FERRAMENTAS DO PORTAL | *(sem pasta — cartões medidos)* |
 
 `P2_PASTA_BATE_COM_MAPA` **reprova** quando um ficheiro está numa gaveta que não é
 a da sua peça. Mover ficheiro sem mover a peça reprova. Mudar a peça de zona sem
