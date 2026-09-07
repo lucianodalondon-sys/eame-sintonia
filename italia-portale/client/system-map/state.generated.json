@@ -1227,16 +1227,16 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "8 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: UNIVERSO-CONTAS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json · MOA-SOURCE-FRAC.json",
+      "titulo": "7 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: UNIVERSO-CONTAS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json · MOA-SOURCE-FRAC.json",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
         "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
         "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
-        "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
         "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
         "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
-        "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+        "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
+        "research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json"
       ]
     },
     {
@@ -1565,8 +1565,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "f39c4169d27f0aa976f638d1302fba9799f0487c",
-    "GENERATED_AT": "2026-09-07T14:58:55-03:00"
+    "HEAD": "548d9524a142e403ed6ef43e2dfcceccf896164f",
+    "GENERATED_AT": "2026-09-07T15:07:59-03:00"
   },
   "FAMILIES": [
     {
@@ -1575,7 +1575,7 @@
       "why": "Trazer para dentro o que existe la fora. Nada no SINTONIA comeca sem passar por aqui.",
       "x": 260,
       "y": 60,
-      "w": 5545,
+      "w": 4840,
       "h": 2142,
       "zones": [
         "Z-DISPARA",
@@ -1583,10 +1583,22 @@
         "Z-FERRAMENTAS",
         "Z-VEICULOS",
         "Z-ACOES",
-        "Z-REGRAS",
+        "Z-REGRAS"
+      ],
+      "count": 33
+    },
+    {
+      "id": "F-ESPERA",
+      "name": "A ESPERA",
+      "why": "O que ja passou por toda a coleta e ainda nao entrou na inteligencia. Nao e coleta (o trabalho ja acabou) nem inteligencia (ainda nao comecou) — e o sitio onde o dado dorme entre as duas",
+      "x": 5320,
+      "y": 60,
+      "w": 485,
+      "h": 2142,
+      "zones": [
         "Z-GUARDA"
       ],
-      "count": 38
+      "count": 5
     },
     {
       "id": "F-INTELIGENCIA",
@@ -1715,9 +1727,9 @@
     },
     {
       "id": "Z-GUARDA",
-      "family": "F-COLETA",
-      "name": "7 · ONDE GUARDA A COLETA",
-      "why": "Onde o que voltou dorme entre uma corrida e outra",
+      "family": "F-ESPERA",
+      "name": "A SALA DE ESPERA",
+      "why": "Onde fica o que ja foi colhido, limpo e guardado, a espera de entrar na inteligencia. Cor neutra de proposito: aqui nada e transformado, so guardado",
       "views": [
         "infra"
       ],
@@ -1885,7 +1897,7 @@
         "infra"
       ],
       "lane": "futuro",
-      "family": "F-COLETA",
+      "family": "F-ESPERA",
       "files": [
         "guarda/es/adama_es_gate.py",
         "guarda/es/adama_es_import_rules.py"
@@ -1912,10 +1924,18 @@
         "ESPANHA": 13
       },
       "pais": "ESPANHA",
-      "entregue_a_inteligencia": [
-        "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json"
+      "destino": [
+        "GIT"
       ],
-      "parado_na_coleta": [],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 5420,
       "y": 360
     },
@@ -1977,6 +1997,30 @@
         "research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json",
         "research/adama-italy-product-intelligence-deep/MOA-SOURCE-FRAC.json"
       ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "research/adama-italy-product-intelligence-deep/MOA-SOURCE-FRAC.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 1065,
       "y": 360
     },
@@ -2024,6 +2068,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1770,
       "y": 360
     },
@@ -2071,6 +2118,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 9775,
       "y": 360
     },
@@ -4319,6 +4369,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1065,
       "y": 682
     },
@@ -4366,6 +4419,18 @@
         "EUROPA": 1
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/ASK-SINTONIA-teste.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 11600,
       "y": 360
     },
@@ -4426,6 +4491,18 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "italia-portale/audit/BLOCK-CONTRACTS.md",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 10480,
       "y": 360
     },
@@ -4481,6 +4558,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 10895,
       "y": 360
     },
@@ -4591,6 +4671,18 @@
         "ITALIA": 10
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "italia-portale/client/upstream/UPSTREAM-PINS.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 10480,
       "y": 682
     },
@@ -4646,6 +4738,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 10895,
       "y": 682
     },
@@ -4694,6 +4789,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 10480,
       "y": 1004
     },
@@ -4749,6 +4847,9 @@
         "ITALIA": 1
       },
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 7535,
       "y": 360
     },
@@ -4805,6 +4906,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 360,
       "y": 360
     },
@@ -4846,6 +4950,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 8655,
       "y": 360
     },
@@ -4866,7 +4973,7 @@
         "infra"
       ],
       "lane": "official",
-      "family": "F-COLETA",
+      "family": "F-ESPERA",
       "files": [
         ".github/workflows/supabase-conexao.yml",
         ".github/workflows/supabase-fichas-adama.yml",
@@ -4890,8 +4997,18 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
-      "parado_na_coleta": [],
+      "destino": [
+        "SUPABASE"
+      ],
+      "destino_prova": [
+        {
+          "onde": "SUPABASE",
+          "file": ".github/workflows/supabase-conexao.yml",
+          "line": 80,
+          "snippet": "h = U.urlparse(os.environ['SUPABASE_DB_URL']).hostname or ''"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit).",
       "x": 5420,
       "y": 682
     },
@@ -4935,6 +5052,9 @@
         "ESPANHA": 3
       },
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 9070,
       "y": 360
     },
@@ -4983,6 +5103,18 @@
         "data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json"
       ],
       "parado_na_coleta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 4300,
       "y": 360
     },
@@ -5035,6 +5167,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 3180,
       "y": 360
     },
@@ -5089,6 +5224,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 3595,
       "y": 360
     },
@@ -5141,6 +5279,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 3180,
       "y": 682
     },
@@ -5189,6 +5330,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 3595,
       "y": 682
     },
@@ -5230,6 +5374,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 4715,
       "y": 360
     },
@@ -5298,6 +5445,36 @@
         "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
         "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
       ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 3180,
       "y": 1004
     },
@@ -5351,6 +5528,18 @@
         "FRANCA": 1
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/DATA-CLOCK-manifest.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 6830,
       "y": 360
     },
@@ -5408,6 +5597,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 11600,
       "y": 682
     },
@@ -5469,10 +5661,28 @@
         "ITALIA": 2
       },
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
-      "parado_na_coleta": [
+      "entregue_a_inteligencia": [
         "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json"
       ],
+      "parado_na_coleta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 3595,
       "y": 1004
     },
@@ -5530,6 +5740,18 @@
       "parado_na_coleta": [
         "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json"
       ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 4300,
       "y": 682
     },
@@ -5550,7 +5772,7 @@
         "infra"
       ],
       "lane": "official",
-      "family": "F-COLETA",
+      "family": "F-ESPERA",
       "files": [
         "guarda/catalogo_importar.py",
         "guarda/importar_italia.py"
@@ -5574,8 +5796,25 @@
         "ITALIA": 4
       },
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
-      "parado_na_coleta": [],
+      "destino": [
+        "SUPABASE",
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "SUPABASE",
+          "file": "guarda/catalogo_importar.py",
+          "line": 643,
+          "snippet": "db = (os.environ.get('SUPABASE_DB_URL') or '').strip()"
+        },
+        {
+          "onde": "GIT",
+          "file": "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
       "x": 5420,
       "y": 1004
     },
@@ -5632,6 +5871,18 @@
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 1065,
       "y": 1004
     },
@@ -5683,6 +5934,9 @@
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 3180,
       "y": 1326
     },
@@ -5732,6 +5986,9 @@
         "ITALIA": 5
       },
       "pais": "ITALIA",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 8655,
       "y": 682
     },
@@ -5789,6 +6046,30 @@
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/collection-ledger/italy/runs.ndjson",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "provas/italy_pilot_negativos.mjs",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 4715,
       "y": 682
     },
@@ -5809,7 +6090,7 @@
         "infra"
       ],
       "lane": "official",
-      "family": "F-COLETA",
+      "family": "F-ESPERA",
       "files": [
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-ledger/italy/runs.ndjson",
@@ -5835,8 +6116,9 @@
         "ITALIA": 2
       },
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
-      "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 5420,
       "y": 1326
     },
@@ -5895,6 +6177,36 @@
         "ITALIA": 31
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/IT-LASTMILE/IT-LASTMILE-INVENTARIO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "italia-portale/client/meeting-intelligence-snapshot.js",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "italia-portale/client/meeting-intelligence-snapshot.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "research/italy-lastmile/LAST-MILE-REALITY-GAPS.md",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 9775,
       "y": 682
     },
@@ -5941,6 +6253,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1770,
       "y": 682
     },
@@ -5982,6 +6297,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 4300,
       "y": 1004
     },
@@ -6022,6 +6340,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 6830,
       "y": 682
     },
@@ -6037,7 +6358,7 @@
         "LIDERANCA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▣",
       "views": [
         "audit",
@@ -6051,9 +6372,11 @@
         "system-map/app/map.js"
       ],
       "file_count": 3,
-      "status": "PROVEN",
-      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/app/map.css"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -6064,6 +6387,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 9070,
       "y": 682
     },
@@ -6078,7 +6404,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "⚙",
       "views": [
         "audit",
@@ -6091,11 +6417,9 @@
         "system-map/scripts/mudar_gaveta.py"
       ],
       "file_count": 2,
-      "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        "system-map/scripts/generate_system_map.py"
-      ],
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -6113,6 +6437,9 @@
         "ITALIA": 1
       },
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 8655,
       "y": 1004
     },
@@ -6167,6 +6494,18 @@
         "ITALIA": 1
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 9070,
       "y": 1004
     },
@@ -6208,6 +6547,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 8655,
       "y": 1326
     },
@@ -6250,6 +6592,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 9070,
       "y": 1326
     },
@@ -6303,6 +6648,9 @@
         "ESPANHA": 1
       },
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 8655,
       "y": 1648
     },
@@ -6346,6 +6694,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1770,
       "y": 1004
     },
@@ -6412,6 +6763,36 @@
         "ESPANHA": 8
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "HANDOFF-V2-PAUSE.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/RELATIONSHIPS/convergence-links.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/RELATIONSHIPS/entity-links.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/06-HANDOFF-MANIFEST/ID-INDEX.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 9775,
       "y": 1004
     },
@@ -6456,6 +6837,18 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/PADRAO-DA-COLETA-CHAO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 4715,
       "y": 1004
     },
@@ -6513,6 +6906,18 @@
         "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json"
       ],
       "parado_na_coleta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 4300,
       "y": 1326
     },
@@ -6554,6 +6959,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1065,
       "y": 1326
     },
@@ -6601,6 +7009,18 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "italia-portale/client/accesso.html",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 11600,
       "y": 1004
     },
@@ -6682,6 +7102,18 @@
         "ESPANHA": 4
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "build/sintonia-es.html",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 11600,
       "y": 1326
     },
@@ -6739,6 +7171,9 @@
         "ITALIA": 27
       },
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 11600,
       "y": 1648
     },
@@ -6788,6 +7223,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 10895,
       "y": 1004
     },
@@ -6845,6 +7283,24 @@
         "data/samples/RUN-MANIFEST.json"
       ],
       "parado_na_coleta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/POLITICA-RAW-ROTA-PAGA.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/RUN-MANIFEST.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 4715,
       "y": 1326
     },
@@ -6888,6 +7344,9 @@
         "ITALIA": 3
       },
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 6830,
       "y": 1004
     },
@@ -6931,6 +7390,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 9070,
       "y": 1648
     },
@@ -6993,6 +7455,18 @@
         "data/samples/PORTOES-EAME.json"
       ],
       "parado_na_coleta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/PORTOES-EAME.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 4300,
       "y": 1648
     },
@@ -7046,6 +7520,24 @@
         "ITALIA": 3
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/AUDITORIA-SOMBRA/AUDITORIA-REGUA-COMERCIAL-37.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 6830,
       "y": 1326
     },
@@ -7115,6 +7607,36 @@
       "parado_na_coleta": [
         "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json"
       ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/raw/IT-ROTULOS/_MANIFESTO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 3595,
       "y": 1326
     },
@@ -7156,6 +7678,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 4715,
       "y": 1648
     },
@@ -7202,6 +7727,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1770,
       "y": 1326
     },
@@ -7250,6 +7778,18 @@
         "FRANCA": 1
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "italia-portale/audit/lang.mjs",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 10480,
       "y": 1326
     },
@@ -7270,7 +7810,7 @@
         "infra"
       ],
       "lane": "official",
-      "family": "F-COLETA",
+      "family": "F-ESPERA",
       "files": [
         "guarda/sql_conferir.py",
         "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
@@ -7348,8 +7888,9 @@
         "ESPANHA": 15
       },
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
-      "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 5420,
       "y": 1648
     },
@@ -7471,6 +8012,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 12305,
       "y": 1648
     },
@@ -7567,6 +8111,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 12720,
       "y": 1004
     },
@@ -7626,6 +8173,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 12305,
       "y": 1970
     },
@@ -7676,6 +8226,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 12720,
       "y": 360
     },
@@ -7757,6 +8310,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 12720,
       "y": 682
     },
@@ -7886,6 +8442,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 12305,
       "y": 360
     },
@@ -8016,6 +8575,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 12720,
       "y": 1326
     },
@@ -8140,6 +8702,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 12305,
       "y": 1326
     },
@@ -8186,6 +8751,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 12720,
       "y": 1648
     },
@@ -8235,6 +8803,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 12305,
       "y": 1004
     },
@@ -8355,6 +8926,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 12305,
       "y": 682
     },
@@ -8468,6 +9042,30 @@
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/SPAIN-HERO-CASES-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "superficie/ask_sintonia.py",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 8655,
       "y": 1970
     },
@@ -8511,6 +9109,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1770,
       "y": 1648
     },
@@ -8565,6 +9166,36 @@
         "ITALIA": 59
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "build/ITALY-REALITY-HANDOFF-V2/TOP-CROSSINGS.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "build/ITALY-REALITY-HANDOFF-V2/VALIDATION-MANIFEST.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/IT-V2/IT-V2-CANONICO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/IT-V2/IT-V2-CONFLITOS.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 7950,
       "y": 360
     },
@@ -8630,6 +9261,36 @@
         "ITALIA": 10
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/i18n/v21-traducoes.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/AUDITORIA-SOMBRA/V11-ANTES-E-DEPOIS.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/IT-COMPLETUDE/IT-COMPLETUDE-OPORTUNIDADE.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "handoff/paused-v2/REVERIFICACAO-LEDGER.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 7535,
       "y": 682
     },
@@ -8677,6 +9338,9 @@
         "ITALIA": 5
       },
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 7950,
       "y": 682
     },
@@ -8729,6 +9393,18 @@
         "ITALIA": 16
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/PILOT-SCOPE-MATRIX-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 7535,
       "y": 1004
     },
@@ -8786,6 +9462,24 @@
         "ITALIA": 8
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "build/ITALY-REALITY-HANDOFF-V2/PUBLIC-VOICES.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "build/ITALY-REALITY-HANDOFF-V2/SOURCES.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 7950,
       "y": 1004
     },
@@ -8848,6 +9542,24 @@
         "EUROPA": 1
       },
       "pais": "TRANSVERSAL",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/X-006-substance-normalisation.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/X-007-canonical-agro-dictionary.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 7535,
       "y": 1326
     },
@@ -8897,6 +9609,9 @@
         "ITALIA": 14
       },
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 7950,
       "y": 1326
     },
@@ -8938,6 +9653,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 2475,
       "y": 360
     },
@@ -8985,6 +9703,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 2475,
       "y": 682
     },
@@ -9032,6 +9753,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 2475,
       "y": 1004
     },
@@ -9075,6 +9799,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 2475,
       "y": 1326
     },
@@ -9120,6 +9847,9 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 2475,
       "y": 1648
     },
@@ -9130,7 +9860,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD f39c4169d27f0aa976f638d1302fba9799f0487c"
+        "HEAD 548d9524a142e403ed6ef43e2dfcceccf896164f"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -9158,6 +9888,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 6125,
       "y": 360
     },
@@ -9198,6 +9931,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 6125,
       "y": 682
     },
@@ -9237,6 +9973,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 6125,
       "y": 1004
     },
@@ -9284,6 +10023,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 6125,
       "y": 1326
     }
@@ -9617,7 +10359,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1066,
+          "line": 1171,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ]
@@ -9659,7 +10401,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 163,
+          "line": 175,
           "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
         }
       ]
@@ -11720,7 +12462,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1088,
+          "line": 1193,
           "snippet": "\"data/samples/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ]
@@ -12149,17 +12891,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1289,
+          "line": 1394,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1289,
+          "line": 1394,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1290,
+          "line": 1395,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -12175,12 +12917,12 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 201,
+          "line": 213,
           "snippet": "js = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 203,
+          "line": 215,
           "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
         }
       ]
@@ -12249,12 +12991,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1624,
+          "line": 1731,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1624,
+          "line": 1731,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]
@@ -12270,7 +13012,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 170,
+          "line": 182,
           "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"scan_repo.py\")],"
         }
       ]
@@ -12312,7 +13054,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 189,
+          "line": 201,
           "snippet": "\"validate_system_map.py\" in lei,"
         }
       ]

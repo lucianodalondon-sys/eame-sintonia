@@ -93,13 +93,20 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
  --fam-coleta:#00a0df;--fam-coleta-bg:#eaf7fd;
  --fam-inteligencia:#009845;--fam-inteligencia-bg:#ecf7f0;
  --fam-entrega:#f89e18;--fam-entrega-bg:#fef4e6;
+ /* A SALA DE ESPERA e cinzenta de proposito. Azul, verde e laranja dizem
+    «aqui acontece alguma coisa»; aqui nao acontece — o dado so dorme entre a
+    coleta que acabou e a inteligencia que ainda nao comecou. Pintar de cor
+    forte faria a sala de espera parecer mais uma etapa de trabalho. */
+ --fam-espera:#8a827e;--fam-espera-bg:#f4f2f1;
 }
 .family{position:absolute;border-radius:34px;border:2px dashed;z-index:1;pointer-events:none}
 .family.F-COLETA{border-color:var(--fam-coleta);background:var(--fam-coleta-bg)}
+.family.F-ESPERA{border-color:var(--fam-espera);background:var(--fam-espera-bg)}
 .family.F-INTELIGENCIA{border-color:var(--fam-inteligencia);background:var(--fam-inteligencia-bg)}
 .family.F-ENTREGA{border-color:var(--fam-entrega);background:var(--fam-entrega-bg)}
 .familyHead{position:absolute;left:50%;transform:translateX(-50%);top:-1px;text-align:center;padding:10px 22px;border-radius:0 0 18px 18px;color:#fff;white-space:nowrap}
 .family.F-COLETA .familyHead{background:var(--fam-coleta)}
+.family.F-ESPERA .familyHead{background:var(--fam-espera)}
 .family.F-INTELIGENCIA .familyHead{background:var(--fam-inteligencia)}
 .family.F-ENTREGA .familyHead{background:var(--fam-entrega)}
 .familyName{font-size:30px;font-weight:800;letter-spacing:.06em;line-height:1}
@@ -110,10 +117,12 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
    dizer a que parte da historia pertence, mesmo com a faixa fora do ecra. */
 .zone{z-index:2}
 .zone.F-COLETA{border-top:5px solid var(--fam-coleta)}
+.zone.F-ESPERA{border-top:5px solid var(--fam-espera)}
 .zone.F-INTELIGENCIA{border-top:5px solid var(--fam-inteligencia)}
 .zone.F-ENTREGA{border-top:5px solid var(--fam-entrega)}
 .zoneFam{font-size:8.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
 .zone.F-COLETA .zoneFam{color:var(--fam-coleta)}
+.zone.F-ESPERA .zoneFam{color:var(--fam-espera)}
 .zone.F-INTELIGENCIA .zoneFam{color:var(--fam-inteligencia)}
 .zone.F-ENTREGA .zoneFam{color:var(--fam-entrega)}
 .zoneHead{height:auto;min-height:78px}
@@ -123,10 +132,16 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
  padding:9px 11px;text-align:left;cursor:pointer;font-size:11px;font-weight:700;
  display:flex;gap:9px;align-items:center;margin-bottom:6px;color:#4d5f59}
 .famBtn .swatch{width:13px;height:13px;border-radius:4px;flex:none}
-.famBtn.active{color:#fff;border-color:transparent}
+/* A REDE DE SEGURANCA VEM PRIMEIRO. Quando nasceu A ESPERA, faltou a regra da
+   cor dela: o botao ativo ficou com texto branco sobre fundo branco, ou seja,
+   um retangulo vazio. Um filtro que desaparece ao ser ligado e pior do que um
+   filtro feio. Agora o fundo neutro e o valor por omissao, e cada familia so
+   o substitui — familia nova entra legivel mesmo que alguem se esqueca dela. */
+.famBtn.active{color:#fff;border-color:transparent;background:var(--earth60,#8a827e)}
 .famBtn.active[data-fam="F-COLETA"]{background:var(--fam-coleta)}
 .famBtn.active[data-fam="F-INTELIGENCIA"]{background:var(--fam-inteligencia)}
 .famBtn.active[data-fam="F-ENTREGA"]{background:var(--fam-entrega)}
+.famBtn.active[data-fam="F-ESPERA"]{background:var(--fam-espera)}
 .famBtn.active .swatch{background:#fff}
 .famBtn small{display:block;font-weight:400;font-size:9px;opacity:.8;margin-top:2px}
 
@@ -168,3 +183,12 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 
 /* o segundo nome do cartao: o que o nome italiano quer dizer */
 .nodeAlias{font-size:9px;color:#8a827e;line-height:1.2;margin-top:1px}
+
+/* ONDE PARA O QUE SAI: uma marca pequena, nao um cartao novo.
+   Dois cartoes «GIT» e «SUPABASE» com trinta e duas setas cada dariam um novelo
+   por cima do mapa — a pergunta ficaria mais dificil, nao mais facil. */
+.destinoChips{display:flex;gap:3px;margin-bottom:3px}
+.dchip{font-size:8px;font-weight:700;letter-spacing:.04em;padding:1px 5px;
+  border-radius:9999px;line-height:1.5;white-space:nowrap}
+.dGIT{background:#eceaf6;color:#4b4a72}
+.dSUPABASE{background:#e4f0e7;color:#2f5c3c}

@@ -557,6 +557,103 @@ def os_veiculos(comps: list, dono: dict) -> tuple[list, list]:
     return nos, ligacoes
 
 
+# ── ONDE PARA O QUE SAI DAQUI: GIT OU SUPABASE ──────────────────────────────
+# Esta casa tem dois sitios onde uma coisa pode ficar depois de pronta, e sao
+# muito diferentes:
+#
+#     GIT       fica um ficheiro no repositorio. Tem historico: da para ver
+#               quem mudou o que e quando, e da para voltar atras.
+#     SUPABASE  fica uma linha no banco. E consultavel e cresce sem limite,
+#               mas o que estava la ontem nao se recupera olhando o commit.
+#
+# Nao saber qual dos dois foi usado e o que faz alguem procurar durante uma hora
+# um numero que esta no outro lado. Por isso cada cartao passa a dizer.
+#
+# E DE PROPOSITO QUE ISTO NAO VIRA CARTAO NOVO. Dois cartoes «GIT» e «SUPABASE»
+# com trinta e duas setas cada seriam um novelo por cima do mapa, e a pergunta
+# «para onde vai o que sai desta peca?» ficaria mais dificil, nao mais facil.
+# Fica uma marca pequena no cartao, e a prova no painel de quem clicar.
+# PROCURAR A PALAVRA «supabase» NAO SERVE, e esta linha existe por causa disso.
+# A primeira versao marcou o «Gerador do System Map» como quem escreve no banco.
+# Ele nao escreve la nada — apenas FALA sobre o banco, nestes comentarios aqui em
+# cima. Um ficheiro que MENCIONA o banco e um ficheiro que GRAVA no banco sao
+# coisas opostas, e confundi-las poe uma etiqueta errada justamente na peca que
+# existe para nao haver etiquetas erradas.
+#
+# Agora so conta o que e mesmo uma chamada: importar o cliente do banco, cria-lo,
+# ou ir buscar ao ambiente a chave de acesso.
+RE_SUPABASE = re.compile(
+    r"(?:^|\s)(?:import|from)\s+(?:supabase|psycopg)"
+    r"|require\(\s*['\"]@?supabase"
+    r"|create_client\s*\("
+    r"|(?:os\.environ|os\.getenv|process\.env)[^\n]{0,24}SUPABASE",
+    re.I)
+
+
+def onde_para_o_que_sai(nos: list, produz: dict, rastreados: set,
+                        G: dict, dono: dict) -> None:
+    """Marca em cada peca se o que ela produz fica no git, no banco, ou nos dois."""
+    for n in nos:
+        destinos, provas = [], []
+
+        # BANCO: a peca fala com o Supabase no proprio codigo dela.
+        for f in n["files"]:
+            cam = RAIZ / f
+            if not cam.is_file():
+                continue
+            try:
+                linhas = cam.read_text(encoding="utf-8", errors="replace").splitlines()
+            except OSError:
+                continue
+            achou = next(((i, l) for i, l in enumerate(linhas, 1)
+                          if RE_SUPABASE.search(l) and not l.strip().startswith("#")),
+                         None)
+            if achou:
+                destinos.append("SUPABASE")
+                provas.append({"onde": "SUPABASE", "file": f, "line": achou[0],
+                               "snippet": achou[1].strip()[:150]})
+                break
+
+        # GIT: um artefato que ela escreve esta versionado no repositorio.
+        # Duas fontes, e as DUAS sao precisas. `produz` so guarda o que ficou sem
+        # dono; o mapa do proprio mapa escreve `state.generated.json`, que esta
+        # fora do censo de proposito — e por isso dizia «nao larga nada» estando
+        # a escrever o ficheiro que voce esta a ver agora.
+        escritos = set(produz.get(n["id"], []))
+        for e in G["FILE_EDGES"]:
+            if e["type"] == "WRITES" and dono.get(e["from_file"]) == n["id"]:
+                escritos.add(e["to_file"])
+        feitos = sorted(a for a in escritos if a in rastreados)
+        if feitos:
+            destinos.append("GIT")
+            for a in feitos[:4]:
+                provas.append({"onde": "GIT", "file": a, "line": 1,
+                               "snippet": "ficheiro versionado que esta peca escreve"})
+
+        n["destino"] = destinos
+        n["destino_prova"] = provas
+        if destinos:
+            n["destino_texto"] = ("O que sai daqui fica em: " + " e ".join(
+                {"GIT": "GIT (ficheiro com historico no repositorio)",
+                 "SUPABASE": "SUPABASE (linha no banco, sem historico de commit)"}[d]
+                for d in destinos) + ".")
+        elif produz.get(n["id"]):
+            n["destino_texto"] = ("Esta peca escreve ficheiro, mas nenhum deles esta "
+                                  "versionado no repositorio: e trabalho que so existe "
+                                  "na maquina de quem correu.")
+        else:
+            # DIZER «nao larga nada» E DIZER DE MAIS. O «Gerador do System Map»
+            # escreve o proprio ficheiro do mapa — mas esse ficheiro esta fora do
+            # censo de proposito, para o mapa nao se medir a si mesmo e nunca
+            # chegar a um resultado estavel. Entao a frase honesta nao e «nao
+            # larga nada»: e «eu nao vi nada sair», que sao coisas diferentes.
+            n["destino_texto"] = (
+                "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no "
+                "git, nem linha gravada no banco. Ou ela so le, decide ou mostra, "
+                "ou o que ela escreve fica fora do censo (como os proprios ficheiros "
+                "do mapa, deixados de fora para o mapa nao se medir a si mesmo).")
+
+
 def as_ferramentas() -> tuple[list, list]:
     """UMA PECA POR FERRAMENTA DA TELA, e cada uma diz o que esta ligado nela HOJE.
 
@@ -1003,6 +1100,14 @@ def entregue_a_inteligencia(nos: list, G: dict, dono: dict, produz: dict) -> Non
 
 
 NOS_PARA_ACHADO: list = []
+
+
+def _rastreados() -> set:
+    """Que ficheiros o git conhece. E o que separa «guardado» de «so na maquina»."""
+    r = subprocess.run(["git", "-C", str(RAIZ), "ls-files"],
+                       capture_output=True, text=True, encoding="utf-8",
+                       errors="replace")
+    return set(r.stdout.split()) if r.returncode == 0 else set()
 
 
 def achados(arquivos: dict) -> list:
@@ -1555,6 +1660,8 @@ def main_uma_vez(stamp: bool) -> int:
     for n in nos:
         n["inbound"] = sorted({l["from"] for l in tecnicas if l["to"] == n["id"]})
         n["outbound"] = sorted({l["to"] for l in tecnicas if l["from"] == n["id"]})
+
+    onde_para_o_que_sai(nos, produz, _rastreados(), G, dono)
 
     zonas, nos, faixas, mundo_w, mundo_h = desenhar(
         D["TERRITORIES"], nos, D["FAMILIES"])

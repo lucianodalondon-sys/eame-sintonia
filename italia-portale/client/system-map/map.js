@@ -38,7 +38,12 @@ const VISOES = [
 
 let S, nodes = [], edges = [], nodeById = {}, MUNDO = { w: 1, h: 1 };
 let scale = .145, tx = 8, ty = 18, drag = false, lx = 0, ly = 0;
-let currentView = 'all', pathSet = null, currentFam = '', hoverId = null;
+let currentView = 'all', pathSet = null, hoverId = null;
+/* As partes ligam-se em conjunto, nao uma de cada vez. Ver COLETA e A ESPERA
+   lado a lado e como se percebe o que ja saiu da coleta e ainda nao entrou na
+   inteligencia — e essa era exatamente a pergunta que obrigar a escolher uma so
+   tornava impossivel de responder. Conjunto vazio = mostra tudo. */
+const famsAtivas = new Set();
 /* O cartao CLICADO fica preso: o caminho dele nao se desfaz quando o rato sai.
    Seguir uma seta com o olho obriga a mover o rato ao longo dela, e enquanto o
    realce vivia so no hover era exatamente esse movimento que o apagava. Preso,
@@ -93,6 +98,11 @@ function render() {
       <div class="nodeTop">
         <div class="nodeIcon">${esc(n.icon || '●')}</div>
         <div class="nodeHeadText">
+          ${(n.destino || []).length ? `<div class="destinoChips">${
+            n.destino.map(d => `<span class="dchip d${d}" title="${
+              d === 'GIT' ? 'O que sai daqui vira ficheiro versionado no repositório'
+                          : 'O que sai daqui vira linha no banco Supabase'
+            }">${d === 'GIT' ? '⎇ git' : '▤ supabase'}</span>`).join('')}</div>` : ''}
           <div class="nodeName">${esc(n.name)}</div>${
           n.nome_em_portugues && n.nome_em_portugues !== n.name
             ? `<div class="nodeAlias">${esc(n.nome_em_portugues)}</div>` : ''}
@@ -447,6 +457,18 @@ function openDetail(id) {
 
       ${n.ligado_nela ? blocoCasco(n) : ''}
 
+      ${n.destino_texto ? `<div class="sec">
+        <h4>Onde para o que sai daqui</h4>
+        <p style="font-size:11px;color:#4a443f;margin-bottom:8px">${esc(n.destino_texto)}</p>
+        <p style="font-size:10px;color:#8a827e;margin-bottom:8px">A diferença importa:
+          no <b>git</b> dá para ver quem mudou o quê e voltar atrás; no <b>banco</b> o
+          dado é consultável e cresce sem limite, mas o que estava lá ontem não se
+          recupera olhando o commit.</p>${
+        (n.destino_prova || []).map(d => `<div class="file">
+          <b>${esc(d.onde)}</b> · ${esc(d.file)}${d.line > 1 ? ':' + d.line : ''}
+          <div style="font-size:10px;color:#8a827e">${esc(d.snippet)}</div>
+        </div>`).join('')}</div>` : ''}
+
       ${n.texto_do_contrato ? `<div class="sec">
         <h4>Palavras do contrato, como estão escritas</h4>
         <p style="font-size:10px;color:#8a827e;margin-bottom:8px">Em inglês, e de
@@ -544,7 +566,7 @@ function applyFilters() {
 
   nodes.forEach(n => {
     let ok = stats.has(n.ui_status) && activeView(n);
-    if (currentFam) ok = ok && n.family === currentFam;
+    if (famsAtivas.size) ok = ok && famsAtivas.has(n.family);
     /* ESCOLHER «ITALIA» NAO PODE ESCONDER A MAQUINA QUE A ITALIA USA.
        Antes, escolher ITALIA deixava 25 cartoes de 86 no ecra, e o mapa parecia
        um projeto minusculo. Nao era: as outras 48 pecas sao TRANSVERSAIS — o
@@ -714,7 +736,7 @@ function bind() {
   $('minus').onclick = () => { scale *= .84; transform(); };
   $('fit').onclick = fit;
   $('reset').onclick = () => {
-    pathSet = null; currentFam = ''; $('search').value = '';
+    pathSet = null; famsAtivas.clear(); $('search').value = '';
     document.querySelectorAll('.famBtn').forEach(x => x.classList.remove('active'));
     workspace.classList.remove('detailOpen'); applyFilters();
   };
@@ -731,10 +753,11 @@ function bind() {
     }));
 
   document.querySelectorAll('.famBtn').forEach(b => b.onclick = () => {
-    const era = b.classList.contains('active');
-    document.querySelectorAll('.famBtn').forEach(x => x.classList.remove('active'));
-    if (!era) { b.classList.add('active'); currentFam = b.dataset.fam; }
-    else currentFam = '';
+    // cada parte liga e desliga sozinha; as outras nao se apagam
+    const f = b.dataset.fam;
+    if (famsAtivas.has(f)) { famsAtivas.delete(f); b.classList.remove('active'); }
+    else { famsAtivas.add(f); b.classList.add('active'); }
+    b.setAttribute('aria-pressed', famsAtivas.has(f) ? 'true' : 'false');
     pathSet = null; applyFilters();
   });
 

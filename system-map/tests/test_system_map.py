@@ -50,10 +50,22 @@ prova("todo_no_tem_frase_de_gente",
 prova("todo_no_tem_motivo_de_status",
       all(n["status_reason"].strip() for n in S["NODES"]))
 
-# ── as tres partes ───────────────────────────────────────────────────────────
+# ── as partes ────────────────────────────────────────────────────────────────
+# Eram tres, e este teste dizia «exatamente tres». Passaram a quatro: entre a
+# coleta e a inteligencia entrou A ESPERA, a faixa cinzenta onde o que ja foi
+# colhido dorme ate ser processado. Ela nao e coleta (o trabalho acabou) nem
+# inteligencia (ainda nao comecou), e enquanto vivia pintada de coleta dizia que
+# guardar era colher.
+#
+# A trava continua: as partes sao ESTAS e sao NESTA ORDEM. Trocar «tres» por
+# «quatro» so adiaria o problema — daqui a um mes seriam cinco sem ninguem
+# decidir. Nomear cada uma obriga a passar por aqui quem quiser mudar o desenho.
+PARTES_ESPERADAS = ["F-COLETA", "F-ESPERA", "F-INTELIGENCIA", "F-ENTREGA"]
 FAMS = {f["id"] for f in S["FAMILIES"]}
-prova("existem_exatamente_tres_partes", len(FAMS) == 3,
-      f"o mapa le-se em COLETA -> INTELIGENCIA -> ENTREGA; encontrei {len(FAMS)}")
+prova("as_partes_sao_estas_e_nesta_ordem",
+      [f["id"] for f in S["FAMILIES"]] == PARTES_ESPERADAS,
+      f"esperava {' -> '.join(PARTES_ESPERADAS)}; "
+      f"encontrei {' -> '.join(f['id'] for f in S['FAMILIES'])}")
 prova("toda_zona_tem_familia",
       all(z.get("family") in FAMS for z in S["TERRITORIES"]),
       "zona sem familia e bloco sem cor, fora da historia")
