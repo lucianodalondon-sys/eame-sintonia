@@ -112,7 +112,49 @@ def main() -> int:
             prova("P1_REGERA", f"{script} correu sem erro", False, r.stderr.strip()[:400])
             return relatar()
 
-    mudou = [n for n, texto in antes.items() if texto != arquitetura(n)]
+    def onde_difere(a: str, b: str, limite: int = 4) -> list:
+        """As primeiras chaves em que dois JSON deixam de ser iguais.
+
+        «REGERAR MUDOU architecture.generated.json» nao chega para consertar nada.
+        Fica-se a saber que ha diferenca e nao QUAL — e passei tres tentativas a
+        adivinhar, com o CI a reprovar de cada vez. Um portao que diz «esta
+        errado» sem dizer onde obriga quem o le a trabalhar as cegas, e o custo
+        disso e sempre maior do que o de imprimir o caminho.
+        """
+        import json as _json
+
+        def caminhos(o, prefixo=""):
+            if isinstance(o, dict):
+                for k, v in o.items():
+                    yield from caminhos(v, f"{prefixo}.{k}")
+            elif isinstance(o, list):
+                for i, v in enumerate(o):
+                    yield from caminhos(v, f"{prefixo}[{i}]")
+            else:
+                yield prefixo, o
+
+        try:
+            da, db = _json.loads(a), _json.loads(b)
+        except (ValueError, TypeError):
+            return []
+        va, vb = dict(caminhos(da)), dict(caminhos(db))
+        fora = []
+        for k in list(va) + [k for k in vb if k not in va]:
+            if va.get(k) != vb.get(k):
+                fora.append(f"{k}: commitado={str(va.get(k))[:40]} "
+                            f"regerado={str(vb.get(k))[:40]}")
+            if len(fora) >= limite:
+                break
+        return fora
+
+    mudou = []
+    detalhe_do_drift = []
+    for n, texto in antes.items():
+        agora = arquitetura(n)
+        if texto != agora:
+            mudou.append(n)
+            if n.endswith(".json"):
+                detalhe_do_drift += onde_difere(texto, agora)
     for n, texto in servido_antes.items():
         atual = servido(n)
         fonte = ((RAIZ / "system-map" / "app" / n).read_text(encoding="utf-8")
@@ -126,6 +168,8 @@ def main() -> int:
     prova("P1_SEM_DRIFT", "o mapa commitado corresponde ao repositorio de hoje",
           not mudou,
           ("regerar mudou " + ", ".join(mudou) +
+           ("\n        primeira diferenca: " + "\n        ".join(detalhe_do_drift)
+            if detalhe_do_drift else "") +
            "\n        ALGUEM MEXEU NA ARQUITETURA E NAO ATUALIZOU O MAPA."
            "\n        Conserto: py system-map/scripts/generate_system_map.py && git add system-map/data")
           if mudou else "")
