@@ -282,7 +282,92 @@ determinismo           duas corridas em árvore limpa, 88 arquivos, byte-idênti
 
 ---
 
-## 9 · ONDE OLHAR
+## 9 · RED TEAM — O QUE FOI ATACADO, E O QUE CEDEU
+
+Quatro lentes, cada uma tentando quebrar uma afirmação desta entrega. **Três
+defeitos foram encontrados e corrigidos antes de entregar; dois deles eram meus.**
+
+**RT1 · ligar a fala ao vídeo errado.**
+A regex de `VIDEO_ID` tinha duas falhas **latentes**: perdia
+`watch?list=…&v=ID` (o `v` fora da primeira posição, que é como o YouTube
+escreve link dentro de playlist) e casava `exemplo.com/youtube.com/watch?v=ID`,
+porque não exigia o host. Medido no acervo e no pacote de hoje: **zero perdidas,
+zero falsas**. Fechadas assim mesmo — quando essa junção erra, o objeto some, e
+sumir não acende nada. O pacote saiu **byte-idêntico** depois do endurecimento:
+é hardening puro. Sem colisões de `VIDEO_ID` (184 distintos), sem
+`ALSO_COLLECTED_BY`, sem `CASE_ID` cujo prefixo não seja país.
+
+**RT2 · provar que a busca virou fato.** — **CEDEU, e o defeito era meu.**
+`ISSUE_IDS` estava vazio em 88/88 por um campo errado no laço de ingest.
+Corrigido o campo, passou a encher 88/88 a partir de `ISSUE` — **que é o termo
+da busca**. E `ISSUE_IDS` é chave de junção, lida pelo motor de oportunidades.
+Medido: `PROVED_ISSUE` é conhecido em 39, e em **seis** deles o texto prova
+XYLELLA onde a busca dizia REPILO ou FLAVESCENCE.
+
+> **CONSERTAR O CAMPO ERRADO E DEPOIS ENCHÊ-LO COM O VALOR ERRADO TROCA UM
+> VAZIO HONESTO POR UM CHEIO FALSO. O SEGUNDO É PIOR.**
+
+Corrigido: `ISSUE_IDS` sai só do provado (41/88), `ISSUE_IDS_QUERY` guarda o
+termo. `CROP_IDS` fica como estava, declarado.
+
+**RT3 · fabricar anúncio ativo com dado velho.** — **CEDEU, parcialmente.**
+Afirmei «`OBSERVATION_COUNT` é 1 em todos» olhando três registros. Medido nos
+414: **372 têm uma leitura, 20 têm duas, 22 têm três**. A lei estava errada para
+42 anúncios e foi corrigida antes de entrar. Os 27 `ACTIVE_PROVED` têm, todos,
+exatamente uma leitura — e o pacote agora diz isso.
+
+**RT4 · achar registro que some sem estado.**
+Caminhada independente sobre as 55 fontes pinadas de conteúdo: **184 registros
+lidos, 184 no censo, 0 não encontrados**. 763 materiais, 763 com `STATE`, 0
+faltando. 1340 entidades de anúncio, 414 no pacote, todos distintos e todos
+presentes no acervo. A varredura de arquivos **não pinados** com conteúdo achou
+13 candidatos — e dois deles são achados de verdade, no §10.
+
+---
+
+## 10 · O QUE EXISTE NO ACERVO E ESTA MISSÃO NÃO RECLAMOU
+
+Não por descuido: por escopo. A missão manda medir e entregar três famílias
+antes de abrir a quarta. Estão aqui **medidos**, para que a decisão seja de quem
+consome e não fique dependendo de alguém tropeçar neles.
+
+**`CREATOR-CONTENT-CORPUS-EAME` — 442 materiais, não reclamados.**
+
+```
+ref            sintonia/canonical @ 10af4a7
+arquivos       CORPUS-MATERIALS.json (921 KB) · CORPUS-OBSERVATIONS.json (958 KB)
+materiais      442, de 9 canais provados
+datas          FIRST_OBSERVED + LAST_OBSERVED em 442/442 · AS_OF_DATE 2026-08-31
+texto          184.238 caracteres de CAPTION
+plataforma     INSTAGRAM 399 · YOUTUBE 43
+país do fato   NOT_KNOWN em 442/442
+sobreposição   ZERO com as 184 falas
+campos         CROP · DISEASE · PEST · CROP_STAGE · APPLICATION_TIMING ·
+               BRANDS_OBSERVED · REGION_OF_FACT · PUBLIC_METRICS
+```
+
+> **LEGENDA NÃO É FALA.** `TEXT` e `CAPTION` são o mesmo campo, com os mesmos
+> 184.238 caracteres: é o que o criador **escreveu**, não o que ele **disse**.
+> Se um dia entrar, entra como família própria — nunca somada às transcrições.
+
+`BRANDS_OBSERVED` está vazio em 442/442 e `BRAND_EVENTS` tem 5. Antes de usar
+isto como sinal de concorrente, medir por que a classificação não encontrou marca.
+
+**`META-EAME/META-OWN-ADS-*` — os anúncios da própria ADAMA.**
+40 entidades com `last_observed`, deliberadamente fora de
+`COMPETITOR-ACTIVITIES.json`: anúncio próprio não é atividade de concorrente, e
+fundi-los inflaria a contagem do concorrente com a nossa própria comunicação.
+
+**`IT-VIDEO-V1/IT-VIDEO-V1.json` — 18 transcrições que NÃO foram pinadas.**
+De propósito: são as **mesmas 18** que já entram por `IT-VIDEO-V1/falas/*.json`.
+Provado pela aritmética — o arquivo declara 368.146 caracteres, dos quais 588 são
+84 sentinelas `NÃO SEI` de 7 caracteres; 368.146 − 588 = **367.558**, exatamente
+o `CHARS_TOTAL` do manifesto das falas. Pinar os dois contaria a mesma fala duas
+vezes.
+
+---
+
+## 11 · ONDE OLHAR
 
 ```
 data/acervo/ACERVO-SOURCES-V1.json    o endereço imutável de cada insumo

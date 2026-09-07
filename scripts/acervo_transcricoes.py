@@ -40,8 +40,23 @@ from collections import Counter, OrderedDict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from acervo_fonte import carimbo, ler, manifesto, sha256_texto  # noqa: E402
 
-VID = re.compile(r'(?:youtube\.com/watch\?v=|youtu\.be/|/shorts/|'
-                 r'youtube\.com/embed/)([A-Za-z0-9_-]{11})')
+# ⚠️ DUAS FALHAS LATENTES, FECHADAS ANTES DE FICAREM VIVAS.
+#
+# A versão anterior era `youtube.com/watch\?v=…`, e com isso:
+#   · perdia `watch?list=PL…&v=ID` — o `v` fora da primeira posição, que é
+#     exactamente como o YouTube escreve o link de um vídeo dentro de playlist;
+#   · casava `https://exemplo.com/youtube.com/watch?v=ID`, porque não exigia o
+#     host — um endereço de outro sítio que só CONTÉM a string.
+#
+# Medido no acervo e no pacote de hoje: zero perdidas, zero falsos. Ou seja, as
+# duas falhas eram LATENTES. Fechadas assim mesmo:
+#
+#     A JUNÇÃO QUE ERRA SÓ ÀS VEZES É A PIOR DE AUDITAR.
+#     Quando ela erra, o objeto some — e sumir não acende nada.
+VID = re.compile(
+    r'https?://(?:[\w-]+\.)*(?:youtube\.com|youtube-nocookie\.com|youtu\.be)'
+    r'(?:/watch\?(?:[^"\s]*&)?v=|/shorts/|/embed/|/live/|/v/|/)'
+    r'([A-Za-z0-9_-]{11})(?![A-Za-z0-9_-])')
 
 # Estados de exclusão que o PRÓPRIO acervo declara. Nenhum é inventado aqui:
 # quando a rota disse por que não trouxe fala, essa razão é transportada.
