@@ -12,7 +12,7 @@ Aqui está **como se busca, o que se espera de volta, e o que acontece quando n�
 
 ## SAÚDE DE FONTE — definição objetiva
 
-Implementada em `regras/source_health.py`, não em prosa.
+Implementada em `medidas/source_health.py`, não em prosa.
 
 | estado | condição |
 |---|---|

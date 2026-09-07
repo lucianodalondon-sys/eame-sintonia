@@ -99,7 +99,7 @@ próprio documento diz *"se dois documentos discordarem sobre o que é o produto
 | `docs/piloto/ENTRADA-PARA-CLAUDE-DESIGN.md` | CURRENT **como pacote de fatos e números**, não como arquitetura |
 | `docs/descoberta/MISSAO-EAME-01.md`, `SEGUNDA-PASSAGEM…`, `LACUNAS-E-VEREDITO-MISSAO-03.md` | **HISTORICAL** — registro de missão, não estado |
 | `docs/piloto/VEREDITO-M10-HANDOFF.md` | CURRENT para o veredito de M10 |
-| `docs/operacao/PORTOES-DE-COLETA-10B.md` | **CURRENT** — o estado mais recente |
+| `medidas/PORTOES-DE-COLETA-10B.md` | **CURRENT** — o estado mais recente |
 
 **Nunca voltar para a arquitetura de 18 ferramentas.** Foi reduzida deliberadamente.
 
@@ -759,8 +759,8 @@ científico (380 instituições com afiliação declarada).
 | 1 | `HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md` | este documento | CURRENT | mapa da casa |
 | 2 | `docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md` | o que o produto É | **CURRENT — manda** | se dois documentos discordam, este vence |
 | 3 | `docs/regras/MODELO-DE-IDENTIDADE-EAME.md` | identidade de entidade e de origem | CURRENT | quase todo erro grave veio daqui |
-| 4 | `docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md` | como coletar | CURRENT | prioridade, contratos de campo, fail closed |
-| 5 | `docs/operacao/PORTOES-DE-COLETA-10B.md` | os seis portões | CURRENT | diz se pode coletar |
+| 4 | `medidas/REGRA-DE-COLETA-EXTERNA-EAME.md` | como coletar | CURRENT | prioridade, contratos de campo, fail closed |
+| 5 | `medidas/PORTOES-DE-COLETA-10B.md` | os seis portões | CURRENT | diz se pode coletar |
 | 6 | `pacote/metricas_canonicas.py` | ledger de números | CURRENT | **fonte de verdade numérica** |
 | 7 | `docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md` | a rodada espanhola inteira | CURRENT | inclui as correções |
 | 8 | `data/samples/AUDITORIA-REGRA-COLETA-EXTERNA.json` | 206 achados + backlog | CURRENT | o que falta e o que não |
@@ -791,8 +791,8 @@ python3 pacote/metricas_canonicas.py --json       # máquina
 python3 pacote/metricas_canonicas.py --sync       # reescreve marcadores nos documentos
 
 # portão de saída — pode coletar?
-python3 regras/portao.py
-python3 regras/portao.py --json
+python3 medidas/portao.py
+python3 medidas/portao.py --json
 
 # auditoria contra alvo congelado
 python3 provas/auditoria.py                       # SHA e estado da árvore
@@ -806,8 +806,8 @@ python3 regras/proveniencia.py --campos
 python3 leis/data_clock.py
 
 # contratos da camada de voz
-python3 regras/voz.py
-python3 regras/voz.py --campos
+python3 medidas/voz.py
+python3 medidas/voz.py --campos
 
 # filas de descoberta
 python3 coleta/filas.py

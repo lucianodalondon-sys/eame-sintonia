@@ -77,7 +77,7 @@ jobs:
         run: python3 system-map/scripts/validate_system_map.py
 
       - name: 3 · o padrão do departamento de coleta não piorou
-        run: python3 regras/padrao_da_coleta.py
+        run: python3 medidas/padrao_da_coleta.py
 
       - name: 4 · as regras do mapa não afrouxaram
         run: python3 system-map/tests/test_system_map.py

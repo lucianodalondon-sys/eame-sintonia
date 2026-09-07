@@ -46,8 +46,8 @@ Depois leia, NESTA ORDEM (é o mapa da seção AA do handoff):
 
   1. docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md      <- se dois documentos discordarem, ESTE vence
   2. docs/regras/MODELO-DE-IDENTIDADE-EAME.md
-  3. docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md
-  4. docs/operacao/PORTOES-DE-COLETA-10B.md
+  3. medidas/REGRA-DE-COLETA-EXTERNA-EAME.md
+  4. medidas/PORTOES-DE-COLETA-10B.md
   5. docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md
   6. docs/fontes/ATLAS-DE-FONTES-EAME.md
   7. docs/decisoes/DIARIO-DE-DECISOES.md
@@ -74,7 +74,7 @@ PASSO 4 — REPRODUZIR AS MÉTRICAS SENTINELA
 ==================================================
 
 python3 pacote/metricas_canonicas.py
-python3 regras/portao.py
+python3 medidas/portao.py
 python3 regras/proveniencia.py
 
 Confira estas sentinelas contra o que o handoff afirma:

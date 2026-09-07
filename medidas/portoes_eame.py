@@ -28,8 +28,8 @@ A correção não é rebaixar nem promover nada: é separar os dois portões e
 DERIVAR o estado de cada um das cicatrizes de que ele depende. Um portão
 não pode mais ser declarado READY por quem escreve o relatório.
 
-    python3 regras/portoes_eame.py
-    python3 regras/portoes_eame.py --build
+    python3 medidas/portoes_eame.py
+    python3 medidas/portoes_eame.py --build
 """
 import json
 import os
@@ -293,7 +293,7 @@ def monta():
         'SOURCE_LOCATION': 'interno',
         'FACT_LOCATION': 'EAME',
         'ORIGINAL_LANGUAGE': 'pt',
-        'DERIVADO_DE': ['regras/cicatrizes_brasil.py',
+        'DERIVADO_DE': ['medidas/cicatrizes_brasil.py',
                         'data/samples/RAW-GATE-ES.json'],
         'PORQUE_EXISTE':
             'um nome estava fazendo dois trabalhos, e por isso o mesmo relatório '

@@ -3,8 +3,8 @@
 """
 O PADRAO DO DEPARTAMENTO DE COLETA — medido, e com chao que nao desce.
 
-    py regras/padrao_da_coleta.py            mede e compara com o chao
-    py regras/padrao_da_coleta.py --fixar    grava o estado de hoje como chao
+    py medidas/padrao_da_coleta.py            mede e compara com o chao
+    py medidas/padrao_da_coleta.py --fixar    grava o estado de hoje como chao
 
 POR QUE ESTE FICHEIRO EXISTE
 -----------------------------

@@ -5,8 +5,8 @@ PORTÃO DE SAÍDA — os seis estados que autorizam (ou barram) a próxima colet
 Cada portão é DERIVADO do artefato, nunca digitado. Se um deles não fechar, a resposta a
 "podemos coletar mais?" é NÃO, e o motivo é o portão que barrou.
 
-    python3 regras/portao.py
-    python3 regras/portao.py --json
+    python3 medidas/portao.py
+    python3 medidas/portao.py --json
 """
 import json
 import os

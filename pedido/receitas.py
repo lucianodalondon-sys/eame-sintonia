@@ -112,7 +112,7 @@ CONTRATOS_OBRIGATORIOS = (
      "carimba de onde veio, no momento em que entra"),
     ("tempo do fato", "leis/data_clock.py",
      "separa quando o fato aconteceu de quando nos o capturamos"),
-    ("lugar do fato", "regras/fato_local.py",
+    ("lugar do fato", "medidas/fato_local.py",
      "separa o lugar de onde veio o documento do lugar onde o fato aconteceu"),
     ("recibo da corrida", "data/samples/RUN-MANIFEST.json",
      "quem correu, quando, com que entrada, quanto trouxe e quanto custou"),

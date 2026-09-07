@@ -11,8 +11,8 @@
 
 ## A · O QUE CADA PORTÃO EXIGE, E COMO FOI MEDIDO
 
-Todos os estados vêm de `regras/portao.py`, que **deriva** cada um dos artefatos.
-Nenhum foi digitado. `python3 regras/portao.py --json` reproduz `PORTAO-10B-ES.json`.
+Todos os estados vêm de `medidas/portao.py`, que **deriva** cada um dos artefatos.
+Nenhum foi digitado. `python3 medidas/portao.py --json` reproduz `PORTAO-10B-ES.json`.
 
 | portão | estado | medida |
 |---|---|---|

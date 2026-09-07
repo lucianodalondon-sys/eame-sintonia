@@ -77,26 +77,26 @@
       ]
     },
     {
+      "id": "Z-REGRAS",
+      "family": "F-COLETA",
+      "name": "6 · AS REGUAS QUE CARIMBAM",
+      "why": "O que se aplica ao item NO MOMENTO em que ele entra: de onde veio, quem esta autorizado, que palavras se digitam, o contrato de cada fonte. Vem antes das acoes porque sao elas que as consultam",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "folder": "regras"
+    },
+    {
       "id": "Z-ACOES",
       "family": "F-COLETA",
-      "name": "6 · AS ACOES DA COLETA",
+      "name": "7 · AS ACOES DA COLETA",
       "why": "O que se FAZ dentro de um veiculo: colher o YouTube, colher o que o concorrente publica, baixar os rotulos. Acao e verbo — se for um sitio por onde se passa, e veiculo, nao acao",
       "views": [
         "acervo",
         "infra"
       ],
       "folder": "coleta"
-    },
-    {
-      "id": "Z-REGRAS",
-      "family": "F-COLETA",
-      "name": "7 · AS REGRAS E AS PALAVRAS",
-      "why": "O que pode ser coletado, de quem, e com que termo escrito na lingua do pais. Veiculo sem regra atropela",
-      "views": [
-        "acervo",
-        "audit"
-      ],
-      "folder": "regras"
     },
     {
       "id": "Z-ADMISSAO",
@@ -107,6 +107,16 @@
         "acervo"
       ],
       "folder": "admissao"
+    },
+    {
+      "id": "Z-MEDIDAS",
+      "family": "F-COLETA",
+      "name": "9 · AS MEDIDAS DA COLETA",
+      "why": "O que olha para tras e da nota: quanto falta, que fonte respondeu torto, que lei do Brasil ainda nao foi portada. NAO BARRA NADA — medir nao e filtrar, e confundir os dois faz parecer que ha peneira onde so ha termometro",
+      "views": [
+        "audit"
+      ],
+      "folder": "medidas"
     },
     {
       "id": "Z-GUARDA",
@@ -347,7 +357,7 @@
     {
       "id": "C-PADRAO-COLETA",
       "name": "O padrao do departamento de coleta",
-      "territory": "Z-REGRAS",
+      "territory": "Z-MEDIDAS",
       "kind": "gate",
       "icon": "⚖",
       "views": [
@@ -361,8 +371,8 @@
         "INTELIGENCIA"
       ],
       "files": [
-        "regras/padrao_da_coleta.py",
-        "data/samples/PADRAO-DA-COLETA-CHAO.json"
+        "medidas/padrao_da_coleta.py",
+        "medidas/PADRAO-DA-COLETA-CHAO.json"
       ]
     },
     {
@@ -388,7 +398,7 @@
     {
       "id": "C-LUGAR-COLETA",
       "name": "O lugar do fato — carimbado na coleta",
-      "territory": "Z-REGRAS",
+      "territory": "Z-MEDIDAS",
       "kind": "contract",
       "icon": "⌖",
       "views": [
@@ -402,14 +412,14 @@
         "INTELIGENCIA"
       ],
       "files": [
-        "regras/lugar_do_fato.py",
-        "regras/fato_local.py"
+        "medidas/lugar_do_fato.py",
+        "medidas/fato_local.py"
       ]
     },
     {
       "id": "C-CONTRATO-CAMPOS",
       "name": "O que a coleta tem de trazer",
-      "territory": "Z-REGRAS",
+      "territory": "Z-MEDIDAS",
       "kind": "contract",
       "icon": "☰",
       "views": [
@@ -422,7 +432,7 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "files": [
-        "regras/voz.py"
+        "medidas/voz.py"
       ]
     },
     {
@@ -486,7 +496,7 @@
     {
       "id": "C-REGRA-COLETA",
       "name": "A regra de coleta externa",
-      "territory": "Z-REGRAS",
+      "territory": "Z-MEDIDAS",
       "kind": "contract",
       "icon": "§",
       "views": [
@@ -500,10 +510,10 @@
         "TECNICO_CIENCIA"
       ],
       "files": [
-        "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md",
-        "docs/operacao/PORTOES-DE-COLETA-10B.md",
-        "regras/portao.py",
-        "regras/portoes_eame.py"
+        "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md",
+        "medidas/PORTOES-DE-COLETA-10B.md",
+        "medidas/portao.py",
+        "medidas/portoes_eame.py"
       ]
     },
     {
@@ -553,7 +563,7 @@
     {
       "id": "C-SAUDE-FONTE",
       "name": "A saude de cada fonte",
-      "territory": "Z-REGRAS",
+      "territory": "Z-MEDIDAS",
       "kind": "contract",
       "icon": "♥",
       "views": [
@@ -566,7 +576,7 @@
         "ENGENHARIA"
       ],
       "files": [
-        "regras/source_health.py"
+        "medidas/source_health.py"
       ]
     },
     {
@@ -851,7 +861,7 @@
     {
       "id": "C-CICATRIZES-BR",
       "name": "Cicatrizes do Brasil (lei portada)",
-      "territory": "Z-REGRAS",
+      "territory": "Z-MEDIDAS",
       "kind": "contract",
       "what": "Traz para o EAME as leis que o Brasil ja aprendeu na dor, em vez de reinventar cada uma.",
       "why_here": "O EAME nao inventa contrato novo quando o Brasil ja tem lei madura para a mesma pergunta.",
@@ -859,7 +869,7 @@
         "ENGENHARIA"
       ],
       "files": [
-        "regras/cicatrizes_brasil.py"
+        "medidas/cicatrizes_brasil.py"
       ],
       "views": [],
       "icon": "§"
@@ -1780,7 +1790,7 @@
     ".github/workflows/supabase-migrate.yml": "2b64939552d5f7313faa6f8ab4e3b9eb8ce88b0d",
     ".github/workflows/supabase-raw-roundtrip.yml": "7b8f182ab89d1176299913069a05220d1e90ae82",
     ".github/workflows/supabase-storage.yml": "cf95ae286c72c84f23aa906392b6c88dc4f88cd2",
-    ".github/workflows/system-map.yml": "9e50d150bed51762f36dee987032a4c272eefe1c",
+    ".github/workflows/system-map.yml": "faa3f3eb119ef3d96e9734c94816f439ec86807b",
     "admissao/admissao.py": "ba263a7b85a0f82b7b68901ecd74f1ab4ce7a8c6",
     "candidatas/FONTES-CANDIDATAS.json": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
     "candidatas/ITALY-SOURCE-MASTER-V1.json": "c592eb1fe8ad05736235b4e6d4769cee3e8beb1a",
@@ -1833,12 +1843,9 @@
     "data/collection-ledger/italy/observations.ndjson": "e260fd0d360372dc5f7ad1aa87f810a77dd51afc",
     "data/collection-ledger/italy/runs.ndjson": "adb912d50ac60bcce36243f78729efa0fc0f8559",
     "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "dce86043d875046110e7cf3e8e1ee2f35b364d52",
-    "data/samples/PADRAO-DA-COLETA-CHAO.json": "41f30022e5602a573bbce0f28091fc5179862bcb",
     "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md": "5725c32b01147554757cd2973abc284eaf124e86",
     "docs/operacao/ITALY-RECURRENT-PILOT-V1.md": "7010dba9d6ac96d6a950a7ee3df2534be627f3ad",
     "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md": "cb127d578f19f3ff6c2c6faad2a77725dd678ead",
-    "docs/operacao/PORTOES-DE-COLETA-10B.md": "814fb81c878bbfde008f5b2725c0feaa0c56f4eb",
-    "docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md": "6322b416ebe3e817d498b0413de06d4188a3f96b",
     "ferramentas/apify_contrato.py": "b20e59e7fd180da05022046a30dd5e13c25ebe9f",
     "ferramentas/apify_pool.py": "886ba25ef5b3b58570fb5e9aec96bcdbf46c3671",
     "ferramentas/apify_recuperar.py": "9d77a396c095551647c46769c32ecbe7157c49a4",
@@ -2026,6 +2033,17 @@
     "leis/v21_geografia_contrato.py": "06641a95c5dde96c03916f7f437a8b0c825c7918",
     "leis/v21_procedencia_contrato.py": "a8d6cf098593117b3dccee4a018af08fc6f10c8f",
     "leis/v21_procedencia_religar.py": "74b9d675263db47d5f41a3b3bffa35f31a607ab7",
+    "medidas/PADRAO-DA-COLETA-CHAO.json": "7c573f6942abc076a0bac86b39ca8061d23befe4",
+    "medidas/PORTOES-DE-COLETA-10B.md": "2b27afc8b033feb9e8f146d41eea1ed23e009da4",
+    "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md": "4618f61e75df24fcd7c0956cc54e45ae2ba8f9cc",
+    "medidas/cicatrizes_brasil.py": "66755f51833ee425aabbf8b10a7089f1406980db",
+    "medidas/fato_local.py": "01b692d11320c3472241a72be03431cbf4acbeff",
+    "medidas/lugar_do_fato.py": "561f4d5507f40059191f5a0070a679ef2819d437",
+    "medidas/padrao_da_coleta.py": "41ac380fcab7e152e48ad5b8b34f7248a4fb8cb1",
+    "medidas/portao.py": "66b0a6446155a2dede4507a73b16533b52cea67d",
+    "medidas/portoes_eame.py": "8890734591f7a5ecda186c3bc9428e6fdc90a152",
+    "medidas/source_health.py": "76805b822db70cca3f72ee7b8adb9627ce9ec8d8",
+    "medidas/voz.py": "94c454b64a1c13a6fb6059918f1edbdd358cd791",
     "motor/cadeia_canonica.sh": "60c11fcbabbf4918bcbff10f204a64916f4ee17c",
     "motor/consolidar_leque.py": "8c1cb9623019c9fb50461c1cac5ee8d9677f9dbf",
     "motor/matriz_recorte.py": "cc3a9b2705010a94716750487004fa4b0f1b60ab",
@@ -2083,7 +2101,7 @@
     "pacote/v21_handoff_json.py": "a568315812ecb8204a1263f3fdfa18ebf3ec7fb4",
     "pedido/orquestrador.py": "d9c90b3e3b4fd3c24c1bc453c2ddc3661b017a7b",
     "pedido/pedido.py": "783852b225b497ca118f1f250f650123d1f81df0",
-    "pedido/receitas.py": "2f8b5fdf3da8f45f2de1ffe48f6f14eb2f178ef7",
+    "pedido/receitas.py": "1e41cdd5c59a1314fb527b7e663a7e2b56d451bd",
     "portoes/build_portal.py": "de19a89cb1ed6cb6d346935cb0ede74aea37f93d",
     "portoes/site_v21_ingest.py": "39376bfde4839bacacf544d9b673d2a5238ee6f5",
     "provas/auditoria.py": "8c6a990ba9dcce2cd7c5a4003872a963b02f30cf",
@@ -2096,26 +2114,18 @@
     "provas/italy_pilot_negativos.mjs": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
     "provas/testa_coleta_canonica.py": "4f6ce8d8584222fea36c2ea728992b57d2bc3c20",
     "provas/testa_rota_italia.py": "4fb25815bd63df037ca315f8530d1d420b23fa3d",
-    "regras/cicatrizes_brasil.py": "2d69fc63b3004c7c5ae197169fd611d84a2c650b",
     "regras/comunicacao_identidade.py": "3afe6c18b66d13826a262a184787271a8ee3211f",
     "regras/comunicacao_lote.py": "098fc6d67af9fa697025f2afe8bf0bcf40749254",
     "regras/comunicacao_universo.py": "37e4638950e2619cb19b218f3ab73be0700625a0",
-    "regras/fato_local.py": "c8dae2ca5a82dc3ba634db715ede5a1180e765bc",
     "regras/italy_contract_test.mjs": "ed0b0e61ab26bb1401a64e6ea020f9eedbde2f28",
     "regras/italy_contracts.mjs": "ae6fc38c114ed3b996021f6f120632a234c8a533",
     "regras/italy_pilot_guards.mjs": "c00367024fc2977b93c6e16ac9bc0855d97a227d",
     "regras/italy_scheduling_guards.mjs": "00ddc15436475edb56b683406937f16da9de6e6d",
     "regras/italy_source_health.mjs": "811be31b016cfdcce4cf096b41d38c563c7927b2",
-    "regras/lugar_do_fato.py": "a47380e9624322d50243060908cfd94036547c65",
-    "regras/padrao_da_coleta.py": "743b45a96836cb85261b7279cd700e5470709227",
-    "regras/portao.py": "967ff47ca35bbf781f6bd8b34976f08ad1c760ae",
-    "regras/portoes_eame.py": "ea3ad259d8dd594578cb9c4c62f1d21d5520fead",
     "regras/proveniencia.py": "23dafffefa884d2e095509a2bbe7984575f05636",
     "regras/rotulos_censo.py": "0fc53eb5edcbd7126f89cfd2a0a3e33dab69546b",
     "regras/sensor_coleta.py": "9c9be3ce17d64eed2ce2532f3d463b88b8d656ac",
     "regras/sensor_medir.py": "a7e3471c929cc7d62d0c412706d6ec8f71218f34",
-    "regras/source_health.py": "76805b822db70cca3f72ee7b8adb9627ce9ec8d8",
-    "regras/voz.py": "94c454b64a1c13a6fb6059918f1edbdd358cd791",
     "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql": "11570d02661fe076cb03e6709398d503c4974e31",
     "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql": "9b8e725253337e098aa586a4df9b131ac4d55dbd",
     "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql": "8c49ffa85d7f83a46bba0adfed7fd59c66bebe82",
@@ -2166,21 +2176,21 @@
     "system-map/app/map.css": "a356a7781b46ffa949f904d2cce7d153dbf4a888",
     "system-map/app/map.js": "3433e913d21d4aa9ee339e9bc665bfa69b9f601a",
     "system-map/scripts/censo_da_coleta.py": "3fa99e2b2154151b55c6f4ff5f1f87c7b27b8d8d",
-    "system-map/scripts/generate_system_map.py": "0cd21d3ed7aaf870f6abf9c49d6b208199a37ac1",
+    "system-map/scripts/generate_system_map.py": "b84600d8e0df884cf6f9f7edd179f93c589ef424",
     "system-map/scripts/mudar_gaveta.py": "99736f74a118a545f946246f88c041153e4bb342",
     "system-map/scripts/pente_fino_da_coleta.py": "7c6f8bd541be3e5aef7aaf3df2514af423f14928",
     "system-map/scripts/scan_casco.py": "b2fa05cdc0d8bfabe53db3fa91fb6b9426c205e1",
     "system-map/scripts/scan_repo.py": "009e569e6834b3869c4f941fc96ad9553b8580b0",
     "system-map/scripts/scan_sources.py": "db29928f841bf8676e2e5bd1adb96e260626b732",
     "system-map/scripts/validate_system_map.py": "0f2b9497e8d6746dd6f262b2c753a0be549b786f",
-    "system-map/tests/test_system_map.py": "8cf32854a2032b566432967388644d82291f5ed0",
+    "system-map/tests/test_system_map.py": "4851ce11631354b44d392c0955460b7d3a54342d",
     "tests/es/test_adama_es_gate.py": "e58ce40ff87e320bb0bc6db69eda7ff962dc1c59",
     "tests/es/test_adama_es_import_rules.py": "61f94d944a9344085bc3512df1fb92ecb338e8d8",
     "tests/test_adama_relevance.py": "09313593290772438fb08514cd00f33e8eb7c8de",
     "tests/test_calendario_temporal.py": "74c6cafdec4763b7d7aa34473be378c43778befd",
     "tests/test_canonico.py": "837666d1d5ae4cc20045683d01be2ab3abae684b",
     "tests/test_cicatrizes_brasil.py": "cb8042d7815e126d06ff662fbb7f717bcacfe392",
-    "tests/test_coleta_externa.py": "f25e20b195110bb6157d86137498c4c96dd541e3",
+    "tests/test_coleta_externa.py": "ca69e20d415df202f39865adca00ced98eb54d6e",
     "tests/test_coleta_resiliente.py": "2c773b0e8135f070becf8ef024a1f3565f10108d",
     "tests/test_competitor_layer.py": "f34a9b4dc1872ce4bb40b490addb0fc40675a6c3",
     "tests/test_completude_oportunidade.py": "832dc3194fbe092c17617dd2f44d0c051e30ed37",
@@ -2188,7 +2198,7 @@
     "tests/test_evidence.py": "c1efcd244c2096478816b6a3ebe8a2a758a8a285",
     "tests/test_handoff.py": "132fe6ae31399146dac5e5d5f827a71201babde4",
     "tests/test_hero_cases_v1.py": "8aeab80c87371a136b9470ba4b0cd87581c57c49",
-    "tests/test_lugar_do_fato.py": "8917fb38e470cb17c2dcb97c598098fd418eb40d",
+    "tests/test_lugar_do_fato.py": "ec2a2ae0ad03ee1bdb0d075ab9171d9708bd8cff",
     "tests/test_metricas.py": "9c962935a3d6a7a67375c978352036ee70da5295",
     "tests/test_migrations.py": "5e7fd2d7e6d313019dda9208e2a36ec15dd8e458",
     "tests/test_navegador.py": "721da8f23f75f28713b9b0d06087a494296dd5d3",

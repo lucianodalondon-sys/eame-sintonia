@@ -11,8 +11,8 @@
 > | o que conta como mudança e o que é só nova versão | [`REGUA-DE-CHANGE-EVENT-EAME.md`](REGUA-DE-CHANGE-EVENT-EAME.md) |
 > | quando um sinal vira `WATCH`, `INVESTIGATE` ou `ALERT` | [`REGUA-DE-ALERTA-EAME.md`](REGUA-DE-ALERTA-EAME.md) |
 > | chave Apify descartável: autonomia e limites | [`POLITICA-DE-CHAVES-DESCARTAVEIS.md`](POLITICA-DE-CHAVES-DESCARTAVEIS.md) |
-> | estados de saúde de fonte e cobertura | `regras/source_health.py` · `provas/coverage.py` |
-> | contrato de campos por vídeo, em código | `regras/voz.py` |
+> | estados de saúde de fonte e cobertura | `medidas/source_health.py` · `provas/coverage.py` |
+> | contrato de campos por vídeo, em código | `medidas/voz.py` |
 
 ---
 
@@ -48,7 +48,7 @@ outra camada da rodada chegou perto disso por unidade de custo.
 
 ## 3 · O CONTRATO DE CAMPOS POR VÍDEO
 
-A lista vive em **`regras/voz.py`**, em `CAMPOS_VIDEO` — **32 campos**. Ela está em código
+A lista vive em **`medidas/voz.py`**, em `CAMPOS_VIDEO` — **32 campos**. Ela está em código
 para que o próximo país não a redigite e não a encolha em silêncio.
 
 ```
@@ -222,7 +222,7 @@ normalizado **e** transcrição. `data/raw/` continua sendo cache para o que a c
 ## 14-B · O PORTÃO ANTES DE COLETAR (2026-08-29)
 
 Antes de escalar coleta, seis coisas precisam estar provadas — derivadas por
-`regras/portao.py`, nunca digitadas:
+`medidas/portao.py`, nunca digitadas:
 
 `RUN_MANIFEST` · `PIPELINE_DEDUPE` · `VIDEO_TAXONOMY_APPLIED` · `VIDEO_ORIGINALITY` ·
 `PAID_RAW_POLICY` · `COLLECTION_TIMESTAMPS`

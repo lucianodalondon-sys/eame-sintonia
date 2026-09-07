@@ -133,9 +133,9 @@ conhece continua no banco, com `estado_do_lugar = NAO_ESTA_NO_GAZETTEER` e preci
 
 ## M · CÓDIGO REUTILIZADO DA ITÁLIA · N · `DUPLICATE_OWNER_CREATED = NO`
 
-`regras/fato_local.py` veio **portado verbatim** da branch da Itália, com nota de
+`medidas/fato_local.py` veio **portado verbatim** da branch da Itália, com nota de
 proveniência. Ele é o **leitor italiano**: gazetteer, âncoras e meses em italiano, tudo do
-piloto. A **lei** que ele exerce subiu para `regras/lugar_do_fato.py`, no core, sem
+piloto. A **lei** que ele exerce subiu para `medidas/lugar_do_fato.py`, no core, sem
 vocabulário italiano nenhum — e há teste que reprova se `Toscana`, `constatat` ou
 `campioni` aparecerem lá.
 

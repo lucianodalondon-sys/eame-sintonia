@@ -1628,7 +1628,7 @@ def leia_antes_de_coletar(estado: dict) -> None:
     for n in sorted(ferramentas, key=lambda x: x["name"]):
         L.append(f"- **{n['name']}** — {n['what']}")
     L += ["", "---", "", "## O PADRÃO, E O CHÃO QUE NÃO DESCE", "",
-          "```bash", "py regras/padrao_da_coleta.py", "```", "",
+          "```bash", "py medidas/padrao_da_coleta.py", "```", "",
           "Dez regras medidas a cada corrida do CI. Ele **não** exige que esteja tudo",
           "certo hoje — exige **não piorar**. Um coletor novo sem carimbo de data faz",
           "o número subir, e o portão reprova nomeando o ficheiro.", "",

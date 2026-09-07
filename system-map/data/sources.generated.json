@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "d188d3248abb40241b4bd52607f866c6542c5668",
+    "HEAD": "603258dda32810b033d84e85044a49c835019691",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3277,25 +3277,6 @@
       ]
     },
     {
-      "ficheiro": "regras/cicatrizes_brasil.py",
-      "como_se_chama": "regras/cicatrizes_brasil.py",
-      "carimba_data": [
-        "CAPTURED_AT",
-        "CAPTURE_DATE",
-        "PUBLICATION_DATE"
-      ],
-      "carimba_lugar": [
-        "COUNTRY",
-        "FACT_LOCATION",
-        "SOURCE_LOCATION"
-      ],
-      "separa_fonte_do_fato": true,
-      "leis_que_obedece": [],
-      "regista_descarte": [
-        "RECUSAD"
-      ]
-    },
-    {
       "ficheiro": "regras/comunicacao_identidade.py",
       "como_se_chama": "regras/comunicacao_identidade.py",
       "carimba_data": [],
@@ -3325,67 +3306,6 @@
     {
       "ficheiro": "regras/comunicacao_universo.py",
       "como_se_chama": "regras/comunicacao_universo.py",
-      "carimba_data": [],
-      "carimba_lugar": [
-        "COUNTRY",
-        "FACT_LOCATION",
-        "SOURCE_LOCATION"
-      ],
-      "separa_fonte_do_fato": true,
-      "leis_que_obedece": [],
-      "regista_descarte": []
-    },
-    {
-      "ficheiro": "regras/lugar_do_fato.py",
-      "como_se_chama": "regras/lugar_do_fato.py",
-      "carimba_data": [],
-      "carimba_lugar": [
-        "FACT_LOCATION",
-        "SOURCE_LOCATION"
-      ],
-      "separa_fonte_do_fato": true,
-      "leis_que_obedece": [],
-      "regista_descarte": [
-        "RECUSAD"
-      ]
-    },
-    {
-      "ficheiro": "regras/padrao_da_coleta.py",
-      "como_se_chama": "regras/padrao_da_coleta.py            mede e compara com o chao",
-      "carimba_data": [
-        "CAPTURED_AT",
-        "CAPTURE_DATE",
-        "FACT_DATE",
-        "PUBLICATION_DATE"
-      ],
-      "carimba_lugar": [
-        "COUNTRY",
-        "FACT_LOCATION",
-        "SOURCE_LOCATION"
-      ],
-      "separa_fonte_do_fato": true,
-      "leis_que_obedece": [],
-      "regista_descarte": [
-        "EXCLUSION_REASON",
-        "DESCARTAD",
-        "RECUSAD"
-      ]
-    },
-    {
-      "ficheiro": "regras/portao.py",
-      "como_se_chama": "regras/portao.py",
-      "carimba_data": [],
-      "carimba_lugar": [],
-      "separa_fonte_do_fato": false,
-      "leis_que_obedece": [
-        "proveniencia",
-        "voz"
-      ],
-      "regista_descarte": []
-    },
-    {
-      "ficheiro": "regras/portoes_eame.py",
-      "como_se_chama": "regras/portoes_eame.py",
       "carimba_data": [],
       "carimba_lugar": [
         "COUNTRY",
@@ -3447,15 +3367,6 @@
         "SOURCE_LOCATION"
       ],
       "separa_fonte_do_fato": true,
-      "leis_que_obedece": [],
-      "regista_descarte": []
-    },
-    {
-      "ficheiro": "regras/source_health.py",
-      "como_se_chama": "",
-      "carimba_data": [],
-      "carimba_lugar": [],
-      "separa_fonte_do_fato": false,
       "leis_que_obedece": [],
       "regista_descarte": []
     }
@@ -4495,11 +4406,11 @@
     "search_terms": 103,
     "endpoints": 40,
     "candidates": 0,
-    "coletores": 45,
-    "coletores_com_data": 14,
-    "coletores_com_lugar": 28,
-    "coletores_que_separam_fonte_do_fato": 22,
-    "coletores_que_registam_descarte": 11,
+    "coletores": 39,
+    "coletores_com_data": 12,
+    "coletores_com_lugar": 24,
+    "coletores_que_separam_fonte_do_fato": 18,
+    "coletores_que_registam_descarte": 8,
     "corridas_registadas": 19,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,

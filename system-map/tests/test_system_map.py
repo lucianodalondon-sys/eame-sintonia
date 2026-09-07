@@ -79,6 +79,29 @@ prova("a_familia_vem_da_zona_e_nao_da_peca",
                              if z["id"] == n["territory"]) for n in S["NODES"]),
       "peca a declarar familia diferente da sua zona cria dois agrupamentos")
 
+# ── carimbo e medida nao se confundem ───────────────────────────────────────
+# A divisao entre «a regua que CARIMBA» e «a regua que MEDE» foi feita a partir
+# de uma medicao: carimba quem e usada por uma acao no momento em que ela colhe;
+# mede quem olha para tras e da nota. Escrita a mao no ficheiro declarado, essa
+# divisao envelhece calada — no dia em que um coletor passar a importar uma
+# medida, a gaveta continua a dizer o contrario.
+#
+#     MEDIR NAO E FILTRAR. Uma regua que so mede nao barra nada, e por-la
+#     antes das acoes faz parecer que ha peneira onde so ha termometro.
+USADA_NA_COLETA = ("Z-ACOES", "Z-CANDIDATAS", "Z-VEICULOS", "Z-ADMISSAO")
+ZONA = {n["id"]: n["territory"] for n in S["NODES"]}
+
+trocadas = []
+for n in S["NODES"]:
+    if n["territory"] not in ("Z-REGRAS", "Z-MEDIDAS"):
+        continue
+    carimba = any(ZONA.get(b) in USADA_NA_COLETA for b in n.get("outbound", []))
+    devia = "Z-REGRAS" if carimba else "Z-MEDIDAS"
+    if devia != n["territory"]:
+        trocadas.append(f"{n['name']}: esta em {n['territory']}, medido como {devia}")
+prova("regua_que_carimba_nao_e_regua_que_mede", not trocadas,
+      "; ".join(trocadas[:4]))
+
 # ── a prateleira ─────────────────────────────────────────────────────────────
 GAVETAS = {z["folder"] for z in S["TERRITORIES"] if z.get("folder")}
 PASTA_DA_ZONA = {z["id"]: z.get("folder") for z in S["TERRITORIES"]}

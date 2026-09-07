@@ -150,9 +150,10 @@ pasta da sua peça:
 | 3 | AS FONTES | `fontes/` |
 | 4 | AS FERRAMENTAS | `ferramentas/` |
 | 5 | OS VEICULOS | *(sem pasta — cartões medidos)* |
-| 6 | AS ACOES DA COLETA | `coleta/` |
-| 7 | AS REGRAS E AS PALAVRAS | `regras/` |
+| 6 | AS REGUAS QUE CARIMBAM | `regras/` |
+| 7 | AS ACOES DA COLETA | `coleta/` |
 | 8 | A PORTA DE ADMISSAO | `admissao/` |
+| 9 | AS MEDIDAS DA COLETA | `medidas/` |
 | | **A ESPERA** *(faixa cinzenta)* | |
 |  | A SALA DE ESPERA | `guarda/` |
 | | **INTELIGÊNCIA** | |
@@ -202,6 +203,24 @@ ação, mesmo que o canal esteja no nome dela. O veículo é o **lugar**.
 Os cartões de veículo **não se escrevem à mão**: nascem de procurar o canal
 dentro do código de cada ação, e cada seta carrega o ficheiro e a linha onde ele
 aparece. Canal que ninguém chama fica em NÃO SEI, e é a verdade.
+
+### Régua que carimba não é régua que mede
+
+`regras/` e `medidas/` são coisas diferentes, e juntá-las escondia a mais
+importante das duas:
+
+| | quando trabalha | exemplos | gaveta |
+|---|---|---|---|
+| **CARIMBA** | no momento em que o item entra | de onde veio, quem está autorizado, as palavras, o contrato da fonte | `regras/` |
+| **MEDE** | depois, olhando para trás | o padrão da coleta, a saúde de cada fonte | `medidas/` |
+
+**Medir não é filtrar.** Uma régua que mede não barra nada — ela conta quanto
+falta. Pô-la antes das ações faz parecer que há peneira onde só há termômetro, e
+foi exatamente essa confusão que deixou a coleta anos sem porta de admissão.
+
+A divisão é **medida**, não escolhida: carimba quem é usada por uma ação no
+momento em que ela colhe. O teste `regua_que_carimba_nao_e_regua_que_mede`
+reprova se a gaveta deixar de bater com a medição.
 
 ### Fonte nasce; não aparece pronta
 

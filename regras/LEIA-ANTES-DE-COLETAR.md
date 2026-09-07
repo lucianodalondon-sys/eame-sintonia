@@ -37,31 +37,6 @@ Fonte nasce quando alguém a abre, olha o que ela entrega e guarda evidência.
 
 Cada uma vale no **momento em que o dado entra**. Depois é tarde.
 
-### A regra de coleta externa
-
-A lei que diz o que se coleta primeiro e o que nao pode ser esquecido: video, pesquisadores e LinkedIn nao sao acessorios.
-
-*Por que existe:* Veiculo sem regra atropela. A ordem de prioridade nao e gosto: video vem primeiro porque e a unica camada que entrega fala tecnica longa.
-
-| | |
-|---|---|
-| estado | PROVEN — o motor importa esta lei para decidir. |
-| onde vive | `docs/operacao/PORTOES-DE-COLETA-10B.md` |
-| onde vive | `docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md` |
-| onde vive | `regras/portao.py` |
-| onde vive | `regras/portoes_eame.py` |
-
-### A saude de cada fonte
-
-Diz se uma fonte respondeu bem, respondeu torto, ou nao respondeu.
-
-*Por que existe:* HTTP 200 nao basta: ha 200 com pagina de erro — status bom, corpo lixo. Por isso a checagem e de schema e identidade. E lista vazia e FALHA, nunca 'zero resultados': a diferenca entre 'nao ha' e 'nao consegui ver' e a diferenca entre um relatorio e uma mentira.
-
-| | |
-|---|---|
-| estado | PROVEN — o motor importa esta lei para decidir. |
-| onde vive | `regras/source_health.py` |
-
 ### As palavras que a busca digita
 
 Os termos de busca, agrupados por pais-cultura-problema, na lingua de quem trabalha no campo daquele pais.
@@ -74,17 +49,6 @@ Os termos de busca, agrupados por pais-cultura-problema, na lingua de quem traba
 | onde vive | `regras/rotulos_censo.py` |
 | onde vive | `regras/sensor_coleta.py` |
 | onde vive | `regras/sensor_medir.py` |
-
-### Cicatrizes do Brasil (lei portada)
-
-Traz para o EAME as leis que o Brasil ja aprendeu na dor, em vez de reinventar cada uma.
-
-*Por que existe:* O EAME nao inventa contrato novo quando o Brasil ja tem lei madura para a mesma pergunta.
-
-| | |
-|---|---|
-| estado | PROVEN — existe teste que exercita esta lei. |
-| onde vive | `regras/cicatrizes_brasil.py` |
 
 ### De onde veio — carimbado na coleta
 
@@ -112,41 +76,6 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 | onde vive | `regras/italy_pilot_guards.mjs` |
 | onde vive | `regras/italy_scheduling_guards.mjs` |
 | onde vive | `regras/italy_source_health.mjs` |
-
-### O lugar do fato — carimbado na coleta
-
-Separa o lugar de onde o documento veio do lugar onde o fato aconteceu, e propoe o candidato lendo o texto na lingua do pais.
-
-*Por que existe:* Uma fonte italiana a falar de Espanha nao torna o fato italiano. Esta e das licoes que o Brasil ensinou a esta casa, e so vale se for aplicada quando o dado entra.
-
-| | |
-|---|---|
-| estado | PROVEN — o motor importa esta lei para decidir. |
-| onde vive | `regras/fato_local.py` |
-| onde vive | `regras/lugar_do_fato.py` |
-
-### O padrao do departamento de coleta
-
-Mede seis coisas em toda a coleta — ficha antes de coletar, carimbo de data, fonte separada do fato, descarte registado, rendimento e custo — e reprova se alguma piorar.
-
-*Por que existe:* Medir uma vez nao conserta nada. Ele nao exige que esteja tudo certo hoje: exige NAO PIORAR. «Esta tudo certo» nao e executavel hoje; «nao piorou» e. A divida fica a vista, com nome e numero, em vez de virar silencio.
-
-| | |
-|---|---|
-| estado | PROVEN — esta no caminho: alguem o chama antes de publicar. |
-| onde vive | `data/samples/PADRAO-DA-COLETA-CHAO.json` |
-| onde vive | `regras/padrao_da_coleta.py` |
-
-### O que a coleta tem de trazer
-
-O contrato de campos por video — 32 campos, em codigo — e a regua de como o sistema fala do que colheu.
-
-*Por que existe:* A lista esta em codigo para que o proximo pais nao a redigite e nao a encolha em silencio. Sinal nao vira pedido, ausencia nao vira negativo.
-
-| | |
-|---|---|
-| estado | PROVEN — o motor importa esta lei para decidir. |
-| onde vive | `regras/voz.py` |
 
 ### Quem esta autorizado a ser coletado
 
@@ -177,7 +106,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 ## O PADRÃO, E O CHÃO QUE NÃO DESCE
 
 ```bash
-py regras/padrao_da_coleta.py
+py medidas/padrao_da_coleta.py
 ```
 
 Dez regras medidas a cada corrida do CI. Ele **não** exige que esteja tudo
@@ -216,4 +145,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 10 réguas, 5 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 4 réguas, 5 ferramentas e 2 peças de fonte declaradas no mapa.

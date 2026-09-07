@@ -259,7 +259,7 @@ todas do lugar do FATO, em `conteudo` — tabela que a importação do catálogo
 `conteudo`, e é exatamente ali que as quatro lacunas moram. Chamar isso de READY faria
 `READY` significar "o EAME inteiro pode coletar", que é falso.
 
-Nada disso é decidido por este texto. `regras/portoes_eame.py` **deriva** o estado de cada
+Nada disso é decidido por este texto. `medidas/portoes_eame.py` **deriva** o estado de cada
 portão das cicatrizes de que ele depende, e `tests/test_portoes_eame.py` fecha a saída
 fácil: tirar a família da localização da lista do portão da coleta o faria virar READY sem
 resolver nada — e há um teste que reprova essa edição, e uma mutação que confirma que o

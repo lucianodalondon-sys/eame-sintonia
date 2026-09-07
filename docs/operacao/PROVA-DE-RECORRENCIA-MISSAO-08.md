@@ -125,7 +125,7 @@ E **1.998 tem data de validade**: cai sozinho em 03 e 30/09/2026, com a fonte no
 
 ## 4 · DEGRADAÇÃO DE FONTE — 11 formas de apodrecer, 11 falham fechado
 
-`tests/test_operacao.py::TestDegradacaoDeFonte`, contra `regras/source_health.py`.
+`tests/test_operacao.py::TestDegradacaoDeFonte`, contra `medidas/source_health.py`.
 
 | o que acontece | resultado | perigoso? |
 |---|---|---|
