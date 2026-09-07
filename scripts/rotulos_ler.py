@@ -296,7 +296,8 @@ def ler_herbicida(texto):
             # infinitivo e um titulo de faixa de sensibilidade tem a forma de
             # binomio latino, e o espectro do herbicida esta cheio dos dois.
             if (NAO_E_ALVO.match(lit) or len(lit) < 7 or lit.lower() in vistos
-                    or VERBO_ITALIANO.match(lit) or LEGENDA_DA_TABELA.match(lit)):
+                    or VERBO_ITALIANO.match(lit) or LEGENDA_DA_TABELA.match(lit)
+                    or NOME_DE_SECCAO.match(lit)):
                 continue
             vistos.add(lit.lower())
             daninhas.append(lit)
@@ -522,6 +523,13 @@ def _e_nome_de_cultura_solto(lit):
 # O infinitivo italiano, na abertura de um falso binomio.
 VERBO_ITALIANO = re.compile(r'^[A-Z][a-z]*(?:are|ere|ire)\s', re.U)
 
+# E O SUBSTANTIVO ABSTRACTO QUE ABRE UMA SECCAO TAMBEM NAO E UM GENERO.
+# «Preparazione della soluzione» e «Autorizzazione ministero» tem a forma de
+# binomio e sao o titulo do paragrafo seguinte. O italiano constroi estes nomes
+# com -zione e -mento; o latim nao nomeia generos assim. Medido contra os 415
+# literais distintos: apanha tres, e as tres sao titulos.
+NOME_DE_SECCAO = re.compile(r'^[A-Z][a-zà-ÿ]*(?:zione|zioni|mento|menti)\b', re.U)
+
 # A LEGENDA DA TABELA NAO E UM ORGANISMO.
 # «Moderatamente suscettibili» e «Moderatamente tollerante» sao os TITULOS das
 # faixas de sensibilidade de um espectro de herbicida, e «Cereali autunno» e a
@@ -555,7 +563,8 @@ def alvos_da_linha(texto):
         # Medido contra os 343 literais distintos ja lidos: apanha 11, e as 11
         # sao frases de instrucao («Applicare alla», «Irrorare omogeneamente»,
         # «Svuotare completamente»). Nenhum alvo verdadeiro cai aqui.
-        if VERBO_ITALIANO.match(lit) or LEGENDA_DA_TABELA.match(lit):
+        if (VERBO_ITALIANO.match(lit) or LEGENDA_DA_TABELA.match(lit)
+                or NOME_DE_SECCAO.match(lit)):
             continue
         if _e_nome_de_cultura_solto(lit):
             continue

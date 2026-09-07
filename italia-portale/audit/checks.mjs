@@ -828,9 +828,12 @@ check('H2', 'The V2.1 universe counts are MEASURED, not declared', () => {
      verbos no infinitivo como organismos, a leitura subiu de 102 para 119 dos
      163 rotulos. O universo cresceu porque se leu mais do MESMO documento —
      os 163 PDF sao byte a byte os de 02/09, sha256 conferido um a um.
+     Segunda subida declarada, 2.389 -> 2.702: o cabecalho da seccao de uso pedia
+     «MODALITA» sem acento e o rotulo escreve «MODALITÀ». Quarenta e seis
+     etiquetas tinham a seccao inteira do outro lado desse caractere.
      Os numeros que NAO podiam mexer nao mexeram: 43 casos e os cinco estados
      canonicos, verificados no CANONICAL-PACKAGE-CONTRACT. */
-  eq('label use pairs', C.productRelationships.count, 2389);
+  eq('label use pairs', C.productRelationships.count, 2702);
   eq('active substances', C.activeIngredients.count, 53);
   /* CROPS and TARGETS are the label corpus's own vocabulary, recounted from the
      pairs rather than read off a list anybody typed. */

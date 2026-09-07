@@ -2,25 +2,25 @@
   "DATASET": "SINTONIA-CANONICAL-PACKAGE-CONTRACT-V1",
   "LEI": "o que qualquer pacote tem de provar para atravessar a fronteira do site. Um so dono: este ficheiro. Quem verifica em JS e quem verifica em Python leem daqui, para a regra nao existir em duas linguas e divergir na terceira vez que alguem a mudar.",
   "CAPTURED_AT": "2026-09-07",
-  "SOURCE": "medido em 40477d5 (claude/acervo-to-package-intelligence-v1, a mesma linhagem canonica de 5101073) pela cadeia canonica. O determinismo foi provado ANTES de mudar o input: com os 2030 pares antigos a cadeia reproduziu V21-06c6421d001ea52a exactamente. So depois o input passou a 2389.",
+  "SOURCE": "medido em b0103bc (claude/acervo-to-package-intelligence-v1) pela cadeia canonica. O determinismo desta linhagem ja tinha sido provado na safra anterior, reproduzindo V21-06c6421d001ea52a byte a byte com o input antigo.",
   "CANONICAL_GENERATOR": {
     "LINHAGEM": "claude/acervo-to-package-intelligence-v1",
-    "COMMIT": "40477d5eec9bdcd35a858c7fe8e685d9875da620",
+    "COMMIT": "b0103bc",
     "PORQUE": "a inteligencia tem UM dono. A Linha B consome; nao gera, nao decide e nao arbitra.",
     "A_CADEIA_LOCAL_DESTA_LINHAGEM_ESTA_ATRASADA": true,
     "O_QUE_ELA_PRODUZ_SE_CORRIDA_AQUI": "V21-5d312cb90a0de01d — sem MEETING_SURFACE_RULE e com PREPARE_NOW em 11 casos",
     "COMMIT_ANTERIOR": "51010733be8a846a280e5f52e7e50d671c68a18f"
   },
-  "EXPECTED_BUILD_ID": "V21-fb74d2728213e8dd",
+  "EXPECTED_BUILD_ID": "V21-15071cc31d3461d3",
   "EXPECTED_CASES": 43,
   "REVOKED_STATES": [
     "PREPARE_NOW"
   ],
   "CANONICAL_STATES": {
-    "WATCH": 22,
+    "WATCH": 21,
     "TO_VALIDATE": 9,
     "FUTURE_PREPARATION": 7,
-    "VALIDATE_NOW": 3,
+    "VALIDATE_NOW": 4,
     "ACT_NOW": 2
   },
   "SURFACE_RULE_FIELDS": [
@@ -36,14 +36,17 @@
     "V21-5d312cb90a0de01d": "o que a cadeia local desta linhagem produz hoje: PREPARE_NOW em 11 casos",
     "V21-69bf448ac934a6d9": "a safra de 55c2674: 43 casos e vereditos identicos aos de hoje, mas sem a camada de declaracao de cortes (CROSS_INTELLIGENCE_*, PORTFOLIO_*, EVIDENCE_SCAN_*) e com 55 pares produto x cultura em vez de 213",
     "V21-044e4924854d5f0a": "a safra de 5fac11f: mesmos 43 casos e mesmos vereditos, mas sem TRANSCRIPTS, sem SCIENCE-CORPUS e sem FACT-TIME-PLACE-V1",
-    "V21-06c6421d001ea52a": "a safra de 5101073 com o rotulo lido a 02/09: 2030 pares de uso, 102 dos 163 rotulos lidos. Mesmos 43 casos e mesmos vereditos que a safra actual — o que mudou foi so quanto do rotulo se conseguiu ler."
+    "V21-06c6421d001ea52a": "a safra de 5101073 com o rotulo lido a 02/09: 2030 pares de uso, 102 dos 163 rotulos lidos. Mesmos 43 casos e mesmos vereditos que a safra actual — o que mudou foi so quanto do rotulo se conseguiu ler.",
+    "V21-fb74d2728213e8dd": "a safra de 40477d5: 2.389 pares e 119 dos 163 rotulos lidos. Mesmos 43 casos, mas WATCH 22 e VALIDATE_NOW 3 — antes de o acento de «MODALITÀ» destapar o FOLPAN 80 WDG para o caso Pomodoro x Peronospora."
   },
   "FAIL_CLOSED": true,
   "PORQUE_FAIL_CLOSED": "um portao que avisa e um portao que se ignora na sexta-feira a noite. Se a proveniencia nao se prova, a build para — nao passa com aviso.",
   "O_QUE_MUDOU_NESTA_SAFRA": {
-    "PRODUCT_RELATIONSHIPS": "2030 -> 2389",
-    "ROTULOS_LIDOS": "102/163 -> 119/163",
-    "PORQUE": "rotulos_ler.py passou a reconhecer a coluna «Malattia fungina» dos rotulos de fungicida, deixou de tratar uma frase como cabecalho de tabela (o que fechava a porta do herbicida a quatro produtos) e deixou de ler verbos no infinitivo e legendas de tabela como se fossem organismos.",
-    "O_QUE_NAO_MUDOU": "os 43 casos e os cinco CANONICAL_STATES, identicos. Ler melhor o rotulo liga mais produto ao caso; nao promove caso nenhum."
+    "PRODUCT_RELATIONSHIPS": "2389 -> 2702",
+    "ROTULOS_LIDOS": "119/163 -> 132/163",
+    "ESTADO_QUE_MEXEU": "WATCH 22 -> 21 e VALIDATE_NOW 3 -> 4",
+    "QUAL_CASO": "OPP_EA2AE1EFB775 · Pomodoro x Peronospora · O1_FIELD_PRESSURE",
+    "PORQUE": "o padrao do cabecalho pedia «MODALITA» sem acento e o rotulo escreve «MODALITÀ»: a seccao de uso de 46 etiquetas ficava do outro lado de um caractere. Destapada, o FOLPAN 80 WDG le-se em POMODORO contro Peronospora (Phytophthora infestans) — cultura e alvo na mesma frase, BLOCO_DA_CULTURA — e o caso deixa de ter SEM_VINCULO_COM_PORTFOLIO. Nao e uma promocao nossa: e o motor a deixar de ter razao para dizer que nao havia produto.",
+    "O_QUE_NAO_MUDOU": "43 casos, TO_VALIDATE 9, FUTURE_PREPARATION 7, ACT_NOW 2."
   }
 }

@@ -569,7 +569,16 @@ check('HARDCODE_43_CANNOT_PASS', () => {
   /* So o CODIGO, nunca o comentario: um numero citado numa nota nao desenha
      nada, e proibi-lo obrigaria a escrever notas que nao podem explicar-se. */
   const TRIPLA = String.fromCharCode(34, 34, 34);
-  const semComentarios = (src, tipo) => (tipo === 'js'
+  /* E TAMBEM NAO E O QUANTIFICADOR DE UMA EXPRESSAO REGULAR.
+     A lei de relevancia trouxe SEGNALI a 4, e `it_casa_dados.py` tem
+     `[0-9a-fA-F]{4}` (o comprimento de um escape unicode) e `\d{4}` (o de um
+     ano). Nenhum dos dois conta coisa nenhuma — sao a forma da expressao, nao
+     uma populacao. Uma populacao nunca se escreve `{43}`.
+
+         AFINAR O DETECTOR NAO E AFROUXAR A REGRA — outra vez, e pela mesma
+         razao: um portao que acusa o que nao e defeito ensina a ignora-lo. */
+  const semQuantificador = (src) => src.replace(/\{\s*\d+\s*(,\s*\d*)?\s*\}/g, ' ');
+  const semComentarios = (src, tipo) => semQuantificador(tipo === 'js'
     ? src.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|\s)\/\/[^\n]*/g, ' ')
     : src.replace(new RegExp(TRIPLA + '[\\s\\S]*?' + TRIPLA, 'g'), ' ').replace(/#[^\n]*/g, ' '));
   const alvos = [OA.TOTALE, OA.OPPORTUNITA, OA.RADAR, OA.SEGNALI];
@@ -600,6 +609,8 @@ check('HARDCODE_43_CANNOT_PASS', () => {
   if (!ve(`if (n === ${OA.RADAR}) {}`, OA.RADAR)) bad.push('CONTROLO NEGATIVO FALHOU: nao ve o numero numa comparacao');
   if (ve(`/* sono ${OA.TOTALE} */`, OA.TOTALE)) bad.push('CONTROLO NEGATIVO FALHOU: acusa o numero citado num comentario');
   if (ve(`decode('utf-${OA.SEGNALI}')`, OA.SEGNALI)) bad.push('CONTROLO NEGATIVO FALHOU: acusa um digito dentro de outro token');
+  if (ve(`re.compile(r'\\d{${OA.SEGNALI}}')`, OA.SEGNALI, 'py')) bad.push('CONTROLO NEGATIVO FALHOU: acusa o quantificador de uma expressao regular');
+  if (!ve(`var n = ${OA.SEGNALI};`, OA.SEGNALI)) bad.push('CONTROLO NEGATIVO FALHOU: deixou de ver o numero pequeno escrito a mao');
   return { pass: !bad.length, detail: bad.length ? bad
     : [`${alvos.join(', ')} nao existem como literais na vista nem no gerador — todos derivados`,
        'controlo negativo: um numero escrito a mao SERIA apanhado; o mesmo numero num comentario nao'] };
