@@ -1,0 +1,177 @@
+# SINTONIA SYSTEM MAP
+
+O mapa navegável da arquitetura real do SINTONIA EAME.
+
+**A lei está em [`../AGENTS.md`](../AGENTS.md).** Este ficheiro explica como a
+coisa funciona por dentro.
+
+---
+
+## PARA QUE SERVE
+
+Para entender o sistema **sem saber programar**. Passando o rato numa peça,
+aparece o que ela faz, por que existe, de onde recebe, para onde envia, o status
+e o motivo do status — em português comum. Clicando, abre o detalhe todo: os
+ficheiros reais, as ligações com a linha de código que as prova, os
+departamentos atendidos e a fonte de cada declaração.
+
+É um instrumento permanente de arquitetura e auditoria. Não é documentação
+decorativa, e não é uma segunda verdade: se ele e o repositório discordarem,
+quem está errado é ele, e o CI reprova.
+
+---
+
+## OS COMANDOS
+
+```bash
+py system-map/scripts/generate_system_map.py    # regerar (scan + estado + build)
+py system-map/scripts/validate_system_map.py    # validar (10 provas, falha fechado)
+py system-map/tests/test_system_map.py          # provar que as regras não afrouxaram
+py system-map/scripts/scan_repo.py              # só medir o repositório
+```
+
+Em Linux e no CI, `python3` em vez de `py`. Sem dependências: só biblioteca
+padrão, de propósito — um mapa de arquitetura que precisa de pacote de terceiro
+para ser gerado tem uma dependência que ele próprio não consegue explicar.
+
+Para ver localmente (o `fetch` do estado precisa de um servidor, não de
+`file://`):
+
+```bash
+python3 -m http.server -d italia-portale/client 8080
+```
+
+e abra `http://localhost:8080/system-map/`.
+
+---
+
+## AS PEÇAS
+
+```
+system-map/
+  README.md                        este ficheiro
+  app/                             a TELA — só renderiza, não sabe nada
+    index.html  map.js  map.css
+  data/
+    architecture.declared.json     o que o HUMANO declara (nome, frase, departamento)
+    architecture.generated.json    o que a MÁQUINA mede (ficheiros, imports, chamadas)
+    state.generated.json           o resultado: peças, ligações, status  ← a tela lê isto
+  scripts/
+    scan_repo.py                   lê o repositório e devolve factos
+    generate_system_map.py         junta medido + declarado, calcula status, publica a app
+    validate_system_map.py         o dente da lei — roda no CI
+  tests/
+    test_system_map.py             provas das regras do mapa
+```
+
+O resultado publicável é copiado para `italia-portale/client/system-map/`, que
+é o que a Vercel serve (`vercel.json` → `outputDirectory`). Essa pasta é
+**derivada**: não se edita lá, edita-se em `app/` e regera-se.
+
+---
+
+## A SEPARAÇÃO QUE SUSTENTA TUDO
+
+```
+architecture.generated.json     MEDIDO    ficheiro, import, chamada, workflow, artefato, SHA
+architecture.declared.json      DECLARADO nome, o que faz, por que existe, departamento
+```
+
+**Declaração não promove a verde.** Um humano pode escrever que A alimenta B; se
+o scanner não achou linha nenhuma que prove, a ligação aparece a tracejado, em
+cinza, com `⚪ NÃO SEI` escrito. O contrário também vale: o scanner pode achar um
+import que ninguém declarou, e ele entra no mapa na mesma — porque é um facto.
+
+Relação **técnica** e relação de **negócio** vivem em listas separadas.
+`A importa B` e `A serve o Comercial` são factos de naturezas diferentes, e
+misturá-los faz o segundo herdar a credibilidade do primeiro sem a merecer.
+Departamento só entra com `source`, `reason` e `declared_by` — nunca inferido
+do nome do ficheiro.
+
+---
+
+## COMO O STATUS NASCE
+
+Não há escolha; há regra, e ela é diferente por tipo de peça (`prova_do_tipo()`
+no gerador), porque exigir de um teste a mesma prova que de um artefato seria
+exigir o impossível de um deles.
+
+| | | |
+|---|---|---|
+| 🟢 | `PROVEN` | a prova própria do tipo passou, e a descrição humana ainda vale |
+| 🟡 | `PENDING` | existe e está ligada, mas falta a prova do tipo — ou mudou depois da última leitura humana |
+| 🔴 | `BROKEN` | declarada no mapa e ausente do repositório |
+| ⚪ | `UNKNOWN` | **NÃO SEI** — existe, e nada aponta para ela nem ela aponta para nada |
+
+**Verde nunca significa "o ficheiro existe".**
+
+### O carimbo — por que o verde não envelhece
+
+`DECLARED_BLOBS` guarda o SHA de cada ficheiro no momento em que uma pessoa leu
+e declarou aquela peça. Quando o ficheiro muda, a descrição humana passa a estar
+**potencialmente desatualizada** e a peça cai sozinha para 🟡, dizendo qual
+ficheiro mudou. Volta a 🟢 quando alguém relê e recarimba:
+
+```bash
+py system-map/scripts/generate_system_map.py --stamp
+```
+
+Recarimbar sem reler é o único jeito de mentir neste sistema.
+
+---
+
+## DETERMINISMO
+
+Mesma árvore + mesmo HEAD = **byte a byte** o mesmo ficheiro. Por isso
+`GENERATED_AT` é a data do **commit**, nunca `datetime.now()`: um relógio dentro
+do artefato faria o CI acusar drift a cada minuto, e a lei perderia os dentes
+numa semana.
+
+---
+
+## O DESIGN SYSTEM
+
+A tela carrega os tokens oficiais do ADAMA Design System de
+`italia-portale/client/_ds/adama-brandwell/`. Nenhuma cor de marca é escrita à
+mão.
+
+```
+ADAMA_DESIGN_SYSTEM_MATCH = NOT_FOUND   (só para a rampa de STATUS)
+NEW_PATTERN_REQUIRED = YES
+```
+
+**Motivo:** o BrandWell não tem cor de erro. Tem quatro cores de *categoria de
+produto* (laranja, verde, azul, roxo) e nenhuma delas significa "quebrado".
+Pintar peça quebrada de roxo Pest Control daria a uma cor de marca um segundo
+significado, e a partir daí nenhuma das duas leituras seria confiável. Por isso:
+
+```
+TERRITÓRIO  → cor de marca ADAMA (preenchimento e cabeçalho)
+STATUS      → rampa própria de engenharia (bolinha + contorno)
+```
+
+O único valor fora do BrandWell é o vermelho de erro (`#c2321f`). Está
+declarado no topo de `app/map.css`.
+
+---
+
+## MUDAR PELO MAPA — AINDA NÃO
+
+A tela é **leitura**. Clicar nela não altera código. A arquitetura já está
+preparada para um "solicitar alteração" futuro, mas a ordem nunca muda:
+
+```
+agente → implementação no repo → testes → commit → CI → mapa regenerado
+```
+
+Nunca `browser → desenha seta → vira verdade`.
+
+---
+
+## O QUE O MAPA NÃO COBRE
+
+`state.generated.json` diz na cara, em `UNCLAIMED_FILES_COUNT`: os ficheiros de
+**dado**, documento e evidência que nenhuma peça reivindica. É de propósito —
+o mapa é da arquitetura, não do acervo. O que ele **exige** cobrir é o código:
+`scripts/`, `italia-portale/audit/`, `tests/`, `system-map/`. Um ficheiro de
+código sem peça no mapa reprova o CI (`P9_CODIGO_DECLARADO`).

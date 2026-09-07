@@ -1,0 +1,1362 @@
+{
+  "SCHEMA": "sintonia.system-map.declared/1",
+  "NOTA": [
+    "Este ficheiro carrega o que o codigo NAO consegue saber sozinho: o nome de gente,",
+    "a frase que explica para que serve, o departamento que consome, a expectativa",
+    "arquitetural. Tudo o mais — que ficheiro existe, quem importa quem, quem roda o",
+    "que — e MEDIDO pelo scanner e nunca escrito aqui a mao.",
+    "",
+    "REGRA: nada aqui cria verdade tecnica. Se este ficheiro disser que A alimenta B e",
+    "o scanner nao achar linha nenhuma que prove, o mapa mostra a aresta como EXPECTED",
+    "e o status vai para AMARELO com o motivo escrito. Declaracao nao promove a verde.",
+    "",
+    "DECLARED_BLOBS e carimbado pela maquina (`generate_system_map.py --stamp`). Quando",
+    "um ficheiro do componente muda, a descricao humana passa a estar POTENCIALMENTE",
+    "DESATUALIZADA e o componente cai de verde para amarelo ate alguem reler e recarimbar.",
+    "E de proposito: descricao velha em mapa verde e pior do que nao ter mapa."
+  ],
+  "DEPARTMENTS": {
+    "DESENVOLVIMENTO_MERCADO": "Desenvolvimento de Mercado — destinatario proprio, nao e Marketing nem Comercial nem Inteligencia.",
+    "COMERCIAL": "Comercial / vendas.",
+    "MARKETING": "Marketing.",
+    "TECNICO_CIENCIA": "Tecnico / Ciencia agronomica.",
+    "REGULATORIO_PORTFOLIO": "Regulatorio e Portfolio.",
+    "FIELD_SALES": "Field Sales.",
+    "INTELIGENCIA": "Inteligencia de mercado.",
+    "LIDERANCA": "Lideranca.",
+    "ENGENHARIA": "Engenharia do proprio SINTONIA (nao e departamento da ADAMA)."
+  },
+  "TERRITORIES": [
+    {
+      "id": "T-FONTE",
+      "name": "FONTES E COLETA",
+      "why": "De onde o dado entra. Nada existe no SINTONIA sem passar por aqui primeiro."
+    },
+    {
+      "id": "T-REGUA",
+      "name": "REGUAS E LEIS",
+      "why": "As leis que decidem o que conta como verdade. Quem manda no significado do dado."
+    },
+    {
+      "id": "T-MOTOR",
+      "name": "MOTOR — CADEIA V2.1",
+      "why": "Onde o dado bruto vira caso. A ordem importa e nao e adivinhavel."
+    },
+    {
+      "id": "T-PACOTE",
+      "name": "PACOTE CANONICO",
+      "why": "O artefacto fechado que o portal serve. Derivado — nunca dono da lei."
+    },
+    {
+      "id": "T-PORTAL",
+      "name": "PORTAL (o que o cliente ve)",
+      "why": "A superficie. Apresenta decisao ja tomada pelo motor; nao recalcula nada."
+    },
+    {
+      "id": "T-PORTAO",
+      "name": "PORTOES E AUDITORIA",
+      "why": "O que impede coisa errada de chegar ao cliente. Falha fechado, de proposito."
+    },
+    {
+      "id": "T-PERSIST",
+      "name": "PERSISTENCIA",
+      "why": "Onde o dado fica guardado entre uma corrida e outra."
+    },
+    {
+      "id": "T-CI",
+      "name": "CI E EXECUCAO",
+      "why": "Quem roda o que, quando, e em que maquina."
+    },
+    {
+      "id": "T-PROVA",
+      "name": "TESTES E PROVA",
+      "why": "O que transforma 'eu acho' em 'esta provado'."
+    },
+    {
+      "id": "T-DS",
+      "name": "DESIGN SYSTEM ADAMA",
+      "why": "A forma. Fonte visual oficial — extrato local dos tokens."
+    },
+    {
+      "id": "T-MAPA",
+      "name": "SYSTEM MAP",
+      "why": "Este proprio instrumento. Aparece no mapa porque tambem e parte do sistema."
+    }
+  ],
+  "COMPONENTS": [
+    {
+      "id": "C-APIFY-POOL",
+      "name": "Pool de tokens Apify",
+      "territory": "T-FONTE",
+      "kind": "library",
+      "what": "Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.",
+      "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "scripts/apify_pool.py",
+        "scripts/apify_contrato.py",
+        "scripts/apify_recuperar.py",
+        "scripts/contrato_ator.py"
+      ]
+    },
+    {
+      "id": "C-COLETA-PUBLICA",
+      "name": "Coleta de comunicacao publica do concorrente",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
+      "why_here": "Saber o que o concorrente esta dizendo em publico, sem depender de ninguem contar.",
+      "departments": [
+        "INTELIGENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "scripts/comunicacao_*.py"
+      ]
+    },
+    {
+      "id": "C-COLETA-INSTAGRAM",
+      "name": "Coleta Instagram",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
+      "why_here": "Boa parte da fala real de produtor e de tecnico nao esta em texto — esta em video.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "scripts/instagram_*.py"
+      ]
+    },
+    {
+      "id": "C-COLETA-BASE",
+      "name": "Coletor e portoes de coleta",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "O motor generico de coleta e o portao que decide, de graca, se vale gastar maquina antes de gastar.",
+      "why_here": "Coletar sem portao ja custou execucoes pagas que devolveram o alvo errado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "scripts/coletor.py",
+        "scripts/coleta_checkpoint.py",
+        "scripts/portao*.py",
+        "scripts/portoes*.py",
+        "scripts/filas.py",
+        "scripts/cdp.py"
+      ]
+    },
+    {
+      "id": "C-FONTES-EU",
+      "name": "Fontes regulatorias e cientificas europeias",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
+      "why_here": "Fonte oficial e o unico chao que nao depende de alguem ter postado.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "scripts/eppo_gd.py",
+        "scripts/ephy.sh",
+        "scripts/agrifood_ue.py",
+        "scripts/denominaciones.py",
+        "scripts/cellar.sh",
+        "scripts/eu_substancia_adama_it.py",
+        "scripts/regulatorio*.py"
+      ]
+    },
+    {
+      "id": "C-CORPUS",
+      "name": "Corpus de voz e de pesquisador",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
+      "why_here": "A voz do campo e a ciencia sao duas evidencias diferentes e nao podem virar a mesma coisa.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "scripts/corpus_*.py",
+        "scripts/speaker*.py",
+        "scripts/sensor*.py"
+      ]
+    },
+    {
+      "id": "C-PROVENIENCIA",
+      "name": "Regua de procedencia",
+      "territory": "T-REGUA",
+      "kind": "contract",
+      "what": "Decide de onde cada afirmacao veio e nao deixa a origem se perder no caminho.",
+      "why_here": "Sem procedencia, um numero vira verdade so porque esta escrito.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "scripts/proveniencia.py",
+        "scripts/v21_procedencia_contrato.py",
+        "scripts/v21_procedencia_religar.py",
+        "scripts/v21_carimbar_origem.py"
+      ]
+    },
+    {
+      "id": "C-LUGAR-DO-FATO",
+      "name": "Regua do lugar do fato",
+      "territory": "T-REGUA",
+      "kind": "contract",
+      "what": "Separa o lugar onde o fato aconteceu do lugar de onde o documento foi publicado.",
+      "why_here": "Fonte italiana falando de Espanha nao torna o fato italiano. Esta lei impede essa troca.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "scripts/fato_local.py",
+        "scripts/lugar*.py",
+        "scripts/v21_geografia_contrato.py",
+        "scripts/gire_mapas.py"
+      ]
+    },
+    {
+      "id": "C-DATA-CLOCK",
+      "name": "Regua do tempo",
+      "territory": "T-REGUA",
+      "kind": "contract",
+      "what": "Decide qual data vale: a do fato, nao a da publicacao, e nunca a data regulatoria virando janela agronomica.",
+      "why_here": "Trocar data de publicacao por data do fato desloca a safra inteira.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "REGULATORIO_PORTFOLIO"
+      ],
+      "files": [
+        "scripts/data_clock.py",
+        "scripts/v21_datas*.py",
+        "scripts/calendario_*.py"
+      ]
+    },
+    {
+      "id": "C-RELEVANCIA",
+      "name": "Regua de relevancia ADAMA",
+      "territory": "T-REGUA",
+      "kind": "contract",
+      "what": "Decide se um sinal interessa a ADAMA, e o quanto.",
+      "why_here": "Ha um unico dono da relevancia. Duas reguas de relevancia sao duas verdades.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "scripts/adama_relevance.py",
+        "scripts/regua*.py",
+        "scripts/auditoria_regua_comercial.py"
+      ]
+    },
+    {
+      "id": "C-CICATRIZES-BR",
+      "name": "Cicatrizes do Brasil (lei portada)",
+      "territory": "T-REGUA",
+      "kind": "contract",
+      "what": "Traz para o EAME as leis que o Brasil ja aprendeu na dor, em vez de reinventar cada uma.",
+      "why_here": "O EAME nao inventa contrato novo quando o Brasil ja tem lei madura para a mesma pergunta.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "scripts/cicatrizes_brasil.py"
+      ]
+    },
+    {
+      "id": "C-VOZ",
+      "name": "Regua da voz",
+      "territory": "T-REGUA",
+      "kind": "contract",
+      "what": "Guarda como o sistema fala: sinal nao vira pedido, ausencia nao vira negativo.",
+      "why_here": "A maior parte do erro de leitura nasce na frase, nao no numero.",
+      "departments": [
+        "DESENVOLVIMENTO_MERCADO",
+        "MARKETING"
+      ],
+      "files": [
+        "scripts/voz.py",
+        "scripts/texto*.py"
+      ]
+    },
+    {
+      "id": "C-ADAMA-CATALOGO",
+      "name": "Catalogo de produtos ADAMA",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Monta e le o catalogo de produtos da propria ADAMA em cada pais.",
+      "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "COMERCIAL"
+      ],
+      "files": [
+        "scripts/adama_catalogo_*.py",
+        "scripts/catalogo_importar.py",
+        "scripts/importar_italia.py",
+        "scripts/it_casa_dados.py"
+      ]
+    },
+    {
+      "id": "C-ADAMA-IT",
+      "name": "Inteligencia de produto ADAMA Italia",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Le rotulo, modo de acao, substancia europeia e lacuna de portfolio da ADAMA na Italia.",
+      "why_here": "A Italia e o piloto: e onde a leitura de portfolio foi provada primeiro.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "scripts/adama_it_*.py",
+        "scripts/universo_ciencia_it.py",
+        "scripts/testa_rota_italia.py"
+      ]
+    },
+    {
+      "id": "C-ADAMA-ES",
+      "name": "Portao e importacao ADAMA Espanha",
+      "territory": "T-FONTE",
+      "kind": "gate",
+      "what": "Confere as regras de importacao do catalogo espanhol antes de ele entrar.",
+      "why_here": "A Espanha entrou depois e com fonte diferente; sem portao proprio ela contaminaria a base.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO"
+      ],
+      "files": [
+        "scripts/adama_es_*.py",
+        "scripts/freeze_es.py",
+        "scripts/proto_es.py"
+      ]
+    },
+    {
+      "id": "C-ROTULOS",
+      "name": "Rotulos",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
+      "why_here": "O rotulo e o unico documento que diz o que e legalmente permitido fazer com o produto.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "scripts/rotulos_*.py",
+        "scripts/cruzar_regua_rotulo.py",
+        "scripts/pdf_text.py",
+        "scripts/preservar_pdf.py",
+        "scripts/mapa_regfi.py",
+        "scripts/ropf_pre_requisito.py"
+      ]
+    },
+    {
+      "id": "C-V2-LEGADO",
+      "name": "Cadeia V2 (legado)",
+      "territory": "T-MOTOR",
+      "kind": "engine",
+      "what": "A geracao anterior do motor, antes da V2.1.",
+      "why_here": "Continua no repositorio e por isso aparece no mapa — mas nao e a cadeia oficial de hoje.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": true,
+      "files": [
+        "scripts/v2_*.py"
+      ]
+    },
+    {
+      "id": "C-V21-COMERCIAL",
+      "name": "Leitura comercial e completude",
+      "territory": "T-MOTOR",
+      "kind": "engine",
+      "what": "Mede se o caso esta completo o bastante para virar conversa comercial, e reavalia quando muda.",
+      "why_here": "Caso incompleto virando pedido de venda e o erro mais caro que este sistema pode cometer.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "scripts/v21_comercial.py",
+        "scripts/v21_completude_oportunidade.py",
+        "scripts/v21_necessidade.py",
+        "scripts/v21_reavaliar_35.py",
+        "scripts/v21_reverificacao_ledger.py",
+        "scripts/v21_antes_e_depois.py",
+        "scripts/v21_campos_de_lingua.py",
+        "scripts/v21_adama_registro_validar.py",
+        "scripts/v21_tm_colher.py"
+      ]
+    },
+    {
+      "id": "C-LASTMILE",
+      "name": "Ultima milha da entrega",
+      "territory": "T-PACOTE",
+      "kind": "engine",
+      "what": "Leva o resultado ate onde ele e consumido: inventario, relatorio, banco e entrega final.",
+      "why_here": "Resultado que fica no disco da maquina nao chegou a ninguem.",
+      "departments": [
+        "ENGENHARIA",
+        "COMERCIAL"
+      ],
+      "files": [
+        "scripts/lastmile_*.py",
+        "scripts/ler_saida_leque.py",
+        "scripts/meeting_snapshot.py"
+      ]
+    },
+    {
+      "id": "C-ASK-SINTONIA",
+      "name": "Ask Sintonia",
+      "territory": "T-PORTAL",
+      "kind": "engine",
+      "what": "A porta de pergunta em linguagem de gente sobre o que o sistema ja provou.",
+      "why_here": "E a unica peca desenhada para quem nao sabe onde procurar.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO",
+        "LIDERANCA"
+      ],
+      "files": [
+        "scripts/ask_sintonia.py",
+        "scripts/navegador.py",
+        "scripts/rede.py"
+      ]
+    },
+    {
+      "id": "C-MEDICAO",
+      "name": "Auditoria, cobertura e custo",
+      "territory": "T-PROVA",
+      "kind": "engine",
+      "what": "Mede o proprio sistema: o que foi coberto, o que era esperado e quanto custou.",
+      "why_here": "Sistema que nao se mede nao sabe o que esta faltando nele.",
+      "departments": [
+        "ENGENHARIA",
+        "LIDERANCA"
+      ],
+      "files": [
+        "scripts/auditoria.py",
+        "scripts/coverage.py",
+        "scripts/corrigir_custo.py",
+        "scripts/inventario_esperado.py"
+      ]
+    },
+    {
+      "id": "C-CADEIA-V21",
+      "name": "Cadeia canonica V2.1",
+      "territory": "T-MOTOR",
+      "kind": "chain",
+      "what": "O roteiro que roda os trinta passos do motor na ordem certa, do dado bruto ate o pacote fechado.",
+      "why_here": "A ordem nao e adivinhavel. Rodar um passo sozinho produz um pacote que parece bom e esta errado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "scripts/v21_cadeia.sh",
+        "scripts/cadeia_canonica.sh",
+        "scripts/chain.py"
+      ]
+    },
+    {
+      "id": "C-V21-INGEST",
+      "name": "Ingestao V2.1",
+      "territory": "T-MOTOR",
+      "kind": "engine",
+      "what": "Entrada do motor: le o dado bruto e o coloca no formato que o resto da cadeia entende.",
+      "why_here": "Primeiro degrau da cadeia. Tudo depois depende do que entra aqui.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "scripts/v21_ingest*.py",
+        "scripts/v21_normalizar.py",
+        "scripts/normalize*.py",
+        "scripts/pacote_normalizar.py"
+      ]
+    },
+    {
+      "id": "C-V21-CRUZAMENTO",
+      "name": "Cruzamentos e convergencia",
+      "territory": "T-MOTOR",
+      "kind": "engine",
+      "what": "Cruza sinais de origens diferentes e ve onde eles se encontram.",
+      "why_here": "Um sinal sozinho e ruido. O valor esta no encontro de dois.",
+      "departments": [
+        "INTELIGENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "scripts/v21_crossings.py",
+        "scripts/pacote_convergencia.py",
+        "scripts/consolidar_leque.py",
+        "scripts/matriz*.py"
+      ]
+    },
+    {
+      "id": "C-V21-OPORTUNIDADE",
+      "name": "Motor de Oportunidade",
+      "territory": "T-MOTOR",
+      "kind": "engine",
+      "what": "Transforma cruzamento provado em caso de oportunidade, com dono, lugar e momento.",
+      "why_here": "E aqui que o sistema decide. A tela nao recalcula nada disto.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO",
+        "FIELD_SALES"
+      ],
+      "files": [
+        "scripts/v21_oportunidades.py",
+        "scripts/v21_dominio_da_alegacao.py",
+        "scripts/v21_fechar.py"
+      ]
+    },
+    {
+      "id": "C-V21-CONTRATO",
+      "name": "Contrato do pacote",
+      "territory": "T-MOTOR",
+      "kind": "contract",
+      "what": "Confere se o pacote fechado obedece as contagens e as regras antes de existir.",
+      "why_here": "Pacote que nao prova a si mesmo nao pode chegar ao portal.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "scripts/v21_contrato_do_pacote.py",
+        "scripts/v21_aceitacao.py",
+        "scripts/v21_traducao_trava.py"
+      ]
+    },
+    {
+      "id": "C-V21-FONTES",
+      "name": "Religacao de fontes do pacote",
+      "territory": "T-MOTOR",
+      "kind": "engine",
+      "what": "Garante que cada caso do pacote continua ligado a fonte que o provou.",
+      "why_here": "Caso sem fonte religada e afirmacao orfa.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "scripts/v21_fontes_*.py",
+        "scripts/v21_vozes_reconciliar.py",
+        "scripts/source*.py"
+      ]
+    },
+    {
+      "id": "C-PACOTE-CAMADAS",
+      "name": "Montagem do pacote por camadas",
+      "territory": "T-PACOTE",
+      "kind": "engine",
+      "what": "Monta o pacote de entrega em camadas e mede o que ficou dentro.",
+      "why_here": "Separar montagem de decisao: aqui so se empacota o que o motor ja decidiu.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "scripts/pacote*.py",
+        "scripts/metricas_canonicas.py",
+        "scripts/v21_handoff_json.py"
+      ],
+      "exclude": [
+        "scripts/pacote_normalizar.py",
+        "scripts/pacote_convergencia.py"
+      ]
+    },
+    {
+      "id": "C-SITE-INGEST",
+      "name": "Ingestao do pacote no site",
+      "territory": "T-PACOTE",
+      "kind": "engine",
+      "what": "Pega o pacote fechado e o transforma no ficheiro que o portal carrega.",
+      "why_here": "Unica porta entre o motor e a tela. Recusa pacote que nao prove a propria procedencia.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "scripts/site_v21_ingest.py",
+        "scripts/build_portal.py"
+      ]
+    },
+    {
+      "id": "C-ARTEFACTO-V21",
+      "name": "Artefacto embarcado (italy-handoff-v21.js)",
+      "territory": "T-PACOTE",
+      "kind": "artifact",
+      "what": "O ficheiro de dados que viaja para o cliente. E o unico que chega la.",
+      "why_here": "Derivado — nunca dono da lei. Se ele e a lei divergirem, quem manda e a lei.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/client/italy-handoff-v21.js",
+        "italia-portale/client/italy-ingested.js"
+      ]
+    },
+    {
+      "id": "C-PORTAL-CASCO",
+      "name": "Casco do portal",
+      "territory": "T-PORTAL",
+      "kind": "surface",
+      "what": "As paginas que o cliente abre: entrada, casa e portal.",
+      "why_here": "A superficie apresenta o que ja foi decidido. Nao decide.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO",
+        "LIDERANCA"
+      ],
+      "files": [
+        "italia-portale/client/*.html"
+      ]
+    },
+    {
+      "id": "C-PORTAL-MODELO",
+      "name": "Modelo de aplicacao do portal",
+      "territory": "T-PORTAL",
+      "kind": "surface",
+      "what": "A logica de tela: o que aparece, em que ordem, com que rotulo.",
+      "why_here": "Guarda a leitura, nao a decisao.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "italia-portale/client/italy-app-model.js",
+        "italia-portale/client/italy-v21.js",
+        "italia-portale/client/italy-casa.js",
+        "italia-portale/client/italy-i18n.js",
+        "italia-portale/client/support.js"
+      ]
+    },
+    {
+      "id": "C-PORTAL-DADOS",
+      "name": "Camadas de dado do portal",
+      "territory": "T-PORTAL",
+      "kind": "surface",
+      "what": "Os blocos de conteudo que o portal mostra: casos, catalogo, ciencia, rotulo, mercado, reuniao.",
+      "why_here": "Cada bloco tem um dono de dado diferente e por isso e listado separado.",
+      "departments": [
+        "COMERCIAL",
+        "TECNICO_CIENCIA",
+        "REGULATORIO_PORTFOLIO",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "italia-portale/client/italy-*.js",
+        "italia-portale/client/meeting-*.js",
+        "italia-portale/client/adama-relevance.js"
+      ],
+      "exclude": [
+        "italia-portale/client/italy-app-model.js",
+        "italia-portale/client/italy-v21.js",
+        "italia-portale/client/italy-casa.js",
+        "italia-portale/client/italy-i18n.js",
+        "italia-portale/client/italy-handoff-v21.js",
+        "italia-portale/client/italy-ingested.js"
+      ]
+    },
+    {
+      "id": "C-PORTAO-BUILD",
+      "name": "Portao da build",
+      "territory": "T-PORTAO",
+      "kind": "gate",
+      "what": "Roda antes de qualquer publicacao e barra pacote atrasado ou artefacto que nao prove sua origem.",
+      "why_here": "Nao ha bandeira para desligar. Portao que se chama a parte e disciplina; no caminho, e regra.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/audit/build-gate.mjs",
+        "italia-portale/audit/ingestion-provenance.mjs",
+        "italia-portale/audit/casa-gate.mjs"
+      ]
+    },
+    {
+      "id": "C-AUDIT-HARNESS",
+      "name": "Harness de auditoria",
+      "territory": "T-PORTAO",
+      "kind": "library",
+      "what": "A base comum que todas as auditorias usam para rodar e relatar do mesmo jeito.",
+      "why_here": "E o ficheiro mais importado do repositorio inteiro.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/audit/lib/*.mjs"
+      ]
+    },
+    {
+      "id": "C-AUDIT-BLOCOS",
+      "name": "Auditoria de blocos do portal",
+      "territory": "T-PORTAO",
+      "kind": "gate",
+      "what": "Confere bloco por bloco se a tela mostra o que o contrato daquele bloco manda.",
+      "why_here": "Bloco e a unidade de contrato da superficie.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/audit/blocks.mjs",
+        "italia-portale/audit/blocks/*.js",
+        "italia-portale/audit/BLOCK-CONTRACTS.md"
+      ]
+    },
+    {
+      "id": "C-AUDIT-CASCO",
+      "name": "Auditoria do casco",
+      "territory": "T-PORTAO",
+      "kind": "gate",
+      "what": "Confere a paridade visual, a demo, os falsos zeros e a fuga de conteudo do casco.",
+      "why_here": "Casco quebrado engana antes de o dado ser lido.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/audit/casco/*.mjs"
+      ],
+      "exclude": [
+        "italia-portale/audit/casco/brandwell-parita.mjs"
+      ]
+    },
+    {
+      "id": "C-AUDIT-MARCA",
+      "name": "Auditoria de marca ADAMA",
+      "territory": "T-PORTAO",
+      "kind": "gate",
+      "what": "Confere se a tela obedece ao Design System oficial da ADAMA.",
+      "why_here": "A forma tambem tem lei, e ela nao e opcional.",
+      "departments": [
+        "MARKETING",
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/audit/brandwell.mjs",
+        "italia-portale/audit/casco/brandwell-parita.mjs",
+        "italia-portale/audit/adama-*.mjs"
+      ]
+    },
+    {
+      "id": "C-AUDIT-GERAL",
+      "name": "Demais auditorias do portal",
+      "territory": "T-PORTAO",
+      "kind": "gate",
+      "what": "O resto das conferencias: aceitacao, numeros do contrato, superficie, navegacao, idioma.",
+      "why_here": "Cada uma prova uma promessa diferente da tela.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/audit/*.mjs"
+      ],
+      "exclude": [
+        "italia-portale/audit/build-gate.mjs",
+        "italia-portale/audit/ingestion-provenance.mjs",
+        "italia-portale/audit/casa-gate.mjs",
+        "italia-portale/audit/blocks.mjs",
+        "italia-portale/audit/brandwell.mjs",
+        "italia-portale/audit/adama-*.mjs"
+      ]
+    },
+    {
+      "id": "C-SUPABASE",
+      "name": "Persistencia Supabase",
+      "territory": "T-PERSIST",
+      "kind": "engine",
+      "what": "Onde o dado coletado fica guardado, e as migracoes que mudam o formato dessa guarda.",
+      "why_here": "Entre uma corrida e outra o dado precisa existir em algum lugar que nao seja a memoria da maquina.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "supabase/**",
+        "scripts/sql*.py",
+        "scripts/supabase*.py"
+      ]
+    },
+    {
+      "id": "C-CI-COLETA",
+      "name": "Workflows de coleta",
+      "territory": "T-CI",
+      "kind": "workflow",
+      "what": "Os botoes que disparam coleta paga, sempre com a fase gratuita rodando primeiro.",
+      "why_here": "Coleta paga sem contrato conferido antes ja queimou execucoes.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        ".github/workflows/apify-*.yml",
+        ".github/workflows/comunicacao-publica.yml",
+        ".github/workflows/adama-es-gate.yml"
+      ]
+    },
+    {
+      "id": "C-CI-PERSIST",
+      "name": "Workflows de persistencia",
+      "territory": "T-CI",
+      "kind": "workflow",
+      "what": "Conferem a conexao com o banco, rodam migracao e provam que o dado volta igual ao que entrou.",
+      "why_here": "Migracao sem prova de ida e volta e perda de dado com aparencia de sucesso.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        ".github/workflows/supabase-*.yml"
+      ]
+    },
+    {
+      "id": "C-CI-REGRESSAO",
+      "name": "Calendario de regressoes",
+      "territory": "T-CI",
+      "kind": "workflow",
+      "what": "Roda de tempos em tempos as provas que garantem que nada quebrou sozinho.",
+      "why_here": "Coisa que passou ontem pode falhar hoje sem ninguem ter mexido nela.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        ".github/workflows/calendario-regressoes.yml"
+      ]
+    },
+    {
+      "id": "C-TESTES",
+      "name": "Suite de testes",
+      "territory": "T-PROVA",
+      "kind": "test",
+      "what": "As provas executaveis do repositorio, uma por lei ou por peca.",
+      "why_here": "E o que separa 'esta escrito' de 'esta provado'.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "tests/*.py"
+      ]
+    },
+    {
+      "id": "C-DS-ADAMA",
+      "name": "Extrato local do ADAMA Design System",
+      "territory": "T-DS",
+      "kind": "library",
+      "what": "As cores, tipografia, espacamentos e fontes oficiais da ADAMA, versionados aqui como extrato.",
+      "why_here": "Extrato local nao e o Design System — serve para o codigo nao divergir dos tokens.",
+      "departments": [
+        "MARKETING"
+      ],
+      "files": [
+        "italia-portale/client/_ds/**",
+        "italia-portale/BASELINE/_ds/**"
+      ]
+    },
+    {
+      "id": "C-MAPA-SCAN",
+      "name": "Scanner do System Map",
+      "territory": "T-MAPA",
+      "kind": "engine",
+      "what": "Le o repositorio e devolve so os fatos: que ficheiro existe, quem importa quem, quem roda o que.",
+      "why_here": "E a unica fonte de aresta tecnica do mapa. Sem ele, o mapa seria opiniao desenhada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/scan_repo.py"
+      ]
+    },
+    {
+      "id": "C-MAPA-GERADOR",
+      "name": "Gerador do System Map",
+      "territory": "T-MAPA",
+      "kind": "engine",
+      "what": "Junta o que a maquina mediu com o que o humano declarou e calcula o status de cada peca.",
+      "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/generate_system_map.py"
+      ]
+    },
+    {
+      "id": "C-MAPA-VALIDADOR",
+      "name": "Validador do System Map",
+      "territory": "T-MAPA",
+      "kind": "gate",
+      "what": "Reprova a mudanca quando o mapa fica desatualizado, quando ha aresta sem prova ou verde sem evidencia.",
+      "why_here": "E o dente da lei. Sem ele, AGENTS.md seria so um texto pedindo por favor.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/validate_system_map.py"
+      ]
+    },
+    {
+      "id": "C-MAPA-APP",
+      "name": "Interface do System Map",
+      "territory": "T-MAPA",
+      "kind": "surface",
+      "what": "A tela do mapa: navegar, aproximar, buscar, filtrar e clicar em cada peca.",
+      "why_here": "So renderiza. Nenhum fato arquitetural mora dentro dela.",
+      "departments": [
+        "ENGENHARIA",
+        "LIDERANCA"
+      ],
+      "files": [
+        "system-map/app/**"
+      ]
+    },
+    {
+      "id": "C-MAPA-TESTES",
+      "name": "Testes do System Map",
+      "territory": "T-MAPA",
+      "kind": "test",
+      "what": "Provam que o mapa nao inventa aresta, nao pinta verde sem evidencia e nao perde o NAO SEI.",
+      "why_here": "Um mapa de auditoria que nao e auditado nao vale nada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/tests/*.py"
+      ]
+    },
+    {
+      "id": "C-CI-MAPA",
+      "name": "Workflow do System Map",
+      "territory": "T-CI",
+      "kind": "workflow",
+      "what": "Em cada mudanca, regera o mapa e reprova se o que foi commitado nao bate com o repositorio.",
+      "why_here": "E o que impede o 'depois alguem atualiza o mapa'.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        ".github/workflows/system-map.yml"
+      ]
+    }
+  ],
+  "BUSINESS_EDGES": [
+    {
+      "from": "C-V21-OPORTUNIDADE",
+      "to": "DEPT:DESENVOLVIMENTO_MERCADO",
+      "type": "FEEDS_BUSINESS",
+      "reason": "O caso de oportunidade e o produto que Desenvolvimento de Mercado consome para decidir onde abrir mercado.",
+      "source": "docs/design/COMMERCIAL-PRIORITY-V11.md",
+      "declared_by": "missao system-map-canonical-v1",
+      "declared_at": "2026-09-07"
+    },
+    {
+      "from": "C-V21-OPORTUNIDADE",
+      "to": "DEPT:COMERCIAL",
+      "type": "FEEDS_BUSINESS",
+      "reason": "Prioridade comercial sai do mesmo caso, com outra leitura.",
+      "source": "docs/design/COMMERCIAL-PRIORITY-V11.md",
+      "declared_by": "missao system-map-canonical-v1",
+      "declared_at": "2026-09-07"
+    },
+    {
+      "from": "C-PORTAL-CASCO",
+      "to": "DEPT:LIDERANCA",
+      "type": "FEEDS_BUSINESS",
+      "reason": "O portal e a superficie usada em reuniao de lideranca.",
+      "source": "HANDOFF-BUILD-DA-REUNIAO.md",
+      "declared_by": "missao system-map-canonical-v1",
+      "declared_at": "2026-09-07"
+    },
+    {
+      "from": "C-FONTES-EU",
+      "to": "DEPT:REGULATORIO_PORTFOLIO",
+      "type": "FEEDS_BUSINESS",
+      "reason": "Registro oficial de produto e substancia e materia de Regulatorio e Portfolio.",
+      "source": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "declared_by": "missao system-map-canonical-v1",
+      "declared_at": "2026-09-07"
+    }
+  ],
+  "EXPECTED_EDGES": [],
+  "DECLARED_BLOBS": {
+    ".github/workflows/adama-es-gate.yml": "79fe63a1072c71323b7fe52661274d26fc67850f",
+    ".github/workflows/apify-conexao.yml": "83e87906d637232ce2aa41ed5a21110cd7d99119",
+    ".github/workflows/apify-sensores.yml": "645c739e2079b67fe4867a8de0349670652c1077",
+    ".github/workflows/calendario-regressoes.yml": "c9c11c591e8dd07b7e53e41afd09d56416e837dd",
+    ".github/workflows/comunicacao-publica.yml": "fefdff114ac800ef60d764fe5140c3e09099d3be",
+    ".github/workflows/supabase-conexao.yml": "573173a3964780b6d76fffacc654ee8248737b44",
+    ".github/workflows/supabase-fichas-adama.yml": "4a0af73478a00107ea0ee4077a4574cfea0eb61a",
+    ".github/workflows/supabase-migrate.yml": "b103d3a0a67af1b1cd867c65e07f751f5a02adf3",
+    ".github/workflows/supabase-raw-roundtrip.yml": "7b8f182ab89d1176299913069a05220d1e90ae82",
+    ".github/workflows/supabase-storage.yml": "cf95ae286c72c84f23aa906392b6c88dc4f88cd2",
+    ".github/workflows/system-map.yml": "66030451d67e221dfbe8eeedd52609988b4e16cb",
+    "italia-portale/BASELINE/_ds/adama-brandwell/_adherence.oxlintrc.json": "33b460a7e2a4606240e3ce74c734a2ca6a4ae703",
+    "italia-portale/BASELINE/_ds/adama-brandwell/_ds_bundle.js": "5181841ff9f5e3a465908bcdcbd563655bbd6b67",
+    "italia-portale/BASELINE/_ds/adama-brandwell/_ds_manifest.json": "1a13f1400c39b3d0e066cf95835bbb7d2e56aeff",
+    "italia-portale/BASELINE/_ds/adama-brandwell/readme.md": "7bc722ef8b6f014b0c6151665b68fc6a4309d25c",
+    "italia-portale/BASELINE/_ds/adama-brandwell/styles.css": "46556cec812dae83a4480a502ed89f30c83ef7a6",
+    "italia-portale/BASELINE/_ds/adama-brandwell/tokens/base.css": "308cab2e0dd2f5645e73a9d8fa8c744913130fd3",
+    "italia-portale/BASELINE/_ds/adama-brandwell/tokens/colors.css": "3fc5a7e1a08d3675b4e76a99a65985199f6d727e",
+    "italia-portale/BASELINE/_ds/adama-brandwell/tokens/patterns.css": "4c5a944aa549f08500aecd3fcdea272adcd9758e",
+    "italia-portale/BASELINE/_ds/adama-brandwell/tokens/spacing.css": "8223f888cfe4f45733d9bf06aeaa0daecd0b9d54",
+    "italia-portale/BASELINE/_ds/adama-brandwell/tokens/typography.css": "08dea8bd33e596b66c0c7e6f52e012182b855993",
+    "italia-portale/audit/BLOCK-CONTRACTS.md": "23bf73d958326bd2ff47f4b6afe668bdd37863d3",
+    "italia-portale/audit/acceptance.mjs": "236fa520700aa04d51e9ce62a0d91e5bf332d1f7",
+    "italia-portale/audit/action-map-consistency.mjs": "77fdb965145b28079e6681d0b18e43e88d6f710f",
+    "italia-portale/audit/adama-product-claim.mjs": "8cfae1475523fac03573ac8e298d4735dd1313f0",
+    "italia-portale/audit/adama-relevance-gate.mjs": "3038920c5967aee449ea5091b617efb4428b80cc",
+    "italia-portale/audit/blocks.mjs": "3597dad50c78cae39e0f141684bd8feeff0c031e",
+    "italia-portale/audit/blocks/archive.js": "6b148f72ed8dbf726241f5f3a9ea731cccae7acd",
+    "italia-portale/audit/blocks/brief.js": "b14151e0a45d8a02a9a9d20aca8f095e61431fc7",
+    "italia-portale/audit/blocks/calendar.js": "4b505c6f17b781c1794f98317b602fa937e1f7de",
+    "italia-portale/audit/blocks/case.js": "67b30a6d40f239c96dc5766566a941cabc7ef435",
+    "italia-portale/audit/blocks/competitor.js": "0a86afc70952fcffeb6fbde7bad081783606480e",
+    "italia-portale/audit/blocks/field.js": "460365508283932be91562e332c08752d8ec2f3b",
+    "italia-portale/audit/blocks/future.js": "457353af8afce25716ccc27c44584e00f9b2492f",
+    "italia-portale/audit/blocks/head.js": "41c4054f6f6fb7309541c75ce14ce89477c749a5",
+    "italia-portale/audit/blocks/helpers.js": "403bbf8e083bf07772b36b06831bb61efb6a9899",
+    "italia-portale/audit/blocks/market.js": "51559030dcd8c4074999a5707518363ea869ddec",
+    "italia-portale/audit/blocks/nav.js": "bf84763b3c6c722478bebf2741d6c5a937c97de9",
+    "italia-portale/audit/blocks/portfolio.js": "af897e1690269bb4cdb5ccff3d9ceaa3b1b83177",
+    "italia-portale/audit/blocks/product.js": "60294e044f6dd1211bf32c74ba8cba56d76a2e46",
+    "italia-portale/audit/blocks/science.js": "d30b35bc19b66e83b02f96a9880b0670a8bc67ae",
+    "italia-portale/audit/blocks/search.js": "42085e055b9bf1d0891d0fe51d9326669ca47207",
+    "italia-portale/audit/blocks/signal.js": "cf874aff5f7e5886c9fac1ab2da9ed8760450e44",
+    "italia-portale/audit/blocks/voci.js": "828f4ec4f1e4d9351e02a33c15f1547eaba82ddd",
+    "italia-portale/audit/blocks/windows.js": "219fe953f41518dbc3625dfc66908864ba771600",
+    "italia-portale/audit/brandwell.mjs": "ab7d906c2ae2d8af4e1c6fb96f7ee867d61c831c",
+    "italia-portale/audit/browser-deep.mjs": "83a902e4f3f22ce88b30395033edac09554d08d5",
+    "italia-portale/audit/browser.mjs": "62e89adec9a9f2710199e9f2e8cbc4d0ef0d4bde",
+    "italia-portale/audit/build-gate.mjs": "5f55a42e9871a4c0db2aef21534e9b0805934a96",
+    "italia-portale/audit/cadeia-de-familias.mjs": "8cb044a28f1284408955ee18635967fdcc127cf3",
+    "italia-portale/audit/casa-gate.mjs": "b33a4403e979a9ef344b10ef8933e2c4bfb431cd",
+    "italia-portale/audit/casco/brandwell-parita.mjs": "670d9e740427082596af423d2de0d58a2a277b40",
+    "italia-portale/audit/casco/censo-demo.mjs": "21aec5439919c73c2208a75400c4320d12977a8b",
+    "italia-portale/audit/casco/censo-precedenza.mjs": "0f4c317e7f028562bbc88efaa0cee05ea01da6a7",
+    "italia-portale/audit/casco/demo-visibile.mjs": "1321f80980e53a88c165a0b2539e390f804d1630",
+    "italia-portale/audit/casco/due-mappe.mjs": "0ca972bf9b389c47b97ebd8c9c47b8fdcd904699",
+    "italia-portale/audit/casco/falso-zero.mjs": "29b2d35640bc47a01a4971eef2ad7dab67b772ec",
+    "italia-portale/audit/casco/fase4-inventario.mjs": "ee9d107615b2917d4bbe99ac0207a439f3c31f11",
+    "italia-portale/audit/casco/fonti-collegate.mjs": "6adfcd0ba02308e74cff893f955bc32b81b81424",
+    "italia-portale/audit/casco/fonti-divario.mjs": "96db82c2639b27bf0c367c746a4daa0de25d78e5",
+    "italia-portale/audit/casco/fuga-tsr.mjs": "183e5ef68f11c345ec3ee1cb3069d2e3c5085a9e",
+    "italia-portale/audit/casco/mappa-azioni.mjs": "fae184c6c55590ba73e595497d50511448558cee",
+    "italia-portale/audit/casco/parita-visiva.mjs": "c7517aebb709c44e46c6687a2bc53a3c38015984",
+    "italia-portale/audit/casco/quarantatre.mjs": "e7e516731d1d653b8ad34f4f352c3804326d88e8",
+    "italia-portale/audit/casco/release-gate.mjs": "8477a166378d3f77dd6e6b97f01a7a84a2e09997",
+    "italia-portale/audit/casco/ricchezza.mjs": "45a2571097b5bad81f1455a8efd016ffee3dd331",
+    "italia-portale/audit/casco/sinale.mjs": "88a7e33c6d9dd446fd0870abbd5c5a3ed7bc8153",
+    "italia-portale/audit/casco/sperimentali.mjs": "de6faae401993a024939493a5da0f2f875de9eed",
+    "italia-portale/audit/checks.mjs": "61b24f46a9e4d1af7ea5cdcaca489120a48ab3ee",
+    "italia-portale/audit/click-audit.mjs": "fe87416f12d60fbab655816f352dd42ebbd4b445",
+    "italia-portale/audit/client-boundary.mjs": "ad5427661c294c663b5a1ae408cf45d0dbcf4aed",
+    "italia-portale/audit/client-surface.mjs": "83fb110487fd314fe82c3028ddebe172a71f1256",
+    "italia-portale/audit/competitor-population.mjs": "be370cd1554ca864ff76de594387b71470deb8aa",
+    "italia-portale/audit/contract-numbers.mjs": "fa7a93a02372745c7b8e7b63b4decec332b17273",
+    "italia-portale/audit/counters.mjs": "2eaa8c77dff6b24d89b90aad61ed6148d309b8d6",
+    "italia-portale/audit/cta-navigation.mjs": "fb0571589f440a30b4be8695d7465c8e0c5ef903",
+    "italia-portale/audit/deploy-surface.mjs": "2688a44d626080d0b280985cf6403433603921dc",
+    "italia-portale/audit/do-not-show.mjs": "fbeef183796cb064ae11daf4faf0e0e4c26cc9c7",
+    "italia-portale/audit/external-only.mjs": "0ecd5883d7e3333abfccded2ea6ac2d386f1eca7",
+    "italia-portale/audit/future-ruler.mjs": "f68d2147ab6ceabd5505c9ecd7dab1e809f8a098",
+    "italia-portale/audit/ingestion-provenance.mjs": "26af27f9803840cc3de00d75ffd634d834448cf3",
+    "italia-portale/audit/internal-token.mjs": "aa57e1fc68a2b9498491a1848ab706fcc666188e",
+    "italia-portale/audit/inventory.mjs": "51fec73b55616020e343b52af6994290cd168aec",
+    "italia-portale/audit/lang.mjs": "ba1d3dff9af4207d54d5d84d7887fb7fbbeabd99",
+    "italia-portale/audit/lib/drive.mjs": "c4899721aaf9a4d4dd7de4c4fd5aaf2ff09c949d",
+    "italia-portale/audit/lib/harness.mjs": "83e5d1fca63532fdb7d9d4df0f7e4057b8000ebd",
+    "italia-portale/audit/lib/nav-names.mjs": "5d89c1cbe5259c49dade9ef214f57b24714ea645",
+    "italia-portale/audit/lib/pacote.mjs": "57a96717774ae31bb1b66974b548aa12a312f077",
+    "italia-portale/audit/lib/scan.mjs": "161aa927be595c393d57077b2b746a3df94ae5ff",
+    "italia-portale/audit/link-asset.mjs": "4636fa30b17af3cbbb04ede71efbd7e46699288e",
+    "italia-portale/audit/lote-completo.mjs": "d44a922b8ce409efc3f87d9a49d14c8b65426c31",
+    "italia-portale/audit/market-price-claim.mjs": "408dbd21adf3e269d2e93b13a125e086584a31d2",
+    "italia-portale/audit/meeting-browser.mjs": "fbeaa274322e47f5b4c8e3c18cbc82e3716af1c5",
+    "italia-portale/audit/meeting-gate.mjs": "15bbb1d14bb9fc29bd98e8bfe5a36e185bf762a1",
+    "italia-portale/audit/meeting-public.mjs": "7a6db77cb460619f9c2404ad20d033650b4dccf3",
+    "italia-portale/audit/mirror.mjs": "2af00ac08c042074ffcac5725bce5ce2b4c42edb",
+    "italia-portale/audit/mobile.mjs": "df28877eb624296ea6f1efcd43920b5a40a3b6af",
+    "italia-portale/audit/negative-control.mjs": "b743e912308500f4d6af3b60a5353b3f0d06d044",
+    "italia-portale/audit/opportunity-detail.mjs": "0a9fb5fe95502b5686d16184c5bf6058bb1d75e5",
+    "italia-portale/audit/opportunity-hub.mjs": "c69a78cdfcb3c0e35d5974dd284e9ad7d60cec45",
+    "italia-portale/audit/opportunity-trace.mjs": "e07d812c7991c495188a947d37cb09e3e473a22b",
+    "italia-portale/audit/pdf-gate.mjs": "db31bf90f4317e64f89d3eb401c03c3672da1619",
+    "italia-portale/audit/portfolio-claims.mjs": "c26f620353effdd64dd2a4b740adcb86bd78f7dc",
+    "italia-portale/audit/probe-relationships.mjs": "eb15b78907fbefd91c1cf02a1c66651f952d180f",
+    "italia-portale/audit/product-identity.mjs": "6e370d477a80b5ff360870bfa4cccb93eb1cb018",
+    "italia-portale/audit/production.mjs": "64cf67fb2f46c955d430bd7cf8bf2efa59881d5b",
+    "italia-portale/audit/prova-da-build.mjs": "1d3b103a74c8e0709035ef6316ba33fdcf2d2881",
+    "italia-portale/audit/publication-boundary.mjs": "1b1670e49f1a6c1fab1d8286edd48b480a26f092",
+    "italia-portale/audit/reachability.mjs": "c3af263707f2c816a2f6dff52b59ae9f0be75b83",
+    "italia-portale/audit/reconciliacao-do-catalogo.mjs": "d48a30895a877ea182ff8d0e00620fb3d3d36b6a",
+    "italia-portale/audit/responsive.mjs": "71cf370d7c75fb93bf05d858c26a4343b0f430f5",
+    "italia-portale/audit/rtv-gate.mjs": "a63cf95aedfb57df450eed6272dc2499b9c919b4",
+    "italia-portale/audit/run.mjs": "b2f161200d3daf5439cd8d34fffc0f7026782d6b",
+    "italia-portale/audit/screen-arithmetic.mjs": "abee5f9aabc9c952bca7ac2646b442a54fe2d64f",
+    "italia-portale/audit/serve.mjs": "2b8787c6b3ad9010b4455669641c78b8b766206e",
+    "italia-portale/audit/snapshot-failure.mjs": "5a22091619172e14dbe1e085dd3a20b9f4e75aa2",
+    "italia-portale/audit/splice.mjs": "a685c9f2aa9dc9aa198b21b0152533eb998e63a2",
+    "italia-portale/audit/stale-generator-gate.mjs": "6752d142706d02b692946794eb1623bb4d72c631",
+    "italia-portale/audit/surface-contract.mjs": "75eac136423410612e8f8810cbed79070f790506",
+    "italia-portale/audit/upstream-ingestion.mjs": "390c9686ee9a96c6a4931dff047b7c507a455b9b",
+    "italia-portale/audit/v21-gate.mjs": "d1a7637c60d4dc57814c03ffbba872e30c95b6ac",
+    "italia-portale/client/_ds/adama-brandwell/_adherence.oxlintrc.json": "33b460a7e2a4606240e3ce74c734a2ca6a4ae703",
+    "italia-portale/client/_ds/adama-brandwell/_ds_bundle.js": "5181841ff9f5e3a465908bcdcbd563655bbd6b67",
+    "italia-portale/client/_ds/adama-brandwell/_ds_manifest.json": "1a13f1400c39b3d0e066cf95835bbb7d2e56aeff",
+    "italia-portale/client/_ds/adama-brandwell/readme.md": "7bc722ef8b6f014b0c6151665b68fc6a4309d25c",
+    "italia-portale/client/_ds/adama-brandwell/styles.css": "46556cec812dae83a4480a502ed89f30c83ef7a6",
+    "italia-portale/client/_ds/adama-brandwell/tokens/base.css": "308cab2e0dd2f5645e73a9d8fa8c744913130fd3",
+    "italia-portale/client/_ds/adama-brandwell/tokens/colors.css": "3fc5a7e1a08d3675b4e76a99a65985199f6d727e",
+    "italia-portale/client/_ds/adama-brandwell/tokens/patterns.css": "4c5a944aa549f08500aecd3fcdea272adcd9758e",
+    "italia-portale/client/_ds/adama-brandwell/tokens/spacing.css": "8223f888cfe4f45733d9bf06aeaa0daecd0b9d54",
+    "italia-portale/client/_ds/adama-brandwell/tokens/typography.css": "08dea8bd33e596b66c0c7e6f52e012182b855993",
+    "italia-portale/client/accesso.html": "7c568bb918cb7f94e2c6ac69c550b51fcbcdfdfe",
+    "italia-portale/client/adama-relevance.js": "4ef3e5389ed4a46c8243a66494cdaa217f5dfe2c",
+    "italia-portale/client/casa.html": "ceb0e72e4f6e62849c0b2e1a1abcb97bedab4640",
+    "italia-portale/client/index.html": "5600cfb46d54bd2f4cf76ad0489d8155db7c3fd3",
+    "italia-portale/client/italy-app-model.js": "ea1a40c8750dfdedbb4016875829f046f654dcc2",
+    "italia-portale/client/italy-briefs.js": "f26e0fd5f554eff59ce7af699bab5ab5838bff18",
+    "italia-portale/client/italy-canonical-windows.js": "29419598ad376ee7fb1273b3d1d7188e620a0683",
+    "italia-portale/client/italy-casa.js": "d816e15de2463d625adcded8c592c5795e72b43a",
+    "italia-portale/client/italy-catalog.js": "3d414b4147a5ca8e6d5d8b8eb964067f1b961a24",
+    "italia-portale/client/italy-demo-data.js": "31d2b1e3afb3bf7fded5798a768485de8778c404",
+    "italia-portale/client/italy-handoff-v21.js": "bdf864aec05085424d8c8af727a153404c9fd220",
+    "italia-portale/client/italy-i18n.js": "efb575bf66109f9ea49d72984294a0ade49bc61d",
+    "italia-portale/client/italy-ingested.js": "53bcf4a3c40f9f98120d3b5b5a2494dbb84b3437",
+    "italia-portale/client/italy-label-verdicts.js": "5ca55b6aff7d7f5c3cf8ce603c8d9ed4ab49e990",
+    "italia-portale/client/italy-market-pulse.js": "5ae7d07fd4056133f212012321f92844745c7ea6",
+    "italia-portale/client/italy-pdf.js": "dbd891879039ec4f07698d2d9a27dbeebb553ab8",
+    "italia-portale/client/italy-real-intelligence.js": "ccca2071aa5865f5ae0408987eef1dc94ab8405e",
+    "italia-portale/client/italy-science-business.js": "94f897e77d635161cc0060712dba81375d7ffd4c",
+    "italia-portale/client/meeting-intelligence-snapshot.js": "434a476268607f14be208dc96155dffd2d600d91",
+    "italia-portale/client/meeting-labels.js": "39b504d25b451ec208981cd9be73d6eef2ebdc52",
+    "italia-portale/client/meeting-surface.js": "a60fc34cc410211cccd9ad6e6a9ab406ba847ef7",
+    "italia-portale/client/portale.html": "77d347546bdef5c9d73a9bda995b4752ed8e66da",
+    "italia-portale/client/support.js": "5d75829d4340877d95f162d7f09569a980ce634c",
+    "scripts/adama_catalogo_ler.py": "6b989da2b8ed60187d0a6e93f06131f6ad41c160",
+    "scripts/adama_catalogo_montar.py": "a390b207f1cd738197c132ef81f0102ae50727eb",
+    "scripts/adama_es_gate.py": "1bf8c5850e3e053a01446fd6f811ea976eb9a00c",
+    "scripts/adama_es_import_rules.py": "f8389d4b1e0c04be3673146c690be3b0ef100be2",
+    "scripts/adama_it_eu.py": "5fd6a0e35325e6e035f664ee447d99f56692cfff",
+    "scripts/adama_it_frac.py": "2e946353782a54f06af039a51c1fa40bc8cd5c18",
+    "scripts/adama_it_gaps.py": "234af2175bdf416612da205590f4f710433c1f0f",
+    "scripts/adama_it_intelligence.py": "98c864092944cd528f227a83aa2f8210ac3f09bf",
+    "scripts/adama_it_labels.py": "445223e4e7ce11f0e0a8d50a96e3c17b98b97c59",
+    "scripts/adama_it_moa.py": "a42fb65ebdca5de99f45fb1ca9e982c6ab7c27c0",
+    "scripts/adama_it_qa.py": "2de49a16dd77f6f1751f8563ad3e5eb032d5ab55",
+    "scripts/adama_relevance.py": "449bdc6277f0891f6a2be48a0e693f83994fd998",
+    "scripts/agrifood_ue.py": "a8f0d1d1aa3f58cb75569a38886b5116c9710237",
+    "scripts/apify_contrato.py": "eebb4b5d8567a34044e31b5bc44bf5ecf1bffd74",
+    "scripts/apify_pool.py": "886ba25ef5b3b58570fb5e9aec96bcdbf46c3671",
+    "scripts/apify_recuperar.py": "3690087e6ccfcfa62042c1f007202d52b9e18437",
+    "scripts/ask_sintonia.py": "9ebc54ad886e04af986810795b4b7d670e1c0a4f",
+    "scripts/auditoria.py": "8c6a990ba9dcce2cd7c5a4003872a963b02f30cf",
+    "scripts/auditoria_regua_comercial.py": "b14a95d280e67f81eaa6c78d0f469ee6e0146131",
+    "scripts/build_portal.py": "df285d9d8397af938a853880da7a6f656f2c83ba",
+    "scripts/cadeia_canonica.sh": "9346fa396de3f2f33be23aecb135d4bb61ca956c",
+    "scripts/calendario_handoff.py": "aed41b7d229a374401ac9d8958889b64369ebd02",
+    "scripts/catalogo_importar.py": "d57d903d9d393fca6068cc42c04c36d92b22af16",
+    "scripts/cdp.py": "ec3976ebb148a926050dd52df15c4b8cd5f00f0c",
+    "scripts/cellar.sh": "d13197b37291ae662f5f5f73c0fbe02652286ef2",
+    "scripts/chain.py": "683d0fefd6af450e85762f87fa753aecfb95217a",
+    "scripts/cicatrizes_brasil.py": "fbb81ef89f5f06cc52bce8d8366360d5ff633e9d",
+    "scripts/coleta_checkpoint.py": "bd310a469a53202292f520ea2b06bb35abfec445",
+    "scripts/coletor.py": "03f60bae250cfdf9e72d91e91750264071eea4ba",
+    "scripts/comunicacao_classificar.py": "0ef4c9271119dc5af38502d57adbb2e4e096b2c5",
+    "scripts/comunicacao_coleta.py": "b4c6f270d3b67db70b09c8710fdf20bb7bf70895",
+    "scripts/comunicacao_identidade.py": "c4a14e20f3dbcf050b505937e72a103845187e7c",
+    "scripts/comunicacao_lote.py": "3075aef0f68fb93f84a6e95e3dcc69d4ab5782dc",
+    "scripts/comunicacao_medir.py": "74c3c60a179a676bb2d9cc2e216600b01b3f655c",
+    "scripts/comunicacao_universo.py": "1020f5869d2c414bc03eae1ce8d17db0e1975615",
+    "scripts/consolidar_leque.py": "61a4901023126981651c8a227dbbc3eee7b66e8f",
+    "scripts/contrato_ator.py": "bba5c8f455f450680c27abecc8fad758bb6ac267",
+    "scripts/corpus_es.py": "f72859e11f33e0c27e4359087f9a908a231d6845",
+    "scripts/corpus_pesquisador.py": "05e15cab00fe87404c80842affbe1618d7c89627",
+    "scripts/corrigir_custo.py": "8cf617c5d06de0721a84c6a187361a127e8aa1c6",
+    "scripts/coverage.py": "7bb882a2ee00ad189593a1e159c108c5541458b8",
+    "scripts/cruzar_regua_rotulo.py": "09c20f7040be7a5e88103d5e4d2699df6f08e770",
+    "scripts/data_clock.py": "bea8ed8885043772748a67a2068f987800b55670",
+    "scripts/denominaciones.py": "28f182db469bb3724e5add3443ad1b98d1944e19",
+    "scripts/ephy.sh": "35434f6c367f511324f6d85503674ffb927c1f39",
+    "scripts/eppo_gd.py": "9465cdd48057cca61918d1511d7beae923d63c0e",
+    "scripts/eu_substancia_adama_it.py": "149cbea94a58627f9a53fa4f8b1ece824cee5fa5",
+    "scripts/fato_local.py": "413bc2bc6e92faedf549783ca7e93d01e0bbe190",
+    "scripts/filas.py": "bf3dbf0b8baf5919b0c1a0bedc01315e5fdbe82d",
+    "scripts/freeze_es.py": "a4c1a68b9d00c9df3f6e98d08206d93138f841bd",
+    "scripts/gire_mapas.py": "5f824e1b9b88998a25d9d4eb32cd9e8410bd29a5",
+    "scripts/importar_italia.py": "28be63edb25361062b4d605d866e482294392a26",
+    "scripts/instagram_coleta.py": "d2a57d550979d19f14f983fe2f3fe6f260554ca3",
+    "scripts/instagram_diario.py": "b0f5c2854ce2d65e4642eb05bfac05bc86f743d5",
+    "scripts/instagram_janela.py": "828aabaa676aef53dd89e68b9ceb23cb1afbdda2",
+    "scripts/instagram_pessoal.py": "46422ae84e9061777ed147812bccd1d63121a8c5",
+    "scripts/instagram_transcrever.py": "0100a527a428d86dbdf05f06dc869663c74b7756",
+    "scripts/inventario_esperado.py": "5af4922e51b992edf570c0c091e524be65736e36",
+    "scripts/it_casa_dados.py": "4b4f4e15ec9513b64802d67f55f4bab2e152d233",
+    "scripts/lastmile_entregar.py": "60c33d51a9926288aab9a1d5dab1c79240c56b43",
+    "scripts/lastmile_inventario.py": "c6800b82c5973482d0d955c4af02b8c0be9b6f72",
+    "scripts/lastmile_para_supabase.py": "5a74c1c5c5de42d1f74381182d825f6cf2d78b9b",
+    "scripts/lastmile_relatorio.py": "b6bf8c0ec7e1219611aefe598e26377079cf16f0",
+    "scripts/ler_saida_leque.py": "4564a618b932b9f51c76cfe0cc590a6b70993b6d",
+    "scripts/lugar_do_fato.py": "fcf935c7b02be798fff17a483e3cf21df4e3db15",
+    "scripts/mapa_regfi.py": "c7bfea8a080085aab7971deb339b24994e62b053",
+    "scripts/matriz_recorte.py": "a1af7df10080191a7da0f818d28042a14d40fe50",
+    "scripts/meeting_snapshot.py": "8e6493dd2dd02198877350a4ccbd0b81b69cc1af",
+    "scripts/metricas_canonicas.py": "ce8763961dbb6d5ca9685f7096d848c13df7c973",
+    "scripts/navegador.py": "adcf25679ee6ef1472a9b8cf36934ee4d338d4ee",
+    "scripts/normalize_agro.py": "8db16c1ad61f22a0e3b7032b182544e837e4c2fc",
+    "scripts/normalize_substance.py": "659095421054d66a2d1df4dd800f5407103bfde0",
+    "scripts/pacote.py": "75e8ae5c23dbb8cd3819bfb916dcbf837b3f5c91",
+    "scripts/pacote_camadas.py": "e860a4cd76446d671797fab0497a8f0b79fe6ebb",
+    "scripts/pacote_camadas2.py": "4737324bdc277a386271ee62b5df0bb143c5154b",
+    "scripts/pacote_camadas3.py": "d38271d8e6e5a783580b7d5eb4710a91ef26ecd3",
+    "scripts/pacote_convergencia.py": "6c4d7fb84c2065d93e53373f0ed9e171b3ce4ce3",
+    "scripts/pacote_docs.py": "e1c72ee164367550a9b60b1babcaf8b402255494",
+    "scripts/pacote_fenologia.py": "cf46472f68744324a42708d068001a9951ba2bec",
+    "scripts/pacote_mercado.py": "e1b39209451663c131cb7229f37ba381bc396668",
+    "scripts/pacote_montar.py": "b3bf1c82bb988a7aa618a123a131822e2749197d",
+    "scripts/pacote_normalizar.py": "b86ff2ed1839929cc3e6630e9996d08db52aa6d8",
+    "scripts/pacote_relacoes_convergencia.py": "71f42d9734f451b296b5df3c8aeb5ba441e90262",
+    "scripts/pdf_text.py": "2ecc50c2d92e17c5301790490be904373f7803c4",
+    "scripts/portao.py": "6a31907cba0810695bb9665d8514a4faad414f9b",
+    "scripts/portoes_eame.py": "31b8966390fcc49b24751f6edc42406823506d03",
+    "scripts/preservar_pdf.py": "812bdf77a179223caaee1b807d4a0c999a2ada2f",
+    "scripts/proto_es.py": "b8aef4d12a08a4b48593578cb62fd1935b5bc364",
+    "scripts/proveniencia.py": "aa6e06690c0e9e7527dcb7da36a300dce31d93d6",
+    "scripts/rede.py": "17d3ba5845cd836a163851b1b1071b676d6d5da3",
+    "scripts/regua_italia.py": "9d07f395db3e8fb7ba27adea5f95603f98ee53e2",
+    "scripts/regulatorio_importar.py": "e980f7862d0f2860d24251b4d8c3869a8f42fbf9",
+    "scripts/ropf_pre_requisito.py": "d003336bc91a482d549d171b707fa6b21b6b543e",
+    "scripts/rotulos_baixar.py": "f8a7b595c8a9c85b9fe98c3586c08cfac485a6fd",
+    "scripts/rotulos_censo.py": "3f635e9885d5627b7f8030577143eb3358a02cd1",
+    "scripts/rotulos_ler.py": "8bd2d1d9cd56c7f4428287ab05772fbb3ec54067",
+    "scripts/sensor_canal_identidade.py": "dcbaa557baeecf43088313d2ceba8d1b78647e32",
+    "scripts/sensor_coleta.py": "00400df0f41d7d6a53626bfe832237466da9147f",
+    "scripts/sensor_medir.py": "90fec896e35f67657cbae7464b057c6e7e0b6469",
+    "scripts/site_v21_ingest.py": "92ccbfff23d039809f713e6414701a4db5649329",
+    "scripts/source_health.py": "76805b822db70cca3f72ee7b8adb9627ce9ec8d8",
+    "scripts/speaker_identidade.py": "4cca9f39bb0d72589e072b46098a3ac36082d7ef",
+    "scripts/speaker_universo.py": "6a7b40ab6031bd97d6f3bb4710ce698e73c0018d",
+    "scripts/sql_conferir.py": "ad09c424029397bd1bb5a33c551e515ce8e0805c",
+    "scripts/testa_rota_italia.py": "6c74b437a1977ae43fa56d51186bb98d5d8bef79",
+    "scripts/texto_fonte.py": "26c627fb4ef3392e46396ac280d692d72e8b385b",
+    "scripts/universo_ciencia_it.py": "11f0a65b158b41512ecbaf839bf785c4a05b8622",
+    "scripts/v21_aceitacao.py": "e921b074e5e8772d644ec8922b498bc176896e6e",
+    "scripts/v21_adama_registro_validar.py": "c59af437094595445a9a59d1b7b00d757e33e9e9",
+    "scripts/v21_antes_e_depois.py": "21a5cd51d922cea351c6c16d5c932613884df4dd",
+    "scripts/v21_cadeia.sh": "39079440214ea05de85a0422390ef8175c1e7fdc",
+    "scripts/v21_campos_de_lingua.py": "0cf5cbd813a988bc82db5f8a26a63d8233ae5661",
+    "scripts/v21_carimbar_origem.py": "22a6499047cbad84de19367fbdf3c1292c0d67f9",
+    "scripts/v21_comercial.py": "56a48c27e304e4ddbebd7c369fcfe418116b84dc",
+    "scripts/v21_completude_oportunidade.py": "af4a6048d8cc076b19141b32a4432ce58904c662",
+    "scripts/v21_contrato_do_pacote.py": "99d085fe8de704eb8aaa1937922d36f25ebdc1a2",
+    "scripts/v21_crossings.py": "8ad339ee912ce550fe4f6f60ef727a9f9d200690",
+    "scripts/v21_datas.py": "fb461b975f5558dd5c31f40d5d5201dde5f172a7",
+    "scripts/v21_dominio_da_alegacao.py": "00bb9698bbb4c007163980cc3d0b0f9079261bcd",
+    "scripts/v21_fechar.py": "b5572db28005be94742094af04c6cb4de728f870",
+    "scripts/v21_fontes_faltantes.py": "7c41bc715bd2846da24aefad202711a27475c426",
+    "scripts/v21_fontes_rechavear.py": "80dada5a0707aefe57633328560e2b9f99a041b5",
+    "scripts/v21_geografia_contrato.py": "3c7e2ae6ccdb3a5cad8b897b7b14dc9c66f99237",
+    "scripts/v21_handoff_json.py": "9a4cbab5091fe8661defff79373d88a98cc70b7a",
+    "scripts/v21_ingest.py": "1c2aaa4cb4415869f14066d901c2edf6b8ce0de0",
+    "scripts/v21_ingest_b.py": "4b8f2389cf4435d42b402d74c950410fd90a313e",
+    "scripts/v21_ingest_c.py": "8f745efbe4dcffdb356817d286d896590d78e3be",
+    "scripts/v21_necessidade.py": "62cd2773cb97326efd7a19d980b176816ee6f0dc",
+    "scripts/v21_normalizar.py": "daab341123458d15ed9cba9e3ad36ab22c23fc9b",
+    "scripts/v21_oportunidades.py": "b4df2820a4edc3e16e2a67075cf9754753972651",
+    "scripts/v21_procedencia_contrato.py": "969f5c7ac4b613d165c203063373f10b3ec3ffea",
+    "scripts/v21_procedencia_religar.py": "767072e49b3de4fbc21c8720ff4897d220198868",
+    "scripts/v21_reavaliar_35.py": "caa173cbca973f89040ccd46b0c9b00b6fa16fa7",
+    "scripts/v21_reverificacao_ledger.py": "917b3771df4e9e28da7ffc84cc2c94338d9568c4",
+    "scripts/v21_tm_colher.py": "4226b6155efe0b624bce67cd7e12d82aaa0e7093",
+    "scripts/v21_traducao_trava.py": "f17ec74d579f4fd199a7174487f45d1e05a27992",
+    "scripts/v21_vozes_reconciliar.py": "79988d6e80547af37fde0ca2837173153e4d4aa5",
+    "scripts/v2_conflitos.py": "c8d812a3b6f85cb24e033352353b42ceb0020669",
+    "scripts/v2_cruzamentos.py": "475a9c5700566701fbadf8f9f431da2731cdb90b",
+    "scripts/v2_dedup_e_familias.py": "3b3c462a623657edfafd535cd8d63a09e45f24bd",
+    "scripts/v2_fechar.py": "b2ed313a6ea76fd9de1412d7fa3f5d896242b2c2",
+    "scripts/v2_montar_handoff.py": "4bffd990aed391168684b8bb83fc1108dc46b939",
+    "scripts/v2_qa_atribuir.py": "b7eceb2a34b5840b8aaa7aa750c41edf28126089",
+    "scripts/v2_relatorio.py": "7004e0377e5127bb15345f16d2dd39faaa37ceba",
+    "scripts/voz.py": "94c454b64a1c13a6fb6059918f1edbdd358cd791",
+    "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql": "11570d02661fe076cb03e6709398d503c4974e31",
+    "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql": "9b8e725253337e098aa586a4df9b131ac4d55dbd",
+    "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql": "8c49ffa85d7f83a46bba0adfed7fd59c66bebe82",
+    "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql": "145b2b64aa0843617ea114501e25de496a58e895",
+    "supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql": "9dfb6b7afb647037859e4b712e756e0a13d99f22",
+    "supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql": "9ce1738c4820d979e6463ca328a67955c37e9174",
+    "supabase/fixtures/es_calendario_mvp.sql": "9a09b9788d2ad214bbf96fff2916b5734970eb87",
+    "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql": "d35c7b33c9429a26a21ba2642b288abf3437c1c3",
+    "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql": "5de63d5a366c1087637215c692e165d6038b8cf4",
+    "supabase/importacoes/IT-CAMADAS-2026-09-02.sql": "e66d23134fe6545f16600e53e0ab1589faf6b380",
+    "supabase/importacoes/IT-LASTMILE-2026-09-02.sql": "8b9c8fede1f8a2b9f43abe7ed8c24c77105fec02",
+    "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql": "944cda4084755bb5fcefc4cb08e48b93d59b78f9",
+    "supabase/migrations/002_identidade_pessoa_org_canal.sql": "6bff16ae592d0d7980f9057bab74a64c83b1fe3a",
+    "supabase/migrations/003_conteudo_documento_video_transcricao.sql": "d0c86f81e5340d4ca24670462fca7b1010fff566",
+    "supabase/migrations/004_crop_issue_par_explicito.sql": "e7c925394f4ee73ca6b935f479aa58235713327f",
+    "supabase/migrations/005_camada_analitica_observado_vs_derivado.sql": "4d9297ce142c2d77ea80370e7124445d7e35e52c",
+    "supabase/migrations/006_regulatorio_e_rls.sql": "999f7c8908c11eb83d7f5523bf114444ca5c1572",
+    "supabase/migrations/007_views_de_apoio.sql": "2f46490a121e646b610b6b7bf51a7a0f4ca7e483",
+    "supabase/migrations/008_verificacao_pos_aplicacao.sql": "6168dcc7f783179ee5a770b703611fc1cdd70996",
+    "supabase/migrations/009_semantica_de_pais.sql": "e079a24472a4bdafc4bb33c7fef836e31a906706",
+    "supabase/migrations/010_calendario_agronomico.sql": "2fe74c3067f8222d0de49a0d28e3fd14dd1dfaf2",
+    "supabase/migrations/011_calendario_consultas.sql": "3786261b72f2083145db8755c01edd5d4eaa0eea",
+    "supabase/migrations/012_contexto_temporal_do_caso.sql": "f224f7ea0d835a07bedfdd62bf29e84ffac169f8",
+    "supabase/migrations/013_captura_nao_e_registro.sql": "975b7b7ed3be4cb0a850dab43cbe6803c34ecae0",
+    "supabase/migrations/014_catalogo_publico_fabricante.sql": "4cfbccecb3a34a5472577a1b1454e3d7d577db88",
+    "supabase/migrations/015_cicatrizes_do_brasil.sql": "0e3e99f606372bca1e9b6386d066a70591ab1433",
+    "supabase/migrations/016_checkpoint_e_unidade_analitica.sql": "d55c4651943a129a0acefa7bca5dc3f5b852874d",
+    "supabase/migrations/017_o_que_a_conferencia_de_localizacao_achou.sql": "9ed195917f17b32e3d93f2eb3dc9aac5c8886ca4",
+    "supabase/migrations/018_o_lugar_do_fato_ganha_dono.sql": "25c3d19c3a83f108aace15ccba4dafd5fc5bc48c",
+    "supabase/migrations/019_camada_ue_e_resistencia.sql": "7f417020170b2c1200e912d62078fd4567a67671",
+    "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql": "870d6256d3c2cbc7f079dcc27ba881c2104a4b96",
+    "supabase/migrations/021_fato_externo_publicado.sql": "f440287ac85f1c9c9cc65232013c1bb7c00514e2",
+    "supabase/tests/mutacao_cicatrizes.sql": "d0fba714c53b013f40e0c0f4973904f12a300462",
+    "supabase/tests/mutacao_coleta.sql": "05ebc1d2ab862f39b9c0ff72a7c90f65a42a1875",
+    "supabase/tests/mutacao_lugar_do_fato.sql": "a5927cb6c2a482482639ab8c78111e7ba2048a2e",
+    "supabase/tests/regressoes_calendario.sql": "fd4ef3dd24414170c59be6f0fe98f88c3ddb967a",
+    "supabase/tests/regressoes_captura.sql": "8a6d54bdade566b83f74a39206b911f354507c9b",
+    "supabase/tests/regressoes_catalogo_es.sql": "77adc0414f49ba07e3fe4139888460c6f0b83846",
+    "supabase/tests/regressoes_cicatrizes.sql": "86fd16fcbd64d77b9b2bfb40d69af1106cf2252d",
+    "supabase/tests/regressoes_coleta.sql": "87516f571d050ce0abf4eabe0f0291fb4b29882e",
+    "supabase/tests/regressoes_lugar_do_fato.sql": "a5abde721e6f06cb4ef4e793699dce2d396d4a3a",
+    "supabase/tests/regressoes_regulatorio_es.sql": "7c806a2cda0a2adc3b24e9e3e8e3bb406acd72d7",
+    "system-map/app/index.html": "24fea2081ee89d94277591437a7171f7695a785b",
+    "system-map/app/map.css": "f37f3f90c2a9006c813761499b5b03e24d80c0de",
+    "system-map/app/map.js": "99fa1da710e4e772dd0bc1943110cde6296e8fc7",
+    "system-map/scripts/generate_system_map.py": "61c5abfc5cc01e4a8cadf123f249c1afd751413b",
+    "system-map/scripts/scan_repo.py": "8f6a67bc650582f939d0c72f09a6069a7c15b53c",
+    "system-map/scripts/validate_system_map.py": "e8b44368ea3883dd7fffc673e5a4b8c0aceac5d7",
+    "system-map/tests/test_system_map.py": "f6633f247f431f2362547333e59517c1fd2d5dfd",
+    "tests/test_adama_es_gate.py": "3c7bbce2f3f2b88ac9474fda1ecc2bf3da66674c",
+    "tests/test_adama_es_import_rules.py": "590e552c5e2520b975dd002a0cb6a85b2686cc78",
+    "tests/test_adama_relevance.py": "1c9230263667227d67e3b082dd1c2cd23cdbf5d2",
+    "tests/test_calendario_temporal.py": "74c6cafdec4763b7d7aa34473be378c43778befd",
+    "tests/test_canonico.py": "cac448bdbb86ad62c604817f9dfbb08b442a3184",
+    "tests/test_cicatrizes_brasil.py": "799b99d87a5b51aa444b8f1ddbdfcdf66a987cbd",
+    "tests/test_coleta_externa.py": "f126b9e94f72979b7656e011edeb0c6551149767",
+    "tests/test_coleta_resiliente.py": "d66be514d5fa571689b49a0a8d2014c1d3b2a4da",
+    "tests/test_competitor_layer.py": "f34a9b4dc1872ce4bb40b490addb0fc40675a6c3",
+    "tests/test_completude_oportunidade.py": "9a473c10ba83fe2a013f17fba94eddf0decae312",
+    "tests/test_comunicacao.py": "5c4c7917891e426d23fb62f794202389b3ffaee2",
+    "tests/test_evidence.py": "c1efcd244c2096478816b6a3ebe8a2a758a8a285",
+    "tests/test_handoff.py": "85a6be114ceff051e818153b94abe1f4079f3136",
+    "tests/test_hero_cases_v1.py": "8aeab80c87371a136b9470ba4b0cd87581c57c49",
+    "tests/test_lugar_do_fato.py": "8cba47f224124563e4e41e34f6b11bdc89ec4ee4",
+    "tests/test_metricas.py": "dba28bf29ab3aca4b835125bbd0c8724e6f80bc5",
+    "tests/test_migrations.py": "5e7fd2d7e6d313019dda9208e2a36ec15dd8e458",
+    "tests/test_navegador.py": "506acd9cfd6c06980e1f8adfc3cf399c1b98b4f5",
+    "tests/test_operacao.py": "af634eac8f0680494ce6307988eac1e94bc71518",
+    "tests/test_pipeline.py": "843bbc49965977adfc9beb8744be2ae4fb57c63c",
+    "tests/test_portao.py": "774f26b8b19ba96cac7c7e998e095305af24f846",
+    "tests/test_portoes_eame.py": "10324bd30a8db8287e3f3ef0bfffe9710a1b7753",
+    "tests/test_prioridade_comercial.py": "bcc8ad8ea84dac4b279a98573aed4fb334a69cd5",
+    "tests/test_proveniencia.py": "2d187d8d58952ccb19a4d01c5c2b2eebc5c5ce5d",
+    "tests/test_radar_futuro.py": "90ac58d8099d6d67aca46abd561a61c9afd46c7a",
+    "tests/test_v21_datas.py": "67330a1419146bedc367d6b4d7764e620c9c6523",
+    "tests/test_v21_geografia.py": "aa6825f390aeee14e24699f57839b8befb943275",
+    "tests/test_v21_mercado.py": "cc462990a085e5e60e0ceebd0842c4eb1b77033f",
+    "tests/test_v21_traducao_trava.py": "a05a588245f717fdbfe61a31cf40e2f93547889c",
+    "tests/test_voz.py": "96d769756e52344c2b0f45ad915cea8866e74768"
+  }
+}

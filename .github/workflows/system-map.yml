@@ -1,0 +1,111 @@
+# ═══════════════════════════════════════════════════════════════════════
+# SYSTEM MAP CHECK — os dentes da lei escrita em AGENTS.md.
+#
+# `AGENTS.md` manda manter o mapa sincronizado com o repositório. Sem este
+# workflow, essa frase seria um pedido por favor: qualquer agente poderia
+# alterar a arquitetura, não regerar o mapa, e a mudança entrava na mesma.
+#
+#     TEXTO NÃO REPROVA NADA. WORKFLOW REPROVA.
+#
+# O que acontece aqui, em cada push e em cada pull request:
+#
+#   1. regera o mapa a partir da árvore que está a ser proposta;
+#   2. compara com o que foi commitado — se diferir, ALGUÉM MEXEU NA
+#      ARQUITETURA E NÃO ATUALIZOU O MAPA, e a mudança para aqui;
+#   3. corre as provas das regras do mapa (verde sem evidência, aresta
+#      inventada, NÃO SEI escondido);
+#   4. prova que o pacote publicável foi regerado junto.
+#
+# Corre em `ubuntu-latest`, e não no runner local, porque não toca em rede,
+# não gasta execução paga e não precisa de IP residencial: é leitura da
+# própria árvore. As coletas é que precisam do runner local.
+#
+# O DEPLOY NÃO ESTÁ AQUI, DE PROPÓSITO
+# ------------------------------------
+# A publicação continua a ser da Vercel, ligada ao Git, servindo
+# `italia-portale/client` (ver `vercel.json`). O mapa sai em `/system-map/`
+# porque o gerador escreve a app lá dentro. Criar aqui um segundo caminho de
+# deploy seria criar infraestrutura paralela para o mesmo destino — e dois
+# publicadores para um endereço é a forma mais barata de servir a versão
+# errada sem ninguém perceber.
+# ═══════════════════════════════════════════════════════════════════════
+name: system-map
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # O scanner lê `git ls-files` e o SHA de cada blob. Profundidade 1
+          # basta: ele mede a ÁRVORE, não o histórico.
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Sem dependências. O scanner usa só a biblioteca padrão, de propósito:
+      # um mapa de arquitetura que depende de pacote de terceiro para ser
+      # gerado tem uma dependência que o próprio mapa não consegue explicar.
+      - name: 1 · regerar o mapa a partir desta árvore
+        run: |
+          python3 system-map/scripts/scan_repo.py
+          python3 system-map/scripts/generate_system_map.py
+
+      # A comparacao anti-drift NAO e um `git diff` cru, de proposito: o bloco
+      # PROVENANCE carrega HEAD e BRANCH, que mudam a cada commit e a cada ramo.
+      # Um diff cru reprovaria toda a gente, sempre — inclusive o commit que
+      # acabou de regerar o mapa. O validador compara a ARQUITETURA, ignorando
+      # o carimbo, e cobre tambem a copia que vai ser servida.
+      - name: 2 · o validador (provas anti-drift, falha fechado)
+        run: python3 system-map/scripts/validate_system_map.py
+
+      - name: 3 · as regras do mapa não afrouxaram
+        run: python3 system-map/tests/test_system_map.py
+
+      - name: 4 · o que vai ser publicado existe e é servível
+        run: |
+          set -e
+          for f in index.html map.js map.css state.generated.json; do
+            test -s "italia-portale/client/system-map/$f" \
+              || { echo "::error::falta italia-portale/client/system-map/$f"; exit 1; }
+          done
+          # A app carrega os tokens oficiais em `../_ds/`. Se esse caminho não
+          # existir no que é servido, a página publica sai sem a marca ADAMA —
+          # e uma página que perde o Design System em silêncio é pior do que
+          # uma que não abre.
+          test -f italia-portale/client/_ds/adama-brandwell/tokens/colors.css \
+            || { echo "::error::o Design System não está no caminho servido"; exit 1; }
+          python3 - <<'PY'
+          import json
+          s = json.load(open('italia-portale/client/system-map/state.generated.json',
+                             encoding='utf-8'))
+          c = s['COUNTS']
+          print(f"PUBLICAVEL=YES · HEAD={s['PROVENANCE']['HEAD'][:10]} · peças={c['components']} "
+                f"(P{c['components_proven']} p{c['components_pending']} "
+                f"B{c['components_broken']} U{c['components_unknown']}) "
+                f"· ligações={c['edges']} · cobertura={c['files_covered']}/{c['files_tracked']}")
+          PY
+
+      - name: 5 · nenhum segredo atravessa para o que é publicado
+        run: |
+          # O repositório é público e o mapa é servido. Ele carrega caminho de
+          # ficheiro e trecho de linha — e trecho de linha é exatamente onde um
+          # segredo se esconderia sem ninguém reparar.
+          if grep -rIEn '(APIFY_TOKEN|SUPABASE_[A-Z_]*KEY|SERVICE_ROLE|BEGIN [A-Z ]*PRIVATE KEY)[^A-Z_]*[:=][[:space:]]*['"'"'"][A-Za-z0-9_-]{16,}' \
+               italia-portale/client/system-map/ ; then
+            echo "::error::possível segredo no que vai ser publicado"; exit 1
+          fi
+          echo "SEM_SEGREDO=YES"

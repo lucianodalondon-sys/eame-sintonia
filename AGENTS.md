@@ -1,0 +1,185 @@
+# LEI DO SINTONIA SYSTEM MAP
+
+**Antes de alterar qualquer parte deste projeto, leia e respeite esta regra.**
+
+Este ficheiro é o **dono canónico** das instruções para agentes de programação
+(Claude Code, Codex, Copilot, ou qualquer outro) neste repositório. Os outros
+ficheiros de instrução **apontam** para aqui; não repetem a lei.
+
+---
+
+## O QUE É O SYSTEM MAP
+
+O SINTONIA System Map é uma **projeção canónica e auditável da arquitetura real
+do repositório**. Vive em [`system-map/`](system-map/) e publica-se em
+`/system-map/`.
+
+Ele responde, sem exigir que se saiba programar: o que cada peça faz, por que
+existe, de onde recebe, para onde envia, que régua atua ali, que ficheiros a
+implementam, que provas a sustentam, e se está a funcionar, pendente, quebrada
+ou desconhecida.
+
+```
+        REPOSITÓRIO
+             ↓
+   scanner + contratos + metadata declarada
+             ↓
+        SYSTEM MAP
+             ↓
+           HTML
+```
+
+**O mapa é derivado do repo. O repo não é derivado do mapa.**
+Nunca no sentido contrário. O mapa não é uma segunda verdade arquitetural.
+
+---
+
+## A OBRIGAÇÃO
+
+Toda alteração que modifique **arquitetura · fonte · coleta · fluxo · contrato ·
+régua · motor · dependência · input · output · artefato · responsabilidade ·
+owner · departamento atendido · superfície · workflow · persistência**
+
+**DEVE atualizar o System Map na mesma mudança** — seja por deteção automática
+(regerar), seja por atualização da metadata declarada.
+
+Na prática, se tocou em qualquer coisa dentro de `scripts/`,
+`italia-portale/audit/`, `tests/`, `system-map/`, `.github/workflows/` ou
+`italia-portale/client/`, isto aplica-se a si.
+
+### Nenhum agente pode
+
+- deixar o mapa sabidamente desatualizado;
+- fabricar ligação que não esteja provada por linha de código;
+- preservar verde sem evidência, ou herdar verde de uma validação anterior;
+- alterar código só para fazer o mapa ficar verde;
+- criar uma segunda verdade arquitetural dentro do mapa;
+- esconder um `NÃO SEI` atrás de um status que pareça melhor.
+
+**Se a relação não puder ser provada: NÃO SEI.**
+Registar `UNKNOWN` é resultado válido, e obrigatório quando é o caso. Ausência
+de prova não é prova de ausência, e também não é prova de presença.
+
+---
+
+## OS COMANDOS
+
+Antes de concluir qualquer mudança relevante, corra:
+
+```bash
+py system-map/scripts/generate_system_map.py    # regerar o mapa
+py system-map/scripts/validate_system_map.py    # provar que ele corresponde ao repo
+py system-map/tests/test_system_map.py          # provar que as regras não afrouxaram
+```
+
+Use `python3` em vez de `py` em Linux/CI. Se o validador reprovar, **a mudança
+não está pronta** — não é um aviso, é um portão.
+
+Depois de regerar, o que mudou tem de entrar no commit:
+
+```bash
+git add system-map/data italia-portale/client/system-map
+```
+
+### Quando declarar à mão
+
+O scanner mede sozinho ficheiros, imports, chamadas, workflows e artefatos. O
+que ele **não consegue** saber está em
+[`system-map/data/architecture.declared.json`](system-map/data/architecture.declared.json):
+o nome de gente, a frase que explica para que serve, o porquê, o departamento
+atendido e a expectativa arquitetural.
+
+Criou um ficheiro de código novo? Declare a que peça ele pertence. O validador
+reprova código de arquitetura que nenhuma peça do mapa reivindica — porque
+código que ninguém consegue apontar no mapa é arquitetura invisível.
+
+Reescreveu uma peça? A descrição humana dela ficou potencialmente desatualizada,
+e o mapa cai para 🟡 sozinho. Releia, corrija a frase e recarimbe:
+
+```bash
+py system-map/scripts/generate_system_map.py --stamp
+```
+
+Recarimbar sem reler é o único jeito de mentir neste sistema. Não faça isso.
+
+---
+
+## O QUE O VALIDADOR PROVA
+
+| | |
+|---|---|
+| `P1_SEM_DRIFT` | o mapa commitado é o que o repositório de hoje produz |
+| `P2_IDS_UNICOS` | nenhum id repetido; todo território existe |
+| `P3_SEM_PONTA_SOLTA` | nenhuma ligação aponta para peça inexistente |
+| `P4_FICHEIROS_REAIS` | todo ficheiro citado pelo mapa existe |
+| `P5_ARESTA_PROVADA` | nenhuma ligação técnica sem linha de código que a prove |
+| `P6_VERDE_TEM_PROVA` | nenhum verde só por o ficheiro existir, nenhum verde velho |
+| `P7_NAO_SEI_VIVE` | ligação declarada e não provada continua `UNKNOWN` |
+| `P8_UM_DONO` | nenhum ficheiro reivindicado por duas peças |
+| `P9_CODIGO_DECLARADO` | todo ficheiro de código pertence a uma peça do mapa |
+| `P10_STATUS_VALIDO` | status só pode ser um dos quatro valores |
+
+Corre no CI em
+[`.github/workflows/system-map.yml`](.github/workflows/system-map.yml), em cada
+push e cada pull request. **Falha fechado**: erro inesperado também é `FAIL`.
+
+---
+
+## O QUE O STATUS SIGNIFICA
+
+| | | |
+|---|---|---|
+| 🟢 | `PROVEN` | a prova própria do tipo de peça passou, e a descrição humana ainda vale |
+| 🟡 | `PENDING` | existe e está ligada, mas falta a prova própria do tipo — ou o ficheiro mudou depois da última leitura humana |
+| 🔴 | `BROKEN` | foi declarada no mapa e não existe no repositório |
+| ⚪ | `UNKNOWN` | **NÃO SEI** — existe, e nada aponta para ela nem ela aponta para nada |
+
+**Verde nunca significa "o ficheiro existe".** Existir é o mínimo para não ser
+vermelho, não um motivo para ser verde. A prova exigida é diferente por tipo de
+peça — exigir de um teste a mesma prova que de um artefato seria exigir o
+impossível de um deles. As regras estão em `prova_do_tipo()` no gerador.
+
+---
+
+## MUDAR PELO MAPA — NÃO
+
+A interface é **leitura**. Clicar nela não altera código, e não deve passar a
+alterar. A ordem é sempre:
+
+```
+agente → implementação no repo → testes → commit → CI → mapa regenerado
+```
+
+Nunca `browser → desenha seta → vira verdade`.
+
+---
+
+## LEIS DO SINTONIA QUE O MAPA NÃO PODE VIOLAR
+
+O mapa é mais um consumidor destas leis, não uma exceção a elas:
+
+- NÃO SEI continua NÃO SEI;
+- ausência não vira negativo; sinal não vira pedido; oportunidade não vira pedido;
+- ciência não vira incidência de campo;
+- data regulatória não vira janela agronómica;
+- fonte/location do documento não vira local do fato;
+- publicação não vira *fact time*;
+- *generated artifact* não vira dono da lei;
+- consumidor não vira dono do gerador;
+- tela não recalcula decisão do motor;
+- contrato tem um dono; snapshot é derivado;
+- código não é deformado para deixar o mapa verde.
+
+---
+
+## RELAÇÃO COM OS OUTROS FICHEIROS
+
+| ficheiro | papel |
+|---|---|
+| **`AGENTS.md`** (este) | **dono da lei do mapa** |
+| [`CLAUDE.md`](CLAUDE.md) | instruções permanentes do projeto; aponta para aqui |
+| [`README.md`](README.md) | método e estados de evidência; aponta agentes para aqui |
+| [`system-map/README.md`](system-map/README.md) | como o mapa funciona por dentro |
+
+**Um dono. Múltiplos ponteiros.** Não copie esta lei para outro ficheiro: uma
+lei em dois sítios diverge, e a partir daí nenhuma das duas vale.

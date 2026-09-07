@@ -1,0 +1,4447 @@
+{
+  "SCHEMA": "sintonia.system-map.state/1",
+  "PROVENANCE": {
+    "REPO": "lucianodalondon-sys/eame-sintonia",
+    "BRANCH": "claude/system-map-canonical-v1",
+    "HEAD": "350a4fe7d9badfee49eb2d70f517e86b1259dc7a",
+    "GENERATED_AT": "2026-09-07T01:56:03Z"
+  },
+  "TERRITORIES": [
+    {
+      "id": "T-FONTE",
+      "name": "FONTES E COLETA",
+      "why": "De onde o dado entra. Nada existe no SINTONIA sem passar por aqui primeiro."
+    },
+    {
+      "id": "T-REGUA",
+      "name": "REGUAS E LEIS",
+      "why": "As leis que decidem o que conta como verdade. Quem manda no significado do dado."
+    },
+    {
+      "id": "T-MOTOR",
+      "name": "MOTOR — CADEIA V2.1",
+      "why": "Onde o dado bruto vira caso. A ordem importa e nao e adivinhavel."
+    },
+    {
+      "id": "T-PACOTE",
+      "name": "PACOTE CANONICO",
+      "why": "O artefacto fechado que o portal serve. Derivado — nunca dono da lei."
+    },
+    {
+      "id": "T-PORTAL",
+      "name": "PORTAL (o que o cliente ve)",
+      "why": "A superficie. Apresenta decisao ja tomada pelo motor; nao recalcula nada."
+    },
+    {
+      "id": "T-PORTAO",
+      "name": "PORTOES E AUDITORIA",
+      "why": "O que impede coisa errada de chegar ao cliente. Falha fechado, de proposito."
+    },
+    {
+      "id": "T-PERSIST",
+      "name": "PERSISTENCIA",
+      "why": "Onde o dado fica guardado entre uma corrida e outra."
+    },
+    {
+      "id": "T-CI",
+      "name": "CI E EXECUCAO",
+      "why": "Quem roda o que, quando, e em que maquina."
+    },
+    {
+      "id": "T-PROVA",
+      "name": "TESTES E PROVA",
+      "why": "O que transforma 'eu acho' em 'esta provado'."
+    },
+    {
+      "id": "T-DS",
+      "name": "DESIGN SYSTEM ADAMA",
+      "why": "A forma. Fonte visual oficial — extrato local dos tokens."
+    },
+    {
+      "id": "T-MAPA",
+      "name": "SYSTEM MAP",
+      "why": "Este proprio instrumento. Aparece no mapa porque tambem e parte do sistema."
+    }
+  ],
+  "DEPARTMENTS": {
+    "DESENVOLVIMENTO_MERCADO": "Desenvolvimento de Mercado — destinatario proprio, nao e Marketing nem Comercial nem Inteligencia.",
+    "COMERCIAL": "Comercial / vendas.",
+    "MARKETING": "Marketing.",
+    "TECNICO_CIENCIA": "Tecnico / Ciencia agronomica.",
+    "REGULATORIO_PORTFOLIO": "Regulatorio e Portfolio.",
+    "FIELD_SALES": "Field Sales.",
+    "INTELIGENCIA": "Inteligencia de mercado.",
+    "LIDERANCA": "Lideranca.",
+    "ENGENHARIA": "Engenharia do proprio SINTONIA (nao e departamento da ADAMA)."
+  },
+  "NODES": [
+    {
+      "id": "C-ADAMA-CATALOGO",
+      "name": "Catalogo de produtos ADAMA",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Monta e le o catalogo de produtos da propria ADAMA em cada pais.",
+      "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "COMERCIAL"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/adama_catalogo_ler.py",
+        "scripts/adama_catalogo_montar.py",
+        "scripts/catalogo_importar.py",
+        "scripts/importar_italia.py",
+        "scripts/it_casa_dados.py"
+      ],
+      "file_count": 5,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CI-REGRESSAO",
+        "C-PORTAL-MODELO"
+      ],
+      "outbound": [
+        "C-PORTAL-DADOS",
+        "C-RELEVANCIA"
+      ]
+    },
+    {
+      "id": "C-ADAMA-ES",
+      "name": "Portao e importacao ADAMA Espanha",
+      "territory": "T-FONTE",
+      "kind": "gate",
+      "what": "Confere as regras de importacao do catalogo espanhol antes de ele entrar.",
+      "why_here": "A Espanha entrou depois e com fonte diferente; sem portao proprio ela contaminaria a base.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/adama_es_gate.py",
+        "scripts/adama_es_import_rules.py",
+        "scripts/freeze_es.py",
+        "scripts/proto_es.py"
+      ],
+      "file_count": 4,
+      "status": "PROVEN",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CI-COLETA",
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-SUPABASE"
+      ]
+    },
+    {
+      "id": "C-ADAMA-IT",
+      "name": "Inteligencia de produto ADAMA Italia",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Le rotulo, modo de acao, substancia europeia e lacuna de portfolio da ADAMA na Italia.",
+      "why_here": "A Italia e o piloto: e onde a leitura de portfolio foi provada primeiro.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/adama_it_eu.py",
+        "scripts/adama_it_frac.py",
+        "scripts/adama_it_gaps.py",
+        "scripts/adama_it_intelligence.py",
+        "scripts/adama_it_labels.py",
+        "scripts/adama_it_moa.py",
+        "scripts/adama_it_qa.py",
+        "scripts/testa_rota_italia.py",
+        "scripts/universo_ciencia_it.py"
+      ],
+      "file_count": 9,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": []
+    },
+    {
+      "id": "C-APIFY-POOL",
+      "name": "Pool de tokens Apify",
+      "territory": "T-FONTE",
+      "kind": "library",
+      "what": "Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.",
+      "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/apify_contrato.py",
+        "scripts/apify_pool.py",
+        "scripts/apify_recuperar.py",
+        "scripts/contrato_ator.py"
+      ],
+      "file_count": 4,
+      "status": "PROVEN",
+      "status_reason": "outras pecas importam ou carregam isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CI-COLETA",
+        "C-COLETA-BASE",
+        "C-COLETA-INSTAGRAM",
+        "C-COLETA-PUBLICA",
+        "C-CORPUS",
+        "C-TESTES"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-ARTEFACTO-V21",
+      "name": "Artefacto embarcado (italy-handoff-v21.js)",
+      "territory": "T-PACOTE",
+      "kind": "artifact",
+      "what": "O ficheiro de dados que viaja para o cliente. E o unico que chega la.",
+      "why_here": "Derivado — nunca dono da lei. Se ele e a lei divergirem, quem manda e a lei.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "italia-portale/client/italy-handoff-v21.js",
+        "italia-portale/client/italy-ingested.js"
+      ],
+      "file_count": 2,
+      "status": "PROVEN",
+      "status_reason": "algum portao ou pagina le este artefacto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-PORTAL-CASCO"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-ASK-SINTONIA",
+      "name": "Ask Sintonia",
+      "territory": "T-PORTAL",
+      "kind": "engine",
+      "what": "A porta de pergunta em linguagem de gente sobre o que o sistema ja provou.",
+      "why_here": "E a unica peca desenhada para quem nao sabe onde procurar.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO",
+        "LIDERANCA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/ask_sintonia.py",
+        "scripts/navegador.py",
+        "scripts/rede.py"
+      ],
+      "file_count": 3,
+      "status": "PROVEN",
+      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-COLETA-BASE",
+        "C-TESTES"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-AUDIT-BLOCOS",
+      "name": "Auditoria de blocos do portal",
+      "territory": "T-PORTAO",
+      "kind": "gate",
+      "what": "Confere bloco por bloco se a tela mostra o que o contrato daquele bloco manda.",
+      "why_here": "Bloco e a unidade de contrato da superficie.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "italia-portale/audit/BLOCK-CONTRACTS.md",
+        "italia-portale/audit/blocks.mjs",
+        "italia-portale/audit/blocks/archive.js",
+        "italia-portale/audit/blocks/brief.js",
+        "italia-portale/audit/blocks/calendar.js",
+        "italia-portale/audit/blocks/case.js",
+        "italia-portale/audit/blocks/competitor.js",
+        "italia-portale/audit/blocks/field.js",
+        "italia-portale/audit/blocks/future.js",
+        "italia-portale/audit/blocks/head.js",
+        "italia-portale/audit/blocks/helpers.js",
+        "italia-portale/audit/blocks/market.js",
+        "italia-portale/audit/blocks/nav.js",
+        "italia-portale/audit/blocks/portfolio.js",
+        "italia-portale/audit/blocks/product.js",
+        "italia-portale/audit/blocks/science.js",
+        "italia-portale/audit/blocks/search.js",
+        "italia-portale/audit/blocks/signal.js",
+        "italia-portale/audit/blocks/voci.js",
+        "italia-portale/audit/blocks/windows.js"
+      ],
+      "file_count": 20,
+      "status": "PROVEN",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-AUDIT-GERAL"
+      ],
+      "outbound": [
+        "C-AUDIT-HARNESS"
+      ]
+    },
+    {
+      "id": "C-AUDIT-CASCO",
+      "name": "Auditoria do casco",
+      "territory": "T-PORTAO",
+      "kind": "gate",
+      "what": "Confere a paridade visual, a demo, os falsos zeros e a fuga de conteudo do casco.",
+      "why_here": "Casco quebrado engana antes de o dado ser lido.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "italia-portale/audit/casco/censo-demo.mjs",
+        "italia-portale/audit/casco/censo-precedenza.mjs",
+        "italia-portale/audit/casco/demo-visibile.mjs",
+        "italia-portale/audit/casco/due-mappe.mjs",
+        "italia-portale/audit/casco/falso-zero.mjs",
+        "italia-portale/audit/casco/fase4-inventario.mjs",
+        "italia-portale/audit/casco/fonti-collegate.mjs",
+        "italia-portale/audit/casco/fonti-divario.mjs",
+        "italia-portale/audit/casco/fuga-tsr.mjs",
+        "italia-portale/audit/casco/mappa-azioni.mjs",
+        "italia-portale/audit/casco/parita-visiva.mjs",
+        "italia-portale/audit/casco/quarantatre.mjs",
+        "italia-portale/audit/casco/release-gate.mjs",
+        "italia-portale/audit/casco/ricchezza.mjs",
+        "italia-portale/audit/casco/sinale.mjs",
+        "italia-portale/audit/casco/sperimentali.mjs"
+      ],
+      "file_count": 16,
+      "status": "PENDING",
+      "status_reason": "importa coisas, mas ninguem o chama — portao fora do caminho nao guarda nada.",
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [
+        "C-AUDIT-HARNESS",
+        "C-PORTAL-CASCO"
+      ]
+    },
+    {
+      "id": "C-AUDIT-GERAL",
+      "name": "Demais auditorias do portal",
+      "territory": "T-PORTAO",
+      "kind": "gate",
+      "what": "O resto das conferencias: aceitacao, numeros do contrato, superficie, navegacao, idioma.",
+      "why_here": "Cada uma prova uma promessa diferente da tela.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "italia-portale/audit/acceptance.mjs",
+        "italia-portale/audit/action-map-consistency.mjs",
+        "italia-portale/audit/browser-deep.mjs",
+        "italia-portale/audit/browser.mjs",
+        "italia-portale/audit/cadeia-de-familias.mjs",
+        "italia-portale/audit/checks.mjs",
+        "italia-portale/audit/click-audit.mjs",
+        "italia-portale/audit/client-boundary.mjs",
+        "italia-portale/audit/client-surface.mjs",
+        "italia-portale/audit/competitor-population.mjs",
+        "italia-portale/audit/contract-numbers.mjs",
+        "italia-portale/audit/counters.mjs",
+        "italia-portale/audit/cta-navigation.mjs",
+        "italia-portale/audit/deploy-surface.mjs",
+        "italia-portale/audit/do-not-show.mjs",
+        "italia-portale/audit/external-only.mjs",
+        "italia-portale/audit/future-ruler.mjs",
+        "italia-portale/audit/internal-token.mjs",
+        "italia-portale/audit/inventory.mjs",
+        "italia-portale/audit/lang.mjs",
+        "italia-portale/audit/link-asset.mjs",
+        "italia-portale/audit/lote-completo.mjs",
+        "italia-portale/audit/market-price-claim.mjs",
+        "italia-portale/audit/meeting-browser.mjs",
+        "italia-portale/audit/meeting-gate.mjs",
+        "italia-portale/audit/meeting-public.mjs",
+        "italia-portale/audit/mirror.mjs",
+        "italia-portale/audit/mobile.mjs",
+        "italia-portale/audit/negative-control.mjs",
+        "italia-portale/audit/opportunity-detail.mjs",
+        "italia-portale/audit/opportunity-hub.mjs",
+        "italia-portale/audit/opportunity-trace.mjs",
+        "italia-portale/audit/pdf-gate.mjs",
+        "italia-portale/audit/portfolio-claims.mjs",
+        "italia-portale/audit/probe-relationships.mjs",
+        "italia-portale/audit/product-identity.mjs",
+        "italia-portale/audit/production.mjs",
+        "italia-portale/audit/prova-da-build.mjs",
+        "italia-portale/audit/publication-boundary.mjs",
+        "italia-portale/audit/reachability.mjs",
+        "italia-portale/audit/reconciliacao-do-catalogo.mjs",
+        "italia-portale/audit/responsive.mjs",
+        "italia-portale/audit/rtv-gate.mjs",
+        "italia-portale/audit/run.mjs",
+        "italia-portale/audit/screen-arithmetic.mjs",
+        "italia-portale/audit/serve.mjs",
+        "italia-portale/audit/snapshot-failure.mjs",
+        "italia-portale/audit/splice.mjs",
+        "italia-portale/audit/stale-generator-gate.mjs",
+        "italia-portale/audit/surface-contract.mjs",
+        "italia-portale/audit/upstream-ingestion.mjs",
+        "italia-portale/audit/v21-gate.mjs"
+      ],
+      "file_count": 52,
+      "status": "PROVEN",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-PORTAO-BUILD"
+      ],
+      "outbound": [
+        "C-AUDIT-BLOCOS",
+        "C-AUDIT-HARNESS",
+        "C-PORTAO-BUILD"
+      ]
+    },
+    {
+      "id": "C-AUDIT-HARNESS",
+      "name": "Harness de auditoria",
+      "territory": "T-PORTAO",
+      "kind": "library",
+      "what": "A base comum que todas as auditorias usam para rodar e relatar do mesmo jeito.",
+      "why_here": "E o ficheiro mais importado do repositorio inteiro.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "italia-portale/audit/lib/drive.mjs",
+        "italia-portale/audit/lib/harness.mjs",
+        "italia-portale/audit/lib/nav-names.mjs",
+        "italia-portale/audit/lib/pacote.mjs",
+        "italia-portale/audit/lib/scan.mjs"
+      ],
+      "file_count": 5,
+      "status": "PROVEN",
+      "status_reason": "outras pecas importam ou carregam isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-AUDIT-BLOCOS",
+        "C-AUDIT-CASCO",
+        "C-AUDIT-GERAL",
+        "C-AUDIT-MARCA",
+        "C-PORTAO-BUILD"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-AUDIT-MARCA",
+      "name": "Auditoria de marca ADAMA",
+      "territory": "T-PORTAO",
+      "kind": "gate",
+      "what": "Confere se a tela obedece ao Design System oficial da ADAMA.",
+      "why_here": "A forma tambem tem lei, e ela nao e opcional.",
+      "departments": [
+        "MARKETING",
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "italia-portale/audit/adama-product-claim.mjs",
+        "italia-portale/audit/adama-relevance-gate.mjs",
+        "italia-portale/audit/brandwell.mjs",
+        "italia-portale/audit/casco/brandwell-parita.mjs"
+      ],
+      "file_count": 4,
+      "status": "PENDING",
+      "status_reason": "importa coisas, mas ninguem o chama — portao fora do caminho nao guarda nada.",
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [
+        "C-AUDIT-HARNESS",
+        "C-RELEVANCIA"
+      ]
+    },
+    {
+      "id": "C-CADEIA-V21",
+      "name": "Cadeia canonica V2.1",
+      "territory": "T-MOTOR",
+      "kind": "chain",
+      "what": "O roteiro que roda os trinta passos do motor na ordem certa, do dado bruto ate o pacote fechado.",
+      "why_here": "A ordem nao e adivinhavel. Rodar um passo sozinho produz um pacote que parece bom e esta errado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/cadeia_canonica.sh",
+        "scripts/chain.py",
+        "scripts/v21_cadeia.sh"
+      ],
+      "file_count": 3,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CI-PERSIST",
+        "C-CI-REGRESSAO",
+        "C-COLETA-BASE",
+        "C-PACOTE-CAMADAS",
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-FONTES-EU",
+        "C-LUGAR-DO-FATO",
+        "C-MEDICAO",
+        "C-PROVENIENCIA",
+        "C-ROTULOS",
+        "C-SUPABASE",
+        "C-V21-CONTRATO",
+        "C-V21-CRUZAMENTO",
+        "C-V21-FONTES",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ]
+    },
+    {
+      "id": "C-CI-COLETA",
+      "name": "Workflows de coleta",
+      "territory": "T-CI",
+      "kind": "workflow",
+      "what": "Os botoes que disparam coleta paga, sempre com a fase gratuita rodando primeiro.",
+      "why_here": "Coleta paga sem contrato conferido antes ja queimou execucoes.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        ".github/workflows/adama-es-gate.yml",
+        ".github/workflows/apify-conexao.yml",
+        ".github/workflows/apify-sensores.yml",
+        ".github/workflows/comunicacao-publica.yml"
+      ],
+      "file_count": 4,
+      "status": "PROVEN",
+      "status_reason": "este workflow manda rodar script do repositorio.",
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [
+        "C-ADAMA-ES",
+        "C-APIFY-POOL",
+        "C-COLETA-PUBLICA",
+        "C-CORPUS",
+        "C-TESTES"
+      ]
+    },
+    {
+      "id": "C-CI-MAPA",
+      "name": "Workflow do System Map",
+      "territory": "T-CI",
+      "kind": "workflow",
+      "what": "Em cada mudanca, regera o mapa e reprova se o que foi commitado nao bate com o repositorio.",
+      "why_here": "E o que impede o 'depois alguem atualiza o mapa'.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        ".github/workflows/system-map.yml"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "este workflow manda rodar script do repositorio.",
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [
+        "C-MAPA-GERADOR",
+        "C-MAPA-SCAN",
+        "C-MAPA-TESTES",
+        "C-MAPA-VALIDADOR"
+      ]
+    },
+    {
+      "id": "C-CI-PERSIST",
+      "name": "Workflows de persistencia",
+      "territory": "T-CI",
+      "kind": "workflow",
+      "what": "Conferem a conexao com o banco, rodam migracao e provam que o dado volta igual ao que entrou.",
+      "why_here": "Migracao sem prova de ida e volta e perda de dado com aparencia de sucesso.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        ".github/workflows/supabase-conexao.yml",
+        ".github/workflows/supabase-fichas-adama.yml",
+        ".github/workflows/supabase-migrate.yml",
+        ".github/workflows/supabase-raw-roundtrip.yml",
+        ".github/workflows/supabase-storage.yml"
+      ],
+      "file_count": 5,
+      "status": "PROVEN",
+      "status_reason": "este workflow manda rodar script do repositorio.",
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [
+        "C-CADEIA-V21",
+        "C-MEDICAO"
+      ]
+    },
+    {
+      "id": "C-CI-REGRESSAO",
+      "name": "Calendario de regressoes",
+      "territory": "T-CI",
+      "kind": "workflow",
+      "what": "Roda de tempos em tempos as provas que garantem que nada quebrou sozinho.",
+      "why_here": "Coisa que passou ontem pode falhar hoje sem ninguem ter mexido nela.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        ".github/workflows/calendario-regressoes.yml"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "este workflow manda rodar script do repositorio.",
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [
+        "C-ADAMA-CATALOGO",
+        "C-CADEIA-V21",
+        "C-MEDICAO"
+      ]
+    },
+    {
+      "id": "C-CICATRIZES-BR",
+      "name": "Cicatrizes do Brasil (lei portada)",
+      "territory": "T-REGUA",
+      "kind": "contract",
+      "what": "Traz para o EAME as leis que o Brasil ja aprendeu na dor, em vez de reinventar cada uma.",
+      "why_here": "O EAME nao inventa contrato novo quando o Brasil ja tem lei madura para a mesma pergunta.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/cicatrizes_brasil.py"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "existe teste que exercita esta lei.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-COLETA-BASE",
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-PROVENIENCIA",
+        "C-TESTES"
+      ]
+    },
+    {
+      "id": "C-COLETA-BASE",
+      "name": "Coletor e portoes de coleta",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "O motor generico de coleta e o portao que decide, de graca, se vale gastar maquina antes de gastar.",
+      "why_here": "Coletar sem portao ja custou execucoes pagas que devolveram o alvo errado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/cdp.py",
+        "scripts/coleta_checkpoint.py",
+        "scripts/coletor.py",
+        "scripts/filas.py",
+        "scripts/portao.py",
+        "scripts/portoes_eame.py"
+      ],
+      "file_count": 6,
+      "status": "PROVEN",
+      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-COLETA-INSTAGRAM",
+        "C-COLETA-PUBLICA",
+        "C-CORPUS",
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-APIFY-POOL",
+        "C-ASK-SINTONIA",
+        "C-CADEIA-V21",
+        "C-CICATRIZES-BR",
+        "C-FONTES-EU",
+        "C-MEDICAO",
+        "C-PROVENIENCIA",
+        "C-VOZ"
+      ]
+    },
+    {
+      "id": "C-COLETA-INSTAGRAM",
+      "name": "Coleta Instagram",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
+      "why_here": "Boa parte da fala real de produtor e de tecnico nao esta em texto — esta em video.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/instagram_coleta.py",
+        "scripts/instagram_diario.py",
+        "scripts/instagram_janela.py",
+        "scripts/instagram_pessoal.py",
+        "scripts/instagram_transcrever.py"
+      ],
+      "file_count": 5,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [
+        "C-APIFY-POOL",
+        "C-COLETA-BASE",
+        "C-MEDICAO",
+        "C-PROVENIENCIA"
+      ]
+    },
+    {
+      "id": "C-COLETA-PUBLICA",
+      "name": "Coleta de comunicacao publica do concorrente",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
+      "why_here": "Saber o que o concorrente esta dizendo em publico, sem depender de ninguem contar.",
+      "departments": [
+        "INTELIGENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/comunicacao_classificar.py",
+        "scripts/comunicacao_coleta.py",
+        "scripts/comunicacao_identidade.py",
+        "scripts/comunicacao_lote.py",
+        "scripts/comunicacao_medir.py",
+        "scripts/comunicacao_universo.py"
+      ],
+      "file_count": 6,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CI-COLETA",
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-APIFY-POOL",
+        "C-COLETA-BASE"
+      ]
+    },
+    {
+      "id": "C-CORPUS",
+      "name": "Corpus de voz e de pesquisador",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
+      "why_here": "A voz do campo e a ciencia sao duas evidencias diferentes e nao podem virar a mesma coisa.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/corpus_es.py",
+        "scripts/corpus_pesquisador.py",
+        "scripts/sensor_canal_identidade.py",
+        "scripts/sensor_coleta.py",
+        "scripts/sensor_medir.py",
+        "scripts/speaker_identidade.py",
+        "scripts/speaker_universo.py"
+      ],
+      "file_count": 7,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CI-COLETA",
+        "C-RELEVANCIA"
+      ],
+      "outbound": [
+        "C-APIFY-POOL",
+        "C-COLETA-BASE",
+        "C-PROVENIENCIA"
+      ]
+    },
+    {
+      "id": "C-DATA-CLOCK",
+      "name": "Regua do tempo",
+      "territory": "T-REGUA",
+      "kind": "contract",
+      "what": "Decide qual data vale: a do fato, nao a da publicacao, e nunca a data regulatoria virando janela agronomica.",
+      "why_here": "Trocar data de publicacao por data do fato desloca a safra inteira.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "REGULATORIO_PORTFOLIO"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/calendario_handoff.py",
+        "scripts/data_clock.py",
+        "scripts/v21_datas.py"
+      ],
+      "file_count": 3,
+      "status": "PROVEN",
+      "status_reason": "existe teste que exercita esta lei.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-TESTES",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "outbound": [
+        "C-SUPABASE"
+      ]
+    },
+    {
+      "id": "C-DS-ADAMA",
+      "name": "Extrato local do ADAMA Design System",
+      "territory": "T-DS",
+      "kind": "library",
+      "what": "As cores, tipografia, espacamentos e fontes oficiais da ADAMA, versionados aqui como extrato.",
+      "why_here": "Extrato local nao e o Design System — serve para o codigo nao divergir dos tokens.",
+      "departments": [
+        "MARKETING"
+      ],
+      "legacy": false,
+      "files": [
+        "italia-portale/BASELINE/_ds/adama-brandwell/_adherence.oxlintrc.json",
+        "italia-portale/BASELINE/_ds/adama-brandwell/_ds_bundle.js",
+        "italia-portale/BASELINE/_ds/adama-brandwell/_ds_manifest.json",
+        "italia-portale/BASELINE/_ds/adama-brandwell/readme.md",
+        "italia-portale/BASELINE/_ds/adama-brandwell/styles.css",
+        "italia-portale/BASELINE/_ds/adama-brandwell/tokens/base.css",
+        "italia-portale/BASELINE/_ds/adama-brandwell/tokens/colors.css",
+        "italia-portale/BASELINE/_ds/adama-brandwell/tokens/patterns.css",
+        "italia-portale/BASELINE/_ds/adama-brandwell/tokens/spacing.css",
+        "italia-portale/BASELINE/_ds/adama-brandwell/tokens/typography.css",
+        "italia-portale/client/_ds/adama-brandwell/_adherence.oxlintrc.json",
+        "italia-portale/client/_ds/adama-brandwell/_ds_bundle.js",
+        "italia-portale/client/_ds/adama-brandwell/_ds_manifest.json",
+        "italia-portale/client/_ds/adama-brandwell/readme.md",
+        "italia-portale/client/_ds/adama-brandwell/styles.css",
+        "italia-portale/client/_ds/adama-brandwell/tokens/base.css",
+        "italia-portale/client/_ds/adama-brandwell/tokens/colors.css",
+        "italia-portale/client/_ds/adama-brandwell/tokens/patterns.css",
+        "italia-portale/client/_ds/adama-brandwell/tokens/spacing.css",
+        "italia-portale/client/_ds/adama-brandwell/tokens/typography.css"
+      ],
+      "file_count": 20,
+      "status": "PROVEN",
+      "status_reason": "outras pecas importam ou carregam isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-PORTAL-CASCO"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-FONTES-EU",
+      "name": "Fontes regulatorias e cientificas europeias",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
+      "why_here": "Fonte oficial e o unico chao que nao depende de alguem ter postado.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/agrifood_ue.py",
+        "scripts/cellar.sh",
+        "scripts/denominaciones.py",
+        "scripts/ephy.sh",
+        "scripts/eppo_gd.py",
+        "scripts/eu_substancia_adama_it.py",
+        "scripts/regulatorio_importar.py"
+      ],
+      "file_count": 7,
+      "status": "PROVEN",
+      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CADEIA-V21",
+        "C-COLETA-BASE",
+        "C-TESTES",
+        "C-V21-INGEST"
+      ],
+      "outbound": [
+        "C-ROTULOS"
+      ]
+    },
+    {
+      "id": "C-LASTMILE",
+      "name": "Ultima milha da entrega",
+      "territory": "T-PACOTE",
+      "kind": "engine",
+      "what": "Leva o resultado ate onde ele e consumido: inventario, relatorio, banco e entrega final.",
+      "why_here": "Resultado que fica no disco da maquina nao chegou a ninguem.",
+      "departments": [
+        "ENGENHARIA",
+        "COMERCIAL"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/lastmile_entregar.py",
+        "scripts/lastmile_inventario.py",
+        "scripts/lastmile_para_supabase.py",
+        "scripts/lastmile_relatorio.py",
+        "scripts/ler_saida_leque.py",
+        "scripts/meeting_snapshot.py"
+      ],
+      "file_count": 6,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": []
+    },
+    {
+      "id": "C-LUGAR-DO-FATO",
+      "name": "Regua do lugar do fato",
+      "territory": "T-REGUA",
+      "kind": "contract",
+      "what": "Separa o lugar onde o fato aconteceu do lugar de onde o documento foi publicado.",
+      "why_here": "Fonte italiana falando de Espanha nao torna o fato italiano. Esta lei impede essa troca.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/fato_local.py",
+        "scripts/gire_mapas.py",
+        "scripts/lugar_do_fato.py",
+        "scripts/v21_geografia_contrato.py"
+      ],
+      "file_count": 4,
+      "status": "PROVEN",
+      "status_reason": "existe teste que exercita esta lei.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CADEIA-V21",
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-V21-INGEST"
+      ]
+    },
+    {
+      "id": "C-MAPA-APP",
+      "name": "Interface do System Map",
+      "territory": "T-MAPA",
+      "kind": "surface",
+      "what": "A tela do mapa: navegar, aproximar, buscar, filtrar e clicar em cada peca.",
+      "why_here": "So renderiza. Nenhum fato arquitetural mora dentro dela.",
+      "departments": [
+        "ENGENHARIA",
+        "LIDERANCA"
+      ],
+      "legacy": false,
+      "files": [
+        "system-map/app/index.html",
+        "system-map/app/map.css",
+        "system-map/app/map.js"
+      ],
+      "file_count": 3,
+      "status": "PROVEN",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-MAPA-GERADOR"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-MAPA-GERADOR",
+      "name": "Gerador do System Map",
+      "territory": "T-MAPA",
+      "kind": "engine",
+      "what": "Junta o que a maquina mediu com o que o humano declarou e calcula o status de cada peca.",
+      "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "system-map/scripts/generate_system_map.py"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CI-MAPA",
+        "C-MAPA-VALIDADOR"
+      ],
+      "outbound": [
+        "C-MAPA-APP",
+        "C-MAPA-SCAN"
+      ]
+    },
+    {
+      "id": "C-MAPA-SCAN",
+      "name": "Scanner do System Map",
+      "territory": "T-MAPA",
+      "kind": "engine",
+      "what": "Le o repositorio e devolve so os fatos: que ficheiro existe, quem importa quem, quem roda o que.",
+      "why_here": "E a unica fonte de aresta tecnica do mapa. Sem ele, o mapa seria opiniao desenhada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "system-map/scripts/scan_repo.py"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CI-MAPA",
+        "C-MAPA-GERADOR",
+        "C-MAPA-VALIDADOR"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-MAPA-TESTES",
+      "name": "Testes do System Map",
+      "territory": "T-MAPA",
+      "kind": "test",
+      "what": "Provam que o mapa nao inventa aresta, nao pinta verde sem evidencia e nao perde o NAO SEI.",
+      "why_here": "Um mapa de auditoria que nao e auditado nao vale nada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "system-map/tests/test_system_map.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "teste que nao toca em nada do repositorio.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CI-MAPA"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-MAPA-VALIDADOR",
+      "name": "Validador do System Map",
+      "territory": "T-MAPA",
+      "kind": "gate",
+      "what": "Reprova a mudanca quando o mapa fica desatualizado, quando ha aresta sem prova ou verde sem evidencia.",
+      "why_here": "E o dente da lei. Sem ele, AGENTS.md seria so um texto pedindo por favor.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "system-map/scripts/validate_system_map.py"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CI-MAPA"
+      ],
+      "outbound": [
+        "C-MAPA-GERADOR",
+        "C-MAPA-SCAN"
+      ]
+    },
+    {
+      "id": "C-MEDICAO",
+      "name": "Auditoria, cobertura e custo",
+      "territory": "T-PROVA",
+      "kind": "engine",
+      "what": "Mede o proprio sistema: o que foi coberto, o que era esperado e quanto custou.",
+      "why_here": "Sistema que nao se mede nao sabe o que esta faltando nele.",
+      "departments": [
+        "ENGENHARIA",
+        "LIDERANCA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/auditoria.py",
+        "scripts/corrigir_custo.py",
+        "scripts/coverage.py",
+        "scripts/inventario_esperado.py"
+      ],
+      "file_count": 4,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CADEIA-V21",
+        "C-CI-PERSIST",
+        "C-CI-REGRESSAO",
+        "C-COLETA-BASE",
+        "C-COLETA-INSTAGRAM",
+        "C-TESTES"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-PACOTE-CAMADAS",
+      "name": "Montagem do pacote por camadas",
+      "territory": "T-PACOTE",
+      "kind": "engine",
+      "what": "Monta o pacote de entrega em camadas e mede o que ficou dentro.",
+      "why_here": "Separar montagem de decisao: aqui so se empacota o que o motor ja decidiu.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/metricas_canonicas.py",
+        "scripts/pacote.py",
+        "scripts/pacote_camadas.py",
+        "scripts/pacote_camadas2.py",
+        "scripts/pacote_camadas3.py",
+        "scripts/pacote_docs.py",
+        "scripts/pacote_fenologia.py",
+        "scripts/pacote_mercado.py",
+        "scripts/pacote_montar.py",
+        "scripts/pacote_relacoes_convergencia.py",
+        "scripts/v21_handoff_json.py"
+      ],
+      "file_count": 11,
+      "status": "PROVEN",
+      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-CADEIA-V21",
+        "C-TESTES",
+        "C-V21-CRUZAMENTO",
+        "C-V21-INGEST"
+      ]
+    },
+    {
+      "id": "C-PORTAL-CASCO",
+      "name": "Casco do portal",
+      "territory": "T-PORTAL",
+      "kind": "surface",
+      "what": "As paginas que o cliente abre: entrada, casa e portal.",
+      "why_here": "A superficie apresenta o que ja foi decidido. Nao decide.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO",
+        "LIDERANCA"
+      ],
+      "legacy": false,
+      "files": [
+        "italia-portale/client/accesso.html",
+        "italia-portale/client/casa.html",
+        "italia-portale/client/index.html",
+        "italia-portale/client/portale.html"
+      ],
+      "file_count": 4,
+      "status": "PROVEN",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-AUDIT-CASCO"
+      ],
+      "outbound": [
+        "C-ARTEFACTO-V21",
+        "C-DS-ADAMA",
+        "C-PORTAL-DADOS",
+        "C-PORTAL-MODELO"
+      ]
+    },
+    {
+      "id": "C-PORTAL-DADOS",
+      "name": "Camadas de dado do portal",
+      "territory": "T-PORTAL",
+      "kind": "surface",
+      "what": "Os blocos de conteudo que o portal mostra: casos, catalogo, ciencia, rotulo, mercado, reuniao.",
+      "why_here": "Cada bloco tem um dono de dado diferente e por isso e listado separado.",
+      "departments": [
+        "COMERCIAL",
+        "TECNICO_CIENCIA",
+        "REGULATORIO_PORTFOLIO",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "legacy": false,
+      "files": [
+        "italia-portale/client/adama-relevance.js",
+        "italia-portale/client/italy-briefs.js",
+        "italia-portale/client/italy-canonical-windows.js",
+        "italia-portale/client/italy-catalog.js",
+        "italia-portale/client/italy-demo-data.js",
+        "italia-portale/client/italy-label-verdicts.js",
+        "italia-portale/client/italy-market-pulse.js",
+        "italia-portale/client/italy-pdf.js",
+        "italia-portale/client/italy-real-intelligence.js",
+        "italia-portale/client/italy-science-business.js",
+        "italia-portale/client/meeting-intelligence-snapshot.js",
+        "italia-portale/client/meeting-labels.js",
+        "italia-portale/client/meeting-surface.js"
+      ],
+      "file_count": 13,
+      "status": "PROVEN",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-ADAMA-CATALOGO",
+        "C-PORTAL-CASCO",
+        "C-PORTAL-MODELO"
+      ],
+      "outbound": [
+        "C-RELEVANCIA"
+      ]
+    },
+    {
+      "id": "C-PORTAL-MODELO",
+      "name": "Modelo de aplicacao do portal",
+      "territory": "T-PORTAL",
+      "kind": "surface",
+      "what": "A logica de tela: o que aparece, em que ordem, com que rotulo.",
+      "why_here": "Guarda a leitura, nao a decisao.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "legacy": false,
+      "files": [
+        "italia-portale/client/italy-app-model.js",
+        "italia-portale/client/italy-casa.js",
+        "italia-portale/client/italy-i18n.js",
+        "italia-portale/client/support.js"
+      ],
+      "file_count": 4,
+      "status": "PROVEN",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-PORTAL-CASCO"
+      ],
+      "outbound": [
+        "C-ADAMA-CATALOGO",
+        "C-PORTAL-DADOS"
+      ]
+    },
+    {
+      "id": "C-PORTAO-BUILD",
+      "name": "Portao da build",
+      "territory": "T-PORTAO",
+      "kind": "gate",
+      "what": "Roda antes de qualquer publicacao e barra pacote atrasado ou artefacto que nao prove sua origem.",
+      "why_here": "Nao ha bandeira para desligar. Portao que se chama a parte e disciplina; no caminho, e regra.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "italia-portale/audit/build-gate.mjs",
+        "italia-portale/audit/casa-gate.mjs",
+        "italia-portale/audit/ingestion-provenance.mjs"
+      ],
+      "file_count": 3,
+      "status": "PROVEN",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-AUDIT-GERAL"
+      ],
+      "outbound": [
+        "C-AUDIT-GERAL",
+        "C-AUDIT-HARNESS"
+      ]
+    },
+    {
+      "id": "C-PROVENIENCIA",
+      "name": "Regua de procedencia",
+      "territory": "T-REGUA",
+      "kind": "contract",
+      "what": "Decide de onde cada afirmacao veio e nao deixa a origem se perder no caminho.",
+      "why_here": "Sem procedencia, um numero vira verdade so porque esta escrito.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/proveniencia.py",
+        "scripts/v21_carimbar_origem.py",
+        "scripts/v21_procedencia_contrato.py",
+        "scripts/v21_procedencia_religar.py"
+      ],
+      "file_count": 4,
+      "status": "PROVEN",
+      "status_reason": "existe teste que exercita esta lei.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CADEIA-V21",
+        "C-CICATRIZES-BR",
+        "C-COLETA-BASE",
+        "C-COLETA-INSTAGRAM",
+        "C-CORPUS",
+        "C-TESTES"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-RELEVANCIA",
+      "name": "Regua de relevancia ADAMA",
+      "territory": "T-REGUA",
+      "kind": "contract",
+      "what": "Decide se um sinal interessa a ADAMA, e o quanto.",
+      "why_here": "Ha um unico dono da relevancia. Duas reguas de relevancia sao duas verdades.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/adama_relevance.py",
+        "scripts/auditoria_regua_comercial.py",
+        "scripts/regua_italia.py"
+      ],
+      "file_count": 3,
+      "status": "PROVEN",
+      "status_reason": "existe teste que exercita esta lei.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-ADAMA-CATALOGO",
+        "C-AUDIT-MARCA",
+        "C-PORTAL-DADOS",
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-CORPUS"
+      ]
+    },
+    {
+      "id": "C-ROTULOS",
+      "name": "Rotulos",
+      "territory": "T-FONTE",
+      "kind": "engine",
+      "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
+      "why_here": "O rotulo e o unico documento que diz o que e legalmente permitido fazer com o produto.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/cruzar_regua_rotulo.py",
+        "scripts/mapa_regfi.py",
+        "scripts/pdf_text.py",
+        "scripts/preservar_pdf.py",
+        "scripts/ropf_pre_requisito.py",
+        "scripts/rotulos_baixar.py",
+        "scripts/rotulos_censo.py",
+        "scripts/rotulos_ler.py"
+      ],
+      "file_count": 8,
+      "status": "PROVEN",
+      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CADEIA-V21",
+        "C-FONTES-EU",
+        "C-TESTES"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-SITE-INGEST",
+      "name": "Ingestao do pacote no site",
+      "territory": "T-PACOTE",
+      "kind": "engine",
+      "what": "Pega o pacote fechado e o transforma no ficheiro que o portal carrega.",
+      "why_here": "Unica porta entre o motor e a tela. Recusa pacote que nao prove a propria procedencia.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/build_portal.py",
+        "scripts/site_v21_ingest.py"
+      ],
+      "file_count": 2,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": []
+    },
+    {
+      "id": "C-SUPABASE",
+      "name": "Persistencia Supabase",
+      "territory": "T-PERSIST",
+      "kind": "engine",
+      "what": "Onde o dado coletado fica guardado, e as migracoes que mudam o formato dessa guarda.",
+      "why_here": "Entre uma corrida e outra o dado precisa existir em algum lugar que nao seja a memoria da maquina.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/sql_conferir.py",
+        "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
+        "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql",
+        "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql",
+        "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",
+        "supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql",
+        "supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql",
+        "supabase/fixtures/es_calendario_mvp.sql",
+        "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
+        "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql",
+        "supabase/importacoes/IT-CAMADAS-2026-09-02.sql",
+        "supabase/importacoes/IT-LASTMILE-2026-09-02.sql",
+        "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
+        "supabase/migrations/002_identidade_pessoa_org_canal.sql",
+        "supabase/migrations/003_conteudo_documento_video_transcricao.sql",
+        "supabase/migrations/004_crop_issue_par_explicito.sql",
+        "supabase/migrations/005_camada_analitica_observado_vs_derivado.sql",
+        "supabase/migrations/006_regulatorio_e_rls.sql",
+        "supabase/migrations/007_views_de_apoio.sql",
+        "supabase/migrations/008_verificacao_pos_aplicacao.sql",
+        "supabase/migrations/009_semantica_de_pais.sql",
+        "supabase/migrations/010_calendario_agronomico.sql",
+        "supabase/migrations/011_calendario_consultas.sql",
+        "supabase/migrations/012_contexto_temporal_do_caso.sql",
+        "supabase/migrations/013_captura_nao_e_registro.sql",
+        "supabase/migrations/014_catalogo_publico_fabricante.sql",
+        "supabase/migrations/015_cicatrizes_do_brasil.sql",
+        "supabase/migrations/016_checkpoint_e_unidade_analitica.sql",
+        "supabase/migrations/017_o_que_a_conferencia_de_localizacao_achou.sql",
+        "supabase/migrations/018_o_lugar_do_fato_ganha_dono.sql",
+        "supabase/migrations/019_camada_ue_e_resistencia.sql",
+        "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql",
+        "supabase/migrations/021_fato_externo_publicado.sql",
+        "supabase/tests/mutacao_cicatrizes.sql",
+        "supabase/tests/mutacao_coleta.sql",
+        "supabase/tests/mutacao_lugar_do_fato.sql",
+        "supabase/tests/regressoes_calendario.sql",
+        "supabase/tests/regressoes_captura.sql",
+        "supabase/tests/regressoes_catalogo_es.sql",
+        "supabase/tests/regressoes_cicatrizes.sql",
+        "supabase/tests/regressoes_coleta.sql",
+        "supabase/tests/regressoes_lugar_do_fato.sql",
+        "supabase/tests/regressoes_regulatorio_es.sql"
+      ],
+      "file_count": 43,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-ADAMA-ES",
+        "C-CADEIA-V21",
+        "C-DATA-CLOCK"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-TESTES",
+      "name": "Suite de testes",
+      "territory": "T-PROVA",
+      "kind": "test",
+      "what": "As provas executaveis do repositorio, uma por lei ou por peca.",
+      "why_here": "E o que separa 'esta escrito' de 'esta provado'.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "tests/test_adama_es_gate.py",
+        "tests/test_adama_es_import_rules.py",
+        "tests/test_adama_relevance.py",
+        "tests/test_calendario_temporal.py",
+        "tests/test_canonico.py",
+        "tests/test_cicatrizes_brasil.py",
+        "tests/test_coleta_externa.py",
+        "tests/test_coleta_resiliente.py",
+        "tests/test_competitor_layer.py",
+        "tests/test_completude_oportunidade.py",
+        "tests/test_comunicacao.py",
+        "tests/test_evidence.py",
+        "tests/test_handoff.py",
+        "tests/test_hero_cases_v1.py",
+        "tests/test_lugar_do_fato.py",
+        "tests/test_metricas.py",
+        "tests/test_migrations.py",
+        "tests/test_navegador.py",
+        "tests/test_operacao.py",
+        "tests/test_pipeline.py",
+        "tests/test_portao.py",
+        "tests/test_portoes_eame.py",
+        "tests/test_prioridade_comercial.py",
+        "tests/test_proveniencia.py",
+        "tests/test_radar_futuro.py",
+        "tests/test_v21_datas.py",
+        "tests/test_v21_geografia.py",
+        "tests/test_v21_mercado.py",
+        "tests/test_v21_traducao_trava.py",
+        "tests/test_voz.py"
+      ],
+      "file_count": 30,
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CI-COLETA",
+        "C-CICATRIZES-BR",
+        "C-PACOTE-CAMADAS"
+      ],
+      "outbound": [
+        "C-ADAMA-ES",
+        "C-APIFY-POOL",
+        "C-ASK-SINTONIA",
+        "C-CADEIA-V21",
+        "C-CICATRIZES-BR",
+        "C-COLETA-BASE",
+        "C-COLETA-PUBLICA",
+        "C-DATA-CLOCK",
+        "C-FONTES-EU",
+        "C-LUGAR-DO-FATO",
+        "C-MEDICAO",
+        "C-PACOTE-CAMADAS",
+        "C-PROVENIENCIA",
+        "C-RELEVANCIA",
+        "C-ROTULOS",
+        "C-V21-COMERCIAL",
+        "C-V21-CONTRATO",
+        "C-V21-FONTES",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE",
+        "C-VOZ"
+      ]
+    },
+    {
+      "id": "C-V2-LEGADO",
+      "name": "Cadeia V2 (legado)",
+      "territory": "T-MOTOR",
+      "kind": "engine",
+      "what": "A geracao anterior do motor, antes da V2.1.",
+      "why_here": "Continua no repositorio e por isso aparece no mapa — mas nao e a cadeia oficial de hoje.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": true,
+      "files": [
+        "scripts/v2_conflitos.py",
+        "scripts/v2_cruzamentos.py",
+        "scripts/v2_dedup_e_familias.py",
+        "scripts/v2_fechar.py",
+        "scripts/v2_montar_handoff.py",
+        "scripts/v2_qa_atribuir.py",
+        "scripts/v2_relatorio.py"
+      ],
+      "file_count": 7,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": []
+    },
+    {
+      "id": "C-V21-COMERCIAL",
+      "name": "Leitura comercial e completude",
+      "territory": "T-MOTOR",
+      "kind": "engine",
+      "what": "Mede se o caso esta completo o bastante para virar conversa comercial, e reavalia quando muda.",
+      "why_here": "Caso incompleto virando pedido de venda e o erro mais caro que este sistema pode cometer.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/v21_adama_registro_validar.py",
+        "scripts/v21_antes_e_depois.py",
+        "scripts/v21_campos_de_lingua.py",
+        "scripts/v21_comercial.py",
+        "scripts/v21_completude_oportunidade.py",
+        "scripts/v21_necessidade.py",
+        "scripts/v21_reavaliar_35.py",
+        "scripts/v21_reverificacao_ledger.py",
+        "scripts/v21_tm_colher.py"
+      ],
+      "file_count": 9,
+      "status": "PROVEN",
+      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-TESTES",
+        "C-V21-CONTRATO",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "outbound": [
+        "C-V21-CONTRATO",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ]
+    },
+    {
+      "id": "C-V21-CONTRATO",
+      "name": "Contrato do pacote",
+      "territory": "T-MOTOR",
+      "kind": "contract",
+      "what": "Confere se o pacote fechado obedece as contagens e as regras antes de existir.",
+      "why_here": "Pacote que nao prova a si mesmo nao pode chegar ao portal.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/v21_aceitacao.py",
+        "scripts/v21_contrato_do_pacote.py",
+        "scripts/v21_traducao_trava.py"
+      ],
+      "file_count": 3,
+      "status": "PROVEN",
+      "status_reason": "existe teste que exercita esta lei.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CADEIA-V21",
+        "C-TESTES",
+        "C-V21-COMERCIAL"
+      ],
+      "outbound": [
+        "C-V21-COMERCIAL"
+      ]
+    },
+    {
+      "id": "C-V21-CRUZAMENTO",
+      "name": "Cruzamentos e convergencia",
+      "territory": "T-MOTOR",
+      "kind": "engine",
+      "what": "Cruza sinais de origens diferentes e ve onde eles se encontram.",
+      "why_here": "Um sinal sozinho e ruido. O valor esta no encontro de dois.",
+      "departments": [
+        "INTELIGENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/consolidar_leque.py",
+        "scripts/matriz_recorte.py",
+        "scripts/pacote_convergencia.py",
+        "scripts/v21_crossings.py"
+      ],
+      "file_count": 4,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CADEIA-V21",
+        "C-PACOTE-CAMADAS"
+      ],
+      "outbound": [
+        "C-V21-INGEST"
+      ]
+    },
+    {
+      "id": "C-V21-FONTES",
+      "name": "Religacao de fontes do pacote",
+      "territory": "T-MOTOR",
+      "kind": "engine",
+      "what": "Garante que cada caso do pacote continua ligado a fonte que o provou.",
+      "why_here": "Caso sem fonte religada e afirmacao orfa.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/source_health.py",
+        "scripts/v21_fontes_faltantes.py",
+        "scripts/v21_fontes_rechavear.py",
+        "scripts/v21_vozes_reconciliar.py"
+      ],
+      "file_count": 4,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CADEIA-V21",
+        "C-TESTES"
+      ],
+      "outbound": []
+    },
+    {
+      "id": "C-V21-INGEST",
+      "name": "Ingestao V2.1",
+      "territory": "T-MOTOR",
+      "kind": "engine",
+      "what": "Entrada do motor: le o dado bruto e o coloca no formato que o resto da cadeia entende.",
+      "why_here": "Primeiro degrau da cadeia. Tudo depois depende do que entra aqui.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/normalize_agro.py",
+        "scripts/normalize_substance.py",
+        "scripts/pacote_normalizar.py",
+        "scripts/v21_ingest.py",
+        "scripts/v21_ingest_b.py",
+        "scripts/v21_ingest_c.py",
+        "scripts/v21_normalizar.py"
+      ],
+      "file_count": 7,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CADEIA-V21",
+        "C-LUGAR-DO-FATO",
+        "C-PACOTE-CAMADAS",
+        "C-TESTES",
+        "C-V21-COMERCIAL",
+        "C-V21-CRUZAMENTO"
+      ],
+      "outbound": [
+        "C-DATA-CLOCK",
+        "C-FONTES-EU"
+      ]
+    },
+    {
+      "id": "C-V21-OPORTUNIDADE",
+      "name": "Motor de Oportunidade",
+      "territory": "T-MOTOR",
+      "kind": "engine",
+      "what": "Transforma cruzamento provado em caso de oportunidade, com dono, lugar e momento.",
+      "why_here": "E aqui que o sistema decide. A tela nao recalcula nada disto.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO",
+        "FIELD_SALES"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/v21_dominio_da_alegacao.py",
+        "scripts/v21_fechar.py",
+        "scripts/v21_oportunidades.py"
+      ],
+      "file_count": 3,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-CADEIA-V21",
+        "C-TESTES",
+        "C-V21-COMERCIAL"
+      ],
+      "outbound": [
+        "C-DATA-CLOCK",
+        "C-V21-COMERCIAL"
+      ]
+    },
+    {
+      "id": "C-VOZ",
+      "name": "Regua da voz",
+      "territory": "T-REGUA",
+      "kind": "contract",
+      "what": "Guarda como o sistema fala: sinal nao vira pedido, ausencia nao vira negativo.",
+      "why_here": "A maior parte do erro de leitura nasce na frase, nao no numero.",
+      "departments": [
+        "DESENVOLVIMENTO_MERCADO",
+        "MARKETING"
+      ],
+      "legacy": false,
+      "files": [
+        "scripts/texto_fonte.py",
+        "scripts/voz.py"
+      ],
+      "file_count": 2,
+      "status": "PROVEN",
+      "status_reason": "existe teste que exercita esta lei.",
+      "changed_since_declared": [],
+      "inbound": [
+        "C-COLETA-BASE",
+        "C-TESTES"
+      ],
+      "outbound": []
+    }
+  ],
+  "EDGES": [
+    {
+      "from": "C-ADAMA-CATALOGO",
+      "to": "C-PORTAL-DADOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Catalogo de produtos ADAMA le Camadas de dado do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/it_casa_dados.py",
+          "line": 1011,
+          "snippet": "'DONO': 'italia-portale/client/meeting-labels.js',"
+        }
+      ]
+    },
+    {
+      "from": "C-ADAMA-CATALOGO",
+      "to": "C-RELEVANCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Catalogo de produtos ADAMA importa Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/it_casa_dados.py",
+          "line": 76,
+          "snippet": "from adama_relevance import (CONTRATO as LEI_ADAMA, classificar, contar,"
+        }
+      ]
+    },
+    {
+      "from": "C-ADAMA-CATALOGO",
+      "to": "C-RELEVANCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Catalogo de produtos ADAMA le Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/it_casa_dados.py",
+          "line": 1026,
+          "snippet": "'DONO_DA_LEI': 'scripts/adama_relevance.py',"
+        }
+      ]
+    },
+    {
+      "from": "C-ADAMA-ES",
+      "to": "C-SUPABASE",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Portao e importacao ADAMA Espanha le Persistencia Supabase. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/adama_es_gate.py",
+          "line": 723,
+          "snippet": "'ONDE_FOI_RESOLVIDO': 'supabase/migrations/013_captura_nao_e_registro.sql',"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-BLOCOS",
+      "to": "C-AUDIT-HARNESS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria de blocos do portal importa Harness de auditoria. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/blocks.mjs",
+          "line": 6,
+          "snippet": "import { CLIENT, readPortal, extractLogic } from './lib/harness.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-BLOCOS",
+      "to": "C-AUDIT-HARNESS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria de blocos do portal le Harness de auditoria. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/blocks.mjs",
+          "line": 6,
+          "snippet": "import { CLIENT, readPortal, extractLogic } from './lib/harness.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-CASCO",
+      "to": "C-AUDIT-HARNESS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria do casco importa Harness de auditoria. Provado por 17 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/casco/censo-demo.mjs",
+          "line": 4,
+          "snippet": "import { loadData } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/censo-precedenza.mjs",
+          "line": 1,
+          "snippet": "import { loadData } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/demo-visibile.mjs",
+          "line": 13,
+          "snippet": "import { mount } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/due-mappe.mjs",
+          "line": 2,
+          "snippet": "import { mount } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/falso-zero.mjs",
+          "line": 2,
+          "snippet": "import { mount } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/fase4-inventario.mjs",
+          "line": 6,
+          "snippet": "import { loadData, CLIENT } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/fonti-collegate.mjs",
+          "line": 2,
+          "snippet": "import { mount } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/fonti-divario.mjs",
+          "line": 2,
+          "snippet": "import { mount } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/fuga-tsr.mjs",
+          "line": 2,
+          "snippet": "import { loadData } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/mappa-azioni.mjs",
+          "line": 3,
+          "snippet": "import { mount } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/quarantatre.mjs",
+          "line": 8,
+          "snippet": "import { serve, open, screenText, C, line } from '../lib/drive.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/quarantatre.mjs",
+          "line": 11,
+          "snippet": "import { loadData } from '../lib/harness.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-CASCO",
+      "to": "C-AUDIT-HARNESS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria do casco le Harness de auditoria. Provado por 17 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/casco/censo-demo.mjs",
+          "line": 4,
+          "snippet": "import { loadData } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/censo-precedenza.mjs",
+          "line": 1,
+          "snippet": "import { loadData } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/demo-visibile.mjs",
+          "line": 13,
+          "snippet": "import { mount } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/due-mappe.mjs",
+          "line": 2,
+          "snippet": "import { mount } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/falso-zero.mjs",
+          "line": 2,
+          "snippet": "import { mount } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/fase4-inventario.mjs",
+          "line": 6,
+          "snippet": "import { loadData, CLIENT } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/fonti-collegate.mjs",
+          "line": 2,
+          "snippet": "import { mount } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/fonti-divario.mjs",
+          "line": 2,
+          "snippet": "import { mount } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/fuga-tsr.mjs",
+          "line": 2,
+          "snippet": "import { loadData } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/mappa-azioni.mjs",
+          "line": 3,
+          "snippet": "import { mount } from '../lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/quarantatre.mjs",
+          "line": 8,
+          "snippet": "import { serve, open, screenText, C, line } from '../lib/drive.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casco/quarantatre.mjs",
+          "line": 11,
+          "snippet": "import { loadData } from '../lib/harness.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-CASCO",
+      "to": "C-PORTAL-CASCO",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria do casco le Casco do portal. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/casco/demo-visibile.mjs",
+          "line": 77,
+          "snippet": "const SORGENTE_PORTALE = fs.readFileSync(new URL('../../client/portale.html', import.meta.url), 'utf8');"
+        },
+        {
+          "file": "italia-portale/audit/casco/mappa-azioni.mjs",
+          "line": 88,
+          "snippet": "const SORGENTE = fs.readFileSync(new URL('../../client/portale.html', import.meta.url), 'utf8');"
+        },
+        {
+          "file": "italia-portale/audit/casco/release-gate.mjs",
+          "line": 54,
+          "snippet": "const SRC = fs.readFileSync(new URL('../../client/portale.html', import.meta.url), 'utf8');"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-GERAL",
+      "to": "C-AUDIT-BLOCOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Demais auditorias do portal importa Auditoria de blocos do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/splice.mjs",
+          "line": 18,
+          "snippet": "import { BLOCKS } from './blocks.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-GERAL",
+      "to": "C-AUDIT-BLOCOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Demais auditorias do portal le Auditoria de blocos do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/splice.mjs",
+          "line": 18,
+          "snippet": "import { BLOCKS } from './blocks.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-GERAL",
+      "to": "C-AUDIT-HARNESS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Demais auditorias do portal importa Harness de auditoria. Provado por 62 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/acceptance.mjs",
+          "line": 12,
+          "snippet": "import { loadData, mount, CLIENT } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/acceptance.mjs",
+          "line": 13,
+          "snippet": "import { scanAll, grepPackage } from './lib/scan.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/action-map-consistency.mjs",
+          "line": 27,
+          "snippet": "import { serve, open, openCase, clickTitle, C, line } from './lib/drive.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/action-map-consistency.mjs",
+          "line": 28,
+          "snippet": "import { loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/browser-deep.mjs",
+          "line": 33,
+          "snippet": "import { loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/browser-deep.mjs",
+          "line": 34,
+          "snippet": "import { navMap } from './lib/nav-names.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/browser.mjs",
+          "line": 31,
+          "snippet": "import { navMap } from './lib/nav-names.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/browser.mjs",
+          "line": 32,
+          "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/cadeia-de-familias.mjs",
+          "line": 52,
+          "snippet": "import { loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/cadeia-de-familias.mjs",
+          "line": 53,
+          "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/checks.mjs",
+          "line": 12,
+          "snippet": "import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/checks.mjs",
+          "line": 14,
+          "snippet": "import { scanAll, grepPackage, walkPackage } from './lib/scan.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-GERAL",
+      "to": "C-AUDIT-HARNESS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Demais auditorias do portal le Harness de auditoria. Provado por 62 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/acceptance.mjs",
+          "line": 12,
+          "snippet": "import { loadData, mount, CLIENT } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/acceptance.mjs",
+          "line": 13,
+          "snippet": "import { scanAll, grepPackage } from './lib/scan.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/action-map-consistency.mjs",
+          "line": 27,
+          "snippet": "import { serve, open, openCase, clickTitle, C, line } from './lib/drive.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/action-map-consistency.mjs",
+          "line": 28,
+          "snippet": "import { loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/browser-deep.mjs",
+          "line": 33,
+          "snippet": "import { loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/browser-deep.mjs",
+          "line": 34,
+          "snippet": "import { navMap } from './lib/nav-names.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/browser.mjs",
+          "line": 31,
+          "snippet": "import { navMap } from './lib/nav-names.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/browser.mjs",
+          "line": 32,
+          "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/cadeia-de-familias.mjs",
+          "line": 52,
+          "snippet": "import { loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/cadeia-de-familias.mjs",
+          "line": 53,
+          "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/checks.mjs",
+          "line": 12,
+          "snippet": "import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/checks.mjs",
+          "line": 14,
+          "snippet": "import { scanAll, grepPackage, walkPackage } from './lib/scan.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-GERAL",
+      "to": "C-PORTAO-BUILD",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Demais auditorias do portal importa Portao da build. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/checks.mjs",
+          "line": 13,
+          "snippet": "import { EXPECTED_BUILD_ID } from './ingestion-provenance.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/snapshot-failure.mjs",
+          "line": 24,
+          "snippet": "import { EXPECTED_BUILD_ID, REVOKED_STATES } from './ingestion-provenance.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/stale-generator-gate.mjs",
+          "line": 21,
+          "snippet": "import { recusas, CONTRATO } from './ingestion-provenance.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-GERAL",
+      "to": "C-PORTAO-BUILD",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Demais auditorias do portal le Portao da build. Provado por 6 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/checks.mjs",
+          "line": 13,
+          "snippet": "import { EXPECTED_BUILD_ID } from './ingestion-provenance.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/deploy-surface.mjs",
+          "line": 102,
+          "snippet": "const coda = ['build-gate.mjs'];"
+        },
+        {
+          "file": "italia-portale/audit/negative-control.mjs",
+          "line": 146,
+          "snippet": "const { code } = correPortao(raiz, 'casa-gate.mjs');"
+        },
+        {
+          "file": "italia-portale/audit/snapshot-failure.mjs",
+          "line": 24,
+          "snippet": "import { EXPECTED_BUILD_ID, REVOKED_STATES } from './ingestion-provenance.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/stale-generator-gate.mjs",
+          "line": 21,
+          "snippet": "import { recusas, CONTRATO } from './ingestion-provenance.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/stale-generator-gate.mjs",
+          "line": 115,
+          "snippet": "const declarado = pre.includes('build-gate.mjs');"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-MARCA",
+      "to": "C-AUDIT-HARNESS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria de marca ADAMA importa Harness de auditoria. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/adama-product-claim.mjs",
+          "line": 25,
+          "snippet": "import { mount, loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/brandwell.mjs",
+          "line": 18,
+          "snippet": "import { serve, open, clickTitle, openCase, nav, C, line } from './lib/drive.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-MARCA",
+      "to": "C-AUDIT-HARNESS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria de marca ADAMA le Harness de auditoria. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/adama-product-claim.mjs",
+          "line": 25,
+          "snippet": "import { mount, loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/brandwell.mjs",
+          "line": 18,
+          "snippet": "import { serve, open, clickTitle, openCase, nav, C, line } from './lib/drive.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-AUDIT-MARCA",
+      "to": "C-RELEVANCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria de marca ADAMA le Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/adama-relevance-gate.mjs",
+          "line": 88,
+          "snippet": "if (REL.DONO_DA_LEI !== 'scripts/adama_relevance.py') bad.push(`dono declarado: ${REL.DONO_DA_LEI}`);"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-FONTES-EU",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 importa Fontes regulatorias e cientificas europeias. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/chain.py",
+          "line": 219,
+          "snippet": "from denominaciones import read, split_rows"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-LUGAR-DO-FATO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 manda rodar Regua do lugar do fato. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 174,
+          "snippet": "\"$PY\" scripts/v21_geografia_contrato.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-MEDICAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 importa Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/chain.py",
+          "line": 41,
+          "snippet": "from coverage import Coverage                                  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-PROVENIENCIA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 manda rodar Regua de procedencia. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 97,
+          "snippet": "\"$PY\" scripts/v21_carimbar_origem.py"
+        },
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 112,
+          "snippet": "\"$PY\" scripts/v21_procedencia_religar.py"
+        },
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 175,
+          "snippet": "\"$PY\" scripts/v21_procedencia_contrato.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-ROTULOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 importa Rotulos. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/chain.py",
+          "line": 187,
+          "snippet": "import mapa_regfi"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-SUPABASE",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 manda rodar Persistencia Supabase. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/cadeia_canonica.sh",
+          "line": 138,
+          "snippet": "if ! python3 \"$RAIZ/scripts/sql_conferir.py\" \"$RAIZ/$f\"; then"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-V21-CONTRATO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 manda rodar Contrato do pacote. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 117,
+          "snippet": "\"$PY\" scripts/v21_contrato_do_pacote.py --rota"
+        },
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 133,
+          "snippet": "\"$PY\" scripts/v21_traducao_trava.py --aplicar"
+        },
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 150,
+          "snippet": "\"$PY\" scripts/v21_aceitacao.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-V21-CRUZAMENTO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 manda rodar Cruzamentos e convergencia. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 87,
+          "snippet": "\"$PY\" scripts/v21_crossings.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-V21-FONTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 importa Religacao de fontes do pacote. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/chain.py",
+          "line": 42,
+          "snippet": "import source_health as sh                                     # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-V21-FONTES",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 manda rodar Religacao de fontes do pacote. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 91,
+          "snippet": "\"$PY\" scripts/v21_vozes_reconciliar.py"
+        },
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 101,
+          "snippet": "\"$PY\" scripts/v21_fontes_rechavear.py"
+        },
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 105,
+          "snippet": "\"$PY\" scripts/v21_fontes_faltantes.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-V21-INGEST",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 manda rodar Ingestao V2.1. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 75,
+          "snippet": "\"$PY\" scripts/v21_ingest.py"
+        },
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 76,
+          "snippet": "\"$PY\" scripts/v21_ingest_b.py"
+        },
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 82,
+          "snippet": "\"$PY\" scripts/v21_ingest_c.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-V21-OPORTUNIDADE",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 manda rodar Motor de Oportunidade. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 122,
+          "snippet": "\"$PY\" scripts/v21_dominio_da_alegacao.py"
+        },
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 128,
+          "snippet": "\"$PY\" scripts/v21_oportunidades.py"
+        },
+        {
+          "file": "scripts/v21_cadeia.sh",
+          "line": 141,
+          "snippet": "\"$PY\" scripts/v21_fechar.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-COLETA",
+      "to": "C-ADAMA-ES",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflows de coleta le Portao e importacao ADAMA Espanha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/adama-es-gate.yml",
+          "line": 16,
+          "snippet": "- 'scripts/adama_es_gate.py'"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-COLETA",
+      "to": "C-ADAMA-ES",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflows de coleta manda rodar Portao e importacao ADAMA Espanha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/adama-es-gate.yml",
+          "line": 16,
+          "snippet": "- 'scripts/adama_es_gate.py'"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-COLETA",
+      "to": "C-APIFY-POOL",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflows de coleta manda rodar Pool de tokens Apify. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/apify-conexao.yml",
+          "line": 21,
+          "snippet": "# `scripts/apify_pool.py` já é o dono desta regra: `censo()` devolve presença,"
+        },
+        {
+          "file": ".github/workflows/apify-sensores.yml",
+          "line": 99,
+          "snippet": "run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py"
+        },
+        {
+          "file": ".github/workflows/comunicacao-publica.yml",
+          "line": 92,
+          "snippet": "run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-COLETA",
+      "to": "C-COLETA-PUBLICA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflows de coleta manda rodar Coleta de comunicacao publica do concorrente. Provado por 4 linhas de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/comunicacao-publica.yml",
+          "line": 104,
+          "snippet": "PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_identidade.py"
+        },
+        {
+          "file": ".github/workflows/comunicacao-publica.yml",
+          "line": 133,
+          "snippet": "PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_coleta.py contratos"
+        },
+        {
+          "file": ".github/workflows/comunicacao-publica.yml",
+          "line": 142,
+          "snippet": "PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_classificar.py || true"
+        },
+        {
+          "file": ".github/workflows/comunicacao-publica.yml",
+          "line": 143,
+          "snippet": "PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_medir.py || true"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-COLETA",
+      "to": "C-CORPUS",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflows de coleta manda rodar Corpus de voz e de pesquisador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/apify-sensores.yml",
+          "line": 106,
+          "snippet": "PYTHONIOENCODING=utf-8 $PY scripts/sensor_coleta.py \\"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-COLETA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflows de coleta le Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/adama-es-gate.yml",
+          "line": 18,
+          "snippet": "- 'tests/test_adama_es_gate.py'"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-COLETA",
+      "to": "C-TESTES",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflows de coleta manda rodar Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/adama-es-gate.yml",
+          "line": 18,
+          "snippet": "- 'tests/test_adama_es_gate.py'"
+        },
+        {
+          "file": ".github/workflows/comunicacao-publica.yml",
+          "line": 105,
+          "snippet": "PYTHONIOENCODING=utf-8 $PY tests/test_comunicacao.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-MAPA-GERADOR",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar Gerador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 65,
+          "snippet": "python3 system-map/scripts/generate_system_map.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-MAPA-SCAN",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar Scanner do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 64,
+          "snippet": "python3 system-map/scripts/scan_repo.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-MAPA-TESTES",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 76,
+          "snippet": "run: python3 system-map/tests/test_system_map.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-MAPA-VALIDADOR",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar Validador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 73,
+          "snippet": "run: python3 system-map/scripts/validate_system_map.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-CADEIA-V21",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflows de persistencia manda rodar Cadeia canonica V2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/supabase-migrate.yml",
+          "line": 4,
+          "snippet": "# A ordem NAO mora aqui: mora em scripts/cadeia_canonica.sh, que o CI usa"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-MEDICAO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflows de persistencia manda rodar Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/supabase-migrate.yml",
+          "line": 80,
+          "snippet": "\"$(python3 scripts/inventario_esperado.py --sql)\")"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-REGRESSAO",
+      "to": "C-ADAMA-CATALOGO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Calendario de regressoes manda rodar Catalogo de produtos ADAMA. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/calendario-regressoes.yml",
+          "line": 235,
+          "snippet": "python3 scripts/catalogo_importar.py --sql >/dev/null"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-REGRESSAO",
+      "to": "C-CADEIA-V21",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Calendario de regressoes manda rodar Cadeia canonica V2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/calendario-regressoes.yml",
+          "line": 159,
+          "snippet": "# os dois chamam o MESMO scripts/cadeia_canonica.sh. Se a ordem mudar"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-REGRESSAO",
+      "to": "C-MEDICAO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Calendario de regressoes manda rodar Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/calendario-regressoes.yml",
+          "line": 167,
+          "snippet": "psql \"$CADEIA\" -tAc \"$(python3 scripts/inventario_esperado.py --sql)\" | \\"
+        }
+      ]
+    },
+    {
+      "from": "C-CICATRIZES-BR",
+      "to": "C-PROVENIENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cicatrizes do Brasil (lei portada) le Regua de procedencia. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/cicatrizes_brasil.py",
+          "line": 176,
+          "snippet": "'ONDE_NO_BRASIL': 'proveniencia.py',"
+        }
+      ]
+    },
+    {
+      "from": "C-CICATRIZES-BR",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cicatrizes do Brasil (lei portada) le Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/cicatrizes_brasil.py",
+          "line": 156,
+          "snippet": "'OWNER': 'tests/test_operacao.py',"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-APIFY-POOL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor e portoes de coleta importa Pool de tokens Apify. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/coleta_checkpoint.py",
+          "line": 44,
+          "snippet": "import apify_pool as ap  # noqa: E402  — dono único da rotação"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-ASK-SINTONIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor e portoes de coleta importa Ask Sintonia. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/cdp.py",
+          "line": 59,
+          "snippet": "import navegador  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-CADEIA-V21",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor e portoes de coleta le Cadeia canonica V2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/portoes_eame.py",
+          "line": 254,
+          "snippet": "('a cadeia canônica', ('scripts', 'cadeia_canonica.sh'))):"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-CICATRIZES-BR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor e portoes de coleta importa Cicatrizes do Brasil (lei portada). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/portoes_eame.py",
+          "line": 40,
+          "snippet": "from cicatrizes_brasil import monta as monta_cicatrizes           # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-CICATRIZES-BR",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor e portoes de coleta le Cicatrizes do Brasil (lei portada). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/portoes_eame.py",
+          "line": 295,
+          "snippet": "'DERIVADO_DE': ['scripts/cicatrizes_brasil.py',"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-FONTES-EU",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor e portoes de coleta le Fontes regulatorias e cientificas europeias. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/portoes_eame.py",
+          "line": 241,
+          "snippet": "if not existe('scripts', 'regulatorio_importar.py'):"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-MEDICAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor e portoes de coleta le Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/portoes_eame.py",
+          "line": 268,
+          "snippet": "if 'inventario_esperado.py' not in t:"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-PROVENIENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor e portoes de coleta importa Regua de procedencia. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/coletor.py",
+          "line": 75,
+          "snippet": "import proveniencia as pv  # noqa: E402"
+        },
+        {
+          "file": "scripts/portao.py",
+          "line": 19,
+          "snippet": "import proveniencia as pv  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-VOZ",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor e portoes de coleta importa Regua da voz. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/portao.py",
+          "line": 20,
+          "snippet": "import voz                 # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "C-APIFY-POOL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coleta Instagram importa Pool de tokens Apify. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/instagram_coleta.py",
+          "line": 69,
+          "snippet": "import apify_pool as ap          # noqa: E402  — dono único da rotação de chave"
+        },
+        {
+          "file": "scripts/instagram_coleta.py",
+          "line": 71,
+          "snippet": "import contrato_ator as ca       # noqa: E402  — o portão grátis do gasto"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "C-COLETA-BASE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coleta Instagram importa Coletor e portoes de coleta. Provado por 4 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/instagram_coleta.py",
+          "line": 70,
+          "snippet": "import coletor                   # noqa: E402  — porta única das rotas pagas"
+        },
+        {
+          "file": "scripts/instagram_diario.py",
+          "line": 82,
+          "snippet": "import cdp                       # noqa: E402"
+        },
+        {
+          "file": "scripts/instagram_janela.py",
+          "line": 72,
+          "snippet": "import cdp                       # noqa: E402  — o navegador, em biblioteca padrão"
+        },
+        {
+          "file": "scripts/instagram_transcrever.py",
+          "line": 182,
+          "snippet": "import cdp"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "C-MEDICAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coleta Instagram importa Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/instagram_coleta.py",
+          "line": 555,
+          "snippet": "import corrigir_custo as cc"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "C-PROVENIENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coleta Instagram importa Regua de procedencia. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/instagram_janela.py",
+          "line": 73,
+          "snippet": "import proveniencia as pv        # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-PUBLICA",
+      "to": "C-APIFY-POOL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coleta de comunicacao publica do concorrente importa Pool de tokens Apify. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/comunicacao_coleta.py",
+          "line": 56,
+          "snippet": "import apify_pool as ap        # noqa: E402  — dono único da rotação de chave"
+        },
+        {
+          "file": "scripts/comunicacao_coleta.py",
+          "line": 141,
+          "snippet": "import contrato_ator as ca"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-PUBLICA",
+      "to": "C-COLETA-BASE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coleta de comunicacao publica do concorrente importa Coletor e portoes de coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/comunicacao_coleta.py",
+          "line": 57,
+          "snippet": "import coletor                 # noqa: E402  — porta única das rotas pagas"
+        }
+      ]
+    },
+    {
+      "from": "C-CORPUS",
+      "to": "C-APIFY-POOL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Corpus de voz e de pesquisador importa Pool de tokens Apify. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/sensor_coleta.py",
+          "line": 61,
+          "snippet": "import apify_pool as ap        # noqa: E402  — dono único da rotação"
+        }
+      ]
+    },
+    {
+      "from": "C-CORPUS",
+      "to": "C-COLETA-BASE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Corpus de voz e de pesquisador importa Coletor e portoes de coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/sensor_coleta.py",
+          "line": 62,
+          "snippet": "import coletor                 # noqa: E402  — porta única das rotas pagas"
+        }
+      ]
+    },
+    {
+      "from": "C-CORPUS",
+      "to": "C-PROVENIENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Corpus de voz e de pesquisador importa Regua de procedencia. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/sensor_coleta.py",
+          "line": 63,
+          "snippet": "import proveniencia as pv      # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-DATA-CLOCK",
+      "to": "C-SUPABASE",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua do tempo le Persistencia Supabase. Provado por 5 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/calendario_handoff.py",
+          "line": 294,
+          "snippet": "\"supabase/migrations/010_calendario_agronomico.sql\","
+        },
+        {
+          "file": "scripts/calendario_handoff.py",
+          "line": 295,
+          "snippet": "\"supabase/migrations/011_calendario_consultas.sql\","
+        },
+        {
+          "file": "scripts/calendario_handoff.py",
+          "line": 296,
+          "snippet": "\"supabase/migrations/012_contexto_temporal_do_caso.sql\","
+        },
+        {
+          "file": "scripts/calendario_handoff.py",
+          "line": 297,
+          "snippet": "\"supabase/fixtures/es_calendario_mvp.sql\","
+        },
+        {
+          "file": "scripts/calendario_handoff.py",
+          "line": 298,
+          "snippet": "\"supabase/tests/regressoes_calendario.sql\","
+        }
+      ]
+    },
+    {
+      "from": "C-FONTES-EU",
+      "to": "C-ROTULOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Fontes regulatorias e cientificas europeias importa Rotulos. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/denominaciones.py",
+          "line": 35,
+          "snippet": "from pdf_text import text                                     # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-LUGAR-DO-FATO",
+      "to": "C-V21-INGEST",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua do lugar do fato importa Ingestao V2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_geografia_contrato.py",
+          "line": 25,
+          "snippet": "import v21_normalizar as N  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-MAPA-GERADOR",
+      "to": "C-MAPA-APP",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do System Map le Interface do System Map. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 160,
+          "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
+        },
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 160,
+          "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
+        },
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 161,
+          "snippet": "\"system-map/app/map.css\"):"
+        }
+      ]
+    },
+    {
+      "from": "C-MAPA-GERADOR",
+      "to": "C-MAPA-SCAN",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do System Map le Scanner do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 339,
+          "snippet": "subprocess.run([sys.executable, str(Path(__file__).with_name(\"scan_repo.py\"))],"
+        }
+      ]
+    },
+    {
+      "from": "C-MAPA-VALIDADOR",
+      "to": "C-MAPA-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Validador do System Map le Gerador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/validate_system_map.py",
+          "line": 94,
+          "snippet": "for script in (\"scan_repo.py\", \"generate_system_map.py\"):"
+        }
+      ]
+    },
+    {
+      "from": "C-MAPA-VALIDADOR",
+      "to": "C-MAPA-SCAN",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Validador do System Map le Scanner do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/validate_system_map.py",
+          "line": 94,
+          "snippet": "for script in (\"scan_repo.py\", \"generate_system_map.py\"):"
+        }
+      ]
+    },
+    {
+      "from": "C-PACOTE-CAMADAS",
+      "to": "C-CADEIA-V21",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Montagem do pacote por camadas le Cadeia canonica V2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_handoff_json.py",
+          "line": 109,
+          "snippet": "\"scripts/v21_cadeia.sh\","
+        }
+      ]
+    },
+    {
+      "from": "C-PACOTE-CAMADAS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Montagem do pacote por camadas le Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_handoff_json.py",
+          "line": 155,
+          "snippet": "\"file\": \"tests/test_v21_traducao_trava.py\", \"count\": 23,"
+        }
+      ]
+    },
+    {
+      "from": "C-PACOTE-CAMADAS",
+      "to": "C-V21-CRUZAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Montagem do pacote por camadas importa Cruzamentos e convergencia. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/pacote.py",
+          "line": 34,
+          "snippet": "from pacote_convergencia import camada_convergencia              # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-PACOTE-CAMADAS",
+      "to": "C-V21-INGEST",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Montagem do pacote por camadas importa Ingestao V2.1. Provado por 6 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/pacote.py",
+          "line": 26,
+          "snippet": "from pacote_normalizar import camada_adama, DR                      # noqa: E402"
+        },
+        {
+          "file": "scripts/pacote_camadas.py",
+          "line": 19,
+          "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
+        },
+        {
+          "file": "scripts/pacote_camadas2.py",
+          "line": 20,
+          "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
+        },
+        {
+          "file": "scripts/pacote_camadas3.py",
+          "line": 24,
+          "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
+        },
+        {
+          "file": "scripts/pacote_fenologia.py",
+          "line": 32,
+          "snippet": "from pacote_normalizar import grava, env, novo_id, DR  # noqa: E402"
+        },
+        {
+          "file": "scripts/pacote_mercado.py",
+          "line": 31,
+          "snippet": "from pacote_normalizar import grava, env, novo_id, DR, ROOT, local_json  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAL-CASCO",
+      "to": "C-ARTEFACTO-V21",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Casco do portal le Artefacto embarcado (italy-handoff-v21.js). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 40,
+          "snippet": "<script src=\"italy-ingested.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 41,
+          "snippet": "<script src=\"italy-handoff-v21.js\"></script>"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAL-CASCO",
+      "to": "C-DS-ADAMA",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Casco do portal le Extrato local do ADAMA Design System. Provado por 9 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/client/accesso.html",
+          "line": 15,
+          "snippet": "<link rel=\"stylesheet\" href=\"_ds/adama-brandwell/tokens/colors.css\">"
+        },
+        {
+          "file": "italia-portale/client/accesso.html",
+          "line": 16,
+          "snippet": "<link rel=\"stylesheet\" href=\"_ds/adama-brandwell/tokens/typography.css\">"
+        },
+        {
+          "file": "italia-portale/client/casa.html",
+          "line": 21,
+          "snippet": "<link rel=\"stylesheet\" href=\"_ds/adama-brandwell/tokens/typography.css\">"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 25,
+          "snippet": "<link rel=\"stylesheet\" href=\"_ds/adama-brandwell/tokens/colors.css\">"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 26,
+          "snippet": "<link rel=\"stylesheet\" href=\"_ds/adama-brandwell/tokens/typography.css\">"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 27,
+          "snippet": "<link rel=\"stylesheet\" href=\"_ds/adama-brandwell/tokens/spacing.css\">"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 28,
+          "snippet": "<link rel=\"stylesheet\" href=\"_ds/adama-brandwell/tokens/base.css\">"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 29,
+          "snippet": "<link rel=\"stylesheet\" href=\"_ds/adama-brandwell/styles.css\">"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 30,
+          "snippet": "<script src=\"_ds/adama-brandwell/_ds_bundle.js\"></script>"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAL-CASCO",
+      "to": "C-PORTAL-DADOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Casco do portal le Camadas de dado do portal. Provado por 14 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/client/accesso.html",
+          "line": 14,
+          "snippet": "<script src=\"italy-canonical-windows.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 31,
+          "snippet": "<script src=\"italy-canonical-windows.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 32,
+          "snippet": "<script src=\"italy-label-verdicts.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 33,
+          "snippet": "<script src=\"italy-real-intelligence.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 34,
+          "snippet": "<script src=\"italy-demo-data.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 35,
+          "snippet": "<script src=\"italy-briefs.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 36,
+          "snippet": "<script src=\"italy-market-pulse.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 37,
+          "snippet": "<script src=\"italy-science-business.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 39,
+          "snippet": "<script src=\"italy-catalog.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 43,
+          "snippet": "<script src=\"meeting-intelligence-snapshot.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 44,
+          "snippet": "<script src=\"meeting-labels.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 48,
+          "snippet": "<script src=\"adama-relevance.js\"></script>"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAL-CASCO",
+      "to": "C-PORTAL-MODELO",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Casco do portal le Modelo de aplicacao do portal. Provado por 5 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/client/casa.html",
+          "line": 212,
+          "snippet": "<script src=\"italy-casa.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 20,
+          "snippet": "<script src=\"./support.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 38,
+          "snippet": "<script src=\"italy-i18n.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 42,
+          "snippet": "<script src=\"italy-app-model.js\"></script>"
+        },
+        {
+          "file": "italia-portale/client/portale.html",
+          "line": 58,
+          "snippet": "<script src=\"italy-casa.js\"></script>"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAL-DADOS",
+      "to": "C-RELEVANCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Camadas de dado do portal le Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/client/adama-relevance.js",
+          "line": 6,
+          "snippet": "\"DONO_DA_LEI\": \"scripts/adama_relevance.py\","
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAL-MODELO",
+      "to": "C-ADAMA-CATALOGO",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo de aplicacao do portal le Catalogo de produtos ADAMA. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/client/italy-casa.js",
+          "line": 209,
+          "snippet": "\"GERADO_POR\": \"scripts/it_casa_dados.py\","
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAL-MODELO",
+      "to": "C-PORTAL-DADOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo de aplicacao do portal le Camadas de dado do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/client/italy-casa.js",
+          "line": 114,
+          "snippet": "\"meeting-labels.js\": \"sha256:8ea7e824d12866626441acc8f10fa2525116241cde054be7122808a06adf6c2a\""
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAO-BUILD",
+      "to": "C-AUDIT-GERAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Portao da build importa Demais auditorias do portal. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 32,
+          "snippet": "import { PT_MARKERS } from './lang.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 38,
+          "snippet": "import { medir, controloNegativo, QA } from './do-not-show.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAO-BUILD",
+      "to": "C-AUDIT-GERAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Portao da build le Demais auditorias do portal. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 32,
+          "snippet": "import { PT_MARKERS } from './lang.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 38,
+          "snippet": "import { medir, controloNegativo, QA } from './do-not-show.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAO-BUILD",
+      "to": "C-AUDIT-HARNESS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Portao da build importa Harness de auditoria. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/ingestion-provenance.mjs",
+          "line": 28,
+          "snippet": "import { CLIENT } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/ingestion-provenance.mjs",
+          "line": 29,
+          "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTAO-BUILD",
+      "to": "C-AUDIT-HARNESS",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Portao da build le Harness de auditoria. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/ingestion-provenance.mjs",
+          "line": 28,
+          "snippet": "import { CLIENT } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/ingestion-provenance.mjs",
+          "line": 29,
+          "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
+        }
+      ]
+    },
+    {
+      "from": "C-RELEVANCIA",
+      "to": "C-CORPUS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua de relevancia ADAMA importa Corpus de voz e de pesquisador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/regua_italia.py",
+          "line": 57,
+          "snippet": "from sensor_medir import plateia_do_canal as _pdc"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-ADAMA-ES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Portao e importacao ADAMA Espanha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_adama_es_import_rules.py",
+          "line": 15,
+          "snippet": "import adama_es_import_rules as R  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-APIFY-POOL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Pool de tokens Apify. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_coleta_resiliente.py",
+          "line": 18,
+          "snippet": "import apify_pool as ap          # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-ASK-SINTONIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Ask Sintonia. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_coleta_externa.py",
+          "line": 550,
+          "snippet": "import rede"
+        },
+        {
+          "file": "tests/test_navegador.py",
+          "line": 24,
+          "snippet": "import navegador as nav                                        # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-ASK-SINTONIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes le Ask Sintonia. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_coleta_externa.py",
+          "line": 654,
+          "snippet": "self.assertIn('scripts/rede.py', self.atual['QUEM_MANDA'])"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-CADEIA-V21",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Cadeia canonica V2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_operacao.py",
+          "line": 349,
+          "snippet": "import chain"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-CICATRIZES-BR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Cicatrizes do Brasil (lei portada). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_cicatrizes_brasil.py",
+          "line": 76,
+          "snippet": "import cicatrizes_brasil as C"
+        },
+        {
+          "file": "tests/test_portoes_eame.py",
+          "line": 104,
+          "snippet": "from cicatrizes_brasil import monta as mc"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-COLETA-BASE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Coletor e portoes de coleta. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_coleta_resiliente.py",
+          "line": 19,
+          "snippet": "import coleta_checkpoint as C    # noqa: E402"
+        },
+        {
+          "file": "tests/test_portao.py",
+          "line": 11,
+          "snippet": "import portao, filas, voz          # noqa: E402"
+        },
+        {
+          "file": "tests/test_portoes_eame.py",
+          "line": 19,
+          "snippet": "import portoes_eame as P                                          # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-COLETA-PUBLICA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Coleta de comunicacao publica do concorrente. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_comunicacao.py",
+          "line": 26,
+          "snippet": "import comunicacao_classificar as cl      # noqa: E402"
+        },
+        {
+          "file": "tests/test_comunicacao.py",
+          "line": 27,
+          "snippet": "import comunicacao_identidade as ident    # noqa: E402"
+        },
+        {
+          "file": "tests/test_comunicacao.py",
+          "line": 28,
+          "snippet": "import comunicacao_universo as uni        # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-DATA-CLOCK",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Regua do tempo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_v21_datas.py",
+          "line": 12,
+          "snippet": "import v21_datas as DT  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-FONTES-EU",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Fontes regulatorias e cientificas europeias. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_operacao.py",
+          "line": 24,
+          "snippet": "from denominaciones import parse_text, read, split_rows, fold   # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-LUGAR-DO-FATO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Regua do lugar do fato. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_lugar_do_fato.py",
+          "line": 21,
+          "snippet": "import lugar_do_fato as L                                          # noqa: E402"
+        },
+        {
+          "file": "tests/test_lugar_do_fato.py",
+          "line": 22,
+          "snippet": "import fato_local as IT                                            # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-MEDICAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Auditoria, cobertura e custo. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_operacao.py",
+          "line": 23,
+          "snippet": "from coverage import Coverage, CoverageError                   # noqa: E402"
+        },
+        {
+          "file": "tests/test_portao.py",
+          "line": 323,
+          "snippet": "import auditoria as au"
+        },
+        {
+          "file": "tests/test_proveniencia.py",
+          "line": 15,
+          "snippet": "import auditoria as au      # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-PACOTE-CAMADAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Montagem do pacote por camadas. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_handoff.py",
+          "line": 96,
+          "snippet": "import metricas_canonicas as mc"
+        },
+        {
+          "file": "tests/test_metricas.py",
+          "line": 24,
+          "snippet": "from metricas_canonicas import build, Ledger                    # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-PROVENIENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Regua de procedencia. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_handoff.py",
+          "line": 156,
+          "snippet": "import proveniencia as pv"
+        },
+        {
+          "file": "tests/test_portao.py",
+          "line": 12,
+          "snippet": "import proveniencia as pv          # noqa: E402"
+        },
+        {
+          "file": "tests/test_proveniencia.py",
+          "line": 14,
+          "snippet": "import proveniencia as pv   # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-RELEVANCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Regua de relevancia ADAMA. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_adama_relevance.py",
+          "line": 21,
+          "snippet": "from adama_relevance import (classificar, contar, produto_que_prova,   # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-ROTULOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Rotulos. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_operacao.py",
+          "line": 25,
+          "snippet": "from mapa_regfi import explain_divergence, selling_off          # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-V21-COMERCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Leitura comercial e completude. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_prioridade_comercial.py",
+          "line": 20,
+          "snippet": "import v21_comercial as CM  # noqa: E402"
+        },
+        {
+          "file": "tests/test_prioridade_comercial.py",
+          "line": 21,
+          "snippet": "import v21_necessidade as NE  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-V21-CONTRATO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Contrato do pacote. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_v21_traducao_trava.py",
+          "line": 28,
+          "snippet": "from v21_traducao_trava import conferir  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-V21-FONTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Religacao de fontes do pacote. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_operacao.py",
+          "line": 22,
+          "snippet": "import source_health as sh                                     # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-V21-INGEST",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Ingestao V2.1. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_v21_geografia.py",
+          "line": 20,
+          "snippet": "import v21_normalizar as N  # noqa: E402"
+        },
+        {
+          "file": "tests/test_v21_mercado.py",
+          "line": 16,
+          "snippet": "import v21_normalizar as N  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-V21-OPORTUNIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Motor de Oportunidade. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_completude_oportunidade.py",
+          "line": 56,
+          "snippet": "import v21_oportunidades as M"
+        },
+        {
+          "file": "tests/test_prioridade_comercial.py",
+          "line": 22,
+          "snippet": "import v21_oportunidades as OP  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-VOZ",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes importa Regua da voz. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_coleta_externa.py",
+          "line": 13,
+          "snippet": "import voz  # noqa: E402"
+        },
+        {
+          "file": "tests/test_pipeline.py",
+          "line": 17,
+          "snippet": "import voz  # noqa: E402"
+        },
+        {
+          "file": "tests/test_voz.py",
+          "line": 316,
+          "snippet": "import voz as _voz"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-COMERCIAL",
+      "to": "C-V21-CONTRATO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Leitura comercial e completude importa Contrato do pacote. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_tm_colher.py",
+          "line": 40,
+          "snippet": "from v21_traducao_trava import conferir"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-COMERCIAL",
+      "to": "C-V21-INGEST",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Leitura comercial e completude importa Ingestao V2.1. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_comercial.py",
+          "line": 305,
+          "snippet": "import v21_normalizar as N"
+        },
+        {
+          "file": "scripts/v21_necessidade.py",
+          "line": 69,
+          "snippet": "import v21_normalizar as N  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-COMERCIAL",
+      "to": "C-V21-OPORTUNIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Leitura comercial e completude le Motor de Oportunidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_completude_oportunidade.py",
+          "line": 147,
+          "snippet": "src = open(os.path.join(ROOT, 'scripts', 'v21_oportunidades.py'),"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-CONTRATO",
+      "to": "C-V21-COMERCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato do pacote importa Leitura comercial e completude. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_aceitacao.py",
+          "line": 38,
+          "snippet": "from v21_campos_de_lingua import (LEITURA, MISTO, campos_do_registro,  # noqa"
+        },
+        {
+          "file": "scripts/v21_traducao_trava.py",
+          "line": 53,
+          "snippet": "from v21_campos_de_lingua import (LEITURA, MISTO, PROMOVE, campos_do_registro,  # noqa"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-CRUZAMENTO",
+      "to": "C-V21-INGEST",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cruzamentos e convergencia importa Ingestao V2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/pacote_convergencia.py",
+          "line": 34,
+          "snippet": "from pacote_normalizar import DR, env, grava, local_json, novo_id  # noqa: F401"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-INGEST",
+      "to": "C-DATA-CLOCK",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ingestao V2.1 importa Regua do tempo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_ingest_b.py",
+          "line": 36,
+          "snippet": "import v21_datas as DT            # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-INGEST",
+      "to": "C-FONTES-EU",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ingestao V2.1 importa Fontes regulatorias e cientificas europeias. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/normalize_agro.py",
+          "line": 28,
+          "snippet": "from eppo_gd import names as eppo_names"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-OPORTUNIDADE",
+      "to": "C-DATA-CLOCK",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor de Oportunidade importa Regua do tempo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_oportunidades.py",
+          "line": 43,
+          "snippet": "import v21_datas as DT  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-OPORTUNIDADE",
+      "to": "C-V21-COMERCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Motor de Oportunidade importa Leitura comercial e completude. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/v21_oportunidades.py",
+          "line": 44,
+          "snippet": "import v21_necessidade as NE  # noqa: E402"
+        },
+        {
+          "file": "scripts/v21_oportunidades.py",
+          "line": 45,
+          "snippet": "import v21_comercial as CM  # noqa: E402"
+        }
+      ]
+    }
+  ],
+  "BUSINESS_EDGES": [
+    {
+      "from": "C-V21-OPORTUNIDADE",
+      "to": "DEPT:DESENVOLVIMENTO_MERCADO",
+      "type": "FEEDS_BUSINESS",
+      "reason": "O caso de oportunidade e o produto que Desenvolvimento de Mercado consome para decidir onde abrir mercado.",
+      "source": "docs/design/COMMERCIAL-PRIORITY-V11.md",
+      "declared_by": "missao system-map-canonical-v1",
+      "declared_at": "2026-09-07"
+    },
+    {
+      "from": "C-V21-OPORTUNIDADE",
+      "to": "DEPT:COMERCIAL",
+      "type": "FEEDS_BUSINESS",
+      "reason": "Prioridade comercial sai do mesmo caso, com outra leitura.",
+      "source": "docs/design/COMMERCIAL-PRIORITY-V11.md",
+      "declared_by": "missao system-map-canonical-v1",
+      "declared_at": "2026-09-07"
+    },
+    {
+      "from": "C-PORTAL-CASCO",
+      "to": "DEPT:LIDERANCA",
+      "type": "FEEDS_BUSINESS",
+      "reason": "O portal e a superficie usada em reuniao de lideranca.",
+      "source": "HANDOFF-BUILD-DA-REUNIAO.md",
+      "declared_by": "missao system-map-canonical-v1",
+      "declared_at": "2026-09-07"
+    },
+    {
+      "from": "C-FONTES-EU",
+      "to": "DEPT:REGULATORIO_PORTFOLIO",
+      "type": "FEEDS_BUSINESS",
+      "reason": "Registro oficial de produto e substancia e materia de Regulatorio e Portfolio.",
+      "source": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "declared_by": "missao system-map-canonical-v1",
+      "declared_at": "2026-09-07"
+    }
+  ],
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 641,
+  "OWNERSHIP_CONFLICTS": [],
+  "COUNTS": {
+    "components": 51,
+    "components_proven": 43,
+    "components_pending": 4,
+    "components_broken": 0,
+    "components_unknown": 4,
+    "edges": 120,
+    "edges_proven": 120,
+    "edges_unknown": 0,
+    "business_edges": 4,
+    "files_tracked": 1019,
+    "files_covered": 378,
+    "files_code_unclaimed": 0
+  }
+}

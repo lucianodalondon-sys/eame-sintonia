@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>SINTONIA System Map — mapa da arquitetura</title>
+
+<!-- Tokens oficiais do ADAMA Design System. Extrato versionado no repositorio;
+     a fonte continua a ser o Claude Design (ver CLAUDE.md). Caminho relativo
+     porque a app e servida em /system-map/ ao lado de /_ds/. -->
+<link rel="stylesheet" href="../_ds/adama-brandwell/tokens/colors.css">
+<link rel="stylesheet" href="../_ds/adama-brandwell/tokens/typography.css">
+<link rel="stylesheet" href="../_ds/adama-brandwell/tokens/spacing.css">
+<link rel="stylesheet" href="../_ds/adama-brandwell/tokens/base.css">
+<link rel="stylesheet" href="map.css">
+</head>
+<body>
+
+<header id="topo">
+  <h1>SINTONIA System Map<small>o mapa e derivado do repositorio — nunca o contrario</small></h1>
+  <input id="busca" type="search" placeholder="buscar peca, ficheiro ou assunto  ( / )"
+         aria-label="buscar no mapa">
+  <div id="placar" role="group" aria-label="filtrar por status"></div>
+  <div id="carimbo"></div>
+</header>
+
+<main id="palco" aria-label="mapa navegavel da arquitetura">
+  <svg role="img" aria-label="mapa da arquitetura do SINTONIA EAME"></svg>
+</main>
+
+<aside id="painel" aria-label="detalhe da peca" aria-live="polite"></aside>
+<div id="dica" role="tooltip"></div>
+
+<nav id="minimapa" aria-label="minimapa"><svg></svg></nav>
+<div id="controlos">
+  <button id="mais"  title="aproximar"  aria-label="aproximar">+</button>
+  <button id="menos" title="afastar"    aria-label="afastar">−</button>
+  <button id="tudo" class="largo" title="ver tudo">ver tudo</button>
+</div>
+<div id="filtros">
+  <select id="f-terr" aria-label="filtrar por territorio"></select>
+  <select id="f-dept" aria-label="filtrar por departamento"></select>
+  <select id="f-kind" aria-label="filtrar por tipo de peca"></select>
+  <select id="f-legado" aria-label="filtrar oficial ou legado"></select>
+</div>
+
+<!-- SEM JAVASCRIPT: a lista continua legivel. Um mapa de auditoria que
+     desaparece quando o JS falha nao serve para auditar nada. O `map.js`
+     remove este bloco assim que consegue ler o estado. -->
+<noscript><style>#palco,#minimapa,#controlos,#filtros,#placar{display:none}</style></noscript>
+<section id="semjs">
+  <h2 style="margin:0 0 6px">Lista das pecas</h2>
+  <p style="color:#8a7d7a;font-size:13px;margin:0 0 18px">
+    Versao sem mapa. O ficheiro <code>state.generated.json</code>, ao lado desta
+    pagina, carrega o mesmo conteudo em formato de maquina.</p>
+  <table>
+    <thead><tr><th>peca</th><th>o que faz</th><th>status</th></tr></thead>
+    <tbody id="semjs-linhas">
+      <tr><td colspan="3"><a href="state.generated.json">abrir state.generated.json</a></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<script src="map.js"></script>
+</body>
+</html>

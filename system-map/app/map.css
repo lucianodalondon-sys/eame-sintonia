@@ -1,0 +1,205 @@
+/* SINTONIA SYSTEM MAP — a forma
+   ---------------------------------------------------------------------------
+   Os tokens vem do extrato oficial do ADAMA Design System (`../_ds/`). Nenhuma
+   cor de marca e escrita a mao aqui: verde ADAMA, terra, tipografia e
+   espacamento entram por `var(--...)`.
+
+   ADAMA_DESIGN_SYSTEM_MATCH = NOT_FOUND  (para a rampa de STATUS)
+   NEW_PATTERN_REQUIRED = YES
+   MOTIVO: o Design System da ADAMA nao tem cor de erro. Ele tem quatro cores de
+   CATEGORIA DE PRODUTO (laranja, verde, azul, roxo) e nenhuma delas significa
+   "quebrado". Pintar componente quebrado de roxo Pest Control seria dar a uma
+   cor de marca um segundo significado — e a partir dai nenhuma das duas leituras
+   seria confiavel. Por isso o status vive numa rampa PROPRIA, de engenharia, e
+   nunca no preenchimento da peca:
+
+       TERRITORIO  → cor de marca ADAMA (preenchimento e cabecalho)
+       STATUS      → rampa de engenharia (bolinha + contorno)
+
+   Assim a marca continua dizendo "que assunto e este" e o status continua
+   dizendo "isto funciona?", sem os dois competirem pelo mesmo pixel.
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* Rampa de STATUS — engenharia, nao marca. */
+  --st-proven:  #009845;  /* coincide com o verde ADAMA de proposito: verde ja significa "bom" */
+  --st-pending: #f5b317;
+  --st-broken:  #c2321f;  /* NAO existe no BrandWell. Declarado acima. */
+  --st-unknown: #b1a9a7;  /* tint de ADAMA Earth — cinza de marca, para o NAO SEI */
+
+  --bg:        #fbfaf9;
+  --panel:     #ffffff;
+  --ink:       var(--color-text-grey, #5f504d);
+  --ink-mute:  #8a7d7a;
+  --hair:      var(--color-earth-20, #e5e1e0);
+
+  --font: var(--font-family-sans, "BrownLL", system-ui, -apple-system, sans-serif);
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; height: 100%; overflow: hidden;
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── barra de cima ───────────────────────────────────────────────────────── */
+#topo {
+  position: fixed; inset: 0 0 auto 0; height: 56px; z-index: 30;
+  display: flex; align-items: center; gap: 14px; padding: 0 16px;
+  background: var(--panel); border-bottom: 1px solid var(--hair);
+}
+#topo h1 {
+  margin: 0; font-size: 15px; font-weight: 700; letter-spacing: .01em;
+  white-space: nowrap;
+}
+#topo h1 small { display: block; font-weight: 400; font-size: 11px; color: var(--ink-mute); }
+
+#busca {
+  flex: 0 1 300px; padding: 8px 12px; font: inherit; font-size: 13px;
+  border: 1px solid var(--hair); border-radius: 999px; background: var(--bg);
+  color: var(--ink);
+}
+#busca:focus { outline: 2px solid var(--st-proven); outline-offset: 1px; }
+
+#placar { display: flex; gap: 10px; font-size: 12px; margin-left: auto; flex-wrap: wrap; }
+#placar button {
+  display: flex; align-items: center; gap: 5px; cursor: pointer;
+  border: 1px solid var(--hair); background: var(--panel); color: var(--ink);
+  border-radius: 999px; padding: 5px 11px; font: inherit; font-size: 12px;
+}
+#placar button[aria-pressed="false"] { opacity: .38; }
+#placar .bola { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+
+#carimbo {
+  font-family: var(--mono); font-size: 10.5px; color: var(--ink-mute);
+  line-height: 1.45; text-align: right; white-space: nowrap;
+}
+
+/* ── palco ───────────────────────────────────────────────────────────────── */
+#palco { position: fixed; inset: 56px 0 0 0; cursor: grab; touch-action: none; }
+#palco.arrastando { cursor: grabbing; }
+#palco svg { width: 100%; height: 100%; display: block; }
+
+.territorio-caixa { fill: var(--panel); stroke: var(--hair); stroke-width: 1.5; }
+.territorio-faixa { }
+.territorio-nome  { font-size: 15px; font-weight: 700; fill: #fff; }
+.territorio-why   { font-size: 11.5px; fill: rgba(255,255,255,.86); }
+
+.peca            { cursor: pointer; }
+.peca rect.corpo { fill: #fff; stroke: var(--hair); stroke-width: 1.5; rx: 7; }
+.peca:hover rect.corpo,
+.peca.focada rect.corpo { stroke-width: 2.5; }
+.peca .nome  { font-size: 12.5px; font-weight: 600; fill: var(--ink); pointer-events: none; }
+.peca .tipo  { font-size: 10px; fill: var(--ink-mute); pointer-events: none; }
+.peca .barra { rx: 2; }
+
+.peca.apagada    { opacity: .12; }
+.aresta.apagada  { opacity: .05; }
+.territorio-grupo.apagada { opacity: .3; }
+
+.aresta { fill: none; stroke: var(--ink-mute); stroke-width: 1.4; opacity: .3; }
+.aresta.expected { stroke-dasharray: 5 4; stroke: var(--st-unknown); }
+.aresta.acesa    { opacity: 1; stroke-width: 2.6; stroke: var(--st-proven); }
+.aresta.acesa.expected { stroke: var(--st-unknown); }
+
+/* ── painel lateral ──────────────────────────────────────────────────────── */
+#painel {
+  position: fixed; top: 56px; right: 0; bottom: 0; width: min(430px, 94vw);
+  background: var(--panel); border-left: 1px solid var(--hair); z-index: 25;
+  overflow-y: auto; padding: 20px 22px 60px;
+  transform: translateX(100%); transition: transform .22s cubic-bezier(.4,0,.2,1);
+  box-shadow: -8px 0 28px rgba(95,80,77,.07);
+}
+#painel.aberto { transform: none; }
+#painel h2 { margin: 0 0 2px; font-size: 19px; line-height: 1.25; }
+#painel .sub { color: var(--ink-mute); font-size: 12px; margin-bottom: 16px; }
+#painel h3 {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--ink-mute); margin: 22px 0 7px; font-weight: 700;
+}
+#painel p { margin: 0 0 9px; font-size: 13.5px; line-height: 1.55; }
+#painel .destaque {
+  background: var(--bg); border-left: 3px solid var(--st-proven);
+  padding: 11px 13px; border-radius: 0 5px 5px 0; font-size: 13.5px; line-height: 1.55;
+}
+#fechar {
+  position: absolute; top: 14px; right: 16px; border: 0; background: none;
+  font-size: 22px; cursor: pointer; color: var(--ink-mute); line-height: 1; padding: 4px;
+}
+.etiqueta {
+  display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 999px;
+  background: var(--bg); border: 1px solid var(--hair); margin: 0 5px 5px 0;
+}
+.lista { list-style: none; margin: 0; padding: 0; font-size: 12.5px; }
+.lista li { padding: 6px 0; border-bottom: 1px solid var(--hair); line-height: 1.45; }
+.lista li:last-child { border: 0; }
+.lista a { color: var(--st-proven); text-decoration: none; cursor: pointer; }
+.lista a:hover { text-decoration: underline; }
+.caminho { font-family: var(--mono); font-size: 11px; color: var(--ink-mute); word-break: break-all; }
+.prova {
+  font-family: var(--mono); font-size: 10.5px; background: var(--bg);
+  padding: 7px 9px; border-radius: 4px; margin-top: 5px; white-space: pre-wrap;
+  word-break: break-word; border: 1px solid var(--hair);
+}
+
+/* ── tooltip ─────────────────────────────────────────────────────────────── */
+#dica {
+  position: fixed; z-index: 40; pointer-events: none; max-width: 330px;
+  background: var(--ink); color: #fff; padding: 11px 13px; border-radius: 7px;
+  font-size: 12.5px; line-height: 1.5; opacity: 0; transition: opacity .12s;
+  box-shadow: 0 8px 26px rgba(0,0,0,.24);
+}
+#dica.on { opacity: 1; }
+#dica b { display: block; font-size: 13.5px; margin-bottom: 5px; }
+#dica .l { color: rgba(255,255,255,.62); font-size: 10.5px;
+           text-transform: uppercase; letter-spacing: .07em; margin-top: 8px; }
+
+/* ── minimapa e controlos ────────────────────────────────────────────────── */
+#minimapa {
+  position: fixed; left: 14px; bottom: 14px; width: 190px; height: 140px; z-index: 20;
+  background: rgba(255,255,255,.94); border: 1px solid var(--hair);
+  border-radius: 7px; overflow: hidden; cursor: pointer;
+}
+#minimapa svg { width: 100%; height: 100%; }
+#minimapa .vp { fill: rgba(0,152,69,.14); stroke: var(--st-proven); stroke-width: 3; }
+
+#controlos { position: fixed; left: 216px; bottom: 14px; z-index: 20; display: flex; gap: 6px; }
+#controlos button {
+  width: 34px; height: 34px; border-radius: 7px; border: 1px solid var(--hair);
+  background: var(--panel); cursor: pointer; font-size: 15px; color: var(--ink);
+  font-family: var(--font);
+}
+#controlos button.largo { width: auto; padding: 0 13px; font-size: 12px; }
+#controlos button:hover { border-color: var(--st-proven); }
+
+#filtros {
+  position: fixed; right: 14px; bottom: 14px; z-index: 20; display: flex;
+  gap: 6px; flex-wrap: wrap; justify-content: flex-end; max-width: 46vw;
+}
+#filtros select {
+  font: inherit; font-size: 12px; padding: 7px 10px; border-radius: 7px;
+  border: 1px solid var(--hair); background: var(--panel); color: var(--ink);
+}
+#painel.aberto ~ #filtros { display: none; }
+
+/* ── sem JS e ecra pequeno ───────────────────────────────────────────────── */
+#semjs { padding: 76px 22px 22px; overflow: auto; height: 100%; }
+#semjs table { border-collapse: collapse; width: 100%; font-size: 13px; }
+#semjs th, #semjs td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--hair); }
+#semjs th { font-size: 11px; text-transform: uppercase; color: var(--ink-mute); }
+
+@media (max-width: 860px) {
+  #placar { display: none; }
+  #minimapa, #controlos { display: none; }
+  #carimbo { display: none; }
+  #busca { flex: 1; }
+  #painel { width: 100%; }
+  #filtros { left: 14px; max-width: none; justify-content: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #painel, #dica { transition: none; }
+}
