@@ -22,7 +22,7 @@ import sys
 
 _RAIZ = os.path.dirname(os.path.abspath(__file__))
 
-GAVETAS = ("coleta", "ferramentas", "fontes", "guarda", "leis", "motor", "pacote", "portoes", "provas", "regras", "superficie")
+GAVETAS = ("admissao", "candidatas", "coleta", "ferramentas", "fontes", "guarda", "leis", "motor", "pacote", "pedido", "portoes", "provas", "regras", "superficie")
 
 # A gaveta, e as prateleiras dentro dela. Uma peca que so serve um pais mora em
 # `<gaveta>/<pais>/` — a gaveta continua a dizer a ETAPA, e o pais entra depois.

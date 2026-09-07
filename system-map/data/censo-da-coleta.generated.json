@@ -1,0 +1,2050 @@
+{
+  "SCHEMA": "sintonia.censo-da-coleta/1",
+  "PROVENANCE": {
+    "HEAD": "dc2f2ca2c009490988b48d0ee50d48b43b2bbd27",
+    "GAVETAS": [
+      "pedido",
+      "candidatas",
+      "fontes",
+      "ferramentas",
+      "coleta",
+      "regras",
+      "admissao",
+      "guarda"
+    ]
+  },
+  "FICHEIROS": [
+    {
+      "ficheiro": "pedido/orquestrador.py",
+      "gaveta": "pedido",
+      "linhas": 196,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "pedido/pedido.py",
+      "gaveta": "pedido",
+      "linhas": 246,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "pedido/orquestrador.py",
+        "pedido/receitas.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "pedido/receitas.py",
+      "gaveta": "pedido",
+      "linhas": 221,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "pedido/orquestrador.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "candidatas/fonte_nova.py",
+      "gaveta": "candidatas",
+      "linhas": 213,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "candidatas/italy_fill_manifests.mjs",
+      "gaveta": "candidatas",
+      "linhas": 192,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "candidatas/italy_fill_manifests_browser.mjs",
+      "gaveta": "candidatas",
+      "linhas": 219,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "candidatas/italy_fix_semantics.mjs",
+      "gaveta": "candidatas",
+      "linhas": 82,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "candidatas/italy_profiles.mjs",
+      "gaveta": "candidatas",
+      "linhas": 26,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "candidatas/italy_update_master_browser.mjs",
+      "gaveta": "candidatas",
+      "linhas": 99,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "candidatas/italy_write_matrix.mjs",
+      "gaveta": "candidatas",
+      "linhas": 75,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "fontes/adama_catalogo_ler.py",
+      "gaveta": "fontes",
+      "linhas": 241,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "fontes/adama_catalogo_montar.py",
+      "gaveta": "fontes",
+      "linhas": 380,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "fontes/adama_it_eu.py",
+      "gaveta": "fontes",
+      "linhas": 136,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "fontes/adama_it_gaps.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "fontes/adama_it_frac.py",
+      "gaveta": "fontes",
+      "linhas": 141,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "fontes/adama_it_gaps.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "fontes/adama_it_gaps.py",
+      "gaveta": "fontes",
+      "linhas": 211,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "fontes/adama_it_intelligence.py",
+      "gaveta": "fontes",
+      "linhas": 603,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "fontes/adama_it_gaps.py",
+        "fontes/adama_it_qa.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "fontes/adama_it_labels.py",
+      "gaveta": "fontes",
+      "linhas": 152,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "fontes/adama_it_moa.py",
+      "gaveta": "fontes",
+      "linhas": 90,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "fontes/adama_it_gaps.py",
+        "fontes/adama_it_intelligence.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "fontes/adama_it_qa.py",
+      "gaveta": "fontes",
+      "linhas": 314,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/apify_contrato.py",
+      "gaveta": "ferramentas",
+      "linhas": 211,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/apify_pool.py",
+      "gaveta": "ferramentas",
+      "linhas": 299,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/coleta_checkpoint.py",
+        "coleta/comunicacao_coleta.py",
+        "coleta/instagram_coleta.py",
+        "ferramentas/apify_contrato.py",
+        "ferramentas/apify_recuperar.py",
+        "regras/cicatrizes_brasil.py",
+        "regras/sensor_coleta.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "ferramentas/apify_recuperar.py",
+      "gaveta": "ferramentas",
+      "linhas": 229,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/cdp.py",
+      "gaveta": "ferramentas",
+      "linhas": 391,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "INSTAGRAM"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/instagram_diario.py",
+        "coleta/instagram_janela.py",
+        "coleta/youtube_janela.py",
+        "ferramentas/instagram_transcrever.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/contrato_ator.py",
+      "gaveta": "ferramentas",
+      "linhas": 340,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "INSTAGRAM",
+        "LINKEDIN"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/comunicacao_coleta.py",
+        "coleta/instagram_coleta.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/html_text.mjs",
+      "gaveta": "ferramentas",
+      "linhas": 31,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "LEITOR DE PDF/HTML"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/instagram_transcrever.py",
+      "gaveta": "ferramentas",
+      "linhas": 396,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "INSTAGRAM"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "ferramentas/italy_extract_fields.mjs",
+      "gaveta": "ferramentas",
+      "linhas": 94,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/navegador.py",
+      "gaveta": "ferramentas",
+      "linhas": 242,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "ferramentas/cdp.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "ferramentas/ods_peek.mjs",
+      "gaveta": "ferramentas",
+      "linhas": 33,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "ferramentas/italy_extract_fields.mjs",
+        "regras/italy_source_health.mjs"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/pdf_peek.mjs",
+      "gaveta": "ferramentas",
+      "linhas": 28,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "LEITOR DE PDF/HTML"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "ferramentas/youtube_transcrever.py",
+      "gaveta": "ferramentas",
+      "linhas": 305,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/agrifood_ue.py",
+      "gaveta": "coleta",
+      "linhas": 179,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/cellar.sh",
+      "gaveta": "coleta",
+      "linhas": 48,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/eu_substancia_adama_it.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/coleta_checkpoint.py",
+      "gaveta": "coleta",
+      "linhas": 214,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "regras/cicatrizes_brasil.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/coletor.py",
+      "gaveta": "coleta",
+      "linhas": 422,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/comunicacao_coleta.py",
+        "coleta/instagram_coleta.py",
+        "regras/sensor_coleta.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/comunicacao_classificar.py",
+      "gaveta": "coleta",
+      "linhas": 260,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/comunicacao_coleta.py",
+      "gaveta": "coleta",
+      "linhas": 356,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "ferramentas/contrato_ator.py",
+        "pedido/receitas.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/comunicacao_medir.py",
+      "gaveta": "coleta",
+      "linhas": 202,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/corpus_pesquisador.py",
+      "gaveta": "coleta",
+      "linhas": 771,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "pedido/receitas.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/cruzar_regua_rotulo.py",
+      "gaveta": "coleta",
+      "linhas": 237,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/denominaciones.py",
+      "gaveta": "coleta",
+      "linhas": 195,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/pdf_text.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/ephy.sh",
+      "gaveta": "coleta",
+      "linhas": 47,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/eppo_gd.py",
+      "gaveta": "coleta",
+      "linhas": 83,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "pedido/receitas.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/es/corpus_es.py",
+      "gaveta": "coleta",
+      "linhas": 142,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/eu_substancia_adama_it.py",
+      "gaveta": "coleta",
+      "linhas": 199,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/filas.py",
+      "gaveta": "coleta",
+      "linhas": 128,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/speaker_identidade.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/gire_mapas.py",
+      "gaveta": "coleta",
+      "linhas": 140,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/instagram_coleta.py",
+      "gaveta": "coleta",
+      "linhas": 675,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/instagram_diario.py",
+      "gaveta": "coleta",
+      "linhas": 556,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [
+        "if abs(var) >= RUIDO"
+      ],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/instagram_janela.py",
+      "gaveta": "coleta",
+      "linhas": 846,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "FACEBOOK",
+        "HTTP DIRETO",
+        "INSTAGRAM"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/instagram_coleta.py",
+        "coleta/instagram_diario.py",
+        "ferramentas/instagram_transcrever.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/instagram_pessoal.py",
+      "gaveta": "coleta",
+      "linhas": 261,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/instagram_coleta.py",
+        "coleta/instagram_diario.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/italy_find_docs.mjs",
+      "gaveta": "coleta",
+      "linhas": 46,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/italy_pilot_collect.mjs",
+      "gaveta": "coleta",
+      "linhas": 416,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "regras/italy_pilot_guards.mjs"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/italy_probe.mjs",
+      "gaveta": "coleta",
+      "linhas": 125,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/italy_recurrent_collect.mjs",
+      "gaveta": "coleta",
+      "linhas": 181,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "regras/italy_scheduling_guards.mjs"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/mapa_regfi.py",
+      "gaveta": "coleta",
+      "linhas": 165,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/pdf_text.py",
+      "gaveta": "coleta",
+      "linhas": 186,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/denominaciones.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/preservar_pdf.py",
+      "gaveta": "coleta",
+      "linhas": 102,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/regulatorio_importar.py",
+      "gaveta": "coleta",
+      "linhas": 189,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/ropf_pre_requisito.py",
+      "gaveta": "coleta",
+      "linhas": 122,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/rotulos_baixar.py",
+      "gaveta": "coleta",
+      "linhas": 143,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "pedido/receitas.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/rotulos_ler.py",
+      "gaveta": "coleta",
+      "linhas": 908,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "LEITOR DE PDF/HTML"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/sensor_canal_identidade.py",
+      "gaveta": "coleta",
+      "linhas": 246,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/speaker_identidade.py",
+      "gaveta": "coleta",
+      "linhas": 605,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/speaker_universo.py",
+      "gaveta": "coleta",
+      "linhas": 281,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/texto_fonte.py",
+      "gaveta": "coleta",
+      "linhas": 99,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/universo_ciencia_it.py",
+      "gaveta": "coleta",
+      "linhas": 257,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/youtube_janela.py",
+      "gaveta": "coleta",
+      "linhas": 663,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/youtube_relevancia.py",
+      "gaveta": "coleta",
+      "linhas": 778,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "admissao/admissao.py",
+        "ferramentas/youtube_transcrever.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "regras/cicatrizes_brasil.py",
+      "gaveta": "regras",
+      "linhas": 612,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "regras/portoes_eame.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/comunicacao_identidade.py",
+      "gaveta": "regras",
+      "linhas": 659,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "regras/comunicacao_lote.py",
+      "gaveta": "regras",
+      "linhas": 190,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/comunicacao_coleta.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/comunicacao_universo.py",
+      "gaveta": "regras",
+      "linhas": 193,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/fato_local.py",
+      "gaveta": "regras",
+      "linhas": 508,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "pedido/receitas.py",
+        "regras/lugar_do_fato.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/italy_contract_test.mjs",
+      "gaveta": "regras",
+      "linhas": 247,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "candidatas/italy_update_master_browser.mjs"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/italy_contracts.mjs",
+      "gaveta": "regras",
+      "linhas": 415,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "candidatas/italy_write_matrix.mjs",
+        "regras/italy_pilot_guards.mjs"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/italy_pilot_guards.mjs",
+      "gaveta": "regras",
+      "linhas": 105,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/italy_scheduling_guards.mjs",
+      "gaveta": "regras",
+      "linhas": 103,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/italy_source_health.mjs",
+      "gaveta": "regras",
+      "linhas": 167,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "candidatas/italy_write_matrix.mjs"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/lugar_do_fato.py",
+      "gaveta": "regras",
+      "linhas": 201,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "regras/fato_local.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/padrao_da_coleta.py",
+      "gaveta": "regras",
+      "linhas": 342,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "regras/portao.py",
+      "gaveta": "regras",
+      "linhas": 368,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/portoes_eame.py",
+      "gaveta": "regras",
+      "linhas": 392,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/proveniencia.py",
+      "gaveta": "regras",
+      "linhas": 391,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/coletor.py",
+        "coleta/instagram_janela.py",
+        "pedido/receitas.py",
+        "regras/portao.py",
+        "regras/sensor_coleta.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/rotulos_censo.py",
+      "gaveta": "regras",
+      "linhas": 162,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "LEITOR DE PDF/HTML"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/sensor_coleta.py",
+      "gaveta": "regras",
+      "linhas": 884,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "regras/sensor_medir.py",
+      "gaveta": "regras",
+      "linhas": 437,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [
+        "if _tem(t, RUIDO"
+      ],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/youtube_relevancia.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/source_health.py",
+      "gaveta": "regras",
+      "linhas": 162,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/voz.py",
+      "gaveta": "regras",
+      "linhas": 463,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "regras/portao.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "admissao/admissao.py",
+      "gaveta": "admissao",
+      "linhas": 223,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "guarda/catalogo_importar.py",
+      "gaveta": "guarda",
+      "linhas": 663,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": true,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "guarda/es/adama_es_gate.py",
+      "gaveta": "guarda",
+      "linhas": 1073,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "guarda/es/adama_es_import_rules.py",
+      "gaveta": "guarda",
+      "linhas": 179,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "guarda/es/adama_es_gate.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "guarda/importar_italia.py",
+      "gaveta": "guarda",
+      "linhas": 250,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "guarda/italy_preserve.mjs",
+      "gaveta": "guarda",
+      "linhas": 95,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "guarda/sql_conferir.py",
+      "gaveta": "guarda",
+      "linhas": 116,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    }
+  ],
+  "RESUMO": {
+    "ficheiros_de_codigo": 96,
+    "pontos_de_entrada": 83,
+    "executores_que_saem_para_fora": 18,
+    "sem_chamador_e_fora_do_ci": 48,
+    "gravam_no_banco": 1,
+    "escrevem_ficheiro": 68,
+    "deitam_fora_alguma_coisa": 22,
+    "deitam_fora_SEM_escrever_o_motivo": 1,
+    "ficheiros_com_decisao_escondida": 2,
+    "decisoes_escondidas_ao_todo": 2
+  },
+  "LISTAS": {
+    "pontos_de_entrada": [
+      "pedido/orquestrador.py",
+      "pedido/pedido.py",
+      "pedido/receitas.py",
+      "candidatas/fonte_nova.py",
+      "fontes/adama_catalogo_ler.py",
+      "fontes/adama_catalogo_montar.py",
+      "fontes/adama_it_eu.py",
+      "fontes/adama_it_frac.py",
+      "fontes/adama_it_gaps.py",
+      "fontes/adama_it_intelligence.py",
+      "fontes/adama_it_labels.py",
+      "fontes/adama_it_moa.py",
+      "fontes/adama_it_qa.py",
+      "ferramentas/apify_contrato.py",
+      "ferramentas/apify_pool.py",
+      "ferramentas/apify_recuperar.py",
+      "ferramentas/cdp.py",
+      "ferramentas/contrato_ator.py",
+      "ferramentas/html_text.mjs",
+      "ferramentas/instagram_transcrever.py",
+      "ferramentas/navegador.py",
+      "ferramentas/ods_peek.mjs",
+      "ferramentas/pdf_peek.mjs",
+      "ferramentas/youtube_transcrever.py",
+      "coleta/agrifood_ue.py",
+      "coleta/coleta_checkpoint.py",
+      "coleta/coletor.py",
+      "coleta/comunicacao_classificar.py",
+      "coleta/comunicacao_coleta.py",
+      "coleta/comunicacao_medir.py",
+      "coleta/corpus_pesquisador.py",
+      "coleta/cruzar_regua_rotulo.py",
+      "coleta/denominaciones.py",
+      "coleta/eppo_gd.py",
+      "coleta/es/corpus_es.py",
+      "coleta/eu_substancia_adama_it.py",
+      "coleta/filas.py",
+      "coleta/gire_mapas.py",
+      "coleta/instagram_coleta.py",
+      "coleta/instagram_diario.py",
+      "coleta/instagram_janela.py",
+      "coleta/instagram_pessoal.py",
+      "coleta/italy_find_docs.mjs",
+      "coleta/italy_pilot_collect.mjs",
+      "coleta/italy_probe.mjs",
+      "coleta/italy_recurrent_collect.mjs",
+      "coleta/mapa_regfi.py",
+      "coleta/pdf_text.py",
+      "coleta/preservar_pdf.py",
+      "coleta/regulatorio_importar.py",
+      "coleta/ropf_pre_requisito.py",
+      "coleta/rotulos_baixar.py",
+      "coleta/rotulos_ler.py",
+      "coleta/sensor_canal_identidade.py",
+      "coleta/speaker_identidade.py",
+      "coleta/speaker_universo.py",
+      "coleta/texto_fonte.py",
+      "coleta/universo_ciencia_it.py",
+      "coleta/youtube_janela.py",
+      "coleta/youtube_relevancia.py",
+      "regras/cicatrizes_brasil.py",
+      "regras/comunicacao_identidade.py",
+      "regras/comunicacao_lote.py",
+      "regras/comunicacao_universo.py",
+      "regras/fato_local.py",
+      "regras/italy_source_health.mjs",
+      "regras/lugar_do_fato.py",
+      "regras/padrao_da_coleta.py",
+      "regras/portao.py",
+      "regras/portoes_eame.py",
+      "regras/proveniencia.py",
+      "regras/rotulos_censo.py",
+      "regras/sensor_coleta.py",
+      "regras/sensor_medir.py",
+      "regras/source_health.py",
+      "regras/voz.py",
+      "admissao/admissao.py",
+      "guarda/catalogo_importar.py",
+      "guarda/es/adama_es_gate.py",
+      "guarda/es/adama_es_import_rules.py",
+      "guarda/importar_italia.py",
+      "guarda/italy_preserve.mjs",
+      "guarda/sql_conferir.py"
+    ],
+    "executores": [
+      "ferramentas/cdp.py",
+      "ferramentas/contrato_ator.py",
+      "ferramentas/instagram_transcrever.py",
+      "ferramentas/youtube_transcrever.py",
+      "coleta/agrifood_ue.py",
+      "coleta/corpus_pesquisador.py",
+      "coleta/eppo_gd.py",
+      "coleta/es/corpus_es.py",
+      "coleta/gire_mapas.py",
+      "coleta/instagram_janela.py",
+      "coleta/mapa_regfi.py",
+      "coleta/rotulos_baixar.py",
+      "coleta/speaker_identidade.py",
+      "coleta/speaker_universo.py",
+      "coleta/texto_fonte.py",
+      "coleta/universo_ciencia_it.py",
+      "coleta/youtube_janela.py",
+      "regras/sensor_coleta.py"
+    ],
+    "orfaos": [
+      "pedido/orquestrador.py",
+      "candidatas/fonte_nova.py",
+      "candidatas/italy_fill_manifests.mjs",
+      "candidatas/italy_fill_manifests_browser.mjs",
+      "candidatas/italy_fix_semantics.mjs",
+      "candidatas/italy_profiles.mjs",
+      "candidatas/italy_update_master_browser.mjs",
+      "candidatas/italy_write_matrix.mjs",
+      "fontes/adama_catalogo_ler.py",
+      "fontes/adama_catalogo_montar.py",
+      "fontes/adama_it_gaps.py",
+      "fontes/adama_it_labels.py",
+      "fontes/adama_it_qa.py",
+      "ferramentas/apify_contrato.py",
+      "ferramentas/apify_recuperar.py",
+      "ferramentas/html_text.mjs",
+      "ferramentas/italy_extract_fields.mjs",
+      "ferramentas/pdf_peek.mjs",
+      "coleta/agrifood_ue.py",
+      "coleta/cruzar_regua_rotulo.py",
+      "coleta/ephy.sh",
+      "coleta/es/corpus_es.py",
+      "coleta/eu_substancia_adama_it.py",
+      "coleta/gire_mapas.py",
+      "coleta/italy_find_docs.mjs",
+      "coleta/italy_probe.mjs",
+      "coleta/mapa_regfi.py",
+      "coleta/preservar_pdf.py",
+      "coleta/regulatorio_importar.py",
+      "coleta/ropf_pre_requisito.py",
+      "coleta/rotulos_ler.py",
+      "coleta/sensor_canal_identidade.py",
+      "coleta/speaker_identidade.py",
+      "coleta/speaker_universo.py",
+      "coleta/texto_fonte.py",
+      "coleta/universo_ciencia_it.py",
+      "regras/comunicacao_universo.py",
+      "regras/italy_pilot_guards.mjs",
+      "regras/italy_scheduling_guards.mjs",
+      "regras/portao.py",
+      "regras/portoes_eame.py",
+      "regras/rotulos_censo.py",
+      "regras/source_health.py",
+      "admissao/admissao.py",
+      "guarda/es/adama_es_gate.py",
+      "guarda/importar_italia.py",
+      "guarda/italy_preserve.mjs",
+      "guarda/sql_conferir.py"
+    ],
+    "deitam_fora_sem_motivo": [
+      "coleta/ropf_pre_requisito.py"
+    ],
+    "decisoes_escondidas": [
+      {
+        "ficheiro": "coleta/instagram_diario.py",
+        "linhas": [
+          "if abs(var) >= RUIDO"
+        ]
+      },
+      {
+        "ficheiro": "regras/sensor_medir.py",
+        "linhas": [
+          "if _tem(t, RUIDO"
+        ]
+      }
+    ]
+  }
+}

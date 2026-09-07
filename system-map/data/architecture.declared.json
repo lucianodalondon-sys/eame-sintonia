@@ -28,9 +28,19 @@
   },
   "TERRITORIES": [
     {
+      "id": "Z-PEDIDO",
+      "family": "F-COLETA",
+      "name": "1 · O PEDIDO E O PLANO",
+      "why": "A unica porta de entrada. Quem pede diz O QUE quer; quem atende decide COMO. Nenhum chamador precisa de saber o nome de um script",
+      "views": [
+        "acervo"
+      ],
+      "folder": "pedido"
+    },
+    {
       "id": "Z-DISPARA",
       "family": "F-COLETA",
-      "name": "1 · QUEM DISPARA",
+      "name": "2 · QUEM DISPARA",
       "why": "O botao. Nada sai para buscar sem alguem mandar — e o que rodou fica no historico",
       "views": [
         "infra"
@@ -40,7 +50,7 @@
     {
       "id": "Z-CANDIDATAS",
       "family": "F-COLETA",
-      "name": "2 · DE ONDE VEM UMA FONTE",
+      "name": "3 · DE ONDE VEM UMA FONTE",
       "why": "Antes de ser fonte, foi candidata. Aqui alguem anota o que apareceu, abre, olha e levanta o que aquilo entrega — so depois vira ficha. Fonte nasce, nao aparece pronta",
       "views": [
         "acervo"
@@ -50,7 +60,7 @@
     {
       "id": "Z-FONTES",
       "family": "F-COLETA",
-      "name": "3 · AS FONTES",
+      "name": "4 · AS FONTES",
       "why": "De onde o dado vem — de fora e de dentro. O acervo que se consulta ANTES de coletar, o que a ADAMA ja sabe de si, e a porta por onde entra fonte nova",
       "views": [
         "acervo"
@@ -60,7 +70,7 @@
     {
       "id": "Z-FERRAMENTAS",
       "family": "F-COLETA",
-      "name": "4 · AS FERRAMENTAS",
+      "name": "5 · AS FERRAMENTAS",
       "why": "Com o que se vai: a rota paga, a rota gratis pelo navegador e a transcricao local",
       "views": [
         "infra"
@@ -70,7 +80,7 @@
     {
       "id": "Z-VEICULOS",
       "family": "F-COLETA",
-      "name": "5 · OS VEICULOS",
+      "name": "6 · OS VEICULOS",
       "why": "Por ONDE se vai: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Nao e o que se faz la dentro (isso e acao) nem com que se viaja (isso e ferramenta)",
       "views": [
         "acervo"
@@ -79,7 +89,7 @@
     {
       "id": "Z-ACOES",
       "family": "F-COLETA",
-      "name": "6 · AS ACOES DA COLETA",
+      "name": "7 · AS ACOES DA COLETA",
       "why": "O que se FAZ dentro de um veiculo: colher o YouTube, colher o que o concorrente publica, baixar os rotulos. Acao e verbo — se for um sitio por onde se passa, e veiculo, nao acao",
       "views": [
         "acervo",
@@ -90,13 +100,23 @@
     {
       "id": "Z-REGRAS",
       "family": "F-COLETA",
-      "name": "7 · AS REGRAS E AS PALAVRAS",
+      "name": "8 · AS REGRAS E AS PALAVRAS",
       "why": "O que pode ser coletado, de quem, e com que termo escrito na lingua do pais. Veiculo sem regra atropela",
       "views": [
         "acervo",
         "audit"
       ],
       "folder": "regras"
+    },
+    {
+      "id": "Z-ADMISSAO",
+      "family": "F-COLETA",
+      "name": "9 · A PORTA DE ADMISSAO",
+      "why": "A peneira comum, e o livro que guarda cada nao com motivo, regra, versao e prova. Daqui sai PRONTO_PARA_INTELIGENCIA — e a fronteira",
+      "views": [
+        "acervo"
+      ],
+      "folder": "admissao"
     },
     {
       "id": "Z-GUARDA",
@@ -1609,6 +1629,114 @@
       ],
       "views": [],
       "icon": "▶"
+    },
+    {
+      "id": "C-PEDIDO",
+      "name": "O pedido de coleta",
+      "territory": "Z-PEDIDO",
+      "kind": "contract",
+      "icon": "◎",
+      "what": "O contrato de entrada: alvo, acionamento, escopo e filtros. Traduz «colete materiais de pesquisadores» para o territorio que o atlas ja usa.",
+      "why_here": "O censo mediu 79 pontos de entrada em 92 ficheiros. Setenta e nove maneiras de comecar uma coleta nao sao uma coleta: sao setenta e nove.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "pedido/pedido.py"
+      ],
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "C-RECEITAS",
+      "name": "A receita da coleta",
+      "territory": "Z-PEDIDO",
+      "kind": "engine",
+      "icon": "◈",
+      "what": "Do assunto pedido ate as fontes, rotas, executor, contratos obrigatorios e saida esperada — derivado do atlas, nao escrito a mao.",
+      "why_here": "O «como se coleta X» vivia espalhado por cabecalho, README e prompt. Espalhado assim nao se consulta: redescobre-se, uma coleta de cada vez.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "pedido/receitas.py"
+      ],
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "C-ORQUESTRADOR",
+      "name": "O orquestrador",
+      "territory": "Z-PEDIDO",
+      "kind": "engine",
+      "icon": "⚙",
+      "what": "Escolhe o executor, coordena a corrida e ASSINA o recibo no RUN-MANIFEST. Nao raspa nada: so decide o caminho.",
+      "why_here": "O recibo ja existia e cinco reguas ja o liam — mas nenhum executor o escrevia. Por isso metade das corridas guardadas diz NOT_PRESERVED.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "pedido/orquestrador.py"
+      ],
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "C-ADMISSAO",
+      "name": "A porta de admissao",
+      "territory": "Z-ADMISSAO",
+      "kind": "gate",
+      "icon": "⊞",
+      "what": "Decide, por par (item, universo), se entra: SIM, NAO, NAO_SEI, NAO_SE_APLICA ou ERRO — e escreve o motivo, a regra, a versao e a prova no livro de decisoes.",
+      "why_here": "So um ficheiro em toda a coleta decidia relevancia, para cinco veiculos. O caminho era colher, carimbar e guardar tudo — sem peneira.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "admissao/admissao.py"
+      ],
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "C-PROVA-COLETA",
+      "name": "Provas da coleta canonica",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "icon": "✓",
+      "what": "Sete casos ponta a ponta: erro nao vira rejeicao, falta de prova nao vira nao, o mesmo bruto decide-se por universo, e trocar de executor nao mexe em quem pede.",
+      "why_here": "Sao as sete maneiras conhecidas de este caminho mentir.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/testa_coleta_canonica.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CENSO-COLETA",
+      "name": "Censo da coleta",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Conta o que existe hoje na coleta: entradas, executores, veiculos, quem deita fora sem escrever porque, e decisoes escondidas dentro dos coletores.",
+      "why_here": "Numero de memoria nao e facto. «44 coletores» eram 18 quando se mediu.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_da_coleta.py"
+      ],
+      "views": [
+        "audit"
+      ]
     }
   ],
   "BUSINESS_EDGES": [
@@ -1661,7 +1789,8 @@
     ".github/workflows/supabase-migrate.yml": "2b64939552d5f7313faa6f8ab4e3b9eb8ce88b0d",
     ".github/workflows/supabase-raw-roundtrip.yml": "7b8f182ab89d1176299913069a05220d1e90ae82",
     ".github/workflows/supabase-storage.yml": "cf95ae286c72c84f23aa906392b6c88dc4f88cd2",
-    ".github/workflows/system-map.yml": "ebcbc298b7c3c249938088427d705e7c690f0843",
+    ".github/workflows/system-map.yml": "d2978258a6de7611481389c3ff55073c3ce6118a",
+    "admissao/admissao.py": "660c5b7600fc513ec637cbc390715a8da921c8cb",
     "candidatas/FONTES-CANDIDATAS.json": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
     "candidatas/ITALY-SOURCE-MASTER-V1.json": "c592eb1fe8ad05736235b4e6d4769cee3e8beb1a",
     "candidatas/ITALY-SOURCE-MASTER-V1.md": "c5ce168acaa91bbe00a341af349c1772c3e832c5",
@@ -1961,6 +2090,9 @@
     "pacote/pacote_montar.py": "2c9f8d004d141751d304b0d31a65844f807bc329",
     "pacote/pacote_relacoes_convergencia.py": "71f42d9734f451b296b5df3c8aeb5ba441e90262",
     "pacote/v21_handoff_json.py": "a568315812ecb8204a1263f3fdfa18ebf3ec7fb4",
+    "pedido/orquestrador.py": "30593b60a33a86e4d654e47bd61525849391b98b",
+    "pedido/pedido.py": "783852b225b497ca118f1f250f650123d1f81df0",
+    "pedido/receitas.py": "b5a0465228312d4a302309f2de5f3515d3ed4129",
     "portoes/build_portal.py": "de19a89cb1ed6cb6d346935cb0ede74aea37f93d",
     "portoes/site_v21_ingest.py": "39376bfde4839bacacf544d9b673d2a5238ee6f5",
     "provas/auditoria.py": "8c6a990ba9dcce2cd7c5a4003872a963b02f30cf",
@@ -1971,6 +2103,7 @@
     "provas/inventario_esperado.py": "d3043da78bdd927622cfedb11a67afbcb85382bb",
     "provas/italy_accounting.mjs": "4de3f5eae17fba930b4c606d9cc5d25433f43ff0",
     "provas/italy_pilot_negativos.mjs": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
+    "provas/testa_coleta_canonica.py": "4f6ce8d8584222fea36c2ea728992b57d2bc3c20",
     "provas/testa_rota_italia.py": "4fb25815bd63df037ca315f8530d1d420b23fa3d",
     "regras/cicatrizes_brasil.py": "2d69fc63b3004c7c5ae197169fd611d84a2c650b",
     "regras/comunicacao_identidade.py": "3afe6c18b66d13826a262a184787271a8ee3211f",
@@ -2041,6 +2174,7 @@
     "system-map/app/index.html": "5f84c944babd55e1596e1a49a5d7ff758c76c2bf",
     "system-map/app/map.css": "1f325db661f21e8e526f6d35a4b3222764431068",
     "system-map/app/map.js": "5d10416ddeb10c24456511d42e567dda4991d6da",
+    "system-map/scripts/censo_da_coleta.py": "3fa99e2b2154151b55c6f4ff5f1f87c7b27b8d8d",
     "system-map/scripts/generate_system_map.py": "5df08583b9bbc74403d487a26bd617d53f440732",
     "system-map/scripts/mudar_gaveta.py": "99736f74a118a545f946246f88c041153e4bb342",
     "system-map/scripts/scan_casco.py": "b2fa05cdc0d8bfabe53db3fa91fb6b9426c205e1",

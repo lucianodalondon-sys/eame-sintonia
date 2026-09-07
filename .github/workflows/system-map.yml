@@ -64,6 +64,7 @@ jobs:
           python3 system-map/scripts/scan_repo.py
           python3 system-map/scripts/scan_sources.py
           python3 system-map/scripts/scan_casco.py
+          python3 system-map/scripts/censo_da_coleta.py
           python3 system-map/scripts/generate_system_map.py
 
       # A comparacao anti-drift NAO e um `git diff` cru, de proposito: o bloco
@@ -79,6 +80,12 @@ jobs:
 
       - name: 4 · as regras do mapa não afrouxaram
         run: python3 system-map/tests/test_system_map.py
+
+      # As sete maneiras conhecidas de o caminho da coleta mentir. Sem isto no
+      # CI, «erro não é rejeição» e «não sei não é não» seriam boas intenções
+      # escritas num comentário — e voltariam a confundir-se na primeira pressa.
+      - name: 4b · o caminho da coleta continua fechado
+        run: python3 provas/testa_coleta_canonica.py
 
       - name: 5 · o que vai ser publicado existe e é servível
         run: |

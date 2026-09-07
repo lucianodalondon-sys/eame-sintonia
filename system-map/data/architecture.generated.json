@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "bd531977bf229b342d7c021547d2f887d60105d8",
-    "GENERATED_AT": "2026-09-07T15:28:36-03:00"
+    "HEAD": "dc2f2ca2c009490988b48d0ee50d48b43b2bbd27",
+    "GENERATED_AT": "2026-09-07T15:29:59-03:00"
   },
   "FILES": [
     {
@@ -93,7 +93,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "ebcbc298b7c3c249938088427d705e7c690f0843",
+      "sha": "d2978258a6de7611481389c3ff55073c3ce6118a",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -191,10 +191,17 @@
     },
     {
       "path": "_gavetas.py",
-      "sha": "b51c009c942bfc6e8174def78b4d248e2a307e38",
+      "sha": "7235bb4e568b9974f900c3bc396ae19a64dc68d6",
       "ext": ".py",
       "readable": true,
       "code_dir": false
+    },
+    {
+      "path": "admissao/admissao.py",
+      "sha": "660c5b7600fc513ec637cbc390715a8da921c8cb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
     },
     {
       "path": "build/ITALY-REALITY-HANDOFF-V2/AGROMET-CONDITIONS.json",
@@ -964,70 +971,70 @@
       "sha": "7f5d31b069f50b2c547d4cf15c23c9e183bad680",
       "ext": ".json",
       "readable": false,
-      "code_dir": false
+      "code_dir": true
     },
     {
       "path": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "sha": "c592eb1fe8ad05736235b4e6d4769cee3e8beb1a",
       "ext": ".json",
       "readable": false,
-      "code_dir": false
+      "code_dir": true
     },
     {
       "path": "candidatas/ITALY-SOURCE-MASTER-V1.md",
       "sha": "c5ce168acaa91bbe00a341af349c1772c3e832c5",
       "ext": ".md",
       "readable": false,
-      "code_dir": false
+      "code_dir": true
     },
     {
       "path": "candidatas/fonte_nova.py",
       "sha": "e069e195565febb787c5c50d6ee93cc0aa05b8dd",
       "ext": ".py",
       "readable": true,
-      "code_dir": false
+      "code_dir": true
     },
     {
       "path": "candidatas/italy_fill_manifests.mjs",
       "sha": "ffa51a075f620037661662daba0dfe9a12b637e7",
       "ext": ".mjs",
       "readable": true,
-      "code_dir": false
+      "code_dir": true
     },
     {
       "path": "candidatas/italy_fill_manifests_browser.mjs",
       "sha": "c2f0ca08f5f5408db7a1945e0d02f2ea6997b803",
       "ext": ".mjs",
       "readable": true,
-      "code_dir": false
+      "code_dir": true
     },
     {
       "path": "candidatas/italy_fix_semantics.mjs",
       "sha": "9f9d5502c8a0de8618931eec5469bedcc9404756",
       "ext": ".mjs",
       "readable": true,
-      "code_dir": false
+      "code_dir": true
     },
     {
       "path": "candidatas/italy_profiles.mjs",
       "sha": "445164345e6aa765e10fc1a9bf87639365da383f",
       "ext": ".mjs",
       "readable": true,
-      "code_dir": false
+      "code_dir": true
     },
     {
       "path": "candidatas/italy_update_master_browser.mjs",
       "sha": "39fb66056ac90e76e8958592df12cd851ddb6084",
       "ext": ".mjs",
       "readable": true,
-      "code_dir": false
+      "code_dir": true
     },
     {
       "path": "candidatas/italy_write_matrix.mjs",
       "sha": "615f2123e3c6946c2d1b38a0561899f1063541bc",
       "ext": ".mjs",
       "readable": true,
-      "code_dir": false
+      "code_dir": true
     },
     {
       "path": "coleta/agrifood_ue.py",
@@ -3879,6 +3886,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/CENSO-DA-COLETA.md",
+      "sha": "83d8c3c9291bcf4ca725a9bcc205e7d57a932706",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "sha": "7cb6b33117e906a0fd851029da62d755601afa92",
       "ext": ".md",
@@ -6504,6 +6518,27 @@
       "code_dir": true
     },
     {
+      "path": "pedido/orquestrador.py",
+      "sha": "30593b60a33a86e4d654e47bd61525849391b98b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "pedido/pedido.py",
+      "sha": "783852b225b497ca118f1f250f650123d1f81df0",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "pedido/receitas.py",
+      "sha": "b5a0465228312d4a302309f2de5f3515d3ed4129",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "portoes/build_portal.py",
       "sha": "de19a89cb1ed6cb6d346935cb0ede74aea37f93d",
       "ext": ".py",
@@ -6591,6 +6626,13 @@
       "path": "provas/italy_pilot_negativos.mjs",
       "sha": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/testa_coleta_canonica.py",
+      "sha": "4f6ce8d8584222fea36c2ea728992b57d2bc3c20",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -7646,9 +7688,23 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "cd4404e06709dfa6a309a61bec5718af86547bb6",
+      "sha": "39e41930f9caba9c8a60fcae4970af5774b9ef78",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/data/censo-da-coleta.generated.json",
+      "sha": "8dea15177c91f6276131bf591b86d1dd9562dfd9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/censo_da_coleta.py",
+      "sha": "3fa99e2b2154151b55c6f4ff5f1f87c7b27b8d8d",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -8474,13 +8530,35 @@
     },
     {
       "from_file": ".github/workflows/system-map.yml",
+      "to_file": "provas/testa_coleta_canonica.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 88,
+        "snippet": "run: python3 provas/testa_coleta_canonica.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
       "to_file": "regras/padrao_da_coleta.py",
       "type": "RUNS",
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 78,
+        "line": 79,
         "snippet": "run: python3 regras/padrao_da_coleta.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/censo_da_coleta.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 67,
+        "snippet": "python3 system-map/scripts/censo_da_coleta.py"
       }
     },
     {
@@ -8490,7 +8568,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 67,
+        "line": 68,
         "snippet": "python3 system-map/scripts/generate_system_map.py"
       }
     },
@@ -8534,7 +8612,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 75,
+        "line": 76,
         "snippet": "run: python3 system-map/scripts/validate_system_map.py"
       }
     },
@@ -8545,8 +8623,19 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 81,
+        "line": 82,
         "snippet": "run: python3 system-map/tests/test_system_map.py"
+      }
+    },
+    {
+      "from_file": "admissao/admissao.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/admissao.py",
+        "line": 67,
+        "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
     {
@@ -20100,6 +20189,160 @@
       }
     },
     {
+      "from_file": "pedido/orquestrador.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pedido/orquestrador.py",
+        "line": 49,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "pedido/orquestrador.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/orquestrador.py",
+        "line": 54,
+        "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
+      }
+    },
+    {
+      "from_file": "pedido/orquestrador.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pedido/orquestrador.py",
+        "line": 51,
+        "snippet": "from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pedido/orquestrador.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pedido/orquestrador.py",
+        "line": 52,
+        "snippet": "from receitas import resolver, Plano  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 44,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho de importacao"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "coleta/comunicacao_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 85,
+        "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "coleta/corpus_pesquisador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 61,
+        "snippet": "\"roda\": [\"coleta/corpus_pesquisador.py\", \"coletar\"],"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "coleta/eppo_gd.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 77,
+        "snippet": "\"roda\": [\"coleta/eppo_gd.py\"],"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "coleta/rotulos_baixar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 69,
+        "snippet": "\"roda\": [\"coleta/rotulos_baixar.py\"],"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 103,
+        "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "leis/data_clock.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 99,
+        "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 46,
+        "snippet": "from pedido import Pedido, ALVOS  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "regras/fato_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 101,
+        "snippet": "(\"lugar do fato\", \"regras/fato_local.py\","
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 97,
+        "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
+      }
+    },
+    {
       "from_file": "portoes/build_portal.py",
       "to_file": "data/samples/CASE-006-es41-rain-window-vs-yield.json",
       "type": "READS",
@@ -20526,6 +20769,83 @@
         "file": "provas/italy_pilot_negativos.mjs",
         "line": 8,
         "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/testa_coleta_canonica.py",
+      "to_file": "AGENTS.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/testa_coleta_canonica.py",
+        "line": 130,
+        "snippet": "if not l.startswith((\"guarda/es/\", \"docs/\", \"AGENTS.md\","
+      }
+    },
+    {
+      "from_file": "provas/testa_coleta_canonica.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_coleta_canonica.py",
+        "line": 27,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/testa_coleta_canonica.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_coleta_canonica.py",
+        "line": 32,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_coleta_canonica.py",
+      "to_file": "guarda/es/workflows/adama-es-gate.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/testa_coleta_canonica.py",
+        "line": 118,
+        "snippet": "REMOVIDOS = (\".github/workflows/adama-es-gate.yml\",)"
+      }
+    },
+    {
+      "from_file": "provas/testa_coleta_canonica.py",
+      "to_file": "pedido/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_coleta_canonica.py",
+        "line": 31,
+        "snippet": "import orquestrador as orq  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_coleta_canonica.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_coleta_canonica.py",
+        "line": 29,
+        "snippet": "from pedido import de_uma_frase, Pedido, PedidoInvalido  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_coleta_canonica.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_coleta_canonica.py",
+        "line": 30,
+        "snippet": "from receitas import resolver  # noqa: E402"
       }
     },
     {
@@ -21637,6 +21957,17 @@
         "file": "system-map/app/index.html",
         "line": 147,
         "snippet": "<script src=\"map.js\"></script>"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_da_coleta.py",
+      "to_file": "system-map/data/censo-da-coleta.generated.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_da_coleta.py",
+        "line": 49,
+        "snippet": "SAIDA = RAIZ / \"system-map\" / \"data\" / \"censo-da-coleta.generated.json\""
       }
     },
     {
@@ -24446,10 +24777,10 @@
     }
   ],
   "COUNTS": {
-    "files_tracked": 1132,
-    "files_readable": 381,
-    "files_code_dir": 413,
-    "file_edges": 1501,
+    "files_tracked": 1140,
+    "files_readable": 387,
+    "files_code_dir": 430,
+    "file_edges": 1526,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}
