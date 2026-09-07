@@ -61,8 +61,29 @@
  "autores_e_instituicoes_visiveis": "Antonietta Altieri (Ufficio Fitosanitario Regione Basilicata); creditos a Servizi Difesa Integrata ALSIA, Servizio Agrometeorologico Lucano ALSIA, Laboratorio Fitopatologico ALSIA, Centro di saggio ALSIA, tecnicos de Organizzazioni di Produttori e consultores fitossanitarios",
  "ganho_lateral": "esta amostra tambem alimenta T6 (pesquisadores) com nome + instituicao + regiao + cultura, e confirma o papel real da ALSIA na Basilicata",
  "HISTORICAL_DEPTH": "os caminhos tem ano e mes (/2025/11/, /2025/12/) — sugere arquivo, NAO testado",
- "SOURCE_ROLE": "SCIENCE_SOURCE + VALIDATION_SOURCE",
+ "SOURCE_ROLE": "SCIENCE_SOURCE + IDENTITY_SOURCE (pesquisador) + VALIDATION_SOURCE",
  "por_que": "duas amostras reais preservadas e conteudo excelente, mas e anual/por evento: nao serve de sensor corrente e a recorrencia nao foi medida por captura repetida",
  "PRIORITY": "P1",
- "pergunta_da_missao": "Se o SINTONIA coletar isto uma vez por ano, a ADAMA ganha o retrato oficial de como foi a campanha de cada praga em cada regiao — e o nome de quem assina. Serve para calibrar e para achar interlocutor, nao para reagir."
+ "pergunta_da_missao": "Se o SINTONIA coletar isto uma vez por ano, a ADAMA ganha o retrato oficial de como foi a campanha de cada praga em cada regiao — e o nome de quem assina. Serve para calibrar e para achar interlocutor, nao para reagir.",
+ "TERRITORIOS_ALIMENTADOS": {
+  "T5": "SCIENCE — o bilancio fitossanitario e evidencia cientifica/retrospectiva de campanha (esta amostra)",
+  "T6": "RESEARCHERS — o PDF traz nome, e-mail institucional, orgao e regiao de quem assina (Antonietta Altieri, Ufficio Fitosanitario Regione Basilicata)",
+  "T11": "EVENTS — o ciclo 'I Giovedi dell'AIPP' e as Giornate Fitopatologiche sao evento, com data e sessao",
+  "regra": "MESMA ORIGEM, TRES LEITURAS. Nao duplicar a fonte: um SOURCE_ID, tres territorios alimentados, com a origem unica preservada."
+ },
+ "OWNERS_SEPARADOS": {
+  "IT-OWN-AIPP": {
+   "nome": "AIPP — Associazione Italiana per la Protezione delle Piante",
+   "OWNER_KIND": "TRADE_ASSOCIATION",
+   "papel": "hospeda os PDFs (aipp.it) e organiza o ciclo 'I Giovedi dell'AIPP'"
+  },
+  "IT-OWN-GIORNATE-FITO": {
+   "nome": "Giornate Fitopatologiche",
+   "OWNER_KIND": "CONSORTIUM",
+   "papel": "o evento cientifico, com site proprio (giornatefitopatologiche.it)"
+  },
+  "evidencia_da_separacao": "o link esta em giornatefitopatologiche.it, mas os PDFs moram em aipp.it/wp-content/uploads/. Sao DUAS entidades; nao fundir.",
+  "aviso": "ambos os OWNER_KIND acima sao provisorios — nao foram medidos no estatuto de cada entidade nesta rodada"
+ },
+ "CORRECAO_2026_09_07": "a rodada anterior descreveu esta fonte como 'so descoberta e identidade'. ERRADO. E ciencia (T5), alimenta pesquisadores (T6) e e evento (T11)."
 }

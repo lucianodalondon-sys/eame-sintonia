@@ -58,8 +58,10 @@
  "SOURCE_TYPE": "REGISTRO_OFICIAL",
  "ACCESS_METHOD": "CSV + XML + JSON, com dicionario de dados em PDF e RSS de aviso",
  "conteudo_medido": "17.696 linhas; colunas incluem num_registrazione, denominazione_prodotto, ragione_sociale, data_registrazione, data_scadenza_autorizzazione, indicazioni_di_pericolo, sostanze_attive, codice/descrizione_formulazione",
- "SOURCE_ROLE": "VALIDATION_SOURCE + IDENTITY_SOURCE",
+ "SOURCE_ROLE": "REGULATORY_PRIMARY",
  "por_que": "dado estruturado real preservado com hash, 17.696 registros, dicionario oficial junto e rota sem atrito. O unico NÃO SEI que sobra e a cadencia.",
  "PRIORITY": "P0",
- "pergunta_da_missao": "Se o SINTONIA coletar isto, a ADAMA ve o tabuleiro regulatorio inteiro da Italia: o que ela tem autorizado, o que o concorrente tem, qual substancia esta vencendo autorizacao e quando. E a fonte que separa COMPANY_CLAIM de REGULATORY_FACT."
+ "pergunta_da_missao": "Se o SINTONIA coletar isto, a ADAMA ve o tabuleiro regulatorio inteiro da Italia: o que ela tem autorizado, o que o concorrente tem, qual substancia esta vencendo autorizacao e quando. E a fonte que separa COMPANY_CLAIM de REGULATORY_FACT.",
+ "SOURCE_ROLE_SECUNDARIO": "tambem serve como IDENTITY_SOURCE (quem e o titular do registro) e VALIDATION_SOURCE (confere o que uma empresa afirma). Mas isso e uso secundario.",
+ "CORRECAO_2026_09_07": "a rodada anterior descreveu esta fonte como 'so descoberta e identidade'. ERRADO. E o registro oficial de autorizacao: T4 REGULATORY, OWNER_KIND OFFICIAL_NATIONAL_AGENCY, ROLE REGULATORY_PRIMARY. E a fonte que separa COMPANY_CLAIM de REGULATORY_FACT — nao um catalogo de nomes."
 }

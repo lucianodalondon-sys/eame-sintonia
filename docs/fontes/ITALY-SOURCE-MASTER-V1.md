@@ -412,3 +412,90 @@ ALSIA fitosanitari (T3)  a página é descrição de serviço, não arquivo de d
 ARIF Puglia · Bayer · Syngenta · ADAMA (T3/T9)   403 para curl — inconclusivo
 CAI (T7)                 conexão derrubada — inconclusivo
 ```
+
+---
+
+# 11 · FECHAMENTO — QUATRO CORREÇÕES E UMA LEI · 2026-09-07
+
+Escritas **depois** da rodada, corrigindo formulações minhas que estavam erradas ou ambíguas.
+Nenhum byte de amostra foi tocado. Só classificação.
+
+## 11.1 · Ministero della Salute — não é "só descoberta"
+
+Eu escrevi *"entregam só descoberta e identidade"*. **Errado.**
+
+```
+TERRITORY   = T4 REGULATORY
+OWNER_KIND  = OFFICIAL_NATIONAL_AGENCY
+SOURCE_ROLE = REGULATORY_PRIMARY
+```
+
+É o registro oficial de autorização — a fonte que separa `COMPANY_CLAIM` de `REGULATORY_FACT`.
+Serve **também** como identidade (quem é o titular) e validação, mas isso é uso secundário.
+
+## 11.2 · Giornate Fitopatologiche / AIPP — três territórios, dois donos
+
+Eu escrevi *"só descoberta e identidade"*. **Errado.** A mesma origem alimenta três leituras:
+
+| território | o que a amostra entrega |
+|---|---|
+| **T5 SCIENCE** | o balanço fitossanitário da campanha, por região e cultura |
+| **T6 RESEARCHERS** | nome, e-mail institucional, órgão e região de quem assina |
+| **T11 EVENTS** | o ciclo *"I Giovedì dell'AIPP"* e as Giornate — data e sessão |
+
+**Uma fonte, três territórios alimentados.** Não duplicar o `SOURCE_ID`; a origem é única.
+
+E os **donos são dois**: o link está em `giornatefitopatologiche.it`, mas os PDFs moram em
+`aipp.it/wp-content/uploads/`. Não fundir. *(O `OWNER_KIND` de cada um é provisório —
+não foi medido no estatuto das entidades nesta rodada.)*
+
+## 11.3 · ARPAE — clima não vira praga
+
+```
+TERRITORY      = T2 CLIMATE / WATER / SOIL
+EVIDENCE_CLASS = AGROCLIMATIC_SIGNAL
+
+AGROCLIMATIC_SIGNAL ≠ PEST_OCCURRENCE
+```
+
+Eu tinha classificado como `OBSERVED_FIELD_SIGNAL`, o que abre porta para promoção indevida.
+O boletim **pode** ajudar a interpretar pressão agronômica — explicar por que a praga apertou.
+**Não pode**, sozinho nem combinado, virar ocorrência de praga. Chuva e temperatura não são inseto.
+
+## 11.4 · "47 sem teste" era ambíguo — e o número estava errado
+
+Porta medida não é fonte não testada. Os quatro estados, com os números reais:
+
+| estado | n | o que significa |
+|---|---|---|
+| rotas no catálogo | **54** | — |
+| `ROUTE_PROBED` | **51** | a porta foi medida do IP italiano |
+| `SAMPLE_CAPTURED` | **7** | um documento real foi baixado, além da homepage |
+| `RAW_PRESERVED` | **7** | está no disco com MIME/BYTES/SHA256, e o hash confere |
+| `ANALYTICALLY_CLASSIFIED` | **7** | tem veredito, recorrência, o que prova e o que **não** prova |
+| **probadas sem amostra** | **44** | testadas na porta, não na entrega |
+| **nunca tocadas** | **3** | `IT-T3-003` · `IT-T3-010` · `IT-T7-012` — o catálogo não tem URL para elas |
+
+`51 + 3 = 54`. As 7 com amostra estão **dentro** das 51, não são grupo separado.
+
+## 11.5 · LEI PERMANENTE — endereço errado não é bloqueio
+
+```
+ROUTE_NOT_FOUND        ≠  SOURCE_BLOCKED
+OLD_URL_FAILURE        ≠  CURRENT_SOURCE_FAILURE
+```
+
+Nesta rodada, **7 supostos bloqueios eram endereço errado no nosso próprio catálogo** — um
+`www` a mais, um host morto, um caminho antigo. Se ninguém conferisse, virariam
+*"a Itália bloqueia"*.
+
+**Antes de escrever `BLOCKED`, é obrigatório:**
+
+1. verificar o domínio oficial;
+2. localizar a página canônica atual;
+3. conferir redirects;
+4. procurar o link atual a partir da homepage ou da busca do próprio site;
+5. só então registrar bloqueio.
+
+**Erro de catálogo nosso nunca vira defeito da fonte.**
+Irmã da lei já registrada: `BLOCKED_EM_CURL_ITALIANO ≠ BLOCKED_EM_BROWSER_ITALIANO`.

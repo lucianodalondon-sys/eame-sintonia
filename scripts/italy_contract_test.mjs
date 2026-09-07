@@ -82,5 +82,42 @@ for (const [id, m] of todos) {
   T(`${id} declara WHAT_IT_DOES_NOT_PROVE`, !!m.WHAT_IT_DOES_NOT_PROVE);
 }
 
+console.log("\n10 · as quatro correcoes semanticas do fechamento continuam de pe");
+const min = JSON.parse(readFileSync(`${DIR}/IT-T4-001/MANIFEST.json`, "utf8"));
+T("Ministero e T4 REGULATORY", min.TERRITORY === "T4", min.TERRITORY);
+T("Ministero e OFFICIAL_NATIONAL_AGENCY", min.OWNER_KIND === "OFFICIAL_NATIONAL_AGENCY", min.OWNER_KIND);
+T("Ministero e REGULATORY_PRIMARY, nao so descoberta", min.SOURCE_ROLE === "REGULATORY_PRIMARY", min.SOURCE_ROLE);
+
+const gio = JSON.parse(readFileSync(`${DIR}/IT-T5-003/MANIFEST.json`, "utf8"));
+T("Giornate alimenta T5, T6 e T11", ["T5", "T6", "T11"].every(t => gio.TERRITORIOS_ALIMENTADOS?.[t]));
+T("Giornate e AIPP seguem como dois owners separados", Object.keys(gio.OWNERS_SEPARADOS || {}).filter(k => k.startsWith("IT-OWN-")).length === 2);
+
+const arp = JSON.parse(readFileSync(`${DIR}/IT-T2-001/MANIFEST.json`, "utf8"));
+T("ARPAE e T2", arp.TERRITORY === "T2", arp.TERRITORY);
+T("ARPAE e AGROCLIMATIC_SIGNAL, nao sinal de campo de praga", arp.EVIDENCE_CLASS === "AGROCLIMATIC_SIGNAL", arp.EVIDENCE_CLASS);
+T("ARPAE carrega a lei AGROCLIMATIC_SIGNAL != PEST_OCCURRENCE", /AGROCLIMATIC_SIGNAL\s*!=\s*PEST_OCCURRENCE/.test(arp.LEI_DE_NAO_PROMOCAO?.regra || ""));
+T("nenhuma amostra classifica clima como ocorrencia de praga",
+  todos.every(([, m]) => !(String(m.EVIDENCE_CLASS || "").includes("AGROCLIMATIC") && /PEST_OCCURRENCE/.test(String(m.EVIDENCE_CLASS)))));
+
+console.log("\n11 · os quatro estados de cobertura fecham a conta");
+const E = master.estados_de_cobertura_2026_09_07;
+T("os quatro estados estao declarados", !!E && !!E.ROUTE_PROBED && !!E.SAMPLE_CAPTURED && !!E.RAW_PRESERVED && !!E.ANALYTICALLY_CLASSIFIED);
+T("ROUTE_PROBED + NUNCA_TOCADAS = rotas do catalogo",
+  E.ROUTE_PROBED.n + E.NUNCA_TOCADAS.n === E.ROTAS_NO_CATALOGO, `${E.ROUTE_PROBED.n}+${E.NUNCA_TOCADAS.n} vs ${E.ROTAS_NO_CATALOGO}`);
+T("ROTAS_NO_CATALOGO bate com o numero real de sources", E.ROTAS_NO_CATALOGO === master.sources.length, `${E.ROTAS_NO_CATALOGO} vs ${master.sources.length}`);
+T("RAW_PRESERVED bate com os manifestos que dizem PRESERVED",
+  E.RAW_PRESERVED.n === todos.filter(([, m]) => m.RAW_EVIDENCE_STATE === "PRESERVED").length);
+T("SAMPLE_CAPTURED nunca e maior que ROUTE_PROBED", E.SAMPLE_CAPTURED.n <= E.ROUTE_PROBED.n);
+T("PROBADAS_SEM_AMOSTRA = ROUTE_PROBED - SAMPLE_CAPTURED",
+  E.PROBADAS_SEM_AMOSTRA.n === E.ROUTE_PROBED.n - E.SAMPLE_CAPTURED.n);
+
+console.log("\n12 · a lei permanente esta no contrato");
+const L = master.leis_permanentes?.ROUTE_NOT_FOUND_NAO_E_SOURCE_BLOCKED;
+T("ROUTE_NOT_FOUND != SOURCE_BLOCKED esta registrada", /ROUTE_NOT_FOUND\s*!=\s*SOURCE_BLOCKED/.test(L?.lei || ""));
+T("OLD_URL_FAILURE != CURRENT_SOURCE_FAILURE esta registrada", /OLD_URL_FAILURE\s*!=\s*CURRENT_SOURCE_FAILURE/.test(L?.lei_irma || ""));
+T("os 5 passos obrigatorios antes de BLOCKED estao escritos", (L?.antes_de_escrever_BLOCKED_e_obrigatorio || []).length === 5);
+T("nenhuma fonte foi marcada BLOCKED sem passar pela lei",
+  probe.RESULTADOS.every(r => r.RESULTADO !== "BLOCKED"), "so existe BLOCKED_PARA_CURL, que e inconclusivo por contrato");
+
 console.log(`\n===== ${ok} passaram, ${falhas} falharam =====`);
 process.exit(falhas ? 1 : 0);

@@ -460,3 +460,27 @@ Foi escrito um guarda em Node para o contrato novo — `scripts/italy_contract_t
 O guarda **encontrou uma falha real** na primeira execução: o manifesto do `IT-T3-005`, escrito
 à mão mais cedo, não declarava `SOURCE_LOCATION`, `FACT_LOCATION` nem `WHAT_IT_DOES_NOT_PROVE`,
 e dois arquivos estavam sem `BYTES`/`SHA256`. Foi corrigido, e só então passou.
+
+---
+
+## 12 · FECHAMENTO — O QUE EU TINHA ESCRITO ERRADO
+
+Quatro formulações da §11 foram corrigidas. O detalhe está em
+`../fontes/ITALY-SOURCE-MASTER-V1.md` §11 e nos manifestos. Em resumo:
+
+| eu escrevi | está certo |
+|---|---|
+| Ministero della Salute = "só descoberta e identidade" | **T4 REGULATORY · REGULATORY_PRIMARY.** Descoberta é uso secundário. |
+| Giornate Fitopatologiche = "só descoberta e identidade" | **T5 SCIENCE + T6 RESEARCHERS + T11 EVENTS.** Uma origem, três leituras. E dois donos: Giornate e AIPP. |
+| ARPAE = `OBSERVED_FIELD_SIGNAL` | **`AGROCLIMATIC_SIGNAL`.** `AGROCLIMATIC_SIGNAL ≠ PEST_OCCURRENCE`. |
+| "as outras 47 continuam sem teste" | **51 probadas · 7 com amostra e RAW preservado · 44 probadas sem amostra · 3 nunca tocadas.** |
+
+E uma lei permanente entrou no contrato:
+
+```
+ROUTE_NOT_FOUND  ≠  SOURCE_BLOCKED
+OLD_URL_FAILURE  ≠  CURRENT_SOURCE_FAILURE
+```
+
+7 dos "bloqueios" desta rodada eram endereço errado no nosso próprio catálogo.
+Erro nosso não vira defeito da fonte.

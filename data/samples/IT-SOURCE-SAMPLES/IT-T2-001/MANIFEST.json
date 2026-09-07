@@ -41,11 +41,11 @@
  "ORIGINAL_TITLE": "Bollettino agrometeorologico n. 35 / n. 34 del 2026",
  "SOURCE_LOCATION": "Bologna — sede da ARPAE",
  "FACT_LOCATION": "Emilia-Romagna (regional). DIFERENTE da sede.",
- "EVIDENCE_CLASS": "OBSERVED_FIELD_SIGNAL (agrometeorologia medida) — nao confundir com MODELLED_RISK",
+ "EVIDENCE_CLASS": "AGROCLIMATIC_SIGNAL",
  "CROP": "n/a — e agrometeorologia, insumo para modelo de praga",
  "TOPICS": "temperatura, chuva, agua no solo, andamento da campanha agraria",
  "WHAT_IT_PROVES": "que existe boletim agrometeorologico regional numerado e semanal, em PDF aberto, com arquivo por ano desde pelo menos 2021",
- "WHAT_IT_DOES_NOT_PROVE": "presenca de praga · risco modelado · decisao de tratamento · dado por talhao",
+ "WHAT_IT_DOES_NOT_PROVE": "presenca de praga · ocorrencia fitossanitaria · risco modelado de praga · decisao de tratamento · dado por talhao. AGROCLIMATIC_SIGNAL nunca vira PEST_OCCURRENCE.",
  "RAW_EVIDENCE_STATE": "PRESERVED",
  "UPDATE_FREQUENCY": "WEEKLY — PROVADO pela propria listagem: n.35=31/08, n.34=24/08, n.33=17/08, n.32=11/08, n.31=03/08, n.30=27/07, n.29=20/07. Numeracao sequencial + 7 dias.",
  "AUTOMATION_FEASIBILITY": "HIGH — URL previsivel com numero e data, sem login, sem JavaScript. UNICA armadilha: nunca usar o sufixo /view.",
@@ -65,5 +65,11 @@
  "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE (clima)",
  "por_que": "duas amostras reais preservadas com hash, PDF verificado nos bytes, recorrencia semanal provada pela listagem, profundidade historica de 6 anos e rota automatizavel",
  "PRIORITY": "P0",
- "pergunta_da_missao": "Se o SINTONIA coletar isto toda semana, a ADAMA ganha a base climatica da Emilia-Romagna — o que explica por que a praga apertou ou afrouxou. Sozinho nao diz nada de praga; casado com o boletim fitossanitario, diz muito."
+ "pergunta_da_missao": "Se o SINTONIA coletar isto toda semana, a ADAMA ganha a base climatica da Emilia-Romagna — o que explica por que a praga apertou ou afrouxou. Sozinho nao diz nada de praga; casado com o boletim fitossanitario, diz muito.",
+ "LEI_DE_NAO_PROMOCAO": {
+  "regra": "AGROCLIMATIC_SIGNAL != PEST_OCCURRENCE",
+  "o_que_pode": "contribuir para interpretar pressao agronomica — explicar por que a praga apertou ou afrouxou",
+  "o_que_nao_pode": "ser lido, sozinho ou combinado, como ocorrencia de praga. Chuva e temperatura nao sao inseto.",
+  "correcao": "a redacao anterior classificava esta amostra como OBSERVED_FIELD_SIGNAL, o que abria porta para promocao indevida. Corrigido para AGROCLIMATIC_SIGNAL."
+ }
 }
