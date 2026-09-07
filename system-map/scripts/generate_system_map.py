@@ -628,6 +628,19 @@ def main_uma_vez(stamp: bool) -> int:
                     c["_files"].append(caminho)
         c["_files"] = sorted(set(c["_files"]))
 
+    # ── 1b · o artefato pertence a quem o escreve ────────────────────────────
+    # Duas passagens: um artefato pode ser escrito por um script que so ganhou
+    # dono na primeira volta.
+    produz: dict[str, list] = {}
+    for _ in range(2):
+        for e in G["FILE_EDGES"]:
+            if e["type"] != "WRITES":
+                continue
+            autor = dono.get(e["from_file"])
+            if autor and e["to_file"] not in dono:
+                dono[e["to_file"]] = autor
+                produz.setdefault(autor, []).append(e["to_file"])
+
     # ── 2 · arestas de ficheiro sobem para arestas de componente ─────────────
     # Cada aresta de componente carrega TODAS as linhas que a provam. E o que
     # responde "por que existe esta seta?" com dedo apontado, nao com opiniao.
@@ -636,6 +649,19 @@ def main_uma_vez(stamp: bool) -> int:
         a, b = dono.get(e["from_file"]), dono.get(e["to_file"])
         if not a or not b or a == b:
             continue
+        # A SETA SEGUE O DADO, NAO A DEPENDENCIA.
+        #
+        # `pacote_camadas.py` LE o corpus dos pesquisadores. Escrita como esta no
+        # codigo, a seta sai do pacote e aponta para o corpus — e ao ler o mapa
+        # ficava «o corpus RECEBE DE o pacote», que e o contrario do que acontece:
+        # o dado sai do corpus e vai para o pacote.
+        #
+        # Um mapa de processo tem de responder "para onde isto vai". Por isso a
+        # leitura e virada: quem foi lido ALIMENTA quem leu. `IMPORTS` e `RUNS`
+        # ficam como estao — ali a seta e mesmo de dependencia: quem importa
+        # depende de quem e importado, e quem manda rodar manda mesmo.
+        if e["type"] == "READS":
+            a, b = b, a
         chave = (a, b, e["type"])
         alvo = ligacoes.setdefault(chave, {
             "from": a, "to": b, "type": e["type"], "payload": e["payload"],
@@ -646,8 +672,9 @@ def main_uma_vez(stamp: bool) -> int:
 
     for lig in ligacoes.values():
         n = len(lig["evidence"])
-        verbo = {"IMPORTS": "importa", "READS": "le", "WRITES": "escreve em",
-                 "RUNS": "manda rodar"}.get(lig["type"], lig["type"].lower())
+        verbo = {"IMPORTS": "importa", "READS": "alimenta", "WRITES": "escreve em",
+                 "RUNS": "manda rodar", "RETRIEVED_BY": "e buscada por"}.get(
+                     lig["type"], lig["type"].lower())
         nomes = {c["id"]: c["name"] for c in comps}
         nomes.update({g["id"]: g["name"] for g in gerados})
         de, para = nomes.get(lig["from"], lig["from"]), nomes.get(lig["to"], lig["to"])
@@ -727,6 +754,7 @@ def main_uma_vez(stamp: bool) -> int:
             "files": fs, "file_count": len(fs),
             "status": status, "status_reason": motivo,
             "changed_since_declared": mudou,
+            "produces": sorted(set(produz.get(c["id"], []))),
             "inbound": sorted({l["from"] for l in ent}),
             "outbound": sorted({l["to"] for l in sai}),
         })

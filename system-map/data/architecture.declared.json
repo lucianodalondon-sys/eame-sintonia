@@ -637,7 +637,7 @@
     {
       "id": "C-ADAMA-ES",
       "name": "O portao do catalogo espanhol",
-      "territory": "Z-REGRAS",
+      "territory": "Z-GUARDA",
       "kind": "gate",
       "what": "Mede o que o catalogo espanhol entrega, campo por campo, e decide se ele pode entrar. Nao importa nada.",
       "why_here": "A Espanha entrou depois e com fonte diferente. As regras de normalizacao vivem no ponto onde o artefato vira linha canonica — o unico lugar onde podem ser auditadas contra o texto literal da fonte.",
@@ -645,8 +645,8 @@
         "REGULATORIO_PORTFOLIO"
       ],
       "files": [
-        "regras/adama_es_gate.py",
-        "regras/adama_es_import_rules.py"
+        "guarda/adama_es_gate.py",
+        "guarda/adama_es_import_rules.py"
       ],
       "views": [],
       "icon": "⛨"
@@ -1193,7 +1193,7 @@
     {
       "id": "C-CI-PERSIST",
       "name": "Os botoes que cuidam do banco",
-      "territory": "Z-DISPARA",
+      "territory": "Z-GUARDA",
       "kind": "workflow",
       "what": "Conferem a conexao com o banco, rodam migracao e provam que o dado volta igual ao que entrou.",
       "why_here": "Migracao sem prova de ida e volta e perda de dado com aparencia de sucesso.",
@@ -1279,13 +1279,14 @@
       "name": "Gerador do System Map",
       "territory": "Z-PROVA",
       "kind": "engine",
-      "what": "Junta o que a maquina mediu com o que o humano declarou e calcula o status de cada peca.",
+      "what": "Junta o que a maquina mediu com o que o humano declarou, calcula o status de cada peca — e move peca de gaveta levando os ficheiros e as chamadas junto.",
       "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando.",
       "departments": [
         "ENGENHARIA"
       ],
       "files": [
-        "system-map/scripts/generate_system_map.py"
+        "system-map/scripts/generate_system_map.py",
+        "system-map/scripts/mudar_gaveta.py"
       ],
       "views": [],
       "icon": "⚙"
@@ -1398,7 +1399,7 @@
   ],
   "EXPECTED_EDGES": [],
   "DECLARED_BLOBS": {
-    ".github/workflows/adama-es-gate.yml": "caa7ab7fd35549a88bc26574e3e30b882c1aa891",
+    ".github/workflows/adama-es-gate.yml": "079d48faf6aeffb5e77550f43256b5e7dc76edf2",
     ".github/workflows/apify-conexao.yml": "7f2b6b30c4b4cedb77677d876f3ff34105e925e7",
     ".github/workflows/apify-sensores.yml": "87f9cf2eb1c034b3abd09f841643e9851c23a444",
     ".github/workflows/calendario-regressoes.yml": "5b35bd8b0b33c53926e3592139a159b8f6014b4d",
@@ -1464,6 +1465,8 @@
     "fontes/adama_it_moa.py": "57b26541315e0350ef066f8a83cb88821829acf9",
     "fontes/adama_it_qa.py": "70ecc42de14172e60e4a657a37dcbb10b7ae3bf2",
     "fontes/fonte_nova.py": "0abc32e7cb5c24e9b9f62f2c285292fea622b95a",
+    "guarda/adama_es_gate.py": "bbc08de4dae759030bc2a28151f73c49b21fe5d0",
+    "guarda/adama_es_import_rules.py": "41c87a4ec4925ea1fb74ff5e1f7317b2760605b6",
     "guarda/catalogo_importar.py": "fb56f21c646d7c12c0d58292dbee9c09cc56f531",
     "guarda/importar_italia.py": "46304462a2d72ea658415c3ca8ffcfff0cea585f",
     "guarda/sql_conferir.py": "8e27ab6e65c9d53f0e2607f07a287f4b769ae2d8",
@@ -1691,8 +1694,6 @@
     "provas/freeze_es.py": "a4c1a68b9d00c9df3f6e98d08206d93138f841bd",
     "provas/inventario_esperado.py": "d3043da78bdd927622cfedb11a67afbcb85382bb",
     "provas/testa_rota_italia.py": "4fb25815bd63df037ca315f8530d1d420b23fa3d",
-    "regras/adama_es_gate.py": "d434caf8e0556c6e0a1f393d38f87e612a4ad33d",
-    "regras/adama_es_import_rules.py": "0c65d3b5950ec2628b45db7d99b7bf17ba9009f9",
     "regras/comunicacao_identidade.py": "3afe6c18b66d13826a262a184787271a8ee3211f",
     "regras/comunicacao_lote.py": "098fc6d67af9fa697025f2afe8bf0bcf40749254",
     "regras/comunicacao_universo.py": "37e4638950e2619cb19b218f3ab73be0700625a0",
@@ -1750,9 +1751,10 @@
     "superficie/rede.py": "90a85f14923b6d9dfa88b560070aec08329f35ae",
     "system-map/app/index.html": "cd2fedf7baae6ace57be8d81dbe950f9ab1aef1d",
     "system-map/app/map.css": "d70a895270eca4dd5684c116772153890a648a55",
-    "system-map/app/map.js": "f04eb0b54571fc61b3b088212ed010e082e811ae",
-    "system-map/scripts/generate_system_map.py": "03c054adf2458778e32fd63e437ba8196cb5cc48",
-    "system-map/scripts/scan_repo.py": "35067d4568bd72ee2c40c143fca4c0303aa90afa",
+    "system-map/app/map.js": "96659e02a2579359a4d99dc9efa4bacdbf80873f",
+    "system-map/scripts/generate_system_map.py": "27ed233645afe97ae3ecb9247cb3e63774586c3f",
+    "system-map/scripts/mudar_gaveta.py": "99736f74a118a545f946246f88c041153e4bb342",
+    "system-map/scripts/scan_repo.py": "c3381581f275c3de013fed483eacf9c817055946",
     "system-map/scripts/scan_sources.py": "5d658ac626c1c479f939a393b426384f9b076565",
     "system-map/scripts/validate_system_map.py": "90db5bed5eaf40806c1ef83da6c96cbeb8906030",
     "system-map/tests/test_system_map.py": "91530ca778e788452d99b2c6f594302d68a53145",

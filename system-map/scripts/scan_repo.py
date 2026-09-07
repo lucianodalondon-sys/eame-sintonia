@@ -145,6 +145,71 @@ def prova(caminho: str, n: int, linha: str) -> dict:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# 2b · A CONSTANTE QUE GUARDA UM CAMINHO
+# ─────────────────────────────────────────────────────────────────────────────
+def escritas_por_constante(caminho: str, unicos: dict) -> list[tuple]:
+    """Segue `DEST = os.path.join(SAMPLES, 'X.json')` ate `open(DEST, 'w')`.
+
+    Esta casa escreve assim, e com razao: o caminho fica num sitio so, no topo,
+    onde se ve. Mas isso poe o NOME do ficheiro na linha 99 e a ESCRITA na linha
+    600, e uma leitura linha-a-linha nunca junta as duas.
+
+        A CONSTANTE ESTAVA A ESCONDER A SETA MAIS IMPORTANTE DO MAPA.
+
+    Sem isto, `corpus_pesquisador.py` parecia nao produzir nada — quando o que ele
+    escreve alimenta o pacote, os sensores da coleta e o Ask Sintonia. A peca
+    aparecia orfa, e peca orfa e peca que alguem apaga.
+
+    Le com `ast`, sem executar nada. So resolve quando o nome do ficheiro e UNICO
+    no repositorio: havendo dois iguais, nao ha como saber qual e, e escolher
+    seria inventar.
+    """
+    try:
+        arvore = ast.parse((RAIZ / caminho).read_text(encoding="utf-8", errors="replace"))
+    except (SyntaxError, OSError):
+        return []
+
+    # 1 · constante -> ficheiro do repositorio
+    de_nome: dict[str, str] = {}
+    linha_de: dict[str, int] = {}
+    for no in ast.walk(arvore):
+        if not isinstance(no, ast.Assign) or len(no.targets) != 1:
+            continue
+        alvo = no.targets[0]
+        if not isinstance(alvo, ast.Name):
+            continue
+        for pedaco in ast.walk(no.value):
+            if isinstance(pedaco, ast.Constant) and isinstance(pedaco.value, str):
+                achado = unicos.get(pedaco.value.split("/")[-1])
+                if achado:
+                    de_nome[alvo.id] = achado[0]
+                    linha_de[alvo.id] = no.lineno
+
+    if not de_nome:
+        return []
+
+    # 2 · `open(CONST, 'w')` — e so 'w'/'a'. Sem modo, e leitura.
+    saida = []
+    for no in ast.walk(arvore):
+        if not (isinstance(no, ast.Call) and getattr(no.func, "id", "") == "open"):
+            continue
+        if not no.args or not isinstance(no.args[0], ast.Name):
+            continue
+        alvo = de_nome.get(no.args[0].id)
+        if not alvo:
+            continue
+        modo = ""
+        if len(no.args) > 1 and isinstance(no.args[1], ast.Constant):
+            modo = str(no.args[1].value)
+        for kw in no.keywords:
+            if kw.arg == "mode" and isinstance(kw.value, ast.Constant):
+                modo = str(kw.value.value)
+        tipo = "WRITES" if modo[:1] in ("w", "a") else "READS"
+        saida.append((alvo, tipo, no.lineno, no.args[0].id, modo or "leitura"))
+    return saida
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # 3 · O QUE FOI DECLARADO E NAO ESTA AQUI — mas existe noutro sitio
 # ─────────────────────────────────────────────────────────────────────────────
 def onde_mais(declarados: set[str], presentes: set[str]) -> dict:
@@ -186,6 +251,8 @@ def onde_mais(declarados: set[str], presentes: set[str]) -> dict:
 RE_PY_IMPORT = re.compile(r"^\s*(?:from\s+([\w.]+)\s+import|import\s+([\w.]+))")
 RE_JS_IMPORT = re.compile(r"""(?:from|import)\s+['"]([^'"]+)['"]""")
 RE_LITERAL = re.compile(r"""['"]([A-Za-z0-9_./-]+\.[A-Za-z0-9]{1,6})['"]""")
+# Caminho escrito sem aspas nenhumas, como acontece em teste de shell.
+RE_CAMINHO_NU = re.compile(r"(?<![\w/'\"-])((?:data|docs|build|supabase)/[\w./-]+\.\w{2,6})")
 RE_ESCRITA = re.compile(
     r"open\([^)]*['\"][wa]|json\.dump|write_text|writeFileSync|\.to_csv|"
     r"savefig|mkdir|>\s*[\"']?\$?\w"
@@ -223,6 +290,16 @@ def resolver_js(alvo: str, origem: str, arquivos: dict) -> str | None:
     return caminho if caminho in arquivos else None
 
 
+def por_nome_unico(lit: str, indice: dict) -> str | None:
+    """`'PUBLIC-COMM-FIRST-BATCH-EAME.json'` -> o unico ficheiro com esse nome.
+
+    So devolve quando o nome e unico no repositorio. Dois ficheiros com o mesmo
+    nome nao dao para distinguir a partir do literal, e escolher um seria inventar.
+    """
+    alvo = indice.get(lit.split("/")[-1])
+    return alvo if alvo and len(alvo) == 1 else None
+
+
 def relativo(lit: str, origem: str, arquivos: dict) -> str | None:
     """`<script src="italy-v21.js">` e um caminho relativo a propria pasta.
 
@@ -240,6 +317,12 @@ def arestas(arquivos: dict) -> list[dict]:
     saida: list[dict] = []
     vistas: set[tuple] = set()
 
+    # nome do ficheiro -> os caminhos que o tem. So os unicos sao usaveis.
+    porNome: dict[str, list] = {}
+    for caminho in arquivos:
+        porNome.setdefault(caminho.split("/")[-1], []).append(caminho)
+    unicos = {n: v for n, v in porNome.items() if len(v) == 1}
+
     def add(de: str, para: str, tipo: str, ev: dict, carga: str = ""):
         if de == para or para not in arquivos:
             return
@@ -255,6 +338,11 @@ def arestas(arquivos: dict) -> list[dict]:
     for caminho, meta in arquivos.items():
         if not meta["readable"]:
             continue
+        if meta["ext"] == ".py":
+            for alvo, tipo, n, const, modo in escritas_por_constante(caminho, unicos):
+                add(caminho, alvo, tipo,
+                    prova(caminho, n, f"open({const}, {modo!r})  # {const} = {alvo}"),
+                    "artefacto")
         ext = meta["ext"]
         linhas = ler(caminho)
         for n, linha in enumerate(linhas, 1):
@@ -297,8 +385,16 @@ def arestas(arquivos: dict) -> list[dict]:
             # So conta literal que aponta para ficheiro que EXISTE. Um literal
             # que nao resolve pode ser caminho de saida futura, nome de coluna,
             # ou lixo — e adivinhar qual e disso seria fabricar aresta.
-            for lit in RE_LITERAL.findall(sem_comentario):
+            # sem aspas tambem conta: `if [ ! -f data/samples/x.json ]` num passo
+            # de shell e uma leitura tao real como qualquer outra.
+            crus = RE_LITERAL.findall(sem_comentario)
+            if ext in (".sh", ".yml", ".yaml"):
+                crus += RE_CAMINHO_NU.findall(sem_comentario)
+            for lit in crus:
                 alvo = lit if lit in arquivos else relativo(lit, caminho, arquivos)
+                if not alvo:
+                    achado = por_nome_unico(lit, unicos)
+                    alvo = achado[0] if achado else None
                 if alvo:
                     tipo = "WRITES" if RE_ESCRITA.search(sem_comentario) else "READS"
                     add(caminho, alvo, tipo, prova(caminho, n, crua), "artefacto")

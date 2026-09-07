@@ -317,6 +317,14 @@ function openDetail(id) {
       ${n.facts?.length ? `<div class="sec"><h4>Medido</h4>${
         n.facts.map(f => `<div class="file">${esc(f)}</div>`).join('')}</div>` : ''}
 
+      ${n.produces?.length ? `<div class="sec">
+        <h4>O que esta peça produz (${n.produces.length})</h4>
+        <p style="font-size:10px;color:#8a827e;margin-bottom:8px">Artefatos que ela
+          escreve. Quem os lê está ligado a ela por causa disto.</p>${
+        n.produces.slice(0, 20).map(f => `<div class="file">${esc(f)}</div>`).join('')}${
+        n.produces.length > 20 ? `<div class="file">… e mais ${
+          n.produces.length - 20}</div>` : ''}</div>` : ''}
+
       <div class="sec"><h4>Arquivos que implementam isto (${n.files.length})</h4>${
         n.files.map(f => `<div class="file">${esc(f)}</div>`).join('') ||
         '<div class="tags"><span class="tag">nenhum</span></div>'}</div>
