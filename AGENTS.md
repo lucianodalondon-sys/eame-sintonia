@@ -146,11 +146,14 @@ pasta da sua peça:
 |---|---|---|
 | | **COLETA** | |
 | 1 | QUEM DISPARA | `.github/workflows/` |
-| 2 | AS FONTES | `fontes/` |
-| 3 | AS FERRAMENTAS | `ferramentas/` |
-| 4 | OS VEÍCULOS | `coleta/` |
-| 5 | AS REGRAS E AS PALAVRAS | `regras/` |
-| 6 | ONDE GUARDA A COLETA | `guarda/` |
+| 2 | DE ONDE VEM UMA FONTE | `candidatas/` |
+| 3 | AS FONTES | `fontes/` |
+| 4 | AS FERRAMENTAS | `ferramentas/` |
+| 5 | OS VEÍCULOS | *(sem pasta — cartões medidos)* |
+| 6 | AS AÇÕES DA COLETA | `coleta/` |
+| 7 | AS REGRAS E AS PALAVRAS | `regras/` |
+| | **A ESPERA** *(faixa cinzenta)* | |
+| | A SALA DE ESPERA | `guarda/` |
 | | **INTELIGÊNCIA** | |
 | | RÉGUAS E LEIS | `leis/` |
 | | MOTOR — CADEIA V2.1 | `motor/` |
@@ -170,9 +173,47 @@ Uma pasta com 149 ficheiros empilhados deixava o mapa dizer "isto é uma regra" 
 "aquilo é uma ferramenta" sem que nada no repositório confirmasse. Quem abria a
 pasta via a verdade errada primeiro.
 
-**Ficheiro novo vai direto para a gaveta do que ele é.** Se não souber qual,
-pergunte-se: *isto vai buscar alguma coisa?* Se não vai, não é veículo — é
-informação, regra ou ferramenta.
+**Ficheiro novo vai direto para a gaveta do que ele é.**
+
+### Ferramenta, veículo e ação são TRÊS coisas
+
+Esta pergunta já foi respondida errado uma vez, e a gaveta chamada «OS VEÍCULOS»
+passou meses sem conter um único veículo — as oito peças lá dentro eram todas
+ações. O teste que eu usava (*«sai para a rede?»*) não separava nada: sair para a
+rede é o que uma **ação faz**, não o que um **veículo é**.
+
+| | pergunta | exemplos | gaveta |
+|---|---|---|---|
+| **FERRAMENTA** | com **que** se viaja | Apify, o navegador, a transcrição, abrir PDF | `ferramentas/` |
+| **VEÍCULO** | por **onde** se vai | YouTube, Instagram, LinkedIn, Facebook, HTTP | — |
+| **AÇÃO** | o que se **faz** lá dentro | colher o YouTube, baixar os rótulos | `coleta/` |
+
+Ação é **verbo**. Se o nome começa por «colher», «baixar», «montar», «ler» — é
+ação, mesmo que o canal esteja no nome dela. O veículo é o **lugar**.
+
+Os cartões de veículo **não se escrevem à mão**: nascem de procurar o canal
+dentro do código de cada ação, e cada seta carrega o ficheiro e a linha onde ele
+aparece. Canal que ninguém chama fica em NÃO SEI, e é a verdade.
+
+### Fonte nasce; não aparece pronta
+
+`candidatas/` vem **antes** de `fontes/`, e não é redundância:
+
+- **candidata** — apareceu no meio de uma coleta ou à mão, ainda não se sabe o
+  que entrega;
+- **fonte** — já foi aberta, olhada, e há prova guardada do que ela entrega.
+
+Fonte nova entra sempre por `candidatas/`. Escrever ficha em `fontes/` sem passar
+por ali é dizer que se sabe o que ela entrega sem ter olhado.
+
+### A SALA DE ESPERA é cinzenta de propósito
+
+Entre a coleta e a inteligência há uma faixa neutra: o que já foi colhido, limpo
+e guardado, à espera de ser processado. **Não é coleta** (o trabalho acabou) e
+**não é inteligência** (ainda não começou). Enquanto viveu pintada de azul, o mapa
+dizia que guardar era colher.
+
+Nada é transformado ali — só guardado. Por isso não tem cor de etapa.
 
 ### As gavetas ficam na RAIZ, e isso não é gosto
 
