@@ -63,6 +63,7 @@ jobs:
         run: |
           python3 system-map/scripts/scan_repo.py
           python3 system-map/scripts/scan_sources.py
+          python3 system-map/scripts/scan_casco.py
           python3 system-map/scripts/generate_system_map.py
 
       # A comparacao anti-drift NAO e um `git diff` cru, de proposito: o bloco

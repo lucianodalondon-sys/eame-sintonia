@@ -284,6 +284,52 @@ function corridasHTML(F) {
     </div>`).join('')}</div>`;
 }
 
+// O QUE ESTA LIGADO NESTA FERRAMENTA HOJE — camada a camada.
+// Quem abre o portal ve numeros. A pergunta que muda a decisao e sempre a mesma:
+// de onde veio este numero? REAL veio do motor com procedencia; FIXTURE foi
+// escrito a mao para a tela nao ficar vazia. Misturar os dois sem avisar e o
+// caso mais caro, porque parece medicao e nao e.
+const ORIGEM_TEXTO = {
+  'REAL': 'Tudo o que aparece aqui tem procedência.',
+  'CANONICO': 'Dado real com a lei da casa aplicada por cima.',
+  'MISTURA': 'Dado real misturado com dado escrito à mão. A tela não avisa qual é qual.',
+  'SO FIXTURE': 'Tudo escrito à mão. Não há dado real por baixo.',
+  'NAO SEI': 'O contrato desta tela não nomeia camada nenhuma.'
+};
+
+function blocoCasco(n) {
+  const cor = { REAL: '#3f7d4e', CANONICO: '#6a6f9c', FIXTURE: '#b07d2b' };
+  return `
+    <div class="sec"><h4>De onde vem o que está nesta tela</h4>
+      <p style="font-size:11px;color:#4a443f;margin-bottom:10px">
+        <b>${esc(n.de_onde_vem || 'NÃO SEI')}</b> — ${
+        esc(ORIGEM_TEXTO[n.de_onde_vem] || '')}</p>
+    </div>
+
+    <div class="sec"><h4>O que está ligado nela (${(n.ligado_nela || []).length})</h4>
+      <p style="font-size:10px;color:#8a827e;margin-bottom:8px">Cada camada de dado que
+        esta ferramenta bebe, e o arquivo que a publica.</p>${
+      (n.ligado_nela || []).map(c => `
+        <div class="file" style="border-left:3px solid ${cor[c.tipo] || '#8a827e'}">
+          <b>${esc(c.camada)}</b>
+          <span style="color:${cor[c.tipo] || '#8a827e'};font-weight:600">${esc(c.tipo)}</span>
+          <div style="font-size:10px;color:#8a827e">${esc(c.o_que_e)}</div>${
+          (c.publicada_em || []).map(f =>
+            `<div style="font-size:10px;color:#6b635e">publicada em ${esc(f)}</div>`).join('')}${
+          c.prova ? `<div style="font-size:10px;color:#6b635e">prova: ${
+            esc(c.prova.file)}:${c.prova.line}</div>` : ''}
+        </div>`).join('') ||
+      '<div class="tags"><span class="tag">NÃO SEI</span></div>'}</div>${
+
+    (n.riscos || []).length ? `<div class="sec"><h4>Riscos que o contrato já anotou</h4>${
+      n.riscos.map(r => `<div class="file">${esc(typeof r === 'string' ? r
+        : (r.risk || r.text || JSON.stringify(r)))}</div>`).join('')}</div>` : ''}${
+
+    (n.perguntas_abertas || []).length ? `<div class="sec"><h4>Perguntas ainda em aberto</h4>${
+      n.perguntas_abertas.map(q => `<div class="file">${esc(typeof q === 'string' ? q
+        : (q.question || q.text || JSON.stringify(q)))}</div>`).join('')}</div>` : ''}`;
+}
+
 function blocoFontes(n) {
   const abertas = n.groups[0];
   const redes = n.groups.slice(1);
@@ -378,6 +424,8 @@ function openDetail(id) {
         '<div class="tags"><span class="tag">nenhum</span></div>'}</div>
 
       ${n.groups ? blocoFontes(n) : ''}
+
+      ${n.ligado_nela ? blocoCasco(n) : ''}
 
       ${n.evidence_text ? `<div class="sec"><h4>Evidência usada pelo mapa</h4>
         <div class="evidence">${esc(n.evidence_text)}</div></div>` : ''}

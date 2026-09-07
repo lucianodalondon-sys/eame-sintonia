@@ -393,6 +393,137 @@ def as_fontes() -> tuple[list, list]:
 
 CONTRATOS_REL = "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
 
+# Como o nome do dominio aparece no contrato e como aparece na tela nao sao a
+# mesma coisa. Quem olha o mapa procura o nome que ve no portal.
+NOME_NA_TELA = {
+    "Opportunity Radar + Opportunity Detail": "RADAR DAS OPORTUNIDADES",
+    "PORTFOLIO / PRODUCT INTELLIGENCE / PRODUCT RELATIONSHIPS": "PORTFOLIO",
+    "CROP WINDOWS + CROP CALENDAR + PREPARATION CLOCK": "JANELAS DE CULTURA",
+    "MARKET PULSE": "PULSO DE MERCADO",
+    "COMPETITOR WATCH + COMPETITOR x WINDOW": "CONCORRENCIA",
+    "SCIENTIFIC INTELLIGENCE": "CIENCIA",
+    "ARCHIVE": "ARQUIVO",
+    "GLOBAL SEARCH": "BUSCA GLOBAL",
+    "NAV COUNTERS + DATA STATE / PROVENANCE PANEL": "CONTADORES E PROCEDENCIA",
+}
+
+
+def nome_da_ferramenta(dominio: str) -> str:
+    for chave, nome in NOME_NA_TELA.items():
+        if dominio.startswith(chave):
+            return nome
+    return dominio.split("(")[0].split("+")[0].strip().upper()[:34] or "FERRAMENTA"
+
+
+def as_ferramentas() -> tuple[list, list]:
+    """UMA PECA POR FERRAMENTA DA TELA, e cada uma diz o que esta ligado nela HOJE.
+
+    Quem abre o portal ve onze ferramentas e, dentro delas, numeros: 17 oportunidades,
+    173 produtos, 1114 no arquivo. O que a tela nao diz e DE ONDE VEM CADA NUMERO — e
+    essa e a unica pergunta que muda a decisao de quem olha.
+
+    Este repositorio ja tem a resposta escrita, nos contratos de bloco, e ela e dura.
+    O contrato do Radar das Oportunidades abre assim:
+
+        «Today the Opportunity Radar is 100% legacy fixture (...) only one is real
+         (...) The real backing is 3 records in ITALY_INGEST.OPPORTUNITIES.»
+
+    Seventeen na tela. Tres reais por baixo. A tela nao avisa.
+
+    Por isso o estado aqui NAO mede se a ferramenta funciona — mede se ela e honesta
+    sobre a propria origem:
+
+        REAL       verde     tudo o que aparece tem procedencia
+        MISTURA    amarelo   dado real e dado escrito a mao na mesma tela, sem aviso
+        SO FIXTURE amarelo   tudo escrito a mao; a tela ilustra, nao informa
+        NAO SEI    cinza     o contrato nao nomeia camada nenhuma
+
+    MISTURA e amarelo, nao verde, e a razao e simples: uma tela que mistura sem dizer
+    qual e qual nao esta a informar — esta a ilustrar com numero em cima, que e a
+    forma mais cara de enganar alguem, porque parece medicao.
+    """
+    f = DADOS / "casco.generated.json"
+    if not f.exists():
+        return []
+    C = json.loads(f.read_text(encoding="utf-8"))
+
+    cor = {"REAL": (VERDE, "green"), "MISTURA": (AMARELO, "yellow"),
+           "SO FIXTURE": (AMARELO, "yellow"), "NAO SEI": (CINZA, "gray")}
+    publica = C.get("CAMADAS_PUBLICADAS", {})
+
+    nos, ligacoes = [], []
+    for x in C["FERRAMENTAS"]:
+        est, ui = cor.get(x["de_onde_vem"], (CINZA, "gray"))
+        fich = [a for a in x["ficheiros"] if (RAIZ / a).is_file()]
+        if not fich:
+            est, ui = CINZA, "gray"
+
+        # o que esta ligado nela hoje — camada a camada, com o ficheiro que a publica
+        ligado = [{
+            "camada": nome,
+            "tipo": c["tipo"],
+            "o_que_e": c["o_que_e"],
+            "publicada_em": publica.get(nome, []),
+            "prova": c.get("prova"),
+        } for nome, c in sorted(x["camadas"].items(),
+                                key=lambda kv: (kv[1]["tipo"] != "REAL", kv[0]))]
+
+        factos = [f"contratos de bloco que a descrevem: {len(x['blocos'])}",
+                  f"camadas de dado ligadas a ela: {len(ligado)}"]
+        for t in ("REAL", "CANONICO", "FIXTURE"):
+            n = sum(1 for c in ligado if c["tipo"] == t)
+            if n:
+                factos.append(f"dessas, {t.lower()}: {n}")
+        if x.get("registos_citados"):
+            factos.append("registos citados pelo contrato: "
+                          + ", ".join(str(n) for n in x["registos_citados"]))
+        if x.get("confianca"):
+            factos.append(f"confianca declarada no contrato: {x['confianca']}")
+
+        motivo = x["leitura"]
+        if x.get("confissoes"):
+            motivo += " " + " · ".join(x["confissoes"]) + "."
+        if not fich:
+            motivo = "NAO SEI: nao encontrei o contrato de bloco desta ferramenta."
+
+        nos.append({
+            "id": "C-TELA-" + re.sub(r"[^A-Z0-9]+", "-",
+                                     nome_da_ferramenta(x["dominio"]).upper()).strip("-"),
+            "name": nome_da_ferramenta(x["dominio"]),
+            "kind": "tela", "icon": "▤",
+            "territory": "Z-SUPERFICIE", "family": "F-ENTREGA",
+            "status": est, "ui_status": ui, "proof": "document",
+            "what": (x["resumo"][:400] or x["dominio"])
+                    + (" ..." if len(x["resumo"]) > 400 else ""),
+            "why_here": ("E uma das ferramentas que a pessoa abre no portal. Existe "
+                         "para responder uma pergunta de negocio — e so vale a "
+                         "resposta se der para dizer de onde veio cada numero."),
+            "files": fich,
+            "facts": factos,
+            "status_reason": motivo,
+            "evidence_text": x["o_que_alimenta"][:600],
+            "departments": [], "views": ["entrega"], "lane": "official",
+            "legacy": False, "changed_since_declared": [],
+            "inbound": [], "outbound": [],
+            "de_onde_vem": x["de_onde_vem"],
+            "ligado_nela": ligado,
+            "riscos": x.get("riscos") or [],
+            "perguntas_abertas": x.get("perguntas_abertas") or [],
+            "file_count": len(fich),
+        })
+
+        # A SETA: de quem publica a camada, para a ferramenta que a bebe. A prova
+        # e a linha do contrato onde a camada aparece pelo nome.
+        for c in ligado:
+            for ficheiro in c["publicada_em"]:
+                if c.get("prova"):
+                    ligacoes.append({"to_file": ficheiro, "node": nos[-1]["id"],
+                                     "evidence": c["prova"]})
+
+    return sorted(nos, key=lambda n: n["id"]), ligacoes
+
+
+
 
 def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
     """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
@@ -975,6 +1106,8 @@ def main_uma_vez(stamp: bool) -> int:
     gerados = linhagem()
     fontes, lig_fontes = as_fontes()
     gerados += fontes
+    telas, lig_telas = as_ferramentas()
+    gerados += telas
 
     dono: dict[str, str] = {f: g["id"] for g in gerados for f in g["files"]}
     conflitos: list[dict] = []
@@ -985,7 +1118,7 @@ def main_uma_vez(stamp: bool) -> int:
             for caminho in arquivos:
                 if any(casa(caminho, x) for x in fora):
                     continue  # pertence a outro componente, declarado a mao
-                if dono.get(caminho, "").startswith(("C-AS-FONTES", "lineage_")):
+                if dono.get(caminho, "").startswith(("C-AS-FONTES", "C-TELA-", "lineage_")):
                     continue  # ja e de uma peca gerada; nao se reivindica por cima
                 if casa(caminho, padrao):
                     if caminho in dono and dono[caminho] != c["id"]:
@@ -1170,6 +1303,27 @@ def main_uma_vez(stamp: bool) -> int:
             "reason": "", "evidence": [],
         })
         alvo_lig["evidence"].append(lf["evidence"])
+    # Quem PUBLICA a camada aponta para a ferramenta que a bebe. E a resposta
+    # visual a pergunta "o que esta ligado no Radar hoje?" — com a linha do
+    # contrato que nomeia a camada por baixo de cada seta.
+    for lt in lig_telas:
+        origem = dono_de.get(lt["to_file"])
+        if not origem or origem == lt["node"]:
+            continue
+        chave = (origem, lt["node"], "FEEDS")
+        alvo_lig = ligacoes.setdefault(chave, {
+            "from": origem, "to": lt["node"], "type": "FEEDS",
+            "payload": "dado", "kind": "technical", "status": VERDE,
+            "reason": "", "evidence": [],
+        })
+        if lt["evidence"] not in alvo_lig["evidence"]:
+            alvo_lig["evidence"].append(lt["evidence"])
+    for chave, l in ligacoes.items():
+        if l["type"] == "FEEDS" and not l["reason"]:
+            nome_alvo = next((n["name"] for n in nos if n["id"] == l["to"]), l["to"])
+            l["reason"] = (f"O contrato de bloco de «{nome_alvo}» nomeia, em "
+                           f"{len(l['evidence'])} linha(s), a camada de dado que "
+                           f"esta peca publica.")
     for chave, l in ligacoes.items():
         if l["type"] == "RETRIEVED_BY" and not l["reason"]:
             nome_alvo = next((c["name"] for c in comps if c["id"] == l["to"]), l["to"])

@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "a6bb5b53ed6436ed43d29e8b25b14365cdcca561",
-    "GENERATED_AT": "2026-09-07T13:59:47-03:00"
+    "HEAD": "9aae470fb8e94741d48d5afa170790d84b96b0e6",
+    "GENERATED_AT": "2026-09-07T14:20:27-03:00"
   },
   "FILES": [
     {
@@ -100,7 +100,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "f451704b088cb0b4c2640ed5e1a3e1606a31e8c6",
+      "sha": "ebcbc298b7c3c249938088427d705e7c690f0843",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -7632,21 +7632,21 @@
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "fef7ef6d6ed6d0146d484328011e9813081ea3c9",
+      "sha": "5bd18024abda85fa542947ed23d3f1410dec52e9",
       "ext": ".js",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "a578360fb8d2ed10ddb1642ecb486d9e5eeb5491",
+      "sha": "3b184476eaa800bb1a511dd31e1c3d21a46dee58",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "d4d38af982c387a10b9a3fb98c347bdc9e082722",
+      "sha": "383509d416c589b012b3a4116de851deaa2510f9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7674,7 +7674,7 @@
     },
     {
       "path": "system-map/scripts/validate_system_map.py",
-      "sha": "b1d7f6acce5276feaec594954fc4499d4d9b6131",
+      "sha": "0f2b9497e8d6746dd6f262b2c753a0be549b786f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8586,7 +8586,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 77,
+        "line": 78,
         "snippet": "run: python3 regras/padrao_da_coleta.py"
       }
     },
@@ -8597,7 +8597,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 66,
+        "line": 67,
         "snippet": "python3 system-map/scripts/generate_system_map.py"
       }
     },
@@ -8630,7 +8630,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 74,
+        "line": 75,
         "snippet": "run: python3 system-map/scripts/validate_system_map.py"
       }
     },
@@ -8641,7 +8641,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 80,
+        "line": 81,
         "snippet": "run: python3 system-map/tests/test_system_map.py"
       }
     },
@@ -21621,7 +21621,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 750,
+        "line": 881,
         "snippet": "\"data/samples/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -21632,7 +21632,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 728,
+        "line": 859,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -21643,7 +21643,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 564,
+        "line": 695,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -21676,7 +21676,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 929,
+        "line": 1060,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -21687,7 +21687,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 951,
+        "line": 1082,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -21698,7 +21698,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 952,
+        "line": 1083,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -21709,7 +21709,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 951,
+        "line": 1082,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -21731,7 +21731,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1244,
+        "line": 1398,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -21742,7 +21742,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1244,
+        "line": 1398,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -21753,7 +21753,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 690,
+        "line": 821,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -21962,8 +21962,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 107,
-        "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
+        "line": 108,
+        "snippet": "\"generate_system_map.py\"):"
       }
     },
     {
@@ -21974,7 +21974,7 @@
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
         "line": 107,
-        "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
+        "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
       }
     },
     {
@@ -21985,7 +21985,7 @@
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
         "line": 107,
-        "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"generate_system_map.py\"):"
+        "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
       }
     },
     {

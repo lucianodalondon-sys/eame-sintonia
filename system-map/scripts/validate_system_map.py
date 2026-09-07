@@ -104,7 +104,8 @@ def main() -> int:
     # A ordem importa: `scan_sources.py` le a saida de `scan_repo.py`, e o
     # gerador le as duas. Correr fora de ordem daria um mapa montado sobre uma
     # medicao anterior — e o pior tipo de erro, porque passa sem reclamar.
-    for script in ("scan_repo.py", "scan_sources.py", "generate_system_map.py"):
+    for script in ("scan_repo.py", "scan_sources.py", "scan_casco.py",
+                   "generate_system_map.py"):
         r = subprocess.run([sys.executable, str(AQUI / script)],
                            capture_output=True, text=True, encoding="utf-8", errors="replace")
         if r.returncode != 0:
