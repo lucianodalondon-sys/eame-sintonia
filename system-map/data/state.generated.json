@@ -1583,8 +1583,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "67677cc1b5ef61a484bc31c234e9ac1632cc2bac",
-    "GENERATED_AT": "2026-09-07T16:38:11-03:00"
+    "HEAD": "948ff066a68d5dce748e33aa8c0f5d4e78e3f046",
+    "GENERATED_AT": "2026-09-07T16:44:30-03:00"
   },
   "FAMILIES": [
     {
@@ -10483,6 +10483,9 @@
           }
         }
       ],
+      "saem_daqui_sem_destino": [
+        "C-COLETA-INSTAGRAM"
+      ],
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
       "paises_dado": {},
@@ -10697,6 +10700,10 @@
           }
         }
       ],
+      "saem_daqui_sem_destino": [
+        "C-COLETA-INSTAGRAM",
+        "C-COLETA-YOUTUBE"
+      ],
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
       "paises_dado": {},
@@ -10821,6 +10828,11 @@
           }
         }
       ],
+      "saem_daqui_sem_destino": [
+        "C-COLETA-BASE",
+        "C-COLETA-INSTAGRAM",
+        "C-COLETA-YOUTUBE"
+      ],
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
       "paises_dado": {},
@@ -10940,6 +10952,9 @@
             "snippet": ""
           }
         }
+      ],
+      "saem_daqui_sem_destino": [
+        "C-COLETA-BASE"
       ],
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
@@ -11063,6 +11078,10 @@
           }
         }
       ],
+      "saem_daqui_sem_destino": [
+        "C-COLETA-BASE",
+        "C-COLETA-YOUTUBE"
+      ],
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
       "paises_dado": {},
@@ -11083,7 +11102,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 67677cc1b5ef61a484bc31c234e9ac1632cc2bac"
+        "HEAD 948ff066a68d5dce748e33aa8c0f5d4e78e3f046"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -11616,7 +11635,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1235,
+          "line": 1243,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ]
@@ -13929,7 +13948,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1257,
+          "line": 1265,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ]
@@ -14399,17 +14418,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1458,
+          "line": 1466,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1458,
+          "line": 1466,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1459,
+          "line": 1467,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -14504,12 +14523,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1814,
+          "line": 1822,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1814,
+          "line": 1822,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]

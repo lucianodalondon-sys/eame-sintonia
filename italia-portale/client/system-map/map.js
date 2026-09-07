@@ -153,8 +153,32 @@ function showNodeTip(e, n) {
      <div class="ttLabel">Por que está aqui</div><div class="ttText">${esc(n.why_here)}</div>
      <div class="ttLabel">Recebe de</div><div class="ttText">${
        de.length ? esc(de.slice(0, 3).join(' · ')) : '— ninguém'}</div>
-     <div class="ttLabel">Envia para</div><div class="ttText">${
-       pa.length ? esc(pa.slice(0, 3).join(' · ')) : '— ninguém'}</div>
+     ${(() => {
+       /* «ENVIA PARA — ninguem» NUM CANAL E UMA MENTIRA POR OMISSAO.
+          O canal nao escreve nada, e nunca escreveu: quem escreve e a acao que
+          passa por ele. Mas dizer «ninguem» faz o cartao parecer um beco sem
+          saida — como se o YouTube engolisse o que capta. Aqui ele responde a
+          pergunta que a pessoa esta mesmo a fazer: o que entra por aqui vai
+          parar onde? */
+       const dest = n.o_que_entra_vai_para || [];
+       if (n.kind === 'veiculo') {
+         return `<div class="ttLabel">O que entra aqui vai parar em</div>
+           <div class="ttText">${dest.length
+             ? esc(dest.slice(0, 3).map(d => d.ficheiro).join(' · '))
+               + (dest.length > 3 ? ` · e mais ${dest.length - 3}` : '')
+             : '— NÃO SEI: nenhuma ação que sai por aqui declara onde guarda'}</div>
+           <div class="ttLabel">Quem escreve</div><div class="ttText">${
+             dest.length ? esc([...new Set(dest.map(d => nodeById[d.acao]?.name || d.acao))]
+               .slice(0, 3).join(' · ')) : '— ninguém'}
+             <br><span style="opacity:.7">o canal não guarda nada: só deixa passar</span></div>`
+           + ((n.saem_daqui_sem_destino || []).length
+             ? `<div class="ttLabel">Saem por aqui e NÃO SEI onde guardam</div>
+                <div class="ttText">${esc(n.saem_daqui_sem_destino
+                  .map(a => nodeById[a]?.name || a).join(' · '))}</div>` : '');
+       }
+       return `<div class="ttLabel">Envia para</div><div class="ttText">${
+         pa.length ? esc(pa.slice(0, 3).join(' · ')) : '— ninguém'}</div>`;
+     })()}
      <div class="ttLabel">Motivo do estado</div><div class="ttText">${esc(n.status_reason)}</div>
      ${n.paises && Object.keys(n.paises).length ? `<div class="ttLabel">Países que toca</div>
        <div class="ttText">${esc(Object.entries(n.paises)
@@ -461,6 +485,12 @@ function openDetail(id) {
       ${n.nao_guarda_nada ? `<div class="sec">
         <h4>O que entra por aqui vai parar onde?</h4>
         <p style="font-size:11px;color:#4a443f;margin-bottom:8px">${esc(n.nao_guarda_nada)}</p>${
+        ((n.saem_daqui_sem_destino || []).length ? `<div class="file"
+          style="border-left:3px solid #8a827e"><b>NÃO SEI onde estas guardam</b>
+          <div style="font-size:10px;color:#8a827e">${esc(n.saem_daqui_sem_destino
+            .map(a => nodeById[a]?.name || a).join(' · '))} — saem por este canal e
+            nenhum ficheiro ou pasta de destino foi medido no código delas.</div>
+        </div>` : '') +
         (n.o_que_entra_vai_para || []).map(d => `<div class="file">
           ${esc(d.ficheiro)}
           <div style="font-size:10px;color:#8a827e">quem escreve: ${esc(d.acao)} ·

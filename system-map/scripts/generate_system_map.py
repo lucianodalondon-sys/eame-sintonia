@@ -589,6 +589,14 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
             "lane": "official", "legacy": False, "changed_since_declared": [],
             "inbound": [], "outbound": [], "file_count": 0,
             "o_que_entra_vai_para": destinos,
+            # QUEM SAI POR AQUI E NAO DIZ ONDE GUARDA. E a pergunta «o que o
+            # YouTube colhe vai pra onde?» aplicada acao a acao: das quatro que
+            # saem por ali, duas declaram um destino e duas nao. Sem esta linha,
+            # o cartao mostrava os destinos das duas e ficava calado sobre as
+            # outras — o que da a impressao de que estao todas cobertas.
+            "saem_daqui_sem_destino": sorted(
+                a for a in set(quem)
+                if a not in {d["acao"] for d in destinos}),
             "nao_guarda_nada": (
                 "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a "
                 "acao que sai por aqui, e e por isso que este cartao nao tem seta "
