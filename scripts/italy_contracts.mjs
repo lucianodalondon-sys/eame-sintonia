@@ -16,6 +16,18 @@
 //   AGROCLIMATIC_SIGNAL      != PEST_OCCURRENCE
 //   COMPANY_CLAIM            != REGULATORY_FACT
 //   BROWSER_RENDERED_EXTRACT != RAW_PRESERVED
+//   SAME_HASH                != DEGRADED            (corrigida em 2026-09-07, ver abaixo)
+//   NO_CHANGE                != FAILURE
+//   CAPTURE                  != DOCUMENT
+//   NEW_HASH                 != NEW_SEMANTIC_FACT
+//   MOVING_WINDOW            != NEW_DATASET_EVERY_DAY
+//   FIRST_RUN                =  BASELINE
+//
+// CORRECAO DE LEI — 2026-09-07:
+//   Eu havia escrito "hash repetido = DEGRADED / fonte parada". ERRADO e perigoso.
+//   Uma fonte semanal consultada duas vezes no mesmo dia DEVE devolver o mesmo documento.
+//   Atraso so existe com: EXPECTED_UPDATE + DEADLINE PROVADA + DEADLINE VENCIDA + SEM NOVA VERSAO.
+//   Estados corretos: NO_CHANGE · EXPECTED_NO_CHANGE · UPDATE_DUE · OVERDUE_UPDATE · CADENCE_UNKNOWN
 
 export const ROUTE_TYPES = ["STATIC_ROUTE", "PREDICTABLE_ROUTE", "DISCOVERED_ROUTE", "APPLICATION_ROUTE", "BROWSER_DISCOVERED_ROUTE"];
 export const HEALTH_STATES = ["HEALTHY", "DEGRADED", "FAILED", "UNKNOWN"];
@@ -228,7 +240,7 @@ export const CONTRACTS = {
     UPDATE_BEHAVIOR: "SOBRESCRITA — janela movel de 11 dias na mesma URL",
     HISTORICAL_OR_FORWARD: "FORWARD_ONLY", ARCHIVE_REQUIREMENT: "CRITICAL",
     nota_de_arquivo: "existe 'SEZIONE RICHIESTA DATI' para serie historica, NAO testada. Ate testar, tratar como FORWARD_ONLY.",
-    EXPECTED_FAILURES: ["tabela sem linhas de estacao = FAILED", "janela igual a da captura anterior = DEGRADED (fonte parada)"],
+    EXPECTED_FAILURES: ["tabela sem linhas de estacao = FAILED", "janela igual a da captura anterior = NO_CHANGE, NAO DEGRADED. So vira OVERDUE_UPDATE se houver cadencia PROVADA e o prazo tiver vencido — e a cadencia do SIAS ainda e NÃO SEI."],
     FAIL_CLOSED_RULE: "tabela vazia NAO e 'nao choveu': e FAILED",
     FALLBACK: "outra grandeza (temperatura) para confirmar se o servidor esta vivo",
     SOURCE_LOCATION_RULE: "Palermo", FACT_LOCATION_RULE: "a ESTACAO da linha",
@@ -284,13 +296,13 @@ export const CONTRACTS = {
     DECLARED_FREQUENCY: "o site declara: zonas 2-15/23/24 as segundas e quintas na primavera-verao, quartas no outono-inverno; as demais em outro calendario",
     OBSERVED_FREQUENCY: "NÃO SEI — uma captura so",
     UPDATE_BEHAVIOR: "SOBRESCRITA", HISTORICAL_OR_FORWARD: "FORWARD_ONLY", ARCHIVE_REQUIREMENT: "CRITICAL",
-    EXPECTED_FAILURES: ["mesmo SHA de ontem = DEGRADED (zona parada), nao HEALTHY", "sem CreationDate = DEGRADED, sem identidade temporal"],
+    EXPECTED_FAILURES: ["mesmo SHA numa nova captura = NO_CHANGE, NAO DEGRADED. Consultar duas vezes no mesmo dia uma fonte que publica 2x por semana DEVE devolver o mesmo documento — isso e o comportamento esperado.", "sem CreationDate = DEGRADED, porque ai falta identidade temporal"],
     FAIL_CLOSED_RULE: "corpo sem %PDF = FAILED",
     FALLBACK: "nenhum — o arquivo anterior ja foi perdido",
     SOURCE_LOCATION_RULE: "Teolo/Padova", FACT_LOCATION_RULE: "a ZONA do numero do arquivo",
     EVIDENCE_CLASS: "AGROCLIMATIC_SIGNAL", LEI: "AGROCLIMATIC_SIGNAL != PEST_OCCURRENCE",
     AUTOMATION_FEASIBILITY: "HIGH",
-    NEGATIVE_CONTROL: { descricao: "capturar duas vezes seguidas sem mudanca", esperado: "DEGRADED por hash repetido, nunca duas observacoes" }
+    NEGATIVE_CONTROL: { descricao: "capturar duas vezes seguidas sem mudanca", esperado: "SEEN_AGAIN + NO_CHANGE, com 0 objetos RAW novos. NUNCA DEGRADED, e NUNCA duas versoes." }
   },
 
   "IT-T7-002": {

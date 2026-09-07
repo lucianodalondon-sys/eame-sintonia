@@ -237,5 +237,9 @@ T("DURUM_WHEAT continua declarado como lacuna", /LACUNA/i.test(master.matriz_reg
 }
 
 
+
+const { guardasDoPiloto } = await import("./italy_pilot_guards.mjs");
+guardasDoPiloto(T);
+
 console.log(`\n===== ${ok} passaram, ${falhas} falharam =====`);
 process.exit(falhas ? 1 : 0);
