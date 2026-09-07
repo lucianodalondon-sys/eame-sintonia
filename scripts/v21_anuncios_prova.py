@@ -146,6 +146,19 @@ def main():
         r['ACTIVE_PROOF_LAW'] = (
             'ACTIVE_PROVED exige estado observado ACTIVE **e** a data da '
             'observacao. START_DATE e quando o anuncio comecou; nao prova hoje.')
+        # ⚠️ O QUE A OBSERVACAO PROVA, E O QUE NAO PROVA.
+        # Medido: 372 anuncios tem UMA leitura, 20 tem duas, 22 tem tres. Uma
+        # leitura prova que NAQUELE INSTANTE a fonte listava o anuncio assim.
+        # NAO prova que ele esteja ativo hoje, nem o que houve entre as datas.
+        #
+        #     UMA LEITURA E UM PONTO, NAO UMA LINHA.
+        #     E o selo que diz «ATTIVO» no presente fala de um ponto no passado.
+        r['OBSERVATION_LAW'] = (
+            'FIRST_OBSERVED e LAST_OBSERVED sao quando NOS observamos, nunca '
+            'quando o concorrente comecou: OBSERVATION_START != ACTIVITY_START. '
+            'Com OBSERVATION_COUNT=%d, isto prova o estado em AS_OF_DATE e mais '
+            'nada. Quem mostra o selo tem de mostrar a data ao lado, e calcular '
+            'a idade dela contra o dia da leitura.' % r['OBSERVATION_COUNT'])
 
         if r.get('COUNTRY_REACHED') and r['COUNTRY_REACHED_OBSERVED'] and \
                 r['COUNTRY_REACHED'] != r['COUNTRY_REACHED_OBSERVED']:
@@ -168,6 +181,22 @@ def main():
         'ACTIVE_UNKNOWN': desconhecido,
         'HISTORICAL': historico,
         'COUNTRY_REACHED_DISAGREEMENTS': pais_divergente,
+    }
+    obs = Counter(r.get('OBSERVATION_COUNT') for r in pagos)
+    d['OBSERVATION_DEPTH'] = {
+        'BY_OBSERVATION_COUNT': {str(k): v for k, v in sorted(
+            obs.items(), key=lambda x: (x[0] is None, x[0]))},
+        'AS_OF_DATE': as_of,
+        'LAW': ('a leitura prova o estado em AS_OF_DATE e mais nada: nao prova '
+                'continuidade, nao prova hoje. Quem mostra o selo tem de mostrar '
+                'a data ao lado e calcular a idade dela contra o dia em que le.'),
+        'DEPTH_IS_NOT_UNIFORM': (
+            'a maioria tem UMA leitura; uma parte tem duas ou tres. Onde ha uma '
+            'so, CHANGE_OBSERVED nao tem resposta — nao se sabe se o anuncio '
+            'saiu do ar entre uma data e outra, porque nao ha outra data.'),
+        'WHAT_A_SECOND_READING_ADDS': (
+            'com duas leituras a pergunta «saiu do ar entre elas?» passa a ter '
+            'resposta. Com uma, ela nao tem.'),
     }
     d['TEMPORAL_PROOF_LAW'] = (
         'o selo ATTIVO passa a vir acompanhado da data em que a fonte foi vista. '
