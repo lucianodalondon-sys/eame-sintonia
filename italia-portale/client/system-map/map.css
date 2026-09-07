@@ -49,7 +49,21 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 .edgePath.dashed{stroke-dasharray:10 8}.edgePath.unknown{stroke:#a8afac;stroke-dasharray:5 8;opacity:.45}.edgePath.broken{stroke:var(--bad);stroke-dasharray:12 7;opacity:.75}.edgePath.dim{opacity:.04}.edgePath.highlight{stroke:var(--adama);stroke-width:5;opacity:1}
 .edgeHit{fill:none;stroke:transparent;stroke-width:18;pointer-events:stroke;cursor:help}
 .canvasTitle{position:absolute;left:18px;top:14px;z-index:35;background:rgba(255,255,255,.94);border:1px solid var(--earth20);border-radius:12px;padding:10px 13px;box-shadow:var(--shadow);max-width:560px}.canvasTitle b{font-size:12px}.canvasTitle span{display:block;font-size:8.8px;color:#807976;margin-top:3px}
-.warning{position:absolute;left:18px;top:78px;z-index:34;background:#fff8e2;border:1px solid #eedb9e;border-left:4px solid var(--warn);border-radius:10px;padding:8px 10px;max-width:570px;font-size:9px;line-height:1.4;color:#69580e}
+/* Recolhido, o aviso e uma pastilha de uma linha. Aberto, ele rola dentro de si
+   proprio em vez de crescer por cima do mapa — o mapa e para ser olhado. */
+.warning{position:absolute;left:18px;top:78px;z-index:34;max-width:570px}
+.warning.aberto{max-height:calc(100% - 110px);overflow:auto;background:#fff8e2;
+  border:1px solid #eedb9e;border-left:4px solid var(--warn);border-radius:10px}
+.achadoTag{background:#fff8e2;border:1px solid #eedb9e;border-left:4px solid var(--warn);
+  border-radius:10px;padding:7px 12px;font-size:10px;font-weight:700;color:#69580e;
+  cursor:pointer;box-shadow:var(--shadow);display:flex;gap:8px;align-items:center}
+.achadoTag[disabled]{cursor:default;opacity:.7;font-weight:400}
+.achadoTag span{font-weight:400;text-decoration:underline;opacity:.8}
+.achadoTag:hover:not([disabled]){background:#fdf1cf}
+.achado{font-size:9px;line-height:1.45;color:#69580e;padding:8px 11px;
+  border-top:1px solid #eedb9e}
+.achado:first-child{border-top:0}
+.achadoOnde{opacity:.7;font-family:monospace;font-size:8px;word-break:break-all}
 .controls{position:absolute;right:15px;bottom:15px;display:flex;gap:7px;z-index:40}.ctrl{width:39px;height:39px;border:1px solid var(--earth20);background:#fff;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,.08);cursor:pointer;color:#4d6059;font-weight:800}
 .mini{position:absolute;left:16px;bottom:15px;width:220px;height:134px;background:rgba(255,255,255,.95);border:1px solid var(--earth20);border-radius:12px;z-index:38;box-shadow:var(--shadow);overflow:hidden}.miniTitle{font-size:8px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:#8d8581;padding:8px 9px 4px}#miniSvg{width:100%;height:104px}#miniView{fill:rgba(0,152,69,.06);stroke:var(--adama);stroke-width:8}
 .kpis{position:absolute;left:250px;bottom:15px;z-index:38;background:rgba(255,255,255,.95);border:1px solid var(--earth20);border-radius:12px;padding:8px 10px;box-shadow:var(--shadow);display:flex;gap:8px}.kpi{font-size:8px;color:#8b8480;min-width:62px}.kpi b{display:block;font-size:13px;color:#3e5b52}

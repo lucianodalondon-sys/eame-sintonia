@@ -644,16 +644,37 @@ async function arrancar() {
     `<b>GERADO</b> ${esc(P.GENERATED_AT.slice(0, 10))} · ` +
     `${c.files_covered}/${c.files_tracked} arquivos cobertos`;
 
-  // O aviso do topo nao e texto fixo: conta o que o mapa ACABOU de medir. Um
-  // banner escrito a mao continuaria a avisar de um problema ja resolvido.
+  // OS ACHADOS FICAM RECOLHIDOS. Eles sao a parte mais valiosa do mapa e a que
+  // mais atrapalha: aberto, o painel tapa um terco do desenho, e o mapa existe
+  // para ser OLHADO. Fica uma pastilha com a contagem, e abre com um clique.
   const cinza = nodes.filter(n => n.ui_status === 'gray');
-  $('warning').innerHTML = cinza.length
-    ? `<b>${cinza.length} peça(s) em NÃO SEI:</b> ${
-        esc(cinza.map(n => n.name).join(' · '))}. Existem no repositório, e nada
-        aponta para elas nem elas apontam para nada — o mapa não inventa a ligação
-        que falta.`
-    : '<b>Nenhuma peça em NÃO SEI neste commit.</b> Toda peça tem pelo menos uma '
-      + 'ligação provada por linha de código.';
+  const achados = (S.ACHADOS || []).slice();
+  if (cinza.length) {
+    achados.unshift({
+      titulo: `${cinza.length} peça(s) em NÃO SEI`,
+      texto: esc(cinza.map(n => n.name).join(' · ')) + '. Existem no repositório, e '
+        + 'nada aponta para elas nem elas apontam para nada.',
+      porque_importa: 'O mapa não inventa a ligação que falta.',
+      evidencia: [],
+    });
+  }
+  $('warning').innerHTML = achados.length
+    ? `<button id="verAchados" class="achadoTag">⚠ ${achados.length} achado${
+        achados.length > 1 ? 's' : ''} do mapa <span>mostrar</span></button>
+       <div id="achadosCorpo" hidden>${achados.map(a => `
+         <div class="achado"><b>${esc(a.titulo)}</b><br>${a.texto}<br>
+           <i>${esc(a.porque_importa)}</i>${a.evidencia?.length
+             ? `<br><span class="achadoOnde">medido em: ${
+                 esc(a.evidencia.join(' · '))}</span>` : ''}</div>`).join('')}</div>`
+    : '<button class="achadoTag" disabled>Nenhum achado neste commit</button>';
+  if (achados.length) {
+    $('verAchados').onclick = () => {
+      const c = $('achadosCorpo'), aberto = !c.hidden;
+      c.hidden = aberto;
+      $('verAchados').querySelector('span').textContent = aberto ? 'mostrar' : 'esconder';
+      $('warning').classList.toggle('aberto', !aberto);
+    };
+  }
 
   const paises = [...new Set(S.NODES.map(n => n.pais).filter(Boolean))].sort();
   $('paises').innerHTML = '<label class="check"><input type="radio" name="pais" '
@@ -668,15 +689,6 @@ async function arrancar() {
          f.id.replace('F-', '').toLowerCase()})"></span>
        <span>${esc(f.name)} · ${f.count}<small>${esc(f.why.split('.')[0])}</small></span>
      </button>`).join('');
-
-  if (S.ACHADOS?.length) {
-    $('warning').innerHTML += S.ACHADOS.map(a =>
-      `<div style="margin-top:7px;padding-top:7px;border-top:1px solid #eedb9e">
-        <b>${esc(a.titulo)}</b><br>${esc(a.texto)}<br>
-        <i>${esc(a.porque_importa)}</i><br>
-        <span style="opacity:.7">medido em: ${esc(a.evidencia.join(' · '))}</span>
-      </div>`).join('');
-  }
 
   $('views').innerHTML = VISOES.map(([v, ic, rot]) =>
     `<button class="sideBtn ${v === 'all' ? 'active' : ''}" data-view="${v}">
