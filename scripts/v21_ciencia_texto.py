@@ -45,6 +45,7 @@ import sys
 from collections import Counter, OrderedDict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import v21_normalizar as N  # noqa: E402
 from acervo_fonte import carimbo, ler, manifesto, sha256_texto  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -113,6 +114,54 @@ def prova(m):
     ])
 
 
+# ⚠️ ESTE BLOCO CORRIGE UM DEFEITO QUE ESTA MISSAO INTRODUZIU.
+#
+# `ISSUE_IDS` estava VAZIO em 88/88 porque o laco de ingest pedia um campo que a
+# ciencia nao tem. Corrigido o campo, ele passou a ser preenchido 88/88 a partir
+# de `ISSUE` — que e o TERMO DA BUSCA, nao o que o texto prova.
+#
+# `ISSUE_IDS` nao e rotulo: e CHAVE DE JUNCAO, lida por v21_oportunidades.py,
+# v21_catraca.py e v21_necessidade.py. Enche-la com o termo da busca faz o motor
+# juntar por uma pergunta e apresentar o resultado como resposta.
+#
+#     CONSERTAR O CAMPO ERRADO E DEPOIS ENCHE-LO COM O VALOR ERRADO
+#     TROCA UM VAZIO HONESTO POR UM CHEIO FALSO. O SEGUNDO E PIOR.
+#
+# Medido nos 88: PROVED_ISSUE e conhecido em 39. Em 6 deles o texto prova
+# XYLELLA onde a busca dizia REPILO ou FLAVESCENCE. Se o motor juntasse pelo
+# termo da busca, esses 6 entrariam num caso que o proprio texto contradiz.
+#
+# Entao: ISSUE_IDS passa a sair do PROVADO, e so dele. O termo da busca continua
+# a viajar, com nome que diz o que ele e.
+#
+# CROP_IDS NAO e mexido aqui. Ele ja vinha do termo da busca ANTES desta missao
+# (87/88), e mudar a populacao de uma familia publicada nao e decisao desta
+# linhagem — fica declarado em CROP_IDS_ARE_QUERY_DERIVED e no relatorio de
+# perdas, para quem consome decidir.
+def chaves_de_juncao(r):
+    """ISSUE_IDS sai do PROVADO. O termo da busca vai para o campo que o nomeia."""
+    r['ISSUE_IDS_QUERY'] = list(r.get('ISSUE_IDS') or [])
+    prov = r.get('PROVED_ISSUE')
+    pid = N.issue_id(prov) if prov and prov != 'UNKNOWN' else None
+    r['ISSUE_IDS'] = [pid] if pid else []
+    r['PROVED_ISSUE_ID'] = pid
+    r['ISSUE_IDS_LAW'] = (
+        'ISSUE_IDS sai de PROVED_ISSUE — o que o TEXTO sustenta, com a frase de '
+        'evidencia em PROVED_ISSUE_EVIDENCE. ISSUE_IDS_QUERY guarda o termo que '
+        'a busca usou. Vazio aqui significa «o texto nao prova alvo», e nao «a '
+        'fonte nao declarou».')
+    pc = r.get('PROVED_CROP')
+    cid = N.crop_id(pc) if pc and pc != 'UNKNOWN' else None
+    r['PROVED_CROP_ID'] = cid
+    r['CROP_IDS_ARE_QUERY_DERIVED'] = True
+    r['CROP_IDS_LAW'] = (
+        'CROP_IDS deste registro vem do TERMO DA BUSCA, e vinha assim antes '
+        'desta missao. PROVED_CROP_ID e a chave que o texto sustenta. Trocar a '
+        'primeira pela segunda muda a populacao de uma familia publicada, e '
+        'essa decisao e de quem consome.')
+    return r
+
+
 def estado(m):
     """INCLUDED · EXCLUDED · UNKNOWN — e a razão, sempre."""
     dom = val(m.get('DOMAIN_STATE'))
@@ -169,6 +218,7 @@ def main():
         r['ACERVO_MATCH'] = 'CASOU_POR_DOI'
         r['ACERVO_MATCH_WHY'] = 'mesmo DOI no corpus RESEARCHER-CORPUS-EAME-V1'
         r.update(prova(m))
+        chaves_de_juncao(r)
         t = texto_cientifico(m)
         r.update(t)
         r['MATERIAL_ID'] = val(m.get('MATERIAL_ID'))
@@ -184,6 +234,17 @@ def main():
     sci['ACERVO_MATCHED_BY_DOI'] = casou
     sci['BY_CASE_ADHERENCE'] = dict(Counter(
         r.get('CASE_ADHERENCE', 'SEM_CORRESPONDENCIA') for r in sci['RECORDS']))
+    sci['JOIN_KEYS'] = {
+        'ISSUE_IDS_FROM_PROVED': sum(1 for r in sci['RECORDS'] if r.get('ISSUE_IDS')),
+        'ISSUE_IDS_QUERY_POPULATED': sum(
+            1 for r in sci['RECORDS'] if r.get('ISSUE_IDS_QUERY')),
+        'PROVED_CROP_ID_KNOWN': sum(
+            1 for r in sci['RECORDS'] if r.get('PROVED_CROP_ID')),
+        'CROP_IDS_STILL_QUERY_DERIVED': sum(
+            1 for r in sci['RECORDS'] if r.get('CROP_IDS')),
+        'LAW': ('ISSUE_IDS e chave de juncao e sai do PROVADO. CROP_IDS continua '
+                'como estava antes desta missao — termo de busca — e diz isso.'),
+    }
     sci['QUERY_VS_PROVED'] = {
         'CROP_QUERY_EQUALS_PROVED': sum(
             1 for r in sci['RECORDS']
@@ -314,6 +375,8 @@ def main():
     print('  ganharam abstract        : %d   (%s caracteres)' % (ganhou, f'{ch:,}'))
     print('  aderencia ao caso        : %s' % sci['BY_CASE_ADHERENCE'])
     print('  query vs proved          : %s' % sci['QUERY_VS_PROVED'])
+    print('  chaves de juncao         : %s' % {
+        k: v for k, v in sci['JOIN_KEYS'].items() if k != 'LAW'})
     print('== SCIENCE-CORPUS.json ==')
     print('  registros                : %d  (client-safe %d)' % (
         len(recs), corpo['COUNT_CLIENT_SAFE']))

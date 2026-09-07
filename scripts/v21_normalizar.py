@@ -82,6 +82,11 @@ ISSUE_ALIAS = {
     # da macieira), e casar por palavra inteira faria a mancha da oliveira virar
     # sarna da macieira. So os binomios completos, que sao mais longos e ganham
     # de `venturia` na ordem de _casa.
+    # ⚠️ XYLELLA nao existia na tabela, e seis papers do corpus PROVAM xylella
+    # no texto enquanto a busca que os achou dizia repilo ou flavescencia. Sem
+    # a palavra, esses seis ficavam sem chave de juncao — e um alvo provado sem
+    # chave e um alvo que o motor nao ve.
+    'ISSUE_XYLELLA': ['xylella', 'xylella fastidiosa', 'disseccamento rapido dell olivo', 'olive quick decline'],
     'ISSUE_REPILO': ['repilo', 'occhio di pavone', 'olive leaf spot',
                      'spilocaea oleagina', 'venturia oleaginea',
                      'fusicladium oleagineum'],
