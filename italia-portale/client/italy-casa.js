@@ -110,7 +110,7 @@ window.ITALY_CASA = {
  },
  "DETERMINISTICO": "SIM — sem relogio, sem aleatorio, chaves ordenadas",
  "DONOS_DA_APRESENTACAO": {
-  "meeting-intelligence-snapshot.json": "sha256:c995ba6947656deb891008e2aa2cb162001a972192293b243c536e6f42637219",
+  "meeting-intelligence-snapshot.json": "sha256:2135e7c0b558e1a3a3e3e0f0b1c72c8e7757d2917053bccff52af77eba4047cd",
   "meeting-labels.js": "sha256:8ea7e824d12866626441acc8f10fa2525116241cde054be7122808a06adf6c2a"
  },
  "DO_NOT_SHOW": [
@@ -1538,7 +1538,7 @@ window.ITALY_CASA = {
   "RECENCIA_TERRITORIAL": "a camada territorial foi produzida com a leitura de data defeituosa do achado 07. Mostra-se cobertura, nunca recencia."
  },
  "OPPORTUNITA_ATTUALI": {
-  "BUILD_ID": "V21-044e4924854d5f0a",
+  "BUILD_ID": "V21-06c6421d001ea52a",
   "CASI": [
    {
     "AMBITO": "PROVINCIAL",
@@ -14677,7 +14677,7 @@ window.ITALY_CASA = {
    "PREENCHER_NAO_PROMOVE": "TARGET_FIT vale ON_MINISTERIAL_LABEL em 65 de 65 correspondencias: e uma constante, e nao distingue nada. Se a lei se apoiasse nela, escrever um alvo no caso promovia-o — medido, 10 dos 21 B subiriam sem nada observado. Por isso o problema agronomico exige evidencia que DECIDA um elo (SUPPORTS_SIGNAL ou SUPPORTS_DIRECTION). Com a regra, preencher o alvo nos 21 B promove UM: OPP_00C5B6E15185, que ja traz 4 sinais de campo e 4 evidencias de sinal — esse subiria por ter facto, nao por ter campo cheio.",
    "SO_A_PUBLICA": true
   },
-  "MEETING_CUTOFF": "2026-09-06T22:27:00Z",
+  "MEETING_CUTOFF": "2026-09-07T01:41:30Z",
   "OPPORTUNITA": 13,
   "ORIZZONTE": "ADESSO",
   "PER_STATO": {
@@ -14701,9 +14701,9 @@ window.ITALY_CASA = {
    "RADAR": 21,
    "SEGNALI": 8
   },
-  "RULE_VERSION": "V21-044e4924854d5f0a",
+  "RULE_VERSION": "V21-06c6421d001ea52a",
   "SEGNALI": 8,
-  "SOURCE_HEAD": "5fac11f",
+  "SOURCE_HEAD": "5101073",
   "TOTALE": 43
  },
  "RADAR_FUTURO": {

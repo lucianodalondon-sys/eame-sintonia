@@ -83,6 +83,11 @@ const FICHEIRO = {
   resistance: 'RESISTANCE.json',
   scienceRecords: 'SCIENCE.json',
   sources: 'SOURCES.json',
+  /* A safra V21-06c6421d001ea52a trouxe duas familias novas. Escritas por
+     extenso, como as outras: derivar por transformacao de texto e como o alias
+     de `events` entrou. */
+  transcripts: 'TRANSCRIPTS.json',
+  scienceCorpus: 'SCIENCE-CORPUS.json',
 };
 
 const ctx = loadData();

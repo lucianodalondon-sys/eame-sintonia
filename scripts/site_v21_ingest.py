@@ -365,6 +365,75 @@ FAMILIAS = {
     'relationships': ('RELATIONSHIPS.json', (
         'CROSSING_TYPE', 'CROP_ID', 'LINKS', 'RENDERABLE_WITH_METHOD',
     ), ()),
+
+    # ── A FALA, E A ESCADA QUE DIZ ATE ONDE ELA CHEGOU ───────────────────────
+    # 184 transcricoes, 160 utilizaveis, 5.167.243 caracteres no pacote. NAO
+    # atravessa TEXT: cinco milioes de caracteres de fala no payload de cada
+    # navegador, para um ecra que hoje nao renderiza uma linha, e peso sem
+    # leitor. Atravessa a IDENTIDADE (video, canal, titulo, data, duracao), a
+    # ESCADA inteira, a contagem e o SHA — com isso o portal pode dizer «este
+    # video tem transcricao utilizavel de N caracteres» e levar a fonte, sem
+    # afirmar nada sobre o conteudo.
+    #
+    #     URL DE VIDEO NAO E TRANSCRICAO. E CONTAR CARACTERES NAO E LE-LOS.
+    #
+    # TRANSCRIPT_USED_AS_EVIDENCE atravessa e vale false em 184/184. Nao se
+    # promove fala a evidencia comercial por ela existir: o degrau so vira true
+    # quando um cartao APOIAR afirmacao nesses bytes, e o motor ainda nao o faz.
+    #
+    # SOURCE_COUNTRY, COLLECTION_COUNTRY e FACT_COUNTRY viajam SEPARADOS, com a
+    # sua origem e a sua evidencia. Sao tres perguntas e nao uma: medido,
+    # SOURCE_COUNTRY=IT em 126 e FACT_COUNTRY=UNKNOWN em 177. O pais de quem
+    # publica nao e o pais do facto, e o escopo da rota nao e o lugar do facto —
+    # por isso CROP/ISSUE/REGION_DECLARED_BY_THE_ROUTE tambem viajam nomeados
+    # como o que sao.
+    'transcripts': ('TRANSCRIPTS.json', (
+        'VIDEO_ID', 'PLATFORM', 'TITLE', 'CHANNEL_NAME', 'CHANNEL_ID',
+        'PUBLICATION_DATE', 'DURATION_S',
+        'SOURCE_COUNTRY', 'SOURCE_COUNTRY_DECLARED', 'SOURCE_COUNTRY_ORIGIN',
+        'COLLECTION_COUNTRY', 'FACT_COUNTRY', 'FACT_COUNTRY_ORIGIN',
+        'FACT_COUNTRY_EVIDENCE',
+        'SOURCE_LANGUAGE', 'SOURCE_LANGUAGE_DECLARED',
+        'CASE_ID', 'CASE_COUNTRY', 'CASE_LANGUAGE',
+        'CROP_DECLARED_BY_THE_ROUTE', 'ISSUE_DECLARED_BY_THE_ROUTE',
+        'REGION_NAMED_BY_THE_ROUTE',
+        'CAPTION_SOURCE', 'COLLECTION_ID', 'OBSERVED_AT',
+        'VIDEO_EXISTS', 'TRANSCRIPT_EXISTS', 'TRANSCRIPT_USABLE',
+        'TRANSCRIPT_INCLUDED_IN_PACKAGE', 'TRANSCRIPT_USED_AS_EVIDENCE',
+        'TRANSCRIPT_QUALITY', 'STATE', 'STATE_REASON', 'CHARS', 'TEXT_SHA256',
+        'CITED_IN_PACKAGE', 'SAME_VIDEO_AS_ACTIVITY_ID',
+    ), ('EVIDENCE_STATUS_WHY',)),
+
+    # ── O CORPUS CIENTIFICO, COM O RESUMO E COM A DISTINCAO QUE FALTAVA ──────
+    # 763 materiais. Os 88 de SCIENCE.json sao SUBCONJUNTO deste corpus (86
+    # casam por DOI) — a diferenca nunca foi filtro, foi que nenhum passo da
+    # cadeia lia este ficheiro.
+    #
+    # ABSTRACT_ORIGINAL ATRAVESSA: 618 resumos, 612.291 caracteres, na lingua em
+    # que a fonte os publicou (700 en, 33 fr, 11 es, 7 it). E citacao publica, e
+    # citacao publica nao se traduz — traduzir prova e adultera-la. Se um dia
+    # houver traducao ela entra em ABSTRACT_TRANSLATED_TEXT, AO LADO; hoje esse
+    # campo esta vazio em 763/763 e viaja assim, para que a ausencia se veja.
+    #
+    #     QUERY_CROP E O TERMO DA BUSCA. PROVED_CROP E O QUE O TEXTO SUSTENTA.
+    #     SAO DUAS COISAS, E ATRAVESSAM AS DUAS, COM A EVIDENCIA DE CADA UMA.
+    #
+    # COUNTRY_OF_FACT e INSTITUTION_COUNTRY tambem viajam separados: a morada da
+    # instituicao nao e o lugar do facto.
+    'scienceCorpus': ('SCIENCE-CORPUS.json', (
+        'MATERIAL_ID', 'DOI', 'TITLE', 'AUTHOR', 'ORCID',
+        'INSTITUTION', 'INSTITUTION_COUNTRY', 'PUBLISHED_AT', 'VENUE', 'VENUE_KIND',
+        'MATERIAL_TYPE', 'MATERIAL_ROLE', 'LANGUAGE', 'CITED_BY', 'IS_RETRACTED',
+        'QUERY_CROP', 'QUERY_ISSUE',
+        'PROVED_CROP', 'PROVED_CROP_EVIDENCE', 'PROVED_ISSUE', 'PROVED_ISSUE_EVIDENCE',
+        'CASE_ADHERENCE', 'CASE_ID_DECLARED',
+        'COUNTRY_OF_FACT', 'COUNTRY_OF_FACT_EVIDENCE', 'REGION_OF_FACT',
+        'PERSON_PROOF', 'PERSON_PROOF_EVIDENCE',
+        'DOMAIN_STATE', 'DOMAIN_FIELD',
+        'ABSTRACT_ORIGINAL', 'ABSTRACT_LANGUAGE', 'ABSTRACT_CHARS', 'ABSTRACT_SHA256',
+        'ABSTRACT_SOURCE', 'ABSTRACT_TRANSLATED_TEXT', 'ABSTRACT_TRANSLATION_METHOD',
+        'STATE', 'STATE_REASON', 'IN_SCIENCE_JSON', 'SAME_ENTITY_AS',
+    ), ('EVIDENCE_STATUS_WHY',)),
 }
 
 # Colecoes que o pacote traz e que NAO viram familia de tela. Declaradas aqui
@@ -380,6 +449,16 @@ FORA = {
         'as 17 derrubadas pelo red team. NAO embarcam: oportunidade rejeitada '
         'que viaja ate o navegador e uma que alguem ainda pode renderizar.',
     'OPPORTUNITY-RULES.json': 'entra achatado em opportunityRules',
+    'FACT-TIME-PLACE-V1.json':
+        '2,4 MB e 1.361 factos com a proveniencia de tempo e lugar de cada um. '
+        'A lei nao viaja num ficheiro a parte: viaja NOS REGISTOS, e os campos '
+        'FACT_COUNTRY / SOURCE_COUNTRY / COLLECTION_COUNTRY / *_ORIGIN / '
+        '*_EVIDENCE ja atravessam dentro de transcripts e scienceCorpus. '
+        'Embarcar tambem o agregado seria a mesma verdade duas vezes.',
+    'ACERVO-TO-PACKAGE-LOSS.json':
+        'a contabilidade ACERVO -> PACOTE, que fecha na origem '
+        '(ACCOUNTING_CLOSES=true, FAILURES=[]). E prova da cadeia, nao dado de '
+        'ecra: quem a verifica le o pacote, nao o navegador.',
 }
 
 
