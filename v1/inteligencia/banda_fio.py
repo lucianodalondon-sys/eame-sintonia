@@ -25,12 +25,18 @@ dizer que um fio atravessa uma coluna.
 
 ## O que foi medido
 
-Das 839 linhas de dose com banda e pagina preservadas, **29** tem um fio
+Das 839 linhas de dose com banda e pagina preservadas, **10** tem um fio
 desenhado por dentro:
 
-    017687  6    013560  4    013590  4    008259  3    015275  3
-    007876  2    014091  2    004701  1    017340  1    017409  1
-    018270  1    018279  1
+    007876  2    014091  2    004701  1    008259  1    017340  1
+    017409  1    018270  1    018279  1
+
+Este numero ja foi 29, e o comentario continuou dizendo 29 depois da correcao
+do teste em X — com uma distribuicao que nao existia mais e que o artefato
+selado pelo MESMO arquivo desmentia. Foi um arbitro independente que pegou. Um
+comentario que diz "medido" e envelhece calado e pior do que nenhum
+comentario, porque desliga a desconfianca de quem le; e a lista de constantes
+recontadas pelo portao MEASURED_CONSTANTS_ARE_MEASURED nao cobre este numero.
 
 A primeira medicao, sem exigir texto dos dois lados do fio, acusava 188 — e as
 159 de diferenca eram a PROPRIA BORDA da banda, que cai meio ponto para dentro

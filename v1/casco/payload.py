@@ -287,19 +287,74 @@ def main():
         # do grupo inteiro e vale para todos — "Orticole in pieno campo:
         # Fragola, pomodoro, ..." qualifica a lista toda, e tirar isso seria
         # esconder escopo verdadeiro.
+        # O PARENTESE FINAL GOVERNA A CELULA INTEIRA, NAO A ULTIMA CULTURA.
+        #
+        # A primeira versao desta funcao dizia "cada qualificador pertence a
+        # ultima cultura nomeada antes dele" e estava certa para o qualificador
+        # INLINE: em "OLIVO DA OLIO E DA TAVOLA, MELO" o "da olio" e do olivo, e
+        # nao do melo que vem depois.
+        #
+        # Mas ela apagava o escopo de 9 pares SELADOS COMO FATO. A celula
+        # desenhada de 015232, 017358 e 017824 escreve, com quebra de linha e
+        # tudo:
+        #
+        #     Aglio,
+        #     Cipolla
+        #     (uso in
+        #     serra)
+        #
+        # "uso in serra" e um grupo entre parenteses no FIM da celula e sem
+        # nome de cultura dentro: ele qualifica as DUAS culturas. Pela regra
+        # antiga ele ia so para CIPOLLA, e AGLIO x RUGGINE saia com
+        # USE_PAIR_PROVEN_BY_TABLE_GEOMETRY, fact=true e NENHUMA marca de que a
+        # autorizacao e so em estufa — ao lado da irmaa de celula que mostrava a
+        # restricao. Publicar uso de campo aberto para um registro de estufa e
+        # exatamente o erro que esta ferramenta existe para nao cometer, e a
+        # unica direcao de erro que a lei zero nao tolera.
+        #
+        # A distincao nao e de gosto e da para conferir no texto: um grupo entre
+        # parenteses, no fim da celula, que NAO contem nome de cultura nenhum,
+        # fala da celula toda. "ARBOREE (AGRUMI, ..., VITE DA VINO E ...)" nao
+        # entra por aqui — o parentese dele esta cheio de nome de cultura, entao
+        # cada "da vino" continua sendo do seu dono inline.
+        RX_PARENTESE_FINAL = re.compile(r"\(([^()]*)\)\s*$")
+
+        def _grupo_final_sem_cultura(baixo):
+            """O parentese que fecha a celula e nao nomeia cultura nenhuma."""
+            m = RX_PARENTESE_FINAL.search(baixo)
+            if not m:
+                return None
+            if any(_radical_txt(w) in VOCAB_RAD for w in re.findall(r"[a-z]+", m.group(1))):
+                return None
+            return (m.start(1), m.end(1))
+
         def _dono_do_escopo(craw, cultura):
+            """Devolve (o que e desta cultura, o que existe na celula e e de outra).
+
+            O segundo valor existe por causa da lei zero: `[]` sozinho e
+            ambiguo — le-se igual em "esta celula nao tem qualificador" e em
+            "tem, e eu decidi que e de outra cultura". Sao duas coisas
+            diferentes e quem le a tela tem direito de saber qual das duas.
+            """
             baixo = _sa_txt(craw)
             meu = _radical_txt(_sa_txt(str(cultura or "")).split("_")[0])
-            fica = set()
+            final = _grupo_final_sem_cultura(baixo)
+            fica, de_outro = set(), set()
             for m in RX_ESCOPO.finditer(baixo):
+                if final and final[0] <= m.start() and m.end() <= final[1]:
+                    # grupo final sem cultura dentro: e da celula toda
+                    fica.add(m.group(1).lower())
+                    continue
                 antes = [w for w in re.findall(r"[a-z]+", baixo[:m.start()])
                          if _radical_txt(w) in VOCAB_RAD]
                 dono = _radical_txt(antes[-1]) if antes else None
                 if dono is None or dono == meu:
                     fica.add(m.group(1).lower())
-            return sorted(fica)
+                else:
+                    de_outro.add(m.group(1).lower())
+            return sorted(fica), sorted(de_outro - fica)
 
-        _esc = _dono_do_escopo(_craw, x.get("CROP"))
+        _esc, _esc_outro = _dono_do_escopo(_craw, x.get("CROP"))
         _nome = vnome.get(chave, "TARGET_NAME_NOT_CHECKED")
         _cnome = vcnome.get(chave, "CROP_NAME_NOT_CHECKED")
         usos.setdefault(reg, []).append({
@@ -358,6 +413,11 @@ def main():
                      and _nome in ("TARGET_NAME_LITERAL", "TARGET_NAME_INFLECTED_IN_LABEL")
                      and _cnome in ("CROP_NAME_LITERAL", "CROP_NAME_INFLECTED_IN_LABEL")),
             "crop_scope": _esc,
+            # `[]` NAO PODE SIGNIFICAR DUAS COISAS. Sem este campo, a tela nao
+            # tem como distinguir "esta celula nao qualifica nada" de "qualifica,
+            # e o qualificador e da cultura vizinha da mesma celula". Sao dois
+            # estados de conhecimento diferentes e so um deles e ausencia.
+            "crop_scope_other_owner": _esc_outro,
             "target_scope": vqual.get(chave) or [],
         })
 

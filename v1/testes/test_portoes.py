@@ -438,6 +438,48 @@ try:
 except Exception as _e:
     _div.append(f"RESTRICOES nao pode ser recontada: {_e}")
 
+# O NUMERO QUE O DOCSTRING DIZ TEM DE SER O NUMERO QUE O ARTEFATO CONTA.
+#
+# As 24 constantes acima sao listas de codigo. O docstring de `banda_fio.py`
+# nao e lista de codigo, e por isso ficou dizendo "**29** tem um fio desenhado
+# por dentro", com uma distribuicao por registro que nao existia mais, depois
+# que a correcao do teste em X levou o numero para 10. O artefato selado pelo
+# MESMO arquivo dizia 10. Foi um arbitro independente que pegou, nao um portao.
+#
+# Este trecho le o docstring e reconta contra o artefato: o total em negrito e
+# a tabela `registro contagem` linha a linha. Um comentario que diz "medido" e
+# envelhece calado desliga a desconfianca de quem le, que e o oposto do que
+# este projeto vende.
+try:
+    _bf = open("v1/inteligencia/banda_fio.py", encoding="utf-8").read()
+    _bfa = json.load(open("v1/dados/BANDA-FIO-CHECK.json", encoding="utf-8"))
+    _real_n = _bfa["COUNTS"].get("DOSE_ROW_BAND_CROSSES_A_DRAWN_RULE")
+    _m = re.search(r"preservadas,\s*\*\*(\d+)\*\*", _bf)
+    if not _m:
+        _div.append("banda_fio.py: nao achei no docstring o total que ele diz ter medido")
+    elif int(_m.group(1)) != _real_n:
+        _div.append(f"banda_fio.py: o docstring diz {_m.group(1)} linhas com fio por dentro e o "
+                    f"artefato conta {_real_n}")
+    else:
+        _conferidas += 1
+    _doc_dist = {}
+    _bloco = _bf[_m.end():_bf.index("A primeira medicao", _m.end())] if _m else ""
+    for _r, _c in re.findall(r"\b(\d{6})\s+(\d+)\b", _bloco):
+        _doc_dist[_r] = int(_c)
+    _real_dist = {}
+    for _x in _bfa.get("CROSSED", []):
+        _rr = _x.get("REGISTRATION_ID")
+        _real_dist[_rr] = _real_dist.get(_rr, 0) + 1
+    if _doc_dist and _doc_dist != _real_dist:
+        _so_doc = {k: v for k, v in _doc_dist.items() if _real_dist.get(k) != v}
+        _so_art = {k: v for k, v in _real_dist.items() if _doc_dist.get(k) != v}
+        _div.append(f"banda_fio.py: a distribuicao do docstring nao e a do artefato "
+                    f"(so no docstring {_so_doc}; so no artefato {_so_art})")
+    elif _doc_dist:
+        _conferidas += 1
+except Exception as _e:
+    _div.append(f"banda_fio.py: nao pude reconferir o que o docstring diz ter medido: {_e}")
+
 ok("MEASURED_CONSTANTS_ARE_MEASURED",
    f"{_conferidas} constantes que se dizem medidas foram recontadas contra o texto dos "
    f"rotulos em disco (163 PDFs; 128 deles no acervo de pares)") \
@@ -830,6 +872,89 @@ ok("DELIVERED_HTML_CARRIES_THE_VERSIONED_PAYLOAD",
    "dele bate") \
     if not _ht else fail("DELIVERED_HTML_CARRIES_THE_VERSIONED_PAYLOAD", " | ".join(_ht[:3]))
 
+RX_Q_TESTE = re.compile(
+    r"\b(da vino|da tavola|da zucchero|da foraggio|da olio|da granella|da seme|"
+    r"da industria|dolce|in serra|uso in serra|pieno campo|sotto tunnel|in vivai|"
+    r"baby leaf|da foglia|invernale|primaverile|per consumo fresco)\b")
+
+
+# --- 15m. O QUALIFICADOR PUBLICADO PARA UMA CULTURA E DAQUELA CULTURA
+#
+# Esta camada nao tinha portao nenhum. O arbitro independente devolveu ao
+# payload os `crop_scope` antigos — AGRUMI, MELO, PERO, NOCE e MANDORLO com
+# "da vino", herdado de uma VITE que estava na mesma celula de grupo —, refez o
+# selo de conteudo, reescreveu o payload embutido no HTML e rodou a suite:
+# **29/29 PASS**. A tela imprimia em negrito "AGRUMI — a etichetta qualifica
+# esta cultura: da vino", e o documento nunca escreveu "agrumi da vino".
+#
+# E a mesma camada carrega hoje uma afirmacao que muda a autorizacao: "uso in
+# serra". Publicar um registro de estufa sem essa marca e liberar campo aberto.
+#
+# Tres perguntas, e as duas ultimas tem oraculo LIDO NO PDF, nao derivado do
+# codigo que esta sendo testado:
+_cs = []
+try:
+    def _nzs(t):
+        t = _ud.normalize("NFD", str(t or ""))
+        return re.sub(r"\s+", " ", "".join(c for c in t
+                                           if _ud.category(c) != "Mn").lower()).strip()
+
+    _pares_cs = [(x["reg"], u) for x in PAY["products"] for u in (x.get("uses") or [])]
+
+    # 1 · um qualificador que a celula da cultura nao escreve nao pode existir
+    _fora = [f'{r} {u.get("crop")} <- {q!r} nao esta em crop_raw'
+             for r, u in _pares_cs for q in (u.get("crop_scope") or [])
+             if _nzs(q) not in _nzs(u.get("crop_raw"))]
+    if _fora:
+        _cs.append(f"{len(_fora)} qualificador(es) publicados que a celula nao escreve: {_fora[:3]}")
+
+    # 2 · CONTROLE NEGATIVO, lido no PDF. A celula de grupo de 013405 e irmas e
+    #     "ARBOREE (AGRUMI, DRUPACEE, OLIVO DA OLIO E DA TAVOLA, MELO, PERO,
+    #     VITE DA VINO E DA TAVOLA ...)": "da olio" e do OLIVO, "da vino" e da
+    #     VITE. Nenhuma das outras arvores da celula pode herda-los.
+    _NEG = {"AGRUMI", "MELO", "PERO", "NOCE", "MANDORLO", "DRUPACEE"}
+    _QNEG = {"da vino", "da olio", "da tavola"}
+    _herdou = [f'{r} {u.get("crop")} herdou {sorted(set(u.get("crop_scope") or []) & _QNEG)}'
+               for r, u in _pares_cs
+               if u.get("crop") in _NEG and set(u.get("crop_scope") or []) & _QNEG]
+    if _herdou:
+        _cs.append(f"{len(_herdou)} cultura(s) herdaram qualificador de vizinha de celula: "
+                   f"{_herdou[:3]}")
+
+    # 3 · CONTROLE POSITIVO, lido no PDF. Em 015232, 017358 e 017824 a celula
+    #     desenhada escreve "Aglio, / Cipolla / (uso in / serra)" — e as duas
+    #     culturas sao de estufa. Idem "Cetriolo, Zucchino (Uso in serra)" e
+    #     "Pomodoro Melanzana (uso in serra)". Se alguma sair sem a marca, a
+    #     ferramenta esta liberando campo aberto para registro de estufa.
+    _POS = {"015232", "017358", "017824"}
+    _ESTUFA = {"AGLIO", "CIPOLLA", "CETRIOLO", "ZUCCHINO", "POMODORO", "MELANZANA"}
+    _perdeu = [f'{r} {u.get("crop")}' for r, u in _pares_cs
+               if r in _POS and u.get("crop") in _ESTUFA
+               and "uso in serra" not in (u.get("crop_scope") or [])]
+    if _perdeu:
+        _cs.append(f"{len(_perdeu)} par(es) de registro de ESTUFA publicados sem 'uso in serra': "
+                   f"{sorted(set(_perdeu))[:6]}")
+    _n_pos = sum(1 for r, u in _pares_cs if r in _POS and u.get("crop") in _ESTUFA)
+    if _n_pos < 12:
+        _cs.append(f"o controle positivo alcancou so {_n_pos} pares — os registros de estufa "
+                   f"sumiram do payload e o controle deixou de controlar")
+
+    # 4 · `[]` nao pode significar duas coisas: quando o qualificador esta na
+    #     celula e e de outra cultura, isso tem de estar DITO.
+    _mudo = [f'{r} {u.get("crop")}' for r, u in _pares_cs
+             if not (u.get("crop_scope") or []) and not (u.get("crop_scope_other_owner") or [])
+             and RX_Q_TESTE.search(_nzs(u.get("crop_raw")))]
+    if _mudo:
+        _cs.append(f"{len(_mudo)} par(es) com qualificador na celula e NENHUM dos dois campos "
+                   f"preenchido — ausencia calada: {sorted(set(_mudo))[:3]}")
+except Exception as _e:
+    _cs.append(f"nao pude conferir os qualificadores de cultura: {_e}")
+
+ok("CROP_SCOPE_BELONGS_TO_ITS_CROP",
+   f"{sum(1 for x in PAY['products'] for u in (x.get('uses') or []) if u.get('crop_scope'))} "
+   f"pares com qualificador: todos escritos na propria celula, nenhuma arvore herdou 'da vino' "
+   f"da vizinha, e os 18 pares de registro de estufa saem com 'uso in serra'")     if not _cs else fail("CROP_SCOPE_BELONGS_TO_ITS_CROP", " | ".join(_cs[:3]))
+
 # --- 15l. TODA ASPA VEM DE UMA LEITURA DO PDF, NUNCA DA REMONTAGEM DA PROPRIA
 #         FERRAMENTA
 #
@@ -859,6 +984,24 @@ try:
         t = "".join(c for c in t if _ud3.category(c) != "Mn").lower()
         return re.sub(r"\s+", " ", t).strip()
 
+    # O COMPARADOR DO PORTAO TEM DE SER O COMPARADOR DA REGRA, senao ele nao
+    # confere a regra: confere o proprio gosto. `pdftotext -bbox-layout` emite
+    # `(` e `,` como caixas de palavra separadas, e a remontagem as cola com um
+    # espaco; a etichetta escreve `Ruggini (Puccinia sp.),` e a caixa devolve
+    # `Ruggini ( Puccinia sp. ),`. A primeira versao deste portao comparava sem
+    # essa normalizacao — a mesma cegueira que fazia R-18 acusar 79 frases
+    # verdadeiras — e por isso ele CONFIRMAVA o defeito em vez de pega-lo.
+    #
+    # Isto NAO afrouxa o portao: ele continua exigindo que a frase exista
+    # contigua numa leitura plana do pdftotext, e o controle por mutacao
+    # (devolver os verdictos da remontagem para QUOTE_VERBATIM) continua
+    # derrubando-o. So mexe em espaco vizinho de pontuacao, nunca em espaco
+    # entre palavras.
+    _RXA3, _RXF3 = re.compile(r"([(\[])\s+"), re.compile(r"\s+([)\],;:.])")
+
+    def _nzc3(t):
+        return _RXF3.sub(r"\1", _RXA3.sub(r"\1", _nz3(t)))
+
     _plano = {}
 
     def _pl(reg):
@@ -867,7 +1010,7 @@ try:
             for _suf in ("fluxo", "layout", "raw"):
                 _f = f"/tmp/nomecache/{reg}.{_suf}.txt"
                 if os.path.exists(_f):
-                    out.append(_nz3(open(_f, encoding="utf-8", errors="replace").read()))
+                    out.append(_nzc3(open(_f, encoding="utf-8", errors="replace").read()))
             _plano[reg] = out
         return _plano[reg]
 
@@ -922,7 +1065,7 @@ try:
                 _sem_cache.add(_reg)
                 continue
             _conf += 1
-            if not any(_f in _t for _t in _ls):
+            if not any(_nzc3(_f) in _t for _t in _ls):
                 _maus.append(f"{_reg} {_nome} {_f[:60]!r}")
     # A CONTA TEM DE FECHAR CONTRA O ARTEFATO. Portao que confere um subconjunto
     # e nao diz qual subconjunto e uma aprovacao com buraco.

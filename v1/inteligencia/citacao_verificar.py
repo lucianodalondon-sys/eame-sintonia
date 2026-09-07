@@ -137,6 +137,37 @@ def nz(s):
     return re.sub(r'\s+', ' ', s).strip()
 
 
+# O ESPACO COLADO AO PARENTESE E DO EXTRATOR, NAO DO PAPEL.
+#
+# `pdftotext -bbox-layout` emite pontuacao como CAIXA DE PALAVRA separada.
+# Medido em 018067: `Ruggini` x 642,3-668,8 · `(` x 671,2-674,3 · `Puccinia`
+# x 674,4-702,9. A remontagem por coluna junta caixa com caixa usando um espaco,
+# entao a frase guardada fica `Ruggini ( Puccinia sp. ),` — e a etichetta
+# escreve `Ruggini (Puccinia sp.),`, numa unica linha fisica (linha 105 do
+# `-raw`).
+#
+# `nz()` colapsa RUNS de espaco mas nao apaga o espaco encostado na pontuacao,
+# entao a comparacao falhava e a frase caia em
+# QUOTE_ONLY_IN_COLUMN_RECONSTRUCTION — um estado que AFIRMA, em artefato
+# selado, que o documento nao escreve aquilo. Medido: 79 das 85 ocorrencias
+# eram acusacao falsa, e o portao 15l usava o mesmo comparador, entao ele
+# CONFIRMAVA o erro em vez de pega-lo. Inventar uma ausencia e o mesmo pecado
+# que inventar um fato — e este e o pecado que R-18 existe para impedir.
+#
+# `nz()` continua definindo a CHAVE do veredito (o casco tem a copia dela, e as
+# duas tem de casar byte a byte). Quem compara e `nzc()`, e ela e aplicada dos
+# DOIS lados: na frase e em cada leitura. So mexe em espaco vizinho de
+# pontuacao — nao apaga espaco entre palavras, entao uma frase nao pode
+# atravessar uma quebra de coluna por causa desta funcao.
+RX_ABRE = re.compile(r'([(\[])\s+')
+RX_FECHA = re.compile(r'\s+([)\],;:.])')
+
+
+def nzc(s):
+    """A mesma normalizacao de nz(), mais o espaco que a pontuacao arrasta."""
+    return RX_FECHA.sub(r'\1', RX_ABRE.sub(r'\1', s if isinstance(s, str) else nz(s)))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--payload', default='v1/dados/CASCO-PAYLOAD.json')
@@ -203,7 +234,8 @@ def main():
                     except Exception:
                         continue
                 try:
-                    out.append(nz(open(f, encoding='utf-8', errors='replace').read()))
+                    out.append(nzc(nz(open(f, encoding='utf-8',
+                                                       errors='replace').read())))
                 except OSError:
                     pass
         memo[reg] = out
@@ -228,7 +260,7 @@ def main():
             try:
                 for pi, pg in enumerate(caixas(pdf, a.bbox)):
                     r = F.fios(pdf, pi + 1, cache=a.fios)
-                    out += [nz(c) for c in texto_por_coluna(
+                    out += [nzc(nz(c)) for c in texto_por_coluna(
                         pg, r.get('V') or [], r.get('PAGE_WIDTH_PT') or 0)]
             except Exception:
                 pass
@@ -251,6 +283,7 @@ def main():
             # o mesmo marcador de FRONTEIRA, que e o que interessa aqui
             t = re.sub(r'\n|   +', '\x00', t)
             t = re.sub(r'[ \t]+', ' ', t)
+            t = nzc(t)
         memo_l[reg] = t
         return t
 
@@ -273,6 +306,7 @@ def main():
         # mesmo corte, do outro lado.
         if f.count('(') != f.count(')'):
             return 'QUOTE_HAS_UNBALANCED_PARENTHESIS'
+        fc = nzc(f)
         ls = leituras(reg)
         if not ls:
             return 'QUOTE_NOT_CHECKED_NO_TEXT'
@@ -284,17 +318,17 @@ def main():
             # unica coisa que ela inventa e a ordem em que as palavras se
             # encostam.
             todas = ls + remontagem(reg)
-            faltam = [w for w in re.findall(r'[a-z]{4,}', f)
+            faltam = [w for w in re.findall(r'[a-z]{4,}', fc)
                       if not any(w in t for t in todas)]
             return ('ROW_RECONSTRUCTED_FROM_CELLS' if not faltam
                     else 'ROW_HAS_WORDS_NOT_ON_THE_PAGE')
-        if not any(f in t for t in ls):
+        if not any(fc in t for t in ls):
             # DOIS DEFEITOS, DOIS NOMES. Uma frase que nao esta em leitura plana
             # nenhuma mas ESTA na coluna que o projeto remontou saiu da cola do
             # proprio projeto — quem a le tem de saber que o autor da frase e o
             # extrator. Uma frase que nao esta nem la nao veio de lugar nenhum
             # que este modulo saiba nomear, e continua com o nome antigo.
-            if any(f in t for t in remontagem(reg)):
+            if any(fc in t for t in remontagem(reg)):
                 return 'QUOTE_ONLY_IN_COLUMN_RECONSTRUCTION'
             return 'QUOTE_NOT_CONTIGUOUS_IN_DOCUMENT'
         # CORTE NO MEIO DA LINHA. O documento tem estrutura: uma celula acaba
@@ -310,9 +344,9 @@ def main():
         # imprimia tudo isso com "o rotulo escreve".
         tl = layout(reg)
         if tl:
-            i, cortou = tl.find(f), None
+            i, cortou = tl.find(fc), None
             while i >= 0:
-                d = tl[i + len(f): i + len(f) + 2]
+                d = tl[i + len(fc): i + len(fc) + 2]
                 # fronteira de verdade: fim do texto, quebra/coluna, ou pontuacao
                 # que termina frase logo em seguida
                 # FRONTEIRA E O QUE O DOCUMENTO USA PARA ACABAR UMA COISA.
@@ -331,7 +365,7 @@ def main():
                 fim = (not d) or d[0] == '\x00' or d[0] in '.;:,)”"\'’' or (
                     d[0] == ' ' and len(d) > 1 and d[1] == '\x00')
                 cortou = (cortou is not False) and not fim
-                i = tl.find(f, i + 1)
+                i = tl.find(fc, i + 1)
             if cortou:
                 return 'QUOTE_CUT_MID_LINE'
         if f[-1].isalpha():
@@ -341,10 +375,10 @@ def main():
             for t in ls:
                 i = 0
                 while True:
-                    i = t.find(f, i)
+                    i = t.find(fc, i)
                     if i < 0:
                         break
-                    seg = t[i + len(f): i + len(f) + 1]
+                    seg = t[i + len(fc): i + len(fc) + 1]
                     cortes.append(bool(seg) and seg.isalpha())
                     i += 1
             if cortes and all(cortes):

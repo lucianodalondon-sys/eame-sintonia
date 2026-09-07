@@ -1540,11 +1540,17 @@ function nomeDaCultura(u) {
     equivalencia de cultura precisa de prova documental ou taxonomica: semelhanca de escrita
     nao e prova</div>`;
 }
-// O nome normalizado joga fora o escopo que a etichetta escreve. Medido: 387
+// O nome normalizado joga fora o escopo que a etichetta escreve. Medido: 305
 // pares publicados trazem um qualificador ("VITE da vino", "Melone (uso in
 // serra)", "Barbabietola da zucchero") que o nome curto perde. Um produto
 // autorizado so em uva de VINHO aparecia sob o mesmo "VITE" de um autorizado
 // tambem em uva de MESA.
+//
+// Este numero ja foi 387 — quando todo qualificador da celula de grupo caia
+// sobre TODA cultura do grupo e AGRUMI herdava "da vino" de uma VITE vizinha —
+// e depois 296, quando a atribuicao por dono apagou o parentese final de nove
+// pares que ele qualificava inteiros. O comentario ficou dizendo 387 nas duas
+// vezes.
 function escopoDaCultura(u) {
   if (!u.crop_scope || !u.crop_scope.length) return '';
   // O QUALIFICADOR E FATO; A FRASE EM VOLTA DELE PODE NAO SER. Os termos de
