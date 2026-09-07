@@ -2302,7 +2302,8 @@
             <span style="font-size:10px;color:#8F8886;line-height:1.5">{{ t.absenceRule }}</span>
           </div>
           </sc-if>
-          <sc-if value="{{ pd.noRel }}" hint-placeholder-val="{{ false }}"><div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px"><span style="font-size:11px;color:#B1A9A7">{{ t.prodNoRel }}</span></div></sc-if>
+          <sc-if value="{{ pd.noPairUnknown }}" hint-placeholder-val="{{ false }}"><div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px"><span style="font-size:11px;color:#B1A9A7">{{ t.prodNoRel }}</span></div></sc-if>
+          <sc-if value="{{ pd.noPairByNature }}" hint-placeholder-val="{{ false }}"><div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px"><span style="font-size:11px;color:#B1A9A7">{{ t.prodNoPairByNature }}</span><sc-if value="{{ pd.hasNatureQuote }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;color:#8F8886;letter-spacing:0.04em;text-transform:uppercase">{{ t.prodNoPairByNatureSrc }}</span><span style="font-size:11px;color:#CBC5C3;font-style:italic">{{ pd.natureQuote }}</span></sc-if></div></sc-if>
         </div>
       </div>
 
@@ -8200,6 +8201,20 @@ class Component extends DCLogic {
              produced a row (140 of 166 products), and the rejected card keeps
              t.absenceRule under it. */
           noRel: e.links.length === 0,
+          /* DUAS AUSENCIAS QUE NAO SE PARECEM NADA UMA COM A OUTRA.
+             «Ainda nao colhemos» e «nao ha o que colher» mostravam a MESMA
+             frase, e quem lia o cartao nao tinha como as separar. Cinco dos 51
+             nao actuam sobre organismo nenhum — Brevis (diradante), Budge e
+             Exelgrow (biostimulantes), Parleaf e Powerfilm (coadiuvantes) — e
+             para esses o vazio e a resposta certa, nao uma divida nossa.
+             Quem os classifica e a ADAMA, na frase da propria ficha; ela chega
+             aqui em italiano por ser CITACAO, e nao texto nosso por traduzir. */
+          noPairByNature: e.links.length === 0
+            && e.pairState === 'NAO_EXISTE_PARA_ESTE_PRODUTO',
+          noPairUnknown: e.links.length === 0
+            && e.pairState !== 'NAO_EXISTE_PARA_ESTE_PRODUTO',
+          natureQuote: e.descriptorOnSite || '',
+          hasNatureQuote: !!e.descriptorOnSite,
           wins: winsTop, hasWins: winsTop.length > 0,
           res: resTop, hasRes: resTop.length > 0,
           goOpps: () => this.radarWith({ fProduct: e.name }),
