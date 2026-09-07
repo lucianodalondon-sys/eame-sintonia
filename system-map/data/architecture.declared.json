@@ -61,7 +61,16 @@
       "id": "Z-VEICULOS",
       "family": "F-COLETA",
       "name": "4 · OS VEICULOS",
-      "why": "Quem VAI BUSCAR. Se nao sai daqui para trazer alguma coisa, nao e veiculo — e informacao, regra ou ferramenta",
+      "why": "Por ONDE se vai: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Nao e o que se faz la dentro (isso e acao) nem com que se viaja (isso e ferramenta)",
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "Z-ACOES",
+      "family": "F-COLETA",
+      "name": "5 · AS ACOES DA COLETA",
+      "why": "O que se FAZ dentro de um veiculo: colher o YouTube, colher o que o concorrente publica, baixar os rotulos. Acao e verbo — se for um sitio por onde se passa, e veiculo, nao acao",
       "views": [
         "acervo",
         "infra"
@@ -71,7 +80,7 @@
     {
       "id": "Z-REGRAS",
       "family": "F-COLETA",
-      "name": "5 · AS REGRAS E AS PALAVRAS",
+      "name": "6 · AS REGRAS E AS PALAVRAS",
       "why": "O que pode ser coletado, de quem, e com que termo escrito na lingua do pais. Veiculo sem regra atropela",
       "views": [
         "acervo",
@@ -82,7 +91,7 @@
     {
       "id": "Z-GUARDA",
       "family": "F-COLETA",
-      "name": "6 · ONDE GUARDA A COLETA",
+      "name": "7 · ONDE GUARDA A COLETA",
       "why": "Onde o que voltou dorme entre uma corrida e outra",
       "views": [
         "infra"
@@ -207,7 +216,7 @@
     {
       "id": "C-IT-COLETA",
       "name": "Colher as fontes italianas",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "icon": "⇩",
       "views": [
@@ -435,7 +444,7 @@
     {
       "id": "C-COLETA-YOUTUBE",
       "name": "Colher o YouTube",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "icon": "▶",
       "views": [
@@ -638,7 +647,7 @@
     {
       "id": "C-COLETA-PUBLICA",
       "name": "Colher o que o concorrente publica",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
       "why_here": "Saber o que o concorrente esta dizendo em publico, sem depender de ninguem contar.",
@@ -657,7 +666,7 @@
     {
       "id": "C-COLETA-INSTAGRAM",
       "name": "Colher o Instagram",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
       "why_here": "Boa parte da fala real de produtor e de tecnico nao esta em texto — esta em video.",
@@ -676,7 +685,7 @@
     {
       "id": "C-COLETA-BASE",
       "name": "O motor de buscar",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "O motor generico de coleta e o portao que decide, de graca, se vale gastar maquina antes de gastar.",
       "why_here": "Coletar sem portao ja custou execucoes pagas que devolveram o alvo errado.",
@@ -694,7 +703,7 @@
     {
       "id": "C-FONTES-EU",
       "name": "Ler as bases oficiais da Europa",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
       "why_here": "Fonte oficial e o unico chao que nao depende de alguem ter postado.",
@@ -721,7 +730,7 @@
     {
       "id": "C-CORPUS",
       "name": "Montar o corpus de fala e de ciencia",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
       "why_here": "A voz do campo e a ciencia sao duas evidencias diferentes e nao podem virar a mesma coisa.",
@@ -881,7 +890,7 @@
     {
       "id": "C-ROTULOS",
       "name": "Baixar e ler os rotulos oficiais",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
       "why_here": "O rotulo e o unico documento que diz o que e legalmente permitido fazer com o produto.",
@@ -2015,11 +2024,11 @@
     "superficie/it_casa_dados.py": "f51b5a7ce31fd613adc7ed6f7c026bb554ef06a1",
     "superficie/rede.py": "90a85f14923b6d9dfa88b560070aec08329f35ae",
     "system-map/app/index.html": "cd2fedf7baae6ace57be8d81dbe950f9ab1aef1d",
-    "system-map/app/map.css": "eff93e5e06e0cb4e77be3558f1b20b8ea64d130a",
-    "system-map/app/map.js": "1a086667504db1a96b94dfbee92c2bd7c6c7dbf3",
-    "system-map/scripts/generate_system_map.py": "ba6a4027f8ffc905c8b4b7595f1741fb52dd4fc0",
+    "system-map/app/map.css": "16c43ba12cc20af1b723d18f7248e6518740908a",
+    "system-map/app/map.js": "a484b3fd6b14830da18ef10fafb766cd0fcb4a7e",
+    "system-map/scripts/generate_system_map.py": "ee7044663e661223b0a3b25b23f47f9de8ad3e2a",
     "system-map/scripts/mudar_gaveta.py": "99736f74a118a545f946246f88c041153e4bb342",
-    "system-map/scripts/scan_casco.py": "4cd63238a80cd2c4a264c8871d323bd206ab5175",
+    "system-map/scripts/scan_casco.py": "b2fa05cdc0d8bfabe53db3fa91fb6b9426c205e1",
     "system-map/scripts/scan_repo.py": "c3381581f275c3de013fed483eacf9c817055946",
     "system-map/scripts/scan_sources.py": "e0c7318bd99fdee6126f4941dcab131cd0453177",
     "system-map/scripts/validate_system_map.py": "0f2b9497e8d6746dd6f262b2c753a0be549b786f",

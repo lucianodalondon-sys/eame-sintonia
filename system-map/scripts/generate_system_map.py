@@ -393,6 +393,170 @@ def as_fontes() -> tuple[list, list]:
 
 CONTRATOS_REL = "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
 
+# O NOME DA FERRAMENTA E ITALIANO PORQUE O PORTAL E ITALIANO. Quem abre a tela
+# le «Radar delle Opportunita», e trocar isso no mapa obrigaria a pessoa a
+# traduzir de cabeca toda vez que passasse de um ecra para o outro. Entao o
+# cartao mostra os dois: o nome que esta la, e o que ele quer dizer.
+#
+# ISTO E TRADUCAO MINHA, NAO MEDICAO. E a unica linha deste ficheiro que nao
+# saiu do repositorio — esta aqui em cima, curta, para se poder discordar dela
+# sem procurar.
+EM_PORTUGUES = {
+    "meeting": "Radar das Oportunidades",
+    "future": "Arquivo de sinais",
+    "windows": "Janelas de Cultura",
+    "market": "Pulso de Mercado",
+    "voices": "Vozes do Campo",
+    "competitors": "Concorrencia",
+    "science": "Inteligencia Cientifica",
+    "portfolio": "Portfolio",
+    "archive": "Arquivo",
+    "sources": "Registo das fontes",
+    "field": "Rede Comercial de Campo",
+}
+
+
+def em_bom_portugues(x: dict, ligado: list) -> str:
+    """O «o que faz» do cartao, escrito em portugues a partir do que foi MEDIDO.
+
+    O texto do contrato esta em ingles e e longo. Colar esse paragrafo no cartao
+    dava uma coisa que quase ninguem desta casa consegue ler de relance — e um
+    mapa que so se le com dicionario ao lado nao esta a informar ninguem.
+
+    Traduzir a mao seria pior: criava uma segunda versao do contrato, que
+    envelhece sozinha e passa a dizer o que o contrato ja nao diz.
+
+    Entao nao se traduz. Escreve-se do zero, so com numeros medidos, e as
+    palavras originais do contrato ficam guardadas ao lado, em ingles, como
+    prova — quem quiser conferir tem-nas inteiras.
+    """
+    n_real = sum(1 for c in ligado if c["tipo"] == "REAL")
+    n_can = sum(1 for c in ligado if c["tipo"] == "CANONICO")
+    n_fix = sum(1 for c in ligado if c["tipo"] == "FIXTURE")
+    pt = EM_PORTUGUES.get(x["vista"], "")
+
+    if not ligado:
+        return (f"«{x['nome']}»" + (f" — em portugues, {pt}." if pt else ".")
+                + " NAO SEI de onde vem o que ela mostra: nao ha contrato de bloco"
+                  " escrito para esta tela, e sem isso nao da para dizer que dado"
+                  " esta por baixo dos numeros que ela poe no ecra.")
+
+    partes = []
+    if n_real:
+        partes.append(f"{n_real} de dado real, com procedencia")
+    if n_can:
+        partes.append(f"{n_can} de dado real com a lei da casa aplicada")
+    if n_fix:
+        partes.append(f"{n_fix} escrita a mao, para a tela nao ficar vazia")
+    # camada que este mapa ainda nao sabe classificar tambem CONTA. Sem esta
+    # linha, «Polso di Mercato» dizia «bebe de 1 camada de dado:» e acabava a
+    # frase ali — um cartao a contar uma coisa e a nao dizer qual.
+    n_ns = len(ligado) - n_real - n_can - n_fix
+    if n_ns:
+        partes.append(f"{n_ns} que este mapa ainda nao sabe classificar — NAO SEI "
+                      f"se e real ou escrita a mao")
+
+    frase = (f"«{x['nome']}»" + (f" — em portugues, {pt}." if pt else ".")
+             + f" Bebe de {len(ligado)} camada(s) de dado: " + "; ".join(partes) + ".")
+    if x.get("registos_citados"):
+        frase += (" O contrato cita estes tamanhos de dado real por baixo: "
+                  + ", ".join(str(n) for n in x["registos_citados"]) + " registos.")
+    if n_fix and (n_real or n_can):
+        frase += (" Como ha real e escrito a mao na mesma tela, e a tela nao diz "
+                  "qual e qual, quem olha nao consegue separar os dois.")
+    return frase
+
+
+# ── OS VEICULOS: POR ONDE SE VAI ────────────────────────────────────────────
+# Tres coisas diferentes estavam a viver na mesma gaveta, e o nome dela era o de
+# uma delas so:
+#     FERRAMENTA  com QUE se viaja   Apify, o navegador, a transcricao
+#     VEICULO     por ONDE se vai    YouTube, Instagram, LinkedIn, Facebook
+#     ACAO        o que se FAZ la    colher o YouTube, baixar os rotulos
+#
+# A gaveta chamava-se «OS VEICULOS» e la dentro nao havia um unico veiculo: as
+# oito pecas eram todas acoes. E o canal — o veiculo de verdade — nao existia no
+# mapa de todo. Nao dava para perguntar «o que e que nos fazemos dentro do
+# YouTube?», porque o YouTube nao estava la.
+#
+# Estes cartoes nao sao escritos a mao: nascem de procurar o canal dentro do
+# codigo de cada acao, e cada seta carrega o ficheiro e a linha onde ele aparece.
+CANAIS = (
+    ("V-YOUTUBE", "YOUTUBE", r"youtube|yt_dlp|youtu\.be",
+     "Video publico: o que o canal do concorrente e o do sector poem no ar."),
+    ("V-INSTAGRAM", "INSTAGRAM", r"instagram",
+     "A pagina publica: o que a marca publica para quem a segue."),
+    ("V-LINKEDIN", "LINKEDIN", r"linkedin",
+     "A pagina de empresa e a das pessoas: contratacao, evento, anuncio."),
+    ("V-FACEBOOK", "FACEBOOK", r"facebook",
+     "A pagina publica da marca, ainda viva em varios mercados agricolas."),
+    ("V-HTTP", "PEDIDO HTTP DIRETO", r"requests\.|httpx|urllib\.request|aiohttp",
+     "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro."),
+)
+
+
+def os_veiculos(comps: list, dono: dict) -> tuple[list, list]:
+    """Um cartao por canal, e uma seta de cada acao para o canal que ela usa.
+
+    O ESTADO DIZ SE ALGUEM USA O CANAL, nao se o canal funciona. Verde e «ha
+    acao que vai por aqui, e ha linha de codigo que prova». Sem nenhuma acao a
+    usa-lo, o canal fica em NAO SEI — que e a verdade: esta declarado e ninguem
+    passa por ele.
+    """
+    import re as _re
+    acoes = [c for c in comps if c.get("territory") == "Z-ACOES"]
+    nos, ligacoes = [], []
+
+    for vid, nome, padrao, o_que in CANAIS:
+        rx = _re.compile(padrao, _re.I)
+        quem, provas = [], []
+        for a in acoes:
+            for f in a.get("_files", []):
+                cam = RAIZ / f
+                if not cam.is_file():
+                    continue
+                try:
+                    linhas = cam.read_text(encoding="utf-8", errors="replace").splitlines()
+                except OSError:
+                    continue
+                achou = next(((i, l) for i, l in enumerate(linhas, 1)
+                              if rx.search(l) and not l.strip().startswith("#")), None)
+                if achou:
+                    quem.append(a["id"])
+                    provas.append({"acao": a["id"], "veiculo": vid,
+                                   "file": f, "line": achou[0],
+                                   "snippet": achou[1].strip()[:150]})
+                    break
+
+        nos.append({
+            "id": vid, "name": nome, "kind": "veiculo", "icon": "◈",
+            "territory": "Z-VEICULOS", "family": "F-COLETA",
+            "status": VERDE if quem else CINZA,
+            "ui_status": "green" if quem else "gray",
+            "proof": "git-measurement",
+            "what": (f"{o_que} Hoje {len(quem)} acao(oes) da coleta passam por aqui."
+                     if quem else
+                     f"{o_que} Hoje NENHUMA acao passa por aqui."),
+            "why_here": ("E por onde a coleta sai de casa. Separar o canal da acao "
+                         "permite fazer a pergunta que antes nao tinha onde ser feita: "
+                         "o que e que nos fazemos, exatamente, dentro deste canal?"),
+            "files": [],
+            "facts": [f"acoes da coleta que passam por aqui: {len(quem)}"]
+                     + [f"prova: {p['file']}:{p['line']}" for p in provas[:5]],
+            "status_reason": (
+                f"{len(quem)} acao(oes) chamam este canal, e cada uma tem ficheiro e "
+                f"linha que o prova." if quem else
+                "NAO SEI: o canal esta descrito aqui, mas nenhuma acao da coleta o "
+                "chama no codigo de hoje. Ou nao se usa, ou usa-se por um caminho "
+                "que este mapa ainda nao ve."),
+            "evidence_text": "", "departments": [], "views": ["acervo"],
+            "lane": "official", "legacy": False, "changed_since_declared": [],
+            "inbound": [], "outbound": [], "file_count": 0,
+        })
+        ligacoes += provas
+    return nos, ligacoes
+
+
 def as_ferramentas() -> tuple[list, list]:
     """UMA PECA POR FERRAMENTA DA TELA, e cada uma diz o que esta ligado nela HOJE.
 
@@ -482,8 +646,11 @@ def as_ferramentas() -> tuple[list, list]:
             # procurar duas vezes.
             "ordem": ordem,
             "status": est, "ui_status": ui, "proof": "document",
-            "what": (x["resumo"][:400] or "NAO SEI o que esta tela mostra.")
-                    + (" ..." if len(x["resumo"]) > 400 else ""),
+            "what": em_bom_portugues(x, ligado),
+            "nome_em_portugues": EM_PORTUGUES.get(x["vista"], ""),
+            # as palavras do contrato ficam inteiras, em ingles, como estao
+            # escritas. Sao a prova; nao se reescreve prova.
+            "texto_do_contrato": x["resumo"],
             "why_here": ("E uma das ferramentas que a pessoa abre no portal. Existe "
                          "para responder uma pergunta de negocio — e so vale a "
                          "resposta se der para dizer de onde veio cada numero."),
@@ -1181,6 +1348,9 @@ def main_uma_vez(stamp: bool) -> int:
                 dono[e["to_file"]] = autor
                 produz.setdefault(autor, []).append(e["to_file"])
 
+    veiculos, lig_veiculos = os_veiculos(comps, dono)
+    gerados += veiculos
+
     # ── 2 · arestas de ficheiro sobem para arestas de componente ─────────────
     # Cada aresta de componente carrega TODAS as linhas que a provam. E o que
     # responde "por que existe esta seta?" com dedo apontado, nao com opiniao.
@@ -1320,10 +1490,6 @@ def main_uma_vez(stamp: bool) -> int:
     # pecas geradas ficavam eternamente a dizer «recebe: ninguem», mesmo tendo
     # nove ligacoes medidas. Um cartao que diz «ninguem» quando ha nove e pior
     # que um cartao em branco: em branco, quem le pergunta.
-    tecnicas = [l for l in ligacoes.values() if l["kind"] == "technical"]
-    for n in nos:
-        n["inbound"] = sorted({l["from"] for l in tecnicas if l["to"] == n["id"]})
-        n["outbound"] = sorted({l["to"] for l in tecnicas if l["from"] == n["id"]})
 
     paises_das_pecas(nos, G, dono)
     entregue_a_inteligencia(nos, G, dono, produz)
@@ -1343,6 +1509,21 @@ def main_uma_vez(stamp: bool) -> int:
             "reason": "", "evidence": [],
         })
         alvo_lig["evidence"].append(lf["evidence"])
+    # A ACAO APONTA PARA O CANAL POR ONDE ELA SAI. Uma seta por par, com todas
+    # as linhas que a provam empilhadas dentro — a mesma regra de sempre: sem
+    # ficheiro e linha, nao ha seta.
+    nome_da_peca = {c["id"]: c["name"] for c in comps}
+    for lv in lig_veiculos:
+        chave = (lv["acao"], lv["veiculo"], "VIAJA_POR")
+        alvo_lig = ligacoes.setdefault(chave, {
+            "from": lv["acao"], "to": lv["veiculo"], "type": "VIAJA_POR",
+            "payload": "coleta", "kind": "technical", "status": VERDE,
+            "reason": (f"«{nome_da_peca.get(lv['acao'], lv['acao'])}» chama este "
+                       f"canal no proprio codigo."),
+            "evidence": [],
+        })
+        alvo_lig["evidence"].append({k: lv[k] for k in ("file", "line", "snippet")})
+
     # Quem PUBLICA a camada aponta para a ferramenta que a bebe. E a resposta
     # visual a pergunta "o que esta ligado no Radar hoje?" — com a linha do
     # contrato que nomeia a camada por baixo de cada seta.
@@ -1370,6 +1551,11 @@ def main_uma_vez(stamp: bool) -> int:
             quantas = len({e["snippet"].split()[0] for e in l["evidence"]})
             l["reason"] = (f"{quantas} fonte(s) declaram, no contrato de busca, que "
                            f"quem vai la buscar e «{nome_alvo}».")
+    tecnicas = [l for l in ligacoes.values() if l["kind"] == "technical"]
+    for n in nos:
+        n["inbound"] = sorted({l["from"] for l in tecnicas if l["to"] == n["id"]})
+        n["outbound"] = sorted({l["to"] for l in tecnicas if l["from"] == n["id"]})
+
     zonas, nos, faixas, mundo_w, mundo_h = desenhar(
         D["TERRITORIES"], nos, D["FAMILIES"])
 

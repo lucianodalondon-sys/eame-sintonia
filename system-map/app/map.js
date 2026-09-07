@@ -93,7 +93,9 @@ function render() {
       <div class="nodeTop">
         <div class="nodeIcon">${esc(n.icon || '●')}</div>
         <div class="nodeHeadText">
-          <div class="nodeName">${esc(n.name)}</div>
+          <div class="nodeName">${esc(n.name)}</div>${
+          n.nome_em_portugues && n.nome_em_portugues !== n.name
+            ? `<div class="nodeAlias">${esc(n.nome_em_portugues)}</div>` : ''}
           <div class="nodeType">${esc(n.kind)}${n.legacy ? ' · legado' : ''}${
             n.pais && n.pais !== 'TRANSVERSAL' ? ' · ' + esc(n.pais) : ''}${
             n.lane === 'futuro' ? ' · projeto futuro' : ''}</div>
@@ -384,7 +386,11 @@ function openDetail(id) {
     <div class="detailHead">
       <button class="close" id="closeDetail" aria-label="fechar">×</button>
       <div class="detailSub">${esc(n.kind)}${n.legacy ? ' · legado' : ''}</div>
-      <div class="detailTitle">${esc(n.name)}</div>
+      <div class="detailTitle">${esc(n.name)}</div>${
+      n.nome_em_portugues && n.nome_em_portugues !== n.name
+        ? `<div style="font-size:11px;color:#8a827e;margin:-4px 0 8px">em português:
+             <b style="color:#4a443f">${esc(n.nome_em_portugues)}</b> · o nome de cima
+             é o que está escrito no portal</div>` : ''}
       <span class="statusPill status-${n.ui_status}">${statusLabel(n.ui_status)}</span>
     </div>
     <div class="detailBody">
@@ -440,6 +446,14 @@ function openDetail(id) {
       ${n.groups ? blocoFontes(n) : ''}
 
       ${n.ligado_nela ? blocoCasco(n) : ''}
+
+      ${n.texto_do_contrato ? `<div class="sec">
+        <h4>Palavras do contrato, como estão escritas</h4>
+        <p style="font-size:10px;color:#8a827e;margin-bottom:8px">Em inglês, e de
+          propósito: é a prova. Traduzir criaria uma segunda versão do contrato, que
+          envelhece sozinha. O resumo em português, acima, foi escrito a partir dos
+          números medidos — não é tradução deste texto.</p>
+        <div class="evidence">${esc(n.texto_do_contrato)}</div></div>` : ''}
 
       ${n.evidence_text ? `<div class="sec"><h4>Evidência usada pelo mapa</h4>
         <div class="evidence">${esc(n.evidence_text)}</div></div>` : ''}

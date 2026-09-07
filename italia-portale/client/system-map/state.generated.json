@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
-    "w": 12660,
+    "w": 13365,
     "h": 2462
   },
   "INVENTORY": {
@@ -1565,8 +1565,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "75f74b67e1ec83b09cdaea0f3bf3cdba2bb043c2",
-    "GENERATED_AT": "2026-09-07T14:46:12-03:00"
+    "HEAD": "f39c4169d27f0aa976f638d1302fba9799f0487c",
+    "GENERATED_AT": "2026-09-07T14:58:55-03:00"
   },
   "FAMILIES": [
     {
@@ -1575,23 +1575,24 @@
       "why": "Trazer para dentro o que existe la fora. Nada no SINTONIA comeca sem passar por aqui.",
       "x": 260,
       "y": 60,
-      "w": 4840,
+      "w": 5545,
       "h": 2142,
       "zones": [
         "Z-DISPARA",
         "Z-FONTES",
         "Z-FERRAMENTAS",
         "Z-VEICULOS",
+        "Z-ACOES",
         "Z-REGRAS",
         "Z-GUARDA"
       ],
-      "count": 33
+      "count": 38
     },
     {
       "id": "F-INTELIGENCIA",
       "name": "INTELIGENCIA",
       "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa.",
-      "x": 5320,
+      "x": 6025,
       "y": 60,
       "w": 3430,
       "h": 2142,
@@ -1607,7 +1608,7 @@
       "id": "F-ENTREGA",
       "name": "ENTREGA",
       "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado.",
-      "x": 8970,
+      "x": 9675,
       "y": 60,
       "w": 3430,
       "h": 2142,
@@ -1670,13 +1671,27 @@
       "id": "Z-VEICULOS",
       "family": "F-COLETA",
       "name": "4 · OS VEICULOS",
-      "why": "Quem VAI BUSCAR. Se nao sai daqui para trazer alguma coisa, nao e veiculo — e informacao, regra ou ferramenta",
+      "why": "Por ONDE se vai: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Nao e o que se faz la dentro (isso e acao) nem com que se viaja (isso e ferramenta)",
+      "views": [
+        "acervo"
+      ],
+      "x": 2415,
+      "y": 190,
+      "w": 405,
+      "h": 1972,
+      "count": 5
+    },
+    {
+      "id": "Z-ACOES",
+      "family": "F-COLETA",
+      "name": "5 · AS ACOES DA COLETA",
+      "why": "O que se FAZ dentro de um veiculo: colher o YouTube, colher o que o concorrente publica, baixar os rotulos. Acao e verbo — se for um sitio por onde se passa, e veiculo, nao acao",
       "views": [
         "acervo",
         "infra"
       ],
       "folder": "coleta",
-      "x": 2415,
+      "x": 3120,
       "y": 190,
       "w": 820,
       "h": 1972,
@@ -1685,14 +1700,14 @@
     {
       "id": "Z-REGRAS",
       "family": "F-COLETA",
-      "name": "5 · AS REGRAS E AS PALAVRAS",
+      "name": "6 · AS REGRAS E AS PALAVRAS",
       "why": "O que pode ser coletado, de quem, e com que termo escrito na lingua do pais. Veiculo sem regra atropela",
       "views": [
         "acervo",
         "audit"
       ],
       "folder": "regras",
-      "x": 3535,
+      "x": 4240,
       "y": 190,
       "w": 820,
       "h": 1972,
@@ -1701,13 +1716,13 @@
     {
       "id": "Z-GUARDA",
       "family": "F-COLETA",
-      "name": "6 · ONDE GUARDA A COLETA",
+      "name": "7 · ONDE GUARDA A COLETA",
       "why": "Onde o que voltou dorme entre uma corrida e outra",
       "views": [
         "infra"
       ],
       "folder": "guarda",
-      "x": 4655,
+      "x": 5360,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1723,7 +1738,7 @@
         "official"
       ],
       "folder": null,
-      "x": 5360,
+      "x": 6065,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1739,7 +1754,7 @@
         "science"
       ],
       "folder": "leis",
-      "x": 6065,
+      "x": 6770,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1755,7 +1770,7 @@
         "opportunity"
       ],
       "folder": "motor",
-      "x": 6770,
+      "x": 7475,
       "y": 190,
       "w": 820,
       "h": 1972,
@@ -1771,7 +1786,7 @@
         "infra"
       ],
       "folder": "provas",
-      "x": 7890,
+      "x": 8595,
       "y": 190,
       "w": 820,
       "h": 1972,
@@ -1787,7 +1802,7 @@
         "portal"
       ],
       "folder": "pacote",
-      "x": 9010,
+      "x": 9715,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1803,7 +1818,7 @@
         "audit"
       ],
       "folder": "portoes",
-      "x": 9715,
+      "x": 10420,
       "y": 190,
       "w": 820,
       "h": 1972,
@@ -1819,7 +1834,7 @@
         "meeting"
       ],
       "folder": "superficie",
-      "x": 10835,
+      "x": 11540,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1834,7 +1849,7 @@
         "portal",
         "entrega"
       ],
-      "x": 11540,
+      "x": 12245,
       "y": 190,
       "w": 820,
       "h": 1972,
@@ -1901,7 +1916,7 @@
         "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json"
       ],
       "parado_na_coleta": [],
-      "x": 4715,
+      "x": 5420,
       "y": 360
     },
     {
@@ -2048,12 +2063,15 @@
         "C-PORTAO-BUILD",
         "C-SITE-INGEST",
         "C-TELA-FIELD",
+        "C-TELA-MEETING",
+        "C-TELA-SCIENCE",
+        "C-TELA-WINDOWS",
         "C-V21-COMERCIAL"
       ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 9070,
+      "x": 9775,
       "y": 360
     },
     {
@@ -4348,7 +4366,7 @@
         "EUROPA": 1
       },
       "pais": "TRANSVERSAL",
-      "x": 10895,
+      "x": 11600,
       "y": 360
     },
     {
@@ -4408,7 +4426,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 9775,
+      "x": 10480,
       "y": 360
     },
     {
@@ -4463,7 +4481,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 10190,
+      "x": 10895,
       "y": 360
     },
     {
@@ -4573,7 +4591,7 @@
         "ITALIA": 10
       },
       "pais": "TRANSVERSAL",
-      "x": 9775,
+      "x": 10480,
       "y": 682
     },
     {
@@ -4628,7 +4646,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 10190,
+      "x": 10895,
       "y": 682
     },
     {
@@ -4676,7 +4694,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 9775,
+      "x": 10480,
       "y": 1004
     },
     {
@@ -4731,7 +4749,7 @@
         "ITALIA": 1
       },
       "pais": "TRANSVERSAL",
-      "x": 6830,
+      "x": 7535,
       "y": 360
     },
     {
@@ -4828,7 +4846,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 7950,
+      "x": 8655,
       "y": 360
     },
     {
@@ -4874,7 +4892,7 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 4715,
+      "x": 5420,
       "y": 682
     },
     {
@@ -4917,7 +4935,7 @@
         "ESPANHA": 3
       },
       "pais": "TRANSVERSAL",
-      "x": 8365,
+      "x": 9070,
       "y": 360
     },
     {
@@ -4965,13 +4983,13 @@
         "data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json"
       ],
       "parado_na_coleta": [],
-      "x": 3595,
+      "x": 4300,
       "y": 360
     },
     {
       "id": "C-COLETA-BASE",
       "name": "O motor de buscar",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "O motor generico de coleta e o portao que decide, de graca, se vale gastar maquina antes de gastar.",
       "why_here": "Coletar sem portao ja custou execucoes pagas que devolveram o alvo errado.",
@@ -5005,7 +5023,10 @@
       ],
       "outbound": [
         "C-APIFY-POOL",
-        "C-PROCEDENCIA"
+        "C-PROCEDENCIA",
+        "V-INSTAGRAM",
+        "V-LINKEDIN",
+        "V-YOUTUBE"
       ],
       "paises": {},
       "paises_dado": {
@@ -5014,13 +5035,13 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 2475,
+      "x": 3180,
       "y": 360
     },
     {
       "id": "C-COLETA-INSTAGRAM",
       "name": "Colher o Instagram",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
       "why_here": "Boa parte da fala real de produtor e de tecnico nao esta em texto — esta em video.",
@@ -5058,20 +5079,23 @@
         "C-MEDICAO",
         "C-NAVEGADOR",
         "C-PORTA-FONTE",
-        "C-PROCEDENCIA"
+        "C-PROCEDENCIA",
+        "V-FACEBOOK",
+        "V-HTTP",
+        "V-INSTAGRAM"
       ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 2890,
+      "x": 3595,
       "y": 360
     },
     {
       "id": "C-COLETA-PUBLICA",
       "name": "Colher o que o concorrente publica",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
       "why_here": "Saber o que o concorrente esta dizendo em publico, sem depender de ninguem contar.",
@@ -5106,20 +5130,24 @@
       ],
       "outbound": [
         "C-APIFY-POOL",
-        "C-COLETA-BASE"
+        "C-COLETA-BASE",
+        "V-FACEBOOK",
+        "V-INSTAGRAM",
+        "V-LINKEDIN",
+        "V-YOUTUBE"
       ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 2475,
+      "x": 3180,
       "y": 682
     },
     {
       "id": "C-COLETA-YOUTUBE",
       "name": "Colher o YouTube",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "Le os canais, lista os videos, e decide quais valem a hora de maquina da transcricao.",
       "why_here": "Video entrega o que nenhuma outra camada entrega: fala tecnica longa. Medido na Espanha: 15 videos deram 705.149 caracteres de fala tecnica — nenhuma outra camada chegou perto por unidade de custo.",
@@ -5151,14 +5179,17 @@
       ],
       "outbound": [
         "C-NAVEGADOR",
-        "C-PALAVRAS"
+        "C-PALAVRAS",
+        "V-HTTP",
+        "V-INSTAGRAM",
+        "V-YOUTUBE"
       ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 2890,
+      "x": 3595,
       "y": 682
     },
     {
@@ -5199,13 +5230,13 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 4010,
+      "x": 4715,
       "y": 360
     },
     {
       "id": "C-CORPUS",
       "name": "Montar o corpus de fala e de ciencia",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
       "why_here": "A voz do campo e a ciencia sao duas evidencias diferentes e nao podem virar a mesma coisa.",
@@ -5245,7 +5276,11 @@
       "inbound": [],
       "outbound": [
         "C-PACOTE-CAMADAS",
-        "C-PALAVRAS"
+        "C-PALAVRAS",
+        "V-HTTP",
+        "V-INSTAGRAM",
+        "V-LINKEDIN",
+        "V-YOUTUBE"
       ],
       "paises": {
         "ESPANHA": 1
@@ -5263,7 +5298,7 @@
         "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
         "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
       ],
-      "x": 2475,
+      "x": 3180,
       "y": 1004
     },
     {
@@ -5316,7 +5351,7 @@
         "FRANCA": 1
       },
       "pais": "TRANSVERSAL",
-      "x": 6125,
+      "x": 6830,
       "y": 360
     },
     {
@@ -5373,13 +5408,13 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 10895,
+      "x": 11600,
       "y": 682
     },
     {
       "id": "C-FONTES-EU",
       "name": "Ler as bases oficiais da Europa",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
       "why_here": "Fonte oficial e o unico chao que nao depende de alguem ter postado.",
@@ -5425,7 +5460,8 @@
         "C-IMPORTAR",
         "C-REGRA-COLETA",
         "C-ROTULOS",
-        "C-SUPABASE"
+        "C-SUPABASE",
+        "V-HTTP"
       ],
       "paises": {},
       "paises_dado": {
@@ -5437,7 +5473,7 @@
       "parado_na_coleta": [
         "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json"
       ],
-      "x": 2890,
+      "x": 3595,
       "y": 1004
     },
     {
@@ -5494,7 +5530,7 @@
       "parado_na_coleta": [
         "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json"
       ],
-      "x": 3595,
+      "x": 4300,
       "y": 682
     },
     {
@@ -5540,7 +5576,7 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 4715,
+      "x": 5420,
       "y": 1004
     },
     {
@@ -5602,7 +5638,7 @@
     {
       "id": "C-IT-COLETA",
       "name": "Colher as fontes italianas",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "Mede a porta de cada fonte, acha o documento do dia, colhe e volta amanha reconhecendo o que ja viu.",
       "why_here": "Bate a porta antes de entrar: medir custa zero e evita gastar maquina onde nao ha ninguem. E `ACCESS_OK` no curl e sinal FORTE, mas `BLOCKED` e sinal FRACO — muitos sites recusam curl e aceitam navegador. Confundir os dois faz um endereco nosso errado virar «o pais bloqueia».",
@@ -5647,7 +5683,7 @@
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 2475,
+      "x": 3180,
       "y": 1326
     },
     {
@@ -5696,7 +5732,7 @@
         "ITALIA": 5
       },
       "pais": "ITALIA",
-      "x": 7950,
+      "x": 8655,
       "y": 682
     },
     {
@@ -5753,7 +5789,7 @@
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 4010,
+      "x": 4715,
       "y": 682
     },
     {
@@ -5801,7 +5837,7 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 4715,
+      "x": 5420,
       "y": 1326
     },
     {
@@ -5859,7 +5895,7 @@
         "ITALIA": 31
       },
       "pais": "TRANSVERSAL",
-      "x": 9070,
+      "x": 9775,
       "y": 682
     },
     {
@@ -5946,7 +5982,7 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 3595,
+      "x": 4300,
       "y": 1004
     },
     {
@@ -5986,7 +6022,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 6125,
+      "x": 6830,
       "y": 682
     },
     {
@@ -6001,7 +6037,7 @@
         "LIDERANCA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▣",
       "views": [
         "audit",
@@ -6015,11 +6051,9 @@
         "system-map/app/map.js"
       ],
       "file_count": 3,
-      "status": "PENDING",
-      "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        "system-map/app/map.js"
-      ],
+      "status": "PROVEN",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -6030,7 +6064,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 8365,
+      "x": 9070,
       "y": 682
     },
     {
@@ -6079,7 +6113,7 @@
         "ITALIA": 1
       },
       "pais": "TRANSVERSAL",
-      "x": 7950,
+      "x": 8655,
       "y": 1004
     },
     {
@@ -6093,7 +6127,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "⚙",
       "views": [
         "audit",
@@ -6107,11 +6141,9 @@
         "system-map/scripts/scan_sources.py"
       ],
       "file_count": 3,
-      "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        "system-map/scripts/scan_casco.py"
-      ],
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -6135,7 +6167,7 @@
         "ITALIA": 1
       },
       "pais": "TRANSVERSAL",
-      "x": 8365,
+      "x": 9070,
       "y": 1004
     },
     {
@@ -6176,7 +6208,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 7950,
+      "x": 8655,
       "y": 1326
     },
     {
@@ -6218,7 +6250,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 8365,
+      "x": 9070,
       "y": 1326
     },
     {
@@ -6271,7 +6303,7 @@
         "ESPANHA": 1
       },
       "pais": "TRANSVERSAL",
-      "x": 7950,
+      "x": 8655,
       "y": 1648
     },
     {
@@ -6380,7 +6412,7 @@
         "ESPANHA": 8
       },
       "pais": "TRANSVERSAL",
-      "x": 9070,
+      "x": 9775,
       "y": 1004
     },
     {
@@ -6424,7 +6456,7 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 4010,
+      "x": 4715,
       "y": 1004
     },
     {
@@ -6481,7 +6513,7 @@
         "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json"
       ],
       "parado_na_coleta": [],
-      "x": 3595,
+      "x": 4300,
       "y": 1326
     },
     {
@@ -6569,7 +6601,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 10895,
+      "x": 11600,
       "y": 1004
     },
     {
@@ -6634,7 +6666,14 @@
         "C-PORTAL-MODELO",
         "C-PORTAO-BUILD",
         "C-RELEVANCIA",
-        "C-TELA-FIELD"
+        "C-TELA-ARCHIVE",
+        "C-TELA-COMPETITORS",
+        "C-TELA-FIELD",
+        "C-TELA-MARKET",
+        "C-TELA-MEETING",
+        "C-TELA-PORTFOLIO",
+        "C-TELA-SCIENCE",
+        "C-TELA-WINDOWS"
       ],
       "paises": {
         "ESPANHA": 1
@@ -6643,7 +6682,7 @@
         "ESPANHA": 4
       },
       "pais": "TRANSVERSAL",
-      "x": 10895,
+      "x": 11600,
       "y": 1326
     },
     {
@@ -6691,6 +6730,7 @@
         "C-PORTAL-CASCO",
         "C-PORTAL-DADOS",
         "C-PORTAO-BUILD",
+        "C-TELA-ARCHIVE",
         "C-TELA-FIELD",
         "C-V21-COMERCIAL"
       ],
@@ -6699,7 +6739,7 @@
         "ITALIA": 27
       },
       "pais": "TRANSVERSAL",
-      "x": 10895,
+      "x": 11600,
       "y": 1648
     },
     {
@@ -6748,7 +6788,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 10190,
+      "x": 10895,
       "y": 1004
     },
     {
@@ -6805,7 +6845,7 @@
         "data/samples/RUN-MANIFEST.json"
       ],
       "parado_na_coleta": [],
-      "x": 4010,
+      "x": 4715,
       "y": 1326
     },
     {
@@ -6848,7 +6888,7 @@
         "ITALIA": 3
       },
       "pais": "TRANSVERSAL",
-      "x": 6125,
+      "x": 6830,
       "y": 1004
     },
     {
@@ -6891,7 +6931,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 8365,
+      "x": 9070,
       "y": 1648
     },
     {
@@ -6953,7 +6993,7 @@
         "data/samples/PORTOES-EAME.json"
       ],
       "parado_na_coleta": [],
-      "x": 3595,
+      "x": 4300,
       "y": 1648
     },
     {
@@ -7006,13 +7046,13 @@
         "ITALIA": 3
       },
       "pais": "TRANSVERSAL",
-      "x": 6125,
+      "x": 6830,
       "y": 1326
     },
     {
       "id": "C-ROTULOS",
       "name": "Baixar e ler os rotulos oficiais",
-      "territory": "Z-VEICULOS",
+      "territory": "Z-ACOES",
       "kind": "engine",
       "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
       "why_here": "O rotulo e o unico documento que diz o que e legalmente permitido fazer com o produto.",
@@ -7058,7 +7098,8 @@
       "outbound": [
         "C-PALAVRAS",
         "C-SUPABASE",
-        "C-V21-CRUZAMENTO"
+        "C-V21-CRUZAMENTO",
+        "V-HTTP"
       ],
       "paises": {},
       "paises_dado": {
@@ -7074,7 +7115,7 @@
       "parado_na_coleta": [
         "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json"
       ],
-      "x": 2890,
+      "x": 3595,
       "y": 1326
     },
     {
@@ -7115,7 +7156,7 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 4010,
+      "x": 4715,
       "y": 1648
     },
     {
@@ -7209,7 +7250,7 @@
         "FRANCA": 1
       },
       "pais": "TRANSVERSAL",
-      "x": 9775,
+      "x": 10480,
       "y": 1326
     },
     {
@@ -7309,7 +7350,7 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "x": 4715,
+      "x": 5420,
       "y": 1648
     },
     {
@@ -7323,7 +7364,9 @@
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
-      "what": "The Archive screen (portale.html markup 2186-2232) is a paginated table of \"intelligence captures\": date, type, item title + crop/region subtitle, source, and a \"CONNECTED TO\" column, plus a text query, four dropdown filters (type / crop / region / company), nine coloured type chips with counts, and a right-hand drawer with a summary paragraph, crop/issue/region tags and up to six cross-links (opp ...",
+      "what": "«Archivio» — em portugues, Arquivo. Bebe de 4 camada(s) de dado: 1 de dado real com a lei da casa aplicada; 2 escrita a mao, para a tela nao ficar vazia; 1 que este mapa ainda nao sabe classificar — NAO SEI se e real ou escrita a mao. O contrato cita estes tamanhos de dado real por baixo: 740 registos. Como ha real e escrito a mao na mesma tela, e a tela nao diz qual e qual, quem olha nao consegue separar os dois.",
+      "nome_em_portugues": "Arquivo",
+      "texto_do_contrato": "The Archive screen (portale.html markup 2186-2232) is a paginated table of \"intelligence captures\": date, type, item title + crop/region subtitle, source, and a \"CONNECTED TO\" column, plus a text query, four dropdown filters (type / crop / region / company), nine coloured type chips with counts, and a right-hand drawer with a summary paragraph, crop/issue/region tags and up to six cross-links (opportunity, future signal, ADAMA product, competitor, source, research topic). Today every fact on that screen comes from window.ITALY_DEMO.ARCHIVE: 448 rows, of which 420 are procedurally generated in italy-demo-data.js lines 522-538 (type, source route, company, product, caseObj, signal and an English prose summary are all synthesised from a modulo over the demo CASES/SIGNALS arrays) and only 28 are real (news + bulletins + science re-shaped at lines 539-543). The screen also feeds the nav badge (line 2608, K.archive = 448), the Data-State panel Archive row (line 2530), the Source-detail \"LATEST CAPTURES · N IN ARCHIVE\" block (line 3368, markup 2311-2312) and the global search ARCHIVE group (line 3383). The real replacement, APP.collections.archive, already exists and holds 740 rows derived from the normalized collections, but it is currently dead code — declared as A_ARCHIVE0 at line 2467 and never read.",
       "why_here": "E uma das ferramentas que a pessoa abre no portal. Existe para responder uma pergunta de negocio — e so vale a resposta se der para dizer de onde veio cada numero.",
       "files": [
         "italia-portale/audit/blocks/archive.spec.json"
@@ -7346,7 +7389,10 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "C-PORTAL-DADOS",
+        "C-PORTAL-MODELO"
+      ],
       "outbound": [],
       "de_onde_vem": "MISTURA",
       "ligado_nela": [
@@ -7425,7 +7471,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 11600,
+      "x": 12305,
       "y": 1648
     },
     {
@@ -7439,7 +7485,9 @@
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
-      "what": "Today the whole Competitor Watch screen is fed by window.ITALY_DEMO: 72 fabricated activities across 6 companies and 6 activity types (PAID 23, ORGANIC 16, VIDEO 10, PEOPLE 8, EVENT 9, PRODUCT/PORTFOLIO 6), plus 4 pre-baked demo aggregates (D.MATRIX, D.CROP_COLS, D.ISSUE_ROWS, D.WHAT_CHANGED) and 14 fabricated competitor products (D.CPRODUCTS). Every visible fact on the screen — headline, crop, is ...",
+      "what": "«Concorrenza» — em portugues, Concorrencia. Bebe de 2 camada(s) de dado: 1 de dado real com a lei da casa aplicada; 1 escrita a mao, para a tela nao ficar vazia. O contrato cita estes tamanhos de dado real por baixo: 503 registos. Como ha real e escrito a mao na mesma tela, e a tela nao diz qual e qual, quem olha nao consegue separar os dois.",
+      "nome_em_portugues": "Concorrencia",
+      "texto_do_contrato": "Today the whole Competitor Watch screen is fed by window.ITALY_DEMO: 72 fabricated activities across 6 companies and 6 activity types (PAID 23, ORGANIC 16, VIDEO 10, PEOPLE 8, EVENT 9, PRODUCT/PORTFOLIO 6), plus 4 pre-baked demo aggregates (D.MATRIX, D.CROP_COLS, D.ISSUE_ROWS, D.WHAT_CHANGED) and 14 fabricated competitor products (D.CPRODUCTS). Every visible fact on the screen — headline, crop, issue, region, timing state (\"IN WINDOW\"/\"EARLY\"), \"ADAMA RESPONSE: VERIFIED PORTFOLIO RESPONSE\", \"NEWLY OBSERVED\", lead-time bars, video durations, transcripts, people mentions, event participation, creative thumbnails — is invented by the fixture or by actDeco() decorating the fixture. The real backing exists and is bigger: IG.COMP_ACTIVITIES has 503 records (414 PAID from META_ADS_LIBRARY reaching IT, 89 ORGANIC_VIDEO from YOUTUBE), 11 distinct companies, 36 proven competitor products. But the real records are much thinner per row: 320/503 carry no crop at all, 405/503 carry no issue, 401/503 carry no product, 89/503 carry no date, no url, no text and no country. The screen must therefore keep its layout but show far fewer decorated facts, drop four of its six activity types entirely, and stop claiming a portfolio verdict, a timing verdict or a lead time on each card.",
       "why_here": "E uma das ferramentas que a pessoa abre no portal. Existe para responder uma pergunta de negocio — e so vale a resposta se der para dizer de onde veio cada numero.",
       "files": [
         "italia-portale/audit/blocks/competitor.spec.json"
@@ -7462,7 +7510,9 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "C-PORTAL-DADOS"
+      ],
       "outbound": [],
       "de_onde_vem": "MISTURA",
       "ligado_nela": [
@@ -7517,7 +7567,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 12015,
+      "x": 12720,
       "y": 1004
     },
     {
@@ -7531,7 +7581,9 @@
       "status": "UNKNOWN",
       "ui_status": "gray",
       "proof": "document",
-      "what": "NAO SEI o que esta tela mostra.",
+      "what": "«Rete Commerciale di Campo» — em portugues, Rede Comercial de Campo. NAO SEI de onde vem o que ela mostra: nao ha contrato de bloco escrito para esta tela, e sem isso nao da para dizer que dado esta por baixo dos numeros que ela poe no ecra.",
+      "nome_em_portugues": "Rede Comercial de Campo",
+      "texto_do_contrato": "",
       "why_here": "E uma das ferramentas que a pessoa abre no portal. Existe para responder uma pergunta de negocio — e so vale a resposta se der para dizer de onde veio cada numero.",
       "files": [
         "italia-portale/client/portale.html"
@@ -7574,7 +7626,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 11600,
+      "x": 12305,
       "y": 1970
     },
     {
@@ -7588,7 +7640,9 @@
       "status": "UNKNOWN",
       "ui_status": "gray",
       "proof": "document",
-      "what": "NAO SEI o que esta tela mostra.",
+      "what": "«Archivio segnali» — em portugues, Arquivo de sinais. NAO SEI de onde vem o que ela mostra: nao ha contrato de bloco escrito para esta tela, e sem isso nao da para dizer que dado esta por baixo dos numeros que ela poe no ecra.",
+      "nome_em_portugues": "Arquivo de sinais",
+      "texto_do_contrato": "",
       "why_here": "E uma das ferramentas que a pessoa abre no portal. Existe para responder uma pergunta de negocio — e so vale a resposta se der para dizer de onde veio cada numero.",
       "files": [
         "italia-portale/client/portale.html"
@@ -7622,7 +7676,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 12015,
+      "x": 12720,
       "y": 360
     },
     {
@@ -7636,7 +7690,9 @@
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
-      "what": "Today the Market Pulse screen is driven end-to-end by window.ITALY_MARKET (italy-market-pulse.js, 596 lines), which is NOT ingested data: it is a hand-authored editorial fixture. It carries no record id, no SOURCE_ID and no PROVENANCE on any of its 8 crop objects, and it attributes its numbers to ISMEA, CUN Grano Duro, BMTI/Unioncamere, ICQRF, Agrofarma-Federchimica, Baltic Exchange, JRC MARS and  ...",
+      "what": "«Polso di Mercato» — em portugues, Pulso de Mercado. Bebe de 1 camada(s) de dado: 1 que este mapa ainda nao sabe classificar — NAO SEI se e real ou escrita a mao. O contrato cita estes tamanhos de dado real por baixo: 77, 1 registos.",
+      "nome_em_portugues": "Pulso de Mercado",
+      "texto_do_contrato": "Today the Market Pulse screen is driven end-to-end by window.ITALY_MARKET (italy-market-pulse.js, 596 lines), which is NOT ingested data: it is a hand-authored editorial fixture. It carries no record id, no SOURCE_ID and no PROVENANCE on any of its 8 crop objects, and it attributes its numbers to ISMEA, CUN Grano Duro, BMTI/Unioncamere, ICQRF, Agrofarma-Federchimica, Baltic Exchange, JRC MARS and Veneto Agricoltura — measured: NONE of those appear in IG.SOURCES (31 registered sources), and 20 of its 23 chart values do not exist anywhere in the 77 real market observations (the 3 that coincide numerically — 245, 4.55, 250 — share no id and sit on unrelated products). From that fixture the screen renders a market temperature verdict (PRESSURED / BALANCED / MIXED SIGNALS), a Sintonia \"reading\", drivers, a PAST-TODAY-OUTLOOK trajectory, a 3-6 month outlook, ISMEA farmer confidence (-1.4), a Baltic Dry input-cost card, production/stocks/trade, per-piazza tables, \"what changed\", commentary, and an industry tab of Agrofarma sector figures. The only real backing is APP.collections.marketObservations: 77 EU Commission Agri-food Data Portal weekly price rows (IT-SRC-AGRIFOOD, GEOGRAPHY uniformly \"IT — praca nomeada\"), covering Wheat 13, Maize 11, Durum 8, Barley 8, Olive 36, Grapevine 1 — and ZERO for Tomato, Sugar Beet and Apple, which are three of the eight crop tabs. Five legacy D.* reads (lines 2945-2949) additionally pull crop windows, opportunity cases, portfolio product lists and signal colours out of the demo fixture into the green \"WHAT THIS MEANS FOR ADAMA\" panel.",
       "why_here": "E uma das ferramentas que a pessoa abre no portal. Existe para responder uma pergunta de negocio — e so vale a resposta se der para dizer de onde veio cada numero.",
       "files": [
         "italia-portale/audit/blocks/market.spec.json"
@@ -7657,7 +7713,9 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "C-PORTAL-DADOS"
+      ],
       "outbound": [],
       "de_onde_vem": "MISTURA",
       "ligado_nela": [
@@ -7699,7 +7757,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 12015,
+      "x": 12720,
       "y": 682
     },
     {
@@ -7713,7 +7771,9 @@
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
-      "what": "Today the Opportunity Radar is 100% legacy fixture. `const CASES = D.CASES.map(c => this.decorate(c))` (portale.html:2515) turns 29 hand-authored demo cases into the default feed: 8 KPI tiles, the card grid, the 20-tile region map with per-region \"cases / +N signals\", and the full Opportunity Detail (hero, window bar, portfolio block, KNOW/WATCH, evidence bars, mini-map, competitor rows, action ma ...",
+      "what": "«Radar delle Opportunità» — em portugues, Radar das Oportunidades. Bebe de 4 camada(s) de dado: 1 de dado real, com procedencia; 2 de dado real com a lei da casa aplicada; 1 escrita a mao, para a tela nao ficar vazia. O contrato cita estes tamanhos de dado real por baixo: 3 registos. Como ha real e escrito a mao na mesma tela, e a tela nao diz qual e qual, quem olha nao consegue separar os dois.",
+      "nome_em_portugues": "Radar das Oportunidades",
+      "texto_do_contrato": "Today the Opportunity Radar is 100% legacy fixture. `const CASES = D.CASES.map(c => this.decorate(c))` (portale.html:2515) turns 29 hand-authored demo cases into the default feed: 8 KPI tiles, the card grid, the 20-tile region map with per-region \"cases / +N signals\", and the full Opportunity Detail (hero, window bar, portfolio block, KNOW/WATCH, evidence bars, mini-map, competitor rows, action map, executive timeline, sources). Facts on that screen come from three different places and only one is real. The audited part is the CANONICAL layer: each demo case looks up its canonical window by LEGACY_CASE_ID and takes START_DATE, END_DATE, DATE_STATE, DATE_CONFIDENCE, CURRENT_STATUS, STATUS_REASON, CROP_STAGE_CLASS, ISSUE_STAGE_CLASS from it (italy-demo-data.js:243-273) — 29 windows, all PROVENANCE=EXPECTED_NORM, all SOURCE_IDS=[], all PRODUCT_MATCHES=[]. The portfolio strength classes are also real: italy-demo-data.js:280-311 calls ITALY_LABEL_VERDICTS.verdict(crop, issue, product) (12 VERIFIED, 7 NOT_FOUND, default LABEL_CHECK_NEEDED). Everything else on the card and the detail page — issue title, latin name, crop, region, `sub`, `cat`/category colour, products list, `primary`, happening, why, know[], watch[], timeline[], evidence{field,science,official,people,market}, evidenceTotal, evidenceLabel, origin, updated, adjacent[], source, competitors[], actions[], departments[] — is authored or generated inside italy-demo-data.js (competitors[] is literally built from a seeded PRNG, timeline[] is arithmetic on `origin`). The real backing is 3 records in ITALY_INGEST.OPPORTUNITIES.",
       "why_here": "E uma das ferramentas que a pessoa abre no portal. Existe para responder uma pergunta de negocio — e so vale a resposta se der para dizer de onde veio cada numero.",
       "files": [
         "italia-portale/audit/blocks/case.spec.json"
@@ -7738,7 +7798,10 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "C-ARTEFACTO-V21",
+        "C-PORTAL-DADOS"
+      ],
       "outbound": [],
       "de_onde_vem": "MISTURA",
       "ligado_nela": [
@@ -7823,7 +7886,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 11600,
+      "x": 12305,
       "y": 360
     },
     {
@@ -7837,7 +7900,9 @@
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
-      "what": "Two screens plus a cross-cutting relationship graph. PORTAFOGLIO (portale.html markup 1397-1424, logic 3026-3047) is already clean: it lists AM.products (166 = 163 real registrations + BUDGE/EXELGROW/PARLEAF which are catalog-only) in two deliberately separate tabs, CATALOGO COMMERCIALE (44 catalog items) and UNIVERSO REGOLATORIO (163 registrations), filtered by categoryLabel (ERBICIDI 91 / FUNGIC ...",
+      "what": "«Portafoglio» — em portugues, Portfolio. Bebe de 4 camada(s) de dado: 1 de dado real, com procedencia; 2 de dado real com a lei da casa aplicada; 1 escrita a mao, para a tela nao ficar vazia. Como ha real e escrito a mao na mesma tela, e a tela nao diz qual e qual, quem olha nao consegue separar os dois.",
+      "nome_em_portugues": "Portfolio",
+      "texto_do_contrato": "Two screens plus a cross-cutting relationship graph. PORTAFOGLIO (portale.html markup 1397-1424, logic 3026-3047) is already clean: it lists AM.products (166 = 163 real registrations + BUDGE/EXELGROW/PARLEAF which are catalog-only) in two deliberately separate tabs, CATALOGO COMMERCIALE (44 catalog items) and UNIVERSO REGOLATORIO (163 registrations), filtered by categoryLabel (ERBICIDI 91 / FUNGICIDI 46 / INSETTICIDI 23 / SPECIALI 6). PRODUCT INTELLIGENCE (markup 1339-1395, logic 2999-3023) shows one product's identity plus three relationship cards (verified / check-needed / not-confirmed) and a separate \"VEDI OPPORTUNITÀ COLLEGATE\" CTA. The identity facts are real (IG.PRODUCTS: name, reg, holder, ai, form, regCat, line, status, expiry, hrac/frac/irac, labelUrl — 163/163 populated). The RELATIONSHIPS are not: italy-app-model.js line 102 builds every product link by walking D.CASES[].productLinks, so which crop x issue x product triples exist at all is decided by a demo fixture (29 demo cases, 80 links). window.ITALY_LABEL_VERDICTS — the real 163-label audit — is loaded but italy-app-model.js never reads it; only italy-demo-data.js line 281 calls LV.verdict() to GRADE the fixture's own candidate list. The measured consequence: 57 distinct triples, of which 42 are LABEL_CHECK_NEEDED invented by the fixture; the visible 10 / 10 / 9 is the portfolioState of the 29 demo opportunity cards. · Two screens plus a cross-cutting relationship graph. PORTAFOGLIO (portale.html markup 1397-1424, logic 3026-3047) is already clean: it lists AM.products (166 = 163 real registrations + BUDGE/EXELGROW/PARLEAF which are catalog-only) in two deliberately separate tabs, CATALOGO COMMERCIALE (44 catalog items) and UNIVERSO REGOLATORIO (163 registrations), filtered by categoryLabel (ERBICIDI 91 / FUNGICIDI 46 / INSETTICIDI 23 / SPECIALI 6). PRODUCT INTELLIGENCE (markup 1339-1395, logic 2999-3023) shows one product's identity plus three relationship cards (verified / check-needed / not-confirmed) and a separate \"VEDI OPPORTUNITÀ COLLEGATE\" CTA. The identity facts are real (IG.PRODUCTS: name, reg, holder, ai, form, regCat, line, status, expiry, hrac/frac/irac, labelUrl — 163/163 populated). The RELATIONSHIPS are not: italy-app-model.js line 102 builds every product link by walking D.CASES[].productLinks, so which crop x issue x product triples exist at all is decided by a demo fixture (29 demo cases, 80 links). window.ITALY_LABEL_VERDICTS — the real 163-label audit — is loaded but italy-app-model.js never reads it; only italy-demo-data.js line 281 calls LV.verdict() to GRADE the fixture's own candidate list. The measured consequence: 57 distinct triples, of which 42 are LABEL_CHECK_NEEDED invented by the fixture; the visible 10 / 10 / 9 is the portfolioState of the 29 demo opportunity cards.",
       "why_here": "E uma das ferramentas que a pessoa abre no portal. Existe para responder uma pergunta de negocio — e so vale a resposta se der para dizer de onde veio cada numero.",
       "files": [
         "italia-portale/audit/blocks/portfolio.spec.json",
@@ -7861,7 +7926,9 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "C-PORTAL-DADOS"
+      ],
       "outbound": [],
       "de_onde_vem": "MISTURA",
       "ligado_nela": [
@@ -7949,7 +8016,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 12015,
+      "x": 12720,
       "y": 1326
     },
     {
@@ -7963,7 +8030,9 @@
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
-      "what": "Today the Science screen shows 13 \"classified themes\" (10 from D.SCI_THEMES + 3 from ITALY_SCIENCE.EXTRA_THEMES), a 36-row \"RECENT RESEARCH\" table, a 14-name \"RESEARCHERS\" panel, a 12-row \"INSTITUTIONS · 12\" panel, a GIRE resistance block, and a per-theme detail view (isTheme, markup 2157-2184). Only two of those blocks stand on real ingested data: the GIRE resistance block (portale.html 3244-3300 ...",
+      "what": "«Intelligence Scientifica» — em portugues, Inteligencia Cientifica. Bebe de 4 camada(s) de dado: 1 de dado real, com procedencia; 1 escrita a mao, para a tela nao ficar vazia; 2 que este mapa ainda nao sabe classificar — NAO SEI se e real ou escrita a mao. O contrato cita estes tamanhos de dado real por baixo: 88 registos. Como ha real e escrito a mao na mesma tela, e a tela nao diz qual e qual, quem olha nao consegue separar os dois.",
+      "nome_em_portugues": "Inteligencia Cientifica",
+      "texto_do_contrato": "Today the Science screen shows 13 \"classified themes\" (10 from D.SCI_THEMES + 3 from ITALY_SCIENCE.EXTRA_THEMES), a 36-row \"RECENT RESEARCH\" table, a 14-name \"RESEARCHERS\" panel, a 12-row \"INSTITUTIONS · 12\" panel, a GIRE resistance block, and a per-theme detail view (isTheme, markup 2157-2184). Only two of those blocks stand on real ingested data: the GIRE resistance block (portale.html 3244-3300 reads window.ITALY_INGEST.RESISTANCE directly, 34 cases, every field 34/34 populated) and 12 of the 36 research rows (which come from window.ITALY_REAL.SCIENCE, an older hand-curated fixture, not from IG). The other 24 research rows are procedurally generated in italy-demo-data.js:385-389 with seed() — fabricated year, institution, study type, descriptor, \"why\" prose and study location. The 12 institutions are a hardcoded name array (italy-demo-data.js:370) whose record counts are counted over those fabricated rows. The real backing is IG.THEMES (5), IG.SCIENCE (88), IG.RESEARCHERS (60) and IG.RESISTANCE (34); italy-app-model.js already exposes scienceRecords/researchers/resistance but three of its science field mappings are dead (measured 0/88 and 0/60) because it reads demo-era key names that the real schema does not have.",
       "why_here": "E uma das ferramentas que a pessoa abre no portal. Existe para responder uma pergunta de negocio — e so vale a resposta se der para dizer de onde veio cada numero.",
       "files": [
         "italia-portale/audit/blocks/science.spec.json"
@@ -7986,7 +8055,10 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "C-ARTEFACTO-V21",
+        "C-PORTAL-DADOS"
+      ],
       "outbound": [],
       "de_onde_vem": "MISTURA",
       "ligado_nela": [
@@ -8068,7 +8140,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 11600,
+      "x": 12305,
       "y": 1326
     },
     {
@@ -8082,7 +8154,9 @@
       "status": "UNKNOWN",
       "ui_status": "gray",
       "proof": "document",
-      "what": "NAO SEI o que esta tela mostra.",
+      "what": "«Registro delle fonti» — em portugues, Registo das fontes. NAO SEI de onde vem o que ela mostra: nao ha contrato de bloco escrito para esta tela, e sem isso nao da para dizer que dado esta por baixo dos numeros que ela poe no ecra.",
+      "nome_em_portugues": "Registo das fontes",
+      "texto_do_contrato": "",
       "why_here": "E uma das ferramentas que a pessoa abre no portal. Existe para responder uma pergunta de negocio — e so vale a resposta se der para dizer de onde veio cada numero.",
       "files": [
         "italia-portale/client/portale.html"
@@ -8112,7 +8186,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 12015,
+      "x": 12720,
       "y": 1648
     },
     {
@@ -8126,7 +8200,9 @@
       "status": "UNKNOWN",
       "ui_status": "gray",
       "proof": "document",
-      "what": "NAO SEI o que esta tela mostra.",
+      "what": "«Voci dal Campo» — em portugues, Vozes do Campo. NAO SEI de onde vem o que ela mostra: nao ha contrato de bloco escrito para esta tela, e sem isso nao da para dizer que dado esta por baixo dos numeros que ela poe no ecra.",
+      "nome_em_portugues": "Vozes do Campo",
+      "texto_do_contrato": "",
       "why_here": "E uma das ferramentas que a pessoa abre no portal. Existe para responder uma pergunta de negocio — e so vale a resposta se der para dizer de onde veio cada numero.",
       "files": [
         "italia-portale/client/portale.html"
@@ -8159,7 +8235,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 11600,
+      "x": 12305,
       "y": 1004
     },
     {
@@ -8173,7 +8249,9 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "document",
-      "what": "Two screens live here. (A) view 'windows' (markup 535-751) is NOT a window list at all — it is the CROP CALENDAR: a rolling month timeline whose rows, dates, phenology bands, hectares, per-region date offsets and observed-stage dots ALL come from the demo fixtures D.CROP_CAL (8 crops, 40 crop x region rows) and D.OBSERVED (10 rows). The canonical contract is never consulted on this screen. (B) vie ...",
+      "what": "«Finestre Colturali» — em portugues, Janelas de Cultura. Bebe de 3 camada(s) de dado: 1 de dado real, com procedencia; 2 de dado real com a lei da casa aplicada. O contrato cita estes tamanhos de dado real por baixo: 29, 7 registos.",
+      "nome_em_portugues": "Janelas de Cultura",
+      "texto_do_contrato": "Two screens live here. (A) view 'windows' (markup 535-751) is NOT a window list at all — it is the CROP CALENDAR: a rolling month timeline whose rows, dates, phenology bands, hectares, per-region date offsets and observed-stage dots ALL come from the demo fixtures D.CROP_CAL (8 crops, 40 crop x region rows) and D.OBSERVED (10 rows). The canonical contract is never consulted on this screen. (B) view 'window' (markup 752-810) is the window detail, fed by D.WINDOWS[29], a fixture that wraps each canonical window in ~20 decorated fields (prep, bucket, early, why, readiness, ladder, scale, kind) that have no upstream equivalent. Measured reality: CANONICAL supplies 29 windows with crop/issue/region/windowType/status/statusReason/dateState/dateConfidence 29/29, START_DATE and END_DATE 24/29, and NOTHING else — CROP_STAGE 0/29, ISSUE_STAGE 0/29, GENERATION_OR_STAGE 0/29, LABEL_TRIGGER 0/29, REGULATORY_TIMING 0/29, PRODUCT_MATCHES empty 29/29, SOURCE_IDS empty 29/29. IG.CROP_WINDOWS[7] carries the only real regulatory acts (5 grapevine Flavescenza rows) and the only two real observed stages (both Modena province). ITALY_LABEL_VERDICTS supplies 12 VERIFIED crop x issue x product tuples covering 11 of 29 windows. Everything else on both screens is fixture. · Two screens live here. (A) view 'windows' (markup 535-751) is NOT a window list at all — it is the CROP CALENDAR: a rolling month timeline whose rows, dates, phenology bands, hectares, per-region date offsets and observed-stage dots ALL come from the demo fixtures D.CROP_CAL (8 crops, 40 crop x region rows) and D.OBSERVED (10 rows). The canonical contract is never consulted on this screen. (B) view 'window' (markup 752-810) is the window detail, fed by D.WINDOWS[29], a fixture that wraps each canonical window in ~20 decorated fields (prep, bucket, early, why, readiness, ladder, scale, kind) that have no upstream equivalent. Measured reality: CANONICAL supplies 29 windows with crop/issue/region/windowType/status/statusReason/dateState/dateConfidence 29/29, START_DATE and END_DATE 24/29, and NOTHING else — CROP_STAGE 0/29, ISSUE_STAGE 0/29, GENERATION_OR_STAGE 0/29, LABEL_TRIGGER 0/29, REGULATORY_TIMING 0/29, PRODUCT_MATCHES empty 29/29, SOURCE_IDS empty 29/29. IG.CROP_WINDOWS[7] carries the only real regulatory acts (5 grapevine Flavescenza rows) and the only two real observed stages (both Modena province). ITALY_LABEL_VERDICTS supplies 12 VERIFIED crop x issue x product tuples covering 11 of 29 windows. Everything else on both screens is fixture.",
       "why_here": "E uma das ferramentas que a pessoa abre no portal. Existe para responder uma pergunta de negocio — e so vale a resposta se der para dizer de onde veio cada numero.",
       "files": [
         "italia-portale/audit/blocks/calendar.spec.json",
@@ -8197,7 +8275,10 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "C-ARTEFACTO-V21",
+        "C-PORTAL-DADOS"
+      ],
       "outbound": [],
       "de_onde_vem": "REAL",
       "ligado_nela": [
@@ -8274,7 +8355,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 11600,
+      "x": 12305,
       "y": 682
     },
     {
@@ -8387,7 +8468,7 @@
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
-      "x": 7950,
+      "x": 8655,
       "y": 1970
     },
     {
@@ -8484,7 +8565,7 @@
         "ITALIA": 59
       },
       "pais": "TRANSVERSAL",
-      "x": 7245,
+      "x": 7950,
       "y": 360
     },
     {
@@ -8549,7 +8630,7 @@
         "ITALIA": 10
       },
       "pais": "TRANSVERSAL",
-      "x": 6830,
+      "x": 7535,
       "y": 682
     },
     {
@@ -8596,7 +8677,7 @@
         "ITALIA": 5
       },
       "pais": "TRANSVERSAL",
-      "x": 7245,
+      "x": 7950,
       "y": 682
     },
     {
@@ -8648,7 +8729,7 @@
         "ITALIA": 16
       },
       "pais": "TRANSVERSAL",
-      "x": 6830,
+      "x": 7535,
       "y": 1004
     },
     {
@@ -8705,7 +8786,7 @@
         "ITALIA": 8
       },
       "pais": "TRANSVERSAL",
-      "x": 7245,
+      "x": 7950,
       "y": 1004
     },
     {
@@ -8767,7 +8848,7 @@
         "EUROPA": 1
       },
       "pais": "TRANSVERSAL",
-      "x": 6830,
+      "x": 7535,
       "y": 1326
     },
     {
@@ -8816,8 +8897,231 @@
         "ITALIA": 14
       },
       "pais": "TRANSVERSAL",
-      "x": 7245,
+      "x": 7950,
       "y": 1326
+    },
+    {
+      "id": "V-FACEBOOK",
+      "name": "FACEBOOK",
+      "kind": "veiculo",
+      "icon": "◈",
+      "territory": "Z-VEICULOS",
+      "family": "F-COLETA",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "proof": "git-measurement",
+      "what": "A pagina publica da marca, ainda viva em varios mercados agricolas. Hoje 2 acao(oes) da coleta passam por aqui.",
+      "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
+      "files": [],
+      "facts": [
+        "acoes da coleta que passam por aqui: 2",
+        "prova: coleta/comunicacao_classificar.py:55",
+        "prova: coleta/instagram_janela.py:127"
+      ],
+      "status_reason": "2 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "evidence_text": "",
+      "departments": [],
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "C-COLETA-INSTAGRAM",
+        "C-COLETA-PUBLICA"
+      ],
+      "outbound": [],
+      "file_count": 0,
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 2475,
+      "y": 360
+    },
+    {
+      "id": "V-HTTP",
+      "name": "PEDIDO HTTP DIRETO",
+      "kind": "veiculo",
+      "icon": "◈",
+      "territory": "Z-VEICULOS",
+      "family": "F-COLETA",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "proof": "git-measurement",
+      "what": "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro. Hoje 5 acao(oes) da coleta passam por aqui.",
+      "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
+      "files": [],
+      "facts": [
+        "acoes da coleta que passam por aqui: 5",
+        "prova: coleta/youtube_janela.py:61",
+        "prova: coleta/instagram_janela.py:440",
+        "prova: coleta/agrifood_ue.py:29",
+        "prova: coleta/corpus_pesquisador.py:92",
+        "prova: coleta/mapa_regfi.py:42"
+      ],
+      "status_reason": "5 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "evidence_text": "",
+      "departments": [],
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "C-COLETA-INSTAGRAM",
+        "C-COLETA-YOUTUBE",
+        "C-CORPUS",
+        "C-FONTES-EU",
+        "C-ROTULOS"
+      ],
+      "outbound": [],
+      "file_count": 0,
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 2475,
+      "y": 682
+    },
+    {
+      "id": "V-INSTAGRAM",
+      "name": "INSTAGRAM",
+      "kind": "veiculo",
+      "icon": "◈",
+      "territory": "Z-VEICULOS",
+      "family": "F-COLETA",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "proof": "git-measurement",
+      "what": "A pagina publica: o que a marca publica para quem a segue. Hoje 5 acao(oes) da coleta passam por aqui.",
+      "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
+      "files": [],
+      "facts": [
+        "acoes da coleta que passam por aqui: 5",
+        "prova: coleta/youtube_janela.py:16",
+        "prova: coleta/comunicacao_classificar.py:55",
+        "prova: coleta/instagram_coleta.py:3",
+        "prova: coleta/coletor.py:54",
+        "prova: coleta/speaker_identidade.py:171"
+      ],
+      "status_reason": "5 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "evidence_text": "",
+      "departments": [],
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "C-COLETA-BASE",
+        "C-COLETA-INSTAGRAM",
+        "C-COLETA-PUBLICA",
+        "C-COLETA-YOUTUBE",
+        "C-CORPUS"
+      ],
+      "outbound": [],
+      "file_count": 0,
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 2475,
+      "y": 1004
+    },
+    {
+      "id": "V-LINKEDIN",
+      "name": "LINKEDIN",
+      "kind": "veiculo",
+      "icon": "◈",
+      "territory": "Z-VEICULOS",
+      "family": "F-COLETA",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "proof": "git-measurement",
+      "what": "A pagina de empresa e a das pessoas: contratacao, evento, anuncio. Hoje 3 acao(oes) da coleta passam por aqui.",
+      "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
+      "files": [],
+      "facts": [
+        "acoes da coleta que passam por aqui: 3",
+        "prova: coleta/comunicacao_classificar.py:55",
+        "prova: coleta/filas.py:82",
+        "prova: coleta/corpus_pesquisador.py:32"
+      ],
+      "status_reason": "3 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "evidence_text": "",
+      "departments": [],
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "C-COLETA-BASE",
+        "C-COLETA-PUBLICA",
+        "C-CORPUS"
+      ],
+      "outbound": [],
+      "file_count": 0,
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 2475,
+      "y": 1326
+    },
+    {
+      "id": "V-YOUTUBE",
+      "name": "YOUTUBE",
+      "kind": "veiculo",
+      "icon": "◈",
+      "territory": "Z-VEICULOS",
+      "family": "F-COLETA",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "proof": "git-measurement",
+      "what": "Video publico: o que o canal do concorrente e o do sector poem no ar. Hoje 4 acao(oes) da coleta passam por aqui.",
+      "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
+      "files": [],
+      "facts": [
+        "acoes da coleta que passam por aqui: 4",
+        "prova: coleta/youtube_janela.py:3",
+        "prova: coleta/comunicacao_classificar.py:55",
+        "prova: coleta/filas.py:83",
+        "prova: coleta/corpus_pesquisador.py:32"
+      ],
+      "status_reason": "4 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "evidence_text": "",
+      "departments": [],
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "C-COLETA-BASE",
+        "C-COLETA-PUBLICA",
+        "C-COLETA-YOUTUBE",
+        "C-CORPUS"
+      ],
+      "outbound": [],
+      "file_count": 0,
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "x": 2475,
+      "y": 1648
     },
     {
       "id": "lineage_consumer",
@@ -8826,7 +9130,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 75f74b67e1ec83b09cdaea0f3bf3cdba2bb043c2"
+        "HEAD f39c4169d27f0aa976f638d1302fba9799f0487c"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -8854,7 +9158,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 5420,
+      "x": 6125,
       "y": 360
     },
     {
@@ -8894,7 +9198,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 5420,
+      "x": 6125,
       "y": 682
     },
     {
@@ -8933,7 +9237,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 5420,
+      "x": 6125,
       "y": 1004
     },
     {
@@ -8980,7 +9284,7 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "x": 5420,
+      "x": 6125,
       "y": 1326
     }
   ],
@@ -9313,7 +9617,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 899,
+          "line": 1066,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ]
@@ -10511,6 +10815,54 @@
       ]
     },
     {
+      "from": "C-COLETA-BASE",
+      "to": "V-INSTAGRAM",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«O motor de buscar» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/coletor.py",
+          "line": 54,
+          "snippet": "`build`      → `&build=`. Os quatro atores oficiais de Instagram foram reconstruídos no"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "V-LINKEDIN",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«O motor de buscar» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/filas.py",
+          "line": 82,
+          "snippet": "'PUBLIC_LINKEDIN_STATUS': 'NOT_TESTED',"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "V-YOUTUBE",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«O motor de buscar» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/filas.py",
+          "line": 83,
+          "snippet": "'PUBLIC_YOUTUBE_STATUS': 'NOT_TESTED',"
+        }
+      ]
+    },
+    {
       "from": "C-COLETA-INSTAGRAM",
       "to": "C-APIFY-POOL",
       "type": "IMPORTS",
@@ -10617,6 +10969,54 @@
       ]
     },
     {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "V-FACEBOOK",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Colher o Instagram» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 127,
+          "snippet": ".find(h => h && /^https?:/.test(h) && !/instagram\\.com|facebook\\.com/.test(h));"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "V-HTTP",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Colher o Instagram» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 440,
+          "snippet": "import urllib.request"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "V-INSTAGRAM",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Colher o Instagram» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 3,
+          "snippet": "INSTAGRAM — o orquestrador. Uma fase por comando, um teto por fase, um manifesto por fase."
+        }
+      ]
+    },
+    {
       "from": "C-COLETA-PUBLICA",
       "to": "C-APIFY-POOL",
       "type": "IMPORTS",
@@ -10654,6 +11054,70 @@
       ]
     },
     {
+      "from": "C-COLETA-PUBLICA",
+      "to": "V-FACEBOOK",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Colher o que o concorrente publica» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_classificar.py",
+          "line": 55,
+          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-PUBLICA",
+      "to": "V-INSTAGRAM",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Colher o que o concorrente publica» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_classificar.py",
+          "line": 55,
+          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-PUBLICA",
+      "to": "V-LINKEDIN",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Colher o que o concorrente publica» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_classificar.py",
+          "line": 55,
+          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-PUBLICA",
+      "to": "V-YOUTUBE",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Colher o que o concorrente publica» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_classificar.py",
+          "line": 55,
+          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
+        }
+      ]
+    },
+    {
       "from": "C-COLETA-YOUTUBE",
       "to": "C-NAVEGADOR",
       "type": "IMPORTS",
@@ -10682,6 +11146,54 @@
           "file": "coleta/youtube_relevancia.py",
           "line": 75,
           "snippet": "import sensor_medir as sm        # noqa: E402  — dono do léxico multilíngue desta casa"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-YOUTUBE",
+      "to": "V-HTTP",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Colher o YouTube» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 61,
+          "snippet": "import urllib.request"
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-YOUTUBE",
+      "to": "V-INSTAGRAM",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Colher o YouTube» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 16,
+          "snippet": "com `PLATFORM = YOUTUBE`. São 7 — duas a mais que as 5 do Instagram."
+        }
+      ]
+    },
+    {
+      "from": "C-COLETA-YOUTUBE",
+      "to": "V-YOUTUBE",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Colher o YouTube» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 3,
+          "snippet": "YOUTUBE PELA JANELA — tudo o que a rota pública entrega antes de gastar um centavo."
         }
       ]
     },
@@ -10734,6 +11246,70 @@
           "file": "regras/sensor_medir.py",
           "line": 376,
           "snippet": "canal = _ler('CANAL-IDENTIDADE.json') or {'ITEMS': []}"
+        }
+      ]
+    },
+    {
+      "from": "C-CORPUS",
+      "to": "V-HTTP",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Montar o corpus de fala e de ciencia» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/corpus_pesquisador.py",
+          "line": 92,
+          "snippet": "import urllib.request"
+        }
+      ]
+    },
+    {
+      "from": "C-CORPUS",
+      "to": "V-INSTAGRAM",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Montar o corpus de fala e de ciencia» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/speaker_identidade.py",
+          "line": 171,
+          "snippet": "('instagram.com', 'INSTAGRAM'),"
+        }
+      ]
+    },
+    {
+      "from": "C-CORPUS",
+      "to": "V-LINKEDIN",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Montar o corpus de fala e de ciencia» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/corpus_pesquisador.py",
+          "line": 32,
+          "snippet": "Apify continua autorizada para YouTube e LinkedIn, mas **não neste lote**. O motivo é"
+        }
+      ]
+    },
+    {
+      "from": "C-CORPUS",
+      "to": "V-YOUTUBE",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Montar o corpus de fala e de ciencia» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/corpus_pesquisador.py",
+          "line": 32,
+          "snippet": "Apify continua autorizada para YouTube e LinkedIn, mas **não neste lote**. O motivo é"
         }
       ]
     },
@@ -10918,6 +11494,22 @@
           "file": "coleta/regulatorio_importar.py",
           "line": 186,
           "snippet": "open(SAIDA, 'w')  # SAIDA = supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql"
+        }
+      ]
+    },
+    {
+      "from": "C-FONTES-EU",
+      "to": "V-HTTP",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Ler as bases oficiais da Europa» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/agrifood_ue.py",
+          "line": 29,
+          "snippet": "import urllib.request"
         }
       ]
     },
@@ -11128,7 +11720,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 921,
+          "line": 1088,
           "snippet": "\"data/samples/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ]
@@ -11557,17 +12149,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1122,
+          "line": 1289,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1122,
+          "line": 1289,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1123,
+          "line": 1290,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -11657,12 +12249,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1438,
+          "line": 1624,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1438,
+          "line": 1624,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]
@@ -13011,6 +13603,22 @@
           "file": "motor/pacote_convergencia.py",
           "line": 78,
           "snippet": "'data/raw/IT-ROTULOS/_MANIFESTO.json'],"
+        }
+      ]
+    },
+    {
+      "from": "C-ROTULOS",
+      "to": "V-HTTP",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "«Baixar e ler os rotulos oficiais» chama este canal no proprio codigo.",
+      "evidence": [
+        {
+          "file": "coleta/mapa_regfi.py",
+          "line": 42,
+          "snippet": "import urllib.request"
         }
       ]
     },
@@ -14712,13 +15320,13 @@
   "UNCLAIMED_FILES_COUNT": 639,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 86,
-    "components_proven": 53,
-    "components_pending": 29,
+    "components": 91,
+    "components_proven": 60,
+    "components_pending": 27,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 279,
-    "edges_proven": 279,
+    "edges": 298,
+    "edges_proven": 298,
     "edges_unknown": 0,
     "business_edges": 4,
     "files_tracked": 1131,
