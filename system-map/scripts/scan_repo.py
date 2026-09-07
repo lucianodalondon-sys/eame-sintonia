@@ -77,7 +77,16 @@ DIRS_DE_CODIGO = tuple(g + "/" for g in GAVETAS) + (
 # o que muda a saida da corrida seguinte — e o censo nunca chega a um ponto fixo.
 # O ficheiro DECLARADO fica: esse e escrito por gente, e uma entrada, nao uma saida.
 IGNORAR = re.compile(
-    r"^system-map/data/\w+\.generated\.json$|"
+    # Repare no HIFEN dentro dos parenteses retos. Antes estava so `\w`, que nao
+    # o inclui — e os dois ficheiros gerados mais recentes chamam-se
+    # `censo-da-coleta.generated.json` e `pente-fino.generated.json`. Escapavam
+    # por causa do hifen, e o mapa voltava a medir-se a si mesmo.
+    #
+    # E so falhava no CI, o que tornou a caca mais dificil: aqui o validador nao
+    # corre o censo, la corre — e por isso o SHA daqueles dois mudava no meio da
+    # verificacao. Uma avaria que so aparece numa maquina custa tres tentativas
+    # a encontrar.
+    r"^system-map/data/[\w-]+\.generated\.json$|"
     r"^italia-portale/client/system-map/|"
     r"(^|/)(vendor|node_modules|__pycache__|\.venv)/|"
     r"\.(png|jpg|jpeg|gif|pdf|otf|ttf|woff2?|gz|zip|ase)$"

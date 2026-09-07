@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "dc2f2ca2c009490988b48d0ee50d48b43b2bbd27",
+    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -17,10 +17,12 @@
     {
       "ficheiro": "pedido/orquestrador.py",
       "gaveta": "pedido",
-      "linhas": 196,
+      "linhas": 322,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
-      "veiculos": [],
+      "veiculos": [
+        "YOUTUBE"
+      ],
       "ferramentas": [],
       "descarta": true,
       "escreve_o_motivo_do_descarte": true,
@@ -28,7 +30,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
-      "no_ci": false
+      "no_ci": true
     },
     {
       "ficheiro": "pedido/pedido.py",
@@ -52,7 +54,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 221,
+      "linhas": 235,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -389,7 +391,6 @@
         "coleta/instagram_coleta.py",
         "ferramentas/apify_contrato.py",
         "ferramentas/apify_recuperar.py",
-        "regras/cicatrizes_brasil.py",
         "regras/sensor_coleta.py"
       ],
       "no_ci": true
@@ -649,9 +650,7 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [
-        "regras/cicatrizes_brasil.py"
-      ],
+      "chamado_por": [],
       "no_ci": false
     },
     {
@@ -1348,26 +1347,6 @@
       "no_ci": true
     },
     {
-      "ficheiro": "regras/cicatrizes_brasil.py",
-      "gaveta": "regras",
-      "linhas": 612,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [
-        "APIFY (rota paga)"
-      ],
-      "descarta": true,
-      "escreve_o_motivo_do_descarte": true,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": true,
-      "chamado_por": [
-        "regras/portoes_eame.py"
-      ],
-      "no_ci": false
-    },
-    {
       "ficheiro": "regras/comunicacao_identidade.py",
       "gaveta": "regras",
       "linhas": 659,
@@ -1436,27 +1415,6 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
-      "no_ci": false
-    },
-    {
-      "ficheiro": "regras/fato_local.py",
-      "gaveta": "regras",
-      "linhas": 508,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [
-        "LINKEDIN"
-      ],
-      "ferramentas": [],
-      "descarta": true,
-      "escreve_o_motivo_do_descarte": true,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": false,
-      "chamado_por": [
-        "pedido/receitas.py",
-        "regras/lugar_do_fato.py"
-      ],
       "no_ci": false
     },
     {
@@ -1547,72 +1505,6 @@
       "no_ci": false
     },
     {
-      "ficheiro": "regras/lugar_do_fato.py",
-      "gaveta": "regras",
-      "linhas": 201,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": true,
-      "chamado_por": [
-        "regras/fato_local.py"
-      ],
-      "no_ci": false
-    },
-    {
-      "ficheiro": "regras/padrao_da_coleta.py",
-      "gaveta": "regras",
-      "linhas": 342,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": true,
-      "escreve_o_motivo_do_descarte": true,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": true,
-      "chamado_por": [],
-      "no_ci": true
-    },
-    {
-      "ficheiro": "regras/portao.py",
-      "gaveta": "regras",
-      "linhas": 368,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": false,
-      "chamado_por": [],
-      "no_ci": false
-    },
-    {
-      "ficheiro": "regras/portoes_eame.py",
-      "gaveta": "regras",
-      "linhas": 392,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": true,
-      "chamado_por": [],
-      "no_ci": false
-    },
-    {
       "ficheiro": "regras/proveniencia.py",
       "gaveta": "regras",
       "linhas": 391,
@@ -1631,7 +1523,6 @@
         "coleta/coletor.py",
         "coleta/instagram_janela.py",
         "pedido/receitas.py",
-        "regras/portao.py",
         "regras/sensor_coleta.py"
       ],
       "no_ci": false
@@ -1703,48 +1594,9 @@
       "no_ci": false
     },
     {
-      "ficheiro": "regras/source_health.py",
-      "gaveta": "regras",
-      "linhas": 162,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": false,
-      "chamado_por": [],
-      "no_ci": false
-    },
-    {
-      "ficheiro": "regras/voz.py",
-      "gaveta": "regras",
-      "linhas": 463,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [
-        "LINKEDIN",
-        "YOUTUBE"
-      ],
-      "ferramentas": [
-        "TRANSCRICAO"
-      ],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": false,
-      "chamado_por": [
-        "regras/portao.py"
-      ],
-      "no_ci": false
-    },
-    {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 223,
+      "linhas": 262,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1759,7 +1611,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "pedido/orquestrador.py"
+      ],
       "no_ci": false
     },
     {
@@ -1862,13 +1716,13 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 96,
-    "pontos_de_entrada": 83,
+    "ficheiros_de_codigo": 88,
+    "pontos_de_entrada": 75,
     "executores_que_saem_para_fora": 18,
-    "sem_chamador_e_fora_do_ci": 48,
+    "sem_chamador_e_fora_do_ci": 44,
     "gravam_no_banco": 1,
-    "escrevem_ficheiro": 68,
-    "deitam_fora_alguma_coisa": 22,
+    "escrevem_ficheiro": 64,
+    "deitam_fora_alguma_coisa": 19,
     "deitam_fora_SEM_escrever_o_motivo": 1,
     "ficheiros_com_decisao_escondida": 2,
     "decisoes_escondidas_ao_todo": 2
@@ -1935,22 +1789,14 @@
       "coleta/universo_ciencia_it.py",
       "coleta/youtube_janela.py",
       "coleta/youtube_relevancia.py",
-      "regras/cicatrizes_brasil.py",
       "regras/comunicacao_identidade.py",
       "regras/comunicacao_lote.py",
       "regras/comunicacao_universo.py",
-      "regras/fato_local.py",
       "regras/italy_source_health.mjs",
-      "regras/lugar_do_fato.py",
-      "regras/padrao_da_coleta.py",
-      "regras/portao.py",
-      "regras/portoes_eame.py",
       "regras/proveniencia.py",
       "regras/rotulos_censo.py",
       "regras/sensor_coleta.py",
       "regras/sensor_medir.py",
-      "regras/source_health.py",
-      "regras/voz.py",
       "admissao/admissao.py",
       "guarda/catalogo_importar.py",
       "guarda/es/adama_es_gate.py",
@@ -1980,7 +1826,6 @@
       "regras/sensor_coleta.py"
     ],
     "orfaos": [
-      "pedido/orquestrador.py",
       "candidatas/fonte_nova.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
@@ -1999,6 +1844,7 @@
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
       "coleta/agrifood_ue.py",
+      "coleta/coleta_checkpoint.py",
       "coleta/cruzar_regua_rotulo.py",
       "coleta/ephy.sh",
       "coleta/es/corpus_es.py",
@@ -2019,11 +1865,7 @@
       "regras/comunicacao_universo.py",
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
-      "regras/portao.py",
-      "regras/portoes_eame.py",
       "regras/rotulos_censo.py",
-      "regras/source_health.py",
-      "admissao/admissao.py",
       "guarda/es/adama_es_gate.py",
       "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",

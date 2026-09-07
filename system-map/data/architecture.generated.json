@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "8d9ab3ba98d6425e36ebc87118d71e7c1d86ef0b",
-    "GENERATED_AT": "2026-09-07T17:49:16-03:00"
+    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
+    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
   },
   "FILES": [
     {
@@ -7702,21 +7702,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "81761e32c0e940bad9f794e2c8ce222e84e0ffe7",
-      "ext": ".json",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "system-map/data/censo-da-coleta.generated.json",
-      "sha": "3551a25c73be55060024928c17e36d8cff95c145",
-      "ext": ".json",
-      "readable": false,
-      "code_dir": true
-    },
-    {
-      "path": "system-map/data/pente-fino.generated.json",
-      "sha": "902c511cab9f0bbf45529f5078f433ee805e7cf9",
+      "sha": "62c326bb84d16cafb421192987e741470b036f0e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7758,7 +7744,7 @@
     },
     {
       "path": "system-map/scripts/scan_repo.py",
-      "sha": "66393653eede214da8ff02c85dbdfe023cbc8953",
+      "sha": "2721f4eace153fcaf95ff45e0f6633247bb24cb3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22032,17 +22018,6 @@
       }
     },
     {
-      "from_file": "system-map/scripts/censo_da_coleta.py",
-      "to_file": "system-map/data/censo-da-coleta.generated.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/scripts/censo_da_coleta.py",
-        "line": 49,
-        "snippet": "SAIDA = RAIZ / \"system-map\" / \"data\" / \"censo-da-coleta.generated.json\""
-      }
-    },
-    {
       "from_file": "system-map/scripts/generate_system_map.py",
       "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "type": "READS",
@@ -22197,17 +22172,6 @@
       }
     },
     {
-      "from_file": "system-map/scripts/pente_fino_da_coleta.py",
-      "to_file": "system-map/data/pente-fino.generated.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/scripts/pente_fino_da_coleta.py",
-        "line": 38,
-        "snippet": "SAIDA = RAIZ / \"system-map\" / \"data\" / \"pente-fino.generated.json\""
-      }
-    },
-    {
       "from_file": "system-map/scripts/scan_casco.py",
       "to_file": "italia-portale/client/italy-i18n.js",
       "type": "READS",
@@ -22258,7 +22222,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_repo.py",
-        "line": 376,
+        "line": 385,
         "snippet": "\"\"\"`'PUBLIC-COMM-FIRST-BATCH-EAME.json'` -> o unico ficheiro com esse nome."
       }
     },
@@ -22269,7 +22233,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_repo.py",
-        "line": 386,
+        "line": 395,
         "snippet": "\"\"\"`<script src=\"italy-v21.js\">` e um caminho relativo a propria pasta."
       }
     },
@@ -22280,7 +22244,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_repo.py",
-        "line": 553,
+        "line": 562,
         "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
       }
     },
@@ -25235,10 +25199,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1144,
+    "files_tracked": 1142,
     "files_readable": 388,
-    "files_code_dir": 435,
-    "file_edges": 1531,
+    "files_code_dir": 433,
+    "file_edges": 1529,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
