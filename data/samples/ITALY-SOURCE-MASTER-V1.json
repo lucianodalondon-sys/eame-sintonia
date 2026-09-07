@@ -1930,15 +1930,15 @@
    "T12": 1
   },
   "tested_this_mission": 54,
-  "GREEN": 9,
+  "GREEN": 10,
   "YELLOW": 5,
   "RED": 0,
   "NOT_TESTED": 38,
-  "note": "ATUALIZADO 2026-09-07: 4 GREEN, 2 YELLOW, 0 RED, 1 NAO SEI com amostra. O texto antigo (nenhum veredito emitido) valia so ate a Fase C rodar.",
+  "note": "CALCULADO por scripts/italy_accounting.mjs. O texto anterior desta chave estava desatualizado e foi substituido. Placar sobre as fontes ANALYTICALLY_CLASSIFIED; estado de porta nao entra aqui.",
   "amostras_preservadas": 14,
-  "NAO_SEI_com_amostra": 2,
-  "nota_de_contagem": "placar sobre as 16 fontes com amostra e classificacao. As outras 38 tiveram a porta medida e NAO tem veredito analitico — ficam ROUTE_PROBED.",
-  "verified_by": "scripts/italy_contract_test.mjs — rodado apos a rodada browser"
+  "nota_de_contagem": "placar sobre as 16 fontes com amostra e classificacao.",
+  "verified_by": "scripts/italy_accounting.mjs — CALCULADO dos manifestos, nunca digitado a mao",
+  "NAO_SEI": 1
  },
  "canonical_artifacts_touched": {
   "modified": [],
@@ -2072,26 +2072,20 @@
    "o_que_significa": "porta medida. Subiu de 51 para 54: as tres sem URL ganharam endereco nesta rodada."
   },
   "SAMPLE_CAPTURED": {
-   "n": 16,
-   "o_que_significa": "documento real obtido alem da homepage",
-   "detalhe": "9 da rodada anterior + 7 novas com RAW + 2 extratos de navegador que NAO contam como RAW"
+   "n": 16
   },
   "RAW_PRESERVED": {
-   "n": 14,
-   "o_que_significa": "bytes no disco com MIME/BYTES/SHA256 conferido contra o arquivo",
-   "detalhe": "7 da rodada anterior + 7 novas"
+   "n": 14
   },
   "BROWSER_RENDERED_EXTRACT": {
    "n": 2,
    "quais": [
-    "IT-T9-008 ADAMA",
-    "IT-T9-002 Bayer"
-   ],
-   "o_que_significa": "conteudo lido do DOM renderizado; os bytes servidos NAO puderam ser guardados porque o site recusa cliente sem navegador. NAO equivale a RAW_PRESERVED."
+    "IT-T9-008",
+    "IT-T9-002"
+   ]
   },
   "ANALYTICALLY_CLASSIFIED": {
-   "n": 16,
-   "o_que_significa": "tem veredito, prioridade, recorrencia, o que prova e o que NAO prova"
+   "n": 16
   },
   "NUNCA_TOCADAS": {
    "n": 0,
@@ -2230,7 +2224,8 @@
    "AGROCLIMATIC_SIGNAL != PEST_OCCURRENCE — aplicada a ARPAV e ao SIAS",
    "COMPANY_CLAIM != REGULATORY_FACT — aplicada a ADAMA e a Bayer",
    "ACCESS_OK != SOURCE_ANALYTICALLY_USEFUL — por isso IT-T3-008 ficou YELLOW: o PDF esta preservado, mas a secao fitossanitaria nao foi lida"
-  ]
+  ],
+  "CORRECAO_MASAF": "publiquei 269 e depois 264 organizacoes. Ambos ERRADOS. O certo e 272 (264 OP + 8 AOP), 0 duplicados — meu regex nao casava codigo de AOP, que tem quatro segmentos."
  },
  "matriz_regiao_x_cultura": {
   "metodo": "so entra celula com FONTE PROVADA (amostra preservada ou extrato) nesta ou na rodada anterior. Nada inferido.",
@@ -2280,5 +2275,85 @@
    "APPLE": "regra tecnica (AGRIOS) e ciencia (FEM). Sem sinal de campo.",
    "DURUM_WHEAT": "CONTINUA A MAIOR LACUNA — nenhuma fonte nova cobre. So preco e producao nacional."
   }
+ },
+ "contabilidade_reconciliada_2026_09_07": {
+  "LEI": "ACCESS_CLASSIFICATION != ANALYTIC_VERDICT",
+  "dois_erros_meus": [
+   "no JSON eu DIGITEI YELLOW=5 e NAO_SEI=2. Calculado: YELLOW=6 e NAO_SEI=1.",
+   "no relatorio contei 3 NAO SEI da rodada browser, mas Syngenta, SIMFITO e PICA nunca receberam veredito analitico — sao ESTADO DE PORTA. Erro de categoria; por isso a soma dava 12 em vez de 9."
+  ],
+  "ANALYTICALLY_CLASSIFIED": 16,
+  "VEREDITOS_ATUAIS": {
+   "GREEN": 10,
+   "YELLOW": 5,
+   "RED": 0,
+   "NAO_SEI": 1,
+   "SEM_VEREDITO": 0
+  },
+  "VEREDITOS_BASE": {
+   "GREEN": 4,
+   "YELLOW": 2,
+   "RED": 0,
+   "NAO_SEI": 1,
+   "SEM_VEREDITO": 0
+  },
+  "ROUND_BROWSER_DELTA": {
+   "novas_por_source_id": [
+    "IT-T2-002=YELLOW",
+    "IT-T2-004=GREEN",
+    "IT-T3-008=GREEN",
+    "IT-T3-010=GREEN",
+    "IT-T3-011=GREEN",
+    "IT-T5-002=GREEN",
+    "IT-T7-002=GREEN",
+    "IT-T9-002=YELLOW",
+    "IT-T9-008=YELLOW"
+   ],
+   "quantas": 9,
+   "por_veredito": {
+    "GREEN": 6,
+    "YELLOW": 3,
+    "RED": 0,
+    "NAO_SEI": 0,
+    "SEM_VEREDITO": 0
+   }
+  },
+  "BASE_CLASSIFIED_SET": [
+   "IT-T1-001",
+   "IT-T2-001",
+   "IT-T3-002",
+   "IT-T3-005",
+   "IT-T4-001",
+   "IT-T5-003",
+   "IT-T10-002"
+  ],
+  "SO_ESTADO_DE_PORTA": {
+   "IT-T3-003": {
+    "nome": "SIMFITO (Campania)",
+    "ACCESS_STATE": "LOGIN_REQUIRED",
+    "classificacao": "PUBLIC_CAPABILITY",
+    "ANALYTIC_VERDICT": null
+   },
+   "IT-T7-012": {
+    "nome": "PICA (CAVIT)",
+    "ACCESS_STATE": "LOGIN_REQUIRED",
+    "classificacao": "PUBLIC_CAPABILITY",
+    "ANALYTIC_VERDICT": null
+   },
+   "IT-T9-003": {
+    "nome": "Syngenta Italia",
+    "ACCESS_STATE": "WAF_CHALLENGE",
+    "classificacao": null,
+    "ANALYTIC_VERDICT": null
+   },
+   "IT-T10-001": {
+    "nome": "ISMEA Mercati",
+    "ACCESS_STATE": "ROUTE_FOUND_PANEL_NOT_RENDERED",
+    "classificacao": null,
+    "ANALYTIC_VERDICT": null
+   }
+  },
+  "fecha": true,
+  "nota_da_reavaliacao": "IT-T3-008 (Puglia) subiu de YELLOW para GREEN nesta missao, ao ser lido com pdftotext. Por isso o delta da rodada browser mostra +6 GREEN / +3 YELLOW aqui, e nao +5/+4: o placar reflete o estado ATUAL das mesmas 9 fontes, nao o estado no dia da rodada."
  }
 }

@@ -151,5 +151,91 @@ T("ROUTE_PROBED cobre agora as 54 rotas", E2.ROUTE_PROBED.n === E2.ROTAS_NO_CATA
 T("a matriz regiao x cultura nao inventa celula", /so entra celula com FONTE PROVADA/.test(master.matriz_regiao_x_cultura?.metodo || ""));
 T("DURUM_WHEAT continua declarado como lacuna", /LACUNA/i.test(master.matriz_regiao_x_cultura?.leitura_das_culturas_prioritarias?.DURUM_WHEAT || ""));
 
+// ===== MISSAO SOURCE CONTRACT HARDENING V1 =====
+{
+  const { CONTRACTS } = await import("./italy_contracts.mjs");
+  const { contabilidade, ACCESS_ONLY, BASE_CLASSIFIED_SET } = await import("./italy_accounting.mjs");
+  const { medir } = await import("./italy_source_health.mjs");
+  const C = contabilidade();
+
+  console.log("\n15 · a contabilidade fecha por SOURCE_ID, nao por subtracao cega");
+  const v = C.VEREDITOS_ATUAIS;
+  T("ANALYTICALLY_CLASSIFIED == GREEN+YELLOW+RED+NAO_SEI",
+    v.GREEN + v.YELLOW + v.RED + v.NAO_SEI === C.ANALYTICALLY_CLASSIFIED,
+    `${v.GREEN}+${v.YELLOW}+${v.RED}+${v.NAO_SEI} vs ${C.ANALYTICALLY_CLASSIFIED}`);
+  T("nenhuma fonte classificada ficou SEM_VEREDITO", v.SEM_VEREDITO === 0);
+  T("ROUND_DELTA fecha por SOURCE_ID (conjunto atual menos conjunto base)",
+    C.ROUND_BROWSER_DELTA.quantas === C.ANALYTICALLY_CLASSIFIED - BASE_CLASSIFIED_SET.length,
+    `${C.ROUND_BROWSER_DELTA.quantas} novas`);
+  const dl = C.ROUND_BROWSER_DELTA.por_veredito, vb = C.VEREDITOS_BASE;
+  T("base + delta == atual, veredito a veredito",
+    ["GREEN", "YELLOW", "RED", "NAO_SEI"].every(k => vb[k] + dl[k] === v[k]));
+  T("os numeros do JSON mestre sao os CALCULADOS, nao digitados",
+    master.counts.GREEN === v.GREEN && master.counts.YELLOW === v.YELLOW && master.counts.NAO_SEI === v.NAO_SEI,
+    `json G${master.counts.GREEN}/Y${master.counts.YELLOW}/NS${master.counts.NAO_SEI} vs calc G${v.GREEN}/Y${v.YELLOW}/NS${v.NAO_SEI}`);
+
+  console.log("\n16 · ACCESS_CLASSIFICATION != ANALYTIC_VERDICT");
+  T("nenhuma fonte de estado-de-porta recebeu veredito analitico",
+    Object.values(ACCESS_ONLY).every(x => x.ANALYTIC_VERDICT === null));
+  T("nenhuma fonte de estado-de-porta entrou no placar",
+    Object.keys(ACCESS_ONLY).every(id => !C.por_fonte.some(f => f.SOURCE_ID === id)));
+  T("LOGIN_REQUIRED e WAF_CHALLENGE existem como estado, sem virar RED",
+    Object.values(ACCESS_ONLY).some(x => /LOGIN|WAF/.test(x.ACCESS_STATE)) &&
+    Object.values(ACCESS_ONLY).every(x => x.ANALYTIC_VERDICT !== "RED"));
+
+  console.log("\n17 · leis dos contratos");
+  const ct = Object.entries(CONTRACTS);
+  T("todo contrato declara DOCUMENT_ID_RULE (DOCUMENT_ID != BYTE_ID)", ct.every(([, c]) => !!c.DOCUMENT_ID_RULE));
+  T("nenhum contrato usa SHA256 como identidade semantica", ct.every(([, c]) => !/SHA/i.test(String(c.DOCUMENT_ID_RULE))));
+  T("todo contrato declara FAIL_CLOSED_RULE", ct.every(([, c]) => !!c.FAIL_CLOSED_RULE));
+  T("todo contrato separa DECLARED de OBSERVED frequency", ct.every(([, c]) => "DECLARED_FREQUENCY" in c && "OBSERVED_FREQUENCY" in c));
+  T("frequencia observada so afirma cadencia quando diz 'provado'",
+    ct.every(([, c]) => !/^\d+D$|^\d+Y$/.test(String(c.OBSERVED_FREQUENCY)) || /provad/i.test(String(c.OBSERVED_FREQUENCY))));
+  T("todo ROUTE_TYPE e um dos cinco tipos previstos",
+    ct.every(([, c]) => ["STATIC_ROUTE", "PREDICTABLE_ROUTE", "DISCOVERED_ROUTE", "APPLICATION_ROUTE", "BROWSER_DISCOVERED_ROUTE"].includes(c.ROUTE_TYPE)));
+  T("toda fonte SOBRESCRITA esta marcada FORWARD_ONLY e ARCHIVE CRITICAL",
+    ct.filter(([, c]) => /SOBRESCRITA/.test(String(c.UPDATE_BEHAVIOR))).every(([, c]) => c.HISTORICAL_OR_FORWARD === "FORWARD_ONLY" && c.ARCHIVE_REQUIREMENT === "CRITICAL"));
+  T("toda fonte FORWARD_ONLY carrega a lei SAME_URL != SAME_DOCUMENT ou explica a perda",
+    ct.filter(([, c]) => c.HISTORICAL_OR_FORWARD === "FORWARD_ONLY").every(([, c]) => /SAME_URL/.test(JSON.stringify(c)) || /nao ha arquivo/i.test(JSON.stringify(c))));
+  T("nenhum contrato usa a sede de quem publica como FACT_LOCATION, salvo excecao justificada por escrito",
+    ct.every(([, c]) => !c.FACT_LOCATION_RULE || !/sede/i.test(c.FACT_LOCATION_RULE)
+      || /NUNCA|nao inferir/i.test(c.FACT_LOCATION_RULE) || !!c.POR_QUE_A_SEDE_VALE_AQUI));
+  T("a unica excecao de sede e a do registro de organizacoes, e ela diz por que",
+    ct.filter(([, c]) => c.POR_QUE_A_SEDE_VALE_AQUI).every(([id, c]) => id === "IT-T7-002" && /o proprio fato registrado E o endereco/.test(c.POR_QUE_A_SEDE_VALE_AQUI)));
+  T("todo contrato tem controle negativo declarado", ct.every(([, c]) => !!c.NEGATIVE_CONTROL));
+
+  console.log("\n18 · SOURCE_VERDICT != SOURCE_HEALTH");
+  const saude = Object.keys(CONTRACTS).map(id => medir(id));
+  T("saude e calculada e nao copiada do veredito",
+    saude.every(r => ["HEALTHY", "DEGRADED", "FAILED", "UNKNOWN"].includes(r.HEALTH)));
+  T("existe pelo menos uma fonte cujo veredito e saude DIVERGEM (prova de que sao eixos diferentes)",
+    saude.some(r => r.VERDICT !== "GREEN" && r.HEALTH === "HEALTHY"),
+    saude.filter(r => r.VERDICT !== "GREEN" && r.HEALTH === "HEALTHY").map(r => `${r.SOURCE_ID}:${r.VERDICT}/${r.HEALTH}`).join(" "));
+
+  console.log("\n19 · controles negativos precisam REPROVAR de verdade");
+  const mutacoes = [
+    ["IT-T2-001", "pdf_virou_html"], ["IT-T3-010", "vazio"], ["IT-T3-008", "sem_marcadores"],
+    ["IT-T4-001", "coluna_removida"], ["IT-T7-002", "coluna_removida"],
+    ["IT-T9-008", "sem_identidade"], ["IT-T3-005", "vazio"], ["IT-T1-001", "vazio"]
+  ];
+  for (const [id, mut] of mutacoes) {
+    const antes = medir(id).HEALTH, depois = medir(id, { mutacao: mut }).HEALTH;
+    T(`${id} + ${mut} reprova (${antes} -> ${depois})`, antes !== "FAILED" && depois === "FAILED");
+  }
+  T("PDF_EXPECTED_REJECTS_HTML — a armadilha do /view do Plone e pega",
+    medir("IT-T2-001", { mutacao: "pdf_virou_html" }).falhas.some(f => /esperava PDF/.test(f)));
+  T("EMPTY_LIST_FAILS_CLOSED — corpo vazio vira FAILED, nunca zero",
+    medir("IT-T3-005", { mutacao: "vazio" }).falhas.some(f => /EMPTY != ZERO/.test(f)));
+
+  console.log("\n20 · contagens que ja me enganaram");
+  const masaf = CONTRACTS["IT-T7-002"].CONTAGEM;
+  T("MASAF declara RAW_ROWS e UNIQUE_ORGANIZATIONS separados", masaf.RAW_ROWS !== masaf.UNIQUE_ORGANIZATIONS);
+  T("MASAF explica por que os dois numeros diferem", !!masaf.WHY_DIFFERENT);
+  T("MASAF registra a correcao dos numeros errados que publiquei", /269|264/.test(String(masaf.CORRECAO)));
+  T("MASAF: OP + AOP == UNIQUE_ORGANIZATIONS", masaf.OP + masaf.AOP === masaf.UNIQUE_ORGANIZATIONS);
+  T("FEM carrega QUERY_MATCH != PROVED_TOPIC", /QUERY_MATCH != PROVED_TOPIC/.test(String(CONTRACTS["IT-T5-002"].LEI_CRITICA)));
+}
+
+
 console.log(`\n===== ${ok} passaram, ${falhas} falharam =====`);
 process.exit(falhas ? 1 : 0);

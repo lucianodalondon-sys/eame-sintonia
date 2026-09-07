@@ -585,3 +585,116 @@ SAMPLE_CAPTURED            =  RAW_PRESERVED + BROWSER_RENDERED_EXTRACT
 fonte com login            ≠  GREEN
 rota corrigida guarda      OLD_ROUTE e CURRENT_ROUTE
 ```
+
+---
+
+## 14 · CONTRATOS DE FONTE — 2026-09-07
+
+### 14.1 · A conta não fechava, e eu errei em dois lugares diferentes
+
+O fechamento anterior dizia 16 classificadas com `GREEN 9 · YELLOW 5 · RED 0 · NÃO SEI 2`,
+e a rodada teria trazido `5 GREEN · 4 YELLOW · 3 NÃO SEI` = 12. **12 ≠ 9.**
+
+**Erro 1 — números digitados à mão.** No JSON eu escrevi `YELLOW=5` e `NÃO_SEI=2`.
+Calculado dos manifestos: `YELLOW=6` e `NÃO_SEI=1`.
+
+**Erro 2 — erro de categoria.** Contei Syngenta, SIMFITO e PICA como "3 NÃO SEI" da rodada.
+Nenhuma delas recebeu veredito analítico: são **estado de porta**. Daí o 12 falso.
+
+**Lei nova, com guarda:**
+
+```
+ACCESS_CLASSIFICATION  ≠  ANALYTIC_VERDICT
+```
+
+Uma fonte pode ser `LOGIN_REQUIRED`, `WAF_CHALLENGE` ou `PUBLIC_CAPABILITY` **sem nunca**
+receber GREEN/YELLOW/RED/NÃO SEI. Fora do placar.
+
+A contabilidade agora é **calculada** por `scripts/italy_accounting.mjs`, nunca digitada, e dois
+guardas exigem que `ANALYTICALLY_CLASSIFIED == GREEN+YELLOW+RED+NÃO_SEI` e que o delta feche
+**por `SOURCE_ID`**, não por subtração de números.
+
+### 14.2 · Terceiro erro meu: a contagem do MASAF
+
+Publiquei **269** organizações. Depois **264**. **Os dois errados.**
+O certo é **272** (264 OP + 8 AOP), com **0 duplicados**.
+
+O 269 vinha de um parse por linha que perdia códigos. O 264 vinha de um regex
+`/^IT\/[A-Z]+\/\d+/` que **não casa código de AOP** — que tem *quatro* segmentos
+(`IT/OLI/AOP/001`), não três. E `RAW_ROWS` são **324**: as 52 linhas a mais são cabeçalho,
+título do regulamento, linhas de seção e linhas em branco do layout.
+
+```
+ROWS  ≠  UNIQUE_ORGANIZATIONS
+```
+
+### 14.3 · O leitor de PDF — e a Puglia resolvida
+
+`pdftotext 4.06` **já estava instalado** na máquina. Testado contra os cinco PDFs:
+
+| PDF | caracteres extraídos | resultado |
+|---|---|---|
+| Campania `SA-02-09` | 30.323 | OK |
+| APOL `n.9` | 44.663 | OK |
+| Puglia `N36` | 85.051 | OK |
+| ARPAV `agro_01` | 10.758 | OK |
+| AGRIOS *Direttive 2026* | 252.725 | OK |
+
+**5 de 5.** Sem OCR — havia camada textual real o tempo todo; o que faltava era ferramenta.
+
+**A seção fitossanitária da Puglia foi lida.** 32 blocos por cultura, cada um com
+*Situazione Fenologica* / *Situazione Fitosanitaria* / *Programma di Difesa*. Pragas com nome
+científico (`Bactrocera oleae`, `Plasmopara viticola`, `Tuta absoluta`, `Aonidiella aurantii`…),
+limiares (**4-5%** para azeitona de óleo, 5%, 10%, 20%) e substâncias ativas nomeadas
+(acetamiprid, flupyradifurone, deltametrina, spinosad, cyantraniliprole, pyriproxyfen,
+*Bacillus thuringiensis*).
+
+`IT-T3-008` foi de **YELLOW para GREEN** — **não** por eu ter conseguido ler, mas porque a
+leitura mostrou que a fonte entrega o que a ficha prometia.
+
+**Limite que permanece:** o **nome da cultura é imagem**, não texto. Pode ser *derivado* da praga
+— e nesse caso o campo é `CROP_DERIVED`, **nunca** `CROP_EXTRACTED`.
+
+### 14.4 · Treze contratos executáveis
+
+`scripts/italy_contracts.mjs` · matriz em `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md`
+
+Cada um declara rota, identidade semântica, campo de data, frequência declarada **e** observada,
+comportamento de atualização, requisito de arquivo, falhas esperadas, regra de fail-closed,
+o que prova e o que não prova.
+
+### 14.5 · Saúde ≠ veredito
+
+`scripts/italy_source_health.mjs` roda o contrato **contra o RAW já preservado**.
+**13 HEALTHY · 0 DEGRADED · 0 FAILED · 0 UNKNOWN.**
+
+São eixos diferentes: `IT-T2-002` (ARPAV) é **YELLOW** e está **HEALTHY**; `IT-T3-005`
+(Terre dell'Etruria) é **NÃO SEI** e está **HEALTHY**.
+
+### 14.6 · Os controles negativos viram vermelho
+
+Um teste que nunca reprovou não é teste. O medidor corrompe o documento **em memória** — nunca
+no disco — e exige que a saúde caia para `FAILED`. **8 mutações, 8 reprovaram.**
+
+A mais importante: `IT-T2-001` com o PDF trocado por `<html>Access denied</html>` — exatamente a
+armadilha do `/view` do Plone. **HTTP 200 e mesmo assim FAILED.**
+
+### 14.7 · Se não coletarmos hoje, o que desaparece
+
+Três fontes são **`FORWARD_ONLY`**:
+
+| fonte | o que se perde |
+|---|---|
+| `IT-T3-005` Terre dell'Etruria | a edição semanal com os **139 pontos** e coordenadas — `/bollettini` dá 404 |
+| `IT-T2-002` ARPAV Veneto | o boletim de cada uma das **32 zonas** — nome fixo, conteúdo sobrescrito |
+| `IT-T2-004` SIAS Sicília | a janela de 11 dias por estação — URL fixa, janela móvel |
+
+Para essas três vale a lei `SAME_URL ≠ SAME_DOCUMENT`: **nunca deduplicar por URL.** Hash novo é
+observação nova. Medido: `agro_01` e `agro_09` têm hashes **e** datas de geração diferentes.
+
+### 14.8 · Guardas
+
+**270 verificações, 0 falhas.** Subiu de 233. Os novos defendem exatamente as leis desta missão —
+e um deles **reprovou de verdade** durante a construção: pegou o contrato do MASAF usando "sede"
+como `FACT_LOCATION`. Em vez de afrouxar o guarda, o contrato passou a explicar por que ali a sede
+**é** o fato registrado — e o guarda passou a exigir essa justificativa por escrito.
