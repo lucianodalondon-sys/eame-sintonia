@@ -673,6 +673,14 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
          ['competitors', lang === 'en' ? 'Competitor Watch' : 'Concorrenza'],
          ['sources', lang === 'en' ? 'Source Register' : 'Registro delle fonti']]
         .map(function (d) { return '<a href="portale.html#' + d[0] + '">' + esc(d[1]) + '</a>'; }).join('')
+      /* ══ LA SETTIMA PORTA E DI QUESTA PAGINA ═════════════════════════
+         Le sei sopra aprono il portale. Questa apre il registro dei 44 che sta
+         PIU IN BASSO, in questa stessa pagina: era l'unico insieme nominato in
+         alto — «cosa dobbiamo preparare» — e senza porta per arrivarci.
+
+             SEI PORTE PER GLI STRUMENTI E NESSUNA PER CIO CHE SI HA IN CASA. */
+      + '<a href="#radar-futuro" data-porta-radar="' + RF.RENDERIZAVEIS + '">'
+      + esc(tt('casaRadarName')) + ' <b>' + mil(RF.RENDERIZAVEIS) + '</b></a>'
       + '</nav>'
       + '<p class="lede">' + tt('casaLede') + '</p></header>'
 
@@ -774,7 +782,13 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
       + '</div></details>'
 
       /* ── il radar, e i suoi 44 ──────────────────────────────────── */
-      + '<h2>' + tt('casaRadarName') + ' · ' + tt('casaRadarLedger') + '</h2>'
+      /* ══ IL REGISTRO DEI 44 HA UN INDIRIZZO ══════════════════════════
+         Il portale adesso ci manda (`casa.html#radar-futuro`). Un titolo senza
+         ancora avrebbe fatto atterrare il lettore in cima alla pagina, e la
+         voce di menu avrebbe portato «da qualche parte» invece che QUI.
+
+             UNA ROTTA CHE ATTERRA VICINO NON E UNA ROTTA. */
+      + '<h2 id="radar-futuro">' + tt('casaRadarName') + ' · ' + tt('casaRadarLedger') + '</h2>'
       + '<p class="h2sub">' + tt('casaRadarTotals') + '. ' + tt('casaDoNotSum') + '</p>'
       + '<details id="ledger"><summary>' + tt('casaRadarLedger') + ' · ' + mil(RF.RENDERIZAVEIS)
       + '</summary><div class="dd" style="padding-left:0">'
@@ -919,9 +933,32 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
         if (g) g.scrollIntoView({ block: 'start' });
       });
     });
+    /* Il ridisegno ricostruisce l'HTML e riporta la piega al suo stato chiuso.
+       Se il lettore e arrivato da `#radar-futuro`, cambiare lingua non deve
+       richiudergli sotto i piedi cio per cui era venuto. */
+    apriDaIndirizzo();
+  }
+
+  /* ══ ARRIVARE DALL'INDIRIZZO APRE LA PIEGA ═══════════════════════════════
+     `<details>` nasce chiuso. Atterrare su `#radar-futuro` con la piega chiusa
+     avrebbe mostrato un titolo e, sotto, niente: la rotta esisterebbe e il
+     lettore continuerebbe a non vedere i 44.
+
+         APRIRE UN INDIRIZZO E FAR VEDERE CIO CHE PORTA IL NOME.
+
+     Vale al caricamento e a ogni cambio di indirizzo, perche il portale ci
+     manda anche quando questa pagina e gia aperta in una scheda. */
+  function apriDaIndirizzo() {
+    if (String(window.location.hash || '') !== '#radar-futuro') return;
+    var d = document.getElementById('ledger');
+    if (d) d.open = true;
+    var h = document.getElementById('radar-futuro');
+    if (h) h.scrollIntoView({ block: 'start' });
   }
 
   render();
+  apriDaIndirizzo();
+  window.addEventListener('hashchange', apriDaIndirizzo);
 })();
 </script>
 </body>

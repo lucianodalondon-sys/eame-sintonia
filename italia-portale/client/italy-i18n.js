@@ -92,6 +92,10 @@
     EVCHIP: { 'OFFICIAL': 'UFFICIALE', 'FIELD': 'CAMPO', 'SCIENCE': 'SCIENZA', 'TECHNICAL MEDIA': 'MEDIA TECNICI', 'COMPETITORS': 'CONCORRENTI', 'NEWS & MEDIA': 'STAMPA E MEDIA', 'RESEARCHERS': 'RICERCATORI', 'FIELD SALES': 'RETE COMMERCIALE', 'PEOPLE': 'PERSONE' },
     frSub: 'Cosa potrebbe diventare un\'opportunità — {n} segnali monitorati in Italia.',
     frSubA: 'Popolazione distinta dal Radar Futuro —', frWhyWatch: 'PERCHÉ OSSERVARE', frWhoTalking: 'CHI NE PARLA', frNextWindow: 'Prossima finestra',
+    /* La riga diceva «popolazione distinta dal Radar Futuro» e il Radar Futuro
+       non aveva rotta: la distinzione era dichiarata e non verificabile.
+       Questa etichetta porta il lettore all'altra popolazione. */
+    frOtherPop: 'L\'altra popolazione:',
     frPortfolio: 'Portafoglio', frUpdated: 'Aggiornato', frExplore: 'ESPLORA SEGNALE →',
     ARCHTYPES: { 'BULLETIN': 'Bollettino di campo', 'FIELD_SIGNAL': 'Lettura di campo', 'News article': 'Articolo di stampa', 'Field bulletin': 'Bollettino di campo', 'Regulatory record': 'Record normativo', 'Label': 'Etichetta', 'Scientific paper': 'Pubblicazione scientifica', 'Researcher signal': 'Segnale di ricercatore', 'Technical article': 'Articolo tecnico', 'Competitor activity': 'Attività concorrente', 'Producer-organization update': 'Aggiornamento da organizzazione di produttori', 'Monitoring observation': 'Osservazione di monitoraggio', 'COMPETITOR': 'Attività di concorrente', 'SCIENCE': 'Pubblicazione scientifica', 'MARKET': 'Osservazione di prezzo', 'RESISTANCE': 'Caso di resistenza', 'WINDOW': 'Finestra colturale', 'EVENT': 'Evento di settore', 'VOICE': 'Voce pubblica', 'NEWS': 'Articolo di stampa' },
     arcSub: 'elementi indicizzati su scienza, mercato, concorrenza, voci, eventi, notizie e finestre colturali.',
@@ -726,6 +730,7 @@
     CROPS: {}, ISSUES: {}, SRCTYPES: {}, FSTATUS: {}, EVCHIP: {},
     frSub: 'What may become an opportunity next — {n} monitored signals across Italy.',
     frSubA: 'Separate population from Future Radar —', frWhyWatch: 'WHY WATCH', frWhoTalking: 'WHO IS TALKING', frNextWindow: 'Next window',
+    frOtherPop: 'The other population:',
     frPortfolio: 'Portfolio', frUpdated: 'Updated', frExplore: 'EXPLORE SIGNAL →',
     ARCHTYPES: { 'BULLETIN': 'Field bulletin', 'FIELD_SIGNAL': 'Field reading', 'COMPETITOR': 'Competitor activity', 'SCIENCE': 'Scientific publication', 'MARKET': 'Price observation', 'RESISTANCE': 'Resistance case', 'WINDOW': 'Crop window', 'EVENT': 'Sector event', 'VOICE': 'Public voice', 'NEWS': 'News article' },
     arcSub: 'items indexed over science, market, competitors, voices, events, news and crop windows.',

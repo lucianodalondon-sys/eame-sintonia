@@ -351,6 +351,14 @@ check('N1', 'Nav counts match the active normalized collections', () => {
        due strumenti, poi l'evidenza. La sorgente di ogni numero non cambia. */
     AM.collections.products.count,
     AM.collections.futureSignals.count,
+    /* IL RADAR FUTURO HA ADESSO UN BADGE, E QUINDI HA UN GUARDIANO.
+       I 44 non stanno in nessuna collezione normalizzata del modello: vivono in
+       `italy-casa.js`, che e il loro proprietario. Il numero si legge DA LI —
+       scriverlo qui a mano farebbe di questo controllo la seconda verita che
+       esiste per impedire.
+
+           UN BADGE NUOVO SENZA CONTROLLO E UN NUMERO CHE PRIMA O POI MENTE. */
+    ((m.ctx.ITALY_CASA || {}).RADAR_FUTURO || {}).RENDERIZAVEIS,
     AM.collections.cropWindows.count,
     AM.collections.marketObservations.count,
     AM.collections.publicVoices.count,

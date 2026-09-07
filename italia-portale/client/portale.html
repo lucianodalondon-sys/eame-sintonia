@@ -1968,7 +1968,11 @@
     <sc-if value="{{ isFuture }}" hint-placeholder-val="{{ false }}">
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
-        <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ t.navFuture }}</h1><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ t.frSubA }} {{ kpi.signals }} {{ t.frSubB }}</div></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ t.navFuture }}</h1><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ t.frSubA }} {{ kpi.signals }} {{ t.frSubB }}</div><!-- La frase sopra dichiara una popolazione DIVERSA. Finche l'altra non
+     aveva rotta, la dichiarazione non era verificabile da chi legge: il 3
+     restava, da solo, tutto il futuro visibile del portale.
+     Qui non si mostra il Radar Futuro: si dice dov'e, e quanto e grande. -->
+<sc-if value="{{ frRadar.has }}" hint-placeholder-val="{{ true }}"><span onClick="{{ frRadar.go }}" data-future-radar-route="{{ frRadar.count }}" style="align-self:flex-start;margin-top:4px;display:inline-flex;align-items:center;gap:7px;font-size:11px;color:#8F8886;cursor:pointer;padding:5px 12px;border-radius:9999px;border:1px solid rgba(203,197,195,0.14)" style-hover="color:#C9C3C1;border-color:rgba(203,197,195,0.34)">{{ t.frOtherPop }} <b style="color:#C9C3C1;font-weight:600">{{ frRadar.label }}</b> <b style="color:#fff;font-weight:700;font-variant-numeric:tabular-nums">{{ frRadar.count }}</b> →</span></sc-if></div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
           <sc-for list="{{ futureStatusChips }}" as="f" hint-placeholder-count="8">
             <span onClick="{{ f.go }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 13px 0 0;border-radius:9999px;background:{{ f.bg }};border:1px solid {{ f.border }};overflow:hidden" style-hover="border-color:{{ f.accent }}">
@@ -4437,25 +4441,39 @@ class Component extends DCLogic {
     const navIntegrations = [['field', T.navField, allMessages.length]];
     const activeOf = Component.CAPABILITY_OF;
     /* §4 · The green/amber accents, the dot and the active tint are presentation only and stay. */
-    /* ══ LA VISTA ESECUTIVA STA NEL MENU, COME TUTTE LE ALTRE ═════════════
-       `casa.html` e una PAGINA, non una vista di questo guscio: la sua voce
-       non chiama `go()` ma cambia indirizzo. Tutto il resto — il disegno, la
-       pastiglia, il contatore — e la voce di menu che c'era gia. Costruire
-       una seconda barra per una sola destinazione sarebbe il secondo guscio
-       che questa correzione esiste per non fare.
+    /* ══ IL RADAR FUTURO ENTRA NEL MENU, PERCHE ESISTE E NESSUNO LO VEDEVA ══
+       Qui stava `navCasa`: una voce costruita, mai consumata, e che ripeteva il
+       contatore della riunione. Codice morto con l'aria di una rotta.
 
-           UNA DESTINAZIONE IN PIU NON E UN MENU IN PIU.
+           UNA VOCE DI MENU CHE NESSUN ELENCO CONSUMA NON E UNA ROTTA.
+           E UNA PROMESSA SCRITTA E MAI MANTENUTA.
 
-       Il contatore e lo stesso 43 del pacchetto, e solo quando i due
-       conteggi concordano: un numero accanto a una voce di menu che
-       nessuno ha ricontato e un numero che prima o poi mente. */
-    /* Se le due catene non concordano la riga di testata TACE — e allora anche
-       questa pastiglia deve tacere. Stampare 0 direbbe «nessuna opportunita
-       attuale», che e un'affermazione, non un silenzio.
+       Misurato su questo HEAD: RADAR_FUTURO = 44 schede mostrabili in
+       `italy-casa.js`, ROTTE DAL PORTALE = 0. Il lettore vedeva
+       «Archivio segnali 3» e non aveva modo di sapere che i 44 esistevano —
+       il 3 diventava, da solo, tutto il futuro che il portale conosce.
 
-           UNO ZERO NON E UN SILENZIO. E UNA RISPOSTA SBAGLIATA. */
-    const navCasa = { label: mtL('casaCurrentOpps'), count: meetingCurrent ? meetingCurrent.opportunita : '',
-      go: () => { window.location.href = 'casa.html'; },
+           TRE SEGNALI ACCANTO A NIENTE SI LEGGONO COME TUTTO IL FUTURO.
+           TRE ACCANTO A QUARANTAQUATTRO SI LEGGONO PER QUELLO CHE SONO.
+
+       La voce porta a `casa.html#radar-futuro`, dove il registro dei 44 e gia
+       disegnato e gia sorvegliato dal suo cancello (`casa-gate.mjs`). NON si
+       ridisegna qui: costruire una seconda superficie per gli stessi 44 farebbe
+       due registri dello stesso insieme, ed e esattamente l'errore che il
+       portale ha gia pagato una volta con i due radar.
+
+       Il contatore viene da `window.ITALY_CASA` — il proprietario — e tace se
+       il proprietario non c'e: scrivere 44 a mano farebbe una seconda verita,
+       e una seconda verita e quella che non cambia quando il motore cambia. */
+    const CASA_RF = (window.ITALY_CASA && window.ITALY_CASA.RADAR_FUTURO) || null;
+    /* Il nome resta del suo proprietario; qui cambia solo la CASSA, perche in
+       questa barra tutte le voci sono in maiuscoletto iniziale e una sola voce
+       in maiuscole griderebbe. La cassa e presentazione, non un secondo nome. */
+    const navRadarFuturo = {
+      label: String(mtL('casaRadarName') || '').toLowerCase()
+        .replace(/(^|[\s·-])([a-zà-ÿ])/g, (m0, a, b) => a + b.toUpperCase()),
+      count: (CASA_RF && typeof CASA_RF.RENDERIZAVEIS === 'number') ? CASA_RF.RENDERIZAVEIS : '',
+      go: () => { window.location.href = 'casa.html#radar-futuro'; },
       bg: 'transparent', border: 'transparent', dot: 'rgba(151,139,135,0.35)',
       color: '#9A9391', weight: 400 };
     /* ══ DUE STRUMENTI, E SOTTO DI LORO L'EVIDENZA ═══════════════════════════
@@ -4477,7 +4495,16 @@ class Component extends DCLogic {
     const STRUMENTI = ['meeting', 'portfolio'];
     const navRow = (n) => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; };
     const nav = navDef.filter(n => STRUMENTI.includes(n[0])).map(navRow);
-    const navEvidence = navDef.filter(n => !STRUMENTI.includes(n[0])).map(navRow);
+    /* Il Radar Futuro e EVIDENZA, non uno strumento, e sta ACCANTO all'Archivio
+       segnali: e la sola posizione in cui i due numeri — 3 e 44 — si leggono uno
+       di seguito all'altro, che e la lettura che mancava. Entra solo se il suo
+       proprietario ha un numero da dare: una voce senza contatore non prova
+       niente, e un contatore scritto a mano sarebbe una seconda verita. */
+    const navEvidence = navDef.filter(n => !STRUMENTI.includes(n[0])).reduce((acc, n) => {
+      acc.push(navRow(n));
+      if (n[0] === 'future' && navRadarFuturo.count !== '') acc.push(navRadarFuturo);
+      return acc;
+    }, []);
     const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
     // ---- case · opportunity detail
     /* §2 · The detail must open the SAME entity the card opened. The 29 legacy
@@ -9500,7 +9527,12 @@ class Component extends DCLogic {
     const todayLabel = (REFP[2] + ' ' + (REF_MON[Number(REFP[1]) - 1] || '')).trim().toUpperCase();
 
     return {
-      nav, navEvidence, kpi: K, todayLabel, pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,
+      nav, navEvidence,
+      /* La stessa voce del menu, letta dalla schermata dei segnali: un solo
+         oggetto, un solo contatore, un solo proprietario. */
+      frRadar: { has: navRadarFuturo.count !== '', label: navRadarFuturo.label,
+        count: navRadarFuturo.count, go: navRadarFuturo.go },
+      kpi: K, todayLabel, pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,
 
       /* ══ SUPERFICIE CANONICA DELLA RIUNIONE ═══════════════════════════════
          Ogni valore qui sotto e gia stato deciso dal motore e copiato
