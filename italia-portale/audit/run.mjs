@@ -5,6 +5,7 @@
    node audit/run.mjs --only=D1,F3  a subset
    node audit/run.mjs --verbose     print every detail
    Exit code 0 only when every check passes. */
+import { spawnSync } from 'node:child_process';
 import { runAll } from './checks.mjs';
 
 const argv = process.argv.slice(2);
@@ -49,6 +50,35 @@ for (const r of results) {
     }
   }
 }
+/* ══ E O PORTAO DA SUPERFICIE, QUE ESTE CORREDOR TEM DE CHAMAR ═════════════
+   `superficie-visivel.mjs` responde a pergunta que nenhum controlo desta
+   tabela responde: se uma familia que EXISTE chega a ver-se. Deixa-lo de fora
+   fa-lo-ia o setimo portao orfao deste repositorio — e ja se mediu o que isso
+   custa: `brandwell.mjs` dizia 71/71 enquanto tinha uma reprovacao dentro.
+
+       UM PORTAO QUE NENHUM CORREDOR CHAMA NAO GUARDA NADA.
+
+   Corre em processo separado porque monta o portal umas trinta vezes e cada
+   montagem recarrega o pacote inteiro: dentro deste processo envenenaria as
+   medicoes dos outros controlos, que e o defeito que `mount()` ja tem quando
+   se reutiliza. Vinte e tres segundos e o preco de nao mentir. */
+if (!only) {
+  const sv = spawnSync(process.execPath, [new URL('./superficie-visivel.mjs', import.meta.url).pathname],
+    { encoding: 'utf8' });
+  const passou = sv.status === 0;
+  const linha = String(sv.stdout || '').split('\n').find((l) => /VALUE_EXISTS/.test(l)) || '';
+  results.push({
+    id: 'SV1', title: 'Every family that exists can be seen (VALUE_EXISTS/VISIBLE)',
+    pass: passou, expected: '0 invisible',
+    measured: linha.replace(/\x1b\[[0-9;]*m/g, '').replace(/^\s*(PASS|FAIL)\s*·\s*/, '').trim() || (passou ? 'ok' : 'ver superficie-visivel.mjs'),
+    detail: passou ? undefined : String(sv.stdout || sv.stderr || '').split('\n').slice(-14),
+  });
+  const r = results[results.length - 1];
+  const mark = r.pass ? `${G}PASS${X}` : `${R}FAIL${X}`;
+  console.log(`  ${mark}  ${pad(r.id, 5)} ${pad(r.title, 58)} ${DIM}exp${X} ${pad(r.expected, 12)} ${DIM}got${X} ${r.measured}`);
+  if (!r.pass && r.detail) for (const line of r.detail) console.log(`        ${DIM}${String(line).slice(0, 150)}${X}`);
+}
+
 const nonMisurati = results.filter((r) => r.notTestable);
 const misurabili = results.filter((r) => !r.notTestable);
 const ok = misurabili.filter((r) => r.pass).length;
