@@ -130,7 +130,23 @@ JUNÇÃO                            414 casaram · 0 falharam
 ACTIVE_PROVED                      27   (era 0)
 ACTIVE_UNKNOWN                      2
 HISTORICAL                        385
+DUAS LEITURAS                     414 / 414   (snapshot 1 e snapshot 2)
+CHANGE_OBSERVED                   NO 413 · NOT_COMPARABLE 1
 ```
+
+**A segunda leitura existia e não estava pinada** — no mesmo commit já pinado.
+Sem ela, `FIRST_OBSERVED == LAST_OBSERVED` em 414/414: um ponto, e «mudou?» sem
+resposta. Com ela, **os 414 têm duas janelas** (`01:03:30Z` e
+`01:53:38Z–02:40:13Z`) e os 27 ACTIVE são confirmados **duas vezes**.
+
+O resultado bate com o que a própria fonte declara em
+`META-TEMPORAL-COMPARISON-V1.json`: `change_observed = "NO"`. E as ressalvas
+dela atravessam junto — `READ_DEPTH_CONFOUNDED` (7 recortes, 587 cartões
+ganhos por leitura mais funda: «onde o 2 leu mais fundo, *novo* mede método,
+não mercado») e `FULL_LIFECYCLE_STATE_CAPABILITY = NOT_PROVED`.
+
+> As duas leituras distam **menos de duas horas**. Isso confirma o estado duas
+> vezes na mesma madrugada — **não cobre um dia, uma semana nem uma campanha.**
 
 `27 + 2 + 385 = 414`. **A regra de negócio não mudou para o número subir** — os
 27 são exatamente os que já declaravam `ACTIVE`. O que mudou é que agora eles
@@ -160,12 +176,18 @@ prova alvo», não «a fonte não declarou».
 > decisão desta linhagem. Está declarado em `CROP_IDS_ARE_QUERY_DERIVED`, com
 > `PROVED_CROP_ID` (47/88) ao lado. **É dívida sua decidir.**
 
-**2 · Uma leitura é um ponto, não uma linha.**
-Profundidade de observação dos 414: **372 têm uma leitura, 20 têm duas, 22 têm
-três**. Os 27 `ACTIVE_PROVED` têm, todos, **exatamente uma**. Isso prova o estado
-em `2026-08-31T01:03:30+00:00` e mais nada — não prova hoje, não prova
-continuidade. `FIRST_OBSERVED`/`LAST_OBSERVED` são **quando nós observamos**,
-nunca quando o concorrente começou: `OBSERVATION_START != ACTIVITY_START`.
+**2 · Duas leituras a menos de duas horas ainda não são uma campanha.**
+Depois de pinar o segundo snapshot, os 414 têm **2 a 6 observações** cada, em
+duas janelas da mesma madrugada. Isso é melhor que um ponto — mas continua a ser
+uma madrugada. Não prova hoje, não prova a semana.
+`FIRST_OBSERVED`/`LAST_OBSERVED` são **quando nós observamos**, nunca quando o
+concorrente começou: `OBSERVATION_START != ACTIVITY_START`.
+
+E `NOT_KNOWN` **não é um estado**: é a ausência de um. Um anúncio que vai de
+`INACTIVE` para `NOT_KNOWN` não mudou — a nossa leitura piorou. Isso viaja em
+`OBSERVATION_DEGRADED_TO_UNKNOWN` (1 caso), nunca em `CHANGE_OBSERVED`.
+
+> **DEIXAR DE SABER NÃO É UMA MUDANÇA. É UMA PERDA DE LEITURA.**
 
 > **Quem imprimir o selo ATTIVO tem de imprimir a data ao lado.** O pacote leva
 > a data; quantos dias ainda valem é decisão de quem mostra.
@@ -279,6 +301,27 @@ determinismo           duas corridas em árvore limpa, 88 arquivos, byte-idênti
 | 6 | `TRANSCRIPT_USED_AS_EVIDENCE` = 0 | 160 falas | **você** | o pacote leva os bytes; usar é do motor |
 | 7 | 36 anúncios com país divergente | 36 | **você** | `COUNTRY_REACHED_OBSERVED` diz ES; o campo antigo não foi sobrescrito |
 | 8 | 39 papers `OFF_CASE` visíveis como do caso | 39/88 | **você** | `CASE_ADHERENCE` e `PROVED_*` estão no registro |
+| 9 | **2.227 strings em português em campos que nenhuma lista classifica** | 2.227 | linhagem geradora | ver abaixo — número novo, medido pela primeira vez |
+
+**A perda nº 9 merece parágrafo.** `v21_campos_de_lingua.py` declara quatro
+listas — `LEITURA` (traduz), `FONTE` (não se toca), `MISTO`, `INTERNO`. Só as
+duas primeiras eram lidas por código: **`INTERNO` era documentação que nenhuma
+linha consumia**, e o contador de língua percorria apenas `LEITURA + MISTO`.
+
+> **A LISTA QUE NINGUÉM LÊ NÃO CLASSIFICA NADA: DECORA.**
+
+Consequência: um campo de prosa portuguesa cujo *nome* não estivesse em
+`LEITURA` não era traduzido, não era contado, e não acendia nada —
+`AINDA_SO_EM_PORTUGUES` dizia 0 não porque não houvesse português, mas porque
+ninguém olhava. Agora há `PORTUGUES_EM_CAMPO_NAO_CLASSIFICADO` no
+`ACCEPTANCE-REPORT`: **2.227**, concentrados em `OPPORTUNITIES.json` (1.653),
+`RESEARCHERS.json` (120) e a família `*_LAW`. **Das famílias novas desta missão:
+zero** — as suas foram classificadas (`TEXT` e `ABSTRACT_ORIGINAL` como `FONTE`,
+porque são a palavra da fonte; as leis e notas de método como `INTERNO`).
+
+O contador **não reprova a cadeia**. Declara um número que não existia. Cada
+campo que aparece nele ou vai para `LEITURA` e ganha tradução, ou para
+`INTERNO`/`FONTE` e fica declarado.
 
 ---
 

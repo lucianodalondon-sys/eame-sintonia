@@ -35,7 +35,8 @@ ING = os.path.join(V21, 'DESIGN-INGEST')
 ARQ = os.path.join(V21, 'INTERNAL-ARCHIVE')
 
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-from v21_campos_de_lingua import (LEITURA, MISTO, campos_do_registro,  # noqa
+from v21_campos_de_lingua import (LEITURA, MISTO, campos_do_registro,  # noqa: E402
+                                  campos_nao_classificados,  # noqa: E402
                                   parte_minha, e_portugues)
 
 SAFE_OK = {'QA_PASS', 'QA_CORRECTED', 'EVIDENCE_DOCUMENTED', 'EVIDENCE_SOURCED'}
@@ -200,6 +201,7 @@ def main():
 
     # ── 5 · língua ───────────────────────────────────────────────────────────
     pt_sem_par, com_par, orig_guardado = 0, 0, 0
+    nao_classificado = Counter()
     for a, d in colecoes():
         for x in d['RECORDS']:
             if not isinstance(x, dict) or not x.get('ID'):
@@ -214,12 +216,25 @@ def main():
                         orig_guardado += 1
                 else:
                     pt_sem_par += 1
+            for campo in campos_nao_classificados(x):
+                nao_classificado[campo] += 1
     r['LINGUA'] = {
         'CAMPOS_COM_IT_E_EN': com_par,
         'COM_ORIGINAL_PRESERVADO': orig_guardado,
         'AINDA_SO_EM_PORTUGUES': pt_sem_par,
         'LEI': 'citacao publica NAO entra nesta conta: ela fica na lingua em que '
                'foi publicada, de proposito.',
+        # ⚠️ O NUMERO QUE FALTAVA. `campos_do_registro` so percorre LEITURA e
+        # MISTO: um campo de prosa portuguesa cujo NOME nao esteja la nao era
+        # traduzido NEM contado. AINDA_SO_EM_PORTUGUES podia dizer 0 com
+        # portugues na tela — nao porque nao havia, mas porque ninguem olhava.
+        'PORTUGUES_EM_CAMPO_NAO_CLASSIFICADO': sum(nao_classificado.values()),
+        'CAMPOS_NAO_CLASSIFICADOS': dict(nao_classificado.most_common(20)),
+        'NAO_CLASSIFICADO_LEI':
+            'nao e erro por si: pode ser nota de trabalho legitima. E o numero '
+            'que faltava. Campo que aparece aqui e ou vai para LEITURA (e ganha '
+            'traducao) ou para INTERNO/FONTE (e fica declarado) em '
+            'scripts/v21_campos_de_lingua.py.',
     }
 
     # ── 6 · a separação das pastas ───────────────────────────────────────────

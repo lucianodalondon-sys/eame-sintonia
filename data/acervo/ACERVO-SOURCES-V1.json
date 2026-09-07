@@ -19,21 +19,21 @@
   },
   {
    "REF": "HEAD",
-   "COMMIT": "5d40dffa07a990153012111e0f89931fddc73522"
+   "COMMIT": "dc0e8fdef3d6da9e561c4e712c9e7a0ce830c3f7"
   }
  ],
  "PRECEDENCIA": "o primeiro ref da lista que contiver o caminho vence. Assim o acervo canonico manda, e HEAD so completa.",
- "COUNT_TOTAL": 58,
+ "COUNT_TOTAL": 60,
  "BY_FAMILY": {
-  "ADS": 2,
+  "ADS": 4,
   "SCIENCE": 1,
   "TRANSCRIPTS": 55
  },
  "BY_REF": {
-  "claude/eame-meta-competitor": 2,
+  "claude/eame-meta-competitor": 4,
   "sintonia/canonical": 56
  },
- "BYTES_TOTAL": 22652342,
+ "BYTES_TOTAL": 23067573,
  "SOURCES": [
   {
    "KEY": "ADS__META_EAME_META_ADS_ENTITIES_EAME_V1_JSON",
@@ -56,6 +56,28 @@
    "BLOB": "deab4c188c8b9ab95096b67aeb56d313d78f8c41",
    "BYTES": 384803,
    "SHA256": "ef331aff0d8dd66483ab115a669b490ee72595822cfb1fa2c2d4994ca9e63dc1"
+  },
+  {
+   "KEY": "ADS__META_EAME_META_SNAPSHOT_2_OBSERVATIONS_JSON",
+   "FAMILY": "ADS",
+   "ROLE": "OBSERVATIONS_S2",
+   "REF": "claude/eame-meta-competitor",
+   "COMMIT": "a2fad2d03e04ba071a7a66b0a502b5a515b5246b",
+   "PATH": "data/samples/META-EAME/META-SNAPSHOT-2-OBSERVATIONS.json",
+   "BLOB": "8bee1191ab1a4774939de50af4758c4fbd12f734",
+   "BYTES": 315513,
+   "SHA256": "0cff4bb591abdab7b9dc47cab583ae4b835b1d7780c92959cefcd90388912fa1"
+  },
+  {
+   "KEY": "ADS__META_EAME_META_TEMPORAL_COMPARISON_V1_JSON",
+   "FAMILY": "ADS",
+   "ROLE": "TEMPORAL_COMPARISON",
+   "REF": "claude/eame-meta-competitor",
+   "COMMIT": "a2fad2d03e04ba071a7a66b0a502b5a515b5246b",
+   "PATH": "data/samples/META-EAME/META-TEMPORAL-COMPARISON-V1.json",
+   "BLOB": "844c13f6f65965b1b0a1fbdd2f797228a5de636a",
+   "BYTES": 99718,
+   "SHA256": "749e6f19ea384dff3446562fcceb50dc92ec8269439fa1a9e47e49b81e4486cd"
   },
   {
    "KEY": "SCIENCE__RESEARCHER_CORPUS_EAME_V1_JSON",

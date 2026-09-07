@@ -43,6 +43,15 @@ REFS = [
 REGRAS = [
     (r'^data/samples/META-EAME/META-ADS-ENTITIES-EAME-V1\.json$', 'ADS', 'ENTITIES'),
     (r'^data/samples/META-EAME/META-ADS-EVENTS-EAME-V1\.json$', 'ADS', 'EVENTS'),
+    # ⚠️ A SEGUNDA LEITURA EXISTIA, NO MESMO COMMIT JA PINADO, E NAO ESTAVA AQUI.
+    # Sem ela, FIRST_OBSERVED e LAST_OBSERVED sao o mesmo instante em 414/414 —
+    # um ponto, nao uma linha, e a pergunta «mudou?» nao tem resposta.
+    # Com ela sao duas janelas (01:03:30Z e 01:53:38Z–02:40:13Z) e os 27 ACTIVE
+    # sao confirmados DUAS vezes.
+    (r'^data/samples/META-EAME/META-SNAPSHOT-2-OBSERVATIONS\.json$',
+     'ADS', 'OBSERVATIONS_S2'),
+    (r'^data/samples/META-EAME/META-TEMPORAL-COMPARISON-V1\.json$',
+     'ADS', 'TEMPORAL_COMPARISON'),
     (r'^data/samples/RESEARCHER-CORPUS-EAME-V1\.json$', 'SCIENCE', 'CORPUS'),
     (r'^data/samples/IT-(CONVEGNO|VIDEO)-V\d/falas/[^/]+\.json$', 'TRANSCRIPTS', 'FALA'),
     (r'^data/samples/IT-CONVEGNO-V1/IT-CONVEGNO-V1\.json$', 'TRANSCRIPTS', 'MANIFEST'),

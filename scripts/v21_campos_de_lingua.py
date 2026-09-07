@@ -70,6 +70,12 @@ FONTE = [
     # valor controlado e não tem língua. Traduzir a frase seria adulterar a
     # prova para explicar a minha leitura dela.
     'NEED_EXCERPT',
+    # ── a palavra da fonte nas travessias ACERVO→PACOTE ─────────────────────
+    # `TEXT` é a FALA transcrita e `ABSTRACT_ORIGINAL` é o resumo publicado do
+    # paper. Traduzir qualquer um destrói a prova — e o detector de português
+    # marca-os por engano, porque italiano e português partilham «que», «para»,
+    # «com», «cultura». Declarados aqui, param de ser confundidos com prosa minha.
+    'TEXT', 'ABSTRACT_ORIGINAL',
 ]
 
 # ── 3 · COSTURA — meu rótulo + citação literal na mesma linha ───────────────
@@ -83,7 +89,41 @@ COSTURA = re.compile(r'\s*[—-]\s*literal:\s*(.*)$', re.S)
 INTERNO = [
     'QA_RECONCILIATION', 'ID_NOTE', 'ORIGIN_LAYER_NOTE', 'DEDUPE_NOTE',
     'QA_NOTE', 'RESEARCH_NOTE', 'ORIGINAL_RESEARCH_TEXT',
+    # ── as leis das travessias ACERVO→PACOTE ────────────────────────────────
+    # São o texto do CONTRATO do registro — dizem o que o campo ao lado prova e
+    # o que não prova. O Design não as imprime; quem as lê é quem consome o
+    # pacote. Ficam em português, declaradas, e não entram na conta de tradução.
+    'ACTIVE_PROOF_WHY', 'ACTIVE_PROOF_LAW', 'OBSERVATION_LAW',
+    'CHANGE_OBSERVED_LAW', 'COUNTRY_REACHED_WHY', 'TEMPORAL_PROOF_WHY',
+    'STATE_REASON', 'COUNTRY_LAW', 'ROUTE_TERM_LAW', 'LADDER_LAW',
+    'ISSUE_IDS_LAW', 'CROP_IDS_LAW', 'QUERY_VS_PROVED_LAW', 'ABSTRACT_LAW',
+    'SAME_ENTITY_LAW', 'QUERY_TERM_LAW', 'ACERVO_MATCH_WHY',
+    'CITED_IN_PACKAGE_LAW', 'ACERVO_MATCH',
+    # as frases de MÉTODO que o acervo escreve sobre a própria leitura —
+    # «o texto traz "olive"», «nenhum lugar nomeado no texto». São nota de
+    # trabalho sobre como se provou, não afirmação ao cliente.
+    'PROVED_CROP_EVIDENCE', 'PROVED_ISSUE_EVIDENCE', 'COUNTRY_OF_FACT_EVIDENCE',
+    'PERSON_PROOF_EVIDENCE', 'MATERIAL_ROLE_EVIDENCE', 'STATE_REASON_ACERVO',
+    'ABSTRACT_TRANSLATION_METHOD', 'EPISODE_DESCRIPTION_LAW',
+    # o que a rota DECLAROU, preservado à letra — incluindo a sentinela com
+    # razão: «NÃO SEI — a rota nao declara o idioma da legenda». É a declaração
+    # da fonte sobre o que ela própria não sabe, e reescrevê-la apagaria a razão.
+    'SOURCE_LANGUAGE_DECLARED', 'SOURCE_COUNTRY_DECLARED',
+    'SOURCE_COUNTRY_EVIDENCE',
 ]
+
+# ⚠️ ESTA LISTA NÃO ERA LIDA POR NINGUÉM.
+# `INTERNO` existia como documentação: nenhum código a consumia. E `varrer()` só
+# percorre LEITURA + MISTO. Consequência medida: um campo de prosa portuguesa
+# cujo NOME não estivesse em LEITURA não era traduzido, não era contado, e não
+# acendia nada — `AINDA_SO_EM_PORTUGUES` continuava 0 com português na tela.
+#
+#     A LISTA QUE NINGUÉM LÊ NÃO CLASSIFICA NADA: DECORA.
+#
+# Agora há um contador para o que não está em lista nenhuma. Ele não reprova a
+# cadeia — declara um número que antes não existia, e quem o vir decide.
+CLASSIFICADOS = set(LEITURA) | set(MISTO) | set(FONTE) | set(INTERNO)
+SUFIXO_DERIVADO = ('_IT', '_EN', '_ORIGINAL_RESEARCH_TEXT', '_PROMOVIDO_DE')
 
 # ── 5 · O BLOCO RESEARCH — e a armadilha que ele esconde ────────────────────
 #
@@ -140,6 +180,30 @@ def campos_do_registro(r):
             # publicada, RESEARCH é o rascunho. O rascunho nunca sobrescreve.
             if isinstance(v, str) and not isinstance(r.get(destino), str):
                 fora.append((destino, v, True))
+    return fora
+
+
+def campos_nao_classificados(r):
+    """Prosa em português num campo que NENHUMA lista classifica.
+
+    Não é erro por si: pode ser nota de trabalho legítima. É o número que
+    faltava — sem ele, «zero em português» podia significar «nada em português»
+    ou «ninguém olhou».
+    """
+    fora = []
+    for campo, v in r.items():
+        if campo in CLASSIFICADOS or not isinstance(v, str):
+            continue
+        if campo.endswith(SUFIXO_DERIVADO):
+            continue
+        base = campo
+        for suf in SUFIXO_DERIVADO:
+            if campo.endswith(suf):
+                base = campo[:-len(suf)]
+        if base in CLASSIFICADOS:
+            continue
+        if e_portugues(v):
+            fora.append(campo)
     return fora
 
 

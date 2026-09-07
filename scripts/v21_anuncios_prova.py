@@ -84,6 +84,30 @@ def main():
     ent = acv['entities']
     as_of = acv.get('as_of_date')
 
+    # ── A SEGUNDA LEITURA ────────────────────────────────────────────────────
+    # ⚠️ Sem ela, FIRST_OBSERVED == LAST_OBSERVED em 414/414: um ponto, e a
+    # pergunta «mudou?» sem resposta. Ela existia no MESMO commit ja pinado.
+    #
+    #     UMA LEITURA E UM PONTO. DUAS SAO UMA LINHA — CURTA, MAS UMA LINHA.
+    k2 = [k for k, f in fontes.items()
+          if f['FAMILY'] == 'ADS' and f['ROLE'] == 'OBSERVATIONS_S2']
+    s2, car2 = ({}, None)
+    if k2:
+        d2 = ler(k2[0], fontes)
+        car2 = carimbo(k2[0], fontes)
+        for o in d2.get('observations') or []:
+            for a in (o.get('ads') or []):
+                s2.setdefault(str(a.get('library_id')), []).append({
+                    'as_of_date': o.get('observed_at'),
+                    'active_status': a.get('observed_state'),
+                    'country_reached': o.get('ad_delivery_country'),
+                    'collection_completeness': o.get('completeness'),
+                    'snapshot': 'S2',
+                })
+    kc = [k for k, f in fontes.items()
+          if f['FAMILY'] == 'ADS' and f['ROLE'] == 'TEMPORAL_COMPARISON']
+    cmp_ = ler(kc[0], fontes) if kc else {}
+
     p = os.path.join(ING, 'COMPETITOR-ACTIVITIES.json')
     d = json.load(open(p, encoding='utf-8'))
 
@@ -112,13 +136,62 @@ def main():
         r['OBSERVATION_SOURCE'] = 'META_ADS_LIBRARY'
         r['OBSERVATION_SOURCE_ID'] = m.group(1)
         obs = py(e.get('observations')) or []
-        r['OBSERVATIONS'] = obs if isinstance(obs, list) else []
-        r['OBSERVATION_COUNT'] = len(r['OBSERVATIONS'])
-        r['ACTIVE_STATUS_OBSERVED'] = val(e.get('active_status'))
+        obs = obs if isinstance(obs, list) else []
+        for o in obs:
+            if isinstance(o, dict):
+                o.setdefault('snapshot', 'S1')
+        obs = obs + s2.get(m.group(1), [])
+        # ordem determinística: pela data da observação, depois pelo snapshot
+        obs.sort(key=lambda o: (str(o.get('as_of_date') or ''),
+                                str(o.get('snapshot') or '')))
+        r['OBSERVATIONS'] = obs
+        r['OBSERVATION_COUNT'] = len(obs)
+        r['OBSERVATION_SNAPSHOTS'] = sorted({str(o.get('snapshot')) for o in obs})
+        datas = sorted({str(o.get('as_of_date')) for o in obs if o.get('as_of_date')})
+        if datas:
+            r['OBSERVATION_WINDOW_FROM'] = datas[0]
+            r['OBSERVATION_WINDOW_TO'] = datas[-1]
+        # o estado observado passa a ser o da leitura MAIS RECENTE, nao o da
+        # primeira. Se as duas discordam, isso e CHANGE_OBSERVED, nao ruido.
+        ult = [o for o in obs if o.get('active_status')]
+        r['ACTIVE_STATUS_OBSERVED'] = val(
+            (ult[-1].get('active_status') if ult else None) or e.get('active_status'))
+        r['ACTIVE_STATUS_FIRST_OBSERVED'] = val(
+            (ult[0].get('active_status') if ult else None) or e.get('active_status'))
+        # ⚠️ `NOT_KNOWN` NAO E UM ESTADO: E A AUSENCIA DE UM.
+        # A primeira versao desta conta marcou CHANGE_OBSERVED=YES num anuncio
+        # que foi de INACTIVE para NOT_KNOWN. Isso nao e o mercado a mudar — e
+        # a nossa leitura a piorar. Contar as duas coisas juntas faria «mudou»
+        # significar «mudou OU deixamos de saber», e as duas pedem acoes opostas.
+        #
+        #     DEIXAR DE SABER NAO E UMA MUDANCA. E UMA PERDA DE LEITURA.
+        CONHECIDOS = ('ACTIVE', 'INACTIVE')
+        estados = [o.get('active_status') for o in obs if o.get('active_status')]
+        conhecidos = [x for x in estados if x in CONHECIDOS]
+        r['CHANGE_OBSERVED'] = (
+            'NOT_COMPARABLE' if len(conhecidos) < 2
+            else 'NO' if len(set(conhecidos)) == 1 else 'YES')
+        r['OBSERVATION_DEGRADED_TO_UNKNOWN'] = bool(
+            conhecidos) and any(x not in CONHECIDOS for x in estados)
+        r['CHANGE_OBSERVED_LAW'] = (
+            'compara apenas leituras com estado CONHECIDO (ACTIVE/INACTIVE). '
+            'NOT_KNOWN nao e estado: e ausencia dele, e ir de INACTIVE para '
+            'NOT_KNOWN e a nossa leitura a piorar, nao o mercado a mudar — isso '
+            'vai em OBSERVATION_DEGRADED_TO_UNKNOWN, nunca em CHANGE_OBSERVED. '
+            'NOT_COMPARABLE significa menos de duas leituras conhecidas: a '
+            'pergunta nao tem resposta, e isso NAO e o mesmo que «nao mudou». '
+            'NO_LONGER_OBSERVED != AD_STOPPED: a fonte deixou de listar, ela '
+            'nao declarou fim de veiculacao.')
         r['COUNTRY_REACHED_OBSERVED'] = val(e.get('country_reached'))
         r['COLLECTION_COMPLETENESS'] = val(e.get('collection_completeness'))
         r['CREATIVE_TEXT_HASH'] = val(e.get('creative_text_hash'))
+        if r.get('OBSERVATION_WINDOW_TO'):
+            r['LAST_OBSERVED'] = r['OBSERVATION_WINDOW_TO']
+        if r.get('OBSERVATION_WINDOW_FROM'):
+            r['FIRST_OBSERVED'] = min(
+                x for x in (r['FIRST_OBSERVED'], r['OBSERVATION_WINDOW_FROM']) if x)
         r['ACERVO'] = car
+        r['ACERVO_SNAPSHOT_2'] = car2
         r['TEMPORAL_PROOF_STATE'] = 'CASOU_POR_META_AD_LIBRARY_ID'
 
         # ⚠️ A REGRA NÃO MUDA PARA O NÚMERO SUBIR.
@@ -181,8 +254,27 @@ def main():
         'ACTIVE_UNKNOWN': desconhecido,
         'HISTORICAL': historico,
         'COUNTRY_REACHED_DISAGREEMENTS': pais_divergente,
+        'CHANGE_OBSERVED': dict(Counter(r.get('CHANGE_OBSERVED') for r in pagos)),
+        'OBSERVATION_DEGRADED_TO_UNKNOWN': sum(
+            1 for r in pagos if r.get('OBSERVATION_DEGRADED_TO_UNKNOWN')),
     }
     obs = Counter(r.get('OBSERVATION_COUNT') for r in pagos)
+    d['SNAPSHOT_COMPARISON'] = {
+        'SNAPSHOT_1_AS_OF': cmp_.get('snapshot_1_as_of_date'),
+        'SNAPSHOT_2_FROM': cmp_.get('snapshot_2_collection_started_at'),
+        'SNAPSHOT_2_TO': cmp_.get('snapshot_2_collection_completed_at'),
+        'CHANGE_OBSERVED_DECLARED_BY_SOURCE': cmp_.get('change_observed'),
+        'CHANGE_OBSERVED_BASIS': cmp_.get('change_observed_basis'),
+        'READ_DEPTH_CONFOUNDED': cmp_.get('read_depth_confounded'),
+        'NO_LONGER_OBSERVED_NOTA': cmp_.get('no_longer_observed_nota'),
+        'TEMPORAL_COMPARISON_CAPABILITY': cmp_.get('temporal_comparison_capability'),
+        'FULL_LIFECYCLE_STATE_CAPABILITY': cmp_.get('full_lifecycle_state_capability'),
+        'LAW': ('as duas leituras distam menos de duas horas. Isso confirma o '
+                'estado duas vezes na mesma madrugada — NAO cobre um dia, uma '
+                'semana nem uma campanha. E onde o snapshot 2 leu mais fundo, '
+                '«novo» mede METODO, nao mercado: a propria fonte declara isso '
+                'em READ_DEPTH_CONFOUNDED.'),
+    }
     d['OBSERVATION_DEPTH'] = {
         'BY_OBSERVATION_COUNT': {str(k): v for k, v in sorted(
             obs.items(), key=lambda x: (x[0] is None, x[0]))},
