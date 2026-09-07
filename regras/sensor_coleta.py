@@ -608,6 +608,22 @@ def _cand_video(v, p, termo, prov, rota):
 def videos(lote='A'):
     """Vídeos dos recortes do lote, por termo técnico NA LÍNGUA DO PAÍS."""
     batch = 'BATCH-%s-VIDEOS' % lote
+
+    # AVISO ANTES DE GASTAR, NAO DEPOIS.
+    # Os lotes A e B sao de quando este projeto cobria tres paises: cada um leva
+    # um recorte italiano e dois estrangeiros. Rodar um deles aqui gasta dois
+    # tercos da rota PAGA a buscar espanhol e frances num repositorio que e da
+    # Italia — e ninguem via isso ate a fatura.
+    #
+    # Nao se barra a corrida: A e B continuam a servir para repetir uma coleta
+    # antiga e comparar. Mas quem a manda correr fica a saber o que vai pagar.
+    fora = [c for c in LOTES[lote] if not c.startswith('IT-')]
+    if fora:
+        print('  ATENCAO: %d de %d recortes deste lote NAO sao da Italia (%s).'
+              % (len(fora), len(LOTES[lote]), ', '.join(fora)))
+        print('           Este repositorio e o projeto italiano. Os lotes C, D e E')
+        print('           sao 100%% italianos — 11 recortes ao todo.')
+
     achados, mans, custo = [], [], 0.0
     for caso in LOTES[lote]:
         pais = caso.split('-')[0]

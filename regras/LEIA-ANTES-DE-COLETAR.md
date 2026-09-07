@@ -39,9 +39,9 @@ Cada uma vale no **momento em que o dado entra**. Depois é tarde.
 
 ### As palavras que a busca digita
 
-Os termos de busca, agrupados por pais-cultura-problema, na lingua de quem trabalha no campo daquele pais.
+Os termos de busca, agrupados por cultura-problema, na lingua de quem trabalha no campo. Sao 103 palavras em dois ficheiros: 35 do censo de rotulos, todas italianas, e 68 do sensor, das quais 13 recortes de 17 sao da Italia.
 
-*Por que existe:* Buscar 'septoria wheat' na Franca devolve literatura internacional, nao a conversa tecnica francesa. E o CROP e o ISSUE de cada item saem DESTA consulta, nunca de leitura livre do titulo — e o que torna a linha auditavel.
+*Por que existe:* Buscar 'septoria wheat' na Italia devolve literatura internacional, nao a conversa tecnica de quem esta no campo — o que se procura e 'septoriosi del frumento'. E o CROP e o ISSUE de cada item saem DESTA consulta, nunca de leitura livre do titulo, e e isso que torna a linha auditavel.
 
 | | |
 |---|---|
