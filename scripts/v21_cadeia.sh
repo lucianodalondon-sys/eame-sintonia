@@ -169,3 +169,10 @@ echo "── 10 · a contabilidade da fronteira ACERVO -> PACOTE ─────
 # FALHA (exit 1) se alguma familia nao fechar em INCLUDED+EXCLUDED+UNKNOWN.
 # Ja apanhou um defeito meu: 926 anuncios sem estado nenhum.
 "$PY" scripts/acervo_perda.py
+
+echo
+echo "── 11 · tempo e lugar de cada fato, pela lei portada do Brasil ─────────"
+# Depois da contabilidade, porque le as tres familias ja fechadas. Aplica o
+# vocabulario de scripts/lugar_do_fato.py — nao cria um segundo dono da lei.
+# Cada valor sai PROVADO com evidencia, ou UNKNOWN com a razao. Nunca inferido.
+"$PY" scripts/fatos_tempo_lugar.py

@@ -90,15 +90,30 @@ def registro(o):
 
     r['SOURCE_COUNTRY'] = o['SOURCE_COUNTRY']
     r['SOURCE_COUNTRY_DECLARED'] = o['SOURCE_COUNTRY_DECLARED']
+    r['SOURCE_COUNTRY_ORIGIN'] = o['SOURCE_COUNTRY_ORIGIN']
     r['COLLECTION_COUNTRY'] = o['COLLECTION_COUNTRY']
+    # ⚠️ O LUGAR DO FATO E OUTRO CAMPO, E QUASE SEMPRE UNKNOWN.
+    r['FACT_COUNTRY'] = o['FACT_COUNTRY']
+    r['FACT_COUNTRY_ORIGIN'] = o['FACT_COUNTRY_ORIGIN']
+    r['FACT_COUNTRY_EVIDENCE'] = o['FACT_COUNTRY_EVIDENCE']
+    r['FACT_LOCATION_LAW'] = o['FACT_LOCATION_LAW']
     r['SOURCE_LANGUAGE'] = o['SOURCE_LANGUAGE']
     r['SOURCE_LANGUAGE_DECLARED'] = o['SOURCE_LANGUAGE_DECLARED']
     r['CASE_ID'] = o['CASE_ID']
     r['CASE_COUNTRY'] = o['CASE_COUNTRY']
     r['CASE_LANGUAGE'] = o['CASE_LANGUAGE']
-    r['COUNTRY_LAW'] = ('SOURCE_COUNTRY e o pais do FATO; COLLECTION_COUNTRY e '
-                        'onde a coleta rodou. Nao sao a mesma coisa, e nenhum '
-                        'dos dois se deduz da tela que vai consumir.')
+    # ⚠️ ESTA LEI ESTAVA ERRADA, E ERA UM DEFEITO MEU.
+    # Dizia «SOURCE_COUNTRY e o pais do FATO». Nao e: e o escopo que a ROTA
+    # declara sobre si mesma, e 121 dos 184 registros o traziam como «IT» sem
+    # evidencia nenhuma — o carimbo do lote, lido como se fosse o lugar do fato.
+    #
+    #     UM VIDEO PUBLICADO POR UMA ORGANIZACAO DE MILAO
+    #     NAO PROVA QUE O FATO ACONTECEU EM MILAO.
+    r['COUNTRY_LAW'] = ('SOURCE_COUNTRY e o ESCOPO DA ROTA (origem DA_FONTE, que '
+                        'a lei recusa como prova de fato). FACT_COUNTRY e o lugar '
+                        'do fato e so nasce de ESCRITO/CITADO no conteudo. '
+                        'COLLECTION_COUNTRY e onde a coleta rodou. Os tres sao '
+                        'coisas diferentes, e nenhum se deduz da tela que consome.')
 
     r['CROP_DECLARED_BY_THE_ROUTE'] = o['CROP_DECLARED_BY_THE_ROUTE']
     r['ISSUE_DECLARED_BY_THE_ROUTE'] = o['ISSUE_DECLARED_BY_THE_ROUTE']
@@ -248,7 +263,16 @@ def main():
         'Spreaker trazem a descricao publicada pelo programa, e entram como '
         'texto de fonte — mas nao contam como voz falada.')
     corpo['BY_LANGUAGE'] = dict(Counter(r['SOURCE_LANGUAGE'] for r in recs))
-    corpo['BY_COUNTRY'] = dict(Counter(r['SOURCE_COUNTRY'] for r in recs))
+    corpo['BY_SOURCE_COUNTRY'] = dict(Counter(r['SOURCE_COUNTRY'] for r in recs))
+    corpo['BY_SOURCE_COUNTRY_ORIGIN'] = dict(
+        Counter(r['SOURCE_COUNTRY_ORIGIN'] for r in recs))
+    corpo['BY_FACT_COUNTRY'] = dict(Counter(r['FACT_COUNTRY'] for r in recs))
+    corpo['BY_FACT_COUNTRY_ORIGIN'] = dict(
+        Counter(r['FACT_COUNTRY_ORIGIN'] for r in recs))
+    corpo['COUNTRY_LAW'] = (
+        'LOCAL_DA_FONTE != LOCAL_DO_FATO. BY_SOURCE_COUNTRY conta o escopo da '
+        'rota; BY_FACT_COUNTRY conta o que o conteudo prova. Sao numeros '
+        'diferentes de proposito, e o segundo e muito menor.')
     corpo['BY_PLATFORM'] = dict(Counter(r['PLATFORM'] for r in recs))
     corpo['BY_CAPTION_SOURCE'] = dict(Counter(r['CAPTION_SOURCE'] for r in recs))
     corpo['BY_STATE'] = dict(Counter(r['STATE'] for r in recs))

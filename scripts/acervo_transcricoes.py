@@ -127,9 +127,27 @@ def _obj(**kw):
     o['CHANNEL_ID'] = kw.get('channel_id') or 'UNKNOWN'
     o['PUBLICATION_DATE'] = kw.get('pub') or None
     o['DURATION_S'] = kw.get('dur')
+    # ⚠️ LOCAL_DA_FONTE != LOCAL_DO_FATO — a lei que veio do Brasil, em
+    # scripts/lugar_do_fato.py. O que a ROTA declara sobre si mesma («este é um
+    # corpus italiano») é o escopo dela, não o lugar onde o fato aconteceu.
+    #
+    #     UM VÍDEO PUBLICADO POR UMA ORGANIZAÇÃO DE MILÃO NÃO PROVA
+    #     QUE O FATO ACONTECEU EM MILÃO.
+    #
+    # `SOURCE_COUNTRY` guarda o escopo da rota, com origem DA_FONTE — que a lei
+    # recusa como sustentação de fato. `FACT_COUNTRY` só nasce de ESCRITO/CITADO,
+    # com a frase de evidência ao lado, e é UNKNOWN quando não há.
     o['SOURCE_COUNTRY'] = _pais(kw.get('country'))
     o['SOURCE_COUNTRY_DECLARED'] = kw.get('country') or None
+    o['SOURCE_COUNTRY_ORIGIN'] = 'DA_FONTE' if o['SOURCE_COUNTRY'] != 'UNKNOWN' else 'NAO_SEI'
     o['COLLECTION_COUNTRY'] = kw.get('coleta') or 'UNKNOWN'
+    o['FACT_COUNTRY'] = 'UNKNOWN'
+    o['FACT_COUNTRY_ORIGIN'] = 'NAO_SEI'
+    o['FACT_COUNTRY_EVIDENCE'] = None
+    o['FACT_LOCATION_LAW'] = (
+        'LOCAL_DA_FONTE != LOCAL_DO_FATO. SOURCE_COUNTRY e o escopo declarado '
+        'pela rota (origem DA_FONTE, que a lei recusa como prova de fato). '
+        'FACT_COUNTRY so nasce de ESCRITO/CITADO no proprio conteudo.')
     o['SOURCE_LANGUAGE'] = _lang(kw.get('lang'))
     o['SOURCE_LANGUAGE_DECLARED'] = kw.get('lang') or None
     o['CASE_ID'] = kw.get('case_id') or 'UNKNOWN'
@@ -295,10 +313,27 @@ def _aplica(o, e):
         o['CHANNEL_ID'] = e['CHANNEL_ID']
     if not o['PUBLICATION_DATE'] and e.get('PUB') and not _e_sentinela(e['PUB']):
         o['PUBLICATION_DATE'] = e['PUB']
-    if o['SOURCE_COUNTRY'] == 'UNKNOWN':
-        o['SOURCE_COUNTRY'] = _pais(e.get('COUNTRY'))
+    # ⚠️ O FATO NAO E PREENCHIDO «SO SE ESTIVER VAZIO».
+    # A versao anterior so olhava o enriquecimento quando SOURCE_COUNTRY estava
+    # UNKNOWN — e como a rota ja tinha carimbado «IT» em 126 registros, a
+    # evidencia real (a frase «o texto nomeia "veneto"») era SOMBREADA pelo
+    # carimbo da rota, que e justamente o que a lei recusa.
+    #
+    #     O PALPITE QUE CHEGA PRIMEIRO NAO PODE TRANCAR A PROVA QUE CHEGA DEPOIS.
+    ev = e.get('COUNTRY_EVIDENCE')
+    pais_fato = _pais(e.get('COUNTRY'))
+    escrito = bool(ev) and (
+        'nomeia' in str(ev).lower() or str(ev).upper() == 'NOMEADO_NO_TEXTO')
+    if pais_fato != 'UNKNOWN' and escrito:
+        o['FACT_COUNTRY'] = pais_fato
+        o['FACT_COUNTRY_ORIGIN'] = 'ESCRITO'
+        o['FACT_COUNTRY_EVIDENCE'] = ev
+    elif ev:
+        o['FACT_COUNTRY_EVIDENCE'] = ev      # a razao da ausencia tambem e prova
+    if o['SOURCE_COUNTRY'] == 'UNKNOWN' and pais_fato != 'UNKNOWN':
+        o['SOURCE_COUNTRY'] = pais_fato
+        o['SOURCE_COUNTRY_ORIGIN'] = 'ESCRITO' if escrito else 'DA_FONTE'
         o['SOURCE_COUNTRY_DECLARED'] = o['SOURCE_COUNTRY_DECLARED'] or e.get('COUNTRY')
-        o['SOURCE_COUNTRY_EVIDENCE'] = e.get('COUNTRY_EVIDENCE')
     if o['SOURCE_LANGUAGE'] == 'UNKNOWN' and e.get('LANG'):
         o['SOURCE_LANGUAGE'] = _lang(e['LANG'])
     if o['CASE_ID'] == 'UNKNOWN' and e.get('CASE_ID') and not _e_sentinela(e['CASE_ID']):

@@ -222,3 +222,85 @@ class TestPacoteQuandoMontado(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TestLugarETempoDoFato(unittest.TestCase):
+    """A lei portada do Brasil, exercida sobre os fatos que já existem.
+
+        LOCAL_DA_FONTE  != LOCAL_DO_FATO
+        DATA_PUBLICACAO != DATA_DO_ACONTECIMENTO
+        DATA_COLETA     != DATA_DO_ACONTECIMENTO
+    """
+
+    P = os.path.join(ROOT, 'build', 'ITALY-REALITY-HANDOFF-V2.1',
+                     'FACT-TIME-PLACE-V1.json')
+    CAMPOS = ('fact_time', 'source_location', 'fact_location',
+              'publication_time', 'observation_time', 'collection_time')
+
+    def setUp(self):
+        if not os.path.exists(self.P):
+            self.skipTest('artefato nao gerado — rode bash scripts/v21_cadeia.sh')
+        with open(self.P, encoding='utf-8') as f:
+            self.d = json.load(f)
+
+    def test_todo_valor_e_PROVADO_ou_UNKNOWN_e_nunca_um_meio_termo(self):
+        """O critério de sucesso da missão, em forma de teste."""
+        for f in self.d['FACTS']:
+            for c in self.CAMPOS:
+                v = f[c]
+                self.assertIn('value', v, '%s.%s sem value' % (f['fact_id'], c))
+                self.assertTrue(v.get('value_evidence'),
+                                '%s.%s sem evidencia nem razao' % (f['fact_id'], c))
+                if v['value'] == 'UNKNOWN':
+                    self.assertEqual(v['value_provenance'], 'NAO_SEI')
+                    self.assertIn(c, f['unknown_fields'])
+                else:
+                    self.assertNotIn(c, f['unknown_fields'])
+                    self.assertTrue(v.get('value_source'),
+                                    '%s.%s provado sem fonte' % (f['fact_id'], c))
+
+    def test_nenhum_lugar_do_fato_nasce_de_DA_FONTE_ou_DEDUZIDO(self):
+        """A lei em uma linha, de `lugar_do_fato.sustenta_fato`."""
+        import lugar_do_fato as L
+        for f in self.d['FACTS']:
+            v = f['fact_location']
+            if v['value'] == 'UNKNOWN':
+                continue
+            self.assertIn(v['value_provenance'], L.ORIGENS_QUE_SUSTENTAM_FATO,
+                          '%s: lugar do fato sustentado por %s'
+                          % (f['fact_id'], v['value_provenance']))
+
+    def test_o_carimbo_de_publicacao_nunca_vira_tempo_do_fato(self):
+        import lugar_do_fato as L
+        for f in self.d['FACTS']:
+            ft, pt = f['fact_time'], f['publication_time']
+            if ft['value'] == 'UNKNOWN':
+                continue
+            self.assertIn(ft['value_provenance'], L.ORIGENS_DO_TEMPO)
+            self.assertNotEqual(ft['value_provenance'], 'PUBLICACAO')
+            if ft['value_source'] == pt['value_source']:
+                # mesma coluna nos dois papéis só é legítima quando o FATO é o
+                # próprio acto que a fonte publica — e aí tem de estar dito.
+                self.assertIn('o fato aqui e a propria', ft['value_evidence'],
+                              '%s reusa %s como tempo do fato sem dizer porque'
+                              % (f['fact_id'], ft['value_source']))
+
+    def test_a_cobertura_declarada_bate_com_o_corpo(self):
+        cov = self.d['COVERAGE']
+        for c in self.CAMPOS:
+            p = sum(1 for f in self.d['FACTS'] if f[c]['value'] != 'UNKNOWN')
+            u = sum(1 for f in self.d['FACTS'] if f[c]['value'] == 'UNKNOWN')
+            self.assertEqual(cov[c + '_PROVED'], p)
+            self.assertEqual(cov[c + '_UNKNOWN'], u)
+            self.assertEqual(p + u, self.d['FACTS_ALREADY_IDENTIFIED'])
+
+    def test_a_transcricao_nao_promove_o_escopo_da_rota_a_lugar_do_fato(self):
+        """126 registros diziam IT sem evidência. Isso não pode voltar."""
+        p = os.path.join(ROOT, 'build', 'ITALY-REALITY-HANDOFF-V2.1',
+                         'DESIGN-INGEST', 'TRANSCRIPTS.json')
+        with open(p, encoding='utf-8') as f:
+            t = json.load(f)
+        for r in t['RECORDS']:
+            if r['FACT_COUNTRY'] != 'UNKNOWN':
+                self.assertEqual(r['FACT_COUNTRY_ORIGIN'], 'ESCRITO')
+                self.assertTrue(r['FACT_COUNTRY_EVIDENCE'])
