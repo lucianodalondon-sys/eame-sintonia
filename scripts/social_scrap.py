@@ -8,6 +8,10 @@ SINTONIA SCRAP — o executor composto. Uma fase por comando, sempre auditável.
     py scripts/social_scrap.py gap                   # GRÁTIS · onde a Apify ainda é precisa
     py scripts/social_scrap.py piloto                # GRÁTIS · a prova pequena, ao vivo
     py scripts/social_scrap.py ledger                # GRÁTIS · o que a missão rodou e gastou
+    py scripts/social_scrap.py sessao                # GRÁTIS · preflight da sessão local
+    py scripts/social_scrap.py politica              # GRÁTIS · onde LOCAL_SESSION é permitida
+    py scripts/social_scrap.py guarda                # GRÁTIS · nenhum segredo entrou no Git
+    py scripts/social_scrap.py authmodes             # GRÁTIS · o raio-X para o System Map
 
 O SINTONIA SCRAP NÃO É UM ORQUESTRADOR
 ----------------------------------------
@@ -43,6 +47,7 @@ sys.path.insert(0, HERE)
 import social_envelope as env      # noqa: E402
 import social_matriz as mz         # noqa: E402
 import social_rotas as sr          # noqa: E402
+import social_sessao as ss         # noqa: E402
 
 LEDGER = 'LEDGER-SOCIAL-IT.json'
 
@@ -216,6 +221,50 @@ def video():
     print('  Isso não é limite do Whisper — é limite de permissão, e é anterior a ele.')
 
 
+def authmodes():
+    """RAIO-X DOS AUTH MODES — o que o System Map mostra por plataforma.
+
+    Uma coluna por modo de autenticação, uma linha por plataforma. O valor de
+    cada célula é o ESTADO daquele modo, não um "sim/não": `AVAILABLE` e
+    `NOT_ALLOWED` são respostas diferentes e a diferença é o assunto inteiro
+    desta missão.
+
+    E ele nunca mostra caminho de perfil, usuário, cookie ou token. O mapa diz
+    QUE existe sessão; nunca DE QUEM nem ONDE.
+    """
+    modos = ('PUBLIC', 'OFFICIAL_API', 'LOCAL_SESSION', 'OFFICIAL_PAID_API', 'APIFY')
+    print('\nRAIO-X DOS AUTH MODES · medido em %s\n%s' % (mz.MEDIDO_EM, '═' * 78))
+    print('  %-11s %-9s %-13s %-15s %-11s %s'
+          % ('PLATAFORMA', 'PUBLIC', 'OFFICIAL_API', 'LOCAL_SESSION', 'PAID_API', 'APIFY'))
+    print('  ' + '─' * 76)
+    for plat in sorted(mz.MATRIZ):
+        caps = mz.MATRIZ[plat]
+        # Que modos aparecem em alguma rota declarada e permitida?
+        disponiveis = set()
+        for cap, rotas in caps.items():
+            if cap.startswith('_'):
+                continue
+            for x in rotas:
+                if x['PERMITIDA'] in ('SIM', 'CONDICIONAL') and x['ESTADO'] != 'ROUTE_NOT_ALLOWED':
+                    disponiveis.add(mz.auth_mode(x))
+        celulas = []
+        for m in modos:
+            if m == 'LOCAL_SESSION':
+                if plat in ss.POLITICA:
+                    ok, _ = ss.automacao_permitida(plat, ss.THIRD_PARTY)
+                    celulas.append('AVAILABLE' if ok else 'NOT_ALLOWED')
+                else:
+                    celulas.append('—')
+            else:
+                celulas.append('AVAILABLE' if m in disponiveis else '—')
+        print('  %-11s %-9s %-13s %-15s %-11s %s' % (plat, *celulas))
+    print('\n  LOCAL_SESSION contra TERCEIRO é NOT_ALLOWED nas sete prioritárias.')
+    print('  Contra conta PRÓPRIA da ADAMA é AVAILABLE em todas as sete —')
+    print('  e ainda assim a API oficial costuma ser a rota melhor.')
+    print('\n  O mapa nunca mostra caminho de perfil, usuário, cookie ou token.')
+    print('  Ele diz QUE existe sessão. Nunca DE QUEM, nem ONDE.\n')
+
+
 def portao(url):
     ok, motivo = sr.permitido(url)
     print('\n  URL       %s' % url)
@@ -262,6 +311,14 @@ def main():
         piloto()
     elif cmd == 'ledger':
         ledger()
+    elif cmd in ('sessao', 'politica'):
+        sys.argv = ['x', 'preflight' if cmd == 'sessao' else 'politica']
+        ss.main()
+    elif cmd == 'authmodes':
+        authmodes()
+    elif cmd == 'guarda':
+        import social_guarda
+        sys.exit(social_guarda.main())
     else:
         print(__doc__)
 

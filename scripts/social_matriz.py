@@ -85,11 +85,26 @@ CLASSES = {
     'PUBLIC_NATIVE': 0,      # endpoint público da própria plataforma, sem chave
     'OFFICIAL_API_FREE': 1,  # API oficial com quota gratuita
     'DIRECT_HTTP': 2,        # HTTP direto sobre superfície pública permitida
-    'PUBLIC_BROWSER': 3,     # navegador público, deslogado
+    'PUBLIC_BROWSER': 3,     # navegador público, DESLOGADO
     'LOCAL_EXECUTOR': 4,     # executor local maduro (ex.: faster-whisper)
-    'OFFICIAL_API_PAID': 5,  # API oficial paga
-    'APIFY': 6,              # último recurso, sempre com motivo declarado
+    'LOCAL_SESSION': 5,      # navegador local JÁ LOGADO — ver social_sessao.py
+    'OFFICIAL_API_PAID': 6,  # API oficial paga
+    'APIFY': 7,              # último recurso, sempre com motivo declarado
 }
+
+# O AUTH MODE canônico de cada classe. É o vocabulário que o System Map mostra,
+# e ele responde uma pergunta diferente da classe: a classe diz QUAL PORTA, o
+# auth mode diz COM QUE CREDENCIAL — e é o segundo que decide o risco.
+AUTH_MODE_DA_CLASSE = {
+    'PUBLIC_NATIVE': 'PUBLIC', 'DIRECT_HTTP': 'PUBLIC', 'PUBLIC_BROWSER': 'PUBLIC',
+    'LOCAL_EXECUTOR': 'PUBLIC', 'OFFICIAL_API_FREE': 'OFFICIAL_API',
+    'LOCAL_SESSION': 'LOCAL_SESSION', 'OFFICIAL_API_PAID': 'OFFICIAL_PAID_API',
+    'APIFY': 'APIFY',
+}
+
+
+def auth_mode(rota):
+    return AUTH_MODE_DA_CLASSE.get(rota['CLASSE'], 'UNAVAILABLE')
 
 # Estados de capacidade. `ROUTE_NOT_ALLOWED` é diferente de `BLOCKED`:
 # BLOCKED = a plataforma me impediu tecnicamente.

@@ -34,18 +34,33 @@ on:
         required: true
         default: censo
         type: choice
-        options: [censo, portao, video, gap, piloto, ledger]
+        options: [censo, portao, video, gap, piloto, ledger, sessao, politica, guarda]
       url:
         description: 'só para a fase `portao`: a URL a testar'
         required: false
         default: 'https://www.youtube.com/feeds/videos.xml?channel_id=X'
+      auth_mode:
+        description: 'AUTO deixa a política escolher. Os outros FORÇAM e podem recusar.'
+        required: false
+        default: AUTO
+        type: choice
+        # Não existe `force_apify`, e a ausência é a decisão: o caller não
+        # escolhe ferramenta. Ele diz o que quer; a rota é decisão da casa.
+        options: [AUTO, PUBLIC, OFFICIAL_API, LOCAL_SESSION]
 
 permissions:
   contents: write
 
 jobs:
   scrap:
-    runs-on: ubuntu-latest
+    # A fase que fala com o navegador PRECISA da máquina onde o perfil vive. As
+    # outras não — e mandar tudo para o runner local só ocuparia a máquina que
+    # faz a coleta paga.
+    #
+    #     O GITHUB DISPARA. O PC EXECUTA. A SESSÃO NÃO VIAJA.
+    runs-on: ${{ (inputs.fase == 'sessao' || inputs.auth_mode == 'LOCAL_SESSION')
+      && fromJSON('["self-hosted","Windows","X64","eame-sintonia-local"]')
+      || fromJSON('"ubuntu-latest"') }}
     defaults:
       run:
         shell: bash
@@ -55,10 +70,24 @@ jobs:
           ref: ${{ github.ref_name }}
 
       - uses: actions/setup-python@v5
+        if: inputs.fase != 'sessao' && inputs.auth_mode != 'LOCAL_SESSION'
         with:
           python-version: '3.11'
 
+      # A GUARDA RODA ANTES DE TUDO. Se um cookie ou um perfil de navegador
+      # entrou no repositório, nada mais desta execução importa — e descobrir
+      # depois do push é tarde: segredo commitado fica no pack para sempre.
+      - name: 0 · nenhum segredo entrou no repositório
+        run: |
+          PYTHONIOENCODING=utf-8 python3 scripts/social_guarda.py \
+            || PYTHONIOENCODING=utf-8 py scripts/social_guarda.py
+
       - name: 1 · rodar a fase
+        env:
+          # O caminho do perfil vem da MÁQUINA, nunca do repositório. Se não
+          # estiver definido, `navegador.py` usa ~/.sintonia-browser.
+          SINTONIA_BROWSER_PROFILE_DIR: ${{ vars.SINTONIA_BROWSER_PROFILE_DIR }}
+          SINTONIA_AUTH_MODE: ${{ inputs.auth_mode }}
         run: |
           echo "FASE=${{ inputs.fase }}"
           PYTHONIOENCODING=utf-8 python3 scripts/social_scrap.py \

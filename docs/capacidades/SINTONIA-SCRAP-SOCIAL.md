@@ -191,3 +191,79 @@ alterado — a missão paralela não foi tocada.
 4. **Rodar o piloto do runner local** — para separar *"a rota caiu"* de *"a rota
    caiu neste IP"* (Bluesky `searchPosts` e o player do YouTube barram este host).
 5. **Decisão humana sobre o LinkedIn via Apify** — risco declarado acima.
+
+---
+
+# ADENDO — LOCAL_SESSION (sessão local autenticada)
+
+**Medido em:** 2026-09-08. **Apify gasto:** US$ 0,00. **Teste real:** `NOT_RUN`.
+
+## A pergunta que decide, e não é "a plataforma permite?"
+
+Medindo os termos das sete plataformas prioritárias, o que separa o permitido do
+proibido **não é a plataforma — é de quem é a conta**:
+
+| | `OWN_PROPERTY` (conta da ADAMA) | `THIRD_PARTY` (conta de outro) |
+|---|---|---|
+| LOCAL_SESSION | **PERMITIDO** nas 7 | **NÃO** nas 7 |
+
+Ler o próprio dado com a própria sessão é o que qualquer administrador faz.
+Contra terceiro, a sessão autenticada vira exatamente o que os contratos
+proíbem — e **estar logado piora, não melhora**:
+
+| plataforma | cláusula que fecha a porta |
+|---|---|
+| LINKEDIN | User Agreement §8.2 — *"bots or other unauthorized automated methods"* |
+| TIKTOK | Termos §5 — *"automated scripts to collect information"* |
+| YOUTUBE | Termos §3 — *"any automated means"*, valendo logado e deslogado |
+| FACEBOOK | `robots.txt` `Disallow: /`; a rota de terceiro é PPCA, com App Review |
+| INSTAGRAM | a rota desta casa roda **deslogada** de propósito; logar muda a natureza do ato |
+| X | `x.com` e o CDN de sindicância são `Disallow: /` |
+| THREADS | a API `keyword_search` já faz o trabalho — sessão seria pior **e** proibida |
+
+> **AUTENTICADO NÃO É AUTORIZADO A AUTOMATIZAR QUALQUER COISA.**
+
+## Impacto real na Apify: nenhum, hoje
+
+| capability | rota ANTES | rota DEPOIS | Apify antes | Apify depois |
+|---|---|---|---|---|
+| INSTAGRAM `FETCH_COMMENTS` | Apify | Apify | necessária | **ainda necessária** |
+| INSTAGRAM `FETCH_POST` (>12) | Apify | Apify | necessária | **ainda necessária** |
+| LINKEDIN `FETCH_POST` | Apify (legado) | sem rota permitida | usada | **continua sem rota** |
+| YOUTUBE `FETCH_TRANSCRIPT` | Apify | Apify | necessária | **ainda necessária** |
+
+**LOCAL_SESSION não reduziu a dependência de Apify em nenhuma capability.** Não
+há o que comemorar: onde a sessão ajudaria, ela é proibida; onde é permitida
+(conta própria), a API oficial já é a rota melhor. O ganho é a **infraestrutura
+e as travas**, prontas para o dia em que houver permissão escrita ou uma conta
+própria a ler.
+
+## O que ficou construído
+
+| arquivo | papel |
+|---|---|
+| `scripts/social_sessao.py` | política `OWN_PROPERTY`/`THIRD_PARTY` com cláusula citada, preflight, health, estados, `redigir()` |
+| `scripts/social_guarda.py` | a trava: falha o commit se cookie, perfil ou segredo entrarem |
+| `tests/test_social_sessao.py` | 30 testes, sem rede e sem conta real |
+| `docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md` | o guia de 5 minutos |
+
+Reusados sem reescrita: `navegador.py` (acha o Chrome) e `cdp.py` (fala com ele).
+
+## Três defeitos que os testes pegaram
+
+1. **A redação vazava o token.** `redigir()` transformava
+   `Authorization: Bearer <token>` em `Authorization=<REDIGIDO> <token>` — apagava
+   o rótulo e **deixava o valor**. Pior que não redigir: parecia tratado.
+2. **A guarda gritava do jeito certo.** Acusou três
+   `Authorization: Bearer $SUPABASE_SECRET_KEY` — que é a forma correta. Guarda
+   que grita demais é desligada, então ela passou a examinar o *valor*.
+3. **Fixture com cara de credencial.** Meu próprio teste usava um JWT falso de
+   20+ caracteres e disparou o scanner do repositório. Encurtado.
+
+## Achado real, fora do escopo — não corrigido
+
+`scripts/v21_tm_colher.py:55` embute um caminho pessoal de Windows
+(`C:\Users\<usuário>\AppData\...`) como padrão de `LOCALAPPDATA`, expondo o nome
+de usuário da máquina. É da cadeia v21, **não do SINTONIA SCRAP** — reportado e
+listado em `DIVIDA_CONHECIDA`, não alterado, para não colidir com a missão
+paralela. A correção é de uma linha e é sua para autorizar.
