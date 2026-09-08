@@ -360,3 +360,168 @@ Ordenado por custo de não fazer, não por esforço.
 > **Nove das dez são escrita, não código.**
 > A entrega do SINTONIA não está bloqueada por engenharia. Está bloqueada por não ter
 > onde registar o que já decidiu.
+
+---
+
+# ADENDA R0.2 · 2026-09-08 — INTENÇÃO DO DONO E EVIDÊNCIA DE BENCHMARK
+
+```
+REGISTRY_VERSION   R0.2   (supersede R0.1; não a apaga)
+INPUTS             OWNER_INTENT declarado em 2026-09-08
+                   BENCHMARK_EVIDENCE · research/product-tools-benchmark-v1@6ef8e70
+RULE               §32 da Bíblia — os três registos nunca se escrevem sem rótulo
+```
+
+> **Mudar aqui não é emendar a Constituição.**
+> Esta adenda reclassifica superfícies e regista intenção de produto. Nenhuma linha
+> das Partes I–V da Bíblia se altera por causa dela.
+
+## R2.1 · A tabela dos três registos
+
+`MEASURED` = lido por execução · `OWNER_INTENT` = declarado pelo dono ·
+`BENCHMARK` = evidência de 16 sistemas · `V0.2` = a classificação que fica.
+
+| superfície | `MEASURED` (papel provado) | `OWNER_INTENT` | `BENCHMARK` | **`SURFACE_CLASS` V0.2** | conf. |
+|---|---|---|---|---|---|
+| **Opportunity Radar** | juízo com lei, portão e classe negada | **ferramenta comercial nº 1** · utilizador **Sales Manager**, *downstream* **RTV** | `IMPROVE` — produto de decisão principal | `CANONICAL_TOOL` | **A** |
+| **Portfolio** | referência; promovido a STRUMENTI sem registo | `OPERATIONAL RESPONSE MEMORY` | `RETHINK` | `CANONICAL_TOOL` **provisório**, sob `OWNER_INTENT` — a medição de uso continua exigida | **B→M** |
+| **Future Radar** | 44 ids; 12 de 13 campos não viajam | portfólio de hipóteses observadas | `IMPROVE` | `EXPLORATORY_TOOL` | **A** |
+| **Label Intelligence** | único contrato completo; selo; claim proibido | `REGULATORY / OPERATIONAL TRUTH LAYER` + referência | `SUPPORTING LAYER + REFERENCE` | **`TRUTH_LAYER` + `CANONICAL_TOOL` + `DELIVERY_PROJECTION`** — as três (`ADJUDICACAO §4`) | **A** |
+| **Crop Windows** | `PROVED 0` · `SOURCE_IDS` vazio 29/29 · gerador ausente | `SHARED AGRONOMIC CLOCK` | `FOUNDATIONAL LAYER + SURFACE` | **papel `FOUNDATIONAL_LAYER` · estado `DEGRADED`** — as duas ao mesmo tempo | **M** |
+| **Market Pulse** | 157 observações; sem decision question | mudança externa que altera decisão | `RETHINK` com porta `SO WHAT` | `CONTEXT_VIEW` + porta de promoção (`C-CARD-06`) | **M-A** |
+| **Field Voices** | 79 vozes; 184 transcrições; `USED_AS_EVIDENCE = false` 184/184 | `CURATED FIELD NEWSWIRE / SENSOR` | `RETHINK` | `SENSOR` **candidato** — 3 bloqueadores medidos mantêm-se | **B** |
+| **Competitor Watch** | 577; `issueIds` vazio 577/577; 27 ATTIVO sem data | taxonomia, *cross-links*, evidência | `KEEP + IMPROVE`, sem score | `CROSS-CUTTING LAYER` + `INVESTIGATION_VIEW` | **M-A** |
+| **Scientific Intelligence** | 88 de 763; 39/88 `OFF_CASE` | *science calls* que mudam decisão | `IMPROVE` | `CANDIDATE` → `CANONICAL_TOOL` (R&D/TEC) | **M** |
+| **Archive** | índice derivado 1114; sem ficha | evidência/histórico/investigação | `RECLASSIFY` | `INVESTIGATION_VIEW` **ou** `ADMIN` | **M-A** / **B** |
+| **Source Register** | 194; `sourceGroup` 84% vazio | proveniência e cobertura | `SUPPORTING LAYER / GOVERNANCE` | `EVIDENCE_EXPLORER` — `C-02` aberto | **A** |
+| **Field Sales Channel** | 18 · `SYNTHETIC_DEMO` · 4 camadas de rótulo | canal de entrega + retorno de campo | `EXPERIMENT / DELIVERY + FEEDBACK LOOP` | `INTEGRATION` · `EXPERIMENT` · **`DEMO` preservado** | **A** |
+| **Signal Archive** *(fora do menu)* | 3; rota viva, sem voz | — | não avaliado | `SUPPORTING_VIEW` | **A** |
+
+```
+CONVERGÊNCIA MEASURED × BENCHMARK ...... 7 de 12
+RECLASSIFICADAS NESTA ADENDA ........... 5   Portfolio · Label · Crop Windows ·
+                                             Field Voices · Market Pulse
+CLASSES NOVAS INTRODUZIDAS ............. 1   TRUTH_LAYER
+SUPERFÍCIES REMOVIDAS .................. 0
+FERRAMENTAS MORTAS POR CONTRATO ANTIGO . 0
+```
+
+### A classe nova · `TRUTH_LAYER`
+
+`§10` de V0.1 tinha catorze classes e nenhuma para **«é dona de uma pergunta de verdade
+oficial, e gateia o que as outras podem afirmar»**. Label Intelligence e Crop Windows
+ocupam esse lugar; Portfolio monta-se sobre ele.
+
+```
+TRUTH_LAYER   é dona de uma pergunta de verdade  ·  GATEIA outras superfícies
+              pode ter superfície própria — ser input NÃO rebaixa (PG-08)
+              o seu UNKNOWN bloqueia, nunca autoriza
+```
+
+## R2.2 · Novas entradas de registo — o que V0.2 acrescenta
+
+```
+RV-010  Portfolio → OPERATIONAL RESPONSE MEMORY
+        TYPE          SURFACE_CLASS RECLASSIFICATION por OWNER_INTENT
+        FROM_STATE    REFERENCE_SURFACE / UNKNOWN
+        TO_STATE      CANONICAL_TOOL provisório
+        WHY           o dono declarou a pergunta: «o que a ADAMA pode fazer para este
+                      problema, nesta cultura, neste país, neste momento, dentro do
+                      que label e evidência autorizam?»
+        EVIDENCE      OWNER_INTENT 2026-09-08 + BENCHMARK RETHINK
+        RESSALVA      NÃO é OBSERVED_USAGE. A medição de quem abre a tela continua
+                      exigida — R0.1 §6 e MATRIZ §6 mantêm-se.
+        CAMPO NOVO    `WHERE IS THIS PRODUCT RELEVANT IN SINTONIA NOW?`
+                      como PROJECTION, nunca como verdade nova
+
+RV-011  Label Intelligence ganha TRUTH_LAYER
+        TYPE          CLASS ADDITION (não substituição)
+        WHY           a divergência entre benchmark e medição resolveu-se por PG-08:
+                      ser input não rebaixa. É truth layer E ferramenta E projeção.
+        PRIORIDADE    `WHAT CHANGED SINCE LAST LABEL` + objectos impactados
+        TRAVA         o casco não calcula o impacto se ele exigir juízo (§34.2)
+        MEDIDO        `versions` 54 · `history.true_changes` 36 · `noise_pct` 93,9
+                      — o diff já existe; o que falta é a propagação
+
+RV-012  Crop Windows ganha papel FOUNDATIONAL e mantém estado DEGRADED
+        TYPE          ROLE ELEVATION + STATE PRESERVATION
+        WHY           §34 depende dela inteiro; e `CROP_WINDOWS_TRUSTED = NÃO`
+        LEI           papel e estado são campos distintos. Elevar o papel de uma
+                      superfície não repara o seu dado.
+        BLOQUEADOR    U-02 — gerador e insumo ausentes de 979 commits
+
+RV-013  Market Pulse ganha a porta SO WHAT
+        TYPE          PROMOTION GATE ADDITION
+        WHY           C-CARD-06. Um item que não responde SO WHAT · WHO CARES ·
+                      WHICH DECISION MAY CHANGE não é item de pulse.
+        CONSEQUÊNCIA  se a porta fechar para a maioria dos 157, a superfície não é
+                      «má»: é CONTEXT_VIEW — o que V0.1 já recomendava por outro caminho
+
+RV-014  Field Voices ganha direção SENSOR / NEWSWIRE
+        TYPE          DIRECTION DECLARED
+        FROM_STATE    CANDIDATE (3 hipóteses vivas)
+        TO_STATE      CANDIDATE · direção SENSOR declarada
+        WHY           OWNER_INTENT + BENCHMARK convergem
+        NÃO PROMOVE   os três bloqueadores medidos mantêm-se e nenhum é de formato:
+                      baseline · denominador · GDPR
+```
+
+## R2.3 · Contratos de produto que passam a ser necessários
+
+Novos `PRODUCT_CONTRACT` que V0.2 torna exigíveis e que **não existem**:
+
+| # | contrato | para quê | dependência |
+|---|---|---|---|
+| 1 | `HOME_QUEUE_CONTRACT` | a fila de decisão: que estados aceita, como ordena, o que faz com item sem estado | §38 · §34 |
+| 2 | `CARD_CONTRACT` × 3 | Opportunity · Future · Scientific — campos obrigatórios por família | §36.2 |
+| 3 | `EVIDENCE_DRAWER_CONTRACT` | o que abre, ligado a que claim | §37 · **exige o objecto `CLAIM`** |
+| 4 | `ROLE_BRIEF_CONTRACT` × 9 | o imutável e o variável por papel | §40 |
+| 5 | `SHARE_BRIEF_CONTRACT` | móvel: ID estável, versão, `AS_OF`, *deep-link* | §40.4 |
+| 6 | `PDF_SNAPSHOT_CONTRACT` | `PDF ≠ DATABASE DUMP` | §40.4 |
+| 7 | `ACTION_CONTRACT` | as 9 ações, e o que cada uma NÃO faz | §41 |
+| 8 | `ALERT_CONTRACT` | que transições interrompem, por papel | §39 |
+| 9 | `TEMPORAL_CONTRACT` | os 12 campos de tempo e o dono de cada um | §34 · **`DEPENDENCY_ON_INTELLIGENCE_BIBLE = OPEN`** |
+| 10 | `LABEL_CHANGE_PROPAGATION_CONTRACT` | `WHAT CHANGED` → que objectos são impactados | RV-011 |
+
+**Dez contratos. Nenhum exige engenharia nova para ser ESCRITO.**
+Três (nº 3, 9, 10) não podem ser **fechados** sem a Bíblia da Inteligência.
+
+## R2.4 · `WORKFLOW_CANDIDATE` — o registo que a Validation Queue recebe
+
+```
+ID                WC-01
+NAME              VALIDATION QUEUE / INVESTIGATION WORKSPACE
+STATE             WORKFLOW_CANDIDATE
+NÃO É             CANONICAL_TOOL · nem 13ª ferramenta · nem HOME
+DECISION QUESTION que sinais, UNKNOWN, contradições e hipóteses precisam de ser
+                  validados, por quem, e o que falta para promover ou rejeitar?
+USERS             Market Development · Technical · Regulatory
+                  (Sales como requerente e consumidor)
+GATE              NÃO PASSOU — falha as perguntas 2 e 13
+MATÉRIA-PRIMA     VALIDATION_REQUIRED 37 de 43 · TO_VALIDATE 9 · WATCH 21
+                  + a régua de promoção 0–5 do RADAR-DO-FUTURO-CONTRACT-V1
+BLOQUEADOR        U-20 — ninguém mediu como a ADAMA valida isto hoje, FORA do SINTONIA
+REVISÃO (LC-04)   quando U-20 fechar
+```
+
+> **A pergunta é boa e a matéria-prima está medida.** O que falta não é ideia: é o
+> *workflow* real. Construir a fila antes de saber como eles já validam seria desenhar
+> o processo em vez de o servir.
+
+## R2.5 · O que R0.2 acrescenta à lista de trabalho
+
+Sobre os dez de `R0.1 §9`, e na mesma ordem de custo:
+
+```
+11  escrever os 10 PRODUCT_CONTRACTS de R2.3          baixo — é escrita
+12  medir o MAPPING dos 5 estados da Linha A           baixo — é medição
+    para os 4 propostos                                       (U-16)
+13  criar o objecto CLAIM                              médio — desbloqueia §37
+14  resolver C-06: uma partição, não duas              ALTO — decisão de dono
+15  datar E-03 (Crop Window → Opportunity)             ALTO — depende de U-02
+16  nomear os estados temporais com utilizadores       médio — é teste, não código
+```
+
+**O item 14 é o mais caro e o menos técnico.** Duas leis publicam partições diferentes
+dos mesmos 43 casos, no mesmo pacote, com o mesmo `BUILD_ID`. Enquanto as duas viverem,
+qualquer contrato de Home ou de card assenta em areia.

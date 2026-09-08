@@ -30,6 +30,8 @@ PORTAL MEDIDO           claude/visible-intelligence-v1 @ a4fb6d8 · 2026-09-07 2
 | 5 | `docs/biblia/CASOS-ADVERSARIAIS-DA-ENTREGA.md` | 28 cicatrizes reais, com data, prova e estado da guarda |
 | 6 | `docs/biblia/PESQUISA-COMPARATIVA-SISTEMAS-DE-INTELIGENCIA-E-DELIVERY.md` | 15 sistemas · 13 com documentação primária · o que entra e o que fica de fora |
 | 7 | `docs/biblia/HANDOFF-DA-BIBLIA-DA-ENTREGA.md` | este ficheiro |
+| **8** | `docs/biblia/ADJUDICACAO-DO-BENCHMARK-V0.2.md` | **V0.2** · 19 princípios + 16 pulos + 12 recomendações, julgados um a um com `ACCEPT/REFINE/MERGE/REJECT` |
+| **9** | `docs/biblia/GRAFO-M-N-DA-ENTREGA-V0.2.md` | **V0.2** · as 15 arestas, com autoridade, promoção, evidência exigida e comportamento em `UNKNOWN` |
 
 **`REUSE FIRST` aplicado:** nada foi duplicado. O `PORTAL-CAPABILITY-INVENTORY.md`, o
 `DIARIO-DE-DECISOES.md`, o `CONTRATO-DE-DESIGN-SINTONIA.md`, o
@@ -508,3 +510,303 @@ BRANCH DESTA MISSÃO ......... research/delivery-bible-v1
 >
 > O portal de 08/09 entrou aqui como **evidência, cicatriz e primeiro caso real**.
 > **Não como limite.**
+
+---
+
+# PARTE V0.2 · SÍNTESE COM O BENCHMARK
+
+```
+BIBLE_STATUS       DRAFT · V0.2      SUPERSEDES V0.1 (não a apaga)
+IMPLEMENTATION     0      PRODUCTION 0      MERGES 0      DEPLOY 0
+BENCHMARK_INPUT    research/product-tools-benchmark-v1 @ 6ef8e70
+ARTEFACTOS NOVOS   ADJUDICACAO-DO-BENCHMARK-V0.2.md · GRAFO-M-N-DA-ENTREGA-V0.2.md
+ARTEFACTOS EDITADOS BIBLIA (PARTE V) · INVENTARIO (adenda A) · REGISTO (adenda R0.2)
+```
+
+## §7 · AS 33 RESPOSTAS
+
+**1 · O baseline 12/12 foi reproduzido em `a4fb6d8`?**
+**SIM.** `BASELINE_12_OF_12_REPRODUCED = YES`. Não foi releitura: foi um segundo
+carregamento, com *script* novo, que avalia **as mesmas expressões que `portale.html`
+usa** para desenhar cada voz — incluindo `MEETING_SURFACE.build()`, que a primeira
+medição não tinha corrido. Registado como **`MEASURED_VISUAL_BASELINE_2026-09-08`**,
+**não** como `CANONICAL CURRENT HEAD`.
+*E as duas medições anteriores estavam ambas certas:* o benchmark mediu a partir de
+`main@df165da9` e escreveu «não reproduzível **nas linhas inspecionadas**», que é a forma
+correta. Daí a lei `L-EPI-05`.
+
+**2 · Qual é a fotografia medida?**
+`a4fb6d81681094925ccfd1638bc7386cbec6f4d4` · `claude/visible-intelligence-v1` ·
+2026-09-07 21:11:51 UTC. Doze vozes de menu, mais `Signal Archive` fora dele = **13
+superfícies navegáveis**, 27 ids de vista, 59 colecções. Tabela completa em
+`INVENTARIO §A.2`.
+
+**3 · Que recomendações do benchmark entraram na Constituição?**
+Oito leis (`L-18`…`L-25`) e quinze artigos (`§32`…`§46`): os três registos
+epistemológicos, o modelo temporal com dono por campo, `Opportunity` como interseção, o
+contrato de card 3s/30s/3min, o Evidence Drawer, a Home como fila, o alerta por transição,
+os briefs por papel, a superfície de ação, a métrica de valor em três níveis, oito
+anti-padrões, o grafo M:N e o System Map ampliado.
+Dos 19 princípios: **10 `ACCEPT`, 4 `REFINE`, 5 `MERGE`**.
+
+**4 · Quais entraram apenas no Registo Vivo?**
+As doze reclassificações de superfície (`R0.2 §R2.1`), as cinco entradas `RV-010`…`RV-014`,
+os dez contratos de produto que passam a ser exigíveis, o `WORKFLOW_CANDIDATE WC-01`, e o
+princípio 15 («produtos são respostas»), que é uma decisão sobre **uma** superfície e não
+uma lei de fronteira.
+
+**5 · Quais foram rejeitadas?**
+Quatro, com motivo escrito em `ADJUDICACAO §5`:
+`R-01` «a cadeia linear é uma ilusão» **na forma absoluta** — revogaria a lei fundadora do
+README sem contraexemplo; aceite como distinção: **linear na origem, M:N no consumo**.
+`R-02` `Brief Hub` como ferramenta — falha a pergunta 1 do Gate.
+`R-03` `Evidence Portal` — seria o quinto acervo.
+`R-04` `Score Center` e portais por departamento — contrariam `L-19` e `L-16`.
+
+**6 · A Home virou o quê?**
+**`DECISION / ATTENTION INBOX`** — uma fila por estado de ação no tempo, filtrada por
+papel, geografia, cultura e itens seguidos (§38). Entra como **hipótese forte**
+(`OWNER_INTENT` + `BENCHMARK_EVIDENCE`), não como `PROVEN_VALUE`.
+
+**7 · Quem calcula a sua prioridade?**
+**Não é a Home.** `H-06` endurece a trava: a `DELIVERY_ELIGIBILITY` (§4) decide **o quê**
+entra, o estado de ação no tempo (§34) decide **onde** entra, e a régua de desempate
+declarada decide a ordem dentro do estado. Os três vivem na Inteligência.
+`HOME PROJECTION ≠ INTELLIGENCE ENGINE`.
+
+**8 · O Opportunity passou a organizar-se por que modelo temporal?**
+Por **estado de ação no tempo**: `AGIR AGORA → PREPARAR AGORA → PRÓXIMA JANELA →
+MONITORAR/VALIDAR`, com desempate por factores **visíveis e separados** — tempo restante,
+consequência de perder a janela, prontidão da resposta ADAMA, frescura da evidência,
+responsabilidade geográfica.
+**A arquitetura é `ACCEPT`; os nomes são `NOT_CANONICAL`** e exigem validação com
+utilizadores ADAMA (`U-15`).
+**E o achado:** a partição por estado de ação **já existe no motor** —
+`ACT_NOW 2 · VALIDATE_NOW 4 · FUTURE_PREPARATION 7 · WATCH 21 · TO_VALIDATE 9` — **e não
+é a que a barra conta** (`OPPORTUNITA 17`). É o conflito `C-06`, agora com números dos
+dois lados.
+
+**9 · Quem é dono de `TIME_TO_ACT`?**
+A **Inteligência**. E hoje **o campo não existe**: `WINDOW_OPEN_NOW = UNKNOWN` em
+**41 de 43**, `WINDOW_DEFINED = NO` em **27 de 43**.
+`DEPENDENCY_ON_INTELLIGENCE_BIBLE = OPEN`.
+
+**10 · Quem é dono de `TIME_TO_PREPARE`?**
+A **Inteligência**, e depende de `COMMERCIAL_LEAD_TIME`, que **não existe em lado nenhum
+e não tem dono** (`U-17`). É a consequência direta de `L-18`: a janela comercial abre
+antes da agronómica, e ninguém mediu quanto antes.
+
+**11 · O que ainda depende da Bíblia da Inteligência?**
+Sete arestas do grafo (`GRAFO §5`) e dez campos de juízo:
+`TIME_TO_ACT` · `TIME_TO_PREPARE` · `WINDOW_STATE` · `ADAMA RESPONSE` · `WHAT TO DO` ·
+`EVIDENCE MATURITY` · `SCIENCE MATURITY` · o que conta como
+`CURRENT_FIELD_CONFIRMATION` · o que é um evento «material» de concorrente · quando é que
+feedback de campo passa a evidência.
+**Mais o objecto `CLAIM`, que não existe** — e sem ele o Evidence Drawer não tem a que se
+ligar.
+
+**12 · O Portfolio passou a ser definido como quê?**
+**`OPERATIONAL RESPONSE MEMORY`** (`RV-010`), com a pergunta declarada pelo dono e o campo
+novo `WHERE IS THIS PRODUCT RELEVANT IN SINTONIA NOW?` — **como projeção, nunca como
+verdade nova**. `PRODUCT ON CROP ≠ COMMERCIAL SOLUTION`.
+Ressalva mantida: é `OWNER_INTENT`, não `OBSERVED_USAGE`. A medição de uso continua exigida.
+
+**13 · Crop Windows como quê?**
+**Papel `FOUNDATIONAL_LAYER` — o `SHARED AGRONOMIC CLOCK` — e estado `DEGRADED`, ao mesmo
+tempo** (`RV-012`). O benchmark tem razão no papel: `§34` depende dela inteiro. A medição
+tem razão no estado: `PROVED 0`, `SOURCE_IDS` vazio 29/29, gerador ausente de 979 commits.
+**Elevar o papel de uma superfície não repara o seu dado.**
+
+**14 · Label como quê?**
+**`TRUTH_LAYER` + `CANONICAL_TOOL` + `DELIVERY_PROJECTION`, as três em simultâneo**
+(`RV-011`, `ADJUDICACAO §4`). Foi a única divergência real entre benchmark e medição, e
+resolveu-se por `PG-08`: **ser input de outra ferramenta não rebaixa ninguém.**
+Prioridade: `WHAT CHANGED SINCE LAST LABEL` + objectos impactados — com a trava de §34.2:
+o casco não calcula o impacto se ele exigir juízo.
+
+**15 · Market Pulse como quê?**
+`CONTEXT_VIEW` **com uma porta de promoção** (`RV-013`, `C-CARD-06`): um item só é *pulse*
+se responder `SO WHAT` · `WHO CARES` · `WHICH DECISION MAY CHANGE`. Se a porta fechar para
+a maioria dos 157, a superfície não é má — é contexto, que é o que a medição já dizia.
+
+**16 · Field Voices como quê?**
+Direção declarada: **`CURATED FIELD NEWSWIRE / SENSOR`** (`RV-014`). Continua `CANDIDATE`.
+Os três bloqueadores medidos mantêm-se e **nenhum é de formato**: baseline, denominador
+(79 de quantos?) e GDPR. `FIELD VOICE ≠ FIELD INCIDENCE`.
+
+**17 · Science como quê?**
+**`SCIENCE CALLS` que podem mudar decisão; os papers passam a camada de evidência
+subjacente** (`C-CARD-05`). Convergem benchmark e medição. Bloqueadores: `CAP-017` não
+cobre a Itália, **39/88 `OFF_CASE`**, GDPR `P-008`.
+
+**18 · Future como quê?**
+**Portfólio de hipóteses observadas, com horizonte, *triggers*, o que fortalece, o que
+enfraquece e evidência contrária. NUNCA `PREDICTION THEATER`** (`C-CARD-04`).
+Já é a lei do `RADAR-DO-FUTURO-CONTRACT-V1`. O que falta continua a montante:
+**12 dos 13 campos obrigatórios do cartão não viajam**.
+
+**19 · Competitor mudou muito?**
+**Não.** `KEEP + IMPROVE` nas duas pesquisas. Reforçar taxonomia, *cross-links* e
+evidência; separar `REGISTERED RESPONSE` · `ADVERTISEMENT` · `PUBLIC COMMUNICATION` ·
+`TECHNICAL ACTIVITY` · `LAUNCH` · `EVENT` · `PRODUCT CHANGE`; **nenhum score universal**.
+O que continua a violar o contrato é o **`577` no menu** — o número único que o contrato
+proíbe pelo nome.
+
+**20 · Como funcionam os briefs por papel?**
+`ONE INTELLIGENCE PRODUCT → N DELIVERY PROJECTIONS` (§40). Nove papéis reconhecidos —
+os sete de §16 mais **RTV** e **Supply**. Cada brief muda língua, título, ordem, ênfase,
+detalhe, contexto, comprimento e **ação recomendada, dentro do que o Product Contract
+autoriza** (`C-BRIEF-01`).
+
+**21 · O que é imutável entre briefs?**
+`FACTS · EVIDENCE · SOURCE/PROVENANCE · FACT_TIME · OBSERVED_TIME · SOURCE_LOCATION ·
+FACT_LOCATION · LIMITATIONS · CONFIDENCE/EVIDENCE STATE · UNKNOWN · CONTRADICTION ·
+LABEL TRUTH · PRODUCT_ID + VERSION + AS_OF`.
+> **Uma projeção não pode transformar uma incerteza técnica numa certeza comercial.**
+E para o RTV, duas travas próprias: a secção **`NÃO PROMETA`** é obrigatória e não-vazia;
+e as perguntas sugeridas **nunca induzem a resposta que validaria a hipótese**.
+
+**22 · Móvel é produto?**
+**SIM.** `L-24` · `MOBILE IS DELIVERY, NOT A SMALLER DESKTOP`. O *share brief* móvel é uma
+`DELIVERY_PROJECTION` de primeira classe: ID estável, versão, `AS_OF`, projeção por papel,
+*deep-link* de evidência e ligação à verdade corrente.
+
+**23 · O PDF continua importante?**
+**SIM — e deixa de ser o canal único.** É um **derivado congelado**: *snapshot*, offline,
+impressão, anexo de auditoria, apresentação. `PDF ≠ DATABASE DUMP`.
+Medido: existe hoje **um único** `[data-download-pdf]` no portal, e vive numa vista
+**legada** cuja ponte resolve **0 de 43**.
+
+**24 · A Validation Queue virou ferramenta?**
+**NÃO. `WORKFLOW_CANDIDATE`** (`WC-01`). Não passou o Gate — falha as perguntas 2 e 13.
+A pergunta é boa e a matéria-prima está medida (`VALIDATION_REQUIRED 37 de 43`,
+`TO_VALIDATE 9`, `WATCH 21`). **O que falta é o *workflow* real da ADAMA** (`U-20`).
+Construir a fila antes de saber como eles já validam seria desenhar o processo em vez de
+o servir.
+
+**25 · Que novos Product Contracts serão precisos?**
+**Dez** (`R0.2 §R2.3`): `HOME_QUEUE` · `CARD_CONTRACT` ×3 · `EVIDENCE_DRAWER` ·
+`ROLE_BRIEF` ×9 · `SHARE_BRIEF` · `PDF_SNAPSHOT` · `ACTION` · `ALERT` · `TEMPORAL` ·
+`LABEL_CHANGE_PROPAGATION`.
+**Nenhum exige engenharia nova para ser escrito. Três não podem ser fechados sem a Bíblia
+da Inteligência.**
+
+**26 · Que arestas M:N precisam de autoridade da Bíblia da Inteligência?**
+Sete: `E-03` (Crop Window → Opportunity) · `E-05` (Portfolio → Opportunity) ·
+`E-06` (Science → Future) · `E-07` (Future → Opportunity) · `E-09` (Competitor → *) ·
+`E-15` (Action → Intelligence) · e **todas**, para o objecto `CLAIM`.
+**`E-03` é a lacuna estrutural:** é a única aresta que **pode promover** e **não tem porta
+nomeada** — e é exatamente a que o modelo temporal exige.
+
+**27 · Que princípios foram aceites?**
+Dez `ACCEPT`: 2, 3, 5, 11, 13, 14, 16, 17, 19 — e o 15, que fica no Registo.
+Cinco `MERGE` (1, 6, 8, 10, 12): **já eram lei aqui antes de o benchmark existir.**
+
+**28 · Quais foram modificados?**
+Quatro `REFINE`: **nº 4** (localização é sempre primeira classe, não só «quando muda a
+ação»: `SOURCE_LOCATION ≠ FACT_LOCATION` sempre) · **nº 7** (a prova dobra-se, **a lacuna
+não**) · **nº 9** (a proibição é sobre a **ordem**, não sobre imprimir o número) ·
+**nº 18** (três níveis de valor, e o terceiro publica-se como `UNKNOWN`).
+
+**29 · Quais foram recusados?**
+Zero entre os 19 princípios e os 16 pulos. **Quatro entre as propostas concretas** —
+`R-01`…`R-04`. A rejeição concentra-se onde o benchmark desce ao concreto e a medição
+local sabe mais.
+
+**30 · Que `UNKNOWN` continuam abertos?**
+Os catorze de `§29` mais **dez novos** (`U-15`…`U-24`). Os três mais caros:
+**`U-16`** (a correspondência entre os 5 estados da Linha A e os 4 propostos — não medida,
+e fazê-la à mão seria inventar semântica) · **`U-17`** (`COMMERCIAL_LEAD_TIME` não tem
+dono) · **`U-24`** (`DEPENDENCY_ON_INTELLIGENCE_BIBLE = OPEN` em dez campos de juízo).
+E `U-12` continua: **as Bíblias da Coleta e da Inteligência não existem como ficheiros.**
+
+**31 · Implementação?** `0`.
+**32 · Produção?** `0`.
+**33 · Merge?** `0`.
+
+---
+
+## §8 · EM PALAVRAS FÁCEIS — o que mudou no desenho mental de cada ferramenta
+
+**Antes de tudo, uma coisa que o senhor deve saber, porque foi a maior surpresa da
+medição.** Aquilo que o *benchmark* recomendou como a grande mudança — organizar as
+oportunidades por **quando é preciso agir**, e não por uma nota — **já está calculado
+dentro do motor**. Ele já separa os 43 casos em *agir agora* (2), *validar agora* (4),
+*preparar* (7), *observar* (21) e *por validar* (9). E o motor até traz uma frase a
+dizer que o portal **não pode recalcular** nada disso.
+
+**Só que a barra do portal não conta isso. Conta outro número, de outra lei.**
+Duas leis, o mesmo pacote, os mesmos 43 casos, ninguém as reconciliou. Essa é hoje a
+decisão mais cara que está à sua espera — e não é técnica: é escolher qual das duas manda.
+
+**E há uma segunda coisa, que é o travão honesto.** Para dizer «isto tem de ser feito nos
+próximos nove dias» é preciso saber quando a janela abre e fecha. Medido: **em 41 dos 43
+casos o sistema não sabe se a janela está aberta**, e 27 nem sequer têm janela. A
+arquitetura está pronta; o relógio que a alimenta não está. Isso não é motivo para
+desistir da ideia — é o trabalho seguinte, e tem nome: dar proveniência às janelas.
+
+Agora, ferramenta a ferramenta:
+
+**Opportunity Radar.** Deixa de ser uma lista de coisas interessantes e passa a ser uma
+fila por tempo: *o que tem de ser feito agora, o que tem de ser preparado agora, o que
+vem na próxima janela, o que só se observa*. Para o **gerente comercial**, é a diferença
+entre uma lista e um plano de semana. E para o **RTV**, é a diferença entre saber que há
+um problema e saber quando tem de estar na revenda.
+
+**A janela comercial abre antes da janela agronómica.** É o salto mais útil para venda e
+para *supply*: a aplicação pode ser daqui a seis semanas, mas a preparação começa hoje.
+O sistema passa a ter **dois relógios diferentes** onde antes tinha um só.
+
+**Portfolio.** Deixa de responder «que produtos temos?» e passa a responder «**o que a
+ADAMA consegue fazer para este problema, nesta cultura, neste país, agora — dentro do que
+o rótulo autoriza**». Para o RTV isso é ouro: é a resposta que ele pode defender à frente
+do cliente sem prometer o que não pode.
+
+**Label Intelligence.** Passa a ser a **trava de verdade**: nada pode ser afirmado sobre
+um produto que o rótulo não sustente. E ganha a evolução que vale mais: **o que mudou
+desde o último rótulo, e o que isso afeta**. Para Regulatory e para Technical, é a
+diferença entre ler PDFs e ser avisado.
+
+**Crop Windows.** Passa a ser o **relógio partilhado** do sistema inteiro — é ele que dá
+o tempo às oportunidades. Mas fica escrito, sem enfeite, que hoje **nenhuma das 29
+janelas tem fonte**. Elevar a importância dela não conserta o dado dela.
+
+**Market Pulse.** Passa a ter uma porta: um item só entra se conseguir dizer **quem
+precisa de olhar e que decisão pode mudar**. Se não conseguir, é contexto — e contexto é
+útil, só não é manchete.
+
+**Field Voices.** Passa a ser um **noticiário curado do campo**, com origem, data e
+diversidade de fontes. E fica gravada a linha que nunca se atravessa: **o que o campo
+fala não é o que está a acontecer**. Para Marketing e Market Development, é um sensor
+precioso — desde que nunca vire estatística.
+
+**Scientific Intelligence.** A conclusão sobe, os *papers* descem. Em vez de uma lista de
+estudos, uma frase que diz **o que a ciência sustenta, quão madura é, e o que a ADAMA
+poderia fazer com isso** — com a evidência contrária ao lado, sempre.
+
+**Future Radar.** Continua a dizer o que estamos a observar e **o que teria de acontecer**
+para passar a importar. Nunca prevê. E fica dito que hoje ele carrega 44 identificadores e
+não 44 fichas: **doze dos treze campos que o cartão precisa não chegam a viajar**.
+
+**Competitor Watch.** Muda pouco, e é bom sinal. O que muda é o `577` no menu — esse
+número junta quatro coisas de naturezas diferentes e o próprio contrato proíbe-o.
+
+**Archive e Source Register.** Continuam essenciais e deixam de disputar o mesmo espaço
+mental que o Radar. Um é para investigar, o outro é para provar. Para **Leadership** isso
+importa: a primeira tela deixa de ter contadores e passa a ter decisões.
+
+**A Home.** Deixa de ser um sítio onde se escolhe uma ferramenta e passa a ser o sítio que
+responde: *«estas merecem a sua atenção agora — nestas age, nestas prepara, estas só
+observa.»* Com uma trava dura: **a Home não decide nada**. Ela mostra o que a inteligência
+já decidiu.
+
+**E os briefs.** A mesma verdade, contada de nove maneiras — RTV, gerente, marketing,
+market development, técnico, *supply*, regulatório, direção e controlo. Muda a linguagem,
+a ordem e a próxima ação. **Não muda um facto, uma limitação nem um «não sabemos».**
+Um brief de vendas que apague a limitação técnica é a doença que este contrato existe
+para impedir.
+
+**Uma última, e é a que protege tudo o resto.** Nunca vamos dizer que o SINTONIA causou
+uma venda. Inteligência, ação, execução comercial e venda são quatro etapas com donos
+diferentes. Podemos, mais tarde e com base, medir a associação. **Inventar a causa seria
+destruir a única coisa que faz este sistema valer: poder ser verificado.**
