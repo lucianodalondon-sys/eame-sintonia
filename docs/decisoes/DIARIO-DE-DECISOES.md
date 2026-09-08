@@ -544,6 +544,79 @@ Regras do diário:
   falta falta no pacote, e o pacote não se escreve nesta linhagem.
 - **Quem decidiu:** decisão de método, tomada na execução.
 
+### D-029 — A entrega até o portal não é a fundação da coleta
+- **Data:** 2026-09-08
+- **Estado:** DECIDIDO · **REVOGA** a segunda metade de D-027 · **RECLASSIFICA** D-028
+- **Contexto:** D-027 definiu `COLLECTION_FOUNDATION_CLOSED` como conjunção de
+  ENTRADA + PRESERVAÇÃO + TRAVESSIA, sendo TRAVESSIA a chegada até o artefato
+  que a tela carrega. Medido depois, por busca semântica e não por nome: **já
+  existe dono canônico** dessa constante na linha
+  `claude/collection-foundation-integration-v1` —
+  `leis/fundacao_da_coleta.py`, sustentado por
+  `docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md`,
+  `system-map/data/estradas-it.generated.json` e `tests/test_fundacao_da_coleta.py`.
+  E a cadeia canônica termina a coleta em **ADMISSION / READY**, antes de
+  inteligência e antes de portal.
+- **Decisão:**
+  1. `COLLECTION_FOUNDATION_CLOSED` **não é publicado por esta linha**. Um só dono.
+  2. O portão desta linha passa a chamar-se `ACERVO_TO_PORTAL_DELIVERY_READY`,
+     em `scripts/entrega_acervo_portal.py`, classe
+     **DELIVERY / LINEAGE / OBSERVABILITY**.
+  3. ENTRADA e PRESERVAÇÃO saem dos pilares e viram **contexto a montante, não
+     avaliado**. O único pilar é TRAVESSIA.
+  4. O medidor `italia-portale/audit/fronteira-acervo-pacote.mjs` é
+     **preservado** — mede fronteira real — e fica declarado **precursor de
+     sensor** da camada de observabilidade de fluxo que a linha canônica instala
+     depois da M1 e antes da M2. Esta linha não a antecipa.
+- **Motivo:** o erro não foi de medição, foi de nome — o mesmo erro que já
+  custou a esta casa quando `EAME_COLLECTION_ENTRY_GATE` fazia dois trabalhos.
+  Se a fundação da coleta dependesse do portal, um portal incompleto impediria
+  a coleta de fechar, invertendo a ordem que o projeto exige de propósito.
+
+  > **UMA PERGUNTA, UM DONO CANÔNICO.**
+  > **ACERVO → PACOTE → TELA NÃO É COLLECTION FOUNDATION.**
+  > **NÃO SE JOGA FORA UM BOM SENSOR PORQUE ELE RECEBEU O NOME ERRADO.**
+
+- **Consequência:** `tests/test_entrega_acervo_portal.py` com 26 provas, das
+  quais seis famílias novas (T1–T6) fecham o acoplamento: T1 nomeia o dono
+  canônico e proíbe segundo dono; T2 prova por **invariância** que mexer no
+  estado da coleta não move o veredito da entrega (mutação executada: repor
+  ENTRADA como pilar reprova); T3 exige os dois lados medidos para
+  `RECONCILIATION_COMPLETE`; T4 mantém os cinco degraus da transcrição
+  separados; T5 impede o inventário de leis de se declarar Bíblia completa;
+  T6 varre a árvore inteira atrás de segundo dono da constante.
+  `data/samples/FUNDACAO-DA-COLETA.json` passou a
+  `data/samples/ENTREGA-ACERVO-PORTAL.json`. Nenhum merge foi feito com a linha
+  canônica: as duas seguem separadas até o ponto de reconciliação.
+- **Quem decidiu:** Luciano, na correção de fronteira de 2026-09-08.
+
+### D-030 — O inventário de leis não é ainda a Bíblia da Inteligência
+- **Data:** 2026-09-08
+- **Estado:** DECIDIDO
+- **Contexto:** `docs/biblia/BIBLIA-DA-INTELIGENCIA-EAME.md` reuniu 259 formas
+  escritas de lei `A ≠ B` em 56 documentos, com o estado da defesa de cada uma
+  medido. O próprio documento declara que «não inventa lei nenhuma» — logo é
+  índice do que já se aprendeu, não a engenharia da inteligência.
+- **Decisão:** o documento é classificado, no seu próprio cabeçalho, como
+  `DRAFT · INVENTARIO_DE_LEIS · INPUT_TO_INTELLIGENCE_BIBLE`, e ganha uma seção
+  que lista o que ainda falta — KIT, KIQ, EVIDENCE/CLAIM/FACT,
+  ENTITY/EVENT/INDICATOR/SIGNAL, HYPOTHESIS/ASSUMPTION, CONTRARY_EVIDENCE,
+  ANALYTIC_CONFIDENCE/LIKELIHOOD, FORECAST/CALIBRATION, OPPORTUNITY,
+  FIELD_VOICES, DECISION_TELEMETRY, LLM_AUTHORITY, EVALS — cada bloco como
+  `NÃO MEDIDO`, nunca como `NÃO EXISTE`.
+- **Motivo:** chamá-lo de Bíblia completa faria «completo» significar «tudo o
+  que já aprendemos», que é exatamente o que uma bíblia de engenharia não pode
+  significar.
+
+  > **UM INVENTÁRIO QUE NÃO DIZ O QUE LHE FALTA PARECE UM CENSO.**
+
+- **Consequência:** **nada foi perdido** — nenhuma seção removida, nenhum caso
+  adversarial apagado. O caminho `docs/biblia/` é **mantido**: os consumidores
+  foram medidos antes, e a renomeação fica para a reconciliação posterior, para
+  não quebrar referências. A pesquisa dos blocos em falta **não foi feita nesta
+  missão**, por instrução. `T5` reprova quem declarar o documento fechado.
+- **Quem decidiu:** Luciano, na correção de fronteira de 2026-09-08.
+
 ---
 
 ## D-2026-09-02 · A MADRUGADA DOS RÓTULOS

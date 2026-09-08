@@ -57,7 +57,13 @@
       "O_DEGRAU_QUE_FALTA": "TRANSCRIPT_USED_AS_EVIDENCE e false em 184/184. Fala existe, e utilizavel, esta no pacote — e nenhum cartao apoia afirmacao nela. O degrau nao e do pacote: e do motor, e so vira true quando uma afirmacao se apoiar nesses bytes.",
       "ACAO_MINIMA": "um cartao que apoie afirmacao em fala, virando o ultimo degrau",
       "DONO_DA_ACAO": "o motor do portal, nesta linhagem",
+      "O_QUE_ESTE_ESTADO_NAO_AFIRMA": "FECHADA_COM_FRONTEIRA_DECLARADA responde a UMA pergunta: a ausencia do conteudo pesado e deliberada ou foi perda silenciosa? Nao afirma INTELLIGENCE_READY, nao afirma COLLECTION_FOUNDATION_CLOSED e nao afirma PORTAL_COMPLETE. Nenhuma dessas tres e pergunta deste ficheiro.",
       "ESTADO": "FECHADA_COM_FRONTEIRA_DECLARADA",
+      "ESTADO_DE_MEDICAO": {
+        "PARTIU": "DECLARED",
+        "CHEGOU": "MEASURED",
+        "RECONCILIACAO": "ONE_SIDED_MEASUREMENT"
+      },
       "PERDA_QUANTIFICAVEL": "NAO",
       "PORQUE_A_PERDA_NAO_E_QUANTIFICAVEL": "um dos dois lados e alegacao, nao medicao. Subtrair uma medicao de uma alegacao produz um numero com cara de facto."
     },
@@ -119,7 +125,12 @@
       "NAO_CONFUNDIR": "FICHA_CHEGOU nao e TEXTO_CHEGOU. Os 88 registos chegam, e chegam com ligacao para o paper. O que nao chega e o texto que permitiria cruzar o que o paper PROVA com o caso — hoje CROP e ISSUE sao o termo da busca.",
       "ACAO_MINIMA": "campo de texto cientifico em SCIENCE.json",
       "DONO_DA_ACAO": "claude/opportunity-commercial-priority-v1",
-      "ESTADO": "ABERTA_MEDIDA_DE_UM_LADO",
+      "ESTADO": "ONE_SIDED_MEASUREMENT",
+      "ESTADO_DE_MEDICAO": {
+        "PARTIU": "DECLARED",
+        "CHEGOU": "MEASURED",
+        "RECONCILIACAO": "ONE_SIDED_MEASUREMENT"
+      },
       "PERDA_QUANTIFICAVEL": "NAO",
       "PORQUE_A_PERDA_NAO_E_QUANTIFICAVEL": "um dos dois lados e alegacao, nao medicao. Subtrair uma medicao de uma alegacao produz um numero com cara de facto."
     },
@@ -146,7 +157,12 @@
       "PORQUE_IMPORTA": "ACTIVE e uma afirmacao sobre o PRESENTE. Sem data de verificacao, o selo afirma hoje o que se observou num dia que ninguem consegue nomear.",
       "ACAO_MINIMA": "transportar last_observed para COMPETITOR-ACTIVITIES.json",
       "DONO_DA_ACAO": "claude/opportunity-commercial-priority-v1",
-      "ESTADO": "ABERTA_MEDIDA_DE_UM_LADO",
+      "ESTADO": "ONE_SIDED_MEASUREMENT",
+      "ESTADO_DE_MEDICAO": {
+        "PARTIU": "DECLARED",
+        "CHEGOU": "MEASURED",
+        "RECONCILIACAO": "ONE_SIDED_MEASUREMENT"
+      },
       "PERDA_QUANTIFICAVEL": "NAO",
       "PORQUE_A_PERDA_NAO_E_QUANTIFICAVEL": "um dos dois lados e alegacao, nao medicao. Subtrair uma medicao de uma alegacao produz um numero com cara de facto."
     },
@@ -172,7 +188,12 @@
       "TERCEIRA_FRONTEIRA": "os campos chegam ao motor; nenhuma tela os renderiza ainda. A razao esta no CHECKPOINT, seccao 5: COUNTRY_REACHED e nulo, e ligar titulo e ligacao poria cartoes ES e FR numa tela italiana. A decisao e do dono do pacote.",
       "ACAO_MINIMA": "COUNTRY_REACHED por cartao, para que a tela possa filtrar",
       "DONO_DA_ACAO": "claude/opportunity-commercial-priority-v1",
-      "ESTADO": "ABERTA_MEDIDA_DE_UM_LADO",
+      "ESTADO": "ONE_SIDED_MEASUREMENT",
+      "ESTADO_DE_MEDICAO": {
+        "PARTIU": "DECLARED",
+        "CHEGOU": "MEASURED",
+        "RECONCILIACAO": "ONE_SIDED_MEASUREMENT"
+      },
       "PERDA_QUANTIFICAVEL": "NAO",
       "PORQUE_A_PERDA_NAO_E_QUANTIFICAVEL": "um dos dois lados e alegacao, nao medicao. Subtrair uma medicao de uma alegacao produz um numero com cara de facto."
     }
@@ -192,5 +213,8 @@
   ],
   "O_QUE_DEGRAU_ABERTO_NAO_E": "um degrau aberto NAO bloqueia a fronteira. A fronteira pergunta se o que se coletou chega; o degrau pergunta se o que chegou e usado. Sao duas perguntas, e colapsa-las faria a coleta refem do motor.",
   "DONO_DA_FRONTEIRA": "claude/opportunity-commercial-priority-v1",
-  "REGRA": "SOURCE FAILURE nao e ZERO. Um lado medido e outro alegado nao produzem uma perda quantificada — produzem uma fronteira aberta com dono."
+  "CLASSE": "DELIVERY / LINEAGE / OBSERVABILITY",
+  "NAO_E": "COLLECTION FOUNDATION. A coleta termina em ADMISSION / READY e nao passa pelo portal; o dono canonico de COLLECTION_FOUNDATION_CLOSED esta nomeado em scripts/entrega_acervo_portal.py e nao e este ficheiro.",
+  "PRECURSOR_DE": "a camada transversal de observabilidade de fluxo (lentes ARCHITECTURE, DIAGNOSTIC, TRACE, PERFORMANCE), instalada pela linha canonica depois da M1 e antes da M2.",
+  "REGRA": "SOURCE FAILURE nao e ZERO. Um lado medido e outro alegado nao produzem uma perda quantificada nem RECONCILIATION_COMPLETE — produzem ONE_SIDED_MEASUREMENT, e uma fronteira aberta com dono."
 }

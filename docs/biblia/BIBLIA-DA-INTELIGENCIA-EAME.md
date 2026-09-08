@@ -1,13 +1,31 @@
-# BÍBLIA DA INTELIGÊNCIA — SINTONIA EAME
+# INVENTÁRIO DAS LEIS DO SINTONIA — entrada para a Bíblia da Inteligência
 
-**Data:** 2026-09-08 · **Linha:** paralela (documentação, contratos, casos adversariais,
-decisões) · **Implementação nesta linha:** nenhuma.
+```
+CLASSIFICACAO             DRAFT · INVENTARIO_DE_LEIS · INPUT_TO_INTELLIGENCE_BIBLE
+O_QUE_ESTE_DOCUMENTO_E    o índice das leis que o SINTONIA JÁ APRENDEU, com o
+                          estado da defesa de cada uma, medido
+O_QUE_ELE_AINDA_NAO_E     a Bíblia de Engenharia da Inteligência (ver seção 8)
+IMPLEMENTACAO             nenhuma. Nem aqui, nem por causa deste documento.
+CAMINHO                   mantido em docs/biblia/ — a renomeação fica para a
+                          reconciliação posterior, para não quebrar referências
+DATA                      2026-09-08
+```
+
+> **UM INVENTÁRIO DAS LEIS EXISTENTES NÃO É AINDA A BÍBLIA DE ENGENHARIA DA
+> INTELIGÊNCIA.** O documento é entrada dela, e é útil como entrada. Chamá-lo de
+> Bíblia completa faria «completo» significar «tudo o que já aprendemos», que é
+> exatamente o que uma bíblia de engenharia **não** pode significar.
+
+**Este documento não se declara fechado.** Não há aqui
+`BIBLIA_DA_INTELIGENCIA_CLOSED`, `CANONICAL_COMPLETE` nem `RESEARCH_COMPLETE` —
+e há um teste que reprova quem os escrever (`T5`, em
+`tests/test_entrega_acervo_portal.py`).
 
 ---
 
-## 0 · O QUE ESTA BÍBLIA É
+## 0 · O QUE ESTE INVENTÁRIO É
 
-É o **livro de leis** deste repositório, reunido num lugar só.
+É o **índice das leis** que este repositório já aprendeu, reunido num lugar só.
 
 As leis já existiam. Estavam escritas — e é por isso que este documento pôde ser
 escrito. O que não existia era o **índice**: uma varredura deste repositório encontra
@@ -255,7 +273,7 @@ O formato é fixo: **o ataque** · **o que ele produziria** · **quem o recusa h
   medição real da máquina espanhola dizia 184 verificados e 12 falhados.
 - **Quem recusa hoje.** A correção está publicada com o erro à vista, na seção I do
   relatório. Nos artefatos novos, o campo `MEDIDO_DAQUI` é obrigatório e
-  `tests/test_fundacao_coleta.py` reprova quem contar um pilar não medido como fechado.
+  `tests/test_entrega_acervo_portal.py` reprova quem contar um pilar não medido como fechado.
   **EXECUTÁVEL.**
 - **A generalização.** *Publicar zero é uma afirmação sobre o mundo, igual a qualquer
   outra. Não medir não é.*
@@ -276,7 +294,7 @@ O formato é fixo: **o ataque** · **o que ele produziria** · **quem o recusa h
   coleta. O portão vira READY e nenhuma lacuna foi resolvida.
 - **O que produziria.** Verde por edição, indistinguível de verde por trabalho.
 - **Quem recusa hoje.** `tests/test_portoes_eame.py` reprova a edição, e uma mutação
-  confirma que o teste tem dentes. Desde esta missão, `tests/test_fundacao_coleta.py`
+  confirma que o teste tem dentes. Desde esta missão, `tests/test_entrega_acervo_portal.py`
   fecha a saída equivalente no pilar `TRAVESSIA` — mutação executada, **MUT PEGOU**.
   **EXECUTÁVEL.**
 - **A generalização.** *Escolher o escopo depois de ver o resultado é a fraude mais
@@ -381,26 +399,30 @@ O formato é fixo: **o ataque** · **o que ele produziria** · **quem o recusa h
   a cita.
 - **Quem recusa hoje.** Duas listas separadas de campos — os que **carregam** texto e os
   que **declaram estado** sobre esse texto — e um campo de estado nunca entra na conta de
-  caracteres. `tests/test_fundacao_coleta.py::test_rotulo_de_estado_nunca_conta_como_texto`.
+  caracteres. `tests/test_entrega_acervo_portal.py::test_rotulo_de_estado_nunca_conta_como_texto`.
   **EXECUTÁVEL.**
 - **Por que fica escrito.** Porque a alternativa era corrigir em silêncio e publicar um
   medidor que sempre soube distinguir. Rebaixar nunca é retrocesso; apagar é.
 
 ---
 
-## 5 · AS DECISÕES QUE ESTA BÍBLIA REGISTA
+## 5 · AS DECISÕES QUE ESTE INVENTÁRIO REGISTA
 
 Registradas em `docs/decisoes/DIARIO-DE-DECISOES.md` como **D-027** e **D-028**. Aqui
 ficam o contexto e o raciocínio; lá fica a forma canônica.
 
-### D-027 — A fundação da coleta é conjunção, não herança
+### D-027 — ~~A fundação da coleta é conjunção, não herança~~ · **REVOGADA por D-029**
 
-`EAME_COLLECTION_ENTRY_GATE = READY` responde «podemos abrir coleta?». Não responde «o
-que coletamos chega?». Deixar a fundação herdar o READY da entrada autorizaria coletar
-mais para dentro de um funil que não entrega — o modo de falha mais caro possível aqui,
-porque cada rodada paga produz acervo e o acervo não vira inteligência.
+A decisão original dizia que `COLLECTION_FOUNDATION_CLOSED` seria a conjunção de
+ENTRADA + PRESERVAÇÃO + TRAVESSIA, e que «a coleta está fundada quando se pode coletar
+**e** o que se coleta chega».
 
-> **A COLETA ESTÁ FUNDADA QUANDO SE PODE COLETAR *E* O QUE SE COLETA CHEGA.**
+**A segunda metade estava errada.** A travessia até a tela é entrega, é a jusante da
+inteligência, e não pode ser requisito de fechamento da coleta. A observação que a
+motivava — coletar para dentro de um funil que não entrega é caro — continua verdadeira
+e continua medida; o que mudou é que ela **não é a pergunta da fundação**. Ver D-029.
+
+A entrada fica registrada, não apagada: rebaixar nunca é retrocesso, apagar é.
 
 ### D-028 — Um lado medido e outro alegado não produzem uma perda quantificada
 
@@ -416,74 +438,146 @@ número; até lá, é **fronteira aberta com dono**, e o dono está nomeado:
 
 ---
 
-## 6 · O PONTO DE ENCONTRO
+## 6 · A FRONTEIRA DE ENTREGA — E DE QUEM ELA **NÃO** É
 
-As duas linhas se encontram em `COLLECTION_FOUNDATION_CLOSED`. O estado **não se declara
-aqui** — este documento não fecha portão nenhum. Deriva-se:
+> **CORREÇÃO DE FRONTEIRA, 2026-09-08.** A primeira versão desta seção chamava-se
+> «O PONTO DE ENCONTRO» e apresentava `COLLECTION_FOUNDATION_CLOSED` como o
+> portão onde as duas linhas se encontrariam, derivado de um arquivo desta
+> linha. **Estava errado, e o erro era de nome, não de medição.**
+>
+> A fundação da coleta termina em **ADMISSION / READY**:
+>
+> ```
+> SOURCE → DISCOVER → FETCH → RAW → DERIVED → STRUCTURED → ADMISSION → READY
+> ```
+>
+> Depois vem INTELIGÊNCIA. Só depois vem PORTAL. Logo:
+>
+> **`COLLECTION_FOUNDATION_CLOSED` não pode depender de portal, pacote, tela, UI
+> nem produto de inteligência.** Se dependesse, um portal incompleto impediria a
+> coleta de fechar — invertendo a ordem que o projeto exige de propósito.
+>
+> O dono canônico da constante é a linha `claude/collection-foundation-integration-v1`
+> (`leis/fundacao_da_coleta.py` + `MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md` +
+> `system-map/data/estradas-it.generated.json` + testes). **Nada nesta linha o
+> escreve.**
+>
+> > **UMA PERGUNTA, UM DONO CANÔNICO.**
 
-```bash
-node italia-portale/audit/fronteira-acervo-pacote.mjs      # o lado que chega
-python3 scripts/fundacao_coleta.py                         # a conjunção
-python3 -m unittest tests.test_fundacao_coleta             # a saída fácil, fechada
-```
+### O que o medidor desta linha realmente mede
+
+`italia-portale/audit/fronteira-acervo-pacote.mjs` mede uma fronteira **real** —
+`ACERVO → PACOTE → ARTEFATO QUE A TELA CARREGA` — e continua vivo, com o caso
+adversarial dos 809 caracteres preservado. O que mudou foi a classe e o nome:
+
+| | antes | agora |
+|---|---|---|
+| arquivo do portão | `scripts/entrega_acervo_portal.py` | `scripts/entrega_acervo_portal.py` |
+| veredito | `COLLECTION_FOUNDATION_CLOSED` | `ACERVO_TO_PORTAL_DELIVERY_READY` |
+| classe | — | **DELIVERY / LINEAGE / OBSERVABILITY** |
+| pilares | ENTRADA · PRESERVAÇÃO · TRAVESSIA | **só TRAVESSIA** |
+| entrada e preservação | pilares | **contexto a montante, não avaliado** |
+
+**Um portão de entrega que exige o portão da coleta é o portão da coleta com
+outro nome.** Por isso os dois pilares a montante saíram do veredito, e há teste
+que reprova quem os somar de novo (`T2`, com prova de invariância).
 
 ### Estado medido em 2026-09-08, safra `V21-06c6421d001ea52a`
 
-| PILAR | ESTADO | Medidor | O que falta |
-|---|---|---|---|
-| ENTRADA | **FECHADO** | `scripts/portoes_eame.py` | — (35/35 cicatrizes PROVED) |
-| PRESERVAÇÃO | **FECHADO** | `scripts/portoes_eame.py` | — (196/196, sha256 reconferido; prova EXTERNA) |
-| TRAVESSIA | **ABERTO** | `italia-portale/audit/fronteira-acervo-pacote.mjs` | 3 famílias de 4 |
-
 ```
-COLLECTION_FOUNDATION_CLOSED = NÃO
+ACERVO_TO_PORTAL_DELIVERY_READY = NÃO      1 pilar, aberto
+COLLECTION_FOUNDATION_CLOSED    = não é publicado aqui; dono canônico é outra linha
 ```
-
-### O que a fronteira mede hoje
 
 | Família | ESTADO | CHEGOU (medido daqui) | Ação mínima · Dono |
 |---|---|---|---|
-| TRANSCRIÇÕES | **FECHADA_COM_FRONTEIRA_DECLARADA** | 184 registos, escada completa, SHA em 160, 5.167.243 caracteres **declarados** pela origem · **0 caracteres de fala** | o texto não embarca **de propósito**, com a razão escrita em `site_v21_ingest.py` |
-| CIÊNCIA_TEXTO | ABERTA_MEDIDA_DE_UM_LADO | 0 caracteres · 88 registos, 86 com DOI, 88 com URL, nenhum campo de texto | campo de texto científico em `SCIENCE.json` · `opportunity-commercial-priority-v1` |
-| ANÚNCIOS_DATA | ABERTA_MEDIDA_DE_UM_LADO | 0 anúncios com data de observação · 577 registos, 27 declaram ACTIVE | transportar `last_observed` · `opportunity-commercial-priority-v1` |
-| VÍDEO_ORGÂNICO | ABERTA_MEDIDA_DE_UM_LADO | 147 cartões, 139 com título+link+data, **147 sem `COUNTRY_REACHED`** | `COUNTRY_REACHED` por cartão · `opportunity-commercial-priority-v1` |
+| TRANSCRIÇÕES | **FECHADA_COM_FRONTEIRA_DECLARADA** | 184 registos, escada completa, SHA em 160, 5.167.243 caracteres **declarados** · **0 caracteres de fala** | o texto não embarca **de propósito**, razão escrita em `site_v21_ingest.py` |
+| CIÊNCIA_TEXTO | ONE_SIDED_MEASUREMENT | 0 caracteres · 88 registos, 86 com DOI, 88 com URL | campo de texto científico em `SCIENCE.json` · `opportunity-commercial-priority-v1` |
+| ANÚNCIOS_DATA | ONE_SIDED_MEASUREMENT | 0 com data de observação · 577 registos, 27 declaram ACTIVE | transportar `last_observed` · `opportunity-commercial-priority-v1` |
+| VÍDEO_ORGÂNICO | ONE_SIDED_MEASUREMENT | 147 cartões, 139 completos, **147 sem `COUNTRY_REACHED`** | `COUNTRY_REACHED` por cartão · `opportunity-commercial-priority-v1` |
 
-**A família das transcrições fechou entre a primeira e a segunda corrida deste medidor, e
-o medidor não foi editado para acompanhar: ele mediu.** A linha da coleta fez a escada
-inteira atravessar. O texto continua a não atravessar — e isso agora é **fronteira
-declarada**, não perda silenciosa.
+### Os quatro estados de medição, e a lei que sai deles
 
-> **UMA FRONTEIRA DELIBERADA DEIXA VESTÍGIO MEDÍVEL. UM ESQUECIMENTO DEIXA SÓ SILÊNCIO.**
+| Estado | Significado |
+|---|---|
+| `MEASURED` | contado aqui, contra artefato versionado |
+| `DECLARED` | a origem afirma o número, e ele viaja dentro do artefato |
+| `EXTERNAL_MEASUREMENT` | medido, mas por outra máquina ou linhagem |
+| `NOT_MEASURED` | ninguém contou |
 
-O estado `FECHADA_COM_FRONTEIRA_DECLARADA` não se conquista escrevendo a frase: exige,
-mecanicamente, registos presentes + os cinco degraus da escada + SHA do texto + a
-contagem da origem. Mutação executada — colar a frase numa família sem vestígio **não** a
-fecha.
+> **UM LADO MEDIDO + UM LADO ALEGADO NÃO É `RECONCILIATION_COMPLETE`.
+> É `ONE_SIDED_MEASUREMENT`.**
 
-### O degrau que continua aberto, e que não bloqueia a fronteira
+Neste ambiente, **um** dos dois lados é medido diretamente: o que **chegou**. O
+lado que **partiu** é `DECLARED` em 4 de 4 famílias, porque o acervo não está
+neste repositório.
 
-`TRANSCRIPT_USED_AS_EVIDENCE` é falso em **184/184**. A fala existe, é utilizável, está no
-pacote — e nenhum cartão apoia afirmação nela.
+### A escada das transcrições, publicada exatamente
 
-> **A FRONTEIRA PERGUNTA SE O QUE SE COLETOU CHEGA. O DEGRAU PERGUNTA SE O QUE CHEGOU É
-> USADO. COLAPSÁ-LAS FARIA A COLETA REFÉM DO MOTOR.**
+```
+VIDEO_EXISTS                    184
+TRANSCRIPT_EXISTS               184
+TRANSCRIPT_USABLE               160
+TRANSCRIPT_INCLUDED_IN_PACKAGE  160
+TRANSCRIPT_USED_AS_EVIDENCE       0      ← falso em 184/184
+```
 
-Por isso o degrau tem dono próprio — o motor do portal — e é reportado separadamente das
-famílias abertas.
+**184 registos no pacote não são 184 usados em Inteligência.** São duas perguntas
+e continuam separadas. O degrau aberto tem dono próprio — o motor — e **não
+bloqueia a fronteira de entrega**, que pergunta se o que chegou chegou, não se
+foi usado.
 
-**Nenhuma das três famílias abertas se resolve deste lado.** O campo que falta falta no
-**pacote**, e o pacote não se escreve nesta linhagem.
+O estado `FECHADA_COM_FRONTEIRA_DECLARADA` responde a **uma** pergunta: a ausência
+do texto pesado é deliberada ou foi perda silenciosa? Ele **não afirma**
+`INTELLIGENCE_READY`, **não afirma** `COLLECTION_FOUNDATION_CLOSED` e **não
+afirma** `PORTAL_COMPLETE`.
 
-### O que muda quando fechar
+### Este medidor será aproveitado?
 
-Quando as quatro famílias atravessarem, `fundacao_coleta.py` devolve `SIM` **sozinho**,
-sem edição de documento. Nesse dia, e só nesse dia, a linha paralela e a principal deixam
-de ser duas: a bíblia passa a descrever um sistema onde o que se coleta chega, e a
-engenharia da coleta passa a poder abrir cadência recorrente.
+**Sim.** É um **precursor de sensor** da futura camada transversal de
+observabilidade de fluxo — lentes ARCHITECTURE, DIAGNOSTIC, TRACE, PERFORMANCE —
+que a linha canônica instala **depois da M1 e antes da M2**. Esta linha **não
+antecipa** essa implementação e **não cria** uma segunda plataforma de
+observabilidade.
+
+> **NÃO SE JOGA FORA UM BOM SENSOR PORQUE ELE RECEBEU O NOME ERRADO.
+> TROCA-SE O NOME.**
 
 ---
 
-## 7 · O QUE ESTA BÍBLIA NÃO SABE
+## 7 · O QUE A BÍBLIA DA INTELIGÊNCIA AINDA PRECISA TER, E ESTE DOCUMENTO NÃO TEM
+
+Este inventário cobre as leis **já aprendidas** — quase todas na forma `A ≠ B`, quase
+todas nascidas de um erro pago. É uma metade.
+
+A outra metade é o vocabulário **de engenharia da inteligência**, que este repositório
+ainda não escreveu e que **não foi pesquisado nesta missão** (a instrução foi explícita:
+apenas classificar, não pesquisar). Listado aqui para que a lacuna tenha nome:
+
+| Bloco | O que falta definir |
+|---|---|
+| **KIT · KIQ** | as perguntas-chave de inteligência, e de quem elas são |
+| **EVIDENCE · CLAIM · FACT** | os três, hoje usados como sinônimos em prosa |
+| **ENTITY · EVENT · INDICATOR · SIGNAL** | a diferença entre uma coisa, um acontecimento, uma medida e um alerta |
+| **HYPOTHESIS · ASSUMPTION** | o que se testa e o que se assume sem testar |
+| **CONTRARY_EVIDENCE** | o dever de procurar o que derruba, não só o que confirma |
+| **ANALYTIC_CONFIDENCE · LIKELIHOOD** | confiança na análise ≠ probabilidade do fato |
+| **FORECAST · CALIBRATION** | prever, e depois medir o quanto se errou |
+| **OPPORTUNITY** | hoje há **duas** definições em conflito nesta casa (caso A-11) |
+| **FIELD_VOICES** | o que uma voz prova, e o que não prova |
+| **DECISION_TELEMETRY** | o que aconteceu depois que alguém decidiu com isto |
+| **LLM_AUTHORITY** | o que um modelo pode afirmar, e sob que evidência |
+| **EVALS** | como se prova que a inteligência funciona, e não só que roda |
+
+Cada bloco acima é `NÃO MEDIDO` — não `NÃO EXISTE`, não `ZERO`. E o preenchimento
+deles **não é trabalho desta aba**: depende da pesquisa externa já planejada e da
+reconciliação com a linha canônica.
+
+> **UM INVENTÁRIO QUE NÃO DIZ O QUE LHE FALTA PARECE UM CENSO.**
+
+---
+
+## 8 · O QUE ESTE INVENTÁRIO NÃO SABE
 
 Registrado como `NÃO SEI`, que é resposta válida e obrigatória.
 
@@ -498,7 +592,7 @@ Registrado como `NÃO SEI`, que é resposta válida e obrigatória.
    existe teste ou medidor **nomeando** a lei. Não prova que o teste reprovaria a
    violação. Só a mutação prova isso, e a mutação foi executada para `TRAVESSIA` e para
    as cicatrizes — não para as 240.
-4. **O tamanho real da perda na fronteira.** Ver D-028. Enquanto o acervo não for medível
+4. **O tamanho real da perda na fronteira de entrega.** Ver D-028. Enquanto o acervo não for medível
    pelo mesmo medidor, `5.033.374 → 0` é uma alegação com origem escrita, não uma medição.
    E há agora um **terceiro** número: os `5.167.243` caracteres que o pacote declara por
    registo. Ele viaja dentro do artefato versionado — logo é reproduzível daqui — mas
@@ -513,8 +607,15 @@ Registrado como `NÃO SEI`, que é resposta válida e obrigatória.
 ---
 
 ```
-BIBLIA_ESCRITA_CONTRA           medidores executáveis, não memória
+CLASSIFICACAO                   DRAFT · INVENTARIO_DE_LEIS · INPUT_TO_INTELLIGENCE_BIBLE
+ESCRITO_CONTRA                  medidores executáveis, não memória
 IMPLEMENTACAO_NESTA_LINHA       nenhuma
-PORTAO_QUE_ESTA_BIBLIA_FECHA    nenhum
-COLLECTION_FOUNDATION_CLOSED    derivado em scripts/fundacao_coleta.py
+PORTAO_QUE_ESTE_DOCUMENTO_FECHA nenhum
+COLLECTION_FOUNDATION_CLOSED    NÃO é publicado aqui — dono canônico em
+                                claude/collection-foundation-integration-v1
+ACERVO_TO_PORTAL_DELIVERY_READY derivado em scripts/entrega_acervo_portal.py
+                                classe: DELIVERY / LINEAGE / OBSERVABILITY
+PROXIMO_EVENTO_DESTA_ABA        reconciliação posterior, depois que a linha
+                                canônica fechar a M1 e instalar a fundação de
+                                observabilidade
 ```

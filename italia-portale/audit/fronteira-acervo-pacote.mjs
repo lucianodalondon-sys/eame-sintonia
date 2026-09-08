@@ -21,6 +21,41 @@
    Este ficheiro da medidor ao lado que DAQUI se pode medir, e recusa-se a
    inventar o outro.
 
+   A QUE CAMADA ISTO PERTENCE
+   ---------------------------
+   DELIVERY / LINEAGE / OBSERVABILITY. Nao e fundacao de coleta.
+
+   A fundacao da coleta termina em ADMISSION / READY:
+
+       SOURCE -> DISCOVER -> FETCH -> RAW -> DERIVED -> STRUCTURED
+              -> ADMISSION -> READY
+
+   e so DEPOIS vem inteligencia, e so depois portal. Esta fronteira e a ponta
+   de baixo dessa cadeia, e o que ela mede NAO pode ser requisito de fechamento
+   da coleta: um portal incompleto nao pode impedir a coleta de fechar.
+
+       ACERVO -> PACOTE -> TELA NAO E COLLECTION FOUNDATION.
+       E DELIVERY / LINEAGE / OBSERVABILITY.
+
+   O dono canonico de COLLECTION_FOUNDATION_CLOSED e outro, e esta nomeado em
+   scripts/entrega_acervo_portal.py. Este ficheiro nunca o escreve.
+
+   Este medidor e um PRECURSOR DE SENSOR da futura camada transversal de
+   observabilidade de fluxo, que a linha canonica instala depois da M1 e antes
+   da M2. Nao e uma segunda plataforma de observabilidade e nao deve virar uma.
+
+   OS QUATRO ESTADOS DE MEDICAO, QUE NAO SE COLAPSAM
+   --------------------------------------------------
+       MEASURED               contado aqui, contra artefacto versionado
+       DECLARED               a origem afirma o numero e ele viaja no artefacto
+       EXTERNAL_MEASUREMENT   medido, mas por outra maquina/linhagem
+       NOT_MEASURED           ninguem contou
+
+   E a lei que decorre deles:
+
+       UM LADO MEDIDO + UM LADO ALEGADO NAO E RECONCILIATION COMPLETE.
+       E ONE_SIDED_MEASUREMENT.
+
    OS DOIS LADOS DA FRONTEIRA, E SO UM E MEDIVEL DAQUI
    ----------------------------------------------------
      PARTIU   o que o acervo tem. O acervo NAO ESTA NESTE REPOSITORIO: vive na
@@ -43,7 +78,7 @@
    Por isso um CHEGOU = 0 medido aqui NAO fecha a conta sozinho: prova que
    nada chegou, nao prova quanto partiu. A perda so e QUANTIFICAVEL quando os
    dois lados forem medidos pelo mesmo medidor. Enquanto um lado for alegacao,
-   o estado da familia e ABERTA_MEDIDA_DE_UM_LADO — nem fechada, nem inventada.
+   o estado da familia e ONE_SIDED_MEASUREMENT — nem fechada, nem inventada.
 
    O QUE ESTE FICHEIRO NAO FAZ
    ----------------------------
@@ -352,7 +387,7 @@ function mede() {
                                       PROPOSITO, e o que atravessa em vez dele
                                       — identidade, escada de estado, contagem
                                       e SHA — chegou e mede-se aqui
-       ABERTA_MEDIDA_DE_UM_LADO       o lado que chegou foi medido daqui e e
+       ONE_SIDED_MEASUREMENT       o lado que chegou foi medido daqui e e
                                       insuficiente; o lado que partiu e alegacao
        NAO_MEDIDA                     nem um lado nem outro
 
@@ -376,10 +411,23 @@ function mede() {
       && (e.CAMPOS_DE_ESTADO_ENCONTRADOS || []).length === 5
       && e.COM_TEXT_SHA256 > 0
       && Number(f.CHEGOU.CHARS_DECLARADOS_PELA_ORIGEM) > 0);
+    if (fronteiraDeclarada) {
+      f.O_QUE_ESTE_ESTADO_NAO_AFIRMA =
+        'FECHADA_COM_FRONTEIRA_DECLARADA responde a UMA pergunta: a ausencia do '
+        + 'conteudo pesado e deliberada ou foi perda silenciosa? Nao afirma '
+        + 'INTELLIGENCE_READY, nao afirma COLLECTION_FOUNDATION_CLOSED e nao '
+        + 'afirma PORTAL_COMPLETE. Nenhuma dessas tres e pergunta deste ficheiro.';
+    }
     if (!chegouMedido) f.ESTADO = 'NAO_MEDIDA';
     else if (partiuMedido && chegouAlgo) f.ESTADO = 'FECHADA';
     else if (fronteiraDeclarada) f.ESTADO = 'FECHADA_COM_FRONTEIRA_DECLARADA';
-    else f.ESTADO = 'ABERTA_MEDIDA_DE_UM_LADO';
+    else f.ESTADO = 'ONE_SIDED_MEASUREMENT';
+    f.ESTADO_DE_MEDICAO = {
+      PARTIU: f.PARTIU.MEDIDO_DAQUI === 'SIM' ? 'MEASURED' : 'DECLARED',
+      CHEGOU: f.CHEGOU.MEDIDO_DAQUI === 'SIM' ? 'MEASURED' : 'NOT_MEASURED',
+      RECONCILIACAO: (chegouMedido && partiuMedido)
+        ? 'RECONCILIATION_COMPLETE' : 'ONE_SIDED_MEASUREMENT',
+    };
     f.PERDA_QUANTIFICAVEL = (chegouMedido && partiuMedido) ? 'SIM' : 'NAO';
     f.PORQUE_A_PERDA_NAO_E_QUANTIFICAVEL = f.PERDA_QUANTIFICAVEL === 'SIM' ? null
       : 'um dos dois lados e alegacao, nao medicao. Subtrair uma medicao de uma '
@@ -421,9 +469,17 @@ function mede() {
       + 'se coletou chega; o degrau pergunta se o que chegou e usado. Sao duas '
       + 'perguntas, e colapsa-las faria a coleta refem do motor.',
     DONO_DA_FRONTEIRA: 'claude/opportunity-commercial-priority-v1',
+    CLASSE: 'DELIVERY / LINEAGE / OBSERVABILITY',
+    NAO_E: 'COLLECTION FOUNDATION. A coleta termina em ADMISSION / READY e nao '
+      + 'passa pelo portal; o dono canonico de COLLECTION_FOUNDATION_CLOSED esta '
+      + 'nomeado em scripts/entrega_acervo_portal.py e nao e este ficheiro.',
+    PRECURSOR_DE: 'a camada transversal de observabilidade de fluxo (lentes '
+      + 'ARCHITECTURE, DIAGNOSTIC, TRACE, PERFORMANCE), instalada pela linha '
+      + 'canonica depois da M1 e antes da M2.',
     REGRA:
       'SOURCE FAILURE nao e ZERO. Um lado medido e outro alegado nao produzem '
-      + 'uma perda quantificada — produzem uma fronteira aberta com dono.',
+      + 'uma perda quantificada nem RECONCILIATION_COMPLETE — produzem '
+      + 'ONE_SIDED_MEASUREMENT, e uma fronteira aberta com dono.',
   };
 }
 

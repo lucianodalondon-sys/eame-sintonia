@@ -157,8 +157,17 @@ PRINCIPAL_LOSS_POINT ................ DOIS, E O SEGUNDO SÓ APARECEU NO FIM
         As três últimas em ABERTA_MEDIDA_DE_UM_LADO: nem fechadas, nem
         inventadas. E um degrau segue aberto sem bloquear a fronteira:
         TRANSCRIPT_USED_AS_EVIDENCE é falso em 184/184 — dono é o motor.
-        `scripts/fundacao_coleta.py` compõe o resultado em
-        COLLECTION_FOUNDATION_CLOSED, hoje NÃO.
+        `scripts/entrega_acervo_portal.py` compõe o resultado em
+        ACERVO_TO_PORTAL_DELIVERY_READY, hoje NÃO.
+
+        CORREÇÃO DE FRONTEIRA. A primeira versão deste adendo publicava o
+        resultado como COLLECTION_FOUNDATION_CLOSED. Errado, e de nome: a
+        fundação da coleta termina em ADMISSION/READY e NÃO depende de portal,
+        pacote nem tela — se dependesse, um portal incompleto impediria a coleta
+        de fechar. O dono canônico daquela constante é a linha
+        claude/collection-foundation-integration-v1. Esta medição é
+        DELIVERY / LINEAGE / OBSERVABILITY, e é precursora de sensor da camada
+        de observabilidade que aquela linha instala depois da M1.
 
   (b) MOTOR → SUPERFÍCIE, classe «valor calculado sem markup»
     O transporte não perde um registo (0 falhas em 26 famílias). A segunda perda

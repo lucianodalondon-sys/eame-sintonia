@@ -1,0 +1,126 @@
+{
+  "SOURCE_ID": "ENTREGA-ACERVO-PORTAL",
+  "VERSION": 2,
+  "captured_at": "2026-09-08",
+  "SOURCE_LOCATION": "interno",
+  "FACT_LOCATION": "EAME",
+  "ORIGINAL_LANGUAGE": "pt",
+  "DERIVADO_DE": [
+    "italia-portale/audit/fronteira-acervo-pacote.mjs",
+    "data/samples/FRONTEIRA-ACERVO-PACOTE.json"
+  ],
+  "CLASSE": "DELIVERY / LINEAGE / OBSERVABILITY",
+  "PRECURSOR_DE": "a camada transversal de observabilidade de fluxo, instalada pela linha canônica depois da M1 e antes da M2. Este medidor será um sensor dela, não uma segunda plataforma.",
+  "O_QUE_ISTO_E": "a prontidão da ENTREGA: o que o acervo produz chega ao artefato que a tela carrega? Derivado de medidor executável.",
+  "O_QUE_ISTO_NAO_E": "não é a fundação da coleta, não a fecha, não a abre e não entra no cálculo dela. A coleta termina em ADMISSION/READY e não passa pelo portal.",
+  "PERGUNTA": "o que o acervo produz chega ao artefato que a tela carrega?",
+  "PILARES": {
+    "TRAVESSIA": {
+      "PERGUNTA": "o que o acervo produz chega ao artefato que a tela carrega?",
+      "MEDIDOR": "italia-portale/audit/fronteira-acervo-pacote.mjs",
+      "DERIVA_DE": "FRONTEIRA_ATRAVESSADA",
+      "PORQUE_E_PILAR": "é a única pergunta deste portão. A cadeia ACERVO → PACOTE → ARTEFATO é medível daqui de um lado, e é onde o CHECKPOINT desta linhagem localizou a perda principal da entrega.",
+      "ESTADO": "ABERTO",
+      "MEDIDO": "SIM",
+      "EVIDENCIA": "BUILD V21-06c6421d001ea52a · 3 de 4 famílias abertas",
+      "BLOQUEADORES": [
+        "CIENCIA_TEXTO",
+        "ANUNCIOS_DATA_DE_VERIFICACAO",
+        "VIDEO_ORGANICO"
+      ],
+      "SAFRA": {
+        "CONFERIDA": "SIM",
+        "BUILD_ID_NO_ARTEFATO": "V21-06c6421d001ea52a",
+        "BUILD_ID_MEDIDO_AGORA": "V21-06c6421d001ea52a",
+        "PORQUE": null
+      },
+      "DONO": "claude/opportunity-commercial-priority-v1",
+      "ACOES_MINIMAS": [
+        {
+          "FAMILIA": "CIENCIA_TEXTO",
+          "ACAO": "campo de texto cientifico em SCIENCE.json",
+          "DONO": "claude/opportunity-commercial-priority-v1",
+          "ESTADO": "ONE_SIDED_MEASUREMENT"
+        },
+        {
+          "FAMILIA": "ANUNCIOS_DATA_DE_VERIFICACAO",
+          "ACAO": "transportar last_observed para COMPETITOR-ACTIVITIES.json",
+          "DONO": "claude/opportunity-commercial-priority-v1",
+          "ESTADO": "ONE_SIDED_MEASUREMENT"
+        },
+        {
+          "FAMILIA": "VIDEO_ORGANICO",
+          "ACAO": "COUNTRY_REACHED por cartao, para que a tela possa filtrar",
+          "DONO": "claude/opportunity-commercial-priority-v1",
+          "ESTADO": "ONE_SIDED_MEASUREMENT"
+        }
+      ],
+      "DEGRAUS_ABERTOS": [
+        {
+          "FAMILIA": "TRANSCRICOES",
+          "DEGRAU": "TRANSCRIPT_USED_AS_EVIDENCE e false em 184/184. Fala existe, e utilizavel, esta no pacote — e nenhum cartao apoia afirmacao nela. O degrau nao e do pacote: e do motor, e so vira true quando uma afirmacao se apoiar nesses bytes.",
+          "DONO": "o motor do portal, nesta linhagem"
+        }
+      ]
+    }
+  },
+  "ACERVO_TO_PORTAL_DELIVERY_READY": "NAO",
+  "PILARES_ABERTOS": [
+    "TRAVESSIA"
+  ],
+  "O_QUE_FALTA_PARA_SIM": [
+    {
+      "PILAR": "TRAVESSIA",
+      "ESTADO": "ABERTO",
+      "BLOQUEADORES": [
+        "CIENCIA_TEXTO",
+        "ANUNCIOS_DATA_DE_VERIFICACAO",
+        "VIDEO_ORGANICO"
+      ],
+      "DONO": "claude/opportunity-commercial-priority-v1"
+    }
+  ],
+  "CONTEXTO_A_MONTANTE": {
+    "ENTRADA_DA_COLETA": {
+      "DERIVA_DE": "EAME_COLLECTION_ENTRY_GATE",
+      "MEDIDOR": "scripts/portoes_eame.py",
+      "E_PILAR_DESTE_PORTAO": "NAO",
+      "PORQUE_NAO": "pertence à fundação da coleta, que termina em ADMISSION/READY e não passa pelo portal.",
+      "ESTADO_LIDO": "READY"
+    },
+    "PRESERVACAO_DO_BRUTO": {
+      "DERIVA_DE": "RAW_PRESERVATION_GATE + RAW_CONTENT_INTEGRITY_GATE",
+      "MEDIDOR": "scripts/portoes_eame.py",
+      "E_PILAR_DESTE_PORTAO": "NAO",
+      "PORQUE_NAO": "idem — é degrau da coleta, a montante da entrega.",
+      "ESTADO_LIDO": "CLOSED / CLOSED"
+    },
+    "FUNDACAO_DA_COLETA": {
+      "PERGUNTA": "a fundação da coleta fechou?",
+      "CONSTANTE": "COLLECTION_FOUNDATION_CLOSED",
+      "LINHA": "claude/collection-foundation-integration-v1",
+      "ARQUIVOS": [
+        "leis/fundacao_da_coleta.py",
+        "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
+        "system-map/data/estradas-it.generated.json",
+        "tests/test_fundacao_da_coleta.py"
+      ],
+      "ONDE_A_COLETA_TERMINA": "ADMISSION / READY",
+      "NAO_DEPENDE_DE": [
+        "PORTAL",
+        "PACOTE",
+        "TELA",
+        "UI",
+        "PRODUTO_DE_INTELIGENCIA"
+      ],
+      "ESTE_ARQUIVO_E_DONO": "NAO",
+      "ESTADO_LIDO": {
+        "VALOR": "NAO_DISPONIVEL_NESTA_BRANCH",
+        "PORQUE": "o dono canônico vive em claude/collection-foundation-integration-v1 e não foi mergeado nesta missão, por instrução.",
+        "LIDO_DE": null
+      }
+    }
+  },
+  "REGRA": "UMA PERGUNTA, UM DONO CANÔNICO. E NÃO MEDIDO NÃO É FECHADO.",
+  "O_QUE_UM_NAO_AQUI_NAO_SIGNIFICA": "NÃO significa que a coleta não pode fechar. A ordem do projeto é coleta → inteligência → portal, e este portão é o último dos três: ele pode ficar aberto por muito tempo sem que isso diga nada sobre os dois anteriores."
+}

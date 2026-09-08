@@ -145,7 +145,8 @@ Nenhuma fonte foi pesquisada, nenhum dado foi coletado, nenhuma capacidade foi a
 │   ├── cruzamentos/    MATRIZ-DE-CRUZAMENTOS-EAME.md — A + B, e com que chave
 │   ├── ferramentas/    CATALOGO-DE-FERRAMENTAS-EAME.md — com o que se faz
 │   ├── decisoes/       DIARIO-DE-DECISOES.md — toda decisão, com data e motivo
-│   ├── biblia/         BIBLIA-DA-INTELIGENCIA-EAME.md — as leis, num índice só
+│   ├── biblia/         BIBLIA-DA-INTELIGENCIA-EAME.md — inventário das leis
+│   │                   já aprendidas (DRAFT, entrada para a Bíblia futura)
 │   └── apresentacao/   CASOS-PARA-APRESENTACAO.md — o que se mostra e com que estado
 ├── research/
 │   ├── europe/         camada comum europeia
