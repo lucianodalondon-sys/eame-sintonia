@@ -98,7 +98,17 @@ jobs:
       #
       # Banco proprio (`social`), para nao herdar linhas das provas anteriores:
       # um caso que passa por causa do estado deixado por outro nao prova nada.
+      #
+      # `if: always()` pelo MESMO motivo que o passo 3 ja o usa nesta casa: se um
+      # passo anterior rebentar, esta prova e justamente o que continua tendo de
+      # ser conferido. Medido em 2026-09-08: o passo 2b reprova neste ramo por
+      # divergencia de base — as mesmas 4 reprovacoes aparecem em b38312f8, ANTES
+      # desta missao, e o conserto vive em `claude/italia-biblia-integracao-v1`
+      # (9b4dc299), que este ramo ainda nao recebeu. Sem `always()`, uma falha
+      # herdada de outra peca esconderia o resultado desta — e prova pulada nao
+      # e prova.
       - name: 2c · o contrato de persistencia social aplica e as travas mordem
+        if: always()
         run: |
           psql "$ADMIN_URL" -c 'create database social;'
           python3 provas/social_persistencia_no_postgres.py
