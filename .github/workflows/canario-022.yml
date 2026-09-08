@@ -99,3 +99,29 @@ jobs:
         run: bash provas/readback_022_live.sh
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+
+  canario:
+    needs: aplicar
+    if: github.event_name == 'workflow_dispatch' && inputs.confirmar == 'SIM'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # O executor precisa do `pdftotext`. Sem ele o canario nao inventa
+      # texto: para no RAW e diz EXECUTOR_UNAVAILABLE.
+      - name: 1 · o executor de PDF existe
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+          pdftotext -v
+
+      # UMA captura italiana nova, do principio ao fim. Uma fonte, um
+      # documento, uma corrida.
+      - name: 2 · o canário forward
+        run: python3 provas/canario_forward_it.py
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
