@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "bab65a804363c78f4835f4df6c9aec31e569f48c",
+    "HEAD": "45f621c00d0d7329036a3ea055276abfe3862584",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3211,6 +3211,43 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/social_envelope.py",
+      "como_se_chama": "",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/social_rotas.py",
+      "como_se_chama": "",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/social_scrap.py",
+      "como_se_chama": "scripts/social_scrap.py censo",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
       "ficheiro": "coleta/speaker_identidade.py",
       "como_se_chama": "coleta/speaker_identidade.py montar",
       "carimba_data": [
@@ -3278,6 +3315,20 @@
         "SOURCE_LOCATION"
       ],
       "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/youtube_oficial.py",
+      "como_se_chama": "",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
       "leis_que_obedece": [],
       "regista_descarte": []
     },
@@ -4204,7 +4255,7 @@
       "usado_por": [
         {
           "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 271
+          "line": 274
         },
         {
           "file": "tests/test_preservar_coleta.py",
@@ -4282,6 +4333,19 @@
       ]
     },
     {
+      "endpoint": "https://www.googleapis.com/youtube",
+      "usado_por": [
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 87
+        },
+        {
+          "file": "tests/test_youtube_oficial.py",
+          "line": 528
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.adama.com/france",
       "usado_por": [
         {
@@ -4330,6 +4394,45 @@
         {
           "file": "fontes/adama_it_intelligence.py",
           "line": 48
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.linkedin.com/legal",
+      "usado_por": [
+        {
+          "file": "guarda/social_sessao.py",
+          "line": 127
+        },
+        {
+          "file": "leis/social_matriz.py",
+          "line": 387
+        }
+      ]
+    },
+    {
+      "endpoint": "https://developers.facebook.com/docs",
+      "usado_por": [
+        {
+          "file": "guarda/social_sessao.py",
+          "line": 136
+        },
+        {
+          "file": "leis/social_matriz.py",
+          "line": 289
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/t",
+      "usado_por": [
+        {
+          "file": "guarda/social_sessao.py",
+          "line": 176
+        },
+        {
+          "file": "leis/social_matriz.py",
+          "line": 174
         }
       ]
     },
@@ -4449,6 +4552,51 @@
       ]
     },
     {
+      "endpoint": "https://%s/api",
+      "usado_por": [
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 150
+        }
+      ]
+    },
+    {
+      "endpoint": "https://public.api.bsky.app/xrpc",
+      "usado_por": [
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 209
+        }
+      ]
+    },
+    {
+      "endpoint": "https://bsky.app/profile",
+      "usado_por": [
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 217
+        }
+      ]
+    },
+    {
+      "endpoint": "https://t.me/s",
+      "usado_por": [
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 252
+        }
+      ]
+    },
+    {
+      "endpoint": "https://t.me/%s'",
+      "usado_por": [
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 261
+        }
+      ]
+    },
+    {
       "endpoint": "https://orcid.org/0000-...'.",
       "usado_por": [
         {
@@ -4463,87 +4611,6 @@
         {
           "file": "coleta/youtube_janela.py",
           "line": 169
-        }
-      ]
-    },
-    {
-      "endpoint": "https://esploradati.istat.it/SDMXWS",
-      "usado_por": [
-        {
-          "file": "data/samples/IT-ISTAT-COLTIVAZIONI/pull_istat_coltivazioni.py",
-          "line": 3
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/in",
-      "usado_por": [
-        {
-          "file": "ferramentas/apify_contrato.py",
-          "line": 63
-        }
-      ]
-    },
-    {
-      "endpoint": "https://exemplo.invalid",
-      "usado_por": [
-        {
-          "file": "ferramentas/cdp.py",
-          "line": 5
-        }
-      ]
-    },
-    {
-      "endpoint": "https://example.com'",
-      "usado_por": [
-        {
-          "file": "ferramentas/cdp.py",
-          "line": 382
-        }
-      ]
-    },
-    {
-      "endpoint": "https://eur-lex.europa.eu/legal-content",
-      "usado_por": [
-        {
-          "file": "fontes/adama_it_eu.py",
-          "line": 29
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.adama.com/spain",
-      "usado_por": [
-        {
-          "file": "guarda/catalogo_importar.py",
-          "line": 139
-        }
-      ]
-    },
-    {
-      "endpoint": "https://esploradati.istat.it',ARRAY['ESTATISTICA_OFICIAL']::fonte_natureza[],",
-      "usado_por": [
-        {
-          "file": "pacote/lastmile_para_supabase.py",
-          "line": 217
-        }
-      ]
-    },
-    {
-      "endpoint": "https://esploradati.istat.it')",
-      "usado_por": [
-        {
-          "file": "pacote/lastmile_para_supabase.py",
-          "line": 226
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.salute.gov.it/',",
-      "usado_por": [
-        {
-          "file": "pacote/pacote_camadas2.py",
-          "line": 34
         }
       ]
     }
@@ -4566,11 +4633,11 @@
     "search_terms": 103,
     "endpoints": 40,
     "candidates": 0,
-    "coletores": 41,
-    "coletores_com_data": 12,
-    "coletores_com_lugar": 26,
+    "coletores": 45,
+    "coletores_com_data": 13,
+    "coletores_com_lugar": 30,
     "coletores_que_separam_fonte_do_fato": 19,
-    "coletores_que_registam_descarte": 8,
+    "coletores_que_registam_descarte": 9,
     "corridas_registadas": 26,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,

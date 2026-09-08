@@ -52,8 +52,11 @@ def _nu(t):
     t = ''.join(c for c in t if unicodedata.category(c) != 'Mn')
     t = re.sub(r"['`’´]", '', t)
     return re.sub(r'\s+', ' ', t).strip().lower()
+# O default embutido era o caminho pessoal de UMA maquina (C:\Users\<alguem>).
+# Fora dela nao existia, e dentro dela vazava o nome do usuario para o Git.
+# Sem LOCALAPPDATA, a saida cai dentro do proprio repositorio.
 SAIDA = os.path.join(
-    os.environ.get('LOCALAPPDATA', r'C:\Users\London1\AppData\Local'),
+    os.environ.get('LOCALAPPDATA') or os.path.join(ROOT, '.tmp'),
     'Temp', 'claude', 'C--eame-sintonia',
     'a922b30b-6fd0-4c62-9d83-5b22807c64d1', 'tasks', 'wimgu1ear.output')
 EXTRACAO = os.path.join(ROOT, '.tmp', 'v21_localizar.json')

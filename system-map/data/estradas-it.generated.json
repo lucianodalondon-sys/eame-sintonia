@@ -1,0 +1,61 @@
+{
+ "SCHEMA": "estradas-it/v1",
+ "PROVENANCE": {
+  "CATALOGO": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+  "MATRIZ": "leis/social_matriz.py",
+  "NOTA": "a CLASSE de rota social vem da matriz, que ja era a dona. As classes nao-sociais sao derivadas do codigo medido, e estao no mapa em prosa — este ficheiro conta o que da para contar sem opinar."
+ },
+ "FONTES_IT": {
+  "TOTAL": 54,
+  "COM_ROTA_DECLARADA": 3,
+  "ROTA_NAO_SEI": 51,
+  "POR_PAPEL": {
+   "VALIDATION_SOURCE": 2,
+   "FIELD_SIGNAL_SOURCE": 12,
+   "TECHNICAL_GUIDANCE_SOURCE": 8,
+   "SCIENCE_SOURCE": 5,
+   "IDENTITY_SOURCE": 10,
+   "DISCOVERY_SOURCE": 12,
+   "MARKET_SOURCE": 5
+  }
+ },
+ "CLASSES_SOCIAIS": {
+  "DECLARADAS": {
+   "OFFICIAL_API_FREE": 14,
+   "LOCAL_EXECUTOR": 4,
+   "PUBLIC_NATIVE": 14,
+   "DIRECT_HTTP": 4,
+   "APIFY": 5,
+   "PUBLIC_BROWSER": 3,
+   "OFFICIAL_API_PAID": 2
+  },
+  "PERMITIDAS": {
+   "OFFICIAL_API_FREE": 4,
+   "PUBLIC_NATIVE": 10,
+   "LOCAL_EXECUTOR": 1,
+   "DIRECT_HTTP": 1,
+   "OFFICIAL_API_PAID": 1
+  },
+  "ROTAS_SEM_RAZAO_ESCRITA": 1
+ },
+ "APIFY": {
+  "DEFAULT": 0,
+  "FALLBACK": 5,
+  "NOTA": "APIFY-LAST: default zero e a leitura correta"
+ },
+ "GIT_COMO_BANCO_OPERACIONAL": [
+  {
+   "FICHEIRO": "data/collection-ledger/italy/observations.ndjson",
+   "LINHAS": 144
+  },
+  {
+   "FICHEIRO": "data/collection-ledger/italy/runs.ndjson",
+   "LINHAS": 6
+  }
+ ],
+ "ORQUESTRADOR": {
+  "EXISTE": false,
+  "PROVA": "censo_da_coleta.py mede 0 pecas que coordenam mais de um executor. SINTONIA SCRAP e COMPOSITE_EXECUTOR: coordena rotas de UMA aquisicao, nao o calendario da casa."
+ },
+ "COLLECTION_FOUNDATION_CLOSED": false
+}

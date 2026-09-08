@@ -27,6 +27,9 @@ on:
       - 'provas/preservar_coleta_no_postgres.py'
       - 'supabase/migrations/001_*.sql'
       - 'supabase/migrations/022_*.sql'
+      - 'supabase/migrations/023_*.sql'
+      - 'provas/social_persistencia_no_postgres.py'
+      - 'coleta/social_persistencia.py'
       - 'provas/derived_artifact_no_postgres.py'
       - 'guarda/preservar_derivado.py'
       - 'motor/cadeia_canonica.sh'
@@ -103,6 +106,33 @@ jobs:
       # `if: always()` NAO e conforto. Se o passo 2 rebentar — e ja rebentou —
       # a trava de seguranca e JUSTAMENTE o que continua a ter de ser conferido.
       # Uma tranca que so se testa quando esta tudo bem nao e uma tranca.
+      # O contrato de persistencia social: a 023 tem de APLICAR num Postgres
+      # real, e as duas travas dela tem de morder. Reproduzido antes de existir:
+      # dois «Grazie!» com IDs diferentes davam UMA linha, e uma resposta perdia
+      # o pai ao entrar na camada estruturada.
+      #
+      #     COMMENT_ID NAO E COMMENT_TEXT.
+      #     REPLY NAO E TOP-LEVEL.
+      #
+      # `2d`, e nao `2c`: a Biblia ja tem um `2c` (a trava de drift de
+      # migration). Dois passos com o mesmo numero fariam o leitor do log
+      # atribuir o resultado de um ao outro.
+      #
+      # SEM `if: always()`. No ramo social ele existia para contornar uma
+      # reprovacao herdada do `2b` — que a Biblia ja consertou em 9b4dc299.
+      # Manter o always() aqui esconderia uma dependencia real entre provas
+      # sequenciais, e uma prova que corre sobre um banco que a etapa anterior
+      # deixou pela metade nao prova o que diz provar.
+      #
+      # Banco proprio (`social`), para nao herdar linhas das provas anteriores.
+      - name: 2d · o contrato de persistencia social aplica e as travas mordem
+        run: |
+          psql "$ADMIN_URL" -c 'create database social;'
+          python3 provas/social_persistencia_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/social
+
       - name: 3 · a prova recusa-se a correr fora de um banco descartável
         if: always()
         run: |

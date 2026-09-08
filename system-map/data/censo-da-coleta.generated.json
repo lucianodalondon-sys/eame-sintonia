@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "c1a6e4d1b655821697d80aaec0ed72d809eff671",
+    "HEAD": "45f621c00d0d7329036a3ea055276abfe3862584",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -352,7 +352,7 @@
     {
       "ficheiro": "ferramentas/apify_pool.py",
       "gaveta": "ferramentas",
-      "linhas": 299,
+      "linhas": 311,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -414,7 +414,8 @@
         "coleta/instagram_diario.py",
         "coleta/instagram_janela.py",
         "coleta/youtube_janela.py",
-        "ferramentas/instagram_transcrever.py"
+        "ferramentas/instagram_transcrever.py",
+        "guarda/social_sessao.py"
       ],
       "no_ci": false
     },
@@ -513,7 +514,8 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
-        "ferramentas/cdp.py"
+        "ferramentas/cdp.py",
+        "guarda/social_sessao.py"
       ],
       "no_ci": true
     },
@@ -617,7 +619,7 @@
     {
       "ficheiro": "coleta/coleta_checkpoint.py",
       "gaveta": "coleta",
-      "linhas": 214,
+      "linhas": 322,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -629,8 +631,12 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
-      "no_ci": false
+      "chamado_por": [
+        "coleta/social_persistencia.py",
+        "coleta/social_scrap.py",
+        "coleta/youtube_oficial.py"
+      ],
+      "no_ci": true
     },
     {
       "ficheiro": "coleta/coletor.py",
@@ -862,7 +868,7 @@
     {
       "ficheiro": "coleta/executor_texto_de_pdf.py",
       "gaveta": "coleta",
-      "linhas": 326,
+      "linhas": 404,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1024,7 +1030,8 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/instagram_coleta.py",
-        "coleta/instagram_diario.py"
+        "coleta/instagram_diario.py",
+        "coleta/social_persistencia.py"
       ],
       "no_ci": true
     },
@@ -1239,6 +1246,98 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/social_envelope.py",
+      "gaveta": "coleta",
+      "linhas": 231,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/social_rotas.py",
+        "coleta/social_scrap.py",
+        "coleta/youtube_oficial.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/social_persistencia.py",
+      "gaveta": "coleta",
+      "linhas": 413,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/social_rotas.py",
+      "gaveta": "coleta",
+      "linhas": 510,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/social_scrap.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/social_scrap.py",
+      "gaveta": "coleta",
+      "linhas": 865,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
       "ficheiro": "coleta/speaker_identidade.py",
       "gaveta": "coleta",
       "linhas": 605,
@@ -1338,6 +1437,30 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/youtube_oficial.py",
+      "gaveta": "coleta",
+      "linhas": 994,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/social_rotas.py",
+        "coleta/social_scrap.py"
+      ],
       "no_ci": true
     },
     {
@@ -1720,7 +1843,7 @@
     {
       "ficheiro": "guarda/memoria_descartavel.py",
       "gaveta": "guarda",
-      "linhas": 176,
+      "linhas": 238,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1732,6 +1855,24 @@
       "escreve_ficheiro": false,
       "chamado_por": [],
       "no_ci": true
+    },
+    {
+      "ficheiro": "guarda/portas_live.py",
+      "gaveta": "guarda",
+      "linhas": 229,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": true,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
     },
     {
       "ficheiro": "guarda/preservar_coleta.py",
@@ -1747,9 +1888,79 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
-        "guarda/memoria_descartavel.py"
+        "guarda/portas_live.py",
+        "guarda/preservar_derivado.py"
       ],
       "no_ci": true
+    },
+    {
+      "ficheiro": "guarda/preservar_derivado.py",
+      "gaveta": "guarda",
+      "linhas": 460,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/executor_texto_de_pdf.py",
+        "guarda/memoria_descartavel.py",
+        "guarda/portas_live.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "guarda/social_guarda.py",
+      "gaveta": "guarda",
+      "linhas": 231,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/social_scrap.py"
+      ],
+      "no_ci": true
+    },
+    {
+      "ficheiro": "guarda/social_sessao.py",
+      "gaveta": "guarda",
+      "linhas": 560,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/social_rotas.py",
+        "coleta/social_scrap.py",
+        "guarda/social_guarda.py"
+      ],
+      "no_ci": false
     },
     {
       "ficheiro": "guarda/sql_conferir.py",
@@ -1769,14 +1980,14 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 91,
-    "pontos_de_entrada": 76,
-    "executores_que_saem_para_fora": 18,
+    "ficheiros_de_codigo": 100,
+    "pontos_de_entrada": 82,
+    "executores_que_saem_para_fora": 21,
     "sem_chamador_e_fora_do_ci": 46,
-    "gravam_no_banco": 1,
-    "escrevem_ficheiro": 65,
-    "deitam_fora_alguma_coisa": 20,
-    "deitam_fora_SEM_escrever_o_motivo": 1,
+    "gravam_no_banco": 2,
+    "escrevem_ficheiro": 66,
+    "deitam_fora_alguma_coisa": 23,
+    "deitam_fora_SEM_escrever_o_motivo": 2,
     "ficheiros_com_decisao_escondida": 2,
     "decisoes_escondidas_ao_todo": 2
   },
@@ -1837,11 +2048,14 @@
       "coleta/rotulos_baixar.py",
       "coleta/rotulos_ler.py",
       "coleta/sensor_canal_identidade.py",
+      "coleta/social_persistencia.py",
+      "coleta/social_scrap.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",
       "coleta/texto_fonte.py",
       "coleta/universo_ciencia_it.py",
       "coleta/youtube_janela.py",
+      "coleta/youtube_oficial.py",
       "coleta/youtube_relevancia.py",
       "regras/comunicacao_identidade.py",
       "regras/comunicacao_lote.py",
@@ -1857,6 +2071,9 @@
       "guarda/es/adama_es_import_rules.py",
       "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",
+      "guarda/portas_live.py",
+      "guarda/social_guarda.py",
+      "guarda/social_sessao.py",
       "guarda/sql_conferir.py"
     ],
     "executores": [
@@ -1872,12 +2089,15 @@
       "coleta/instagram_janela.py",
       "coleta/mapa_regfi.py",
       "coleta/rotulos_baixar.py",
+      "coleta/social_rotas.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",
       "coleta/texto_fonte.py",
       "coleta/universo_ciencia_it.py",
       "coleta/youtube_janela.py",
-      "regras/sensor_coleta.py"
+      "coleta/youtube_oficial.py",
+      "regras/sensor_coleta.py",
+      "guarda/portas_live.py"
     ],
     "orfaos": [
       "pedido/receitas.py",
@@ -1899,7 +2119,6 @@
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
       "coleta/agrifood_ue.py",
-      "coleta/coleta_checkpoint.py",
       "coleta/cruzar_regua_rotulo.py",
       "coleta/ephy.sh",
       "coleta/es/corpus_es.py",
@@ -1925,10 +2144,12 @@
       "guarda/es/adama_es_gate.py",
       "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",
+      "guarda/portas_live.py",
       "guarda/sql_conferir.py"
     ],
     "deitam_fora_sem_motivo": [
-      "coleta/ropf_pre_requisito.py"
+      "coleta/ropf_pre_requisito.py",
+      "guarda/portas_live.py"
     ],
     "decisoes_escondidas": [
       {

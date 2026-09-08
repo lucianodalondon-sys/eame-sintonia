@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
-    "w": 19130,
+    "w": 19960,
     "h": 2784
   },
   "INVENTORY": {
@@ -36,6 +36,7 @@
       ".github/workflows/banco-descartavel.yml",
       ".github/workflows/calendario-regressoes.yml",
       ".github/workflows/comunicacao-publica.yml",
+      ".github/workflows/scrap-social.yml",
       ".github/workflows/sintonia-scrap.yml",
       ".github/workflows/supabase-conexao.yml",
       ".github/workflows/supabase-fichas-adama.yml",
@@ -205,11 +206,16 @@
       "coleta/rotulos_baixar.py",
       "coleta/rotulos_ler.py",
       "coleta/sensor_canal_identidade.py",
+      "coleta/social_envelope.py",
+      "coleta/social_persistencia.py",
+      "coleta/social_rotas.py",
+      "coleta/social_scrap.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",
       "coleta/texto_fonte.py",
       "coleta/universo_ciencia_it.py",
       "coleta/youtube_janela.py",
+      "coleta/youtube_oficial.py",
       "coleta/youtube_relevancia.py"
     ],
     "data": [
@@ -578,6 +584,7 @@
       "data/samples/SENSOR-PILOT/VIDEOS-D.json",
       "data/samples/SENSOR-PILOT/VIDEOS-E.json",
       "data/samples/SLICE-PLASVI-vertical.json",
+      "data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json",
       "data/samples/SPAIN-DEMO-CONTENT-V1.json",
       "data/samples/SPAIN-HERO-CASES-V1.json",
       "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
@@ -603,6 +610,7 @@
       "docs/apresentacao/RECONCILIACAO-DECK-REAL.md",
       "docs/apresentacao/SOURCE-PACKS-EAME.md",
       "docs/apresentacao/deck/AURA-ADAMA-EAME-texto.txt",
+      "docs/arquitetura/SINTONIA-SCRAP-TARGET.md",
       "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
       "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
       "docs/biblia/CONFORMIDADE-ITALIA.md",
@@ -612,7 +620,11 @@
       "docs/biblia/RECONCILIACAO-INTEGRACAO.md",
       "docs/biblia/leis.json",
       "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
+      "docs/capacidades/SINTONIA-SCRAP-SOCIAL.md",
       "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md",
+      "docs/decisoes/ADR-SCRAP-SOCIAL-NA-BIBLIA.md",
+      "docs/decisoes/ADR-SINTONIA-SCRAP-EVOLUTION.md",
+      "docs/decisoes/ADR-TAXONOMIA-DE-FALHAS-E-POLITICA.md",
       "docs/decisoes/DIARIO-DE-DECISOES.md",
       "docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md",
       "docs/descoberta/FREEZE-DA-BASE-DO-PILOTO.md",
@@ -647,6 +659,7 @@
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
       "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
       "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
+      "docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md",
       "docs/operacao/IDENTIDADE-DO-ARTEFATO.md",
       "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
       "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
@@ -654,7 +667,12 @@
       "docs/operacao/MODELO-DAS-CONEXOES.md",
       "docs/operacao/P-011-DADO-OPERACIONAL-NO-GIT.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
+      "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
       "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
+      "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
+      "docs/operacao/YOUTUBE-CHECKPOINT-E-RAW.md",
+      "docs/operacao/YOUTUBE-OFICIAL.md",
+      "docs/operacao/YOUTUBE-PILOTO-ONESHOT.md",
       "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
       "docs/piloto/ASK-SINTONIA-BENCHMARK.md",
       "docs/piloto/BASE-V2-E-VEREDITO-M09.md",
@@ -685,7 +703,9 @@
       "docs/relatorios/RELATORIO-MADRUGADA-EAME.md",
       "docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md",
       "docs/relatorios/RELATORIO-RADAR-DO-FUTURO.md",
-      "docs/relatorios/RELATORIO-TRES-HERO-CASES-ES.md"
+      "docs/relatorios/RELATORIO-TRES-HERO-CASES-ES.md",
+      "docs/research/SINTONIA-SCRAP-CAPABILITY-MATRIX.md",
+      "docs/research/SINTONIA-SCRAP-ENGINEERING-BENCHMARK.md"
     ],
     "ferramentas": [
       "ferramentas/apify_contrato.py",
@@ -725,6 +745,8 @@
       "guarda/portas_live.py",
       "guarda/preservar_coleta.py",
       "guarda/preservar_derivado.py",
+      "guarda/social_guarda.py",
+      "guarda/social_sessao.py",
       "guarda/sql_conferir.py"
     ],
     "handoff": [
@@ -975,7 +997,9 @@
       "leis/auditoria_regua_comercial.py",
       "leis/calendario_handoff.py",
       "leis/data_clock.py",
+      "leis/falhas.py",
       "leis/regua_italia.py",
+      "leis/social_matriz.py",
       "leis/v21_carimbar_origem.py",
       "leis/v21_datas.py",
       "leis/v21_geografia_contrato.py",
@@ -1084,6 +1108,7 @@
       "provas/preflight_022_live.sh",
       "provas/preservar_coleta_no_postgres.py",
       "provas/readback_022_live.sh",
+      "provas/social_persistencia_no_postgres.py",
       "provas/testa_coleta_canonica.py",
       "provas/testa_golden_path_pdf.py",
       "provas/testa_rota_italia.py",
@@ -1221,6 +1246,7 @@
       "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql",
       "supabase/migrations/021_fato_externo_publicado.sql",
       "supabase/migrations/022_o_derivado_ganha_casa.sql",
+      "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -1265,6 +1291,9 @@
       "tests/.gitkeep",
       "tests/es/test_adama_es_gate.py",
       "tests/es/test_adama_es_import_rules.py",
+      "tests/fixtures/YT-RUN-34258433872/PROCEDENCIA.md",
+      "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
+      "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/test_adama_relevance.py",
       "tests/test_armazem_italiano.py",
@@ -1278,6 +1307,7 @@
       "tests/test_completude_oportunidade.py",
       "tests/test_comunicacao.py",
       "tests/test_evidence.py",
+      "tests/test_falhas.py",
       "tests/test_handoff.py",
       "tests/test_hero_cases_v1.py",
       "tests/test_identidade_do_artefato.py",
@@ -1299,11 +1329,18 @@
       "tests/test_proveniencia.py",
       "tests/test_radar_futuro.py",
       "tests/test_red_team_estrada.py",
+      "tests/test_social_persistencia_pg.py",
+      "tests/test_social_sessao.py",
+      "tests/test_thread_parcial.py",
       "tests/test_v21_datas.py",
       "tests/test_v21_geografia.py",
       "tests/test_v21_mercado.py",
       "tests/test_v21_traducao_trava.py",
-      "tests/test_voz.py"
+      "tests/test_voz.py",
+      "tests/test_youtube_antidrift.py",
+      "tests/test_youtube_checkpoint_pg.py",
+      "tests/test_youtube_oficial.py",
+      "tests/test_youtube_piloto.py"
     ]
   },
   "ACHADOS": [
@@ -1362,8 +1399,8 @@
     },
     {
       "id": "coleta-sem-data-nem-lugar",
-      "titulo": "15 coletores gravam registo sem data nem lugar.",
-      "texto": "14 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · texto_fonte.py",
+      "titulo": "16 coletores gravam registo sem data nem lugar.",
+      "texto": "14 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · social_rotas.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/coletor.py",
@@ -1685,9 +1722,9 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "bab65a804363c78f4835f4df6c9aec31e569f48c",
-    "GENERATED_AT": "2026-09-08T15:16:26-03:00"
+    "BRANCH": "claude/collection-foundation-integration-v1",
+    "HEAD": "45f621c00d0d7329036a3ea055276abfe3862584",
+    "GENERATED_AT": "2026-09-08T15:17:04-03:00"
   },
   "FAMILIES": [
     {
@@ -1713,7 +1750,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 40
+      "count": 41
     },
     {
       "id": "F-ESPERA",
@@ -1721,20 +1758,20 @@
       "why": "O que ja passou por toda a coleta e ainda nao entrou na inteligencia. Nao e coleta (o trabalho ja acabou) nem inteligencia (ainda nao comecou) — e o sitio onde o dado dorme entre as duas",
       "x": 10255,
       "y": 60,
-      "w": 900,
+      "w": 1315,
       "h": 2464,
       "zones": [
         "Z-GUARDA"
       ],
-      "count": 12
+      "count": 13
     },
     {
       "id": "F-INTELIGENCIA",
       "name": "INTELIGENCIA",
       "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa.",
-      "x": 11375,
+      "x": 11790,
       "y": 60,
-      "w": 3845,
+      "w": 4260,
       "h": 2464,
       "zones": [
         "Z-LINEAGE",
@@ -1742,13 +1779,13 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 38
+      "count": 39
     },
     {
       "id": "F-ENTREGA",
       "name": "ENTREGA",
       "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado.",
-      "x": 15440,
+      "x": 16270,
       "y": 60,
       "w": 3430,
       "h": 2464,
@@ -1923,7 +1960,7 @@
       "y": 190,
       "w": 820,
       "h": 2294,
-      "count": 10
+      "count": 11
     },
     {
       "id": "Z-ADMISSAO",
@@ -1966,9 +2003,9 @@
       "folder": "guarda",
       "x": 10295,
       "y": 190,
-      "w": 820,
+      "w": 1235,
       "h": 2294,
-      "count": 12
+      "count": 13
     },
     {
       "id": "Z-LINEAGE",
@@ -1980,7 +2017,7 @@
         "official"
       ],
       "folder": null,
-      "x": 11415,
+      "x": 11830,
       "y": 190,
       "w": 405,
       "h": 2294,
@@ -1996,11 +2033,11 @@
         "science"
       ],
       "folder": "leis",
-      "x": 12120,
+      "x": 12535,
       "y": 190,
-      "w": 405,
+      "w": 820,
       "h": 2294,
-      "count": 5
+      "count": 6
     },
     {
       "id": "Z-MOTOR",
@@ -2012,7 +2049,7 @@
         "opportunity"
       ],
       "folder": "motor",
-      "x": 12825,
+      "x": 13655,
       "y": 190,
       "w": 820,
       "h": 2294,
@@ -2028,7 +2065,7 @@
         "infra"
       ],
       "folder": "provas",
-      "x": 13945,
+      "x": 14775,
       "y": 190,
       "w": 1235,
       "h": 2294,
@@ -2044,7 +2081,7 @@
         "portal"
       ],
       "folder": "pacote",
-      "x": 15480,
+      "x": 16310,
       "y": 190,
       "w": 405,
       "h": 2294,
@@ -2060,7 +2097,7 @@
         "audit"
       ],
       "folder": "portoes",
-      "x": 16185,
+      "x": 17015,
       "y": 190,
       "w": 820,
       "h": 2294,
@@ -2076,7 +2113,7 @@
         "meeting"
       ],
       "folder": "superficie",
-      "x": 17305,
+      "x": 18135,
       "y": 190,
       "w": 405,
       "h": 2294,
@@ -2091,7 +2128,7 @@
         "portal",
         "entrega"
       ],
-      "x": 18010,
+      "x": 18840,
       "y": 190,
       "w": 820,
       "h": 2294,
@@ -2393,7 +2430,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "€",
       "views": [
         "infra"
@@ -2407,12 +2444,15 @@
         "ferramentas/contrato_ator.py"
       ],
       "file_count": 4,
-      "status": "PROVEN",
-      "status_reason": "outras pecas importam ou carregam isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "ferramentas/apify_pool.py"
+      ],
       "produces": [],
       "inbound": [
         "C-CI-COLETA",
+        "C-SCRAP-LEIS",
         "C-SINTONIA-SCRAP"
       ],
       "outbound": [
@@ -2584,7 +2624,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15540,
+      "x": 16370,
       "y": 360
     },
     {
@@ -4725,6 +4765,43 @@
           "regista_descarte": []
         },
         {
+          "ficheiro": "coleta/social_envelope.py",
+          "como_se_chama": "",
+          "carimba_data": [],
+          "carimba_lugar": [
+            "COUNTRY",
+            "SOURCE_LOCATION"
+          ],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
+          "ficheiro": "coleta/social_rotas.py",
+          "como_se_chama": "",
+          "carimba_data": [],
+          "carimba_lugar": [
+            "COUNTRY"
+          ],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
+          "ficheiro": "coleta/social_scrap.py",
+          "como_se_chama": "scripts/social_scrap.py censo",
+          "carimba_data": [],
+          "carimba_lugar": [
+            "COUNTRY",
+            "SOURCE_LOCATION"
+          ],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": [
+            "RECUSAD"
+          ]
+        },
+        {
           "ficheiro": "coleta/speaker_identidade.py",
           "como_se_chama": "coleta/speaker_identidade.py montar",
           "carimba_data": [
@@ -4792,6 +4869,20 @@
             "SOURCE_LOCATION"
           ],
           "separa_fonte_do_fato": true,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
+          "ficheiro": "coleta/youtube_oficial.py",
+          "como_se_chama": "",
+          "carimba_data": [
+            "CAPTURED_AT"
+          ],
+          "carimba_lugar": [
+            "COUNTRY",
+            "SOURCE_LOCATION"
+          ],
+          "separa_fonte_do_fato": false,
           "leis_que_obedece": [],
           "regista_descarte": []
         },
@@ -5036,7 +5127,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 17365,
+      "x": 18195,
       "y": 360
     },
     {
@@ -5108,7 +5199,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 16245,
+      "x": 17075,
       "y": 360
     },
     {
@@ -5166,7 +5257,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16660,
+      "x": 17490,
       "y": 360
     },
     {
@@ -5288,7 +5379,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 16245,
+      "x": 17075,
       "y": 682
     },
     {
@@ -5343,7 +5434,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16660,
+      "x": 17490,
       "y": 682
     },
     {
@@ -5394,7 +5485,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16245,
+      "x": 17075,
       "y": 1004
     },
     {
@@ -5513,7 +5604,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12885,
+      "x": 13715,
       "y": 360
     },
     {
@@ -5580,7 +5671,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14835,
       "y": 360
     },
     {
@@ -5635,7 +5726,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 15250,
       "y": 360
     },
     {
@@ -5693,7 +5784,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15665,
       "y": 360
     },
     {
@@ -5764,7 +5855,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14835,
       "y": 682
     },
     {
@@ -5819,7 +5910,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 15250,
       "y": 682
     },
     {
@@ -5876,7 +5967,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15665,
       "y": 682
     },
     {
@@ -5979,7 +6070,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14835,
       "y": 1004
     },
     {
@@ -5993,7 +6084,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "infra"
@@ -6010,15 +6101,18 @@
         ".github/workflows/supabase-storage.yml"
       ],
       "file_count": 7,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        ".github/workflows/banco-descartavel.yml"
+      ],
       "produces": [],
       "inbound": [
         "C-CADEIA-V21",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
         "C-PROVA-COLETA",
+        "C-SCRAP-SOCIAL",
         "C-SUPABASE",
         "C-TESTES"
       ],
@@ -6029,6 +6123,7 @@
         "C-MEDICAO",
         "C-PROVA-COLETA",
         "C-REGRA-COLETA",
+        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "paises": {},
@@ -6048,8 +6143,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit).",
-      "x": 10355,
-      "y": 682
+      "x": 11185,
+      "y": 360
     },
     {
       "id": "C-CI-REGRESSAO",
@@ -6097,7 +6192,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 15250,
       "y": 1004
     },
     {
@@ -6191,7 +6286,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "acervo",
@@ -6205,19 +6300,23 @@
         "coleta/filas.py"
       ],
       "file_count": 3,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "coleta/coleta_checkpoint.py"
+      ],
       "produces": [],
       "inbound": [
         "C-APIFY-POOL",
         "C-PROCEDENCIA",
+        "C-TESTES",
         "V-LINKEDIN"
       ],
       "outbound": [
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-PALAVRAS",
+        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "paises": {},
@@ -6295,6 +6394,9 @@
       ],
       "outbound": [
         "C-PORTA-FONTE",
+        "C-SCRAP-GUARDA",
+        "C-SCRAP-LEIS",
+        "C-SCRAP-SOCIAL",
         "C-TRANSCRICAO"
       ],
       "paises": {},
@@ -6519,7 +6621,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12180,
+      "x": 12595,
       "y": 360
     },
     {
@@ -6812,8 +6914,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12180,
-      "y": 682
+      "x": 13010,
+      "y": 360
     },
     {
       "id": "C-DERIVED-ARTIFACT",
@@ -6869,7 +6971,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
+      "x": 10355,
       "y": 682
     },
     {
@@ -6942,8 +7044,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit).",
-      "x": 10355,
-      "y": 1004
+      "x": 10770,
+      "y": 682
     },
     {
       "id": "C-DONO-DO-DERIVADO",
@@ -7000,8 +7102,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
-      "y": 1004
+      "x": 11185,
+      "y": 682
     },
     {
       "id": "C-DS-ADAMA",
@@ -7062,7 +7164,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17365,
+      "x": 18195,
       "y": 682
     },
     {
@@ -7366,7 +7468,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15665,
       "y": 1004
     },
     {
@@ -7549,7 +7651,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
       "x": 10355,
-      "y": 1326
+      "y": 1004
     },
     {
       "id": "C-IT-CATALOGO",
@@ -7729,7 +7831,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14835,
       "y": 1326
     },
     {
@@ -7883,7 +7985,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 10770,
-      "y": 1326
+      "y": 1004
     },
     {
       "id": "C-IT-PRESERVAR",
@@ -7935,8 +8037,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10355,
-      "y": 1648
+      "x": 11185,
+      "y": 1004
     },
     {
       "kind": "engine",
@@ -7987,8 +8089,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
-      "y": 1648
+      "x": 10355,
+      "y": 1326
     },
     {
       "id": "C-IT-TEXTO-PESQUISAVEL",
@@ -8048,8 +8150,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10355,
-      "y": 1970
+      "x": 10770,
+      "y": 1326
     },
     {
       "id": "C-LASTMILE",
@@ -8173,7 +8275,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15540,
+      "x": 16370,
       "y": 682
     },
     {
@@ -8361,8 +8463,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12180,
-      "y": 1004
+      "x": 12595,
+      "y": 682
     },
     {
       "id": "C-MAPA-APP",
@@ -8409,7 +8511,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 15250,
       "y": 1326
     },
     {
@@ -8488,7 +8590,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15665,
       "y": 1326
     },
     {
@@ -8577,7 +8679,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14005,
+      "x": 14835,
       "y": 1648
     },
     {
@@ -8635,7 +8737,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 15250,
       "y": 1648
     },
     {
@@ -8682,7 +8784,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15665,
       "y": 1648
     },
     {
@@ -8753,7 +8855,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14835,
       "y": 1970
     },
     {
@@ -8789,6 +8891,7 @@
       "outbound": [
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE",
+        "C-SCRAP-GUARDA",
         "C-TESTES",
         "C-TRANSCRICAO",
         "V-INSTAGRAM",
@@ -9049,7 +9152,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15540,
+      "x": 16370,
       "y": 1004
     },
     {
@@ -9426,7 +9529,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 17365,
+      "x": 18195,
       "y": 1004
     },
     {
@@ -9552,7 +9655,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 17365,
+      "x": 18195,
       "y": 1326
     },
     {
@@ -9614,7 +9717,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17365,
+      "x": 18195,
       "y": 1648
     },
     {
@@ -9667,7 +9770,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16660,
+      "x": 17490,
       "y": 1004
     },
     {
@@ -9831,7 +9934,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14420,
+      "x": 15250,
       "y": 1970
     },
     {
@@ -9845,7 +9948,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -9859,14 +9962,17 @@
         "provas/preflight_022_live.sh",
         "provas/preservar_coleta_no_postgres.py",
         "provas/readback_022_live.sh",
+        "provas/social_persistencia_no_postgres.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 8,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
-      "changed_since_declared": [],
+      "file_count": 9,
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "provas/preservar_coleta_no_postgres.py"
+      ],
       "produces": [],
       "inbound": [
         "C-ADAMA-ES",
@@ -9900,14 +10006,15 @@
           "COLS_OBJ",
           "COLS_RAW",
           "COLS_RUN",
+          "MIGRATIONS",
           "_GAVETAS_IT",
           "_OUTROS",
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 61,
+        "palavras": 77,
         "por_lingua": {},
-        "sem_marca_de_lingua": 61,
+        "sem_marca_de_lingua": 77,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -9916,7 +10023,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15665,
       "y": 1970
     },
     {
@@ -9989,8 +10096,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12180,
-      "y": 1326
+      "x": 13010,
+      "y": 682
     },
     {
       "id": "C-RECALL-PORTA-IT",
@@ -10042,7 +10149,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14835,
       "y": 2292
     },
     {
@@ -10181,7 +10288,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 15250,
       "y": 2292
     },
     {
@@ -10375,8 +10482,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12180,
-      "y": 1648
+      "x": 12595,
+      "y": 1004
     },
     {
       "id": "C-ROTULOS",
@@ -10556,6 +10663,218 @@
       "y": 1004
     },
     {
+      "id": "C-SCRAP-GUARDA",
+      "name": "A guarda de credencial e de sessao do SCRAP",
+      "territory": "Z-GUARDA",
+      "kind": "gate",
+      "what": "`social_guarda.py` varre o repositorio atras de segredo, cookie, perfil de navegador e caminho pessoal antes de qualquer execucao. `social_sessao.py` decide usabilidade em seis eixos separados — TECHNICAL, ROBOTS, TERMS, AUTH, AUTHORIZATION, ROUTE — e redige segredo de qualquer texto que va para log, RAW ou relatorio.",
+      "why_here": "Segredo commitado nao sai do historico com `git rm`: fica no pack para sempre, entao a unica hora util de barrar e ANTES. E os seis eixos existem porque a casa ja tinha colapsado tres perguntas diferentes numa so: LOCAL_SESSION NAO E AUTOMATION_PERMISSION, ROBOTS_STATUS NAO E TERMS_STATUS, OWN_PROPERTY NAO E AUTOMATION_ALLOWED.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⛨",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-ESPERA",
+      "files": [
+        "guarda/social_guarda.py",
+        "guarda/social_sessao.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-COLETA-INSTAGRAM",
+        "C-NAVEGADOR",
+        "C-SCRAP-LEIS",
+        "C-TESTES",
+        "C-V21-COMERCIAL"
+      ],
+      "outbound": [
+        "C-SCRAP-SOCIAL",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CONTEUDO_PROIBIDO",
+          "POLITICA"
+        ],
+        "palavras": 46,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 46,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 11185,
+      "y": 1326
+    },
+    {
+      "id": "C-SCRAP-LEIS",
+      "name": "As leis do SCRAP — falhas e matriz de capacidade",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "Os dois donos declarativos do SCRAP. `falhas.py` e a taxonomia canonica de falhas: 22 estados em tres camadas (SOURCE / ROUTE / EXECUTOR), com o que cada estado pede de recuperacao. `social_matriz.py` e o registro unico de capacidade por (plataforma, capability, rota) e tambem o dono do modelo de quota — dois baldes do YouTube, SEARCH e GENERAL, que nunca se somam.",
+      "why_here": "Antes, o vocabulario de falha vivia preso a UMA rota e a quota vivia copiada dentro do adaptador. Copia diverge: o adaptador chegou a cobrar 100 unidades por `search.list` enquanto a matriz ja tinha o modelo certo. Com um dono so, ERRO NAO E ZERO e BLOCKED NAO E EMPTY deixam de depender de quem escreveu o if.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "acervo",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "leis/falhas.py",
+        "leis/social_matriz.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "o motor importa esta lei para decidir.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-COLETA-INSTAGRAM",
+        "C-TRANSCRICAO"
+      ],
+      "outbound": [
+        "C-APIFY-POOL",
+        "C-SCRAP-GUARDA",
+        "C-SCRAP-SOCIAL",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "AUTH_MODE_DA_CLASSE",
+          "CAPACIDADES",
+          "CLASSES",
+          "ESTADOS",
+          "MATRIZ",
+          "MOTIVOS_PAGOS",
+          "QUOTA_METODO",
+          "_POR_ESTADO",
+          "_POR_RAZAO_NATIVA",
+          "_TABELA"
+        ],
+        "palavras": 469,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 469,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 13010,
+      "y": 1004
+    },
+    {
+      "id": "C-SCRAP-SOCIAL",
+      "name": "SINTONIA SCRAP — aquisicao social",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "O executor composto da aquisicao social. Quem chama diz PLATAFORMA + CAPABILITY e nunca escolhe ferramenta; a rota e decisao da casa. Reune o CLI das fases (censo, portao, video, gap, piloto, ledger, sessao, politica, guarda, youtube, youtube-piloto, youtube-piloto-oneshot), o adaptador oficial do YouTube Data API v3, as rotas gratuitas (Mastodon, Bluesky, Telegram) e o envelope que grava o RAW antes de qualquer normalizacao. Inclui o dono da PERSISTENCIA SOCIAL (conteudo, comentario, reobservacao), que recebe um canal ja resolvido e RECUSA com CHANNEL_IDENTITY_NOT_RESOLVED em vez de criar pessoa ou organizacao por conta propria.",
+      "why_here": "A rota vivia espalhada por if de script: cada chamador redescobria por conta propria se uma plataforma podia ser lida, e a redescoberta nunca saia igual. Aqui o chamador declara a intencao e a casa resolve a rota na ordem PERMITIDA -> BARATA -> CAPAZ, com a permissao decidida ANTES do preco. Duas leis que o codigo carrega em teste: OFFICIAL_API EXISTS NAO E THIS CAPABILITY EXISTS, e CHECKOUT NAO E COLETA — o inventario da prova bruta conta o que ESTE processo escreveu, nunca o que o clone trouxe. E a terceira lei, medida num Postgres 16 real antes de virar migration: COMMENT_ID NAO E COMMENT_TEXT — dois «Grazie!» de pessoas diferentes davam UMA linha no banco, porque a identidade estava travada no hash do texto.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◉",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/social_envelope.py",
+        "coleta/social_persistencia.py",
+        "coleta/social_rotas.py",
+        "coleta/social_scrap.py",
+        "coleta/youtube_oficial.py"
+      ],
+      "file_count": 5,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CI-PERSIST",
+        "C-COLETA-BASE",
+        "C-COLETA-INSTAGRAM",
+        "C-SCRAP-GUARDA",
+        "C-SCRAP-LEIS",
+        "C-TESTES",
+        "V-FACEBOOK",
+        "V-HTTP",
+        "V-INSTAGRAM",
+        "V-LINKEDIN",
+        "V-YOUTUBE"
+      ],
+      "outbound": [
+        "C-CI-PERSIST",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ADAPTADORES",
+          "ALVOS",
+          "ALVOS_YOUTUBE_IT",
+          "CONTENT_TYPES",
+          "PLATAFORMA_NO_BANCO",
+          "RAZOES",
+          "TERMOS_IT",
+          "_DESCULPAS"
+        ],
+        "palavras": 118,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 118,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 7410,
+      "y": 1970
+    },
+    {
       "id": "C-SINTONIA-SCRAP",
       "name": "SINTONIA SCRAP — o despachador",
       "territory": "Z-EXECUCAO",
@@ -10710,7 +11029,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 16245,
+      "x": 17075,
       "y": 1326
     },
     {
@@ -10724,7 +11043,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "infra"
@@ -10766,6 +11085,7 @@
         "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql",
         "supabase/migrations/021_fato_externo_publicado.sql",
         "supabase/migrations/022_o_derivado_ganha_casa.sql",
+        "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -10777,9 +11097,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 44,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "file_count": 45,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -10815,8 +11135,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
-      "y": 1970
+      "x": 10355,
+      "y": 1648
     },
     {
       "id": "C-TELA-ARCHIVE",
@@ -10941,7 +11261,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18070,
+      "x": 18900,
       "y": 1648
     },
     {
@@ -11042,7 +11362,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18485,
+      "x": 19315,
       "y": 1004
     },
     {
@@ -11106,7 +11426,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18070,
+      "x": 18900,
       "y": 1970
     },
     {
@@ -11161,7 +11481,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18485,
+      "x": 19315,
       "y": 360
     },
     {
@@ -11247,7 +11567,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18485,
+      "x": 19315,
       "y": 682
     },
     {
@@ -11381,7 +11701,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18070,
+      "x": 18900,
       "y": 360
     },
     {
@@ -11516,7 +11836,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18485,
+      "x": 19315,
       "y": 1326
     },
     {
@@ -11645,7 +11965,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18070,
+      "x": 18900,
       "y": 1326
     },
     {
@@ -11696,7 +12016,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18485,
+      "x": 19315,
       "y": 1648
     },
     {
@@ -11750,7 +12070,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18070,
+      "x": 18900,
       "y": 1004
     },
     {
@@ -11875,7 +12195,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18070,
+      "x": 18900,
       "y": 682
     },
     {
@@ -11889,7 +12209,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -11912,6 +12232,7 @@
         "tests/test_completude_oportunidade.py",
         "tests/test_comunicacao.py",
         "tests/test_evidence.py",
+        "tests/test_falhas.py",
         "tests/test_handoff.py",
         "tests/test_hero_cases_v1.py",
         "tests/test_identidade_do_artefato.py",
@@ -11933,17 +12254,25 @@
         "tests/test_proveniencia.py",
         "tests/test_radar_futuro.py",
         "tests/test_red_team_estrada.py",
+        "tests/test_social_persistencia_pg.py",
+        "tests/test_social_sessao.py",
+        "tests/test_thread_parcial.py",
         "tests/test_v21_datas.py",
         "tests/test_v21_geografia.py",
         "tests/test_v21_mercado.py",
         "tests/test_v21_traducao_trava.py",
-        "tests/test_voz.py"
+        "tests/test_voz.py",
+        "tests/test_youtube_antidrift.py",
+        "tests/test_youtube_checkpoint_pg.py",
+        "tests/test_youtube_oficial.py",
+        "tests/test_youtube_piloto.py"
       ],
-      "file_count": 40,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "file_count": 48,
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
+        ".github/workflows/scrap-social.yml",
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
       ],
@@ -11990,6 +12319,9 @@
         "C-RELEVANCIA",
         "C-ROTULOS",
         "C-SAUDE-FONTE",
+        "C-SCRAP-GUARDA",
+        "C-SCRAP-LEIS",
+        "C-SCRAP-SOCIAL",
         "C-SUPABASE",
         "C-V21-COMERCIAL",
         "C-V21-CONTRATO",
@@ -12001,16 +12333,19 @@
         "C-ASK-SINTONIA",
         "C-CI-PERSIST",
         "C-CICATRIZES-BR",
+        "C-COLETA-BASE",
         "C-PACOTE-CAMADAS",
         "C-PORTAL-DADOS",
-        "C-PROVA-COLETA"
+        "C-PROVA-COLETA",
+        "C-SCRAP-GUARDA",
+        "C-SCRAP-SOCIAL"
       ],
       "paises": {
         "ESPANHA": 2
       },
       "paises_dado": {
         "ESPANHA": 44,
-        "ITALIA": 3,
+        "ITALIA": 8,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -12036,13 +12371,14 @@
           "SEIS",
           "SINAIS",
           "SINAL_LOMBARDIA",
-          "SINAL_VENETO"
+          "SINAL_VENETO",
+          "_GAVETA_DE"
         ],
-        "palavras": 299,
+        "palavras": 315,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 297,
+        "sem_marca_de_lingua": 313,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12067,6 +12403,12 @@
         },
         {
           "onde": "GIT",
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
           "file": "data/samples/SPAIN-HERO-CASES-V1.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
@@ -12076,16 +12418,10 @@
           "file": "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "provas/auditoria_live.sh",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 14835,
+      "x": 15665,
       "y": 2292
     },
     {
@@ -12122,7 +12458,8 @@
         "C-SINTONIA-SCRAP"
       ],
       "outbound": [
-        "C-CENSO-DERIVACOES"
+        "C-CENSO-DERIVACOES",
+        "C-SCRAP-LEIS"
       ],
       "paises": {},
       "paises_dado": {},
@@ -12252,7 +12589,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13300,
+      "x": 14130,
       "y": 360
     },
     {
@@ -12267,7 +12604,7 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "generator",
@@ -12288,9 +12625,11 @@
         "motor/v21_tm_colher.py"
       ],
       "file_count": 9,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "motor/v21_tm_colher.py"
+      ],
       "produces": [
         "data/i18n/v21-traducoes.json",
         "data/samples/AUDITORIA-SOMBRA/V11-ANTES-E-DEPOIS.json",
@@ -12308,6 +12647,7 @@
       ],
       "outbound": [
         "C-PACOTE-CAMADAS",
+        "C-SCRAP-GUARDA",
         "C-TESTES",
         "C-V21-CONTRATO",
         "C-V21-OPORTUNIDADE"
@@ -12386,7 +12726,7 @@
           "pasta": "data/i18n",
           "prova": {
             "file": "motor/v21_tm_colher.py",
-            "line": 146,
+            "line": 149,
             "snippet": "escreve em TM"
           }
         }
@@ -12421,7 +12761,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12885,
+      "x": 13715,
       "y": 682
     },
     {
@@ -12489,7 +12829,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13300,
+      "x": 14130,
       "y": 682
     },
     {
@@ -12603,7 +12943,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12885,
+      "x": 13715,
       "y": 1004
     },
     {
@@ -12680,7 +13020,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13300,
+      "x": 14130,
       "y": 1004
     },
     {
@@ -12798,7 +13138,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12885,
+      "x": 13715,
       "y": 1326
     },
     {
@@ -12876,7 +13216,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13300,
+      "x": 14130,
       "y": 1326
     },
     {
@@ -12889,16 +13229,17 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "A pagina publica da marca, ainda viva em varios mercados agricolas. Hoje 1 acao(oes) da coleta passam por aqui.",
+      "what": "A pagina publica da marca, ainda viva em varios mercados agricolas. Hoje 2 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 17",
         "dessas, autorizadas a coletar: 10",
-        "acoes da coleta que passam por aqui: 1",
-        "prova: coleta/comunicacao_classificar.py:55"
+        "acoes da coleta que passam por aqui: 2",
+        "prova: coleta/comunicacao_classificar.py:55",
+        "prova: coleta/social_persistencia.py:75"
       ],
-      "status_reason": "1 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "2 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -12912,7 +13253,8 @@
         "C-AS-FONTES"
       ],
       "outbound": [
-        "C-COLETA-PUBLICA"
+        "C-COLETA-PUBLICA",
+        "C-SCRAP-SOCIAL"
       ],
       "file_count": 0,
       "o_que_recebe": {
@@ -12940,7 +13282,9 @@
           }
         }
       ],
-      "saem_daqui_sem_destino": [],
+      "saem_daqui_sem_destino": [
+        "C-SCRAP-SOCIAL"
+      ],
       "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
@@ -12966,18 +13310,18 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro. Hoje 5 acao(oes) da coleta passam por aqui.",
+      "what": "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro. Hoje 6 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
-        "acoes da coleta que passam por aqui: 5",
+        "acoes da coleta que passam por aqui: 6",
         "prova: coleta/youtube_janela.py:61",
         "prova: coleta/instagram_janela.py:440",
         "prova: coleta/agrifood_ue.py:29",
         "prova: coleta/corpus_pesquisador.py:92",
         "prova: coleta/mapa_regfi.py:42"
       ],
-      "status_reason": "5 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "6 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -12992,7 +13336,8 @@
         "C-COLETA-YOUTUBE",
         "C-CORPUS",
         "C-FONTES-EU",
-        "C-ROTULOS"
+        "C-ROTULOS",
+        "C-SCRAP-SOCIAL"
       ],
       "file_count": 0,
       "o_que_recebe": null,
@@ -13160,7 +13505,8 @@
       ],
       "saem_daqui_sem_destino": [
         "C-COLETA-INSTAGRAM",
-        "C-COLETA-YOUTUBE"
+        "C-COLETA-YOUTUBE",
+        "C-SCRAP-SOCIAL"
       ],
       "precisa_de_ferramenta": false,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
@@ -13187,18 +13533,19 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "A pagina publica: o que a marca publica para quem a segue. Hoje 3 acao(oes) da coleta passam por aqui.",
+      "what": "A pagina publica: o que a marca publica para quem a segue. Hoje 4 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 7",
         "dessas, autorizadas a coletar: 5",
-        "acoes da coleta que passam por aqui: 3",
+        "acoes da coleta que passam por aqui: 4",
         "prova: coleta/comunicacao_classificar.py:55",
         "prova: coleta/instagram_coleta.py:73",
-        "prova: coleta/speaker_identidade.py:171"
+        "prova: coleta/speaker_identidade.py:171",
+        "prova: coleta/social_persistencia.py:59"
       ],
-      "status_reason": "3 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "4 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -13215,7 +13562,8 @@
       "outbound": [
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
-        "C-CORPUS"
+        "C-CORPUS",
+        "C-SCRAP-SOCIAL"
       ],
       "file_count": 0,
       "o_que_recebe": {
@@ -13304,7 +13652,8 @@
         }
       ],
       "saem_daqui_sem_destino": [
-        "C-COLETA-INSTAGRAM"
+        "C-COLETA-INSTAGRAM",
+        "C-SCRAP-SOCIAL"
       ],
       "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
@@ -13331,18 +13680,19 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "A pagina de empresa e a das pessoas: contratacao, evento, anuncio. Hoje 3 acao(oes) da coleta passam por aqui.",
+      "what": "A pagina de empresa e a das pessoas: contratacao, evento, anuncio. Hoje 4 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 6",
         "dessas, autorizadas a coletar: 0",
-        "acoes da coleta que passam por aqui: 3",
+        "acoes da coleta que passam por aqui: 4",
         "prova: coleta/comunicacao_classificar.py:55",
         "prova: coleta/filas.py:93",
-        "prova: coleta/sensor_canal_identidade.py:186"
+        "prova: coleta/sensor_canal_identidade.py:186",
+        "prova: coleta/social_persistencia.py:74"
       ],
-      "status_reason": "3 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "4 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -13358,7 +13708,8 @@
       "outbound": [
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
-        "C-CORPUS"
+        "C-CORPUS",
+        "C-SCRAP-SOCIAL"
       ],
       "file_count": 0,
       "o_que_recebe": {
@@ -13441,7 +13792,8 @@
         }
       ],
       "saem_daqui_sem_destino": [
-        "C-COLETA-BASE"
+        "C-COLETA-BASE",
+        "C-SCRAP-SOCIAL"
       ],
       "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
@@ -13468,18 +13820,19 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "Video publico: o que o canal do concorrente e o do sector poem no ar. Hoje 3 acao(oes) da coleta passam por aqui.",
+      "what": "Video publico: o que o canal do concorrente e o do sector poem no ar. Hoje 4 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 14",
         "dessas, autorizadas a coletar: 7",
-        "acoes da coleta que passam por aqui: 3",
+        "acoes da coleta que passam por aqui: 4",
         "prova: coleta/youtube_janela.py:70",
         "prova: coleta/comunicacao_classificar.py:55",
-        "prova: coleta/speaker_identidade.py:170"
+        "prova: coleta/speaker_identidade.py:170",
+        "prova: coleta/social_persistencia.py:73"
       ],
-      "status_reason": "3 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "4 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -13496,7 +13849,8 @@
       "outbound": [
         "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
-        "C-CORPUS"
+        "C-CORPUS",
+        "C-SCRAP-SOCIAL"
       ],
       "file_count": 0,
       "o_que_recebe": {
@@ -13585,7 +13939,8 @@
         }
       ],
       "saem_daqui_sem_destino": [
-        "C-COLETA-YOUTUBE"
+        "C-COLETA-YOUTUBE",
+        "C-SCRAP-SOCIAL"
       ],
       "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
@@ -13608,8 +13963,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/italia-biblia-integracao-v1",
-        "HEAD bab65a804363c78f4835f4df6c9aec31e569f48c"
+        "branch claude/collection-foundation-integration-v1",
+        "HEAD 45f621c00d0d7329036a3ea055276abfe3862584"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -13642,7 +13997,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11475,
+      "x": 11890,
       "y": 360
     },
     {
@@ -13687,7 +14042,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11475,
+      "x": 11890,
       "y": 682
     },
     {
@@ -13731,7 +14086,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11475,
+      "x": 11890,
       "y": 1004
     },
     {
@@ -13783,7 +14138,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11475,
+      "x": 11890,
       "y": 1326
     }
   ],
@@ -14122,12 +14477,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Apify — a rota paga tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Apify — a rota paga tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_coleta_resiliente.py",
           "line": 19,
           "snippet": "import apify_pool as ap          # noqa: E402"
+        },
+        {
+          "file": "tests/test_falhas.py",
+          "line": 19,
+          "snippet": "import apify_pool as ap            # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -15382,7 +15742,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 32,
+          "line": 35,
           "snippet": "- 'motor/cadeia_canonica.sh'"
         }
       ],
@@ -16092,7 +16452,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 32,
+          "line": 35,
           "snippet": "- 'motor/cadeia_canonica.sh'"
         },
         {
@@ -16138,7 +16498,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 31,
+          "line": 34,
           "snippet": "- 'guarda/preservar_derivado.py'"
         }
       ],
@@ -16170,7 +16530,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/auditoria-live.yml",
@@ -16184,12 +16544,17 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 30,
-          "snippet": "- 'provas/derived_artifact_no_postgres.py'"
+          "line": 31,
+          "snippet": "- 'provas/social_persistencia_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 33,
+          "snippet": "- 'provas/derived_artifact_no_postgres.py'"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 36,
           "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
         }
       ],
@@ -16215,13 +16580,31 @@
     },
     {
       "from": "C-CI-PERSIST",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar SINTONIA SCRAP — aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 32,
+          "snippet": "- 'coleta/social_persistencia.py'"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_armazem_italiano.py",
@@ -16262,6 +16645,11 @@
           "file": "tests/test_porta_de_producao.py",
           "line": 203,
           "snippet": "self.assertNotIn(\"auditoria-live.yml\", achados)"
+        },
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 329,
+          "snippet": "outro = self._fonte('.github', 'workflows', 'supabase-conexao.yml')"
         }
       ],
       "categoria": "PROOF"
@@ -16489,18 +16877,69 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por SINTONIA SCRAP — aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 315,
+          "snippet": "import coleta_checkpoint as cc"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_coleta_resiliente.py",
           "line": 20,
           "snippet": "import coleta_checkpoint as C    # noqa: E402"
+        },
+        {
+          "file": "tests/test_social_persistencia_pg.py",
+          "line": 22,
+          "snippet": "import coleta_checkpoint as cc          # noqa: E402"
+        },
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 183,
+          "snippet": "import coleta_checkpoint as cc"
+        },
+        {
+          "file": "tests/test_youtube_checkpoint_pg.py",
+          "line": 20,
+          "snippet": "import coleta_checkpoint as cc      # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 349,
+          "snippet": "txt = self._fonte('coleta', 'coleta_checkpoint.py')"
         }
       ],
       "categoria": "PROOF"
@@ -16522,6 +16961,60 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "C-SCRAP-GUARDA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o Instagram alimenta A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "guarda/social_sessao.py",
+          "line": 145,
+          "snippet": "'FONTE': 'scripts/instagram_janela.py',"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "C-SCRAP-LEIS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o Instagram alimenta As leis do SCRAP — falhas e matriz de capacidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/social_matriz.py",
+          "line": 337,
+          "snippet": "'scripts/instagram_janela.py'),"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o Instagram tem o seu codigo importado por SINTONIA SCRAP — aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/social_persistencia.py",
+          "line": 59,
+          "snippet": "import instagram_pessoal as ip   # noqa: E402 — dono do sal do pseudonimo"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-COLETA-INSTAGRAM",
@@ -16987,7 +17480,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 31,
+          "line": 34,
           "snippet": "- 'guarda/preservar_derivado.py'"
         }
       ],
@@ -18711,18 +19204,46 @@
     },
     {
       "from": "C-NAVEGADOR",
+      "to": "C-SCRAP-GUARDA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O navegador — a rota gratis tem o seu codigo importado por A guarda de credencial e de sessao do SCRAP. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "guarda/social_sessao.py",
+          "line": 89,
+          "snippet": "import navegador                    # noqa: E402  — já sabe achar o Chrome"
+        },
+        {
+          "file": "guarda/social_sessao.py",
+          "line": 90,
+          "snippet": "import cdp                          # noqa: E402  — já sabe falar com ele"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-NAVEGADOR",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O navegador — a rota gratis tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O navegador — a rota gratis tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_navegador.py",
           "line": 25,
           "snippet": "import navegador as nav                                        # noqa: E402"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 136,
+          "snippet": "import navegador"
         }
       ],
       "categoria": "PROOF"
@@ -20102,7 +20623,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Os botoes que cuidam do banco. Provado por 4 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Os botoes que cuidam do banco. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/auditoria-live.yml",
@@ -20116,12 +20637,17 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 30,
-          "snippet": "- 'provas/derived_artifact_no_postgres.py'"
+          "line": 31,
+          "snippet": "- 'provas/social_persistencia_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 33,
+          "snippet": "- 'provas/derived_artifact_no_postgres.py'"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 36,
           "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
         }
       ],
@@ -20574,12 +21100,410 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A saude de cada fonte tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A saude de cada fonte tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_falhas.py",
+          "line": 22,
+          "snippet": "import source_health as sh         # noqa: E402"
+        },
         {
           "file": "tests/test_operacao.py",
           "line": 23,
           "snippet": "import source_health as sh                                     # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-GUARDA",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A guarda de credencial e de sessao do SCRAP tem o seu codigo importado por SINTONIA SCRAP — aquisicao social. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 58,
+          "snippet": "import social_sessao as ss         # noqa: E402  — LOCAL_SESSION é rota, não motor"
+        },
+        {
+          "file": "coleta/social_scrap.py",
+          "line": 52,
+          "snippet": "import social_sessao as ss"
+        },
+        {
+          "file": "coleta/social_scrap.py",
+          "line": 856,
+          "snippet": "import social_guarda"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SCRAP-GUARDA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A guarda de credencial e de sessao do SCRAP tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_falhas.py",
+          "line": 21,
+          "snippet": "import social_sessao as ss         # noqa: E402"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 34,
+          "snippet": "import social_sessao as ss          # noqa: E402"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 35,
+          "snippet": "import social_guarda as sg          # noqa: E402"
+        },
+        {
+          "file": "tests/test_youtube_oficial.py",
+          "line": 23,
+          "snippet": "import social_sessao as ss        # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-GUARDA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A guarda de credencial e de sessao do SCRAP alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 24,
+          "snippet": "'social_sessao.py': 'guarda/social_sessao.py',"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 25,
+          "snippet": "'social_guarda.py': 'guarda/social_guarda.py',"
+        },
+        {
+          "file": "tests/test_youtube_piloto.py",
+          "line": 397,
+          "snippet": "for f in ('coleta/social_scrap.py', 'guarda/social_guarda.py',"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
+      "to": "C-APIFY-POOL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por Apify — a rota paga. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/apify_pool.py",
+          "line": 105,
+          "snippet": "import falhas"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
+      "to": "C-SCRAP-GUARDA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "guarda/social_sessao.py",
+          "line": 243,
+          "snippet": "import social_matriz as mz          # dono único da verdade de capacidade"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por SINTONIA SCRAP — aquisicao social. Provado por 6 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 56,
+          "snippet": "import social_matriz as mz         # noqa: E402"
+        },
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 57,
+          "snippet": "import falhas                      # noqa: E402  — a lingua unica do erro"
+        },
+        {
+          "file": "coleta/social_scrap.py",
+          "line": 50,
+          "snippet": "import social_matriz as mz         # noqa: E402"
+        },
+        {
+          "file": "coleta/social_scrap.py",
+          "line": 53,
+          "snippet": "import falhas         # noqa: E402"
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 83,
+          "snippet": "import falhas                        # noqa: E402"
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 85,
+          "snippet": "import social_matriz as mz           # noqa: E402  — DONO da regra de quota"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_falhas.py",
+          "line": 18,
+          "snippet": "import falhas                      # noqa: E402"
+        },
+        {
+          "file": "tests/test_falhas.py",
+          "line": 95,
+          "snippet": "import social_matriz as mz"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 36,
+          "snippet": "import social_matriz as mz          # noqa: E402"
+        },
+        {
+          "file": "tests/test_thread_parcial.py",
+          "line": 28,
+          "snippet": "import falhas                     # noqa: E402"
+        },
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 20,
+          "snippet": "import falhas                     # noqa: E402"
+        },
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 21,
+          "snippet": "import social_matriz as mz        # noqa: E402"
+        },
+        {
+          "file": "tests/test_youtube_oficial.py",
+          "line": 21,
+          "snippet": "import falhas                     # noqa: E402"
+        },
+        {
+          "file": "tests/test_youtube_oficial.py",
+          "line": 24,
+          "snippet": "import social_matriz as mz        # noqa: E402"
+        },
+        {
+          "file": "tests/test_youtube_piloto.py",
+          "line": 23,
+          "snippet": "import falhas                      # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 30,
+          "snippet": "'social_matriz.py': 'leis/social_matriz.py',"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 31,
+          "snippet": "'falhas.py': 'leis/falhas.py',"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP — aquisicao social alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 32,
+          "snippet": "- 'coleta/social_persistencia.py'"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP — aquisicao social tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_falhas.py",
+          "line": 20,
+          "snippet": "import social_rotas as sr          # noqa: E402"
+        },
+        {
+          "file": "tests/test_social_persistencia_pg.py",
+          "line": 23,
+          "snippet": "import social_persistencia as sp        # noqa: E402"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 250,
+          "snippet": "import social_rotas"
+        },
+        {
+          "file": "tests/test_thread_parcial.py",
+          "line": 29,
+          "snippet": "import youtube_oficial as yt      # noqa: E402"
+        },
+        {
+          "file": "tests/test_thread_parcial.py",
+          "line": 31,
+          "snippet": "import social_envelope as env      # noqa: E402"
+        },
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 22,
+          "snippet": "import youtube_oficial as yt      # noqa: E402"
+        },
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 333,
+          "snippet": "import social_envelope as env"
+        },
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 362,
+          "snippet": "import social_scrap as sc"
+        },
+        {
+          "file": "tests/test_youtube_checkpoint_pg.py",
+          "line": 21,
+          "snippet": "import youtube_oficial as yt        # noqa: E402"
+        },
+        {
+          "file": "tests/test_youtube_oficial.py",
+          "line": 22,
+          "snippet": "import youtube_oficial as yt      # noqa: E402"
+        },
+        {
+          "file": "tests/test_youtube_oficial.py",
+          "line": 25,
+          "snippet": "import social_envelope as _env     # noqa: E402"
+        },
+        {
+          "file": "tests/test_youtube_oficial.py",
+          "line": 496,
+          "snippet": "import social_rotas as sr"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP — aquisicao social alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 26,
+          "snippet": "'social_rotas.py': 'coleta/social_rotas.py',"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 27,
+          "snippet": "'social_scrap.py': 'coleta/social_scrap.py',"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 28,
+          "snippet": "'social_envelope.py': 'coleta/social_envelope.py',"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 29,
+          "snippet": "'youtube_oficial.py': 'coleta/youtube_oficial.py',"
+        },
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 215,
+          "snippet": "txt = io.open(os.path.join(ROOT, 'coleta', 'youtube_oficial.py'),"
+        },
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 298,
+          "snippet": "txt = self._fonte('coleta', 'social_scrap.py')"
+        },
+        {
+          "file": "tests/test_youtube_piloto.py",
+          "line": 397,
+          "snippet": "for f in ('coleta/social_scrap.py', 'guarda/social_guarda.py',"
+        },
+        {
+          "file": "tests/test_youtube_piloto.py",
+          "line": 398,
+          "snippet": "'coleta/youtube_oficial.py'):"
         }
       ],
       "categoria": "PROOF"
@@ -21036,7 +21960,7 @@
         },
         {
           "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 508,
+          "line": 511,
           "snippet": "open(MIGRACAO, 'leitura')  # MIGRACAO = supabase/migrations/001_fundacao_geografia_e_proveniencia.sql"
         }
       ],
@@ -21304,6 +22228,24 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-COLETA-BASE",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes manda rodar O motor de buscar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 284,
+          "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-PACOTE-CAMADAS",
       "type": "READS",
       "payload": "artefacto",
@@ -21362,6 +22304,65 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-TESTES",
+      "to": "C-SCRAP-GUARDA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "guarda/social_guarda.py",
+          "line": 95,
+          "snippet": "'tests/test_social_sessao.py',"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-SCRAP-GUARDA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes manda rodar A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 107,
+          "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes manda rodar SINTONIA SCRAP — aquisicao social. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 107,
+          "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
+        },
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 108,
+          "snippet": "coleta/youtube_oficial.py; do"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-TRANSCRICAO",
       "to": "C-CENSO-DERIVACOES",
       "type": "READS",
@@ -21380,6 +22381,25 @@
           "file": "system-map/scripts/censo_das_derivacoes.py",
           "line": 95,
           "snippet": "\"PRODUTOR\": \"ferramentas/instagram_transcrever.py\","
+        }
+      ],
+      "categoria": "DATA",
+      "passa_pelo_preparo": true
+    },
+    {
+      "from": "C-TRANSCRICAO",
+      "to": "C-SCRAP-LEIS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura alimenta As leis do SCRAP — falhas e matriz de capacidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/social_matriz.py",
+          "line": 353,
+          "snippet": "'scripts/instagram_transcrever.py'),"
         }
       ],
       "categoria": "DATA",
@@ -21441,6 +22461,24 @@
     },
     {
       "from": "C-V21-COMERCIAL",
+      "to": "C-SCRAP-GUARDA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Leitura comercial e completude alimenta A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "guarda/social_guarda.py",
+          "line": 134,
+          "snippet": "'scripts/v21_tm_colher.py':"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-V21-COMERCIAL",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21470,12 +22508,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Leitura comercial e completude alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Leitura comercial e completude alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_completude_oportunidade.py",
           "line": 178,
           "snippet": "open(MEDIDA, 'leitura')  # MEDIDA = data/samples/IT-COMPLETUDE/IT-COMPLETUDE-OPORTUNIDADE.json"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 232,
+          "snippet": "'motor/v21_tm_colher.py',"
         }
       ],
       "categoria": "PROOF"
@@ -22030,6 +23073,23 @@
       "categoria": "DATA"
     },
     {
+      "from": "V-FACEBOOK",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/social_persistencia.py",
+          "line": 75,
+          "snippet": "'FACEBOOK': 'facebook', 'X': 'x', 'WEB': 'web',"
+        }
+      ],
+      "categoria": "DATA"
+    },
+    {
       "from": "V-HTTP",
       "to": "C-COLETA-INSTAGRAM",
       "type": "VIAJA_POR",
@@ -22115,6 +23175,23 @@
       "categoria": "DATA"
     },
     {
+      "from": "V-HTTP",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 48,
+          "snippet": "import urllib.request"
+        }
+      ],
+      "categoria": "DATA"
+    },
+    {
       "from": "V-INSTAGRAM",
       "to": "C-COLETA-INSTAGRAM",
       "type": "VIAJA_POR",
@@ -22161,6 +23238,23 @@
           "file": "coleta/speaker_identidade.py",
           "line": 171,
           "snippet": "('instagram.com', 'INSTAGRAM'),"
+        }
+      ],
+      "categoria": "DATA"
+    },
+    {
+      "from": "V-INSTAGRAM",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/social_persistencia.py",
+          "line": 59,
+          "snippet": "import instagram_pessoal as ip"
         }
       ],
       "categoria": "DATA"
@@ -22217,6 +23311,23 @@
       "categoria": "DATA"
     },
     {
+      "from": "V-LINKEDIN",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/social_persistencia.py",
+          "line": 74,
+          "snippet": "'LINKEDIN': 'linkedin', 'TIKTOK': 'tiktok',"
+        }
+      ],
+      "categoria": "DATA"
+    },
+    {
       "from": "V-YOUTUBE",
       "to": "C-COLETA-PUBLICA",
       "type": "VIAJA_POR",
@@ -22263,6 +23374,23 @@
           "file": "coleta/speaker_identidade.py",
           "line": 170,
           "snippet": "('youtube.com', 'YOUTUBE'), ('youtu.be', 'YOUTUBE'),"
+        }
+      ],
+      "categoria": "DATA"
+    },
+    {
+      "from": "V-YOUTUBE",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/social_persistencia.py",
+          "line": 73,
+          "snippet": "PLATAFORMA_NO_BANCO = {'YOUTUBE': 'youtube', 'INSTAGRAM': 'instagram',"
         }
       ],
       "categoria": "DATA"
@@ -22379,20 +23507,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 678,
+  "UNCLAIMED_FILES_COUNT": 695,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 116,
-    "components_proven": 80,
-    "components_pending": 30,
+    "components": 119,
+    "components_proven": 73,
+    "components_pending": 40,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 394,
-    "edges_proven": 392,
+    "edges": 423,
+    "edges_proven": 421,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1240,
-    "files_covered": 562,
+    "files_tracked": 1277,
+    "files_covered": 582,
     "files_code_unclaimed": 0
   }
 }
