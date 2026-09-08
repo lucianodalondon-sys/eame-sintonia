@@ -575,16 +575,31 @@ def _raw_do_piloto(run_id):
         PILOT_PROOF NÃO É OPERATIONAL_STORAGE.
     """
     import hashlib
-    base = os.path.join(env.RAW_DIR, 'YOUTUBE')
-    arquivos, total = [], 0
-    for raiz, _sub, nomes in os.walk(base) if os.path.isdir(base) else []:
-        for n in sorted(nomes):
-            caminho = os.path.join(raiz, n)
-            dados = open(caminho, 'rb').read()
-            total += len(dados)
-            arquivos.append({'FILE': os.path.relpath(caminho, env.ROOT).replace('\\', '/'),
-                             'SHA256': hashlib.sha256(dados).hexdigest(),
-                             'BYTES': len(dados)})
+    # ── O INVENTARIO E DO QUE ESTA CORRIDA ESCREVEU ───────────────────────
+    # A versao anterior varria `RAW_DIR/YOUTUBE` inteiro. So que o checkout ja
+    # traz 23 arquivos RAW versionados de corridas antigas — entao uma corrida
+    # que nao chegou a chamar a API contava esses 23 como colheita propria, e o
+    # relatorio saia dizendo "houve RAW". Foi exatamente o que aconteceu na
+    # corrida 34257202987, com o passo da fase SKIPPED.
+    #
+    #     CHECKOUT NAO E COLETA.
+    #
+    # Agora a fonte e o registro do envelope, que so cresce quando ESTE processo
+    # escreve. Processo que nao colheu inventaria zero.
+    arquivos, total, sumiram = [], 0, []
+    for caminho in env.produzidos():
+        if os.sep + 'YOUTUBE' + os.sep not in caminho + os.sep:
+            continue
+        if not os.path.isfile(caminho):
+            # A corrida escreveu e o arquivo nao esta mais la. Isso e um FATO
+            # sobre a prova, nao um motivo para o relatorio inteiro morrer.
+            sumiram.append(os.path.relpath(caminho, env.ROOT).replace('\\', '/'))
+            continue
+        dados = open(caminho, 'rb').read()
+        total += len(dados)
+        arquivos.append({'FILE': os.path.relpath(caminho, env.ROOT).replace('\\', '/'),
+                         'SHA256': hashlib.sha256(dados).hexdigest(),
+                         'BYTES': len(dados)})
     # ── O ESTADO DA PROVA NÃO PODE SER OTIMISTA ───────────────────────────
     # A versão anterior decidia isto só por `GITHUB_RUN_ID` existir: dentro do
     # Actions, dizia `PILOT_PROOF_ACTIONS_ARTIFACT` — mesmo com ZERO arquivos, e
@@ -616,6 +631,7 @@ def _raw_do_piloto(run_id):
 
     return {
         'RAW_FILE_COUNT': len(arquivos), 'RAW_TOTAL_BYTES': total,
+        'RAW_FILES_VANISHED': sumiram,
         'RAW_FILES': arquivos,
         'RAW_ARTIFACT_NAME': (os.environ.get('SCRAP_ARTIFACT_NAME')
                               or ('youtube-piloto-raw-%s' % run_id
@@ -630,6 +646,62 @@ def _raw_do_piloto(run_id):
                                   'forward do G-42 (Storage + raw_asset) NÃO recebeu '
                                   'estes bytes.'),
     }
+
+
+NAO_EXECUTADO = 'NOT_EXECUTED'
+
+
+def _selar_prova(rel, fase_rodou):
+    """Carimba no relatorio o destino do artefato — sem recontar nada.
+
+    Esta funcao roda num processo separado, DEPOIS do upload, so para dizer se a
+    prova bruta sobreviveu ao runner. Ela nao pode inventariar RAW: o processo
+    dela nao colheu nada, e recontar aqui apagaria o inventario verdadeiro que a
+    fase escreveu.
+
+        NOT_EXECUTED NAO E EXECUTED_ZERO_RESULTS.
+
+    Duas recusas explicitas, porque as duas ja mentiram uma vez:
+
+    1 · a fase nao rodou (skipped/failed) — entao nao ha coleta, e o relatorio
+        que estava no disco e de OUTRA corrida, trazido pelo checkout;
+    2 · o relatorio existe mas o `ACTIONS_RUN_ID` dele nao e o desta corrida —
+        mesmo caso, so que descoberto pelo proprio relatorio.
+
+    Nos dois, o estado e NOT_EXECUTED e nenhum numero de coleta e tocado.
+    """
+    corrida = os.environ.get('GITHUB_RUN_ID')
+    if not fase_rodou:
+        return {'RAW_PROOF_STATE': NAO_EXECUTADO,
+                'RAW_PROOF_COMPLETE': False,
+                'ARTIFACT_ID': None,
+                'NOT_EXECUTED_REASON': 'a fase nao rodou nesta corrida',
+                'REPORT_IS_FROM_THIS_RUN': False}
+    if corrida and str(rel.get('ACTIONS_RUN_ID') or '') != str(corrida):
+        return {'RAW_PROOF_STATE': NAO_EXECUTADO,
+                'RAW_PROOF_COMPLETE': False,
+                'ARTIFACT_ID': None,
+                'NOT_EXECUTED_REASON': ('o relatorio no disco e de outra corrida '
+                                        '(%s), veio do checkout'
+                                        % (rel.get('ACTIONS_RUN_ID') or 'SEM_ID')),
+                'REPORT_IS_FROM_THIS_RUN': False}
+
+    n = int(rel.get('RAW_FILE_COUNT') or 0)
+    upload_ok = (os.environ.get('SCRAP_ARTIFACT_OUTCOME') or '') == 'success'
+    artifact_id = (os.environ.get('SCRAP_ARTIFACT_ID') or '').strip()
+    if not n:
+        estado = 'NO_RAW_PRODUCED'
+    elif upload_ok and artifact_id:
+        estado = 'PILOT_PROOF_ACTIONS_ARTIFACT'
+    else:
+        estado = ('PARTIAL_PROOF — houve RAW e o artefato nao foi confirmado '
+                  '(outcome=%s, artifact-id=%s)'
+                  % (os.environ.get('SCRAP_ARTIFACT_OUTCOME') or 'DESCONHECIDO',
+                     artifact_id or 'VAZIO'))
+    return {'RAW_PROOF_STATE': estado,
+            'RAW_PROOF_COMPLETE': estado == 'PILOT_PROOF_ACTIONS_ARTIFACT',
+            'ARTIFACT_ID': artifact_id or None,
+            'REPORT_IS_FROM_THIS_RUN': True}
 
 
 def _preflight_youtube(sess, modo):

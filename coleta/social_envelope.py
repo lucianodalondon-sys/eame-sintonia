@@ -59,6 +59,29 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SAIDA = os.path.join(ROOT, 'data', 'samples', 'SOCIAL-IT')
 RAW_DIR = os.path.join(SAIDA, 'raw-free')
 
+# ── O QUE ESTA CORRIDA PRODUZIU, E SO ISSO ────────────────────────────────
+# Varrer `RAW_DIR` responde "que arquivos existem no disco", que NAO e a mesma
+# pergunta que "que arquivos esta corrida colheu". O checkout ja traz RAW de
+# corridas antigas, entao a varredura fazia uma corrida que nem rodou parecer
+# ter colhido.
+#
+#     CHECKOUT NAO E COLETA.
+#
+# O registro abaixo so cresce quando ESTE processo escreve um arquivo. Processo
+# novo comeca vazio — de proposito: ele nao colheu nada.
+_PRODUZIDOS = []
+
+
+def produzidos():
+    """Os RAW que ESTE processo escreveu, na ordem em que sairam."""
+    return list(_PRODUZIDOS)
+
+
+def esquecer_produzidos():
+    """So para teste: devolve o processo ao estado de quem nao colheu nada."""
+    del _PRODUZIDOS[:]
+
+
 NOT_PRESERVED = 'NOT_PRESERVED'
 PRESERVED = 'PRESERVED'
 
@@ -95,6 +118,8 @@ def guardar_raw(platform, chave, corpo):
     if not os.path.exists(caminho):
         with open(caminho, 'w', encoding='utf-8') as f:
             f.write(corpo)
+    if caminho not in _PRODUZIDOS:
+        _PRODUZIDOS.append(caminho)
     return {
         'PATH': os.path.relpath(caminho, ROOT).replace('\\', '/'),
         'SHA256': hashlib.sha256(corpo.encode('utf-8')).hexdigest(),

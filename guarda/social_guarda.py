@@ -64,8 +64,13 @@ PASTAS_PROIBIDAS = re.compile(
 
 # Conteúdo. Cada padrão aqui já foi um vazamento real em algum projeto.
 CONTEUDO_PROIBIDO = (
-    ('cabeçalho Cookie', re.compile(r'(?i)\bcookie\s*:\s*\S{8,}')),
-    ('Set-Cookie', re.compile(r'(?i)\bset-cookie\s*:\s*\S{8,}')),
+    # `(?!<)` e a MESMA excecao que o padrao de caminho Windows abaixo ja
+    # usava: um marcador `<REDIGIDO ...>` nao e segredo, e valor de cookie
+    # real nunca comeca por `<`. Sem ela, redigir a origem virava um achado
+    # novo, e o unico jeito de calar o guarda seria apagar o cabecalho —
+    # perder a prova de que o servidor o mandou.
+    ('cabeçalho Cookie', re.compile(r'(?i)\bcookie\s*:\s*(?!<)\S{8,}')),
+    ('Set-Cookie', re.compile(r'(?i)\bset-cookie\s*:\s*(?!<)\S{8,}')),
     ('Authorization', re.compile(r'(?i)\bauthorization\s*:\s*(bearer|basic)\s+\S{8,}')),
     ('sessionid', re.compile(r'(?i)\b(sessionid|sessid|session_token)\s*[:=]\s*["\']?\S{8,}')),
     ('token de sessão LinkedIn', re.compile(r'(?i)\bli_at\s*[:=]\s*["\']?\S{8,}')),

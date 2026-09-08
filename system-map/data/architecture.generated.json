@@ -2,9 +2,9 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "2d4afd12b778a9d1dfa06f21985127742d40329f",
-    "GENERATED_AT": "2026-09-08T11:31:17-03:00"
+    "BRANCH": "claude/scrap-social-na-biblia-v1",
+    "HEAD": "811400624f960e81ec839c7c6662cff72d4408f4",
+    "GENERATED_AT": "2026-09-08T17:24:05+00:00"
   },
   "FILES": [
     {
@@ -64,6 +64,13 @@
       "code_dir": true
     },
     {
+      "path": ".github/workflows/scrap-social.yml",
+      "sha": "f90761dd672d3a1ed224c365fdc3f64927d9632e",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": ".github/workflows/sintonia-scrap.yml",
       "sha": "39606dfca9e38e60d93c7eb6f097414143f5780a",
       "ext": ".yml",
@@ -114,7 +121,7 @@
     },
     {
       "path": ".gitignore",
-      "sha": "132698645bb0c29ec8df7ee2b8efdba16f0d246c",
+      "sha": "1e43845a804c3edac08309ab4f313fff41b8a4f6",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -1073,7 +1080,7 @@
     },
     {
       "path": "coleta/coleta_checkpoint.py",
-      "sha": "2342b58dc8fd09531556cd6c9c3aa097465f7160",
+      "sha": "18217020ae76fb647651a1cd85cdb4469bd2c468",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1296,6 +1303,27 @@
       "code_dir": true
     },
     {
+      "path": "coleta/social_envelope.py",
+      "sha": "1248eaf49a2cc8e586af62170a544db71b7de8dd",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/social_rotas.py",
+      "sha": "63ceeea016b65a78528727c547ca53428b3c6a6e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/social_scrap.py",
+      "sha": "1d98d00ca1662a0c888127bd88362d7692a3dbce",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "coleta/speaker_identidade.py",
       "sha": "650544a132429f9942578f40631c4fbb9029254d",
       "ext": ".py",
@@ -1326,6 +1354,13 @@
     {
       "path": "coleta/youtube_janela.py",
       "sha": "799d36f9f1e35bbe3b9e1348416c4a9bfd2dc053",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/youtube_oficial.py",
+      "sha": "df2eae5b8a0608f7f13e34dfb38b9dae29bb7eac",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -3222,7 +3257,7 @@
     },
     {
       "path": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/ID_6_Dataset_Fitosanitari_v2.0.pdf.headers.txt",
-      "sha": "1f889f38238351ab4e185da9185fe3221b0dd759",
+      "sha": "d76283c58831f66cf0496161f8a67bfbc332468e",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -3243,7 +3278,7 @@
     },
     {
       "path": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv.headers.txt",
-      "sha": "9f4d85853e39af5ae446b01260ff3e03cc4756ca",
+      "sha": "7ddd40e8c358977c4bfc9456b348ccb5caea8dd4",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -3257,7 +3292,7 @@
     },
     {
       "path": "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/91515.headers.txt",
-      "sha": "ee825800cfc48ffcc56eb862dab3dae25becb42d",
+      "sha": "a108dbb9695174822ac6bb1f12c5a8840dc6ada1",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -3299,7 +3334,7 @@
     },
     {
       "path": "data/samples/IT-SOURCE-SAMPLES/IT-T7-002/ELENCO-OP-AOP-al-31-12-2025-agg-08-04-2026.ods.headers.txt",
-      "sha": "71c2e7da3044254a2f719e16cec0d0d59677bedf",
+      "sha": "0b6e7e58bf5651486579fd2039cb7d4825a15b05",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -3411,7 +3446,7 @@
     },
     {
       "path": "data/samples/ITALY-T3-005-MONITORAGGIO/headers.txt",
-      "sha": "2cd1b3a8f96a6babe52665938f76a531e81dc867",
+      "sha": "0e7bcc0be6a11c9aa3ce55d796df6ef3ab956bd2",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -3893,6 +3928,174 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json",
+      "sha": "d651d4453455c68928fcbe05c089bcd520c5e848",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/comments-b-p1__eeb85c2675888473.txt",
+      "sha": "4bcab0861eb1930cba205dfaa6dd72596bc0c61c",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/comments-v-p1__22f0e2f1cc943665.txt",
+      "sha": "3629ae6e1b0034654e0d728c6a43ce37048dac1c",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/comments-v-p1__6163348ec8993467.txt",
+      "sha": "a9938ab39784c4da845067dad9165a0d4e5884cc",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/comments-v-p1__a00c51d10b6b628b.txt",
+      "sha": "728fdb509014badb67890b1d6dcac5728d7c2a2a",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/comments-v-p1__ba7f1264f965cf50.txt",
+      "sha": "e103a11d45467a2bd4c88bf4561bab758c171154",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/comments-v-p1__c3a6941cce598d8f.txt",
+      "sha": "a9dc80192e466aa3b3a9f87c761336f469bc61b2",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/comments-v-p1__ca953cf91d0d8035.txt",
+      "sha": "ecefd4b067f9baa8aaacb77b12007f6e4ca52fac",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/comments-v-p1__d7f60ccb8701dccc.txt",
+      "sha": "97b7543b139f5165372c9b47f83817e8fb13628e",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/comments-v-p1__dcc6fbc9f24c6e2b.txt",
+      "sha": "ed33bbdbb460c628435dcd35fdef35b7c465af3c",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/comments-v-p1__eeb85c2675888473.txt",
+      "sha": "4bcab0861eb1930cba205dfaa6dd72596bc0c61c",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/comments-v-p2__32d521ba90489db9.txt",
+      "sha": "7dd23a98acccab73d26580dd099d6c95720765bb",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/comments-v-p2__bcf6204560fda4ea.txt",
+      "sha": "2e8cc166d7a0f85ca462d02179ebfcdd582b98f9",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/replies-c1__c2c3ef29638c2cf5.txt",
+      "sha": "26adbb1878351145f72403183e9db286ad5f269f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/uploads-UCx__17cb2b0ab8599c69.txt",
+      "sha": "822051a6e484538380509b1b0855c26b3f3f7eec",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/uploads-UCx__54bab7145de938d7.txt",
+      "sha": "8888c0ece20eeaebe8a5ba4fadba55be3b3ba959",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/uploads-UCx__b78c8ae9f3091648.txt",
+      "sha": "78d8c08ce4060e2a85bb9f60882b0fee1ed9cbe1",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/uploads-UCx__cfd3743d17bd7243.txt",
+      "sha": "2239e333ac3d1a595d6b7e2aec1ab8b297f6bad7",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/uploads-UCx__e7174a76c4de962b.txt",
+      "sha": "03de59fba3ecf2712fa6bb39d4facebef972ad86",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/uploads-UCxxx__4b87dc3f090e5df7.txt",
+      "sha": "1cd9b71a30615e6c9481d453d9b55228eae8de49",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/uploads-UCxxx__d55aecd18e68076c.txt",
+      "sha": "6a12786f111b419e6e245091e67bb70ed88204e2",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/videos-v__262d514cd6ca7fd4.txt",
+      "sha": "e2258f748bd4d1cecc5246231454910230a3006a",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/videos-v__5603c47730590530.txt",
+      "sha": "e776520b7e8958279c40bc2cd3cc2a0e15533131",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/YOUTUBE/videos-vivo__6cc685cff0942304.txt",
+      "sha": "2cd7e88236bddb5ab212d2cc0fb38ccad3ec6e2e",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/SPAIN-DEMO-CONTENT-V1.json",
       "sha": "39facad66d67a5b3b620435937a5e03ed99b1dc9",
       "ext": ".json",
@@ -4054,6 +4257,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/arquitetura/SINTONIA-SCRAP-TARGET.md",
+      "sha": "436069c1cabf44f38aaeea3a6aae55be59a59fbe",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
       "sha": "56ec612daf78d428a24a1c6f4cea561f02a6e475",
       "ext": ".md",
@@ -4117,8 +4327,36 @@
       "code_dir": false
     },
     {
+      "path": "docs/capacidades/SINTONIA-SCRAP-SOCIAL.md",
+      "sha": "7e532287627cba9506b90dbed9ec9e1fcf6f8462",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md",
       "sha": "0aaea503a09e57d69681d1fc22c1033faee39f26",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/decisoes/ADR-SCRAP-SOCIAL-NA-BIBLIA.md",
+      "sha": "238979062c34736fb8f10972aae25e3c124e61a5",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/decisoes/ADR-SINTONIA-SCRAP-EVOLUTION.md",
+      "sha": "e3c9bdb1a563c90e4c32c58ad2e7b93108e0e553",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/decisoes/ADR-TAXONOMIA-DE-FALHAS-E-POLITICA.md",
+      "sha": "b71e5dc4f44e02750cc9f945375682cb9871bab5",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4362,6 +4600,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md",
+      "sha": "f6f115a2d0e2ceaf86be56e1a35854efd83dd5e2",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/IDENTIDADE-DO-ARTEFATO.md",
       "sha": "7b5387b2667d6762588d01630265c0ebfc6da59d",
       "ext": ".md",
@@ -4411,8 +4656,43 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
+      "sha": "51ea5cccefca3de9e4808528b4cf34473db3a1cb",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
       "sha": "9df202674752f06222993185970a750b2301634e",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
+      "sha": "bb3013c947f09f67021363422ce8be259eb462bb",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/YOUTUBE-CHECKPOINT-E-RAW.md",
+      "sha": "5921b565853916d6857b5f034f5827e948c319d1",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/YOUTUBE-OFICIAL.md",
+      "sha": "274885dd4c411fa4fd3de0c3a3a3df6d95dae249",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/YOUTUBE-PILOTO-ONESHOT.md",
+      "sha": "83f736a05fd17a05223e2079be5fec39f5c0409d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4635,6 +4915,20 @@
       "code_dir": false
     },
     {
+      "path": "docs/research/SINTONIA-SCRAP-CAPABILITY-MATRIX.md",
+      "sha": "a50b227af9c363d2f95d4704695d56d55babf25e",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/research/SINTONIA-SCRAP-ENGINEERING-BENCHMARK.md",
+      "sha": "8b1a0abc2126cb5435a1d176ca72cfebb52718d4",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "ferramentas/apify_contrato.py",
       "sha": "086011405938a0a9de149c70af055ee21eeef09a",
       "ext": ".py",
@@ -4643,7 +4937,7 @@
     },
     {
       "path": "ferramentas/apify_pool.py",
-      "sha": "9c743407c0e9beda65c726d7b5aa10725a182bf7",
+      "sha": "ae8f12d5ac931b41d0d205e0d12c6b6b00831025",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4847,6 +5141,20 @@
     {
       "path": "guarda/preservar_coleta.py",
       "sha": "f44eb40eb298d308bb1b2383c12470739b7d4c18",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "guarda/social_guarda.py",
+      "sha": "dd4ad088a6948db9672887177d11ccc941258d05",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "guarda/social_sessao.py",
+      "sha": "a55f10a8ec1da51c6f7b5bf253bd9fce6c317aa0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6560,8 +6868,22 @@
       "code_dir": true
     },
     {
+      "path": "leis/falhas.py",
+      "sha": "d847873ee68e47c6c6a6e02e90d103cdecb1aa05",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/regua_italia.py",
       "sha": "6c6c579407782c92ecb3e3f6e0c6323a55ee07d9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "leis/social_matriz.py",
+      "sha": "4e9117a783e6ea9ce7a214fd5573d1d089d0964a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6876,7 +7198,7 @@
     },
     {
       "path": "motor/v21_tm_colher.py",
-      "sha": "2b3d1de69fe4180dc2b160185c71f278cbc7e78e",
+      "sha": "d3eecb140cf92a6cfe895e0e20b5b9073e9e1e04",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7156,7 +7478,7 @@
     },
     {
       "path": "provas/derived_artifact_no_postgres.py",
-      "sha": "b069d9fbde20c7b8e5c380a8b7cf5f8074c0a813",
+      "sha": "13838ec8c8986cc05dc8c8a583ff99a4230309ec",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8227,7 +8549,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "f2f5a1be9623b6c07206e2a1aee8a87c8886ddc2",
+      "sha": "f53ca1802588e5a72a055edb46c7c7894261b279",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8450,6 +8772,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_falhas.py",
+      "sha": "b35b5e73432f25743497b575e2906f441c7c116c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_handoff.py",
       "sha": "2aa4ae8280e1a278494e67404cb21736221f8654",
       "ext": ".py",
@@ -8583,6 +8912,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_social_sessao.py",
+      "sha": "86b0b36807a00122bb55f2de7a16aa7cbd40d327",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_v21_datas.py",
       "sha": "1c743d7c3a76aa35e96635bce9f8070c731c5a04",
       "ext": ".py",
@@ -8613,6 +8949,34 @@
     {
       "path": "tests/test_voz.py",
       "sha": "9024c8951eb004056317fad9b865ca2ecaa2bd7c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_youtube_antidrift.py",
+      "sha": "091a83297903cd5877634396cde2f839fa225649",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_youtube_checkpoint_pg.py",
+      "sha": "8ab6ac773ba0b1dfe41030b1187cb87a30a961f1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_youtube_oficial.py",
+      "sha": "4020db29dbcdacc62b6a9183470f0a2492856087",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_youtube_piloto.py",
+      "sha": "7245d94db1e841449b519759e8677fc283349879",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9086,6 +9450,61 @@
         "file": ".github/workflows/comunicacao-publica.yml",
         "line": 105,
         "snippet": "PYTHONIOENCODING=utf-8 $PY tests/test_comunicacao.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 284,
+        "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
+      }
+    },
+    {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "coleta/social_scrap.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 107,
+        "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
+      }
+    },
+    {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 108,
+        "snippet": "coleta/youtube_oficial.py; do"
+      }
+    },
+    {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 189,
+        "snippet": "rel = env.ler('YOUTUBE-PILOTO-IT.json') or {}"
+      }
+    },
+    {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "guarda/social_guarda.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 107,
+        "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
       }
     },
     {
@@ -10442,6 +10861,171 @@
       }
     },
     {
+      "from_file": "coleta/social_rotas.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_rotas.py",
+        "line": 54,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "coleta/social_rotas.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_rotas.py",
+        "line": 55,
+        "snippet": "import social_envelope as env      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/social_rotas.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_rotas.py",
+        "line": 299,
+        "snippet": "import youtube_oficial as yt"
+      }
+    },
+    {
+      "from_file": "coleta/social_rotas.py",
+      "to_file": "guarda/social_sessao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_rotas.py",
+        "line": 58,
+        "snippet": "import social_sessao as ss         # noqa: E402  — LOCAL_SESSION é rota, não motor"
+      }
+    },
+    {
+      "from_file": "coleta/social_rotas.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_rotas.py",
+        "line": 57,
+        "snippet": "import falhas                      # noqa: E402  — a lingua unica do erro"
+      }
+    },
+    {
+      "from_file": "coleta/social_rotas.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_rotas.py",
+        "line": 56,
+        "snippet": "import social_matriz as mz         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 48,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 49,
+        "snippet": "import social_envelope as env      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 51,
+        "snippet": "import social_rotas as sr          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 299,
+        "snippet": "import youtube_oficial as yt"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 563,
+        "snippet": "env.gravar('YOUTUBE-PILOTO-IT.json', rel)"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "guarda/social_guarda.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 834,
+        "snippet": "import social_guarda"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "guarda/social_sessao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 52,
+        "snippet": "import social_sessao as ss"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 53,
+        "snippet": "import falhas         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 50,
+        "snippet": "import social_matriz as mz         # noqa: E402"
+      }
+    },
+    {
       "from_file": "coleta/speaker_identidade.py",
       "to_file": "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json",
       "type": "READS",
@@ -10530,6 +11114,61 @@
       }
     },
     {
+      "from_file": "coleta/youtube_oficial.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/youtube_oficial.py",
+        "line": 82,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "coleta/youtube_oficial.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/youtube_oficial.py",
+        "line": 315,
+        "snippet": "import coleta_checkpoint as cc"
+      }
+    },
+    {
+      "from_file": "coleta/youtube_oficial.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/youtube_oficial.py",
+        "line": 84,
+        "snippet": "import social_envelope as env        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/youtube_oficial.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/youtube_oficial.py",
+        "line": 83,
+        "snippet": "import falhas                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/youtube_oficial.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/youtube_oficial.py",
+        "line": 85,
+        "snippet": "import social_matriz as mz           # noqa: E402  — DONO da regra de quota"
+      }
+    },
+    {
       "from_file": "coleta/youtube_relevancia.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -10582,6 +11221,17 @@
         "file": "ferramentas/apify_contrato.py",
         "line": 45,
         "snippet": "import apify_pool as ap  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/apify_pool.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/apify_pool.py",
+        "line": 105,
+        "snippet": "import falhas"
       }
     },
     {
@@ -11660,6 +12310,116 @@
         "file": "guarda/importar_italia.py",
         "line": 97,
         "snippet": "eu = ler_local('IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2.json') or          ler_local('IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json')"
+      }
+    },
+    {
+      "from_file": "guarda/social_guarda.py",
+      "to_file": "docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/social_guarda.py",
+        "line": 96,
+        "snippet": "'docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md',"
+      }
+    },
+    {
+      "from_file": "guarda/social_guarda.py",
+      "to_file": "guarda/social_sessao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/social_guarda.py",
+        "line": 94,
+        "snippet": "'guarda/social_sessao.py',"
+      }
+    },
+    {
+      "from_file": "guarda/social_guarda.py",
+      "to_file": "motor/v21_tm_colher.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/social_guarda.py",
+        "line": 134,
+        "snippet": "'scripts/v21_tm_colher.py':"
+      }
+    },
+    {
+      "from_file": "guarda/social_guarda.py",
+      "to_file": "tests/test_social_sessao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/social_guarda.py",
+        "line": 95,
+        "snippet": "'tests/test_social_sessao.py',"
+      }
+    },
+    {
+      "from_file": "guarda/social_sessao.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/social_sessao.py",
+        "line": 88,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "guarda/social_sessao.py",
+      "to_file": "coleta/instagram_janela.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/social_sessao.py",
+        "line": 145,
+        "snippet": "'FONTE': 'scripts/instagram_janela.py',"
+      }
+    },
+    {
+      "from_file": "guarda/social_sessao.py",
+      "to_file": "docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/social_sessao.py",
+        "line": 390,
+        "snippet": "'docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md')"
+      }
+    },
+    {
+      "from_file": "guarda/social_sessao.py",
+      "to_file": "ferramentas/cdp.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/social_sessao.py",
+        "line": 90,
+        "snippet": "import cdp                          # noqa: E402  — já sabe falar com ele"
+      }
+    },
+    {
+      "from_file": "guarda/social_sessao.py",
+      "to_file": "ferramentas/navegador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/social_sessao.py",
+        "line": 89,
+        "snippet": "import navegador                    # noqa: E402  — já sabe achar o Chrome"
+      }
+    },
+    {
+      "from_file": "guarda/social_sessao.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/social_sessao.py",
+        "line": 243,
+        "snippet": "import social_matriz as mz          # dono único da verdade de capacidade"
       }
     },
     {
@@ -16514,6 +17274,28 @@
       }
     },
     {
+      "from_file": "leis/social_matriz.py",
+      "to_file": "coleta/instagram_janela.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/social_matriz.py",
+        "line": 337,
+        "snippet": "'scripts/instagram_janela.py'),"
+      }
+    },
+    {
+      "from_file": "leis/social_matriz.py",
+      "to_file": "ferramentas/instagram_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/social_matriz.py",
+        "line": 353,
+        "snippet": "'scripts/instagram_transcrever.py'),"
+      }
+    },
+    {
       "from_file": "leis/v21_carimbar_origem.py",
       "to_file": "build/ITALY-REALITY-HANDOFF-V2/RELATIONSHIPS.json",
       "type": "READS",
@@ -18731,7 +19513,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/v21_tm_colher.py",
-        "line": 60,
+        "line": 63,
         "snippet": "TM = os.path.join(ROOT, 'data', 'i18n', 'v21-traducoes.json')"
       }
     },
@@ -18742,7 +19524,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/v21_tm_colher.py",
-        "line": 146,
+        "line": 149,
         "snippet": "open(TM, 'w')  # TM = data/i18n/v21-traducoes.json"
       }
     },
@@ -25204,6 +25986,83 @@
       }
     },
     {
+      "from_file": "tests/test_falhas.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_falhas.py",
+        "line": 16,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_falhas.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_falhas.py",
+        "line": 20,
+        "snippet": "import social_rotas as sr          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_falhas.py",
+      "to_file": "ferramentas/apify_pool.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_falhas.py",
+        "line": 19,
+        "snippet": "import apify_pool as ap            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_falhas.py",
+      "to_file": "guarda/social_sessao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_falhas.py",
+        "line": 21,
+        "snippet": "import social_sessao as ss         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_falhas.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_falhas.py",
+        "line": 18,
+        "snippet": "import falhas                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_falhas.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_falhas.py",
+        "line": 95,
+        "snippet": "import social_matriz as mz"
+      }
+    },
+    {
+      "from_file": "tests/test_falhas.py",
+      "to_file": "medidas/source_health.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_falhas.py",
+        "line": 22,
+        "snippet": "import source_health as sh         # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_handoff.py",
       "to_file": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
       "type": "READS",
@@ -26601,6 +27460,226 @@
       }
     },
     {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 19,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 28,
+        "snippet": "'social_envelope.py': 'coleta/social_envelope.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 250,
+        "snippet": "import social_rotas"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 26,
+        "snippet": "'social_rotas.py': 'coleta/social_rotas.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 27,
+        "snippet": "'social_scrap.py': 'coleta/social_scrap.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 29,
+        "snippet": "'youtube_oficial.py': 'coleta/youtube_oficial.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/ID_6_Dataset_Fitosanitari_v2.0.pdf.headers.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 227,
+        "snippet": "'data/samples/IT-SOURCE-SAMPLES/IT-T4-001/ID_6_Dataset_Fitosanitari_v2.0.pdf.headers.txt',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv.headers.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 228,
+        "snippet": "'data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv.headers.txt',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/91515.headers.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 229,
+        "snippet": "'data/samples/IT-SOURCE-SAMPLES/IT-T5-002/91515.headers.txt',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T7-002/ELENCO-OP-AOP-al-31-12-2025-agg-08-04-2026.ods.headers.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 230,
+        "snippet": "'data/samples/IT-SOURCE-SAMPLES/IT-T7-002/ELENCO-OP-AOP-al-31-12-2025-agg-08-04-2026.ods.headers.txt',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "data/samples/ITALY-T3-005-MONITORAGGIO/headers.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 231,
+        "snippet": "'data/samples/ITALY-T3-005-MONITORAGGIO/headers.txt',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "ferramentas/navegador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 136,
+        "snippet": "import navegador"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "guarda/social_guarda.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 35,
+        "snippet": "import social_guarda as sg          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "guarda/social_guarda.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 25,
+        "snippet": "'social_guarda.py': 'guarda/social_guarda.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "guarda/social_sessao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 34,
+        "snippet": "import social_sessao as ss          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "guarda/social_sessao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 24,
+        "snippet": "'social_sessao.py': 'guarda/social_sessao.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "leis/falhas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 31,
+        "snippet": "'falhas.py': 'leis/falhas.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 36,
+        "snippet": "import social_matriz as mz          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 30,
+        "snippet": "'social_matriz.py': 'leis/social_matriz.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_social_sessao.py",
+      "to_file": "motor/v21_tm_colher.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_social_sessao.py",
+        "line": 232,
+        "snippet": "'motor/v21_tm_colher.py',"
+      }
+    },
+    {
       "from_file": "tests/test_v21_datas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -26807,6 +27886,369 @@
         "file": "tests/test_voz.py",
         "line": 317,
         "snippet": "import voz as _voz"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_antidrift.py",
+      "to_file": ".github/workflows/scrap-social.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_youtube_antidrift.py",
+        "line": 255,
+        "snippet": "wf = os.path.join(ROOT, '.github', 'workflows', 'scrap-social.yml')"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_antidrift.py",
+      "to_file": ".github/workflows/supabase-conexao.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_youtube_antidrift.py",
+        "line": 329,
+        "snippet": "outro = self._fonte('.github', 'workflows', 'supabase-conexao.yml')"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_antidrift.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_antidrift.py",
+        "line": 18,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_antidrift.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_antidrift.py",
+        "line": 183,
+        "snippet": "import coleta_checkpoint as cc"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_antidrift.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_youtube_antidrift.py",
+        "line": 349,
+        "snippet": "txt = self._fonte('coleta', 'coleta_checkpoint.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_antidrift.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_antidrift.py",
+        "line": 333,
+        "snippet": "import social_envelope as env"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_antidrift.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_antidrift.py",
+        "line": 362,
+        "snippet": "import social_scrap as sc"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_antidrift.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_youtube_antidrift.py",
+        "line": 298,
+        "snippet": "txt = self._fonte('coleta', 'social_scrap.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_antidrift.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_antidrift.py",
+        "line": 22,
+        "snippet": "import youtube_oficial as yt      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_antidrift.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_youtube_antidrift.py",
+        "line": 215,
+        "snippet": "txt = io.open(os.path.join(ROOT, 'coleta', 'youtube_oficial.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_antidrift.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_antidrift.py",
+        "line": 20,
+        "snippet": "import falhas                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_antidrift.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_antidrift.py",
+        "line": 21,
+        "snippet": "import social_matriz as mz        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_checkpoint_pg.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_checkpoint_pg.py",
+        "line": 19,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_checkpoint_pg.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_checkpoint_pg.py",
+        "line": 20,
+        "snippet": "import coleta_checkpoint as cc      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_checkpoint_pg.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_checkpoint_pg.py",
+        "line": 21,
+        "snippet": "import youtube_oficial as yt        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_oficial.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_oficial.py",
+        "line": 18,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_oficial.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_oficial.py",
+        "line": 241,
+        "snippet": "import social_envelope as se"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_oficial.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_oficial.py",
+        "line": 480,
+        "snippet": "import social_rotas as sr"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_oficial.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_oficial.py",
+        "line": 21,
+        "snippet": "import youtube_oficial as yt      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_oficial.py",
+      "to_file": "guarda/social_sessao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_oficial.py",
+        "line": 22,
+        "snippet": "import social_sessao as ss        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_oficial.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_oficial.py",
+        "line": 20,
+        "snippet": "import falhas                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_oficial.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_oficial.py",
+        "line": 23,
+        "snippet": "import social_matriz as mz        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_piloto.py",
+      "to_file": ".github/workflows/scrap-social.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_youtube_piloto.py",
+        "line": 481,
+        "snippet": "open(caminho, 'leitura')  # caminho = .github/workflows/scrap-social.yml"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_piloto.py",
+      "to_file": ".github/workflows/scrap-social.yml",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_youtube_piloto.py",
+        "line": 361,
+        "snippet": "wf = io.open(os.path.join(ROOT, '.github', 'workflows', 'scrap-social.yml'),"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_piloto.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_piloto.py",
+        "line": 21,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_piloto.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_piloto.py",
+        "line": 24,
+        "snippet": "import social_envelope as env      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_piloto.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_piloto.py",
+        "line": 23,
+        "snippet": "import social_scrap as sc          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_piloto.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_youtube_piloto.py",
+        "line": 389,
+        "snippet": "for f in ('coleta/social_scrap.py', 'guarda/social_guarda.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_piloto.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_piloto.py",
+        "line": 25,
+        "snippet": "import youtube_oficial as yt       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_piloto.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_youtube_piloto.py",
+        "line": 390,
+        "snippet": "'coleta/youtube_oficial.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_piloto.py",
+      "to_file": "data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_youtube_piloto.py",
+        "line": 160,
+        "snippet": "rel = env.ler('YOUTUBE-PILOTO-IT.json')"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_piloto.py",
+      "to_file": "guarda/social_guarda.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_youtube_piloto.py",
+        "line": 389,
+        "snippet": "for f in ('coleta/social_scrap.py', 'guarda/social_guarda.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_youtube_piloto.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_youtube_piloto.py",
+        "line": 22,
+        "snippet": "import falhas                      # noqa: E402"
       }
     }
   ],
@@ -27034,7 +28476,7 @@
     "motor/v21_tm_colher.py": [
       {
         "pasta": "data/i18n",
-        "line": 146,
+        "line": 149,
         "constante": "TM"
       }
     ],
@@ -27207,10 +28649,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1231,
-    "files_readable": 412,
-    "files_code_dir": 458,
-    "file_edges": 1653,
+    "files_tracked": 1283,
+    "files_readable": 427,
+    "files_code_dir": 473,
+    "file_edges": 1751,
     "escritas_em_pasta": 58,
     "declared_missing_here": 0
   },

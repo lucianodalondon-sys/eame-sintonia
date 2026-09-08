@@ -120,11 +120,17 @@ jobs:
       # entrou no repositório, nada mais desta execução importa — e descobrir
       # depois do push é tarde: segredo commitado fica no pack para sempre.
       - name: 0 · nenhum segredo entrou no repositório
+        # SEM fallback `|| py`: no ubuntu `py` nao existe, entao o `||`
+        # transformava o veredito do guarda (exit 1, com a lista de achados) em
+        # `py: command not found` (exit 127). O job morria pelo motivo errado, e
+        # o log terminava escondendo QUAL segredo foi encontrado.
+        #
+        #     MASCARAR O CODIGO DE SAIDA E APAGAR O DIAGNOSTICO.
         run: |
-          PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py \
-            || PYTHONIOENCODING=utf-8 py guarda/social_guarda.py
+          PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py
 
       - name: 1 · rodar a fase
+        id: fase
         env:
           # O caminho do perfil vem da MÁQUINA, nunca do repositório. Se não
           # estiver definido, `navegador.py` usa ~/.sintonia-browser.
@@ -163,13 +169,41 @@ jobs:
       - name: 2 · quanto RAW o piloto produziu
         if: inputs.fase == 'youtube-piloto-oneshot' || inputs.fase == 'youtube-piloto'
         id: rawcount
+        # `find` no diretorio inteiro contava os 23 arquivos RAW que o CHECKOUT
+        # traz de corridas antigas. Uma corrida que nem chamou a API aparecia
+        # com RAW, e o artefato teria subido bytes de outra pessoa como prova
+        # desta.
+        #
+        #     CHECKOUT NAO E COLETA.
+        #
+        # A contagem agora vem do inventario que a fase escreveu (ja limitado ao
+        # que ESTE processo produziu), e os arquivos desta corrida sao copiados
+        # para uma area propria — o artefato leva exatamente eles.
         run: |
-          D=data/samples/SOCIAL-IT/raw-free
-          N=$(find "$D" -type f 2>/dev/null | wc -l)
-          B=$(find "$D" -type f -printf '%s\n' 2>/dev/null | awk '{t+=$1} END {print t+0}')
-          echo "count=$N" >> "$GITHUB_OUTPUT"
-          echo "bytes=$B" >> "$GITHUB_OUTPUT"
-          echo "RAW_FILE_COUNT=$N · RAW_TOTAL_BYTES=$B"
+          rm -rf .tmp/pilot-proof && mkdir -p .tmp/pilot-proof
+          PYTHONIOENCODING=utf-8 python3 - <<'PYEOF'
+          import json, os, shutil, sys
+          sys.path.insert(0, '.')
+          import _gavetas  # noqa: F401
+          import social_envelope as env
+          rel = env.ler('YOUTUBE-PILOTO-IT.json') or {}
+          desta = str(rel.get('ACTIONS_RUN_ID') or '') == str(os.environ.get('GITHUB_RUN_ID'))
+          arquivos = rel.get('RAW_FILES') or [] if desta else []
+          n = b = 0
+          for a in arquivos:
+              o = os.path.join('.', a['FILE'])
+              if not os.path.isfile(o):
+                  continue
+              d = os.path.join('.tmp', 'pilot-proof', os.path.basename(a['FILE']))
+              shutil.copy2(o, d)
+              n += 1
+              b += a.get('BYTES') or 0
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as f:
+              f.write('count=%d\n' % n)
+              f.write('bytes=%d\n' % b)
+          print('REPORT_IS_FROM_THIS_RUN=%s' % ('YES' if desta else 'NO'))
+          print('RAW_FILE_COUNT=%d · RAW_TOTAL_BYTES=%d' % (n, b))
+          PYEOF
 
       # `if-no-files-found: error` porque, quando houve RAW, um upload que não
       # sobe nada é FALHA — não aviso. E `continue-on-error` para que perder o
@@ -182,7 +216,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: youtube-piloto-raw-${{ github.run_id }}
-          path: data/samples/SOCIAL-IT/raw-free/
+          path: .tmp/pilot-proof/
           if-no-files-found: error
           retention-days: 30
 
@@ -199,29 +233,40 @@ jobs:
           SCRAP_ARTIFACT_OUTCOME: ${{ steps.raw.outcome }}
           SCRAP_ARTIFACT_ID: ${{ steps.raw.outputs.artifact-id }}
           SCRAP_ARTIFACT_NAME: youtube-piloto-raw-${{ github.run_id }}
+          SCRAP_FASE_RODOU: ${{ steps.fase.outcome }}
+        # Este passo roda com `always()`, ou seja TAMBEM quando a fase foi
+        # skipped ou falhou. Antes ele chamava `_raw_do_piloto`, que varria o
+        # disco — e o disco tinha o relatorio e o RAW que o CHECKOUT trouxe. Na
+        # corrida 34257202987 a fase nem rodou e mesmo assim saiu
+        # "PARTIAL_PROOF — houve RAW".
+        #
+        #     NOT_EXECUTED NAO E EXECUTED_ZERO_RESULTS.
+        #
+        # `_selar_prova` so carimba o destino do artefato sobre o inventario que
+        # a FASE escreveu, e recusa quando a fase nao rodou ou quando o
+        # relatorio no disco e de outra corrida.
         run: |
-          N='${{ steps.rawcount.outputs.count }}'
-          if [ "${N:-0}" = "0" ]; then
-            echo "RAW_PROOF_STATE=NO_RAW_PRODUCED"
-          elif [ "$SCRAP_ARTIFACT_OUTCOME" = "success" ] && [ -n "$SCRAP_ARTIFACT_ID" ]; then
-            echo "RAW_PROOF_STATE=PILOT_PROOF_ACTIONS_ARTIFACT"
-            echo "ARTIFACT_ID=$SCRAP_ARTIFACT_ID"
-          else
-            echo "RAW_PROOF_STATE=PARTIAL_PROOF (outcome=$SCRAP_ARTIFACT_OUTCOME, id=${SCRAP_ARTIFACT_ID:-VAZIO})"
-          fi
-          # O relatório é reescrito com o estado REAL da prova — o script sozinho
-          # não podia saber se o artefato subiu.
           PYTHONIOENCODING=utf-8 python3 - <<'PYEOF'
-          import json, os, sys
+          import os, sys
           sys.path.insert(0, '.')
           import _gavetas  # noqa: F401
           import social_envelope as env
           import social_scrap as sc
+          rodou = os.environ.get('SCRAP_FASE_RODOU') == 'success'
           rel = env.ler('YOUTUBE-PILOTO-IT.json')
-          if rel:
-              rel.update(sc._raw_do_piloto(rel.get('RUN_ID') or 'DESCONHECIDO'))
-              env.gravar('YOUTUBE-PILOTO-IT.json', rel)
-              print('RAW_PROOF_STATE gravado:', rel['RAW_PROOF_STATE'])
+          if not rel:
+              print('RAW_PROOF_STATE=NOT_EXECUTED (nenhum relatorio)')
+              raise SystemExit(0)
+          selo = sc._selar_prova(rel, rodou)
+          if not selo['REPORT_IS_FROM_THIS_RUN']:
+              # O relatorio nao e desta corrida: NAO se escreve nele. Reescrever
+              # carimbaria esta corrida por cima da coleta de outra.
+              print('RAW_PROOF_STATE=NOT_EXECUTED · %s' % selo['NOT_EXECUTED_REASON'])
+              raise SystemExit(0)
+          rel.update(selo)
+          env.gravar('YOUTUBE-PILOTO-IT.json', rel)
+          print('RAW_PROOF_STATE=%s' % rel['RAW_PROOF_STATE'])
+          print('ARTIFACT_ID=%s' % (rel['ARTIFACT_ID'] or 'NENHUM'))
           PYEOF
 
       # ARTEFATO DE PROVA, NUNCA MEMÓRIA OPERACIONAL

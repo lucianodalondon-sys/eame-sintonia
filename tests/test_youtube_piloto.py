@@ -292,11 +292,13 @@ class TestAProvaNaoPodeMentir(unittest.TestCase):
     def setUp(self):
         self._raw = env.RAW_DIR
         env.RAW_DIR = os.path.join('/tmp', 'raw-prova-teste')
+        env.esquecer_produzidos()
         for v in ('GITHUB_RUN_ID', 'SCRAP_ARTIFACT_OUTCOME', 'SCRAP_ARTIFACT_ID',
                   'SCRAP_ARTIFACT_NAME'):
             os.environ.pop(v, None)
 
     def tearDown(self):
+        env.esquecer_produzidos()
         env.RAW_DIR = self._raw
         import shutil
         shutil.rmtree('/tmp/raw-prova-teste', ignore_errors=True)
@@ -305,11 +307,11 @@ class TestAProvaNaoPodeMentir(unittest.TestCase):
             os.environ.pop(v, None)
 
     def _com_raw(self, n=2):
-        d = os.path.join(env.RAW_DIR, 'YOUTUBE')
-        os.makedirs(d, exist_ok=True)
+        # Pelo MESMO caminho da corrida real (`guardar_raw`), nunca escrevendo
+        # no diretorio por fora: arquivo que aparece no disco sem a corrida ter
+        # colhido e exatamente o caso que estes testes proibem.
         for i in range(n):
-            with io.open(os.path.join(d, 'f%d.txt' % i), 'w', encoding='utf-8') as f:
-                f.write('prova %d' % i)
+            env.guardar_raw('YOUTUBE', 'prova-%d' % i, {'i': i})
 
     # ── A ─────────────────────────────────────────────────────────────────
     def test_A_zero_arquivos_nunca_e_prova_completa(self):
@@ -387,6 +389,114 @@ class TestGuardaDeRef(unittest.TestCase):
         for f in ('coleta/social_scrap.py', 'guarda/social_guarda.py',
                   'coleta/youtube_oficial.py'):
             self.assertTrue(os.path.exists(os.path.join(ROOT, f)), f)
+
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CHECKOUT NÃO É COLETA  ·  NOT_EXECUTED NÃO É EXECUTED_ZERO_RESULTS
+# ═══════════════════════════════════════════════════════════════════════════
+# A corrida 34257202987 falhou no guarda, a fase ficou SKIPPED — e mesmo assim
+# o relatório saiu com "PARTIAL_PROOF — houve RAW". O RAW era o do checkout: 23
+# arquivos versionados de corridas antigas. Estes testes travam as duas metades
+# do defeito: o inventário e o selo.
+class ChecarQueCheckoutNaoEColeta(unittest.TestCase):
+
+    def setUp(self):
+        env.esquecer_produzidos()
+        self.ambiente = dict(os.environ)
+
+    def tearDown(self):
+        env.esquecer_produzidos()
+        os.environ.clear()
+        os.environ.update(self.ambiente)
+
+    def test_raw_do_repo_nao_conta_como_coleta_desta_corrida(self):
+        """O disco TEM RAW versionado. Quem não colheu inventaria zero."""
+        base = os.path.join(env.RAW_DIR, 'YOUTUBE')
+        self.assertTrue(os.path.isdir(base), 'a fixture precisa existir')
+        no_disco = sum(len(n) for _r, _s, n in os.walk(base))
+        self.assertGreater(no_disco, 0, 'sem RAW no disco o teste não prova nada')
+
+        r = sc._raw_do_piloto('corrida-que-nao-colheu')
+        self.assertEqual(r['RAW_FILE_COUNT'], 0)
+        self.assertEqual(r['RAW_TOTAL_BYTES'], 0)
+        self.assertEqual(r['RAW_PROOF_STATE'], 'NO_RAW_PRODUCED')
+        self.assertFalse(r['RAW_PROOF_COMPLETE'])
+
+    def test_o_que_esta_corrida_escreveu_entra_no_inventario(self):
+        """E o inventário também não pode ficar cego: o que ela escreve, conta."""
+        ref = env.guardar_raw('YOUTUBE', 'teste-inventario-desta-corrida',
+                              {'ok': True, 'n': 1})
+        r = sc._raw_do_piloto('corrida-que-colheu')
+        self.assertEqual(r['RAW_FILE_COUNT'], 1)
+        self.assertEqual([a['FILE'] for a in r['RAW_FILES']], [ref['PATH']])
+        os.remove(os.path.join(env.ROOT, ref['PATH']))
+
+    def test_fase_que_nao_rodou_nunca_vira_prova(self):
+        os.environ['GITHUB_RUN_ID'] = '999'
+        os.environ['SCRAP_ARTIFACT_OUTCOME'] = 'success'
+        os.environ['SCRAP_ARTIFACT_ID'] = '12345'
+        rel = {'ACTIONS_RUN_ID': '999', 'RAW_FILE_COUNT': 23}
+        selo = sc._selar_prova(rel, fase_rodou=False)
+        self.assertEqual(selo['RAW_PROOF_STATE'], 'NOT_EXECUTED')
+        self.assertFalse(selo['RAW_PROOF_COMPLETE'])
+        self.assertIsNone(selo['ARTIFACT_ID'])
+        self.assertFalse(selo['REPORT_IS_FROM_THIS_RUN'])
+
+    def test_relatorio_de_outra_corrida_nao_e_carimbado(self):
+        os.environ['GITHUB_RUN_ID'] = '999'
+        os.environ['SCRAP_ARTIFACT_OUTCOME'] = 'success'
+        os.environ['SCRAP_ARTIFACT_ID'] = '12345'
+        rel = {'ACTIONS_RUN_ID': '111', 'RAW_FILE_COUNT': 23}
+        selo = sc._selar_prova(rel, fase_rodou=True)
+        self.assertEqual(selo['RAW_PROOF_STATE'], 'NOT_EXECUTED')
+        self.assertFalse(selo['REPORT_IS_FROM_THIS_RUN'])
+        self.assertIn('outra corrida', selo['NOT_EXECUTED_REASON'])
+
+    def test_corrida_propria_com_artefato_confirmado_e_prova(self):
+        """A recusa não pode ter comido o caminho legítimo."""
+        os.environ['GITHUB_RUN_ID'] = '999'
+        os.environ['SCRAP_ARTIFACT_OUTCOME'] = 'success'
+        os.environ['SCRAP_ARTIFACT_ID'] = '12345'
+        selo = sc._selar_prova({'ACTIONS_RUN_ID': '999', 'RAW_FILE_COUNT': 4}, True)
+        self.assertEqual(selo['RAW_PROOF_STATE'], 'PILOT_PROOF_ACTIONS_ARTIFACT')
+        self.assertTrue(selo['RAW_PROOF_COMPLETE'])
+        self.assertEqual(selo['ARTIFACT_ID'], '12345')
+
+    def test_corrida_propria_sem_artefato_e_parcial_nunca_completa(self):
+        os.environ['GITHUB_RUN_ID'] = '999'
+        os.environ['SCRAP_ARTIFACT_OUTCOME'] = 'failure'
+        os.environ['SCRAP_ARTIFACT_ID'] = ''
+        selo = sc._selar_prova({'ACTIONS_RUN_ID': '999', 'RAW_FILE_COUNT': 4}, True)
+        self.assertTrue(selo['RAW_PROOF_STATE'].startswith('PARTIAL_PROOF'))
+        self.assertFalse(selo['RAW_PROOF_COMPLETE'])
+        self.assertIsNone(selo['ARTIFACT_ID'])
+
+
+class ChecarOWorkflowNaoRecontaNemMascara(unittest.TestCase):
+    """Contra a linha EXECUTÁVEL do YAML, nunca contra o comentário."""
+
+    def setUp(self):
+        caminho = os.path.join(sc.env.ROOT, '.github', 'workflows', 'scrap-social.yml')
+        with open(caminho, encoding='utf-8') as f:
+            bruto = f.read()
+        self.executavel = '\n'.join(
+            l for l in bruto.split('\n') if not l.lstrip().startswith('#'))
+
+    def test_o_guarda_nao_tem_fallback_que_mascara_o_codigo_de_saida(self):
+        self.assertNotIn('|| PYTHONIOENCODING=utf-8 py guarda', self.executavel)
+
+    def test_o_artefato_nao_sobe_o_diretorio_do_checkout(self):
+        self.assertNotIn('path: data/samples/SOCIAL-IT/raw-free/', self.executavel)
+        self.assertIn('path: .tmp/pilot-proof/', self.executavel)
+
+    def test_o_passo_do_selo_sabe_se_a_fase_rodou(self):
+        self.assertIn('SCRAP_FASE_RODOU', self.executavel)
+        self.assertIn('_selar_prova', self.executavel)
+
+    def test_o_passo_do_selo_nao_reinventaria_o_raw(self):
+        self.assertNotIn('_raw_do_piloto', self.executavel)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=1)
