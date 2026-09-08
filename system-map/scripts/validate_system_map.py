@@ -29,6 +29,7 @@ P1 e P9 sao os dois que impedem "depois alguem atualiza o mapa": criar um script
 novo em `scripts/` sem o declarar reprova; mudar codigo sem regerar reprova.
 """
 
+import glob
 import json
 import subprocess
 import sys
@@ -49,6 +50,37 @@ def prova(id_: str, o_que: str, ok: bool, detalhe: str = ""):
         falhas.append(f"{id_}: {o_que}" + (f"\n        {detalhe}" if detalhe else ""))
         if detalhe:
             provas.append(f"        {detalhe}")
+
+
+def mentiras_sobre_existencia(declarado, nos, raiz):
+    """As pecas dadas por INEXISTENTES com o ficheiro no DISCO.
+
+    ⚠️ ESTA FUNCAO ESTA SEPARADA DA `main()` DE PROPOSITO.
+
+    O validador REGENERA o estado antes de o validar (e a P1, anti-drift). Isso
+    e certo — e torna impossivel testar esta guarda injectando uma mentira no
+    ficheiro `state.generated.json`: a regeneracao apaga a injecção antes de a
+    guarda a ver.
+
+    Uma guarda que so pode ser exercitada pelo caminho que a apaga e uma guarda
+    que ninguem consegue provar que morde. Por isso ela e uma funcao pura de
+    (declarado, nos, disco), e o teste chama-a com um estado sintetico.
+
+    Pergunta ao DISCO, e parte dos caminhos DECLARADOS — nao da lista resolvida,
+    que numa peca acusada de inexistente esta vazia.
+    """
+    fora = []
+    for c in declarado.get("COMPONENTS", []):
+        n = nos.get(c["id"])
+        if n is None or n.get("status") != "BROKEN":
+            continue
+        no_disco = [p for p in c.get("files", [])
+                    if (Path(raiz) / p).exists()
+                    or glob.glob(str(Path(raiz) / p), recursive=True)]
+        if no_disco:
+            fora.append("%s diz BROKEN e %s esta no disco"
+                        % (c["id"], no_disco[0]))
+    return fora
 
 
 def main() -> int:
@@ -251,6 +283,42 @@ def main() -> int:
     fantasmas = sorted({f for n in S["NODES"] for f in n["files"] if f not in existentes})
     prova("P4_FICHEIROS_REAIS", "todo ficheiro citado pelo mapa existe no repositorio",
           not fantasmas, ", ".join(fantasmas[:6]))
+
+    # ── P4b · o mapa nao pode MENTIR sobre inexistencia ──────────────────────
+    # ⚠️ POR QUE A P4 SOZINHA NAO CHEGAVA, E DEIXOU PASSAR UMA MENTIRA.
+    #
+    # A P4 percorre `n["files"]` — a lista RESOLVIDA — e compara-a com
+    # `existentes`, que sai de `architecture.generated.json`. Duas cegueiras
+    # empilhadas:
+    #
+    #   1. `existentes` vem de `scan_repo.py`, que lista com `git ls-files`.
+    #      E o inventario do GIT, nao do DISCO. Comparar o gerado com o gerado
+    #      prova que o gerador e coerente consigo proprio — nao que ele diz a
+    #      verdade sobre o repositorio.
+    #
+    #   2. quando uma peca e acusada de nao existir, `files` fica VAZIA. A P4
+    #      itera zero ficheiros e PASSA. A peca falsamente partida e invisivel
+    #      justamente para a prova que existia para a apanhar.
+    #
+    # Em 08/09/2026 isso publicou C-CENSO-OBSERVABILIDADE como BROKEN com
+    # «nao existe no repositorio», com o ficheiro no disco — e o
+    # SYSTEM_MAP_CHECK deu PASS na mesma.
+    #
+    #     GENERATED == EXPECTED GENERATOR OUTPUT
+    #     NAO E
+    #     GENERATED == REAL FILE EXISTENCE.
+    #
+    # Esta prova pergunta ao DISCO, e parte dos caminhos DECLARADOS.
+    declarado = json.loads(
+        (DADOS / "architecture.declared.json").read_text(encoding="utf-8"))
+    mentiras = mentiras_sobre_existencia(declarado, nos, RAIZ)
+    prova("P4_NAO_MENTIR_SOBRE_EXISTENCIA",
+          "nenhuma peca e dada por inexistente com o ficheiro no disco",
+          not mentiras,
+          ("\n        ".join(mentiras[:6]) +
+           "\n        EXISTE NO DISCO != RASTREADO PELO GIT != NAO EXISTE."
+           "\n        Conserto: `git add` o ficheiro e regerar — ou corrigir o"
+           " caminho declarado.") if mentiras else "")
 
     # ── P5 · aresta tecnica sem prova nao existe ─────────────────────────────
     sem_prova = [f"{e['from']}->{e['to']} ({e['type']})" for e in S["EDGES"]

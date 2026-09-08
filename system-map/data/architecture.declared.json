@@ -2365,6 +2365,24 @@
     "leis/politica_da_coleta.py",
     "leis/diagnostico.py"
    ]
+  },
+  {
+   "id": "C-PROVA-MAPA-NAO-MENTE",
+   "name": "A prova de que o mapa não mente sobre existência",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⌕",
+   "what": "Injecta de propósito três situações — ficheiro real ainda não rastreado, ficheiro que nunca existiu, e uma mentira sintética — e exige a resposta certa em cada uma. Depois desfaz e confere.",
+   "why_here": "O mapa publicou e commitou que um ficheiro não existia, com ele no disco, e o SYSTEM_MAP_CHECK deu PASS. EXISTE NO DISCO ≠ RASTREADO PELO GIT ≠ NÃO EXISTE. Medido: toda peça nova nascia falsamente partida e curava-se sozinha no commit seguinte — uma mentira que desaparece antes de alguém a investigar, e por isso a mais difícil de apanhar.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/o_mapa_nao_mente.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

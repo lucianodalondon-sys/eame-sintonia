@@ -1117,6 +1117,7 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/o_mapa_nao_mente.py",
       "provas/paridade_da_lingua.py",
       "provas/preflight_022_live.sh",
       "provas/preservar_coleta_no_postgres.py",
@@ -1348,6 +1349,7 @@
       "tests/test_integracao_biblia.py",
       "tests/test_lingua_unica.py",
       "tests/test_lugar_do_fato.py",
+      "tests/test_mapa_nao_mente.py",
       "tests/test_metricas.py",
       "tests/test_migrations.py",
       "tests/test_navegador.py",
@@ -1765,8 +1767,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "3cbeb8d670459a3fd6442bdae91824fb7423813c",
-    "GENERATED_AT": "2026-09-08T21:03:48+00:00"
+    "HEAD": "90062571065160ebf05e16b5fd514701e6ea611a",
+    "GENERATED_AT": "2026-09-08T18:39:48-03:00"
   },
   "FAMILIES": [
     {
@@ -1821,7 +1823,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 49
+      "count": 50
     },
     {
       "id": "F-ENTREGA",
@@ -2111,7 +2113,7 @@
       "y": 190,
       "w": 1235,
       "h": 2938,
-      "count": 26
+      "count": 27
     },
     {
       "id": "Z-PACOTE",
@@ -7814,7 +7816,9 @@
       "inbound": [
         "C-CONTRATO-TELEMETRIA"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -9215,7 +9219,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "audit",
@@ -9228,9 +9232,11 @@
         "system-map/scripts/mudar_gaveta.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/generate_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -9240,12 +9246,14 @@
         "C-IT-CATALOGO",
         "C-MAPA-APP",
         "C-MAPA-SCAN",
+        "C-PROVA-MAPA-NAO-MENTE",
         "C-SUPABASE",
         "lineage_stale"
       ],
       "outbound": [
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
+        "C-PROVA-MAPA-NAO-MENTE",
         "C-TESTES"
       ],
       "paises": {},
@@ -9322,6 +9330,7 @@
         "C-PORTAL-DADOS",
         "C-PORTAL-MODELO",
         "C-PROCEDENCIA",
+        "C-PROVA-MAPA-NAO-MENTE",
         "C-TELA-FIELD"
       ],
       "outbound": [
@@ -9405,7 +9414,8 @@
         "C-MAPA-APP",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
-        "C-MAPA-VALIDADOR"
+        "C-MAPA-VALIDADOR",
+        "C-PROVA-MAPA-NAO-MENTE"
       ],
       "outbound": [],
       "paises": {},
@@ -9441,7 +9451,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⛨",
       "views": [
         "audit",
@@ -9453,18 +9463,23 @@
         "system-map/scripts/validate_system_map.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/validate_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-CI-MAPA",
         "C-MAPA-APP",
         "C-MAPA-GERADOR",
-        "C-MAPA-SCAN"
+        "C-MAPA-SCAN",
+        "C-PROVA-MAPA-NAO-MENTE"
       ],
       "outbound": [
-        "C-MAPA-TESTES"
+        "C-MAPA-TESTES",
+        "C-PROVA-MAPA-NAO-MENTE",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -10727,6 +10742,95 @@
       "y": 2614
     },
     {
+      "id": "C-PROVA-MAPA-NAO-MENTE",
+      "name": "A prova de que o mapa não mente sobre existência",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Injecta de propósito três situações — ficheiro real ainda não rastreado, ficheiro que nunca existiu, e uma mentira sintética — e exige a resposta certa em cada uma. Depois desfaz e confere.",
+      "why_here": "O mapa publicou e commitou que um ficheiro não existia, com ele no disco, e o SYSTEM_MAP_CHECK deu PASS. EXISTE NO DISCO ≠ RASTREADO PELO GIT ≠ NÃO EXISTE. Medido: toda peça nova nascia falsamente partida e curava-se sozinha no commit seguinte — uma mentira que desaparece antes de alguém a investigar, e por isso a mais difícil de apanhar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⌕",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "provas/o_mapa_nao_mente.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [
+        "system-map/data/architecture.declared.json"
+      ],
+      "inbound": [
+        "C-MAPA-GERADOR",
+        "C-MAPA-VALIDADOR"
+      ],
+      "outbound": [
+        "C-MAPA-GERADOR",
+        "C-MAPA-SCAN",
+        "C-MAPA-TESTES",
+        "C-MAPA-VALIDADOR",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "PECA_FANTASMA",
+          "PECA_REAL"
+        ],
+        "palavras": 33,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 33,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "system-map",
+          "prova": {
+            "file": "provas/o_mapa_nao_mente.py",
+            "line": 115,
+            "snippet": "escreve em DECLARADO"
+          }
+        },
+        {
+          "pasta": "provas",
+          "prova": {
+            "file": "provas/o_mapa_nao_mente.py",
+            "line": 122,
+            "snippet": "escreve em REAL_MAS_NAO_RASTREADO"
+          }
+        }
+      ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "system-map/data/architecture.declared.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "x": 15250,
+      "y": 2614
+    },
+    {
       "id": "C-PROVA-TRAVA-MORDE",
       "name": "A prova de que a trava morde",
       "territory": "Z-PROVA",
@@ -10776,7 +10880,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 2614
     },
     {
@@ -10978,8 +11082,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 2614
+      "x": 14835,
+      "y": 2936
     },
     {
       "id": "C-RECEITAS",
@@ -11118,7 +11222,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 2936
     },
     {
@@ -13140,6 +13244,7 @@
         "tests/test_integracao_biblia.py",
         "tests/test_lingua_unica.py",
         "tests/test_lugar_do_fato.py",
+        "tests/test_mapa_nao_mente.py",
         "tests/test_metricas.py",
         "tests/test_migrations.py",
         "tests/test_navegador.py",
@@ -13176,9 +13281,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 63,
+      "file_count": 64,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 23 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 24 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -13215,6 +13320,7 @@
         "C-ESTRADAS-IT",
         "C-EVOLUCAO",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-FLUXO-NO-SECO",
         "C-FONTES-EU",
         "C-GESTAO-COLETA",
         "C-GESTAO-DA-COLETA",
@@ -13225,11 +13331,13 @@
         "C-LUGAR-COLETA",
         "C-MAPA-APP",
         "C-MAPA-GERADOR",
+        "C-MAPA-VALIDADOR",
         "C-MEDICAO",
         "C-NAVEGADOR",
         "C-PACOTE-CAMADAS",
         "C-PROCEDENCIA",
         "C-PROVA-COLETA",
+        "C-PROVA-MAPA-NAO-MENTE",
         "C-RASTRO",
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
@@ -13350,7 +13458,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 15250,
+      "x": 15665,
       "y": 2936
     },
     {
@@ -14893,7 +15001,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 3cbeb8d670459a3fd6442bdae91824fb7423813c"
+        "HEAD 90062571065160ebf05e16b5fd514701e6ea611a"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -15798,12 +15906,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 408,
+          "line": 409,
           "snippet": "CONTRATOS_REL = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\""
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2467,
+          "line": 2468,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -17095,12 +17203,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo da observabilidade alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Censo da observabilidade alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_lingua_unica.py",
           "line": 85,
           "snippet": "open(caminho, 'leitura')  # caminho = system-map/scripts/censo_da_observabilidade.py"
+        },
+        {
+          "file": "tests/test_mapa_nao_mente.py",
+          "line": 88,
+          "snippet": "RAIZ, \"system-map\", \"scripts\", \"censo_da_observabilidade.py\")))"
         }
       ],
       "categoria": "PROOF"
@@ -18783,7 +18896,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1237,
+          "line": 1238,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -19015,7 +19128,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1219,
+          "line": 1220,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         }
       ],
@@ -19089,6 +19202,24 @@
           "file": "tests/test_preservar_derivado.py",
           "line": 514,
           "snippet": "with open(os.path.join(RAIZ, \"coleta\", \"executor_texto_de_pdf.py\"),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-FLUXO-NO-SECO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O fluxo no seco alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_mapa_nao_mente.py",
+          "line": 92,
+          "snippet": "RAIZ, \"provas\", \"fluxo_no_seco.py\")))"
         }
       ],
       "categoria": "PROOF"
@@ -19667,7 +19798,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2489,
+          "line": 2490,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -20346,17 +20477,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2690,
-          "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
-        },
-        {
-          "file": "system-map/scripts/generate_system_map.py",
-          "line": 2690,
+          "line": 2691,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
           "line": 2691,
+          "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
+        },
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 2692,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -20397,12 +20528,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 93,
+          "line": 125,
           "snippet": "for n in (\"state.generated.json\", \"index.html\", \"map.js\", \"map.css\")}"
         },
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 93,
+          "line": 125,
           "snippet": "for n in (\"state.generated.json\", \"index.html\", \"map.js\", \"map.css\")}"
         }
       ],
@@ -20456,8 +20587,26 @@
       "evidence": [
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 108,
+          "line": 140,
           "snippet": "\"generate_system_map.py\"):"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-MAPA-GERADOR",
+      "to": "C-PROVA-MAPA-NAO-MENTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do System Map alimenta A prova de que o mapa não mente sobre existência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_mapa_nao_mente.py",
+          "line": 50,
+          "snippet": "GERADOR = os.path.join(RAIZ, \"system-map\", \"scripts\", \"generate_system_map.py\")"
         }
       ],
       "categoria": "READ"
@@ -20520,12 +20669,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3180,
+          "line": 3211,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3180,
+          "line": 3211,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -20561,17 +20710,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 107,
+          "line": 139,
           "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
         },
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 107,
+          "line": 139,
           "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
         },
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 107,
+          "line": 139,
           "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
         }
       ],
@@ -20591,6 +20740,42 @@
           "file": "system-map/tests/test_system_map.py",
           "line": 395,
           "snippet": "\"validate_system_map.py\" in lei,"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-MAPA-VALIDADOR",
+      "to": "C-PROVA-MAPA-NAO-MENTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Validador do System Map alimenta A prova de que o mapa não mente sobre existência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_mapa_nao_mente.py",
+          "line": 52,
+          "snippet": "\"validate_system_map.py\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-MAPA-VALIDADOR",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Validador do System Map alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_mapa_nao_mente.py",
+          "line": 129,
+          "snippet": "\"validate_system_map.py\"), encoding=\"utf-8\") as f:"
         }
       ],
       "categoria": "PROOF"
@@ -22234,6 +22419,106 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-PROVA-MAPA-NAO-MENTE",
+      "to": "C-MAPA-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o mapa não mente sobre existência alimenta Gerador do System Map. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 55,
+          "snippet": "DECLARADO = DADOS / \"architecture.declared.json\""
+        },
+        {
+          "file": "system-map/scripts/mudar_gaveta.py",
+          "line": 31,
+          "snippet": "DECL = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-MAPA-NAO-MENTE",
+      "to": "C-MAPA-SCAN",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o mapa não mente sobre existência alimenta Scanner do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/scan_repo.py",
+          "line": 562,
+          "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-MAPA-NAO-MENTE",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o mapa não mente sobre existência alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_system_map.py",
+          "line": 33,
+          "snippet": "D = json.loads((DADOS / \"architecture.declared.json\").read_text(encoding=\"utf-8\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-MAPA-NAO-MENTE",
+      "to": "C-MAPA-VALIDADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o mapa não mente sobre existência alimenta Validador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/validate_system_map.py",
+          "line": 313,
+          "snippet": "(DADOS / \"architecture.declared.json\").read_text(encoding=\"utf-8\"))"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-MAPA-NAO-MENTE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o mapa não mente sobre existência alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_mapa_nao_mente.py",
+          "line": 37,
+          "snippet": "\"architecture.declared.json\")"
+        },
+        {
+          "file": "tests/test_mapa_nao_mente.py",
+          "line": 52,
+          "snippet": "{\"COMPONENTS\": [{\"id\": \"X\", \"files\": [\"provas/o_mapa_nao_mente.py\"]}]},"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-PROVA-TRAVA-MORDE",
       "to": "C-CENSO-CONGELAMENTO",
       "type": "READS",
@@ -23796,7 +24081,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 902,
+          "line": 903,
           "snippet": "migracao = \"supabase/migrations/022_o_derivado_ganha_casa.sql\""
         }
       ],
@@ -25330,7 +25615,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 191,
+          "line": 192,
           "snippet": "contrato = RAIZ / \"italia-portale\" / \"audit\" / \"CANONICAL-PACKAGE-CONTRACT.json\""
         }
       ],
@@ -25412,20 +25697,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 698,
+  "UNCLAIMED_FILES_COUNT": 697,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 132,
-    "components_proven": 73,
-    "components_pending": 52,
+    "components": 133,
+    "components_proven": 71,
+    "components_pending": 55,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 470,
-    "edges_proven": 468,
+    "edges": 479,
+    "edges_proven": 477,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1319,
-    "files_covered": 621,
+    "files_tracked": 1321,
+    "files_covered": 624,
     "files_code_unclaimed": 0
   }
 }

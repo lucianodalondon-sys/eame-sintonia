@@ -40,6 +40,7 @@ E o unico mecanismo que impede verde velho de sobreviver a mudanca.
 """
 
 import fnmatch
+import glob
 import ast
 import json
 import re
@@ -2864,8 +2865,38 @@ def main_uma_vez(stamp: bool) -> int:
             novos_blobs[f] = arquivos[f]["sha"]
 
         if not fs:
-            status, motivo = VERMELHO, ("declarado no mapa e nao existe no repositorio: "
-                                        f"nenhum ficheiro casa com {', '.join(c['files'])}.")
+            # ⚠️ TRES COISAS QUE ESTA LINHA JA CONFUNDIU, E QUE NAO SAO A MESMA:
+            #
+            #     EXISTE NO DISCO  !=  RASTREADO PELO GIT  !=  NAO EXISTE
+            #
+            # O inventario `arquivos` vem de `scan_repo.py`, que lista com
+            # `git ls-files` — so o que ja foi `git add`ado. Um ficheiro acabado
+            # de escrever existe no disco e nao esta la.
+            #
+            # Em 08/09/2026 isto publicou, e commitou, uma frase FALSA:
+            # C-CENSO-OBSERVABILIDADE saiu BROKEN com «declarado no mapa e nao
+            # existe no repositorio», e o ficheiro estava no disco, a um
+            # `git add` de distancia. Curou-se sozinho no commit seguinte — e e
+            # por isso que era perigoso: uma mentira que desaparece antes de
+            # alguem a investigar.
+            #
+            # Perguntar ao DISCO antes de acusar de inexistencia.
+            no_disco = sorted(
+                p for p in c["files"]
+                if (RAIZ / p).exists()
+                or glob.glob(str(RAIZ / p), recursive=True))
+            if no_disco:
+                status, motivo = CINZA, (
+                    "⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta "
+                    "rastreado pelo Git; o scanner le `git ls-files`, por isso "
+                    "ele nao entra no inventario e nada se prova sobre esta "
+                    "peca ainda. Conserto: `git add " + " ".join(no_disco) +
+                    "` e regerar. ISTO NAO E «nao existe».")
+            else:
+                status, motivo = VERMELHO, (
+                    "declarado no mapa e nao existe no repositorio: "
+                    f"nenhum ficheiro casa com {', '.join(c['files'])}. "
+                    "Conferido tambem no disco: nao esta la.")
         elif not ent and not sai:
             status, motivo = CINZA, ("⚪ NAO SEI. Os ficheiros existem, mas nada no "
                                      "repositorio aponta para eles e eles nao apontam para "
