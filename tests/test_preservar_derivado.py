@@ -34,8 +34,9 @@ from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402
 from guarda.preservar_coleta import ArmazemDeMentira, sha256  # noqa: E402
 from guarda.preservar_derivado import (  # noqa: E402
     DERIVATION_DRIFT, INSERTED, METADATA_NOT_RECONCILED, RAW_PARENT_NOT_FOUND,
-    REUSED, REUSED_AFTER_RACE, STORAGE_CONFLICT, caminho_do_derivado,
-    hash_dos_parametros, parametros_canonicos, preservar_derivado)
+    REUSED, REUSED_AFTER_RACE, STORAGE_CONFLICT, STORAGE_MISSING,
+    caminho_do_derivado, hash_dos_parametros, id_da_receita,
+    parametros_canonicos, preservar_derivado)
 
 TEXTO_A = b"o texto extraido A"
 TEXTO_B = b"o texto extraido B, diferente"
@@ -50,11 +51,12 @@ class Base(unittest.TestCase):
         self.addCleanup(self.banco.fechar)
         self.pai = self.criar_raw("IT-W-1", "IT/x/DOCUMENT/pai.pdf", "a" * 64)
 
-    def criar_raw(self, run_id, caminho, sha):
+    def criar_raw(self, run_id, caminho, sha, pais="IT"):
         self.banco.aplicar(
             "insert into public.collection_run (run_id, platform, started_at, "
-            "rule_version) values ('%s','t','%s','1') "
-            "on conflict (run_id) do nothing;" % (run_id, CAPTURED_AT))
+            "rule_version, source_country) values ('%s','t','%s','1','%s') "
+            "on conflict (run_id) do nothing;"
+            % (run_id, CAPTURED_AT, pais))
         self.banco.aplicar(
             "insert into public.raw_asset (run_id, storage_path, media_type, "
             "bytes, sha256, captured_at) values ('%s','%s','application/pdf',"
@@ -103,15 +105,34 @@ class OCaminhoNormal(Base):
 
     def test_11_primeiro_write_e_INSERTED_com_o_caminho_derivado_da_receita(self):
         r = self.escrever()
-        self.assertEqual(r["STORAGE_PATH"],
-                         "IT/derivados/TEXT_EXTRACTION/%s-texto-de-pdf-1.txt"
-                         % ("a" * 16))
+        self.assertTrue(r["STORAGE_PATH"].startswith(
+            "IT/derivados/TEXT_EXTRACTION/texto-de-pdf-1-"))
+        self.assertTrue(r["STORAGE_PATH"].endswith(".txt"))
         self.assertTrue(r["NOVO_UPLOAD"])
 
     def test_28_o_bruto_fica_imutavel(self):
         antes = dict(self.banco.raw_por_id(self.pai))
         self.escrever()
         self.assertEqual(antes, dict(self.banco.raw_por_id(self.pai)))
+
+
+class OPaisEDoPaiNaoDoChamador(Base):
+    """O chamador não decide onde o byte derivado vai morar."""
+
+    def test_o_chamador_nao_leva_um_bruto_italiano_para_ES(self):
+        """Um `country="ES"` no pedido de um bruto italiano poria o artefato a
+        morar no sítio errado, e ninguém reparava. O país vem do pai — do
+        `source_country` da corrida que o trouxe."""
+        r = self.escrever(country="ES")
+        self.assertTrue(r["STORAGE_PATH"].startswith("IT/"),
+                        "o caminho seguiu o chamador: %s" % r["STORAGE_PATH"])
+
+    def test_pai_sem_pais_provado_fica_NAO_SEI(self):
+        """Onde o pai não prova, não se infere."""
+        sem = self.criar_raw("IT-SEM-PAIS", "IT/z/DOCUMENT/sem.pdf", "b" * 64,
+                             pais="NAO_SEI")
+        r = self.escrever(raw_asset_id=sem)
+        self.assertTrue(r["STORAGE_PATH"].startswith("NAO_SEI/"))
 
 
 class OsParametrosTemUmDono(unittest.TestCase):
@@ -155,6 +176,68 @@ class OsParametrosTemUmDono(unittest.TestCase):
                     fonte = f.read()
                 self.assertNotIn("parameters_hash =", fonte,
                                  "%s/%s recalcula o hash dos parametros" % (pasta, nome))
+
+
+class OEnderecoCarregaAReceitaInteira(unittest.TestCase):
+    """Os oito casos do caminho — e o que o defeito antigo colapsava.
+
+    O caminho antigo era `PAIS/derivados/TIPO/<pai16>-<produtor>-<versao>` e
+    **não incluía o `parameters_hash`**. O mesmo PDF a 150 e a 300 dpi são duas
+    derivações que a `022` distingue — e disputavam o MESMO endereço.
+
+        SE A IDENTIDADE DO BANCO DIZ QUE SÃO DUAS DERIVAÇÕES,
+        O ENDEREÇO TEM DE PERMITIR QUE AS DUAS EXISTAM.
+    """
+
+    def ident(self, **extra):
+        d = {"parent_sha256": "a" * 64, "kind": "TEXT_EXTRACTION",
+             "producer": "texto-de-pdf", "producer_version": "1",
+             "parameters_hash": hash_dos_parametros(None),
+             "serie_posicao": None}
+        d.update(extra)
+        return d
+
+    def caminho(self, **extra):
+        return caminho_do_derivado(self.ident(**extra), "text/plain", "IT")
+
+    def test_p1_mesma_identidade_mesmo_caminho(self):
+        self.assertEqual(self.caminho(), self.caminho())
+
+    def test_p2_parameters_diferentes_dao_caminhos_diferentes(self):
+        """O CASO QUE ESTAVA QUEBRADO. 150 dpi e 300 dpi já não colidem."""
+        a = self.caminho(parameters_hash=hash_dos_parametros({"dpi": 150}))
+        b = self.caminho(parameters_hash=hash_dos_parametros({"dpi": 300}))
+        self.assertNotEqual(a, b)
+
+    def test_p3_producer_version_diferente_da_caminho_diferente(self):
+        self.assertNotEqual(self.caminho(), self.caminho(producer_version="2"))
+
+    def test_p4_kind_diferente_da_caminho_diferente(self):
+        self.assertNotEqual(self.caminho(), self.caminho(kind="OCR"))
+
+    def test_p5_serie_posicao_diferente_da_caminho_diferente(self):
+        self.assertNotEqual(self.caminho(serie_posicao=0),
+                            self.caminho(serie_posicao=1))
+
+    def test_p6_pai_diferente_da_caminho_diferente(self):
+        self.assertNotEqual(self.caminho(), self.caminho(parent_sha256="c" * 64))
+
+    def test_p7_o_discriminante_e_o_hash_INTEIRO_da_receita(self):
+        """Não um prefixo de 16 caracteres a fazer de identidade."""
+        caminho = self.caminho()
+        self.assertIn(id_da_receita(self.ident()), caminho)
+        self.assertEqual(len(id_da_receita(self.ident())), 64)
+        # e o pai NAO entra em prefixo curto solto
+        self.assertNotIn("a" * 16 + "-", caminho)
+
+    def test_p8_o_sha_do_FILHO_nao_entra_no_caminho(self):
+        """Se entrasse, o `DERIVATION_DRIFT` ganharia um endereço novo e
+        deixaria de ser drift — passaria a ser dois artefatos calados."""
+        import inspect
+        from guarda import preservar_derivado as pd
+        fonte = inspect.getsource(pd.caminho_do_derivado)
+        self.assertNotIn("sha_filho", fonte)
+        self.assertEqual(len(inspect.signature(pd.caminho_do_derivado).parameters), 3)
 
 
 class OTempoEOsBytesSaoMedidos(Base):
@@ -321,10 +404,16 @@ class ACorrida(Base):
 class OArmazemNaoSeSobrescreve(Base):
     """23, 24, 25, 26 — os bytes e a memória, e nenhum apaga o outro."""
 
+    def _caminho(self, **extra):
+        from guarda.preservar_derivado import hash_dos_parametros as _h
+        ident = {"parent_sha256": "a" * 64, "kind": "TEXT_EXTRACTION",
+                 "producer": "texto-de-pdf", "producer_version": "1",
+                 "parameters_hash": _h(None), "serie_posicao": None}
+        ident.update(extra)
+        return caminho_do_derivado(ident, "text/plain", "IT")
+
     def test_23_objeto_ja_existente_com_os_mesmos_bytes_e_reutilizado(self):
-        p = self.pedido()
-        p["_parent_sha256"] = "a" * 64
-        caminho = caminho_do_derivado(p, sha256(TEXTO_A))
+        caminho = self._caminho()
         self.armazem.enviar(caminho, TEXTO_A, "text/plain")
         envios = self.armazem.envios
         r = self.escrever()
@@ -333,9 +422,7 @@ class OArmazemNaoSeSobrescreve(Base):
 
     def test_24_objeto_ja_existente_com_bytes_diferentes_e_STORAGE_CONFLICT(self):
         """Não se apaga evidência para «tentar de novo»."""
-        p = self.pedido()
-        p["_parent_sha256"] = "a" * 64
-        caminho = caminho_do_derivado(p, sha256(TEXTO_A))
+        caminho = self._caminho()
         self.armazem.enviar(caminho, b"outra coisa qualquer", "text/plain")
         r = self.escrever()
         self.assertEqual(r["ESTADO"], STORAGE_CONFLICT)
@@ -358,21 +445,38 @@ class OArmazemNaoSeSobrescreve(Base):
         self.assertEqual(r["BYTE_APAGADO_COMO_COMPENSACAO"], "NAO")
         self.assertEqual(self.banco.contar("derived_artifact"), 0)
 
-    def test_26_linha_existe_mas_o_byte_sumiu_do_armazem(self):
-        """`REUSED` não pode significar «há uma linha». Se os bytes já não estão
-        lá, o reencontro é sobre um artefato que não existe.
+    def test_26_linha_existe_mas_o_byte_sumiu_NAO_e_REUSED(self):
+        """ASSERÇÃO ANTIGA: este teste exigia `REUSED`, e chamava a isso «limite
+        conhecido». Estava a **canonizar uma falha** — um teste que exige o
+        comportamento errado impede quem o vem consertar, e ainda dá ao defeito
+        um ar de decisão.
 
-        ⚠️ LIMITE MEDIDO E DECLARADO: hoje o `REUSED` sai da leitura da linha, e
-        o writer NÃO vai ao armazém confirmar que o objeto continua lá. Este
-        teste documenta o que acontece de facto — e é o próximo passo do dono,
-        não uma afirmação de que já está resolvido.
+            UMA LINHA NO BANCO NÃO É PROVA DE QUE O BYTE AINDA EXISTE.
+
+        Agora o `REUSED` só sai depois de o artefato ser encontrado no armazém e
+        o seu hash ser conferido. Sem byte, `STORAGE_MISSING`.
         """
         self.escrever()
         self.armazem.objetos.clear()
         r = self.escrever()
+        self.assertEqual(r["ESTADO"], STORAGE_MISSING)
+        self.assertFalse(r["BYTES_CONFERIDOS_NO_ARMAZEM"])
+        self.assertIn("NAO se reenvia", r["O_QUE_NAO_SE_FAZ"])
+
+    def test_26b_com_o_byte_la_o_REUSED_diz_que_o_conferiu(self):
+        self.escrever()
+        r = self.escrever()
         self.assertEqual(r["ESTADO"], REUSED)
-        self.assertFalse(r.get("BYTES_CONFERIDOS_NO_ARMAZEM", False),
-                         "se isto passar a existir, o teste tem de mudar")
+        self.assertTrue(r["BYTES_CONFERIDOS_NO_ARMAZEM"])
+
+    def test_26c_byte_trocado_debaixo_da_ficha_e_STORAGE_CONFLICT(self):
+        """O artefato continua lá, mas já não é o mesmo. Pior do que sumir:
+        parece saudável."""
+        r1 = self.escrever()
+        self.armazem.objetos[r1["STORAGE_PATH"]] = (b"outra coisa", "text/plain")
+        r = self.escrever()
+        self.assertEqual(r["ESTADO"], STORAGE_CONFLICT)
+        self.assertNotEqual(r["SHA_NO_ARMAZEM"], r["SHA_NA_LINHA"])
 
 
 class APosLeituraConfereCampos(Base):
@@ -440,47 +544,103 @@ class ONaoRegresso(unittest.TestCase):
         self.assertGreater(len([a for a in itens if a.get("PARENT_SHA256")]), 0)
 
 
-class APonteDoExecutor(unittest.TestCase):
-    """O executor consegue falar com o dono — e está DESLIGADO por omissão."""
+class OModoForwardDoExecutor(Base):
+    """A ponte antiga não tinha pai. Esta tem — e prova-o de ponta a ponta.
 
-    def test_a_ponte_e_desligada_por_omissao(self):
-        """Sem ninguém a ligar, nada muda: o caminho antigo continua, e não há
-        entrega nenhuma. É assim que ela fica desligada em produção sem
-        precisar de uma bandeira a mais."""
+    ⚠️ A PRIMEIRA VERSÃO DESTA PONTE PASSAVA A RECEITA E OS BYTES, E NÃO O
+    `raw_asset_id`. O dono ficava sem saber qual linha de `raw_asset` era o pai
+    daquele PDF, e o teste só verificava «o callback foi chamado» — o que não
+    prova nada. Foi removida, e no lugar entrou `derivar_um()`.
+
+    Aqui corre o dono REAL, contra um banco real e um armazém de teste.
+    """
+
+    def setUp(self):
+        super().setUp()
+
+    def _pdf_de_fixture(self, n=0):
+        """Um PDF DE VERDADE, dos que a casa já tem.
+
+        Construir um PDF mínimo à mão daria um teste que prova que eu sei
+        montar bytes de PDF — não que a cadeia funciona. Os documentos reais
+        estão aqui, o `pdftotext` abre-os, e é isso que interessa provar.
+        """
+        import glob
+        raiz = os.path.join(RAIZ, "data", "samples", "IT-SOURCE-SAMPLES")
+        achados = sorted(glob.glob(os.path.join(raiz, "*", "*.pdf")))
+        if len(achados) <= n:
+            self.skipTest("nao ha PDF de amostra suficiente")
+        return achados[n]
+
+    def test_ponta_a_ponta_o_filho_aponta_o_pai_certo(self):
+        """raw_asset X → executor → dono → derived_artifact.raw_asset_id = X"""
         import coleta.executor_texto_de_pdf as ex
-        r = ex.correr(seco=True, run_id="TESTE-SECO")
-        self.assertEqual(r["ENTREGAS_AO_DONO"], [])
+        if not ex.ha_ferramenta():
+            self.skipTest("pdftotext ausente nesta maquina")
+        pdf = self._pdf_de_fixture()
+        r = ex.derivar_um(self.pai, pdf, self.armazem, self.banco,
+                          relogio=RELOGIO)
+        self.assertEqual(r["ESTADO"], INSERTED, r.get("PORQUE"))
+        linha = r["LINHA_ESCRITA"]
+        self.assertEqual(int(linha["raw_asset_id"]), self.pai)
+        self.assertEqual(linha["parent_sha256"], "a" * 64)
+        self.assertEqual(linha["producer"], ex.EXECUTOR_ID)
+        # o byte do filho esta mesmo no armazem, e bate
+        self.assertIn(linha["storage_path"], self.armazem.objetos)
+        self.assertEqual(sha256(self.armazem.ler(linha["storage_path"])),
+                         linha["sha256"])
 
-    def test_o_executor_nao_manda_o_sha_do_pai_como_verdade(self):
-        """Ele conhece o `sha256` do pai — mas quem o escreve na linha é o dono,
-        lido do banco. O que a ponte passa vai com um nome que diz o que é."""
-        with open(os.path.join(RAIZ, "coleta", "executor_texto_de_pdf.py"),
-                  encoding="utf-8") as f:
-            fonte = f.read()
-        bloco = self._bloco_da_ponte()
-        self.assertNotIn("parent_sha256", bloco.lower())
-        self.assertNotIn("pai.SHA256", bloco)
+    def test_dois_brutos_ficam_ligados_aos_filhos_certos(self):
+        """Nenhum caminho global pode trocar os pais."""
+        import coleta.executor_texto_de_pdf as ex
+        if not ex.ha_ferramenta():
+            self.skipTest("pdftotext ausente nesta maquina")
+        outro = self.criar_raw("IT-W-3", "IT/x/DOCUMENT/pai-b.pdf", "b" * 64)
+        ra = ex.derivar_um(self.pai, self._pdf_de_fixture(0),
+                           self.armazem, self.banco, relogio=RELOGIO)
+        rb = ex.derivar_um(outro, self._pdf_de_fixture(1),
+                           self.armazem, self.banco, relogio=RELOGIO)
+        self.assertEqual(ra["ESTADO"], INSERTED, ra.get("PORQUE"))
+        self.assertEqual(rb["ESTADO"], INSERTED, rb.get("PORQUE"))
+        self.assertEqual(int(ra["LINHA_ESCRITA"]["raw_asset_id"]), self.pai)
+        self.assertEqual(int(rb["LINHA_ESCRITA"]["raw_asset_id"]), outro)
+        self.assertEqual(ra["LINHA_ESCRITA"]["parent_sha256"], "a" * 64)
+        self.assertEqual(rb["LINHA_ESCRITA"]["parent_sha256"], "b" * 64)
 
-    def test_a_ponte_so_passa_a_receita_e_nada_do_que_e_do_dono(self):
-        """O que a ponte entrega é a RECEITA. Os campos que o dono mede —
-        `parent_sha256`, `parameters_hash`, `derived_at`, `sha256`,
-        `storage_path` — não podem viajar nela: se viajassem, o executor
-        poderia declarar uma linhagem que não é a dele."""
-        bloco = self._bloco_da_ponte()
-        for do_dono in ('"parent_sha256"', '"parameters_hash"', '"derived_at"',
-                        '"sha256"', '"storage_path"', '"bytes"'):
-            self.assertNotIn(do_dono, bloco,
-                             "a ponte passa %s, que e do dono" % do_dono)
-        for da_receita in ('"kind"', '"producer"', '"producer_version"',
-                           '"parameters"', '"serie_posicao"', '"media_type"'):
-            self.assertIn(da_receita, bloco)
+    def test_o_executor_nao_calcula_nada_que_e_do_dono(self):
+        """O que ele entrega é a receita. Nem o `sha256` do pai viaja."""
+        import ast
+        import inspect
 
-    def _bloco_da_ponte(self):
-        with open(os.path.join(RAIZ, "coleta", "executor_texto_de_pdf.py"),
-                  encoding="utf-8") as f:
-            fonte = f.read()
-        i = fonte.index("entregar_ao_dono({")
-        return fonte[i:fonte.index("}, texto.encode", i)]
+        import coleta.executor_texto_de_pdf as ex
+        # SO O CORPO EXECUTAVEL. A docstring desta funcao NOMEIA os campos que
+        # ela nao calcula — e procurar a palavra na prosa reprovaria justamente
+        # o texto que explica a regra. Ja me enganei assim tres vezes; desta
+        # vez a docstring sai antes da comparacao.
+        arvore = ast.parse(inspect.getsource(ex.derivar_um).lstrip())
+        corpo = arvore.body[0].body
+        if (isinstance(corpo[0], ast.Expr)
+                and isinstance(corpo[0].value, ast.Constant)):
+            corpo = corpo[1:]
+        fonte = " ".join(ast.unparse(x) for x in corpo)
+        for do_dono in ("parent_sha256", "parameters_hash", "derived_at",
+                        "storage_path"):
+            self.assertNotIn(do_dono, fonte,
+                             "o executor calcula %s, que e do dono" % do_dono)
+        for da_receita in ("kind", "producer", "producer_version",
+                           "parameters", "serie_posicao", "media_type"):
+            self.assertIn(da_receita, fonte)
+
+    def test_o_legado_continua_sem_o_dono(self):
+        """`correr()` é o modo legado, e não conhece o writer. Os 43 históricos
+        não têm `raw_asset` canónico, e não se lhes inventa um."""
+        import inspect
+
+        import coleta.executor_texto_de_pdf as ex
+        fonte = inspect.getsource(ex.correr)
+        self.assertNotIn("preservar_derivado", fonte)
+        self.assertNotIn("entregar_ao_dono", fonte)
+        self.assertNotIn("raw_asset", fonte)
 
 
 if __name__ == "__main__":

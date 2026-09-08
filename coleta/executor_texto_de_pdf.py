@@ -163,6 +163,66 @@ def extrair(pdf: Path) -> tuple[str, str, str, dict]:
     return texto, art.TEXT_LAYER_PRESENT, "", medidas
 
 
+# ─────────────────────────────────────────────────────────────────────────
+# O MODO FORWARD — uma unidade canónica, com o pai que existe no banco
+# ─────────────────────────────────────────────────────────────────────────
+# A primeira ponte que escrevi aqui NÃO levava o `raw_asset_id`. Passava a
+# receita e os bytes, e o dono do derivado ficava sem saber QUAL linha de
+# `raw_asset` era o pai daquele PDF.
+#
+#     UM EXECUTOR FORWARD SEM RAW_ASSET_ID REAL NÃO TEM PAI CANÓNICO.
+#
+# Uma ponte assim não leva a lado nenhum: ela foi removida, e no lugar dela
+# entrou esta função, que recebe o pai como CONTEXTO DA UNIDADE DE TRABALHO.
+#
+# E os dois modos ficam separados, de propósito:
+#
+#     LEGADO    `correr()` varre os PDF históricos do Git e escreve o
+#               REGISTO-DE-ARTEFATOS.json. O writer NÃO entra. Os 43 não têm
+#               `raw_asset` canónico que possa ser pai deles, e inventar um
+#               seria fabricar a coleta que nunca foi registada.
+#
+#     FORWARD   `derivar_um()` recebe UM `raw_asset_id` real e o PDF já
+#               materializado, e entrega ao dono canónico.
+#
+# Nunca misturados. O executor continua a NÃO conhecer banco: ele produz o
+# texto, e quem persiste é o dono.
+
+
+def derivar_um(raw_asset_id, pdf, armazem, memoria, relogio=None) -> dict:
+    """Um PDF, um pai canónico, um derivado — pelo dono da escrita.
+
+    O que este executor entrega ao dono: a **receita** e os **bytes**. Ele não
+    calcula `parent_sha256`, `parameters_hash`, `sha256` do filho, `derived_at`
+    nem `storage_path` — esses são do dono, e é isso que impede um executor de
+    declarar uma linhagem que não pode provar.
+
+    O `raw_asset_id` vem de fora porque é o **contexto da unidade de
+    trabalho**: quem manda derivar já sabe de que bruto se trata. O executor
+    não o inventa, e não o adivinha do nome do ficheiro.
+    """
+    from guarda.preservar_derivado import agora_utc, preservar_derivado
+
+    texto, estado, erro, medidas = extrair(Path(pdf))
+    if estado != art.TEXT_LAYER_PRESENT:
+        # Sem camada de texto nao ha artefato. Isso e um facto sobre o
+        # ORIGINAL, e vai no recibo — nao vira linha de derivado.
+        return {"ESTADO": "SEM_DERIVADO", "MOTIVO_DO_EXECUTOR": estado,
+                "ERRO": erro, "MEDIDAS": medidas}
+
+    return preservar_derivado(
+        {"raw_asset_id": raw_asset_id,
+         "kind": "TEXT_EXTRACTION",
+         "producer": EXECUTOR_ID,
+         "producer_version": EXECUTOR_VERSION,
+         "pipeline_version": PIPELINE_VERSION,
+         "parameters": None,
+         "serie_posicao": None,
+         "media_type": "text/plain"},
+        texto.encode("utf-8"), armazem, memoria,
+        relogio=relogio or agora_utc)
+
+
 def carregar_registo() -> dict:
     if REGISTO.is_file():
         try:
@@ -190,8 +250,7 @@ def carregar_registo() -> dict:
 # a seguir, e não repinta o que ficou para trás.
 
 
-def correr(seco: bool = False, run_id: str = "",
-           entregar_ao_dono=None) -> dict:
+def correr(seco: bool = False, run_id: str = "") -> dict:
     """A corrida de derivação. Devolve o recibo, sempre — mesmo se falhar."""
     inicio = art.agora()
     run_id = run_id or f"DERIV-PDF-{inicio.replace(':', '').replace('-', '')}"
@@ -237,7 +296,6 @@ def correr(seco: bool = False, run_id: str = "",
                                     pai)
     conta["RAW_CONTEUDOS_DISTINTOS"] = len(por_conteudo)
 
-    entregas = []
     for _sha, (pdf, caminhos, pai) in por_conteudo.items():
         # O escopo é nosso e sabemo-lo. Tudo o resto — quando, onde, em que
         # língua — continua NAO SEI, porque ninguém o provou.
@@ -293,26 +351,6 @@ def correr(seco: bool = False, run_id: str = "",
         novos.append(filho.para_json())
         conta["DERIVED_LANDED"] += 1
 
-        # A PONTE. Se ninguem a ligou, isto nao acontece — e e assim que ela
-        # fica desligada em producao sem precisar de uma bandeira a mais.
-        if entregar_ao_dono is not None:
-            entregas.append(entregar_ao_dono({
-                "kind": "TEXT_EXTRACTION",
-                "producer": EXECUTOR_ID,
-                "producer_version": EXECUTOR_VERSION,
-                "pipeline_version": PIPELINE_VERSION,
-                "parameters": None,
-                "serie_posicao": None,
-                "media_type": "text/plain",
-                "country": "IT",
-                # O SHA256 DO PAI NAO VIAJA AQUI, e nem sequer como informacao.
-                # Quem o le e o dono, da linha de `raw_asset`. Um campo que
-                # ninguem usa e um campo que um dia alguem usa mal — e este
-                # seria usado para declarar um pai que o executor nao pode
-                # provar. O mesmo vale para o hash do filho, o momento da
-                # derivacao e o caminho no armazem.
-            }, texto.encode("utf-8")))
-
     if not seco and novos:
         ja["ARTEFATOS"].extend(novos)
         REGISTO.parent.mkdir(parents=True, exist_ok=True)
@@ -327,9 +365,6 @@ def correr(seco: bool = False, run_id: str = "",
     return {
         "RUN_ID": run_id,
         "STATUS": "SUCCESS" if not erros else "PARTIAL",
-        # A PONTE, se alguem a ligou. Lista vazia quando esta desligada — que e
-        # o estado de producao, e continua a ser.
-        "ENTREGAS_AO_DONO": entregas,
         "EXECUTOR_ID": EXECUTOR_ID,
         "EXECUTOR_VERSION": EXECUTOR_VERSION,
         "PIPELINE_VERSION": PIPELINE_VERSION,

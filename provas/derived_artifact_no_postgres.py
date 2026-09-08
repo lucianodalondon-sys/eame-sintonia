@@ -401,11 +401,70 @@ def cenarios(banco):
         original_aplicar(sql)
 
     banco.aplicar = intruso
-    r7 = escrever(TEXTO_A, armazem=ArmazemDeMentira(),
-                  producer="ferramenta-da-corrida")
+    arm_race = ArmazemDeMentira()
+    r7 = escrever(TEXTO_A, armazem=arm_race, producer="ferramenta-da-corrida")
     banco.aplicar = original_aplicar
     caso("W9_corrida_com_o_mesmo_resultado_e_REUSED_AFTER_RACE",
          r7["ESTADO"] == REUSED_AFTER_RACE, "estado=%s" % r7["ESTADO"])
+
+    # ── AS TRES BRECHAS DO RED TEAM, CONTRA O POSTGRES ──────────────────
+    from guarda.preservar_derivado import STORAGE_MISSING
+
+    # A · REUSED so depois de o byte ser encontrado E conferido
+    r8 = escrever()
+    caso("W10_REUSED_diz_que_conferiu_o_byte_no_armazem",
+         r8["ESTADO"] == REUSED and r8.get("BYTES_CONFERIDOS_NO_ARMAZEM") is True,
+         "estado=%s conferido=%s" % (r8["ESTADO"],
+                                     r8.get("BYTES_CONFERIDOS_NO_ARMAZEM")))
+
+    # B · a ficha esta la e o artefato desapareceu
+    guardados = dict(arm_w.objetos)
+    arm_w.objetos.clear()
+    r9 = escrever()
+    caso("W11_linha_sem_byte_NAO_e_REUSED",
+         r9["ESTADO"] == STORAGE_MISSING
+         and r9.get("BYTES_CONFERIDOS_NO_ARMAZEM") is False,
+         "estado=%s" % r9["ESTADO"])
+
+    # C · o byte trocado debaixo da ficha
+    caminho_vivo = list(guardados)[0]
+    arm_w.objetos.update(guardados)
+    arm_w.objetos[caminho_vivo] = (b"trocado por outra coisa", "text/plain")
+    r10 = escrever()
+    caso("W12_byte_trocado_debaixo_da_ficha_e_STORAGE_CONFLICT",
+         r10["ESTADO"] == "STORAGE_CONFLICT",
+         "estado=%s" % r10["ESTADO"])
+    arm_w.objetos.update(guardados)
+
+    # D · duas receitas que so diferem nos parametros COEXISTEM
+    # Era o defeito estrutural: o caminho antigo nao carregava o
+    # `parameters_hash`, e as duas disputavam o mesmo endereco.
+    arm_p = ArmazemDeMentira()
+    pai_p = _raw(banco, "IT-W-P", "IT/w/DOCUMENT/pai-parametros.pdf",
+                 sha="8" * 64)
+    a1 = escrever(b"saida a 150", armazem=arm_p, raw_asset_id=pai_p,
+                  parameters={"dpi": 150})
+    a2 = escrever(b"saida a 300", armazem=arm_p, raw_asset_id=pai_p,
+                  parameters={"dpi": 300})
+    linhas_p = int(banco._valor(
+        "select count(*) from public.derived_artifact where parent_sha256 = "
+        "'%s'" % ("8" * 64)))
+    caso("W13_duas_receitas_so_com_parametros_diferentes_coexistem",
+         a1["ESTADO"] == INSERTED and a2["ESTADO"] == INSERTED
+         and linhas_p == 2 and len(arm_p.objetos) == 2,
+         "estados=%s/%s linhas=%d objetos=%d" % (
+             a1["ESTADO"], a2["ESTADO"], linhas_p, len(arm_p.objetos)))
+    caso("W14_e_os_dois_enderecos_sao_diferentes",
+         a1.get("STORAGE_PATH") != a2.get("STORAGE_PATH"),
+         "%s vs %s" % ((a1.get("STORAGE_PATH") or "")[-24:],
+                       (a2.get("STORAGE_PATH") or "")[-24:]))
+
+    # E · o pais e do PAI, nao do chamador
+    r11 = escrever(b"outro texto qualquer", armazem=ArmazemDeMentira(),
+                   raw_asset_id=pai_p, parameters={"dpi": 600}, country="ES")
+    caso("W15_o_chamador_nao_leva_um_bruto_italiano_para_ES",
+         (r11.get("STORAGE_PATH") or "").startswith("IT/"),
+         "caminho=%s" % (r11.get("STORAGE_PATH") or "")[:24])
 
     return fora
 

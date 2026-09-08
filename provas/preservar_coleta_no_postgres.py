@@ -217,9 +217,14 @@ class MemoriaPostgres(Memoria):
                 "storage_path", "derived_at")
 
     def raw_por_id(self, raw_asset_id):
+        # JOIN SO DE LEITURA com a corrida, pelo `source_country`. Sem coluna
+        # nova: a informacao ja existe, uma tabela ao lado.
+        cols = self.COLS_RAW + ("source_country",)
+        sel = self._select(self.COLS_RAW).replace("id,", "a.id,", 1)
         linhas = self._linhas(
-            "select %s from public.raw_asset where id = %d"
-            % (self._select(self.COLS_RAW), int(raw_asset_id)), self.COLS_RAW)
+            "select %s, r.source_country from public.raw_asset a "
+            "join public.collection_run r on r.run_id = a.run_id "
+            "where a.id = %d" % (sel, int(raw_asset_id)), cols)
         return linhas[0] if linhas else None
 
     def derivado_com_identidade(self, identidade):

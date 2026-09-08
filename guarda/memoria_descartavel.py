@@ -208,8 +208,14 @@ class MemoriaDescartavel(MemoriaDoDerivado):
     # ── contagens de conferência, para os testes ────────────────────────
     # ── as leituras que o dono do derivado precisa ──────────────────────
     def raw_por_id(self, raw_asset_id):
-        cur = self.con.execute("select * from raw_asset where id = ?",
-                               (raw_asset_id,))
+        # JOIN SO DE LEITURA com a corrida, para trazer o `source_country`. O
+        # pais do derivado e o do bruto que o gerou — nao o que o chamador
+        # disser. Nenhuma coluna nova: a informacao ja estava la, uma tabela ao
+        # lado.
+        cur = self.con.execute(
+            "select a.*, r.source_country from raw_asset a "
+            "join collection_run r on r.run_id = a.run_id where a.id = ?",
+            (raw_asset_id,))
         linha = cur.fetchone()
         return dict(linha) if linha else None
 

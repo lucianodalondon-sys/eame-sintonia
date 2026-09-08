@@ -31,7 +31,8 @@ O QUE ESTE DONO POSSUI, E NINGUÉM MAIS
     a serialização dos parâmetros   uma função só, e é esta
     o `parameters_hash`        derivado dessa função
     o `derived_at`             medido pelo relógio, nunca herdado
-    o `storage_path`           construído da receita, nunca escolhido à mão
+    o `storage_path`           construído da receita INTEIRA, nunca à mão
+    o país do artefato         lido do bruto e da corrida que o trouxe
 
 Um chamador que pudesse trazer qualquer um destes valores prontos poderia
 mentir sobre a linhagem sem que nada o impedisse — e o banco não distingue um
@@ -61,6 +62,11 @@ REUSED = "REUSED"
 REUSED_AFTER_RACE = "REUSED_AFTER_RACE"
 DERIVATION_DRIFT = "DERIVATION_DRIFT"
 STORAGE_CONFLICT = "STORAGE_CONFLICT"
+# UMA LINHA NO BANCO NAO E PROVA DE QUE O BYTE AINDA EXISTE. Este estado
+# existe porque «a ficha esta la e o artefato desapareceu» nao e a mesma coisa
+# que «a ficha nao entrou» — sao duas avarias diferentes, com conserto
+# diferente, e dar-lhes o mesmo nome mandaria o operador ao sitio errado.
+STORAGE_MISSING = "STORAGE_MISSING"
 METADATA_NOT_RECONCILED = "METADATA_NOT_RECONCILED"
 RAW_PARENT_NOT_FOUND = "RAW_PARENT_NOT_FOUND"
 ERROR = "ERROR"
@@ -145,23 +151,46 @@ EXTENSOES = {"text/plain": "txt", "application/json": "json",
              "image/png": "png", "image/jpeg": "jpg", "application/pdf": "pdf"}
 
 
-def caminho_do_derivado(pedido: dict, sha_filho: str) -> str:
-    """`PAIS/derivados/TIPO/<pai16>-<produtor>-<versao>[-<n>].<ext>`
+def id_da_receita(identidade: dict) -> str:
+    """O `sha256` da identidade INTEIRA da derivação.
 
-    Determinístico a partir da receita e do pai. O chamador **não** escolhe: um
-    nome à mão poderia colidir com outro artefato, ou — pior — dois artefatos
-    diferentes poderiam ir para o mesmo sítio e um apagar o outro.
-
-    ⚠️ E O CAMINHO NÃO É A IDENTIDADE. Ele é `unique` na tabela porque dois
-    objetos não vivem no mesmo endereço, mas quem decide se duas derivações são
-    a mesma é a chave da receita. O grão continua CONTEÚDO POR RECEITA.
+    Os seis campos que a `022` usa como chave, serializados pela mesma função
+    canónica dos parâmetros — uma serialização só para a casa toda.
     """
-    serie = pedido.get("serie_posicao")
-    sufixo = "" if serie is None else "-%d" % int(serie)
-    ext = EXTENSOES.get(pedido["media_type"], "bin")
-    return "%s/derivados/%s/%s-%s-%s%s.%s" % (
-        pedido.get("country", "XX"), pedido["kind"], pedido["_parent_sha256"][:16],
-        pedido["producer"], pedido["producer_version"], sufixo, ext)
+    return hashlib.sha256(parametros_canonicos(
+        {c: identidade.get(c) for c in IDENTIDADE})).hexdigest()
+
+
+def caminho_do_derivado(identidade: dict, media_type: str,
+                        country: str = "XX") -> str:
+    """`PAIS/derivados/TIPO/<produtor>-<versao>-<receita_sha256>.<ext>`
+
+    ⚠️ ISTO FOI CORRIGIDO, E O DEFEITO ERA ESTRUTURAL.
+
+    O caminho antigo era
+    `PAIS/derivados/TIPO/<pai16>-<produtor>-<versao>[-<n>]` — e **não incluía
+    o `parameters_hash`**. Duas derivações que a `022` considera **diferentes**
+    — o mesmo PDF a 150 e a 300 dpi, por exemplo — eram duas linhas legítimas
+    a disputar **o mesmo endereço**. O banco distinguia-as; o armazém não.
+
+        SE A IDENTIDADE DO BANCO DIZ QUE SÃO DUAS DERIVAÇÕES,
+        O ENDEREÇO TEM DE PERMITIR QUE AS DUAS EXISTAM.
+
+    Agora o discriminante é o `sha256` **completo** da receita inteira: pai,
+    tipo, produtor, versão, hash dos parâmetros e posição na série. Não é um
+    prefixo de 16 caracteres a fazer de identidade — é o hash todo.
+
+    E O CAMINHO CONTINUA A NÃO SER A IDENTIDADE. Ele é `unique` na tabela
+    porque dois objetos não vivem no mesmo endereço; quem decide se duas
+    derivações são a mesma continua a ser a chave da receita. O `sha256` do
+    FILHO **não** entra aqui de propósito: se entrasse, o mesmo `DERIVATION_DRIFT`
+    ganharia um endereço novo e deixaria de ser drift — passaria a ser dois
+    artefatos calados.
+    """
+    ext = EXTENSOES.get(media_type, "bin")
+    return "%s/derivados/%s/%s-%s-%s.%s" % (
+        country or "XX", identidade["kind"], identidade["producer"],
+        identidade["producer_version"], id_da_receita(identidade), ext)
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -248,7 +277,15 @@ def preservar_derivado(pedido: dict, bytes_do_filho: bytes,
                 "BYTES_GUARDADOS": False}
 
     p = dict(pedido)
-    p["_parent_sha256"] = pai["sha256"]
+
+    # ── O PAIS TAMBEM E DO PAI ──────────────────────────────────────────
+    # Se o bruto sabe de que pais e — pela corrida que o trouxe — e esse que
+    # vale. Um chamador que pudesse mandar `country="ES"` para um bruto
+    # italiano poria o byte derivado a morar no sitio errado, e ninguem
+    # reparava. Onde o pai nao prova, fica NAO_SEI: nao se infere.
+    pais = pai.get("source_country") or "NAO_SEI"
+    if pais in ("", "NAO_SEI", None):
+        pais = "NAO_SEI"
 
     # ── A RECEITA E O FILHO, MEDIDOS ────────────────────────────────────
     sha_filho = sha256(bytes_do_filho)
@@ -260,7 +297,7 @@ def preservar_derivado(pedido: dict, bytes_do_filho: bytes,
         "parameters_hash": hash_dos_parametros(p.get("parameters")),
         "serie_posicao": p.get("serie_posicao"),
     }
-    caminho = caminho_do_derivado(p, sha_filho)
+    caminho = caminho_do_derivado(identidade, p["media_type"], pais)
     esperado = dict(identidade,
                     raw_asset_id=pedido["raw_asset_id"],
                     pipeline_version=p.get("pipeline_version"),
@@ -286,12 +323,46 @@ def preservar_derivado(pedido: dict, bytes_do_filho: bytes,
                                "descobrir."),
                     "LINHA_EXISTENTE": ja,
                     "BYTES_GUARDADOS": False}
+        # ⚠️ E AGORA A PARTE QUE FALTAVA: O BYTE AINDA EXISTE?
+        #
+        #     UMA LINHA NO BANCO NAO E PROVA DE QUE O BYTE AINDA EXISTE.
+        #
+        # A versao anterior devolvia REUSED aqui, sem nunca perguntar ao
+        # armazem. Uma ficha viva sobre um artefato apagado passava por
+        # «reaproveitado, esta tudo bem» — que e a mentira mais confortavel que
+        # este sistema podia contar. Nao era limite conhecido: era defeito.
+        onde = ja.get("storage_path")
+        if not onde or not armazem.existe(onde):
+            return {"ESTADO": STORAGE_MISSING,
+                    "LINHA_EXISTENTE": ja, "STORAGE_PATH": onde,
+                    "BYTES_CONFERIDOS_NO_ARMAZEM": False,
+                    "PORQUE": ("a ficha esta no banco e o artefato nao esta no "
+                               "armazem. NAO e REUSED: nao ha o que reaproveitar."),
+                    "O_QUE_NAO_SE_FAZ": (
+                        "NAO se reenvia o byte por conta propria. Um "
+                        "desaparecimento de evidencia regista-se primeiro; curar "
+                        "em silencio apagaria o rasto de que houve um buraco."),
+                    "BYTES_GUARDADOS": False, "NOVO_UPLOAD": False}
+
+        guardado = sha256(armazem.ler(onde))
+        if guardado != ja.get("sha256") or guardado != sha_filho:
+            return {"ESTADO": STORAGE_CONFLICT,
+                    "LINHA_EXISTENTE": ja, "STORAGE_PATH": onde,
+                    "BYTES_CONFERIDOS_NO_ARMAZEM": True,
+                    "SHA_NO_ARMAZEM": guardado,
+                    "SHA_NA_LINHA": ja.get("sha256"),
+                    "SHA_DESTA_EXECUCAO": sha_filho,
+                    "PORQUE": ("o byte que esta no armazem nao bate com o que a "
+                               "ficha diz, ou com o que esta execucao produziu."),
+                    "BYTES_GUARDADOS": True, "NOVO_UPLOAD": False}
+
         return {"ESTADO": REUSED,
                 "LINHA_EXISTENTE": ja,
                 "TESTEMUNHA_NO_BANCO": ja.get("raw_asset_id"),
                 "TESTEMUNHA_DESTA_CHAMADA": pedido["raw_asset_id"],
+                "BYTES_CONFERIDOS_NO_ARMAZEM": True,
                 "PORQUE": _porque_reused(ja, pedido),
-                "BYTES_GUARDADOS": False, "NOVO_UPLOAD": False}
+                "BYTES_GUARDADOS": True, "NOVO_UPLOAD": False}
 
     # ── OS BYTES, E SEM SOBRESCREVER NADA ───────────────────────────────
     novo_upload = False
