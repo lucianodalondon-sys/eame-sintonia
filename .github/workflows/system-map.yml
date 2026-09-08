@@ -128,6 +128,12 @@ jobs:
       - name: 4h · a reconciliação é lida de um banco, não presumida
         run: python3 tests/test_preservar_coleta_no_banco.py
 
+      # ON CONFLICT DO NOTHING NAO E IDEMPOTENCIA. Sem este passo, uma derivacao
+      # que passasse a produzir outro resultado entraria como REUSED — e o
+      # sistema ficaria calado no dia em que devia gritar.
+      - name: 4i · a mesma receita com outro resultado grita
+        run: python3 tests/test_preservar_derivado.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         run: |
           set -e

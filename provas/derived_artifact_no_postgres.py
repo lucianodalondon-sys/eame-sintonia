@@ -303,6 +303,110 @@ def cenarios(banco):
          rc != 0 and "storage_path" in erro,
          erro.splitlines()[0][:110] if erro else "ACEITOU")
 
+    # ══════════════════════════════════════════════════════════════════
+    # O DONO DA ESCRITA, contra o mesmo Postgres
+    # ══════════════════════════════════════════════════════════════════
+    # A tabela ja recusava a linha repetida. O que se prova aqui e outra coisa:
+    # que QUEM ESCREVE sabe por que ela foi recusada — e nao le o silencio como
+    # «tudo igual».
+    from guarda.preservar_coleta import ArmazemDeMentira
+    from guarda.preservar_derivado import (
+        DERIVATION_DRIFT, INSERTED, METADATA_NOT_RECONCILED,
+        RAW_PARENT_NOT_FOUND, REUSED, REUSED_AFTER_RACE, preservar_derivado)
+
+    TEXTO_A, TEXTO_B = b"texto extraido A", b"texto extraido B, diferente"
+    relogio = lambda: "2026-09-08T02:00:00Z"          # noqa: E731
+    sha_w = "9" * 64
+    arm_w = ArmazemDeMentira()
+    pai_w = _raw(banco, "IT-W-1", "IT/w/DOCUMENT/pai-do-writer.pdf", sha=sha_w)
+
+    def pedido(**extra):
+        p = {"raw_asset_id": pai_w, "country": "IT", "kind": "TEXT_EXTRACTION",
+             "producer": "texto-de-pdf", "producer_version": "1",
+             "parameters": None, "serie_posicao": None,
+             "media_type": "text/plain"}
+        p.update(extra)
+        return p
+
+    def escrever(dados=TEXTO_A, armazem=None, **extra):
+        return preservar_derivado(pedido(**extra), dados, armazem or arm_w,
+                                  banco, relogio=relogio)
+
+    r = escrever()
+    caso("W1_o_writer_escreve_e_confere_campo_a_campo",
+         r["ESTADO"] == INSERTED and r.get("CAMPOS_CONFERIDOS") == 13,
+         "estado=%s campos=%s" % (r["ESTADO"], r.get("CAMPOS_CONFERIDOS")))
+    caso("W2_o_derived_at_veio_do_relogio_do_writer",
+         (r.get("LINHA_ESCRITA") or {}).get("derived_at") == relogio(),
+         "derived_at=%s" % (r.get("LINHA_ESCRITA") or {}).get("derived_at"))
+
+    envios = arm_w.envios
+    r2 = escrever()
+    caso("W3_retry_identico_e_REUSED_sem_upload_e_sem_linha",
+         r2["ESTADO"] == REUSED and arm_w.envios == envios
+         and not r2["NOVO_UPLOAD"],
+         "estado=%s envios=%d->%d" % (r2["ESTADO"], envios, arm_w.envios))
+
+    # O CASO ADVERSARIAL: a mesma receita, e o texto saiu diferente.
+    r3 = escrever(TEXTO_B)
+    caso("W4_a_mesma_receita_com_outro_resultado_e_DRIFT",
+         r3["ESTADO"] == DERIVATION_DRIFT, "estado=%s" % r3["ESTADO"])
+    ainda = int(banco._valor(
+        "select count(*) from public.derived_artifact where parent_sha256 = '%s'"
+        % sha_w))
+    caso("W5_o_antigo_nao_e_apagado_nem_sobrescrito", ainda == 1,
+         "linhas=%d" % ainda)
+
+    # Segunda captura dos mesmos bytes: UMA derivacao, testemunha intocada.
+    gemeo = _raw(banco, "IT-W-2", "IT/w/DOCUMENT/copia-2.pdf", sha=sha_w)
+    r4 = escrever(raw_asset_id=gemeo)
+    testemunha = banco._valor(
+        "select raw_asset_id from public.derived_artifact where parent_sha256 = "
+        "'%s'" % sha_w)
+    caso("W6_outra_captura_mesmos_bytes_e_REUSED_e_a_testemunha_nao_muda",
+         r4["ESTADO"] == REUSED and int(testemunha) == pai_w,
+         "estado=%s testemunha=%s (pai=%d gemeo=%d)" % (
+             r4["ESTADO"], testemunha, pai_w, gemeo))
+
+    r5 = escrever(raw_asset_id=999999, armazem=ArmazemDeMentira())
+    caso("W7_pai_ausente_recusado_antes_do_armazem",
+         r5["ESTADO"] == RAW_PARENT_NOT_FOUND and not r5["BYTES_GUARDADOS"],
+         "estado=%s" % r5["ESTADO"])
+
+    # Bytes guardados, banco recusa: os bytes NAO sao apagados.
+    original_aplicar = banco.aplicar
+
+    def recusar_derivado(sql):
+        if "insert into public.derived_artifact" in sql:
+            raise IOError("o banco recusou")
+        original_aplicar(sql)
+
+    banco.aplicar = recusar_derivado
+    arm_f = ArmazemDeMentira()
+    r6 = escrever(TEXTO_A, armazem=arm_f, producer="ferramenta-que-falha")
+    banco.aplicar = original_aplicar
+    caso("W8_armazem_grava_banco_falha_e_os_bytes_ficam",
+         r6["ESTADO"] == METADATA_NOT_RECONCILED and len(arm_f.objetos) == 1
+         and r6.get("BYTE_APAGADO_COMO_COMPENSACAO") == "NAO",
+         "estado=%s objetos=%d" % (r6["ESTADO"], len(arm_f.objetos)))
+
+    # A corrida: outro escritor mete a mesma identidade no meio.
+    def intruso(sql):
+        if "insert into public.derived_artifact" in sql:
+            banco.aplicar = original_aplicar
+            preservar_derivado(pedido(producer="ferramenta-da-corrida"),
+                               TEXTO_A, ArmazemDeMentira(), banco,
+                               relogio=relogio)
+            banco.aplicar = intruso
+        original_aplicar(sql)
+
+    banco.aplicar = intruso
+    r7 = escrever(TEXTO_A, armazem=ArmazemDeMentira(),
+                  producer="ferramenta-da-corrida")
+    banco.aplicar = original_aplicar
+    caso("W9_corrida_com_o_mesmo_resultado_e_REUSED_AFTER_RACE",
+         r7["ESTADO"] == REUSED_AFTER_RACE, "estado=%s" % r7["ESTADO"])
+
     return fora
 
 

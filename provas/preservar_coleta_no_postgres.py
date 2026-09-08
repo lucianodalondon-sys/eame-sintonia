@@ -178,7 +178,7 @@ class MemoriaPostgres(Memoria):
                 "finished_at")
     COLS_OBJ = ("run_id", "storage_path", "media_type", "bytes", "sha256",
                 "captured_at", "source_url")
-    TEMPOS = ("started_at", "finished_at", "captured_at")
+    TEMPOS = ("started_at", "finished_at", "captured_at", "derived_at")
 
     def _select(self, colunas):
         return ", ".join(self._ISO % c if c in self.TEMPOS else c
@@ -205,6 +205,36 @@ class MemoriaPostgres(Memoria):
 
     def contar(self, tabela):
         return int(self._valor("select count(*) from public.%s" % tabela))
+
+    # ── as leituras que o dono do DERIVADO precisa ───────────────────────
+    # Vivem aqui porque este e o adaptador do Postgres — a porta e uma so, e o
+    # dialeto tambem. `MemoriaDoDerivado` declara-as; isto implementa-as.
+    COLS_RAW = ("id", "run_id", "storage_path", "media_type", "bytes",
+                "sha256", "captured_at", "source_url")
+    COLS_DER = ("id", "raw_asset_id", "parent_sha256", "kind", "producer",
+                "producer_version", "pipeline_version", "parameters_hash",
+                "serie_posicao", "sha256", "bytes", "media_type",
+                "storage_path", "derived_at")
+
+    def raw_por_id(self, raw_asset_id):
+        linhas = self._linhas(
+            "select %s from public.raw_asset where id = %d"
+            % (self._select(self.COLS_RAW), int(raw_asset_id)), self.COLS_RAW)
+        return linhas[0] if linhas else None
+
+    def derivado_com_identidade(self, identidade):
+        # `is not distinct from` em vez de `=`: em SQL, NULL = NULL e
+        # DESCONHECIDO, e sem isto a linha de `serie_posicao` NULL nunca seria
+        # reencontrada — o writer acharia sempre que e a primeira vez, e o
+        # reencontro viraria colisao.
+        def _v(x):
+            return "null" if x is None else "'%s'" % str(x).replace("'", "''")
+        onde = " and ".join("%s is not distinct from %s" % (c, _v(identidade[c]))
+                            for c in identidade)
+        linhas = self._linhas(
+            "select %s from public.derived_artifact where %s"
+            % (self._select(self.COLS_DER), onde), self.COLS_DER)
+        return linhas[0] if linhas else None
 
 
 # ─────────────────────────────────────────────────────────────────────────

@@ -172,7 +172,26 @@ def carregar_registo() -> dict:
     return {"ARTEFATOS": []}
 
 
-def correr(seco: bool = False, run_id: str = "") -> dict:
+# ─────────────────────────────────────────────────────────────────────────
+# A PONTE PARA O DONO CANÓNICO DA ESCRITA — desligada por omissão
+# ─────────────────────────────────────────────────────────────────────────
+# Este executor produz o texto. Ele NÃO escreve no banco, e não vai passar a
+# escrever: a doutrina é que o executor produz o artefato e o DONO CANÓNICO o
+# persiste. Nenhum executor grava só porque conhece a `SUPABASE_URL`.
+#
+# O que esta ponte faz é deixar o dono ser CHAMADO, quando alguém lho passar —
+# `entregar_ao_dono` é `None` por omissão, e enquanto for `None` nada muda: o
+# caminho antigo continua a escrever o `REGISTO-DE-ARTEFATOS.json`, como
+# sempre. É o modo forward, testável, e desligado.
+#
+# ⚠️ E O LEGADO NÃO SE MEXE. Os 43 derivados históricos não têm `raw_asset`
+# canónico que possa ser pai deles — são
+# LEGACY_DERIVATION_WITHOUT_CANONICAL_RAW_PARENT. Esta ponte serve o que vier
+# a seguir, e não repinta o que ficou para trás.
+
+
+def correr(seco: bool = False, run_id: str = "",
+           entregar_ao_dono=None) -> dict:
     """A corrida de derivação. Devolve o recibo, sempre — mesmo se falhar."""
     inicio = art.agora()
     run_id = run_id or f"DERIV-PDF-{inicio.replace(':', '').replace('-', '')}"
@@ -218,6 +237,7 @@ def correr(seco: bool = False, run_id: str = "") -> dict:
                                     pai)
     conta["RAW_CONTEUDOS_DISTINTOS"] = len(por_conteudo)
 
+    entregas = []
     for _sha, (pdf, caminhos, pai) in por_conteudo.items():
         # O escopo é nosso e sabemo-lo. Tudo o resto — quando, onde, em que
         # língua — continua NAO SEI, porque ninguém o provou.
@@ -273,6 +293,26 @@ def correr(seco: bool = False, run_id: str = "") -> dict:
         novos.append(filho.para_json())
         conta["DERIVED_LANDED"] += 1
 
+        # A PONTE. Se ninguem a ligou, isto nao acontece — e e assim que ela
+        # fica desligada em producao sem precisar de uma bandeira a mais.
+        if entregar_ao_dono is not None:
+            entregas.append(entregar_ao_dono({
+                "kind": "TEXT_EXTRACTION",
+                "producer": EXECUTOR_ID,
+                "producer_version": EXECUTOR_VERSION,
+                "pipeline_version": PIPELINE_VERSION,
+                "parameters": None,
+                "serie_posicao": None,
+                "media_type": "text/plain",
+                "country": "IT",
+                # O SHA256 DO PAI NAO VIAJA AQUI, e nem sequer como informacao.
+                # Quem o le e o dono, da linha de `raw_asset`. Um campo que
+                # ninguem usa e um campo que um dia alguem usa mal — e este
+                # seria usado para declarar um pai que o executor nao pode
+                # provar. O mesmo vale para o hash do filho, o momento da
+                # derivacao e o caminho no armazem.
+            }, texto.encode("utf-8")))
+
     if not seco and novos:
         ja["ARTEFATOS"].extend(novos)
         REGISTO.parent.mkdir(parents=True, exist_ok=True)
@@ -287,6 +327,9 @@ def correr(seco: bool = False, run_id: str = "") -> dict:
     return {
         "RUN_ID": run_id,
         "STATUS": "SUCCESS" if not erros else "PARTIAL",
+        # A PONTE, se alguem a ligou. Lista vazia quando esta desligada — que e
+        # o estado de producao, e continua a ser.
+        "ENTREGAS_AO_DONO": entregas,
         "EXECUTOR_ID": EXECUTOR_ID,
         "EXECUTOR_VERSION": EXECUTOR_VERSION,
         "PIPELINE_VERSION": PIPELINE_VERSION,

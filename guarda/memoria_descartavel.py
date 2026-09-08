@@ -40,7 +40,7 @@ credencial nenhuma. O caminho do banco é sempre dado por quem o instancia.
 """
 import sqlite3
 
-from guarda.preservar_coleta import Memoria
+from guarda.preservar_derivado import MemoriaDoDerivado
 
 # TRADUÇÃO da migration 001 — as duas tabelas que a garantia forward toca.
 # Cada trava aqui existe na original, e está anotada com o que ela prova.
@@ -92,14 +92,50 @@ create table raw_asset (
   preserved     integer not null default 1,
   not_preserved_reason text,
   constraint bruto_ausente_precisa_de_motivo
-    check (preserved = 1 or not_preserved_reason is not null)
+    check (preserved = 1 or not_preserved_reason is not null),
+  -- 022: o alvo da chave estrangeira COMPOSTA de derived_artifact. Nao e regra
+  -- nova — (id, sha256) ja era unico porque id e chave primaria — e sem ela o
+  -- SQLite recusa a FK com «foreign key mismatch», tal como o Postgres.
+  unique (id, sha256)
 );
 create index raw_hash_idx on raw_asset (sha256);
 create index raw_run_idx  on raw_asset (run_id);
+
+-- TRADUCAO da migration 022. Sem `jsonb` (aqui e texto) e sem `~` (o CHECK de
+-- formato do hash fica de fora — quem o prova e o Postgres, no CI). O que
+-- importa para o writer esta fielmente reproduzido: a chave da receita, a
+-- coerencia pai-id/pai-sha, e o storage_path unico.
+create table derived_artifact (
+  id              integer primary key autoincrement,
+  raw_asset_id    integer not null,
+  parent_sha256   text not null,
+  kind            text not null,
+  producer        text not null,
+  producer_version text not null,
+  pipeline_version text,
+  parameters      text,
+  parameters_hash text not null,
+  serie_posicao   integer,
+  sha256          text not null,
+  bytes           integer not null check (bytes >= 0),
+  media_type      text not null,
+  storage_path    text not null unique,
+  derived_at      text not null,
+  created_at      text not null default (datetime('now')),
+  derivation_batch text,
+  -- 022: o pai por ID e o pai por SHA tem de ser o MESMO pai.
+  foreign key (raw_asset_id, parent_sha256) references raw_asset (id, sha256),
+  -- 022: a identidade da receita. NULLS NOT DISTINCT nao existe em SQLite, e
+  -- por isso `serie_posicao` NULL nao colide aqui — o Postgres e que prova
+  -- essa metade, e esta escrito assim para nao se acreditar no contrario.
+  unique (parent_sha256, kind, producer, producer_version, parameters_hash,
+          serie_posicao)
+);
+create index derived_parent_idx on derived_artifact (parent_sha256);
 """
 
 
-class MemoriaDescartavel(Memoria):
+class MemoriaDescartavel(MemoriaDoDerivado):
     """Um banco real por teste, deitado fora no fim.
 
     `aplicar` não devolve contagem de propósito — nem devia. O que ela
@@ -128,8 +164,10 @@ class MemoriaDescartavel(Memoria):
         #   `now()`    chama-se `datetime('now')` aqui. O relogio continua a ser
         #              o DO BANCO, que e o que importa: o fecho nunca herda o
         #              `started_at`, nem aqui nem no Postgres.
+        #     o SQLite guarda JSON como texto; o cast e do Postgres.
         self.con.executescript(
-            sql.replace("public.", "").replace("now()", "datetime('now')"))
+            sql.replace("public.", "").replace("now()", "datetime('now')")
+               .replace("::jsonb", ""))
 
     def _engolir(self, sql: str) -> str:
         """Deixa cair N inserts de `raw_asset`, sem erro nenhum.
@@ -168,6 +206,24 @@ class MemoriaDescartavel(Memoria):
         return [dict(x) for x in cur.fetchall()]
 
     # ── contagens de conferência, para os testes ────────────────────────
+    # ── as leituras que o dono do derivado precisa ──────────────────────
+    def raw_por_id(self, raw_asset_id):
+        cur = self.con.execute("select * from raw_asset where id = ?",
+                               (raw_asset_id,))
+        linha = cur.fetchone()
+        return dict(linha) if linha else None
+
+    def derivado_com_identidade(self, identidade):
+        # `is` em vez de `=` para que NULL case com NULL: em SQL, NULL = NULL e
+        # desconhecido, e sem isto a linha de serie_posicao NULL nunca seria
+        # reencontrada — o writer acharia sempre que e a primeira vez.
+        onde = " and ".join("%s is ?" % c for c in identidade)
+        cur = self.con.execute(
+            "select * from derived_artifact where %s" % onde,
+            tuple(identidade[c] for c in identidade))
+        linha = cur.fetchone()
+        return dict(linha) if linha else None
+
     def contar(self, tabela: str) -> int:
         return self.con.execute("select count(*) from %s" % tabela).fetchone()[0]
 

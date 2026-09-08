@@ -423,8 +423,13 @@ class OGoldenPathPODERIAPassarPorAqui(CasoBase):
                 if caminho.endswith(("preservar_coleta.py", "memoria_descartavel.py")):
                     continue
                 with open(caminho, encoding="utf-8", errors="ignore") as f:
-                    if "preservar_coleta" in f.read():
-                        chamadores.append(os.path.relpath(caminho, RAIZ))
+                    fonte = f.read()
+                # PROCURA-SE A CHAMADA, NAO O NOME DO MODULO. O dono do
+                # derivado importa daqui as portas `Armazem` e `Memoria` e o
+                # `sha256` — reuso das primitivas, nao uso da cadeia. Contar
+                # isso como «caller real» diria que a peca ja corre, e nao corre.
+                if "preservar(" in fonte and "def preservar(" not in fonte:
+                    chamadores.append(os.path.relpath(caminho, RAIZ))
         self.assertEqual(
             chamadores, [],
             "a peca ganhou caller real: atualize o estado do G-42 forward de "
