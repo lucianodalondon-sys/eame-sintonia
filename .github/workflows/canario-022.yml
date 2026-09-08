@@ -38,7 +38,9 @@ on:
   push:
     paths:
       - '.github/workflows/canario-022.yml'
-      - 'provas/preflight_022_live.sh' 
+      - 'provas/preflight_022_live.sh'
+      - 'provas/canario_forward_it.py'
+      - 'guarda/portas_live.py'
 
 permissions:
   contents: read
