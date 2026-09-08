@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "04da07472571d634c1f42bbd194937f6dadf7b53",
+    "HEAD": "574f40bdef78f3b01c1af0c6c074ba4dba2a9781",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4200,6 +4200,23 @@
       ]
     },
     {
+      "endpoint": "https://exemplo.it/%s",
+      "usado_por": [
+        {
+          "file": "provas/preservar_coleta_no_postgres.py",
+          "line": 146
+        },
+        {
+          "file": "tests/test_preservar_coleta.py",
+          "line": 56
+        },
+        {
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 56
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.ec.europa.eu/agrifood",
       "usado_por": [
         {
@@ -4527,15 +4544,6 @@
         {
           "file": "pacote/pacote_camadas2.py",
           "line": 34
-        }
-      ]
-    },
-    {
-      "endpoint": "https://api.openalex.org',",
-      "usado_por": [
-        {
-          "file": "pacote/pacote_camadas2.py",
-          "line": 49
         }
       ]
     }

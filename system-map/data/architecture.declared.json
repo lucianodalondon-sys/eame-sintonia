@@ -1534,7 +1534,8 @@
         "ENGENHARIA"
       ],
       "files": [
-        ".github/workflows/supabase-*.yml"
+        ".github/workflows/supabase-*.yml",
+        ".github/workflows/banco-descartavel.yml"
       ],
       "views": [],
       "icon": "▶",
@@ -1780,7 +1781,8 @@
       ],
       "files": [
         "provas/testa_coleta_canonica.py",
-        "provas/testa_golden_path_pdf.py"
+        "provas/testa_golden_path_pdf.py",
+        "provas/preservar_coleta_no_postgres.py"
       ],
       "views": [
         "audit"
@@ -1878,17 +1880,18 @@
     },
     {
       "id": "C-DONO-DA-ESCRITA",
-      "name": "ALVO · o dono canônico da escrita",
+      "name": "ALVO · o dono canônico da escrita (provado em banco, sem corrida real)",
       "territory": "Z-GUARDA",
       "kind": "engine",
       "icon": "▷",
-      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → memória → reconciliação → COMPLETE. Ele não fala com o banco: gera SQL auditável, como a casa já fazia para a Espanha. E não sabe apagar byte nenhum.",
-      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe, porque os dois passos nunca foram de ninguém. Esta peça é a garantia PARA A FRENTE do G-42: se o envio passar e a memória falhar, a corrida fica PARTIAL com UPLOAD_PENDING_METADATA — nunca COMPLETE. É ALVO, não estado corrente: nenhuma corrida real passou por aqui ainda.",
+      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`.",
+      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ⚠️ CAN DO NÃO É DID DO: ela está provada contra um banco descartável e NÃO tem consumidor real — nenhuma coleta passou por aqui. Enquanto for assim, isto é ALVO, não estrada corrente.",
       "departments": [
         "ENGENHARIA"
       ],
       "files": [
-        "guarda/preservar_coleta.py"
+        "guarda/preservar_coleta.py",
+        "guarda/memoria_descartavel.py"
       ],
       "views": [
         "infra",

@@ -1,0 +1,82 @@
+# ═══════════════════════════════════════════════════════════════════════
+# A GARANTIA FORWARD, CONTRA POSTGRES DE VERDADE
+#
+# A bateria local prova a reconciliacao contra um banco real — mas SQLite.
+# As travas que interessam sao as mesmas; o motor nao e. Dizer «provado no
+# banco» sem dizer QUAL seria esconder metade da frase.
+#
+# Aqui a migration 001 ORIGINAL e aplicada num Postgres 16 que nasce e morre
+# dentro deste job — enum `run_status` incluido, que o SQLite teve de traduzir
+# para um CHECK.
+#
+#   SQL ACEITE          nao e  LINHA GRAVADA
+#   TESTE COM SIMULACRO nao e  RECONCILIACAO DE BANCO
+#   COMPLETE NO PYTHON  nao e  CONCLUIDA NO POSTGRES
+#
+# NADA AQUI TOCA PRODUCAO. Este workflow nao le nenhum segredo do Supabase, e
+# a propria prova recusa-se a arrancar se o endereco do banco nao for
+# visivelmente local.
+# ═══════════════════════════════════════════════════════════════════════
+name: banco-descartavel
+
+on:
+  push:
+    paths:
+      - 'guarda/preservar_coleta.py'
+      - 'guarda/memoria_descartavel.py'
+      - 'provas/preservar_coleta_no_postgres.py'
+      - 'supabase/migrations/001_*.sql'
+      - '.github/workflows/banco-descartavel.yml'
+  workflow_dispatch:
+
+jobs:
+  postgres-descartavel:
+    runs-on: ubuntu-latest
+
+    # O contentor morre com o job. Nao ha volume, nao ha persistencia, e a
+    # senha e visivel de proposito: nao ha nada la dentro para proteger.
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: descartavel
+          POSTGRES_DB: descartavel
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # `psql` ja existe no runner. Nao se instala pacote global so para um
+      # teste passar — a prova fala com o banco pelo cliente que ja la esta.
+      - name: 1 · o cliente do banco existe, e o banco responde
+        run: |
+          psql --version
+          psql "$BANCO_DESCARTAVEL_URL" -c 'select version();'
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      - name: 2 · a mesma garantia, contra Postgres 16 real
+        run: python3 provas/preservar_coleta_no_postgres.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # A prova de que a trava contra o acidente e real: apontada para um
+      # endereco que nao e local, ela tem de RECUSAR-SE a correr.
+      - name: 3 · a prova recusa-se a correr fora de um banco descartável
+        run: |
+          if python3 provas/preservar_coleta_no_postgres.py; then
+            echo "FALHOU: a prova aceitou um endereco que nao e local"; exit 1
+          fi
+          echo "OK — recusou, como devia"
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://alguem@db.exemplo-remoto.com:5432/producao

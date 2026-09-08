@@ -121,6 +121,13 @@ jobs:
       - name: 4g · coleta nova não produz armazém sem memória
         run: python3 tests/test_preservar_coleta.py
 
+      # SQL ACEITE NAO E LINHA GRAVADA. Aqui a reconciliacao vem de um SELECT
+      # num banco de verdade e descartavel — e a corrida so diz COMPLETE se o
+      # banco tambem disser `concluida`. O mesmo contra Postgres 16 real corre
+      # no workflow `banco-descartavel.yml`.
+      - name: 4h · a reconciliação é lida de um banco, não presumida
+        run: python3 tests/test_preservar_coleta_no_banco.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         run: |
           set -e

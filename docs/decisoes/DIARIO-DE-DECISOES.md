@@ -745,6 +745,45 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
   de mentira — sem banco, sem rede, sem instalar nada.
 - **Detalhe completo:** [`../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md`](../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md).
 
+
+### D-032 — SQL aceite não é linha gravada: a garantia forward passa a ler o banco
+
+- **Data:** 2026-09-08
+- **O red team tinha razão, duas vezes, e era o mesmo erro:**
+  1. `escrever_memoria(sql)` era dada por bem-sucedida **por não ter rebentado**, e o número
+     de linhas era o **esperado** copiado para o lugar do **observado**. Com
+     `on conflict do nothing`, o SQL pode correr inteiro, **não gravar nada** e não se
+     queixar — corrida verde sobre banco vazio, que é o estado italiano em pequeno.
+  2. A corrida abria `'rodando'` e **nunca era promovida**. Era possível ter
+     `RUN_STATE = COMPLETE` no manifesto e `status = 'rodando'` no Postgres.
+- **O código estava certo na lógica e cego no resultado.** Corrigido: `LINHAS_OBSERVADAS`
+  vem de um `SELECT`; `sql_de_fecho()` promove a `concluida` e o estado é **lido de volta**;
+  as condições de fecho passaram de 6 para **9**, com `reconciliacao_observada` e
+  `banco_diz_concluida`.
+- **`do nothing` deixou de ser esconderijo.** A linha existente é lida e comparada **antes**
+  de escrever: tudo igual → `REUSED_METADATA`; `sha256` ou corrida diferentes →
+  `METADATA_CONFLICT`; identidade congelada da corrida diferente (COL-LAW-211) →
+  `RUN_ID_CONFLICT`. Em conflito **nada é escrito**.
+- **Provado contra banco de verdade, e nenhum deles é produção:** 18 provas contra SQLite
+  real em memória, e a mesma bateria contra **Postgres 16** com a `migration 001`
+  **original**, em contentor que morre no job (`banco-descartavel.yml`). A prova em Postgres
+  **recusa-se a arrancar** se o endereço não for local — lista de permissão, não de bloqueio,
+  porque lista de bloqueio falha por omissão. O próprio workflow testa a recusa.
+- **`DB_TESTED (SQLITE)` não se escreve como `DB_TESTED (POSTGRES)`.** SQLite não tem `enum`
+  nem `timestamptz`; o esquema local é **tradução declarada**, não cópia.
+- **CAN DO ≠ DID DO.** Medido: **zero consumidores reais** — só testes, provas e o adaptador
+  descartável. Há teste que reprova se alguém ligar a peça e esquecer de atualizar o estado.
+  Primeiro consumidor designado: `coleta/golden_path_pdf.py`. **Não foi ligado.**
+- **Estado do G-42 forward:** `FORWARD_IMPLEMENTED_AND_DB_TESTED` · `LIVE_OBSERVATION_PENDING`.
+  Não é `OPERATIONAL`, não é `OBSERVED_LIVE`.
+- **`derived_artifact` continua sendo a única lacuna de esquema.** E reforçou-se: nenhum dos
+  estados novos (`METADATA_CONFLICT`, `RUN_ID_CONFLICT`, `UPLOAD_PENDING_METADATA`,
+  `RUN_NOT_CLOSED_IN_DB`) pediu coluna ou enum — todos vivem no manifesto e mapeiam para o
+  `parcial` que a `001` já tem.
+- **Nada tocou produção:** 0 escritas LIVE, 0 uploads, 0 deletes, 0 migrations aplicadas em
+  produção, 0 corridas retrocriadas.
+- **Detalhe completo:** [`../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md`](../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md) §J2.
+
 ---
 
 ## PERGUNTAS PENDENTES

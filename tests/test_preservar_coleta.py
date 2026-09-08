@@ -1,19 +1,27 @@
 # -*- coding: utf-8 -*-
-"""PROVAS DO DONO CANÔNICO DA ESCRITA — o par byte+memória não se separa.
+"""PROVAS DO PLANO E DO ARMAZÉM — antes de o banco entrar na história.
 
-O QUE ESTES TESTES GUARDAM
---------------------------
-A garantia **para a frente** do G-42. A Itália mostrou o que acontece quando os
-dois passos não são de ninguém: 195 objetos guardados e zero linhas a
-reclamá-los. Estes testes existem para que uma coleta NOVA não consiga repetir
-isso em silêncio.
+A DIVISÃO ENTRE ESTE FICHEIRO E O DO BANCO
+------------------------------------------
+    aqui                       o plano e os bytes: quantos objetos deviam
+                               existir, o envio, a conferência do hash, e as
+                               proibições do dono da escrita. Sem banco.
 
-    ARMAZÉM CHEIO + LIVRO EM BRANCO  →  a corrida NÃO pode dizer COMPLETE.
+    test_..._no_banco.py       a reconciliação contra um banco de verdade:
+                               quantas linhas ficaram lá, o conflito que o
+                               `do nothing` engoliria, e o fecho da corrida.
 
-Nada aqui toca produção. O armazém é um dicionário, a memória é uma função que
-o teste manda falhar quando quer, e não há banco nenhum — o que é justamente o
-que permite provar os casos difíceis: envio passa e memória falha, o processo
-morre a meio, o retry.
+Esta versão perdeu os testes de «memória escrita» de propósito. Eles davam
+`COMPLETE` com um simulacro que nunca gravava nada — provavam a lógica e
+mascaravam a pergunta que interessa. Foram para o ficheiro do banco, onde a
+resposta vem de um `SELECT`.
+
+O QUE FICOU AQUI, E POR QUÊ
+---------------------------
+As espécies. Foi a medição dos 195 objetos italianos que as separou, e é aqui
+que elas ficam guardadas: dois produtos que usam o mesmo documento na mesma URL
+não exigem dois bytes; o mesmo byte publicado em duas URLs exige dois objetos.
+Nenhuma dessas duas frases precisa de banco para ser verdadeira.
 """
 import json
 import os
@@ -24,8 +32,8 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, RAIZ)
 
 from guarda.preservar_coleta import (  # noqa: E402
-    ArmazemDeMentira, UPLOAD_PENDING_METADATA, PRESERVED_AND_REGISTERED,
-    caminho_do_objeto, planear, preservar, sha256)
+    UPLOAD_PENDING_METADATA, ArmazemDeMentira, caminho_do_objeto, planear,
+    preservar, relatorio, sha256)
 
 CORRIDA = {
     "RUN_ID": "IT-TESTE-0001", "PLATFORM": "local", "ACTOR": "teste",
@@ -54,92 +62,84 @@ def _bytes_de(obj):
     return {sha256(BYTES_A): BYTES_A, sha256(BYTES_B): BYTES_B}[obj["SHA256"]]
 
 
-def _correr(artefatos, armazem=None, memoria="ok"):
+def _correr(artefatos, armazem=None):
+    """Sem banco, de propósito. É a metade da história que este ficheiro cobre."""
     armazem = armazem or ArmazemDeMentira()
-    escritas = []
-
-    def escrever(sql):
-        if memoria == "falha":
-            raise IOError("o banco recusou")
-        escritas.append(sql)
-
-    r = preservar(CORRIDA, artefatos, armazem, _bytes_de,
-                  escrever_memoria=None if memoria == "nenhuma" else escrever)
-    return r, armazem, escritas
+    return preservar(CORRIDA, artefatos, armazem, _bytes_de), armazem
 
 
-class OCaminhoFeliz(unittest.TestCase):
-    """A a E — a cadeia inteira, e COMPLETE só no fim."""
+class OPlanoEOsBytes(unittest.TestCase):
+    """O que se pode provar sem banco nenhum."""
 
-    def setUp(self):
-        self.r, self.armazem, self.escritas = _correr(
-            [_art("a.pdf", BYTES_A, "11"), _art("b.pdf", BYTES_B, "22")])
-
-    def test_A_a_corrida_existe_antes_de_qualquer_byte(self):
+    def test_sem_corrida_nao_entra_nada(self):
         """Não há corrida genérica. Sem `run_id`, nada é preservado."""
         with self.assertRaises(ValueError):
             preservar({"RUN_ID": ""}, [], ArmazemDeMentira(), _bytes_de)
 
-    def test_B_o_envio_passa(self):
-        self.assertEqual(self.r["ENVIO"]["NOVOS"], 2)
-        self.assertEqual(self.r["ENVIO"]["FALHADOS"], [])
+    def test_o_envio_passa_e_o_hash_e_conferido(self):
+        r, _ = _correr([_art("a.pdf", BYTES_A, "11"),
+                        _art("b.pdf", BYTES_B, "22")])
+        self.assertEqual(r["ENVIO"]["NOVOS"], 2)
+        self.assertEqual(r["ENVIO"]["FALHADOS"], [])
+        self.assertEqual(r["PROVA_DOS_BYTES"]["CONFERIDOS"], 2)
+        self.assertEqual(r["PROVA_DOS_BYTES"]["DIVERGENTES"], [])
 
-    def test_C_a_memoria_passa_e_so_com_o_que_foi_conferido(self):
-        self.assertTrue(self.r["MEMORIA"]["ESCRITA"])
-        self.assertEqual(self.escritas[0].count("insert into public.raw_asset"), 2)
+    def test_sem_banco_a_corrida_NUNCA_fica_complete(self):
+        """A propriedade mais importante deste ficheiro.
 
-    def test_D_a_reconciliacao_bate_entre_especies_comparaveis(self):
-        rec = self.r["RECONCILIACAO"]
-        self.assertEqual(rec["OBJETOS_ESPERADOS"], rec["OBJETOS_CONFERIDOS"])
-        self.assertEqual(rec["OBJETOS_CONFERIDOS"], rec["LINHAS_DE_MEMORIA"])
+        Bytes perfeitos no armazém e nenhuma linha escrita é EXATAMENTE o
+        estado italiano. Ele não pode dar `COMPLETE` — nem sequer quando tudo
+        o que este ficheiro sabe medir correu bem.
+        """
+        r, armazem = _correr([_art("a.pdf", BYTES_A, "11")])
+        self.assertEqual(len(armazem.objetos), 1)
+        self.assertEqual(r["RUN_STATE"], "PARTIAL")
+        self.assertEqual(r["PENDENCIA"], UPLOAD_PENDING_METADATA)
+        self.assertIn("reconciliacao_observada", r["COMPLETION_BASIS"]["FALTOU"])
+        self.assertIn("banco_diz_concluida", r["COMPLETION_BASIS"]["FALTOU"])
 
-    def test_E_complete_so_no_fim_e_com_todas_as_condicoes(self):
-        self.assertEqual(self.r["RUN_STATE"], "COMPLETE")
-        self.assertEqual(self.r["COMPLETION_BASIS"]["FALTOU"], [])
-        self.assertTrue(all(self.r["COMPLETION_BASIS"]["CONDICOES"].values()))
-        self.assertEqual(self.r["PENDENCIA"], PRESERVED_AND_REGISTERED)
+    def test_a_contagem_observada_nao_e_inventada_quando_nao_ha_leitura(self):
+        """Sem banco não há número observado — e o campo diz isso, em vez de
+        copiar o esperado para o lugar do medido."""
+        r, _ = _correr([_art("a.pdf", BYTES_A, "11")])
+        self.assertIsNone(r["RECONCILIACAO"]["LINHAS_OBSERVADAS_NO_BANCO"])
+        self.assertIn("NAO MEDIDO", r["MEMORIA"]["COMO_FOI_MEDIDO"])
 
+    def test_o_byte_fica_guardado_quando_a_memoria_nao_corre(self):
+        """RAW não se apaga como compensação. É a evidência que sobrou."""
+        r, armazem = _correr([_art("a.pdf", BYTES_A, "11")])
+        self.assertEqual(len(armazem.objetos), 1)
+        self.assertEqual(r["BYTE_APAGADO_COMO_COMPENSACAO"][:3], "NAO")
 
-class OCasoQueACriouAItalia(unittest.TestCase):
-    """F a H — envio passa, memória falha. O caso medido nos 195 objetos."""
-
-    def setUp(self):
-        self.r, self.armazem, _ = _correr(
-            [_art("a.pdf", BYTES_A, "11")], memoria="falha")
-
-    def test_F_o_byte_fica_guardado(self):
-        """RAW não se apaga como compensação. Ele é a evidência que sobrou."""
-        self.assertEqual(len(self.armazem.objetos), 1)
-        self.assertEqual(self.r["BYTE_APAGADO_COMO_COMPENSACAO"][:3], "NAO")
-
-    def test_G_a_corrida_NAO_fica_complete(self):
-        """A resposta não pode ser «a corrida continua COMPLETE». É esta linha
-        que impede o estado italiano de se repetir em silêncio."""
-        self.assertEqual(self.r["RUN_STATE"], "PARTIAL")
-        self.assertIn("memoria_escrita", self.r["COMPLETION_BASIS"]["FALTOU"])
-        self.assertEqual(self.r["PENDENCIA"], UPLOAD_PENDING_METADATA)
-
-    def test_H_o_retry_nao_sobe_o_byte_outra_vez(self):
-        """Repetir só a etapa em falta. O objeto já está lá: `existe()` decide,
-        e não se gasta banda para obter exatamente o mesmo estado."""
-        envios_antes = self.armazem.envios
-        r2, _, escritas = _correr([_art("a.pdf", BYTES_A, "11")],
-                                  armazem=self.armazem, memoria="ok")
-        self.assertEqual(self.armazem.envios, envios_antes)
+    def test_retry_nao_sobe_o_byte_outra_vez(self):
+        _, armazem = _correr([_art("a.pdf", BYTES_A, "11")])
+        envios = armazem.envios
+        r2, _ = _correr([_art("a.pdf", BYTES_A, "11")], armazem=armazem)
+        self.assertEqual(armazem.envios, envios)
         self.assertEqual(r2["ENVIO"]["NOVOS"], 0)
         self.assertEqual(r2["ENVIO"]["REAPROVEITADOS"], 1)
-        self.assertEqual(r2["RUN_STATE"], "COMPLETE")
-        self.assertEqual(escritas[0].count("insert into public.raw_asset"), 1)
+
+    def test_morte_a_meio_do_envio(self):
+        """O segundo objeto rebenta; o primeiro fica guardado e a conta não
+        bate. `PARTIAL` — não `FAILED` silencioso nem `COMPLETE` otimista."""
+        armazem = ArmazemDeMentira()
+        arts = [_art("a.pdf", BYTES_A, "11"), _art("b.pdf", BYTES_B, "22")]
+        armazem.falhar_a_partir_de = caminho_do_objeto(arts[1])
+        r, _ = _correr(arts, armazem=armazem)
+        self.assertEqual(len(armazem.objetos), 1)
+        self.assertEqual(r["RUN_STATE"], "PARTIAL")
+        self.assertIn("nenhum_envio_falhado", r["COMPLETION_BASIS"]["FALTOU"])
+        self.assertIn("bytes_no_armazem", r["COMPLETION_BASIS"]["FALTOU"])
 
 
 class AsEspeciesNoArmazem(unittest.TestCase):
-    """I a K — o que a medição dos 195 provou, virado em regra."""
+    """O que a medição dos 195 objetos italianos provou, virado em regra."""
 
-    def test_I_mesmo_sha_em_dois_caminhos_continua_permitido(self):
+    def test_mesmo_sha_em_dois_caminhos_continua_permitido(self):
         """O caso `227779…`: o MESMO PDF publicado em duas URLs da ADAMA.
 
         São dois factos sobre o mundo — as duas páginas publicaram — e um
-        conteúdo só. Dois objetos, e nenhuma trava os impede.
+        conteúdo só. Dois objetos, e nada os impede.
         """
         p = planear([_art("x.pdf", BYTES_A, "731"),
                      _art("y.pdf", BYTES_A, "6321")])
@@ -147,8 +147,8 @@ class AsEspeciesNoArmazem(unittest.TestCase):
         self.assertEqual(p["OBJETOS_PLANEADOS"], 2)
         self.assertEqual(p["RELACOES_SEM_BYTE_NOVO"], 0)
 
-    def test_J_dois_produtos_no_mesmo_documento_nao_exigem_dois_objetos(self):
-        """O caso `ef688…` e `308764…`: dois produtos, a MESMA URL.
+    def test_dois_produtos_no_mesmo_documento_nao_exigem_dois_objetos(self):
+        """Os casos `ef688…` e `308764…`: dois produtos, a MESMA URL.
 
         A relação produto↔documento é lógica. Duplicar o byte para a
         representar seria gastar armazém para escrever uma linha de tabela.
@@ -161,62 +161,32 @@ class AsEspeciesNoArmazem(unittest.TestCase):
         self.assertEqual(p["RELACOES_SEM_BYTE_NOVO"], 1)
         self.assertEqual(p["OBJETOS"][0]["USADO_POR"], ["P-45", "P-47"])
 
-    def test_K_caminho_repetido_e_idempotente_nao_duplicado(self):
+    def test_caminho_repetido_nao_sobe_duas_vezes(self):
         a = _art("z.pdf", BYTES_A, "6026")
-        r, armazem, escritas = _correr([a, dict(a)])
+        _, armazem = _correr([a, dict(a)])
         self.assertEqual(len(armazem.objetos), 1)
-        self.assertEqual(escritas[0].count("insert into public.raw_asset"), 1)
-        self.assertIn("on conflict (storage_path) do nothing", escritas[0])
+        self.assertEqual(armazem.envios, 1)
 
-
-class QuandoOProcessoMorre(unittest.TestCase):
-    """L a N — as duas mortes, e a recuperação."""
-
-    def test_L_morte_depois_do_envio(self):
-        """Morrer entre o envio e a memória deixa byte sem linha — e o
-        manifesto NUNCA chega a ser escrito com COMPLETE, porque o fecho é o
-        último passo. A pasta remota cheia não vale como «acabou»."""
-        r, armazem, _ = _correr([_art("a.pdf", BYTES_A, "11")], memoria="nenhuma")
-        self.assertEqual(len(armazem.objetos), 1)
-        self.assertEqual(r["RUN_STATE"], "PARTIAL")
-        self.assertEqual(r["PENDENCIA"], UPLOAD_PENDING_METADATA)
-
-    def test_M_morte_a_meio_do_envio(self):
-        """O segundo objeto rebenta. O primeiro fica guardado, a conta não bate
-        e a corrida diz PARTIAL — não FAILED silencioso nem COMPLETE otimista."""
-        armazem = ArmazemDeMentira()
-        arts = [_art("a.pdf", BYTES_A, "11"), _art("b.pdf", BYTES_B, "22")]
-        armazem.falhar_a_partir_de = caminho_do_objeto(arts[1])
-        r, _, _ = _correr(arts, armazem=armazem)
-        self.assertEqual(len(armazem.objetos), 1)
-        self.assertEqual(r["RUN_STATE"], "PARTIAL")
-        self.assertIn("nenhum_envio_falhado", r["COMPLETION_BASIS"]["FALTOU"])
-        self.assertIn("bytes_no_armazem", r["COMPLETION_BASIS"]["FALTOU"])
-
-    def test_N_a_recuperacao_e_correr_outra_vez(self):
-        """Nada de comando especial: a mesma chamada, e ela faz só o que falta."""
-        armazem = ArmazemDeMentira()
-        arts = [_art("a.pdf", BYTES_A, "11"), _art("b.pdf", BYTES_B, "22")]
-        armazem.falhar_a_partir_de = caminho_do_objeto(arts[1])
-        _correr(arts, armazem=armazem)
-        armazem.falhar_a_partir_de = None
-        r2, _, escritas = _correr(arts, armazem=armazem)
-        self.assertEqual(r2["ENVIO"]["NOVOS"], 1)
-        self.assertEqual(r2["ENVIO"]["REAPROVEITADOS"], 1)
-        self.assertEqual(r2["RUN_STATE"], "COMPLETE")
-        self.assertEqual(escritas[0].count("insert into public.raw_asset"), 2)
+    def test_a_cardinalidade_nao_esta_escrita_no_codigo(self):
+        """Nem 43, nem 141, nem 139. O plano é calculado do que entrar — fixar
+        um número na arquitetura repetiria o erro de escrever no código algo
+        que só era verdade num dia."""
+        for quantos in (0, 1, 7):
+            p = planear([_art("f%d.pdf" % i, BYTES_A, str(i))
+                         for i in range(quantos)])
+            self.assertEqual(p["OBJETOS_PLANEADOS"], quantos)
 
 
 class OQueEsteDonoNuncaFaz(unittest.TestCase):
     """As proibições, escritas como teste."""
 
     def test_nao_fala_com_o_banco(self):
-        """Segue o padrão da casa: gera SQL auditável, e a mão que o leva ao
-        banco é injetada. Este ficheiro não abre ligação nenhuma."""
+        """Gera SQL auditável, e a mão que o aplica é injetada. Este ficheiro
+        não abre ligação nenhuma."""
         fonte = open(os.path.join(RAIZ, "guarda", "preservar_coleta.py"),
                      encoding="utf-8").read().lower()
-        for proibido in ("psycopg", "import requests", "urlopen", "create_client",
-                         "subprocess", "socket"):
+        for proibido in ("psycopg", "import requests", "urlopen",
+                         "create_client", "subprocess", "sqlite3"):
             self.assertNotIn(proibido, fonte)
 
     def test_nao_conhece_run_generica(self):
@@ -232,25 +202,50 @@ class OQueEsteDonoNuncaFaz(unittest.TestCase):
         metodos = [m for m in dir(pc.Armazem) if not m.startswith("_")]
         self.assertEqual(sorted(metodos), ["enviar", "existe", "ler"])
 
+    def test_a_porta_do_banco_sabe_ler(self):
+        """E a porta do banco tem de saber LER — sem leitura não há
+        reconciliação, e sem reconciliação `COMPLETE` é opinião."""
+        from guarda import preservar_coleta as pc
+        metodos = sorted(m for m in dir(pc.Memoria) if not m.startswith("_"))
+        self.assertEqual(metodos,
+                         ["aplicar", "corrida", "objeto_em", "objetos_da_corrida"])
+
+    def test_so_o_sql_de_fecho_promove_a_corrida(self):
+        """`concluida` não aparece no SQL de escrita: a corrida abre `rodando`
+        e só é promovida depois da reconciliação ter sido lida."""
+        from guarda.preservar_coleta import sql_da_memoria, sql_de_fecho
+        p = planear([_art("a.pdf", BYTES_A, "11")])
+        escrita = sql_da_memoria(CORRIDA, [p["OBJETOS"][0]["STORAGE_PATH"]], p)
+        # so as linhas EXECUTAVEIS contam: o comentario do ficheiro explica o
+        # fecho, e explicar nao e executar
+        executavel = "\n".join(x for x in escrita.splitlines()
+                               if not x.strip().startswith("--"))
+        self.assertIn("'rodando'", executavel)
+        self.assertNotIn("concluida", executavel)
+        fecho = sql_de_fecho("R", "2026-09-08T00:05:00Z", 1)
+        self.assertIn("status = 'concluida'", fecho)
+        self.assertIn("finished_at", fecho)
+        # a trava do `where`: fechar duas vezes nao muda nada, e nao ressuscita
+        # uma corrida que outro processo ja marcou de outra maneira
+        self.assertIn("and status = 'rodando'", fecho)
+
     def test_a_apostrofe_italiana_nao_parte_o_sql(self):
         """`dell'olivo` e `l'annata` são a classe de erro que um gerador comete
         e que transforma o resto do ficheiro em lixo — está escrito em
-        `guarda/sql_conferir.py`, que é o portão desta casa. O SQL gerado aqui
-        passa nesse portão, apóstrofes incluídas."""
+        `guarda/sql_conferir.py`, o portão desta casa."""
+        from guarda.preservar_coleta import sql_da_memoria
         a = _art("bollettino dell'olivo.pdf", BYTES_A, "9")
         a["SOURCE_URL"] = "https://exemplo.it/l'annata"
-        r, _, escritas = _correr([a])
-        self.assertEqual(r["RUN_STATE"], "COMPLETE")
-        self.assertIn("dell''olivo", escritas[0])
-        self.assertIn("l''annata", escritas[0])
-        # numero par de aspas simples em cada statement = nenhuma aberta
-        for linha in escritas[0].splitlines():
+        p = planear([a])
+        sql = sql_da_memoria(CORRIDA, [p["OBJETOS"][0]["STORAGE_PATH"]], p)
+        self.assertIn("dell''olivo", sql)
+        self.assertIn("l''annata", sql)
+        for linha in sql.splitlines():
             if linha.startswith("insert"):
                 self.assertEqual(linha.count("'") % 2, 0)
 
     def test_o_relatorio_nao_carrega_o_sql(self):
-        r, _, _ = _correr([_art("a.pdf", BYTES_A, "11")])
-        from guarda.preservar_coleta import relatorio
+        r, _ = _correr([_art("a.pdf", BYTES_A, "11")])
         self.assertNotIn("insert into", relatorio(r))
         json.loads(relatorio(r))
 

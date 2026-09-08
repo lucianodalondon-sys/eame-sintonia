@@ -326,9 +326,12 @@ que ele estava errado.
 
 `G-42` **`ITALY_STORAGE_METADATA_RECONCILIATION` — 195 objetos italianos no bucket `raw`
 (80,7 MB) com **0** linhas de `raw_asset` e **0** de `collection_run` a reclamá-los.** Um gap
-só, em **duas dimensões**: a **garantia forward** está **FECHADA em código e teste**
-(`guarda/preservar_coleta.py` — envio sem memória nunca dá `COMPLETE`, e o byte não se apaga
-para fingir atomicidade); o **histórico** fica **ABERTO de propósito**, como
+só, em **duas dimensões**: a **garantia forward** está em
+`FORWARD_IMPLEMENTED_AND_DB_TESTED` · `LIVE_OBSERVATION_PENDING`
+(`guarda/preservar_coleta.py` — a reconciliação vem de um `SELECT` num banco real e
+descartável, `do nothing` deixou de esconder conflito, e a corrida só diz `COMPLETE` se o
+banco também disser `concluida`; **medido: zero consumidores reais**, por isso não é
+`OPERATIONAL`); o **histórico** fica **ABERTO de propósito**, como
 `HISTORICAL_STORAGE_WITHOUT_OPERATIONAL_RUN` — preservado, com procedência documental
 recuperável e `RUN` `NOT_PROVABLE`, **sem corrida inventada e sem relaxar o `NOT NULL`**. E a
 conta das três contagens fechou: 141 registos − 138 conteúdos = 3 documentos que servem dois

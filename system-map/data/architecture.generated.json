@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "04da07472571d634c1f42bbd194937f6dadf7b53",
-    "GENERATED_AT": "2026-09-08T10:18:31-03:00"
+    "HEAD": "574f40bdef78f3b01c1af0c6c074ba4dba2a9781",
+    "GENERATED_AT": "2026-09-08T10:19:09-03:00"
   },
   "FILES": [
     {
@@ -38,6 +38,13 @@
     {
       "path": ".github/workflows/apify-sensores.yml",
       "sha": "d9890ae3d47b6b07bb2832697bf55a51dfcacfff",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/banco-descartavel.yml",
+      "sha": "9bdf3e975ee08163de0281241c75725109ab4dc2",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -100,7 +107,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "410b4c60b7449b3a5510a144d83169709f01ee91",
+      "sha": "9cb14888f785abfeeb8a13dd77a708ce5043b46e",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -4062,7 +4069,7 @@
     },
     {
       "path": "docs/biblia/CONFORMIDADE-ITALIA.md",
-      "sha": "c866b17f04c446927d844717d8948c9da2b3625c",
+      "sha": "bb81dad652fc7237b00adc51ed10d8803701b8bd",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4118,7 +4125,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "ab10e237ee5c71d7b4d9eca7b72b3a425ea3b367",
+      "sha": "35ed28416dbc41d78702c04508449fdd7166eb63",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4293,7 +4300,7 @@
     },
     {
       "path": "docs/operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md",
-      "sha": "293814c70b17ff018ac86ffdbad0b3fbc584a000",
+      "sha": "077cca632f0c88c6f11dd79633c6af4f4a7b7279",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4824,8 +4831,15 @@
       "code_dir": true
     },
     {
+      "path": "guarda/memoria_descartavel.py",
+      "sha": "a70867abcb74caa18a9a56a4dd1dd5c7a23e70d2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "guarda/preservar_coleta.py",
-      "sha": "4a77dcd694cf2e366bd5115cc7396b98c7dbbb61",
+      "sha": "8736e50cec19e4b73b29661250617989cafaa19f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7162,6 +7176,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/preservar_coleta_no_postgres.py",
+      "sha": "d9e4806fc06869f439059a26fc252c674d8d9f1a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/testa_coleta_canonica.py",
       "sha": "9ead5da22703717b191dbad1e00f3826e3d9a07d",
       "ext": ".py",
@@ -8185,7 +8206,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "4db7ec849b001995d697d46d6b456a6feb59d920",
+      "sha": "deb00fd6367d2ae255c9d36a8e7360e7ae0ec79a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8493,7 +8514,14 @@
     },
     {
       "path": "tests/test_preservar_coleta.py",
-      "sha": "0a18d1ee86d1528e180d21f557e3c716168b5dc2",
+      "sha": "aee012b7e98f6748419c5d66600a449a4265fd60",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_preservar_coleta_no_banco.py",
+      "sha": "4ad3b8d93e075131b4df36b25de44d011e817d4c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8601,6 +8629,72 @@
         "file": ".github/workflows/apify-sensores.yml",
         "line": 124,
         "snippet": "PYTHONIOENCODING=utf-8 $PY regras/sensor_coleta.py \\"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "guarda/memoria_descartavel.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 26,
+        "snippet": "- 'guarda/memoria_descartavel.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "guarda/memoria_descartavel.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 26,
+        "snippet": "- 'guarda/memoria_descartavel.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 25,
+        "snippet": "- 'guarda/preservar_coleta.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 25,
+        "snippet": "- 'guarda/preservar_coleta.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 27,
+        "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 27,
+        "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
       }
     },
     {
@@ -9305,6 +9399,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 122,
         "snippet": "run: python3 tests/test_preservar_coleta.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "tests/test_preservar_coleta_no_banco.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 129,
+        "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py"
       }
     },
     {
@@ -21958,6 +22063,17 @@
       }
     },
     {
+      "from_file": "provas/preservar_coleta_no_postgres.py",
+      "to_file": "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/preservar_coleta_no_postgres.py",
+        "line": 258,
+        "snippet": "open(MIGRACAO, 'leitura')  # MIGRACAO = supabase/migrations/001_fundacao_geografia_e_proveniencia.sql"
+      }
+    },
+    {
       "from_file": "provas/testa_coleta_canonica.py",
       "to_file": "AGENTS.md",
       "type": "READS",
@@ -25935,8 +26051,41 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preservar_coleta.py",
-        "line": 216,
+        "line": 186,
         "snippet": "fonte = open(os.path.join(RAIZ, \"guarda\", \"preservar_coleta.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_coleta_no_banco.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_preservar_coleta_no_banco.py",
+        "line": 282,
+        "snippet": "open(caminho, 'leitura')  # caminho = data/derivados/REGISTO-DE-ARTEFATOS.json"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_coleta_no_banco.py",
+      "to_file": "guarda/memoria_descartavel.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_preservar_coleta_no_banco.py",
+        "line": 336,
+        "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_coleta_no_banco.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_preservar_coleta_no_banco.py",
+        "line": 336,
+        "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
       }
     },
     {
@@ -26814,10 +26963,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1223,
-    "files_readable": 406,
-    "files_code_dir": 452,
-    "file_edges": 1623,
+    "files_tracked": 1227,
+    "files_readable": 410,
+    "files_code_dir": 456,
+    "file_edges": 1634,
     "escritas_em_pasta": 57,
     "declared_missing_here": 0
   },

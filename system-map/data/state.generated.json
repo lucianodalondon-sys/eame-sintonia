@@ -32,6 +32,7 @@
       ".github/copilot-instructions.md",
       ".github/workflows/apify-conexao.yml",
       ".github/workflows/apify-sensores.yml",
+      ".github/workflows/banco-descartavel.yml",
       ".github/workflows/calendario-regressoes.yml",
       ".github/workflows/comunicacao-publica.yml",
       ".github/workflows/sintonia-scrap.yml",
@@ -718,6 +719,7 @@
       "guarda/es/workflows/adama-es-gate.yml",
       "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",
+      "guarda/memoria_descartavel.py",
       "guarda/preservar_coleta.py",
       "guarda/sql_conferir.py"
     ],
@@ -1073,6 +1075,7 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/preservar_coleta_no_postgres.py",
       "provas/testa_coleta_canonica.py",
       "provas/testa_golden_path_pdf.py",
       "provas/testa_rota_italia.py",
@@ -1278,6 +1281,7 @@
       "tests/test_portao.py",
       "tests/test_portoes_eame.py",
       "tests/test_preservar_coleta.py",
+      "tests/test_preservar_coleta_no_banco.py",
       "tests/test_prioridade_comercial.py",
       "tests/test_proveniencia.py",
       "tests/test_radar_futuro.py",
@@ -1669,8 +1673,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "04da07472571d634c1f42bbd194937f6dadf7b53",
-    "GENERATED_AT": "2026-09-08T10:18:31-03:00"
+    "HEAD": "574f40bdef78f3b01c1af0c6c074ba4dba2a9781",
+    "GENERATED_AT": "2026-09-08T10:19:09-03:00"
   },
   "FAMILIES": [
     {
@@ -5412,7 +5416,9 @@
       "file_count": 9,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "docs/biblia/CONFORMIDADE-ITALIA.md"
+      ],
       "produces": [],
       "inbound": [
         "C-PROVA-BIBLIA"
@@ -5851,7 +5857,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "audit",
@@ -5863,9 +5869,11 @@
         ".github/workflows/system-map.yml"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        ".github/workflows/system-map.yml"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -5901,7 +5909,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "infra"
@@ -5909,23 +5917,28 @@
       "lane": "official",
       "family": "F-ESPERA",
       "files": [
+        ".github/workflows/banco-descartavel.yml",
         ".github/workflows/supabase-conexao.yml",
         ".github/workflows/supabase-fichas-adama.yml",
         ".github/workflows/supabase-migrate.yml",
         ".github/workflows/supabase-raw-roundtrip.yml",
         ".github/workflows/supabase-storage.yml"
       ],
-      "file_count": 5,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
+      "file_count": 6,
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-DONO-DA-ESCRITA",
+        "C-PROVA-COLETA",
         "C-SUPABASE"
       ],
       "outbound": [
         "C-CADEIA-V21",
+        "C-DONO-DA-ESCRITA",
         "C-MEDICAO",
+        "C-PROVA-COLETA",
         "C-REGRA-COLETA"
       ],
       "paises": {},
@@ -6712,11 +6725,11 @@
     },
     {
       "id": "C-DONO-DA-ESCRITA",
-      "name": "ALVO · o dono canônico da escrita",
+      "name": "ALVO · o dono canônico da escrita (provado em banco, sem corrida real)",
       "territory": "Z-GUARDA",
       "kind": "engine",
-      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → memória → reconciliação → COMPLETE. Ele não fala com o banco: gera SQL auditável, como a casa já fazia para a Espanha. E não sabe apagar byte nenhum.",
-      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe, porque os dois passos nunca foram de ninguém. Esta peça é a garantia PARA A FRENTE do G-42: se o envio passar e a memória falhar, a corrida fica PARTIAL com UPLOAD_PENDING_METADATA — nunca COMPLETE. É ALVO, não estado corrente: nenhuma corrida real passou por aqui ainda.",
+      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`.",
+      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ⚠️ CAN DO NÃO É DID DO: ela está provada contra um banco descartável e NÃO tem consumidor real — nenhuma coleta passou por aqui. Enquanto for assim, isto é ALVO, não estrada corrente.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -6730,20 +6743,38 @@
       "lane": "official",
       "family": "F-ESPERA",
       "files": [
+        "guarda/memoria_descartavel.py",
         "guarda/preservar_coleta.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "guarda/preservar_coleta.py"
+      ],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-CI-PERSIST"
+      ],
       "outbound": [
+        "C-CI-PERSIST",
         "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "IDENTIDADE_DA_CORRIDA",
+          "IDENTIDADE_DO_OBJETO"
+        ],
+        "palavras": 11,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 11,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -9600,27 +9631,32 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
+        "provas/preservar_coleta_no_postgres.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py"
       ],
-      "file_count": 2,
+      "file_count": 3,
       "status": "PENDING",
-      "status_reason": "teste que nao toca em nada do repositorio.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-ADAMA-ES",
         "C-ADMISSAO",
         "C-CI-MAPA",
+        "C-CI-PERSIST",
         "C-CONTRATO-ARTEFATO",
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
         "C-ORQUESTRADOR",
         "C-PALAVRAS",
         "C-PEDIDO",
-        "C-RECEITAS"
+        "C-RECEITAS",
+        "C-SUPABASE"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-CI-PERSIST"
+      ],
       "paises": {},
       "paises_dado": {
         "ESPANHA": 1
@@ -9629,14 +9665,16 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "COLS_OBJ",
+          "COLS_RUN",
           "_GAVETAS_IT",
           "_OUTROS",
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 25,
+        "palavras": 41,
         "por_lingua": {},
-        "sem_marca_de_lingua": 25,
+        "sem_marca_de_lingua": 41,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -10523,6 +10561,7 @@
         "C-DATA-CLOCK",
         "C-FONTES-EU",
         "C-IMPORTAR",
+        "C-PROVA-COLETA",
         "C-REGRA-COLETA",
         "C-ROTULOS",
         "C-TESTES"
@@ -11614,7 +11653,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -11651,6 +11690,7 @@
         "tests/test_portao.py",
         "tests/test_portoes_eame.py",
         "tests/test_preservar_coleta.py",
+        "tests/test_preservar_coleta_no_banco.py",
         "tests/test_prioridade_comercial.py",
         "tests/test_proveniencia.py",
         "tests/test_radar_futuro.py",
@@ -11661,10 +11701,12 @@
         "tests/test_v21_traducao_trava.py",
         "tests/test_voz.py"
       ],
-      "file_count": 37,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
-      "changed_since_declared": [],
+      "file_count": 38,
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "tests/test_preservar_coleta.py"
+      ],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
@@ -11752,20 +11794,27 @@
           "SINAL_LOMBARDIA",
           "SINAL_VENETO"
         ],
-        "palavras": 278,
+        "palavras": 293,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 276,
+        "sem_marca_de_lingua": 291,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [
+        "SUPABASE",
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "SUPABASE",
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 380,
+          "snippet": "for proibido in (\"os.environ\", \"getenv\", \"SUPABASE_URL =\"):"
+        },
         {
           "onde": "GIT",
           "file": "data/samples/SPAIN-HERO-CASES-V1.json",
@@ -11785,7 +11834,7 @@
           "snippet": "ficheiro versionado que esta peca escreve"
         }
       ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
       "x": 14420,
       "y": 2292
     },
@@ -13308,7 +13357,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 04da07472571d634c1f42bbd194937f6dadf7b53"
+        "HEAD 574f40bdef78f3b01c1af0c6c074ba4dba2a9781"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -15670,7 +15719,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
@@ -15706,6 +15755,11 @@
           "file": ".github/workflows/system-map.yml",
           "line": 122,
           "snippet": "run: python3 tests/test_preservar_coleta.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 129,
+          "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py"
         }
       ],
       "categoria": "PROOF"
@@ -15730,6 +15784,29 @@
     },
     {
       "from": "C-CI-PERSIST",
+      "to": "C-DONO-DA-ESCRITA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar ALVO · o dono canônico da escrita (provado em banco, sem corrida real). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 25,
+          "snippet": "- 'guarda/preservar_coleta.py'"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 26,
+          "snippet": "- 'guarda/memoria_descartavel.py'"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
       "to": "C-MEDICAO",
       "type": "RUNS",
       "payload": "execucao",
@@ -15745,6 +15822,24 @@
         }
       ],
       "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-PROVA-COLETA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 27,
+          "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-CI-PERSIST",
@@ -16370,18 +16465,51 @@
     },
     {
       "from": "C-DONO-DA-ESCRITA",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "ALVO · o dono canônico da escrita (provado em banco, sem corrida real) alimenta Os botoes que cuidam do banco. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 25,
+          "snippet": "- 'guarda/preservar_coleta.py'"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 26,
+          "snippet": "- 'guarda/memoria_descartavel.py'"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "ALVO · o dono canônico da escrita alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "ALVO · o dono canônico da escrita (provado em banco, sem corrida real) alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_preservar_coleta.py",
-          "line": 216,
+          "line": 186,
           "snippet": "fonte = open(os.path.join(RAIZ, \"guarda\", \"preservar_coleta.py\"),"
+        },
+        {
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 336,
+          "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
+        },
+        {
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 336,
+          "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
         }
       ],
       "categoria": "PROOF"
@@ -19392,6 +19520,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-PROVA-COLETA",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 27,
+          "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-RECEITAS",
       "to": "C-ORQUESTRADOR",
       "type": "IMPORTS",
@@ -20223,6 +20369,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-SUPABASE",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/preservar_coleta_no_postgres.py",
+          "line": 258,
+          "snippet": "open(MIGRACAO, 'leitura')  # MIGRACAO = supabase/migrations/001_fundacao_geografia_e_proveniencia.sql"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-SUPABASE",
@@ -21505,16 +21669,16 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 113,
-    "components_proven": 76,
-    "components_pending": 31,
+    "components_proven": 73,
+    "components_pending": 34,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 369,
-    "edges_proven": 367,
+    "edges": 374,
+    "edges_proven": 372,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1223,
-    "files_covered": 546,
+    "files_tracked": 1227,
+    "files_covered": 550,
     "files_code_unclaimed": 0
   }
 }

@@ -294,7 +294,7 @@ nesta missão.**
 | dimensão | estado |
 |---|---|
 | **HISTÓRICO** · os 195 objetos existentes sem memória operacional | **ABERTO, e assim fica.** Classe de dívida: `HISTORICAL_STORAGE_WITHOUT_OPERATIONAL_RUN`. Preservados, com procedência documental recuperável e `RUN` `NOT_PROVABLE`. **Sem corrida inventada.** |
-| **GARANTIA FORWARD** · nenhum objeto NOVO pode repetir isto em silêncio | **FECHADO em código e teste.** `guarda/preservar_coleta.py` + 19 provas. Ainda **não** em produção |
+| **GARANTIA FORWARD** · nenhum objeto NOVO pode repetir isto em silêncio | **`FORWARD_IMPLEMENTED_AND_DB_TESTED`** · `LIVE_OBSERVATION_PENDING`. Provado contra banco real e descartável, **sem consumidor ligado** |
 
 ### A classe de dívida do histórico, escrita com todas as letras
 
@@ -386,10 +386,81 @@ Repetir a chamada faz **só o que falta**: o objeto já lá está, `existe()` de
 byte volta a subir. O `INSERT` traz `on conflict (storage_path) do nothing` — não duplica
 linha nem inventa `captured_at` novo. Provado nos casos H e N.
 
-### Provado sem produção
+### ⚠️ O QUE A PRIMEIRA VERSÃO DISTO NÃO PROVAVA
 
-19 testes em `tests/test_preservar_coleta.py`, com armazém de mentira: **sem banco, sem rede,
-sem instalar nada**. Cobrem A–N, incluindo as duas mortes do processo e a recuperação.
+Um red team encontrou dois buracos, e ambos eram o **mesmo** buraco:
+
+```
+SQL ACEITE            não é     LINHA GRAVADA
+TESTE COM SIMULACRO   não é     RECONCILIAÇÃO DE BANCO
+COMPLETE NO PYTHON    não é     CONCLUIDA NO POSTGRES
+```
+
+1. **`escrever_memoria(sql)` era dada por bem-sucedida por não ter rebentado**, e
+   `LINHAS_DE_MEMORIA` era o número **esperado** copiado para o lugar do **observado**. Com
+   `on conflict do nothing`, o SQL pode correr inteiro, **não gravar nada** e não se queixar.
+   A corrida ficava verde sobre um banco vazio — o estado italiano outra vez, em pequeno.
+2. **A corrida abria `'rodando'` e nunca era promovida.** Era possível ter
+   `RUN_STATE = COMPLETE` no manifesto e `status = 'rodando'` no banco.
+
+**O código estava certo na lógica e cego no resultado.** Corrigido:
+
+| antes | agora |
+|---|---|
+| `LINHAS = len(CONFERIDOS)` | `LINHAS_OBSERVADAS_NO_BANCO` vem de um **`SELECT`** |
+| `do nothing` e segue | a linha existente é **lida e comparada** antes: `REUSED` ou `METADATA_CONFLICT` |
+| corrida fica `rodando` | `sql_de_fecho()` promove a `concluida`, e o estado é **lido de volta** |
+| 6 condições de fecho | **9**, incluindo `reconciliacao_observada` e `banco_diz_concluida` |
+
+### Conflito: `do nothing` deixou de ser esconderijo
+
+```
+storage_path já existe, tudo igual        →  REUSED_METADATA      (retry legítimo)
+storage_path já existe, outro sha256      →  METADATA_CONFLICT    e não se escreve
+storage_path já existe, outra corrida     →  METADATA_CONFLICT
+run_id já existe, identidade congelada    →  RUN_ID_CONFLICT
+  diferente (COL-LAW-211)
+```
+
+Em conflito, **nada é escrito**. O banco fica como estava e a corrida não fecha — que é o
+resultado honesto de duas verdades no mesmo endereço.
+
+### Provado contra banco de verdade, e nenhum deles é a produção
+
+| bateria | motor | onde |
+|---|---|---|
+| `tests/test_preservar_coleta.py` (18) | plano e armazém, sem banco | sempre |
+| `tests/test_preservar_coleta_no_banco.py` (18) | **SQLite** real, em memória | sempre |
+| `provas/preservar_coleta_no_postgres.py` | **Postgres 16** com a `migration 001` **original** | `banco-descartavel.yml`, contentor que morre no job |
+
+Casos A–L cobertos: 2 esperados → 2 reais → `SELECT` confirma → `concluida`; retry sem
+duplicata; `REUSED`; conflito de sha; conflito de corrida; conflito de `run_id`; **SQL que
+corre e grava a menos → reconciliação reprova**; `raw_asset` escrito mas fecho falha → **não
+`COMPLETE`**; e as duas mortes do processo, com recuperação sem duplicação.
+
+> **A trava contra o acidente.** A prova em Postgres **recusa-se a arrancar** se o endereço
+> não contiver `localhost`/`127.0.0.1`. Não é lista de bloqueio — lista de bloqueio falha por
+> omissão. É lista de **permissão**. E o próprio workflow testa a recusa.
+
+### CAN DO ≠ DID DO
+
+**Medido: zero consumidores reais.** Nenhum ficheiro de produção chama `preservar()` — só
+testes, provas e o adaptador descartável. Há um teste que **reprova se alguém ligar a peça e
+esquecer de atualizar o estado**.
+
+```
+G-42 FORWARD = FORWARD_IMPLEMENTED_AND_DB_TESTED
+               LIVE_OBSERVATION_PENDING
+```
+
+Não é `OPERATIONAL` e não é `OBSERVED_LIVE`. **Primeiro consumidor designado:**
+`coleta/golden_path_pdf.py` — é a estrada que já fecha canonicamente e já calcula
+`STATE_BEFORE/AFTER`. Falta ligar-lhe um armazém real e a mão que aplica o SQL. **Não foi
+ligada nesta missão.**
+
+E a cadeia foi exercitada contra o **acervo real** (integração com fixture + banco
+descartável): os conteúdos que o registo de derivados declara passaram pela cadeia inteira e
+fecharam. **O número não está escrito no teste — é contado do registo.**
 
 ---
 
