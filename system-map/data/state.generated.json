@@ -995,6 +995,7 @@
     ],
     "leis": [
       "leis/adama_relevance.py",
+      "leis/aprender_com_a_fonte.py",
       "leis/artefato.py",
       "leis/auditoria_regua_comercial.py",
       "leis/calendario_handoff.py",
@@ -1313,6 +1314,7 @@
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/test_adama_relevance.py",
+      "tests/test_aprender_com_a_fonte.py",
       "tests/test_arestas.py",
       "tests/test_armazem_italiano.py",
       "tests/test_biblia.py",
@@ -1749,8 +1751,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "220e0e7a1f9b8a93355857aa3b102de7ec192b85",
-    "GENERATED_AT": "2026-09-08T17:50:01-03:00"
+    "HEAD": "81dc8662df34691f1249c1db751f7f209f821ba2",
+    "GENERATED_AT": "2026-09-08T17:53:28-03:00"
   },
   "FAMILIES": [
     {
@@ -1805,7 +1807,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 47
+      "count": 48
     },
     {
       "id": "F-ENTREGA",
@@ -2063,7 +2065,7 @@
       "y": 190,
       "w": 820,
       "h": 2938,
-      "count": 9
+      "count": 10
     },
     {
       "id": "Z-MOTOR",
@@ -2540,7 +2542,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "red",
+      "ui_status": "yellow",
       "icon": "◈",
       "views": [
         "audit",
@@ -2549,17 +2551,37 @@
       ],
       "lane": "official",
       "family": "F-INTELIGENCIA",
-      "files": [],
-      "file_count": 0,
-      "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com leis/aprender_com_a_fonte.py.",
+      "files": [
+        "leis/aprender_com_a_fonte.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "o motor importa esta lei para decidir.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS_DA_MEDIDA",
+          "CICLO_DE_VIDA",
+          "LEIS",
+          "PAPEIS",
+          "RENDIMENTOS",
+          "SAUDE_DA_FONTE"
+        ],
+        "palavras": 45,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 45,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -7556,6 +7578,45 @@
       "y": 1326
     },
     {
+      "id": "C-EVOLUCAO",
+      "name": "O contrato da evolução",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "A espinha para representar que houve uma alternativa, que ela foi comparada e o que se decidiu: baseline, campeão, desafiante, sombra, experiência, promoção e rollback. E a porta estreita que decide se pode promover.",
+      "why_here": "APRENDER AUTOMATICAMENTE ≠ PROMOVER AUTOMATICAMENTE. Um sistema pode medir sozinho, comparar sozinho e até ter razão sozinho — nada disso o autoriza a trocar a política em produção sem alguém assinar. E sem baseline não há aprendizagem, há só mudança: trocar e medir depois não diz nada, porque não se sabe como estava antes.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "red",
+      "icon": "⟳",
+      "views": [
+        "audit",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [],
+      "file_count": 0,
+      "status": "BROKEN",
+      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com leis/evolucao.py.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 12595,
+      "y": 1004
+    },
+    {
       "id": "C-EXECUTOR-TEXTO-PDF",
       "name": "Executor · texto a partir de PDF",
       "territory": "Z-ACOES",
@@ -7849,7 +7910,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12595,
+      "x": 13010,
       "y": 1004
     },
     {
@@ -8918,8 +8979,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
-      "y": 1004
+      "x": 12595,
+      "y": 1326
     },
     {
       "id": "C-MAPA-APP",
@@ -10605,7 +10666,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12595,
+      "x": 13010,
       "y": 1326
     },
     {
@@ -11045,8 +11106,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13010,
-      "y": 1326
+      "x": 12595,
+      "y": 1648
     },
     {
       "id": "C-ROTULOS",
@@ -11358,7 +11419,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12595,
+      "x": 13010,
       "y": 1648
     },
     {
@@ -12788,6 +12849,7 @@
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
         "tests/test_adama_relevance.py",
+        "tests/test_aprender_com_a_fonte.py",
         "tests/test_arestas.py",
         "tests/test_armazem_italiano.py",
         "tests/test_biblia.py",
@@ -12843,9 +12905,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 57,
+      "file_count": 58,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 17 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 18 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -12856,6 +12918,7 @@
         "C-ADAMA-ES",
         "C-ADMISSAO",
         "C-APIFY-POOL",
+        "C-APRENDER-COM-A-FONTE",
         "C-AS-FONTES",
         "C-ASK-SINTONIA",
         "C-BIBLIA",
@@ -14555,7 +14618,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 220e0e7a1f9b8a93355857aa3b102de7ec192b85"
+        "HEAD 81dc8662df34691f1249c1db751f7f209f821ba2"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -15150,6 +15213,24 @@
         }
       ],
       "categoria": "CONTROL"
+    },
+    {
+      "from": "C-APRENDER-COM-A-FONTE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da aprendizagem sobre a fonte tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_aprender_com_a_fonte.py",
+          "line": 14,
+          "snippet": "import aprender_com_a_fonte as a  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-ARTEFACTO-V21",
@@ -24467,17 +24548,17 @@
   "UNCLAIMED_FILES_COUNT": 698,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 128,
+    "components": 129,
     "components_proven": 73,
-    "components_pending": 47,
+    "components_pending": 48,
     "components_broken": 1,
     "components_unknown": 7,
-    "edges": 440,
-    "edges_proven": 438,
+    "edges": 441,
+    "edges_proven": 439,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1303,
-    "files_covered": 605,
+    "files_tracked": 1305,
+    "files_covered": 607,
     "files_code_unclaimed": 0
   }
 }

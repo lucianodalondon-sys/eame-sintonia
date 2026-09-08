@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "220e0e7a1f9b8a93355857aa3b102de7ec192b85",
-    "GENERATED_AT": "2026-09-08T17:50:01-03:00"
+    "HEAD": "81dc8662df34691f1249c1db751f7f209f821ba2",
+    "GENERATED_AT": "2026-09-08T17:53:28-03:00"
   },
   "FILES": [
     {
@@ -6721,6 +6721,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/aprender_com_a_fonte.py",
+      "sha": "a291ef6d1fe97367c48b1b407d509f62db1a6e3d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/artefato.py",
       "sha": "db12c95938b9d3558a8304516e40e99cb87c94dc",
       "ext": ".py",
@@ -8507,7 +8514,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "672f22a388fa73340919110643a1fd3b576365e1",
+      "sha": "e96a38fa1013a2df9d3f0f8eb4f64981e7df2a8b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8739,6 +8746,13 @@
     {
       "path": "tests/test_adama_relevance.py",
       "sha": "4337978c67cf52681f3eddbcaeb2423eca2291e8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_aprender_com_a_fonte.py",
+      "sha": "b19b0979b9b9820b23ee8d4fd80862742eeba1ab",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25631,6 +25645,28 @@
       }
     },
     {
+      "from_file": "tests/test_aprender_com_a_fonte.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_aprender_com_a_fonte.py",
+        "line": 13,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_aprender_com_a_fonte.py",
+      "to_file": "leis/aprender_com_a_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_aprender_com_a_fonte.py",
+        "line": 14,
+        "snippet": "import aprender_com_a_fonte as a  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_arestas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -29821,10 +29857,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1303,
-    "files_readable": 462,
-    "files_code_dir": 513,
-    "file_edges": 1841,
+    "files_tracked": 1305,
+    "files_readable": 464,
+    "files_code_dir": 515,
+    "file_edges": 1843,
     "escritas_em_pasta": 64,
     "declared_missing_here": 0
   },
