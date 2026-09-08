@@ -4,8 +4,8 @@
 
 ```
 BIBLE_STATUS             DRAFT
-BIBLE_VERSION            V0.2
-SUPERSEDES               V0.1 (2026-09-08) — não a apaga; ver §22 e PARTE V
+BIBLE_VERSION            V0.3
+SUPERSEDES               V0.2 (2026-09-08) — não a apaga; ver §22, PARTE V e PARTE VI
 DATE                     2026-09-08
 IMPLEMENTATION           NONE
 PRODUCTION_TOUCHED       NONE
@@ -1092,6 +1092,7 @@ VERSION · DATE · SUPERSEDES · WHAT_CHANGED · WHY · EVIDENCE · DECISION_REF
 | VERSION | DATE | SUPERSEDES | WHAT_CHANGED | WHY | EVIDENCE |
 |---|---|---|---|---|---|
 | V0.1 | 2026-09-08 | — | primeira escrita | não existia constituição de entrega; 12 superfícies, 1 contrato | `INVENTARIO-DAS-SUPERFICIES-ATUAIS.md` |
+| **V0.3** | **2026-09-08** | **V0.2** | PARTE VI: `C-06` reescrito de «duas leis discordam» para **problema de composição** (§48) · a lei `L-26 · duas respostas diferentes não são contradição se respondem a perguntas diferentes` · `L-27 · derivação não declarada é uma segunda verdade em potência` · `L-28 · time since we saw it ≠ time until it closes` · o quinto eixo `EXTERNAL_MATERIAL_READY` (§49) · `MAPPING_TO_ENGINE` reforçado como `NOT_MEASURED` com prova (§50) | a medição dos 43 casos contra os eixos: nenhuma contradição em 43/43, mas duas derivações não declaradas e um colapso de três eixos num só conjunto | `docs/biblia/medicoes/MATRIZ-43-QUATRO-EIXOS.md` · `.json` · `medir_43_quatro_eixos.py` |
 | **V0.2** | **2026-09-08** | **V0.1** | PARTE V: três registos epistemológicos (§32) · modelo temporal e propriedade dos campos (§34) · contrato de card e 3s/30s/3min (§36) · Evidence Drawer (§37) · Home como fila de decisão (§38) · alerta por transição de estado (§39) · briefs por papel e mobile (§40) · superfície de ação (§41) · métrica de valor por ferramenta (§42) · 8 leis novas (§33) · 8 anti-padrões novos (§43) | o benchmark de 16 sistemas trouxe evidência externa; o dono declarou intenção de produto; e a re-execução do baseline destapou duas leis vivas sobre os mesmos 43 casos | `research/product-tools-benchmark-v1@6ef8e70` · `INVENTARIO §A` · `ADJUDICACAO-DO-BENCHMARK-V0.2.md` |
 
 ## §23 · PRECEDÊNCIA ENTRE DOCUMENTOS
@@ -2095,3 +2096,254 @@ pulos do gato e as 12 recomendações por superfície foram julgadas uma a uma e
 **Não escolheu entre as duas linhagens de portal.** `C-05` continua aberto.
 **Não decidiu os nomes dos estados temporais.** `U-15` continua aberto.
 **Não promoveu a `Validation Queue` a ferramenta.** É `WORKFLOW_CANDIDATE`.
+
+---
+
+# PARTE VI · EMENDA V0.3
+
+```
+AMENDMENT_TO      V0.2 (2026-09-08)
+INPUT             medição D0.3 — 43 casos × 5 eixos, em a4fb6d8
+                  docs/biblia/medicoes/MATRIZ-43-QUATRO-EIXOS.{md,json}
+                  docs/biblia/medicoes/medir_43_quatro_eixos.py   READ-ONLY
+COUNTEREXAMPLES   3 (L-26, L-27, L-28) — exigidos por §20
+CONSTITUTION_LINES_REMOVED   0
+ARTIGOS ALTERADOS §34 (precisado) · C-06 (reescrito) · §5 (quinto eixo)
+```
+
+> V0.2 disse *«a arquitetura temporal está pronta; o relógio que a alimenta não está»*.
+> V0.3 mede-o e precisa-o: **o relógio que anda é o da frescura do sinal. O da contagem
+> decrescente até à janela não existe em nenhum dos 43 casos.**
+
+---
+
+## §48 · `C-06` REESCRITO
+
+**Substitui integralmente a descrição de `C-06` em V0.1 §4 e V0.2.**
+
+### O que V0.2 dizia
+
+> *«Duas leis declaradas, ambas testadas, discordam sobre o que é uma oportunidade.»*
+> Registado como uma **disputa por um dono**, à espera de que alguém escolhesse.
+
+### O que a medição mostrou
+
+**Não há discordância.** Percorridos os 43 casos, **não existe um único par de eixos que
+se contradiga**. Não há um caso `OPPORTUNITA` que a Linha A declare inelegível; não há um
+`SALES_READY` fora da classe A. As duas linhas **encaixam**, sem exceção:
+
+```
+ACT_NOW (2)  ⊂  SALES_READY = PUBLISHABLE = EXTERNAL_YES (6)  ⊂  OPPORTUNITA = A (17)  ⊂  43
+```
+
+```
+C-06_VERDICT = PARTIAL_OVERLAP
+               ortogonalidade estrutural entre Linha A e Linha B,
+               com DERIVAÇÃO e COLAPSO dentro da Linha A
+C-06_TYPE    = PROBLEMA DE COMPOSIÇÃO, não de propriedade
+```
+
+### Os três problemas reais, medidos
+
+**1 · DERIVAÇÃO NÃO DECLARADA.**
+`ELIGIBILITY_CLASS` e `ELIGIBILITY_SURFACE` são o mesmo facto sob dois nomes —
+`A↔OPPORTUNITA`, `B↔RADAR`, `C↔SEGNALI`, `D↔ERRORE`, em **43/43**. Um é projeção do
+outro, e **nada no artefacto o declara**.
+
+**2 · COLAPSO DE TRÊS EIXOS.**
+`SALES_READY`, `PUBLISHABLE` e `EXTERNAL_MATERIAL_READY = YES` são **o mesmo conjunto de
+6 `CASE_ID`**. Declarados independentes no código, medidos co-extensivos.
+
+**3 · COMPOSIÇÃO POR ESCREVER.**
+A barra imprime `17` (Linha B) e chama-lhe «Opportunity Radar». O motor tem `ACT_NOW 2`.
+**Nenhum dos dois está errado.** O que falta é a regra que diz **qual eixo governa o quê**:
+a contagem do menu, a ordem da fila, o selo do cartão, o gate do brief.
+
+### O que muda no Registo Vivo
+
+```
+C-06   ABERTO      →   REQUALIFICADO
+       de: «duas leis discordam sobre o que é uma oportunidade; escolher uma»
+       para: «cinco eixos ortogonais sem contrato de composição;
+              duas derivações por declarar; um colapso de três eixos por explicar»
+QUEM DECIDE  continua o dono do produto — mas a decisão deixou de ser
+             «qual das duas vence» e passou a ser «qual eixo governa cada superfície»
+```
+
+**A decisão ficou mais barata.** Não é preciso matar uma lei.
+
+---
+
+## §49 · O QUINTO EIXO, E A LEI QUE O SEPARA
+
+**Emenda a §5.** O envelope de Intelligence Product ganha um campo que o repositório já
+produz e que V0.2 não conhecia:
+
+```
+EXTERNAL_MATERIAL_READY     YES · VALIDATION_REQUIRED · NO
+EXTERNAL_BLOCKER_CODES[]    o motivo, de um vocabulário fechado de oito
+```
+
+A lei, citada do código:
+
+> *«`SALES_READY` responde «isto vende?». Ele NÃO responde «isto pode ser enviado a um
+> revendedor ou a um RTV hoje?».*
+> ***VENDER É UMA DECISÃO INTERNA. ENVIAR É UMA AFIRMAÇÃO PÚBLICA.***
+> *A SEGUNDA PRECISA SOBREVIVER A QUEM A LER SEM NOS CONHECER.»*
+
+**É a lei que faltava a `§40` (briefs e móvel).** Um `SHARE_BRIEF` que saia para um RTV
+não pergunta se o caso vende: pergunta se ele **pode sair**. São portões diferentes, e o
+segundo é o que protege a ADAMA de pôr uma inferência interna na mão de terceiro.
+
+```
+C-BRIEF-03  Nenhuma DELIVERY_PROJECTION que saia da ADAMA consome
+            COMMERCIAL_PRIORITY como autorização de saída.
+            O portão de saída é EXTERNAL_MATERIAL_READY, e só ele.
+```
+
+**Estado medido, e é o que impede fechar o contrato hoje:**
+
+```
+EXTERNAL_BLOCKER_CODES nos 43:   ('NOT_SALES_READY',) 37   ·   () 6
+```
+
+Dos oito códigos de bloqueio definidos, **um só disparou** — e é o que reflete
+`SALES_READY`. Os outros sete nunca foram exercitados.
+
+> **A lei que separa venda de saída está escrita e está certa.
+> Nunca foi testada por um caso que a obrigasse a discordar.**
+>
+> `DELIVERY_CONSUMPTION = BLOCKED` para qualquer superfície que mostre os três eixos
+> como colunas independentes: nesta safra, exibiria três colunas iguais.
+
+---
+
+## §50 · TRÊS LEIS NOVAS
+
+### L-26 · `DUAS RESPOSTAS DIFERENTES NÃO SÃO UMA CONTRADIÇÃO SE RESPONDEM A PERGUNTAS DIFERENTES`
+
+```
+COUNTEREXAMPLE (exigido por §20)
+   V0.1 e V0.2 classificaram C-06 como conflito e puseram-no na lista do que exige
+   «decisão do dono para escolher um lado». Essa classificação é DESMENTIDA pelos 43
+   casos: não há um único par de eixos em desacordo. A Constituição não tinha
+   vocabulário para «dois eixos que coexistem sem se contradizerem», e por isso
+   classificou coexistência como conflito — o que produz uma decisão desnecessária e
+   destrói informação, porque escolher um eixo apaga a pergunta do outro.
+```
+
+**Consequência operacional.** Antes de registar um `CONFLITO`, o Registo Vivo tem de
+responder: *as duas coisas respondem à mesma pergunta?* Se não, não é conflito — é
+**composição por escrever**, e o que falta é um contrato, não um vencedor.
+
+### L-27 · `DERIVAÇÃO NÃO DECLARADA É UMA SEGUNDA VERDADE EM POTÊNCIA`
+
+> Quando um campo é função de outro, a derivação declara-se. Dois nomes para o mesmo
+> facto, sem dizer qual deriva de qual, é um par que diverge em silêncio no dia em que
+> um dos dois mudar.
+
+```
+COUNTEREXAMPLE
+   `L-GRAPH-01` (V0.2 §44) proíbe COPIAR dados entre ferramentas. Mas
+   ELIGIBILITY_CLASS e ELIGIBILITY_SURFACE não são uma cópia entre ferramentas: são
+   dois campos do MESMO artefacto, um derivado do outro, e `L-GRAPH-01` não os alcança.
+   Medido: 43/43 em correspondência perfeita, e nenhum dos dois declara a relação.
+```
+
+**Consequência operacional.** Todo par derivado publica `DERIVED_FROM`. E a prova é a
+mesma que `§6 P-04` já exige das projeções: **a derivação verifica-se, não se assume**.
+
+### L-28 · `TIME SINCE WE SAW IT ≠ TIME UNTIL IT CLOSES`
+
+> A idade de um sinal e a contagem decrescente até uma janela fechar são **dois
+> relógios**. Um estado de urgência derivado do primeiro não pode ser apresentado com a
+> linguagem do segundo.
+
+```
+COUNTEREXAMPLE
+   §34 de V0.2 listou TIME_TO_ACT e WINDOW_OPEN_NOW como campos distintos — e tratou
+   ACT_NOW como se fosse a expressão de uma janela a fechar. Medido:
+       DAYS_REMAINING = None  em 43 / 43
+       WINDOW_STATE   = UNKNOWN em 43 / 43
+   O ramo `0 <= dias <= 30` de `estado_temporal()` NUNCA EXECUTOU. Os dois casos
+   ACT_NOW são-no por `sidade <= 30` — a IDADE DO SINAL. Que ambos tenham também
+   WINDOW_OPEN_NOW = YES é uma coincidência de dois casos, não o mecanismo.
+```
+
+**Consequência operacional, e é dura.** Enquanto `DAYS_REMAINING` for nulo:
+
+```
+L-28-a  Nenhuma superfície pode escrever «faltam N dias» — o N não existe.
+L-28-b  Um estado derivado da idade do sinal declara-o:
+        COMMERCIAL_TIMING_BASIS = CURRENT_SOURCE_RECOMMENDATION é o campo que já o faz.
+L-28-c  `AGIR AGORA` como rótulo de leitor exige o segundo relógio.
+        Com o primeiro, o rótulo honesto é «sinal recente», que é outra coisa.
+```
+
+---
+
+## §51 · §34 PRECISADO PELA MEDIÇÃO
+
+**Emenda a §34.1.** A tabela de doze campos temporais mantém-se. Três linhas ganham o
+seu estado medido, e uma ganha o seu dono:
+
+| campo | estado em V0.2 | **estado medido em V0.3** |
+|---|---|---|
+| `WINDOW_OPEN_NOW` | `UNKNOWN` em 41/43 | idem — **e 14 dos 16 com janela DEFINIDA não sabem se ela está aberta** |
+| `DAYS_REMAINING` | não avaliado | **`None` em 43/43** — a contagem decrescente não existe |
+| `WINDOW_STATE` | não avaliado | **`UNKNOWN` em 43/43** |
+| `WHY_NOW` | «existe (Linha A)» | **confirmado: presente em 43/43**, dono `v21_oportunidades.py` |
+
+E uma correção à leitura de `ACTION_STATUS`:
+
+> **`ACTION_STATUS` não é um eixo temporal. São dois eixos num campo só.**
+> `ACT_NOW · WATCH · FUTURE_PREPARATION` vêm de `estado_temporal()`.
+> **`TO_VALIDATE` é uma falha de portão que SOBRESCREVE o estado temporal**
+> (`v21_oportunidades.py:776`).
+> Um caso `TO_VALIDATE` não é «um caso a validar mais tarde»: é um caso cujo estado
+> temporal foi apagado por um portão fechado.
+
+```
+DEPENDENCY_ON_INTELLIGENCE_BIBLE = OPEN
+    separar ACTION_STATUS em TEMPORAL_STATE + GATE_STATE é decisão de
+    autoridade semântica, e não é da Bíblia da Entrega.
+```
+
+---
+
+## §52 · `MAPPING_TO_ENGINE` — reforçado, com prova
+
+V0.2 declarou `MAPPING_TO_ENGINE = NOT_MEASURED` e proibiu o mapeamento cosmético.
+**A medição dá-lhe agora uma prova, e a proibição endurece:**
+
+```
+ACT_NOW  significa, no código:  «o sinal tem menos de 30 dias»
+AGIR AGORA  diz, a um leitor:   «a janela está a fechar, atrasar perde a oportunidade»
+```
+
+**Não são a mesma coisa.** Chamar `AGIR AGORA` ao `ACT_NOW` atual seria prometer ao
+leitor um relógio que o sistema não tem.
+
+```
+MAPPING_TO_ENGINE = NOT_MEASURED — e agora com o motivo medido, não só declarado.
+STATE_LABELS      = NOT_CANONICAL
+```
+
+> **SIMILARIDADE LEXICAL NÃO É EQUIVALÊNCIA SEMÂNTICA.**
+
+---
+
+## §53 · O QUE V0.3 NÃO FEZ
+
+Não alterou portal, motor, coletores, schema, Supabase, Vercel, Apify, nem um único dos
+43 casos canónicos. Não escolheu entre Linha A e Linha B. Não renomeou `SALES_READY` —
+continua a chamar-se `SALES_READY`. Não mapeou nenhum estado do motor para um rótulo de
+leitor. Não fechou nenhum Product Contract.
+
+```
+PRODUCT_CONTRACT_DEPENDENCY = OPEN
+    O Opportunity Radar Product Contract e o Home Product Contract dependem do
+    CONTRATO DE COMPOSIÇÃO que §48 acaba de nomear e que ninguém escreveu ainda.
+```
+
+**Sete `UNKNOWN` novos** (`U-25`…`U-31`), nenhum resolvido por inferência.
