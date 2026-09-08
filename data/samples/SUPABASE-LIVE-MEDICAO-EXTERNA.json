@@ -1,0 +1,37 @@
+{
+  "SCHEMA": "EXTERNAL_LIVE_MEASUREMENT/1",
+  "O_QUE_ISTO_E": "Uma leitura READ-ONLY do Supabase LIVE feita pelo COORDENADOR, fora desta sessao. NAO e observacao desta maquina: esta sessao nao tem credencial e nao conseguiu reproduzi-la. Por isso o estado destes numeros e EXTERNAL_LIVE_MEASUREMENT, e nunca OBSERVED. Quem mede tem de aparecer ao lado do que foi medido.",
+  "POR_QUE_ISTO_NAO_E_OBSERVED": "OBSERVED significa 'esta casa foi la e viu'. Esta casa nao foi. Chamar isto de OBSERVED faria o mapa dizer que ha prova local onde ha um recado de terceiro — e recado de terceiro pode estar certo e continuar nao sendo prova nossa.",
+  "MEDIDO_POR": "COORDENADOR",
+  "MEDIDO_EM": "2026-09-08",
+  "REGISTADO_EM": "2026-09-08",
+  "PROJETO": "eame-sintonia",
+  "MODO": "READ_ONLY",
+  "ESCRITAS": 0,
+
+  "STORAGE": {
+    "BUCKET": "raw",
+    "VISIBILIDADE": "PRIVADO",
+    "NOTA_DE_SEMANTICA": "IT/ e PREFIXO DE OBJETO, nao pasta. O Storage nao tem diretorios: a barra faz parte do nome da chave.",
+    "PREFIXO": "IT/",
+    "OBJETOS": 195,
+    "BYTES": 80714570,
+    "POR_PREFIXO": [
+      {"PREFIXO": "IT/adama-website/CAPTURE", "OBJETOS": 3},
+      {"PREFIXO": "IT/adama-website/DOCUMENT", "OBJETOS": 139},
+      {"PREFIXO": "IT/adama-website/MANIFEST", "OBJETOS": 2},
+      {"PREFIXO": "IT/adama-website/PRODUCT_DOM", "OBJETOS": 51}
+    ],
+    "CHAVES_INDIVIDUAIS": "NAO_FORNECIDAS — so as contagens por prefixo vieram na medicao. Sem a lista de chaves nao se pode casar objeto a objeto com o manifesto."
+  },
+
+  "TABELAS": {
+    "public.collection_run": {"LINHAS": 8, "SOURCE_COUNTRY": "ES em todas", "LINHAS_IT": 0},
+    "public.raw_asset": {"LINHAS": 251, "STORAGE_PATH": "ES/... em todas", "LINHAS_IT": 0},
+    "public.conteudo": {"LINHAS": 0},
+    "public.conteudo_visto_em": {"LINHAS": 0}
+  },
+
+  "O_QUE_ISTO_PROVA": "ITALY_STORAGE_BYTES = PRESENTE (195 objetos, 80,7 MB) e, ao mesmo tempo, ITALY_RAW_ASSET_METADATA = AUSENTE e ITALY_COLLECTION_RUN = AUSENTE. Os bytes italianos estao la; a memoria operacional deles nao.",
+  "O_QUE_ISTO_NAO_PROVA": "Nao prova que os 195 objetos sejam os do acervo do Golden Path — sao universos diferentes ate se provar o contrario. Nao prova que nada se perdeu. Nao prova que a proveniencia seja recuperavel: isso mede-se noutro sitio, no manifesto que vive no Git."
+}

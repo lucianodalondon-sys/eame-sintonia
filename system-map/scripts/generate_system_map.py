@@ -745,6 +745,118 @@ def o_corte_do_pdf() -> tuple[list, list]:
     return [bruto], ligacoes
 
 
+def o_armazem_sem_livro() -> tuple[list, list]:
+    """O armazem italiano no Supabase: bytes presentes, memoria operacional nao.
+
+    POR QUE ESTE CARTAO EXISTE
+
+    O mapa dizia, por omissao, «a Italia nao esta no Supabase». Deixou de ser
+    verdade: ha 195 objetos sob o prefixo IT/ e 80,7 MB de bytes la dentro. E
+    nao ha uma unica linha de `raw_asset` ou `collection_run` a reclama-los.
+
+        BYTES PRESENTES  !=  PROVENIENCIA OPERACIONAL COMPLETA
+
+    E POR QUE ELE NAO PODE FICAR VERDE
+
+    A tentacao seria pinta-lo de verde — «os bytes estao preservados, otimo».
+    Seria a leitura mais perigosa possivel: um armazem cheio com o livro de
+    entrada em branco parece saude e e o contrario. Este cartao fica AMARELO
+    por construcao, e diz porque no proprio texto.
+
+    E OS NUMEROS DELE NAO SAO OBSERVED
+
+    Esta sessao nao tem credencial do banco. As contagens vieram de uma leitura
+    do coordenador, e o cartao carrega o estado EXTERNAL_LIVE_MEASUREMENT com o
+    nome de quem mediu. Recado de terceiro pode estar certo e continuar nao
+    sendo prova nossa.
+    """
+    f = DADOS / "armazem-it.generated.json"
+    if not f.is_file():
+        return [], []
+    A = json.loads(f.read_text(encoding="utf-8"))
+    L = A.get("LACUNA_DO_ARMAZEM") or {}
+    P = A.get("PROCEDENCIA_NO_GIT") or {}
+    Q = A.get("QUEM_ESCREVEU") or {}
+    D = A.get("DOIS_ACERVOS") or {}
+    if not L or L.get("MEDICAO_EXTERNA") == "AUSENTE":
+        return [], []
+
+    objetos = L.get("ITALY_STORAGE_OBJETOS", "NÃO SEI")
+    mb = round((L.get("ITALY_STORAGE_BYTES") or 0) / 1_000_000, 1)
+    tres = L.get("TRES_CONTAGENS_QUE_NAO_BATEM") or {}
+
+    no = {
+        "id": "C-ARMAZEM-IT-SEM-LIVRO",
+        "name": "Armazém italiano no Supabase (sem livro de entrada)",
+        "kind": "acervo", "icon": "▤",
+        "territory": "Z-GUARDA", "family": "F-ESPERA",
+        # AMARELO POR CONSTRUCAO. Nao ha caminho por onde este cartao fique
+        # verde enquanto houver objeto sem dono declarado.
+        "status": AMARELO, "ui_status": "yellow",
+        "proof": "external-live-measurement",
+        "what": (
+            f"{objetos} objetos italianos guardados no bucket `raw`, {mb} MB — e "
+            f"ZERO linhas de `raw_asset` e ZERO de `collection_run` a dizer quem "
+            f"os trouxe. Os bytes estão lá; o livro de entrada está em branco."),
+        "why_here": (
+            "O mapa deixava passar «a Itália não está no Supabase». Está — só "
+            "que pela metade, e é a metade que não aparece que engana. Bytes "
+            "presentes NÃO É procedência operacional completa."),
+        "files": [], "file_count": 0,
+        "facts": [
+            f"ESTADO DA MEDIÇÃO: {L.get('ESTADO_DA_MEDICAO')} — medido por "
+            f"{L.get('MEDIDO_POR')} em {L.get('MEDIDO_EM')}, NÃO por esta sessão",
+            f"por quê: {L.get('PORQUE_NAO_E_OBSERVED')}",
+            f"STORAGE IT: {objetos} objetos · {L.get('ITALY_STORAGE_BYTES')} bytes",
+        ]
+        + [f"prefixo {p['PREFIXO']}: {p['OBJETOS']} objeto(s)"
+           for p in (L.get("ITALY_STORAGE_POR_PREFIXO") or [])]
+        + [
+            "IT/ é PREFIXO DE OBJETO, não pasta — o Storage não tem diretórios",
+            f"RAW_ASSET IT: {L.get('ITALY_RAW_ASSET_LINHAS')}",
+            f"COLLECTION_RUN IT: {L.get('ITALY_COLLECTION_RUN_LINHAS')}",
+            f"LACUNA: {L.get('LACUNA')} — G-42",
+            f"quem enviou os bytes: {(Q.get('PASSO_1_ENVIA_OS_BYTES') or {}).get('FERRAMENTA')}, "
+            f"que vive {(Q.get('PASSO_1_ENVIA_OS_BYTES') or {}).get('ONDE_VIVE')}",
+            f"quem devia escrever a memória: {(Q.get('PASSO_2_ESCREVE_A_MEMORIA') or {}).get('FERRAMENTA')} "
+            f"— e está preso à Espanha pela própria escrita do ficheiro",
+            f"importações italianas que existem: "
+            f"{', '.join(Q.get('IMPORTACOES_ITALIANAS_QUE_EXISTEM') or []) or 'nenhuma'}; "
+            f"dessas, que falam do bruto: "
+            f"{len(Q.get('DESSAS_QUE_FALAM_DO_BRUTO') or [])}",
+            f"classificação: {Q.get('CLASSIFICACAO')}",
+            f"A PROCEDÊNCIA PERDEU-SE? {L.get('A_PROCEDENCIA_PERDEU_SE')}",
+            f"a corrida, essa: {L.get('RUN_HISTORICA')}",
+            f"e por isso: {L.get('NAO_RETROCRIAR')}",
+            f"TRÊS CONTAGENS QUE NÃO BATEM — manifesto "
+            f"{tres.get('DOCUMENTOS_NO_MANIFESTO')} · conteúdos únicos "
+            f"{tres.get('CONTEUDOS_UNICOS_NO_MANIFESTO')} · objetos DOCUMENT "
+            f"{tres.get('OBJETOS_DOCUMENT_NO_ARMAZEM')} · "
+            f"{tres.get('ESTADO')}",
+            f"por que não se resolve aqui: {tres.get('PORQUE_NAO_SE_RESOLVE_AQUI')}",
+            f"documentos com procedência recuperável no Git: "
+            f"{P.get('PROCEDENCIA_RECUPERAVEL')} de {P.get('DOCUMENTOS_DECLARADOS')}",
+            f"OS 43 DO GOLDEN PATH ESTÃO AQUI? {D.get('JA_NO_ARMAZEM')} de "
+            f"{D.get('GOLDEN_PATH_CONTEUDOS')} — são DOIS ACERVOS diferentes, "
+            f"medidos por impressão digital e não por nome de ficheiro",
+        ],
+        "status_reason": (
+            f"AMARELO, e não verde, de propósito. Os {objetos} objetos estão "
+            f"preservados — e um armazém cheio com o livro de entrada em branco "
+            f"PARECE saúde e é o contrário. Enquanto houver objeto sem linha que "
+            f"o reclame, este cartão não tem caminho para ficar verde."),
+        "evidence_text": ("system-map/data/armazem-it.generated.json → "
+                          "LACUNA_DO_ARMAZEM + QUEM_ESCREVEU + DOIS_ACERVOS; "
+                          "data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json"),
+        "departments": ["ENGENHARIA"], "views": ["acervo", "infra", "audit"],
+        "lane": "official", "legacy": False, "changed_since_declared": [],
+        "inbound": [], "outbound": [],
+        "source": "system-map/data/armazem-it.generated.json",
+        "declared_by": "missao reconciliar-o-supabase-real",
+    }
+    return [no], []
+
+
 def a_estrada_do_pdf() -> tuple[list, list]:
     """A primeira estrada do plano de dados, desenhada a partir da corrida real.
 
@@ -2527,6 +2639,10 @@ def main_uma_vez(stamp: bool) -> int:
     gp_nos, lig_gp = a_estrada_do_pdf()
     gerados += gp_nos
     lig_pdf += lig_gp
+
+    arm_nos, lig_arm = o_armazem_sem_livro()
+    gerados += arm_nos
+    lig_pdf += lig_arm
 
     # ── 2 · arestas de ficheiro sobem para arestas de componente ─────────────
     # Cada aresta de componente carrega TODAS as linhas que a provam. E o que

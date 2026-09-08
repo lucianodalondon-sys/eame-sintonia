@@ -662,6 +662,46 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
   exatamente no estado herdado do G-36 — sem `--fixar`.
 - **Detalhe completo:** [`../operacao/IDENTIDADE-DO-ARTEFATO.md`](../operacao/IDENTIDADE-DO-ARTEFATO.md).
 
+
+### D-030 — Os bytes italianos já estão no Supabase; a memória operacional deles não
+
+- **Data:** 2026-09-08
+- **O que se descobriu:** deixou de ser verdade dizer «a Itália não está no Supabase».
+  Há **195 objetos** sob o prefixo `IT/` no bucket `raw`, **80,7 MB** — e **zero** linhas de
+  `raw_asset` e **zero** de `collection_run` a reclamá-los. Um armazém cheio com o livro de
+  entrada em branco.
+- **Quem os pôs lá, medido:** a cadeia tem dois passos e ninguém obriga os dois a andarem
+  juntos. O passo 1 (`scripts/storage_preservar.py --enviar`) vive **fora deste
+  repositório** — é a máquina do operador, listada como não integrada em
+  `docs/adama/INTEGRACAO-CATALOGO-ADAMA-ES.md:69`, com teste que reprova se entrar. O passo 2
+  (`guarda/catalogo_importar.py`) vive aqui e **está preso à Espanha pela própria escrita do
+  ficheiro**: entradas `ADAMA-ES-*`, saída `ADAMA-ES-CATALOGO-*.sql`. Não há equivalente
+  italiano. E as duas importações italianas que existem (`IT-CAMADAS`, `IT-LASTMILE`)
+  **nunca mencionam `raw_asset` nem `collection_run`** — a Itália importou camadas
+  analíticas e nunca importou a procedência.
+- **Classificação:** `STORAGE_ONLY_PIPELINE`. Não é legado (`raw_asset` existe desde a `001`),
+  não é escrita falhada (não existe importador italiano do bruto para ter falhado), e não é
+  decisão (não há decisão escrita — **ausência de decisão não é decisão**).
+- **A procedência perdeu-se? NÃO.** Ela não está no banco, está no Git:
+  `research/adama-italy-product-intelligence-deep/LABEL-MANIFEST.json` traz **141 de 141**
+  documentos com `SHA256`, `BYTES`, `CAPTURED_AT`, `SOURCE_URL` e `SOURCE_ID`. **Mas a
+  corrida é `RUN_NOT_PROVABLE`** — nenhum registo declara `run_id`. Procedência recuperável
+  **não autoriza** procedência inventada: nenhuma corrida histórica foi criada.
+- **Dois acervos, não um.** Comparado por impressão digital: **0 dos 43** conteúdos do Golden
+  Path estão no armazém. O armazém é o catálogo comercial da ADAMA Itália; o Golden Path são
+  boletins fitossanitários regionais.
+- **Três contagens que não batem, e ficam as três escritas:** 141 documentos no manifesto ·
+  138 conteúdos únicos · 139 objetos `DOCUMENT`. `NÃO_RECONCILIADO` — a medição externa
+  trouxe contagens por prefixo, não a lista de chaves, e sem elas qualquer explicação seria
+  inventada. **É exatamente a conta que uma linha de `raw_asset` por objeto tornaria trivial.**
+- **A decisão de ontem não mudou:** não é preciso tabela de ocorrência, e `derived_artifact`
+  continua sendo a única mudança de esquema proposta. O que se achou não é lacuna de
+  **esquema** — é lacuna de **caminho de escrita**.
+- **Gap registrado, um só:** `G-42 · ITALY_STORAGE_METADATA_RECONCILIATION`.
+- **Nada foi escrito, enviado, apagado ou retrocriado:** 0 `INSERT`/`UPDATE`/`DELETE`, 0
+  uploads, 0 DDL, 0 migrations aplicadas, 0 bytes movidos, 0 corridas históricas.
+- **Detalhe completo:** [`../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md`](../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md).
+
 ---
 
 ## PERGUNTAS PENDENTES

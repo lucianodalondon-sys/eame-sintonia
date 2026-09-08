@@ -109,6 +109,12 @@ jobs:
       - name: 4e · as quatro espécies do artefato não voltam a confundir-se
         run: python3 tests/test_identidade_do_artefato.py
 
+      # BYTES PRESENTES != PROVENIENCIA OPERACIONAL COMPLETA. Sem este passo, os
+      # 195 objetos italianos guardados sem dono voltariam a parecer saude — e a
+      # leitura do coordenador podia virar OBSERVED sem ninguem reparar.
+      - name: 4f · o armazém italiano não se pinta de saudável
+        run: python3 tests/test_armazem_italiano.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         run: |
           set -e

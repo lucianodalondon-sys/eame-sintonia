@@ -1859,6 +1859,24 @@
       ]
     },
     {
+      "id": "C-CENSO-ARMAZEM-IT",
+      "name": "Censo do armazém italiano",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Confronta os bytes italianos que já estão guardados no Supabase com a memória operacional que devia descrevê-los — e mostra que a segunda não existe. Também mede se aqueles bytes têm alguma coisa a ver com os 49 PDFs do Golden Path.",
+      "why_here": "O mapa deixava passar «a Itália não está no Supabase». Está — só que pela metade: 195 objetos guardados e zero linhas a dizer quem os trouxe. Bytes presentes não é procedência operacional completa, e um armazém cheio sem livro de entrada parece saúde e é o contrário.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_do_armazem_it.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
       "id": "C-RECALL-PORTA-IT",
       "name": "Quanto a peneira apanha na Itália",
       "territory": "Z-PROVA",
