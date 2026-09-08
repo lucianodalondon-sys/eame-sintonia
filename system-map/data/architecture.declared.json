@@ -1841,6 +1841,24 @@
       ]
     },
     {
+      "id": "C-CENSO-IDENTIDADE-IT",
+      "name": "Censo de identidade do artefato",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Decide, para cada PDF guardado em mais de um caminho, se foram duas coletas de verdade ou uma coleta copiada duas vezes — e decide pela prova de captura de cada caminho, nunca pelo nome da pasta.",
+      "why_here": "O censo do corpo contava certo e explicava errado: dizia que os seis repetidos eram fotocópias. Caminho diferente não prova captura diferente, e SHA igual não prova a mesma captura — e a diferença entre as duas leituras muda o desenho do banco.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_de_identidade_it.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
       "id": "C-RECALL-PORTA-IT",
       "name": "Quanto a peneira apanha na Itália",
       "territory": "Z-PROVA",

@@ -629,6 +629,18 @@ def o_corte_do_pdf() -> tuple[list, list]:
     # OCORRENCIA x CONTEUDO, medido pelo censo. Nao se recalcula aqui: duas
     # medicoes da mesma coisa divergem no primeiro dia (COL-LAW-501).
     OC = C.get("OCORRENCIA_E_CONTEUDO") or {}
+    # CAMINHO nao e CAPTURA. Este cartao ja disse, em prosa, que os repetidos
+    # eram «o mesmo documento em dois sitios» — palpite lido no nome da pasta.
+    # Quem decide isso e o censo de identidade, pela prova de captura, e o que
+    # aparece aqui e o VEREDITO dele, nunca uma frase escrita a mao.
+    fi = DADOS / "identidade-it.generated.json"
+    ID = ({} if not fi.is_file()
+          else (json.loads(fi.read_text(encoding="utf-8"))
+                .get("IDENTIDADE_DO_ARTEFATO") or {}))
+    veredito = ID.get("VEREDITO") or {}
+    frase_do_veredito = (
+        " · ".join("%s: %d" % (k, v) for k, v in sorted(veredito.items()))
+        or "NÃO MEDIDO")
 
     bruto = {
         "id": "C-IT-PDF-BRUTO", "name": "Evidência bruta em PDF (Itália)",
@@ -639,9 +651,9 @@ def o_corte_do_pdf() -> tuple[list, list]:
                  f"guardadas — boletins regionais, bilanci fitosanitari, "
                  f"diretrizes, {mb} MB. São "
                  f"{OC.get('CONTEUDOS_UNICOS', '?')} documentos diferentes: "
-                 f"{OC.get('OCORRENCIAS_DE_CONTEUDO_REPETIDO', 0)} deles estão "
-                 f"guardados em dois sítios ao mesmo tempo (na loja do coletor "
-                 f"e na amostra), e isso é REPETIÇÃO, não perda — nada sumiu."),
+                 f"{OC.get('CONTEUDOS_COM_MAIS_DE_UM_CAMINHO', 0)} deles foram "
+                 f"buscados mais de uma vez, e isso é REPETIÇÃO, não perda — "
+                 f"nada sumiu."),
         "why_here": ("Enquanto o mapa dizia «corpus» numa palavra só, isto "
                      "parecia alimento do sistema. Separar o guardado do "
                      "legível foi o que permitiu ver — e fechar — o corte."),
@@ -669,14 +681,25 @@ def o_corte_do_pdf() -> tuple[list, list]:
         # concluir, daqui a um mes, que «sumiram seis».
         + [f"repetido · {r['SHA256'][:12]}… em {len(r['CAMINHOS'])} caminhos: "
            + " | ".join(r["CAMINHOS"])
-           for r in (OC.get("ONDE_SE_REPETE") or [])],
+           for r in (OC.get("ONDE_SE_REPETE") or [])]
+        # CAMINHO != CAPTURA, e o veredito vem medido, nunca escrito a mao.
+        + [f"CAPTURAS DISTINTAS: {ID.get('CAPTURAS_DISTINTAS', 'NÃO SEI')} — "
+           f"caminho diferente NÃO prova captura diferente, e SHA igual NÃO "
+           f"prova a mesma captura",
+           f"veredito dos grupos repetidos: {frase_do_veredito}",
+           f"cópias SEM prova de captura em registo nenhum: "
+           f"{ID.get('COPIAS_SEM_PROVA_DE_CAPTURA', 'NÃO SEI')} — G-40"]
+        + [f"{g['SHA256'][:12]}… → {g['ESTADO']}: {g['PORQUE']}"
+           for g in (ID.get("GRUPOS") or [])],
         "status_reason": (
             f"CINZENTO porque o mapa continua a não conseguir LER um PDF — o "
             f"scanner não abre ficheiro binário, e isso não mudou. O que mudou "
             f"é que já não precisa: o executor abriu-os e o texto vive ao lado, "
             f"como artefato próprio, esse sim legível e contado."),
         "evidence_text": ("system-map/data/corpus-it.generated.json → "
-                          "ACERVO_EM_PDF + OCORRENCIA_E_CONTEUDO"),
+                          "ACERVO_EM_PDF + OCORRENCIA_E_CONTEUDO; "
+                          "system-map/data/identidade-it.generated.json → "
+                          "IDENTIDADE_DO_ARTEFATO"),
         "departments": ["ENGENHARIA"], "views": ["acervo", "infra", "audit"],
         "lane": "official", "legacy": False, "changed_since_declared": [],
         "inbound": [], "outbound": [],

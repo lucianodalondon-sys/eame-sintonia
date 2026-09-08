@@ -1422,10 +1422,15 @@ COST · ARTIFACTS · ERRORS · TRACE
 
 **Reutilizar o `RUN-MANIFEST` antes de criar estrutura nova** — é a COL-LAW-022.
 
-**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **FECHADO EM 08/09/2026.** Faltavam `STATE_BEFORE/AFTER` e `ROUTE`: passaram a existir e a
-ser renderizados, com o pre-voo e as versoes de engenharia ao lado.
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **FECHADO PARA UMA ESTRADA, EM 08/09/2026.**
+Faltavam `STATE_BEFORE/AFTER` e `ROUTE`: passaram a existir e a ser renderizados, com o
+pre-voo e as versoes de engenharia ao lado.
 
-**LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+**E CORRIGIDO NO MESMO DIA.** A lei tinha sido dada por cumprida medindo **uma** estrada. As
+6 corridas do coletor piloto nao aparecem no mapa — `PILOT_RUN` ocorre **zero** vezes no
+estado gerado. Uma estrada renderizavel de duas nao e a lei cumprida.
+
+**LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 
 ---
 
@@ -1824,7 +1829,12 @@ canônico.
 contabilizados · bruto intacto · estado antes e depois — e e escrito **por ultimo**. Se o
 processo morrer antes, o ficheiro na pasta nunca chega a dizer `COMPLETE`.
 
-**LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+**E CORRIGIDO NO MESMO DIA.** «Para esta estrada» estava escrito aqui e foi lido como se
+fosse o perfil inteiro. Nao e: as 6 linhas do `runs.ndjson` do coletor piloto nao tem campo
+de fecho nenhum, e quem as le continua a inferir o fim pela existencia de ficheiros —
+exatamente o que esta lei proibe.
+
+**LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 
 ---
 
@@ -2522,11 +2532,43 @@ CERTO       RAW OCCURRENCES  49
             LOST              0
 ```
 
-**MEDIDO, e é o caso que obriga a lei.** Os 49 PDFs italianos têm **43 conteúdos únicos**;
-os 6 repetidos são **sempre o mesmo par**: o documento na loja do coletor
-(`data/collection-store/italy/...`) e o mesmo documento na amostra versionada
-(`data/samples/IT-SOURCE-SAMPLES/...`). Mesma coisa no mundo, **duas procedências
-diferentes** — e apagar uma perderia a prova de como ela chegou ali.
+**PRECISÃO ACRESCENTADA EM 08/09/2026 — são QUATRO espécies, não duas.** «Ocorrência» estava
+a fazer o trabalho de duas palavras ao mesmo tempo, e por isso deixava passar um erro:
+
+```
+CONTENT        os bytes.       identidade = SHA-256.       não tem data nem dono
+CAPTURE        uma ida à fonte. identidade = (registo, corrida, URL, quando)
+STORAGE COPY   um lugar no disco. identidade = o caminho.  o caminho muda sozinho
+DERIVED        o que uma ferramenta fez a partir de um conteúdo pai
+```
+
+> **CAMINHO DIFERENTE NÃO PROVA CAPTURA DIFERENTE.**
+> **SHA IGUAL NÃO PROVA A MESMA CAPTURA.**
+
+Nenhuma das duas se decide olhando para o nome da pasta. Decide-se pela **prova de captura**
+do caminho: um recibo com quem foi buscar, quando, por que rota, e o que o servidor
+respondeu. Sem esse recibo o caso é `UNKNOWN`, e `UNKNOWN` fica `UNKNOWN`.
+
+**MEDIDO, e é o caso que obriga a lei.** Os 49 PDFs italianos têm **43 conteúdos únicos**. A
+leitura anterior dizia que os 6 repetidos eram «sempre o mesmo par, a loja e a amostra» — e
+**estava errada nas duas metades**. Medido em `system-map/scripts/censo_de_identidade_it.py`:
+
+```
+6 grupos com mais de uma cópia
+6 de 6  →  INDEPENDENT_CAPTURES_SAME_CONTENT
+0 de 6  →  SAME_CAPTURE_MULTIPLE_STORAGE_COPIES
+0 de 6  →  UNKNOWN
+```
+
+São **duas idas reais à fonte** que trouxeram os mesmos bytes — separadas por uma a duas
+horas (a mão com `curl` e depois o coletor piloto), e num dos casos por **cinco dias e uma
+rota inteiramente diferente** (o pacote VPN de 02/09 via Fitogest e a amostra de 07/09 direta
+do sítio da Campania). A prova não é auto-declarada: o próprio servidor datou a resposta —
+`date: Mon, 07 Sep 2026 13:49:52 GMT` em `SA-02-09.pdf.headers.txt`.
+
+**E isso vale mais do que a contagem.** Duas capturas do mesmo byte em dias diferentes são a
+prova de que **o documento não mudou nesse intervalo**. Um esquema que guardasse «um caminho
+por conteúdo» apagaria uma captura verdadeira, e com ela essa prova.
 
 > **Mesmo conteúdo não é a mesma coleta.** Duas fontes podem publicar o mesmo PDF: são dois
 > fatos sobre o mundo (as duas publicaram) e um conteúdo só.

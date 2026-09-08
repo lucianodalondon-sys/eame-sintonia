@@ -5,8 +5,11 @@
 > **Nada foi movido, escrito, migrado ou apagado.** Zero `INSERT`, zero `UPDATE`, zero
 > upload, zero migration aplicada. Este documento é medição e plano — não execução.
 >
-> **`LIVE_STATE = UNKNOWN`:** não há credencial de leitura nesta sessão. Tudo o que se diz
-> do Supabase vem do **schema versionado**, não do banco real.
+> **`LIVE_STATE = PARTIAL`** (era `UNKNOWN`; subiu em 08/09/2026). Continua sem credencial de
+> leitura: tudo o que se diz da **estrutura** vem do schema versionado, agora confirmado por
+> uma medição externa do coordenador. As **linhas** do banco esta sessão não as viu.
+>
+> ⚠️ **A secção D deste documento estava errada e foi corrigida.** Ver o aviso lá.
 
 ---
 
@@ -81,19 +84,29 @@ hash).
 **Resumo:** 5 MATCH · 1 MATCH parcial · 1 CONFLICT · 5 MISSING · 3 EXTRA.
 **Nenhum bloqueio.** As 5 lacunas são colunas novas ou um `jsonb`; o CONFLICT é de nome.
 
-## D · `raw_asset` × `ARTIFACT` / `OCCURRENCE` / `CONTENT`
+## D · `raw_asset` × `ARTIFACT` / `OCCURRENCE` / `CONTENT` — ⚠️ CORRIGIDO EM 08/09/2026
 
-⚠️ **Não colapsar os três só porque a tabela se chama `raw_asset`.**
+> **Esta secção estava errada, e o erro era meu.** Ela dizia que `storage_path` era «**um**
+> caminho por conteúdo» e que os 6 pares **não cabiam** em `raw_asset`. Li o `unique` do
+> `storage_path` como se fosse do `sha256`. **É o contrário:**
+>
+> ```
+> storage_path   UNIQUE          (001:106)  →  o grão é o objeto guardado
+> sha256         índice, não trava (001:119) →  o mesmo conteúdo pode repetir-se
+> ```
 
 | conceito | `raw_asset` cobre? |
 |---|---|
-| `CONTENT` (os bytes, `sha256`) | ✅ sim |
-| `OCCURRENCE` (o caminho, com procedência própria) | 🟡 `storage_path` é **um** caminho — hoje não representa **duas ocorrências do mesmo conteúdo** |
-| `ARTIFACT` derivado (`PARENT_SHA256`, `DERIVATION_TYPE`) | ❌ não há coluna de pai |
+| `CONTENT` (os bytes, `sha256`) | ✅ sim, como atributo — e **pode repetir-se entre linhas** |
+| `CAPTURE` + `STORAGE COPY` | ✅ sim, fundidas numa linha (`run_id`, `captured_at`, `source_url` + `storage_path`) |
+| `DERIVED` (`PARENT_SHA256`, `DERIVATION_TYPE`) | ❌ não há coluna de pai — **e não deve haver** |
 
-**Consequência medida:** os 6 pares de ocorrência do mesmo conteúdo (COL-LAW-501) e os 43
-derivados com pai **não cabem no `raw_asset` de hoje**. Ou entra uma tabela de ocorrência, ou
-`raw_asset` ganha `parent_sha256` + chave por `(sha256, storage_path)`. **Não decidido aqui.**
+**Consequência medida:** as 49 cópias entram como **49 linhas**, com 43 `sha256` distintos,
+**sem alterar o esquema**. A fusão CAPTURA+CÓPIA é inofensiva porque os 6 grupos são
+`INDEPENDENT_CAPTURES_SAME_CONTENT` — uma captura por cópia. A **única** lacuna real é o
+artefato derivado.
+
+**A decisão completa está em [`IDENTIDADE-DO-ARTEFATO.md`](IDENTIDADE-DO-ARTEFATO.md).**
 
 ---
 
@@ -128,9 +141,13 @@ proibido (COL-LAW-209). O que sai é o **fluxo futuro**, não o passado.
 
 ## G · BLOQUEADORES
 
-1. **Modelo de ocorrência × conteúdo** não resolvido no schema (secção D).
-2. **`LIVE_STATE = UNKNOWN`** — sem leitura do banco real, o plano assume o schema.
+1. ~~**Modelo de ocorrência × conteúdo** não resolvido no schema.~~ **FECHADO em 08/09/2026:**
+   `sha256` nunca foi `UNIQUE`; as 49 cópias cabem hoje. Não é preciso tabela de ocorrência.
+2. **`LIVE_STATE = PARTIAL`** — a estrutura tem duas fontes que concordam; as **linhas** do
+   banco esta sessão não as viu. Continua a ser preciso ler o banco antes de migrar.
 3. **Decisão do dono:** `ROTA_GRATUITA_PROVADA` entra no enum de `cost_method`?
+4. **Falta a tabela `derived_artifact`** — a única lacuna real. SQL projetado (não aplicado)
+   em [`IDENTIDADE-DO-ARTEFATO.md`](IDENTIDADE-DO-ARTEFATO.md) §F.
 
 ## H · PROVA EXIGIDA ANTES DE MIGRAR
 

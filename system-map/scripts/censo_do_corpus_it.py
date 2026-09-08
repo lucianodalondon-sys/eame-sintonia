@@ -24,8 +24,15 @@ derivação de texto» — e ficou velho duas vezes. Primeiro porque a derivaç�
 passou a existir; depois porque o censo só sabia procurar o texto pelo NOME do
 ficheiro, e não via os 43 textos que já existiam com o pai declarado.
 
-    49 - 43 = 6  NÃO É PERDA. São seis documentos guardados em dois sítios
-                 ao mesmo tempo: na loja do coletor e na amostra versionada.
+    49 - 43 = 6  NÃO É PERDA. São seis conteúdos que foram BUSCADOS DUAS
+                 VEZES — duas idas reais à fonte que trouxeram os mesmos
+                 bytes, cada uma com o seu recibo.
+
+Isto aqui já disse «seis documentos guardados em dois sítios ao mesmo tempo»,
+como se fosse fotocópia. Era palpite lido no nome da pasta. Quem foi medir a
+prova de captura de cada caminho foi `censo_de_identidade_it.py`, e o veredito
+é 6 de 6 `INDEPENDENT_CAPTURES_SAME_CONTENT`. **Caminho diferente não prova
+captura diferente, e SHA igual não prova a mesma captura.**
 
 Ver `ocorrencia_e_conteudo()` e `derivados_por_impressao_digital()`.
 
@@ -417,9 +424,12 @@ def ocorrencia_e_conteudo(brutos):
         'OCORRENCIAS_DE_CONTEUDO_REPETIDO': len(brutos) - len(por_hash),
         'CONTEUDOS_COM_MAIS_DE_UM_CAMINHO': len(repetidos),
         'PERDA': 0,
-        'PORQUE_NAO_E_PERDA': ('cada ocorrencia repetida continua no disco, '
-                               'com o seu caminho e a sua procedencia. Nada '
-                               'sumiu: o mesmo conteudo esta em dois sitios.'),
+        'PORQUE_NAO_E_PERDA': ('cada copia repetida continua no disco, com o seu '
+                               'caminho e a sua procedencia. Nada sumiu. E a '
+                               'repeticao nao e fotocopia: censo_de_identidade_it.py '
+                               'classificou os 6 grupos pela prova de captura e deu '
+                               '6/6 INDEPENDENT_CAPTURES_SAME_CONTENT — duas idas '
+                               'reais a fonte que trouxeram os mesmos bytes.'),
         'ONDE_SE_REPETE': [
             {'SHA256': h, 'CAMINHOS': sorted(cs)}
             for h, cs in sorted(repetidos.items(), key=lambda x: -len(x[1]))

@@ -626,6 +626,44 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
 
 ---
 
+### D-029 — Caminho não é captura, e o banco já sabia representar isso
+
+- **Data:** 2026-09-08
+- **Decisão:** **não criar tabela de ocorrência.** O menor delta de esquema é **uma** tabela
+  nova, `derived_artifact`, e mais nada. Projetada, **não aplicada**.
+- **Por quê:**
+  - O censo anterior concluiu que os 6 PDFs repetidos eram «o mesmo documento em dois
+    sítios» — palpite lido no **nome da pasta**. Medido pela prova de captura de cada
+    caminho (`system-map/scripts/censo_de_identidade_it.py`): **6 de 6 são
+    `INDEPENDENT_CAPTURES_SAME_CONTENT`** — duas idas reais à fonte que trouxeram os mesmos
+    bytes, e num dos casos com **5 dias e outra rota** entre elas. O próprio servidor datou a
+    resposta; a prova não é auto-declarada.
+  - E isso vale mais do que a contagem: **duas capturas do mesmo byte em dias diferentes
+    provam que o documento não mudou nesse intervalo.**
+  - `raw_asset.sha256` **nunca foi `UNIQUE`** — é índice (`001:119`). O `unique` é do
+    `storage_path` (`001:106`). O diagnóstico do P-011 tinha lido um pelo outro, e daí
+    inventou um bloqueador. As 49 cópias cabem hoje, **sem tocar no esquema**.
+  - `conteudo_visto_em` já escreve a lei certa — «um conteúdo, duas observações» — mas na
+    entidade «item de canal» (`UNIQUE (canal_id, content_id)`), não nos bytes. `PARCIAL`.
+  - A única lacuna real é o **artefato derivado**: `transcricao` é de vídeo,
+    `catalogo_produto_documento` é de catálogo, e `derivacao` é conclusão analítica, não
+    artefato. E `raw_asset` **não pode** ganhar `parent_sha256`: seria apagar a COL-LAW-007
+    dentro da tabela chamada «bruto».
+- **O que ficou registrado, não consertado:** `G-39` (falta `derived_artifact`) · `G-40`
+  (11 das 49 cópias sem prova de captura) · `G-41` (21 de 21 migrations dizem «NÃO
+  EXECUTADA» e pelo menos 001–016 estão aplicadas — deriva de comentário; **migration é
+  história e não se reescreve**).
+- **Duas leis desceram para `PARTIAL`, e ninguém desfez trabalho.** COL-LAW-106 e
+  COL-LAW-210 tinham sido dadas por cumpridas medindo **uma** estrada. Medido: `PILOT_RUN`
+  aparece **0 vezes** no mapa, e as 6 linhas do `runs.ndjson` não têm campo de fecho. Placar:
+  **37 `IMPLEMENTED` · 47 `PARTIAL` · 18 `ABSENT` · 2 `NOT_APPLICABLE`**.
+- **Nada foi escrito, copiado, migrado nem apagado:** 0 escritas no Supabase, 0 uploads,
+  0 deletes, 0 migrations aplicadas, 0 bytes italianos movidos. `PADRAO_DA_COLETA` continua
+  exatamente no estado herdado do G-36 — sem `--fixar`.
+- **Detalhe completo:** [`../operacao/IDENTIDADE-DO-ARTEFATO.md`](../operacao/IDENTIDADE-DO-ARTEFATO.md).
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |

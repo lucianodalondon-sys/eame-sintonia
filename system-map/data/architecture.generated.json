@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "2741b3f2c8188715b92bf7d712c7d3c8235dba15",
-    "GENERATED_AT": "2026-09-08T01:59:33-03:00"
+    "HEAD": "ea42cabd91f76a1d2376e4703a7701cb6a276dbf",
+    "GENERATED_AT": "2026-09-08T02:04:29-03:00"
   },
   "FILES": [
     {
@@ -128,7 +128,7 @@
     },
     {
       "path": "BIBLIA-CANONICA-DA-COLETA.md",
-      "sha": "1f2b9c3782ec38e3e3919d60c4331351edb3f93e",
+      "sha": "59d872e549763015047d1e0f81a448929f771acd",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4055,7 +4055,7 @@
     },
     {
       "path": "docs/biblia/CONFORMIDADE-ITALIA.md",
-      "sha": "2457afacb1dbbbbc9ed5e8b1b5c7c0560be7bf35",
+      "sha": "32020ca5fb26c1d726b76b9bef3c1d37da0d155e",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4090,7 +4090,7 @@
     },
     {
       "path": "docs/biblia/leis.json",
-      "sha": "9034e7c21ed5c1e79e2764bc74432fbfc55e4c2c",
+      "sha": "0ac5ca55d26f3c7759e89ed8978c5770859b22ae",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4334,6 +4334,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/IDENTIDADE-DO-ARTEFATO.md",
+      "sha": "7b5387b2667d6762588d01630265c0ebfc6da59d",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
       "sha": "84e1e5fd7d9895c03bd9340503448347424b0e86",
       "ext": ".md",
@@ -4363,7 +4370,7 @@
     },
     {
       "path": "docs/operacao/P-011-DADO-OPERACIONAL-NO-GIT.md",
-      "sha": "2c9d679dd836d3263ed05df098cfece679d81720",
+      "sha": "0d28c7f24987167c337da99c62e5916efa88e347",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8157,7 +8164,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "b76ab212301ace97c1ce7b570dcc627b1e0df50e",
+      "sha": "ca2b7bad25d8e3580813650354db481cf7c10b93",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8170,8 +8177,15 @@
       "code_dir": true
     },
     {
+      "path": "system-map/scripts/censo_de_identidade_it.py",
+      "sha": "4b2b973fd332532addbc1fb2530653851ec009ff",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "system-map/scripts/censo_do_corpus_it.py",
-      "sha": "9fb59f6a3b108ea648bb4c748ecda60ce6a1bd94",
+      "sha": "9d75834f4e20627b744c033a4a64d32547fb43b6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8185,7 +8199,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "4bed9d51514584012066148f4042ae5fe04cbe40",
+      "sha": "2c5aa903823222b44664c123e9ce816521106e00",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8361,6 +8375,13 @@
     {
       "path": "tests/test_hero_cases_v1.py",
       "sha": "70d360b8d805f5c131084be7f9f5d55a5cc71cfe",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_identidade_do_artefato.py",
+      "sha": "95381db1b3d882ed02dc029a18a1dd22f27f5018",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22907,13 +22928,46 @@
       }
     },
     {
+      "from_file": "system-map/scripts/censo_de_identidade_it.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_de_identidade_it.py",
+        "line": 63,
+        "snippet": "LIVRO = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_de_identidade_it.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_de_identidade_it.py",
+        "line": 66,
+        "snippet": "REGISTO_DERIVADOS = os.path.join(\"data\", \"derivados\", \"REGISTO-DE-ARTEFATOS.json\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_de_identidade_it.py",
+      "to_file": "system-map/scripts/censo_do_corpus_it.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/censo_de_identidade_it.py",
+        "line": 241,
+        "snippet": "from censo_do_corpus_it import e_italiano  # noqa: E402"
+      }
+    },
+    {
       "from_file": "system-map/scripts/censo_do_corpus_it.py",
       "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_do_corpus_it.py",
-        "line": 269,
+        "line": 276,
         "snippet": "reg = os.path.join(RAIZ, 'data', 'derivados', 'REGISTO-DE-ARTEFATOS.json')"
       }
     },
@@ -22968,7 +23022,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2235,
+        "line": 2258,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -22979,7 +23033,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 965,
+        "line": 988,
         "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
       }
     },
@@ -22990,7 +23044,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 983,
+        "line": 1006,
         "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
       }
     },
@@ -23001,7 +23055,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 976,
+        "line": 999,
         "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\","
       }
     },
@@ -23012,7 +23066,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2213,
+        "line": 2236,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -23023,7 +23077,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1994,
+        "line": 2017,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -23056,7 +23110,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2414,
+        "line": 2437,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -23067,7 +23121,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2436,
+        "line": 2459,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -23078,7 +23132,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2437,
+        "line": 2460,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -23089,7 +23143,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2436,
+        "line": 2459,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -23111,7 +23165,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2918,
+        "line": 2941,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -23122,7 +23176,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2918,
+        "line": 2941,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -23133,7 +23187,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2175,
+        "line": 2198,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -24796,6 +24850,39 @@
         "file": "tests/test_hero_cases_v1.py",
         "line": 315,
         "snippet": "json.dumps(carrega('SPAIN-HERO-CASES-V1.json'), ensure_ascii=False))"
+      }
+    },
+    {
+      "from_file": "tests/test_identidade_do_artefato.py",
+      "to_file": "docs/operacao/IDENTIDADE-DO-ARTEFATO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_identidade_do_artefato.py",
+        "line": 164,
+        "snippet": "\"IDENTIDADE-DO-ARTEFATO.md\"), encoding=\"utf-8\").read()"
+      }
+    },
+    {
+      "from_file": "tests/test_identidade_do_artefato.py",
+      "to_file": "system-map/scripts/censo_de_identidade_it.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_identidade_do_artefato.py",
+        "line": 98,
+        "snippet": "\"censo_de_identidade_it.py\"), encoding=\"utf-8\").read()"
+      }
+    },
+    {
+      "from_file": "tests/test_identidade_do_artefato.py",
+      "to_file": "system-map/scripts/generate_system_map.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_identidade_do_artefato.py",
+        "line": 197,
+        "snippet": "\"generate_system_map.py\"), encoding=\"utf-8\").read()"
       }
     },
     {
@@ -26503,14 +26590,21 @@
         "line": 497,
         "constante": "dest"
       }
+    ],
+    "system-map/scripts/censo_de_identidade_it.py": [
+      {
+        "pasta": "system-map",
+        "line": 346,
+        "constante": "destino"
+      }
     ]
   },
   "COUNTS": {
-    "files_tracked": 1214,
-    "files_readable": 400,
-    "files_code_dir": 446,
-    "file_edges": 1602,
-    "escritas_em_pasta": 55,
+    "files_tracked": 1217,
+    "files_readable": 402,
+    "files_code_dir": 448,
+    "file_edges": 1608,
+    "escritas_em_pasta": 56,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

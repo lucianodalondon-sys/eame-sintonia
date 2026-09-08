@@ -101,6 +101,13 @@ jobs:
           python3 tests/test_biblia.py
           python3 tests/test_integracao_biblia.py
           python3 tests/test_observabilidade_estrada.py
+          python3 tests/test_red_team_estrada.py
+
+      # CAMINHO nao e CAPTURA, e SHA igual nao prova a mesma captura. Este passo
+      # tambem RE-CORRE o censo de identidade e compara-o com o ficheiro
+      # comitado: se alguem editar o gerado a mao, o CI apanha.
+      - name: 4e · as quatro espécies do artefato não voltam a confundir-se
+        run: python3 tests/test_identidade_do_artefato.py
 
       - name: 5 · o que vai ser publicado existe e é servível
         run: |

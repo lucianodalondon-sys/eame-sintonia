@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 19130,
-    "h": 2462
+    "h": 2784
   },
   "INVENTORY": {
     ".claude": [
@@ -642,6 +642,7 @@
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
       "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
       "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
+      "docs/operacao/IDENTIDADE-DO-ARTEFATO.md",
       "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
       "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
       "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md",
@@ -1229,6 +1230,7 @@
       "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
       "system-map/data/architecture.declared.json",
       "system-map/scripts/censo_da_coleta.py",
+      "system-map/scripts/censo_de_identidade_it.py",
       "system-map/scripts/censo_do_corpus_it.py",
       "system-map/scripts/censo_semantico_it.py",
       "system-map/scripts/generate_system_map.py",
@@ -1259,6 +1261,7 @@
       "tests/test_evidence.py",
       "tests/test_handoff.py",
       "tests/test_hero_cases_v1.py",
+      "tests/test_identidade_do_artefato.py",
       "tests/test_integracao_biblia.py",
       "tests/test_lugar_do_fato.py",
       "tests/test_metricas.py",
@@ -1660,8 +1663,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "2741b3f2c8188715b92bf7d712c7d3c8235dba15",
-    "GENERATED_AT": "2026-09-08T01:59:33-03:00"
+    "HEAD": "ea42cabd91f76a1d2376e4703a7701cb6a276dbf",
+    "GENERATED_AT": "2026-09-08T02:04:29-03:00"
   },
   "FAMILIES": [
     {
@@ -1671,7 +1674,7 @@
       "x": 260,
       "y": 60,
       "w": 9775,
-      "h": 2142,
+      "h": 2464,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -1696,7 +1699,7 @@
       "x": 10255,
       "y": 60,
       "w": 900,
-      "h": 2142,
+      "h": 2464,
       "zones": [
         "Z-GUARDA"
       ],
@@ -1709,14 +1712,14 @@
       "x": 11375,
       "y": 60,
       "w": 3845,
-      "h": 2142,
+      "h": 2464,
       "zones": [
         "Z-LINEAGE",
         "Z-REGUAS",
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 35
+      "count": 36
     },
     {
       "id": "F-ENTREGA",
@@ -1725,7 +1728,7 @@
       "x": 15440,
       "y": 60,
       "w": 3430,
-      "h": 2142,
+      "h": 2464,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -1747,7 +1750,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 1
     },
     {
@@ -1761,7 +1764,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 1
     },
     {
@@ -1776,7 +1779,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 2
     },
     {
@@ -1791,7 +1794,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 1
     },
     {
@@ -1806,7 +1809,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 2
     },
     {
@@ -1821,7 +1824,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 2
     },
     {
@@ -1837,7 +1840,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 4
     },
     {
@@ -1851,7 +1854,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 1
     },
     {
@@ -1866,7 +1869,7 @@
       "x": 5940,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 4
     },
     {
@@ -1880,7 +1883,7 @@
       "x": 6645,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 5
     },
     {
@@ -1896,7 +1899,7 @@
       "x": 7350,
       "y": 190,
       "w": 820,
-      "h": 1972,
+      "h": 2294,
       "count": 10
     },
     {
@@ -1911,7 +1914,7 @@
       "x": 8470,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 1
     },
     {
@@ -1926,7 +1929,7 @@
       "x": 9175,
       "y": 190,
       "w": 820,
-      "h": 1972,
+      "h": 2294,
       "count": 6
     },
     {
@@ -1941,7 +1944,7 @@
       "x": 10295,
       "y": 190,
       "w": 820,
-      "h": 1972,
+      "h": 2294,
       "count": 8
     },
     {
@@ -1957,7 +1960,7 @@
       "x": 11415,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 4
     },
     {
@@ -1973,7 +1976,7 @@
       "x": 12120,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 5
     },
     {
@@ -1989,7 +1992,7 @@
       "x": 12825,
       "y": 190,
       "w": 820,
-      "h": 1972,
+      "h": 2294,
       "count": 8
     },
     {
@@ -2005,8 +2008,8 @@
       "x": 13945,
       "y": 190,
       "w": 1235,
-      "h": 1972,
-      "count": 18
+      "h": 2294,
+      "count": 19
     },
     {
       "id": "Z-PACOTE",
@@ -2021,7 +2024,7 @@
       "x": 15480,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 3
     },
     {
@@ -2037,7 +2040,7 @@
       "x": 16185,
       "y": 190,
       "w": 820,
-      "h": 1972,
+      "h": 2294,
       "count": 7
     },
     {
@@ -2053,7 +2056,7 @@
       "x": 17305,
       "y": 190,
       "w": 405,
-      "h": 1972,
+      "h": 2294,
       "count": 5
     },
     {
@@ -2068,7 +2071,7 @@
       "x": 18010,
       "y": 190,
       "w": 820,
-      "h": 1972,
+      "h": 2294,
       "count": 11
     }
   ],
@@ -5331,7 +5334,11 @@
       "file_count": 9,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "BIBLIA-CANONICA-DA-COLETA.md",
+        "docs/biblia/CONFORMIDADE-ITALIA.md",
+        "docs/biblia/leis.json"
+      ],
       "produces": [],
       "inbound": [
         "C-PROVA-BIBLIA"
@@ -5493,11 +5500,14 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/censo_do_corpus_it.py"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-CENSO-IDENTIDADE-IT",
         "C-TESTES"
       ],
       "paises": {},
@@ -5524,6 +5534,60 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 14420,
+      "y": 360
+    },
+    {
+      "id": "C-CENSO-IDENTIDADE-IT",
+      "name": "Censo de identidade do artefato",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Decide, para cada PDF guardado em mais de um caminho, se foram duas coletas de verdade ou uma coleta copiada duas vezes — e decide pela prova de captura de cada caminho, nunca pelo nome da pasta.",
+      "why_here": "O censo do corpo contava certo e explicava errado: dizia que os seis repetidos eram fotocópias. Caminho diferente não prova captura diferente, e SHA igual não prova a mesma captura — e a diferença entre as duas leituras muda o desenho do banco.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▦",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "system-map/scripts/censo_de_identidade_it.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CENSO-CORPUS-IT",
+        "C-IT-PRESERVAR"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "system-map",
+          "prova": {
+            "file": "system-map/scripts/censo_de_identidade_it.py",
+            "line": 346,
+            "snippet": "escreve em destino"
+          }
+        }
+      ],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 14835,
       "y": 360
     },
     {
@@ -5580,8 +5644,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 360
+      "x": 14005,
+      "y": 682
     },
     {
       "id": "C-CI-COLETA",
@@ -5683,7 +5747,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14420,
       "y": 682
     },
     {
@@ -5789,7 +5853,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 14835,
       "y": 682
     },
     {
@@ -6868,8 +6932,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 682
+      "x": 14005,
+      "y": 1004
     },
     {
       "id": "C-IDENTIDADE",
@@ -7230,7 +7294,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14420,
       "y": 1004
     },
     {
@@ -7326,7 +7390,7 @@
       "status": "UNKNOWN",
       "ui_status": "gray",
       "proof": "git-measurement",
-      "what": "49 ocorrências de PDF italiano guardadas — boletins regionais, bilanci fitosanitari, diretrizes, 62.7 MB. São 43 documentos diferentes: 6 deles estão guardados em dois sítios ao mesmo tempo (na loja do coletor e na amostra), e isso é REPETIÇÃO, não perda — nada sumiu.",
+      "what": "49 ocorrências de PDF italiano guardadas — boletins regionais, bilanci fitosanitari, diretrizes, 62.7 MB. São 43 documentos diferentes: 6 deles foram buscados mais de uma vez, e isso é REPETIÇÃO, não perda — nada sumiu.",
       "why_here": "Enquanto o mapa dizia «corpus» numa palavra só, isto parecia alimento do sistema. Separar o guardado do legível foi o que permitiu ver — e fechar — o corte.",
       "files": [],
       "file_count": 49,
@@ -7334,7 +7398,7 @@
         "OCORRÊNCIAS (caminhos no disco): 49",
         "CONTEÚDOS ÚNICOS (impressão digital): 43",
         "o mesmo conteúdo em mais de um caminho: 6 ocorrência(s), em 6 conteúdo(s)",
-        "PERDIDOS: 0 — repetição NÃO é perda. cada ocorrencia repetida continua no disco, com o seu caminho e a sua procedencia. Nada sumiu: o mesmo conteudo esta em dois sitios.",
+        "PERDIDOS: 0 — repetição NÃO é perda. cada copia repetida continua no disco, com o seu caminho e a sua procedencia. Nada sumiu. E a repeticao nao e fotocopia: censo_de_identidade_it.py classificou os 6 grupos pela prova de captura e deu 6/6 INDEPENDENT_CAPTURES_SAME_CONTENT — duas idas reais a fonte que trouxeram os mesmos bytes.",
         "tamanho em disco: 62.7 MB",
         "ocorrências COM derivação localizável: 49 de 49",
         "ocorrências SEM derivação: 0",
@@ -7347,10 +7411,19 @@
         "repetido · 0c2723e66201… em 2 caminhos: data/collection-store/italy/IT-T3-002/CAMPANIA_SA_02-09-2026/v1_0c2723e66201/SA-02-09.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-02-09.pdf",
         "repetido · 420e08ef15be… em 2 caminhos: data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_SA-26-08.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-26-08.pdf",
         "repetido · f88c89d73d6a… em 2 caminhos: data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf",
-        "repetido · 3d3c1bc0e963… em 2 caminhos: data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_09.pdf"
+        "repetido · 3d3c1bc0e963… em 2 caminhos: data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_09.pdf",
+        "CAPTURAS DISTINTAS: 24 — caminho diferente NÃO prova captura diferente, e SHA igual NÃO prova a mesma captura",
+        "veredito dos grupos repetidos: INDEPENDENT_CAPTURES_SAME_CONTENT: 6",
+        "cópias SEM prova de captura em registo nenhum: 11 — G-40",
+        "0c2723e66201… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-07T13:49:59.548Z | 2026-09-07T15:37:53.953Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
+        "3d3c1bc0e963… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:31:58.541Z | 2026-09-07T15:37:44.653Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
+        "420e08ef15be… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-02 | 2026-09-07T13:49:59.548Z. Ator: curl HTTP GET com User-Agent de navegador, do IP de saida italiano | recolha manual por VPN.",
+        "59da05274359… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:49:05.748Z | 2026-09-07T15:37:57.488Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
+        "e612807928b5… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:36:30.583Z | 2026-09-07T15:38:27.742Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
+        "f88c89d73d6a… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:31:58.541Z | 2026-09-07T15:37:42.531Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano."
       ],
       "status_reason": "CINZENTO porque o mapa continua a não conseguir LER um PDF — o scanner não abre ficheiro binário, e isso não mudou. O que mudou é que já não precisa: o executor abriu-os e o texto vive ao lado, como artefato próprio, esse sim legível e contado.",
-      "evidence_text": "system-map/data/corpus-it.generated.json → ACERVO_EM_PDF + OCORRENCIA_E_CONTEUDO",
+      "evidence_text": "system-map/data/corpus-it.generated.json → ACERVO_EM_PDF + OCORRENCIA_E_CONTEUDO; system-map/data/identidade-it.generated.json → IDENTIDADE_DO_ARTEFATO",
       "departments": [
         "ENGENHARIA"
       ],
@@ -7409,6 +7482,7 @@
         "C-IT-CONTRATOS"
       ],
       "outbound": [
+        "C-CENSO-IDENTIDADE-IT",
         "C-IT-CONTAS",
         "C-MAPA-SCAN",
         "C-PADRAO-COLETA",
@@ -7899,7 +7973,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 14835,
       "y": 1004
     },
     {
@@ -7913,7 +7987,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "audit",
@@ -7926,9 +8000,11 @@
         "system-map/scripts/mudar_gaveta.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/generate_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -7977,8 +8053,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 1004
+      "x": 14005,
+      "y": 1326
     },
     {
       "id": "C-MAPA-SCAN",
@@ -8066,7 +8142,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14005,
+      "x": 14420,
       "y": 1326
     },
     {
@@ -8124,7 +8200,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 14835,
       "y": 1326
     },
     {
@@ -8171,8 +8247,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 1326
+      "x": 14005,
+      "y": 1648
     },
     {
       "id": "C-MEDICAO",
@@ -8242,7 +8318,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14420,
       "y": 1648
     },
     {
@@ -9320,7 +9396,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14420,
+      "x": 14835,
       "y": 1648
     },
     {
@@ -9388,8 +9464,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 1648
+      "x": 14005,
+      "y": 1970
     },
     {
       "id": "C-PROVENIENCIA",
@@ -9514,7 +9590,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14420,
       "y": 1970
     },
     {
@@ -9653,7 +9729,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 14835,
       "y": 1970
     },
     {
@@ -11357,7 +11433,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -11381,6 +11457,7 @@
         "tests/test_evidence.py",
         "tests/test_handoff.py",
         "tests/test_hero_cases_v1.py",
+        "tests/test_identidade_do_artefato.py",
         "tests/test_integracao_biblia.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_metricas.py",
@@ -11401,9 +11478,9 @@
         "tests/test_v21_traducao_trava.py",
         "tests/test_voz.py"
       ],
-      "file_count": 34,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "file_count": 35,
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
@@ -11417,6 +11494,7 @@
         "C-ASK-SINTONIA",
         "C-BIBLIA",
         "C-CENSO-CORPUS-IT",
+        "C-CENSO-IDENTIDADE-IT",
         "C-CI-COLETA",
         "C-CI-MAPA",
         "C-CICATRIZES-BR",
@@ -11522,8 +11600,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14835,
-      "y": 1970
+      "x": 14005,
+      "y": 2292
     },
     {
       "id": "C-TRANSCRICAO",
@@ -13044,7 +13122,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 2741b3f2c8188715b92bf7d712c7d3c8235dba15"
+        "HEAD ea42cabd91f76a1d2376e4703a7701cb6a276dbf"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -13895,7 +13973,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2213,
+          "line": 2236,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -15019,6 +15097,24 @@
     },
     {
       "from": "C-CENSO-CORPUS-IT",
+      "to": "C-CENSO-IDENTIDADE-IT",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo do corpo italiano tem o seu codigo importado por Censo de identidade do artefato. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_de_identidade_it.py",
+          "line": 241,
+          "snippet": "from censo_do_corpus_it import e_italiano  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-CENSO-CORPUS-IT",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -15031,6 +15127,24 @@
           "file": "tests/test_observabilidade_estrada.py",
           "line": 35,
           "snippet": "CENSO = os.path.join(RAIZ, 'system-map', 'scripts', 'censo_do_corpus_it.py')"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CENSO-IDENTIDADE-IT",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo de identidade do artefato alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_identidade_do_artefato.py",
+          "line": 98,
+          "snippet": "\"censo_de_identidade_it.py\"), encoding=\"utf-8\").read()"
         }
       ],
       "categoria": "PROOF"
@@ -16095,7 +16209,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 983,
+          "line": 1006,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -16207,7 +16321,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 965,
+          "line": 988,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         }
       ],
@@ -16646,7 +16760,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2235,
+          "line": 2258,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -16898,6 +17012,24 @@
       "source": "system-map/data/golden-path-pdf.generated.json",
       "declared_by": "missao system-map-canonical-v1, fase 1 do data plane",
       "categoria": "UNKNOWN"
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-CENSO-IDENTIDADE-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta Censo de identidade do artefato. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_de_identidade_it.py",
+          "line": 63,
+          "snippet": "LIVRO = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-IT-PRESERVAR",
@@ -17247,17 +17379,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2436,
+          "line": 2459,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2436,
+          "line": 2459,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2437,
+          "line": 2460,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -17371,8 +17503,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gerador do System Map alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Gerador do System Map alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_identidade_do_artefato.py",
+          "line": 197,
+          "snippet": "\"generate_system_map.py\"), encoding=\"utf-8\").read()"
+        },
         {
           "file": "tests/test_observabilidade_estrada.py",
           "line": 34,
@@ -17411,12 +17548,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2918,
+          "line": 2941,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2918,
+          "line": 2941,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -21081,20 +21218,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 674,
+  "UNCLAIMED_FILES_COUNT": 675,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 109,
-    "components_proven": 74,
-    "components_pending": 29,
+    "components": 110,
+    "components_proven": 72,
+    "components_pending": 32,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 362,
-    "edges_proven": 360,
+    "edges": 365,
+    "edges_proven": 363,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1214,
-    "files_covered": 540,
+    "files_tracked": 1217,
+    "files_covered": 542,
     "files_code_unclaimed": 0
   }
 }
