@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
-    "w": 15895,
+    "w": 16600,
     "h": 2462
   },
   "INVENTORY": {
@@ -10,6 +10,7 @@
       ".gitignore",
       ".vercelignore",
       "AGENTS.md",
+      "BIBLIA-CANONICA-DA-COLETA.md",
       "CASCO-CLIENT-DEMO.md",
       "CLAUDE.md",
       "DEPOIS-DO-PORTAL.md",
@@ -550,6 +551,10 @@
       "docs/apresentacao/RECONCILIACAO-DECK-REAL.md",
       "docs/apresentacao/SOURCE-PACKS-EAME.md",
       "docs/apresentacao/deck/AURA-ADAMA-EAME-texto.txt",
+      "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
+      "docs/biblia/CONFORMIDADE-ITALIA.md",
+      "docs/biblia/MATRIZ-DE-CONFLITOS.md",
+      "docs/biblia/leis.json",
       "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
       "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md",
       "docs/decisoes/DIARIO-DE-DECISOES.md",
@@ -1004,7 +1009,8 @@
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
       "provas/testa_coleta_canonica.py",
-      "provas/testa_rota_italia.py"
+      "provas/testa_rota_italia.py",
+      "provas/valida_biblia.py"
     ],
     "regras": [
       "regras/LEIA-ANTES-DE-COLETAR.md",
@@ -1583,9 +1589,9 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
-    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
+    "BRANCH": "claude/biblia-canonica-da-coleta",
+    "HEAD": "56fdb8cab316bfe8f82c0928b1b5113596e00596",
+    "GENERATED_AT": "2026-09-07T18:08:05-03:00"
   },
   "FAMILIES": [
     {
@@ -1594,9 +1600,10 @@
       "why": "Trazer para dentro o que existe la fora. Nada no SINTONIA comeca sem passar por aqui.",
       "x": 260,
       "y": 60,
-      "w": 6955,
+      "w": 7660,
       "h": 2142,
       "zones": [
+        "Z-BIBLIA",
         "Z-PEDIDO",
         "Z-CANDIDATAS",
         "Z-FONTES",
@@ -1607,13 +1614,13 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 37
+      "count": 38
     },
     {
       "id": "F-ESPERA",
       "name": "A ESPERA",
       "why": "O que ja passou por toda a coleta e ainda nao entrou na inteligencia. Nao e coleta (o trabalho ja acabou) nem inteligencia (ainda nao comecou) — e o sitio onde o dado dorme entre as duas",
-      "x": 7435,
+      "x": 8140,
       "y": 60,
       "w": 485,
       "h": 2142,
@@ -1626,7 +1633,7 @@
       "id": "F-INTELIGENCIA",
       "name": "INTELIGENCIA",
       "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa.",
-      "x": 8140,
+      "x": 8845,
       "y": 60,
       "w": 3845,
       "h": 2142,
@@ -1636,13 +1643,13 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 29
+      "count": 30
     },
     {
       "id": "F-ENTREGA",
       "name": "ENTREGA",
       "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado.",
-      "x": 12205,
+      "x": 12910,
       "y": 60,
       "w": 3430,
       "h": 2142,
@@ -1657,6 +1664,20 @@
   ],
   "TERRITORIES": [
     {
+      "id": "Z-BIBLIA",
+      "family": "F-COLETA",
+      "name": "0 · A CONSTITUIÇÃO DA COLETA",
+      "why": "A lei da coleta, num sitio so. Ela nao coleta nada: ela diz o que coletar significa nesta casa, o que se preserva, quem manda, e como se prova. Fica antes do pedido porque toda a faixa obedece a ela.",
+      "views": [
+        "acervo"
+      ],
+      "x": 300,
+      "y": 190,
+      "w": 405,
+      "h": 1972,
+      "count": 1
+    },
+    {
       "id": "Z-PEDIDO",
       "family": "F-COLETA",
       "name": "1 · O PEDIDO E O PLANO",
@@ -1665,7 +1686,7 @@
         "acervo"
       ],
       "folder": "pedido",
-      "x": 300,
+      "x": 1005,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1680,7 +1701,7 @@
         "acervo"
       ],
       "folder": "candidatas",
-      "x": 1005,
+      "x": 1710,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1695,7 +1716,7 @@
         "acervo"
       ],
       "folder": "fontes",
-      "x": 1710,
+      "x": 2415,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1710,7 +1731,7 @@
         "infra"
       ],
       "folder": "ferramentas",
-      "x": 2415,
+      "x": 3120,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1724,7 +1745,7 @@
       "views": [
         "acervo"
       ],
-      "x": 3120,
+      "x": 3825,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1740,7 +1761,7 @@
         "audit"
       ],
       "folder": "regras",
-      "x": 3825,
+      "x": 4530,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1756,7 +1777,7 @@
         "infra"
       ],
       "folder": "coleta",
-      "x": 4530,
+      "x": 5235,
       "y": 190,
       "w": 820,
       "h": 1972,
@@ -1771,7 +1792,7 @@
         "acervo"
       ],
       "folder": "admissao",
-      "x": 5650,
+      "x": 6355,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1786,7 +1807,7 @@
         "audit"
       ],
       "folder": "medidas",
-      "x": 6355,
+      "x": 7060,
       "y": 190,
       "w": 820,
       "h": 1972,
@@ -1801,7 +1822,7 @@
         "infra"
       ],
       "folder": "guarda",
-      "x": 7475,
+      "x": 8180,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1817,7 +1838,7 @@
         "official"
       ],
       "folder": null,
-      "x": 8180,
+      "x": 8885,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1833,7 +1854,7 @@
         "science"
       ],
       "folder": "leis",
-      "x": 8885,
+      "x": 9590,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1849,7 +1870,7 @@
         "opportunity"
       ],
       "folder": "motor",
-      "x": 9590,
+      "x": 10295,
       "y": 190,
       "w": 820,
       "h": 1972,
@@ -1865,11 +1886,11 @@
         "infra"
       ],
       "folder": "provas",
-      "x": 10710,
+      "x": 11415,
       "y": 190,
       "w": 1235,
       "h": 1972,
-      "count": 13
+      "count": 14
     },
     {
       "id": "Z-PACOTE",
@@ -1881,7 +1902,7 @@
         "portal"
       ],
       "folder": "pacote",
-      "x": 12245,
+      "x": 12950,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1897,7 +1918,7 @@
         "audit"
       ],
       "folder": "portoes",
-      "x": 12950,
+      "x": 13655,
       "y": 190,
       "w": 820,
       "h": 1972,
@@ -1913,7 +1934,7 @@
         "meeting"
       ],
       "folder": "superficie",
-      "x": 14070,
+      "x": 14775,
       "y": 190,
       "w": 405,
       "h": 1972,
@@ -1928,7 +1949,7 @@
         "portal",
         "entrega"
       ],
-      "x": 14775,
+      "x": 15480,
       "y": 190,
       "w": 820,
       "h": 1972,
@@ -2014,7 +2035,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 7535,
+      "x": 8240,
       "y": 360
     },
     {
@@ -2109,7 +2130,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 1770,
+      "x": 2475,
       "y": 360
     },
     {
@@ -2152,7 +2173,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 5710,
+      "x": 6415,
       "y": 360
     },
     {
@@ -2219,7 +2240,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 2475,
+      "x": 3180,
       "y": 360
     },
     {
@@ -2270,7 +2291,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12305,
+      "x": 13010,
       "y": 360
     },
     {
@@ -4495,7 +4516,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 1770,
+      "x": 2475,
       "y": 682
     },
     {
@@ -4555,7 +4576,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14130,
+      "x": 14835,
       "y": 360
     },
     {
@@ -4626,7 +4647,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13010,
+      "x": 13715,
       "y": 360
     },
     {
@@ -4683,7 +4704,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13425,
+      "x": 14130,
       "y": 360
     },
     {
@@ -4804,7 +4825,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13010,
+      "x": 13715,
       "y": 682
     },
     {
@@ -4858,7 +4879,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13425,
+      "x": 14130,
       "y": 682
     },
     {
@@ -4908,8 +4929,57 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
+      "x": 13715,
       "y": 1004
+    },
+    {
+      "id": "C-BIBLIA",
+      "name": "A Bíblia canônica da coleta",
+      "territory": "Z-BIBLIA",
+      "kind": "contract",
+      "what": "48 leis numeradas que governam toda coleta do SINTONIA, com o censo das 63 leis maduras que ja existiam, a matriz de conflitos e a medicao da Italia contra elas.",
+      "why_here": "As leis da coleta viviam espalhadas por cabecalho de script, README, prompt de aba e if solto. Espalhadas assim nao se consultam: redescobrem-se, e a lei redescoberta nunca e igual a que ja existia. Ela declara LAW_STATUS separado de IMPLEMENTATION_STATUS para que «e lei» nunca signifique «ja funciona».",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "BIBLIA-CANONICA-DA-COLETA.md",
+        "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
+        "docs/biblia/CONFORMIDADE-ITALIA.md",
+        "docs/biblia/MATRIZ-DE-CONFLITOS.md",
+        "docs/biblia/leis.json"
+      ],
+      "file_count": 5,
+      "status": "PENDING",
+      "status_reason": "e uma lei sem prova executavel apontando para ela.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-PROVA-BIBLIA"
+      ],
+      "outbound": [
+        "C-PROVA-BIBLIA"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 360,
+      "y": 360
     },
     {
       "id": "C-CADEIA-V21",
@@ -4967,7 +5037,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9650,
+      "x": 10355,
       "y": 360
     },
     {
@@ -5008,7 +5078,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
+      "x": 11475,
       "y": 360
     },
     {
@@ -5060,7 +5130,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 360,
+      "x": 1065,
       "y": 360
     },
     {
@@ -5098,6 +5168,7 @@
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
         "C-PADRAO-COLETA",
+        "C-PROVA-BIBLIA",
         "C-PROVA-COLETA"
       ],
       "paises": {},
@@ -5107,7 +5178,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11185,
+      "x": 11890,
       "y": 360
     },
     {
@@ -5164,7 +5235,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit).",
-      "x": 7535,
+      "x": 8240,
       "y": 682
     },
     {
@@ -5211,7 +5282,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
+      "x": 12305,
       "y": 360
     },
     {
@@ -5279,7 +5350,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 6415,
+      "x": 7120,
       "y": 360
     },
     {
@@ -5333,7 +5404,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4590,
+      "x": 5295,
       "y": 360
     },
     {
@@ -5390,7 +5461,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 5005,
+      "x": 5710,
       "y": 360
     },
     {
@@ -5456,7 +5527,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4590,
+      "x": 5295,
       "y": 682
     },
     {
@@ -5506,7 +5577,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 5005,
+      "x": 5710,
       "y": 682
     },
     {
@@ -5551,7 +5622,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 6830,
+      "x": 7535,
       "y": 360
     },
     {
@@ -5661,7 +5732,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 4590,
+      "x": 5295,
       "y": 1004
     },
     {
@@ -5736,7 +5807,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 8945,
+      "x": 9650,
       "y": 360
     },
     {
@@ -5797,7 +5868,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
+      "x": 14835,
       "y": 682
     },
     {
@@ -5899,7 +5970,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 5005,
+      "x": 5710,
       "y": 1004
     },
     {
@@ -5977,7 +6048,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 3885,
+      "x": 4590,
       "y": 360
     },
     {
@@ -6058,7 +6129,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 7535,
+      "x": 8240,
       "y": 1004
     },
     {
@@ -6127,7 +6198,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 1065,
+      "x": 1770,
       "y": 360
     },
     {
@@ -6182,7 +6253,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4590,
+      "x": 5295,
       "y": 1326
     },
     {
@@ -6235,7 +6306,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
+      "x": 11475,
       "y": 682
     },
     {
@@ -6317,7 +6388,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 3885,
+      "x": 4590,
       "y": 682
     },
     {
@@ -6367,7 +6438,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 7535,
+      "x": 8240,
       "y": 1326
     },
     {
@@ -6473,7 +6544,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12305,
+      "x": 13010,
       "y": 682
     },
     {
@@ -6525,7 +6596,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 2475,
+      "x": 3180,
       "y": 682
     },
     {
@@ -6571,7 +6642,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 6415,
+      "x": 7120,
       "y": 682
     },
     {
@@ -6623,7 +6694,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8945,
+      "x": 9650,
       "y": 682
     },
     {
@@ -6669,7 +6740,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11185,
+      "x": 11890,
       "y": 682
     },
     {
@@ -6720,7 +6791,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
+      "x": 12305,
       "y": 682
     },
     {
@@ -6788,7 +6859,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 10770,
+      "x": 11475,
       "y": 1004
     },
     {
@@ -6833,7 +6904,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11185,
+      "x": 11890,
       "y": 1004
     },
     {
@@ -6879,7 +6950,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
+      "x": 12305,
       "y": 1004
     },
     {
@@ -6936,7 +7007,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
+      "x": 11475,
       "y": 1326
     },
     {
@@ -6988,7 +7059,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 2475,
+      "x": 3180,
       "y": 1004
     },
     {
@@ -7036,7 +7107,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 360,
+      "x": 1065,
       "y": 682
     },
     {
@@ -7190,7 +7261,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12305,
+      "x": 13010,
       "y": 1004
     },
     {
@@ -7247,7 +7318,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 6830,
+      "x": 7535,
       "y": 682
     },
     {
@@ -7326,7 +7397,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 3885,
+      "x": 4590,
       "y": 1004
     },
     {
@@ -7370,7 +7441,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 360,
+      "x": 1065,
       "y": 1004
     },
     {
@@ -7415,7 +7486,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 1065,
+      "x": 1770,
       "y": 682
     },
     {
@@ -7475,7 +7546,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14130,
+      "x": 14835,
       "y": 1004
     },
     {
@@ -7577,7 +7648,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14130,
+      "x": 14835,
       "y": 1326
     },
     {
@@ -7638,7 +7709,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
+      "x": 14835,
       "y": 1648
     },
     {
@@ -7690,7 +7761,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13425,
+      "x": 14130,
       "y": 1004
     },
     {
@@ -7774,7 +7845,61 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 3885,
+      "x": 4590,
+      "y": 1326
+    },
+    {
+      "id": "C-PROVA-BIBLIA",
+      "name": "O validador da Bíblia",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "what": "Prova que a Biblia, os tres apendices e o registo por maquina dizem a mesma coisa: ids unicos, estados validos, lei citada que existe, ficheiro citado que existe.",
+      "why_here": "leis.json e DERIVADO do texto da Biblia, nunca escrito a mao — pela mesma razao que state.generated.json e derivado do repositorio. Duas listas de leis divergiriam, e a partir dai nenhuma das duas valeria.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "◉",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "provas/valida_biblia.py"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-BIBLIA",
+        "C-CI-MAPA"
+      ],
+      "outbound": [
+        "C-BIBLIA"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "docs/biblia/leis.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "x": 11890,
       "y": 1326
     },
     {
@@ -7822,7 +7947,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11185,
+      "x": 12305,
       "y": 1326
     },
     {
@@ -7878,7 +8003,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8945,
+      "x": 9650,
       "y": 1004
     },
     {
@@ -7930,7 +8055,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 360,
+      "x": 1065,
       "y": 1326
     },
     {
@@ -7976,8 +8101,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
-      "y": 1326
+      "x": 11475,
+      "y": 1648
     },
     {
       "id": "C-REGRA-COLETA",
@@ -8057,7 +8182,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 6415,
+      "x": 7120,
       "y": 1004
     },
     {
@@ -8137,7 +8262,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 8945,
+      "x": 9650,
       "y": 1326
     },
     {
@@ -8247,7 +8372,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 5005,
+      "x": 5710,
       "y": 1326
     },
     {
@@ -8293,7 +8418,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 6830,
+      "x": 7535,
       "y": 1004
     },
     {
@@ -8345,7 +8470,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 2475,
+      "x": 3180,
       "y": 1326
     },
     {
@@ -8415,7 +8540,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13010,
+      "x": 13715,
       "y": 1326
     },
     {
@@ -8516,7 +8641,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 7535,
+      "x": 8240,
       "y": 1648
     },
     {
@@ -8641,7 +8766,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15540,
       "y": 1648
     },
     {
@@ -8741,7 +8866,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15955,
       "y": 1004
     },
     {
@@ -8804,7 +8929,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15540,
       "y": 1970
     },
     {
@@ -8858,7 +8983,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15955,
       "y": 360
     },
     {
@@ -8943,7 +9068,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15955,
       "y": 682
     },
     {
@@ -9076,7 +9201,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15540,
       "y": 360
     },
     {
@@ -9210,7 +9335,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15955,
       "y": 1326
     },
     {
@@ -9338,7 +9463,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15540,
       "y": 1326
     },
     {
@@ -9388,7 +9513,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15955,
       "y": 1648
     },
     {
@@ -9441,7 +9566,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15540,
       "y": 1004
     },
     {
@@ -9565,7 +9690,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15540,
       "y": 682
     },
     {
@@ -9698,7 +9823,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 10770,
+      "x": 11890,
       "y": 1648
     },
     {
@@ -9746,7 +9871,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 2475,
+      "x": 3180,
       "y": 1648
     },
     {
@@ -9840,7 +9965,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 10065,
+      "x": 10770,
       "y": 360
     },
     {
@@ -9977,7 +10102,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 9650,
+      "x": 10355,
       "y": 682
     },
     {
@@ -10028,7 +10153,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10065,
+      "x": 10770,
       "y": 682
     },
     {
@@ -10118,7 +10243,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 9650,
+      "x": 10355,
       "y": 1004
     },
     {
@@ -10194,7 +10319,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 10065,
+      "x": 10770,
       "y": 1004
     },
     {
@@ -10283,7 +10408,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 9650,
+      "x": 10355,
       "y": 1326
     },
     {
@@ -10337,7 +10462,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10065,
+      "x": 10770,
       "y": 1326
     },
     {
@@ -10413,7 +10538,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
+      "x": 3885,
       "y": 360
     },
     {
@@ -10633,7 +10758,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
+      "x": 3885,
       "y": 682
     },
     {
@@ -10776,7 +10901,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
+      "x": 3885,
       "y": 1004
     },
     {
@@ -10912,7 +11037,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
+      "x": 3885,
       "y": 1326
     },
     {
@@ -11055,7 +11180,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
+      "x": 3885,
       "y": 1648
     },
     {
@@ -11064,8 +11189,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-canonical-v1",
-        "HEAD 491b6f8d01c5e745a614e7e16d02375c666106ea"
+        "branch claude/biblia-canonica-da-coleta",
+        "HEAD 56fdb8cab316bfe8f82c0928b1b5113596e00596"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -11097,7 +11222,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8240,
+      "x": 8945,
       "y": 360
     },
     {
@@ -11141,7 +11266,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8240,
+      "x": 8945,
       "y": 682
     },
     {
@@ -11184,7 +11309,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8240,
+      "x": 8945,
       "y": 1004
     },
     {
@@ -11235,7 +11360,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8240,
+      "x": 8945,
       "y": 1326
     }
   ],
@@ -12518,6 +12643,43 @@
       ]
     },
     {
+      "from": "C-BIBLIA",
+      "to": "C-PROVA-BIBLIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Bíblia canônica da coleta alimenta O validador da Bíblia. Provado por 5 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/valida_biblia.py",
+          "line": 45,
+          "snippet": "BIBLIA = os.path.join(ROOT, 'BIBLIA-CANONICA-DA-COLETA.md')"
+        },
+        {
+          "file": "provas/valida_biblia.py",
+          "line": 47,
+          "snippet": "CENSO = os.path.join(PASTA, 'CENSO-DAS-LEIS-DA-COLETA.md')"
+        },
+        {
+          "file": "provas/valida_biblia.py",
+          "line": 48,
+          "snippet": "CONFLITOS = os.path.join(PASTA, 'MATRIZ-DE-CONFLITOS.md')"
+        },
+        {
+          "file": "provas/valida_biblia.py",
+          "line": 49,
+          "snippet": "CONFORMIDADE = os.path.join(PASTA, 'CONFORMIDADE-ITALIA.md')"
+        },
+        {
+          "file": "provas/valida_biblia.py",
+          "line": 50,
+          "snippet": "LEIS_JSON = os.path.join(PASTA, 'leis.json')"
+        }
+      ]
+    },
+    {
       "from": "C-CADEIA-V21",
       "to": "C-AUDIT-GERAL",
       "type": "READS",
@@ -12990,6 +13152,23 @@
           "file": ".github/workflows/system-map.yml",
           "line": 80,
           "snippet": "run: python3 medidas/padrao_da_coleta.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-PROVA-BIBLIA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "natureza": "DISPARO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar O validador da Bíblia. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 95,
+          "snippet": "run: python3 provas/valida_biblia.py"
         }
       ]
     },
@@ -15958,6 +16137,23 @@
       ]
     },
     {
+      "from": "C-PROVA-BIBLIA",
+      "to": "C-BIBLIA",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O validador da Bíblia escreve em A Bíblia canônica da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/valida_biblia.py",
+          "line": 194,
+          "snippet": "open(LEIS_JSON, 'w')  # LEIS_JSON = docs/biblia/leis.json"
+        }
+      ]
+    },
+    {
       "from": "C-RECEITAS",
       "to": "C-ORQUESTRADOR",
       "type": "IMPORTS",
@@ -17991,17 +18187,17 @@
   "UNCLAIMED_FILES_COUNT": 643,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 97,
-    "components_proven": 68,
-    "components_pending": 25,
+    "components": 99,
+    "components_proven": 69,
+    "components_pending": 26,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 322,
-    "edges_proven": 322,
+    "edges": 325,
+    "edges_proven": 325,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1142,
-    "files_covered": 499,
+    "files_tracked": 1148,
+    "files_covered": 505,
     "files_code_unclaimed": 0
   }
 }

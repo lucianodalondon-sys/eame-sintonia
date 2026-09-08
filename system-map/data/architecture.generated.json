@@ -2,9 +2,9 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
-    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
+    "BRANCH": "claude/biblia-canonica-da-coleta",
+    "HEAD": "56fdb8cab316bfe8f82c0928b1b5113596e00596",
+    "GENERATED_AT": "2026-09-07T18:08:05-03:00"
   },
   "FILES": [
     {
@@ -93,7 +93,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "5d3fd3a3a732f04b1a7cfa0ee465aa95e71e3369",
+      "sha": "aa32ab8390c8921e7a24f3980c0e07ddaf282c6b",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -114,7 +114,14 @@
     },
     {
       "path": "AGENTS.md",
-      "sha": "4e649c9633f2a6fd7906c0697099d56759f103b9",
+      "sha": "11784eb7942d069f19d3602722d8d5488f38910f",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "BIBLIA-CANONICA-DA-COLETA.md",
+      "sha": "5c9a417807b9667692f98acb921469eaec49b7b4",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3704,6 +3711,34 @@
       "code_dir": false
     },
     {
+      "path": "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
+      "sha": "6b73e2b0d7ff93ad05b4b09d31bb5d6e58c88577",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/biblia/CONFORMIDADE-ITALIA.md",
+      "sha": "86935b285a8f6112315266fe18631f541a519ae2",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/biblia/MATRIZ-DE-CONFLITOS.md",
+      "sha": "010fd3a04ffc349c2c22aa49b30508412a37b4ef",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/biblia/leis.json",
+      "sha": "54b0c719ba7652b0cbaea4690e55c5a99100cb43",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
       "sha": "0b3c2c1085778da484343c33a5417d62f4922d96",
       "ext": ".md",
@@ -6714,6 +6749,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/valida_biblia.py",
+      "sha": "ce192bd919f2993d9388bc932021f152581e29b7",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "regras/LEIA-ANTES-DE-COLETAR.md",
       "sha": "48da0985deaddcae18437e764fa2c72861d19d4b",
       "ext": ".md",
@@ -7702,7 +7744,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "62c326bb84d16cafb421192987e741470b036f0e",
+      "sha": "8128f49b360a8631bc0018db7fb76e5481635122",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8573,6 +8615,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 89,
         "snippet": "run: python3 provas/testa_coleta_canonica.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "provas/valida_biblia.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 95,
+        "snippet": "run: python3 provas/valida_biblia.py"
       }
     },
     {
@@ -21281,6 +21334,83 @@
       }
     },
     {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 45,
+        "snippet": "BIBLIA = os.path.join(ROOT, 'BIBLIA-CANONICA-DA-COLETA.md')"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 43,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 47,
+        "snippet": "CENSO = os.path.join(PASTA, 'CENSO-DAS-LEIS-DA-COLETA.md')"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/CONFORMIDADE-ITALIA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 49,
+        "snippet": "CONFORMIDADE = os.path.join(PASTA, 'CONFORMIDADE-ITALIA.md')"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/MATRIZ-DE-CONFLITOS.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 48,
+        "snippet": "CONFLITOS = os.path.join(PASTA, 'MATRIZ-DE-CONFLITOS.md')"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/leis.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 50,
+        "snippet": "LEIS_JSON = os.path.join(PASTA, 'leis.json')"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/leis.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 194,
+        "snippet": "open(LEIS_JSON, 'w')  # LEIS_JSON = docs/biblia/leis.json"
+      }
+    },
+    {
       "from_file": "regras/comunicacao_identidade.py",
       "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json",
       "type": "READS",
@@ -25199,10 +25329,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1142,
-    "files_readable": 388,
-    "files_code_dir": 433,
-    "file_edges": 1529,
+    "files_tracked": 1148,
+    "files_readable": 389,
+    "files_code_dir": 434,
+    "file_edges": 1537,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
