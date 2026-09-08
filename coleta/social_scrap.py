@@ -398,105 +398,75 @@ ALVOS_YOUTUBE_IT = [
 ]
 
 
-def youtube_piloto(limite_videos=3, limite_threads=20):
-    """O PILOTO REAL. Só roda com credencial — e sem ela não finge que rodou.
+# Os dois modos, e a diferença entre eles é o assunto inteiro desta fase.
+#
+#     OPERATIONAL   usa o checkpoint canônico, persiste, e PODE alegar retomada.
+#     ONE_SHOT      prova a estrada uma vez, e NÃO alega retomada nenhuma.
+#
+# Um ONE-SHOT rotulado OPERATIONAL seria a mentira mais cara desta casa: alguém
+# confiaria numa memória que não existe, e a coleta seguinte refaria tudo — ou,
+# pior, pularia o que ninguém salvou.
+OPERATIONAL = 'OPERATIONAL'
+ONE_SHOT = 'ONE_SHOT'
 
-    Ordem: resolver canal (oficial) -> incremental -> metadata -> comentários.
-    SEARCH fica em ZERO: os alvos já são conhecidos, e busca é 100/dia. Gastar
-    busca para achar o que já se tem é queimar o recurso escasso por nada.
 
-    A segunda execução prova o checkpoint: os vídeos ficam conhecidos, a varredura
-    para no primeiro deles, e a playlist já resolvida não custa `channels.list`.
+def youtube_piloto(modo=OPERATIONAL, limite_videos=3, limite_threads=20):
+    """O piloto real. Recusa rodar em modo OPERATIONAL sem o dono do checkpoint.
+
+    Ordem, e ela é a lei:
+
+        resolver canal (oficial) -> incremental -> metadata -> comentários
+        -> PERSISTIR -> só então avançar o checkpoint.
+
+    SEARCH fica em ZERO: os alvos já são conhecidos, e busca é 100/dia.
     """
     import youtube_oficial as yt
     sess = yt.Sessao()
-    if not sess.disponivel():
-        print('\nLIVE_PILOT_BLOCKED_BY_CREDENTIAL')
-        print('  %s ausente neste ambiente.' % yt.ENV_CHAVE)
-        print('  Isto NÃO é falha da fonte nem da rota: é falta de credencial, e a')
-        print('  recuperação é %s.' % falhas.recuperacao('CREDENTIAL_MISSING'))
-        print('  Nenhum número de coleta é reportado, porque não existe nenhum.')
-        return 2
+    pre = _preflight_youtube(sess, modo)
+    if pre is not None:
+        return pre
+    if modo == ONE_SHOT:
+        print('\n  MODO ONE_SHOT — esta execução NÃO usa checkpoint, NÃO escreve')
+        print('  checkpoint e NÃO alega retomada. Ela prova API, quota, comentários,')
+        print('  custo e rota. Não prova incremental observado.')
+    return 4   # ver `youtube-piloto-oneshot`: a execução real é do runner
 
-    # O DONO DA DURABILIDADE decide se há retomada. Sem ele: ONE-SHOT declarado,
-    # nunca um JSON no Git fingindo de memória operacional.
-    estado_cp, _banco = yt.checkpoint_disponivel()
-    if estado_cp == yt.CHECKPOINT_NOT_LIVE:
-        print('\nPILOT_BLOCKED: %s' % estado_cp)
-        print('  O checkpoint canônico (`coleta/coleta_checkpoint.py` sobre')
-        print('  `checkpoint_coleta`) não tem DSN neste ambiente — %s ausente.'
-              % yt.ENV_DSN)
-        print('  A retomada é dele. Sem ele, esta casa NÃO abre um segundo dono')
-        print('  durável em JSON: GIT NÃO É BANCO OPERACIONAL (P-011).')
-        print('  Um piloto ONE-SHOT continua possível, mas não é esta missão.')
+
+def _preflight_youtube(sess, modo):
+    """Portão antes de gastar UMA unidade de quota. Devolve None se pode seguir.
+
+    Nunca imprime host, usuário, senha ou DSN — só veredito.
+    """
+    import youtube_oficial as yt
+    print('\nPRÉ-VOO DO PILOTO · modo %s\n%s' % (modo, '═' * 78))
+    chave_ok = sess.disponivel()
+    print('  %-42s %s' % ('YOUTUBE_DATA_API_KEY presente', 'SIM' if chave_ok else 'NÃO'))
+    if modo == ONE_SHOT:
+        if not chave_ok:
+            print('\n  LIVE_PILOT_BLOCKED_BY_CREDENTIAL — e isto NÃO autoriza scraping.')
+            return 2
+        return None
+
+    estado_cp, banco = yt.checkpoint_disponivel()
+    print('  %-42s %s' % ('SUPABASE_DB_URL presente',
+                          'SIM' if banco is not None else 'NÃO'))
+    if banco is None:
+        print('\n  CHECKPOINT_CANONICAL_UNAVAILABLE')
+        print('  O dono da durabilidade é `coleta/coleta_checkpoint.py` sobre')
+        print('  `checkpoint_coleta`. Sem DSN não há retomada — e esta casa NÃO cai')
+        print('  para JSON, filesystem, Git nem Apify. YouTube calls: 0.')
+        print('  Saída honesta disponível: fase `youtube-piloto-oneshot`.')
         return 3
-    cache = yt.cache_da_execucao()
-    run_id = 'YT-IT-%s' % env.agora().replace(':', '').replace('-', '')[:15]
-    print('\nPILOTO YOUTUBE · ITÁLIA · run %s\n%s' % (run_id, '═' * 78))
-    print('  canais no checkpoint antes desta run: %d' % len(cache))
-
-    objetos, rel = [], {'RUN_ID': run_id, 'CANAIS': [], 'ERROS': [],
-                        'FEATURE_DISABLED': 0, 'ZERO_RESULTS': 0,
-                        'THREADS': 0, 'TOP_LEVEL': 0, 'REPLIES': 0}
-    for handle, natureza in ALVOS_YOUTUBE_IT:
-        linha = {'HANDLE': handle, 'NATUREZA': natureza}
-        try:
-            cid, pl, proc = yt.resolver_handle(handle=handle, sessao=sess, cache=cache)
-            linha.update({'CHANNEL_ID': cid, 'UPLOADS_PLAYLIST_ID': pl,
-                          'PLAYLIST_REUSED': proc.get('REUSED', False),
-                          'PROVENANCE': proc['PROVENANCE']})
-            conhecidos = []   # virá do checkpoint canônico quando ele estiver LIVE
-            novos, sess, r = yt.uploads_recentes(
-                channel_id=cid, run_id=run_id, country_scope='IT',
-                limit=limite_videos, conhecidos=conhecidos, sessao=sess, cache=cache)
-            linha.update({k: r[k] for k in ('UPLOADS_EXAMINED', 'NEW', 'REUSED',
-                                            'STOPPED_AT_KNOWN')})
-            objetos.extend(novos)
-            ids = [o['NATIVE_ID'] for o in novos]
-            if ids:
-                metas, sess, rm = yt.metadata(video_ids=ids, run_id=run_id,
-                                              country_scope='IT', sessao=sess)
-                objetos.extend(metas)
-                linha['METADATA_RETURNED'] = rm['RETURNED']
-                linha['METADATA_MISSING'] = rm['MISSING']
-            linha['COMENTARIOS'] = []
-            for vid in ids:
-                cs, sess, rc = yt.comentarios(
-                    video_id=vid, run_id=run_id, country_scope='IT',
-                    limite_threads=limite_threads, sessao=sess)
-                objetos.extend(cs)
-                topo = sum(1 for c in cs if not c['RAW']['IS_REPLY'])
-                rel['THREADS'] += rc['THREADS']
-                rel['TOP_LEVEL'] += topo
-                rel['REPLIES'] += len(cs) - topo
-                if rc.get('COMMENTS_DISABLED'):
-                    rel['FEATURE_DISABLED'] += 1
-                elif rc['STATE'] == 'ZERO_RESULTS':
-                    rel['ZERO_RESULTS'] += 1
-                linha['COMENTARIOS'].append({'VIDEO_ID': vid, 'STATE': rc['STATE'],
-                                             'COMMENTS': len(cs),
-                                             'REPLIES_MISSING': rc['REPLIES_MISSING']})
-            # A gravação do avanço é do dono canônico. Esta linha existe para
-            # marcar o ponto exato onde ela entra quando o DSN existir.
-            linha['CHECKPOINT_ID'] = yt._identidade(cid)
-        except Exception as e:                                     # noqa: BLE001
-            # A falha vai INTEIRA para o relatório, redigida, com estado canônico.
-            # Um canal que falhou não some do piloto: some do acervo.
-            estado_canon = falhas.classificar(nativo=type(e).__name__)
-            linha['ERRO'] = ss.redigir('%s: %s' % (type(e).__name__, e))[:300]
-            linha['STATE'] = estado_canon
-            rel['ERROS'].append(handle)
-        rel['CANAIS'].append(linha)
-
-    unicos, dedupe_rel = env.dedupe(objetos)
-    m = sess.metricas()
-    rel.update({'OBJETOS': len(objetos), 'OBJETOS_UNICOS': len(unicos),
-                'DEDUPE': dedupe_rel, 'QUOTA': m,
-                'APIFY_CALLS': 0, 'APIFY_SPEND_USD': 0.0,
-                'COST_USD': m['COST_USD'], 'COST_BASIS': m['COST_BASIS']})
-    env.gravar('YOUTUBE-PILOTO-IT.json', rel)
-    _imprimir_piloto(rel, m)
-    return 0
+    ok, veredito = yt.preflight_banco(banco)
+    for nome, valor in veredito:
+        print('  %-42s %s' % (nome, valor))
+    if not ok:
+        print('\n  CHECKPOINT_CANONICAL_UNAVAILABLE — o schema não confirmou.')
+        return 3
+    if not chave_ok:
+        print('\n  LIVE_PILOT_BLOCKED_BY_CREDENTIAL — e isto NÃO autoriza scraping.')
+        return 2
+    return None
 
 
 def _imprimir_piloto(rel, m):
@@ -581,7 +551,9 @@ def main():
     elif cmd == 'youtube':
         youtube()
     elif cmd == 'youtube-piloto':
-        return youtube_piloto()
+        return youtube_piloto(OPERATIONAL)
+    elif cmd == 'youtube-piloto-oneshot':
+        return youtube_piloto(ONE_SHOT)
     elif cmd == 'authmodes':
         authmodes()
     elif cmd == 'guarda':

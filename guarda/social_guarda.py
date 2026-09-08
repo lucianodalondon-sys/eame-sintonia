@@ -2,8 +2,8 @@
 """
 GUARDA DE CREDENCIAL — a trava que impede o cookie de entrar no Git.
 
-    py scripts/social_guarda.py            # varre o que está RASTREADO e o que está EM STAGE
-    py scripts/social_guarda.py --staged   # só o que está a um `git commit` de distância
+    py guarda/social_guarda.py            # varre o que está RASTREADO e o que está EM STAGE
+    py guarda/social_guarda.py --staged   # só o que está a um `git commit` de distância
 
     O GITHUB NÃO É COFRE DE SENHA HUMANA.
 
@@ -79,9 +79,14 @@ CONTEUDO_PROIBIDO = (
 
 # A exceção é sempre explícita e sempre nomeada. Estes arquivos DESCREVEM os
 # padrões (é o trabalho deles) e por isso casariam com as próprias regras.
+# Os caminhos seguem as GAVETAS: quando o SCRAP entrou na árvore canônica,
+# `scripts/` deixou de existir, e esta lista ficou apontando para o vazio — a
+# guarda passou a acusar a própria docstring, que descreve `Cookie: sessionid=…`
+# porque descrever é o trabalho dela. Uma exceção que aponta para um caminho
+# morto não é exceção: é ruído, e ruído é o que faz alguém desligar a guarda.
 PERMITIDOS = {
-    'scripts/social_guarda.py',
-    'scripts/social_sessao.py',
+    'guarda/social_guarda.py',
+    'guarda/social_sessao.py',
     'tests/test_social_sessao.py',
     'docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md',
 }

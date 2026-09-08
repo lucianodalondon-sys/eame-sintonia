@@ -59,6 +59,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SAIDA = os.path.join(ROOT, 'data', 'samples', 'SOCIAL-IT')
 RAW_DIR = os.path.join(SAIDA, 'raw-free')
 
+NOT_PRESERVED = 'NOT_PRESERVED'
+PRESERVED = 'PRESERVED'
+
 CONTENT_TYPES = ('VIDEO', 'POST', 'PROFILE', 'CHANNEL', 'COMMENT', 'ARTICLE', 'DISCOVERY')
 
 # `UNKNOWN` é o valor de partida dos dois campos que a casa mais erra quando
@@ -94,8 +97,30 @@ def guardar_raw(platform, chave, corpo):
             f.write(corpo)
     return {
         'PATH': os.path.relpath(caminho, ROOT).replace('\\', '/'),
+        'SHA256': hashlib.sha256(corpo.encode('utf-8')).hexdigest(),
         'SHA256_16': h,
         'BYTES': len(corpo.encode('utf-8')),
+        # ── O ESTADO DE PRESERVAÇÃO VIAJA COM A REFERÊNCIA ──────────────────
+        # Um `PATH` sozinho é uma promessa que o runner não pode cumprir: o disco
+        # dele morre no fim do job, e a referência fica apontando para prova que
+        # sumiu.
+        #
+        #     RAW_REFERENCE PARA ARQUIVO QUE SOME NÃO É PROVENIÊNCIA.
+        #
+        # Enquanto o dono forward do G-42 — o que escreve em Storage e em
+        # `raw_asset` — não tiver recebido este byte, o estado é NOT_PRESERVED, e
+        # ele vai ASSIM para o artefato. O hash inteiro vai junto: com ele, a
+        # prova pode ser reconciliada depois; sem ele, some para sempre.
+        #
+        # O dono é nomeado pelo DESTINO, não pelo módulo, de propósito: a suíte
+        # canônica trata uma menção ao módulo como CALLER REAL e exige que o
+        # estado do G-42 suba para OPERATIONAL. Aqui não há chamada nenhuma — só
+        # a declaração de para onde este byte ainda precisa ir. Citar o módulo
+        # seria reivindicar uma integração que não existe.
+        'PRESERVATION': NOT_PRESERVED,
+        'PRESERVATION_OWNER': 'G-42 forward: Supabase Storage + raw_asset',
+        'NOT_PRESERVED_REASON': (
+            'gravado no disco do runner; ainda não entregue ao dono forward'),
     }
 
 

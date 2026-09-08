@@ -51,7 +51,7 @@ on:
         default: censo
         type: choice
         options: [censo, portao, video, gap, piloto, ledger, sessao, politica, guarda,
-                  youtube, youtube-piloto]
+                  youtube, youtube-piloto, youtube-piloto-oneshot]
       url:
         description: 'só para a fase `portao`: a URL a testar'
         required: false
@@ -111,6 +111,11 @@ jobs:
           # Tetos POR EXECUÇÃO, separados por balde. Não são o limite do projeto.
           YT_TETO_SEARCH_CALLS: ${{ vars.YT_TETO_SEARCH_CALLS || '2' }}
           YT_TETO_GENERAL_UNITS: ${{ vars.YT_TETO_GENERAL_UNITS || '200' }}
+          # O DONO DA DURABILIDADE precisa de DSN. É o MESMO secret que
+          # `supabase-conexao.yml` já usa — nome novo seria um segundo cofre para
+          # a mesma chave, e dois cofres divergem. Ausente, a fase `youtube-piloto`
+          # para em CHECKPOINT_CANONICAL_UNAVAILABLE e NÃO cai para JSON nem Git.
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
         run: |
           echo "FASE=${{ inputs.fase }}"
           PYTHONIOENCODING=utf-8 python3 coleta/social_scrap.py \
@@ -131,6 +136,7 @@ jobs:
       # dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`.
       - name: 2 · devolver o artefato de PROVA do piloto
         if: inputs.fase == 'piloto' || inputs.fase == 'youtube-piloto'
+          || inputs.fase == 'youtube-piloto-oneshot'
         run: |
           set -e
           git config user.name  "sintonia-eame-runner"

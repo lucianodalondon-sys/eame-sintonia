@@ -211,3 +211,111 @@ def coletar(banco, *, target, entrada, actor, platform, unidades, trabalho,
 if __name__ == '__main__':
     print('SEM_CHECKPOINT_NAO_GASTEI é uma trava, não um comentário.')
     print('Rotação de chave: ferramentas/apify_pool.py (portado do piloto italiano).')
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# A ESTRADA OFICIAL — mesma tabela, mesmo dono, sem o pool de chaves
+# ══════════════════════════════════════════════════════════════════════════
+# `coletar()` acima é a estrada PAGA: ele passa por `ap.executar_com_pool`, que
+# roda chave a chave e classifica falha de token. Uma rota de API oficial não tem
+# pool para rodar — tem UMA chave e uma quota — e forçá-la por dentro do pool só
+# para poder dizer «reutilizei código» seria emprestar a semântica errada.
+#
+#     REUTILIZAR O DONO NÃO É REUTILIZAR UMA FUNÇÃO
+#     QUE TEM OUTRA SEMÂNTICA.
+#
+# Então a operação genérica nasce AQUI, ao lado da que já existia, sobre a MESMA
+# tabela e com as MESMAS travas. O que muda é só quem executa a unidade.
+#
+# A ORDEM É A LEI, E ELA TEM UM NOME
+# -----------------------------------
+#     PERSIST FIRST, THEN ADVANCE CHECKPOINT.
+#
+# `unidades_feitas` e `itens_persistidos` só sobem DEPOIS que `persistir()`
+# devolveu. Se o processo morrer entre buscar e salvar, o checkpoint continua
+# apontando para antes — e a próxima execução refaz a unidade. Refazer é barato;
+# pular o que ninguém salvou é perda silenciosa.
+#
+#     SEEN NÃO É PERSISTED.
+#     PROCESS_CRASH NÃO É LOST_COLLECTION.
+
+UNIDADE_FEITA = 'UNIDADE_FEITA'
+UNIDADE_VAZIA = 'UNIDADE_VAZIA'
+UNIDADE_FALHOU = 'UNIDADE_FALHOU'
+
+
+def executar_unidade(banco, *, target, entrada, actor, platform, unidade,
+                     trabalho, persistir, campos_da_identidade,
+                     pais='NAO_SEI', rule_version='v1'):
+    """UMA unidade de trabalho da rota oficial, com checkpoint de verdade.
+
+    `trabalho(unidade) -> (itens, estado)` não recebe token: quem tem chave é o
+    executor da rota, e ele a guarda. `persistir(itens, unidade) -> n` roda ANTES
+    de o checkpoint avançar, e o `n` que ele devolve é o que entra em
+    `itens_persistidos` — o que foi SALVO, nunca o que voltou da API.
+
+    Devolve um dicionário com `STATE`, `CHECKPOINT_ID`, `ITENS_PERSISTIDOS`.
+    """
+    ok, ruins = identidade_valida(campos_da_identidade)
+    if not ok:
+        return {'STATE': 'IDENTIDADE_INVALIDA', 'CAMPOS_PROIBIDOS': ruins,
+                'ITENS_PERSISTIDOS': 0,
+                'PORQUE': 'TOKEN, RUN_ID, DATASET_ID e CAPTURED_AT não entram na '
+                          'identidade: retomar por outra chave duplicaria a coleta'}
+
+    h = abrir(banco, target=target, entrada=entrada, actor=actor, platform=platform,
+              pais=pais, unidades_totais=1, rule_version=rule_version)
+    pode, porque, cid, _ultima = pode_gastar(banco, target, h)
+    if not pode:
+        # `JA_CONCLUIDO_NAO_PAGAR_DUAS_VEZES` chegando aqui é a trava funcionando:
+        # esta MESMA unidade já foi feita. Uma janela NOVA tem outra `entrada`,
+        # logo outro `input_hash`, logo outro checkpoint — e não colide.
+        return {'STATE': porque, 'CHECKPOINT_ID': cid, 'ITENS_PERSISTIDOS': 0,
+                'INPUT_HASH': h, 'PORQUE': porque}
+
+    banco.executa("update public.checkpoint_coleta set estado='EM_CURSO', "
+                  "updated_at=now() where id=%d" % int(cid))
+    try:
+        itens, estado = trabalho(unidade)
+    except Exception as e:                                        # noqa: BLE001
+        banco.executa("update public.checkpoint_coleta set estado='PARCIAL', "
+                      "motivo=%s, updated_at=now() where id=%d"
+                      % (_lit(('%s: %s' % (type(e).__name__, e))[:400]), int(cid)))
+        raise
+
+    # ── AQUI, E SÓ AQUI, O CHECKPOINT ANDA ────────────────────────────────
+    n = persistir(itens or [], unidade)
+    banco.executa(
+        "update public.checkpoint_coleta set unidades_feitas = unidades_feitas + 1, "
+        "itens_persistidos = itens_persistidos + %d, ultima_unidade = %s, "
+        "estado = 'CONCLUIDO', finished_at = now(), updated_at = now() "
+        "where id = %d" % (int(n or 0), _lit(str(unidade)), int(cid)))
+    return {'STATE': UNIDADE_FEITA if n else UNIDADE_VAZIA,
+            'CHECKPOINT_ID': cid, 'INPUT_HASH': h,
+            'ITENS_PERSISTIDOS': int(n or 0), 'EXECUTOR_STATE': estado}
+
+
+def conteudo_persistido(banco, *, platform, external_ids):
+    """Quais destes `external_id` JÁ ESTÃO SALVOS em `public.conteudo`?
+
+    Esta é a resposta canônica para «o que é CONHECIDO» na parada incremental —
+    e ela é sobre o que foi SALVO, não sobre o que foi visto.
+
+        «VI NA API» NÃO TORNA UM VÍDEO CONHECIDO.
+
+    Se o processo morrer depois de ver e antes de salvar, o id NÃO aparece aqui,
+    e a próxima execução o reencontra. É exatamente o que se quer.
+    """
+    ids = [str(i) for i in external_ids if i]
+    if not ids:
+        return set()
+    lista = ', '.join(_lit(i) for i in ids)
+    r = banco.executa(
+        # A coluna é `plataforma`, não `platform`. Medido no schema aplicado, não
+        # decorado: escrever o nome errado aqui daria zero CONHECIDOS em silêncio,
+        # e a coleta refaria tudo todo dia sem ninguém perceber.
+        "select c.content_id from public.conteudo c "
+        "join public.canal k on k.id = c.canal_id "
+        "where k.plataforma = %s and c.content_id in (%s)"
+        % (_lit(platform.upper()), lista))
+    return {linha[0] for linha in r if linha and linha[0]}

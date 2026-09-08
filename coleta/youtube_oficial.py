@@ -335,6 +335,73 @@ def checkpoint_disponivel(env_=None):
     return CHECKPOINT_LIVE, cc.Banco(dsn)
 
 
+# A UNIDADE DE TRABALHO, e por que ela inclui a JANELA
+# -----------------------------------------------------
+# `checkpoint_coleta` é UNIQUE (collection_target, input_hash), e um checkpoint
+# CONCLUIDO recusa gasto novo — `JA_CONCLUIDO_NAO_PAGAR_DUAS_VEZES`. Isso está
+# certo para a MESMA unidade e seria desastroso para monitoramento recorrente:
+# um canal vigiado hoje ficaria trancado para sempre.
+#
+#     A UNIDADE NÃO É O CANAL. É O CANAL NUMA JANELA DE OBSERVAÇÃO.
+#
+# Por isso a janela entra na ENTRADA, e portanto no `input_hash`. Amanhã é outra
+# unidade, outro checkpoint, e a trava continua valendo dentro de cada dia.
+# `RUN_ID` e `CAPTURED_AT` continuam FORA — retomar por outra execução tem de
+# reencontrar a mesma linha, e é a lei que `identidade_valida()` já impõe.
+def unidade_de_trabalho(channel_id, janela, capability='INCREMENTAL'):
+    """A entrada REAL da unidade. Muda com a janela; NUNCA com a execução."""
+    return {'PLATFORM': PLATAFORMA, 'CHANNEL_ID': channel_id,
+            'CAPABILITY': capability, 'JANELA': janela}
+
+
+def janela_de_hoje():
+    """A janela de observação. Um dia é o grão do monitoramento diário."""
+    return _agora()[:10]
+
+
+def conhecidos_do_canal(banco, video_ids):
+    """O que já está SALVO — a marca de parada do incremental.
+
+        «VI NA API» NÃO TORNA UM VÍDEO CONHECIDO.
+
+    Delegado ao dono canônico: quem sabe o que foi persistido é quem guarda.
+    """
+    import coleta_checkpoint as cc
+    return cc.conteudo_persistido(banco, platform=PLATAFORMA,
+                                  external_ids=video_ids)
+
+
+def preflight_banco(banco):
+    """O schema canônico está de pé? (ok, [(nome, veredito)]). Só booleanos.
+
+    Nunca devolve host, usuário, senha nem DSN — só se o objeto existe. Uma
+    medição externa disse SIM para os três; esta função é como a casa reproduz
+    isso por conta própria, no runner, antes de gastar quota.
+    """
+    checagens = [
+        ('checkpoint_coleta existe',
+         "select to_regclass('public.checkpoint_coleta') is not null"),
+        ('pode_gastar(text,text) existe',
+         "select to_regprocedure('public.pode_gastar(text,text)') is not null"),
+        ('collection_run.checkpoint_id existe',
+         "select exists (select 1 from information_schema.columns "
+         "where table_schema='public' and table_name='collection_run' "
+         "and column_name='checkpoint_id')"),
+        ('conteudo existe (marca de CONHECIDO)',
+         "select to_regclass('public.conteudo') is not null"),
+    ]
+    saida, tudo_ok = [], True
+    for nome, sql in checagens:
+        try:
+            r = banco.executa(sql)
+            v = (r and r[0] and r[0][0] == 't')
+        except Exception:                                         # noqa: BLE001
+            v = False
+        tudo_ok = tudo_ok and bool(v)
+        saida.append((nome, 'SIM' if v else 'NÃO'))
+    return tudo_ok, saida
+
+
 def cache_da_execucao():
     """Cache de playlists válido SÓ DENTRO desta execução. NÃO é checkpoint.
 

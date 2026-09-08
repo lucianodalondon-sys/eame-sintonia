@@ -285,5 +285,107 @@ class TestCommentsDisabledNuncaVoltaAZero(unittest.TestCase):
         self.assertEqual(len(tres), 3)
 
 
+
+
+class TestCheckpointUsadoDeVerdade(unittest.TestCase):
+    """A TABELA EXISTIR NAO SIGNIFICA QUE O EXECUTOR A USA."""
+
+    def _fonte(self, *partes):
+        return io.open(os.path.join(ROOT, *partes), encoding='utf-8').read()
+
+    def test_1_conhecidos_nao_e_lista_vazia_fixa_no_caminho_operacional(self):
+        """A regressao concreta: `conhecidos = []` fazia o incremental nunca parar."""
+        txt = self._fonte('coleta', 'social_scrap.py')
+        for linha in txt.splitlines():
+            nu = linha.strip()
+            if nu.startswith('#'):
+                continue
+            self.assertNotIn('conhecidos = []', nu,
+                             'o incremental voltou a nascer sem memoria')
+
+    def test_2_o_banco_nao_e_obtido_e_ignorado(self):
+        """Obter o Banco e nao usa-lo era o defeito: existencia virava prova."""
+        txt = self._fonte('coleta', 'social_scrap.py')
+        self.assertNotIn('_banco = yt.checkpoint_disponivel', txt,
+                         'o Banco voltou a ser descartado com _')
+        # E o dono tem de expor a operacao generica, senao nao ha o que usar.
+        import coleta_checkpoint as cc
+        for peca in ('executar_unidade', 'conteudo_persistido'):
+            self.assertTrue(hasattr(cc, peca),
+                            'o dono canonico perdeu %s' % peca)
+
+    def test_3_hash_de_identidade_nao_e_checkpoint_observado(self):
+        """UM HASH NAO E UMA LINHA DE CHECKPOINT."""
+        h = yt._identidade('UCx')
+        self.assertEqual(len(h), 64, 'isto e um sha256, nao uma linha')
+        # `_identidade` nao toca banco nenhum: e calculo puro, e o teste diz isso.
+        self.assertEqual(h, yt._identidade('UCx'))
+
+    def test_4_o_workflow_injeta_o_DSN_canonico(self):
+        wf = self._fonte('.github', 'workflows', 'scrap-social.yml')
+        self.assertIn('SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}', wf,
+                      'o piloto operacional roda sem o dono da durabilidade')
+        # O MESMO nome que a casa ja usa. Nome novo seria um segundo cofre.
+        outro = self._fonte('.github', 'workflows', 'supabase-conexao.yml')
+        self.assertIn('secrets.SUPABASE_DB_URL', outro)
+
+    def test_5_raw_reference_nunca_e_caminho_pendurado(self):
+        import social_envelope as env
+        r = env.guardar_raw('YOUTUBE', 'trava-de-teste', {'x': 1})
+        try:
+            for campo in ('SHA256', 'BYTES', 'PRESERVATION'):
+                self.assertIn(campo, r, 'RAW_REFERENCE sem %s: prova que some' % campo)
+            self.assertIn(r['PRESERVATION'], (env.PRESERVED, env.NOT_PRESERVED))
+            if r['PRESERVATION'] == env.NOT_PRESERVED:
+                self.assertTrue(r.get('NOT_PRESERVED_REASON'),
+                                'declarou NOT_PRESERVED sem dizer por que')
+        finally:
+            caminho = os.path.join(ROOT, r['PATH'])
+            if os.path.exists(caminho):
+                os.remove(caminho)
+
+    def test_6_o_checkpoint_so_avanca_depois_de_persistir(self):
+        """PERSIST FIRST, THEN ADVANCE — provado pela ORDEM no codigo do dono."""
+        txt = self._fonte('coleta', 'coleta_checkpoint.py')
+        corpo = txt[txt.index('def executar_unidade'):]
+        pos_persistir = corpo.index('n = persistir(')
+        pos_avancar = corpo.index('unidades_feitas = unidades_feitas + 1')
+        self.assertLess(pos_persistir, pos_avancar,
+                        'o checkpoint avanca antes de alguem ter salvo')
+
+    def test_7_git_nao_volta_a_ser_checkpoint(self):
+        wf = self._fonte('.github', 'workflows', 'scrap-social.yml')
+        executaveis = [l for l in wf.splitlines() if not l.strip().startswith('#')]
+        self.assertEqual([l for l in executaveis if 'git add -A data/samples' in l], [])
+
+    def test_8_one_shot_nao_e_rotulado_operational(self):
+        import social_scrap as sc
+        self.assertNotEqual(sc.ONE_SHOT, sc.OPERATIONAL)
+        txt = self._fonte('coleta', 'social_scrap.py')
+        self.assertIn('NÃO alega retomada', txt,
+                      'o modo ONE_SHOT parou de dizer o que NAO prova')
+
+    def test_9_a_unidade_de_trabalho_inclui_a_janela(self):
+        """Sem a janela, um canal concluido hoje ficaria trancado para sempre."""
+        import coleta_checkpoint as cc
+        hoje = cc.hash_da_entrada(yt.unidade_de_trabalho('UCx', '2026-09-08'))
+        amanha = cc.hash_da_entrada(yt.unidade_de_trabalho('UCx', '2026-09-09'))
+        self.assertNotEqual(hoje, amanha,
+                            'monitoramento recorrente colide com JA_CONCLUIDO')
+        self.assertEqual(hoje, cc.hash_da_entrada(
+            yt.unidade_de_trabalho('UCx', '2026-09-08')), 'identidade instavel')
+
+    def test_10_nenhum_segredo_no_veredito_do_preflight(self):
+        """O pre-voo devolve booleano. Nunca host, usuario, senha ou DSN."""
+        class BancoFalso:
+            dsn = 'postgresql://u:senha-secreta@host-interno:5432/db'
+
+            def executa(self, _sql):
+                return [['t']]
+        ok, veredito = yt.preflight_banco(BancoFalso())
+        texto = repr(veredito)
+        for proibido in ('senha-secreta', 'host-interno', 'postgresql://'):
+            self.assertNotIn(proibido, texto, 'o pre-voo vazou %s' % proibido)
+
 if __name__ == '__main__':
     unittest.main(verbosity=1)
