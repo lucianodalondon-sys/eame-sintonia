@@ -93,7 +93,28 @@
     "FAULT_PATH_STRUCTURED": "RAW nao durou -> STRUCTURED recusa por contrato -> ADMISSION NOT_RUN com UPSTREAM_NOT_RUN e LAST_GOOD=DERIVED. E uma excecao real no dono -> STRUCTURED FAIL com STRUCTURED_NOT_CONNECTED.",
     "FAULT_PATH_ADMISSION": "a porta diz NAO no universo T9 -> ADMISSION continua PASS como ETAPA, o item sai por REJECTED, e a decisao guarda regra e motivo. UMA RECUSA NAO E UMA FALHA TECNICA.",
     "READY_EMITIDO": false,
-    "PORQUE_SEM_READY": "COL-LAW-043. ADMISSION PASS != READY PASS: a porta dizer sim nao e a lei de READY cumprida."
+    "PORQUE_SEM_READY": "COL-LAW-043. ADMISSION PASS != READY PASS: a porta dizer sim nao e a lei de READY cumprida.",
+    "ARESTAS_OBSERVADAS": [
+     [
+      "DERIVED",
+      "STRUCTURED"
+     ],
+     [
+      "STRUCTURED",
+      "ADMISSION"
+     ]
+    ],
+    "PROVA_DA_ROTA_NUMA_CORRIDA_SO": "provas/a_rota_m2_atravessa.py",
+    "ARESTAS_COMO_FORAM_MEDIDAS": "lidas do BANCO, e nao declaradas aqui: `medidas/rastro_da_coleta.o_que_a_rota_observou()` so conta uma aresta quando a etapa de ORIGEM tambem deixou passagem naquela rota. Uma linha que diz `edge_from=DERIVED` sem que DERIVED tenha corrido e uma SETA DESENHADA, e nao um caminho percorrido.",
+    "ARESTAS_DECLARADAS_SEM_TOPO": [
+     [
+      "RAW",
+      "DERIVED"
+     ]
+    ],
+    "PORQUE_RAW_FICA_SEM_TOPO": "`coleta/derivacao_forward.py` emite DERIVED com `edge_from=RAW` e NAO emite RAW: quem escreve `raw_asset` e `guarda/preservar_coleta.py`, e ler a linha de outro nao e ter corrido a etapa dele. E o gap RAW_FORWARD_NAO_EMITE, declarado desde O9R — agora visivel na medicao, e nao so em prosa.",
+    "O_ARTEFATO_VIAJA": "o texto que entra no STRUCTURED sao os BYTES do `derived_artifact` que a etapa DERIVED acabou de escrever, lidos do armazem e conferidos por sha256 — e nao um ficheiro do registo legado com o mesmo conteudo. ARTEFATO QUE NAO VIAJA NAO E ARESTA: E COINCIDENCIA.",
+    "ADMISSION_RESPONDEU": "NAO_SEI para esta unidade (boletim agrometeo da ARPAV): o vocabulario do universo nao lhe chega. A ETAPA passou e o ITEM saiu por `unknown`. AUSENCIA DE EVIDENCIA NAO E EVIDENCIA DE AUSENCIA — e por isso nao e um NAO."
    },
    "FORWARD_INSTRUMENTED": true,
    "GAP_DECLARADO": "a identidade do canal NAO tem dono forward. `exigir_canal` recusa criar um (CHANNEL_IDENTITY_NOT_RESOLVED) porque `origem` exige pessoa OU organizacao, e o writer nao tem autoridade para escolher — CHANNEL_ID PROVA O CANAL, NAO PROVA A ORIGEM. Na prova, a identidade e resolvida no banco descartavel com dados REAIS do catalogo (ARPAV, IT-OWN-003). Em producao isto exige um dono de identidade, e ele nao existe. E o menor proximo trabalho.",
@@ -104,5 +125,6 @@
    "PRODUCAO": false
   }
  },
- "LEGACY_NAO_E_FORWARD": "REAL EXECUTOR != CANONICAL FORWARD FLOW. Um replay do corpo historico prova o INSTRUMENTO: que o writer, o storage e o scanner aguentam uma passagem real. NAO prova que o fluxo canonico forward esta instrumentado — e nao esta. Publicar LEGACY como FORWARD seria a mesma classe de mentira que chamar READY a um ficheiro guardado. ⚠️ ATUALIZADO: o forward passou a emitir, por coleta/derivacao_forward.py, e isso esta em FORWARD acima — com a sua propria prova contra Postgres real. As duas afirmacoes continuam separadas de proposito: LEGACY_REPLAY prova o INSTRUMENTO, FORWARD prova a ESTRADA. Junta-las voltaria a ser a mentira que este ficheiro existe para impedir."
+ "LEGACY_NAO_E_FORWARD": "REAL EXECUTOR != CANONICAL FORWARD FLOW. Um replay do corpo historico prova o INSTRUMENTO: que o writer, o storage e o scanner aguentam uma passagem real. NAO prova que o fluxo canonico forward esta instrumentado — e nao esta. Publicar LEGACY como FORWARD seria a mesma classe de mentira que chamar READY a um ficheiro guardado. ⚠️ ATUALIZADO: o forward passou a emitir, por coleta/derivacao_forward.py, e isso esta em FORWARD acima — com a sua propria prova contra Postgres real. As duas afirmacoes continuam separadas de proposito: LEGACY_REPLAY prova o INSTRUMENTO, FORWARD prova a ESTRADA. Junta-las voltaria a ser a mentira que este ficheiro existe para impedir.",
+ "ARESTA_DECLARADA_NAO_E_ARESTA_OBSERVADA": "DECLARED EDGE != OBSERVED EDGE. `edge_from` e a INTENCAO de quem escreveu a linha. A aresta so existe quando as DUAS pontas deixaram passagem na MESMA rota. Medido: a primeira corrida que provou a rota da M2 tinha STRUCTURED a declarar `edge_from=DERIVED` e nenhuma passagem de DERIVED — a etapa correra noutra corrida, noutro ficheiro."
 }

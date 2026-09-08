@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "a13565b66cbc3572b774a15ca30db4b55376716f",
+  "HEAD": "700da7770aba6af19bf9db0990f30dec6b2979f7",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -130,16 +130,24 @@
    "M2_ROUTE_OBSERVABILITY_READY": "YES",
    "O_QUE_MEDE": "se a rota que a M2 vai construir — DERIVED -> STRUCTURED -> ADMISSION — ja emite telemetria.",
    "ROTA_MEDIDA": {
-    "CAMINHO": "coleta/rota_forward_documento.py",
-    "FRONTEIRA": "coleta/rota_forward_documento.py",
-    "ROUTE_CLASS_ID": "RC-1",
     "SOURCE_ID": "IT-T2-002",
+    "ROUTE_CLASS_ID": "RC-1",
     "ETAPAS_OBSERVADAS": [
      "ADMISSION",
      "DERIVED",
      "STRUCTURED"
     ],
-    "PROVA": "tests/test_m2_rota_forward.py"
+    "ARESTAS_OBSERVADAS": [
+     [
+      "DERIVED",
+      "STRUCTURED"
+     ],
+     [
+      "STRUCTURED",
+      "ADMISSION"
+     ]
+    ],
+    "PROVA": "provas/a_rota_m2_atravessa.py"
    },
    "ROTAS_FORWARD_CONHECIDAS": [
     {
@@ -150,7 +158,9 @@
      "ETAPAS_OBSERVADAS": [
       "DERIVED"
      ],
-     "PROVA": "provas/o_forward_conta_se.py"
+     "ARESTAS_OBSERVADAS": [],
+     "PROVA": "provas/o_forward_conta_se.py",
+     "PROVA_DA_ROTA_NUMA_CORRIDA_SO": null
     },
     {
      "CAMINHO": "coleta/rota_forward_documento.py",
@@ -162,11 +172,25 @@
       "DERIVED",
       "STRUCTURED"
      ],
-     "PROVA": "tests/test_m2_rota_forward.py"
+     "ARESTAS_OBSERVADAS": [
+      [
+       "DERIVED",
+       "STRUCTURED"
+      ],
+      [
+       "STRUCTURED",
+       "ADMISSION"
+      ]
+     ],
+     "PROVA": "tests/test_m2_rota_forward.py",
+     "PROVA_DA_ROTA_NUMA_CORRIDA_SO": "provas/a_rota_m2_atravessa.py"
     }
    ],
    "PORQUE_NAO_A_UNIAO_GLOBAL": "GLOBAL STAGE OBSERVATION != TARGET ROUTE OBSERVATION. Duas rotas diferentes a observar uma etapa cada nao fazem uma rota que observa as duas. O portao le UM bloco FORWARD, e exige que ELE carregue STRUCTURED e ADMISSION.",
    "ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS": [],
+   "ARESTAS_DA_ROTA_M2_NUNCA_OBSERVADAS": [],
+   "A_LEI_DA_ARESTA": "DECLARED EDGE != OBSERVED EDGE",
+   "ONDE_A_ARESTA_E_MEDIDA": "medidas/rastro_da_coleta.o_que_a_rota_observou() · provas/a_rota_m2_atravessa.py",
    "PORQUE_NAO": null,
    "O_PORTAO_CORRETO": "nao e «observar a rota antes de ela existir» — e «a rota nasce instrumentada». O instrumento esta provado e disponivel; a M2 pode CONSTRUIR, e nao pode FECHAR sem a rota emitir.",
    "M2_CONSTRUCTION_CAN_BEGIN": "YES",

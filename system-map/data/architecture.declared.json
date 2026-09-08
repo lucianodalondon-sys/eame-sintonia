@@ -2515,6 +2515,24 @@
     "trace",
     "diagnostic"
    ]
+  },
+  {
+   "id": "C-PROVA-ROTA-M2-ATRAVESSA",
+   "name": "A prova de que a rota da M2 atravessa",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊢",
+   "what": "Corre DERIVED → STRUCTURED → ADMISSION numa corrida só, sobre uma unidade real, com o artefato a viajar entre as etapas — os bytes que entram no STRUCTURED são os do `derived_artifact` que o DERIVED acabou de escrever, conferidos por sha256. Depois pergunta AO BANCO o que aquela rota atravessou, e exige que as duas arestas tenham os dois topos.",
+   "why_here": "DECLARED EDGE != OBSERVED EDGE. A rota estava provada por etapas e a aresta de entrada nunca fora observada: no banco, o STRUCTURED declarava vir de DERIVED e não havia passagem de DERIVED naquela corrida — a etapa correra noutra, noutro ficheiro. UMA SETA DESENHADA NÃO É UM CAMINHO PERCORRIDO.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/a_rota_m2_atravessa.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

@@ -1110,6 +1110,7 @@
       "prototype/portal/index.html"
     ],
     "provas": [
+      "provas/a_rota_m2_atravessa.py",
       "provas/auditoria.py",
       "provas/auditoria_live.sh",
       "provas/chain.py",
@@ -1359,6 +1360,7 @@
       "tests/test_integracao_biblia.py",
       "tests/test_lingua_unica.py",
       "tests/test_lugar_do_fato.py",
+      "tests/test_m2_aresta_observada.py",
       "tests/test_m2_rota_forward.py",
       "tests/test_mapa_nao_mente.py",
       "tests/test_metricas.py",
@@ -1780,8 +1782,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "a13565b66cbc3572b774a15ca30db4b55376716f",
-    "GENERATED_AT": "2026-09-08T23:10:20+00:00"
+    "HEAD": "700da7770aba6af19bf9db0990f30dec6b2979f7",
+    "GENERATED_AT": "2026-09-08T23:29:39+00:00"
   },
   "FAMILIES": [
     {
@@ -1836,7 +1838,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 52
+      "count": 53
     },
     {
       "id": "F-ENTREGA",
@@ -2126,7 +2128,7 @@
       "y": 190,
       "w": 1235,
       "h": 3260,
-      "count": 29
+      "count": 30
     },
     {
       "id": "Z-PACOTE",
@@ -2445,6 +2447,7 @@
         "C-ESTRADA-PDF",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RECALL-PORTA-IT",
         "C-ROTA-M2",
         "C-TESTES"
@@ -6191,7 +6194,8 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-PROVA-COLETA"
+        "C-PROVA-COLETA",
+        "C-PROVA-ROTA-M2-ATRAVESSA"
       ],
       "outbound": [
         "C-TESTES"
@@ -6220,7 +6224,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_dos_executores.py",
-            "line": 517,
+            "line": 572,
             "snippet": "escreve em destino"
           }
         }
@@ -6753,6 +6757,7 @@
         "C-COLETA-PUBLICA",
         "C-PALAVRAS",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
@@ -7169,6 +7174,7 @@
         "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
         "C-RELATORIO-FLUXO",
         "C-TESTES"
@@ -7465,6 +7471,7 @@
       ],
       "outbound": [
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
       "paises": {},
@@ -7837,6 +7844,7 @@
       ],
       "outbound": [
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
       "paises": {},
@@ -7977,6 +7985,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-EXECUTOR-CONTA",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
       "paises": {},
@@ -8661,6 +8670,7 @@
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
       "paises": {
@@ -10982,6 +10992,7 @@
         "C-CENSO-OBSERVABILIDADE",
         "C-CI-PERSIST",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
       "paises": {},
@@ -11217,6 +11228,73 @@
       "y": 2936
     },
     {
+      "id": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "name": "A prova de que a rota da M2 atravessa",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Corre DERIVED → STRUCTURED → ADMISSION numa corrida só, sobre uma unidade real, com o artefato a viajar entre as etapas — os bytes que entram no STRUCTURED são os do `derived_artifact` que o DERIVED acabou de escrever, conferidos por sha256. Depois pergunta AO BANCO o que aquela rota atravessou, e exige que as duas arestas tenham os dois topos.",
+      "why_here": "DECLARED EDGE != OBSERVED EDGE. A rota estava provada por etapas e a aresta de entrada nunca fora observada: no banco, o STRUCTURED declarava vir de DERIVED e não havia passagem de DERIVED naquela corrida — a etapa correra noutra, noutro ficheiro. UMA SETA DESENHADA NÃO É UM CAMINHO PERCORRIDO.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊢",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "provas/a_rota_m2_atravessa.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-COLETA-BASE",
+        "C-CONTRATO-TELEMETRIA",
+        "C-DERIVACAO-FORWARD",
+        "C-ESTRADAS-IT",
+        "C-EXECUTOR-TEXTO-PDF",
+        "C-IT-CATALOGO",
+        "C-PROVA-COLETA",
+        "C-RASTRO",
+        "C-ROTA-M2"
+      ],
+      "outbound": [
+        "C-CENSO-EXECUTORES",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "MIGRATIONS"
+        ],
+        "palavras": 23,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 23,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 15665,
+      "y": 2936
+    },
+    {
       "id": "C-PROVA-TRAVA-MORDE",
       "name": "A prova de que a trava morde",
       "territory": "Z-PROVA",
@@ -11266,7 +11344,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 2936
     },
     {
@@ -11388,6 +11466,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-EXECUTOR-CONTA",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
         "C-TESTES"
       ],
@@ -11463,8 +11542,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 2936
+      "x": 15250,
+      "y": 3258
     },
     {
       "id": "C-RECEITAS",
@@ -11603,7 +11682,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 3258
     },
     {
@@ -11891,6 +11970,7 @@
         "C-SCRAP-SOCIAL"
       ],
       "outbound": [
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
       "paises": {},
@@ -13686,6 +13766,7 @@
         "tests/test_integracao_biblia.py",
         "tests/test_lingua_unica.py",
         "tests/test_lugar_do_fato.py",
+        "tests/test_m2_aresta_observada.py",
         "tests/test_m2_rota_forward.py",
         "tests/test_mapa_nao_mente.py",
         "tests/test_metricas.py",
@@ -13726,9 +13807,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 69,
+      "file_count": 70,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 29 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 30 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -13788,6 +13869,7 @@
         "C-PROCEDENCIA",
         "C-PROVA-COLETA",
         "C-PROVA-MAPA-NAO-MENTE",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
@@ -13835,6 +13917,7 @@
           "CAMPOS_DA_REGRA",
           "CAMPOS_DOC_DA_REGRA",
           "CATALOGO",
+          "COMPLETA",
           "CONTRATO",
           "CORRIDA",
           "DEFEITO_MEDIDO",
@@ -13848,6 +13931,7 @@
           "LINHA_BOA",
           "PROIBIDO",
           "PRONTO",
+          "ROTA_M2",
           "ROTULO_ITALIA",
           "SEIS",
           "SINAIS",
@@ -13855,11 +13939,11 @@
           "SINAL_VENETO",
           "_GAVETA_DE"
         ],
-        "palavras": 342,
+        "palavras": 367,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 340,
+        "sem_marca_de_lingua": 365,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13911,7 +13995,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 15665,
+      "x": 16080,
       "y": 3258
     },
     {
@@ -15454,7 +15538,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD a13565b66cbc3572b774a15ca30db4b55376716f"
+        "HEAD 700da7770aba6af19bf9db0990f30dec6b2979f7"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -15822,6 +15906,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 66,
+          "snippet": "import admissao                          # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-ADMISSAO",
@@ -17684,12 +17786,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo dos executores — caminhos, papeis e cobertura alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Censo dos executores — caminhos, papeis e cobertura alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
           "line": 211,
           "snippet": "\"provas-de-execucao.json\"), encoding=\"utf-8\") as f:"
+        },
+        {
+          "file": "tests/test_m2_aresta_observada.py",
+          "line": 178,
+          "snippet": "open(LEDGER, 'leitura')  # LEDGER = system-map/data/provas-de-execucao.json"
         },
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
@@ -18608,6 +18715,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 67,
+          "snippet": "import coleta_checkpoint as cc           # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -19091,6 +19216,24 @@
     },
     {
       "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 72,
+          "snippet": "import telemetria as tel                 # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -19416,6 +19559,24 @@
     },
     {
       "from": "C-DERIVACAO-FORWARD",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira forward da derivação tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 68,
+          "snippet": "import derivacao_forward as fwd          # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DERIVACAO-FORWARD",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -19699,6 +19860,24 @@
           "file": "provas/o_forward_conta_se.py",
           "line": 109,
           "snippet": "open(MODELO_DAS_ESTRADAS, 'leitura')  # MODELO_DAS_ESTRADAS = system-map/data/estradas-it.model.json"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ESTRADAS-IT",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O censo das classes de estrada da coleta italiana alimenta A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 117,
+          "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
         }
       ],
       "categoria": "READ"
@@ -20034,6 +20213,42 @@
           "file": "provas/o_forward_conta_se.py",
           "line": 102,
           "snippet": "def route_class_do_executor(ficheiro_do_executor=\"coleta/executor_texto_de_pdf.py\"):"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 69,
+          "snippet": "import executor_texto_de_pdf as ex       # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF alimenta A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 121,
+          "snippet": "== \"coleta/executor_texto_de_pdf.py\"]"
         }
       ],
       "categoria": "READ"
@@ -20895,6 +21110,24 @@
           "file": "provas/o_forward_conta_se.py",
           "line": 132,
           "snippet": "open(CATALOGO_DE_FONTES, 'leitura')  # CATALOGO_DE_FONTES = candidatas/ITALY-SOURCE-MASTER-V1.json"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 165,
+          "snippet": "open(CATALOGO, 'leitura')  # CATALOGO = candidatas/ITALY-SOURCE-MASTER-V1.json"
         }
       ],
       "categoria": "READ"
@@ -23441,7 +23674,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_dos_executores.py",
-          "line": 400,
+          "line": 432,
           "snippet": "[sys.executable, os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
         }
       ],
@@ -23521,6 +23754,24 @@
         {
           "file": "provas/o_forward_conta_se.py",
           "line": 64,
+          "snippet": "\"prova_pg\", os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 62,
           "snippet": "\"prova_pg\", os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\"))"
         }
       ],
@@ -23683,6 +23934,42 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "to": "C-CENSO-EXECUTORES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que a rota da M2 atravessa alimenta Censo dos executores — caminhos, papeis e cobertura. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_dos_executores.py",
+          "line": 508,
+          "snippet": "'provas/a_rota_m2_atravessa.py',"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que a rota da M2 atravessa alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_m2_aresta_observada.py",
+          "line": 127,
+          "snippet": "\"PROVA\": \"provas/a_rota_m2_atravessa.py\"}"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-PROVA-TRAVA-MORDE",
       "to": "C-CENSO-CONGELAMENTO",
       "type": "READS",
@@ -23828,6 +24115,24 @@
     },
     {
       "from": "C-RASTRO",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 70,
+          "snippet": "import rastro_da_coleta as rastro        # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RASTRO",
       "to": "C-ROTA-M2",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -23852,7 +24157,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
@@ -23863,6 +24168,11 @@
           "file": "tests/test_lingua_unica.py",
           "line": 25,
           "snippet": "import rastro_da_coleta as rastro   # noqa: E402"
+        },
+        {
+          "file": "tests/test_m2_aresta_observada.py",
+          "line": 38,
+          "snippet": "import rastro_da_coleta as rastro      # noqa: E402"
         },
         {
           "file": "tests/test_m2_rota_forward.py",
@@ -24171,6 +24481,24 @@
     },
     {
       "from": "C-ROTA-M2",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A rota forward do documento (M2) tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 71,
+          "snippet": "import rota_forward_documento as m2      # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ROTA-M2",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24195,8 +24523,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_m2_aresta_observada.py",
+          "line": 121,
+          "snippet": "ROTA_M2 = {\"CAMINHO\": \"coleta/rota_forward_documento.py\","
+        },
         {
           "file": "tests/test_m2_rota_forward.py",
           "line": 332,
@@ -27146,17 +27479,17 @@
   "UNCLAIMED_FILES_COUNT": 697,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 140,
+    "components": 141,
     "components_proven": 70,
-    "components_pending": 63,
+    "components_pending": 64,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 525,
-    "edges_proven": 523,
+    "edges": 538,
+    "edges_proven": 536,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1334,
-    "files_covered": 637,
+    "files_tracked": 1336,
+    "files_covered": 639,
     "files_code_unclaimed": 0
   }
 }
