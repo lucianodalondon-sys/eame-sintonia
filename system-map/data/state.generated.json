@@ -1690,8 +1690,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "45f621c00d0d7329036a3ea055276abfe3862584",
-    "GENERATED_AT": "2026-09-08T15:17:04-03:00"
+    "HEAD": "3ec6e93a2fec0513a0f35135c13cc2331574ab28",
+    "GENERATED_AT": "2026-09-08T15:37:35-03:00"
   },
   "FAMILIES": [
     {
@@ -5782,7 +5782,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▦",
       "views": [
         "audit",
@@ -5794,8 +5794,8 @@
         "system-map/scripts/censo_das_estradas_it.py"
       ],
       "file_count": 1,
-      "status": "PENDING",
-      "status_reason": "existe teste que exercita isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status": "PROVEN",
+      "status_reason": "existe teste que exercita isto.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -6024,7 +6024,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▶",
       "views": [
         "audit",
@@ -6036,11 +6036,9 @@
         ".github/workflows/system-map.yml"
       ],
       "file_count": 1,
-      "status": "PENDING",
-      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        ".github/workflows/system-map.yml"
-      ],
+      "status": "PROVEN",
+      "status_reason": "este workflow manda rodar script do repositorio.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -8697,9 +8695,7 @@
       "file_count": 1,
       "status": "PENDING",
       "status_reason": "teste que nao toca em nada do repositorio.",
-      "changed_since_declared": [
-        "system-map/tests/test_system_map.py"
-      ],
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -11986,7 +11982,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "✓",
       "views": [
         "audit",
@@ -12038,8 +12034,8 @@
         "tests/test_voz.py"
       ],
       "file_count": 41,
-      "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
@@ -13710,7 +13706,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 45f621c00d0d7329036a3ea055276abfe3862584"
+        "HEAD 3ec6e93a2fec0513a0f35135c13cc2331574ab28"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -22734,8 +22730,8 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 117,
-    "components_proven": 78,
-    "components_pending": 33,
+    "components_proven": 81,
+    "components_pending": 30,
     "components_broken": 0,
     "components_unknown": 6,
     "edges": 407,
