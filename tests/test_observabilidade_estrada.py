@@ -199,9 +199,18 @@ class NadaFoiEscritoAMao(unittest.TestCase):
                          'contrato, em vez de simplesmente omitir')
 
     def test_custo_nao_e_inventado(self):
-        t = texto_da_peca(peca(self.S, 'C-GOLDEN-PATH-PDF'))
-        self.assertRegex(t.lower(), r'custo monet[aá]rio: n[aã]o can[oó]nic',
-                         'ausencia de servico pago nao e contabilidade')
+        """MUNDO ANTIGO: o mapa dizia so «custo monetario: NAO CANONICO».
+
+        Era verdade e era pouco: escondia o numero em vez de o explicar. A
+        redacao nova mostra o valor, a BASE do valor, e diz que contabilidade
+        monetaria nao se aplica — o que e mais forte, porque um leitor consegue
+        discordar da base. Uma frase que so nega nao se consegue contestar.
+        """
+        t = texto_da_peca(peca(self.S, 'C-GOLDEN-PATH-PDF')).lower()
+        self.assertRegex(t, r'contabilidade monet[aá]ria',
+                         'ausencia de servico pago nao e contabilidade, e o '
+                         'mapa tem de dizer isso ao lado do numero')
+        self.assertRegex(t, r'base:', 'o custo aparece sem base')
 
     def test_T21_nenhuma_credencial_no_estado(self):
         estado = ler(STATE)
@@ -253,9 +262,117 @@ class OQueNaoSeMexeu(unittest.TestCase):
                          'para ficar intocado')
 
 
+class AsCincoArmadilhas(unittest.TestCase):
+    """As cinco situações que NÃO podem voltar.
+
+    Nenhuma delas congela 49, 43 ou 6: todas conferem CONSISTÊNCIA entre campos
+    e entre fontes. O acervo pode crescer à vontade — o que não pode é a
+    descrição contradizer a medição, nem um número aparecer sem quem o sustente.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.B = js(CORPUS)['ACERVO_EM_PDF']
+        cls.OC = js(CORPUS)['OCORRENCIA_E_CONTEUDO']
+        cls.R = js(GP)
+        cls.S = js(STATE)
+        cls.t_run = texto_da_peca(peca(cls.S, 'C-GOLDEN-PATH-PDF'))
+        cls.t_bruto = texto_da_peca(peca(cls.S, 'C-IT-PDF-BRUTO'))
+
+    # ── 1 ────────────────────────────────────────────────────────────────
+    def test_A1_a_descricao_nao_pode_negar_a_medicao(self):
+        """«TEXT_DERIVATION_EXISTS=NAO» com zero ocorrências sem derivação."""
+        sem = self.B['OCORRENCIAS_SEM_DERIVACAO']
+        texto = self.B['O_QUE_E'].upper()
+        if sem == 0:
+            self.assertNotIn('TEXT_DERIVATION_EXISTS=NAO', texto,
+                             'a descricao nega a derivacao e a medicao diz que '
+                             'nao ha nenhuma ocorrencia sem ela')
+            self.assertNotIn('NAO FOI DERIVADO', texto)
+        else:
+            self.assertNotIn('TEXT_DERIVATION_EXISTS=SIM', texto,
+                             f'ha {sem} ocorrencias sem derivacao e a descricao '
+                             f'afirma que todas tem')
+
+    def test_A1b_as_ocorrencias_fecham(self):
+        self.assertEqual(
+            self.B['OCORRENCIAS'],
+            self.B['OCORRENCIAS_COM_DERIVACAO'] + self.B['OCORRENCIAS_SEM_DERIVACAO'],
+            'com + sem tem de dar o total; se nao der, alguma ocorrencia sumiu '
+            'da conta sem se queixar')
+
+    def test_A1c_o_nome_do_bloco_nao_pode_voltar_a_mentir(self):
+        """«BRUTO POR LER» descrevia um mundo em que nada tinha sido lido."""
+        bruto_dados = js(CORPUS)
+        self.assertNotIn('BRUTO_POR_LER', bruto_dados,
+                         'o nome antigo voltou. Ele afirma que o acervo esta por '
+                         'ler, e a medicao diz o contrario')
+
+    # ── 2 · 3 ────────────────────────────────────────────────────────────
+    def test_A2_custo_zero_so_com_base_declarada(self):
+        custo = self.R.get('COST_USD')
+        if isinstance(custo, (int, float)):
+            self.assertTrue(self.R.get('COST_BASIS'),
+                            'ha um valor de custo e nao ha base: um zero sem '
+                            'base le-se como conta fechada')
+            self.assertEqual('NAO_SE_APLICA', self.R.get('COST_ACCOUNTING'),
+                             'se houve contabilidade monetaria, ela tem de ser '
+                             'nomeada; se nao houve, tem de dizer que nao se aplica')
+            self.assertIn(self.R.get('ROTA_PAGA_USADA'), ('NAO', 'SIM'),
+                          'o facto observado — rota paga usada ou nao — tem de '
+                          'estar preservado ao lado do numero')
+
+    def test_A3_o_mapa_nunca_mostra_valor_monetario_sem_base(self):
+        self.assertRegex(self.t_run.lower(), r'contabilidade monet[aá]ria',
+                         'o mapa mostra custo e nao diz se houve contabilidade')
+        self.assertNotRegex(
+            self.t_run, r'(?i)custo[^\n]{0,20}(USD|US\$|€|EUR)\s*0[.,]0*\b',
+            'o mapa apresentou o zero como cifra fechada')
+
+    # ── 4 ────────────────────────────────────────────────────────────────
+    def test_A4_ocorrencia_menos_conteudo_nunca_e_perda(self):
+        oc, un = self.OC['OCORRENCIAS'], self.OC['CONTEUDOS_UNICOS']
+        self.assertGreaterEqual(oc, un, 'ha mais conteudos do que caminhos')
+        self.assertEqual(oc - un, self.OC['OCORRENCIAS_DE_CONTEUDO_REPETIDO'],
+                         'a diferenca tem de ser exatamente a repeticao medida')
+        # e o LOST publicado nao pode ser essa diferenca quando ela e > 0
+        if oc != un:
+            self.assertNotEqual(
+                oc - un, self.R['COUNTS']['LOST'],
+                'o perdido publicado e exatamente ocorrencias menos conteudos — '
+                'e essa e a subtracao errada que a COL-LAW-501 proibe')
+
+    # ── 5 ────────────────────────────────────────────────────────────────
+    def test_A5_nenhum_numero_da_estrada_e_apresentado_a_mao(self):
+        """Nem no gerador, nem no censo, nem na app publicada."""
+        # SO NUMEROS COM DOIS DIGITOS OU MAIS. Um numero de um digito colide
+        # com tudo — `[:6]`, `linha 6`, `parents[2]` — e um teste que reprova
+        # por causa de uma fatia de lista ensina toda a gente a ignora-lo.
+        alvos = [n for n in (self.OC['OCORRENCIAS'],
+                             self.OC['CONTEUDOS_UNICOS'],
+                             self.OC['OCORRENCIAS_DE_CONTEUDO_REPETIDO'])
+                 if n >= 10]
+        fontes = {
+            'gerador': ler(GERADOR),
+            'censo': ler(CENSO),
+            'app': ler(os.path.join(RAIZ, 'italia-portale', 'client',
+                                    'system-map', 'map.js')),
+        }
+        for nome, src in fontes.items():
+            codigo = '\n'.join(l for l in src.splitlines()
+                               if not l.lstrip().startswith(('#', '//')))
+            codigo = re.sub(r'"""[\s\S]*?"""', '', codigo)
+            for n in alvos:
+                self.assertNotRegex(
+                    codigo, r'[:=]\s*%d\b' % n,
+                    f'{nome}: o valor {n} esta cravado. Hoje coincide; amanha o '
+                    f'acervo cresce e ele fica igual, com cara de medicao')
+
+
 if __name__ == '__main__':
     r = unittest.main(exit=False, verbosity=1).result
     ok = r.wasSuccessful()
     print('\nTESTES_OBSERVABILIDADE=%s · %d testes'
           % ('PASS' if ok else 'FAIL', r.testsRun))
     raise SystemExit(0 if ok else 1)
+

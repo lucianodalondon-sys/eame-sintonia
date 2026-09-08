@@ -434,7 +434,7 @@ _MAPA = os.path.join(_RAIZ, 'system-map', 'data', 'state.generated.json')
 
 if os.path.exists(_CORPUS):
     _C = json.load(open(_CORPUS, encoding='utf-8'))
-    _B = _C['BRUTO_POR_LER']
+    _B = _C['ACERVO_EM_PDF']
     prova("T12_o_censo_do_corpo_fecha",
           sum(g['ficheiros'] for g in _C['POR_GAVETA'].values())
           == _C['TOTAIS']['FICHEIROS_ITALIANOS'],
@@ -442,10 +442,26 @@ if os.path.exists(_CORPUS):
           "um ficheiro sem se queixar e pior que uma que falha alto")
 
     prova("T13_guardado_e_legivel_sao_dois_numeros",
-          _B['PDF_COM_TEXTO_DERIVADO'] + _B['PDF_SEM_TEXTO_DERIVADO']
-          == _B['FICHEIROS'],
-          "quantos PDF tem texto e quantos nao tem tem de somar o total; sem "
-          "isso volta-se a dizer «corpus» e a juntar o guardado com o legivel")
+          _B['OCORRENCIAS_COM_DERIVACAO'] + _B['OCORRENCIAS_SEM_DERIVACAO']
+          == _B['OCORRENCIAS'],
+          "quantas ocorrencias tem derivacao e quantas nao tem tem de somar o "
+          "total; sem isso volta-se a dizer «corpus» e a juntar o guardado com "
+          "o legivel")
+
+    # A CONTRADICAO QUE ESTA PROVA IMPEDE DE VOLTAR:
+    # o bloco chegou a afirmar «TEXT_DERIVATION_EXISTS=NAO» ao lado de
+    # «PDF_SEM_TEXTO_DERIVADO: 0». Descricao e medicao a dizer o contrario uma
+    # da outra, no MESMO bloco.
+    prova("T13b_a_descricao_nao_contradiz_a_medicao",
+          ('TEXT_DERIVATION_EXISTS=NAO' not in _B['O_QUE_E'])
+          if _B['OCORRENCIAS_SEM_DERIVACAO'] == 0 else True,
+          "o bloco diz que nao ha derivacao nenhuma e mede zero ocorrencias sem "
+          "derivacao. Uma das duas mente, e quem le acredita na frase")
+
+    prova("T13c_uma_derivacao_serve_varias_ocorrencias",
+          _B['DERIVADOS_UNICOS'] <= _B['OCORRENCIAS'],
+          "derivados unicos nunca podem passar as ocorrencias: se passarem, "
+          "alguem contou o mesmo texto duas vezes")
 
     prova("T14_os_caracteres_dentro_do_PDF_continuam_nao_medidos",
           isinstance(_B['CARACTERES'], str) and 'NAO MEDIDO' in _B['CARACTERES'],

@@ -175,14 +175,16 @@
    "REGISTOS": 1
   }
  ],
- "BRUTO_POR_LER": {
-  "O_QUE_E": "PDF italianos guardados no disco. O texto deles existe e NAO foi derivado para nenhuma planilha. RAW_EXISTS=SIM, TEXT_DERIVATION_EXISTS=NAO.",
-  "FICHEIROS": 49,
+ "ACERVO_EM_PDF": {
+  "O_QUE_E": "O acervo italiano em PDF, e o estado da derivacao dele. OCORRENCIA e o caminho no disco; CONTEUDO sao os bytes, identificados por SHA-256. Uma MESMA derivacao serve todas as ocorrencias do mesmo conteudo — por isso ha mais ocorrencias do que derivados, e isso NAO e falta. RAW_EXISTS=SIM, TEXT_DERIVATION_EXISTS=SIM.",
+  "OCORRENCIAS": 49,
+  "CONTEUDOS_UNICOS": 43,
   "MEGABYTES": 62.7,
-  "PDF_COM_TEXTO_DERIVADO": 49,
-  "PDF_SEM_TEXTO_DERIVADO": 0,
-  "CARACTERES_JA_DERIVADOS_DOS_PDF": 48730,
-  "CARACTERES": "NAO MEDIDO — abrir PDF e derivar, nao medir. Entra por porta propria, com recibo.",
+  "OCORRENCIAS_COM_DERIVACAO": 49,
+  "OCORRENCIAS_SEM_DERIVACAO": 0,
+  "DERIVADOS_UNICOS": 43,
+  "COMO_SE_LIGA": "pelo PARENT_SHA256 do registo de artefatos. Nome de ficheiro e indicio; impressao digital e prova.",
+  "CARACTERES": "NAO MEDIDO e NAO CANONICO — abrir PDF e derivar, nao medir. E nem sobre o texto ja derivado ha regra de contagem escrita: a mesma pasta da contas diferentes conforme a quebra de linha. Entra por porta propria, com contrato.",
   "LISTA": [
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/7_Alesi_olivo-2025_-Bilancio-Fitosanitario-Marche.pdf",

@@ -261,7 +261,29 @@ def main() -> int:
                       "alguem que leia italiano a marcar a mao o que devia "
                       "passar, e essa lista nao existe."),
         "ERRORS": recibo["ERRORS"],
+        # ── O CUSTO, E O QUE O ZERO QUER DIZER ──────────────────────────────
+        # `COST_USD: 0.0` sozinho nao diz POR QUE e zero. Zero por rota gratuita
+        # provada e zero por ninguem ter olhado escrevem-se igual — e leem-se
+        # igual. Por isso o zero passa a vir acompanhado da BASE.
+        #
+        # O valor continua 0 porque a lei desta casa ja decidiu isso, e esta
+        # escrita em `orquestrador/orquestrador.py`:
+        #
+        #   «Custo ZERO quando o executor nao foi chamado (...). Escrever
+        #    «NAO SEI» aqui seria pior que impreciso — o portao do padrao conta
+        #    os «NAO SEI» como divida, e eu estaria a inventar divida sobre uma
+        #    corrida que nao gastou nada.»
+        #
+        # O que faltava nao era trocar o numero: era dizer que ele NAO e uma
+        # contabilidade. Ausencia provada de rota paga nao e a mesma coisa que
+        # uma conta fechada, e agora o artefato diz as duas coisas separadas.
         "COST_USD": 0.0,
+        "COST_BASIS": ("ROTA_GRATUITA_PROVADA — o zero vem da ausencia medida "
+                       "de rota paga e de rede, NAO de contabilidade monetaria. "
+                       "Nenhuma plataforma foi chamada, entao nao ha fatura para "
+                       "conferir."),
+        "COST_ACCOUNTING": "NAO_SE_APLICA",
+        "ROTA_PAGA_USADA": "NAO",
         "REDE_USADA": "NAO",
         "OCR_USADO": "NAO",
     }

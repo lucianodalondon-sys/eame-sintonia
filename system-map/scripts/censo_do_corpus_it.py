@@ -539,17 +539,40 @@ def main():
             {'FICHEIRO': f['FICHEIRO'], 'CARACTERES': f['CARACTERES_DE_TEXTO'],
              'REGISTOS': f['REGISTOS']} for f in com_texto
         ],
-        'BRUTO_POR_LER': {
-            'O_QUE_E': ('PDF italianos guardados no disco. O texto deles existe '
-                        'e NAO foi derivado para nenhuma planilha. RAW_EXISTS='
-                        'SIM, TEXT_DERIVATION_EXISTS=NAO.'),
-            'FICHEIROS': len(brutos),
+        # O NOME ANTIGO ERA «BRUTO_POR_LER», E DEIXOU DE SER VERDADE.
+        # Ele nasceu quando os PDF estavam mesmo por ler. Hoje todos tem
+        # derivacao localizavel — e o bloco continuava a dizer
+        # «TEXT_DERIVATION_EXISTS=NAO» ao lado de «PDF_SEM_TEXTO_DERIVADO: 0».
+        #
+        #     UM NOME QUE FICOU FALSO E PIOR QUE UM CAMPO EM FALTA.
+        #     O campo em falta faz perguntar; o nome falso faz confiar.
+        #
+        # Nao se criou campo paralelo para preservar o nome antigo: o nome
+        # mudou no dono, e os consumidores foram atras.
+        'ACERVO_EM_PDF': {
+            'O_QUE_E': (
+                'O acervo italiano em PDF, e o estado da derivacao dele. '
+                'OCORRENCIA e o caminho no disco; CONTEUDO sao os bytes, '
+                'identificados por SHA-256. Uma MESMA derivacao serve todas as '
+                'ocorrencias do mesmo conteudo — por isso ha mais ocorrencias '
+                'do que derivados, e isso NAO e falta. '
+                'RAW_EXISTS=SIM, TEXT_DERIVATION_EXISTS=SIM.'),
+            'OCORRENCIAS': len(brutos),
+            'CONTEUDOS_UNICOS': len({b['SHA256'] for b in brutos}),
             'MEGABYTES': round(sum(b['BYTES'] for b in brutos) / 1e6, 1),
-            'PDF_COM_TEXTO_DERIVADO': sum(1 for b in brutos if b['TEM_TEXTO_DERIVADO']),
-            'PDF_SEM_TEXTO_DERIVADO': len(brutos) - sum(1 for b in brutos if b['TEM_TEXTO_DERIVADO']),
-            'CARACTERES_JA_DERIVADOS_DOS_PDF': sum(b['CARACTERES_JA_DERIVADOS'] for b in brutos),
-            'CARACTERES': ('NAO MEDIDO — abrir PDF e derivar, nao medir. '
-                           'Entra por porta propria, com recibo.'),
+            'OCORRENCIAS_COM_DERIVACAO': sum(1 for b in brutos
+                                             if b['TEM_TEXTO_DERIVADO']),
+            'OCORRENCIAS_SEM_DERIVACAO': sum(1 for b in brutos
+                                             if not b['TEM_TEXTO_DERIVADO']),
+            'DERIVADOS_UNICOS': len({b['SHA256'] for b in brutos
+                                     if b['TEM_TEXTO_DERIVADO']}),
+            'COMO_SE_LIGA': ('pelo PARENT_SHA256 do registo de artefatos. Nome '
+                             'de ficheiro e indicio; impressao digital e prova.'),
+            'CARACTERES': ('NAO MEDIDO e NAO CANONICO — abrir PDF e derivar, '
+                           'nao medir. E nem sobre o texto ja derivado ha regra '
+                           'de contagem escrita: a mesma pasta da contas '
+                           'diferentes conforme a quebra de linha. Entra por '
+                           'porta propria, com contrato.'),
             'LISTA': brutos,
         },
         # OCORRENCIA x CONTEUDO — a distincao que impede a conta errada.

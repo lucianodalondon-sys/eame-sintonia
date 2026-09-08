@@ -1302,7 +1302,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 17 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 18 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -1312,7 +1312,7 @@
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
       "titulo": "22 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 17 corridas registadas, e o país delas é: ES 10 · IT 4 · NAO SEI 3. Elas trouxeram 3596 itens e 3006 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "texto": "Há 18 corridas registadas, e o país delas é: ES 10 · IT 5 · NAO SEI 3. Elas trouxeram 3645 itens e 3006 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -1658,8 +1658,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "1d6ca3d5d18d4c01df35da7dbb9bdea2ee5dbff5",
-    "GENERATED_AT": "2026-09-08T00:57:24-03:00"
+    "HEAD": "8a4382e91eadf68ba5eb9d23d59da231ea429abf",
+    "GENERATED_AT": "2026-09-08T01:27:52-03:00"
   },
   "FAMILIES": [
     {
@@ -4188,18 +4188,36 @@
             "erro": null,
             "prova": "system-map/data/golden-path-pdf.generated.json",
             "bruto": null
+          },
+          {
+            "run_id": "DERIV-PDF-20260908T043716Z",
+            "fonte": null,
+            "plataforma": "LOCAL",
+            "quem_foi_buscar": "texto-de-pdf",
+            "com_que_parametros": null,
+            "que_pergunta": null,
+            "pais": "IT",
+            "missao": "derivacao de texto a partir de PDF italiano",
+            "trouxe": 49,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0.0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "system-map/data/golden-path-pdf.generated.json",
+            "bruto": null
           }
         ],
-        "total": 17,
+        "total": 18,
         "por_pais": {
           "ES": 10,
-          "IT": 4,
+          "IT": 5,
           "NAO SEI": 3
         },
         "por_plataforma": {
           "INSTAGRAM": 1,
           "LINKEDIN": 5,
-          "LOCAL": 4,
+          "LOCAL": 5,
           "OPENALEX": 1,
           "OpenAlex, ORCID": 1,
           "YOUTUBE": 3,
@@ -4236,10 +4254,10 @@
           "IT-T3-001",
           "IT-T4-001"
         ],
-        "com_rendimento_medido": 16,
-        "com_custo_medido": 11,
+        "com_rendimento_medido": 17,
+        "com_custo_medido": 12,
         "custo_total_usd": 0.48,
-        "trouxe_total": 3596,
+        "trouxe_total": 3645,
         "sobrou_total": 3006
       },
       "memoria": [
@@ -6769,7 +6787,7 @@
       "what": "A conta desta corrida, do PDF guardado até à porta. 49 ocorrências → 43 documentos diferentes → 43 textos derivados → a porta viu 43: NAO_SEI 43. PERDIDOS: 0 · precisam de OCR: 0 · erro de extração: 0.",
       "why_here": "Se a máquina fez e o mapa não consegue mostrar, a engenharia ainda não terminou.",
       "facts": [
-        "RUN_ID: DERIV-PDF-20260908T033724Z",
+        "RUN_ID: DERIV-PDF-20260908T043716Z",
         "estado que a corrida declara: SUCCESS",
         "estado contra a COL-LAW-210: PARTIAL — nenhum campo de fecho canónico está preservado (procurados: FINAL_MANIFEST_STATE, STATE_BEFORE, STATE_AFTER, CONFIG_HASH, PLAN_VERSION, GIT_COMMIT). Reconciliação sem perda e fecho da corrida são factos diferentes: LOST=0 não faz COMPLETE",
         "",
@@ -6788,8 +6806,8 @@
         "decisões: NAO_SEI 43",
         "originais alterados: 0 (IMUTAVEL)",
         "",
-        "rede usada: NAO · OCR usado: NAO",
-        "custo monetário: NÃO CANÓNICO — o que está medido é que não houve rota paga nem rede. Ausência de serviço pago não é contabilidade.",
+        "rota paga usada: NAO · rede usada: NAO · OCR usado: NAO",
+        "custo: 0.0 · base: ROTA_GRATUITA_PROVADA — o zero vem da ausencia medida de rota paga e de rede, NAO de contabilidade monetaria. Nenhuma plataforma foi chamada, entao nao ha fatura para conferir. · contabilidade monetária: NAO_SE_APLICA",
         "número de caracteres: NÃO CANÓNICO — não há regra de contagem escrita (a mesma pasta dá contas diferentes conforme a quebra de linha). Entra quando tiver contrato próprio.",
         "PRECISÃO: NÃO SEI — não há gabarito humano. Contar quantos passaram é COBERTURA, não acerto."
       ],
@@ -7270,8 +7288,9 @@
         "o mesmo conteúdo em mais de um caminho: 6 ocorrência(s), em 6 conteúdo(s)",
         "PERDIDOS: 0 — repetição NÃO é perda. cada ocorrencia repetida continua no disco, com o seu caminho e a sua procedencia. Nada sumiu: o mesmo conteudo esta em dois sitios.",
         "tamanho em disco: 62.7 MB",
-        "PDF COM texto derivado: 49 de 49",
-        "PDF SEM texto derivado: 0 de 49",
+        "ocorrências COM derivação localizável: 49 de 49",
+        "ocorrências SEM derivação: 0",
+        "derivados únicos que as servem: 43 — uma derivação serve todas as ocorrências do mesmo conteúdo",
         "caracteres dentro dos PDF: NÃO MEDIDO — abrir PDF é derivar, não medir",
         "62.7 MB NÃO é prova de milhões de caracteres: megabyte não é caractere",
         "o antigo «milhões de caracteres» continua NÃO REPRODUZIDO COMO TEXTO",
@@ -7283,7 +7302,7 @@
         "repetido · 3d3c1bc0e963… em 2 caminhos: data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_09.pdf"
       ],
       "status_reason": "CINZENTO porque o mapa continua a não conseguir LER um PDF — o scanner não abre ficheiro binário, e isso não mudou. O que mudou é que já não precisa: o executor abriu-os e o texto vive ao lado, como artefato próprio, esse sim legível e contado.",
-      "evidence_text": "system-map/data/corpus-it.generated.json → BRUTO_POR_LER + OCORRENCIA_E_CONTEUDO",
+      "evidence_text": "system-map/data/corpus-it.generated.json → ACERVO_EM_PDF + OCORRENCIA_E_CONTEUDO",
       "departments": [
         "ENGENHARIA"
       ],
@@ -7821,7 +7840,8 @@
       "outbound": [
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
-        "C-MAPA-VALIDADOR"
+        "C-MAPA-VALIDADOR",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -11362,6 +11382,7 @@
         "C-IT-PRESERVAR",
         "C-LASTMILE",
         "C-LUGAR-COLETA",
+        "C-MAPA-APP",
         "C-MAPA-GERADOR",
         "C-MEDICAO",
         "C-NAVEGADOR",
@@ -12972,7 +12993,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 1d6ca3d5d18d4c01df35da7dbb9bdea2ee5dbff5"
+        "HEAD 8a4382e91eadf68ba5eb9d23d59da231ea429abf"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -13353,7 +13374,7 @@
       "evidence": [
         {
           "file": "tests/test_observabilidade_estrada.py",
-          "line": 237,
+          "line": 246,
           "snippet": "porta = ler(os.path.join(RAIZ, 'admissao', 'admissao.py'))"
         }
       ],
@@ -13805,7 +13826,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2175,
+          "line": 2183,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -14655,7 +14676,7 @@
         },
         {
           "file": "tests/test_observabilidade_estrada.py",
-          "line": 232,
+          "line": 241,
           "snippet": "conf = ler(os.path.join(RAIZ, 'docs', 'biblia', 'CONFORMIDADE-ITALIA.md'))"
         }
       ],
@@ -15969,7 +15990,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 945,
+          "line": 953,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -16076,7 +16097,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 927,
+          "line": 935,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         }
       ],
@@ -16497,7 +16518,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2197,
+          "line": 2205,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -16579,7 +16600,7 @@
       "evidence": [
         {
           "file": "tests/test_observabilidade_estrada.py",
-          "line": 248,
+          "line": 257,
           "snippet": "colector = ler(os.path.join(RAIZ, 'coleta', 'italy_recurrent_collect.mjs'))"
         }
       ],
@@ -16733,7 +16754,7 @@
         {
           "file": "coleta/executor_texto_de_pdf.py",
           "line": 1,
-          "snippet": "RUN DERIV-PDF-20260908T033724Z · RAW_INPUT=49"
+          "snippet": "RUN DERIV-PDF-20260908T043716Z · RAW_INPUT=49"
         }
       ],
       "categoria": "UNKNOWN"
@@ -16826,12 +16847,12 @@
       "evidence": [
         {
           "file": "tests/test_observabilidade_estrada.py",
-          "line": 244,
+          "line": 253,
           "snippet": "for caminho in ('data/collection-ledger/italy/runs.ndjson',"
         },
         {
           "file": "tests/test_observabilidade_estrada.py",
-          "line": 245,
+          "line": 254,
           "snippet": "'data/collection-ledger/italy/observations.ndjson'):"
         }
       ],
@@ -17098,17 +17119,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2398,
+          "line": 2406,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2398,
+          "line": 2406,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2399,
+          "line": 2407,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -17159,6 +17180,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-MAPA-APP",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Interface do System Map alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_observabilidade_estrada.py",
+          "line": 359,
+          "snippet": "'system-map', 'map.js')),"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-MAPA-GERADOR",
@@ -17244,12 +17283,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2880,
+          "line": 2888,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2880,
+          "line": 2888,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -20922,8 +20961,8 @@
     "components_pending": 30,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 357,
-    "edges_proven": 355,
+    "edges": 358,
+    "edges_proven": 356,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1212,

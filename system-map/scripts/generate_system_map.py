@@ -618,14 +618,13 @@ def o_corte_do_pdf() -> tuple[list, list]:
     if not f.is_file():
         return [], []
     C = json.loads(f.read_text(encoding="utf-8"))
-    B = C.get("BRUTO_POR_LER") or {}
+    B = C.get("ACERVO_EM_PDF") or {}
     T = C.get("TOTAIS") or {}
 
-    n_pdf = B.get("FICHEIROS", 0)
+    n_pdf = B.get("OCORRENCIAS", 0)
     mb = B.get("MEGABYTES", 0)
-    com = B.get("PDF_COM_TEXTO_DERIVADO", 0)
-    sem = B.get("PDF_SEM_TEXTO_DERIVADO", 0)
-    ja = B.get("CARACTERES_JA_DERIVADOS_DOS_PDF", 0)
+    com = B.get("OCORRENCIAS_COM_DERIVACAO", 0)
+    sem = B.get("OCORRENCIAS_SEM_DERIVACAO", 0)
     prosa = T.get("CORPO_DE_TEXTO_EM_CARACTERES", 0)
     # OCORRENCIA x CONTEUDO, medido pelo censo. Nao se recalcula aqui: duas
     # medicoes da mesma coisa divergem no primeiro dia (COL-LAW-501).
@@ -657,8 +656,10 @@ def o_corte_do_pdf() -> tuple[list, list]:
             f"PERDIDOS: {OC.get('PERDA', 'NÃO SEI')} — repetição NÃO é perda. "
             f"{OC.get('PORQUE_NAO_E_PERDA', '')}",
             f"tamanho em disco: {mb} MB",
-            f"PDF COM texto derivado: {com} de {n_pdf}",
-            f"PDF SEM texto derivado: {sem} de {n_pdf}",
+            f"ocorrências COM derivação localizável: {com} de {n_pdf}",
+            f"ocorrências SEM derivação: {sem}",
+            f"derivados únicos que as servem: {B.get('DERIVADOS_UNICOS', 'NÃO SEI')} — uma derivação serve todas as "
+            f"ocorrências do mesmo conteúdo",
             "caracteres dentro dos PDF: NÃO MEDIDO — abrir PDF é derivar, não medir",
             f"{mb} MB NÃO é prova de milhões de caracteres: megabyte não é caractere",
             "o antigo «milhões de caracteres» continua NÃO REPRODUZIDO COMO TEXTO",
@@ -675,7 +676,7 @@ def o_corte_do_pdf() -> tuple[list, list]:
             f"é que já não precisa: o executor abriu-os e o texto vive ao lado, "
             f"como artefato próprio, esse sim legível e contado."),
         "evidence_text": ("system-map/data/corpus-it.generated.json → "
-                          "BRUTO_POR_LER + OCORRENCIA_E_CONTEUDO"),
+                          "ACERVO_EM_PDF + OCORRENCIA_E_CONTEUDO"),
         "departments": ["ENGENHARIA"], "views": ["acervo", "infra", "audit"],
         "lane": "official", "legacy": False, "changed_since_declared": [],
         "inbound": [], "outbound": [],
@@ -892,10 +893,17 @@ def a_estrada_do_pdf() -> tuple[list, list]:
             # CUSTO: o que esta medido e a AUSENCIA de servico pago e de rede.
             # Isso nao e uma contabilidade financeira, e escrever «0 €» como se
             # fosse seria inventar precisao.
+            f"rota paga usada: {R.get('ROTA_PAGA_USADA', 'NÃO SEI')} · "
             f"rede usada: {R.get('REDE_USADA', 'NÃO SEI')} · "
             f"OCR usado: {R.get('OCR_USADO', 'NÃO SEI')}",
-            "custo monetário: NÃO CANÓNICO — o que está medido é que não houve "
-            "rota paga nem rede. Ausência de serviço pago não é contabilidade.",
+            # O NUMERO SOZINHO MENTE. `0.0` sem base le-se como conta fechada.
+            # Por isso o valor NUNCA aparece sem a base ao lado — e se a base
+            # faltar, o mapa diz NAO SEI em vez de mostrar o numero.
+            (f"custo: {R.get('COST_USD')} · base: {R.get('COST_BASIS')} · "
+             f"contabilidade monetária: {R.get('COST_ACCOUNTING', 'NÃO SEI')}"
+             if R.get("COST_BASIS") else
+             "custo: NÃO SEI — há um valor, e ele não diz de onde vem. "
+             "Um zero sem base lê-se como conta fechada."),
             "número de caracteres: NÃO CANÓNICO — não há regra de contagem "
             "escrita (a mesma pasta dá contas diferentes conforme a quebra de "
             "linha). Entra quando tiver contrato próprio.",
