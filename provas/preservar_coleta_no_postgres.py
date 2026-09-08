@@ -219,8 +219,12 @@ class MemoriaPostgres(Memoria):
     def raw_por_id(self, raw_asset_id):
         # JOIN SO DE LEITURA com a corrida, pelo `source_country`. Sem coluna
         # nova: a informacao ja existe, uma tabela ao lado.
+        # TODAS as colunas do bruto levam o prefixo `a.`. Sem isso o `run_id`
+        # fica ambiguo — ele existe nas duas tabelas do join, e o Postgres
+        # recusa, com razao: nao lhe cabe adivinhar de qual se fala.
         cols = self.COLS_RAW + ("source_country",)
-        sel = self._select(self.COLS_RAW).replace("id,", "a.id,", 1)
+        sel = ", ".join(self._ISO % ("a." + c) if c in self.TEMPOS else "a." + c
+                        for c in self.COLS_RAW)
         linhas = self._linhas(
             "select %s, r.source_country from public.raw_asset a "
             "join public.collection_run r on r.run_id = a.run_id "
