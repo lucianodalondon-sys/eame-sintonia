@@ -1014,7 +1014,10 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
   o pré-voo (só leitura, run `34257470111`) mediu o livro **antes**: 20 versões lá,
   `APPLIED_SET_PREVISTO={022}`, **portão aberto por prova**.
 - **Aplicada pelo mecanismo canónico** (run `34257805728`): 20 `SKIP`, `MIGRATION_022=PASS`.
-  SHA do ficheiro: `7f46ea93…`. **Readback de 30 provas** (run `34259433336`): tabela,
+  SHA do ficheiro aplicado: **`230be77d…`** — ⚠️ **a entrega original publicou `7f46ea93…`,
+  e estava errado**: esse é o `sha256` do ficheiro **neste disco Windows**, com CRLF. O que a
+  produção recebeu foi o blob do Git, com LF. Medi do lado errado da conversão de fim de
+  linha, e o banco tinha o valor certo o tempo todo. Corrigido em D-039. **Readback de 30 provas** (run `34259433336`): tabela,
   15 colunas, FK composta com `ON DELETE RESTRICT`, os dois `unique`, os 4 `check`, os 4
   índices — e **0 linhas**. *A migration não cria história.* Invariantes intactos:
   `collection_run` 8→8, `raw_asset` 251→251.

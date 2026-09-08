@@ -97,10 +97,33 @@ case "$ETAPA" in
     for f in $(ls "$RAIZ"/supabase/migrations/*.sql | grep -v '/008_' | sort); do
       num=$(basename "$f" | cut -c1-3)
       sha=$(sha256sum "$f" | cut -d' ' -f1)
-      ja=$(psql "$URL" -tAc "select 1 from public.schema_migracao where versao='$num'")
-      if [ -n "$ja" ]; then
-        echo "MIGRATION_$num=SKIP (ja no livro-razao)"
-        continue
+      # ── SKIP CEGO E PROIBIDO ──────────────────────────────────────
+      # A versao estar no livro dizia «esta ja rodou» — e o aplicador pulava
+      # sem nunca perguntar «e o ficheiro ainda e o mesmo?». Uma migration
+      # aplicada e depois editada continuava a dar SKIP, para sempre, e o
+      # desvio ficava invisivel.
+      #
+      #     MIGRATION APLICADA E ARTEFATO IMUTAVEL.
+      #     VERSAO IGUAL COM SHA DIFERENTE E DRIFT.
+      #
+      # O SHA nao e segredo e pode aparecer no log; a DSN e que nunca aparece.
+      guardado=$(psql "$URL" -tAc "select sha256 from public.schema_migracao
+                                   where versao='$num'")
+      if [ -n "$guardado" ]; then
+        if [ "$guardado" = "$sha" ]; then
+          echo "MIGRATION_$num=SKIP (ja no livro-razao) HASH=MATCH"
+          continue
+        fi
+        # FALHA FECHADA, E ANTES DE QUALQUER DDL. Nenhuma migration posterior
+        # corre: se o passado mudou, o futuro nao se aplica por cima.
+        echo "MIGRATION_APLICADA_MUDOU=$num"
+        echo "  LEDGER_SHA=$guardado"
+        echo "  REPO_SHA=$sha"
+        echo "  Uma migration aplicada nao se edita. Se o conteudo mudou, ela"
+        echo "  ja nao e o artefato que a producao recebeu — e o livro-razao"
+        echo "  passa a apontar para um ficheiro que nunca correu."
+        echo "  NENHUMA migration posterior sera aplicada."
+        exit 1
       fi
       if psql "$URL" -v ON_ERROR_STOP=1 -q -f "$f" >/tmp/cc.out 2>/tmp/cc.err; then
         psql "$URL" -q -c "insert into public.schema_migracao (versao, resultado, sha256)

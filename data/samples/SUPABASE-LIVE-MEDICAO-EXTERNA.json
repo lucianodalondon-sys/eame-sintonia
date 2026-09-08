@@ -80,12 +80,15 @@
       "readback_e_canario": 34259433336
     },
     "MIGRATION_022": {
-      "SHA256_DO_FICHEIRO": "7f46ea93e01ee0b6175a6c5291e9edea358fda82dcb771f94102cf96e42d13cb",
+      "SHA256_DO_FICHEIRO": "230be77df8b6facfc3319b273a665120669c813feb9bc6ceac87f3497ac3f718",
       "APPLIED_SET": [
         "022"
       ],
       "READBACK": "PASS · 30 provas",
-      "LINHAS_LOGO_APOS": 0
+      "LINHAS_LOGO_APOS": 0,
+      "COMO_SE_MEDE": "sha256 do BLOB do Git (LF), que e o que o CI faz checkout e o que a producao recebeu — nao o do ficheiro no disco.",
+      "CORRECAO": "a primeira publicacao dizia 7f46ea93e01ee0b6175a6c5291e9edea358fda82dcb771f94102cf96e42d13cb, o sha do ficheiro num disco Windows com CRLF. Errado. O livro-razao da producao sempre teve 230be77df8b6facfc3319b273a665120669c813feb9bc6ceac87f3497ac3f718.",
+      "ONDE_ESTA_NA_PRODUCAO": "public.schema_migracao versao=022 resultado=APLICADA"
     },
     "CAPTURA": {
       "SOURCE_ID": "IT-T2-002",
