@@ -1684,8 +1684,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "7dc58f817356bda0014bf4cb89286d9c324948f7",
-    "GENERATED_AT": "2026-09-08T14:53:33-03:00"
+    "HEAD": "0feb496740643ec4924993ae2c26b60ee9bba693",
+    "GENERATED_AT": "2026-09-08T14:57:47-03:00"
   },
   "FAMILIES": [
     {
@@ -5989,7 +5989,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▶",
       "views": [
         "infra"
@@ -6006,8 +6006,8 @@
         ".github/workflows/supabase-storage.yml"
       ],
       "file_count": 7,
-      "status": "PENDING",
-      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status": "PROVEN",
+      "status_reason": "este workflow manda rodar script do repositorio.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -6876,7 +6876,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▷",
       "views": [
         "audit",
@@ -6890,8 +6890,8 @@
         "guarda/preservar_coleta.py"
       ],
       "file_count": 3,
-      "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -8416,7 +8416,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "⚙",
       "views": [
         "audit",
@@ -8429,11 +8429,9 @@
         "system-map/scripts/mudar_gaveta.py"
       ],
       "file_count": 2,
-      "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        "system-map/scripts/generate_system_map.py"
-      ],
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -9840,7 +9838,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "✓",
       "views": [
         "audit",
@@ -9858,8 +9856,8 @@
         "provas/testa_golden_path_pdf.py"
       ],
       "file_count": 7,
-      "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -13591,7 +13589,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 7dc58f817356bda0014bf4cb89286d9c324948f7"
+        "HEAD 0feb496740643ec4924993ae2c26b60ee9bba693"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -22237,8 +22235,8 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 116,
-    "components_proven": 76,
-    "components_pending": 34,
+    "components_proven": 80,
+    "components_pending": 30,
     "components_broken": 0,
     "components_unknown": 6,
     "edges": 388,
