@@ -1618,8 +1618,8 @@
    "name": "Gerador do System Map",
    "territory": "Z-PROVA",
    "kind": "engine",
-   "what": "Junta o que a maquina mediu com o que o humano declarou, calcula o status de cada peca — e move peca de gaveta levando os ficheiros e as chamadas junto.",
-   "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando.",
+   "what": "Junta o que a maquina mediu com o que o humano declarou, calcula o status de cada peca, move peca de gaveta levando ficheiros e chamadas junto — e publica a app pela lista unica de `CADEIA-DO-MAPA.json`.",
+   "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando. E a lista do que e publicado tem um dono so: quatro copias dela deixavam um ficheiro da app fora do que e servido, sem uma queixa.",
    "departments": [
     "ENGENHARIA"
    ],
@@ -1635,8 +1635,8 @@
    "name": "Validador do System Map",
    "territory": "Z-PROVA",
    "kind": "gate",
-   "what": "Reprova a mudanca quando o mapa fica desatualizado, quando ha aresta sem prova ou verde sem evidencia.",
-   "why_here": "E o dente da lei. Sem ele, AGENTS.md seria so um texto pedindo por favor.",
+   "what": "Reprova a mudanca quando o mapa fica desatualizado, quando ha aresta sem prova ou verde sem evidencia — e confere ficheiro a ficheiro a copia que vai ser servida.",
+   "why_here": "E o dente da lei. Sem ele, AGENTS.md seria so um texto pedindo por favor. A lista do que e servido vem da cadeia: escrita aqui, deixava a lei da frescura fora da conferencia anti-drift.",
    "departments": [
     "ENGENHARIA"
    ],
@@ -1649,12 +1649,29 @@
    "icon": "⛨"
   },
   {
+   "id": "C-MAPA-DEPLOY",
+   "name": "Publicador do System Map no deploy",
+   "territory": "Z-PROVA",
+   "kind": "gate",
+   "what": "Corre no BUILD: regera o mapa pela cadeia que o CI ja usa, guarda o veredito do validador, e escreve qual commit esta REALMENTE implantado.",
+   "why_here": "O commit implantado nao pode viver num ficheiro commitado: gera-se com o HEAD A, commita-se, o commit passa a B, e o ficheiro nasce um commit atras de si mesmo. GENERATED != DEPLOYED, e so o build sabe o segundo.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "system-map/scripts/CADEIA-DO-MAPA.json",
+    "system-map/scripts/publicar_no_deploy.mjs"
+   ],
+   "views": [],
+   "icon": "⇪"
+  },
+  {
    "id": "C-MAPA-APP",
    "name": "Interface do System Map",
    "territory": "Z-PROVA",
    "kind": "surface",
-   "what": "A tela do mapa: navegar, aproximar, buscar, filtrar e clicar em cada peca.",
-   "why_here": "So renderiza. Nenhum fato arquitetural mora dentro dela.",
+   "what": "A tela do mapa: navegar, aproximar, buscar, filtrar e clicar em cada peca — e provar, no topo, se o que esta no ecra e a arvore mais nova da linha.",
+   "why_here": "So renderiza e MEDE; nenhum facto arquitetural mora dentro dela. A lei da frescura vive em `freshness.js` a parte, porque CURRENT so com prova: GENERATED != DEPLOYED != LATEST REMOTE, e COVERAGE nunca e FRESHNESS.",
    "departments": [
     "ENGENHARIA",
     "LIDERANCA"
@@ -1670,13 +1687,13 @@
    "name": "Testes do System Map",
    "territory": "Z-PROVA",
    "kind": "test",
-   "what": "Provam que o mapa nao inventa aresta, nao pinta verde sem evidencia e nao perde o NAO SEI.",
-   "why_here": "Um mapa de auditoria que nao e auditado nao vale nada.",
+   "what": "Provam que o mapa nao inventa aresta, nao pinta verde sem evidencia, nao perde o NAO SEI — e que a frescura nunca fica verde sem as quatro provas.",
+   "why_here": "Um mapa de auditoria que nao e auditado nao vale nada. E ausencia de prova de staleness nao e prova de current: isso e provado por forca bruta, sobre todas as combinacoes das medicoes.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
-    "system-map/tests/*.py"
+    "system-map/tests/*"
    ],
    "views": [],
    "icon": "✓"

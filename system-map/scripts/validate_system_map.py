@@ -121,8 +121,12 @@ def main() -> int:
             return None
         return sem_proveniencia(f) if n.endswith(".json") else f.read_text(encoding="utf-8")
 
-    servido_antes = {n: servido(n)
-                     for n in ("state.generated.json", "index.html", "map.js", "map.css")}
+    # A LISTA DO QUE E SERVIDO VEM DA CADEIA, nao daqui. Enquanto estava escrita
+    # neste ficheiro, acrescentar `freshness.js` a app deixava-o FORA da conferencia
+    # anti-drift: alguem podia regerar os dados, commitar, e servir uma versao
+    # antiga da lei da frescura — o pior sitio possivel para uma copia velha.
+    CADEIA = json.loads((AQUI / "CADEIA-DO-MAPA.json").read_text(encoding="utf-8"))
+    servido_antes = {n: servido(n) for n in CADEIA["PUBLICADO"]}
 
     # O INDICE DE FONTES tambem e gerado. Um indice commitado que ja nao bate com
     # o atlas de onde saiu e pior do que nao ter indice: quem o le acredita nele.

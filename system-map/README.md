@@ -63,13 +63,51 @@ system-map/
                                    as contas públicas e as palavras usadas
     generate_system_map.py         junta medido + declarado, calcula status, publica a app
     validate_system_map.py         o dente da lei — roda no CI
+    CADEIA-DO-MAPA.json            a ordem dos passos e o que é publicado
+    publicar_no_deploy.mjs         corre no BUILD: regera, valida, e carimba o
+                                   commit REALMENTE implantado
+    verificar_deploy.py            depois do deploy: o URL público serve esse commit?
+  app/
+    freshness.js                   a lei de CURRENT · STALE · UNKNOWN · BROKEN
   tests/
     test_system_map.py             provas das regras do mapa
+    test_freshness.mjs             provas de que verde exige as quatro provas
 ```
 
 O resultado publicável é copiado para `italia-portale/client/system-map/`, que
 é o que a Vercel serve (`vercel.json` → `outputDirectory`). Essa pasta é
 **derivada**: não se edita lá, edita-se em `app/` e regera-se.
+
+---
+
+## O MAPA DIZ SE ESTÁ ATUAL — E NÃO FICA VERDE SEM PROVA
+
+O mapa é a foto de **uma** árvore, e isso está certo. O que faltava era ele
+conseguir dizer se aquela árvore é a mais nova da linha. Quatro factos, quatro
+origens, e nenhum deriva do outro:
+
+```
+GENERATED FROM         state.generated.json → PROVENANCE.HEAD
+DEPLOYED COMMIT        deployment.generated.json → DEPLOYED_COMMIT  (nasce no BUILD)
+LATEST CANONICAL HEAD  API pública do GitHub, ao vivo
+SYSTEM MAP CHECK       o veredito do validador, gravado no build
+```
+
+```
+GENERATED  !=  DEPLOYED  !=  LATEST REMOTE
+MAP VALID  !=  MAP CURRENT
+COVERAGE   !=  FRESHNESS
+```
+
+`deployment.generated.json` **não se commita** e está no `.gitignore`: um ficheiro
+dentro de um commit nunca pode conhecer o SHA desse commit. Se ele não existir no
+que é servido, a tela diz `⚪ FRESHNESS UNKNOWN` — nunca verde.
+
+**A regra que manda em todas:** ausência de prova de staleness não é prova de
+current. A lei está em [`app/freshness.js`](app/freshness.js) e as provas em
+[`tests/test_freshness.mjs`](tests/test_freshness.mjs). Os detalhes, incluindo
+onde ficaria uma credencial se o repositório deixar de ser público, estão em
+[`AGENTS.md`](../AGENTS.md).
 
 ---
 

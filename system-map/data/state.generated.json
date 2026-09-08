@@ -1288,6 +1288,7 @@
     ],
     "system-map": [
       "system-map/README.md",
+      "system-map/app/freshness.js",
       "system-map/app/index.html",
       "system-map/app/map.css",
       "system-map/app/map.js",
@@ -1295,6 +1296,7 @@
       "system-map/data/architecture.declared.json",
       "system-map/data/estradas-it.model.json",
       "system-map/data/provas-de-execucao.json",
+      "system-map/scripts/CADEIA-DO-MAPA.json",
       "system-map/scripts/censo_da_coleta.py",
       "system-map/scripts/censo_da_observabilidade.py",
       "system-map/scripts/censo_das_derivacoes.py",
@@ -1309,12 +1311,14 @@
       "system-map/scripts/generate_system_map.py",
       "system-map/scripts/mudar_gaveta.py",
       "system-map/scripts/pente_fino_da_coleta.py",
+      "system-map/scripts/publicar_no_deploy.mjs",
       "system-map/scripts/recall_da_porta_it.py",
       "system-map/scripts/relatorio_do_fluxo.py",
       "system-map/scripts/scan_casco.py",
       "system-map/scripts/scan_repo.py",
       "system-map/scripts/scan_sources.py",
       "system-map/scripts/validate_system_map.py",
+      "system-map/tests/test_freshness.mjs",
       "system-map/tests/test_system_map.py"
     ],
     "tests": [
@@ -1777,9 +1781,9 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "c293be6548382459168468b86881b173e773fad1",
-    "GENERATED_AT": "2026-09-08T22:50:19+00:00"
+    "BRANCH": "claude/system-map-freshness-v1",
+    "HEAD": "8e1947d2d5dac39ba831ca6e637e14927a43101a",
+    "GENERATED_AT": "2026-09-08T23:05:07+00:00"
   },
   "FAMILIES": [
     {
@@ -1834,7 +1838,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 52
+      "count": 53
     },
     {
       "id": "F-ENTREGA",
@@ -2124,7 +2128,7 @@
       "y": 190,
       "w": 1235,
       "h": 3260,
-      "count": 29
+      "count": 30
     },
     {
       "id": "Z-PACOTE",
@@ -6463,7 +6467,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "audit",
@@ -6475,13 +6479,18 @@
         ".github/workflows/system-map.yml"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        ".github/workflows/system-map.yml"
+      ],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-MAPA-DEPLOY"
+      ],
       "outbound": [
         "C-CENSO-COLETA",
+        "C-MAPA-DEPLOY",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
@@ -9433,14 +9442,14 @@
       "name": "Interface do System Map",
       "territory": "Z-PROVA",
       "kind": "surface",
-      "what": "A tela do mapa: navegar, aproximar, buscar, filtrar e clicar em cada peca.",
-      "why_here": "So renderiza. Nenhum fato arquitetural mora dentro dela.",
+      "what": "A tela do mapa: navegar, aproximar, buscar, filtrar e clicar em cada peca — e provar, no topo, se o que esta no ecra e a arvore mais nova da linha.",
+      "why_here": "So renderiza e MEDE; nenhum facto arquitetural mora dentro dela. A lei da frescura vive em `freshness.js` a parte, porque CURRENT so com prova: GENERATED != DEPLOYED != LATEST REMOTE, e COVERAGE nunca e FRESHNESS.",
       "departments": [
         "ENGENHARIA",
         "LIDERANCA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▣",
       "views": [
         "audit",
@@ -9449,20 +9458,23 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
+        "system-map/app/freshness.js",
         "system-map/app/index.html",
         "system-map/app/map.css",
         "system-map/app/map.js"
       ],
-      "file_count": 3,
-      "status": "PROVEN",
-      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
-      "changed_since_declared": [],
+      "file_count": 4,
+      "status": "PENDING",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/app/index.html",
+        "system-map/app/map.css",
+        "system-map/app/map.js"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
-        "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
-        "C-MAPA-VALIDADOR",
         "C-TESTES"
       ],
       "paises": {},
@@ -9477,12 +9489,60 @@
       "y": 1648
     },
     {
+      "id": "C-MAPA-DEPLOY",
+      "name": "Publicador do System Map no deploy",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "what": "Corre no BUILD: regera o mapa pela cadeia que o CI ja usa, guarda o veredito do validador, e escreve qual commit esta REALMENTE implantado.",
+      "why_here": "O commit implantado nao pode viver num ficheiro commitado: gera-se com o HEAD A, commita-se, o commit passa a B, e o ficheiro nasce um commit atras de si mesmo. GENERATED != DEPLOYED, e so o build sabe o segundo.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⇪",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "system-map/scripts/CADEIA-DO-MAPA.json",
+        "system-map/scripts/publicar_no_deploy.mjs"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CI-MAPA"
+      ],
+      "outbound": [
+        "C-CI-MAPA",
+        "C-MAPA-GERADOR",
+        "C-MAPA-TESTES",
+        "C-MAPA-VALIDADOR"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 14835,
+      "y": 1970
+    },
+    {
       "id": "C-MAPA-GERADOR",
       "name": "Gerador do System Map",
       "territory": "Z-PROVA",
       "kind": "engine",
-      "what": "Junta o que a maquina mediu com o que o humano declarou, calcula o status de cada peca — e move peca de gaveta levando os ficheiros e as chamadas junto.",
-      "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando.",
+      "what": "Junta o que a maquina mediu com o que o humano declarou, calcula o status de cada peca, move peca de gaveta levando ficheiros e chamadas junto — e publica a app pela lista unica de `CADEIA-DO-MAPA.json`.",
+      "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando. E a lista do que e publicado tem um dono so: quatro copias dela deixavam um ficheiro da app fora do que e servido, sem uma queixa.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -9512,7 +9572,7 @@
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
         "C-IT-CATALOGO",
-        "C-MAPA-APP",
+        "C-MAPA-DEPLOY",
         "C-MAPA-SCAN",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-SUPABASE",
@@ -9556,7 +9616,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 1970
     },
     {
@@ -9646,7 +9706,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15250,
+      "x": 15665,
       "y": 1970
     },
     {
@@ -9654,8 +9714,8 @@
       "name": "Testes do System Map",
       "territory": "Z-PROVA",
       "kind": "test",
-      "what": "Provam que o mapa nao inventa aresta, nao pinta verde sem evidencia e nao perde o NAO SEI.",
-      "why_here": "Um mapa de auditoria que nao e auditado nao vale nada.",
+      "what": "Provam que o mapa nao inventa aresta, nao pinta verde sem evidencia, nao perde o NAO SEI — e que a frescura nunca fica verde sem as quatro provas.",
+      "why_here": "Um mapa de auditoria que nao e auditado nao vale nada. E ausencia de prova de staleness nao e prova de current: isso e provado por forca bruta, sobre todas as combinacoes das medicoes.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -9669,17 +9729,21 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
+        "system-map/tests/test_freshness.mjs",
         "system-map/tests/test_system_map.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
       "status_reason": "teste que nao toca em nada do repositorio.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "system-map/tests/test_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
         "C-CI-MAPA",
         "C-MAPA-APP",
+        "C-MAPA-DEPLOY",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-MAPA-VALIDADOR",
@@ -9692,11 +9756,12 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "CATEGORIAS_CONHECIDAS"
+          "CATEGORIAS_CONHECIDAS",
+          "SUSPEITO"
         ],
-        "palavras": 8,
+        "palavras": 20,
         "por_lingua": {},
-        "sem_marca_de_lingua": 8,
+        "sem_marca_de_lingua": 20,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -9705,16 +9770,16 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 1970
+      "x": 14835,
+      "y": 2292
     },
     {
       "id": "C-MAPA-VALIDADOR",
       "name": "Validador do System Map",
       "territory": "Z-PROVA",
       "kind": "gate",
-      "what": "Reprova a mudanca quando o mapa fica desatualizado, quando ha aresta sem prova ou verde sem evidencia.",
-      "why_here": "E o dente da lei. Sem ele, AGENTS.md seria so um texto pedindo por favor.",
+      "what": "Reprova a mudanca quando o mapa fica desatualizado, quando ha aresta sem prova ou verde sem evidencia — e confere ficheiro a ficheiro a copia que vai ser servida.",
+      "why_here": "E o dente da lei. Sem ele, AGENTS.md seria so um texto pedindo por favor. A lista do que e servido vem da cadeia: escrita aqui, deixava a lei da frescura fora da conferencia anti-drift.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -9739,7 +9804,7 @@
       "produces": [],
       "inbound": [
         "C-CI-MAPA",
-        "C-MAPA-APP",
+        "C-MAPA-DEPLOY",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-PROVA-MAPA-NAO-MENTE"
@@ -9757,7 +9822,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 2292
     },
     {
@@ -9828,7 +9893,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 2292
     },
     {
@@ -10908,8 +10973,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15665,
-      "y": 2292
+      "x": 14835,
+      "y": 2614
     },
     {
       "id": "C-PROVA-COLETA",
@@ -11007,7 +11072,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 2614
     },
     {
@@ -11053,7 +11118,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 2614
     },
     {
@@ -11117,8 +11182,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 2614
+      "x": 14835,
+      "y": 2936
     },
     {
       "id": "C-PROVA-MAPA-NAO-MENTE",
@@ -11206,7 +11271,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14835,
+      "x": 15250,
       "y": 2936
     },
     {
@@ -11259,7 +11324,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 2936
     },
     {
@@ -11455,8 +11520,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 2936
+      "x": 14835,
+      "y": 3258
     },
     {
       "id": "C-RECEITAS",
@@ -11595,7 +11660,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 3258
     },
     {
@@ -13846,7 +13911,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 15250,
+      "x": 15665,
       "y": 3258
     },
     {
@@ -15388,8 +15453,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/collection-foundation-integration-v1",
-        "HEAD c293be6548382459168468b86881b173e773fad1"
+        "branch claude/system-map-freshness-v1",
+        "HEAD 8e1947d2d5dac39ba831ca6e637e14927a43101a"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17832,8 +17897,26 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 67,
+          "line": 87,
           "snippet": "python3 system-map/scripts/censo_da_coleta.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-MAPA-DEPLOY",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar Publicador do System Map no deploy. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 221,
+          "snippet": "node system-map/scripts/publicar_no_deploy.mjs"
         }
       ],
       "categoria": "CONTROL"
@@ -17850,7 +17933,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 69,
+          "line": 89,
           "snippet": "python3 system-map/scripts/generate_system_map.py"
         }
       ],
@@ -17868,26 +17951,44 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 64,
+          "line": 84,
           "snippet": "python3 system-map/scripts/scan_repo.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 65,
+          "line": 85,
           "snippet": "python3 system-map/scripts/scan_sources.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 66,
+          "line": 86,
           "snippet": "python3 system-map/scripts/scan_casco.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 68,
+          "line": 88,
           "snippet": "python3 system-map/scripts/pente_fino_da_coleta.py"
         }
       ],
       "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_system_map.py",
+          "line": 484,
+          "snippet": "CI_YML = (RAIZ / \".github\" / \"workflows\" / \"system-map.yml\").read_text(encoding=\"utf-8\")"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-CI-MAPA",
@@ -17897,12 +17998,17 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 1 linha de codigo.",
+      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 83,
+          "line": 103,
           "snippet": "run: python3 system-map/tests/test_system_map.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 163,
+          "snippet": "run: node system-map/tests/test_freshness.mjs"
         }
       ],
       "categoria": "PROOF"
@@ -17919,7 +18025,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 77,
+          "line": 97,
           "snippet": "run: python3 system-map/scripts/validate_system_map.py"
         }
       ],
@@ -17937,7 +18043,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 80,
+          "line": 100,
           "snippet": "run: python3 medidas/padrao_da_coleta.py"
         }
       ],
@@ -17955,7 +18061,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 95,
+          "line": 115,
           "snippet": "run: python3 provas/valida_biblia.py"
         }
       ],
@@ -17973,7 +18079,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 89,
+          "line": 109,
           "snippet": "run: python3 provas/testa_coleta_canonica.py"
         }
       ],
@@ -17991,52 +18097,52 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 101,
+          "line": 121,
           "snippet": "python3 tests/test_biblia.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 102,
+          "line": 122,
           "snippet": "python3 tests/test_integracao_biblia.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 103,
+          "line": 123,
           "snippet": "python3 tests/test_observabilidade_estrada.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 104,
+          "line": 124,
           "snippet": "python3 tests/test_red_team_estrada.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 110,
+          "line": 130,
           "snippet": "run: python3 tests/test_identidade_do_artefato.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 116,
+          "line": 136,
           "snippet": "run: python3 tests/test_armazem_italiano.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 122,
+          "line": 142,
           "snippet": "run: python3 tests/test_preservar_coleta.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 129,
+          "line": 149,
           "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 135,
+          "line": 155,
           "snippet": "run: python3 tests/test_preservar_derivado.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 140,
+          "line": 160,
           "snippet": "run: python3 tests/test_porta_de_producao.py"
         }
       ],
@@ -21436,77 +21542,36 @@
     },
     {
       "from": "C-MAPA-APP",
-      "to": "C-MAPA-GERADOR",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Interface do System Map alimenta Gerador do System Map. Provado por 3 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "system-map/scripts/generate_system_map.py",
-          "line": 2691,
-          "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
-        },
-        {
-          "file": "system-map/scripts/generate_system_map.py",
-          "line": 2691,
-          "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
-        },
-        {
-          "file": "system-map/scripts/generate_system_map.py",
-          "line": 2692,
-          "snippet": "\"system-map/app/map.css\"):"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-MAPA-APP",
       "to": "C-MAPA-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Interface do System Map alimenta Testes do System Map. Provado por 2 linhas de codigo.",
+      "reason": "Interface do System Map alimenta Testes do System Map. Provado por 4 linhas de codigo.",
       "evidence": [
         {
+          "file": "system-map/tests/test_freshness.mjs",
+          "line": 36,
+          "snippet": "runInContext(readFileSync(join(RAIZ, 'system-map', 'app', 'freshness.js'), 'utf8'), ctx);"
+        },
+        {
           "file": "system-map/tests/test_system_map.py",
-          "line": 170,
+          "line": 171,
           "snippet": "MAPA_JS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
         },
         {
           "file": "system-map/tests/test_system_map.py",
           "line": 409,
           "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
+        },
+        {
+          "file": "system-map/tests/test_system_map.py",
+          "line": 527,
+          "snippet": "FRESH = RAIZ / \"system-map\" / \"app\" / \"freshness.js\""
         }
       ],
       "categoria": "PROOF"
-    },
-    {
-      "from": "C-MAPA-APP",
-      "to": "C-MAPA-VALIDADOR",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Interface do System Map alimenta Validador do System Map. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "system-map/scripts/validate_system_map.py",
-          "line": 125,
-          "snippet": "for n in (\"state.generated.json\", \"index.html\", \"map.js\", \"map.css\")}"
-        },
-        {
-          "file": "system-map/scripts/validate_system_map.py",
-          "line": 125,
-          "snippet": "for n in (\"state.generated.json\", \"index.html\", \"map.js\", \"map.css\")}"
-        }
-      ],
-      "categoria": "READ"
     },
     {
       "from": "C-MAPA-APP",
@@ -21525,6 +21590,83 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-MAPA-DEPLOY",
+      "to": "C-CI-MAPA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Publicador do System Map no deploy alimenta Workflow do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 208,
+          "snippet": "A=$(python3 -c \"import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-MAPA-DEPLOY",
+      "to": "C-MAPA-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Publicador do System Map no deploy alimenta Gerador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 2696,
+          "snippet": "cadeia = json.loads((Path(__file__).with_name(\"CADEIA-DO-MAPA.json\"))"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-MAPA-DEPLOY",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Publicador do System Map no deploy alimenta Testes do System Map. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_system_map.py",
+          "line": 438,
+          "snippet": "CADEIA_F = RAIZ / \"system-map\" / \"scripts\" / \"CADEIA-DO-MAPA.json\""
+        },
+        {
+          "file": "system-map/tests/test_system_map.py",
+          "line": 443,
+          "snippet": "PUB = RAIZ / \"system-map\" / \"scripts\" / \"publicar_no_deploy.mjs\""
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-MAPA-DEPLOY",
+      "to": "C-MAPA-VALIDADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Publicador do System Map no deploy alimenta Validador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/validate_system_map.py",
+          "line": 128,
+          "snippet": "CADEIA = json.loads((AQUI / \"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-MAPA-GERADOR",
@@ -21556,7 +21698,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 140,
+          "line": 144,
           "snippet": "\"generate_system_map.py\"):"
         }
       ],
@@ -21638,12 +21780,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3211,
+          "line": 3220,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3211,
+          "line": 3220,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -21679,17 +21821,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 139,
+          "line": 143,
           "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
         },
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 139,
+          "line": 143,
           "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
         },
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 139,
+          "line": 143,
           "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
         }
       ],
@@ -23491,7 +23633,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 33,
+          "line": 34,
           "snippet": "D = json.loads((DADOS / \"architecture.declared.json\").read_text(encoding=\"utf-8\"))"
         }
       ],
@@ -23509,7 +23651,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/validate_system_map.py",
-          "line": 313,
+          "line": 317,
           "snippet": "(DADOS / \"architecture.declared.json\").read_text(encoding=\"utf-8\"))"
         }
       ],
@@ -26907,17 +27049,17 @@
   "UNCLAIMED_FILES_COUNT": 697,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 139,
-    "components_proven": 70,
-    "components_pending": 62,
+    "components": 140,
+    "components_proven": 68,
+    "components_pending": 65,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 517,
-    "edges_proven": 515,
+    "edges": 521,
+    "edges_proven": 519,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1332,
-    "files_covered": 635,
+    "files_tracked": 1336,
+    "files_covered": 639,
     "files_code_unclaimed": 0
   }
 }

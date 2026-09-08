@@ -2688,11 +2688,20 @@ def construir(estado: dict) -> None:
     # Os ficheiros sao NOMEADOS, e nao varridos da pasta. Varrer copiava em
     # silencio o que la estivesse — um rascunho, uma sobra — e faltava em
     # silencio o que nao estivesse. Nomear falha alto quando falta.
-    for nome in ("system-map/app/index.html", "system-map/app/map.js",
-                 "system-map/app/map.css"):
-        origem = RAIZ / nome
+    #
+    # E a LISTA vem de `CADEIA-DO-MAPA.json`, nao daqui: a build da Vercel, o
+    # validador e o workflow conferem a MESMA lista. Enquanto ela estava escrita
+    # em quatro sitios, acrescentar um ficheiro a app significava lembrar-se de
+    # quatro — e esquecer um deles publicava uma app incompleta sem uma queixa.
+    cadeia = json.loads((Path(__file__).with_name("CADEIA-DO-MAPA.json"))
+                        .read_text(encoding="utf-8"))
+    dados = cadeia["ARTEFATO_DE_DEPLOY"], "state.generated.json"
+    for nome in cadeia["PUBLICADO"]:
+        if nome in dados:
+            continue
+        origem = RAIZ / "system-map" / "app" / nome
         if not origem.exists():
-            print(f"FALTA={nome} · a app esta incompleta", file=sys.stderr)
+            print(f"FALTA={origem} · a app esta incompleta", file=sys.stderr)
             raise SystemExit(2)
         shutil.copyfile(origem, destino / Path(nome).name)
     (destino / "state.generated.json").write_text(

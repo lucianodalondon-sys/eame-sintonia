@@ -40,8 +40,21 @@
     <input id="search" placeholder="Buscar peça, arquivo, régua, função…"
            aria-label="buscar no mapa">
   </div>
-  <div class="snapshotTop" id="snapshotTop"></div>
+  <!-- SYSTEM MAP STATUS. Quatro factos que nunca podem colapsar num so:
+       de que arvore o mapa foi GERADO, que commit esta IMPLANTADO, qual e a
+       cabeca ACTUAL da linha, e o que o validador disse. O botao mostra o
+       veredito; o painel mostra as medicoes que o sustentam. -->
+  <div class="snapshotTop" id="snapshotTop">
+    <button id="syncBadge" class="syncBadge sync-unknown" aria-expanded="false"
+            aria-controls="statusPanel">⚪ A MEDIR…</button>
+  </div>
 </header>
+
+<!-- STALE E BROKEN TEM DE GRITAR. Esta barra nao se fecha, e ocupa a largura
+     toda: um aviso que se pode ignorar com um clique nao e um aviso. -->
+<div class="staleBar" id="staleBar" hidden></div>
+
+<div class="statusPanel" id="statusPanel" hidden></div>
 
 <div class="workspace" id="workspace">
   <aside class="sidebar">
@@ -162,9 +175,17 @@
   font:12px/1.5 Arial,sans-serif">
   O mapa precisa de JavaScript para ser navegado. O mesmo conteúdo, em formato de
   máquina, está em <a href="state.generated.json">state.generated.json</a> —
-  peças, ligações, estados e a evidência de cada uma.
+  peças, ligações, estados e a evidência de cada uma. O commit que está
+  <b>implantado</b> está em
+  <a href="deployment.generated.json">deployment.generated.json</a>, e sem JS
+  <b>não é possível confirmar</b> se ele é a cabeça atual da linha: sem essa
+  confirmação, o estado é UNKNOWN, nunca CURRENT.
 </div></noscript>
 
+<!-- A LEI DA FRESCURA vem antes da tela, e e um ficheiro so. A tela mede; este
+     decide. Separados porque a decisao tem de ser testavel sem um browser, e
+     porque uma regra escondida no meio de mil linhas de desenho nao se audita. -->
+<script src="freshness.js"></script>
 <script src="map.js"></script>
 </body>
 </html>

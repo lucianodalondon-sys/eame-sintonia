@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "105602f662337d8deac7bca1a3da4abeff75889d",
+    "HEAD": "8e1947d2d5dac39ba831ca6e637e14927a43101a",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -794,6 +794,22 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/derivacao_forward.py",
+      "gaveta": "coleta",
+      "linhas": 301,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/ephy.sh",
       "gaveta": "coleta",
       "linhas": 47,
@@ -868,7 +884,7 @@
     {
       "ficheiro": "coleta/executor_texto_de_pdf.py",
       "gaveta": "coleta",
-      "linhas": 516,
+      "linhas": 565,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -883,6 +899,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/derivacao_forward.py",
         "coleta/golden_path_pdf.py"
       ],
       "no_ci": false
@@ -1754,6 +1771,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/derivacao_forward.py",
         "coleta/golden_path_pdf.py"
       ],
       "no_ci": false
@@ -1821,7 +1839,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/derivacao_forward.py"
+      ],
       "no_ci": false
     },
     {
@@ -1888,6 +1908,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/derivacao_forward.py",
         "guarda/portas_live.py",
         "guarda/preservar_derivado.py"
       ],
@@ -1907,6 +1928,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/derivacao_forward.py",
         "coleta/executor_texto_de_pdf.py",
         "guarda/memoria_descartavel.py",
         "guarda/portas_live.py"
@@ -1980,8 +2002,8 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 100,
-    "pontos_de_entrada": 82,
+    "ficheiros_de_codigo": 101,
+    "pontos_de_entrada": 83,
     "executores_que_saem_para_fora": 21,
     "sem_chamador_e_fora_do_ci": 46,
     "gravam_no_banco": 2,
@@ -2025,6 +2047,7 @@
       "coleta/corpus_pesquisador.py",
       "coleta/cruzar_regua_rotulo.py",
       "coleta/denominaciones.py",
+      "coleta/derivacao_forward.py",
       "coleta/eppo_gd.py",
       "coleta/es/corpus_es.py",
       "coleta/eu_substancia_adama_it.py",
@@ -2120,6 +2143,7 @@
       "ferramentas/pdf_peek.mjs",
       "coleta/agrifood_ue.py",
       "coleta/cruzar_regua_rotulo.py",
+      "coleta/derivacao_forward.py",
       "coleta/ephy.sh",
       "coleta/es/corpus_es.py",
       "coleta/eu_substancia_adama_it.py",
@@ -2142,7 +2166,6 @@
       "regras/italy_scheduling_guards.mjs",
       "regras/rotulos_censo.py",
       "guarda/es/adama_es_gate.py",
-      "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",
       "guarda/portas_live.py",
       "guarda/sql_conferir.py"

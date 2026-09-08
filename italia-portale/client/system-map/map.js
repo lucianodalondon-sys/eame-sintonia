@@ -620,11 +620,15 @@ function openDetail(id) {
         <h4>Mudou desde a última leitura humana</h4>${
         n.changed_since_declared.map(f => `<div class="file">${esc(f)}</div>`).join('')}</div>` : ''}
 
-      <div class="sec"><h4>Snapshot</h4><p>
+      <div class="sec"><h4>De que árvore isto foi medido</h4><p>
         repo <code>${esc(S.PROVENANCE.REPO)}</code><br>
-        branch <code>${esc(S.PROVENANCE.BRANCH)}</code><br>
-        commit <code>${esc(S.PROVENANCE.HEAD.slice(0, 10))}</code><br>
-        gerado <code>${esc(S.PROVENANCE.GENERATED_AT.slice(0, 10))}</code></p></div>
+        source branch <code>${esc(S.PROVENANCE.BRANCH)}</code><br>
+        generated from <code>${esc(S.PROVENANCE.HEAD.slice(0, 10))}</code><br>
+        generated at <code>${esc(S.PROVENANCE.GENERATED_AT.slice(0, 10))}</code></p>
+        <p style="font-size:10px;color:#8a827e">GENERATED FROM é a árvore que o
+        gerador mediu, e <b>não</b> prova qual commit está implantado nem qual é a
+        cabeça atual da linha. Esses dois estão em SYSTEM MAP STATUS, no topo.</p>
+        </div>
 
       ${termosDe(n).length ? `<div class="sec">
         <h4>Palavras realmente usadas na busca (${
@@ -920,6 +924,175 @@ function bind() {
   addEventListener('resize', mini);
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   SYSTEM MAP STATUS — medir, e so depois decidir
+
+   QUATRO FACTOS, QUATRO ORIGENS DIFERENTES. Nenhum deriva do outro:
+
+     GENERATED FROM         `state.generated.json` → PROVENANCE.HEAD
+                            a arvore que o gerador MEDIU
+     DEPLOYED COMMIT        `deployment.generated.json` → DEPLOYED_COMMIT
+                            nasce no BUILD, onde a Vercel sabe a resposta
+     LATEST CANONICAL HEAD  a API publica do GitHub, ao vivo
+     SYSTEM MAP CHECK       o veredito do validador, gravado no build
+
+   NENHUMA CREDENCIAL VIVE AQUI, E NAO E POR DISCIPLINA — E POR MEDICAO.
+   O repositorio e PUBLICO (medido: `visibility: public` na API do GitHub), e a
+   API publica responde a `commits/<branch>` sem qualquer autenticacao, com
+   `Access-Control-Allow-Origin: *`. Por isso a cabeca remota mede-se do proprio
+   browser, sem token, sem funcao serverless e sem backend novo.
+
+       NAO HA SEGREDO NO CLIENTE PORQUE NAO HA SEGREDO NENHUM A PRECISAR.
+
+   Se o repositorio passar a privado, esta chamada devolve 404 e a tela cai para
+   FRESHNESS UNKNOWN — que e a verdade. A partir desse dia, medir ao vivo exige
+   credencial, e credencial vive SERVER-SIDE (uma funcao minima, read-only, que
+   devolva so repo/branch/head/checked_at). Nunca no browser.
+
+   E o limite de pedidos sem autenticacao (60/hora por IP) tambem cai em UNKNOWN,
+   nunca em verde: a falha e sempre para o lado honesto.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Timeout curto e explicito. Sem ele, uma rede lenta deixava o botao em
+   «A MEDIR…» para sempre — e um estado que nunca resolve e um estado que quem
+   olha acaba por ler como «esta bem». */
+async function buscarJson(url, ms) {
+  const parar = new AbortController();
+  const t = setTimeout(() => parar.abort(), ms || 7000);
+  try {
+    const r = await fetch(url, { cache: 'no-store', signal: parar.signal,
+      headers: { Accept: 'application/json' } });
+    return { ok: r.ok, status: r.status, corpo: r.ok ? await r.json() : null };
+  } catch (e) {
+    return { ok: false, status: 0, corpo: null, erro: e && e.name === 'AbortError'
+      ? 'timeout' : 'rede indisponivel' };
+  } finally { clearTimeout(t); }
+}
+
+/* A CABECA REMOTA, MEDIDA — nunca presumida.
+   Devolve tambem QUANTOS commits de atraso, e so quando o GitHub consegue
+   calcula-lo: «MAP IS N COMMITS BEHIND» com um N inventado seria pior do que
+   «HEAD MISMATCH», porque parece precisao. */
+async function medirCabecaRemota(repo, ramo, servido) {
+  if (!repo || !ramo) return { head: null, erro: 'repo ou branch desconhecidos' };
+  const base = `https://api.github.com/repos/${repo}`;
+  const r = await buscarJson(`${base}/commits/${encodeURIComponent(ramo)}`);
+  if (!r.ok || !r.corpo || typeof r.corpo.sha !== 'string') {
+    return { head: null, behind: null,
+      erro: r.erro || `GitHub respondeu ${r.status}` };
+  }
+  const head = r.corpo.sha;
+  let behind = null;
+  if (servido && head && servido !== head) {
+    const c = await buscarJson(`${base}/compare/${servido}...${head}`);
+    if (c.ok && c.corpo && c.corpo.status === 'ahead'
+        && Number.isInteger(c.corpo.ahead_by)) behind = c.corpo.ahead_by;
+  }
+  return { head, behind, erro: null };
+}
+
+const sha8 = s => (typeof s === 'string' && s.length >= 8 ? s.slice(0, 8) : null);
+const ouUnknown = v => (v ? esc(String(v)) : '<i>UNKNOWN</i>');
+const relogio = s => (typeof s === 'string' ? esc(s.slice(0, 16).replace('T', ' ')) : null);
+
+async function provarFrescura() {
+  const P = S.PROVENANCE || {};
+  const c = S.COUNTS || {};
+
+  /* O ARTEFATO DE DEPLOY. Ausente e um resultado, nao um erro: quer dizer que
+     ninguem provou que commit esta implantado — e sem isso nao ha verde. */
+  const d = await buscarJson('deployment.generated.json', 5000);
+  const dep = d.ok && d.corpo && typeof d.corpo === 'object' ? d.corpo : null;
+
+  const ramo = (dep && dep.SOURCE_BRANCH) || P.BRANCH || null;
+  const repo = (dep && dep.REPOSITORY) || P.REPO || null;
+  const servido = dep ? dep.DEPLOYED_COMMIT : null;
+
+  const remoto = await medirCabecaRemota(repo, ramo,
+    SM_FRESHNESS.SHA_RE.test(String(servido)) ? servido : null);
+
+  const v = SM_FRESHNESS.decidir({
+    repository: dep ? dep.REPOSITORY : null,
+    state_repository: P.REPO || null,
+    source_branch: dep ? dep.SOURCE_BRANCH : null,
+    state_branch: P.BRANCH || null,
+    generated_from: P.HEAD || null,
+    deployed_commit: servido,
+    latest_canonical_head: remoto.head,
+    latest_head_error: remoto.erro,
+    system_map_check: dep ? dep.SYSTEM_MAP_CHECK : 'UNKNOWN',
+    behind_by: remoto.behind,
+    deployment_present: !!dep,
+    schema_do_estado: S.SCHEMA || null,
+    schema_declarado: dep ? dep.SYSTEM_MAP_SCHEMA : null,
+  });
+
+  const classe = `sync-${v.state.toLowerCase()}`;
+  const botao = $('syncBadge');
+  botao.className = `syncBadge ${classe}`;
+  botao.textContent = `${v.emoji} ${v.titulo}${v.atraso ? ` · ${v.atraso}` : ''}`;
+  botao.title = v.frase;
+
+  /* GRITAR quando tem de gritar. A barra e fixa e nao fecha. */
+  const barra = $('staleBar');
+  if (v.grita) {
+    barra.innerHTML = `${v.emoji} ${esc(v.titulo)}${v.atraso ? ` · ${esc(v.atraso)}` : ''}`
+      + ` — ${esc(v.frase)}<small>${v.razoes.map(esc).join(' ')}</small>`;
+    barra.hidden = false;
+    document.body.classList.add('staleOn');
+  } else {
+    barra.hidden = true;
+    document.body.classList.remove('staleOn');
+  }
+
+  /* O PAINEL: um facto por linha, com o rotulo a dizer qual dos quatro ele e.
+     COVERAGE entra AQUI EM BAIXO e rotulada, longe do veredito — ela nunca
+     participou da decisao e a tela nao pode sugerir que participa. */
+  const linha = (rot, val) => `<div class="statusRow"><dt>${rot}</dt><dd>${val}</dd></div>`;
+  $('statusPanel').innerHTML = `
+    <h3>System map status</h3>
+    <div class="statusVerdict ${classe}">SYNC ${esc(v.emoji)} ${esc(v.titulo)}
+      ${v.atraso ? `· ${esc(v.atraso)}` : ''}<small>${esc(v.frase)}</small></div>
+    <dl style="margin:0">
+    ${linha('Repository', ouUnknown(repo))}
+    ${linha('Scope', '<b>THIS BRANCH / THIS TREE ONLY</b>')}
+    ${linha('Source branch', ouUnknown(ramo))}
+    ${linha('Generated from', P.HEAD ? `<code>${esc(sha8(P.HEAD))}</code>` : '<i>UNKNOWN</i>')}
+    ${linha('Deployed commit', servido ? `<code>${esc(sha8(servido))}</code>` : '<i>UNKNOWN</i>')}
+    ${linha('Latest canonical head', remoto.head
+      ? `<code>${esc(sha8(remoto.head))}</code>`
+      : `<i>UNKNOWN</i>${remoto.erro ? ` — ${esc(remoto.erro)}` : ''}`)}
+    ${linha('Generated at', ouUnknown(relogio(P.GENERATED_AT)))}
+    ${linha('Deployed at', dep && dep.BUILD_TIME
+      ? esc(relogio(dep.BUILD_TIME)) : '<i>UNKNOWN</i>')}
+    ${linha('Build id', dep ? ouUnknown(dep.BUILD_ID) : '<i>UNKNOWN</i>')}
+    ${linha('Environment', dep ? ouUnknown(dep.ENVIRONMENT) : '<i>UNKNOWN</i>')}
+    ${linha('Regenerated at build', dep
+      ? (dep.REGENERATED_AT_BUILD ? 'YES' : `NO — ${ouUnknown(dep.NOT_REGENERATED_REASON)}`)
+      : '<i>UNKNOWN</i>')}
+    ${linha('System map check', dep ? ouUnknown(dep.SYSTEM_MAP_CHECK) : '<i>UNKNOWN</i>')}
+    ${linha(esc(SM_FRESHNESS.COBERTURA_ROTULO),
+      `${c.files_covered}&thinsp;/&thinsp;${c.files_tracked} tracked files`)}
+    </dl>
+    <div class="statusScope"><b>MAP COVERAGE não é FRESHNESS.</b><br>
+      ${esc(SM_FRESHNESS.COBERTURA_EXPLICACAO)}</div>
+    <div class="statusScope"><b>SCOPE: esta é a foto de UMA árvore.</b><br>
+      Uma branch, num commit. O mapa não soma branches: BRANCH A + BRANCH B não
+      é um sistema real. Linhas paralelas que não estão integradas aqui não
+      aparecem aqui — e é isso que este bloco garante.</div>
+    <ul class="statusWhy">${v.razoes.map(r => `<li>${esc(r)}</li>`).join('')}</ul>`;
+
+  const abrir = () => {
+    const painel = $('statusPanel'), aberto = !painel.hidden;
+    painel.hidden = aberto;
+    botao.setAttribute('aria-expanded', aberto ? 'false' : 'true');
+  };
+  botao.onclick = abrir;
+  /* STALE e BROKEN abrem o painel sozinhos: quem chega a um mapa desatualizado
+     precisa de ver POR QUE, e nao de descobrir que ha um botao. */
+  if (v.grita) abrir();
+}
+
 async function arrancar() {
   try {
     S = await (await fetch('state.generated.json', { cache: 'no-store' })).json();
@@ -933,12 +1106,11 @@ async function arrancar() {
   nodes = S.NODES; edges = S.EDGES; MUNDO = S.WORLD;
   nodeById = Object.fromEntries(nodes.map(n => [n.id, n]));
 
-  const c = S.COUNTS, P = S.PROVENANCE;
-  $('snapshotTop').innerHTML =
-    `<b>REPO</b> ${esc(P.REPO)}<br>` +
-    `<b>BRANCH</b> ${esc(P.BRANCH)} @ ${esc(P.HEAD.slice(0, 7))}<br>` +
-    `<b>GERADO</b> ${esc(P.GENERATED_AT.slice(0, 10))} · ` +
-    `${c.files_covered}/${c.files_tracked} arquivos cobertos`;
+  /* A FRESCURA CORRE A PARTE, e nunca bloqueia o desenho. O mapa desta arvore
+     e util mesmo antes de se saber se a arvore e a mais nova; o que nao e
+     aceitavel e ele parecer actual sem prova. Por isso o botao arranca em
+     «A MEDIR…» e nunca em verde. */
+  provarFrescura();
 
   // OS ACHADOS FICAM RECOLHIDOS. Eles sao a parte mais valiosa do mapa e a que
   // mais atrapalha: aberto, o painel tapa um terco do desenho, e o mapa existe

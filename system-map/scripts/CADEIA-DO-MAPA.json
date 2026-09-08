@@ -1,0 +1,41 @@
+{
+  "SCHEMA": "sintonia.system-map.cadeia/1",
+  "NOTA": [
+    "A CADEIA DO MAPA, ESCRITA UMA VEZ SO.",
+    "",
+    "O GitHub Actions regenera o mapa antes de o validar. A build da Vercel",
+    "passou a regenerar tambem, porque servir uma copia commitada e servir o",
+    "mapa da arvore ANTERIOR — o ficheiro nasce sempre um commit atras de si",
+    "mesmo, e foi exactamente esse o defeito desta missao.",
+    "",
+    "    DOIS SITIOS COM A LISTA DOS PASSOS SAO DUAS CADEIAS.",
+    "",
+    "Bastava alguem acrescentar um censo ao workflow e esquecer a build para o",
+    "URL publico servir um mapa montado sobre uma medicao mais velha — sem",
+    "reclamar, porque cada lado corria a sua propria lista sem erro nenhum.",
+    "Por isso a lista vive AQUI, e os dois leem-na daqui.",
+    "",
+    "NAO EXISTE UMA SEGUNDA IMPLEMENTACAO DESTES SCANNERS. Nao ha versao Node",
+    "do scanner, nao ha atalho para quando o Python falta: se a cadeia nao",
+    "consegue correr, o mapa servido diz que nao conseguiu — nunca finge."
+  ],
+  "REGERAR": [
+    "system-map/scripts/scan_repo.py",
+    "system-map/scripts/scan_sources.py",
+    "system-map/scripts/scan_casco.py",
+    "system-map/scripts/censo_da_coleta.py",
+    "system-map/scripts/pente_fino_da_coleta.py",
+    "system-map/scripts/generate_system_map.py"
+  ],
+  "VALIDAR": [
+    "system-map/scripts/validate_system_map.py"
+  ],
+  "PUBLICADO": [
+    "index.html",
+    "map.js",
+    "map.css",
+    "freshness.js",
+    "state.generated.json"
+  ],
+  "ARTEFATO_DE_DEPLOY": "deployment.generated.json"
+}

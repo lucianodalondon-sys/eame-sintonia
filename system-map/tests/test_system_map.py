@@ -18,6 +18,7 @@ Corre como os outros testes desta casa:  py system-map/tests/test_system_map.py
 """
 
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -176,8 +177,7 @@ prova("T7_filtro_de_conexao_so_mexe_em_setas",
 
 # T8 · a vista de coleta abre com DADO e COMANDO
 INDEX = (RAIZ / "system-map" / "app" / "index.html").read_text(encoding="utf-8")
-import re as _re
-ligadas = {m.group(1) for m in _re.finditer(
+ligadas = {m.group(1) for m in re.finditer(
     r'name="cat" value="(\w+)" checked', INDEX)}
 prova("T8_abre_com_dado_e_comando", ligadas == {"DATA", "CONTROL"},
       f"abre com {sorted(ligadas)}; espera-se DATA e CONTROL")
@@ -427,6 +427,153 @@ proibido = [t for t in ("const nodes=[", "const edges=[", "const NODES", "const 
             if t in js]
 prova("a_tela_nao_guarda_facto_nenhum", not proibido,
       f"encontrado no map.js: {proibido} — facto escrito na tela nao passa por validador")
+
+
+# ── SMF · GENERATED != DEPLOYED, e o build e que sabe ────────────────────────
+# O mapa serviu `105602f6` com `624/1321` no ecra enquanto a cabeca canonica ja ia
+# em `8e1947d2`. A tela nao mentia — nao avisava. Estas provas fecham as quatro
+# maneiras de o aviso voltar a desaparecer: o build parar de regerar, aparecer uma
+# segunda implementacao dos scanners, entrar um segredo no que e publicado, ou a
+# cobertura voltar a ser lida como se fosse actualizacao.
+CADEIA_F = RAIZ / "system-map" / "scripts" / "CADEIA-DO-MAPA.json"
+prova("a_cadeia_do_mapa_tem_um_dono_so", CADEIA_F.exists(),
+      "a lista dos passos tem de viver num ficheiro so; duas listas sao duas cadeias")
+CADEIA = json.loads(CADEIA_F.read_text(encoding="utf-8"))
+
+PUB = RAIZ / "system-map" / "scripts" / "publicar_no_deploy.mjs"
+prova("SMF-12_existe_um_publicador_de_build", PUB.exists())
+pub = PUB.read_text(encoding="utf-8") if PUB.exists() else ""
+pkg = json.loads((RAIZ / "package.json").read_text(encoding="utf-8"))
+prova("SMF-12_o_build_chama_o_publicador",
+      "system-map/scripts/publicar_no_deploy.mjs" in " ".join(pkg["scripts"].values()),
+      "sem isto a Vercel volta a publicar a copia commitada, que e o mapa da arvore anterior")
+prova("SMF-12_o_publicador_regenera_pela_cadeia",
+      "CADEIA.REGERAR" in pub and "CADEIA.VALIDAR" in pub,
+      "regenerar e validar tem de vir da cadeia, nunca de uma lista propria")
+
+# SMF-13 · NENHUMA SEGUNDA IMPLEMENTACAO. O publicador CHAMA os scanners; se ele
+# comecar a medir a arvore por conta propria, passam a existir duas arquiteturas
+# com o mesmo nome — e a que o CI valida deixa de ser a que o URL serve.
+# COMENTARIO NAO E CODIGO. O publicador EXPLICA, no cabecalho, porque nao mede a
+# arvore sozinho — e a explicacao cita `git ls-files`. Um teste que lesse a
+# explicacao como se fosse implementacao reprovaria o proprio comentario que o
+# defende, e a correcao seria apagar a explicacao: exactamente o contrario do que
+# se quer. Por isso o codigo e lido sem comentarios.
+pub_codigo = re.sub(r"/\*.*?\*/", "", pub, flags=re.S)
+pub_codigo = re.sub(r"^\s*//.*$", "", pub_codigo, flags=re.M)
+proibido_no_build = [k for k in ("ls-files", "cat-file", "ast.parse", "readdirSync",
+                                 "walkSync", "globSync")
+                     if k in pub_codigo]
+prova("SMF-13_o_build_nao_reimplementa_o_scanner", not proibido_no_build,
+      f"o publicador comecou a medir sozinho: {proibido_no_build}")
+# A CADEIA DO CI E A CADEIA DO BUILD SAO A MESMA — provado, nao prometido.
+#
+# A primeira versao desta missao fez o workflow LER a lista de
+# `CADEIA-DO-MAPA.json` em runtime, para nao existirem duas listas. O mapa
+# regenerado respondeu na hora: `C-MAPA-SCAN` e `C-MAPA-GERADOR` passaram a
+# «existe, mas nada no repositorio manda rodar» — porque o scanner le o workflow
+# para saber QUEM CORRE O QUE, e um caminho montado em runtime nao esta escrito em
+# texto nenhum. A consistencia tinha sido comprada ao preco de apagar duas
+# arestas verdadeiras.
+#
+#     ESCONDER A CHAMADA PARA NAO A REPETIR E PIOR DO QUE A REPETIR.
+#
+# Entao as duas listas existem, e este teste e o portao que as mantem identicas —
+# mesma ordem, mesmos ficheiros. Divergir aqui deixaria a Vercel a montar o mapa
+# sobre uma medicao mais velha do que a que o CI validou.
+CI_YML = (RAIZ / ".github" / "workflows" / "system-map.yml").read_text(encoding="utf-8")
+no_ci = re.findall(r"^\s*(?:run:\s*)?python3 (system-map/scripts/\S+\.py)\s*$",
+                   CI_YML, re.M)
+so_da_cadeia = [x for x in no_ci if x in CADEIA["REGERAR"] or x in CADEIA["VALIDAR"]]
+esperado = list(CADEIA["REGERAR"]) + list(CADEIA["VALIDAR"])
+prova("SMF-13_a_cadeia_do_build_e_a_do_CI_na_mesma_ordem",
+      so_da_cadeia == esperado,
+      f"CI corre {so_da_cadeia}\n        cadeia diz {esperado}")
+prova("SMF-13_o_CI_confere_a_mesma_lista_de_publicados",
+      all(f in CI_YML for f in CADEIA["PUBLICADO"]),
+      "um ficheiro publicado que o CI nao confere pode sair velho sem uma queixa")
+
+# SMF-14 e SMF-15 · NENHUM SEGREDO ATRAVESSA. Duas provas, porque sao dois riscos
+# diferentes: o publicador podia LER um segredo do ambiente, e o que e servido
+# podia CARREGAR um. O repositorio e publico e o mapa e servido: aqui nao ha
+# margem para «provavelmente nao».
+SUSPEITO = ("TOKEN", "KEY", "SECRET", "PASSWORD", "PASSWD", "CREDENTIAL",
+            "SERVICE_ROLE", "PRIVATE", "APIFY", "SUPABASE", "OPENAI", "ANTHROPIC")
+lista = re.search(r"AMBIENTE_PUBLICO = \[(.*?)\]", pub, re.S)
+nomes = re.findall(r"'([A-Z0-9_]+)'", lista.group(1)) if lista else []
+prova("SMF-14_o_publicador_le_o_ambiente_por_lista_fechada", len(nomes) > 0,
+      "sem lista fechada, um `for (k of Object.keys(process.env))` poe tudo no artefato")
+maus = [n for n in nomes if any(s in n for s in SUSPEITO)]
+prova("SMF-14_nenhuma_variavel_suspeita_entra_no_artefato", not maus, f"{maus}")
+prova("SMF-14_o_publicador_nao_serializa_o_ambiente_inteiro",
+      "JSON.stringify(process.env" not in pub
+      and "...process.env" not in pub
+      and "Object.entries(process.env)" not in pub
+      and "Object.keys(process.env)" not in pub,
+      "despejar o ambiente inteiro num ficheiro publico e como o publicar de proposito")
+
+SERVIDO = RAIZ / "italia-portale" / "client" / "system-map"
+SEGREDO_RE = re.compile(
+    r"(APIFY_TOKEN|SUPABASE_[A-Z_]*KEY|SERVICE_ROLE|GITHUB_TOKEN|VERCEL_TOKEN|"
+    r"BEGIN [A-Z ]*PRIVATE KEY|ghp_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{20,}|"
+    r"eyJ[A-Za-z0-9_-]{30,}\.[A-Za-z0-9_-]{20,})")
+sujos = []
+for f in sorted(SERVIDO.glob("*")):
+    if f.suffix in (".html", ".js", ".css") and SEGREDO_RE.search(
+            f.read_text(encoding="utf-8", errors="replace")):
+        sujos.append(f.name)
+prova("SMF-15_o_bundle_do_cliente_nao_carrega_token", not sujos, f"{sujos}")
+
+FRESH = RAIZ / "system-map" / "app" / "freshness.js"
+prova("a_lei_da_frescura_existe_num_ficheiro_proprio", FRESH.exists(),
+      "uma regra escondida no meio de mil linhas de desenho nao se audita")
+fresh = FRESH.read_text(encoding="utf-8") if FRESH.exists() else ""
+prova("a_lei_da_frescura_e_publicada", "freshness.js" in CADEIA["PUBLICADO"],
+      "a lei tem de ser servida; uma copia velha dela e o pior sitio para uma copia velha")
+prova("a_lei_da_frescura_nao_tem_credencial",
+      not any(s in fresh.upper() for s in ("TOKEN", "SECRET", "AUTHORIZATION", "BEARER")),
+      "medir a cabeca remota de um repo publico nao precisa de credencial nenhuma")
+
+# SMF-08 · COVERAGE != FRESHNESS, provado no lado do Python tambem: a decisao nao
+# pode ler cobertura, e a tela tem de a ROTULAR. `624/1321 arquivos cobertos`
+# parecia um indicador de actualizacao, e nunca foi um.
+corpo = fresh[fresh.find("function decidir"):fresh.find("function veredito")]
+prova("SMF-08_a_decisao_de_frescura_nao_le_cobertura",
+      not any(k in corpo for k in ("files_covered", "files_tracked", "coverage")),
+      "cobertura dentro de decidir() e a lei COVERAGE != FRESHNESS quebrada")
+prova("SMF-08_a_cobertura_e_rotulada_na_tela", "MAP COVERAGE" in fresh,
+      "o numero tem de dizer que e inventario, nao actualizacao")
+
+# O ARTEFATO DE DEPLOY NAO SE COMMITA. Commita-lo seria repetir o defeito: um
+# ficheiro dentro de um commit nunca pode conhecer o SHA desse commit.
+ignore = (RAIZ / ".gitignore").read_text(encoding="utf-8")
+prova("o_artefato_de_deploy_nao_entra_no_git",
+      f"italia-portale/client/system-map/{CADEIA['ARTEFATO_DE_DEPLOY']}" in ignore)
+prova("o_artefato_de_deploy_nao_esta_rastreado",
+      subprocess.run(["git", "-C", str(RAIZ), "ls-files", "--error-unmatch",
+                      f"italia-portale/client/system-map/{CADEIA['ARTEFATO_DE_DEPLOY']}"],
+                     capture_output=True).returncode != 0,
+      "esta commitado: apague-o do indice, senao ele nasce sempre um commit atras")
+
+# A TELA DIZ O ESCOPO. Sem isto, quem olha nao sabe que esta a ver UMA branch, e
+# BRANCH A + BRANCH B nao e um sistema real.
+js = (RAIZ / "system-map" / "app" / "map.js").read_text(encoding="utf-8")
+prova("a_tela_declara_que_o_escopo_e_uma_arvore_so",
+      "THIS BRANCH / THIS TREE ONLY" in js)
+prova("a_tela_mostra_os_quatro_factos_separados",
+      all(r in js for r in ("Generated from", "Deployed commit",
+                            "Latest canonical head", "System map check")),
+      "colapsar dois destes rotulos foi exactamente o defeito original")
+prova("a_tela_le_o_commit_implantado_do_artefato_do_build",
+      "deployment.generated.json" in js,
+      "sem o artefato do build, o commit implantado nao existe na tela")
+prova("a_tela_nao_decide_frescura_por_conta_propria",
+      "SM_FRESHNESS.decidir" in js and "function decidir" not in js,
+      "duas implementacoes da lei da frescura seriam duas leis")
+prova("a_tela_mede_a_cabeca_remota_sem_credencial",
+      "api.github.com" in js
+      and not any(s in js for s in ("Authorization", "Bearer ", "token=")),
+      "o repositorio e publico: pedir com credencial poria um segredo no browser")
 
 print()
 if falhas:

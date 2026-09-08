@@ -227,3 +227,79 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 /* O DESVIO NAO SE ESCONDE. Ambar, cheio e mais grosso: uma seta que salta o
    orquestrador tem de saltar tambem aos olhos. */
 .dyn.desvio .edgePath{stroke:#b07d2b;stroke-width:3.4;opacity:.78;stroke-dasharray:none}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SYSTEM MAP STATUS — a prova de frescura, na propria tela
+
+   O defeito nao era o mapa mostrar uma branch: e isso que ele deve fazer. Era
+   ele poder mostrar uma FOTO VELHA sem avisar. A cor aqui e um portao, nao
+   decoracao:
+
+       🟢 CURRENT   so com prova     — os quatro factos medidos e a bater
+       🔴 STALE     tem de gritar    — barra vermelha que nao se fecha
+       ⚪ UNKNOWN   nunca verde      — nao se conseguiu medir a cabeca remota
+       🔴 BROKEN    tem de gritar    — proveniencia contraditoria ou check FAIL
+
+   `--unknown` e cinzento de proposito e NAO e uma variante de verde: ausencia
+   de prova de staleness nao e prova de current.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.syncBadge{border:1px solid var(--earth20);background:#fff;border-radius:999px;
+  padding:6px 12px;font-size:10.5px;font-weight:800;letter-spacing:.04em;
+  cursor:pointer;white-space:nowrap;color:#4d5f59}
+.syncBadge:hover{border-color:var(--adama)}
+.syncBadge.sync-current{border-color:var(--ok);background:#eef9f1;color:#1f6b3d}
+.syncBadge.sync-stale{border-color:var(--bad);background:#fdecec;color:#8d1d1d;
+  animation:syncPulsa 1.6s ease-in-out infinite}
+.syncBadge.sync-broken{border-color:var(--bad);background:#fdecec;color:#8d1d1d}
+.syncBadge.sync-unknown{border-color:var(--unknown);background:#f4f3f2;color:#5f5b58}
+@keyframes syncPulsa{0%,100%{box-shadow:0 0 0 0 rgba(190,40,40,.30)}
+  50%{box-shadow:0 0 0 6px rgba(190,40,40,0)}}
+@media (prefers-reduced-motion:reduce){.syncBadge.sync-stale{animation:none}}
+
+/* A BARRA QUE GRITA. Fixa, largura toda, sem botao de fechar. */
+.staleBar{position:fixed;left:0;right:0;top:76px;z-index:95;background:#8d1d1d;
+  color:#fff;font-size:11px;font-weight:800;letter-spacing:.03em;
+  padding:8px 18px;line-height:1.45;box-shadow:0 6px 18px rgba(80,10,10,.22)}
+.staleBar small{display:block;font-weight:500;font-size:9.5px;opacity:.92;
+  letter-spacing:0;margin-top:2px}
+body.staleOn .canvasTitle{top:58px}
+body.staleOn .warning{top:122px}
+
+/* O PAINEL DAS MEDICOES. Um facto por linha, com o rotulo a dizer QUAL dos
+   quatro ele e. Colapsar dois destes rotulos foi o defeito original. */
+.statusPanel{position:fixed;right:12px;top:82px;z-index:120;width:392px;
+  max-width:calc(100vw - 24px);max-height:calc(100vh - 96px);overflow:auto;
+  background:#fff;border:1px solid var(--earth20);border-radius:14px;
+  box-shadow:0 18px 44px rgba(60,50,45,.18);padding:14px 15px}
+.statusPanel h3{font-size:10px;text-transform:uppercase;letter-spacing:.1em;
+  color:#8c8582;font-weight:800;margin:0 0 9px}
+.statusRow{display:grid;grid-template-columns:132px 1fr;gap:8px;
+  padding:4px 0;border-top:1px solid #f2f0ef;font-size:10.5px;align-items:baseline}
+.statusRow:first-of-type{border-top:0}
+.statusRow dt{color:#8c8582;font-weight:800;font-size:9px;text-transform:uppercase;
+  letter-spacing:.06em}
+.statusRow dd{margin:0;color:#3f4d48;word-break:break-word}
+.statusRow code{font-size:10px;background:var(--earth10);padding:1px 4px;border-radius:5px}
+.statusScope{background:var(--earth10);border:1px solid var(--earth20);
+  border-radius:9px;padding:8px 9px;font-size:9.5px;line-height:1.45;
+  color:#5f5b58;margin:10px 0}
+.statusScope b{color:#415b53}
+.statusWhy{font-size:9.5px;line-height:1.5;color:#6f6a67;margin:9px 0 0}
+.statusWhy li{margin:3px 0}
+.statusVerdict{font-size:12px;font-weight:800;letter-spacing:.03em;margin:2px 0 10px}
+.statusVerdict.sync-current{color:#1f6b3d}
+.statusVerdict.sync-stale,.statusVerdict.sync-broken{color:#8d1d1d}
+.statusVerdict.sync-unknown{color:#5f5b58}
+.statusVerdict small{display:block;font-weight:500;font-size:9.5px;color:#6f6a67;
+  letter-spacing:0;margin-top:3px}
+
+/* MOBILE: o `snapshotTop` desaparecia inteiro no telefone, e com ele o aviso.
+   Um mapa que esconde «estou desatualizado» no ecra pequeno mente mais, nao
+   menos — quem abre no telefone e quem tem menos como conferir. */
+@media (max-width:760px){
+  .snapshotTop{display:block!important;margin-left:auto}
+  .syncBadge{padding:5px 9px;font-size:9px}
+  .staleBar{top:74px;font-size:9.5px;padding:6px 10px}
+  body.staleOn .canvasTitle{top:52px}
+  .statusPanel{top:78px;right:6px;left:6px;width:auto}
+}

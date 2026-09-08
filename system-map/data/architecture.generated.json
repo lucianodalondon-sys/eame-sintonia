@@ -2,9 +2,9 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "c293be6548382459168468b86881b173e773fad1",
-    "GENERATED_AT": "2026-09-08T22:50:19+00:00"
+    "BRANCH": "claude/system-map-freshness-v1",
+    "HEAD": "8e1947d2d5dac39ba831ca6e637e14927a43101a",
+    "GENERATED_AT": "2026-09-08T23:05:07+00:00"
   },
   "FILES": [
     {
@@ -121,14 +121,14 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "73ee92303b6392f8c109c43d727f89c10cee7a34",
+      "sha": "976cfea68cbd21b22f77ee446870e2bd6b422ca1",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
     },
     {
       "path": ".gitignore",
-      "sha": "1e43845a804c3edac08309ab4f313fff41b8a4f6",
+      "sha": "f400ea5b87d7d3c700ba29eec3a34bc3ea54ff66",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -142,7 +142,7 @@
     },
     {
       "path": "AGENTS.md",
-      "sha": "11784eb7942d069f19d3602722d8d5488f38910f",
+      "sha": "0f983c297c7d6c6e391612fffac2f8e949906787",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7240,7 +7240,7 @@
     },
     {
       "path": "package.json",
-      "sha": "08d737be6904f5597e02495b601be6f3862be563",
+      "sha": "00e04b5946b72244065f3804a6ce8f00b60b5ce6",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -8577,28 +8577,35 @@
     },
     {
       "path": "system-map/README.md",
-      "sha": "b47d40ff0a12807afee303ff784b0edd9224da63",
+      "sha": "9b91e5d8ef4b0bf288e8e743bb38e65d2aeaee9a",
       "ext": ".md",
       "readable": false,
       "code_dir": true
     },
     {
+      "path": "system-map/app/freshness.js",
+      "sha": "81cdca5aea342e7236b6117c044564a6fe81a284",
+      "ext": ".js",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "system-map/app/index.html",
-      "sha": "e03ea69361b475d380b1256e170346f9d3e2cbd1",
+      "sha": "77b176e62bc18388620616263928f195466dc19b",
       "ext": ".html",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.css",
-      "sha": "509ff2a37ebb527c7563a88cdf4a6a5429a6b1af",
+      "sha": "9b23d154f4f70e9278e750fcd8f240ba60920016",
       "ext": ".css",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "433aa0bc66add1fc4ec82aea3471ba9b3015c8be",
+      "sha": "5b5cb967700d549fc9735307e85cbf2251bcb926",
       "ext": ".js",
       "readable": true,
       "code_dir": true
@@ -8612,7 +8619,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "9428bc28b04c71ff431c568250f909c439f2a81b",
+      "sha": "cb7ffbf909f3ef3b5912972b72557247b74ce84b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8627,6 +8634,13 @@
     {
       "path": "system-map/data/provas-de-execucao.json",
       "sha": "19d7be55b5c86b86c96682a661572306fcaada70",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/CADEIA-DO-MAPA.json",
+      "sha": "2a6dc68a49653a012ea5abf6998ed8978544cd37",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8710,7 +8724,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "ecd3f8c3a88d51cc818c3a5c20477fc9858c6aca",
+      "sha": "e13a91ed755046a75e67e131c51f4afb77f764d9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8726,6 +8740,13 @@
       "path": "system-map/scripts/pente_fino_da_coleta.py",
       "sha": "7c6f8bd541be3e5aef7aaf3df2514af423f14928",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/publicar_no_deploy.mjs",
+      "sha": "1c9162a7fc5c4314ea8272b64e1c0f537c62d6ca",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -8766,14 +8787,21 @@
     },
     {
       "path": "system-map/scripts/validate_system_map.py",
-      "sha": "7da7f4909430f88b6792717877318210486bd1ef",
+      "sha": "d679ea3dab482d0c284273580522333f4c7448a2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
+      "path": "system-map/tests/test_freshness.mjs",
+      "sha": "df44d08f7e2d8786cfc2af112b2989363e9768da",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "system-map/tests/test_system_map.py",
-      "sha": "6ed6682aa01a24ffd67cd3a7e89c77a84379a399",
+      "sha": "12a3b5f3a841058fdc18b057371cb0f030c921a3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10220,7 +10248,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 80,
+        "line": 100,
         "snippet": "run: python3 medidas/padrao_da_coleta.py"
       }
     },
@@ -10231,7 +10259,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 89,
+        "line": 109,
         "snippet": "run: python3 provas/testa_coleta_canonica.py"
       }
     },
@@ -10242,8 +10270,19 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 95,
+        "line": 115,
         "snippet": "run: python3 provas/valida_biblia.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 208,
+        "snippet": "A=$(python3 -c \"import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])\")"
       }
     },
     {
@@ -10253,7 +10292,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 67,
+        "line": 87,
         "snippet": "python3 system-map/scripts/censo_da_coleta.py"
       }
     },
@@ -10264,7 +10303,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 69,
+        "line": 89,
         "snippet": "python3 system-map/scripts/generate_system_map.py"
       }
     },
@@ -10275,8 +10314,19 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 68,
+        "line": 88,
         "snippet": "python3 system-map/scripts/pente_fino_da_coleta.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/publicar_no_deploy.mjs",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 221,
+        "snippet": "node system-map/scripts/publicar_no_deploy.mjs"
       }
     },
     {
@@ -10286,7 +10336,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 66,
+        "line": 86,
         "snippet": "python3 system-map/scripts/scan_casco.py"
       }
     },
@@ -10297,7 +10347,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 64,
+        "line": 84,
         "snippet": "python3 system-map/scripts/scan_repo.py"
       }
     },
@@ -10308,7 +10358,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 65,
+        "line": 85,
         "snippet": "python3 system-map/scripts/scan_sources.py"
       }
     },
@@ -10319,8 +10369,19 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 77,
+        "line": 97,
         "snippet": "run: python3 system-map/scripts/validate_system_map.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/tests/test_freshness.mjs",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 163,
+        "snippet": "run: node system-map/tests/test_freshness.mjs"
       }
     },
     {
@@ -10330,7 +10391,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 83,
+        "line": 103,
         "snippet": "run: python3 system-map/tests/test_system_map.py"
       }
     },
@@ -10341,7 +10402,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 116,
+        "line": 136,
         "snippet": "run: python3 tests/test_armazem_italiano.py"
       }
     },
@@ -10352,7 +10413,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 101,
+        "line": 121,
         "snippet": "python3 tests/test_biblia.py"
       }
     },
@@ -10363,7 +10424,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 110,
+        "line": 130,
         "snippet": "run: python3 tests/test_identidade_do_artefato.py"
       }
     },
@@ -10374,7 +10435,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 102,
+        "line": 122,
         "snippet": "python3 tests/test_integracao_biblia.py"
       }
     },
@@ -10385,7 +10446,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 103,
+        "line": 123,
         "snippet": "python3 tests/test_observabilidade_estrada.py"
       }
     },
@@ -10396,7 +10457,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 140,
+        "line": 160,
         "snippet": "run: python3 tests/test_porta_de_producao.py"
       }
     },
@@ -10407,7 +10468,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 122,
+        "line": 142,
         "snippet": "run: python3 tests/test_preservar_coleta.py"
       }
     },
@@ -10418,7 +10479,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 129,
+        "line": 149,
         "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py"
       }
     },
@@ -10429,7 +10490,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 135,
+        "line": 155,
         "snippet": "run: python3 tests/test_preservar_derivado.py"
       }
     },
@@ -10440,7 +10501,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 104,
+        "line": 124,
         "snippet": "python3 tests/test_red_team_estrada.py"
       }
     },
@@ -25285,6 +25346,17 @@
     },
     {
       "from_file": "system-map/app/index.html",
+      "to_file": "system-map/app/freshness.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/app/index.html",
+        "line": 188,
+        "snippet": "<script src=\"freshness.js\"></script>"
+      }
+    },
+    {
+      "from_file": "system-map/app/index.html",
       "to_file": "system-map/app/map.css",
       "type": "READS",
       "payload": "artefacto",
@@ -25301,7 +25373,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/app/index.html",
-        "line": 168,
+        "line": 189,
         "snippet": "<script src=\"map.js\"></script>"
       }
     },
@@ -25956,39 +26028,6 @@
     },
     {
       "from_file": "system-map/scripts/generate_system_map.py",
-      "to_file": "system-map/app/index.html",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/scripts/generate_system_map.py",
-        "line": 2691,
-        "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
-      }
-    },
-    {
-      "from_file": "system-map/scripts/generate_system_map.py",
-      "to_file": "system-map/app/map.css",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/scripts/generate_system_map.py",
-        "line": 2692,
-        "snippet": "\"system-map/app/map.css\"):"
-      }
-    },
-    {
-      "from_file": "system-map/scripts/generate_system_map.py",
-      "to_file": "system-map/app/map.js",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/scripts/generate_system_map.py",
-        "line": 2691,
-        "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
-      }
-    },
-    {
-      "from_file": "system-map/scripts/generate_system_map.py",
       "to_file": "system-map/data/architecture.declared.json",
       "type": "READS",
       "payload": "artefacto",
@@ -26000,12 +26039,23 @@
     },
     {
       "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 2696,
+        "snippet": "cadeia = json.loads((Path(__file__).with_name(\"CADEIA-DO-MAPA.json\"))"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
       "to_file": "system-map/scripts/scan_repo.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3211,
+        "line": 3220,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -26016,7 +26066,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3211,
+        "line": 3220,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -26040,6 +26090,17 @@
         "file": "system-map/scripts/mudar_gaveta.py",
         "line": 31,
         "snippet": "DECL = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/publicar_no_deploy.mjs",
+      "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/publicar_no_deploy.mjs",
+        "line": 52,
+        "snippet": "const CADEIA = JSON.parse(readFileSync(join(AQUI, 'CADEIA-DO-MAPA.json'), 'utf8'));"
       }
     },
     {
@@ -26291,7 +26352,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 129,
+        "line": 133,
         "snippet": "INDICE = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -26302,30 +26363,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 133,
+        "line": 137,
         "snippet": "PORTA = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
-      }
-    },
-    {
-      "from_file": "system-map/scripts/validate_system_map.py",
-      "to_file": "system-map/app/map.css",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/scripts/validate_system_map.py",
-        "line": 125,
-        "snippet": "for n in (\"state.generated.json\", \"index.html\", \"map.js\", \"map.css\")}"
-      }
-    },
-    {
-      "from_file": "system-map/scripts/validate_system_map.py",
-      "to_file": "system-map/app/map.js",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/scripts/validate_system_map.py",
-        "line": 125,
-        "snippet": "for n in (\"state.generated.json\", \"index.html\", \"map.js\", \"map.css\")}"
       }
     },
     {
@@ -26335,8 +26374,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 313,
+        "line": 317,
         "snippet": "(DADOS / \"architecture.declared.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/validate_system_map.py",
+      "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/validate_system_map.py",
+        "line": 128,
+        "snippet": "CADEIA = json.loads((AQUI / \"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))"
       }
     },
     {
@@ -26346,7 +26396,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 140,
+        "line": 144,
         "snippet": "\"generate_system_map.py\"):"
       }
     },
@@ -26357,7 +26407,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 139,
+        "line": 143,
         "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
       }
     },
@@ -26368,7 +26418,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 139,
+        "line": 143,
         "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
       }
     },
@@ -26379,8 +26429,30 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/validate_system_map.py",
-        "line": 139,
+        "line": 143,
         "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_freshness.mjs",
+      "to_file": "system-map/app/freshness.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_freshness.mjs",
+        "line": 36,
+        "snippet": "runInContext(readFileSync(join(RAIZ, 'system-map', 'app', 'freshness.js'), 'utf8'), ctx);"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_system_map.py",
+      "to_file": ".github/workflows/system-map.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_system_map.py",
+        "line": 484,
+        "snippet": "CI_YML = (RAIZ / \".github\" / \"workflows\" / \"system-map.yml\").read_text(encoding=\"utf-8\")"
       }
     },
     {
@@ -26440,6 +26512,28 @@
     },
     {
       "from_file": "system-map/tests/test_system_map.py",
+      "to_file": "package.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_system_map.py",
+        "line": 446,
+        "snippet": "pkg = json.loads((RAIZ / \"package.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_system_map.py",
+      "to_file": "system-map/app/freshness.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_system_map.py",
+        "line": 527,
+        "snippet": "FRESH = RAIZ / \"system-map\" / \"app\" / \"freshness.js\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_system_map.py",
       "to_file": "system-map/app/map.css",
       "type": "READS",
       "payload": "artefacto",
@@ -26456,7 +26550,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 170,
+        "line": 171,
         "snippet": "MAPA_JS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -26467,8 +26561,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 33,
+        "line": 34,
         "snippet": "D = json.loads((DADOS / \"architecture.declared.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_system_map.py",
+      "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_system_map.py",
+        "line": 438,
+        "snippet": "CADEIA_F = RAIZ / \"system-map\" / \"scripts\" / \"CADEIA-DO-MAPA.json\""
       }
     },
     {
@@ -26480,6 +26585,17 @@
         "file": "system-map/tests/test_system_map.py",
         "line": 191,
         "snippet": "GERADOR = (RAIZ / \"system-map\" / \"scripts\" / \"generate_system_map.py\").read_text("
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_system_map.py",
+      "to_file": "system-map/scripts/publicar_no_deploy.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_system_map.py",
+        "line": 443,
+        "snippet": "PUB = RAIZ / \"system-map\" / \"scripts\" / \"publicar_no_deploy.mjs\""
       }
     },
     {
@@ -31700,10 +31816,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1332,
-    "files_readable": 489,
-    "files_code_dir": 541,
-    "file_edges": 1991,
+    "files_tracked": 1336,
+    "files_readable": 492,
+    "files_code_dir": 545,
+    "file_edges": 1999,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

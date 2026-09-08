@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "c1a6e4d1b655821697d80aaec0ed72d809eff671"
+    "HEAD": "8e1947d2d5dac39ba831ca6e637e14927a43101a"
   },
   "PECAS": [
     {
@@ -14,7 +14,7 @@
       "alguem_corre": false,
       "respostas": 1,
       "ficheiros": 0,
-      "estado": "gray"
+      "estado": "green"
     },
     {
       "id": "C-ARMAZEM-IT-SEM-LIVRO",
@@ -113,6 +113,18 @@
       "estado": "green"
     },
     {
+      "id": "C-DERIVACAO-FORWARD",
+      "nome": "A fronteira forward da derivação",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
       "id": "C-ADMISSAO",
       "nome": "A porta de admissao",
       "zona": "4 · A PORTA DE ADMISSAO",
@@ -194,7 +206,7 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 1,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "V-FACEBOOK",
@@ -257,18 +269,6 @@
       "estado": "yellow"
     },
     {
-      "id": "C-COLETA-BASE",
-      "nome": "O motor de buscar",
-      "zona": "· os executores",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 3,
-      "ficheiros": 3,
-      "estado": "green"
-    },
-    {
       "id": "C-ADAMA-ES",
       "nome": "O portao do catalogo espanhol · projeto futuro",
       "zona": "A SALA DE ESPERA",
@@ -317,6 +317,18 @@
       "estado": "green"
     },
     {
+      "id": "C-SCRAP-GUARDA",
+      "nome": "A guarda de credencial e de sessao do SCRAP",
+      "zona": "A SALA DE ESPERA",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 2,
+      "estado": "yellow"
+    },
+    {
       "id": "C-PORTA-FONTE",
       "nome": "A porta de entrada de fonte nova",
       "zona": "· de onde vem uma fonte",
@@ -329,18 +341,6 @@
       "estado": "yellow"
     },
     {
-      "id": "C-DONO-DA-ESCRITA",
-      "nome": "ALVO · o dono canônico da escrita (provado em banco, sem corrida real)",
-      "zona": "A SALA DE ESPERA",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 4,
-      "ficheiros": 2,
-      "estado": "green"
-    },
-    {
       "id": "C-APIFY-POOL",
       "nome": "Apify — a rota paga",
       "zona": "· as ferramentas da execucao",
@@ -350,7 +350,7 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 4,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-PALAVRAS",
@@ -445,7 +445,31 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 44,
+      "ficheiros": 46,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-DONO-DA-ESCRITA",
+      "nome": "O dono canônico da escrita do bruto (OBSERVED)",
+      "zona": "A SALA DE ESPERA",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 3,
+      "estado": "green"
+    },
+    {
+      "id": "C-DONO-DO-DERIVADO",
+      "nome": "O dono canônico da escrita do derivado (OBSERVED)",
+      "zona": "A SALA DE ESPERA",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 1,
       "estado": "green"
     },
     {
@@ -458,6 +482,18 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 8,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-COLETA-BASE",
+      "nome": "O motor de buscar",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 3,
       "estado": "yellow"
     },
     {
@@ -481,8 +517,8 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 6,
-      "estado": "green"
+      "ficheiros": 7,
+      "estado": "yellow"
     },
     {
       "id": "C-IDENTIDADE",
@@ -495,11 +531,23 @@
       "respostas": 4,
       "ficheiros": 4,
       "estado": "green"
+    },
+    {
+      "id": "C-SCRAP-SOCIAL",
+      "nome": "SINTONIA SCRAP — aquisicao social",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 5,
+      "estado": "yellow"
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 41,
-    "respondem_as_quatro": 16,
+    "pecas_da_coleta": 45,
+    "respondem_as_quatro": 20,
     "respondem_a_tres": 16,
     "respondem_a_duas": 6,
     "respondem_a_uma": 3,

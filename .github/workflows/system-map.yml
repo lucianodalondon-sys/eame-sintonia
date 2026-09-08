@@ -59,6 +59,26 @@ jobs:
       # Sem dependências. O scanner usa só a biblioteca padrão, de propósito:
       # um mapa de arquitetura que depende de pacote de terceiro para ser
       # gerado tem uma dependência que o próprio mapa não consegue explicar.
+      # A LISTA FICA ESCRITA AQUI, À VISTA — e isto foi MEDIDO, não escolhido.
+      # A primeira versão desta mudança lia a lista de `CADEIA-DO-MAPA.json` em
+      # tempo de execução, para não haver duas listas. O mapa regenerado logo
+      # respondeu:
+      #
+      #     C-MAPA-SCAN      «existe, mas nada no repositório manda rodar»
+      #     C-MAPA-GERADOR   «existe, mas nada no repositório manda rodar»
+      #
+      # E era verdade: o scanner lê o workflow para descobrir QUEM CORRE O QUÊ, e
+      # um caminho montado em runtime não aparece em texto nenhum. A cadeia única
+      # tinha comprado consistência ao preço de apagar duas arestas reais.
+      #
+      #     ESCONDER A CHAMADA PARA NÃO A REPETIR É PIOR DO QUE A REPETIR.
+      #
+      # Então a lista volta a estar aqui, legível pelo scanner e por gente, e a
+      # divergência com a build da Vercel é fechada por um PORTÃO em vez de por
+      # uma boa intenção: `test_system_map.py` reprova se esta lista deixar de ser
+      # exactamente a de `CADEIA-DO-MAPA.json`, na mesma ordem.
+      #
+      #     TEXTO NÃO REPROVA NADA. WORKFLOW REPROVA.
       - name: 1 · regerar o mapa a partir desta árvore
         run: |
           python3 system-map/scripts/scan_repo.py
@@ -139,10 +159,15 @@ jobs:
       - name: 4j · a porta de produção continua lacrada
         run: python3 tests/test_porta_de_producao.py
 
+      - name: 4k · a lei da frescura nunca fica verde sem as quatro provas
+        run: node system-map/tests/test_freshness.mjs
+
       - name: 5 · o que vai ser publicado existe e é servível
         run: |
           set -e
-          for f in index.html map.js map.css state.generated.json; do
+          # Pela mesma razão do passo 1: escrito à vista, e a divergência com
+          # `CADEIA-DO-MAPA.json` fechada por teste, não por confiança.
+          for f in index.html map.js map.css freshness.js state.generated.json; do
             test -s "italia-portale/client/system-map/$f" \
               || { echo "::error::falta italia-portale/client/system-map/$f"; exit 1; }
           done
@@ -173,3 +198,48 @@ jobs:
             echo "::error::possível segredo no que vai ser publicado"; exit 1
           fi
           echo "SEM_SEGREDO=YES"
+
+      # O ARTEFATO DE DEPLOY NÃO SE COMMITA. Se ele aparecer no índice do git,
+      # alguém repetiu o defeito que ele veio fechar: um ficheiro dentro de um
+      # commit nunca pode conhecer o SHA desse commit.
+      - name: 7 · o commit implantado não vive num ficheiro commitado
+        run: |
+          set -e
+          A=$(python3 -c "import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])")
+          if git ls-files --error-unmatch "italia-portale/client/system-map/$A" >/dev/null 2>&1; then
+            echo "::error::$A está commitado — ele nasceria sempre um commit atrás de si mesmo"
+            exit 1
+          fi
+          echo "ARTEFATO_DE_DEPLOY_NASCE_NO_BUILD=YES"
+
+      # O BUILD DA VERCEL REGENERA — provado aqui, no seco, com o mesmo comando
+      # que a Vercel corre. Sem este passo, «o build regenera» seria uma frase
+      # num README, e um README não reprova nada.
+      - name: 8 · o publicador do build corre, regenera e escreve o artefato
+        run: |
+          set -e
+          node system-map/scripts/publicar_no_deploy.mjs
+          python3 - <<'PY'
+          import json, sys
+          d = json.load(open('italia-portale/client/system-map/deployment.generated.json',
+                             encoding='utf-8'))
+          s = json.load(open('italia-portale/client/system-map/state.generated.json',
+                             encoding='utf-8'))
+          erros = []
+          if not d['REGENERATED_AT_BUILD']:
+              erros.append(f"não regenerou: {d['NOT_REGENERATED_REASON']}")
+          if d['SYSTEM_MAP_CHECK'] != 'PASS':
+              erros.append(f"SYSTEM_MAP_CHECK={d['SYSTEM_MAP_CHECK']}")
+          if d['DEPLOYED_COMMIT'] != s['PROVENANCE']['HEAD']:
+              erros.append('DEPLOYED_COMMIT != GENERATED FROM: o mapa publicado '
+                           'não é o mapa desta árvore')
+          if d['PUBLISHED_FILES_MISSING']:
+              erros.append(f"falta no publicado: {d['PUBLISHED_FILES_MISSING']}")
+          for chave, valor in d.items():
+              if any(x in chave.upper() for x in ('TOKEN', 'SECRET', 'KEY', 'PASSWORD')):
+                  erros.append(f'campo suspeito no artefato público: {chave}')
+          if erros:
+              print('::error::' + ' · '.join(erros)); sys.exit(1)
+          print(f"BUILD_REGENERA=YES · DEPLOYED={d['DEPLOYED_COMMIT'][:10]}"
+                f" · GENERATED_FROM={s['PROVENANCE']['HEAD'][:10]} · MESMA_ARVORE=SIM")
+          PY

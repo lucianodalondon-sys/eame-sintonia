@@ -41,6 +41,116 @@ Nunca no sentido contrário. O mapa não é uma segunda verdade arquitetural.
 
 ---
 
+## 🕐 O MAPA TEM DE PROVAR QUE ESTÁ ATUAL — QUATRO FACTOS, NUNCA UM
+
+O mapa é a foto de **uma** árvore. Isso está certo, e continua a ser a lei. O
+defeito era outro: **ele podia mostrar uma foto velha sem avisar.**
+
+Aconteceu, e foi medido. A tela dizia `BRANCH … @ 105602f · 624/1321 arquivos
+cobertos` enquanto a cabeça da linha canónica já ia em `8e1947d2`. Nada na tela
+estava errado. Nada na tela avisava.
+
+**Quatro coisas diferentes existiam, e a tela mostrava uma só:**
+
+| facto | de onde vem | rótulo na tela |
+|---|---|---|
+| a árvore que o gerador **mediu** | `state.generated.json` → `PROVENANCE.HEAD` | `GENERATED FROM` |
+| o commit que a build **implantou** | `deployment.generated.json` → `DEPLOYED_COMMIT` | `DEPLOYED COMMIT` |
+| a cabeça **atual** da linha | API pública do GitHub, ao vivo | `LATEST CANONICAL HEAD` |
+| o veredito do **validador** | gravado no build | `SYSTEM MAP CHECK` |
+
+```
+GENERATED  !=  DEPLOYED  !=  LATEST REMOTE
+MAP VALID  !=  MAP CURRENT
+COVERAGE   !=  FRESHNESS
+```
+
+### O commit não pode conhecer o seu próprio SHA
+
+Gera-se o ficheiro com o HEAD `A`, commita-se, o commit passa a ser `B` — e o
+ficheiro nasce **um commit atrás de si mesmo**. Oito commits seguidos foram
+medidos, e os oito tinham o desencontro. Nenhuma disciplina conserta isto.
+
+Por isso `italia-portale/client/system-map/deployment.generated.json` **nasce no
+build** e está no `.gitignore`. Se ele aparecer no índice do git, o CI reprova.
+
+### O build regenera antes de servir
+
+`package.json` → `build` corre
+[`system-map/scripts/publicar_no_deploy.mjs`](system-map/scripts/publicar_no_deploy.mjs),
+que corre **a mesma cadeia** do CI, lida de
+[`system-map/scripts/CADEIA-DO-MAPA.json`](system-map/scripts/CADEIA-DO-MAPA.json).
+
+**Não existe uma segunda implementação dos scanners.** Não há versão Node do
+scanner, e não há atalho para quando o Python falta: se a cadeia não conseguir
+correr, o artefato diz `REGENERATED_AT_BUILD: false` com o motivo, e a tela cai
+para UNKNOWN. Nunca finge.
+
+A lista de passos está escrita **à vista** no workflow *e* no ficheiro da cadeia,
+e um teste reprova se as duas divergirem. Isso não é descuido: quando a lista
+passou a ser lida em runtime, o mapa respondeu na hora que ninguém mandava rodar
+o scanner — o scanner lê o workflow para saber quem corre o quê.
+
+> **Esconder a chamada para não a repetir é pior do que a repetir.**
+
+### Os quatro estados de SYNC
+
+| | estado | quando |
+|---|---|---|
+| 🟢 | `CURRENT` | cabeça remota **medida**, `DEPLOYED == LATEST`, o mapa servido foi gerado **daquela** árvore, e `SYSTEM_MAP_CHECK = PASS` |
+| 🔴 | `STALE` | `DEPLOYED != LATEST`, ou o mapa servido veio de outra árvore. Barra vermelha, largura toda, sem botão de fechar |
+| ⚪ | `UNKNOWN` | não se conseguiu medir a cabeça remota, ou não há artefato de build, ou o validador não correu |
+| 🔴 | `BROKEN` | `SYSTEM_MAP_CHECK = FAIL`, ou a proveniência do que está servido contradiz-se |
+
+**A regra que manda em todas:**
+
+> **AUSÊNCIA DE PROVA DE STALENESS NÃO É PROVA DE CURRENT.**
+
+Verde é o **último** recurso, nunca o estado por omissão. A lei vive em
+[`system-map/app/freshness.js`](system-map/app/freshness.js), num ficheiro só, e
+`system-map/tests/test_freshness.mjs` prova por força bruta que nenhuma combinação
+de medições incompletas devolve `CURRENT`.
+
+### `624/1321` era COBERTURA, e cobertura não é frescura
+
+É quantos ficheiros rastreados **desta árvore** o mapa consegue representar e
+classificar. Não é «ficheiros atualizados». Por isso a tela a rotula
+`MAP COVERAGE`, longe do veredito — e `decidir()` **não recebe cobertura**: um
+número que não entra na função não pode influenciar a decisão, e o teste
+consegue provar isso.
+
+### Nenhuma credencial no browser, e não por disciplina
+
+O repositório é **público** (medido: `visibility: public` na API do GitHub), e a
+API pública responde a `commits/<branch>` sem autenticação, com
+`Access-Control-Allow-Origin: *`. A cabeça remota mede-se do próprio browser,
+sem token, sem função serverless e sem backend novo.
+
+Se o repositório passar a privado, a chamada devolve 404 e a tela cai para
+UNKNOWN — que é a verdade. A partir desse dia, medir ao vivo exige credencial, e
+credencial vive **server-side**: uma função mínima, read-only, devolvendo só
+`repo`, `branch`, `head`, `checked_at`. **Nunca no browser.**
+
+### Uma autoridade de deploy
+
+A Vercel publica, via integração Git, e continua a ser a única que publica.
+[`.github/workflows/system-map-deploy-verify.yml`](.github/workflows/system-map-deploy-verify.yml)
+é o **verificador**: depois do push, ele acha o URL pelo GitHub Deployments API
+(só com o `GITHUB_TOKEN` da corrida) e confere que
+`/system-map/deployment.generated.json` traz o SHA daquele push.
+
+> **Dois donos do mesmo endereço servem a versão errada sem ninguém perceber.**
+
+### O escopo está na tela
+
+`SCOPE: THIS BRANCH / THIS TREE ONLY`. O mapa não soma branches.
+
+```
+BRANCH A  +  BRANCH B  !=  UM SISTEMA REAL
+```
+
+---
+
 ## A OBRIGAÇÃO
 
 Toda alteração que modifique **arquitetura · fonte · coleta · fluxo · contrato ·
@@ -77,6 +187,8 @@ Antes de concluir qualquer mudança relevante, corra:
 py system-map/scripts/generate_system_map.py    # regerar o mapa
 py system-map/scripts/validate_system_map.py    # provar que ele corresponde ao repo
 py system-map/tests/test_system_map.py          # provar que as regras não afrouxaram
+node system-map/tests/test_freshness.mjs        # provar que verde exige as quatro provas
+node system-map/scripts/publicar_no_deploy.mjs  # o que a build corre: regerar, validar, carimbar
 ```
 
 Use `python3` em vez de `py` em Linux/CI. Se o validador reprovar, **a mudança
@@ -128,6 +240,17 @@ Recarimbar sem reler é o único jeito de mentir neste sistema. Não faça isso.
 | `P8_UM_DONO` | nenhum ficheiro reivindicado por duas peças |
 | `P9_CODIGO_DECLARADO` | todo ficheiro de código pertence a uma peça do mapa |
 | `P10_STATUS_VALIDO` | status só pode ser um dos quatro valores |
+
+E as provas da frescura, em `system-map/tests/`:
+
+| | |
+|---|---|
+| `SMF-04` · `SMF-05` | `DEPLOYED != LATEST` dá STALE; iguais com `PASS` dão CURRENT |
+| `SMF-06` · `SMF-11` | cabeça remota indisponível dá UNKNOWN, **nunca** verde |
+| `SMF-07` | `SYSTEM_MAP_CHECK = FAIL` dá BROKEN mesmo com os SHA iguais |
+| `SMF-08` · `SMF-09` | cobertura não entra na decisão, e continua verdadeira quando stale |
+| `SMF-12` · `SMF-13` | o build regenera antes de publicar, e sem segundo scanner |
+| `SMF-14` · `SMF-15` | nenhum segredo no artefato público nem no bundle do cliente |
 
 Corre no CI em
 [`.github/workflows/system-map.yml`](.github/workflows/system-map.yml), em cada
