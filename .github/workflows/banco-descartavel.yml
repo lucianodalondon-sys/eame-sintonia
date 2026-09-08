@@ -28,6 +28,9 @@ on:
       - 'supabase/migrations/001_*.sql'
       - 'supabase/migrations/022_*.sql'
       - 'supabase/migrations/023_*.sql'
+      - 'supabase/migrations/024_*.sql'
+      - 'medidas/rastro_da_coleta.py'
+      - 'provas/rastro_no_postgres.py'
       - 'provas/social_persistencia_no_postgres.py'
       - 'coleta/social_persistencia.py'
       - 'provas/derived_artifact_no_postgres.py'
@@ -129,6 +132,30 @@ jobs:
         run: |
           psql "$ADMIN_URL" -c 'create database social;'
           python3 provas/social_persistencia_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/social
+
+      # O rastro da coleta: a 024 tem de APLICAR num Postgres real, e as
+      # travas dela tem de morder — ERRO sem codigo de diagnostico, contagem
+      # sem grao declarado, decisao sem versao de politica e decisao sem
+      # WHY_NOW sao todas recusadas pelo banco, nao por convencao.
+      #
+      #     NAO E OBRIGATORIO QUE 100% CHEGUE AO FIM.
+      #     E OBRIGATORIO QUE 100% TENHA EXPLICACAO.
+      #
+      # Banco proprio (`rastro`): herdar linhas de outra prova faria um caso
+      # passar por causa do estado alheio.
+      # Banco VIRGEM, e nao um nome novo: `provas/preservar_coleta_no_postgres.py`
+      # limita a lista de bancos permitidos a tres «para que crescer doa», e um
+      # teste da casa guarda esse limite. A trava esta certa — pedir o quarto
+      # nome seria afrouxa-la por conveniencia. Recriar `social` do zero da o
+      # mesmo isolamento sem tocar nela.
+      - name: 2e · o rastro da coleta aplica e as travas mordem
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists social;'
+          psql "$ADMIN_URL" -c 'create database social;'
+          python3 provas/rastro_no_postgres.py
         env:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/social

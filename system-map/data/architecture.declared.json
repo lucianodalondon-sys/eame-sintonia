@@ -1785,6 +1785,7 @@
     "provas/derived_artifact_no_postgres.py",
     "provas/preflight_022_live.sh",
     "provas/preservar_coleta_no_postgres.py",
+    "provas/rastro_no_postgres.py",
     "provas/readback_022_live.sh",
     "provas/social_persistencia_no_postgres.py",
     "provas/testa_coleta_canonica.py",
@@ -2318,6 +2319,50 @@
    ],
    "views": [
     "audit"
+   ]
+  },
+  {
+   "id": "C-RASTRO",
+   "name": "O rastro da coleta — etapa, aresta, contagem e falha",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic",
+    "trace",
+    "performance"
+   ],
+   "what": "Dono do rastro. UMA linha por passagem, que e ao mesmo tempo o STAGE TRACE, o EDGE PASSAGE (edge_from -> etapa) e o FAILURE SNAPSHOT (estado=ERROR com diagnostico). Declara o GRAO dos dois lados e contabiliza cada item num balde: passou, recusado, unknown, erro ou pulado. `accounted` e `unaccounted` sao colunas GERADAS pelo banco.",
+   "why_here": "Tres missoes seguidas acharam o mesmo defeito e sempre tarde: um estado publicado sem a medicao que o sustentaria. NAO E OBRIGATORIO QUE 100% CHEGUE AO FIM; E OBRIGATORIO QUE 100% TENHA EXPLICACAO. E o grao e obrigatorio porque 100 documentos que viram 250 alegacoes nao sao 250% de rendimento — o grao mudou, e a razao nao e rendimento.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "medidas/rastro_da_coleta.py",
+    "medidas/scanner_da_coleta.py"
+   ]
+  },
+  {
+   "id": "C-GESTAO-COLETA",
+   "name": "A politica e o diagnostico da coleta",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "⚖",
+   "views": [
+    "audit",
+    "evolution",
+    "collection-strategy"
+   ],
+   "what": "O CONTEUDO da decisao de coletar: portao de satisfacao, acoes (CHECK separado de FETCH), tiers de prioridade, ciclo de vida da fonte, papeis, procedencia de candidata, e a politica V1 deterministica em modo SHADOW. Mais os codigos de diagnostico, que dizem o que esta quebrado no fluxo. A FRONTEIRA de quem decide o que vive na peca C-GESTAO-DA-COLETA, ao lado; esta preenche-a.",
+   "why_here": "O COLLECTION MANAGER NAO E UM SEGUNDO ORQUESTRADOR: ele responde O QUE e QUANDO, e entrega uma decisao. Quem responde COMO e por qual rota continua sendo o orquestrador. Um teste por AST recusa qualquer import de executor aqui. E nao ha nota magica: as dez dimensoes ficam separadas, porque SOURCE_SCORE = 87 esconde por que a fonte vale.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "leis/politica_da_coleta.py",
+    "leis/diagnostico.py"
    ]
   }
  ],
@@ -2890,5 +2935,14 @@
    "name": "ENTREGA",
    "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado."
   }
- ]
+ ],
+ "LENTES": {
+  "ARCHITECTURE": "como esta ligado",
+  "DIAGNOSTIC": "onde esta quebrado",
+  "TRACE": "por onde passou, filtrando por corrida, fonte ou rota",
+  "PERFORMANCE": "por hora, dia, fonte, rota, executor e etapa",
+  "EVOLUTION": "versao de politica, champion, challenger, baseline, promocao",
+  "COLLECTION_STRATEGY": "por fonte: ciclo, papel, rotas, ultima verificacao, proxima",
+  "NOTA": "Sem telemetria, a lente mostra NOT_INSTRUMENTED ou NOT_MEASURED. NUNCA verde por ausencia: uma corrida sem rastro e uma corrida que ninguem mediu, e isso nao pode parecer uma corrida sa."
+ }
 }

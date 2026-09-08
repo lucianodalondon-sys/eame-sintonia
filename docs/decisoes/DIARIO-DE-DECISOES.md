@@ -1163,3 +1163,44 @@ E isso é exatamente o que a missão anterior já teve de desfazer uma vez.
 **SUPOSIÇÃO NÃO ASSUMIDA:** esta entrada não decide que a fundação ignora as
 fontes. Decide que o **gate** é por classe. Uma fonte sem rota continua sendo
 dívida registrada, com próxima prova escrita.
+
+---
+
+## 2026-09-08 · A CASA PASSA A EXIGIR NASCER DIAGNOSTICÁVEL E EVOLUTION-READY
+
+**Decisão.** `COLLECTION_FOUNDATION_CLOSED` ganha dois critérios explícitos, com
+owner e testes: **`OBSERVABILITY_READY`** e **`EVOLUTION_READY`**. A lei em
+`leis/fundacao_da_coleta.py` foi alterada — não em silêncio, e é esta entrada que
+o registra.
+
+**Quem decidiu:** o dono do projeto, na abertura desta missão.
+
+**Motivo.** Três missões seguidas acharam o mesmo tipo de defeito, e sempre
+tarde: o mapa publicava «2 estradas fechadas» e a medição disse zero; o
+instrumento dizia «sem conexão» onde havia caminho transitivo; o piloto dizia
+«houve RAW» quando o RAW era do checkout. Nos três casos o sistema **não sabia
+contar o próprio fluxo**.
+
+    UM SISTEMA QUE NÃO SABE CONTAR O PRÓPRIO FLUXO
+    PRECISA DE ALGUÉM QUE ESCREVA O NÚMERO À MÃO.
+    E O NÚMERO ESCRITO À MÃO É SEMPRE O OTIMISTA.
+
+**`OBSERVABILITY_READY` não significa** que toda rota já rodou ao vivo.
+Significa que uma rota **nova** tem contrato **obrigatório** de emitir rastro,
+contabilidade, falha, diagnóstico, custo e tempo — e que isso pode ser visto.
+
+**`EVOLUTION_READY` não significa** AI que aprende sozinha. Significa que as
+decisões são versionadas, os resultados ligáveis, e que baseline, política,
+teste de fonte e champion/challenger são representáveis.
+
+    A FUNDAÇÃO PODE FECHAR COM POLÍTICA DETERMINÍSTICA.
+    NÃO PODE FECHAR SE NÃO PRODUZ OS DADOS PARA APRENDER DEPOIS.
+
+**Estado:** os dois critérios estão **instalados e DB_TESTED**; nenhum deles
+promove a fundação. `COLLECTION_FOUNDATION_CLOSED` continua **NÃO** — as classes
+de estrada que estavam abertas continuam abertas, e esta missão não fechou
+nenhuma.
+
+**SUPOSIÇÃO NÃO ASSUMIDA:** não se decide aqui que a política determinística é
+suficiente para sempre. Decide-se que ela **basta para fechar**, desde que
+produza os dados que uma política melhor precisaria para ser comparada com ela.

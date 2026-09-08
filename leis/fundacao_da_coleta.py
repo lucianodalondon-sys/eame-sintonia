@@ -54,6 +54,33 @@ ESTADO = os.path.join('system-map', 'data', 'estradas-it.generated.json')
 #     OWNER EXISTS NAO E OWNER CONNECTED.
 COLLECTION_FOUNDATION_CLOSED = False
 
+# ── DOIS CRITERIOS NOVOS, DECIDIDOS PELO DONO DO PROJETO ─────────────────
+# A casa passa a exigir nascer DIAGNOSTICAVEL e EVOLUTION-READY. A lei nao se
+# altera em silencio: a decisao esta em `docs/decisoes/DIARIO-DE-DECISOES.md`.
+#
+# OBSERVABILITY_READY NAO significa que toda rota ja rodou ao vivo. Significa
+# que uma rota NOVA tem contrato OBRIGATORIO de emitir rastro, contabilidade,
+# falha, diagnostico, custo e tempo — e que isso pode ser visto.
+#
+# EVOLUTION_READY NAO significa AI que aprende sozinha. Significa que as
+# decisoes sao versionadas, os resultados ligaveis, e que baseline, politica,
+# teste de fonte e champion/challenger sao representaveis.
+#
+#     A FUNDACAO PODE FECHAR COM POLITICA DETERMINISTICA.
+#     NAO PODE FECHAR SE NAO PRODUZ OS DADOS PARA APRENDER DEPOIS.
+OBSERVABILITY_READY = 'OBSERVABILITY_READY'
+EVOLUTION_READY = 'EVOLUTION_READY'
+
+CRITERIOS_NOVOS = {
+    OBSERVABILITY_READY: (
+        'medidas/rastro_da_coleta.py + leis/diagnostico.py + migration 024. '
+        'DB_TESTED em PostgreSQL 16 descartavel; NAO aplicada em producao.'),
+    EVOLUTION_READY: (
+        'leis/gestao_da_coleta.py: decisao versionada, satisfacao antes do '
+        'gasto, ciclo de vida da fonte, champion/challenger e rollback como '
+        'contrato. Nenhuma promocao automatica.'),
+}
+
 AREAS_CONGELADAS = (
     'FIELD_VOICES', 'OPPORTUNITY', 'SIGNALS', 'SCORING',
     'RECOMMENDATIONS', 'PORTAL_INTELLIGENCE_WIRING',
@@ -76,6 +103,8 @@ def pode_implementar_inteligencia():
 if __name__ == '__main__':
     pode, motivo = pode_implementar_inteligencia()
     print('COLLECTION_FOUNDATION_CLOSED = %s' % ('SIM' if COLLECTION_FOUNDATION_CLOSED else 'NAO'))
+    for k, v in sorted(CRITERIOS_NOVOS.items()):
+        print('%-24s %s' % (k, v[:60]))
     print('INTELLIGENCE_IMPLEMENTATION  = %s' % ('LIBERADA' if pode else BLOQUEIO))
     print()
     print(motivo)
