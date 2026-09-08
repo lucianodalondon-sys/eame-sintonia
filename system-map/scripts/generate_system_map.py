@@ -571,6 +571,114 @@ def sem_comentarios(texto: str) -> str:
     return "\n".join(fora)
 
 
+def o_corte_do_pdf() -> tuple[list, list]:
+    """O maior buraco medido da Italia, desenhado como buraco.
+
+    O DESENHO QUE ISTO PRODUZ
+
+        EVIDENCIA BRUTA (PDF)
+                |
+                v
+        [ DERIVACAO DE TEXTO — AUSENTE ]   <- a tesoura
+                x
+        TEXTO QUE A MAQUINA LE
+                |
+                v
+        VOCABULARIO / CLASSIFICACAO / PENEIRA
+
+    POR QUE E UMA PECA E NAO UMA NOTA DE RODAPE
+
+    Ate aqui o mapa dizia «corpus» e metia numa palavra so duas coisas que nao
+    sao a mesma: o que esta GUARDADO e o que da para LER. Com uma palavra so,
+    62,7 MB de PDF pareciam corpus farto, e o sistema parecia bem alimentado.
+
+    Nao esta. 43 dos 49 PDF italianos nunca viraram texto. Os 6 que viraram,
+    viraram a mao — nao ha codigo nenhum que o faca.
+
+    E isto muda a ordem do trabalho: nao adianta melhorar palavras, peneira ou
+    disparo enquanto a evidencia estiver fechada dentro do PDF. Nenhuma
+    palavra, por melhor que seja, encontra texto que nao existe.
+
+    CUIDADO COM A LINGUAGEM, QUE AQUI JA SE ERROU
+
+    62,7 MB de PDF NAO e prova de milhoes de caracteres. Megabyte nao e
+    caractere: um PDF de 6 MB tanto pode ser cinquenta paginas escritas como
+    uma unica fotografia digitalizada. O numero antigo continua NAO REPRODUZIDO
+    COMO TEXTO; o que esta provado e o acervo bruto, e escreve-se como acervo
+    bruto.
+
+    NOTA SOBRE O QUE O MAPA CONSEGUE VER
+
+    O scanner ignora ficheiros binarios de proposito — nao sabe ler um PDF. Ou
+    seja: os 49 documentos mais ricos da Italia sao INVISIVEIS para o mapa pela
+    via normal. Este cartao existe para eles deixarem de o ser, e os numeros
+    dele vem do censo, que os conta pelo disco.
+    """
+    f = DADOS / "corpus-it.generated.json"
+    if not f.is_file():
+        return [], []
+    C = json.loads(f.read_text(encoding="utf-8"))
+    B = C.get("BRUTO_POR_LER") or {}
+    T = C.get("TOTAIS") or {}
+
+    n_pdf = B.get("FICHEIROS", 0)
+    mb = B.get("MEGABYTES", 0)
+    com = B.get("PDF_COM_TEXTO_DERIVADO", 0)
+    sem = B.get("PDF_SEM_TEXTO_DERIVADO", 0)
+    ja = B.get("CARACTERES_JA_DERIVADOS_DOS_PDF", 0)
+    prosa = T.get("CORPO_DE_TEXTO_EM_CARACTERES", 0)
+
+    bruto = {
+        "id": "C-IT-PDF-BRUTO", "name": "Evidência bruta em PDF (Itália)",
+        "kind": "acervo", "icon": "▤",
+        "territory": "Z-GUARDA", "family": "F-ESPERA",
+        "status": CINZA, "ui_status": "gray", "proof": "git-measurement",
+        "what": (f"{n_pdf} documentos italianos guardados em PDF — boletins "
+                 f"regionais, bilanci fitosanitari, diretrizes. {mb} MB. É o "
+                 f"material mais rico que a Itália tem, e {sem} deles estão "
+                 f"fechados: ninguém os transformou em texto."),
+        "why_here": ("Enquanto o mapa dizia «corpus» numa palavra só, isto "
+                     "parecia alimento do sistema. Não é: está guardado, não "
+                     "está legível."),
+        "files": [], "file_count": n_pdf,
+        "facts": [
+            f"PDF italianos guardados: {n_pdf}",
+            f"tamanho em disco: {mb} MB",
+            f"PDF COM texto derivado: {com} de {n_pdf}",
+            f"PDF SEM texto derivado: {sem} de {n_pdf}",
+            "caracteres dentro dos PDF: NÃO MEDIDO — abrir PDF é derivar, não medir",
+            f"{mb} MB NÃO é prova de milhões de caracteres: megabyte não é caractere",
+            "o antigo «milhões de caracteres» continua NÃO REPRODUZIDO COMO TEXTO",
+        ],
+        "status_reason": (
+            f"NÃO SEI o que está escrito aqui dentro. O scanner não lê ficheiro "
+            f"binário, e nenhum passo do sistema abre estes {n_pdf} PDF. Eles "
+            f"existem, estão contados pelo disco, e o seu conteúdo é invisível "
+            f"para tudo o que vem a seguir."),
+        "evidence_text": "system-map/data/corpus-it.generated.json → BRUTO_POR_LER",
+        "departments": ["ENGENHARIA"], "views": ["acervo", "infra", "audit"],
+        "lane": "official", "legacy": False, "changed_since_declared": [],
+        "inbound": [], "outbound": [],
+    }
+
+    ligacoes = [{
+        "from": "C-IT-PDF-BRUTO", "to": "C-IT-TEXTO-PESQUISAVEL",
+        "type": "DERIVA_TEXTO", "kind": "expected",
+        "status": CINZA, "evidence": [],
+        "reason": (
+            f"⚪ O CORTE. Aqui devia estar o passo que abre o PDF e guarda o "
+            f"texto — e não existe. {sem} dos {n_pdf} PDF italianos nunca foram "
+            f"derivados; os {com} que foram, foram à mão ({ja} letras em "
+            f"ficheiros .txt ao lado), sem nenhuma linha de código a fazê-lo. "
+            f"Do outro lado do corte há {prosa} letras de prosa nas planilhas. "
+            f"Este é o maior buraco medido da Itália, e não é problema de "
+            f"vocabulário: nenhuma palavra encontra texto que não existe."),
+        "source": "system-map/data/corpus-it.generated.json",
+        "declared_by": "missao system-map-canonical-v1, etapa 2.6",
+    }]
+    return [bruto], ligacoes
+
+
 def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
     """Um cartao por canal, e uma seta de cada acao para o canal que ela usa.
 
@@ -2053,6 +2161,9 @@ def main_uma_vez(stamp: bool) -> int:
     veiculos, lig_veiculos = os_veiculos(comps, dono, G)
     gerados += veiculos
 
+    pdf_nos, lig_pdf = o_corte_do_pdf()
+    gerados += pdf_nos
+
     # ── 2 · arestas de ficheiro sobem para arestas de componente ─────────────
     # Cada aresta de componente carrega TODAS as linhas que a provam. E o que
     # responde "por que existe esta seta?" com dedo apontado, nao com opiniao.
@@ -2258,6 +2369,13 @@ def main_uma_vez(stamp: bool) -> int:
     # duas leituras; a diferenca e qual delas o mapa desenha, e o mapa desenha
     # o dado.
     nome_da_peca = {c["id"]: c["name"] for c in comps}
+
+    # O CORTE do PDF entra como aresta cinzenta: declarada pela medicao, e sem
+    # uma linha de codigo que a prove — porque o passo nao existe. E exatamente
+    # o que uma aresta cinzenta quer dizer.
+    for lp in lig_pdf:
+        ligacoes[(lp["from"], lp["to"], lp["type"])] = lp
+
     for lv in lig_veiculos:
         # AS FONTES entregam ao canal a lista de onde ir. E a unica coisa que um
         # canal recebe, e sem ela «colher o YouTube» nao quer dizer nada:

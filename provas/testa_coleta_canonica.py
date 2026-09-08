@@ -264,6 +264,46 @@ prova("L4_a_versao_da_lei_subiu",
       "a lei mudou; sem subir a versao nao ha como reabrir o que a versao 1 "
       "rejeitou por ausencia")
 
+# ══ AS CONTAS DA SEMANTICA TEM DE FECHAR ═══════════════════════════════════
+# Os numeros «482 termos» e «68 termos» andaram a circular e nao somavam,
+# porque se contava tudo o que parecia palavra em dezassete listas diferentes.
+# Uma conta que nao fecha nao e uma medida: e um palpite com ar de numero.
+_SEMANTICA = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(
+    __file__))), 'system-map', 'data', 'semantica-it.generated.json')
+if os.path.exists(_SEMANTICA):
+    _S = json.load(open(_SEMANTICA, encoding='utf-8'))
+    _c = _S['COUNTS']
+    prova("T1_o_censo_semantico_fecha",
+          _c.get('todas_as_contas_fecham') is True
+          and sum(_c['por_papel'].values()) == _c['termos_ao_todo'],
+          "a soma dos papeis tem de dar o total de termos; se nao der, "
+          "perderam-se termos pelo caminho e ninguem se queixou")
+else:
+    prova("T1_o_censo_semantico_fecha", False,
+          "falta system-map/data/semantica-it.generated.json — corre o censo")
+
+# ══ O VOCABULARIO DE BUSCA QUE A ITALIA USA DE FACTO ════════════════════════
+import sensor_coleta as sc  # noqa: E402
+
+_LOTES_IT = ('C', 'D', 'E')
+_fora_it = [c for L in _LOTES_IT for c in sc.LOTES[L] if not c.startswith('IT-')]
+prova("T2_os_lotes_italianos_sao_so_italianos",
+      not _fora_it,
+      "os lotes C, D e E sao a rota italiana; um recorte estrangeiro aqui "
+      "dentro entra sem ninguem reparar. Intrusos: %s" % (_fora_it or 'nenhum'))
+
+# A regua que MEDE e trilingue de proposito — nao e o mesmo que a regua que
+# BUSCA. Buscar em espanhol num projeto italiano gasta dinheiro a trazer o pais
+# errado; reconhecer uma palavra espanhola num texto que ja se tem nao gasta
+# nada e ate ajuda. Sao duas coisas, e o mapa tem de continuar a separa-las.
+import sensor_medir as sm  # noqa: E402
+
+prova("T3_medir_nao_e_buscar",
+      sm is not sc and hasattr(sm, '_tem'),
+      "a regua de classificacao e um modulo separado do sensor de busca; "
+      "junta-las poria vocabulario espanhol dentro de uma busca paga")
+
+
 # ══ A PORTA DAS TRASEIRAS DO ESCOPO ════════════════════════════════════════
 # Os lotes A e B foram tirados do menu do GitHub quando se viu que levavam
 # recortes espanhois e franceses. O menu escondeu o botao; o codigo continuou
@@ -324,6 +364,161 @@ prova("T8_a_rota_italiana_nao_importa_voz",
       "voz.py tem vocabulario espanhol; se a rota italiana passar a importa-lo, "
       "esse espanhol entra na classificacao italiana. Importam hoje: %s"
       % (_importam_voz or 'ninguem'))
+
+
+# ══ A SAIDA DE EMERGENCIA NAO PODE SER UM ATALHO ═══════════════════════════
+# `--fora-do-escopo` existe para o caso raro de alguem querer mesmo repetir uma
+# coleta antiga de Espanha ou Franca. Isso e legitimo numa ferramenta generica.
+#
+# O que NAO pode acontecer e a rota italiana conseguir aciona-lo. Uma porta de
+# emergencia com a chave pendurada ao lado deixa de ser porta de emergencia.
+#
+#     UMA EXCECAO QUE QUALQUER CAMINHO CONSEGUE PEDIR NAO E EXCECAO: E A REGRA.
+_FUGA = ('--fora-do-escopo', 'SINTONIA_FORA_DO_ESCOPO')
+
+
+def _quem_diz(palavras, pastas, saltar=()):
+    """Que ficheiros escrevem uma destas palavras?"""
+    achados = []
+    for g in pastas:
+        base = os.path.join(_RAIZ, g)
+        if os.path.isfile(base):
+            alvos = [base]
+        else:
+            alvos = [os.path.join(d, f)
+                     for d, _, fs in os.walk(base) for f in fs
+                     if f.endswith(('.py', '.yml', '.yaml', '.sh'))]
+        for p in alvos:
+            rel = os.path.relpath(p, _RAIZ).replace('\\', '/')
+            if rel in saltar:
+                continue
+            try:
+                txt = open(p, encoding='utf-8').read()
+            except Exception:
+                continue
+            if any(w in txt for w in palavras):
+                achados.append(rel)
+    return achados
+
+
+# A ferramenta onde a saida vive, e as provas que a testam, sao os unicos
+# sitios onde a palavra pode aparecer. Tudo o resto e um atalho.
+_PERMITIDO = ('regras/sensor_coleta.py', 'provas/testa_coleta_canonica.py')
+
+_botoes = _quem_diz(_FUGA, ['.github/workflows'], _PERMITIDO)
+prova("T9_nenhum_botao_pede_fora_do_escopo",
+      not _botoes,
+      "um botao do GitHub que ja traz a excecao escrita e uma coleta "
+      "estrangeira a um clique de distancia. Botoes que a pedem: %s"
+      % (_botoes or 'nenhum'))
+
+_rota = _quem_diz(_FUGA, ['coleta', 'admissao', 'orquestrador', 'pedido',
+                          'leis', 'regras'], _PERMITIDO)
+prova("T10_a_rota_italiana_nao_aciona_a_saida",
+      not _rota,
+      "nenhum ficheiro do caminho canonico pode pedir a excecao. Pedem: %s"
+      % (_rota or 'nenhum'))
+
+prova("T11_a_saida_so_atende_a_quem_a_escreve_por_fora",
+      not sc.fora_do_escopo_pedido(),
+      "numa corrida normal, sem ninguem escrever nada, a saida tem de estar "
+      "fechada — e o valor por omissao tem de ser o cofre, nao a porta aberta")
+
+
+# ══ O CORTE DO PDF, DESENHADO COMO CORTE ═══════════════════════════════════
+# O maior buraco medido da Italia nao e de vocabulario: e que a evidencia mais
+# rica esta fechada dentro de PDF e nunca vira texto. Se isso nao estiver no
+# mapa, volta a ser descoberto do zero daqui a tres meses.
+_CORPUS = os.path.join(_RAIZ, 'system-map', 'data', 'corpus-it.generated.json')
+_MAPA = os.path.join(_RAIZ, 'system-map', 'data', 'state.generated.json')
+
+if os.path.exists(_CORPUS):
+    _C = json.load(open(_CORPUS, encoding='utf-8'))
+    _B = _C['BRUTO_POR_LER']
+    prova("T12_o_censo_do_corpo_fecha",
+          sum(g['ficheiros'] for g in _C['POR_GAVETA'].values())
+          == _C['TOTAIS']['FICHEIROS_ITALIANOS'],
+          "as gavetas tem de somar o total de ficheiros; uma medicao que perde "
+          "um ficheiro sem se queixar e pior que uma que falha alto")
+
+    prova("T13_guardado_e_legivel_sao_dois_numeros",
+          _B['PDF_COM_TEXTO_DERIVADO'] + _B['PDF_SEM_TEXTO_DERIVADO']
+          == _B['FICHEIROS'],
+          "quantos PDF tem texto e quantos nao tem tem de somar o total; sem "
+          "isso volta-se a dizer «corpus» e a juntar o guardado com o legivel")
+
+    prova("T14_os_caracteres_dentro_do_PDF_continuam_nao_medidos",
+          isinstance(_B['CARACTERES'], str) and 'NAO MEDIDO' in _B['CARACTERES'],
+          "62,7 MB de PDF NAO e prova de milhoes de caracteres. Megabyte nao e "
+          "caractere: um PDF de 6 MB tanto pode ser cinquenta paginas escritas "
+          "como uma unica fotografia digitalizada. Enquanto ninguem os abrir, "
+          "o numero e NAO MEDIDO — e escreve-se assim")
+else:
+    for _t in ('T12_o_censo_do_corpo_fecha',
+               'T13_guardado_e_legivel_sao_dois_numeros',
+               'T14_os_caracteres_dentro_do_PDF_continuam_nao_medidos'):
+        prova(_t, False, 'falta system-map/data/corpus-it.generated.json')
+
+if os.path.exists(_MAPA):
+    _M = json.load(open(_MAPA, encoding='utf-8'))
+    _corte = [e for e in _M['EDGES'] if e.get('type') == 'DERIVA_TEXTO']
+    prova("T15_o_corte_esta_desenhado_no_mapa",
+          len(_corte) == 1 and _corte[0]['from'] == 'C-IT-PDF-BRUTO'
+          and not _corte[0].get('evidence'),
+          "o passo que abre o PDF nao existe; a seta tem de estar la e tem de "
+          "estar CINZENTA, sem uma linha de codigo a prova-la. Buraco que nao "
+          "se desenha volta a ser descoberto do zero")
+
+    _bruto = [n for n in _M['NODES'] if n['id'] == 'C-IT-PDF-BRUTO']
+    prova("T16_a_peca_do_bruto_nao_promete_milhoes",
+          _bruto and not any('milhõe' in str(f).lower() and 'NÃO' not in str(f)
+                             for f in _bruto[0].get('facts', [])),
+          "a peca conta ficheiros e megabytes; se ela comecar a falar de "
+          "milhoes de caracteres, voltou a juntar dois factos diferentes")
+else:
+    for _t in ('T15_o_corte_esta_desenhado_no_mapa',
+               'T16_a_peca_do_bruto_nao_promete_milhoes'):
+        prova(_t, False, 'falta system-map/data/state.generated.json')
+
+
+# ══ COBERTURA NAO E PRECISAO ═══════════════════════════════════════════════
+_RECALL = os.path.join(_RAIZ, 'system-map', 'data', 'recall-porta-it.generated.json')
+if os.path.exists(_RECALL):
+    _R = json.load(open(_RECALL, encoding='utf-8'))
+    prova("T17_o_recall_diz_o_que_nao_prova",
+          'NAO SEI' in _R.get('O_QUE_ISTO_NAO_DIZ', ''),
+          "42 SIM em 49 e COBERTURA: quantos a peneira apanha. Sem alguem que "
+          "leia italiano a marcar a mao o que devia passar, se as 42 estao "
+          "CERTAS continua NAO SEI, e o ficheiro tem de dizer isso em voz alta")
+else:
+    prova("T17_o_recall_diz_o_que_nao_prova", False,
+          'falta system-map/data/recall-porta-it.generated.json')
+
+
+# ══ NENHUM PAIS FORA DA ITALIA FOI TOCADO ══════════════════════════════════
+# O escopo desta missao e absoluto: so Italia. Espanha e Franca sao lidas para
+# provar que nao vazam, e mais nada. Esta prova mede isso no proprio historico
+# — a unica testemunha que nao depende de ninguem se lembrar.
+import subprocess  # noqa: E402
+
+_BASE = 'origin/main'
+try:
+    _mudados = subprocess.run(
+        ['git', '-C', _RAIZ, 'diff', '--name-only', _BASE + '...HEAD'],
+        capture_output=True, text=True, encoding='utf-8').stdout.split()
+except Exception:
+    _mudados = []
+
+_OUTROS = ('data/samples/ES-', 'data/samples/FR-', 'coleta/es/',
+           'data/collection-store/spain', 'data/collection-store/france')
+_tocados = [f for f in _mudados
+            if any(f.replace('\\', '/').startswith(p) for p in _OUTROS)]
+# Se o git nao respondeu, esta prova passa por nao ter medido nada — e uma
+# prova que passa por nao medir e pior do que nenhuma prova.
+prova("T18_nenhum_pais_fora_da_italia_foi_alterado",
+      bool(_mudados) and not _tocados,
+      "Espanha e Franca sao so de leitura nesta missao. Ficheiros de outro "
+      "pais alterados: %s" % (_tocados or 'nenhum'))
 
 
 print()

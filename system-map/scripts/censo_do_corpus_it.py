@@ -11,9 +11,20 @@ contagem nunca tinha sido escrita. Conta que não se repete não é medida.
 Por isso a conta passou a viver aqui, em código, e corre outra vez sempre que
 alguém duvidar.
 
-E a frase dos milhões tinha razão. Só estava a falar de outro sítio: os
-caracteres estão dentro de 49 PDF guardados no disco, que ninguém transformou
-em texto. Ver `o_bruto_por_ler()`, mais abaixo.
+E a busca por esse número antigo encontrou outra coisa — mais importante, e
+que tem de ser escrita com as palavras certas:
+
+    ANTIGO «MILHÕES DE CARACTERES»  =  NÃO REPRODUZIDO COMO TEXTO
+    ACHADO NOVO, COMPROVADO         =  49 PDF italianos
+                                    =  62,7 MB de evidência bruta
+                                    =  43 deles sem derivação de texto
+
+Um erro que quase se cometeu aqui: dizer «encontrei os milhões, estão nos
+PDF». Não está provado. Megabyte não é caractere — um PDF de 6 MB tanto pode
+ser cinquenta páginas escritas como uma única fotografia digitalizada. São
+dois factos separados e escrevem-se separados.
+
+Ver `o_bruto_por_ler()`, mais abaixo.
 
 A DISTINÇÃO QUE MUDA TUDO
 -------------------------
@@ -192,24 +203,86 @@ def gaveta(nome: str, registos: int, caracteres: int) -> tuple:
             'sei e a resposta honesta, nao uma falha da medicao')
 
 
-def o_bruto_por_ler():
-    """Os PDF italianos guardados — o material cru que ninguém transformou.
+def _prosa_no_mesmo_registo(no, alvo: str):
+    """Encontra a LINHA que fala deste PDF e vê se ela guarda prosa.
 
-    Aqui está a resposta ao número que ninguém conseguia repetir. A frase
-    «milhões de caracteres» aparece escrita uma vez neste repositório, em
-    `regional-bulletin-sources.json`: «mais de 2,2 milhões de caracteres
+    A primeira versão desta função perguntava outra coisa: «esta planilha cita
+    o PDF, e esta planilha tem prosa em algum sítio?». Isso dava 31 de 49, e
+    era falso. Uma planilha com trinta boletins pode citar um PDF numa linha e
+    ter prosa noutra linha completamente diferente — a prosa é de outro
+    documento.
+
+        MENCIONAR NÃO É USAR. Quinta vez que esta armadilha aparece na casa.
+
+    A pergunta certa é mais apertada: existe uma LINHA que nomeia este PDF e
+    que, dentro dela mesma, guarda o texto? Se sim, o PDF foi lido. Se não, o
+    PDF está guardado e continua fechado.
+    """
+    achou = False
+    if isinstance(no, dict):
+        cita = any(isinstance(v, str) and alvo in v for v in no.values())
+        if cita:
+            saco = {'registos': 0, 'registos_com_texto': 0,
+                    'objetos_em_lista': 0, 'caracteres': 0, 'campos': {}}
+            varrer(no, saco)
+            if saco['caracteres'] >= 200:
+                return True  # 200 letras: uma linha de prosa, não um rótulo
+        for v in no.values():
+            achou = achou or _prosa_no_mesmo_registo(v, alvo)
+            if achou:
+                return True
+    elif isinstance(no, list):
+        for x in no:
+            if _prosa_no_mesmo_registo(x, alvo):
+                return True
+    return achou
+
+
+def _tem_texto_derivado(nome_pdf: str, indice_de_prosa: dict):
+    """Existe, em algum sítio, o texto que saiu deste PDF?
+
+    Devolve (sim_ou_nao, onde). Ver `_prosa_no_mesmo_registo` para a regra —
+    ela é apertada de propósito.
+    """
+    base = os.path.basename(nome_pdf)
+    onde = []
+    for ficheiro, (bruto, arvore) in indice_de_prosa.items():
+        if base not in bruto or arvore is None:
+            continue
+        if _prosa_no_mesmo_registo(arvore, base):
+            onde.append(ficheiro)
+    return bool(onde), onde
+
+
+def o_bruto_por_ler(indice_de_prosa):
+    """Os PDF italianos guardados, e quais deles viraram texto.
+
+    ATENÇÃO À LINGUAGEM, porque aqui já se errou uma vez.
+
+    A frase «milhões de caracteres» aparece escrita uma vez neste repositório,
+    em `regional-bulletin-sources.json`: «mais de 2,2 milhões de caracteres
     somados», a falar de treze PDF de boletim regional.
 
-    Esses caracteres EXISTEM. Estão dentro dos PDF, no disco. O que nunca
-    aconteceu foi alguém transformá-los em texto dentro das planilhas — e é por
-    isso que a busca por texto encontrava quase nada.
+    Encontrar 49 PDF e 62,7 MB **não prova** que existem milhões de caracteres.
+    Megabyte não é caractere: um PDF de 6 MB pode ser cinquenta páginas de
+    texto ou uma única fotografia digitalizada. São dois factos separados, e
+    juntá-los foi exatamente o erro que se tentava consertar:
+
+        ANTIGO «MILHÕES DE CARACTERES»  =  NÃO REPRODUZIDO COMO TEXTO
+        ACHADO NOVO, COMPROVADO         =  49 PDF italianos
+                                        =  62,7 MB de evidência bruta
+                                        =  sem derivação de texto localizada
+
+    O achado novo é mais importante que o número antigo. Mas é OUTRO facto, e
+    escreve-se como outro facto.
 
         TER O DOCUMENTO NÃO É TER O TEXTO.
         É a diferença entre ter o livro na estante e ter o livro lido.
 
-    Contam-se aqui os ficheiros e os megabytes. NÃO se conta caracteres: para
-    isso era preciso abrir os PDF, e abrir PDF é derivação, não medição. Se um
-    dia alguém os abrir, esse número entra por uma porta própria, com recibo.
+    Contam-se aqui ficheiros, megabytes, e quantos têm texto derivado. NÃO se
+    contam caracteres: para isso era preciso abrir os PDF, e abrir PDF é
+    derivação, não medição. Se um dia alguém os abrir, esse número entra por
+    uma porta própria, com recibo.
     """
     achados = []
     for dirp, _, fs in os.walk(RAIZ):
@@ -221,10 +294,62 @@ def o_bruto_por_ler():
             rel = os.path.relpath(os.path.join(dirp, f), RAIZ).replace('\\', '/')
             if not e_italiano(rel):
                 continue
-            achados.append({'FICHEIRO': rel,
-                            'BYTES': os.path.getsize(os.path.join(dirp, f))})
+            tem, onde = _tem_texto_derivado(rel, indice_de_prosa)
+            # Um ficheiro de texto ao lado do PDF também conta como derivação.
+            derivado = 0
+            irmao = os.path.splitext(os.path.join(dirp, f))[0]
+            for ext in ('.txt', '.md', '.text'):
+                if os.path.exists(irmao + ext):
+                    tem = True
+                    onde.append(os.path.relpath(irmao + ext, RAIZ)
+                                .replace('\\', '/'))
+                    try:
+                        derivado += len(io.open(irmao + ext,
+                                                encoding='utf-8').read())
+                    except Exception:
+                        pass
+            achados.append({
+                'FICHEIRO': rel,
+                'BYTES': os.path.getsize(os.path.join(dirp, f)),
+                'TEM_TEXTO_DERIVADO': tem,
+                'CARACTERES_JA_DERIVADOS': derivado,
+                'ONDE_ESTA_O_TEXTO': onde,
+            })
     achados.sort(key=lambda x: -x['BYTES'])
     return achados
+
+
+def indice_de_quem_cita_pdf():
+    """Para cada planilha do repositório: que nomes cita, e quanta prosa tem.
+
+    É a lista telefónica que permite perguntar «este PDF virou texto em algum
+    sítio?». Sem ela, a resposta só poderia ser um palpite.
+    """
+    indice = {}
+    for pasta in ('data', 'build', 'docs'):
+        base = os.path.join(RAIZ, pasta)
+        if not os.path.isdir(base):
+            continue
+        for dirp, _, fs in os.walk(base):
+            for f in fs:
+                if not f.endswith(('.json', '.ndjson', '.md')):
+                    continue
+                caminho = os.path.join(dirp, f)
+                rel = os.path.relpath(caminho, RAIZ).replace('\\', '/')
+                try:
+                    bruto = io.open(caminho, encoding='utf-8').read()
+                except Exception:
+                    continue
+                if '.pdf' not in bruto.lower():
+                    continue  # não cita PDF nenhum: não interessa aqui
+                arvore = None
+                if f.endswith('.json'):
+                    try:
+                        arvore = json.loads(bruto)
+                    except Exception:
+                        arvore = None
+                indice[rel] = (bruto, arvore)
+    return indice
 
 
 def main():
@@ -262,7 +387,7 @@ def main():
                     'PORQUE': porque,
                 })
 
-    brutos = o_bruto_por_ler()
+    brutos = o_bruto_por_ler(indice_de_quem_cita_pdf())
     fichas.sort(key=lambda x: -x['CARACTERES_DE_TEXTO'])
     total_reg = sum(f['REGISTOS'] for f in fichas)
     total_obj = sum(f['OBJETOS_DENTRO_DE_LISTAS'] for f in fichas)
@@ -312,6 +437,9 @@ def main():
                         'SIM, TEXT_DERIVATION_EXISTS=NAO.'),
             'FICHEIROS': len(brutos),
             'MEGABYTES': round(sum(b['BYTES'] for b in brutos) / 1e6, 1),
+            'PDF_COM_TEXTO_DERIVADO': sum(1 for b in brutos if b['TEM_TEXTO_DERIVADO']),
+            'PDF_SEM_TEXTO_DERIVADO': len(brutos) - sum(1 for b in brutos if b['TEM_TEXTO_DERIVADO']),
+            'CARACTERES_JA_DERIVADOS_DOS_PDF': sum(b['CARACTERES_JA_DERIVADOS'] for b in brutos),
             'CARACTERES': ('NAO MEDIDO — abrir PDF e derivar, nao medir. '
                            'Entra por porta propria, com recibo.'),
             'LISTA': brutos,
@@ -344,7 +472,15 @@ def main():
     print('    ficheiros ........... %d' % len(brutos))
     print('    megabytes ........... %.1f'
           % (sum(b['BYTES'] for b in brutos) / 1e6))
-    print('    caracteres .......... NAO MEDIDO (abrir PDF e derivar)')
+    _com = sum(1 for b in brutos if b['TEM_TEXTO_DERIVADO'])
+    print('    com texto derivado .. %d / %d' % (_com, len(brutos)))
+    print('    SEM texto derivado .. %d / %d' % (len(brutos) - _com, len(brutos)))
+    print('    letras ja derivadas . %d (nos .txt ao lado dos PDF)'
+          % sum(b['CARACTERES_JA_DERIVADOS'] for b in brutos))
+    print('    caracteres nos PDF .. NAO MEDIDO — abrir PDF e derivar.')
+    print('                          62,7 MB NAO e prova de milhoes de letras:')
+    print('                          um PDF de 6 MB pode ser 50 paginas de texto')
+    print('                          ou uma unica fotografia digitalizada.')
     print()
     print('  gravado: %s' % os.path.relpath(SAIDA, RAIZ).replace('\\', '/'))
 

@@ -1820,6 +1820,26 @@
       "views": [
         "audit"
       ]
+    },
+    {
+      "id": "C-IT-TEXTO-PESQUISAVEL",
+      "name": "O texto que a máquina consegue ler",
+      "territory": "Z-GUARDA",
+      "kind": "store",
+      "icon": "▤",
+      "what": "O texto italiano já derivado: 6 ficheiros .txt tirados à mão de PDF (48.730 letras) mais 50.537 letras de prosa dentro das planilhas. É só isto que o vocabulário, a classificação e a peneira conseguem alcançar.",
+      "why_here": "É o outro lado do corte. Ter 62,7 MB guardados e ter isto para ler são factos separados, e escrevem-se separados.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "data/samples/IT-ARPAV-VENETO/*.txt",
+        "data/samples/PIEMONTE-FD/*.txt"
+      ],
+      "views": [
+        "infra",
+        "audit"
+      ]
     }
   ],
   "BUSINESS_EDGES": [
@@ -1860,7 +1880,17 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "EXPECTED_EDGES": [],
+  "EXPECTED_EDGES": [
+    {
+      "from": "C-IT-TEXTO-PESQUISAVEL",
+      "to": "C-ADMISSAO",
+      "type": "ALIMENTA",
+      "reason": "Depois do corte, o caminho existe: o texto que a máquina consegue ler é o que chega ao vocabulário, à classificação e à peneira. Medido: dos 49 itens italianos com texto, 42 passaram e 7 ficaram em NÃO SEI.",
+      "source": "system-map/data/recall-porta-it.generated.json",
+      "declared_by": "missao system-map-canonical-v1, etapa 2.6",
+      "declared_at": "2026-09-07"
+    }
+  ],
   "DECLARED_BLOBS": {
     ".github/workflows/apify-conexao.yml": "2c37dc40f924a3474c65b049793afc9b525347ba",
     ".github/workflows/apify-sensores.yml": "d9890ae3d47b6b07bb2832697bf55a51dfcacfff",

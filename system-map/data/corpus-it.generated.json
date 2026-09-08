@@ -179,203 +179,365 @@
   "O_QUE_E": "PDF italianos guardados no disco. O texto deles existe e NAO foi derivado para nenhuma planilha. RAW_EXISTS=SIM, TEXT_DERIVATION_EXISTS=NAO.",
   "FICHEIROS": 49,
   "MEGABYTES": 62.7,
+  "PDF_COM_TEXTO_DERIVADO": 6,
+  "PDF_SEM_TEXTO_DERIVADO": 43,
+  "CARACTERES_JA_DERIVADOS_DOS_PDF": 48730,
   "CARACTERES": "NAO MEDIDO — abrir PDF e derivar, nao medir. Entra por porta propria, com recibo.",
   "LISTA": [
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/7_Alesi_olivo-2025_-Bilancio-Fitosanitario-Marche.pdf",
-    "BYTES": 6585313
+    "BYTES": 6585313,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-ARPAV-VENETO/lug2026.pdf",
-    "BYTES": 5969919
+    "BYTES": 5969919,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-011/0286_26_Agrios_Broschuere_Richtlinien_integrierte_Kernobstbau_IT_WEB.pdf",
-    "BYTES": 5705903
+    "BYTES": 5705903,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-ARPAV-VENETO/vite_20_270826.pdf",
-    "BYTES": 4255572
+    "BYTES": 4255572,
+    "TEM_TEXTO_DERIVADO": true,
+    "CARACTERES_JA_DERIVADOS": 8398,
+    "ONDE_ESTA_O_TEXTO": [
+     "data/samples/IT-ARPAV-VENETO/vite_20_270826.txt"
+    ]
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/11_Altieri_Bilancio-Fitosanitario-Olivo-2024-25-Basilicata.pdf",
-    "BYTES": 3991102
+    "BYTES": 3991102,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N35_26-08-2026.pdf",
-    "BYTES": 2723072
+    "BYTES": 2723072,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/collection-store/italy/IT-T3-008/ARIF_SETTIMANALE_2026_N36/v1_e612807928b5/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
-    "BYTES": 2703344
+    "BYTES": 2703344,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
-    "BYTES": 2703344
+    "BYTES": 2703344,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-ARPAV-VENETO/vite_19_130826.pdf",
-    "BYTES": 2151289
+    "BYTES": 2151289,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/35_boll_agro_20260831.pdf",
-    "BYTES": 1787024
+    "BYTES": 1787024,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/collection-store/italy/IT-T3-010/APOL_2026_N9_BR-COLLINA/v1_59da05274359/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
-    "BYTES": 1653200
+    "BYTES": 1653200,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
-    "BYTES": 1653200
+    "BYTES": 1653200,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_8_del_31_08_2026.pdf",
-    "BYTES": 1633428
+    "BYTES": 1633428,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Giornaliero_Meteorologico_N136_07-09-2026.pdf",
-    "BYTES": 1446423
+    "BYTES": 1446423,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/34_boll_agro_20260824.pdf",
-    "BYTES": 1401464
+    "BYTES": 1401464,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/TN_DIB25_28ago2026.pdf",
-    "BYTES": 1063378
+    "BYTES": 1063378,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/TN_DIB23_14ago2026.pdf",
-    "BYTES": 902669
+    "BYTES": 902669,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/TN_DIB24_21ago2026.pdf",
-    "BYTES": 862739
+    "BYTES": 862739,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/TN_DIB22_07ago2026.pdf",
-    "BYTES": 846135
+    "BYTES": 846135,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/collection-store/italy/IT-T3-002/CAMPANIA_SA_02-09-2026/v1_0c2723e66201/SA-02-09.pdf",
-    "BYTES": 813109
+    "BYTES": 813109,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-02-09.pdf",
-    "BYTES": 813109
+    "BYTES": 813109,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_SA-26-08.pdf",
-    "BYTES": 810656
+    "BYTES": 810656,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-26-08.pdf",
-    "BYTES": 810656
+    "BYTES": 810656,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_CE-26-08.pdf",
-    "BYTES": 771279
+    "BYTES": 771279,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/MOLISE_comunicato_5_2026.pdf",
-    "BYTES": 680513
+    "BYTES": 680513,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/NA-02-09.pdf",
-    "BYTES": 616988
+    "BYTES": 616988,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_NA-26-08.pdf",
-    "BYTES": 584304
+    "BYTES": 584304,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/collection-store/italy/IT-T2-002/ARPAV_Z24_20260902152048/v1_0be2d204c98a/agro_24.pdf",
-    "BYTES": 465004
+    "BYTES": 465004,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf",
-    "BYTES": 463630
+    "BYTES": 463630,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf",
-    "BYTES": 463630
+    "BYTES": 463630,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf",
-    "BYTES": 463423
+    "BYTES": 463423,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_09.pdf",
-    "BYTES": 463423
+    "BYTES": 463423,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/collection-store/italy/IT-T2-002/ARPAV_Z16_20260903160912/v1_8c13500d4350/agro_16.pdf",
-    "BYTES": 460432
+    "BYTES": 460432,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_PIANURA_INTERNA_VITERBESE.pdf",
-    "BYTES": 425368
+    "BYTES": 425368,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_SABINA.pdf",
-    "BYTES": 385637
+    "BYTES": 385637,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_AV-26-08.pdf",
-    "BYTES": 371502
+    "BYTES": 371502,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_ENTROTERRA_TUSCIA.pdf",
-    "BYTES": 356659
+    "BYTES": 356659,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_BOLSENA.pdf",
-    "BYTES": 355879
+    "BYTES": 355879,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_LITORALE_VITERBESE.pdf",
-    "BYTES": 355453
+    "BYTES": 355453,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-ARPAV-VENETO/boll_agro_settimanale.pdf",
-    "BYTES": 330326
+    "BYTES": 330326,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_BN-26-08.pdf",
-    "BYTES": 323837
+    "BYTES": 323837,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-ARPAV-VENETO/fineestate_310826.pdf",
-    "BYTES": 252329
+    "BYTES": 252329,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/PIEMONTE-FD/piano_operativo_2026.pdf",
-    "BYTES": 208525
+    "BYTES": 208525,
+    "TEM_TEXTO_DERIVADO": true,
+    "CARACTERES_JA_DERIVADOS": 22418,
+    "ONDE_ESTA_O_TEXTO": [
+     "data/samples/PIEMONTE-FD/piano_operativo_2026.txt"
+    ]
    },
    {
     "FICHEIRO": "data/samples/PIEMONTE-FD/insetticidi_ammessi_2026.pdf",
-    "BYTES": 130753
+    "BYTES": 130753,
+    "TEM_TEXTO_DERIVADO": true,
+    "CARACTERES_JA_DERIVADOS": 4425,
+    "ONDE_ESTA_O_TEXTO": [
+     "data/samples/PIEMONTE-FD/insetticidi_ammessi_2026.txt"
+    ]
    },
    {
     "FICHEIRO": "data/samples/IT-ARPAV-VENETO/orticolo_22_260826.pdf",
-    "BYTES": 113206
+    "BYTES": 113206,
+    "TEM_TEXTO_DERIVADO": true,
+    "CARACTERES_JA_DERIVADOS": 5526,
+    "ONDE_ESTA_O_TEXTO": [
+     "data/samples/IT-ARPAV-VENETO/orticolo_22_260826.txt"
+    ]
    },
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/ID_6_Dataset_Fitosanitari_v2.0.pdf",
-    "BYTES": 110500
+    "BYTES": 110500,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    },
    {
     "FICHEIRO": "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.pdf",
-    "BYTES": 108945
+    "BYTES": 108945,
+    "TEM_TEXTO_DERIVADO": true,
+    "CARACTERES_JA_DERIVADOS": 4064,
+    "ONDE_ESTA_O_TEXTO": [
+     "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.txt"
+    ]
    },
    {
     "FICHEIRO": "data/samples/IT-ARPAV-VENETO/olivicolo_29_020926.pdf",
-    "BYTES": 71137
+    "BYTES": 71137,
+    "TEM_TEXTO_DERIVADO": true,
+    "CARACTERES_JA_DERIVADOS": 3899,
+    "ONDE_ESTA_O_TEXTO": [
+     "data/samples/IT-ARPAV-VENETO/olivicolo_29_020926.txt"
+    ]
    },
    {
     "FICHEIRO": "data/samples/IT-ARPAV-VENETO/olivicolo_28_260826.pdf",
-    "BYTES": 70626
+    "BYTES": 70626,
+    "TEM_TEXTO_DERIVADO": false,
+    "CARACTERES_JA_DERIVADOS": 0,
+    "ONDE_ESTA_O_TEXTO": []
    }
   ]
  },
