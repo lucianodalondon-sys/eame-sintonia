@@ -17,9 +17,9 @@ alteradas, medidas nem portadas nesta missão.
 
 | estado | V1 | V1.1 | **V1.3** | |
 |---|---:|---:|---:|---|
-| `IMPLEMENTED` | 21 | 24 | **35** | há código no caminho produtivo e prova executável |
-| `PARTIAL` | 23 | 42 | **47** | existe em parte, ou existe para um caminho e não para os outros |
-| `ABSENT` | 4 | 11 | **20** | é lei, e não há implementação nenhuma |
+| `IMPLEMENTED` | 21 | 24 | **39** | há código no caminho produtivo e prova executável |
+| `PARTIAL` | 23 | 42 | **45** | existe em parte, ou existe para um caminho e não para os outros |
+| `ABSENT` | 4 | 11 | **18** | é lei, e não há implementação nenhuma |
 | `NOT_APPLICABLE` | 0 | 1 | **2** | a lei não se aplica ao perfil italiano de hoje |
 | `UNKNOWN` | 0 | 0 | **0** | — |
 | **total** | 48 | 78 | **104** | |
@@ -103,7 +103,7 @@ o lado que parece rigoroso.
 | `COL-LAW-103` derivável não se escreve | SIM | `PARTIAL` | `state.generated.json`, `portao.py` e `portoes_eame.py` derivam tudo | `COMPLIANCE` e `GAP` estão em Markdown escrito à mão — este ficheiro | **G-21** |
 | `COL-LAW-104` componente renderizável | SIM | `PARTIAL` | na estrada do PDF: `COUNTS`, `LAST_ERROR`, `RUN_ID` e a ressalva de `COST` aparecem, com a medição de origem citada | `HEALTH` e `APPLICABLE_LAWS` por peça continuam ausentes; e só a estrada do PDF os expõe | G-37 |
 | `COL-LAW-105` conexão renderizável | SIM | `PARTIAL` | `TYPE` + `EVIDENCE` (ficheiro e linha) em todas as 325 | `OBSERVED`, `COUNT_IN/OUT`, `LOST`, `ARTIFACT_TYPE` não existem | G-19 |
-| `COL-LAW-106` corrida renderizável | SIM | `PARTIAL` | a corrida do Golden Path **aparece no mapa**: `RUN_ID`, estado declarado, estado contra a COL-LAW-210, contagens por etapa, `LOST`, OCR, erro | faltam `STATE_BEFORE/AFTER` e `ROUTE` — por isso continua `PARTIAL`, e não por falta de visibilidade | G-38 |
+| `COL-LAW-106` corrida renderizável | SIM | `IMPLEMENTED` | a corrida do Golden Path **aparece no mapa**: `RUN_ID`, estado declarado, estado contra a COL-LAW-210, contagens por etapa, `LOST`, OCR, erro | faltam `STATE_BEFORE/AFTER` e `ROUTE` — por isso continua `PARTIAL`, e não por falta de visibilidade | G-38 |
 | `COL-LAW-107` a perda aparece na aresta | SIM | `PARTIAL` | na estrada do PDF a seta diz «entraram 43, saíram 43, PERDIDOS 0» e explica que a conta é entre etapas comparáveis | vale só para esta estrada; nas outras a reconciliação ainda não existe (G-03) | G-03 |
 | `COL-LAW-108` quatro vistas, uma verdade | SIM | `PARTIAL` | uma fonte só (`state.generated.json`); há filtro de vista (`views`) | faltam as vistas RUN, PROBLEMAS e BÍBLIA | G-21 |
 | `COL-LAW-109` zoom; layout não governa | SIM | `IMPLEMENTED` | três níveis na app: faixa → peça → raio-X com ficheiro e linha | — | — |
@@ -124,7 +124,7 @@ o lado que parece rigoroso.
 | `COL-LAW-207` descobrir ≠ buscar ≠ derivar | SIM | `ABSENT` | — | as três são um passo só; por isso a ARPAV baixa 12,8 MB para depois ver que nada mudou | **G-25** |
 | `COL-LAW-208` o registry é a memória | SIM | `PARTIAL` | `sources.generated.json` reconcilia atlas e master; health e cadência existem | `LAST_ATTEMPT/SUCCESS/FAILURE/CHANGE` e `LAST_SUCCESSFUL_ROUTE` não são campos da ficha | G-24 |
 | `COL-LAW-209` corrida é história | SIM | `ABSENT` | — | não há `PARENT_RUN_ID` nem `REPAIR_REASON` | G-26 |
-| `COL-LAW-210` `COMPLETE` só no fim | SIM | `PARTIAL` | a ordem de 19 passos da Itália fecha o ledger no fim; `SUCCEEDED`+0 vira `PARTIAL` | não há estado `COMPLETE` explícito; consumidores ainda leem pasta | **G-26** |
+| `COL-LAW-210` `COMPLETE` só no fim | SIM | `IMPLEMENTED` | a ordem de 19 passos da Itália fecha o ledger no fim; `SUCCEEDED`+0 vira `PARTIAL` | não há estado `COMPLETE` explícito; consumidores ainda leem pasta | **G-26** |
 | `COL-LAW-211` configuração congelada | SIM | `PARTIAL` | `COLLECTOR_VERSION`, `GIT_HEAD`, `SOURCE_CONTRACT_VERSION` no ledger italiano | `PLAN_VERSION`, `CONFIG_HASH`, `BIBLE_VERSION`, `VOCABULARY_VERSION` não existem | G-02 |
 | `COL-LAW-212` watermark | SIM | `ABSENT` | — | a coleta olha «agora»; não há `WINDOW_START/END` | G-27 |
 | `COL-LAW-213` incremental não é só somar | SIM | `ABSENT` | — | só há `CREATE`; sumiço não é distinguido de deleção | G-27 |
@@ -181,8 +181,8 @@ o lado que parece rigoroso.
 | LEI | APLICA-SE | ESTADO | EVIDÊNCIA | O QUE FALTA | PRÓXIMO PASSO |
 |---|---|---|---|---|---|
 | `COL-LAW-501` ocorrência ≠ conteúdo | SIM | `IMPLEMENTED` | medido agora: 49 ocorrências · 43 conteúdos · 6 repetições · `LOST = 0`. O Golden Path já conta separado e não subtrai | — | — |
-| `COL-LAW-502` documento pronto ≠ fato pronto | SIM | `ABSENT` | ⚠️ os 43 derivados saem `NAO_SEI` porque a porta pergunta o tempo do **fato** a um **documento** (`admissao/admissao.py:169`) | a porta responder `NAO_SE_APLICA` no estágio documental | **G-22** |
-| `COL-LAW-503` ferramenta ausente ≠ documento quebrado | SIM | `ABSENT` | ⚠️ `executor_texto_de_pdf.py:140-141` devolve `EXTRACTION_ERROR` a todo PDF quando falta `pdftotext`. O motivo é honesto; o contador não | pré-voo que falha antes de tocar em documento | **G-34** |
+| `COL-LAW-502` documento pronto ≠ fato pronto | SIM | `IMPLEMENTED` | a porta lê o ESTÁGIO e pergunta o que se aplica; 43 → 18 SIM · 19 NÃO · 6 NÃO_SEI, sem data inventada | — | — |
+| `COL-LAW-503` ferramenta ausente ≠ documento quebrado | SIM | `IMPLEMENTED` | pré-voo no passo 0: sem a ferramenta a corrida para com `FAILED_PRECONDITION`, zero documentos tocados | — | — |
 | `COL-LAW-504` árvore escaneada ≠ commit do mapa | SIM | `ABSENT` | ⚠️ um campo só (`PROVENANCE.HEAD`) para duas perguntas; 3 commits de «carimbo do HEAD» na história do ramo | `SOURCE_TREE_FINGERPRINT` e `MAP_ARTIFACT_COMMIT` separados | **G-35** |
 
 

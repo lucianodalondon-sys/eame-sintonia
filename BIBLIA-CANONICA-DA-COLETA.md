@@ -1422,7 +1422,10 @@ COST · ARTIFACTS · ERRORS · TRACE
 
 **Reutilizar o `RUN-MANIFEST` antes de criar estrutura nova** — é a COL-LAW-022.
 
-**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **FECHADO EM 08/09/2026.** Faltavam `STATE_BEFORE/AFTER` e `ROUTE`: passaram a existir e a
+ser renderizados, com o pre-voo e as versoes de engenharia ao lado.
+
+**LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
 
 ---
 
@@ -1816,7 +1819,12 @@ canônico.
 **ainda em curso** e gravou o pedaço como `PRESERVED`: 21 manifestos carregam
 `"ERROR": "status da plataforma: READY."` — status transitório lido como fim.
 
-**ORIGEM.** `EXISTING_SINTONIA_LAW` + `ENGINEERING_PRINCIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+**ORIGEM.** `EXISTING_SINTONIA_LAW` + `ENGINEERING_PRINCIPLE` · **FECHADO EM 08/09/2026 (G-38), para esta estrada.** `RUN_STATE` nasce de seis condicoes
+**medidas** — executor terminou · outputs aterrados · reconciliacao feita · erros
+contabilizados · bruto intacto · estado antes e depois — e e escrito **por ultimo**. Se o
+processo morrer antes, o ficheiro na pasta nunca chega a dizer `COMPLETE`.
+
+**LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
 
 ---
 
@@ -2561,7 +2569,13 @@ bastam. **NÃO DEVE** ser inventada data para deixar os 43 verdes (COL-LAW-031 �
 
 **AÇÃO:** gap **G-22**, e **não foi corrigido nesta missão** — é runtime da porta.
 
-**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **FECHADO EM 08/09/2026 (G-22).** A porta le o ESTAGIO do item e faz as perguntas
+aplicaveis: DOCUMENTO responde por legivel, origem e linhagem; FATO responde tambem pelo
+tempo do fato. Nao se criou segunda porta. Os 43 derivados passaram de «todos NAO_SEI por
+falta de FACT_TIME» para 18 SIM · 19 NAO · 6 NAO_SEI — resposta semantica, com prova, e
+sem nenhuma data inventada.
+
+**LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
 
 ---
 
@@ -2595,7 +2609,12 @@ condicional, e por isso mais perigoso: só aparece onde a ferramenta falta.
 
 **AÇÃO:** gap **G-34**, não corrigido nesta missão.
 
-**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **FECHADO EM 08/09/2026 (G-34).** A corrida verifica a capacidade no passo 0. Sem
+`pdftotext` ela para com `FAILED_PRECONDITION` e `EXECUTOR_UNAVAILABLE`, **sem tocar em
+nenhum documento** — provado por teste que retira a capacidade e mede
+`RAW_EXTRACTION_ERROR = 0`. Nada foi instalado.
+
+**LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
 
 ---
 
