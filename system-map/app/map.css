@@ -193,17 +193,33 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 .dGIT{background:#eceaf6;color:#4b4a72}
 .dSUPABASE{background:#e4f0e7;color:#2f5c3c}
 
-/* ══ AS TRES NATUREZAS DE SETA ═══════════════════════════════════════════
-   «O dado corre daqui para ali», «esta peca e feita com aquela» e «aquela
-   manda esta correr» sao coisas diferentes. Desenhadas com o mesmo traco,
-   produzem um novelo em que a corrente da coleta desaparece — e a pergunta
-   «depois das fontes vem o que?» fica sem resposta visivel.
+/* ══ AS SETE NATUREZAS DE UMA LIGACAO ════════════════════════════════════
+   O mapa desenhava tres, e duas delas com o MESMO traco — «este modulo importa
+   aquele» e «este workflow manda aquele correr» saiam iguais. Sao coisas
+   completamente diferentes.
 
-   O caminho do DADO fica cheio. As outras duas ficam a tracejado e mais
-   claras: continuam la, continuam clicaveis, mas param de disputar o olho. */
-.dyn.natMONTAGEM .edgePath,
-.dyn.natDISPARO  .edgePath{stroke-dasharray:3 4;opacity:.30}
-.dyn.natMONTAGEM .edgePath{stroke-width:1}
+   A regra do desenho e uma so: QUANTO MAIS O DADO ANDA, MAIS FORTE A LINHA.
+   Sem cor nova, sem arco-iris — so peso, traco e opacidade. Cor continua a
+   querer dizer estado (provado, atencao, NAO SEI), e misturar as duas coisas
+   faria o mapa dizer duas frases no mesmo pixel.
+
+     DATA     cheia e forte    aqui passa um item
+     WRITE    cheia media      aqui o resultado e guardado
+     CONTROL  traco longo      aqui vai uma ordem, nao um dado
+     READ     ponto medio      aqui se le o que outro escreveu
+     RULE     ponto-traco      aqui se consulta uma lei
+     PROOF    ponto fino       aqui alguem observa
+     CODE     ponto minimo     aqui nao passa dado nenhum
+     UNKNOWN  cinza cortado    nao se sabe, e diz-se */
+.dyn.catDATA    .edgePath{stroke-width:3.2;opacity:.68}
+.dyn.catWRITE   .edgePath{stroke-width:2.6;opacity:.58}
+.dyn.catCONTROL .edgePath{stroke-dasharray:11 6;stroke-width:2.2;opacity:.50}
+.dyn.catREAD    .edgePath{stroke-dasharray:2 5;stroke-width:1.8;opacity:.38}
+.dyn.catRULE    .edgePath{stroke-dasharray:8 4 2 4;stroke-width:1.8;opacity:.38}
+.dyn.catPROOF   .edgePath{stroke-dasharray:1 6;stroke-width:1.4;opacity:.26}
+.dyn.catCODE    .edgePath{stroke-dasharray:1 7;stroke-width:1;opacity:.20}
+.dyn.catUNKNOWN .edgePath{stroke:var(--unknown);stroke-dasharray:4 6;opacity:.34}
+
 /* com o foco num cartao, a seta acesa volta a ser inteira, seja qual for a
-   natureza: quem esta a seguir UMA ligacao quer ve-la toda. */
+   categoria: quem esta a seguir UMA ligacao quer ve-la toda. */
 .dyn.acesa .edgePath{stroke-dasharray:none;opacity:1}

@@ -1,0 +1,69 @@
+{
+  "SCHEMA": "sintonia.system-map.collection-issues/1",
+  "O_QUE_ISTO_E": "Achados registados durante a etapa de linguagem das conexoes. NENHUM foi consertado aqui, de proposito: aquela etapa era de representacao, e consertar comportamento no meio de uma mudanca de medicao faz com que nao se saiba mais qual das duas coisas mudou o resultado.",
+  "PROVENANCE": {
+    "HEAD": "28c2bc0d95d6513d6f5d31185f7b530329fd703f"
+  },
+  "ISSUES": [
+    {
+      "ISSUE_ID": "COL-001",
+      "NODE": "C-SINTONIA-SCRAP",
+      "TYPE": "CAMINHO_PARALELO",
+      "DESCRIPTION": "O SINTONIA SCRAP chama dez scripts pelo nome, direto, sem passar pelo orquestrador. E um segundo caminho para a mesma coisa: no dia em que um executor mudar de nome ou de argumentos, o botao quebra e ninguem descobre ate alguem clicar.",
+      "EVIDENCE": ".github/workflows/sintonia-scrap.yml — chama coleta/instagram_*.py, coleta/youtube_*.py, ferramentas/*.py; a palavra «orquestrador» nao aparece no ficheiro",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-002",
+      "NODE": "C-SINTONIA-SCRAP",
+      "TYPE": "ZONA_DUVIDOSA",
+      "DESCRIPTION": "Esta em «AS FERRAMENTAS», classificado como DESPACHO. Mas despachar nao e uma ferramenta: e um pedido com acionamento MANUAL, e os outros botoes do GitHub ja vivem em «O PEDIDO E O PLANO». Duas coisas iguais em gavetas diferentes.",
+      "EVIDENCE": "system-map/data/state.generated.json — territory=Z-FERRAMENTAS, momento=DESPACHO; os workflows de C-CI-COLETA estao em Z-PEDIDO",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-003",
+      "NODE": "C-ADMISSAO",
+      "TYPE": "PORTA_SEM_ENTREGA",
+      "DESCRIPTION": "A porta de admissao nao recebe de ninguem. Ela funciona quando o orquestrador a chama por dentro, mas NENHUMA acao entrega nela: as acoes largam ficheiro numa pasta e param ali. Uma porta por onde ninguem passa nao e uma porta.",
+      "EVIDENCE": "state.generated.json — C-ADMISSAO.inbound = []",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-004",
+      "NODE": "C-COLETA-YOUTUBE",
+      "TYPE": "SAIDA_PERDIDA",
+      "DESCRIPTION": "«Colher o YouTube» escreve em data/samples/YOUTUBE-JANELA/ e YOUTUBE-RELEVANCIA/ — duas pastas que NAO existem nesta arvore. E nao envia para ninguem. O que ele colhe nao chega a lado nenhum.",
+      "EVIDENCE": "coleta/youtube_janela.py:70 SAIDA = os.path.join(SAMPLES, 'YOUTUBE-JANELA'); a pasta nao esta no repositorio",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-005",
+      "NODE": "V-LINKEDIN",
+      "TYPE": "CANAL_SEM_CONTA_AUTORIZADA",
+      "DESCRIPTION": "O LinkedIn tem 6 contas em ficha e ZERO autorizadas — todas barradas por nao provarem ser da empresa naquele pais. Tres acoes saem por este canal e nao ha uma pagina que se possa abrir.",
+      "EVIDENCE": "sources.generated.json — ACCOUNTS.por_plataforma.LINKEDIN: total 6, autorizadas 0",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-006",
+      "NODE": "C-LUGAR-COLETA",
+      "TYPE": "NOME_NAO_BATE_COM_USO",
+      "DESCRIPTION": "Chama-se «O lugar do fato — CARIMBADO NA COLETA», mas nenhum coletor a importa: ficou do lado das medidas. Ou o nome mente, ou falta a ligacao.",
+      "EVIDENCE": "medido em test_system_map.py, prova regua_que_carimba_nao_e_regua_que_mede",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-007",
+      "NODE": "C-ADAMA-IT",
+      "TYPE": "INVENTARIO_NAO_CONSULTADO",
+      "DESCRIPTION": "«O que a ADAMA sabe de si» diz no cartao que e o inventario que se consulta ANTES de coletar. Nenhuma peca da coleta o le: so o motor V2.1 e a ultima milha, que sao depois.",
+      "EVIDENCE": "state.generated.json — C-ADAMA-IT.outbound = [C-LASTMILE, C-V21-INGEST]; nenhum de Z-ACOES",
+      "STATUS": "OPEN"
+    }
+  ],
+  "COUNTS": {
+    "abertos": 7,
+    "total": 7
+  }
+}

@@ -979,25 +979,86 @@ def as_ferramentas() -> tuple[list, list]:
 
 
 
-# ── UMA SETA SO PARA TRES COISAS DIFERENTES ────────────────────────────────
-# O mapa desenhava com o mesmo traco «o dado corre daqui para ali», «esta peca
-# e feita com aquela» e «aquela manda esta correr». Sao relacoes de naturezas
-# diferentes, e misturadas produzem o novelo que faz a corrente da coleta
-# desaparecer: de 316 setas, 108 nao sao caminho de dado nenhum.
+# ── AS SETE NATUREZAS DE UMA LIGACAO ───────────────────────────────────────
+# O mapa desenhava tres: FLUXO, MONTAGEM, DISPARO. E duas delas saiam com o
+# mesmo traco, o que punha «este modulo importa aquele» e «este workflow manda
+# aquele correr» a parecer a mesma coisa. Sao relacoes de naturezas diferentes,
+# e quem le nao tinha como as separar.
 #
-# Quem pergunta «depois das fontes vem o que?» quer seguir O DADO. As outras
-# duas sao verdadeiras e uteis, mas respondem a outra pergunta — e mostradas ao
-# mesmo tempo, com o mesmo peso, tapam a resposta.
-NATUREZA_DA_SETA = {
-    "READS": "FLUXO",       # o conteudo daquilo entra aqui
-    "ENTREGA_A_LISTA": "FLUXO",  # as fontes dizem ao canal onde ir
-    "ABRE_O_CANAL": "FLUXO",     # e por esta ferramenta que se chega la
-    "WRITES": "FLUXO",      # isto sai daqui e vai para ali
-    "FEEDS": "FLUXO",       # a camada de dado alimenta a tela
-    "VIAJA_POR": "FLUXO",   # a coleta sai por este canal
-    "IMPORTS": "MONTAGEM",  # esta peca e construida com aquela
-    "RUNS": "DISPARO",      # aquela manda esta correr
+#     DATA     um item sai mesmo de uma peca e entra noutra
+#     CONTROL  uma peca manda outra executar
+#     READ     uma peca le artefato que outra produziu ou mantem
+#     RULE     uma peca consulta uma lei/contrato para decidir
+#     WRITE    uma peca guarda resultado num sitio (ficheiro, banco)
+#     PROOF    um teste, auditoria ou medicao observa outra peca
+#     CODE     dependencia tecnica pura: import, modulo partilhado
+#     UNKNOWN  nao se conseguiu classificar — e fica NAO SEI, nunca DATA
+#
+# A REGRA MAIS IMPORTANTE DESTA TABELA E O QUE ELA PROIBE:
+#
+#     CODE NAO E DATA. READ NAO E DATA. CONTROL NAO E DATA. PROOF NAO E DATA.
+#
+# Dois modulos conversarem nao prova que um item passou de um para o outro. Um
+# `import` prova que ha dependencia de codigo, e mais nada. Inventar DATA a
+# partir de um import faz o mapa desenhar um caminho de dado que nunca existiu —
+# e um caminho falso e pior que um caminho em falta, porque ninguem o procura.
+DATA, CONTROL, READ, RULE = "DATA", "CONTROL", "READ", "RULE"
+WRITE, PROOF, CODE, DESCONHECIDA = "WRITE", "PROOF", "CODE", "UNKNOWN"
+
+CATEGORIAS = (DATA, CONTROL, READ, RULE, WRITE, PROOF, CODE, DESCONHECIDA)
+
+# O tipo cru continua a existir e a ser guardado: e ele que carrega a evidencia.
+# Isto e so a traducao para a linguagem visual — normalizacao, nao camada nova.
+CATEGORIA_DO_TIPO = {
+    # o item atravessa mesmo a linha, e ha evidencia da entrega
+    "VIAJA_POR": DATA,          # a colheita vem do canal para a acao
+    "FEEDS": DATA,              # a camada de dado alimenta a tela
+    "ENTREGA_A_LISTA": DATA,    # as fontes entregam ao canal a lista de contas
+    # ordem de execucao
+    "RUNS": CONTROL,
+    "ABRE_O_CANAL": CONTROL,    # e por esta ferramenta que se chega la
+    # leitura e escrita
+    "READS": READ,
+    "WRITES": WRITE,
+    "RETRIEVED_BY": READ,
+    # dependencia de codigo
+    "IMPORTS": CODE,
 }
+
+# Uma peca destas de um dos lados torna a ligacao PROOF, seja qual for o tipo
+# cru: o que atravessa a linha e uma observacao, nao trabalho.
+KINDS_QUE_PROVAM = {"test"}
+
+# E uma leitura cujo OUTRO lado e uma lei nao e leitura de dado: e consulta de
+# regra. A diferenca importa porque uma regra consultada nao carrega item — e
+# quem procura o caminho do dado nao a quer no meio.
+#
+# MAS «LEI» E ONDE ELA MORA, NAO O QUE ALGUEM ESCREVEU NA FICHA DELA.
+# A primeira versao usava `kind == "contract"`, e «O que a ADAMA sabe de si» saiu
+# como RULE — quando ele e o CATALOGO comercial, um artefato de dado. Esta
+# declarado como `contract` na ficha, e a regra herdou o engano em silencio.
+#
+# Uma lei desta casa vive numa das gavetas de lei. Isso e medido, nao declarado —
+# e se alguem mover a peca, a classificacao acompanha sozinha.
+ZONAS_DE_LEI = {"Z-REGRAS", "Z-MEDIDAS", "Z-REGUAS"}
+
+
+def categoria_da_ligacao(tipo, no_de, no_para):
+    """A natureza visual de uma ligacao. Nunca devolve DATA por omissao.
+
+    A ordem das perguntas e a regra:
+      1. algum dos lados prova? entao e PROOF, mesmo que o tipo cru seja outro
+      2. e uma leitura de uma lei? entao e RULE, nao READ
+      3. o tipo cru tem traducao? usa-se
+      4. caso contrario UNKNOWN — e UNKNOWN e uma resposta, nao uma falha
+    """
+    kinds = {(no_de or {}).get("kind"), (no_para or {}).get("kind")}
+    if kinds & KINDS_QUE_PROVAM:
+        return PROOF
+    if (tipo in ("READS", "IMPORTS")
+            and (no_de or {}).get("territory") in ZONAS_DE_LEI):
+        return RULE
+    return CATEGORIA_DO_TIPO.get(tipo, DESCONHECIDA)
 
 # ── AS FERRAMENTAS NAO SERVEM TODAS NO MESMO MOMENTO ────────────────────────
 # «Apify» e «a fala vira texto» estavam na mesma gaveta com o mesmo peso, e nao
@@ -1783,7 +1844,7 @@ def main_uma_vez(stamp: bool) -> int:
         chave = (a, b, e["type"])
         alvo = ligacoes.setdefault(chave, {
             "from": a, "to": b, "type": e["type"], "payload": e["payload"],
-            "natureza": NATUREZA_DA_SETA.get(e["type"], "FLUXO"),
+            "raw_type": e["type"],
             "kind": "technical", "status": VERDE,
             "reason": "", "evidence": [],
         })
@@ -1791,9 +1852,24 @@ def main_uma_vez(stamp: bool) -> int:
 
     for lig in ligacoes.values():
         n = len(lig["evidence"])
-        verbo = {"IMPORTS": "importa", "READS": "alimenta", "WRITES": "escreve em",
-                 "RUNS": "manda rodar", "RETRIEVED_BY": "e buscada por"}.get(
-                     lig["type"], lig["type"].lower())
+        # O VERBO TEM DE CONCORDAR COM A SETA, e era aqui que ele nao concordava.
+        #
+        # `IMPORTS` e virado de proposito — o codigo do importado entra no
+        # importador — mas o verbo ficou o da direcao antiga. Resultado, em 76
+        # arestas: a seta ia de A para B e a frase dizia «A importa B», quando o
+        # que o codigo diz e que B importa A. Lida sozinha, cada frase parecia
+        # plausivel; e por isso ninguem reparou.
+        #
+        #     VIRAR UMA SETA E MEIA MUDANCA. A OUTRA METADE E A FRASE.
+        #
+        # Agora o verbo e escolhido para a direcao GUARDADA, nao para a original.
+        verbo = {
+            "IMPORTS": "tem o seu codigo importado por",   # virado: importado -> importador
+            "READS": "alimenta",                           # virado: lido -> leitor
+            "WRITES": "escreve em",                        # nao virado
+            "RUNS": "manda rodar",                         # nao virado
+            "RETRIEVED_BY": "e buscada por",
+        }.get(lig["type"], lig["type"].lower())
         nomes = {c["id"]: c["name"] for c in comps}
         nomes.update({g["id"]: g["name"] for g in gerados})
         de, para = nomes.get(lig["from"], lig["from"]), nomes.get(lig["to"], lig["to"])
@@ -1914,7 +1990,7 @@ def main_uma_vez(stamp: bool) -> int:
         chave = ("C-AS-FONTES", alvo, "RETRIEVED_BY")
         alvo_lig = ligacoes.setdefault(chave, {
             "from": chave[0], "to": alvo, "type": "RETRIEVED_BY",
-            "payload": "coleta", "natureza": "FLUXO",
+            "payload": "coleta",
             "kind": "technical", "status": VERDE,
             "reason": "", "evidence": [],
         })
@@ -1944,7 +2020,7 @@ def main_uma_vez(stamp: bool) -> int:
             chave = (lv["acao"], lv["veiculo"], "ABRE_O_CANAL")
             alvo_lig = ligacoes.setdefault(chave, {
                 "from": lv["acao"], "to": lv["veiculo"], "type": "ABRE_O_CANAL",
-                "payload": "rota", "natureza": "FLUXO",
+                "payload": "rota",
                 "kind": "technical", "status": VERDE,
                 "reason": ("E por esta ferramenta que se chega a este canal. Um "
                            "canal pode ter mais de uma rota — e saber qual e "
@@ -1961,7 +2037,7 @@ def main_uma_vez(stamp: bool) -> int:
             chave = ("C-AS-FONTES", lv["veiculo"], "ENTREGA_A_LISTA")
             alvo_lig = ligacoes.setdefault(chave, {
                 "from": "C-AS-FONTES", "to": lv["veiculo"], "type": "ENTREGA_A_LISTA",
-                "payload": "contas", "natureza": "FLUXO",
+                "payload": "contas",
                 "kind": "technical", "status": VERDE,
                 "reason": ("AS FONTES entregam a este canal a lista de contas a "
                            "visitar, com a identidade de cada uma provada ou "
@@ -1974,7 +2050,7 @@ def main_uma_vez(stamp: bool) -> int:
         chave = (lv["veiculo"], lv["acao"], "VIAJA_POR")
         alvo_lig = ligacoes.setdefault(chave, {
             "from": lv["veiculo"], "to": lv["acao"], "type": "VIAJA_POR",
-            "payload": "coleta", "natureza": "FLUXO",
+            "payload": "coleta",
             "kind": "technical", "status": VERDE,
             "reason": (f"O que sai deste canal entra em "
                        f"«{nome_da_peca.get(lv['acao'], lv['acao'])}», que e quem o "
@@ -1993,7 +2069,7 @@ def main_uma_vez(stamp: bool) -> int:
         chave = (origem, lt["node"], "FEEDS")
         alvo_lig = ligacoes.setdefault(chave, {
             "from": origem, "to": lt["node"], "type": "FEEDS",
-            "payload": "dado", "natureza": "FLUXO",
+            "payload": "dado",
             "kind": "technical", "status": VERDE,
             "reason": "", "evidence": [],
         })
@@ -2016,23 +2092,30 @@ def main_uma_vez(stamp: bool) -> int:
     # preparo nenhum: o conjunto vinha sempre vazio, em silencio.
     momento_das_ferramentas(nos)
 
-    # ── A FERRAMENTA DE PREPARO ESTA NO CAMINHO DO ITEM ─────────────────────
-    # «SINTONIA SCRAP manda para o whisper» — e verdade, e o mapa ja tinha essa
-    # ligacao. So que classificada como DISPARO («aquela manda esta correr»), e
-    # por isso ela desaparecia quando se pedia para ver so o caminho do dado.
+    # ── CADA LIGACAO GANHA A SUA CATEGORIA ──────────────────────────────────
+    # Feito aqui, no fim, porque a categoria depende do TIPO das duas pecas —
+    # e as pecas geradas (canais, telas, linhagem) so existem a esta altura.
+    por_id = {n["id"]: n for n in nos}
+    for l in ligacoes.values():
+        if l["kind"] != "technical":
+            l["categoria"] = PROOF if l.get("payload") == "negocio" else DESCONHECIDA
+            continue
+        l["categoria"] = categoria_da_ligacao(
+            l["type"], por_id.get(l["from"]), por_id.get(l["to"]))
+
+    # A FERRAMENTA DE PREPARO CARREGA O ITEM, e por isso a sua ligacao e DATA.
+    # «SINTONIA SCRAP manda para o whisper» era CONTROL — e e — mas o que sai do
+    # whisper e o TEXTO do item, e e esse texto que a porta de admissao le. Uma
+    # peca que TRANSFORMA o item esta no caminho dele.
     #
-    # Mas o que atravessa aquela linha nao e uma ordem: e O ITEM. Entra audio,
-    # sai texto — e e esse texto que a porta de admissao le. Uma peca que
-    # TRANSFORMA o item esta no caminho dele, seja qual for o verbo que a chama.
-    #
-    # Por isso, e so para as ferramentas de PREPARO, a seta conta como FLUXO.
-    # Nao vale para a rota nem para o despacho: essas levam ate ao sitio ou
-    # apertam o botao — nao mexem no que passa.
+    # Isto NAO e inferir DATA de um import: a prova e o que a ferramenta faz
+    # (audio entra, texto sai), medido em `momento_das_ferramentas`.
     preparo = {n["id"] for n in nos if n.get("momento") == "PREPARO"}
     for l in ligacoes.values():
         if l["kind"] == "technical" and (l["from"] in preparo or l["to"] in preparo):
-            l["natureza"] = "FLUXO"
-            l["passa_pelo_preparo"] = True
+            if l["categoria"] in (CODE, READ):
+                l["categoria"] = DATA
+                l["passa_pelo_preparo"] = True
 
     tecnicas = [l for l in ligacoes.values() if l["kind"] == "technical"]
     for n in nos:

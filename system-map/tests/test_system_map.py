@@ -102,6 +102,98 @@ for n in S["NODES"]:
 prova("regua_que_carimba_nao_e_regua_que_mede", not trocadas,
       "; ".join(trocadas[:4]))
 
+# ── as conexoes dizem QUE TIPO de ligacao sao ───────────────────────────────
+# Dez provas, e cada uma existe por uma maneira conhecida de o mapa mentir sobre
+# uma ligacao. A primeira e a mais importante, e nasceu de um caso real:
+#
+#     pedido/orquestrador.py:54   import admissao as adm
+#
+# O mapa dizia «A porta de admissao importa O orquestrador» — o contrario do que
+# o codigo faz. A seta estava certa (o codigo do importado entra no importador);
+# a FRASE e que tinha ficado com o verbo da direcao antiga. Setenta e seis
+# arestas assim, e nenhuma dava erro: lida sozinha, cada frase parecia plausivel.
+CATEGORIAS_CONHECIDAS = {"DATA", "CONTROL", "READ", "RULE", "WRITE", "PROOF",
+                         "CODE", "UNKNOWN"}
+TECNICAS = [e for e in S["EDGES"] if e.get("kind") == "technical"]
+POR_ID = {n["id"]: n for n in S["NODES"]}
+
+
+def _nome(i):
+    return POR_ID.get(i, {}).get("name", i)
+
+
+# T1 · um import nunca aparece descrito ao contrario
+invertidas = []
+for e in TECNICAS:
+    if e.get("raw_type") != "IMPORTS":
+        continue
+    de, para = _nome(e["from"]), _nome(e["to"])
+    # a seta vai do importado para o importador; dizer «<de> importa <para>»
+    # seria afirmar exatamente o contrario do que o codigo faz
+    if f"{de} importa {para}" in e.get("reason", ""):
+        invertidas.append(f"{de} -> {para}")
+prova("T1_import_nao_e_descrito_ao_contrario", not invertidas,
+      f"{len(invertidas)} frase(s) invertidas: " + "; ".join(invertidas[:3]))
+
+# T2 · CODE nunca vira DATA sozinho
+so_import = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in TECNICAS
+             if e.get("raw_type") == "IMPORTS" and e.get("categoria") == "DATA"
+             and not e.get("passa_pelo_preparo")]
+prova("T2_import_sozinho_nao_vira_dado", not so_import,
+      "dois modulos conversarem nao prova que um item passou: " + "; ".join(so_import[:3]))
+
+# T3 · RUNS gera CONTROL
+mau_runs = [f"{_nome(e['from'])} -> {_nome(e['to'])} = {e.get('categoria')}"
+            for e in TECNICAS
+            if e.get("raw_type") == "RUNS" and e.get("categoria") not in ("CONTROL", "PROOF")]
+prova("T3_runs_gera_comando", not mau_runs, "; ".join(mau_runs[:3]))
+
+# T4 · uma leitura nao se disfarca de dado
+mau_read = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in TECNICAS
+            if e.get("raw_type") == "READS" and e.get("categoria") == "DATA"
+            and not e.get("passa_pelo_preparo")]
+prova("T4_leitura_nao_e_dado", not mau_read, "; ".join(mau_read[:3]))
+
+# T5 · prova nao e fluxo de dado
+mau_proof = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in TECNICAS
+             if e.get("categoria") == "PROOF" and e.get("payload") == "coleta"]
+prova("T5_prova_nao_e_fluxo_de_dado", not mau_proof, "; ".join(mau_proof[:3]))
+
+# T6 · a evidencia continua acessivel
+sem_prova = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in TECNICAS
+             if not e.get("evidence")
+             or not all(x.get("file") and isinstance(x.get("line"), int)
+                        for x in e["evidence"])]
+prova("T6_evidencia_continua_acessivel", not sem_prova, "; ".join(sem_prova[:3]))
+
+# T7 · ligar e desligar categorias nao mexe nas pecas
+MAPA_JS = (RAIZ / "system-map" / "app" / "map.js").read_text(encoding="utf-8")
+prova("T7_filtro_de_conexao_so_mexe_em_setas",
+      "input[name=cat]" in MAPA_JS
+      and "cats.has(g.dataset.cat" in MAPA_JS
+      and "cats" not in MAPA_JS.split("nodes.forEach(n => {")[1].split("});")[0],
+      "o filtro de conexoes nao pode entrar na conta das pecas")
+
+# T8 · a vista de coleta abre com DADO e COMANDO
+INDEX = (RAIZ / "system-map" / "app" / "index.html").read_text(encoding="utf-8")
+import re as _re
+ligadas = {m.group(1) for m in _re.finditer(
+    r'name="cat" value="(\w+)" checked', INDEX)}
+prova("T8_abre_com_dado_e_comando", ligadas == {"DATA", "CONTROL"},
+      f"abre com {sorted(ligadas)}; espera-se DATA e CONTROL")
+
+# T9 · toda ligacao tem categoria conhecida
+sem_cat = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in S["EDGES"]
+           if e.get("categoria") not in CATEGORIAS_CONHECIDAS]
+prova("T9_toda_ligacao_tem_categoria", not sem_cat, "; ".join(sem_cat[:3]))
+
+# T10 · sem categoria nao vira DATA por omissao
+GERADOR = (RAIZ / "system-map" / "scripts" / "generate_system_map.py").read_text(
+    encoding="utf-8")
+prova("T10_omissao_nao_e_dado",
+      "CATEGORIA_DO_TIPO.get(tipo, DESCONHECIDA)" in GERADOR,
+      "tipo desconhecido tem de cair em UNKNOWN, nunca em DATA")
+
 # ── a prateleira ─────────────────────────────────────────────────────────────
 GAVETAS = {z["folder"] for z in S["TERRITORIES"] if z.get("folder")}
 PASTA_DA_ZONA = {z["id"]: z.get("folder") for z in S["TERRITORIES"]}

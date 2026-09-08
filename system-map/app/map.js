@@ -135,8 +135,9 @@ function render() {
     const d = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
     const cls = e.kind === 'expected' ? 'unknown'
       : (a.ui_status === 'red' || b.ui_status === 'red') ? 'broken' : '';
-    return `<g class="dyn nat${esc(e.natureza || 'FLUXO')}" data-edge="${i}" data-nat="${
-      esc(e.natureza || 'FLUXO')}" data-from="${esc(e.from)}" data-to="${esc(e.to)}">
+    const cat = e.categoria || 'UNKNOWN';
+    return `<g class="dyn cat${esc(cat)}" data-edge="${i}" data-cat="${esc(cat)}"
+      data-from="${esc(e.from)}" data-to="${esc(e.to)}">
       <path d="${d}" class="edgePath ${cls}"></path>
       <path d="${d}" class="edgeHit"></path></g>`;
   }).join('');
@@ -193,16 +194,38 @@ function showNodeTip(e, n) {
          .map(([k, v]) => `${k} ${v}`).join(' · '))}</div>` : ''}`;
   tooltip.style.display = 'block'; moveTip(e);
 }
+// O QUE CADA CATEGORIA QUER DIZER, em palavras de gente. Sem isto, «CODE» e
+// «DATA» sao dois rotulos igualmente opacos — e a pessoa fica a adivinhar qual
+// deles significa «aqui passa alguma coisa».
+const O_QUE_E_A_CATEGORIA = {
+  DATA:    ['DADO',      'um item sai mesmo daqui e entra ali'],
+  CONTROL: ['COMANDO',   'esta peça manda a outra executar'],
+  READ:    ['LEITURA',   'esta peça lê um arquivo que a outra escreveu'],
+  RULE:    ['REGRA',     'esta peça consulta uma lei para decidir'],
+  WRITE:   ['ESCRITA',   'esta peça guarda o resultado num lugar'],
+  PROOF:   ['PROVA',     'um teste ou medição observa a outra peça'],
+  CODE:    ['CÓDIGO',    'só dependência técnica — nenhum dado passa aqui'],
+  UNKNOWN: ['NÃO SEI',   'não foi possível classificar esta ligação'],
+};
+
 function showEdgeTip(e, d) {
   const st = d.kind === 'expected' ? 'NÃO SEI — declarada, não provada' : 'LIGAÇÃO PROVADA';
   const p = d.evidence?.[0];
+  const [rotulo, explica] = O_QUE_E_A_CATEGORIA[d.categoria || 'UNKNOWN']
+    || O_QUE_E_A_CATEGORIA.UNKNOWN;
   tooltip.innerHTML =
     `<div class="ttName">${esc(nodeById[d.from]?.name)} → ${esc(nodeById[d.to]?.name)}</div>
-     <div class="ttStatus">${st}</div>
-     <div class="ttLabel">O que passa aqui</div><div class="ttText">${esc(d.payload || d.type)}</div>
+     <div class="ttStatus">${esc(rotulo)} · ${st}</div>
+     <div class="ttLabel">Que tipo de ligação é esta</div>
+     <div class="ttText"><b>${esc(rotulo)}</b> — ${esc(explica)}</div>
      <div class="ttLabel">Por quê</div><div class="ttText">${esc(d.reason)}</div>
      <div class="ttLabel">Prova</div><div class="ttText">${
-       p ? esc(p.file + ':' + p.line) : 'não há linha de código que prove'}</div>`;
+       p ? esc(p.file + ':' + p.line) : 'não há linha de código que prove'}${
+       p && p.snippet ? '<br><span style="opacity:.75">' + esc(p.snippet.slice(0, 90))
+         + '</span>' : ''}</div>
+     <div class="ttLabel">Como o mapa mediu</div>
+     <div class="ttText">${esc(d.raw_type || d.type)}${
+       d.evidence?.length > 1 ? ' · ' + d.evidence.length + ' linhas provam isto' : ''}</div>`;
   tooltip.style.display = 'block'; moveTip(e);
 }
 function moveTip(e) {
@@ -687,11 +710,11 @@ function applyFilters() {
   });
 
   // que naturezas de seta estao ligadas — vazio nao esconde tudo, mostra tudo
-  const nats = new Set([...document.querySelectorAll('input[name=nat]:checked')]
+  const cats = new Set([...document.querySelectorAll('input[name=cat]:checked')]
     .map(x => x.value));
   document.querySelectorAll('#edgeLayer .dyn').forEach(g => {
     const dentro = vis.has(g.dataset.from) && vis.has(g.dataset.to)
-      && (!nats.size || nats.has(g.dataset.nat || 'FLUXO'));
+      && (!cats.size || cats.has(g.dataset.cat || 'UNKNOWN'));
     g.style.display = dentro ? '' : 'none';
     const p = g.querySelector('.edgePath');
     p.classList.toggle('highlight',
@@ -831,7 +854,7 @@ function bind() {
   };
 
   $('search').addEventListener('input', applyFilters);
-  document.querySelectorAll('input[name=dept],input[name=status],input[name=pais],input[name=nat]')
+  document.querySelectorAll('input[name=dept],input[name=status],input[name=pais],input[name=cat]')
     .forEach(x => x.addEventListener('change', applyFilters));
   document.querySelectorAll('.sideBtn[data-view]').forEach(b =>
     b.addEventListener('click', () => {
