@@ -110,7 +110,13 @@ def cenarios(banco):
          "linhas=%d" % banco.contar("derived_artifact"))
 
     # ── B · sem pai canónico, a chave estrangeira recusa ────────────────
-    rc, erro = banco.executar(_derivado(999999, "IT/x/TEXT/orfao.txt"))
+    # ⚠️ A IDENTIDADE TEM DE SER DIFERENTE DA DO CASO A. Na primeira versao
+    # deste teste ela era igual, e o banco recusou pela trava de UNICIDADE —
+    # a chave estrangeira nunca chegou a ser tocada. O teste dava FAIL a dizer
+    # «duplicate key», e teria dado PASS por engano se eu tivesse aceitado
+    # qualquer recusa como prova. **Recusar nao e recusar pelo motivo certo.**
+    rc, erro = banco.executar(_derivado(999999, "IT/x/TEXT/orfao.txt",
+                                        producer="ferramenta-orfa"))
     caso("B_sem_raw_a_FK_recusa", rc != 0 and "foreign key" in erro.lower(),
          erro.splitlines()[0][:110] if erro else "ACEITOU")
 
