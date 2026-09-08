@@ -1657,8 +1657,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "4b3c0d4262c95994a0263a91ec269ca322f62610",
-    "GENERATED_AT": "2026-09-08T00:40:38-03:00"
+    "HEAD": "24da5b227fd101969352cea8233fe0e98cd5b2fa",
+    "GENERATED_AT": "2026-09-08T00:55:05-03:00"
   },
   "FAMILIES": [
     {
@@ -5245,8 +5245,8 @@
       "name": "A Bíblia canônica da coleta",
       "territory": "Z-BIBLIA",
       "kind": "contract",
-      "what": "100 leis numeradas (V1.2) que governam toda coleta do SINTONIA: o censo das 63 leis maduras que ja existiam, o censo da infraestrutura, a matriz de conflitos com ficheiro e linha, as duas emendas constitucionais e a medicao da Italia contra elas.",
-      "why_here": "As leis da coleta viviam espalhadas por cabecalho de script, README, prompt de aba e if solto. Espalhadas assim nao se consultam: redescobrem-se, e a lei redescoberta nunca e igual a que ja existia. Ela declara LAW_STATUS separado de IMPLEMENTATION_STATUS para que «e lei» nunca signifique «ja funciona»; a V1.1 poe o proprio System Map dentro da lei; e a V1.2 da papel canonico ao GitHub (engenharia versionada) e ao Supabase (memoria operacional), com a regra que governa os dois: INFRAESTRUTURA NAO E AUTORIDADE SEMANTICA.",
+      "what": "104 leis numeradas (V1.3) que governam toda coleta do SINTONIA: o censo das 63 leis maduras que ja existiam, o censo da infraestrutura, a matriz de conflitos com ficheiro e linha, as tres emendas constitucionais e a medicao da Italia contra elas.",
+      "why_here": "As leis da coleta viviam espalhadas por cabecalho de script, README, prompt de aba e if solto. Espalhadas assim nao se consultam: redescobrem-se, e a lei redescoberta nunca e igual a que ja existia. Ela declara LAW_STATUS separado de IMPLEMENTATION_STATUS para que «e lei» nunca signifique «ja funciona»; a V1.1 poe o proprio System Map dentro da lei; e a V1.2 da papel canonico ao GitHub (engenharia versionada) e ao Supabase (memoria operacional), com a regra que governa os dois: INFRAESTRUTURA NAO E AUTORIDADE SEMANTICA. E a V1.3 poe a lei frente a frente com a PRIMEIRA ESTRADA REAL: das sete questoes constitucionais, tres ja estavam resolvidas e quatro viraram lei nova — ocorrencia nao e conteudo, documento pronto nao e fato pronto, ferramenta que falta nao e documento quebrado, e a arvore escaneada nao e o commit que publica o mapa.",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -5267,9 +5267,10 @@
         "docs/biblia/EMENDA-V1-1.md",
         "docs/biblia/EMENDA-V1-2.md",
         "docs/biblia/MATRIZ-DE-CONFLITOS.md",
+        "docs/biblia/RECONCILIACAO-INTEGRACAO.md",
         "docs/biblia/leis.json"
       ],
-      "file_count": 8,
+      "file_count": 9,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
       "changed_since_declared": [],
@@ -12934,7 +12935,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 4b3c0d4262c95994a0263a91ec269ca322f62610"
+        "HEAD 24da5b227fd101969352cea8233fe0e98cd5b2fa"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -14502,7 +14503,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta O validador da Bíblia. Provado por 8 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta O validador da Bíblia. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/valida_biblia.py",
@@ -14543,6 +14544,11 @@
           "file": "provas/valida_biblia.py",
           "line": 57,
           "snippet": "os.path.join(PASTA, 'CENSO-DA-INFRAESTRUTURA.md'),"
+        },
+        {
+          "file": "provas/valida_biblia.py",
+          "line": 58,
+          "snippet": "os.path.join(PASTA, 'RECONCILIACAO-INTEGRACAO.md'))"
         }
       ],
       "categoria": "PROOF"
@@ -14555,7 +14561,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_biblia.py",
@@ -14586,6 +14592,11 @@
           "file": "tests/test_integracao_biblia.py",
           "line": 30,
           "snippet": "BIBLIA = os.path.join(RAIZ, 'BIBLIA-CANONICA-DA-COLETA.md')"
+        },
+        {
+          "file": "tests/test_integracao_biblia.py",
+          "line": 159,
+          "snippet": "os.path.join(RAIZ, 'docs', 'biblia', 'RECONCILIACAO-INTEGRACAO.md')):"
         }
       ],
       "categoria": "PROOF"
@@ -20761,7 +20772,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 674,
+  "UNCLAIMED_FILES_COUNT": 673,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 109,
@@ -20774,7 +20785,7 @@
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1211,
-    "files_covered": 537,
+    "files_covered": 538,
     "files_code_unclaimed": 0
   }
 }
