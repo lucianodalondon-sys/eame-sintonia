@@ -1170,6 +1170,7 @@
       "system-map/scripts/generate_system_map.py",
       "system-map/scripts/mudar_gaveta.py",
       "system-map/scripts/pente_fino_da_coleta.py",
+      "system-map/scripts/recall_da_porta_it.py",
       "system-map/scripts/scan_casco.py",
       "system-map/scripts/scan_repo.py",
       "system-map/scripts/scan_sources.py",
@@ -1591,8 +1592,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "2239169555e34ba8e6073de8b2456f468f60fffa",
-    "GENERATED_AT": "2026-09-07T22:38:12-03:00"
+    "HEAD": "15571da5468043455d482a560f3e674a18bd5e74",
+    "GENERATED_AT": "2026-09-07T22:42:41-03:00"
   },
   "FAMILIES": [
     {
@@ -1646,7 +1647,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 31
+      "count": 32
     },
     {
       "id": "F-ENTREGA",
@@ -1922,7 +1923,7 @@
       "y": 190,
       "w": 1235,
       "h": 1972,
-      "count": 15
+      "count": 16
     },
     {
       "id": "Z-PACOTE",
@@ -2238,7 +2239,8 @@
       "outbound": [
         "C-CENSO-SEMANTICO-IT",
         "C-ORQUESTRADOR",
-        "C-PROVA-COLETA"
+        "C-PROVA-COLETA",
+        "C-RECALL-PORTA-IT"
       ],
       "paises": {},
       "paises_dado": {},
@@ -8680,6 +8682,59 @@
       "y": 1004
     },
     {
+      "id": "C-RECALL-PORTA-IT",
+      "name": "Quanto a peneira apanha na Itália",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Passa pela porta de admissão cada item italiano que tem texto de verdade, e conta o que ela decidiu: passou, recusou, ou não soube.",
+      "why_here": "«O vocabulário passou de 0 para 29 palavras» conta palavras, não acertos. Dicionário grande não prova que a porta acerta.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▦",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "system-map/scripts/recall_da_porta_it.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS"
+        ],
+        "palavras": 19,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 19,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 13300,
+      "y": 1648
+    },
+    {
       "id": "C-RECEITAS",
       "name": "A receita da coleta",
       "territory": "Z-PEDIDO",
@@ -8815,7 +8870,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13300,
+      "x": 13715,
       "y": 1648
     },
     {
@@ -10669,8 +10724,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13715,
-      "y": 1648
+      "x": 12885,
+      "y": 1970
     },
     {
       "id": "C-TRANSCRICAO",
@@ -12191,7 +12246,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 2239169555e34ba8e6073de8b2456f468f60fffa"
+        "HEAD 15571da5468043455d482a560f3e674a18bd5e74"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -12518,6 +12573,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-RECALL-PORTA-IT",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por Quanto a peneira apanha na Itália. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/recall_da_porta_it.py",
+          "line": 43,
+          "snippet": "import admissao as adm  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-APIFY-POOL",
@@ -19497,17 +19570,17 @@
   "UNCLAIMED_FILES_COUNT": 646,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 99,
+    "components": 100,
     "components_proven": 66,
-    "components_pending": 28,
+    "components_pending": 29,
     "components_broken": 0,
     "components_unknown": 5,
-    "edges": 326,
-    "edges_proven": 326,
+    "edges": 327,
+    "edges_proven": 327,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1147,
-    "files_covered": 501,
+    "files_tracked": 1148,
+    "files_covered": 502,
     "files_code_unclaimed": 0
   }
 }

@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "2239169555e34ba8e6073de8b2456f468f60fffa",
-    "GENERATED_AT": "2026-09-07T22:38:12-03:00"
+    "HEAD": "15571da5468043455d482a560f3e674a18bd5e74",
+    "GENERATED_AT": "2026-09-07T22:42:41-03:00"
   },
   "FILES": [
     {
@@ -7716,14 +7716,14 @@
     },
     {
       "path": "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
-      "sha": "ec23dae8733e710b6f69eb4b455641a8321e2626",
+      "sha": "eb39b12f9c1ae954e53e1700eb97a8bc7dc5f2ff",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "57aff18a10dcec2e96562465ff4c1bd2ab71eaaa",
+      "sha": "5f160982bc60c1d09ed2df4d02d4698330e1ab63",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7766,6 +7766,13 @@
     {
       "path": "system-map/scripts/pente_fino_da_coleta.py",
       "sha": "7c6f8bd541be3e5aef7aaf3df2514af423f14928",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/recall_da_porta_it.py",
+      "sha": "e677f9289ce6c380b298c019788b4b95b630fa73",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22273,6 +22280,28 @@
       }
     },
     {
+      "from_file": "system-map/scripts/recall_da_porta_it.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/recall_da_porta_it.py",
+        "line": 42,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/recall_da_porta_it.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/recall_da_porta_it.py",
+        "line": 43,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
       "from_file": "system-map/scripts/scan_casco.py",
       "to_file": "italia-portale/client/italy-i18n.js",
       "type": "READS",
@@ -25311,10 +25340,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1147,
-    "files_readable": 390,
-    "files_code_dir": 436,
-    "file_edges": 1536,
+    "files_tracked": 1148,
+    "files_readable": 391,
+    "files_code_dir": 437,
+    "file_edges": 1538,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
