@@ -1,4 +1,4 @@
-# MATRIZ DE COMPOSIÇÃO — MEDIÇÃO D0.4
+# MATRIZ DE COMPOSIÇÃO — MEDIÇÃO D0.4 · revista em D0.4R
 
 ```
 DOCUMENT_TYPE   MEASUREMENT · genealogia e propriedade
@@ -7,6 +7,7 @@ BASELINE        a4fb6d81681094925ccfd1638bc7386cbec6f4d4
 OWNER_HEAD      fb96f49d   ← SOURCE_HEAD declarado pelo próprio snapshot
 DADOS           MATRIZ-DE-COMPOSICAO-V1.json
 CONTRATO        ../CONTRATO-DE-COMPOSICAO-V1.md
+REVISION        D0.4R · §7 (RR-06) e §8 (SALES_READY medido) acrescentados
 RUNTIME 0 · PORTAL 0 · MERGE 0
 ```
 
@@ -86,7 +87,47 @@ SUPERFICIE = {'A':'OPPORTUNITA','B':'RADAR','C':'SEGNALI','D':'ERRORE','E':'ERRO
 Um dono, uma projeção declarada — **e não injetiva**: `D` e `E` colapsam em `ERRORE`.
 De `ERRORE` não se recupera a classe. `L-30` no contrato.
 
-## §6 · O QUE ESTA MEDIÇÃO NÃO FEZ
+## §6 · `RR-06` — a lei que se explica mal a si própria (D0.4R)
 
-Não corrigiu a cópia obsoleta. Não renomeou campos. Não separou `STATUS`. Não tocou
-engine, portal, collection nem snapshot. Cinco itens em `RUNTIME_RECONCILIATION_REQUIRED`.
+Medido sobre o dono real, `scripts/v21_oportunidades.py` @ `fb96f49d`:
+
+```
+regra executável .... ELOS = 5
+                      SINAL_ATUAL · JANELA_DEFINIDA · JANELA_ABERTA_AGORA
+                      VINCULO_COM_PORTFOLIO · TEMPO_PARA_ACAO
+texto emitido ....... «quatro elos» · 3 ocorrências
+                      WHY_NOW_LAW l.1798 · STATUS_LAW l.2218 · ESTADOS_DE_ACAO_LEI l.2429
+viaja no snapshot? .. NÃO (WHY_NOW_LAW e STATUS_LAW ausentes)
+o que viaja ......... ACTION_CHAIN_LINKS com 5 chaves em 43/43
+impacto ............. contido no motor nesta safra
+estado .............. ABERTO · não corrigido (ZERO RUNTIME)
+```
+
+`ESTADOS_DE_ACAO_LEI` é o caso mais direto: diz «os quatro elos de
+`ACTION_CHAIN_REQUIRES`» — e `ACTION_CHAIN_REQUIRES` tem cinco chaves.
+
+## §7 · `SALES_READY` — contagem medida (D0.4R)
+
+```
+ATOMIC_CONDITIONS ..... 7
+SEMANTIC_DIMENSIONS ... 6
+não verificável no snapshot ... JANELA_COMERCIAL (COMMERCIAL_WINDOW não viaja)
+casos SALES_READY que satisfazem todos os predicados verificáveis ... 6/6
+```
+
+| dimensão semântica | condições atómicas |
+|---|---|
+| `PROBLEMA` | `TARGET_DECLARADO` |
+| `RESPOSTA_ADAMA` | `ROTULO_VERIFICADO` · `CATALOGO_COMERCIAL` |
+| `NECESSIDADE` | `NECESSIDADE_POSITIVA` |
+| `GEOGRAFIA` | `GEOGRAFIA_SUSTENTA` |
+| `NATUREZA_DO_CASO` | `ARQUETIPO_NAO_REGULATORIO` |
+| `TEMPO` | `JANELA_COMERCIAL` |
+
+D0.4 escreveu «cinco condições» e «quatro pré-condições». **As duas erradas.**
+
+## §8 · O QUE ESTA MEDIÇÃO NÃO FEZ
+
+Não corrigiu a cópia obsoleta. Não corrigiu o texto de `WHY_NOW_LAW`. Não renomeou
+campos. Não separou `STATUS`. Não tocou engine, portal, collection nem snapshot.
+**Seis** itens em `RUNTIME_RECONCILIATION_REQUIRED`.

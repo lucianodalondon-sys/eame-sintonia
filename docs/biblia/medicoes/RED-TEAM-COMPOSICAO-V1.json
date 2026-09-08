@@ -1,59 +1,186 @@
 {
- "MEASUREMENT": "D0.4 · red team do contrato de composição",
+ "MEASUREMENT": "D0.4R · red team do contrato de composição",
  "GENERATED_BY": "docs/biblia/medicoes/testar_contrato_composicao.py",
  "READ_ONLY": true,
  "BASELINE": "a4fb6d81681094925ccfd1638bc7386cbec6f4d4",
  "OWNER_HEAD": "fb96f49d",
  "SYNTHETIC_NOT_OBSERVED": true,
- "TEMPORAL_RECOVERY": {
-  "RECOVERABLE": true,
-  "METHOD": "RE_EXECUTION",
-  "CASES": {
-   "OPP_00C5B6E15185": "WATCH",
-   "OPP_4C39CCC05EEB": "WATCH",
-   "OPP_568684853264": "WATCH",
-   "OPP_5D03565DB4C3": "WATCH",
-   "OPP_6BA350CA1538": "WATCH",
-   "OPP_8E210567B01F": "WATCH",
-   "OPP_9AB924CA36C8": "WATCH",
-   "OPP_B362181E3A45": "WATCH",
-   "OPP_EE1E2A3869EE": "WATCH"
+ "C3_RUNTIME_STATE": "KNOWN_VIOLATION",
+ "C3_VIOLATION_REPRODUCED": true,
+ "C3_TARGET_CONTRACT": "PROPOSED",
+ "C3_WITNESS": [
+  {
+   "CASE_ID": "OPP_00C5B6E15185",
+   "TEMPORAL_STATE_BEFORE_GATE": "WATCH",
+   "VALIDATION_GATE_STATE": "TO_VALIDATE",
+   "LEGACY_ACTION_STATUS_AFTER_OVERRIDE": "TO_VALIDATE",
+   "TEMPORAL_STATE_PERSISTED_IN_ANY_FIELD": false
+  },
+  {
+   "CASE_ID": "OPP_4C39CCC05EEB",
+   "TEMPORAL_STATE_BEFORE_GATE": "WATCH",
+   "VALIDATION_GATE_STATE": "TO_VALIDATE",
+   "LEGACY_ACTION_STATUS_AFTER_OVERRIDE": "TO_VALIDATE",
+   "TEMPORAL_STATE_PERSISTED_IN_ANY_FIELD": false
+  },
+  {
+   "CASE_ID": "OPP_568684853264",
+   "TEMPORAL_STATE_BEFORE_GATE": "WATCH",
+   "VALIDATION_GATE_STATE": "TO_VALIDATE",
+   "LEGACY_ACTION_STATUS_AFTER_OVERRIDE": "TO_VALIDATE",
+   "TEMPORAL_STATE_PERSISTED_IN_ANY_FIELD": false
+  },
+  {
+   "CASE_ID": "OPP_5D03565DB4C3",
+   "TEMPORAL_STATE_BEFORE_GATE": "WATCH",
+   "VALIDATION_GATE_STATE": "TO_VALIDATE",
+   "LEGACY_ACTION_STATUS_AFTER_OVERRIDE": "TO_VALIDATE",
+   "TEMPORAL_STATE_PERSISTED_IN_ANY_FIELD": false
+  },
+  {
+   "CASE_ID": "OPP_6BA350CA1538",
+   "TEMPORAL_STATE_BEFORE_GATE": "WATCH",
+   "VALIDATION_GATE_STATE": "TO_VALIDATE",
+   "LEGACY_ACTION_STATUS_AFTER_OVERRIDE": "TO_VALIDATE",
+   "TEMPORAL_STATE_PERSISTED_IN_ANY_FIELD": false
+  },
+  {
+   "CASE_ID": "OPP_8E210567B01F",
+   "TEMPORAL_STATE_BEFORE_GATE": "WATCH",
+   "VALIDATION_GATE_STATE": "TO_VALIDATE",
+   "LEGACY_ACTION_STATUS_AFTER_OVERRIDE": "TO_VALIDATE",
+   "TEMPORAL_STATE_PERSISTED_IN_ANY_FIELD": false
+  },
+  {
+   "CASE_ID": "OPP_9AB924CA36C8",
+   "TEMPORAL_STATE_BEFORE_GATE": "WATCH",
+   "VALIDATION_GATE_STATE": "TO_VALIDATE",
+   "LEGACY_ACTION_STATUS_AFTER_OVERRIDE": "TO_VALIDATE",
+   "TEMPORAL_STATE_PERSISTED_IN_ANY_FIELD": false
+  },
+  {
+   "CASE_ID": "OPP_B362181E3A45",
+   "TEMPORAL_STATE_BEFORE_GATE": "WATCH",
+   "VALIDATION_GATE_STATE": "TO_VALIDATE",
+   "LEGACY_ACTION_STATUS_AFTER_OVERRIDE": "TO_VALIDATE",
+   "TEMPORAL_STATE_PERSISTED_IN_ANY_FIELD": false
+  },
+  {
+   "CASE_ID": "OPP_EE1E2A3869EE",
+   "TEMPORAL_STATE_BEFORE_GATE": "WATCH",
+   "VALIDATION_GATE_STATE": "TO_VALIDATE",
+   "LEGACY_ACTION_STATUS_AFTER_OVERRIDE": "TO_VALIDATE",
+   "TEMPORAL_STATE_PERSISTED_IN_ANY_FIELD": false
   }
+ ],
+ "RR06_EXECUTABLE_LINKS": 5,
+ "RR06_EMITTED_TEXT_SAYS": 4,
+ "SALES_READY_ATOMIC_CONDITIONS": 7,
+ "SALES_READY_SEMANTIC_DIMENSIONS": 6,
+ "SALES_READY_DIMENSION_MAP": {
+  "PROBLEMA": [
+   "TARGET_DECLARADO"
+  ],
+  "RESPOSTA_ADAMA": [
+   "ROTULO_VERIFICADO",
+   "CATALOGO_COMERCIAL"
+  ],
+  "NECESSIDADE": [
+   "NECESSIDADE_POSITIVA"
+  ],
+  "GEOGRAFIA": [
+   "GEOGRAFIA_SUSTENTA"
+  ],
+  "NATUREZA_DO_CASO": [
+   "ARQUETIPO_NAO_REGULATORIO"
+  ],
+  "TEMPO": [
+   "JANELA_COMERCIAL"
+  ]
  },
+ "SYNTHETIC_SCENARIOS": 11,
+ "SCENARIOS_PASS": 11,
+ "RULES_DECLARED": [
+  "C1",
+  "C2",
+  "C3",
+  "C3b",
+  "C4",
+  "C5",
+  "C6",
+  "C7",
+  "C8"
+ ],
+ "RULES_EXERCISED_BY_REJECTION": [
+  "C1",
+  "C3",
+  "C3b",
+  "C5",
+  "C7",
+  "C8"
+ ],
+ "RULES_NOT_EXERCISED": [
+  "C2",
+  "C4",
+  "C6"
+ ],
  "RED_TEAM": [
   {
    "ID": "RT-01",
    "DESC": "oportunidade acionável que não pode ser publicada",
-   "STATE": {
+   "STATE_BEFORE": {
     "ELIGIBILITY": "OPPORTUNITY",
     "TEMPORAL": "ACT_NOW",
     "COMMERCIAL": "SALES_READY",
     "PUBLICATION": "BLOCKED",
     "EXTERNAL": "NO"
    },
-   "ACCEPTED_BY_CONTRACT": true,
-   "EXPECTED": true,
+   "AUTHORITY_ATTEMPT": null,
+   "PROPOSED_STATE_AFTER": null,
+   "CONTRACT_VERDICT": "ACCEPTED",
+   "FINAL_STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "ACT_NOW",
+    "COMMERCIAL": "SALES_READY",
+    "PUBLICATION": "BLOCKED",
+    "EXTERNAL": "NO"
+   },
+   "EXPECTED_ACCEPTED": true,
    "PASS": true,
-   "VIOLATIONS": []
+   "VIOLATIONS": [],
+   "TARGET_RULES": [
+    "—"
+   ]
   },
   {
    "ID": "RT-02",
    "DESC": "publicável internamente, brief externo negado",
-   "STATE": {
+   "STATE_BEFORE": {
     "ELIGIBILITY": "OPPORTUNITY",
     "COMMERCIAL": "SALES_READY",
     "PUBLICATION": "PUBLISHABLE",
     "EXTERNAL": "NO"
    },
-   "ACCEPTED_BY_CONTRACT": true,
-   "EXPECTED": true,
+   "AUTHORITY_ATTEMPT": null,
+   "PROPOSED_STATE_AFTER": null,
+   "CONTRACT_VERDICT": "ACCEPTED",
+   "FINAL_STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "COMMERCIAL": "SALES_READY",
+    "PUBLICATION": "PUBLISHABLE",
+    "EXTERNAL": "NO"
+   },
+   "EXPECTED_ACCEPTED": true,
    "PASS": true,
-   "VIOLATIONS": []
+   "VIOLATIONS": [],
+   "TARGET_RULES": [
+    "C5"
+   ]
   },
   {
-   "ID": "RT-03",
-   "DESC": "urgência tenta promover RADAR a OPPORTUNITY",
-   "STATE": {
+   "ID": "RT-03a",
+   "DESC": "RADAR com janela aberta — COEXISTÊNCIA, sem tentativa",
+   "STATE_BEFORE": {
     "ELIGIBILITY": "RADAR",
     "TEMPORAL": "ACT_NOW",
     "WINDOW_OPEN_NOW": "YES",
@@ -61,15 +188,69 @@
     "PUBLICATION": "VALIDATION_REQUIRED",
     "EXTERNAL": "NO"
    },
-   "ACCEPTED_BY_CONTRACT": true,
-   "EXPECTED": true,
+   "AUTHORITY_ATTEMPT": null,
+   "PROPOSED_STATE_AFTER": null,
+   "CONTRACT_VERDICT": "ACCEPTED",
+   "FINAL_STATE": {
+    "ELIGIBILITY": "RADAR",
+    "TEMPORAL": "ACT_NOW",
+    "WINDOW_OPEN_NOW": "YES",
+    "VALIDATION": "REQUIRED",
+    "PUBLICATION": "VALIDATION_REQUIRED",
+    "EXTERNAL": "NO"
+   },
+   "EXPECTED_ACCEPTED": true,
    "PASS": true,
-   "VIOLATIONS": []
+   "VIOLATIONS": [],
+   "TARGET_RULES": [
+    "—"
+   ]
   },
   {
-   "ID": "RT-04",
-   "DESC": "prioridade alta tenta transformar futuro em agora",
-   "STATE": {
+   "ID": "RT-03b",
+   "DESC": "a urgência TENTA promover RADAR → OPPORTUNITY",
+   "STATE_BEFORE": {
+    "ELIGIBILITY": "RADAR",
+    "TEMPORAL": "ACT_NOW",
+    "WINDOW_OPEN_NOW": "YES",
+    "VALIDATION": "REQUIRED",
+    "PUBLICATION": "VALIDATION_REQUIRED",
+    "EXTERNAL": "NO"
+   },
+   "AUTHORITY_ATTEMPT": "TEMPORAL_STATE",
+   "PROPOSED_STATE_AFTER": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "ACT_NOW",
+    "WINDOW_OPEN_NOW": "YES",
+    "VALIDATION": "REQUIRED",
+    "PUBLICATION": "VALIDATION_REQUIRED",
+    "EXTERNAL": "NO"
+   },
+   "CONTRACT_VERDICT": "REJECTED",
+   "FINAL_STATE": {
+    "ELIGIBILITY": "RADAR",
+    "TEMPORAL": "ACT_NOW",
+    "WINDOW_OPEN_NOW": "YES",
+    "VALIDATION": "REQUIRED",
+    "PUBLICATION": "VALIDATION_REQUIRED",
+    "EXTERNAL": "NO"
+   },
+   "EXPECTED_ACCEPTED": false,
+   "PASS": true,
+   "VIOLATIONS": [
+    {
+     "RULE": "C1",
+     "WHY": "TEMPORAL_STATE tentou reescrever ELIGIBILITY"
+    }
+   ],
+   "TARGET_RULES": [
+    "C1"
+   ]
+  },
+  {
+   "ID": "RT-04a",
+   "DESC": "futuro com prioridade comercial alta — COEXISTÊNCIA",
+   "STATE_BEFORE": {
     "ELIGIBILITY": "OPPORTUNITY",
     "TEMPORAL": "FUTURE_PREPARATION",
     "VALIDATION": "PASS",
@@ -78,15 +259,79 @@
     "EXTERNAL": "NO",
     "PRODUCT_LABEL": "PREPARAR"
    },
-   "ACCEPTED_BY_CONTRACT": true,
-   "EXPECTED": true,
+   "AUTHORITY_ATTEMPT": null,
+   "PROPOSED_STATE_AFTER": null,
+   "CONTRACT_VERDICT": "ACCEPTED",
+   "FINAL_STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "FUTURE_PREPARATION",
+    "VALIDATION": "PASS",
+    "COMMERCIAL": "SALES_READY",
+    "PUBLICATION": "PUBLISHABLE",
+    "EXTERNAL": "NO",
+    "PRODUCT_LABEL": "PREPARAR"
+   },
+   "EXPECTED_ACCEPTED": true,
    "PASS": true,
-   "VIOLATIONS": []
+   "VIOLATIONS": [],
+   "TARGET_RULES": [
+    "—"
+   ]
+  },
+  {
+   "ID": "RT-04b",
+   "DESC": "o comercial TENTA transformar FUTURE_PREPARATION → ACT_NOW",
+   "STATE_BEFORE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "FUTURE_PREPARATION",
+    "VALIDATION": "PASS",
+    "COMMERCIAL": "SALES_READY",
+    "PUBLICATION": "PUBLISHABLE",
+    "EXTERNAL": "NO"
+   },
+   "AUTHORITY_ATTEMPT": "COMMERCIAL_PRIORITY",
+   "PROPOSED_STATE_AFTER": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "ACT_NOW",
+    "VALIDATION": "PASS",
+    "COMMERCIAL": "SALES_READY",
+    "PUBLICATION": "PUBLISHABLE",
+    "EXTERNAL": "NO",
+    "PRODUCT_LABEL": "AGIR_AGORA"
+   },
+   "CONTRACT_VERDICT": "REJECTED",
+   "FINAL_STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "FUTURE_PREPARATION",
+    "VALIDATION": "PASS",
+    "COMMERCIAL": "SALES_READY",
+    "PUBLICATION": "PUBLISHABLE",
+    "EXTERNAL": "NO"
+   },
+   "EXPECTED_ACCEPTED": false,
+   "PASS": true,
+   "VIOLATIONS": [
+    {
+     "RULE": "C3b",
+     "WHY": "COMMERCIAL_PRIORITY tentou reescrever TEMPORAL_STATE"
+    }
+   ],
+   "TARGET_RULES": [
+    "C3b"
+   ]
   },
   {
    "ID": "RT-05",
-   "DESC": "sinal recente tenta virar janela de ação",
-   "STATE": {
+   "DESC": "sinal recente TENTA virar janela de ação",
+   "STATE_BEFORE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "UNKNOWN",
+    "SIGNAL_RECENCY": "CURRENT",
+    "PUBLICATION": "VALIDATION_REQUIRED",
+    "EXTERNAL": "NO"
+   },
+   "AUTHORITY_ATTEMPT": "SIGNAL_RECENCY",
+   "PROPOSED_STATE_AFTER": {
     "ELIGIBILITY": "OPPORTUNITY",
     "TEMPORAL": "UNKNOWN",
     "SIGNAL_RECENCY": "CURRENT",
@@ -94,20 +339,30 @@
     "PUBLICATION": "VALIDATION_REQUIRED",
     "EXTERNAL": "NO"
    },
-   "ACCEPTED_BY_CONTRACT": false,
-   "EXPECTED": false,
+   "CONTRACT_VERDICT": "REJECTED",
+   "FINAL_STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "UNKNOWN",
+    "SIGNAL_RECENCY": "CURRENT",
+    "PUBLICATION": "VALIDATION_REQUIRED",
+    "EXTERNAL": "NO"
+   },
+   "EXPECTED_ACCEPTED": false,
    "PASS": true,
    "VIOLATIONS": [
     {
-     "RULE": "C7 · recência de sinal não é janela aberta",
+     "RULE": "C7",
      "WHY": "recência do sinal promovida a janela aberta"
     }
+   ],
+   "TARGET_RULES": [
+    "C7"
    ]
   },
   {
    "ID": "RT-06",
    "DESC": "card existe sem inventar timing",
-   "STATE": {
+   "STATE_BEFORE": {
     "ELIGIBILITY": "OPPORTUNITY",
     "TEMPORAL": "UNKNOWN",
     "VALIDATION": "PASS",
@@ -115,114 +370,247 @@
     "PUBLICATION": "PUBLISHABLE",
     "EXTERNAL": "NO"
    },
-   "ACCEPTED_BY_CONTRACT": true,
-   "EXPECTED": true,
+   "AUTHORITY_ATTEMPT": null,
+   "PROPOSED_STATE_AFTER": null,
+   "CONTRACT_VERDICT": "ACCEPTED",
+   "FINAL_STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "UNKNOWN",
+    "VALIDATION": "PASS",
+    "PRODUCT_LABEL": "TIMING_UNKNOWN",
+    "PUBLICATION": "PUBLISHABLE",
+    "EXTERNAL": "NO"
+   },
+   "EXPECTED_ACCEPTED": true,
    "PASS": true,
-   "VIOLATIONS": []
+   "VIOLATIONS": [],
+   "TARGET_RULES": [
+    "C6"
+   ]
   },
   {
    "ID": "RT-07",
-   "DESC": "material para terceiro com externo desconhecido",
-   "STATE": {
+   "DESC": "material para terceiro com EXTERNAL = UNKNOWN",
+   "STATE_BEFORE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "PUBLICATION": "PUBLISHABLE",
+    "EXTERNAL": "UNKNOWN"
+   },
+   "AUTHORITY_ATTEMPT": "DELIVERY",
+   "PROPOSED_STATE_AFTER": {
     "ELIGIBILITY": "OPPORTUNITY",
     "PUBLICATION": "PUBLISHABLE",
     "EXTERNAL": "UNKNOWN",
     "EXTERNAL_MATERIAL_EMITTED": true
    },
-   "ACCEPTED_BY_CONTRACT": false,
-   "EXPECTED": false,
+   "CONTRACT_VERDICT": "REJECTED",
+   "FINAL_STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "PUBLICATION": "PUBLISHABLE",
+    "EXTERNAL": "UNKNOWN"
+   },
+   "EXPECTED_ACCEPTED": false,
    "PASS": true,
    "VIOLATIONS": [
     {
-     "RULE": "C8 · só EXTERNAL=YES autoriza material para terceiro",
-     "WHY": "material para terceiro emitido com EXTERNAL != YES. UNKNOWN NÃO É PERMISSÃO."
+     "RULE": "C8",
+     "WHY": "material para terceiro com EXTERNAL != YES. UNKNOWN NÃO É PERMISSÃO"
     }
+   ],
+   "TARGET_RULES": [
+    "C8"
    ]
   },
   {
    "ID": "RT-08",
-   "DESC": "externo permissivo sobre publicação negada",
-   "STATE": {
+   "DESC": "EXTERNAL permissivo sobre publicação negada",
+   "STATE_BEFORE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "PUBLICATION": "VALIDATION_REQUIRED",
+    "EXTERNAL": "NO"
+   },
+   "AUTHORITY_ATTEMPT": "EXTERNAL_MATERIAL_READY",
+   "PROPOSED_STATE_AFTER": {
     "ELIGIBILITY": "OPPORTUNITY",
     "PUBLICATION": "VALIDATION_REQUIRED",
     "EXTERNAL": "YES"
    },
-   "ACCEPTED_BY_CONTRACT": false,
-   "EXPECTED": false,
+   "CONTRACT_VERDICT": "REJECTED",
+   "FINAL_STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "PUBLICATION": "VALIDATION_REQUIRED",
+    "EXTERNAL": "NO"
+   },
+   "EXPECTED_ACCEPTED": false,
    "PASS": true,
    "VIOLATIONS": [
     {
-     "RULE": "C5 · entrega externa nunca é menos restritiva que a interna",
-     "WHY": "EXTERNAL mais permissivo que PUBLICATION — proibido. EXTERNAL_DELIVERY ⊆ INTERNAL_PUBLICATION"
+     "RULE": "C5",
+     "WHY": "EXTERNAL mais permissivo que PUBLICATION"
     }
+   ],
+   "TARGET_RULES": [
+    "C5"
+   ]
+  },
+  {
+   "ID": "RT-09",
+   "DESC": "o gate de validação TENTA reescrever o tempo — o defeito RR-01, sintético",
+   "STATE_BEFORE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "WATCH",
+    "VALIDATION": "FAIL"
+   },
+   "AUTHORITY_ATTEMPT": "VALIDATION_GATE_STATE",
+   "PROPOSED_STATE_AFTER": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "TO_VALIDATE",
+    "VALIDATION": "FAIL"
+   },
+   "CONTRACT_VERDICT": "REJECTED",
+   "FINAL_STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "WATCH",
+    "VALIDATION": "FAIL"
+   },
+   "EXPECTED_ACCEPTED": false,
+   "PASS": true,
+   "VIOLATIONS": [
+    {
+     "RULE": "C3",
+     "WHY": "VALIDATION_GATE_STATE tentou reescrever TEMPORAL_STATE"
+    },
+    {
+     "RULE": "C3b",
+     "WHY": "VALIDATION_GATE_STATE tentou reescrever TEMPORAL_STATE"
+    }
+   ],
+   "TARGET_RULES": [
+    "C3",
+    "C3b"
    ]
   }
  ],
  "CHECKS": [
   {
-   "CHECK": "a lei de fb96f49d reproduz os 43 fora dos overrides",
+   "CHECK": "existem casos reais onde o gate sobrescreve o tempo",
    "PASS": true,
-   "DETAIL": "34 de 34 não-TO_VALIDATE batem"
+   "DETAIL": "9 casos"
   },
   {
-   "CHECK": "os 9 TO_VALIDATE recuperam um estado temporal por re-execução",
+   "CHECK": "em todos, o estado temporal anterior NÃO está persistido em campo",
    "PASS": true,
-   "DETAIL": "9 casos → ['WATCH']"
+   "DETAIL": "nenhum campo do snapshot carrega o valor pré-override"
+  },
+  {
+   "CHECK": "o valor pré-override é recuperável POR REEXECUÇÃO",
+   "PASS": true,
+   "DETAIL": "recuperado: ['WATCH']"
+  },
+  {
+   "CHECK": "a lei reproduz os casos não sobrescritos",
+   "PASS": true,
+   "DETAIL": "34/34"
+  },
+  {
+   "CHECK": "a regra executável usa 5 elos",
+   "PASS": true,
+   "DETAIL": "ELOS = SINAL_ATUAL · JANELA_DEFINIDA · JANELA_ABERTA_AGORA · VINCULO_COM_PORTFOLIO · TEMPO_PARA_ACAO"
+  },
+  {
+   "CHECK": "o texto emitido diz «quatro elos»",
+   "PASS": true,
+   "DETAIL": "3 ocorrências em scripts/v21_oportunidades.py"
+  },
+  {
+   "CHECK": "o texto errado NÃO viaja para o snapshot",
+   "PASS": true,
+   "DETAIL": "WHY_NOW_LAW e STATUS_LAW ausentes do snapshot"
+  },
+  {
+   "CHECK": "o que viaja (ACTION_CHAIN_LINKS) tem os 5",
+   "PASS": true,
+   "DETAIL": "5 chaves em 43/43"
+  },
+  {
+   "CHECK": "cada predicado pertence a exactamente uma dimensão",
+   "PASS": true,
+   "DETAIL": "7 predicados → 6 dimensões"
+  },
+  {
+   "CHECK": "os 6 SALES_READY satisfazem todos os predicados verificáveis",
+   "PASS": true,
+   "DETAIL": "6 casos, 0 predicados falhados"
   },
   {
    "CHECK": "RT-01 · oportunidade acionável que não pode ser publicada",
    "PASS": true,
-   "DETAIL": "aceite"
+   "DETAIL": "coexistência → ACEITE"
   },
   {
    "CHECK": "RT-02 · publicável internamente, brief externo negado",
    "PASS": true,
-   "DETAIL": "aceite"
+   "DETAIL": "coexistência → ACEITE"
   },
   {
-   "CHECK": "RT-03 · urgência tenta promover RADAR a OPPORTUNITY",
+   "CHECK": "RT-03a · RADAR com janela aberta — COEXISTÊNCIA, sem tentativa",
    "PASS": true,
-   "DETAIL": "aceite"
+   "DETAIL": "coexistência → ACEITE"
   },
   {
-   "CHECK": "RT-04 · prioridade alta tenta transformar futuro em agora",
+   "CHECK": "RT-03b · a urgência TENTA promover RADAR → OPPORTUNITY",
    "PASS": true,
-   "DETAIL": "aceite"
+   "DETAIL": "tentativa via TEMPORAL_STATE → RECUSADO C1"
   },
   {
-   "CHECK": "RT-05 · sinal recente tenta virar janela de ação",
+   "CHECK": "RT-04a · futuro com prioridade comercial alta — COEXISTÊNCIA",
    "PASS": true,
-   "DETAIL": "recusado: recência do sinal promovida a janela aberta"
+   "DETAIL": "coexistência → ACEITE"
+  },
+  {
+   "CHECK": "RT-04b · o comercial TENTA transformar FUTURE_PREPARATION → ACT_NOW",
+   "PASS": true,
+   "DETAIL": "tentativa via COMMERCIAL_PRIORITY → RECUSADO C3b"
+  },
+  {
+   "CHECK": "RT-05 · sinal recente TENTA virar janela de ação",
+   "PASS": true,
+   "DETAIL": "tentativa via SIGNAL_RECENCY → RECUSADO C7"
   },
   {
    "CHECK": "RT-06 · card existe sem inventar timing",
    "PASS": true,
-   "DETAIL": "aceite"
+   "DETAIL": "coexistência → ACEITE"
   },
   {
-   "CHECK": "RT-07 · material para terceiro com externo desconhecido",
+   "CHECK": "RT-07 · material para terceiro com EXTERNAL = UNKNOWN",
    "PASS": true,
-   "DETAIL": "recusado: material para terceiro emitido com EXTERNAL != YES. UNKNOWN NÃO É PERM"
+   "DETAIL": "tentativa via DELIVERY → RECUSADO C8"
   },
   {
-   "CHECK": "RT-08 · externo permissivo sobre publicação negada",
+   "CHECK": "RT-08 · EXTERNAL permissivo sobre publicação negada",
    "PASS": true,
-   "DETAIL": "recusado: EXTERNAL mais permissivo que PUBLICATION — proibido. EXTERNAL_DELIVERY"
+   "DETAIL": "tentativa via EXTERNAL_MATERIAL_READY → RECUSADO C5"
   },
   {
-   "CHECK": "divergência SALES_READY≠PUBLISHABLE é ACEITE e preservada",
+   "CHECK": "RT-09 · o gate de validação TENTA reescrever o tempo — o defeito RR-01, sintético",
    "PASS": true,
-   "DETAIL": "os três valores continuam distintos, nenhum foi corrigido"
+   "DETAIL": "tentativa via VALIDATION_GATE_STATE → RECUSADO C3"
   },
   {
-   "CHECK": "divergência EXTERNAL>PUBLICATION é RECUSADA",
+   "CHECK": "divergência SALES_READY ≠ PUBLISHABLE é ACEITE e preservada",
    "PASS": true,
-   "DETAIL": "EXTERNAL mais permissivo que PUBLICATION — proibido. EXTERNAL_DELIVERY"
+   "DETAIL": "três valores distintos, nenhum corrigido"
   },
   {
    "CHECK": "o contrato NÃO codifica SALES_READY == PUBLISHABLE",
    "PASS": true,
-   "DETAIL": "igualdade observada nos 43 não virou regra"
+   "DETAIL": "igualdade dos 43 não virou regra"
+  },
+  {
+   "CHECK": "nenhuma regra fica sem estado declarado",
+   "PASS": true,
+   "DETAIL": "as não exercitadas estão nomeadas, não escondidas"
   }
  ]
 }

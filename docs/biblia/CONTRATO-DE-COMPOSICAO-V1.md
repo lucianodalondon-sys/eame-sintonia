@@ -6,6 +6,8 @@ DOCUMENT_TYPE     CORE CONSTITUTION · contrato de composição
 DATE              2026-09-08
 BRANCH            research/delivery-bible-v1
 HEAD_INICIAL      6685655efa2d8baf20aa998a366bad8c51150e22   (= remoto, 0/0, limpa)
+REVISION          D0.4R · correção probatória sobre este mesmo documento
+                  §6 contagem SALES_READY · §7.2 C3/C3b · §8 placar · §12 RR-06
 BASELINE          a4fb6d81681094925ccfd1638bc7386cbec6f4d4
 OWNER_HEAD        fb96f49d   ← declarado pelo próprio snapshot em SOURCE_HEAD
 
@@ -278,23 +280,56 @@ A missão pergunta se é *priority*, *readiness*, *commercial eligibility* ou *a
 
 **A medição responde: é uma COMPOSIÇÃO, e não é prioridade.**
 
-As cinco condições, todas necessárias:
+**Contagem corrigida em D0.4R.** Esta secção dizia «cinco condições» num parágrafo e
+«composição de quatro pré-condições» noutro. **As duas erradas.** Medido sobre o dono
+real (`scripts/v21_comercial.py` @ `a4fb6d8`), por `testar_contrato_composicao.py`:
 
 ```
-TARGET declarado
-  + PRODUCT_LINK_STATE == VERIFIED_LABEL_MATCH     ← elegibilidade de rótulo
-  + NEED_DIRECTION ∈ POSITIVA                      ← necessidade externa
-  + CLAIM_GEOGRAPHY_HOLDS is True                  ← geografia
-  + COMMERCIAL_WINDOW ∈ (ACT_NOW, PREPARE_NOW)     ← tempo
+ATOMIC_CONDITIONS ..... 7      predicados que o motor avalia
+SEMANTIC_DIMENSIONS ... 6      perguntas de negócio que esses predicados respondem
+```
+
+As **7 condições atómicas**, todas necessárias:
+
+```
+TARGET_DECLARADO             TARGET != vazio
+ROTULO_VERIFICADO            PRODUCT_LINK_STATE == VERIFIED_LABEL_MATCH
+CATALOGO_COMERCIAL           COMMERCIAL_PRODUCT_COUNT > 0
+NECESSIDADE_POSITIVA         NEED_DIRECTION ∈ POSITIVA
+GEOGRAFIA_SUSTENTA           CLAIM_GEOGRAPHY_HOLDS is True
+ARQUETIPO_NAO_REGULATORIO    ARCHETYPE ∉ ESTRATÉGICO/REGULATÓRIO
+JANELA_COMERCIAL             COMMERCIAL_WINDOW ∈ (ACT_NOW, PREPARE_NOW)
   → SALES_READY
 ```
 
+Agrupadas nas **6 dimensões semânticas**:
+
+| dimensão semântica | condições atómicas |
+|---|---|
+| `PROBLEMA` | `TARGET_DECLARADO` |
+| `RESPOSTA_ADAMA` | `ROTULO_VERIFICADO` · `CATALOGO_COMERCIAL` |
+| `NECESSIDADE` | `NECESSIDADE_POSITIVA` |
+| `GEOGRAFIA` | `GEOGRAFIA_SUSTENTA` |
+| `NATUREZA_DO_CASO` | `ARQUETIPO_NAO_REGULATORIO` |
+| `TEMPO` | `JANELA_COMERCIAL` |
+
+`JANELA_COMERCIAL` é declarada e **não verificável no snapshot** (`COMMERCIAL_WINDOW` não
+viaja). Conta como condição atómica e fica marcada como **não medida** — uma condição não
+se apaga por não a conseguirmos ver. Os 6 casos `SALES_READY` satisfazem **todos** os
+predicados verificáveis (6/6, 0 falhas).
+
+> **CONTAR AS CONDIÇÕES DE UMA REGRA É MEDIÇÃO, NÃO NARRAÇÃO.**
+> As duas contagens anteriores eram narração. Nenhuma sobreviveu à medição.
+
 **Não há nenhuma ordenação.** Nenhum ramo compara casos entre si. `PRIORIDADES` é uma
-tupla de **cinco estados nomeados**, não uma escala.
+tupla de **cinco estados nomeados**, não uma escala. (Cinco *estados de prioridade* —
+número que nada tem a ver com as condições de `SALES_READY`, e cuja confusão produziu o
+«cinco condições» corrigido acima.)
 
 ```
-SALES_READY É:      COMMERCIAL READINESS — uma composição de quatro pré-condições
-                    (rótulo · necessidade · geografia · tempo)
+SALES_READY É:      COMMERCIAL READINESS — uma composição de 7 condições atómicas
+                    em 6 dimensões (problema · resposta · necessidade · geografia
+                    · natureza do caso · tempo)
 SALES_READY NÃO É:  prioridade · ordenação · ranking · score
                     nem autorização de saída externa (EXTERNAL_LAW é explícita)
 ```
@@ -338,7 +373,7 @@ L-35 · NO ESTADO DE ENTREGA, TODA A AUTORIDADE É DE BLOQUEIO.
        outro segurou. A promoção só existe na Inteligência, com evidência nova.
 ```
 
-### §7.2 · As oito regras de composição
+### §7.2 · As nove regras de composição
 
 Testadas contra 8 casos sintéticos — §8 e `RED-TEAM-COMPOSICAO-V1.md`.
 
@@ -351,7 +386,16 @@ C2  ELEGIBILIDADE NÃO É PROMOVIDA POR PRONTIDÃO COMERCIAL.
     porque as duas exigem a mesma cadeia de rótulo e produto.
 
 C3  O GATE DE VALIDAÇÃO NÃO REESCREVE O TEMPO.
-    ⚠️ VIOLADA HOJE. `STATUS = TO_VALIDATE` apaga o estado temporal. RR-01.
+    ⚠️ C3_RUNTIME_STATE = KNOWN_VIOLATION. `STATUS = TO_VALIDATE` apaga o estado
+    temporal em 9 casos reais. RR-01.
+    D0.4R: violação REPRODUZIDA sobre dado real (testemunha executável, 9 casos,
+    estado recuperado WATCH em 9/9, lei reproduz 34/34 dos não sobrescritos), e
+    exercitada em sintético por RT-09. C3_TARGET_CONTRACT = PROPOSED.
+    Uma regra proposta CONTRA uma violação medida — não uma regra cumprida.
+
+C3b NENHUMA AUTORIDADE NÃO-DONA REESCREVE O TEMPO, SEJA QUAL FOR.
+    C3 proibia o gate. Não proibia o comercial. RT-04b entrou por essa porta.
+    ⚠️ Esta regra foi acrescentada PELO RED TEAM em D0.4R. Ver §8.3.
 
 C4  A PUBLICAÇÃO NÃO CRIA VALIDADE.
     PUBLISHABLE sobre um caso inelegível é impossível por construção.
@@ -395,17 +439,40 @@ CONTRADICTION       MESMA pergunta,             ← NENHUMA ENCONTRADA
 
 ---
 
-## §8 · O QUE O RED TEAM PROVOU
+## §8 · O QUE O RED TEAM EXECUTOU — E O QUE ISSO PROVA
 
 Detalhe em `medicoes/RED-TEAM-COMPOSICAO-V1.md`. Resumo:
 
 ```
-CASOS SINTÉTICOS EXECUTADOS ....... 8   (RT-01 … RT-08)
-PASSARAM ........................... 8 / 8
-ENTRARAM NOS 43 .................... 0     ← SYNTHETIC_CONTRACT_TEST ≠ OBSERVED CASE
-TESTE DE INDEPENDÊNCIA ............. PASS
-REGRAS ACRESCENTADAS PELO RED TEAM . 1     (C8)
+SYNTHETIC_SCENARIOS ................. 11   (RT-01 … RT-09, com RT-03/04 em a+b)
+SCENARIOS_PASS ...................... 11
+ENTRARAM NOS 43 ......................  0   ← SYNTHETIC_CONTRACT_TEST ≠ OBSERVED CASE
+RULES_DECLARED ......................  9   C1 C2 C3 C3b C4 C5 C6 C7 C8
+RULES_EXERCISED_BY_REJECTION ........  6   C1 C3 C3b C5 C7 C8
+RULES_NOT_EXERCISED .................  3   C2 C4 C6
+TESTE DE INDEPENDÊNCIA .............. PASS
+REGRAS ACRESCENTADAS PELO RED TEAM ..  2   (C8 em D0.4 · C3b em D0.4R)
 ```
+
+> **`SCENARIO EXECUTED ≠ PROPERTY PROVED`.**
+> D0.4 escreveu `PASS · 8/8` e deixou ler-se «o contrato está provado». Não estava.
+> Um cenário que passa prova que **aquele cenário foi julgado como se esperava**.
+> `C2`, `C4` e `C6` continuam **por testar** — nomeadas, não escondidas.
+
+### §8.1 · O que D0.4R corrigiu no próprio red team
+
+`RT-03` e `RT-04` eram apresentados como prova de que o contrato **recusa a promoção**.
+Nenhum dos dois tentava promover: testavam **coexistência**. D0.4R parte-os em dois —
+`a` mantém a coexistência (aceite), `b` executa a **tentativa real** de transição, e aí o
+contrato recusa, por `C1` e por `C3b`.
+
+> **NÃO TER TENTADO NÃO É TER SIDO RECUSADO.**
+
+### §8.2 · `C3`, agora com testemunha
+
+`RT-09` executa em sintético o que o runtime **faz** hoje: o gate de validação a tentar
+reescrever o tempo. O contrato **recusa** (`C3`). A distância entre o que o contrato
+recusa e o que o runtime faz é a dívida `RR-01` — medida em §2 do red team, não suposta.
 
 ### §8.3 · O buraco que o red team encontrou no próprio contrato
 
@@ -416,6 +483,8 @@ lida como permissão.
 > **UM CONTRATO QUE ACEITA POR OMISSÃO NÃO É UM CONTRATO. É UM SILÊNCIO.**
 
 `C8` nasceu daí. Fica registado que nasceu do red team, e não da primeira escrita.
+Em D0.4R o mesmo aconteceu a `C3b`: `RT-04b` mostrou que `C3` só cobria o gate, e a
+autoridade comercial passava por omissão sobre o tempo.
 
 ### §8.4 · O teste de independência
 
@@ -434,7 +503,7 @@ L-37 · OBSERVED SET EQUALITY ≠ SEMANTIC IDENTITY.
 
   EVIDÊNCIA        nos 43, SALES_READY == PUBLISHABLE == EXTERNAL_YES, n=6
   CONTRAEXEMPLO    a igualdade é consequência de uma DERIVAÇÃO onde nenhum passo
-                   rebaixou (§3.1). Basta UM material a falhar uma das cinco etapas
+                   rebaixou (§3.1). Basta UM material a falhar uma etapa
                    da catraca para PUBLISHABLE ⊊ EXTERNAL_YES. O caminho existe,
                    está escrito, e nunca foi percorrido: 7 dos 8 códigos de bloqueio
                    nunca dispararam.
@@ -556,8 +625,30 @@ E os relógios NÃO PODEM ser um só campo:
 | `RR-03` | três nomes que não descrevem a semântica | `v21_comercial.py` · `v21_oportunidades.py` | renomear é migração |
 | `RR-04` | cópia obsoleta do gerador no ramo do portal | `a4fb6d8:scripts/v21_oportunidades.py` | é a linhagem, não a entrega |
 | `RR-05` | `SALES_PREPARE` e classe `E` declarados, população 0 | ambos | pode ser correto |
+| `RR-06` | `EXECUTABLE RULE ≠ EMITTED EXPLANATION`: a regra corre com 5 elos, o texto emitido diz «quatro elos» | `fb96f49d:scripts/v21_oportunidades.py` — `WHY_NOW_LAW` l.1798 · `STATUS_LAW` l.2218 · `ESTADOS_DE_ACAO_LEI` l.2429 | é engine · `ZERO RUNTIME` |
 
 **Zero destes foi tocado.**
+
+### `RR-06` — medido em D0.4R
+
+```
+regra executável ....... ELOS = 5
+                         SINAL_ATUAL · JANELA_DEFINIDA · JANELA_ABERTA_AGORA
+                         VINCULO_COM_PORTFOLIO · TEMPO_PARA_ACAO
+texto emitido .......... «quatro elos» · 3 ocorrências
+viaja para o snapshot? . NÃO — WHY_NOW_LAW e STATUS_LAW ausentes
+o que viaja ............ ACTION_CHAIN_LINKS com 5 chaves em 43/43
+impacto medido ......... contido no motor nesta safra
+estado ................. ABERTO
+```
+
+A regra que decide está certa. **A explicação que o sistema emite sobre a sua própria
+regra está errada.** A explicação é um produto; um produto errado é um defeito, mesmo
+quando o número que decide está certo.
+
+> **`L-38` · `EXECUTABLE RULE ≠ EMITTED EXPLANATION`.**
+> Uma lei tem duas faces: a que corre e a que se conta. Quando divergem, a que corre
+> manda sobre o dado — e a que se conta continua errada perante quem lê.
 
 ---
 

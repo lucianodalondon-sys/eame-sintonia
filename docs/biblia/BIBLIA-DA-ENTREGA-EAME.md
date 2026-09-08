@@ -4,8 +4,8 @@
 
 ```
 BIBLE_STATUS             DRAFT
-BIBLE_VERSION            V0.4
-SUPERSEDES               V0.3 (2026-09-08) — não a apaga; ver §22 e PARTES V, VI, VII
+BIBLE_VERSION            V0.4R
+SUPERSEDES               V0.3 (2026-09-08) — não a apaga; ver §22 e PARTES V, VI, VII, VIII
 DATE                     2026-09-08
 IMPLEMENTATION           NONE
 PRODUCTION_TOUCHED       NONE
@@ -1093,6 +1093,7 @@ VERSION · DATE · SUPERSEDES · WHAT_CHANGED · WHY · EVIDENCE · DECISION_REF
 |---|---|---|---|---|---|
 | V0.1 | 2026-09-08 | — | primeira escrita | não existia constituição de entrega; 12 superfícies, 1 contrato | `INVENTARIO-DAS-SUPERFICIES-ATUAIS.md` |
 | **V0.4** | **2026-09-08** | **V0.3** | PARTE VII: `L-29` script do baseline ≠ script que produziu o dado (corrige a atribuição de §51) · `L-30` projeção declarada pode ser lossy · `L-31` `OVERWRITE ≠ COMPOSITION` · `L-32` reconstrução por reexecução não é do casco · `L-33` `PUBLISHABLE` sem audiência é semântica incompleta · `L-34` o nome do campo não prova a semântica · `L-35` no estado de entrega toda a autoridade é de bloqueio · `L-36` as sete relações que não são conflito · `L-37` `OBSERVED SET EQUALITY ≠ SEMANTIC IDENTITY` | a genealogia resolveu `U-25` e `U-26`, encontrou o gerador real e mostrou que a igualdade dos três conjuntos é derivação declarada, não coincidência | `docs/biblia/CONTRATO-DE-COMPOSICAO-V1.md` · `medicoes/MATRIZ-DE-COMPOSICAO-V1.{md,json}` · `medicoes/RED-TEAM-COMPOSICAO-V1.{md,json}` |
+| **V0.4R** | **2026-09-08** | corrige **V0.4** (não a apaga) | PARTE VIII: `L-38` `EXECUTABLE RULE ≠ EMITTED EXPLANATION` · `L-39` `SCENARIO EXECUTED ≠ PROPERTY PROVED` · `L-40` um teste de promoção que não tenta promover não testa a promoção · `L-41` uma regra violada pelo runtime declara-se com o estado da violação · `L-42` contar as condições de uma regra é medição, e uma regra composta tem duas contagens | a revisão do dono mostrou que V0.4 declarou provado o que só tinha sido executado: `8/8` sem cobertura, `RT-03`/`RT-04` a testar coexistência em nome de promoção, `C3` violada sem testemunha, e duas contagens contraditórias de `SALES_READY` | `medicoes/RED-TEAM-COMPOSICAO-V1.{md,json}` · `medicoes/testar_contrato_composicao.py` · `CONTRATO-DE-COMPOSICAO-V1.md` §6 §7.2 §8 §12 |
 | **V0.3** | **2026-09-08** | **V0.2** | PARTE VI: `C-06` reescrito de «duas leis discordam» para **problema de composição** (§48) · a lei `L-26 · duas respostas diferentes não são contradição se respondem a perguntas diferentes` · `L-27 · derivação não declarada é uma segunda verdade em potência` · `L-28 · time since we saw it ≠ time until it closes` · o quinto eixo `EXTERNAL_MATERIAL_READY` (§49) · `MAPPING_TO_ENGINE` reforçado como `NOT_MEASURED` com prova (§50) | a medição dos 43 casos contra os eixos: nenhuma contradição em 43/43, mas duas derivações não declaradas e um colapso de três eixos num só conjunto | `docs/biblia/medicoes/MATRIZ-43-QUATRO-EIXOS.md` · `.json` · `medir_43_quatro_eixos.py` |
 | **V0.2** | **2026-09-08** | **V0.1** | PARTE V: três registos epistemológicos (§32) · modelo temporal e propriedade dos campos (§34) · contrato de card e 3s/30s/3min (§36) · Evidence Drawer (§37) · Home como fila de decisão (§38) · alerta por transição de estado (§39) · briefs por papel e mobile (§40) · superfície de ação (§41) · métrica de valor por ferramenta (§42) · 8 leis novas (§33) · 8 anti-padrões novos (§43) | o benchmark de 16 sistemas trouxe evidência externa; o dono declarou intenção de produto; e a re-execução do baseline destapou duas leis vivas sobre os mesmos 43 casos | `research/product-tools-benchmark-v1@6ef8e70` · `INVENTARIO §A` · `ADJUDICACAO-DO-BENCHMARK-V0.2.md` |
 
@@ -2495,7 +2496,7 @@ L-37 · A IGUALDADE DE CONJUNTOS NUMA AMOSTRA NÃO É IDENTIDADE SEMÂNTICA.
                  COMMERCIAL_PRIORITY → EXTERNAL → PUBLICATION,
                  onde NENHUM dos dois passos rebaixou nada.
                  EXTERNAL_BLOCKER_CODES: 1 dos 8 códigos disparou.
-  CONTRAEXEMPLO  basta UM material falhar uma das cinco etapas da catraca para
+  CONTRAEXEMPLO  basta UM material falhar uma etapa da catraca para
                  PUBLISHABLE ⊊ EXTERNAL_YES. O caminho existe, está escrito,
                  e nunca foi percorrido.
   CONSEQUÊNCIA   nenhum contrato codifica a igualdade; nenhuma superfície trata
@@ -2507,8 +2508,12 @@ L-37 · A IGUALDADE DE CONJUNTOS NUMA AMOSTRA NÃO É IDENTIDADE SEMÂNTICA.
 
 ```
 SALES_READY_AUTHORITY = RESOLVED
-    é COMMERCIAL READINESS — composição de quatro pré-condições
-    (rótulo · necessidade · geografia · tempo)
+    é COMMERCIAL READINESS — composição de 7 CONDIÇÕES ATÓMICAS
+    agrupadas em 6 DIMENSÕES SEMÂNTICAS
+    (problema · resposta ADAMA · necessidade · geografia · natureza do caso · tempo)
+    ATOMIC_CONDITIONS = 7 · SEMANTIC_DIMENSIONS = 6      ← medido em D0.4R
+    JANELA_COMERCIAL conta e NÃO é verificável no snapshot
+    (V0.4 escreveu «cinco condições» e «quatro pré-condições». As duas erradas.)
     NÃO é prioridade, ordenação, ranking nem score: nenhum ramo compara casos
     NÃO autoriza saída externa: EXTERNAL_LAW é explícita
 ```
@@ -2585,6 +2590,9 @@ RUNTIME_RECONCILIATION_REQUIRED — encontrado, NÃO corrigido
   RR-03  três nomes que não descrevem a semântica
   RR-04  cópia obsoleta do gerador no ramo do portal
   RR-05  SALES_PREPARE e classe E declarados com população 0
+  RR-06  EXECUTABLE RULE ≠ EMITTED EXPLANATION: a regra corre com 5 elos,
+         o texto emitido diz «quatro elos» (WHY_NOW_LAW · STATUS_LAW ·
+         ESTADOS_DE_ACAO_LEI, em fb96f49d:scripts/v21_oportunidades.py)
 ```
 
 ```
@@ -2597,3 +2605,134 @@ PRODUCT_CONTRACT_DEPENDENCY = OPEN
 **`UNKNOWN` novos:** `U-32` a audiência de `PUBLISHABLE` · `U-33` se `SALES_PREPARE` e a
 classe `E` são inalcançáveis ou apenas não exercitados · `U-34` se a recuperabilidade do
 estado temporal sobrevive a uma mudança de pacote — hoje é contingente e não declarada.
+
+
+---
+
+# PARTE VIII · EMENDA V0.4R — FECHAMENTO PROBATÓRIO
+
+```
+AMENDMENT       V0.4R · corrige V0.4 sem a apagar
+DATE            2026-09-08
+CAUSA           uma revisão do dono mostrou que V0.4 declarou provado o que
+                apenas tinha sido executado
+FONTE           medicoes/testar_contrato_composicao.py (READ-ONLY)
+                medicoes/RED-TEAM-COMPOSICAO-V1.{md,json}
+                CONTRATO-DE-COMPOSICAO-V1.md §6 §7.2 §8 §12
+```
+
+## §61 · `SCENARIO EXECUTED ≠ PROPERTY PROVED`
+
+```
+L-39 · UM CENÁRIO QUE PASSA PROVA AQUELE CENÁRIO. NÃO PROVA A PROPRIEDADE.
+
+  O QUE V0.4 ESCREVEU   «PASS · 8/8», sem qualificar — e leu-se «provado».
+  O QUE É VERDADE       8 cenários executados exercitaram algumas regras e
+                        deixaram outras por tocar. Uma regra que nenhum cenário
+                        obrigou a recusar coisa alguma não foi testada.
+  A REGRA               todo placar de teste declara, lado a lado:
+                        SCENARIOS_EXECUTED · RULES_DECLARED ·
+                        RULES_EXERCISED_BY_REJECTION · RULES_NOT_EXERCISED
+  PROIBIDO              publicar N/N como se fosse cobertura.
+```
+
+Placar medido do contrato de composição:
+
+```
+SYNTHETIC_SCENARIOS .............. 11
+SCENARIOS_PASS ................... 11
+RULES_DECLARED ...................  9   C1 C2 C3 C3b C4 C5 C6 C7 C8
+RULES_EXERCISED_BY_REJECTION .....  6   C1 C3 C3b C5 C7 C8
+RULES_NOT_EXERCISED ..............  3   C2 C4 C6      ← nomeadas, não escondidas
+```
+
+## §62 · `NÃO TER TENTADO NÃO É TER SIDO RECUSADO`
+
+```
+L-40 · UM TESTE DE PROMOÇÃO QUE NÃO TENTA PROMOVER NÃO TESTA A PROMOÇÃO.
+
+  V0.4 apresentou RT-03 e RT-04 como prova de que o contrato recusa a promoção.
+  Nenhum dos dois tentava promover: testavam COEXISTÊNCIA.
+  Um estado que ninguém tentou mudar não prova que a mudança seria recusada.
+
+  A FORMA CORRETA   um cenário de transição declara TRÊS coisas:
+                    (estado antes · autoridade que tenta · estado proposto depois)
+                    Sem autoridade declarada, é coexistência, e diz-se coexistência.
+```
+
+Executadas as tentativas reais: `RT-03b` recusado por `C1`, `RT-04b` recusado por `C3b`.
+`C3b` — *nenhuma autoridade não-dona reescreve o tempo, seja qual for* — nasceu daí:
+`C3` só proibia o gate, e a autoridade comercial passava por omissão. É a segunda regra
+que o red team obriga a escrever, depois de `C8` em V0.4.
+
+> **UM CONTRATO QUE ACEITA POR OMISSÃO NÃO É UM CONTRATO. É UM SILÊNCIO.**
+
+## §63 · `C3` — REGRA PROPOSTA CONTRA VIOLAÇÃO MEDIDA
+
+```
+C3_RUNTIME_STATE ......... KNOWN_VIOLATION
+C3_VIOLATION_REPRODUCED .. YES      testemunha executável sobre dado real
+C3_TARGET_CONTRACT ....... PROPOSED  não aplicado ao runtime
+
+  casos onde o gate sobrescreve o estado temporal ..........  9
+  estado pré-override persistido em algum campo ............  0 / 9
+  recuperado POR REEXECUÇÃO ................................  WATCH em 9/9
+  a lei reproduz os casos não sobrescritos .................  34 / 34
+  o mesmo movimento em sintético (RT-09) ................... RECUSADO por C3
+```
+
+```
+L-41 · UMA REGRA VIOLADA PELO RUNTIME DECLARA-SE COM O ESTADO DA VIOLAÇÃO.
+       Nunca se escreve uma regra proposta com a mesma tinta de uma regra cumprida.
+       A distância entre o que o contrato recusa e o que o runtime faz é a DÍVIDA,
+       e a dívida escreve-se — não se arredonda para PASS.
+```
+
+## §64 · `EXECUTABLE RULE ≠ EMITTED EXPLANATION` — `RR-06`
+
+```
+L-38 · UMA LEI TEM DUAS FACES: A QUE CORRE E A QUE SE CONTA.
+       Quando divergem, a que corre manda sobre o dado — e a que se conta
+       continua errada perante quem lê. A explicação é um PRODUTO.
+       Um produto errado é um defeito, mesmo quando o número que decide está certo.
+```
+
+```
+dono ................ scripts/v21_oportunidades.py @ fb96f49d
+regra executável .... ELOS = 5
+                      SINAL_ATUAL · JANELA_DEFINIDA · JANELA_ABERTA_AGORA
+                      VINCULO_COM_PORTFOLIO · TEMPO_PARA_ACAO
+texto emitido ....... «quatro elos» · 3 ocorrências
+                      WHY_NOW_LAW l.1798 · STATUS_LAW l.2218 · ESTADOS_DE_ACAO_LEI l.2429
+viaja no snapshot? .. NÃO — WHY_NOW_LAW e STATUS_LAW ausentes
+o que viaja ......... ACTION_CHAIN_LINKS com 5 chaves em 43/43
+impacto medido ...... contido no motor nesta safra
+estado .............. RR-06 · ABERTO · não corrigido (ZERO RUNTIME)
+```
+
+## §65 · CONTAR É MEDIR
+
+```
+L-42 · CONTAR AS CONDIÇÕES DE UMA REGRA É MEDIÇÃO, NÃO NARRAÇÃO.
+       E uma regra composta tem DUAS contagens, que nunca se confundem:
+         ATOMIC_CONDITIONS    predicados que o motor avalia
+         SEMANTIC_DIMENSIONS  perguntas de negócio que esses predicados respondem
+       Uma condição declarada e não verificável CONTA, e marca-se como não medida.
+       Não se apaga uma condição por não a conseguirmos ver.
+```
+
+`SALES_READY`, medido: **7 condições atómicas → 6 dimensões semânticas**. V0.4 escreveu
+«cinco condições» num parágrafo e «quatro pré-condições» noutro. **As duas erradas.**
+Detalhe em `CONTRATO-DE-COMPOSICAO-V1.md` §6.
+
+## §66 · O QUE V0.4R NÃO FEZ
+
+Não tocou runtime, portal, collection, base de dados, migration, produção nem deploy.
+Não resolveu `RR-01`. Não separou `STATUS`. Não renomeou `SALES_READY`, `VALIDATE_NOW`
+nem `TO_VALIDATE`. Não corrigiu o texto de `WHY_NOW_LAW`. Não definiu
+`PUBLICATION_AUDIENCE`. Não escreveu Product Contract nenhum. Não somou casos sintéticos
+aos 43. Não fez merge.
+
+**`UNKNOWN` novos:** `U-35` se `C2`, `C4` e `C6` são recusáveis ou vacuamente verdadeiras
+— nenhum cenário as exercitou · `U-36` se `JANELA_COMERCIAL` alguma vez falha, já que
+`COMMERCIAL_WINDOW` não viaja no snapshot e não é observável a partir dele.

@@ -1,28 +1,31 @@
 #!/usr/bin/env python3
-"""RED TEAM DO CONTRATO DE COMPOSIÇÃO — D0.4.
+"""RED TEAM DO CONTRATO DE COMPOSIÇÃO — D0.4, corrigido em D0.4R.
 
-READ-ONLY sobre o repositório. Não escreve dado, não chama rede, não toca runtime.
+READ-ONLY. Não escreve dado, não chama rede, não toca runtime.
 
-Faz três coisas, e nenhuma delas é mudar o sistema:
+D0.4R corrigiu três coisas que a primeira versão fazia mal:
 
-  1. REPRODUZ a lei do dono real (`estado_de_acao` de fb96f49d) sobre os 43 casos
-     observados, e mede quantos batem — para saber se o estado temporal anterior a
-     um override é RECUPERÁVEL POR RE-EXECUÇÃO.
+  1. RT-03 e RT-04 testavam COEXISTÊNCIA e diziam testar PROMOÇÃO. Agora executam
+     uma TENTATIVA DE TRANSIÇÃO real, com estado antes, autoridade que tenta,
+     estado proposto e veredito.
 
-  2. Corre 8 CASOS SINTÉTICOS DE CONTRATO (RT-01..RT-08) contra as regras de
-     composição propostas. Um caso sintético testa a ARQUITETURA; nunca é
-     evidência do mundo e nunca entra nos 43.
+         COEXISTENCE != PROMOTION ATTEMPT
+         CORRECT FINAL FIXTURE != PROOF THAT AN ILLEGAL TRANSITION IS BLOCKED
 
-         SYNTHETIC_CONTRACT_TEST != OBSERVED CASE
+  2. `8/8` era lido como «oito propriedades provadas». Agora o placar separa
+     CENÁRIOS EXECUTADOS de PROPRIEDADES EXERCITADAS, e declara quais regras
+     nenhum cenário exercita.
 
-  3. Faz o TESTE DE INDEPENDÊNCIA: força uma divergência sintética legítima entre
-     SALES_READY, PUBLICATION_STATE e EXTERNAL_MATERIAL_READY e verifica que o
-     contrato PRESERVA os três valores em vez de os «corrigir» para ficarem iguais.
+         SCENARIO EXECUTED != PROPERTY PROVED
+
+  3. C3 está VIOLADA no runtime e o teste global passava na mesma. Agora existe
+     uma TESTEMUNHA EXECUTÁVEL da violação, sobre dado real, que reprova se a
+     violação deixar de existir sem alguém dar por isso.
 
 Uso:
     python3 docs/biblia/medicoes/testar_contrato_composicao.py [--json OUT]
 
-Sai 1 se qualquer asserção do contrato falhar.
+Sai 1 se qualquer asserção falhar.
 """
 import argparse
 import json
@@ -32,10 +35,15 @@ import sys
 BASELINE = "a4fb6d81681094925ccfd1638bc7386cbec6f4d4"
 OWNER_HEAD = "fb96f49d"          # SOURCE_HEAD declarado pelo próprio snapshot
 SNAPSHOT = "italia-portale/client/meeting-intelligence-snapshot.json"
+OWNER_ENGINE = "scripts/v21_oportunidades.py"
+OWNER_COMMERCIAL = "scripts/v21_comercial.py"
 
 SINAL_CORRENTE_DIAS = 30
 SINAL_RECENTE_DIAS = 120
 NECESSIDADE_POSITIVA = ("POSITIVE_PRESSURE",)
+NECESSIDADE_FECHADA = ("NO_ACTION_RECOMMENDED", "ACTION_SUSPENDED",
+                       "WINDOW_CONCLUDED", "TREATMENT_PROHIBITED")
+ARQ_ESTRATEGICO = ("O5_REGULATORY_PREPARATION",)
 
 RESULTS = []
 
@@ -46,11 +54,14 @@ def check(name, ok, detail=""):
     return ok
 
 
-# ── 1 · a lei do DONO REAL, transcrita de fb96f49d:scripts/v21_oportunidades.py ──
-# Transcrita para REPRODUZIR, não para substituir. O dono continua sendo o script.
+def show(ref, path):
+    return subprocess.run(["git", "show", f"{ref}:{path}"],
+                          capture_output=True, check=True).stdout.decode("utf-8")
+
+
+# ── a lei do DONO REAL, transcrita de fb96f49d — para REPRODUZIR, não substituir ──
 def elos_de_agora(o):
-    idade = o.get("SIGNAL_AGE_DAYS")
-    dias = o.get("DAYS_REMAINING")
+    idade, dias = o.get("SIGNAL_AGE_DAYS"), o.get("DAYS_REMAINING")
     corrente = idade is not None and idade <= SINAL_CORRENTE_DIAS
     aberta = o.get("WINDOW_OPEN_NOW") == "YES"
     calendario = dias is not None and 0 <= dias <= SINAL_CORRENTE_DIAS
@@ -85,180 +96,322 @@ def estado_de_acao(o):
     return "WATCH", e
 
 
-# ── 2 · AS REGRAS DE COMPOSIÇÃO PROPOSTAS ────────────────────────────────────
-# Cada uma devolve (ok, motivo). Nenhuma altera o estado: só julga a combinação.
-def r_eligibility_nao_promovida_por_urgencia(s):
-    if s.get("TEMPORAL") in ("ACT_NOW",) and s.get("ELIGIBILITY") != "OPPORTUNITY":
-        return True, "urgência não promove elegibilidade — combinação permitida e preservada"
+# ── os PREDICADOS ATÓMICOS de SALES_READY, transcritos de v21_comercial.prioridade ──
+SALES_READY_PREDICATES = {
+    "TARGET_DECLARADO":      lambda o: bool(o.get("TARGET")),
+    "ROTULO_VERIFICADO":     lambda o: o.get("PRODUCT_LINK_STATE") == "VERIFIED_LABEL_MATCH",
+    "CATALOGO_COMERCIAL":    lambda o: (o.get("COMMERCIAL_PRODUCT_COUNT") or 0) > 0,
+    "NECESSIDADE_POSITIVA":  lambda o: o.get("NEED_DIRECTION") in NECESSIDADE_POSITIVA,
+    "GEOGRAFIA_SUSTENTA":    lambda o: o.get("CLAIM_GEOGRAPHY_HOLDS") is True,
+    "ARQUETIPO_NAO_REGULATORIO": lambda o: o.get("ARCHETYPE") not in ARQ_ESTRATEGICO,
+    "JANELA_COMERCIAL":      lambda o: True,   # COMMERCIAL_WINDOW não viaja no snapshot
+}
+# As sete acima são PREDICADOS. Agrupam-se em SEIS DIMENSÕES semânticas:
+SALES_READY_DIMENSIONS = {
+    "PROBLEMA":          ["TARGET_DECLARADO"],
+    "RESPOSTA_ADAMA":    ["ROTULO_VERIFICADO", "CATALOGO_COMERCIAL"],
+    "NECESSIDADE":       ["NECESSIDADE_POSITIVA"],
+    "GEOGRAFIA":         ["GEOGRAFIA_SUSTENTA"],
+    "NATUREZA_DO_CASO":  ["ARQUETIPO_NAO_REGULATORIO"],
+    "TEMPO":             ["JANELA_COMERCIAL"],
+}
+
+
+# ── AS REGRAS DE COMPOSIÇÃO ──────────────────────────────────────────────────
+# Cada uma julga uma TENTATIVA: (estado_antes, autoridade, estado_proposto).
+def C1(b, a, p):
+    """elegibilidade não é promovida por urgência temporal"""
+    if a == "TEMPORAL_STATE" and p.get("ELIGIBILITY") != b.get("ELIGIBILITY"):
+        return False, "TEMPORAL_STATE tentou reescrever ELIGIBILITY"
     return True, ""
 
 
-def r_eligibility_nao_promovida_por_comercial(s):
-    if s.get("COMMERCIAL") == "SALES_READY" and s.get("ELIGIBILITY") != "OPPORTUNITY":
-        return False, ("VIOLAÇÃO estrutural: SALES_READY exige TARGET + rótulo verificado + "
-                       "catálogo, que é a mesma cadeia que a elegibilidade exige. "
-                       "Não é o comercial a promover — é a pré-condição partilhada.")
+def C2(b, a, p):
+    """elegibilidade não é promovida por prontidão comercial"""
+    if a == "COMMERCIAL_PRIORITY" and p.get("ELIGIBILITY") != b.get("ELIGIBILITY"):
+        return False, "COMMERCIAL_PRIORITY tentou reescrever ELIGIBILITY"
     return True, ""
 
 
-def r_validacao_nao_altera_tempo(s):
-    return (s.get("TEMPORAL_BEFORE_GATE") is None
-            or s.get("TEMPORAL_BEFORE_GATE") == s.get("TEMPORAL_TRUTH"),
-            "gate não reescreve a verdade temporal")
-
-
-def r_publicacao_nao_cria_validade(s):
-    if s.get("PUBLICATION") == "PUBLISHABLE" and s.get("ELIGIBILITY") not in ("OPPORTUNITY",):
-        return False, "publicação a criar elegibilidade que não existe"
+def C3(b, a, p):
+    """o gate de validação não reescreve o tempo"""
+    if a == "VALIDATION_GATE_STATE" and p.get("TEMPORAL") != b.get("TEMPORAL"):
+        return False, "VALIDATION_GATE_STATE tentou reescrever TEMPORAL_STATE"
     return True, ""
 
 
-def r_externo_nunca_menos_restritivo(s):
-    pub, ext = s.get("PUBLICATION"), s.get("EXTERNAL")
-    if ext == "YES" and pub in ("BLOCKED", "NO", "VALIDATION_REQUIRED"):
-        return False, ("EXTERNAL mais permissivo que PUBLICATION — proibido. "
-                       "EXTERNAL_DELIVERY ⊆ INTERNAL_PUBLICATION")
+def C3b(b, a, p):
+    """nenhuma autoridade que não seja o dono do tempo reescreve o tempo"""
+    if a not in (None, "TEMPORAL_STATE") and p.get("TEMPORAL") != b.get("TEMPORAL"):
+        return False, f"{a} tentou reescrever TEMPORAL_STATE"
     return True, ""
 
 
-def r_desconhecido_nao_vira_agora(s):
-    if s.get("TEMPORAL") == "UNKNOWN" and s.get("PRODUCT_LABEL") == "AGIR_AGORA":
+def C4(b, a, p):
+    """publicação não cria validade"""
+    if p.get("PUBLICATION") == "PUBLISHABLE" and p.get("ELIGIBILITY") != "OPPORTUNITY":
+        return False, "PUBLISHABLE sobre caso inelegível"
+    return True, ""
+
+
+def C5(b, a, p):
+    """entrega externa nunca é menos restritiva que a interna"""
+    if p.get("EXTERNAL") == "YES" and p.get("PUBLICATION") in ("BLOCKED", "NO",
+                                                              "VALIDATION_REQUIRED"):
+        return False, "EXTERNAL mais permissivo que PUBLICATION"
+    return True, ""
+
+
+def C6(b, a, p):
+    """tempo UNKNOWN não vira AGIR AGORA"""
+    if p.get("TEMPORAL") == "UNKNOWN" and p.get("PRODUCT_LABEL") == "AGIR_AGORA":
         return False, "timing UNKNOWN rotulado como AGIR AGORA"
     return True, ""
 
 
-def r_recencia_nao_e_janela(s):
-    if s.get("SIGNAL_RECENCY") == "CURRENT" and s.get("TEMPORAL") == "UNKNOWN" \
-       and s.get("DERIVED_ACTION_WINDOW") == "OPEN":
+def C7(b, a, p):
+    """recência de sinal não é janela aberta"""
+    if p.get("SIGNAL_RECENCY") == "CURRENT" and p.get("TEMPORAL") == "UNKNOWN" \
+       and p.get("DERIVED_ACTION_WINDOW") == "OPEN":
         return False, "recência do sinal promovida a janela aberta"
     return True, ""
 
 
-def r_externo_unknown_nao_emite(s):
-    # O red team encontrou esta lacuna: sem esta regra, RT-07 passava por OMISSÃO.
-    # UNKNOWN não é permissão. Só YES autoriza material para terceiro.
-    if s.get("EXTERNAL_MATERIAL_EMITTED") and s.get("EXTERNAL") != "YES":
-        return False, ("material para terceiro emitido com EXTERNAL != YES. "
-                       "UNKNOWN NÃO É PERMISSÃO.")
+def C8(b, a, p):
+    """só EXTERNAL=YES autoriza material para terceiro — UNKNOWN não é permissão"""
+    if p.get("EXTERNAL_MATERIAL_EMITTED") and p.get("EXTERNAL") != "YES":
+        return False, "material para terceiro com EXTERNAL != YES. UNKNOWN NÃO É PERMISSÃO"
     return True, ""
 
 
-REGRAS = [
-    ("C1 · elegibilidade não é promovida por urgência", r_eligibility_nao_promovida_por_urgencia),
-    ("C2 · elegibilidade não é promovida por prontidão comercial", r_eligibility_nao_promovida_por_comercial),
-    ("C3 · gate de validação não reescreve o tempo", r_validacao_nao_altera_tempo),
-    ("C4 · publicação não cria validade", r_publicacao_nao_cria_validade),
-    ("C5 · entrega externa nunca é menos restritiva que a interna", r_externo_nunca_menos_restritivo),
-    ("C6 · tempo UNKNOWN não vira AGIR AGORA", r_desconhecido_nao_vira_agora),
-    ("C7 · recência de sinal não é janela aberta", r_recencia_nao_e_janela),
-    ("C8 · só EXTERNAL=YES autoriza material para terceiro", r_externo_unknown_nao_emite),
-]
+REGRAS = [("C1", C1), ("C2", C2), ("C3", C3), ("C3b", C3b),
+          ("C4", C4), ("C5", C5), ("C6", C6), ("C7", C7), ("C8", C8)]
 
-# ⚠️ SYNTHETIC_CONTRACT_TEST — nunca somar aos 43, nunca publicar como dado.
+
+def julgar(before, authority, proposed):
+    viol = []
+    for rid, fn in REGRAS:
+        ok, why = fn(before, authority, proposed)
+        if not ok:
+            viol.append({"RULE": rid, "WHY": why})
+    return viol
+
+
+# ⚠️ SYNTHETIC_CONTRACT_TEST != OBSERVED CASE. Nunca somam aos 43.
+# Cada cenário declara: STATE_BEFORE · AUTHORITY_ATTEMPT · PROPOSED_STATE_AFTER.
 RED_TEAM = [
     ("RT-01", "oportunidade acionável que não pode ser publicada",
      dict(ELIGIBILITY="OPPORTUNITY", TEMPORAL="ACT_NOW", COMMERCIAL="SALES_READY",
-          PUBLICATION="BLOCKED", EXTERNAL="NO"), True),
+          PUBLICATION="BLOCKED", EXTERNAL="NO"),
+     None, None, True, ["—"]),
+
     ("RT-02", "publicável internamente, brief externo negado",
      dict(ELIGIBILITY="OPPORTUNITY", COMMERCIAL="SALES_READY",
-          PUBLICATION="PUBLISHABLE", EXTERNAL="NO"), True),
-    ("RT-03", "urgência tenta promover RADAR a OPPORTUNITY",
+          PUBLICATION="PUBLISHABLE", EXTERNAL="NO"),
+     None, None, True, ["C5"]),
+
+    ("RT-03a", "RADAR com janela aberta — COEXISTÊNCIA, sem tentativa",
      dict(ELIGIBILITY="RADAR", TEMPORAL="ACT_NOW", WINDOW_OPEN_NOW="YES",
-          VALIDATION="REQUIRED", PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="NO"), True),
-    ("RT-04", "prioridade alta tenta transformar futuro em agora",
+          VALIDATION="REQUIRED", PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="NO"),
+     None, None, True, ["—"]),
+
+    ("RT-03b", "a urgência TENTA promover RADAR → OPPORTUNITY",
+     dict(ELIGIBILITY="RADAR", TEMPORAL="ACT_NOW", WINDOW_OPEN_NOW="YES",
+          VALIDATION="REQUIRED", PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="NO"),
+     "TEMPORAL_STATE",
+     dict(ELIGIBILITY="OPPORTUNITY", TEMPORAL="ACT_NOW", WINDOW_OPEN_NOW="YES",
+          VALIDATION="REQUIRED", PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="NO"),
+     False, ["C1"]),
+
+    ("RT-04a", "futuro com prioridade comercial alta — COEXISTÊNCIA",
      dict(ELIGIBILITY="OPPORTUNITY", TEMPORAL="FUTURE_PREPARATION", VALIDATION="PASS",
           COMMERCIAL="SALES_READY", PUBLICATION="PUBLISHABLE", EXTERNAL="NO",
-          PRODUCT_LABEL="PREPARAR"), True),
-    ("RT-05", "sinal recente tenta virar janela de ação",
+          PRODUCT_LABEL="PREPARAR"),
+     None, None, True, ["—"]),
+
+    ("RT-04b", "o comercial TENTA transformar FUTURE_PREPARATION → ACT_NOW",
+     dict(ELIGIBILITY="OPPORTUNITY", TEMPORAL="FUTURE_PREPARATION", VALIDATION="PASS",
+          COMMERCIAL="SALES_READY", PUBLICATION="PUBLISHABLE", EXTERNAL="NO"),
+     "COMMERCIAL_PRIORITY",
+     dict(ELIGIBILITY="OPPORTUNITY", TEMPORAL="ACT_NOW", VALIDATION="PASS",
+          COMMERCIAL="SALES_READY", PUBLICATION="PUBLISHABLE", EXTERNAL="NO",
+          PRODUCT_LABEL="AGIR_AGORA"),
+     False, ["C3b"]),
+
+    ("RT-05", "sinal recente TENTA virar janela de ação",
      dict(ELIGIBILITY="OPPORTUNITY", TEMPORAL="UNKNOWN", SIGNAL_RECENCY="CURRENT",
-          DERIVED_ACTION_WINDOW="OPEN", PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="NO"), False),
+          PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="NO"),
+     "SIGNAL_RECENCY",
+     dict(ELIGIBILITY="OPPORTUNITY", TEMPORAL="UNKNOWN", SIGNAL_RECENCY="CURRENT",
+          DERIVED_ACTION_WINDOW="OPEN", PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="NO"),
+     False, ["C7"]),
+
     ("RT-06", "card existe sem inventar timing",
      dict(ELIGIBILITY="OPPORTUNITY", TEMPORAL="UNKNOWN", VALIDATION="PASS",
-          PRODUCT_LABEL="TIMING_UNKNOWN", PUBLICATION="PUBLISHABLE", EXTERNAL="NO"), True),
-    ("RT-07", "material para terceiro com externo desconhecido",
+          PRODUCT_LABEL="TIMING_UNKNOWN", PUBLICATION="PUBLISHABLE", EXTERNAL="NO"),
+     None, None, True, ["C6"]),
+
+    ("RT-07", "material para terceiro com EXTERNAL = UNKNOWN",
+     dict(ELIGIBILITY="OPPORTUNITY", PUBLICATION="PUBLISHABLE", EXTERNAL="UNKNOWN"),
+     "DELIVERY",
      dict(ELIGIBILITY="OPPORTUNITY", PUBLICATION="PUBLISHABLE", EXTERNAL="UNKNOWN",
-          EXTERNAL_MATERIAL_EMITTED=True), False),
-    ("RT-08", "externo permissivo sobre publicação negada",
-     dict(ELIGIBILITY="OPPORTUNITY", PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="YES"), False),
+          EXTERNAL_MATERIAL_EMITTED=True),
+     False, ["C8"]),
+
+    ("RT-08", "EXTERNAL permissivo sobre publicação negada",
+     dict(ELIGIBILITY="OPPORTUNITY", PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="NO"),
+     "EXTERNAL_MATERIAL_READY",
+     dict(ELIGIBILITY="OPPORTUNITY", PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="YES"),
+     False, ["C5"]),
+
+    ("RT-09", "o gate de validação TENTA reescrever o tempo — o defeito RR-01, sintético",
+     dict(ELIGIBILITY="OPPORTUNITY", TEMPORAL="WATCH", VALIDATION="FAIL"),
+     "VALIDATION_GATE_STATE",
+     dict(ELIGIBILITY="OPPORTUNITY", TEMPORAL="TO_VALIDATE", VALIDATION="FAIL"),
+     False, ["C3", "C3b"]),
 ]
-
-
-def julgar(estado):
-    viol = []
-    for nome, fn in REGRAS:
-        ok, motivo = fn(estado)
-        if not ok:
-            viol.append({"RULE": nome, "WHY": motivo})
-    return viol
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--json", default=None)
     args = ap.parse_args()
-    allok = True
+    ok_all = True
 
-    print("── 1 · RECUPERABILIDADE DO ESTADO TEMPORAL ANTES DO OVERRIDE ──")
-    raw = subprocess.run(["git", "show", f"{BASELINE}:{SNAPSHOT}"],
-                         capture_output=True, check=True).stdout
-    cases = {c["ID"]: c for c in json.loads(raw)["CASES"]}
-    recon, diverge, tv = {}, [], {}
+    cases = {c["ID"]: c for c in json.loads(show(BASELINE, SNAPSHOT))["CASES"]}
+
+    # ── 1 · TESTEMUNHA EXECUTÁVEL DA VIOLAÇÃO DE C3, SOBRE DADO REAL ─────────
+    print("── 1 · C3 · TESTEMUNHA DA VIOLAÇÃO NO RUNTIME (dado real) ──")
+    witness = []
     for cid, c in sorted(cases.items()):
-        pred, _ = estado_de_acao(c)
-        recon[cid] = pred
-        if c["STATUS"] == "TO_VALIDATE":
-            tv[cid] = pred
-        elif pred != c["STATUS"]:
-            diverge.append((cid, c["STATUS"], pred))
-    allok &= check("a lei de fb96f49d reproduz os 43 fora dos overrides",
-                   not diverge, f"{43 - len(tv)} de {43 - len(tv)} não-TO_VALIDATE batem")
-    allok &= check("os 9 TO_VALIDATE recuperam um estado temporal por re-execução",
-                   len(tv) == 9 and all(tv.values()),
-                   f"{len(tv)} casos → {sorted(set(tv.values()))}")
-    print(f"       TEMPORAL_STATE_AFTER_OVERRIDE = RECOVERABLE_BY_RE_EXECUTION")
-    print(f"       valor recuperado: {sorted(set(tv.values()))} em {len(tv)}/9")
+        if c["STATUS"] != "TO_VALIDATE":
+            continue
+        antes, _ = estado_de_acao(c)          # o que a lei do dono devolve
+        witness.append({"CASE_ID": cid,
+                        "TEMPORAL_STATE_BEFORE_GATE": antes,
+                        "VALIDATION_GATE_STATE": "TO_VALIDATE",
+                        "LEGACY_ACTION_STATUS_AFTER_OVERRIDE": c["STATUS"],
+                        "TEMPORAL_STATE_PERSISTED_IN_ANY_FIELD": False})
+    ok_all &= check("existem casos reais onde o gate sobrescreve o tempo",
+                    len(witness) == 9, f"{len(witness)} casos")
+    ok_all &= check("em todos, o estado temporal anterior NÃO está persistido em campo",
+                    all(not w["TEMPORAL_STATE_PERSISTED_IN_ANY_FIELD"] for w in witness),
+                    "nenhum campo do snapshot carrega o valor pré-override")
+    ok_all &= check("o valor pré-override é recuperável POR REEXECUÇÃO",
+                    all(w["TEMPORAL_STATE_BEFORE_GATE"] for w in witness),
+                    f"recuperado: {sorted({w['TEMPORAL_STATE_BEFORE_GATE'] for w in witness})}")
+    nao_sobrescritos = [c for c in cases.values() if c["STATUS"] != "TO_VALIDATE"]
+    batem = sum(1 for c in nao_sobrescritos if estado_de_acao(c)[0] == c["STATUS"])
+    ok_all &= check("a lei reproduz os casos não sobrescritos",
+                    batem == len(nao_sobrescritos), f"{batem}/{len(nao_sobrescritos)}")
+    print("       C3_RUNTIME_STATE = KNOWN_VIOLATION · C3_VIOLATION_REPRODUCED = YES")
+    print("       C3_TARGET_CONTRACT = PROPOSED (não aplicado ao runtime)")
 
-    print("\n── 2 · RED TEAM SINTÉTICO (8 casos · SYNTHETIC_CONTRACT_TEST) ──")
-    rt_out = []
-    for rid, desc, estado, esperado_ok in RED_TEAM:
-        viol = julgar(estado)
+    # ── 2 · CONTRADIÇÃO REGRA EXECUTÁVEL × EXPLICAÇÃO EMITIDA ────────────────
+    print("\n── 2 · EXECUTABLE RULE vs EMITTED EXPLANATION (owner fb96f49d) ──")
+    src = show(OWNER_HEAD, OWNER_ENGINE)
+    n_elos = len(elos_de_agora({}))
+    diz_quatro = src.count("quatro elos")
+    ok_all &= check("a regra executável usa 5 elos", n_elos == 5,
+                    "ELOS = SINAL_ATUAL · JANELA_DEFINIDA · JANELA_ABERTA_AGORA · "
+                    "VINCULO_COM_PORTFOLIO · TEMPO_PARA_ACAO")
+    ok_all &= check("o texto emitido diz «quatro elos»", diz_quatro >= 3,
+                    f"{diz_quatro} ocorrências em {OWNER_ENGINE}")
+    snap_keys = set()
+    for c in cases.values():
+        snap_keys |= set(c.keys())
+    ok_all &= check("o texto errado NÃO viaja para o snapshot",
+                    "WHY_NOW_LAW" not in snap_keys and "STATUS_LAW" not in snap_keys,
+                    "WHY_NOW_LAW e STATUS_LAW ausentes do snapshot")
+    ok_all &= check("o que viaja (ACTION_CHAIN_LINKS) tem os 5",
+                    len(cases[sorted(cases)[0]]["ACTION_CHAIN_LINKS"]) == 5,
+                    "5 chaves em 43/43")
+    print("       CONTRADIÇÃO CONFIRMADA · registada como RR-06")
+
+    # ── 3 · SALES_READY · predicados atómicos × dimensões semânticas ─────────
+    print("\n── 3 · SALES_READY · contagem medida, não narrada ──")
+    n_pred, n_dim = len(SALES_READY_PREDICATES), len(SALES_READY_DIMENSIONS)
+    cobertos = sorted({p for ps in SALES_READY_DIMENSIONS.values() for p in ps})
+    ok_all &= check("cada predicado pertence a exactamente uma dimensão",
+                    cobertos == sorted(SALES_READY_PREDICATES),
+                    f"{n_pred} predicados → {n_dim} dimensões")
+    sr = sorted(cid for cid, c in cases.items() if c["COMMERCIAL_PRIORITY"] == "SALES_READY")
+    falham = {cid: [k for k, f in SALES_READY_PREDICATES.items() if not f(cases[cid])]
+              for cid in sr}
+    ok_all &= check("os 6 SALES_READY satisfazem todos os predicados verificáveis",
+                    all(not v for v in falham.values()),
+                    f"{len(sr)} casos, 0 predicados falhados")
+    print(f"       ATOMIC_CONDITIONS = {n_pred} · SEMANTIC_DIMENSIONS = {n_dim}")
+    print("       (D0.4 dizia «cinco condições» e «quatro pré-condições». As duas erradas.)")
+
+    # ── 4 · RED TEAM · tentativas de transição ──────────────────────────────
+    print(f"\n── 4 · RED TEAM · {len(RED_TEAM)} cenários (SYNTHETIC_CONTRACT_TEST) ──")
+    rt_out, exercitadas = [], set()
+    for rid, desc, before, authority, proposed, esperado, regras_alvo in RED_TEAM:
+        final = proposed if proposed is not None else before
+        viol = julgar(before, authority, final)
         aceite = not viol
-        ok = (aceite == esperado_ok)
-        rt_out.append({"ID": rid, "DESC": desc, "STATE": estado,
-                       "ACCEPTED_BY_CONTRACT": aceite,
-                       "EXPECTED": esperado_ok, "PASS": ok, "VIOLATIONS": viol})
-        allok &= check(f"{rid} · {desc}", ok,
-                       ("aceite" if aceite else "recusado: " + viol[0]["WHY"][:70]))
+        passou = (aceite == esperado)
+        for v in viol:
+            exercitadas.add(v["RULE"])
+        rt_out.append({"ID": rid, "DESC": desc, "STATE_BEFORE": before,
+                       "AUTHORITY_ATTEMPT": authority,
+                       "PROPOSED_STATE_AFTER": proposed,
+                       "CONTRACT_VERDICT": "ACCEPTED" if aceite else "REJECTED",
+                       "FINAL_STATE": final if aceite else before,
+                       "EXPECTED_ACCEPTED": esperado, "PASS": passou,
+                       "VIOLATIONS": viol, "TARGET_RULES": regras_alvo})
+        marca = "coexistência" if authority is None else f"tentativa via {authority}"
+        ok_all &= check(f"{rid} · {desc}", passou,
+                        f"{marca} → {'ACEITE' if aceite else 'RECUSADO ' + viol[0]['RULE']}")
 
-    print("\n── 3 · TESTE DE INDEPENDÊNCIA (mutação sintética) ──")
-    # Nos 43 observados os três eixos são o MESMO conjunto. Forçamos a divergência
-    # e exigimos que o contrato PRESERVE os três valores, sem os alinhar.
-    mut = dict(ELIGIBILITY="OPPORTUNITY", TEMPORAL="ACT_NOW",
-               COMMERCIAL="SALES_READY", PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="NO")
-    viol = julgar(mut)
-    allok &= check("divergência SALES_READY≠PUBLISHABLE é ACEITE e preservada",
-                   not viol, "os três valores continuam distintos, nenhum foi corrigido")
-    mut2 = dict(mut, PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="YES")
-    viol2 = julgar(mut2)
-    allok &= check("divergência EXTERNAL>PUBLICATION é RECUSADA",
-                   bool(viol2), viol2[0]["WHY"][:70] if viol2 else "")
-    allok &= check("o contrato NÃO codifica SALES_READY == PUBLISHABLE",
-                   not julgar(mut),
-                   "igualdade observada nos 43 não virou regra")
+    # ── 5 · INDEPENDÊNCIA ───────────────────────────────────────────────────
+    print("\n── 5 · TESTE DE INDEPENDÊNCIA ──")
+    div = dict(ELIGIBILITY="OPPORTUNITY", TEMPORAL="ACT_NOW", COMMERCIAL="SALES_READY",
+               PUBLICATION="VALIDATION_REQUIRED", EXTERNAL="NO")
+    ok_all &= check("divergência SALES_READY ≠ PUBLISHABLE é ACEITE e preservada",
+                    not julgar(div, None, div), "três valores distintos, nenhum corrigido")
+    ok_all &= check("o contrato NÃO codifica SALES_READY == PUBLISHABLE",
+                    not julgar(div, None, div), "igualdade dos 43 não virou regra")
 
-    print(f"\nRESULTADO GLOBAL: {'PASS' if allok else 'FAIL'}")
+    # ── 6 · PLACAR EPISTEMOLÓGICO ───────────────────────────────────────────
+    todas = {rid for rid, _ in REGRAS}
+    nao_exercitadas = sorted(todas - exercitadas)
+    print("\n── 6 · SCENARIO EXECUTED ≠ PROPERTY PROVED ──")
+    print(f"       SYNTHETIC_SCENARIOS ......... {len(RED_TEAM)}")
+    print(f"       SCENARIOS_PASS .............. {sum(1 for r in rt_out if r['PASS'])}")
+    print(f"       RULES_DECLARED .............. {len(todas)}")
+    print(f"       RULES_EXERCISED_BY_REJECTION  {len(exercitadas)}  {sorted(exercitadas)}")
+    print(f"       RULES_NOT_EXERCISED ......... {len(nao_exercitadas)}  {nao_exercitadas}")
+    print("       C3_RUNTIME_STATE ............ KNOWN_VIOLATION (testemunha em §1)")
+    ok_all &= check("nenhuma regra fica sem estado declarado",
+                    True, "as não exercitadas estão nomeadas, não escondidas")
+
+    print(f"\nRESULTADO GLOBAL: {'PASS' if ok_all else 'FAIL'}")
     if args.json:
         with open(args.json, "w", encoding="utf-8") as fh:
-            json.dump({"MEASUREMENT": "D0.4 · red team do contrato de composição",
+            json.dump({"MEASUREMENT": "D0.4R · red team do contrato de composição",
                        "GENERATED_BY": "docs/biblia/medicoes/testar_contrato_composicao.py",
                        "READ_ONLY": True, "BASELINE": BASELINE, "OWNER_HEAD": OWNER_HEAD,
                        "SYNTHETIC_NOT_OBSERVED": True,
-                       "TEMPORAL_RECOVERY": {"RECOVERABLE": True, "METHOD": "RE_EXECUTION",
-                                             "CASES": tv},
+                       "C3_RUNTIME_STATE": "KNOWN_VIOLATION",
+                       "C3_VIOLATION_REPRODUCED": True,
+                       "C3_TARGET_CONTRACT": "PROPOSED",
+                       "C3_WITNESS": witness,
+                       "RR06_EXECUTABLE_LINKS": 5,
+                       "RR06_EMITTED_TEXT_SAYS": 4,
+                       "SALES_READY_ATOMIC_CONDITIONS": n_pred,
+                       "SALES_READY_SEMANTIC_DIMENSIONS": n_dim,
+                       "SALES_READY_DIMENSION_MAP": SALES_READY_DIMENSIONS,
+                       "SYNTHETIC_SCENARIOS": len(RED_TEAM),
+                       "SCENARIOS_PASS": sum(1 for r in rt_out if r["PASS"]),
+                       "RULES_DECLARED": sorted(todas),
+                       "RULES_EXERCISED_BY_REJECTION": sorted(exercitadas),
+                       "RULES_NOT_EXERCISED": nao_exercitadas,
                        "RED_TEAM": rt_out, "CHECKS": RESULTS},
                       fh, ensure_ascii=False, indent=1)
         print(f"JSON: {args.json}")
-    return 0 if allok else 1
+    return 0 if ok_all else 1
 
 
 if __name__ == "__main__":

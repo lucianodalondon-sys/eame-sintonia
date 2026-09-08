@@ -1,5 +1,5 @@
 {
- "MEASUREMENT": "D0.4 · matriz de composição",
+ "MEASUREMENT": "D0.4 · matriz de composição · revisto em D0.4R",
  "READ_ONLY": true,
  "BASELINE": "a4fb6d81681094925ccfd1638bc7386cbec6f4d4",
  "OWNER_HEAD_DECLARED_BY_SNAPSHOT": "fb96f49d",
@@ -248,5 +248,67 @@
    "EVIDENCE": "v21_catraca.py docstring: «PUBLICATION_STATE nasce de EXTERNAL_MATERIAL_READY»"
   }
  ],
- "DIMENSION_COUNT": 7
+ "DIMENSION_COUNT": 7,
+ "REVISION": "D0.4R",
+ "SALES_READY_ATOMIC_CONDITIONS": 7,
+ "SALES_READY_SEMANTIC_DIMENSIONS": 6,
+ "SALES_READY_DIMENSION_MAP": {
+  "PROBLEMA": [
+   "TARGET_DECLARADO"
+  ],
+  "RESPOSTA_ADAMA": [
+   "ROTULO_VERIFICADO",
+   "CATALOGO_COMERCIAL"
+  ],
+  "NECESSIDADE": [
+   "NECESSIDADE_POSITIVA"
+  ],
+  "GEOGRAFIA": [
+   "GEOGRAFIA_SUSTENTA"
+  ],
+  "NATUREZA_DO_CASO": [
+   "ARQUETIPO_NAO_REGULATORIO"
+  ],
+  "TEMPO": [
+   "JANELA_COMERCIAL"
+  ]
+ },
+ "SALES_READY_UNVERIFIABLE_IN_SNAPSHOT": [
+  "JANELA_COMERCIAL"
+ ],
+ "SALES_READY_PRIOR_CLAIMS_CORRECTED": [
+  "cinco condições",
+  "quatro pré-condições"
+ ],
+ "RUNTIME_RECONCILIATION_REQUIRED_COUNT": 6,
+ "RR06": {
+  "ID": "RR-06",
+  "NAME": "EXECUTABLE RULE != EMITTED EXPLANATION",
+  "OWNER": "scripts/v21_oportunidades.py",
+  "OWNER_HEAD": "fb96f49d",
+  "EXECUTABLE_LINKS": 5,
+  "EMITTED_TEXT_SAYS": 4,
+  "EMITTED_SITES": [
+   {
+    "SYMBOL": "WHY_NOW_LAW",
+    "LINE": 1798
+   },
+   {
+    "SYMBOL": "STATUS_LAW",
+    "LINE": 2218
+   },
+   {
+    "SYMBOL": "ESTADOS_DE_ACAO_LEI",
+    "LINE": 2429
+   }
+  ],
+  "TRAVELS_TO_SNAPSHOT": false,
+  "WHAT_TRAVELS": "ACTION_CHAIN_LINKS (5 chaves, 43/43)",
+  "IMPACT": "contido no motor nesta safra",
+  "STATE": "OPEN",
+  "FIXED_HERE": false
+ },
+ "C3_RUNTIME_STATE": "KNOWN_VIOLATION",
+ "C3_VIOLATION_REPRODUCED": true,
+ "C3_TARGET_CONTRACT": "PROPOSED"
 }
