@@ -179,8 +179,10 @@
       "coleta/eppo_gd.py",
       "coleta/es/corpus_es.py",
       "coleta/eu_substancia_adama_it.py",
+      "coleta/executor_texto_de_pdf.py",
       "coleta/filas.py",
       "coleta/gire_mapas.py",
+      "coleta/golden_path_pdf.py",
       "coleta/instagram_coleta.py",
       "coleta/instagram_diario.py",
       "coleta/instagram_janela.py",
@@ -211,6 +213,50 @@
       "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
       "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
+      "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "data/derivados/texto/RAW-024abdb692be926a.txt",
+      "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
+      "data/derivados/texto/RAW-0c2723e66201f966.txt",
+      "data/derivados/texto/RAW-144fdb152b1a6ae4.txt",
+      "data/derivados/texto/RAW-178ebe9e0ea7dd83.txt",
+      "data/derivados/texto/RAW-221ab4a8d6ebec30.txt",
+      "data/derivados/texto/RAW-223510588786a4de.txt",
+      "data/derivados/texto/RAW-2a12cb316622a9a5.txt",
+      "data/derivados/texto/RAW-392840d3e13d1b15.txt",
+      "data/derivados/texto/RAW-3d3c1bc0e96332e8.txt",
+      "data/derivados/texto/RAW-3e941738599367d7.txt",
+      "data/derivados/texto/RAW-3ef48aaa830edf3b.txt",
+      "data/derivados/texto/RAW-420e08ef15bec6e4.txt",
+      "data/derivados/texto/RAW-445e41701f737d73.txt",
+      "data/derivados/texto/RAW-48e76a696be6831d.txt",
+      "data/derivados/texto/RAW-4e12affad7fedd91.txt",
+      "data/derivados/texto/RAW-59da05274359eff6.txt",
+      "data/derivados/texto/RAW-5dcfb75ac38390c3.txt",
+      "data/derivados/texto/RAW-6377ac2f8419d905.txt",
+      "data/derivados/texto/RAW-699a073ace4361ea.txt",
+      "data/derivados/texto/RAW-6d12bcb5fa2b0905.txt",
+      "data/derivados/texto/RAW-7a51732e87f0f319.txt",
+      "data/derivados/texto/RAW-823e18ebb232eb36.txt",
+      "data/derivados/texto/RAW-8c13500d43502e64.txt",
+      "data/derivados/texto/RAW-924aabd94168c53a.txt",
+      "data/derivados/texto/RAW-9488589cfc657b95.txt",
+      "data/derivados/texto/RAW-99cb44a67f6b4e9a.txt",
+      "data/derivados/texto/RAW-9a01cc17889e1f40.txt",
+      "data/derivados/texto/RAW-a6515948880d173a.txt",
+      "data/derivados/texto/RAW-a927e846ba8e78b0.txt",
+      "data/derivados/texto/RAW-b631f6eecfbc1db0.txt",
+      "data/derivados/texto/RAW-c6377f6951bfeb2e.txt",
+      "data/derivados/texto/RAW-ccd8ea9c8e9c4caf.txt",
+      "data/derivados/texto/RAW-ded546686d61dc91.txt",
+      "data/derivados/texto/RAW-df4adcb5d78929e1.txt",
+      "data/derivados/texto/RAW-e5176df66216dfd0.txt",
+      "data/derivados/texto/RAW-e612807928b5ada9.txt",
+      "data/derivados/texto/RAW-e6ec962a8a730ee4.txt",
+      "data/derivados/texto/RAW-e9395a7ea894c1d2.txt",
+      "data/derivados/texto/RAW-ec3108a2ed424702.txt",
+      "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
+      "data/derivados/texto/RAW-fd5b5e465457e4d6.txt",
+      "data/derivados/texto/RAW-fe3c922bfdfd7999.txt",
       "data/i18n/v21-traducoes-nucleo.json",
       "data/i18n/v21-traducoes.json",
       "data/normalized/.gitkeep",
@@ -579,6 +625,7 @@
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
       "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
       "docs/operacao/CENSO-DA-COLETA.md",
+      "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
       "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
@@ -901,6 +948,7 @@
     ],
     "leis": [
       "leis/adama_relevance.py",
+      "leis/artefato.py",
       "leis/auditoria_regua_comercial.py",
       "leis/calendario_handoff.py",
       "leis/data_clock.py",
@@ -1009,6 +1057,7 @@
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
       "provas/testa_coleta_canonica.py",
+      "provas/testa_golden_path_pdf.py",
       "provas/testa_rota_italia.py"
     ],
     "regras": [
@@ -1237,7 +1286,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 13 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 16 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -1247,7 +1296,7 @@
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
       "titulo": "22 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 13 corridas registadas, e o país delas é: ES 10 · NAO SEI 3. Elas trouxeram 3400 itens e 2963 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "texto": "Há 16 corridas registadas, e o país delas é: ES 10 · IT 3 · NAO SEI 3. Elas trouxeram 3547 itens e 3006 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -1269,16 +1318,16 @@
     },
     {
       "id": "coleta-sem-data-nem-lugar",
-      "titulo": "14 coletores gravam registo sem data nem lugar.",
-      "texto": "13 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · texto_fonte.py",
+      "titulo": "15 coletores gravam registo sem data nem lugar.",
+      "texto": "14 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/coletor.py",
         "coleta/cruzar_regua_rotulo.py",
         "coleta/denominaciones.py",
         "coleta/eppo_gd.py",
-        "coleta/filas.py",
-        "coleta/gire_mapas.py"
+        "coleta/executor_texto_de_pdf.py",
+        "coleta/filas.py"
       ]
     }
   ],
@@ -1593,8 +1642,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "6f9456eb8d22ac3ab85c460e18acc264f9d06195",
-    "GENERATED_AT": "2026-09-07T23:06:14-03:00"
+    "HEAD": "e788c219caf86f001e70db8b6ed62534be07315d",
+    "GENERATED_AT": "2026-09-07T23:40:44-03:00"
   },
   "FAMILIES": [
     {
@@ -1619,7 +1668,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 37
+      "count": 39
     },
     {
       "id": "F-ESPERA",
@@ -1632,7 +1681,7 @@
       "zones": [
         "Z-GUARDA"
       ],
-      "count": 7
+      "count": 8
     },
     {
       "id": "F-INTELIGENCIA",
@@ -1648,7 +1697,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 32
+      "count": 34
     },
     {
       "id": "F-ENTREGA",
@@ -1815,7 +1864,7 @@
       "y": 190,
       "w": 820,
       "h": 1972,
-      "count": 8
+      "count": 10
     },
     {
       "id": "Z-ADMISSAO",
@@ -1860,7 +1909,7 @@
       "y": 190,
       "w": 820,
       "h": 1972,
-      "count": 7
+      "count": 8
     },
     {
       "id": "Z-LINEAGE",
@@ -1892,7 +1941,7 @@
       "y": 190,
       "w": 405,
       "h": 1972,
-      "count": 4
+      "count": 5
     },
     {
       "id": "Z-MOTOR",
@@ -1924,7 +1973,7 @@
       "y": 190,
       "w": 1235,
       "h": 1972,
-      "count": 16
+      "count": 17
     },
     {
       "id": "Z-PACOTE",
@@ -2236,9 +2285,12 @@
         "admissao/admissao.py"
       ],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-IT-TEXTO-DERIVADO"
+      ],
       "outbound": [
         "C-CENSO-SEMANTICO-IT",
+        "C-ESTRADA-PDF",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-RECALL-PORTA-IT"
@@ -4034,16 +4086,72 @@
             "erro": null,
             "prova": null,
             "bruto": null
+          },
+          {
+            "run_id": "DERIV-PDF-20260908T022727Z",
+            "fonte": null,
+            "plataforma": "LOCAL",
+            "quem_foi_buscar": "texto-de-pdf",
+            "com_que_parametros": null,
+            "que_pergunta": null,
+            "pais": "IT",
+            "missao": "derivacao de texto a partir de PDF italiano",
+            "trouxe": 49,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0.0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "system-map/data/golden-path-pdf.generated.json",
+            "bruto": null
+          },
+          {
+            "run_id": "DERIV-PDF-20260908T023205Z",
+            "fonte": null,
+            "plataforma": "LOCAL",
+            "quem_foi_buscar": "texto-de-pdf",
+            "com_que_parametros": null,
+            "que_pergunta": null,
+            "pais": "IT",
+            "missao": "derivacao de texto a partir de PDF italiano",
+            "trouxe": 49,
+            "sobrou": 43,
+            "rendimento": 88,
+            "custou_usd": 0.0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "system-map/data/golden-path-pdf.generated.json",
+            "bruto": null
+          },
+          {
+            "run_id": "DERIV-PDF-20260908T023216Z",
+            "fonte": null,
+            "plataforma": "LOCAL",
+            "quem_foi_buscar": "texto-de-pdf",
+            "com_que_parametros": null,
+            "que_pergunta": null,
+            "pais": "IT",
+            "missao": "derivacao de texto a partir de PDF italiano",
+            "trouxe": 49,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0.0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "system-map/data/golden-path-pdf.generated.json",
+            "bruto": null
           }
         ],
-        "total": 13,
+        "total": 16,
         "por_pais": {
           "ES": 10,
+          "IT": 3,
           "NAO SEI": 3
         },
         "por_plataforma": {
           "INSTAGRAM": 1,
           "LINKEDIN": 5,
+          "LOCAL": 3,
           "OPENALEX": 1,
           "OpenAlex, ORCID": 1,
           "YOUTUBE": 3,
@@ -4080,11 +4188,11 @@
           "IT-T3-001",
           "IT-T4-001"
         ],
-        "com_rendimento_medido": 12,
-        "com_custo_medido": 7,
+        "com_rendimento_medido": 15,
+        "com_custo_medido": 10,
         "custo_total_usd": 0.48,
-        "trouxe_total": 3400,
-        "sobrou_total": 2963
+        "trouxe_total": 3547,
+        "sobrou_total": 3006
       },
       "memoria": [
         {
@@ -4232,6 +4340,17 @@
           "regista_descarte": []
         },
         {
+          "ficheiro": "coleta/executor_texto_de_pdf.py",
+          "como_se_chama": "coleta/executor_texto_de_pdf.py",
+          "carimba_data": [],
+          "carimba_lugar": [
+            "COUNTRY"
+          ],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
           "ficheiro": "coleta/filas.py",
           "como_se_chama": "",
           "carimba_data": [],
@@ -4248,6 +4367,19 @@
           "carimba_data": [],
           "carimba_lugar": [],
           "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
+          "ficheiro": "coleta/golden_path_pdf.py",
+          "como_se_chama": "coleta/golden_path_pdf.py",
+          "carimba_data": [],
+          "carimba_lugar": [
+            "COUNTRY",
+            "FACT_LOCATION",
+            "SOURCE_LOCATION"
+          ],
+          "separa_fonte_do_fato": true,
           "leis_que_obedece": [],
           "regista_descarte": []
         },
@@ -5871,6 +6003,52 @@
       "y": 682
     },
     {
+      "id": "C-CONTRATO-ARTEFATO",
+      "name": "O contrato comum de artefato",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "A folha que todo executor preenche ao entregar: quem sou, de onde vim, quando, onde, quem me fez. Identidade, impressão digital, pai, tempos separados, geografia separada, versões.",
+      "why_here": "Sem uma língua comum, ligar o orquestrador obrigaria o cérebro da casa a adivinhar o que cada executor produziu — e adivinhação no meio não se conserta depois, espalha-se.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "§",
+      "views": [
+        "audit",
+        "infra",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "leis/artefato.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "o motor importa esta lei para decidir.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-ESTRADA-PDF",
+        "C-EXECUTOR-TEXTO-PDF",
+        "C-PROVA-COLETA"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 11475,
+      "y": 360
+    },
+    {
       "id": "C-CONTRATO-CAMPOS",
       "name": "O que a coleta tem de trazer",
       "territory": "Z-MEDIDAS",
@@ -6161,7 +6339,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 11475,
-      "y": 360
+      "y": 682
     },
     {
       "id": "C-DS-ADAMA",
@@ -6224,6 +6402,119 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 16660,
       "y": 682
+    },
+    {
+      "id": "C-ESTRADA-PDF",
+      "name": "A primeira estrada · PDF até à porta",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Junta a corrida inteira: tira a impressao digital dos originais antes e depois, manda derivar, audita os textos antigos feitos a mao, leva cada texto a porta de admissao, e faz as contas baterem.",
+      "why_here": "Nada some em silêncio. Emitido menos guardado tem de dar zero, e guardado menos visto pela porta também.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◉",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/golden_path_pdf.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-CONTRATO-ARTEFATO",
+        "C-EXECUTOR-TEXTO-PDF",
+        "C-PROCEDENCIA"
+      ],
+      "outbound": [
+        "C-MAPA-GERADOR",
+        "C-PROVA-COLETA"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 7120,
+      "y": 1004
+    },
+    {
+      "id": "C-EXECUTOR-TEXTO-PDF",
+      "name": "Executor · texto a partir de PDF",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Abre o PDF e guarda o texto ao lado, como outro artefato com pai declarado. Não julga: não decide se o documento serve. Corre local, sem rede, sem custo, sem OCR.",
+      "why_here": "É o primeiro executor real a provar o contrato. Um contrato que ninguém usa não vale nada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/executor_texto_de_pdf.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CONTRATO-ARTEFATO",
+        "C-IT-PDF-BRUTO"
+      ],
+      "outbound": [
+        "C-ESTRADA-PDF",
+        "C-IT-TEXTO-DERIVADO",
+        "C-MAPA-GERADOR",
+        "C-PROVA-COLETA"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAPACIDADE"
+        ],
+        "palavras": 13,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 13,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 6705,
+      "y": 1326
     },
     {
       "id": "C-FONTES-EU",
@@ -6339,7 +6630,58 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 7120,
-      "y": 1004
+      "y": 1326
+    },
+    {
+      "kind": "engine",
+      "proof": "git-measurement",
+      "files": [],
+      "file_count": 0,
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "views": [
+        "acervo",
+        "infra",
+        "audit"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "evidence_text": "golden-path-pdf.generated.json",
+      "id": "C-GOLDEN-PATH-PDF",
+      "name": "A corrida · PDF até à porta",
+      "icon": "◉",
+      "territory": "Z-PROVA",
+      "family": "F-INTELIGENCIA",
+      "status": "PENDING",
+      "ui_status": "yellow",
+      "what": "A conta desta corrida, do PDF guardado até à porta de admissão. A porta viu 43 textos: NAO_SEI 43.",
+      "why_here": "Se a máquina fez e o mapa não consegue mostrar, a engenharia ainda não terminou.",
+      "facts": [
+        "RUN_ID: DERIV-PDF-20260908T023216Z",
+        "estado da corrida: SUCCESS",
+        "RAW_INPUT: 49 PDF italianos",
+        "a porta viu: 43",
+        "decisões: NAO_SEI 43",
+        "PERDIDOS: 0",
+        "originais alterados: 0 (IMUTAVEL)",
+        "custo: 0 · rede: NÃO · OCR: NÃO",
+        "PRECISÃO: NÃO SEI — não há gabarito humano. Contar quantos passaram é COBERTURA, não acerto."
+      ],
+      "status_reason": "AMARELO de propósito. A estrada está inteira e nada se perdeu, mas os 43 textos ficaram todos em NÃO SEI na porta: nenhum diz quando o fato aconteceu. Pintar isto de verde seria chamar «pronto» a uma coisa que ainda não entrou.",
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 14130,
+      "y": 682
     },
     {
       "id": "C-IDENTIDADE",
@@ -6646,7 +6988,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 6705,
-      "y": 1326
+      "y": 1648
     },
     {
       "id": "C-IT-CONTAS",
@@ -6699,8 +7041,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
-      "y": 682
+      "x": 13300,
+      "y": 1004
     },
     {
       "id": "C-IT-CONTRATOS",
@@ -6795,8 +7137,8 @@
       "status": "UNKNOWN",
       "ui_status": "gray",
       "proof": "git-measurement",
-      "what": "49 documentos italianos guardados em PDF — boletins regionais, bilanci fitosanitari, diretrizes. 62.7 MB. É o material mais rico que a Itália tem, e 43 deles estão fechados: ninguém os transformou em texto.",
-      "why_here": "Enquanto o mapa dizia «corpus» numa palavra só, isto parecia alimento do sistema. Não é: está guardado, não está legível.",
+      "what": "49 documentos italianos guardados em PDF — boletins regionais, bilanci fitosanitari, diretrizes. 62.7 MB. É o material mais rico que a Itália tem. Já não está fechado: o executor abriu-os e o texto existe, com pai declarado.",
+      "why_here": "Enquanto o mapa dizia «corpus» numa palavra só, isto parecia alimento do sistema. Separar o guardado do legível foi o que permitiu ver — e fechar — o corte.",
       "files": [],
       "file_count": 49,
       "facts": [
@@ -6808,7 +7150,7 @@
         "62.7 MB NÃO é prova de milhões de caracteres: megabyte não é caractere",
         "o antigo «milhões de caracteres» continua NÃO REPRODUZIDO COMO TEXTO"
       ],
-      "status_reason": "NÃO SEI o que está escrito aqui dentro. O scanner não lê ficheiro binário, e nenhum passo do sistema abre estes 49 PDF. Eles existem, estão contados pelo disco, e o seu conteúdo é invisível para tudo o que vem a seguir.",
+      "status_reason": "CINZENTO porque o mapa continua a não conseguir LER um PDF — o scanner não abre ficheiro binário, e isso não mudou. O que mudou é que já não precisa: o executor abriu-os e o texto vive ao lado, como artefato próprio, esse sim legível e contado.",
       "evidence_text": "system-map/data/corpus-it.generated.json → BRUTO_POR_LER",
       "departments": [
         "ENGENHARIA"
@@ -6822,7 +7164,9 @@
       "legacy": false,
       "changed_since_declared": [],
       "inbound": [],
-      "outbound": [],
+      "outbound": [
+        "C-EXECUTOR-TEXTO-PDF"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -6886,6 +7230,58 @@
       "y": 1004
     },
     {
+      "kind": "engine",
+      "proof": "git-measurement",
+      "files": [],
+      "file_count": 0,
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "views": [
+        "acervo",
+        "infra",
+        "audit"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "C-EXECUTOR-TEXTO-PDF"
+      ],
+      "outbound": [
+        "C-ADMISSAO"
+      ],
+      "evidence_text": "golden-path-pdf.generated.json",
+      "id": "C-IT-TEXTO-DERIVADO",
+      "name": "Texto derivado, com pai",
+      "icon": "▤",
+      "territory": "Z-GUARDA",
+      "family": "F-ESPERA",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "what": "43 textos tirados de PDF por máquina, cada um a saber de que original nasceu, com que executor, em que versão e a que horas.",
+      "why_here": "É o outro lado do corte que estava aberto. Antes: 43 de 49 PDF fechados. Agora: têm texto, e o texto tem pai.",
+      "facts": [
+        "artefatos de texto com pai: 43",
+        "emitidos nesta corrida: 0",
+        "guardados nesta corrida: 0",
+        "já existiam (repetir não duplica): 43",
+        "PERDIDOS: 0",
+        "textos antigos feitos à mão: 6 — com pai provado 3, pai desconhecido 3"
+      ],
+      "status_reason": "Cada artefato tem nome próprio, impressão digital, pai, impressão digital do pai e versão de quem o fez. Perdidos: 0.",
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 10065,
+      "y": 1004
+    },
+    {
       "id": "C-IT-TEXTO-PESQUISAVEL",
       "name": "O texto que a máquina consegue ler",
       "territory": "Z-GUARDA",
@@ -6943,8 +7339,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10065,
-      "y": 1004
+      "x": 9650,
+      "y": 1326
     },
     {
       "id": "C-LASTMILE",
@@ -7256,7 +7652,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 11475,
-      "y": 682
+      "y": 1004
     },
     {
       "id": "C-MAPA-APP",
@@ -7302,7 +7698,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13300,
+      "x": 13715,
       "y": 1004
     },
     {
@@ -7338,6 +7734,8 @@
       "inbound": [
         "C-AS-FONTES",
         "C-CI-MAPA",
+        "C-ESTRADA-PDF",
+        "C-EXECUTOR-TEXTO-PDF",
         "C-IT-CATALOGO",
         "C-MAPA-APP",
         "C-MAPA-SCAN",
@@ -7359,6 +7757,7 @@
           "CATEGORIA_DO_TIPO",
           "EM_PORTUGUES",
           "EXT",
+          "FAMILIA_DA_ZONA",
           "L",
           "NAO_TOCAR",
           "PAPEIS",
@@ -7366,9 +7765,9 @@
           "RX_PAPEL",
           "TRADUZ_PAIS"
         ],
-        "palavras": 122,
+        "palavras": 130,
         "por_lingua": {},
-        "sem_marca_de_lingua": 122,
+        "sem_marca_de_lingua": 130,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -7377,7 +7776,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13715,
+      "x": 14130,
       "y": 1004
     },
     {
@@ -7466,8 +7865,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14130,
-      "y": 1004
+      "x": 13300,
+      "y": 1326
     },
     {
       "id": "C-MAPA-TESTES",
@@ -7524,7 +7923,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13300,
+      "x": 13715,
       "y": 1326
     },
     {
@@ -7571,7 +7970,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13715,
+      "x": 14130,
       "y": 1326
     },
     {
@@ -7642,8 +8041,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
-      "y": 1326
+      "x": 13300,
+      "y": 1648
     },
     {
       "id": "C-NAVEGADOR",
@@ -8598,6 +8997,7 @@
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-DATA-CLOCK",
+        "C-ESTRADA-PDF",
         "C-MAPA-SCAN",
         "C-ORQUESTRADOR",
         "C-PADRAO-COLETA",
@@ -8678,9 +9078,10 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "provas/testa_coleta_canonica.py"
+        "provas/testa_coleta_canonica.py",
+        "provas/testa_golden_path_pdf.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
       "status_reason": "teste que nao toca em nada do repositorio.",
       "changed_since_declared": [
@@ -8691,6 +9092,9 @@
         "C-ADAMA-ES",
         "C-ADMISSAO",
         "C-CI-MAPA",
+        "C-CONTRATO-ARTEFATO",
+        "C-ESTRADA-PDF",
+        "C-EXECUTOR-TEXTO-PDF",
         "C-ORQUESTRADOR",
         "C-PALAVRAS",
         "C-PEDIDO",
@@ -8706,11 +9110,13 @@
         "papel": "NAO SEI",
         "listas": [
           "_GAVETAS_IT",
-          "_OUTROS"
+          "_OUTROS",
+          "_REDE",
+          "_USO_APIFY"
         ],
-        "palavras": 11,
+        "palavras": 25,
         "por_lingua": {},
-        "sem_marca_de_lingua": 11,
+        "sem_marca_de_lingua": 25,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -8719,7 +9125,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13300,
+      "x": 13715,
       "y": 1648
     },
     {
@@ -8793,7 +9199,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 11475,
-      "y": 1004
+      "y": 1326
     },
     {
       "id": "C-RECALL-PORTA-IT",
@@ -8845,7 +9251,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13715,
+      "x": 14130,
       "y": 1648
     },
     {
@@ -8984,8 +9390,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
-      "y": 1648
+      "x": 13300,
+      "y": 1970
     },
     {
       "id": "C-REGRA-COLETA",
@@ -9179,7 +9585,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 11475,
-      "y": 1326
+      "y": 1648
     },
     {
       "id": "C-ROTULOS",
@@ -9308,7 +9714,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 7120,
-      "y": 1326
+      "y": 1648
     },
     {
       "id": "C-SAUDE-FONTE",
@@ -9614,7 +10020,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9650,
+      "x": 10065,
       "y": 1326
     },
     {
@@ -10838,7 +11244,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13300,
+      "x": 13715,
       "y": 1970
     },
     {
@@ -12360,7 +12766,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 6f9456eb8d22ac3ab85c460e18acc264f9d06195"
+        "HEAD e788c219caf86f001e70db8b6ed62534be07315d"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -12654,6 +13060,24 @@
     },
     {
       "from": "C-ADMISSAO",
+      "to": "C-ESTRADA-PDF",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por A primeira estrada · PDF até à porta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/golden_path_pdf.py",
+          "line": 50,
+          "snippet": "import admissao as adm  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ADMISSAO",
       "to": "C-ORQUESTRADOR",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -12678,11 +13102,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/testa_coleta_canonica.py",
           "line": 34,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "provas/testa_golden_path_pdf.py",
+          "line": 24,
           "snippet": "import admissao as adm  # noqa: E402"
         }
       ],
@@ -13152,7 +13581,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1876,
+          "line": 2076,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -14749,6 +15178,60 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-ESTRADA-PDF",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por A primeira estrada · PDF até à porta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/golden_path_pdf.py",
+          "line": 49,
+          "snippet": "import artefato as art  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-EXECUTOR-TEXTO-PDF",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Executor · texto a partir de PDF. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/executor_texto_de_pdf.py",
+          "line": 68,
+          "snippet": "import artefato as art  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/testa_golden_path_pdf.py",
+          "line": 23,
+          "snippet": "import artefato as art  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-CONTRATO-CAMPOS",
       "to": "C-REGRA-COLETA",
       "type": "IMPORTS",
@@ -15074,6 +15557,149 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-ESTRADA-PDF",
+      "to": "C-MAPA-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A primeira estrada · PDF até à porta alimenta Gerador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 846,
+          "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ESTRADA-PDF",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A primeira estrada · PDF até à porta tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/testa_golden_path_pdf.py",
+          "line": 26,
+          "snippet": "import golden_path_pdf as gp  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-ESTRADA-PDF",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A primeira estrada · PDF até à porta alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/testa_golden_path_pdf.py",
+          "line": 184,
+          "snippet": "_fonte_gp = (RAIZ / \"coleta\" / \"golden_path_pdf.py\").read_text(encoding=\"utf-8\")"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-ESTRADA-PDF",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por A primeira estrada · PDF até à porta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/golden_path_pdf.py",
+          "line": 51,
+          "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-IT-TEXTO-DERIVADO",
+      "type": "PRODUZ",
+      "kind": "technical",
+      "status": "PROVEN",
+      "payload": "dado",
+      "reason": "43 textos guardados, cada um com pai e impressão digital do pai. Perdidos: 0.",
+      "evidence": [
+        {
+          "file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+          "line": 1,
+          "snippet": "43 artefatos derivados"
+        }
+      ],
+      "categoria": "UNKNOWN"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-MAPA-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF alimenta Gerador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 831,
+          "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/testa_golden_path_pdf.py",
+          "line": 25,
+          "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/testa_golden_path_pdf.py",
+          "line": 182,
+          "snippet": "_fonte_ex = (RAIZ / \"coleta\" / \"executor_texto_de_pdf.py\").read_text("
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-FONTES-EU",
@@ -15454,7 +16080,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1898,
+          "line": 2098,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -15662,14 +16288,31 @@
     },
     {
       "from": "C-IT-PDF-BRUTO",
-      "to": "C-IT-TEXTO-PESQUISAVEL",
+      "to": "C-EXECUTOR-TEXTO-PDF",
       "type": "DERIVA_TEXTO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "payload": "dado",
+      "reason": "O executor abriu 49 PDF italianos nesta corrida. O original não foi tocado: IMUTAVEL.",
+      "evidence": [
+        {
+          "file": "coleta/executor_texto_de_pdf.py",
+          "line": 1,
+          "snippet": "RUN DERIV-PDF-20260908T023216Z · RAW_INPUT=49"
+        }
+      ],
+      "categoria": "UNKNOWN"
+    },
+    {
+      "from": "C-IT-PDF-BRUTO",
+      "to": "C-IT-TEXTO-PESQUISAVEL",
+      "type": "DERIVA_TEXTO_A_MAO",
       "kind": "expected",
       "status": "UNKNOWN",
       "evidence": [],
-      "reason": "⚪ O CORTE. Aqui devia estar o passo que abre o PDF e guarda o texto — e não existe. 43 dos 49 PDF italianos nunca foram derivados; os 6 que foram, foram à mão (48730 letras em ficheiros .txt ao lado), sem nenhuma linha de código a fazê-lo. Do outro lado do corte há 50537 letras de prosa nas planilhas. Este é o maior buraco medido da Itália, e não é problema de vocabulário: nenhuma palavra encontra texto que não existe.",
-      "source": "system-map/data/corpus-it.generated.json",
-      "declared_by": "missao system-map-canonical-v1, etapa 2.6",
+      "reason": "⚪ O CAMINHO ANTIGO, FEITO À MÃO. 6 textos foram tirados de PDF por uma pessoa, antes de haver contrato, sem registo de quem nem de quando. Destes, 3 conseguem provar de que PDF vieram — o texto do ficheiro aparece mesmo dentro do documento. Os outros 3 não: estar ao lado com o mesmo nome é indício, não prova, e por isso o pai ficou NÃO SEI. Fica cinzenta porque continua sem código que a sustente. O caminho novo, esse, está desenhado a cheio: BRUTO → EXECUTOR → TEXTO DERIVADO → PORTA.",
+      "source": "system-map/data/golden-path-pdf.generated.json",
+      "declared_by": "missao system-map-canonical-v1, fase 1 do data plane",
       "categoria": "UNKNOWN"
     },
     {
@@ -15735,6 +16378,23 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-IT-TEXTO-DERIVADO",
+      "to": "C-ADMISSAO",
+      "type": "ALIMENTA",
+      "kind": "technical",
+      "status": "PROVEN",
+      "payload": "dado",
+      "reason": "A porta viu 43 textos e decidiu: NAO_SEI 43.",
+      "evidence": [
+        {
+          "file": "coleta/golden_path_pdf.py",
+          "line": 1,
+          "snippet": "ADMISSION_SEEN=43"
+        }
+      ],
+      "categoria": "UNKNOWN"
     },
     {
       "from": "C-IT-TEXTO-PESQUISAVEL",
@@ -15980,17 +16640,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2099,
+          "line": 2299,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2099,
+          "line": 2299,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2100,
+          "line": 2300,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -16108,12 +16768,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2577,
+          "line": 2781,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2577,
+          "line": 2781,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -16391,6 +17051,24 @@
           "file": "provas/testa_coleta_canonica.py",
           "line": 33,
           "snippet": "import orquestrador as orq  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-ORQUESTRADOR",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/testa_golden_path_pdf.py",
+          "line": 211,
+          "snippet": "RAIZ / \"orquestrador\" / \"orquestrador.py\").read_text(encoding=\"utf-8\"),"
         }
       ],
       "categoria": "PROOF"
@@ -17428,6 +18106,24 @@
           "file": "leis/data_clock.py",
           "line": 75,
           "snippet": "('RUN-MANIFEST', 'data/samples/RUN-MANIFEST.json', '2026-08-29',"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-ESTRADA-PDF",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta alimenta A primeira estrada · PDF até à porta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/golden_path_pdf.py",
+          "line": 53,
+          "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
         }
       ],
       "categoria": "RULE"
@@ -19724,20 +20420,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 627,
+  "UNCLAIMED_FILES_COUNT": 672,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 102,
-    "components_proven": 65,
-    "components_pending": 30,
+    "components": 107,
+    "components_proven": 66,
+    "components_pending": 34,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 330,
-    "edges_proven": 328,
+    "edges": 346,
+    "edges_proven": 344,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1149,
-    "files_covered": 522,
+    "files_tracked": 1198,
+    "files_covered": 526,
     "files_code_unclaimed": 0
   }
 }

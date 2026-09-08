@@ -153,9 +153,9 @@
    "ISSUE_ID": "COL-023",
    "NODE": "C-CORPUS",
    "TYPE": "RAW_WITHOUT_TEXT_DERIVATION",
-   "DESCRIPTION": "49 PDF italianos, 62,7 MB, guardados com proveniencia — e nenhum passo que os transforme em texto. Um deles esta ate documentado assim, em regional-bulletin-sources.json: «NAO li integralmente os 13 PDFs (mais de 2,2 milhoes de caracteres somados)». O material mais rico da Italia esta guardado e ilegivel para a maquina. Este e o maior buraco medido do corpo italiano, e nao e um defeito de vocabulario: nenhuma palavra, por melhor que seja, encontra texto que nao existe. NAO CORRIGIDO — derivar PDF e trabalho novo, com custo, e tem de ser decidido.",
-   "EVIDENCE": "corpus-it.generated.json BRUTO_POR_LER",
-   "STATUS": "OPEN"
+   "DESCRIPTION": "FECHADO. Os 49 PDF italianos passaram a ter texto. Medido: 49 caminhos em disco mas 43 CONTEUDOS distintos — seis documentos estao guardados duas vezes, em data/collection-store e outra vez em data/samples. Duas copias do mesmo ficheiro nao sao dois documentos, e por isso o artefato passou a ser o CONTEUDO e nao o caminho. Dos 43: 43 tinham camada de texto, 0 precisam de OCR, 0 deram erro. 833.585 letras derivadas por maquina (pdftotext, local, sem rede, custo zero), cada texto com pai declarado, impressao digital do pai, executor, versao do executor, versao do cano e hora da derivacao. Nenhum byte dos originais mudou.",
+   "EVIDENCE": "coleta/executor_texto_de_pdf.py · coleta/golden_path_pdf.py · system-map/data/golden-path-pdf.generated.json · provas/testa_golden_path_pdf.py T1-T30",
+   "STATUS": "CLOSED"
   },
   {
    "ISSUE_ID": "COL-024",
@@ -212,11 +212,43 @@
    "DESCRIPTION": "Duas coisas regeneram os mesmos ficheiros: validate_system_map.py e a prova scanner_e_deterministico. Se correrem ao mesmo tempo, uma le o que a outra esta a escrever e a prova cai — mas cai por CORRIDA, nao por defeito. Reproduzido: encadeados numa so linha de comando dao FAIL; isolados dao PASS os dois. Isto pode pintar o CI de vermelho ao acaso, e uma falha intermitente custa mais a diagnosticar do que uma constante, porque quem a ve duvida da propria medicao. NAO CORRIGIDO: o conserto e dar a cada um a sua pasta temporaria, ou um cadeado, e isso e mudar a ferramenta de medicao no fim de uma etapa de medicao — exatamente o que esta casa evita.",
    "EVIDENCE": "py system-map/scripts/validate_system_map.py && py system-map/tests/test_system_map.py numa so linha -> FAIL; separados -> PASS",
    "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-027",
+   "NODE": "C-GOLDEN-PATH-PDF",
+   "TYPE": "FACT_TIME_UNKNOWN_BLOCKS_READY",
+   "DESCRIPTION": "O corte do texto fechou e apareceu o proximo, com nome exato: NENHUM dos 43 textos derivados tem FACT_TIME. A porta viu os 43 e devolveu 43 NAO_SEI, todos pela mesma regra — «o item nao diz quando o fato aconteceu». Isto NAO e a estrada a falhar: e a estrada a recusar-se a adivinhar. Havia a tentacao de pos DERIVED_AT ali e ficar tudo verde; seria por a hora em que a maquina abriu o PDF hoje como data de um boletim de ha meses. O trabalho que falta e extrair a data de dentro do texto do boletim, com prova, e isso e missao propria.",
+   "EVIDENCE": "system-map/data/golden-path-pdf.generated.json PORQUES_DA_PORTA",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-028",
+   "NODE": "C-IT-PDF-BRUTO",
+   "TYPE": "DUPLICATE_RAW_ON_DISK",
+   "DESCRIPTION": "Seis PDF italianos existem duas vezes em disco, com conteudo identico (mesmo SHA256), em data/collection-store/italy/ e em data/samples/. Descoberto pela prova de idempotencia, que reprovou na primeira corrida — o mesmo documento entrava duas vezes com dois artefatos iguais. Corrigido no executor (o artefato e o conteudo, e todos os caminhos ficam registados em NOTES.PARENT_STORAGE_LOCATIONS). NAO CORRIGIDO em disco: apagar uma das copias e mexer em evidencia guardada, e isso decide-se, nao se faz de passagem.",
+   "EVIDENCE": "COUNTS.RAW_INPUT=49 vs RAW_CONTEUDOS_DISTINTOS=43",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-029",
+   "NODE": "C-EXECUTOR-TEXTO-PDF",
+   "TYPE": "EXTERNAL_TOOL_DEPENDENCY",
+   "DESCRIPTION": "O executor depende de `pdftotext`, que e ferramenta de fora do Python. Existe nesta maquina (Git Bash / mingw64) e a Regra Zero mediu antes de escolher: pypdf, PyPDF2, pdfminer, fitz e pdfplumber nao estao instaladas. NO CI (ubuntu) `pdftotext` PODE NAO EXISTIR — vem do pacote poppler-utils. Se faltar, o executor devolve EXTRACTION_ERROR com o motivo FERRAMENTA_AUSENTE, e NAO finge que os PDF estao vazios; mas a corrida no CI passaria a nao derivar nada. Registado para se decidir: instalar poppler-utils no workflow, ou aceitar que a derivacao so corre localmente.",
+   "EVIDENCE": "coleta/executor_texto_de_pdf.py ha_ferramenta()",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-030",
+   "NODE": "C-IT-TEXTO-PESQUISAVEL",
+   "TYPE": "LEGACY_PARENT_UNKNOWN",
+   "DESCRIPTION": "Dos 6 textos tirados de PDF a mao, so 3 tem pai comprovado — o texto do ficheiro aparece mesmo dentro do PDF vizinho. Nos outros 3 nao aparece: podem vir de outra versao do documento, de outro documento, ou ter sido escritos a partir do que alguem leu. Ficaram com PARENT_ARTIFACT_ID = NAO SEI. NAO SE MELHOROU A HISTORIA: estar ao lado com o mesmo nome e indicio, nao prova. Nao apagar — os 6 ficheiros continuam guardados ate se provar que o caminho novo os substitui.",
+   "EVIDENCE": "golden-path-pdf.generated.json TEXTOS_A_MAO",
+   "STATUS": "OPEN"
   }
  ],
  "COUNTS": {
-  "abertos": 20,
-  "fechados": 6,
-  "total": 26
+  "abertos": 23,
+  "fechados": 7,
+  "total": 30
  }
 }

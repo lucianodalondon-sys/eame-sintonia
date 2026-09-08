@@ -1743,7 +1743,8 @@
         "ENGENHARIA"
       ],
       "files": [
-        "provas/testa_coleta_canonica.py"
+        "provas/testa_coleta_canonica.py",
+        "provas/testa_golden_path_pdf.py"
       ],
       "views": [
         "audit"
@@ -1816,6 +1817,62 @@
       ],
       "files": [
         "system-map/scripts/recall_da_porta_it.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CONTRATO-ARTEFATO",
+      "name": "O contrato comum de artefato",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "icon": "§",
+      "what": "A folha que todo executor preenche ao entregar: quem sou, de onde vim, quando, onde, quem me fez. Identidade, impressão digital, pai, tempos separados, geografia separada, versões.",
+      "why_here": "Sem uma língua comum, ligar o orquestrador obrigaria o cérebro da casa a adivinhar o que cada executor produziu — e adivinhação no meio não se conserta depois, espalha-se.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "leis/artefato.py"
+      ],
+      "views": [
+        "infra",
+        "audit"
+      ]
+    },
+    {
+      "id": "C-EXECUTOR-TEXTO-PDF",
+      "name": "Executor · texto a partir de PDF",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "⚙",
+      "what": "Abre o PDF e guarda o texto ao lado, como outro artefato com pai declarado. Não julga: não decide se o documento serve. Corre local, sem rede, sem custo, sem OCR.",
+      "why_here": "É o primeiro executor real a provar o contrato. Um contrato que ninguém usa não vale nada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "coleta/executor_texto_de_pdf.py"
+      ],
+      "views": [
+        "infra",
+        "audit"
+      ]
+    },
+    {
+      "id": "C-ESTRADA-PDF",
+      "name": "A primeira estrada · PDF até à porta",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "◉",
+      "what": "Junta a corrida inteira: tira a impressao digital dos originais antes e depois, manda derivar, audita os textos antigos feitos a mao, leva cada texto a porta de admissao, e faz as contas baterem.",
+      "why_here": "Nada some em silêncio. Emitido menos guardado tem de dar zero, e guardado menos visto pela porta também.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "coleta/golden_path_pdf.py"
       ],
       "views": [
         "audit"

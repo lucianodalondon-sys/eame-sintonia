@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "6f9456eb8d22ac3ab85c460e18acc264f9d06195",
+    "HEAD": "5b60efc249d0cc02a402958026f97d9d6eced674",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3029,6 +3029,17 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/executor_texto_de_pdf.py",
+      "como_se_chama": "coleta/executor_texto_de_pdf.py",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
       "ficheiro": "coleta/filas.py",
       "como_se_chama": "",
       "carimba_data": [],
@@ -3045,6 +3056,19 @@
       "carimba_data": [],
       "carimba_lugar": [],
       "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/golden_path_pdf.py",
+      "como_se_chama": "coleta/golden_path_pdf.py",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
       "leis_que_obedece": [],
       "regista_descarte": []
     },
@@ -3793,16 +3817,72 @@
         "erro": null,
         "prova": null,
         "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260908T022727Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260908T023205Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 43,
+        "rendimento": 88,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260908T023216Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
       }
     ],
-    "total": 13,
+    "total": 16,
     "por_pais": {
       "ES": 10,
+      "IT": 3,
       "NAO SEI": 3
     },
     "por_plataforma": {
       "INSTAGRAM": 1,
       "LINKEDIN": 5,
+      "LOCAL": 3,
       "OPENALEX": 1,
       "OpenAlex, ORCID": 1,
       "YOUTUBE": 3,
@@ -3839,11 +3919,11 @@
       "IT-T3-001",
       "IT-T4-001"
     ],
-    "com_rendimento_medido": 12,
-    "com_custo_medido": 7,
+    "com_rendimento_medido": 15,
+    "com_custo_medido": 10,
     "custo_total_usd": 0.48,
-    "trouxe_total": 3400,
-    "sobrou_total": 2963
+    "trouxe_total": 3547,
+    "sobrou_total": 3006
   },
   "COLETAS_ITALIANAS": {
     "ficheiro_observacoes": "data/collection-ledger/italy/observations.ndjson",
@@ -4406,12 +4486,12 @@
     "search_terms": 103,
     "endpoints": 40,
     "candidates": 0,
-    "coletores": 39,
+    "coletores": 41,
     "coletores_com_data": 12,
-    "coletores_com_lugar": 24,
-    "coletores_que_separam_fonte_do_fato": 18,
+    "coletores_com_lugar": 26,
+    "coletores_que_separam_fonte_do_fato": 19,
     "coletores_que_registam_descarte": 8,
-    "corridas_registadas": 19,
+    "corridas_registadas": 22,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,
     "fontes_nunca_coletadas": 22,

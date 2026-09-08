@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "6f9456eb8d22ac3ab85c460e18acc264f9d06195",
-    "GENERATED_AT": "2026-09-07T23:06:14-03:00"
+    "HEAD": "e788c219caf86f001e70db8b6ed62534be07315d",
+    "GENERATED_AT": "2026-09-07T23:40:44-03:00"
   },
   "FILES": [
     {
@@ -1135,6 +1135,13 @@
       "code_dir": true
     },
     {
+      "path": "coleta/executor_texto_de_pdf.py",
+      "sha": "efd64987b55500b8d42db836d9350a9877d4025b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "coleta/filas.py",
       "sha": "1ca7c6d1021b4b7a3df025fcd8fa304959ca5801",
       "ext": ".py",
@@ -1144,6 +1151,13 @@
     {
       "path": "coleta/gire_mapas.py",
       "sha": "4a54507d756ae72eaf0442c37717ed190eaaad95",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/golden_path_pdf.py",
+      "sha": "696d77e111df67dbbd98cc8e73e6d8269940753f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1341,6 +1355,314 @@
       "path": "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
       "sha": "def6ea8a531859318fb7c325b6130cfea34d3afc",
       "ext": ".csv",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "sha": "c6e594b879e293487c8e87d3ad47c881414d78f4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-024abdb692be926a.txt",
+      "sha": "1425d1ce388243a2413a1a6146abcd778524d152",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
+      "sha": "da3ca46c2e286ec86ac9b88fe1dfa890932171ed",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-0c2723e66201f966.txt",
+      "sha": "a1a07939668961f7bb411827aeb230608a02bc52",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-144fdb152b1a6ae4.txt",
+      "sha": "459bc50350d25c0df11e42cfc69fc1ada68f5935",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-178ebe9e0ea7dd83.txt",
+      "sha": "e3b897fb488601dc9d332f3c45a252f7e6c7c5e4",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-221ab4a8d6ebec30.txt",
+      "sha": "def4f5b4678fdc99c8190d28c0dc4f78a8252321",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-223510588786a4de.txt",
+      "sha": "f3e90cf312d956ad82713d13c7a914b2923d9992",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-2a12cb316622a9a5.txt",
+      "sha": "a4b095bdb3dda6981c29ebe2da04a61e4f014e46",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-392840d3e13d1b15.txt",
+      "sha": "a78d2f88c61722cb9db706bbfb5381037743c983",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-3d3c1bc0e96332e8.txt",
+      "sha": "852b97309e4160654c27793899cc87ba1f634b0f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-3e941738599367d7.txt",
+      "sha": "f3006845f61a67e2ae1c3cba4bc6d465a3c66c49",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-3ef48aaa830edf3b.txt",
+      "sha": "a89d265b20f9c2850b1046c5e7645b35ece64e72",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-420e08ef15bec6e4.txt",
+      "sha": "e568a0f2fa5f14155fa091db288ff1e4fa2eaf6e",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-445e41701f737d73.txt",
+      "sha": "07d2713d65958d7f9e82b0b1ce025e6c5b4b3966",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-48e76a696be6831d.txt",
+      "sha": "49a5e492ee1917d4a1ccd8ad44f24782b8860250",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-4e12affad7fedd91.txt",
+      "sha": "8ac833ab306bf54295af83ed9893fe6ced4ec8a3",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-59da05274359eff6.txt",
+      "sha": "e2dff006ccf72e5fccb185917d5b817c5db822ca",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-5dcfb75ac38390c3.txt",
+      "sha": "4822ff394ed55d9dbe460ed7677928749558368f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-6377ac2f8419d905.txt",
+      "sha": "f9ec489b8771f829886102b2b17aeb6d6343bce2",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-699a073ace4361ea.txt",
+      "sha": "ee712198bfd0f58becee4b235e9041ce9b9ef63c",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-6d12bcb5fa2b0905.txt",
+      "sha": "53eec229f3af245d9a4a357ae5d6e52e323cf50d",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-7a51732e87f0f319.txt",
+      "sha": "8632a307d1cdb33f46f38987f1e4cb4beb85d23f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-823e18ebb232eb36.txt",
+      "sha": "f82ee47924d216fbad7cb04f70f4a8d14ca6fdaf",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-8c13500d43502e64.txt",
+      "sha": "d9c5e05a841edd8664f44d0dd66c4d989a6e9409",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-924aabd94168c53a.txt",
+      "sha": "9772f13b3d36ef3393425356181841dfe0dcf340",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-9488589cfc657b95.txt",
+      "sha": "1cec72aa225248a97571ae9fba7b95ae067f2a39",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-99cb44a67f6b4e9a.txt",
+      "sha": "be9ed527290eb0c9030738fb633dba5e591a8f2f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-9a01cc17889e1f40.txt",
+      "sha": "680098d50b99499e46689859d2153cc0b6ca49bb",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-a6515948880d173a.txt",
+      "sha": "7d8acf6e3891d31d048b97a33e37ea410980d822",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-a927e846ba8e78b0.txt",
+      "sha": "69de363406ffc2aede6fa8a2c874f358e3c74e11",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-b631f6eecfbc1db0.txt",
+      "sha": "7e6ab208eb29746a2b3218850961d30e8e33a5fc",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-c6377f6951bfeb2e.txt",
+      "sha": "f034b6468d1395c36306f5fac53b34f99edefa29",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-ccd8ea9c8e9c4caf.txt",
+      "sha": "6251d6f41d69b7fd06cd20dca24472b7d116dcac",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-ded546686d61dc91.txt",
+      "sha": "24ef07e5521b0a050089910021672468f71163be",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-df4adcb5d78929e1.txt",
+      "sha": "2b5eeed7cf64dfa2bc5587e0fc5843aaba73effd",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-e5176df66216dfd0.txt",
+      "sha": "1c9dc86b7a8a58b9d2fbc46833828a22c5abdf03",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-e612807928b5ada9.txt",
+      "sha": "78327b6bd0837c163c23273c271c423e00355ced",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-e6ec962a8a730ee4.txt",
+      "sha": "442c59427c22a972b3d9da2c433faa057aaf47c3",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-e9395a7ea894c1d2.txt",
+      "sha": "ab719f0ccdd399d95e8660cd1e512497a762f9ee",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-ec3108a2ed424702.txt",
+      "sha": "45673b371b4d9fe28d731abb2c6c718e96c2e55f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
+      "sha": "8a640eb79c43119ce8bbbaee8349cc3edba133ee",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-fd5b5e465457e4d6.txt",
+      "sha": "b481dc5d40e7eec3f1437d3c1a8d1bbf49801bd6",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-fe3c922bfdfd7999.txt",
+      "sha": "2e465b4fad1138d71b4f3be711b7053a6ff6281e",
+      "ext": ".txt",
       "readable": false,
       "code_dir": false
     },
@@ -3096,7 +3418,7 @@
     },
     {
       "path": "data/samples/LIVRO-DE-DECISOES.json",
-      "sha": "66f0cf3efc2887a543736929f724ab7bbdb65416",
+      "sha": "36efa5a82533cabac439a1721da4e9819d639c8a",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -3369,7 +3691,7 @@
     },
     {
       "path": "data/samples/RUN-MANIFEST.json",
-      "sha": "a6c4c0c7bc4c874d7fab5b7a12c83c7ac11632be",
+      "sha": "8770e480cd5b9cfcd9a6a01ed758869c78ecddc6",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -3902,6 +4224,13 @@
     {
       "path": "docs/operacao/CENSO-DA-COLETA.md",
       "sha": "4868be1478cda9d46ed370d61ef1ac7b2b2dc349",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
+      "sha": "7c7059dc80f03bd855433baee63537eff5186c2d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6077,6 +6406,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/artefato.py",
+      "sha": "db12c95938b9d3558a8304516e40e99cb87c94dc",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/auditoria_regua_comercial.py",
       "sha": "0b74e427335ff870fb7c815426e92832e67127d4",
       "ext": ".py",
@@ -6722,7 +7058,14 @@
     },
     {
       "path": "provas/testa_coleta_canonica.py",
-      "sha": "05440f12811cb9a528023cd3afadb700f05c1245",
+      "sha": "2dda00e21578d4990d654f6b3c745d80d645f7f6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/testa_golden_path_pdf.py",
+      "sha": "9423756789328f35ba6b4b924e65f4e8c301850d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7723,14 +8066,14 @@
     },
     {
       "path": "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
-      "sha": "42ed86c7847ab2891ebbc8fe22ed476053951e9d",
+      "sha": "6fcbb799a06216fdd4cb8efae3ee4c4f85530f2a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "0c34c8bfba9d65c5c7e597c3bff521e15984a03e",
+      "sha": "f71c25daea31c6be05ae1fa19499cb21a49d26d9",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7758,7 +8101,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "c57800e7b9dd066b2f24684e92b8983a185b2bae",
+      "sha": "3eece1c87b060efe5ff97e38c31587cf2bcf5a07",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9109,6 +9452,39 @@
       }
     },
     {
+      "from_file": "coleta/executor_texto_de_pdf.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_texto_de_pdf.py",
+        "line": 67,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/executor_texto_de_pdf.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/executor_texto_de_pdf.py",
+        "line": 97,
+        "snippet": "REGISTO = RAIZ / \"data\" / \"derivados\" / \"REGISTO-DE-ARTEFATOS.json\""
+      }
+    },
+    {
+      "from_file": "coleta/executor_texto_de_pdf.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_texto_de_pdf.py",
+        "line": 68,
+        "snippet": "import artefato as art  # noqa: E402"
+      }
+    },
+    {
       "from_file": "coleta/filas.py",
       "to_file": "data/samples/ES-RESEARCHERS-OLIVE.json",
       "type": "READS",
@@ -9128,6 +9504,61 @@
         "file": "coleta/filas.py",
         "line": 93,
         "snippet": "origens = _ler('ES-VOICE-LINKEDIN.json')['ORIGINS']"
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 48,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 50,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 51,
+        "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 53,
+        "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 49,
+        "snippet": "import artefato as art  # noqa: E402"
       }
     },
     {
@@ -21363,6 +21794,94 @@
       }
     },
     {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 22,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 24,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 25,
+        "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 182,
+        "snippet": "_fonte_ex = (RAIZ / \"coleta\" / \"executor_texto_de_pdf.py\").read_text("
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "coleta/golden_path_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 26,
+        "snippet": "import golden_path_pdf as gp  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "coleta/golden_path_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 184,
+        "snippet": "_fonte_gp = (RAIZ / \"coleta\" / \"golden_path_pdf.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 23,
+        "snippet": "import artefato as art  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 211,
+        "snippet": "RAIZ / \"orquestrador\" / \"orquestrador.py\").read_text(encoding=\"utf-8\"),"
+      }
+    },
+    {
       "from_file": "regras/comunicacao_identidade.py",
       "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json",
       "type": "READS",
@@ -22150,8 +22669,41 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1898,
+        "line": 2098,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 831,
+        "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "coleta/golden_path_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 846,
+        "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 839,
+        "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\","
       }
     },
     {
@@ -22161,7 +22713,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1876,
+        "line": 2076,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -22172,7 +22724,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1657,
+        "line": 1857,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -22205,7 +22757,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2077,
+        "line": 2277,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -22216,7 +22768,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2099,
+        "line": 2299,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -22227,7 +22779,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2100,
+        "line": 2300,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -22238,7 +22790,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2099,
+        "line": 2299,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -22260,7 +22812,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2577,
+        "line": 2781,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -22271,7 +22823,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2577,
+        "line": 2781,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -22282,7 +22834,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1838,
+        "line": 2038,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -25358,10 +25910,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1149,
-    "files_readable": 391,
-    "files_code_dir": 437,
-    "file_edges": 1539,
+    "files_tracked": 1198,
+    "files_readable": 395,
+    "files_code_dir": 441,
+    "file_edges": 1558,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },

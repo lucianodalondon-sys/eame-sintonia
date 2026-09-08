@@ -635,11 +635,11 @@ def o_corte_do_pdf() -> tuple[list, list]:
         "status": CINZA, "ui_status": "gray", "proof": "git-measurement",
         "what": (f"{n_pdf} documentos italianos guardados em PDF — boletins "
                  f"regionais, bilanci fitosanitari, diretrizes. {mb} MB. É o "
-                 f"material mais rico que a Itália tem, e {sem} deles estão "
-                 f"fechados: ninguém os transformou em texto."),
+                 f"material mais rico que a Itália tem. Já não está fechado: "
+                 f"o executor abriu-os e o texto existe, com pai declarado."),
         "why_here": ("Enquanto o mapa dizia «corpus» numa palavra só, isto "
-                     "parecia alimento do sistema. Não é: está guardado, não "
-                     "está legível."),
+                     "parecia alimento do sistema. Separar o guardado do "
+                     "legível foi o que permitiu ver — e fechar — o corte."),
         "files": [], "file_count": n_pdf,
         "facts": [
             f"PDF italianos guardados: {n_pdf}",
@@ -651,32 +651,232 @@ def o_corte_do_pdf() -> tuple[list, list]:
             "o antigo «milhões de caracteres» continua NÃO REPRODUZIDO COMO TEXTO",
         ],
         "status_reason": (
-            f"NÃO SEI o que está escrito aqui dentro. O scanner não lê ficheiro "
-            f"binário, e nenhum passo do sistema abre estes {n_pdf} PDF. Eles "
-            f"existem, estão contados pelo disco, e o seu conteúdo é invisível "
-            f"para tudo o que vem a seguir."),
+            f"CINZENTO porque o mapa continua a não conseguir LER um PDF — o "
+            f"scanner não abre ficheiro binário, e isso não mudou. O que mudou "
+            f"é que já não precisa: o executor abriu-os e o texto vive ao lado, "
+            f"como artefato próprio, esse sim legível e contado."),
         "evidence_text": "system-map/data/corpus-it.generated.json → BRUTO_POR_LER",
         "departments": ["ENGENHARIA"], "views": ["acervo", "infra", "audit"],
         "lane": "official", "legacy": False, "changed_since_declared": [],
         "inbound": [], "outbound": [],
     }
 
+    # ── A SETA DO CORTE, DEPOIS DE O CORTE TER SIDO FECHADO ─────────────────
+    # Esta seta dizia «DERIVACAO AUSENTE» e estava certa quando foi escrita. Ja
+    # nao esta: a derivacao existe, correu, e produziu texto com pai para todos
+    # os PDF que tinham camada de texto.
+    #
+    #     SETA DESATUALIZADA E PIOR QUE SETA NENHUMA.
+    #     A que falta faz perguntar; a que mente faz confiar.
+    #
+    # O que sobra deste lado e o caminho ANTIGO, feito a mao: seis textos que
+    # alguem escreveu sem deixar registo de como. Tres deles conseguem provar de
+    # que PDF vieram; tres nao. Esse continua a ser um caminho por confirmar, e
+    # e isso — e so isso — que a seta cinzenta passa a dizer.
+    gp = DADOS / "golden-path-pdf.generated.json"
+    maos = {}
+    if gp.is_file():
+        maos = (json.loads(gp.read_text(encoding="utf-8")).get("TEXTOS_A_MAO")
+                or {})
+    n_maos = maos.get("TOTAL", com)
+    provados = maos.get("PARENT_PROVEN", 0)
+
     ligacoes = [{
         "from": "C-IT-PDF-BRUTO", "to": "C-IT-TEXTO-PESQUISAVEL",
-        "type": "DERIVA_TEXTO", "kind": "expected",
+        "type": "DERIVA_TEXTO_A_MAO", "kind": "expected",
         "status": CINZA, "evidence": [],
         "reason": (
-            f"⚪ O CORTE. Aqui devia estar o passo que abre o PDF e guarda o "
-            f"texto — e não existe. {sem} dos {n_pdf} PDF italianos nunca foram "
-            f"derivados; os {com} que foram, foram à mão ({ja} letras em "
-            f"ficheiros .txt ao lado), sem nenhuma linha de código a fazê-lo. "
-            f"Do outro lado do corte há {prosa} letras de prosa nas planilhas. "
-            f"Este é o maior buraco medido da Itália, e não é problema de "
-            f"vocabulário: nenhuma palavra encontra texto que não existe."),
-        "source": "system-map/data/corpus-it.generated.json",
-        "declared_by": "missao system-map-canonical-v1, etapa 2.6",
+            f"⚪ O CAMINHO ANTIGO, FEITO À MÃO. {n_maos} textos foram tirados de "
+            f"PDF por uma pessoa, antes de haver contrato, sem registo de quem "
+            f"nem de quando. Destes, {provados} conseguem provar de que PDF "
+            f"vieram — o texto do ficheiro aparece mesmo dentro do documento. "
+            f"Os outros {n_maos - provados} não: estar ao lado com o mesmo nome "
+            f"é indício, não prova, e por isso o pai ficou NÃO SEI. "
+            f"Fica cinzenta porque continua sem código que a sustente. O "
+            f"caminho novo, esse, está desenhado a cheio: BRUTO → EXECUTOR → "
+            f"TEXTO DERIVADO → PORTA."),
+        "source": "system-map/data/golden-path-pdf.generated.json",
+        "declared_by": "missao system-map-canonical-v1, fase 1 do data plane",
     }]
     return [bruto], ligacoes
+
+
+def a_estrada_do_pdf() -> tuple[list, list]:
+    """A primeira estrada do plano de dados, desenhada a partir da corrida real.
+
+    O DESENHO
+
+        PDF BRUTO ──DATA──> EXECUTOR ──DATA──> TEXTO DERIVADO ──DATA──> PORTA
+             │
+             └── NEEDS_OCR  (so aparece se houver algum)
+
+    A REGRA QUE MANDA AQUI
+
+    Nada nestes cartoes e escrito a mao. Todos os numeros saem do ficheiro da
+    reconciliacao, que e produzido pela corrida. Se a corrida nao aconteceu, os
+    cartoes nao aparecem — e isso e de proposito:
+
+        NAO SE AFIRMA «OBSERVADO» SEM TER HAVIDO UMA CORRIDA.
+
+    Um mapa que mostra uma estrada que ninguem percorreu e pior que um mapa
+    vazio, porque o vazio faz perguntar e o desenho falso faz confiar.
+
+    E O QUE FICOU A FALTAR TAMBEM APARECE
+
+    Os 49 textos existem e a porta viu-os todos — e todos ficaram em NAO SEI,
+    porque nenhum diz quando o fato aconteceu. Isso e a estrada a funcionar: a
+    porta recusou-se a adivinhar. O cartao mostra esse degrau em vez de o
+    esconder atras de um numero bonito de cobertura.
+    """
+    f = DADOS / "golden-path-pdf.generated.json"
+    if not f.is_file():
+        return [], []
+    R = json.loads(f.read_text(encoding="utf-8"))
+    C = R["COUNTS"]
+    maos = R.get("TEXTOS_A_MAO") or {}
+    imut = R.get("RAW_IMUTAVEL") or {}
+
+    admissao = {k[len("ADMISSION_"):]: v for k, v in C.items()
+                if k.startswith("ADMISSION_") and k != "ADMISSION_SEEN"}
+    resumo_adm = " · ".join(f"{k} {v}" for k, v in sorted(admissao.items()))
+    total_derivado = C["DERIVED_LANDED"] + C.get("JA_EXISTIAM", 0)
+
+    # A FAMILIA VEM DA ZONA, NUNCA DA PECA. Uma peca que declara familia
+    # diferente da sua zona cria dois agrupamentos para a mesma coisa, e o mapa
+    # passa a ter duas respostas para «onde e que isto vive».
+    FAMILIA_DA_ZONA = {"Z-PROVA": "F-INTELIGENCIA", "Z-GUARDA": "F-ESPERA",
+                       "Z-EXECUCAO": "F-COLETA", "Z-ACOES": "F-COLETA"}
+    comum = {
+        "kind": "engine", "proof": "git-measurement",
+        "files": [], "file_count": 0, "departments": ["ENGENHARIA"],
+        "views": ["acervo", "infra", "audit"], "lane": "official",
+        "legacy": False, "changed_since_declared": [],
+        "inbound": [], "outbound": [], "evidence_text": f.name,
+    }
+
+    # O CARTAO DO EXECUTOR NAO NASCE AQUI.
+    # O codigo dele e peca declarada (C-EXECUTOR-TEXTO-PDF), porque e
+    # arquitetura: existe no disco, tem dono, tem ficheiro. O que nasce aqui e
+    # so o que foi MEDIDO nesta corrida. Ter as duas coisas em cartoes
+    # separados e o que permite distinguir CODIGO (existe) de OBSERVADO (esta
+    # corrida usou) — e criar um segundo cartao para o executor seria a
+    # «segunda verdade» que a Regra Zero proibe.
+
+    derivado = {
+        **comum,
+        "id": "C-IT-TEXTO-DERIVADO", "name": "Texto derivado, com pai",
+        "icon": "▤", "territory": "Z-GUARDA",
+        "family": FAMILIA_DA_ZONA["Z-GUARDA"],
+        "status": VERDE, "ui_status": "green",
+        "what": (f"{total_derivado} textos tirados de PDF por máquina, cada um "
+                 f"a saber de que original nasceu, com que executor, em que "
+                 f"versão e a que horas."),
+        "why_here": ("É o outro lado do corte que estava aberto. Antes: 43 de "
+                     "49 PDF fechados. Agora: têm texto, e o texto tem pai."),
+        "facts": [
+            f"artefatos de texto com pai: {total_derivado}",
+            f"emitidos nesta corrida: {C['DERIVED_EMITTED']}",
+            f"guardados nesta corrida: {C['DERIVED_LANDED']}",
+            f"já existiam (repetir não duplica): {C.get('JA_EXISTIAM', 0)}",
+            f"PERDIDOS: {C['LOST']}",
+            f"textos antigos feitos à mão: {maos.get('TOTAL', 0)} — "
+            f"com pai provado {maos.get('PARENT_PROVEN', 0)}, "
+            f"pai desconhecido {maos.get('PARENT_UNKNOWN', 0)}",
+        ],
+        "status_reason": (
+            f"Cada artefato tem nome próprio, impressão digital, pai, "
+            f"impressão digital do pai e versão de quem o fez. Perdidos: "
+            f"{C['LOST']}."),
+    }
+
+    porta = {
+        **comum,
+        "id": "C-GOLDEN-PATH-PDF", "name": "A corrida · PDF até à porta",
+        "icon": "◉", "territory": "Z-PROVA",
+        "family": FAMILIA_DA_ZONA["Z-PROVA"],
+        "status": AMARELO, "ui_status": "yellow",
+        "what": (f"A conta desta corrida, do PDF guardado até à porta de "
+                 f"admissão. A porta viu {C['ADMISSION_SEEN']} textos: "
+                 f"{resumo_adm or 'nenhuma decisão'}."),
+        "why_here": ("Se a máquina fez e o mapa não consegue mostrar, a "
+                     "engenharia ainda não terminou."),
+        "facts": [
+            f"RUN_ID: {R['RUN_ID']}",
+            f"estado da corrida: {R['STATUS']}",
+            f"RAW_INPUT: {C['RAW_INPUT']} PDF italianos",
+            f"a porta viu: {C['ADMISSION_SEEN']}",
+            f"decisões: {resumo_adm or 'nenhuma'}",
+            f"PERDIDOS: {C['LOST']}",
+            f"originais alterados: {len(imut.get('ALTERADOS') or [])} "
+            f"({imut.get('VEREDITO', 'NAO SEI')})",
+            "custo: 0 · rede: NÃO · OCR: NÃO",
+            "PRECISÃO: NÃO SEI — não há gabarito humano. Contar quantos "
+            "passaram é COBERTURA, não acerto.",
+        ],
+        "status_reason": (
+            f"AMARELO de propósito. A estrada está inteira e nada se perdeu, "
+            f"mas os {C['ADMISSION_SEEN']} textos ficaram todos em NÃO SEI na "
+            f"porta: nenhum diz quando o fato aconteceu. Pintar isto de verde "
+            f"seria chamar «pronto» a uma coisa que ainda não entrou."),
+    }
+
+    nos = [derivado, porta]
+
+    ligacoes = [
+        {"from": "C-IT-PDF-BRUTO", "to": "C-EXECUTOR-TEXTO-PDF", "type": "DERIVA_TEXTO",
+         "kind": "technical", "status": VERDE, "payload": "dado",
+         "reason": (f"O executor abriu {C['RAW_INPUT']} PDF italianos nesta "
+                    f"corrida. O original não foi tocado: "
+                    f"{imut.get('VEREDITO', 'NAO SEI')}."),
+         "evidence": [{"file": "coleta/executor_texto_de_pdf.py", "line": 1,
+                       "snippet": f"RUN {R['RUN_ID']} · "
+                                  f"RAW_INPUT={C['RAW_INPUT']}"}]},
+        {"from": "C-EXECUTOR-TEXTO-PDF", "to": "C-IT-TEXTO-DERIVADO",
+         "type": "PRODUZ", "kind": "technical", "status": VERDE,
+         "payload": "dado",
+         "reason": (f"{total_derivado} textos guardados, cada um com pai e "
+                    f"impressão digital do pai. Perdidos: {C['LOST']}."),
+         "evidence": [{"file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+                       "line": 1,
+                       "snippet": f"{total_derivado} artefatos derivados"}]},
+        {"from": "C-IT-TEXTO-DERIVADO", "to": "C-ADMISSAO", "type": "ALIMENTA",
+         "kind": "technical", "status": VERDE, "payload": "dado",
+         "reason": (f"A porta viu {C['ADMISSION_SEEN']} textos e decidiu: "
+                    f"{resumo_adm or 'nada'}."),
+         "evidence": [{"file": "coleta/golden_path_pdf.py", "line": 1,
+                       "snippet": f"ADMISSION_SEEN={C['ADMISSION_SEEN']}"}]},
+    ]
+
+    # O RAMO DO OCR SO EXISTE SE HOUVER OCR POR FAZER. Desenhar um caminho
+    # vazio seria mostrar um problema que nao existe — e um mapa que mostra
+    # problemas imaginarios treina toda a gente a ignorar os avisos.
+    if C["RAW_NEEDS_OCR"]:
+        nos.append({
+            **comum, "id": "C-IT-NEEDS-OCR", "name": "Por ler: precisa de OCR",
+            "icon": "◍", "territory": "Z-GUARDA",
+            "family": FAMILIA_DA_ZONA["Z-GUARDA"],
+            "status": CINZA, "ui_status": "gray",
+            "what": (f"{C['RAW_NEEDS_OCR']} PDF abriram bem e não tinham letra "
+                     f"nenhuma por dentro: são fotografia de papel."),
+            "why_here": ("NEEDS_OCR não é rejeição. É um trabalho que ainda "
+                         "não foi feito."),
+            "facts": [f"PDF sem camada de texto: {C['RAW_NEEDS_OCR']}",
+                      "OCR NÃO está implementado — e não se desenha como se "
+                      "estivesse"],
+            "status_reason": ("NÃO SEI o que está escrito nestes. Precisam de "
+                              "OCR, que não é parte desta missão."),
+        })
+        ligacoes.append({
+            "from": "C-IT-PDF-BRUTO", "to": "C-IT-NEEDS-OCR",
+            "type": "NEEDS_OCR", "kind": "technical", "status": CINZA,
+            "payload": "dado",
+            "reason": (f"{C['RAW_NEEDS_OCR']} dos {C['RAW_INPUT']} PDF não têm "
+                       f"camada de texto. Trabalho por fazer, não rejeição."),
+            "evidence": [{"file": "system-map/data/golden-path-pdf.generated.json",
+                          "line": 1,
+                          "snippet": f"RAW_NEEDS_OCR={C['RAW_NEEDS_OCR']}"}]})
+
+    return nos, ligacoes
 
 
 def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
@@ -2163,6 +2363,10 @@ def main_uma_vez(stamp: bool) -> int:
 
     pdf_nos, lig_pdf = o_corte_do_pdf()
     gerados += pdf_nos
+
+    gp_nos, lig_gp = a_estrada_do_pdf()
+    gerados += gp_nos
+    lig_pdf += lig_gp
 
     # ── 2 · arestas de ficheiro sobem para arestas de componente ─────────────
     # Cada aresta de componente carrega TODAS as linhas que a provam. E o que

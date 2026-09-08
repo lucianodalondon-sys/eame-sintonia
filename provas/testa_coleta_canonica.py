@@ -461,13 +461,28 @@ else:
 
 if os.path.exists(_MAPA):
     _M = json.load(open(_MAPA, encoding='utf-8'))
-    _corte = [e for e in _M['EDGES'] if e.get('type') == 'DERIVA_TEXTO']
+    # ESTA PROVA GUARDAVA UM MUNDO QUE JA MUDOU.
+    # Quando foi escrita, exigia que a seta BRUTO -> TEXTO estivesse CINZENTA,
+    # porque o passo que abre o PDF nao existia. Agora existe: o executor
+    # correu, e a derivacao tem codigo, corrida e prova.
+    #
+    # Uma prova que continua a exigir o mundo antigo obriga a nao consertar o
+    # problema para ela continuar verde. Entao ela muda de pergunta — e a nova
+    # pergunta e mais forte, porque guarda as DUAS coisas:
+    #
+    #   · o caminho automatico tem de estar PROVADO (senao regrediu)
+    #   · o caminho antigo, feito a mao, tem de continuar CINZENTO (senao
+    #     alguem lhe deu uma promocao que ninguem provou)
+    _auto = [e for e in _M['EDGES']
+             if e.get('type') == 'DERIVA_TEXTO' and e['from'] == 'C-IT-PDF-BRUTO']
+    _mao = [e for e in _M['EDGES'] if e.get('type') == 'DERIVA_TEXTO_A_MAO']
     prova("T15_o_corte_esta_desenhado_no_mapa",
-          len(_corte) == 1 and _corte[0]['from'] == 'C-IT-PDF-BRUTO'
-          and not _corte[0].get('evidence'),
-          "o passo que abre o PDF nao existe; a seta tem de estar la e tem de "
-          "estar CINZENTA, sem uma linha de codigo a prova-la. Buraco que nao "
-          "se desenha volta a ser descoberto do zero")
+          len(_auto) == 1 and _auto[0].get('evidence')
+          and len(_mao) == 1 and not _mao[0].get('evidence'),
+          "o caminho automatico tem de estar a cheio e com prova; o caminho "
+          "antigo feito a mao tem de continuar cinzento. Buraco que nao se "
+          "desenha volta a ser descoberto do zero — e buraco ja tapado que "
+          "continua desenhado ensina toda a gente a ignorar o mapa")
 
     _bruto = [n for n in _M['NODES'] if n['id'] == 'C-IT-PDF-BRUTO']
     prova("T16_a_peca_do_bruto_nao_promete_milhoes",
