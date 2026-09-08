@@ -192,12 +192,23 @@ class DoisAcervosNaoSeSomam(unittest.TestCase):
 class NadaFoiEscrito(unittest.TestCase):
     """13 a 15 — a missão termina antes da primeira escrita italiana."""
 
-    def test_13_derived_artifact_nao_foi_aplicado(self):
-        migracoes = os.path.join(RAIZ, "supabase", "migrations")
-        self.assertFalse([n for n in os.listdir(migracoes) if n.startswith("022")])
-        for nome in os.listdir(migracoes):
-            self.assertNotIn(
-                "derived_artifact", _texto(os.path.join(migracoes, nome)).lower())
+    def test_13_derived_artifact_existe_mas_nao_chegou_a_producao(self):
+        """ASSERÇÃO ANTIGA: exigia que a `022` não existisse.
+
+        Ficou velha quando a missão seguinte a escreveu e a provou num Postgres
+        descartável — e era a asserção errada desde o início: guardava o escopo
+        daquela missão, não uma propriedade do sistema.
+
+        O QUE SE GUARDA AGORA: escrever uma migration **não pode aplicá-la**. O
+        workflow que toca em produção corre só à mão, e nunca por causa de um
+        ficheiro novo em `supabase/migrations/`.
+        """
+        gatilho = _texto(os.path.join(RAIZ, ".github", "workflows",
+                                      "supabase-migrate.yml"))
+        cabeca = gatilho[gatilho.index("on:"):gatilho.index("permissions:")]
+        self.assertIn("workflow_dispatch:", cabeca)
+        self.assertNotIn("supabase/migrations/", cabeca,
+                         "migration nova passaria a aplicar-se sozinha")
 
     def test_14_nenhum_importador_italiano_do_bruto_foi_criado(self):
         """A missão MEDIU que ele não existe. Medir não é construir."""

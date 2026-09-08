@@ -30,6 +30,11 @@ MIGRACOES = os.path.join(RAIZ, "supabase", "migrations")
 GERADO = os.path.join(RAIZ, "system-map", "data", "identidade-it.generated.json")
 
 
+def _texto(caminho):
+    with open(caminho, encoding="utf-8") as f:
+        return f.read()
+
+
 def _sql(nome_parcial):
     for nome in sorted(os.listdir(MIGRACOES)):
         if nome.startswith(nome_parcial):
@@ -225,12 +230,26 @@ class NenhumEsquemaParalelo(unittest.TestCase):
                              "create table public.ocorrencia"):
                 self.assertNotIn(proibida, sql)
 
-    def test_18_o_sql_projetado_nao_foi_aplicado(self):
-        """A migration `022` vive dentro de um documento, em bloco de código —
-        e não como ficheiro que um workflow possa correr por engano."""
-        self.assertFalse(
-            [n for n in os.listdir(MIGRACOES) if n.startswith("022")],
-            "022 virou ficheiro de migration: esta missao NAO aplica esquema")
+    def test_18_nenhuma_migration_chega_a_producao_por_empurrao(self):
+        """ASSERÇÃO ANTIGA: exigia que a `022` **não existisse** como ficheiro.
+
+        Ficou velha no dia em que a missão seguinte a escreveu e a provou num
+        Postgres descartável. E era a asserção errada desde o início: ela
+        guardava o *escopo daquela missão*, não uma propriedade do sistema — e
+        um teste assim impede quem faz o trabalho seguinte.
+
+        A PROPRIEDADE QUE DURA é outra, e é a que interessa: **escrever uma
+        migration não pode aplicá-la.** O workflow que toca em produção corre
+        só à mão (`workflow_dispatch`), e nunca por causa de um ficheiro novo
+        em `supabase/migrations/`. Se alguém acrescentar esse gatilho, um
+        commit passa a mexer no banco real — e este teste reprova.
+        """
+        wf = os.path.join(RAIZ, ".github", "workflows", "supabase-migrate.yml")
+        texto = _texto(wf)
+        self.assertIn("workflow_dispatch:", texto)
+        gatilho = texto[texto.index("on:"):texto.index("permissions:")]
+        self.assertNotIn("supabase/migrations/", gatilho,
+                         "migration nova passaria a aplicar-se sozinha")
 
 
 class RedTeamDoModelo(unittest.TestCase):

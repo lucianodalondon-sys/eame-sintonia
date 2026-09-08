@@ -1,9 +1,21 @@
 {
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "e8c17cf282f1056385e9942ac975730ddeb44f43"
+    "HEAD": "f9c7cf9579327a5ee72fd472e9c22c08f0254183"
   },
   "PECAS": [
+    {
+      "id": "C-DERIVED-ARTIFACT",
+      "nome": "ALVO · a casa do derivado (migration 022)",
+      "zona": "A SALA DE ESPERA",
+      "de_onde_vem": false,
+      "para_onde_vai": false,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 1,
+      "ficheiros": 0,
+      "estado": "red"
+    },
     {
       "id": "C-ARMAZEM-IT-SEM-LIVRO",
       "nome": "Armazém italiano no Supabase (sem livro de entrada)",
@@ -98,18 +110,6 @@
       "alguem_corre": false,
       "respostas": 2,
       "ficheiros": 0,
-      "estado": "green"
-    },
-    {
-      "id": "C-TRANSCRICAO",
-      "nome": "A fala vira texto, sem fatura",
-      "zona": "· as ferramentas da execucao",
-      "de_onde_vem": true,
-      "para_onde_vai": false,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 3,
-      "ficheiros": 2,
       "estado": "green"
     },
     {
@@ -305,6 +305,18 @@
       "estado": "green"
     },
     {
+      "id": "C-TRANSCRICAO",
+      "nome": "A fala vira texto, sem fatura",
+      "zona": "· as ferramentas da execucao",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 2,
+      "estado": "green"
+    },
+    {
       "id": "C-PORTA-FONTE",
       "nome": "A porta de entrada de fonte nova",
       "zona": "· de onde vem uma fonte",
@@ -433,8 +445,8 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 43,
-      "estado": "green"
+      "ficheiros": 44,
+      "estado": "yellow"
     },
     {
       "id": "C-IT-CATALOGO",
@@ -470,7 +482,7 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 6,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-IDENTIDADE",
@@ -486,11 +498,11 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 40,
-    "respondem_as_quatro": 15,
-    "respondem_a_tres": 17,
+    "pecas_da_coleta": 41,
+    "respondem_as_quatro": 16,
+    "respondem_a_tres": 16,
     "respondem_a_duas": 6,
-    "respondem_a_uma": 2,
+    "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }
 }

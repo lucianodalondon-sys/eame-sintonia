@@ -827,6 +827,55 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
 - **Nada tocou produção:** 0 escritas, 0 migrations aplicadas em produção, 0 corridas
   retrocriadas.
 
+
+### D-034 — A casa do derivado: uma tabela, medida antes de desenhada
+
+- **Data:** 2026-09-08 · **Estado:** `DESIGNED` · `IMPLEMENTED` · `DB_TESTED` ·
+  **`LIVE_APPLIED = NÃO`** · **`OBSERVED = NÃO`**
+- **O censo veio primeiro.** 7 produtores medidos, e **só 3** são de espécie
+  `DERIVED_ARTIFACT`. A legenda que o YouTube entrega com o vídeo é `RAW_CAPTURE` — **nós não
+  a produzimos**, e metê-la na tabela declararia uma linhagem que não existe. Campos extraídos
+  são `STRUCTURED_RECORD`; um juízo de admissão é outro andar (COL-LAW-502).
+- **O vocabulário já existia** em `leis/artefato.py`, com os 9 campos conferidos. A tabela
+  **traduz** esse contrato em vez de inventar outro.
+- **GRÃO:** uma linha é **um artefato que nós produzimos, de um conteúdo bruto, por uma
+  ferramenta numa versão, com uns parâmetros, numa posição da série.** Testado contra os oito
+  casos que a quebrariam.
+- **IDENTIDADE:** `(parent_sha256, kind, producer, producer_version, parameters_hash,
+  serie_posicao)`. **O `sha256` sozinho NÃO serve** — ele identifica bytes, não linhagem, e
+  duas rotas podem chegar aos mesmos bytes. E o `sha256` **do filho fica fora da chave** de
+  propósito: se entrasse, a mesma régua com resultado diferente viraria duas linhas caladas em
+  vez de dar conflito.
+- **`serie_posicao` é o único campo que existe por um caso que ainda não temos** — dez frames
+  do mesmo vídeo colidiriam na mesma chave. Existe porque sem ele a chave é falsa no dia em
+  que ele aparecer.
+- **VERSÃO DA FERRAMENTA é obrigatória.** `whisper` não basta: `base` e `small` sobre o mesmo
+  áudio dão textos diferentes e **os dois são legítimos** — está em
+  `ferramentas/youtube_transcrever.py`. Versão histórica que não se prova entra `UNKNOWN`;
+  **não se adivinha** a do `pdftotext` dos 43 legados.
+- **O que ficou de fora, com motivo:** `parent_derived_artifact_id` (**zero** casos medidos;
+  aditivo e barato depois) · `derivation_run` (sem prova; ficou um `derivation_batch` de texto,
+  **rótulo e não entidade**, sem FK — e `collection_run` **não** foi esticada para significar
+  algo que não é coleta) · coluna de `status` com erros (**a tabela guarda só o que existe**;
+  derivação falhada não tem bytes e vive no manifesto) · corpo do texto no Postgres (bytes no
+  Storage, memória no banco).
+- **O LEGADO NÃO FOI REMENDADO.** 43 derivados · 0 linhas de `raw_asset` IT · **0 ligáveis
+  honestamente**. Classe `LEGACY_DERIVATION_WITHOUT_CANONICAL_RAW_PARENT`. `raw_asset_id` é
+  `NOT NULL` — que os 43 de hoje **não caibam é o desenho a funcionar**. Inventar as linhas em
+  falta para a chave estrangeira ficar bonita seria fabricar a coleta que nunca foi registada.
+- **`ON DELETE RESTRICT`, não `CASCADE`:** apagar um bruto com filhos levaria a linhagem junto,
+  em silêncio. O banco recusa — a evidência vale mais do que a comodidade.
+- **PROVA:** `banco-descartavel` execução **`34237653804` = SUCCESS**, lida. `17/17` casos da
+  `022` + `19/19` da garantia forward + `4/4` recusas da tranca. Escopo declarado:
+  **`FOUNDATION_MAIS_022`** — só a `001` e a `022`, porque a `022` não precisa das outras.
+- **Um caso deu FAIL antes de dar PASS, e ainda bem:** o caso B (`sem raw, a FK recusa`) foi
+  recusado pela trava de **unicidade**, não pela chave estrangeira — o órfão tinha a mesma
+  identidade do caso A. **Recusar não é recusar pelo motivo certo.**
+- **Nada aplicado em produção:** 0 migrations, 0 escritas, 0 uploads, 0 backfill, 0 corridas
+  retrocriadas. **Primeiro produtor designado:** o Golden Path **para a frente** — nunca o
+  legado retroativo.
+- **Detalhe completo:** [`../operacao/A-CASA-DO-DERIVADO.md`](../operacao/A-CASA-DO-DERIVADO.md).
+
 ---
 
 ## PERGUNTAS PENDENTES

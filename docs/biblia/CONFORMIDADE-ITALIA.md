@@ -339,7 +339,7 @@ conta das três contagens fechou: 141 registos − 138 conteúdos = 3 documentos
 produtos; 139 objetos − 138 conteúdos = 1 conteúdo publicado em duas URLs
 (`RECONCILIADO_POR_PREFIXO`). Medido em
 [`../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md`](../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md) ·
-`G-39` **falta a tabela `derived_artifact` no Supabase** — é a **única** lacuna de esquema que
+`G-39` **a tabela `derived_artifact` deixou de faltar no papel** — `migration 022` escrita, com o grão e a identidade medidos, e **provada num Postgres 16 descartável** (17/17, execução `34237653804`). **NÃO aplicada em produção**, e os 43 derivados italianos continuam sem pai canónico (`LEGACY_DERIVATION_WITHOUT_CANONICAL_RAW_PARENT`) — a migration é FORWARD. Detalhe em [`../operacao/A-CASA-DO-DERIVADO.md`](../operacao/A-CASA-DO-DERIVADO.md) · `G-39b` **falta o `derived_artifact` no Supabase** — é a **única** lacuna de esquema que
 o censo de identidade encontrou; SQL projetado e **não aplicado** em
 [`../operacao/IDENTIDADE-DO-ARTEFATO.md`](../operacao/IDENTIDADE-DO-ARTEFATO.md) §F ·
 `G-40` **11 das 49 cópias de PDF não têm prova de captura em registo nenhum** — 9 em
