@@ -52,6 +52,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import social_envelope as env      # noqa: E402
 import social_matriz as mz         # noqa: E402
+import social_sessao as ss         # noqa: E402  — LOCAL_SESSION é rota, não motor
 
 # O agente se identifica. Não há ganho em mentir e há perda: um host que quer
 # nos barrar tem direito de nos reconhecer, e um host que nos permite precisa
@@ -298,18 +299,21 @@ ADAPTADORES = {
 
 
 def executar(*, platform, capability, run_id, country_scope='IT',
-            permitir_pago=False, motivo_pago=None, **kwargs):
+            permitir_pago=False, motivo_pago=None, ownership=None, **kwargs):
     """Escolhe a rota declarada e executa. Devolve (objetos, registro).
 
     O registro é gravado MESMO quando a rota falha — recusa e bloqueio são
     resultado de medição, não ausência de resultado.
     """
     plat, cap = platform.upper(), capability.upper()
+    # O padrão é TERCEIRO. Ler dado de outra empresa é o caso perigoso, então é
+    # ele que precisa ser o padrão — quem for ler conta PRÓPRIA declara.
+    ownership = ownership or ss.THIRD_PARTY
     rotas = (mz.MATRIZ.get(plat) or {}).get(cap)
     registro = {
         'PLATFORM': plat, 'CAPABILITY': cap, 'RUN_ID': run_id,
         'COUNTRY_SCOPE': country_scope, 'QUANDO': env.agora(),
-        'ROTA_ESCOLHIDA': None, 'ESTADO': None, 'OBJETOS': 0,
+        'ROTA_ESCOLHIDA': None, 'AUTH_MODE': None, 'ESTADO': None, 'OBJETOS': 0,
         'COST_USD': 0.0, 'ERRO': None, 'MOTIVO_PAGO': None,
     }
     if not rotas:
@@ -323,6 +327,28 @@ def executar(*, platform, capability, run_id, country_scope='IT',
         registro['ERRO'] = 'nenhuma rota permitida para %s/%s' % (plat, cap)
         return [], registro
     registro['ROTA_ESCOLHIDA'] = escolhida['ROTA']
+
+    registro['AUTH_MODE'] = mz.auth_mode(escolhida)
+
+    # ── A TRAVA DA SESSÃO ────────────────────────────────────────────────────
+    # Estar logado não autoriza automatizar. A pergunta é sobre o CONTRATO com
+    # a plataforma e sobre DE QUEM É a conta alvo — nunca sobre o que a máquina
+    # consegue fazer. Por isso ela roda ANTES de qualquer navegação, e nem
+    # sequer consulta o preflight: recusa por termo não depende de ter Chrome.
+    if escolhida['CLASSE'] == 'LOCAL_SESSION':
+        ok_auto, porque = ss.automacao_permitida(plat, ownership)
+        registro['OWNERSHIP'] = ownership
+        if not ok_auto:
+            registro['ESTADO'] = ss.AUTOMATION_NOT_ALLOWED
+            registro['ERRO'] = ss.redigir(porque)
+            return [], registro
+        pre = ss.preflight()
+        # O preflight vai para o registro REDIGIDO e sem caminho de perfil.
+        registro['SESSION_STATE'] = pre['ESTADO']
+        if pre['ESTADO'] != ss.SESSION_AVAILABLE:
+            registro['ESTADO'] = pre['ESTADO']
+            registro['ERRO'] = ss.redigir(pre['PORQUE'])
+            return [], registro
 
     # A trava do gasto. Rota paga só passa com motivo do vocabulário fechado —
     # e "a Apify já estava configurada" não está no vocabulário.
@@ -352,15 +378,18 @@ def executar(*, platform, capability, run_id, country_scope='IT',
         objetos = fn(run_id=run_id, country_scope=country_scope, **kwargs)
     except RotaNaoPermitida as e:
         registro['ESTADO'] = 'ROUTE_NOT_ALLOWED'
-        registro['ERRO'] = str(e)
+        registro['ERRO'] = ss.redigir(str(e))
         return [], registro
     except RotaBloqueada as e:
         registro['ESTADO'] = 'BLOCKED'
-        registro['ERRO'] = str(e)
+        registro['ERRO'] = ss.redigir(str(e))
         return [], registro
     except Exception as e:
+        # A exceção é REDIGIDA antes de virar registro. Um traceback de urllib
+        # carrega a URL, e a URL pode carregar o token — foi assim que segredo
+        # vazou em casa alheia sem ninguém ter escrito `print(cookie)`.
         registro['ESTADO'] = 'FAILED'
-        registro['ERRO'] = '%s: %s' % (type(e).__name__, e)
+        registro['ERRO'] = ss.redigir('%s: %s' % (type(e).__name__, e))
         return [], registro
 
     registro['ESTADO'] = 'OK' if objetos else 'ZERO_RESULTS'
