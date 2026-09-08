@@ -1271,6 +1271,7 @@
       "tests/test_prioridade_comercial.py",
       "tests/test_proveniencia.py",
       "tests/test_radar_futuro.py",
+      "tests/test_red_team_estrada.py",
       "tests/test_v21_datas.py",
       "tests/test_v21_geografia.py",
       "tests/test_v21_mercado.py",
@@ -1302,7 +1303,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 18 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 20 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -1312,7 +1313,7 @@
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
       "titulo": "22 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 18 corridas registadas, e o país delas é: ES 10 · IT 5 · NAO SEI 3. Elas trouxeram 3645 itens e 3006 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "texto": "Há 20 corridas registadas, e o país delas é: ES 10 · IT 7 · NAO SEI 3. Elas trouxeram 3743 itens e 3006 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -1658,8 +1659,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "8a4382e91eadf68ba5eb9d23d59da231ea429abf",
-    "GENERATED_AT": "2026-09-08T01:27:52-03:00"
+    "HEAD": "491b678d56b4634fa44ec6ab9573414b7adac23c",
+    "GENERATED_AT": "2026-09-08T01:43:21-03:00"
   },
   "FAMILIES": [
     {
@@ -4206,18 +4207,54 @@
             "erro": null,
             "prova": "system-map/data/golden-path-pdf.generated.json",
             "bruto": null
+          },
+          {
+            "run_id": "DERIV-PDF-20260908T045045Z",
+            "fonte": null,
+            "plataforma": "LOCAL",
+            "quem_foi_buscar": "texto-de-pdf",
+            "com_que_parametros": null,
+            "que_pergunta": null,
+            "pais": "IT",
+            "missao": "derivacao de texto a partir de PDF italiano",
+            "trouxe": 49,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0.0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "system-map/data/golden-path-pdf.generated.json",
+            "bruto": null
+          },
+          {
+            "run_id": "DERIV-PDF-20260908T045247Z",
+            "fonte": null,
+            "plataforma": "LOCAL",
+            "quem_foi_buscar": "texto-de-pdf",
+            "com_que_parametros": null,
+            "que_pergunta": null,
+            "pais": "IT",
+            "missao": "derivacao de texto a partir de PDF italiano",
+            "trouxe": 49,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0.0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "system-map/data/golden-path-pdf.generated.json",
+            "bruto": null
           }
         ],
-        "total": 18,
+        "total": 20,
         "por_pais": {
           "ES": 10,
-          "IT": 5,
+          "IT": 7,
           "NAO SEI": 3
         },
         "por_plataforma": {
           "INSTAGRAM": 1,
           "LINKEDIN": 5,
-          "LOCAL": 5,
+          "LOCAL": 7,
           "OPENALEX": 1,
           "OpenAlex, ORCID": 1,
           "YOUTUBE": 3,
@@ -4254,10 +4291,10 @@
           "IT-T3-001",
           "IT-T4-001"
         ],
-        "com_rendimento_medido": 17,
-        "com_custo_medido": 12,
+        "com_rendimento_medido": 19,
+        "com_custo_medido": 14,
         "custo_total_usd": 0.48,
-        "trouxe_total": 3645,
+        "trouxe_total": 3743,
         "sobrou_total": 3006
       },
       "memoria": [
@@ -5299,6 +5336,7 @@
         "C-PROVA-BIBLIA"
       ],
       "outbound": [
+        "C-ESTRADA-PDF",
         "C-PROVA-BIBLIA",
         "C-TESTES"
       ],
@@ -6160,7 +6198,8 @@
       "outbound": [
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
-        "C-PROVA-COLETA"
+        "C-PROVA-COLETA",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -6558,6 +6597,7 @@
       "produces": [],
       "inbound": [
         "C-ADMISSAO",
+        "C-BIBLIA",
         "C-CONTRATO-ARTEFATO",
         "C-EXECUTOR-TEXTO-PDF",
         "C-PROCEDENCIA"
@@ -6616,7 +6656,8 @@
         "C-ESTRADA-PDF",
         "C-IT-TEXTO-DERIVADO",
         "C-MAPA-GERADOR",
-        "C-PROVA-COLETA"
+        "C-PROVA-COLETA",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -6782,14 +6823,20 @@
       "icon": "◉",
       "territory": "Z-PROVA",
       "family": "F-INTELIGENCIA",
-      "status": "PENDING",
-      "ui_status": "yellow",
-      "what": "A conta desta corrida, do PDF guardado até à porta. 49 ocorrências → 43 documentos diferentes → 43 textos derivados → a porta viu 43: NAO_SEI 43. PERDIDOS: 0 · precisam de OCR: 0 · erro de extração: 0.",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "what": "A conta desta corrida, do PDF guardado até à porta. 49 ocorrências → 43 documentos diferentes → 43 textos derivados → a porta viu 43: NAO 19 · NAO_SEI 6 · SIM 18. PERDIDOS: 0 · precisam de OCR: 0 · erro de extração: 0.",
       "why_here": "Se a máquina fez e o mapa não consegue mostrar, a engenharia ainda não terminou.",
       "facts": [
-        "RUN_ID: DERIV-PDF-20260908T043716Z",
+        "RUN_ID: DERIV-PDF-20260908T045247Z",
         "estado que a corrida declara: SUCCESS",
-        "estado contra a COL-LAW-210: PARTIAL — nenhum campo de fecho canónico está preservado (procurados: FINAL_MANIFEST_STATE, STATE_BEFORE, STATE_AFTER, CONFIG_HASH, PLAN_VERSION, GIT_COMMIT). Reconciliação sem perda e fecho da corrida são factos diferentes: LOST=0 não faz COMPLETE",
+        "ESTADO DE FECHO: COMPLETE — todas as condições de fecho foram medidas e cumpridas",
+        "rota: LOCAL_EXECUTOR · executor texto-de-pdf v1 · pipeline v1",
+        "engenharia: commit 491b678d56 · árvore limpa NAO · Bíblia V1.3",
+        "ANTES: {'OCORRENCIAS': 49, 'CONTEUDOS_UNICOS': 43, 'DERIVADOS_PRESENTES': 43}",
+        "DEPOIS: {'OCORRENCIAS': 49, 'CONTEUDOS_UNICOS': 43, 'DERIVADOS_PRESENTES': 43}",
+        "pré-voo: executor disponível SIM (pdftotext)",
+        "PRONTIDÃO: esta estrada mede DOCUMENTO, não FATO. O tempo e o lugar do fato pertencem ao claim, e o claim ainda não é extraído (COL-LAW-502).",
         "",
         "OCORRÊNCIAS de PDF: 49",
         "CONTEÚDOS ÚNICOS: 43",
@@ -6803,7 +6850,7 @@
         "precisam de OCR: 0",
         "erro de extração: 0",
         "a porta viu: 43",
-        "decisões: NAO_SEI 43",
+        "decisões: NAO 19 · NAO_SEI 6 · SIM 18",
         "originais alterados: 0 (IMUTAVEL)",
         "",
         "rota paga usada: NAO · rede usada: NAO · OCR usado: NAO",
@@ -6811,7 +6858,7 @@
         "número de caracteres: NÃO CANÓNICO — não há regra de contagem escrita (a mesma pasta dá contas diferentes conforme a quebra de linha). Entra quando tiver contrato próprio.",
         "PRECISÃO: NÃO SEI — não há gabarito humano. Contar quantos passaram é COBERTURA, não acerto."
       ],
-      "status_reason": "AMARELO de propósito, por DOIS motivos que não se somam. (1) Os 43 textos ficaram todos em NÃO SEI na porta: nenhum diz quando o fato aconteceu — e a porta recusou-se a adivinhar. (2) A corrida diz SUCCESS, mas contra a COL-LAW-210 ela é PARTIAL: nenhum campo de fecho canónico está preservado (procurados: FINAL_MANIFEST_STATE, STATE_BEFORE, STATE_AFTER, CONFIG_HASH, PLAN_VERSION, GIT_COMMIT). Reconciliação sem perda e fecho da corrida são factos diferentes: LOST=0 não faz COMPLETE. Nada se perdeu (0 perdidos), e mesmo assim isto não é verde — reconciliação sem perda não é fecho de corrida.",
+      "status_reason": "A estrada DOCUMENTAL fechou: a corrida está COMPLETE (todas as condições de fecho foram medidas e cumpridas), 0 perdidos, e a porta deu uma resposta com prova a cada um dos 43: NAO 19 · NAO_SEI 6 · SIM 18. VERDE É DO DOCUMENTO, NÃO DO FATO — nenhum claim foi extraído, e por isso nenhum fato está pronto. A extração é o estágio seguinte, e ainda não existe.",
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -7918,9 +7965,9 @@
           "RX_PAPEL",
           "TRADUZ_PAIS"
         ],
-        "palavras": 136,
+        "palavras": 135,
         "por_lingua": {},
-        "sem_marca_de_lingua": 136,
+        "sem_marca_de_lingua": 135,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11346,13 +11393,14 @@
         "tests/test_prioridade_comercial.py",
         "tests/test_proveniencia.py",
         "tests/test_radar_futuro.py",
+        "tests/test_red_team_estrada.py",
         "tests/test_v21_datas.py",
         "tests/test_v21_geografia.py",
         "tests/test_v21_mercado.py",
         "tests/test_v21_traducao_trava.py",
         "tests/test_voz.py"
       ],
-      "file_count": 33,
+      "file_count": 34,
       "status": "PROVEN",
       "status_reason": "o teste aponta para codigo real do repositorio.",
       "changed_since_declared": [],
@@ -11373,9 +11421,11 @@
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
+        "C-CONTRATO-ARTEFATO",
         "C-CONTRATO-CAMPOS",
         "C-DATA-CLOCK",
         "C-ESTRADA-PDF",
+        "C-EXECUTOR-TEXTO-PDF",
         "C-FONTES-EU",
         "C-IDENTIDADE",
         "C-IT-COLETA",
@@ -12993,7 +13043,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 8a4382e91eadf68ba5eb9d23d59da231ea429abf"
+        "HEAD 491b678d56b4634fa44ec6ab9573414b7adac23c"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -13365,6 +13415,24 @@
     {
       "from": "C-ADMISSAO",
       "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_red_team_estrada.py",
+          "line": 28,
+          "snippet": "import admissao as adm  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -13374,7 +13442,7 @@
       "evidence": [
         {
           "file": "tests/test_observabilidade_estrada.py",
-          "line": 246,
+          "line": 269,
           "snippet": "porta = ler(os.path.join(RAIZ, 'admissao', 'admissao.py'))"
         }
       ],
@@ -13826,7 +13894,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2183,
+          "line": 2213,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -14573,6 +14641,24 @@
     },
     {
       "from": "C-BIBLIA",
+      "to": "C-ESTRADA-PDF",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Bíblia canônica da coleta alimenta A primeira estrada · PDF até à porta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/golden_path_pdf.py",
+          "line": 200,
+          "snippet": "biblia = json.loads((RAIZ / \"docs\" / \"biblia\" / \"leis.json\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-BIBLIA",
       "to": "C-PROVA-BIBLIA",
       "type": "READS",
       "payload": "artefacto",
@@ -14676,7 +14762,7 @@
         },
         {
           "file": "tests/test_observabilidade_estrada.py",
-          "line": 241,
+          "line": 264,
           "snippet": "conf = ler(os.path.join(RAIZ, 'docs', 'biblia', 'CONFORMIDADE-ITALIA.md'))"
         }
       ],
@@ -15652,6 +15738,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_red_team_estrada.py",
+          "line": 29,
+          "snippet": "import artefato as art  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-CONTRATO-CAMPOS",
       "to": "C-REGRA-COLETA",
       "type": "IMPORTS",
@@ -15990,7 +16094,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 953,
+          "line": 983,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -16040,12 +16144,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A primeira estrada · PDF até à porta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A primeira estrada · PDF até à porta alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_integracao_biblia.py",
           "line": 158,
           "snippet": "os.path.join(RAIZ, 'coleta', 'golden_path_pdf.py'),"
+        },
+        {
+          "file": "tests/test_red_team_estrada.py",
+          "line": 143,
+          "snippet": "fonte = Path(RAIZ, 'coleta', 'golden_path_pdf.py').read_text(encoding='utf-8')"
         }
       ],
       "categoria": "PROOF"
@@ -16097,7 +16206,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 935,
+          "line": 965,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         }
       ],
@@ -16135,6 +16244,24 @@
           "file": "provas/testa_golden_path_pdf.py",
           "line": 182,
           "snippet": "_fonte_ex = (RAIZ / \"coleta\" / \"executor_texto_de_pdf.py\").read_text("
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_red_team_estrada.py",
+          "line": 30,
+          "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -16518,7 +16645,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2205,
+          "line": 2235,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -16600,7 +16727,7 @@
       "evidence": [
         {
           "file": "tests/test_observabilidade_estrada.py",
-          "line": 257,
+          "line": 280,
           "snippet": "colector = ler(os.path.join(RAIZ, 'coleta', 'italy_recurrent_collect.mjs'))"
         }
       ],
@@ -16754,7 +16881,7 @@
         {
           "file": "coleta/executor_texto_de_pdf.py",
           "line": 1,
-          "snippet": "RUN DERIV-PDF-20260908T043716Z · RAW_INPUT=49"
+          "snippet": "RUN DERIV-PDF-20260908T045247Z · RAW_INPUT=49"
         }
       ],
       "categoria": "UNKNOWN"
@@ -16847,12 +16974,12 @@
       "evidence": [
         {
           "file": "tests/test_observabilidade_estrada.py",
-          "line": 253,
+          "line": 276,
           "snippet": "for caminho in ('data/collection-ledger/italy/runs.ndjson',"
         },
         {
           "file": "tests/test_observabilidade_estrada.py",
-          "line": 254,
+          "line": 277,
           "snippet": "'data/collection-ledger/italy/observations.ndjson'):"
         }
       ],
@@ -16865,7 +16992,7 @@
       "kind": "technical",
       "status": "PROVEN",
       "payload": "dado",
-      "reason": "A porta viu 43 textos e decidiu: NAO_SEI 43.",
+      "reason": "A porta viu 43 textos e decidiu: NAO 19 · NAO_SEI 6 · SIM 18.",
       "evidence": [
         {
           "file": "coleta/golden_path_pdf.py",
@@ -17119,17 +17246,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2406,
+          "line": 2436,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2406,
+          "line": 2436,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2407,
+          "line": 2437,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -17193,7 +17320,7 @@
       "evidence": [
         {
           "file": "tests/test_observabilidade_estrada.py",
-          "line": 359,
+          "line": 382,
           "snippet": "'system-map', 'map.js')),"
         }
       ],
@@ -17283,12 +17410,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2888,
+          "line": 2918,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2888,
+          "line": 2918,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -20957,16 +21084,16 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 109,
-    "components_proven": 73,
-    "components_pending": 30,
+    "components_proven": 74,
+    "components_pending": 29,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 358,
-    "edges_proven": 356,
+    "edges": 362,
+    "edges_proven": 360,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1212,
-    "files_covered": 539,
+    "files_tracked": 1213,
+    "files_covered": 540,
     "files_code_unclaimed": 0
   }
 }

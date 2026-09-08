@@ -82,7 +82,11 @@ RESULTADOS = (SIM, NAO, NAO_SEI, NAO_SE_APLICA, ERRO)
 # A VERSAO SOBE QUANDO A LEI MUDA, e ela mudou: a versao 1 dava NAO por
 # ausencia de palavra. Tudo o que ela rejeitou assim tem de poder ser
 # reprocessado — e sem numero de versao nao ha como saber o que reabrir.
-VERSAO_DA_REGRA = "2"
+# 3 · a porta passou a perguntar pelo ESTAGIO do item (COL-LAW-502). O que
+#     mudou de resultado nao foi a evidencia: foi a pergunta. Decisoes
+#     antigas ficam como estao — a versao e o que permite dizer «reavalia
+#     so o que a v2 decidiu» sem reprocessar o resto.
+VERSAO_DA_REGRA = "3"
 
 
 @dataclass
@@ -174,6 +178,64 @@ def _tem_quando(item: dict) -> tuple:
         return NAO_SEI, ("o item nao diz quando o fato aconteceu. Fica NAO_SEI, "
                          "nao NAO: falta a prova, nao o valor."), {}
     return SIM, "tem tempo do fato", {"quando": str(q)[:40]}
+
+
+def _tem_pai(item: dict) -> tuple:
+    """A pergunta de prontidao DOCUMENTAL que faltava: de onde este texto nasceu?
+
+    Um derivado sem pai nao se consegue conferir contra o original — e um texto
+    que ninguem consegue ligar ao PDF de onde saiu e indistinguivel de um texto
+    que alguem escreveu a mao.
+    """
+    pai = item.get("parent_artifact_id") or item.get("parent_sha256")
+    if item.get("artifact_type") == "RAW":
+        return SIM, "e o original: nao tem pai, e nao devia ter", {}
+    if not pai or str(pai) in (NAO_SEI, "NAO_SE_APLICA", ""):
+        return NAO_SEI, ("este documento nao diz de que original nasceu. Sem pai "
+                         "nao da para conferir contra o bruto."), {}
+    return SIM, "o pai esta declarado", {"pai": str(pai)[:60]}
+
+
+# ── AS DUAS PRONTIDOES, E O ESTAGIO QUE AS SEPARA ───────────────────────────
+# COL-LAW-502: DOCUMENTO PRONTO nao e FATO PRONTO. Sao duas perguntas, em dois
+# momentos, e mede-las com a mesma regua faz o documento reprovar por nao saber
+# uma coisa que so o fato sabe.
+#
+#     43 textos derivados sairam NAO_SEI porque a porta lhes perguntava «quando
+#     o fato aconteceu». Um boletim nao acontece: ele RELATA. A data e do fato
+#     que esta dentro dele, e esse fato ainda nao foi extraido.
+#
+# NAO SE CRIOU SEGUNDA PORTA. E a mesma, e ela passou a perguntar o que se
+# aplica ao estagio do item — que e o que a lei manda.
+DOCUMENTO, FATO, ESTAGIO_DESCONHECIDO = "DOCUMENTO", "FATO", "ESTAGIO_DESCONHECIDO"
+
+# Marcas que dizem «isto e um fato/claim, nao um documento». Um claim tem
+# sujeito e predicado; um documento tem bytes e pai.
+MARCAS_DE_FATO = ("claim_id", "subject", "predicate", "fact_id")
+
+
+def estagio(item: dict) -> str:
+    """Que especie de coisa e esta? A resposta decide as perguntas."""
+    if any(k in item for k in MARCAS_DE_FATO):
+        return FATO
+    if str(item.get("artifact_type") or "").upper() in ("RAW", "DERIVED"):
+        return DOCUMENTO
+    # NAO SE ADIVINHA. Quem nao se declara continua a ser medido pela regua
+    # antiga — mudar o resultado de quem nao pediu seria alterar decisoes de
+    # caminhos que esta missao nao mediu.
+    return ESTAGIO_DESCONHECIDO
+
+
+def perguntas_do_estagio(est: str) -> tuple:
+    """As perguntas aplicaveis, por estagio. Uma arquitetura, duas reguas."""
+    if est == DOCUMENTO:
+        # Prontidao DOCUMENTAL: da para ler, sabe de onde veio, sabe de que
+        # original nasceu. O tempo do FATO nao se pergunta aqui.
+        return (("legivel", _legivel), ("origem", _tem_origem),
+                ("linhagem", _tem_pai))
+    # FATO e ESTAGIO_DESCONHECIDO continuam a responder pelo tempo do fato.
+    return (("legivel", _legivel), ("origem", _tem_origem),
+            ("tempo do fato", _tem_quando))
 
 
 def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
@@ -281,16 +343,29 @@ PERGUNTAS_DO_UNIVERSO = {
 
 
 def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:
-    """A porta. Uma decisao por par (item, universo) — nunca uma por item."""
-    for nome, f in (("legivel", _legivel), ("origem", _tem_origem),
-                    ("tempo do fato", _tem_quando)):
+    """A porta. Uma decisao por par (item, universo) — nunca uma por item.
+
+    E as perguntas vem do ESTAGIO do item (COL-LAW-502): a um documento nao se
+    pergunta o tempo de um fato que ainda nao foi extraido dele.
+    """
+    est = estagio(item)
+    for nome, f in perguntas_do_estagio(est):
         r, motivo, ev = f(item)
         if r != SIM:
             return Decisao(item=str(item.get("id") or item.get("url") or "?"),
                            universo=universo, resultado=r, regra=nome,
-                           motivo=motivo, evidencia=ev, corrida=corrida)
+                           motivo=motivo, evidencia=dict(ev, estagio=est),
+                           corrida=corrida)
 
     r, motivo, ev = _do_universo(item, universo, PERGUNTAS_DO_UNIVERSO.get(universo, []))
+    ev = dict(ev, estagio=est)
+    if est == DOCUMENTO:
+        # O que NAO foi perguntado fica escrito. Um silencio nao explicado
+        # reabre-se como duvida daqui a tres meses.
+        ev["tempo_do_fato"] = (
+            "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao "
+            "documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o "
+            "fato for extraido.")
     return Decisao(item=str(item.get("id") or item.get("url") or "?"),
                    universo=universo, resultado=r, regra="pertence ao universo",
                    motivo=motivo, evidencia=ev, corrida=corrida)

@@ -778,8 +778,11 @@ def a_estrada_do_pdf() -> tuple[list, list]:
     # A COL-LAW-210 diz que COMPLETE exige fecho canonico. A corrida declara
     # SUCCESS. Sao duas perguntas, e a segunda mede-se procurando os campos do
     # fecho — se nenhum existe, nao ha fecho, e dizer COMPLETE seria inventar.
-    CAMPOS_DE_FECHO = ("FINAL_MANIFEST_STATE", "STATE_BEFORE", "STATE_AFTER",
-                       "CONFIG_HASH", "PLAN_VERSION", "GIT_COMMIT")
+    # O FECHO PASSOU A SER MEDIDO PELA PROPRIA CORRIDA (G-38). Este calculo
+    # fica como rede de seguranca para corridas ANTIGAS, que nao o declaram —
+    # e e por isso que ele procura os campos em vez de confiar num rotulo.
+    CAMPOS_DE_FECHO = ("RUN_STATE", "STATE_BEFORE", "STATE_AFTER",
+                       "COMPLETION_BASIS", "GIT_COMMIT")
     tem_fecho = sorted(k for k in CAMPOS_DE_FECHO if R.get(k))
     fecho = {
         "ESTADO": "COMPLETE" if tem_fecho else "PARTIAL",
@@ -861,12 +864,27 @@ def a_estrada_do_pdf() -> tuple[list, list]:
         "facts": [
             f"RUN_ID: {R['RUN_ID']}",
             f"estado que a corrida declara: {R['STATUS']}",
+            f"ESTADO DE FECHO: {R.get('RUN_STATE', 'NÃO SEI')} — "
+            f"{(R.get('COMPLETION_BASIS') or {}).get('PORQUE', 'sem base declarada')}",
+            f"rota: {R.get('ROUTE', 'NÃO SEI')} · executor "
+            f"{R.get('EXECUTOR_ID', '?')} v{R.get('EXECUTOR_VERSION', '?')} · "
+            f"pipeline v{R.get('PIPELINE_VERSION', '?')}",
+            f"engenharia: commit {str(R.get('GIT_COMMIT', 'NÃO SEI'))[:10]} · "
+            f"árvore limpa {R.get('GIT_TREE_CLEAN', 'NÃO SEI')} · "
+            f"Bíblia {R.get('BIBLE_VERSION', 'NÃO SEI')}",
+            f"ANTES: {R.get('STATE_BEFORE', 'NÃO SEI')}",
+            f"DEPOIS: {R.get('STATE_AFTER', 'NÃO SEI')}",
+            f"pré-voo: executor disponível "
+            f"{(R.get('PREFLIGHT') or {}).get('EXECUTOR_AVAILABLE', 'NÃO SEI')} "
+            f"({(R.get('PREFLIGHT') or {}).get('CAPACIDADE', '?')})",
+            "PRONTIDÃO: esta estrada mede DOCUMENTO, não FATO. O tempo e o "
+            "lugar do fato pertencem ao claim, e o claim ainda não é extraído "
+            "(COL-LAW-502).",
             # A corrida diz SUCCESS. A COL-LAW-210 pergunta outra coisa: houve
             # FECHO canonico? Sao dois factos, e escrevem-se os dois — pintar
             # de COMPLETE porque LOST=0 seria confundir «nada se perdeu» com
             # «a corrida fechou».
-            f"estado contra a COL-LAW-210: {fecho['ESTADO']} — "
-            f"{fecho['PORQUE']}",
+
             "",
             f"OCORRÊNCIAS de PDF: {OC.get('OCORRENCIAS', C['RAW_INPUT'])}",
             f"CONTEÚDOS ÚNICOS: {OC.get('CONTEUDOS_UNICOS', 'NÃO SEI')}",
@@ -910,15 +928,27 @@ def a_estrada_do_pdf() -> tuple[list, list]:
             "PRECISÃO: NÃO SEI — não há gabarito humano. Contar quantos "
             "passaram é COBERTURA, não acerto.",
         ],
+        # A COR É DERIVADA, e diz respeito ao ESTÁGIO DOCUMENTAL — não ao fato.
+        # Verde aqui significa «a estrada do documento fechou», nunca «os fatos
+        # estão prontos»: o fato ainda não foi extraído, e dizer o contrário
+        # seria a confusão que a COL-LAW-502 existe para impedir.
         "status_reason": (
-            f"AMARELO de propósito, por DOIS motivos que não se somam. "
-            f"(1) Os {C['ADMISSION_SEEN']} textos ficaram todos em NÃO SEI na "
-            f"porta: nenhum diz quando o fato aconteceu — e a porta recusou-se "
-            f"a adivinhar. (2) A corrida diz {R['STATUS']}, mas contra a "
-            f"COL-LAW-210 ela é {fecho['ESTADO']}: {fecho['PORQUE']}. "
-            f"Nada se perdeu ({C['LOST']} perdidos), e mesmo assim isto não é "
-            f"verde — reconciliação sem perda não é fecho de corrida."),
+            (f"A estrada DOCUMENTAL fechou: a corrida está "
+             f"{R.get('RUN_STATE', fecho['ESTADO'])} "
+             f"({(R.get('COMPLETION_BASIS') or {}).get('PORQUE', '')}), "
+             f"{C['LOST']} perdidos, e a porta deu uma resposta com prova a "
+             f"cada um dos {C['ADMISSION_SEEN']}: {resumo_adm}. "
+             f"VERDE É DO DOCUMENTO, NÃO DO FATO — nenhum claim foi extraído, e "
+             f"por isso nenhum fato está pronto. A extração é o estágio "
+             f"seguinte, e ainda não existe.")
+            if (R.get("RUN_STATE") == "COMPLETE" and not C["LOST"]) else
+            (f"AMARELO: a corrida está {R.get('RUN_STATE', fecho['ESTADO'])} "
+             f"({(R.get('COMPLETION_BASIS') or {}).get('PORQUE', fecho['PORQUE'])}) "
+             f"e há {C['LOST']} perdidos. Reconciliação sem perda não é fecho de "
+             f"corrida, e as duas coisas têm de estar certas.")),
     }
+    if R.get("RUN_STATE") == "COMPLETE" and not C["LOST"]:
+        porta["status"], porta["ui_status"] = VERDE, "green"
 
     nos = [derivado, porta]
 

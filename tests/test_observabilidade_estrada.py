@@ -69,6 +69,7 @@ class AMedicaoChegaAoMapa(unittest.TestCase):
         cls.corrida = peca(cls.S, 'C-GOLDEN-PATH-PDF')
         cls.t_bruto = texto_da_peca(cls.bruto)
         cls.t_run = texto_da_peca(cls.corrida)
+        cls.R = js(GP)
 
     # ── T2 · T3 · T4 ─────────────────────────────────────────────────────
     def test_T2_ocorrencias_aparecem(self):
@@ -136,16 +137,38 @@ class AMedicaoChegaAoMapa(unittest.TestCase):
 
     # ── T11 · T12 · T13 ──────────────────────────────────────────────────
     def test_T11_estado_da_corrida_e_visivel(self):
-        self.assertRegex(self.t_run.lower(), r'estado que a corrida declara')
-        self.assertRegex(self.t_run, r'COL-LAW-210')
+        """MUNDO ANTIGO: a corrida nao tinha fecho, e o mapa citava a COL-LAW-210
+        para explicar o PARTIAL.
 
-    def test_T12_partial_nao_aparece_como_complete(self):
-        self.assertIn('PARTIAL', self.t_run)
-        self.assertNotEqual('green', self.corrida['ui_status'],
-                            'a corrida esta PARTIAL e o cartao esta verde')
-        self.assertRegex(self.t_run.lower(),
-                         r'reconcilia[cç][aã]o sem perda n[aã]o [eé] fecho',
-                         'LOST=0 nao pode ser lido como corrida fechada')
+        MUNDO NOVO (G-38): a corrida FECHA-SE a si propria e declara RUN_STATE
+        com a base medida. O que se guarda agora nao e a citacao da lei — e a
+        presenca do estado de fecho E da base que o sustenta. Um estado sem base
+        e um rotulo.
+        """
+        self.assertRegex(self.t_run.lower(), r'estado que a corrida declara')
+        self.assertRegex(self.t_run, r'ESTADO DE FECHO: (COMPLETE|PARTIAL|FAILED|RUNNING)')
+        base = (self.R.get('COMPLETION_BASIS') or {}).get('PORQUE', '')
+        self.assertTrue(base, 'a corrida declara fecho sem dizer com que base')
+        self.assertIn(base[:40], self.t_run, 'a base do fecho nao chegou ao mapa')
+
+    def test_T12_o_cartao_nunca_diz_mais_do_que_a_corrida(self):
+        """A propriedade durável: a cor e o texto seguem a MEDICAO, sempre.
+
+        Antes este teste exigia a palavra PARTIAL — e teria obrigado a nao
+        consertar o fecho para continuar verde. Agora ele compara: o cartao so
+        pode ficar verde se a corrida disser COMPLETE e nada se tiver perdido.
+        """
+        estado = self.R.get('RUN_STATE')
+        self.assertIn(estado, ('COMPLETE', 'PARTIAL', 'FAILED', 'RUNNING'))
+        self.assertIn(str(estado), self.t_run, 'o estado medido nao aparece')
+        if estado != 'COMPLETE' or self.C['LOST']:
+            self.assertNotEqual('green', self.corrida['ui_status'],
+                                'corrida nao fechada, ou com perda, e cartao verde')
+        else:
+            # Verde e do DOCUMENTO. O mapa tem de dizer isso, senao alguem le
+            # «pronto» onde ainda nao ha fato nenhum extraido.
+            self.assertRegex(self.t_run.upper(), r'VERDE [EÉ] DO DOCUMENTO',
+                             'verde sem dizer que e do documento, nao do fato')
 
     def test_T13_zero_emitido_por_idempotencia_nao_parece_perda(self):
         if self.C['DERIVED_EMITTED'] == 0:

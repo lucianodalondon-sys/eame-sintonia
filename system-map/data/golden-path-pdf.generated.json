@@ -1,13 +1,50 @@
 {
  "O_QUE_ISTO_E": "A conta desta corrida, do PDF guardado ate a porta. Cada numero e medido; nenhum e esperado.",
  "COMO_REFAZER": "py coleta/golden_path_pdf.py",
- "RUN_ID": "DERIV-PDF-20260908T043716Z",
+ "RUN_ID": "DERIV-PDF-20260908T045247Z",
  "STATUS": "SUCCESS",
+ "RUN_STATE": "COMPLETE",
+ "COMPLETION_BASIS": {
+  "CONDICOES": {
+   "executor_terminou": true,
+   "outputs_aterrados": true,
+   "reconciliacao_feita": true,
+   "erros_contabilizados": true,
+   "bruto_intacto": true,
+   "estado_antes_e_depois": true
+  },
+  "FALTOU": [],
+  "PORQUE": "todas as condições de fecho foram medidas e cumpridas",
+  "IDEMPOTENCIA": {
+   "NOVOS": 0,
+   "REAPROVEITADOS": 43,
+   "NOTA": "NOVOS=0 com REAPROVEITADOS>0 é a corrida a não refazer trabalho. Não é saída zero, e não é perda."
+  }
+ },
+ "ROUTE": "LOCAL_EXECUTOR",
+ "PREFLIGHT": {
+  "EXECUTOR_AVAILABLE": "SIM",
+  "CAPACIDADE": "pdftotext"
+ },
+ "STATE_BEFORE": {
+  "OCORRENCIAS": 49,
+  "CONTEUDOS_UNICOS": 43,
+  "DERIVADOS_PRESENTES": 43
+ },
+ "STATE_AFTER": {
+  "OCORRENCIAS": 49,
+  "CONTEUDOS_UNICOS": 43,
+  "DERIVADOS_PRESENTES": 43
+ },
+ "GIT_COMMIT": "491b678d56b4634fa44ec6ab9573414b7adac23c",
+ "GIT_BRANCH": "claude/italia-biblia-integracao-v1",
+ "GIT_TREE_CLEAN": "NAO",
+ "BIBLE_VERSION": "V1.3",
  "EXECUTOR_ID": "texto-de-pdf",
  "EXECUTOR_VERSION": "1",
  "PIPELINE_VERSION": "1",
- "STARTED_AT": "2026-09-08T04:37:16Z",
- "FINISHED_AT": "2026-09-08T04:37:16Z",
+ "STARTED_AT": "2026-09-08T04:52:47Z",
+ "FINISHED_AT": "2026-09-08T04:52:47Z",
  "COUNTS": {
   "RAW_INPUT": 49,
   "RAW_TEXT_LAYER_PRESENT": 0,
@@ -18,7 +55,9 @@
   "DERIVED_LANDED": 0,
   "JA_EXISTIAM": 43,
   "ADMISSION_SEEN": 43,
-  "ADMISSION_NAO_SEI": 43,
+  "ADMISSION_NAO_SEI": 6,
+  "ADMISSION_SIM": 18,
+  "ADMISSION_NAO": 19,
   "LOST": 0
  },
  "RAW_IMUTAVEL": {
@@ -251,21 +290,112 @@
   "NAO_SEI": [
    {
     "item": "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
-    "regra": "tempo do fato",
-    "motivo": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
-    "prova": {}
+    "regra": "pertence ao universo",
+    "motivo": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+    "prova": {
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
    },
    {
     "item": "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03",
-    "regra": "tempo do fato",
-    "motivo": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
-    "prova": {}
+    "regra": "pertence ao universo",
+    "motivo": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+    "prova": {
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
    },
    {
     "item": "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af",
-    "regra": "tempo do fato",
-    "motivo": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
-    "prova": {}
+    "regra": "pertence ao universo",
+    "motivo": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+    "prova": {
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   }
+  ],
+  "SIM": [
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-ea2276b0500902b9",
+    "regra": "pertence ao universo",
+    "motivo": "fala de pubblicazione — que e do que «T7» trata",
+    "prova": {
+     "palavras": [
+      "pubblicazione"
+     ],
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   },
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a",
+    "regra": "pertence ao universo",
+    "motivo": "fala de doi — que e do que «T7» trata",
+    "prova": {
+     "palavras": [
+      "doi"
+     ],
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   },
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c",
+    "regra": "pertence ao universo",
+    "motivo": "fala de tesi — que e do que «T7» trata",
+    "prova": {
+     "palavras": [
+      "tesi"
+     ],
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   }
+  ],
+  "NAO": [
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a",
+    "regra": "pertence ao universo",
+    "motivo": "nao fala de «T7», e fala claramente de outro universo (T9: evento). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "prova": {
+     "achado_noutro": {
+      "T9": [
+       "evento"
+      ]
+     },
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   },
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-7847e001fcc98641",
+    "regra": "pertence ao universo",
+    "motivo": "nao fala de «T7», e fala claramente de outro universo (T3: insetto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "prova": {
+     "achado_noutro": {
+      "T3": [
+       "insetto"
+      ]
+     },
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   },
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917",
+    "regra": "pertence ao universo",
+    "motivo": "nao fala de «T7», e fala claramente de outro universo (T4: etichetta). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "prova": {
+     "achado_noutro": {
+      "T4": [
+       "etichetta"
+      ]
+     },
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
    }
   ]
  },
