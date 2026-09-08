@@ -2426,8 +2426,8 @@
    "territory": "Z-MEDIDAS",
    "kind": "engine",
    "icon": "⊸",
-   "what": "O ponto de entrada instrumentado: abre a corrida, passa o banco pela costura do executor e cobre o caso em que ele MORRE antes de emitir. NAO traduz o recibo — quem traduz e quem sabe, dentro do executor.",
-   "why_here": "Duas sessoes fizeram O9 em paralelo e escolheram o mesmo executor; divergiram em ONDE a traducao vive. Duas traducoes do mesmo recibo seriam dois donos da mesma pergunta — o pecado de O8C um andar acima. A traducao ficou onde a informacao nasce; a fronteira ficou com o que o executor nao pode ter: o ciclo da corrida e a linha que se escreve quando ele ja nao esta vivo para a escrever.",
+   "what": "O ponto de entrada instrumentado: abre a corrida, passa o banco pela costura do executor, e cobre o caso em que ele MORRE antes de emitir — medindo a tentativa, para que a linha da morte nunca colida e se perca. Declara a identidade da corrida como NULA, porque nao ha nenhuma provada.",
+   "why_here": "A LOCALIZACAO DA FALHA NAO PODE MUDAR A IDENTIDADE DA FONTE. Esta fronteira dizia IT-CORPUS-PDF e o executor dizia IT-PDF-ITALIANOS — dois nomes para a mesma corrida, e nenhum no catalogo. Os 49 PDF atravessam OITO fontes reais e 26 nao tem nenhuma derivavel; a rota nao esta registada por item. UM ID DE RASTREIO INVENTADO E PIOR DO QUE UNKNOWN.",
    "departments": [
     "ENGENHARIA"
    ],
@@ -2442,12 +2442,12 @@
   },
   {
    "id": "C-CENSO-EXECUTORES",
-   "name": "Censo dos executores e cobertura O10",
+   "name": "Censo dos executores — caminhos, papeis e cobertura",
    "territory": "Z-MEDIDAS",
    "kind": "engine",
    "icon": "▦",
-   "what": "Mede por AST as 4 gavetas de executores — rede, custo, producao, etapas nomeadas, input preservado — e cruza com o ledger de provas para dizer quem JA correu deixando rastro. Produz a matriz de cobertura de 14 dimensoes e o veredito para a M2.",
-   "why_here": "CAN DO != DID DO. Ler o codigo prova CAPACIDADE; INSTRUMENTED exige as duas provas, a boa e a quebrada, e elas vem do ledger e nao deste censo. Hoje 1 de 54 — e o mapa nao promove a casa por causa de um caso.",
+   "what": "Mede por AST as 4 gavetas — rede, custo, producao, etapas nomeadas, input preservado — e TIPA cada caminho (EXECUTOR, ORCHESTRATOR, ADAPTER, PRESERVATION_OWNER, CHECKPOINT_OWNER, TELEMETRY_EMITTER, UNKNOWN), com evidencia por papel. Cruza com o ledger de provas e publica os denominadores SEPARADOS.",
+   "why_here": "CAMINHO RELEVANTE != EXECUTOR PROVADO. Publicar «54 executores» repetiria o erro do 42: um denominador que ninguem mediu a dar autoridade a uma fracao. Hoje: 56 ficheiros varridos, 54 caminhos relevantes, 1 executor provado, 30 ainda UNKNOWN — e UNKNOWN e uma resposta, nao uma falha.",
    "departments": [
     "ENGENHARIA"
    ],

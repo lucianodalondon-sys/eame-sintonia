@@ -1,6 +1,6 @@
 {
  "SCHEMA": "provas-de-execucao/v1",
- "O_QUE_ISTO_E": "O ledger que separa CAN DO de DID DO. O censo dos executores le o codigo e sabe quem CONSEGUE emitir telemetria; so este ficheiro diz quem JA CORREU e deixou rastro. Uma linha aqui aponta para a prova que a sustenta — ela nao substitui a prova.",
+ "O_QUE_ISTO_E": "O ledger que separa CAN DO de DID DO, e LEGACY de FORWARD. O censo le o codigo e sabe quem CONSEGUE emitir; so este ficheiro diz quem JA CORREU deixando rastro, e em QUE MODO. Uma linha aqui aponta para a prova que a sustenta — ela nao a substitui.",
  "PORQUE_NAO_E_MEDIDO_AUTOMATICAMENTE": "correr todos os executores para descobrir quais deixam rastro exigiria rede, API paga e producao. O ledger e a fronteira honesta: o que se pode medir no codigo e medido; o que exige execucao entra aqui com o nome da prova que o provou.",
  "PROVADOS": {
   "coleta/executor_texto_de_pdf.py": {
@@ -9,18 +9,31 @@
    "PROVA": "tests/test_o9_caminho_instrumentado.py",
    "FRONTEIRA": "medidas/corrida_instrumentada.py",
    "EXECUTOR_MODIFICADO": false,
-   "ETAPAS_OBSERVADAS": ["RAW", "DERIVED"],
+   "ETAPAS_OBSERVADAS": [
+    "RAW",
+    "DERIVED"
+   ],
    "INPUT": "49 PDF italianos preservados em data/collection-store e data/samples",
    "REDE": false,
    "PAGO": false,
    "PRODUCAO": false,
    "GOOD_PATH": "RAW 49 -> 43 PASSED + 6 REUSED · DERIVED 43 -> 43 PASSED · UNACCOUNTED 0",
-   "FAULT_PATH": "pdftotext fora do PATH · RAW PASS · DERIVED FAIL · 43 ERROR · EXECUTOR_UNAVAILABLE + DERIVATION_FAILED · LAST_GOOD RAW · RETRY_FROM DERIVED",
+   "FAULT_PATH": "pdftotext fora do PATH · RAW PASS · DERIVED FAIL · 43 ERROR · EXECUTOR_UNAVAILABLE + DERIVATION_FAILED · LAST_GOOD RAW · UNACCOUNTED 0",
    "RESUME_SAFE": "RESUME_SAFE",
    "PORQUE_RESUME_SAFE": "a derivacao e idempotente por (parent_sha256, executor, pipeline): repetir devolve REUSED e nao cria artefato novo. Medido, e nao presumido.",
    "CHECKPOINT": "NOT_APPLICABLE",
    "PORQUE_SEM_CHECKPOINT": "este caminho le um armazem local inteiro a cada corrida; nao ha janela nem cursor que avance. Inventar um checkpoint aqui seria mobilia sem uso.",
-   "COST": "0.0 USD medido, COST_CLASS=LOCAL. E zero MEDIDO, e nao zero por omissao."
+   "COST": "0.0 USD medido, COST_CLASS=LOCAL. E zero MEDIDO, e nao zero por omissao.",
+   "EXECUTION_MODE": "LEGACY_REPLAY",
+   "FUNCAO_PROVADA": "correr()",
+   "FUNCAO_FORWARD": "derivar_um()",
+   "FORWARD_INSTRUMENTED": false,
+   "PORQUE_FORWARD_NAO_ESTA": "a telemetria esta ligada a `correr()`, que varre os PDF historicos do Git e escreve o REGISTO-DE-ARTEFATOS.json. `derivar_um()` — que recebe um `raw_asset_id` canonico real e entrega ao dono do derivado — nao emite nada. Medido por leitura: zero chamadas a `rastro` dentro de `derivar_um`.",
+   "PORQUE_TERMINA_EM_DERIVED": "COL-LAW-043: READY significa contratos obrigatorios satisfeitos, e NAO «o ficheiro existe». O contrato de saida exige ADMITIDO_POR, e a admissao e de outro dono. Este caminho emitia READY para o texto que aterrou no registo — saltava DOIS estados de COL-LAW-044 (ADMITTED e READY). A etapa foi removida; o que aterrou e `passed` de DERIVED, e o que se emitiu e nao aterrou e `unknown`.",
+   "SOURCE_ID": null,
+   "ROUTE_CLASS_ID": null,
+   "PORQUE_IDENTIDADE_NULA": "os 49 PDF atravessam OITO source_id reais (IT-T2-001, IT-T2-002, IT-T3-002, IT-T3-008, IT-T3-010, IT-T3-011, IT-T4-001, IT-T5-003) em 23 ficheiros; os outros 26 nao tem source_id derivavel. E route_class nao esta registada por item nem no collection-store nem no collection-ledger. NAO ha um id defensavel para a corrida inteira, e UM ID DE RASTREIO INVENTADO E PIOR DO QUE UNKNOWN. etapa_da_corrida aceita NULL."
   }
- }
+ },
+ "LEGACY_NAO_E_FORWARD": "REAL EXECUTOR != CANONICAL FORWARD FLOW. Um replay do corpo historico prova o INSTRUMENTO: que o writer, o storage e o scanner aguentam uma passagem real. NAO prova que o fluxo canonico forward esta instrumentado — e nao esta. Publicar LEGACY como FORWARD seria a mesma classe de mentira que chamar READY a um ficheiro guardado."
 }

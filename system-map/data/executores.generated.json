@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "2af57a41a2da1a9e31863258cf2a658878cd49d7",
+  "HEAD": "44e2de1b43759cf56588820728933ba501828632",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -94,16 +94,48 @@
  "GOOD_PATH_PROVED": 1,
  "FAULT_PATH_PROVED": 1,
  "M2": {
-  "MINIMAL_OPERATIONAL_OBSERVABILITY_FOR_M2": "YES",
-  "CRITERIOS": {
-   "CONTRATO_IMPLEMENTAVEL_PONTA_A_PONTA": "paridade_da_lingua.py PASS (contrato=storage=writer=scanner)",
-   "PELO_MENOS_UM_CAMINHO_REAL_PROVADO_BOM": true,
-   "PELO_MENOS_UM_CAMINHO_REAL_PROVADO_QUEBRADO": true,
-   "CONTABILIDADE_FECHA_NUM_CAMINHO_REAL": true,
-   "RETOMADA_SABE_ONDE_RECOMECAR": true
+  "TELEMETRY_INFRASTRUCTURE": {
+   "TELEMETRY_INFRASTRUCTURE_PROVED": "YES",
+   "O_QUE_MEDE": "o instrumento — contrato, storage, writer e scanner — aguenta uma passagem real, boa e quebrada. Mede UMA coisa so.",
+   "CRITERIOS": {
+    "CONTRATO_IMPLEMENTAVEL_PONTA_A_PONTA": "paridade_da_lingua.py PASS (contrato=storage=writer=scanner)",
+    "CAMINHO_REAL_PROVADO_BOM": true,
+    "CAMINHO_REAL_PROVADO_QUEBRADO": true,
+    "CONTABILIDADE_FECHA": true,
+    "RETOMADA_SABE_ONDE_RECOMECAR": true
+   },
+   "O_QUE_NAO_MEDE": "nao mede cobertura, nao mede o fluxo forward canonico — a prova que existe e um LEGACY_REPLAY — e nao mede a rota da M2."
   },
-  "O_QUE_YES_NAO_SIGNIFICA": "NAO significa que a M2 pode comecar, e NAO significa cobertura. Significa que o instrumento existe e ja foi exercido numa passagem real. A decisao de comecar a M2 e outra, e vem depois.",
-  "PROXIMO_BLOQUEADOR": "a rota que a M2 vai construir (RC-1, arestas DERIVED->STRUCTURED e STRUCTURED->ADMISSION) nao tem executor instrumentado: STRUCTURED e ADMISSION nunca foram observados em nenhum caminho. Medir o que a M2 constroi exige instrumentar quem atravessa essas duas."
+  "M2_ROUTE": {
+   "M2_ROUTE_OBSERVABILITY_READY": "NO",
+   "O_QUE_MEDE": "se a rota que a M2 vai construir — DERIVED -> STRUCTURED -> ADMISSION — ja emite telemetria.",
+   "ETAPAS_OBSERVADAS_EM_ALGUM_CAMINHO": [
+    "DERIVED",
+    "RAW"
+   ],
+   "ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS": [
+    "STRUCTURED",
+    "ADMISSION"
+   ],
+   "PORQUE_NAO": "STRUCTURED e ADMISSION nunca correram em caminho nenhum, e nao correram porque a rota AINDA NAO EXISTE — e a M2 que a vai construir. Exigir que ela emita antes de nascer nao e um portao, e um impossivel.",
+   "O_PORTAO_CORRETO": "nao e «observar a rota antes de ela existir» — e «a rota nasce instrumentada». O instrumento esta provado e disponivel; a M2 pode CONSTRUIR, e nao pode FECHAR sem a rota emitir.",
+   "M2_CONSTRUCTION_CAN_BEGIN": "YES",
+   "M2_CANNOT_CLOSE_UNTIL_INSTRUMENTED": true,
+   "INVARIANTES_DA_M2": "o primeiro caminho corrivel ja emite telemetria; STRUCTURED e ADMISSION nao podem ser marcados observados antes de correrem; cada etapa fecha a contabilidade; a falha localiza onde parou; downstream NOT_RUN e nunca ERROR em cascata; a identidade da fonte e da rota vem do dono ou fica UNKNOWN; nenhum READY antes da COL-LAW-043; o System Map atualiza por scanner."
+  }
+ },
+ "DENOMINADORES": {
+  "TOTAL_FILES_SCANNED": 56,
+  "TOTAL_RELEVANT_PATHS": 54,
+  "TOTAL_EXECUTORS_PROVEN": 1,
+  "TOTAL_EXECUTORS_BY_ROLE": 10,
+  "TOTAL_ORCHESTRATORS": 3,
+  "TOTAL_ADAPTERS": 8,
+  "TOTAL_PRESERVATION_OWNERS": 3,
+  "TOTAL_CHECKPOINT_OWNERS": 1,
+  "TOTAL_TELEMETRY_EMITTERS": 1,
+  "TOTAL_UNKNOWN": 30,
+  "A_LEI": "CAMINHO RELEVANTE != EXECUTOR PROVADO. O numero grande e de caminhos varridos; o pequeno e do que foi provado a correr."
  },
  "PORQUE_ESSE": "corre sem rede, sem API paga e sem producao, e ja fala a lingua das falhas — instrumenta-lo custa o writer, e nao um ambiente.",
  "EXECUTORES": [
@@ -123,6 +155,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -144,6 +179,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -168,6 +206,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "EXECUTOR"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -189,6 +230,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -212,6 +256,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -236,6 +283,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -260,6 +310,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "EXECUTOR"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -281,6 +334,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -302,6 +358,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -325,6 +384,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "EXECUTOR"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -346,6 +408,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -354,12 +419,11 @@
   {
    "EXECUTOR_ID": "coleta/executor_texto_de_pdf.py",
    "GAVETA": "coleta",
-   "LINHAS": 539,
+   "LINHAS": 565,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
-    "DERIVED",
-    "READY"
+    "DERIVED"
    ],
    "HAS_PRESERVED_INPUT": true,
    "USA_CONTRATO_ARTEFATO": true,
@@ -371,6 +435,10 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "TELEMETRY_EMITTER",
+    "EXECUTOR"
+   ],
    "GOOD_PATH_PROVED": true,
    "FAULT_PATH_PROVED": true,
    "PROVA": "tests/test_o9_caminho_instrumentado.py",
@@ -392,6 +460,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -413,6 +484,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -438,6 +512,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "EXECUTOR"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -461,6 +538,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ORCHESTRATOR"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -482,6 +562,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -505,6 +588,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "EXECUTOR"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -528,6 +614,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -549,6 +638,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -570,6 +662,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -591,6 +686,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -612,6 +710,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -633,6 +734,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -654,6 +758,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -675,6 +782,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -698,6 +808,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -721,6 +834,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -744,6 +860,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -768,6 +887,9 @@
    "USA_FALHAS": true,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "EXECUTOR"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -794,6 +916,9 @@
    "USA_FALHAS": true,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ORCHESTRATOR"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -817,6 +942,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "EXECUTOR"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -838,6 +966,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -859,6 +990,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -880,6 +1014,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -903,6 +1040,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "EXECUTOR"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -926,6 +1066,10 @@
    "USA_FALHAS": true,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": true,
+   "PAPEIS": [
+    "CHECKPOINT_OWNER",
+    "EXECUTOR"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -949,6 +1093,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -972,6 +1119,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "PRESERVATION_OWNER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -993,6 +1143,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1014,6 +1167,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "PRESERVATION_OWNER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1035,6 +1191,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "PRESERVATION_OWNER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1056,6 +1215,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "PRESERVATION_OWNER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1079,6 +1241,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "PRESERVATION_OWNER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1100,6 +1265,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1121,6 +1289,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1142,6 +1313,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1166,6 +1340,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ADAPTER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1187,6 +1364,9 @@
    "USA_FALHAS": true,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ADAPTER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1211,6 +1391,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ADAPTER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1232,6 +1415,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ADAPTER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1253,6 +1439,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ADAPTER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1274,6 +1463,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ADAPTER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1295,6 +1487,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ADAPTER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1316,6 +1511,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ADAPTER"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
@@ -1337,6 +1535,9 @@
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ORCHESTRATOR"
+   ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,

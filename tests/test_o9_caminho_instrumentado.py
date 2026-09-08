@@ -53,7 +53,8 @@ def executor_falso(counts, perdidos=0, ferramenta='pdftotext'):
     Nao reimplementa a traducao: chama `emitir_rastro`, que e o dono dela. Um
     duble que traduzisse a seu modo provaria o duble, e nao o sistema.
     """
-    def correr(seco=False, run_id='', rastro=None):
+    def correr(seco=False, run_id='', rastro=None, source_id=None,
+               route_class_id=None):
         sys.path.insert(0, os.path.join(RAIZ, 'coleta'))
         import executor_texto_de_pdf as ex
         r = recibo_falso(**counts)
@@ -63,7 +64,9 @@ def executor_falso(counts, perdidos=0, ferramenta='pdftotext'):
         if rastro is not None:
             ex.emitir_rastro(rastro, run_id, r['COUNTS'], perdidos, [],
                              r['STARTED_AT'],
-                             ferramenta_presente=(ferramenta != 'AUSENTE'))
+                             ferramenta_presente=(ferramenta != 'AUSENTE'),
+                             source_id=source_id,
+                             route_class_id=route_class_id)
         return r
     return correr
 
@@ -223,8 +226,13 @@ class O9_5a8_CaminhoBom(Base):
     def test_O9_5_emite_so_as_etapas_que_correram(self):
         run.correr(self.banco, run_id=self.RUN, seco=True)
         etapas = [p['ETAPA'] for p in self._passagens()]
-        self.assertEqual(['RAW', 'DERIVED', 'READY'], etapas)
-        for fabricada in ('DISCOVER', 'FETCH', 'STRUCTURED', 'ADMISSION'):
+        # ⚠️ DUAS, E NAO TRES. A etapa READY saiu em O10R: COL-LAW-043 diz
+        # que READY significa contratos obrigatorios satisfeitos, e nao «o
+        # ficheiro existe». Este caminho termina em DERIVED, e terminar em
+        # DERIVED e a verdade.
+        self.assertEqual(['RAW', 'DERIVED'], etapas)
+        for fabricada in ('DISCOVER', 'FETCH', 'STRUCTURED', 'ADMISSION',
+                          'READY'):
             self.assertNotIn(fabricada, etapas,
                              '%s existe no contrato e NAO correu' % fabricada)
 
@@ -234,7 +242,7 @@ class O9_5a8_CaminhoBom(Base):
             "select count(*) from public.etapa_da_corrida e"
             " join public.collection_run c using (run_id)"
             " where e.run_id = '%s'" % self.RUN)
-        self.assertEqual('3', n[0][0])
+        self.assertEqual('2', n[0][0])
 
     def test_O9_6_a_conta_fecha_nas_duas_etapas(self):
         run.correr(self.banco, run_id=self.RUN, seco=True)
@@ -394,7 +402,8 @@ class O9_9a13_CaminhoQuebrado(Base):
         self.assertIsNotNone(d['TENTATIVA'])               # qual tentativa
 
     def test_O9_13_o_snapshot_nao_guarda_segredo(self):
-        def com_segredo(seco=False, run_id='', rastro=None):
+        def com_segredo(seco=False, run_id='', rastro=None, source_id=None,
+                        route_class_id=None):
             raise RuntimeError('falhou com token=SEGREDO-abc123 no meio')
         with self.assertRaises(RuntimeError):
             run.correr(self.banco, run_id=self.RUN, correr_executor=com_segredo)
@@ -569,13 +578,13 @@ class O9_BibliaNaoEViolada(Base):
                                      DERIVED_EMITTED=43, DERIVED_LANDED=40,
                                      RAW_COPIAS_REPETIDAS=6), perdidos=3)
         run.correr(self.banco, run_id=self.RUN, correr_executor=perdeu)
-        ready = [p for p in self._passagens() if p['ETAPA'] == 'READY'][0]
-        self.assertEqual('FAIL', ready['ESTADO'],
+        d = [p for p in self._passagens() if p['ETAPA'] == 'DERIVED'][0]
+        self.assertEqual('PARTIAL', d['ESTADO'],
                          'tres textos sumiram e a etapa saiu-se bem')
-        self.assertEqual(3, ready['UNKNOWN'], 'a perda nao foi contada')
-        self.assertEqual('FLOW_UNACCOUNTED_INPUT', ready['DIAGNOSTIC_CODE'])
-        self.assertEqual('ITEM_ERROR', ready['CANONICAL_STATE'])
-        self.assertEqual(0, ready['UNACCOUNTED'])
+        self.assertEqual(3, d['UNKNOWN'], 'a perda nao foi contada')
+        self.assertEqual('FLOW_UNACCOUNTED_INPUT', d['DIAGNOSTIC_CODE'])
+        self.assertEqual('ITEM_ERROR', d['CANONICAL_STATE'])
+        self.assertEqual(0, d['UNACCOUNTED'])
 
     def test_COL_LAW_024_zero_nao_vira_sucesso_automatico(self):
         """Nenhum item saiu por porta nenhuma: isso e buraco, e nao PASS sereno."""
@@ -628,7 +637,7 @@ class O9_16a20_ScannerEMapa(Base):
         import scanner_da_coleta as sc
         run.correr(self.banco, run_id=self.RUN, seco=True)
         rel = sc.relatorio(self.banco, self.RUN)
-        self.assertEqual(3, len(rel['PASSAGENS']))
+        self.assertEqual(2, len(rel['PASSAGENS']))
         self.assertIn(rel['HEALTH'], (sc.SAUDE_OK, sc.SAUDE_AVISO))
         self.assertNotEqual(sc.NAO_MEDIDA, rel['HEALTH'],
                             'o scanner nao viu a corrida que acabou de correr')

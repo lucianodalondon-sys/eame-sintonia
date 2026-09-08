@@ -113,6 +113,35 @@ def _tem_porta(arvore, fonte):
     return "__name__" in fonte and "__main__" in fonte
 
 
+# ── OS PAPEIS, E A EVIDENCIA DE CADA UM ──────────────────────────────────
+# ⚠️ 54 CAMINHOS RELEVANTES != 54 EXECUTORES. Publicar `TOTAL_EXECUTORS = 54`
+# repetiria o erro do 42: um denominador que ninguem mediu, a dar autoridade a
+# uma fracao. Cada papel abaixo pede EVIDENCIA no codigo, e quem nao a tiver
+# fica UNKNOWN — que e uma resposta, e nao uma falha.
+#
+# Uma peca PODE ter mais de um papel: o orquestrador tambem preserva, o
+# preservador tambem mede. Nao se forca exclusividade — mas cada papel que
+# aparece tem de ter a sua propria evidencia.
+def _papeis(rel, codigo, imports, etapas):
+    achados = []
+    if 'orquestrador/' in rel or 'orquestrad' in codigo.lower()[:4000]:
+        if 'subprocess' in imports or 'executa' in codigo:
+            achados.append('ORCHESTRATOR')
+    if rel.startswith('guarda/') and ('sha256' in codigo or 'Armazem' in codigo):
+        achados.append('PRESERVATION_OWNER')
+    if 'coleta_checkpoint' in imports:
+        achados.append('CHECKPOINT_OWNER')
+    if 'rastro_da_coleta' in imports and 'registrar(' in codigo:
+        achados.append('TELEMETRY_EMITTER')
+    if rel.startswith('coleta/') and etapas and (
+            'urllib' in imports or 'requests' in imports
+            or 'subprocess' in imports or 'collection-store' in codigo):
+        achados.append('EXECUTOR')
+    if 'ferramentas/' in rel:
+        achados.append('ADAPTER')
+    return tuple(achados) or ('UNKNOWN',)
+
+
 def _executaveis():
     for gaveta in GAVETAS:
         pasta = os.path.join(RAIZ, gaveta)
@@ -179,6 +208,7 @@ def medir():
             'USA_FALHAS': bool(imports & set(FALHAS)),
             'USA_DIAGNOSTICO': bool(imports & set(DIAGNOSTICO)),
             'USA_CHECKPOINT': bool(imports & set(CHECKPOINT)),
+            'PAPEIS': _papeis(rel, codigo, imports, declara),
         })
     return linhas
 
@@ -264,32 +294,90 @@ def principal():
             else:
                 cobertura[dim]['NOT_INSTRUMENTED'] += 1
 
+    # ── O DENOMINADOR, SEPARADO ──────────────────────────────────────────
+    def com_papel(nome):
+        return sum(1 for l in relevantes if nome in l['PAPEIS'])
+    denominadores = {
+        'TOTAL_FILES_SCANNED': len(linhas),
+        'TOTAL_RELEVANT_PATHS': len(relevantes),
+        'TOTAL_EXECUTORS_PROVEN': sum(
+            1 for l in relevantes if l['STATE'] == 'INSTRUMENTED'),
+        'TOTAL_EXECUTORS_BY_ROLE': com_papel('EXECUTOR'),
+        'TOTAL_ORCHESTRATORS': com_papel('ORCHESTRATOR'),
+        'TOTAL_ADAPTERS': com_papel('ADAPTER'),
+        'TOTAL_PRESERVATION_OWNERS': com_papel('PRESERVATION_OWNER'),
+        'TOTAL_CHECKPOINT_OWNERS': com_papel('CHECKPOINT_OWNER'),
+        'TOTAL_TELEMETRY_EMITTERS': com_papel('TELEMETRY_EMITTER'),
+        'TOTAL_UNKNOWN': com_papel('UNKNOWN'),
+        'A_LEI': ('CAMINHO RELEVANTE != EXECUTOR PROVADO. O numero grande e de '
+                  'caminhos varridos; o pequeno e do que foi provado a correr.'),
+    }
+
     tem_bom = sum(1 for l in relevantes if l['GOOD_PATH_PROVED'])
     tem_falha = sum(1 for l in relevantes if l['FAULT_PATH_PROVED'])
 
-    # ⚠️ ISTO NAO E AUTORIZACAO PARA COMECAR A M2. E uma medida.
-    minimo = {
-        'MINIMAL_OPERATIONAL_OBSERVABILITY_FOR_M2': (
-            'YES' if tem_bom >= 1 and tem_falha >= 1 and
-            por_estado.get('INSTRUMENTED', 0) >= 1 else 'NO'),
+    # ── DUAS PERGUNTAS, E ELAS TINHAM UM NOME SO ─────────────────────────
+    # O campo anterior chamava-se MINIMAL_OPERATIONAL_OBSERVABILITY_FOR_M2 e
+    # dizia YES — e o MESMO artefato nomeava um bloqueador logo abaixo. Duas
+    # afirmacoes que nao podem responder a mesma pergunta.
+    #
+    #     O INSTRUMENTO EXISTIR != A ROTA ALVO SER OBSERVAVEL.
+    #
+    # Sao perguntas diferentes com respostas diferentes, e agora tem nomes
+    # diferentes.
+    etapas_observadas = set()
+    for v in ledger.values():
+        etapas_observadas |= set(v.get('ETAPAS_OBSERVADAS') or [])
+    rota_m2 = ('STRUCTURED', 'ADMISSION')
+    faltam = [e for e in rota_m2 if e not in etapas_observadas]
+
+    instrumento = {
+        'TELEMETRY_INFRASTRUCTURE_PROVED': (
+            'YES' if tem_bom >= 1 and tem_falha >= 1 else 'NO'),
+        'O_QUE_MEDE': (
+            'o instrumento — contrato, storage, writer e scanner — aguenta uma '
+            'passagem real, boa e quebrada. Mede UMA coisa so.'),
         'CRITERIOS': {
             'CONTRATO_IMPLEMENTAVEL_PONTA_A_PONTA':
                 'paridade_da_lingua.py PASS (contrato=storage=writer=scanner)',
-            'PELO_MENOS_UM_CAMINHO_REAL_PROVADO_BOM': tem_bom >= 1,
-            'PELO_MENOS_UM_CAMINHO_REAL_PROVADO_QUEBRADO': tem_falha >= 1,
-            'CONTABILIDADE_FECHA_NUM_CAMINHO_REAL': tem_bom >= 1,
+            'CAMINHO_REAL_PROVADO_BOM': tem_bom >= 1,
+            'CAMINHO_REAL_PROVADO_QUEBRADO': tem_falha >= 1,
+            'CONTABILIDADE_FECHA': tem_bom >= 1,
             'RETOMADA_SABE_ONDE_RECOMECAR': tem_falha >= 1,
         },
-        'O_QUE_YES_NAO_SIGNIFICA': (
-            'NAO significa que a M2 pode comecar, e NAO significa cobertura. '
-            'Significa que o instrumento existe e ja foi exercido numa '
-            'passagem real. A decisao de comecar a M2 e outra, e vem depois.'),
-        'PROXIMO_BLOQUEADOR': (
-            'a rota que a M2 vai construir (RC-1, arestas DERIVED->STRUCTURED e '
-            'STRUCTURED->ADMISSION) nao tem executor instrumentado: STRUCTURED '
-            'e ADMISSION nunca foram observados em nenhum caminho. Medir o que '
-            'a M2 constroi exige instrumentar quem atravessa essas duas.'),
+        'O_QUE_NAO_MEDE': (
+            'nao mede cobertura, nao mede o fluxo forward canonico — a prova '
+            'que existe e um LEGACY_REPLAY — e nao mede a rota da M2.'),
     }
+
+    rota = {
+        'M2_ROUTE_OBSERVABILITY_READY': ('YES' if not faltam else 'NO'),
+        'O_QUE_MEDE': ('se a rota que a M2 vai construir — DERIVED -> '
+                       'STRUCTURED -> ADMISSION — ja emite telemetria.'),
+        'ETAPAS_OBSERVADAS_EM_ALGUM_CAMINHO': sorted(etapas_observadas),
+        'ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS': faltam,
+        'PORQUE_NAO': (
+            'STRUCTURED e ADMISSION nunca correram em caminho nenhum, e nao '
+            'correram porque a rota AINDA NAO EXISTE — e a M2 que a vai '
+            'construir. Exigir que ela emita antes de nascer nao e um portao, '
+            'e um impossivel.') if faltam else None,
+        'O_PORTAO_CORRETO': (
+            'nao e «observar a rota antes de ela existir» — e «a rota nasce '
+            'instrumentada». O instrumento esta provado e disponivel; a M2 '
+            'pode CONSTRUIR, e nao pode FECHAR sem a rota emitir.'),
+        'M2_CONSTRUCTION_CAN_BEGIN': (
+            'YES' if instrumento['TELEMETRY_INFRASTRUCTURE_PROVED'] == 'YES'
+            else 'NO'),
+        'M2_CANNOT_CLOSE_UNTIL_INSTRUMENTED': True,
+        'INVARIANTES_DA_M2': (
+            'o primeiro caminho corrivel ja emite telemetria; STRUCTURED e '
+            'ADMISSION nao podem ser marcados observados antes de correrem; '
+            'cada etapa fecha a contabilidade; a falha localiza onde parou; '
+            'downstream NOT_RUN e nunca ERROR em cascata; a identidade da '
+            'fonte e da rota vem do dono ou fica UNKNOWN; nenhum READY antes '
+            'da COL-LAW-043; o System Map atualiza por scanner.'),
+    }
+    minimo = {'TELEMETRY_INFRASTRUCTURE': instrumento, 'M2_ROUTE': rota}
 
     cabeca = subprocess.run(['git', '-C', RAIZ, 'rev-parse', 'HEAD'],
                             capture_output=True, text=True).stdout.strip()
@@ -308,6 +396,7 @@ def principal():
         'GOOD_PATH_PROVED': tem_bom,
         'FAULT_PATH_PROVED': tem_falha,
         'M2': minimo,
+        'DENOMINADORES': denominadores,
         'PORQUE_ESSE': (
             'corre sem rede, sem API paga e sem producao, e ja fala a lingua '
             'das falhas — instrumenta-lo custa o writer, e nao um ambiente.'),

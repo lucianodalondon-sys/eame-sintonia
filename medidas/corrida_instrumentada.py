@@ -58,13 +58,30 @@ import _gavetas                    # noqa: E402,F401
 import diagnostico as dg           # noqa: E402
 import falhas                      # noqa: E402
 import rastro_da_coleta as rastro  # noqa: E402
+from rastro_da_coleta import _lit  # noqa: E402
 import telemetria as tel           # noqa: E402
 
 # A fonte e a rota deste caminho, medidas: os PDF vem do armazem italiano, e a
 # classe da rota e a do documento oficial por HTTP — foi por ela que entraram.
-SOURCE_ID = 'IT-CORPUS-PDF'
-ROUTE_CLASS_ID = 'RC-1'
-POLICY_VERSION = 'o9:derivacao-local-de-pdf'
+# ⚠️ NÃO HÁ IDENTIDADE PROVADA PARA ESTA CORRIDA, E POR ISSO ELA É NULA.
+# Este ficheiro dizia `IT-CORPUS-PDF` e o executor dizia `IT-PDF-ITALIANOS`:
+# dois nomes para a mesma coleta, e nenhum dos dois existe no catálogo. A
+# mesma corrida tinha uma identidade quando corria bem e outra quando o
+# executor morria antes de emitir.
+#
+#     A LOCALIZAÇÃO DA FALHA NÃO PODE MUDAR A IDENTIDADE DA FONTE.
+#
+# Medido: os 49 PDF atravessam OITO `source_id` reais em 23 ficheiros, e 26
+# não têm nenhum derivável. A `route_class` não está registada por item — nem
+# no `collection-store`, nem no `collection-ledger`. RC-1 era presunção.
+#
+#     UM ID DE RASTREIO INVENTADO É PIOR DO QUE UNKNOWN.
+#
+# `etapa_da_corrida` aceita NULL nos dois campos. É esta a representação, e
+# ela já existia.
+SOURCE_ID = None
+ROUTE_CLASS_ID = None
+POLICY_VERSION = 'o9:replay-legado-de-pdf'
 
 # ── OS GRAOS, E POR QUE ELES MUDAM DUAS VEZES ────────────────────────────
 #     UM CAMINHO EM DISCO NAO E UM CONTEUDO. UM CONTEUDO NAO E UM TEXTO.
@@ -109,15 +126,32 @@ def correr(banco, *, run_id, correr_executor=None, seco=False):
     try:
         # O BANCO VAI PARA DENTRO. Quem conta e quem sabe contar; esta
         # fronteira nao recontou nada, e por isso nao pode discordar.
-        return correr_executor(seco=seco, run_id=run_id, rastro=banco)
+        return correr_executor(seco=seco, run_id=run_id, rastro=banco,
+                               source_id=SOURCE_ID,
+                               route_class_id=ROUTE_CLASS_ID)
     except Exception as erro:
         # ⚠️ O EXECUTOR MORREU ANTES DE EMITIR.
         # Este e o unico caso em que a fronteira escreve: se ela nao
         # escrevesse, a corrida acabaria sem UMA linha, e uma falha sem linha e
         # uma falha que ninguem consegue procurar depois. O executor nao pode
         # cobrir este caso — ele ja nao esta vivo para o contar.
+        # ⚠️ A TENTATIVA E MEDIDA, E NAO ZERO FIXO.
+        # Com `tentativa=0` fixo, uma segunda passagem pela mesma corrida
+        # colidia na chave (run_id, etapa, tentativa) e a linha da MORTE
+        # perdia-se — o erro do banco subia com o mesmo tipo do erro do
+        # executor, e ninguem via a diferenca. Uma falha que nao deixa linha e
+        # exatamente o que esta fronteira existe para impedir.
+        try:
+            ja = banco.executa(
+                "select coalesce(max(tentativa), -1) from"
+                " public.etapa_da_corrida where run_id = %s and etapa = 'DERIVED'"
+                % _lit(run_id))
+            tentativa = int(ja[0][0]) + 1
+        except Exception:
+            tentativa = 0
         rastro.registrar(
             banco, run_id=run_id, etapa='DERIVED', edge_from='RAW',
+            tentativa=tentativa,
             estado='FAIL', source_id=SOURCE_ID, route_class_id=ROUTE_CLASS_ID,
             policy_version=POLICY_VERSION, duracao_ms=_ms(t0),
             actor='coleta/executor_texto_de_pdf.py',
@@ -130,10 +164,11 @@ def correr(banco, *, run_id, correr_executor=None, seco=False):
 
 def main():
     print(__doc__.strip().split('\n')[0])
-    print('fonte=%s rota=%s politica=%s' % (SOURCE_ID, ROUTE_CLASS_ID,
-                                            POLICY_VERSION))
-    print('etapas observadas: RAW, DERIVED · graos: %s -> %s -> %s'
-          % (GRAO_FICHEIRO, GRAO_CONTEUDO, GRAO_TEXTO))
+    print('fonte=%s rota=%s politica=%s'
+          % (SOURCE_ID or 'UNKNOWN', ROUTE_CLASS_ID or 'UNKNOWN',
+             POLICY_VERSION))
+    print('modo: LEGACY_REPLAY · etapas observadas: RAW, DERIVED')
+    print('termina em DERIVED: STRUCTURED e ADMISSION nao correm neste caminho')
     print('destinos do contrato: %s' % ', '.join(tel.DESTINOS_DO_ITEM))
     return 0
 

@@ -1359,6 +1359,7 @@
       "tests/test_metricas.py",
       "tests/test_migrations.py",
       "tests/test_navegador.py",
+      "tests/test_o10r_a_verdade_dos_nomes.py",
       "tests/test_o9_caminho_instrumentado.py",
       "tests/test_observabilidade.py",
       "tests/test_observabilidade_estrada.py",
@@ -1774,8 +1775,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "2af57a41a2da1a9e31863258cf2a658878cd49d7",
-    "GENERATED_AT": "2026-09-08T22:18:43+00:00"
+    "HEAD": "44e2de1b43759cf56588820728933ba501828632",
+    "GENERATED_AT": "2026-09-08T22:24:24+00:00"
   },
   "FAMILIES": [
     {
@@ -6156,16 +6157,16 @@
     },
     {
       "id": "C-CENSO-EXECUTORES",
-      "name": "Censo dos executores e cobertura O10",
+      "name": "Censo dos executores — caminhos, papeis e cobertura",
       "territory": "Z-MEDIDAS",
       "kind": "engine",
-      "what": "Mede por AST as 4 gavetas de executores — rede, custo, producao, etapas nomeadas, input preservado — e cruza com o ledger de provas para dizer quem JA correu deixando rastro. Produz a matriz de cobertura de 14 dimensoes e o veredito para a M2.",
-      "why_here": "CAN DO != DID DO. Ler o codigo prova CAPACIDADE; INSTRUMENTED exige as duas provas, a boa e a quebrada, e elas vem do ledger e nao deste censo. Hoje 1 de 54 — e o mapa nao promove a casa por causa de um caso.",
+      "what": "Mede por AST as 4 gavetas — rede, custo, producao, etapas nomeadas, input preservado — e TIPA cada caminho (EXECUTOR, ORCHESTRATOR, ADAPTER, PRESERVATION_OWNER, CHECKPOINT_OWNER, TELEMETRY_EMITTER, UNKNOWN), com evidencia por papel. Cruza com o ledger de provas e publica os denominadores SEPARADOS.",
+      "why_here": "CAMINHO RELEVANTE != EXECUTOR PROVADO. Publicar «54 executores» repetiria o erro do 42: um denominador que ninguem mediu a dar autoridade a uma fracao. Hoje: 56 ficheiros varridos, 54 caminhos relevantes, 1 executor provado, 30 ainda UNKNOWN — e UNKNOWN e uma resposta, nao uma falha.",
       "departments": [
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "▦",
       "views": [
         "audit",
@@ -6178,12 +6179,14 @@
         "system-map/scripts/censo_dos_executores.py"
       ],
       "file_count": 2,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -6208,7 +6211,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_dos_executores.py",
-            "line": 318,
+            "line": 407,
             "snippet": "escreve em destino"
           }
         }
@@ -8097,8 +8100,8 @@
       "name": "A fronteira instrumentada",
       "territory": "Z-MEDIDAS",
       "kind": "engine",
-      "what": "O ponto de entrada instrumentado: abre a corrida, passa o banco pela costura do executor e cobre o caso em que ele MORRE antes de emitir. NAO traduz o recibo — quem traduz e quem sabe, dentro do executor.",
-      "why_here": "Duas sessoes fizeram O9 em paralelo e escolheram o mesmo executor; divergiram em ONDE a traducao vive. Duas traducoes do mesmo recibo seriam dois donos da mesma pergunta — o pecado de O8C um andar acima. A traducao ficou onde a informacao nasce; a fronteira ficou com o que o executor nao pode ter: o ciclo da corrida e a linha que se escreve quando ele ja nao esta vivo para a escrever.",
+      "what": "O ponto de entrada instrumentado: abre a corrida, passa o banco pela costura do executor, e cobre o caso em que ele MORRE antes de emitir — medindo a tentativa, para que a linha da morte nunca colida e se perca. Declara a identidade da corrida como NULA, porque nao ha nenhuma provada.",
+      "why_here": "A LOCALIZACAO DA FALHA NAO PODE MUDAR A IDENTIDADE DA FONTE. Esta fronteira dizia IT-CORPUS-PDF e o executor dizia IT-PDF-ITALIANOS — dois nomes para a mesma corrida, e nenhum no catalogo. Os 49 PDF atravessam OITO fontes reais e 26 nao tem nenhuma derivavel; a rota nao esta registada por item. UM ID DE RASTREIO INVENTADO E PIOR DO QUE UNKNOWN.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -13487,6 +13490,7 @@
         "tests/test_metricas.py",
         "tests/test_migrations.py",
         "tests/test_navegador.py",
+        "tests/test_o10r_a_verdade_dos_nomes.py",
         "tests/test_o9_caminho_instrumentado.py",
         "tests/test_observabilidade.py",
         "tests/test_observabilidade_estrada.py",
@@ -13521,9 +13525,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 66,
+      "file_count": 67,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 26 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 27 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -13541,6 +13545,7 @@
         "C-CADEIA-V21",
         "C-CENSO-ARMAZEM-IT",
         "C-CENSO-CORPUS-IT",
+        "C-CENSO-EXECUTORES",
         "C-CENSO-IDENTIDADE-IT",
         "C-CENSO-OBSERVABILIDADE",
         "C-CI-COLETA",
@@ -15243,7 +15248,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 2af57a41a2da1a9e31863258cf2a658878cd49d7"
+        "HEAD 44e2de1b43759cf56588820728933ba501828632"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17018,7 +17023,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_biblia.py",
@@ -17054,6 +17059,11 @@
           "file": "tests/test_integracao_biblia.py",
           "line": 159,
           "snippet": "os.path.join(RAIZ, 'docs', 'biblia', 'RECONCILIACAO-INTEGRACAO.md')):"
+        },
+        {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 30,
+          "snippet": "BIBLIA = os.path.join(RAIZ, 'BIBLIA-CANONICA-DA-COLETA.md')"
         },
         {
           "file": "tests/test_observabilidade_estrada.py",
@@ -17415,6 +17425,24 @@
           "file": "tests/test_observabilidade_estrada.py",
           "line": 35,
           "snippet": "CENSO = os.path.join(RAIZ, 'system-map', 'scripts', 'censo_do_corpus_it.py')"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CENSO-EXECUTORES",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo dos executores — caminhos, papeis e cobertura alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 38,
+          "snippet": "open(LEDGER, 'leitura')  # LEDGER = system-map/data/provas-de-execucao.json"
         }
       ],
       "categoria": "PROOF"
@@ -18352,12 +18380,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_coleta_resiliente.py",
           "line": 20,
           "snippet": "import coleta_checkpoint as C    # noqa: E402"
+        },
+        {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 161,
+          "snippet": "import coleta_checkpoint as cc"
         },
         {
           "file": "tests/test_o9_caminho_instrumentado.py",
@@ -18716,7 +18749,7 @@
       "evidence": [
         {
           "file": "medidas/corrida_instrumentada.py",
-          "line": 61,
+          "line": 62,
           "snippet": "import telemetria as tel           # noqa: E402"
         }
       ],
@@ -19440,7 +19473,7 @@
       "evidence": [
         {
           "file": "medidas/corrida_instrumentada.py",
-          "line": 105,
+          "line": 122,
           "snippet": "import executor_texto_de_pdf as ex"
         }
       ],
@@ -19458,7 +19491,7 @@
       "evidence": [
         {
           "file": "medidas/corrida_instrumentada.py",
-          "line": 123,
+          "line": 157,
           "snippet": "actor='coleta/executor_texto_de_pdf.py',"
         }
       ],
@@ -19561,11 +19594,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 251,
+          "snippet": "import executor_texto_de_pdf as ex"
+        },
+        {
           "file": "tests/test_o9_caminho_instrumentado.py",
-          "line": 58,
+          "line": 59,
           "snippet": "import executor_texto_de_pdf as ex"
         },
         {
@@ -19584,11 +19622,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 42,
+          "snippet": "open(p, 'leitura')  # p = coleta/executor_texto_de_pdf.py"
+        },
+        {
           "file": "tests/test_o9_caminho_instrumentado.py",
-          "line": 79,
+          "line": 82,
           "snippet": "'EXECUTOR_ID': 'coleta/executor_texto_de_pdf.py',"
         },
         {
@@ -19751,8 +19794,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fronteira instrumentada tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A fronteira instrumentada tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 25,
+          "snippet": "import corrida_instrumentada as run  # noqa: E402"
+        },
         {
           "file": "tests/test_o9_caminho_instrumentado.py",
           "line": 23,
@@ -19769,11 +19817,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fronteira instrumentada alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A fronteira instrumentada alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 243,
+          "snippet": "'corrida_instrumentada.py')):"
+        },
+        {
           "file": "tests/test_o9_caminho_instrumentado.py",
-          "line": 526,
+          "line": 535,
           "snippet": "open(caminho, 'leitura')  # caminho = medidas/corrida_instrumentada.py"
         }
       ],
@@ -22883,7 +22936,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_execucao_standalone.py",
@@ -22896,8 +22949,13 @@
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
         },
         {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 357,
+          "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
+        },
+        {
           "file": "tests/test_o9_caminho_instrumentado.py",
-          "line": 648,
+          "line": 657,
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
         },
         {
@@ -23074,7 +23132,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
-          "line": 276,
+          "line": 277,
           "snippet": "import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)"
         }
       ],
@@ -23142,12 +23200,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_lingua_unica.py",
           "line": 25,
           "snippet": "import rastro_da_coleta as rastro   # noqa: E402"
+        },
+        {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 178,
+          "snippet": "import rastro_da_coleta as rastro"
         },
         {
           "file": "tests/test_o9_caminho_instrumentado.py",
@@ -23156,7 +23219,7 @@
         },
         {
           "file": "tests/test_o9_caminho_instrumentado.py",
-          "line": 450,
+          "line": 459,
           "snippet": "import scanner_da_coleta as sc"
         },
         {
@@ -24792,7 +24855,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 19 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 20 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -26315,15 +26378,15 @@
   "COUNTS": {
     "components": 137,
     "components_proven": 70,
-    "components_pending": 59,
+    "components_pending": 60,
     "components_broken": 0,
-    "components_unknown": 8,
-    "edges": 496,
-    "edges_proven": 494,
+    "components_unknown": 7,
+    "edges": 497,
+    "edges_proven": 495,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1328,
-    "files_covered": 631,
+    "files_tracked": 1329,
+    "files_covered": 632,
     "files_code_unclaimed": 0
   }
 }

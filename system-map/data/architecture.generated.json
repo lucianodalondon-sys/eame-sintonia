@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "2af57a41a2da1a9e31863258cf2a658878cd49d7",
-    "GENERATED_AT": "2026-09-08T22:18:43+00:00"
+    "HEAD": "44e2de1b43759cf56588820728933ba501828632",
+    "GENERATED_AT": "2026-09-08T22:24:24+00:00"
   },
   "FILES": [
     {
@@ -1171,7 +1171,7 @@
     },
     {
       "path": "coleta/executor_texto_de_pdf.py",
-      "sha": "758707ae97c300f7f155ee221c38d2add7857b5d",
+      "sha": "51ba2ef32dcc53507cd63bfc0b248e42bda347bb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6890,7 +6890,7 @@
     },
     {
       "path": "medidas/corrida_instrumentada.py",
-      "sha": "0070c4727c850d451e1f37cb16842ffb9ee22a7b",
+      "sha": "a9d4c0781fb1efef95aa8242950c74ae9187c5d7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7485,7 +7485,7 @@
     },
     {
       "path": "provas/o_executor_conta_se.py",
-      "sha": "e54b4b60b1d9cb6b21220976594f7898d23d88aa",
+      "sha": "2cb9c613ebdbfedc82cae7434147c3604928c896",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8598,7 +8598,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "619b5c29854dd52fc2168545d5318b41bc7d842c",
+      "sha": "cea13224ba1b7e4806233d7551b7e5e736c72a6e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8612,7 +8612,7 @@
     },
     {
       "path": "system-map/data/provas-de-execucao.json",
-      "sha": "6ec729b3ed8d470f9a7316b2ff1bef03b8dcdeb1",
+      "sha": "47496ea9c751e447825101363394c67477b9e250",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8682,7 +8682,7 @@
     },
     {
       "path": "system-map/scripts/censo_dos_executores.py",
-      "sha": "1e7ac01b5d2ed137716aa1ed909a09143c8c3246",
+      "sha": "c580dfdf967aacbffdb8e9533bee3e68855c9b0e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9066,8 +9066,15 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "sha": "1518c82d169084397e51180230f996891c66833b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_o9_caminho_instrumentado.py",
-      "sha": "343a95e1a7c9e1267ff7ececf92aaa551d69e6a3",
+      "sha": "8bb5611e8b313ab79432f5a3c549dbe9149fc088",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10852,7 +10859,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_pdf.py",
-        "line": 276,
+        "line": 277,
         "snippet": "import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)"
       }
     },
@@ -18079,7 +18086,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "medidas/corrida_instrumentada.py",
-        "line": 105,
+        "line": 122,
         "snippet": "import executor_texto_de_pdf as ex"
       }
     },
@@ -18090,7 +18097,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "medidas/corrida_instrumentada.py",
-        "line": 123,
+        "line": 157,
         "snippet": "actor='coleta/executor_texto_de_pdf.py',"
       }
     },
@@ -18123,7 +18130,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "medidas/corrida_instrumentada.py",
-        "line": 61,
+        "line": 62,
         "snippet": "import telemetria as tel           # noqa: E402"
       }
     },
@@ -25559,7 +25566,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_dos_executores.py",
-        "line": 196,
+        "line": 226,
         "snippet": "open(PROVAS, 'leitura')  # PROVAS = system-map/data/provas-de-execucao.json"
       }
     },
@@ -28534,6 +28541,127 @@
       }
     },
     {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 30,
+        "snippet": "BIBLIA = os.path.join(RAIZ, 'BIBLIA-CANONICA-DA-COLETA.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 24,
+        "snippet": "import _gavetas                      # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 161,
+        "snippet": "import coleta_checkpoint as cc"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 251,
+        "snippet": "import executor_texto_de_pdf as ex"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 42,
+        "snippet": "open(p, 'leitura')  # p = coleta/executor_texto_de_pdf.py"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "medidas/corrida_instrumentada.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 25,
+        "snippet": "import corrida_instrumentada as run  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "medidas/corrida_instrumentada.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 243,
+        "snippet": "'corrida_instrumentada.py')):"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 178,
+        "snippet": "import rastro_da_coleta as rastro"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "provas/paridade_da_lingua.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 357,
+        "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 272,
+        "snippet": "'024_a_corrida_conta_o_que_passou.sql'))"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "system-map/data/provas-de-execucao.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 38,
+        "snippet": "open(LEDGER, 'leitura')  # LEDGER = system-map/data/provas-de-execucao.json"
+      }
+    },
+    {
       "from_file": "tests/test_o9_caminho_instrumentado.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -28562,7 +28690,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_o9_caminho_instrumentado.py",
-        "line": 58,
+        "line": 59,
         "snippet": "import executor_texto_de_pdf as ex"
       }
     },
@@ -28573,7 +28701,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o9_caminho_instrumentado.py",
-        "line": 79,
+        "line": 82,
         "snippet": "'EXECUTOR_ID': 'coleta/executor_texto_de_pdf.py',"
       }
     },
@@ -28584,7 +28712,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o9_caminho_instrumentado.py",
-        "line": 307,
+        "line": 315,
         "snippet": "ex.REGISTO = Path(pasta) / 'REGISTO-DE-ARTEFATOS.json'"
       }
     },
@@ -28639,7 +28767,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o9_caminho_instrumentado.py",
-        "line": 526,
+        "line": 535,
         "snippet": "open(caminho, 'leitura')  # caminho = medidas/corrida_instrumentada.py"
       }
     },
@@ -28661,7 +28789,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_o9_caminho_instrumentado.py",
-        "line": 450,
+        "line": 459,
         "snippet": "import scanner_da_coleta as sc"
       }
     },
@@ -28672,7 +28800,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o9_caminho_instrumentado.py",
-        "line": 648,
+        "line": 657,
         "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
       }
     },
@@ -31201,7 +31329,7 @@
     "system-map/scripts/censo_dos_executores.py": [
       {
         "pasta": "system-map",
-        "line": 318,
+        "line": 407,
         "constante": "destino"
       }
     ],
@@ -31221,10 +31349,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1328,
-    "files_readable": 485,
-    "files_code_dir": 537,
-    "file_edges": 1950,
+    "files_tracked": 1329,
+    "files_readable": 486,
+    "files_code_dir": 538,
+    "file_edges": 1961,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

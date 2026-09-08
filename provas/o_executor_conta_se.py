@@ -73,7 +73,10 @@ def teste_a_caminho_bom():
     _tabela(banco)
     etapas = [_v(l, "etapa") for l in banco.linhas]
     checks = [
-        ("emitiu pelo menos tres etapas", len(banco.linhas) >= 3),
+        # ⚠️ DUAS, E NAO TRES. A terceira era `READY`, e ela saiu em O10R:
+        # COL-LAW-043 nao deixa chamar READY a um texto guardado. Este caminho
+        # atravessa RAW e DERIVED, e e so isso que ele atravessa.
+        ("emitiu as duas etapas que correram", len(banco.linhas) == 2),
         ("as etapas sao do vocabulario", all(e in rastro.ETAPAS for e in etapas)),
         ("nenhuma passagem sem explicacao", not banco.sem_explicacao()),
         ("o grao de entrada e sempre declarado",
@@ -102,17 +105,29 @@ def teste_b_falha_injectada():
                      [{"ERRO": "pdftotext nao esta nesta maquina"}], "")
     _tabela(banco)
     por = banco.por_etapa()
-    raw, der, ready = por.get("RAW"), por.get("DERIVED"), por.get("READY")
+    raw, der = por.get("RAW"), por.get("DERIVED")
+    # ⚠️ ATE O10R ESTA PROVA OLHAVA UMA TERCEIRA ETAPA, `READY`.
+    # Ela existia, e nao devia: COL-LAW-043 diz que READY significa contratos
+    # obrigatorios satisfeitos, e o contrato de saida exige ADMITIDO_POR. Este
+    # caminho chamava READY ao texto que aterrou no registo, e saltava DOIS
+    # estados de COL-LAW-044 de uma vez.
+    #
+    #     DERIVED PERSISTED != READY.
+    #
+    # A intencao desta prova NAO mudou — «a de cima passou, a que falha diz
+    # FAIL, e a de baixo nao inventa nada». Mudou o que e «a de baixo»: neste
+    # caminho nao ha etapa a jusante, e a prova passou a exigir que nenhuma
+    # seja fabricada.
     checks = [
         ("a montante (RAW) passou", _v(raw, "estado") == "PASS"),
         ("a etapa que falhou diz FAIL", _v(der, "estado") == "FAIL"),
         ("a falha traz codigo do registry",
          bool(_v(der, "diagnostic_code"))),
-        ("a jusante (READY) e NOT_RUN, e NAO FAIL",
-         _v(ready, "estado") == "NOT_RUN"),
-        ("a jusante nao conta um unico erro", _n(ready, "error_count") == 0),
-        ("a jusante diz que a de cima nao correu",
-         _v(ready, "diagnostic_code") == "UPSTREAM_NOT_RUN"),
+        ("nenhuma etapa a jusante foi fabricada",
+         por.get("READY") is None and por.get("ADMISSION") is None
+         and por.get("STRUCTURED") is None),
+        ("o caminho termina em DERIVED, e isso e a verdade",
+         set(por) == {"RAW", "DERIVED"}),
         ("o ultimo ponto bom e RAW",
          banco.ultimo_bom(rastro.ETAPAS) == "RAW"),
         ("a conta fecha em TODAS as etapas, mesmo com a falha",
@@ -129,7 +144,13 @@ def teste_ef_erro_nao_e_recusa():
     conta = {"RAW_INPUT": 10, "RAW_CONTEUDOS_DISTINTOS": 10,
              "RAW_COPIAS_REPETIDAS": 0, "TEXT_LAYER_PRESENT": 0,
              "NEEDS_OCR": 3, "EXTRACTION_ERROR": 4, "RAW_UNKNOWN": 0,
-             "DERIVED_EMITTED": 3, "DERIVED_LANDED": 0, "JA_EXISTIA": 0}
+             # ⚠️ «3 SAIRAM» PASSOU A QUERER DIZER «3 ATERRARAM».
+             # Ate O10R, `passed` contava o EMITIDO, e o que aterrava vivia
+             # numa etapa READY a parte. Com essa etapa fora (COL-LAW-043),
+             # emitido-que-nao-aterrou e `unknown` — sumiu e sabe-se quantos.
+             # Esta fixture dizia 3 emitidos e 0 aterrados, o que nao e «3
+             # sairam»: e 3 desaparecidos. A intencao era a primeira.
+             "DERIVED_EMITTED": 3, "DERIVED_LANDED": 3, "JA_EXISTIA": 0}
     ex.emitir_rastro(banco, "PROVA-CONTA", conta, 0,
                      [{"ERRO": "falha tecnica"}], "")
     der = banco.por_etapa()["DERIVED"]

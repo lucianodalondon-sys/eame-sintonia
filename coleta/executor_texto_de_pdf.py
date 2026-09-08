@@ -251,7 +251,8 @@ def carregar_registo() -> dict:
 
 
 def emitir_rastro(banco, run_id, conta, perdidos, erros, inicio,
-                  ferramenta_presente=True):
+                  ferramenta_presente=True, source_id=None,
+                  route_class_id=None):
     """O que esta corrida fez, dito na língua comum de `rastro_da_coleta`.
 
     ⚠️ ISTO NÃO INVENTA NÚMERO NENHUM. Cada valor vem de `conta`, que já era
@@ -275,8 +276,28 @@ def emitir_rastro(banco, run_id, conta, perdidos, erros, inicio,
     """
     import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)
 
-    comum = {"run_id": run_id, "source_id": "IT-PDF-ITALIANOS",
-             "route_class_id": "RC-1", "actor": EXECUTOR_ID,
+    # ⚠️ A IDENTIDADE NÃO NASCE AQUI, E POR ISSO NÃO SE INVENTA AQUI.
+    # Este ficheiro escrevia `source_id="IT-PDF-ITALIANOS"` e a fronteira
+    # escrevia `IT-CORPUS-PDF` — dois nomes para a mesma corrida, e NENHUM dos
+    # dois existe no catálogo de fontes. A mesma coleta tinha uma identidade
+    # quando corria bem e outra quando o executor morria cedo.
+    #
+    #     A LOCALIZAÇÃO DA FALHA NÃO PODE MUDAR A IDENTIDADE DA FONTE.
+    #
+    # E MEDIDO: os 49 PDF atravessam OITO `source_id` reais (IT-T2-001,
+    # IT-T2-002, IT-T3-002, IT-T3-008, IT-T3-010, IT-T3-011, IT-T4-001,
+    # IT-T5-003) em 23 ficheiros, e os outros 26 não têm `source_id` nenhum
+    # derivável do caminho. NÃO HÁ um `source_id` defensável para a corrida
+    # inteira, e a `route_class` não está registada por item em lado nenhum:
+    # nem no `collection-store`, nem no `collection-ledger`.
+    #
+    #     UM ID DE RASTREIO INVENTADO É PIOR DO QUE UNKNOWN.
+    #
+    # `etapa_da_corrida` já aceita NULL nos dois campos — a representação
+    # honesta já existia, e era só não a contornar. Quem PROVAR a identidade
+    # passa-a por parâmetro; quem não prova deixa vazio.
+    comum = {"run_id": run_id, "source_id": source_id,
+             "route_class_id": route_class_id, "actor": EXECUTOR_ID,
              "actor_version": EXECUTOR_VERSION,
              "policy_version": PIPELINE_VERSION}
 
@@ -297,16 +318,28 @@ def emitir_rastro(banco, run_id, conta, perdidos, erros, inicio,
     #    e isso é uma propriedade DELE — a ferramenta não falhou.
     entrada_d = conta["RAW_CONTEUDOS_DISTINTOS"]
     houve_erro = conta["EXTRACTION_ERROR"] > 0
+    # ⚠️ A PERDA CALCULA-SE AQUI, E NAO SE ACEITA DE FORA.
+    # `perdidos` chegava por parametro e podia DISCORDAR do recibo: um chamador
+    # que dissesse 0 com 34 emitidos e 0 aterrados abria um buraco de 34 na
+    # contabilidade sem ninguem reclamar. Os dois numeros estao aqui — entao a
+    # conta faz-se aqui, e ninguem a pode contradizer.
+    perdidos = conta["DERIVED_EMITTED"] - conta["DERIVED_LANDED"]
     rastro.registrar(
         banco, etapa="DERIVED",
-        estado="FAIL" if houve_erro else "PASS",
+        estado=("FAIL" if houve_erro
+                else ("PARTIAL" if perdidos else "PASS")),
         edge_from="RAW",
         input_grain="conteudo distinto", input_count=entrada_d,
-        output_grain="texto derivado", output_count=conta["DERIVED_EMITTED"],
-        passed=conta["DERIVED_EMITTED"],
+        # ⚠️ PASSOU E O QUE ATERROU, NÃO O QUE FOI EMITIDO.
+        # Um texto emitido que não chegou ao registo não passou — sumiu. Ele
+        # entra em `unknown` («mediu-se e não se sabe onde foi»), que é o que
+        # impede a perda de se diluir num número de sucesso. Isto vivia numa
+        # etapa `READY` à parte; ver a nota abaixo sobre por que ela saiu.
+        output_grain="texto derivado", output_count=conta["DERIVED_LANDED"],
+        passed=conta["DERIVED_LANDED"],
         rejected=conta["NEEDS_OCR"],
         error=conta["EXTRACTION_ERROR"],
-        unknown=conta["RAW_UNKNOWN"],
+        unknown=conta["RAW_UNKNOWN"] + perdidos,
         reused=conta["JA_EXISTIA"],
         # ⚠️ `ERROR` NAO E UM ESTADO CANONICO. A primeira versao escrevia
         # `canonical_state="ERROR"`, e `ERROR` nao existe em `falhas.py` — e um
@@ -319,53 +352,44 @@ def emitir_rastro(banco, run_id, conta, perdidos, erros, inicio,
         # A ferramenta em falta e `EXECUTOR_UNAVAILABLE`, camada EXECUTOR:
         # defeito NOSSO, e nao uma afirmacao sobre a fonte. Os PDF continuam
         # bons — ROTA CAIDA NAO E FONTE CAIDA.
-        canonical_state=(None if not houve_erro else
-                         ("UNKNOWN_ERROR" if ferramenta_presente
-                          else "EXECUTOR_UNAVAILABLE")),
-        last_good_artifact="RAW" if houve_erro else None,
+        canonical_state=(("UNKNOWN_ERROR" if ferramenta_presente
+                          else "EXECUTOR_UNAVAILABLE") if houve_erro else
+                         ("ITEM_ERROR" if perdidos else None)),
+        diagnostic_code=(None if houve_erro else
+                         ("FLOW_UNACCOUNTED_INPUT" if perdidos else None)),
+        last_good_artifact=("RAW" if houve_erro else
+                            ("RAW" if perdidos else None)),
         error_class="EXTRACTION_ERROR" if houve_erro else None,
         error_message=(erros[0].get("ERRO") if erros else None),
         **comum)
 
-    # READY · o que aterrou.
+    # ─────────────────────────────────────────────────────────────────────
+    # ⚠️ NÃO SE EMITE `READY` AQUI, E ISTO É UMA LEI E NÃO UMA OMISSÃO.
     #
-    # ⚠️ SE A ETAPA DE CIMA FALHOU, ESTA NÃO FALHOU — ELA NUNCA COMEÇOU.
+    # Este ficheiro emitia uma etapa `READY` e chamava-lhe «o que aterrou no
+    # registo». Mas `READY` já tem dono, e é a COL-LAW-043:
     #
-    # Este defeito estava aqui na primeira versão: com `DERIVED` em FAIL, o
-    # `READY` continuava a sair PASS, e o relato dizia que uma etapa que nunca
-    # correu tinha corrido bem. Ao contrário também engana: marcá-la FAIL faria
-    # UM defeito parecer DOIS, e mandava procurar avaria onde não há nenhuma.
+    #     `READY_FOR_INTELIGENCIA` significa que os CONTRATOS OBRIGATÓRIOS da
+    #     coleta e da preparação foram satisfeitos. NÃO DEVE significar «o
+    #     ficheiro existe» nem «o workflow terminou».
     #
-    #     NOT_RUN != ERROR != PASS.
-    if houve_erro:
-        rastro.registrar(
-            banco, etapa="READY", estado="NOT_RUN", edge_from="DERIVED",
-            input_grain="texto derivado", input_count=conta["DERIVED_EMITTED"],
-            not_run=conta["DERIVED_EMITTED"],
-            diagnostic_code="UPSTREAM_NOT_RUN",
-            **comum)
-    else:
-        rastro.registrar(
-            banco, etapa="READY",
-            estado="FAIL" if perdidos else "PASS",
-            edge_from="DERIVED",
-            input_grain="texto derivado", input_count=conta["DERIVED_EMITTED"],
-            output_grain="texto no registo",
-            output_count=conta["DERIVED_LANDED"],
-            passed=conta["DERIVED_LANDED"],
-            unknown=perdidos,
-            # ⚠️ FALHA PRECISA DE CODIGO — a trava `falha_tem_codigo` da 024
-            # recusa a linha sem ele, e recusa bem: um FAIL sem diagnostico e
-            # um alerta que fica no ecra e ninguem consegue contar.
-            # Texto emitido que nao aterrou e exatamente o buraco que o
-            # `FLOW_UNACCOUNTED_INPUT` nomeia.
-            canonical_state="ITEM_ERROR" if perdidos else None,
-            diagnostic_code="FLOW_UNACCOUNTED_INPUT" if perdidos else None,
-            last_good_artifact="DERIVED" if perdidos else None,
-            **comum)
+    # E o contrato de saída de READY exige `ADMITIDO_POR` — e a admissão é de
+    # outro dono, que este executor declara em voz alta não ser. A COL-LAW-044
+    # separa os estados: RAW · DERIVED · ADMITTED · READY. Chamar READY a um
+    # texto guardado saltava DOIS estados de uma vez.
+    #
+    #     DERIVED PERSISTED != READY.
+    #
+    # E não se inventou uma etapa `DERIVED_PERSISTED` para a substituir: o que
+    # aterrou é `passed` de DERIVED, e o que se emitiu e não aterrou é
+    # `unknown`. A informação não se perdeu — deixou de ter um nome que
+    # prometia mais do que ela é.
+    #
+    # Enquanto ninguém atravessar STRUCTURED e ADMISSION, este caminho termina
+    # em DERIVED. E terminar em DERIVED é a verdade.
 
-
-def correr(seco: bool = False, run_id: str = "", rastro=None) -> dict:
+def correr(seco: bool = False, run_id: str = "", rastro=None,
+           source_id=None, route_class_id=None) -> dict:
     """A corrida de derivação. Devolve o recibo, sempre — mesmo se falhar.
 
     `rastro` é um banco onde escrever a telemetria, ou `None` para não emitir.
@@ -495,7 +519,9 @@ def correr(seco: bool = False, run_id: str = "", rastro=None) -> dict:
     # produção — senão só se saberia se funciona no dia em que já fosse tarde.
     if rastro is not None:
         emitir_rastro(rastro, run_id, conta, perdidos, erros, inicio,
-                      ferramenta_presente=ha_ferramenta())
+                      ferramenta_presente=ha_ferramenta(),
+                      source_id=source_id,
+                      route_class_id=route_class_id)
 
     return {
         "RUN_ID": run_id,
