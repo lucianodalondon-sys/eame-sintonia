@@ -223,8 +223,25 @@ def cenarios(banco):
         "select %s, %s from public.raw_asset r join public.derived_artifact d "
         "on d.raw_asset_id = r.id where d.storage_path = 'IT/x/TEXT/a.txt'"
         % (Banco._ISO % "r.captured_at", Banco._ISO % "d.derived_at")).strip()
-    caso("H_derived_at_e_diferente_de_captured_at",
+    caso("H_nesta_linha_o_derived_at_difere_do_captured_at",
          par and par.split(Banco.SEP)[0] != par.split(Banco.SEP)[1], par)
+
+    # ⚠️ E O QUE ACIMA SE MEDIU FOI UMA LINHA, NAO UMA LEI.
+    # O comentario da migration dizia que o NOT NULL garantia que a data «nao
+    # foi herdada». Nao garante: o banco ve um timestamptz, nao ve de onde ele
+    # veio. Aqui prova-se o contrario — copiar o captured_at para o derived_at
+    # passa por todas as travas sem um arranhao.
+    #
+    #     DB_PROVES_PRESENT  !=  DB_PROVES_NOT_COPIED.
+    #
+    # A lei continua a ser do writer. Este caso existe para que ninguem volte a
+    # escrever que o banco a cumpre.
+    rc, _ = banco.executar(_derivado(
+        raw_b, "IT/b/TEXT/data-copiada.txt", parent_sha256=SHA_OUTRO,
+        producer="ferramenta-da-data-copiada",
+        derived_at="2026-09-08T00:00:00Z"))   # exatamente o captured_at do pai
+    caso("H2_o_banco_NAO_impede_copiar_o_captured_at", rc == 0,
+         "aceitou, como se esperava — a lei e do writer, nao do banco")
 
     # ── I · sha256 igual em dois derivados não é a mesma linhagem ───────
     raw2 = _raw(banco, "IT-DER-2", "IT/y/DOCUMENT/outro.pdf", sha=SHA_OUTRO)
