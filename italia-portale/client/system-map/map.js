@@ -27,6 +27,14 @@ const statusLabel = s => ({ green: 'PROVADO OPERACIONAL', yellow: 'ATENCAO / PEN
 /* As visoes da barra lateral. Cada peca carrega as suas em `views`, vindas do
    ficheiro declarado — agrupamento visual e coisa de gente, nao de scanner. */
 const VISOES = [
+  /* AS DUAS VISTAS QUE RESPONDEM A PERGUNTA CERTA.
+     «Caminho canonico» mostra so as quatro responsabilidades de topo: e como a
+     coleta deveria correr. «Onde a coleta salta o cerebro» mostra quem dispara
+     trabalho sem passar pelo orquestrador — e como ela corre hoje.
+     As duas sao MEDIDAS. Nenhuma desenha arquitetura futura como se existisse:
+     onde o caminho canonico esta partido, ele aparece partido. */
+  ['canonico', '⇉', 'Caminho canônico'],
+  ['desvios', '⚠', 'Onde a coleta salta o cérebro'],
   ['all', '◉', 'Sistema inteiro'], ['official', '→', 'Rota oficial hoje'],
   ['lineage', '⌥', 'Linhagens e donos'], ['acervo', '◫', 'Acervo → pacote'],
   ['generator', '⚙', 'Gerador V2.1'], ['opportunity', '◎', 'Opportunity + relevância'],
@@ -136,7 +144,7 @@ function render() {
     const cls = e.kind === 'expected' ? 'unknown'
       : (a.ui_status === 'red' || b.ui_status === 'red') ? 'broken' : '';
     const cat = e.categoria || 'UNKNOWN';
-    return `<g class="dyn cat${esc(cat)}" data-edge="${i}" data-cat="${esc(cat)}"
+    return `<g class="dyn cat${esc(cat)}${e.desvio ? ' desvio' : ''}" data-edge="${i}" data-cat="${esc(cat)}"
       data-from="${esc(e.from)}" data-to="${esc(e.to)}">
       <path d="${d}" class="edgePath ${cls}"></path>
       <path d="${d}" class="edgeHit"></path></g>`;
@@ -556,6 +564,14 @@ function openDetail(id) {
             prova: ${esc(d.prova.file)}:${d.prova.line}</div>
         </div>`).join('')}</div>` : ''}
 
+      ${n.salta_o_orquestrador ? `<div class="sec">
+        <h4 style="color:#b07d2b">⚠ Esta peça salta o orquestrador</h4>
+        <p style="font-size:11px;color:#4a443f">${esc(n.salta_porque)}</p>
+        <p style="font-size:10px;color:#8a827e;margin-top:6px">Isto continua à vista
+          de propósito. Reorganizar o desenho e esconder o desvio seria maquiagem:
+          o mapa ficaria certo e a casa continuaria a funcionar por fora dele.</p>
+      </div>` : ''}
+
       ${n.papel ? `<div class="sec">
         <h4>Que papel esta peça tem no comando da coleta</h4>
         <p style="font-size:11px;color:#4a443f"><b>${esc(n.papel)}</b> — ${
@@ -674,6 +690,17 @@ function activeView(n) {
   if (currentView === 'futuro') return n.lane === 'futuro';
   if (currentView === 'legacy') return n.lane === 'legacy'
                                    || (n.lane !== 'official' && n.lane !== 'futuro');
+  /* CANONICO: so a avenida — ENTRADA, ORQUESTRADOR, EXECUCAO, PORTA. Nada e
+     apagado: as pecas internas continuam no ficheiro, no raio-X e nas outras
+     vistas. Esconder por conveniencia visual seria a mesma coisa que apagar,
+     porque uma peca que ninguem ve e uma peca que ninguem audita. */
+  if (currentView === 'canonico') return n.nivel === 'PRINCIPAL';
+  /* DESVIOS: quem dispara trabalho sem falar com o orquestrador, mais as duas
+     pontas de cada seta marcada como desvio. */
+  if (currentView === 'desvios') {
+    if (n.salta_o_orquestrador) return true;
+    return edges.some(e => e.desvio && (e.from === n.id || e.to === n.id));
+  }
   return (n.views || []).includes(currentView);
 }
 function applyFilters() {

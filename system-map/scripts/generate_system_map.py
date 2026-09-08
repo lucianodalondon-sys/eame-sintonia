@@ -1212,6 +1212,82 @@ def papel_das_pecas(nos: list) -> None:
         n["papel_medido"] = {k: v for k, v in m.items() if k != "consumidores"}
 
 
+# ── A AVENIDA PRINCIPAL E AS RUAS DE DENTRO ────────────────────────────────
+# O mapa era um diagrama de FICHEIROS: cada modulo virava uma caixa do mesmo
+# tamanho, e a receita — que e politica interna do orquestrador, com um unico
+# consumidor — competia visualmente com o orquestrador.
+#
+#     ARQUIVO NAO E RESPONSABILIDADE. MODULO NAO E ESTACAO.
+#
+# Estas zonas sao a avenida: as responsabilidades de topo da coleta. Tudo o
+# resto continua no mapa, continua clicavel, continua no ficheiro gerado — mas
+# sai da avenida. NADA DESAPARECE: agrupar nao e apagar, e uma peca escondida
+# por conveniencia visual e uma peca que ninguem vai auditar.
+AVENIDA = ("Z-ENTRADA", "Z-ORQUESTRADOR", "Z-EXECUCAO", "Z-ADMISSAO")
+
+# Estas quatro fecham o caminho do controlo. Uma seta entre elas e canonica;
+# uma seta que salta uma delas e um desvio, e o mapa tem de o mostrar em vez de
+# o esconder — senao a reorganizacao vira maquilhagem.
+CAMINHO_CANONICO = ("Z-ENTRADA", "Z-ORQUESTRADOR", "Z-EXECUCAO", "Z-ADMISSAO")
+
+
+def nivel_das_pecas(nos: list) -> None:
+    """PRINCIPAL na avenida, INTERNO no raio-X. Ninguem e removido."""
+    for n in nos:
+        n["nivel"] = "PRINCIPAL" if n.get("territory") in AVENIDA else "INTERNO"
+
+
+def quem_salta_o_cerebro(nos: list) -> None:
+    """Quem dispara trabalho sem passar pelo orquestrador. Medido na peca.
+
+    A primeira versao so olhava para as SETAS que saem da entrada, e por isso
+    nao via o caso maior: o SINTONIA SCRAP dispara seis executores e nao tem
+    ligacao nenhuma com o orquestrador — nao ha seta para encontrar, e a
+    ausencia de seta nao aparece a procurar setas.
+
+        O DESVIO MAIS CARO E O QUE NAO DEIXA RASTO.
+
+    Reorganizar a avenida sem mostrar isto seria maquilhagem: o desenho ficava
+    certo e a casa continuava a funcionar por fora dele.
+    """
+    QUEM_DISPARA = {"BOTAO", "EXECUTOR COMPOSTO"}
+    for n in nos:
+        if n.get("papel") not in QUEM_DISPARA:
+            continue
+        toca_o_cerebro = "C-ORQUESTRADOR" in (
+            set(n.get("inbound") or []) | set(n.get("outbound") or []))
+        n["salta_o_orquestrador"] = not toca_o_cerebro
+        n["salta_porque"] = ("" if toca_o_cerebro else
+                             "dispara trabalho e nao tem ligacao nenhuma com o "
+                             "orquestrador: a decisao de COMO atender esta aqui "
+                             "dentro, e nao no unico sitio que devia decidi-la")
+
+
+def desvios_do_controlo(ligacoes: dict, nos: list) -> list:
+    """As setas que saltam o orquestrador — medidas, nao supostas.
+
+    O modelo aprovado e ENTRADA -> ORQUESTRADOR -> EXECUCAO. Uma seta que sai da
+    entrada e cai direto num executor, numa ferramenta ou num canal salta o
+    cerebro: a decisao de COMO atender fica no botao.
+    """
+    zona = {n["id"]: n.get("territory") for n in nos}
+    DEPOIS_DO_CEREBRO = {"Z-EXECUCAO", "Z-ACOES", "Z-FERRAMENTAS", "Z-VEICULOS"}
+    fora = []
+    for l in ligacoes.values():
+        if l.get("kind") != "technical":
+            continue
+        de, para = zona.get(l["from"]), zona.get(l["to"])
+        salta = (de == "Z-ENTRADA" and para in DEPOIS_DO_CEREBRO) or \
+                (para == "Z-ENTRADA" and de in DEPOIS_DO_CEREBRO)
+        if salta and l.get("categoria") in ("CONTROL", "CODE", "DATA", "READ"):
+            l["desvio"] = True
+            l["desvio_porque"] = (
+                "sai da ENTRADA direto para a execucao, sem passar pelo "
+                "ORQUESTRADOR: a decisao de COMO atender ficou no botao")
+            fora.append(l)
+    return fora
+
+
 def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
     """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
     direita — que e a direcao em que o dado corre: fonte → motor → pacote → tela."""
@@ -2174,6 +2250,8 @@ def main_uma_vez(stamp: bool) -> int:
     # preparo nenhum: o conjunto vinha sempre vazio, em silencio.
     momento_das_ferramentas(nos)
     papel_das_pecas(nos)
+    nivel_das_pecas(nos)
+    quem_salta_o_cerebro(nos)
 
     # ── CADA LIGACAO GANHA A SUA CATEGORIA ──────────────────────────────────
     # Feito aqui, no fim, porque a categoria depende do TIPO das duas pecas —
@@ -2221,6 +2299,8 @@ def main_uma_vez(stamp: bool) -> int:
         n["escreve_na_pasta"] = pastas
 
     onde_para_o_que_sai(nos, produz, _rastreados(), G, dono)
+
+    desvios = desvios_do_controlo(ligacoes, nos)
 
     zonas, nos, faixas, mundo_w, mundo_h = desenhar(
         D["TERRITORIES"], nos, D["FAMILIES"])

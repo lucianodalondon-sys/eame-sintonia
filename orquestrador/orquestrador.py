@@ -3,9 +3,9 @@
 """
 O ORQUESTRADOR — quem responde «qual caminho executar para este pedido».
 
-    py pedido/orquestrador.py "colete materiais de pesquisadores"
-    py pedido/orquestrador.py "colete concorrentes" --so-a-porta   # so a peneira
-    py pedido/orquestrador.py "colete materiais novos de pesquisadores da Espanha" --so-plano
+    py orquestrador/orquestrador.py "colete materiais de pesquisadores"
+    py orquestrador/orquestrador.py "colete concorrentes" --so-a-porta   # so a peneira
+    py orquestrador/orquestrador.py "colete materiais novos de pesquisadores da Espanha" --so-plano
 
 ELE NAO COLETA. Nao abre pagina, nao chama API, nao raspa nada. Ele escolhe o
 executor e coordena — e essa separacao e a razao de existir: quando o executor

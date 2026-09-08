@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "c65ed49a6fd1a1fa3357da507dcfcb642485ae90",
-    "GENERATED_AT": "2026-09-07T21:33:08-03:00"
+    "HEAD": "9df294ee69daa51c9bdae4663ef3cc2b6ab9e1bf",
+    "GENERATED_AT": "2026-09-07T21:46:41-03:00"
   },
   "FILES": [
     {
@@ -44,7 +44,7 @@
     },
     {
       "path": ".github/workflows/comunicacao-publica.yml",
-      "sha": "6f456034e189d64a086152825470ea282b20ad48",
+      "sha": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -191,7 +191,7 @@
     },
     {
       "path": "_gavetas.py",
-      "sha": "00ebe0acc22ba35815015782d0ebf15266a21d22",
+      "sha": "34b9aef66ba5d3e68feb49d117052b386d6cbe9e",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3950,7 +3950,7 @@
     },
     {
       "path": "docs/operacao/MODELO-DAS-CONEXOES.md",
-      "sha": "8eab95a2bd80037ba5a87d889ddc910e5d5e7310",
+      "sha": "49cebcb9358509db9077feff30f41cf6de22681d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6476,6 +6476,13 @@
       "code_dir": true
     },
     {
+      "path": "orquestrador/orquestrador.py",
+      "sha": "e6d9cccad2ee16d47ff403e2d94b99029b640aac",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "package.json",
       "sha": "08d737be6904f5597e02495b601be6f3862be563",
       "ext": ".json",
@@ -6602,13 +6609,6 @@
       "code_dir": true
     },
     {
-      "path": "pedido/orquestrador.py",
-      "sha": "b1b6edd63ff947942079ab92f736de24dfde43e9",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
       "path": "pedido/pedido.py",
       "sha": "783852b225b497ca118f1f250f650123d1f81df0",
       "ext": ".py",
@@ -6729,7 +6729,7 @@
     },
     {
       "path": "regras/LEIA-ANTES-DE-COLETAR.md",
-      "sha": "1eeefbca97c8b8d516200c4cc76453bd018a7911",
+      "sha": "fc77a1f6a2d07b38a8072165d87476d786a97f80",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -7702,28 +7702,28 @@
     },
     {
       "path": "system-map/app/map.css",
-      "sha": "c30040213aae15168316f8b40b27f1dc78a3573c",
+      "sha": "509ff2a37ebb527c7563a88cdf4a6a5429a6b1af",
       "ext": ".css",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "d60b87b0bd4a8eb10481ef35221c2a2d031c8ec5",
+      "sha": "433aa0bc66add1fc4ec82aea3471ba9b3015c8be",
       "ext": ".js",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
-      "sha": "8d0f3ebfa265e74aff8afa38653ca6a86971f72a",
+      "sha": "2e19c8f4a4e9064b707a716a8c0a636f792bc5d9",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "344165863f7765d01c226eb2412cfa75d0c17b7c",
+      "sha": "777121e8948d4ddf74ae32d98673ec14d285e2d5",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7737,7 +7737,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "d2491fcc0458c89cf5a74be186081c82705b5887",
+      "sha": "995f8c974c74b6ae5891ce8fd3f01bdc4664a043",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7786,7 +7786,7 @@
     },
     {
       "path": "system-map/tests/test_system_map.py",
-      "sha": "f0109587cda7b25ffa330d29b0a9d1faab0a2b29",
+      "sha": "6ed6682aa01a24ffd67cd3a7e89c77a84379a399",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8367,13 +8367,13 @@
     },
     {
       "from_file": ".github/workflows/comunicacao-publica.yml",
-      "to_file": "pedido/orquestrador.py",
+      "to_file": "orquestrador/orquestrador.py",
       "type": "RUNS",
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/comunicacao-publica.yml",
         "line": 139,
-        "snippet": "PYTHONIOENCODING=utf-8 $PY pedido/orquestrador.py \"colete concorrentes\" \\"
+        "snippet": "PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \"colete concorrentes\" \\"
       }
     },
     {
@@ -18596,6 +18596,61 @@
       }
     },
     {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 50,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 54,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 128,
+        "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 52,
+        "snippet": "from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 53,
+        "snippet": "from receitas import resolver, Plano  # noqa: E402"
+      }
+    },
+    {
       "from_file": "pacote/lastmile_entregar.py",
       "to_file": "data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json",
       "type": "READS",
@@ -20620,61 +20675,6 @@
       }
     },
     {
-      "from_file": "pedido/orquestrador.py",
-      "to_file": "_gavetas.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "pedido/orquestrador.py",
-        "line": 50,
-        "snippet": "import _gavetas  # noqa: E402,F401"
-      }
-    },
-    {
-      "from_file": "pedido/orquestrador.py",
-      "to_file": "admissao/admissao.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "pedido/orquestrador.py",
-        "line": 54,
-        "snippet": "import admissao as adm  # noqa: E402"
-      }
-    },
-    {
-      "from_file": "pedido/orquestrador.py",
-      "to_file": "data/samples/RUN-MANIFEST.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "pedido/orquestrador.py",
-        "line": 128,
-        "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
-      }
-    },
-    {
-      "from_file": "pedido/orquestrador.py",
-      "to_file": "pedido/pedido.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "pedido/orquestrador.py",
-        "line": 52,
-        "snippet": "from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402"
-      }
-    },
-    {
-      "from_file": "pedido/orquestrador.py",
-      "to_file": "pedido/receitas.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "pedido/orquestrador.py",
-        "line": 53,
-        "snippet": "from receitas import resolver, Plano  # noqa: E402"
-      }
-    },
-    {
       "from_file": "pedido/receitas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -21270,7 +21270,7 @@
     },
     {
       "from_file": "provas/testa_coleta_canonica.py",
-      "to_file": "pedido/orquestrador.py",
+      "to_file": "orquestrador/orquestrador.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
@@ -22045,7 +22045,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1626,
+        "line": 1702,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -22056,7 +22056,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1604,
+        "line": 1680,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -22067,7 +22067,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1385,
+        "line": 1461,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -22100,7 +22100,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1805,
+        "line": 1881,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -22111,7 +22111,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1827,
+        "line": 1903,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -22122,7 +22122,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1828,
+        "line": 1904,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -22133,7 +22133,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1827,
+        "line": 1903,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -22155,7 +22155,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2290,
+        "line": 2370,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -22166,7 +22166,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2290,
+        "line": 2370,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -22177,7 +22177,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1566,
+        "line": 1642,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -22463,7 +22463,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 311,
+        "line": 390,
         "snippet": "agents = RAIZ / \"AGENTS.md\""
       }
     },
@@ -22474,7 +22474,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 320,
+        "line": 399,
         "snippet": "claude = RAIZ / \"CLAUDE.md\""
       }
     },
@@ -22485,7 +22485,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 323,
+        "line": 402,
         "snippet": "readme = RAIZ / \"README.md\""
       }
     },
@@ -22496,7 +22496,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 215,
+        "line": 294,
         "snippet": "(RAIZ / \"_gavetas.py\").exists(),"
       }
     },
@@ -22507,7 +22507,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 290,
+        "line": 369,
         "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
       }
     },
@@ -22518,7 +22518,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 330,
+        "line": 409,
         "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -22562,7 +22562,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 297,
+        "line": 376,
         "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"scan_repo.py\")],"
       }
     },
@@ -22573,7 +22573,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 316,
+        "line": 395,
         "snippet": "\"validate_system_map.py\" in lei,"
       }
     },

@@ -51,7 +51,7 @@ mesma linha cheia.
 
 ## B — O ERRO DE DIREÇÃO, REPRODUZIDO
 
-O código, em `pedido/orquestrador.py:54`:
+O código, em `orquestrador/orquestrador.py:54`:
 
 ```python
 import admissao as adm

@@ -223,3 +223,7 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 /* com o foco num cartao, a seta acesa volta a ser inteira, seja qual for a
    categoria: quem esta a seguir UMA ligacao quer ve-la toda. */
 .dyn.acesa .edgePath{stroke-dasharray:none;opacity:1}
+
+/* O DESVIO NAO SE ESCONDE. Ambar, cheio e mais grosso: uma seta que salta o
+   orquestrador tem de saltar tambem aos olhos. */
+.dyn.desvio .edgePath{stroke:#b07d2b;stroke-width:3.4;opacity:.78;stroke-dasharray:none}

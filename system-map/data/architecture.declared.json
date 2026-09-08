@@ -28,19 +28,38 @@
   },
   "TERRITORIES": [
     {
+      "id": "Z-ENTRADA",
+      "family": "F-COLETA",
+      "name": "1 · ENTRADA DE COLETA",
+      "why": "Por onde uma coleta comeca. Hoje so ha uma forma que existe de verdade: alguem clica num botao. Agendado e por acontecimento estao previstos no contrato e NAO existem — e por isso nao aparecem aqui",
+      "views": [
+        "acervo"
+      ]
+    },
+    {
       "id": "Z-PEDIDO",
       "family": "F-COLETA",
-      "name": "1 · O PEDIDO E O PLANO",
-      "why": "A unica porta de entrada, e os botoes que a usam. Quem pede diz O QUE quer; quem atende decide COMO. Nenhum chamador precisa de saber o nome de um script",
+      "name": "· PEDIDO — o contrato",
+      "why": "O envelope do que se pede: alvo, acionamento, escopo e filtros. NAO E UMA ESTACAO por onde o dado passa — e a forma do pedido, e a politica que o orquestrador usa para o resolver. Fica aqui para se poder abrir",
       "views": [
         "acervo"
       ],
       "folder": "pedido"
     },
     {
+      "id": "Z-ORQUESTRADOR",
+      "family": "F-COLETA",
+      "name": "2 · ORQUESTRADOR",
+      "why": "O unico dono da pergunta «como atender este pedido?». Recebe o pedido, consulta a receita, as fontes e os contratos, escolhe o executor, assina a corrida e leva a colheita a porta",
+      "views": [
+        "acervo"
+      ],
+      "folder": "orquestrador"
+    },
+    {
       "id": "Z-CANDIDATAS",
       "family": "F-COLETA",
-      "name": "2 · DE ONDE VEM UMA FONTE",
+      "name": "· de onde vem uma fonte",
       "why": "Antes de ser fonte, foi candidata. Aqui alguem anota o que apareceu, abre, olha e levanta o que aquilo entrega — so depois vira ficha. Fonte nasce, nao aparece pronta",
       "views": [
         "acervo"
@@ -50,7 +69,7 @@
     {
       "id": "Z-FONTES",
       "family": "F-COLETA",
-      "name": "3 · AS FONTES",
+      "name": "· as fontes",
       "why": "De onde o dado vem — de fora e de dentro. O acervo que se consulta ANTES de coletar, o que a ADAMA ja sabe de si, e a porta por onde entra fonte nova",
       "views": [
         "acervo"
@@ -58,9 +77,29 @@
       "folder": "fontes"
     },
     {
+      "id": "Z-REGRAS",
+      "family": "F-COLETA",
+      "name": "· as reguas que carimbam",
+      "why": "O que se aplica ao item NO MOMENTO em que ele entra: de onde veio, quem esta autorizado, que palavras se digitam, o contrato de cada fonte. Vem antes das acoes porque sao elas que as consultam",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "folder": "regras"
+    },
+    {
+      "id": "Z-EXECUCAO",
+      "family": "F-COLETA",
+      "name": "3 · EXECUCAO",
+      "why": "Quem faz o trabalho. Nao e um ficheiro: e o sitio onde vivem os executores, e as ferramentas e os canais que eles usam aparecem por baixo, nao ao lado",
+      "views": [
+        "acervo"
+      ]
+    },
+    {
       "id": "Z-FERRAMENTAS",
       "family": "F-COLETA",
-      "name": "4 · AS FERRAMENTAS",
+      "name": "· as ferramentas da execucao",
       "why": "Com o que se vai: a rota paga, a rota gratis pelo navegador e a transcricao local",
       "views": [
         "infra"
@@ -70,27 +109,16 @@
     {
       "id": "Z-VEICULOS",
       "family": "F-COLETA",
-      "name": "5 · OS VEICULOS",
+      "name": "· os canais",
       "why": "De ONDE o dado vem: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Vem antes da acao porque e dali que a coleta chega; a acao e quem vai busca-la e quem a guarda",
       "views": [
         "acervo"
       ]
     },
     {
-      "id": "Z-REGRAS",
-      "family": "F-COLETA",
-      "name": "6 · AS REGUAS QUE CARIMBAM",
-      "why": "O que se aplica ao item NO MOMENTO em que ele entra: de onde veio, quem esta autorizado, que palavras se digitam, o contrato de cada fonte. Vem antes das acoes porque sao elas que as consultam",
-      "views": [
-        "acervo",
-        "audit"
-      ],
-      "folder": "regras"
-    },
-    {
       "id": "Z-ACOES",
       "family": "F-COLETA",
-      "name": "7 · AS ACOES DA COLETA",
+      "name": "· os executores",
       "why": "O que se FAZ dentro de um veiculo: colher o YouTube, colher o que o concorrente publica, baixar os rotulos. Acao e verbo — se for um sitio por onde se passa, e veiculo, nao acao",
       "views": [
         "acervo",
@@ -101,7 +129,7 @@
     {
       "id": "Z-ADMISSAO",
       "family": "F-COLETA",
-      "name": "8 · A PORTA DE ADMISSAO",
+      "name": "4 · A PORTA DE ADMISSAO",
       "why": "A peneira comum, e o livro que guarda cada nao com motivo, regra, versao e prova. Daqui sai PRONTO_PARA_INTELIGENCIA — e a fronteira",
       "views": [
         "acervo"
@@ -111,7 +139,7 @@
     {
       "id": "Z-MEDIDAS",
       "family": "F-COLETA",
-      "name": "9 · AS MEDIDAS DA COLETA",
+      "name": "· as medidas da coleta",
       "why": "O que olha para tras e da nota: quanto falta, que fonte respondeu torto, que lei do Brasil ainda nao foi portada. NAO BARRA NADA — medir nao e filtrar, e confundir os dois faz parecer que ha peneira onde so ha termometro",
       "views": [
         "audit"
@@ -582,7 +610,7 @@
     {
       "id": "C-SINTONIA-SCRAP",
       "name": "SINTONIA SCRAP — o despachador",
-      "territory": "Z-FERRAMENTAS",
+      "territory": "Z-EXECUCAO",
       "kind": "workflow",
       "icon": "⚡",
       "views": [
@@ -1445,7 +1473,7 @@
     {
       "id": "C-CI-COLETA",
       "name": "Os botoes que disparam a coleta",
-      "territory": "Z-PEDIDO",
+      "territory": "Z-ENTRADA",
       "kind": "workflow",
       "what": "Os botoes do GitHub, que sao a forma manual de fazer um pedido. Nenhum tem hora marcada: se ninguem clicar, nao se colhe nada.",
       "why_here": "Um botao e um pedido com acionamento MANUAL — nao e um passo antes do pedido. Separa-los obrigava a olhar dois cartoes para entender uma coisa so.",
@@ -1670,7 +1698,7 @@
     {
       "id": "C-ORQUESTRADOR",
       "name": "O orquestrador",
-      "territory": "Z-PEDIDO",
+      "territory": "Z-ORQUESTRADOR",
       "kind": "engine",
       "icon": "⚙",
       "what": "Escolhe o executor, coordena a corrida e ASSINA o recibo no RUN-MANIFEST. Nao raspa nada: so decide o caminho.",
@@ -1679,7 +1707,7 @@
         "ENGENHARIA"
       ],
       "files": [
-        "pedido/orquestrador.py"
+        "orquestrador/orquestrador.py"
       ],
       "views": [
         "acervo"
@@ -1783,7 +1811,7 @@
     ".github/workflows/apify-conexao.yml": "2c37dc40f924a3474c65b049793afc9b525347ba",
     ".github/workflows/apify-sensores.yml": "d9890ae3d47b6b07bb2832697bf55a51dfcacfff",
     ".github/workflows/calendario-regressoes.yml": "d18c4b3e00fac8ff2a31295af78b7a1cd251ec77",
-    ".github/workflows/comunicacao-publica.yml": "6f456034e189d64a086152825470ea282b20ad48",
+    ".github/workflows/comunicacao-publica.yml": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
     ".github/workflows/sintonia-scrap.yml": "39606dfca9e38e60d93c7eb6f097414143f5780a",
     ".github/workflows/supabase-conexao.yml": "19a9de9f85a9091400ee5ea4733d4a57d4cc247b",
     ".github/workflows/supabase-fichas-adama.yml": "4a5d2d2d7f927a8fb901e59db0fd397d2b892c56",
@@ -2082,6 +2110,7 @@
     "motor/v2_montar_handoff.py": "0f25853bb9ce9470838893eabba5dc72798eca52",
     "motor/v2_qa_atribuir.py": "586208251e0b02b02cfd24dee9640cd772c06271",
     "motor/v2_relatorio.py": "9eb92494f1e464dcd88c7a6c92f5a46fd80b33ed",
+    "orquestrador/orquestrador.py": "e6d9cccad2ee16d47ff403e2d94b99029b640aac",
     "pacote/lastmile_entregar.py": "349ca4149746f9458b75585a41a90904e41ec45b",
     "pacote/lastmile_inventario.py": "b6cbc7e79364aa73c245d075c3bcda69ce4fb9af",
     "pacote/lastmile_para_supabase.py": "987238ff6768915fd4c99278c641053fb175d7d2",
@@ -2099,7 +2128,6 @@
     "pacote/pacote_montar.py": "7902be8b68946dc9c1be0e429fbf7768e7a2a176",
     "pacote/pacote_relacoes_convergencia.py": "31ef6178bce498b40cb9a87174b6cb214b82e687",
     "pacote/v21_handoff_json.py": "94aadd8693d949bef7a77d109872e1e372d9f8d0",
-    "pedido/orquestrador.py": "b1b6edd63ff947942079ab92f736de24dfde43e9",
     "pedido/pedido.py": "783852b225b497ca118f1f250f650123d1f81df0",
     "pedido/receitas.py": "38e9779c369d70ce0ae5c926ce96472360c78fa9",
     "portoes/build_portal.py": "1656c9eb410273792b34866ba744e5b553b0ffe7",
@@ -2173,17 +2201,17 @@
     "superficie/it_casa_dados.py": "ea4ef19118f35b42dba189b3a7b134a7eab8ba25",
     "superficie/rede.py": "2724f549c7198dec600f4eaac13739e1a53b156b",
     "system-map/app/index.html": "e03ea69361b475d380b1256e170346f9d3e2cbd1",
-    "system-map/app/map.css": "c30040213aae15168316f8b40b27f1dc78a3573c",
-    "system-map/app/map.js": "d60b87b0bd4a8eb10481ef35221c2a2d031c8ec5",
+    "system-map/app/map.css": "509ff2a37ebb527c7563a88cdf4a6a5429a6b1af",
+    "system-map/app/map.js": "433aa0bc66add1fc4ec82aea3471ba9b3015c8be",
     "system-map/scripts/censo_da_coleta.py": "3fa99e2b2154151b55c6f4ff5f1f87c7b27b8d8d",
-    "system-map/scripts/generate_system_map.py": "d2491fcc0458c89cf5a74be186081c82705b5887",
+    "system-map/scripts/generate_system_map.py": "995f8c974c74b6ae5891ce8fd3f01bdc4664a043",
     "system-map/scripts/mudar_gaveta.py": "99736f74a118a545f946246f88c041153e4bb342",
     "system-map/scripts/pente_fino_da_coleta.py": "7c6f8bd541be3e5aef7aaf3df2514af423f14928",
     "system-map/scripts/scan_casco.py": "ff41767da8af0d50f153179d517e6cabd636c014",
     "system-map/scripts/scan_repo.py": "2721f4eace153fcaf95ff45e0f6633247bb24cb3",
     "system-map/scripts/scan_sources.py": "ebf2ca643c3fc39caed844e26ec7ae88846d2343",
     "system-map/scripts/validate_system_map.py": "049a768123347c52a32588b49d3fd6d65c564a8d",
-    "system-map/tests/test_system_map.py": "f0109587cda7b25ffa330d29b0a9d1faab0a2b29",
+    "system-map/tests/test_system_map.py": "6ed6682aa01a24ffd67cd3a7e89c77a84379a399",
     "tests/es/test_adama_es_gate.py": "6a314fa029012cc403351afa7248c1b89666e786",
     "tests/es/test_adama_es_import_rules.py": "b37f0ceadb1bb42c4f4cd08c2c473d4cf661a197",
     "tests/test_adama_relevance.py": "4337978c67cf52681f3eddbcaeb2423eca2291e8",

@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.collection-issues/1",
   "O_QUE_ISTO_E": "Achados registados durante a etapa de linguagem das conexoes. NENHUM foi consertado aqui, de proposito: aquela etapa era de representacao, e consertar comportamento no meio de uma mudanca de medicao faz com que nao se saiba mais qual das duas coisas mudou o resultado.",
   "PROVENANCE": {
-    "HEAD": "c65ed49a6fd1a1fa3357da507dcfcb642485ae90"
+    "HEAD": "9df294ee69daa51c9bdae4663ef3cc2b6ab9e1bf"
   },
   "ISSUES": [
     {
@@ -10,7 +10,7 @@
       "NODE": "C-SINTONIA-SCRAP",
       "TYPE": "CAMINHO_PARALELO",
       "DESCRIPTION": "O SINTONIA SCRAP chama dez scripts pelo nome, direto, sem passar pelo orquestrador. E um segundo caminho para a mesma coisa: no dia em que um executor mudar de nome ou de argumentos, o botao quebra e ninguem descobre ate alguem clicar.",
-      "EVIDENCE": "medido na etapa 2: sintonia-scrap.yml chama 6 executores e 4 ferramentas pelo nome; a palavra «orquestrador» nao aparece no ficheiro. Dos 4 botoes de coleta, 3 nao passam pelo orquestrador",
+      "EVIDENCE": "medido na etapa 2: sintonia-scrap.yml chama 6 executores e 4 ferramentas pelo nome; a palavra «orquestrador» nao aparece no ficheiro. Dos 4 botoes de coleta, 3 nao passam pelo orquestrador · etapa 3: medido na PECA, nao na seta — o scrap nao tem ligacao nenhuma com o orquestrador, e ausencia de seta nao aparece a procurar setas. Marcado `salta_o_orquestrador` e visivel na vista «Onde a coleta salta o cerebro»",
       "STATUS": "OPEN"
     },
     {
@@ -18,8 +18,8 @@
       "NODE": "C-SINTONIA-SCRAP",
       "TYPE": "ZONA_DUVIDOSA",
       "DESCRIPTION": "Esta em «AS FERRAMENTAS». A etapa 2 mediu o que ele e: COMPOSITE_EXECUTOR — oferece 24 fases, a PESSOA escolhe qual, e ele abre os portoes certos e despacha. Nao e um segundo orquestrador (nao decide rota sozinho), mas tambem nao e uma ferramenta: e um executor composto",
-      "EVIDENCE": "system-map/data/state.generated.json — territory=Z-FERRAMENTAS, momento=DESPACHO; os workflows de C-CI-COLETA estao em Z-PEDIDO",
-      "STATUS": "OPEN"
+      "EVIDENCE": "system-map/data/state.generated.json — territory=Z-FERRAMENTAS, momento=DESPACHO; os workflows de C-CI-COLETA estao em Z-PEDIDO · FECHADO na etapa 3: passou para «3 · EXECUCAO», com papel medido EXECUTOR COMPOSTO. Prova E6_scrap_nao_e_ferramenta",
+      "STATUS": "CLOSED"
     },
     {
       "ISSUE_ID": "COL-003",
@@ -98,8 +98,8 @@
       "NODE": "C-RECEITAS",
       "TYPE": "INTERNAL_MODULE_SHOWN_AS_TOP_LEVEL",
       "DESCRIPTION": "A receita e a politica interna do orquestrador — nao executa nada e tem UM unico consumidor. O mesmo vale para o pedido, que e um contrato. Ambos aparecem no mapa como estacoes do mesmo tamanho de uma etapa que o dado atravessa. Ficheiro nao e responsabilidade; modulo nao e estacao.",
-      "EVIDENCE": "quem importa `receitas`: so pedido/orquestrador.py e as provas. Sem rede, sem escrita, sem subprocesso",
-      "STATUS": "OPEN"
+      "EVIDENCE": "quem importa `receitas`: so pedido/orquestrador.py e as provas. Sem rede, sem escrita, sem subprocesso · FECHADO na etapa 3: ambos com nivel=INTERNO. Continuam no mapa, com ficha e ficheiros — so sairam da avenida. Provas E1, E2 e E3",
+      "STATUS": "CLOSED"
     },
     {
       "ISSUE_ID": "COL-013",
@@ -116,10 +116,19 @@
       "DESCRIPTION": "A escolha da estrategia existe, mas foi para FORA do sistema: quem clica escolhe entre 24 fases. Nao esta errado — mas nao aparece em lado nenhum do mapa, e por isso ninguem consegue auditar por que aquela fase foi escolhida e nao outra.",
       "EVIDENCE": "sintonia-scrap.yml — 24 opcoes em `type: choice`, escolhidas pela pessoa; as condicoes `if:` so abrem portoes",
       "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-015",
+      "NODE": "C-ORQUESTRADOR",
+      "TYPE": "CANONICAL_PATH_BROKEN",
+      "DESCRIPTION": "O caminho canonico ENTRADA -> ORQUESTRADOR -> EXECUCAO -> PORTA tem QUATRO estacoes e apenas DUAS ligacoes. Medido: ENTRADA -> ORQUESTRADOR existe; ORQUESTRADOR -> EXECUCAO esta CORTADO; EXECUCAO -> PORTA esta CORTADO. O mapa mostra o corte em vez de o completar com seta inventada — desenhar a arquitetura desejada como se existisse seria a unica coisa pior do que nao a ter.",
+      "EVIDENCE": "vista «Caminho canonico»: 4 pecas, 2 ligacoes",
+      "STATUS": "OPEN"
     }
   ],
   "COUNTS": {
-    "abertos": 14,
-    "total": 14
+    "abertos": 13,
+    "fechados": 2,
+    "total": 15
   }
 }

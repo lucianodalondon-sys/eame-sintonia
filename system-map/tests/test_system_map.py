@@ -106,7 +106,7 @@ prova("regua_que_carimba_nao_e_regua_que_mede", not trocadas,
 # Dez provas, e cada uma existe por uma maneira conhecida de o mapa mentir sobre
 # uma ligacao. A primeira e a mais importante, e nasceu de um caso real:
 #
-#     pedido/orquestrador.py:54   import admissao as adm
+#     orquestrador/orquestrador.py:54   import admissao as adm
 #
 # O mapa dizia «A porta de admissao importa O orquestrador» — o contrario do que
 # o codigo faz. A seta estava certa (o codigo do importado entra no importador);
@@ -193,6 +193,85 @@ GERADOR = (RAIZ / "system-map" / "scripts" / "generate_system_map.py").read_text
 prova("T10_omissao_nao_e_dado",
       "CATEGORIA_DO_TIPO.get(tipo, DESCONHECIDA)" in GERADOR,
       "tipo desconhecido tem de cair em UNKNOWN, nunca em DATA")
+
+# ── a avenida mostra responsabilidades, e nao esconde nada ──────────────────
+# Doze provas. A tentacao de uma reorganizacao visual e sempre a mesma: tirar do
+# ecra o que incomoda e chamar-lhe «agrupamento». Estas provas existem para isso
+# nao acontecer — agrupar nao e apagar, e o desvio continua a doer a vista.
+POR_ID_N = {n["id"]: n for n in S["NODES"]}
+APP = RAIZ / "system-map" / "app"
+MAPJS = (APP / "map.js").read_text(encoding="utf-8")
+
+# E1 · o pedido continua no mapa, e continua a ter os seus ficheiros
+ped = POR_ID_N.get("C-PEDIDO")
+prova("E1_pedido_continua_acessivel",
+      bool(ped) and bool(ped.get("files")),
+      "o contrato do pedido nao pode desaparecer por ter deixado a avenida")
+
+# E2 · a receita continua, e continua com um so consumidor
+rec = POR_ID_N.get("C-RECEITAS")
+consumidores = [e["to"] for e in S["EDGES"]
+                if e["from"] == "C-RECEITAS" and e.get("kind") == "technical"]
+prova("E2_receita_continua_com_um_consumidor",
+      bool(rec) and set(consumidores) <= {"C-ORQUESTRADOR", "C-PROVA-COLETA"},
+      f"consumidores da receita: {sorted(set(consumidores))}")
+
+# E3 · nem o pedido nem a receita sao estacao principal
+prova("E3_receita_nao_e_estacao_principal",
+      (rec or {}).get("nivel") == "INTERNO" and (ped or {}).get("nivel") == "INTERNO",
+      "modulo interno nao pode competir com o orquestrador na avenida")
+
+# E4 · os botoes vivem na entrada
+bot = POR_ID_N.get("C-CI-COLETA")
+prova("E4_botoes_vivem_na_entrada",
+      (bot or {}).get("territory") == "Z-ENTRADA")
+
+# E5/E6 · o scrap e executor composto, e nao ferramenta
+scr = POR_ID_N.get("C-SINTONIA-SCRAP")
+prova("E5_scrap_e_executor_composto",
+      (scr or {}).get("papel") == "EXECUTOR COMPOSTO",
+      f"papel medido: {(scr or {}).get('papel')}")
+prova("E6_scrap_nao_e_ferramenta",
+      (scr or {}).get("territory") != "Z-FERRAMENTAS",
+      "despachar seis executores nao e ser ferramenta")
+
+# E7 · a Apify continua a ser ferramenta paga, e continua no mapa
+ap = POR_ID_N.get("C-APIFY-POOL")
+prova("E7_apify_e_ferramenta_paga",
+      bool(ap) and ap.get("territory") == "Z-FERRAMENTAS"
+      and ap.get("momento") == "ROTA")
+
+# E8 · o mapa NAO afirma que «gratis primeiro» esta em vigor
+texto_do_mapa = json.dumps(S, ensure_ascii=False).lower()
+prova("E8_mapa_nao_afirma_fallback_garantido",
+      "apify so depois" not in texto_do_mapa
+      and "apify apenas se" not in texto_do_mapa,
+      "a politica «gratis primeiro» nao esta em codigo nenhum; "
+      "o mapa nao pode dizer que esta")
+
+# E9 · os desvios continuam visiveis
+desvios = [e for e in S["EDGES"] if e.get("desvio")]
+saltam = [n for n in S["NODES"] if n.get("salta_o_orquestrador")]
+prova("E9_desvios_continuam_visiveis", bool(desvios) or bool(saltam),
+      "reorganizar a avenida e apagar o desvio seria maquilhagem")
+
+# E10 · agrupar nao apagou ninguem
+prova("E10_agrupar_nao_apagou_ninguem",
+      len(S["NODES"]) >= 97 and all(n.get("nivel") for n in S["NODES"]),
+      f"{len(S['NODES'])} pecas; antes da etapa 3 eram 97")
+
+# E11 · CURRENT e PROPOSED nao se confundem
+declarado = json.dumps(D, ensure_ascii=False)
+prova("E11_proposta_nao_se_disfarca_de_estado",
+      "PROPOSED" not in declarado,
+      "nenhuma aresta ou peca PROPOSED pode estar no ficheiro declarado: "
+      "o mapa desenha o que existe, e a proposta vive no documento")
+
+# E12 · as duas vistas existem e sao medidas, nao escritas a mao
+prova("E12_as_duas_vistas_existem",
+      "'canonico'" in MAPJS and "'desvios'" in MAPJS
+      and "n.nivel === 'PRINCIPAL'" in MAPJS
+      and "n.salta_o_orquestrador" in MAPJS)
 
 # ── a prateleira ─────────────────────────────────────────────────────────────
 GAVETAS = {z["folder"] for z in S["TERRITORIES"] if z.get("folder")}
