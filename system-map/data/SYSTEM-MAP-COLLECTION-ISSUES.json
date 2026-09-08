@@ -204,11 +204,19 @@
    "DESCRIPTION": "Medido o que a porta FAZ, e nao o tamanho do dicionario. Dos 49 itens italianos que tem texto a serio nesta arvore: 42 SIM (85,7%) e 7 NAO_SEI (14,3%), zero NAO. Os 7 NAO_SEI sao todos o mesmo ficheiro, EUROSTAT-apri_pi_inq: texto explicativo em INGLES sobre metodologia de indices de preco — nao e conversa agronomica italiana, e a porta ter dito «nao sei» em vez de «nao» e exatamente a lei da ausencia a funcionar. AVISO: isto e RECALL, nao ACERTO. Para saber se as 42 decisoes estao certas era preciso alguem que leia italiano marcar a mao o que devia passar, e essa lista nao existe. ACERTO = NAO SEI.",
    "EVIDENCE": "system-map/scripts/recall_da_porta_it.py -> system-map/data/recall-porta-it.generated.json (VERSAO_DA_REGRA=2)",
    "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-026",
+   "NODE": "C-MAPA-TESTES",
+   "TYPE": "REGENERATION_RACE",
+   "DESCRIPTION": "Duas coisas regeneram os mesmos ficheiros: validate_system_map.py e a prova scanner_e_deterministico. Se correrem ao mesmo tempo, uma le o que a outra esta a escrever e a prova cai — mas cai por CORRIDA, nao por defeito. Reproduzido: encadeados numa so linha de comando dao FAIL; isolados dao PASS os dois. Isto pode pintar o CI de vermelho ao acaso, e uma falha intermitente custa mais a diagnosticar do que uma constante, porque quem a ve duvida da propria medicao. NAO CORRIGIDO: o conserto e dar a cada um a sua pasta temporaria, ou um cadeado, e isso e mudar a ferramenta de medicao no fim de uma etapa de medicao — exatamente o que esta casa evita.",
+   "EVIDENCE": "py system-map/scripts/validate_system_map.py && py system-map/tests/test_system_map.py numa so linha -> FAIL; separados -> PASS",
+   "STATUS": "OPEN"
   }
  ],
  "COUNTS": {
-  "abertos": 19,
+  "abertos": 20,
   "fechados": 6,
-  "total": 25
+  "total": 26
  }
 }

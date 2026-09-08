@@ -229,6 +229,11 @@ Provas T14, T15, T16.
 | 2 | 3 ficheiros que prometem prosa e não têm | COL-024 |
 | 3 | gabarito humano para medir precisão | COL-025 |
 | 4 | `voz.pipeline_video()` testado e nunca corrido | COL-022 |
+| 5 | validador e provas do mapa disputam os mesmos ficheiros | COL-026 |
+
+> ⚠️ Sobre a 5: corra o validador e as provas do mapa **um de cada vez**. Os
+> dois regeneram os mesmos ficheiros; encadeados, um lê o que o outro está a
+> escrever e a prova cai por corrida, não por defeito.
 
 ---
 
