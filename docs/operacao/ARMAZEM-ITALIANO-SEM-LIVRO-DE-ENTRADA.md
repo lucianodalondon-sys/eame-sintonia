@@ -294,7 +294,7 @@ nesta missão.**
 | dimensão | estado |
 |---|---|
 | **HISTÓRICO** · os 195 objetos existentes sem memória operacional | **ABERTO, e assim fica.** Classe de dívida: `HISTORICAL_STORAGE_WITHOUT_OPERATIONAL_RUN`. Preservados, com procedência documental recuperável e `RUN` `NOT_PROVABLE`. **Sem corrida inventada.** |
-| **GARANTIA FORWARD** · nenhum objeto NOVO pode repetir isto em silêncio | **`FORWARD_IMPLEMENTED`** · `POSTGRES_PROOF_PENDING_CI` · `LIVE_OBSERVATION_PENDING`. Provado em SQLite real; a prova em Postgres **abortou** e foi corrigida — o estado só sobe quando o CI disser verde |
+| **GARANTIA FORWARD** · nenhum objeto NOVO pode repetir isto em silêncio | **`FORWARD_IMPLEMENTED`** · **`POSTGRES16_FOUNDATION_SCHEMA_TESTED`** · `LIVE_OBSERVATION_PENDING`. CI verde lido: execução `34235362771`, **19/19** cenários contra Postgres 16 real. **Sem consumidor ligado** |
 
 ### A classe de dívida do histórico, escrita com todas as letras
 
@@ -484,9 +484,9 @@ esquecer de atualizar o estado**.
 
 ```
 G-42 FORWARD = FORWARD_IMPLEMENTED
-               SQLITE_DB_TESTED
-               POSTGRES_PROOF_PENDING_CI   ← so sobe quando o CI disser verde
-               LIVE_OBSERVATION_PENDING
+               SQLITE_DB_TESTED                       31 provas locais
+               POSTGRES16_FOUNDATION_SCHEMA_TESTED    19/19, run 34235362771
+               LIVE_OBSERVATION_PENDING               nenhum caller real
 ```
 
 Não é `OPERATIONAL` e não é `OBSERVED_LIVE`. **Primeiro consumidor designado:**

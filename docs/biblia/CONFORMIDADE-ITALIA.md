@@ -327,8 +327,8 @@ que ele estava errado.
 `G-42` **`ITALY_STORAGE_METADATA_RECONCILIATION` — 195 objetos italianos no bucket `raw`
 (80,7 MB) com **0** linhas de `raw_asset` e **0** de `collection_run` a reclamá-los.** Um gap
 só, em **duas dimensões**: a **garantia forward** está em
-`FORWARD_IMPLEMENTED` · `SQLITE_DB_TESTED` · `POSTGRES_PROOF_PENDING_CI` ·
-`LIVE_OBSERVATION_PENDING`
+`FORWARD_IMPLEMENTED` · `SQLITE_DB_TESTED` · `POSTGRES16_FOUNDATION_SCHEMA_TESTED`
+(CI verde lido: 19/19, execução `34235362771`) · `LIVE_OBSERVATION_PENDING`
 (`guarda/preservar_coleta.py` — a reconciliação vem de um `SELECT` num banco real e
 descartável, `do nothing` deixou de esconder conflito, e a corrida só diz `COMPLETE` se o
 banco também disser `concluida`; **medido: zero consumidores reais**, por isso não é

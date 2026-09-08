@@ -472,7 +472,9 @@ def main():
     for nome, passou, detalhe in resultados:
         print("  %-4s %-46s %s" % ("PASS" if passou else "FAIL", nome, detalhe))
     reprovados = [n for n, p, _ in resultados if not p]
-    print("\nPOSTGRES_DESCARTAVEL=%s · %d caso(s)%s" % (
+    # O NOME DA PROVA E O ESCOPO DELA. `POSTGRES_DESCARTAVEL` dizia onde correu
+    # e calava o que cobriu — e o que cobriu e so a migration 001.
+    print("\nPOSTGRES16_FOUNDATION_SCHEMA_TESTED=%s · %d caso(s)%s" % (
         "PASS" if not reprovados else "FAIL", len(resultados),
         "" if not reprovados else " · reprovados: " + ", ".join(reprovados)))
     return 1 if reprovados else 0

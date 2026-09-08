@@ -784,6 +784,49 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
   produção, 0 corridas retrocriadas.
 - **Detalhe completo:** [`../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md`](../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md) §J2.
 
+
+### D-033 — Postgres subir não é Postgres passar
+
+- **Data:** 2026-09-08
+- **A promoção anterior era prematura, e o erro foi meu.** Escrevi `DB_TESTED` **sem ler o
+  resultado do CI**. O workflow `banco-descartavel`, execução `34233443996`, deu **FAILURE**:
+  `ValueError: invalid literal for int() with base 10: 'count
+0
+(1 row)'`. O contentor
+  arrancou, a ligação passou, a `migration 001` foi aplicada — e a prova rebentou no primeiro
+  `count`.
+- **A causa era de ferramenta, não de arquitetura.** O comando do `psql` era montado por
+  índice: `cmd[3:3] = ["-t","-A","-F",sep]` inseria os sinalizadores **entre** o `-v` e o
+  `ON_ERROR_STOP=1`. O `psql` leu «define uma variável chamada `-t`», a saída voltou alinhada
+  com cabeçalho e rodapé, e tudo a jusante leu lixo. **Não se conserta aprendendo a apanhar
+  `count`/`(1 row)` com as mãos — pede-se a saída certa:** `-X -q -A -t -F`.
+- **Três brechas fechadas na mesma passagem:**
+  1. **`CONTAR NÃO É CONFERIR`.** Entre a leitura prévia e o nosso `insert`, outro escritor
+     pode meter uma linha divergente no mesmo caminho; o `do nothing` cala-se e a **contagem
+     bate na mesma**. Agora cada linha é lida de volta **depois** da escrita e comparada campo
+     a campo (`CONFERENCIA_POS_ESCRITA`), com caso de corrida encenado a prová-lo.
+  2. **`STARTED_AT` NÃO É `FINISHED_AT`.** O fecho caía para o `started_at` quando não tinha
+     hora de fim — a corrida dizia ter acabado no instante em que começou, falso e com cara de
+     medido. Sem hora declarada, a autoridade é o `now()` do **próprio banco**.
+  3. **A tranca comparava pedaços de texto.** `db.exemplo.com` contém `db.`;
+     `localhost.atacante.example` contém `localhost`. Agora a URL é **decomposta**: `hostname`
+     exatamente local **e** banco exatamente `descartavel`.
+- **CI verde, lido:** execução `34235362771` — **19/19** cenários contra **Postgres 16 real**,
+  e as **4 recusas** da tranca. O passo negativo corre com `if: always()`, porque uma tranca
+  que só se testa quando está tudo bem não é uma tranca.
+- **Os 19 cenários passam a correr também em SQLite, como ENSAIO local.** Não substituem o
+  Postgres — substituem o **ciclo de espera** que deixou a correção anterior ir para o ar
+  quebrada.
+- **O nome da prova encolheu para o que ela mede:** `POSTGRES16_FOUNDATION_SCHEMA_TESTED`. Só
+  a `migration 001`; as `002`–`021` não entram, e alargar isso não era o assunto.
+- **Estado do G-42 forward:** `FORWARD_IMPLEMENTED` · `SQLITE_DB_TESTED` ·
+  `POSTGRES16_FOUNDATION_SCHEMA_TESTED` · `LIVE_OBSERVATION_PENDING`. **Ainda não
+  `OPERATIONAL`:** medido, zero consumidores reais.
+- **`derived_artifact` continua sendo a única lacuna de esquema.** Reforçado: os quatro
+  estados de pendência e a conferência pós-escrita não pediram coluna nem enum.
+- **Nada tocou produção:** 0 escritas, 0 migrations aplicadas em produção, 0 corridas
+  retrocriadas.
+
 ---
 
 ## PERGUNTAS PENDENTES
