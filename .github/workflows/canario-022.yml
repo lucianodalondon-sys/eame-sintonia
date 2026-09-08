@@ -13,13 +13,24 @@
 # avisa que reaplicar a 015 RESSUSCITARIA uma coluna que a 018 aposentou, e
 # `add column if not exists` faz isso em silêncio.
 #
-# NÃO HÁ JOB DE APPLY AQUI, DE PROPÓSITO. Aplicar é a decisão seguinte, e
-# ela toma-se com o relatório do pré-voo na mão — não no mesmo empurrão.
+# O JOB `aplicar` SÓ CORRE À MÃO (`workflow_dispatch` com `confirmar: SIM`), e
+# só depois de o pré-voo ter dito `PORTAO=ABERTO`. Um empurrão de código nunca
+# aplica DDL: o gatilho por caminho dispara apenas o pré-voo, que só lê.
+#
+# E ele chama `motor/cadeia_canonica.sh` — o MESMO aplicador da casa, com o
+# ficheiro 022 como entrada. Nada de DDL copiada para outro sítio: o ficheiro
+# é a fonte, e o SHA dele fica no relatório.
 # ═══════════════════════════════════════════════════════════════════════
 name: canario-022
 
 on:
   workflow_dispatch:
+    inputs:
+      confirmar:
+        description: 'Escreva SIM para APLICAR a 022 em producao. Vazio = so pre-voo.'
+        type: string
+        default: ''
+
   # O `workflow_dispatch` so aparece quando o ficheiro ja esta no ramo
   # principal, e este vive num ramo de trabalho. O gatilho por caminho e o
   # idioma que esta casa ja usa para o mesmo problema — ver
@@ -54,3 +65,28 @@ jobs:
           sha256sum supabase/migrations/022_o_derivado_ganha_casa.sql
           echo "Este e o artefato. Se o que for aplicado tiver outro SHA,"
           echo "nao foi a 022 que se aplicou."
+
+  aplicar:
+    needs: preflight
+    # DUAS TRAVAS, E AS DUAS TEM DE ESTAR ABERTAS: alguem escreveu SIM a mao, e
+    # o pre-voo passou. Um empurrao de codigo nao satisfaz nenhuma das duas.
+    if: github.event_name == 'workflow_dispatch' && inputs.confirmar == 'SIM'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1 · o artefato que vai ser aplicado
+        run: sha256sum supabase/migrations/022_o_derivado_ganha_casa.sql
+
+      # O APLICADOR CANONICO DA CASA, com o ficheiro como entrada. O pre-voo
+      # ja provou que ele so tem a 022 por aplicar — as outras 20 estao no
+      # livro-razao e sao puladas.
+      - name: 2 · aplicar pela cadeia canonica
+        run: bash motor/cadeia_canonica.sh migrations "$SUPABASE_DB_URL"
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+
+      - name: 3 · readback do esquema, e a contagem que tem de ser zero
+        run: bash provas/readback_022_live.sh
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
