@@ -2,7 +2,7 @@
  "SCHEMA": "sintonia.collection-bible/1",
  "NOTA": "DERIVADO de BIBLIA-CANONICA-DA-COLETA.md. Nao editar a mao: corra `py provas/valida_biblia.py --build`.",
  "BIBLE_ID": "SINTONIA-COLLECTION-BIBLE",
- "VERSION": "V1",
+ "VERSION": "V1.1",
  "STATUS": "CANONICAL",
  "EFFECTIVE_FROM": "2026-09-07",
  "CURRENT_PROFILE": "ITALY_PROFILE_V1",
@@ -432,6 +432,279 @@
    ],
    "law_status": "CANONICAL",
    "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-101",
+   "nome": "TUDO DEVE SER RENDERIZÁVEL",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-102",
+   "nome": "AS QUATRO VERDADES",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-103",
+   "nome": "ESTADO DERIVÁVEL NÃO SE ESCREVE À MÃO",
+   "origem": [
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-104",
+   "nome": "CONTRATO DE COMPONENTE RENDERIZÁVEL",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-105",
+   "nome": "CONTRATO DE CONEXÃO RENDERIZÁVEL",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-106",
+   "nome": "CONTRATO DE CORRIDA RENDERIZÁVEL",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-107",
+   "nome": "A PERDA TEM DE APARECER NA ARESTA",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-108",
+   "nome": "QUATRO VISTAS, UMA VERDADE SÓ",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-109",
+   "nome": "NÍVEIS DE ZOOM, E O LAYOUT NÃO MANDA",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-110",
+   "nome": "OBSERVABILIDADE POR NASCIMENTO",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-111",
+   "nome": "A CAMADA DE OBSERVABILIDADE NÃO É UMA SEGUNDA VERDADE",
+   "origem": [
+    "ENGINEERING_PRINCIPLE",
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-112",
+   "nome": "TODA AFIRMAÇÃO DO MAPA TEM EVIDÊNCIA NAVEGÁVEL",
+   "origem": [
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-201",
+   "nome": "ARTEFATO NÃO É FATO",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-202",
+   "nome": "O MODELO ARTEFATO → CLAIM",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-203",
+   "nome": "A PROCEDÊNCIA CHEGA ATÉ O VALOR",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-204",
+   "nome": "DEDUPE NÃO DESTRÓI A HISTÓRIA",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-205",
+   "nome": "A FONTE É ESTÁVEL; O ENDPOINT É SUBSTITUÍVEL",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-206",
+   "nome": "TRÊS IDENTIDADES, E A URL NÃO É UMA DELAS",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-207",
+   "nome": "DESCOBRIR ≠ BUSCAR ≠ DERIVAR",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-208",
+   "nome": "O SOURCE REGISTRY É A MEMÓRIA DA COLETA",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-209",
+   "nome": "A CORRIDA É HISTÓRIA, E HISTÓRIA NÃO SE REESCREVE",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-210",
+   "nome": "A CORRIDA SÓ FICA COMPLETE NO FIM",
+   "origem": [
+    "ENGINEERING_PRINCIPLE",
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-211",
+   "nome": "A CONFIGURAÇÃO DA CORRIDA FICA CONGELADA",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-212",
+   "nome": "O INCREMENTAL FECHA A JANELA ANTES DE ENTRAR",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-213",
+   "nome": "INCREMENTAL NÃO É SÓ SOMAR",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-214",
+   "nome": "ZERO TEM SEMÂNTICA",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-215",
+   "nome": "FAIL LOUD — O NOSSO BUG NÃO VIRA `UNKNOWN` DO MUNDO",
+   "origem": [
+    "ENGINEERING_PRINCIPLE",
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-216",
+   "nome": "TRÊS EIXOS DE CONFIANÇA, E NENHUM PREENCHE O OUTRO",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-217",
+   "nome": "`FIRST_SEEN` E `LAST_SEEN` SÃO DO SINTONIA",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-218",
+   "nome": "BULK NÃO É API PONTUAL",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "NOT_APPLICABLE"
   },
   {
    "id": "COL-LAW-069",

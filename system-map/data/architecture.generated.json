@@ -3,10 +3,17 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/biblia-canonica-da-coleta",
-    "HEAD": "56fdb8cab316bfe8f82c0928b1b5113596e00596",
-    "GENERATED_AT": "2026-09-07T18:08:05-03:00"
+    "HEAD": "72838db1d442c556c0e25e2bdbf64e166d3a2221",
+    "GENERATED_AT": "2026-09-07T23:43:12-03:00"
   },
   "FILES": [
+    {
+      "path": ".claude/launch.json",
+      "sha": "758443ce34383599de400bb0169deea05ac80817",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
     {
       "path": ".gitattributes",
       "sha": "18d452c0c4e6292defb36cc9c2fa0d498f073a0d",
@@ -121,7 +128,7 @@
     },
     {
       "path": "BIBLIA-CANONICA-DA-COLETA.md",
-      "sha": "5c9a417807b9667692f98acb921469eaec49b7b4",
+      "sha": "4c2e5b8865f573b94a7eb37503113c10abebae45",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3719,7 +3726,14 @@
     },
     {
       "path": "docs/biblia/CONFORMIDADE-ITALIA.md",
-      "sha": "86935b285a8f6112315266fe18631f541a519ae2",
+      "sha": "1604946696626aa3be2a4d29122d5b8759fb787b",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/biblia/EMENDA-V1-1.md",
+      "sha": "58f6a80ab111a7d27f271d0931c3a5be6f8641b2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3733,7 +3747,7 @@
     },
     {
       "path": "docs/biblia/leis.json",
-      "sha": "54b0c719ba7652b0cbaea4690e55c5a99100cb43",
+      "sha": "5281822c490cdbf442a16fd67273c2bb3800bc50",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -3754,7 +3768,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "8c7007535dc373377fe7c9076f0445e879428722",
+      "sha": "713add6db8fff0d38c3e0c9d2ffb07accaf72d97",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6750,7 +6764,7 @@
     },
     {
       "path": "provas/valida_biblia.py",
-      "sha": "ce192bd919f2993d9388bc932021f152581e29b7",
+      "sha": "48a704d24195e2c2c822639d0f849bdf6972c6ce",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7744,7 +7758,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "8128f49b360a8631bc0018db7fb76e5481635122",
+      "sha": "6bb2f4c3f5b873f227515b4e1873ba24e0126620",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7843,6 +7857,13 @@
     {
       "path": "tests/test_adama_relevance.py",
       "sha": "4337978c67cf52681f3eddbcaeb2423eca2291e8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_biblia.py",
+      "sha": "6a31d6ebbf63f8c1345125c389b6c0a75aa04969",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21406,7 +21427,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/valida_biblia.py",
-        "line": 194,
+        "line": 212,
         "snippet": "open(LEIS_JSON, 'w')  # LEIS_JSON = docs/biblia/leis.json"
       }
     },
@@ -22816,6 +22837,50 @@
         "file": "tests/test_adama_relevance.py",
         "line": 22,
         "snippet": "from adama_relevance import (classificar, contar, produto_que_prova,   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_biblia.py",
+      "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_biblia.py",
+        "line": 41,
+        "snippet": "BIBLIA = os.path.join(RAIZ, 'BIBLIA-CANONICA-DA-COLETA.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_biblia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_biblia.py",
+        "line": 39,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_biblia.py",
+      "to_file": "docs/biblia/CONFORMIDADE-ITALIA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_biblia.py",
+        "line": 42,
+        "snippet": "CONFORMIDADE = os.path.join(RAIZ, 'docs', 'biblia', 'CONFORMIDADE-ITALIA.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_biblia.py",
+      "to_file": "docs/biblia/EMENDA-V1-1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_biblia.py",
+        "line": 43,
+        "snippet": "EMENDA = os.path.join(RAIZ, 'docs', 'biblia', 'EMENDA-V1-1.md')"
       }
     },
     {
@@ -25329,10 +25394,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1148,
-    "files_readable": 389,
-    "files_code_dir": 434,
-    "file_edges": 1537,
+    "files_tracked": 1151,
+    "files_readable": 390,
+    "files_code_dir": 435,
+    "file_edges": 1541,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },

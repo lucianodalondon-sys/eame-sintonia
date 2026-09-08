@@ -5,6 +5,9 @@
     "h": 2462
   },
   "INVENTORY": {
+    ".claude": [
+      ".claude/launch.json"
+    ],
     "(raiz)": [
       ".gitattributes",
       ".gitignore",
@@ -553,6 +556,7 @@
       "docs/apresentacao/deck/AURA-ADAMA-EAME-texto.txt",
       "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
       "docs/biblia/CONFORMIDADE-ITALIA.md",
+      "docs/biblia/EMENDA-V1-1.md",
       "docs/biblia/MATRIZ-DE-CONFLITOS.md",
       "docs/biblia/leis.json",
       "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
@@ -1181,6 +1185,7 @@
       "tests/es/test_adama_es_import_rules.py",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/test_adama_relevance.py",
+      "tests/test_biblia.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canonico.py",
       "tests/test_cicatrizes_brasil.py",
@@ -1590,8 +1595,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/biblia-canonica-da-coleta",
-    "HEAD": "56fdb8cab316bfe8f82c0928b1b5113596e00596",
-    "GENERATED_AT": "2026-09-07T18:08:05-03:00"
+    "HEAD": "72838db1d442c556c0e25e2bdbf64e166d3a2221",
+    "GENERATED_AT": "2026-09-07T23:43:12-03:00"
   },
   "FAMILIES": [
     {
@@ -4937,8 +4942,8 @@
       "name": "A Bíblia canônica da coleta",
       "territory": "Z-BIBLIA",
       "kind": "contract",
-      "what": "48 leis numeradas que governam toda coleta do SINTONIA, com o censo das 63 leis maduras que ja existiam, a matriz de conflitos e a medicao da Italia contra elas.",
-      "why_here": "As leis da coleta viviam espalhadas por cabecalho de script, README, prompt de aba e if solto. Espalhadas assim nao se consultam: redescobrem-se, e a lei redescoberta nunca e igual a que ja existia. Ela declara LAW_STATUS separado de IMPLEMENTATION_STATUS para que «e lei» nunca signifique «ja funciona».",
+      "what": "78 leis numeradas (V1.1) que governam toda coleta do SINTONIA: o censo das 63 leis maduras que ja existiam, a matriz de conflitos com ficheiro e linha, a emenda constitucional e a medicao da Italia contra elas.",
+      "why_here": "As leis da coleta viviam espalhadas por cabecalho de script, README, prompt de aba e if solto. Espalhadas assim nao se consultam: redescobrem-se, e a lei redescoberta nunca e igual a que ja existia. Ela declara LAW_STATUS separado de IMPLEMENTATION_STATUS para que «e lei» nunca signifique «ja funciona» — e a emenda V1.1 poe o proprio System Map dentro da lei: ele e a camada oficial de observabilidade, e tudo tem de ser renderizavel.",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -4955,10 +4960,11 @@
         "BIBLIA-CANONICA-DA-COLETA.md",
         "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
         "docs/biblia/CONFORMIDADE-ITALIA.md",
+        "docs/biblia/EMENDA-V1-1.md",
         "docs/biblia/MATRIZ-DE-CONFLITOS.md",
         "docs/biblia/leis.json"
       ],
-      "file_count": 5,
+      "file_count": 6,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
       "changed_since_declared": [],
@@ -4967,7 +4973,8 @@
         "C-PROVA-BIBLIA"
       ],
       "outbound": [
-        "C-PROVA-BIBLIA"
+        "C-PROVA-BIBLIA",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -7853,7 +7860,7 @@
       "name": "O validador da Bíblia",
       "territory": "Z-PROVA",
       "kind": "test",
-      "what": "Prova que a Biblia, os tres apendices e o registo por maquina dizem a mesma coisa: ids unicos, estados validos, lei citada que existe, ficheiro citado que existe.",
+      "what": "Prova que a Biblia, os quatro apendices e o registo por maquina dizem a mesma coisa: ids unicos, estados validos, lei citada que existe, ficheiro citado que existe, e a matriz que nao contradiz a Biblia sobre o estado de cada lei.",
       "why_here": "leis.json e DERIVADO do texto da Biblia, nunca escrito a mao — pela mesma razao que state.generated.json e derivado do repositorio. Duas listas de leis divergiriam, e a partir dai nenhuma das duas valeria.",
       "departments": [
         "ENGENHARIA"
@@ -9716,6 +9723,7 @@
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
         "tests/test_adama_relevance.py",
+        "tests/test_biblia.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canonico.py",
         "tests/test_cicatrizes_brasil.py",
@@ -9744,7 +9752,7 @@
         "tests/test_v21_traducao_trava.py",
         "tests/test_voz.py"
       ],
-      "file_count": 30,
+      "file_count": 31,
       "status": "PROVEN",
       "status_reason": "o teste aponta para codigo real do repositorio.",
       "changed_since_declared": [],
@@ -9757,6 +9765,7 @@
         "C-APIFY-POOL",
         "C-AS-FONTES",
         "C-ASK-SINTONIA",
+        "C-BIBLIA",
         "C-CI-COLETA",
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
@@ -11190,7 +11199,7 @@
       "icon": "B",
       "facts": [
         "branch claude/biblia-canonica-da-coleta",
-        "HEAD 56fdb8cab316bfe8f82c0928b1b5113596e00596"
+        "HEAD 72838db1d442c556c0e25e2bdbf64e166d3a2221"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -12676,6 +12685,33 @@
           "file": "provas/valida_biblia.py",
           "line": 50,
           "snippet": "LEIS_JSON = os.path.join(PASTA, 'leis.json')"
+        }
+      ]
+    },
+    {
+      "from": "C-BIBLIA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_biblia.py",
+          "line": 41,
+          "snippet": "BIBLIA = os.path.join(RAIZ, 'BIBLIA-CANONICA-DA-COLETA.md')"
+        },
+        {
+          "file": "tests/test_biblia.py",
+          "line": 42,
+          "snippet": "CONFORMIDADE = os.path.join(RAIZ, 'docs', 'biblia', 'CONFORMIDADE-ITALIA.md')"
+        },
+        {
+          "file": "tests/test_biblia.py",
+          "line": 43,
+          "snippet": "EMENDA = os.path.join(RAIZ, 'docs', 'biblia', 'EMENDA-V1-1.md')"
         }
       ]
     },
@@ -16148,7 +16184,7 @@
       "evidence": [
         {
           "file": "provas/valida_biblia.py",
-          "line": 194,
+          "line": 212,
           "snippet": "open(LEIS_JSON, 'w')  # LEIS_JSON = docs/biblia/leis.json"
         }
       ]
@@ -18184,7 +18220,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 643,
+  "UNCLAIMED_FILES_COUNT": 644,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 99,
@@ -18192,12 +18228,12 @@
     "components_pending": 26,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 325,
-    "edges_proven": 325,
+    "edges": 326,
+    "edges_proven": 326,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1148,
-    "files_covered": 505,
+    "files_tracked": 1151,
+    "files_covered": 507,
     "files_code_unclaimed": 0
   }
 }

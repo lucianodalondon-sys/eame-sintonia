@@ -1,11 +1,11 @@
 # ITALY_COLLECTION_COMPLIANCE_MATRIX — apêndice C da Bíblia
 
-**Perfil:** `ITALY_PROFILE_V1` · **Data:** 2026-09-07 · **HEAD medido:** `56fdb8c`
+**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.1` · **Data:** 2026-09-07 · **HEAD medido:** `72838db`
 
-> Esta matriz mede a **implementação italiana** contra as 48 leis canônicas. Ela não é a
+> Esta matriz mede a **implementação italiana** contra as 78 leis canônicas. Ela não é a
 > lei: a lei está em [`../../BIBLIA-CANONICA-DA-COLETA.md`](../../BIBLIA-CANONICA-DA-COLETA.md).
 >
-> **`LAW = CANONICAL` para todas as 48. Isto aqui mede outra coisa: se já funciona.**
+> **`LAW = CANONICAL` para todas as 78. Isto aqui mede outra coisa: se já funciona.**
 > Confundir os dois é o erro que esta separação existe para impedir.
 
 **Escopo declarado:** `CURRENT IMPLEMENTATION COUNTRY = IT`. Espanha e França **não** foram
@@ -15,12 +15,22 @@ alteradas, medidas nem portadas nesta missão.
 
 ## O PLACAR
 
-| estado | nº | |
-|---|---:|---|
-| `IMPLEMENTED` | **21** | há código no caminho produtivo e prova executável |
-| `PARTIAL` | **23** | existe em parte, ou existe para um caminho e não para os outros |
-| `ABSENT` | **4** | é lei, e não há implementação nenhuma |
-| `UNKNOWN` | **0** | — |
+| estado | V1 | **V1.1** | |
+|---|---:|---:|---|
+| `IMPLEMENTED` | 21 | **24** | há código no caminho produtivo e prova executável |
+| `PARTIAL` | 23 | **42** | existe em parte, ou existe para um caminho e não para os outros |
+| `ABSENT` | 4 | **11** | é lei, e não há implementação nenhuma |
+| `NOT_APPLICABLE` | 0 | **1** | a lei não se aplica ao perfil italiano de hoje |
+| `UNKNOWN` | 0 | **0** | — |
+| **total** | 48 | **78** | |
+
+> **O `ABSENT` subiu de 4 para 11, e isso não é a Itália a piorar: é a régua a crescer.**
+> Sete coisas que antes nem eram medidas ganharam nome. Lacuna com nome é lacuna que alguém
+> pode fechar.
+
+**E `NOT_APPLICABLE` não é `ABSENT`.** Marcar como falha uma lei que não se aplica a esta
+fonte ou a este perfil seria inventar dívida — e dívida inventada faz o placar mentir para
+o lado que parece rigoroso.
 
 ---
 
@@ -79,65 +89,157 @@ alteradas, medidas nem portadas nesta missão.
 
 ---
 
-# OS 10 MAIORES GAPS — ORDENADOS POR DEPENDÊNCIA
+## A MATRIZ — LEIS DA EMENDA V1.1
 
-> **Não por facilidade.** Cada um só pode ser feito depois do anterior estar de pé. Fazer o
-> G-04 antes do G-05 seria construir política de rota para um caminho por onde a Itália não
-> passa.
+> `APLICA-SE` responde: **esta lei vale para o perfil italiano de hoje?** Uma lei que não se
+> aplica não conta como falha.
 
-### G-01 · `published_at` deixa de responder «quando o fato aconteceu»
-`admissao/admissao.py:169` · **1 linha** · Bloqueia COL-LAW-031 e contamina tudo o que
-passar pela porta daqui para a frente. É o único gap que **piora com o tempo**: cada item
-admitido com tempo de fato falso é um item que alguém terá de reabrir. **Vem primeiro
-porque é barato e porque a dívida cresce.**
+### PARTE XVI — a placa de vídeo
 
-### G-05 · a coleta italiana entra pelo pedido e sai pela porta
-`coleta/italy_recurrent_collect.mjs` → `pedido/receitas.py::EXECUTORES` ·
-Hoje a Itália é um caminho paralelo: colhe, preserva, mede saúde — e **nunca passa pela
-admissão**. Enquanto isso for verdade, 8 leis ficam `PARTIAL` por um motivo só.
-**Destrava:** COL-LAW-005 · 011 · 012 · 042 · 043. É a peça de que tudo depois depende.
+| LEI | APLICA-SE | ESTADO | EVIDÊNCIA | O QUE FALTA | PRÓXIMO PASSO |
+|---|---|---|---|---|---|
+| `COL-LAW-101` tudo renderizável | SIM | `PARTIAL` | 99 peças e 325 ligações no mapa; `P9` reprova código que ninguém declara | corridas, custo e contagens não são renderizáveis por peça | **G-20** |
+| `COL-LAW-102` as quatro verdades | SIM | `PARTIAL` | `DECLARED` e `CODE` medidos; `EXPECTED` para o não provado | `OBSERVED` e `BIBLE` não existem no estado do mapa | **G-19** |
+| `COL-LAW-103` derivável não se escreve | SIM | `PARTIAL` | `state.generated.json`, `portao.py` e `portoes_eame.py` derivam tudo | `COMPLIANCE` e `GAP` estão em Markdown escrito à mão — este ficheiro | **G-21** |
+| `COL-LAW-104` componente renderizável | SIM | `PARTIAL` | `id`, `name`, `zone`, `what`, `departments`, `files`, `status` existem | `LAST_RUN`, `LAST_ERROR`, `COUNTS`, `COST`, `HEALTH`, `APPLICABLE_LAWS` não existem | G-20 |
+| `COL-LAW-105` conexão renderizável | SIM | `PARTIAL` | `TYPE` + `EVIDENCE` (ficheiro e linha) em todas as 325 | `OBSERVED`, `COUNT_IN/OUT`, `LOST`, `ARTIFACT_TYPE` não existem | G-19 |
+| `COL-LAW-106` corrida renderizável | SIM | `PARTIAL` | o `RUN-MANIFEST` já carrega `RUN_ID`, `STARTED_AT`, `FINISHED_AT`, `STATUS`, `COST_USD` e as contagens — o contrato existe | **corrida nenhuma aparece no mapa**, e faltam `STATE_BEFORE/AFTER`, `LOST` e `ROUTE` | G-20 |
+| `COL-LAW-107` a perda aparece na aresta | SIM | `ABSENT` | — | depende de a reconciliação existir (G-03) | G-03 → G-20 |
+| `COL-LAW-108` quatro vistas, uma verdade | SIM | `PARTIAL` | uma fonte só (`state.generated.json`); há filtro de vista (`views`) | faltam as vistas RUN, PROBLEMAS e BÍBLIA | G-21 |
+| `COL-LAW-109` zoom; layout não governa | SIM | `IMPLEMENTED` | três níveis na app: faixa → peça → raio-X com ficheiro e linha | — | — |
+| `COL-LAW-110` observabilidade por nascimento | SIM | `IMPLEMENTED` | `P9_CODIGO_DECLARADO` reprova peça invisível, em cada push | — | — |
+| `COL-LAW-111` não é segunda verdade | SIM | `IMPLEMENTED` | o gerador lê código, contratos e medições; `P1_SEM_DRIFT` prova | — | — |
+| `COL-LAW-112` evidência navegável | SIM | `PARTIAL` | `P5_ARESTA_PROVADA` e `P5_PROVA_APONTAVEL` exigem ficheiro e linha reais | o lado do `RUN` e o do `COMPLIANCE` não apontam para nada | G-19 |
 
-### G-02 · um formato de corrida só
-`RUN-MANIFEST` + os 5 campos italianos (`EGRESS_IP`, `COLLECTOR_VERSION`, `GIT_HEAD`,
-`SOURCE_CONTRACT_VERSION`, `IS_BASELINE`) · Depois do G-05 há um caminho só, e é aí que
-faz sentido haver um recibo só. **Destrava:** COL-LAW-022 · 030.
+### PARTE XVII — as leis roubadas
 
-### G-03 · a reconciliação `DISCOVERED → READY`
-Só é medível quando existe um caminho inteiro (G-05) e um recibo só (G-02). Sem ela,
-`EMITTED ≠ RAW_LANDED` continua invisível. **Destrava:** COL-LAW-023.
+| LEI | APLICA-SE | ESTADO | EVIDÊNCIA | O QUE FALTA | PRÓXIMO PASSO |
+|---|---|---|---|---|---|
+| `COL-LAW-201` **artefato não é fato** | SIM | `PARTIAL` | o ledger italiano guarda `SOURCE_DATE`, `FACT_TIME` e `RAW_SHA256` por documento | `FACT_TIME` mora no **artefato**, não num claim; e a admissão ainda aceita `published_at` (C-001) | **G-01 → G-22** |
+| `COL-LAW-202` `ARTIFACT → CLAIM` | SIM | `ABSENT` | — | não existe entidade de claim. É `TARGET` declarado | G-22 |
+| `COL-LAW-203` procedência até o valor | SIM | `PARTIAL` | `PROVENANCE_RECOVERED_VIA`; o contrato V2.1 recusa carimbo que promete o que não tem | normalização de cultura/produto não guarda `ORIGINAL_VALUE` ao lado | G-23 |
+| `COL-LAW-204` dedupe não destrói história | SIM | `PARTIAL` | `WITHOUT_STRUCTURAL_ID_COUNT` publicado; duplicata→canônico preservada em `voz.py` | não há `CANONICAL ENTITY` com registros de origem por baixo | G-23 |
+| `COL-LAW-205` fonte ≠ endpoint | SIM | `PARTIAL` | 13 contratos italianos declaram rota, saída e identidade por endpoint | fonte e endpoint são a mesma linha no registro; `ETag` e checksum estão na fonte | **G-24** |
+| `COL-LAW-206` três identidades | SIM | `PARTIAL` | `SOURCE_ID` estável (`IT-T3-005`) separado da URL; `DOCUMENT_ID ≠ BYTE_ID` | `SOURCE_NATIVE_ID` não é campo; não há histórico de rekey | G-24 |
+| `COL-LAW-207` descobrir ≠ buscar ≠ derivar | SIM | `ABSENT` | — | as três são um passo só; por isso a ARPAV baixa 12,8 MB para depois ver que nada mudou | **G-25** |
+| `COL-LAW-208` o registry é a memória | SIM | `PARTIAL` | `sources.generated.json` reconcilia atlas e master; health e cadência existem | `LAST_ATTEMPT/SUCCESS/FAILURE/CHANGE` e `LAST_SUCCESSFUL_ROUTE` não são campos da ficha | G-24 |
+| `COL-LAW-209` corrida é história | SIM | `ABSENT` | — | não há `PARENT_RUN_ID` nem `REPAIR_REASON` | G-26 |
+| `COL-LAW-210` `COMPLETE` só no fim | SIM | `PARTIAL` | a ordem de 19 passos da Itália fecha o ledger no fim; `SUCCEEDED`+0 vira `PARTIAL` | não há estado `COMPLETE` explícito; consumidores ainda leem pasta | **G-26** |
+| `COL-LAW-211` configuração congelada | SIM | `PARTIAL` | `COLLECTOR_VERSION`, `GIT_HEAD`, `SOURCE_CONTRACT_VERSION` no ledger italiano | `PLAN_VERSION`, `CONFIG_HASH`, `BIBLE_VERSION`, `VOCABULARY_VERSION` não existem | G-02 |
+| `COL-LAW-212` watermark | SIM | `ABSENT` | — | a coleta olha «agora»; não há `WINDOW_START/END` | G-27 |
+| `COL-LAW-213` incremental não é só somar | SIM | `ABSENT` | — | só há `CREATE`; sumiço não é distinguido de deleção | G-27 |
+| `COL-LAW-214` zero tem semântica | SIM | `PARTIAL` | lista vazia é `FAILED`; `SEEN_AGAIN` é zero esperado e guarda zero bytes | as três palavras não são valores gravados | G-28 |
+| `COL-LAW-215` fail loud | SIM | `PARTIAL` | `--negativos`; contrato do ator recusa campo desconhecido; falha fechada em toda a casa | schema drift não tem estado próprio: cai em `FAILED` genérico | G-28 |
+| `COL-LAW-216` três eixos de confiança | SIM | `PARTIAL` | `SOURCE_HEALTH` inteiro e medido | `SOURCE_RELIABILITY` e `CLAIM_CONFIDENCE` não existem — e é **certo** que não existam antes do claim | G-22 |
+| `COL-LAW-217` `FIRST_SEEN` / `LAST_SEEN` | SIM | `ABSENT` | — | `CAPTURED_AT` faz as vezes dos dois, e não é nenhum deles | G-23 |
+| `COL-LAW-218` bulk ≠ API pontual | **NÃO** | `NOT_APPLICABLE` | — | ciência não está no perfil italiano de hoje. **Não é dívida** | quando a ciência entrar |
 
-### G-07 · o contrato comum do executor, com capacidades
-`CHECK` · `STATE` · `cost_class` · `supports_checkpoint` · `supports_retry` ·
-`countries` · `modes` · `artifact_types`. **Pré-requisito do G-04:** não há como escolher a
-rota mais barata capaz sem que cada executor diga o que é capaz de fazer e quanto custa.
+---
 
-### G-04 · a política de rota, e a escalada paga explicada
-`ROUTE_POLICY` + os cinco campos de COL-LAW-019. Só depois do G-07. **Destrava:**
-COL-LAW-018 · 019.
+# OS 10 MAIORES GAPS — RECALCULADOS NA V1.1, POR DEPENDÊNCIA
 
-### G-09 · a fonte lembra a rota que funcionou
-`last_successful_route` · `route_verified_at`. Depende do G-04 existir para ter o que
-lembrar. **Destrava:** COL-LAW-020.
+> **Não por facilidade.** Cada um só pode ser feito depois de o anterior estar de pé.
+> A emenda V1.1 **mudou a ordem**: três gaps novos entraram à frente de gaps antigos,
+> porque sem eles os antigos seriam construídos sobre um modelo errado.
 
-### G-10 · dedupe **antes** do fetch
-`ETag` / `Last-Modified` / `HEAD` antes de baixar. Hoje as 3 fontes `FORWARD_ONLY` baixam
-~12,8 MB por corrida **para depois descobrir** que nada mudou. Depende do G-09 (a memória
-da fonte) para saber o que comparar. **Destrava:** COL-LAW-021 · 016.
+### 1 · G-01 · `published_at` deixa de responder «quando o fato aconteceu»
+`admissao/admissao.py:169` · **1 linha.**
+Continua primeiro, e a V1.1 reforça o motivo: com a COL-LAW-201 sabemos agora que
+`published_at` é do **artefato** e `FACT_TIME` é do **fato** — são de donos diferentes, não
+são dois nomes para a mesma coisa. É o único gap que **piora sozinho**: cada item admitido
+com tempo de fato falso é um item que alguém terá de reabrir.
+**Destrava:** COL-LAW-031 · 201.
 
-### G-11 + G-12 · retry com critério, e o disjuntor
-`TRANSIENT` vs `PERMANENT` · `Retry-After` · `HEALTHY/DEGRADED/BLOCKED/UNKNOWN` por rota.
-Depois de haver rota escolhida e memória de rota, é aqui que a proteção da fonte entra.
-**Destrava:** COL-LAW-025 · 026.
+### 2 · G-22 · o artefato deixa de fingir que é o fato
+**Gap novo, e ele passa à frente de quase tudo.**
+Hoje o ledger italiano pendura `FACT_TIME` no documento. Enquanto o modelo for esse, cada
+coisa construída em cima herda a confusão — inclusive a admissão, a inteligência e o mapa.
+Não exige implementar extração de claim: exige **parar de exigir `FACT_TIME` no artefato** e
+declarar `ARTIFACT → CLAIM` como o caminho do fato.
+**Destrava:** COL-LAW-201 · 202 · 216 (os outros dois eixos de confiança só existem quando
+existe claim).
 
-### G-14 · a decisão sobre a grafia do desconhecido
-⚠️ **Não é engenharia: é decisão do dono** (C-003). Fica no fim da lista por dependência —
-mas pode ser decidida a qualquer momento, e quanto mais tarde, mais dados terão de ser
-migrados. **Destrava:** COL-LAW-035 por inteiro.
+### 3 · G-05 · a coleta italiana entra pelo pedido e sai pela porta
+`coleta/italy_recurrent_collect.mjs` → `pedido/receitas.py::EXECUTORES`.
+A Itália é um caminho paralelo: colhe, preserva e mede saúde, e **nunca passa pela
+admissão**. Continua sendo a peça de que quase todo o resto depende — mas vem **depois** do
+G-22, senão o caminho novo carrega o modelo velho para dentro da porta.
+**Destrava:** COL-LAW-005 · 011 · 012 · 042 · 043.
+
+### 4 · G-24 · a fonte deixa de ser o endpoint
+`SOURCE` × `ENDPOINT` no registro (COL-LAW-205 · 206 · 208).
+`ETag`, checksum, *schema fingerprint* e `last_successful_route` são do **endpoint** e hoje
+estão na fonte. **Pré-requisito do G-25 e do G-09:** não se escolhe rota nem se lembra rota
+sem ter onde as pendurar.
+**Destrava:** COL-LAW-205 · 206 · 208 · 020.
+
+### 5 · G-25 · descobrir deixa de custar o preço de buscar
+`DISCOVER` · `FETCH` · `DERIVE` como capacidades separadas (COL-LAW-207).
+É o gap com retorno mais direto e medido: a ARPAV baixa **~12,8 MB por corrida** para depois
+descobrir que nada mudou. Depende do G-24 (endpoint) e do G-07 (capacidades declaradas).
+**Destrava:** COL-LAW-207 · 021 · 018.
+
+### 6 · G-02 · um formato de corrida só, com a configuração congelada
+`RUN-MANIFEST` + os 5 campos italianos + `PLAN_VERSION` · `CONFIG_HASH` · `BIBLE_VERSION` ·
+`ROUTE_POLICY_VERSION` · `VOCABULARY_VERSION` (COL-LAW-022 · 211).
+Depois do G-05 há um caminho só, e é aí que faz sentido haver um recibo só.
+**Destrava:** COL-LAW-022 · 030 · 211.
+
+### 7 · G-26 · a corrida sabe quando acabou, e o passado não se reescreve
+`RUNNING/PARTIAL/FAILED/COMPLETE` com fechamento atômico, e `PARENT_RUN_ID` para o reparo
+(COL-LAW-209 · 210). Só é possível depois de haver um formato de corrida só (G-02).
+**Destrava:** COL-LAW-209 · 210 · 013.
+
+### 8 · G-03 · a reconciliação `DISCOVERED → READY`, e a perda visível na aresta
+Só é medível com um caminho inteiro (G-05), um recibo só (G-02) e um fim de corrida
+confiável (G-26). Sem ela, `EMITTED ≠ RAW_LANDED` continua invisível.
+**Destrava:** COL-LAW-023 · 107.
+
+### 9 · G-07 → G-04 · capacidades declaradas, e então a política de rota
+`cost_class` · `supports_checkpoint` · `supports_retry` · `countries` · `modes` ·
+`artifact_types`, e só depois a `ROUTE_POLICY` com os cinco campos de escalada paga.
+**A ordem importa:** não há como escolher a rota mais barata **capaz** sem que cada executor
+diga do que é capaz e quanto custa.
+**Destrava:** COL-LAW-013 · 014 · 018 · 019.
+
+### 10 · G-27 · o incremental fecha a janela, e sabe que apagar existe
+`WINDOW_START/WATERMARK` + `CREATE/UPDATE/DELETE/MERGE` (COL-LAW-212 · 213).
+Vem por último entre os grandes porque exige tudo o de cima: corrida com estado, fim
+confiável e reconciliação. Fazê-lo antes produziria janelas fechadas sobre corridas que não
+sabem quando acabaram.
+**Destrava:** COL-LAW-212 · 213 · 016.
+
+> **E há um item que não é engenharia: G-14, a grafia do desconhecido** (C-003). É decisão
+> do dono, pode ser tomada a qualquer momento, e quanto mais tarde, mais dado terá de ser
+> migrado.
+
+---
+
+## O QUE MUDOU NA ORDEM, DA V1 PARA A V1.1
+
+| | V1 | V1.1 |
+|---|---|---|
+| 1º | G-01 | G-01 *(mesmo)* |
+| 2º | G-05 | **G-22** — o artefato deixa de fingir que é o fato *(novo)* |
+| 3º | G-02 | G-05 |
+| 4º | G-03 | **G-24** — fonte ≠ endpoint *(novo)* |
+| 5º | G-07 | **G-25** — descobrir ≠ buscar *(novo)* |
+
+**Três gaps novos entraram no topo.** Todos pelo mesmo motivo: são **modelo**, não
+funcionalidade. Construir automação sobre um modelo errado é o jeito mais caro de descobrir
+que ele estava errado.
 
 ---
 
 ## OS GAPS MENORES, registrados e não priorizados
 
+`G-29` **`tem_teste` procura a aresta do teste no sentido errado** em
+`generate_system_map.py:1825` — 3 peças ficam 🟡 tendo teste real; medido e registrado em
+[`EMENDA-V1-1.md`](EMENDA-V1-1.md), **não consertado nesta missão** ·
+`G-19` arestas `OBSERVED` e evidência de RUN no mapa · `G-20` corrida, custo e contagens
+renderizáveis por peça · `G-21` `COMPLIANCE`/`GAP` derivados em vez de escritos à mão ·
+`G-23` `ORIGINAL_VALUE` e `FIRST_SEEN`/`LAST_SEEN` ao lado do normalizado ·
+`G-28` semântica do zero e estado próprio de *schema drift* ·
 `G-06` linhagem de derivado (`parent_artifact_id`) · `G-08` cursor para as `FORWARD_ONLY` ·
 `G-13` fila de quarentena · `G-15` vocabulário separado por responsabilidade ·
 `G-16` escopo de país conferido dentro do executor · `G-17` língua no ledger italiano ·

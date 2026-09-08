@@ -50,7 +50,7 @@ CONFORMIDADE = os.path.join(PASTA, 'CONFORMIDADE-ITALIA.md')
 LEIS_JSON = os.path.join(PASTA, 'leis.json')
 
 LAW_STATUS_VALIDOS = ('CANONICAL',)
-IMPL_VALIDOS = ('IMPLEMENTED', 'PARTIAL', 'ABSENT', 'UNKNOWN')
+IMPL_VALIDOS = ('IMPLEMENTED', 'PARTIAL', 'ABSENT', 'NOT_APPLICABLE', 'UNKNOWN')
 ORIGENS_VALIDAS = ('EXISTING_SINTONIA_LAW', 'CONSOLIDATED_FROM_MULTIPLE',
                    'ARCHITECTURAL_DECISION', 'ENGINEERING_PRINCIPLE')
 
@@ -167,6 +167,24 @@ def main() -> int:
     sem_medida = sorted(conhecidas - na_matriz)
     prova('B8_CONFORMIDADE_COBRE', 'a matriz mede todas as leis da Biblia',
           not sem_medida, ', '.join(sem_medida))
+
+    # ── B8b · a matriz nao pode discordar da Biblia sobre o mesmo estado ────
+    # Duas escritas do mesmo estado sao duas verdades, e a segunda envelhece
+    # calada. Esta prova nasceu de um caso real: a matriz dizia ABSENT sobre a
+    # COL-LAW-106 e a Biblia dizia PARTIAL, e so a contagem denunciou.
+    texto_conf = _ler(CONFORMIDADE)
+    declarado = {x['id']: x['italia'] for x in leis}
+    discorda = []
+    for linha in texto_conf.splitlines():
+        m = re.match(r'\|\s*`(COL-LAW-\d{3})`', linha)
+        if not m:
+            continue
+        achados = re.findall(r'`(%s)`' % '|'.join(IMPL_VALIDOS), linha)
+        if achados and achados[0] != declarado.get(m.group(1)):
+            discorda.append(f'{m.group(1)} biblia={declarado.get(m.group(1))} '
+                            f'matriz={achados[0]}')
+    prova('B8b_MATRIZ_CONCORDA', 'a matriz nao contradiz a Biblia sobre o estado',
+          not discorda, ' | '.join(discorda[:6]))
 
     # ── B9 · ficheiro citado como contrato tem de existir ───────────────────
     # So se conferem caminhos com pasta: `pedido/pedido.py` e uma promessa;

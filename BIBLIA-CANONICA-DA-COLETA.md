@@ -2,13 +2,27 @@
 
 ```
 BIBLE_ID          SINTONIA-COLLECTION-BIBLE
-VERSION           V1
+VERSION           V1.1
 STATUS            CANONICAL
 EFFECTIVE_FROM    2026-09-07
 CURRENT_PROFILE   ITALY_PROFILE_V1
 CANONICAL_OWNER   este ficheiro, na raiz do repositório eame-sintonia
 HEAD_AO_CONGELAR  56fdb8c
 ```
+
+## HISTÓRICO CONSTITUCIONAL
+
+Nenhuma lei muda em silêncio — é a COL-LAW-069. Toda emenda entra aqui e no
+[`docs/decisoes/DIARIO-DE-DECISOES.md`](docs/decisoes/DIARIO-DE-DECISOES.md).
+
+| versão | data | o que mudou | leis |
+|---|---|---|---|
+| **V1** | 2026-09-07 | a constituição inicial, consolidando 63 leis maduras já existentes | 48 |
+| **V1.1** | 2026-09-07 | **duas emendas**: a lei da observabilidade (PARTE XVI — o System Map é a placa de vídeo do SINTONIA, e tudo tem de ser renderizável) e as leis roubadas de sistemas maduros de coleta (PARTE XVII — artefato ≠ fato, watermark, run completa, reparo, três eixos de confiança) | **78** (+30) |
+
+**Nenhuma lei da V1 foi apagada.** Seis emendas foram absorvidas por leis que já
+existiam, em vez de virarem lei nova — a lista está em
+[`docs/biblia/EMENDA-V1-1.md`](docs/biblia/EMENDA-V1-1.md).
 
 > **Esta é a constituição da coleta do SINTONIA.** Não é tutorial, não é descrição do
 > código de hoje, não é proposta. É a lei que todo prompt futuro de coleta obedece.
@@ -1210,6 +1224,27 @@ Marcar o piloto de Espanha como legado seria enterrá-lo vivo.
 | `DECISION` | `data/samples/LIVRO-DE-DECISOES.json` | existe |
 | `ROUTE_POLICY` | — | **ABSENT** |
 
+### O que a emenda V1.1 mudou nos contratos — e o que ela recusou criar
+
+> **Princípio aplicado:** *não criar entidade nova se um campo ou uma relação resolve.*
+> Das quatro entidades candidatas, **uma** entra como contrato próprio e **três** não.
+
+| candidata | veredito | porquê |
+|---|---|---|
+| `CLAIM / FACT` | ✅ **contrato próprio** (`TARGET`) | é a única que resolve um problema que nenhum campo resolve: o artefato e o fato têm **tempos e lugares diferentes** e cardinalidade `1:N`. Um documento pode carregar cinco fatos. Não cabe em campo. |
+| `REPAIR_RUN` | ❌ **é uma RUN** | um `PARENT_RUN_ID` + `REPAIR_REASON` na RUN resolvem. Uma segunda entidade daria dois formatos de corrida — o erro que a C-002 já custou. |
+| `DISCOVERY_RESULT` | ❌ **é uma capacidade** | `DISCOVER` é capacidade do executor (COL-LAW-207) e o resultado dela cabe nos `COUNTS` da RUN (`DISCOVERED`). |
+| `STATEMENT / ASSERTION` | ❌ **por enquanto, campos** | `ORIGINAL_VALUE` + `PROVENANCE` ao lado do valor normalizado resolvem o caso de hoje (COL-LAW-203). Vira entidade **se e quando** um valor canônico precisar de compor várias evidências concorrentes. |
+
+**E dois contratos existentes foram revistos:**
+
+| contrato | revisão |
+|---|---|
+| `SOURCE` | passa a distinguir **`SOURCE` · `ENDPOINT` · `ROUTE`** (COL-LAW-205). Uma fonte tem vários endpoints. `ETag`, checksum, *schema fingerprint*, estado de acesso e `last_successful_route` pertencem ao **endpoint**; país, publisher e health institucional pertencem à **fonte**. |
+| `COLLECTION_ARTIFACT` | **`FACT_TIME` e `FACT_LOCATION` deixam de ser esperados por omissão** (COL-LAW-201). Eles só aparecem no artefato quando o artefato **é** o fato, ou quando o contrato os vincula explicitamente. Para fato extraído, o caminho é `ARTIFACT → CLAIM`. |
+| `EXECUTOR` | ganha as capacidades **`DISCOVER` · `FETCH` · `DERIVE`** (COL-LAW-207). Um executor pode implementar apenas uma. |
+| `RUN` | ganha `PLAN_VERSION` · `CONFIG_HASH` · `BIBLE_VERSION` · `ROUTE_POLICY_VERSION` · `VOCABULARY_VERSION` · `MODE` · `WINDOW_START` · `WINDOW_END/WATERMARK` · `PARENT_RUN_ID` · `FINAL_MANIFEST_STATE` (COL-LAW-209 · 210 · 211 · 212). |
+
 ## COL-LAW-053 · A FONTE TEM UM CADASTRO ÚNICO, E ELE É RECONCILIADO
 
 **REGRA.** Duas listas a responder «que fontes temos» são duas verdades, e a segunda
@@ -1230,6 +1265,744 @@ se sabe o que a fonte entrega sem ter olhado:
 descobrir o que já se sabe.
 
 **ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+# PARTE XVI · A PLACA DE VÍDEO DO SINTONIA
+
+> **Emenda V1.1.** O System Map deixa de ser «o mapa da arquitetura» e passa a ser a
+> **camada oficial de observabilidade visual** do SINTONIA.
+>
+> ```
+> O SISTEMA REAL é a máquina.
+> O SYSTEM MAP é a placa de vídeo que transforma o estado interno
+> em algo que uma pessoa consegue enxergar.
+>
+> SISTEMA REAL → CAMADA DE OBSERVABILIDADE → SYSTEM MAP → HUMANO
+> ```
+>
+> Esta parte **não repete** a PARTE XIII (COL-LAW-046 a 050), que continua valendo. Ela
+> acrescenta o que faltava: **o contrato do que se consegue ver.**
+
+## COL-LAW-101 · TUDO DEVE SER RENDERIZÁVEL
+
+**REGRA.** Toda responsabilidade arquitetural relevante **DEVE** fornecer informação
+suficiente para ser representada no System Map.
+
+> **`TUDO É RENDERIZÁVEL` ≠ `TUDO APARECE AO MESMO TEMPO`.**
+> A UI escolhe o nível de detalhe. A arquitetura escolhe o que existe para ser mostrado.
+
+**POR QUÊ.** Se algo importante acontece dentro do SINTONIA e não conseguimos enxergá-lo,
+**a engenharia está incompleta** — não é um problema de tela, é um problema de contrato.
+
+**VIOLAÇÃO.** Uma peça que roda, gasta e produz dado, e sobre a qual o mapa só consegue
+dizer «o ficheiro existe».
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-102 · AS QUATRO VERDADES
+
+**REGRA.** O System Map **DEVE** conseguir distinguir quatro dimensões, e **NÃO DEVE**
+confundi-las:
+
+| verdade | a pergunta que responde |
+|---|---|
+| `DECLARED` | o contrato diz que **pode** existir |
+| `CODE` | há implementação real que **permite** |
+| `OBSERVED` | uma execução real **provou** que aconteceu |
+| `BIBLE` | a Bíblia **exige** que exista, ou que se comporte assim |
+
+Esta lei **estende** COL-LAW-049, que definia as três primeiras. `BIBLE` é a quarta, e é o
+que permite ao mapa mostrar **o que deveria ser**, e não só o que é.
+
+**EXEMPLO.**
+
+```
+SINTONIA SCRAP · CAN USE APIFY
+  DECLARED = YES     a ficha do executor declara a rota
+  CODE     = YES     há implementação que chama a Apify
+  OBSERVED = NO      a última corrida não a usou
+  BIBLE    = COL-LAW-019 exige explicar por que se pagou
+```
+
+`CAN USE APIFY = YES` **NÃO** significa `LAST RUN USED APIFY = YES`.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-103 · ESTADO DERIVÁVEL NÃO SE ESCREVE À MÃO
+
+**REGRA.** A camada de observabilidade **DEVE** derivar, e **NÃO DEVE** aceitar escritos à
+mão:
+
+| estado | é |
+|---|---|
+| `CURRENT` | o que existe agora |
+| `TARGET` | o que a Bíblia exige |
+| `HEALTH` | se está funcionando |
+| `COMPLIANCE` | se cumpre a Bíblia |
+| `GAP` | a diferença entre `TARGET` e `CURRENT` |
+
+**POR QUÊ.** É a mesma lei que já governa `state.generated.json` e os portões
+(`medidas/portao.py`): **portão derivado, nunca digitado**. Um `GAP` escrito à mão é uma
+opinião com cara de medição.
+
+**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-104 · CONTRATO DE COMPONENTE RENDERIZÁVEL
+
+**REGRA.** Um componente **DEVE** poder declarar, **quando aplicável**:
+
+```
+COMPONENT_ID · NAME · ROLE · OWNER · ZONE
+INPUTS · OUTPUTS
+READS · WRITES · CONTROLS · RULES
+SOURCES · ROUTES · EXECUTORS · ARTIFACT_TYPES
+APPLICABLE_LAWS · IMPLEMENTATION_STATUS
+LAST_RUN · LAST_SUCCESS · LAST_ERROR
+COUNTS · COST · HEALTH · ISSUES · EVIDENCE
+```
+
+Campo inaplicável **NÃO DEVE** ser preenchido com dado falso: usa-se `UNKNOWN` ou
+`NOT_APPLICABLE`, e são coisas diferentes (COL-LAW-035).
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-105 · CONTRATO DE CONEXÃO RENDERIZÁVEL
+
+**REGRA.** Uma ligação **DEVE** poder declarar, quando aplicável:
+
+```
+EDGE_ID · FROM · TO
+TYPE ∈ DATA · CONTROL · READ · RULE · WRITE · PROOF · CODE
+DECLARED  ∈ YES/NO/UNKNOWN
+CODE      ∈ YES/NO/UNKNOWN
+OBSERVED  ∈ YES/NO/UNKNOWN
+LAST_OBSERVED_RUN · ARTIFACT_TYPE
+COUNT_IN · COUNT_OUT · LOST
+STATUS · EVIDENCE
+```
+
+> **NÃO DEVE ser inventado `DATA` a partir de `CODE`.** Que uma peça importe outra prova
+> `CODE`; não prova que dado atravessou a linha.
+
+**E PROXIMIDADE NÃO CRIA RELAÇÃO.** Duas entradas e duas saídas **não** implicam que todas
+as entradas alimentam todas as saídas. Toda aresta é explícita e comprovada — é a
+COL-LAW-048, e ela vale aqui inteira.
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-106 · CONTRATO DE CORRIDA RENDERIZÁVEL
+
+**REGRA.** Uma corrida **DEVE** poder ser desenhada com:
+
+```
+RUN_ID · REQUEST_ID · SOURCE_ID · EXECUTOR_ID · ROUTE
+STARTED_AT · FINISHED_AT · STATUS
+STATE_BEFORE · STATE_AFTER
+DISCOVERED · EMITTED · RAW_LANDED · DERIVED · ADMISSION_SEEN · READY
+UNKNOWN · ERROR · LOST
+COST · ARTIFACTS · ERRORS · TRACE
+```
+
+**Reutilizar o `RUN-MANIFEST` antes de criar estrutura nova** — é a COL-LAW-022.
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-107 · A PERDA TEM DE APARECER NA ARESTA
+
+**REGRA.** Perda mensurável entre etapas **DEVE** poder aparecer no mapa, **na ligação onde
+ocorreu**.
+
+```
+EMITTED = 27
+RAW_LANDED = 21
+        ↓
+LOST = 6      e o mapa mostra em QUAL aresta
+```
+
+> **NADA DESAPARECE SILENCIOSAMENTE ENTRE ETAPAS.**
+
+É a COL-LAW-023 (reconciliação) tornada **visível**. Uma perda que só existe numa tabela
+que ninguém abre é, na prática, uma perda escondida.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-108 · QUATRO VISTAS, UMA VERDADE SÓ
+
+**REGRA.** O mesmo estado **DEVE** poder ser lido em quatro vistas:
+
+| vista | mostra |
+|---|---|
+| **ARQUITETURA** | como o SINTONIA está ligado |
+| **AO VIVO / RUN** | o que aconteceu numa corrida real |
+| **PROBLEMAS** | `ERROR` · `LOST` · `DEGRADED` · `MISSING` · `BYPASS` · `UNKNOWN` · `NON_COMPLIANCE` |
+| **BÍBLIA** | `CURRENT` vs `TARGET` vs `COMPLIANCE` |
+
+**NÃO DEVEM** ser criados quatro bancos, quatro geradores nem quatro mapas. **É uma verdade
+com filtros diferentes.**
+
+**NÃO DEVE** ser criado visual paralelo — `biblia-map.html`, `research-map.html`,
+`collection-v2-map.html` e afins são proibidos. O visual oficial é um só.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-109 · NÍVEIS DE ZOOM, E O LAYOUT NÃO MANDA
+
+**REGRA.** Três níveis:
+
+```
+ALTO          responsabilidades
+INTERMEDIÁRIO fontes · executores · rotas · artefatos · estados
+RAIO-X        ficheiros · funções · workflows · arestas técnicas · evidência · runs · commits · leis
+```
+
+> **LAYOUT NÃO GOVERNA ARQUITETURA.** Se uma relação existe e é feia de desenhar, a relação
+> continua existindo. O desenho é que se ajusta.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-110 · OBSERVABILIDADE POR NASCIMENTO
+
+**REGRA.** Toda peça criada depois desta Bíblia **DEVE** nascer observável. A definição de
+pronto passa a ser:
+
+```
+FUNCTIONAL + TESTED + PROVEN + OBSERVABLE
++ SYSTEM MAP PARITY PASS + BIBLE COMPLIANCE KNOWN
+```
+
+**Componente invisível ao mapa NÃO DEVE ser aceite.** Já há dente para isto: o validador
+reprova código de arquitetura que nenhuma peça do mapa reivindica
+(`P9_CODIGO_DECLARADO`).
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-111 · A CAMADA DE OBSERVABILIDADE NÃO É UMA SEGUNDA VERDADE
+
+**REGRA.** A arquitetura da «placa de vídeo» é:
+
+```
+CÓDIGO · CONTRATOS · REGISTRIES · BÍBLIA · RUN MANIFESTS
+DECISION LEDGER · ISSUES · MEASUREMENTS
+                    ↓
+      CAMADA DE OBSERVABILIDADE / NORMALIZAÇÃO
+                    ↓
+              SYSTEM MAP STATE
+                    ↓
+                  VISUAL
+```
+
+A camada **normaliza verdades que já existem**. Ela **NÃO DEVE** passar a ser dona de
+nenhuma delas. `state.generated.json` continua **saída**, nunca fonte primária.
+
+**E NÃO DEVE SER INSTALADA TELEMETRIA PESADA** só para cumprir esta lei: nem OpenLineage
+server, nem Kafka, nem Grafana, nem Prometheus, nem Temporal. Primeiro reutilizar o que já
+existe — `RUN-MANIFEST`, contratos, registries, o livro de decisões, os geradores do mapa e
+as medições. **A Bíblia define o contrato; a implementação é incremental.**
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` + `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-112 · TODA AFIRMAÇÃO DO MAPA TEM EVIDÊNCIA NAVEGÁVEL
+
+**REGRA.** Toda afirmação `CURRENT` importante **DEVE** carregar evidência que se possa
+abrir: `FILE` · `LINE` · `SNIPPET` · `CONTRACT` · `RUN` · `ARTIFACT` · `MEASUREMENT`.
+
+```
+OBSERVED    tem de apontar para um RUN
+COMPLIANCE  tem de apontar para LAW + EVIDENCE
+```
+
+**JÁ EXISTE metade disto:** `P5_ARESTA_PROVADA` e `P5_PROVA_APONTAVEL` exigem ficheiro e
+linha que existam. O que falta é o lado do `RUN`.
+
+**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+# PARTE XVII · AS LEIS ROUBADAS
+
+> **Emenda V1.1.** Vieram do estudo de sistemas maduros que enfrentam o mesmo problema:
+> OpenSanctions · OCCRP Aleph · Memorious · FollowTheMoney · Nomenklatura · GDELT ·
+> Media Cloud · OpenCTI · OpenAlex · OpenAIRE · Crossref · Common Crawl · Browsertrix ·
+> Scrapy · Crawlee · OpenLineage.
+>
+> ## ROUBAMOS AS LEIS. NÃO TROUXEMOS AS PLATAFORMAS.
+>
+> Nenhuma delas foi instalada, e nenhuma será. O SINTONIA **não é um grande scraper**: é um
+> sistema em que as fontes são conhecidas, os executores são substituíveis, o bruto é
+> preservado, os derivados têm linhagem, as decisões são auditáveis e as falhas aparecem.
+
+## COL-LAW-201 · ARTEFATO NÃO É FATO
+
+**REGRA, e é a mais importante desta emenda:**
+
+```
+COLLECTION ARTIFACT  ≠  CLAIM  ≠  FACT
+```
+
+Um PDF, post, vídeo, artigo ou JSON é **EVIDÊNCIA**. Ele **NÃO É** automaticamente «o fato».
+
+E daí decorre a quem cada campo pertence:
+
+| campo | dono |
+|---|---|
+| `PUBLISHED_AT` | o **artefato/publicação** |
+| `SOURCE_LOCATION` | a **fonte/artefato**, quando comprovado |
+| `FACT_TIME` | o **fato/claim extraído**, quando aplicável |
+| `FACT_LOCATION` | o **fato/claim extraído**, quando aplicável |
+
+**EXEMPLO.** Uma notícia publicada em **Roma** no dia **07/09** relata uma geada em
+**Bolonha** no dia **03/09**. São quatro valores verdadeiros ao mesmo tempo, e nenhum
+substitui outro.
+
+> **NÃO DEVE ser exigido que todo RAW tenha `FACT_TIME` ou `FACT_LOCATION`.** Um boletim
+> não «acontece» em lugar nenhum: ele **relata**. `UNKNOWN` é válido, e muitas vezes é a
+> única resposta honesta ao nível do artefato.
+
+**O QUE ISTO CORRIGE NA V1.** A COL-LAW-031 e a COL-LAW-032 estavam certas e incompletas:
+diziam que os campos são diferentes, e não diziam **de quem cada um é**. Sem isso, a
+pressão prática era pendurar `FACT_TIME` no documento — e foi exatamente essa pressão que
+produziu o defeito C-001.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` (FollowTheMoney · OpenSanctions) · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-202 · O MODELO ARTEFATO → CLAIM
+
+**REGRA, conceitual.**
+
+```
+ARTIFACT  ──evidence_for──►  CLAIM / FACT
+```
+
+Um claim **DEVE** poder preservar, quando aplicável:
+
+```
+CLAIM_ID · PARENT_ARTIFACT_ID · EVIDENCE_SPAN / EVIDENCE_REFERENCE
+SUBJECT · PREDICATE · OBJECT
+FACT_TIME · FACT_LOCATION
+CONFIDENCE (quando houver contrato) · PROVENANCE
+```
+
+> ⚠️ **Extração de claim é `TARGET`, nunca `CURRENT`.** Ela **não existe** hoje no SINTONIA,
+> e o mapa **NÃO DEVE** desenhá-la como se existisse. Esta missão não a implementa.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-203 · A PROCEDÊNCIA CHEGA ATÉ O VALOR
+
+**REGRA.** A procedência **NÃO DEVE** parar no documento. Quando um valor canônico nasce de
+evidência, tem de ser possível responder: **qual fonte disse · qual artefato disse · qual
+era o valor original · qual valor normalizado saiu · quando o SINTONIA viu · qual regra
+produziu a normalização.**
+
+```
+CANONICAL     WHEAT
+ORIGINAL      "frumento tenero"
+SOURCE        registro oficial X · artefato Y · run Z
+TRANSFORM     regra de normalização vN
+```
+
+> ## NORMALIZAÇÃO NÃO DESTRÓI O VALOR ORIGINAL.
+> Vale para cultura, produto, organização, molécula, lugar, nome — **qualquer conceito**.
+
+**POR QUÊ.** Quando a regra de normalização estiver errada — e uma delas estará — só é
+possível reprocessar se o valor original ainda existir. Sem ele, o erro vira permanente e
+invisível.
+
+**A ESTRUTURA CONCEITUAL** (não obriga entidade nova hoje): `ENTITY` · `PROPERTY` · `VALUE`
+· `ORIGINAL_VALUE` · `SOURCE` · `ARTIFACT` · `LANGUAGE` · `FIRST_SEEN` · `LAST_SEEN` ·
+`PROVENANCE`. É o que permite um valor canônico ser **composto de várias evidências** sem
+reescrever nenhuma delas.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` (Nomenklatura · FollowTheMoney) · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-204 · DEDUPE NÃO DESTRÓI A HISTÓRIA
+
+**REGRA.**
+
+```
+SOURCE RECORD  ≠  CANONICAL ENTITY
+
+CANONICAL ENTITY
+   ├── SOURCE RECORD A
+   └── SOURCE RECORD B
+```
+
+Se dois registros forem julgados a mesma entidade, um **NÃO DEVE** sobrescrever o outro. Os
+registros de origem ficam; a **decisão de identidade** é uma camada separada.
+
+**POR QUÊ.** Decisão de identidade é revista — e quando for, a evidência original tem de
+continuar intacta para se poder decidir de novo. Um dedupe que apaga o perdedor torna o
+erro irreversível.
+
+**LIGA-SE A** COL-LAW-021 (a chave de dedupe) e COL-LAW-034 (identidade nunca por
+similaridade textual). Aquelas dizem **como se decide**; esta diz **o que não se destrói ao
+decidir**.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` (OpenSanctions) · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-205 · A FONTE É ESTÁVEL; O ENDPOINT É SUBSTITUÍVEL
+
+**REGRA.**
+
+```
+SOURCE    a instituição / publisher / origem lógica    — estável
+ENDPOINT  o meio técnico de acesso de hoje            — substituível
+```
+
+Uma fonte **PODE** ter vários endpoints: site, RSS, API, sitemap, YouTube, repositório.
+Trocar um raspador de HTML por uma API oficial **NÃO CRIA** uma fonte nova — cria um
+endpoint novo na mesma fonte, e isso **DEVE** aparecer no Source Registry.
+
+**REGRA DE ARRUMAÇÃO.** Informação que pertence ao endpoint **NÃO DEVE** ser posta na fonte.
+`ETag`, checksum, schema fingerprint, `last_successful_route` e estado de acesso são do
+**endpoint**. Health institucional, país e publisher são da **fonte**.
+**A ficha da fonte não é uma lixeira de campos.**
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` (Memorious · Aleph) · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-206 · TRÊS IDENTIDADES, E A URL NÃO É UMA DELAS
+
+**REGRA.**
+
+```
+SOURCE_NATIVE_ID       o id que a própria fonte dá
+SINTONIA_STABLE_ID     o nosso, e ele não muda
+CANONICAL_URL / SOURCE_URL   um endereço — que muda
+```
+
+URL ou *slug* mutável **NÃO DEVE** ser usado como identidade canônica quando houver
+alternativa.
+Se a fonte mudar o seu id, **DEVE** ser preservado o mapeamento/histórico —
+**NÃO DEVE** ser reidentificado o acervo inteiro em silêncio.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` (Crossref · OpenAlex) · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-207 · DESCOBRIR ≠ BUSCAR ≠ DERIVAR
+
+**REGRA.** Três capacidades distintas, e um executor **PODE** implementar só uma:
+
+| capacidade | o que faz | custo típico |
+|---|---|---|
+| `DISCOVER` | descobre **quais itens existem** ou são novos | barato |
+| `FETCH` | obtém o **conteúdo/evidência** | caro |
+| `DERIVE` | produz texto, transcrição, metadata | médio |
+
+**EXEMPLO.** Um leitor de RSS descobre 7 endereços · um buscador de HTTP traz as 7 páginas ·
+um extrator de PDF gera o texto. Três peças, três capacidades.
+
+**POR QUÊ.** É o que permite **descobrir barato antes de buscar caro** — a base prática da
+COL-LAW-018 (a rota mais barata capaz vem primeiro) e da COL-LAW-021 (não coletar de novo
+sem necessidade). Hoje a Itália baixa ~12,8 MB por corrida **para depois descobrir** que
+nada mudou, porque descobrir e buscar são a mesma coisa no código.
+
+**E ISTO NÃO CRIA TRÊS ORQUESTRADORES.** O dono continua sendo um só (COL-LAW-011): ele
+decide qual capacidade precisa, qual executor a cumpre e por qual rota. O executor executa
+a capacidade.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` (Memorious · Scrapy · Crawlee) · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-208 · O SOURCE REGISTRY É A MEMÓRIA DA COLETA
+
+**REGRA.**
+
+```
+ORQUESTRADOR    = CÉREBRO   (decide)
+SOURCE REGISTRY = MEMÓRIA   (lembra)
+```
+
+A ficha **DEVE** poder representar, quando aplicável: `SOURCE_ID` · `NAME` · `PUBLISHER` ·
+`COUNTRY_SCOPE` · `SOURCE_TYPE` · `ENDPOINTS` · `DISCOVERY_METHODS` · `FETCH_METHODS` ·
+`PREFERRED_ROUTE` · `FALLBACK_ROUTES` · `UPDATE_FREQUENCY` · `CHANGE_RATE` ·
+`LAST_ATTEMPT` · `LAST_SUCCESS` · `LAST_FAILURE` · `LAST_CHANGE` ·
+`LAST_SUCCESSFUL_ROUTE` · `HEALTH` · `EXPECTED_MIN` · `EXPECTED_MAX` · `ETAG` ·
+`LAST_MODIFIED` · `CHECKSUM` · `STATE/CHECKPOINT` · `DEPRECATED` · `PROVENANCE`.
+
+`UNKNOWN` é permitido. **Não é exigido que tudo esteja implementado hoje.**
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-209 · A CORRIDA É HISTÓRIA, E HISTÓRIA NÃO SE REESCREVE
+
+**REGRA.** Uma corrida passada **NÃO DEVE** ser reescrita para parecer que sempre funcionou.
+Correção posterior cria uma **corrida de reparo**:
+
+```
+REPAIR_RUN
+  PARENT_RUN_ID · REPAIR_REASON · REPAIRED_SCOPE · RESULT
+
+RUN A (PARTIAL) ──repaired_by──► RUN B (COMPLETE)
+```
+
+O mapa **DEVE** poder mostrar as duas, ligadas. **O erro histórico não se apaga.**
+
+**POR QUÊ.** É a mesma lei que já produziu `NOT_PRESERVED` como *confissão* em vez de
+ausência (COL-LAW-022). Uma corrida limpa demais no passado é uma corrida que alguém
+limpou.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` (OpenLineage) · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-210 · A CORRIDA SÓ FICA COMPLETE NO FIM
+
+**REGRA.** Fechamento atômico, e nesta ordem:
+
+```
+ARTEFATOS PRIMEIRO → RECONCILIAÇÃO → MANIFEST COMPLETE POR ÚLTIMO
+```
+
+Estados: `RUNNING` · `PARTIAL` · `FAILED` · `COMPLETE`.
+`COMPLETE` **somente** quando: a execução terminou · os outputs esperados foram registrados
+· as contagens foram reconciliadas · os erros conhecidos foram registrados · o manifesto
+final foi fechado.
+
+> ## A EXISTÊNCIA DE FICHEIROS NUMA PASTA NÃO PROVA QUE A CORRIDA TERMINOU.
+
+**E NINGUÉM CONSOME PARCIAL COMO COMPLETA.** Derivação, admissão e `READY` **NÃO DEVEM**
+presumir «há ficheiros numa pasta» = «corrida completa». Têm de respeitar o fechamento
+canônico.
+
+**MEDIDO, e é o caso que obriga a lei.** Este repositório já leu o dataset de uma execução
+**ainda em curso** e gravou o pedaço como `PRESERVED`: 21 manifestos carregam
+`"ERROR": "status da plataforma: READY."` — status transitório lido como fim.
+
+**ORIGEM.** `EXISTING_SINTONIA_LAW` + `ENGINEERING_PRINCIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-211 · A CONFIGURAÇÃO DA CORRIDA FICA CONGELADA
+
+**REGRA.** A corrida **DEVE** preservar o que foi **realmente usado naquele momento**:
+
+```
+PLAN_VERSION · CONFIG_HASH · EXECUTOR_VERSION · PIPELINE_VERSION
+BIBLE_VERSION · ROUTE_POLICY_VERSION · VOCABULARY_VERSION
+```
+
+**POR QUÊ.** Para conseguir responder, daqui a seis meses: **«por que esta corrida fez
+isso?»** O código de hoje **NÃO DEVE** ser usado como reconstrução do passado — ele já mudou.
+
+**LIGA-SE A** COL-LAW-030 (mudança do mundo ≠ mudança do pipeline). Aquela separa as
+versões; esta manda **carimbá-las na corrida**.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` (OpenLineage) · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-212 · O INCREMENTAL FECHA A JANELA ANTES DE ENTRAR
+
+**REGRA.** Uma corrida incremental **DEVE** poder congelar uma janela:
+
+```
+WINDOW_START  ·  WINDOW_END / WATERMARK
+```
+
+**NÃO DEVE** consultar «até agora» enquanto «agora» continua a andar.
+
+**EXEMPLO.** A corrida começa às 22:00 e fixa `WATERMARK = 21:55`. Ela trabalha apenas do
+checkpoint anterior até 21:55. A corrida seguinte pega dali.
+
+**`WATERMARK` NÃO É `RUN_FINISHED_AT`.** São coisas diferentes: um é o limite do que se
+decidiu olhar; o outro é quando se parou de trabalhar.
+
+**SOBREPOSIÇÃO CONTROLADA É PERMITIDA.** Se a corrida A terminou em 21:55, a corrida B
+**PODE** recomeçar em 21:50 — a deduplicação por id/hash resolve a repetição.
+
+> **Melhor uma repetição auditável do que um item perdido em silêncio.**
+
+Não é obrigatória globalmente: é estratégia **por fonte**.
+
+**PAGINAÇÃO INSTÁVEL PRECISA DE PROTEÇÃO.** Quando a fonte muda enquanto é paginada,
+**DEVE** ser detectado o que for detectável: contagem de páginas mudou · total mudou ·
+página vazia inesperada · cursor inconsistente · item repetido · item pulado.
+Respostas possíveis: retry · janela menor · ordenação estável · abortar como `PARTIAL` ·
+reconciliar. **`COMPLETE` em silêncio, não.**
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` (GDELT · Media Cloud · OpenAIRE) · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-213 · INCREMENTAL NÃO É SÓ SOMAR
+
+**REGRA.** O incremental **PODE** envolver `CREATE` · `UPDATE` · `DELETE` · `MERGE`.
+
+> ## «NÃO APARECEU NESTA CORRIDA» NÃO PROVA `DELETE`.
+
+Deleção exige evento explícito, ou reconciliação adequada, ou evidência canônica
+equivalente. É a COL-LAW-035 aplicada ao incremental: **ausência de evidência não é
+evidência de ausência** — e aqui a ausência é especialmente traiçoeira, porque uma consulta
+mal formada produz exatamente o mesmo silêncio que um item removido.
+
+**E `TOTAL` É REDE DE SEGURANÇA.** `PONTUAL` · `INCREMENTAL` · `TOTAL` continuam válidos, e
+**incremental não é automaticamente superior**. Se para uma fonte a recarga completa é mais
+simples, mais barata e mais segura, ela **PODE** ser a melhor estratégia. Uma passagem
+`TOTAL` periódica reconcilia a cópia inteira.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-214 · ZERO TEM SEMÂNTICA
+
+**REGRA.** `0 itens` **NÃO DEVE** ser um estado só. Classificar:
+
+```
+EXPECTED_ZERO     o contrato da fonte prevê este zero
+UNEXPECTED_ZERO   ela costuma entregar, e hoje não entregou
+UNKNOWN_ZERO      não há base para dizer se é normal
+```
+
+`UNEXPECTED_ZERO` **PODE** indicar `SOURCE_DRIFT` · `PARSER_DRIFT` · `BLOCK` ·
+`AUTH_ERROR` · `QUERY_ERROR`.
+
+**E A EXPECTATIVA NÃO É VERDADE SOBRE O MUNDO.** `expected_min`/`expected_max` servem para
+detectar **anomalia técnica**. Não declaram que a fonte «deve ter» 100 fatos.
+**NÃO DEVE** ser fabricado dado para satisfazer expectativa — é a fronteira que
+COL-LAW-024 já traçava, e esta lei dá-lhe as três palavras que faltavam.
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-215 · FAIL LOUD — O NOSSO BUG NÃO VIRA `UNKNOWN` DO MUNDO
+
+**REGRA.** Distinguir:
+
+| | |
+|---|---|
+| **WORLD UNKNOWN** | a fonte não informou o lugar → `UNKNOWN` |
+| **SYSTEM CONTRACT BROKEN** | o nosso parser esperava `product_id` e o schema mudou → `SOURCE_SCHEMA_DRIFT` / `ERROR` |
+
+> **Bug de implementação NÃO DEVE virar desconhecimento do mundo.** Um `UNKNOWN` educado
+> sobre um defeito nosso é a forma mais barata de nunca o consertar — ninguém investiga uma
+> resposta que parece legítima.
+
+**E CONFIGURAÇÃO INVÁLIDA NÃO PODE SER IGNORADA.** Campo desconhecido, chave errada, enum
+inválido ou capacidade inexistente **NÃO DEVEM** ser ignorados em silêncio enquanto se
+continua a produzir dado incompleto. **Falha alta, ou `UNKNOWN` explícito** — conforme a
+natureza.
+
+**MEDIDO.** A Apify **não recusa** campo estranho: ignora e cobra. Oito execuções pagas
+desta casa foram queimadas assim.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` + `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-216 · TRÊS EIXOS DE CONFIANÇA, E NENHUM PREENCHE O OUTRO
+
+**REGRA.**
+
+| eixo | a pergunta |
+|---|---|
+| `SOURCE_HEALTH` | **consigo coletar tecnicamente?** |
+| `SOURCE_RELIABILITY` | **que autoridade e que histórico tem esta fonte?** |
+| `CLAIM_CONFIDENCE` | **que confiança há neste fato específico?** |
+
+Uma fonte **saudável** pode ser pouco confiável. Uma fonte **confiável** pode publicar um
+claim errado. Uma fonte **bloqueada** continua institucionalmente confiável.
+
+> **A COLETA NÃO APAGA RAW POR BAIXA CONFIANÇA.** Reliability e confidence **NÃO DEVEM**
+> fazer o coletor destruir evidência. O bruto fica; a avaliação é de outra camada
+> (COL-LAW-005).
+
+**O QUE ISTO CORRIGE.** A COL-LAW-028 definia só o primeiro eixo, e o nome «saúde» convidava
+a ser lido como «qualidade». São coisas diferentes.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` (OpenSanctions · OpenCTI) · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-217 · `FIRST_SEEN` E `LAST_SEEN` SÃO DO SINTONIA
+
+**REGRA.** Dois tempos internos, e eles **NÃO SÃO** nenhum dos outros:
+
+```
+SINTONIA_FIRST_SEEN   a primeira vez que o sistema observou aquele valor/claim
+SINTONIA_LAST_SEEN    a última vez que o observou
+```
+
+Não confundir **«apareceu agora»** com **«nós o coletamos agora»**.
+
+**A MATRIZ COMPLETA DO TEMPO** fica assim, e cada um tem dono:
+
+| tempo | dono |
+|---|---|
+| `FACT_TIME` | o fato/claim |
+| `PUBLISHED_AT` | a publicação/artefato |
+| `OBSERVED_AT` | a fonte |
+| `COLLECTED_AT` | a coleta |
+| `DERIVED_AT` | a derivação |
+| `SINTONIA_FIRST_SEEN` / `SINTONIA_LAST_SEEN` | o SINTONIA |
+| `RUN_STARTED_AT` / `RUN_FINISHED_AT` | a corrida |
+
+**Não é exigido que toda entidade tenha todos.** É exigido que o dono de cada um seja claro.
+Isto **estende** a COL-LAW-031, que tinha quatro.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` (OpenSanctions) · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-218 · BULK NÃO É API PONTUAL
+
+**REGRA.** A política **PODE** ser diferente por modo:
+
+| modo | rota adequada |
+|---|---|
+| carga inicial completa | **snapshot / bulk**, quando existir |
+| incremental | API · change feed · janela |
+| pontual | consulta / API |
+
+**NÃO DEVE** ser usada API de cursor para baixar centenas de milhões de registros quando
+existe snapshot apropriado.
+
+**E VERSÃO CIENTÍFICA NÃO É «DUPLICATA PARA APAGAR».** *Preprint*, versão publicada e versão
+corrigida **PODEM** representar o mesmo trabalho canônico sem serem o mesmo artefato. A
+coleta **preserva as instâncias**; a canonicalização decide a relação depois — e é a
+COL-LAW-204 que garante que decidir não destrói.
+
+> ⚠️ **Ciência não foi implementada nesta missão.** Só a lei foi consolidada.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` (OpenAlex · OpenAIRE · Crossref · Common Crawl) · **LAW_STATUS** `CANONICAL` · **IT** `NOT_APPLICABLE`
 
 ---
 
@@ -1315,5 +2088,6 @@ E a frase que resume por que esta Bíblia existe:
 | B | [`docs/biblia/MATRIZ-DE-CONFLITOS.md`](docs/biblia/MATRIZ-DE-CONFLITOS.md) — 8 conflitos, com ficheiro e linha |
 | C | [`docs/biblia/CONFORMIDADE-ITALIA.md`](docs/biblia/CONFORMIDADE-ITALIA.md) — lei × implementação, e os 10 gaps |
 | D | [`docs/biblia/leis.json`](docs/biblia/leis.json) — o registro legível por máquina |
+| E | [`docs/biblia/EMENDA-V1-1.md`](docs/biblia/EMENDA-V1-1.md) — o registro constitucional da emenda: o que entrou, o que foi absorvido, e por quê |
 
-**Validador:** `py provas/valida_biblia.py`
+**Validadores:** `py provas/valida_biblia.py` · `py tests/test_biblia.py`
