@@ -2229,6 +2229,24 @@
    "views": [
     "audit"
    ]
+  },
+  {
+   "id": "C-RELATORIO-FLUXO",
+   "name": "Relatório do fluxo",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "▤",
+   "what": "Conta o que o sistema consegue contar hoje sobre o próprio fluxo — por corrida, fonte, destino, MIME e hora — lendo só o ledger que já existe. Onde ninguém mediu, escreve NOT_INSTRUMENTED com o nome de quem teria de emitir.",
+   "why_here": "Um relatório que mostra 0 onde ninguém mediu convida a concluir que nada aconteceu, e é pior do que não existir. SEM DADO NÃO É ZERO. O buraco que ele torna visível é o produto: o ledger sabe corrida, fonte e contagem, e não sabe etapa, executor nem custo.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "system-map/scripts/relatorio_do_fluxo.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

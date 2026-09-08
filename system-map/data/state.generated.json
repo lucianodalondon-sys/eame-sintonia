@@ -1106,6 +1106,7 @@
       "provas/coverage.py",
       "provas/derived_artifact_no_postgres.py",
       "provas/es/freeze_es.py",
+      "provas/fluxo_no_seco.py",
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
@@ -1744,8 +1745,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "6e26e4a72314d6fb01ec98758e1f787b3a7cf0fa",
-    "GENERATED_AT": "2026-09-08T17:38:34-03:00"
+    "HEAD": "96cbb2e70be07db8ed6289da766cd97aa2bc0786",
+    "GENERATED_AT": "2026-09-08T17:41:33-03:00"
   },
   "FAMILIES": [
     {
@@ -1771,7 +1772,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 41
+      "count": 42
     },
     {
       "id": "F-ESPERA",
@@ -2011,7 +2012,7 @@
       "y": 190,
       "w": 820,
       "h": 2938,
-      "count": 6
+      "count": 7
     },
     {
       "id": "Z-GUARDA",
@@ -6872,6 +6873,7 @@
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-FLUXO-NO-SECO",
         "C-TESTES"
       ],
       "paises": {},
@@ -7584,7 +7586,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "red",
+      "ui_status": "yellow",
       "icon": "⊹",
       "views": [
         "audit",
@@ -7592,17 +7594,32 @@
       ],
       "lane": "official",
       "family": "F-INTELIGENCIA",
-      "files": [],
-      "file_count": 0,
-      "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com provas/fluxo_no_seco.py.",
+      "files": [
+        "provas/fluxo_no_seco.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-CONTRATO-TELEMETRIA"
+      ],
       "outbound": [],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ETAPAS"
+        ],
+        "palavras": 6,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 6,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -10770,6 +10787,45 @@
       "y": 1004
     },
     {
+      "id": "C-RELATORIO-FLUXO",
+      "name": "Relatório do fluxo",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Conta o que o sistema consegue contar hoje sobre o próprio fluxo — por corrida, fonte, destino, MIME e hora — lendo só o ledger que já existe. Onde ninguém mediu, escreve NOT_INSTRUMENTED com o nome de quem teria de emitir.",
+      "why_here": "Um relatório que mostra 0 onde ninguém mediu convida a concluir que nada aconteceu, e é pior do que não existir. SEM DADO NÃO É ZERO. O buraco que ele torna visível é o produto: o ledger sabe corrida, fonte e contagem, e não sabe etapa, executor nem custo.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "red",
+      "icon": "▤",
+      "views": [
+        "audit"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [],
+      "file_count": 0,
+      "status": "BROKEN",
+      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com system-map/scripts/relatorio_do_fluxo.py.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 9650,
+      "y": 1004
+    },
+    {
       "id": "C-RELEVANCIA",
       "name": "Regua de relevancia ADAMA",
       "territory": "Z-REGUAS",
@@ -11043,8 +11099,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9650,
-      "y": 1004
+      "x": 9235,
+      "y": 1326
     },
     {
       "id": "C-SCRAP-GUARDA",
@@ -14373,7 +14429,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 6e26e4a72314d6fb01ec98758e1f787b3a7cf0fa"
+        "HEAD 96cbb2e70be07db8ed6289da766cd97aa2bc0786"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17633,6 +17689,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-FLUXO-NO-SECO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da telemetria tem o seu codigo importado por O fluxo no seco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/fluxo_no_seco.py",
+          "line": 36,
+          "snippet": "import telemetria as t  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-CONTRATO-TELEMETRIA",
@@ -24208,17 +24282,17 @@
   "UNCLAIMED_FILES_COUNT": 698,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 125,
+    "components": 126,
     "components_proven": 73,
-    "components_pending": 44,
+    "components_pending": 45,
     "components_broken": 1,
     "components_unknown": 7,
-    "edges": 436,
-    "edges_proven": 434,
+    "edges": 437,
+    "edges_proven": 435,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1298,
-    "files_covered": 600,
+    "files_tracked": 1299,
+    "files_covered": 601,
     "files_code_unclaimed": 0
   }
 }

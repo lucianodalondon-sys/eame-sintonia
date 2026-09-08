@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "6e26e4a72314d6fb01ec98758e1f787b3a7cf0fa",
-    "GENERATED_AT": "2026-09-08T17:38:34-03:00"
+    "HEAD": "96cbb2e70be07db8ed6289da766cd97aa2bc0786",
+    "GENERATED_AT": "2026-09-08T17:41:33-03:00"
   },
   "FILES": [
     {
@@ -7393,6 +7393,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/fluxo_no_seco.py",
+      "sha": "9ec9582240939269d3063521936598888af7073b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/inventario_esperado.py",
       "sha": "66f22a11bd9356fb70dbca6167f26dbddc288760",
       "ext": ".py",
@@ -8493,7 +8500,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "8186a63dc3826a1155ecf87d77df1ba95e02f7fa",
+      "sha": "0de27d831f8aaf3355b699b7918be02d2be8088f",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -23187,6 +23194,28 @@
       }
     },
     {
+      "from_file": "provas/fluxo_no_seco.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/fluxo_no_seco.py",
+        "line": 35,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/fluxo_no_seco.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/fluxo_no_seco.py",
+        "line": 36,
+        "snippet": "import telemetria as t  # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/italy_accounting.mjs",
       "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "type": "READS",
@@ -29691,10 +29720,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1298,
-    "files_readable": 457,
-    "files_code_dir": 508,
-    "file_edges": 1833,
+    "files_tracked": 1299,
+    "files_readable": 458,
+    "files_code_dir": 509,
+    "file_edges": 1835,
     "escritas_em_pasta": 63,
     "declared_missing_here": 0
   },
