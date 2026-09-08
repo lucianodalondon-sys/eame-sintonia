@@ -1677,8 +1677,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "2d4afd12b778a9d1dfa06f21985127742d40329f",
-    "GENERATED_AT": "2026-09-08T11:31:17-03:00"
+    "HEAD": "c1a6e4d1b655821697d80aaec0ed72d809eff671",
+    "GENERATED_AT": "2026-09-08T12:44:23-03:00"
   },
   "FAMILIES": [
     {
@@ -9754,7 +9754,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -9769,9 +9769,11 @@
         "provas/testa_golden_path_pdf.py"
       ],
       "file_count": 4,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "provas/derived_artifact_no_postgres.py"
+      ],
       "produces": [],
       "inbound": [
         "C-ADAMA-ES",
@@ -10626,7 +10628,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "infra"
@@ -10680,9 +10682,11 @@
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
       "file_count": 44,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "supabase/migrations/022_o_derivado_ganha_casa.sql"
+      ],
       "produces": [],
       "inbound": [
         "C-CADEIA-V21",
@@ -13497,7 +13501,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 2d4afd12b778a9d1dfa06f21985127742d40329f"
+        "HEAD c1a6e4d1b655821697d80aaec0ed72d809eff671"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -22021,8 +22025,8 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 115,
-    "components_proven": 78,
-    "components_pending": 30,
+    "components_proven": 76,
+    "components_pending": 32,
     "components_broken": 0,
     "components_unknown": 7,
     "edges": 384,

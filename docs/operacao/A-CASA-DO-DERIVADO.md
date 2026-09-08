@@ -70,6 +70,103 @@ chave é falsa no dia em que ele aparecer.
 
 ---
 
+## B2 · O RED TEAM ENCONTROU DUAS COISAS — e a primeira estava aberta
+
+### 1 · O filho podia declarar DOIS pais diferentes
+
+`raw_asset_id` apontava para o pai A. `parent_sha256` dizia os bytes de B. **As duas travas
+passavam** — porque A existe, e porque o hash tinha o formato certo — e a linha ficava a
+dizer duas coisas ao mesmo tempo.
+
+**Reproduzido no Postgres antes de ser fechado**, e o resultado foi literalmente:
+
+```
+FAIL COERENCIA_id_e_sha_apontam_para_o_mesmo_pai    ACEITOU DOIS PAIS DIFERENTES
+```
+
+> ### FK EXISTIR NÃO BASTA.
+> Se dois campos declaram o mesmo parentesco, eles **não podem discordar**.
+
+**Fechado com uma chave estrangeira COMPOSTA, declarativa — não com um gatilho:**
+
+```sql
+alter table public.raw_asset
+  add constraint raw_asset_id_e_sha_juntos unique (id, sha256);
+
+constraint o_pai_por_id_e_o_pai_por_sha_sao_o_mesmo
+  foreign key (raw_asset_id, parent_sha256)
+  references public.raw_asset (id, sha256) on delete restrict
+```
+
+As duas colunas **viajam juntas**. Se o par `(A, bytes-de-B)` não existir do outro lado, o
+banco recusa — sem depender de quem escreve. A trava nova em `raw_asset` é aditiva e **não
+pode reprovar sobre dado nenhum**: `(id, sha256)` já era único porque `id` é a chave
+primária. Ela existe só para dar ao Postgres o alvo declarativo de que precisa.
+
+**E `parent_sha256` fica.** Removê-lo obrigaria a identidade a passar por `raw_asset_id` — e
+isso **mudaria o grão** de conteúdo para captura, pela porta dos fundos. A coluna redundante
+não é conveniência: é o que torna o grão certo expressável.
+
+---
+
+## B3 · O GRÃO: conteúdo ou captura?
+
+Duas corridas trouxeram os mesmos bytes — **duas capturas legítimas**, duas linhas em
+`raw_asset`. Derivadas com a mesma receita, dão **uma** linha ou **duas**?
+
+> ## RESPOSTA: UMA. O grão é **CONTEÚDO POR RECEITA**.
+
+**E a assimetria com `raw_asset` é deliberada, não descuido:**
+
+| | grão | por quê |
+|---|---|---|
+| `raw_asset` | **ocorrência** | duas capturas são **dois factos sobre o mundo** — a fonte publicou nos dois sítios, e apagar uma perderia a prova de que o documento não mudou entre elas |
+| `derived_artifact` | **conteúdo por receita** | aqui há **um** facto: a nossa ferramenta, sobre estes bytes, com esta régua, dá este resultado. Correr duas vezes é trabalho repetido, não informação nova — e os bytes de saída são idênticos |
+
+> **Mesmos bytes não apagam a diferença entre duas capturas.** Mas também não criam duas
+> derivações onde só houve uma receita.
+
+### E a procedência da captura não se perde — porque nunca morou aqui
+
+Ela mora em `raw_asset`: uma linha por captura, com a sua corrida, o seu `captured_at` e a
+sua URL. Todas as irmãs encontram-se com uma pergunta só:
+
+```sql
+select * from raw_asset where sha256 = <parent_sha256>
+```
+
+O `raw_asset_id` desta tabela diz apenas **de qual cópia se leu**. É **testemunha, não
+identidade** — e está escrito assim no comentário da coluna, para não se fingir o contrário.
+
+Provado: `GEMEOS_a_mesma_receita_da_UMA_derivacao` (1 linha) ·
+`GEMEOS_a_procedencia_das_duas_capturas_continua_inteira` (2 capturas achaveis).
+
+**Nenhuma tabela nova foi criada.** O modelo atual chegou.
+
+---
+
+### 2 · Duas frases minhas prometiam mais do que o banco cumpre
+
+| eu tinha escrito | o que é verdade |
+|---|---|
+| `derived_at NOT NULL` garante que a data «não foi herdada» | **Não garante.** O banco vê um `timestamptz`; não vê de onde veio. Quem copiasse o `captured_at` passaria sem um arranhão |
+| — | O banco confere o **formato** de `parameters_hash`, **não** a correspondência com o JSON ao lado |
+
+```
+DB_PROVES_PRESENT   ≠   DB_PROVES_NOT_COPIED
+```
+
+Corrigido no texto **e provado ao contrário**: `H2_o_banco_NAO_impede_copiar_o_captured_at`
+insere uma linha com `derived_at` igual ao `captured_at` do pai, e ela **entra** — como se
+esperava. O teste existe para que ninguém volte a escrever que o banco cumpre essa lei.
+
+**A lei continua a valer, e é do writer.** Ele mede o momento da derivação e serializa os
+parâmetros com uma função só — e é lá que o teste tem de morar, quando o writer existir.
+Um gatilho que tentasse adivinhar a serialização canónica seria uma segunda implementação da
+regra, livre para divergir da primeira. **Duas verdades são piores do que uma.**
+
+---
+
 ## C · A IDENTIDADE — e por que o `sha256` sozinho não serve
 
 ```
@@ -152,11 +249,11 @@ derivação simples — que são a maioria.
 
 ## G · PROVADO EM POSTGRES 16 DE VERDADE
 
-**`banco-descartavel`, execução `34237653804` = SUCCESS.** Lido, não presumido.
+**`banco-descartavel`, execução `34246698477` = SUCCESS.** Lido, não presumido.
 
 ```
 POSTGRES16_FOUNDATION_SCHEMA_TESTED = PASS · 19 casos    (a garantia forward)
-DERIVED_ARTIFACT_DB_TESTED          = PASS · 17 casos    (a casa do derivado)
+DERIVED_ARTIFACT_DB_TESTED          = PASS · 23 casos    (a casa do derivado)
 a tranca recusou 4 de 4 endereços que não são descartáveis
 ```
 
@@ -182,7 +279,7 @@ mesma identidade do caso A, e a unicidade mordeu primeiro.
 ```
 DESIGNED       ✅  migration 022 escrita, com o grão e a identidade medidos
 IMPLEMENTED    ✅  SQL completo, com travas e comentários
-DB_TESTED      ✅  Postgres 16 descartável · 17/17 · run 34237653804
+DB_TESTED      ✅  Postgres 16 descartável · 23/23 · run 34246698477
 LIVE_APPLIED   ❌  NÃO. Nenhuma migration aplicada em produção
 OBSERVED       ❌  NÃO. Nenhuma linha real escreveu-se em lado nenhum
 ```

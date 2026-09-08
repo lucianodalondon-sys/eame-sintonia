@@ -876,6 +876,46 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
   legado retroativo.
 - **Detalhe completo:** [`../operacao/A-CASA-DO-DERIVADO.md`](../operacao/A-CASA-DO-DERIVADO.md).
 
+
+### D-035 — O pai por ID e o pai por SHA têm de ser o mesmo pai; e o grão é conteúdo
+
+- **Data:** 2026-09-08 · **Estado:** `DB_TESTED` · **`LIVE_APPLIED = NÃO`**
+- **A brecha era real, e foi REPRODUZIDA antes de fechada.** `raw_asset_id` podia apontar
+  para o pai A enquanto `parent_sha256` dizia os bytes de B: as duas travas passavam, e a
+  linha ficava a declarar dois pais. No Postgres descartável o resultado foi literal —
+  `ACEITOU DOIS PAIS DIFERENTES`. **FK existir não basta.**
+- **Fechado por chave estrangeira COMPOSTA, declarativa, sem gatilho:**
+  `(raw_asset_id, parent_sha256) → raw_asset(id, sha256)`, com um
+  `unique (id, sha256)` aditivo no pai — que **não pode reprovar sobre dado nenhum**, porque
+  `id` já é chave primária. É a única coisa que a `022` toca fora da sua tabela.
+- **`parent_sha256` FICA.** Removê-lo obrigaria a identidade a passar por `raw_asset_id`, e
+  isso mudaria o grão de conteúdo para captura **pela porta dos fundos**. A coluna redundante
+  não é conveniência: é o que torna o grão certo expressável.
+- **GRÃO DECIDIDO: `CONTEÚDO POR RECEITA`.** Duas capturas dos mesmos bytes, derivadas com a
+  mesma régua, dão **UMA** linha. **A assimetria com `raw_asset` é deliberada:** lá o grão é a
+  ocorrência porque duas capturas são **dois factos sobre o mundo**; aqui há **um** facto — a
+  nossa ferramenta, sobre estes bytes, com esta régua, dá este resultado. Correr duas vezes é
+  trabalho repetido, não informação nova.
+- **A procedência da captura não se perde, porque nunca morou aqui:** mora em `raw_asset`, uma
+  linha por captura, e todas as irmãs acham-se com `where sha256 = <parent_sha256>`. O
+  `raw_asset_id` do derivado é **testemunha — de qual cópia se leu — e não identidade**, e
+  está escrito assim no comentário da coluna. **Nenhuma tabela nova foi criada.**
+- **Duas frases minhas prometiam mais do que o banco cumpre, e foram corrigidas:**
+  `derived_at NOT NULL` **não** garante que a data não foi copiada do `captured_at` (o banco
+  vê um timestamptz, não vê de onde veio), e o banco confere o **formato** de
+  `parameters_hash`, **não** a correspondência com o JSON. `DB_PROVES_PRESENT ≠
+  DB_PROVES_NOT_COPIED`. Há teste que **insere uma linha com a data copiada e mostra que ela
+  entra** — para que ninguém volte a escrever que o banco cumpre essa lei. **A autoridade é o
+  writer**, e um gatilho que adivinhasse a serialização canónica seria uma segunda
+  implementação da regra, livre para divergir da primeira.
+- **A `022` foi corrigida NO PRÓPRIO FICHEIRO**, que é o padrão da casa para migration ainda
+  não aplicada — precedente medido: a `014` nasceu `010` e foi renumerada. **Não se criou
+  `023_corrige_022`** para simular a história de algo que nunca existiu em produção.
+- **PROVA:** `banco-descartavel` execução **`34246698477` = SUCCESS**, lida. **23/23** casos da
+  `022` + 19/19 da garantia forward + 4/4 recusas da tranca.
+- **Nada em produção:** 0 migrations aplicadas, 0 escritas, 0 backfill, 0 corridas retrocriadas.
+- **Detalhe completo:** [`../operacao/A-CASA-DO-DERIVADO.md`](../operacao/A-CASA-DO-DERIVADO.md) §B2 e §B3.
+
 ---
 
 ## PERGUNTAS PENDENTES
