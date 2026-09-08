@@ -94,6 +94,13 @@ def parar(porque):
     return 1
 
 
+def antes_de(banco):
+    return {"collection_run_IT": banco.contar("collection_run",
+                                              "source_country='IT'"),
+            "raw_asset_total": banco.contar("raw_asset"),
+            "derived_artifact": banco.contar("derived_artifact")}
+
+
 def main():
     banco = MemoriaSupabase()
     armazem = ArmazemSupabase()
@@ -105,14 +112,29 @@ def main():
     # Se já existe um canário, este para aqui, sem GET e sem escrita.
     #
     #     A AUTORIZAÇÃO ERA PARA UM. UM É UM.
-    ja = banco.contar("collection_run", "run_id like 'IT-CANARY-%'")
+    ja = banco._linhas(
+        "select run_id from public.collection_run "
+        "where run_id like 'IT-CANARY-%' order by started_at", ("run_id",))
     if ja:
-        resultado["ESTADO"] = "CANARIO_JA_CORREU"
-        resultado["CORRIDAS_CANARIO_EXISTENTES"] = ja
-        resultado["PORQUE"] = ("a missao autoriza UMA unidade, e ela ja existe. "
-                               "Nao se faz segundo GET nem segunda corrida.")
-        print(json.dumps(resultado, ensure_ascii=False, indent=1, default=str))
-        return 0
+        # ⚠️ RETOMAR, NAO RECUSAR — e nao comecar de novo.
+        #
+        # A primeira corrida do canario preservou o RAW e depois rebentou no
+        # RELATORIO. A producao ficou certa; o relato e que morreu. Recusar
+        # aqui deixaria a missao a meio para sempre; comecar de novo criaria
+        # uma SEGUNDA corrida italiana, que a autorizacao nao cobre.
+        #
+        #     REPETIR SO A ETAPA EM FALTA. E a lei que esta casa ja escreveu
+        #     para o retry, e vale aqui na mesma.
+        #
+        # Nao ha segundo GET: os bytes vem do armazem, de onde ja estao.
+        run_id = ja[-1]["run_id"]
+        resultado["ESTADO"] = "RETOMADO"
+        resultado["RUN_ID"] = run_id
+        resultado["PORQUE"] = (
+            "ja existe a corrida canario %s. Retoma-se a etapa em falta — sem "
+            "novo GET e sem segunda corrida." % run_id)
+        print("=== RETOMANDO %s ===" % run_id)
+        return _derivar_e_fechar(banco, armazem, run_id, antes_de(banco))
 
     antes = {
         "collection_run_IT": banco.contar("collection_run",
@@ -173,9 +195,10 @@ def main():
     resultado["RUN"] = {k: v for k, v in saida.items() if k != "SQL"}
     print("  RUN_STATE=%s PENDENCIA=%s" % (saida["RUN_STATE"],
                                            saida.get("PENDENCIA")))
-    if saida["ENVIO"]["NOVOS"]:
-        resultado["PRODUCTION_WRITES"]["storage_raw"] = len(
-            saida["ENVIO"]["NOVOS"])
+    # `NOVOS` ja vem contado do dono — pedir-lhe `len()` rebentou depois de a
+    # escrita ter acontecido. O erro foi meu, e foi no RELATORIO: a producao
+    # ficou correta e o relato e que morreu.
+    resultado["PRODUCTION_WRITES"]["storage_raw"] = saida["ENVIO"]["NOVOS"]
     if saida["MEMORIA"]["APLICADA"]:
         resultado["PRODUCTION_WRITES"]["collection_run"] = 1
         resultado["PRODUCTION_WRITES"]["raw_asset"] = \
@@ -206,6 +229,41 @@ def main():
     if not ok:
         return parar("o portao do RAW nao fechou")
     resultado["RAW_FORWARD_OBSERVED"] = True
+    return _derivar_e_fechar(banco, armazem, run_id, antes, raw_id=raw_id,
+                             bytes_do_pdf=r["BYTES"])
+
+
+def _derivar_e_fechar(banco, armazem, run_id, antes, raw_id=None,
+                      bytes_do_pdf=None):
+    """A metade que vem depois do bruto — e que a retomada reaproveita.
+
+    Ela existe separada por uma razao concreta: a primeira corrida deste
+    canario preservou o RAW e rebentou a seguir, no relatorio. Sem uma porta
+    de entrada para «so o que falta», a unica saida seria comecar de novo — e
+    comecar de novo criaria uma SEGUNDA corrida italiana.
+
+    Na retomada nao ha segundo GET: os bytes do PDF vem do armazem, de onde
+    ja estao preservados.
+    """
+    if raw_id is None:
+        linhas = banco.objetos_da_corrida(run_id)
+        if not linhas:
+            resultado["ESTADO"] = "RETOMADA_SEM_RAW"
+            resultado["PORQUE"] = ("a corrida existe e nao tem bruto. Nao se "
+                                   "deriva por cima de um buraco.")
+            print(json.dumps(resultado, ensure_ascii=False, indent=1,
+                             default=str))
+            return 1
+        caminho = linhas[0]["storage_path"]
+        raw_id = int(banco._valor(
+            "select id from public.raw_asset where storage_path = '%s'"
+            % caminho))
+        bytes_do_pdf = armazem.ler(caminho)
+        resultado["RAW"] = {"raw_asset_id": raw_id, **linhas[0]}
+        resultado["RAW_FORWARD_OBSERVED"] = True
+        print("  bruto retomado: raw_asset_id=%d  %s" % (raw_id, caminho))
+
+    r = {"BYTES": bytes_do_pdf}
 
     # ── FASE 8 · A DERIVAÇÃO, PELO EXECUTOR E PELO WRITER ────────────
     print("\n=== DERIVACAO (executor + writer) ===")
@@ -242,7 +300,9 @@ def main():
     resultado["PRODUCTION_WRITES"]["storage_derived"] = 1 if d["NOVO_UPLOAD"] else 0
 
     ok = (portao("derived_raw_asset_id_bate", int(linha["raw_asset_id"]) == raw_id)
-          and portao("derived_parent_sha_bate", linha["parent_sha256"] == sha)
+          and portao("derived_parent_sha_bate",
+                     linha["parent_sha256"] == banco.raw_por_id(raw_id)["sha256"],
+                     linha["parent_sha256"][:16])
           and portao("pais_veio_do_pai",
                      linha["storage_path"].startswith("IT/"),
                      linha["storage_path"][:32])
