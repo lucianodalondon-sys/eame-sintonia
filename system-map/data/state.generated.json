@@ -1000,6 +1000,7 @@
       "leis/auditoria_regua_comercial.py",
       "leis/calendario_handoff.py",
       "leis/data_clock.py",
+      "leis/evolucao.py",
       "leis/falhas.py",
       "leis/fundacao_da_coleta.py",
       "leis/gestao_da_coleta.py",
@@ -1329,6 +1330,7 @@
       "tests/test_comunicacao.py",
       "tests/test_estradas_it.py",
       "tests/test_evidence.py",
+      "tests/test_evolucao.py",
       "tests/test_falhas.py",
       "tests/test_fundacao_da_coleta.py",
       "tests/test_gestao_da_coleta.py",
@@ -1751,8 +1753,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "81dc8662df34691f1249c1db751f7f209f821ba2",
-    "GENERATED_AT": "2026-09-08T17:53:28-03:00"
+    "HEAD": "0593e90593490c8bb5ec27c5fed7dc5183c55b19",
+    "GENERATED_AT": "2026-09-08T17:56:42-03:00"
   },
   "FAMILIES": [
     {
@@ -1778,7 +1780,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 42
+      "count": 43
     },
     {
       "id": "F-ESPERA",
@@ -2018,7 +2020,7 @@
       "y": 190,
       "w": 820,
       "h": 2938,
-      "count": 7
+      "count": 8
     },
     {
       "id": "Z-GUARDA",
@@ -6130,6 +6132,45 @@
       "y": 1004
     },
     {
+      "id": "C-CENSO-OBSERVABILIDADE",
+      "name": "Censo da observabilidade",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Diz, dimensão a dimensão, se há dado — separando «ninguém emite» de «emite-se e ninguém leu» de «medido». E formaliza OBSERVABILITY_READY e EVOLUTION_READY.",
+      "why_here": "NUNCA VERDE POR SILÊNCIO. Uma dimensão sem dado não é uma dimensão saudável, e as três respostas pedem coisas diferentes: código que emita, um leitor, ou leitura. E os dois READY dizem por escrito o que NÃO significam — contrato pronto não é instrumentado, e instrumentado não é observado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "red",
+      "icon": "◉",
+      "views": [
+        "audit"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [],
+      "file_count": 0,
+      "status": "BROKEN",
+      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com system-map/scripts/censo_da_observabilidade.py.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 9235,
+      "y": 360
+    },
+    {
       "id": "C-CENSO-SEMANTICO-IT",
       "name": "Censo das palavras da Itália",
       "territory": "Z-PROVA",
@@ -6488,7 +6529,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 9235,
+      "x": 9650,
       "y": 360
     },
     {
@@ -6905,8 +6946,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9650,
-      "y": 360
+      "x": 9235,
+      "y": 682
     },
     {
       "id": "C-CONTRATO-TELEMETRIA",
@@ -7588,7 +7629,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "red",
+      "ui_status": "yellow",
       "icon": "⟳",
       "views": [
         "audit",
@@ -7597,17 +7638,36 @@
       ],
       "lane": "official",
       "family": "F-INTELIGENCIA",
-      "files": [],
-      "file_count": 0,
-      "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com leis/evolucao.py.",
+      "files": [
+        "leis/evolucao.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "o motor importa esta lei para decidir.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS_DA_EXPERIENCIA",
+          "CAMPOS_DA_PROMOCAO",
+          "CAMPOS_DO_ROLLBACK",
+          "PAPEIS",
+          "RESULTADOS"
+        ],
+        "palavras": 38,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 38,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -8915,7 +8975,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9235,
+      "x": 9650,
       "y": 682
     },
     {
@@ -9739,8 +9799,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9650,
-      "y": 682
+      "x": 9235,
+      "y": 1004
     },
     {
       "id": "C-PALAVRAS",
@@ -10953,7 +11013,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 9235,
+      "x": 9650,
       "y": 1004
     },
     {
@@ -11006,8 +11066,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9650,
-      "y": 1004
+      "x": 9235,
+      "y": 1326
     },
     {
       "id": "C-RELEVANCIA",
@@ -11283,7 +11343,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9235,
+      "x": 9650,
       "y": 1326
     },
     {
@@ -12864,6 +12924,7 @@
         "tests/test_comunicacao.py",
         "tests/test_estradas_it.py",
         "tests/test_evidence.py",
+        "tests/test_evolucao.py",
         "tests/test_falhas.py",
         "tests/test_fundacao_da_coleta.py",
         "tests/test_gestao_da_coleta.py",
@@ -12905,9 +12966,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 58,
+      "file_count": 59,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 18 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 19 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -12941,6 +13002,7 @@
         "C-DONO-DO-DERIVADO",
         "C-ESTRADA-PDF",
         "C-ESTRADAS-IT",
+        "C-EVOLUCAO",
         "C-EXECUTOR-TEXTO-PDF",
         "C-FONTES-EU",
         "C-GESTAO-DA-COLETA",
@@ -14618,7 +14680,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 81dc8662df34691f1249c1db751f7f209f821ba2"
+        "HEAD 0593e90593490c8bb5ec27c5fed7dc5183c55b19"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -18440,6 +18502,24 @@
           "file": "tests/test_route_membership.py",
           "line": 108,
           "snippet": "'estradas-it.model.json'), encoding='utf-8') as f:"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-EVOLUCAO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da evolução tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_evolucao.py",
+          "line": 13,
+          "snippet": "import evolucao as e  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -24548,17 +24628,17 @@
   "UNCLAIMED_FILES_COUNT": 698,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 129,
+    "components": 130,
     "components_proven": 73,
-    "components_pending": 48,
+    "components_pending": 49,
     "components_broken": 1,
     "components_unknown": 7,
-    "edges": 441,
-    "edges_proven": 439,
+    "edges": 442,
+    "edges_proven": 440,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1305,
-    "files_covered": 607,
+    "files_tracked": 1307,
+    "files_covered": 609,
     "files_code_unclaimed": 0
   }
 }

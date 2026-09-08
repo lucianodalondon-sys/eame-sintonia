@@ -2301,6 +2301,24 @@
    "views": [
     "audit"
    ]
+  },
+  {
+   "id": "C-CENSO-OBSERVABILIDADE",
+   "name": "Censo da observabilidade",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◉",
+   "what": "Diz, dimensão a dimensão, se há dado — separando «ninguém emite» de «emite-se e ninguém leu» de «medido». E formaliza OBSERVABILITY_READY e EVOLUTION_READY.",
+   "why_here": "NUNCA VERDE POR SILÊNCIO. Uma dimensão sem dado não é uma dimensão saudável, e as três respostas pedem coisas diferentes: código que emita, um leitor, ou leitura. E os dois READY dizem por escrito o que NÃO significam — contrato pronto não é instrumentado, e instrumentado não é observado.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "system-map/scripts/censo_da_observabilidade.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

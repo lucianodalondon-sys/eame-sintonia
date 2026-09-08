@@ -1,0 +1,80 @@
+{
+ "SCHEMA": "observabilidade/v1",
+ "NUNCA_VERDE_POR_SILENCIO": "uma dimensao sem dado nao e uma dimensao saudavel. NOT_INSTRUMENTED (ninguem emite) != NOT_MEASURED (emite-se e ninguem leu) != MEDIDO. As tres pedem coisas diferentes.",
+ "DIMENSOES": [
+  {
+   "DIMENSAO": "ARCHITECTURE",
+   "ESTADO": "MEDIDO",
+   "ONDE": "system-map/data/estradas-it.generated.json",
+   "O_QUE_RESPONDE": "que etapas existem, quem e dono, e quem esta ligado"
+  },
+  {
+   "DIMENSAO": "TRACE",
+   "ESTADO": "MEDIDO",
+   "ONDE": "system-map/data/fluxo.generated.json",
+   "O_QUE_RESPONDE": "que corridas houve, e o que entrou e saiu de cada",
+   "RESSALVA": "so a RC-9 emite. As outras rotas nao emitiram ZERO — nao emitem NADA."
+  },
+  {
+   "DIMENSAO": "DIAGNOSTIC",
+   "ESTADO": "NOT_INSTRUMENTED",
+   "ONDE": null,
+   "O_QUE_RESPONDE": "em que codigo cada etapa parou",
+   "PORQUE": "o contrato tem 12 codigos declarados, e nenhum executor os emite ainda. Quem teria de emitir: cada executor."
+  },
+  {
+   "DIMENSAO": "PERFORMANCE",
+   "ESTADO": "PARCIAL",
+   "ONDE": "system-map/data/fluxo.generated.json",
+   "O_QUE_RESPONDE": "quanto tempo e quanto custou",
+   "RESSALVA": "ha duracao POR CORRIDA e nao por etapa. Custo: NOT_INSTRUMENTED — nenhuma rota italiana e paga hoje."
+  },
+  {
+   "DIMENSAO": "EVOLUTION",
+   "ESTADO": "NOT_MEASURED",
+   "ONDE": "leis/evolucao.py",
+   "O_QUE_RESPONDE": "que alternativas foram comparadas e o que se decidiu",
+   "PORQUE": "ha contrato e nao ha experiencia nenhuma registada. NOT_MEASURED e nao NOT_INSTRUMENTED: o sitio existe, o dado e que nao."
+  },
+  {
+   "DIMENSAO": "COLLECTION_STRATEGY",
+   "ESTADO": "NOT_MEASURED",
+   "ONDE": "leis/gestao_da_coleta.py",
+   "O_QUE_RESPONDE": "que faltas se conhecem, e o que se decidiu sobre elas",
+   "PORQUE": "ha contrato e nenhuma necessidade declarada ainda."
+  }
+ ],
+ "POR_ESTADO": {
+  "MEDIDO": 2,
+  "NOT_INSTRUMENTED": 1,
+  "NOT_MEASURED": 2,
+  "PARCIAL": 1
+ },
+ "OBSERVABILITY": {
+  "OBSERVABILITY_READY": "SIM",
+  "O_QUE_SIGNIFICA": "uma rota nova tem CONTRATO para emitir telemetria e ser diagnosticada. NAO significa que se esta a medir.",
+  "O_QUE_NAO_SIGNIFICA": "CONTRATO PRONTO != INSTRUMENTADO != OBSERVADO",
+  "FALTAS": [],
+  "QUANTOS_CONCEITOS_COM_DONO_DUPLICADO": 7,
+  "PORQUE_O_DUPLICADO_IMPORTA": "onde dois ficheiros escrevem o mesmo conceito, a telemetria pode divergir sem ninguem dar por isso. Nao impede o contrato de estar pronto; e a divida que vem a seguir."
+ },
+ "EVOLUTION": {
+  "EVOLUTION_READY": "SIM",
+  "O_QUE_SIGNIFICA": "decisoes tem versao, ha baseline, e outcome pode ser ligado a decisao. Uma experiencia teria onde ser guardada.",
+  "O_QUE_NAO_SIGNIFICA": "NAO significa IA autonoma pronta",
+  "FALTAS": [],
+  "PROIBIDO_HOJE": [
+   "ML_LIVE",
+   "BANDIT_LIVE",
+   "AUTO_PROMOTION"
+  ]
+ },
+ "COLLECTION_FOUNDATION_CLOSED": false,
+ "O_SCANNER_EXISTIR_NAO_FECHA_FUNDACAO": "sao perguntas diferentes. Este censo nao decide a fundacao: le-a de leis/fundacao_da_coleta.py, que e o dono.",
+ "CONTRATOS_QUE_JA_EXISTEM": {
+  "TELEMETRIA": "TELEMETRIA/v1",
+  "GESTAO_DA_COLETA": "GESTAO_DA_COLETA/v1",
+  "APRENDER_COM_A_FONTE": "APRENDER_COM_A_FONTE/v1",
+  "EVOLUCAO": "EVOLUCAO/v1"
+ }
+}

@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "81dc8662df34691f1249c1db751f7f209f821ba2",
-    "GENERATED_AT": "2026-09-08T17:53:28-03:00"
+    "HEAD": "0593e90593490c8bb5ec27c5fed7dc5183c55b19",
+    "GENERATED_AT": "2026-09-08T17:56:42-03:00"
   },
   "FILES": [
     {
@@ -6756,6 +6756,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/evolucao.py",
+      "sha": "76b8f7c6d469ca19d2c9b768b68088c479df640c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/falhas.py",
       "sha": "76c666d9154b041d54bab31291c67b3a35c360db",
       "ext": ".py",
@@ -8514,7 +8521,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e96a38fa1013a2df9d3f0f8eb4f64981e7df2a8b",
+      "sha": "6eceb93a71674e309c236aa47fb0e937fc7ae0a6",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8851,6 +8858,13 @@
     {
       "path": "tests/test_evidence.py",
       "sha": "dc2524beb6f59d549553696071b81874c157b00d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_evolucao.py",
+      "sha": "7463f689e13fc5077e52b8f5275d2735de290702",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26745,6 +26759,28 @@
       }
     },
     {
+      "from_file": "tests/test_evolucao.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_evolucao.py",
+        "line": 12,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_evolucao.py",
+      "to_file": "leis/evolucao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_evolucao.py",
+        "line": 13,
+        "snippet": "import evolucao as e  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_falhas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -29857,10 +29893,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1305,
-    "files_readable": 464,
-    "files_code_dir": 515,
-    "file_edges": 1843,
+    "files_tracked": 1307,
+    "files_readable": 466,
+    "files_code_dir": 517,
+    "file_edges": 1845,
     "escritas_em_pasta": 64,
     "declared_missing_here": 0
   },
