@@ -100,9 +100,13 @@ jobs:
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
 
+  # O CANARIO. A 022 ja esta aplicada e verificada; o que falta e a UNICA
+  # unidade que a missao autoriza. Ele e disparado pelo caminho deste
+  # ficheiro, e a trava do canario unico esta DENTRO do script: se ja houver
+  # uma corrida `IT-CANARY-%`, ele para antes do GET e antes de qualquer
+  # escrita. Um empurrao distraido nao vira uma segunda corrida italiana.
   canario:
-    needs: aplicar
-    if: github.event_name == 'workflow_dispatch' && inputs.confirmar == 'SIM'
+    needs: preflight
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

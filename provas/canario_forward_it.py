@@ -99,6 +99,21 @@ def main():
     armazem = ArmazemSupabase()
 
     # ── ANTES ────────────────────────────────────────────────────────
+    # ── A TRAVA DO CANÁRIO ÚNICO ─────────────────────────────────────
+    # A missão autoriza UMA unidade. Este ficheiro é disparado por caminho —
+    # e um empurrão distraído não pode virar uma segunda corrida italiana.
+    # Se já existe um canário, este para aqui, sem GET e sem escrita.
+    #
+    #     A AUTORIZAÇÃO ERA PARA UM. UM É UM.
+    ja = banco.contar("collection_run", "run_id like 'IT-CANARY-%'")
+    if ja:
+        resultado["ESTADO"] = "CANARIO_JA_CORREU"
+        resultado["CORRIDAS_CANARIO_EXISTENTES"] = ja
+        resultado["PORQUE"] = ("a missao autoriza UMA unidade, e ela ja existe. "
+                               "Nao se faz segundo GET nem segunda corrida.")
+        print(json.dumps(resultado, ensure_ascii=False, indent=1, default=str))
+        return 0
+
     antes = {
         "collection_run_IT": banco.contar("collection_run",
                                           "source_country='IT'"),
