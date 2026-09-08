@@ -64,13 +64,24 @@ prova("1_a_saida_nao_cita_scraper_nem_api",
               for x in ("scraper", "apify", "playwright", ".py", "requests")))
 
 # ── 2 · fora do universo: o bruto fica, o nao fica escrito ──────────────────
-fora = {"id": "e2e-2", "texto": "Promocao de tratores com desconto",
+# ESTE CASO MUDOU DE FORMA, e a mudanca e o ponto.
+# Ele dizia «Promocao de tratores com desconto» e esperava NAO. Passava — mas
+# passava pelo motivo errado: a porta dava NAO por NENHUMA palavra ter casado.
+# Isso e ausencia de evidencia a fazer de evidencia de ausencia, e com um lexico
+# incompleto transforma cada buraco do vocabulario numa rejeicao.
+# Agora o item traz prova POSITIVA de pertencer a outro universo — fala de
+# lancamento e campanha, que e T9 — e por isso o NAO em T7 e legitimo.
+fora = {"id": "e2e-2",
+        "texto": "lancio del prodotto: nuova campagna commerciale",
         "source_id": "IT-T9-004", "fact_time": "2026-05-03"}
 d2 = adm.decidir(fora, "T7", corrida="e2e")
-prova("2_item_fora_do_universo_e_NAO", d2.resultado == adm.NAO, d2.resultado)
+prova("2_item_de_outro_universo_e_NAO_com_prova",
+      d2.resultado == adm.NAO and "achado_noutro" in d2.evidencia,
+      f"{d2.resultado} · {d2.motivo[:70]}")
 prova("2_a_rejeicao_tem_motivo_escrito", len(d2.motivo) > 30)
 prova("2_a_rejeicao_diz_a_regra_e_a_versao", bool(d2.regra) and bool(d2.versao))
-prova("2_o_bruto_nao_foi_destruido", fora.get("texto") == "Promocao de tratores com desconto")
+prova("2_o_bruto_nao_foi_destruido",
+      fora.get("texto") == "lancio del prodotto: nuova campagna commerciale")
 
 # ── 3 · sem prova nao vira nao ──────────────────────────────────────────────
 sem_data = {"id": "e2e-3", "texto": "Ensaio com DOI", "source_id": "IT-T7-002"}
@@ -224,6 +235,63 @@ _d = adm.decidir(_it, "T7")
 prova("V12_a_decisao_diz_com_que_regua_decidiu",
       bool(_d.regra) and bool(_d.versao) and bool(_d.evidencia),
       "cada decisao tem de dizer a regra, a versao e a prova")
+
+
+# ══ AUSENCIA DE MATCH NAO E PROVA ══════════════════════════════════════════
+# A lei canonica desta casa: AUSENCIA DE EVIDENCIA NAO E EVIDENCIA DE AUSENCIA.
+# A porta violava-a — devolvia NAO sempre que nenhuma palavra casava. Com um
+# vocabulario incompleto, isso transforma cada buraco do lexico numa rejeicao
+# com ar de julgamento, e a coleta encolhe sozinha sem ninguem decidir.
+_nada = {"id": "L1", "texto": "un testo qualunque senza parole conosciute",
+         "source_id": "IT-L1", "fact_time": "2026-01-01"}
+_outro = {"id": "L2", "texto": "lancio del prodotto: nuova campagna",
+          "source_id": "IT-L2", "fact_time": "2026-01-01"}
+
+prova("L1_sem_match_nenhum_da_NAO_SEI",
+      adm.decidir(_nada, "T7").resultado == adm.NAO_SEI,
+      "nao achar palavra nenhuma prova que o lexico nao chegou, nao que o item "
+      "nao pertence")
+prova("L2_nao_exige_prova_positiva",
+      adm.decidir(_outro, "T7").resultado == adm.NAO,
+      "NAO so quando o item fala claramente de outro universo")
+prova("L3_o_nao_diz_onde_o_item_pertence",
+      "achado_noutro" in adm.decidir(_outro, "T7").evidencia,
+      "um NAO tem de mostrar a prova que o sustenta")
+prova("L4_a_versao_da_lei_subiu",
+      adm.VERSAO_DA_REGRA != "1",
+      "a lei mudou; sem subir a versao nao ha como reabrir o que a versao 1 "
+      "rejeitou por ausencia")
+
+# ══ A PORTA DAS TRASEIRAS DO ESCOPO ════════════════════════════════════════
+# Os lotes A e B foram tirados do menu do GitHub quando se viu que levavam
+# recortes espanhois e franceses. O menu escondeu o botao; o codigo continuou
+# a aceitar `videos('A')` — e 'A' era ate o valor por omissao da linha de
+# comando. ESCONDER O BOTAO NAO E PROTECAO. Estas tres provas verificam o
+# portao no CODIGO, que e o unico sitio que nao depende de ninguem se lembrar.
+import sensor_coleta as sc  # noqa: E402
+
+_dentro_a, _fora_a = sc.recortes_no_escopo('A')
+prova("T4_lote_estrangeiro_e_filtrado_pelo_codigo",
+      _fora_a and all(not c.startswith('IT-') for c in _fora_a)
+      and all(c.startswith('IT-') for c in _dentro_a),
+      "chamar o lote A com pais IT tem de devolver so os recortes italianos, "
+      "com os outros nomeados — nao silenciosamente")
+
+prova("T5_o_valor_por_omissao_e_italiano",
+      all(c.startswith('IT-') for c in sc.LOTES['C']),
+      "quem esquece o argumento do lote apanha o lote por omissao; ele tem de "
+      "ser 100% italiano")
+
+prova("T6_o_conteudo_estrangeiro_nao_foi_apagado",
+      any(not c.startswith('IT-') for c in sc.LOTES['A'])
+      and all(sc.TERMOS.get(c) for c in sc.LOTES['A']),
+      "filtrar nao e apagar: os recortes ES/FR e os seus termos continuam "
+      "guardados para repetir coletas antigas")
+
+prova("T7_correr_fora_do_escopo_exige_pedido_explicito",
+      sc.recortes_no_escopo('A', permitir_fora=True)[0] == sc.LOTES['A'],
+      "ha uma saida, mas so por pedido escrito (--fora-do-escopo), e fica no log")
+
 
 print()
 if FALHAS:

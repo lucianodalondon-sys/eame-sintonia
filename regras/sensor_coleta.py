@@ -123,6 +123,72 @@ LOTES = {
     'E': ['IT-OLIVE-BACTROCERA', 'IT-CEREAL-SEPTORIA', 'IT-APPLE-INSECT',
           'IT-TOMATO-DISEASE'],
 }
+# ── O PORTAO DE ESCOPO: ESCONDER O BOTAO NAO E PROTECAO ────────────────────
+# Os lotes A e B levam recortes espanhois e franceses. Quando isso foi
+# descoberto, tirou-se A e B do menu do GitHub — e ficou a parecer resolvido.
+#
+# Nao estava. A linha de baixo era, literalmente:
+#
+#     lote = (sys.argv[2] if len(sys.argv) > 2 else 'A').upper()
+#
+# Qualquer pessoa que corresse `py regras/sensor_coleta.py videos A` recebia os
+# recortes estrangeiros — e o valor POR OMISSAO era o proprio lote A. A unica
+# coisa entre a rota italiana e o vocabulario espanhol era um menu.
+#
+#     PROTECAO QUE DEPENDE DE ESCONDER O BOTAO NAO E PROTECAO: E ARRUMACAO.
+#
+# Agora o escopo e verificado no CODIGO, na unica porta por onde se entra. O
+# conteudo espanhol e frances FICA guardado — nao se apaga trabalho feito — mas
+# nao chega a uma corrida italiana sem alguem pedir isso por escrito.
+PAIS_DA_ROTA = 'IT'
+
+
+def recortes_no_escopo(lote: str, pais: str = PAIS_DA_ROTA, permitir_fora=False):
+    """Os recortes deste lote que pertencem ao pais da rota.
+
+    Devolve (recortes, deixados_de_fora). Nao apaga nada: filtra, e diz o que
+    filtrou. `permitir_fora=True` existe para quem QUISER mesmo correr um lote
+    de outro pais — mas tem de o dizer, e fica escrito no log.
+    """
+    todos = LOTES[lote]
+    dentro = [c for c in todos if c.startswith(pais + '-')]
+    fora = [c for c in todos if c not in dentro]
+    if permitir_fora:
+        return todos, fora
+    return dentro, fora
+
+
+def fora_do_escopo_pedido() -> bool:
+    """Alguem pediu, POR ESCRITO, para correr recortes de outro pais?"""
+    return (('--fora-do-escopo' in sys.argv)
+            or os.environ.get('SINTONIA_FORA_DO_ESCOPO') == '1')
+
+
+def casos_do_lote(lote: str):
+    """A UNICA porta por onde os recortes de um lote saem para ser colhidos.
+
+    Esta funcao existe porque o portao anterior estava so na linha de comando —
+    e chamar `videos('A')` a partir de outro ficheiro passava por baixo dele.
+    Nao chega barrar a entrada da frente se a porta das traseiras esta aberta.
+    Agora quem quer os recortes tem de passar por aqui, venha de onde vier.
+    """
+    dentro, fora = recortes_no_escopo(lote, permitir_fora=fora_do_escopo_pedido())
+    if fora:
+        if fora_do_escopo_pedido():
+            print('  ESCOPO=%s · a correr %d recorte(s) de outro pais A PEDIDO '
+                  'EXPLICITO: %s' % (PAIS_DA_ROTA, len(fora), ', '.join(fora)))
+        else:
+            print('  ESCOPO=%s · %d de %d recortes deste lote nao sao da Italia '
+                  '(%s) — RECUSADOS.'
+                  % (PAIS_DA_ROTA, len(fora), len(LOTES[lote]), ', '.join(fora)))
+            print('           Continuam guardados. So nao correm sem se pedir:')
+            print('           --fora-do-escopo  ou  SINTONIA_FORA_DO_ESCOPO=1')
+    if not dentro:
+        raise SystemExit('ESCOPO=%s · o lote %s nao tem nenhum recorte deste '
+                         'pais. Nada a fazer.' % (PAIS_DA_ROTA, lote))
+    return dentro
+
+
 OFFSET_DO_LOTE = {'A': 0, 'B': 2, 'C': 4, 'D': 6, 'E': 8}  # posição inicial no pool
 
 # ── TERMOS POR RECORTE ───────────────────────────────────────────────────────────
@@ -280,7 +346,7 @@ def _pessoas(lote=None):
         d = json.load(f)
     ps = [p for p in d['PEOPLE'] if p['IDENTITY_STATE'].startswith('IDENTITY_PROVED')]
     if lote:
-        ps = [p for p in ps if p['CASE_ID'] in LOTES[lote]]
+        ps = [p for p in ps if p['CASE_ID'] in casos_do_lote(lote)]
     return ps
 
 
@@ -467,7 +533,8 @@ def canais(lote='A'):
     """Canal público das pessoas do lote: LinkedIn por nome + YouTube por nome."""
     pessoas = _pessoas(lote)
     batch = 'BATCH-%s-CANAIS' % lote
-    print('lote %s · %d pessoas · recortes %s' % (lote, len(pessoas), LOTES[lote]))
+    print('lote %s · %d pessoas · recortes %s'
+          % (lote, len(pessoas), casos_do_lote(lote)))
     achados, mans, custo = [], [], 0.0
 
     for p in pessoas:
@@ -520,7 +587,7 @@ def canais(lote='A'):
         'ORIGINAL_LANGUAGE': 'multi', 'EVIDENCE_CLASS': 'PRIMARY_SOURCE_PROBE',
         'CAPTURED_AT': coletor.agora(), 'MISSION': MISSION,
         'BATCH_ID': batch, 'LOTE': lote, 'RUNNER_NAME': RUNNER,
-        'CASES': LOTES[lote],
+        'CASES': casos_do_lote(lote),
         'PEOPLE_QUERIED': len(pessoas),
         'CANDIDATES': len(achados),
         'APIFY_RUNS': len(mans), 'COST_USD': round(custo, 6),
@@ -617,15 +684,11 @@ def videos(lote='A'):
     #
     # Nao se barra a corrida: A e B continuam a servir para repetir uma coleta
     # antiga e comparar. Mas quem a manda correr fica a saber o que vai pagar.
-    fora = [c for c in LOTES[lote] if not c.startswith('IT-')]
-    if fora:
-        print('  ATENCAO: %d de %d recortes deste lote NAO sao da Italia (%s).'
-              % (len(fora), len(LOTES[lote]), ', '.join(fora)))
-        print('           Este repositorio e o projeto italiano. Os lotes C, D e E')
-        print('           sao 100%% italianos — 11 recortes ao todo.')
+    # AQUI e onde o dinheiro comeca a sair. Por isso o portao fica ANTES.
+    casos = casos_do_lote(lote)
 
     achados, mans, custo = [], [], 0.0
-    for caso in LOTES[lote]:
+    for caso in casos:
         pais = caso.split('-')[0]
         crop, issue = caso.split('-', 1)[1].rsplit('-', 1)
         termos = TERMOS[caso]
@@ -659,8 +722,8 @@ def videos(lote='A'):
         'FACT_LOCATION': 'NOT_KNOWN — sai do conteúdo, nunca da consulta',
         'ORIGINAL_LANGUAGE': 'multi', 'EVIDENCE_CLASS': 'PRIMARY_SOURCE_PROBE',
         'CAPTURED_AT': coletor.agora(), 'MISSION': MISSION,
-        'BATCH_ID': batch, 'LOTE': lote, 'RUNNER_NAME': RUNNER, 'CASES': LOTES[lote],
-        'TERMS_BY_CASE': {c: TERMOS[c] for c in LOTES[lote]},
+        'BATCH_ID': batch, 'LOTE': lote, 'RUNNER_NAME': RUNNER, 'CASES': casos,
+        'TERMS_BY_CASE': {c: TERMOS[c] for c in casos},
         'ITEMS_COUNT': len(achados),
         'APIFY_RUNS': len(mans), 'COST_USD': round(custo, 6),
         'RUN_IDS': [m['RUN_ID'] for m in mans],
@@ -893,7 +956,10 @@ def comentarios(lote='A'):
 
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else 'contratos'
-    lote = (sys.argv[2] if len(sys.argv) > 2 else 'A').upper()
+    # POR OMISSAO, O LOTE ITALIANO. Era 'A' — o lote com dois tercos de recortes
+    # estrangeiros — e bastava esquecer o argumento para colher Espanha e Franca
+    # neste repositorio.
+    lote = (sys.argv[2] if len(sys.argv) > 2 else 'C').upper()
     fn = {'contratos': contratos, 'canais': canais, 'videos': videos,
           'transcricao': transcricao, 'comentarios': comentarios}[cmd]
     raise SystemExit(fn(lote))

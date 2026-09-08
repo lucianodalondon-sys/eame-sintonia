@@ -1426,7 +1426,7 @@
     },
     {
       "file": "regras/sensor_coleta.py",
-      "line": 132,
+      "line": 198,
       "variavel": "TERMOS",
       "grupos": [
         {
@@ -1589,8 +1589,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "46ef52677c1d1cf545d2d789cdd778bd10cad953",
-    "GENERATED_AT": "2026-09-07T21:59:10-03:00"
+    "HEAD": "caf160c8ae20e968e092408e5110409e5a8c1806",
+    "GENERATED_AT": "2026-09-07T22:10:25-03:00"
   },
   "FAMILIES": [
     {
@@ -2215,7 +2215,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⊞",
       "views": [
         "acervo"
@@ -2226,9 +2226,11 @@
         "admissao/admissao.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "admissao/admissao.py"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -7791,7 +7793,7 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "“",
       "views": [
         "acervo",
@@ -7805,9 +7807,11 @@
         "regras/sensor_medir.py"
       ],
       "file_count": 3,
-      "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o motor importa esta lei para decidir.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "regras/sensor_coleta.py"
+      ],
       "produces": [
         "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json"
       ],
@@ -7875,7 +7879,7 @@
           "pasta": "data/samples/SENSOR-PILOT",
           "prova": {
             "file": "regras/sensor_coleta.py",
-            "line": 289,
+            "line": 355,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -8448,7 +8452,9 @@
       "file_count": 1,
       "status": "PENDING",
       "status_reason": "teste que nao toca em nada do repositorio.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "provas/testa_coleta_canonica.py"
+      ],
       "produces": [],
       "inbound": [
         "C-ADAMA-ES",
@@ -12058,7 +12064,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 46ef52677c1d1cf545d2d789cdd778bd10cad953"
+        "HEAD caf160c8ae20e968e092408e5110409e5a8c1806"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -12249,7 +12255,7 @@
       "evidence": [
         {
           "file": "provas/testa_coleta_canonica.py",
-          "line": 118,
+          "line": 129,
           "snippet": "REMOVIDOS = (\".github/workflows/adama-es-gate.yml\",)"
         }
       ],
@@ -14501,7 +14507,7 @@
       "evidence": [
         {
           "file": "regras/sensor_coleta.py",
-          "line": 279,
+          "line": 345,
           "snippet": "open(UNIVERSO, 'leitura')  # UNIVERSO = data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
         },
         {
@@ -16081,12 +16087,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As palavras que a busca digita tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "As palavras que a busca digita tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/testa_coleta_canonica.py",
-          "line": 147,
+          "line": 158,
           "snippet": "import sensor_medir as _sm"
+        },
+        {
+          "file": "provas/testa_coleta_canonica.py",
+          "line": 271,
+          "snippet": "import sensor_coleta as sc  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -19314,8 +19325,8 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 97,
-    "components_proven": 68,
-    "components_pending": 25,
+    "components_proven": 66,
+    "components_pending": 27,
     "components_broken": 0,
     "components_unknown": 4,
     "edges": 324,

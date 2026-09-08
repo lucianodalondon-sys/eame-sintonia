@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "46ef52677c1d1cf545d2d789cdd778bd10cad953",
-    "GENERATED_AT": "2026-09-07T21:59:10-03:00"
+    "HEAD": "caf160c8ae20e968e092408e5110409e5a8c1806",
+    "GENERATED_AT": "2026-09-07T22:10:25-03:00"
   },
   "FILES": [
     {
@@ -198,7 +198,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "9571a4fdc0b778dceeeb6f1f66c60a3a90044830",
+      "sha": "1aab3d64646c380ed4347c7b1e159be5d752c6d0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6715,7 +6715,7 @@
     },
     {
       "path": "provas/testa_coleta_canonica.py",
-      "sha": "c3fab202bca9fb13cfb5251a09bd6e2c83a0ef3c",
+      "sha": "82d4e024a4673e10502e2a46298eb7f4dd4664bd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6729,7 +6729,7 @@
     },
     {
       "path": "regras/LEIA-ANTES-DE-COLETAR.md",
-      "sha": "fc77a1f6a2d07b38a8072165d87476d786a97f80",
+      "sha": "5777f60861f54786fce58d57bb5f56e61cd039ee",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -6806,7 +6806,7 @@
     },
     {
       "path": "regras/sensor_coleta.py",
-      "sha": "ddfeb08a7569e62360349763b95052b13dc731eb",
+      "sha": "6267585dda56bda9ff2c8b4e443e0d2386b82ccc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21231,7 +21231,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 130,
+        "line": 141,
         "snippet": "if not l.startswith((\"guarda/es/\", \"docs/\", \"AGENTS.md\","
       }
     },
@@ -21264,7 +21264,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 118,
+        "line": 129,
         "snippet": "REMOVIDOS = (\".github/workflows/adama-es-gate.yml\",)"
       }
     },
@@ -21303,12 +21303,23 @@
     },
     {
       "from_file": "provas/testa_coleta_canonica.py",
+      "to_file": "regras/sensor_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_coleta_canonica.py",
+        "line": 271,
+        "snippet": "import sensor_coleta as sc  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_coleta_canonica.py",
       "to_file": "regras/sensor_medir.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 147,
+        "line": 158,
         "snippet": "import sensor_medir as _sm"
       }
     },
@@ -21715,7 +21726,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/sensor_coleta.py",
-        "line": 279,
+        "line": 345,
         "snippet": "open(UNIVERSO, 'leitura')  # UNIVERSO = data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
       }
     },
@@ -25222,7 +25233,7 @@
     "regras/sensor_coleta.py": [
       {
         "pasta": "data/samples/SENSOR-PILOT",
-        "line": 289,
+        "line": 355,
         "constante": "SAIDA"
       }
     ],
@@ -25245,7 +25256,7 @@
     "files_tracked": 1145,
     "files_readable": 388,
     "files_code_dir": 434,
-    "file_edges": 1531,
+    "file_edges": 1532,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
