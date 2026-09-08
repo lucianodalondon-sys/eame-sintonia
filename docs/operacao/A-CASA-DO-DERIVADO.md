@@ -381,14 +381,102 @@ e nenhum foi migrado.
 
 ---
 
+## G4 · O RED TEAM DO WRITER — três brechas, e a terceira era minha a fingir de limite
+
+### 1 · `REUSED` sem confirmar que o byte ainda existe
+
+O writer devolvia `REUSED` a partir da **leitura da linha**, sem nunca perguntar ao armazém.
+Uma ficha viva sobre um artefato apagado passava por «reaproveitado, está tudo bem».
+
+> ### UMA LINHA NO BANCO NÃO É PROVA DE QUE O BYTE AINDA EXISTE.
+
+⚠️ **E eu tinha escrito um teste que exigia esse comportamento**, chamando-lhe «limite
+conhecido». Um teste que exige o comportamento errado **impede quem o vem consertar** — e
+ainda dá ao defeito um ar de decisão tomada. Não era limite: era defeito com etiqueta.
+
+**Agora `REUSED` exige as cinco provas:** linha existe · resultado igual · `storage_path`
+existe · o byte no armazém bate com o `sha256` da linha · e bate com o desta execução.
+
+| situação | estado |
+|---|---|
+| tudo bate | `REUSED` + `BYTES_CONFERIDOS_NO_ARMAZEM: True` |
+| a ficha está lá, o artefato sumiu | **`STORAGE_MISSING`** |
+| o byte foi trocado debaixo da ficha | `STORAGE_CONFLICT` |
+
+**Um estado novo, não cinco.** `STORAGE_MISSING` existe porque «o artefato desapareceu» e «a
+ficha não entrou» são avarias diferentes, com conserto diferente — dar-lhes o mesmo nome
+mandaria o operador ao sítio errado.
+
+E **não se reenvia o byte por conta própria.** Um desaparecimento de evidência regista-se
+primeiro; curar em silêncio apagaria o rasto de que houve um buraco.
+
+### 2 · O endereço colapsava identidades que o banco distingue
+
+O caminho era `PAIS/derivados/TIPO/<pai16>-<produtor>-<versão>` — e **não incluía o
+`parameters_hash`**. O mesmo PDF a 150 dpi e a 300 dpi são **duas derivações legítimas** pela
+`022`, e disputavam **o mesmo endereço**.
+
+> ### SE A IDENTIDADE DO BANCO DIZ QUE SÃO DUAS DERIVAÇÕES,
+> ### O ENDEREÇO TEM DE PERMITIR QUE AS DUAS EXISTAM.
+
+```
+antes   IT/derivados/TEXT_EXTRACTION/<pai16>-texto-de-pdf-1.txt
+agora   IT/derivados/TEXT_EXTRACTION/texto-de-pdf-1-<receita_sha256>.txt
+```
+
+O discriminante é o `sha256` **completo** da receita inteira — pai, tipo, produtor, versão,
+hash dos parâmetros e posição na série — serializada pela **mesma** função canónica dos
+parâmetros. **Não um prefixo de 16 caracteres a fazer de identidade.**
+
+E o `sha256` do **filho** continua fora do caminho, de propósito: se entrasse, um
+`DERIVATION_DRIFT` ganharia endereço novo e **deixaria de ser drift** — passaria a ser dois
+artefatos calados.
+
+**A identidade da tabela não mudou.** Isto é defeito de *writer*, não de esquema: a `022`
+está igual.
+
+### 3 · A ponte para o executor não carregava o pai
+
+A primeira ponte passava a receita e os bytes — e **não o `raw_asset_id`**. O dono ficava sem
+saber qual linha de `raw_asset` era o pai daquele PDF. E o meu teste só verificava que o
+callback tinha sido chamado, **o que não prova nada**.
+
+> ### UM EXECUTOR FORWARD SEM `RAW_ASSET_ID` REAL NÃO TEM PAI CANÓNICO.
+
+A ponte foi **removida**. No lugar entrou `derivar_um(raw_asset_id, pdf, armazem, memoria)`,
+que recebe o pai como **contexto da unidade de trabalho** — quem manda derivar já sabe de que
+bruto se trata. O executor continua a não calcular `parent_sha256`, `parameters_hash`,
+`sha256` do filho, `derived_at` nem `storage_path`.
+
+**E os dois modos ficam separados:**
+
+```
+LEGADO    correr()      → PDFs históricos → JSON → o dono NÃO entra
+FORWARD   derivar_um()  → um raw_asset real → o dono canónico
+```
+
+O teste é **de ponta a ponta com o dono real**: `raw_asset X` → executor → writer →
+`derived_artifact.raw_asset_id = X`, `parent_sha256` = o SHA de X, byte no armazém, metadata
+conferida. E com **dois brutos distintos**, para provar que nenhum caminho global troca os
+pais.
+
+### 4 · E o país deixou de ser do chamador
+
+O `country` vinha no pedido. Um chamador podia mandar `country="ES"` para um bruto italiano e
+pôr o byte a morar no sítio errado. Agora ele é **lido do pai** — do `source_country` da
+corrida que o trouxe, por um `join` só de leitura, **sem coluna nova**. Onde o pai não prova,
+fica `NAO_SEI`: não se infere.
+
+---
+
 ## H · O ESTADO, MARCADO UM A UM
 
 ```
 DESIGNED       ✅  migration 022 escrita, com o grão e a identidade medidos
 IMPLEMENTED    ✅  SQL completo, com travas e comentários
 SEMANTICS      ✅  coerência pai-id/pai-sha fechada; grão decidido
-WRITER         ✅  guarda/preservar_derivado.py · 37 provas locais
-DB_TESTED      ✅  Postgres 16 descartável · 32/32 · run 34249905763
+WRITER         ✅  guarda/preservar_derivado.py · 50 provas locais
+DB_TESTED      ✅  Postgres 16 descartável · 38/38 · run 34255823282
 LIVE_APPLIED   ❌  NÃO. Nenhuma migration aplicada em produção
 OBSERVED       ❌  NÃO. Nenhuma linha real escreveu-se em lado nenhum
 

@@ -962,6 +962,45 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
 - **Próxima missão:** aplicar a `022` LIVE, verificar, e ligar o Golden Path **para a frente**.
 - **Detalhe:** [`../operacao/A-CASA-DO-DERIVADO.md`](../operacao/A-CASA-DO-DERIVADO.md) §G2 e §G3.
 
+
+### D-037 — Red team do writer: três brechas, e uma delas eu tinha etiquetado como limite
+
+- **Data:** 2026-09-08 · **`WRITER_READY_FOR_LIVE = SIM`** (era prematuro antes) ·
+  **`LIVE_APPLIED = NÃO`**
+- **1 · `REUSED` não confirmava que o byte ainda existia.** O writer respondia a partir da
+  leitura da **linha**, sem perguntar ao armazém: uma ficha viva sobre um artefato apagado
+  passava por «reaproveitado, está tudo bem». ⚠️ **E eu tinha escrito um teste que EXIGIA
+  esse comportamento**, chamando-lhe «limite conhecido» — um teste assim impede quem vem
+  consertar e dá ao defeito um ar de decisão. **`UMA LINHA NO BANCO NÃO É PROVA DE QUE O BYTE
+  AINDA EXISTE.`** Agora `REUSED` exige cinco provas, e há **um** estado novo,
+  `STORAGE_MISSING` — porque «o artefato sumiu» e «a ficha não entrou» são avarias diferentes
+  com conserto diferente. E **não se reenvia o byte por conta própria:** curar em silêncio
+  apagaria o rasto de que houve um buraco.
+- **2 · O `storage_path` colapsava identidades que o banco distingue.** Ele não incluía o
+  `parameters_hash`: o mesmo PDF a 150 e a 300 dpi são duas derivações legítimas pela `022` e
+  **disputavam o mesmo endereço**. **`SE A IDENTIDADE DO BANCO DIZ QUE SÃO DUAS DERIVAÇÕES, O
+  ENDEREÇO TEM DE PERMITIR QUE AS DUAS EXISTAM.`** O discriminante passou a ser o `sha256`
+  **completo** da receita inteira — não um prefixo de 16 caracteres. O `sha256` do **filho**
+  continua fora: se entrasse, um `DERIVATION_DRIFT` ganharia endereço novo e deixaria de ser
+  drift. **A identidade da tabela NÃO mudou; a `022` está igual.**
+- **3 · A ponte para o executor não carregava o `raw_asset_id`.** O dono ficava sem saber
+  qual linha era o pai, e o meu teste só verificava que o callback fora chamado — **o que não
+  prova nada**. A ponte foi removida; entrou `derivar_um(raw_asset_id, pdf, armazem,
+  memoria)`, com o pai como contexto da unidade de trabalho. **Legado e forward ficam
+  separados:** `correr()` continua a não conhecer o writer, e os 43 históricos continuam sem
+  pai canónico.
+- **4 · E o país deixou de ser do chamador.** Vem do `source_country` da corrida do pai, por
+  `join` só de leitura, **sem coluna nova**. Onde o pai não prova, `NAO_SEI`.
+- **PROVA:** `banco-descartavel` execução **`34255823282` = SUCCESS** — **38/38** casos
+  Postgres (15 do writer) + 19/19 da garantia forward + 4/4 recusas da tranca. **50** provas
+  locais do writer, incluindo o teste de ponta a ponta com o dono real e dois brutos
+  distintos.
+- **Nada em produção:** 0 escritas, 0 migrations aplicadas, 0 backfill. `022` continua
+  **NOT LIVE**.
+- **Próxima missão:** aplicar a `022` LIVE → verificar → ligar o Golden Path **forward** →
+  primeiro derivado `OBSERVED`.
+- **Detalhe:** [`../operacao/A-CASA-DO-DERIVADO.md`](../operacao/A-CASA-DO-DERIVADO.md) §G4.
+
 ---
 
 ## PERGUNTAS PENDENTES

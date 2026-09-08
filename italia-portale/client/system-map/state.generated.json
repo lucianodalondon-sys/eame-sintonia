@@ -1679,8 +1679,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "5d036c8a0f874e923c52c767cc1fd20d25f91a52",
-    "GENERATED_AT": "2026-09-08T13:20:02-03:00"
+    "HEAD": "a2ab756da3beb254c5e773d98e5778ccc999c9ef",
+    "GENERATED_AT": "2026-09-08T14:13:42-03:00"
   },
   "FAMILIES": [
     {
@@ -6867,7 +6867,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▷",
       "views": [
         "audit",
@@ -6880,9 +6880,11 @@
         "guarda/preservar_coleta.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "guarda/memoria_descartavel.py"
+      ],
       "produces": [],
       "inbound": [
         "C-CI-PERSIST"
@@ -6926,7 +6928,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▷",
       "views": [
         "audit",
@@ -6938,9 +6940,11 @@
         "guarda/preservar_derivado.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "guarda/preservar_derivado.py"
+      ],
       "produces": [],
       "inbound": [
         "C-CI-PERSIST"
@@ -7099,7 +7103,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "acervo",
@@ -7112,9 +7116,11 @@
         "coleta/executor_texto_de_pdf.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "coleta/executor_texto_de_pdf.py"
+      ],
       "produces": [],
       "inbound": [
         "C-CONTRATO-ARTEFATO",
@@ -9816,7 +9822,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -9831,9 +9837,12 @@
         "provas/testa_golden_path_pdf.py"
       ],
       "file_count": 4,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "provas/derived_artifact_no_postgres.py",
+        "provas/preservar_coleta_no_postgres.py"
+      ],
       "produces": [],
       "inbound": [
         "C-ADAMA-ES",
@@ -11855,7 +11864,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -11905,9 +11914,11 @@
         "tests/test_voz.py"
       ],
       "file_count": 39,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "tests/test_preservar_derivado.py"
+      ],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
@@ -13563,7 +13574,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 5d036c8a0f874e923c52c767cc1fd20d25f91a52"
+        "HEAD a2ab756da3beb254c5e773d98e5778ccc999c9ef"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16837,7 +16848,7 @@
       "evidence": [
         {
           "file": "tests/test_preservar_derivado.py",
-          "line": 152,
+          "line": 173,
           "snippet": "if not nome.endswith(\".py\") or nome == \"preservar_derivado.py\":"
         }
       ],
@@ -17128,7 +17139,7 @@
       "evidence": [
         {
           "file": "tests/test_preservar_derivado.py",
-          "line": 410,
+          "line": 514,
           "snippet": "with open(os.path.join(RAIZ, \"coleta\", \"executor_texto_de_pdf.py\"),"
         }
       ],
@@ -20853,7 +20864,7 @@
         },
         {
           "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 499,
+          "line": 508,
           "snippet": "open(MIGRACAO, 'leitura')  # MIGRACAO = supabase/migrations/001_fundacao_geografia_e_proveniencia.sql"
         }
       ],
@@ -22164,8 +22175,8 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 116,
-    "components_proven": 79,
-    "components_pending": 30,
+    "components_proven": 74,
+    "components_pending": 35,
     "components_broken": 0,
     "components_unknown": 7,
     "edges": 388,
