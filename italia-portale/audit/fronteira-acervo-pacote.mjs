@@ -47,10 +47,26 @@
 
    O QUE ESTE FICHEIRO NAO FAZ
    ----------------------------
-   Nao corrige nenhuma das perdas. Todas as quatro sao INTEGRATION_DEPENDENCY
-   da linhagem claude/opportunity-commercial-priority-v1: o campo que falta
-   falta no PACOTE, e o pacote nao se escreve deste lado. Este medidor existe
-   para que a divida deixe de depender de alguem se lembrar dela.
+   Nao corrige nenhuma perda. As que restam sao INTEGRATION_DEPENDENCY da
+   linhagem claude/opportunity-commercial-priority-v1: o campo que falta falta
+   no PACOTE, e o pacote nao se escreve deste lado. Este medidor existe para
+   que a divida deixe de depender de alguem se lembrar dela.
+
+   O QUE MUDOU DESDE A PRIMEIRA CORRIDA, E POR QUE ISSO E O PONTO
+   ---------------------------------------------------------------
+   Na safra V21-044e4924854d5f0a as quatro familias mediam zero. Na safra
+   seguinte, V21-06c6421d001ea52a, a familia `transcripts` passou a atravessar:
+   184 registos com a escada inteira, o SHA do texto e a contagem da origem —
+   e o TEXTO continua a nao atravessar, DE PROPOSITO e com a razao escrita em
+   scripts/site_v21_ingest.py.
+
+   Este medidor nao foi editado para acompanhar. Ele mediu.
+
+       UM MEDIDOR QUE PRECISA DE SER REESCRITO QUANDO O MUNDO MUDA
+       NAO ESTAVA A MEDIR O MUNDO.
+
+   Precisou de UMA correccao, e essa esta registada onde doi: contava rotulos
+   de estado como se fossem fala. Ver o bloco das duas listas, abaixo.
 */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -81,8 +97,26 @@ function carregaHandoff() {
   return H;
 }
 
-/* ── contadores sobre campos DECLARADOS, nunca sobre heuristica de conteudo ── */
-const RE_TRANSCRICAO = /transcript|transcricao|transcrizione|trascrizione|SPEECH_TEXT/i;
+/* ── contadores sobre campos DECLARADOS, nunca sobre heuristica de conteudo ──
+
+   CUIDADO QUE ESTE FICHEIRO JA PAGOU UMA VEZ
+   -------------------------------------------
+   A primeira versao contava como «fala transcrita» os caracteres de QUALQUER
+   campo cujo nome casasse /transcript/. Quando a familia `transcripts` chegou
+   ao artefacto, ela devolveu 809 caracteres de texto que nao e fala nenhuma:
+   eram os rotulos de estado — «true», «false», «INCLUDED» — dos campos
+   TRANSCRIPT_EXISTS, TRANSCRIPT_USABLE e irmaos.
+
+       CONTAR O ROTULO DO ESTADO COMO SE FOSSE O TEXTO E EXACTAMENTE
+       A CONFUSAO QUE A LEI DESTE REPOSITORIO PROIBE:
+       VIDEO_EXISTS != TRANSCRIPT_EXISTS != TRANSCRIPT_USABLE !=
+       TRANSCRIPT_USED_AS_EVIDENCE.
+
+   Por isso ha DUAS listas, e nunca uma so: a dos campos que CARREGAM texto e
+   a dos campos que DECLARAM estado sobre esse texto. Um campo de estado nunca
+   entra na conta de caracteres.                                             */
+const RE_TEXTO_DE_FALA = /^(TRANSCRIPT_TEXT|SPEECH_TEXT|CAPTIONS?|SUBTITLES?|TEXT)$/i;
+const RE_ESTADO_DE_TRANSCRICAO = /^(VIDEO_EXISTS|TRANSCRIPT_EXISTS|TRANSCRIPT_USABLE|TRANSCRIPT_INCLUDED_IN_PACKAGE|TRANSCRIPT_USED_AS_EVIDENCE)$/i;
 const RE_TEXTO_CIENTIFICO = /^(ABSTRACT|SUMMARY|RESUMO|FULL_TEXT|BODY_TEXT|PAPER_TEXT)/i;
 const RE_DATA_DE_OBSERVACAO = /^(LAST_OBSERVED|FIRST_OBSERVED|OBSERVED_AT|VERIFIED_AT|CHECKED_AT|LAST_SEEN)/i;
 
@@ -124,17 +158,39 @@ function mede() {
   const todas = familias(H);
   const todosOsCampos = new Map(todas.map((f) => [f, camposDe(H[f])]));
 
-  /* 1 · TRANSCRICOES — procura-se em TODAS as familias, nao so numa.
-     A pergunta nao e «a familia de transcricoes esta vazia», e sim «existe
-     em algum sitio do artefacto um campo que carregue fala transcrita». */
-  const camposDeTranscricao = [];
+  /* 1 · TRANSCRICOES — a ESCADA inteira, degrau a degrau.
+     Procura-se texto de fala em TODAS as familias, nao so numa: a pergunta nao
+     e «а familia de transcricoes esta vazia», e sim «existe em algum sitio do
+     artefacto um campo que carregue fala transcrita». */
+  const camposDeTexto = [];
   for (const [fam, cs] of todosOsCampos) {
-    for (const c of cs) if (RE_TRANSCRICAO.test(c)) camposDeTranscricao.push(fam + '.' + c);
+    for (const c of cs) if (RE_TEXTO_DE_FALA.test(c)) camposDeTexto.push(fam + '.' + c);
   }
   let charsTranscricao = 0;
   for (const fam of todas) {
-    charsTranscricao += charsDe(H[fam], (k) => RE_TRANSCRICAO.test(k)).chars;
+    charsTranscricao += charsDe(H[fam], (k) => RE_TEXTO_DE_FALA.test(k)).chars;
   }
+
+  const trx = H.transcripts || [];
+  const conta = (campo, valor) => trx.filter(
+    (o) => o && String(o[campo]).toLowerCase() === valor).length;
+  const escada = {
+    REGISTOS: trx.length,
+    VIDEO_EXISTS: conta('VIDEO_EXISTS', 'true'),
+    TRANSCRIPT_EXISTS: conta('TRANSCRIPT_EXISTS', 'true'),
+    TRANSCRIPT_USABLE: conta('TRANSCRIPT_USABLE', 'true'),
+    TRANSCRIPT_INCLUDED_IN_PACKAGE: conta('TRANSCRIPT_INCLUDED_IN_PACKAGE', 'true'),
+    TRANSCRIPT_USED_AS_EVIDENCE: conta('TRANSCRIPT_USED_AS_EVIDENCE', 'true'),
+    COM_TEXT_SHA256: trx.filter((o) => o && o.TEXT_SHA256).length,
+    CAMPOS_DE_ESTADO_ENCONTRADOS: (todosOsCampos.get('transcripts') || [])
+      .filter((c) => RE_ESTADO_DE_TRANSCRICAO.test(c)),
+  };
+  /* CHARS e a contagem que a origem declara por registo. Viaja DENTRO do
+     artefacto versionado — logo e reproduzivel daqui —, mas continua a ser
+     DECLARACAO DA ORIGEM sobre um texto que o artefacto nao carrega. Contar
+     caracteres nao e le-los, e transportar a contagem nao e transportar o
+     texto: por isso tem campo proprio e nunca entra em CHEGOU. */
+  const charsDeclarados = trx.reduce((a, o) => a + (Number(o && o.CHARS) || 0), 0);
 
   /* 2 · TEXTO CIENTIFICO */
   const ciencia = H.scienceRecords || [];
@@ -162,7 +218,7 @@ function mede() {
   const FAMILIAS = [
     {
       FAMILIA: 'TRANSCRICOES',
-      PERGUNTA: 'a fala transcrita do acervo atravessa ate ao artefacto do portal?',
+      PERGUNTA: 'a fala transcrita do acervo atravessa, e ate que degrau?',
       PARTIU: {
         VALOR: 5033374,
         UNIDADE: 'caracteres de fala transcrita',
@@ -175,14 +231,29 @@ function mede() {
       },
       CHEGOU: {
         VALOR: charsTranscricao,
-        UNIDADE: 'caracteres',
-        CAMPOS_ENCONTRADOS: camposDeTranscricao,
+        UNIDADE: 'caracteres de fala',
+        CAMPOS_DE_TEXTO_ENCONTRADOS: camposDeTexto,
+        ESCADA: escada,
+        CHARS_DECLARADOS_PELA_ORIGEM: charsDeclarados,
         MEDIDO_DAQUI: 'SIM',
-        COMO: 'varredura de nomes de campo nas ' + todas.length
-          + ' familias do artefacto versionado',
+        COMO: 'campos que casem TRANSCRIPT_TEXT|SPEECH_TEXT|CAPTIONS|SUBTITLES|TEXT '
+          + 'nas ' + todas.length + ' familias; os campos de ESTADO sao contados '
+          + 'a parte e nunca entram na conta de caracteres',
       },
-      ACAO_MINIMA: 'familia de transcricoes no pacote, com id de video e texto',
-      DONO_DA_ACAO: 'claude/opportunity-commercial-priority-v1',
+      O_TEXTO_NAO_ATRAVESSA_POR_DECISAO:
+        'scripts/site_v21_ingest.py declara, com a razao escrita, que TEXT nao '
+        + 'embarca: cinco milhoes de caracteres de fala no payload de cada '
+        + 'navegador, para um ecra que hoje nao renderiza uma linha. Atravessam '
+        + 'a identidade, a escada inteira, a contagem e o SHA. Isto NAO e perda '
+        + 'silenciosa — e fronteira declarada. O que este medidor guarda e que a '
+        + 'declaracao continue verdadeira e que a escada continue visivel.',
+      O_DEGRAU_QUE_FALTA:
+        'TRANSCRIPT_USED_AS_EVIDENCE e false em ' + escada.REGISTOS + '/'
+        + escada.REGISTOS + '. Fala existe, e utilizavel, esta no pacote — e '
+        + 'nenhum cartao apoia afirmacao nela. O degrau nao e do pacote: e do '
+        + 'motor, e so vira true quando uma afirmacao se apoiar nesses bytes.',
+      ACAO_MINIMA: 'um cartao que apoie afirmacao em fala, virando o ultimo degrau',
+      DONO_DA_ACAO: 'o motor do portal, nesta linhagem',
     },
     {
       FAMILIA: 'CIENCIA_TEXTO',
@@ -272,19 +343,42 @@ function mede() {
   ];
 
   /* ── o estado de cada familia, DERIVADO, nunca escrito a mao ──────────────
-     Tres estados, e a distincao entre eles e o assunto deste ficheiro:
+     Quatro estados, e a distincao entre eles e o assunto deste ficheiro:
 
-       FECHADA                   chegou o que se esperava, e os dois lados
-                                 foram medidos pelo mesmo medidor
-       ABERTA_MEDIDA_DE_UM_LADO  o lado que chegou foi medido daqui e e
-                                 insuficiente; o lado que partiu e alegacao
-       NAO_MEDIDA                nem um lado nem outro                        */
+       FECHADA                        chegou o que se esperava, e os dois lados
+                                      foram medidos pelo mesmo medidor
+       FECHADA_COM_FRONTEIRA_DECLARADA
+                                      o conteudo pesado NAO atravessa DE
+                                      PROPOSITO, e o que atravessa em vez dele
+                                      — identidade, escada de estado, contagem
+                                      e SHA — chegou e mede-se aqui
+       ABERTA_MEDIDA_DE_UM_LADO       o lado que chegou foi medido daqui e e
+                                      insuficiente; o lado que partiu e alegacao
+       NAO_MEDIDA                     nem um lado nem outro
+
+     O terceiro estado e o perigoso: seria uma porta para fechar familia por
+     escrever uma frase. Nao e, porque nao se deriva da frase. Deriva-se da
+     ASSINATURA MECANICA de uma fronteira deliberada, medida no artefacto:
+     registos presentes, os cinco degraus da escada declarados, SHA do texto
+     por registo e a contagem de caracteres da origem. Sem os quatro, a familia
+     volta a ABERTA por muito bem escrita que esteja a razao.
+
+         UMA FRONTEIRA DELIBERADA DEIXA VESTIGIO MEDIVEL.
+         UM ESQUECIMENTO DEIXA SO SILENCIO.                                  */
   for (const f of FAMILIAS) {
     const chegouMedido = f.CHEGOU.MEDIDO_DAQUI === 'SIM';
     const partiuMedido = f.PARTIU.MEDIDO_DAQUI === 'SIM';
     const chegouAlgo = Number(f.CHEGOU.VALOR) > 0;
+    const e = f.CHEGOU.ESCADA;
+    const fronteiraDeclarada = Boolean(
+      f.O_TEXTO_NAO_ATRAVESSA_POR_DECISAO && e
+      && e.REGISTOS > 0
+      && (e.CAMPOS_DE_ESTADO_ENCONTRADOS || []).length === 5
+      && e.COM_TEXT_SHA256 > 0
+      && Number(f.CHEGOU.CHARS_DECLARADOS_PELA_ORIGEM) > 0);
     if (!chegouMedido) f.ESTADO = 'NAO_MEDIDA';
     else if (partiuMedido && chegouAlgo) f.ESTADO = 'FECHADA';
+    else if (fronteiraDeclarada) f.ESTADO = 'FECHADA_COM_FRONTEIRA_DECLARADA';
     else f.ESTADO = 'ABERTA_MEDIDA_DE_UM_LADO';
     f.PERDA_QUANTIFICAVEL = (chegouMedido && partiuMedido) ? 'SIM' : 'NAO';
     f.PORQUE_A_PERDA_NAO_E_QUANTIFICAVEL = f.PERDA_QUANTIFICAVEL === 'SIM' ? null
@@ -292,7 +386,11 @@ function mede() {
         + 'alegacao produz um numero com cara de facto.';
   }
 
-  const abertas = FAMILIAS.filter((f) => f.ESTADO !== 'FECHADA');
+  const FECHADAS = new Set(['FECHADA', 'FECHADA_COM_FRONTEIRA_DECLARADA']);
+  const abertas = FAMILIAS.filter((f) => !FECHADAS.has(f.ESTADO));
+  const degrausAbertos = FAMILIAS.filter((f) => f.O_DEGRAU_QUE_FALTA)
+    .map((f) => ({ FAMILIA: f.FAMILIA, DEGRAU: f.O_DEGRAU_QUE_FALTA,
+                   DONO: f.DONO_DA_ACAO }));
   return {
     SOURCE_ID: 'FRONTEIRA-ACERVO-PACOTE',
     VERSION: 1,
@@ -317,6 +415,11 @@ function mede() {
     FAMILIAS,
     FRONTEIRA_ATRAVESSADA: abertas.length === 0 ? 'SIM' : 'NAO',
     FAMILIAS_ABERTAS: abertas.map((f) => f.FAMILIA),
+    DEGRAUS_ABERTOS: degrausAbertos,
+    O_QUE_DEGRAU_ABERTO_NAO_E:
+      'um degrau aberto NAO bloqueia a fronteira. A fronteira pergunta se o que '
+      + 'se coletou chega; o degrau pergunta se o que chegou e usado. Sao duas '
+      + 'perguntas, e colapsa-las faria a coleta refem do motor.',
     DONO_DA_FRONTEIRA: 'claude/opportunity-commercial-priority-v1',
     REGRA:
       'SOURCE FAILURE nao e ZERO. Um lado medido e outro alegado nao produzem '
@@ -336,20 +439,23 @@ if (args.includes('--json')) {
 } else {
   console.log('');
   console.log('  A FRONTEIRA ACERVO -> PACOTE · ' + d.BUILD_ID);
-  console.log('  ' + '-'.repeat(94));
-  console.log('  ' + 'FAMILIA'.padEnd(30) + 'PARTIU'.padStart(14) + 'CHEGOU'.padStart(12)
-    + '  ' + 'ESTADO'.padEnd(26) + 'PERDA?');
-  console.log('  ' + '-'.repeat(94));
+  console.log('  ' + '-'.repeat(103));
+  console.log('  ' + 'FAMILIA'.padEnd(30) + 'PARTIU'.padStart(15) + 'CHEGOU'.padStart(12)
+    + '  ' + 'ESTADO'.padEnd(34) + 'PERDA?');
+  console.log('  ' + '-'.repeat(103));
   for (const f of d.FAMILIAS) {
     const partiu = String(f.PARTIU.VALOR) + (f.PARTIU.MEDIDO_DAQUI === 'NAO' ? ' (aleg.)' : '');
-    console.log('  ' + f.FAMILIA.padEnd(30) + partiu.padStart(14)
-      + String(f.CHEGOU.VALOR).padStart(12) + '  ' + f.ESTADO.padEnd(26)
+    console.log('  ' + f.FAMILIA.padEnd(30) + partiu.padStart(15)
+      + String(f.CHEGOU.VALOR).padStart(12) + '  ' + f.ESTADO.padEnd(34)
       + f.PERDA_QUANTIFICAVEL);
   }
-  console.log('  ' + '-'.repeat(94));
+  console.log('  ' + '-'.repeat(103));
   console.log('  FRONTEIRA_ATRAVESSADA = ' + d.FRONTEIRA_ATRAVESSADA
     + (d.FAMILIAS_ABERTAS.length ? '   abertas: ' + d.FAMILIAS_ABERTAS.join(' · ') : ''));
   console.log('  DONO = ' + d.DONO_DA_FRONTEIRA);
+  for (const g of d.DEGRAUS_ABERTOS) {
+    console.log('  degrau aberto em ' + g.FAMILIA + ' — dono: ' + g.DONO);
+  }
   console.log('');
   console.log('  Nenhum numero do lado PARTIU foi medido daqui. NAO MEDIDO DAQUI nao e ZERO.');
   console.log('');

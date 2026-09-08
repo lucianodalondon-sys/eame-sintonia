@@ -11,8 +11,9 @@ decisões) · **Implementação nesta linha:** nenhuma.
 
 As leis já existiam. Estavam escritas — e é por isso que este documento pôde ser
 escrito. O que não existia era o **índice**: uma varredura deste repositório encontra
-**240 formas escritas distintas** de lei do tipo `A ≠ B`, espalhadas por **49
-documentos**. Duzentas e quarenta formas não são duzentas e quarenta leis: a mesma lei
+**259 formas escritas distintas** de lei do tipo `A ≠ B`, espalhadas por **56
+documentos**. Duzentas e cinquenta e nove formas não são duzentas e cinquenta e nove
+leis: a mesma lei
 aparece como `SOURCE FAILURE != ZERO`, `SOURCE_FAILURE != ZERO` e `FONTE BLOQUEADA !=
 FONTE INEXISTENTE`. Três grafias, uma lei.
 
@@ -209,14 +210,15 @@ um passo de uma frase falsa.
 | **COMENTÁRIO ≠ AGRICULTOR** | «o produtor diz» a partir de alguém ter comentado |
 | **PORTFOLIO GLOBAL ≠ PORTFOLIO LOCAL** | «a ADAMA tem» a partir do catálogo de outro país |
 
-`ENGAGEMENT ≠ INFLUENCE` está em **SÓ PROSA**: 2 documentos, nenhum teste. É a lei desta
-família com a defesa mais fraca, e é a que um painel de «top vozes» violaria primeiro.
+`ENGAGEMENT ≠ INFLUENCE` está em **SÓ PROSA**: 2 documentos, nenhum teste, nenhum
+medidor. É a lei desta família com a defesa mais fraca, e é a que um painel de «top vozes»
+violaria primeiro.
 
 ### 3.7 · TRANSPORTE E TELA
 
 | Lei | O erro que ela impede | Aprendida em | GUARDA |
 |---|---|---|---|
-| **VIDEO_EXISTS ≠ TRANSCRIPT_EXISTS ≠ TRANSCRIPT_USABLE ≠ TRANSCRIPT_USED_AS_EVIDENCE** | URL de vídeo passar por conteúdo analisado. Quatro estados, e a distância entre o primeiro e o último é a distância entre 1.467 e 0. | CHECKPOINT §5 | **SÓ PROSA** — 1 documento, 0 testes, 0 medidores |
+| **VIDEO_EXISTS ≠ TRANSCRIPT_EXISTS ≠ TRANSCRIPT_USABLE ≠ TRANSCRIPT_USED_AS_EVIDENCE** | URL de vídeo passar por conteúdo analisado. Cinco estados, e a distância entre o primeiro e o último é hoje **184 → 0**. | CHECKPOINT §5 | EXECUTÁVEL — era SÓ PROSA quando esta seção foi escrita; a linha da coleta transformou a lei em contrato de campo em `site_v21_ingest.py`, e `fronteira-acervo-pacote.mjs` mede a escada degrau a degrau |
 | **FICHA CHEGOU ≠ TEXTO CHEGOU** | os 88 registos de ciência chegam com link para o paper; o texto que permitiria cruzar o que o paper **prova** com o caso não chega | CHECKPOINT §3 | EXECUTÁVEL desde esta missão — `fronteira-acervo-pacote.mjs` |
 | **CONSULTAR ≠ USAR** | 1.032 consultas de família por cartão viram «24 famílias cruzadas». `EVIDENCE_SCAN`: 1.529 encontradas · 359 usadas · 1.170 omitidas. | CHECKPOINT §3 | EXECUTÁVEL |
 | **CONTADO ≠ RENDERIZADO** | 147 cartões de vídeo eram contados e chegavam vazios em duas fronteiras | commit `1c14c36` | EXECUTÁVEL |
@@ -231,7 +233,8 @@ família com a defesa mais fraca, e é a que um painel de «top vozes» violaria
 
 Um caso adversarial não é um teste: é um **ataque escrito**, com o resultado que ele
 produziria se ninguém o recusasse. Todos os casos abaixo **aconteceram neste
-repositório**. Nenhum é hipotético.
+repositório**. Nenhum é hipotético — e o último aconteceu enquanto este documento era
+escrito.
 
 O formato é fixo: **o ataque** · **o que ele produziria** · **quem o recusa hoje**.
 
@@ -365,6 +368,24 @@ O formato é fixo: **o ataque** · **o que ele produziria** · **quem o recusa h
 - **A generalização.** *Não atravessar uma fronteira é uma decisão legítima quando está
   escrita, datada e medida. Sem isso é esquecimento.*
 
+### A-14 · O medidor que contou o rótulo do estado como se fosse o texto
+- **O ataque.** Contar como «fala transcrita» os caracteres de qualquer campo cujo
+  nome case `/transcript/`.
+- **O que produziu.** Este erro **não é histórico: foi cometido nesta missão.** Quando
+  a família `transcripts` chegou ao artefato, o medidor devolveu **809 caracteres de
+  fala** que não eram fala nenhuma — eram os rótulos `true`, `false` e `INCLUDED` dos
+  campos `TRANSCRIPT_EXISTS`, `TRANSCRIPT_USABLE` e irmãos.
+- **A ironia, que é o ponto.** O medidor construído para instrumentar a lei
+  `TRANSCRIPT_EXISTS ≠ TRANSCRIPT_USED_AS_EVIDENCE` violou **exatamente essa lei**, na
+  primeira vez em que o mundo lhe deu ocasião. Uma lei em SÓ PROSA não protege nem quem
+  a cita.
+- **Quem recusa hoje.** Duas listas separadas de campos — os que **carregam** texto e os
+  que **declaram estado** sobre esse texto — e um campo de estado nunca entra na conta de
+  caracteres. `tests/test_fundacao_coleta.py::test_rotulo_de_estado_nunca_conta_como_texto`.
+  **EXECUTÁVEL.**
+- **Por que fica escrito.** Porque a alternativa era corrigir em silêncio e publicar um
+  medidor que sempre soube distinguir. Rebaixar nunca é retrocesso; apagar é.
+
 ---
 
 ## 5 · AS DECISÕES QUE ESTA BÍBLIA REGISTA
@@ -406,30 +427,52 @@ python3 scripts/fundacao_coleta.py                         # a conjunção
 python3 -m unittest tests.test_fundacao_coleta             # a saída fácil, fechada
 ```
 
-### Estado medido em 2026-09-08
+### Estado medido em 2026-09-08, safra `V21-06c6421d001ea52a`
 
 | PILAR | ESTADO | Medidor | O que falta |
 |---|---|---|---|
 | ENTRADA | **FECHADO** | `scripts/portoes_eame.py` | — (35/35 cicatrizes PROVED) |
 | PRESERVAÇÃO | **FECHADO** | `scripts/portoes_eame.py` | — (196/196, sha256 reconferido; prova EXTERNA) |
-| TRAVESSIA | **ABERTO** | `italia-portale/audit/fronteira-acervo-pacote.mjs` | 4 famílias |
+| TRAVESSIA | **ABERTO** | `italia-portale/audit/fronteira-acervo-pacote.mjs` | 3 famílias de 4 |
 
 ```
 COLLECTION_FOUNDATION_CLOSED = NÃO
 ```
 
-### As quatro famílias que faltam, e de quem são
+### O que a fronteira mede hoje
 
-| Família | CHEGOU (medido daqui) | Ação mínima | Dono |
+| Família | ESTADO | CHEGOU (medido daqui) | Ação mínima · Dono |
 |---|---|---|---|
-| TRANSCRIÇÕES | **0 caracteres** · nenhum campo de transcrição em nenhuma das 26 famílias | família de transcrições no pacote, com id de vídeo e texto | `opportunity-commercial-priority-v1` |
-| CIÊNCIA_TEXTO | **0 caracteres** · 88 registos, 88 com URL, nenhum campo de texto | campo de texto científico em `SCIENCE.json` | `opportunity-commercial-priority-v1` |
-| ANÚNCIOS_DATA | **0 anúncios com data de observação** · 577 registos, 27 declaram ACTIVE | transportar `last_observed` para `COMPETITOR-ACTIVITIES.json` | `opportunity-commercial-priority-v1` |
-| VÍDEO_ORGÂNICO | **147 cartões** · 147 sem `COUNTRY_REACHED` | `COUNTRY_REACHED` por cartão | `opportunity-commercial-priority-v1` |
+| TRANSCRIÇÕES | **FECHADA_COM_FRONTEIRA_DECLARADA** | 184 registos, escada completa, SHA em 160, 5.167.243 caracteres **declarados** pela origem · **0 caracteres de fala** | o texto não embarca **de propósito**, com a razão escrita em `site_v21_ingest.py` |
+| CIÊNCIA_TEXTO | ABERTA_MEDIDA_DE_UM_LADO | 0 caracteres · 88 registos, 86 com DOI, 88 com URL, nenhum campo de texto | campo de texto científico em `SCIENCE.json` · `opportunity-commercial-priority-v1` |
+| ANÚNCIOS_DATA | ABERTA_MEDIDA_DE_UM_LADO | 0 anúncios com data de observação · 577 registos, 27 declaram ACTIVE | transportar `last_observed` · `opportunity-commercial-priority-v1` |
+| VÍDEO_ORGÂNICO | ABERTA_MEDIDA_DE_UM_LADO | 147 cartões, 139 com título+link+data, **147 sem `COUNTRY_REACHED`** | `COUNTRY_REACHED` por cartão · `opportunity-commercial-priority-v1` |
 
-**Nenhuma das quatro se resolve deste lado.** O campo que falta falta no **pacote**, e o
-pacote não se escreve nesta linhagem. O que esta missão pôde fazer — e fez — foi tirar a
-dívida do documento e pô-la num medidor.
+**A família das transcrições fechou entre a primeira e a segunda corrida deste medidor, e
+o medidor não foi editado para acompanhar: ele mediu.** A linha da coleta fez a escada
+inteira atravessar. O texto continua a não atravessar — e isso agora é **fronteira
+declarada**, não perda silenciosa.
+
+> **UMA FRONTEIRA DELIBERADA DEIXA VESTÍGIO MEDÍVEL. UM ESQUECIMENTO DEIXA SÓ SILÊNCIO.**
+
+O estado `FECHADA_COM_FRONTEIRA_DECLARADA` não se conquista escrevendo a frase: exige,
+mecanicamente, registos presentes + os cinco degraus da escada + SHA do texto + a
+contagem da origem. Mutação executada — colar a frase numa família sem vestígio **não** a
+fecha.
+
+### O degrau que continua aberto, e que não bloqueia a fronteira
+
+`TRANSCRIPT_USED_AS_EVIDENCE` é falso em **184/184**. A fala existe, é utilizável, está no
+pacote — e nenhum cartão apoia afirmação nela.
+
+> **A FRONTEIRA PERGUNTA SE O QUE SE COLETOU CHEGA. O DEGRAU PERGUNTA SE O QUE CHEGOU É
+> USADO. COLAPSÁ-LAS FARIA A COLETA REFÉM DO MOTOR.**
+
+Por isso o degrau tem dono próprio — o motor do portal — e é reportado separadamente das
+famílias abertas.
+
+**Nenhuma das três famílias abertas se resolve deste lado.** O campo que falta falta no
+**pacote**, e o pacote não se escreve nesta linhagem.
 
 ### O que muda quando fechar
 
@@ -448,15 +491,21 @@ Registrado como `NÃO SEI`, que é resposta válida e obrigatória.
    leis distintas elas são, não se sabe: a deduplicação semântica não foi feita, e fazê-la
    por semelhança de string produziria um número errado com cara de contagem.
 2. **Quantas estão em SÓ PROSA.** A varredura da seção 3 cobre as leis **citadas neste
-   documento**, não as 240. Três foram medidas como SÓ PROSA (`FIRST SNAPSHOT ≠ NO
-   CHANGE`, `ENGAGEMENT ≠ INFLUENCE`, `VIDEO_EXISTS ≠ TRANSCRIPT_EXISTS`). Quantas mais
-   existem é `NÃO MEDIDO`.
+   documento**, não as 259. Duas continuam em SÓ PROSA (`FIRST SNAPSHOT ≠ NO CHANGE` e
+   `ENGAGEMENT ≠ INFLUENCE`); a terceira, `VIDEO_EXISTS ≠ TRANSCRIPT_EXISTS`, deixou de
+   estar **enquanto este documento era escrito**. Quantas mais existem é `NÃO MEDIDO`.
 3. **Se a guarda EXECUTÁVEL de cada lei realmente tem dentes.** A varredura prova que
    existe teste ou medidor **nomeando** a lei. Não prova que o teste reprovaria a
    violação. Só a mutação prova isso, e a mutação foi executada para `TRAVESSIA` e para
    as cicatrizes — não para as 240.
 4. **O tamanho real da perda na fronteira.** Ver D-028. Enquanto o acervo não for medível
    pelo mesmo medidor, `5.033.374 → 0` é uma alegação com origem escrita, não uma medição.
+   E há agora um **terceiro** número: os `5.167.243` caracteres que o pacote declara por
+   registo. Ele viaja dentro do artefato versionado — logo é reproduzível daqui — mas
+   continua a ser declaração da origem sobre um texto que o artefato não carrega.
+   **Transportar a contagem não é transportar o texto**, e os dois números não batem
+   entre si: são denominadores diferentes, e reconciliá-los é trabalho de quem tem o
+   acervo.
 5. **Qual das duas leis sobre oportunidade vence.** O conflito da seção A-11 é
    `INTEGRATION_DEPENDENCY`. Esta bíblia registra que as duas existem, ambas testadas, e
    que discordam. Não escolhe — não é dela a escolha.

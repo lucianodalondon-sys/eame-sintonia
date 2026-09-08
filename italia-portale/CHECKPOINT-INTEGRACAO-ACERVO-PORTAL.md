@@ -143,11 +143,21 @@ PRINCIPAL_LOSS_POINT ................ DOIS, E O SEGUNDO SÓ APARECEU NO FIM
     ADENDO 2026-09-08 · A PERDA (a) AGORA TEM MEDIDOR.
         Os números de (a) viviam nesta tabela. `audit/fronteira-acervo-pacote.mjs`
         mede o lado que CHEGA, contra o artefacto versionado, e recusa-se a
-        inventar o lado do acervo — que daqui não se conta. Medido hoje:
-        transcrições 0 · texto científico 0 · datas de verificação 0 ·
-        vídeo orgânico 147, com COUNTRY_REACHED nulo em 147/147.
-        O estado das quatro é ABERTA_MEDIDA_DE_UM_LADO: nem fechada, nem
-        inventada. `scripts/fundacao_coleta.py` compõe o resultado em
+        inventar o lado do acervo — que daqui não se conta.
+
+        Medido na safra V21-06c6421d001ea52a:
+            transcrições    184 registos · escada completa · SHA em 160 ·
+                            5.167.243 ch DECLARADOS pela origem · 0 ch de fala
+                            FECHADA_COM_FRONTEIRA_DECLARADA — o texto não
+                            embarca de propósito, razão escrita no ingest
+            ciência         0 ch de texto · 88 registos · 86 DOI · 88 URL
+            anúncios        0 com data de observação · 577 · 27 ACTIVE
+            vídeo orgânico  147 cartões · 139 completos · 147 sem COUNTRY_REACHED
+
+        As três últimas em ABERTA_MEDIDA_DE_UM_LADO: nem fechadas, nem
+        inventadas. E um degrau segue aberto sem bloquear a fronteira:
+        TRANSCRIPT_USED_AS_EVIDENCE é falso em 184/184 — dono é o motor.
+        `scripts/fundacao_coleta.py` compõe o resultado em
         COLLECTION_FOUNDATION_CLOSED, hoje NÃO.
 
   (b) MOTOR → SUPERFÍCIE, classe «valor calculado sem markup»

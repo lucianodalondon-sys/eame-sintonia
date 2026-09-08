@@ -132,10 +132,69 @@ class TestAFronteiraNaoInventaOLadoQueNaoMede(unittest.TestCase):
                                  'subtrair medicao de alegacao produz um numero '
                                  'com cara de facto')
 
+    def test_fronteira_declarada_exige_vestigio_medivel(self):
+        """O estado FECHADA_COM_FRONTEIRA_DECLARADA nao pode virar porta.
+
+        Seria a saida mais elegante que existe: escrever uma frase a explicar
+        por que o conteudo nao atravessa, e colher fechado. Nao e, porque o
+        estado nao deriva da frase — deriva da assinatura mecanica de uma
+        fronteira deliberada. Este teste exige os quatro vestigios.
+
+            UMA FRONTEIRA DELIBERADA DEIXA VESTIGIO MEDIVEL.
+            UM ESQUECIMENTO DEIXA SO SILENCIO.
+        """
+        for fam in self.f['FAMILIAS']:
+            if fam['ESTADO'] != 'FECHADA_COM_FRONTEIRA_DECLARADA':
+                continue
+            with self.subTest(familia=fam['FAMILIA']):
+                e = fam['CHEGOU'].get('ESCADA') or {}
+                self.assertTrue(fam.get('O_TEXTO_NAO_ATRAVESSA_POR_DECISAO'),
+                                'fechada por decisao sem a decisao escrita')
+                self.assertGreater(e.get('REGISTOS', 0), 0,
+                                   'nenhum registo chegou: nao ha fronteira, ha silencio')
+                self.assertEqual(5, len(e.get('CAMPOS_DE_ESTADO_ENCONTRADOS', [])),
+                                 'a escada tem cinco degraus e todos tem de atravessar')
+                self.assertGreater(e.get('COM_TEXT_SHA256', 0), 0,
+                                   'sem SHA nao ha como voltar ao texto que ficou')
+                self.assertGreater(
+                    fam['CHEGOU'].get('CHARS_DECLARADOS_PELA_ORIGEM', 0), 0,
+                    'sem a contagem da origem, o que nao atravessou nao tem tamanho')
+
+    def test_rotulo_de_estado_nunca_conta_como_texto(self):
+        """A confusao que este medidor ja cometeu, fechada.
+
+        A primeira versao contou «true» e «INCLUDED» como fala transcrita e
+        publicou 809 caracteres de texto que nao existia. E a propria lei do
+        repositorio: TRANSCRIPT_EXISTS nao e TRANSCRIPT_USED_AS_EVIDENCE.
+        """
+        for fam in self.f['FAMILIAS']:
+            e = fam['CHEGOU'].get('ESCADA')
+            if not e:
+                continue
+            with self.subTest(familia=fam['FAMILIA']):
+                for campo in fam['CHEGOU'].get('CAMPOS_DE_TEXTO_ENCONTRADOS', []):
+                    self.assertNotIn(campo.split('.')[-1],
+                                     e.get('CAMPOS_DE_ESTADO_ENCONTRADOS', []),
+                                     'campo de estado contado como campo de texto')
+
+    def test_degrau_aberto_nao_bloqueia_a_fronteira(self):
+        """Duas perguntas, nao uma.
+
+        A fronteira pergunta se o que se coletou chega. O degrau pergunta se o
+        que chegou e usado. Colapsa-las faria a coleta refem do motor.
+        """
+        abertas = set(self.f['FAMILIAS_ABERTAS'])
+        for g in self.f.get('DEGRAUS_ABERTOS', []):
+            with self.subTest(familia=g['FAMILIA']):
+                self.assertTrue(g['DONO'], 'degrau aberto sem dono')
+                if g['FAMILIA'] not in abertas:
+                    self.assertTrue(g['DEGRAU'],
+                                    'degrau aberto sem dizer qual e')
+
     def test_toda_familia_aberta_tem_acao_minima_e_dono(self):
         for fam in self.f['FAMILIAS']:
             with self.subTest(familia=fam['FAMILIA']):
-                if fam['ESTADO'] != 'FECHADA':
+                if not fam['ESTADO'].startswith('FECHADA'):
                     self.assertTrue(fam['ACAO_MINIMA'])
                     self.assertTrue(fam['DONO_DA_ACAO'])
 

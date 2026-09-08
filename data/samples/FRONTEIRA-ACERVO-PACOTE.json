@@ -12,13 +12,13 @@
   "O_QUE_ISTO_E": "a medicao do lado que CHEGOU da fronteira ACERVO -> PACOTE, contra o artefacto versionado que o portal carrega.",
   "O_QUE_ISTO_NAO_E": "nao e a medicao do acervo. O acervo nao esta neste repositorio, e nenhum numero do lado PARTIU foi verificado daqui.",
   "ARTEFACTO_MEDIDO": "italia-portale/client/italy-handoff-v21.js",
-  "BUILD_ID": "V21-044e4924854d5f0a",
+  "BUILD_ID": "V21-06c6421d001ea52a",
   "REFERENCE_DATE": "2026-09-02",
-  "FAMILIAS_DO_ARTEFACTO": 26,
+  "FAMILIAS_DO_ARTEFACTO": 28,
   "FAMILIAS": [
     {
       "FAMILIA": "TRANSCRICOES",
-      "PERGUNTA": "a fala transcrita do acervo atravessa ate ao artefacto do portal?",
+      "PERGUNTA": "a fala transcrita do acervo atravessa, e ate que degrau?",
       "PARTIU": {
         "VALOR": 5033374,
         "UNIDADE": "caracteres de fala transcrita",
@@ -31,14 +31,33 @@
       },
       "CHEGOU": {
         "VALOR": 0,
-        "UNIDADE": "caracteres",
-        "CAMPOS_ENCONTRADOS": [],
+        "UNIDADE": "caracteres de fala",
+        "CAMPOS_DE_TEXTO_ENCONTRADOS": [],
+        "ESCADA": {
+          "REGISTOS": 184,
+          "VIDEO_EXISTS": 184,
+          "TRANSCRIPT_EXISTS": 184,
+          "TRANSCRIPT_USABLE": 160,
+          "TRANSCRIPT_INCLUDED_IN_PACKAGE": 160,
+          "TRANSCRIPT_USED_AS_EVIDENCE": 0,
+          "COM_TEXT_SHA256": 160,
+          "CAMPOS_DE_ESTADO_ENCONTRADOS": [
+            "TRANSCRIPT_EXISTS",
+            "TRANSCRIPT_INCLUDED_IN_PACKAGE",
+            "TRANSCRIPT_USABLE",
+            "TRANSCRIPT_USED_AS_EVIDENCE",
+            "VIDEO_EXISTS"
+          ]
+        },
+        "CHARS_DECLARADOS_PELA_ORIGEM": 5167243,
         "MEDIDO_DAQUI": "SIM",
-        "COMO": "varredura de nomes de campo nas 26 familias do artefacto versionado"
+        "COMO": "campos que casem TRANSCRIPT_TEXT|SPEECH_TEXT|CAPTIONS|SUBTITLES|TEXT nas 28 familias; os campos de ESTADO sao contados a parte e nunca entram na conta de caracteres"
       },
-      "ACAO_MINIMA": "familia de transcricoes no pacote, com id de video e texto",
-      "DONO_DA_ACAO": "claude/opportunity-commercial-priority-v1",
-      "ESTADO": "ABERTA_MEDIDA_DE_UM_LADO",
+      "O_TEXTO_NAO_ATRAVESSA_POR_DECISAO": "scripts/site_v21_ingest.py declara, com a razao escrita, que TEXT nao embarca: cinco milhoes de caracteres de fala no payload de cada navegador, para um ecra que hoje nao renderiza uma linha. Atravessam a identidade, a escada inteira, a contagem e o SHA. Isto NAO e perda silenciosa — e fronteira declarada. O que este medidor guarda e que a declaracao continue verdadeira e que a escada continue visivel.",
+      "O_DEGRAU_QUE_FALTA": "TRANSCRIPT_USED_AS_EVIDENCE e false em 184/184. Fala existe, e utilizavel, esta no pacote — e nenhum cartao apoia afirmacao nela. O degrau nao e do pacote: e do motor, e so vira true quando uma afirmacao se apoiar nesses bytes.",
+      "ACAO_MINIMA": "um cartao que apoie afirmacao em fala, virando o ultimo degrau",
+      "DONO_DA_ACAO": "o motor do portal, nesta linhagem",
+      "ESTADO": "FECHADA_COM_FRONTEIRA_DECLARADA",
       "PERDA_QUANTIFICAVEL": "NAO",
       "PORQUE_A_PERDA_NAO_E_QUANTIFICAVEL": "um dos dois lados e alegacao, nao medicao. Subtrair uma medicao de uma alegacao produz um numero com cara de facto."
     },
@@ -160,11 +179,18 @@
   ],
   "FRONTEIRA_ATRAVESSADA": "NAO",
   "FAMILIAS_ABERTAS": [
-    "TRANSCRICOES",
     "CIENCIA_TEXTO",
     "ANUNCIOS_DATA_DE_VERIFICACAO",
     "VIDEO_ORGANICO"
   ],
+  "DEGRAUS_ABERTOS": [
+    {
+      "FAMILIA": "TRANSCRICOES",
+      "DEGRAU": "TRANSCRIPT_USED_AS_EVIDENCE e false em 184/184. Fala existe, e utilizavel, esta no pacote — e nenhum cartao apoia afirmacao nela. O degrau nao e do pacote: e do motor, e so vira true quando uma afirmacao se apoiar nesses bytes.",
+      "DONO": "o motor do portal, nesta linhagem"
+    }
+  ],
+  "O_QUE_DEGRAU_ABERTO_NAO_E": "um degrau aberto NAO bloqueia a fronteira. A fronteira pergunta se o que se coletou chega; o degrau pergunta se o que chegou e usado. Sao duas perguntas, e colapsa-las faria a coleta refem do motor.",
   "DONO_DA_FRONTEIRA": "claude/opportunity-commercial-priority-v1",
   "REGRA": "SOURCE FAILURE nao e ZERO. Um lado medido e outro alegado nao produzem uma perda quantificada — produzem uma fronteira aberta com dono."
 }
