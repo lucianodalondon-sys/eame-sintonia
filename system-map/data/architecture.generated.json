@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "a9979c2c952d13d187f60cdff2675be16a3c7e18",
-    "GENERATED_AT": "2026-09-08T17:33:03-03:00"
+    "HEAD": "6e26e4a72314d6fb01ec98758e1f787b3a7cf0fa",
+    "GENERATED_AT": "2026-09-08T17:38:34-03:00"
   },
   "FILES": [
     {
@@ -6777,6 +6777,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/telemetria.py",
+      "sha": "aae92853702b23f16144d5e00511a8ce6ef4adf3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/v21_carimbar_origem.py",
       "sha": "db0c0d9fdc8df157afa15b6616d5a00b744b3370",
       "ext": ".py",
@@ -8486,7 +8493,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "03d5fa9a45274883f5a5392a382d320a7a46cab7",
+      "sha": "8186a63dc3826a1155ecf87d77df1ba95e02f7fa",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8991,6 +8998,13 @@
     {
       "path": "tests/test_social_sessao.py",
       "sha": "86b0b36807a00122bb55f2de7a16aa7cbd40d327",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_telemetria.py",
+      "sha": "58b40ad743fba03ae63b513510bbe3a4ac0a02c4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28541,6 +28555,28 @@
       }
     },
     {
+      "from_file": "tests/test_telemetria.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_telemetria.py",
+        "line": 14,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_telemetria.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_telemetria.py",
+        "line": 15,
+        "snippet": "import telemetria as t  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_thread_parcial.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -29655,10 +29691,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1296,
-    "files_readable": 455,
-    "files_code_dir": 506,
-    "file_edges": 1831,
+    "files_tracked": 1298,
+    "files_readable": 457,
+    "files_code_dir": 508,
+    "file_edges": 1833,
     "escritas_em_pasta": 63,
     "declared_missing_here": 0
   },

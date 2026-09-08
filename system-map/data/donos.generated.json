@@ -202,8 +202,10 @@
    "ESTADO": "DONO_E_INSTRUMENTO",
    "NOTA": "nenhum dono fora das gavetas de medida, e 6 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
    "ESCREVEM": [],
-   "LEEM": [],
-   "QUANTOS_LEEM": 0,
+   "LEEM": [
+    "leis/telemetria.py"
+   ],
+   "QUANTOS_LEEM": 1,
    "INSTRUMENTOS_QUE_CITAM": 6,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -247,14 +249,14 @@
     "coleta/universo_ciencia_it.py",
     "coleta/youtube_janela.py"
    ],
-   "QUANTOS_LEEM": 40,
+   "QUANTOS_LEEM": 41,
    "INSTRUMENTOS_QUE_CITAM": 10,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "ERRORS",
    "ESTADO": "DONO_E_INSTRUMENTO",
-   "NOTA": "nenhum dono fora das gavetas de medida, e 13 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
+   "NOTA": "nenhum dono fora das gavetas de medida, e 14 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
    "ESCREVEM": [],
    "LEEM": [
     "candidatas/italy_fix_semantics.mjs",
@@ -270,8 +272,8 @@
     "coleta/universo_ciencia_it.py",
     "coleta/youtube_oficial.py"
    ],
-   "QUANTOS_LEEM": 51,
-   "INSTRUMENTOS_QUE_CITAM": 13,
+   "QUANTOS_LEEM": 52,
+   "INSTRUMENTOS_QUE_CITAM": 14,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -343,7 +345,7 @@
     "italia-portale/audit/blocks/competitor.js",
     "italia-portale/client/italy-app-model.js"
    ],
-   "QUANTOS_LEEM": 20,
+   "QUANTOS_LEEM": 21,
    "INSTRUMENTOS_QUE_CITAM": 3,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   }

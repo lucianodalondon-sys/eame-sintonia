@@ -1003,6 +1003,7 @@
       "leis/fundacao_da_coleta.py",
       "leis/regua_italia.py",
       "leis/social_matriz.py",
+      "leis/telemetria.py",
       "leis/v21_carimbar_origem.py",
       "leis/v21_datas.py",
       "leis/v21_geografia_contrato.py",
@@ -1349,6 +1350,7 @@
       "tests/test_route_membership.py",
       "tests/test_social_persistencia_pg.py",
       "tests/test_social_sessao.py",
+      "tests/test_telemetria.py",
       "tests/test_thread_parcial.py",
       "tests/test_trava_da_inteligencia.py",
       "tests/test_v21_datas.py",
@@ -1742,8 +1744,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "a9979c2c952d13d187f60cdff2675be16a3c7e18",
-    "GENERATED_AT": "2026-09-08T17:33:03-03:00"
+    "HEAD": "6e26e4a72314d6fb01ec98758e1f787b3a7cf0fa",
+    "GENERATED_AT": "2026-09-08T17:38:34-03:00"
   },
   "FAMILIES": [
     {
@@ -1798,7 +1800,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 44
+      "count": 45
     },
     {
       "id": "F-ENTREGA",
@@ -2088,7 +2090,7 @@
       "y": 190,
       "w": 1235,
       "h": 2938,
-      "count": 25
+      "count": 26
     },
     {
       "id": "Z-PACOTE",
@@ -6851,7 +6853,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "red",
+      "ui_status": "yellow",
       "icon": "⧗",
       "views": [
         "audit",
@@ -6860,17 +6862,39 @@
       ],
       "lane": "official",
       "family": "F-INTELIGENCIA",
-      "files": [],
-      "file_count": 0,
-      "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com leis/telemetria.py.",
+      "files": [
+        "leis/telemetria.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "o motor importa esta lei para decidir.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS_DA_ETAPA",
+          "CAMPOS_DO_RUN",
+          "CODIGOS_DE_DIAGNOSTICO",
+          "DESTINOS_DO_ITEM",
+          "ESPECIES",
+          "ESTADOS_DE_ETAPA",
+          "LEIS",
+          "NAO_INSTALAR"
+        ],
+        "palavras": 76,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 76,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -7550,6 +7574,44 @@
       "y": 1326
     },
     {
+      "id": "C-FLUXO-NO-SECO",
+      "name": "O fluxo no seco",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Corre um fluxo de mentira, em memória, onde a etapa do meio falha — e exige que o relato distinga NÃO CORREU de FALHOU, guarde o retrato da falha, aponte a última etapa boa e feche a conta mesmo assim.",
+      "why_here": "Um contrato que nunca foi exercido é uma intenção, não uma garantia. Dizer «NOT_RUN ≠ ERROR» é fácil; esta peça mostra a diferença a acontecer. Sem ela, um defeito numa etapa apareceria como três, e ninguém saberia por onde recomeçar. Zero rede, zero produção, zero ficheiro tocado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "red",
+      "icon": "⊹",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [],
+      "file_count": 0,
+      "status": "BROKEN",
+      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com provas/fluxo_no_seco.py.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 15665,
+      "y": 1326
+    },
+    {
       "id": "C-FONTES-EU",
       "name": "Ler as bases oficiais da Europa",
       "territory": "Z-ACOES",
@@ -7733,8 +7795,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 1326
+      "x": 14835,
+      "y": 1648
     },
     {
       "id": "C-IDENTIDADE",
@@ -8097,7 +8159,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 1648
     },
     {
@@ -8778,7 +8840,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 1648
     },
     {
@@ -8857,8 +8919,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 1648
+      "x": 14835,
+      "y": 1970
     },
     {
       "id": "C-MAPA-SCAN",
@@ -8946,7 +9008,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14835,
+      "x": 15250,
       "y": 1970
     },
     {
@@ -9004,7 +9066,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 1970
     },
     {
@@ -9051,8 +9113,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 1970
+      "x": 14835,
+      "y": 2292
     },
     {
       "id": "C-MEDICAO",
@@ -9122,7 +9184,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 2292
     },
     {
@@ -10202,7 +10264,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15250,
+      "x": 15665,
       "y": 2292
     },
     {
@@ -10291,8 +10353,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 2292
+      "x": 14835,
+      "y": 2614
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -10344,7 +10406,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 2614
     },
     {
@@ -10470,7 +10532,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 2614
     },
     {
@@ -10610,8 +10672,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 2614
+      "x": 14835,
+      "y": 2936
     },
     {
       "id": "C-REGRA-COLETA",
@@ -12587,6 +12649,7 @@
         "tests/test_route_membership.py",
         "tests/test_social_persistencia_pg.py",
         "tests/test_social_sessao.py",
+        "tests/test_telemetria.py",
         "tests/test_thread_parcial.py",
         "tests/test_trava_da_inteligencia.py",
         "tests/test_v21_datas.py",
@@ -12599,9 +12662,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 54,
+      "file_count": 55,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 14 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 15 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -12628,6 +12691,7 @@
         "C-COLETA-PUBLICA",
         "C-CONTRATO-ARTEFATO",
         "C-CONTRATO-CAMPOS",
+        "C-CONTRATO-TELEMETRIA",
         "C-DATA-CLOCK",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
@@ -12766,7 +12830,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 14835,
+      "x": 15250,
       "y": 2936
     },
     {
@@ -14309,7 +14373,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD a9979c2c952d13d187f60cdff2675be16a3c7e18"
+        "HEAD 6e26e4a72314d6fb01ec98758e1f787b3a7cf0fa"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17566,6 +17630,24 @@
           "file": "tests/test_voz.py",
           "line": 317,
           "snippet": "import voz as _voz"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da telemetria tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_telemetria.py",
+          "line": 15,
+          "snippet": "import telemetria as t  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -24126,17 +24208,17 @@
   "UNCLAIMED_FILES_COUNT": 698,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 124,
+    "components": 125,
     "components_proven": 73,
-    "components_pending": 43,
+    "components_pending": 44,
     "components_broken": 1,
     "components_unknown": 7,
-    "edges": 435,
-    "edges_proven": 433,
+    "edges": 436,
+    "edges_proven": 434,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1296,
-    "files_covered": 598,
+    "files_tracked": 1298,
+    "files_covered": 600,
     "files_code_unclaimed": 0
   }
 }

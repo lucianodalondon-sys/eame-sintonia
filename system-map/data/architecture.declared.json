@@ -2211,6 +2211,24 @@
    "views": [
     "audit"
    ]
+  },
+  {
+   "id": "C-FLUXO-NO-SECO",
+   "name": "O fluxo no seco",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊹",
+   "what": "Corre um fluxo de mentira, em memória, onde a etapa do meio falha — e exige que o relato distinga NÃO CORREU de FALHOU, guarde o retrato da falha, aponte a última etapa boa e feche a conta mesmo assim.",
+   "why_here": "Um contrato que nunca foi exercido é uma intenção, não uma garantia. Dizer «NOT_RUN ≠ ERROR» é fácil; esta peça mostra a diferença a acontecer. Sem ela, um defeito numa etapa apareceria como três, e ninguém saberia por onde recomeçar. Zero rede, zero produção, zero ficheiro tocado.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/fluxo_no_seco.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
