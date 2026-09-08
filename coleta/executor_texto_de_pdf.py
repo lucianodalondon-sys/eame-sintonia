@@ -259,11 +259,19 @@ def emitir_rastro(banco, run_id, conta, perdidos, erros, inicio,
     calculado. A tradução é só de nome, e é ela que faltava: os números
     existiam e ninguém lá fora os conseguia ler.
 
-    Três etapas, porque três foi o que aconteceu de verdade:
+    DUAS etapas, porque duas foi o que aconteceu de verdade:
 
         RAW      quantos ficheiros se olharam, e quantos conteúdos distintos
-        DERIVED  quantos textos saíram, e por que os outros não saíram
-        READY    quantos aterraram no registo
+        DERIVED  quantos textos saíram, quantos aterraram, e por que os
+                 outros não saíram
+
+    Este caminho TERMINA em DERIVED, e terminar em DERIVED é a verdade: a
+    admissão tem outro dono, e ele não foi chamado.
+
+    ⚠️ HOUVE UMA TERCEIRA, E ELA SAIU — a nota histórica continua mais abaixo,
+    onde se explica por que `READY` não se emite aqui. A descrição corrente diz
+    o que o código FAZ; a nota histórica diz o que ele DEIXOU de fazer, e por
+    quê. São duas coisas, e as duas têm de estar certas.
 
     ⚠️ E O GRÃO MUDA NO MEIO. `RAW` conta em CAMINHO; `DERIVED` conta em
     CONTEÚDO. Não são a mesma unidade, e por isso não se dividem: 49 caminhos
@@ -355,8 +363,27 @@ def emitir_rastro(banco, run_id, conta, perdidos, erros, inicio,
         canonical_state=(("UNKNOWN_ERROR" if ferramenta_presente
                           else "EXECUTOR_UNAVAILABLE") if houve_erro else
                          ("ITEM_ERROR" if perdidos else None)),
+        # ⚠️ `FLOW_UNACCOUNTED_INPUT` ESTAVA ERRADO AQUI, E O DONO DIZ PORQUE.
+        # `leis/diagnostico.py` define-o como «itens que NAO terminaram em
+        # nenhum balde — sumiram sem explicacao». Estes terminaram: estao em
+        # `unknown`, contados, e a conta fecha. Um item contado nao e um item
+        # sem conta.
+        #
+        #     UNKNOWN CONTADO != UNACCOUNTED.
+        #
+        # `FLOW_UNACCOUNTED_INPUT` fica reservado ao que ele diz — e quem o
+        # apanha e a coluna GERADA `unaccounted_input`, que ninguem escreve.
+        #
+        # As TRES perguntas, com as tres respostas dos tres donos:
+        #     balde           `unknown`           mediu-se, e nao se sabe onde foi
+        #     failure state   `ITEM_ERROR`        falhas.py: um item do lote
+        #                                         falhou, a fonte e a rota
+        #                                         continuam sas
+        #     diagnostic      `DERIVATION_FAILED` diagnostico.py: a derivacao
+        #                                         nao entregou artefato; o RAW
+        #                                         continua bom, retoma-se daqui
         diagnostic_code=(None if houve_erro else
-                         ("FLOW_UNACCOUNTED_INPUT" if perdidos else None)),
+                         ("DERIVATION_FAILED" if perdidos else None)),
         last_good_artifact=("RAW" if houve_erro else
                             ("RAW" if perdidos else None)),
         error_class="EXTRACTION_ERROR" if houve_erro else None,

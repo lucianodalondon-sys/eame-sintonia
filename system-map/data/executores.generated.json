@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "c293be6548382459168468b86881b173e773fad1",
+  "HEAD": "8e1947d2d5dac39ba831ca6e637e14927a43101a",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -125,10 +125,29 @@
   "M2_ROUTE": {
    "M2_ROUTE_OBSERVABILITY_READY": "NO",
    "O_QUE_MEDE": "se a rota que a M2 vai construir — DERIVED -> STRUCTURED -> ADMISSION — ja emite telemetria.",
-   "ETAPAS_OBSERVADAS_EM_ALGUM_CAMINHO": [
-    "DERIVED",
-    "RAW"
+   "ROTA_MEDIDA": {
+    "CAMINHO": "coleta/executor_texto_de_pdf.py",
+    "FRONTEIRA": "coleta/derivacao_forward.py",
+    "ROUTE_CLASS_ID": "RC-1",
+    "SOURCE_ID": "IT-T2-002",
+    "ETAPAS_OBSERVADAS": [
+     "DERIVED"
+    ],
+    "PROVA": "provas/o_forward_conta_se.py"
+   },
+   "ROTAS_FORWARD_CONHECIDAS": [
+    {
+     "CAMINHO": "coleta/executor_texto_de_pdf.py",
+     "FRONTEIRA": "coleta/derivacao_forward.py",
+     "ROUTE_CLASS_ID": "RC-1",
+     "SOURCE_ID": "IT-T2-002",
+     "ETAPAS_OBSERVADAS": [
+      "DERIVED"
+     ],
+     "PROVA": "provas/o_forward_conta_se.py"
+    }
    ],
+   "PORQUE_NAO_A_UNIAO_GLOBAL": "GLOBAL STAGE OBSERVATION != TARGET ROUTE OBSERVATION. Duas rotas diferentes a observar uma etapa cada nao fazem uma rota que observa as duas. O portao le UM bloco FORWARD, e exige que ELE carregue STRUCTURED e ADMISSION.",
    "ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS": [
     "STRUCTURED",
     "ADMISSION"
@@ -465,7 +484,7 @@
   {
    "EXECUTOR_ID": "coleta/executor_texto_de_pdf.py",
    "GAVETA": "coleta",
-   "LINHAS": 565,
+   "LINHAS": 592,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",

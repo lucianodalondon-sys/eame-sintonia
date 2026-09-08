@@ -325,11 +325,50 @@ def principal():
     #
     # Sao perguntas diferentes com respostas diferentes, e agora tem nomes
     # diferentes.
-    etapas_observadas = set()
-    for v in ledger.values():
-        etapas_observadas |= set(v.get('ETAPAS_OBSERVADAS') or [])
+    # ⚠️ A UNIAO GLOBAL DE ETAPAS DAVA FALSO VERDE.
+    # A versao anterior somava as ETAPAS_OBSERVADAS de TODOS os caminhos e
+    # perguntava se STRUCTURED e ADMISSION estavam nessa soma. Bastaria a rota
+    # A observar STRUCTURED e a rota B observar ADMISSION — nenhuma delas a
+    # rota da M2 — para o portao abrir.
+    #
+    #     GLOBAL STAGE OBSERVATION != TARGET ROUTE OBSERVATION.
+    #
+    # A identidade da rota NAO foi inventada: ela ja existe no ledger, no bloco
+    # FORWARD de cada caminho, com `ROUTE_CLASS_ID` e `SOURCE_ID` provados
+    # sobre uma unidade de trabalho real. O portao pergunta a UMA rota, e exige
+    # que O MESMO bloco carregue as duas etapas.
     rota_m2 = ('STRUCTURED', 'ADMISSION')
-    faltam = [e for e in rota_m2 if e not in etapas_observadas]
+    ROTA_M2_CLASS = 'RC-1'
+
+    rotas_forward = []
+    for caminho, v in ledger.items():
+        f = v.get('FORWARD')
+        if not (v.get('FORWARD_INSTRUMENTED') and f):
+            continue
+        rotas_forward.append({
+            'CAMINHO': caminho,
+            'FRONTEIRA': f.get('FRONTEIRA'),
+            'ROUTE_CLASS_ID': f.get('ROUTE_CLASS_ID'),
+            'SOURCE_ID': f.get('SOURCE_ID'),
+            'ETAPAS_OBSERVADAS': sorted(f.get('ETAPAS_OBSERVADAS') or []),
+            'PROVA': f.get('PROVA'),
+        })
+
+    # A rota da M2 e a que atravessa a classe RC-1 pelo fluxo forward.
+    candidatas = [r for r in rotas_forward
+                  if r['ROUTE_CLASS_ID'] == ROTA_M2_CLASS]
+    # Uma rota SO fecha o portao se ELA PROPRIA observar as duas etapas.
+    # `any` sobre rotas, `all` sobre etapas — nunca o contrario.
+    rota_completa = next(
+        (r for r in candidatas
+         if all(e in r['ETAPAS_OBSERVADAS'] for e in rota_m2)), None)
+    # A ORDEM E A DA ROTA, e nao alfabetica: DERIVED -> STRUCTURED ->
+    # ADMISSION e uma sequencia, e ler «ADMISSION, STRUCTURED» inverte o
+    # caminho na cabeca de quem le.
+    vistas = set()
+    for r in candidatas:
+        vistas |= set(r['ETAPAS_OBSERVADAS'])
+    faltam = [] if rota_completa else [e for e in rota_m2 if e not in vistas]
 
     # ── E UMA TERCEIRA PERGUNTA, QUE TAMBEM ESTAVA ESCONDIDA NAS OUTRAS ──
     #
@@ -387,7 +426,14 @@ def principal():
         'M2_ROUTE_OBSERVABILITY_READY': ('YES' if not faltam else 'NO'),
         'O_QUE_MEDE': ('se a rota que a M2 vai construir — DERIVED -> '
                        'STRUCTURED -> ADMISSION — ja emite telemetria.'),
-        'ETAPAS_OBSERVADAS_EM_ALGUM_CAMINHO': sorted(etapas_observadas),
+        'ROTA_MEDIDA': (rota_completa or
+                        (candidatas[0] if candidatas else None)),
+        'ROTAS_FORWARD_CONHECIDAS': rotas_forward,
+        'PORQUE_NAO_A_UNIAO_GLOBAL': (
+            'GLOBAL STAGE OBSERVATION != TARGET ROUTE OBSERVATION. Duas rotas '
+            'diferentes a observar uma etapa cada nao fazem uma rota que '
+            'observa as duas. O portao le UM bloco FORWARD, e exige que ELE '
+            'carregue STRUCTURED e ADMISSION.'),
         'ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS': faltam,
         'PORQUE_NAO': (
             'STRUCTURED e ADMISSION nunca correram em caminho nenhum, e nao '

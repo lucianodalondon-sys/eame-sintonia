@@ -582,9 +582,14 @@ class O9_BibliaNaoEViolada(Base):
         self.assertEqual('PARTIAL', d['ESTADO'],
                          'tres textos sumiram e a etapa saiu-se bem')
         self.assertEqual(3, d['UNKNOWN'], 'a perda nao foi contada')
-        self.assertEqual('FLOW_UNACCOUNTED_INPUT', d['DIAGNOSTIC_CODE'])
+        # ⚠️ TRES PERGUNTAS, TRES RESPOSTAS, E ELAS NAO SE CONTRADIZEM.
+        # `FLOW_UNACCOUNTED_INPUT` estava aqui e estava errado: o dono define-o
+        # como item que NAO terminou em balde nenhum, e estes terminaram —
+        # estao em `unknown` e a conta fecha.
+        self.assertEqual('DERIVATION_FAILED', d['DIAGNOSTIC_CODE'])
         self.assertEqual('ITEM_ERROR', d['CANONICAL_STATE'])
-        self.assertEqual(0, d['UNACCOUNTED'])
+        self.assertEqual(0, d['UNACCOUNTED'],
+                         'contado em unknown, logo NAO e unaccounted')
 
     def test_COL_LAW_024_zero_nao_vira_sucesso_automatico(self):
         """Nenhum item saiu por porta nenhuma: isso e buraco, e nao PASS sereno."""

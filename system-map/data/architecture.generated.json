@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "c293be6548382459168468b86881b173e773fad1",
-    "GENERATED_AT": "2026-09-08T22:50:19+00:00"
+    "HEAD": "8e1947d2d5dac39ba831ca6e637e14927a43101a",
+    "GENERATED_AT": "2026-09-08T23:05:07+00:00"
   },
   "FILES": [
     {
@@ -1178,7 +1178,7 @@
     },
     {
       "path": "coleta/executor_texto_de_pdf.py",
-      "sha": "51ba2ef32dcc53507cd63bfc0b248e42bda347bb",
+      "sha": "ab7f0b86f3b1759dacfc672254b9f810d7fb43cd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8696,7 +8696,7 @@
     },
     {
       "path": "system-map/scripts/censo_dos_executores.py",
-      "sha": "43c459c549c1083c6750c8375757a8108b89e549",
+      "sha": "35a32f66fc564933b7a321bfda588582ad7c3777",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9088,14 +9088,14 @@
     },
     {
       "path": "tests/test_o10r_a_verdade_dos_nomes.py",
-      "sha": "a6c395f6e7db9f41cd658e966064e0f84488ce3d",
+      "sha": "107de6bd6a227a249588dcfd662cfaa2482eee62",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "tests/test_o9_caminho_instrumentado.py",
-      "sha": "8bb5611e8b313ab79432f5a3c549dbe9149fc088",
+      "sha": "ccd8094e4a6a1b204d4144c6179cf759b72d4697",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10946,7 +10946,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_pdf.py",
-        "line": 277,
+        "line": 285,
         "snippet": "import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)"
       }
     },
@@ -28931,7 +28931,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-        "line": 276,
+        "line": 337,
         "snippet": "import executor_texto_de_pdf as ex"
       }
     },
@@ -28944,6 +28944,39 @@
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
         "line": 42,
         "snippet": "open(p, 'leitura')  # p = coleta/executor_texto_de_pdf.py"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 262,
+        "snippet": "import diagnostico as dg"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 276,
+        "snippet": "import falhas"
+      }
+    },
+    {
+      "from_file": "tests/test_o10r_a_verdade_dos_nomes.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+        "line": 277,
+        "snippet": "import telemetria as tel"
       }
     },
     {
@@ -28964,7 +28997,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-        "line": 268,
+        "line": 329,
         "snippet": "'corrida_instrumentada.py')):"
       }
     },
@@ -28986,7 +29019,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-        "line": 435,
+        "line": 536,
         "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
       }
     },
@@ -28997,7 +29030,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-        "line": 297,
+        "line": 358,
         "snippet": "'024_a_corrida_conta_o_que_passou.sql'))"
       }
     },
@@ -29151,7 +29184,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o9_caminho_instrumentado.py",
-        "line": 657,
+        "line": 662,
         "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
       }
     },
@@ -31680,7 +31713,7 @@
     "system-map/scripts/censo_dos_executores.py": [
       {
         "pasta": "system-map",
-        "line": 442,
+        "line": 488,
         "constante": "destino"
       }
     ],
@@ -31703,7 +31736,7 @@
     "files_tracked": 1332,
     "files_readable": 489,
     "files_code_dir": 541,
-    "file_edges": 1991,
+    "file_edges": 1994,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

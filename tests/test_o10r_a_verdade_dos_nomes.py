@@ -252,6 +252,67 @@ class R3_ProvaQueMorde(unittest.TestCase):
                          'a corrida tem mais de uma identidade: %s' % vistas)
 
 
+class P3_UnknownNaoEUnaccounted(unittest.TestCase):
+    """PREFLIGHT 3. Um item contado num balde nao e um item sem balde.
+
+        UNKNOWN CONTADO != UNACCOUNTED.
+    """
+
+    def test_o_dono_define_FLOW_UNACCOUNTED_INPUT_como_sem_balde(self):
+        import diagnostico as dg
+        texto = dg.explicar(dg.FLOW_UNACCOUNTED_INPUT)
+        self.assertIn('nenhum balde', texto)
+
+    def test_a_perda_nao_usa_o_codigo_de_quem_nao_tem_balde(self):
+        codigo = _codigo(EXECUTOR)
+        i = codigo.index('perdidos else None')
+        trecho = codigo[max(0, i - 400):i]
+        self.assertNotIn('FLOW_UNACCOUNTED_INPUT', trecho,
+                         'item contado em unknown voltou a usar o codigo de '
+                         'quem nao terminou em balde nenhum')
+
+    def test_as_tres_perguntas_tem_tres_donos_e_nao_se_contradizem(self):
+        import diagnostico as dg
+        import falhas
+        import telemetria as tel
+        # balde — do contrato
+        self.assertIn('UNKNOWN', tel.DESTINOS_DO_ITEM)
+        # failure state — de falhas.py, e e de item, nao da fonte
+        self.assertIn('ITEM_ERROR', falhas.ESTADOS)
+        self.assertEqual('EXECUTOR', falhas.camada('ITEM_ERROR'))
+        self.assertIn('HEALTHY', falhas.saude('ITEM_ERROR'),
+                      'um item perdido passou a condenar a fonte')
+        # diagnostic — de diagnostico.py, e diz onde no fluxo
+        self.assertTrue(dg.valido(dg.DERIVATION_FAILED))
+        self.assertIn('retomar', dg.explicar(dg.DERIVATION_FAILED))
+        # e os tres sao nomes diferentes
+        self.assertEqual(3, len({'UNKNOWN', 'ITEM_ERROR', dg.DERIVATION_FAILED}))
+
+
+class P4_ProsaBateComCodigo(unittest.TestCase):
+    """PREFLIGHT 4. A descricao corrente diz o que o codigo FAZ."""
+
+    def test_a_docstring_nao_promete_tres_etapas(self):
+        import ast as _ast
+        arvore = _ast.parse(_fonte(EXECUTOR))
+        alvo = [n for n in _ast.walk(arvore)
+                if isinstance(n, _ast.FunctionDef) and n.name == 'emitir_rastro']
+        doc = _ast.get_docstring(alvo[0]) or ''
+        self.assertNotIn('Três etapas', doc)
+        self.assertIn('DUAS etapas', doc)
+        self.assertNotIn('READY    quantos aterraram', doc)
+
+    def test_mas_a_explicacao_historica_de_READY_continua(self):
+        """CURRENT DESCRIPTION != HISTORICAL EXPLANATION.
+
+        Apagar a nota deixaria alguem repor READY amanha sem saber o que se
+        pagou por ele.
+        """
+        fonte = _fonte(EXECUTOR)
+        self.assertIn('COL-LAW-043', fonte)
+        self.assertIn('DERIVED PERSISTED != READY', fonte)
+
+
 class R4_R5_R6_Identidade(unittest.TestCase):
     """R4, R5, R6. A identidade nao muda com o sitio onde se morre."""
 
@@ -403,8 +464,8 @@ class R9_R10_DuasPerguntas(unittest.TestCase):
     def test_R10_a_rota_mede_a_rota(self):
         r = _censo()['M2']['M2_ROUTE']
         self.assertEqual('NO', r['M2_ROUTE_OBSERVABILITY_READY'])
-        self.assertEqual(['STRUCTURED', 'ADMISSION'],
-                         r['ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS'])
+        self.assertEqual({'STRUCTURED', 'ADMISSION'},
+                         set(r['ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS']))
 
     def test_R9_R10_o_nome_antigo_que_juntava_as_duas_sumiu(self):
         texto = json.dumps(_censo(), ensure_ascii=False)
@@ -417,13 +478,53 @@ class R9_R10_DuasPerguntas(unittest.TestCase):
         self.assertIs(True, r['M2_CANNOT_CLOSE_UNTIL_INSTRUMENTED'])
         self.assertIn('nasce', r['O_PORTAO_CORRETO'])
 
-    def test_as_duas_respostas_nao_sao_iguais(self):
-        """Se voltarem a ser iguais, ou uma delas mudou de sentido, ou o nome
-        voltou a responder as duas perguntas."""
+    def test_as_duas_perguntas_sao_independentes(self):
+        """⚠️ A LEI E `QUESTION_A != QUESTION_B`, E NAO `ANSWER_A != ANSWER_B`.
+
+        A versao anterior deste teste exigia que as duas respostas fossem
+        DIFERENTES. Isso estava errado, e travava exatamente o estado que se
+        quer alcancar: quando a rota da M2 existir e emitir, YES/YES e a
+        resposta certa — cada um com a sua prova.
+
+            EXIGIR RESPOSTAS DIFERENTES E CONFUNDIR
+            «DUAS PERGUNTAS» COM «DUAS RESPOSTAS».
+
+        A independencia prova-se pela ORIGEM da medida, e nao pelo valor: cada
+        veredito tem os seus proprios criterios, e nenhum le o outro.
+        """
         m = _censo()['M2']
-        self.assertNotEqual(
-            m['TELEMETRY_INFRASTRUCTURE']['TELEMETRY_INFRASTRUCTURE_PROVED'],
-            m['M2_ROUTE']['M2_ROUTE_OBSERVABILITY_READY'])
+        infra, rota = m['TELEMETRY_INFRASTRUCTURE'], m['M2_ROUTE']
+
+        # 1 · cada um declara o que mede, e o que NAO mede.
+        self.assertIn('O_QUE_MEDE', infra)
+        self.assertIn('O_QUE_MEDE', rota)
+        self.assertNotEqual(infra['O_QUE_MEDE'], rota['O_QUE_MEDE'])
+
+        # 2 · os criterios nao se sobrepoem: nenhum consome o veredito do outro.
+        self.assertNotIn('M2_ROUTE_OBSERVABILITY_READY',
+                         json.dumps(infra, ensure_ascii=False))
+        self.assertNotIn('TELEMETRY_INFRASTRUCTURE_PROVED',
+                         json.dumps(rota, ensure_ascii=False))
+
+        # 3 · e os dois valores sao de um vocabulario fechado — YES/YES
+        #     incluido, porque e o estado desejado quando ambos tiverem prova.
+        for v in (infra['TELEMETRY_INFRASTRUCTURE_PROVED'],
+                  rota['M2_ROUTE_OBSERVABILITY_READY']):
+            self.assertIn(v, ('YES', 'NO', 'UNKNOWN'))
+
+    def test_YES_YES_e_um_estado_permitido(self):
+        """Mutacao: com os dois vereditos em YES, nada aqui pode reprovar.
+
+        Se algum dia uma trava voltar a proibir YES/YES, ela reprova AQUI —
+        antes de reprovar a missao que finalmente merecer os dois.
+        """
+        m = json.loads(json.dumps(_censo()['M2'], ensure_ascii=False))
+        m['TELEMETRY_INFRASTRUCTURE']['TELEMETRY_INFRASTRUCTURE_PROVED'] = 'YES'
+        m['M2_ROUTE']['M2_ROUTE_OBSERVABILITY_READY'] = 'YES'
+        infra, rota = m['TELEMETRY_INFRASTRUCTURE'], m['M2_ROUTE']
+        self.assertNotEqual(infra['O_QUE_MEDE'], rota['O_QUE_MEDE'])
+        self.assertEqual('YES', infra['TELEMETRY_INFRASTRUCTURE_PROVED'])
+        self.assertEqual('YES', rota['M2_ROUTE_OBSERVABILITY_READY'])
 
 
 class R11_R12_R13_AsPortasQueJaExistiam(unittest.TestCase):

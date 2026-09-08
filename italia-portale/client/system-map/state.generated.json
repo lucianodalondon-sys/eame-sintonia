@@ -1778,8 +1778,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "c293be6548382459168468b86881b173e773fad1",
-    "GENERATED_AT": "2026-09-08T22:50:19+00:00"
+    "HEAD": "8e1947d2d5dac39ba831ca6e637e14927a43101a",
+    "GENERATED_AT": "2026-09-08T23:05:07+00:00"
   },
   "FAMILIES": [
     {
@@ -6215,7 +6215,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_dos_executores.py",
-            "line": 442,
+            "line": 488,
             "snippet": "escreve em destino"
           }
         }
@@ -15389,7 +15389,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD c293be6548382459168468b86881b173e773fad1"
+        "HEAD 8e1947d2d5dac39ba831ca6e637e14927a43101a"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -19040,7 +19040,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
@@ -19051,6 +19051,11 @@
           "file": "tests/test_lingua_unica.py",
           "line": 24,
           "snippet": "import telemetria as tel            # noqa: E402"
+        },
+        {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 277,
+          "snippet": "import telemetria as tel"
         },
         {
           "file": "tests/test_o9_caminho_instrumentado.py",
@@ -19952,7 +19957,7 @@
       "evidence": [
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-          "line": 276,
+          "line": 337,
           "snippet": "import executor_texto_de_pdf as ex"
         },
         {
@@ -20180,7 +20185,7 @@
       "evidence": [
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-          "line": 268,
+          "line": 329,
           "snippet": "'corrida_instrumentada.py')):"
         },
         {
@@ -20312,7 +20317,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
@@ -20323,6 +20328,11 @@
           "file": "tests/test_lingua_unica.py",
           "line": 23,
           "snippet": "import diagnostico as dg            # noqa: E402"
+        },
+        {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 262,
+          "snippet": "import diagnostico as dg"
         },
         {
           "file": "tests/test_o9_caminho_instrumentado.py",
@@ -23404,12 +23414,12 @@
         },
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-          "line": 435,
+          "line": 536,
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
         },
         {
           "file": "tests/test_o9_caminho_instrumentado.py",
-          "line": 657,
+          "line": 662,
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
         },
         {
@@ -23604,7 +23614,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
-          "line": 277,
+          "line": 285,
           "snippet": "import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)"
         }
       ],
@@ -24599,7 +24609,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 17 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 18 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_falhas.py",
@@ -24625,6 +24635,11 @@
           "file": "tests/test_lingua_unica.py",
           "line": 22,
           "snippet": "import falhas                       # noqa: E402"
+        },
+        {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 276,
+          "snippet": "import falhas"
         },
         {
           "file": "tests/test_o9_caminho_instrumentado.py",
@@ -24655,11 +24670,6 @@
           "file": "tests/test_thread_parcial.py",
           "line": 28,
           "snippet": "import falhas                     # noqa: E402"
-        },
-        {
-          "file": "tests/test_trava_da_inteligencia.py",
-          "line": 337,
-          "snippet": "import fundacao_da_coleta as lei"
         }
       ],
       "categoria": "PROOF"
