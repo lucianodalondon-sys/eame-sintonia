@@ -554,9 +554,11 @@
       "docs/apresentacao/RECONCILIACAO-DECK-REAL.md",
       "docs/apresentacao/SOURCE-PACKS-EAME.md",
       "docs/apresentacao/deck/AURA-ADAMA-EAME-texto.txt",
+      "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
       "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
       "docs/biblia/CONFORMIDADE-ITALIA.md",
       "docs/biblia/EMENDA-V1-1.md",
+      "docs/biblia/EMENDA-V1-2.md",
       "docs/biblia/MATRIZ-DE-CONFLITOS.md",
       "docs/biblia/leis.json",
       "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
@@ -1595,8 +1597,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/biblia-canonica-da-coleta",
-    "HEAD": "72838db1d442c556c0e25e2bdbf64e166d3a2221",
-    "GENERATED_AT": "2026-09-07T23:43:12-03:00"
+    "HEAD": "73e7270a1512ab403565c78f54da8c3968191823",
+    "GENERATED_AT": "2026-09-08T00:06:26-03:00"
   },
   "FAMILIES": [
     {
@@ -4942,8 +4944,8 @@
       "name": "A Bíblia canônica da coleta",
       "territory": "Z-BIBLIA",
       "kind": "contract",
-      "what": "78 leis numeradas (V1.1) que governam toda coleta do SINTONIA: o censo das 63 leis maduras que ja existiam, a matriz de conflitos com ficheiro e linha, a emenda constitucional e a medicao da Italia contra elas.",
-      "why_here": "As leis da coleta viviam espalhadas por cabecalho de script, README, prompt de aba e if solto. Espalhadas assim nao se consultam: redescobrem-se, e a lei redescoberta nunca e igual a que ja existia. Ela declara LAW_STATUS separado de IMPLEMENTATION_STATUS para que «e lei» nunca signifique «ja funciona» — e a emenda V1.1 poe o proprio System Map dentro da lei: ele e a camada oficial de observabilidade, e tudo tem de ser renderizavel.",
+      "what": "100 leis numeradas (V1.2) que governam toda coleta do SINTONIA: o censo das 63 leis maduras que ja existiam, o censo da infraestrutura, a matriz de conflitos com ficheiro e linha, as duas emendas constitucionais e a medicao da Italia contra elas.",
+      "why_here": "As leis da coleta viviam espalhadas por cabecalho de script, README, prompt de aba e if solto. Espalhadas assim nao se consultam: redescobrem-se, e a lei redescoberta nunca e igual a que ja existia. Ela declara LAW_STATUS separado de IMPLEMENTATION_STATUS para que «e lei» nunca signifique «ja funciona»; a V1.1 poe o proprio System Map dentro da lei; e a V1.2 da papel canonico ao GitHub (engenharia versionada) e ao Supabase (memoria operacional), com a regra que governa os dois: INFRAESTRUTURA NAO E AUTORIDADE SEMANTICA.",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -4958,13 +4960,15 @@
       "family": "F-COLETA",
       "files": [
         "BIBLIA-CANONICA-DA-COLETA.md",
+        "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
         "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
         "docs/biblia/CONFORMIDADE-ITALIA.md",
         "docs/biblia/EMENDA-V1-1.md",
+        "docs/biblia/EMENDA-V1-2.md",
         "docs/biblia/MATRIZ-DE-CONFLITOS.md",
         "docs/biblia/leis.json"
       ],
-      "file_count": 6,
+      "file_count": 8,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
       "changed_since_declared": [],
@@ -5193,8 +5197,8 @@
       "name": "Os botoes que cuidam do banco",
       "territory": "Z-GUARDA",
       "kind": "workflow",
-      "what": "Conferem a conexao com o banco, rodam migracao e provam que o dado volta igual ao que entrou.",
-      "why_here": "Migracao sem prova de ida e volta e perda de dado com aparencia de sucesso.",
+      "what": "Os workflows que aplicam a cadeia canonica no Supabase, criam o bucket privado, provam o round-trip do RAW (Git -> Storage -> Postgres -> download -> hash) e testam a conexao sem nunca imprimir o valor de um segredo.",
+      "why_here": "O GitHub Actions e INFRAESTRUTURA DE EXECUCAO, nao orquestrador (COL-LAW-309): ele agenda, dispara, testa, valida e publica — e nao decide que fonte e relevante, que executor usar nem o que e admissivel. YAML nao e um segundo orquestrador. Medido: zero cron nos 11 workflows; o unico relogio do SINTONIA e o Agendador do Windows, porque o runner do GitHub sai por datacenter e a coleta italiana precisa sair pela VPN italiana.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -8555,8 +8559,8 @@
       "name": "O banco onde o dado fica guardado",
       "territory": "Z-GUARDA",
       "kind": "engine",
-      "what": "Onde o dado coletado fica guardado, e as migracoes que mudam o formato dessa guarda.",
-      "why_here": "Entre uma corrida e outra o dado precisa existir em algum lugar que nao seja a memoria da maquina.",
+      "what": "O schema canonico em 21 migrations versionadas, as provas SQL e o SQL de importacao gerado antes de correr. E a MEMORIA OPERACIONAL do SINTONIA: collection_run, raw_asset, checkpoint_coleta, fonte_externa, e o bucket privado `raw` onde os bytes vivem com o pais no caminho e a identidade no hash.",
+      "why_here": "INFRAESTRUTURA NAO E AUTORIDADE SEMANTICA (COL-LAW-301): uma tabela existir nao torna canonico o que esta nela, e conseguir fazer INSERT nao da a ninguem autoridade para decidir o que e verdade. O Supabase GUARDA; quem JULGA sao os contratos, a admissao e o livro de decisoes. Medido em 08/09/2026: 7 caminhos de escrita, 7 canonicos, ZERO bypasses — porque a credencial so existe como segredo do runner, e o SQL entra no Git para alguem ler ANTES de rodar.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -11199,7 +11203,7 @@
       "icon": "B",
       "facts": [
         "branch claude/biblia-canonica-da-coleta",
-        "HEAD 72838db1d442c556c0e25e2bdbf64e166d3a2221"
+        "HEAD 73e7270a1512ab403565c78f54da8c3968191823"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -12659,7 +12663,7 @@
       "natureza": "FLUXO",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta O validador da Bíblia. Provado por 5 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta O validador da Bíblia. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/valida_biblia.py",
@@ -12685,6 +12689,21 @@
           "file": "provas/valida_biblia.py",
           "line": 50,
           "snippet": "LEIS_JSON = os.path.join(PASTA, 'leis.json')"
+        },
+        {
+          "file": "provas/valida_biblia.py",
+          "line": 55,
+          "snippet": "os.path.join(PASTA, 'EMENDA-V1-1.md'),"
+        },
+        {
+          "file": "provas/valida_biblia.py",
+          "line": 56,
+          "snippet": "os.path.join(PASTA, 'EMENDA-V1-2.md'),"
+        },
+        {
+          "file": "provas/valida_biblia.py",
+          "line": 57,
+          "snippet": "os.path.join(PASTA, 'CENSO-DA-INFRAESTRUTURA.md'))"
         }
       ]
     },
@@ -12696,7 +12715,7 @@
       "natureza": "FLUXO",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_biblia.py",
@@ -12712,6 +12731,16 @@
           "file": "tests/test_biblia.py",
           "line": 43,
           "snippet": "EMENDA = os.path.join(RAIZ, 'docs', 'biblia', 'EMENDA-V1-1.md')"
+        },
+        {
+          "file": "tests/test_biblia.py",
+          "line": 360,
+          "snippet": "cls.emenda2 = ler(os.path.join(RAIZ, 'docs', 'biblia', 'EMENDA-V1-2.md'))"
+        },
+        {
+          "file": "tests/test_biblia.py",
+          "line": 363,
+          "snippet": "'CENSO-DA-INFRAESTRUTURA.md'))"
         }
       ]
     },
@@ -16184,7 +16213,7 @@
       "evidence": [
         {
           "file": "provas/valida_biblia.py",
-          "line": 212,
+          "line": 219,
           "snippet": "open(LEIS_JSON, 'w')  # LEIS_JSON = docs/biblia/leis.json"
         }
       ]
@@ -18232,8 +18261,8 @@
     "edges_proven": 326,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1151,
-    "files_covered": 507,
+    "files_tracked": 1153,
+    "files_covered": 509,
     "files_code_unclaimed": 0
   }
 }

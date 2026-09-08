@@ -228,6 +228,128 @@ class Distincoes(unittest.TestCase):
         self.assertIn('BIBLE COMPLIANCE KNOWN', c)
 
 
+class Infraestrutura(Distincoes):
+    """As 21 distincoes da emenda V1.2 — GitHub, Supabase e a referencia.
+
+    Herda de `Distincoes` so pelas ajudas (`lei`, `separa`, `manda`): a
+    diferenca entre uma lei viva e um paragrafo e sempre a mesma pergunta.
+    """
+
+    # ── I1 · I2 — cada casa com o seu papel ──────────────────────────────
+    def test_I1_github_e_engenharia_nao_banco(self):
+        self.assertIn('QUAL ENGENHARIA ESTAVA VALENDO?', self.lei('COL-LAW-302'))
+        c = self.manda('COL-LAW-303')
+        self.assertIn('RUN STATE', c)
+        self.assertIn('NÃO DEVEM** viver em Git', c)
+
+    def test_I2_supabase_e_infra_nao_autoridade(self):
+        c = self.lei('COL-LAW-301')
+        self.assertIn('INFRASTRUCTURE  ≠  SEMANTIC AUTHORITY', c)
+        self.assertIn('O QUE ACONTECEU, E COMO ESTÁ AGORA?', self.lei('COL-LAW-304'))
+
+    # ── I3 · I4 — a tabela nao decide, e ninguem escreve por conhece-la ──
+    def test_I3_estar_numa_tabela_nao_e_canonico(self):
+        c = self.lei('COL-LAW-301')
+        self.assertIn('TABLE           ≠  CANONICAL TRUTH', c)
+        self.assertIn('SUPABASE STORES. SUPABASE DOES NOT JUDGE', self.lei('COL-LAW-305'))
+
+    def test_I4_escrita_canonica_atravessa_o_dono(self):
+        c = self.manda('COL-LAW-306')
+        self.assertIn('ADMISSÃO / DONO', c)
+        self.assertIn('DONO DA REFERÊNCIA', c)
+
+    # ── I5 a I8 — a corrida e a engenharia que a produziu ────────────────
+    def test_I5_commit_nao_e_corrida_observada(self):
+        c = self.lei('COL-LAW-307')
+        self.assertIn('`GIT COMMIT` NÃO É `OBSERVED RUN`', c)
+        self.assertIn('NÃO DEVE** ser reconstruída com o código de hoje', c)
+
+    def test_I6_I7_I8_a_corrida_preserva_as_versoes(self):
+        c = self.lei('COL-LAW-307')
+        for campo in ('GIT_COMMIT', 'BIBLE_VERSION', 'PIPELINE_VERSION',
+                      'EXECUTOR_VERSION', 'CONFIG_HASH', 'PLAN_VERSION'):
+            self.assertIn(campo, c, f'{campo} saiu do contrato da corrida')
+
+    # ── I9 · I10 — o YAML e o relogio ────────────────────────────────────
+    def test_I9_action_nao_e_orquestrador(self):
+        c = self.manda('COL-LAW-309')
+        self.assertIn('YAML NÃO É UM SEGUNDO ORQUESTRADOR', c)
+        self.assertIn('COL-LAW-011', c, 'a lei tem de apontar para o dono da orquestracao')
+
+    def test_I10_agenda_nao_e_politica(self):
+        c = self.lei('COL-LAW-310')
+        self.assertIn('SCHEDULE  ≠  COLLECTION POLICY', c)
+        for modo in ('PONTUAL', 'INCREMENTAL', 'TOTAL'):
+            self.assertIn(modo, c)
+
+    # ── I11 · I12 — a migration ──────────────────────────────────────────
+    def test_I11_migration_e_versionada(self):
+        c = self.manda('COL-LAW-308')
+        self.assertIn('migration versionada em Git', c)
+
+    def test_I12_ficheiro_de_migration_nao_prova_estado_aplicado(self):
+        c = self.lei('COL-LAW-308')
+        self.assertIn('NÃO prova que ela foi aplicada', c)
+        self.assertIn('INFRASTRUCTURE_DRIFT', c)
+        self.assertIn('NÃO É**\n`WORLD UNKNOWN`', c.replace('\r', ''))
+
+    # ── I13 — bytes e metadata ───────────────────────────────────────────
+    def test_I13_bytes_nao_sao_metadata(self):
+        c = self.manda('COL-LAW-311')
+        self.assertIn('O CAMINHO É ENDEREÇO, NUNCA IDENTIDADE', c)
+        self.assertIn('SHA256', c)
+        self.assertIn('NÃO decreta onde os bytes ficam', c)
+
+    # ── I14 a I16 — a referencia ─────────────────────────────────────────
+    def test_I14_referencia_nao_e_configuracao(self):
+        c = self.lei('COL-LAW-401')
+        self.assertIn('REFERENCE DATA', c)
+        self.assertIn('sem deploy', c)
+        self.assertIn('commit versionado', c)
+
+    def test_I15_conferir_nao_e_mudar(self):
+        c = self.lei('COL-LAW-404')
+        self.assertIn('`LAST_CHECKED` ≠ `LAST_CHANGED`', c)
+        self.assertIn('NEXT_DUE', c)
+
+    def test_I16_a_referencia_tem_validade_temporal(self):
+        c = self.manda('COL-LAW-405')
+        self.assertIn('VALID_FROM', c)
+        self.assertIn('VALID_TO', c)
+        self.assertIn('REFERENCE AS OF FACT_TIME', c)
+
+    # ── I17 — portabilidade sem abstracao prematura ──────────────────────
+    def test_I17_conceito_nao_e_tabela_fisica(self):
+        c = self.lei('COL-LAW-315')
+        self.assertIn('conceitos **do SINTONIA**', c)
+        self.assertIn('NÃO AUTORIZA ABSTRAÇÃO PREMATURA', c)
+
+    # ── I18 — segredo ────────────────────────────────────────────────────
+    def test_I18_segredo_nao_entra_no_estado_do_mapa(self):
+        c = self.manda('COL-LAW-312')
+        self.assertIn('estado do System Map', c)
+        self.assertIn('Nunca o valor', c)
+
+    # ── I19 · I20 — o mapa ───────────────────────────────────────────────
+    def test_I19_infra_e_infra_no_mapa(self):
+        c = self.lei('COL-LAW-316')
+        self.assertIn('nunca como fonte de', c)
+        self.assertIn('A arquitetura governa o visual', c)
+
+    def test_I20_current_nao_recebe_aresta_inventada(self):
+        """A V1.2 nao pode desenhar como CURRENT o que ela mesma mediu como ABSENT."""
+        self.assertIn('NÃO EXISTE hoje', self.lei('COL-LAW-401')[:0] or self.t
+                      [self.t.index('PARTE XIX'):self.t.index('COL-LAW-401')])
+        self.assertIn('não** o desenha como `CURRENT`',
+                      self.t[self.t.index('PARTE XIX'):self.t.index('COL-LAW-401')])
+
+    # ── I21 — deploy ─────────────────────────────────────────────────────
+    def test_I21_deploy_nao_decide_verdade_do_dado(self):
+        c = self.lei('COL-LAW-314')
+        for x in ('CODE DEPLOYMENT', 'DATA STATE', 'REFERENCE VERSION', 'RUN STATE'):
+            self.assertIn(x, c)
+
+
 class Integridade(unittest.TestCase):
     """A emenda tem de bater com o corpo da Biblia."""
 
@@ -235,11 +357,28 @@ class Integridade(unittest.TestCase):
     def setUpClass(cls):
         cls.t = ler(BIBLIA)
         cls.emenda = ler(EMENDA)
+        cls.emenda2 = ler(os.path.join(RAIZ, 'docs', 'biblia', 'EMENDA-V1-2.md'))
         cls.conf = ler(CONFORMIDADE)
+        cls.censo_infra = ler(os.path.join(RAIZ, 'docs', 'biblia',
+                                           'CENSO-DA-INFRAESTRUTURA.md'))
 
     def test_versao_bate_com_o_historico(self):
-        self.assertRegex(self.t, r'VERSION\s+V1\.1')
-        self.assertIn('| **V1.1** |', self.t)
+        self.assertRegex(self.t, r'VERSION\s+V1\.2')
+        for v in ('| **V1** |', '| **V1.1** |', '| **V1.2** |'):
+            self.assertIn(v, self.t, f'{v} sumiu do historico constitucional')
+
+    def test_a_lei_da_infra_nasceu_de_medicao(self):
+        """Lei de infraestrutura escrita sem censo e opiniao com cara de lei."""
+        self.assertIn('ZERO', self.censo_infra)
+        self.assertIn('caminhos de escrita medidos', self.censo_infra)
+        self.assertIn('CENSO-DA-INFRAESTRUTURA.md', self.t)
+
+    def test_toda_lei_da_v1_2_existe_na_biblia(self):
+        na_biblia = set(re.findall(r'^## (COL-LAW-\d{3}) · ', self.t, re.M))
+        citadas = set(re.findall(r'`(COL-LAW-[34]\d{2})`', self.emenda2))
+        self.assertTrue(citadas, 'a emenda V1.2 deixou de citar leis')
+        self.assertEqual(set(), citadas - na_biblia,
+                         'a emenda V1.2 cita lei que a Biblia nao tem')
 
     def test_toda_lei_da_emenda_existe_na_biblia(self):
         na_biblia = set(re.findall(r'^## (COL-LAW-\d{3}) · ', self.t, re.M))

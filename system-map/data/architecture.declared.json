@@ -235,18 +235,20 @@
       "views": [
         "acervo"
       ],
-      "what": "78 leis numeradas (V1.1) que governam toda coleta do SINTONIA: o censo das 63 leis maduras que ja existiam, a matriz de conflitos com ficheiro e linha, a emenda constitucional e a medicao da Italia contra elas.",
-      "why_here": "As leis da coleta viviam espalhadas por cabecalho de script, README, prompt de aba e if solto. Espalhadas assim nao se consultam: redescobrem-se, e a lei redescoberta nunca e igual a que ja existia. Ela declara LAW_STATUS separado de IMPLEMENTATION_STATUS para que «e lei» nunca signifique «ja funciona» — e a emenda V1.1 poe o proprio System Map dentro da lei: ele e a camada oficial de observabilidade, e tudo tem de ser renderizavel.",
+      "what": "100 leis numeradas (V1.2) que governam toda coleta do SINTONIA: o censo das 63 leis maduras que ja existiam, o censo da infraestrutura, a matriz de conflitos com ficheiro e linha, as duas emendas constitucionais e a medicao da Italia contra elas.",
+      "why_here": "As leis da coleta viviam espalhadas por cabecalho de script, README, prompt de aba e if solto. Espalhadas assim nao se consultam: redescobrem-se, e a lei redescoberta nunca e igual a que ja existia. Ela declara LAW_STATUS separado de IMPLEMENTATION_STATUS para que «e lei» nunca signifique «ja funciona»; a V1.1 poe o proprio System Map dentro da lei; e a V1.2 da papel canonico ao GitHub (engenharia versionada) e ao Supabase (memoria operacional), com a regra que governa os dois: INFRAESTRUTURA NAO E AUTORIDADE SEMANTICA.",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
       ],
       "files": [
         "BIBLIA-CANONICA-DA-COLETA.md",
+        "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
         "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
-        "docs/biblia/MATRIZ-DE-CONFLITOS.md",
         "docs/biblia/CONFORMIDADE-ITALIA.md",
         "docs/biblia/EMENDA-V1-1.md",
+        "docs/biblia/EMENDA-V1-2.md",
+        "docs/biblia/MATRIZ-DE-CONFLITOS.md",
         "docs/biblia/leis.json"
       ]
     },
@@ -1461,8 +1463,8 @@
       "name": "O banco onde o dado fica guardado",
       "territory": "Z-GUARDA",
       "kind": "engine",
-      "what": "Onde o dado coletado fica guardado, e as migracoes que mudam o formato dessa guarda.",
-      "why_here": "Entre uma corrida e outra o dado precisa existir em algum lugar que nao seja a memoria da maquina.",
+      "what": "O schema canonico em 21 migrations versionadas, as provas SQL e o SQL de importacao gerado antes de correr. E a MEMORIA OPERACIONAL do SINTONIA: collection_run, raw_asset, checkpoint_coleta, fonte_externa, e o bucket privado `raw` onde os bytes vivem com o pais no caminho e a identidade no hash.",
+      "why_here": "INFRAESTRUTURA NAO E AUTORIDADE SEMANTICA (COL-LAW-301): uma tabela existir nao torna canonico o que esta nela, e conseguir fazer INSERT nao da a ninguem autoridade para decidir o que e verdade. O Supabase GUARDA; quem JULGA sao os contratos, a admissao e o livro de decisoes. Medido em 08/09/2026: 7 caminhos de escrita, 7 canonicos, ZERO bypasses — porque a credencial so existe como segredo do runner, e o SQL entra no Git para alguem ler ANTES de rodar.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -1497,8 +1499,8 @@
       "name": "Os botoes que cuidam do banco",
       "territory": "Z-GUARDA",
       "kind": "workflow",
-      "what": "Conferem a conexao com o banco, rodam migracao e provam que o dado volta igual ao que entrou.",
-      "why_here": "Migracao sem prova de ida e volta e perda de dado com aparencia de sucesso.",
+      "what": "Os workflows que aplicam a cadeia canonica no Supabase, criam o bucket privado, provam o round-trip do RAW (Git -> Storage -> Postgres -> download -> hash) e testam a conexao sem nunca imprimir o valor de um segredo.",
+      "why_here": "O GitHub Actions e INFRAESTRUTURA DE EXECUCAO, nao orquestrador (COL-LAW-309): ele agenda, dispara, testa, valida e publica — e nao decide que fonte e relevante, que executor usar nem o que e admissivel. YAML nao e um segundo orquestrador. Medido: zero cron nos 11 workflows; o unico relogio do SINTONIA e o Agendador do Windows, porque o runner do GitHub sai por datacenter e a coleta italiana precisa sair pela VPN italiana.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -1842,7 +1844,7 @@
     ".github/workflows/supabase-raw-roundtrip.yml": "3e9934e706d73022a109633a464cd452ea8a7ad1",
     ".github/workflows/supabase-storage.yml": "243c29e74bc77b843dd2910df8f0f98ec8b7cf91",
     ".github/workflows/system-map.yml": "aa32ab8390c8921e7a24f3980c0e07ddaf282c6b",
-    "BIBLIA-CANONICA-DA-COLETA.md": "4c2e5b8865f573b94a7eb37503113c10abebae45",
+    "BIBLIA-CANONICA-DA-COLETA.md": "c2ea0ec1d3aeda38a7daffabe697259b15fd75fb",
     "admissao/admissao.py": "ba263a7b85a0f82b7b68901ecd74f1ab4ce7a8c6",
     "candidatas/FONTES-CANDIDATAS.json": "ef5d20af7253dd06350a414a81f37e8327d5b83a",
     "candidatas/ITALY-SOURCE-MASTER-V1.json": "690de91954cf7bf72c4263680682ef79d9c4cfd0",
@@ -1895,11 +1897,13 @@
     "data/collection-ledger/italy/observations.ndjson": "c6750b2d1039a302cb88cf5ab4aa47ce2550d794",
     "data/collection-ledger/italy/runs.ndjson": "8ef7ad2f772c2baa8c78b7e1a3c116bca19e45fb",
     "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "b47bf9831be360ffe664e51b825b48a1d434f64a",
+    "docs/biblia/CENSO-DA-INFRAESTRUTURA.md": "56ec612daf78d428a24a1c6f4cea561f02a6e475",
     "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md": "6b73e2b0d7ff93ad05b4b09d31bb5d6e58c88577",
-    "docs/biblia/CONFORMIDADE-ITALIA.md": "1604946696626aa3be2a4d29122d5b8759fb787b",
+    "docs/biblia/CONFORMIDADE-ITALIA.md": "6cd171d592c11540ee264b7a4c40113e69bb6fa6",
     "docs/biblia/EMENDA-V1-1.md": "58f6a80ab111a7d27f271d0931c3a5be6f8641b2",
+    "docs/biblia/EMENDA-V1-2.md": "7177d7702e865254da5d0cce16789d212b98659f",
     "docs/biblia/MATRIZ-DE-CONFLITOS.md": "010fd3a04ffc349c2c22aa49b30508412a37b4ef",
-    "docs/biblia/leis.json": "5281822c490cdbf442a16fd67273c2bb3800bc50",
+    "docs/biblia/leis.json": "7bffabf084197cadaf31420b18d29b01e6430f88",
     "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md": "44f3fa897abc8d8b968b9880eb4f841c081c1521",
     "docs/operacao/ITALY-RECURRENT-PILOT-V1.md": "7010dba9d6ac96d6a950a7ee3df2534be627f3ad",
     "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md": "f5008231ad8a9dad60ca32f5283e2c4d9c0cf1ef",
@@ -2171,7 +2175,7 @@
     "provas/italy_pilot_negativos.mjs": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
     "provas/testa_coleta_canonica.py": "4f6ce8d8584222fea36c2ea728992b57d2bc3c20",
     "provas/testa_rota_italia.py": "fc1de4e6f7b84f7709459d61f02413820827a2b2",
-    "provas/valida_biblia.py": "48a704d24195e2c2c822639d0f849bdf6972c6ce",
+    "provas/valida_biblia.py": "eaef7a77c0a0a55484a0d44c0a49e559ae042bcd",
     "regras/comunicacao_identidade.py": "94c42ae11e5f4d2880ddbb71b2f36fc1d12a9160",
     "regras/comunicacao_lote.py": "1aed0cecdff1f7a2ac42451eea43e87ba82b655f",
     "regras/comunicacao_universo.py": "6c25a78aa4314def6ee4354b0f5329f3d9cce622",
@@ -2245,7 +2249,7 @@
     "tests/es/test_adama_es_gate.py": "6a314fa029012cc403351afa7248c1b89666e786",
     "tests/es/test_adama_es_import_rules.py": "b37f0ceadb1bb42c4f4cd08c2c473d4cf661a197",
     "tests/test_adama_relevance.py": "4337978c67cf52681f3eddbcaeb2423eca2291e8",
-    "tests/test_biblia.py": "6a31d6ebbf63f8c1345125c389b6c0a75aa04969",
+    "tests/test_biblia.py": "c6e7a41882892cf001a03d409e35651626daeb56",
     "tests/test_calendario_temporal.py": "7f05aa45f2ae319f5eefebbf7654a09ed05b2d40",
     "tests/test_canonico.py": "b8896c0990b63e9610055df7b8b10dcd588d8f11",
     "tests/test_cicatrizes_brasil.py": "552985ef5ebec590ae95fbf977e725fa5cf27c56",

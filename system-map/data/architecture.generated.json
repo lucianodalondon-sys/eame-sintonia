@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/biblia-canonica-da-coleta",
-    "HEAD": "72838db1d442c556c0e25e2bdbf64e166d3a2221",
-    "GENERATED_AT": "2026-09-07T23:43:12-03:00"
+    "HEAD": "73e7270a1512ab403565c78f54da8c3968191823",
+    "GENERATED_AT": "2026-09-08T00:06:26-03:00"
   },
   "FILES": [
     {
@@ -128,7 +128,7 @@
     },
     {
       "path": "BIBLIA-CANONICA-DA-COLETA.md",
-      "sha": "4c2e5b8865f573b94a7eb37503113c10abebae45",
+      "sha": "c2ea0ec1d3aeda38a7daffabe697259b15fd75fb",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3718,6 +3718,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
+      "sha": "56ec612daf78d428a24a1c6f4cea561f02a6e475",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
       "sha": "6b73e2b0d7ff93ad05b4b09d31bb5d6e58c88577",
       "ext": ".md",
@@ -3726,7 +3733,7 @@
     },
     {
       "path": "docs/biblia/CONFORMIDADE-ITALIA.md",
-      "sha": "1604946696626aa3be2a4d29122d5b8759fb787b",
+      "sha": "6cd171d592c11540ee264b7a4c40113e69bb6fa6",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3734,6 +3741,13 @@
     {
       "path": "docs/biblia/EMENDA-V1-1.md",
       "sha": "58f6a80ab111a7d27f271d0931c3a5be6f8641b2",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/biblia/EMENDA-V1-2.md",
+      "sha": "7177d7702e865254da5d0cce16789d212b98659f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3747,7 +3761,7 @@
     },
     {
       "path": "docs/biblia/leis.json",
-      "sha": "5281822c490cdbf442a16fd67273c2bb3800bc50",
+      "sha": "7bffabf084197cadaf31420b18d29b01e6430f88",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -3768,7 +3782,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "713add6db8fff0d38c3e0c9d2ffb07accaf72d97",
+      "sha": "4ef3b0859400a1ff287a9f6c0f74165e7e67df39",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6764,7 +6778,7 @@
     },
     {
       "path": "provas/valida_biblia.py",
-      "sha": "48a704d24195e2c2c822639d0f849bdf6972c6ce",
+      "sha": "eaef7a77c0a0a55484a0d44c0a49e559ae042bcd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7758,7 +7772,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "6bb2f4c3f5b873f227515b4e1873ba24e0126620",
+      "sha": "d0d58e940ca549b50efa997885233d1faab7e6de",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7863,7 +7877,7 @@
     },
     {
       "path": "tests/test_biblia.py",
-      "sha": "6a31d6ebbf63f8c1345125c389b6c0a75aa04969",
+      "sha": "c6e7a41882892cf001a03d409e35651626daeb56",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21378,6 +21392,17 @@
     },
     {
       "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 57,
+        "snippet": "os.path.join(PASTA, 'CENSO-DA-INFRAESTRUTURA.md'))"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
       "to_file": "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
       "type": "READS",
       "payload": "artefacto",
@@ -21396,6 +21421,28 @@
         "file": "provas/valida_biblia.py",
         "line": 49,
         "snippet": "CONFORMIDADE = os.path.join(PASTA, 'CONFORMIDADE-ITALIA.md')"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/EMENDA-V1-1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 55,
+        "snippet": "os.path.join(PASTA, 'EMENDA-V1-1.md'),"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/EMENDA-V1-2.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 56,
+        "snippet": "os.path.join(PASTA, 'EMENDA-V1-2.md'),"
       }
     },
     {
@@ -21427,7 +21474,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/valida_biblia.py",
-        "line": 212,
+        "line": 219,
         "snippet": "open(LEIS_JSON, 'w')  # LEIS_JSON = docs/biblia/leis.json"
       }
     },
@@ -22863,6 +22910,17 @@
     },
     {
       "from_file": "tests/test_biblia.py",
+      "to_file": "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_biblia.py",
+        "line": 363,
+        "snippet": "'CENSO-DA-INFRAESTRUTURA.md'))"
+      }
+    },
+    {
+      "from_file": "tests/test_biblia.py",
       "to_file": "docs/biblia/CONFORMIDADE-ITALIA.md",
       "type": "READS",
       "payload": "artefacto",
@@ -22881,6 +22939,17 @@
         "file": "tests/test_biblia.py",
         "line": 43,
         "snippet": "EMENDA = os.path.join(RAIZ, 'docs', 'biblia', 'EMENDA-V1-1.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_biblia.py",
+      "to_file": "docs/biblia/EMENDA-V1-2.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_biblia.py",
+        "line": 360,
+        "snippet": "cls.emenda2 = ler(os.path.join(RAIZ, 'docs', 'biblia', 'EMENDA-V1-2.md'))"
       }
     },
     {
@@ -25394,10 +25463,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1151,
+    "files_tracked": 1153,
     "files_readable": 390,
     "files_code_dir": 435,
-    "file_edges": 1541,
+    "file_edges": 1546,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },

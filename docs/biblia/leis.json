@@ -2,7 +2,7 @@
  "SCHEMA": "sintonia.collection-bible/1",
  "NOTA": "DERIVADO de BIBLIA-CANONICA-DA-COLETA.md. Nao editar a mao: corra `py provas/valida_biblia.py --build`.",
  "BIBLE_ID": "SINTONIA-COLLECTION-BIBLE",
- "VERSION": "V1.1",
+ "VERSION": "V1.2",
  "STATUS": "CANONICAL",
  "EFFECTIVE_FROM": "2026-09-07",
  "CURRENT_PROFILE": "ITALY_PROFILE_V1",
@@ -705,6 +705,204 @@
    ],
    "law_status": "CANONICAL",
    "italia": "NOT_APPLICABLE"
+  },
+  {
+   "id": "COL-LAW-301",
+   "nome": "INFRAESTRUTURA NÃO É AUTORIDADE SEMÂNTICA",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-302",
+   "nome": "O GITHUB GUARDA A ENGENHARIA",
+   "origem": [
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-303",
+   "nome": "O GITHUB NÃO É BANCO OPERACIONAL",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-304",
+   "nome": "O SUPABASE É A MEMÓRIA OPERACIONAL",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-305",
+   "nome": "O SUPABASE GUARDA; NÃO JULGA",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-306",
+   "nome": "NINGUÉM ESCREVE NO CANÔNICO POR CONHECER A TABELA",
+   "origem": [
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-307",
+   "nome": "A CORRIDA SE LIGA À ENGENHARIA QUE A PRODUZIU",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-308",
+   "nome": "MIGRATION VERSIONADA, E FICHEIRO NÃO É ESTADO APLICADO",
+   "origem": [
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-309",
+   "nome": "O GITHUB ACTIONS É EXECUÇÃO, NÃO ORQUESTRADOR",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-310",
+   "nome": "AGENDA NÃO É POLÍTICA DE COLETA",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-311",
+   "nome": "BYTES NÃO SÃO METADATA",
+   "origem": [
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-312",
+   "nome": "SEGREDO NÃO ATRAVESSA",
+   "origem": [
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-313",
+   "nome": "AMBIENTE FAZ PARTE DA IDENTIDADE DA CORRIDA",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "NOT_APPLICABLE"
+  },
+  {
+   "id": "COL-LAW-314",
+   "nome": "DEPLOY NÃO DECIDE QUAL DADO É VERDADE",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-315",
+   "nome": "CONCEITO NÃO É IMPLEMENTAÇÃO FÍSICA",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "IMPLEMENTED"
+  },
+  {
+   "id": "COL-LAW-316",
+   "nome": "O MAPA MOSTRA RESPONSABILIDADE, NÃO SCHEMA",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-401",
+   "nome": "DADO DE REFERÊNCIA NÃO É CONFIGURAÇÃO",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-402",
+   "nome": "ABASTECER REFERÊNCIA TAMBÉM É COLETA",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-403",
+   "nome": "TODA REFERÊNCIA DECLARA A SUA AUTORIDADE",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-404",
+   "nome": "CONFERIR NÃO É MUDAR",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-405",
+   "nome": "A REFERÊNCIA TEM HISTÓRIA",
+   "origem": [
+    "ENGINEERING_PRINCIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-406",
+   "nome": "A DEFINIÇÃO É DA ENGENHARIA; OS REGISTROS SÃO DA MEMÓRIA",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
   },
   {
    "id": "COL-LAW-069",

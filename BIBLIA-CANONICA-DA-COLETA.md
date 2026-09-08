@@ -2,7 +2,7 @@
 
 ```
 BIBLE_ID          SINTONIA-COLLECTION-BIBLE
-VERSION           V1.1
+VERSION           V1.2
 STATUS            CANONICAL
 EFFECTIVE_FROM    2026-09-07
 CURRENT_PROFILE   ITALY_PROFILE_V1
@@ -19,10 +19,12 @@ Nenhuma lei muda em silêncio — é a COL-LAW-069. Toda emenda entra aqui e no
 |---|---|---|---|
 | **V1** | 2026-09-07 | a constituição inicial, consolidando 63 leis maduras já existentes | 48 |
 | **V1.1** | 2026-09-07 | **duas emendas**: a lei da observabilidade (PARTE XVI — o System Map é a placa de vídeo do SINTONIA, e tudo tem de ser renderizável) e as leis roubadas de sistemas maduros de coleta (PARTE XVII — artefato ≠ fato, watermark, run completa, reparo, três eixos de confiança) | **78** (+30) |
+| **V1.2** | 2026-09-08 | **a infraestrutura entra na lei**: o papel canônico do GitHub e do Supabase (PARTE XVIII — infraestrutura não é autoridade semântica) e o Plano de Referência (PARTE XIX — dado de referência não é configuração, e tem história) | **100** (+22) |
 
-**Nenhuma lei da V1 foi apagada.** Seis emendas foram absorvidas por leis que já
-existiam, em vez de virarem lei nova — a lista está em
-[`docs/biblia/EMENDA-V1-1.md`](docs/biblia/EMENDA-V1-1.md).
+**Nenhuma lei foi apagada em nenhuma emenda.** Emendas absorvidas por leis existentes, em vez
+de virarem lei nova, estão registradas em
+[`docs/biblia/EMENDA-V1-1.md`](docs/biblia/EMENDA-V1-1.md) e
+[`docs/biblia/EMENDA-V1-2.md`](docs/biblia/EMENDA-V1-2.md).
 
 > **Esta é a constituição da coleta do SINTONIA.** Não é tutorial, não é descrição do
 > código de hoje, não é proposta. É a lei que todo prompt futuro de coleta obedece.
@@ -1223,6 +1225,8 @@ Marcar o piloto de Espanha como legado seria enterrá-lo vivo.
 | `DERIVED_ARTIFACT` | — | **ABSENT** |
 | `DECISION` | `data/samples/LIVRO-DE-DECISOES.json` | existe |
 | `ROUTE_POLICY` | — | **ABSENT** |
+| `REFERENCE_SET` | — | **ABSENT** — definição em Git, registros na memória operacional (COL-LAW-406) |
+| `STORAGE_LOCATION` | bucket `raw` (privado) + tabela `raw_asset` | existe (ES) · a Itália não usa (G-30) |
 
 ### O que a emenda V1.1 mudou nos contratos — e o que ela recusou criar
 
@@ -2006,6 +2010,471 @@ COL-LAW-204 que garante que decidir não destrói.
 
 ---
 
+# PARTE XVIII · A INFRAESTRUTURA
+
+> **Emenda V1.2.** O SINTONIA já tem casa: **GitHub** e **Supabase**. Esta parte não cria
+> uma segunda — dá a cada uma um papel claro, e proíbe que uma faça o trabalho da outra.
+>
+> ```
+> GITHUB      =  AUTORIDADE DE ENGENHARIA
+> SUPABASE    =  MEMÓRIA OPERACIONAL E PERSISTÊNCIA ESTRUTURADA
+> SYSTEM MAP  =  OBSERVABILIDADE VISUAL
+> A BÍBLIA    =  A LEI QUE GOVERNA OS TRÊS
+> ```
+>
+> Estas leis foram escritas **depois** de medir, e duas delas contrariam o que se esperava
+> encontrar. O censo está em
+> [`docs/biblia/CENSO-DA-INFRAESTRUTURA.md`](docs/biblia/CENSO-DA-INFRAESTRUTURA.md).
+
+## COL-LAW-301 · INFRAESTRUTURA NÃO É AUTORIDADE SEMÂNTICA
+
+**REGRA.**
+
+```
+INFRASTRUCTURE  ≠  SEMANTIC AUTHORITY
+TABLE           ≠  CANONICAL TRUTH
+```
+
+Uma tabela existir **NÃO** torna o que está nela canônico. Um script conseguir fazer
+`INSERT` **NÃO** lhe dá autoridade para decidir o que é verdade.
+
+**POR QUÊ.** É a mesma lei que já governa o mapa — *«declaração não promove a verde»* — dita
+para o banco. Quem decide o que é canônico são os **contratos, as leis, os donos, a
+admissão, a canonicalização e a evidência**. Nunca «está numa tabela».
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-302 · O GITHUB GUARDA A ENGENHARIA
+
+**REGRA.** O GitHub é o lugar canônico, quando aplicável, de:
+**código · a Bíblia · contratos · schemas · testes · validadores · geradores · migrations ·
+definições de CI/CD · workflows · configuração versionada · histórico de mudança ·
+identidade de commit/release.**
+
+Em uma frase, o GitHub responde:
+
+> ## «QUAL ENGENHARIA ESTAVA VALENDO?»
+
+**MEDIDO, e já é assim.** 1.151 ficheiros rastreados · 21 migrations versionadas · a ordem
+da cadeia num dono só (`motor/cadeia_canonica.sh`) · o SQL de importação **gerado e
+versionado antes de correr**, porque *«o SQL é AUDITÁVEL: ele entra no Git, alguém lê antes
+de rodar»*.
+
+**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-303 · O GITHUB NÃO É BANCO OPERACIONAL
+
+**REGRA.** **PODEM** viver em Git, quando fizer sentido: fixtures · configurações canônicas
+pequenas · contratos · amostras de teste · manifestos versionados · pequenos ativos de
+referência · evidência de rota **não replicável** (COL-LAW-044).
+
+**NÃO DEVEM** viver em Git só porque é simples escrever um JSON:
+
+```
+RUN STATE
+estado operacional de alta rotatividade
+datasets mutáveis grandes
+atualizações frequentes de saúde
+atualizações frequentes de referência
+```
+
+**POR QUÊ, e o número dói.** O Git **não esquece**. Um ficheiro apagado continua a pesar em
+cada clone, para sempre. Escrever estado de corrida em Git é escolher carregar todas as
+corridas de todos os dias, para sempre, em cada máquina que clonar.
+
+**⚠️ VIOLAÇÃO VIVA, medida hoje.** `coleta/italy_recurrent_collect.mjs:144` faz
+`git add data/collection-ledger data/collection-store`: o recibo, as 144 observações **e os
+bytes** (11 ficheiros, **12 MB**) entram no Git — enquanto `collection_run`, `raw_asset` e o
+bucket `raw` existem, estão provados, e ficam vazios. Ver ACHADO 3 do censo. Gap **G-30**.
+
+**NADA FOI MIGRADO NESTA MISSÃO.** A lei fica escrita; a mudança é outra missão.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-304 · O SUPABASE É A MEMÓRIA OPERACIONAL
+
+**REGRA.** O Supabase **PODE** ser a persistência estruturada, quando coerente com os
+contratos canônicos, de: **Source Registry · Endpoint Registry · Reference Sets ·
+Reference Records · metadata de corrida · metadata de artefato · linhagem ·
+estado/checkpoints · saúde · issues operacionais · livro de decisões · dado canônico
+estruturado · `FIRST_SEEN`/`LAST_SEEN` · janelas de validade · contagens · custo.**
+
+Em uma frase, o Supabase responde:
+
+> ## «O QUE ACONTECEU, E COMO ESTÁ AGORA?»
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-305 · O SUPABASE GUARDA; NÃO JULGA
+
+**REGRA.**
+
+> ## SUPABASE STORES. SUPABASE DOES NOT JUDGE.
+
+O banco **NÃO DEVE** ser tratado como o dono da verdade só por ser onde a linha ficou. A
+verdade canônica é decidida por contrato, lei, dono, admissão, canonicalização, evidência e
+decisão registrada.
+
+**LIGA-SE A** COL-LAW-035 (o `UNKNOWN`) e COL-LAW-042 (a admissão): uma linha gravada sem
+passar pela porta é uma linha sem decisão — e uma decisão que ninguém tomou não vira verdade
+por ficar guardada.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-306 · NINGUÉM ESCREVE NO CANÔNICO POR CONHECER A TABELA
+
+**REGRA.** Um executor, importador ou coletor **NÃO DEVE** escrever no estado canônico só
+porque conhece `SUPABASE_URL`, `SUPABASE_KEY` e o nome da tabela. Toda escrita canônica
+atravessa o dono apropriado:
+
+```
+EXECUTOR → CONTRATO DE ARTEFATO → ADMISSÃO / DONO → CANONICAL STORE → SUPABASE
+
+REFERENCE SUPPLY → VALIDAÇÃO → DONO DA REFERÊNCIA → REFERENCE STORE → SUPABASE
+```
+
+**MEDIDO — e a casa já cumpre, por um caminho que vale a pena preservar.** Os 7 caminhos de
+escrita medidos são **todos canônicos** e **há zero bypasses**. O padrão é:
+
+```
+artefato → gerador → .sql VERSIONADO em supabase/importacoes/ → GitHub Actions → Supabase
+```
+
+E funciona porque **o segredo não existe fora do runner**. A engenharia acidental virou lei:
+*«o que vai para o Git é reprodutível; o que foi digitado no banco, não»*.
+
+**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-307 · A CORRIDA SE LIGA À ENGENHARIA QUE A PRODUZIU
+
+**REGRA.** Toda corrida **DEVE** poder registrar, quando materialmente relevante:
+
+```
+RUN_ID · GIT_COMMIT · PIPELINE_VERSION · EXECUTOR_VERSION
+CONFIG_HASH · PLAN_VERSION · BIBLE_VERSION
+ROUTE_POLICY_VERSION · VOCABULARY_VERSION
+```
+
+para que se possa ler `DATA ↔ RUN ↔ ENGINEERING VERSION`.
+
+> ## `GIT COMMIT` NÃO É `OBSERVED RUN`.
+> Um commit prova **que código existia**. Não prova que **aquela corrida o usou**. `OBSERVED`
+> exige corrida real **mais** o registro explícito da versão (COL-LAW-102 · 112).
+
+**E O PASSADO NÃO MUDA QUANDO O GIT ANDA.** Se o repositório avança, a corrida antiga
+continua ligada à versão antiga. **NÃO DEVE** ser reconstruída com o código de hoje —
+é a COL-LAW-209 e a COL-LAW-211 aplicadas à infraestrutura.
+
+**MEDIDO.** O ledger italiano guarda `GIT_HEAD`; o `RUN-MANIFEST` europeu **não guarda
+nenhuma versão de engenharia**. Gap **G-02**.
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-308 · MIGRATION VERSIONADA, E FICHEIRO NÃO É ESTADO APLICADO
+
+**REGRA.** Toda mudança de schema **DEVE** ter histórico de engenharia — preferencialmente
+uma migration versionada em Git.
+
+E três coisas **NÃO DEVEM** ser confundidas:
+
+| | |
+|---|---|
+| `DECLARED DATABASE SCHEMA` | o que a migration no Git diz |
+| `CODE EXPECTATION` | o que o código espera encontrar |
+| `ACTUAL DATABASE STATE` | o que o banco tem de verdade |
+
+> **A migration existir no Git NÃO prova que ela foi aplicada.**
+
+Quando as duas divergirem, isso é **`INFRASTRUCTURE_DRIFT`** — estado operacional. **NÃO É**
+`WORLD UNKNOWN`: não é o mundo que não sabemos, é a nossa casa que está diferente do
+desenho. Confundir os dois é a COL-LAW-215 outra vez.
+
+**MEDIDO, e já é bom.** 21 migrations versionadas · a `008` é a **última** e confere o que as
+outras escreveram · `supabase-migrate.yml` tem pré-voo que **recusa escrever num banco que
+não está como esperado** e para no primeiro erro, *«sem improvisar conserto no banco»*.
+
+**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-309 · O GITHUB ACTIONS É EXECUÇÃO, NÃO ORQUESTRADOR
+
+**REGRA.** O GitHub Actions **PODE**: agendar · disparar · testar · validar · executar ·
+publicar · fazer deploy · regerar · barrar.
+
+**NÃO DEVE** decidir: que fonte é relevante · que executor usar semanticamente · qual
+fallback lógico seguir · o que é admissível · qual verdade vence · qual item é relevante ·
+qual entidade é canônica.
+
+> ## YAML NÃO É UM SEGUNDO ORQUESTRADOR.
+
+Um workflow **PODE** acionar um `COLLECTION REQUEST`, e daí em diante quem manda é o
+**ORQUESTRADOR** (COL-LAW-011). O botão não escolhe o executor.
+
+**MEDIDO.** 11 workflows, e nenhum decide relevância ou rota. O risco é real mas ainda não
+se concretizou.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-310 · AGENDA NÃO É POLÍTICA DE COLETA
+
+**REGRA.**
+
+```
+SCHEDULE  ≠  COLLECTION POLICY
+```
+
+Um relógio pode dizer **«rode às 08:00»**. **NÃO DEVE** significar automaticamente
+**«colete tudo»**. O modo (`PONTUAL` · `INCREMENTAL` · `TOTAL`), a política de atualização e
+o `DUE / NOT DUE` pertencem ao **pedido e à fonte** — nunca ao gatilho.
+
+**MEDIDO, e a Itália já faz isto certo por necessidade.** O gatilho do Windows dispara **de
+hora em hora**, e quem decide se é a hora é o coletor, comparando com `Europe/Rome` — *«o
+fuso mora no código, não no agendador»*. O relógio pergunta; a política responde.
+
+**E o único relógio do SINTONIA não está no GitHub.** Zero `cron` nos 11 workflows: o
+agendamento real é o Agendador de Tarefas do Windows, porque **o runner do GitHub sai por
+datacenter e a coleta italiana precisa sair pela VPN italiana**. Não é preguiça: é a
+medição.
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-311 · BYTES NÃO SÃO METADATA
+
+**REGRA.**
+
+```
+ARTEFATO BINÁRIO / RAW GRANDE   ≠   METADATA DO ARTEFATO
+```
+
+PDF, vídeo, captura de HTML, WARC e imagem **PODEM** viver numa camada de armazenamento de
+objetos. A metadata estruturada — `ARTIFACT_ID` · `CONTENT_ID` · `SHA256` · `SOURCE_ID` ·
+`RUN_ID` · `STORAGE_LOCATION` · `PROVENANCE` · `SIZE` · `CONTENT_TYPE` — **PODE** viver no
+banco.
+
+> ## O CAMINHO É ENDEREÇO, NUNCA IDENTIDADE.
+> A identidade é `run_id + sha256 + metadata`. Mudar o objeto de lugar **não** muda o que ele
+> é.
+
+**Esta Bíblia NÃO decreta onde os bytes ficam.** Git, Supabase Storage, sistema de ficheiros
+ou outro — é decisão da missão de armazenamento, com medição própria.
+
+**MEDIDO, e a lei já está implementada de um lado.** O bucket `raw` é privado, **um para o
+EAME inteiro**, com o país no *path* e não na identidade; e `supabase-raw-roundtrip.yml`
+prova a volta inteira — Git → Storage → Postgres → download → hash confere. **A Itália não
+usa nada disso** (G-30).
+
+**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-312 · SEGREDO NÃO ATRAVESSA
+
+**REGRA.** Credencial **NÃO DEVE** entrar em: a Bíblia · o estado do System Map · commits ·
+logs · manifestos de corrida expostos · trechos de evidência.
+
+O visual **PODE** mostrar `CREDENTIAL REQUIRED` e `CREDENTIAL AVAILABLE/UNAVAILABLE` quando
+for seguro. **Nunca o valor.**
+
+**MEDIDO, e há três dentes já mordendo:** `tests/test_migrations.py:144` proíbe
+`SUPABASE_URL`, `SUPABASE_KEY`, `postgresql://` e `psycopg` nas migrations ·
+`system-map.yml` §6 varre o que vai ser publicado atrás de padrão de credencial ·
+`supabase-conexao.yml` devolve **booleano, nunca valor**, e diz explicitamente que **não
+depende** do mascaramento do GitHub.
+
+**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-313 · AMBIENTE FAZ PARTE DA IDENTIDADE DA CORRIDA
+
+**REGRA.** Quando existirem ambientes (`DEV` · `PREVIEW` · `PRODUCTION` ou equivalentes),
+uma corrida **DEVE** poder dizer em qual correu. **Uma corrida de preview NÃO DEVE** parecer
+uma de produção.
+
+**MEDIDO:** hoje **não há ambientes declarados** — um projeto Supabase só. `NOT_APPLICABLE`
+enquanto for verdade, e a lei fica escrita para quando deixar de ser.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `NOT_APPLICABLE`
+
+---
+
+## COL-LAW-314 · DEPLOY NÃO DECIDE QUAL DADO É VERDADE
+
+**REGRA.** Publicar software ou interface **NÃO** determina qual dataset é canônico. Quatro
+coisas separadas:
+
+```
+CODE DEPLOYMENT  ·  DATA STATE  ·  REFERENCE VERSION  ·  RUN STATE
+```
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-315 · CONCEITO NÃO É IMPLEMENTAÇÃO FÍSICA
+
+**REGRA.** A semântica do SINTONIA **NÃO DEVE** ficar presa ao fornecedor.
+`REFERENCE SET`, `SOURCE`, `RUN`, `ARTIFACT` e `DECISION` são conceitos **do SINTONIA**;
+«a tabela X do Supabase» é a implementação de hoje.
+
+**E ISTO NÃO AUTORIZA ABSTRAÇÃO PREMATURA.** **NÃO DEVE** ser construída agora uma camada
+`DatabaseProviderInterface` nem framework equivalente. Portabilidade aqui significa uma coisa
+só: **manter o conceito separado da tabela no vocabulário e nos contratos.** Nada mais.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-316 · O MAPA MOSTRA RESPONSABILIDADE, NÃO SCHEMA
+
+**REGRA.** GitHub e Supabase **DEVEM** aparecer como **infraestrutura** — nunca como fonte de
+inteligência.
+A visão principal mostra **responsabilidades**. As tabelas físicas vivem no **raio-X**.
+
+> **A arquitetura governa o visual. O schema do banco não.**
+
+O mapa **DEVE** poder distinguir `DATABASE` · `TABLE/LOGICAL STORE` · `REFERENCE SET` ·
+`RUN STORE` · `STATE STORE` · `CANONICAL STORE` sem transformar cada tabela numa avenida.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+# PARTE XIX · O PLANO DE REFERÊNCIA
+
+> **Emenda V1.2.** O contexto que se consulta muitas vezes e muda devagar — portfólio,
+> produtos, substâncias, culturas, concorrentes, geografia — não é sinal diário e não é
+> configuração. É uma terceira coisa, e até agora não tinha nome nesta casa.
+>
+> ⚠️ **Medido: o Reference Plane NÃO EXISTE hoje.** Não há tabela, política de atualização
+> nem dono. É `TARGET` inteiro, e o mapa **não** o desenha como `CURRENT`.
+
+## COL-LAW-401 · DADO DE REFERÊNCIA NÃO É CONFIGURAÇÃO
+
+**REGRA.**
+
+| | é | muda por |
+|---|---|---|
+| **REFERENCE DATA** | a lista de produtos ADAMA de hoje | atualização de dado — **sem deploy** |
+| **CONFIGURATION / LEI** | a regra que diz como validar um produto | commit versionado |
+
+Confundir os dois faz uma de duas coisas erradas: ou obriga um deploy para corrigir uma
+lista, ou deixa uma lei mudar sem ninguém aprovar.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-402 · ABASTECER REFERÊNCIA TAMBÉM É COLETA
+
+**REGRA.** A referência não nasce sozinha:
+
+```
+SOURCE → REFERENCE SUPPLY → VALIDATION → REFERENCE OWNER → REFERENCE MASTER
+```
+
+Vale todo o resto da Bíblia — procedência, RAW primeiro, decisão auditável. O que muda é a
+**cadência e o contrato**. **NÃO DEVE** ser misturada com o sinal diário: um boletim de
+praga e o portfólio comercial não se atualizam pelo mesmo relógio nem pelo mesmo motivo.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-403 · TODA REFERÊNCIA DECLARA A SUA AUTORIDADE
+
+**REGRA.** Cada Reference Set **DEVE** dizer de onde vem a sua autoridade:
+
+| autoridade | exemplo |
+|---|---|
+| `AUTHORITATIVE_INTERNAL` | o portfólio comercial da ADAMA — quem manda é a ADAMA |
+| `AUTHORITATIVE_EXTERNAL` | a autorização regulatória — quem manda é o órgão |
+| `DERIVED_REFERENCE` | um sinônimo canônico criado pelo próprio SINTONIA |
+
+Um `DERIVED_REFERENCE` **NÃO DEVE** ser apresentado como se fosse fato externo.
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-404 · CONFERIR NÃO É MUDAR
+
+**REGRA.** Todo Reference Set **DEVE** poder declarar a sua política de atualização —
+`MANUAL` · `DAILY` · `WEEKLY` · `MONTHLY` · `QUARTERLY` · `ON_CHANGE` · `EVENT_DRIVEN` ·
+`UNKNOWN` — e três tempos:
+
+```
+LAST_CHECKED   quando eu fui olhar
+LAST_CHANGED   quando ela mudou de verdade
+NEXT_DUE       quando devo olhar de novo
+```
+
+> ## `LAST_CHECKED` ≠ `LAST_CHANGED`.
+> Olhar hoje e não ter mudado é uma resposta útil, e evita reprocessar o mundo inteiro por
+> nada. É a mesma família da COL-LAW-029 (`NO_NEW_VERSION` ≠ `SOURCE_FAILED`).
+
+Esta Bíblia **NÃO fixa frequências**: a cadência é da fonte, não do gosto de quem escreve.
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-405 · A REFERÊNCIA TEM HISTÓRIA
+
+**REGRA.** Quando o histórico for materialmente relevante, o Reference Set **DEVE** preservar
+validade temporal: `VALID_FROM` · `VALID_TO`. **NÃO DEVE** sobrescrever o passado em
+silêncio.
+
+**EXEMPLO, e é o caso que obriga a lei.** Um produto estava ativo em 2024 e deixou de estar
+em 2026. Uma análise de 2024 que use o portfólio de 2026 responde a pergunta errada — e
+parece certa.
+
+**O MODELO DEVE PERMITIR `REFERENCE AS OF FACT_TIME`.** Não é preciso implementar agora; é
+preciso não fechar a porta. Um Reference Set que só guarda o «agora» a fecha para sempre.
+
+**LIGA-SE A** COL-LAW-201 (o fato tem tempo próprio) e COL-LAW-217 (`FIRST_SEEN`/`LAST_SEEN`).
+
+**ORIGEM.** `ENGINEERING_PRINCIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-406 · A DEFINIÇÃO É DA ENGENHARIA; OS REGISTROS SÃO DA MEMÓRIA
+
+**REGRA.** O Reference Plane mora nos dois lados, e cada lado guarda o que é seu:
+
+| GitHub — a engenharia | Supabase — a memória operacional |
+|---|---|
+| schema · contrato · migration | os registros |
+| regras de validação | versões e validade |
+| a **definição** do Reference Set | `LAST_CHECKED` · `LAST_CHANGED` · `NEXT_DUE` |
+| a autoridade declarada | saúde · procedência |
+
+**NENHUMA TABELA FOI CRIADA NESTA MISSÃO.** A lei define onde cada coisa deve morar; a
+construção é outra missão.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
 # PARTE XV · GOVERNANÇA
 
 ## COL-LAW-069 · NENHUMA LEI MUDA EM SILÊNCIO
@@ -2088,6 +2557,8 @@ E a frase que resume por que esta Bíblia existe:
 | B | [`docs/biblia/MATRIZ-DE-CONFLITOS.md`](docs/biblia/MATRIZ-DE-CONFLITOS.md) — 8 conflitos, com ficheiro e linha |
 | C | [`docs/biblia/CONFORMIDADE-ITALIA.md`](docs/biblia/CONFORMIDADE-ITALIA.md) — lei × implementação, e os 10 gaps |
 | D | [`docs/biblia/leis.json`](docs/biblia/leis.json) — o registro legível por máquina |
-| E | [`docs/biblia/EMENDA-V1-1.md`](docs/biblia/EMENDA-V1-1.md) — o registro constitucional da emenda: o que entrou, o que foi absorvido, e por quê |
+| E | [`docs/biblia/EMENDA-V1-1.md`](docs/biblia/EMENDA-V1-1.md) — o registro constitucional da V1.1 |
+| F | [`docs/biblia/CENSO-DA-INFRAESTRUTURA.md`](docs/biblia/CENSO-DA-INFRAESTRUTURA.md) — GitHub e Supabase medidos, antes de a lei ser escrita |
+| G | [`docs/biblia/EMENDA-V1-2.md`](docs/biblia/EMENDA-V1-2.md) — o registro constitucional da V1.2 |
 
 **Validadores:** `py provas/valida_biblia.py` · `py tests/test_biblia.py`

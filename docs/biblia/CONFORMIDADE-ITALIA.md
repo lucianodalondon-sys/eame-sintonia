@@ -1,11 +1,11 @@
 # ITALY_COLLECTION_COMPLIANCE_MATRIX — apêndice C da Bíblia
 
-**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.1` · **Data:** 2026-09-07 · **HEAD medido:** `72838db`
+**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.2` · **Data:** 2026-09-07 · **HEAD medido:** `73e7270`
 
-> Esta matriz mede a **implementação italiana** contra as 78 leis canônicas. Ela não é a
+> Esta matriz mede a **implementação italiana** contra as 100 leis canônicas. Ela não é a
 > lei: a lei está em [`../../BIBLIA-CANONICA-DA-COLETA.md`](../../BIBLIA-CANONICA-DA-COLETA.md).
 >
-> **`LAW = CANONICAL` para todas as 78. Isto aqui mede outra coisa: se já funciona.**
+> **`LAW = CANONICAL` para todas as 100. Isto aqui mede outra coisa: se já funciona.**
 > Confundir os dois é o erro que esta separação existe para impedir.
 
 **Escopo declarado:** `CURRENT IMPLEMENTATION COUNTRY = IT`. Espanha e França **não** foram
@@ -15,14 +15,14 @@ alteradas, medidas nem portadas nesta missão.
 
 ## O PLACAR
 
-| estado | V1 | **V1.1** | |
-|---|---:|---:|---|
-| `IMPLEMENTED` | 21 | **24** | há código no caminho produtivo e prova executável |
-| `PARTIAL` | 23 | **42** | existe em parte, ou existe para um caminho e não para os outros |
-| `ABSENT` | 4 | **11** | é lei, e não há implementação nenhuma |
-| `NOT_APPLICABLE` | 0 | **1** | a lei não se aplica ao perfil italiano de hoje |
-| `UNKNOWN` | 0 | **0** | — |
-| **total** | 48 | **78** | |
+| estado | V1 | V1.1 | **V1.2** | |
+|---|---:|---:|---:|---|
+| `IMPLEMENTED` | 21 | 24 | **34** | há código no caminho produtivo e prova executável |
+| `PARTIAL` | 23 | 42 | **46** | existe em parte, ou existe para um caminho e não para os outros |
+| `ABSENT` | 4 | 11 | **18** | é lei, e não há implementação nenhuma |
+| `NOT_APPLICABLE` | 0 | 1 | **2** | a lei não se aplica ao perfil italiano de hoje |
+| `UNKNOWN` | 0 | 0 | **0** | — |
+| **total** | 48 | 78 | **100** | |
 
 > **O `ABSENT` subiu de 4 para 11, e isso não é a Itália a piorar: é a régua a crescer.**
 > Sete coisas que antes nem eram medidas ganharam nome. Lacuna com nome é lacuna que alguém
@@ -136,6 +136,43 @@ o lado que parece rigoroso.
 
 ---
 
+## A MATRIZ — LEIS DA EMENDA V1.2
+
+### PARTE XVIII — a infraestrutura
+
+| LEI | APLICA-SE | ESTADO | EVIDÊNCIA | O QUE FALTA | PRÓXIMO PASSO |
+|---|---|---|---|---|---|
+| `COL-LAW-301` infra ≠ autoridade semântica | SIM | `IMPLEMENTED` | nenhum consumidor trata tabela como verdade: a admissão e o livro de decisões são os donos | — | — |
+| `COL-LAW-302` GitHub guarda a engenharia | SIM | `IMPLEMENTED` | 1.151 ficheiros · 21 migrations · ordem da cadeia num dono só · SQL gerado e versionado antes de correr | — | — |
+| `COL-LAW-303` GitHub não é banco operacional | SIM | `ABSENT` | — | ⚠️ recibo, 144 observações e **12 MB de bytes** da Itália vivem em Git (`italy_recurrent_collect.mjs:144`) | **G-30** |
+| `COL-LAW-304` Supabase é a memória operacional | SIM | `PARTIAL` | `collection_run`, `raw_asset`, `checkpoint_coleta`, `fonte_externa` existem e o caminho ES os povoa | a Itália não escreve em nenhum deles | **G-30** |
+| `COL-LAW-305` Supabase guarda, não julga | SIM | `IMPLEMENTED` | nenhum caminho promove linha a canônica por estar gravada | — | — |
+| `COL-LAW-306` ninguém escreve por conhecer a tabela | SIM | `IMPLEMENTED` | **7 caminhos medidos, 7 canônicos, 0 bypasses**; a credencial só existe no runner | — | — |
+| `COL-LAW-307` corrida ligada à engenharia | SIM | `PARTIAL` | o ledger italiano guarda `GIT_HEAD`, `COLLECTOR_VERSION`, `SOURCE_CONTRACT_VERSION` | o `RUN-MANIFEST` europeu não guarda versão de engenharia nenhuma | **G-02** |
+| `COL-LAW-308` migration versionada ≠ aplicada | SIM | `IMPLEMENTED` | 21 migrations · a `008` confere o banco REAL · pré-voo recusa banco fora do esperado | — | — |
+| `COL-LAW-309` Actions não é orquestrador | SIM | `IMPLEMENTED` | 11 workflows, nenhum decide relevância, rota ou admissibilidade | — | — |
+| `COL-LAW-310` agenda ≠ política | SIM | `IMPLEMENTED` | gatilho de hora em hora + `--gate-hour` compara `Europe/Rome` no código; **zero cron** no GitHub | — | — |
+| `COL-LAW-311` bytes ≠ metadata | SIM | `PARTIAL` | bucket `raw` privado, path é endereço e não identidade, round-trip provado com hash | a Itália guarda os bytes em Git e não escreve `raw_asset` | **G-30** |
+| `COL-LAW-312` segredo não atravessa | SIM | `IMPLEMENTED` | 3 travas: `test_migrations.py:144` · varredura no publicado · `supabase-conexao` devolve booleano | — | — |
+| `COL-LAW-313` ambiente na identidade da corrida | **NÃO** | `NOT_APPLICABLE` | não há `DEV`/`PREVIEW`/`PRODUCTION` declarados — um projeto só | **não é dívida** | quando houver ambientes |
+| `COL-LAW-314` deploy ≠ verdade do dado | SIM | `IMPLEMENTED` | a Vercel publica `italia-portale/client`; nenhum dataset é canônico por estar publicado | — | — |
+| `COL-LAW-315` conceito ≠ tabela | SIM | `IMPLEMENTED` | os contratos falam de `SOURCE`, `RUN`, `ARTIFACT` — nunca de nome de tabela | — | — |
+| `COL-LAW-316` mapa mostra responsabilidade | SIM | `PARTIAL` | a visão principal tem 99 peças por responsabilidade; nenhuma tabela física é avenida | o raio-X não mostra tabela, bucket nem store | G-31 |
+
+### PARTE XIX — o plano de referência
+
+| LEI | APLICA-SE | ESTADO | EVIDÊNCIA | O QUE FALTA | PRÓXIMO PASSO |
+|---|---|---|---|---|---|
+| `COL-LAW-401` referência ≠ configuração | SIM | `ABSENT` | — | não existe Reference Set; o catálogo ADAMA ES importado é o parente mais próximo | **G-32** |
+| `COL-LAW-402` abastecer referência é coleta | SIM | `ABSENT` | — | nenhuma cadeia `REFERENCE SUPPLY → VALIDATION → OWNER` | G-32 |
+| `COL-LAW-403` referência declara autoridade | SIM | `ABSENT` | — | `AUTHORITATIVE_INTERNAL/EXTERNAL/DERIVED` não é campo em lado nenhum | G-32 |
+| `COL-LAW-404` conferir ≠ mudar | SIM | `ABSENT` | — | `LAST_CHECKED`, `LAST_CHANGED` e `NEXT_DUE` não existem | G-32 |
+| `COL-LAW-405` a referência tem história | SIM | `ABSENT` | — | sem `VALID_FROM`/`VALID_TO`, uma análise de 2024 usaria o portfólio de 2026 | **G-33** |
+| `COL-LAW-406` definição no Git, registros na memória | SIM | `ABSENT` | — | nada construído dos dois lados | G-32 |
+
+
+---
+
 # OS 10 MAIORES GAPS — RECALCULADOS NA V1.1, POR DEPENDÊNCIA
 
 > **Não por facilidade.** Cada um só pode ser feito depois de o anterior estar de pé.
@@ -215,6 +252,38 @@ sabem quando acabaram.
 
 ---
 
+## A V1.2 ACRESCENTA UM GAP AO TOPO — E ELE ANDA JUNTO COM O G-02
+
+### G-30 · a memória operacional da Itália sai do Git e vai para onde ela já existe
+
+`data/collection-ledger` + `data/collection-store` → `collection_run` + `raw_asset` +
+bucket `raw`.
+
+Hoje a Itália grava recibo, 144 observações **e 12 MB de bytes** dentro do Git, enquanto as
+três estruturas certas existem, estão provadas por round-trip com conferência de hash, e
+estão vazias. **O Git não esquece:** cada corrida que entra fica em cada clone, para sempre.
+
+**Ele não é um gap novo: é o G-02 visto pela infraestrutura.** «Dois formatos de corrida» e
+«duas memórias operacionais» são a mesma fratura. Fazer os dois separados seria fazer duas
+vezes — por isso **G-02 e G-30 passam a ser a mesma missão**, e a ordem não muda:
+
+```
+1 G-01   ·  2 G-22  ·  3 G-05  ·  4 G-24  ·  5 G-25
+6 G-02 + G-30 (a mesma missão)  ·  7 G-26  ·  8 G-03  ·  9 G-07→G-04  ·  10 G-27
+```
+
+### E dois gaps novos que NÃO entram no topo, de propósito
+
+| gap | o quê | por que não é prioridade agora |
+|---|---|---|
+| **G-32** | construir o Plano de Referência (COL-LAW-401 a 406) | não bloqueia a coleta italiana de hoje. Vira prioridade no dia em que o portfólio ADAMA entrar — e aí vira **a** prioridade |
+| **G-33** | validade histórica da referência (`VALID_FROM`/`VALID_TO`) | é parte do G-32, e a lei existe para que ninguém construa a referência sem ela e feche a porta |
+
+> **Não priorizar o Reference Plane agora é uma decisão, não um esquecimento.** Ele está
+> `ABSENT` inteiro e escrito por completo — para que quando for construído, nasça certo.
+
+---
+
 ## O QUE MUDOU NA ORDEM, DA V1 PARA A V1.1
 
 | | V1 | V1.1 |
@@ -233,7 +302,7 @@ que ele estava errado.
 
 ## OS GAPS MENORES, registrados e não priorizados
 
-`G-29` **`tem_teste` procura a aresta do teste no sentido errado** em
+`G-31` o raio-X mostra tabela, bucket e store do lado físico · `G-29` **`tem_teste` procura a aresta do teste no sentido errado** em
 `generate_system_map.py:1825` — 3 peças ficam 🟡 tendo teste real; medido e registrado em
 [`EMENDA-V1-1.md`](EMENDA-V1-1.md), **não consertado nesta missão** ·
 `G-19` arestas `OBSERVED` e evidência de RUN no mapa · `G-20` corrida, custo e contagens

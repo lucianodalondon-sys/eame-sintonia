@@ -49,6 +49,13 @@ CONFLITOS = os.path.join(PASTA, 'MATRIZ-DE-CONFLITOS.md')
 CONFORMIDADE = os.path.join(PASTA, 'CONFORMIDADE-ITALIA.md')
 LEIS_JSON = os.path.join(PASTA, 'leis.json')
 
+# Apendices que CITAM leis. Um apendice fora desta lista podia citar uma lei
+# inexistente sem ninguem reparar — e o B7 existe justamente para isso.
+APENDICES = (CENSO, CONFLITOS, CONFORMIDADE,
+             os.path.join(PASTA, 'EMENDA-V1-1.md'),
+             os.path.join(PASTA, 'EMENDA-V1-2.md'),
+             os.path.join(PASTA, 'CENSO-DA-INFRAESTRUTURA.md'))
+
 LAW_STATUS_VALIDOS = ('CANONICAL',)
 IMPL_VALIDOS = ('IMPLEMENTED', 'PARTIAL', 'ABSENT', 'NOT_APPLICABLE', 'UNKNOWN')
 ORIGENS_VALIDAS = ('EXISTING_SINTONIA_LAW', 'CONSOLIDATED_FROM_MULTIPLE',
@@ -114,7 +121,7 @@ def main() -> int:
 
     # ── B1 ───────────────────────────────────────────────────────────────────
     faltam = [os.path.relpath(p, ROOT) for p in
-              (BIBLIA, CENSO, CONFLITOS, CONFORMIDADE) if not os.path.isfile(p)]
+              (BIBLIA,) + APENDICES if not os.path.isfile(p)]
     prova('B1_BIBLIA_EXISTE', 'a Biblia e os apendices estao no sitio declarado',
           not faltam, ', '.join(faltam))
     if faltam:
@@ -155,7 +162,7 @@ def main() -> int:
     # ── B7 · os apendices nao podem citar lei que nao existe ────────────────
     conhecidas = set(ids)
     orfas = set()
-    for p in (CENSO, CONFLITOS, CONFORMIDADE):
+    for p in APENDICES:
         for citada in re.findall(r'COL-LAW-\d{3}', _ler(p)):
             if citada not in conhecidas:
                 orfas.add(f'{os.path.basename(p)}:{citada}')
