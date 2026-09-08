@@ -208,13 +208,53 @@ prova("E1_pedido_continua_acessivel",
       bool(ped) and bool(ped.get("files")),
       "o contrato do pedido nao pode desaparecer por ter deixado a avenida")
 
-# E2 · a receita continua, e continua com um so consumidor
+# E2 · a receita continua, e so o orquestrador DECIDE a partir dela
+#
+#     LER PARA CONTAR NAO E CONSUMIR PARA DECIDIR.
+#
+# A lei aqui e que a escolha de rota nao se espalhe: quem decide qual executor
+# corre e o orquestrador, e mais ninguem. Um censo que abre o ficheiro para
+# CONTAR quantos executores estao declarados nao decide nada — e foi essa
+# medicao que denunciou a G-05 (18 executores medidos, 4 declarados). Proibi-la
+# seria proibir medir a propria lacuna.
+#
+# A distincao NAO fica no nome da peca: fica provada em E2b, que exige que quem
+# so conta nao IMPORTE a receita. Sem isso, esta lista seria uma porta larga.
+# SAO TRES ESPECIES, E NAO DUAS. Escrevi duas primeiro e o teste apanhou-me:
+# `testa_coleta_canonica.py` IMPORTA a receita e chama o `resolver` — e faz
+# bem, e a prova de que a resolucao funciona. Nao e «so contar».
+#
+#     DECIDE   escolhe qual executor corre.            Um so.
+#     PROVA    importa e chama, para provar que resolve.
+#     CONTA    abre como TEXTO, para medir. Nao importa.
 rec = POR_ID_N.get("C-RECEITAS")
+DECIDEM = {"C-ORQUESTRADOR"}
+PROVAM = {"C-PROVA-COLETA"}
+SO_CONTAM = {"C-CENSO-ESTRADAS-IT"}
 consumidores = [e["to"] for e in S["EDGES"]
                 if e["from"] == "C-RECEITAS" and e.get("kind") == "technical"]
 prova("E2_receita_continua_com_um_consumidor",
-      bool(rec) and set(consumidores) <= {"C-ORQUESTRADOR", "C-PROVA-COLETA"},
+      bool(rec) and set(consumidores) <= (DECIDEM | PROVAM | SO_CONTAM),
       f"consumidores da receita: {sorted(set(consumidores))}")
+
+# E2b · quem so conta, nao importa
+_ficheiros_que_so_contam = []
+for _id in SO_CONTAM:
+    _p = POR_ID_N.get(_id) or {}
+    _ficheiros_que_so_contam += [f for f in (_p.get("files") or [])
+                                 if f.endswith(".py")]
+_importam = []
+for _f in _ficheiros_que_so_contam:
+    _cam = RAIZ / _f
+    if not _cam.is_file():
+        continue
+    for _linha in _cam.read_text(encoding="utf-8").splitlines():
+        _nu = _linha.strip()
+        if _nu.startswith(("import ", "from ")) and "receitas" in _nu:
+            _importam.append(_f)
+prova("E2b_quem_so_conta_nao_importa_a_receita",
+      not _importam,
+      f"importam a receita: {sorted(set(_importam))}")
 
 # E3 · nem o pedido nem a receita sao estacao principal
 prova("E3_receita_nao_e_estacao_principal",

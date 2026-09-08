@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "bab65a804363c78f4835f4df6c9aec31e569f48c",
-    "GENERATED_AT": "2026-09-08T15:16:26-03:00"
+    "HEAD": "45f621c00d0d7329036a3ea055276abfe3862584",
+    "GENERATED_AT": "2026-09-08T15:17:04-03:00"
   },
   "FILES": [
     {
@@ -114,7 +114,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "73ee92303b6392f8c109c43d727f89c10cee7a34",
+      "sha": "cebf2234ced90709509f5d23536cac11279307fc",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -4132,7 +4132,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "dd4cf11e197e456593417be1be509c325c23549f",
+      "sha": "d55419862f122b262789e8d2b2e925db598fc170",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4397,6 +4397,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
+      "sha": "af7ae96cd8e2ca1e1cd4023bef83c0e535ecfa7a",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/MODELO-DAS-CONEXOES.md",
       "sha": "49cebcb9358509db9077feff30f41cf6de22681d",
       "ext": ".md",
@@ -4421,6 +4428,13 @@
       "path": "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
       "sha": "9df202674752f06222993185970a750b2301634e",
       "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+      "sha": "895630fe2ec9c7a28ca9bac3f6b27c228fa6fad6",
+      "ext": ".json",
       "readable": false,
       "code_dir": false
     },
@@ -8276,7 +8290,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "b6328730bedf3a82be9ab47e843400b1b3f88d55",
+      "sha": "3eb8a5ef160b55c8792c27fe064a0e62e98b503e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8291,6 +8305,13 @@
     {
       "path": "system-map/scripts/censo_das_derivacoes.py",
       "sha": "93d101c4f09a8fd0a30e6f3c7226765e81e631a9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/censo_das_estradas_it.py",
+      "sha": "342cdc42d5d06ce15d12116954367e9b02d327c9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8381,7 +8402,7 @@
     },
     {
       "path": "system-map/tests/test_system_map.py",
-      "sha": "6ed6682aa01a24ffd67cd3a7e89c77a84379a399",
+      "sha": "1723c9c1c7e10cd941d2caf4512576bce14dc247",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8641,6 +8662,13 @@
     {
       "path": "tests/test_red_team_estrada.py",
       "sha": "1deabb339f23be00fa5dee281d1b2bbb13248770",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_trava_da_inteligencia.py",
+      "sha": "54b77e9e2eb2da15508faf3ac4446bfd67c362db",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9655,6 +9683,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 104,
         "snippet": "python3 tests/test_red_team_estrada.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "tests/test_trava_da_inteligencia.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 146,
+        "snippet": "run: python3 tests/test_trava_da_inteligencia.py"
       }
     },
     {
@@ -23518,6 +23557,171 @@
       }
     },
     {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 122,
+        "snippet": "\"CHECKPOINT\": \"coleta/coleta_checkpoint.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "coleta/corpus_pesquisador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 188,
+        "snippet": "\"DISCOVER\": \"coleta/corpus_pesquisador.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "coleta/instagram_janela.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 136,
+        "snippet": "\"DISCOVER\": \"coleta/instagram_janela.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "coleta/italy_find_docs.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 99,
+        "snippet": "\"DISCOVER\": \"coleta/italy_find_docs.mjs\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "coleta/italy_recurrent_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 100,
+        "snippet": "\"FETCH\": \"coleta/italy_recurrent_collect.mjs\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "coleta/mapa_regfi.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 171,
+        "snippet": "\"DISCOVER\": \"coleta/mapa_regfi.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "coleta/regulatorio_importar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 172,
+        "snippet": "\"FETCH\": \"coleta/regulatorio_importar.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "coleta/youtube_janela.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 118,
+        "snippet": "\"DISCOVER\": \"coleta/youtube_janela.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 40,
+        "snippet": "LEDGER = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 102,
+        "snippet": "\"RUN\": \"data/collection-ledger/italy/runs.ndjson\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 156,
+        "snippet": "\"RUN\": \"RUN-MANIFEST.json\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "ferramentas/instagram_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 141,
+        "snippet": "\"DERIVED\": \"ferramentas/instagram_transcrever.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 79,
+        "snippet": "\"RAW\": \"guarda/preservar_coleta.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "pedido/receitas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 41,
+        "snippet": "RECEITAS = os.path.join(\"pedido\", \"receitas.py\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "tests/test_trava_da_inteligencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 364,
+        "snippet": "\"ONDE_SE_PROVA\": \"tests/test_trava_da_inteligencia.py\","
+      }
+    },
+    {
       "from_file": "system-map/scripts/censo_de_identidade_it.py",
       "to_file": "data/collection-ledger/italy/observations.ndjson",
       "type": "READS",
@@ -24162,7 +24366,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 390,
+        "line": 430,
         "snippet": "agents = RAIZ / \"AGENTS.md\""
       }
     },
@@ -24173,7 +24377,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 399,
+        "line": 439,
         "snippet": "claude = RAIZ / \"CLAUDE.md\""
       }
     },
@@ -24184,7 +24388,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 402,
+        "line": 442,
         "snippet": "readme = RAIZ / \"README.md\""
       }
     },
@@ -24195,7 +24399,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 294,
+        "line": 334,
         "snippet": "(RAIZ / \"_gavetas.py\").exists(),"
       }
     },
@@ -24206,7 +24410,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 369,
+        "line": 409,
         "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
       }
     },
@@ -24217,7 +24421,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 409,
+        "line": 449,
         "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -24261,7 +24465,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 376,
+        "line": 416,
         "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"scan_repo.py\")],"
       }
     },
@@ -24272,7 +24476,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 395,
+        "line": 435,
         "snippet": "\"validate_system_map.py\" in lei,"
       }
     },
@@ -26950,6 +27154,17 @@
       }
     },
     {
+      "from_file": "tests/test_trava_da_inteligencia.py",
+      "to_file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_trava_da_inteligencia.py",
+        "line": 30,
+        "snippet": "CONTRATO = os.path.join(RAIZ, \"docs\", \"operacao\", \"TRAVA-DA-INTELIGENCIA.json\")"
+      }
+    },
+    {
       "from_file": "tests/test_v21_datas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -27540,6 +27755,13 @@
         "constante": "destino"
       }
     ],
+    "system-map/scripts/censo_das_estradas_it.py": [
+      {
+        "pasta": "system-map",
+        "line": 378,
+        "constante": "destino"
+      }
+    ],
     "system-map/scripts/censo_de_identidade_it.py": [
       {
         "pasta": "system-map",
@@ -27556,11 +27778,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1240,
-    "files_readable": 421,
-    "files_code_dir": 467,
-    "file_edges": 1679,
-    "escritas_em_pasta": 58,
+    "files_tracked": 1244,
+    "files_readable": 423,
+    "files_code_dir": 469,
+    "file_edges": 1696,
+    "escritas_em_pasta": 59,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

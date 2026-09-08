@@ -139,6 +139,12 @@ jobs:
       - name: 4j · a porta de produção continua lacrada
         run: python3 tests/test_porta_de_producao.py
 
+      # PRIMEIRO COLETAR, PRESERVAR, PROVAR, ORGANIZAR, PERSISTIR, ADMITIR.
+      # SO DEPOIS INTERPRETAR. A trava e barata de segurar hoje — nao ha
+      # inteligencia implementada — e e por isso que se escreve hoje.
+      - name: 4k · a inteligência continua congelada até a coleta fechar
+        run: python3 tests/test_trava_da_inteligencia.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         run: |
           set -e

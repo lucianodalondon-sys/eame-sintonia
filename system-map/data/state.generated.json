@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 19130,
-    "h": 2784
+    "h": 3106
   },
   "INVENTORY": {
     ".claude": [
@@ -651,10 +651,12 @@
       "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
       "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
       "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md",
+      "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
       "docs/operacao/MODELO-DAS-CONEXOES.md",
       "docs/operacao/P-011-DADO-OPERACIONAL-NO-GIT.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
+      "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
       "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
       "docs/piloto/ASK-SINTONIA-BENCHMARK.md",
       "docs/piloto/BASE-V2-E-VEREDITO-M09.md",
@@ -1247,6 +1249,7 @@
       "system-map/data/architecture.declared.json",
       "system-map/scripts/censo_da_coleta.py",
       "system-map/scripts/censo_das_derivacoes.py",
+      "system-map/scripts/censo_das_estradas_it.py",
       "system-map/scripts/censo_de_identidade_it.py",
       "system-map/scripts/censo_do_armazem_it.py",
       "system-map/scripts/censo_do_corpus_it.py",
@@ -1299,6 +1302,7 @@
       "tests/test_proveniencia.py",
       "tests/test_radar_futuro.py",
       "tests/test_red_team_estrada.py",
+      "tests/test_trava_da_inteligencia.py",
       "tests/test_v21_datas.py",
       "tests/test_v21_geografia.py",
       "tests/test_v21_mercado.py",
@@ -1686,8 +1690,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "bab65a804363c78f4835f4df6c9aec31e569f48c",
-    "GENERATED_AT": "2026-09-08T15:16:26-03:00"
+    "HEAD": "45f621c00d0d7329036a3ea055276abfe3862584",
+    "GENERATED_AT": "2026-09-08T15:17:04-03:00"
   },
   "FAMILIES": [
     {
@@ -1697,7 +1701,7 @@
       "x": 260,
       "y": 60,
       "w": 9775,
-      "h": 2464,
+      "h": 2786,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -1722,7 +1726,7 @@
       "x": 10255,
       "y": 60,
       "w": 900,
-      "h": 2464,
+      "h": 2786,
       "zones": [
         "Z-GUARDA"
       ],
@@ -1735,14 +1739,14 @@
       "x": 11375,
       "y": 60,
       "w": 3845,
-      "h": 2464,
+      "h": 2786,
       "zones": [
         "Z-LINEAGE",
         "Z-REGUAS",
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 38
+      "count": 39
     },
     {
       "id": "F-ENTREGA",
@@ -1751,7 +1755,7 @@
       "x": 15440,
       "y": 60,
       "w": 3430,
-      "h": 2464,
+      "h": 2786,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -1773,7 +1777,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 1
     },
     {
@@ -1787,7 +1791,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 1
     },
     {
@@ -1802,7 +1806,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 2
     },
     {
@@ -1817,7 +1821,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 1
     },
     {
@@ -1832,7 +1836,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 2
     },
     {
@@ -1847,7 +1851,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 2
     },
     {
@@ -1863,7 +1867,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 4
     },
     {
@@ -1877,7 +1881,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 1
     },
     {
@@ -1892,7 +1896,7 @@
       "x": 5940,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 4
     },
     {
@@ -1906,7 +1910,7 @@
       "x": 6645,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 5
     },
     {
@@ -1922,7 +1926,7 @@
       "x": 7350,
       "y": 190,
       "w": 820,
-      "h": 2294,
+      "h": 2616,
       "count": 10
     },
     {
@@ -1937,7 +1941,7 @@
       "x": 8470,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 1
     },
     {
@@ -1952,7 +1956,7 @@
       "x": 9175,
       "y": 190,
       "w": 820,
-      "h": 2294,
+      "h": 2616,
       "count": 6
     },
     {
@@ -1967,7 +1971,7 @@
       "x": 10295,
       "y": 190,
       "w": 820,
-      "h": 2294,
+      "h": 2616,
       "count": 12
     },
     {
@@ -1983,7 +1987,7 @@
       "x": 11415,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 4
     },
     {
@@ -1999,7 +2003,7 @@
       "x": 12120,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 5
     },
     {
@@ -2015,7 +2019,7 @@
       "x": 12825,
       "y": 190,
       "w": 820,
-      "h": 2294,
+      "h": 2616,
       "count": 8
     },
     {
@@ -2031,8 +2035,8 @@
       "x": 13945,
       "y": 190,
       "w": 1235,
-      "h": 2294,
-      "count": 21
+      "h": 2616,
+      "count": 22
     },
     {
       "id": "Z-PACOTE",
@@ -2047,7 +2051,7 @@
       "x": 15480,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 3
     },
     {
@@ -2063,7 +2067,7 @@
       "x": 16185,
       "y": 190,
       "w": 820,
-      "h": 2294,
+      "h": 2616,
       "count": 7
     },
     {
@@ -2079,7 +2083,7 @@
       "x": 17305,
       "y": 190,
       "w": 405,
-      "h": 2294,
+      "h": 2616,
       "count": 5
     },
     {
@@ -2094,7 +2098,7 @@
       "x": 18010,
       "y": 190,
       "w": 820,
-      "h": 2294,
+      "h": 2616,
       "count": 11
     }
   ],
@@ -5768,6 +5772,83 @@
       "y": 682
     },
     {
+      "id": "C-CENSO-ESTRADAS-IT",
+      "name": "Censo das estradas da coleta italiana",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Agrupa as 54 fontes italianas por ESTRADA — a cadeia operacional que partilham — em vez de as tratar uma a uma. Mede quantas estradas existem, em que estado está cada uma, e quantas fontes cabem na que já foi provada.",
+      "why_here": "Provámos UMA estrada de ponta a ponta e íamos avançar fonte a fonte. Provar uma fonte não prova uma estrada — mas provar uma estrada pode poupar trinta canários. Sem este censo, «a segunda fonte» tanto podia ser prova nova como repetição.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▦",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "system-map/scripts/censo_das_estradas_it.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe teste que exercita isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-COLETA-BASE",
+        "C-COLETA-INSTAGRAM",
+        "C-COLETA-YOUTUBE",
+        "C-CORPUS",
+        "C-DONO-DA-ESCRITA",
+        "C-FONTES-EU",
+        "C-IT-COLETA",
+        "C-IT-PRESERVAR",
+        "C-PROCEDENCIA",
+        "C-RECEITAS",
+        "C-ROTULOS",
+        "C-TESTES",
+        "C-TRANSCRICAO"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 2
+      },
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ESTADOS",
+          "ESTRADAS"
+        ],
+        "palavras": 182,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 182,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "system-map",
+          "prova": {
+            "file": "system-map/scripts/censo_das_estradas_it.py",
+            "line": 378,
+            "snippet": "escreve em destino"
+          }
+        }
+      ],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 14420,
+      "y": 682
+    },
+    {
       "id": "C-CENSO-IDENTIDADE-IT",
       "name": "Censo de identidade do artefato",
       "territory": "Z-PROVA",
@@ -5819,7 +5900,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 14835,
       "y": 682
     },
     {
@@ -5876,8 +5957,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 682
+      "x": 14005,
+      "y": 1004
     },
     {
       "id": "C-CI-COLETA",
@@ -5943,7 +6024,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "audit",
@@ -5955,9 +6036,11 @@
         ".github/workflows/system-map.yml"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        ".github/workflows/system-map.yml"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -5979,7 +6062,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14420,
       "y": 1004
     },
     {
@@ -6097,7 +6180,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 14835,
       "y": 1004
     },
     {
@@ -6215,6 +6298,7 @@
         "V-LINKEDIN"
       ],
       "outbound": [
+        "C-CENSO-ESTRADAS-IT",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-PALAVRAS",
@@ -6294,6 +6378,7 @@
         "V-INSTAGRAM"
       ],
       "outbound": [
+        "C-CENSO-ESTRADAS-IT",
         "C-PORTA-FONTE",
         "C-TRANSCRICAO"
       ],
@@ -6449,7 +6534,9 @@
         "V-HTTP",
         "V-YOUTUBE"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-CENSO-ESTRADAS-IT"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -6637,6 +6724,7 @@
         "V-YOUTUBE"
       ],
       "outbound": [
+        "C-CENSO-ESTRADAS-IT",
         "C-PACOTE-CAMADAS",
         "C-PALAVRAS",
         "C-RECEITAS"
@@ -6905,6 +6993,7 @@
         "C-CI-PERSIST"
       ],
       "outbound": [
+        "C-CENSO-ESTRADAS-IT",
         "C-CI-PERSIST",
         "C-TESTES"
       ],
@@ -7227,6 +7316,7 @@
         "V-HTTP"
       ],
       "outbound": [
+        "C-CENSO-ESTRADAS-IT",
         "C-IMPORTAR",
         "C-RECEITAS",
         "C-RECORRENCIA",
@@ -7366,8 +7456,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 1004
+      "x": 14005,
+      "y": 1326
     },
     {
       "id": "C-IDENTIDADE",
@@ -7657,6 +7747,7 @@
         "C-IT-CONTRATOS"
       ],
       "outbound": [
+        "C-CENSO-ESTRADAS-IT",
         "C-IT-CONTAS",
         "C-IT-CONTRATOS",
         "C-TESTES"
@@ -7729,7 +7820,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14420,
       "y": 1326
     },
     {
@@ -7917,6 +8008,7 @@
         "C-IT-CONTRATOS"
       ],
       "outbound": [
+        "C-CENSO-ESTRADAS-IT",
         "C-CENSO-IDENTIDADE-IT",
         "C-IT-CONTAS",
         "C-MAPA-SCAN",
@@ -8409,7 +8501,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 14835,
       "y": 1326
     },
     {
@@ -8488,8 +8580,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 1326
+      "x": 14005,
+      "y": 1648
     },
     {
       "id": "C-MAPA-SCAN",
@@ -8577,7 +8669,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14005,
+      "x": 14420,
       "y": 1648
     },
     {
@@ -8605,7 +8697,9 @@
       "file_count": 1,
       "status": "PENDING",
       "status_reason": "teste que nao toca em nada do repositorio.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "system-map/tests/test_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -8635,7 +8729,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 14835,
       "y": 1648
     },
     {
@@ -8682,8 +8776,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 1648
+      "x": 14005,
+      "y": 1970
     },
     {
       "id": "C-MEDICAO",
@@ -8753,7 +8847,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14420,
       "y": 1970
     },
     {
@@ -9703,6 +9797,7 @@
       ],
       "inbound": [],
       "outbound": [
+        "C-CENSO-ESTRADAS-IT",
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
@@ -9831,7 +9926,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14420,
+      "x": 14835,
       "y": 1970
     },
     {
@@ -9916,8 +10011,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 1970
+      "x": 14005,
+      "y": 2292
     },
     {
       "id": "C-PROVENIENCIA",
@@ -10042,7 +10137,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14005,
+      "x": 14420,
       "y": 2292
     },
     {
@@ -10082,6 +10177,7 @@
         "C-ROTULOS"
       ],
       "outbound": [
+        "C-CENSO-ESTRADAS-IT",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA"
       ],
@@ -10090,8 +10186,8 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "papel": "POLITICA INTERNA",
-      "papel_texto": "decide, mas nao executa — e tem um so consumidor",
+      "papel": "NAO SEI",
+      "papel_texto": "nao encaixa em nenhum papel conhecido do plano de controlo — e isso e uma resposta, nao um erro",
       "papel_medido": {
         "chama_subprocesso": false,
         "assina_recibo": false,
@@ -10181,7 +10277,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14420,
+      "x": 14835,
       "y": 2292
     },
     {
@@ -10424,6 +10520,7 @@
       ],
       "outbound": [
         "C-CENSO-DERIVACOES",
+        "C-CENSO-ESTRADAS-IT",
         "C-FONTES-EU",
         "C-PALAVRAS",
         "C-RECEITAS",
@@ -11889,7 +11986,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -11933,15 +12030,16 @@
         "tests/test_proveniencia.py",
         "tests/test_radar_futuro.py",
         "tests/test_red_team_estrada.py",
+        "tests/test_trava_da_inteligencia.py",
         "tests/test_v21_datas.py",
         "tests/test_v21_geografia.py",
         "tests/test_v21_mercado.py",
         "tests/test_v21_traducao_trava.py",
         "tests/test_voz.py"
       ],
-      "file_count": 40,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "file_count": 41,
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
@@ -11999,6 +12097,7 @@
       "outbound": [
         "C-ADAMA-ES",
         "C-ASK-SINTONIA",
+        "C-CENSO-ESTRADAS-IT",
         "C-CI-PERSIST",
         "C-CICATRIZES-BR",
         "C-PACOTE-CAMADAS",
@@ -12030,6 +12129,7 @@
           "FORTE",
           "HISTORICOS",
           "LINHA_BOA",
+          "PASTAS_DE_INTELIGENCIA",
           "PROIBIDO",
           "PRONTO",
           "ROTULO_ITALIA",
@@ -12038,11 +12138,11 @@
           "SINAL_LOMBARDIA",
           "SINAL_VENETO"
         ],
-        "palavras": 299,
+        "palavras": 310,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 297,
+        "sem_marca_de_lingua": 308,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12085,8 +12185,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 14835,
-      "y": 2292
+      "x": 14005,
+      "y": 2614
     },
     {
       "id": "C-TRANSCRICAO",
@@ -12122,7 +12222,8 @@
         "C-SINTONIA-SCRAP"
       ],
       "outbound": [
-        "C-CENSO-DERIVACOES"
+        "C-CENSO-DERIVACOES",
+        "C-CENSO-ESTRADAS-IT"
       ],
       "paises": {},
       "paises_dado": {},
@@ -13609,7 +13710,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD bab65a804363c78f4835f4df6c9aec31e569f48c"
+        "HEAD 45f621c00d0d7329036a3ea055276abfe3862584"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -14524,7 +14625,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 369,
+          "line": 409,
           "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
         }
       ],
@@ -16025,7 +16126,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
@@ -16076,6 +16177,11 @@
           "file": ".github/workflows/system-map.yml",
           "line": 140,
           "snippet": "run: python3 tests/test_porta_de_producao.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 146,
+          "snippet": "run: python3 tests/test_trava_da_inteligencia.py"
         }
       ],
       "categoria": "PROOF"
@@ -16435,6 +16541,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar alimenta Censo das estradas da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 122,
+          "snippet": "\"CHECKPOINT\": \"coleta/coleta_checkpoint.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-COLETA-INSTAGRAM",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -16504,6 +16628,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o Instagram alimenta Censo das estradas da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 136,
+          "snippet": "\"DISCOVER\": \"coleta/instagram_janela.py\","
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-COLETA-INSTAGRAM",
@@ -16577,6 +16719,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-COLETA-YOUTUBE",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o YouTube alimenta Censo das estradas da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 118,
+          "snippet": "\"DISCOVER\": \"coleta/youtube_janela.py\","
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-CONTRATO-ARTEFATO",
@@ -16713,6 +16873,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-CORPUS",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Montar o corpus de fala e de ciencia alimenta Censo das estradas da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 188,
+          "snippet": "\"DISCOVER\": \"coleta/corpus_pesquisador.py\","
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-CORPUS",
@@ -16923,6 +17101,24 @@
         }
       ],
       "categoria": "RULE"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Censo das estradas da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 79,
+          "snippet": "\"RAW\": \"guarda/preservar_coleta.py\","
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-DONO-DA-ESCRITA",
@@ -17301,6 +17497,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-FONTES-EU",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ler as bases oficiais da Europa alimenta Censo das estradas da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 172,
+          "snippet": "\"FETCH\": \"coleta/regulatorio_importar.py\","
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-FONTES-EU",
@@ -17725,6 +17939,29 @@
     },
     {
       "from": "C-IT-COLETA",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta Censo das estradas da coleta italiana. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 99,
+          "snippet": "\"DISCOVER\": \"coleta/italy_find_docs.mjs\","
+        },
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 100,
+          "snippet": "\"FETCH\": \"coleta/italy_recurrent_collect.mjs\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-IT-COLETA",
       "to": "C-IT-CONTAS",
       "type": "READS",
       "payload": "artefacto",
@@ -17951,6 +18188,29 @@
       "source": "system-map/data/golden-path-pdf.generated.json",
       "declared_by": "missao system-map-canonical-v1, fase 1 do data plane",
       "categoria": "UNKNOWN"
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta Censo das estradas da coleta italiana. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 40,
+          "snippet": "LEDGER = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
+        },
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 102,
+          "snippet": "\"RUN\": \"data/collection-ledger/italy/runs.ndjson\","
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-IT-PRESERVAR",
@@ -18370,7 +18630,7 @@
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 409,
+          "line": 449,
           "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
         }
       ],
@@ -18534,7 +18794,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 376,
+          "line": 416,
           "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"scan_repo.py\")],"
         }
       ],
@@ -18580,7 +18840,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 395,
+          "line": 435,
           "snippet": "\"validate_system_map.py\" in lei,"
         }
       ],
@@ -19783,6 +20043,24 @@
     },
     {
       "from": "C-PROCEDENCIA",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta alimenta Censo das estradas da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 156,
+          "snippet": "\"RUN\": \"RUN-MANIFEST.json\","
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PROCEDENCIA",
       "to": "C-CICATRIZES-BR",
       "type": "READS",
       "payload": "artefacto",
@@ -20147,6 +20425,24 @@
     },
     {
       "from": "C-RECEITAS",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A receita da coleta alimenta Censo das estradas da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 41,
+          "snippet": "RECEITAS = os.path.join(\"pedido\", \"receitas.py\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-RECEITAS",
       "to": "C-ORQUESTRADOR",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -20408,6 +20704,24 @@
           "file": "system-map/scripts/censo_das_derivacoes.py",
           "line": 68,
           "snippet": "\"PRODUTOR\": \"coleta/pdf_text.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ROTULOS",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Baixar e ler os rotulos oficiais alimenta Censo das estradas da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 171,
+          "snippet": "\"DISCOVER\": \"coleta/mapa_regfi.py\","
         }
       ],
       "categoria": "READ"
@@ -21268,6 +21582,24 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta Censo das estradas da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 364,
+          "snippet": "\"ONDE_SE_PROVA\": \"tests/test_trava_da_inteligencia.py\","
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-CI-PERSIST",
       "type": "WRITES",
       "payload": "artefacto",
@@ -21380,6 +21712,25 @@
           "file": "system-map/scripts/censo_das_derivacoes.py",
           "line": 95,
           "snippet": "\"PRODUTOR\": \"ferramentas/instagram_transcrever.py\","
+        }
+      ],
+      "categoria": "DATA",
+      "passa_pelo_preparo": true
+    },
+    {
+      "from": "C-TRANSCRICAO",
+      "to": "C-CENSO-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura alimenta Censo das estradas da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 141,
+          "snippet": "\"DERIVED\": \"ferramentas/instagram_transcrever.py\","
         }
       ],
       "categoria": "DATA",
@@ -22379,20 +22730,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 678,
+  "UNCLAIMED_FILES_COUNT": 680,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 116,
-    "components_proven": 80,
-    "components_pending": 30,
+    "components": 117,
+    "components_proven": 78,
+    "components_pending": 33,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 394,
-    "edges_proven": 392,
+    "edges": 407,
+    "edges_proven": 405,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1240,
-    "files_covered": 562,
+    "files_tracked": 1244,
+    "files_covered": 564,
     "files_code_unclaimed": 0
   }
 }

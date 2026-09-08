@@ -1049,6 +1049,42 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
 
 ---
 
+### D-040 — O mapa de fechamento: sete estradas, nenhuma fechada, e a segunda fonte não é a próxima
+
+- **Data:** 2026-09-08 · produção: **só leitura** · **inteligência: intocada**
+- **A pergunta que parou o avanço.** Provámos UMA estrada de ponta a ponta e íamos avançar
+  fonte a fonte. **Provar uma fonte não prova uma estrada** — mas provar uma estrada pode
+  poupar trinta canários.
+- **Medido:** **54** fontes italianas · **51** com rota `NÃO SEI` · **7** com prova de coleta ·
+  **7 route classes** · **18** executores em Python + **4** coletores `.mjs` · **4**
+  declarados na receita.
+- **Nenhuma estrada está `CLOSED`, nem a que foi observada.** A RC-01 (ARPAV) falha em duas
+  das doze condições: **não tem persistência estruturada e não tem admissão ligada**. O
+  documento chega, é preservado, é derivado — **e para num beco**.
+- **A estrada com mais quilómetros é a que está mais longe da fundação.** A RC-02 — 6 corridas,
+  144 observações, 7 fontes — escreve **tudo no Git**: loja, ledger e corridas. É a P-011 viva,
+  e não usa nenhum dos donos canónicos.
+- **O `checkpoint` da RC-01 é `NÃO SE APLICA`, de propósito.** É download único; não há cursor.
+  Criar checkpoint para pintar um quadrado verde seria inventar estado.
+- **A segunda fonte NÃO é a próxima missão.** Só **uma** outra fonte cabe hoje na RC-01. Um
+  segundo canário na mesma estrada provaria o que já está provado e deixaria as 51 onde estão.
+- **A menor sequência são QUATRO missões**, agrupadas por dono e por lei: (1) dar rota às 51;
+  (2) dar um fim às estradas — persistência estruturada e admissão; (3) trazer a RC-02 para os
+  donos canónicos; (4) uma escolha de rota num sítio só.
+- **A trava da inteligência existe e é testável:**
+  `COLLECTION_FOUNDATION_CLOSED != SIM → INTELLIGENCE_IMPLEMENTATION_BLOCKED`. Medido: **zero**
+  áreas de inteligência implementadas. **A trava é barata de segurar hoje, e é por isso que se
+  escreve hoje** — não no dia em que já custar. Ela não impede ler, preservar nem consertar
+  defeito que ameace dados. **5 de 14 critérios cumpridos.**
+- **Um guard do mapa apanhou-me, e a correção foi melhor do que o atalho.** O censo lê
+  `receitas.py` para contar, e o mapa exige que a receita tenha um consumidor. Em vez de me
+  acrescentar à lista, separei as espécies: **`DECIDE` · `PROVA` · `CONTA`** — e escrevi a
+  `E2b`, que exige que quem só conta **não importe** a receita. E aí o teste apanhou-me outra
+  vez: `testa_coleta_canonica.py` **importa e chama** o resolver, e faz bem — é prova, não
+  contagem. Eram **três** espécies, não duas.
+- **Detalhe:** [`../operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md`](../operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md).
+
+
 ### D-039 — A porta de produção está lacrada, e o SHA publicado estava errado
 
 - **Data:** 2026-09-08 · **`PRODUCTION_GATE_SEALED = SIM`** · produção nesta missão: **só
