@@ -188,12 +188,51 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
                  f"para ESTE universo — o mesmo item pode ser SIM noutro."), {}
 
 
+# ── A PORTA TEM DE FALAR A LINGUA DO ITEM ──────────────────────────────────
+# Esta lista nasceu em PORTUGUES, e a porta decide sobre item ITALIANO. Medido
+# contra o unico texto italiano real desta arvore: **1 de 28** palavras aparecia
+# la. E das 28, **20 mudam** em italiano — `pesquisa` e `ricerca`, `artigo` e
+# `articolo`, `rotulo` e `etichetta`, `doenca` e `malattia`.
+#
+#     A BUSCA FOI CORRIGIDA E A PORTA FICOU PARA TRAS.
+#
+# O efeito e o pior possivel: o item chega, e como nenhuma palavra casa, ele nao
+# vira NAO_SEI — vira «nao pertence a este universo». Uma peneira que fala outra
+# lingua nao separa o que presta do que nao presta: rejeita tudo, e com ar de
+# quem julgou.
+#
+# NAO SE TRADUZ A LISTA: JUNTA-SE A OUTRA LINGUA AO LADO.
+# Traduzir apagaria o portugues, e ha itens nesta casa que vem em portugues (as
+# licoes do Brasil, os relatorios). O termo internacional — `doi`, `orcid` — nao
+# tem lingua e serve a todos.
+#
+# O QUE ISTO **NAO** RESOLVE, e fica dito: a arquitetura certa e CONCEITO ->
+# TERMO LOCAL (um `WHEAT_SEPTORIA` com as suas formas em IT/ES/FR/EN), e ela
+# NAO existe aqui. Isto e a correcao minima que faz a porta italiana funcionar
+# hoje; a arquitetura fica registada como proposta.
 PERGUNTAS_DO_UNIVERSO = {
-    "T7": ["estudo", "ensaio", "pesquisa", "doi", "orcid", "revista", "artigo",
-           "universidade", "instituto", "publicacao"],
-    "T9": ["lancamento", "campanha", "produto", "concorrente", "anuncio", "evento"],
-    "T4": ["autorizacao", "registro", "rotulo", "bula", "ministero", "decreto"],
-    "T3": ["praga", "doenca", "fungo", "inseto", "infestacao", "sintoma"],
+    # T7 · ciencia e ensaio
+    "T7": ["doi", "orcid",                                   # sem lingua
+           "estudo", "ensaio", "pesquisa", "revista", "artigo",
+           "universidade", "instituto", "publicacao",        # pt
+           "studio", "prova", "ricerca", "rivista", "articolo",
+           "universita", "istituto", "pubblicazione", "convegno",
+           "sperimentazione", "tesi"],                       # it
+    # T9 · o que o concorrente publica
+    "T9": ["concorrente", "evento",                          # serve nas duas
+           "lancamento", "campanha", "produto", "anuncio",   # pt
+           "lancio", "campagna", "prodotto", "annuncio",
+           "novita", "fiera"],                               # it
+    # T4 · regulatorio
+    "T4": ["registro", "ministero", "decreto",               # serve nas duas
+           "autorizacao", "rotulo", "bula",                  # pt
+           "autorizzazione", "etichetta", "foglietto",
+           "registrazione", "gazzetta"],                     # it
+    # T3 · praga e doenca
+    "T3": ["fungo",                                          # serve nas duas
+           "praga", "doenca", "inseto", "infestacao", "sintoma",   # pt
+           "parassita", "malattia", "insetto", "infestazione",
+           "sintomo", "avversita", "patogeno"],              # it
 }
 
 

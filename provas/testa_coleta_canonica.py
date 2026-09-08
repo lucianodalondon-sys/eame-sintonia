@@ -132,6 +132,99 @@ for r in REMOVIDOS:
                                     "system-map/data/", "italia-portale/client/"))]
 prova("7_nada_aponta_para_o_que_saiu", not restos, ", ".join(restos[:3]))
 
+
+# ══ A ITALIA NAO PODE RECEBER O VOCABULARIO DE OUTRO PAIS ══════════════════
+# Doze provas. Nasceram de um achado medido: a porta de admissao decidia sobre
+# item ITALIANO com 28 palavras em PORTUGUES. Contra o unico texto italiano real
+# desta arvore, UMA casava. Vinte das 28 mudam em italiano.
+#
+#     A BUSCA FOI CORRIGIDA E A PORTA FICOU PARA TRAS.
+#
+# O efeito e o pior possivel: nenhuma palavra casa, e o item nao vira NAO_SEI —
+# vira «nao pertence a este universo». Uma peneira que fala outra lingua rejeita
+# tudo, e com ar de quem julgou.
+import re as _re
+import sensor_medir as _sm
+
+# marcas que so existem numa lingua. `evento`, `concorrente`, `decreto`, `fungo`
+# e `registro` servem as duas e por isso NAO estao aqui: termo internacional
+# legitimo nao e contaminacao.
+SO_PORTUGUES = _re.compile(
+    r'^(estudo|pesquisa|revista|artigo|universidade|instituto|publicacao|'
+    r'lancamento|campanha|produto|anuncio|autorizacao|rotulo|bula|praga|'
+    r'doenca|inseto|infestacao|sintoma)$')
+SO_ESPANHOL = _re.compile(r'^(repilo|olivar|jornada|septoriosis|trigo)$')
+SO_FRANCES = _re.compile(r'^(mildiou|septoriose|webinaire|vigne|ble)$')
+SO_ITALIANO = _re.compile(
+    r'^(studio|ricerca|rivista|articolo|universita|istituto|pubblicazione|'
+    r'convegno|sperimentazione|tesi|lancio|campagna|prodotto|annuncio|novita|'
+    r'fiera|autorizzazione|etichetta|foglietto|registrazione|gazzetta|'
+    r'parassita|malattia|insetto|infestazione|sintomo|avversita|patogeno)$')
+
+TODAS_DA_PORTA = [w for lista in adm.PERGUNTAS_DO_UNIVERSO.values() for w in lista]
+
+# V1/V2 · a Italia nao recebe termo exclusivo de FR nem de ES
+prova("V1_porta_sem_termo_so_frances",
+      not [w for w in TODAS_DA_PORTA if SO_FRANCES.match(w)],
+      "termo exclusivamente frances na porta que decide sobre item italiano")
+prova("V2_porta_sem_termo_so_espanhol",
+      not [w for w in TODAS_DA_PORTA if SO_ESPANHOL.match(w)],
+      "termo exclusivamente espanhol na porta")
+
+# V3 · termo internacional legitimo nao e falso positivo
+prova("V3_termo_internacional_e_permitido",
+      "doi" in TODAS_DA_PORTA and "orcid" in TODAS_DA_PORTA,
+      "`doi` e `orcid` nao tem lingua e tem de continuar a valer")
+
+# V4 · a porta fala italiano
+italianas = [w for w in TODAS_DA_PORTA if SO_ITALIANO.match(w)]
+prova("V4_a_porta_fala_italiano", len(italianas) >= 20,
+      f"so {len(italianas)} palavras italianas na porta — antes eram 0")
+
+# V5 · e continua a falar portugues, de proposito
+prova("V5_o_portugues_nao_foi_apagado",
+      bool([w for w in TODAS_DA_PORTA if SO_PORTUGUES.match(w)]),
+      "ha item nesta casa que vem em portugues; traduzir teria apagado esses")
+
+# V6 · a busca nao e a admissao
+prova("V6_busca_nao_e_admissao",
+      set(TODAS_DA_PORTA) != set(_sm.OBSERVACAO_CAMPO),
+      "encontrar um material e decidir se ele serve sao perguntas diferentes")
+
+# V7 · sem casamento nao vira NAO quando falta prova de leitura
+_vazio = adm.decidir({"id": "v7", "source_id": "IT-X", "fact_time": "2026-01-01"}, "T7")
+prova("V7_sem_texto_nao_vira_nao", _vazio.resultado != adm.NAO,
+      f"item sem texto saiu {_vazio.resultado}; nao pode ser NAO")
+
+# V8 · pais desconhecido nao vira Italia
+prova("V8_pais_desconhecido_nao_vira_italia",
+      "NAO SEI" in orq.novo_run_id(de_uma_frase("colete concorrentes"))
+      or orq.novo_run_id(de_uma_frase("colete concorrentes")).startswith("XX-"),
+      "pedido sem pais tem de ficar XX, nunca IT por omissao")
+
+# V9 · o item italiano passa a porta
+_it = {"id": "v9", "texto": "convegno sulla ricerca in campo, articolo pubblicato",
+       "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
+prova("V9_item_italiano_passa_a_porta",
+      adm.decidir(_it, "T7").resultado == adm.SIM,
+      "um texto italiano de ciencia tem de ser reconhecido como ciencia")
+
+# V10 · e o mesmo texto em portugues tambem
+_pt = {"id": "v10", "texto": "artigo de pesquisa publicado na revista",
+       "source_id": "BR-X", "fact_time": "2026-05-02"}
+prova("V10_item_portugues_continua_a_passar",
+      adm.decidir(_pt, "T7").resultado == adm.SIM)
+
+# V11 · a versao da regra muda quando o vocabulario muda
+prova("V11_versao_da_regra_existe", bool(adm.VERSAO_DA_REGRA),
+      "sem versao nao da para reprocessar so o que a regra antiga decidiu")
+
+# V12 · o consumidor consegue provar que vocabulario usou
+_d = adm.decidir(_it, "T7")
+prova("V12_a_decisao_diz_com_que_regua_decidiu",
+      bool(_d.regra) and bool(_d.versao) and bool(_d.evidencia),
+      "cada decisao tem de dizer a regra, a versao e a prova")
+
 print()
 if FALHAS:
     print(f"COLETA_CANONICA=FALHA · {len(FALHAS)} reprovada(s): {', '.join(FALHAS)}")

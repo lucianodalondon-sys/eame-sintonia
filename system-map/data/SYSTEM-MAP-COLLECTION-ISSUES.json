@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.collection-issues/1",
   "O_QUE_ISTO_E": "Achados registados durante a etapa de linguagem das conexoes. NENHUM foi consertado aqui, de proposito: aquela etapa era de representacao, e consertar comportamento no meio de uma mudanca de medicao faz com que nao se saiba mais qual das duas coisas mudou o resultado.",
   "PROVENANCE": {
-    "HEAD": "9df294ee69daa51c9bdae4663ef3cc2b6ab9e1bf"
+    "HEAD": "46ef52677c1d1cf545d2d789cdd778bd10cad953"
   },
   "ISSUES": [
     {
@@ -124,11 +124,51 @@
       "DESCRIPTION": "O caminho canonico ENTRADA -> ORQUESTRADOR -> EXECUCAO -> PORTA tem QUATRO estacoes e apenas DUAS ligacoes. Medido: ENTRADA -> ORQUESTRADOR existe; ORQUESTRADOR -> EXECUCAO esta CORTADO; EXECUCAO -> PORTA esta CORTADO. O mapa mostra o corte em vez de o completar com seta inventada — desenhar a arquitetura desejada como se existisse seria a unica coisa pior do que nao a ter.",
       "EVIDENCE": "vista «Caminho canonico»: 4 pecas, 2 ligacoes",
       "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-016",
+      "NODE": "C-ADMISSAO",
+      "TYPE": "ITALY_ADMISSION_WRONG_LANGUAGE",
+      "DESCRIPTION": "A porta decidia sobre item ITALIANO com 28 palavras em PORTUGUES. Contra o unico texto italiano real desta arvore, UMA casava. E o efeito nao era NAO_SEI: era «nao pertence a este universo» — uma peneira que fala outra lingua rejeita tudo com ar de quem julgou. CORRIGIDO nesta etapa: 0 -> 29 palavras italianas, sem apagar o portugues.",
+      "EVIDENCE": "medido contra data/samples/IT-T4-001; provas V1..V12",
+      "STATUS": "CLOSED"
+    },
+    {
+      "ISSUE_ID": "COL-017",
+      "NODE": "C-PALAVRAS",
+      "TYPE": "ITALY_VOCABULARY_CROSS_COUNTRY_LEAK",
+      "DESCRIPTION": "A lista de busca tem 482 palavras: 29 italianas, 8 francesas e 6 espanholas. Os termos ES/FR continuam NO FICHEIRO — o que foi corrigido antes foi o BOTAO, que deixou de oferecer os lotes A e B (2/3 estrangeiros). O vazamento so nao acontece porque ninguem escolhe aqueles lotes.",
+      "EVIDENCE": "vocabulario medido no mapa: C-PALAVRAS de_outro_pais=14",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-018",
+      "NODE": "C-CORPUS",
+      "TYPE": "LOW_RECALL_AFTER_FIX",
+      "DESCRIPTION": "O corpus italiano desta arvore tem 4.654 registos e apenas 7.088 caracteres de texto: 59 de 62 ficheiros tem ZERO texto. O numero «milhoes de caracteres» NAO se reproduz aqui — ou era o EAME agregado, ou o corpus vive noutro branch. BEFORE = NAO SEI REPRODUZIR.",
+      "EVIDENCE": "censo read-only sobre data/ com nome italiano",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-019",
+      "NODE": "C-ADMISSAO",
+      "TYPE": "CONCEPT_VS_LOCAL_TERM_ABSENT",
+      "DESCRIPTION": "Nao existe separacao CONCEITO -> TERMO LOCAL. Hoje junta-se a lista italiana ao lado da portuguesa, o que funciona mas nao escala: cada lingua nova multiplica as listas. A arquitetura certa e um CONCEPT_ID com as suas formas por lingua. Classificado ABSENT — proposta, nao implementado.",
+      "EVIDENCE": "admissao/admissao.py PERGUNTAS_DO_UNIVERSO",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-020",
+      "NODE": "C-VOZ",
+      "TYPE": "OUT_OF_SCOPE_COUNTRY_ISSUE",
+      "DESCRIPTION": "`medidas/voz.py` tem VOCAB_ISSUE com ES:5/IT:3 e VOCAB_TIPO com ES:4. E vocabulario espanhol numa regua de classificacao. FORA DO ESCOPO desta missao, que e so Italia — registado e nao corrigido.",
+      "EVIDENCE": "censo de linguas por lista",
+      "STATUS": "OPEN"
     }
   ],
   "COUNTS": {
-    "abertos": 13,
-    "fechados": 2,
-    "total": 15
+    "abertos": 17,
+    "fechados": 3,
+    "total": 20
   }
 }

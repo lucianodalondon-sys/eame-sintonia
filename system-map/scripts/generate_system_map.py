@@ -1288,6 +1288,94 @@ def desvios_do_controlo(ligacoes: dict, nos: list) -> list:
     return fora
 
 
+# ── QUE PALAVRAS A ITALIA RECEBE, E DE QUE LINGUA SAO ───────────────────────
+# A busca foi corrigida e a porta ficou para tras: ela decidia sobre item
+# ITALIANO com 28 palavras em PORTUGUES, e contra o unico texto italiano real
+# desta arvore UMA casava. Isso nao dava NAO_SEI — dava «nao pertence a este
+# universo». Uma peneira que fala outra lingua rejeita tudo com ar de quem julgou.
+#
+# O mapa tem de conseguir mostrar isto sem despejar mil palavras no ecra: por
+# peca, quantas palavras, de que lingua, e quantas sao de pais que nao e o desta
+# rota. NAO E UMA LISTA — E UM TERMOMETRO.
+#
+#     TERMO QUE EXISTE EM VARIAS LINGUAS NAO E CONTAMINACAO. `doi`, `orcid`,
+#     `fungo`, `evento`, `decreto` valem em toda a parte. Contaminacao e o termo
+#     EXCLUSIVO de outro pais numa rota que nao e dele.
+SO_DE_UM_PAIS = {
+    "ES": r"^(repilo|olivar|jornada|septoriosis|trigo|espanol)$",
+    "FR": r"^(mildiou|septoriose|webinaire|vigne|ble|francais)$",
+    "PT": r"^(estudo|pesquisa|revista|artigo|universidade|instituto|publicacao|"
+          r"lancamento|campanha|produto|anuncio|autorizacao|rotulo|bula|praga|"
+          r"doenca|inseto|infestacao|sintoma)$",
+    "IT": r"^(studio|ricerca|rivista|articolo|universita|istituto|pubblicazione|"
+          r"convegno|sperimentazione|tesi|lancio|campagna|prodotto|annuncio|"
+          r"novita|fiera|autorizzazione|etichetta|foglietto|registrazione|"
+          r"gazzetta|parassita|malattia|insetto|infestazione|sintomo|avversita|"
+          r"patogeno|diserbo|infestanti|difesa|malattie|frumento|grano|melo|"
+          r"pomodoro|riso|mais|olivo|vite|soia|bietola)$",
+}
+
+# Que papel cada lista tem. Confundir busca com admissao foi o erro: encontrar um
+# material e decidir se ele serve sao perguntas diferentes, e podem — devem —
+# ter vocabularios diferentes.
+PAPEL_DO_VOCABULARIO = {
+    "C-PALAVRAS": "BUSCA",
+    "C-ADMISSAO": "ADMISSAO",
+    "C-ROTULOS-CENSO": "BUSCA/EXTRACAO",
+}
+
+RX_LISTA = re.compile(r"^\s*([A-Z][A-Z0-9_]{3,})\s*=\s*[\[({]", re.M)
+
+
+def vocabulario_das_pecas(nos: list) -> None:
+    """Por peca: quantas palavras, de que lingua, e quantas sao de fora."""
+    import ast as _ast
+    compilados = {k: re.compile(v) for k, v in SO_DE_UM_PAIS.items()}
+
+    for n in nos:
+        listas = {}
+        for f in n.get("files", []):
+            cam = RAIZ / f
+            if not cam.is_file() or cam.suffix != ".py":
+                continue
+            try:
+                arv = _ast.parse(cam.read_text(encoding="utf-8", errors="replace"))
+            except SyntaxError:
+                continue
+            for no in _ast.walk(arv):
+                if not isinstance(no, _ast.Assign) or len(no.targets) != 1:
+                    continue
+                alvo = no.targets[0]
+                if not isinstance(alvo, _ast.Name) or not alvo.id.isupper():
+                    continue
+                palavras = [x.value.lower() for x in _ast.walk(no.value)
+                            if isinstance(x, _ast.Constant)
+                            and isinstance(x.value, str) and 2 < len(x.value) < 40]
+                if len(palavras) >= 5:
+                    listas.setdefault(alvo.id, []).extend(palavras)
+        if not listas:
+            continue
+
+        todas = [w for v in listas.values() for w in v]
+        por_lingua = {}
+        for w in todas:
+            for k, rx in compilados.items():
+                if rx.match(w.split()[0] if " " in w else w):
+                    por_lingua[k] = por_lingua.get(k, 0) + 1
+                    break
+        # a rota desta peca e a Italia; PT/ES/FR aqui sao de fora
+        de_fora = {k: v for k, v in por_lingua.items() if k in ("ES", "FR")}
+        n["vocabulario"] = {
+            "papel": PAPEL_DO_VOCABULARIO.get(n["id"], "NAO SEI"),
+            "listas": sorted(listas),
+            "palavras": len(todas),
+            "por_lingua": dict(sorted(por_lingua.items(), key=lambda x: -x[1])),
+            "sem_marca_de_lingua": len(todas) - sum(por_lingua.values()),
+            "de_outro_pais": sum(de_fora.values()),
+            "de_outro_pais_quais": dict(sorted(de_fora.items())),
+        }
+
+
 def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
     """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
     direita — que e a direcao em que o dado corre: fonte → motor → pacote → tela."""
@@ -2250,6 +2338,7 @@ def main_uma_vez(stamp: bool) -> int:
     # preparo nenhum: o conjunto vinha sempre vazio, em silencio.
     momento_das_ferramentas(nos)
     papel_das_pecas(nos)
+    vocabulario_das_pecas(nos)
     nivel_das_pecas(nos)
     quem_salta_o_cerebro(nos)
 
