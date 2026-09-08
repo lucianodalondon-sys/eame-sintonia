@@ -9,6 +9,67 @@
 
 ---
 
+## CORREÇÃO OBRIGATÓRIA — ROTA QUE FUNCIONA NÃO É ROTA PERMITIDA
+
+Esta matriz foi montada olhando **capacidade técnica**. Enquanto ela era escrita, a
+casa mediu a **permissão** e o resultado inverte várias linhas abaixo.
+
+Verificado por mim, hoje, direto em `https://www.youtube.com/robots.txt`:
+
+```
+User-agent: *
+Disallow: /feeds/videos.xml      <- a rota "0 quota" recomendada abaixo
+Disallow: /results               <- yt-dlp ytsearch
+Disallow: /youtubei/             <- yt-dlp extract_info
+Disallow: /comment
+Disallow: /get_video
+```
+
+> **`Disallow: /feeds/videos.xml` é literal.** O feed RSS de canal — que este
+> documento recomendava como a melhor rota de vigilância diária do YouTube, por
+> custo zero — está **barrado pelo robots.txt do host**. Ele funciona. Não é permitido.
+
+O mesmo vale para `/results` (busca por termo do yt-dlp) e `/youtubei/`
+(extração de metadado do yt-dlp). Os três foram **MEDIDOS funcionando** nesta casa em
+2026-09-08 — a busca achou Bayer Crop Science Italia e Corteva em 1,6 s, e o feed do canal
+devolveu 15 uploads com descrição inteira e views — **e os três estão em `Disallow`**.
+
+`scripts/social_rotas.permitido()` lê o `robots.txt` vivo do host, com o `User-agent` real
+da coleta, antes da primeira requisição. **Ele já reprovou rota que funcionava.**
+
+### Consequência para cada linha desta matriz
+
+| Onde este documento diz | Correção |
+|---|---|
+| YouTube DISCOVER_CONTENT via **RSS, 0 quota** | **`ROUTE_NOT_ALLOWED`.** Usar `API_FREE playlistItems.list` (1u/chamada) sobre a playlist de uploads. É a rota barata de **vigilância**; `search.list` é de **descoberta** |
+| YouTube SEARCH_KEYWORD via **yt-dlp `ytsearchN:`** | **`ROUTE_NOT_ALLOWED`** (`/results`). Usar `search.list` |
+| YouTube FETCH_VIDEO_METADATA via **yt-dlp `--dump-json`** | **`ROUTE_NOT_ALLOWED`** (`/youtubei/`) **e `BLOCKED` de facto** de IP de datacenter ("Sign in to confirm you are not a bot"). Usar `videos.list` (1u até 50 ids). `youtube:oembed` é `CONDICIONAL`: não está em `Disallow`, mas o §3 dos Termos cobre acesso automatizado — e devolve só título, autor e thumbnail |
+| YouTube FETCH_COMMENTS via yt-dlp | `/comment` está em `Disallow`. Usar `commentThreads.list` (1u/100) |
+| YouTube FETCH_CAPTION via `yt-dlp --write-auto-subs` | **A rota mais valiosa do relatório entra em conflito.** `/timedtext_video` está em `Disallow`; a legenda em si vem de `/api/timedtext`, e `/api/` também está barrado. **Tratar como `ROUTE_NOT_ALLOWED` até prova em contrário** — e a API oficial (`captions.download`) é só do dono. **Isto reabre a necessidade de transcrição local para o YouTube**, que este documento tinha declarado desnecessária |
+| Instagram / TikTok / X / Facebook / LinkedIn | Mesmo padrão de `Disallow` medido pela casa. As rotas `LOCAL_AUTH` deste documento **não são reprovadas pelo robots** (robots governa robô anônimo, não sessão de gente), mas continuam **violação de contrato** — ver §GDPR. O portão de robots **não** as absolve |
+| Bluesky / Mastodon / Telegram (`t.me/s`) | Permanecem permitidas. `t.me` não publica `robots.txt` → permissivo por omissão. **São as rotas limpas** |
+
+### O que isso muda no ranking
+
+O YouTube **continua #1** — mas pela **API oficial com chave**, não pelas rotas grátis.
+`CREDENTIAL_MISSING` vira o bloqueio real, e conseguir a chave da Data API v3 passa a ser a
+**primeira tarefa**, não uma otimização. O corpus de texto barato via legenda automática
+**não está garantido**: ou se obtém permissão, ou o custo volta para transcrição local.
+
+E o argumento "grátis" muda de forma:
+
+> **FREE-FIRST não é FREE-AT-ANY-COST.**
+> A ordem correta é `PERMITIDA → BARATA → CAPAZ`, não `BARATA → CAPAZ → permitida`.
+> Uma rota `Disallow` de custo zero é mais cara que uma rota oficial de 1 unidade,
+> porque o preço dela é a relação com a plataforma.
+
+O piloto real da casa fechou **99 objetos distintos, US$ 0,00, zero Apify** — usando
+**só** Mastodon, Bluesky e Telegram, isto é, exatamente as três plataformas de menor massa
+agrícola italiana desta matriz. **Isso não é contradição: é a medida do problema.**
+As plataformas onde o conteúdo está são as que não deixam entrar.
+
+---
+
 ## LEGENDA DE ROTA
 
 | Código | Significado |
