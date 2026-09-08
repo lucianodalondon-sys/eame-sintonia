@@ -38,6 +38,7 @@ censo nao toca na primeira: le-a do dono.
 """
 import json
 import os
+import subprocess
 import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
@@ -134,11 +135,34 @@ def observability_ready(donos):
             faltas.append('a etapa nao declara %s' % campo)
     if 'NOT_RUN' not in tel.ESTADOS_DE_ETAPA:
         faltas.append('nao ha como dizer NOT_RUN')
+
+    # ── A PARIDADE E PORTA, E NAO NOTA DE RODAPE (O8C) ──────────────────
+    # Ate aqui READY podia dizer SIM com o contrato, o banco, o writer e este
+    # scanner a falar linguas diferentes — e dizia: havia DOIS registries de
+    # diagnostico com ZERO nomes em comum, e o banco nao tinha coluna para um
+    # destino que o contrato declarava legitimo.
+    #
+    #     CONTRATO PRONTO TEM DE QUERER DIZER IMPLEMENTAVEL DE PONTA A PONTA.
+    #     UM CONTRATO QUE O BANCO NAO CONSEGUE GUARDAR NAO ESTA PRONTO.
+    #
+    # `provas/paridade_da_lingua.py` e quem mede isso. Aqui ela e CONDICAO: se
+    # reprovar, READY diz NAO — e diz porque.
+    paridade = subprocess.run(
+        [sys.executable, os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],
+        capture_output=True, text=True)
+    if paridade.returncode != 0:
+        reprovadas = [l.split()[1] for l in paridade.stdout.splitlines()
+                      if l.strip().startswith('FAIL')]
+        faltas.append('contrato, storage, writer e scanner divergem: %s'
+                      % ', '.join(reprovadas))
+
     return {
         'OBSERVABILITY_READY': 'SIM' if not faltas else 'NAO',
-        'O_QUE_SIGNIFICA': ('uma rota nova tem CONTRATO para emitir telemetria '
-                            'e ser diagnosticada. NAO significa que se esta a '
-                            'medir.'),
+        'O_QUE_SIGNIFICA': ('uma rota nova tem CONTRATO para emitir telemetria e '
+                            'ser diagnosticada, E esse contrato e implementavel de '
+                            'ponta a ponta: contrato, banco, writer e scanner falam '
+                            'a mesma lingua, provado por paridade_da_lingua.py. NAO '
+                            'significa que se esta a medir.'),
         'O_QUE_NAO_SIGNIFICA': 'CONTRATO PRONTO != INSTRUMENTADO != OBSERVADO',
         'FALTAS': faltas,
         'QUANTOS_CONCEITOS_COM_DONO_DUPLICADO': sum(
@@ -146,8 +170,11 @@ def observability_ready(donos):
             if c['ESTADO'] == 'DONO_DUPLICADO'),
         'PORQUE_O_DUPLICADO_IMPORTA': (
             'onde dois ficheiros escrevem o mesmo conceito, a telemetria pode '
-            'divergir sem ninguem dar por isso. Nao impede o contrato de estar '
-            'pronto; e a divida que vem a seguir.'),
+            'divergir sem ninguem dar por isso. Desde O8C isto DEIXOU de ser so '
+            'divida: os conceitos da telemetria — estado de etapa, destino de '
+            'item, codigo de diagnostico, estado de falha — tem dono unico e '
+            'paridade provada, e READY reprova se divergirem. O numero acima '
+            'conta duplicacoes noutros conceitos, que continuam por resolver.'),
     }
 
 

@@ -48,6 +48,14 @@ ROUTE_NO_LONGER_WORKS = 'ROUTE_NO_LONGER_WORKS'
 UPSTREAM_ARTIFACT_CHANGED = 'UPSTREAM_ARTIFACT_CHANGED'
 GRAIN_NOT_DECLARED = 'GRAIN_NOT_DECLARED'
 DECISION_MISSING = 'DECISION_MISSING'
+# ── Chegados em O8C, de `telemetria.py`. Nao sao nomes novos inventados aqui:
+#    eram declarados la, e la nao era o sitio — dizem ONDE no fluxo parou, que
+#    e a pergunta desta lei, e nao POR QUE o mundo parou, que e a de `falhas`.
+GRAIN_MISMATCH = 'GRAIN_MISMATCH'
+UPSTREAM_NOT_RUN = 'UPSTREAM_NOT_RUN'
+OWNER_NOT_CONNECTED = 'OWNER_NOT_CONNECTED'
+STORAGE_MISSING = 'STORAGE_MISSING'
+STORAGE_CONFLICT = 'STORAGE_CONFLICT'
 
 # Quem age. Um codigo sem dono e um alerta que fica no ecra.
 NOS = 'NOSSO_CODIGO'
@@ -78,6 +86,18 @@ CODIGOS = {
                               'nao se compara com contagem.'),
     DECISION_MISSING: (PESSOA, 'a corrida existe e nao ha recibo de decisao: sabemos '
                                'o resultado e nao por que se gastou.'),
+    # ── vindos de `telemetria.py` em O8C ─────────────────────────────────
+    # `GRAIN_NOT_DECLARED` e `GRAIN_MISMATCH` NAO sao o mesmo defeito, e por
+    # isso convivem: um e nao ter dito o grao, o outro e ter dito dois graos
+    # diferentes e dividido um pelo outro na mesma conta.
+    GRAIN_MISMATCH: (NOS, 'contou-se entrada e saida em unidades diferentes. '
+                          'A razao entre elas nao e rendimento.'),
+    UPSTREAM_NOT_RUN: (NOS, 'a etapa anterior nao correu. Esta nao falhou — nunca '
+                            'comecou, e chamar-lhe erro faria um defeito parecer dois.'),
+    OWNER_NOT_CONNECTED: (NOS, 'ha dono declarado para a etapa e ele nao toca o '
+                               'artefato. OWNER EXISTS != EDGE EXISTS.'),
+    STORAGE_MISSING: (NOS, 'a linha existe no banco e o byte nao esta no armazem.'),
+    STORAGE_CONFLICT: (NOS, 'o byte existe e nao e o que a linha diz que ele e.'),
 }
 
 # Quando a falha e de item, o estado canonico de `falhas.py` sugere o codigo da

@@ -1117,6 +1117,7 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/paridade_da_lingua.py",
       "provas/preflight_022_live.sh",
       "provas/preservar_coleta_no_postgres.py",
       "provas/rastro_no_postgres.py",
@@ -1345,6 +1346,7 @@
       "tests/test_hero_cases_v1.py",
       "tests/test_identidade_do_artefato.py",
       "tests/test_integracao_biblia.py",
+      "tests/test_lingua_unica.py",
       "tests/test_lugar_do_fato.py",
       "tests/test_metricas.py",
       "tests/test_migrations.py",
@@ -1763,8 +1765,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "6dae98f01b875078bba19e80e8aa29f12a46777e",
-    "GENERATED_AT": "2026-09-08T21:03:00+00:00"
+    "HEAD": "3cbeb8d670459a3fd6442bdae91824fb7423813c",
+    "GENERATED_AT": "2026-09-08T21:03:48+00:00"
   },
   "FAMILIES": [
     {
@@ -6173,9 +6175,13 @@
         "C-CONTRATO-TELEMETRIA",
         "C-EVOLUCAO",
         "C-GESTAO-DA-COLETA",
+        "C-PROVA-COLETA",
         "C-SCRAP-LEIS"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-PROVA-COLETA",
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -6187,7 +6193,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_da_observabilidade.py",
-            "line": 210,
+            "line": 237,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -6982,11 +6988,11 @@
     },
     {
       "id": "C-CONTRATO-TELEMETRIA",
-      "name": "O contrato da telemetria",
+      "name": "Contrato da telemetria — a forma do fluxo",
       "territory": "Z-REGUAS",
       "kind": "contract",
-      "what": "O vocabulário e as leis que qualquer emissor de telemetria tem de cumprir: espécies de evento, estados de etapa, destinos do item, códigos de diagnóstico, grão de entrada e de saída, e a conta da reconciliação.",
-      "why_here": "MODULE WORKS ≠ EDGE WORKS ≠ FLOW WORKS. Cada módulo pode passar nos seus testes e o fluxo inteiro não trazer nada — três missões acharam estado publicado sem medição, sempre tarde. É contrato e não implementação de propósito: instalar OpenTelemetry ou Grafana antes de saber o que se quer perguntar é comprar a tampa antes de medir o buraco.",
+      "what": "Dono de DUAS perguntas e so dessas: o ESTADO DA ETAPA (7 valores) e o DESTINO DO ITEM (6 portas), mais a conta que tem de fechar. NAO e dono de codigo nenhum de falha ou de diagnostico: importa-os de `falhas.py` e `diagnostico.py` e expoe-os, para que ninguem precise de os copiar.",
+      "why_here": "Ate O8C este ficheiro declarava um registry proprio de 12 codigos, e TRES deles ja pertenciam a `falhas.py` — que e anterior e ja e importado por quatro coletores reais. O scanner lia esta lista e o writer lia a outra: WRITER TRUTH = A e SCANNER TRUTH = B. Um conceito, um dono; os outros importam. `provas/paridade_da_lingua.py` reprova se voltarem a divergir.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -7008,10 +7014,15 @@
       "status_reason": "o motor importa esta lei para decidir.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-GESTAO-COLETA",
+        "C-SCRAP-LEIS"
+      ],
       "outbound": [
         "C-CENSO-OBSERVABILIDADE",
         "C-FLUXO-NO-SECO",
+        "C-PROVA-COLETA",
+        "C-RASTRO",
         "C-RELATORIO-FLUXO",
         "C-TESTES"
       ],
@@ -7023,16 +7034,16 @@
         "listas": [
           "CAMPOS_DA_ETAPA",
           "CAMPOS_DO_RUN",
-          "CODIGOS_DE_DIAGNOSTICO",
           "DESTINOS_DO_ITEM",
+          "DE_ONDE_VIERAM",
           "ESPECIES",
           "ESTADOS_DE_ETAPA",
           "LEIS",
           "NAO_INSTALAR"
         ],
-        "palavras": 76,
+        "palavras": 88,
         "por_lingua": {},
-        "sem_marca_de_lingua": 76,
+        "sem_marca_de_lingua": 88,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -7944,11 +7955,11 @@
     },
     {
       "id": "C-GESTAO-COLETA",
-      "name": "A politica e o diagnostico da coleta",
+      "name": "Politica da coleta e roteamento de diagnostico",
       "territory": "Z-REGUAS",
       "kind": "contract",
-      "what": "O CONTEUDO da decisao de coletar: portao de satisfacao, acoes (CHECK separado de FETCH), tiers de prioridade, ciclo de vida da fonte, papeis, procedencia de candidata, e a politica V1 deterministica em modo SHADOW. Mais os codigos de diagnostico, que dizem o que esta quebrado no fluxo. A FRONTEIRA de quem decide o que vive na peca C-GESTAO-DA-COLETA, ao lado; esta preenche-a.",
-      "why_here": "O COLLECTION MANAGER NAO E UM SEGUNDO ORQUESTRADOR: ele responde O QUE e QUANDO, e entrega uma decisao. Quem responde COMO e por qual rota continua sendo o orquestrador. Um teste por AST recusa qualquer import de executor aqui. E nao ha nota magica: as dez dimensoes ficam separadas, porque SOURCE_SCORE = 87 esconde por que a fonte vale.",
+      "what": "Duas autoridades distintas. `politica_da_coleta.py` responde O QUE coletar e quando. `diagnostico.py` e o DONO UNICO do DIAGNOSTIC CODE: ONDE no fluxo parou, e que buraco estrutural isso denuncia — 17 codigos, cada um com o dono que tem de agir.",
+      "why_here": "DIAGNOSTIC CODE nao e FAILURE STATE. Uma falha de rede em FETCH tem as duas respostas e elas diferem: estado canonico `TRANSIENT_NETWORK_ERROR` (`falhas.py`) e codigo `FETCH_FAILED` (aqui). Zero nomes partilhados entre os dois registries, e um teste recusa qualquer colisao futura.",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -7978,6 +7989,8 @@
         "C-SCRAP-LEIS"
       ],
       "outbound": [
+        "C-CONTRATO-TELEMETRIA",
+        "C-PROVA-COLETA",
         "C-RASTRO",
         "C-TESTES"
       ],
@@ -10637,6 +10650,7 @@
       "files": [
         "provas/auditoria_live.sh",
         "provas/derived_artifact_no_postgres.py",
+        "provas/paridade_da_lingua.py",
         "provas/preflight_022_live.sh",
         "provas/preservar_coleta_no_postgres.py",
         "provas/rastro_no_postgres.py",
@@ -10646,7 +10660,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 10,
+      "file_count": 11,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -10656,20 +10670,26 @@
       "inbound": [
         "C-ADAMA-ES",
         "C-ADMISSAO",
+        "C-CENSO-OBSERVABILIDADE",
         "C-CI-MAPA",
         "C-CI-PERSIST",
         "C-CONTRATO-ARTEFATO",
+        "C-CONTRATO-TELEMETRIA",
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-GESTAO-COLETA",
         "C-ORQUESTRADOR",
         "C-PALAVRAS",
         "C-PEDIDO",
+        "C-RASTRO",
         "C-RECEITAS",
+        "C-SCRAP-LEIS",
         "C-SUPABASE",
         "C-TESTES"
       ],
       "outbound": [
         "C-CADEIA-V21",
+        "C-CENSO-OBSERVABILIDADE",
         "C-CI-PERSIST",
         "C-TESTES"
       ],
@@ -10685,15 +10705,16 @@
           "COLS_OBJ",
           "COLS_RAW",
           "COLS_RUN",
+          "COLUNA_DO_DESTINO",
           "MIGRATIONS",
           "_GAVETAS_IT",
           "_OUTROS",
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 100,
+        "palavras": 112,
         "por_lingua": {},
-        "sem_marca_de_lingua": 100,
+        "sem_marca_de_lingua": 112,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -10864,12 +10885,14 @@
       "inbound": [
         "C-CI-PERSIST",
         "C-COLETA-BASE",
+        "C-CONTRATO-TELEMETRIA",
         "C-GESTAO-COLETA",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS"
       ],
       "outbound": [
         "C-CI-PERSIST",
+        "C-PROVA-COLETA",
         "C-TESTES"
       ],
       "paises": {},
@@ -10897,7 +10920,7 @@
         {
           "onde": "SUPABASE",
           "file": "medidas/scanner_da_coleta.py",
-          "line": 124,
+          "line": 135,
           "snippet": "dsn = os.environ.get('BANCO_DESCARTAVEL_URL') or os.environ.get('SUPABASE_DB_URL')"
         }
       ],
@@ -11587,11 +11610,11 @@
     },
     {
       "id": "C-SCRAP-LEIS",
-      "name": "As leis do SCRAP — falhas e matriz de capacidade",
+      "name": "As leis do SCRAP — a taxonomia canonica da falha",
       "territory": "Z-REGUAS",
       "kind": "contract",
-      "what": "Os dois donos declarativos do SCRAP. `falhas.py` e a taxonomia canonica de falhas: 22 estados em tres camadas (SOURCE / ROUTE / EXECUTOR), com o que cada estado pede de recuperacao. `social_matriz.py` e o registro unico de capacidade por (plataforma, capability, rota) e tambem o dono do modelo de quota — dois baldes do YouTube, SEARCH e GENERAL, que nunca se somam. Inclui a lei que congela a inteligencia: enquanto COLLECTION_FOUNDATION_CLOSED nao for SIM, implementar, escrever e ativar inteligencia esta bloqueado — ler e desenhar, nao.",
-      "why_here": "Antes, o vocabulario de falha vivia preso a UMA rota e a quota vivia copiada dentro do adaptador. Copia diverge: o adaptador chegou a cobrar 100 unidades por `search.list` enquanto a matriz ja tinha o modelo certo. Com um dono so, ERRO NAO E ZERO e BLOCKED NAO E EMPTY deixam de depender de quem escreveu o if.",
+      "what": "`falhas.py` e o DONO UNICO do FAILURE STATE: 23 estados canonicos com camada (SOURCE/ROUTE/EXECUTOR), a flag `esperado` e a recuperacao, mais 54 nomes antigos traduzidos. Mais a matriz de capacidade e a fundacao da coleta.",
+      "why_here": "ROTA CAIDA NAO E FONTE CAIDA, e PARSER QUEBRADO NAO E FONTE VAZIA — sem estas camadas um coletor partido publica um zero que nao mediu nada. E anterior as duas sessoes que escreveram a observabilidade, e por isso e ELE o dono: quem chegou depois importa, nao redeclara.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -11623,8 +11646,10 @@
         "C-APIFY-POOL",
         "C-CENSO-CONGELAMENTO",
         "C-CENSO-OBSERVABILIDADE",
+        "C-CONTRATO-TELEMETRIA",
         "C-ESTRADAS-IT",
         "C-GESTAO-COLETA",
+        "C-PROVA-COLETA",
         "C-RASTRO",
         "C-SCRAP-GUARDA",
         "C-SCRAP-SOCIAL",
@@ -13113,6 +13138,7 @@
         "tests/test_hero_cases_v1.py",
         "tests/test_identidade_do_artefato.py",
         "tests/test_integracao_biblia.py",
+        "tests/test_lingua_unica.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_metricas.py",
         "tests/test_migrations.py",
@@ -13150,9 +13176,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 62,
+      "file_count": 63,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 22 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 23 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -13171,6 +13197,7 @@
         "C-CENSO-ARMAZEM-IT",
         "C-CENSO-CORPUS-IT",
         "C-CENSO-IDENTIDADE-IT",
+        "C-CENSO-OBSERVABILIDADE",
         "C-CI-COLETA",
         "C-CI-MAPA",
         "C-CI-PERSIST",
@@ -14866,7 +14893,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 6dae98f01b875078bba19e80e8aa29f12a46777e"
+        "HEAD 3cbeb8d670459a3fd6442bdae91824fb7423813c"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -15474,7 +15501,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_da_observabilidade.py",
-          "line": 50,
+          "line": 51,
           "snippet": "import aprender_com_a_fonte as apr  # noqa: E402"
         }
       ],
@@ -17043,6 +17070,42 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-CENSO-OBSERVABILIDADE",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo da observabilidade alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/paridade_da_lingua.py",
+          "line": 174,
+          "snippet": "open(SCANNER, 'leitura')  # SCANNER = system-map/scripts/censo_da_observabilidade.py"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CENSO-OBSERVABILIDADE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo da observabilidade alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_lingua_unica.py",
+          "line": 85,
+          "snippet": "open(caminho, 'leitura')  # caminho = system-map/scripts/censo_da_observabilidade.py"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-CI-COLETA",
       "to": "C-APIFY-POOL",
       "type": "RUNS",
@@ -17990,7 +18053,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram alimenta As leis do SCRAP — falhas e matriz de capacidade. Provado por 1 linha de codigo.",
+      "reason": "Colher o Instagram alimenta As leis do SCRAP — a taxonomia canonica da falha. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "leis/social_matriz.py",
@@ -18217,11 +18280,11 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato da telemetria tem o seu codigo importado por Censo da observabilidade. Provado por 1 linha de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Censo da observabilidade. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/censo_da_observabilidade.py",
-          "line": 47,
+          "line": 48,
           "snippet": "import telemetria as tel            # noqa: E402"
         }
       ],
@@ -18235,12 +18298,48 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato da telemetria tem o seu codigo importado por O fluxo no seco. Provado por 1 linha de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por O fluxo no seco. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "provas/fluxo_no_seco.py",
           "line": 36,
           "snippet": "import telemetria as t  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/paridade_da_lingua.py",
+          "line": 39,
+          "snippet": "import telemetria as tel            # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-RASTRO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por O rastro da coleta — etapa, aresta, contagem e falha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/rastro_da_coleta.py",
+          "line": 38,
+          "snippet": "import telemetria as tel    # noqa: E402"
         }
       ],
       "categoria": "RULE"
@@ -18253,7 +18352,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato da telemetria tem o seu codigo importado por Relatório do fluxo. Provado por 1 linha de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Relatório do fluxo. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/relatorio_do_fluxo.py",
@@ -18271,12 +18370,35 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato da telemetria tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_lingua_unica.py",
+          "line": 24,
+          "snippet": "import telemetria as tel            # noqa: E402"
+        },
         {
           "file": "tests/test_telemetria.py",
           "line": 15,
           "snippet": "import telemetria as t  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato da telemetria — a forma do fluxo alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_lingua_unica.py",
+          "line": 56,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'telemetria.py'), encoding='utf-8').read()"
         }
       ],
       "categoria": "PROOF"
@@ -18786,7 +18908,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_da_observabilidade.py",
-          "line": 48,
+          "line": 49,
           "snippet": "import evolucao as evo              # noqa: E402"
         }
       ],
@@ -18804,7 +18926,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_da_observabilidade.py",
-          "line": 105,
+          "line": 106,
           "snippet": "'ONDE': 'leis/evolucao.py',"
         }
       ],
@@ -19099,13 +19221,49 @@
     },
     {
       "from": "C-GESTAO-COLETA",
+      "to": "C-CONTRATO-TELEMETRIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por Contrato da telemetria — a forma do fluxo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/telemetria.py",
+          "line": 60,
+          "snippet": "import diagnostico as dg   # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-GESTAO-COLETA",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/paridade_da_lingua.py",
+          "line": 38,
+          "snippet": "import diagnostico as dg            # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-GESTAO-COLETA",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A politica e o diagnostico da coleta tem o seu codigo importado por O rastro da coleta — etapa, aresta, contagem e falha. Provado por 2 linhas de codigo.",
+      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por O rastro da coleta — etapa, aresta, contagem e falha. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "medidas/rastro_da_coleta.py",
@@ -19128,8 +19286,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A politica e o diagnostico da coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_lingua_unica.py",
+          "line": 23,
+          "snippet": "import diagnostico as dg            # noqa: E402"
+        },
         {
           "file": "tests/test_politica_da_coleta.py",
           "line": 18,
@@ -19151,7 +19314,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A politica e o diagnostico da coleta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Politica da coleta e roteamento de diagnostico alimenta Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_politica_da_coleta.py",
@@ -19173,7 +19336,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_da_observabilidade.py",
-          "line": 49,
+          "line": 50,
           "snippet": "import gestao_da_coleta as ges      # noqa: E402"
         }
       ],
@@ -19191,7 +19354,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_da_observabilidade.py",
-          "line": 114,
+          "line": 115,
           "snippet": "'ONDE': 'leis/gestao_da_coleta.py',"
         }
       ],
@@ -21988,6 +22151,24 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-CENSO-OBSERVABILIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta Censo da observabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_da_observabilidade.py",
+          "line": 151,
+          "snippet": "[sys.executable, os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-CI-PERSIST",
       "type": "READS",
       "payload": "artefacto",
@@ -22037,8 +22218,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_lingua_unica.py",
+          "line": 244,
+          "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
+        },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 369,
@@ -22085,14 +22271,37 @@
     },
     {
       "from": "C-RASTRO",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/paridade_da_lingua.py",
+          "line": 40,
+          "snippet": "import rastro_da_coleta as rastro   # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RASTRO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_lingua_unica.py",
+          "line": 25,
+          "snippet": "import rastro_da_coleta as rastro   # noqa: E402"
+        },
         {
           "file": "tests/test_politica_da_coleta.py",
           "line": 177,
@@ -22585,7 +22794,7 @@
       "evidence": [
         {
           "file": "medidas/rastro_da_coleta.py",
-          "line": 141,
+          "line": 151,
           "snippet": "import social_sessao as ss"
         }
       ],
@@ -22688,7 +22897,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por Apify — a rota paga. Provado por 1 linha de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Apify — a rota paga. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "ferramentas/apify_pool.py",
@@ -22706,7 +22915,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade alimenta Censo do congelamento da inteligência. Provado por 1 linha de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Censo do congelamento da inteligência. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/censo_do_congelamento.py",
@@ -22724,12 +22933,30 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por Censo da observabilidade. Provado por 1 linha de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Censo da observabilidade. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/censo_da_observabilidade.py",
-          "line": 51,
+          "line": 52,
           "snippet": "import fundacao_da_coleta as fdc    # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
+      "to": "C-CONTRATO-TELEMETRIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Contrato da telemetria — a forma do fluxo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/telemetria.py",
+          "line": 59,
+          "snippet": "import falhas     # noqa: E402"
         }
       ],
       "categoria": "RULE"
@@ -22742,7 +22969,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por O censo das classes de estrada da coleta italiana. Provado por 2 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por O censo das classes de estrada da coleta italiana. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
@@ -22765,7 +22992,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade alimenta O censo das classes de estrada da coleta italiana. Provado por 2 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta O censo das classes de estrada da coleta italiana. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
@@ -22788,7 +23015,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por A politica e o diagnostico da coleta. Provado por 1 linha de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Politica da coleta e roteamento de diagnostico. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "leis/diagnostico.py",
@@ -22800,13 +23027,31 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/paridade_da_lingua.py",
+          "line": 37,
+          "snippet": "import falhas                       # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por O rastro da coleta — etapa, aresta, contagem e falha. Provado por 1 linha de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por O rastro da coleta — etapa, aresta, contagem e falha. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "medidas/rastro_da_coleta.py",
@@ -22824,7 +23069,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "guarda/social_sessao.py",
@@ -22842,7 +23087,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por SINTONIA SCRAP — aquisicao social. Provado por 6 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP — aquisicao social. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/social_rotas.py",
@@ -22885,7 +23130,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por Suite de testes. Provado por 13 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_falhas.py",
@@ -22903,6 +23148,11 @@
           "snippet": "import fundacao_da_coleta as fdc   # noqa: E402"
         },
         {
+          "file": "tests/test_lingua_unica.py",
+          "line": 22,
+          "snippet": "import falhas                       # noqa: E402"
+        },
+        {
           "file": "tests/test_politica_da_coleta.py",
           "line": 19,
           "snippet": "import fundacao_da_coleta as f  # noqa: E402"
@@ -22916,6 +23166,11 @@
           "file": "tests/test_social_sessao.py",
           "line": 36,
           "snippet": "import social_matriz as mz          # noqa: E402"
+        },
+        {
+          "file": "tests/test_telemetria.py",
+          "line": 16,
+          "snippet": "import falhas  # noqa: E402"
         },
         {
           "file": "tests/test_thread_parcial.py",
@@ -22936,16 +23191,6 @@
           "file": "tests/test_youtube_antidrift.py",
           "line": 21,
           "snippet": "import social_matriz as mz        # noqa: E402"
-        },
-        {
-          "file": "tests/test_youtube_oficial.py",
-          "line": 21,
-          "snippet": "import falhas                     # noqa: E402"
-        },
-        {
-          "file": "tests/test_youtube_oficial.py",
-          "line": 24,
-          "snippet": "import social_matriz as mz        # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -22958,7 +23203,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_observabilidade.py",
@@ -23565,7 +23810,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/derived_artifact_no_postgres.py",
@@ -23576,6 +23821,11 @@
           "file": "provas/derived_artifact_no_postgres.py",
           "line": 47,
           "snippet": "\"022_o_derivado_ganha_casa.sql\","
+        },
+        {
+          "file": "provas/paridade_da_lingua.py",
+          "line": 60,
+          "snippet": "open(MIGRATION, 'leitura')  # MIGRATION = supabase/migrations/024_a_corrida_conta_o_que_passou.sql"
         },
         {
           "file": "provas/preservar_coleta_no_postgres.py",
@@ -23644,7 +23894,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 18 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 19 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -24049,7 +24299,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta As leis do SCRAP — falhas e matriz de capacidade. Provado por 1 linha de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta As leis do SCRAP — a taxonomia canonica da falha. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "leis/social_matriz.py",
@@ -25170,12 +25420,12 @@
     "components_pending": 52,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 459,
-    "edges_proven": 457,
+    "edges": 470,
+    "edges_proven": 468,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1317,
-    "files_covered": 619,
+    "files_tracked": 1319,
+    "files_covered": 621,
     "files_code_unclaimed": 0
   }
 }

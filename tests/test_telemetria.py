@@ -13,6 +13,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, RAIZ)
 import _gavetas  # noqa: E402,F401
 import telemetria as t  # noqa: E402
+import falhas  # noqa: E402
 
 
 class AsQuatroConfusoesRecusadas(unittest.TestCase):
@@ -34,19 +35,36 @@ class AsQuatroConfusoesRecusadas(unittest.TestCase):
         self.assertIn('UNKNOWN', t.DESTINOS_DO_ITEM)
 
     def test_o_vocabulario_e_fechado(self):
-        """Mensagem livre por falha e mensagem que ninguem consegue contar."""
-        self.assertIn('UNKNOWN_FAILURE', t.CODIGOS_DE_DIAGNOSTICO)
-        self.assertIn('POLICY_REFUSED', t.CODIGOS_DE_DIAGNOSTICO)
+        """Mensagem livre por falha e mensagem que ninguem consegue contar.
+
+        A LEI NAO MUDOU EM O8C — mudou o DONO. Ate la este contrato tinha
+        registry proprio, e `UNKNOWN_FAILURE` e `POLICY_REFUSED` viviam nele.
+        Media-se depois que `UNKNOWN_FAILURE` ja era alias conhecido de
+        `falhas.py`, e que `POLICY_REFUSED` nao e falha nenhuma: e uma decisao.
+        Os dois continuam fechados e conferiveis — noutro dono, e nao no ar.
+        """
+        # continua a nao haver mensagem livre: a lista e finita e importada.
+        self.assertTrue(t.CODIGOS_DE_DIAGNOSTICO)
+        self.assertIsInstance(t.CODIGOS_DE_DIAGNOSTICO, tuple)
+        # e os dois nomes continuam a ter destino escrito, nao apagados.
+        self.assertEqual('falhas', t.DE_ONDE_VIERAM['UNKNOWN_FAILURE'][0])
+        self.assertIn('UNKNOWN_ERROR', falhas.ESTADOS)
+        self.assertIn('DECISAO', t.DE_ONDE_VIERAM['POLICY_REFUSED'][0])
 
 
 class AContaQueTemDeFechar(unittest.TestCase):
     """100% nao precisa CHEGAR. 100% precisa ser EXPLICADO."""
 
     def test_tudo_explicado_fecha(self):
+        # ⚠️ `ERRORS` e `DEDUPED` eram os nomes ate O8C. O balde do erro
+        # chama-se `ERROR` — a lista de campos dizia ERRORS e a de destinos
+        # dizia ERROR, e `reconcilia` lia um campo que nunca existia: a conta
+        # fechava com o balde sempre vazio. E `DEDUPED` passou a `REUSED`,
+        # que e como a casa ja lhe chamava em dois writers anteriores.
         fecha, sobra = t.reconcilia({'INPUT_COUNT': 100, 'PASSED': 40,
-                                     'REJECTED': 30, 'ERRORS': 5,
+                                     'REJECTED': 30, 'ERROR': 5,
                                      'NOT_RUN': 0, 'UNKNOWN': 20,
-                                     'DEDUPED': 5})
+                                     'REUSED': 5})
         self.assertTrue(fecha)
         self.assertEqual(sobra, 0)
 

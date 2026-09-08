@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "6dae98f01b875078bba19e80e8aa29f12a46777e",
-    "GENERATED_AT": "2026-09-08T21:03:00+00:00"
+    "HEAD": "3cbeb8d670459a3fd6442bdae91824fb7423813c",
+    "GENERATED_AT": "2026-09-08T21:03:48+00:00"
   },
   "FILES": [
     {
@@ -6757,7 +6757,7 @@
     },
     {
       "path": "leis/diagnostico.py",
-      "sha": "bb6ce9e965ac494fa9d0635956606fb8d82cb987",
+      "sha": "f9a58f0ea19b92ecc47fb464ba2f003b3e5a92e6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6813,7 +6813,7 @@
     },
     {
       "path": "leis/telemetria.py",
-      "sha": "aae92853702b23f16144d5e00511a8ce6ef4adf3",
+      "sha": "12b193dbbfa888ce69c5ee19549c3d1d93148c57",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6918,14 +6918,14 @@
     },
     {
       "path": "medidas/rastro_da_coleta.py",
-      "sha": "d14c24684cc7794804a67941f22cefab42633a08",
+      "sha": "f871cb6783cbcf2d0b2d5f04c1c4b3f12d905549",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "medidas/scanner_da_coleta.py",
-      "sha": "ddcbc64b06e9a94be5f62fe1a8805a8f9b1438b6",
+      "sha": "b6a7ca9acab01039f62574bc5e10d28c060ff1cc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7466,6 +7466,13 @@
       "path": "provas/italy_pilot_negativos.mjs",
       "sha": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/paridade_da_lingua.py",
+      "sha": "3361d5e5da847a39fe889449d3b5386f851fc4b4",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -8423,7 +8430,7 @@
     },
     {
       "path": "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
-      "sha": "11ac249aa9381aeed6040784c8428fd85f6871cf",
+      "sha": "b6843b19e3f922f6afa97bf8db5e140c79ba1478",
       "ext": ".sql",
       "readable": false,
       "code_dir": false
@@ -8563,7 +8570,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "d48d80350373039ff7290512bc0dade03bcaaacf",
+      "sha": "72da12af6473ad92c8b98e5c79c8d8b272205124",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8584,7 +8591,7 @@
     },
     {
       "path": "system-map/scripts/censo_da_observabilidade.py",
-      "sha": "a6243ee3c51567d9e6491c0a50d4b29d2d9a2caa",
+      "sha": "b8ec1c915cd1dd2b9b51542ca61e6b9d3ce04c76",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8968,6 +8975,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_lingua_unica.py",
+      "sha": "bf1ed77638588a2a63facc60dabbdedb53bdc070",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_lugar_do_fato.py",
       "sha": "a876b6eb1500313bf6ee2222eeb3ad7a02dd6428",
       "ext": ".py",
@@ -9095,7 +9109,7 @@
     },
     {
       "path": "tests/test_rastro_pg.py",
-      "sha": "1a35a855eefd27916ae9477893fb10ff9ae67bcf",
+      "sha": "3c8a344f129722a935138b8c74497f6d604163a5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9137,7 +9151,7 @@
     },
     {
       "path": "tests/test_telemetria.py",
-      "sha": "58b40ad743fba03ae63b513510bbe3a4ac0a02c4",
+      "sha": "deba0869b754955d61715aaa47488636ef39f975",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17809,6 +17823,39 @@
       }
     },
     {
+      "from_file": "leis/telemetria.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/telemetria.py",
+        "line": 58,
+        "snippet": "import _gavetas   # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "leis/telemetria.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/telemetria.py",
+        "line": 60,
+        "snippet": "import diagnostico as dg   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "leis/telemetria.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/telemetria.py",
+        "line": 59,
+        "snippet": "import falhas     # noqa: E402"
+      }
+    },
+    {
       "from_file": "leis/v21_carimbar_origem.py",
       "to_file": "build/ITALY-REALITY-HANDOFF-V2/RELATIONSHIPS.json",
       "type": "READS",
@@ -18244,7 +18291,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "medidas/rastro_da_coleta.py",
-        "line": 141,
+        "line": 151,
         "snippet": "import social_sessao as ss"
       }
     },
@@ -18268,6 +18315,17 @@
         "file": "medidas/rastro_da_coleta.py",
         "line": 37,
         "snippet": "import falhas               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "medidas/rastro_da_coleta.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/rastro_da_coleta.py",
+        "line": 38,
+        "snippet": "import telemetria as tel    # noqa: E402"
       }
     },
     {
@@ -23551,6 +23609,83 @@
       }
     },
     {
+      "from_file": "provas/paridade_da_lingua.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/paridade_da_lingua.py",
+        "line": 36,
+        "snippet": "import _gavetas                     # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/paridade_da_lingua.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/paridade_da_lingua.py",
+        "line": 38,
+        "snippet": "import diagnostico as dg            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/paridade_da_lingua.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/paridade_da_lingua.py",
+        "line": 37,
+        "snippet": "import falhas                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/paridade_da_lingua.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/paridade_da_lingua.py",
+        "line": 39,
+        "snippet": "import telemetria as tel            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/paridade_da_lingua.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/paridade_da_lingua.py",
+        "line": 40,
+        "snippet": "import rastro_da_coleta as rastro   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/paridade_da_lingua.py",
+      "to_file": "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/paridade_da_lingua.py",
+        "line": 60,
+        "snippet": "open(MIGRATION, 'leitura')  # MIGRATION = supabase/migrations/024_a_corrida_conta_o_que_passou.sql"
+      }
+    },
+    {
+      "from_file": "provas/paridade_da_lingua.py",
+      "to_file": "system-map/scripts/censo_da_observabilidade.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/paridade_da_lingua.py",
+        "line": 174,
+        "snippet": "open(SCANNER, 'leitura')  # SCANNER = system-map/scripts/censo_da_observabilidade.py"
+      }
+    },
+    {
       "from_file": "provas/preflight_022_live.sh",
       "to_file": "motor/cadeia_canonica.sh",
       "type": "RUNS",
@@ -24690,7 +24825,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_da_observabilidade.py",
-        "line": 46,
+        "line": 47,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -24701,7 +24836,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_da_observabilidade.py",
-        "line": 50,
+        "line": 51,
         "snippet": "import aprender_com_a_fonte as apr  # noqa: E402"
       }
     },
@@ -24712,7 +24847,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_da_observabilidade.py",
-        "line": 48,
+        "line": 49,
         "snippet": "import evolucao as evo              # noqa: E402"
       }
     },
@@ -24723,7 +24858,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_da_observabilidade.py",
-        "line": 105,
+        "line": 106,
         "snippet": "'ONDE': 'leis/evolucao.py',"
       }
     },
@@ -24734,7 +24869,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_da_observabilidade.py",
-        "line": 51,
+        "line": 52,
         "snippet": "import fundacao_da_coleta as fdc    # noqa: E402"
       }
     },
@@ -24745,7 +24880,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_da_observabilidade.py",
-        "line": 49,
+        "line": 50,
         "snippet": "import gestao_da_coleta as ges      # noqa: E402"
       }
     },
@@ -24756,7 +24891,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_da_observabilidade.py",
-        "line": 114,
+        "line": 115,
         "snippet": "'ONDE': 'leis/gestao_da_coleta.py',"
       }
     },
@@ -24767,8 +24902,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_da_observabilidade.py",
-        "line": 47,
+        "line": 48,
         "snippet": "import telemetria as tel            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_da_observabilidade.py",
+      "to_file": "provas/paridade_da_lingua.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_da_observabilidade.py",
+        "line": 151,
+        "snippet": "[sys.executable, os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
       }
     },
     {
@@ -27511,6 +27657,105 @@
       }
     },
     {
+      "from_file": "tests/test_lingua_unica.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_lingua_unica.py",
+        "line": 21,
+        "snippet": "import _gavetas                     # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_unica.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_lingua_unica.py",
+        "line": 23,
+        "snippet": "import diagnostico as dg            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_unica.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_lingua_unica.py",
+        "line": 22,
+        "snippet": "import falhas                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_unica.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_lingua_unica.py",
+        "line": 24,
+        "snippet": "import telemetria as tel            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_unica.py",
+      "to_file": "leis/telemetria.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_lingua_unica.py",
+        "line": 56,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'telemetria.py'), encoding='utf-8').read()"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_unica.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_lingua_unica.py",
+        "line": 25,
+        "snippet": "import rastro_da_coleta as rastro   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_unica.py",
+      "to_file": "provas/paridade_da_lingua.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_lingua_unica.py",
+        "line": 244,
+        "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_unica.py",
+      "to_file": "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_lingua_unica.py",
+        "line": 29,
+        "snippet": "open(MIGRATION, 'leitura')  # MIGRATION = supabase/migrations/024_a_corrida_conta_o_que_passou.sql"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_unica.py",
+      "to_file": "system-map/scripts/censo_da_observabilidade.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_lingua_unica.py",
+        "line": 85,
+        "snippet": "open(caminho, 'leitura')  # caminho = system-map/scripts/censo_da_observabilidade.py"
+      }
+    },
+    {
       "from_file": "tests/test_lugar_do_fato.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -29228,6 +29473,17 @@
     },
     {
       "from_file": "tests/test_telemetria.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_telemetria.py",
+        "line": 16,
+        "snippet": "import falhas  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_telemetria.py",
       "to_file": "leis/telemetria.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -30304,7 +30560,7 @@
     "system-map/scripts/censo_da_observabilidade.py": [
       {
         "pasta": "system-map",
-        "line": 210,
+        "line": 237,
         "constante": "SAIDA"
       }
     ],
@@ -30366,10 +30622,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1317,
-    "files_readable": 475,
-    "files_code_dir": 526,
-    "file_edges": 1881,
+    "files_tracked": 1319,
+    "files_readable": 477,
+    "files_code_dir": 528,
+    "file_edges": 1903,
     "escritas_em_pasta": 65,
     "declared_missing_here": 0
   },

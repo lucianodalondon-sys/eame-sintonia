@@ -1790,7 +1790,8 @@
     "provas/social_persistencia_no_postgres.py",
     "provas/testa_coleta_canonica.py",
     "provas/testa_golden_path_pdf.py",
-    "provas/trava_de_drift_de_migration.sh"
+    "provas/trava_de_drift_de_migration.sh",
+    "provas/paridade_da_lingua.py"
    ],
    "views": [
     "audit"
@@ -2081,15 +2082,15 @@
   },
   {
    "id": "C-SCRAP-LEIS",
-   "name": "As leis do SCRAP — falhas e matriz de capacidade",
+   "name": "As leis do SCRAP — a taxonomia canonica da falha",
    "territory": "Z-REGUAS",
    "kind": "contract",
    "icon": "⚖",
    "views": [
     "acervo"
    ],
-   "what": "Os dois donos declarativos do SCRAP. `falhas.py` e a taxonomia canonica de falhas: 22 estados em tres camadas (SOURCE / ROUTE / EXECUTOR), com o que cada estado pede de recuperacao. `social_matriz.py` e o registro unico de capacidade por (plataforma, capability, rota) e tambem o dono do modelo de quota — dois baldes do YouTube, SEARCH e GENERAL, que nunca se somam. Inclui a lei que congela a inteligencia: enquanto COLLECTION_FOUNDATION_CLOSED nao for SIM, implementar, escrever e ativar inteligencia esta bloqueado — ler e desenhar, nao.",
-   "why_here": "Antes, o vocabulario de falha vivia preso a UMA rota e a quota vivia copiada dentro do adaptador. Copia diverge: o adaptador chegou a cobrar 100 unidades por `search.list` enquanto a matriz ja tinha o modelo certo. Com um dono so, ERRO NAO E ZERO e BLOCKED NAO E EMPTY deixam de depender de quem escreveu o if.",
+   "what": "`falhas.py` e o DONO UNICO do FAILURE STATE: 23 estados canonicos com camada (SOURCE/ROUTE/EXECUTOR), a flag `esperado` e a recuperacao, mais 54 nomes antigos traduzidos. Mais a matriz de capacidade e a fundacao da coleta.",
+   "why_here": "ROTA CAIDA NAO E FONTE CAIDA, e PARSER QUEBRADO NAO E FONTE VAZIA — sem estas camadas um coletor partido publica um zero que nao mediu nada. E anterior as duas sessoes que escreveram a observabilidade, e por isso e ELE o dono: quem chegou depois importa, nao redeclara.",
    "departments": [
     "ENGENHARIA"
    ],
@@ -2197,12 +2198,12 @@
   },
   {
    "id": "C-CONTRATO-TELEMETRIA",
-   "name": "O contrato da telemetria",
+   "name": "Contrato da telemetria — a forma do fluxo",
    "territory": "Z-REGUAS",
    "kind": "contract",
    "icon": "⧗",
-   "what": "O vocabulário e as leis que qualquer emissor de telemetria tem de cumprir: espécies de evento, estados de etapa, destinos do item, códigos de diagnóstico, grão de entrada e de saída, e a conta da reconciliação.",
-   "why_here": "MODULE WORKS ≠ EDGE WORKS ≠ FLOW WORKS. Cada módulo pode passar nos seus testes e o fluxo inteiro não trazer nada — três missões acharam estado publicado sem medição, sempre tarde. É contrato e não implementação de propósito: instalar OpenTelemetry ou Grafana antes de saber o que se quer perguntar é comprar a tampa antes de medir o buraco.",
+   "what": "Dono de DUAS perguntas e so dessas: o ESTADO DA ETAPA (7 valores) e o DESTINO DO ITEM (6 portas), mais a conta que tem de fechar. NAO e dono de codigo nenhum de falha ou de diagnostico: importa-os de `falhas.py` e `diagnostico.py` e expoe-os, para que ninguem precise de os copiar.",
+   "why_here": "Ate O8C este ficheiro declarava um registry proprio de 12 codigos, e TRES deles ja pertenciam a `falhas.py` — que e anterior e ja e importado por quatro coletores reais. O scanner lia esta lista e o writer lia a outra: WRITER TRUTH = A e SCANNER TRUTH = B. Um conceito, um dono; os outros importam. `provas/paridade_da_lingua.py` reprova se voltarem a divergir.",
    "departments": [
     "ENGENHARIA"
    ],
@@ -2345,7 +2346,7 @@
   },
   {
    "id": "C-GESTAO-COLETA",
-   "name": "A politica e o diagnostico da coleta",
+   "name": "Politica da coleta e roteamento de diagnostico",
    "territory": "Z-REGUAS",
    "kind": "contract",
    "icon": "⚖",
@@ -2354,8 +2355,8 @@
     "evolution",
     "collection-strategy"
    ],
-   "what": "O CONTEUDO da decisao de coletar: portao de satisfacao, acoes (CHECK separado de FETCH), tiers de prioridade, ciclo de vida da fonte, papeis, procedencia de candidata, e a politica V1 deterministica em modo SHADOW. Mais os codigos de diagnostico, que dizem o que esta quebrado no fluxo. A FRONTEIRA de quem decide o que vive na peca C-GESTAO-DA-COLETA, ao lado; esta preenche-a.",
-   "why_here": "O COLLECTION MANAGER NAO E UM SEGUNDO ORQUESTRADOR: ele responde O QUE e QUANDO, e entrega uma decisao. Quem responde COMO e por qual rota continua sendo o orquestrador. Um teste por AST recusa qualquer import de executor aqui. E nao ha nota magica: as dez dimensoes ficam separadas, porque SOURCE_SCORE = 87 esconde por que a fonte vale.",
+   "what": "Duas autoridades distintas. `politica_da_coleta.py` responde O QUE coletar e quando. `diagnostico.py` e o DONO UNICO do DIAGNOSTIC CODE: ONDE no fluxo parou, e que buraco estrutural isso denuncia — 17 codigos, cada um com o dono que tem de agir.",
+   "why_here": "DIAGNOSTIC CODE nao e FAILURE STATE. Uma falha de rede em FETCH tem as duas respostas e elas diferem: estado canonico `TRANSIENT_NETWORK_ERROR` (`falhas.py`) e codigo `FETCH_FAILED` (aqui). Zero nomes partilhados entre os dois registries, e um teste recusa qualquer colisao futura.",
    "departments": [
     "ENGENHARIA",
     "INTELIGENCIA"

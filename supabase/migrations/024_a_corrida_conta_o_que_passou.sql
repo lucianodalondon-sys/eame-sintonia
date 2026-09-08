@@ -19,7 +19,7 @@
 -- Criar uma tabela para cada seria transcrever o prompt, nao modelar o sistema.
 --
 -- Medido: uma PASSAGEM DE ETAPA ja e uma passagem de ARESTA (de onde veio, para
--- onde foi) com contagens; e uma FALHA ja e uma passagem com estado ERROR e os
+-- onde foi) com contagens; e uma FALHA ja e uma passagem com estado FAIL e os
 -- campos de diagnostico preenchidos. Sao a mesma linha vista de tres angulos.
 -- Separa-las obrigaria a fazer join para responder «o que aconteceu nesta
 -- etapa», e a manter tres verdades sobre o mesmo instante.
@@ -51,8 +51,28 @@ begin;
 -- proposito: um item recusado por regra e um FATO sobre o item; um item que
 -- explodiu e um fato sobre NOS. Junta-los apagaria a diferenca entre «a fonte
 -- disse nao» e «o nosso codigo quebrou» — que e a lei de `falhas.py`.
+-- ⚠️ CORRIGIDO EM O8C, ANTES DE QUALQUER APLICACAO.
+-- A versao anterior deste enum era uma MISTURA de duas perguntas:
+--
+--     PASS, REJECTED, UNKNOWN, ERROR, NOT_RUN, SKIPPED, NOT_APPLICABLE
+--
+-- `REJECTED` e `UNKNOWN` NAO sao estados de uma ETAPA — sao portas por onde um
+-- ITEM sai. Uma etapa nao e «recusada»; um item e. Com as duas especies no
+-- mesmo enum, `estado='REJECTED'` podia significar duas coisas e o banco
+-- aceitava as duas.
+--
+--     STAGE STATE != ITEM DESTINATION.
+--
+-- O dono do vocabulario e `leis/telemetria.py`, que ja as tinha separadas em
+-- duas tuplas. Este enum passa a ser EXATAMENTE `ESTADOS_DE_ETAPA`, e os
+-- destinos do item vivem onde sempre deviam ter vivido: nos baldes da
+-- contabilidade, mais abaixo. `provas/paridade_da_lingua.py` reprova se algum
+-- dia divergirem.
+--
+-- `FAIL` e nao `ERROR`: a ETAPA falha, o ITEM erra. Duas palavras porque sao
+-- duas coisas — e era a confusao entre elas que fazia um defeito parecer cinco.
 create type etapa_estado as enum (
-  'PASS', 'REJECTED', 'UNKNOWN', 'ERROR', 'NOT_RUN', 'SKIPPED', 'NOT_APPLICABLE');
+  'NOT_RUN', 'RUNNING', 'PASS', 'PARTIAL', 'FAIL', 'SKIPPED', 'NOT_APPLICABLE');
 
 -- As etapas canonicas da aquisicao. A fronteira desta missao termina em READY:
 -- INTELLIGENCE, PACKAGE, PORTAL e DELIVERY NAO entram, e nao entram de
@@ -138,18 +158,32 @@ create table public.etapa_da_corrida (
   -- ── A CONTABILIDADE ─────────────────────────────────────────────────
   -- NAO E OBRIGATORIO QUE 100% CHEGUE AO FIM.
   -- E OBRIGATORIO QUE 100% TENHA EXPLICACAO.
+  -- ⚠️ UM BALDE POR DESTINO DE ITEM, E EXATAMENTE OS DE `telemetria.py`.
+  -- Ate O8C faltavam dois e sobrava um:
+  --
+  --   FALTAVA `reused`   — a casa ja escrevia REUSED em `preservar_coleta.py`
+  --                        e `preservar_derivado.py`, ANTES desta missao. Sem
+  --                        o balde, 100 entradas com 60 novas e 40 reencontros
+  --                        davam UNACCOUNTED=40: um defeito inventado por
+  --                        falta de coluna, num fluxo que estava correto.
+  --   FALTAVA `not_run`  — item que nunca chegou a ser processado.
+  --   SOBRAVA `skipped`  — SKIPPED e estado de ETAPA, nao destino de ITEM.
+  --                        Estava aqui por copia do enum misturado acima.
   passed                integer not null default 0,
   rejected              integer not null default 0,
-  unknown_count         integer not null default 0,
   error_count           integer not null default 0,
-  skipped               integer not null default 0,
+  not_run_count         integer not null default 0,
+  unknown_count         integer not null default 0,
+  reused                integer not null default 0,
   -- Colunas GERADAS: ninguem escreve `accounted` a mao, e por isso ninguem
   -- pode escrever um numero que fecha sem fechar.
   accounted_input       integer generated always as
-                          (passed + rejected + unknown_count + error_count + skipped) stored,
+                          (passed + rejected + error_count
+                           + not_run_count + unknown_count + reused) stored,
   unaccounted_input     integer generated always as
                           (coalesce(input_count, 0)
-                           - (passed + rejected + unknown_count + error_count + skipped)) stored,
+                           - (passed + rejected + error_count
+                              + not_run_count + unknown_count + reused)) stored,
 
   estado                etapa_estado not null,
   custo_usd             numeric(12,6),
@@ -179,9 +213,9 @@ create table public.etapa_da_corrida (
   -- se esta a tentar consertar.
   UNIQUE (run_id, etapa, tentativa),
 
-  -- ERRO PRECISA DE CODIGO. Sem isto, um ERROR sem diagnostico e um alerta que
+  -- FALHA PRECISA DE CODIGO. Sem isto, um FAIL sem diagnostico e um alerta que
   -- ninguem sabe encaminhar — e o proximo a olhar vai ter de reproduzir tudo.
-  CONSTRAINT erro_tem_codigo CHECK (estado <> 'ERROR' OR diagnostic_code IS NOT NULL),
+  CONSTRAINT falha_tem_codigo CHECK (estado <> 'FAIL' OR diagnostic_code IS NOT NULL),
 
   -- ETAPA QUE CONSOME PRECISA DECLARAR O GRAO. Sem grao, contagem nao se
   -- compara com contagem — e foi assim que 100 -> 250 virou percentagem.
@@ -190,7 +224,7 @@ create table public.etapa_da_corrida (
 );
 create index etapa_run_idx    on public.etapa_da_corrida (run_id, etapa);
 create index etapa_fonte_idx  on public.etapa_da_corrida (source_id, comecou_em desc);
-create index etapa_estado_idx on public.etapa_da_corrida (estado) where estado = 'ERROR';
+create index etapa_estado_idx on public.etapa_da_corrida (estado) where estado = 'FAIL';
 -- Indice pelo proprio instante, e nao por `date_trunc('hour', ...)`: com
 -- `timestamptz` aquela funcao depende do fuso da sessao e o Postgres a recusa
 -- num indice, com razao — o mesmo instante cairia em horas diferentes para
@@ -199,7 +233,7 @@ create index etapa_hora_idx   on public.etapa_da_corrida (comecou_em);
 
 comment on table public.etapa_da_corrida is
   'UMA linha por passagem. Ela e ao mesmo tempo o STAGE TRACE, o EDGE PASSAGE '
-  '(edge_from -> etapa) e o FAILURE SNAPSHOT (estado=ERROR com diagnostico). '
+  '(edge_from -> etapa) e o FAILURE SNAPSHOT (estado=FAIL com diagnostico). '
   'Sao a mesma linha vista de tres angulos; separa-las manteria tres verdades '
   'sobre o mesmo instante.';
 comment on column public.etapa_da_corrida.unaccounted_input is
@@ -228,7 +262,8 @@ select
   sum(e.rejected)                                as recusados,
   sum(e.unknown_count)                           as unknown,
   sum(e.error_count)                             as com_erro,
-  sum(e.skipped)                                 as pulados,
+  sum(e.not_run_count)                           as nao_correram,
+  sum(e.reused)                                  as reencontrados,
   sum(e.unaccounted_input)                       as sem_explicacao,
   sum(coalesce(e.custo_usd, 0))                  as custo_usd,
   sum(coalesce(e.duracao_ms, 0))                 as duracao_ms
@@ -248,9 +283,9 @@ select
   e.source_id,
   e.route_class_id,
   count(*) filter (where e.estado = 'PASS')      as passagens_ok,
-  count(*) filter (where e.estado = 'ERROR')     as passagens_erro,
+  count(*) filter (where e.estado = 'FAIL')      as passagens_falha,
   max(e.comecou_em) filter (where e.estado = 'PASS')  as ultimo_sucesso,
-  max(e.comecou_em) filter (where e.estado = 'ERROR') as ultima_falha,
+  max(e.comecou_em) filter (where e.estado = 'FAIL') as ultima_falha,
   sum(coalesce(e.custo_usd, 0))                  as custo_total,
   avg(e.duracao_ms)                              as duracao_media_ms
 from public.etapa_da_corrida e

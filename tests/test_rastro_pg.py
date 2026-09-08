@@ -132,11 +132,11 @@ class RT_Falha(Base):
 
     # ── RT4 ───────────────────────────────────────────────────────────────
     def test_RT4_executor_que_morre_e_ERROR_e_nunca_REJECTED(self):
-        res = self._p('DERIVED', r.ERROR, input_grain='DOCUMENT', input_count=10,
+        res = self._p('DERIVED', r.FAIL, input_grain='DOCUMENT', input_count=10,
                       error=10, canonical_state='PARSER_DRIFT',
                       error_class='RuntimeError', error_message='o parser quebrou')
         p = r.passagens(self.banco, run_id=self.RUN)[0]
-        self.assertEqual(p['ESTADO'], 'ERROR')
+        self.assertEqual(p['ESTADO'], 'FAIL')
         self.assertEqual(p['REJECTED'], 0, 'um erro nosso virou recusa da fonte')
         self.assertEqual(res['DIAGNOSTIC_CODE'], dg.DERIVATION_FAILED)
 
@@ -144,19 +144,19 @@ class RT_Falha(Base):
         with self.assertRaises(RuntimeError):
             self.banco.executa(
                 "insert into public.etapa_da_corrida (run_id, etapa, estado)"
-                " values ('%s','DERIVED','ERROR')" % self.RUN)
+                " values ('%s','DERIVED','FAIL')" % self.RUN)
 
     # ── RT5 ───────────────────────────────────────────────────────────────
     def test_RT5_downstream_de_uma_falha_e_NOT_RUN(self):
         self._p('RAW', r.PASS, input_grain='DOCUMENT', input_count=10, passed=10,
                 last_good_artifact='raw_asset:1')
-        self._p('DERIVED', r.ERROR, edge_from='RAW', input_grain='DOCUMENT',
+        self._p('DERIVED', r.FAIL, edge_from='RAW', input_grain='DOCUMENT',
                 input_count=10, error=10, canonical_state='PARSER_DRIFT')
         self._p('STRUCTURED', r.NOT_RUN, edge_from='DERIVED')
         ps = r.passagens(self.banco, run_id=self.RUN)
         por = {p['ETAPA']: p['ESTADO'] for p in ps}
         self.assertEqual(por['RAW'], 'PASS')
-        self.assertEqual(por['DERIVED'], 'ERROR')
+        self.assertEqual(por['DERIVED'], 'FAIL')
         self.assertEqual(por['STRUCTURED'], 'NOT_RUN')
         self.assertNotEqual(por['STRUCTURED'], 'REJECTED')
 
@@ -167,10 +167,10 @@ class RT_Falha(Base):
 
     def test_mensagem_muda_codigo_nao(self):
         """ERROR MESSAGE != DIAGNOSTIC CODE."""
-        a = self._p('DERIVED', r.ERROR, error_message='falhou: versao 1',
+        a = self._p('DERIVED', r.FAIL, error_message='falhou: versao 1',
                     canonical_state='PARSER_DRIFT')
         self.banco.executa("delete from public.etapa_da_corrida")
-        b = self._p('DERIVED', r.ERROR, error_message='outro texto totalmente',
+        b = self._p('DERIVED', r.FAIL, error_message='outro texto totalmente',
                     canonical_state='PARSER_DRIFT')
         self.assertEqual(a['DIAGNOSTIC_CODE'], b['DIAGNOSTIC_CODE'])
 
@@ -187,7 +187,7 @@ class RT_Retomada(Base):
         self._p('FETCH', r.PASS, input_grain='DOCUMENT', input_count=10, passed=10)
         self._p('RAW', r.PASS, edge_from='FETCH', input_grain='DOCUMENT',
                 input_count=10, passed=10, last_good_artifact='raw_asset:1')
-        self._p('DERIVED', r.ERROR, edge_from='RAW', input_grain='DOCUMENT',
+        self._p('DERIVED', r.FAIL, edge_from='RAW', input_grain='DOCUMENT',
                 input_count=10, error=10, canonical_state='PARSER_DRIFT')
 
     # ── RT6 ───────────────────────────────────────────────────────────────
@@ -214,7 +214,7 @@ class RT_Retomada(Base):
         antes = [p for p in ps if p['ETAPA'] == 'RAW'][0]['LAST_GOOD_ARTIFACT']
         agora = 'raw_asset:2'
         self.assertNotEqual(antes, agora)
-        res = self._p('DERIVED', r.ERROR, tentativa=1, edge_from='RAW',
+        res = self._p('DERIVED', r.FAIL, tentativa=1, edge_from='RAW',
                       diagnostic_code=dg.UPSTREAM_ARTIFACT_CHANGED,
                       error_message='o RAW de cima mudou: %s -> %s' % (antes, agora))
         self.assertEqual(res['DIAGNOSTIC_CODE'], dg.UPSTREAM_ARTIFACT_CHANGED)
@@ -243,9 +243,9 @@ class RT_Relatorios(Base):
 
     def test_saude_e_do_par_fonte_mais_rota(self):
         self._p('FETCH', r.PASS, input_grain='DOCUMENT', input_count=1, passed=1)
-        self._p('FETCH', r.ERROR, tentativa=1, canonical_state='BLOCKED')
+        self._p('FETCH', r.FAIL, tentativa=1, canonical_state='BLOCKED')
         l = self.banco.executa(
-            "select source_id, route_class_id, passagens_ok, passagens_erro"
+            "select source_id, route_class_id, passagens_ok, passagens_falha"
             " from public.v_saude_da_rota")[0]
         self.assertEqual((l[0], l[1]), ('IT-T2-002', 'RC-1'))
         self.assertEqual((int(l[2]), int(l[3])), (1, 1))
@@ -343,7 +343,7 @@ class RT_NaoSeInventa(Base):
                         etapa='FETCH', estado=r.PASS)
 
     def test_segredo_nao_entra_no_rastro(self):
-        self._p('FETCH', r.ERROR, canonical_state='AUTH_EXPIRED',
+        self._p('FETCH', r.FAIL, canonical_state='AUTH_EXPIRED',
                 error_message='falhou com api_key=SEGREDO-MUITO-LONGO-AQUI')
         l = self.banco.executa(
             "select error_message_redacted from public.etapa_da_corrida")[0][0]
@@ -367,8 +367,8 @@ class RT_ScannerQuebraERestaura(Base):
                     input_grain='DOCUMENT', input_count=178,
                     output_grain='RAW_ASSET', output_count=178, passed=178,
                     last_good_artifact='raw_asset:178', **k)
-        if derived_estado == 'ERROR':
-            r.registrar(self.banco, etapa='DERIVED', estado='ERROR', edge_from='RAW',
+        if derived_estado == 'FAIL':
+            r.registrar(self.banco, etapa='DERIVED', estado='FAIL', edge_from='RAW',
                         input_grain='RAW_ASSET', input_count=178,
                         output_grain='DERIVED_ARTIFACT', output_count=109,
                         passed=109, error=69, canonical_state='PARSER_DRIFT', **k)
@@ -382,13 +382,13 @@ class RT_ScannerQuebraERestaura(Base):
         return sc
 
     def test_o_scanner_aponta_upstream_verde_etapa_vermelha_downstream_NOT_RUN(self):
-        sc = self._cadeia('ERROR')
+        sc = self._cadeia('FAIL')
         rel = sc.relatorio(self.banco, self.RUN)
         por = {p['ETAPA']: p['ESTADO'] for p in rel['PASSAGENS']}
         self.assertEqual(rel['HEALTH'], 'ERROR')
         self.assertEqual(por['FETCH'], 'PASS')
         self.assertEqual(por['RAW'], 'PASS')
-        self.assertEqual(por['DERIVED'], 'ERROR')
+        self.assertEqual(por['DERIVED'], 'FAIL')
         self.assertEqual(por['STRUCTURED'], 'NOT_RUN')
         self.assertEqual(rel['ULTIMO_BOM'], 'RAW')
         self.assertEqual(rel['RETRY_FROM'], 'DERIVED')
@@ -404,7 +404,7 @@ class RT_ScannerQuebraERestaura(Base):
         self.assertEqual(rel['ULTIMO_BOM'], 'DERIVED')
 
     def test_a_aresta_diz_de_onde_para_onde_e_quantos_atravessaram(self):
-        self._cadeia('ERROR')
+        self._cadeia('FAIL')
         p = [x for x in r.passagens(self.banco, run_id=self.RUN)
              if x['ETAPA'] == 'DERIVED'][0]
         self.assertEqual(p['EDGE_FROM'], 'RAW')

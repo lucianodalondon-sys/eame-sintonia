@@ -25,6 +25,11 @@ import coleta_checkpoint as cc      # noqa: E402
 import rastro_da_coleta as r        # noqa: E402
 import diagnostico as dg            # noqa: E402
 
+# ⚠️ ESTE E O VEREDITO DE SAUDE DA ROTA — uma TERCEIRA especie, e nao um
+# estado de etapa nem um destino de item. Uma etapa esta FAIL; um item saiu por
+# ERROR; uma ROTA esta com saude ERROR. Sao tres perguntas, e o valor textual
+# coincidir nao as torna a mesma: o dono deste vocabulario e o scanner, e ele
+# nao o importa de `telemetria` de proposito.
 SAUDE_OK = 'PASS'
 SAUDE_AVISO = 'WARN'
 SAUDE_ERRO = 'ERROR'
@@ -35,12 +40,18 @@ def saude(passagens):
     """PASS / WARN / ERROR / NOT_INSTRUMENTED. Vazio nunca e PASS."""
     if not passagens:
         return NAO_MEDIDA
-    if any(p['ESTADO'] == r.ERROR for p in passagens):
+    if any(p['ESTADO'] == r.FAIL for p in passagens):
         return SAUDE_ERRO
     if any(p['UNACCOUNTED'] for p in passagens):
         return SAUDE_ERRO           # buraco na contabilidade e erro, nao aviso
-    if any(p['ESTADO'] in (r.NOT_RUN, r.UNKNOWN) for p in passagens):
+    # ⚠️ `UNKNOWN` saiu daqui em O8C, e nao por limpeza: ele nunca foi estado
+    # de ETAPA. E destino de ITEM — «mediu-se e nao se sabe» — e passou a ser
+    # contado no balde `unknown_count`, nao no estado da passagem.
+    # `PARTIAL` entra: a etapa correu e trouxe parte, e isso e aviso, nao verde.
+    if any(p['ESTADO'] in (r.NOT_RUN, r.PARTIAL) for p in passagens):
         return SAUDE_AVISO
+    if any(p['UNKNOWN'] for p in passagens):
+        return SAUDE_AVISO          # UNKNOWN != ZERO: ha itens sem veredito
     return SAUDE_OK
 
 
