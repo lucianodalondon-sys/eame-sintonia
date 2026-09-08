@@ -20,6 +20,14 @@ name: canario-022
 
 on:
   workflow_dispatch:
+  # O `workflow_dispatch` so aparece quando o ficheiro ja esta no ramo
+  # principal, e este vive num ramo de trabalho. O gatilho por caminho e o
+  # idioma que esta casa ja usa para o mesmo problema — ver
+  # `supabase-storage.yml`. E e seguro repetir: o job so LE.
+  push:
+    paths:
+      - '.github/workflows/canario-022.yml'
+      - 'provas/preflight_022_live.sh' 
 
 permissions:
   contents: read
