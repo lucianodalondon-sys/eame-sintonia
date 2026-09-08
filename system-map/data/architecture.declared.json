@@ -2495,6 +2495,26 @@
    "views": [
     "audit"
    ]
+  },
+  {
+   "id": "C-ROTA-M2",
+   "name": "A rota forward do documento (M2)",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "⇥",
+   "what": "A costura DERIVED -> STRUCTURED -> ADMISSION sobre uma unidade real italiana. Chama os tres donos canonicos e conta cada passagem no mesmo ato em que ela acontece.",
+   "why_here": "MODULE EXISTS != EDGE EXISTS != FLOW EXISTS. As tres pecas ja existiam e nenhuma estava ligada a seguinte. A M2 nao reimplementa decisao nenhuma — cria a aresta e a telemetria, e termina em ADMISSION porque ADMISSION PASS != READY PASS (COL-LAW-043).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/rota_forward_documento.py"
+   ],
+   "views": [
+    "audit",
+    "trace",
+    "diagnostic"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

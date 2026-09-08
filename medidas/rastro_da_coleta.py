@@ -152,15 +152,28 @@ def registrar(banco, *, run_id, etapa, estado, edge_from=None, tentativa=0,
             'ESTADO': linha[2], 'DIAGNOSTIC_CODE': linha[3] or None}
 
 
+def _uma_linha(texto):
+    """Uma mensagem de erro nao pode partir o leitor do rastro.
+
+    ⚠️ MEDIDO NA M2: o `psql` devolve o erro em VARIAS linhas e com `|`, que e
+    o separador do leitor. Uma delas entrou no rastro e a leitura seguinte
+    partiu as colunas ao meio — `KeyError: DURACAO_MS`. O retrato da falha
+    estragava a leitura de TODAS as passagens da corrida, inclusive as boas.
+
+        UMA FALHA NAO PODE APAGAR O RELATO DAS QUE CORRERAM BEM.
+    """
+    return ' · '.join(str(texto).replace('|', '/').split())
+
+
 def _redigir(msg):
     """Nenhum segredo entra no rastro. O rastro e para ser lido."""
     if not msg:
         return None
     try:
         import social_sessao as ss
-        return ss.redigir(str(msg))[:400]
+        return _uma_linha(ss.redigir(str(msg)))[:400]
     except Exception:                                        # noqa: BLE001
-        return str(msg)[:400]
+        return _uma_linha(msg)[:400]
 
 
 # ═════════════════════════════════════════════════════════════════════════

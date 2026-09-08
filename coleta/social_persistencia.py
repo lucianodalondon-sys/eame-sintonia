@@ -206,8 +206,18 @@ def exigir_canal(banco, *, platform, channel_id):
 # ═════════════════════════════════════════════════════════════════════════
 def persistir_video(banco, *, canal_id, run_id, content_id, texto_canonico,
                     publicado_em=None, rule_version='v1', raw_durou=False,
-                    originalidade='ORIGINAL'):
-    """Grava o video e a observacao desta corrida. Idempotente.
+                    originalidade='ORIGINAL', tipo='video'):
+    """Grava o conteudo e a observacao desta corrida. Idempotente.
+
+    ⚠️ `tipo` PASSOU A SER PARAMETRO, E O DEFAULT MANTEM O QUE JA ERA.
+    Este writer e o dono de `public.conteudo`, mas escrevia `'video'` fixo no
+    SQL — a coluna `tipo` existia desde a 003 com nove valores, e ele so sabia
+    dizer um. Para um boletim tecnico em PDF a escolha era escrever `video`
+    (mentira no banco) ou abrir um SEGUNDO writer para a mesma tabela.
+
+        UM CONCEITO, UM DONO. O DONO APRENDE O TIPO — NAO NASCE OUTRO DONO.
+
+    O default `'video'` mantem todos os chamadores existentes byte a byte.
 
     `raw_durou` NAO tem default `True` de proposito: quem nao provar que o bruto
     sobreviveu nao escreve conteudo. A cadeia e RAW -> CONTEUDO, e inverter a
@@ -227,7 +237,7 @@ def persistir_video(banco, *, canal_id, run_id, content_id, texto_canonico,
         " insert into public.conteudo"
         " (canal_id, run_id, tipo, content_id, hash_conteudo, originalidade,"
         "  coletado_em, publicado_em, rule_version)"
-        " values (%s, %s, 'video', %s, %s, %s, now(), %s, %s)"
+        " values (%s, %s, %s, %s, %s, %s, now(), %s, %s)"
         " on conflict (canal_id, content_id) do nothing"
         " returning id)"
         " select coalesce((select id from novo),"
@@ -240,7 +250,7 @@ def persistir_video(banco, *, canal_id, run_id, content_id, texto_canonico,
         #     ON CONFLICT DO NOTHING SEM COMPARACAO NAO E IDEMPOTENCIA.
         "        coalesce((select hash_conteudo from public.conteudo"
         "                   where canal_id = %s and content_id = %s), '-')"
-        % (_lit(canal_id), _lit(run_id), _lit(content_id), _lit(h),
+        % (_lit(canal_id), _lit(run_id), _lit(tipo), _lit(content_id), _lit(h),
            _lit(originalidade), _lit(publicado_em), _lit(rule_version),
            _lit(canal_id), _lit(content_id),
            _lit(canal_id), _lit(content_id)))

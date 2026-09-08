@@ -56,6 +56,52 @@
     "PAGO": false,
     "PRODUCAO": false
    }
+  },
+  "coleta/rota_forward_documento.py": {
+   "EXECUTION_MODE": "FORWARD",
+   "PAPEL": "RUNNER — a costura, e nao um executor. Ela nao deriva, nao escreve conteudo e nao julga: chama os tres donos.",
+   "GOOD_PATH_PROVED": true,
+   "FAULT_PATH_PROVED": true,
+   "PROVA": "tests/test_m2_rota_forward.py",
+   "FRONTEIRA": "coleta/rota_forward_documento.py",
+   "EXECUTOR_MODIFICADO": false,
+   "ETAPAS_OBSERVADAS": [
+    "STRUCTURED",
+    "ADMISSION"
+   ],
+   "FORWARD": {
+    "FUNCAO": "atravessar()",
+    "FRONTEIRA": "coleta/rota_forward_documento.py",
+    "PROVA": "tests/test_m2_rota_forward.py",
+    "ETAPAS_OBSERVADAS": [
+     "DERIVED",
+     "STRUCTURED",
+     "ADMISSION"
+    ],
+    "PORQUE_DERIVED_CONTA": "a aresta DERIVED->STRUCTURED e observada por esta rota (edge_from=DERIVED), e a etapa DERIVED e emitida pela fronteira forward de O9R sobre a MESMA classe de rota. A rota atravessa as tres.",
+    "SOURCE_ID": "IT-T2-002",
+    "ROUTE_CLASS_ID": "RC-1",
+    "DONOS": {
+     "DERIVED": "coleta/derivacao_forward.py -> executor_texto_de_pdf.derivar_um()",
+     "STRUCTURED": "coleta/social_persistencia.py (dono de public.conteudo)",
+     "ADMISSION": "admissao/admissao.py (a peneira comum)"
+    },
+    "SEGUNDO_DONO_CRIADO": false,
+    "O_QUE_A_M2_CRIOU": "a COSTURA e a telemetria. Nenhuma das tres decisoes foi reimplementada; `persistir_video` aprendeu o parametro `tipo` (default `video`, sem mudar chamador nenhum) porque escrevia a especie fixa no SQL.",
+    "BANCO": "PostgreSQL 16 descartavel, migrations 001..024. Zero producao.",
+    "GOOD_PATH": "unidade real IT-T2-002 (ARPAV) · STRUCTURED PASS 1 · ADMISSION PASS 1 · UNACCOUNTED 0 · conteudo gravado com tipo=nota_tecnica",
+    "FAULT_PATH_STRUCTURED": "RAW nao durou -> STRUCTURED recusa por contrato -> ADMISSION NOT_RUN com UPSTREAM_NOT_RUN e LAST_GOOD=DERIVED. E uma excecao real no dono -> STRUCTURED FAIL com STRUCTURED_NOT_CONNECTED.",
+    "FAULT_PATH_ADMISSION": "a porta diz NAO no universo T9 -> ADMISSION continua PASS como ETAPA, o item sai por REJECTED, e a decisao guarda regra e motivo. UMA RECUSA NAO E UMA FALHA TECNICA.",
+    "READY_EMITIDO": false,
+    "PORQUE_SEM_READY": "COL-LAW-043. ADMISSION PASS != READY PASS: a porta dizer sim nao e a lei de READY cumprida."
+   },
+   "FORWARD_INSTRUMENTED": true,
+   "GAP_DECLARADO": "a identidade do canal NAO tem dono forward. `exigir_canal` recusa criar um (CHANNEL_IDENTITY_NOT_RESOLVED) porque `origem` exige pessoa OU organizacao, e o writer nao tem autoridade para escolher — CHANNEL_ID PROVA O CANAL, NAO PROVA A ORIGEM. Na prova, a identidade e resolvida no banco descartavel com dados REAIS do catalogo (ARPAV, IT-OWN-003). Em producao isto exige um dono de identidade, e ele nao existe. E o menor proximo trabalho.",
+   "SOURCE_ID": "IT-T2-002",
+   "ROUTE_CLASS_ID": "RC-1",
+   "REDE": false,
+   "PAGO": false,
+   "PRODUCAO": false
   }
  },
  "LEGACY_NAO_E_FORWARD": "REAL EXECUTOR != CANONICAL FORWARD FLOW. Um replay do corpo historico prova o INSTRUMENTO: que o writer, o storage e o scanner aguentam uma passagem real. NAO prova que o fluxo canonico forward esta instrumentado — e nao esta. Publicar LEGACY como FORWARD seria a mesma classe de mentira que chamar READY a um ficheiro guardado. ⚠️ ATUALIZADO: o forward passou a emitir, por coleta/derivacao_forward.py, e isso esta em FORWARD acima — com a sua propria prova contra Postgres real. As duas afirmacoes continuam separadas de proposito: LEGACY_REPLAY prova o INSTRUMENTO, FORWARD prova a ESTRADA. Junta-las voltaria a ser a mentira que este ficheiro existe para impedir."

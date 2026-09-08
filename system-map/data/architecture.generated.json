@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "8e1947d2d5dac39ba831ca6e637e14927a43101a",
-    "GENERATED_AT": "2026-09-08T23:05:07+00:00"
+    "HEAD": "a13565b66cbc3572b774a15ca30db4b55376716f",
+    "GENERATED_AT": "2026-09-08T23:10:20+00:00"
   },
   "FILES": [
     {
@@ -1296,6 +1296,13 @@
       "code_dir": true
     },
     {
+      "path": "coleta/rota_forward_documento.py",
+      "sha": "1eef51c78cef7a9e0d34ebd3f396a30a9487e863",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "coleta/rotulos_baixar.py",
       "sha": "aba8a506f4e2837a1f27e53952ec4ad8bc9edadb",
       "ext": ".py",
@@ -1325,7 +1332,7 @@
     },
     {
       "path": "coleta/social_persistencia.py",
-      "sha": "17df9e051ef7c4014fc292918840abd994e0b080",
+      "sha": "682f888100e0b3f3635ce20891f47782db14cdf2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6939,7 +6946,7 @@
     },
     {
       "path": "medidas/rastro_da_coleta.py",
-      "sha": "8e526bb43f34274275945ec9831f8ebec7f05248",
+      "sha": "4f98b838f4aa8eeb22a54485024d5a962a60d089",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8612,7 +8619,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "9428bc28b04c71ff431c568250f909c439f2a81b",
+      "sha": "cd46ebe5cafa68ed85487f71814372c4a27a67d0",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8626,7 +8633,7 @@
     },
     {
       "path": "system-map/data/provas-de-execucao.json",
-      "sha": "19d7be55b5c86b86c96682a661572306fcaada70",
+      "sha": "e046c5d45823667944a2acbc073e47c85313da48",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8696,7 +8703,7 @@
     },
     {
       "path": "system-map/scripts/censo_dos_executores.py",
-      "sha": "35a32f66fc564933b7a321bfda588582ad7c3777",
+      "sha": "d6c92172c680e9728434d5ad626f01aaecc17765",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8997,7 +9004,7 @@
     },
     {
       "path": "tests/test_forward_instrumentado.py",
-      "sha": "82970e14fd970a71c783a09da2d6aca8bd16de41",
+      "sha": "238288bdf0f24fff84c7bee3f6e211c251e8d49c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9059,6 +9066,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_m2_rota_forward.py",
+      "sha": "87f4c07e2c8ffb79b175216952836a0e7918f711",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_mapa_nao_mente.py",
       "sha": "b6236d0cc3abee9b259375435de20b15b730450e",
       "ext": ".py",
@@ -9088,7 +9102,7 @@
     },
     {
       "path": "tests/test_o10r_a_verdade_dos_nomes.py",
-      "sha": "107de6bd6a227a249588dcfd662cfaa2482eee62",
+      "sha": "4c5b2937b4de2b38e529ab632dd056ea5d922e1b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11377,6 +11391,72 @@
         "file": "coleta/ropf_pre_requisito.py",
         "line": 119,
         "snippet": "open(SAIDA, 'w')  # SAIDA = supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql"
+      }
+    },
+    {
+      "from_file": "coleta/rota_forward_documento.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/rota_forward_documento.py",
+        "line": 49,
+        "snippet": "import _gavetas                      # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/rota_forward_documento.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/rota_forward_documento.py",
+        "line": 50,
+        "snippet": "import admissao                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/rota_forward_documento.py",
+      "to_file": "coleta/social_persistencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/rota_forward_documento.py",
+        "line": 54,
+        "snippet": "import social_persistencia as sp     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/rota_forward_documento.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/rota_forward_documento.py",
+        "line": 51,
+        "snippet": "import diagnostico as dg             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/rota_forward_documento.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/rota_forward_documento.py",
+        "line": 52,
+        "snippet": "import falhas                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/rota_forward_documento.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/rota_forward_documento.py",
+        "line": 53,
+        "snippet": "import rastro_da_coleta as rastro    # noqa: E402"
       }
     },
     {
@@ -18558,7 +18638,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "medidas/rastro_da_coleta.py",
-        "line": 160,
+        "line": 173,
         "snippet": "import social_sessao as ss"
       }
     },
@@ -25780,12 +25860,23 @@
     },
     {
       "from_file": "system-map/scripts/censo_dos_executores.py",
+      "to_file": "provas/paridade_da_lingua.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_dos_executores.py",
+        "line": 400,
+        "snippet": "[sys.executable, os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_dos_executores.py",
       "to_file": "system-map/data/provas-de-execucao.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_dos_executores.py",
-        "line": 226,
+        "line": 227,
         "snippet": "open(PROVAS, 'leitura')  # PROVAS = system-map/data/provas-de-execucao.json"
       }
     },
@@ -28540,6 +28631,105 @@
       }
     },
     {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 16,
+        "snippet": "import _gavetas                       # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 17,
+        "snippet": "import admissao                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 18,
+        "snippet": "import coleta_checkpoint as cc        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 22,
+        "snippet": "import rota_forward_documento as m2   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 332,
+        "snippet": "'rota_forward_documento.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "coleta/social_persistencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 23,
+        "snippet": "import social_persistencia as sp      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 19,
+        "snippet": "import diagnostico as dg              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 20,
+        "snippet": "import falhas                         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 21,
+        "snippet": "import rastro_da_coleta as rastro     # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_mapa_nao_mente.py",
       "to_file": "provas/fluxo_no_seco.py",
       "type": "READS",
@@ -29019,7 +29209,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-        "line": 536,
+        "line": 554,
         "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
       }
     },
@@ -31713,7 +31903,7 @@
     "system-map/scripts/censo_dos_executores.py": [
       {
         "pasta": "system-map",
-        "line": 488,
+        "line": 517,
         "constante": "destino"
       }
     ],
@@ -31733,10 +31923,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1332,
-    "files_readable": 489,
-    "files_code_dir": 541,
-    "file_edges": 1994,
+    "files_tracked": 1334,
+    "files_readable": 491,
+    "files_code_dir": 543,
+    "file_edges": 2010,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

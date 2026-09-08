@@ -462,10 +462,28 @@ class R9_R10_DuasPerguntas(unittest.TestCase):
             self.assertEqual([], fw['QUAIS'])
 
     def test_R10_a_rota_mede_a_rota(self):
+        """⚠️ A LEI E O MECANISMO, E NAO O VALOR.
+
+        Este teste exigia `NO`. Enquanto STRUCTURED e ADMISSION nao corriam,
+        `NO` era a resposta certa — mas congelar a resposta faria a M2
+        reprovar por ter tido sucesso. E o mesmo erro do P1, um nivel abaixo.
+
+        O que tem de continuar verdade e que o veredito vem de UMA rota, e que
+        o que falta e SEMPRE dessa rota — nunca da uniao de todas.
+        """
         r = _censo()['M2']['M2_ROUTE']
-        self.assertEqual('NO', r['M2_ROUTE_OBSERVABILITY_READY'])
-        self.assertEqual({'STRUCTURED', 'ADMISSION'},
-                         set(r['ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS']))
+        self.assertIn(r['M2_ROUTE_OBSERVABILITY_READY'], ('YES', 'NO', 'UNKNOWN'))
+        rota = r.get('ROTA_MEDIDA')
+        if r['M2_ROUTE_OBSERVABILITY_READY'] == 'YES':
+            self.assertTrue(rota, 'YES sem rota medida por tras')
+            for etapa in ('STRUCTURED', 'ADMISSION'):
+                self.assertIn(etapa, rota['ETAPAS_OBSERVADAS'],
+                              'YES sem a MESMA rota observar %s' % etapa)
+            self.assertEqual([], r['ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS'])
+        else:
+            self.assertTrue(r['ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS'],
+                            'NO sem dizer o que falta')
+        self.assertIn('PORQUE_NAO_A_UNIAO_GLOBAL', r)
 
     def test_R9_R10_o_nome_antigo_que_juntava_as_duas_sumiu(self):
         texto = json.dumps(_censo(), ensure_ascii=False)

@@ -251,20 +251,31 @@ class OLedgerEOCenso(unittest.TestCase):
         self.assertEqual("YES", fw["CANONICAL_FORWARD_PATH_PROVED"])
         self.assertIn("coleta/derivacao_forward.py", fw["FRONTEIRAS"])
 
-    def test_a_rota_da_m2_continua_NO_e_isso_nao_mudou(self):
+    def test_a_rota_da_m2_so_e_YES_com_as_duas_etapas_na_MESMA_rota(self):
         """⚠️ O INSTRUMENTO EXISTIR NAO E A ROTA SER OBSERVAVEL.
 
-        Instrumentar o forward NAO torna STRUCTURED e ADMISSION observados.
-        Se este teste alguma vez reprovar por o campo ter virado YES sem essas
-        duas etapas correrem, e a mesma mentira, com um nome novo."""
+        Este teste exigia `NO`, e enquanto STRUCTURED e ADMISSION nao corriam
+        `NO` era a resposta certa. A M2 fez as duas correrem — e um teste que
+        congela a resposta reprovaria a missao por ela ter tido sucesso.
+
+        A lei que ele protege NAO era «fica NO». Era: o campo so pode virar
+        YES quando as duas etapas correrem NA MESMA ROTA. E essa continua
+        inteira, e mais dura do que antes."""
         import json
         with open(os.path.join(RAIZ, "system-map", "data",
                                "executores.generated.json"), encoding="utf-8") as f:
             censo = json.load(f)
         rota = censo["M2"]["M2_ROUTE"]
-        self.assertEqual("NO", rota["M2_ROUTE_OBSERVABILITY_READY"])
-        self.assertEqual(["STRUCTURED", "ADMISSION"],
-                         rota["ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS"])
+        if rota["M2_ROUTE_OBSERVABILITY_READY"] != "YES":
+            self.assertTrue(rota["ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS"],
+                            "NO sem dizer o que falta")
+            return
+        medida = rota.get("ROTA_MEDIDA")
+        self.assertTrue(medida, "YES sem uma rota concreta por tras")
+        for etapa in ("STRUCTURED", "ADMISSION"):
+            self.assertIn(etapa, medida["ETAPAS_OBSERVADAS"],
+                          "YES sem a MESMA rota observar %s" % etapa)
+        self.assertTrue(medida.get("PROVA"), "YES sem prova apontavel")
 
 
 if __name__ == "__main__":

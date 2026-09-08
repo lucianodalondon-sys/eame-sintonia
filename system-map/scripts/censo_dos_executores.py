@@ -26,6 +26,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(os.path.dirname(AQUI))
@@ -365,9 +366,13 @@ def principal():
     # A ORDEM E A DA ROTA, e nao alfabetica: DERIVED -> STRUCTURED ->
     # ADMISSION e uma sequencia, e ler «ADMISSION, STRUCTURED» inverte o
     # caminho na cabeca de quem le.
-    vistas = set()
-    for r in candidatas:
-        vistas |= set(r['ETAPAS_OBSERVADAS'])
+    # O que falta E DA ROTA COMPLETA se ela existir; senao, da melhor
+    # candidata — nunca da uniao, que foi o defeito que isto fechou.
+    melhor = rota_completa or (max(candidatas,
+                                   key=lambda r: len(set(rota_m2) &
+                                                     set(r['ETAPAS_OBSERVADAS'])),
+                                   default=None))
+    vistas = set((melhor or {}).get('ETAPAS_OBSERVADAS') or [])
     faltam = [] if rota_completa else [e for e in rota_m2 if e not in vistas]
 
     # ── E UMA TERCEIRA PERGUNTA, QUE TAMBEM ESTAVA ESCONDIDA NAS OUTRAS ──
@@ -383,15 +388,31 @@ def principal():
                if v.get('FORWARD_INSTRUMENTED')}
     forward_provado = sorted(forward)
 
+    # ⚠️ CLAIMED CRITERION MUST BE CONSUMED CRITERION.
+    # Este portao LISTAVA «paridade_da_lingua.py PASS» entre os criterios e
+    # NAO a consumia: o veredito saia so de `tem_bom` e `tem_falha`. Com o
+    # contrato, o banco, o writer e o scanner em desacordo, ele continuaria a
+    # dizer YES — a afirmar uma coisa que nao tinha medido.
+    #
+    # Nao se inventou prova nova: consome-se a que ja existe, e ela e um
+    # artefato reproduzivel com codigo de saida proprio.
+    paridade = subprocess.run(
+        [sys.executable, os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],
+        capture_output=True, text=True)
+    paridade_passa = paridade.returncode == 0
+
     instrumento = {
         'TELEMETRY_INFRASTRUCTURE_PROVED': (
-            'YES' if tem_bom >= 1 and tem_falha >= 1 else 'NO'),
+            'YES' if (paridade_passa and tem_bom >= 1 and tem_falha >= 1)
+            else 'NO'),
         'O_QUE_MEDE': (
             'o instrumento — contrato, storage, writer e scanner — aguenta uma '
             'passagem real, boa e quebrada. Mede UMA coisa so.'),
         'CRITERIOS': {
-            'CONTRATO_IMPLEMENTAVEL_PONTA_A_PONTA':
-                'paridade_da_lingua.py PASS (contrato=storage=writer=scanner)',
+            'CONTRATO_IMPLEMENTAVEL_PONTA_A_PONTA': paridade_passa,
+            'ONDE_SE_MEDE_ISSO': 'provas/paridade_da_lingua.py (consumida, e '
+                                 'nao citada: o codigo de saida dela entra no '
+                                 'veredito)',
             'CAMINHO_REAL_PROVADO_BOM': tem_bom >= 1,
             'CAMINHO_REAL_PROVADO_QUEBRADO': tem_falha >= 1,
             'CONTABILIDADE_FECHA': tem_bom >= 1,
@@ -423,7 +444,15 @@ def principal():
     }
 
     rota = {
-        'M2_ROUTE_OBSERVABILITY_READY': ('YES' if not faltam else 'NO'),
+        # ⚠️ O VEREDITO VEM DE `rota_completa`, E NAO DE `faltam`.
+        # Uma mutacao apanhou isto: com a rota A a observar STRUCTURED e a rota
+        # B a observar ADMISSION, `faltam` — calculado sobre a UNIAO das
+        # candidatas — dava vazio, e o portao abria. Era o mesmo falso verde,
+        # um nivel mais fundo: o denominador tinha sido corrigido e o veredito
+        # continuava a ler a soma.
+        #
+        #     UMA ROTA COM AS DUAS != DUAS ROTAS COM UMA CADA.
+        'M2_ROUTE_OBSERVABILITY_READY': ('YES' if rota_completa else 'NO'),
         'O_QUE_MEDE': ('se a rota que a M2 vai construir — DERIVED -> '
                        'STRUCTURED -> ADMISSION — ja emite telemetria.'),
         'ROTA_MEDIDA': (rota_completa or
