@@ -1295,11 +1295,15 @@
       "tests/.gitkeep",
       "tests/es/test_adama_es_gate.py",
       "tests/es/test_adama_es_import_rules.py",
+      "tests/fixtures/ARESTAS/README.md",
+      "tests/fixtures/ARESTAS/codigo_real.py",
+      "tests/fixtures/ARESTAS/so_comentario.py",
       "tests/fixtures/YT-RUN-34258433872/PROCEDENCIA.md",
       "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/test_adama_relevance.py",
+      "tests/test_arestas.py",
       "tests/test_armazem_italiano.py",
       "tests/test_biblia.py",
       "tests/test_calendario_temporal.py",
@@ -1335,6 +1339,7 @@
       "tests/test_proveniencia.py",
       "tests/test_radar_futuro.py",
       "tests/test_red_team_estrada.py",
+      "tests/test_route_membership.py",
       "tests/test_social_persistencia_pg.py",
       "tests/test_social_sessao.py",
       "tests/test_thread_parcial.py",
@@ -1729,8 +1734,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "a675bc3f790e146ee36c138e5ef918748ff62051",
-    "GENERATED_AT": "2026-09-08T19:25:26+00:00"
+    "HEAD": "a8d4de7b86174045f4eeeac1820053f4dc5954e7",
+    "GENERATED_AT": "2026-09-08T19:42:28+00:00"
   },
   "FAMILIES": [
     {
@@ -7231,7 +7236,7 @@
       "name": "O censo das classes de estrada da coleta italiana",
       "territory": "Z-PROVA",
       "kind": "engine",
-      "what": "Mede as classes de estrada da coleta IT e CALCULA os estados que o mapa de fechamento publica: ARCHITECTURE_CLOSED, OBSERVATION_STATE, e as contagens de fonte por PROVEN / CANDIDATE / UNKNOWN. Le o modelo em `estradas-it.model.json` — que diz quais etapas cada estrada tem e quem SERIA o dono — e mede, etapa a etapa, se o dono existe no disco e se ele cita o artefato da etapa anterior.",
+      "what": "Mede as classes de estrada da coleta IT e CALCULA os estados que o mapa de fechamento publica: ARCHITECTURE_CLOSED, OBSERVATION_STATE, e as contagens de fonte por PROVEN / CANDIDATE / UNKNOWN. Le o modelo em `estradas-it.model.json` — que diz quais etapas cada estrada tem e quem SERIA o dono — e mede, etapa a etapa, se o dono existe no disco e se ele cita o artefato da etapa anterior. As fixtures em `tests/fixtures/ARESTAS/` sao a prova viva de que a escada distingue comentario, codigo direto e caminho transitivo — nao apagar.",
       "why_here": "A versao anterior do mapa publicava «2 estradas fechadas» porque uma pessoa escreveu 2. Quando a medicao passou a rodar, o resultado foi ZERO: `guarda/importar_italia.py` estava listado como o STRUCTURED da estrada do documento oficial e nao le `derived_artifact` nenhum. OWNER EXISTS NAO E OWNER CONNECTED, e um numero escrito a mao nunca descobre isso sozinho. Aqui os dois eixos ficam separados de proposito: uma estrada pode ter arquitetura fechada e nunca ter rodado, e uma cor nao responde duas perguntas.",
       "departments": [
         "ENGENHARIA"
@@ -7248,11 +7253,13 @@
       "family": "F-INTELIGENCIA",
       "files": [
         "system-map/data/estradas-it.model.json",
-        "system-map/scripts/censo_das_estradas_it.py"
+        "system-map/scripts/censo_das_estradas_it.py",
+        "tests/fixtures/ARESTAS/codigo_real.py",
+        "tests/fixtures/ARESTAS/so_comentario.py"
       ],
-      "file_count": 2,
+      "file_count": 4,
       "status": "PENDING",
-      "status_reason": "existe teste que exercita isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "existe teste que exercita isto.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -7289,7 +7296,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_das_estradas_it.py",
-            "line": 665,
+            "line": 829,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -12308,6 +12315,7 @@
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
         "tests/test_adama_relevance.py",
+        "tests/test_arestas.py",
         "tests/test_armazem_italiano.py",
         "tests/test_biblia.py",
         "tests/test_calendario_temporal.py",
@@ -12343,6 +12351,7 @@
         "tests/test_proveniencia.py",
         "tests/test_radar_futuro.py",
         "tests/test_red_team_estrada.py",
+        "tests/test_route_membership.py",
         "tests/test_social_persistencia_pg.py",
         "tests/test_social_sessao.py",
         "tests/test_thread_parcial.py",
@@ -12356,9 +12365,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 50,
+      "file_count": 52,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 10 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 12 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -12436,7 +12445,7 @@
       },
       "paises_dado": {
         "ESPANHA": 44,
-        "ITALIA": 8,
+        "ITALIA": 9,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -14065,7 +14074,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD a675bc3f790e146ee36c138e5ef918748ff62051"
+        "HEAD a8d4de7b86174045f4eeeac1820053f4dc5954e7"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17761,8 +17770,18 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O censo das classes de estrada da coleta italiana alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O censo das classes de estrada da coleta italiana alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_arestas.py",
+          "line": 32,
+          "snippet": "n = self._nivel('so_comentario.py')"
+        },
+        {
+          "file": "tests/test_arestas.py",
+          "line": 47,
+          "snippet": "n = self._nivel('codigo_real.py')"
+        },
         {
           "file": "tests/test_estradas_it.py",
           "line": 35,
@@ -17772,6 +17791,16 @@
           "file": "tests/test_estradas_it.py",
           "line": 50,
           "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
+        },
+        {
+          "file": "tests/test_route_membership.py",
+          "line": 30,
+          "snippet": "'censo_das_estradas_it.py')],"
+        },
+        {
+          "file": "tests/test_route_membership.py",
+          "line": 108,
+          "snippet": "'estradas-it.model.json'), encoding='utf-8') as f:"
         }
       ],
       "categoria": "PROOF"
@@ -18617,7 +18646,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 357,
+          "line": 449,
           "snippet": "open(LEDGER, 'leitura')  # LEDGER = data/collection-ledger/italy/observations.ndjson"
         }
       ],
@@ -19473,7 +19502,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 210,
+          "line": 265,
           "snippet": "open(caminho, 'leitura')  # caminho = orquestrador/orquestrador.py"
         }
       ],
@@ -20861,7 +20890,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 536,
+          "line": 693,
           "snippet": "import receitas                                    # noqa: PLC0415"
         }
       ],
@@ -21453,7 +21482,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 605,
+          "line": 762,
           "snippet": "'MATRIZ': 'leis/social_matriz.py',"
         }
       ],
@@ -23767,7 +23796,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 696,
+  "UNCLAIMED_FILES_COUNT": 697,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 120,
@@ -23779,8 +23808,8 @@
     "edges_proven": 429,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1283,
-    "files_covered": 587,
+    "files_tracked": 1288,
+    "files_covered": 591,
     "files_code_unclaimed": 0
   }
 }

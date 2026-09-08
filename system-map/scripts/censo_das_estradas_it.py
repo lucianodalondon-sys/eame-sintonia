@@ -145,19 +145,39 @@ def _existe(caminho):
 #
 #     CONNECTION_DISCOVERY  achar candidatos e barato — grep serve
 #     CONNECTION_PROOF      provar custa mais — e so ele fecha arquitetura
-SEM_EVIDENCIA = 'NO_CONNECTION_EVIDENCE'
+# O NOME MUDOU, E O NOME ERA O ERRO. `NO_CONNECTION_EVIDENCE` afirmava um
+# universal — «quem nao menciona nao pode estar ligado» — que e falso:
+#
+#     owner.py      from ajudante import persistir; return persistir(x)
+#     ajudante.py   select ... from derived_artifact
+#
+# `owner.py` nao contem a string, e ha caminho executavel. Reproduzido em
+# `tests/fixtures/ARESTAS/owner_indireto.py`.
+#
+#     AUSENCIA DE REFERENCIA DIRETA NAO E AUSENCIA DE CONEXAO.
+#
+# O scanner local so pode dizer o que ele viu no ficheiro que leu. Por isso o
+# negativo passa a chamar-se `NO_DIRECT_REFERENCE`: um FACTO sobre aquele
+# ficheiro, nao um veredito sobre a ligacao.
+SEM_REFERENCIA = 'NO_DIRECT_REFERENCE'
 CANDIDATA = 'CANDIDATE_CONNECTION'
-POR_CODIGO = 'CODE_CONNECTED'
+TRANSITIVA = 'TRANSITIVE_CODE_PATH'
+POR_CODIGO = 'DIRECT_CODE_REFERENCE'
 POR_TESTE = 'TESTED_CONNECTION'
 OBSERVADA = 'OBSERVED_CONNECTION'
 NAO_SE_APLICA = 'CONNECTION_NOT_APPLICABLE'
 
-ESCADA = (SEM_EVIDENCIA, CANDIDATA, POR_CODIGO, POR_TESTE, OBSERVADA)
+ESCADA = (SEM_REFERENCIA, CANDIDATA, TRANSITIVA, POR_CODIGO, POR_TESTE, OBSERVADA)
 
-# O degrau minimo que FECHA uma aresta. `CANDIDATE` fica de fora de proposito:
-# era exatamente ele que pintava verde cedo demais. `OBSERVED` NAO e exigido —
-# arquitetura e observacao continuam eixos separados.
-DEGRAU_QUE_FECHA = POR_CODIGO
+# Fecham: transitiva e acima. `CANDIDATE` continua de fora — era ele que pintava
+# verde cedo demais. `OBSERVED` continua nao exigido: arquitetura e observacao
+# sao eixos separados.
+DEGRAU_QUE_FECHA = TRANSITIVA
+
+# Quantos saltos de import o resolvedor segue. DOIS, e nao «todos»: um call
+# graph universal deste repositorio seria uma missao inteira, e o mapa so
+# precisa das arestas que ele declara. Quem precisar de mais fundo, declara.
+SALTOS = 2
 
 
 def _codigo_executavel(caminho):
@@ -191,36 +211,94 @@ def _codigo_executavel(caminho):
         return None
 
 
+def _modulos_importados(caminho):
+    """Os modulos que este ficheiro importa, resolvidos para ficheiros do repo.
+
+    So resolve o que existe AQUI: `import json` nao interessa, e seguir a
+    biblioteca padrao seria seguir o mundo inteiro. As gavetas do projeto
+    (`_gavetas.py`) poem os modulos no caminho por NOME, entao procurar pelo
+    nome do modulo nas pastas do repositorio e o que corresponde a como o
+    processo realmente os encontra.
+    """
+    import ast
+    try:
+        with open(caminho, encoding='utf-8', errors='ignore') as f:
+            arvore = ast.parse(f.read())
+    except (SyntaxError, ValueError, OSError):
+        return []
+    nomes = set()
+    for no in ast.walk(arvore):
+        if isinstance(no, ast.Import):
+            for a in no.names:
+                nomes.add(a.name.split('.')[0])
+        elif isinstance(no, ast.ImportFrom):
+            if no.module:
+                nomes.add(no.module.split('.')[0])
+    achados = []
+    for nome in sorted(nomes):
+        for raiz, _sub, ficheiros in os.walk(RAIZ):
+            partes = raiz.replace('\\', '/').split('/')
+            if any(p in ('.git', '__pycache__', 'node_modules') for p in partes):
+                continue
+            if nome + '.py' in ficheiros:
+                achados.append(os.path.join(raiz, nome + '.py'))
+                break
+    return achados
+
+
 def _liga(edge, prova_de_teste=None, prova_observada=None):
     """Em que DEGRAU esta a aresta. Devolve um nome da escada, ou None.
 
-    None = nao ha aresta a medir (uma etapa cujo dono e um catalogo, por
-    exemplo). Diferente de `NO_CONNECTION_EVIDENCE`, que e um veredito.
+    None = nao ha aresta a medir (etapa cujo dono e um catalogo, por exemplo).
+    Diferente de `NO_DIRECT_REFERENCE`, que e um facto sobre o ficheiro lido.
 
-    O grep continua, e continua util — para o NAO. Quem nao menciona o artefato
-    nem em comentario nao pode estar ligado, e isso e definitivo e barato. O que
-    mudou e o SIM: mencionar so promove a candidata.
+    A ordem das perguntas vai da mais barata a mais cara, e para na primeira que
+    responde. O grep continua util — mas o negativo dele passou a significar so
+    «neste ficheiro nao ha referencia direta», que e o que ele de facto viu.
     """
     if not edge:
         return None
     ficheiro, agulha = edge
     caminho = os.path.join(RAIZ, ficheiro)
     if not os.path.exists(caminho):
-        return SEM_EVIDENCIA
+        return SEM_REFERENCIA
     with open(caminho, encoding='utf-8', errors='ignore') as f:
         bruto = f.read()
-    if agulha not in bruto:
-        return SEM_EVIDENCIA                # o grep NEGATIVO e prova
-    if prova_observada:
-        return OBSERVADA
-    if prova_de_teste:
-        return POR_TESTE
-    codigo = _codigo_executavel(caminho)
-    if codigo is None:
-        # Nao e Python (ou nao compila): nao da para subir alem de candidata
-        # sem inventar um segundo analisador.
+
+    if agulha in bruto:
+        if prova_observada:
+            return OBSERVADA
+        if prova_de_teste:
+            return POR_TESTE
+        codigo = _codigo_executavel(caminho)
+        if codigo is None:
+            return CANDIDATA        # nao e Python: nao da para subir mais
+        if agulha in codigo:
+            return POR_CODIGO
+        # Menciona so fora do codigo executavel. Ainda pode haver caminho
+        # transitivo — a mencao em comentario nao o impede nem o prova.
+
+    # ── O CAMINHO TRANSITIVO ──────────────────────────────────────────────
+    # `owner -> ajudante -> derived_artifact` e uma ligacao real, e o ficheiro
+    # do owner nao contem a string. Sem isto o instrumento chamava esse caso de
+    # «sem conexao».
+    vistos, fila = {caminho}, [(caminho, 0)]
+    while fila:
+        atual, salto = fila.pop(0)
+        if salto >= SALTOS:
+            continue
+        for vizinho in _modulos_importados(atual):
+            if vizinho in vistos:
+                continue
+            vistos.add(vizinho)
+            codigo = _codigo_executavel(vizinho)
+            if codigo and agulha in codigo:
+                return TRANSITIVA
+            fila.append((vizinho, salto + 1))
+
+    if agulha in bruto:
         return CANDIDATA
-    return POR_CODIGO if agulha in codigo else CANDIDATA
+    return SEM_REFERENCIA
 
 
 def _fecha(degrau):
@@ -262,6 +340,13 @@ def rotas_medidas():
                 'CONNECTION_LEVEL': ligado,
                 'CONNECTED_TO_ROUTE': (None if ligado is None
                                        else _fecha(ligado)),
+                # A ausencia so e CONCLUSIVA onde o contrato da etapa exige
+                # toque direto — e isso e declarado por aresta, nunca suposto.
+                # Em toda outra, `NO_DIRECT_REFERENCE` e um facto sobre o
+                # ficheiro lido, e nao um veredito sobre a ligacao.
+                'ABSENCE_IS_CONCLUSIVE': bool(
+                    passo.get('DIRECT_REQUIRED') and ligado == SEM_REFERENCIA),
+                'DIRECT_REQUIRED': bool(passo.get('DIRECT_REQUIRED')),
                 'EDGE_TEST': passo.get('EDGE_TEST'),
                 'EDGE_OBSERVED': passo.get('EDGE_OBSERVED'),
                 'PROOF_KIND': passo.get('PROOF_KIND'),
@@ -343,6 +428,13 @@ HISTORICO = 'HISTORICALLY_OBSERVED'         # ja foi colhido, e ha recibo
 PORTA_VIVA = 'LIVE_METADATA_PROVEN'         # responde, e so
 BUSCA_VIVA = 'LIVE_FETCH_PROVEN'            # o byte veio e virou raw_asset
 
+# As pistas que sao ENDERECO, e nao palavra. A lista e curta de proposito: o
+# que nao esta aqui nao vira pertenca, por mais sugestivo que soe.
+PISTA_PDF = 'link .pdf na pagina'
+PISTA_PLANILHA = 'link de planilha'
+PISTA_CSV = 'link .csv na pagina'
+PISTA_FEED = 'RSS declarado no <head>'
+
 PROVADA = 'PROVEN'
 CANDIDATA_M = 'CANDIDATE'
 DECLARADA_M = 'DECLARED'
@@ -405,6 +497,7 @@ def memberships():
         sid = f.get('SOURCE_ID')
         acesso = f.get('ACCESS_METHOD')
         obs = led.get(sid) or []
+        pistas = {p for r in (prb.get(sid) or []) for p in (r.get('PISTAS') or [])}
         # 1 · O CANARIO — a unica rota buscada ponta a ponta.
         if sid == canario.get('SOURCE_ID'):
             saida.append({
@@ -445,7 +538,34 @@ def memberships():
                     'WHAT_IS_MISSING': ('uma captura pela cadeia canonica '
                                         '(Storage + raw_asset), como a do canario'),
                 })
-        # 3 · A FORMA que o catalogo declara ou espera.
+        # 3 · AS PISTAS DE MAQUINA DO PROBE. So endpoint conta.
+        #
+        # O probe nao preservou amostra — ele proprio avisa: «este probe NAO
+        # preserva amostra, ele so mede a porta». Mas ele registou PISTAS, e
+        # nem todas valem o mesmo:
+        #
+        #     `link .pdf na pagina`      um <a href> observado. E ENDPOINT.
+        #     `RSS declarado no <head>`  um <link rel=alternate>. E ENDPOINT.
+        #     `a palavra 'bollettin'`    e uma palavra. NAO PROVA NADA.
+        #     `WordPress`                a plataforma. NAO PROVA NADA.
+        #     `area reservada / login`   existe login em ALGUM lugar do site.
+        #                                Nao diz que o boletim exige login.
+        #
+        # Uma pagina MENCIONAR pdf nao prova que aquele pdf e o produto da
+        # fonte. Um LINK para .pdf e outra coisa: e um endereco.
+        for pista, alvo in ((PISTA_PDF, 'RC-1'), (PISTA_PLANILHA, 'RC-10'),
+                            (PISTA_FEED, 'RC-12')):
+            if (pista in pistas or (pista == PISTA_PLANILHA and PISTA_CSV in pistas)) and not obs and sid != canario.get('SOURCE_ID'):
+                saida.append({
+                    'SOURCE_ID': sid, 'ROUTE_CLASS_ID': alvo,
+                    'ROLE': 'PRIMARY', 'STATE': CANDIDATA_M,
+                    'PROOF_KIND': PORTA_VIVA, 'PROOF_REF': 'probe 2026-09-07: %s' % pista,
+                    'ACCESS_METHOD': acesso, 'ACCESS_METHOD_STATE': ESPERADO,
+                    'BLOCKER': None,
+                    'WHAT_IS_MISSING': ('buscar o endereco e preserva-lo pela cadeia '
+                                        'canonica: o link foi VISTO, o byte nao'),
+                })
+        # 4 · A FORMA que o catalogo declara ou espera.
         alvo, degrau = _forma_declarada(acesso)
         if alvo and not obs and sid != canario.get('SOURCE_ID'):
             saida.append({
@@ -459,6 +579,49 @@ def memberships():
                                     'e descricao nao prova rota'),
             })
     return saida, led, prb, canario
+
+
+# A PROXIMA PROVA MAIS BARATA, por grupo residual. Nomeada, e nao «investigar»:
+# um proximo passo sem nome nao e um proximo passo.
+# TODAS as provas de rede abaixo exigem EGRESSO ITALIANO, e isso nao e zelo: a
+# propria regra de assimetria do probe diz que BLOCKED/WAF de outro egresso e
+# sinal FRACO e INCONCLUSIVO. Medido em 2026-09-08: o egresso desta sessao e US;
+# o do probe preservado era Milano/IT. Repetir daqui produziria evidencia que
+# teria de ser descontada — e evidencia que se desconta nao e evidencia.
+EGRESSO_EXIGIDO = 'IT'
+BROWSER_HEAD = 'BROWSER_PUBLIC_HEAD'
+RETESTE_IT = 'ITALIAN_BROWSER_RETEST'
+URL_ALTERNATIVA = 'ALT_CANONICAL_URL'
+SITEMAP = 'OFFICIAL_SITEMAP'
+DOC_API = 'OFFICIAL_API_DOC'
+CADEIA = 'CANONICAL_CHAIN_CAPTURE'
+
+
+def _proxima_prova(estados, alcancavel, recusou_a_ferramenta, resultados):
+    """O passo minimo seguinte. Nunca «BLOCKED» para esconder o que nao se sabe."""
+    if PROVADA in estados:
+        return 'nada — ja provada'
+    if estados:
+        return '%s: buscar o endereco ja visto e preserva-lo pela cadeia' % CADEIA
+    vistos = {r.get('RESULTADO') for r in resultados}
+    if recusou_a_ferramenta:
+        # 403/503 para curl NAO e «a fonte nao existe». A propria regra de
+        # assimetria do probe diz isso: BLOCKED_OU_WAF e sinal FRACO.
+        return ('%s: curl foi recusado, e recusar curl nao e recusar a casa'
+                % RETESTE_IT)
+    if 'NETWORK_ERROR' in vistos:
+        return ('%s: o erro foi de transporte (DNS/TLS/tempo), e pode ser o '
+                'endereco e nao a fonte' % URL_ALTERNATIVA)
+    if 'ROTA_INEXISTENTE' in vistos:
+        return '%s: a URL do catalogo nao resolve; procurar a canonica' % URL_ALTERNATIVA
+    if 'ACCESS_OK_MAS_MAGRO' in vistos:
+        return ('%s: a porta abriu com corpo pequeno demais para ter indice' % SITEMAP)
+    if alcancavel:
+        # Porta aberta e nenhuma pista de endereco: o probe nao guardou amostra,
+        # entao o proximo passo e um HEAD/GET pequeno atras de link ou feed.
+        return ('%s (egresso %s): a porta abre e nao ha endereco guardado — o '
+                'probe nao preserva amostra' % (BROWSER_HEAD, EGRESSO_EXIGIDO))
+    return '%s (egresso %s): nem porta medida ha' % (BROWSER_HEAD, EGRESSO_EXIGIDO)
 
 
 def resolucao_das_fontes(regs, led, prb):
@@ -500,14 +663,8 @@ def resolucao_das_fontes(regs, led, prb):
             'ROUTE_RESOLUTION_STATE': estado,
             'MEMBERSHIPS': len(meus),
             'FRONT_DOOR_ACCESS': alcancavel,
-            'CHEAPEST_NEXT_PROOF': (
-                'nada — ja provada' if PROVADA in estados else
-                'uma captura pela cadeia canonica' if estados else
-                'ler a pagina inicial ja preservada e achar o link do documento'
-                if alcancavel else
-                'repetir o probe read-only com agente comum: curl foi recusado, '
-                'e recusar curl nao e recusar a casa'
-                if recusou_a_ferramenta else 'probe read-only da porta de entrada'),
+            'CHEAPEST_NEXT_PROOF': _proxima_prova(
+                estados, alcancavel, recusou_a_ferramenta, prb.get(sid) or []),
             'TOOL_REFUSED': recusou_a_ferramenta,
         }
     return por
@@ -658,6 +815,13 @@ def main():
         },
         'APIFY': {'DEFAULT': ap_def, 'FALLBACK': ap_fb,
                   'NOTA': 'APIFY-LAST: default zero e a leitura correta'},
+        'EGRESSO': {
+            'DESTA_SESSAO': 'US',
+            'EXIGIDO_PELAS_PROVAS_RESIDUAIS': EGRESSO_EXIGIDO,
+            'PORQUE': ('a regra de assimetria do probe: BLOCKED/WAF de egresso '
+                       'errado e sinal FRACO e INCONCLUSIVO. Nenhuma chamada de '
+                       'rede foi feita nesta missao.'),
+        },
         'GIT_COMO_BANCO_OPERACIONAL': git_como_banco(),
         'ORQUESTRADOR': orquestrador(),
         'COLLECTION_FOUNDATION_CLOSED': fdc.COLLECTION_FOUNDATION_CLOSED,

@@ -64,7 +64,9 @@
       "guarda/importar_italia.py",
       "derived_artifact"
      ],
-     "PROOF_KIND": "NENHUMA"
+     "PROOF_KIND": "NENHUMA",
+     "DIRECT_REQUIRED": true,
+     "DIRECT_REQUIRED_PORQUE": "o contrato desta etapa e RECEBER o artefato da etapa anterior. Se houvesse ajudante, o resolvedor transitivo o teria achado em dois saltos. Ausencia aqui e conclusiva."
     },
     "ADMISSION": {
      "OWNER": "admissao/admissao.py",
@@ -73,7 +75,9 @@
       "admissao/admissao.py",
       "derived_artifact"
      ],
-     "PROOF_KIND": "NENHUMA"
+     "PROOF_KIND": "NENHUMA",
+     "DIRECT_REQUIRED": true,
+     "DIRECT_REQUIRED_PORQUE": "o contrato desta etapa e RECEBER o artefato da etapa anterior. Se houvesse ajudante, o resolvedor transitivo o teria achado em dois saltos. Ausencia aqui e conclusiva."
     }
    }
   },
@@ -118,7 +122,9 @@
       "coleta/social_persistencia.py",
       "collection_run"
      ],
-     "PROOF_KIND": "NENHUMA"
+     "PROOF_KIND": "NENHUMA",
+     "DIRECT_REQUIRED": true,
+     "DIRECT_REQUIRED_PORQUE": "o contrato desta etapa e RECEBER o artefato da etapa anterior. Se houvesse ajudante, o resolvedor transitivo o teria achado em dois saltos. Ausencia aqui e conclusiva."
     },
     "CHECKPOINT": {
      "OWNER": "coleta/coleta_checkpoint.py",
@@ -152,7 +158,9 @@
       "admissao/admissao.py",
       "public.conteudo"
      ],
-     "PROOF_KIND": "NENHUMA"
+     "PROOF_KIND": "NENHUMA",
+     "DIRECT_REQUIRED": true,
+     "DIRECT_REQUIRED_PORQUE": "o contrato desta etapa e RECEBER o artefato da etapa anterior. Se houvesse ajudante, o resolvedor transitivo o teria achado em dois saltos. Ausencia aqui e conclusiva."
     }
    }
   },
@@ -411,6 +419,55 @@
      "OWNER": null,
      "STATE": "NOT_APPLICABLE",
      "NOT_APPLICABLE_REASON": "a API devolve series ja estruturadas"
+    },
+    "STRUCTURED": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "ADMISSION": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    }
+   }
+  },
+  {
+   "ID": "RC-12",
+   "NAME": "SYNDICATED_FEED",
+   "MOTIVO_MATERIAL": "Duas etapas divergem, nao o formato. DISCOVER: a RC-1 descobre por catalogo escrito a mao; um feed enumera as publicacoes sozinho, e o endereco dele vem declarado por maquina no `<link rel=alternate>` do `<head>`. INCREMENTALIDADE: a RC-1 tem CHECKPOINT N/A por ser documento unico sem janela; um feed tem cursor natural por entrada, e portanto TEM unidade a retomar. Medido: 7 fontes com RSS declarado, no probe de 2026-09-07.",
+   "STEPS": {
+    "DISCOVER": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "FETCH": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "RAW": {
+     "OWNER": "guarda/preservar_coleta.py",
+     "STATE": "CODE",
+     "EDGE": [
+      "guarda/preservar_coleta.py",
+      "raw_asset"
+     ],
+     "PROOF_KIND": "NENHUMA"
+    },
+    "RUN": {
+     "OWNER": "guarda/preservar_coleta.py",
+     "STATE": "CODE",
+     "EDGE": [
+      "guarda/preservar_coleta.py",
+      "collection_run"
+     ],
+     "PROOF_KIND": "NENHUMA"
+    },
+    "CHECKPOINT": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "DERIVED": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
     },
     "STRUCTURED": {
      "OWNER": null,

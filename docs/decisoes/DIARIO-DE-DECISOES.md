@@ -1104,3 +1104,62 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
 | P-007 | Uso e difusão de coordenadas de parcela do RAIF (ES-T3-001): revisão jurídica antes de expor em tela externa. | ES-T3-001, protótipo | 2026-08-28 |
 | P-010 | **A grafia canônica do desconhecido.** Hoje há cinco no repositório. Proposta a decidir: `UNKNOWN` como valor gravado, `NÃO SEI` como texto de tela, com uma função única de comparação. Escolher agora quebra dado já gravado; escolher tarde faz a migração crescer. | `COL-LAW-035` por inteiro | 2026-09-07 |
 | P-011 | **Onde ficam os bytes brutos da Itália?** Hoje: Git (12 MB e crescendo). O bucket `raw` do Supabase existe, é privado e tem round-trip provado. Mover exige decidir o que fazer com o histórico do Git, que não se apaga. | `COL-LAW-303` · `COL-LAW-311` · G-30 | 2026-09-08 |
+
+---
+
+## 2026-09-08 · A ORDEM DAS PRÓXIMAS MISSÕES: M1 → OBSERVABILIDADE → M2
+
+**Decisão.** Depois que a M1 fechar, e **antes** da M2, entra obrigatoriamente uma
+missão de **FLOW OBSERVABILITY · LINEAGE · DIAGNOSTICS**. A M2 espera.
+
+**Estado:** REGISTRADA, NÃO IMPLEMENTADA. Nada dela foi construído nesta missão.
+
+**Motivo.** Três missões seguidas descobriram o mesmo tipo de defeito, e sempre
+tarde: um estado publicado sem a medição que o sustentaria. O mapa dizia «2
+estradas fechadas» e a medição disse zero; o instrumento dizia «sem conexão» onde
+havia caminho transitivo; o piloto dizia «houve RAW» quando o RAW era do
+checkout. Nos três casos o sistema **não sabia dizer o que tinha acontecido
+dentro dele** — só o que alguém tinha escrito que aconteceu.
+
+    UM SISTEMA QUE NÃO SABE CONTAR O PRÓPRIO FLUXO
+    PRECISA DE ALGUÉM QUE ESCREVA O NÚMERO À MÃO.
+    E O NÚMERO ESCRITO À MÃO É SEMPRE O OTIMISTA.
+
+Construir a M2 (ligar `STRUCTURED` e `ADMISSION` da RC-1) antes disso seria
+acrescentar duas etapas a uma cadeia que ainda não consegue dizer quantos objetos
+entraram, quantos passaram e quantos se perderam entre uma etapa e a seguinte.
+
+**O que a missão de observabilidade vai criar, conceitualmente:** `RUN TRACE`,
+`STAGE TRACE`, `EDGE PASSAGE`, `COUNTS BY GRAIN`, `FAILURE EVENT`, `FAILURE
+SNAPSHOT`, `DIAGNOSTIC CODE`, `ACCOUNTED INPUT`, `UNACCOUNTED INPUT` — e as
+lentes do System Map: `ARCHITECTURE`, `DIAGNOSTIC`, `TRACE`, `PERFORMANCE`.
+
+**Quem decidiu:** o dono do projeto, na abertura da M1B.
+
+---
+
+## 2026-09-08 · O QUE «M1 FECHADA» SIGNIFICA
+
+**Decisão.** M1 fecha quando **toda fonte foi levada ao máximo estado
+epistemicamente possível com a política aprovada** e **cada `UNKNOWN` residual
+carrega uma próxima prova nomeada**. M1 **não** exige zero `UNKNOWN`.
+
+**Motivo, e a reconciliação que ele exigiu.** O contrato em
+`leis/fundacao_da_coleta.py` diz que `COLLECTION_FOUNDATION_CLOSED` significa
+«toda **classe de estrada** necessária tem arquitetura e donos fechados, ou um
+blocker escrito» — e diz explicitamente que **não** significa «coletamos todas as
+fontes». Mas o critério 1 do mapa anterior pedia «fontes IT em route class ou
+BLOCKED», que é uma exigência **por fonte**.
+
+As duas não podem valer juntas. Vale a do contrato: a fundação é sobre
+**classes**, não sobre fontes. O critério do mapa foi corrigido para dizer o
+mesmo.
+
+    EXIGIR ZERO UNKNOWN POR FONTE CRIARIA O INCENTIVO
+    DE CHAMAR DE BLOCKED O QUE É SÓ DESCONHECIDO.
+
+E isso é exatamente o que a missão anterior já teve de desfazer uma vez.
+
+**SUPOSIÇÃO NÃO ASSUMIDA:** esta entrada não decide que a fundação ignora as
+fontes. Decide que o **gate** é por classe. Uma fonte sem rota continua sendo
+dívida registrada, com próxima prova escrita.

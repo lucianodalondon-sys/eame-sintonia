@@ -2126,14 +2126,18 @@
    "views": [
     "acervo"
    ],
-   "what": "Mede as classes de estrada da coleta IT e CALCULA os estados que o mapa de fechamento publica: ARCHITECTURE_CLOSED, OBSERVATION_STATE, e as contagens de fonte por PROVEN / CANDIDATE / UNKNOWN. Le o modelo em `estradas-it.model.json` — que diz quais etapas cada estrada tem e quem SERIA o dono — e mede, etapa a etapa, se o dono existe no disco e se ele cita o artefato da etapa anterior.",
+   "what": "Mede as classes de estrada da coleta IT e CALCULA os estados que o mapa de fechamento publica: ARCHITECTURE_CLOSED, OBSERVATION_STATE, e as contagens de fonte por PROVEN / CANDIDATE / UNKNOWN. Le o modelo em `estradas-it.model.json` — que diz quais etapas cada estrada tem e quem SERIA o dono — e mede, etapa a etapa, se o dono existe no disco e se ele cita o artefato da etapa anterior. As fixtures em `tests/fixtures/ARESTAS/` sao a prova viva de que a escada distingue comentario, codigo direto e caminho transitivo — nao apagar.",
    "why_here": "A versao anterior do mapa publicava «2 estradas fechadas» porque uma pessoa escreveu 2. Quando a medicao passou a rodar, o resultado foi ZERO: `guarda/importar_italia.py` estava listado como o STRUCTURED da estrada do documento oficial e nao le `derived_artifact` nenhum. OWNER EXISTS NAO E OWNER CONNECTED, e um numero escrito a mao nunca descobre isso sozinho. Aqui os dois eixos ficam separados de proposito: uma estrada pode ter arquitetura fechada e nunca ter rodado, e uma cor nao responde duas perguntas.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
+    "system-map/data/estradas-it.model.json",
     "system-map/scripts/censo_das_estradas_it.py",
-    "system-map/data/estradas-it.model.json"
+    "tests/fixtures/ARESTAS/ajudante.py",
+    "tests/fixtures/ARESTAS/codigo_real.py",
+    "tests/fixtures/ARESTAS/owner_indireto.py",
+    "tests/fixtures/ARESTAS/so_comentario.py"
    ]
   }
  ],

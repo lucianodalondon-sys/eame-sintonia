@@ -93,7 +93,11 @@ class AsPertencasSaoDerivadas(unittest.TestCase):
                 # A dica so faz sentido para quem ainda nao tem rota: uma fonte
                 # que o ledger ja provou nao precisa de outro probe.
                 if not v['HAS_PROVEN_ROUTE'] and not v['HAS_CANDIDATE_ROUTE']:
-                    self.assertIn('agente comum', v['CHEAPEST_NEXT_PROOF'], sid)
+                    # O que importa e que a proxima prova seja o RETESTE, nao a
+                    # frase que a descreve. A primeira versao deste caso prendia-se
+                    # ao texto «agente comum» e reprovou quando a prova ganhou
+                    # nome proprio — que era a melhoria.
+                    self.assertIn(ce.RETESTE_IT, v['CHEAPEST_NEXT_PROOF'], sid)
 
     def test_toda_fonte_sem_rota_diz_o_que_falta(self):
         for sid, v in self.d['RESOLUCAO_POR_FONTE'].items():
@@ -127,6 +131,81 @@ class AsPertencasSaoDerivadas(unittest.TestCase):
 
     def test_required_total_continua_desconhecido(self):
         self.assertEqual(self.d['ROUTE_CLASSES_REQUIRED_TOTAL'], 'UNKNOWN')
+
+
+
+class M1B_AsPistasDoProbe(unittest.TestCase):
+    """PORTA ABERTA NAO E ROTA PROVADA — mas um LINK e um endereco."""
+
+    @classmethod
+    def setUpClass(cls):
+        subprocess.run([sys.executable,
+                        os.path.join(RAIZ, 'system-map', 'scripts',
+                                     'censo_das_estradas_it.py')],
+                       capture_output=True, text=True, cwd=RAIZ)
+        with open(GERADO, encoding='utf-8') as f:
+            cls.d = json.load(f)
+        cls.regs = cls.d['ROUTE_MEMBERSHIPS']
+
+    def test_palavra_na_pagina_nunca_vira_pertenca(self):
+        """«a palavra bollettin aparece» e uma palavra, nao um endereco."""
+        proibidas = ("a palavra 'bollettin' aparece",
+                     "a palavra 'monitoragg' aparece",
+                     'WordPress', 'area reservada / login citado')
+        for r in self.regs:
+            for p in proibidas:
+                self.assertNotIn(p, str(r.get('PROOF_REF') or ''),
+                                 '%s virou pertenca por uma palavra' % r['SOURCE_ID'])
+
+    def test_link_observado_vira_candidata_e_nunca_provada(self):
+        das_pistas = [r for r in self.regs
+                      if 'probe 2026-09-07' in str(r.get('PROOF_REF') or '')]
+        self.assertGreater(len(das_pistas), 0, 'nenhuma pista virou pertenca')
+        for r in das_pistas:
+            self.assertEqual(r['STATE'], 'CANDIDATE',
+                             'um link VISTO virou rota PROVADA sem byte nenhum')
+            self.assertEqual(r['PROOF_KIND'], ce.PORTA_VIVA)
+
+    def test_o_probe_nao_preservou_amostra_e_isso_esta_dito(self):
+        with open(os.path.join(RAIZ, 'data', 'samples', 'IT-PROBE',
+                               'probe-fase-c.json'), encoding='utf-8') as f:
+            probe = json.load(f)
+        self.assertIn('NAO preserva amostra', probe['AVISO'])
+
+    def test_a_rede_nao_foi_chamada_e_o_egresso_esta_registado(self):
+        e = self.d['EGRESSO']
+        self.assertEqual(e['EXIGIDO_PELAS_PROVAS_RESIDUAIS'], 'IT')
+        self.assertNotEqual(e['DESTA_SESSAO'], e['EXIGIDO_PELAS_PROVAS_RESIDUAIS'],
+                            'se o egresso batesse, a recusa de rede precisaria '
+                            'de outro motivo — e este teste teria de mudar junto')
+
+    def test_toda_fonte_sem_rota_tem_proxima_prova_NOMEADA(self):
+        nomes = (ce.BROWSER_HEAD, ce.RETESTE_IT, ce.URL_ALTERNATIVA,
+                 ce.SITEMAP, ce.DOC_API, ce.CADEIA)
+        for sid, v in self.d['RESOLUCAO_POR_FONTE'].items():
+            if v['HAS_PROVEN_ROUTE']:
+                continue
+            self.assertTrue(any(n in v['CHEAPEST_NEXT_PROOF'] for n in nomes),
+                            '%s: proxima prova sem nome — «%s»'
+                            % (sid, v['CHEAPEST_NEXT_PROOF']))
+
+    def test_uma_fonte_pode_ter_duas_pistas_e_duas_pertencas(self):
+        por = {}
+        for r in self.regs:
+            por.setdefault(r['SOURCE_ID'], set()).add(r['ROUTE_CLASS_ID'])
+        multiplas = [s for s, c in por.items() if len(c) > 1]
+        self.assertGreater(len(multiplas), 1,
+                           'SOURCE 1:N ROUTES deixou de ser exercitado')
+
+    def test_RC12_nasceu_por_diferenca_material_e_nao_por_MIME(self):
+        with open(os.path.join(RAIZ, 'system-map', 'data',
+                               'estradas-it.model.json'), encoding='utf-8') as f:
+            modelo = json.load(f)
+        rc12 = [r for r in modelo['ROUTE_CLASSES'] if r['ID'] == 'RC-12'][0]
+        motivo = rc12['MOTIVO_MATERIAL']
+        self.assertIn('DISCOVER', motivo)
+        self.assertIn('INCREMENTAL', motivo.upper())
+        self.assertIn('nao o formato', motivo)
 
 
 if __name__ == '__main__':
