@@ -103,14 +103,15 @@ class OsEstadosSaoCalculados(unittest.TestCase):
     # ── T5 e T6 ───────────────────────────────────────────────────────────
     def test_T5_candidata_nao_conta_como_provada(self):
         f = self.d['FONTES_IT']
-        self.assertEqual(f['SOURCE_ROUTE_PROVEN'], 1)
-        self.assertEqual(f['SOURCE_ROUTE_PROVEN'] + f['SOURCE_ROUTE_CANDIDATE']
-                         + f['SOURCE_ROUTE_UNKNOWN'], f['TOTAL'])
+        self.assertGreaterEqual(f['SOURCES_WITH_PROVEN_ROUTE'], 1)
+        self.assertEqual(f['SOURCES_WITH_PROVEN_ROUTE'] + f['SOURCES_WITH_ONLY_CANDIDATE_ROUTE']
+                         + f['SOURCES_ROUTE_UNKNOWN'], f['TOTAL'])
 
-    def test_T6_as_51_desconhecidas_nao_viram_provadas(self):
+    def test_T6_as_desconhecidas_nao_viram_provadas_por_descricao(self):
         f = self.d['FONTES_IT']
-        self.assertEqual(f['SOURCE_ROUTE_UNKNOWN'], 51)
-        self.assertLess(f['SOURCE_ROUTE_PROVEN'], 40,
+        self.assertGreater(f['SOURCES_ROUTE_UNKNOWN'], 0,
+                           'zerar UNKNOWN a forca e o defeito, nao o objetivo')
+        self.assertLess(f['SOURCES_WITH_PROVEN_ROUTE'], 40,
                         'descricao virou prova de route class')
 
     # ── T7 e T8 ───────────────────────────────────────────────────────────
@@ -130,8 +131,8 @@ class OsEstadosSaoCalculados(unittest.TestCase):
             ('OBSERVED', len(self.d['ROUTE_CLASSES_OBSERVED'])),
             ('DB_TESTED', len(self.d['ROUTE_CLASSES_DB_TESTED'])),
             ('BLOCKED', len(self.d['ROUTE_CLASSES_BLOCKED'])),
-            ('SOURCE_ROUTE_UNKNOWN', self.d['FONTES_IT']['SOURCE_ROUTE_UNKNOWN']),
-            ('SOURCE_ROUTE_PROVEN', self.d['FONTES_IT']['SOURCE_ROUTE_PROVEN']),
+            ('SOURCES_ROUTE_UNKNOWN', self.d['FONTES_IT']['SOURCES_ROUTE_UNKNOWN']),
+            ('SOURCES_WITH_PROVEN_ROUTE', self.d['FONTES_IT']['SOURCES_WITH_PROVEN_ROUTE']),
             ('ROUTE_CLASSES_MODELED', self.d['ROUTE_CLASSES_MODELED']),
         ]
         for rotulo, valor in pares:

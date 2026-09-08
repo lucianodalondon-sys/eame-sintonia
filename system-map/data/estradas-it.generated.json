@@ -14,7 +14,10 @@
      "STATE": "DECLARED",
      "OWNER": "candidatas/ITALY-SOURCE-MASTER-V1.json",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "CATALOGO",
      "PROOF_REF": null
     },
@@ -22,7 +25,10 @@
      "STATE": "OBSERVED",
      "OWNER": "coleta/texto_fonte.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "CANARIO_LIVE",
      "PROOF_REF": "0feb4967"
     },
@@ -30,7 +36,10 @@
      "STATE": "OBSERVED",
      "OWNER": "guarda/preservar_coleta.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "CANARIO_LIVE",
      "PROOF_REF": "7dc58f81"
     },
@@ -38,7 +47,10 @@
      "STATE": "OBSERVED",
      "OWNER": "guarda/preservar_coleta.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "CANARIO_LIVE",
      "PROOF_REF": "7dc58f81"
     },
@@ -46,7 +58,10 @@
      "STATE": "NOT_APPLICABLE",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null,
      "NOT_APPLICABLE_REASON": "captura de documento unico e sem janela incremental: nao ha unidade a retomar. Se um dia houver recorrencia por fonte, deixa de ser N/A."
@@ -55,7 +70,10 @@
      "STATE": "OBSERVED",
      "OWNER": "coleta/executor_texto_de_pdf.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "CANARIO_LIVE",
      "PROOF_REF": "derived_artifact id=1"
     },
@@ -63,7 +81,10 @@
      "STATE": "CODE",
      "OWNER": "guarda/importar_italia.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "NO_CONNECTION_EVIDENCE",
      "CONNECTED_TO_ROUTE": false,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "NENHUMA",
      "PROOF_REF": null
     },
@@ -71,7 +92,10 @@
      "STATE": "CODE",
      "OWNER": "admissao/admissao.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "NO_CONNECTION_EVIDENCE",
      "CONNECTED_TO_ROUTE": false,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "NENHUMA",
      "PROOF_REF": null
     }
@@ -93,7 +117,10 @@
      "STATE": "OBSERVED",
      "OWNER": "coleta/youtube_oficial.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "RUN_ACTIONS",
      "PROOF_REF": "34258433872"
     },
@@ -101,7 +128,10 @@
      "STATE": "OBSERVED",
      "OWNER": "coleta/youtube_oficial.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "RUN_ACTIONS",
      "PROOF_REF": "34258433872"
     },
@@ -109,7 +139,10 @@
      "STATE": "LOCAL_TESTED",
      "OWNER": "coleta/social_envelope.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "ARTEFATO_ACTIONS",
      "PROOF_REF": "10068850407 — PILOT_PROOF, nao OPERATIONAL_STORAGE"
     },
@@ -117,7 +150,10 @@
      "STATE": "CODE",
      "OWNER": "guarda/preservar_coleta.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "NO_CONNECTION_EVIDENCE",
      "CONNECTED_TO_ROUTE": false,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "NENHUMA",
      "PROOF_REF": null
     },
@@ -125,7 +161,10 @@
      "STATE": "DB_TESTED",
      "OWNER": "coleta/coleta_checkpoint.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "POSTGRES_DESCARTAVEL",
      "PROOF_REF": "provas/social_persistencia_no_postgres.py"
     },
@@ -133,7 +172,10 @@
      "STATE": "NOT_APPLICABLE",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null,
      "NOT_APPLICABLE_REASON": "a API devolve texto ja estruturado; nada e produzido por nos a partir do bruto. Legenda do YouTube NAO e derivado nosso — COL-LAW-007."
@@ -142,7 +184,10 @@
      "STATE": "DB_TESTED",
      "OWNER": "coleta/social_persistencia.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "POSTGRES_DESCARTAVEL",
      "PROOF_REF": "provas/social_persistencia_no_postgres.py"
     },
@@ -150,7 +195,10 @@
      "STATE": "CODE",
      "OWNER": "admissao/admissao.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "NO_CONNECTION_EVIDENCE",
      "CONNECTED_TO_ROUTE": false,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "NENHUMA",
      "PROOF_REF": null
     }
@@ -172,7 +220,10 @@
      "STATE": "LOCAL_TESTED",
      "OWNER": "coleta/social_rotas.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "TESTE_LOCAL",
      "PROOF_REF": null
     },
@@ -180,7 +231,10 @@
      "STATE": "LOCAL_TESTED",
      "OWNER": "coleta/social_rotas.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "TESTE_LOCAL",
      "PROOF_REF": null
     },
@@ -188,7 +242,10 @@
      "STATE": "LOCAL_TESTED",
      "OWNER": "coleta/social_envelope.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "TESTE_LOCAL",
      "PROOF_REF": null
     },
@@ -196,7 +253,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     },
@@ -204,7 +264,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     },
@@ -212,7 +275,10 @@
      "STATE": "NOT_APPLICABLE",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null,
      "NOT_APPLICABLE_REASON": "API devolve texto; nada e derivado por nos"
@@ -221,7 +287,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     },
@@ -229,7 +298,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     }
@@ -253,7 +325,10 @@
      "STATE": "LOCAL_TESTED",
      "OWNER": "coleta/universo_ciencia_it.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "TESTE_LOCAL",
      "PROOF_REF": null
     },
@@ -261,7 +336,10 @@
      "STATE": "LOCAL_TESTED",
      "OWNER": "coleta/corpus_pesquisador.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "TESTE_LOCAL",
      "PROOF_REF": null
     },
@@ -269,7 +347,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     },
@@ -277,7 +358,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     },
@@ -285,7 +369,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     },
@@ -293,7 +380,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     },
@@ -301,7 +391,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     },
@@ -309,7 +402,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     }
@@ -335,7 +431,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     },
@@ -343,7 +442,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     },
@@ -351,7 +453,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     },
@@ -359,7 +464,10 @@
      "STATE": "LIVE_SCHEMA",
      "OWNER": "coleta/regulatorio_importar.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "SQL_DETERMINISTICO",
      "PROOF_REF": null
     },
@@ -367,7 +475,10 @@
      "STATE": "NOT_APPLICABLE",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null,
      "NOT_APPLICABLE_REASON": "importacao de um snapshot fechado, nao coleta recorrente: nao ha unidade a retomar"
@@ -376,7 +487,10 @@
      "STATE": "NOT_APPLICABLE",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null,
      "NOT_APPLICABLE_REASON": "a entrada ja e registro estruturado; nada e derivado de bruto"
@@ -385,7 +499,10 @@
      "STATE": "LIVE_SCHEMA",
      "OWNER": "coleta/regulatorio_importar.py",
      "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
      "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": "SQL_DETERMINISTICO",
      "PROOF_REF": null
     },
@@ -393,7 +510,10 @@
      "STATE": "UNKNOWN",
      "OWNER": null,
      "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
      "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
      "PROOF_KIND": null,
      "PROOF_REF": null
     }
@@ -448,9 +568,223 @@
    "OBSERVATION_STATE": "DEBT",
    "BLOCKED_REASON": null,
    "DEBT_REASON": "estado operacional em Git, contra P-011. Nao e estrada a fechar: e divida a mover."
+  },
+  {
+   "ROUTE_CLASS_ID": "RC-10",
+   "NAME": "OFFICIAL_HTTP_DATASET",
+   "STEPS": {
+    "DISCOVER": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "FETCH": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "RAW": {
+     "STATE": "CODE",
+     "OWNER": "guarda/preservar_coleta.py",
+     "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
+     "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": "NENHUMA",
+     "PROOF_REF": null
+    },
+    "RUN": {
+     "STATE": "CODE",
+     "OWNER": "guarda/preservar_coleta.py",
+     "OWNER_EXISTS": true,
+     "CONNECTION_LEVEL": "CODE_CONNECTED",
+     "CONNECTED_TO_ROUTE": true,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": "NENHUMA",
+     "PROOF_REF": null
+    },
+    "CHECKPOINT": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "DERIVED": {
+     "STATE": "NOT_APPLICABLE",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null,
+     "NOT_APPLICABLE_REASON": "dataset ja chega estruturado: nao ha texto a extrair de bruto"
+    },
+    "STRUCTURED": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "ADMISSION": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    }
+   },
+   "ARCHITECTURE_CLOSED": false,
+   "STEPS_BLOQUEANDO": [
+    "DISCOVER",
+    "FETCH",
+    "CHECKPOINT",
+    "STRUCTURED",
+    "ADMISSION"
+   ],
+   "OBSERVATION_STATE": "NOT_OBSERVED",
+   "BLOCKED_REASON": null,
+   "DEBT_REASON": null
+  },
+  {
+   "ROUTE_CLASS_ID": "RC-11",
+   "NAME": "OFFICIAL_STATISTICAL_API",
+   "STEPS": {
+    "DISCOVER": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "FETCH": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "RAW": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "RUN": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "CHECKPOINT": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "DERIVED": {
+     "STATE": "NOT_APPLICABLE",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null,
+     "NOT_APPLICABLE_REASON": "a API devolve series ja estruturadas"
+    },
+    "STRUCTURED": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "ADMISSION": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTION_LEVEL": null,
+     "CONNECTED_TO_ROUTE": null,
+     "EDGE_TEST": null,
+     "EDGE_OBSERVED": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    }
+   },
+   "ARCHITECTURE_CLOSED": false,
+   "STEPS_BLOQUEANDO": [
+    "DISCOVER",
+    "FETCH",
+    "RAW",
+    "RUN",
+    "CHECKPOINT",
+    "STRUCTURED",
+    "ADMISSION"
+   ],
+   "OBSERVATION_STATE": "NOT_OBSERVED",
+   "BLOCKED_REASON": null,
+   "DEBT_REASON": null
   }
  ],
- "ROUTE_CLASSES_MODELED": 9,
+ "ROUTE_CLASSES_MODELED": 11,
  "ROUTE_CLASSES_ARCHITECTURE_CLOSED": [],
  "ROUTE_CLASSES_OBSERVED": [
   "RC-1",
@@ -468,15 +802,968 @@
   "RC-9"
  ],
  "ROUTE_CLASSES_REQUIRED_TOTAL": "UNKNOWN",
- "ROUTE_CLASSES_REQUIRED_TOTAL_PORQUE": "51 fonte(s) sem rota conhecida. Ate a M1 provar, nenhuma delas garante caber nas 9 classes modeladas.",
+ "ROUTE_CLASSES_REQUIRED_TOTAL_PORQUE": "35 fonte(s) sem rota conhecida. Ate a M1 provar, nenhuma delas garante caber nas 11 classes modeladas.",
+ "ROUTE_MEMBERSHIPS": [
+  {
+   "SOURCE_ID": "IT-T1-001",
+   "ROUTE_CLASS_ID": "RC-11",
+   "ROLE": "PRIMARY",
+   "STATE": "DECLARED",
+   "PROOF_KIND": "DECLARED",
+   "PROOF_REF": "NÃO SEI — SDMX declarado, rota não confirmada",
+   "ACCESS_METHOD": "NÃO SEI — SDMX declarado, rota não confirmada",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "EXPECTED",
+   "PROOF_REF": "NÃO SEI (esperado HTML/PDF)",
+   "ACCESS_METHOD": "NÃO SEI (esperado HTML/PDF)",
+   "ACCESS_METHOD_STATE": "EXPECTED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "PROVEN",
+   "PROOF_KIND": "LIVE_FETCH_PROVEN",
+   "PROOF_REF": "0feb4967",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF/HTML)",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "nada nesta aresta: o byte veio e virou raw_asset. O que falta e da ESTRADA, nao desta fonte — STRUCTURED e ADMISSION."
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "ROUTE_CLASS_ID": "RC-9",
+   "ROLE": "HISTORICAL",
+   "STATE": "PROVEN",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (124 obs)",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF/HTML)",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "a memoria e Git, nao os donos canonicos (P-011)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-004",
+   "ROUTE_CLASS_ID": "RC-9",
+   "ROLE": "HISTORICAL",
+   "STATE": "PROVEN",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (6 obs)",
+   "ACCESS_METHOD": "NÃO SEI",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "a memoria e Git, nao os donos canonicos (P-011)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-004",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "MIME_ASSINATURA observado: HTML",
+   "ACCESS_METHOD": "NÃO SEI",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma captura pela cadeia canonica (Storage + raw_asset), como a do canario"
+  },
+  {
+   "SOURCE_ID": "IT-T3-001",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "DECLARED",
+   "PROOF_KIND": "DECLARED",
+   "PROOF_REF": "PDF semanal por província, caminho previsível",
+   "ACCESS_METHOD": "PDF semanal por província, caminho previsível",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "ROUTE_CLASS_ID": "RC-9",
+   "ROLE": "HISTORICAL",
+   "STATE": "PROVEN",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (2 obs)",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "a memoria e Git, nao os donos canonicos (P-011)"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "MIME_ASSINATURA observado: PDF",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma captura pela cadeia canonica (Storage + raw_asset), como a do canario"
+  },
+  {
+   "SOURCE_ID": "IT-T3-005",
+   "ROUTE_CLASS_ID": "RC-9",
+   "ROLE": "HISTORICAL",
+   "STATE": "PROVEN",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (6 obs)",
+   "ACCESS_METHOD": "NÃO SEI (esperado HTML/PDF periódico)",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "a memoria e Git, nao os donos canonicos (P-011)"
+  },
+  {
+   "SOURCE_ID": "IT-T3-005",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "MIME_ASSINATURA observado: HTML",
+   "ACCESS_METHOD": "NÃO SEI (esperado HTML/PDF periódico)",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma captura pela cadeia canonica (Storage + raw_asset), como a do canario"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "ROUTE_CLASS_ID": "RC-9",
+   "ROLE": "HISTORICAL",
+   "STATE": "PROVEN",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (2 obs)",
+   "ACCESS_METHOD": "NÃO SEI",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "a memoria e Git, nao os donos canonicos (P-011)"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "MIME_ASSINATURA observado: PDF",
+   "ACCESS_METHOD": "NÃO SEI",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma captura pela cadeia canonica (Storage + raw_asset), como a do canario"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "ROUTE_CLASS_ID": "RC-9",
+   "ROLE": "HISTORICAL",
+   "STATE": "PROVEN",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (2 obs)",
+   "ACCESS_METHOD": "NÃO SEI",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "a memoria e Git, nao os donos canonicos (P-011)"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "MIME_ASSINATURA observado: PDF",
+   "ACCESS_METHOD": "NÃO SEI",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma captura pela cadeia canonica (Storage + raw_asset), como a do canario"
+  },
+  {
+   "SOURCE_ID": "IT-T3-011",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "EXPECTED",
+   "PROOF_REF": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD_STATE": "EXPECTED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+  },
+  {
+   "SOURCE_ID": "IT-T4-001",
+   "ROUTE_CLASS_ID": "RC-9",
+   "ROLE": "HISTORICAL",
+   "STATE": "PROVEN",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (2 obs)",
+   "ACCESS_METHOD": "CSV direto (4,6 MB), sem chave",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "a memoria e Git, nao os donos canonicos (P-011)"
+  },
+  {
+   "SOURCE_ID": "IT-T4-001",
+   "ROUTE_CLASS_ID": "RC-10",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "MIME_ASSINATURA observado: TEXTO",
+   "ACCESS_METHOD": "CSV direto (4,6 MB), sem chave",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma captura pela cadeia canonica (Storage + raw_asset), como a do canario"
+  },
+  {
+   "SOURCE_ID": "IT-T5-001",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "EXPECTED",
+   "PROOF_REF": "NÃO SEI (esperado PDF/vídeo)",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF/vídeo)",
+   "ACCESS_METHOD_STATE": "EXPECTED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+  },
+  {
+   "SOURCE_ID": "IT-T5-003",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "EXPECTED",
+   "PROOF_REF": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD_STATE": "EXPECTED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+  },
+  {
+   "SOURCE_ID": "IT-T7-002",
+   "ROUTE_CLASS_ID": "RC-10",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "EXPECTED",
+   "PROOF_REF": "NÃO SEI (esperado PDF/XLSX)",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF/XLSX)",
+   "ACCESS_METHOD_STATE": "EXPECTED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+  },
+  {
+   "SOURCE_ID": "IT-T7-007",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "DECLARED",
+   "PROOF_KIND": "DECLARED",
+   "PROOF_REF": "NÃO SEI (PDF é rota válida)",
+   "ACCESS_METHOD": "NÃO SEI (PDF é rota válida)",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+  },
+  {
+   "SOURCE_ID": "IT-T10-004",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "EXPECTED",
+   "PROOF_REF": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD_STATE": "EXPECTED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+  },
+  {
+   "SOURCE_ID": "IT-T10-005",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "EXPECTED",
+   "PROOF_REF": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD_STATE": "EXPECTED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+  },
+  {
+   "SOURCE_ID": "IT-T11-001",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "DECLARED",
+   "PROOF_KIND": "DECLARED",
+   "PROOF_REF": "site institucional (HTML)",
+   "ACCESS_METHOD": "site institucional (HTML)",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+  },
+  {
+   "SOURCE_ID": "IT-T12-002",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "EXPECTED",
+   "PROOF_REF": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD_STATE": "EXPECTED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+  }
+ ],
+ "ROUTE_MEMBERSHIP_COUNTS": {
+  "TOTAL_PROVEN_MEMBERSHIPS": 8,
+  "TOTAL_CANDIDATE_MEMBERSHIPS": 18,
+  "TOTAL_BLOCKED_MEMBERSHIPS": 0,
+  "TOTAL": 26
+ },
+ "ROUTE_RESOLUTION_COUNTS": {
+  "ONLY_CANDIDATE_ROUTE": 12,
+  "HAS_PROVEN_ROUTE": 7,
+  "REACHABLE_ROUTE_UNKNOWN": 26,
+  "ROUTE_UNKNOWN": 9
+ },
+ "POR_ROUTE_CLASS": {
+  "RC-1": {
+   "PROVEN_SOURCE_MEMBERSHIPS": 1,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 15,
+   "BLOCKED_SOURCE_MEMBERSHIPS": 0,
+   "EVIDENCE_LEVELS": [
+    "DECLARED",
+    "EXPECTED",
+    "HISTORICALLY_OBSERVED",
+    "LIVE_FETCH_PROVEN"
+   ]
+  },
+  "RC-2": {
+   "PROVEN_SOURCE_MEMBERSHIPS": 0,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 0,
+   "BLOCKED_SOURCE_MEMBERSHIPS": 0,
+   "EVIDENCE_LEVELS": []
+  },
+  "RC-3": {
+   "PROVEN_SOURCE_MEMBERSHIPS": 0,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 0,
+   "BLOCKED_SOURCE_MEMBERSHIPS": 0,
+   "EVIDENCE_LEVELS": []
+  },
+  "RC-4": {
+   "PROVEN_SOURCE_MEMBERSHIPS": 0,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 0,
+   "BLOCKED_SOURCE_MEMBERSHIPS": 0,
+   "EVIDENCE_LEVELS": []
+  },
+  "RC-5": {
+   "PROVEN_SOURCE_MEMBERSHIPS": 0,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 0,
+   "BLOCKED_SOURCE_MEMBERSHIPS": 0,
+   "EVIDENCE_LEVELS": []
+  },
+  "RC-6": {
+   "PROVEN_SOURCE_MEMBERSHIPS": 0,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 0,
+   "BLOCKED_SOURCE_MEMBERSHIPS": 0,
+   "EVIDENCE_LEVELS": []
+  },
+  "RC-7": {
+   "PROVEN_SOURCE_MEMBERSHIPS": 0,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 0,
+   "BLOCKED_SOURCE_MEMBERSHIPS": 0,
+   "EVIDENCE_LEVELS": []
+  },
+  "RC-8": {
+   "PROVEN_SOURCE_MEMBERSHIPS": 0,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 0,
+   "BLOCKED_SOURCE_MEMBERSHIPS": 0,
+   "EVIDENCE_LEVELS": []
+  },
+  "RC-9": {
+   "PROVEN_SOURCE_MEMBERSHIPS": 7,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 0,
+   "BLOCKED_SOURCE_MEMBERSHIPS": 0,
+   "EVIDENCE_LEVELS": [
+    "HISTORICALLY_OBSERVED"
+   ]
+  },
+  "RC-10": {
+   "PROVEN_SOURCE_MEMBERSHIPS": 0,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 2,
+   "BLOCKED_SOURCE_MEMBERSHIPS": 0,
+   "EVIDENCE_LEVELS": [
+    "EXPECTED",
+    "HISTORICALLY_OBSERVED"
+   ]
+  },
+  "RC-11": {
+   "PROVEN_SOURCE_MEMBERSHIPS": 0,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 1,
+   "BLOCKED_SOURCE_MEMBERSHIPS": 0,
+   "EVIDENCE_LEVELS": [
+    "DECLARED"
+   ]
+  }
+ },
+ "ROUTE_CLASSES_COM_MEMBERSHIP_PROVADA": [
+  "RC-1",
+  "RC-9"
+ ],
+ "RESOLUCAO_POR_FONTE": {
+  "IT-T1-001": {
+   "SOURCE_ID": "IT-T1-001",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "MEMBERSHIPS": 1,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "uma captura pela cadeia canonica",
+   "TOOL_REFUSED": false
+  },
+  "IT-T2-001": {
+   "SOURCE_ID": "IT-T2-001",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "MEMBERSHIPS": 1,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "uma captura pela cadeia canonica",
+   "TOOL_REFUSED": false
+  },
+  "IT-T2-002": {
+   "SOURCE_ID": "IT-T2-002",
+   "HAS_PROVEN_ROUTE": true,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "HAS_PROVEN_ROUTE",
+   "MEMBERSHIPS": 2,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "nada — ja provada",
+   "TOOL_REFUSED": false
+  },
+  "IT-T2-003": {
+   "SOURCE_ID": "IT-T2-003",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T2-004": {
+   "SOURCE_ID": "IT-T2-004",
+   "HAS_PROVEN_ROUTE": true,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "HAS_PROVEN_ROUTE",
+   "MEMBERSHIPS": 2,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "nada — ja provada",
+   "TOOL_REFUSED": false
+  },
+  "IT-T2-005": {
+   "SOURCE_ID": "IT-T2-005",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T3-001": {
+   "SOURCE_ID": "IT-T3-001",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "MEMBERSHIPS": 1,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "uma captura pela cadeia canonica",
+   "TOOL_REFUSED": false
+  },
+  "IT-T3-002": {
+   "SOURCE_ID": "IT-T3-002",
+   "HAS_PROVEN_ROUTE": true,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "HAS_PROVEN_ROUTE",
+   "MEMBERSHIPS": 2,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "nada — ja provada",
+   "TOOL_REFUSED": false
+  },
+  "IT-T3-003": {
+   "SOURCE_ID": "IT-T3-003",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "probe read-only da porta de entrada",
+   "TOOL_REFUSED": false
+  },
+  "IT-T3-004": {
+   "SOURCE_ID": "IT-T3-004",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T3-005": {
+   "SOURCE_ID": "IT-T3-005",
+   "HAS_PROVEN_ROUTE": true,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "HAS_PROVEN_ROUTE",
+   "MEMBERSHIPS": 2,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "nada — ja provada",
+   "TOOL_REFUSED": false
+  },
+  "IT-T3-006": {
+   "SOURCE_ID": "IT-T3-006",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T3-007": {
+   "SOURCE_ID": "IT-T3-007",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T3-008": {
+   "SOURCE_ID": "IT-T3-008",
+   "HAS_PROVEN_ROUTE": true,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "HAS_PROVEN_ROUTE",
+   "MEMBERSHIPS": 2,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "nada — ja provada",
+   "TOOL_REFUSED": true
+  },
+  "IT-T3-009": {
+   "SOURCE_ID": "IT-T3-009",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T3-010": {
+   "SOURCE_ID": "IT-T3-010",
+   "HAS_PROVEN_ROUTE": true,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "HAS_PROVEN_ROUTE",
+   "MEMBERSHIPS": 2,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "nada — ja provada",
+   "TOOL_REFUSED": false
+  },
+  "IT-T3-011": {
+   "SOURCE_ID": "IT-T3-011",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "MEMBERSHIPS": 1,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "uma captura pela cadeia canonica",
+   "TOOL_REFUSED": false
+  },
+  "IT-T3-012": {
+   "SOURCE_ID": "IT-T3-012",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T4-001": {
+   "SOURCE_ID": "IT-T4-001",
+   "HAS_PROVEN_ROUTE": true,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "HAS_PROVEN_ROUTE",
+   "MEMBERSHIPS": 2,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "nada — ja provada",
+   "TOOL_REFUSED": false
+  },
+  "IT-T5-001": {
+   "SOURCE_ID": "IT-T5-001",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "MEMBERSHIPS": 1,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "uma captura pela cadeia canonica",
+   "TOOL_REFUSED": false
+  },
+  "IT-T5-002": {
+   "SOURCE_ID": "IT-T5-002",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "probe read-only da porta de entrada",
+   "TOOL_REFUSED": false
+  },
+  "IT-T5-003": {
+   "SOURCE_ID": "IT-T5-003",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "MEMBERSHIPS": 1,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "uma captura pela cadeia canonica",
+   "TOOL_REFUSED": false
+  },
+  "IT-T5-004": {
+   "SOURCE_ID": "IT-T5-004",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T5-005": {
+   "SOURCE_ID": "IT-T5-005",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T7-001": {
+   "SOURCE_ID": "IT-T7-001",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T7-002": {
+   "SOURCE_ID": "IT-T7-002",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "MEMBERSHIPS": 1,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "uma captura pela cadeia canonica",
+   "TOOL_REFUSED": false
+  },
+  "IT-T7-003": {
+   "SOURCE_ID": "IT-T7-003",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "probe read-only da porta de entrada",
+   "TOOL_REFUSED": false
+  },
+  "IT-T7-004": {
+   "SOURCE_ID": "IT-T7-004",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T7-005": {
+   "SOURCE_ID": "IT-T7-005",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T7-006": {
+   "SOURCE_ID": "IT-T7-006",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T7-007": {
+   "SOURCE_ID": "IT-T7-007",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "MEMBERSHIPS": 1,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "uma captura pela cadeia canonica",
+   "TOOL_REFUSED": false
+  },
+  "IT-T7-008": {
+   "SOURCE_ID": "IT-T7-008",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T7-009": {
+   "SOURCE_ID": "IT-T7-009",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T7-010": {
+   "SOURCE_ID": "IT-T7-010",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T7-011": {
+   "SOURCE_ID": "IT-T7-011",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T7-012": {
+   "SOURCE_ID": "IT-T7-012",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "probe read-only da porta de entrada",
+   "TOOL_REFUSED": false
+  },
+  "IT-T9-001": {
+   "SOURCE_ID": "IT-T9-001",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T9-002": {
+   "SOURCE_ID": "IT-T9-002",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "repetir o probe read-only com agente comum: curl foi recusado, e recusar curl nao e recusar a casa",
+   "TOOL_REFUSED": true
+  },
+  "IT-T9-003": {
+   "SOURCE_ID": "IT-T9-003",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "repetir o probe read-only com agente comum: curl foi recusado, e recusar curl nao e recusar a casa",
+   "TOOL_REFUSED": true
+  },
+  "IT-T9-004": {
+   "SOURCE_ID": "IT-T9-004",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T9-005": {
+   "SOURCE_ID": "IT-T9-005",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T9-006": {
+   "SOURCE_ID": "IT-T9-006",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "probe read-only da porta de entrada",
+   "TOOL_REFUSED": false
+  },
+  "IT-T9-007": {
+   "SOURCE_ID": "IT-T9-007",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T9-008": {
+   "SOURCE_ID": "IT-T9-008",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "repetir o probe read-only com agente comum: curl foi recusado, e recusar curl nao e recusar a casa",
+   "TOOL_REFUSED": true
+  },
+  "IT-T10-001": {
+   "SOURCE_ID": "IT-T10-001",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T10-002": {
+   "SOURCE_ID": "IT-T10-002",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T10-003": {
+   "SOURCE_ID": "IT-T10-003",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": false,
+   "CHEAPEST_NEXT_PROOF": "probe read-only da porta de entrada",
+   "TOOL_REFUSED": false
+  },
+  "IT-T10-004": {
+   "SOURCE_ID": "IT-T10-004",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "MEMBERSHIPS": 1,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "uma captura pela cadeia canonica",
+   "TOOL_REFUSED": false
+  },
+  "IT-T10-005": {
+   "SOURCE_ID": "IT-T10-005",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "MEMBERSHIPS": 1,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "uma captura pela cadeia canonica",
+   "TOOL_REFUSED": false
+  },
+  "IT-T11-001": {
+   "SOURCE_ID": "IT-T11-001",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "MEMBERSHIPS": 1,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "uma captura pela cadeia canonica",
+   "TOOL_REFUSED": false
+  },
+  "IT-T11-002": {
+   "SOURCE_ID": "IT-T11-002",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T11-003": {
+   "SOURCE_ID": "IT-T11-003",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T11-004": {
+   "SOURCE_ID": "IT-T11-004",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": false,
+   "ROUTE_RESOLUTION_STATE": "REACHABLE_ROUTE_UNKNOWN",
+   "MEMBERSHIPS": 0,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "ler a pagina inicial ja preservada e achar o link do documento",
+   "TOOL_REFUSED": false
+  },
+  "IT-T12-002": {
+   "SOURCE_ID": "IT-T12-002",
+   "HAS_PROVEN_ROUTE": false,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "MEMBERSHIPS": 1,
+   "FRONT_DOOR_ACCESS": true,
+   "CHEAPEST_NEXT_PROOF": "uma captura pela cadeia canonica",
+   "TOOL_REFUSED": false
+  }
+ },
  "FONTES_IT": {
   "TOTAL": 54,
-  "SOURCE_ROUTE_PROVEN": 1,
-  "SOURCE_ROUTE_CANDIDATE": 2,
-  "SOURCE_ROUTE_UNKNOWN": 51,
-  "PROVEN_PORQUE": "so o canario italiano teve a rota MEDIDA ponta a ponta. Descricao («boletim», «PDF») NAO prova route class: CANDIDATE NAO E PROVEN.",
+  "SOURCES_WITH_PROVEN_ROUTE": 7,
+  "SOURCES_WITH_ONLY_CANDIDATE_ROUTE": 12,
+  "SOURCES_ROUTE_UNKNOWN": 35,
+  "SOURCES_BLOCKED": 0,
+  "PROVEN_PORQUE": "derivado de ROUTE_MEMBERSHIPS, nunca digitado. Descricao («boletim», «PDF») nao prova route class: CANDIDATE NAO E PROVEN.",
+  "PROXY_ANTIGO_ACCESS_METHOD_NAO_SEI": 51,
   "COM_ROTA_DECLARADA": 3,
-  "ROTA_NAO_SEI": 51,
   "POR_PAPEL": {
    "VALIDATION_SOURCE": 2,
    "FIELD_SIGNAL_SOURCE": 12,

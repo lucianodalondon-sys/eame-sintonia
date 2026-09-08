@@ -1,75 +1,65 @@
 # MAPA DE FECHAMENTO DA COLETA ITALIANA
 
-> **Este ficheiro é DERIVADO.** Os números de estado saem de
+> **Este ficheiro é DERIVADO.** Todo estado sai de
 > `system-map/data/estradas-it.generated.json`, produzido por
 > `python3 system-map/scripts/censo_das_estradas_it.py`.
 > `tests/test_estradas_it.py` falha se algum número aqui divergir de lá.
->
-> A versão anterior publicava «2 CLOSED» porque **uma pessoa escreveu 2**.
-> Quando a medição passou a rodar, o resultado foi **0**.
 
 ---
 
-## POR QUE ESTE MAPA FOI REESCRITO
+## A — OS DOIS ATALHOS QUE A M1 REMOVEU
 
-O mapa anterior pintou duas estradas como prontas. O red team achou o erro, e
-ele é do tipo que se repete:
+### 1 · Grep positivo não é aresta provada
 
-    OWNER EXISTS ≠ OWNER CONNECTED.
+`CONNECTED_TO_ROUTE` era um grep, e `ARCHITECTURE_CLOSED` aceitava o positivo
+como ligação suficiente — enquanto o próprio censo escrevia que grep positivo
+era frouxo. Reproduzido em `tests/fixtures/ARESTAS/`: um ficheiro cujo único
+`derived_artifact` está num docstring devolvia o mesmo veredito de um que
+consulta a tabela.
 
-`guarda/importar_italia.py` existe, escreve estrutura, e está no repositório —
-então foi listado como o `STRUCTURED` da RC-1. Medido: ele **não lê
-`derived_artifact` nem `raw_asset`**. Ele carrega outros artefatos JSON
-(regulatório, GIRE, substâncias) e gera SQL por conta própria. Um writer existir
-não prova que ele é o writer **daquela** estrada.
+Agora há uma escada, e o degrau é medido por **AST** — não por texto:
 
-O mesmo vale para `admissao/admissao.py`: tem chamadores, mas nenhum recebe a
-saída da RC-1.
-
-    CODE EXISTS ≠ ROUTE CLOSED.
-    LIVE SCHEMA ≠ COLLECTION CLOSED.
-    CANDIDATE ≠ PROVEN.
-
----
-
-## A — OS DOIS EIXOS, SEPARADOS
-
-Uma cor não responde duas perguntas. Por isso o estado agora tem dois:
-
-| eixo | pergunta |
+| degrau | o que prova |
 |---|---|
-| `ARCHITECTURE_CLOSED` | toda etapa necessária tem dono **e está ligada**, ou é `NOT_APPLICABLE` com razão escrita? |
-| `OBSERVATION_STATE` | isso já **aconteceu**, e com que prova? |
+| `NO_CONNECTION_EVIDENCE` | o dono não menciona o artefato. **Grep negativo é prova.** |
+| `CANDIDATE_CONNECTION` | menciona, mas só fora do código executável |
+| `CODE_CONNECTED` | o código executável referencia o artefato |
+| `TESTED_CONNECTION` | um teste faz o objeto atravessar a aresta |
+| `OBSERVED_CONNECTION` | execução real, com recibo |
 
-Uma estrada pode ter arquitetura fechada e nunca ter rodado. E pode ter parte
-observada com a arquitetura ainda aberta — é o caso de todas as de hoje.
+**`CODE_CONNECTED` é o degrau mínimo que fecha uma aresta.** `OBSERVED` não é
+exigido: arquitetura e observação continuam eixos separados.
 
-### Como a ligação é medida
+> Resultado honesto: hoje **nenhuma** aresta do modelo estava apoiada só em grep
+> positivo. O conserto era necessário para a coerência do instrumento, e não
+> mudou nenhum veredito de hoje.
 
-O modelo (`estradas-it.model.json`) diz **quais** etapas cada estrada tem e
-**quem seria** o dono. O censo mede duas coisas separadas:
+### 2 · `provadas = 1` era um número escrito à mão
 
-- `OWNER_EXISTS` — o ficheiro está no disco;
-- `CONNECTED_TO_ROUTE` — esse ficheiro **cita o artefato da etapa anterior**.
+E `desconhecidas` derivava de `ACCESS_METHOD` — o que o **catálogo diz**, não a
+rota que a fonte tem. A subtracção ainda supunha que uma fonte pertence a
+exactamente uma estrada.
 
-O segundo é grep, e é grosseiro de propósito: o mesmo critério para todas as
-estradas, porque um critério que muda por estrada deixa de comparar. O que ele
-responde é estreito e honesto — «este ficheiro sequer menciona aquilo?». Um
-**não** aí é definitivo.
+    SOURCE_VERDICT ≠ ACCESS_METHOD ≠ ROUTE_MEMBERSHIP.
+    E: SOURCE 1:N ROUTES.
+
+Agora cada pertença é um registro derivado de evidência preservada.
 
 ---
 
-## B — A MATRIZ MEDIDA
+## B — A MATRIZ DAS ESTRADAS
 
-⚠ = o dono existe mas a ligação **não** foi medida.
+Cada célula: `ESTADO·ligação`, onde a ligação é `cod` / `cand` / `sem`.
 
 | ROUTE_CLASS | DISCOVER | FETCH | RAW | RUN | CHECKPOINT | DERIVED | STRUCTURED | ADMISSION | FECHADA | OBSERVAÇÃO | FALTA |
 |---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|---|---|
-| **RC-1 · OFFICIAL_HTTP_DOCUMENT** | Declared | Observed | Observed | Observed | N/A | Observed | Code ⚠ | Code ⚠ | **NÃO** | PARTIALLY_OBSERVED | STRUCTURED, ADMISSION |
-| **RC-2 · YOUTUBE_OFFICIAL_API** | Observed | Observed | LocalTested | Code ⚠ | DbTested | N/A | DbTested | Code ⚠ | **NÃO** | PARTIALLY_OBSERVED | RUN, ADMISSION |
-| **RC-3 · PUBLIC_NATIVE_API** | LocalTested | LocalTested | LocalTested | — | — | N/A | — | — | **NÃO** | NOT_OBSERVED | RUN, CHECKPOINT, STRUCTURED, ADMISSION |
-| **RC-4 · SCIENCE_METADATA_API** | LocalTested | LocalTested | — | — | — | — | — | — | **NÃO** | NOT_OBSERVED | RAW, RUN, CHECKPOINT, DERIVED, STRUCTURED, ADMISSION |
-| **RC-5 · REGULATORY_BULK_IMPORT** | — | — | — | LiveSchema | N/A | N/A | LiveSchema | — | **NÃO** | DB_TESTED | DISCOVER, FETCH, RAW, ADMISSION |
+| **RC-1 · OFFICIAL_HTTP_DOCUMENT** | Declared | Observed·cod | Observed·cod | Observed·cod | N/A | Observed·cod | Code·sem | Code·sem | **NÃO** | PARTIALLY_OBSERVED | STRUCTURED, ADMISSION |
+| **RC-2 · YOUTUBE_OFFICIAL_API** | Observed·cod | Observed·cod | Localtest·cod | Code·sem | Dbtested·cod | N/A | Dbtested·cod | Code·sem | **NÃO** | PARTIALLY_OBSERVED | RUN, ADMISSION |
+| **RC-3 · PUBLIC_NATIVE_API** | Localtest·cod | Localtest·cod | Localtest·cod | — | — | N/A | — | — | **NÃO** | NOT_OBSERVED | RUN, CHECKPOINT, STRUCTURED, ADMISSION |
+| **RC-4 · SCIENCE_METADATA_API** | Localtest·cod | Localtest·cod | — | — | — | — | — | — | **NÃO** | NOT_OBSERVED | RAW, RUN, CHECKPOINT, DERIVED, STRUCTURED, ADMISSION |
+| **RC-5 · REGULATORY_BULK_IMPORT** | — | — | — | Liveschem·cod | N/A | N/A | Liveschem·cod | — | **NÃO** | DB_TESTED | DISCOVER, FETCH, RAW, ADMISSION |
+| **RC-10 · OFFICIAL_HTTP_DATASET** | — | — | Code·cod | Code·cod | — | N/A | — | — | **NÃO** | NOT_OBSERVED | DISCOVER, FETCH, CHECKPOINT, STRUCTURED, ADMISSION |
+| **RC-11 · OFFICIAL_STATISTICAL_API** | — | — | — | — | — | N/A | — | — | **NÃO** | NOT_OBSERVED | DISCOVER, FETCH, RAW, RUN, CHECKPOINT, STRUCTURED, ADMISSION |
 
 | ROUTE_CLASS | OBSERVAÇÃO | razão |
 |---|---|---|
@@ -78,11 +68,10 @@ responde é estreito e honesto — «este ficheiro sequer menciona aquilo?». Um
 | **RC-8 · PAID_FALLBACK** | BLOCKED | APIFY-LAST: zero rotas permitidas hoje na matriz |
 | **RC-9 · GIT_LEDGER** | DEBT | estado operacional em Git, contra P-011. Nao e estrada a fechar: e divida a mover. |
 
-### Contagem, derivada
-
 | medida | valor |
 |---|---:|
-| `ROUTE_CLASSES_MODELED` | **9** |
+| `ROUTE_CLASSES_MODELED` | **11** |
+| classes com ao menos uma pertença provada | **2** (RC-1, RC-9) |
 | `ARCHITECTURE_CLOSED` | **0** |
 | `OBSERVED` | **2** |
 | `DB_TESTED` | **1** |
@@ -90,112 +79,126 @@ responde é estreito e honesto — «este ficheiro sequer menciona aquilo?». Um
 | `DEBT` | **1** |
 | `ROUTE_CLASSES_REQUIRED_TOTAL` | **UNKNOWN** |
 
-> `ROUTE_CLASSES_REQUIRED_TOTAL` é **UNKNOWN**, e não 9. 51 fonte(s) sem rota conhecida. Ate a M1 provar, nenhuma delas garante caber nas 9 classes modeladas.
-> Dizer «existem 9 classes» seria afirmar que o modelo já cobre o sistema. Ele
-> cobre o que foi visto.
-
 ---
 
-## C — AS FONTES
+## C — AS FONTES, POR PROVA DE ROTA
 
 | medida | valor |
 |---|---:|
 | total no catálogo | 54 |
-| `SOURCE_ROUTE_PROVEN` | **1** |
-| `SOURCE_ROUTE_CANDIDATE` | **2** |
-| `SOURCE_ROUTE_UNKNOWN` | **51** |
+| `SOURCES_WITH_PROVEN_ROUTE` | **7** |
+| `SOURCES_WITH_ONLY_CANDIDATE_ROUTE` | **12** |
+| `SOURCES_ROUTE_UNKNOWN` | **35** |
+| `SOURCES_BLOCKED` | **0** |
 
-O mapa anterior dizia «~40 fontes operacionalmente equivalentes à ARPAV». Isso
-era **candidato apresentado como provado**. «Boletim», «PDF», «site
-institucional» são descrições — não provam por onde se chega na fonte.
+Dentro do desconhecido, dois casos diferentes: **26** respondem da Itália mas
+não sabemos por onde se busca o documento (`REACHABLE_ROUTE_UNKNOWN`), e **9**
+não têm nem isso.
 
-    A DESCRIÇÃO NÃO PROVA A ROTA.
+### Pertenças
 
-**Uma** fonte teve a rota medida ponta a ponta: o canário. As outras 53 esperam
-a M1.
+| medida | valor |
+|---|---:|
+| `TOTAL_PROVEN_MEMBERSHIPS` | **8** |
+| `TOTAL_CANDIDATE_MEMBERSHIPS` | **18** |
+| `TOTAL_BLOCKED_MEMBERSHIPS` | **0** |
 
----
-
-## D — O ORQUESTRADOR
-
-O mapa anterior publicou **«não existe orquestrador»**. Errado, e o erro merece
-ser dito por inteiro: apoiei-me na métrica «0 peças coordenam mais de um
-executor» do censo da coleta. Essa métrica conta **import direto**, e
-`orquestrador/orquestrador.py` despacha por `subprocess`. A métrica estava
-certa; a leitura dela respondia outra pergunta.
-
-    UMA MÉTRICA NÃO É UMA RESPOSTA
-    ENQUANTO NINGUÉM CONFERIR O QUE ELA MEDE.
-
-Medido agora: **existe**, e alcança **4 executores** via `pedido/receitas.py`.
-Existir não é cobrir — são 4 de 21 executores. E `SINTONIA SCRAP` continua
-sendo `COMPOSITE_EXECUTOR`, não um segundo orquestrador: ele coordena rotas de
-**uma** aquisição, não o calendário da casa.
+| ROUTE_CLASS | provadas | candidatas | níveis de evidência |
+|---|---:|---:|---|
+| RC-1 · OFFICIAL_HTTP_DOCUMENT | 1 | 15 | DECLARED, EXPECTED, HISTORICALLY_OBSERVED, LIVE_FETCH_PROVEN |
+| RC-9 · GIT_LEDGER | 7 | 0 | HISTORICALLY_OBSERVED |
+| RC-10 · OFFICIAL_HTTP_DATASET | 0 | 2 | EXPECTED, HISTORICALLY_OBSERVED |
+| RC-11 · OFFICIAL_STATISTICAL_API | 0 | 1 | DECLARED |
 
 ---
 
-## E — SOCIAL, SEM ARREDONDAR
+## D — ARPAV PROVA QUE UMA FONTE TEM N ESTRADAS
 
-| camada | estado |
+`IT-T2-002` tem **duas** pertenças, ambas provadas:
+
+| estrada | papel | prova |
+|---|---|---|
+| RC-1 · OFFICIAL_HTTP_DOCUMENT | `PRIMARY` | `LIVE_FETCH_PROVEN` — HTTP 200, `application/pdf`, 463 630 bytes, `raw_asset` → `derived_artifact id=1` (`0feb4967`) |
+| RC-9 · GIT_LEDGER | `HISTORICAL` | `HISTORICALLY_OBSERVED` — 124 observações no ledger |
+
+A mesma fonte, colhida por dois caminhos diferentes, em momentos diferentes, com
+donos diferentes. Um modelo de uma rota por fonte apagaria uma das duas.
+
+---
+
+## E — A ESCADA DA EVIDÊNCIA, E ONDE ELA PAROU
+
+| degrau | o que temos |
 |---|---|
-| YouTube Data API v3 | `OBSERVED` — corrida 34258433872 |
-| RAW operacional | **`NOT_OBSERVED`** — o artefato 10068850407 é `PILOT_PROOF`, não `OPERATIONAL_STORAGE` |
-| `RUN` da rota social | **não ligado** — `social_persistencia` não cria `collection_run` |
-| STRUCTURED | `DB_TESTED`, **não LIVE** |
-| CHECKPOINT operacional | **`NOT_OBSERVED`** — o piloto foi `ONE_SHOT` |
-| migration 023 | `DESIGNED` · `DB_TESTED` · **`NOT LIVE`** |
+| `EXPECTED` | «NÃO SEI — esperado PDF»: 11 fontes. Imaginação do catálogo. |
+| `DECLARED` | 3 fontes declaram forma concreta (CSV direto, PDF semanal, HTML) |
+| `HISTORICALLY_OBSERVED` | 7 fontes com recibo no ledger — 144 observações |
+| `LIVE_METADATA_PROVEN` | 51 fontes responderam ao probe italiano |
+| `LIVE_FETCH_PROVEN` | **1** — o canário |
 
-Por isso a RC-2 **não fecha**: falta `RUN` ligado e `ADMISSION`.
+O probe mediu 43 URLs de Milão em 2026-09-07. **Os 33 `ACCESS_OK` devolveram
+todos `text/html`**: são páginas iniciais.
 
----
+    ACCESS_OK É FRONT_DOOR_ACCESS.
+    NÃO É HTTP_DOCUMENT_ROUTE.
 
-## F — APIFY E GIT
+Por isso a porta aberta não gera pertença nenhuma. Ela move a fonte de
+`ROUTE_UNKNOWN` para `REACHABLE_ROUTE_UNKNOWN` — que é mais do que nada e menos
+do que uma estrada.
 
-Apify: **0 rotas com prioridade 1**, 5 como fallback, 0 permitidas hoje.
+### Zero rede nova
 
-Git como banco operacional: **2 ficheiro(s)** em `data/collection-ledger/italy/`.
-Contra P-011. Histórico não se apaga — muda o dono daqui para a frente.
+52 das 54 fontes tinham evidência preservada (probe ∪ ledger). **Nenhuma chamada
+de rede foi feita nesta missão.**
 
----
+### `BLOCKED` não é o armário do desconhecido
 
-## G — TOP 5 GAPS
-
-Ordenados por quantas estradas destravam, nunca por visibilidade.
-
-| # | gap | destrava | por quê |
-|---:|---|---|---|
-| **G-1** | classificar as 51 fontes com rota desconhecida | o tamanho de todas as outras missões | enquanto durar, ninguém sabe quantas estradas o sistema precisa |
-| **G-2** | ligar `STRUCTURED` e `ADMISSION` da RC-1 ao `derived_artifact` | fecha a estrada mais populosa | é o defeito que este red team achou |
-| **G-3** | tirar o Git do runtime (`collection-ledger`) | 1 classe | último lugar onde Git é banco operacional |
-| **G-4** | RC-2 ao vivo: `RUN` ligado + operacional | 1 classe | fecha a única cadeia social ponta a ponta |
-| **G-5** | RC-5: dar `DISCOVER`/`FETCH`/`RAW` ao regulatório | 1 classe | hoje os dados chegam ao importador sem passar por bruto nenhum |
+O probe marcou 4 fontes como `BLOCKED_PARA_CURL`. Isso é impedimento de
+**ferramenta**, não de política: a mesma URL pode abrir com um agente comum.
+Elas ficam `ROUTE_UNKNOWN`, com a próxima prova mais barata escrita. `BLOCKED` =
+**0**.
 
 ---
 
-## H — A SEQUÊNCIA
+## F — AS DUAS CLASSES QUE A EVIDÊNCIA EXIGIU
 
-| # | missão | fecha |
+| classe | motivo material |
+|---|---|
+| **RC-10 · OFFICIAL_HTTP_DATASET** | A aquisição é igual à RC-1, mas a cadeia diverge em `DERIVED`: a RC-1 tem um passo **obrigatório e provado** de extração de texto de PDF; um dataset já chega estruturado e não passa por ele. Medido: `IT-T4-001` aparece no ledger com `MIME_ASSINATURA=TEXTO`. Não é formato sozinho — é uma etapa obrigatória de uma classe que na outra não existe. |
+| **RC-11 · OFFICIAL_STATISTICAL_API** | SDMX não é documento nem ficheiro único: o `DISCOVER` é um catálogo de dataflows e o `FETCH` é consulta por dimensão. Nenhuma classe modelada tem essas duas etapas. Declarado por `IT-T1-001` (ISTAT) e **não confirmado** — nasce modelada, não provada. |
+
+---
+
+## G — O ORQUESTRADOR
+
+Existe: `orquestrador/orquestrador.py`, alcançando **4** dos 21 executores via
+`pedido/receitas.py`. Existir não é cobrir. `SINTONIA SCRAP` continua sendo
+`COMPOSITE_EXECUTOR` — coordena rotas de **uma** aquisição, não o calendário.
+
+---
+
+## H — TOP GAPS, RECALCULADOS
+
+Não herdados: o ranking mudou porque a medição mudou.
+
+| # | gap | destrava |
 |---:|---|---|
-| **M1** | classificar as fontes com rota desconhecida. Zero coleta nova. | G-1 |
-| **M2** | ligar RC-1: `derived_artifact` → estruturado → admissão | G-2 |
-| **M3** | tirar o Git do runtime | G-3 |
-| **M4** | RC-2 ao vivo, um canal | G-4 |
-| **M5** | RC-5 e ciência: bruto e proveniência | G-5 |
-
-**A primeira continua sendo M1** — e agora por um motivo medido, não estético:
-`ROUTE_CLASSES_REQUIRED_TOTAL` é `UNKNOWN`, e um plano que não sabe o próprio
-tamanho não é um plano.
+| **G-1** | ligar `STRUCTURED` e `ADMISSION` da RC-1 ao `derived_artifact` | a única classe com pertença provada e arquitetura aberta — e a mais populosa |
+| **G-2** | achar o link do documento nas 26 fontes `REACHABLE_ROUTE_UNKNOWN` | 26 fontes, partindo de páginas **já preservadas** |
+| **G-3** | tirar o Git do runtime (RC-9 → donos canônicos) | 7 pertenças provadas hoje presas em Git |
+| **G-4** | RC-2 ao vivo: `RUN` ligado + operacional | a única cadeia social |
+| **G-5** | RC-5: dar `DISCOVER`/`FETCH`/`RAW` ao regulatório | os dados chegam ao importador sem passar por bruto |
 
 ---
 
 ## I — O QUE ESTE MAPA NÃO PROVA
 
-- Não prova que alguma estrada está pronta: **0** têm arquitetura fechada.
-- Não prova nada sobre produção: zero DDL, INSERT, UPDATE, DELETE, Storage, API,
-  Apify.
-- Não mede a Espanha. O recorte é `COUNTRY_SCOPE=IT`.
-- O grep que mede ligação prova **ausência** com firmeza e **presença** com
-  folga: citar o artefato é necessário, não suficiente. Uma etapa marcada como
-  ligada pode estar ligada errado — isso só a execução mostra.
+- **0** estradas com arquitetura fechada.
+- `SOURCES_ROUTE_UNKNOWN` = **35**. A M1 não forçou zero, e não devia: quando a
+  próxima prova exigiria login, browser especial, download grande ou engenharia
+  nova, a fonte parou com `WHAT_IS_MISSING` e `CHEAPEST_NEXT_PROOF` escritos.
+- `CODE_CONNECTED` prova que o código **referencia** o artefato. Não prova que
+  o referencia **certo** — isso só a execução mostra.
+- Zero produção: nenhum DDL, INSERT, UPDATE, DELETE, Storage, API, Apify.
 
 `COLLECTION_FOUNDATION_CLOSED` = **NÃO**.

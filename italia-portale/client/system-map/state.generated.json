@@ -1273,6 +1273,7 @@
       "system-map/app/map.js",
       "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
       "system-map/data/architecture.declared.json",
+      "system-map/data/estradas-it.model.json",
       "system-map/scripts/censo_da_coleta.py",
       "system-map/scripts/censo_das_derivacoes.py",
       "system-map/scripts/censo_das_estradas_it.py",
@@ -1309,6 +1310,7 @@
       "tests/test_competitor_layer.py",
       "tests/test_completude_oportunidade.py",
       "tests/test_comunicacao.py",
+      "tests/test_estradas_it.py",
       "tests/test_evidence.py",
       "tests/test_falhas.py",
       "tests/test_fundacao_da_coleta.py",
@@ -1727,8 +1729,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "901255c782a0eb6e9713777107a7bfc39b737353",
-    "GENERATED_AT": "2026-09-08T19:01:01+00:00"
+    "HEAD": "a675bc3f790e146ee36c138e5ef918748ff62051",
+    "GENERATED_AT": "2026-09-08T19:25:26+00:00"
   },
   "FAMILIES": [
     {
@@ -7245,23 +7247,28 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
+        "system-map/data/estradas-it.model.json",
         "system-map/scripts/censo_das_estradas_it.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "existe teste que exercita isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-IT-CATALOGO",
+        "C-IT-PRESERVAR",
         "C-ORQUESTRADOR",
         "C-RECEITAS",
-        "C-SCRAP-LEIS"
+        "C-SCRAP-LEIS",
+        "C-TESTES"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 1
+        "ITALIA": 2
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
@@ -7282,7 +7289,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_das_estradas_it.py",
-            "line": 332,
+            "line": 665,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -8094,6 +8101,7 @@
       ],
       "outbound": [
         "C-CENSO-IDENTIDADE-IT",
+        "C-ESTRADAS-IT",
         "C-IT-CONTAS",
         "C-MAPA-SCAN",
         "C-PADRAO-COLETA",
@@ -12310,6 +12318,7 @@
         "tests/test_competitor_layer.py",
         "tests/test_completude_oportunidade.py",
         "tests/test_comunicacao.py",
+        "tests/test_estradas_it.py",
         "tests/test_evidence.py",
         "tests/test_falhas.py",
         "tests/test_fundacao_da_coleta.py",
@@ -12347,9 +12356,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 49,
+      "file_count": 50,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 9 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 10 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -12380,6 +12389,7 @@
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
         "C-ESTRADA-PDF",
+        "C-ESTRADAS-IT",
         "C-EXECUTOR-TEXTO-PDF",
         "C-FONTES-EU",
         "C-IDENTIDADE",
@@ -12414,6 +12424,7 @@
         "C-CI-PERSIST",
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
+        "C-ESTRADAS-IT",
         "C-PACOTE-CAMADAS",
         "C-PORTAL-DADOS",
         "C-PROVA-COLETA",
@@ -12464,7 +12475,16 @@
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
-      "escreve_na_pasta": [],
+      "escreve_na_pasta": [
+        {
+          "pasta": "system-map",
+          "prova": {
+            "file": "tests/test_estradas_it.py",
+            "line": 54,
+            "snippet": "escreve em MODELO"
+          }
+        }
+      ],
       "destino": [
         "SUPABASE",
         "GIT"
@@ -14045,7 +14065,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 901255c782a0eb6e9713777107a7bfc39b737353"
+        "HEAD a675bc3f790e146ee36c138e5ef918748ff62051"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17734,6 +17754,29 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-ESTRADAS-IT",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O censo das classes de estrada da coleta italiana alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_estradas_it.py",
+          "line": 35,
+          "snippet": "'censo_das_estradas_it.py')],"
+        },
+        {
+          "file": "tests/test_estradas_it.py",
+          "line": 50,
+          "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-EXECUTOR-TEXTO-PDF",
       "to": "C-CENSO-DERIVACOES",
       "type": "READS",
@@ -18558,6 +18601,24 @@
           "file": "system-map/scripts/censo_de_identidade_it.py",
           "line": 63,
           "snippet": "LIVRO = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-ESTRADAS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta O censo das classes de estrada da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 357,
+          "snippet": "open(LEDGER, 'leitura')  # LEDGER = data/collection-ledger/italy/observations.ndjson"
         }
       ],
       "categoria": "READ"
@@ -19412,7 +19473,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 147,
+          "line": 210,
           "snippet": "open(caminho, 'leitura')  # caminho = orquestrador/orquestrador.py"
         }
       ],
@@ -20800,7 +20861,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 243,
+          "line": 536,
           "snippet": "import receitas                                    # noqa: PLC0415"
         }
       ],
@@ -21392,7 +21453,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 289,
+          "line": 605,
           "snippet": "'MATRIZ': 'leis/social_matriz.py',"
         }
       ],
@@ -22421,6 +22482,24 @@
           "file": ".github/workflows/scrap-social.yml",
           "line": 284,
           "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-ESTRADAS-IT",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em O censo das classes de estrada da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_estradas_it.py",
+          "line": 54,
+          "snippet": "open(MODELO, 'w')  # MODELO = system-map/data/estradas-it.model.json"
         }
       ],
       "categoria": "PROOF"
@@ -23696,12 +23775,12 @@
     "components_pending": 41,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 428,
-    "edges_proven": 426,
+    "edges": 431,
+    "edges_proven": 429,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1281,
-    "files_covered": 585,
+    "files_tracked": 1283,
+    "files_covered": 587,
     "files_code_unclaimed": 0
   }
 }

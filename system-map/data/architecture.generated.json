@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "901255c782a0eb6e9713777107a7bfc39b737353",
-    "GENERATED_AT": "2026-09-08T19:01:01+00:00"
+    "HEAD": "a675bc3f790e146ee36c138e5ef918748ff62051",
+    "GENERATED_AT": "2026-09-08T19:25:26+00:00"
   },
   "FILES": [
     {
@@ -4489,7 +4489,7 @@
     },
     {
       "path": "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
-      "sha": "8537b19ea5f0521604df3958904d5f2fad407440",
+      "sha": "b00e7d189e7513dc56875f1bef8c1f20d9524eee",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8478,6 +8478,13 @@
       "code_dir": true
     },
     {
+      "path": "system-map/data/estradas-it.model.json",
+      "sha": "4ea8746566877176524c2f83a35ee6d0d671c719",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "system-map/scripts/censo_da_coleta.py",
       "sha": "3fa99e2b2154151b55c6f4ff5f1f87c7b27b8d8d",
       "ext": ".py",
@@ -8493,7 +8500,7 @@
     },
     {
       "path": "system-map/scripts/censo_das_estradas_it.py",
-      "sha": "89058ba90fa482fa50f80dff927811645719cbad",
+      "sha": "f02d99e5a2a65e3c6038c0e8a1497b5a64c7cc82",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8711,6 +8718,13 @@
     {
       "path": "tests/test_comunicacao.py",
       "sha": "0ddef95ea6db0b4a0a5675332735c8728e41784f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_estradas_it.py",
+      "sha": "859a13c008f5205073104df205856c84bdd1f8e5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24334,6 +24348,28 @@
     },
     {
       "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 357,
+        "snippet": "open(LEDGER, 'leitura')  # LEDGER = data/collection-ledger/italy/observations.ndjson"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "data/samples/IT-PROBE/probe-fase-c.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 376,
+        "snippet": "open(PROBE, 'leitura')  # PROBE = data/samples/IT-PROBE/probe-fase-c.json"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
       "to_file": "leis/fundacao_da_coleta.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24361,7 +24397,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 289,
+        "line": 605,
         "snippet": "'MATRIZ': 'leis/social_matriz.py',"
       }
     },
@@ -24372,7 +24408,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 147,
+        "line": 210,
         "snippet": "open(caminho, 'leitura')  # caminho = orquestrador/orquestrador.py"
       }
     },
@@ -24383,8 +24419,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 243,
+        "line": 536,
         "snippet": "import receitas                                    # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "system-map/data/estradas-it.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 234,
+        "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
       }
     },
     {
@@ -26244,6 +26291,61 @@
         "file": "tests/test_comunicacao.py",
         "line": 29,
         "snippet": "import comunicacao_universo as uni        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_estradas_it.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_estradas_it.py",
+        "line": 24,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_estradas_it.py",
+      "to_file": "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_estradas_it.py",
+        "line": 127,
+        "snippet": "open(MAPA, 'leitura')  # MAPA = docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md"
+      }
+    },
+    {
+      "from_file": "tests/test_estradas_it.py",
+      "to_file": "system-map/data/estradas-it.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_estradas_it.py",
+        "line": 50,
+        "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
+      }
+    },
+    {
+      "from_file": "tests/test_estradas_it.py",
+      "to_file": "system-map/data/estradas-it.model.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_estradas_it.py",
+        "line": 54,
+        "snippet": "open(MODELO, 'w')  # MODELO = system-map/data/estradas-it.model.json"
+      }
+    },
+    {
+      "from_file": "tests/test_estradas_it.py",
+      "to_file": "system-map/scripts/censo_das_estradas_it.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_estradas_it.py",
+        "line": 35,
+        "snippet": "'censo_das_estradas_it.py')],"
       }
     },
     {
@@ -29194,7 +29296,7 @@
     "system-map/scripts/censo_das_estradas_it.py": [
       {
         "pasta": "system-map",
-        "line": 332,
+        "line": 665,
         "constante": "SAIDA"
       }
     ],
@@ -29211,14 +29313,21 @@
         "line": 400,
         "constante": "destino"
       }
+    ],
+    "tests/test_estradas_it.py": [
+      {
+        "pasta": "system-map",
+        "line": 54,
+        "constante": "MODELO"
+      }
     ]
   },
   "COUNTS": {
-    "files_tracked": 1281,
-    "files_readable": 443,
-    "files_code_dir": 492,
-    "file_edges": 1803,
-    "escritas_em_pasta": 59,
+    "files_tracked": 1283,
+    "files_readable": 444,
+    "files_code_dir": 494,
+    "file_edges": 1811,
+    "escritas_em_pasta": 60,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}
