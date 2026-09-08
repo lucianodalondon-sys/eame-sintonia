@@ -5,8 +5,476 @@
   "MATRIZ": "leis/social_matriz.py",
   "NOTA": "a CLASSE de rota social vem da matriz, que ja era a dona. As classes nao-sociais sao derivadas do codigo medido, e estao no mapa em prosa — este ficheiro conta o que da para contar sem opinar."
  },
+ "ROUTE_CLASSES": [
+  {
+   "ROUTE_CLASS_ID": "RC-1",
+   "NAME": "OFFICIAL_HTTP_DOCUMENT",
+   "STEPS": {
+    "DISCOVER": {
+     "STATE": "DECLARED",
+     "OWNER": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": "CATALOGO",
+     "PROOF_REF": null
+    },
+    "FETCH": {
+     "STATE": "OBSERVED",
+     "OWNER": "coleta/texto_fonte.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "CANARIO_LIVE",
+     "PROOF_REF": "0feb4967"
+    },
+    "RAW": {
+     "STATE": "OBSERVED",
+     "OWNER": "guarda/preservar_coleta.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "CANARIO_LIVE",
+     "PROOF_REF": "7dc58f81"
+    },
+    "RUN": {
+     "STATE": "OBSERVED",
+     "OWNER": "guarda/preservar_coleta.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "CANARIO_LIVE",
+     "PROOF_REF": "7dc58f81"
+    },
+    "CHECKPOINT": {
+     "STATE": "NOT_APPLICABLE",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null,
+     "NOT_APPLICABLE_REASON": "captura de documento unico e sem janela incremental: nao ha unidade a retomar. Se um dia houver recorrencia por fonte, deixa de ser N/A."
+    },
+    "DERIVED": {
+     "STATE": "OBSERVED",
+     "OWNER": "coleta/executor_texto_de_pdf.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "CANARIO_LIVE",
+     "PROOF_REF": "derived_artifact id=1"
+    },
+    "STRUCTURED": {
+     "STATE": "CODE",
+     "OWNER": "guarda/importar_italia.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": false,
+     "PROOF_KIND": "NENHUMA",
+     "PROOF_REF": null
+    },
+    "ADMISSION": {
+     "STATE": "CODE",
+     "OWNER": "admissao/admissao.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": false,
+     "PROOF_KIND": "NENHUMA",
+     "PROOF_REF": null
+    }
+   },
+   "ARCHITECTURE_CLOSED": false,
+   "STEPS_BLOQUEANDO": [
+    "STRUCTURED",
+    "ADMISSION"
+   ],
+   "OBSERVATION_STATE": "PARTIALLY_OBSERVED",
+   "BLOCKED_REASON": null,
+   "DEBT_REASON": null
+  },
+  {
+   "ROUTE_CLASS_ID": "RC-2",
+   "NAME": "YOUTUBE_OFFICIAL_API",
+   "STEPS": {
+    "DISCOVER": {
+     "STATE": "OBSERVED",
+     "OWNER": "coleta/youtube_oficial.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "RUN_ACTIONS",
+     "PROOF_REF": "34258433872"
+    },
+    "FETCH": {
+     "STATE": "OBSERVED",
+     "OWNER": "coleta/youtube_oficial.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "RUN_ACTIONS",
+     "PROOF_REF": "34258433872"
+    },
+    "RAW": {
+     "STATE": "LOCAL_TESTED",
+     "OWNER": "coleta/social_envelope.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "ARTEFATO_ACTIONS",
+     "PROOF_REF": "10068850407 — PILOT_PROOF, nao OPERATIONAL_STORAGE"
+    },
+    "RUN": {
+     "STATE": "CODE",
+     "OWNER": "guarda/preservar_coleta.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": false,
+     "PROOF_KIND": "NENHUMA",
+     "PROOF_REF": null
+    },
+    "CHECKPOINT": {
+     "STATE": "DB_TESTED",
+     "OWNER": "coleta/coleta_checkpoint.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "POSTGRES_DESCARTAVEL",
+     "PROOF_REF": "provas/social_persistencia_no_postgres.py"
+    },
+    "DERIVED": {
+     "STATE": "NOT_APPLICABLE",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null,
+     "NOT_APPLICABLE_REASON": "a API devolve texto ja estruturado; nada e produzido por nos a partir do bruto. Legenda do YouTube NAO e derivado nosso — COL-LAW-007."
+    },
+    "STRUCTURED": {
+     "STATE": "DB_TESTED",
+     "OWNER": "coleta/social_persistencia.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "POSTGRES_DESCARTAVEL",
+     "PROOF_REF": "provas/social_persistencia_no_postgres.py"
+    },
+    "ADMISSION": {
+     "STATE": "CODE",
+     "OWNER": "admissao/admissao.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": false,
+     "PROOF_KIND": "NENHUMA",
+     "PROOF_REF": null
+    }
+   },
+   "ARCHITECTURE_CLOSED": false,
+   "STEPS_BLOQUEANDO": [
+    "RUN",
+    "ADMISSION"
+   ],
+   "OBSERVATION_STATE": "PARTIALLY_OBSERVED",
+   "BLOCKED_REASON": null,
+   "DEBT_REASON": null
+  },
+  {
+   "ROUTE_CLASS_ID": "RC-3",
+   "NAME": "PUBLIC_NATIVE_API",
+   "STEPS": {
+    "DISCOVER": {
+     "STATE": "LOCAL_TESTED",
+     "OWNER": "coleta/social_rotas.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "TESTE_LOCAL",
+     "PROOF_REF": null
+    },
+    "FETCH": {
+     "STATE": "LOCAL_TESTED",
+     "OWNER": "coleta/social_rotas.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "TESTE_LOCAL",
+     "PROOF_REF": null
+    },
+    "RAW": {
+     "STATE": "LOCAL_TESTED",
+     "OWNER": "coleta/social_envelope.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "TESTE_LOCAL",
+     "PROOF_REF": null
+    },
+    "RUN": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "CHECKPOINT": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "DERIVED": {
+     "STATE": "NOT_APPLICABLE",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null,
+     "NOT_APPLICABLE_REASON": "API devolve texto; nada e derivado por nos"
+    },
+    "STRUCTURED": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "ADMISSION": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    }
+   },
+   "ARCHITECTURE_CLOSED": false,
+   "STEPS_BLOQUEANDO": [
+    "RUN",
+    "CHECKPOINT",
+    "STRUCTURED",
+    "ADMISSION"
+   ],
+   "OBSERVATION_STATE": "NOT_OBSERVED",
+   "BLOCKED_REASON": null,
+   "DEBT_REASON": null
+  },
+  {
+   "ROUTE_CLASS_ID": "RC-4",
+   "NAME": "SCIENCE_METADATA_API",
+   "STEPS": {
+    "DISCOVER": {
+     "STATE": "LOCAL_TESTED",
+     "OWNER": "coleta/universo_ciencia_it.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "TESTE_LOCAL",
+     "PROOF_REF": null
+    },
+    "FETCH": {
+     "STATE": "LOCAL_TESTED",
+     "OWNER": "coleta/corpus_pesquisador.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "TESTE_LOCAL",
+     "PROOF_REF": null
+    },
+    "RAW": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "RUN": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "CHECKPOINT": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "DERIVED": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "STRUCTURED": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "ADMISSION": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    }
+   },
+   "ARCHITECTURE_CLOSED": false,
+   "STEPS_BLOQUEANDO": [
+    "RAW",
+    "RUN",
+    "CHECKPOINT",
+    "DERIVED",
+    "STRUCTURED",
+    "ADMISSION"
+   ],
+   "OBSERVATION_STATE": "NOT_OBSERVED",
+   "BLOCKED_REASON": null,
+   "DEBT_REASON": null
+  },
+  {
+   "ROUTE_CLASS_ID": "RC-5",
+   "NAME": "REGULATORY_BULK_IMPORT",
+   "STEPS": {
+    "DISCOVER": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "FETCH": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "RAW": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    },
+    "RUN": {
+     "STATE": "LIVE_SCHEMA",
+     "OWNER": "coleta/regulatorio_importar.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "SQL_DETERMINISTICO",
+     "PROOF_REF": null
+    },
+    "CHECKPOINT": {
+     "STATE": "NOT_APPLICABLE",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null,
+     "NOT_APPLICABLE_REASON": "importacao de um snapshot fechado, nao coleta recorrente: nao ha unidade a retomar"
+    },
+    "DERIVED": {
+     "STATE": "NOT_APPLICABLE",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null,
+     "NOT_APPLICABLE_REASON": "a entrada ja e registro estruturado; nada e derivado de bruto"
+    },
+    "STRUCTURED": {
+     "STATE": "LIVE_SCHEMA",
+     "OWNER": "coleta/regulatorio_importar.py",
+     "OWNER_EXISTS": true,
+     "CONNECTED_TO_ROUTE": true,
+     "PROOF_KIND": "SQL_DETERMINISTICO",
+     "PROOF_REF": null
+    },
+    "ADMISSION": {
+     "STATE": "UNKNOWN",
+     "OWNER": null,
+     "OWNER_EXISTS": false,
+     "CONNECTED_TO_ROUTE": null,
+     "PROOF_KIND": null,
+     "PROOF_REF": null
+    }
+   },
+   "ARCHITECTURE_CLOSED": false,
+   "STEPS_BLOQUEANDO": [
+    "DISCOVER",
+    "FETCH",
+    "RAW",
+    "ADMISSION"
+   ],
+   "OBSERVATION_STATE": "DB_TESTED",
+   "BLOCKED_REASON": null,
+   "DEBT_REASON": null
+  },
+  {
+   "ROUTE_CLASS_ID": "RC-6",
+   "NAME": "PUBLIC_BROWSER",
+   "STEPS": {},
+   "ARCHITECTURE_CLOSED": false,
+   "STEPS_BLOQUEANDO": [],
+   "OBSERVATION_STATE": "BLOCKED",
+   "BLOCKED_REASON": "robots/termos: zero capabilities permitidas na matriz",
+   "DEBT_REASON": null
+  },
+  {
+   "ROUTE_CLASS_ID": "RC-7",
+   "NAME": "LOCAL_SESSION",
+   "STEPS": {},
+   "ARCHITECTURE_CLOSED": false,
+   "STEPS_BLOQUEANDO": [],
+   "OBSERVATION_STATE": "BLOCKED",
+   "BLOCKED_REASON": "AUTOMATION_NOT_ALLOWED: sessao humana nao autoriza automacao",
+   "DEBT_REASON": null
+  },
+  {
+   "ROUTE_CLASS_ID": "RC-8",
+   "NAME": "PAID_FALLBACK",
+   "STEPS": {},
+   "ARCHITECTURE_CLOSED": false,
+   "STEPS_BLOQUEANDO": [],
+   "OBSERVATION_STATE": "BLOCKED",
+   "BLOCKED_REASON": "APIFY-LAST: zero rotas permitidas hoje na matriz",
+   "DEBT_REASON": null
+  },
+  {
+   "ROUTE_CLASS_ID": "RC-9",
+   "NAME": "GIT_LEDGER",
+   "STEPS": {},
+   "ARCHITECTURE_CLOSED": false,
+   "STEPS_BLOQUEANDO": [],
+   "OBSERVATION_STATE": "DEBT",
+   "BLOCKED_REASON": null,
+   "DEBT_REASON": "estado operacional em Git, contra P-011. Nao e estrada a fechar: e divida a mover."
+  }
+ ],
+ "ROUTE_CLASSES_MODELED": 9,
+ "ROUTE_CLASSES_ARCHITECTURE_CLOSED": [],
+ "ROUTE_CLASSES_OBSERVED": [
+  "RC-1",
+  "RC-2"
+ ],
+ "ROUTE_CLASSES_DB_TESTED": [
+  "RC-5"
+ ],
+ "ROUTE_CLASSES_BLOCKED": [
+  "RC-6",
+  "RC-7",
+  "RC-8"
+ ],
+ "ROUTE_CLASSES_DEBT": [
+  "RC-9"
+ ],
+ "ROUTE_CLASSES_REQUIRED_TOTAL": "UNKNOWN",
+ "ROUTE_CLASSES_REQUIRED_TOTAL_PORQUE": "51 fonte(s) sem rota conhecida. Ate a M1 provar, nenhuma delas garante caber nas 9 classes modeladas.",
  "FONTES_IT": {
   "TOTAL": 54,
+  "SOURCE_ROUTE_PROVEN": 1,
+  "SOURCE_ROUTE_CANDIDATE": 2,
+  "SOURCE_ROUTE_UNKNOWN": 51,
+  "PROVEN_PORQUE": "so o canario italiano teve a rota MEDIDA ponta a ponta. Descricao («boletim», «PDF») NAO prova route class: CANDIDATE NAO E PROVEN.",
   "COM_ROTA_DECLARADA": 3,
   "ROTA_NAO_SEI": 51,
   "POR_PAPEL": {
@@ -54,8 +522,11 @@
   }
  ],
  "ORQUESTRADOR": {
-  "EXISTE": false,
-  "PROVA": "censo_da_coleta.py mede 0 pecas que coordenam mais de um executor. SINTONIA SCRAP e COMPOSITE_EXECUTOR: coordena rotas de UMA aquisicao, nao o calendario da casa."
+  "EXISTE": true,
+  "FICHEIRO": "orquestrador/orquestrador.py",
+  "EXECUTORES_ALCANCADOS": 4,
+  "PROVA": "recebe um Pedido, resolve um Plano em `pedido/receitas.py` e despacha por subprocess. NAO coleta: escolhe quem coleta.",
+  "RESSALVA": "alcanca 4 dos executores medidos por censo_da_coleta.py — existir nao e cobrir. E `SINTONIA SCRAP` continua sendo COMPOSITE_EXECUTOR, nao um segundo orquestrador: ele coordena rotas de UMA aquisicao."
  },
  "COLLECTION_FOUNDATION_CLOSED": false
 }

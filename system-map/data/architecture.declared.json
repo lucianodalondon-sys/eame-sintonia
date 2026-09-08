@@ -2087,13 +2087,14 @@
    "views": [
     "acervo"
    ],
-   "what": "Os dois donos declarativos do SCRAP. `falhas.py` e a taxonomia canonica de falhas: 22 estados em tres camadas (SOURCE / ROUTE / EXECUTOR), com o que cada estado pede de recuperacao. `social_matriz.py` e o registro unico de capacidade por (plataforma, capability, rota) e tambem o dono do modelo de quota — dois baldes do YouTube, SEARCH e GENERAL, que nunca se somam.",
+   "what": "Os dois donos declarativos do SCRAP. `falhas.py` e a taxonomia canonica de falhas: 22 estados em tres camadas (SOURCE / ROUTE / EXECUTOR), com o que cada estado pede de recuperacao. `social_matriz.py` e o registro unico de capacidade por (plataforma, capability, rota) e tambem o dono do modelo de quota — dois baldes do YouTube, SEARCH e GENERAL, que nunca se somam. Inclui a lei que congela a inteligencia: enquanto COLLECTION_FOUNDATION_CLOSED nao for SIM, implementar, escrever e ativar inteligencia esta bloqueado — ler e desenhar, nao.",
    "why_here": "Antes, o vocabulario de falha vivia preso a UMA rota e a quota vivia copiada dentro do adaptador. Copia diverge: o adaptador chegou a cobrar 100 unidades por `search.list` enquanto a matriz ja tinha o modelo certo. Com um dono so, ERRO NAO E ZERO e BLOCKED NAO E EMPTY deixam de depender de quem escreveu o if.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
     "leis/falhas.py",
+    "leis/fundacao_da_coleta.py",
     "leis/social_matriz.py"
    ]
   },
@@ -2114,6 +2115,25 @@
    "files": [
     "guarda/social_guarda.py",
     "guarda/social_sessao.py"
+   ]
+  },
+  {
+   "id": "C-ESTRADAS-IT",
+   "name": "O censo das classes de estrada da coleta italiana",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "◈",
+   "views": [
+    "acervo"
+   ],
+   "what": "Mede as classes de estrada da coleta IT e CALCULA os estados que o mapa de fechamento publica: ARCHITECTURE_CLOSED, OBSERVATION_STATE, e as contagens de fonte por PROVEN / CANDIDATE / UNKNOWN. Le o modelo em `estradas-it.model.json` — que diz quais etapas cada estrada tem e quem SERIA o dono — e mede, etapa a etapa, se o dono existe no disco e se ele cita o artefato da etapa anterior.",
+   "why_here": "A versao anterior do mapa publicava «2 estradas fechadas» porque uma pessoa escreveu 2. Quando a medicao passou a rodar, o resultado foi ZERO: `guarda/importar_italia.py` estava listado como o STRUCTURED da estrada do documento oficial e nao le `derived_artifact` nenhum. OWNER EXISTS NAO E OWNER CONNECTED, e um numero escrito a mao nunca descobre isso sozinho. Aqui os dois eixos ficam separados de proposito: uma estrada pode ter arquitetura fechada e nunca ter rodado, e uma cor nao responde duas perguntas.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "system-map/scripts/censo_das_estradas_it.py",
+    "system-map/data/estradas-it.model.json"
    ]
   }
  ],

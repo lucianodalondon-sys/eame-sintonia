@@ -40,8 +40,18 @@ ESTRADA necessaria tem arquitetura e donos fechados, ou um blocker escrito.
 import os
 
 MAPA = os.path.join('docs', 'operacao', 'MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md')
+# O ESTADO GERADO, nao a prosa. Quem quiser saber se a fundacao fechou le este
+# ficheiro, produzido por `system-map/scripts/censo_das_estradas_it.py` — nunca
+# uma tabela escrita a mao.
+#
+#     SISTEMA REAL -> CENSO -> ESTADO GERADO -> DOCUMENTO.
+ESTADO = os.path.join('system-map', 'data', 'estradas-it.generated.json')
 
-# O estado medido em 2026-09-08. Nao editar sem reabrir o mapa acima.
+# O estado medido em 2026-09-08, quando o censo passou a CALCULAR em vez de
+# repetir: ZERO estradas com arquitetura fechada. O mapa anterior publicava
+# duas, porque uma pessoa as escreveu.
+#
+#     OWNER EXISTS NAO E OWNER CONNECTED.
 COLLECTION_FOUNDATION_CLOSED = False
 
 AREAS_CONGELADAS = (

@@ -1,0 +1,100 @@
+{
+ "SCHEMA": "estradas-it/model/v1",
+ "NOTA": "O MODELO diz QUAIS etapas cada estrada tem e QUEM seria o dono. Ele NAO diz se a etapa esta ligada — isso o censo MEDE, procurando no ficheiro do dono a marca (`EDGE`) que so existe se ele realmente tocar o artefato da etapa anterior. OWNER EXISTS != OWNER CONNECTED.",
+ "ROUTE_CLASSES": [
+  {
+   "ID": "RC-1",
+   "NAME": "OFFICIAL_HTTP_DOCUMENT",
+   "STEPS": {
+    "DISCOVER":   {"OWNER": "candidatas/ITALY-SOURCE-MASTER-V1.json", "STATE": "DECLARED", "EDGE": null, "PROOF_KIND": "CATALOGO"},
+    "FETCH":      {"OWNER": "coleta/texto_fonte.py", "STATE": "OBSERVED", "EDGE": ["coleta/texto_fonte.py", "urllib"], "PROOF_KIND": "CANARIO_LIVE", "PROOF_REF": "0feb4967"},
+    "RAW":        {"OWNER": "guarda/preservar_coleta.py", "STATE": "OBSERVED", "EDGE": ["guarda/preservar_coleta.py", "raw_asset"], "PROOF_KIND": "CANARIO_LIVE", "PROOF_REF": "7dc58f81"},
+    "RUN":        {"OWNER": "guarda/preservar_coleta.py", "STATE": "OBSERVED", "EDGE": ["guarda/preservar_coleta.py", "collection_run"], "PROOF_KIND": "CANARIO_LIVE", "PROOF_REF": "7dc58f81"},
+    "CHECKPOINT": {"OWNER": null, "STATE": "NOT_APPLICABLE", "NOT_APPLICABLE_REASON": "captura de documento unico e sem janela incremental: nao ha unidade a retomar. Se um dia houver recorrencia por fonte, deixa de ser N/A."},
+    "DERIVED":    {"OWNER": "coleta/executor_texto_de_pdf.py", "STATE": "OBSERVED", "EDGE": ["coleta/executor_texto_de_pdf.py", "raw_asset_id"], "PROOF_KIND": "CANARIO_LIVE", "PROOF_REF": "derived_artifact id=1"},
+    "STRUCTURED": {"OWNER": "guarda/importar_italia.py", "STATE": "CODE", "EDGE": ["guarda/importar_italia.py", "derived_artifact"], "PROOF_KIND": "NENHUMA"},
+    "ADMISSION":  {"OWNER": "admissao/admissao.py", "STATE": "CODE", "EDGE": ["admissao/admissao.py", "derived_artifact"], "PROOF_KIND": "NENHUMA"}
+   }
+  },
+  {
+   "ID": "RC-2",
+   "NAME": "YOUTUBE_OFFICIAL_API",
+   "STEPS": {
+    "DISCOVER":   {"OWNER": "coleta/youtube_oficial.py", "STATE": "OBSERVED", "EDGE": ["coleta/youtube_oficial.py", "channels.list"], "PROOF_KIND": "RUN_ACTIONS", "PROOF_REF": "34258433872"},
+    "FETCH":      {"OWNER": "coleta/youtube_oficial.py", "STATE": "OBSERVED", "EDGE": ["coleta/youtube_oficial.py", "commentThreads.list"], "PROOF_KIND": "RUN_ACTIONS", "PROOF_REF": "34258433872"},
+    "RAW":        {"OWNER": "coleta/social_envelope.py", "STATE": "LOCAL_TESTED", "EDGE": ["coleta/social_envelope.py", "guardar_raw"], "PROOF_KIND": "ARTEFATO_ACTIONS", "PROOF_REF": "10068850407 — PILOT_PROOF, nao OPERATIONAL_STORAGE"},
+    "RUN":        {"OWNER": "guarda/preservar_coleta.py", "STATE": "CODE", "EDGE": ["coleta/social_persistencia.py", "collection_run"], "PROOF_KIND": "NENHUMA"},
+    "CHECKPOINT": {"OWNER": "coleta/coleta_checkpoint.py", "STATE": "DB_TESTED", "EDGE": ["coleta/coleta_checkpoint.py", "checkpoint_coleta"], "PROOF_KIND": "POSTGRES_DESCARTAVEL", "PROOF_REF": "provas/social_persistencia_no_postgres.py"},
+    "DERIVED":    {"OWNER": null, "STATE": "NOT_APPLICABLE", "NOT_APPLICABLE_REASON": "a API devolve texto ja estruturado; nada e produzido por nos a partir do bruto. Legenda do YouTube NAO e derivado nosso — COL-LAW-007."},
+    "STRUCTURED": {"OWNER": "coleta/social_persistencia.py", "STATE": "DB_TESTED", "EDGE": ["coleta/social_persistencia.py", "public.conteudo"], "PROOF_KIND": "POSTGRES_DESCARTAVEL", "PROOF_REF": "provas/social_persistencia_no_postgres.py"},
+    "ADMISSION":  {"OWNER": "admissao/admissao.py", "STATE": "CODE", "EDGE": ["admissao/admissao.py", "public.conteudo"], "PROOF_KIND": "NENHUMA"}
+   }
+  },
+  {
+   "ID": "RC-3",
+   "NAME": "PUBLIC_NATIVE_API",
+   "STEPS": {
+    "DISCOVER":   {"OWNER": "coleta/social_rotas.py", "STATE": "LOCAL_TESTED", "EDGE": ["coleta/social_rotas.py", "searchActors"], "PROOF_KIND": "TESTE_LOCAL"},
+    "FETCH":      {"OWNER": "coleta/social_rotas.py", "STATE": "LOCAL_TESTED", "EDGE": ["coleta/social_rotas.py", "authorFeed"], "PROOF_KIND": "TESTE_LOCAL"},
+    "RAW":        {"OWNER": "coleta/social_envelope.py", "STATE": "LOCAL_TESTED", "EDGE": ["coleta/social_rotas.py", "guardar_raw"], "PROOF_KIND": "TESTE_LOCAL"},
+    "RUN":        {"OWNER": null, "STATE": "UNKNOWN"},
+    "CHECKPOINT": {"OWNER": null, "STATE": "UNKNOWN"},
+    "DERIVED":    {"OWNER": null, "STATE": "NOT_APPLICABLE", "NOT_APPLICABLE_REASON": "API devolve texto; nada e derivado por nos"},
+    "STRUCTURED": {"OWNER": null, "STATE": "UNKNOWN"},
+    "ADMISSION":  {"OWNER": null, "STATE": "UNKNOWN"}
+   }
+  },
+  {
+   "ID": "RC-4",
+   "NAME": "SCIENCE_METADATA_API",
+   "STEPS": {
+    "DISCOVER":   {"OWNER": "coleta/universo_ciencia_it.py", "STATE": "LOCAL_TESTED", "EDGE": ["coleta/universo_ciencia_it.py", "urllib"], "PROOF_KIND": "TESTE_LOCAL"},
+    "FETCH":      {"OWNER": "coleta/corpus_pesquisador.py", "STATE": "LOCAL_TESTED", "EDGE": ["coleta/corpus_pesquisador.py", "urllib"], "PROOF_KIND": "TESTE_LOCAL"},
+    "RAW":        {"OWNER": null, "STATE": "UNKNOWN"},
+    "RUN":        {"OWNER": null, "STATE": "UNKNOWN"},
+    "CHECKPOINT": {"OWNER": null, "STATE": "UNKNOWN"},
+    "DERIVED":    {"OWNER": null, "STATE": "UNKNOWN"},
+    "STRUCTURED": {"OWNER": null, "STATE": "UNKNOWN"},
+    "ADMISSION":  {"OWNER": null, "STATE": "UNKNOWN"}
+   }
+  },
+  {
+   "ID": "RC-5",
+   "NAME": "REGULATORY_BULK_IMPORT",
+   "STEPS": {
+    "DISCOVER":   {"OWNER": null, "STATE": "UNKNOWN"},
+    "FETCH":      {"OWNER": null, "STATE": "UNKNOWN"},
+    "RAW":        {"OWNER": null, "STATE": "UNKNOWN"},
+    "RUN":        {"OWNER": "coleta/regulatorio_importar.py", "STATE": "LIVE_SCHEMA", "EDGE": ["coleta/regulatorio_importar.py", "collection_run"], "PROOF_KIND": "SQL_DETERMINISTICO"},
+    "CHECKPOINT": {"OWNER": null, "STATE": "NOT_APPLICABLE", "NOT_APPLICABLE_REASON": "importacao de um snapshot fechado, nao coleta recorrente: nao ha unidade a retomar"},
+    "DERIVED":    {"OWNER": null, "STATE": "NOT_APPLICABLE", "NOT_APPLICABLE_REASON": "a entrada ja e registro estruturado; nada e derivado de bruto"},
+    "STRUCTURED": {"OWNER": "coleta/regulatorio_importar.py", "STATE": "LIVE_SCHEMA", "EDGE": ["coleta/regulatorio_importar.py", "registro_regulatorio"], "PROOF_KIND": "SQL_DETERMINISTICO"},
+    "ADMISSION":  {"OWNER": null, "STATE": "UNKNOWN"}
+   }
+  },
+  {
+   "ID": "RC-6",
+   "NAME": "PUBLIC_BROWSER",
+   "BLOCKED_REASON": "robots/termos: zero capabilities permitidas na matriz",
+   "STEPS": {}
+  },
+  {
+   "ID": "RC-7",
+   "NAME": "LOCAL_SESSION",
+   "BLOCKED_REASON": "AUTOMATION_NOT_ALLOWED: sessao humana nao autoriza automacao",
+   "STEPS": {}
+  },
+  {
+   "ID": "RC-8",
+   "NAME": "PAID_FALLBACK",
+   "BLOCKED_REASON": "APIFY-LAST: zero rotas permitidas hoje na matriz",
+   "STEPS": {}
+  },
+  {
+   "ID": "RC-9",
+   "NAME": "GIT_LEDGER",
+   "DEBT_REASON": "estado operacional em Git, contra P-011. Nao e estrada a fechar: e divida a mover.",
+   "STEPS": {}
+  }
+ ]
+}
