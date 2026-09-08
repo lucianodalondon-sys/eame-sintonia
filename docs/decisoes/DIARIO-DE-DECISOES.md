@@ -916,6 +916,52 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
 - **Nada em produção:** 0 migrations aplicadas, 0 escritas, 0 backfill, 0 corridas retrocriadas.
 - **Detalhe completo:** [`../operacao/A-CASA-DO-DERIVADO.md`](../operacao/A-CASA-DO-DERIVADO.md) §B2 e §B3.
 
+
+### D-036 — O dono canônico da escrita do derivado
+
+- **Data:** 2026-09-08 · **Estado:** `WRITER` ✅ · `DB_TESTED` ✅ ·
+  **`LIVE_APPLIED = NÃO`** · **`OBSERVED = NÃO`** · **`WRITER_READY_FOR_LIVE = SIM`**
+- **Censo primeiro:** o único escritor de derivado hoje é `coleta/executor_texto_de_pdf.py`,
+  que escreve um JSON. **Nada escreve na tabela.** `guarda/preservar_coleta.py` é o dono do
+  **bruto** e é específico dele — forçá-lo a ser genérico faria dele uma coisa que não é de
+  ninguém. Criou-se **um** dono novo ao lado, reusando as portas `Armazem` e `Memoria` e o
+  `sha256`, e mais nada.
+- **A lei central:** `ON CONFLICT DO NOTHING NÃO É IDEMPOTÊNCIA.` O banco recusa a linha
+  repetida; se quem escreve ler esse silêncio como «tudo igual», uma derivação que passou a
+  produzir **outro resultado** entra como `REUSED`. O `insert` deste dono **não tem
+  `on conflict`**, de propósito: ele quer o erro para ir **ler** e comparar.
+- **O que o dono possui, e ninguém mais:** `parent_sha256` (lido do `raw_asset`), `sha256` e
+  `bytes` do filho (calculados dos bytes reais), `parameters_hash` (uma função canónica),
+  `derived_at` (o relógio do writer) e `storage_path` (derivado da receita).
+  **`DB_PROVES_PRESENT ≠ DB_PROVES_MEASURED`; `WRITER_PROVES_MEASURED`.**
+- **Serialização canónica:** `sort_keys`, sem espaços, `ensure_ascii=False`, UTF-8; ausência
+  de parâmetros = `b""`, cujo hash é o da cadeia vazia — o valor que a `022` já usava.
+  ⚠️ **Não é RFC 8785**, e números de vírgula flutuante ficam declarados como fora do que ela
+  resolve.
+- **Seis estados, não quinze:** `INSERTED`, `REUSED`, `REUSED_AFTER_RACE`,
+  `DERIVATION_DRIFT`, `STORAGE_CONFLICT`, `METADATA_NOT_RECONCILED`. **Nenhuma tabela de
+  falhas.**
+- **O caso adversarial fecha:** a mesma receita com outro resultado dá `DERIVATION_DRIFT` — o
+  antigo não é apagado, não é sobrescrito, e nenhum byte novo sobe. **As duas versões são
+  factos, e um deles é um defeito por descobrir.**
+- **Corrida tratada:** violação de unicidade **não é sucesso automático**. Lê-se a linha que
+  venceu e compara-se: igual → `REUSED_AFTER_RACE`; diferente → `DERIVATION_DRIFT`.
+- **Bytes guardados + banco falha → `METADATA_NOT_RECONCILED`, e os bytes NÃO são apagados.**
+  É a lei do G-42 aplicada ao derivado.
+- **A ponte para o executor está DESLIGADA:** `entregar_ao_dono=None` por omissão, e o
+  caminho antigo continua igual. Ela passa **só a receita** — nem o `sha256` do pai viaja
+  nela, porque um campo que ninguém usa é um campo que um dia alguém usa mal.
+- **Um limite declarado:** `REUSED` sai da leitura da **linha**; o writer não confirma no
+  armazém que o objeto continua lá. Está documentado como é hoje, com teste, e é o próximo
+  passo do dono.
+- **PROVA:** `banco-descartavel` execução **`34249905763` = SUCCESS**. **32/32** casos
+  Postgres (9 são do writer) + 19/19 da garantia forward + 4/4 recusas da tranca. **37**
+  provas locais do writer.
+- **Legado intocado:** 43 históricos, 0 migrados. **Produção intocada:** 0 escritas, 0
+  migrations aplicadas.
+- **Próxima missão:** aplicar a `022` LIVE, verificar, e ligar o Golden Path **para a frente**.
+- **Detalhe:** [`../operacao/A-CASA-DO-DERIVADO.md`](../operacao/A-CASA-DO-DERIVADO.md) §G2 e §G3.
+
 ---
 
 ## PERGUNTAS PENDENTES

@@ -1918,6 +1918,25 @@
       ]
     },
     {
+      "id": "C-DONO-DO-DERIVADO",
+      "name": "ALVO · o dono canônico da escrita do derivado",
+      "territory": "Z-GUARDA",
+      "kind": "engine",
+      "icon": "▷",
+      "what": "Quem escreve na tabela do derivado. Ele possui — e mais ninguém — o sha256 do pai (lido do banco), o sha256 e o tamanho do filho (calculados dos bytes), a serialização dos parâmetros, o momento da derivação e o endereço no armazém.",
+      "why_here": "A tabela já recusa a linha repetida; isso não chega. Se quem escreve ler esse silêncio como «tudo igual», uma derivação que passou a produzir OUTRO resultado entra como REUSED — e o sistema fica calado no dia em que devia gritar. Aqui a idempotência é reencontro + comparação + prova de igualdade: lê antes, compara, escreve, lê outra vez. ⚠️ CAN DO NÃO É DID DO: provado contra Postgres 16 descartável, e sem nenhuma corrida real.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "guarda/preservar_derivado.py"
+      ],
+      "views": [
+        "infra",
+        "audit"
+      ]
+    },
+    {
       "id": "C-RECALL-PORTA-IT",
       "name": "Quanto a peneira apanha na Itália",
       "territory": "Z-PROVA",

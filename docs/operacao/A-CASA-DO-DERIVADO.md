@@ -274,14 +274,125 @@ mesma identidade do caso A, e a unicidade mordeu primeiro.
 
 ---
 
+## G2 · O DONO DA ESCRITA — `do nothing` deixou de bastar
+
+A tabela já recusava a linha repetida. **Isso não chega**, e a diferença é toda:
+
+```
+o BANCO   recusa a linha repetida
+o WRITER  tem de saber POR QUE ela foi recusada
+```
+
+Se ele ler o silêncio do `on conflict do nothing` como «já lá estava, tudo igual», uma
+derivação que passou a produzir **outro resultado** entra como `REUSED` — e o sistema fica
+calado exatamente no dia em que devia gritar.
+
+> ## IDEMPOTÊNCIA É REENCONTRO + COMPARAÇÃO + PROVA DE IGUALDADE.
+
+`guarda/preservar_derivado.py`. O `insert` dele **não tem `on conflict`**, de propósito: ele
+quer o erro, para poder ir **ler** o que lá está e comparar.
+
+### O que este dono possui, e ninguém mais
+
+| | de onde vem |
+|---|---|
+| `parent_sha256` | **lido do `raw_asset`** — nunca aceite do chamador |
+| `sha256` e `bytes` do filho | **calculados dos bytes reais** — um valor informado é uma afirmação; medido é um facto |
+| `parameters_hash` | de **uma** função canónica, e só dela |
+| `derived_at` | do **relógio do writer** — injetável só nos testes |
+| `storage_path` | **derivado da receita** — o chamador não escolhe |
+
+Um chamador que pudesse trazer qualquer um destes prontos poderia mentir sobre a linhagem
+sem que nada o impedisse. **E o banco não distingue um `timestamptz` medido de um copiado.**
+
+### A serialização canónica, e o que cada escolha impede
+
+```python
+json.dumps(p, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+```
+
+`sort_keys` — a ordem em que alguém escreveu o dicionário não muda o hash · sem espaços — a
+formatação não entra na conta · `ensure_ascii=False` — `città` é `città`, sempre em UTF-8 ·
+**ausência de parâmetros = `b""`**, cujo hash é o da cadeia vazia, que é o valor que a `022`
+e as suas provas já usavam.
+
+⚠️ **Não é JSON canónico da norma (RFC 8785).** É determinístico para o que esta casa usa —
+dicionários, listas, texto, inteiros, booleanos, nulos. **Números de vírgula flutuante têm
+armadilhas de representação que esta função não resolve**, e por isso não devem entrar em
+parâmetros de derivação sem decisão própria. Está escrito na função.
+
+### Os seis estados, e a decisão diferente por trás de cada um
+
+| estado | quando |
+|---|---|
+| `INSERTED` | escrito, lido de volta e conferido nos **13 campos** |
+| `REUSED` | identidade e **resultado** iguais, **lidos e comparados** |
+| `REUSED_AFTER_RACE` | outro escritor ganhou a corrida **e escreveu o mesmo** |
+| **`DERIVATION_DRIFT`** | mesma receita, **outro resultado**. Não apaga, não sobrescreve, não finge |
+| `STORAGE_CONFLICT` | o endereço já tem outros bytes. Não apaga para «tentar de novo» |
+| `METADATA_NOT_RECONCILED` | bytes guardados, linha não entrou — **e os bytes ficam** |
+
+### O caso adversarial central
+
+A mesma receita. A primeira execução produziu `AAAA`; a segunda, por um defeito de versão ou
+de ambiente, produz `BBBB`. **A identidade continua igual.**
+
+```
+DERIVATION_DRIFT · o antigo continua lá · nenhum byte novo sobe
+```
+
+> **As duas versões são factos, e um deles é um defeito por descobrir.** Quem decide o que
+> fazer é uma pessoa — não um `UPDATE` silencioso.
+
+### A segunda captura, do lado de quem escreve
+
+Duas capturas dos mesmos bytes, a mesma receita → **`REUSED`**, uma linha só. E a
+**testemunha não se troca**: a linha continua a apontar para a cópia que foi lida da primeira
+vez. Trocá-la reescreveria a história por nada, e a outra captura continua inteira em
+`raw_asset`.
+
+### Um limite medido e declarado
+
+`REUSED` sai da leitura da **linha**. O writer **não** vai ao armazém confirmar que o objeto
+continua lá. Se os bytes sumirem, o reencontro é sobre um artefato que já não existe — e
+`test_26` documenta esse comportamento **como ele é hoje**, não como se estivesse resolvido.
+É o próximo passo do dono.
+
+---
+
+## G3 · A PONTE PARA O EXECUTOR — e ela está desligada
+
+`coleta/executor_texto_de_pdf.py` ganhou um parâmetro `entregar_ao_dono`, que é `None` por
+omissão. **Enquanto for `None`, nada muda:** o caminho antigo continua a escrever o
+`REGISTO-DE-ARTEFATOS.json`, como sempre.
+
+**O executor não escreve no banco, e não vai passar a escrever.** A doutrina é a mesma do
+bruto: o executor produz o artefato, o **dono canónico** persiste. Nenhum executor grava só
+porque conhece a `SUPABASE_URL`.
+
+E o que a ponte entrega é **só a receita** — `kind`, `producer`, `producer_version`,
+`pipeline_version`, `parameters`, `serie_posicao`, `media_type`, `country` — e os bytes.
+**Nem o `sha256` do pai viaja nela**, nem sequer como informação: um campo que ninguém usa é
+um campo que um dia alguém usa mal, e este seria usado para declarar um pai que o executor
+não pode provar. Há teste que reprova se algum deles aparecer lá.
+
+**O legado não foi tocado.** Os 43 continuam `LEGACY_DERIVATION_WITHOUT_CANONICAL_RAW_PARENT`,
+e nenhum foi migrado.
+
+---
+
 ## H · O ESTADO, MARCADO UM A UM
 
 ```
 DESIGNED       ✅  migration 022 escrita, com o grão e a identidade medidos
 IMPLEMENTED    ✅  SQL completo, com travas e comentários
-DB_TESTED      ✅  Postgres 16 descartável · 23/23 · run 34246698477
+SEMANTICS      ✅  coerência pai-id/pai-sha fechada; grão decidido
+WRITER         ✅  guarda/preservar_derivado.py · 37 provas locais
+DB_TESTED      ✅  Postgres 16 descartável · 32/32 · run 34249905763
 LIVE_APPLIED   ❌  NÃO. Nenhuma migration aplicada em produção
 OBSERVED       ❌  NÃO. Nenhuma linha real escreveu-se em lado nenhum
+
+WRITER_READY_FOR_LIVE = SIM
 ```
 
 **O primeiro produtor deve ser o Golden Path para a frente** — nova corrida, novo `raw_asset`,

@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "b310a389ac7bfb98d769e387fa6cbad64b38a195",
-    "GENERATED_AT": "2026-09-08T12:48:01-03:00"
+    "HEAD": "b486e278fe0aebfb381e93ddffbde80d44c1ff36",
+    "GENERATED_AT": "2026-09-08T13:15:02-03:00"
   },
   "FILES": [
     {
@@ -44,7 +44,7 @@
     },
     {
       "path": ".github/workflows/banco-descartavel.yml",
-      "sha": "f1fa3a3c603aea93376e0dcaf6de03990bb1706b",
+      "sha": "9cd5c054a5f41d7b3f96531d85af92a7a60ccd3d",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -107,7 +107,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "9cb14888f785abfeeb8a13dd77a708ce5043b46e",
+      "sha": "0d7dd86a490237247f0817c845b0e29753e78f51",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -1157,7 +1157,7 @@
     },
     {
       "path": "coleta/executor_texto_de_pdf.py",
-      "sha": "efd64987b55500b8d42db836d9350a9877d4025b",
+      "sha": "1b11a21017ed063cdd298266435bd07985bd30e6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4125,7 +4125,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "c75a5f52c65eb8550c49b95990dea6b43ad6fa32",
+      "sha": "fd4fdcc061e22f2fbd5577dfc6624d18030e8fa7",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4300,7 +4300,7 @@
     },
     {
       "path": "docs/operacao/A-CASA-DO-DERIVADO.md",
-      "sha": "bf11d814ffa1db3db917fb7de2df940ea1e2aa4a",
+      "sha": "b28c5eaf7ceff5fc1ec262e30ffcf8b204851bee",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4839,7 +4839,7 @@
     },
     {
       "path": "guarda/memoria_descartavel.py",
-      "sha": "e185c87035b20e019f51d916cdfc5403ff18908e",
+      "sha": "2f505869682b93d05f5f382e8c48de37b6ef7c7b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4847,6 +4847,13 @@
     {
       "path": "guarda/preservar_coleta.py",
       "sha": "f44eb40eb298d308bb1b2383c12470739b7d4c18",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "guarda/preservar_derivado.py",
+      "sha": "2c4ae85aa26f58c90d4eba43e441bd1ddb7d31db",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7156,7 +7163,7 @@
     },
     {
       "path": "provas/derived_artifact_no_postgres.py",
-      "sha": "385ff86c23eb76415aabe0a730166df9e8d59862",
+      "sha": "9064936fb821ccdaaf2aa9b35252a4097c046d04",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7191,7 +7198,7 @@
     },
     {
       "path": "provas/preservar_coleta_no_postgres.py",
-      "sha": "d79a96ee49aa742da1f01617870d37f0e0a2a332",
+      "sha": "2fd5010b75bd0caa3fa263ac2299a11e6d356362",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8227,7 +8234,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "b36168bb16beedb420fc8e134cb9a303694ca966",
+      "sha": "3ee9c96c810c6fc880e1134da6b8c7c24e014bce",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8549,7 +8556,14 @@
     },
     {
       "path": "tests/test_preservar_coleta_no_banco.py",
-      "sha": "9a1eca418b942bc2dafea8583c4ef38a7577b39c",
+      "sha": "b9189349023c8237e1d97bb10c60ba32eca63d71",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_preservar_derivado.py",
+      "sha": "c9321354895ebe8dbfc41c6cedbbdc2baf8c6d3b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8701,6 +8715,28 @@
         "file": ".github/workflows/banco-descartavel.yml",
         "line": 25,
         "snippet": "- 'guarda/preservar_coleta.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 31,
+        "snippet": "- 'guarda/preservar_derivado.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 31,
+        "snippet": "- 'guarda/preservar_derivado.py'"
       }
     },
     {
@@ -9460,6 +9496,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 129,
         "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "tests/test_preservar_derivado.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 135,
+        "snippet": "run: python3 tests/test_preservar_derivado.py"
       }
     },
     {
@@ -22152,7 +22199,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/preservar_coleta_no_postgres.py",
-        "line": 469,
+        "line": 499,
         "snippet": "open(MIGRACAO, 'leitura')  # MIGRACAO = supabase/migrations/001_fundacao_geografia_e_proveniencia.sql"
       }
     },
@@ -26326,6 +26373,39 @@
       }
     },
     {
+      "from_file": "tests/test_preservar_derivado.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_preservar_derivado.py",
+        "line": 410,
+        "snippet": "with open(os.path.join(RAIZ, \"coleta\", \"executor_texto_de_pdf.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_derivado.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_preservar_derivado.py",
+        "line": 437,
+        "snippet": "open(registo, 'leitura')  # registo = data/derivados/REGISTO-DE-ARTEFATOS.json"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_derivado.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_preservar_derivado.py",
+        "line": 152,
+        "snippet": "if not nome.endswith(\".py\") or nome == \"preservar_derivado.py\":"
+      }
+    },
+    {
       "from_file": "tests/test_prioridade_comercial.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -27207,10 +27287,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1231,
-    "files_readable": 412,
-    "files_code_dir": 458,
-    "file_edges": 1653,
+    "files_tracked": 1233,
+    "files_readable": 414,
+    "files_code_dir": 460,
+    "file_edges": 1659,
     "escritas_em_pasta": 58,
     "declared_missing_here": 0
   },
