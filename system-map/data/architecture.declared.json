@@ -1653,14 +1653,15 @@
    "name": "Publicador do System Map no deploy",
    "territory": "Z-PROVA",
    "kind": "gate",
-   "what": "Corre no BUILD: regera o mapa pela cadeia que o CI ja usa, guarda o veredito do validador, e escreve qual commit esta REALMENTE implantado.",
+   "what": "Corre no BUILD: regera o mapa pela cadeia que o CI ja usa, guarda o veredito do validador, e escreve qual commit esta REALMENTE implantado — e depois do deploy confere, contra o URL publico, se aquele commit foi mesmo publicado.",
    "why_here": "O commit implantado nao pode viver num ficheiro commitado: gera-se com o HEAD A, commita-se, o commit passa a B, e o ficheiro nasce um commit atras de si mesmo. GENERATED != DEPLOYED, e so o build sabe o segundo.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
     "system-map/scripts/CADEIA-DO-MAPA.json",
-    "system-map/scripts/publicar_no_deploy.mjs"
+    "system-map/scripts/publicar_no_deploy.mjs",
+    "system-map/scripts/verificar_deploy.py"
    ],
    "views": [],
    "icon": "⇪"
@@ -1703,13 +1704,13 @@
    "name": "Workflow do System Map",
    "territory": "Z-PROVA",
    "kind": "workflow",
-   "what": "Em cada mudanca, regera o mapa e reprova se o que foi commitado nao bate com o repositorio.",
+   "what": "Em cada mudanca, regera o mapa e reprova se o que foi commitado nao bate com o repositorio — e, depois do deploy, reprova se o URL publico nao estiver a servir esse mesmo commit.",
    "why_here": "E o que impede o 'depois alguem atualiza o mapa'.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
-    ".github/workflows/system-map.yml"
+    ".github/workflows/system-map*.yml"
    ],
    "views": [],
    "icon": "▶"

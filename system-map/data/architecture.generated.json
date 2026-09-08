@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-freshness-v1",
-    "HEAD": "8e1947d2d5dac39ba831ca6e637e14927a43101a",
-    "GENERATED_AT": "2026-09-08T23:05:07+00:00"
+    "HEAD": "5bce4008a63ea1d013bbe40650648a9f23dcbc30",
+    "GENERATED_AT": "2026-09-08T23:49:19+00:00"
   },
   "FILES": [
     {
@@ -115,6 +115,13 @@
     {
       "path": ".github/workflows/supabase-storage.yml",
       "sha": "243c29e74bc77b843dd2910df8f0f98ec8b7cf91",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/system-map-deploy-verify.yml",
+      "sha": "f17abb7b5b14319efeaffa538a68fae89bf65a86",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -8619,7 +8626,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "cb7ffbf909f3ef3b5912972b72557247b74ce84b",
+      "sha": "d23c5b1dc205d11ca9fe4b0c4351eb334ca544f1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8788,6 +8795,13 @@
     {
       "path": "system-map/scripts/validate_system_map.py",
       "sha": "d679ea3dab482d0c284273580522333f4c7448a2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/verificar_deploy.py",
+      "sha": "7b118bf616e81bc3c85effacd605d99f84e27c3b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10239,6 +10253,17 @@
         "file": ".github/workflows/supabase-migrate.yml",
         "line": 158,
         "snippet": "psql \"$SUPABASE_DB_URL\" -f supabase/tests/regressoes_regulatorio_es.sql 2>&1 | tee /tmp/rg"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map-deploy-verify.yml",
+      "to_file": "system-map/scripts/verificar_deploy.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map-deploy-verify.yml",
+        "line": 65,
+        "snippet": "run: python3 system-map/scripts/verificar_deploy.py"
       }
     },
     {
@@ -31816,10 +31841,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1336,
-    "files_readable": 492,
-    "files_code_dir": 545,
-    "file_edges": 1999,
+    "files_tracked": 1338,
+    "files_readable": 494,
+    "files_code_dir": 547,
+    "file_edges": 2000,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },
