@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "caf160c8ae20e968e092408e5110409e5a8c1806",
-    "GENERATED_AT": "2026-09-07T22:10:25-03:00"
+    "HEAD": "3cab15896653a1693d8aa3bc403f9a1080e0161b",
+    "GENERATED_AT": "2026-09-07T22:26:13-03:00"
   },
   "FILES": [
     {
@@ -3873,7 +3873,7 @@
     },
     {
       "path": "docs/fontes/INDICE-DE-FONTES.md",
-      "sha": "b417c0d73dffafccd141342b9bb8fbd727c49161",
+      "sha": "ea0b4e1fd79474fdb65f88309cfe737fe7b589a2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7723,7 +7723,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "5e8240d469f7de421255f2a0fdf9eabe539dad96",
+      "sha": "a810bd735c1dc9a7acfaa7af4185a403ef883896",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7731,6 +7731,13 @@
     {
       "path": "system-map/scripts/censo_da_coleta.py",
       "sha": "3fa99e2b2154151b55c6f4ff5f1f87c7b27b8d8d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/censo_semantico_it.py",
+      "sha": "575e2343b667b163062998901e7422bdf381887c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22061,6 +22068,50 @@
       }
     },
     {
+      "from_file": "system-map/scripts/censo_semantico_it.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_semantico_it.py",
+        "line": 60,
+        "snippet": "(\"admissao/admissao.py\", \"PERGUNTAS_DO_UNIVERSO\", \"ADMISSAO\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_semantico_it.py",
+      "to_file": "regras/rotulos_censo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_semantico_it.py",
+        "line": 51,
+        "snippet": "(\"regras/rotulos_censo.py\", \"TERMOS\", \"EXTRACAO\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_semantico_it.py",
+      "to_file": "regras/sensor_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_semantico_it.py",
+        "line": 49,
+        "snippet": "(\"regras/sensor_coleta.py\", \"TERMOS\", \"BUSCA\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_semantico_it.py",
+      "to_file": "regras/sensor_medir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_semantico_it.py",
+        "line": 53,
+        "snippet": "(\"regras/sensor_medir.py\", \"OBSERVACAO_CAMPO\", \"CLASSIFICACAO\", \"fala de campo\"),"
+      }
+    },
+    {
       "from_file": "system-map/scripts/generate_system_map.py",
       "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "type": "READS",
@@ -25253,10 +25304,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1145,
-    "files_readable": 388,
-    "files_code_dir": 434,
-    "file_edges": 1532,
+    "files_tracked": 1146,
+    "files_readable": 389,
+    "files_code_dir": 435,
+    "file_edges": 1536,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
