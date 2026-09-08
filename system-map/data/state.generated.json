@@ -1677,8 +1677,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "f9c7cf9579327a5ee72fd472e9c22c08f0254183",
-    "GENERATED_AT": "2026-09-08T11:20:37-03:00"
+    "HEAD": "0b9b5bfcfd2186ea582524f8b292232470bed17e",
+    "GENERATED_AT": "2026-09-08T11:28:27-03:00"
   },
   "FAMILIES": [
     {
@@ -5421,9 +5421,7 @@
       "file_count": 9,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
-      "changed_since_declared": [
-        "docs/biblia/CONFORMIDADE-ITALIA.md"
-      ],
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-PROVA-BIBLIA"
@@ -5983,7 +5981,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▶",
       "views": [
         "infra"
@@ -5999,11 +5997,9 @@
         ".github/workflows/supabase-storage.yml"
       ],
       "file_count": 6,
-      "status": "PENDING",
-      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        ".github/workflows/banco-descartavel.yml"
-      ],
+      "status": "PROVEN",
+      "status_reason": "este workflow manda rodar script do repositorio.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-DONO-DA-ESCRITA",
@@ -9739,7 +9735,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "✓",
       "views": [
         "audit",
@@ -9754,11 +9750,9 @@
         "provas/testa_golden_path_pdf.py"
       ],
       "file_count": 4,
-      "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        "provas/preservar_coleta_no_postgres.py"
-      ],
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-ADAMA-ES",
@@ -10612,7 +10606,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "⚙",
       "views": [
         "infra"
@@ -10666,8 +10660,8 @@
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
       "file_count": 44,
-      "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -11776,7 +11770,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "✓",
       "views": [
         "audit",
@@ -11825,13 +11819,9 @@
         "tests/test_voz.py"
       ],
       "file_count": 38,
-      "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        "tests/test_armazem_italiano.py",
-        "tests/test_identidade_do_artefato.py",
-        "tests/test_preservar_coleta_no_banco.py"
-      ],
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "changed_since_declared": [],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
@@ -13486,7 +13476,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD f9c7cf9579327a5ee72fd472e9c22c08f0254183"
+        "HEAD 0b9b5bfcfd2186ea582524f8b292232470bed17e"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -21974,8 +21964,8 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 115,
-    "components_proven": 74,
-    "components_pending": 34,
+    "components_proven": 78,
+    "components_pending": 30,
     "components_broken": 1,
     "components_unknown": 6,
     "edges": 382,
