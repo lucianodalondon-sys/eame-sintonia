@@ -1,0 +1,124 @@
+{
+ "RUN_ID": "YT-IT-20260908T171347",
+ "MODE": "ONE_SHOT",
+ "STARTED_AT": "2026-09-08T17:13:47+00:00",
+ "COUNTRY_SCOPE": "IT",
+ "TARGETS_REQUESTED": 1,
+ "CANAIS": [
+  {
+   "HANDLE": "@a",
+   "NATUREZA": "n",
+   "STATE": "OK",
+   "CHANNEL_ID": "UCv1",
+   "API_METHODS": [
+    "channels.list",
+    "playlistItems.list",
+    "videos.list",
+    "commentThreads.list"
+   ],
+   "UPLOADS_PLAYLIST_ID": "UU1",
+   "CHANNEL_TITLE": "Canale",
+   "PROVENANCE": "youtube-data-api-v3:channels.list#contentDetails.relatedPlaylists.uploads",
+   "PLAYLIST_REUSED": false,
+   "UPLOADS_EXAMINED": 1,
+   "NEW": 1,
+   "KNOWN_SOURCE": "NENHUMA — ONE_SHOT não consulta memória",
+   "METADATA_RETURNED": 1,
+   "METADATA_MISSING": [],
+   "COMENTARIOS": [
+    {
+     "VIDEO_ID": "v1",
+     "STATE": "OK",
+     "COMMENTS": 1,
+     "THREADS": 1,
+     "REPLIES_MISSING": 0,
+     "NATIVE_REASON": null
+    }
+   ],
+   "QUOTA_ACUMULADA": {
+    "SEARCH": 0,
+    "GENERAL": 4
+   }
+  }
+ ],
+ "CHANNELS_RESOLVED": 1,
+ "CHANNELS_FAILED": 0,
+ "VIDEO_IDS": [
+  "v1"
+ ],
+ "VIDEOS_EXAMINED": 1,
+ "VIDEOS_RETURNED": 1,
+ "THREADS": 1,
+ "TOP_LEVEL": 1,
+ "REPLIES": 0,
+ "COMMENTS_TOTAL": 1,
+ "FEATURE_DISABLED": 0,
+ "ZERO_RESULTS": 0,
+ "ERRORS": [],
+ "APIFY_CALLS": 0,
+ "APIFY_SPEND_USD": 0.0,
+ "AUTHOR_LOCATION_PROVED_COUNT": 0,
+ "SOURCE_LOCATION_PROVED_COUNT": 0,
+ "GEOGRAFIA": "COUNTRY_SCOPE=IT é o recorte do PEDIDO. A API não devolve lugar de autor, então AUTHOR_LOCATION e SOURCE_LOCATION saem UNKNOWN — em 100% dos objetos, de propósito.",
+ "FINISHED_AT": "2026-09-08T17:13:47+00:00",
+ "OBJETOS": 3,
+ "OBJETOS_UNICOS": 2,
+ "DEDUPE": {
+  "ENTRARAM": 3,
+  "DISTINTOS": 2,
+  "FUNDIDOS": 1
+ },
+ "SEARCH_CALLS_USED": 0,
+ "GENERAL_UNITS_USED": 4,
+ "POR_METODO": {
+  "channels.list": {
+   "REQUESTS": 1,
+   "BUCKET": "GENERAL",
+   "UNITS": 1
+  },
+  "playlistItems.list": {
+   "REQUESTS": 1,
+   "BUCKET": "GENERAL",
+   "UNITS": 1
+  },
+  "videos.list": {
+   "REQUESTS": 1,
+   "BUCKET": "GENERAL",
+   "UNITS": 1
+  },
+  "commentThreads.list": {
+   "REQUESTS": 1,
+   "BUCKET": "GENERAL",
+   "UNITS": 1
+  }
+ },
+ "COST_USD": 0.0,
+ "COST_BASIS": "QUOTA_GRATUITA_OFICIAL",
+ "QUOTA_MODEL_VERSION": "2026-09-08:two-buckets",
+ "CHECKPOINT_USAGE": "NOT_OBSERVED — ONE_SHOT não usa checkpoint",
+ "OPERATIONAL_OBSERVED": false,
+ "RAW_FILE_COUNT": 3,
+ "RAW_TOTAL_BYTES": 562,
+ "RAW_FILES": [
+  {
+   "FILE": "../../../tmp/raw-teste-piloto/YOUTUBE/comments-v1-p1__4d39c8e40594612c.txt",
+   "SHA256": "4d39c8e40594612cf84e3ed09a1fbdda8914a457e86ff99af8a191b5a22ac168",
+   "BYTES": 335
+  },
+  {
+   "FILE": "../../../tmp/raw-teste-piloto/YOUTUBE/uploads-UCv1__1a20b3c5f2dd571a.txt",
+   "SHA256": "1a20b3c5f2dd571a2f3f5cf1825bb3fc3e169760921c10b083617613e8406aa0",
+   "BYTES": 80
+  },
+  {
+   "FILE": "../../../tmp/raw-teste-piloto/YOUTUBE/videos-v1__5d1d52af0afdeb95.txt",
+   "SHA256": "5d1d52af0afdeb95befc0ff86502141a9bbf1d5f37640abee6b2f6de4d293da5",
+   "BYTES": 147
+  }
+ ],
+ "RAW_ARTIFACT_NAME": null,
+ "ACTIONS_RUN_ID": null,
+ "RETENTION_CLASS": "NENHUMA",
+ "RAW_PROOF_STATE": "PARTIAL_PROOF — fora do Actions, o RAW morre com o processo",
+ "RAW_PRESERVATION_NOTE": "PILOT_PROOF, não OPERATIONAL_STORAGE. O dono forward do G-42 (Storage + raw_asset) NÃO recebeu estes bytes."
+}

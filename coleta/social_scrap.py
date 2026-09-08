@@ -429,7 +429,177 @@ def youtube_piloto(modo=OPERATIONAL, limite_videos=3, limite_threads=20):
         print('\n  MODO ONE_SHOT — esta execução NÃO usa checkpoint, NÃO escreve')
         print('  checkpoint e NÃO alega retomada. Ela prova API, quota, comentários,')
         print('  custo e rota. Não prova incremental observado.')
-    return 4   # ver `youtube-piloto-oneshot`: a execução real é do runner
+
+    # UMA sessão para a corrida toda (um contador de quota, dois baldes) e UM
+    # cache — para não repetir `channels.list` do mesmo canal dentro da corrida.
+    cache = yt.cache_da_execucao()
+    run_id = 'YT-IT-%s' % env.agora().replace(':', '').replace('-', '')[:15]
+    rel = {'RUN_ID': run_id, 'MODE': modo, 'STARTED_AT': env.agora(),
+           'COUNTRY_SCOPE': 'IT', 'TARGETS_REQUESTED': len(ALVOS_YOUTUBE_IT),
+           'CANAIS': [], 'CHANNELS_RESOLVED': 0, 'CHANNELS_FAILED': 0,
+           'VIDEO_IDS': [], 'VIDEOS_EXAMINED': 0, 'VIDEOS_RETURNED': 0,
+           'THREADS': 0, 'TOP_LEVEL': 0, 'REPLIES': 0, 'COMMENTS_TOTAL': 0,
+           'FEATURE_DISABLED': 0, 'ZERO_RESULTS': 0, 'ERRORS': [],
+           'APIFY_CALLS': 0, 'APIFY_SPEND_USD': 0.0,
+           'AUTHOR_LOCATION_PROVED_COUNT': 0, 'SOURCE_LOCATION_PROVED_COUNT': 0}
+    objetos = []
+
+    print('\n  CANAL                          CHANNEL_ID              VÍD  COM  ESTADO')
+    print('  ' + '─' * 76)
+    for handle, natureza in ALVOS_YOUTUBE_IT:
+        linha = {'HANDLE': handle, 'NATUREZA': natureza, 'STATE': None,
+                 'CHANNEL_ID': None, 'API_METHODS': []}
+        try:
+            # 1 · o handle vira identidade REAL. Antes da API devolver, ele é só
+            #     um handle — nunca uma identidade canônica pré-inventada.
+            cid, pl, proc = yt.resolver_handle(handle=handle, sessao=sess, cache=cache)
+            linha.update({'CHANNEL_ID': cid, 'UPLOADS_PLAYLIST_ID': pl,
+                          'CHANNEL_TITLE': proc.get('CHANNEL_TITLE'),
+                          'PROVENANCE': proc['PROVENANCE'],
+                          'PLAYLIST_REUSED': proc.get('REUSED', False)})
+            linha['API_METHODS'].append('channels.list')
+            rel['CHANNELS_RESOLVED'] += 1
+
+            # 2 · uploads recentes. No ONE_SHOT `conhecidos` fica vazio DE
+            #     PROPÓSITO e isso é declarado: não há memória a consultar, e
+            #     fingir que há seria alegar retomada que não existe.
+            novos, sess, r = yt.uploads_recentes(
+                channel_id=cid, run_id=run_id, country_scope='IT',
+                limit=limite_videos, conhecidos=(), sessao=sess, cache=cache)
+            linha['API_METHODS'].append('playlistItems.list')
+            linha.update({k: r[k] for k in ('UPLOADS_EXAMINED', 'NEW')})
+            linha['KNOWN_SOURCE'] = 'NENHUMA — ONE_SHOT não consulta memória'
+            rel['VIDEOS_EXAMINED'] += r['UPLOADS_EXAMINED']
+            objetos.extend(novos)
+            ids = [o['NATIVE_ID'] for o in novos][:limite_videos]
+            rel['VIDEO_IDS'].extend(ids)
+
+            # 3 · metadata em lote.
+            if ids:
+                metas, sess, rm = yt.metadata(video_ids=ids, run_id=run_id,
+                                              country_scope='IT', sessao=sess)
+                linha['API_METHODS'].append('videos.list')
+                linha['METADATA_RETURNED'] = rm['RETURNED']
+                linha['METADATA_MISSING'] = rm['MISSING']
+                rel['VIDEOS_RETURNED'] += rm['RETURNED']
+                objetos.extend(metas)
+
+            # 4 · comentários dos vídeos REALMENTE devolvidos.
+            linha['COMENTARIOS'] = []
+            for vid in ids:
+                cs, sess, rc = yt.comentarios(
+                    video_id=vid, run_id=run_id, country_scope='IT',
+                    limite_threads=limite_threads, sessao=sess)
+                linha['API_METHODS'].append('commentThreads.list')
+                topo = sum(1 for c in cs if not c['RAW']['IS_REPLY'])
+                rel['THREADS'] += rc['THREADS']
+                rel['TOP_LEVEL'] += topo
+                rel['REPLIES'] += len(cs) - topo
+                rel['COMMENTS_TOTAL'] += len(cs)
+                if rc.get('REPLIES_COMPLETED'):
+                    linha['API_METHODS'].append('comments.list')
+                # As três ausências, separadas. Nunca unidas.
+                if rc.get('COMMENTS_DISABLED'):
+                    rel['FEATURE_DISABLED'] += 1
+                elif rc['STATE'] == 'ZERO_RESULTS':
+                    rel['ZERO_RESULTS'] += 1
+                elif rc['STATE'] not in ('OK',):
+                    rel['ERRORS'].append({'VIDEO_ID': vid, 'STATE': rc['STATE'],
+                                          'NATIVE_REASON': rc.get('NATIVE_REASON')})
+                objetos.extend(cs)
+                linha['COMENTARIOS'].append(
+                    {'VIDEO_ID': vid, 'STATE': rc['STATE'], 'COMMENTS': len(cs),
+                     'THREADS': rc['THREADS'], 'REPLIES_MISSING': rc['REPLIES_MISSING'],
+                     'NATIVE_REASON': rc.get('NATIVE_REASON')})
+            linha['STATE'] = 'OK'
+        except Exception as e:                                     # noqa: BLE001
+            # Um canal falhar não apaga os outros quatro. E AUTH, QUOTA e REDE
+            # NUNCA viram ZERO_RESULTS: o estado canônico diz o que houve.
+            nativo = getattr(e, 'code', None)
+            linha['STATE'] = (falhas.classificar(http=nativo) if nativo
+                              else falhas.classificar(nativo=type(e).__name__))
+            linha['NATIVE_REASON'] = type(e).__name__
+            linha['ERRO'] = ss.redigir('%s: %s' % (type(e).__name__, e))[:300]
+            linha['RECOVERY_ACTION'] = falhas.recuperacao(linha['STATE'])
+            rel['CHANNELS_FAILED'] += 1
+            rel['ERRORS'].append({'HANDLE': handle, 'STATE': linha['STATE']})
+            if falhas.recuperacao(linha['STATE']) in (falhas.NO_RETRY,
+                                                      falhas.NEEDS_HUMAN_FIX):
+                pass          # segue para o próximo canal
+            elif linha['STATE'] in ('QUOTA_EXHAUSTED', 'BUDGET_EXHAUSTED',
+                                    'AUTH_EXPIRED'):
+                # Continuar aqui só queimaria o resto do orçamento por nada.
+                rel['PARADO_EM'] = handle
+                rel['CANAIS'].append(linha)
+                break
+        m_parcial = sess.metricas()
+        linha['QUOTA_ACUMULADA'] = {'SEARCH': m_parcial['SEARCH_CALLS_USED'],
+                                    'GENERAL': m_parcial['GENERAL_UNITS_USED']}
+        rel['CANAIS'].append(linha)
+        print('  %-30s %-23s %3s %4s  %s'
+              % (handle, linha.get('CHANNEL_ID') or '—', linha.get('NEW', '—'),
+                 rel['COMMENTS_TOTAL'], linha['STATE']))
+
+    # GEOGRAFIA: nada aqui prova lugar. Handle italiano não é autor italiano.
+    rel['AUTHOR_LOCATION_PROVED_COUNT'] = 0
+    rel['SOURCE_LOCATION_PROVED_COUNT'] = 0
+    rel['GEOGRAFIA'] = ('COUNTRY_SCOPE=IT é o recorte do PEDIDO. A API não devolve '
+                        'lugar de autor, então AUTHOR_LOCATION e SOURCE_LOCATION '
+                        'saem UNKNOWN — em 100% dos objetos, de propósito.')
+
+    unicos, dedupe_rel = env.dedupe(objetos)
+    m = sess.metricas()
+    rel.update({'FINISHED_AT': env.agora(),
+                'OBJETOS': len(objetos), 'OBJETOS_UNICOS': len(unicos),
+                'DEDUPE': dedupe_rel,
+                'SEARCH_CALLS_USED': m['SEARCH_CALLS_USED'],
+                'GENERAL_UNITS_USED': m['GENERAL_UNITS_USED'],
+                'POR_METODO': m['POR_METODO'],
+                'COST_USD': m['COST_USD'], 'COST_BASIS': m['COST_BASIS'],
+                'QUOTA_MODEL_VERSION': m['QUOTA_MODEL_VERSION'],
+                'CHECKPOINT_USAGE': 'NOT_OBSERVED — ONE_SHOT não usa checkpoint',
+                'OPERATIONAL_OBSERVED': False})
+    rel.update(_raw_do_piloto(run_id))
+    env.gravar('YOUTUBE-PILOTO-IT.json', rel)
+    _imprimir_piloto(rel, m)
+    return 0 if rel['CHANNELS_RESOLVED'] else 5
+
+
+def _raw_do_piloto(run_id):
+    """Inventaria o RAW da corrida e diz ONDE a prova está — sem mentir.
+
+    O runner morre no fim do job. Um `PATH` sozinho seria promessa que ele não
+    cumpre, então o manifesto carrega hash e tamanho de cada arquivo, e o estado
+    de preservação depende do artefato do Actions ter subido.
+
+        PILOT_PROOF NÃO É OPERATIONAL_STORAGE.
+    """
+    import hashlib
+    base = os.path.join(env.RAW_DIR, 'YOUTUBE')
+    arquivos, total = [], 0
+    for raiz, _sub, nomes in os.walk(base) if os.path.isdir(base) else []:
+        for n in sorted(nomes):
+            caminho = os.path.join(raiz, n)
+            dados = open(caminho, 'rb').read()
+            total += len(dados)
+            arquivos.append({'FILE': os.path.relpath(caminho, env.ROOT).replace('\\', '/'),
+                             'SHA256': hashlib.sha256(dados).hexdigest(),
+                             'BYTES': len(dados)})
+    # Quem sobe o artefato é o workflow; o script só declara o que produziu.
+    dentro_do_actions = bool(os.environ.get('GITHUB_RUN_ID'))
+    return {
+        'RAW_FILE_COUNT': len(arquivos), 'RAW_TOTAL_BYTES': total,
+        'RAW_FILES': arquivos,
+        'RAW_ARTIFACT_NAME': ('youtube-piloto-raw-%s' % run_id) if dentro_do_actions
+                             else None,
+        'ACTIONS_RUN_ID': os.environ.get('GITHUB_RUN_ID'),
+        'RETENTION_CLASS': 'ACTIONS_ARTIFACT_DEFAULT' if dentro_do_actions else 'NENHUMA',
+        'RAW_PROOF_STATE': ('PILOT_PROOF_ACTIONS_ARTIFACT' if dentro_do_actions
+                            else 'PARTIAL_PROOF — fora do Actions, o RAW morre com o processo'),
+        'RAW_PRESERVATION_NOTE': ('PILOT_PROOF, não OPERATIONAL_STORAGE. O dono '
+                                  'forward do G-42 (Storage + raw_asset) NÃO recebeu '
+                                  'estes bytes.'),
+    }
 
 
 def _preflight_youtube(sess, modo):
@@ -470,19 +640,15 @@ def _preflight_youtube(sess, modo):
 
 
 def _imprimir_piloto(rel, m):
-    print('\n  CANAL                          NOVOS  EXAM  REUSED  PLAYLIST')
-    for c in rel['CANAIS']:
-        if 'ERRO' in c:
-            print('  %-30s %s' % (c['HANDLE'], c.get('STATE', 'ERRO')))
-            continue
-        print('  %-30s %5d %5d %7d  %s' % (
-            c['HANDLE'], c.get('NEW', 0), c.get('UPLOADS_EXAMINED', 0),
-            c.get('REUSED', 0), 'REUSED' if c.get('PLAYLIST_REUSED') else 'RESOLVED'))
-    print('\n  OBJETOS %d (únicos %d) · THREADS %d · TOP-LEVEL %d · REPLIES %d'
-          % (rel['OBJETOS'], rel['OBJETOS_UNICOS'], rel['THREADS'],
-             rel['TOP_LEVEL'], rel['REPLIES']))
+    print('\n  OBJETOS %d (únicos %d) · VÍDEOS exam %d / devolvidos %d'
+          % (rel['OBJETOS'], rel['OBJETOS_UNICOS'], rel['VIDEOS_EXAMINED'],
+             rel['VIDEOS_RETURNED']))
+    print('  THREADS %d · TOP-LEVEL %d · REPLIES %d · COMENTÁRIOS %d'
+          % (rel['THREADS'], rel['TOP_LEVEL'], rel['REPLIES'], rel['COMMENTS_TOTAL']))
+    # As três ausências, sempre nas três colunas. Juntá-las apagaria a diferença
+    # entre «ninguém falou», «não havia onde falar» e «não consegui medir».
     print('  FEATURE_DISABLED %d · ZERO_RESULTS %d · ERROS %d'
-          % (rel['FEATURE_DISABLED'], rel['ZERO_RESULTS'], len(rel['ERROS'])))
+          % (rel['FEATURE_DISABLED'], rel['ZERO_RESULTS'], len(rel['ERRORS'])))
     print('\n  QUOTA — dois baldes, e eles NÃO se somam')
     print('    SEARCH_CALLS_USED   %d (teto run %d · padrão projeto %d/dia)'
           % (m['SEARCH_CALLS_USED'], m['SEARCH_CALLS_RUN_LIMIT'],
@@ -491,12 +657,18 @@ def _imprimir_piloto(rel, m):
           % (m['GENERAL_UNITS_USED'], m['GENERAL_UNITS_RUN_LIMIT'],
              m['GENERAL_UNITS_PROJECT_LIMIT_DEFAULT']))
     for met, d in sorted(m['POR_METODO'].items()):
-        print('      %-22s %-8s %3d requests · %3d unid' % (met, d['BUCKET'],
-                                                            d['REQUESTS'], d['UNITS']))
+        print('      %-22s %-8s %3d requests · %3d unid'
+              % (met, d['BUCKET'], d['REQUESTS'], d['UNITS']))
     print('    REMAINING           UNKNOWN — a API não devolve saldo')
     print('\n  COST_USD %.2f (%s) · APIFY_CALLS %d · APIFY_SPEND US$ %.2f'
           % (rel['COST_USD'], rel['COST_BASIS'], rel['APIFY_CALLS'],
              rel['APIFY_SPEND_USD']))
+    print('  RAW  %d arquivos · %d bytes · %s'
+          % (rel['RAW_FILE_COUNT'], rel['RAW_TOTAL_BYTES'], rel['RAW_PROOF_STATE']))
+    print('\n  CHECKPOINT %s' % rel['CHECKPOINT_USAGE'])
+    print('  AUTHOR_LOCATION provados: %d · SOURCE_LOCATION provados: %d'
+          % (rel['AUTHOR_LOCATION_PROVED_COUNT'], rel['SOURCE_LOCATION_PROVED_COUNT']))
+    print('  %s' % rel['GEOGRAFIA'])
 
 
 def portao(url):

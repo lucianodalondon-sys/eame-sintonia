@@ -121,6 +121,40 @@ jobs:
           PYTHONIOENCODING=utf-8 python3 coleta/social_scrap.py \
             "${{ inputs.fase }}" ${{ inputs.fase == 'portao' && inputs.url || '' }}
 
+      # A PROVA BRUTA DO PILOTO SOBE COMO ARTEFATO, NÃO COMO COMMIT
+      # ------------------------------------------------------------
+      # O disco do runner morre no fim do job, e um `RAW_REFERENCE` apontando
+      # para lá seria promessa que ninguém cumpre. Mas RAW recorrente também não
+      # entra no Git: seria histórico infinito, contra P-011.
+      #
+      #     PILOT_PROOF NÃO É OPERATIONAL_STORAGE.
+      #
+      # O artefato do Actions é a casa certa para uma prova de UMA execução: tem
+      # retenção declarada, não pesa no clone de ninguém, e o manifesto que VAI
+      # ao Git carrega o hash de cada arquivo — com ele a prova é reconciliável
+      # mesmo depois de o artefato expirar.
+      - name: 2 · a prova bruta do piloto (PILOT_PROOF)
+        if: inputs.fase == 'youtube-piloto-oneshot' || inputs.fase == 'youtube-piloto'
+        id: raw
+        uses: actions/upload-artifact@v4
+        with:
+          name: youtube-piloto-raw-${{ github.run_id }}
+          path: data/samples/SOCIAL-IT/raw-free/
+          if-no-files-found: warn
+          retention-days: 30
+
+      # Se o upload falhou, a execução NÃO pode se declarar PILOT_PROOF_COMPLETE.
+      # A medição da API continua valendo; a PROVA é que ficou pela metade.
+      - name: 2b · o estado da prova é o que o upload disse
+        if: always() && (inputs.fase == 'youtube-piloto-oneshot' || inputs.fase == 'youtube-piloto')
+        run: |
+          if [ "${{ steps.raw.outcome }}" = "success" ]; then
+            echo "RAW_PROOF_STATE=PILOT_PROOF_ACTIONS_ARTIFACT"
+            echo "ARTIFACT_ID=${{ steps.raw.outputs.artifact-id }}"
+          else
+            echo "RAW_PROOF_STATE=PARTIAL_PROOF — o artefato nao subiu"
+          fi
+
       # ARTEFATO DE PROVA, NUNCA MEMÓRIA OPERACIONAL
       # --------------------------------------------
       # A versão anterior fazia `git add -A data/samples/SOCIAL-IT`, e junto com a

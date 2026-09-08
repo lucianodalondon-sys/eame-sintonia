@@ -1,0 +1,284 @@
+#!/usr/bin/env python3
+"""
+O PILOTO REAL, provado com transporte falso — sem rede e sem chave verdadeira.
+
+Este arquivo nasce de um defeito meu: `PILOT_READY = SIM` foi anunciado sobre um
+`youtube_piloto()` que passava no pré-voo e terminava em `return 4`, sem chamar
+NADA. O pré-voo passar não é o piloto rodar.
+
+    PREFLIGHT PASSAR NÃO É PILOTO RODAR.
+"""
+import io
+import json
+import os
+import sys
+import unittest
+import urllib.error
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+sys.path.insert(0, ROOT)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
+import falhas                      # noqa: E402
+import social_scrap as sc          # noqa: E402
+import social_envelope as env      # noqa: E402
+import youtube_oficial as yt       # noqa: E402
+
+FALSA = '-'.join(['CHAVE', 'DE', 'TESTE'])
+
+
+def erro_http(code, reason):
+    corpo = json.dumps({'error': {'code': code, 'errors': [{'reason': reason}]}})
+
+    class _F(urllib.error.HTTPError):
+        def __init__(self):
+            super().__init__('http://x', code, reason, {}, None)
+            self._c = corpo.encode()
+
+        def read(self):
+            return self._c
+    return _F()
+
+
+def _canal(cid, uploads, titulo='Canale'):
+    return {'items': [{'id': cid, 'snippet': {'title': titulo},
+                       'contentDetails': {'relatedPlaylists': {'uploads': uploads}}}]}
+
+
+def _uploads(*vids):
+    return {'items': [{'contentDetails': {'videoId': v},
+                       'snippet': {'title': 't-%s' % v}} for v in vids]}
+
+
+def _videos(*vids):
+    return {'items': [{'id': v, 'snippet': {'title': 't', 'channelId': 'UCx'},
+                       'statistics': {'viewCount': '10'},
+                       'contentDetails': {'duration': 'PT1M'}} for v in vids]}
+
+
+def _thread(cid, texto, respostas=0, trazidas=0):
+    reps = [{'id': '%s.r%d' % (cid, i),
+             'snippet': {'textOriginal': 'r%d' % i, 'publishedAt': '2026-01-01T00:00:00Z',
+                         'authorChannelId': {'value': 'UCa'}}} for i in range(trazidas)]
+    return {'snippet': {'channelId': 'UCx', 'totalReplyCount': respostas,
+                        'topLevelComment': {
+                            'id': cid,
+                            'snippet': {'textOriginal': texto, 'textDisplay': texto,
+                                        'publishedAt': '2026-01-01T00:00:00Z',
+                                        'updatedAt': '2026-01-01T00:00:00Z',
+                                        'likeCount': 1, 'authorDisplayName': 'Tizio',
+                                        'authorChannelId': {'value': 'UCa'}}}},
+            'replies': {'comments': reps} if reps else {}}
+
+
+class Fita:
+    """Um transporte de fita: devolve na ordem, e conta o que foi pedido."""
+
+    def __init__(self, *respostas):
+        self.fila = list(respostas)
+        self.chamadas = []
+
+    def __call__(self, url):
+        metodo = url.split('/youtube/v3/')[1].split('?')[0]
+        self.chamadas.append(metodo)
+        r = self.fila.pop(0) if self.fila else {'items': []}
+        if isinstance(r, BaseException):
+            raise r
+        return r
+
+
+def _um_canal(handle_vids=('v1',), comentarios=None, respostas=0, trazidas=0):
+    """A fita de UM canal completo: channels + playlistItems + videos + comments."""
+    fita = [_canal('UC%s' % handle_vids[0], 'UU1'), _uploads(*handle_vids),
+            _videos(*handle_vids)]
+    for _ in handle_vids:
+        if comentarios is None:
+            fita.append({'items': [_thread('c1', 'ciao', respostas, trazidas)]})
+        else:
+            fita.append(comentarios)
+    return fita
+
+
+class TestOPilotoRealmenteChama(unittest.TestCase):
+    """A trava crítica: passar no pré-voo e não chamar nada é FALHA."""
+
+    def setUp(self):
+        self._alvos = sc.ALVOS_YOUTUBE_IT
+        self._sessao = yt.Sessao
+        os.environ['YOUTUBE_DATA_API_KEY'] = FALSA
+        self._raw = env.RAW_DIR
+        env.RAW_DIR = os.path.join('/tmp', 'raw-teste-piloto')
+
+    def tearDown(self):
+        sc.ALVOS_YOUTUBE_IT = self._alvos
+        yt.Sessao = self._sessao
+        env.RAW_DIR = self._raw
+        os.environ.pop('YOUTUBE_DATA_API_KEY', None)
+        import shutil
+        shutil.rmtree('/tmp/raw-teste-piloto', ignore_errors=True)
+
+    def _montar(self, alvos, *fita):
+        sc.ALVOS_YOUTUBE_IT = alvos
+        f = Fita(*fita)
+        orig = self._sessao
+
+        def falsa(**kw):
+            kw.setdefault('api_key', FALSA)
+            kw['transporte'] = f
+            return orig(**kw)
+        yt.Sessao = falsa
+        return f
+
+    # ── 14 e 15 ───────────────────────────────────────────────────────────
+    def test_14_o_piloto_NAO_retorna_4(self):
+        f = self._montar([('@a', 'imprensa')], *_um_canal(('v1',)))
+        r = sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        self.assertNotEqual(r, 4, 'o stub voltou: pre-voo passou e nada rodou')
+        self.assertEqual(r, 0)
+
+    def test_15_o_piloto_chama_o_transporte_de_verdade(self):
+        f = self._montar([('@a', 'imprensa')], *_um_canal(('v1',)))
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        self.assertGreater(len(f.chamadas), 0, 'PREFLIGHT PASSAR NAO E PILOTO RODAR')
+        self.assertIn('channels', f.chamadas)
+
+    def test_TRAVA_passar_no_preflight_sem_chamar_nada_e_FALHA(self):
+        """A trava que impede um novo PILOT_READY sobre um stub."""
+        f = self._montar([('@a', 'imprensa')], *_um_canal(('v1',)))
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        self.assertIn('channels', f.chamadas,
+                      'o piloto terminou sem resolver um unico handle')
+
+    # ── 1 a 7 ─────────────────────────────────────────────────────────────
+    def test_1_cinco_handles_resolvem(self):
+        fita = []
+        for i in range(5):
+            fita += [_canal('UC%d' % i, 'UU%d' % i), _uploads('v%d' % i),
+                     _videos('v%d' % i), {'items': [_thread('c%d' % i, 'ciao')]}]
+        f = self._montar([('@h%d' % i, 'n') for i in range(5)], *fita)
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        rel = env.ler('YOUTUBE-PILOTO-IT.json')
+        self.assertEqual(rel['CHANNELS_RESOLVED'], 5)
+        self.assertEqual(rel['CHANNELS_FAILED'], 0)
+        self.assertEqual([c['CHANNEL_ID'] for c in rel['CANAIS']],
+                         ['UC%d' % i for i in range(5)])
+
+    def test_2_um_handle_falha_e_os_outros_continuam(self):
+        fita = [erro_http(404, 'channelNotFound')]
+        for i in (1, 2):
+            fita += [_canal('UC%d' % i, 'UU%d' % i), _uploads('v%d' % i),
+                     _videos('v%d' % i), {'items': [_thread('c%d' % i, 'ciao')]}]
+        self._montar([('@morto', 'n'), ('@b', 'n'), ('@c', 'n')], *fita)
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        rel = env.ler('YOUTUBE-PILOTO-IT.json')
+        self.assertEqual(rel['CHANNELS_FAILED'], 1)
+        self.assertEqual(rel['CHANNELS_RESOLVED'], 2, 'um canal morto apagou os outros')
+        morto = rel['CANAIS'][0]
+        self.assertNotEqual(morto['STATE'], 'ZERO_RESULTS',
+                            'canal inexistente virou zero')
+
+    def test_3_SEARCH_fica_em_zero(self):
+        self._montar([('@a', 'n')], *_um_canal(('v1',)))
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        rel = env.ler('YOUTUBE-PILOTO-IT.json')
+        self.assertEqual(rel['SEARCH_CALLS_USED'], 0,
+                         'gastou busca tendo handle conhecido')
+
+    def test_4_a_7_os_metodos_contam_no_bucket_GERAL(self):
+        self._montar([('@a', 'n')], *_um_canal(('v1',)))
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        rel = env.ler('YOUTUBE-PILOTO-IT.json')
+        por = rel['POR_METODO']
+        for metodo in ('channels.list', 'playlistItems.list', 'videos.list',
+                       'commentThreads.list'):
+            self.assertIn(metodo, por, metodo)
+            self.assertEqual(por[metodo]['BUCKET'], 'GENERAL', metodo)
+        self.assertEqual(rel['GENERAL_UNITS_USED'], sum(
+            d['UNITS'] for d in por.values() if d['BUCKET'] == 'GENERAL'))
+
+    # ── 8, 9, 10 ──────────────────────────────────────────────────────────
+    def test_8_comments_disabled_fica_separado(self):
+        fita = [_canal('UC1', 'UU1'), _uploads('v1'), _videos('v1'),
+                erro_http(403, 'commentsDisabled')]
+        self._montar([('@a', 'n')], *fita)
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        rel = env.ler('YOUTUBE-PILOTO-IT.json')
+        self.assertEqual(rel['FEATURE_DISABLED'], 1)
+        self.assertEqual(rel['ZERO_RESULTS'], 0)
+
+    def test_9_zero_legitimo_fica_separado(self):
+        fita = [_canal('UC1', 'UU1'), _uploads('v1'), _videos('v1'), {'items': []}]
+        self._montar([('@a', 'n')], *fita)
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        rel = env.ler('YOUTUBE-PILOTO-IT.json')
+        self.assertEqual(rel['ZERO_RESULTS'], 1)
+        self.assertEqual(rel['FEATURE_DISABLED'], 0)
+
+    def test_TRES_AUSENCIAS_nunca_se_unem(self):
+        tres = {falhas.traduzir('ZERO_RESULTS'), falhas.traduzir('FEATURE_DISABLED'),
+                falhas.traduzir('SOURCE_UNAVAILABLE')}
+        self.assertEqual(len(tres), 3, 'as tres ausencias colapsaram')
+
+    def test_10_thread_incompleta_chama_comments_list(self):
+        fita = [_canal('UC1', 'UU1'), _uploads('v1'), _videos('v1'),
+                {'items': [_thread('c1', 'topo', respostas=3, trazidas=1)]},
+                {'items': [{'id': 'c1.x%d' % i,
+                            'snippet': {'textOriginal': 'x%d' % i,
+                                        'publishedAt': '2026-01-01T00:00:00Z',
+                                        'authorChannelId': {'value': 'UCa'}}}
+                           for i in range(3)]}]
+        f = self._montar([('@a', 'n')], *fita)
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        self.assertIn('comments', f.chamadas, 'thread incompleta nao foi fechada')
+        rel = env.ler('YOUTUBE-PILOTO-IT.json')
+        self.assertEqual(rel['REPLIES'], 4)
+        self.assertEqual(rel['TOP_LEVEL'], 1)
+
+    # ── 11, 12, 13 ────────────────────────────────────────────────────────
+    def test_11_RAW_e_criado(self):
+        self._montar([('@a', 'n')], *_um_canal(('v1',)))
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        rel = env.ler('YOUTUBE-PILOTO-IT.json')
+        self.assertGreater(rel['RAW_FILE_COUNT'], 0)
+        self.assertGreater(rel['RAW_TOTAL_BYTES'], 0)
+        for f in rel['RAW_FILES']:
+            self.assertEqual(len(f['SHA256']), 64, 'RAW sem hash nao e prova')
+
+    def test_12_o_relatorio_declara_o_estado_da_prova(self):
+        self._montar([('@a', 'n')], *_um_canal(('v1',)))
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        rel = env.ler('YOUTUBE-PILOTO-IT.json')
+        self.assertIn('RAW_PROOF_STATE', rel)
+        self.assertIn('PILOT_PROOF', rel['RAW_PRESERVATION_NOTE'])
+        self.assertNotIn('OPERATIONAL_STORAGE', rel['RAW_PROOF_STATE'])
+        self.assertFalse(rel['OPERATIONAL_OBSERVED'])
+        self.assertIn('NOT_OBSERVED', rel['CHECKPOINT_USAGE'])
+
+    def test_13_o_segredo_nunca_aparece(self):
+        chave = 'AIza' + 'Q' * 35
+        os.environ['YOUTUBE_DATA_API_KEY'] = chave
+        self._montar([('@a', 'n')], *_um_canal(('v1',)))
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        rel = env.ler('YOUTUBE-PILOTO-IT.json')
+        self.assertNotIn(chave, json.dumps(rel))
+
+    def test_geografia_nunca_e_promovida(self):
+        self._montar([('@a', 'n')], *_um_canal(('v1',)))
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        rel = env.ler('YOUTUBE-PILOTO-IT.json')
+        self.assertEqual(rel['AUTHOR_LOCATION_PROVED_COUNT'], 0)
+        self.assertEqual(rel['SOURCE_LOCATION_PROVED_COUNT'], 0)
+        self.assertEqual(rel['COUNTRY_SCOPE'], 'IT')
+
+    def test_one_shot_nao_toca_checkpoint(self):
+        f = self._montar([('@a', 'n')], *_um_canal(('v1',)))
+        sc.youtube_piloto(sc.ONE_SHOT, limite_videos=1, limite_threads=5)
+        rel = env.ler('YOUTUBE-PILOTO-IT.json')
+        self.assertIn('NOT_OBSERVED', rel['CHECKPOINT_USAGE'])
+        self.assertEqual(rel['APIFY_CALLS'], 0)
+        self.assertEqual(rel['APIFY_SPEND_USD'], 0.0)
+        self.assertEqual(rel['COST_USD'], 0.0)
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=1)
