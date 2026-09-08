@@ -28,19 +28,38 @@
   },
   "TERRITORIES": [
     {
+      "id": "Z-ENTRADA",
+      "family": "F-COLETA",
+      "name": "1 · ENTRADA DE COLETA",
+      "why": "Por onde uma coleta comeca. Hoje so ha uma forma que existe de verdade: alguem clica num botao. Agendado e por acontecimento estao previstos no contrato e NAO existem — e por isso nao aparecem aqui",
+      "views": [
+        "acervo"
+      ]
+    },
+    {
       "id": "Z-PEDIDO",
       "family": "F-COLETA",
-      "name": "1 · O PEDIDO E O PLANO",
-      "why": "A unica porta de entrada, e os botoes que a usam. Quem pede diz O QUE quer; quem atende decide COMO. Nenhum chamador precisa de saber o nome de um script",
+      "name": "· PEDIDO — o contrato",
+      "why": "O envelope do que se pede: alvo, acionamento, escopo e filtros. NAO E UMA ESTACAO por onde o dado passa — e a forma do pedido, e a politica que o orquestrador usa para o resolver. Fica aqui para se poder abrir",
       "views": [
         "acervo"
       ],
       "folder": "pedido"
     },
     {
+      "id": "Z-ORQUESTRADOR",
+      "family": "F-COLETA",
+      "name": "2 · ORQUESTRADOR",
+      "why": "O unico dono da pergunta «como atender este pedido?». Recebe o pedido, consulta a receita, as fontes e os contratos, escolhe o executor, assina a corrida e leva a colheita a porta",
+      "views": [
+        "acervo"
+      ],
+      "folder": "orquestrador"
+    },
+    {
       "id": "Z-CANDIDATAS",
       "family": "F-COLETA",
-      "name": "2 · DE ONDE VEM UMA FONTE",
+      "name": "· de onde vem uma fonte",
       "why": "Antes de ser fonte, foi candidata. Aqui alguem anota o que apareceu, abre, olha e levanta o que aquilo entrega — so depois vira ficha. Fonte nasce, nao aparece pronta",
       "views": [
         "acervo"
@@ -50,7 +69,7 @@
     {
       "id": "Z-FONTES",
       "family": "F-COLETA",
-      "name": "3 · AS FONTES",
+      "name": "· as fontes",
       "why": "De onde o dado vem — de fora e de dentro. O acervo que se consulta ANTES de coletar, o que a ADAMA ja sabe de si, e a porta por onde entra fonte nova",
       "views": [
         "acervo"
@@ -58,9 +77,29 @@
       "folder": "fontes"
     },
     {
+      "id": "Z-REGRAS",
+      "family": "F-COLETA",
+      "name": "· as reguas que carimbam",
+      "why": "O que se aplica ao item NO MOMENTO em que ele entra: de onde veio, quem esta autorizado, que palavras se digitam, o contrato de cada fonte. Vem antes das acoes porque sao elas que as consultam",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "folder": "regras"
+    },
+    {
+      "id": "Z-EXECUCAO",
+      "family": "F-COLETA",
+      "name": "3 · EXECUCAO",
+      "why": "Quem faz o trabalho. Nao e um ficheiro: e o sitio onde vivem os executores, e as ferramentas e os canais que eles usam aparecem por baixo, nao ao lado",
+      "views": [
+        "acervo"
+      ]
+    },
+    {
       "id": "Z-FERRAMENTAS",
       "family": "F-COLETA",
-      "name": "4 · AS FERRAMENTAS",
+      "name": "· as ferramentas da execucao",
       "why": "Com o que se vai: a rota paga, a rota gratis pelo navegador e a transcricao local",
       "views": [
         "infra"
@@ -70,27 +109,16 @@
     {
       "id": "Z-VEICULOS",
       "family": "F-COLETA",
-      "name": "5 · OS VEICULOS",
+      "name": "· os canais",
       "why": "De ONDE o dado vem: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Vem antes da acao porque e dali que a coleta chega; a acao e quem vai busca-la e quem a guarda",
       "views": [
         "acervo"
       ]
     },
     {
-      "id": "Z-REGRAS",
-      "family": "F-COLETA",
-      "name": "6 · AS REGUAS QUE CARIMBAM",
-      "why": "O que se aplica ao item NO MOMENTO em que ele entra: de onde veio, quem esta autorizado, que palavras se digitam, o contrato de cada fonte. Vem antes das acoes porque sao elas que as consultam",
-      "views": [
-        "acervo",
-        "audit"
-      ],
-      "folder": "regras"
-    },
-    {
       "id": "Z-ACOES",
       "family": "F-COLETA",
-      "name": "7 · AS ACOES DA COLETA",
+      "name": "· os executores",
       "why": "O que se FAZ dentro de um veiculo: colher o YouTube, colher o que o concorrente publica, baixar os rotulos. Acao e verbo — se for um sitio por onde se passa, e veiculo, nao acao",
       "views": [
         "acervo",
@@ -101,7 +129,7 @@
     {
       "id": "Z-ADMISSAO",
       "family": "F-COLETA",
-      "name": "8 · A PORTA DE ADMISSAO",
+      "name": "4 · A PORTA DE ADMISSAO",
       "why": "A peneira comum, e o livro que guarda cada nao com motivo, regra, versao e prova. Daqui sai PRONTO_PARA_INTELIGENCIA — e a fronteira",
       "views": [
         "acervo"
@@ -111,7 +139,7 @@
     {
       "id": "Z-MEDIDAS",
       "family": "F-COLETA",
-      "name": "9 · AS MEDIDAS DA COLETA",
+      "name": "· as medidas da coleta",
       "why": "O que olha para tras e da nota: quanto falta, que fonte respondeu torto, que lei do Brasil ainda nao foi portada. NAO BARRA NADA — medir nao e filtrar, e confundir os dois faz parecer que ha peneira onde so ha termometro",
       "views": [
         "audit"
@@ -525,8 +553,8 @@
       "views": [
         "acervo"
       ],
-      "what": "Os termos de busca, agrupados por pais-cultura-problema, na lingua de quem trabalha no campo daquele pais.",
-      "why_here": "Buscar 'septoria wheat' na Franca devolve literatura internacional, nao a conversa tecnica francesa. E o CROP e o ISSUE de cada item saem DESTA consulta, nunca de leitura livre do titulo — e o que torna a linha auditavel.",
+      "what": "Os termos de busca, agrupados por cultura-problema, na lingua de quem trabalha no campo. Sao 103 palavras em dois ficheiros: 35 do censo de rotulos, todas italianas, e 68 do sensor, das quais 13 recortes de 17 sao da Italia.",
+      "why_here": "Buscar 'septoria wheat' na Italia devolve literatura internacional, nao a conversa tecnica de quem esta no campo — o que se procura e 'septoriosi del frumento'. E o CROP e o ISSUE de cada item saem DESTA consulta, nunca de leitura livre do titulo, e e isso que torna a linha auditavel.",
       "departments": [
         "TECNICO_CIENCIA",
         "DESENVOLVIMENTO_MERCADO"
@@ -582,7 +610,7 @@
     {
       "id": "C-SINTONIA-SCRAP",
       "name": "SINTONIA SCRAP — o despachador",
-      "territory": "Z-FERRAMENTAS",
+      "territory": "Z-EXECUCAO",
       "kind": "workflow",
       "icon": "⚡",
       "views": [
@@ -1445,7 +1473,7 @@
     {
       "id": "C-CI-COLETA",
       "name": "Os botoes que disparam a coleta",
-      "territory": "Z-PEDIDO",
+      "territory": "Z-ENTRADA",
       "kind": "workflow",
       "what": "Os botoes do GitHub, que sao a forma manual de fazer um pedido. Nenhum tem hora marcada: se ninguem clicar, nao se colhe nada.",
       "why_here": "Um botao e um pedido com acionamento MANUAL — nao e um passo antes do pedido. Separa-los obrigava a olhar dois cartoes para entender uma coisa so.",
@@ -1670,7 +1698,7 @@
     {
       "id": "C-ORQUESTRADOR",
       "name": "O orquestrador",
-      "territory": "Z-PEDIDO",
+      "territory": "Z-ORQUESTRADOR",
       "kind": "engine",
       "icon": "⚙",
       "what": "Escolhe o executor, coordena a corrida e ASSINA o recibo no RUN-MANIFEST. Nao raspa nada: so decide o caminho.",
@@ -1679,7 +1707,7 @@
         "ENGENHARIA"
       ],
       "files": [
-        "pedido/orquestrador.py"
+        "orquestrador/orquestrador.py"
       ],
       "views": [
         "acervo"
@@ -1715,7 +1743,8 @@
         "ENGENHARIA"
       ],
       "files": [
-        "provas/testa_coleta_canonica.py"
+        "provas/testa_coleta_canonica.py",
+        "provas/testa_golden_path_pdf.py"
       ],
       "views": [
         "audit"
@@ -1736,6 +1765,136 @@
         "system-map/scripts/censo_da_coleta.py"
       ],
       "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CENSO-SEMANTICO-IT",
+      "name": "Censo das palavras da Itália",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Conta, lista a lista e palavra a palavra, todo o vocabulário que a rota italiana usa, e diz de que língua é cada palavra. Falha alto se a conta não fechar.",
+      "why_here": "Os números 482 e 68 não somavam porque se contava tudo o que parecia palavra. Contagem que não fecha não é medida, é palpite.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_semantico_it.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CENSO-CORPUS-IT",
+      "name": "Censo do corpo italiano",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Conta, ficheiro a ficheiro, quantas linhas o corpo italiano tem e quanta prosa há dentro delas — duas contagens separadas, porque são coisas diferentes. Também conta o material cru que está guardado e nunca foi transformado em texto.",
+      "why_here": "«Milhões de caracteres» e «4.654 registos» eram contas feitas à mão que ninguém conseguia repetir. Conta que não se repete não é medida.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_do_corpus_it.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-RECALL-PORTA-IT",
+      "name": "Quanto a peneira apanha na Itália",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Passa pela porta de admissão cada item italiano que tem texto de verdade, e conta o que ela decidiu: passou, recusou, ou não soube.",
+      "why_here": "«O vocabulário passou de 0 para 29 palavras» conta palavras, não acertos. Dicionário grande não prova que a porta acerta.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/recall_da_porta_it.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CONTRATO-ARTEFATO",
+      "name": "O contrato comum de artefato",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "icon": "§",
+      "what": "A folha que todo executor preenche ao entregar: quem sou, de onde vim, quando, onde, quem me fez. Identidade, impressão digital, pai, tempos separados, geografia separada, versões.",
+      "why_here": "Sem uma língua comum, ligar o orquestrador obrigaria o cérebro da casa a adivinhar o que cada executor produziu — e adivinhação no meio não se conserta depois, espalha-se.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "leis/artefato.py"
+      ],
+      "views": [
+        "infra",
+        "audit"
+      ]
+    },
+    {
+      "id": "C-EXECUTOR-TEXTO-PDF",
+      "name": "Executor · texto a partir de PDF",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "⚙",
+      "what": "Abre o PDF e guarda o texto ao lado, como outro artefato com pai declarado. Não julga: não decide se o documento serve. Corre local, sem rede, sem custo, sem OCR.",
+      "why_here": "É o primeiro executor real a provar o contrato. Um contrato que ninguém usa não vale nada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "coleta/executor_texto_de_pdf.py"
+      ],
+      "views": [
+        "infra",
+        "audit"
+      ]
+    },
+    {
+      "id": "C-ESTRADA-PDF",
+      "name": "A primeira estrada · PDF até à porta",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "◉",
+      "what": "Junta a corrida inteira: tira a impressao digital dos originais antes e depois, manda derivar, audita os textos antigos feitos a mao, leva cada texto a porta de admissao, e faz as contas baterem.",
+      "why_here": "Nada some em silêncio. Emitido menos guardado tem de dar zero, e guardado menos visto pela porta também.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "coleta/golden_path_pdf.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-IT-TEXTO-PESQUISAVEL",
+      "name": "O texto que a máquina consegue ler",
+      "territory": "Z-GUARDA",
+      "kind": "store",
+      "icon": "▤",
+      "what": "O texto italiano já derivado: 6 ficheiros .txt tirados à mão de PDF (48.730 letras) mais 50.537 letras de prosa dentro das planilhas. É só isto que o vocabulário, a classificação e a peneira conseguem alcançar.",
+      "why_here": "É o outro lado do corte. Ter 62,7 MB guardados e ter isto para ler são factos separados, e escrevem-se separados.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "data/samples/IT-ARPAV-VENETO/*.txt",
+        "data/samples/PIEMONTE-FD/*.txt"
+      ],
+      "views": [
+        "infra",
         "audit"
       ]
     }
@@ -1778,12 +1937,22 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "EXPECTED_EDGES": [],
+  "EXPECTED_EDGES": [
+    {
+      "from": "C-IT-TEXTO-PESQUISAVEL",
+      "to": "C-ADMISSAO",
+      "type": "ALIMENTA",
+      "reason": "Depois do corte, o caminho existe: o texto que a máquina consegue ler é o que chega ao vocabulário, à classificação e à peneira. Medido: dos 49 itens italianos com texto, 42 passaram e 7 ficaram em NÃO SEI.",
+      "source": "system-map/data/recall-porta-it.generated.json",
+      "declared_by": "missao system-map-canonical-v1, etapa 2.6",
+      "declared_at": "2026-09-07"
+    }
+  ],
   "DECLARED_BLOBS": {
     ".github/workflows/apify-conexao.yml": "2c37dc40f924a3474c65b049793afc9b525347ba",
-    ".github/workflows/apify-sensores.yml": "d86aec4d2cbb6f36a47330a3c16587055ad0c248",
+    ".github/workflows/apify-sensores.yml": "d9890ae3d47b6b07bb2832697bf55a51dfcacfff",
     ".github/workflows/calendario-regressoes.yml": "d18c4b3e00fac8ff2a31295af78b7a1cd251ec77",
-    ".github/workflows/comunicacao-publica.yml": "6f456034e189d64a086152825470ea282b20ad48",
+    ".github/workflows/comunicacao-publica.yml": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
     ".github/workflows/sintonia-scrap.yml": "39606dfca9e38e60d93c7eb6f097414143f5780a",
     ".github/workflows/supabase-conexao.yml": "19a9de9f85a9091400ee5ea4733d4a57d4cc247b",
     ".github/workflows/supabase-fichas-adama.yml": "4a5d2d2d7f927a8fb901e59db0fd397d2b892c56",
@@ -1791,7 +1960,7 @@
     ".github/workflows/supabase-raw-roundtrip.yml": "3e9934e706d73022a109633a464cd452ea8a7ad1",
     ".github/workflows/supabase-storage.yml": "243c29e74bc77b843dd2910df8f0f98ec8b7cf91",
     ".github/workflows/system-map.yml": "5d3fd3a3a732f04b1a7cfa0ee465aa95e71e3369",
-    "admissao/admissao.py": "ba263a7b85a0f82b7b68901ecd74f1ab4ce7a8c6",
+    "admissao/admissao.py": "9571a4fdc0b778dceeeb6f1f66c60a3a90044830",
     "candidatas/FONTES-CANDIDATAS.json": "ef5d20af7253dd06350a414a81f37e8327d5b83a",
     "candidatas/ITALY-SOURCE-MASTER-V1.json": "690de91954cf7bf72c4263680682ef79d9c4cfd0",
     "candidatas/ITALY-SOURCE-MASTER-V1.md": "439ece69dcd84db85d4d2eabc2d6866cfc52be52",
@@ -2082,6 +2251,7 @@
     "motor/v2_montar_handoff.py": "0f25853bb9ce9470838893eabba5dc72798eca52",
     "motor/v2_qa_atribuir.py": "586208251e0b02b02cfd24dee9640cd772c06271",
     "motor/v2_relatorio.py": "9eb92494f1e464dcd88c7a6c92f5a46fd80b33ed",
+    "orquestrador/orquestrador.py": "e6d9cccad2ee16d47ff403e2d94b99029b640aac",
     "pacote/lastmile_entregar.py": "349ca4149746f9458b75585a41a90904e41ec45b",
     "pacote/lastmile_inventario.py": "b6cbc7e79364aa73c245d075c3bcda69ce4fb9af",
     "pacote/lastmile_para_supabase.py": "987238ff6768915fd4c99278c641053fb175d7d2",
@@ -2099,7 +2269,6 @@
     "pacote/pacote_montar.py": "7902be8b68946dc9c1be0e429fbf7768e7a2a176",
     "pacote/pacote_relacoes_convergencia.py": "31ef6178bce498b40cb9a87174b6cb214b82e687",
     "pacote/v21_handoff_json.py": "94aadd8693d949bef7a77d109872e1e372d9f8d0",
-    "pedido/orquestrador.py": "b1b6edd63ff947942079ab92f736de24dfde43e9",
     "pedido/pedido.py": "783852b225b497ca118f1f250f650123d1f81df0",
     "pedido/receitas.py": "38e9779c369d70ce0ae5c926ce96472360c78fa9",
     "portoes/build_portal.py": "1656c9eb410273792b34866ba744e5b553b0ffe7",
@@ -2112,7 +2281,7 @@
     "provas/inventario_esperado.py": "66f22a11bd9356fb70dbca6167f26dbddc288760",
     "provas/italy_accounting.mjs": "6d87dca1623f5be4b0dc81bf217d8cf7cab3270b",
     "provas/italy_pilot_negativos.mjs": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
-    "provas/testa_coleta_canonica.py": "4f6ce8d8584222fea36c2ea728992b57d2bc3c20",
+    "provas/testa_coleta_canonica.py": "c3fab202bca9fb13cfb5251a09bd6e2c83a0ef3c",
     "provas/testa_rota_italia.py": "fc1de4e6f7b84f7709459d61f02413820827a2b2",
     "regras/comunicacao_identidade.py": "94c42ae11e5f4d2880ddbb71b2f36fc1d12a9160",
     "regras/comunicacao_lote.py": "1aed0cecdff1f7a2ac42451eea43e87ba82b655f",
@@ -2124,8 +2293,8 @@
     "regras/italy_source_health.mjs": "c3ecad25f05f09c596c54c6eb0d9a0445bfa5618",
     "regras/proveniencia.py": "ed6c8a44342a5ef59dcb73023296d5bca9e3754a",
     "regras/rotulos_censo.py": "f5caa7816711270b5813e9b1a23ee87920e20825",
-    "regras/sensor_coleta.py": "bc0fbd82df9669cfd06ff1672db991bcb26564b7",
-    "regras/sensor_medir.py": "d3464ca6888a9e6af7f548984292a08a809dff4e",
+    "regras/sensor_coleta.py": "ddfeb08a7569e62360349763b95052b13dc731eb",
+    "regras/sensor_medir.py": "78a08f1ac8d8d832df55ae53a667d28792f0b307",
     "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql": "924f59840046e5b5c27f9c743d4b89732a440761",
     "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql": "15e6053919ac670242ce4ef46b50edbc5a858253",
     "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql": "96a9403d67687e4fd935ed44a10cb4b215dbf68c",
@@ -2172,18 +2341,18 @@
     "superficie/es/proto_es.py": "6e574cee8e56f64184caff9a90a26769d011f589",
     "superficie/it_casa_dados.py": "ea4ef19118f35b42dba189b3a7b134a7eab8ba25",
     "superficie/rede.py": "2724f549c7198dec600f4eaac13739e1a53b156b",
-    "system-map/app/index.html": "07a751b6d25a9dd38ea985ed70bf12f4b7baf295",
-    "system-map/app/map.css": "36fcb9336297f70f5d3263079c3f6ae5cb99a079",
-    "system-map/app/map.js": "38e8d05eff4137e36d9c593731ff56fa7f352872",
+    "system-map/app/index.html": "e03ea69361b475d380b1256e170346f9d3e2cbd1",
+    "system-map/app/map.css": "509ff2a37ebb527c7563a88cdf4a6a5429a6b1af",
+    "system-map/app/map.js": "433aa0bc66add1fc4ec82aea3471ba9b3015c8be",
     "system-map/scripts/censo_da_coleta.py": "3fa99e2b2154151b55c6f4ff5f1f87c7b27b8d8d",
-    "system-map/scripts/generate_system_map.py": "a12efea2c785b6107a1e8d8fa36c4c179ff008c5",
+    "system-map/scripts/generate_system_map.py": "04e7e7e8aa2d5ae540f9fd195b351891fa29367c",
     "system-map/scripts/mudar_gaveta.py": "99736f74a118a545f946246f88c041153e4bb342",
     "system-map/scripts/pente_fino_da_coleta.py": "7c6f8bd541be3e5aef7aaf3df2514af423f14928",
     "system-map/scripts/scan_casco.py": "ff41767da8af0d50f153179d517e6cabd636c014",
     "system-map/scripts/scan_repo.py": "2721f4eace153fcaf95ff45e0f6633247bb24cb3",
     "system-map/scripts/scan_sources.py": "ebf2ca643c3fc39caed844e26ec7ae88846d2343",
     "system-map/scripts/validate_system_map.py": "049a768123347c52a32588b49d3fd6d65c564a8d",
-    "system-map/tests/test_system_map.py": "d8e76c0f7c789936d516ad66808ba6bcf5f38091",
+    "system-map/tests/test_system_map.py": "6ed6682aa01a24ffd67cd3a7e89c77a84379a399",
     "tests/es/test_adama_es_gate.py": "6a314fa029012cc403351afa7248c1b89666e786",
     "tests/es/test_adama_es_import_rules.py": "b37f0ceadb1bb42c4f4cd08c2c473d4cf661a197",
     "tests/test_adama_relevance.py": "4337978c67cf52681f3eddbcaeb2423eca2291e8",
