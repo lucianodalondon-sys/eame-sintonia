@@ -577,6 +577,7 @@
       "docs/fontes/INDICE-DE-FONTES.md",
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
+      "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
       "docs/operacao/CENSO-DA-COLETA.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
@@ -1586,8 +1587,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "28c2bc0d95d6513d6f5d31185f7b530329fd703f",
-    "GENERATED_AT": "2026-09-07T19:29:35-03:00"
+    "HEAD": "c65ed49a6fd1a1fa3357da507dcfcb642485ae90",
+    "GENERATED_AT": "2026-09-07T21:33:08-03:00"
   },
   "FAMILIES": [
     {
@@ -5058,6 +5059,19 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "papel": "BOTAO",
+      "papel_texto": "so dispara; nao decide nada",
+      "papel_medido": {
+        "chama_subprocesso": false,
+        "assina_recibo": false,
+        "acessa_rede": true,
+        "grava": false,
+        "decide": false,
+        "valida": false,
+        "e_workflow": true,
+        "executa": true,
+        "executores_que_chama": 2
+      },
       "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
@@ -7036,6 +7050,19 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "papel": "ORQUESTRADOR",
+      "papel_texto": "decide como atender o pedido, e assina a corrida",
+      "papel_medido": {
+        "chama_subprocesso": true,
+        "assina_recibo": true,
+        "acessa_rede": false,
+        "grava": true,
+        "decide": true,
+        "valida": true,
+        "e_workflow": false,
+        "executa": true,
+        "executores_que_chama": 0
+      },
       "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
@@ -7370,6 +7397,19 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "papel": "CONTRATO",
+      "papel_texto": "so representa e valida; nao executa nada",
+      "papel_medido": {
+        "chama_subprocesso": false,
+        "assina_recibo": false,
+        "acessa_rede": false,
+        "grava": false,
+        "decide": false,
+        "valida": true,
+        "e_workflow": false,
+        "executa": false,
+        "executores_que_chama": 0
+      },
       "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
@@ -7930,6 +7970,19 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "papel": "POLITICA INTERNA",
+      "papel_texto": "decide, mas nao executa — e tem um so consumidor",
+      "papel_medido": {
+        "chama_subprocesso": false,
+        "assina_recibo": false,
+        "acessa_rede": false,
+        "grava": false,
+        "decide": true,
+        "valida": false,
+        "e_workflow": false,
+        "executa": false,
+        "executores_que_chama": 4
+      },
       "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
@@ -8345,6 +8398,19 @@
       "parado_na_coleta": [],
       "momento": "DESPACHO",
       "momento_texto": "nao e rota nem preparo: e o botao que manda correr",
+      "papel": "EXECUTOR COMPOSTO",
+      "papel_texto": "corre varias fases e abre os portoes de cada uma",
+      "papel_medido": {
+        "chama_subprocesso": false,
+        "assina_recibo": false,
+        "acessa_rede": false,
+        "grava": false,
+        "decide": false,
+        "valida": false,
+        "e_workflow": true,
+        "executa": false,
+        "executores_que_chama": 15
+      },
       "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
@@ -11069,7 +11135,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-v1",
-        "HEAD 28c2bc0d95d6513d6f5d31185f7b530329fd703f"
+        "HEAD c65ed49a6fd1a1fa3357da507dcfcb642485ae90"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -11821,7 +11887,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1522,
+          "line": 1604,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -14119,7 +14185,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1544,
+          "line": 1626,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -14620,17 +14686,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1745,
+          "line": 1827,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1745,
+          "line": 1827,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1746,
+          "line": 1828,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -14748,12 +14814,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2207,
+          "line": 2290,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2207,
+          "line": 2290,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -18295,7 +18361,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 645,
+  "UNCLAIMED_FILES_COUNT": 646,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 97,
@@ -18307,7 +18373,7 @@
     "edges_proven": 323,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1144,
+    "files_tracked": 1145,
     "files_covered": 499,
     "files_code_unclaimed": 0
   }

@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.collection-issues/1",
   "O_QUE_ISTO_E": "Achados registados durante a etapa de linguagem das conexoes. NENHUM foi consertado aqui, de proposito: aquela etapa era de representacao, e consertar comportamento no meio de uma mudanca de medicao faz com que nao se saiba mais qual das duas coisas mudou o resultado.",
   "PROVENANCE": {
-    "HEAD": "28c2bc0d95d6513d6f5d31185f7b530329fd703f"
+    "HEAD": "c65ed49a6fd1a1fa3357da507dcfcb642485ae90"
   },
   "ISSUES": [
     {
@@ -10,14 +10,14 @@
       "NODE": "C-SINTONIA-SCRAP",
       "TYPE": "CAMINHO_PARALELO",
       "DESCRIPTION": "O SINTONIA SCRAP chama dez scripts pelo nome, direto, sem passar pelo orquestrador. E um segundo caminho para a mesma coisa: no dia em que um executor mudar de nome ou de argumentos, o botao quebra e ninguem descobre ate alguem clicar.",
-      "EVIDENCE": ".github/workflows/sintonia-scrap.yml — chama coleta/instagram_*.py, coleta/youtube_*.py, ferramentas/*.py; a palavra «orquestrador» nao aparece no ficheiro",
+      "EVIDENCE": "medido na etapa 2: sintonia-scrap.yml chama 6 executores e 4 ferramentas pelo nome; a palavra «orquestrador» nao aparece no ficheiro. Dos 4 botoes de coleta, 3 nao passam pelo orquestrador",
       "STATUS": "OPEN"
     },
     {
       "ISSUE_ID": "COL-002",
       "NODE": "C-SINTONIA-SCRAP",
       "TYPE": "ZONA_DUVIDOSA",
-      "DESCRIPTION": "Esta em «AS FERRAMENTAS», classificado como DESPACHO. Mas despachar nao e uma ferramenta: e um pedido com acionamento MANUAL, e os outros botoes do GitHub ja vivem em «O PEDIDO E O PLANO». Duas coisas iguais em gavetas diferentes.",
+      "DESCRIPTION": "Esta em «AS FERRAMENTAS». A etapa 2 mediu o que ele e: COMPOSITE_EXECUTOR — oferece 24 fases, a PESSOA escolhe qual, e ele abre os portoes certos e despacha. Nao e um segundo orquestrador (nao decide rota sozinho), mas tambem nao e uma ferramenta: e um executor composto",
       "EVIDENCE": "system-map/data/state.generated.json — territory=Z-FERRAMENTAS, momento=DESPACHO; os workflows de C-CI-COLETA estao em Z-PEDIDO",
       "STATUS": "OPEN"
     },
@@ -60,10 +60,66 @@
       "DESCRIPTION": "«O que a ADAMA sabe de si» diz no cartao que e o inventario que se consulta ANTES de coletar. Nenhuma peca da coleta o le: so o motor V2.1 e a ultima milha, que sao depois.",
       "EVIDENCE": "state.generated.json — C-ADAMA-IT.outbound = [C-LASTMILE, C-V21-INGEST]; nenhum de Z-ACOES",
       "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-008",
+      "NODE": "C-CI-COLETA",
+      "TYPE": "BUTTON_KNOWS_TOOL",
+      "DESCRIPTION": "Dois botoes chamam a Apify pelo nome: `apify-conexao.yml` e `apify-sensores.yml`. Escolher a ferramenta nao e trabalho de um botao — um botao devia dizer O QUE quer, nao QUAL ferramenta usar. No dia em que a rota mudar, o botao quebra.",
+      "EVIDENCE": ".github/workflows/apify-conexao.yml e apify-sensores.yml chamam ferramentas/apify_pool.py diretamente",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-009",
+      "NODE": "C-APIFY-POOL",
+      "TYPE": "APIFY_NOT_LAST_RESORT",
+      "DESCRIPTION": "A intencao do produto e «Apify e o ultimo recurso, depois das rotas gratis». 25 ficheiros usam a Apify. A politica «gratis primeiro» aparece em TEXTO em 2 deles e em CODIGO em NENHUM — procurei nos quatro sitios onde faria sentido. Uma politica que so existe em comentario e uma intencao, nao uma regra, e a fatura nao le comentarios.",
+      "EVIDENCE": "medido na etapa 2: apify_pool.py, sintonia-scrap.yml, receitas.py e orquestrador.py — nenhum impoe a ordem",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-010",
+      "NODE": "C-ORQUESTRADOR",
+      "TYPE": "ROUTE_POLICY_DUPLICATED",
+      "DESCRIPTION": "«Como atender este pedido» e decidido em TRES sitios: a receita escolhe fontes/rota/executor, o orquestrador escolhe executor, e o SINTONIA SCRAP escolhe a rota da fase. Uma responsabilidade com tres donos nao tem dono.",
+      "EVIDENCE": "matriz de responsabilidades em docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-011",
+      "NODE": "C-COLETA-INSTAGRAM",
+      "TYPE": "MULTIPLE_ENTRYPOINTS_FOR_SAME_INTENT",
+      "DESCRIPTION": "«Colher Instagram» tem QUATRO portas: o botao sintonia-scrap, o orquestrador, o proprio instagram_coleta.py com entrada de linha de comando, e a chamada direta do workflow. Quatro maneiras de comecar a mesma coisa sao quatro comportamentos que podem divergir.",
+      "EVIDENCE": "censo da coleta: 83 pontos de entrada; sintonia-scrap.yml chama instagram_coleta.py, instagram_diario.py, instagram_janela.py e instagram_pessoal.py",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-012",
+      "NODE": "C-RECEITAS",
+      "TYPE": "INTERNAL_MODULE_SHOWN_AS_TOP_LEVEL",
+      "DESCRIPTION": "A receita e a politica interna do orquestrador — nao executa nada e tem UM unico consumidor. O mesmo vale para o pedido, que e um contrato. Ambos aparecem no mapa como estacoes do mesmo tamanho de uma etapa que o dado atravessa. Ficheiro nao e responsabilidade; modulo nao e estacao.",
+      "EVIDENCE": "quem importa `receitas`: so pedido/orquestrador.py e as provas. Sem rede, sem escrita, sem subprocesso",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-013",
+      "NODE": "C-NAVEGADOR",
+      "TYPE": "ASSISTED_BROWSER_OUTSIDE_CANONICAL_RETURN_PATH",
+      "DESCRIPTION": "Ha coleta feita a mao por navegador/Claude, e ela NAO tem porta de devolucao no codigo — procurei e nao existe integracao nenhuma. Nao deve ser desenhada como automacao. A porta correta ja existe: `candidatas/` para fonte nova, e o `larga_em` do executor para o material.",
+      "EVIDENCE": "ferramentas/navegador.py e cdp.py sao automacao real; nenhuma rota de devolucao manual encontrada no codigo",
+      "STATUS": "OPEN"
+    },
+    {
+      "ISSUE_ID": "COL-014",
+      "NODE": "C-SINTONIA-SCRAP",
+      "TYPE": "MANUAL_BYPASS",
+      "DESCRIPTION": "A escolha da estrategia existe, mas foi para FORA do sistema: quem clica escolhe entre 24 fases. Nao esta errado — mas nao aparece em lado nenhum do mapa, e por isso ninguem consegue auditar por que aquela fase foi escolhida e nao outra.",
+      "EVIDENCE": "sintonia-scrap.yml — 24 opcoes em `type: choice`, escolhidas pela pessoa; as condicoes `if:` so abrem portoes",
+      "STATUS": "OPEN"
     }
   ],
   "COUNTS": {
-    "abertos": 7,
-    "total": 7
+    "abertos": 14,
+    "total": 14
   }
 }

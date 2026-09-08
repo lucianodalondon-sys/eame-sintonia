@@ -556,6 +556,18 @@ function openDetail(id) {
             prova: ${esc(d.prova.file)}:${d.prova.line}</div>
         </div>`).join('')}</div>` : ''}
 
+      ${n.papel ? `<div class="sec">
+        <h4>Que papel esta peça tem no comando da coleta</h4>
+        <p style="font-size:11px;color:#4a443f"><b>${esc(n.papel)}</b> — ${
+        esc(n.papel_texto || '')}</p>
+        <p style="font-size:10px;color:#8a827e;margin-top:6px">Medido no código, não
+          declarado: <b>arquivo não é responsabilidade, e módulo não é estação.</b>
+          Uma peça que decide mas não executa, e que tem um consumidor só, é política
+          interna de quem a consome — não uma etapa que o dado atravessa.</p>${
+        Object.entries(n.papel_medido || {}).filter(([, v]) => v)
+          .map(([k]) => `<span class="tag">${esc(k.replace(/_/g, ' '))}</span>`)
+          .join(' ')}</div>` : ''}
+
       ${n.momento ? `<div class="sec">
         <h4>Quando esta ferramenta serve</h4>
         <p style="font-size:11px;color:#4a443f"><b>${esc(n.momento)}</b> — ${

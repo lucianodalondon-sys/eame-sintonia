@@ -1130,6 +1130,88 @@ def momento_das_ferramentas(nos: list) -> None:
                                   "rota conhecida nem trata o que voltou.")
 
 
+# ── O PAPEL DE UMA PECA NO PLANO DE CONTROLO ────────────────────────────────
+# «Escolhe executor» aparecia em tres pecas: a receita, o orquestrador e o
+# SINTONIA SCRAP. A mesma pergunta — «como atender este pedido?» — respondida em
+# tres sitios. Uma responsabilidade com tres donos nao tem dono.
+#
+# Isto nao consolida nada: so poe no cartao o que a peca REALMENTE faz, medido,
+# para se poder ver a duplicacao em vez de a deduzir. A consolidacao e decisao
+# de produto, e fica para depois de o modelo minimo ser aprovado.
+#
+#     ARQUIVO NAO E RESPONSABILIDADE. MODULO NAO E ESTACAO.
+PAPEIS = (
+    # (papel, o que quer dizer, o que tem de ser verdade)
+    ("ORQUESTRADOR", "decide como atender o pedido, e assina a corrida",
+     lambda m: m["chama_subprocesso"] and m["assina_recibo"]),
+    ("EXECUTOR COMPOSTO", "corre varias fases e abre os portoes de cada uma",
+     lambda m: m["e_workflow"] and m["executores_que_chama"] >= 3),
+    ("BOTAO", "so dispara; nao decide nada",
+     lambda m: m["e_workflow"]),
+    ("POLITICA INTERNA", "decide, mas nao executa — e tem um so consumidor",
+     lambda m: m["decide"] and not m["executa"] and m["consumidores"] <= 2),
+    ("CONTRATO", "so representa e valida; nao executa nada",
+     lambda m: m["valida"] and not m["executa"] and not m["decide"]),
+)
+
+RX_PAPEL = {
+    "chama_subprocesso": r"subprocess\.run|os\.system",
+    # ESCREVER o recibo, nao mencionar o ficheiro. `apify_contrato.py` fala do
+    # RUN-MANIFEST numa frase e saiu classificado como ORQUESTRADOR — a mesma
+    # armadilha do Supabase e do Instagram: mencionar nao e usar.
+    "assina_recibo": r"guardar_recibo\(",
+    "acessa_rede": r"requests\.(get|post)|httpx|urllib\.request|aiohttp",
+    "grava": r"open\([^)]*['\"][wa]|write_text\(|json\.dump\(",
+    # decidir e ter a TABELA de executores ou resolver um plano — nao e a
+    # palavra «escolhe» solta numa linha
+    "decide": r"EXECUTORES\b|resolver\(",
+    "valida": r"raise \w*Invalid|PedidoInvalido",
+}
+
+
+def papel_das_pecas(nos: list) -> None:
+    """Poe em cada peca do plano de controlo o papel que ela DESEMPENHA."""
+    # SO O PLANO DE CONTROLO. Uma ferramenta nao tem «papel de controlo» — o
+    # papel dela ja esta medido noutro sitio, e chama-se `momento` (ROTA,
+    # PREPARO, DESPACHO). Perguntar a um leitor de PDF se ele e orquestrador
+    # devolve NAO SEI, e esse NAO SEI nao ensina nada a ninguem.
+    #
+    # O despachante entra por ser o unico caso em que um workflow FAZ trabalho
+    # de controlo: escolhe portoes e corre seis executores.
+    no_controlo = {"Z-PEDIDO"}
+    for n in nos:
+        if n.get("territory") not in no_controlo and n.get("id") != "C-SINTONIA-SCRAP":
+            continue
+        ficheiros = n.get("files", [])
+        texto = ""
+        for f in ficheiros:
+            cam = RAIZ / f
+            if cam.is_file():
+                bruto = cam.read_text(encoding="utf-8", errors="replace")
+                texto += "\n".join(
+                    "" if l.lstrip().startswith(("#", "//")) else l.split("#", 1)[0]
+                    for l in bruto.splitlines())
+
+        m = {k: bool(re.search(rx, texto, re.I)) for k, rx in RX_PAPEL.items()}
+        m["e_workflow"] = bool(ficheiros) and all(
+            f.endswith((".yml", ".yaml")) for f in ficheiros)
+        m["executa"] = m["chama_subprocesso"] or m["acessa_rede"] or m["grava"]
+        m["executores_que_chama"] = len(re.findall(
+            r"(?:coleta|fontes|candidatas)/[A-Za-z0-9_-]+\.py", texto))
+        m["consumidores"] = len(n.get("outbound", []))
+
+        for papel, o_que_e, cabe in PAPEIS:
+            if cabe(m):
+                n["papel"] = papel
+                n["papel_texto"] = o_que_e
+                break
+        else:
+            n["papel"] = "NAO SEI"
+            n["papel_texto"] = ("nao encaixa em nenhum papel conhecido do plano "
+                                "de controlo — e isso e uma resposta, nao um erro")
+        n["papel_medido"] = {k: v for k, v in m.items() if k != "consumidores"}
+
+
 def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
     """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
     direita — que e a direcao em que o dado corre: fonte → motor → pacote → tela."""
@@ -2091,6 +2173,7 @@ def main_uma_vez(stamp: bool) -> int:
     # depende disso. Ela corria depois, e por isso a reclassificacao nao via
     # preparo nenhum: o conjunto vinha sempre vazio, em silencio.
     momento_das_ferramentas(nos)
+    papel_das_pecas(nos)
 
     # ── CADA LIGACAO GANHA A SUA CATEGORIA ──────────────────────────────────
     # Feito aqui, no fim, porque a categoria depende do TIPO das duas pecas —
