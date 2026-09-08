@@ -26,6 +26,8 @@ on:
       - 'guarda/memoria_descartavel.py'
       - 'provas/preservar_coleta_no_postgres.py'
       - 'supabase/migrations/001_*.sql'
+      - 'supabase/migrations/022_*.sql'
+      - 'provas/derived_artifact_no_postgres.py'
       - '.github/workflows/banco-descartavel.yml'
   workflow_dispatch:
 
@@ -69,6 +71,20 @@ jobs:
         run: python3 provas/preservar_coleta_no_postgres.py
         env:
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # A casa do derivado: a migration 022 tem de APLICAR num Postgres real, e
+      # as travas dela tem de morder. DESIGNED nao e DB_TESTED, e a distancia
+      # entre os dois ja custou uma promocao prematura nesta casa.
+      #
+      # Banco proprio (`derivado`), para nao herdar as linhas da prova anterior:
+      # um caso que passa por causa do estado deixado por outro nao prova nada.
+      - name: 2b · a casa do derivado aplica e as travas mordem
+        run: |
+          psql "$ADMIN_URL" -c 'create database derivado;'
+          python3 provas/derived_artifact_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/derivado
 
       # A prova de que a trava contra o acidente e real: apontada para fora,
       # ela tem de RECUSAR-SE a correr.

@@ -27,7 +27,8 @@ A TRAVA CONTRA O ACIDENTE
 Este é o único ficheiro desta missão que fala com um banco a sério. Por isso
 ele **recusa-se a arrancar** se a ligação não for descartável. E a trava não
 procura pedaços de texto: ela **decompõe a URL** e exige que o `hostname` seja
-exatamente local E que o banco se chame `descartavel`. Um dedo enganado a
+exatamente local E que o banco esteja na lista curta dos descartaveis. Um
+dedo enganado a
 apontar para produção não passa daqui.
 
 Não usa driver instalado: fala pelo `psql`, que o runner já tem. Instalar um
@@ -49,7 +50,11 @@ MIGRACAO = os.path.join(RAIZ, "supabase", "migrations",
                         "001_fundacao_geografia_e_proveniencia.sql")
 
 HOSTS_LOCAIS = ("localhost", "127.0.0.1", "::1", "[::1]")
-BANCOS_PERMITIDOS = ("descartavel",)
+# Os UNICOS nomes de banco que esta casa aceita para uma prova. Sao os que os
+# workflows criam e deitam fora; qualquer outro — sobretudo um chamado como a
+# producao — nao passa. Acrescentar um nome aqui e uma decisao consciente, e e
+# esse o ponto: a lista e curta para que crescer doa.
+BANCOS_PERMITIDOS = ("descartavel", "derivado")
 
 
 def _e_descartavel(url: str) -> bool:
@@ -65,7 +70,7 @@ def _e_descartavel(url: str) -> bool:
     Aqui a URL é **decomposta**, e as duas partes são exigidas separadamente:
 
         hostname   tem de ser EXATAMENTE um dos locais
-        database   tem de ser EXATAMENTE `descartavel`
+        database   tem de estar na lista curta: `descartavel`, `derivado`
 
     E é lista de PERMISSÃO, não de bloqueio: bloqueio falha por omissão — basta
     esquecer um nome. Permissão falha fechado, que é o lado certo para falhar.

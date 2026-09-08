@@ -536,7 +536,12 @@ class AProvaEmPostgresEACuaTranca(unittest.TestCase):
         """Bloqueio falha por omissão — basta esquecer um nome. Permissão
         falha fechado, que é o lado certo para falhar."""
         self.assertTrue(self.pg.HOSTS_LOCAIS)
-        self.assertEqual(self.pg.BANCOS_PERMITIDOS, ("descartavel",))
+        # A lista e curta de proposito: acrescentar um nome tem de ser uma
+        # decisao consciente, e doer um bocadinho.
+        self.assertLessEqual(len(self.pg.BANCOS_PERMITIDOS), 3)
+        self.assertIn("descartavel", self.pg.BANCOS_PERMITIDOS)
+        for proibido in ("producao", "prod", "postgres", "eame-sintonia"):
+            self.assertNotIn(proibido, self.pg.BANCOS_PERMITIDOS)
         fonte = open(os.path.join(RAIZ, "provas",
                                   "preservar_coleta_no_postgres.py"),
                      encoding="utf-8").read()
