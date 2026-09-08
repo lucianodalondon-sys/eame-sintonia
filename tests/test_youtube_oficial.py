@@ -1,0 +1,336 @@
+#!/usr/bin/env python3
+"""
+Os dezesseis casos adversariais da estrada oficial do YouTube.
+
+Nenhum deles toca a rede e nenhum precisa de chave real: o transporte da
+`Sessao` é injetável de propósito. Um teste que só roda com internet e credencial
+não roda quando mais se precisa dele.
+"""
+import json
+import os
+import sys
+import unittest
+import urllib.error
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+
+import falhas                     # noqa: E402
+import youtube_oficial as yt      # noqa: E402
+import social_sessao as ss        # noqa: E402
+import social_matriz as mz        # noqa: E402
+
+
+def erro_http(code, reason):
+    """Um erro da API do YouTube como ela realmente devolve: código E razão."""
+    corpo = json.dumps({'error': {'code': code, 'errors': [{'reason': reason}]}})
+
+    class _Falso(urllib.error.HTTPError):
+        def __init__(self):
+            super().__init__('http://x', code, reason, {}, None)
+            self._corpo = corpo.encode()
+
+        def read(self):
+            return self._corpo
+    return _Falso()
+
+
+def transporte(*respostas):
+    """Devolve as respostas em ordem. Um item `Exception` é levantado."""
+    fila = list(respostas)
+
+    def _t(url):
+        r = fila.pop(0) if fila else {'items': []}
+        if isinstance(r, BaseException):
+            raise r
+        return r
+    return _t
+
+
+def sessao(*respostas, teto=2000):
+    return yt.Sessao(api_key='CHAVE-DE-TESTE', teto_unidades=teto,
+                     transporte=transporte(*respostas))
+
+
+def thread(cid, texto, *, respostas=0, trazidas=0, autor='UCautor'):
+    reps = [{'id': '%s.r%d' % (cid, i),
+             'snippet': {'textOriginal': 'resposta %d' % i, 'publishedAt': '2026-01-01T00:00:00Z',
+                         'authorChannelId': {'value': autor}}}
+            for i in range(trazidas)]
+    return {'snippet': {'channelId': 'UCcanal', 'totalReplyCount': respostas,
+                        'topLevelComment': {
+                            'id': cid,
+                            'snippet': {'textOriginal': texto, 'textDisplay': texto,
+                                        'publishedAt': '2026-01-01T00:00:00Z',
+                                        'updatedAt': '2026-01-02T00:00:00Z',
+                                        'likeCount': 3, 'authorDisplayName': 'Tizio',
+                                        'authorChannelId': {'value': autor}}}},
+            'replies': {'comments': reps} if reps else {}}
+
+
+# ══════════════════════════════════════════════════════════════════ 1-3 CREDENCIAL
+class TestCredencial(unittest.TestCase):
+
+    def test_1_chave_ausente_nao_cai_para_scraping(self):
+        s = yt.Sessao(api_key=None, transporte=transporte({'items': []}))
+        self.assertFalse(s.disponivel())
+        with self.assertRaises(yt.SemCredencial):
+            s.chamar('videos.list', {'id': 'x'})
+        self.assertEqual(s.requests, 0, 'nao pode ter saido pedido nenhum')
+
+    def test_2_chave_invalida_e_auth_expired_e_rotaciona(self):
+        s = sessao(erro_http(400, 'keyInvalid'))
+        with self.assertRaises(urllib.error.HTTPError) as ctx:
+            s.chamar('videos.list', {'id': 'x'})
+        estado, razao = yt.estado_do_erro(ctx.exception)
+        self.assertEqual(estado, 'AUTH_EXPIRED')
+        self.assertEqual(falhas.recuperacao(estado, razao), falhas.ROTATE_CREDENTIAL)
+        self.assertFalse(falhas.degrada_fonte(estado),
+                         'chave invalida NAO diz nada sobre o YouTube')
+
+    def test_3_quota_estourada_nao_e_teto_nosso(self):
+        s = sessao(erro_http(403, 'quotaExceeded'))
+        with self.assertRaises(urllib.error.HTTPError) as ctx:
+            s.chamar('videos.list', {'id': 'x'})
+        estado, _ = yt.estado_do_erro(ctx.exception)
+        self.assertEqual(estado, 'QUOTA_EXHAUSTED')
+        self.assertNotEqual(estado, 'BUDGET_EXHAUSTED')
+        self.assertTrue(falhas.rotaciona(estado), 'outra chave pode ter cota')
+        self.assertFalse(falhas.rotaciona('BUDGET_EXHAUSTED'),
+                         'teto NOSSO nao se resolve trocando de chave')
+
+
+# ══════════════════════════════════════════════════════════════ 4-6 FONTE E ZERO
+class TestFonteEZero(unittest.TestCase):
+
+    def test_4_video_apagado_aparece_como_ausente_no_lote(self):
+        objs, _s, rel = yt.metadata(
+            video_ids=['vivo', 'apagado'], run_id='T',
+            sessao=sessao({'items': [{'id': 'vivo', 'snippet': {'title': 'ok'},
+                                      'statistics': {}, 'contentDetails': {}}]}))
+        self.assertEqual(rel['IDS_REQUESTED'], 2)
+        self.assertEqual(rel['RETURNED'], 1)
+        self.assertEqual(rel['MISSING'], ['apagado'])
+
+    def test_5_comentarios_desativados_NAO_viram_zero(self):
+        objs, _s, rel = yt.comentarios(
+            video_id='v', run_id='T', sessao=sessao(erro_http(403, 'commentsDisabled')))
+        self.assertEqual(objs, [])
+        self.assertTrue(rel.get('COMMENTS_DISABLED'))
+        self.assertEqual(rel['NATIVE_REASON'], 'commentsDisabled')
+        self.assertNotEqual(rel['STATE'], 'ZERO_RESULTS',
+                            'desativado NAO e "ninguem comentou"')
+        self.assertFalse(falhas.degrada_fonte(rel['STATE']))
+        self.assertNotIn('ZERO_LEGITIMATE', rel)
+
+    def test_6_zero_legitimo_e_zero(self):
+        objs, _s, rel = yt.comentarios(video_id='v', run_id='T',
+                                       sessao=sessao({'items': []}))
+        self.assertEqual(objs, [])
+        self.assertEqual(rel['STATE'], 'ZERO_RESULTS')
+        self.assertTrue(rel['ZERO_LEGITIMATE'])
+        self.assertFalse(falhas.e_falha(rel['STATE']), 'zero legitimo nao e falha')
+        self.assertNotIn('COMMENTS_DISABLED', rel)
+
+
+# ═══════════════════════════════════════════════════════ 7-8 PAGINAÇÃO E THREAD
+class TestPaginacaoEThread(unittest.TestCase):
+
+    def test_7_paginacao_maior_que_uma_pagina(self):
+        objs, s, rel = yt.comentarios(
+            video_id='v', run_id='T', limite_threads=2,
+            sessao=sessao({'items': [thread('c1', 'primo')], 'nextPageToken': 'P2'},
+                          {'items': [thread('c2', 'secondo')]}))
+        self.assertEqual(rel['PAGES'], 2)
+        self.assertEqual(rel['THREADS'], 2)
+        self.assertEqual(len(objs), 2)
+        self.assertEqual(s.por_metodo['commentThreads.list']['REQUESTS'], 2)
+
+    def test_8_thread_incompleta_e_completada_por_comments_list(self):
+        """`commentThreads` disse 3 respostas e trouxe 1. As outras 2 sao buscadas."""
+        objs, s, rel = yt.comentarios(
+            video_id='v', run_id='T',
+            sessao=sessao({'items': [thread('c1', 'topo', respostas=3, trazidas=1)]},
+                          {'items': [{'id': 'c1.x%d' % i,
+                                      'snippet': {'textOriginal': 'extra %d' % i,
+                                                  'publishedAt': '2026-01-01T00:00:00Z',
+                                                  'authorChannelId': {'value': 'UCa'}}}
+                                     for i in range(3)]}))
+        self.assertEqual(rel['REPLIES_COMPLETED'], 1)
+        self.assertEqual(rel['REPLIES_MISSING'], 0)
+        self.assertIn('comments.list', s.por_metodo)
+        respostas = [o for o in objs if o['RAW']['IS_REPLY']]
+        self.assertEqual(len(respostas), 4, 'a trazida + as tres completadas')
+        for r in respostas:
+            self.assertEqual(r['RAW']['PARENT_ID'], 'c1')
+
+
+# ═══════════════════════════════════════════════════════════ 9-10 REDE E PARSER
+class TestRedeEParser(unittest.TestCase):
+
+    def test_9_timeout_e_da_rota_nao_da_fonte(self):
+        self.assertEqual(falhas.camada('TRANSIENT_NETWORK_ERROR'), falhas.ROUTE)
+        self.assertFalse(falhas.degrada_fonte('TRANSIENT_NETWORK_ERROR'))
+        self.assertEqual(falhas.recuperacao('TRANSIENT_NETWORK_ERROR'), falhas.WAIT)
+
+    def test_10_campo_com_forma_inesperada_e_parser_drift(self):
+        """A API respondeu 200 com uma forma que o nosso codigo nao previu."""
+        with self.assertRaises((TypeError, AttributeError)):
+            yt.metadata(video_ids=['v'], run_id='T',
+                        sessao=sessao({'items': [{'id': 'v', 'snippet': 'ISTO É STRING'}]}))
+        self.assertEqual(falhas.camada('PARSER_DRIFT'), falhas.EXECUTOR)
+        self.assertFalse(falhas.esperado('PARSER_DRIFT'))
+        self.assertEqual(falhas.recuperacao('PARSER_DRIFT'), falhas.NEEDS_HUMAN_FIX)
+
+
+# ══════════════════════════════════════════════════ 11-13 CAPACIDADE E POLÍTICA
+class TestCapacidadeEPolitica(unittest.TestCase):
+
+    def test_11_capacidade_desconhecida_nunca_e_usable(self):
+        r = ss.usabilidade('YOUTUBE', 'CAPACIDADE_QUE_NAO_EXISTE', 'OFFICIAL_API',
+                           ss.THIRD_PARTY)
+        self.assertEqual(r['ROUTE_STATUS'], ss.NOT_USABLE)
+        self.assertEqual(r['TECHNICAL_STATUS'], ss.CAPABILITY_NOT_DECLARED)
+
+    def test_12_api_oficial_para_capacidade_nao_suportada(self):
+        """O defeito reproduzido: `API oficial` nao e passe livre."""
+        for plat, cap in (('YOUTUBE', 'FETCH_TRANSCRIPT'),
+                          ('LINKEDIN', 'FETCH_POST'),
+                          ('TIKTOK', 'SEARCH_KEYWORD')):
+            r = ss.usabilidade(plat, cap, 'OFFICIAL_API', ss.THIRD_PARTY)
+            self.assertEqual(r['ROUTE_STATUS'], ss.NOT_USABLE,
+                             '%s/%s virou USABLE por generalizacao' % (plat, cap))
+
+    def test_12b_cada_recusa_tem_motivo_proprio(self):
+        """Tres NOT_USABLE por tres razoes diferentes — nao um NAO generico."""
+        vistos = {ss.usabilidade(p, c, 'OFFICIAL_API', ss.THIRD_PARTY)['TECHNICAL_STATUS']
+                  for p, c in (('YOUTUBE', 'FETCH_TRANSCRIPT'),
+                               ('LINKEDIN', 'FETCH_POST'),
+                               ('TIKTOK', 'SEARCH_KEYWORD'))}
+        self.assertEqual(len(vistos), 3, 'as recusas colapsaram num motivo so')
+
+    def test_13_apify_nao_e_chamada_quando_a_oficial_esta_sa(self):
+        """Prova obrigatoria: rota oficial declarada e permitida vence a paga."""
+        for cap in ('SEARCH_KEYWORD', 'INCREMENTAL', 'FETCH_VIDEO_METADATA',
+                    'FETCH_COMMENTS'):
+            rotas = mz.MATRIZ['YOUTUBE'][cap]
+            escolhida = mz._rota_padrao(rotas)
+            self.assertIsNotNone(escolhida, cap)
+            self.assertNotEqual(mz.auth_mode(escolhida), 'APIFY',
+                                '%s escolheu Apify com rota oficial disponivel' % cap)
+            self.assertEqual(mz.auth_mode(escolhida), 'OFFICIAL_API', cap)
+
+
+# ════════════════════════════════════════════════ 14-16 DEDUPE, EDIÇÃO, RETOMADA
+class TestDedupeEdicaoRetomada(unittest.TestCase):
+
+    def test_14_comment_id_duplicado_vira_um_objeto(self):
+        import social_envelope as se
+        objs, _s, _r = yt.comentarios(
+            video_id='v', run_id='T', limite_threads=1,
+            sessao=sessao({'items': [thread('c1', 'uma vez')], 'nextPageToken': 'P2'},
+                          {'items': [thread('c1', 'uma vez')]}))
+        unicos, rel = se.dedupe(objs)
+        self.assertEqual(len(objs), 2)
+        self.assertEqual(len(unicos), 1, 'o mesmo COMMENT_ID contou duas vezes')
+        self.assertTrue(rel)
+
+    def test_15_comentario_editado_preserva_os_dois_instantes(self):
+        objs, _s, _r = yt.comentarios(video_id='v', run_id='T',
+                                      sessao=sessao({'items': [thread('c1', 'texto')]}))
+        raw = objs[0]['RAW']
+        self.assertEqual(raw['PUBLISHED_AT'], '2026-01-01T00:00:00Z')
+        self.assertEqual(raw['UPDATED_AT'], '2026-01-02T00:00:00Z')
+        self.assertNotEqual(raw['PUBLISHED_AT'], raw['UPDATED_AT'],
+                            'sem UPDATED_AT nao da para saber que foi editado')
+
+    def test_16_interrupcao_apos_a_primeira_pagina_nao_perde_o_que_veio(self):
+        """Teto estourado no meio: o que ja veio VOLTA, e o estado diz por que parou."""
+        s = yt.Sessao(api_key='K', teto_unidades=1,
+                      transporte=transporte({'items': [thread('c1', 'primeira')],
+                                             'nextPageToken': 'P2'},
+                                            {'items': [thread('c2', 'segunda')]}))
+        with self.assertRaises(yt.TetoDaExecucao):
+            yt.comentarios(video_id='v', run_id='T', limite_threads=1, sessao=s)
+        self.assertEqual(s.unidades, 1, 'gastou exatamente o teto, nem uma unidade a mais')
+
+
+# ═══════════════════════════════════════════════════ EVIDÊNCIA E FIELD VOICES
+class TestComentarioEEvidencia(unittest.TestCase):
+    """O comentario e materia-prima futura do FIELD VOICES. Nao se limpa."""
+
+    def test_texto_original_chega_intacto(self):
+        cru = 'nn se pò fa cosí!! 😤 il trattore nn tira + dopo 2 ore #agricoltura'
+        objs, _s, _r = yt.comentarios(video_id='v', run_id='T',
+                                      sessao=sessao({'items': [thread('c1', cru)]}))
+        self.assertEqual(objs[0]['TEXT'], cru)
+        self.assertEqual(objs[0]['RAW']['TEXT_ORIGINAL'], cru)
+        for pedaco in ('nn', 'cosí', '😤', '+', '#agricoltura'):
+            self.assertIn(pedaco, objs[0]['TEXT'],
+                          'a coleta apagou %r — gíria e emoji SAO o dado' % pedaco)
+
+    def test_topo_e_resposta_continuam_distinguiveis(self):
+        objs, _s, _r = yt.comentarios(
+            video_id='v', run_id='T',
+            sessao=sessao({'items': [thread('c1', 'topo', respostas=1, trazidas=1)]}))
+        topo = [o for o in objs if not o['RAW']['IS_REPLY']]
+        resp = [o for o in objs if o['RAW']['IS_REPLY']]
+        self.assertEqual(len(topo), 1)
+        self.assertEqual(len(resp), 1)
+        self.assertIsNone(topo[0]['RAW']['PARENT_ID'])
+        self.assertEqual(resp[0]['RAW']['PARENT_ID'], 'c1')
+
+    def test_geografia_nao_e_inventada(self):
+        objs, _s, _r = yt.comentarios(video_id='v', run_id='T', country_scope='IT',
+                                      sessao=sessao({'items': [thread('c1', 'ciao')]}))
+        o = objs[0]
+        self.assertEqual(o['COUNTRY_SCOPE'], 'IT', 'o recorte do PEDIDO')
+        self.assertEqual(o['RAW']['AUTHOR_LOCATION'], 'UNKNOWN')
+        self.assertEqual(o['SOURCE_LOCATION'], 'UNKNOWN',
+                         'COUNTRY_SCOPE=IT NAO prova AUTHOR_LOCATION=IT')
+
+    def test_idioma_nao_prova_lugar(self):
+        objs, _s, _r = yt.metadata(
+            video_ids=['v'], run_id='T', country_scope='IT',
+            sessao=sessao({'items': [{'id': 'v', 'statistics': {}, 'contentDetails': {},
+                                      'snippet': {'title': 't', 'defaultAudioLanguage': 'it'}}]}))
+        self.assertEqual(objs[0]['LANGUAGE'], 'it')
+        self.assertEqual(objs[0]['SOURCE_LOCATION'], 'UNKNOWN')
+
+
+# ══════════════════════════════════════════════════════════════════════ QUOTA
+class TestQuota(unittest.TestCase):
+
+    def test_a_busca_custa_cem_vezes_a_vigilancia(self):
+        self.assertEqual(yt.QUOTA['search.list'], 100)
+        self.assertEqual(yt.QUOTA['playlistItems.list'], 1)
+
+    def test_toda_chamada_e_contada(self):
+        s = sessao({'items': []}, {'items': []})
+        s.chamar('videos.list', {'id': 'a'})
+        s.chamar('search.list', {'q': 'b'})
+        m = s.metricas()
+        self.assertEqual(m['REQUESTS'], 2)
+        self.assertEqual(m['QUOTA_UNITS'], 101)
+        self.assertEqual(m['COST_USD'], 0.0)
+        self.assertEqual(m['COST_BASIS'], 'QUOTA_GRATUITA_OFICIAL',
+                         'quota gratuita precisa de BASE declarada, nao de silencio')
+
+    def test_uploads_para_no_conhecido(self):
+        itens = [{'contentDetails': {'videoId': 'v%d' % i},
+                  'snippet': {'title': 't%d' % i}} for i in range(5)]
+        objs, _s, rel = yt.uploads_recentes(
+            channel_id='UCxxx', run_id='T', conhecidos={'v2'},
+            sessao=sessao({'items': itens}))
+        self.assertEqual(rel['NEW'], 2, 'parou em v2 e nao varreu o resto')
+        self.assertTrue(rel['STOPPED_AT_KNOWN'])
+        self.assertEqual(rel['REUSED'], 1)
+
+    def test_playlist_de_uploads_e_derivada_sem_gastar_quota(self):
+        self.assertEqual(yt.playlist_de_uploads('UCabc123'), 'UUabc123')
+        self.assertIsNone(yt.playlist_de_uploads('naoUC'))
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=1)

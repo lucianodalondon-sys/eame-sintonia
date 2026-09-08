@@ -57,13 +57,16 @@ class TestAutomacaoNaoDecorreDeSessao(unittest.TestCase):
         """
         ok, _ = ss.automacao_permitida('YOUTUBE', ss.OWN_PROPERTY)
         self.assertFalse(ok, 'OWN_PROPERTY voltou a ser um SIM automatico')
-        r = ss.usabilidade('YOUTUBE', 'FETCH_POST', 'LOCAL_SESSION', ss.OWN_PROPERTY)
+        r = ss.usabilidade('YOUTUBE', '*', 'LOCAL_SESSION', ss.OWN_PROPERTY)
         self.assertEqual(r['ROUTE_STATUS'], ss.NEEDS_REVIEW)
 
     def test_terceiro_por_api_oficial_NAO_e_recusado(self):
         """O outro lado do mesmo erro: a recusa valia para a SESSAO, e generalizou."""
         r = ss.usabilidade('YOUTUBE', 'FETCH_COMMENTS', 'OFFICIAL_API', ss.THIRD_PARTY)
-        self.assertEqual(r['ROUTE_STATUS'], ss.USABLE)
+        # A recusa da SESSAO nao contamina a API oficial: os TERMOS saem ALLOWED.
+        # O NOT_USABLE de hoje e por falta de chave, e diz isso no TECHNICAL_STATUS.
+        self.assertEqual(r['TERMS_STATUS'], ss.ALLOWED)
+        self.assertEqual(r['TECHNICAL_STATUS'], 'CREDENTIAL_MISSING')
 
 
 class TestEstadosDaSessao(unittest.TestCase):

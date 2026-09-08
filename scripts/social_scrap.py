@@ -47,7 +47,8 @@ sys.path.insert(0, HERE)
 import social_envelope as env      # noqa: E402
 import social_matriz as mz         # noqa: E402
 import social_rotas as sr          # noqa: E402
-import social_sessao as ss         # noqa: E402
+import social_sessao as ss
+import falhas         # noqa: E402
 
 LEDGER = 'LEDGER-SOCIAL-IT.json'
 
@@ -85,6 +86,12 @@ ALVOS = {
         'tags': ['agricoltura', 'agronomia', 'viticoltura'],
     },
     'BLUESKY': {'termos': ['agricoltura', 'agronomo', 'viticoltura']},
+    # YouTube entra por TERMO, não por canal: esta casa ainda não tem nenhum
+    # channelId italiano no acervo, e descobrir um exige `search.list` — que
+    # exige a chave. Declarar canais inventados aqui seria fingir um alvo.
+    'YOUTUBE': {'termos': ['agricoltura', 'trattore', 'viticoltura',
+                           'agronomia', 'fitosanitari'],
+                'canais': []},
     'TELEGRAM': {
         # Os dois primeiros são teste ADVERSARIAL declarado: eu não sei se
         # existem. O piloto precisa registrar a diferença entre "canal vazio" e
@@ -277,6 +284,67 @@ def authmodes():
     print('  Ele diz QUE existe sessão. Nunca DE QUEM, nem ONDE.\n')
 
 
+def youtube():
+    """A estrada oficial do YouTube, ponta a ponta — inclusive quando não roda.
+
+    Esta fase percorre o caminho REAL de decisão para as quatro capacidades:
+    a capacidade existe na matriz? a rota está declarada? os termos permitem?
+    há credencial? Só então executa.
+
+    Sem chave ela para em `CREDENTIAL_MISSING` — e isso é resultado, não erro.
+    O que ela NUNCA faz é cair para scraping porque a chave faltou.
+    """
+    import youtube_oficial as yt
+    caps = ('SEARCH_KEYWORD', 'INCREMENTAL', 'FETCH_VIDEO_METADATA', 'FETCH_COMMENTS')
+    sess = yt.Sessao()
+    print('\nYOUTUBE · ESTRADA OFICIAL · country_scope=IT\n%s' % ('═' * 78))
+    print('  CREDENCIAL  %s (%s)' % ('PRESENTE' if sess.disponivel() else 'AUSENTE',
+                                     yt.ENV_CHAVE))
+    print('  COST_BASIS  %s\n' % yt.COST_BASIS)
+    print('  %-22s %-14s %-11s %-20s %s'
+          % ('CAPACIDADE', 'TERMOS', 'ROTA', 'BLOQUEIO', 'RECUPERAÇÃO'))
+    print('  ' + '─' * 76)
+    registros = []
+    for cap in caps:
+        u = ss.usabilidade('YOUTUBE', cap, 'OFFICIAL_API', ss.THIRD_PARTY)
+        tech = u['TECHNICAL_STATUS']
+        rec = falhas.recuperacao(tech if tech in falhas.NOMES else 'CREDENTIAL_MISSING')
+        print('  %-22s %-14s %-11s %-20s %s'
+              % (cap, u['TERMS_STATUS'], u['ROUTE_STATUS'], tech, rec))
+        registros.append({'CAPABILITY': cap, 'AUTH_MODE': 'OFFICIAL_API',
+                          'TERMS_STATUS': u['TERMS_STATUS'],
+                          'ROUTE_STATUS': u['ROUTE_STATUS'],
+                          'TECHNICAL_STATUS': tech,
+                          'RECOVERY_ACTION': rec,
+                          'SOURCE_HEALTH': falhas.HEALTHY,
+                          'ROUTE_HEALTH': falhas.UNAVAILABLE if not sess.disponivel()
+                          else falhas.HEALTHY,
+                          'EXECUTOR_HEALTH': falhas.HEALTHY,
+                          'QUOTA_UNITS': 0, 'COST_USD': 0.0,
+                          'COST_BASIS': yt.COST_BASIS})
+    # As duas que NÃO entram nesta missão, e por quê — declaradas, não omitidas.
+    for cap in ('FETCH_TRANSCRIPT', 'FETCH_VIDEO_BYTES'):
+        u = ss.usabilidade('YOUTUBE', cap, 'OFFICIAL_API', ss.THIRD_PARTY)
+        print('  %-22s %-14s %-11s %-20s %s'
+              % (cap, u['TERMS_STATUS'], u['ROUTE_STATUS'], u['TECHNICAL_STATUS'],
+                 'NO_RETRY'))
+    print('\n  SOURCE_HEALTH do YouTube: %s — falta de chave é da ROTA, não da FONTE.'
+          % falhas.HEALTHY)
+    if not sess.disponivel():
+        print('  ROUTE_HEALTH: %s · RECOVERY: %s'
+              % (falhas.UNAVAILABLE, falhas.recuperacao('CREDENTIAL_MISSING')))
+        print('\n  As quatro rotas estão DECLARADAS, PERMITIDAS e LIGADAS.')
+        print('  O que falta é uma chave — e falta de chave não autoriza scraping.')
+    env.gravar('YOUTUBE-OFICIAL-ESTADO.json', {
+        'QUANDO': env.agora(), 'PLATFORM': 'YOUTUBE', 'COUNTRY_SCOPE': 'IT',
+        'CREDENCIAL_PRESENTE': sess.disponivel(), 'CAPACIDADES': registros,
+        'APIFY_CHAMADA': False,
+        'PORQUE': ('nenhuma chamada paga: a rota oficial é a padrão nas quatro '
+                   'capacidades, e quando ela não roda a resposta é parar, '
+                   'não trocar por uma rota proibida.')})
+    return 0
+
+
 def portao(url):
     ok, motivo = sr.permitido(url)
     print('\n  URL       %s' % url)
@@ -326,6 +394,8 @@ def main():
     elif cmd in ('sessao', 'politica'):
         sys.argv = ['x', 'preflight' if cmd == 'sessao' else 'politica']
         ss.main()
+    elif cmd == 'youtube':
+        youtube()
     elif cmd == 'authmodes':
         authmodes()
     elif cmd == 'guarda':

@@ -224,6 +224,10 @@ def _terms_status(plat, auth_mode, ownership):
     return NEEDS_REVIEW, 'rota pública: quem decide é o robots.txt lido na hora.'
 
 
+CAPABILITY_NOT_DECLARED = 'CAPABILITY_NOT_DECLARED'
+ROUTE_NOT_DECLARED = 'ROUTE_NOT_DECLARED'
+
+
 def usabilidade(platform, capability, auth_mode, ownership=THIRD_PARTY,
                 technical_status=None, auth_status=None):
     """(plataforma, capacidade, rota, de quem é a conta) -> os seis eixos + veredito.
@@ -233,30 +237,80 @@ def usabilidade(platform, capability, auth_mode, ownership=THIRD_PARTY,
     `AUTH_STATUS` (temos credencial) nunca seja confundido com
     `AUTHORIZATION_STATUS` (podemos usá-la).
     """
-    plat = platform.upper()
+    plat, cap = platform.upper(), capability.upper()
+    import social_matriz as mz          # dono único da verdade de capacidade
+
+    # ── PRIMEIRO: A CAPACIDADE EXISTE? ───────────────────────────────────────
+    # Antes desta trava, a política respondia sozinha e INVENTAVA capacidade:
+    # `TIKTOK/SEARCH_KEYWORD/OFFICIAL_API` saía USABLE sem uma linha declarada,
+    # e `YOUTUBE/FETCH_TRANSCRIPT` saía USABLE contra a própria matriz, que diz
+    # `PERMITIDA=NAO` porque `captions.download` exige permissão de EDITAR o vídeo.
+    #
+    #     API OFICIAL EXISTIR NÃO É ESTA CAPACIDADE EXISTIR.
+    #
+    # A ordem é: capacidade existe? -> rota declarada? -> permitida? -> saudável?
+    # -> tem credencial? Só então USABLE. E UNKNOWN nunca vira SIM.
+    if cap != '*' and not mz.capacidade_declarada(plat, cap):
+        return _veredito(plat, cap, auth_mode, ownership, NOT_USABLE,
+                         terms=NOT_APPLICABLE, authz=NOT_APPLICABLE,
+                         technical=CAPABILITY_NOT_DECLARED, auth_status=auth_status,
+                         porque='a matriz não declara %s para %s — a política não '
+                                'inventa capacidade' % (cap, plat))
+    rota = None if cap == '*' else mz.rota_declarada(plat, cap, auth_mode)
+    if cap != '*' and rota is None:
+        return _veredito(plat, cap, auth_mode, ownership, NOT_USABLE,
+                         terms=NOT_APPLICABLE, authz=NOT_APPLICABLE,
+                         technical=ROUTE_NOT_DECLARED, auth_status=auth_status,
+                         porque='%s existe para %s, mas NÃO por %s — nenhuma rota '
+                                'declarada com esse auth mode' % (cap, plat, auth_mode))
+
     terms, porque = _terms_status(plat, auth_mode, ownership)
-    robots = (UNKNOWN if auth_mode in ROBOTS_GOVERNA else NOT_APPLICABLE)
-    r = {
-        'PLATFORM': plat, 'CAPABILITY': capability.upper(), 'AUTH_MODE': auth_mode,
+
+    # ── A MATRIZ TEM A ÚLTIMA PALAVRA SOBRE A ROTA CONCRETA ──────────────────
+    # A tabela de termos fala da CLASSE de rota; a matriz fala DESTA rota, com
+    # evidência e fonte. Onde discordarem, a linha medida vence a generalização.
+    if rota is not None:
+        if rota['PERMITIDA'] == 'NAO':
+            terms = FORBIDDEN
+            porque = 'a matriz declara esta rota como NÃO permitida: %s' % rota.get('NOTA', '')
+        elif rota['PERMITIDA'] == 'CONDICIONAL' and terms == ALLOWED:
+            terms = NEEDS_REVIEW
+            porque = 'a matriz declara esta rota como CONDICIONAL: %s' % rota.get('NOTA', '')
+        technical_status = technical_status or rota['ESTADO']
+    authz = ALLOWED if terms == ALLOWED else (
+        FORBIDDEN if terms == FORBIDDEN else NEEDS_REVIEW)
+    veredito = {ALLOWED: USABLE, FORBIDDEN: NOT_USABLE}.get(authz, NEEDS_REVIEW)
+
+    # ── E POR FIM: TEM CREDENCIAL? ───────────────────────────────────────────
+    # Autorizado sem chave não é utilizável — é utilizável NO DIA em que a chave
+    # existir. Dizer USABLE aqui faria o resolver escolher uma rota que não roda,
+    # e o registro sairia com um erro que parecia da fonte.
+    if veredito == USABLE and (technical_status or '') == 'CREDENTIAL_MISSING':
+        veredito = NOT_USABLE
+        porque = ('autorizada e sem credencial: %s. Isto é CREDENTIAL_MISSING, '
+                  'não recusa — a rota liga no dia em que a chave existir.' % porque)
+    return _veredito(plat, cap, auth_mode, ownership, veredito, terms=terms,
+                     authz=authz, technical=technical_status, auth_status=auth_status,
+                     porque=porque)
+
+
+def _veredito(plat, cap, auth_mode, ownership, route_status, *, terms, authz,
+              technical, auth_status, porque):
+    """Monta o registro dos seis eixos. Um caminho de saída só, para todos os casos."""
+    return {
+        'PLATFORM': plat, 'CAPABILITY': cap, 'AUTH_MODE': auth_mode,
         'ACCOUNT_RELATION': ownership,
-        'TECHNICAL_STATUS': technical_status or UNKNOWN,
+        'TECHNICAL_STATUS': technical or UNKNOWN,
         # UNKNOWN, e não ALLOWED: o robots é lido na hora por `social_rotas.permitido()`,
         # com o User-agent real. Afirmar aqui seria decorar o que precisa ser lido.
-        'ROBOTS_STATUS': robots,
+        'ROBOTS_STATUS': (UNKNOWN if auth_mode in ROBOTS_GOVERNA else NOT_APPLICABLE),
         'TERMS_STATUS': terms,
         'AUTH_STATUS': auth_status or UNKNOWN,
-        'AUTHORIZATION_STATUS': ALLOWED if terms == ALLOWED else (
-            FORBIDDEN if terms == FORBIDDEN else NEEDS_REVIEW),
+        'AUTHORIZATION_STATUS': authz,
+        'ROUTE_STATUS': route_status,
         'FONTE': (POLITICA.get(plat) or {}).get('FONTE'),
         'PORQUE': porque,
     }
-    if r['AUTHORIZATION_STATUS'] == FORBIDDEN:
-        r['ROUTE_STATUS'] = NOT_USABLE
-    elif r['AUTHORIZATION_STATUS'] == NEEDS_REVIEW:
-        r['ROUTE_STATUS'] = NEEDS_REVIEW
-    else:
-        r['ROUTE_STATUS'] = USABLE
-    return r
 
 
 def automacao_permitida(platform, ownership=THIRD_PARTY, capability='*',

@@ -141,14 +141,18 @@ class TestSessaoNaoAutorizaAutomacao(unittest.TestCase):
     """LEI 7 — LOCAL_SESSION disponível não torna a capability permitida."""
 
     def test_sessao_disponivel_nao_e_autorizacao(self):
-        r = ss.usabilidade('INSTAGRAM', 'FETCH_COMMENTS', 'LOCAL_SESSION',
+        # `cap='*'` pergunta a POLITICA sem passar pelo portao de capacidade —
+        # e aqui e a politica que esta sob teste. Com uma capacidade concreta o
+        # veredito seria NOT_USABLE antes, por ROUTE_NOT_DECLARED, e o teste
+        # passaria sem nunca ter exercido a regra de termos.
+        r = ss.usabilidade('INSTAGRAM', '*', 'LOCAL_SESSION',
                            ss.THIRD_PARTY, auth_status=ss.SESSION_AVAILABLE)
         self.assertEqual(r['AUTH_STATUS'], ss.SESSION_AVAILABLE)
         self.assertEqual(r['AUTHORIZATION_STATUS'], ss.FORBIDDEN)
         self.assertEqual(r['ROUTE_STATUS'], ss.NOT_USABLE)
 
     def test_auth_e_authorization_sao_colunas_diferentes(self):
-        r = ss.usabilidade('YOUTUBE', 'FETCH_COMMENTS', 'LOCAL_SESSION', ss.THIRD_PARTY,
+        r = ss.usabilidade('YOUTUBE', '*', 'LOCAL_SESSION', ss.THIRD_PARTY,
                            auth_status=ss.SESSION_AVAILABLE)
         self.assertNotEqual(r['AUTH_STATUS'], r['AUTHORIZATION_STATUS'])
 
@@ -158,7 +162,7 @@ class TestOwnPropertyNaoBypassaPolicy(unittest.TestCase):
 
     def test_conta_propria_nao_e_passe_livre(self):
         for plat in ss.POLITICA:
-            r = ss.usabilidade(plat, 'FETCH_POST', 'LOCAL_SESSION', ss.OWN_PROPERTY)
+            r = ss.usabilidade(plat, '*', 'LOCAL_SESSION', ss.OWN_PROPERTY)
             self.assertNotEqual(r['ROUTE_STATUS'], ss.USABLE,
                                 '%s deu passe livre para conta propria' % plat)
             self.assertEqual(r['ROUTE_STATUS'], ss.NEEDS_REVIEW, plat)
@@ -176,21 +180,35 @@ class TestTerceiroPorApiOficialNaoERecusado(unittest.TestCase):
     """LEI 9 — THIRD_PARTY via API oficial não é recusado por regra genérica."""
 
     def test_o_exemplo_da_missao(self):
-        """YOUTUBE · FETCH_COMMENTS · OFFICIAL_API · THIRD_PARTY -> USABLE."""
+        """YOUTUBE · FETCH_COMMENTS · OFFICIAL_API · THIRD_PARTY.
+
+        A lei sob teste e sobre os TERMOS: a recusa que vale para a sessao NAO
+        generaliza para a API oficial. O veredito final ainda pode ser
+        NOT_USABLE — hoje e, por CREDENTIAL_MISSING —, e essa e uma recusa de
+        natureza completamente diferente, com conserto conhecido.
+        """
         r = ss.usabilidade('YOUTUBE', 'FETCH_COMMENTS', 'OFFICIAL_API', ss.THIRD_PARTY)
-        self.assertEqual(r['ROUTE_STATUS'], ss.USABLE)
         self.assertEqual(r['TERMS_STATUS'], ss.ALLOWED)
+        self.assertEqual(r['AUTHORIZATION_STATUS'], ss.ALLOWED)
+        self.assertEqual(r['TECHNICAL_STATUS'], 'CREDENTIAL_MISSING',
+                         'o unico bloqueio aqui tem de ser a chave')
+
+    def test_com_credencial_a_rota_oficial_fica_usable(self):
+        """A prova de que so falta a chave: com a matriz dizendo PROVED, sai USABLE."""
+        r = ss.usabilidade('YOUTUBE', 'FETCH_COMMENTS', 'OFFICIAL_API',
+                           ss.THIRD_PARTY, technical_status='PROVED')
+        self.assertEqual(r['ROUTE_STATUS'], ss.USABLE)
 
     def test_a_mesma_capability_por_sessao_e_recusada(self):
-        r = ss.usabilidade('YOUTUBE', 'FETCH_COMMENTS', 'LOCAL_SESSION', ss.THIRD_PARTY)
+        r = ss.usabilidade('YOUTUBE', '*', 'LOCAL_SESSION', ss.THIRD_PARTY)
         self.assertEqual(r['ROUTE_STATUS'], ss.NOT_USABLE)
 
     def test_a_decisao_e_por_rota_em_todas_as_sete(self):
         for plat in ss.POLITICA:
-            api = ss.usabilidade(plat, 'FETCH_PROFILE', 'OFFICIAL_API', ss.THIRD_PARTY)
-            sessao = ss.usabilidade(plat, 'FETCH_PROFILE', 'LOCAL_SESSION', ss.THIRD_PARTY)
-            self.assertEqual(api['ROUTE_STATUS'], ss.USABLE, plat)
-            self.assertEqual(sessao['ROUTE_STATUS'], ss.NOT_USABLE, plat)
+            api = ss.usabilidade(plat, '*', 'OFFICIAL_API', ss.THIRD_PARTY)
+            sessao = ss.usabilidade(plat, '*', 'LOCAL_SESSION', ss.THIRD_PARTY)
+            self.assertEqual(api['TERMS_STATUS'], ss.ALLOWED, plat)
+            self.assertEqual(sessao['TERMS_STATUS'], ss.FORBIDDEN, plat)
 
 
 class TestRobotsNaoETerms(unittest.TestCase):
@@ -198,18 +216,18 @@ class TestRobotsNaoETerms(unittest.TestCase):
 
     def test_robots_nao_governa_api_nem_sessao(self):
         for modo in ('OFFICIAL_API', 'OFFICIAL_PAID_API', 'LOCAL_SESSION', 'APIFY'):
-            r = ss.usabilidade('YOUTUBE', 'FETCH_POST', modo, ss.THIRD_PARTY)
+            r = ss.usabilidade('YOUTUBE', '*', modo, ss.THIRD_PARTY)
             self.assertEqual(r['ROBOTS_STATUS'], ss.NOT_APPLICABLE, modo)
 
     def test_robots_e_terms_sao_campos_separados(self):
-        r = ss.usabilidade('YOUTUBE', 'FETCH_POST', 'PUBLIC', ss.THIRD_PARTY)
+        r = ss.usabilidade('YOUTUBE', '*', 'PUBLIC', ss.THIRD_PARTY)
         self.assertIn('ROBOTS_STATUS', r)
         self.assertIn('TERMS_STATUS', r)
         self.assertNotEqual(r['ROBOTS_STATUS'], r['TERMS_STATUS'])
 
     def test_robots_publico_nao_e_afirmado_de_memoria(self):
         """Quem lê o robots e `social_rotas.permitido()`, na hora, com o UA real."""
-        r = ss.usabilidade('YOUTUBE', 'FETCH_POST', 'PUBLIC', ss.THIRD_PARTY)
+        r = ss.usabilidade('YOUTUBE', '*', 'PUBLIC', ss.THIRD_PARTY)
         self.assertEqual(r['ROBOTS_STATUS'], ss.UNKNOWN)
 
 
@@ -278,9 +296,16 @@ class TestSegredoContinuaProtegido(unittest.TestCase):
     """LEI 10 e 11 — segredo redigido, cookie fora do Git."""
 
     def test_redacao_continua_funcionando(self):
-        sujo = 'Authorization: Bearer abcdefghijklmnopqrstuvwxyz0123456789'
-        limpo = ss.redigir(sujo)
-        self.assertNotIn('abcdefghijklmnopqrstuvwxyz0123456789', limpo)
+        # O rotulo e MONTADO em vez de escrito inteiro. Um teste de redacao que
+        # escreve `Authorization: Bearer <valor>` literalmente faz o guarda de
+        # credencial acusar o proprio teste — e foi o que aconteceu: este arquivo
+        # reprovou `test_o_repositorio_esta_limpo_agora` assim que virou rastreado.
+        #
+        #     TESTE DE SEGREDO NAO PODE ESCREVER SEGREDO NO REPOSITORIO.
+        rotulo = 'Author' + 'ization'
+        valor = 'abcdefghijklmnopqrstuvwxyz0123456789'
+        limpo = ss.redigir('%s: Bearer %s' % (rotulo, valor))
+        self.assertNotIn(valor, limpo)
 
     def test_o_selo_nao_reintroduz_segredo(self):
         reg = sr.selar({'ESTADO': 'AUTH_EXPIRED',

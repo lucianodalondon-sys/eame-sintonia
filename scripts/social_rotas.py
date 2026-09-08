@@ -290,12 +290,63 @@ def _sem_tags(html):
 # ══════════════════════════════════════════════════════════════════════════
 # POLÍTICA DE ROTA
 # ══════════════════════════════════════════════════════════════════════════
+# ── YOUTUBE, ESTRADA OFICIAL ───────────────────────────────────────────────
+# Os adaptadores abaixo só chegam a rodar depois de `social_matriz` declarar a
+# capacidade e a política aprovar a rota. Eles NÃO decidem se podem — executam.
+def youtube_buscar(*, termo, run_id, country_scope, limit=25, **_):
+    import youtube_oficial as yt
+    objs, _s = yt.buscar(termo=termo, run_id=run_id, country_scope=country_scope,
+                         limit=limit, regiao=country_scope, idioma='it')
+    return objs
+
+
+def youtube_uploads(*, channel_id, run_id, country_scope, limit=25, conhecidos=(), **_):
+    import youtube_oficial as yt
+    objs, _s, _rel = yt.uploads_recentes(
+        channel_id=channel_id, run_id=run_id, country_scope=country_scope,
+        limit=limit, conhecidos=conhecidos)
+    return objs
+
+
+def youtube_metadata(*, video_ids, run_id, country_scope, **_):
+    import youtube_oficial as yt
+    objs, _s, _rel = yt.metadata(video_ids=video_ids, run_id=run_id,
+                                 country_scope=country_scope)
+    return objs
+
+
+def youtube_comentarios(*, video_id, run_id, country_scope, limite_threads=100, **_):
+    import youtube_oficial as yt
+    objs, _s, rel = yt.comentarios(video_id=video_id, run_id=run_id,
+                                   country_scope=country_scope,
+                                   limite_threads=limite_threads)
+    # Comentário desativado NÃO é coleta vazia: é um fato sobre o vídeo, e sobe
+    # como estado próprio para não virar ZERO_RESULTS no registro.
+    if rel.get('STATE') not in (None, 'OK', 'ZERO_RESULTS'):
+        raise RotaBloqueada('%s (razão nativa: %s)' % (rel['STATE'], rel.get('NATIVE_REASON'))
+                            ) if rel['STATE'] == 'BLOCKED' else _EstadoDaApi(rel)
+    return objs
+
+
+class _EstadoDaApi(RuntimeError):
+    """Carrega o estado canônico que a própria API declarou, sem reinterpretar."""
+
+    def __init__(self, rel):
+        self.rel = rel
+        super().__init__('%s (razão nativa: %s)' % (rel.get('STATE'),
+                                                    rel.get('NATIVE_REASON')))
+
+
 ADAPTADORES = {
     ('MASTODON', 'SEARCH_HASHTAG'): mastodon_tag,
     ('MASTODON', 'INCREMENTAL'): mastodon_conta_statuses,
     ('BLUESKY', 'DISCOVER_ACCOUNT'): bluesky_buscar_contas,
     ('BLUESKY', 'INCREMENTAL'): bluesky_feed_autor,
     ('TELEGRAM', 'INCREMENTAL'): telegram_canal,
+    ('YOUTUBE', 'SEARCH_KEYWORD'): youtube_buscar,
+    ('YOUTUBE', 'INCREMENTAL'): youtube_uploads,
+    ('YOUTUBE', 'FETCH_VIDEO_METADATA'): youtube_metadata,
+    ('YOUTUBE', 'FETCH_COMMENTS'): youtube_comentarios,
 }
 
 
@@ -381,6 +432,13 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         registro['ESTADO'] = 'ROUTE_NOT_ALLOWED'
         registro['ERRO'] = ss.redigir(str(e))
         return [], registro
+    except _EstadoDaApi as e:
+        # A API disse o que houve. Não reinterpretamos: gravamos o que ela disse.
+        registro['ESTADO'] = e.rel.get('STATE')
+        registro['NATIVE_REASON'] = e.rel.get('NATIVE_REASON')
+        registro['RECOVERY_ACTION'] = e.rel.get('RECOVERY_ACTION')
+        registro['ERRO'] = ss.redigir(str(e))
+        return [], registro
     except RotaBloqueada as e:
         registro['ESTADO'] = 'BLOCKED'
         registro['ERRO'] = ss.redigir(str(e))
@@ -441,6 +499,8 @@ def selar(registro):
     registro['FAILURE_LAYER'] = camada
     registro['EXPECTED'] = falhas.esperado(canon)
     registro['DEGRADES_SOURCE'] = falhas.degrada_fonte(canon)
+    registro.setdefault('RECOVERY_ACTION',
+                        falhas.recuperacao(canon, registro.get('NATIVE_REASON')))
     registro['SOURCE_HEALTH'] = saude if camada == falhas.SOURCE else falhas.HEALTHY
     registro['ROUTE_HEALTH'] = saude if camada == falhas.ROUTE else falhas.HEALTHY
     registro['EXECUTOR_HEALTH'] = saude if camada == falhas.EXECUTOR else falhas.HEALTHY

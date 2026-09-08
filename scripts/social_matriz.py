@@ -473,13 +473,54 @@ MATRIZ = {
 }
 
 
+def capacidade_declarada(platform, capability):
+    """A matriz declara esta capacidade para esta plataforma? Sim/não, sem opinião."""
+    return capability.upper() in (MATRIZ.get(platform.upper()) or {})
+
+
+def rota_declarada(platform, capability, auth_mode):
+    """A rota declarada para (plataforma, capacidade, auth_mode) — ou None.
+
+    Existe porque a política de sessão estava respondendo por conta própria, e
+    inventava capacidade: perguntada por `TIKTOK/SEARCH_KEYWORD/OFFICIAL_API`,
+    respondia USABLE mesmo sem NENHUMA linha declarada aqui.
+
+        API OFICIAL EXISTIR NÃO É ESTA CAPACIDADE EXISTIR.
+
+    A matriz é o dono único dessa verdade. Quem quiser saber pergunta aqui —
+    ninguém mantém uma segunda tabela em paralelo.
+    """
+    rotas = (MATRIZ.get(platform.upper()) or {}).get(capability.upper())
+    if not rotas:
+        return None
+    for r in rotas:
+        if AUTH_MODE_DA_CLASSE.get(r['CLASSE']) == auth_mode:
+            return r
+    return None
+
+
 def _rota_padrao(rotas):
-    """A rota DEFAULT é a permitida de menor prioridade que não está proibida."""
+    """A rota DEFAULT: PERMITIDA primeiro, BARATA depois, PROVADA por último.
+
+    A ordem importa e já esteve errada. A versão anterior ordenava só por preço,
+    e com isso escolhia uma rota `CONDICIONAL` PROVADA na frente de uma rota `SIM`
+    ainda sem credencial — medido em `YOUTUBE/FETCH_VIDEO_METADATA`, onde o
+    `oembed` (que devolve só título, autor e thumbnail, e cujo uso automatizado
+    está coberto pelo §3 dos Termos) ganhava do `videos.list` oficial.
+
+        PERMITIDA -> BARATA -> CAPAZ. Nessa ordem.
+
+    Uma rota que precisa de revisão não é a rota padrão de nada enquanto existir
+    uma permitida ao lado: `CREDENTIAL_MISSING` é um estado que a casa conserta,
+    e `CONDICIONAL` é uma dúvida que ela não conserta sozinha.
+    """
     viaveis = [x for x in rotas if x['PERMITIDA'] in ('SIM', 'CONDICIONAL')
                and x['ESTADO'] not in ('ROUTE_NOT_ALLOWED',)]
     if not viaveis:
         return None
-    return sorted(viaveis, key=lambda x: (x['PRIORIDADE'], x['ESTADO'] != 'PROVED'))[0]
+    return sorted(viaveis, key=lambda x: (x['PERMITIDA'] != 'SIM',
+                                          x['PRIORIDADE'],
+                                          x['ESTADO'] != 'PROVED'))[0]
 
 
 def resumo():

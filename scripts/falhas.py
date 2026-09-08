@@ -266,6 +266,84 @@ def retentavel(nome):
     return estado(nome).retentavel
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# RECUPERAÇÃO — o que FAZER, que é pergunta diferente de o que ACONTECEU
+# ══════════════════════════════════════════════════════════════════════════
+# `AUTH_EXPIRED` absorve chave inválida, sessão vencida e MFA. Os três são o
+# mesmo FATO (a credencial não vale mais) e três CONSERTOS diferentes: um é
+# trocar de chave sozinho, outro é uma pessoa relogar, o terceiro é uma pessoa
+# com o telefone na mão. Tratar os três como "rotaciona" faria a máquina girar
+# o pool a noite inteira esperando que uma sessão de navegador se conserte.
+#
+#     O MESMO ESTADO PODE TER RECUPERAÇÕES DIFERENTES.
+#
+# Escolha deliberada: NÃO separar os estados. Medido nesta casa em 2026-09-08,
+# `falhas.rotaciona()` não tem NENHUM consumidor em produção — os cinco
+# chamadores reais (`apify_pool`, `apify_recuperar`, `sensor_coleta`,
+# `coleta_checkpoint`, `instagram_coleta`) usam a tupla `ap.ROTACIONAM` direto.
+# Então acrescentar uma coluna não muda comportamento de ninguém, e separar
+# estados mudaria — e ainda incharia a taxonomia. Menor correção que preserva
+# a diferença material.
+ROTATE_CREDENTIAL = 'ROTATE_CREDENTIAL'    # outra chave do pool; a máquina resolve
+HUMAN_RELOGIN = 'HUMAN_RELOGIN'            # uma pessoa precisa logar de novo
+# Separado de HUMAN_RELOGIN de propósito: "falta chave de API" e "sessão do
+# navegador venceu" mandam a pessoa fazer coisas DIFERENTES. Quem lê
+# HUMAN_RELOGIN vai abrir o Chrome; quem precisa é de um projeto no console da
+# plataforma. Um verbo errado custa uma tarde.
+HUMAN_PROVISION_CREDENTIAL = 'HUMAN_PROVISION_CREDENTIAL'
+HUMAN_MFA = 'HUMAN_MFA'                    # uma pessoa COM O SEGUNDO FATOR na mão
+CHANGE_ROUTE = 'CHANGE_ROUTE'              # insistir aqui piora; tentar outra porta
+WAIT = 'WAIT'                              # o tempo resolve — e só ele
+NO_RETRY = 'NO_RETRY'                      # repetir nunca passa
+NEEDS_HUMAN_FIX = 'NEEDS_HUMAN_FIX'        # defeito nosso; código precisa mudar
+
+RECUPERACOES = (ROTATE_CREDENTIAL, HUMAN_RELOGIN, HUMAN_PROVISION_CREDENTIAL,
+                HUMAN_MFA, CHANGE_ROUTE, WAIT, NO_RETRY, NEEDS_HUMAN_FIX)
+
+# Recuperação por ESTADO canônico. É o padrão quando não há razão nativa.
+_POR_ESTADO = {
+    'OK': NO_RETRY, 'ZERO_RESULTS': NO_RETRY, 'NOT_APPLICABLE': NO_RETRY,
+    'ROUTE_NOT_ALLOWED': NO_RETRY, 'AUTOMATION_NOT_ALLOWED': NO_RETRY,
+    'CREDENTIAL_MISSING': HUMAN_PROVISION_CREDENTIAL, 'QUOTA_EXHAUSTED': ROTATE_CREDENTIAL,
+    'BUDGET_EXHAUSTED': NO_RETRY, 'AUTH_EXPIRED': ROTATE_CREDENTIAL,
+    'RATE_LIMITED': WAIT, 'BLOCKED': CHANGE_ROUTE,
+    'ROUTE_UNAVAILABLE': CHANGE_ROUTE, 'TRANSIENT_NETWORK_ERROR': WAIT,
+    'SOURCE_UNAVAILABLE': WAIT, 'SOURCE_GONE': NO_RETRY,
+    'PARSER_DRIFT': NEEDS_HUMAN_FIX, 'CONTRACT_DRIFT': NEEDS_HUMAN_FIX,
+    'EXECUTOR_UNAVAILABLE': NEEDS_HUMAN_FIX, 'PERMANENT_HTTP_ERROR': NEEDS_HUMAN_FIX,
+    'ITEM_ERROR': NO_RETRY, 'UNKNOWN_ERROR': NO_RETRY,
+}
+
+# A razão NATIVA refina. É aqui que os três `AUTH_EXPIRED` deixam de ser um só.
+_POR_RAZAO_NATIVA = {
+    'TOKEN_INVALID': ROTATE_CREDENTIAL,
+    'TOKEN_EXHAUSTED': ROTATE_CREDENTIAL,
+    'TOKEN_OTHER_AUTH_FAILURE': ROTATE_CREDENTIAL,
+    'SESSION_EXPIRED': HUMAN_RELOGIN,
+    'SESSION_MISSING': HUMAN_RELOGIN,
+    'CREDENTIAL_MISSING': HUMAN_PROVISION_CREDENTIAL,
+    'LOGIN_REQUIRED': HUMAN_RELOGIN,
+    'LOGIN_WALL': HUMAN_RELOGIN,
+    'MFA_REQUIRED': HUMAN_MFA,
+    'PLATFORM_BLOCKED': CHANGE_ROUTE,
+}
+
+
+def recuperacao(nome, nativo=None):
+    """O que FAZER com esta falha. `nativo` refina quando o estado é genérico."""
+    if nativo and nativo in _POR_RAZAO_NATIVA:
+        return _POR_RAZAO_NATIVA[nativo]
+    if nome in _POR_RAZAO_NATIVA:
+        return _POR_RAZAO_NATIVA[nome]
+    return _POR_ESTADO.get(traduzir(nome), NO_RETRY)
+
+
+def pede_gente(nome, nativo=None):
+    """A máquina consegue sozinha, ou precisa de uma pessoa?"""
+    return recuperacao(nome, nativo) in (HUMAN_RELOGIN, HUMAN_PROVISION_CREDENTIAL,
+                                        HUMAN_MFA, NEEDS_HUMAN_FIX)
+
+
 def pode_julgar_a_fonte(nome):
     """Este resultado autoriza dizer alguma coisa sobre a SAÚDE DA FONTE?
 
