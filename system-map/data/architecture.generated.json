@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "ea647d862da74a2bab865a423894b47c312f5d61",
-    "GENERATED_AT": "2026-09-08T17:46:18-03:00"
+    "HEAD": "220e0e7a1f9b8a93355857aa3b102de7ec192b85",
+    "GENERATED_AT": "2026-09-08T17:50:01-03:00"
   },
   "FILES": [
     {
@@ -6763,6 +6763,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/gestao_da_coleta.py",
+      "sha": "1c8637bceb87d2583b18f258e26c22ef9ad161bf",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/regua_italia.py",
       "sha": "6c6c579407782c92ecb3e3f6e0c6323a55ee07d9",
       "ext": ".py",
@@ -8500,7 +8507,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "106234ce41c2fb9518a5283aebe311f608be93a6",
+      "sha": "672f22a388fa73340919110643a1fd3b576365e1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8844,6 +8851,13 @@
     {
       "path": "tests/test_fundacao_da_coleta.py",
       "sha": "96b20ae3de22362c156141deeb1c84ee15eb1c25",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_gestao_da_coleta.py",
+      "sha": "d9849ca418b58e8518d10f91e2bbe99b83ca2ca1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26794,6 +26808,28 @@
       }
     },
     {
+      "from_file": "tests/test_gestao_da_coleta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_gestao_da_coleta.py",
+        "line": 16,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_gestao_da_coleta.py",
+      "to_file": "leis/gestao_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_gestao_da_coleta.py",
+        "line": 17,
+        "snippet": "import gestao_da_coleta as g  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_handoff.py",
       "to_file": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
       "type": "READS",
@@ -29785,10 +29821,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1301,
-    "files_readable": 460,
-    "files_code_dir": 511,
-    "file_edges": 1839,
+    "files_tracked": 1303,
+    "files_readable": 462,
+    "files_code_dir": 513,
+    "file_edges": 1841,
     "escritas_em_pasta": 64,
     "declared_missing_here": 0
   },

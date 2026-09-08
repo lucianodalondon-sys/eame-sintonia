@@ -1001,6 +1001,7 @@
       "leis/data_clock.py",
       "leis/falhas.py",
       "leis/fundacao_da_coleta.py",
+      "leis/gestao_da_coleta.py",
       "leis/regua_italia.py",
       "leis/social_matriz.py",
       "leis/telemetria.py",
@@ -1328,6 +1329,7 @@
       "tests/test_evidence.py",
       "tests/test_falhas.py",
       "tests/test_fundacao_da_coleta.py",
+      "tests/test_gestao_da_coleta.py",
       "tests/test_handoff.py",
       "tests/test_hero_cases_v1.py",
       "tests/test_identidade_do_artefato.py",
@@ -1747,8 +1749,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "ea647d862da74a2bab865a423894b47c312f5d61",
-    "GENERATED_AT": "2026-09-08T17:46:18-03:00"
+    "HEAD": "220e0e7a1f9b8a93355857aa3b102de7ec192b85",
+    "GENERATED_AT": "2026-09-08T17:50:01-03:00"
   },
   "FAMILIES": [
     {
@@ -1803,7 +1805,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 46
+      "count": 47
     },
     {
       "id": "F-ENTREGA",
@@ -2061,7 +2063,7 @@
       "y": 190,
       "w": 820,
       "h": 2938,
-      "count": 8
+      "count": 9
     },
     {
       "id": "Z-MOTOR",
@@ -2525,6 +2527,45 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 6000,
+      "y": 360
+    },
+    {
+      "id": "C-APRENDER-COM-A-FONTE",
+      "name": "O contrato da aprendizagem sobre a fonte",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "O ciclo de vida de uma fonte, o papel que ela cumpre, e as medidas que se guardam sobre ela — saúde da fonte e saúde da rota em separado, rendimento único e rendimento admitido em separado.",
+      "why_here": "UMA FONTE NÃO TEM UMA NOTA. A tentação é juntar tudo num SOURCE_SCORE e ordenar, e é por ser óbvia que é perigosa: um número só esconde qual das medidas o produziu, e a partir daí ninguém consegue discutir a decisão. Uma fonte cara que traz o que mais ninguém tem pode valer mais do que três baratas que se repetem.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "red",
+      "icon": "◈",
+      "views": [
+        "audit",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [],
+      "file_count": 0,
+      "status": "BROKEN",
+      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com leis/aprender_com_a_fonte.py.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 12595,
       "y": 360
     },
     {
@@ -6774,7 +6815,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12595,
+      "x": 13010,
       "y": 360
     },
     {
@@ -6905,8 +6946,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
-      "y": 360
+      "x": 12595,
+      "y": 682
     },
     {
       "id": "C-CORPUS",
@@ -7130,7 +7171,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12595,
+      "x": 13010,
       "y": 682
     },
     {
@@ -7758,7 +7799,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "red",
+      "ui_status": "yellow",
       "icon": "⚖",
       "views": [
         "audit",
@@ -7767,24 +7808,49 @@
       ],
       "lane": "official",
       "family": "F-INTELIGENCIA",
-      "files": [],
-      "file_count": 0,
-      "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com leis/gestao_da_coleta.py.",
+      "files": [
+        "leis/gestao_da_coleta.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "o motor importa esta lei para decidir.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS_DA_DECISAO",
+          "CAMPOS_DA_FALTA",
+          "CAMPOS_DA_NECESSIDADE",
+          "CAMPOS_DA_PRIORIDADE",
+          "CAMPOS_DO_RESULTADO",
+          "DECISOES",
+          "GESTOR_DECIDE",
+          "LEIS",
+          "PRIORIDADES",
+          "RESULTADOS",
+          "SATISFACAO"
+        ],
+        "palavras": 68,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 68,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
-      "y": 682
+      "x": 12595,
+      "y": 1004
     },
     {
       "kind": "engine",
@@ -8852,7 +8918,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12595,
+      "x": 13010,
       "y": 1004
     },
     {
@@ -10539,8 +10605,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
-      "y": 1004
+      "x": 12595,
+      "y": 1326
     },
     {
       "id": "C-RECALL-PORTA-IT",
@@ -10979,7 +11045,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12595,
+      "x": 13010,
       "y": 1326
     },
     {
@@ -11292,8 +11358,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
-      "y": 1326
+      "x": 12595,
+      "y": 1648
     },
     {
       "id": "C-SCRAP-SOCIAL",
@@ -12738,6 +12804,7 @@
         "tests/test_evidence.py",
         "tests/test_falhas.py",
         "tests/test_fundacao_da_coleta.py",
+        "tests/test_gestao_da_coleta.py",
         "tests/test_handoff.py",
         "tests/test_hero_cases_v1.py",
         "tests/test_identidade_do_artefato.py",
@@ -12776,9 +12843,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 56,
+      "file_count": 57,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 16 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 17 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -12813,6 +12880,7 @@
         "C-ESTRADAS-IT",
         "C-EXECUTOR-TEXTO-PDF",
         "C-FONTES-EU",
+        "C-GESTAO-DA-COLETA",
         "C-IDENTIDADE",
         "C-IT-COLETA",
         "C-IT-PRESERVAR",
@@ -14487,7 +14555,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD ea647d862da74a2bab865a423894b47c312f5d61"
+        "HEAD 220e0e7a1f9b8a93355857aa3b102de7ec192b85"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -18563,6 +18631,24 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-GESTAO-DA-COLETA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da gestão da coleta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_gestao_da_coleta.py",
+          "line": 17,
+          "snippet": "import gestao_da_coleta as g  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-IDENTIDADE",
@@ -24381,17 +24467,17 @@
   "UNCLAIMED_FILES_COUNT": 698,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 127,
+    "components": 128,
     "components_proven": 73,
-    "components_pending": 46,
+    "components_pending": 47,
     "components_broken": 1,
     "components_unknown": 7,
-    "edges": 439,
-    "edges_proven": 437,
+    "edges": 440,
+    "edges_proven": 438,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1301,
-    "files_covered": 603,
+    "files_tracked": 1303,
+    "files_covered": 605,
     "files_code_unclaimed": 0
   }
 }
