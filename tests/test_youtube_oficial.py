@@ -414,19 +414,31 @@ class TestUploadsPlaylist(unittest.TestCase):
         self.assertTrue(proc['REUSED'])
         self.assertEqual(s.usado[yt.GENERAL], gasto, 'reuso gastou quota')
 
-    def test_derivado_e_palpite_carimbado_nunca_fato(self):
+    def test_erro_da_rota_oficial_NAO_produz_palpite(self):
+        """CORRIGIDO em 2026-09-08 — este teste afirmava o contrario, e estava errado.
+
+        A versao anterior passava `permitir_derivado=True` e esperava que um 500 da
+        API virasse um UU derivado utilizavel. Isso canonizava a brecha: o
+        `except Exception` engolia timeout, chave invalida, quota estourada, canal
+        inexistente e a nossa propria KeyError, e devolvia todos como o mesmo
+        palpite — sem que o chamador soubesse.
+
+            FALHA DA ROTA OFICIAL NAO TRANSFORMA HEURISTICA EM FATO.
+
+        Agora a falha REAL sobe, e o palpite so existe se alguem pedir por ele.
+        """
         s = yt.Sessao(**{'api_key': FALSA},
                       transporte=transporte(erro_http(500, 'backendError')))
-        pl, proc = yt.uploads_playlist(channel_id='UCabc', sessao=s,
-                                       permitir_derivado=True)
-        self.assertEqual(pl, 'UUabc')
-        self.assertEqual(proc['PROVENANCE'], yt.DERIVED_HINT)
-        self.assertIn('AVISO', proc)
-
-    def test_sem_permissao_explicita_o_palpite_nao_entra(self):
-        s = yt.Sessao(api_key='K', transporte=transporte(erro_http(500, 'backendError')))
         with self.assertRaises(urllib.error.HTTPError):
             yt.uploads_playlist(channel_id='UCabc', sessao=s)
+
+    def test_o_palpite_existe_mas_so_com_motivo_escrito(self):
+        pl, proc = yt.uploads_hint(
+            channel_id='UCabc',
+            porque='varredura exploratoria descartavel, o resultado nao entra no acervo')
+        self.assertEqual(pl, 'UUabc')
+        self.assertEqual(proc['PROVENANCE'], yt.DERIVED_HINT)
+        self.assertIn('WHY_DERIVED_HINT_USED', proc)
 
     def test_canal_inexistente_nao_e_canal_vazio(self):
         s = sessao({'items': []})

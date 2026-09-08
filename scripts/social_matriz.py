@@ -473,6 +473,64 @@ MATRIZ = {
 }
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# QUOTA — A REGRA DECLARATIVA, COM UM DONO SÓ
+# ══════════════════════════════════════════════════════════════════════════
+# Por que ela mora AQUI e não no executor: em 2026-09-08 esta matriz já registrava
+# o modelo de dois buckets do YouTube enquanto `youtube_oficial.py` mantinha uma
+# tabela própria com o número antigo (`search.list = 100 unidades`). Duas tabelas,
+# duas verdades, e a errada era a que executava.
+#
+#     A MATRIZ NÃO PODE SABER UMA COISA E O EXECUTOR OUTRA.
+#
+# A divisão é: aqui vive a REGRA (método -> bucket, custo, limite padrão do
+# projeto); no executor vive a MECÂNICA (contar, aplicar teto, parar). Regra é
+# declaração e tem um dono; mecânica é código e pode ter vários.
+#
+# `LIMITE_PADRAO_PROJETO` é o que o Google concede a um projeto NOVO — não o que
+# este projeto tem. Se alguém pedir aumento, isto aqui deixa de valer e precisa
+# ser remedido. Por isso ele se chama PADRÃO, e não LIMITE.
+QUOTA_MODEL_VERSION = '2026-09-08:two-buckets'
+QUOTA_BASIS = ('documentação oficial lida em 2026-09-08: "The search.list and '
+               'videos.insert methods have their own quota buckets" e "100 '
+               'search.list calls, 100 videos.insert calls, and 10,000 units per '
+               'day combined for all other endpoints"')
+QUOTA_FONTE = 'https://developers.google.com/youtube/v3/determine_quota_cost'
+
+QUOTA_METODO = {
+    'YOUTUBE': {
+        # método               (bucket,    custo por chamada)
+        'search.list':         ('SEARCH', 1),
+        'channels.list':       ('GENERAL', 1),
+        'playlistItems.list':  ('GENERAL', 1),
+        'videos.list':         ('GENERAL', 1),
+        'commentThreads.list': ('GENERAL', 1),
+        'comments.list':       ('GENERAL', 1),
+    },
+}
+
+LIMITE_PADRAO_PROJETO = {
+    'YOUTUBE': {'SEARCH': 100, 'GENERAL': 10000},
+}
+
+
+def quota_de(platform, metodo):
+    """(bucket, custo) do método. Levanta se o método não for declarado.
+
+    Levantar é deliberado: um método sem regra de quota declarada não pode ser
+    chamado, porque a chamada sairia da conta sem ninguém perceber.
+    """
+    tabela = QUOTA_METODO.get(platform.upper())
+    if not tabela or metodo not in tabela:
+        raise KeyError('método sem quota declarada nesta matriz: %s/%s'
+                       % (platform, metodo))
+    return tabela[metodo]
+
+
+def buckets_de(platform):
+    return tuple(sorted(LIMITE_PADRAO_PROJETO.get(platform.upper(), {})))
+
+
 def capacidade_declarada(platform, capability):
     """A matriz declara esta capacidade para esta plataforma? Sim/não, sem opinião."""
     return capability.upper() in (MATRIZ.get(platform.upper()) or {})

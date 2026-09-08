@@ -332,6 +332,20 @@ def youtube():
                                            else yt.GENERAL),
                           'COST_USD': 0.0, 'COST_BASIS': yt.COST_BASIS})
     # As duas que NÃO entram nesta missão, e por quê — declaradas, não omitidas.
+    # RAIO-X: DECLARED (documentação) · CODE (implementado e testado) · OBSERVED
+    # (rodou de verdade). As três colunas existem porque CAN DO != DID DO, e
+    # enquanto não houver run real a terceira é honestamente vazia.
+    import youtube_oficial as _yt
+    obs = 'OBSERVED' if sess.disponivel() else 'NOT_OBSERVED'
+    print('\n  RAIO-X            DECLARED                CODE          %s' % 'OBSERVED')
+    print('  ' + '─' * 76)
+    for nome, decl in (
+            ('SEARCH BUCKET', '%d chamadas/dia' % _yt.LIMITE_PADRAO[_yt.SEARCH]),
+            ('GENERAL BUCKET', '%d unidades/dia' % _yt.LIMITE_PADRAO[_yt.GENERAL]),
+            ('UPLOADS PLAYLIST', 'channels.list oficial'),
+            ('CHECKPOINT', 'por canal, em disco'),
+            ('COMMENTS', 'threads + replies')):
+        print('  %-17s %-23s %-13s %s' % (nome, decl, 'IMPLEMENTED+TESTED', obs))
     print('\n  A capacidade INCREMENTAL resolve a playlist de uploads por')
     print('  channels.list#contentDetails.relatedPlaylists.uploads — rota OFICIAL.')
     print('  UC->UU sobrevive só como DERIVED_HINT, e sai carimbado como palpite.')
@@ -363,6 +377,146 @@ def youtube():
                    'capacidades, e quando ela não roda a resposta é parar, '
                    'não trocar por uma rota proibida.')})
     return 0
+
+
+# Os cinco alvos italianos do piloto. NÃO foram inventados: saíram do acervo, de
+# `data/samples/SENSOR-PILOT/`, onde entraram pela coleta PAGA de 2026-08 — a
+# mesma que custou US$ 12,33 na Apify. São imprensa técnica, marca de agroquímico
+# e um criador de viticultura: três naturezas diferentes, de propósito, porque um
+# piloto com cinco canais iguais não prova nada sobre o quinto.
+#
+# Guardados como HANDLE porque é assim que o acervo os tem. Resolver handle custa
+# 1 unidade do balde GERAL; resolver por busca custaria uma das 100 do dia.
+ALVOS_YOUTUBE_IT = [
+    ('@agronotizietv', 'imprensa técnica agrícola'),
+    ('@informatoreagrario', 'imprensa técnica agrícola'),
+    ('@viticolturariccardocastaldi', 'criador — viticultura'),
+    ('@BayerCropScienceIT', 'marca de agroquímico'),
+    ('@SyngentaItaly', 'marca de agroquímico'),
+]
+
+
+def youtube_piloto(limite_videos=3, limite_threads=20):
+    """O PILOTO REAL. Só roda com credencial — e sem ela não finge que rodou.
+
+    Ordem: resolver canal (oficial) -> incremental -> metadata -> comentários.
+    SEARCH fica em ZERO: os alvos já são conhecidos, e busca é 100/dia. Gastar
+    busca para achar o que já se tem é queimar o recurso escasso por nada.
+
+    A segunda execução prova o checkpoint: os vídeos ficam conhecidos, a varredura
+    para no primeiro deles, e a playlist já resolvida não custa `channels.list`.
+    """
+    import youtube_oficial as yt
+    sess = yt.Sessao()
+    if not sess.disponivel():
+        print('\nLIVE_PILOT_BLOCKED_BY_CREDENTIAL')
+        print('  %s ausente neste ambiente.' % yt.ENV_CHAVE)
+        print('  Isto NÃO é falha da fonte nem da rota: é falta de credencial, e a')
+        print('  recuperação é %s.' % falhas.recuperacao('CREDENTIAL_MISSING'))
+        print('  Nenhum número de coleta é reportado, porque não existe nenhum.')
+        return 2
+
+    estado = yt.checkpoint_ler()
+    cache = yt.cache_de_playlists(estado)
+    run_id = 'YT-IT-%s' % env.agora().replace(':', '').replace('-', '')[:15]
+    print('\nPILOTO YOUTUBE · ITÁLIA · run %s\n%s' % (run_id, '═' * 78))
+    print('  canais no checkpoint antes desta run: %d' % len(cache))
+
+    objetos, rel = [], {'RUN_ID': run_id, 'CANAIS': [], 'ERROS': [],
+                        'FEATURE_DISABLED': 0, 'ZERO_RESULTS': 0,
+                        'THREADS': 0, 'TOP_LEVEL': 0, 'REPLIES': 0}
+    for handle, natureza in ALVOS_YOUTUBE_IT:
+        linha = {'HANDLE': handle, 'NATUREZA': natureza}
+        try:
+            cid, pl, proc = yt.resolver_handle(handle=handle, sessao=sess, cache=cache)
+            linha.update({'CHANNEL_ID': cid, 'UPLOADS_PLAYLIST_ID': pl,
+                          'PLAYLIST_REUSED': proc.get('REUSED', False),
+                          'PROVENANCE': proc['PROVENANCE']})
+            conhecidos = (yt.checkpoint_do_canal(estado, cid)
+                          .get('VIDEOS_CONHECIDOS') or [])
+            novos, sess, r = yt.uploads_recentes(
+                channel_id=cid, run_id=run_id, country_scope='IT',
+                limit=limite_videos, conhecidos=conhecidos, sessao=sess, cache=cache)
+            linha.update({k: r[k] for k in ('UPLOADS_EXAMINED', 'NEW', 'REUSED',
+                                            'STOPPED_AT_KNOWN')})
+            objetos.extend(novos)
+            ids = [o['NATIVE_ID'] for o in novos]
+            if ids:
+                metas, sess, rm = yt.metadata(video_ids=ids, run_id=run_id,
+                                              country_scope='IT', sessao=sess)
+                objetos.extend(metas)
+                linha['METADATA_RETURNED'] = rm['RETURNED']
+                linha['METADATA_MISSING'] = rm['MISSING']
+            linha['COMENTARIOS'] = []
+            for vid in ids:
+                cs, sess, rc = yt.comentarios(
+                    video_id=vid, run_id=run_id, country_scope='IT',
+                    limite_threads=limite_threads, sessao=sess)
+                objetos.extend(cs)
+                topo = sum(1 for c in cs if not c['RAW']['IS_REPLY'])
+                rel['THREADS'] += rc['THREADS']
+                rel['TOP_LEVEL'] += topo
+                rel['REPLIES'] += len(cs) - topo
+                if rc.get('COMMENTS_DISABLED'):
+                    rel['FEATURE_DISABLED'] += 1
+                elif rc['STATE'] == 'ZERO_RESULTS':
+                    rel['ZERO_RESULTS'] += 1
+                linha['COMENTARIOS'].append({'VIDEO_ID': vid, 'STATE': rc['STATE'],
+                                             'COMMENTS': len(cs),
+                                             'REPLIES_MISSING': rc['REPLIES_MISSING']})
+            estado = yt.checkpoint_atualizar(
+                estado, channel_id=cid, playlist_id=pl,
+                provenance=proc['PROVENANCE'], resolved_at=proc.get('RESOLVED_AT'),
+                novos_ids=ids, relatorio=r)
+        except Exception as e:                                     # noqa: BLE001
+            # A falha vai INTEIRA para o relatório, redigida, com estado canônico.
+            # Um canal que falhou não some do piloto: some do acervo.
+            estado_canon = falhas.classificar(nativo=type(e).__name__)
+            linha['ERRO'] = ss.redigir('%s: %s' % (type(e).__name__, e))[:300]
+            linha['STATE'] = estado_canon
+            rel['ERROS'].append(handle)
+        rel['CANAIS'].append(linha)
+
+    yt.checkpoint_gravar(estado)
+    unicos, dedupe_rel = env.dedupe(objetos)
+    m = sess.metricas()
+    rel.update({'OBJETOS': len(objetos), 'OBJETOS_UNICOS': len(unicos),
+                'DEDUPE': dedupe_rel, 'QUOTA': m,
+                'APIFY_CALLS': 0, 'APIFY_SPEND_USD': 0.0,
+                'COST_USD': m['COST_USD'], 'COST_BASIS': m['COST_BASIS']})
+    env.gravar('YOUTUBE-PILOTO-IT.json', rel)
+    _imprimir_piloto(rel, m)
+    return 0
+
+
+def _imprimir_piloto(rel, m):
+    print('\n  CANAL                          NOVOS  EXAM  REUSED  PLAYLIST')
+    for c in rel['CANAIS']:
+        if 'ERRO' in c:
+            print('  %-30s %s' % (c['HANDLE'], c.get('STATE', 'ERRO')))
+            continue
+        print('  %-30s %5d %5d %7d  %s' % (
+            c['HANDLE'], c.get('NEW', 0), c.get('UPLOADS_EXAMINED', 0),
+            c.get('REUSED', 0), 'REUSED' if c.get('PLAYLIST_REUSED') else 'RESOLVED'))
+    print('\n  OBJETOS %d (únicos %d) · THREADS %d · TOP-LEVEL %d · REPLIES %d'
+          % (rel['OBJETOS'], rel['OBJETOS_UNICOS'], rel['THREADS'],
+             rel['TOP_LEVEL'], rel['REPLIES']))
+    print('  FEATURE_DISABLED %d · ZERO_RESULTS %d · ERROS %d'
+          % (rel['FEATURE_DISABLED'], rel['ZERO_RESULTS'], len(rel['ERROS'])))
+    print('\n  QUOTA — dois baldes, e eles NÃO se somam')
+    print('    SEARCH_CALLS_USED   %d (teto run %d · padrão projeto %d/dia)'
+          % (m['SEARCH_CALLS_USED'], m['SEARCH_CALLS_RUN_LIMIT'],
+             m['SEARCH_CALLS_PROJECT_LIMIT_DEFAULT']))
+    print('    GENERAL_UNITS_USED  %d (teto run %d · padrão projeto %d/dia)'
+          % (m['GENERAL_UNITS_USED'], m['GENERAL_UNITS_RUN_LIMIT'],
+             m['GENERAL_UNITS_PROJECT_LIMIT_DEFAULT']))
+    for met, d in sorted(m['POR_METODO'].items()):
+        print('      %-22s %-8s %3d requests · %3d unid' % (met, d['BUCKET'],
+                                                            d['REQUESTS'], d['UNITS']))
+    print('    REMAINING           UNKNOWN — a API não devolve saldo')
+    print('\n  COST_USD %.2f (%s) · APIFY_CALLS %d · APIFY_SPEND US$ %.2f'
+          % (rel['COST_USD'], rel['COST_BASIS'], rel['APIFY_CALLS'],
+             rel['APIFY_SPEND_USD']))
 
 
 def portao(url):
@@ -416,6 +570,8 @@ def main():
         ss.main()
     elif cmd == 'youtube':
         youtube()
+    elif cmd == 'youtube-piloto':
+        return youtube_piloto()
     elif cmd == 'authmodes':
         authmodes()
     elif cmd == 'guarda':
@@ -426,4 +582,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # O código de saída importa: uma fase BLOQUEADA não pode parecer sucesso no CI.
+    raise SystemExit(main() or 0)

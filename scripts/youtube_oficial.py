@@ -80,39 +80,33 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import falhas                        # noqa: E402
 import social_envelope as env        # noqa: E402
+import social_matriz as mz           # noqa: E402  — DONO da regra de quota
 
 API = 'https://www.googleapis.com/youtube/v3'
 
 # O nome canônico da credencial. Ela vive em ambiente ou GitHub Secret, NUNCA aqui.
 ENV_CHAVE = 'YOUTUBE_DATA_API_KEY'
 
-# Os dois buckets. Conferido na documentação oficial em 2026-09-08.
-# https://developers.google.com/youtube/v3/determine_quota_cost
+# Os dois buckets. A REGRA vive em `social_matriz`; aqui fica só a MECÂNICA.
+#
+# Esta separação existe por um defeito real: até 2026-09-08 este arquivo mantinha a
+# própria tabela de quota, com `search.list = 100 unidades`, enquanto a matriz já
+# registrava o modelo certo. Duas tabelas, duas verdades — e a errada era a que
+# executava. Agora não há segunda tabela para divergir.
+#
+#     A MATRIZ NÃO PODE SABER UMA COISA E O EXECUTOR OUTRA.
 SEARCH = 'SEARCH'
 GENERAL = 'GENERAL'
 BUCKETS = (SEARCH, GENERAL)
 
-# Tetos PADRÃO do projeto, declarados pela documentação. São o que o Google concede
-# a um projeto novo — não o que ESTE projeto tem. Se alguém pediu aumento, muda.
-LIMITE_PADRAO = {SEARCH: 100, GENERAL: 10000}
+PLATAFORMA = 'YOUTUBE'
 
-# (bucket, custo por chamada). O custo é 1 em todos: o que difere é DE ONDE sai.
-QUOTA = {
-    'search.list':         (SEARCH, 1),
-    'videos.list':         (GENERAL, 1),
-    'channels.list':       (GENERAL, 1),
-    'playlistItems.list':  (GENERAL, 1),
-    'commentThreads.list': (GENERAL, 1),
-    'comments.list':       (GENERAL, 1),
-}
-
-# A versão do modelo de quota que este código assume. Existe para que, quando o
-# Google mudar de novo, dê para saber contra qual regra os números antigos foram
-# medidos — em vez de descobrir que a conta de ontem virou outra coisa em silêncio.
-QUOTA_MODEL_VERSION = '2026-09-08:two-buckets'
-QUOTA_BASIS = ('documentação oficial lida em 2026-09-08: search.list e videos.insert '
-               'têm buckets próprios; padrão de 100 chamadas search.list/dia e '
-               '10.000 unidades/dia para os demais endpoints somados')
+# Espelhos de leitura. Não são declarações: são a matriz, lida.
+QUOTA = dict(mz.QUOTA_METODO[PLATAFORMA])
+LIMITE_PADRAO = dict(mz.LIMITE_PADRAO_PROJETO[PLATAFORMA])
+QUOTA_MODEL_VERSION = mz.QUOTA_MODEL_VERSION
+QUOTA_BASIS = mz.QUOTA_BASIS
+QUOTA_FONTE = mz.QUOTA_FONTE
 
 # A quota é gratuita, e "gratuito" precisa de base declarada — não de silêncio.
 COST_BASIS = 'QUOTA_GRATUITA_OFICIAL'
@@ -188,7 +182,9 @@ class Sessao:
                 'sem %s no ambiente. Isto é CREDENTIAL_MISSING — a rota liga no dia '
                 'em que a chave existir, e NÃO se cai para scraping por causa disso.'
                 % ENV_CHAVE)
-        bucket, custo = QUOTA[metodo]
+        # Consulta a matriz NA HORA. O espelho `QUOTA` serve para leitura e para
+        # o mapa; a decisão que gasta quota pergunta ao dono.
+        bucket, custo = mz.quota_de(PLATAFORMA, metodo)
         if self.usado[bucket] + custo > self.teto[bucket]:
             raise TetoDaExecucao(
                 'teto do bucket %s nesta execução (%d) seria ultrapassado por %s '
@@ -283,11 +279,113 @@ def estado_do_erro(e):
 
 
 # ══════════════════════════════════════════════════════════════════════════
-# 1 · SEARCH_KEYWORD — descoberta. 100 unidades. Usar com parcimônia.
+# CHECKPOINT — o que sobrevive ao desligamento
+# ══════════════════════════════════════════════════════════════════════════
+# CACHE EM RAM NÃO É CHECKPOINT PERSISTENTE. O `cache` que `uploads_playlist`
+# aceita prova que a função SABE reutilizar; não prova que alguma coisa lembra
+# entre execuções. Isto aqui é a parte que lembra.
+#
+# ONDE ELE MORA, E POR QUE NÃO NO CANÔNICO
+# ------------------------------------------
+# `coleta_checkpoint.py` é o checkpoint canônico desta casa e continua sendo — mas
+# ele fala com Postgres por `psql`, e exige um DSN vivo. A estrada gratuita do
+# YouTube não tem banco nenhum no caminho, e abrir um seria trocar de assunto.
+#
+# Então: a LEI vem de lá, o ARMAZENAMENTO é o que o SCRAP já usa.
+# `identidade_valida()` é importado do módulo canônico — não reescrito — para que
+# a regra de que TOKEN, RUN_ID, DATASET_ID e CAPTURED_AT nunca entram na
+# identidade continue tendo um dono só. Quando houver banco, isto migra para lá
+# sem mudar de semântica.
+#
+#     ESTE ARQUIVO NÃO É UM MOTOR DE CHECKPOINT NOVO.
+#     É o estado mínimo de um canal, com a identidade obedecendo a lei de lá.
+ARQUIVO_CHECKPOINT = 'YOUTUBE-CHECKPOINT.json'
+
+# A identidade de um canal no checkpoint. Estável entre execuções, de propósito.
+CAMPOS_DA_IDENTIDADE = ('PLATFORM', 'CHANNEL_ID', 'CAPABILITY')
+
+
+def _identidade(channel_id, capability='INCREMENTAL'):
+    import coleta_checkpoint as cc
+    ok, ruins = cc.identidade_valida(CAMPOS_DA_IDENTIDADE)
+    if not ok:
+        raise ValueError('identidade do checkpoint contém campo proibido: %s' % ruins)
+    return cc.hash_da_entrada({'PLATFORM': PLATAFORMA, 'CHANNEL_ID': channel_id,
+                               'CAPABILITY': capability})
+
+
+def checkpoint_ler():
+    """O estado inteiro. Ausente devolve vazio — nunca levanta."""
+    return env.ler(ARQUIVO_CHECKPOINT, {'CANAIS': {}}) or {'CANAIS': {}}
+
+
+def checkpoint_gravar(estado):
+    estado['ATUALIZADO_EM'] = _agora()
+    env.gravar(ARQUIVO_CHECKPOINT, estado)
+    return estado
+
+
+def checkpoint_do_canal(estado, channel_id):
+    return (estado.get('CANAIS') or {}).get(channel_id) or {}
+
+
+def cache_de_playlists(estado):
+    """O estado vira o `cache` que `uploads_playlist` já sabe consumir.
+
+    Só entra o que foi resolvido OFICIALMENTE: palpite guardado em disco não vira
+    fato por ter dormido lá.
+    """
+    saida = {}
+    for cid, c in (estado.get('CANAIS') or {}).items():
+        if c.get('UPLOADS_PLAYLIST_ID') and c.get('PROVENANCE') == OFICIAL:
+            saida[cid] = {'CHANNEL_ID': cid,
+                          'UPLOADS_PLAYLIST_ID': c['UPLOADS_PLAYLIST_ID'],
+                          'PROVENANCE': OFICIAL,
+                          'RESOLVED_AT': c.get('RESOLVED_AT')}
+    return saida
+
+
+# Quantos IDs de vídeo guardar por canal. Poucos bastam: o incremental para no
+# PRIMEIRO conhecido, então a lista só precisa cobrir o que pode ter chegado
+# desde a última visita. Guardar mil não deixaria a parada mais cedo.
+LEMBRAR_VIDEOS = 50
+
+
+def checkpoint_atualizar(estado, *, channel_id, playlist_id, provenance,
+                         resolved_at=None, novos_ids=(), relatorio=None):
+    """Grava o que a próxima execução precisa para não refazer trabalho."""
+    canais = estado.setdefault('CANAIS', {})
+    c = canais.setdefault(channel_id, {})
+    c['CHECKPOINT_ID'] = _identidade(channel_id)
+    c['CHANNEL_ID'] = channel_id
+    c['UPLOADS_PLAYLIST_ID'] = playlist_id
+    c['PROVENANCE'] = provenance
+    c['RESOLVED_AT'] = resolved_at or c.get('RESOLVED_AT') or _agora()
+    conhecidos = list(novos_ids) + list(c.get('VIDEOS_CONHECIDOS') or [])
+    # Sem duplicar e preservando a ordem: o mais novo primeiro é o que faz a
+    # varredura parar cedo.
+    vistos, ordenados = set(), []
+    for v in conhecidos:
+        if v not in vistos:
+            vistos.add(v); ordenados.append(v)
+    c['VIDEOS_CONHECIDOS'] = ordenados[:LEMBRAR_VIDEOS]
+    c['ULTIMO_VIDEO_ID'] = ordenados[0] if ordenados else c.get('ULTIMO_VIDEO_ID')
+    c['ULTIMA_VISITA'] = _agora()
+    if relatorio:
+        c['ULTIMO_RELATORIO'] = {k: relatorio.get(k) for k in
+                                 ('UPLOADS_EXAMINED', 'NEW', 'REUSED',
+                                  'STOPPED_AT_KNOWN')}
+    return estado
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# 1 · SEARCH_KEYWORD — descoberta. 1 chamada do bucket SEARCH, e são 100 por dia.
 # ══════════════════════════════════════════════════════════════════════════
 def buscar(*, termo, run_id, country_scope='IT', limit=25, tipo='video',
            regiao=None, idioma=None, sessao=None):
-    """`search.list`. A rota CARA: 100 unidades por chamada.
+    """`search.list`. O recurso ESCASSO — mas por ser 100 por DIA, não por ser cara.
+
+    Custa 1 chamada do bucket SEARCH. Não toca no bucket GERAL.
 
     `regionCode` e `relevanceLanguage` moldam o RANKING do resultado. Eles NÃO
     provam que o autor está na Itália — por isso o objeto sai com
@@ -357,54 +455,131 @@ DERIVED_HINT = 'DERIVED_HINT:UC_TO_UU'
 OFICIAL = 'youtube-data-api-v3:channels.list#contentDetails.relatedPlaylists.uploads'
 
 
-def uploads_playlist(*, channel_id, sessao=None, cache=None, permitir_derivado=False):
+def resolver_handle(*, handle, sessao=None, cache=None):
+    """`@handle` -> (channel_id, uploads_playlist, procedencia). UMA unidade GERAL.
+
+    Existe para não gastar busca. O acervo desta casa guarda 45 canais agrícolas
+    italianos como HANDLE (`@agronotizietv`), não como `channelId` — eles vieram da
+    coleta paga de 2026-08. Resolver handle por `search.list` custaria uma das 100
+    buscas do dia; `channels.list?forHandle` custa 1 unidade das 10.000.
+
+        O BALDE CERTO É PARTE DA ROTA CERTA.
+
+    Devolve a playlist de uploads junto porque `part=contentDetails` já a traz —
+    pedir as duas coisas em chamadas separadas seria pagar duas vezes pelo mesmo.
+    """
+    h = handle if handle.startswith('@') else '@' + handle
+    cache = cache if cache is not None else {}
+    for cid, c in cache.items():
+        if c.get('HANDLE') == h and c.get('PROVENANCE') == OFICIAL:
+            return cid, c['UPLOADS_PLAYLIST_ID'], dict(c, REUSED=True)
+    s = sessao or Sessao()
+    d = s.chamar('channels.list', {'part': 'contentDetails,snippet', 'forHandle': h})
+    itens = d.get('items') or []
+    if not itens:
+        raise CanalNaoEncontrado(
+            'channels.list não devolveu nada para %s — handle inexistente, trocado '
+            'ou canal encerrado. NÃO é "canal sem vídeos".' % h)
+    it = itens[0]
+    cid = it.get('id')
+    pl = (((it.get('contentDetails') or {}).get('relatedPlaylists') or {})
+          .get('uploads'))
+    if not cid or not pl:
+        raise CanalNaoEncontrado('%s existe e não declara id/uploads' % h)
+    proc = {'CHANNEL_ID': cid, 'HANDLE': h, 'UPLOADS_PLAYLIST_ID': pl,
+            'CHANNEL_TITLE': (it.get('snippet') or {}).get('title'),
+            'PROVENANCE': OFICIAL, 'RESOLVED_AT': _agora(), 'REUSED': False}
+    cache[cid] = dict(proc)
+    return cid, pl, proc
+
+
+def uploads_playlist(*, channel_id, sessao=None, cache=None):
     """A playlist de uploads, pela rota OFICIAL: `channels.list part=contentDetails`.
 
     Devolve `(playlist_id, procedencia)`. A procedência importa tanto quanto o ID:
-    ela diz se aquilo veio da API ou de um palpite, e isso segue para o artefato.
+    ela diz que aquilo veio da API, e isso segue para o artefato.
 
-    ECONOMIA: uma vez por canal, não por dia. `cache` é um dicionário
-    `{channel_id: {...}}` que o chamador guarda entre execuções. Quando o canal já
-    está lá, esta função NÃO gasta unidade nenhuma. É por isso que descobrir uma vez
-    e vigiar depois é barato: a descoberta é o custo, a vigilância não.
+    ESTA FUNÇÃO NÃO TEM RESERVA, E ISSO É O CONSERTO
+    --------------------------------------------------
+    A versão anterior terminava em `except Exception: if permitir_derivado: usa
+    UC→UU`. Isso engolia — e transformava em palpite utilizável — TUDO o que não
+    fosse falta de credencial ou teto: timeout de rede, chave inválida, quota
+    esgotada, canal inexistente, e a nossa própria `KeyError` quando o JSON
+    mudasse de forma. Seis falhas de naturezas diferentes viravam o mesmo
+    "a API não respondeu, então chutei".
 
-    `permitir_derivado` só entra quando a rota oficial não pôde ser consultada — e
-    mesmo então o resultado sai carimbado como palpite, nunca como fato.
+        FALHA DA ROTA OFICIAL NÃO TRANSFORMA HEURÍSTICA EM FATO.
+
+    Agora ela levanta a falha REAL, e quem chamou decide o que fazer. Quem quiser
+    o palpite pede por ele, pelo nome, em `uploads_hint()` — e tem de dizer por quê.
+
+    ECONOMIA: `cache` é `{channel_id: {...}}` e vem do checkpoint entre execuções.
+    Canal já resolvido NÃO gasta unidade. Descobrir é o custo; vigiar não é.
     """
     cache = cache if cache is not None else {}
     guardado = cache.get(channel_id)
     if guardado and guardado.get('UPLOADS_PLAYLIST_ID'):
-        return guardado['UPLOADS_PLAYLIST_ID'], dict(guardado, REUSED=True)
+        # Só reutiliza o que foi resolvido OFICIALMENTE. Um palpite guardado numa
+        # execução passada não vira fato por ter envelhecido no disco.
+        if guardado.get('PROVENANCE') == OFICIAL:
+            return guardado['UPLOADS_PLAYLIST_ID'], dict(guardado, REUSED=True)
     s = sessao or Sessao()
-    try:
-        d = s.chamar('channels.list', {'part': 'contentDetails', 'id': channel_id})
-        itens = d.get('items') or []
-        if not itens:
-            # Pedido nominalmente e não devolvido. Isso é o canal, não a rota.
-            raise CanalNaoEncontrado(
-                'channels.list não devolveu %s — canal inexistente, encerrado ou '
-                'fora desta região. NÃO é "canal sem uploads".' % channel_id)
-        pl = (((itens[0].get('contentDetails') or {}).get('relatedPlaylists') or {})
-              .get('uploads'))
-        if not pl:
-            raise CanalNaoEncontrado(
-                '%s existe e não declara `relatedPlaylists.uploads`' % channel_id)
-        proc = {'CHANNEL_ID': channel_id, 'UPLOADS_PLAYLIST_ID': pl,
-                'PROVENANCE': OFICIAL, 'RESOLVED_AT': _agora(), 'REUSED': False}
-        cache[channel_id] = dict(proc, REUSED=False)
-        return pl, proc
-    except (SemCredencial, TetoDaExecucao):
-        raise
-    except Exception:
-        if not permitir_derivado:
-            raise
-        pl = uploads_derivado(channel_id)
-        if not pl:
-            raise
-        return pl, {'CHANNEL_ID': channel_id, 'UPLOADS_PLAYLIST_ID': pl,
-                    'PROVENANCE': DERIVED_HINT, 'RESOLVED_AT': _agora(),
-                    'REUSED': False,
-                    'AVISO': 'a rota oficial não respondeu; este ID é PALPITE'}
+    d = s.chamar('channels.list', {'part': 'contentDetails', 'id': channel_id})
+    itens = d.get('items') or []
+    if not itens:
+        # Pedido nominalmente e não devolvido. Isso é o canal, não a rota.
+        raise CanalNaoEncontrado(
+            'channels.list não devolveu %s — canal inexistente, encerrado ou '
+            'fora desta região. NÃO é "canal sem uploads".' % channel_id)
+    pl = (((itens[0].get('contentDetails') or {}).get('relatedPlaylists') or {})
+          .get('uploads'))
+    if not pl:
+        raise CanalNaoEncontrado(
+            '%s existe e não declara `relatedPlaylists.uploads`' % channel_id)
+    proc = {'CHANNEL_ID': channel_id, 'UPLOADS_PLAYLIST_ID': pl,
+            'PROVENANCE': OFICIAL, 'RESOLVED_AT': _agora(), 'REUSED': False}
+    cache[channel_id] = dict(proc)
+    return pl, proc
+
+
+# Motivos que NÃO bastam para usar o palpite. São exatamente as desculpas que a
+# versão anterior aceitava sozinha, e aceitar de novo seria reabrir a brecha
+# pela porta da frente.
+_DESCULPAS = ('api falhou', 'api nao respondeu', 'api não respondeu', 'deu erro',
+              'erro na api', 'timeout', 'falhou', 'nao funcionou', 'não funcionou',
+              'channels.list falhou', 'oficial falhou')
+
+
+def uploads_hint(*, channel_id, porque):
+    """O palpite `UC…`→`UU…`, pedido pelo NOME e com motivo declarado.
+
+    Nunca é chamado por engano: não há caminho automático até aqui. Quem usa
+    assume, por escrito, que está dirigindo coleta com um ID que ninguém confirmou.
+
+        HEURÍSTICA NÃO SUBSTITUI A ROTA OFICIAL
+        QUANDO A API JÁ DÁ O DADO CANÔNICO.
+
+    `porque` não aceita "a API falhou": isso é a descrição do problema, não uma
+    razão para trocar fato por chute. Uma razão aceitável diz o que se ganha
+    apesar do risco — por exemplo, um levantamento exploratório descartável cujo
+    resultado não vai virar acervo.
+    """
+    limpo = (porque or '').strip()
+    if len(limpo) < 25:
+        raise ValueError('uploads_hint exige um motivo escrito, não um rótulo: %r'
+                         % porque)
+    if any(d in limpo.lower() for d in _DESCULPAS) and len(limpo) < 80:
+        raise ValueError(
+            '"%s" descreve a falha, não justifica o palpite. A rota oficial falhar '
+            'NÃO autoriza transformar heurística em fato — diga o que se ganha '
+            'apesar de o ID não estar confirmado.' % limpo)
+    pl = uploads_derivado(channel_id)
+    if not pl:
+        raise ValueError('%r não tem a forma UC… — não há palpite a dar' % channel_id)
+    return pl, {'CHANNEL_ID': channel_id, 'UPLOADS_PLAYLIST_ID': pl,
+                'PROVENANCE': DERIVED_HINT, 'RESOLVED_AT': _agora(),
+                'REUSED': False, 'WHY_DERIVED_HINT_USED': limpo,
+                'AVISO': 'ID NÃO CONFIRMADO pela API — isto é palpite, não fato'}
 
 
 class CanalNaoEncontrado(RuntimeError):
@@ -417,8 +592,7 @@ def _agora():
 
 
 def uploads_recentes(*, channel_id, run_id, country_scope='IT', limit=25,
-                     conhecidos=(), sessao=None, cache=None,
-                     permitir_derivado=False):
+                     conhecidos=(), sessao=None, cache=None):
     """`playlistItems.list` sobre a playlist de uploads. UMA unidade por página.
 
     `conhecidos` implementa `newest → until known`: a API devolve do mais novo
@@ -429,8 +603,7 @@ def uploads_recentes(*, channel_id, run_id, country_scope='IT', limit=25,
     porque "nada novo hoje" é uma MEDIÇÃO — e não uma coleta que falhou.
     """
     s = sessao or Sessao()
-    pl, proc = uploads_playlist(channel_id=channel_id, sessao=s, cache=cache,
-                                permitir_derivado=permitir_derivado)
+    pl, proc = uploads_playlist(channel_id=channel_id, sessao=s, cache=cache)
     ja = set(conhecidos or ())
     novos, reusados, examinados, parou = [], 0, 0, False
     token = None

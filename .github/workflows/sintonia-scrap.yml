@@ -13,9 +13,25 @@
 #     piloto   GRÁTIS · a prova pequena, ao vivo, contra alvo real
 #     ledger   GRÁTIS · o que REALMENTE rodou (can do != did do)
 #
-# TODAS as fases custam zero dólar. Não há secret neste arquivo, de propósito:
-# nenhuma rota daqui usa credencial. No dia em que a chave da YouTube Data API
-# existir, ela entra como secret e a fase que a usa passa a existir — não antes.
+# TODAS as fases custam zero DÓLAR. A partir de 2026-09-08 uma delas custa QUOTA:
+# `youtube` fala com a YouTube Data API v3 pela chave `YOUTUBE_DATA_API_KEY`.
+#
+# Este arquivo dizia, até agora, "não há secret aqui de propósito: no dia em que a
+# chave existir, ela entra como secret e a fase que a usa passa a existir". Esse
+# dia chegou, e é só isto que mudou: o secret entrou e a fase apareceu.
+#
+# O SECRET NÃO SAI DAQUI
+# -----------------------
+# `YOUTUBE_DATA_API_KEY` entra por `secrets`, vive só no ambiente do passo, e a
+# chamada a monta na query string em memória. Ela NÃO entra em RAW, manifesto,
+# mapa nem mensagem de erro: `social_sessao.redigir()` reconhece a forma `AIza…`
+# e apaga o valor antes de qualquer texto virar registro.
+#
+# QUOTA NÃO É DINHEIRO, E TAMBÉM NÃO É INFINITA
+# ----------------------------------------------
+# A fase gasta de dois baldes SEPARADOS — 100 chamadas de busca por dia e 10.000
+# unidades para o resto — e os tetos POR EXECUÇÃO são menores de propósito, para
+# que uma rodada não coma o dia. US$ 0,00 não quer dizer "à vontade".
 #
 # POR QUE RODA NO RUNNER HOSPEDADO, E NÃO NO LOCAL
 # --------------------------------------------------
@@ -34,7 +50,8 @@ on:
         required: true
         default: censo
         type: choice
-        options: [censo, portao, video, gap, piloto, ledger, sessao, politica, guarda]
+        options: [censo, portao, video, gap, piloto, ledger, sessao, politica, guarda,
+                  youtube, youtube-piloto]
       url:
         description: 'só para a fase `portao`: a URL a testar'
         required: false
@@ -88,6 +105,12 @@ jobs:
           # estiver definido, `navegador.py` usa ~/.sintonia-browser.
           SINTONIA_BROWSER_PROFILE_DIR: ${{ vars.SINTONIA_BROWSER_PROFILE_DIR }}
           SINTONIA_AUTH_MODE: ${{ inputs.auth_mode }}
+          # A chave da API. Ausente, a fase `youtube` para em CREDENTIAL_MISSING e
+          # NÃO cai para scraping — a recusa é o resultado correto, não um erro.
+          YOUTUBE_DATA_API_KEY: ${{ secrets.YOUTUBE_DATA_API_KEY }}
+          # Tetos POR EXECUÇÃO, separados por balde. Não são o limite do projeto.
+          YT_TETO_SEARCH_CALLS: ${{ vars.YT_TETO_SEARCH_CALLS || '2' }}
+          YT_TETO_GENERAL_UNITS: ${{ vars.YT_TETO_GENERAL_UNITS || '200' }}
         run: |
           echo "FASE=${{ inputs.fase }}"
           PYTHONIOENCODING=utf-8 python3 scripts/social_scrap.py \
@@ -96,7 +119,7 @@ jobs:
       # Só `piloto` produz artefato. As outras fases são leitura e não sujam
       # o repositório — declaração não precisa de commit.
       - name: 2 · devolver o artefato do piloto
-        if: inputs.fase == 'piloto'
+        if: inputs.fase == 'piloto' || inputs.fase == 'youtube-piloto'
         run: |
           set -e
           git config user.name  "sintonia-eame-runner"

@@ -298,7 +298,30 @@ Um número de "comentários coletados" seria invenção — **não há nenhum.**
 
 ---
 
-## 8 · PRÓXIMO PASSO
+## 8 · O QUE MUDOU EM 2026-09-08 (segundo red team)
+
+| Achado | Correção |
+|---|---|
+| **5 declarações independentes de quota**, 2 com o modelo antigo | A regra `MÉTODO → BUCKET → CUSTO → LIMITE PADRÃO` mora agora **só** em `social_matriz` (`QUOTA_METODO`, `LIMITE_PADRAO_PROJETO`, `quota_de()`). O executor guarda a **mecânica** (contar, aplicar teto) e **pergunta ao dono na hora da chamada** — não a um espelho que pode envelhecer |
+| `uploads_playlist()` caía para `UC→UU` em **qualquer** `Exception` | **Removido.** Não existe caminho automático até o palpite. Timeout, chave inválida, quota, canal inexistente e a nossa própria `KeyError` sobem como a falha que são |
+| O palpite não exigia justificativa | `uploads_hint()` exige `porque` escrito, grava `WHY_DERIVED_HINT_USED`, e **recusa "a API falhou"** — isso descreve a falha, não justifica trocar fato por chute |
+| Cache só em RAM | Checkpoint em disco por canal: `UPLOADS_PLAYLIST_ID`, `PROVENANCE`, `VIDEOS_CONHECIDOS`, `CHECKPOINT_ID`. A identidade é `(PLATFORM, CHANNEL_ID, CAPABILITY)` validada por `coleta_checkpoint.identidade_valida` — **a lei vem do módulo canônico, não é reescrita** |
+| Handle italiano exigiria busca | `resolver_handle()` usa `channels.list?forHandle` — **1 unidade GERAL, zero busca** |
+
+**Palpite guardado em disco não vira fato:** `cache_de_playlists()` só devolve o que
+tem `PROVENANCE == OFICIAL`.
+
+### Sobre o checkpoint — o que ele é e o que não é
+
+`coleta_checkpoint.py` continua sendo o checkpoint canônico da casa, **e fala com
+Postgres por `psql`**. A estrada gratuita do YouTube não tem banco no caminho, e
+abrir um seria trocar de assunto. Então: **a lei vem de lá** (`identidade_valida`,
+`hash_da_entrada`), **o armazenamento é o que o SCRAP já usa**. Quando houver banco,
+isto migra sem mudar de semântica. **Não é um motor de checkpoint novo.**
+
+---
+
+## 9 · PRÓXIMO PASSO
 
 1. **Provisionar `YOUTUBE_DATA_API_KEY`** como GitHub Secret. É a única coisa que
    separa este código de coletar. `HUMAN_PROVISION_CREDENTIAL`.
