@@ -1686,8 +1686,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "9b4dc299aeac009ba40d76a28f63d4e3e1973196",
-    "GENERATED_AT": "2026-09-08T15:12:37-03:00"
+    "HEAD": "bab65a804363c78f4835f4df6c9aec31e569f48c",
+    "GENERATED_AT": "2026-09-08T15:16:26-03:00"
   },
   "FAMILIES": [
     {
@@ -5464,7 +5464,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "⛓",
       "views": [
         "generator",
@@ -5477,11 +5477,9 @@
         "motor/v21_cadeia.sh"
       ],
       "file_count": 2,
-      "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        "motor/cadeia_canonica.sh"
-      ],
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-CI-PERSIST",
@@ -5945,7 +5943,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▶",
       "views": [
         "audit",
@@ -5957,11 +5955,9 @@
         ".github/workflows/system-map.yml"
       ],
       "file_count": 1,
-      "status": "PENDING",
-      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        ".github/workflows/system-map.yml"
-      ],
+      "status": "PROVEN",
+      "status_reason": "este workflow manda rodar script do repositorio.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -5997,7 +5993,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▶",
       "views": [
         "infra"
@@ -6014,11 +6010,9 @@
         ".github/workflows/supabase-storage.yml"
       ],
       "file_count": 7,
-      "status": "PENDING",
-      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        ".github/workflows/banco-descartavel.yml"
-      ],
+      "status": "PROVEN",
+      "status_reason": "este workflow manda rodar script do repositorio.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-CADEIA-V21",
@@ -9851,7 +9845,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "✓",
       "views": [
         "audit",
@@ -9870,8 +9864,8 @@
         "provas/trava_de_drift_de_migration.sh"
       ],
       "file_count": 8,
-      "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -11895,7 +11889,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "✓",
       "views": [
         "audit",
@@ -11946,8 +11940,8 @@
         "tests/test_voz.py"
       ],
       "file_count": 40,
-      "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
@@ -13615,7 +13609,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 9b4dc299aeac009ba40d76a28f63d4e3e1973196"
+        "HEAD bab65a804363c78f4835f4df6c9aec31e569f48c"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -22389,8 +22383,8 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 116,
-    "components_proven": 75,
-    "components_pending": 35,
+    "components_proven": 80,
+    "components_pending": 30,
     "components_broken": 0,
     "components_unknown": 6,
     "edges": 394,
