@@ -1,190 +1,206 @@
 {
-  "SCHEMA": "sintonia.system-map.collection-issues/1",
-  "O_QUE_ISTO_E": "Achados registados durante a etapa de linguagem das conexoes. NENHUM foi consertado aqui, de proposito: aquela etapa era de representacao, e consertar comportamento no meio de uma mudanca de medicao faz com que nao se saiba mais qual das duas coisas mudou o resultado.",
-  "PROVENANCE": {
-    "HEAD": "46ef52677c1d1cf545d2d789cdd778bd10cad953"
+ "SCHEMA": "sintonia.system-map.collection-issues/1",
+ "O_QUE_ISTO_E": "Achados registados durante a etapa de linguagem das conexoes. NENHUM foi consertado aqui, de proposito: aquela etapa era de representacao, e consertar comportamento no meio de uma mudanca de medicao faz com que nao se saiba mais qual das duas coisas mudou o resultado.",
+ "PROVENANCE": {
+  "HEAD": "46ef52677c1d1cf545d2d789cdd778bd10cad953"
+ },
+ "ISSUES": [
+  {
+   "ISSUE_ID": "COL-001",
+   "NODE": "C-SINTONIA-SCRAP",
+   "TYPE": "CAMINHO_PARALELO",
+   "DESCRIPTION": "O SINTONIA SCRAP chama dez scripts pelo nome, direto, sem passar pelo orquestrador. E um segundo caminho para a mesma coisa: no dia em que um executor mudar de nome ou de argumentos, o botao quebra e ninguem descobre ate alguem clicar.",
+   "EVIDENCE": "medido na etapa 2: sintonia-scrap.yml chama 6 executores e 4 ferramentas pelo nome; a palavra «orquestrador» nao aparece no ficheiro. Dos 4 botoes de coleta, 3 nao passam pelo orquestrador · etapa 3: medido na PECA, nao na seta — o scrap nao tem ligacao nenhuma com o orquestrador, e ausencia de seta nao aparece a procurar setas. Marcado `salta_o_orquestrador` e visivel na vista «Onde a coleta salta o cerebro»",
+   "STATUS": "OPEN"
   },
-  "ISSUES": [
-    {
-      "ISSUE_ID": "COL-001",
-      "NODE": "C-SINTONIA-SCRAP",
-      "TYPE": "CAMINHO_PARALELO",
-      "DESCRIPTION": "O SINTONIA SCRAP chama dez scripts pelo nome, direto, sem passar pelo orquestrador. E um segundo caminho para a mesma coisa: no dia em que um executor mudar de nome ou de argumentos, o botao quebra e ninguem descobre ate alguem clicar.",
-      "EVIDENCE": "medido na etapa 2: sintonia-scrap.yml chama 6 executores e 4 ferramentas pelo nome; a palavra «orquestrador» nao aparece no ficheiro. Dos 4 botoes de coleta, 3 nao passam pelo orquestrador · etapa 3: medido na PECA, nao na seta — o scrap nao tem ligacao nenhuma com o orquestrador, e ausencia de seta nao aparece a procurar setas. Marcado `salta_o_orquestrador` e visivel na vista «Onde a coleta salta o cerebro»",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-002",
-      "NODE": "C-SINTONIA-SCRAP",
-      "TYPE": "ZONA_DUVIDOSA",
-      "DESCRIPTION": "Esta em «AS FERRAMENTAS». A etapa 2 mediu o que ele e: COMPOSITE_EXECUTOR — oferece 24 fases, a PESSOA escolhe qual, e ele abre os portoes certos e despacha. Nao e um segundo orquestrador (nao decide rota sozinho), mas tambem nao e uma ferramenta: e um executor composto",
-      "EVIDENCE": "system-map/data/state.generated.json — territory=Z-FERRAMENTAS, momento=DESPACHO; os workflows de C-CI-COLETA estao em Z-PEDIDO · FECHADO na etapa 3: passou para «3 · EXECUCAO», com papel medido EXECUTOR COMPOSTO. Prova E6_scrap_nao_e_ferramenta",
-      "STATUS": "CLOSED"
-    },
-    {
-      "ISSUE_ID": "COL-003",
-      "NODE": "C-ADMISSAO",
-      "TYPE": "PORTA_SEM_ENTREGA",
-      "DESCRIPTION": "A porta de admissao nao recebe de ninguem. Ela funciona quando o orquestrador a chama por dentro, mas NENHUMA acao entrega nela: as acoes largam ficheiro numa pasta e param ali. Uma porta por onde ninguem passa nao e uma porta.",
-      "EVIDENCE": "state.generated.json — C-ADMISSAO.inbound = []",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-004",
-      "NODE": "C-COLETA-YOUTUBE",
-      "TYPE": "SAIDA_PERDIDA",
-      "DESCRIPTION": "«Colher o YouTube» escreve em data/samples/YOUTUBE-JANELA/ e YOUTUBE-RELEVANCIA/ — duas pastas que NAO existem nesta arvore. E nao envia para ninguem. O que ele colhe nao chega a lado nenhum.",
-      "EVIDENCE": "coleta/youtube_janela.py:70 SAIDA = os.path.join(SAMPLES, 'YOUTUBE-JANELA'); a pasta nao esta no repositorio",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-005",
-      "NODE": "V-LINKEDIN",
-      "TYPE": "CANAL_SEM_CONTA_AUTORIZADA",
-      "DESCRIPTION": "O LinkedIn tem 6 contas em ficha e ZERO autorizadas — todas barradas por nao provarem ser da empresa naquele pais. Tres acoes saem por este canal e nao ha uma pagina que se possa abrir.",
-      "EVIDENCE": "sources.generated.json — ACCOUNTS.por_plataforma.LINKEDIN: total 6, autorizadas 0",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-006",
-      "NODE": "C-LUGAR-COLETA",
-      "TYPE": "NOME_NAO_BATE_COM_USO",
-      "DESCRIPTION": "Chama-se «O lugar do fato — CARIMBADO NA COLETA», mas nenhum coletor a importa: ficou do lado das medidas. Ou o nome mente, ou falta a ligacao.",
-      "EVIDENCE": "medido em test_system_map.py, prova regua_que_carimba_nao_e_regua_que_mede",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-007",
-      "NODE": "C-ADAMA-IT",
-      "TYPE": "INVENTARIO_NAO_CONSULTADO",
-      "DESCRIPTION": "«O que a ADAMA sabe de si» diz no cartao que e o inventario que se consulta ANTES de coletar. Nenhuma peca da coleta o le: so o motor V2.1 e a ultima milha, que sao depois.",
-      "EVIDENCE": "state.generated.json — C-ADAMA-IT.outbound = [C-LASTMILE, C-V21-INGEST]; nenhum de Z-ACOES",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-008",
-      "NODE": "C-CI-COLETA",
-      "TYPE": "BUTTON_KNOWS_TOOL",
-      "DESCRIPTION": "Dois botoes chamam a Apify pelo nome: `apify-conexao.yml` e `apify-sensores.yml`. Escolher a ferramenta nao e trabalho de um botao — um botao devia dizer O QUE quer, nao QUAL ferramenta usar. No dia em que a rota mudar, o botao quebra.",
-      "EVIDENCE": ".github/workflows/apify-conexao.yml e apify-sensores.yml chamam ferramentas/apify_pool.py diretamente",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-009",
-      "NODE": "C-APIFY-POOL",
-      "TYPE": "APIFY_NOT_LAST_RESORT",
-      "DESCRIPTION": "A intencao do produto e «Apify e o ultimo recurso, depois das rotas gratis». 25 ficheiros usam a Apify. A politica «gratis primeiro» aparece em TEXTO em 2 deles e em CODIGO em NENHUM — procurei nos quatro sitios onde faria sentido. Uma politica que so existe em comentario e uma intencao, nao uma regra, e a fatura nao le comentarios.",
-      "EVIDENCE": "medido na etapa 2: apify_pool.py, sintonia-scrap.yml, receitas.py e orquestrador.py — nenhum impoe a ordem",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-010",
-      "NODE": "C-ORQUESTRADOR",
-      "TYPE": "ROUTE_POLICY_DUPLICATED",
-      "DESCRIPTION": "«Como atender este pedido» e decidido em TRES sitios: a receita escolhe fontes/rota/executor, o orquestrador escolhe executor, e o SINTONIA SCRAP escolhe a rota da fase. Uma responsabilidade com tres donos nao tem dono.",
-      "EVIDENCE": "matriz de responsabilidades em docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-011",
-      "NODE": "C-COLETA-INSTAGRAM",
-      "TYPE": "MULTIPLE_ENTRYPOINTS_FOR_SAME_INTENT",
-      "DESCRIPTION": "«Colher Instagram» tem QUATRO portas: o botao sintonia-scrap, o orquestrador, o proprio instagram_coleta.py com entrada de linha de comando, e a chamada direta do workflow. Quatro maneiras de comecar a mesma coisa sao quatro comportamentos que podem divergir.",
-      "EVIDENCE": "censo da coleta: 83 pontos de entrada; sintonia-scrap.yml chama instagram_coleta.py, instagram_diario.py, instagram_janela.py e instagram_pessoal.py",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-012",
-      "NODE": "C-RECEITAS",
-      "TYPE": "INTERNAL_MODULE_SHOWN_AS_TOP_LEVEL",
-      "DESCRIPTION": "A receita e a politica interna do orquestrador — nao executa nada e tem UM unico consumidor. O mesmo vale para o pedido, que e um contrato. Ambos aparecem no mapa como estacoes do mesmo tamanho de uma etapa que o dado atravessa. Ficheiro nao e responsabilidade; modulo nao e estacao.",
-      "EVIDENCE": "quem importa `receitas`: so pedido/orquestrador.py e as provas. Sem rede, sem escrita, sem subprocesso · FECHADO na etapa 3: ambos com nivel=INTERNO. Continuam no mapa, com ficha e ficheiros — so sairam da avenida. Provas E1, E2 e E3",
-      "STATUS": "CLOSED"
-    },
-    {
-      "ISSUE_ID": "COL-013",
-      "NODE": "C-NAVEGADOR",
-      "TYPE": "ASSISTED_BROWSER_OUTSIDE_CANONICAL_RETURN_PATH",
-      "DESCRIPTION": "Ha coleta feita a mao por navegador/Claude, e ela NAO tem porta de devolucao no codigo — procurei e nao existe integracao nenhuma. Nao deve ser desenhada como automacao. A porta correta ja existe: `candidatas/` para fonte nova, e o `larga_em` do executor para o material.",
-      "EVIDENCE": "ferramentas/navegador.py e cdp.py sao automacao real; nenhuma rota de devolucao manual encontrada no codigo",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-014",
-      "NODE": "C-SINTONIA-SCRAP",
-      "TYPE": "MANUAL_BYPASS",
-      "DESCRIPTION": "A escolha da estrategia existe, mas foi para FORA do sistema: quem clica escolhe entre 24 fases. Nao esta errado — mas nao aparece em lado nenhum do mapa, e por isso ninguem consegue auditar por que aquela fase foi escolhida e nao outra.",
-      "EVIDENCE": "sintonia-scrap.yml — 24 opcoes em `type: choice`, escolhidas pela pessoa; as condicoes `if:` so abrem portoes",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-015",
-      "NODE": "C-ORQUESTRADOR",
-      "TYPE": "CANONICAL_PATH_BROKEN",
-      "DESCRIPTION": "O caminho canonico ENTRADA -> ORQUESTRADOR -> EXECUCAO -> PORTA tem QUATRO estacoes e apenas DUAS ligacoes. Medido: ENTRADA -> ORQUESTRADOR existe; ORQUESTRADOR -> EXECUCAO esta CORTADO; EXECUCAO -> PORTA esta CORTADO. O mapa mostra o corte em vez de o completar com seta inventada — desenhar a arquitetura desejada como se existisse seria a unica coisa pior do que nao a ter.",
-      "EVIDENCE": "vista «Caminho canonico»: 4 pecas, 2 ligacoes",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-016",
-      "NODE": "C-ADMISSAO",
-      "TYPE": "ITALY_ADMISSION_WRONG_LANGUAGE",
-      "DESCRIPTION": "A porta decidia sobre item ITALIANO com 28 palavras em PORTUGUES. Contra o unico texto italiano real desta arvore, UMA casava. E o efeito nao era NAO_SEI: era «nao pertence a este universo» — uma peneira que fala outra lingua rejeita tudo com ar de quem julgou. CORRIGIDO nesta etapa: 0 -> 29 palavras italianas, sem apagar o portugues.",
-      "EVIDENCE": "medido contra data/samples/IT-T4-001; provas V1..V12",
-      "STATUS": "CLOSED"
-    },
-    {
-      "ISSUE_ID": "COL-017",
-      "NODE": "C-PALAVRAS",
-      "TYPE": "ITALY_VOCABULARY_CROSS_COUNTRY_LEAK",
-      "DESCRIPTION": "A lista de busca tem 482 palavras: 29 italianas, 8 francesas e 6 espanholas. Os termos ES/FR continuam NO FICHEIRO — o que foi corrigido antes foi o BOTAO, que deixou de oferecer os lotes A e B (2/3 estrangeiros). O vazamento so nao acontece porque ninguem escolhe aqueles lotes.",
-      "EVIDENCE": "vocabulario medido no mapa: C-PALAVRAS de_outro_pais=14",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-018",
-      "NODE": "C-CORPUS",
-      "TYPE": "LOW_RECALL_AFTER_FIX",
-      "DESCRIPTION": "O corpus italiano desta arvore tem 4.654 registos e apenas 7.088 caracteres de texto: 59 de 62 ficheiros tem ZERO texto. O numero «milhoes de caracteres» NAO se reproduz aqui — ou era o EAME agregado, ou o corpus vive noutro branch. BEFORE = NAO SEI REPRODUZIR.",
-      "EVIDENCE": "censo read-only sobre data/ com nome italiano",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-019",
-      "NODE": "C-ADMISSAO",
-      "TYPE": "CONCEPT_VS_LOCAL_TERM_ABSENT",
-      "DESCRIPTION": "Nao existe separacao CONCEITO -> TERMO LOCAL. Hoje junta-se a lista italiana ao lado da portuguesa, o que funciona mas nao escala: cada lingua nova multiplica as listas. A arquitetura certa e um CONCEPT_ID com as suas formas por lingua. Classificado ABSENT — proposta, nao implementado.",
-      "EVIDENCE": "admissao/admissao.py PERGUNTAS_DO_UNIVERSO",
-      "STATUS": "OPEN"
-    },
-    {
-      "ISSUE_ID": "COL-020",
-      "NODE": "C-VOZ",
-      "TYPE": "OUT_OF_SCOPE_COUNTRY_ISSUE",
-      "DESCRIPTION": "`medidas/voz.py` tem VOCAB_ISSUE com ES:5/IT:3 e VOCAB_TIPO com ES:4. Era vocabulario espanhol numa regua de classificacao, dado como «fora do escopo» sem prova. Agora esta PROVADO POR CONSUMO, nao por opiniao: nenhum ficheiro da rota italiana (coleta/, admissao/, orquestrador/, pedido/, regras/, leis/) importa `voz`. O unico importador de producao e `medidas/portao.py`, e `portao` so e importado por testes. As duas funcoes que usam o vocabulario espanhol — `marcar_assunto` e `classificar_tipo` — so sao chamadas por `voz.pipeline_video()`, e `pipeline_video` nao e invocada por ninguem: `portao.py:150` apenas verifica se a STRING 'pipeline_video' aparece num campo de manifesto. MENCIONAR NAO E USAR — quarta vez nesta casa. Conclusao: o espanhol de voz.py NAO chega a nenhum item italiano por caminho nenhum. Fica registado e nao corrigido, agora com a razao medida.",
-      "EVIDENCE": "grep de importadores e chamadores; medidas/portao.py:150 (comparacao de string, nao chamada); unico dado com FUNCAO=pipeline_video e data/samples/ES-T8-001-videos.json",
-      "STATUS": "CLOSED_AS_MEASURED"
-    },
-    {
-      "ISSUE_ID": "COL-021",
-      "NODE": "C-SENSOR-COLETA",
-      "TYPE": "SCOPE_BACKDOOR_FIXED",
-      "DESCRIPTION": "Os lotes A e B levam recortes ES/FR. Tinham sido tirados do menu do GitHub, o que parecia resolver — mas `videos('A')` continuava a funcionar e 'A' era o valor por omissao da linha de comando. ESCONDER O BOTAO NAO E PROTECAO. Corrigido na origem: `casos_do_lote()` e agora a porta unica por onde os recortes saem, filtra pelo pais da rota, nomeia em voz alta o que recusou, e so deixa passar estrangeiro com pedido escrito (--fora-do-escopo / SINTONIA_FORA_DO_ESCOPO=1). Omissao passou de 'A' para 'C' (100% italiano). Nada apagado.",
-      "EVIDENCE": "regras/sensor_coleta.py casos_do_lote(); provas/testa_coleta_canonica.py T4-T7",
-      "STATUS": "CLOSED"
-    },
-    {
-      "ISSUE_ID": "COL-022",
-      "NODE": "C-VOZ",
-      "TYPE": "DEAD_PIPELINE",
-      "DESCRIPTION": "`voz.pipeline_video()` e descrito na documentacao como o caminho obrigatorio RAW -> normaliza -> classifica -> originalidade -> dedupe -> saida, e um HANDOFF chama-lhe «FECHADO». Medido hoje: nenhum ficheiro de producao o chama. So testes. Ou seja, o caminho existe, esta testado, e nao corre — exatamente o defeito que ele proprio foi criado para fechar em 2026-08-29 («o dedupe existia como funcao testada e nenhum pipeline o invocava»). NAO CORRIGIDO nesta missao: e camada ES/EAME, fora da Italia. Registado para nao voltar a ser descoberto do zero.",
-      "EVIDENCE": "grep pipeline_video: so medidas/portao.py:150 (string), tests/test_pipeline.py, tests/test_portao.py",
-      "STATUS": "OPEN"
-    }
-  ],
-  "COUNTS": {
-    "abertos": 17,
-    "fechados": 5,
-    "total": 22
+  {
+   "ISSUE_ID": "COL-002",
+   "NODE": "C-SINTONIA-SCRAP",
+   "TYPE": "ZONA_DUVIDOSA",
+   "DESCRIPTION": "Esta em «AS FERRAMENTAS». A etapa 2 mediu o que ele e: COMPOSITE_EXECUTOR — oferece 24 fases, a PESSOA escolhe qual, e ele abre os portoes certos e despacha. Nao e um segundo orquestrador (nao decide rota sozinho), mas tambem nao e uma ferramenta: e um executor composto",
+   "EVIDENCE": "system-map/data/state.generated.json — territory=Z-FERRAMENTAS, momento=DESPACHO; os workflows de C-CI-COLETA estao em Z-PEDIDO · FECHADO na etapa 3: passou para «3 · EXECUCAO», com papel medido EXECUTOR COMPOSTO. Prova E6_scrap_nao_e_ferramenta",
+   "STATUS": "CLOSED"
+  },
+  {
+   "ISSUE_ID": "COL-003",
+   "NODE": "C-ADMISSAO",
+   "TYPE": "PORTA_SEM_ENTREGA",
+   "DESCRIPTION": "A porta de admissao nao recebe de ninguem. Ela funciona quando o orquestrador a chama por dentro, mas NENHUMA acao entrega nela: as acoes largam ficheiro numa pasta e param ali. Uma porta por onde ninguem passa nao e uma porta.",
+   "EVIDENCE": "state.generated.json — C-ADMISSAO.inbound = []",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-004",
+   "NODE": "C-COLETA-YOUTUBE",
+   "TYPE": "SAIDA_PERDIDA",
+   "DESCRIPTION": "«Colher o YouTube» escreve em data/samples/YOUTUBE-JANELA/ e YOUTUBE-RELEVANCIA/ — duas pastas que NAO existem nesta arvore. E nao envia para ninguem. O que ele colhe nao chega a lado nenhum.",
+   "EVIDENCE": "coleta/youtube_janela.py:70 SAIDA = os.path.join(SAMPLES, 'YOUTUBE-JANELA'); a pasta nao esta no repositorio",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-005",
+   "NODE": "V-LINKEDIN",
+   "TYPE": "CANAL_SEM_CONTA_AUTORIZADA",
+   "DESCRIPTION": "O LinkedIn tem 6 contas em ficha e ZERO autorizadas — todas barradas por nao provarem ser da empresa naquele pais. Tres acoes saem por este canal e nao ha uma pagina que se possa abrir.",
+   "EVIDENCE": "sources.generated.json — ACCOUNTS.por_plataforma.LINKEDIN: total 6, autorizadas 0",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-006",
+   "NODE": "C-LUGAR-COLETA",
+   "TYPE": "NOME_NAO_BATE_COM_USO",
+   "DESCRIPTION": "Chama-se «O lugar do fato — CARIMBADO NA COLETA», mas nenhum coletor a importa: ficou do lado das medidas. Ou o nome mente, ou falta a ligacao.",
+   "EVIDENCE": "medido em test_system_map.py, prova regua_que_carimba_nao_e_regua_que_mede",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-007",
+   "NODE": "C-ADAMA-IT",
+   "TYPE": "INVENTARIO_NAO_CONSULTADO",
+   "DESCRIPTION": "«O que a ADAMA sabe de si» diz no cartao que e o inventario que se consulta ANTES de coletar. Nenhuma peca da coleta o le: so o motor V2.1 e a ultima milha, que sao depois.",
+   "EVIDENCE": "state.generated.json — C-ADAMA-IT.outbound = [C-LASTMILE, C-V21-INGEST]; nenhum de Z-ACOES",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-008",
+   "NODE": "C-CI-COLETA",
+   "TYPE": "BUTTON_KNOWS_TOOL",
+   "DESCRIPTION": "Dois botoes chamam a Apify pelo nome: `apify-conexao.yml` e `apify-sensores.yml`. Escolher a ferramenta nao e trabalho de um botao — um botao devia dizer O QUE quer, nao QUAL ferramenta usar. No dia em que a rota mudar, o botao quebra.",
+   "EVIDENCE": ".github/workflows/apify-conexao.yml e apify-sensores.yml chamam ferramentas/apify_pool.py diretamente",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-009",
+   "NODE": "C-APIFY-POOL",
+   "TYPE": "APIFY_NOT_LAST_RESORT",
+   "DESCRIPTION": "A intencao do produto e «Apify e o ultimo recurso, depois das rotas gratis». 25 ficheiros usam a Apify. A politica «gratis primeiro» aparece em TEXTO em 2 deles e em CODIGO em NENHUM — procurei nos quatro sitios onde faria sentido. Uma politica que so existe em comentario e uma intencao, nao uma regra, e a fatura nao le comentarios.",
+   "EVIDENCE": "medido na etapa 2: apify_pool.py, sintonia-scrap.yml, receitas.py e orquestrador.py — nenhum impoe a ordem",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-010",
+   "NODE": "C-ORQUESTRADOR",
+   "TYPE": "ROUTE_POLICY_DUPLICATED",
+   "DESCRIPTION": "«Como atender este pedido» e decidido em TRES sitios: a receita escolhe fontes/rota/executor, o orquestrador escolhe executor, e o SINTONIA SCRAP escolhe a rota da fase. Uma responsabilidade com tres donos nao tem dono.",
+   "EVIDENCE": "matriz de responsabilidades em docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-011",
+   "NODE": "C-COLETA-INSTAGRAM",
+   "TYPE": "MULTIPLE_ENTRYPOINTS_FOR_SAME_INTENT",
+   "DESCRIPTION": "«Colher Instagram» tem QUATRO portas: o botao sintonia-scrap, o orquestrador, o proprio instagram_coleta.py com entrada de linha de comando, e a chamada direta do workflow. Quatro maneiras de comecar a mesma coisa sao quatro comportamentos que podem divergir.",
+   "EVIDENCE": "censo da coleta: 83 pontos de entrada; sintonia-scrap.yml chama instagram_coleta.py, instagram_diario.py, instagram_janela.py e instagram_pessoal.py",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-012",
+   "NODE": "C-RECEITAS",
+   "TYPE": "INTERNAL_MODULE_SHOWN_AS_TOP_LEVEL",
+   "DESCRIPTION": "A receita e a politica interna do orquestrador — nao executa nada e tem UM unico consumidor. O mesmo vale para o pedido, que e um contrato. Ambos aparecem no mapa como estacoes do mesmo tamanho de uma etapa que o dado atravessa. Ficheiro nao e responsabilidade; modulo nao e estacao.",
+   "EVIDENCE": "quem importa `receitas`: so pedido/orquestrador.py e as provas. Sem rede, sem escrita, sem subprocesso · FECHADO na etapa 3: ambos com nivel=INTERNO. Continuam no mapa, com ficha e ficheiros — so sairam da avenida. Provas E1, E2 e E3",
+   "STATUS": "CLOSED"
+  },
+  {
+   "ISSUE_ID": "COL-013",
+   "NODE": "C-NAVEGADOR",
+   "TYPE": "ASSISTED_BROWSER_OUTSIDE_CANONICAL_RETURN_PATH",
+   "DESCRIPTION": "Ha coleta feita a mao por navegador/Claude, e ela NAO tem porta de devolucao no codigo — procurei e nao existe integracao nenhuma. Nao deve ser desenhada como automacao. A porta correta ja existe: `candidatas/` para fonte nova, e o `larga_em` do executor para o material.",
+   "EVIDENCE": "ferramentas/navegador.py e cdp.py sao automacao real; nenhuma rota de devolucao manual encontrada no codigo",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-014",
+   "NODE": "C-SINTONIA-SCRAP",
+   "TYPE": "MANUAL_BYPASS",
+   "DESCRIPTION": "A escolha da estrategia existe, mas foi para FORA do sistema: quem clica escolhe entre 24 fases. Nao esta errado — mas nao aparece em lado nenhum do mapa, e por isso ninguem consegue auditar por que aquela fase foi escolhida e nao outra.",
+   "EVIDENCE": "sintonia-scrap.yml — 24 opcoes em `type: choice`, escolhidas pela pessoa; as condicoes `if:` so abrem portoes",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-015",
+   "NODE": "C-ORQUESTRADOR",
+   "TYPE": "CANONICAL_PATH_BROKEN",
+   "DESCRIPTION": "O caminho canonico ENTRADA -> ORQUESTRADOR -> EXECUCAO -> PORTA tem QUATRO estacoes e apenas DUAS ligacoes. Medido: ENTRADA -> ORQUESTRADOR existe; ORQUESTRADOR -> EXECUCAO esta CORTADO; EXECUCAO -> PORTA esta CORTADO. O mapa mostra o corte em vez de o completar com seta inventada — desenhar a arquitetura desejada como se existisse seria a unica coisa pior do que nao a ter.",
+   "EVIDENCE": "vista «Caminho canonico»: 4 pecas, 2 ligacoes",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-016",
+   "NODE": "C-ADMISSAO",
+   "TYPE": "ITALY_ADMISSION_WRONG_LANGUAGE",
+   "DESCRIPTION": "A porta decidia sobre item ITALIANO com 28 palavras em PORTUGUES. Contra o unico texto italiano real desta arvore, UMA casava. E o efeito nao era NAO_SEI: era «nao pertence a este universo» — uma peneira que fala outra lingua rejeita tudo com ar de quem julgou. CORRIGIDO nesta etapa: 0 -> 29 palavras italianas, sem apagar o portugues.",
+   "EVIDENCE": "medido contra data/samples/IT-T4-001; provas V1..V12",
+   "STATUS": "CLOSED"
+  },
+  {
+   "ISSUE_ID": "COL-017",
+   "NODE": "C-PALAVRAS",
+   "TYPE": "ITALY_VOCABULARY_CROSS_COUNTRY_LEAK",
+   "DESCRIPTION": "A lista de busca tem 482 palavras: 29 italianas, 8 francesas e 6 espanholas. Os termos ES/FR continuam NO FICHEIRO — o que foi corrigido antes foi o BOTAO, que deixou de oferecer os lotes A e B (2/3 estrangeiros). O vazamento so nao acontece porque ninguem escolhe aqueles lotes.",
+   "EVIDENCE": "vocabulario medido no mapa: C-PALAVRAS de_outro_pais=14",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-018",
+   "NODE": "C-CORPUS",
+   "TYPE": "LOW_RECALL_AFTER_FIX",
+   "DESCRIPTION": "RESOLVIDO, E A RESPOSTA ERA OUTRA. Os numeros «4.654 registos / 7.088 caracteres» tinham sido contados a mao, sem regra escrita, e nao se repetiam. A contagem passou a viver em codigo (censo_do_corpus_it.py) e diz: 65 ficheiros italianos, 763 linhas com identificador proprio, 12.020 objetos dentro de listas, 50.537 caracteres de prosa, 28 de 65 ficheiros com alguma prosa. Publicar «registos» sem dizer QUAL das duas contagens foi o que tornou o numero antigo irrepetivel. Quanto aos «milhoes de caracteres»: existem mesmo, e estao dentro de 49 PDF italianos guardados no disco (62,7 MB) que NUNCA foram transformados em texto. RAW_EXISTS=SIM, TEXT_DERIVATION_EXISTS=NAO. Ter o documento nao e ter o texto — e a diferenca entre ter o livro na estante e ter o livro lido.",
+   "EVIDENCE": "system-map/scripts/censo_do_corpus_it.py -> system-map/data/corpus-it.generated.json",
+   "STATUS": "CLOSED_AS_MEASURED"
+  },
+  {
+   "ISSUE_ID": "COL-023",
+   "NODE": "C-CORPUS",
+   "TYPE": "RAW_WITHOUT_TEXT_DERIVATION",
+   "DESCRIPTION": "49 PDF italianos, 62,7 MB, guardados com proveniencia — e nenhum passo que os transforme em texto. Um deles esta ate documentado assim, em regional-bulletin-sources.json: «NAO li integralmente os 13 PDFs (mais de 2,2 milhoes de caracteres somados)». O material mais rico da Italia esta guardado e ilegivel para a maquina. Este e o maior buraco medido do corpo italiano, e nao e um defeito de vocabulario: nenhuma palavra, por melhor que seja, encontra texto que nao existe. NAO CORRIGIDO — derivar PDF e trabalho novo, com custo, e tem de ser decidido.",
+   "EVIDENCE": "corpus-it.generated.json BRUTO_POR_LER",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-024",
+   "NODE": "C-CORPUS",
+   "TYPE": "TEXT_EXPECTED_BUT_MISSING",
+   "DESCRIPTION": "3 ficheiros italianos cujo NOME promete prosa (video, comentario, transcricao, corpus, boletim) e que tem ZERO caracteres de prosa. Nao e o mesmo que um inventario vazio: aqui alguem esperava texto. Ver a gaveta TEXT_EXPECTED_BUT_MISSING em corpus-it.generated.json. Outros 22 ficheiros ficaram em UNKNOWN — nao tem prosa e o nome nao diz se deviam ter. UNKNOWN nao e falha da medicao; e a resposta honesta enquanto ninguem escrever a expectativa.",
+   "EVIDENCE": "corpus-it.generated.json POR_GAVETA",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-019",
+   "NODE": "C-ADMISSAO",
+   "TYPE": "CONCEPT_VS_LOCAL_TERM_ABSENT",
+   "DESCRIPTION": "Nao existe separacao CONCEITO -> TERMO LOCAL. Hoje junta-se a lista italiana ao lado da portuguesa, o que funciona mas nao escala: cada lingua nova multiplica as listas. A arquitetura certa e um CONCEPT_ID com as suas formas por lingua. Classificado ABSENT — proposta, nao implementado.",
+   "EVIDENCE": "admissao/admissao.py PERGUNTAS_DO_UNIVERSO",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-020",
+   "NODE": "C-VOZ",
+   "TYPE": "OUT_OF_SCOPE_COUNTRY_ISSUE",
+   "DESCRIPTION": "`medidas/voz.py` tem VOCAB_ISSUE com ES:5/IT:3 e VOCAB_TIPO com ES:4. Era vocabulario espanhol numa regua de classificacao, dado como «fora do escopo» sem prova. Agora esta PROVADO POR CONSUMO, nao por opiniao: nenhum ficheiro da rota italiana (coleta/, admissao/, orquestrador/, pedido/, regras/, leis/) importa `voz`. O unico importador de producao e `medidas/portao.py`, e `portao` so e importado por testes. As duas funcoes que usam o vocabulario espanhol — `marcar_assunto` e `classificar_tipo` — so sao chamadas por `voz.pipeline_video()`, e `pipeline_video` nao e invocada por ninguem: `portao.py:150` apenas verifica se a STRING 'pipeline_video' aparece num campo de manifesto. MENCIONAR NAO E USAR — quarta vez nesta casa. Conclusao: o espanhol de voz.py NAO chega a nenhum item italiano por caminho nenhum. Fica registado e nao corrigido, agora com a razao medida.",
+   "EVIDENCE": "grep de importadores e chamadores; medidas/portao.py:150 (comparacao de string, nao chamada); unico dado com FUNCAO=pipeline_video e data/samples/ES-T8-001-videos.json",
+   "STATUS": "CLOSED_AS_MEASURED"
+  },
+  {
+   "ISSUE_ID": "COL-021",
+   "NODE": "C-SENSOR-COLETA",
+   "TYPE": "SCOPE_BACKDOOR_FIXED",
+   "DESCRIPTION": "Os lotes A e B levam recortes ES/FR. Tinham sido tirados do menu do GitHub, o que parecia resolver — mas `videos('A')` continuava a funcionar e 'A' era o valor por omissao da linha de comando. ESCONDER O BOTAO NAO E PROTECAO. Corrigido na origem: `casos_do_lote()` e agora a porta unica por onde os recortes saem, filtra pelo pais da rota, nomeia em voz alta o que recusou, e so deixa passar estrangeiro com pedido escrito (--fora-do-escopo / SINTONIA_FORA_DO_ESCOPO=1). Omissao passou de 'A' para 'C' (100% italiano). Nada apagado.",
+   "EVIDENCE": "regras/sensor_coleta.py casos_do_lote(); provas/testa_coleta_canonica.py T4-T7",
+   "STATUS": "CLOSED"
+  },
+  {
+   "ISSUE_ID": "COL-022",
+   "NODE": "C-VOZ",
+   "TYPE": "DEAD_PIPELINE",
+   "DESCRIPTION": "`voz.pipeline_video()` e descrito na documentacao como o caminho obrigatorio RAW -> normaliza -> classifica -> originalidade -> dedupe -> saida, e um HANDOFF chama-lhe «FECHADO». Medido hoje: nenhum ficheiro de producao o chama. So testes. Ou seja, o caminho existe, esta testado, e nao corre — exatamente o defeito que ele proprio foi criado para fechar em 2026-08-29 («o dedupe existia como funcao testada e nenhum pipeline o invocava»). NAO CORRIGIDO nesta missao: e camada ES/EAME, fora da Italia. Registado para nao voltar a ser descoberto do zero.",
+   "EVIDENCE": "grep pipeline_video: so medidas/portao.py:150 (string), tests/test_pipeline.py, tests/test_portao.py",
+   "STATUS": "OPEN"
   }
+ ],
+ "COUNTS": {
+  "abertos": 18,
+  "fechados": 6,
+  "total": 24
+ }
 }

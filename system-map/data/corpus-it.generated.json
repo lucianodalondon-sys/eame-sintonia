@@ -1,0 +1,1163 @@
+{
+ "O_QUE_ISTO_E": "Censo do corpo italiano. Conta REGISTOS e CARACTERES DE PROSA em separado, porque sao coisas diferentes e confundi-las foi o que produziu a frase «milhoes de caracteres».",
+ "COMO_REFAZER": "py system-map/scripts/censo_do_corpus_it.py",
+ "TOTAIS": {
+  "FICHEIROS_ITALIANOS": 65,
+  "FICHEIROS_COM_ALGUMA_PROSA": 28,
+  "FICHEIROS_SEM_PROSA_NENHUMA": 37,
+  "CORPO_DE_REGISTOS_COM_IDENTIFICADOR": 763,
+  "CORPO_DE_OBJETOS_DENTRO_DE_LISTAS": 12020,
+  "CORPO_DE_REGISTOS": 763,
+  "CORPO_DE_TEXTO_EM_CARACTERES": 50537,
+  "CARACTERES_POR_REGISTO": 66.2
+ },
+ "POR_GAVETA": {
+  "TEXT_EXPECTED_AND_PRESENT": {
+   "ficheiros": 11,
+   "registos": 14,
+   "caracteres": 26446
+  },
+  "TEXT_NOT_EXPECTED": {
+   "ficheiros": 29,
+   "registos": 691,
+   "caracteres": 24091
+  },
+  "UNKNOWN": {
+   "ficheiros": 22,
+   "registos": 57,
+   "caracteres": 0
+  },
+  "TEXT_EXPECTED_BUT_MISSING": {
+   "ficheiros": 3,
+   "registos": 1,
+   "caracteres": 0
+  }
+ },
+ "ONDE_ESTA_O_TEXTO_ITALIANO": [
+  {
+   "FICHEIRO": "data/samples/IT-CIENCIA/IT-GIRE-RESISTENCIA-V2.json",
+   "CARACTERES": 22135,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
+   "CARACTERES": 17721,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS-2026-09-02.json",
+   "CARACTERES": 5355,
+   "REGISTOS": 0
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T9-008/adama-orticole-2026-06-03.BROWSER-EXTRACT.json",
+   "CARACTERES": 1596,
+   "REGISTOS": 0
+  },
+  {
+   "FICHEIRO": "data/samples/IT-MERCADO/EUROSTAT-apri_pi_inq-input-price-index-IT.json",
+   "CARACTERES": 922,
+   "REGISTOS": 4
+  },
+  {
+   "FICHEIRO": "data/samples/IT-MERCADO/EUROSTAT-apri_pi_outq-output-price-index-IT.json",
+   "CARACTERES": 850,
+   "REGISTOS": 4
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T9-002/bayer-mais-lab-2026.BROWSER-EXTRACT.json",
+   "CARACTERES": 346,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/MANIFEST.json",
+   "CARACTERES": 137,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-CIENCIA/IT-GIRE-RESISTENCIA-V1.json",
+   "CARACTERES": 135,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-MERCADO/EU-AGRIFOOD-cereal-prices-IT.json",
+   "CARACTERES": 130,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-MERCADO/EU-AGRIFOOD-oliveOil-prices-IT.json",
+   "CARACTERES": 130,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-MERCADO/EU-AGRIFOOD-wine-prices-IT.json",
+   "CARACTERES": 130,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/MANIFEST.json",
+   "CARACTERES": 109,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/MANIFEST.json",
+   "CARACTERES": 92,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T7-002/MANIFEST.json",
+   "CARACTERES": 85,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/MANIFEST.json",
+   "CARACTERES": 76,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T9-002/MANIFEST.json",
+   "CARACTERES": 69,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T9-008/MANIFEST.json",
+   "CARACTERES": 68,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/MANIFEST.json",
+   "CARACTERES": 63,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/MANIFEST.json",
+   "CARACTERES": 62,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json",
+   "CARACTERES": 51,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json",
+   "CARACTERES": 51,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/MANIFEST.json",
+   "CARACTERES": 47,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-011/MANIFEST.json",
+   "CARACTERES": 45,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/MANIFEST.json",
+   "CARACTERES": 40,
+   "REGISTOS": 1
+  },
+  {
+   "FICHEIRO": "data/samples/IT-V2/IT-V2-CANONICO.json",
+   "CARACTERES": 36,
+   "REGISTOS": 0
+  },
+  {
+   "FICHEIRO": "data/samples/IT-V2/IT-V2-QA-ATRIBUIDO.json",
+   "CARACTERES": 36,
+   "REGISTOS": 0
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/MANIFEST.json",
+   "CARACTERES": 20,
+   "REGISTOS": 1
+  }
+ ],
+ "BRUTO_POR_LER": {
+  "O_QUE_E": "PDF italianos guardados no disco. O texto deles existe e NAO foi derivado para nenhuma planilha. RAW_EXISTS=SIM, TEXT_DERIVATION_EXISTS=NAO.",
+  "FICHEIROS": 49,
+  "MEGABYTES": 62.7,
+  "CARACTERES": "NAO MEDIDO — abrir PDF e derivar, nao medir. Entra por porta propria, com recibo.",
+  "LISTA": [
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/7_Alesi_olivo-2025_-Bilancio-Fitosanitario-Marche.pdf",
+    "BYTES": 6585313
+   },
+   {
+    "FICHEIRO": "data/samples/IT-ARPAV-VENETO/lug2026.pdf",
+    "BYTES": 5969919
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-011/0286_26_Agrios_Broschuere_Richtlinien_integrierte_Kernobstbau_IT_WEB.pdf",
+    "BYTES": 5705903
+   },
+   {
+    "FICHEIRO": "data/samples/IT-ARPAV-VENETO/vite_20_270826.pdf",
+    "BYTES": 4255572
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/11_Altieri_Bilancio-Fitosanitario-Olivo-2024-25-Basilicata.pdf",
+    "BYTES": 3991102
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N35_26-08-2026.pdf",
+    "BYTES": 2723072
+   },
+   {
+    "FICHEIRO": "data/collection-store/italy/IT-T3-008/ARIF_SETTIMANALE_2026_N36/v1_e612807928b5/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+    "BYTES": 2703344
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+    "BYTES": 2703344
+   },
+   {
+    "FICHEIRO": "data/samples/IT-ARPAV-VENETO/vite_19_130826.pdf",
+    "BYTES": 2151289
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/35_boll_agro_20260831.pdf",
+    "BYTES": 1787024
+   },
+   {
+    "FICHEIRO": "data/collection-store/italy/IT-T3-010/APOL_2026_N9_BR-COLLINA/v1_59da05274359/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+    "BYTES": 1653200
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+    "BYTES": 1653200
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_8_del_31_08_2026.pdf",
+    "BYTES": 1633428
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Giornaliero_Meteorologico_N136_07-09-2026.pdf",
+    "BYTES": 1446423
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/34_boll_agro_20260824.pdf",
+    "BYTES": 1401464
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/TN_DIB25_28ago2026.pdf",
+    "BYTES": 1063378
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/TN_DIB23_14ago2026.pdf",
+    "BYTES": 902669
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/TN_DIB24_21ago2026.pdf",
+    "BYTES": 862739
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/TN_DIB22_07ago2026.pdf",
+    "BYTES": 846135
+   },
+   {
+    "FICHEIRO": "data/collection-store/italy/IT-T3-002/CAMPANIA_SA_02-09-2026/v1_0c2723e66201/SA-02-09.pdf",
+    "BYTES": 813109
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-02-09.pdf",
+    "BYTES": 813109
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_SA-26-08.pdf",
+    "BYTES": 810656
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-26-08.pdf",
+    "BYTES": 810656
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_CE-26-08.pdf",
+    "BYTES": 771279
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/MOLISE_comunicato_5_2026.pdf",
+    "BYTES": 680513
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/NA-02-09.pdf",
+    "BYTES": 616988
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_NA-26-08.pdf",
+    "BYTES": 584304
+   },
+   {
+    "FICHEIRO": "data/collection-store/italy/IT-T2-002/ARPAV_Z24_20260902152048/v1_0be2d204c98a/agro_24.pdf",
+    "BYTES": 465004
+   },
+   {
+    "FICHEIRO": "data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf",
+    "BYTES": 463630
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf",
+    "BYTES": 463630
+   },
+   {
+    "FICHEIRO": "data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf",
+    "BYTES": 463423
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_09.pdf",
+    "BYTES": 463423
+   },
+   {
+    "FICHEIRO": "data/collection-store/italy/IT-T2-002/ARPAV_Z16_20260903160912/v1_8c13500d4350/agro_16.pdf",
+    "BYTES": 460432
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_PIANURA_INTERNA_VITERBESE.pdf",
+    "BYTES": 425368
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_SABINA.pdf",
+    "BYTES": 385637
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_AV-26-08.pdf",
+    "BYTES": 371502
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_ENTROTERRA_TUSCIA.pdf",
+    "BYTES": 356659
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_BOLSENA.pdf",
+    "BYTES": 355879
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/LAZIO_LITORALE_VITERBESE.pdf",
+    "BYTES": 355453
+   },
+   {
+    "FICHEIRO": "data/samples/IT-ARPAV-VENETO/boll_agro_settimanale.pdf",
+    "BYTES": 330326
+   },
+   {
+    "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_BN-26-08.pdf",
+    "BYTES": 323837
+   },
+   {
+    "FICHEIRO": "data/samples/IT-ARPAV-VENETO/fineestate_310826.pdf",
+    "BYTES": 252329
+   },
+   {
+    "FICHEIRO": "data/samples/PIEMONTE-FD/piano_operativo_2026.pdf",
+    "BYTES": 208525
+   },
+   {
+    "FICHEIRO": "data/samples/PIEMONTE-FD/insetticidi_ammessi_2026.pdf",
+    "BYTES": 130753
+   },
+   {
+    "FICHEIRO": "data/samples/IT-ARPAV-VENETO/orticolo_22_260826.pdf",
+    "BYTES": 113206
+   },
+   {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/ID_6_Dataset_Fitosanitari_v2.0.pdf",
+    "BYTES": 110500
+   },
+   {
+    "FICHEIRO": "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.pdf",
+    "BYTES": 108945
+   },
+   {
+    "FICHEIRO": "data/samples/IT-ARPAV-VENETO/olivicolo_29_020926.pdf",
+    "BYTES": 71137
+   },
+   {
+    "FICHEIRO": "data/samples/IT-ARPAV-VENETO/olivicolo_28_260826.pdf",
+    "BYTES": 70626
+   }
+  ]
+ },
+ "ERROS_A_LER": [],
+ "FICHEIROS": [
+  {
+   "FICHEIRO": "data/samples/IT-CIENCIA/IT-GIRE-RESISTENCIA-V2.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 91,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 22135,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ecologia_resumo": 23
+   },
+   "GAVETA": "TEXT_EXPECTED_AND_PRESENT",
+   "PORQUE": "tem prosa, ainda que o nome nao diga"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 92,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 17721,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "TITULO_CASADO_NAO_E_ATO_LIDO": 1,
+    "TITLE": 39
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS-2026-09-02.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 51,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 5355,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "SUBTITLE_IT": 51
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T9-008/adama-orticole-2026-06-03.BROWSER-EXTRACT.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 0,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 1596,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1,
+    "meta_description": 1,
+    "texto": 1
+   },
+   "GAVETA": "TEXT_EXPECTED_AND_PRESENT",
+   "PORQUE": "tem prosa, ainda que o nome nao diga"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-MERCADO/EUROSTAT-apri_pi_inq-input-price-index-IT.json",
+   "REGISTOS_COM_IDENTIFICADOR": 4,
+   "OBJETOS_DENTRO_DE_LISTAS": 17,
+   "REGISTOS": 4,
+   "REGISTOS_COM_TEXTO": 3,
+   "CARACTERES_DE_TEXTO": 922,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "description": 1,
+    "title": 3
+   },
+   "GAVETA": "TEXT_EXPECTED_AND_PRESENT",
+   "PORQUE": "tem prosa, ainda que o nome nao diga"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-MERCADO/EUROSTAT-apri_pi_outq-output-price-index-IT.json",
+   "REGISTOS_COM_IDENTIFICADOR": 4,
+   "OBJETOS_DENTRO_DE_LISTAS": 17,
+   "REGISTOS": 4,
+   "REGISTOS_COM_TEXTO": 3,
+   "CARACTERES_DE_TEXTO": 850,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "description": 1,
+    "title": 3
+   },
+   "GAVETA": "TEXT_EXPECTED_AND_PRESENT",
+   "PORQUE": "tem prosa, ainda que o nome nao diga"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T9-002/bayer-mais-lab-2026.BROWSER-EXTRACT.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 0,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 346,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1,
+    "meta_description": 1,
+    "contexto_declarado_pela_empresa": 1
+   },
+   "GAVETA": "TEXT_EXPECTED_AND_PRESENT",
+   "PORQUE": "tem prosa, ainda que o nome nao diga"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 1,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 137,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-CIENCIA/IT-GIRE-RESISTENCIA-V1.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 58,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 135,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "TEXTO_ORIGINAL": 1
+   },
+   "GAVETA": "TEXT_EXPECTED_AND_PRESENT",
+   "PORQUE": "tem prosa, ainda que o nome nao diga"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-MERCADO/EU-AGRIFOOD-cereal-prices-IT.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 40,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 130,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "PRICE_IS_TEXT_IN_SOURCE": 1
+   },
+   "GAVETA": "TEXT_EXPECTED_AND_PRESENT",
+   "PORQUE": "tem prosa, ainda que o nome nao diga"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-MERCADO/EU-AGRIFOOD-oliveOil-prices-IT.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 36,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 130,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "PRICE_IS_TEXT_IN_SOURCE": 1
+   },
+   "GAVETA": "TEXT_EXPECTED_AND_PRESENT",
+   "PORQUE": "tem prosa, ainda que o nome nao diga"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-MERCADO/EU-AGRIFOOD-wine-prices-IT.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 1,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 130,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "PRICE_IS_TEXT_IN_SOURCE": 1
+   },
+   "GAVETA": "TEXT_EXPECTED_AND_PRESENT",
+   "PORQUE": "tem prosa, ainda que o nome nao diga"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 3,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 109,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 2,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 92,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T7-002/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 1,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 85,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T5-003/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 2,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 76,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T9-002/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 1,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 69,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T9-008/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 1,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 68,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 2,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 63,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 2,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 62,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 2,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 51,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 3,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 51,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "titulo": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 3,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 47,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-011/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 1,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 45,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 2,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 40,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-V2/IT-V2-CANONICO.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 321,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 36,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "observation_class": 1
+   },
+   "GAVETA": "TEXT_EXPECTED_AND_PRESENT",
+   "PORQUE": "tem prosa, ainda que o nome nao diga"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-V2/IT-V2-QA-ATRIBUIDO.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 368,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 36,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "observation_class": 1
+   },
+   "GAVETA": "TEXT_EXPECTED_AND_PRESENT",
+   "PORQUE": "tem prosa, ainda que o nome nao diga"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 2,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 20,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ORIGINAL_TITLE": 1
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/COMPETITOR-azoxy-prothio-italy.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 4,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 10,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ARPAV-VENETO/staz_18.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 215,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ARPAV-VENETO/staz_19.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 165,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ARPAV-VENETO/staz_20004.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 77,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ARPAV-VENETO/staz_20008.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 33,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ARPAV-VENETO/staz_20066.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 183,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ARPAV-VENETO/staz_23.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 197,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ARPAV-VENETO/tab_300000079.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 600,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ARPAV-VENETO/tab_300000092.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 780,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ARPAV-VENETO/tab_300000139.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 480,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-BOLLETTINI-VPN-2026/IT-DIRETORIO-NACIONAL-BOLETINS-FITOGEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 111,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_EXPECTED_BUT_MISSING",
+   "PORQUE": "nome diz que traz prosa, e nao traz nenhuma — BURACO"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-CAMPO-ATUAL/IT-FLAVESCENZA-REGIOES-V1.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 5,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-CAMPO-ATUAL/IT-SINAIS-CAMPO-SETEMBRO-2026.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 5,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_EXPECTED_BUT_MISSING",
+   "PORQUE": "nome diz que traz prosa, e nao traz nenhuma — BURACO"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 142,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-COMPLETUDE/IT-COMPLETUDE-OPORTUNIDADE.json",
+   "REGISTOS_COM_IDENTIFICADOR": 53,
+   "OBJETOS_DENTRO_DE_LISTAS": 1934,
+   "REGISTOS": 53,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 398,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_EXPECTED_BUT_MISSING",
+   "PORQUE": "nome diz que traz prosa, e nao traz nenhuma — BURACO"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-GIRE-MAPAS/gire-mapas-nacionais.json",
+   "REGISTOS_COM_IDENTIFICADOR": 619,
+   "OBJETOS_DENTRO_DE_LISTAS": 684,
+   "REGISTOS": 619,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 211,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-LASTMILE/IT-LASTMILE-INVENTARIO.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 10,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-LASTMILE/IT-ROTA-COM_VPN_IT.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 16,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-LASTMILE/IT-ROTA-SEM_VPN.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 16,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-MERCADO/EU-AGRIFOOD-cereal-production-IT.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 63,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-PROBE/probe-fase-c.json",
+   "REGISTOS_COM_IDENTIFICADOR": 51,
+   "OBJETOS_DENTRO_DE_LISTAS": 94,
+   "REGISTOS": 51,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 52,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 407,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 162,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 2193,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T1-001/MANIFEST.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 1,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-T4-001/IT-T4-001-adama-expiries.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 20,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-T4-001/IT-T4-001-adama-portfolio.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 666,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-T4-001/IT-T4-001-enriquecimento-validado.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 602,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-T4-001/IT-T4-001-validacao-contra-v21.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 15,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-V2/IT-V2-CONFLITOS.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 20,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/ITALY-T3-005-MONITORAGGIO/points-2026-09-07.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 139,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 27,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
+  },
+  {
+   "FICHEIRO": "data/raw/IT-ROTULOS/_MANIFESTO.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 163,
+   "REGISTOS": 0,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
+  }
+ ]
+}
