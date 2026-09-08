@@ -131,9 +131,47 @@ def cenarios(banco):
     rc, erro = banco.executar(_derivado(
         raw_id, "IT/x/TEXT/dois-pais.txt", parent_sha256=SHA_OUTRO,
         producer="ferramenta-do-teste-de-coerencia"))
-    caso("COERENCIA_id_e_sha_apontam_para_o_mesmo_pai", rc != 0,
+    caso("COERENCIA_id_e_sha_apontam_para_o_mesmo_pai",
+         rc != 0 and "o_pai_por_id_e_o_pai_por_sha_sao_o_mesmo" in erro,
          "ACEITOU DOIS PAIS DIFERENTES" if rc == 0
          else erro.splitlines()[0][:110])
+
+    # E a coerencia nao pode ser rigida demais: com o par CERTO, entra.
+    rc, erro = banco.executar(_derivado(
+        raw_b, "IT/b/TEXT/pai-certo.txt", parent_sha256=SHA_OUTRO,
+        producer="ferramenta-do-teste-de-coerencia"))
+    caso("COERENCIA_o_par_certo_continua_a_entrar", rc == 0, erro[:110])
+
+    # ── DUAS CAPTURAS DO MESMO CONTEUDO, a mesma receita ────────────────
+    # RUN-1 e RUN-2 trouxeram os MESMOS bytes: duas capturas legitimas, duas
+    # linhas em `raw_asset`. Derivadas com a mesma regua, dao UMA linha aqui —
+    # o grao e CONTEUDO POR RECEITA. Ha UM facto: a nossa ferramenta, sobre
+    # estes bytes, com esta regua, da este resultado.
+    #
+    # E a procedencia das duas capturas NAO se perde: ela nunca morou aqui.
+    sha_gemeo = "d" * 64
+    g1 = _raw(banco, "IT-GEMEO-1", "IT/g/DOCUMENT/copia-1.pdf", sha=sha_gemeo)
+    g2 = _raw(banco, "IT-GEMEO-2", "IT/g/DOCUMENT/copia-2.pdf", sha=sha_gemeo)
+    caso("GEMEOS_duas_capturas_do_mesmo_conteudo_existem",
+         g1 != g2, "raw_asset_id %s e %s" % (g1, g2))
+
+    sql_gemeo = (lambda raw, caminho: _derivado(
+        raw, caminho, parent_sha256=sha_gemeo, producer="texto-de-pdf",
+        sha256="f" * 64).replace(
+            ");", ") on conflict on constraint derivacao_e_unica_por_regua "
+                  "do nothing;"))
+    banco.executar(sql_gemeo(g1, "IT/g/TEXT/da-copia-1.txt"))
+    banco.executar(sql_gemeo(g2, "IT/g/TEXT/da-copia-2.txt"))
+    quantos_gemeos = int(banco._valor(
+        "select count(*) from public.derived_artifact where parent_sha256 = '%s'"
+        % sha_gemeo))
+    caso("GEMEOS_a_mesma_receita_da_UMA_derivacao", quantos_gemeos == 1,
+         "linhas=%d (grao = CONTEUDO POR RECEITA)" % quantos_gemeos)
+
+    irmas = int(banco._valor(
+        "select count(*) from public.raw_asset where sha256 = '%s'" % sha_gemeo))
+    caso("GEMEOS_a_procedencia_das_duas_capturas_continua_inteira", irmas == 2,
+         "capturas achaveis por sha256: %d" % irmas)
 
     # ── C · o mesmo bruto, tipos diferentes, coexistem ──────────────────
     rc, erro = banco.executar(_derivado(raw_id, "IT/x/THUMB/a.png",
@@ -147,18 +185,23 @@ def cenarios(banco):
     rc, erro = banco.executar(_derivado(raw_id, "IT/x/TEXT/a-v2.txt",
                                         producer_version="2", sha256=SHA_OUTRO))
     caso("D_duas_versoes_da_ferramenta_coexistem", rc == 0, erro[:120])
-    caso("D2_e_a_antiga_continua_la",
-         banco.contar("derived_artifact") == 3,
-         "linhas=%d" % banco.contar("derived_artifact"))
+    # CONTA O QUE E DESTE CASO, nao o total da tabela: um teste que depende do
+    # numero de linhas que os outros deixaram passa a reprovar por acidente
+    # quando alguem acrescenta um caso — e foi exatamente o que aconteceu.
+    do_pai = lambda: int(banco._valor(
+        "select count(*) from public.derived_artifact where parent_sha256 = "
+        "'%s' and kind = 'TEXT_EXTRACTION' and producer = 'texto-de-pdf'"
+        % SHA_PAI))
+    caso("D2_e_a_antiga_continua_la", do_pai() == 2,
+         "versoes de texto-de-pdf sobre o mesmo pai=%d" % do_pai())
 
     # ── E · retry idêntico não cria lixo ────────────────────────────────
     rc, erro = banco.executar(
         _derivado(raw_id, "IT/x/TEXT/a-de-novo.txt").replace(
             ");", ") on conflict on constraint derivacao_e_unica_por_regua "
                   "do nothing;"))
-    caso("E_retry_identico_nao_cria_linha",
-         rc == 0 and banco.contar("derived_artifact") == 3,
-         "rc=%d linhas=%d %s" % (rc, banco.contar("derived_artifact"), erro[:80]))
+    caso("E_retry_identico_nao_cria_linha", rc == 0 and do_pai() == 2,
+         "rc=%d versoes=%d %s" % (rc, do_pai(), erro[:80]))
 
     # ── F · mesma identidade, bytes diferentes → NÃO sobrescreve calado ──
     rc, erro = banco.executar(_derivado(raw_id, "IT/x/TEXT/a-drift.txt",
@@ -191,7 +234,7 @@ def cenarios(banco):
         "select count(*) from public.derived_artifact where sha256 = '%s'"
         % SHA_FILHO))
     caso("I_mesmo_sha_do_filho_com_pais_diferentes_coexiste",
-         rc == 0 and quantos == 2,
+         rc == 0 and quantos >= 2,
          "rc=%d linhas_com_o_mesmo_sha=%d %s" % (rc, quantos, erro[:80]))
 
     # ── J · a serie: dez frames do mesmo bruto ──────────────────────────

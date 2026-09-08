@@ -48,21 +48,84 @@
 --   retry identico                     mesma chave, mesmos bytes -> REUSED
 --   os mesmos bytes por rotas          `producer` diferente -> duas linhas com
 --     diferentes                       o mesmo sha256
+--
+--   DUAS CAPTURAS do mesmo conteudo    UMA linha. E a decisao abaixo.
+--     derivadas com a mesma receita
+--
+-- ── CONTEUDO OU CAPTURA? A DECISAO, E O PORQUE ────────────────────────
+-- Duas corridas trouxeram os mesmos bytes: sao DUAS capturas legitimas, com
+-- duas linhas em `raw_asset`. Se as duas forem derivadas com a mesma receita,
+-- ha UMA linha aqui ou DUAS?
+--
+--     RESPOSTA: UMA. O grao e CONTEUDO POR RECEITA.
+--
+-- E a assimetria e deliberada. Em `raw_asset` o grao e a OCORRENCIA, porque
+-- duas capturas sao DOIS FACTOS SOBRE O MUNDO: a fonte publicou nos dois
+-- sitios, e apagar uma perderia a prova de que o documento nao mudou entre
+-- elas. Aqui nao ha dois factos: ha UM — a nossa ferramenta, sobre estes
+-- bytes, com esta regua, da este resultado. Correr duas vezes e trabalho
+-- repetido, nao informacao nova, e os bytes de saida sao identicos ao byte.
+--
+--     MESMOS BYTES NAO APAGAM A DIFERENCA ENTRE DUAS CAPTURAS.
+--     Mas nao criam duas derivacoes onde so houve uma receita.
+--
+-- E A PROCEDENCIA DA CAPTURA NAO SE PERDE, porque ela nunca morou aqui: mora
+-- em `raw_asset`, uma linha por captura, com a sua corrida, o seu
+-- `captured_at` e a sua URL. Todas as irmas encontram-se com
+--
+--     select * from raw_asset where sha256 = <parent_sha256>
+--
+-- O `raw_asset_id` desta tabela diz apenas DE QUAL COPIA SE LEU. E testemunha,
+-- e esta escrito assim na coluna — nao se finge que e a identidade do pai.
+
+-- ── A TRAVA QUE TORNA A COERENCIA POSSIVEL ────────────────────────────
+-- Para que uma chave estrangeira COMPOSTA possa apontar para (id, sha256) do
+-- bruto, o Postgres exige que esse par seja unico la. Como `id` ja e a chave
+-- primaria, o par (id, sha256) e unico por construcao — esta trava nao pode
+-- reprovar sobre dado nenhum, presente ou futuro. Ela existe apenas para dar
+-- ao banco o alvo declarativo de que ele precisa.
+--
+-- ADITIVA E NAO DESTRUTIVA: nao altera coluna, nao move dado, nao apaga nada.
+-- E a unica coisa que esta migration toca fora da sua propria tabela.
+alter table public.raw_asset
+  add constraint raw_asset_id_e_sha_juntos unique (id, sha256);
+
+comment on constraint raw_asset_id_e_sha_juntos on public.raw_asset is
+  'Nao e uma regra nova: (id, sha256) ja era unico porque id e chave primaria. '
+  'Existe para que derived_artifact possa exigir, por chave estrangeira '
+  'composta, que o pai por ID e o pai por SHA sejam o MESMO pai.';
 
 create table if not exists public.derived_artifact (
   id              bigserial primary key,
 
   -- ── DE QUEM ISTO NASCEU ─────────────────────────────────────────────
-  -- O pai e uma linha de `raw_asset`: UM OBJETO PRESERVADO, com a corrida que
-  -- o trouxe. NOT NULL de proposito — derivado sem bruto canonico e a coisa
-  -- que esta missao recusou fabricar. Os 43 derivados italianos de hoje NAO
-  -- cabem aqui, e isso e o desenho a funcionar, nao um defeito: eles sao
-  -- LEGACY_DERIVATION_WITHOUT_CANONICAL_RAW_PARENT, e a migration e FORWARD.
-  raw_asset_id    bigint not null references public.raw_asset(id) on delete restrict,
+  -- DOIS CAMPOS DECLARAM O MESMO PARENTESCO, E POR ISSO NAO PODEM DISCORDAR.
+  --
+  -- Um red team encontrou a brecha e ela foi REPRODUZIDA no Postgres antes de
+  -- ser fechada: com chaves estrangeiras separadas, dava para escrever
+  -- `raw_asset_id` = A e `parent_sha256` = os bytes de B. As duas travas
+  -- passavam — porque A existe, e porque o sha tinha o formato certo — e a
+  -- linha ficava a dizer duas coisas ao mesmo tempo.
+  --
+  --     FK EXISTIR NAO BASTA.
+  --     O PAI POR ID E O PAI POR SHA TEM DE SER O MESMO PAI.
+  --
+  -- A trava esta la em baixo, em `o_pai_por_id_e_o_pai_por_sha_sao_o_mesmo`, e
+  -- e DECLARATIVA: uma chave estrangeira composta, nao um gatilho. O banco
+  -- garante sozinho, sem depender de quem escreve.
 
-  -- O sha256 do PAI, repetido aqui de proposito. A linhagem verdadeira sao os
-  -- BYTES: uma copia pode mudar de caminho ou ser apagada do armazem sem que o
-  -- filho deixe de saber de que conteudo veio.
+  -- QUAL COPIA FOI LIDA. E uma TESTEMUNHA, nao a identidade do pai: quando o
+  -- mesmo conteudo foi capturado duas vezes, ha duas linhas de `raw_asset`
+  -- com o mesmo sha256, e esta aponta para aquela de que se leu. As outras
+  -- capturas nao se perdem — continuam inteiras em `raw_asset`, cada uma com a
+  -- sua corrida e o seu `captured_at`, e encontram-se todas com
+  -- `where sha256 = parent_sha256`.
+  raw_asset_id    bigint not null,
+
+  -- O PAI DE VERDADE SAO OS BYTES. Uma copia pode mudar de caminho ou sair do
+  -- armazem sem que o filho deixe de saber de que conteudo nasceu. E e este
+  -- campo — nao o `raw_asset_id` — que entra na identidade da derivacao,
+  -- porque o grao e CONTEUDO POR RECEITA. Ver a nota do grao, mais abaixo.
   parent_sha256   char(64) not null,
 
   -- ── O QUE ISTO E ────────────────────────────────────────────────────
@@ -91,6 +154,15 @@ create table if not exists public.derived_artifact (
   -- Sem parametros: a string vazia tem hash proprio e estavel, e nao e NULL —
   -- NULL em chave e a porta pela qual entram duas linhas iguais.
   parameters      jsonb,
+  -- ⚠️ O BANCO CONFERE O FORMATO, NAO A CORRESPONDENCIA. Ele nao sabe se este
+  -- hash e o do JSON ao lado: para isso teria de conhecer a serializacao
+  -- canonica de quem escreveu (ordem das chaves, espacos, numeros). Um gatilho
+  -- que tentasse adivinha-la seria uma segunda implementacao da regra, livre
+  -- para divergir da primeira — e duas verdades sao piores do que uma so.
+  --
+  -- A AUTORIDADE E O WRITER. Ele serializa e ele resume, com uma funcao so, e
+  -- e la que o teste tem de morar. Aqui fica dito de quem e a
+  -- responsabilidade, para nao se acreditar que o banco a assumiu.
   parameters_hash char(64) not null,
 
   -- A POSICAO NA SERIE. NULL quando a derivacao produz UM artefato; 0..N
@@ -111,6 +183,16 @@ create table if not exists public.derived_artifact (
   -- e o objeto guardado, tal como em `raw_asset`.
   storage_path    text not null unique,
 
+  -- ⚠️ NOT NULL PROVA QUE HA UMA DATA. NAO PROVA QUE ELA FOI MEDIDA.
+  -- O comentario anterior dizia que esta trava garantia que a data «nao foi
+  -- herdada» do `captured_at`. Nao garante, e nunca podia: o banco ve um
+  -- timestamptz, nao ve de onde ele veio. Quem copiasse o `captured_at` para
+  -- aqui passaria por esta trava sem um arranhao.
+  --
+  --     DB_PROVES_PRESENT  !=  DB_PROVES_NOT_COPIED.
+  --
+  -- A lei continua a valer — quem escreve tem de MEDIR o momento da derivacao,
+  -- e nao herda-lo. Mas ela e do WRITER, e e la que se prova, com teste.
   derived_at      timestamptz not null,
   created_at      timestamptz not null default now(),
 
@@ -132,14 +214,30 @@ create table if not exists public.derived_artifact (
     unique nulls not distinct (parent_sha256, kind, producer, producer_version,
                                parameters_hash, serie_posicao),
 
+  -- ── A COERENCIA DO PARENTESCO, DECLARATIVA ──────────────────────────
+  -- As duas colunas de pai viajam JUNTAS para `raw_asset(id, sha256)`. Se o
+  -- `raw_asset_id` for de A e o `parent_sha256` for de B, nao existe par (A,
+  -- bytes-de-B) do outro lado, e o banco recusa. Sem gatilho, e sem confiar em
+  -- quem escreve.
+  --
+  -- ON DELETE RESTRICT continua a valer: apagar um bruto que tem filhos levaria
+  -- a linhagem junto, em silencio.
+  constraint o_pai_por_id_e_o_pai_por_sha_sao_o_mesmo
+    foreign key (raw_asset_id, parent_sha256)
+    references public.raw_asset (id, sha256) on delete restrict,
+
   constraint sha256_do_filho_tem_formato
     check (sha256 ~ '^[0-9a-f]{64}$'),
   constraint sha256_do_pai_tem_formato
     check (parent_sha256 ~ '^[0-9a-f]{64}$'),
+  -- O FORMATO do hash dos parametros, e SO o formato. O banco nao sabe — nem
+  -- pode saber — se este hash corresponde ao JSON da coluna `parameters`: para
+  -- isso teria de conhecer a serializacao canonica de quem escreveu. Ver o
+  -- comentario da coluna: a autoridade e o writer, e e la que isso se prova.
+  constraint parameters_hash_tem_formato
+    check (parameters_hash ~ '^[0-9a-f]{64}$'),
 
-  -- DERIVADO NASCE DEPOIS DO BRUTO. Nao se conferem aqui as duas datas — o
-  -- `captured_at` mora noutra tabela — mas garante-se que a data existe e nao
-  -- foi herdada: quem escreve tem de a declarar.
+  -- A data tem de EXISTIR. Nada mais do que isso — ver o comentario da coluna.
   constraint derivado_declara_quando_nasceu
     check (derived_at is not null)
 );
@@ -158,9 +256,26 @@ comment on table public.derived_artifact is
   'numa POSICAO da serie.';
 
 comment on column public.derived_artifact.parent_sha256 is
-  'A linhagem verdadeira sao os BYTES do pai. O raw_asset_id diz de QUAL copia '
-  'se leu; o sha256 diz de que CONTEUDO se trata, e sobrevive a copia mudar de '
-  'caminho ou sair do armazem.';
+  'A linhagem verdadeira sao os BYTES do pai, e e este campo que entra na '
+  'identidade da derivacao — o grao e CONTEUDO POR RECEITA. Sobrevive a copia '
+  'mudar de caminho ou sair do armazem.';
+
+comment on column public.derived_artifact.raw_asset_id is
+  'DE QUAL COPIA SE LEU. E testemunha, nao identidade: quando o mesmo conteudo '
+  'foi capturado duas vezes, ha duas linhas de raw_asset com o mesmo sha256 e '
+  'esta aponta para aquela que se abriu. As outras capturas continuam inteiras '
+  'em raw_asset, com a sua corrida e o seu captured_at, e acham-se com '
+  'where sha256 = parent_sha256. Nenhuma procedencia se perde aqui.';
+
+comment on column public.derived_artifact.derived_at is
+  'Quando a derivacao aconteceu. O NOT NULL prova que ha uma data — NAO prova '
+  'que ela foi medida em vez de copiada do captured_at do pai. Essa lei e do '
+  'writer, e e la que se prova.';
+
+comment on column public.derived_artifact.parameters_hash is
+  'O banco confere o FORMATO, nao a correspondencia com o JSON ao lado: para '
+  'isso teria de conhecer a serializacao canonica de quem escreveu. A '
+  'autoridade e o writer.';
 
 comment on column public.derived_artifact.producer_version is
   'NUNCA opcional. `whisper` nao basta: `base` e `small` sobre o mesmo audio '
@@ -189,7 +304,11 @@ comment on constraint derivacao_e_unica_por_regua on public.derived_artifact is
   'ou de parametros e OUTRA derivacao, e as duas coexistem — a antiga nao se '
   'apaga porque a nova chegou.';
 
-comment on constraint derived_artifact_raw_asset_id_fkey on public.derived_artifact is
-  'ON DELETE RESTRICT, e nao CASCADE. Apagar um bruto que tem filhos levaria a '
-  'linhagem junto, em silencio. Aqui o banco recusa — a evidencia de que o '
-  'derivado existiu vale mais do que a comodidade de apagar.';
+comment on constraint o_pai_por_id_e_o_pai_por_sha_sao_o_mesmo
+  on public.derived_artifact is
+  'As duas colunas de pai viajam JUNTAS para raw_asset(id, sha256). Com chaves '
+  'separadas dava para escrever raw_asset_id de A e parent_sha256 de B, e as '
+  'duas travas passavam — foi REPRODUZIDO no Postgres antes de ser fechado. FK '
+  'EXISTIR NAO BASTA: o pai por id e o pai por sha tem de ser o mesmo pai. '
+  'E ON DELETE RESTRICT, nao CASCADE: apagar um bruto com filhos levaria a '
+  'linhagem junto, em silencio.';
