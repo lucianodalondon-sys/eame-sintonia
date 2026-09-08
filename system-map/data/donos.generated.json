@@ -1,0 +1,351 @@
+{
+ "SCHEMA": "donos/v1",
+ "O_QUE_E": "quem JA responde por cada conceito que a observabilidade vai precisar de citar. REUSE FIRST: medir antes de nomear dono novo.",
+ "O_QUE_NAO_E": "nao propoe schema, nao cria tabela, e nao diz quem DEVIA ser dono. Um censo que ja recomenda deixou de medir.",
+ "LEIS": [
+  "OWNER EXISTS != OWNER CONNECTED",
+  "ESCREVER != LER != MENCIONAR",
+  "UNKNOWN != ZERO"
+ ],
+ "CONCEITOS": 15,
+ "POR_ESTADO": {
+  "DONO_DUPLICADO": 7,
+  "DONO_E_INSTRUMENTO": 4,
+  "UM_DONO": 4
+ },
+ "DETALHE": [
+  {
+   "CONCEITO": "COLLECTION_RUN",
+   "ESTADO": "DONO_DUPLICADO",
+   "NOTA": "9 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "ESCREVEM": [
+    "coleta/regulatorio_importar.py",
+    "coleta/ropf_pre_requisito.py",
+    "guarda/catalogo_importar.py",
+    "guarda/preservar_coleta.py",
+    "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",
+    "supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql",
+    "supabase/fixtures/es_calendario_mvp.sql",
+    "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
+    "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql"
+   ],
+   "LEEM": [
+    "coleta/comunicacao_coleta.py",
+    "coleta/instagram_coleta.py",
+    "coleta/instagram_pessoal.py",
+    "coleta/italy_pilot_collect.mjs",
+    "coleta/sensor_canal_identidade.py",
+    "coleta/youtube_oficial.py",
+    "guarda/memoria_descartavel.py",
+    "guarda/portas_live.py",
+    "guarda/preservar_derivado.py",
+    "medidas/cicatrizes_brasil.py",
+    "regras/italy_pilot_guards.mjs",
+    "regras/sensor_coleta.py"
+   ],
+   "QUANTOS_LEEM": 25,
+   "INSTRUMENTOS_QUE_CITAM": 10,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "RUN_MANIFEST",
+   "ESTADO": "UM_DONO",
+   "NOTA": "um so ficheiro escreve",
+   "ESCREVEM": [
+    "leis/data_clock.py"
+   ],
+   "LEEM": [
+    "coleta/golden_path_pdf.py",
+    "ferramentas/contrato_ator.py",
+    "leis/artefato.py",
+    "medidas/padrao_da_coleta.py",
+    "medidas/portao.py",
+    "orquestrador/orquestrador.py",
+    "pedido/receitas.py",
+    "regras/proveniencia.py",
+    "regras/sensor_coleta.py"
+   ],
+   "QUANTOS_LEEM": 9,
+   "INSTRUMENTOS_QUE_CITAM": 2,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "CHECKPOINT",
+   "ESTADO": "DONO_DUPLICADO",
+   "NOTA": "2 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "ESCREVEM": [
+    "coleta/coleta_checkpoint.py",
+    "supabase/tests/regressoes_coleta.sql"
+   ],
+   "LEEM": [
+    "coleta/social_persistencia.py",
+    "coleta/social_scrap.py",
+    "coleta/youtube_oficial.py",
+    "medidas/cicatrizes_brasil.py",
+    "supabase/migrations/008_verificacao_pos_aplicacao.sql",
+    "supabase/migrations/016_checkpoint_e_unidade_analitica.sql",
+    "supabase/tests/mutacao_coleta.sql"
+   ],
+   "QUANTOS_LEEM": 7,
+   "INSTRUMENTOS_QUE_CITAM": 4,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "RAW_ASSET",
+   "ESTADO": "DONO_DUPLICADO",
+   "NOTA": "4 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "ESCREVEM": [
+    "guarda/catalogo_importar.py",
+    "guarda/memoria_descartavel.py",
+    "guarda/preservar_coleta.py",
+    "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql"
+   ],
+   "LEEM": [
+    "coleta/executor_texto_de_pdf.py",
+    "coleta/regulatorio_importar.py",
+    "coleta/social_envelope.py",
+    "coleta/social_persistencia.py",
+    "coleta/social_scrap.py",
+    "guarda/es/adama_es_gate.py",
+    "guarda/portas_live.py",
+    "guarda/preservar_derivado.py",
+    "medidas/cicatrizes_brasil.py",
+    "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
+    "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
+    "supabase/migrations/003_conteudo_documento_video_transcricao.sql"
+   ],
+   "QUANTOS_LEEM": 22,
+   "INSTRUMENTOS_QUE_CITAM": 13,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "DERIVED_ARTIFACT",
+   "ESTADO": "UM_DONO",
+   "NOTA": "um so ficheiro escreve",
+   "ESCREVEM": [
+    "guarda/preservar_derivado.py"
+   ],
+   "LEEM": [
+    "guarda/memoria_descartavel.py",
+    "guarda/portas_live.py",
+    "supabase/migrations/022_o_derivado_ganha_casa.sql"
+   ],
+   "QUANTOS_LEEM": 3,
+   "INSTRUMENTOS_QUE_CITAM": 11,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "ADMISSION",
+   "ESTADO": "DONO_DUPLICADO",
+   "NOTA": "8 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "ESCREVEM": [
+    "italia-portale/BASELINE/support.js",
+    "italia-portale/audit/acceptance.mjs",
+    "italia-portale/audit/blocks/search.js",
+    "italia-portale/audit/rtv-gate.mjs",
+    "italia-portale/client/italy-pdf.js",
+    "italia-portale/client/support.js",
+    "motor/v21_comercial.py",
+    "superficie/rede.py"
+   ],
+   "LEEM": [
+    "_gavetas.py",
+    "admissao/admissao.py",
+    "coleta/coletor.py",
+    "coleta/comunicacao_medir.py",
+    "coleta/corpus_pesquisador.py",
+    "coleta/golden_path_pdf.py",
+    "coleta/instagram_pessoal.py",
+    "coleta/rotulos_baixar.py",
+    "ferramentas/apify_contrato.py",
+    "fontes/adama_catalogo_ler.py",
+    "fontes/adama_catalogo_montar.py",
+    "guarda/catalogo_importar.py"
+   ],
+   "QUANTOS_LEEM": 80,
+   "INSTRUMENTOS_QUE_CITAM": 21,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "ORQUESTRADOR",
+   "ESTADO": "UM_DONO",
+   "NOTA": "um so ficheiro escreve",
+   "ESCREVEM": [
+    "orquestrador/orquestrador.py"
+   ],
+   "LEEM": [
+    "_gavetas.py",
+    "coleta/instagram_coleta.py",
+    "coleta/social_scrap.py",
+    "italia-portale/client/system-map/map.js",
+    "leis/artefato.py"
+   ],
+   "QUANTOS_LEEM": 5,
+   "INSTRUMENTOS_QUE_CITAM": 9,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "RECEITAS",
+   "ESTADO": "DONO_E_INSTRUMENTO",
+   "NOTA": "nenhum dono fora das gavetas de medida, e 4 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
+   "ESCREVEM": [],
+   "LEEM": [
+    "orquestrador/orquestrador.py",
+    "pacote/v21_handoff_json.py"
+   ],
+   "QUANTOS_LEEM": 2,
+   "INSTRUMENTOS_QUE_CITAM": 4,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "ROUTE_MODEL",
+   "ESTADO": "DONO_E_INSTRUMENTO",
+   "NOTA": "nenhum dono fora das gavetas de medida, e 5 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
+   "ESCREVEM": [],
+   "LEEM": [],
+   "QUANTOS_LEEM": 0,
+   "INSTRUMENTOS_QUE_CITAM": 5,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "SYSTEM_MAP",
+   "ESTADO": "DONO_E_INSTRUMENTO",
+   "NOTA": "nenhum dono fora das gavetas de medida, e 12 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
+   "ESCREVEM": [],
+   "LEEM": [
+    "italia-portale/client/system-map/map.js"
+   ],
+   "QUANTOS_LEEM": 1,
+   "INSTRUMENTOS_QUE_CITAM": 12,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "COST",
+   "ESTADO": "DONO_DUPLICADO",
+   "NOTA": "8 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "ESCREVEM": [
+    "coleta/instagram_diario.py",
+    "coleta/instagram_janela.py",
+    "coleta/youtube_oficial.py",
+    "ferramentas/apify_recuperar.py",
+    "ferramentas/instagram_transcrever.py",
+    "italia-portale/client/italy-casa.js",
+    "leis/artefato.py",
+    "regras/sensor_coleta.py"
+   ],
+   "LEEM": [
+    "candidatas/italy_fill_manifests.mjs",
+    "coleta/agrifood_ue.py",
+    "coleta/coletor.py",
+    "coleta/comunicacao_classificar.py",
+    "coleta/comunicacao_coleta.py",
+    "coleta/comunicacao_medir.py",
+    "coleta/instagram_coleta.py",
+    "coleta/preservar_pdf.py",
+    "coleta/social_scrap.py",
+    "coleta/texto_fonte.py",
+    "coleta/universo_ciencia_it.py",
+    "coleta/youtube_janela.py"
+   ],
+   "QUANTOS_LEEM": 40,
+   "INSTRUMENTOS_QUE_CITAM": 9,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "ERRORS",
+   "ESTADO": "DONO_E_INSTRUMENTO",
+   "NOTA": "nenhum dono fora das gavetas de medida, e 12 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
+   "ESCREVEM": [],
+   "LEEM": [
+    "candidatas/italy_fix_semantics.mjs",
+    "coleta/comunicacao_coleta.py",
+    "coleta/comunicacao_medir.py",
+    "coleta/instagram_coleta.py",
+    "coleta/instagram_janela.py",
+    "coleta/italy_pilot_collect.mjs",
+    "coleta/italy_probe.mjs",
+    "coleta/italy_recurrent_collect.mjs",
+    "coleta/social_rotas.py",
+    "coleta/speaker_universo.py",
+    "coleta/universo_ciencia_it.py",
+    "coleta/youtube_oficial.py"
+   ],
+   "QUANTOS_LEEM": 51,
+   "INSTRUMENTOS_QUE_CITAM": 12,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "COUNTS",
+   "ESTADO": "DONO_DUPLICADO",
+   "NOTA": "5 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "ESCREVEM": [
+    "coleta/italy_pilot_collect.mjs",
+    "italia-portale/audit/blocks/science.js",
+    "italia-portale/audit/casco/censo-precedenza.mjs",
+    "italia-portale/client/italy-app-model.js",
+    "regras/italy_pilot_guards.mjs"
+   ],
+   "LEEM": [
+    "candidatas/italy_fill_manifests_browser.mjs",
+    "candidatas/italy_update_master_browser.mjs",
+    "coleta/coletor.py",
+    "coleta/comunicacao_classificar.py",
+    "coleta/comunicacao_coleta.py",
+    "coleta/comunicacao_medir.py",
+    "coleta/executor_texto_de_pdf.py",
+    "coleta/golden_path_pdf.py",
+    "coleta/instagram_coleta.py",
+    "coleta/instagram_diario.py",
+    "coleta/instagram_janela.py",
+    "coleta/instagram_pessoal.py"
+   ],
+   "QUANTOS_LEEM": 98,
+   "INSTRUMENTOS_QUE_CITAM": 38,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "HISTORY",
+   "ESTADO": "UM_DONO",
+   "NOTA": "um so ficheiro escreve",
+   "ESCREVEM": [
+    "medidas/padrao_da_coleta.py"
+   ],
+   "LEEM": [
+    "coleta/italy_pilot_collect.mjs",
+    "regras/italy_pilot_guards.mjs"
+   ],
+   "QUANTOS_LEEM": 2,
+   "INSTRUMENTOS_QUE_CITAM": 5,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  },
+  {
+   "CONCEITO": "DURATION",
+   "ESTADO": "DONO_DUPLICADO",
+   "NOTA": "5 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "ESCREVEM": [
+    "coleta/instagram_janela.py",
+    "italia-portale/BASELINE/italy-demo-data.js",
+    "italia-portale/client/italy-demo-data.js",
+    "italia-portale/client/vendor/d3-7.9.0.min.js",
+    "italia-portale/client/vendor/jspdf-2.5.2.umd.min.js"
+   ],
+   "LEEM": [
+    "coleta/instagram_coleta.py",
+    "coleta/italy_probe.mjs",
+    "coleta/italy_recurrent_collect.mjs",
+    "coleta/youtube_janela.py",
+    "coleta/youtube_oficial.py",
+    "coleta/youtube_relevancia.py",
+    "ferramentas/instagram_transcrever.py",
+    "ferramentas/youtube_transcrever.py",
+    "italia-portale/BASELINE/support.js",
+    "italia-portale/audit/blocks/calendar.js",
+    "italia-portale/audit/blocks/competitor.js",
+    "italia-portale/client/italy-app-model.js"
+   ],
+   "QUANTOS_LEEM": 20,
+   "INSTRUMENTOS_QUE_CITAM": 2,
+   "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
+  }
+ ]
+}
