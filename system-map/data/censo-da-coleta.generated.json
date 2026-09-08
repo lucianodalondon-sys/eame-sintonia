@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
+    "HEAD": "6f9456eb8d22ac3ab85c460e18acc264f9d06195",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -14,24 +14,6 @@
     ]
   },
   "FICHEIROS": [
-    {
-      "ficheiro": "pedido/orquestrador.py",
-      "gaveta": "pedido",
-      "linhas": 322,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [
-        "YOUTUBE"
-      ],
-      "ferramentas": [],
-      "descarta": true,
-      "escreve_o_motivo_do_descarte": true,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": true,
-      "chamado_por": [],
-      "no_ci": true
-    },
     {
       "ficheiro": "pedido/pedido.py",
       "gaveta": "pedido",
@@ -46,7 +28,6 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
-        "pedido/orquestrador.py",
         "pedido/receitas.py"
       ],
       "no_ci": false
@@ -71,9 +52,7 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [
-        "pedido/orquestrador.py"
-      ],
+      "chamado_por": [],
       "no_ci": false
     },
     {
@@ -1548,7 +1527,7 @@
     {
       "ficheiro": "regras/sensor_coleta.py",
       "gaveta": "regras",
-      "linhas": 884,
+      "linhas": 966,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -1571,7 +1550,7 @@
     {
       "ficheiro": "regras/sensor_medir.py",
       "gaveta": "regras",
-      "linhas": 437,
+      "linhas": 552,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1596,7 +1575,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 262,
+      "linhas": 345,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1611,9 +1590,7 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [
-        "pedido/orquestrador.py"
-      ],
+      "chamado_por": [],
       "no_ci": false
     },
     {
@@ -1716,20 +1693,19 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 88,
-    "pontos_de_entrada": 75,
+    "ficheiros_de_codigo": 87,
+    "pontos_de_entrada": 74,
     "executores_que_saem_para_fora": 18,
-    "sem_chamador_e_fora_do_ci": 44,
+    "sem_chamador_e_fora_do_ci": 46,
     "gravam_no_banco": 1,
-    "escrevem_ficheiro": 64,
-    "deitam_fora_alguma_coisa": 19,
+    "escrevem_ficheiro": 63,
+    "deitam_fora_alguma_coisa": 18,
     "deitam_fora_SEM_escrever_o_motivo": 1,
     "ficheiros_com_decisao_escondida": 2,
     "decisoes_escondidas_ao_todo": 2
   },
   "LISTAS": {
     "pontos_de_entrada": [
-      "pedido/orquestrador.py",
       "pedido/pedido.py",
       "pedido/receitas.py",
       "candidatas/fonte_nova.py",
@@ -1826,6 +1802,7 @@
       "regras/sensor_coleta.py"
     ],
     "orfaos": [
+      "pedido/receitas.py",
       "candidatas/fonte_nova.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
@@ -1866,6 +1843,7 @@
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
       "regras/rotulos_censo.py",
+      "admissao/admissao.py",
       "guarda/es/adama_es_gate.py",
       "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",
