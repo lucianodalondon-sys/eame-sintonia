@@ -1019,7 +1019,9 @@
       "medidas/PADRAO-DA-COLETA-CHAO.json",
       "medidas/PORTOES-DE-COLETA-10B.md",
       "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md",
+      "medidas/banco_no_seco.py",
       "medidas/cicatrizes_brasil.py",
+      "medidas/corrida_instrumentada.py",
       "medidas/fato_local.py",
       "medidas/lugar_do_fato.py",
       "medidas/padrao_da_coleta.py",
@@ -1117,6 +1119,7 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/o_executor_conta_se.py",
       "provas/o_mapa_nao_mente.py",
       "provas/paridade_da_lingua.py",
       "provas/preflight_022_live.sh",
@@ -1289,6 +1292,7 @@
       "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
       "system-map/data/architecture.declared.json",
       "system-map/data/estradas-it.model.json",
+      "system-map/data/provas-de-execucao.json",
       "system-map/scripts/censo_da_coleta.py",
       "system-map/scripts/censo_da_observabilidade.py",
       "system-map/scripts/censo_das_derivacoes.py",
@@ -1298,6 +1302,7 @@
       "system-map/scripts/censo_do_congelamento.py",
       "system-map/scripts/censo_do_corpus_it.py",
       "system-map/scripts/censo_dos_donos.py",
+      "system-map/scripts/censo_dos_executores.py",
       "system-map/scripts/censo_semantico_it.py",
       "system-map/scripts/generate_system_map.py",
       "system-map/scripts/mudar_gaveta.py",
@@ -1340,6 +1345,7 @@
       "tests/test_estradas_it.py",
       "tests/test_evidence.py",
       "tests/test_evolucao.py",
+      "tests/test_execucao_standalone.py",
       "tests/test_falhas.py",
       "tests/test_fundacao_da_coleta.py",
       "tests/test_gestao_da_coleta.py",
@@ -1353,6 +1359,7 @@
       "tests/test_metricas.py",
       "tests/test_migrations.py",
       "tests/test_navegador.py",
+      "tests/test_o9_caminho_instrumentado.py",
       "tests/test_observabilidade.py",
       "tests/test_observabilidade_estrada.py",
       "tests/test_operacao.py",
@@ -1767,8 +1774,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "105602f662337d8deac7bca1a3da4abeff75889d",
-    "GENERATED_AT": "2026-09-08T18:43:50-03:00"
+    "HEAD": "2af57a41a2da1a9e31863258cf2a658878cd49d7",
+    "GENERATED_AT": "2026-09-08T22:18:43+00:00"
   },
   "FAMILIES": [
     {
@@ -1794,7 +1801,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 45
+      "count": 47
     },
     {
       "id": "F-ESPERA",
@@ -2034,7 +2041,7 @@
       "y": 190,
       "w": 820,
       "h": 3260,
-      "count": 10
+      "count": 12
     },
     {
       "id": "Z-GUARDA",
@@ -5603,26 +5610,43 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "◌",
       "views": [
         "audit"
       ],
       "lane": "official",
       "family": "F-COLETA",
-      "files": [],
-      "file_count": 0,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta rastreado pelo Git; o scanner le `git ls-files`, por isso ele nao entra no inventario e nada se prova sobre esta peca ainda. Conserto: `git add medidas/banco_no_seco.py` e regerar. ISTO NAO E «nao existe».",
+      "files": [
+        "medidas/banco_no_seco.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
-      "outbound": [],
+      "inbound": [
+        "C-SUPABASE"
+      ],
+      "outbound": [
+        "C-PROVA-EXECUTOR-CONTA"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "PARCELAS"
+        ],
+        "palavras": 6,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 6,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -6131,6 +6155,71 @@
       "y": 682
     },
     {
+      "id": "C-CENSO-EXECUTORES",
+      "name": "Censo dos executores e cobertura O10",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Mede por AST as 4 gavetas de executores — rede, custo, producao, etapas nomeadas, input preservado — e cruza com o ledger de provas para dizer quem JA correu deixando rastro. Produz a matriz de cobertura de 14 dimensoes e o veredito para a M2.",
+      "why_here": "CAN DO != DID DO. Ler o codigo prova CAPACIDADE; INSTRUMENTED exige as duas provas, a boa e a quebrada, e elas vem do ledger e nao deste censo. Hoje 1 de 54 — e o mapa nao promove a casa por causa de um caso.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "▦",
+      "views": [
+        "audit",
+        "coverage"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "system-map/data/provas-de-execucao.json",
+        "system-map/scripts/censo_dos_executores.py"
+      ],
+      "file_count": 2,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "DIMENSOES",
+          "ETAPAS",
+          "REDE"
+        ],
+        "palavras": 31,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 31,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "system-map",
+          "prova": {
+            "file": "system-map/scripts/censo_dos_executores.py",
+            "line": 318,
+            "snippet": "escreve em destino"
+          }
+        }
+      ],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 9650,
+      "y": 360
+    },
+    {
       "id": "C-CENSO-IDENTIDADE-IT",
       "name": "Censo de identidade do artefato",
       "territory": "Z-PROVA",
@@ -6217,6 +6306,7 @@
         "C-EVOLUCAO",
         "C-GESTAO-DA-COLETA",
         "C-PROVA-COLETA",
+        "C-PROVA-EXECUTOR-CONTA",
         "C-SCRAP-LEIS"
       ],
       "outbound": [
@@ -6242,8 +6332,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9650,
-      "y": 360
+      "x": 9235,
+      "y": 682
     },
     {
       "id": "C-CENSO-SEMANTICO-IT",
@@ -6606,7 +6696,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 9235,
+      "x": 9650,
       "y": 682
     },
     {
@@ -7024,8 +7114,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9650,
-      "y": 682
+      "x": 9235,
+      "y": 1004
     },
     {
       "id": "C-CONTRATO-TELEMETRIA",
@@ -7062,6 +7152,7 @@
       "outbound": [
         "C-CENSO-OBSERVABILIDADE",
         "C-FLUXO-NO-SECO",
+        "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
         "C-RASTRO",
         "C-RELATORIO-FLUXO",
@@ -7799,9 +7890,11 @@
       "outbound": [
         "C-CENSO-DERIVACOES",
         "C-ESTRADA-PDF",
+        "C-FRONTEIRA-TELEMETRIA",
         "C-IT-TEXTO-DERIVADO",
         "C-MAPA-GERADOR",
         "C-PROVA-COLETA",
+        "C-PROVA-EXECUTOR-CONTA",
         "C-TESTES"
       ],
       "paises": {},
@@ -8000,6 +8093,57 @@
       "y": 1326
     },
     {
+      "id": "C-FRONTEIRA-TELEMETRIA",
+      "name": "A fronteira instrumentada",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "O ponto de entrada instrumentado: abre a corrida, passa o banco pela costura do executor e cobre o caso em que ele MORRE antes de emitir. NAO traduz o recibo — quem traduz e quem sabe, dentro do executor.",
+      "why_here": "Duas sessoes fizeram O9 em paralelo e escolheram o mesmo executor; divergiram em ONDE a traducao vive. Duas traducoes do mesmo recibo seriam dois donos da mesma pergunta — o pecado de O8C um andar acima. A traducao ficou onde a informacao nasce; a fronteira ficou com o que o executor nao pode ter: o ciclo da corrida e a linha que se escreve quando ele ja nao esta vivo para a escrever.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊸",
+      "views": [
+        "audit",
+        "diagnostic",
+        "trace"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "medidas/corrida_instrumentada.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CONTRATO-TELEMETRIA",
+        "C-EXECUTOR-TEXTO-PDF",
+        "C-GESTAO-COLETA",
+        "C-RASTRO",
+        "C-SCRAP-LEIS"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 9650,
+      "y": 1004
+    },
+    {
       "id": "C-GESTAO-COLETA",
       "name": "Politica da coleta e roteamento de diagnostico",
       "territory": "Z-REGUAS",
@@ -8036,6 +8180,7 @@
       ],
       "outbound": [
         "C-CONTRATO-TELEMETRIA",
+        "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
         "C-RASTRO",
         "C-TESTES"
@@ -9136,7 +9281,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 9235,
-      "y": 1004
+      "y": 1326
     },
     {
       "id": "C-LUGAR-DO-FATO",
@@ -9971,7 +10116,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 9650,
-      "y": 1004
+      "y": 1326
     },
     {
       "id": "C-PALAVRAS",
@@ -10794,7 +10939,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "⊢",
       "views": [
         "audit",
@@ -10802,14 +10947,22 @@
       ],
       "lane": "official",
       "family": "F-INTELIGENCIA",
-      "files": [],
-      "file_count": 0,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta rastreado pelo Git; o scanner le `git ls-files`, por isso ele nao entra no inventario e nada se prova sobre esta peca ainda. Conserto: `git add provas/o_executor_conta_se.py` e regerar. ISTO NAO E «nao existe».",
+      "files": [
+        "provas/o_executor_conta_se.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
-      "outbound": [],
+      "inbound": [
+        "C-BANCO-NO-SECO",
+        "C-EXECUTOR-TEXTO-PDF",
+        "C-RASTRO"
+      ],
+      "outbound": [
+        "C-CENSO-OBSERVABILIDADE"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -11077,7 +11230,9 @@
       "outbound": [
         "C-CI-PERSIST",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
+        "C-PROVA-EXECUTOR-CONTA",
         "C-TESTES"
       ],
       "paises": {},
@@ -11105,13 +11260,13 @@
         {
           "onde": "SUPABASE",
           "file": "medidas/scanner_da_coleta.py",
-          "line": 135,
+          "line": 140,
           "snippet": "dsn = os.environ.get('BANCO_DESCARTAVEL_URL') or os.environ.get('SUPABASE_DB_URL')"
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit).",
       "x": 9235,
-      "y": 1326
+      "y": 1648
     },
     {
       "id": "C-RECALL-PORTA-IT",
@@ -11398,7 +11553,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 9650,
-      "y": 1326
+      "y": 1648
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -11451,7 +11606,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 9235,
-      "y": 1648
+      "y": 1970
     },
     {
       "id": "C-RELEVANCIA",
@@ -11728,7 +11883,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 9650,
-      "y": 1648
+      "y": 1970
     },
     {
       "id": "C-SCRAP-GUARDA",
@@ -11833,6 +11988,7 @@
         "C-CENSO-OBSERVABILIDADE",
         "C-CONTRATO-TELEMETRIA",
         "C-ESTRADAS-IT",
+        "C-FRONTEIRA-TELEMETRIA",
         "C-GESTAO-COLETA",
         "C-PROVA-COLETA",
         "C-RASTRO",
@@ -12189,6 +12345,7 @@
       ],
       "outbound": [
         "C-ADAMA-ES",
+        "C-BANCO-NO-SECO",
         "C-CADEIA-V21",
         "C-CI-PERSIST",
         "C-CI-REGRESSAO",
@@ -13316,6 +13473,7 @@
         "tests/test_estradas_it.py",
         "tests/test_evidence.py",
         "tests/test_evolucao.py",
+        "tests/test_execucao_standalone.py",
         "tests/test_falhas.py",
         "tests/test_fundacao_da_coleta.py",
         "tests/test_gestao_da_coleta.py",
@@ -13329,6 +13487,7 @@
         "tests/test_metricas.py",
         "tests/test_migrations.py",
         "tests/test_navegador.py",
+        "tests/test_o9_caminho_instrumentado.py",
         "tests/test_observabilidade.py",
         "tests/test_observabilidade_estrada.py",
         "tests/test_operacao.py",
@@ -13362,9 +13521,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 64,
+      "file_count": 66,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 24 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 26 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -13403,6 +13562,7 @@
         "C-EXECUTOR-TEXTO-PDF",
         "C-FLUXO-NO-SECO",
         "C-FONTES-EU",
+        "C-FRONTEIRA-TELEMETRIA",
         "C-GESTAO-COLETA",
         "C-GESTAO-DA-COLETA",
         "C-IDENTIDADE",
@@ -13471,6 +13631,7 @@
           "ESCRITORES",
           "ESTADOS",
           "EV",
+          "EXECUTAVEIS",
           "FORTE",
           "HISTORICOS",
           "LINHA_BOA",
@@ -13483,11 +13644,11 @@
           "SINAL_VENETO",
           "_GAVETA_DE"
         ],
-        "palavras": 326,
+        "palavras": 334,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 324,
+        "sem_marca_de_lingua": 332,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15082,7 +15243,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 105602f662337d8deac7bca1a3da4abeff75889d"
+        "HEAD 2af57a41a2da1a9e31863258cf2a658878cd49d7"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -15710,6 +15871,24 @@
           "file": "tests/test_aprender_com_a_fonte.py",
           "line": 14,
           "snippet": "import aprender_com_a_fonte as a  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-APRENDER-COM-A-FONTE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da aprendizagem sobre a fonte alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_execucao_standalone.py",
+          "line": 31,
+          "snippet": "'leis/aprender_com_a_fonte.py',"
         }
       ],
       "categoria": "PROOF"
@@ -16736,6 +16915,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-BANCO-NO-SECO",
+      "to": "C-PROVA-EXECUTOR-CONTA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O banco a seco tem o seu codigo importado por A prova de que o executor se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_executor_conta_se.py",
+          "line": 36,
+          "snippet": "import banco_no_seco as bs          # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-BIBLIA",
@@ -18155,12 +18352,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_coleta_resiliente.py",
           "line": 20,
           "snippet": "import coleta_checkpoint as C    # noqa: E402"
+        },
+        {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 22,
+          "snippet": "import coleta_checkpoint as cc      # noqa: E402"
         },
         {
           "file": "tests/test_rastro_pg.py",
@@ -18504,6 +18706,24 @@
     },
     {
       "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-FRONTEIRA-TELEMETRIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por A fronteira instrumentada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/corrida_instrumentada.py",
+          "line": 61,
+          "snippet": "import telemetria as tel           # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
       "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -18564,11 +18784,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_lingua_unica.py",
           "line": 24,
+          "snippet": "import telemetria as tel            # noqa: E402"
+        },
+        {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 27,
           "snippet": "import telemetria as tel            # noqa: E402"
         },
         {
@@ -18587,8 +18812,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Contrato da telemetria — a forma do fluxo alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_execucao_standalone.py",
+          "line": 25,
+          "snippet": "'leis/telemetria.py',"
+        },
         {
           "file": "tests/test_lingua_unica.py",
           "line": 56,
@@ -19145,6 +19375,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-EVOLUCAO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da evolução alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_execucao_standalone.py",
+          "line": 30,
+          "snippet": "'leis/evolucao.py',"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-EXECUTOR-TEXTO-PDF",
       "to": "C-CENSO-DERIVACOES",
       "type": "READS",
@@ -19179,6 +19427,42 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-FRONTEIRA-TELEMETRIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por A fronteira instrumentada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/corrida_instrumentada.py",
+          "line": 105,
+          "snippet": "import executor_texto_de_pdf as ex"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-FRONTEIRA-TELEMETRIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF alimenta A fronteira instrumentada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/corrida_instrumentada.py",
+          "line": 123,
+          "snippet": "actor='coleta/executor_texto_de_pdf.py',"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-EXECUTOR-TEXTO-PDF",
@@ -19253,14 +19537,37 @@
     },
     {
       "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-PROVA-EXECUTOR-CONTA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por A prova de que o executor se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_executor_conta_se.py",
+          "line": 38,
+          "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 58,
+          "snippet": "import executor_texto_de_pdf as ex"
+        },
         {
           "file": "tests/test_red_team_estrada.py",
           "line": 30,
@@ -19277,8 +19584,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Executor · texto a partir de PDF alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 79,
+          "snippet": "'EXECUTOR_ID': 'coleta/executor_texto_de_pdf.py',"
+        },
         {
           "file": "tests/test_preservar_derivado.py",
           "line": 514,
@@ -19432,6 +19744,42 @@
       "categoria": "CODE"
     },
     {
+      "from": "C-FRONTEIRA-TELEMETRIA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira instrumentada tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 23,
+          "snippet": "import corrida_instrumentada as run # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-FRONTEIRA-TELEMETRIA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira instrumentada alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 526,
+          "snippet": "open(caminho, 'leitura')  # caminho = medidas/corrida_instrumentada.py"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-GESTAO-COLETA",
       "to": "C-CONTRATO-TELEMETRIA",
       "type": "IMPORTS",
@@ -19443,8 +19791,26 @@
       "evidence": [
         {
           "file": "leis/telemetria.py",
-          "line": 60,
+          "line": 70,
           "snippet": "import diagnostico as dg   # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-GESTAO-COLETA",
+      "to": "C-FRONTEIRA-TELEMETRIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por A fronteira instrumentada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/corrida_instrumentada.py",
+          "line": 58,
+          "snippet": "import diagnostico as dg           # noqa: E402"
         }
       ],
       "categoria": "RULE"
@@ -19498,11 +19864,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_lingua_unica.py",
           "line": 23,
+          "snippet": "import diagnostico as dg            # noqa: E402"
+        },
+        {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 24,
           "snippet": "import diagnostico as dg            # noqa: E402"
         },
         {
@@ -19526,8 +19897,18 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Politica da coleta e roteamento de diagnostico alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_execucao_standalone.py",
+          "line": 26,
+          "snippet": "'leis/diagnostico.py',"
+        },
+        {
+          "file": "tests/test_execucao_standalone.py",
+          "line": 28,
+          "snippet": "'leis/politica_da_coleta.py',"
+        },
         {
           "file": "tests/test_politica_da_coleta.py",
           "line": 28,
@@ -19586,6 +19967,24 @@
           "file": "tests/test_gestao_da_coleta.py",
           "line": 17,
           "snippet": "import gestao_da_coleta as g  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-GESTAO-DA-COLETA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da gestão da coleta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_execucao_standalone.py",
+          "line": 29,
+          "snippet": "'leis/gestao_da_coleta.py',"
         }
       ],
       "categoria": "PROOF"
@@ -22484,11 +22883,21 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_execucao_standalone.py",
+          "line": 32,
+          "snippet": "'provas/paridade_da_lingua.py',"
+        },
         {
           "file": "tests/test_lingua_unica.py",
           "line": 244,
+          "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
+        },
+        {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 648,
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
         },
         {
@@ -22498,6 +22907,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-EXECUTOR-CONTA",
+      "to": "C-CENSO-OBSERVABILIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o executor se conta alimenta Censo da observabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_da_observabilidade.py",
+          "line": 178,
+          "snippet": "'ONDE_SE_VE': 'provas/o_executor_conta_se.py',"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-PROVA-MAPA-NAO-MENTE",
@@ -22647,8 +23074,26 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
-          "line": 275,
+          "line": 276,
           "snippet": "import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RASTRO",
+      "to": "C-FRONTEIRA-TELEMETRIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por A fronteira instrumentada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/corrida_instrumentada.py",
+          "line": 60,
+          "snippet": "import rastro_da_coleta as rastro  # noqa: E402"
         }
       ],
       "categoria": "RULE"
@@ -22673,18 +23118,46 @@
     },
     {
       "from": "C-RASTRO",
+      "to": "C-PROVA-EXECUTOR-CONTA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por A prova de que o executor se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_executor_conta_se.py",
+          "line": 37,
+          "snippet": "import rastro_da_coleta as rastro   # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RASTRO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_lingua_unica.py",
           "line": 25,
           "snippet": "import rastro_da_coleta as rastro   # noqa: E402"
+        },
+        {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 26,
+          "snippet": "import rastro_da_coleta as rastro   # noqa: E402"
+        },
+        {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 450,
+          "snippet": "import scanner_da_coleta as sc"
         },
         {
           "file": "tests/test_politica_da_coleta.py",
@@ -23178,7 +23651,7 @@
       "evidence": [
         {
           "file": "medidas/rastro_da_coleta.py",
-          "line": 151,
+          "line": 158,
           "snippet": "import social_sessao as ss"
         }
       ],
@@ -23339,7 +23812,7 @@
       "evidence": [
         {
           "file": "leis/telemetria.py",
-          "line": 59,
+          "line": 69,
           "snippet": "import falhas     # noqa: E402"
         }
       ],
@@ -23387,6 +23860,24 @@
           "file": "system-map/scripts/censo_das_estradas_it.py",
           "line": 841,
           "snippet": "'MATRIZ': 'leis/social_matriz.py',"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
+      "to": "C-FRONTEIRA-TELEMETRIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por A fronteira instrumentada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/corrida_instrumentada.py",
+          "line": 59,
+          "snippet": "import falhas                      # noqa: E402"
         }
       ],
       "categoria": "RULE"
@@ -23514,7 +24005,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 16 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_falhas.py",
@@ -23534,6 +24025,11 @@
         {
           "file": "tests/test_lingua_unica.py",
           "line": 22,
+          "snippet": "import falhas                       # noqa: E402"
+        },
+        {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 25,
           "snippet": "import falhas                       # noqa: E402"
         },
         {
@@ -23570,11 +24066,6 @@
           "file": "tests/test_youtube_antidrift.py",
           "line": 20,
           "snippet": "import falhas                     # noqa: E402"
-        },
-        {
-          "file": "tests/test_youtube_antidrift.py",
-          "line": 21,
-          "snippet": "import social_matriz as mz        # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -23587,8 +24078,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_execucao_standalone.py",
+          "line": 27,
+          "snippet": "'leis/falhas.py',"
+        },
         {
           "file": "tests/test_observabilidade.py",
           "line": 87,
@@ -23961,6 +24457,24 @@
           "file": "guarda/es/workflows/adama-es-gate.yml",
           "line": 125,
           "snippet": "psql \"$PGURL\" -f supabase/tests/regressoes_captura.sql 2>&1 | tail -3"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-SUPABASE",
+      "to": "C-BANCO-NO-SECO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O banco onde o dado fica guardado alimenta O banco a seco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/banco_no_seco.py",
+          "line": 157,
+          "snippet": "open(MIGRATION, 'leitura')  # MIGRATION = supabase/migrations/024_a_corrida_conta_o_que_passou.sql"
         }
       ],
       "categoria": "READ"
@@ -25799,17 +26313,17 @@
   "UNCLAIMED_FILES_COUNT": 697,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 135,
+    "components": 137,
     "components_proven": 70,
-    "components_pending": 56,
+    "components_pending": 59,
     "components_broken": 0,
-    "components_unknown": 9,
-    "edges": 480,
-    "edges_proven": 478,
+    "components_unknown": 8,
+    "edges": 496,
+    "edges_proven": 494,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1321,
-    "files_covered": 624,
+    "files_tracked": 1328,
+    "files_covered": 631,
     "files_code_unclaimed": 0
   }
 }

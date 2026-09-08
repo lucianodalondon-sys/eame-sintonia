@@ -1,0 +1,26 @@
+{
+ "SCHEMA": "provas-de-execucao/v1",
+ "O_QUE_ISTO_E": "O ledger que separa CAN DO de DID DO. O censo dos executores le o codigo e sabe quem CONSEGUE emitir telemetria; so este ficheiro diz quem JA CORREU e deixou rastro. Uma linha aqui aponta para a prova que a sustenta — ela nao substitui a prova.",
+ "PORQUE_NAO_E_MEDIDO_AUTOMATICAMENTE": "correr todos os executores para descobrir quais deixam rastro exigiria rede, API paga e producao. O ledger e a fronteira honesta: o que se pode medir no codigo e medido; o que exige execucao entra aqui com o nome da prova que o provou.",
+ "PROVADOS": {
+  "coleta/executor_texto_de_pdf.py": {
+   "GOOD_PATH_PROVED": true,
+   "FAULT_PATH_PROVED": true,
+   "PROVA": "tests/test_o9_caminho_instrumentado.py",
+   "FRONTEIRA": "medidas/corrida_instrumentada.py",
+   "EXECUTOR_MODIFICADO": false,
+   "ETAPAS_OBSERVADAS": ["RAW", "DERIVED"],
+   "INPUT": "49 PDF italianos preservados em data/collection-store e data/samples",
+   "REDE": false,
+   "PAGO": false,
+   "PRODUCAO": false,
+   "GOOD_PATH": "RAW 49 -> 43 PASSED + 6 REUSED · DERIVED 43 -> 43 PASSED · UNACCOUNTED 0",
+   "FAULT_PATH": "pdftotext fora do PATH · RAW PASS · DERIVED FAIL · 43 ERROR · EXECUTOR_UNAVAILABLE + DERIVATION_FAILED · LAST_GOOD RAW · RETRY_FROM DERIVED",
+   "RESUME_SAFE": "RESUME_SAFE",
+   "PORQUE_RESUME_SAFE": "a derivacao e idempotente por (parent_sha256, executor, pipeline): repetir devolve REUSED e nao cria artefato novo. Medido, e nao presumido.",
+   "CHECKPOINT": "NOT_APPLICABLE",
+   "PORQUE_SEM_CHECKPOINT": "este caminho le um armazem local inteiro a cada corrida; nao ha janela nem cursor que avance. Inventar um checkpoint aqui seria mobilia sem uso.",
+   "COST": "0.0 USD medido, COST_CLASS=LOCAL. E zero MEDIDO, e nao zero por omissao."
+  }
+ }
+}

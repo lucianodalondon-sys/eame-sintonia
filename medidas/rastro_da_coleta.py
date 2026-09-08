@@ -105,6 +105,13 @@ def registrar(banco, *, run_id, etapa, estado, edge_from=None, tentativa=0,
         diagnostic_code = dg.da_etapa(etapa, canonical_state)
     if diagnostic_code:
         assert dg.valido(diagnostic_code), 'codigo fora do registry: %s' % diagnostic_code
+    # ⚠️ O ESTADO CANONICO TAMBEM TEM DONO, E ELE E `falhas.py`.
+    # Sem esta trava, um emissor escreveu `canonical_state='ERROR'` — que e um
+    # DESTINO DE ITEM, nao um estado de falha — e a linha entrou calada. O
+    # leitor via um estado que o dono nunca declarou.
+    if canonical_state is not None:
+        assert canonical_state in falhas.ESTADOS, (
+            'estado canonico fora de falhas.py: %s' % canonical_state)
     if input_count is not None and not input_grain:
         raise ValueError('%s: ha contagem de entrada sem GRAO declarado. '
                          'Contagem sem grao nao se compara com contagem.' % etapa)
@@ -164,7 +171,10 @@ def passagens(banco, *, run_id):
         " coalesce(output_grain,'-'), coalesce(output_count,-1),"
         " passed, rejected, error_count, not_run_count, unknown_count, reused,"
         " accounted_input, unaccounted_input,"
-        " coalesce(diagnostic_code,'-'), coalesce(last_good_artifact,'-'),"
+        " coalesce(diagnostic_code,'-'), coalesce(canonical_state,'-'),"
+        " coalesce(error_class,'-'), coalesce(error_message_redacted,'-'),"
+        " coalesce(actor,'-'), coalesce(actor_version,'-'),"
+        " coalesce(last_good_artifact,'-'),"
         " coalesce(duracao_ms,0), coalesce(custo_usd,0), tentativa, '#'"
         " from public.etapa_da_corrida where run_id = %s"
         " order by tentativa, id" % _lit(run_id))
@@ -173,6 +183,14 @@ def passagens(banco, *, run_id):
               'OUTPUT_GRAIN', 'OUTPUT_COUNT',
               'PASSED', 'REJECTED', 'ERROR', 'NOT_RUN', 'UNKNOWN', 'REUSED',
               'ACCOUNTED', 'UNACCOUNTED', 'DIAGNOSTIC_CODE',
+              # ⚠️ O SNAPSHOT PRECISA DAS DUAS RESPOSTAS, E DE QUEM CORREU.
+              # Ate O9 o leitor devolvia so o DIAGNOSTIC_CODE: o writer
+              # guardava o estado canonico, o actor e a versao, e ninguem os
+              # conseguia ler de volta. Um retrato da falha a que falta «qual
+              # versao do actor» nao responde a pergunta que se faz as tres da
+              # manha.
+              'CANONICAL_STATE', 'ERROR_CLASS', 'ERROR_MESSAGE',
+              'ACTOR', 'ACTOR_VERSION',
               'LAST_GOOD_ARTIFACT', 'DURACAO_MS', 'CUSTO_USD', 'TENTATIVA')
     saida = []
     for l in linhas:
@@ -181,7 +199,8 @@ def passagens(banco, *, run_id):
                   ('ACCOUNTED', 'UNACCOUNTED', 'DURACAO_MS', 'TENTATIVA')):
             d[k] = int(d[k])
         for k in ('EDGE_FROM', 'INPUT_GRAIN', 'OUTPUT_GRAIN', 'DIAGNOSTIC_CODE',
-                  'LAST_GOOD_ARTIFACT'):
+                  'CANONICAL_STATE', 'ERROR_CLASS', 'ERROR_MESSAGE', 'ACTOR',
+                  'ACTOR_VERSION', 'LAST_GOOD_ARTIFACT'):
             d[k] = None if d[k] == '-' else d[k]
         for k in ('INPUT_COUNT', 'OUTPUT_COUNT'):
             d[k] = None if d[k] == -1 else d[k]

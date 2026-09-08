@@ -84,18 +84,23 @@ def imprimir(rel):
         print('  e uma corrida que ninguem mediu.')
         return
     print()
-    print('  %-11s %-9s %-11s %6s %-11s %6s  %5s %5s %5s %5s  %4s'
+    print('  %-11s %-9s %-11s %6s %-11s %6s  %5s %5s %5s %5s %5s %5s  %4s'
           % ('ETAPA', 'ESTADO', 'GRAO-IN', 'IN', 'GRAO-OUT', 'OUT',
-             'PASS', 'REJ', 'UNK', 'ERR', 'S/EX'))
-    print('  ' + '-' * 96)
+             'PASS', 'REJ', 'ERR', 'N/RUN', 'UNK', 'REUSE', 'S/EX'))
+    print('  ' + '-' * 108)
     for p in rel['PASSAGENS']:
-        print('  %-11s %-9s %-11s %6s %-11s %6s  %5d %5d %5d %5d  %4d'
+        # ⚠️ UMA COLUNA POR DESTINO, E TODAS. A primeira versao mostrava
+        # quatro das seis, e escondia REUSED: uma corrida com 43 reencontros
+        # aparecia como «43 entram, 0 saem, nada em lado nenhum» — a conta
+        # fechava e o ecra dizia o contrario. Um mostrador que esconde um
+        # balde e pior do que nao ter mostrador.
+        print('  %-11s %-9s %-11s %6s %-11s %6s  %5d %5d %5d %5d %5d %5d  %4d'
               % (p['ETAPA'], p['ESTADO'], p['INPUT_GRAIN'] or '—',
                  p['INPUT_COUNT'] if p['INPUT_COUNT'] is not None else '—',
                  p['OUTPUT_GRAIN'] or '—',
                  p['OUTPUT_COUNT'] if p['OUTPUT_COUNT'] is not None else '—',
-                 p['PASSED'], p['REJECTED'], p['UNKNOWN'], p['ERROR'],
-                 p['UNACCOUNTED']))
+                 p['PASSED'], p['REJECTED'], p['ERROR'], p['NOT_RUN'],
+                 p['UNKNOWN'], p['REUSED'], p['UNACCOUNTED']))
         y = r.rendimento(p)
         if y.get('GRAIN_CHANGED'):
             print('              ↳ %s → %s · SEM RENDIMENTO: %s'

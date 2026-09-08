@@ -54,7 +54,17 @@ sempre o mesmo: um numero que parecia bom porque escondia o que nao sabia.
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# ⚠️ A RAIZ, E NAO A PASTA DESTE FICHEIRO.
+# Ate O9 esta linha punha `leis/` no caminho, e `_gavetas.py` mora na RAIZ:
+# `python3 leis/telemetria.py` rebentava com ModuleNotFoundError. A suite
+# inteira passava por cima disso, porque cada teste ja insere a raiz antes de
+# importar — o defeito so existia para quem corresse o ficheiro sozinho.
+#
+#     PASSAR NO HARNESS NAO E CORRER.
+#
+# O padrao da casa esta em `leis/diagnostico.py`, e e este.
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.dirname(HERE))
 import _gavetas   # noqa: E402,F401
 import falhas     # noqa: E402
 import diagnostico as dg   # noqa: E402

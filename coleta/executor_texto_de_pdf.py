@@ -250,7 +250,8 @@ def carregar_registo() -> dict:
 # a seguir, e não repinta o que ficou para trás.
 
 
-def emitir_rastro(banco, run_id, conta, perdidos, erros, inicio):
+def emitir_rastro(banco, run_id, conta, perdidos, erros, inicio,
+                  ferramenta_presente=True):
     """O que esta corrida fez, dito na língua comum de `rastro_da_coleta`.
 
     ⚠️ ISTO NÃO INVENTA NÚMERO NENHUM. Cada valor vem de `conta`, que já era
@@ -307,7 +308,21 @@ def emitir_rastro(banco, run_id, conta, perdidos, erros, inicio):
         error=conta["EXTRACTION_ERROR"],
         unknown=conta["RAW_UNKNOWN"],
         reused=conta["JA_EXISTIA"],
-        canonical_state="ERROR" if houve_erro else None,
+        # ⚠️ `ERROR` NAO E UM ESTADO CANONICO. A primeira versao escrevia
+        # `canonical_state="ERROR"`, e `ERROR` nao existe em `falhas.py` — e um
+        # DESTINO DE ITEM, de `telemetria.py`, e o O8C separou as duas coisas
+        # exatamente para isto nao acontecer. O leitor via um estado que o dono
+        # nunca declarou, e nenhuma trava reclamava.
+        #
+        #     FAILURE STATE VEM DO DONO, OU NAO E FAILURE STATE.
+        #
+        # A ferramenta em falta e `EXECUTOR_UNAVAILABLE`, camada EXECUTOR:
+        # defeito NOSSO, e nao uma afirmacao sobre a fonte. Os PDF continuam
+        # bons — ROTA CAIDA NAO E FONTE CAIDA.
+        canonical_state=(None if not houve_erro else
+                         ("UNKNOWN_ERROR" if ferramenta_presente
+                          else "EXECUTOR_UNAVAILABLE")),
+        last_good_artifact="RAW" if houve_erro else None,
         error_class="EXTRACTION_ERROR" if houve_erro else None,
         error_message=(erros[0].get("ERRO") if erros else None),
         **comum)
@@ -339,7 +354,14 @@ def emitir_rastro(banco, run_id, conta, perdidos, erros, inicio):
             output_count=conta["DERIVED_LANDED"],
             passed=conta["DERIVED_LANDED"],
             unknown=perdidos,
-            canonical_state="ERROR" if perdidos else None,
+            # ⚠️ FALHA PRECISA DE CODIGO — a trava `falha_tem_codigo` da 024
+            # recusa a linha sem ele, e recusa bem: um FAIL sem diagnostico e
+            # um alerta que fica no ecra e ninguem consegue contar.
+            # Texto emitido que nao aterrou e exatamente o buraco que o
+            # `FLOW_UNACCOUNTED_INPUT` nomeia.
+            canonical_state="ITEM_ERROR" if perdidos else None,
+            diagnostic_code="FLOW_UNACCOUNTED_INPUT" if perdidos else None,
+            last_good_artifact="DERIVED" if perdidos else None,
             **comum)
 
 
@@ -472,7 +494,8 @@ def correr(seco: bool = False, run_id: str = "", rastro=None) -> dict:
     # Postgres pelo dono canónico. Instrumentar NÃO pode exigir escrever em
     # produção — senão só se saberia se funciona no dia em que já fosse tarde.
     if rastro is not None:
-        emitir_rastro(rastro, run_id, conta, perdidos, erros, inicio)
+        emitir_rastro(rastro, run_id, conta, perdidos, erros, inicio,
+                      ferramenta_presente=ha_ferramenta())
 
     return {
         "RUN_ID": run_id,
