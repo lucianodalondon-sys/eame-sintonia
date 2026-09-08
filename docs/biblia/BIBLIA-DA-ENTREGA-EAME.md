@@ -4,16 +4,29 @@
 
 ```
 BIBLE_STATUS             DRAFT
-BIBLE_VERSION            V0.1
-SUPERSEDES               —
+BIBLE_VERSION            V0.2
+SUPERSEDES               V0.1 (2026-09-08) — não a apaga; ver §22 e PARTE V
 DATE                     2026-09-08
 IMPLEMENTATION           NONE
 PRODUCTION_TOUCHED       NONE
 BRANCH                   research/delivery-bible-v1
 BASE_HEAD                9d06d94be9758fea4a3147f9d5f156b96fcbeada
-MEASURED_PORTAL_HEAD     a4fb6d8 (claude/visible-intelligence-v1, 2026-09-07 21:11 UTC)
+MEASURED_VISUAL_BASELINE a4fb6d8 · claude/visible-intelligence-v1 · 2026-09-07 21:11 UTC
+                         BASELINE_12_OF_12_REPRODUCED = YES  (re-executado, §32)
+                         NÃO é CANONICAL CURRENT HEAD — C-05 continua aberto
+BENCHMARK_INPUT          research/product-tools-benchmark-v1 @ 6ef8e70
+                         16 sistemas · 26 fontes primárias · 7 artefactos
 MERGES                   ZERO
 ```
+
+> **O QUE MUDOU DE V0.1 PARA V0.2, EM UMA FRASE.**
+> V0.1 mediu o portal e escreveu as leis de fronteira. V0.2 acrescenta o **modelo
+> temporal**, o **contrato de card**, a **Home como fila de decisão** e a **separação
+> formal entre três registos epistemológicos** — medição, intenção do dono e evidência
+> de benchmark — que antes viviam misturados.
+>
+> **PARTE V é a emenda.** As Partes I a IV continuam como estavam, e as suas leis
+> continuam válidas. Onde a PARTE V altera um artigo, ela di-lo pelo número.
 
 > **ESTA BÍBLIA NÃO É UMA LISTA DAS FERRAMENTAS DE HOJE.**
 >
@@ -1079,6 +1092,7 @@ VERSION · DATE · SUPERSEDES · WHAT_CHANGED · WHY · EVIDENCE · DECISION_REF
 | VERSION | DATE | SUPERSEDES | WHAT_CHANGED | WHY | EVIDENCE |
 |---|---|---|---|---|---|
 | V0.1 | 2026-09-08 | — | primeira escrita | não existia constituição de entrega; 12 superfícies, 1 contrato | `INVENTARIO-DAS-SUPERFICIES-ATUAIS.md` |
+| **V0.2** | **2026-09-08** | **V0.1** | PARTE V: três registos epistemológicos (§32) · modelo temporal e propriedade dos campos (§34) · contrato de card e 3s/30s/3min (§36) · Evidence Drawer (§37) · Home como fila de decisão (§38) · alerta por transição de estado (§39) · briefs por papel e mobile (§40) · superfície de ação (§41) · métrica de valor por ferramenta (§42) · 8 leis novas (§33) · 8 anti-padrões novos (§43) | o benchmark de 16 sistemas trouxe evidência externa; o dono declarou intenção de produto; e a re-execução do baseline destapou duas leis vivas sobre os mesmos 43 casos | `research/product-tools-benchmark-v1@6ef8e70` · `INVENTARIO §A` · `ADJUDICACAO-DO-BENCHMARK-V0.2.md` |
 
 ## §23 · PRECEDÊNCIA ENTRE DOCUMENTOS
 
@@ -1401,3 +1415,683 @@ NEXT_RECONCILIATION   depois de a Collection Foundation fechar e de a Bíblia da
                       COLLECTION → INTELLIGENCE → DELIVERY,
                       antes de implementar a ponte e o casco final.
 ```
+
+---
+
+# PARTE V · EMENDA V0.2
+
+```
+AMENDMENT_TO        V0.1 (2026-09-08)
+INPUTS              1. re-execução do baseline visual        → §32
+                    2. benchmark de produto, 16 sistemas     → §33 … §43
+                    3. intenção de produto declarada pelo dono → §32.2
+COUNTEREXAMPLES     3 (§33 L-18, L-19, L-23) — exigidos por §20
+CONSTITUTION_LINES_REMOVED   0
+```
+
+> **§20 exige `COUNTEREXAMPLE` para emendar o CORE.** Três leis novas trazem o seu.
+> As restantes adições **não alteram** artigos existentes: acrescentam camadas que V0.1
+> declarou em falta e nomeou como dívida.
+
+---
+
+## §32 · OS TRÊS REGISTOS — a lei epistemológica desta versão
+
+V0.2 nasce de três entradas de naturezas incompatíveis. Misturá-las seria o erro que a
+Bíblia inteira existe para não cometer.
+
+| registo | o que é | o que NÃO é | como se marca |
+|---|---|---|---|
+| **`MEASURED`** | o que o código faz, lido por execução | não é o que devia fazer | ref + comando + resultado |
+| **`OWNER_INTENT`** | o que o dono do produto declara querer | **não é uso observado, não é valor provado** | «declarado por, em» |
+| **`BENCHMARK_EVIDENCE`** | o que 16 sistemas externos fazem, com fonte primária | não é prova de que funciona para a ADAMA | fonte + URL + data + `WHAT DOES NOT TRANSFER` |
+
+```
+L-EPI-01   As três nunca se escrevem sem rótulo.
+L-EPI-02   BENCHMARK_EVIDENCE não escreve a Constituição. Traz evidência.
+           Uma recomendação de benchmark entra pelo §20 como qualquer outra,
+           e sem COUNTEREXAMPLE fica no Registo Vivo.
+L-EPI-03   OWNER_INTENT declara intenção. Uma intenção declarada é uma DECISÃO DE
+           PRODUTO legítima e imediata — e continua a não ser prova de uso.
+           Ela entra no Registo Vivo, nunca como `PROVEN_VALUE`.
+L-EPI-04   MEASURED vence as outras duas sobre FACTOS DO CÓDIGO, e sobre nada mais.
+           Medir que uma tela existe não prova que ela devia existir.
+```
+
+> **A frase que resume a emenda:**
+> **o benchmark não escreve a Constituição; a visão do dono não vira prova de uso;
+> e a medição não decide o que o produto deve ser.**
+
+### §32.1 · `MEASURED` — o baseline re-executado
+
+```
+BASELINE_12_OF_12_REPRODUCED = YES
+REF   a4fb6d81681094925ccfd1638bc7386cbec6f4d4
+      claude/visible-intelligence-v1 · 2026-09-07 21:11:51 UTC
+```
+
+Registado como **`MEASURED_VISUAL_BASELINE_2026-09-08`**, **não** como
+`CANONICAL CURRENT HEAD`. Detalhe, método e limitações em
+`INVENTARIO-DAS-SUPERFICIES-ATUAIS.md §A`.
+
+**O conflito entre as duas medições anteriores resolveu-se sem ninguém estar errado.**
+O benchmark mediu a partir de `main@df165da9` e escreveu *«não reproduzível nas linhas
+inspecionadas»* — que é a forma correta. A lei que daí sai:
+
+```
+L-EPI-05   NÃO REPRODUZIDO NAS REFS INSPECIONADAS ≠ NÃO REPRODUZÍVEL.
+           Toda afirmação de ausência declara o universo em que procurou.
+```
+
+### §32.2 · `OWNER_INTENT` — registado como declaração, não como prova
+
+Declarado pelo dono em 2026-09-08, e vale como decisão de produto:
+
+| # | intenção declarada | estado |
+|---|---|---|
+| 1 | `Opportunity Radar` é a ferramenta comercial mais importante | `OWNER_INTENT` |
+| 2 | utilizador primário: **Sales Manager / Commercial**; *downstream*: **RTV** | `OWNER_INTENT` |
+| 3 | a pergunta é «onde existe oportunidade de agir comercialmente agora, porquê, quanto tempo temos, e o que fazer?» | `OWNER_INTENT` |
+| 4 | Home tende a `DECISION / ATTENTION INBOX` | `OWNER_INTENT` — hipótese forte |
+| 5 | Portfolio evolui para `OPERATIONAL RESPONSE MEMORY` | `OWNER_INTENT` |
+| 6 | Label é candidata a `REGULATORY / OPERATIONAL TRUTH LAYER` | `OWNER_INTENT`, e é a que mais medição já sustenta |
+| 7 | Crop Windows é o `SHARED AGRONOMIC CLOCK` | `OWNER_INTENT` |
+| 8 | Field Voices caminha para `CURATED FIELD NEWSWIRE / SENSOR` | `OWNER_INTENT` |
+| 9 | `Validation Queue` é `WORKFLOW_CANDIDATE`, **não** ferramenta | `OWNER_INTENT` — e coincide com o benchmark |
+
+**Nenhuma destas nove é `OBSERVED_USAGE`. Nenhuma é `PROVEN_VALUE`.**
+`TELEMETRY_EXISTS = NO` continua verdadeiro, e continua a ser a dívida nº 1 (§15).
+
+---
+
+## §33 · OITO LEIS NOVAS
+
+### L-18 · `COMMERCIAL PREPARATION WINDOW ≠ AGRONOMIC ACTION WINDOW`
+
+> Uma oportunidade pode exigir **ação comercial antes** de a janela agronómica abrir.
+
+```
+COUNTEREXAMPLE (exigido por §20)
+   A Constituição V0.1 tratava «janela» como um objecto só, herdado de
+   `WINDOW_OPEN ≠ CURRENT_NEED`. Essa lei classifica MAL o caso em que o RTV tem de
+   preparar a revenda seis semanas antes da aplicação: sob V0.1, esse caso ou é
+   «janela fechada» (e não aparece) ou é «necessidade atual» (e afirma o que não pode).
+   Nenhum dos dois é verdade. Faltava um terceiro tempo.
+```
+
+**Consequência constitucional:** o tempo deixa de ser um campo e passa a ser um **objecto
+com vários relógios independentes** (§34).
+
+### L-19 · `ORDERING IS EXPLAINABLE OR IT IS NOT ORDERING`
+
+> Nenhuma superfície ordena por número único. Ordena por **estado**, e desempata por
+> factores **visíveis e separados**, cada um com o seu nome.
+
+```
+COUNTEREXAMPLE
+   V0.1 proibia o «score mágico» apenas por consequência de L-12 (CLICK ≠ VALUE) e da
+   proibição de somar naturezas diferentes. Mas nenhuma lei de V0.1 impedia um ranking
+   ordenado por um campo interno único e não exposto — o que é o mesmo defeito sem o
+   número na tela. A proibição tinha de ser sobre a ORDEM, não sobre a impressão.
+```
+
+`AGIR AGORA · 9 dias · janela a fechar · resposta ADAMA pronta · evidência corroborada`
+é uma ordem defensável. `Opportunity Score 87` não é — e nem se torna defensável por
+esconder o 87.
+
+### L-20 · `THE CARD IS A UNIT OF DECISION, NOT A UNIT OF STORAGE`
+
+Um card não demonstra quanto o SINTONIA sabe. Ajuda uma pessoa a saber **o que mudou, por
+que importa, qual o limite, e o que pode fazer agora**. Operacionalizada em §36.
+
+### L-21 · `EVIDENCE IS ONE CLICK AWAY AND IS NOT THE VISUAL HERO`
+
+Acima da dobra, a evidência aparece como **estado**; a um clique, como **prova ligada ao
+claim**. Nem escondida, nem a ocupar o lugar da decisão. Operacionalizada em §37.
+
+**Esta lei tem um limite herdado que V0.2 confirma e não relaxa:**
+`CONTRATO-DE-DESIGN §3` — `NÃO SEI / NOT_COLLECTED / NOT_KNOWN` **nunca colapsados por
+omissão**. Logo: **a prova dobra-se; a lacuna não.**
+
+### L-22 · `ALERT ON STATE TRANSITION, NOT ON NEW DATA`
+
+Uma fonte nova não merece alerta por existir. Alerta-se quando **muda o que a pessoa
+precisa de fazer**. Operacionalizada em §39.
+
+### L-23 · `PERSONALISATION CHANGES THE UTILITY OF TRUTH, NEVER THE TRUTH`
+
+```
+COUNTEREXAMPLE
+   V0.1 tinha `L-16 · USER ROLE ≠ TOOL` e o teste dos quatro públicos, que impedem uma
+   FERRAMENTA por departamento. Nenhum artigo de V0.1 impedia um BRIEF por departamento
+   de dizer coisas diferentes — porque V0.1 não tinha o objecto «brief». Um PDF de Sales
+   que omitisse a limitação técnica passaria todas as leis de V0.1.
+```
+
+O conjunto imutável e o conjunto variável estão em §40.
+
+### L-24 · `MOBILE IS DELIVERY, NOT A SMALLER DESKTOP`
+
+O *share brief* móvel é uma `DELIVERY_PROJECTION` de primeira classe, versionada e ligada
+à verdade corrente. **O PDF é um derivado congelado dela**, nunca o canal único (§40.3).
+
+### L-25 · `DERIVED NUMBER ≠ NARRATED NUMBER`
+
+`D-009` exige que todo total publicado seja derivado. V0.2 estende-o ao **comentário no
+código** — o maior activo documental deste repositório e o único lugar onde nenhum portão
+lê. *Evidência: `AD-29`, um comentário com os dois números trocados.*
+
+---
+
+## §34 · O MODELO TEMPORAL — e de quem é cada campo
+
+### §34.1 · Os relógios de entrega, acrescentados aos seis de §12
+
+§12 definiu os relógios da **evidência**. §34 acrescenta os relógios da **decisão**.
+Não se fundem, e o total não é «um tempo»: são doze campos com donos diferentes.
+
+| campo | pergunta | dono proposto | estado medido em `a4fb6d8` |
+|---|---|---|---|
+| `AGRONOMIC_WINDOW_START/END` | quando a janela agronómica abre e fecha | Crop Windows | **`WINDOW_DEFINED = NO` em 27 de 43** |
+| `OBSERVED_PHENOLOGY` | o estádio foi observado? | coleta de campo | ausente |
+| `WINDOW_OPEN_NOW` | a janela está aberta agora? | Crop Windows | **`UNKNOWN` em 41 de 43** |
+| `COMMERCIAL_LEAD_TIME` | quanto tempo a preparação comercial exige | **`UNKNOWN` — sem dono** | não existe |
+| `TIME_TO_PREPARE` | quanto falta para ter de começar a preparar | INTELLIGENCE | não existe |
+| `TIME_TO_ACT` | quanto falta para a janela de ação fechar | INTELLIGENCE | não existe |
+| `REGULATORY_DEADLINE` | prazo administrativo | Label / registo | existe (`expiry`, `dte`) |
+| `WHY_NOW` | por que é agora que isto importa | **INTELLIGENCE — dono declarado** | **existe** (Linha A) |
+| `HORIZON` | quando isto pode passar a importar | Future Radar | existe (`PROSSIMA_CAMPAGNA`) |
+| `AS_OF` | a que instante esta resposta responde | consulta (§12) | existe em 2 de 6 projeções |
+
+### §34.2 · A regra de propriedade — quem calcula o quê
+
+```
+A INTELLIGENCE é dona de, e o casco NUNCA os calcula:
+    TIME_TO_ACT · TIME_TO_PREPARE · WHY_NOW · WINDOW_STATE ·
+    OPPORTUNITY PRIORITY · ACTION STATE · MATURITY · CONFIDENCE ·
+    ADAMA RESPONSE · WHAT TO DO
+
+A DELIVERY é dona de, e a inteligência não os conhece:
+    a forma de mostrar um prazo · a ordem dentro de um estado, quando a régua de
+    desempate é declarada · o agrupamento visual · a densidade · o idioma ·
+    o que se dobra e o que fica aberto
+```
+
+> **§7 do briefing desta missão, adotado literal como artigo:**
+> a Bíblia da Entrega define **apresentação e contratos**. **A Bíblia da Inteligência
+> deverá definir quem tem autoridade semântica para produzir estes campos.**
+> Onde isso ainda não existir: **`DEPENDENCY_ON_INTELLIGENCE_BIBLE = OPEN`.**
+
+### §34.3 · O estado medido, e o que ele obriga a dizer
+
+A re-execução do baseline destapou que **a arquitetura temporal recomendada já existe no
+motor**, e que **o dado ainda não a sustenta**:
+
+```
+LINHA A · MEETING_INTELLIGENCE · RULE_VERSION V21-ef6e7e5f37eaa6e6
+    BY_STATUS   ACT_NOW 2 · VALIDATE_NOW 4 · FUTURE_PREPARATION 7 ·
+                WATCH 21 · TO_VALIDATE 9                              = 43
+    e a LAW que ela declara de si própria:
+    «o portal apresenta; ele NÃO RECALCULA STATUS, COMMERCIAL_PRIORITY,
+     WHY_NOW, janela, produto, papel de evidência, mapa de ação nem
+     PUBLICATION_STATE»
+
+LINHA B · ADAMA_RELEVANCE — o que a barra imprime
+    OPPORTUNITA 17 · RADAR 21 · SEGNALI 4 · ERRORE 1                  = 43
+```
+
+**Três conclusões, e nenhuma é de desenho:**
+
+1. **`L-11 · UI ≠ INTELLIGENCE ENGINE` já está escrita no motor**, com estas palavras, e
+   é mais forte do que a versão de V0.1: enumera os nove campos que o portal não
+   recalcula. **V0.2 adota a enumeração da Linha A como a lista canónica de §34.2.**
+2. **A partição por estado de ação no tempo já está calculada e versionada** — e não é a
+   que o menu conta. É o conflito `C-06`, agora com números dos dois lados.
+3. **`WINDOW_OPEN_NOW = UNKNOWN` em 41 de 43.** Um estado `PRÓXIMA JANELA` exige uma
+   janela; 27 casos não têm nenhuma.
+
+> **A arquitetura temporal está pronta. O relógio que a alimenta não está.**
+> Isso não invalida a recomendação — **data-a**. É trabalho de Crop Windows como
+> `SHARED AGRONOMIC CLOCK` e da Bíblia da Inteligência, não de desenho de card.
+
+### §34.4 · Sobre os nomes dos estados
+
+`AGIR AGORA · PREPARAR AGORA · PRÓXIMA JANELA · MONITORAR / VALIDAR` entra como
+**hipótese forte de arquitetura**, com o nome em aberto:
+
+```
+TEMPORAL_ARCHITECTURE  = ACCEPTED as CONSTITUTION (§34)
+STATE_LABELS           = NOT_CANONICAL · exigem validação com utilizadores ADAMA
+MAPPING_TO_ENGINE      = NOT_MEASURED
+```
+
+O `MAPPING_TO_ENGINE` não é cosmético: os cinco estados da Linha A
+(`ACT_NOW · VALIDATE_NOW · FUTURE_PREPARATION · WATCH · TO_VALIDATE`) e os quatro
+propostos **não são o mesmo conjunto**, e ninguém mediu a correspondência.
+Fazê-la à mão seria inventar semântica.
+
+---
+
+## §35 · OPPORTUNITY É UMA INTERSEÇÃO
+
+> Uma oportunidade defensável é a interseção, quando aplicável, de
+> `PROBLEMA × TEMPO × GEOGRAFIA × RESPOSTA ADAMA × VERDADE DE RÓTULO × EVIDÊNCIA`.
+
+Produto existente na cultura não basta. Facto regulatório positivo não basta. Fala de
+campo não basta.
+
+**Já é lei executável neste repositório** — `ADAMA-RELEVANCE-LAW-V1`, com os oito elos da
+`CADEIA_EXIGIDA` e a lista `NAO_ACEITE`. V0.2 limita-se a **elevá-la de lei de uma
+ferramenta a artigo constitucional**, porque descreve o que uma oportunidade **é**, e não
+como uma tela a mostra.
+
+---
+
+## §36 · CONTRATO DE CARD
+
+`L-20` operacionalizada. Isto **não é especificação de UI**: é o contrato de campos que
+uma `DELIVERY_PROJECTION` do tipo card tem de carregar.
+
+### §36.1 · As três camadas
+
+```
+3 SEGUNDOS   · PRIMARY      CALL · WHERE · WHEN/HORIZON · WHY NOW · ACTION STATE
+                            + UMA ação primária visível
+30 SEGUNDOS  · SECONDARY    o que está a acontecer · por que importa à ADAMA ·
+                            implicação/resposta ADAMA · a limitação principal ·
+                            estado da evidência · objectos relacionados
+3 MINUTOS    · ON DEMAND    evidência ligada ao claim · originais · versões ·
+                            evidência contrária · cronologia · lacunas · investigações
+```
+
+```
+C-CARD-01  Uma e só uma acção primária. Cinco botões com o mesmo peso equivalem a
+           nenhuma acção clara.
+C-CARD-02  A camada de 3 segundos não contém número que não mude uma decisão (L-12).
+C-CARD-03  O que se dobra é a PROVA. O que nunca se dobra é a LACUNA.
+```
+
+### §36.2 · Família de card — gramática partilhada, semântica própria
+
+> **A mesma família visual não pode apagar a epistemologia.**
+
+`Opportunity`, `Future` e `Scientific` partilham **esqueleto, acções e Evidence Drawer**.
+Não partilham semântica de confiança, de tempo, de maturidade, de campos obrigatórios,
+nem de acção primária.
+
+| card | campo epistemológico central | privilegia |
+|---|---|---|
+| **Opportunity** | *isto é accionável agora?* | `ACTION WINDOW` · `TIME_TO_ACT` · `WHY NOW` · `ADAMA RESPONSE` · `WHAT TO DO NOW` |
+| **Future** | *o que teria de se tornar verdade?* | `HORIZON` · por que observamos · maturidade da evidência · `TRIGGERS` · o que fortalece · o que enfraquece · evidência contrária · preparação |
+| **Scientific** | *quão madura e transferível é esta conclusão?* | `SCIENTIFIC CALL` · maturidade · aplicabilidade · apoio independente · evidência contrária · implicação ADAMA · próxima validação |
+
+**Não forçadas nesta família:** Market, Field Voices, Label, Portfolio, Crop Windows,
+Archive, Source Register, Field Sales. **Competitor** reutiliza componentes, mas a sua
+gramática é `Event / Change Card`.
+
+```
+C-CARD-04  FUTURE NUNCA FAZ PREDICTION THEATER.
+           Nenhum campo do Future Card afirma que algo VAI acontecer.
+           Já é lei do RADAR-DO-FUTURO-CONTRACT-V1 e V0.2 confirma-a.
+C-CARD-05  SCIENCE: papers são CAMADA DE EVIDÊNCIA, nunca o herói.
+           «Recorrência não é autoridade» continua a valer, e o Ask continua a RECUSAR
+           «quem é a maior autoridade» (B13).
+C-CARD-06  MARKET só é card quando responde SO WHAT · WHO CARES ·
+           WHICH DECISION MAY CHANGE. Caso contrário é SUPPORTING CONTEXT,
+           não é item de pulse.
+C-CARD-07  FIELD VOICES: o campo central é «sobre o que o campo está a falar»,
+           NUNCA «o que está provado que está a acontecer».
+```
+
+---
+
+## §37 · EVIDENCE UX — o `CLAIM-LINKED EVIDENCE DRAWER`
+
+`L-21` operacionalizada.
+
+```
+ACIMA DA DOBRA — a evidência como ESTADO
+    AS_OF · diversidade/contagem de fontes quando significativa ·
+    maturidade e frescura · badge de contradição ou UNKNOWN quando muda a decisão
+
+UM CLIQUE — OPEN EVIDENCE, sem perder o contexto do card
+    1 o claim que está a ser sustentado      6 local da fonte e local do facto
+    2 evidência de apoio                     7 original: URL, documento, versão
+    3 evidência contrária                    8 histórico
+    4 papel e tipo da fonte                  9 cobertura e UNKNOWN
+    5 tempo da fonte e tempo do facto
+```
+
+**Cada claim material aponta para a sua evidência.** Uma lista de URLs sem mapeamento
+para claims não é evidência: é bibliografia.
+
+> **Já é atingível neste repositório.** O payload de Label Intelligence guarda a citação
+> literal do PDF **e verifica que ela existe no documento** (regra `R-18`, leitura em três
+> modos de `pdftotext`). O padrão externo mais próximo — citação ao nível do trecho — é a
+> norma que §11.2 `A-03` já exigia do Ask.
+
+**Anti-padrões nomeados:** bibliografia como herói · fonte escondida · contagem de
+evidências tratada como qualidade · confiança derivada do número de links · excerto
+promovido além do que sustenta.
+
+---
+
+## §38 · HOME — a fila de decisão
+
+**Emenda a §11.1.** V0.1 disse o que a Home **não é**. V0.2 diz o que ela **é**.
+
+> **`HOME = DECISION INBOX / ATTENTION INBOX`** — hipótese forte, `OWNER_INTENT` +
+> `BENCHMARK_EVIDENCE`, ainda não `PROVEN_VALUE`.
+
+A Home responde a uma pergunta: **o que merece a minha atenção agora?** — e a resposta é
+uma **fila por estado de ação no tempo**, filtrada por papel, geografia, cultura e itens
+seguidos.
+
+```
+H-06  A HOME NÃO CALCULA PRIORIDADE.  (reafirma e endurece H-01)
+      Ela consome produtos e projeções JÁ ELEGÍVEIS E JÁ PRIORIZADOS.
+      HOME PROJECTION ≠ INTELLIGENCE ENGINE.
+H-07  A Home reúne Intelligence Products sem os apagar: um item da fila continua a
+      saber de que produto veio e com que autoridade.
+H-08  A fila é explicável: cada item mostra por que está onde está.
+H-09  A Home não introduz classe de item nova. Consome as que os produtos declaram.
+```
+
+**Quem calcula a prioridade da Home?** A `DELIVERY_ELIGIBILITY` (§4) decide **o quê**
+entra; o **estado de ação no tempo** (§34) decide **onde** entra; e a régua de desempate
+declarada decide a ordem dentro do estado. **Nenhum dos três vive no casco.**
+
+**Precedente medido, ao contrário:** `casa.html` tinha identidade visual própria e virou
+um segundo produto — *«duas identidades visuais são dois produtos, mesmo quando são o
+mesmo dado»*. A Home é uma projeção do mesmo casco, não outra casa.
+
+---
+
+## §39 · ALERTAS — `STATE TRANSITION > NEW DATA ITEM`
+
+`L-22` operacionalizada.
+
+| merece interromper | fica no portal |
+|---|---|
+| um item entra em `AGIR AGORA` | contexto sem mudança de decisão |
+| um item entra em `PREPARAR AGORA` por *lead time* | pesquisa incremental |
+| janela ou prazo materialmente alterado | fonte nova que repete o que já se sabia |
+| mudança de rótulo com impacto real na resposta | paper novo sem mudança de maturidade ou implicação |
+| contradição nova que muda confiança ou ação | atualização cosmética |
+| tarefa ou validação atribuída | preço que mexe sem decisão ADAMA afetada |
+| item seguido muda de decisão | |
+
+```
+A-ALERT-01  Quatro condições, todas: a mudança é material · é relevante para o papel,
+            geografia e cultura do utilizador · muda o que ele deve fazer ou o prazo ·
+            não é duplicata de estado já conhecido.
+A-ALERT-02  Seguir um objecto é preferível a alertar tudo. FOLLOW controla alertas de
+            transição, digest diário e brief semanal.
+A-ALERT-03  Cadência por papel, nunca uma cadência única. E a cadência final é
+            MEDIDA com utilizadores antes de ser produto.
+```
+
+**Estado medido: `ALERT_CAPABILITY = NONE`.** E há uma trava anterior a esta, herdada e
+não relaxada: a `REGUA-DE-ALERTA-EAME` mede que a porta `BASELINE` **não abre em nenhuma
+família de conversa pública**. Hoje o SINTONIA pode emitir `WATCH` e `INVESTIGATE`, e
+**não pode emitir `ALERT`**.
+
+---
+
+## §40 · BRIEFS POR PAPEL, E O MÓVEL
+
+`L-23` e `L-24` operacionalizadas. É a §16 de V0.1 levada até à entrega.
+
+```
+ONE INTELLIGENCE PRODUCT  →  N DELIVERY PROJECTIONS
+```
+
+### §40.1 · O que nunca muda entre briefs
+
+```
+FACTS · EVIDENCE · SOURCE/PROVENANCE · FACT_TIME · OBSERVED_TIME ·
+SOURCE_LOCATION · FACT_LOCATION · LIMITATIONS · CONFIDENCE/EVIDENCE STATE ·
+UNKNOWN · CONTRADICTION · LABEL TRUTH ·
+PRODUCT_ID + VERSION + AS_OF
+```
+
+> **Uma projeção não pode transformar uma incerteza técnica numa certeza comercial.**
+
+### §40.2 · O que pode mudar
+
+`linguagem · título · ordem · ênfase · nível de detalhe · contexto do papel ·
+objectos relacionados destacados · comprimento · próxima ação recomendada`
+
+```
+C-BRIEF-01  A próxima ação recomendada só muda dentro do que o Product Contract
+            AUTORIZA. Uma ação por papel não é uma licença por papel.
+C-BRIEF-02  Nove papéis, nove projeções, UMA verdade. Uma verdade por papel seria
+            `TOOL PER DEPARTMENT` com outro nome.
+```
+
+Papéis reconhecidos: `RTV` · `Sales Manager` · `Marketing` · `Market Development` ·
+`Technical/Agronomic` · `Supply` · `Regulatory` · `Leadership` · `EAME Controller`.
+Estende os sete de §16 com **RTV** e **Supply**, ambos nomeados pelo dono.
+
+### §40.3 · O brief do RTV — o caso que define o padrão
+
+O produto tem de permitir um brief que deixe o RTV **preparado, confiante e com
+informação defensável**, sabendo: o que está a acontecer · por que importa · qual a
+janela · que resposta ADAMA existe · **o que perguntar** · **o que dizer** · **o que NÃO
+prometer**.
+
+```
+C-RTV-01  A secção NÃO PROMETA é OBRIGATÓRIA e não-vazia.
+          Nunca prometer: procura · eficácia além do sustentado · incidência local a
+          partir de voz de campo · timing exato quando a janela é aproximada.
+C-RTV-02  As perguntas sugeridas confirmam contexto local. NUNCA induzem a resposta
+          que validaria a hipótese. Uma pergunta que só admite «sim» é uma
+          afirmação disfarçada.
+```
+
+`C-RTV-02` é a versão de campo de uma cicatriz já paga: *o corpus é amostra das nossas
+consultas*. Um RTV que pergunta enviesado transforma-se na mesma máquina de confirmação.
+
+### §40.4 · Móvel e PDF
+
+```
+MOBILE SHARE BRIEF   DELIVERY_PROJECTION de primeira classe. URL/ID estável,
+                     versão e AS_OF, projeção por papel, deep-link de evidência,
+                     e ligação à verdade corrente.
+PDF                  DERIVADO CONGELADO. Snapshot · offline · impressão · anexo de
+                     auditoria · apresentação.
+                     PDF ≠ DATABASE DUMP: carrega ID estável, as-of, papel, factos,
+                     limitações, referências de evidência e caminho de volta à
+                     versão corrente.
+```
+
+**O PDF continua importante — e deixa de ser o canal único.** Medido: hoje existe **um
+único** `[data-download-pdf]` no portal, e vive numa vista **legada** (`brief`), cuja
+ponte `legacyCaseId` resolve **0 de 43**.
+
+---
+
+## §41 · A SUPERFÍCIE DE AÇÃO
+
+> **Ação é encaminhamento humano, nunca decisão automática da ADAMA.**
+> É `19 · THE HUMAN REMAINS THE DECISION OWNER`, e é a única forma compatível com
+> `EXTERNAL-ONLY`.
+
+Vocabulário fechado, estudado como superfície de contrato:
+
+```
+GENERATE BRIEF · SHARE · FOLLOW/WATCH · ASSIGN/SEND · REQUEST VALIDATION ·
+CREATE INVESTIGATION · OPEN RELATED · ASK SINTONIA · OPEN EVIDENCE
+```
+
+```
+C-ACT-01  Uma ação primária por card, escolhida pela decisão e pelo papel.
+C-ACT-02  Nenhuma ação escreve num Intelligence Product. Ações produzem
+          ACTION RECORDS, que voltam ao sistema como FACTO NOVO (§15 T-03).
+C-ACT-03  O registo de ação existe para fechar
+          INTELLIGENCE → ACTION → DECISION → OUTCOME/LEARNING.
+          Nunca para gamificar cliques.
+```
+
+---
+
+## §42 · MEDIR VALOR — por ferramenta, e sem confundir três coisas
+
+**Emenda a §15.** V0.1 separou *engagement* de *decision value*. V0.2 acrescenta o
+terceiro nível e a métrica por ferramenta.
+
+```
+USAGE SIGNAL      diagnóstico. Páginas, cliques, tempo. NUNCA valor.
+DECISION SIGNAL   uma decisão mudou, foi preparada mais cedo, ou foi evitada.
+BUSINESS OUTCOME  resultado comercial. Hoje NÃO MEDÍVEL e NÃO ATRIBUÍVEL.
+```
+
+| superfície | métrica primária proposta (`BENCHMARK_EVIDENCE`) |
+|---|---|
+| Opportunity | *lead time* inteligência→ação · % de ações antes da janela · taxa de janela perdida |
+| Portfolio | tempo até resposta defensável · cobertura de resposta *label-safe* |
+| Future | preparação antes do *trigger* · sinal→validação · taxa de falso alarme e de abate |
+| Label | latência de deteção de mudança e de propagação · decisão desatualizada evitada |
+| Crop Windows | calibração projetado × observado · ações no *timing* correto |
+| Market | investigações e mudanças de plano realmente iniciadas · taxa de falsa relevância |
+| Field Voices | sinal→validação · tempo de corroboração · redução de duplicados |
+| Competitor | evento material→decisão · completude de taxonomia e proveniência |
+| Science | *science call*→validação ou decisão · cobertura de evidência contrária |
+| Archive | tempo de recuperação de evidência e de reconstrução de auditoria |
+| Source Register | completude de proveniência · frescura · fecho de lacunas de cobertura |
+| Field Sales | brief usado em campo · fecho do ciclo de retorno e validação |
+
+### §42.1 · A lei da não-causalidade
+
+```
+SINTONIA INTELLIGENCE → ACTION → COMMERCIAL EXECUTION → SALE
+
+L-VAL-01  As quatro são etapas distintas com donos distintos.
+L-VAL-02  NUNCA inferir «SINTONIA CAUSED SALE».
+L-VAL-03  Associação pode ser medida MAIS TARDE, quando houver base — e com contrato
+          de dado próprio, porque exige dado interno que `EXTERNAL-ONLY` hoje exclui.
+L-VAL-04  Enquanto não houver base: REVENUE_ATTRIBUTION = UNKNOWN, e UNKNOWN é a
+          resposta publicada, não uma estimativa.
+```
+
+---
+
+## §43 · OITO ANTI-PADRÕES NOVOS
+
+Acrescentam-se aos dezanove de §19.
+
+| # | anti-padrão | forma como aparece | defesa |
+|---|---|---|---|
+| AP-20 | `FAKE PREDICTION` | sinal fraco vira futuro afirmado | Future usa horizonte, *triggers*, o que fortalece/enfraquece e UNKNOWN |
+| AP-21 | `PRODUCT-ON-CROP-AS-SOLUTION` | o produto é usado na cultura, logo resolve o problema | exige ligação provada problema↔resposta, dentro do rótulo (§35) |
+| AP-22 | `CALENDAR-AS-PHENOLOGY` | calendário esperado tratado como estádio observado | `PROJECTED ≠ OBSERVED`; marcar os dois em separado |
+| AP-23 | `PUBLICATION-TIME-AS-FACT-TIME` · `SOURCE-LOCATION-AS-FACT-LOCATION` | a data e o país da fonte viram data e país do facto | quatro campos distintos; ausência é UNKNOWN |
+| AP-24 | `CHART WITHOUT SO-WHAT` | gráfico sem decisão afetada | `C-CARD-06` |
+| AP-25 | `EVERYTHING IS AN ALERT` | alerta por dado novo | `L-22` · §39 |
+| AP-26 | `BRIEF-AS-NEW-TRUTH` | o PDF cria texto que não existe no produto | `L-23` · §40.1 |
+| AP-27 | `CROSS-LINK-BY-KEYWORD` | duas ferramentas ligam-se por partilharem palavras | ligar por objecto e ID, com o tipo de relação declarado (§44) |
+
+**`AP-27` não é hipotético.** Está medido e já foi recusado uma vez, bem:
+*«o ligame é declarado, não adivinhado; onde a coppia não se resolve, o bloco não procura
+— declara que não pode procurar»*, e `issueIds` está vazio em **577/577** das atividades
+de concorrente.
+
+---
+
+## §44 · O GRAFO M:N
+
+**Emenda a §18.** A cadeia linear `SOURCE → … → PORTAL` continua correta como
+**disciplina de origem** — é o princípio fundador do repositório e V0.2 não lhe toca.
+**Mas ela não descreve o consumo.** No consumo, a topologia é M:N.
+
+```
+OBJECTOS PARTILHADOS
+CROP ↔ PROBLEM ↔ GEOGRAPHY ↔ WINDOW ↔ PRODUCT ↔ LABEL_USE ↔
+ACTIVE_SUBSTANCE ↔ COMPETITOR ↔ CLAIM ↔ SOURCE ↔ HORIZON
+```
+
+```
+L-GRAPH-01  As ferramentas PARTILHAM OBJECTOS, não copiam dados.
+            Duas cópias do mesmo objecto são duas verdades (D-021).
+L-GRAPH-02  Toda aresta declara: produto de origem · consumidor · tipo de relação ·
+            autoridade · se pode promover · quem promove · evidência exigida ·
+            comportamento em UNKNOWN.
+L-GRAPH-03  Promoção entre camadas epistemológicas EXIGE TRANSIÇÃO GOVERNADA.
+            Um sinal fraco não atravessa menus até virar oportunidade por acumulação
+            de aparência.
+```
+
+As arestas, uma a uma, com autoridade e dependência declarada, vivem em
+`GRAFO-M-N-DA-ENTREGA-V0.2.md`.
+
+### §44.1 · Donos de verdade, por pergunta
+
+| dono | pergunta de que é dono |
+|---|---|
+| **Label Intelligence** | o que é oficialmente permitido e verdadeiro sobre produto, uso e versão |
+| **Crop Windows** | o estado temporal agronómico, com incerteza explícita |
+| **Portfolio** | o que a ADAMA consegue responder, montado sobre produto + rótulo + contexto |
+| **Scientific** | claims científicos, maturidade e evidência contrária |
+| **Source Register / Archive** | proveniência, histórico e auditabilidade |
+
+`Opportunity · Future · Market · Field Voices · Competitor` são **produtos de
+inteligência que consomem os donos acima**. Não são donos de nada.
+
+---
+
+## §45 · O SYSTEM MAP — contrato ampliado
+
+**Emenda a §18.** O mapa distingue **tipos arquiteturais**, e não desenha tudo como
+«ferramenta»:
+
+```
+TOOL · SURFACE · INTELLIGENCE PRODUCT · FOUNDATIONAL/TRUTH LAYER ·
+DELIVERY PROJECTION · ACTION · BRIEF · USER ROLE · VALUE LOOP ·
+EVIDENCE/SOURCE · RELATION
+```
+
+Cada nó carrega o seu estado de tempo — `CURRENT · PILOT · DEMO · LEGACY · EXPERIMENT ·
+UNKNOWN` — e responde a sete perguntas: o que produz · o que consome · de que é dono ·
+quem usa · que decisão melhora · que ações gera · como o valor volta.
+
+**Não implementado nesta branch.** Só o contrato.
+
+---
+
+## §46 · O QUE V0.2 ACRESCENTA AO `UNKNOWN`
+
+Além dos catorze de §29:
+
+| # | pergunta aberta | bloqueia |
+|---|---|---|
+| U-15 | Que nomes de estado de ação funcionam para os utilizadores ADAMA Itália? | §34.4 |
+| U-16 | Qual é a correspondência entre os 5 estados da Linha A e os 4 propostos? | §34.4 |
+| U-17 | Quem é o dono de `COMMERCIAL_LEAD_TIME`? Não existe em lado nenhum | §34.1 |
+| U-18 | Quantas das 29 janelas têm fenologia observada, e quantas são só calendário? | §34, `AP-22` |
+| U-19 | Que volume de alertas cada papel tolera? | §39 |
+| U-20 | Qual é o *workflow* real de validação da Market Development, hoje, fora do SINTONIA? | `Validation Queue` |
+| U-21 | Que identidade, permissões e canais oficiais existem para móvel/partilha? | §40.4 |
+| U-22 | Como é que Supply usa sinal externo antes de haver dado privado? | §40 |
+| U-23 | Completude do *diff* de rótulo nos 166 itens | `WHAT CHANGED SINCE LAST LABEL` |
+| U-24 | `DEPENDENCY_ON_INTELLIGENCE_BIBLE = OPEN` para `TIME_TO_ACT`, `TIME_TO_PREPARE`, `MATURITY`, `ACTION STATE` e `ADAMA RESPONSE` | §34.2 |
+
+> **U-24 é a dependência estrutural desta versão.**
+> A Bíblia da Entrega define **apresentação e contratos** e pode fazê-lo já.
+> **Não pode nomear a autoridade semântica que produz esses campos** — isso é da Bíblia
+> da Inteligência, e ela ainda não existe como ficheiro (`U-12`).
+
+---
+
+## §47 · O QUE V0.2 NÃO FEZ
+
+Não alterou portal, HTML, CSS, JS, schema, coleta, motor de inteligência, Opportunity,
+Field Voices, scoring, sinais ou recomendações. Zero DDL, zero escrita, zero storage,
+zero API paga, zero Apify, zero deploy, zero merge.
+
+**Não canonizou nada por vir do benchmark.** As 19 recomendações de princípio, os 16
+pulos do gato e as 12 recomendações por superfície foram julgadas uma a uma em
+`ADJUDICACAO-DO-BENCHMARK-V0.2.md`, com `ACCEPT · REFINE · REJECT · MERGE` e o motivo.
+
+**Não escolheu entre as duas linhagens de portal.** `C-05` continua aberto.
+**Não decidiu os nomes dos estados temporais.** `U-15` continua aberto.
+**Não promoveu a `Validation Queue` a ferramenta.** É `WORKFLOW_CANDIDATE`.

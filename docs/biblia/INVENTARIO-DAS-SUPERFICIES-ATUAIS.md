@@ -1111,3 +1111,164 @@ não apagou nem renomeou nada.
 - as 15 vistas de detalhe, uma a uma.
 
 **`NÃO MEDIDO ≠ NÃO EXISTE`. `NÃO SEI` continua `NÃO SEI`.**
+
+---
+
+# ADENDA · 2026-09-08 — RE-EXECUÇÃO DO BASELINE E AS DUAS LEIS
+
+```
+ADDENDUM_TO       INVENTARIO V1 (acima)
+REASON            duas medições divergentes sobre a mesma pergunta
+METHOD            re-execução independente, não releitura
+```
+
+## A.1 · O conflito que obrigou a re-executar
+
+| medição | afirmou |
+|---|---|
+| pesquisa da Delivery Bible (V0.1) | `a4fb6d8` reproduz os 12 contadores |
+| benchmark de produto (`research/product-tools-benchmark-v1`) | *«esse snapshot exato não está reproduzível em `main@df165da9` nem numa única linha histórica inspecionada»* |
+
+**As duas estão certas, e não se contradizem.** O benchmark mediu a partir de
+`main@df165da9` e não inspecionou `claude/visible-intelligence-v1`. A afirmação
+*«nenhuma linha histórica inspecionada»* é verdadeira sobre **as linhas que ele
+inspecionou** — e é exatamente a forma correta de a escrever. É `AD-19` aplicado bem:
+uma branch só pode declarar o que ela mediu.
+
+> **`NÃO REPRODUZIDO NAS REFS INSPECIONADAS ≠ NÃO REPRODUZÍVEL`.**
+
+## A.2 · A re-execução
+
+Não foi uma releitura do resultado anterior. Foi um segundo carregamento, com um
+*script* novo (`rerun.mjs`), que monta o modelo num contexto Node e **avalia as mesmas
+expressões que `portale.html` usa para desenhar cada voz da barra** — incluindo
+`MEETING_SURFACE.build(lang)`, que a primeira medição não tinha executado.
+
+| # | superfície | expressão avaliada (verbatim do `portale.html`) | medido | reportado | bate |
+|---|---|---|---|---|---|
+| 1 | Opportunity Radar | `relev ? relev.OPPORTUNITA : meetingCount` | **17** | 17 | ✅ |
+| 2 | Portfolio | `AM.counts.products` | **173** | 173 | ✅ |
+| 3 | Future Radar | `ITALY_CASA.RADAR_FUTURO.RENDERIZAVEIS` | **44** | 44 | ✅ |
+| 4 | Label Intelligence | `ITALY_LABEL_INTELLIGENCE.products.length` | **166** | 166 | ✅ |
+| 5 | Crop Windows | `AM.counts.windows` | **29** | 29 | ✅ |
+| 6 | Market Pulse | `AM.counts.marketObservations` | **157** | 157 | ✅ |
+| 7 | Field Voices | `AM.counts.voices` | **79** | 79 | ✅ |
+| 8 | Competitor Watch | `AM.counts.competitorActivities` | **577** | 577 | ✅ |
+| 9 | Scientific Intelligence | `AM.counts.scienceRecords` | **88** | 88 | ✅ |
+| 10 | Archive | `AM.counts.archive` | **1114** | 1114 | ✅ |
+| 11 | Source Register | `AM.counts.sources` | **194** | 194 | ✅ |
+| 12 | Field Sales Channel | `collections.fieldMessages.records.length` | **18** | 18 | ✅ |
+
+```
+BASELINE_12_OF_12_REPRODUCED = YES
+REF                          = a4fb6d81681094925ccfd1638bc7386cbec6f4d4
+                               claude/visible-intelligence-v1 · 2026-09-07 21:11:51 UTC
+REGISTADO COMO               = MEASURED_VISUAL_BASELINE_2026-09-08
+NÃO REGISTADO COMO           = CANONICAL CURRENT HEAD
+```
+
+> **`MEASURED_VISUAL_BASELINE ≠ CANONICAL CURRENT HEAD`.**
+> `a4fb6d8` é a ref onde a fotografia de 08/09 se reproduz. **Não é** declarada canónica,
+> nem publicada, nem escolhida contra `integration-acervo-portal-v1`. O conflito **C-05**
+> continua aberto e só o dono do repositório o fecha.
+
+**Limitação declarada:** `support.js` não carrega neste contexto (precisa de
+`document.body.appendChild`). Nenhum dos 12 contadores passa por ele — todos saem de
+ficheiros de dados e de `MEETING_SURFACE` —, mas o facto fica escrito em vez de omitido.
+
+## A.3 · O achado que a re-execução destapou — as DUAS leis, medidas lado a lado
+
+Executar `MEETING_SURFACE.build()` expôs o que a primeira medição não tinha visto:
+**existem duas partições vivas dos mesmos 43 casos, das duas linhagens, e ambas chegam ao
+browser no mesmo carregamento.**
+
+### LINHA A · `MEETING_INTELLIGENCE` — a istantanea do motor
+
+```
+ENGINE_VERSION  scripts/v21_oportunidades.py + v21_janelas.py +
+                v21_necessidade.py + v21_comercial.py
+RULE_VERSION    V21-ef6e7e5f37eaa6e6
+GENERATED_AT    2026-09-07T19:23:48Z   ·   MEETING_CUTOFF   idem
+TOTAL_CASES     43
+
+BY_STATUS               ACT_NOW 2 · VALIDATE_NOW 4 · FUTURE_PREPARATION 7 ·
+                        WATCH 21 · TO_VALIDATE 9                        = 43
+BY_PUBLICATION_STATE    PUBLISHABLE 6 · VALIDATION_REQUIRED 37          = 43
+BY_COMMERCIAL_PRIORITY  SALES_READY 6 · STRATEGIC_OPPORTUNITY 8 ·
+                        COMMERCIAL_WATCH 13 · TO_VALIDATE 16            = 43
+BY_WINDOW_DEFINED       YES 16 · NO 27                                  = 43
+BY_WINDOW_OPEN_NOW      YES 2 · UNKNOWN 41                              = 43
+BY_WINDOW_RULE_STATE    RULE_DECLARED 15 · RULE_NOT_DECLARED 26 ·
+                        RULE_DELEGATED_TO_FARM 1 · RULE_ADMINISTRATIVE_ONLY 1
+```
+
+E a `LAW` que este artefacto declara de si próprio, **verbatim**:
+
+> *«esta é a ÚNICA fonte de inteligência da interface. O portal apresenta; ele **não
+> recalcula** STATUS, COMMERCIAL_PRIORITY, WHY_NOW, janela, produto, papel de evidência,
+> mapa de ação nem PUBLICATION_STATE.»*
+
+### LINHA B · `ADAMA_RELEVANCE` — a lei de relevância
+
+```
+DONO_DA_LEI   scripts/adama_relevance.py
+BUILD_ID      V21-ef6e7e5f37eaa6e6      ← a MESMA safra da Linha A
+PER_SUPERFICIE   OPPORTUNITA 17 · RADAR 21 · SEGNALI 4 · ERRORE 1   = 43
+```
+
+### O que isto significa, dito sem rodeios
+
+**1 · A barra imprime a Linha B. A Linha A declara-se «a única fonte de inteligência».**
+As duas viajam no mesmo pacote, com o mesmo `BUILD_ID`, e ninguém as reconciliou.
+É o conflito **C-06**, agora com números dos dois lados em vez de só de um.
+
+**2 · A arquitetura temporal que o benchmark recomenda JÁ EXISTE no motor.**
+`ACT_NOW · VALIDATE_NOW · FUTURE_PREPARATION · WATCH · TO_VALIDATE` é uma partição por
+**estado de ação no tempo** — exatamente a forma que a recomendação
+`AGIR AGORA → PREPARAR AGORA → PRÓXIMA JANELA → MONITORAR/VALIDAR` descreve.
+**Está calculada, versionada, com dono declarado — e não é o que o menu conta.**
+
+**3 · E o dado ainda não a sustenta.**
+`BY_WINDOW_OPEN_NOW` diz `UNKNOWN` em **41 de 43**. `BY_WINDOW_DEFINED` diz `NO` em
+**27 de 43**. Um estado `PRÓXIMA JANELA` exige uma janela; 27 casos não têm nenhuma.
+
+> **A arquitetura temporal está pronta. O relógio que a alimenta não está.**
+> Isto não invalida a recomendação: **datar-a**. É trabalho de Crop Windows e do
+> `INTELLIGENCE_BIBLE`, não de desenho de card.
+
+**4 · `SALES_READY = 6`, no motor.**
+O contrato de MT2 diz `OUTPUT = PRIORITY TO INVESTIGATE`, «**nunca** SALES OPPORTUNITY».
+Seis casos carregam `COMMERCIAL_PRIORITY = SALES_READY` **dentro do produto de
+inteligência**, não só no ecrã. O `AD-15` do ficheiro de cicatrizes tinha sido registado
+como defeito de rótulo de UI. **É mais fundo do que isso.**
+
+**5 · A coincidência que vale a pena não sobre-interpretar.**
+O exemplo conceptual de Home dado pelo dono — *«2 AGIR AGORA · 1 PREPARAR · 2
+MONITORAR»* — tem o mesmo `2` que `ACT_NOW` mede. **É uma coincidência
+notável, não uma prova de nada**, e fica registada como isso.
+
+## A.4 · Cicatriz nova · `AD-29` — o comentário que conta ao contrário
+
+```
+ID              AD-29
+DATE            2026-09-08 (medido)
+WHAT HAPPENED   portale.html:4537-4538 diz, em comentário:
+                «Il radar mostra le 26 opportunita commerciali; i 17 che restano
+                vivono come segnali.»
+                Medido no mesmo HEAD:  MSURF.commercial.length = 17
+                                       MSURF.signals.length    = 4
+                                       fora das 17: 21+4+1      = 26
+                Os dois números estão TROCADOS.
+WHY IT MATTERS  A prosa do código é onde vive a razão de cada decisão deste
+                repositório — é o seu maior activo documental. Um comentário
+                invertido é uma decisão registada ao contrário, e nenhum portão
+                lê prosa.
+LAW LEARNED     `DERIVED NUMBER ≠ NARRATED NUMBER`.
+                É D-009 («número declarado tem de ser número derivado») aplicado
+                ao único lugar onde ainda não estava: o comentário.
+CURRENT GUARD   nenhuma
+EXECUTABLE?     NÃO MEDIDO
+NOTA            O código, esse, está certo: a linha de cabeçalho «smette di dire
+                26 priorita commerciali» — a correcção foi feita e o comentário
+                que a explica ficou com os números da versão anterior.
+```
