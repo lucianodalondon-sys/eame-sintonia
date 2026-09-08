@@ -907,9 +907,17 @@ def a_casa_do_derivado() -> tuple[list, list]:
         "name": "ALVO · a casa do derivado (migration 022)",
         "kind": "acervo", "icon": "▷",
         "territory": "Z-GUARDA", "family": "F-ESPERA",
-        "status": CINZA, "ui_status": "gray", "proof": "db-tested",
+        # ✅ VERDE, E SO AGORA. Ate 08/09/2026 este cartao era ALVO: a tabela
+        # existia no papel e nao em producao. Nesse dia a 022 foi aplicada, o
+        # esquema foi lido de volta objeto a objeto, e o primeiro derivado
+        # italiano nasceu por um caminho canonico. CAN DO passou a DID DO —
+        # com recibo, nao com promessa.
+        # O mapa so aceita verde sem ligacao quando a peca diz em que MEDICAO se
+        # apoia. Aqui apoia-se em duas, ambas no Git: o censo das derivacoes e o
+        # recibo do canario. Nao e verde por o ficheiro existir.
+        "status": VERDE, "ui_status": "green", "proof": "git-measurement",
         "what": (
-            f"A tabela onde vai viver o que NOS produzimos a partir do bruto. "
+            f"A tabela onde vive o que NOS produzimos a partir do bruto. "
             f"Uma linha e UM artefato, de UM bruto, por UMA ferramenta numa "
             f"VERSAO, com UNS parametros, numa POSICAO da serie. Medidos hoje: "
             f"{P.get('PRODUTORES_DE_DERIVADO', '?')} produtores de derivado e "
@@ -922,8 +930,13 @@ def a_casa_do_derivado() -> tuple[list, list]:
         "files": [], "file_count": 0,
         "facts": [
             f"a migration existe no repositorio: {'SIM' if existe else 'NAO'} — {migracao}",
-            "DESIGNED sim · IMPLEMENTED sim · DB_TESTED sim (Postgres 16 "
-            "descartavel) · LIVE_APPLIED NAO · OBSERVED NAO",
+            "DESIGNED sim · IMPLEMENTED sim · DB_TESTED sim · LIVE_APPLIED SIM "
+            "(08/09/2026, APPLIED_SET={022}, readback 30 provas) · OBSERVED SIM",
+            "primeiro derivado italiano: derived_artifact id=1, pai raw_asset "
+            "890, texto-de-pdf v1, 4968 bytes — nascido de uma captura NOVA, "
+            "nao de historia velha",
+            "e o retry deu REUSED, sem upload novo e sem linha nova, com o "
+            "byte conferido no armazem",
             f"produtores medidos: {P.get('PRODUTORES_MEDIDOS', '?')}, e so "
             f"{P.get('PRODUTORES_DE_DERIVADO', '?')} sao de especie DERIVED_ARTIFACT",
             f"por especie: {P.get('POR_ESPECIE')}",
@@ -945,13 +958,15 @@ def a_casa_do_derivado() -> tuple[list, list]:
             A.get("O_TEMPO_DO_PAI_NAO_SE_INVENTA", ""),
         ],
         "status_reason": (
-            "CINZENTO porque DESIGNED e DB_TESTED nao sao LIVE_APPLIED. A "
-            "migration esta escrita e provada num Postgres 16 que morre no fim "
-            "do job; em producao nao correu, e nenhuma linha existe. So deixa de "
-            "ser ALVO quando um produtor real escrever a primeira."),
+            "VERDE porque a 022 foi APLICADA em producao e o esquema foi lido "
+            "de volta objeto a objeto, e porque um produtor real escreveu a "
+            "primeira linha — uma captura italiana nova, nao um byte historico. "
+            "O verde e do CANARIO: uma unidade. As outras fontes, o OCR e os "
+            "43 historicos continuam de fora."),
         "evidence_text": ("system-map/data/derivacoes.generated.json; "
-                          "supabase/migrations/022_o_derivado_ganha_casa.sql; "
-                          "provas/derived_artifact_no_postgres.py"),
+                          "data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json → "
+                          "CANARIO_FORWARD_2026_09_08; "
+                          "supabase/migrations/022_o_derivado_ganha_casa.sql"),
         "departments": ["ENGENHARIA"], "views": ["infra", "audit"],
         "lane": "official", "legacy": False, "changed_since_declared": [],
         "inbound": [], "outbound": [],

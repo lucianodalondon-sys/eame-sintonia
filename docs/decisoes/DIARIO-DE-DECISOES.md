@@ -1001,6 +1001,49 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
   primeiro derivado `OBSERVED`.
 - **Detalhe:** [`../operacao/A-CASA-DO-DERIVADO.md`](../operacao/A-CASA-DO-DERIVADO.md) §G4.
 
+
+### D-038 — O primeiro caminho forward real: 022 aplicada e o primeiro derivado italiano
+
+- **Data:** 2026-09-08 · **`022 LIVE_APPLIED = SIM`** · **`RAW_FORWARD_OBSERVED = SIM`** ·
+  **`DERIVED_FORWARD_OBSERVED = SIM`**
+- **O portão antes do DDL, e por que ele existia.** `motor/cadeia_canonica.sh` percorre TODAS
+  as migrations e pula pelo seu próprio livro-razão (`public.schema_migracao` — **não** o
+  `supabase_migrations` do Supabase). Se esse livro estivesse vazio, a cadeia tentaria
+  reaplicar 001–021 — e o próprio ficheiro avisa que **reaplicar a 015 RESSUSCITARIA uma
+  coluna que a 018 aposentou**, porque `add column if not exists` passa em silêncio. Por isso
+  o pré-voo (só leitura, run `34257470111`) mediu o livro **antes**: 20 versões lá,
+  `APPLIED_SET_PREVISTO={022}`, **portão aberto por prova**.
+- **Aplicada pelo mecanismo canónico** (run `34257805728`): 20 `SKIP`, `MIGRATION_022=PASS`.
+  SHA do ficheiro: `7f46ea93…`. **Readback de 30 provas** (run `34259433336`): tabela,
+  15 colunas, FK composta com `ON DELETE RESTRICT`, os dois `unique`, os 4 `check`, os 4
+  índices — e **0 linhas**. *A migration não cria história.* Invariantes intactos:
+  `collection_run` 8→8, `raw_asset` 251→251.
+- **O canário nasceu de uma captura NOVA**, não de história velha: `GET` real ao boletim da
+  ARPAV (`IT-T2-002`), HTTP 200, `application/pdf`, 463.630 bytes, assinatura `%PDF-`
+  conferida nos bytes — não no `content-type`.
+- **⚠️ E o SHA veio IGUAL ao do ledger.** A minha suposição de que o ficheiro rolante teria
+  mudado estava errada: o documento **não mudou** desde a captura histórica. Isso não invalida
+  nada — é **uma captura nova de um conteúdo já conhecido**, que é exatamente a lei desta
+  casa: *mesmos bytes não apagam a diferença entre duas capturas*.
+- **A cadeia inteira pelos donos canónicos:** `preservar_coleta` → `RUN_STATE=COMPLETE`,
+  `raw_asset 890`, byte conferido no armazém · `derivar_um` → `preservar_derivado` →
+  `derived_artifact id=1`, pai 890, `texto-de-pdf` v1, 4.968 bytes, `derived_at` medido,
+  país **lido do pai**. **Retry: `REUSED`**, sem upload novo, sem linha nova, com o byte
+  conferido.
+- **Um erro meu, e o que ele ensinou.** A primeira execução preservou o RAW e **rebentou no
+  RELATÓRIO** (`len()` num inteiro). A produção ficou correta; o relato é que morreu. A
+  correção não foi recomeçar — recomeçar criaria uma **segunda** corrida italiana, que a
+  autorização não cobre. Foi **retomar só a etapa em falta**, sem segundo `GET`, com os bytes
+  vindos do armazém. É a mesma lei do retry que esta casa já tinha escrito.
+- **Escritas em produção, por espécie:** DDL 1 · `collection_run` 1 · `raw_asset` 1 ·
+  `derived_artifact` 1 · Storage RAW 1 · Storage DERIVED 1. **Nada mais.**
+- **Legado intocado:** os 43 derivados históricos e os 195 objetos continuam exatamente como
+  estavam. **0 migrados, 0 ligados retroativamente, 0 `raw_asset` falso, 0 corrida inventada.**
+- **O verde do mapa é do CANÁRIO**, e diz isso: uma unidade. OCR, outras fontes, outros
+  executores e outros países continuam de fora.
+- **Próximo passo:** a segunda fonte italiana pelo mesmo caminho, ou OCR para os PDFs sem
+  camada de texto. **Uma coisa de cada vez.**
+
 ---
 
 ## PERGUNTAS PENDENTES

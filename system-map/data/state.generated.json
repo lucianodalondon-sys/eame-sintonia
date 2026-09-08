@@ -34,6 +34,7 @@
       ".github/workflows/apify-sensores.yml",
       ".github/workflows/banco-descartavel.yml",
       ".github/workflows/calendario-regressoes.yml",
+      ".github/workflows/canario-022.yml",
       ".github/workflows/comunicacao-publica.yml",
       ".github/workflows/sintonia-scrap.yml",
       ".github/workflows/supabase-conexao.yml",
@@ -721,6 +722,7 @@
       "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",
       "guarda/memoria_descartavel.py",
+      "guarda/portas_live.py",
       "guarda/preservar_coleta.py",
       "guarda/preservar_derivado.py",
       "guarda/sql_conferir.py"
@@ -1070,6 +1072,7 @@
     ],
     "provas": [
       "provas/auditoria.py",
+      "provas/canario_forward_it.py",
       "provas/chain.py",
       "provas/corrigir_custo.py",
       "provas/coverage.py",
@@ -1078,7 +1081,9 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/preflight_022_live.sh",
       "provas/preservar_coleta_no_postgres.py",
+      "provas/readback_022_live.sh",
       "provas/testa_coleta_canonica.py",
       "provas/testa_golden_path_pdf.py",
       "provas/testa_rota_italia.py",
@@ -1679,8 +1684,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "0661e7b2c1e96cab712df047b8c91dda77dddb89",
-    "GENERATED_AT": "2026-09-08T14:17:39-03:00"
+    "HEAD": "7dc58f817356bda0014bf4cb89286d9c324948f7",
+    "GENERATED_AT": "2026-09-08T14:53:33-03:00"
   },
   "FAMILIES": [
     {
@@ -5477,6 +5482,7 @@
       "inbound": [
         "C-CI-PERSIST",
         "C-CI-REGRESSAO",
+        "C-PROVA-COLETA",
         "C-SUPABASE"
       ],
       "outbound": [
@@ -5983,7 +5989,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "infra"
@@ -5992,15 +5998,16 @@
       "family": "F-ESPERA",
       "files": [
         ".github/workflows/banco-descartavel.yml",
+        ".github/workflows/canario-022.yml",
         ".github/workflows/supabase-conexao.yml",
         ".github/workflows/supabase-fichas-adama.yml",
         ".github/workflows/supabase-migrate.yml",
         ".github/workflows/supabase-raw-roundtrip.yml",
         ".github/workflows/supabase-storage.yml"
       ],
-      "file_count": 6,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
+      "file_count": 7,
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -6808,16 +6815,18 @@
       "icon": "▷",
       "territory": "Z-GUARDA",
       "family": "F-ESPERA",
-      "status": "UNKNOWN",
-      "ui_status": "gray",
-      "proof": "db-tested",
-      "what": "A tabela onde vai viver o que NOS produzimos a partir do bruto. Uma linha e UM artefato, de UM bruto, por UMA ferramenta numa VERSAO, com UNS parametros, numa POSICAO da serie. Medidos hoje: 3 produtores de derivado e 43 derivacoes reais.",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "proof": "git-measurement",
+      "what": "A tabela onde vive o que NOS produzimos a partir do bruto. Uma linha e UM artefato, de UM bruto, por UMA ferramenta numa VERSAO, com UNS parametros, numa POSICAO da serie. Medidos hoje: 3 produtores de derivado e 43 derivacoes reais.",
       "why_here": "RAW nao e DERIVED. Acrescentar um `parent_sha256` ao `raw_asset` seria mais curto e apagaria essa lei dentro da tabela chamada «bruto» — uma tabela que se chama bruto com filhos la dentro mente para todo leitor futuro.",
       "files": [],
       "file_count": 0,
       "facts": [
         "a migration existe no repositorio: SIM — supabase/migrations/022_o_derivado_ganha_casa.sql",
-        "DESIGNED sim · IMPLEMENTED sim · DB_TESTED sim (Postgres 16 descartavel) · LIVE_APPLIED NAO · OBSERVED NAO",
+        "DESIGNED sim · IMPLEMENTED sim · DB_TESTED sim · LIVE_APPLIED SIM (08/09/2026, APPLIED_SET={022}, readback 30 provas) · OBSERVED SIM",
+        "primeiro derivado italiano: derived_artifact id=1, pai raw_asset 890, texto-de-pdf v1, 4968 bytes — nascido de uma captura NOVA, nao de historia velha",
+        "e o retry deu REUSED, sem upload novo e sem linha nova, com o byte conferido no armazem",
         "produtores medidos: 7, e so 3 sao de especie DERIVED_ARTIFACT",
         "por especie: {'BIBLIOTECA': 1, 'CLAIM_OU_JUIZO': 1, 'DERIVED_ARTIFACT': 3, 'RAW_CAPTURE': 1, 'STRUCTURED_RECORD': 1}",
         "a legenda que o YouTube entrega com o video e RAW_CAPTURE, NAO derivado — nos nao a produzimos, e mete-la aqui declararia uma linhagem que nao existe",
@@ -6829,8 +6838,8 @@
         "e por isso: NADA com o legado. A migration e FORWARD: ela abre a casa para o que vier a seguir, e nao pinta de novo o que ficou para tras.",
         "43 de 43 derivados sabem quando foram derivados; 0 sabem quando o pai foi colhido. Onde falta, fica UNKNOWN — copiar o `derived_at` para o `captured_at` daria uma data com cara de medida."
       ],
-      "status_reason": "CINZENTO porque DESIGNED e DB_TESTED nao sao LIVE_APPLIED. A migration esta escrita e provada num Postgres 16 que morre no fim do job; em producao nao correu, e nenhuma linha existe. So deixa de ser ALVO quando um produtor real escrever a primeira.",
-      "evidence_text": "system-map/data/derivacoes.generated.json; supabase/migrations/022_o_derivado_ganha_casa.sql; provas/derived_artifact_no_postgres.py",
+      "status_reason": "VERDE porque a 022 foi APLICADA em producao e o esquema foi lido de volta objeto a objeto, e porque um produtor real escreveu a primeira linha — uma captura italiana nova, nao um byte historico. O verde e do CANARIO: uma unidade. As outras fontes, o OCR e os 43 historicos continuam de fora.",
+      "evidence_text": "system-map/data/derivacoes.generated.json; data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json → CANARIO_FORWARD_2026_09_08; supabase/migrations/022_o_derivado_ganha_casa.sql",
       "departments": [
         "ENGENHARIA"
       ],
@@ -6858,16 +6867,16 @@
     },
     {
       "id": "C-DONO-DA-ESCRITA",
-      "name": "ALVO · o dono canônico da escrita (provado em banco, sem corrida real)",
+      "name": "O dono canônico da escrita do bruto (OBSERVED)",
       "territory": "Z-GUARDA",
       "kind": "engine",
       "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`.",
-      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ⚠️ CAN DO NÃO É DID DO: ela está provada contra banco descartável — SQLite sempre, e Postgres 16 com a migration 001 no workflow `banco-descartavel` — e NÃO tem consumidor real. Nenhuma coleta passou por aqui. Enquanto for assim, isto é ALVO, não estrada corrente.",
+      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ✅ DEIXOU DE SER ALVO em 08/09/2026: uma captura italiana nova passou por ela em produção — corrida IT-CANARY, raw_asset 890, RUN_STATE=COMPLETE, byte conferido no armazém. UMA unidade, e o legado ficou intocado.",
       "departments": [
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▷",
       "views": [
         "audit",
@@ -6877,11 +6886,12 @@
       "family": "F-ESPERA",
       "files": [
         "guarda/memoria_descartavel.py",
+        "guarda/portas_live.py",
         "guarda/preservar_coleta.py"
       ],
-      "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -6898,30 +6908,43 @@
         "papel": "NAO SEI",
         "listas": [
           "CAMPOS_DA_LINHA",
+          "COLS_DER",
+          "COLS_OBJ",
+          "COLS_RAW",
+          "COLS_RUN",
           "IDENTIDADE_DA_CORRIDA",
           "IDENTIDADE_DO_OBJETO"
         ],
-        "palavras": 18,
+        "palavras": 54,
         "por_lingua": {},
-        "sem_marca_de_lingua": 18,
+        "sem_marca_de_lingua": 54,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "SUPABASE"
+      ],
+      "destino_prova": [
+        {
+          "onde": "SUPABASE",
+          "file": "guarda/portas_live.py",
+          "line": 55,
+          "snippet": "self.base = (url or os.environ[\"SUPABASE_URL\"]).rstrip(\"/\")"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit).",
       "x": 10355,
       "y": 1004
     },
     {
       "id": "C-DONO-DO-DERIVADO",
-      "name": "ALVO · o dono canônico da escrita do derivado",
+      "name": "O dono canônico da escrita do derivado (OBSERVED)",
       "territory": "Z-GUARDA",
       "kind": "engine",
       "what": "Quem escreve na tabela do derivado. Ele possui — e mais ninguém — o sha256 do pai (lido do banco), o sha256 e o tamanho do filho (calculados dos bytes), a serialização dos parâmetros, o momento da derivação e o endereço no armazém.",
-      "why_here": "A tabela já recusa a linha repetida; isso não chega. Se quem escreve ler esse silêncio como «tudo igual», uma derivação que passou a produzir OUTRO resultado entra como REUSED — e o sistema fica calado no dia em que devia gritar. Aqui a idempotência é reencontro + comparação + prova de igualdade: lê antes, compara, escreve, lê outra vez. ⚠️ CAN DO NÃO É DID DO: provado contra Postgres 16 descartável, e sem nenhuma corrida real.",
+      "why_here": "A tabela já recusa a linha repetida; isso não chega. Se quem escreve ler esse silêncio como «tudo igual», uma derivação que passou a produzir OUTRO resultado entra como REUSED. Aqui a idempotência é reencontro + comparação + prova de igualdade. ✅ DEIXOU DE SER ALVO em 08/09/2026: o primeiro derivado italiano nasceu por ela em produção — derived_artifact id=1, pai 890, e o retry deu REUSED com o byte conferido.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -8393,7 +8416,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "audit",
@@ -8406,9 +8429,11 @@
         "system-map/scripts/mudar_gaveta.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/generate_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -8418,7 +8443,6 @@
         "C-IT-CATALOGO",
         "C-MAPA-APP",
         "C-MAPA-SCAN",
-        "C-PROVA-COLETA",
         "C-SUPABASE",
         "lineage_stale"
       ],
@@ -9816,7 +9840,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -9825,14 +9849,17 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
+        "provas/canario_forward_it.py",
         "provas/derived_artifact_no_postgres.py",
+        "provas/preflight_022_live.sh",
         "provas/preservar_coleta_no_postgres.py",
+        "provas/readback_022_live.sh",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py"
       ],
-      "file_count": 4,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "file_count": 7,
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -9850,8 +9877,8 @@
         "C-SUPABASE"
       ],
       "outbound": [
+        "C-CADEIA-V21",
         "C-CI-PERSIST",
-        "C-MAPA-GERADOR",
         "C-TESTES"
       ],
       "paises": {},
@@ -9866,14 +9893,15 @@
           "COLS_OBJ",
           "COLS_RAW",
           "COLS_RUN",
+          "FONTE",
           "_GAVETAS_IT",
           "_OUTROS",
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 61,
+        "palavras": 77,
         "por_lingua": {},
-        "sem_marca_de_lingua": 61,
+        "sem_marca_de_lingua": 77,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13563,7 +13591,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 0661e7b2c1e96cab712df047b8c91dda77dddb89"
+        "HEAD 7dc58f817356bda0014bf4cb89286d9c324948f7"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -14432,7 +14460,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2452,
+          "line": 2467,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -16001,8 +16029,13 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Cadeia canonica V2.1. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Cadeia canonica V2.1. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": ".github/workflows/canario-022.yml",
+          "line": 20,
+          "snippet": "# E ele chama `motor/cadeia_canonica.sh` — o MESMO aplicador da casa, com o"
+        },
         {
           "file": ".github/workflows/supabase-migrate.yml",
           "line": 4,
@@ -16019,7 +16052,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar ALVO · o dono canônico da escrita (provado em banco, sem corrida real). Provado por 2 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar O dono canônico da escrita do bruto (OBSERVED). Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
@@ -16030,6 +16063,11 @@
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 26,
           "snippet": "- 'guarda/memoria_descartavel.py'"
+        },
+        {
+          "file": ".github/workflows/canario-022.yml",
+          "line": 43,
+          "snippet": "- 'guarda/portas_live.py'"
         }
       ],
       "categoria": "CONTROL"
@@ -16042,7 +16080,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar ALVO · o dono canônico da escrita do derivado. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar O dono canônico da escrita do derivado (OBSERVED). Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
@@ -16078,7 +16116,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
@@ -16089,6 +16127,21 @@
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 30,
           "snippet": "- 'provas/derived_artifact_no_postgres.py'"
+        },
+        {
+          "file": ".github/workflows/canario-022.yml",
+          "line": 41,
+          "snippet": "- 'provas/preflight_022_live.sh'"
+        },
+        {
+          "file": ".github/workflows/canario-022.yml",
+          "line": 42,
+          "snippet": "- 'provas/canario_forward_it.py'"
+        },
+        {
+          "file": ".github/workflows/canario-022.yml",
+          "line": 70,
+          "snippet": "run: bash provas/readback_022_live.sh"
         }
       ],
       "categoria": "PROOF"
@@ -16764,7 +16817,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "ALVO · o dono canônico da escrita (provado em banco, sem corrida real) alimenta Os botoes que cuidam do banco. Provado por 2 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Os botoes que cuidam do banco. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
@@ -16775,6 +16828,11 @@
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 26,
           "snippet": "- 'guarda/memoria_descartavel.py'"
+        },
+        {
+          "file": ".github/workflows/canario-022.yml",
+          "line": 43,
+          "snippet": "- 'guarda/portas_live.py'"
         }
       ],
       "categoria": "READ"
@@ -16787,7 +16845,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "ALVO · o dono canônico da escrita (provado em banco, sem corrida real) alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_preservar_coleta.py",
@@ -16815,7 +16873,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "ALVO · o dono canônico da escrita do derivado alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
@@ -16833,7 +16891,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "ALVO · o dono canônico da escrita do derivado alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) alimenta Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_preservar_derivado.py",
@@ -16926,7 +16984,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1222,
+          "line": 1237,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -17056,7 +17114,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1204,
+          "line": 1219,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         }
       ],
@@ -17531,7 +17589,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2474,
+          "line": 2489,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -18169,17 +18227,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2675,
+          "line": 2690,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2675,
+          "line": 2690,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2676,
+          "line": 2691,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -18343,12 +18401,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3165,
+          "line": 3180,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3165,
+          "line": 3180,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -19905,13 +19963,31 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-CADEIA-V21",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica manda rodar Cadeia canonica V2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/preflight_022_live.sh",
+          "line": 120,
+          "snippet": "echo \"Lembrete do proprio motor/cadeia_canonica.sh: reaplicar a 015\""
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-CI-PERSIST",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Os botoes que cuidam do banco. Provado por 2 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Os botoes que cuidam do banco. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
@@ -19922,24 +19998,16 @@
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 30,
           "snippet": "- 'provas/derived_artifact_no_postgres.py'"
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
-      "from": "C-PROVA-COLETA",
-      "to": "C-MAPA-GERADOR",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Gerador do System Map. Provado por 1 linha de codigo.",
-      "evidence": [
+        },
         {
-          "file": "system-map/scripts/generate_system_map.py",
-          "line": 954,
-          "snippet": "\"provas/derived_artifact_no_postgres.py\"),"
+          "file": ".github/workflows/canario-022.yml",
+          "line": 41,
+          "snippet": "- 'provas/preflight_022_live.sh'"
+        },
+        {
+          "file": ".github/workflows/canario-022.yml",
+          "line": 42,
+          "snippet": "- 'provas/canario_forward_it.py'"
         }
       ],
       "categoria": "PROOF"
@@ -20646,8 +20714,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Os botoes que cuidam do banco. Provado por 3 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Os botoes que cuidam do banco. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": ".github/workflows/canario-022.yml",
+          "line": 76,
+          "snippet": "sha256sum supabase/migrations/022_o_derivado_ganha_casa.sql"
+        },
         {
           "file": ".github/workflows/supabase-migrate.yml",
           "line": 100,
@@ -22164,16 +22237,16 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 116,
-    "components_proven": 79,
-    "components_pending": 30,
+    "components_proven": 76,
+    "components_pending": 34,
     "components_broken": 0,
-    "components_unknown": 7,
+    "components_unknown": 6,
     "edges": 388,
     "edges_proven": 386,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1233,
-    "files_covered": 555,
+    "files_tracked": 1238,
+    "files_covered": 560,
     "files_code_unclaimed": 0
   }
 }

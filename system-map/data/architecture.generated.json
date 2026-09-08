@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "0661e7b2c1e96cab712df047b8c91dda77dddb89",
-    "GENERATED_AT": "2026-09-08T14:17:39-03:00"
+    "HEAD": "7dc58f817356bda0014bf4cb89286d9c324948f7",
+    "GENERATED_AT": "2026-09-08T14:53:33-03:00"
   },
   "FILES": [
     {
@@ -52,6 +52,13 @@
     {
       "path": ".github/workflows/calendario-regressoes.yml",
       "sha": "d18c4b3e00fac8ff2a31295af78b7a1cd251ec77",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/canario-022.yml",
+      "sha": "af3d4457241765b355053d94b50bd9133837f6ce",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -3922,7 +3929,7 @@
     },
     {
       "path": "data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json",
-      "sha": "a71870468cd0a6ebda4961d71956d6b19382a2a0",
+      "sha": "c2df0215d450f4c1c344568534accfc7c68355db",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4125,7 +4132,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "55f4c5b2c07637814f417b310237e3e7d23f95e5",
+      "sha": "54cd6b3a6dc9adc226ae571d1966dc6baa20afa5",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4840,6 +4847,13 @@
     {
       "path": "guarda/memoria_descartavel.py",
       "sha": "316ad71ed74fba8188d9499d725360be431f9329",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "guarda/portas_live.py",
+      "sha": "44d93bf69d7b5bf7e4ec43ccff4e6dc250e65cda",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7141,6 +7155,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/canario_forward_it.py",
+      "sha": "dca8ae41aae7c726b813c9a08d89dc37323d24b9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/chain.py",
       "sha": "d5c07eec3c026b3e2fad7b2013db9da49a3fba90",
       "ext": ".py",
@@ -7197,9 +7218,23 @@
       "code_dir": true
     },
     {
+      "path": "provas/preflight_022_live.sh",
+      "sha": "1d8900d3eb82b3f8cc1110219fd062f5ed99c68c",
+      "ext": ".sh",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/preservar_coleta_no_postgres.py",
       "sha": "991be91d76d4daceae7c66e80e29d75ab4a106c9",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/readback_022_live.sh",
+      "sha": "c1ac05ce1e6f69eec128842b245d2606bb231903",
+      "ext": ".sh",
       "readable": true,
       "code_dir": true
     },
@@ -8234,7 +8269,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "7b4d213b1be541a0d37b7fdc0d428ef751b3c1d2",
+      "sha": "f0869d26a33a55a2c1f376e42c4ef8dcda4998d1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8283,7 +8318,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "89d77d2dcf0e08f90ec3a9e0a9526e839485b847",
+      "sha": "2d5178495550369a2b46142c6e88a749ac842590",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9023,6 +9058,105 @@
         "file": ".github/workflows/calendario-regressoes.yml",
         "line": 176,
         "snippet": "psql \"$CADEIA\" -f supabase/tests/regressoes_regulatorio_es.sql 2>&1 | tee /tmp/rg"
+      }
+    },
+    {
+      "from_file": ".github/workflows/canario-022.yml",
+      "to_file": "guarda/portas_live.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/canario-022.yml",
+        "line": 43,
+        "snippet": "- 'guarda/portas_live.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/canario-022.yml",
+      "to_file": "guarda/portas_live.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/canario-022.yml",
+        "line": 43,
+        "snippet": "- 'guarda/portas_live.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/canario-022.yml",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/canario-022.yml",
+        "line": 20,
+        "snippet": "# E ele chama `motor/cadeia_canonica.sh` — o MESMO aplicador da casa, com o"
+      }
+    },
+    {
+      "from_file": ".github/workflows/canario-022.yml",
+      "to_file": "provas/canario_forward_it.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/canario-022.yml",
+        "line": 42,
+        "snippet": "- 'provas/canario_forward_it.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/canario-022.yml",
+      "to_file": "provas/canario_forward_it.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/canario-022.yml",
+        "line": 42,
+        "snippet": "- 'provas/canario_forward_it.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/canario-022.yml",
+      "to_file": "provas/preflight_022_live.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/canario-022.yml",
+        "line": 41,
+        "snippet": "- 'provas/preflight_022_live.sh'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/canario-022.yml",
+      "to_file": "provas/preflight_022_live.sh",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/canario-022.yml",
+        "line": 41,
+        "snippet": "- 'provas/preflight_022_live.sh'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/canario-022.yml",
+      "to_file": "provas/readback_022_live.sh",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/canario-022.yml",
+        "line": 70,
+        "snippet": "run: bash provas/readback_022_live.sh"
+      }
+    },
+    {
+      "from_file": ".github/workflows/canario-022.yml",
+      "to_file": "supabase/migrations/022_o_derivado_ganha_casa.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/canario-022.yml",
+        "line": 76,
+        "snippet": "sha256sum supabase/migrations/022_o_derivado_ganha_casa.sql"
       }
     },
     {
@@ -22193,6 +22327,17 @@
       }
     },
     {
+      "from_file": "provas/preflight_022_live.sh",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": "provas/preflight_022_live.sh",
+        "line": 120,
+        "snippet": "echo \"Lembrete do proprio motor/cadeia_canonica.sh: reaplicar a 015\""
+      }
+    },
+    {
       "from_file": "provas/preservar_coleta_no_postgres.py",
       "to_file": "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
       "type": "READS",
@@ -23508,7 +23653,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2474,
+        "line": 2489,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -23519,7 +23664,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1204,
+        "line": 1219,
         "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
       }
     },
@@ -23530,7 +23675,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1222,
+        "line": 1237,
         "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
       }
     },
@@ -23541,7 +23686,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1215,
+        "line": 1230,
         "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\","
       }
     },
@@ -23563,7 +23708,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2452,
+        "line": 2467,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -23574,7 +23719,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2233,
+        "line": 2248,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -23602,23 +23747,12 @@
     },
     {
       "from_file": "system-map/scripts/generate_system_map.py",
-      "to_file": "provas/derived_artifact_no_postgres.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/scripts/generate_system_map.py",
-        "line": 954,
-        "snippet": "\"provas/derived_artifact_no_postgres.py\"),"
-      }
-    },
-    {
-      "from_file": "system-map/scripts/generate_system_map.py",
       "to_file": "regras/LEIA-ANTES-DE-COLETAR.md",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2653,
+        "line": 2668,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -23640,7 +23774,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2675,
+        "line": 2690,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -23651,7 +23785,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2676,
+        "line": 2691,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -23662,7 +23796,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2675,
+        "line": 2690,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -23684,7 +23818,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3165,
+        "line": 3180,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -23695,7 +23829,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3165,
+        "line": 3180,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -23706,7 +23840,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2414,
+        "line": 2429,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -27287,10 +27421,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1233,
-    "files_readable": 414,
-    "files_code_dir": 460,
-    "file_edges": 1659,
+    "files_tracked": 1238,
+    "files_readable": 419,
+    "files_code_dir": 465,
+    "file_edges": 1668,
     "escritas_em_pasta": 58,
     "declared_missing_here": 0
   },

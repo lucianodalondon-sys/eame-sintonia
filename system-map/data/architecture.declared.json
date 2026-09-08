@@ -1535,7 +1535,8 @@
       ],
       "files": [
         ".github/workflows/supabase-*.yml",
-        ".github/workflows/banco-descartavel.yml"
+        ".github/workflows/banco-descartavel.yml",
+        ".github/workflows/canario-022.yml"
       ],
       "views": [],
       "icon": "▶",
@@ -1783,7 +1784,10 @@
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
         "provas/preservar_coleta_no_postgres.py",
-        "provas/derived_artifact_no_postgres.py"
+        "provas/derived_artifact_no_postgres.py",
+        "provas/canario_forward_it.py",
+        "provas/preflight_022_live.sh",
+        "provas/readback_022_live.sh"
       ],
       "views": [
         "audit"
@@ -1899,18 +1903,19 @@
     },
     {
       "id": "C-DONO-DA-ESCRITA",
-      "name": "ALVO · o dono canônico da escrita (provado em banco, sem corrida real)",
+      "name": "O dono canônico da escrita do bruto (OBSERVED)",
       "territory": "Z-GUARDA",
       "kind": "engine",
       "icon": "▷",
       "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`.",
-      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ⚠️ CAN DO NÃO É DID DO: ela está provada contra banco descartável — SQLite sempre, e Postgres 16 com a migration 001 no workflow `banco-descartavel` — e NÃO tem consumidor real. Nenhuma coleta passou por aqui. Enquanto for assim, isto é ALVO, não estrada corrente.",
+      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ✅ DEIXOU DE SER ALVO em 08/09/2026: uma captura italiana nova passou por ela em produção — corrida IT-CANARY, raw_asset 890, RUN_STATE=COMPLETE, byte conferido no armazém. UMA unidade, e o legado ficou intocado.",
       "departments": [
         "ENGENHARIA"
       ],
       "files": [
         "guarda/preservar_coleta.py",
-        "guarda/memoria_descartavel.py"
+        "guarda/memoria_descartavel.py",
+        "guarda/portas_live.py"
       ],
       "views": [
         "infra",
@@ -1919,12 +1924,12 @@
     },
     {
       "id": "C-DONO-DO-DERIVADO",
-      "name": "ALVO · o dono canônico da escrita do derivado",
+      "name": "O dono canônico da escrita do derivado (OBSERVED)",
       "territory": "Z-GUARDA",
       "kind": "engine",
       "icon": "▷",
       "what": "Quem escreve na tabela do derivado. Ele possui — e mais ninguém — o sha256 do pai (lido do banco), o sha256 e o tamanho do filho (calculados dos bytes), a serialização dos parâmetros, o momento da derivação e o endereço no armazém.",
-      "why_here": "A tabela já recusa a linha repetida; isso não chega. Se quem escreve ler esse silêncio como «tudo igual», uma derivação que passou a produzir OUTRO resultado entra como REUSED — e o sistema fica calado no dia em que devia gritar. Aqui a idempotência é reencontro + comparação + prova de igualdade: lê antes, compara, escreve, lê outra vez. ⚠️ CAN DO NÃO É DID DO: provado contra Postgres 16 descartável, e sem nenhuma corrida real.",
+      "why_here": "A tabela já recusa a linha repetida; isso não chega. Se quem escreve ler esse silêncio como «tudo igual», uma derivação que passou a produzir OUTRO resultado entra como REUSED. Aqui a idempotência é reencontro + comparação + prova de igualdade. ✅ DEIXOU DE SER ALVO em 08/09/2026: o primeiro derivado italiano nasceu por ela em produção — derived_artifact id=1, pai 890, e o retry deu REUSED com o byte conferido.",
       "departments": [
         "ENGENHARIA"
       ],
