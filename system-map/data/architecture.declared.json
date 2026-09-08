@@ -1898,23 +1898,6 @@
       ]
     },
     {
-      "id": "C-DERIVED-ARTIFACT",
-      "name": "ALVO · a casa do derivado (migration 022)",
-      "territory": "Z-GUARDA",
-      "kind": "acervo",
-      "icon": "▷",
-      "what": "A tabela onde vai viver o que NÓS produzimos a partir do bruto: texto de PDF, transcrição, OCR, thumbnail, frame. Uma linha é um artefato, de um bruto, por uma ferramenta numa versão, com uns parâmetros, numa posição da série. A migration vive em `supabase/migrations/022_o_derivado_ganha_casa.sql` e a prova em `provas/derived_artifact_no_postgres.py` — cada uma na sua gaveta, com o seu dono.",
-      "why_here": "RAW não é DERIVED. Acrescentar um `parent_sha256` ao `raw_asset` seria mais curto e apagaria essa lei dentro da tabela chamada «bruto». ⚠️ É ALVO: a migration está escrita e provada num Postgres 16 descartável, e NÃO foi aplicada em produção. E os 43 derivados italianos de hoje não cabem lá — não há `raw_asset` italiano para ser pai deles, e inventá-lo seria fabricar a coleta que nunca foi registada.",
-      "departments": [
-        "ENGENHARIA"
-      ],
-      "files": [],
-      "views": [
-        "infra",
-        "audit"
-      ]
-    },
-    {
       "id": "C-DONO-DA-ESCRITA",
       "name": "ALVO · o dono canônico da escrita (provado em banco, sem corrida real)",
       "territory": "Z-GUARDA",

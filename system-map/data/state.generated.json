@@ -1677,8 +1677,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "0b9b5bfcfd2186ea582524f8b292232470bed17e",
-    "GENERATED_AT": "2026-09-08T11:28:27-03:00"
+    "HEAD": "889bc37c7b2c03914dd850107c1f3a057b6477d9",
+    "GENERATED_AT": "2026-09-08T11:29:04-03:00"
   },
   "FAMILIES": [
     {
@@ -6800,30 +6800,47 @@
     {
       "id": "C-DERIVED-ARTIFACT",
       "name": "ALVO · a casa do derivado (migration 022)",
-      "territory": "Z-GUARDA",
       "kind": "acervo",
-      "what": "A tabela onde vai viver o que NÓS produzimos a partir do bruto: texto de PDF, transcrição, OCR, thumbnail, frame. Uma linha é um artefato, de um bruto, por uma ferramenta numa versão, com uns parâmetros, numa posição da série. A migration vive em `supabase/migrations/022_o_derivado_ganha_casa.sql` e a prova em `provas/derived_artifact_no_postgres.py` — cada uma na sua gaveta, com o seu dono.",
-      "why_here": "RAW não é DERIVED. Acrescentar um `parent_sha256` ao `raw_asset` seria mais curto e apagaria essa lei dentro da tabela chamada «bruto». ⚠️ É ALVO: a migration está escrita e provada num Postgres 16 descartável, e NÃO foi aplicada em produção. E os 43 derivados italianos de hoje não cabem lá — não há `raw_asset` italiano para ser pai deles, e inventá-lo seria fabricar a coleta que nunca foi registada.",
+      "icon": "▷",
+      "territory": "Z-GUARDA",
+      "family": "F-ESPERA",
+      "status": "UNKNOWN",
+      "ui_status": "gray",
+      "proof": "db-tested",
+      "what": "A tabela onde vai viver o que NOS produzimos a partir do bruto. Uma linha e UM artefato, de UM bruto, por UMA ferramenta numa VERSAO, com UNS parametros, numa POSICAO da serie. Medidos hoje: 3 produtores de derivado e 43 derivacoes reais.",
+      "why_here": "RAW nao e DERIVED. Acrescentar um `parent_sha256` ao `raw_asset` seria mais curto e apagaria essa lei dentro da tabela chamada «bruto» — uma tabela que se chama bruto com filhos la dentro mente para todo leitor futuro.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "a migration existe no repositorio: SIM — supabase/migrations/022_o_derivado_ganha_casa.sql",
+        "DESIGNED sim · IMPLEMENTED sim · DB_TESTED sim (Postgres 16 descartavel) · LIVE_APPLIED NAO · OBSERVED NAO",
+        "produtores medidos: 7, e so 3 sao de especie DERIVED_ARTIFACT",
+        "por especie: {'BIBLIOTECA': 1, 'CLAIM_OU_JUIZO': 1, 'DERIVED_ARTIFACT': 3, 'RAW_CAPTURE': 1, 'STRUCTURED_RECORD': 1}",
+        "a legenda que o YouTube entrega com o video e RAW_CAPTURE, NAO derivado — nos nao a produzimos, e mete-la aqui declararia uma linhagem que nao existe",
+        "ferramentas de derivacao: texto-de-pdf, whisper",
+        "derivacoes reais hoje: 43 · por tipo: {'TEXT_EXTRACTION': 43}",
+        "chaves de derivacao distintas: 43",
+        "IDENTIDADE = (parent_sha256, kind, producer, producer_version, parameters_hash, serie_posicao). O sha256 identifica BYTES, nao linhagem — duas rotas podem chegar aos mesmos bytes",
+        "legado: 43 derivados, 0 linhas de raw_asset IT, 0 ligaveis honestamente — LEGACY_DERIVATION_WITHOUT_CANONICAL_RAW_PARENT",
+        "e por isso: NADA com o legado. A migration e FORWARD: ela abre a casa para o que vier a seguir, e nao pinta de novo o que ficou para tras.",
+        "43 de 43 derivados sabem quando foram derivados; 0 sabem quando o pai foi colhido. Onde falta, fica UNKNOWN — copiar o `derived_at` para o `captured_at` daria uma data com cara de medida."
+      ],
+      "status_reason": "CINZENTO porque DESIGNED e DB_TESTED nao sao LIVE_APPLIED. A migration esta escrita e provada num Postgres 16 que morre no fim do job; em producao nao correu, e nenhuma linha existe. So deixa de ser ALVO quando um produtor real escrever a primeira.",
+      "evidence_text": "system-map/data/derivacoes.generated.json; supabase/migrations/022_o_derivado_ganha_casa.sql; provas/derived_artifact_no_postgres.py",
       "departments": [
         "ENGENHARIA"
       ],
-      "legacy": false,
-      "ui_status": "red",
-      "icon": "▷",
       "views": [
-        "audit",
-        "infra"
+        "infra",
+        "audit"
       ],
       "lane": "official",
-      "family": "F-ESPERA",
-      "files": [],
-      "file_count": 0,
-      "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com .",
+      "legacy": false,
       "changed_since_declared": [],
-      "produces": [],
       "inbound": [],
       "outbound": [],
+      "source": "system-map/data/derivacoes.generated.json",
+      "declared_by": "missao a-casa-do-derivado",
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -8314,7 +8331,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "audit",
@@ -8327,9 +8344,11 @@
         "system-map/scripts/mudar_gaveta.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/generate_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -8339,6 +8358,8 @@
         "C-IT-CATALOGO",
         "C-MAPA-APP",
         "C-MAPA-SCAN",
+        "C-PROVA-COLETA",
+        "C-SUPABASE",
         "lineage_stale"
       ],
       "outbound": [
@@ -9770,6 +9791,7 @@
       ],
       "outbound": [
         "C-CI-PERSIST",
+        "C-MAPA-GERADOR",
         "C-TESTES"
       ],
       "paises": {},
@@ -10678,6 +10700,7 @@
         "C-DATA-CLOCK",
         "C-FONTES-EU",
         "C-IMPORTAR",
+        "C-MAPA-GERADOR",
         "C-PROVA-COLETA",
         "C-REGRA-COLETA",
         "C-ROTULOS",
@@ -13476,7 +13499,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 0b9b5bfcfd2186ea582524f8b292232470bed17e"
+        "HEAD 889bc37c7b2c03914dd850107c1f3a057b6477d9"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -14345,7 +14368,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2361,
+          "line": 2452,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -16780,7 +16803,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1131,
+          "line": 1222,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -16910,7 +16933,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1113,
+          "line": 1204,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         }
       ],
@@ -17367,7 +17390,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2383,
+          "line": 2474,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -18005,17 +18028,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2584,
+          "line": 2675,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2584,
+          "line": 2675,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2585,
+          "line": 2676,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -18179,12 +18202,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3070,
+          "line": 3165,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3070,
+          "line": 3165,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -19764,6 +19787,24 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-MAPA-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta Gerador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 954,
+          "snippet": "\"provas/derived_artifact_no_postgres.py\"),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -20627,6 +20668,24 @@
           "file": "guarda/catalogo_importar.py",
           "line": 49,
           "snippet": "'ADAMA-ES-CATALOGO-2026-08-30.sql')"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-SUPABASE",
+      "to": "C-MAPA-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O banco onde o dado fica guardado alimenta Gerador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 902,
+          "snippet": "migracao = \"supabase/migrations/022_o_derivado_ganha_casa.sql\""
         }
       ],
       "categoria": "READ"
@@ -21964,12 +22023,12 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 115,
-    "components_proven": 78,
-    "components_pending": 30,
-    "components_broken": 1,
-    "components_unknown": 6,
-    "edges": 382,
-    "edges_proven": 380,
+    "components_proven": 77,
+    "components_pending": 31,
+    "components_broken": 0,
+    "components_unknown": 7,
+    "edges": 384,
+    "edges_proven": 382,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1231,

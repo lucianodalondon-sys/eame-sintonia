@@ -870,6 +870,97 @@ def o_armazem_sem_livro() -> tuple[list, list]:
     return [no], []
 
 
+def a_casa_do_derivado() -> tuple[list, list]:
+    """A tabela do derivado — DESENHADA E PROVADA, e nao aplicada.
+
+    POR QUE ESTE CARTAO E GERADO, E NAO DECLARADO
+
+    Uma TABELA nao e um ficheiro. Declara-la como peca com uma gaveta propria
+    obrigaria a tirar a migration do dono que ja a tem (`C-SUPABASE`, que cobre
+    `supabase/**`) — e uma peca sem ficheiro nenhum fica VERMELHA, com razao: o
+    mapa nao consegue distinguir «conceito» de «codigo que sumiu».
+
+    Entao este cartao nasce da MEDICAO, como o do armazem. Os numeros dele vem
+    do censo das derivacoes; nenhum esta escrito aqui.
+
+    E ELE NAO PODE FICAR VERDE
+
+        DESIGNED e DB_TESTED  nao sao  LIVE_APPLIED.
+
+    Enquanto a migration nao correr em producao e nenhuma linha existir, este
+    cartao e ALVO. Pintar de verde uma casa que ainda nao foi construida e a
+    maneira mais rapida de alguem concluir que o trabalho ja foi feito.
+    """
+    f = DADOS / "derivacoes.generated.json"
+    if not f.is_file():
+        return [], []
+    D = json.loads(f.read_text(encoding="utf-8"))
+    P = D.get("PRODUTORES") or {}
+    A = D.get("ACERVO_DERIVADO") or {}
+    L = D.get("O_PAI_CANONICO") or {}
+
+    migracao = "supabase/migrations/022_o_derivado_ganha_casa.sql"
+    existe = (RAIZ / migracao).is_file()
+
+    no = {
+        "id": "C-DERIVED-ARTIFACT",
+        "name": "ALVO · a casa do derivado (migration 022)",
+        "kind": "acervo", "icon": "▷",
+        "territory": "Z-GUARDA", "family": "F-ESPERA",
+        "status": CINZA, "ui_status": "gray", "proof": "db-tested",
+        "what": (
+            f"A tabela onde vai viver o que NOS produzimos a partir do bruto. "
+            f"Uma linha e UM artefato, de UM bruto, por UMA ferramenta numa "
+            f"VERSAO, com UNS parametros, numa POSICAO da serie. Medidos hoje: "
+            f"{P.get('PRODUTORES_DE_DERIVADO', '?')} produtores de derivado e "
+            f"{A.get('DERIVADOS', '?')} derivacoes reais."),
+        "why_here": (
+            "RAW nao e DERIVED. Acrescentar um `parent_sha256` ao `raw_asset` "
+            "seria mais curto e apagaria essa lei dentro da tabela chamada "
+            "«bruto» — uma tabela que se chama bruto com filhos la dentro mente "
+            "para todo leitor futuro."),
+        "files": [], "file_count": 0,
+        "facts": [
+            f"a migration existe no repositorio: {'SIM' if existe else 'NAO'} — {migracao}",
+            "DESIGNED sim · IMPLEMENTED sim · DB_TESTED sim (Postgres 16 "
+            "descartavel) · LIVE_APPLIED NAO · OBSERVED NAO",
+            f"produtores medidos: {P.get('PRODUTORES_MEDIDOS', '?')}, e so "
+            f"{P.get('PRODUTORES_DE_DERIVADO', '?')} sao de especie DERIVED_ARTIFACT",
+            f"por especie: {P.get('POR_ESPECIE')}",
+            "a legenda que o YouTube entrega com o video e RAW_CAPTURE, NAO "
+            "derivado — nos nao a produzimos, e mete-la aqui declararia uma "
+            "linhagem que nao existe",
+            f"ferramentas de derivacao: "
+            f"{', '.join(x for x in (P.get('FERRAMENTAS_DE_DERIVACAO') or []) if x)}",
+            f"derivacoes reais hoje: {A.get('DERIVADOS')} · por tipo: {A.get('POR_TIPO')}",
+            f"chaves de derivacao distintas: {A.get('CHAVES_DE_DERIVACAO_DISTINTAS')}",
+            "IDENTIDADE = (parent_sha256, kind, producer, producer_version, "
+            "parameters_hash, serie_posicao). O sha256 identifica BYTES, nao "
+            "linhagem — duas rotas podem chegar aos mesmos bytes",
+            f"legado: {L.get('DERIVADOS_EXISTENTES')} derivados, "
+            f"{L.get('LINHAS_DE_RAW_ASSET_IT')} linhas de raw_asset IT, "
+            f"{L.get('LIGAVEIS_HONESTAMENTE')} ligaveis honestamente — "
+            f"{L.get('CLASSE')}",
+            f"e por isso: {L.get('O_QUE_SE_FAZ')}",
+            A.get("O_TEMPO_DO_PAI_NAO_SE_INVENTA", ""),
+        ],
+        "status_reason": (
+            "CINZENTO porque DESIGNED e DB_TESTED nao sao LIVE_APPLIED. A "
+            "migration esta escrita e provada num Postgres 16 que morre no fim "
+            "do job; em producao nao correu, e nenhuma linha existe. So deixa de "
+            "ser ALVO quando um produtor real escrever a primeira."),
+        "evidence_text": ("system-map/data/derivacoes.generated.json; "
+                          "supabase/migrations/022_o_derivado_ganha_casa.sql; "
+                          "provas/derived_artifact_no_postgres.py"),
+        "departments": ["ENGENHARIA"], "views": ["infra", "audit"],
+        "lane": "official", "legacy": False, "changed_since_declared": [],
+        "inbound": [], "outbound": [],
+        "source": "system-map/data/derivacoes.generated.json",
+        "declared_by": "missao a-casa-do-derivado",
+    }
+    return [no], []
+
+
 def a_estrada_do_pdf() -> tuple[list, list]:
     """A primeira estrada do plano de dados, desenhada a partir da corrida real.
 
@@ -2656,6 +2747,10 @@ def main_uma_vez(stamp: bool) -> int:
     arm_nos, lig_arm = o_armazem_sem_livro()
     gerados += arm_nos
     lig_pdf += lig_arm
+
+    der_nos, lig_der = a_casa_do_derivado()
+    gerados += der_nos
+    lig_pdf += lig_der
 
     # ── 2 · arestas de ficheiro sobem para arestas de componente ─────────────
     # Cada aresta de componente carrega TODAS as linhas que a provam. E o que
