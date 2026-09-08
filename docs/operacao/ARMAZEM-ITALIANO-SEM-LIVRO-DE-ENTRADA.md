@@ -294,7 +294,7 @@ nesta missão.**
 | dimensão | estado |
 |---|---|
 | **HISTÓRICO** · os 195 objetos existentes sem memória operacional | **ABERTO, e assim fica.** Classe de dívida: `HISTORICAL_STORAGE_WITHOUT_OPERATIONAL_RUN`. Preservados, com procedência documental recuperável e `RUN` `NOT_PROVABLE`. **Sem corrida inventada.** |
-| **GARANTIA FORWARD** · nenhum objeto NOVO pode repetir isto em silêncio | **`FORWARD_IMPLEMENTED_AND_DB_TESTED`** · `LIVE_OBSERVATION_PENDING`. Provado contra banco real e descartável, **sem consumidor ligado** |
+| **GARANTIA FORWARD** · nenhum objeto NOVO pode repetir isto em silêncio | **`FORWARD_IMPLEMENTED`** · `POSTGRES_PROOF_PENDING_CI` · `LIVE_OBSERVATION_PENDING`. Provado em SQLite real; a prova em Postgres **abortou** e foi corrigida — o estado só sobe quando o CI disser verde |
 
 ### A classe de dívida do histórico, escrita com todas as letras
 
@@ -425,13 +425,47 @@ run_id já existe, identidade congelada    →  RUN_ID_CONFLICT
 Em conflito, **nada é escrito**. O banco fica como estava e a corrida não fecha — que é o
 resultado honesto de duas verdades no mesmo endereço.
 
+### ⚠️ E A PROVA EM POSTGRES ABORTOU — a promoção anterior era prematura
+
+O estado `DB_TESTED` foi escrito **antes de alguém ler o resultado do CI**. O workflow
+`banco-descartavel`, execução `34233443996`, deu **FAILURE**:
+
+```
+ValueError: invalid literal for int() with base 10: 'count\n0\n(1 row)'
+```
+
+**POSTGRES SUBIR NÃO É POSTGRES PASSAR.** O contentor arrancou, a ligação passou, a
+`migration 001` foi aplicada — e a prova rebentou no primeiro `count`.
+
+**A causa era minha, e era de ferramenta, não de arquitetura.** O comando do `psql` era
+montado por índice:
+
+```python
+cmd = ["psql", url, "-v", "ON_ERROR_STOP=1", "-c", sql]
+cmd[3:3] = ["-t", "-A", "-F", sep]        # ← entra ENTRE o -v e o seu valor
+```
+
+O `psql` leu `-v -t` — «define uma variável chamada `-t`» — e o resto virou lixo posicional.
+A saída voltou **alinhada, com cabeçalho e rodapé**, e todas as leituras a jusante foram
+lixo. Não se conserta isso aprendendo a apanhar `count` e `(1 row)` com as mãos: isso seria
+aprender a ler a saída errada. **Conserta-se pedindo a saída certa** — `-X -q -A -t -F`.
+
 ### Provado contra banco de verdade, e nenhum deles é a produção
 
 | bateria | motor | onde |
 |---|---|---|
 | `tests/test_preservar_coleta.py` (18) | plano e armazém, sem banco | sempre |
-| `tests/test_preservar_coleta_no_banco.py` (18) | **SQLite** real, em memória | sempre |
-| `provas/preservar_coleta_no_postgres.py` | **Postgres 16** com a `migration 001` **original** | `banco-descartavel.yml`, contentor que morre no job |
+| `tests/test_preservar_coleta_no_banco.py` (31) | **SQLite** real, em memória | sempre |
+| `provas/preservar_coleta_no_postgres.py` (19 cenários) | **Postgres 16**, `migration 001` **original** | `banco-descartavel.yml`, contentor que morre no job |
+
+**E os 19 cenários agora também correm em SQLite, como ENSAIO, dentro da bateria local.** Não
+substituem o Postgres — substituem o **ciclo de espera**. Um erro de lógica nos cenários só
+aparecia depois do `push`, minutos depois, no CI. Foi assim que a correção anterior foi para
+o ar quebrada. Agora reprova antes de sair da máquina.
+
+**O nome da prova é longo de propósito:** `POSTGRES16_FOUNDATION_SCHEMA_TESTED`. Aplica-se
+**só a `migration 001`** — as `002`–`021` não entram. Chamar-lhe «o esquema atual provado»
+seria dizer mais do que se mediu.
 
 Casos A–L cobertos: 2 esperados → 2 reais → `SELECT` confirma → `concluida`; retry sem
 duplicata; `REUSED`; conflito de sha; conflito de corrida; conflito de `run_id`; **SQL que
@@ -449,7 +483,9 @@ testes, provas e o adaptador descartável. Há um teste que **reprova se alguém
 esquecer de atualizar o estado**.
 
 ```
-G-42 FORWARD = FORWARD_IMPLEMENTED_AND_DB_TESTED
+G-42 FORWARD = FORWARD_IMPLEMENTED
+               SQLITE_DB_TESTED
+               POSTGRES_PROOF_PENDING_CI   ← so sobe quando o CI disser verde
                LIVE_OBSERVATION_PENDING
 ```
 

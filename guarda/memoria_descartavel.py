@@ -122,9 +122,14 @@ class MemoriaDescartavel(Memoria):
         if self.engolir_inserts_de_objeto:
             sql = self._engolir(sql)
         self.aplicacoes += 1
-        # `public.` nao existe em SQLite. E a unica reescrita de dialeto, e ela
-        # e mecanica — nao mexe em valor, trava nem semantica.
-        self.con.executescript(sql.replace("public.", ""))
+        # AS DUAS UNICAS REESCRITAS DE DIALETO, e ambas mecanicas: nao mexem em
+        # valor, trava nem semantica.
+        #   `public.`  nao existe em SQLite — nao ha esquemas nomeados.
+        #   `now()`    chama-se `datetime('now')` aqui. O relogio continua a ser
+        #              o DO BANCO, que e o que importa: o fecho nunca herda o
+        #              `started_at`, nem aqui nem no Postgres.
+        self.con.executescript(
+            sql.replace("public.", "").replace("now()", "datetime('now')"))
 
     def _engolir(self, sql: str) -> str:
         """Deixa cair N inserts de `raw_asset`, sem erro nenhum.

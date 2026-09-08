@@ -1673,8 +1673,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "525fdefbc0c8755ef580e8bff1df1867ee641ede",
-    "GENERATED_AT": "2026-09-08T10:39:56-03:00"
+    "HEAD": "e8c17cf282f1056385e9942ac975730ddeb44f43",
+    "GENERATED_AT": "2026-09-08T10:40:34-03:00"
   },
   "FAMILIES": [
     {
@@ -5416,7 +5416,9 @@
       "file_count": 9,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "docs/biblia/CONFORMIDADE-ITALIA.md"
+      ],
       "produces": [],
       "inbound": [
         "C-PROVA-BIBLIA"
@@ -5905,7 +5907,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "infra"
@@ -5921,9 +5923,11 @@
         ".github/workflows/supabase-storage.yml"
       ],
       "file_count": 6,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        ".github/workflows/banco-descartavel.yml"
+      ],
       "produces": [],
       "inbound": [
         "C-DONO-DA-ESCRITA",
@@ -6725,12 +6729,12 @@
       "territory": "Z-GUARDA",
       "kind": "engine",
       "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`.",
-      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ⚠️ CAN DO NÃO É DID DO: ela está provada contra um banco descartável e NÃO tem consumidor real — nenhuma coleta passou por aqui. Enquanto for assim, isto é ALVO, não estrada corrente.",
+      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ⚠️ CAN DO NÃO É DID DO: ela está provada contra banco descartável — SQLite sempre, e Postgres 16 com a migration 001 no workflow `banco-descartavel` — e NÃO tem consumidor real. Nenhuma coleta passou por aqui. Enquanto for assim, isto é ALVO, não estrada corrente.",
       "departments": [
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▷",
       "views": [
         "audit",
@@ -6743,9 +6747,12 @@
         "guarda/preservar_coleta.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "guarda/memoria_descartavel.py",
+        "guarda/preservar_coleta.py"
+      ],
       "produces": [],
       "inbound": [
         "C-CI-PERSIST"
@@ -6760,12 +6767,13 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CAMPOS_DA_LINHA",
           "IDENTIDADE_DA_CORRIDA",
           "IDENTIDADE_DO_OBJETO"
         ],
-        "palavras": 11,
+        "palavras": 18,
         "por_lingua": {},
-        "sem_marca_de_lingua": 11,
+        "sem_marca_de_lingua": 18,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -9616,7 +9624,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -9630,9 +9638,11 @@
         "provas/testa_golden_path_pdf.py"
       ],
       "file_count": 3,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "provas/preservar_coleta_no_postgres.py"
+      ],
       "produces": [],
       "inbound": [
         "C-ADAMA-ES",
@@ -9649,7 +9659,8 @@
         "C-SUPABASE"
       ],
       "outbound": [
-        "C-CI-PERSIST"
+        "C-CI-PERSIST",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -11647,7 +11658,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -11696,9 +11707,11 @@
         "tests/test_voz.py"
       ],
       "file_count": 38,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "tests/test_preservar_coleta_no_banco.py"
+      ],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
@@ -11736,6 +11749,7 @@
         "C-NAVEGADOR",
         "C-PACOTE-CAMADAS",
         "C-PROCEDENCIA",
+        "C-PROVA-COLETA",
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
         "C-RELEVANCIA",
@@ -11804,7 +11818,7 @@
         {
           "onde": "SUPABASE",
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 380,
+          "line": 618,
           "snippet": "for proibido in (\"os.environ\", \"getenv\", \"SUPABASE_URL =\"):"
         },
         {
@@ -13349,7 +13363,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 525fdefbc0c8755ef580e8bff1df1867ee641ede"
+        "HEAD e8c17cf282f1056385e9942ac975730ddeb44f43"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16495,12 +16509,12 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 336,
+          "line": 423,
           "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 336,
+          "line": 423,
           "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
         }
       ],
@@ -19530,6 +19544,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-PROVA-COLETA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 369,
+          "snippet": "open(caminho, 'leitura')  # caminho = provas/preservar_coleta_no_postgres.py"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-RECEITAS",
       "to": "C-ORQUESTRADOR",
       "type": "IMPORTS",
@@ -20374,7 +20406,7 @@
       "evidence": [
         {
           "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 258,
+          "line": 464,
           "snippet": "open(MIGRACAO, 'leitura')  # MIGRACAO = supabase/migrations/001_fundacao_geografia_e_proveniencia.sql"
         }
       ],
@@ -21661,12 +21693,12 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 113,
-    "components_proven": 78,
-    "components_pending": 29,
+    "components_proven": 74,
+    "components_pending": 33,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 374,
-    "edges_proven": 372,
+    "edges": 375,
+    "edges_proven": 373,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1227,

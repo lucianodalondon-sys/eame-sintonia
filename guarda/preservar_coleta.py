@@ -79,6 +79,12 @@ PRESERVED_AND_REGISTERED = "PRESERVED_AND_REGISTERED"
 # foi o que os 195 objetos italianos provaram.
 IDENTIDADE_DO_OBJETO = ("run_id", "sha256", "bytes", "captured_at", "source_url")
 
+# A linha inteira, para a conferência DEPOIS da escrita. Inclui `media_type` e
+# `storage_path`, que a comparação prévia não precisava de olhar — ali o
+# caminho era a chave da busca, aqui é uma coisa a confirmar.
+CAMPOS_DA_LINHA = ("run_id", "storage_path", "media_type", "bytes", "sha256",
+                   "captured_at", "source_url")
+
 # A identidade congelada da corrida (COL-LAW-211). Se ela mudar, não é a mesma
 # execução — e aceitar em silêncio deixaria duas corridas partilharem um nome.
 IDENTIDADE_DA_CORRIDA = ("actor", "actor_version", "source_country",
@@ -368,6 +374,53 @@ def sql_da_memoria(run: dict, conferidos: list, plano: dict) -> str:
     return "\n".join(linhas) + "\n"
 
 
+def conferir_o_que_ficou_escrito(run: dict, plano: dict, memoria: Memoria) -> dict:
+    """Lê CADA objeto de volta DEPOIS de escrever, e compara campo a campo.
+
+    POR QUE CONTAR NÃO CHEGA
+    ------------------------
+    Ler antes de escrever fecha o caso normal, mas deixa uma janela:
+
+        1. a leitura prévia não encontra nada naquele caminho
+        2. outro escritor mete lá uma linha DIVERGENTE
+        3. o nosso `insert` cai no `on conflict do nothing` — e cala-se
+        4. a CONTAGEM bate: há uma linha, e era uma linha que se esperava
+
+    A conta fecharia sobre um conteúdo que não é o nosso.
+
+        CONTAGEM BATER NÃO É METADATA BATER.
+
+    Por isso a última palavra é esta: cada linha esperada é lida do banco e
+    comparada nos campos que a identificam. Uma divergência aqui é
+    `METADATA_CONFLICT`, e a corrida não fecha.
+    """
+    conferidos, divergentes, ausentes = [], [], []
+    for obj in plano["OBJETOS"]:
+        caminho = obj["STORAGE_PATH"]
+        escrita = memoria.objeto_em(caminho)
+        if not escrita:
+            ausentes.append(caminho)
+            continue
+        esperada = _linha_esperada(run["RUN_ID"], obj)
+        fora = _difere(escrita, esperada, CAMPOS_DA_LINHA)
+        if fora:
+            divergentes.append({"TIPO": METADATA_CONFLICT,
+                                "STORAGE_PATH": caminho, "DIVERGENCIAS": fora})
+        else:
+            conferidos.append(caminho)
+    return {
+        "POST_WRITE_METADATA_MATCH": len(conferidos),
+        "DIVERGENTES": divergentes,
+        "AUSENTES": ausentes,
+        "CAMPOS_COMPARADOS": list(CAMPOS_DA_LINHA),
+        "O_QUE_ISTO_IMPEDE": (
+            "que a contagem certa esconda o conteudo errado. Entre a leitura "
+            "previa e o nosso insert outro escritor pode meter uma linha "
+            "divergente no mesmo caminho; o `do nothing` cala-se e a conta "
+            "fecha na mesma. Contar nao e conferir."),
+    }
+
+
 def sql_de_fecho(run_id: str, terminou_em: str, quantos: int) -> str:
     """Promove a corrida a `concluida` — e **só** este SQL o faz.
 
@@ -379,13 +432,26 @@ def sql_de_fecho(run_id: str, terminou_em: str, quantos: int) -> str:
     E a trava está no próprio `where`: a promoção só acontece se a corrida
     ainda estiver `rodando`. Fechar duas vezes não muda nada, e fechar uma
     corrida que outro processo já marcou como falhada não a ressuscita.
+
+    ⚠️ **`STARTED_AT` NÃO É `FINISHED_AT`, e um não se infere do outro.** A
+    versão anterior caía para o `started_at` quando não lhe davam hora de fim.
+    A corrida passava a dizer que acabou no instante em que começou — falso, e
+    com cara de medido, que é pior do que faltar.
+
+    Sem hora declarada, a autoridade do tempo é **o próprio banco**: entra
+    `now()`, dentro do `UPDATE`. Um relógio só, e nenhum inventado aqui.
     """
+    quando = _texto(terminou_em) if terminou_em else "now()"
     return (
         "-- FECHO DA CORRIDA %s. Corre depois da reconciliacao LIDA do banco.\n"
+        "-- finished_at: %s\n"
         "update public.collection_run set status = 'concluida', "
         "finished_at = %s, item_count_raw = %d "
         "where run_id = %s and status = 'rodando';\n"
-        % (run_id, _texto(terminou_em), quantos, _texto(run_id)))
+        % (run_id,
+           "declarado por quem fechou" if terminou_em else
+           "now() do proprio banco — STARTED_AT nunca e copiado para ca",
+           quando, quantos, _texto(run_id)))
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -423,6 +489,7 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
                       "LINHAS_OBSERVADAS": None,
                       "COMO_FOI_MEDIDO": "NAO MEDIDO — nao houve leitura do banco"}
     fecho = {"TENTADO": False, "STATUS_NO_BANCO": None, "FINISHED_AT": None}
+    pos_escrita = None
 
     if memoria is not None:
         ja_la = conferir_o_que_ja_existe(run, plano, memoria)
@@ -451,21 +518,35 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
         memoria_estado["COMO_FOI_MEDIDO"] = (
             "SELECT em raw_asset por run_id, filtrado pelos caminhos do plano. "
             "Leitura real do banco, nao contagem esperada.")
+        # E A ULTIMA PALAVRA: cada linha lida de volta e comparada campo a
+        # campo. Contar nao e conferir.
+        pos_escrita = conferir_o_que_ficou_escrito(run, plano, memoria)
 
     esperados = plano["OBJETOS_PLANEADOS"]
     conferidos = len(prova["CONFERIDOS"])
     observadas = memoria_estado["LINHAS_OBSERVADAS"]
 
+    campos_batem = (pos_escrita is not None
+                    and not pos_escrita["DIVERGENTES"]
+                    and pos_escrita["POST_WRITE_METADATA_MATCH"] == esperados)
     reconciliou = (observadas is not None and observadas == esperados
-                   and conferidos == esperados)
+                   and conferidos == esperados and campos_batem)
 
     # ── O FECHO NO BANCO, E SÓ DEPOIS DA RECONCILIAÇÃO ───────────────────
     if memoria is not None and reconciliou and not memoria_estado["ERRO"]:
         fecho["TENTADO"] = True
+        # STARTED_AT NAO E FINISHED_AT, e um nao se infere do outro. A versao
+        # anterior caia para o `STARTED_AT` quando nao tinha hora de fim — e
+        # entao a corrida dizia ter acabado no instante em que comecou, o que
+        # e falso e parece medido. Sem hora de fim declarada, PERGUNTA-SE AO
+        # BANCO: ele e a autoridade unica do tempo de fecho, e o `now()` mora
+        # no proprio UPDATE. Nos testes injeta-se a hora; na operacao nao se
+        # fabrica nenhuma.
+        fim = terminou_em or run.get("FINISHED_AT")
+        fecho["ORIGEM_DO_FINISHED_AT"] = (
+            "declarado por quem fechou" if fim else "now() do proprio banco")
         try:
-            memoria.aplicar(sql_de_fecho(
-                run["RUN_ID"], terminou_em or run.get("FINISHED_AT")
-                or run["STARTED_AT"], observadas))
+            memoria.aplicar(sql_de_fecho(run["RUN_ID"], fim, observadas))
         except Exception as erro:                      # noqa: BLE001
             fecho["ERRO"] = str(erro)
         corrida = memoria.corrida(run["RUN_ID"]) or {}
@@ -485,6 +566,8 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
         "memoria_aplicada": memoria_estado["APLICADA"],
         # A CONDICAO QUE FALTAVA: a conta vem de uma LEITURA do banco.
         "reconciliacao_observada": reconciliou,
+        # E ESTA IMPEDE QUE A CONTA CERTA ESCONDA O CONTEUDO ERRADO.
+        "campos_batem_apos_escrita": campos_batem,
         # E A OUTRA: as duas casas tem de dizer a mesma coisa.
         "banco_diz_concluida": fecho["STATUS_NO_BANCO"] == CONCLUIDA,
     }
@@ -494,6 +577,12 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
     if ja_la["CONFLITO_DE_CORRIDA"]:
         pendencia = RUN_ID_CONFLICT
     elif ja_la["CONFLITOS_DE_OBJETO"]:
+        pendencia = METADATA_CONFLICT
+    # Divergencia encontrada DEPOIS de escrever tambem e conflito, e tem de vir
+    # antes de UPLOAD_PENDING_METADATA na fila. Senao o caso de corrida —
+    # contagem certa, conteudo errado — sairia rotulado como «falta escrever»,
+    # que e o diagnostico errado e manda o operador repetir o passo errado.
+    elif pos_escrita and pos_escrita["DIVERGENTES"]:
         pendencia = METADATA_CONFLICT
     elif condicoes["bytes_conferidos"] and not condicoes["reconciliacao_observada"]:
         pendencia = UPLOAD_PENDING_METADATA
@@ -518,6 +607,7 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
             "CONFLITO_DE_CORRIDA": ja_la["CONFLITO_DE_CORRIDA"],
         },
         "MEMORIA": memoria_estado,
+        "CONFERENCIA_POS_ESCRITA": pos_escrita,
         "FECHO_NO_BANCO": fecho,
         "SQL": sql,
         "RECONCILIACAO": {

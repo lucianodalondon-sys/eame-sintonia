@@ -260,6 +260,93 @@ class QuandoOProcessoMorre(CasoBase):
                          "concluida")
 
 
+class ContarNaoEConferir(CasoBase):
+    """A janela entre a leitura prévia e o nosso `insert`."""
+
+    def test_linha_divergente_aparece_entre_a_leitura_e_a_escrita(self):
+        """O caso de corrida, encenado passo a passo.
+
+            1. a leitura prévia não encontra nada naquele caminho
+            2. outro escritor mete lá uma linha DIVERGENTE
+            3. o nosso `insert` cai no `do nothing` — e cala-se
+            4. a CONTAGEM bate: há uma linha, e esperava-se uma
+
+        Se a reconciliação fosse só contagem, isto passava — e a corrida
+        fechava sobre um conteúdo que não é o nosso. É a conferência campo a
+        campo DEPOIS da escrita que o apanha.
+        """
+        from guarda.preservar_coleta import caminho_do_objeto
+        art = _art("a.pdf", A, "11")
+        caminho = caminho_do_objeto(art)
+        original = self.banco.aplicar
+
+        def outro_escritor_entra_no_meio(sql):
+            if "insert into public.raw_asset" in sql:
+                # a corrida intrusa existe primeiro, para a chave estrangeira
+                original(
+                    "insert into public.collection_run "
+                    "(run_id, platform, started_at, rule_version) values "
+                    "('INTRUSA','x','2026-01-01T00:00:00Z','1');")
+                original(
+                    "insert into public.raw_asset (run_id, storage_path, "
+                    "media_type, bytes, sha256, captured_at) values "
+                    "('INTRUSA', '%s', 'application/pdf', 999, '%s', "
+                    "'2026-01-01T00:00:00Z');" % (caminho, "e" * 64))
+                self.banco.aplicar = original
+            original(sql)
+
+        self.banco.aplicar = outro_escritor_entra_no_meio
+        r = self.correr([art])
+
+        # A CONTAGEM BATE — e é exatamente esse o perigo.
+        self.assertEqual(self.banco.contar("raw_asset"), 1)
+        # e mesmo assim a corrida NÃO fecha
+        self.assertEqual(r["RUN_STATE"], "PARTIAL")
+        self.assertIn("campos_batem_apos_escrita", r["COMPLETION_BASIS"]["FALTOU"])
+        self.assertEqual(r["PENDENCIA"], METADATA_CONFLICT)
+        campos = {d["CAMPO"] for d in
+                  r["CONFERENCIA_POS_ESCRITA"]["DIVERGENTES"][0]["DIVERGENCIAS"]}
+        self.assertTrue({"run_id", "sha256", "bytes"} & campos)
+
+    def test_o_caminho_feliz_confere_campo_a_campo(self):
+        r = self.correr([_art("a.pdf", A, "11"), _art("b.pdf", B, "22")])
+        pos = r["CONFERENCIA_POS_ESCRITA"]
+        self.assertEqual(pos["POST_WRITE_METADATA_MATCH"], 2)
+        self.assertEqual(pos["DIVERGENTES"], [])
+        self.assertEqual(pos["AUSENTES"], [])
+        for campo in ("run_id", "storage_path", "media_type", "bytes",
+                      "sha256", "captured_at", "source_url"):
+            self.assertIn(campo, pos["CAMPOS_COMPARADOS"])
+
+
+class OTempoDeFimNaoSeInventa(CasoBase):
+    """`STARTED_AT` não é `FINISHED_AT`, e um não se infere do outro."""
+
+    def test_sem_hora_declarada_o_fim_vem_do_relogio_do_banco(self):
+        """A versão anterior copiava o `started_at`. A corrida passava a dizer
+        que acabou no instante em que começou — falso, e com cara de medido."""
+        r = preservar(CORRIDA, [_art("a.pdf", A, "11")], self.armazem,
+                      _bytes_de, memoria=self.banco, terminou_em=None)
+        linha = self.banco.corrida(CORRIDA["RUN_ID"])
+        self.assertEqual(r["RUN_STATE"], "COMPLETE")
+        self.assertIsNotNone(linha["finished_at"])
+        self.assertNotEqual(linha["finished_at"], linha["started_at"])
+        self.assertIn("now()", r["FECHO_NO_BANCO"]["ORIGEM_DO_FINISHED_AT"])
+
+    def test_a_hora_declarada_e_respeitada(self):
+        self.correr([_art("a.pdf", A, "11")])
+        linha = self.banco.corrida(CORRIDA["RUN_ID"])
+        self.assertEqual(linha["finished_at"], FIM)
+
+    def test_o_sql_de_fecho_nunca_menciona_started_at(self):
+        """Nem por acidente: não há caminho no SQL que leve o início ao fim."""
+        from guarda.preservar_coleta import sql_de_fecho
+        for quando in (None, "2026-09-08T00:05:00Z"):
+            sql = sql_de_fecho("R", quando, 1)
+            self.assertNotIn("started_at", sql)
+        self.assertIn("now()", sql_de_fecho("R", None, 1))
+
+
 class OGoldenPathPODERIAPassarPorAqui(CasoBase):
     """A integração contra fixture — sem correr a estrada de verdade.
 
@@ -342,6 +429,157 @@ class OGoldenPathPODERIAPassarPorAqui(CasoBase):
             chamadores, [],
             "a peca ganhou caller real: atualize o estado do G-42 forward de "
             "DB_TESTED para OPERATIONAL e o cartao do mapa junto")
+
+
+class AProvaEmPostgresEACuaTranca(unittest.TestCase):
+    """O que se pode provar da prova em Postgres SEM ter Postgres à mão.
+
+    Estes testes correm em qualquer máquina. Eles não substituem o workflow —
+    substituem o descuido que fez o workflow rebentar: um comando montado por
+    índice, e uma tranca que comparava pedaços de texto.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        import importlib.util
+        caminho = os.path.join(RAIZ, "provas", "preservar_coleta_no_postgres.py")
+        spec = importlib.util.spec_from_file_location("prova_pg", caminho)
+        cls.pg = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.pg)
+
+    # ── 1 a 4 · o comando do psql ───────────────────────────────────────
+    def test_1_a_saida_e_pedida_sem_cabecalho_nem_rodape(self):
+        """O erro que derrubou o CI foi montar o comando por ÍNDICE:
+        `cmd[3:3]` meteu `-t -A -F` **dentro** do `-v ON_ERROR_STOP=1`, e o
+        psql leu «define uma variável chamada -t». A saída voltou alinhada e
+        `int('count\\n0\\n(1 row)')` rebentou.
+
+        Aqui o comando é lido como o psql o leria: cada sinalizador tem de
+        aparecer, e o `-v` tem de estar colado ao seu valor.
+        """
+        capturado = {}
+
+        class Espia(self.pg.MemoriaPostgres):
+            def __init__(self):
+                self.url = "postgresql://u@localhost:5432/descartavel"
+
+        def falso_run(cmd, **kw):
+            capturado["cmd"] = cmd
+            class R:
+                returncode = 0
+                stdout = "1\n"
+                stderr = ""
+            return R()
+
+        antigo = self.pg.subprocess.run
+        self.pg.subprocess.run = falso_run
+        try:
+            Espia()._psql("select 1")
+        finally:
+            self.pg.subprocess.run = antigo
+
+        cmd = capturado["cmd"]
+        for sinalizador in ("-X", "-q", "-A", "-t", "-F", "-v", "-c"):
+            self.assertIn(sinalizador, cmd, "falta %s" % sinalizador)
+        # o valor do -v tem de vir LOGO a seguir a ele
+        self.assertEqual(cmd[cmd.index("-v") + 1], "ON_ERROR_STOP=1")
+        # e o do -F tambem
+        self.assertEqual(cmd[cmd.index("-F") + 1], self.pg.MemoriaPostgres.SEP)
+        # nenhum sinalizador se meteu entre outro e o seu valor
+        self.assertNotEqual(cmd[cmd.index("-v") + 1][:1], "-")
+
+    def test_2_o_separador_de_campos_nao_aparece_em_dado_nenhum(self):
+        """Uma unidade de separação do ASCII. Não existe em caminho, URL nem
+        hash — ao contrário da vírgula ou do pipe."""
+        self.assertEqual(self.pg.MemoriaPostgres.SEP, "\x1f")
+
+    def test_3_e_4_um_escalar_com_ruido_rebenta_em_vez_de_adivinhar(self):
+        """Se o psql voltar a mandar cabeçalho ou rodapé, `_valor` diz o que
+        veio. Não se aprende a ler a saída errada — pede-se a certa."""
+        class Ruidoso(self.pg.MemoriaPostgres):
+            def __init__(self):
+                self.url = "postgresql://u@localhost:5432/descartavel"
+
+            def _psql(self, sql):
+                return "count\n0\n(1 row)\n"
+
+        with self.assertRaises(IOError) as e:
+            Ruidoso()._valor("select count(*) from x")
+        self.assertIn("cabecalho ou rodape", str(e.exception))
+
+        class Limpo(Ruidoso):
+            def _psql(self, sql):
+                return "7\n"
+
+        self.assertEqual(Limpo()._valor("select 1"), "7")
+
+    # ── 8 e 9 · a tranca ────────────────────────────────────────────────
+    def test_8_e_9_a_tranca_decompoe_a_url_em_vez_de_procurar_texto(self):
+        """`db.exemplo.com` contém `db.`; `localhost.atacante.example` contém
+        `localhost`. Comparar pedaços de texto onde se devia comparar
+        estrutura é conferir um passaporte pelas letras que aparecem nele."""
+        aceitar = ["postgresql://p:x@localhost:5432/descartavel",
+                   "postgresql://p:x@127.0.0.1:5432/descartavel"]
+        recusar = ["postgresql://p:x@db.exemplo-remoto.com:5432/producao",
+                   "postgresql://p:x@production.example.com/descartavel",
+                   "postgresql://p:x@db:5432/descartavel",
+                   "postgresql://p:x@postgres:5432/descartavel",
+                   "postgresql://p:x@localhost.atacante.example/descartavel",
+                   "postgresql://p:x@localhost:5432/producao",
+                   "mysql://p:x@localhost/descartavel", "", None]
+        for url in aceitar:
+            self.assertTrue(self.pg._e_descartavel(url), url)
+        for url in recusar:
+            self.assertFalse(self.pg._e_descartavel(url), url)
+
+    def test_a_tranca_e_lista_de_permissao_nao_de_bloqueio(self):
+        """Bloqueio falha por omissão — basta esquecer um nome. Permissão
+        falha fechado, que é o lado certo para falhar."""
+        self.assertTrue(self.pg.HOSTS_LOCAIS)
+        self.assertEqual(self.pg.BANCOS_PERMITIDOS, ("descartavel",))
+        fonte = open(os.path.join(RAIZ, "provas",
+                                  "preservar_coleta_no_postgres.py"),
+                     encoding="utf-8").read()
+        self.assertIn("urlparse", fonte)
+
+    def test_os_cenarios_do_postgres_correm_tambem_aqui(self):
+        """O ENSAIO. Os mesmos casos, contra o banco descartável local.
+
+        Ele não substitui o Postgres — substitui o **ciclo de espera**. Um erro
+        de lógica nos cenários só aparecia depois do `push`, no CI, minutos
+        depois. Foi assim que a última correção foi para o ar com um comando
+        `psql` montado por índice.
+
+        Aqui os cenários correm em milissegundos, e o que reprovar reprova
+        antes de sair da máquina.
+        """
+        from guarda.memoria_descartavel import MemoriaDescartavel
+        banco = MemoriaDescartavel()
+        self.addCleanup(banco.fechar)
+        resultados = self.pg.cenarios(banco)
+        self.assertGreaterEqual(len(resultados), 15)
+        reprovados = [(n, d) for n, ok, d in resultados if not ok]
+        self.assertEqual(reprovados, [], "cenarios reprovados no ensaio local")
+
+    def test_o_nome_da_prova_nao_promete_mais_do_que_mede(self):
+        """Aplica-se só a `migration 001`. Chamar a isto «o esquema atual
+        provado» seria dizer mais do que se mediu."""
+        fonte = open(os.path.join(RAIZ, "provas",
+                                  "preservar_coleta_no_postgres.py"),
+                     encoding="utf-8").read()
+        self.assertIn("POSTGRES16_FOUNDATION_SCHEMA_TESTED", fonte)
+        self.assertNotIn("CURRENT_LIVE_SCHEMA", fonte)
+        self.assertIn("001_fundacao", fonte)
+
+    def test_o_tempo_volta_normalizado_pelo_adaptador(self):
+        """O Postgres imprime `2026-09-08 00:00:00+00`; nós escrevemos
+        `...T...Z`. Comparar as duas formas daria conflito FALSO — e conflito
+        falso ensina toda a gente a ignorar o alarme."""
+        cols = self.pg.MemoriaPostgres.COLS_OBJ
+        sel = self.pg.MemoriaPostgres._select(
+            self.pg.MemoriaPostgres, cols)
+        self.assertIn("to_char(captured_at at time zone 'UTC'", sel)
+        self.assertNotIn("to_char(sha256", sel)
 
 
 class AsTravasDoEsquemaSaoReais(CasoBase):

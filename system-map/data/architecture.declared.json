@@ -1885,7 +1885,7 @@
       "kind": "engine",
       "icon": "▷",
       "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`.",
-      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ⚠️ CAN DO NÃO É DID DO: ela está provada contra um banco descartável e NÃO tem consumidor real — nenhuma coleta passou por aqui. Enquanto for assim, isto é ALVO, não estrada corrente.",
+      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ⚠️ CAN DO NÃO É DID DO: ela está provada contra banco descartável — SQLite sempre, e Postgres 16 com a migration 001 no workflow `banco-descartavel` — e NÃO tem consumidor real. Nenhuma coleta passou por aqui. Enquanto for assim, isto é ALVO, não estrada corrente.",
       "departments": [
         "ENGENHARIA"
       ],

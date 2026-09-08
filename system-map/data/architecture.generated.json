@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "525fdefbc0c8755ef580e8bff1df1867ee641ede",
-    "GENERATED_AT": "2026-09-08T10:39:56-03:00"
+    "HEAD": "e8c17cf282f1056385e9942ac975730ddeb44f43",
+    "GENERATED_AT": "2026-09-08T10:40:34-03:00"
   },
   "FILES": [
     {
@@ -44,7 +44,7 @@
     },
     {
       "path": ".github/workflows/banco-descartavel.yml",
-      "sha": "9bdf3e975ee08163de0281241c75725109ab4dc2",
+      "sha": "9aed611bb9f7555c4cef039715bd11d8fc214dd3",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -4069,7 +4069,7 @@
     },
     {
       "path": "docs/biblia/CONFORMIDADE-ITALIA.md",
-      "sha": "bb81dad652fc7237b00adc51ed10d8803701b8bd",
+      "sha": "ece35f83ebae50176113a28ef906474277dd2a2a",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4300,7 +4300,7 @@
     },
     {
       "path": "docs/operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md",
-      "sha": "077cca632f0c88c6f11dd79633c6af4f4a7b7279",
+      "sha": "edf9ad7a734fc224f19510573ed07359580b073f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4832,14 +4832,14 @@
     },
     {
       "path": "guarda/memoria_descartavel.py",
-      "sha": "a70867abcb74caa18a9a56a4dd1dd5c7a23e70d2",
+      "sha": "e185c87035b20e019f51d916cdfc5403ff18908e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "guarda/preservar_coleta.py",
-      "sha": "8736e50cec19e4b73b29661250617989cafaa19f",
+      "sha": "f44eb40eb298d308bb1b2383c12470739b7d4c18",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7177,7 +7177,7 @@
     },
     {
       "path": "provas/preservar_coleta_no_postgres.py",
-      "sha": "d9e4806fc06869f439059a26fc252c674d8d9f1a",
+      "sha": "03fbdb21a422f077f9a191665c4b0e4ec6beb2ac",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8206,7 +8206,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "0885ef8d710402dafec56ea31980ba2bce6415f0",
+      "sha": "059e30f3ba12eafabd0f05bbee7205eb47209bf6",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8521,7 +8521,7 @@
     },
     {
       "path": "tests/test_preservar_coleta_no_banco.py",
-      "sha": "4ad3b8d93e075131b4df36b25de44d011e817d4c",
+      "sha": "30240f2dc6ab8c6c10f371be44e273ae63e0322e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -22069,7 +22069,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/preservar_coleta_no_postgres.py",
-        "line": 258,
+        "line": 464,
         "snippet": "open(MIGRACAO, 'leitura')  # MIGRACAO = supabase/migrations/001_fundacao_geografia_e_proveniencia.sql"
       }
     },
@@ -26062,8 +26062,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preservar_coleta_no_banco.py",
-        "line": 282,
-        "snippet": "open(caminho, 'leitura')  # caminho = data/derivados/REGISTO-DE-ARTEFATOS.json"
+        "line": 365,
+        "snippet": "\"REGISTO-DE-ARTEFATOS.json\")"
       }
     },
     {
@@ -26073,7 +26073,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preservar_coleta_no_banco.py",
-        "line": 336,
+        "line": 423,
         "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
       }
     },
@@ -26084,8 +26084,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preservar_coleta_no_banco.py",
-        "line": 336,
+        "line": 423,
         "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_coleta_no_banco.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_preservar_coleta_no_banco.py",
+        "line": 369,
+        "snippet": "open(caminho, 'leitura')  # caminho = provas/preservar_coleta_no_postgres.py"
       }
     },
     {
@@ -26966,7 +26977,7 @@
     "files_tracked": 1227,
     "files_readable": 410,
     "files_code_dir": 456,
-    "file_edges": 1634,
+    "file_edges": 1635,
     "escritas_em_pasta": 57,
     "declared_missing_here": 0
   },

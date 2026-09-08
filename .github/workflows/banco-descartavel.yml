@@ -65,18 +65,34 @@ jobs:
         env:
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
 
-      - name: 2 · a mesma garantia, contra Postgres 16 real
+      - name: 2 · a mesma garantia, contra Postgres 16 real (schema da fundação)
         run: python3 provas/preservar_coleta_no_postgres.py
         env:
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
 
-      # A prova de que a trava contra o acidente e real: apontada para um
-      # endereco que nao e local, ela tem de RECUSAR-SE a correr.
+      # A prova de que a trava contra o acidente e real: apontada para fora,
+      # ela tem de RECUSAR-SE a correr.
+      #
+      # `if: always()` NAO e conforto. Se o passo 2 rebentar — e ja rebentou —
+      # a trava de seguranca e JUSTAMENTE o que continua a ter de ser conferido.
+      # Uma tranca que so se testa quando esta tudo bem nao e uma tranca.
       - name: 3 · a prova recusa-se a correr fora de um banco descartável
+        if: always()
         run: |
-          if python3 provas/preservar_coleta_no_postgres.py; then
-            echo "FALHOU: a prova aceitou um endereco que nao e local"; exit 1
-          fi
-          echo "OK — recusou, como devia"
-        env:
-          BANCO_DESCARTAVEL_URL: postgresql://alguem@db.exemplo-remoto.com:5432/producao
+          falhou=0
+          testar() {
+            if BANCO_DESCARTAVEL_URL="$1" python3 provas/preservar_coleta_no_postgres.py; then
+              echo "FALHOU: aceitou $1"; falhou=1
+            else
+              echo "OK  recusou: $1"
+            fi
+          }
+          # host remoto
+          testar "postgresql://alguem@db.exemplo-remoto.com:5432/producao"
+          # host que so CONTEM a palavra localhost
+          testar "postgresql://alguem@localhost.atacante.example:5432/descartavel"
+          # host local, mas banco que nao e o descartavel
+          testar "postgresql://alguem@localhost:5432/producao"
+          # host chamado `db`, que a versao anterior aceitava por substring
+          testar "postgresql://alguem@db:5432/descartavel"
+          exit $falhou
