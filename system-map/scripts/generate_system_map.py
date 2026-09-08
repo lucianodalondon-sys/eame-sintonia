@@ -627,35 +627,55 @@ def o_corte_do_pdf() -> tuple[list, list]:
     sem = B.get("PDF_SEM_TEXTO_DERIVADO", 0)
     ja = B.get("CARACTERES_JA_DERIVADOS_DOS_PDF", 0)
     prosa = T.get("CORPO_DE_TEXTO_EM_CARACTERES", 0)
+    # OCORRENCIA x CONTEUDO, medido pelo censo. Nao se recalcula aqui: duas
+    # medicoes da mesma coisa divergem no primeiro dia (COL-LAW-501).
+    OC = C.get("OCORRENCIA_E_CONTEUDO") or {}
 
     bruto = {
         "id": "C-IT-PDF-BRUTO", "name": "Evidência bruta em PDF (Itália)",
         "kind": "acervo", "icon": "▤",
         "territory": "Z-GUARDA", "family": "F-ESPERA",
         "status": CINZA, "ui_status": "gray", "proof": "git-measurement",
-        "what": (f"{n_pdf} documentos italianos guardados em PDF — boletins "
-                 f"regionais, bilanci fitosanitari, diretrizes. {mb} MB. É o "
-                 f"material mais rico que a Itália tem. Já não está fechado: "
-                 f"o executor abriu-os e o texto existe, com pai declarado."),
+        "what": (f"{OC.get('OCORRENCIAS', n_pdf)} ocorrências de PDF italiano "
+                 f"guardadas — boletins regionais, bilanci fitosanitari, "
+                 f"diretrizes, {mb} MB. São "
+                 f"{OC.get('CONTEUDOS_UNICOS', '?')} documentos diferentes: "
+                 f"{OC.get('OCORRENCIAS_DE_CONTEUDO_REPETIDO', 0)} deles estão "
+                 f"guardados em dois sítios ao mesmo tempo (na loja do coletor "
+                 f"e na amostra), e isso é REPETIÇÃO, não perda — nada sumiu."),
         "why_here": ("Enquanto o mapa dizia «corpus» numa palavra só, isto "
                      "parecia alimento do sistema. Separar o guardado do "
                      "legível foi o que permitiu ver — e fechar — o corte."),
         "files": [], "file_count": n_pdf,
         "facts": [
-            f"PDF italianos guardados: {n_pdf}",
+            f"OCORRÊNCIAS (caminhos no disco): {OC.get('OCORRENCIAS', n_pdf)}",
+            f"CONTEÚDOS ÚNICOS (impressão digital): "
+            f"{OC.get('CONTEUDOS_UNICOS', 'NÃO SEI')}",
+            f"o mesmo conteúdo em mais de um caminho: "
+            f"{OC.get('OCORRENCIAS_DE_CONTEUDO_REPETIDO', 0)} ocorrência(s), "
+            f"em {OC.get('CONTEUDOS_COM_MAIS_DE_UM_CAMINHO', 0)} conteúdo(s)",
+            f"PERDIDOS: {OC.get('PERDA', 'NÃO SEI')} — repetição NÃO é perda. "
+            f"{OC.get('PORQUE_NAO_E_PERDA', '')}",
             f"tamanho em disco: {mb} MB",
             f"PDF COM texto derivado: {com} de {n_pdf}",
             f"PDF SEM texto derivado: {sem} de {n_pdf}",
             "caracteres dentro dos PDF: NÃO MEDIDO — abrir PDF é derivar, não medir",
             f"{mb} MB NÃO é prova de milhões de caracteres: megabyte não é caractere",
             "o antigo «milhões de caracteres» continua NÃO REPRODUZIDO COMO TEXTO",
-        ],
+        ]
+        # Cada repeticao NOMEADA, e nao so contada. Um numero diz que ha
+        # repeticao; a lista diz ONDE — e e a lista que impede alguem de
+        # concluir, daqui a um mes, que «sumiram seis».
+        + [f"repetido · {r['SHA256'][:12]}… em {len(r['CAMINHOS'])} caminhos: "
+           + " | ".join(r["CAMINHOS"])
+           for r in (OC.get("ONDE_SE_REPETE") or [])],
         "status_reason": (
             f"CINZENTO porque o mapa continua a não conseguir LER um PDF — o "
             f"scanner não abre ficheiro binário, e isso não mudou. O que mudou "
             f"é que já não precisa: o executor abriu-os e o texto vive ao lado, "
             f"como artefato próprio, esse sim legível e contado."),
-        "evidence_text": "system-map/data/corpus-it.generated.json → BRUTO_POR_LER",
+        "evidence_text": ("system-map/data/corpus-it.generated.json → "
+                          "BRUTO_POR_LER + OCORRENCIA_E_CONTEUDO"),
         "departments": ["ENGENHARIA"], "views": ["acervo", "infra", "audit"],
         "lane": "official", "legacy": False, "changed_since_declared": [],
         "inbound": [], "outbound": [],
@@ -741,6 +761,34 @@ def a_estrada_do_pdf() -> tuple[list, list]:
     resumo_adm = " · ".join(f"{k} {v}" for k, v in sorted(admissao.items()))
     total_derivado = C["DERIVED_LANDED"] + C.get("JA_EXISTIAM", 0)
 
+    # ── OCORRENCIA x CONTEUDO, e a ENTRADA da derivacao ─────────────────────
+    # Vem do censo, que e o dono desta medicao. Recalcular aqui daria duas
+    # contas para a mesma pergunta — e a segunda envelhece calada.
+    fc = DADOS / "corpus-it.generated.json"
+    OC = (json.loads(fc.read_text(encoding="utf-8")).get("OCORRENCIA_E_CONTEUDO")
+          or {}) if fc.is_file() else {}
+    # O QUE ENTRA NA DERIVACAO E O CONTEUDO, NAO O CAMINHO. O executor nomeia o
+    # derivado pela impressao digital do pai, entao dois caminhos com o mesmo
+    # conteudo produzem UM derivado. E por isso que 49 ocorrencias dao 43
+    # derivados sem que nada se perca.
+    entrada_deriv = OC.get("CONTEUDOS_UNICOS", C["RAW_INPUT"])
+
+    # ── A CORRIDA FECHOU? Derivado, nao afirmado ────────────────────────────
+    # A COL-LAW-210 diz que COMPLETE exige fecho canonico. A corrida declara
+    # SUCCESS. Sao duas perguntas, e a segunda mede-se procurando os campos do
+    # fecho — se nenhum existe, nao ha fecho, e dizer COMPLETE seria inventar.
+    CAMPOS_DE_FECHO = ("FINAL_MANIFEST_STATE", "STATE_BEFORE", "STATE_AFTER",
+                       "CONFIG_HASH", "PLAN_VERSION", "GIT_COMMIT")
+    tem_fecho = sorted(k for k in CAMPOS_DE_FECHO if R.get(k))
+    fecho = {
+        "ESTADO": "COMPLETE" if tem_fecho else "PARTIAL",
+        "PORQUE": (
+            "fecho declarado por " + ", ".join(tem_fecho) if tem_fecho else
+            "nenhum campo de fecho canónico está preservado (procurados: "
+            + ", ".join(CAMPOS_DE_FECHO) + "). Reconciliação sem perda e "
+            "fecho da corrida são factos diferentes: LOST=0 não faz COMPLETE"),
+    }
+
     # A FAMILIA VEM DA ZONA, NUNCA DA PECA. Uma peca que declara familia
     # diferente da sua zona cria dois agrupamentos para a mesma coisa, e o mapa
     # passa a ter duas respostas para «onde e que isto vive».
@@ -771,8 +819,12 @@ def a_estrada_do_pdf() -> tuple[list, list]:
         "what": (f"{total_derivado} textos tirados de PDF por máquina, cada um "
                  f"a saber de que original nasceu, com que executor, em que "
                  f"versão e a que horas."),
-        "why_here": ("É o outro lado do corte que estava aberto. Antes: 43 de "
-                     "49 PDF fechados. Agora: têm texto, e o texto tem pai."),
+        # SEM NUMERO CRAVADO AQUI. Esta frase ja disse «43 de 49 PDF fechados»,
+        # e ficou falsa no dia em que a derivacao correu — uma fotografia velha
+        # com cara de medicao. O numero vive nos `facts`, que vem da medicao.
+        "why_here": ("É o outro lado do corte que estava aberto: os PDF "
+                     "estavam guardados e fechados. Agora têm texto, e o "
+                     "texto sabe de que original nasceu."),
         "facts": [
             f"artefatos de texto com pai: {total_derivado}",
             f"emitidos nesta corrida: {C['DERIVED_EMITTED']}",
@@ -795,29 +847,69 @@ def a_estrada_do_pdf() -> tuple[list, list]:
         "icon": "◉", "territory": "Z-PROVA",
         "family": FAMILIA_DA_ZONA["Z-PROVA"],
         "status": AMARELO, "ui_status": "yellow",
-        "what": (f"A conta desta corrida, do PDF guardado até à porta de "
-                 f"admissão. A porta viu {C['ADMISSION_SEEN']} textos: "
-                 f"{resumo_adm or 'nenhuma decisão'}."),
+        "what": (f"A conta desta corrida, do PDF guardado até à porta. "
+                 f"{OC.get('OCORRENCIAS', C['RAW_INPUT'])} ocorrências → "
+                 f"{entrada_deriv} documentos diferentes → {total_derivado} "
+                 f"textos derivados → a porta viu {C['ADMISSION_SEEN']}: "
+                 f"{resumo_adm or 'nenhuma decisão'}. "
+                 f"PERDIDOS: {C['LOST']} · precisam de OCR: "
+                 f"{C['RAW_NEEDS_OCR']} · erro de extração: "
+                 f"{C['RAW_EXTRACTION_ERROR']}."),
         "why_here": ("Se a máquina fez e o mapa não consegue mostrar, a "
                      "engenharia ainda não terminou."),
         "facts": [
             f"RUN_ID: {R['RUN_ID']}",
-            f"estado da corrida: {R['STATUS']}",
-            f"RAW_INPUT: {C['RAW_INPUT']} PDF italianos",
+            f"estado que a corrida declara: {R['STATUS']}",
+            # A corrida diz SUCCESS. A COL-LAW-210 pergunta outra coisa: houve
+            # FECHO canonico? Sao dois factos, e escrevem-se os dois — pintar
+            # de COMPLETE porque LOST=0 seria confundir «nada se perdeu» com
+            # «a corrida fechou».
+            f"estado contra a COL-LAW-210: {fecho['ESTADO']} — "
+            f"{fecho['PORQUE']}",
+            "",
+            f"OCORRÊNCIAS de PDF: {OC.get('OCORRENCIAS', C['RAW_INPUT'])}",
+            f"CONTEÚDOS ÚNICOS: {OC.get('CONTEUDOS_UNICOS', 'NÃO SEI')}",
+            f"ocorrências do mesmo conteúdo: "
+            f"{OC.get('OCORRENCIAS_DE_CONTEUDO_REPETIDO', 0)} — repetição, "
+            f"NÃO perda",
+            "",
+            f"ENTRADA DA DERIVAÇÃO: {entrada_deriv}",
+            f"DERIVADOS QUE EXISTEM: {total_derivado}",
+            f"emitidos NESTA corrida: {C['DERIVED_EMITTED']} · "
+            f"guardados NESTA corrida: {C['DERIVED_LANDED']} · "
+            f"já existiam: {C.get('JA_EXISTIAM', 0)}",
+            f"PERDIDOS: {C['LOST']} — medido entre etapas comparáveis "
+            f"(entrada da derivação × derivados), nunca ocorrências menos "
+            f"conteúdos",
+            "",
+            f"precisam de OCR: {C['RAW_NEEDS_OCR']}",
+            f"erro de extração: {C['RAW_EXTRACTION_ERROR']}",
             f"a porta viu: {C['ADMISSION_SEEN']}",
             f"decisões: {resumo_adm or 'nenhuma'}",
-            f"PERDIDOS: {C['LOST']}",
             f"originais alterados: {len(imut.get('ALTERADOS') or [])} "
             f"({imut.get('VEREDITO', 'NAO SEI')})",
-            "custo: 0 · rede: NÃO · OCR: NÃO",
+            "",
+            # CUSTO: o que esta medido e a AUSENCIA de servico pago e de rede.
+            # Isso nao e uma contabilidade financeira, e escrever «0 €» como se
+            # fosse seria inventar precisao.
+            f"rede usada: {R.get('REDE_USADA', 'NÃO SEI')} · "
+            f"OCR usado: {R.get('OCR_USADO', 'NÃO SEI')}",
+            "custo monetário: NÃO CANÓNICO — o que está medido é que não houve "
+            "rota paga nem rede. Ausência de serviço pago não é contabilidade.",
+            "número de caracteres: NÃO CANÓNICO — não há regra de contagem "
+            "escrita (a mesma pasta dá contas diferentes conforme a quebra de "
+            "linha). Entra quando tiver contrato próprio.",
             "PRECISÃO: NÃO SEI — não há gabarito humano. Contar quantos "
             "passaram é COBERTURA, não acerto.",
         ],
         "status_reason": (
-            f"AMARELO de propósito. A estrada está inteira e nada se perdeu, "
-            f"mas os {C['ADMISSION_SEEN']} textos ficaram todos em NÃO SEI na "
-            f"porta: nenhum diz quando o fato aconteceu. Pintar isto de verde "
-            f"seria chamar «pronto» a uma coisa que ainda não entrou."),
+            f"AMARELO de propósito, por DOIS motivos que não se somam. "
+            f"(1) Os {C['ADMISSION_SEEN']} textos ficaram todos em NÃO SEI na "
+            f"porta: nenhum diz quando o fato aconteceu — e a porta recusou-se "
+            f"a adivinhar. (2) A corrida diz {R['STATUS']}, mas contra a "
+            f"COL-LAW-210 ela é {fecho['ESTADO']}: {fecho['PORQUE']}. "
+            f"Nada se perdeu ({C['LOST']} perdidos), e mesmo assim isto não é "
+            f"verde — reconciliação sem perda não é fecho de corrida."),
     }
 
     nos = [derivado, porta]
@@ -825,17 +917,24 @@ def a_estrada_do_pdf() -> tuple[list, list]:
     ligacoes = [
         {"from": "C-IT-PDF-BRUTO", "to": "C-EXECUTOR-TEXTO-PDF", "type": "DERIVA_TEXTO",
          "kind": "technical", "status": VERDE, "payload": "dado",
-         "reason": (f"O executor abriu {C['RAW_INPUT']} PDF italianos nesta "
-                    f"corrida. O original não foi tocado: "
-                    f"{imut.get('VEREDITO', 'NAO SEI')}."),
+         "reason": (f"{OC.get('OCORRENCIAS', C['RAW_INPUT'])} ocorrências de "
+                    f"PDF entram, e são {entrada_deriv} documentos diferentes: "
+                    f"{OC.get('OCORRENCIAS_DE_CONTEUDO_REPETIDO', 0)} estão "
+                    f"guardados em dois sítios. O executor nomeia o texto pela "
+                    f"impressão digital do pai, então conteúdo repetido dá UM "
+                    f"texto — e isso é REPETIÇÃO, não perda. O original não foi "
+                    f"tocado: {imut.get('VEREDITO', 'NAO SEI')}."),
          "evidence": [{"file": "coleta/executor_texto_de_pdf.py", "line": 1,
                        "snippet": f"RUN {R['RUN_ID']} · "
                                   f"RAW_INPUT={C['RAW_INPUT']}"}]},
         {"from": "C-EXECUTOR-TEXTO-PDF", "to": "C-IT-TEXTO-DERIVADO",
          "type": "PRODUZ", "kind": "technical", "status": VERDE,
          "payload": "dado",
-         "reason": (f"{total_derivado} textos guardados, cada um com pai e "
-                    f"impressão digital do pai. Perdidos: {C['LOST']}."),
+         "reason": (f"entraram {entrada_deriv} documentos, saíram "
+                    f"{total_derivado} textos — cada um com pai e impressão "
+                    f"digital do pai. PERDIDOS: {C['LOST']}. A conta é entre "
+                    f"etapas comparáveis (documentos × textos), nunca "
+                    f"ocorrências menos conteúdos."),
          "evidence": [{"file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
                        "line": 1,
                        "snippet": f"{total_derivado} artefatos derivados"}]},

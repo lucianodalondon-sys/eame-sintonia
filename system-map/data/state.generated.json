@@ -1263,6 +1263,7 @@
       "tests/test_metricas.py",
       "tests/test_migrations.py",
       "tests/test_navegador.py",
+      "tests/test_observabilidade_estrada.py",
       "tests/test_operacao.py",
       "tests/test_pipeline.py",
       "tests/test_portao.py",
@@ -1657,8 +1658,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "24da5b227fd101969352cea8233fe0e98cd5b2fa",
-    "GENERATED_AT": "2026-09-08T00:55:05-03:00"
+    "HEAD": "1d6ca3d5d18d4c01df35da7dbb9bdea2ee5dbff5",
+    "GENERATED_AT": "2026-09-08T00:57:24-03:00"
   },
   "FAMILIES": [
     {
@@ -2321,7 +2322,8 @@
         "C-ESTRADA-PDF",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
-        "C-RECALL-PORTA-IT"
+        "C-RECALL-PORTA-IT",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -5421,7 +5423,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "▦",
       "views": [
         "audit",
@@ -5433,12 +5435,14 @@
         "system-map/scripts/censo_do_corpus_it.py"
       ],
       "file_count": 1,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -6762,20 +6766,34 @@
       "family": "F-INTELIGENCIA",
       "status": "PENDING",
       "ui_status": "yellow",
-      "what": "A conta desta corrida, do PDF guardado até à porta de admissão. A porta viu 43 textos: NAO_SEI 43.",
+      "what": "A conta desta corrida, do PDF guardado até à porta. 49 ocorrências → 43 documentos diferentes → 43 textos derivados → a porta viu 43: NAO_SEI 43. PERDIDOS: 0 · precisam de OCR: 0 · erro de extração: 0.",
       "why_here": "Se a máquina fez e o mapa não consegue mostrar, a engenharia ainda não terminou.",
       "facts": [
         "RUN_ID: DERIV-PDF-20260908T033724Z",
-        "estado da corrida: SUCCESS",
-        "RAW_INPUT: 49 PDF italianos",
+        "estado que a corrida declara: SUCCESS",
+        "estado contra a COL-LAW-210: PARTIAL — nenhum campo de fecho canónico está preservado (procurados: FINAL_MANIFEST_STATE, STATE_BEFORE, STATE_AFTER, CONFIG_HASH, PLAN_VERSION, GIT_COMMIT). Reconciliação sem perda e fecho da corrida são factos diferentes: LOST=0 não faz COMPLETE",
+        "",
+        "OCORRÊNCIAS de PDF: 49",
+        "CONTEÚDOS ÚNICOS: 43",
+        "ocorrências do mesmo conteúdo: 6 — repetição, NÃO perda",
+        "",
+        "ENTRADA DA DERIVAÇÃO: 43",
+        "DERIVADOS QUE EXISTEM: 43",
+        "emitidos NESTA corrida: 0 · guardados NESTA corrida: 0 · já existiam: 43",
+        "PERDIDOS: 0 — medido entre etapas comparáveis (entrada da derivação × derivados), nunca ocorrências menos conteúdos",
+        "",
+        "precisam de OCR: 0",
+        "erro de extração: 0",
         "a porta viu: 43",
         "decisões: NAO_SEI 43",
-        "PERDIDOS: 0",
         "originais alterados: 0 (IMUTAVEL)",
-        "custo: 0 · rede: NÃO · OCR: NÃO",
+        "",
+        "rede usada: NAO · OCR usado: NAO",
+        "custo monetário: NÃO CANÓNICO — o que está medido é que não houve rota paga nem rede. Ausência de serviço pago não é contabilidade.",
+        "número de caracteres: NÃO CANÓNICO — não há regra de contagem escrita (a mesma pasta dá contas diferentes conforme a quebra de linha). Entra quando tiver contrato próprio.",
         "PRECISÃO: NÃO SEI — não há gabarito humano. Contar quantos passaram é COBERTURA, não acerto."
       ],
-      "status_reason": "AMARELO de propósito. A estrada está inteira e nada se perdeu, mas os 43 textos ficaram todos em NÃO SEI na porta: nenhum diz quando o fato aconteceu. Pintar isto de verde seria chamar «pronto» a uma coisa que ainda não entrou.",
+      "status_reason": "AMARELO de propósito, por DOIS motivos que não se somam. (1) Os 43 textos ficaram todos em NÃO SEI na porta: nenhum diz quando o fato aconteceu — e a porta recusou-se a adivinhar. (2) A corrida diz SUCCESS, mas contra a COL-LAW-210 ela é PARTIAL: nenhum campo de fecho canónico está preservado (procurados: FINAL_MANIFEST_STATE, STATE_BEFORE, STATE_AFTER, CONFIG_HASH, PLAN_VERSION, GIT_COMMIT). Reconciliação sem perda e fecho da corrida são factos diferentes: LOST=0 não faz COMPLETE. Nada se perdeu (0 perdidos), e mesmo assim isto não é verde — reconciliação sem perda não é fecho de corrida.",
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -7075,7 +7093,8 @@
       ],
       "outbound": [
         "C-IT-CONTAS",
-        "C-IT-CONTRATOS"
+        "C-IT-CONTRATOS",
+        "C-TESTES"
       ],
       "paises": {
         "ITALIA": 4
@@ -7241,21 +7260,30 @@
       "status": "UNKNOWN",
       "ui_status": "gray",
       "proof": "git-measurement",
-      "what": "49 documentos italianos guardados em PDF — boletins regionais, bilanci fitosanitari, diretrizes. 62.7 MB. É o material mais rico que a Itália tem. Já não está fechado: o executor abriu-os e o texto existe, com pai declarado.",
+      "what": "49 ocorrências de PDF italiano guardadas — boletins regionais, bilanci fitosanitari, diretrizes, 62.7 MB. São 43 documentos diferentes: 6 deles estão guardados em dois sítios ao mesmo tempo (na loja do coletor e na amostra), e isso é REPETIÇÃO, não perda — nada sumiu.",
       "why_here": "Enquanto o mapa dizia «corpus» numa palavra só, isto parecia alimento do sistema. Separar o guardado do legível foi o que permitiu ver — e fechar — o corte.",
       "files": [],
       "file_count": 49,
       "facts": [
-        "PDF italianos guardados: 49",
+        "OCORRÊNCIAS (caminhos no disco): 49",
+        "CONTEÚDOS ÚNICOS (impressão digital): 43",
+        "o mesmo conteúdo em mais de um caminho: 6 ocorrência(s), em 6 conteúdo(s)",
+        "PERDIDOS: 0 — repetição NÃO é perda. cada ocorrencia repetida continua no disco, com o seu caminho e a sua procedencia. Nada sumiu: o mesmo conteudo esta em dois sitios.",
         "tamanho em disco: 62.7 MB",
-        "PDF COM texto derivado: 6 de 49",
-        "PDF SEM texto derivado: 43 de 49",
+        "PDF COM texto derivado: 49 de 49",
+        "PDF SEM texto derivado: 0 de 49",
         "caracteres dentro dos PDF: NÃO MEDIDO — abrir PDF é derivar, não medir",
         "62.7 MB NÃO é prova de milhões de caracteres: megabyte não é caractere",
-        "o antigo «milhões de caracteres» continua NÃO REPRODUZIDO COMO TEXTO"
+        "o antigo «milhões de caracteres» continua NÃO REPRODUZIDO COMO TEXTO",
+        "repetido · e612807928b5… em 2 caminhos: data/collection-store/italy/IT-T3-008/ARIF_SETTIMANALE_2026_N36/v1_e612807928b5/Notiziario_Agrometeorologico_N36_02-09-2026.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+        "repetido · 59da05274359… em 2 caminhos: data/collection-store/italy/IT-T3-010/APOL_2026_N9_BR-COLLINA/v1_59da05274359/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+        "repetido · 0c2723e66201… em 2 caminhos: data/collection-store/italy/IT-T3-002/CAMPANIA_SA_02-09-2026/v1_0c2723e66201/SA-02-09.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-02-09.pdf",
+        "repetido · 420e08ef15be… em 2 caminhos: data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_SA-26-08.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-26-08.pdf",
+        "repetido · f88c89d73d6a… em 2 caminhos: data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf",
+        "repetido · 3d3c1bc0e963… em 2 caminhos: data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_09.pdf"
       ],
       "status_reason": "CINZENTO porque o mapa continua a não conseguir LER um PDF — o scanner não abre ficheiro binário, e isso não mudou. O que mudou é que já não precisa: o executor abriu-os e o texto vive ao lado, como artefato próprio, esse sim legível e contado.",
-      "evidence_text": "system-map/data/corpus-it.generated.json → BRUTO_POR_LER",
+      "evidence_text": "system-map/data/corpus-it.generated.json → BRUTO_POR_LER + OCORRENCIA_E_CONTEUDO",
       "departments": [
         "ENGENHARIA"
       ],
@@ -7316,7 +7344,8 @@
       "outbound": [
         "C-IT-CONTAS",
         "C-MAPA-SCAN",
-        "C-PADRAO-COLETA"
+        "C-PADRAO-COLETA",
+        "C-TESTES"
       ],
       "paises": {
         "ITALIA": 1
@@ -7364,7 +7393,7 @@
       "status": "PROVEN",
       "ui_status": "green",
       "what": "43 textos tirados de PDF por máquina, cada um a saber de que original nasceu, com que executor, em que versão e a que horas.",
-      "why_here": "É o outro lado do corte que estava aberto. Antes: 43 de 49 PDF fechados. Agora: têm texto, e o texto tem pai.",
+      "why_here": "É o outro lado do corte que estava aberto: os PDF estavam guardados e fechados. Agora têm texto, e o texto sabe de que original nasceu.",
       "facts": [
         "artefatos de texto com pai: 43",
         "emitidos nesta corrida: 0",
@@ -7845,7 +7874,8 @@
       ],
       "outbound": [
         "C-MAPA-TESTES",
-        "C-MAPA-VALIDADOR"
+        "C-MAPA-VALIDADOR",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -7855,6 +7885,7 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CAMPOS_DE_FECHO",
           "CANAIS",
           "CATEGORIA_DO_TIPO",
           "EM_PORTUGUES",
@@ -7867,9 +7898,9 @@
           "RX_PAPEL",
           "TRADUZ_PAIS"
         ],
-        "palavras": 130,
+        "palavras": 136,
         "por_lingua": {},
-        "sem_marca_de_lingua": 130,
+        "sem_marca_de_lingua": 136,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11287,6 +11318,7 @@
         "tests/test_metricas.py",
         "tests/test_migrations.py",
         "tests/test_navegador.py",
+        "tests/test_observabilidade_estrada.py",
         "tests/test_operacao.py",
         "tests/test_pipeline.py",
         "tests/test_portao.py",
@@ -11300,7 +11332,7 @@
         "tests/test_v21_traducao_trava.py",
         "tests/test_voz.py"
       ],
-      "file_count": 32,
+      "file_count": 33,
       "status": "PROVEN",
       "status_reason": "o teste aponta para codigo real do repositorio.",
       "changed_since_declared": [],
@@ -11310,10 +11342,12 @@
       ],
       "inbound": [
         "C-ADAMA-ES",
+        "C-ADMISSAO",
         "C-APIFY-POOL",
         "C-AS-FONTES",
         "C-ASK-SINTONIA",
         "C-BIBLIA",
+        "C-CENSO-CORPUS-IT",
         "C-CI-COLETA",
         "C-CI-MAPA",
         "C-CICATRIZES-BR",
@@ -11324,8 +11358,11 @@
         "C-ESTRADA-PDF",
         "C-FONTES-EU",
         "C-IDENTIDADE",
+        "C-IT-COLETA",
+        "C-IT-PRESERVAR",
         "C-LASTMILE",
         "C-LUGAR-COLETA",
+        "C-MAPA-GERADOR",
         "C-MEDICAO",
         "C-NAVEGADOR",
         "C-PACOTE-CAMADAS",
@@ -11353,7 +11390,7 @@
       },
       "paises_dado": {
         "ESPANHA": 44,
-        "ITALIA": 2,
+        "ITALIA": 3,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -12935,7 +12972,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 24da5b227fd101969352cea8233fe0e98cd5b2fa"
+        "HEAD 1d6ca3d5d18d4c01df35da7dbb9bdea2ee5dbff5"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -13303,6 +13340,24 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_observabilidade_estrada.py",
+          "line": 237,
+          "snippet": "porta = ler(os.path.join(RAIZ, 'admissao', 'admissao.py'))"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-APIFY-POOL",
@@ -13750,7 +13805,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2076,
+          "line": 2175,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -14561,7 +14616,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_biblia.py",
@@ -14597,6 +14652,11 @@
           "file": "tests/test_integracao_biblia.py",
           "line": 159,
           "snippet": "os.path.join(RAIZ, 'docs', 'biblia', 'RECONCILIACAO-INTEGRACAO.md')):"
+        },
+        {
+          "file": "tests/test_observabilidade_estrada.py",
+          "line": 232,
+          "snippet": "conf = ler(os.path.join(RAIZ, 'docs', 'biblia', 'CONFORMIDADE-ITALIA.md'))"
         }
       ],
       "categoria": "PROOF"
@@ -14848,6 +14908,24 @@
         }
       ],
       "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CENSO-CORPUS-IT",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo do corpo italiano alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_observabilidade_estrada.py",
+          "line": 35,
+          "snippet": "CENSO = os.path.join(RAIZ, 'system-map', 'scripts', 'censo_do_corpus_it.py')"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-CI-COLETA",
@@ -15148,7 +15226,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
@@ -15159,6 +15237,11 @@
           "file": ".github/workflows/system-map.yml",
           "line": 102,
           "snippet": "python3 tests/test_integracao_biblia.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 103,
+          "snippet": "python3 tests/test_observabilidade_estrada.py"
         }
       ],
       "categoria": "PROOF"
@@ -15886,7 +15969,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 846,
+          "line": 945,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -15971,7 +16054,7 @@
       "kind": "technical",
       "status": "PROVEN",
       "payload": "dado",
-      "reason": "43 textos guardados, cada um com pai e impressão digital do pai. Perdidos: 0.",
+      "reason": "entraram 43 documentos, saíram 43 textos — cada um com pai e impressão digital do pai. PERDIDOS: 0. A conta é entre etapas comparáveis (documentos × textos), nunca ocorrências menos conteúdos.",
       "evidence": [
         {
           "file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
@@ -15993,7 +16076,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 831,
+          "line": 927,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         }
       ],
@@ -16414,7 +16497,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2098,
+          "line": 2197,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -16483,6 +16566,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-IT-COLETA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_observabilidade_estrada.py",
+          "line": 248,
+          "snippet": "colector = ler(os.path.join(RAIZ, 'coleta', 'italy_recurrent_collect.mjs'))"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-IT-CONTAS",
@@ -16627,7 +16728,7 @@
       "kind": "technical",
       "status": "PROVEN",
       "payload": "dado",
-      "reason": "O executor abriu 49 PDF italianos nesta corrida. O original não foi tocado: IMUTAVEL.",
+      "reason": "49 ocorrências de PDF entram, e são 43 documentos diferentes: 6 estão guardados em dois sítios. O executor nomeia o texto pela impressão digital do pai, então conteúdo repetido dá UM texto — e isso é REPETIÇÃO, não perda. O original não foi tocado: IMUTAVEL.",
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
@@ -16712,6 +16813,29 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_observabilidade_estrada.py",
+          "line": 244,
+          "snippet": "for caminho in ('data/collection-ledger/italy/runs.ndjson',"
+        },
+        {
+          "file": "tests/test_observabilidade_estrada.py",
+          "line": 245,
+          "snippet": "'data/collection-ledger/italy/observations.ndjson'):"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-IT-TEXTO-DERIVADO",
@@ -16974,17 +17098,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2299,
+          "line": 2398,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2299,
+          "line": 2398,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2300,
+          "line": 2399,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -17073,6 +17197,24 @@
       "categoria": "READ"
     },
     {
+      "from": "C-MAPA-GERADOR",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do System Map alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_observabilidade_estrada.py",
+          "line": 34,
+          "snippet": "GERADOR = os.path.join(RAIZ, 'system-map', 'scripts', 'generate_system_map.py')"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-MAPA-SCAN",
       "to": "C-IDENTIDADE",
       "type": "WRITES",
@@ -17102,12 +17244,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2781,
+          "line": 2880,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2781,
+          "line": 2880,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -20777,15 +20919,15 @@
   "COUNTS": {
     "components": 109,
     "components_proven": 73,
-    "components_pending": 29,
+    "components_pending": 30,
     "components_broken": 0,
-    "components_unknown": 7,
-    "edges": 352,
-    "edges_proven": 350,
+    "components_unknown": 6,
+    "edges": 357,
+    "edges_proven": 355,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1211,
-    "files_covered": 538,
+    "files_tracked": 1212,
+    "files_covered": 539,
     "files_code_unclaimed": 0
   }
 }

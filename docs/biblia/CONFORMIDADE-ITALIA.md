@@ -15,14 +15,14 @@ alteradas, medidas nem portadas nesta missão.
 
 ## O PLACAR
 
-| estado | V1 | V1.1 | **V1.2** | |
+| estado | V1 | V1.1 | **V1.3** | |
 |---|---:|---:|---:|---|
-| `IMPLEMENTED` | 21 | 24 | **34** | há código no caminho produtivo e prova executável |
-| `PARTIAL` | 23 | 42 | **46** | existe em parte, ou existe para um caminho e não para os outros |
-| `ABSENT` | 4 | 11 | **18** | é lei, e não há implementação nenhuma |
+| `IMPLEMENTED` | 21 | 24 | **35** | há código no caminho produtivo e prova executável |
+| `PARTIAL` | 23 | 42 | **47** | existe em parte, ou existe para um caminho e não para os outros |
+| `ABSENT` | 4 | 11 | **20** | é lei, e não há implementação nenhuma |
 | `NOT_APPLICABLE` | 0 | 1 | **2** | a lei não se aplica ao perfil italiano de hoje |
 | `UNKNOWN` | 0 | 0 | **0** | — |
-| **total** | 48 | 78 | **100** | |
+| **total** | 48 | 78 | **104** | |
 
 > **O `ABSENT` subiu de 4 para 11, e isso não é a Itália a piorar: é a régua a crescer.**
 > Sete coisas que antes nem eram medidas ganharam nome. Lacuna com nome é lacuna que alguém
@@ -98,13 +98,13 @@ o lado que parece rigoroso.
 
 | LEI | APLICA-SE | ESTADO | EVIDÊNCIA | O QUE FALTA | PRÓXIMO PASSO |
 |---|---|---|---|---|---|
-| `COL-LAW-101` tudo renderizável | SIM | `PARTIAL` | 99 peças e 325 ligações no mapa; `P9` reprova código que ninguém declara | corridas, custo e contagens não são renderizáveis por peça | **G-20** |
+| `COL-LAW-101` tudo renderizável | SIM | `PARTIAL` | 109 peças e 357 ligações; a estrada do PDF renderiza ocorrências, conteúdos, entrada, derivados, OCR, erro, perda e estado da corrida — tudo derivado da medição | as outras estradas ainda não expõem contagens; `HEALTH` por peça não existe | G-37 |
 | `COL-LAW-102` as quatro verdades | SIM | `PARTIAL` | `DECLARED` e `CODE` medidos; `EXPECTED` para o não provado | `OBSERVED` e `BIBLE` não existem no estado do mapa | **G-19** |
 | `COL-LAW-103` derivável não se escreve | SIM | `PARTIAL` | `state.generated.json`, `portao.py` e `portoes_eame.py` derivam tudo | `COMPLIANCE` e `GAP` estão em Markdown escrito à mão — este ficheiro | **G-21** |
-| `COL-LAW-104` componente renderizável | SIM | `PARTIAL` | `id`, `name`, `zone`, `what`, `departments`, `files`, `status` existem | `LAST_RUN`, `LAST_ERROR`, `COUNTS`, `COST`, `HEALTH`, `APPLICABLE_LAWS` não existem | G-20 |
+| `COL-LAW-104` componente renderizável | SIM | `PARTIAL` | na estrada do PDF: `COUNTS`, `LAST_ERROR`, `RUN_ID` e a ressalva de `COST` aparecem, com a medição de origem citada | `HEALTH` e `APPLICABLE_LAWS` por peça continuam ausentes; e só a estrada do PDF os expõe | G-37 |
 | `COL-LAW-105` conexão renderizável | SIM | `PARTIAL` | `TYPE` + `EVIDENCE` (ficheiro e linha) em todas as 325 | `OBSERVED`, `COUNT_IN/OUT`, `LOST`, `ARTIFACT_TYPE` não existem | G-19 |
-| `COL-LAW-106` corrida renderizável | SIM | `PARTIAL` | o `RUN-MANIFEST` já carrega `RUN_ID`, `STARTED_AT`, `FINISHED_AT`, `STATUS`, `COST_USD` e as contagens — o contrato existe | **corrida nenhuma aparece no mapa**, e faltam `STATE_BEFORE/AFTER`, `LOST` e `ROUTE` | G-20 |
-| `COL-LAW-107` a perda aparece na aresta | SIM | `ABSENT` | — | depende de a reconciliação existir (G-03) | G-03 → G-20 |
+| `COL-LAW-106` corrida renderizável | SIM | `PARTIAL` | a corrida do Golden Path **aparece no mapa**: `RUN_ID`, estado declarado, estado contra a COL-LAW-210, contagens por etapa, `LOST`, OCR, erro | faltam `STATE_BEFORE/AFTER` e `ROUTE` — por isso continua `PARTIAL`, e não por falta de visibilidade | G-38 |
+| `COL-LAW-107` a perda aparece na aresta | SIM | `PARTIAL` | na estrada do PDF a seta diz «entraram 43, saíram 43, PERDIDOS 0» e explica que a conta é entre etapas comparáveis | vale só para esta estrada; nas outras a reconciliação ainda não existe (G-03) | G-03 |
 | `COL-LAW-108` quatro vistas, uma verdade | SIM | `PARTIAL` | uma fonte só (`state.generated.json`); há filtro de vista (`views`) | faltam as vistas RUN, PROBLEMAS e BÍBLIA | G-21 |
 | `COL-LAW-109` zoom; layout não governa | SIM | `IMPLEMENTED` | três níveis na app: faixa → peça → raio-X com ficheiro e linha | — | — |
 | `COL-LAW-110` observabilidade por nascimento | SIM | `IMPLEMENTED` | `P9_CODIGO_DECLARADO` reprova peça invisível, em cada push | — | — |
@@ -317,7 +317,7 @@ que ele estava errado.
 
 ## OS GAPS MENORES, registrados e não priorizados
 
-`G-36` **o chão da coleta está reprovando desde `a32799c`** — `COLLECTED_AT` e `SOURCE_LOCATION` ficam `NAO SEI` nas 43 fichas derivadas; medido em worktree destacado, não foi a integração · `G-34` pré-voo antes de tocar em documento · `G-35` árvore escaneada separada do commit do mapa · `G-31` o raio-X mostra tabela, bucket e store do lado físico · `G-29` **`tem_teste` procura a aresta do teste no sentido errado** em
+`G-37` contagens renderizáveis nas OUTRAS estradas · `G-38` `STATE_BEFORE/AFTER` e `ROUTE` na corrida · `G-36` **o chão da coleta está reprovando desde `a32799c`** — `COLLECTED_AT` e `SOURCE_LOCATION` ficam `NAO SEI` nas 43 fichas derivadas; medido em worktree destacado, não foi a integração · `G-34` pré-voo antes de tocar em documento · `G-35` árvore escaneada separada do commit do mapa · `G-31` o raio-X mostra tabela, bucket e store do lado físico · `G-29` **`tem_teste` procura a aresta do teste no sentido errado** em
 `generate_system_map.py:1825` — 3 peças ficam 🟡 tendo teste real; medido e registrado em
 [`EMENDA-V1-1.md`](EMENDA-V1-1.md), **não consertado nesta missão** ·
 `G-19` arestas `OBSERVED` e evidência de RUN no mapa · `G-20` corrida, custo e contagens

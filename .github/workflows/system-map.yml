@@ -100,6 +100,7 @@ jobs:
         run: |
           python3 tests/test_biblia.py
           python3 tests/test_integracao_biblia.py
+          python3 tests/test_observabilidade_estrada.py
 
       - name: 5 · o que vai ser publicado existe e é servível
         run: |

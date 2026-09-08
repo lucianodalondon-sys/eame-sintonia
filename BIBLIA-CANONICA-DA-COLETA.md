@@ -1443,7 +1443,12 @@ LOST = 6      e o mapa mostra em QUAL aresta
 É a COL-LAW-023 (reconciliação) tornada **visível**. Uma perda que só existe numa tabela
 que ninguém abre é, na prática, uma perda escondida.
 
-**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+**MEDIDO — e já vale para uma estrada.** Na estrada do PDF a seta diz, derivado da medição:
+*«entraram 43 documentos, saíram 43 textos. PERDIDOS: 0. A conta é entre etapas comparáveis
+(documentos × textos), nunca ocorrências menos conteúdos»*. Nas outras estradas a
+reconciliação ainda não existe (G-03), e por isso a lei fica `PARTIAL` e não `IMPLEMENTED`.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 
 ---
 

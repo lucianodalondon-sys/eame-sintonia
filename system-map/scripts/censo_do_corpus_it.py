@@ -15,9 +15,19 @@ E a busca por esse número antigo encontrou outra coisa — mais importante, e
 que tem de ser escrita com as palavras certas:
 
     ANTIGO «MILHÕES DE CARACTERES»  =  NÃO REPRODUZIDO COMO TEXTO
-    ACHADO NOVO, COMPROVADO         =  49 PDF italianos
+    ACHADO NOVO, COMPROVADO         =  49 ocorrências de PDF italiano
+                                    =  43 conteúdos diferentes
                                     =  62,7 MB de evidência bruta
-                                    =  43 deles sem derivação de texto
+
+E OCORRÊNCIA NÃO É CONTEÚDO. Quando isto foi escrito, dizia «43 deles sem
+derivação de texto» — e ficou velho duas vezes. Primeiro porque a derivação
+passou a existir; depois porque o censo só sabia procurar o texto pelo NOME do
+ficheiro, e não via os 43 textos que já existiam com o pai declarado.
+
+    49 - 43 = 6  NÃO É PERDA. São seis documentos guardados em dois sítios
+                 ao mesmo tempo: na loja do coletor e na amostra versionada.
+
+Ver `ocorrencia_e_conteudo()` e `derivados_por_impressao_digital()`.
 
 Um erro que quase se cometeu aqui: dizer «encontrei os milhões, estão nos
 PDF». Não está provado. Megabyte não é caractere — um PDF de 6 MB tanto pode
@@ -56,6 +66,7 @@ CORRER
 Não lê a rede, não gasta nada, não altera nenhum dado. Só conta.
 Escreve system-map/data/corpus-it.generated.json.
 """
+import hashlib
 import io
 import json
 import os
@@ -238,6 +249,42 @@ def _prosa_no_mesmo_registo(no, alvo: str):
     return achou
 
 
+def derivados_por_impressao_digital():
+    """Que CONTEÚDOS já têm texto derivado — ligados pela impressão digital.
+
+    Esta é a ligação mais forte que existe neste repositório, e por isso é a
+    primeira a ser perguntada: o registo de artefatos guarda `PARENT_SHA256`,
+    que é exatamente o hash do PDF de onde o texto saiu.
+
+        NOME DE FICHEIRO É INDÍCIO. IMPRESSÃO DIGITAL É PROVA.
+
+    Enquanto esta função não existia, o censo só sabia procurar o texto pelo
+    NOME (um irmão `.txt` ao lado, ou o nome citado numa planilha) — e por isso
+    dizia «43 PDF sem texto derivado» ao mesmo tempo que existiam 43 textos
+    derivados, cada um com o pai declarado. Os dois números estavam no mesmo
+    mapa, a dizer o contrário um do outro.
+
+    Devolve {sha256_do_pai: [caminhos do texto derivado]}.
+    """
+    reg = os.path.join(RAIZ, 'data', 'derivados', 'REGISTO-DE-ARTEFATOS.json')
+    if not os.path.exists(reg):
+        return {}
+    try:
+        with io.open(reg, encoding='utf-8') as fh:
+            d = json.load(fh)
+    except (ValueError, OSError):
+        return {}
+    fichas = d if isinstance(d, list) else next(
+        (v for v in d.values() if isinstance(v, list)), [])
+    por_pai = {}
+    for f in fichas:
+        pai = f.get('PARENT_SHA256')
+        onde = f.get('STORAGE_LOCATION')
+        if pai and onde:
+            por_pai.setdefault(pai, []).append(onde)
+    return por_pai
+
+
 def _tem_texto_derivado(nome_pdf: str, indice_de_prosa: dict):
     """Existe, em algum sítio, o texto que saiu deste PDF?
 
@@ -284,6 +331,7 @@ def o_bruto_por_ler(indice_de_prosa):
     derivação, não medição. Se um dia alguém os abrir, esse número entra por
     uma porta própria, com recibo.
     """
+    por_impressao = derivados_por_impressao_digital()
     achados = []
     for dirp, _, fs in os.walk(RAIZ):
         if '.git' in dirp.replace('\\', '/').split('/'):
@@ -295,6 +343,12 @@ def o_bruto_por_ler(indice_de_prosa):
             if not e_italiano(rel):
                 continue
             tem, onde = _tem_texto_derivado(rel, indice_de_prosa)
+            # A PROVA VEM PRIMEIRO: se o registo de artefatos diz que este
+            # conteudo tem filho, isso decide — o nome do ficheiro nao tem voto.
+            sha = _sha256(os.path.join(dirp, f))
+            if sha in por_impressao:
+                tem = True
+                onde = sorted(set(onde) | set(por_impressao[sha]))
             # Um ficheiro de texto ao lado do PDF também conta como derivação.
             derivado = 0
             irmao = os.path.splitext(os.path.join(dirp, f))[0]
@@ -311,12 +365,66 @@ def o_bruto_por_ler(indice_de_prosa):
             achados.append({
                 'FICHEIRO': rel,
                 'BYTES': os.path.getsize(os.path.join(dirp, f)),
+                'SHA256': sha,
                 'TEM_TEXTO_DERIVADO': tem,
                 'CARACTERES_JA_DERIVADOS': derivado,
                 'ONDE_ESTA_O_TEXTO': onde,
             })
     achados.sort(key=lambda x: -x['BYTES'])
     return achados
+
+
+def _sha256(caminho):
+    """A impressao digital do ficheiro. E ela — nao o caminho — que diz o que
+    a coisa E."""
+    h = hashlib.sha256()
+    with io.open(caminho, 'rb') as fh:
+        for pedaco in iter(lambda: fh.read(1 << 20), b''):
+            h.update(pedaco)
+    return h.hexdigest()
+
+
+def ocorrencia_e_conteudo(brutos):
+    """OCORRENCIA nao e CONTEUDO — e a conta que os confunde inventa perda.
+
+        49 caminhos  -  43 conteudos  =  6 PERDIDOS       <- ERRADO
+        49 ocorrencias · 43 conteudos · 6 repeticoes      <- CERTO
+
+    Uma OCORRENCIA e uma aparicao documentada, com procedencia propria: onde
+    ela esta, de que corrida veio, por que caminho. Um CONTEUDO sao os bytes,
+    e quem os identifica e o hash.
+
+    Duas ocorrencias podem apontar para o MESMO conteudo sem que nada se tenha
+    perdido. Neste acervo isso acontece sempre pelo mesmo motivo: o documento
+    esta na loja do coletor E na amostra versionada. Mesma coisa no mundo, duas
+    procedencias — e apagar uma perderia a prova de como ela chegou ali.
+
+        MESMO CONTEUDO NAO E A MESMA COLETA.
+
+    E a lei que isto exerce e a COL-LAW-501. Ela existe porque a subtracao
+    ingenua ja estava a um passo de ser escrita num relatorio.
+    """
+    por_hash = {}
+    for b in brutos:
+        por_hash.setdefault(b['SHA256'], []).append(b['FICHEIRO'])
+    repetidos = {h: cs for h, cs in por_hash.items() if len(cs) > 1}
+    return {
+        'O_QUE_E': ('OCORRENCIA e CONTEUDO sao especies diferentes. A '
+                    'contagem NUNCA subtrai uma da outra: a diferenca entre '
+                    'elas e repeticao, nao perda. COL-LAW-501.'),
+        'OCORRENCIAS': len(brutos),
+        'CONTEUDOS_UNICOS': len(por_hash),
+        'OCORRENCIAS_DE_CONTEUDO_REPETIDO': len(brutos) - len(por_hash),
+        'CONTEUDOS_COM_MAIS_DE_UM_CAMINHO': len(repetidos),
+        'PERDA': 0,
+        'PORQUE_NAO_E_PERDA': ('cada ocorrencia repetida continua no disco, '
+                               'com o seu caminho e a sua procedencia. Nada '
+                               'sumiu: o mesmo conteudo esta em dois sitios.'),
+        'ONDE_SE_REPETE': [
+            {'SHA256': h, 'CAMINHOS': sorted(cs)}
+            for h, cs in sorted(repetidos.items(), key=lambda x: -len(x[1]))
+        ],
+    }
 
 
 def indice_de_quem_cita_pdf():
@@ -444,6 +552,10 @@ def main():
                            'Entra por porta propria, com recibo.'),
             'LISTA': brutos,
         },
+        # OCORRENCIA x CONTEUDO — a distincao que impede a conta errada.
+        # Nasce dos MESMOS `brutos` acima: nada e recontado por outra via,
+        # porque duas medicoes da mesma coisa divergem no primeiro dia.
+        'OCORRENCIA_E_CONTEUDO': ocorrencia_e_conteudo(brutos),
         'ERROS_A_LER': erros,
         'FICHEIROS': fichas,
     }

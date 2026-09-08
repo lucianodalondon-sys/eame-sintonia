@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "24da5b227fd101969352cea8233fe0e98cd5b2fa",
-    "GENERATED_AT": "2026-09-08T00:55:05-03:00"
+    "HEAD": "1d6ca3d5d18d4c01df35da7dbb9bdea2ee5dbff5",
+    "GENERATED_AT": "2026-09-08T00:57:24-03:00"
   },
   "FILES": [
     {
@@ -100,7 +100,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "c4388530c046d637cac34a9b5e7fcc4507701f92",
+      "sha": "df5fd6b5e1ad78739c5746077bb8714312449536",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -128,7 +128,7 @@
     },
     {
       "path": "BIBLIA-CANONICA-DA-COLETA.md",
-      "sha": "de066def189b2d0f4057844a05f27067e051e156",
+      "sha": "2f5e9d94d256bd88c1e990ad1509f389c2bf7444",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4055,7 +4055,7 @@
     },
     {
       "path": "docs/biblia/CONFORMIDADE-ITALIA.md",
-      "sha": "7162ed606aa01602bf59cffa24daca4268ac8638",
+      "sha": "4fe2a1f53fef5679cc4f511d13d678a6a9c3ca07",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4090,7 +4090,7 @@
     },
     {
       "path": "docs/biblia/leis.json",
-      "sha": "499d36f020a833e56e6951c48dfe2c7ca1525be9",
+      "sha": "92f4182a160162040ed2a1bfdb40ada473e34cc6",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -8150,7 +8150,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "c66a1f6e524ef2794980c6fba0f0d232b6faa30d",
+      "sha": "0cb13c0b0ff69b831c59e377d16cd8f9e6cf4d73",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8164,7 +8164,7 @@
     },
     {
       "path": "system-map/scripts/censo_do_corpus_it.py",
-      "sha": "2ba1b258fa85a7be69fb3c3d3a49683cb9fa515a",
+      "sha": "bd6d13ec0701b83ee4316c0a2315c6583534c48b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8178,7 +8178,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "3eece1c87b060efe5ff97e38c31587cf2bcf5a07",
+      "sha": "6e2200e5178038bb128eb71302b4a44ef0ca6c0e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8389,6 +8389,13 @@
     {
       "path": "tests/test_navegador.py",
       "sha": "6785b0150ea26a6221ae25ee3b13d43c0d15605f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_observabilidade_estrada.py",
+      "sha": "eb3d066634d2ca711c2da244e15eb47456914f15",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9177,6 +9184,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 102,
         "snippet": "python3 tests/test_integracao_biblia.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "tests/test_observabilidade_estrada.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 103,
+        "snippet": "python3 tests/test_observabilidade_estrada.py"
       }
     },
     {
@@ -22864,6 +22882,17 @@
       }
     },
     {
+      "from_file": "system-map/scripts/censo_do_corpus_it.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_do_corpus_it.py",
+        "line": 269,
+        "snippet": "reg = os.path.join(RAIZ, 'data', 'derivados', 'REGISTO-DE-ARTEFATOS.json')"
+      }
+    },
+    {
       "from_file": "system-map/scripts/censo_semantico_it.py",
       "to_file": "admissao/admissao.py",
       "type": "READS",
@@ -22914,7 +22943,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2098,
+        "line": 2197,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -22925,7 +22954,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 831,
+        "line": 927,
         "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
       }
     },
@@ -22936,7 +22965,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 846,
+        "line": 945,
         "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
       }
     },
@@ -22947,7 +22976,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 839,
+        "line": 938,
         "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\","
       }
     },
@@ -22958,7 +22987,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2076,
+        "line": 2175,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -22969,7 +22998,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1857,
+        "line": 1956,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -23002,7 +23031,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2277,
+        "line": 2376,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -23013,7 +23042,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2299,
+        "line": 2398,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -23024,7 +23053,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2300,
+        "line": 2399,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -23035,7 +23064,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2299,
+        "line": 2398,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -23057,7 +23086,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2781,
+        "line": 2880,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -23068,7 +23097,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2781,
+        "line": 2880,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -23079,7 +23108,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2038,
+        "line": 2137,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -25141,6 +25170,94 @@
       }
     },
     {
+      "from_file": "tests/test_observabilidade_estrada.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_observabilidade_estrada.py",
+        "line": 28,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_observabilidade_estrada.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_observabilidade_estrada.py",
+        "line": 237,
+        "snippet": "porta = ler(os.path.join(RAIZ, 'admissao', 'admissao.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_observabilidade_estrada.py",
+      "to_file": "coleta/italy_recurrent_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_observabilidade_estrada.py",
+        "line": 248,
+        "snippet": "colector = ler(os.path.join(RAIZ, 'coleta', 'italy_recurrent_collect.mjs'))"
+      }
+    },
+    {
+      "from_file": "tests/test_observabilidade_estrada.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_observabilidade_estrada.py",
+        "line": 245,
+        "snippet": "'data/collection-ledger/italy/observations.ndjson'):"
+      }
+    },
+    {
+      "from_file": "tests/test_observabilidade_estrada.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_observabilidade_estrada.py",
+        "line": 244,
+        "snippet": "for caminho in ('data/collection-ledger/italy/runs.ndjson',"
+      }
+    },
+    {
+      "from_file": "tests/test_observabilidade_estrada.py",
+      "to_file": "docs/biblia/CONFORMIDADE-ITALIA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_observabilidade_estrada.py",
+        "line": 232,
+        "snippet": "conf = ler(os.path.join(RAIZ, 'docs', 'biblia', 'CONFORMIDADE-ITALIA.md'))"
+      }
+    },
+    {
+      "from_file": "tests/test_observabilidade_estrada.py",
+      "to_file": "system-map/scripts/censo_do_corpus_it.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_observabilidade_estrada.py",
+        "line": 35,
+        "snippet": "CENSO = os.path.join(RAIZ, 'system-map', 'scripts', 'censo_do_corpus_it.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_observabilidade_estrada.py",
+      "to_file": "system-map/scripts/generate_system_map.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_observabilidade_estrada.py",
+        "line": 34,
+        "snippet": "GERADOR = os.path.join(RAIZ, 'system-map', 'scripts', 'generate_system_map.py')"
+      }
+    },
+    {
       "from_file": "tests/test_operacao.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -26276,10 +26393,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1211,
-    "files_readable": 398,
-    "files_code_dir": 444,
-    "file_edges": 1583,
+    "files_tracked": 1212,
+    "files_readable": 399,
+    "files_code_dir": 445,
+    "file_edges": 1593,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
