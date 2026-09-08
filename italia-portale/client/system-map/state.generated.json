@@ -1000,10 +1000,12 @@
       "leis/auditoria_regua_comercial.py",
       "leis/calendario_handoff.py",
       "leis/data_clock.py",
+      "leis/diagnostico.py",
       "leis/evolucao.py",
       "leis/falhas.py",
       "leis/fundacao_da_coleta.py",
       "leis/gestao_da_coleta.py",
+      "leis/politica_da_coleta.py",
       "leis/regua_italia.py",
       "leis/social_matriz.py",
       "leis/telemetria.py",
@@ -1023,6 +1025,8 @@
       "medidas/padrao_da_coleta.py",
       "medidas/portao.py",
       "medidas/portoes_eame.py",
+      "medidas/rastro_da_coleta.py",
+      "medidas/scanner_da_coleta.py",
       "medidas/source_health.py",
       "medidas/voz.py"
     ],
@@ -1115,6 +1119,7 @@
       "provas/italy_pilot_negativos.mjs",
       "provas/preflight_022_live.sh",
       "provas/preservar_coleta_no_postgres.py",
+      "provas/rastro_no_postgres.py",
       "provas/readback_022_live.sh",
       "provas/social_persistencia_no_postgres.py",
       "provas/testa_coleta_canonica.py",
@@ -1256,6 +1261,7 @@
       "supabase/migrations/021_fato_externo_publicado.sql",
       "supabase/migrations/022_o_derivado_ganha_casa.sql",
       "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
+      "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -1282,6 +1288,7 @@
       "system-map/data/architecture.declared.json",
       "system-map/data/estradas-it.model.json",
       "system-map/scripts/censo_da_coleta.py",
+      "system-map/scripts/censo_da_observabilidade.py",
       "system-map/scripts/censo_das_derivacoes.py",
       "system-map/scripts/censo_das_estradas_it.py",
       "system-map/scripts/censo_de_identidade_it.py",
@@ -1342,9 +1349,11 @@
       "tests/test_metricas.py",
       "tests/test_migrations.py",
       "tests/test_navegador.py",
+      "tests/test_observabilidade.py",
       "tests/test_observabilidade_estrada.py",
       "tests/test_operacao.py",
       "tests/test_pipeline.py",
+      "tests/test_politica_da_coleta.py",
       "tests/test_porta_de_producao.py",
       "tests/test_portao.py",
       "tests/test_portoes_eame.py",
@@ -1354,6 +1363,7 @@
       "tests/test_prioridade_comercial.py",
       "tests/test_proveniencia.py",
       "tests/test_radar_futuro.py",
+      "tests/test_rastro_pg.py",
       "tests/test_red_team_estrada.py",
       "tests/test_relatorio_do_fluxo.py",
       "tests/test_route_membership.py",
@@ -1753,8 +1763,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "0593e90593490c8bb5ec27c5fed7dc5183c55b19",
-    "GENERATED_AT": "2026-09-08T17:56:42-03:00"
+    "HEAD": "6dae98f01b875078bba19e80e8aa29f12a46777e",
+    "GENERATED_AT": "2026-09-08T21:03:00+00:00"
   },
   "FAMILIES": [
     {
@@ -1780,7 +1790,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 43
+      "count": 44
     },
     {
       "id": "F-ESPERA",
@@ -1809,7 +1819,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 48
+      "count": 49
     },
     {
       "id": "F-ENTREGA",
@@ -2020,7 +2030,7 @@
       "y": 190,
       "w": 820,
       "h": 2938,
-      "count": 8
+      "count": 9
     },
     {
       "id": "Z-GUARDA",
@@ -2067,7 +2077,7 @@
       "y": 190,
       "w": 820,
       "h": 2938,
-      "count": 10
+      "count": 11
     },
     {
       "id": "Z-MOTOR",
@@ -2563,6 +2573,7 @@
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-CENSO-OBSERVABILIDADE",
         "C-TESTES"
       ],
       "paises": {},
@@ -6142,20 +6153,28 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "red",
+      "ui_status": "yellow",
       "icon": "◉",
       "views": [
         "audit"
       ],
       "lane": "official",
       "family": "F-COLETA",
-      "files": [],
-      "file_count": 0,
-      "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com system-map/scripts/censo_da_observabilidade.py.",
+      "files": [
+        "system-map/scripts/censo_da_observabilidade.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-APRENDER-COM-A-FONTE",
+        "C-CONTRATO-TELEMETRIA",
+        "C-EVOLUCAO",
+        "C-GESTAO-DA-COLETA",
+        "C-SCRAP-LEIS"
+      ],
       "outbound": [],
       "paises": {},
       "paises_dado": {},
@@ -6163,7 +6182,16 @@
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
       "nivel": "INTERNO",
-      "escreve_na_pasta": [],
+      "escreve_na_pasta": [
+        {
+          "pasta": "system-map",
+          "prova": {
+            "file": "system-map/scripts/censo_da_observabilidade.py",
+            "line": 210,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -6369,6 +6397,7 @@
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
         "C-PROVA-COLETA",
+        "C-RASTRO",
         "C-SCRAP-SOCIAL",
         "C-SUPABASE",
         "C-TESTES"
@@ -6379,6 +6408,7 @@
         "C-DONO-DO-DERIVADO",
         "C-MEDICAO",
         "C-PROVA-COLETA",
+        "C-RASTRO",
         "C-REGRA-COLETA",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
@@ -6573,6 +6603,7 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-PALAVRAS",
+        "C-RASTRO",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
@@ -6979,6 +7010,7 @@
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-CENSO-OBSERVABILIDADE",
         "C-FLUXO-NO-SECO",
         "C-RELATORIO-FLUXO",
         "C-TESTES"
@@ -7648,6 +7680,7 @@
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-CENSO-OBSERVABILIDADE",
         "C-TESTES"
       ],
       "paises": {},
@@ -7910,6 +7943,73 @@
       "y": 1326
     },
     {
+      "id": "C-GESTAO-COLETA",
+      "name": "A politica e o diagnostico da coleta",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "O CONTEUDO da decisao de coletar: portao de satisfacao, acoes (CHECK separado de FETCH), tiers de prioridade, ciclo de vida da fonte, papeis, procedencia de candidata, e a politica V1 deterministica em modo SHADOW. Mais os codigos de diagnostico, que dizem o que esta quebrado no fluxo. A FRONTEIRA de quem decide o que vive na peca C-GESTAO-DA-COLETA, ao lado; esta preenche-a.",
+      "why_here": "O COLLECTION MANAGER NAO E UM SEGUNDO ORQUESTRADOR: ele responde O QUE e QUANDO, e entrega uma decisao. Quem responde COMO e por qual rota continua sendo o orquestrador. Um teste por AST recusa qualquer import de executor aqui. E nao ha nota magica: as dez dimensoes ficam separadas, porque SOURCE_SCORE = 87 esconde por que a fonte vale.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "audit",
+        "collection-strategy",
+        "evolution",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "leis/diagnostico.py",
+        "leis/politica_da_coleta.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "o motor importa esta lei para decidir.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-SCRAP-LEIS"
+      ],
+      "outbound": [
+        "C-RASTRO",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CANDIDATA_EXIGE",
+          "CICLO",
+          "DIMENSOES",
+          "PAPEIS",
+          "POR_ETAPA",
+          "PROMOCAO_EXIGE",
+          "TRANSICOES"
+        ],
+        "palavras": 68,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 68,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 13010,
+      "y": 1004
+    },
+    {
       "id": "C-GESTAO-DA-COLETA",
       "name": "O contrato da gestão da coleta",
       "territory": "Z-REGUAS",
@@ -7939,6 +8039,7 @@
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-CENSO-OBSERVABILIDADE",
         "C-TESTES"
       ],
       "paises": {},
@@ -7970,8 +8071,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
-      "y": 1004
+      "x": 12595,
+      "y": 1326
     },
     {
       "kind": "engine",
@@ -9039,7 +9140,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12595,
+      "x": 13010,
       "y": 1326
     },
     {
@@ -10538,13 +10639,14 @@
         "provas/derived_artifact_no_postgres.py",
         "provas/preflight_022_live.sh",
         "provas/preservar_coleta_no_postgres.py",
+        "provas/rastro_no_postgres.py",
         "provas/readback_022_live.sh",
         "provas/social_persistencia_no_postgres.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 9,
+      "file_count": 10,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -10589,9 +10691,9 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 77,
+        "palavras": 100,
         "por_lingua": {},
-        "sem_marca_de_lingua": 77,
+        "sem_marca_de_lingua": 100,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -10726,8 +10828,82 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
-      "y": 1326
+      "x": 12595,
+      "y": 1648
+    },
+    {
+      "id": "C-RASTRO",
+      "name": "O rastro da coleta — etapa, aresta, contagem e falha",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Dono do rastro. UMA linha por passagem, que e ao mesmo tempo o STAGE TRACE, o EDGE PASSAGE (edge_from -> etapa) e o FAILURE SNAPSHOT (estado=ERROR com diagnostico). Declara o GRAO dos dois lados e contabiliza cada item num balde: passou, recusado, unknown, erro ou pulado. `accounted` e `unaccounted` sao colunas GERADAS pelo banco.",
+      "why_here": "Tres missoes seguidas acharam o mesmo defeito e sempre tarde: um estado publicado sem a medicao que o sustentaria. NAO E OBRIGATORIO QUE 100% CHEGUE AO FIM; E OBRIGATORIO QUE 100% TENHA EXPLICACAO. E o grao e obrigatorio porque 100 documentos que viram 250 alegacoes nao sao 250% de rendimento — o grao mudou, e a razao nao e rendimento.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "diagnostic",
+        "performance",
+        "trace"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "medidas/rastro_da_coleta.py",
+        "medidas/scanner_da_coleta.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CI-PERSIST",
+        "C-COLETA-BASE",
+        "C-GESTAO-COLETA",
+        "C-SCRAP-GUARDA",
+        "C-SCRAP-LEIS"
+      ],
+      "outbound": [
+        "C-CI-PERSIST",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ETAPAS"
+        ],
+        "palavras": 9,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 9,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "SUPABASE"
+      ],
+      "destino_prova": [
+        {
+          "onde": "SUPABASE",
+          "file": "medidas/scanner_da_coleta.py",
+          "line": 124,
+          "snippet": "dsn = os.environ.get('BANCO_DESCARTAVEL_URL') or os.environ.get('SUPABASE_DB_URL')"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit).",
+      "x": 9650,
+      "y": 1004
     },
     {
       "id": "C-RECALL-PORTA-IT",
@@ -11013,8 +11189,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 9650,
-      "y": 1004
+      "x": 9235,
+      "y": 1326
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -11066,7 +11242,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9235,
+      "x": 9650,
       "y": 1326
     },
     {
@@ -11166,7 +11342,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12595,
+      "x": 13010,
       "y": 1648
     },
     {
@@ -11343,8 +11519,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9650,
-      "y": 1326
+      "x": 9235,
+      "y": 1648
     },
     {
       "id": "C-SCRAP-GUARDA",
@@ -11382,6 +11558,7 @@
         "C-V21-COMERCIAL"
       ],
       "outbound": [
+        "C-RASTRO",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
@@ -11445,7 +11622,10 @@
       "outbound": [
         "C-APIFY-POOL",
         "C-CENSO-CONGELAMENTO",
+        "C-CENSO-OBSERVABILIDADE",
         "C-ESTRADAS-IT",
+        "C-GESTAO-COLETA",
+        "C-RASTRO",
         "C-SCRAP-GUARDA",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
@@ -11479,8 +11659,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
-      "y": 1648
+      "x": 12595,
+      "y": 1970
     },
     {
       "id": "C-SCRAP-SOCIAL",
@@ -11774,6 +11954,7 @@
         "supabase/migrations/021_fato_externo_publicado.sql",
         "supabase/migrations/022_o_derivado_ganha_casa.sql",
         "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
+        "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -11785,9 +11966,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 45,
+      "file_count": 46,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -12936,9 +13117,11 @@
         "tests/test_metricas.py",
         "tests/test_migrations.py",
         "tests/test_navegador.py",
+        "tests/test_observabilidade.py",
         "tests/test_observabilidade_estrada.py",
         "tests/test_operacao.py",
         "tests/test_pipeline.py",
+        "tests/test_politica_da_coleta.py",
         "tests/test_porta_de_producao.py",
         "tests/test_portao.py",
         "tests/test_portoes_eame.py",
@@ -12948,6 +13131,7 @@
         "tests/test_prioridade_comercial.py",
         "tests/test_proveniencia.py",
         "tests/test_radar_futuro.py",
+        "tests/test_rastro_pg.py",
         "tests/test_red_team_estrada.py",
         "tests/test_relatorio_do_fluxo.py",
         "tests/test_route_membership.py",
@@ -12966,9 +13150,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 59,
+      "file_count": 62,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 19 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 22 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -13005,6 +13189,7 @@
         "C-EVOLUCAO",
         "C-EXECUTOR-TEXTO-PDF",
         "C-FONTES-EU",
+        "C-GESTAO-COLETA",
         "C-GESTAO-DA-COLETA",
         "C-IDENTIDADE",
         "C-IT-COLETA",
@@ -13018,6 +13203,7 @@
         "C-PACOTE-CAMADAS",
         "C-PROCEDENCIA",
         "C-PROVA-COLETA",
+        "C-RASTRO",
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
         "C-RELEVANCIA",
@@ -14680,7 +14866,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 0593e90593490c8bb5ec27c5fed7dc5183c55b19"
+        "HEAD 6dae98f01b875078bba19e80e8aa29f12a46777e"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -15275,6 +15461,24 @@
         }
       ],
       "categoria": "CONTROL"
+    },
+    {
+      "from": "C-APRENDER-COM-A-FONTE",
+      "to": "C-CENSO-OBSERVABILIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da aprendizagem sobre a fonte tem o seu codigo importado por Censo da observabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_da_observabilidade.py",
+          "line": 50,
+          "snippet": "import aprender_com_a_fonte as apr  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-APRENDER-COM-A-FONTE",
@@ -16476,7 +16680,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 35,
+          "line": 38,
           "snippet": "- 'motor/cadeia_canonica.sh'"
         }
       ],
@@ -17204,7 +17408,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 35,
+          "line": 38,
           "snippet": "- 'motor/cadeia_canonica.sh'"
         },
         {
@@ -17250,7 +17454,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 34,
+          "line": 37,
           "snippet": "- 'guarda/preservar_derivado.py'"
         }
       ],
@@ -17282,7 +17486,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 5 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/auditoria-live.yml",
@@ -17296,21 +17500,44 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 31,
+          "line": 33,
+          "snippet": "- 'provas/rastro_no_postgres.py'"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 34,
           "snippet": "- 'provas/social_persistencia_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 33,
+          "line": 36,
           "snippet": "- 'provas/derived_artifact_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 36,
+          "line": 39,
           "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-RASTRO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar O rastro da coleta — etapa, aresta, contagem e falha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 32,
+          "snippet": "- 'medidas/rastro_da_coleta.py'"
+        }
+      ],
+      "categoria": "CONTROL"
     },
     {
       "from": "C-CI-PERSIST",
@@ -17342,7 +17569,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 32,
+          "line": 35,
           "snippet": "- 'coleta/social_persistencia.py'"
         }
       ],
@@ -17629,6 +17856,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-RASTRO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por O rastro da coleta — etapa, aresta, contagem e falha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/scanner_da_coleta.py",
+          "line": 24,
+          "snippet": "import coleta_checkpoint as cc      # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-SCRAP-SOCIAL",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -17653,12 +17898,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_coleta_resiliente.py",
           "line": 20,
           "snippet": "import coleta_checkpoint as C    # noqa: E402"
+        },
+        {
+          "file": "tests/test_rastro_pg.py",
+          "line": 18,
+          "snippet": "import coleta_checkpoint as cc      # noqa: E402"
         },
         {
           "file": "tests/test_social_persistencia_pg.py",
@@ -17958,6 +18208,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-CENSO-OBSERVABILIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da telemetria tem o seu codigo importado por Censo da observabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_da_observabilidade.py",
+          "line": 47,
+          "snippet": "import telemetria as tel            # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-CONTRATO-TELEMETRIA",
@@ -18286,7 +18554,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 34,
+          "line": 37,
           "snippet": "- 'guarda/preservar_derivado.py'"
         }
       ],
@@ -18505,6 +18773,42 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-EVOLUCAO",
+      "to": "C-CENSO-OBSERVABILIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da evolução tem o seu codigo importado por Censo da observabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_da_observabilidade.py",
+          "line": 48,
+          "snippet": "import evolucao as evo              # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-EVOLUCAO",
+      "to": "C-CENSO-OBSERVABILIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da evolução alimenta Censo da observabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_da_observabilidade.py",
+          "line": 105,
+          "snippet": "'ONDE': 'leis/evolucao.py',"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-EVOLUCAO",
@@ -18792,6 +19096,106 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-GESTAO-COLETA",
+      "to": "C-RASTRO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A politica e o diagnostico da coleta tem o seu codigo importado por O rastro da coleta — etapa, aresta, contagem e falha. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/rastro_da_coleta.py",
+          "line": 36,
+          "snippet": "import diagnostico as dg    # noqa: E402"
+        },
+        {
+          "file": "medidas/scanner_da_coleta.py",
+          "line": 26,
+          "snippet": "import diagnostico as dg            # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-GESTAO-COLETA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A politica e o diagnostico da coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_politica_da_coleta.py",
+          "line": 18,
+          "snippet": "import politica_da_coleta as g    # noqa: E402"
+        },
+        {
+          "file": "tests/test_rastro_pg.py",
+          "line": 20,
+          "snippet": "import diagnostico as dg            # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-GESTAO-COLETA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A politica e o diagnostico da coleta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_politica_da_coleta.py",
+          "line": 28,
+          "snippet": "open(caminho, 'leitura')  # caminho = leis/politica_da_coleta.py"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-GESTAO-DA-COLETA",
+      "to": "C-CENSO-OBSERVABILIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da gestão da coleta tem o seu codigo importado por Censo da observabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_da_observabilidade.py",
+          "line": 49,
+          "snippet": "import gestao_da_coleta as ges      # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-GESTAO-DA-COLETA",
+      "to": "C-CENSO-OBSERVABILIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da gestão da coleta alimenta Censo da observabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_da_observabilidade.py",
+          "line": 114,
+          "snippet": "'ONDE': 'leis/gestao_da_coleta.py',"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-GESTAO-DA-COLETA",
@@ -21590,7 +21994,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Os botoes que cuidam do banco. Provado por 5 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Os botoes que cuidam do banco. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/auditoria-live.yml",
@@ -21604,17 +22008,22 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 31,
+          "line": 33,
+          "snippet": "- 'provas/rastro_no_postgres.py'"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 34,
           "snippet": "- 'provas/social_persistencia_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 33,
+          "line": 36,
           "snippet": "- 'provas/derived_artifact_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 36,
+          "line": 39,
           "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
         }
       ],
@@ -21655,6 +22064,52 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-RASTRO",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 32,
+          "snippet": "- 'medidas/rastro_da_coleta.py'"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RASTRO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_politica_da_coleta.py",
+          "line": 177,
+          "snippet": "import rastro_da_coleta as r"
+        },
+        {
+          "file": "tests/test_rastro_pg.py",
+          "line": 19,
+          "snippet": "import rastro_da_coleta as r        # noqa: E402"
+        },
+        {
+          "file": "tests/test_rastro_pg.py",
+          "line": 361,
+          "snippet": "import scanner_da_coleta as sc     # noqa: PLC0415"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-RECEITAS",
@@ -22120,6 +22575,24 @@
     },
     {
       "from": "C-SCRAP-GUARDA",
+      "to": "C-RASTRO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A guarda de credencial e de sessao do SCRAP tem o seu codigo importado por O rastro da coleta — etapa, aresta, contagem e falha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/rastro_da_coleta.py",
+          "line": 141,
+          "snippet": "import social_sessao as ss"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SCRAP-GUARDA",
       "to": "C-SCRAP-SOCIAL",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -22245,6 +22718,24 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-CENSO-OBSERVABILIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por Censo da observabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_da_observabilidade.py",
+          "line": 51,
+          "snippet": "import fundacao_da_coleta as fdc    # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-ESTRADAS-IT",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -22285,6 +22776,42 @@
           "file": "system-map/scripts/censo_das_estradas_it.py",
           "line": 841,
           "snippet": "'MATRIZ': 'leis/social_matriz.py',"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
+      "to": "C-GESTAO-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por A politica e o diagnostico da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/diagnostico.py",
+          "line": 35,
+          "snippet": "import falhas    # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
+      "to": "C-RASTRO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por O rastro da coleta — etapa, aresta, contagem e falha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/rastro_da_coleta.py",
+          "line": 37,
+          "snippet": "import falhas               # noqa: E402"
         }
       ],
       "categoria": "RULE"
@@ -22358,7 +22885,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_falhas.py",
@@ -22374,6 +22901,16 @@
           "file": "tests/test_fundacao_da_coleta.py",
           "line": 20,
           "snippet": "import fundacao_da_coleta as fdc   # noqa: E402"
+        },
+        {
+          "file": "tests/test_politica_da_coleta.py",
+          "line": 19,
+          "snippet": "import fundacao_da_coleta as f  # noqa: E402"
+        },
+        {
+          "file": "tests/test_rastro_pg.py",
+          "line": 21,
+          "snippet": "import falhas                       # noqa: E402"
         },
         {
           "file": "tests/test_social_sessao.py",
@@ -22409,11 +22946,6 @@
           "file": "tests/test_youtube_oficial.py",
           "line": 24,
           "snippet": "import social_matriz as mz        # noqa: E402"
-        },
-        {
-          "file": "tests/test_youtube_piloto.py",
-          "line": 23,
-          "snippet": "import falhas                      # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -22426,8 +22958,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_observabilidade.py",
+          "line": 87,
+          "snippet": "self.assertIn('fundacao_da_coleta.py',"
+        },
         {
           "file": "tests/test_social_sessao.py",
           "line": 30,
@@ -22458,7 +22995,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 32,
+          "line": 35,
           "snippet": "- 'coleta/social_persistencia.py'"
         }
       ],
@@ -24628,17 +25165,17 @@
   "UNCLAIMED_FILES_COUNT": 698,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 130,
+    "components": 132,
     "components_proven": 73,
-    "components_pending": 49,
-    "components_broken": 1,
+    "components_pending": 52,
+    "components_broken": 0,
     "components_unknown": 7,
-    "edges": 442,
-    "edges_proven": 440,
+    "edges": 459,
+    "edges_proven": 457,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1307,
-    "files_covered": 609,
+    "files_tracked": 1317,
+    "files_covered": 619,
     "files_code_unclaimed": 0
   }
 }

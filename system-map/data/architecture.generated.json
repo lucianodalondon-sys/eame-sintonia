@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "0593e90593490c8bb5ec27c5fed7dc5183c55b19",
-    "GENERATED_AT": "2026-09-08T17:56:42-03:00"
+    "HEAD": "6dae98f01b875078bba19e80e8aa29f12a46777e",
+    "GENERATED_AT": "2026-09-08T21:03:00+00:00"
   },
   "FILES": [
     {
@@ -51,7 +51,7 @@
     },
     {
       "path": ".github/workflows/banco-descartavel.yml",
-      "sha": "4ca0105ff304a18b0d0a9b612c734de529d787ea",
+      "sha": "bb8d6c607880d97fe05315ba3bbdfc2b7f7f26a3",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -4216,7 +4216,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "9b9c7a80aec3a922f191353aaafba8fe826e4356",
+      "sha": "463ab7d6e47d62b200d7e3c8f13cf17f76b8d6a4",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6756,6 +6756,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/diagnostico.py",
+      "sha": "bb6ce9e965ac494fa9d0635956606fb8d82cb987",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/evolucao.py",
       "sha": "76b8f7c6d469ca19d2c9b768b68088c479df640c",
       "ext": ".py",
@@ -6771,7 +6778,7 @@
     },
     {
       "path": "leis/fundacao_da_coleta.py",
-      "sha": "7ed9d163d2c1af6e1b05ee4e4383bf3356b45899",
+      "sha": "e0ae0af152ed868a5f7c7fa9f915218eb82debdd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6779,6 +6786,13 @@
     {
       "path": "leis/gestao_da_coleta.py",
       "sha": "1c8637bceb87d2583b18f258e26c22ef9ad161bf",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "leis/politica_da_coleta.py",
+      "sha": "912482c6fdcdc7c8a782e7b284bcdaffb42a7fc4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6898,6 +6912,20 @@
     {
       "path": "medidas/portoes_eame.py",
       "sha": "19d35c34a97651fa85a941d88b3890978c910cef",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/rastro_da_coleta.py",
+      "sha": "d14c24684cc7794804a67941f22cefab42633a08",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/scanner_da_coleta.py",
+      "sha": "ddcbc64b06e9a94be5f62fe1a8805a8f9b1438b6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7451,6 +7479,13 @@
     {
       "path": "provas/preservar_coleta_no_postgres.py",
       "sha": "d6c0b2f683bc41f72b3d801c91b4f2cfecee8ee1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/rastro_no_postgres.py",
+      "sha": "c7dcbe0dbe86413784002bb6676645b036bf2c8d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8387,6 +8422,13 @@
       "code_dir": false
     },
     {
+      "path": "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
+      "sha": "11ac249aa9381aeed6040784c8428fd85f6871cf",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "supabase/tests/mutacao_cicatrizes.sql",
       "sha": "10b5bffa23e178553e7dad5b0baf7b1701d1ced7",
       "ext": ".sql",
@@ -8521,7 +8563,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "6eceb93a71674e309c236aa47fb0e937fc7ae0a6",
+      "sha": "d48d80350373039ff7290512bc0dade03bcaaacf",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8536,6 +8578,13 @@
     {
       "path": "system-map/scripts/censo_da_coleta.py",
       "sha": "3fa99e2b2154151b55c6f4ff5f1f87c7b27b8d8d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/censo_da_observabilidade.py",
+      "sha": "a6243ee3c51567d9e6491c0a50d4b29d2d9a2caa",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8947,6 +8996,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_observabilidade.py",
+      "sha": "952602517e1637e861c551603a81d4251135bc14",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_observabilidade_estrada.py",
       "sha": "1b4fdf6b86c682a2d19f7849d0ae800df7a5430e",
       "ext": ".py",
@@ -8963,6 +9019,13 @@
     {
       "path": "tests/test_pipeline.py",
       "sha": "69c58f5e55c697745f14af6392d165a68e50119a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_politica_da_coleta.py",
+      "sha": "43cbf0caba6b559437c983099c5412e7d01f5850",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9026,6 +9089,13 @@
     {
       "path": "tests/test_radar_futuro.py",
       "sha": "f844094a28cf69ca1b986b666d4ebd3a88ad0e9d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_rastro_pg.py",
+      "sha": "1a35a855eefd27916ae9477893fb10ff9ae67bcf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9231,7 +9301,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 32,
+        "line": 35,
         "snippet": "- 'coleta/social_persistencia.py'"
       }
     },
@@ -9242,7 +9312,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 32,
+        "line": 35,
         "snippet": "- 'coleta/social_persistencia.py'"
       }
     },
@@ -9297,7 +9367,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 34,
+        "line": 37,
         "snippet": "- 'guarda/preservar_derivado.py'"
       }
     },
@@ -9308,18 +9378,40 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 34,
+        "line": 37,
         "snippet": "- 'guarda/preservar_derivado.py'"
       }
     },
     {
       "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 32,
+        "snippet": "- 'medidas/rastro_da_coleta.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 32,
+        "snippet": "- 'medidas/rastro_da_coleta.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
       "to_file": "motor/cadeia_canonica.sh",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 35,
+        "line": 38,
         "snippet": "- 'motor/cadeia_canonica.sh'"
       }
     },
@@ -9330,7 +9422,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 35,
+        "line": 38,
         "snippet": "- 'motor/cadeia_canonica.sh'"
       }
     },
@@ -9341,7 +9433,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 33,
+        "line": 36,
         "snippet": "- 'provas/derived_artifact_no_postgres.py'"
       }
     },
@@ -9352,7 +9444,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 33,
+        "line": 36,
         "snippet": "- 'provas/derived_artifact_no_postgres.py'"
       }
     },
@@ -9376,6 +9468,28 @@
         "file": ".github/workflows/banco-descartavel.yml",
         "line": 27,
         "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "provas/rastro_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 33,
+        "snippet": "- 'provas/rastro_no_postgres.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "provas/rastro_no_postgres.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 33,
+        "snippet": "- 'provas/rastro_no_postgres.py'"
       }
     },
     {
@@ -9385,7 +9499,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 31,
+        "line": 34,
         "snippet": "- 'provas/social_persistencia_no_postgres.py'"
       }
     },
@@ -9396,7 +9510,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 31,
+        "line": 34,
         "snippet": "- 'provas/social_persistencia_no_postgres.py'"
       }
     },
@@ -9407,7 +9521,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 36,
+        "line": 39,
         "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
       }
     },
@@ -9418,7 +9532,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 36,
+        "line": 39,
         "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
       }
     },
@@ -17574,6 +17688,28 @@
       }
     },
     {
+      "from_file": "leis/diagnostico.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/diagnostico.py",
+        "line": 34,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "leis/diagnostico.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/diagnostico.py",
+        "line": 35,
+        "snippet": "import falhas    # noqa: E402"
+      }
+    },
+    {
       "from_file": "leis/fundacao_da_coleta.py",
       "to_file": "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
       "type": "READS",
@@ -17582,6 +17718,17 @@
         "file": "leis/fundacao_da_coleta.py",
         "line": 42,
         "snippet": "MAPA = os.path.join('docs', 'operacao', 'MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md')"
+      }
+    },
+    {
+      "from_file": "leis/politica_da_coleta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/politica_da_coleta.py",
+        "line": 50,
+        "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
     {
@@ -18077,6 +18224,94 @@
         "file": "medidas/portoes_eame.py",
         "line": 244,
         "snippet": "if not existe('supabase', 'tests', 'regressoes_regulatorio_es.sql'):"
+      }
+    },
+    {
+      "from_file": "medidas/rastro_da_coleta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/rastro_da_coleta.py",
+        "line": 35,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "medidas/rastro_da_coleta.py",
+      "to_file": "guarda/social_sessao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/rastro_da_coleta.py",
+        "line": 141,
+        "snippet": "import social_sessao as ss"
+      }
+    },
+    {
+      "from_file": "medidas/rastro_da_coleta.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/rastro_da_coleta.py",
+        "line": 36,
+        "snippet": "import diagnostico as dg    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "medidas/rastro_da_coleta.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/rastro_da_coleta.py",
+        "line": 37,
+        "snippet": "import falhas               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "medidas/scanner_da_coleta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/scanner_da_coleta.py",
+        "line": 23,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "medidas/scanner_da_coleta.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/scanner_da_coleta.py",
+        "line": 24,
+        "snippet": "import coleta_checkpoint as cc      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "medidas/scanner_da_coleta.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/scanner_da_coleta.py",
+        "line": 26,
+        "snippet": "import diagnostico as dg            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "medidas/scanner_da_coleta.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/scanner_da_coleta.py",
+        "line": 25,
+        "snippet": "import rastro_da_coleta as r        # noqa: E402"
       }
     },
     {
@@ -23338,6 +23573,17 @@
       }
     },
     {
+      "from_file": "provas/rastro_no_postgres.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/rastro_no_postgres.py",
+        "line": 28,
+        "snippet": "from preservar_coleta_no_postgres import _e_descartavel   # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/social_persistencia_no_postgres.py",
       "to_file": "provas/preservar_coleta_no_postgres.py",
       "type": "IMPORTS",
@@ -24435,6 +24681,94 @@
         "file": "system-map/app/index.html",
         "line": 168,
         "snippet": "<script src=\"map.js\"></script>"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_da_observabilidade.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/censo_da_observabilidade.py",
+        "line": 46,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_da_observabilidade.py",
+      "to_file": "leis/aprender_com_a_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/censo_da_observabilidade.py",
+        "line": 50,
+        "snippet": "import aprender_com_a_fonte as apr  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_da_observabilidade.py",
+      "to_file": "leis/evolucao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/censo_da_observabilidade.py",
+        "line": 48,
+        "snippet": "import evolucao as evo              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_da_observabilidade.py",
+      "to_file": "leis/evolucao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_da_observabilidade.py",
+        "line": 105,
+        "snippet": "'ONDE': 'leis/evolucao.py',"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_da_observabilidade.py",
+      "to_file": "leis/fundacao_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/censo_da_observabilidade.py",
+        "line": 51,
+        "snippet": "import fundacao_da_coleta as fdc    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_da_observabilidade.py",
+      "to_file": "leis/gestao_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/censo_da_observabilidade.py",
+        "line": 49,
+        "snippet": "import gestao_da_coleta as ges      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_da_observabilidade.py",
+      "to_file": "leis/gestao_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_da_observabilidade.py",
+        "line": 114,
+        "snippet": "'ONDE': 'leis/gestao_da_coleta.py',"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_da_observabilidade.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/censo_da_observabilidade.py",
+        "line": 47,
+        "snippet": "import telemetria as tel            # noqa: E402"
       }
     },
     {
@@ -27518,6 +27852,17 @@
       }
     },
     {
+      "from_file": "tests/test_observabilidade.py",
+      "to_file": "leis/fundacao_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_observabilidade.py",
+        "line": 87,
+        "snippet": "self.assertIn('fundacao_da_coleta.py',"
+      }
+    },
+    {
       "from_file": "tests/test_observabilidade_estrada.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -27801,6 +28146,61 @@
         "file": "tests/test_pipeline.py",
         "line": 24,
         "snippet": "open(FIXTURE, 'leitura')  # FIXTURE = tests/fixtures/yt-raw-minimo.json"
+      }
+    },
+    {
+      "from_file": "tests/test_politica_da_coleta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_politica_da_coleta.py",
+        "line": 17,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_politica_da_coleta.py",
+      "to_file": "leis/fundacao_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_politica_da_coleta.py",
+        "line": 19,
+        "snippet": "import fundacao_da_coleta as f  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_politica_da_coleta.py",
+      "to_file": "leis/politica_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_politica_da_coleta.py",
+        "line": 18,
+        "snippet": "import politica_da_coleta as g    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_politica_da_coleta.py",
+      "to_file": "leis/politica_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_politica_da_coleta.py",
+        "line": 28,
+        "snippet": "open(caminho, 'leitura')  # caminho = leis/politica_da_coleta.py"
+      }
+    },
+    {
+      "from_file": "tests/test_politica_da_coleta.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_politica_da_coleta.py",
+        "line": 177,
+        "snippet": "import rastro_da_coleta as r"
       }
     },
     {
@@ -28373,6 +28773,72 @@
         "file": "tests/test_radar_futuro.py",
         "line": 12,
         "snippet": "PAISES = ('SPAIN-RADAR-DO-FUTURO-V1.json', 'ITALY-RADAR-DO-FUTURO-V1.json')"
+      }
+    },
+    {
+      "from_file": "tests/test_rastro_pg.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_rastro_pg.py",
+        "line": 17,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_rastro_pg.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_rastro_pg.py",
+        "line": 18,
+        "snippet": "import coleta_checkpoint as cc      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_rastro_pg.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_rastro_pg.py",
+        "line": 20,
+        "snippet": "import diagnostico as dg            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_rastro_pg.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_rastro_pg.py",
+        "line": 21,
+        "snippet": "import falhas                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_rastro_pg.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_rastro_pg.py",
+        "line": 19,
+        "snippet": "import rastro_da_coleta as r        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_rastro_pg.py",
+      "to_file": "medidas/scanner_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_rastro_pg.py",
+        "line": 361,
+        "snippet": "import scanner_da_coleta as sc     # noqa: PLC0415"
       }
     },
     {
@@ -29835,6 +30301,13 @@
         "constante": "dest"
       }
     ],
+    "system-map/scripts/censo_da_observabilidade.py": [
+      {
+        "pasta": "system-map",
+        "line": 210,
+        "constante": "SAIDA"
+      }
+    ],
     "system-map/scripts/censo_das_derivacoes.py": [
       {
         "pasta": "system-map",
@@ -29893,11 +30366,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1307,
-    "files_readable": 466,
-    "files_code_dir": 517,
-    "file_edges": 1845,
-    "escritas_em_pasta": 64,
+    "files_tracked": 1317,
+    "files_readable": 475,
+    "files_code_dir": 526,
+    "file_edges": 1881,
+    "escritas_em_pasta": 65,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}
