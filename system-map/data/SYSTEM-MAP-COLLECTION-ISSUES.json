@@ -161,14 +161,30 @@
       "ISSUE_ID": "COL-020",
       "NODE": "C-VOZ",
       "TYPE": "OUT_OF_SCOPE_COUNTRY_ISSUE",
-      "DESCRIPTION": "`medidas/voz.py` tem VOCAB_ISSUE com ES:5/IT:3 e VOCAB_TIPO com ES:4. E vocabulario espanhol numa regua de classificacao. FORA DO ESCOPO desta missao, que e so Italia — registado e nao corrigido.",
-      "EVIDENCE": "censo de linguas por lista",
+      "DESCRIPTION": "`medidas/voz.py` tem VOCAB_ISSUE com ES:5/IT:3 e VOCAB_TIPO com ES:4. Era vocabulario espanhol numa regua de classificacao, dado como «fora do escopo» sem prova. Agora esta PROVADO POR CONSUMO, nao por opiniao: nenhum ficheiro da rota italiana (coleta/, admissao/, orquestrador/, pedido/, regras/, leis/) importa `voz`. O unico importador de producao e `medidas/portao.py`, e `portao` so e importado por testes. As duas funcoes que usam o vocabulario espanhol — `marcar_assunto` e `classificar_tipo` — so sao chamadas por `voz.pipeline_video()`, e `pipeline_video` nao e invocada por ninguem: `portao.py:150` apenas verifica se a STRING 'pipeline_video' aparece num campo de manifesto. MENCIONAR NAO E USAR — quarta vez nesta casa. Conclusao: o espanhol de voz.py NAO chega a nenhum item italiano por caminho nenhum. Fica registado e nao corrigido, agora com a razao medida.",
+      "EVIDENCE": "grep de importadores e chamadores; medidas/portao.py:150 (comparacao de string, nao chamada); unico dado com FUNCAO=pipeline_video e data/samples/ES-T8-001-videos.json",
+      "STATUS": "CLOSED_AS_MEASURED"
+    },
+    {
+      "ISSUE_ID": "COL-021",
+      "NODE": "C-SENSOR-COLETA",
+      "TYPE": "SCOPE_BACKDOOR_FIXED",
+      "DESCRIPTION": "Os lotes A e B levam recortes ES/FR. Tinham sido tirados do menu do GitHub, o que parecia resolver — mas `videos('A')` continuava a funcionar e 'A' era o valor por omissao da linha de comando. ESCONDER O BOTAO NAO E PROTECAO. Corrigido na origem: `casos_do_lote()` e agora a porta unica por onde os recortes saem, filtra pelo pais da rota, nomeia em voz alta o que recusou, e so deixa passar estrangeiro com pedido escrito (--fora-do-escopo / SINTONIA_FORA_DO_ESCOPO=1). Omissao passou de 'A' para 'C' (100% italiano). Nada apagado.",
+      "EVIDENCE": "regras/sensor_coleta.py casos_do_lote(); provas/testa_coleta_canonica.py T4-T7",
+      "STATUS": "CLOSED"
+    },
+    {
+      "ISSUE_ID": "COL-022",
+      "NODE": "C-VOZ",
+      "TYPE": "DEAD_PIPELINE",
+      "DESCRIPTION": "`voz.pipeline_video()` e descrito na documentacao como o caminho obrigatorio RAW -> normaliza -> classifica -> originalidade -> dedupe -> saida, e um HANDOFF chama-lhe «FECHADO». Medido hoje: nenhum ficheiro de producao o chama. So testes. Ou seja, o caminho existe, esta testado, e nao corre — exatamente o defeito que ele proprio foi criado para fechar em 2026-08-29 («o dedupe existia como funcao testada e nenhum pipeline o invocava»). NAO CORRIGIDO nesta missao: e camada ES/EAME, fora da Italia. Registado para nao voltar a ser descoberto do zero.",
+      "EVIDENCE": "grep pipeline_video: so medidas/portao.py:150 (string), tests/test_pipeline.py, tests/test_portao.py",
       "STATUS": "OPEN"
     }
   ],
   "COUNTS": {
     "abertos": 17,
-    "fechados": 3,
-    "total": 20
+    "fechados": 5,
+    "total": 22
   }
 }

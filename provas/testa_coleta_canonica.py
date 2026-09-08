@@ -18,7 +18,9 @@ conhecidas de este caminho mentir.
     7  nada aponta para o que foi removido
 """
 
+import ast
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -291,6 +293,37 @@ prova("T6_o_conteudo_estrangeiro_nao_foi_apagado",
 prova("T7_correr_fora_do_escopo_exige_pedido_explicito",
       sc.recortes_no_escopo('A', permitir_fora=True)[0] == sc.LOTES['A'],
       "ha uma saida, mas so por pedido escrito (--fora-do-escopo), e fica no log")
+
+
+# ══ O ESPANHOL DE voz.py NAO CHEGA A ITALIA ════════════════════════════════
+# `medidas/voz.py` guarda vocabulario espanhol (VOCAB_ISSUE ES:5, VOCAB_TIPO
+# ES:4). Isso estava marcado «fora do escopo» — uma opiniao, nao uma medida.
+# Esta prova mede: nenhuma gaveta da rota italiana importa `voz`. Se um dia
+# alguem a importar, esta prova cai no mesmo dia, e nao meses depois.
+_RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_GAVETAS_IT = ['coleta', 'admissao', 'orquestrador', 'pedido', 'regras', 'leis']
+_importam_voz = []
+for _g in _GAVETAS_IT:
+    for _dir, _, _fs in os.walk(os.path.join(_RAIZ, _g)):
+        for _f in _fs:
+            if not _f.endswith('.py'):
+                continue
+            _p = os.path.join(_dir, _f)
+            try:
+                _arv = ast.parse(open(_p, encoding='utf-8').read())
+            except Exception:
+                continue
+            for _n in ast.walk(_arv):
+                if isinstance(_n, ast.Import) and any(a.name == 'voz' for a in _n.names):
+                    _importam_voz.append(os.path.relpath(_p, _RAIZ))
+                if isinstance(_n, ast.ImportFrom) and _n.module == 'voz':
+                    _importam_voz.append(os.path.relpath(_p, _RAIZ))
+
+prova("T8_a_rota_italiana_nao_importa_voz",
+      not _importam_voz,
+      "voz.py tem vocabulario espanhol; se a rota italiana passar a importa-lo, "
+      "esse espanhol entra na classificacao italiana. Importam hoje: %s"
+      % (_importam_voz or 'ninguem'))
 
 
 print()
