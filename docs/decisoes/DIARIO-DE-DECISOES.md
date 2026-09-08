@@ -490,6 +490,60 @@ Regras do diário:
   feito. E um teste proíbe que a frase de ausência global volte.
 - **Quem decidiu:** Luciano, na rodada final.
 
+### D-027 — A fundação da coleta é conjunção, não herança
+- **Data:** 2026-09-08
+- **Estado:** DECIDIDO
+- **Contexto:** `EAME_COLLECTION_ENTRY_GATE` está `READY` (35/35 cicatrizes
+  PROVED) e responde «podemos abrir coleta?». Não responde «o que coletamos
+  chega?». O CHECKPOINT da integração acervo→portal declara
+  `PRINCIPAL_LOSS_POINT = O ACERVO NÃO ATRAVESSA A INGESTÃO`, e mede a perda em
+  três famílias. As duas medições existiam e nenhuma respondia à pergunta da
+  fundação.
+- **Decisão:** `COLLECTION_FOUNDATION_CLOSED` é a **conjunção** de três pilares
+  — ENTRADA, PRESERVAÇÃO e TRAVESSIA — e não herda o estado de nenhum deles.
+  Cada pilar deriva de um medidor executável nomeado; nenhum estado é digitado.
+- **Motivo:** deixar a fundação herdar o READY da entrada autorizaria coletar
+  mais para dentro de um funil que não entrega. É o modo de falha mais caro
+  possível aqui, porque cada rodada paga produz acervo e o acervo não vira
+  inteligência.
+
+  > A COLETA ESTÁ FUNDADA QUANDO SE PODE COLETAR **E** O QUE SE COLETA CHEGA.
+
+- **Consequência:** `scripts/fundacao_coleta.py` deriva o estado;
+  `tests/test_fundacao_coleta.py` fecha a saída fácil — tirar o pilar
+  TRAVESSIA da lista faria a fundação virar SIM sem que nada atravessasse, e a
+  mutação foi executada: **MUT PEGOU**. Estado hoje:
+  `COLLECTION_FOUNDATION_CLOSED = NÃO`, um pilar aberto, quatro famílias, dono
+  nomeado (`claude/opportunity-commercial-priority-v1`).
+- **Quem decidiu:** decisão de método, tomada na execução da missão das duas
+  linhas. Não é decisão de produto e não abre frente nova.
+
+### D-028 — Um lado medido e outro alegado não produzem uma perda quantificada
+- **Data:** 2026-09-08
+- **Estado:** DECIDIDO
+- **Contexto:** o CHECKPOINT publica `5.033.374 caracteres → 0`,
+  `763 materiais → 88` e `414 datas → 0`. O primeiro número de cada par vem do
+  **acervo, que não está neste repositório**; o segundo é medível daqui contra
+  `italia-portale/client/italy-handoff-v21.js`, versionado.
+- **Decisão:** a fronteira ACERVO→PACOTE tem **três** estados, não dois:
+  `FECHADA`, `ABERTA_MEDIDA_DE_UM_LADO` e `NÃO_MEDIDA`. Todo número do lado
+  que **partiu** entra como alegação, com `MEDIDO_DAQUI = NÃO`, origem escrita
+  e dono da medição. A perda só é declarada quantificável quando os dois lados
+  saem do mesmo medidor.
+- **Motivo:** subtrair uma medição de uma alegação produz um número com cara de
+  fato. É a versão para cima do erro que a seção I do
+  `RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA` já corrigiu para baixo — publicar
+  ZERO onde a resposta era NÃO MEDIDO DAQUI.
+
+  > SOURCE FAILURE ≠ ZERO, e NÃO MEDIDO DAQUI ≠ FECHADO.
+
+- **Consequência:** `italia-portale/audit/fronteira-acervo-pacote.mjs` mede o
+  lado que chega e recusa-se a inventar o outro; o artefato derivado é
+  `data/samples/FRONTEIRA-ACERVO-PACOTE.json`. Quatro famílias em
+  `ABERTA_MEDIDA_DE_UM_LADO`. Nenhuma delas se corrige deste lado: o campo que
+  falta falta no pacote, e o pacote não se escreve nesta linhagem.
+- **Quem decidiu:** decisão de método, tomada na execução.
+
 ---
 
 ## D-2026-09-02 · A MADRUGADA DOS RÓTULOS

@@ -1,0 +1,170 @@
+{
+  "SOURCE_ID": "FRONTEIRA-ACERVO-PACOTE",
+  "VERSION": 1,
+  "captured_at": "2026-09-08",
+  "SOURCE_LOCATION": "interno",
+  "FACT_LOCATION": "EAME",
+  "ORIGINAL_LANGUAGE": "pt",
+  "DERIVADO_DE": [
+    "italia-portale/client/italy-handoff-v21.js",
+    "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md"
+  ],
+  "O_QUE_ISTO_E": "a medicao do lado que CHEGOU da fronteira ACERVO -> PACOTE, contra o artefacto versionado que o portal carrega.",
+  "O_QUE_ISTO_NAO_E": "nao e a medicao do acervo. O acervo nao esta neste repositorio, e nenhum numero do lado PARTIU foi verificado daqui.",
+  "ARTEFACTO_MEDIDO": "italia-portale/client/italy-handoff-v21.js",
+  "BUILD_ID": "V21-044e4924854d5f0a",
+  "REFERENCE_DATE": "2026-09-02",
+  "FAMILIAS_DO_ARTEFACTO": 26,
+  "FAMILIAS": [
+    {
+      "FAMILIA": "TRANSCRICOES",
+      "PERGUNTA": "a fala transcrita do acervo atravessa ate ao artefacto do portal?",
+      "PARTIU": {
+        "VALOR": 5033374,
+        "UNIDADE": "caracteres de fala transcrita",
+        "OBJETOS": 143,
+        "OBJETOS_UNIDADE": "transcricoes utilizaveis",
+        "MEDIDO_DAQUI": "NAO",
+        "PORQUE_NAO": "o acervo de transcricoes nao esta neste repositorio",
+        "ORIGEM_DA_ALEGACAO": "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md, seccao 5",
+        "DONO_DA_MEDICAO": "claude/opportunity-commercial-priority-v1"
+      },
+      "CHEGOU": {
+        "VALOR": 0,
+        "UNIDADE": "caracteres",
+        "CAMPOS_ENCONTRADOS": [],
+        "MEDIDO_DAQUI": "SIM",
+        "COMO": "varredura de nomes de campo nas 26 familias do artefacto versionado"
+      },
+      "ACAO_MINIMA": "familia de transcricoes no pacote, com id de video e texto",
+      "DONO_DA_ACAO": "claude/opportunity-commercial-priority-v1",
+      "ESTADO": "ABERTA_MEDIDA_DE_UM_LADO",
+      "PERDA_QUANTIFICAVEL": "NAO",
+      "PORQUE_A_PERDA_NAO_E_QUANTIFICAVEL": "um dos dois lados e alegacao, nao medicao. Subtrair uma medicao de uma alegacao produz um numero com cara de facto."
+    },
+    {
+      "FAMILIA": "CIENCIA_TEXTO",
+      "PERGUNTA": "o texto dos materiais cientificos atravessa, ou so a ficha?",
+      "PARTIU": {
+        "VALOR": 93933,
+        "UNIDADE": "caracteres de abstract",
+        "OBJETOS": 763,
+        "OBJETOS_UNIDADE": "materiais no acervo",
+        "MEDIDO_DAQUI": "NAO",
+        "PORQUE_NAO": "o acervo cientifico nao esta neste repositorio",
+        "ORIGEM_DA_ALEGACAO": "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md, seccao 3",
+        "DONO_DA_MEDICAO": "claude/opportunity-commercial-priority-v1"
+      },
+      "CHEGOU": {
+        "VALOR": 0,
+        "UNIDADE": "caracteres",
+        "REGISTOS_COM_TEXTO": 0,
+        "REGISTOS": 88,
+        "REGISTOS_COM_DOI": 86,
+        "REGISTOS_COM_URL": 88,
+        "CAMPOS_DECLARADOS": [
+          "AUTHOR",
+          "CLIENT_SAFE",
+          "COUNTRY_OF_FACT",
+          "CROP",
+          "CROP_IDS",
+          "DOI",
+          "ENTITY_TYPE",
+          "EVIDENCE_STATUS",
+          "EVIDENCE_STATUS_WHY_EN",
+          "EVIDENCE_STATUS_WHY_IT",
+          "GEOGRAPHIC_SCOPE",
+          "ID",
+          "INSTITUTION",
+          "ISSUE",
+          "ISSUE_IDS",
+          "MATERIAL_ROLE",
+          "MATERIAL_TYPE",
+          "ORCID",
+          "ORIGIN_LAYER",
+          "PROVENANCE",
+          "PUBLISHED_AT",
+          "QA_STATUS",
+          "REFERENCE_DATE",
+          "REGION_IDS",
+          "SOURCE_ID",
+          "SOURCE_IDS",
+          "SOURCE_URL",
+          "SOURCE_URLS",
+          "TITLE",
+          "VENUE"
+        ],
+        "MEDIDO_DAQUI": "SIM",
+        "COMO": "campos de scienceRecords que casem ABSTRACT|SUMMARY|RESUMO|FULL_TEXT|BODY_TEXT|PAPER_TEXT"
+      },
+      "NAO_CONFUNDIR": "FICHA_CHEGOU nao e TEXTO_CHEGOU. Os 88 registos chegam, e chegam com ligacao para o paper. O que nao chega e o texto que permitiria cruzar o que o paper PROVA com o caso — hoje CROP e ISSUE sao o termo da busca.",
+      "ACAO_MINIMA": "campo de texto cientifico em SCIENCE.json",
+      "DONO_DA_ACAO": "claude/opportunity-commercial-priority-v1",
+      "ESTADO": "ABERTA_MEDIDA_DE_UM_LADO",
+      "PERDA_QUANTIFICAVEL": "NAO",
+      "PORQUE_A_PERDA_NAO_E_QUANTIFICAVEL": "um dos dois lados e alegacao, nao medicao. Subtrair uma medicao de uma alegacao produz um numero com cara de facto."
+    },
+    {
+      "FAMILIA": "ANUNCIOS_DATA_DE_VERIFICACAO",
+      "PERGUNTA": "o selo ATTIVO chega com a data que o provaria?",
+      "PARTIU": {
+        "VALOR": 414,
+        "UNIDADE": "anuncios com last_observed e first_observed no acervo",
+        "MEDIDO_DAQUI": "NAO",
+        "PORQUE_NAO": "o acervo de anuncios nao esta neste repositorio",
+        "ORIGEM_DA_ALEGACAO": "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md, seccao 6",
+        "DONO_DA_MEDICAO": "claude/opportunity-commercial-priority-v1"
+      },
+      "CHEGOU": {
+        "VALOR": 0,
+        "UNIDADE": "anuncios com data de observacao",
+        "REGISTOS": 577,
+        "DECLARAM_ACTIVE": 27,
+        "CAMPOS_DE_OBSERVACAO_ENCONTRADOS": [],
+        "MEDIDO_DAQUI": "SIM",
+        "COMO": "campos de competitorActivities que casem LAST_OBSERVED|FIRST_OBSERVED|OBSERVED_AT|VERIFIED_AT|CHECKED_AT|LAST_SEEN"
+      },
+      "PORQUE_IMPORTA": "ACTIVE e uma afirmacao sobre o PRESENTE. Sem data de verificacao, o selo afirma hoje o que se observou num dia que ninguem consegue nomear.",
+      "ACAO_MINIMA": "transportar last_observed para COMPETITOR-ACTIVITIES.json",
+      "DONO_DA_ACAO": "claude/opportunity-commercial-priority-v1",
+      "ESTADO": "ABERTA_MEDIDA_DE_UM_LADO",
+      "PERDA_QUANTIFICAVEL": "NAO",
+      "PORQUE_A_PERDA_NAO_E_QUANTIFICAVEL": "um dos dois lados e alegacao, nao medicao. Subtrair uma medicao de uma alegacao produz um numero com cara de facto."
+    },
+    {
+      "FAMILIA": "VIDEO_ORGANICO",
+      "PERGUNTA": "os cartoes de video organico chegam com titulo, ligacao e data?",
+      "PARTIU": {
+        "VALOR": 1467,
+        "UNIDADE": "objetos de video distintos no acervo",
+        "MEDIDO_DAQUI": "NAO",
+        "PORQUE_NAO": "o acervo de video nao esta neste repositorio",
+        "ORIGEM_DA_ALEGACAO": "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md, seccao 5",
+        "DONO_DA_MEDICAO": "claude/opportunity-commercial-priority-v1"
+      },
+      "CHEGOU": {
+        "VALOR": 147,
+        "UNIDADE": "cartoes de video organico no artefacto",
+        "COM_TITULO_LIGACAO_E_DATA": 139,
+        "SEM_COUNTRY_REACHED": 147,
+        "MEDIDO_DAQUI": "SIM",
+        "COMO": "competitorActivities com ACTIVITY_TYPE ou MEDIA_TYPE contendo ORGANIC"
+      },
+      "TERCEIRA_FRONTEIRA": "os campos chegam ao motor; nenhuma tela os renderiza ainda. A razao esta no CHECKPOINT, seccao 5: COUNTRY_REACHED e nulo, e ligar titulo e ligacao poria cartoes ES e FR numa tela italiana. A decisao e do dono do pacote.",
+      "ACAO_MINIMA": "COUNTRY_REACHED por cartao, para que a tela possa filtrar",
+      "DONO_DA_ACAO": "claude/opportunity-commercial-priority-v1",
+      "ESTADO": "ABERTA_MEDIDA_DE_UM_LADO",
+      "PERDA_QUANTIFICAVEL": "NAO",
+      "PORQUE_A_PERDA_NAO_E_QUANTIFICAVEL": "um dos dois lados e alegacao, nao medicao. Subtrair uma medicao de uma alegacao produz um numero com cara de facto."
+    }
+  ],
+  "FRONTEIRA_ATRAVESSADA": "NAO",
+  "FAMILIAS_ABERTAS": [
+    "TRANSCRICOES",
+    "CIENCIA_TEXTO",
+    "ANUNCIOS_DATA_DE_VERIFICACAO",
+    "VIDEO_ORGANICO"
+  ],
+  "DONO_DA_FRONTEIRA": "claude/opportunity-commercial-priority-v1",
+  "REGRA": "SOURCE FAILURE nao e ZERO. Um lado medido e outro alegado nao produzem uma perda quantificada — produzem uma fronteira aberta com dono."
+}

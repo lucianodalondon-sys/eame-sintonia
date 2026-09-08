@@ -59,12 +59,13 @@ PASSO 3 — RODAR A SUÍTE
 
 python3 -m unittest discover -s tests
 
-Esperado: 721 testes, 16 pulados.
-A suíte NÃO fecha verde hoje: 6 falhas e 1 erro, todos anteriores a esta
+Esperado: 763 testes, 37 pulados.
+A suíte NÃO fecha verde hoje: 7 falhas e 2 erros, todos anteriores a esta
 linha de missões e classificados um a um em
 docs/design/REVISAO-COMMERCIAL-PRIORITY-V11.md §7 (proveniência de amostras
-antigas, um artefato ausente do ambiente, uma migration). Nenhum deles toca
-o contrato comercial: as 58 provas da camada comercial estão verdes.
+antigas, um artefato ausente do ambiente, uma migration, um módulo que o
+ambiente não importa). Nenhum deles toca o contrato comercial: as 58 provas
+da camada comercial estão verdes.
 Se divergir DISSO, reporte o número real e o teste que falhou. NÃO conserte ainda.
 
 Nota: pytest NÃO está instalado. Use unittest. Só biblioteca padrão do Python 3.11.
@@ -79,7 +80,7 @@ python3 scripts/proveniencia.py
 
 Confira estas sentinelas contra o que o handoff afirma:
 
-  TEST_COUNT_CURRENT              = 721
+  TEST_COUNT_CURRENT              = 763
   SOURCE_ID_COUNT                 = 37
   RAIF_SEASONS_AVAILABLE          = 23
   RAIF_READINGS_TOTAL             = 148964

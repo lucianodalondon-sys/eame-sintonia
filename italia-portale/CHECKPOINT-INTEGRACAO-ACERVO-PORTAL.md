@@ -134,6 +134,16 @@ PRINCIPAL_LOSS_POINT ................ O ACERVO NÃO ATRAVESSA A INGESTÃO
         ciência        763 materiais → 88, e 93.933 ch de abstract → 0
         anúncios       414 datas de verificação no acervo → 0 no pacote
     O dono dessa fronteira é a linhagem geradora.
+
+    ADENDO 2026-09-08 · ESTA PERDA AGORA TEM MEDIDOR.
+        Os números acima viviam nesta tabela. `audit/fronteira-acervo-pacote.mjs`
+        mede o lado que CHEGA, contra o artefacto versionado, e recusa-se a
+        inventar o lado do acervo — que daqui não se conta. Medido hoje:
+        transcrições 0 · texto científico 0 · datas de verificação 0 ·
+        vídeo orgânico 147, com COUNTRY_REACHED nulo em 147/147.
+        O estado das quatro é ABERTA_MEDIDA_DE_UM_LADO: nem fechada, nem
+        inventada. `scripts/fundacao_coleta.py` compõe o resultado em
+        COLLECTION_FOUNDATION_CLOSED, hoje NÃO.
 ```
 
 ---
