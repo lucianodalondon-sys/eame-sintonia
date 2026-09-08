@@ -120,6 +120,21 @@ def cenarios(banco):
     caso("B_sem_raw_a_FK_recusa", rc != 0 and "foreign key" in erro.lower(),
          erro.splitlines()[0][:110] if erro else "ACEITOU")
 
+    # ── REPRODUÇÃO · o filho pode declarar DOIS pais diferentes? ────────
+    # `raw_asset_id` aponta para o pai A; `parent_sha256` diz os bytes de B.
+    # A chave estrangeira passa, porque A existe. A linhagem fica a dizer duas
+    # coisas ao mesmo tempo — e nao ha nada que as obrigue a concordar.
+    #
+    #   FK EXISTIR NAO BASTA. O PAI POR ID E O PAI POR SHA
+    #   PRECISAM DE SER O MESMO PAI.
+    raw_b = _raw(banco, "IT-DER-B", "IT/b/DOCUMENT/outro-pai.pdf", sha=SHA_OUTRO)
+    rc, erro = banco.executar(_derivado(
+        raw_id, "IT/x/TEXT/dois-pais.txt", parent_sha256=SHA_OUTRO,
+        producer="ferramenta-do-teste-de-coerencia"))
+    caso("COERENCIA_id_e_sha_apontam_para_o_mesmo_pai", rc != 0,
+         "ACEITOU DOIS PAIS DIFERENTES" if rc == 0
+         else erro.splitlines()[0][:110])
+
     # ── C · o mesmo bruto, tipos diferentes, coexistem ──────────────────
     rc, erro = banco.executar(_derivado(raw_id, "IT/x/THUMB/a.png",
                                         kind="THUMBNAIL", producer="thumbnailer",
