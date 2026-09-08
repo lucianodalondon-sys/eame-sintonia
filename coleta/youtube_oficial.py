@@ -796,8 +796,22 @@ def comentarios(*, video_id, run_id, country_scope='IT', limite_threads=100,
     "não tinha o que colher" e "não me deixaram colher".
     """
     s = sessao or Sessao()
+    # ── O RELATORIO DE COMPLETUDE ─────────────────────────────────────────
+    # `REPLIES_COMPLETED` foi REMOVIDO, nao renomeado por gosto: ele subia a cada
+    # TENTATIVA de completar, inclusive quando a thread continuou incompleta. Um
+    # contador chamado COMPLETED que conta ATTEMPT mente para quem le.
+    #
+    #     ATTEMPT NAO E COMPLETED.
+    #
+    # No lugar entram os dois numeros que sao coisas diferentes:
+    # `COMPLETION_ATTEMPTS` (quantas vezes tentamos) e `THREADS_COMPLETED`
+    # (quantas fecharam de verdade).
     rel = {'VIDEO_ID': video_id, 'THREADS': 0, 'COMMENTS': 0, 'REPLIES': 0,
-           'PAGES': 0, 'REPLIES_COMPLETED': 0, 'REPLIES_MISSING': 0,
+           'PAGES': 0, 'REPLIES_MISSING': 0,
+           'THREADS_TOTAL': 0, 'THREADS_COMPLETE': 0, 'THREADS_PARTIAL': 0,
+           'REPLIES_DECLARED': 0, 'REPLIES_OBSERVED': 0,
+           'COMPLETION_ATTEMPTS': 0, 'THREADS_COMPLETED': 0,
+           'COMPLETION_ERRORS': [],
            'STATE': None, 'NATIVE_REASON': None}
     saida, token = [], None
     try:
@@ -828,18 +842,32 @@ def comentarios(*, video_id, run_id, country_scope='IT', limite_threads=100,
                                              country_scope=country_scope,
                                              raw_ref=raw, canal=canal))
                 rel['REPLIES'] += len(trazidas)
+                rel['THREADS_TOTAL'] += 1
+                rel['REPLIES_DECLARED'] += total
+                observadas = len(trazidas)
                 # O envelope inicial NÃO garante a thread inteira. Quando a API diz
                 # que há mais respostas do que trouxe, buscar o resto — senão a
                 # conversa fica truncada no acervo e ninguém percebe.
                 if completar_respostas and total > len(trazidas):
-                    extras, faltou = _completar(s, topo.get('id'), video_id=video_id,
-                                                run_id=run_id, canal=canal,
-                                                country_scope=country_scope,
-                                                ja=len(trazidas), total=total)
+                    extras, faltou, erro = _completar(
+                        s, topo.get('id'), video_id=video_id, run_id=run_id,
+                        canal=canal, country_scope=country_scope,
+                        ja=len(trazidas), total=total)
                     saida.extend(extras)
                     rel['REPLIES'] += len(extras)
-                    rel['REPLIES_COMPLETED'] += 1
+                    rel['COMPLETION_ATTEMPTS'] += 1
                     rel['REPLIES_MISSING'] += faltou
+                    observadas = max(observadas, len(extras))
+                    if erro:
+                        rel['COMPLETION_ERRORS'].append(erro)
+                    if not faltou:
+                        rel['THREADS_COMPLETED'] += 1
+                rel['REPLIES_OBSERVED'] += observadas
+                # Uma thread e completa quando o que a API declarou esta todo aqui.
+                if observadas >= total:
+                    rel['THREADS_COMPLETE'] += 1
+                else:
+                    rel['THREADS_PARTIAL'] += 1
             token = d.get('nextPageToken')
             if not token or len(saida) >= int(limite_threads) * 5:
                 break
@@ -853,15 +881,52 @@ def comentarios(*, video_id, run_id, country_scope='IT', limite_threads=100,
             rel['FEATURE'] = 'COMMENTS'
         return saida, s, rel
     rel['COMMENTS'] = len(saida)
-    rel['STATE'] = 'OK' if saida else 'ZERO_RESULTS'
+    # ── VEIO PARTE NAO E VEIO TUDO ────────────────────────────────────────
+    # Antes: `'OK' if saida else 'ZERO_RESULTS'`. Um unico comentario recuperado
+    # bastava para o video ser declarado OK, ainda que a API tivesse declarado
+    # respostas que nunca chegaram. Foi o que aconteceu com `ezRyN8vLVvc`.
+    #
+    #     THREAD_COMPLETE NAO E THREAD_PARTIAL.
+    #
+    # Duas coisas tornam o resultado parcial, e as duas contam: faltou resposta
+    # declarada, OU alguma tentativa de completar falhou operacionalmente.
+    incompleto = rel['REPLIES_MISSING'] > 0 or bool(rel['COMPLETION_ERRORS'])
     if not saida:
+        rel['STATE'] = 'ZERO_RESULTS'
         rel['ZERO_LEGITIMATE'] = True
+    elif incompleto:
+        rel['STATE'] = 'PARTIAL_RESULTS'
+        rel['RECOVERY_ACTION'] = falhas.recuperacao(
+            rel['COMPLETION_ERRORS'][0]['CANONICAL_STATE']
+            if rel['COMPLETION_ERRORS'] else 'PARTIAL_RESULTS')
+        # A CAUSA, que e pergunta diferente de O QUE HOUVE. Quando a API respondeu
+        # 200 e trouxe menos do que ela mesma declarou, a unica coisa honesta a
+        # registrar e a DISCREPANCIA OBSERVADA. Nao se infere `deleted`,
+        # `moderated`, `hidden` nem `removed`: nada disso foi observado.
+        rel['PARTIAL_CAUSE'] = (
+            [e['CANONICAL_STATE'] for e in rel['COMPLETION_ERRORS']]
+            or ['API_RETURNED_FEWER_REPLIES_THAN_DECLARED'])
+        rel['PARTIAL_CAUSE_IS_OBSERVED_DISCREPANCY'] = not rel['COMPLETION_ERRORS']
+    else:
+        rel['STATE'] = 'OK'
     return saida, s, rel
 
 
 def _completar(s, parent_id, *, video_id, run_id, canal, country_scope, ja, total):
-    """`comments.list(parentId=…)` até fechar a thread. Registra o que faltou."""
-    achados, token = [], None
+    """`comments.list(parentId=…)` até fechar a thread.
+
+    Devolve `(achados, faltou, erro)`. O terceiro existe porque a versão anterior
+    fazia `except (...): break` — engolia a causa inteira, e uma quota estourada
+    virava indistinguível de uma resposta que simplesmente não veio.
+
+        NAO TRANSFORMAR QUOTA, AUTH, REDE OU FONTE SUMIDA
+        EM REPLY AUSENTE SEM MOTIVO.
+
+    Quando falha, `erro` carrega as quatro coisas que permitem agir depois:
+    o estado canônico, a razão nativa da plataforma, o método que falhou e a
+    thread afetada.
+    """
+    achados, token, erro = [], None, None
     while True:
         p = {'part': 'snippet', 'parentId': parent_id, 'maxResults': 100,
              'textFormat': 'plainText'}
@@ -869,7 +934,22 @@ def _completar(s, parent_id, *, video_id, run_id, canal, country_scope, ja, tota
             p['pageToken'] = token
         try:
             d = s.chamar('comments.list', p)
-        except (urllib.error.HTTPError, TetoDaExecucao, QuotaEstourada):
+        except urllib.error.HTTPError as e:
+            estado, razao = estado_do_erro(e)
+            erro = {'PARENT_ID': parent_id, 'VIDEO_ID': video_id,
+                    'API_METHOD': 'comments.list',
+                    'CANONICAL_STATE': estado, 'NATIVE_REASON': razao,
+                    'RECOVERY_ACTION': falhas.recuperacao(estado, razao)}
+            break
+        except (TetoDaExecucao, QuotaEstourada) as e:
+            # Teto da CASA e quota da PLATAFORMA são coisas diferentes, e a
+            # taxonomia já as separa. Nenhuma das duas é "faltou resposta".
+            estado = ('BUDGET_EXHAUSTED' if isinstance(e, TetoDaExecucao)
+                      else 'QUOTA_EXHAUSTED')
+            erro = {'PARENT_ID': parent_id, 'VIDEO_ID': video_id,
+                    'API_METHOD': 'comments.list',
+                    'CANONICAL_STATE': estado, 'NATIVE_REASON': type(e).__name__,
+                    'RECOVERY_ACTION': falhas.recuperacao(estado)}
             break
         corpo = json.dumps(d, ensure_ascii=False)
         raw = env.guardar_raw('YOUTUBE', 'replies-%s' % parent_id, corpo)
@@ -882,7 +962,7 @@ def _completar(s, parent_id, *, video_id, run_id, canal, country_scope, ja, tota
             break
     # `comments.list` devolve TODAS as respostas, não só as que faltavam.
     obtidas = len(achados) if achados else ja
-    return achados, max(0, total - obtidas)
+    return achados, max(0, total - obtidas), erro
 
 
 def main():

@@ -1729,8 +1729,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/scrap-social-na-biblia-v1",
-    "HEAD": "05be65b4a6055b5c47cf338be4bc76160bcf9626",
-    "GENERATED_AT": "2026-09-08T17:40:19+00:00"
+    "HEAD": "b38312f85dc4f1c6dedc4174c8a85b6c1dd99750",
+    "GENERATED_AT": "2026-09-08T17:41:38+00:00"
   },
   "FAMILIES": [
     {
@@ -6087,7 +6087,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "infra"
@@ -6103,9 +6103,11 @@
         ".github/workflows/supabase-storage.yml"
       ],
       "file_count": 6,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        ".github/workflows/banco-descartavel.yml"
+      ],
       "produces": [],
       "inbound": [
         "C-DONO-DA-ESCRITA",
@@ -9883,9 +9885,10 @@
       ],
       "file_count": 4,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
-        "provas/derived_artifact_no_postgres.py"
+        "provas/derived_artifact_no_postgres.py",
+        "provas/preservar_coleta_no_postgres.py"
       ],
       "produces": [],
       "inbound": [
@@ -10690,9 +10693,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 465,
+        "palavras": 469,
         "por_lingua": {},
-        "sem_marca_de_lingua": 465,
+        "sem_marca_de_lingua": 469,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -10709,8 +10712,8 @@
       "name": "SINTONIA SCRAP — aquisicao social",
       "territory": "Z-ACOES",
       "kind": "engine",
-      "what": "O executor composto da aquisicao social. Quem chama diz PLATAFORMA + CAPABILITY e nunca escolhe ferramenta; a rota e decisao da casa. Reune o CLI das fases (censo, portao, video, gap, piloto, ledger, sessao, politica, guarda, youtube, youtube-piloto, youtube-piloto-oneshot), o adaptador oficial do YouTube Data API v3, as rotas gratuitas (Mastodon, Bluesky, Telegram) e o envelope que grava o RAW antes de qualquer normalizacao.",
-      "why_here": "A rota vivia espalhada por if de script: cada chamador redescobria por conta propria se uma plataforma podia ser lida, e a redescoberta nunca saia igual. Aqui o chamador declara a intencao e a casa resolve a rota na ordem PERMITIDA -> BARATA -> CAPAZ, com a permissao decidida ANTES do preco. Duas leis que o codigo carrega em teste: OFFICIAL_API EXISTS NAO E THIS CAPABILITY EXISTS, e CHECKOUT NAO E COLETA — o inventario da prova bruta conta o que ESTE processo escreveu, nunca o que o clone trouxe.",
+      "what": "O executor composto da aquisicao social. Quem chama diz PLATAFORMA + CAPABILITY e nunca escolhe ferramenta; a rota e decisao da casa. Reune o CLI das fases (censo, portao, video, gap, piloto, ledger, sessao, politica, guarda, youtube, youtube-piloto, youtube-piloto-oneshot), o adaptador oficial do YouTube Data API v3, as rotas gratuitas (Mastodon, Bluesky, Telegram) e o envelope que grava o RAW antes de qualquer normalizacao. Inclui o dono da PERSISTENCIA SOCIAL (conteudo, comentario, reobservacao), que recebe um canal ja resolvido e RECUSA com CHANNEL_IDENTITY_NOT_RESOLVED em vez de criar pessoa ou organizacao por conta propria.",
+      "why_here": "A rota vivia espalhada por if de script: cada chamador redescobria por conta propria se uma plataforma podia ser lida, e a redescoberta nunca saia igual. Aqui o chamador declara a intencao e a casa resolve a rota na ordem PERMITIDA -> BARATA -> CAPAZ, com a permissao decidida ANTES do preco. Duas leis que o codigo carrega em teste: OFFICIAL_API EXISTS NAO E THIS CAPABILITY EXISTS, e CHECKOUT NAO E COLETA — o inventario da prova bruta conta o que ESTE processo escreveu, nunca o que o clone trouxe. E a terceira lei, medida num Postgres 16 real antes de virar migration: COMMENT_ID NAO E COMMENT_TEXT — dois «Grazie!» de pessoas diferentes davam UMA linha no banco, porque a identidade estava travada no hash do texto.",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -13858,7 +13861,7 @@
       "icon": "B",
       "facts": [
         "branch claude/scrap-social-na-biblia-v1",
-        "HEAD 05be65b4a6055b5c47cf338be4bc76160bcf9626"
+        "HEAD b38312f85dc4f1c6dedc4174c8a85b6c1dd99750"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16364,7 +16367,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 30,
+          "line": 31,
           "snippet": "- 'provas/derived_artifact_no_postgres.py'"
         }
       ],
@@ -20258,7 +20261,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 30,
+          "line": 31,
           "snippet": "- 'provas/derived_artifact_no_postgres.py'"
         }
       ],
@@ -20766,7 +20769,7 @@
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 834,
+          "line": 856,
           "snippet": "import social_guarda"
         }
       ],
@@ -21035,12 +21038,12 @@
         },
         {
           "file": "tests/test_youtube_oficial.py",
-          "line": 241,
+          "line": 246,
           "snippet": "import social_envelope as se"
         },
         {
           "file": "tests/test_youtube_oficial.py",
-          "line": 480,
+          "line": 485,
           "snippet": "import social_rotas as sr"
         },
         {
@@ -21566,7 +21569,7 @@
         },
         {
           "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 469,
+          "line": 472,
           "snippet": "open(MIGRACAO, 'leitura')  # MIGRACAO = supabase/migrations/001_fundacao_geografia_e_proveniencia.sql"
         }
       ],
@@ -23081,8 +23084,8 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 118,
-    "components_proven": 73,
-    "components_pending": 38,
+    "components_proven": 72,
+    "components_pending": 39,
     "components_broken": 0,
     "components_unknown": 7,
     "edges": 410,

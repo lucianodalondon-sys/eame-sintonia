@@ -169,8 +169,13 @@ class TestPaginacaoEThread(unittest.TestCase):
                                                   'publishedAt': '2026-01-01T00:00:00Z',
                                                   'authorChannelId': {'value': 'UCa'}}}
                                      for i in range(3)]}))
-        self.assertEqual(rel['REPLIES_COMPLETED'], 1)
+        # Aqui a thread fechou MESMO: as tres declaradas chegaram. Entao as duas
+        # coisas valem 1 — tentamos uma vez, e uma fechou. Sao contadores
+        # diferentes, e este teste so nao os distingue porque o caso e feliz.
+        self.assertEqual(rel['COMPLETION_ATTEMPTS'], 1)
+        self.assertEqual(rel['THREADS_COMPLETED'], 1)
         self.assertEqual(rel['REPLIES_MISSING'], 0)
+        self.assertEqual(rel['STATE'], 'OK', 'thread completa tem de ser OK')
         self.assertIn('comments.list', s.por_metodo)
         respostas = [o for o in objs if o['RAW']['IS_REPLY']]
         self.assertEqual(len(respostas), 4, 'a trazida + as tres completadas')

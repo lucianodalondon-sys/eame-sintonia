@@ -27,6 +27,7 @@ on:
       - 'provas/preservar_coleta_no_postgres.py'
       - 'supabase/migrations/001_*.sql'
       - 'supabase/migrations/022_*.sql'
+      - 'supabase/migrations/023_*.sql'
       - 'provas/derived_artifact_no_postgres.py'
       - '.github/workflows/banco-descartavel.yml'
   workflow_dispatch:
@@ -85,6 +86,25 @@ jobs:
         env:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/derivado
+
+      # O contrato de persistencia social: a 023 tem de APLICAR num Postgres
+      # real, e as duas travas dela tem de morder — a identidade da ocorrencia
+      # e o parentesco da thread. Reproduzido antes de existir: dois «Grazie!»
+      # com IDs diferentes davam 1 linha no banco, e uma resposta perdia o pai
+      # ao entrar na camada estruturada.
+      #
+      #     COMMENT_ID NAO E COMMENT_TEXT.
+      #     REPLY NAO E TOP-LEVEL.
+      #
+      # Banco proprio (`social`), para nao herdar linhas das provas anteriores:
+      # um caso que passa por causa do estado deixado por outro nao prova nada.
+      - name: 2c · o contrato de persistencia social aplica e as travas mordem
+        run: |
+          psql "$ADMIN_URL" -c 'create database social;'
+          python3 provas/social_persistencia_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/social
 
       # A prova de que a trava contra o acidente e real: apontada para fora,
       # ela tem de RECUSAR-SE a correr.

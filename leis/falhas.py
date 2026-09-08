@@ -119,6 +119,37 @@ _TABELA = [
        'AUSÊNCIA DE SUPERFÍCIE DE FALA. Para o FIELD VOICES futuro essas duas '
        'ausências não são a mesma evidência, e quem juntar as duas hoje apaga a '
        'diferença para sempre. Não retentável enquanto o dono não reabrir.'),
+    # ── VEIO PARTE ────────────────────────────────────────────────────────
+    # O unico estado desta missao. Nasceu de um caso medido, nao de simetria:
+    # o video `ezRyN8vLVvc` (corrida 34258433872) tinha uma thread que declarava
+    # `totalReplyCount = 1`, entregou zero respostas no envelope, e quando
+    # `comments.list` foi chamado para completar ele respondeu HTTP 200 com
+    # `items: []`. Faltou uma resposta e o relatorio disse OK.
+    #
+    #     ALGUM CONTEUDO RECUPERADO NAO SIGNIFICA CONVERSA COMPLETA.
+    #
+    # `camada=NENHUMA` de proposito: ninguem quebrou. A fonte respondeu, a rota
+    # funcionou, o parser funcionou. Por isso tambem NAO degrada a fonte — punir
+    # a fonte por uma resposta que ela mesma declarou e nao entregou seria trocar
+    # uma observacao por uma acusacao.
+    #
+    # E `PARTIAL_RESULTS` fica FORA de `NAO_SAO_FALHA`: nada quebrou, mas a
+    # coleta nao ficou completa, e quem contar isto como sucesso limpo esta
+    # contando conversa truncada como conversa inteira. Esse era o defeito.
+    #
+    # O estado diz O QUE HOUVE (veio parte). A CAUSA e outra pergunta e viaja
+    # separada: ou um dos estados canonicos que ja existem (quota, auth, rede),
+    # ou a discrepancia observada, quando a API respondeu 200 e trouxe menos do
+    # que declarou. Nao se infere `deleted`, `moderated`, `hidden` nem `removed`:
+    # nada disso foi observado.
+    _e('PARTIAL_RESULTS', NENHUMA, True, DESCONHECIDA, False, True,
+       ['THREAD_PARTIAL', 'INCOMPLETE_RESULTS'],
+       'a coleta trouxe parte do que a propria fonte declarou existir, e a parte que '
+       'falta e conhecida e contada. Separado de OK porque OK afirma conversa inteira, '
+       'e separado de ZERO_RESULTS porque veio conteudo. A saude fica UNKNOWN: veio '
+       'parte nao diz se a fonte esta bem — quem diz isso e a CAUSA, que viaja em '
+       'campo proprio. Retentavel porque a resposta que faltou pode aparecer depois.'),
+
     _e('ROUTE_NOT_ALLOWED', ROUTE, True, UNAVAILABLE, False, False,
        ['ROUTE_NOT_ALLOWED'],
        'a rota funcionaria e nós escolhemos não usar — robots.txt ou termo. '
@@ -314,6 +345,9 @@ RECUPERACOES = (ROTATE_CREDENTIAL, HUMAN_RELOGIN, HUMAN_PROVISION_CREDENTIAL,
 _POR_ESTADO = {
     'OK': NO_RETRY, 'ZERO_RESULTS': NO_RETRY, 'NOT_APPLICABLE': NO_RETRY,
     'FEATURE_DISABLED': NO_RETRY,
+    # Veio parte: repetir JA raramente muda; o tempo pode mudar. Quando ha causa
+    # canonica (quota, auth, rede), a recuperacao dela e que vale — nao esta.
+    'PARTIAL_RESULTS': WAIT,
     'ROUTE_NOT_ALLOWED': NO_RETRY, 'AUTOMATION_NOT_ALLOWED': NO_RETRY,
     'CREDENTIAL_MISSING': HUMAN_PROVISION_CREDENTIAL, 'QUOTA_EXHAUSTED': ROTATE_CREDENTIAL,
     'BUDGET_EXHAUSTED': NO_RETRY, 'AUTH_EXPIRED': ROTATE_CREDENTIAL,

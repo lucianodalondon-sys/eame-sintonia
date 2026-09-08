@@ -440,6 +440,11 @@ def youtube_piloto(modo=OPERATIONAL, limite_videos=3, limite_threads=20):
            'VIDEO_IDS': [], 'VIDEOS_EXAMINED': 0, 'VIDEOS_RETURNED': 0,
            'THREADS': 0, 'TOP_LEVEL': 0, 'REPLIES': 0, 'COMMENTS_TOTAL': 0,
            'FEATURE_DISABLED': 0, 'ZERO_RESULTS': 0, 'ERRORS': [],
+           # CONVERSA TRUNCADA NAO E ERRO NEM COLETA LIMPA — e o terceiro fato.
+           'PARTIAL_RESULTS': 0, 'PARTIAIS': [], 'COMPLETION_ERRORS': [],
+           'THREADS_TOTAL': 0, 'THREADS_COMPLETE': 0, 'THREADS_PARTIAL': 0,
+           'REPLIES_DECLARED': 0, 'REPLIES_OBSERVED': 0, 'REPLIES_MISSING': 0,
+           'COMPLETION_ATTEMPTS': 0, 'THREADS_COMPLETED': 0,
            'APIFY_CALLS': 0, 'APIFY_SPEND_USD': 0.0,
            'AUTHOR_LOCATION_PROVED_COUNT': 0, 'SOURCE_LOCATION_PROVED_COUNT': 0}
     objetos = []
@@ -496,13 +501,30 @@ def youtube_piloto(modo=OPERATIONAL, limite_videos=3, limite_threads=20):
                 rel['TOP_LEVEL'] += topo
                 rel['REPLIES'] += len(cs) - topo
                 rel['COMMENTS_TOTAL'] += len(cs)
-                if rc.get('REPLIES_COMPLETED'):
+                # O metodo foi CHAMADO — e isso que `API_METHODS` registra. Se ele
+                # completou a thread e outra pergunta, e tem contador proprio.
+                if rc.get('COMPLETION_ATTEMPTS'):
                     linha['API_METHODS'].append('comments.list')
-                # As três ausências, separadas. Nunca unidas.
+                for k in ('THREADS_TOTAL', 'THREADS_COMPLETE', 'THREADS_PARTIAL',
+                          'REPLIES_DECLARED', 'REPLIES_OBSERVED', 'REPLIES_MISSING',
+                          'COMPLETION_ATTEMPTS', 'THREADS_COMPLETED'):
+                    rel[k] = rel.get(k, 0) + (rc.get(k) or 0)
+                rel['COMPLETION_ERRORS'].extend(rc.get('COMPLETION_ERRORS') or [])
+                # As QUATRO ausências, separadas. Nunca unidas. `PARTIAL_RESULTS`
+                # entrou aqui porque conversa truncada nao e erro de coleta nem
+                # coleta limpa — e um terceiro fato, e some se cair em qualquer
+                # um dos outros baldes.
                 if rc.get('COMMENTS_DISABLED'):
                     rel['FEATURE_DISABLED'] += 1
                 elif rc['STATE'] == 'ZERO_RESULTS':
                     rel['ZERO_RESULTS'] += 1
+                elif rc['STATE'] == 'PARTIAL_RESULTS':
+                    rel['PARTIAL_RESULTS'] += 1
+                    rel['PARTIAIS'].append(
+                        {'VIDEO_ID': vid, 'REPLIES_MISSING': rc['REPLIES_MISSING'],
+                         'PARTIAL_CAUSE': rc.get('PARTIAL_CAUSE'),
+                         'OBSERVED_DISCREPANCY':
+                             rc.get('PARTIAL_CAUSE_IS_OBSERVED_DISCREPANCY')})
                 elif rc['STATE'] not in ('OK',):
                     rel['ERRORS'].append({'VIDEO_ID': vid, 'STATE': rc['STATE'],
                                           'NATIVE_REASON': rc.get('NATIVE_REASON')})

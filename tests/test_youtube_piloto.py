@@ -108,11 +108,18 @@ class TestOPilotoRealmenteChama(unittest.TestCase):
         os.environ['YOUTUBE_DATA_API_KEY'] = FALSA
         self._raw = env.RAW_DIR
         env.RAW_DIR = os.path.join('/tmp', 'raw-teste-piloto')
+        # E O RELATORIO TAMBEM SAI DO ACERVO. `youtube_piloto()` grava
+        # `YOUTUBE-PILOTO-IT.json`, e sem isto rodar a suite SOBRESCREVIA o
+        # relatorio da corrida real 34258433872 com numeros de fixture —
+        # um teste apagando a evidencia que ele deveria proteger.
+        self._saida = env.SAIDA
+        env.SAIDA = os.path.join('/tmp', 'saida-teste-piloto')
 
     def tearDown(self):
         sc.ALVOS_YOUTUBE_IT = self._alvos
         yt.Sessao = self._sessao
         env.RAW_DIR = self._raw
+        env.SAIDA = getattr(self, '_saida', env.SAIDA)
         os.environ.pop('YOUTUBE_DATA_API_KEY', None)
         import shutil
         shutil.rmtree('/tmp/raw-teste-piloto', ignore_errors=True)

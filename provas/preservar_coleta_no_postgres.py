@@ -54,7 +54,10 @@ HOSTS_LOCAIS = ("localhost", "127.0.0.1", "::1", "[::1]")
 # workflows criam e deitam fora; qualquer outro — sobretudo um chamado como a
 # producao — nao passa. Acrescentar um nome aqui e uma decisao consciente, e e
 # esse o ponto: a lista e curta para que crescer doa.
-BANCOS_PERMITIDOS = ("descartavel", "derivado")
+# `social` entrou em 2026-09-08 para a prova do contrato de persistencia
+# social. Banco proprio de proposito: herdar linhas de outra prova faria um
+# caso passar por causa do estado alheio.
+BANCOS_PERMITIDOS = ("descartavel", "derivado", "social")
 
 
 def _e_descartavel(url: str) -> bool:
