@@ -585,17 +585,47 @@ def _raw_do_piloto(run_id):
             arquivos.append({'FILE': os.path.relpath(caminho, env.ROOT).replace('\\', '/'),
                              'SHA256': hashlib.sha256(dados).hexdigest(),
                              'BYTES': len(dados)})
-    # Quem sobe o artefato é o workflow; o script só declara o que produziu.
+    # ── O ESTADO DA PROVA NÃO PODE SER OTIMISTA ───────────────────────────
+    # A versão anterior decidia isto só por `GITHUB_RUN_ID` existir: dentro do
+    # Actions, dizia `PILOT_PROOF_ACTIONS_ARTIFACT` — mesmo com ZERO arquivos, e
+    # mesmo antes de qualquer upload ter acontecido.
+    #
+    #     UPLOAD STEP SUCCESS ≠ ARTIFACT EXISTS.
+    #     ZERO RAW FILES NÃO PODE VIRAR PILOT_PROOF_COMPLETE.
+    #
+    # Agora são TRÊS condições, e todas medidas: houve arquivo, o upload passou,
+    # e o Actions devolveu um `artifact-id`. O workflow injeta as duas últimas em
+    # `SCRAP_ARTIFACT_*`; sem elas o estado é honestamente parcial.
     dentro_do_actions = bool(os.environ.get('GITHUB_RUN_ID'))
+    upload_ok = (os.environ.get('SCRAP_ARTIFACT_OUTCOME') or '') == 'success'
+    artifact_id = (os.environ.get('SCRAP_ARTIFACT_ID') or '').strip()
+
+    if not arquivos:
+        # Nem PARTIAL: não houve prova a preservar. Isso é um FATO sobre a
+        # corrida, não uma falha do upload.
+        estado = 'NO_RAW_PRODUCED'
+    elif upload_ok and artifact_id:
+        estado = 'PILOT_PROOF_ACTIONS_ARTIFACT'
+    elif dentro_do_actions:
+        estado = ('PARTIAL_PROOF — houve RAW e o artefato não foi confirmado '
+                  '(outcome=%s, artifact-id=%s)'
+                  % (os.environ.get('SCRAP_ARTIFACT_OUTCOME') or 'DESCONHECIDO',
+                     artifact_id or 'VAZIO'))
+    else:
+        estado = 'PARTIAL_PROOF — fora do Actions, o RAW morre com o processo'
+
     return {
         'RAW_FILE_COUNT': len(arquivos), 'RAW_TOTAL_BYTES': total,
         'RAW_FILES': arquivos,
-        'RAW_ARTIFACT_NAME': ('youtube-piloto-raw-%s' % run_id) if dentro_do_actions
-                             else None,
+        'RAW_ARTIFACT_NAME': (os.environ.get('SCRAP_ARTIFACT_NAME')
+                              or ('youtube-piloto-raw-%s' % run_id
+                                  if dentro_do_actions else None)),
+        # NUNCA um ID inventado: ou o Actions devolveu, ou o campo não existe.
+        'ARTIFACT_ID': artifact_id or None,
         'ACTIONS_RUN_ID': os.environ.get('GITHUB_RUN_ID'),
-        'RETENTION_CLASS': 'ACTIONS_ARTIFACT_DEFAULT' if dentro_do_actions else 'NENHUMA',
-        'RAW_PROOF_STATE': ('PILOT_PROOF_ACTIONS_ARTIFACT' if dentro_do_actions
-                            else 'PARTIAL_PROOF — fora do Actions, o RAW morre com o processo'),
+        'RETENTION_CLASS': 'ACTIONS_ARTIFACT_30D' if dentro_do_actions else 'NENHUMA',
+        'RAW_PROOF_STATE': estado,
+        'RAW_PROOF_COMPLETE': estado == 'PILOT_PROOF_ACTIONS_ARTIFACT',
         'RAW_PRESERVATION_NOTE': ('PILOT_PROOF, não OPERATIONAL_STORAGE. O dono '
                                   'forward do G-42 (Storage + raw_asset) NÃO recebeu '
                                   'estes bytes.'),

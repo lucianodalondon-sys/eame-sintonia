@@ -280,5 +280,113 @@ class TestOPilotoRealmenteChama(unittest.TestCase):
         self.assertEqual(rel['COST_USD'], 0.0)
 
 
+
+
+class TestAProvaNaoPodeMentir(unittest.TestCase):
+    """UPLOAD STEP SUCCESS != ARTIFACT EXISTS.
+
+    Nasce de um defeito real: `if-no-files-found: warn` deixava o passo VERDE com
+    zero arquivos, e o estado virava PILOT_PROOF sem prova nenhuma.
+    """
+
+    def setUp(self):
+        self._raw = env.RAW_DIR
+        env.RAW_DIR = os.path.join('/tmp', 'raw-prova-teste')
+        for v in ('GITHUB_RUN_ID', 'SCRAP_ARTIFACT_OUTCOME', 'SCRAP_ARTIFACT_ID',
+                  'SCRAP_ARTIFACT_NAME'):
+            os.environ.pop(v, None)
+
+    def tearDown(self):
+        env.RAW_DIR = self._raw
+        import shutil
+        shutil.rmtree('/tmp/raw-prova-teste', ignore_errors=True)
+        for v in ('GITHUB_RUN_ID', 'SCRAP_ARTIFACT_OUTCOME', 'SCRAP_ARTIFACT_ID',
+                  'SCRAP_ARTIFACT_NAME'):
+            os.environ.pop(v, None)
+
+    def _com_raw(self, n=2):
+        d = os.path.join(env.RAW_DIR, 'YOUTUBE')
+        os.makedirs(d, exist_ok=True)
+        for i in range(n):
+            with io.open(os.path.join(d, 'f%d.txt' % i), 'w', encoding='utf-8') as f:
+                f.write('prova %d' % i)
+
+    # ── A ─────────────────────────────────────────────────────────────────
+    def test_A_zero_arquivos_nunca_e_prova_completa(self):
+        os.environ['GITHUB_RUN_ID'] = '123'
+        os.environ['SCRAP_ARTIFACT_OUTCOME'] = 'success'
+        os.environ['SCRAP_ARTIFACT_ID'] = '999'
+        r = sc._raw_do_piloto('R1')
+        self.assertEqual(r['RAW_FILE_COUNT'], 0)
+        self.assertEqual(r['RAW_PROOF_STATE'], 'NO_RAW_PRODUCED')
+        self.assertFalse(r['RAW_PROOF_COMPLETE'],
+                         'zero arquivos viraram PILOT_PROOF_COMPLETE')
+
+    # ── B ─────────────────────────────────────────────────────────────────
+    def test_B_arquivos_mais_upload_verde_mais_id_e_prova_completa(self):
+        self._com_raw()
+        os.environ.update({'GITHUB_RUN_ID': '123',
+                           'SCRAP_ARTIFACT_OUTCOME': 'success',
+                           'SCRAP_ARTIFACT_ID': '4242'})
+        r = sc._raw_do_piloto('R1')
+        self.assertEqual(r['RAW_PROOF_STATE'], 'PILOT_PROOF_ACTIONS_ARTIFACT')
+        self.assertTrue(r['RAW_PROOF_COMPLETE'])
+        self.assertEqual(r['ARTIFACT_ID'], '4242')
+
+    # ── C ─────────────────────────────────────────────────────────────────
+    def test_C_upload_falhou_e_PARTIAL_mas_a_medicao_sobrevive(self):
+        self._com_raw()
+        os.environ.update({'GITHUB_RUN_ID': '123',
+                           'SCRAP_ARTIFACT_OUTCOME': 'failure',
+                           'SCRAP_ARTIFACT_ID': ''})
+        r = sc._raw_do_piloto('R1')
+        self.assertIn('PARTIAL_PROOF', r['RAW_PROOF_STATE'])
+        self.assertFalse(r['RAW_PROOF_COMPLETE'])
+        self.assertGreater(r['RAW_FILE_COUNT'], 0, 'a medicao do RAW se perdeu')
+
+    # ── D ─────────────────────────────────────────────────────────────────
+    def test_D_artifact_id_vazio_nunca_e_completo(self):
+        self._com_raw()
+        os.environ.update({'GITHUB_RUN_ID': '123',
+                           'SCRAP_ARTIFACT_OUTCOME': 'success',
+                           'SCRAP_ARTIFACT_ID': ''})
+        r = sc._raw_do_piloto('R1')
+        self.assertFalse(r['RAW_PROOF_COMPLETE'],
+                         'step verde sem artifact-id virou prova')
+        self.assertIsNone(r['ARTIFACT_ID'], 'inventou um ID que o Actions nao deu')
+
+    def test_o_workflow_nao_usa_mais_warn(self):
+        wf = io.open(os.path.join(ROOT, '.github', 'workflows', 'scrap-social.yml'),
+                     encoding='utf-8').read()
+        # So linhas EXECUTAVEIS. O comentario que explica a remocao cita `warn`
+        # de proposito — apagar a memoria do erro nao e consertar o erro.
+        executaveis = [l for l in wf.splitlines() if not l.strip().startswith('#')]
+        self.assertEqual([l for l in executaveis if 'if-no-files-found: warn' in l], [],
+                         '`warn` deixa o passo verde com zero arquivos')
+        self.assertIn('if-no-files-found: error', wf)
+        self.assertIn('continue-on-error: true', wf,
+                      'perder o artefato nao pode apagar a medicao da API')
+
+
+class TestGuardaDeRef(unittest.TestCase):
+    """O workflow vai existir na main; o CODIGO do SCRAP nao.
+
+    A trava e pela PRESENCA do codigo necessario, nunca pelo nome da branch.
+    """
+
+    def test_o_workflow_confere_o_codigo_antes_do_segredo(self):
+        wf = io.open(os.path.join(ROOT, '.github', 'workflows', 'scrap-social.yml'),
+                     encoding='utf-8').read()
+        self.assertIn('SCRAP_CODE_NOT_PRESENT_ON_SELECTED_REF', wf)
+        # A guarda tem de vir ANTES do passo que recebe os secrets.
+        self.assertLess(wf.index('SCRAP_CODE_NOT_PRESENT_ON_SELECTED_REF'),
+                        wf.index('YOUTUBE_DATA_API_KEY: ${{ secrets'),
+                        'a guarda de ref roda depois do segredo entrar')
+
+    def test_os_tres_arquivos_exigidos_existem_nesta_ref(self):
+        for f in ('coleta/social_scrap.py', 'guarda/social_guarda.py',
+                  'coleta/youtube_oficial.py'):
+            self.assertTrue(os.path.exists(os.path.join(ROOT, f)), f)
+
 if __name__ == '__main__':
     unittest.main(verbosity=1)
