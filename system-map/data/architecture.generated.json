@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "0feb496740643ec4924993ae2c26b60ee9bba693",
-    "GENERATED_AT": "2026-09-08T14:57:47-03:00"
+    "HEAD": "9b4dc299aeac009ba40d76a28f63d4e3e1973196",
+    "GENERATED_AT": "2026-09-08T15:12:37-03:00"
   },
   "FILES": [
     {
@@ -43,8 +43,15 @@
       "code_dir": true
     },
     {
+      "path": ".github/workflows/auditoria-live.yml",
+      "sha": "716fc979e5711803c17e946a4effd7a0f26e76dd",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": ".github/workflows/banco-descartavel.yml",
-      "sha": "9cd5c054a5f41d7b3f96531d85af92a7a60ccd3d",
+      "sha": "1cadb0837ea9c5f9378dc11d90baa67eaca9b13a",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -52,13 +59,6 @@
     {
       "path": ".github/workflows/calendario-regressoes.yml",
       "sha": "d18c4b3e00fac8ff2a31295af78b7a1cd251ec77",
-      "ext": ".yml",
-      "readable": true,
-      "code_dir": true
-    },
-    {
-      "path": ".github/workflows/canario-022.yml",
-      "sha": "af3d4457241765b355053d94b50bd9133837f6ce",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -114,7 +114,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "0d7dd86a490237247f0817c845b0e29753e78f51",
+      "sha": "73ee92303b6392f8c109c43d727f89c10cee7a34",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -3929,7 +3929,7 @@
     },
     {
       "path": "data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json",
-      "sha": "c2df0215d450f4c1c344568534accfc7c68355db",
+      "sha": "88c7fee9c08279ddd12f696162d795bf850b52b3",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4132,7 +4132,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "54cd6b3a6dc9adc226ae571d1966dc6baa20afa5",
+      "sha": "dd4cf11e197e456593417be1be509c325c23549f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6701,7 +6701,7 @@
     },
     {
       "path": "motor/cadeia_canonica.sh",
-      "sha": "0ef12079d47d0ead2347206a3e51a6c769e9d88b",
+      "sha": "df0c764dcfaa334a05fdfcf4cffdb99cf44225d9",
       "ext": ".sh",
       "readable": true,
       "code_dir": true
@@ -7155,9 +7155,9 @@
       "code_dir": true
     },
     {
-      "path": "provas/canario_forward_it.py",
-      "sha": "dca8ae41aae7c726b813c9a08d89dc37323d24b9",
-      "ext": ".py",
+      "path": "provas/auditoria_live.sh",
+      "sha": "fd45c1c15751ff4ef3d7fcbdef0a5462a698cfd8",
+      "ext": ".sh",
       "readable": true,
       "code_dir": true
     },
@@ -7256,6 +7256,13 @@
       "path": "provas/testa_rota_italia.py",
       "sha": "fc1de4e6f7b84f7709459d61f02413820827a2b2",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/trava_de_drift_de_migration.sh",
+      "sha": "2ff146072eb65377be534e5a0cf3cfbfca76a3a8",
+      "ext": ".sh",
       "readable": true,
       "code_dir": true
     },
@@ -8269,7 +8276,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "70a79ebe9023e53dd8cce22503a6fb9bc5ce246a",
+      "sha": "1d2cbb7b8e6d4b892e13c8fc64d95401d5ee3b0d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8569,6 +8576,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_porta_de_producao.py",
+      "sha": "4b613055d801139787d9de3437af222417c3db9c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_portao.py",
       "sha": "a8544ae2e330301b29d402928515f8fcfe110ebd",
       "ext": ".py",
@@ -8709,6 +8723,39 @@
       }
     },
     {
+      "from_file": ".github/workflows/auditoria-live.yml",
+      "to_file": "provas/auditoria_live.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/auditoria-live.yml",
+        "line": 35,
+        "snippet": "- 'provas/auditoria_live.sh'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/auditoria-live.yml",
+      "to_file": "provas/auditoria_live.sh",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/auditoria-live.yml",
+        "line": 35,
+        "snippet": "- 'provas/auditoria_live.sh'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/auditoria-live.yml",
+      "to_file": "tests/test_porta_de_producao.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/auditoria-live.yml",
+        "line": 52,
+        "snippet": "# diz — e há teste em `tests/test_porta_de_producao.py` que reprova."
+      }
+    },
+    {
       "from_file": ".github/workflows/banco-descartavel.yml",
       "to_file": "guarda/memoria_descartavel.py",
       "type": "READS",
@@ -8776,6 +8823,28 @@
     },
     {
       "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 32,
+        "snippet": "- 'motor/cadeia_canonica.sh'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 32,
+        "snippet": "- 'motor/cadeia_canonica.sh'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
       "to_file": "provas/derived_artifact_no_postgres.py",
       "type": "READS",
       "payload": "artefacto",
@@ -8816,6 +8885,28 @@
         "file": ".github/workflows/banco-descartavel.yml",
         "line": 27,
         "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "provas/trava_de_drift_de_migration.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 33,
+        "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "provas/trava_de_drift_de_migration.sh",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 33,
+        "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
       }
     },
     {
@@ -9058,105 +9149,6 @@
         "file": ".github/workflows/calendario-regressoes.yml",
         "line": 176,
         "snippet": "psql \"$CADEIA\" -f supabase/tests/regressoes_regulatorio_es.sql 2>&1 | tee /tmp/rg"
-      }
-    },
-    {
-      "from_file": ".github/workflows/canario-022.yml",
-      "to_file": "guarda/portas_live.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/canario-022.yml",
-        "line": 43,
-        "snippet": "- 'guarda/portas_live.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/canario-022.yml",
-      "to_file": "guarda/portas_live.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/canario-022.yml",
-        "line": 43,
-        "snippet": "- 'guarda/portas_live.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/canario-022.yml",
-      "to_file": "motor/cadeia_canonica.sh",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/canario-022.yml",
-        "line": 20,
-        "snippet": "# E ele chama `motor/cadeia_canonica.sh` — o MESMO aplicador da casa, com o"
-      }
-    },
-    {
-      "from_file": ".github/workflows/canario-022.yml",
-      "to_file": "provas/canario_forward_it.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/canario-022.yml",
-        "line": 42,
-        "snippet": "- 'provas/canario_forward_it.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/canario-022.yml",
-      "to_file": "provas/canario_forward_it.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/canario-022.yml",
-        "line": 42,
-        "snippet": "- 'provas/canario_forward_it.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/canario-022.yml",
-      "to_file": "provas/preflight_022_live.sh",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/canario-022.yml",
-        "line": 41,
-        "snippet": "- 'provas/preflight_022_live.sh'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/canario-022.yml",
-      "to_file": "provas/preflight_022_live.sh",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/canario-022.yml",
-        "line": 41,
-        "snippet": "- 'provas/preflight_022_live.sh'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/canario-022.yml",
-      "to_file": "provas/readback_022_live.sh",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/canario-022.yml",
-        "line": 70,
-        "snippet": "run: bash provas/readback_022_live.sh"
-      }
-    },
-    {
-      "from_file": ".github/workflows/canario-022.yml",
-      "to_file": "supabase/migrations/022_o_derivado_ganha_casa.sql",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/canario-022.yml",
-        "line": 76,
-        "snippet": "sha256sum supabase/migrations/022_o_derivado_ganha_casa.sql"
       }
     },
     {
@@ -9608,6 +9600,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 103,
         "snippet": "python3 tests/test_observabilidade_estrada.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "tests/test_porta_de_producao.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 140,
+        "snippet": "run: python3 tests/test_porta_de_producao.py"
       }
     },
     {
@@ -17130,7 +17133,7 @@
       "payload": "execucao",
       "evidence": {
         "file": "motor/cadeia_canonica.sh",
-        "line": 138,
+        "line": 161,
         "snippet": "if ! python3 \"$RAIZ/guarda/sql_conferir.py\" \"$RAIZ/$f\"; then"
       }
     },
@@ -17141,7 +17144,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/cadeia_canonica.sh",
-        "line": 129,
+        "line": 152,
         "snippet": "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql \\"
       }
     },
@@ -17152,7 +17155,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/cadeia_canonica.sh",
-        "line": 128,
+        "line": 151,
         "snippet": "for f in supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql \\"
       }
     },
@@ -17163,7 +17166,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/cadeia_canonica.sh",
-        "line": 130,
+        "line": 153,
         "snippet": "supabase/importacoes/IT-LASTMILE-2026-09-02.sql; do"
       }
     },
@@ -22547,6 +22550,17 @@
       }
     },
     {
+      "from_file": "provas/trava_de_drift_de_migration.sh",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": "provas/trava_de_drift_de_migration.sh",
+        "line": 95,
+        "snippet": "saida=$(bash \"$RAIZ/motor/cadeia_canonica.sh\" migrations \"$URL\" 2>&1) && rc=0 || rc=$?"
+      }
+    },
+    {
       "from_file": "provas/valida_biblia.py",
       "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
       "type": "READS",
@@ -26287,6 +26301,127 @@
       }
     },
     {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": ".github/workflows/auditoria-live.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 203,
+        "snippet": "self.assertNotIn(\"auditoria-live.yml\", achados)"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": ".github/workflows/auditoria-live.yml",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 147,
+        "snippet": "with open(os.path.join(WORKFLOWS, \"auditoria-live.yml\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": ".github/workflows/calendario-regressoes.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 188,
+        "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": ".github/workflows/supabase-conexao.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 188,
+        "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": ".github/workflows/supabase-fichas-adama.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 186,
+        "snippet": "ESCRITORES = {\"supabase-migrate.yml\", \"supabase-fichas-adama.yml\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": ".github/workflows/supabase-migrate.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 186,
+        "snippet": "ESCRITORES = {\"supabase-migrate.yml\", \"supabase-fichas-adama.yml\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": ".github/workflows/supabase-raw-roundtrip.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 187,
+        "snippet": "\"supabase-raw-roundtrip.yml\", \"supabase-storage.yml\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": ".github/workflows/supabase-storage.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 187,
+        "snippet": "\"supabase-raw-roundtrip.yml\", \"supabase-storage.yml\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 99,
+        "snippet": "with open(os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": "provas/auditoria_live.sh",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 164,
+        "snippet": "with open(os.path.join(RAIZ, \"provas\", \"auditoria_live.sh\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": "supabase/migrations/022_o_derivado_ganha_casa.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 38,
+        "snippet": "MIGRATION_022 = \"supabase/migrations/022_o_derivado_ganha_casa.sql\""
+      }
+    },
+    {
       "from_file": "tests/test_portao.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -27421,10 +27556,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1238,
-    "files_readable": 419,
-    "files_code_dir": 465,
-    "file_edges": 1668,
+    "files_tracked": 1240,
+    "files_readable": 421,
+    "files_code_dir": 467,
+    "file_edges": 1679,
     "escritas_em_pasta": 58,
     "declared_missing_here": 0
   },

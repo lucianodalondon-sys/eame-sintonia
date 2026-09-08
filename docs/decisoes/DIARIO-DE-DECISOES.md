@@ -1049,6 +1049,46 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
 
 ---
 
+### D-039 — A porta de produção está lacrada, e o SHA publicado estava errado
+
+- **Data:** 2026-09-08 · **`PRODUCTION_GATE_SEALED = SIM`** · produção nesta missão: **só
+  `SELECT`**
+- **A correção factual.** Publiquei `MIGRATION_022 SHA = 7f46ea93…`. **Errado.** Esse é o
+  `sha256` do ficheiro **neste disco Windows**, com CRLF; a produção recebeu o **blob do
+  Git**, com LF: **`230be77d…`** — que é o que está em `public.schema_migracao`. Medi do lado
+  errado da conversão de fim de linha, e o banco tinha o valor certo o tempo todo. Corrigido
+  no diário e no recibo, com teste que fixa a referência no **blob**, não no disco.
+- **A `022` NÃO foi editada.** Trocar «NAO EXECUTADA» por «executada» mudaria o SHA e faria o
+  livro-razão apontar para um ficheiro que nunca correu. **Migration aplicada é artefato
+  imutável**; o estado live mora nos docs, no mapa e no ledger.
+- **O migrador pulava cego.** `cadeia_canonica.sh` via a versão no livro e dava `SKIP` **sem
+  comparar o hash do ficheiro**. Uma migration aplicada e depois editada continuava a ser
+  pulada, para sempre. Agora `SKIP` exige `HASH=MATCH`; hash diferente é
+  `MIGRATION_APLICADA_MUDOU`, **falha fechada antes de qualquer DDL**, e nenhuma migration
+  posterior corre. Reproduzido e provado contra Postgres descartável.
+- **A porta one-shot foi APOSENTADA.** O `canario-022` fez o que tinha de fazer e ficou
+  pendurado com poder de escrever produção — DDL, corrida, `raw_asset`, derivado, Storage — e
+  **disparado por empurrão de código**. E havia um segundo buraco no mesmo sítio: o pré-voo
+  corria com `|| true` e o job de aplicar **não recebia o veredito dele** — um portão fechado
+  era um aviso, não uma tranca. O workflow e o `canario_forward_it.py` foram **removidos**.
+- **O que sobrou tem valor e nenhum poder:** `auditoria-live.yml`, só `SELECT`, com
+  `SUPABASE_DB_URL` e nada mais — sem `SUPABASE_SECRET_KEY` e sem `SUPABASE_URL`, que só
+  existiam para escrever no Storage.
+- **Auditoria live lida (run `34261681486`):** 21 versões no livro, **21 com SHA igual ao
+  ficheiro, zero drift**; a `022` byte a byte; **1** corrida `IT-CANARY`, **1** bruto
+  italiano, **1** derivado.
+- **A contagem corrigida.** A missão anterior disse «seis coisas e nada mais». Faltou uma, e
+  não é de domínio: **`DOMAIN_MUTATIONS = 5`** (corrida, `raw_asset`, derivado, 2 objetos no
+  Storage) · **`DDL = 1`** · **`MIGRATION_BOOKKEEPING = 1`**, a linha que o aplicador escreveu
+  em `public.schema_migracao`. Não é dado de domínio; também não é nada.
+- **Um teste apanhou-me a escrever de cabeça.** Listei quatro workflows com poder de escrita;
+  são **seis** — `supabase-conexao` e `calendario-regressoes` já tinham a chave antes desta
+  missão. Não são portas novas: são portas que eu não tinha visto. A lista passou a ser
+  **medida**, não lembrada.
+- **Próximo passo:** a **segunda fonte italiana** pelo mesmo caminho forward, sem arquitetura
+  nova.
+
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |

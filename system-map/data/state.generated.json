@@ -32,9 +32,9 @@
       ".github/copilot-instructions.md",
       ".github/workflows/apify-conexao.yml",
       ".github/workflows/apify-sensores.yml",
+      ".github/workflows/auditoria-live.yml",
       ".github/workflows/banco-descartavel.yml",
       ".github/workflows/calendario-regressoes.yml",
-      ".github/workflows/canario-022.yml",
       ".github/workflows/comunicacao-publica.yml",
       ".github/workflows/sintonia-scrap.yml",
       ".github/workflows/supabase-conexao.yml",
@@ -1072,7 +1072,7 @@
     ],
     "provas": [
       "provas/auditoria.py",
-      "provas/canario_forward_it.py",
+      "provas/auditoria_live.sh",
       "provas/chain.py",
       "provas/corrigir_custo.py",
       "provas/coverage.py",
@@ -1087,6 +1087,7 @@
       "provas/testa_coleta_canonica.py",
       "provas/testa_golden_path_pdf.py",
       "provas/testa_rota_italia.py",
+      "provas/trava_de_drift_de_migration.sh",
       "provas/valida_biblia.py"
     ],
     "regras": [
@@ -1288,6 +1289,7 @@
       "tests/test_observabilidade_estrada.py",
       "tests/test_operacao.py",
       "tests/test_pipeline.py",
+      "tests/test_porta_de_producao.py",
       "tests/test_portao.py",
       "tests/test_portoes_eame.py",
       "tests/test_preservar_coleta.py",
@@ -1684,8 +1686,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "0feb496740643ec4924993ae2c26b60ee9bba693",
-    "GENERATED_AT": "2026-09-08T14:57:47-03:00"
+    "HEAD": "9b4dc299aeac009ba40d76a28f63d4e3e1973196",
+    "GENERATED_AT": "2026-09-08T15:12:37-03:00"
   },
   "FAMILIES": [
     {
@@ -5462,7 +5464,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⛓",
       "views": [
         "generator",
@@ -5475,9 +5477,11 @@
         "motor/v21_cadeia.sh"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "motor/cadeia_canonica.sh"
+      ],
       "produces": [],
       "inbound": [
         "C-CI-PERSIST",
@@ -5487,11 +5491,13 @@
       ],
       "outbound": [
         "C-AUDIT-GERAL",
+        "C-CI-PERSIST",
         "C-LUGAR-DO-FATO",
         "C-PACOTE-CAMADAS",
         "C-PROVENIENCIA",
         "C-REGRA-COLETA",
         "C-SUPABASE",
+        "C-TESTES",
         "C-V21-CONTRATO",
         "C-V21-CRUZAMENTO",
         "C-V21-FONTES",
@@ -5939,7 +5945,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "audit",
@@ -5951,9 +5957,11 @@
         ".github/workflows/system-map.yml"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        ".github/workflows/system-map.yml"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -5989,7 +5997,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "infra"
@@ -5997,8 +6005,8 @@
       "lane": "official",
       "family": "F-ESPERA",
       "files": [
+        ".github/workflows/auditoria-live.yml",
         ".github/workflows/banco-descartavel.yml",
-        ".github/workflows/canario-022.yml",
         ".github/workflows/supabase-conexao.yml",
         ".github/workflows/supabase-fichas-adama.yml",
         ".github/workflows/supabase-migrate.yml",
@@ -6006,15 +6014,19 @@
         ".github/workflows/supabase-storage.yml"
       ],
       "file_count": 7,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        ".github/workflows/banco-descartavel.yml"
+      ],
       "produces": [],
       "inbound": [
+        "C-CADEIA-V21",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
         "C-PROVA-COLETA",
-        "C-SUPABASE"
+        "C-SUPABASE",
+        "C-TESTES"
       ],
       "outbound": [
         "C-CADEIA-V21",
@@ -6078,7 +6090,8 @@
       "outbound": [
         "C-CADEIA-V21",
         "C-IMPORTAR",
-        "C-MEDICAO"
+        "C-MEDICAO",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -9838,7 +9851,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -9847,17 +9860,18 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "provas/canario_forward_it.py",
+        "provas/auditoria_live.sh",
         "provas/derived_artifact_no_postgres.py",
         "provas/preflight_022_live.sh",
         "provas/preservar_coleta_no_postgres.py",
         "provas/readback_022_live.sh",
         "provas/testa_coleta_canonica.py",
-        "provas/testa_golden_path_pdf.py"
+        "provas/testa_golden_path_pdf.py",
+        "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 7,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "file_count": 8,
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -9872,7 +9886,8 @@
         "C-PALAVRAS",
         "C-PEDIDO",
         "C-RECEITAS",
-        "C-SUPABASE"
+        "C-SUPABASE",
+        "C-TESTES"
       ],
       "outbound": [
         "C-CADEIA-V21",
@@ -9891,15 +9906,14 @@
           "COLS_OBJ",
           "COLS_RAW",
           "COLS_RUN",
-          "FONTE",
           "_GAVETAS_IT",
           "_OUTROS",
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 77,
+        "palavras": 61,
         "por_lingua": {},
-        "sem_marca_de_lingua": 77,
+        "sem_marca_de_lingua": 61,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11881,7 +11895,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -11915,6 +11929,7 @@
         "tests/test_observabilidade_estrada.py",
         "tests/test_operacao.py",
         "tests/test_pipeline.py",
+        "tests/test_porta_de_producao.py",
         "tests/test_portao.py",
         "tests/test_portoes_eame.py",
         "tests/test_preservar_coleta.py",
@@ -11930,9 +11945,9 @@
         "tests/test_v21_traducao_trava.py",
         "tests/test_voz.py"
       ],
-      "file_count": 39,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "file_count": 40,
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
@@ -11945,12 +11960,14 @@
         "C-AS-FONTES",
         "C-ASK-SINTONIA",
         "C-BIBLIA",
+        "C-CADEIA-V21",
         "C-CENSO-ARMAZEM-IT",
         "C-CENSO-CORPUS-IT",
         "C-CENSO-IDENTIDADE-IT",
         "C-CI-COLETA",
         "C-CI-MAPA",
         "C-CI-PERSIST",
+        "C-CI-REGRESSAO",
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
@@ -11988,9 +12005,11 @@
       "outbound": [
         "C-ADAMA-ES",
         "C-ASK-SINTONIA",
+        "C-CI-PERSIST",
         "C-CICATRIZES-BR",
         "C-PACOTE-CAMADAS",
-        "C-PORTAL-DADOS"
+        "C-PORTAL-DADOS",
+        "C-PROVA-COLETA"
       ],
       "paises": {
         "ESPANHA": 2
@@ -12011,6 +12030,7 @@
           "CONTRATO",
           "CORRIDA",
           "DEFEITO_MEDIDO",
+          "ESCRITORES",
           "ESTADOS",
           "EV",
           "FORTE",
@@ -12024,11 +12044,11 @@
           "SINAL_LOMBARDIA",
           "SINAL_VENETO"
         ],
-        "palavras": 293,
+        "palavras": 299,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 291,
+        "sem_marca_de_lingua": 297,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12047,6 +12067,12 @@
         },
         {
           "onde": "GIT",
+          "file": ".github/workflows/auditoria-live.yml",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
           "file": "data/samples/SPAIN-HERO-CASES-V1.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
@@ -12059,7 +12085,7 @@
         },
         {
           "onde": "GIT",
-          "file": "superficie/ask_sintonia.py",
+          "file": "provas/auditoria_live.sh",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -13589,7 +13615,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD 0feb496740643ec4924993ae2c26b60ee9bba693"
+        "HEAD 9b4dc299aeac009ba40d76a28f63d4e3e1973196"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -15352,6 +15378,24 @@
     },
     {
       "from": "C-CADEIA-V21",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 32,
+          "snippet": "- 'motor/cadeia_canonica.sh'"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-CADEIA-V21",
       "to": "C-LUGAR-DO-FATO",
       "type": "RUNS",
       "payload": "execucao",
@@ -15444,11 +15488,29 @@
       "evidence": [
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 138,
+          "line": 161,
           "snippet": "if ! python3 \"$RAIZ/guarda/sql_conferir.py\" \"$RAIZ/$f\"; then"
         }
       ],
       "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 99,
+          "snippet": "with open(os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-CADEIA-V21",
@@ -15969,7 +16031,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
@@ -16015,6 +16077,11 @@
           "file": ".github/workflows/system-map.yml",
           "line": 135,
           "snippet": "run: python3 tests/test_preservar_derivado.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 140,
+          "snippet": "run: python3 tests/test_porta_de_producao.py"
         }
       ],
       "categoria": "PROOF"
@@ -16030,9 +16097,9 @@
       "reason": "Os botoes que cuidam do banco manda rodar Cadeia canonica V2.1. Provado por 2 linhas de codigo.",
       "evidence": [
         {
-          "file": ".github/workflows/canario-022.yml",
-          "line": 20,
-          "snippet": "# E ele chama `motor/cadeia_canonica.sh` — o MESMO aplicador da casa, com o"
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 32,
+          "snippet": "- 'motor/cadeia_canonica.sh'"
         },
         {
           "file": ".github/workflows/supabase-migrate.yml",
@@ -16050,7 +16117,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar O dono canônico da escrita do bruto (OBSERVED). Provado por 3 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar O dono canônico da escrita do bruto (OBSERVED). Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
@@ -16061,11 +16128,6 @@
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 26,
           "snippet": "- 'guarda/memoria_descartavel.py'"
-        },
-        {
-          "file": ".github/workflows/canario-022.yml",
-          "line": 43,
-          "snippet": "- 'guarda/portas_live.py'"
         }
       ],
       "categoria": "CONTROL"
@@ -16114,8 +16176,13 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 5 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": ".github/workflows/auditoria-live.yml",
+          "line": 35,
+          "snippet": "- 'provas/auditoria_live.sh'"
+        },
         {
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 27,
@@ -16127,19 +16194,9 @@
           "snippet": "- 'provas/derived_artifact_no_postgres.py'"
         },
         {
-          "file": ".github/workflows/canario-022.yml",
-          "line": 41,
-          "snippet": "- 'provas/preflight_022_live.sh'"
-        },
-        {
-          "file": ".github/workflows/canario-022.yml",
-          "line": 42,
-          "snippet": "- 'provas/canario_forward_it.py'"
-        },
-        {
-          "file": ".github/workflows/canario-022.yml",
-          "line": 70,
-          "snippet": "run: bash provas/readback_022_live.sh"
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 33,
+          "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
         }
       ],
       "categoria": "PROOF"
@@ -16170,7 +16227,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_armazem_italiano.py",
@@ -16181,6 +16238,54 @@
           "file": "tests/test_identidade_do_artefato.py",
           "line": 247,
           "snippet": "wf = os.path.join(RAIZ, \".github\", \"workflows\", \"supabase-migrate.yml\")"
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 186,
+          "snippet": "ESCRITORES = {\"supabase-migrate.yml\", \"supabase-fichas-adama.yml\","
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 186,
+          "snippet": "ESCRITORES = {\"supabase-migrate.yml\", \"supabase-fichas-adama.yml\","
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 187,
+          "snippet": "\"supabase-raw-roundtrip.yml\", \"supabase-storage.yml\","
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 187,
+          "snippet": "\"supabase-raw-roundtrip.yml\", \"supabase-storage.yml\","
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 188,
+          "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}"
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 203,
+          "snippet": "self.assertNotIn(\"auditoria-live.yml\", achados)"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-TESTES",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/auditoria-live.yml",
+          "line": 52,
+          "snippet": "# diz — e há teste em `tests/test_porta_de_producao.py` que reprova."
         }
       ],
       "categoria": "PROOF"
@@ -16238,6 +16343,24 @@
         }
       ],
       "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-REGRESSAO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Calendario de regressoes alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 188,
+          "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-CICATRIZES-BR",
@@ -16815,7 +16938,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Os botoes que cuidam do banco. Provado por 3 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Os botoes que cuidam do banco. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
@@ -16826,11 +16949,6 @@
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 26,
           "snippet": "- 'guarda/memoria_descartavel.py'"
-        },
-        {
-          "file": ".github/workflows/canario-022.yml",
-          "line": 43,
-          "snippet": "- 'guarda/portas_live.py'"
         }
       ],
       "categoria": "READ"
@@ -19967,12 +20085,17 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica manda rodar Cadeia canonica V2.1. Provado por 1 linha de codigo.",
+      "reason": "Provas da coleta canonica manda rodar Cadeia canonica V2.1. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/preflight_022_live.sh",
           "line": 120,
           "snippet": "echo \"Lembrete do proprio motor/cadeia_canonica.sh: reaplicar a 015\""
+        },
+        {
+          "file": "provas/trava_de_drift_de_migration.sh",
+          "line": 95,
+          "snippet": "saida=$(bash \"$RAIZ/motor/cadeia_canonica.sh\" migrations \"$URL\" 2>&1) && rc=0 || rc=$?"
         }
       ],
       "categoria": "PROOF"
@@ -19988,6 +20111,11 @@
       "reason": "Provas da coleta canonica alimenta Os botoes que cuidam do banco. Provado por 4 linhas de codigo.",
       "evidence": [
         {
+          "file": ".github/workflows/auditoria-live.yml",
+          "line": 35,
+          "snippet": "- 'provas/auditoria_live.sh'"
+        },
+        {
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 27,
           "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
@@ -19998,14 +20126,9 @@
           "snippet": "- 'provas/derived_artifact_no_postgres.py'"
         },
         {
-          "file": ".github/workflows/canario-022.yml",
-          "line": 41,
-          "snippet": "- 'provas/preflight_022_live.sh'"
-        },
-        {
-          "file": ".github/workflows/canario-022.yml",
-          "line": 42,
-          "snippet": "- 'provas/canario_forward_it.py'"
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 33,
+          "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
         }
       ],
       "categoria": "PROOF"
@@ -20688,17 +20811,17 @@
       "evidence": [
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 128,
+          "line": 151,
           "snippet": "for f in supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql \\"
         },
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 129,
+          "line": 152,
           "snippet": "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql \\"
         },
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 130,
+          "line": 153,
           "snippet": "supabase/importacoes/IT-LASTMILE-2026-09-02.sql; do"
         }
       ],
@@ -20712,13 +20835,8 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Os botoes que cuidam do banco. Provado por 4 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Os botoes que cuidam do banco. Provado por 3 linhas de codigo.",
       "evidence": [
-        {
-          "file": ".github/workflows/canario-022.yml",
-          "line": 76,
-          "snippet": "sha256sum supabase/migrations/022_o_derivado_ganha_casa.sql"
-        },
         {
           "file": ".github/workflows/supabase-migrate.yml",
           "line": 100,
@@ -20989,7 +21107,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 17 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 18 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -21156,6 +21274,24 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-CI-PERSIST",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 147,
+          "snippet": "with open(os.path.join(WORKFLOWS, \"auditoria-live.yml\"),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-CICATRIZES-BR",
       "type": "READS",
       "payload": "artefacto",
@@ -21209,6 +21345,24 @@
           "file": "superficie/es/proto_es.py",
           "line": 36,
           "snippet": "pack = carrega('SPAIN-HERO-CASES-V1.json')"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-PROVA-COLETA",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 164,
+          "snippet": "with open(os.path.join(RAIZ, \"provas\", \"auditoria_live.sh\"),"
         }
       ],
       "categoria": "PROOF"
@@ -22235,16 +22389,16 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 116,
-    "components_proven": 80,
-    "components_pending": 30,
+    "components_proven": 75,
+    "components_pending": 35,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 388,
-    "edges_proven": 386,
+    "edges": 394,
+    "edges_proven": 392,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1238,
-    "files_covered": 560,
+    "files_tracked": 1240,
+    "files_covered": 562,
     "files_code_unclaimed": 0
   }
 }
