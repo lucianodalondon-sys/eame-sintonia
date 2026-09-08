@@ -1669,8 +1669,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "ac82fae507a78e22e3a1d3f7e0a6ab59b0e8fe5d",
-    "GENERATED_AT": "2026-09-08T09:49:25-03:00"
+    "HEAD": "04da07472571d634c1f42bbd194937f6dadf7b53",
+    "GENERATED_AT": "2026-09-08T10:18:31-03:00"
   },
   "FAMILIES": [
     {
@@ -5412,9 +5412,7 @@
       "file_count": 9,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
-      "changed_since_declared": [
-        "docs/biblia/CONFORMIDADE-ITALIA.md"
-      ],
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-PROVA-BIBLIA"
@@ -5522,9 +5520,7 @@
       "file_count": 1,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [
-        "system-map/scripts/censo_do_armazem_it.py"
-      ],
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-CENSO-IDENTIDADE-IT",
@@ -5855,7 +5851,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▶",
       "views": [
         "audit",
@@ -5867,11 +5863,9 @@
         ".github/workflows/system-map.yml"
       ],
       "file_count": 1,
-      "status": "PENDING",
-      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        ".github/workflows/system-map.yml"
-      ],
+      "status": "PROVEN",
+      "status_reason": "este workflow manda rodar script do repositorio.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -8176,7 +8170,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "⚙",
       "views": [
         "audit",
@@ -8189,11 +8183,9 @@
         "system-map/scripts/mudar_gaveta.py"
       ],
       "file_count": 2,
-      "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        "system-map/scripts/generate_system_map.py"
-      ],
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -11622,7 +11614,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "✓",
       "views": [
         "audit",
@@ -11670,11 +11662,9 @@
         "tests/test_voz.py"
       ],
       "file_count": 37,
-      "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        "tests/test_armazem_italiano.py"
-      ],
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "changed_since_declared": [],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
@@ -13318,7 +13308,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD ac82fae507a78e22e3a1d3f7e0a6ab59b0e8fe5d"
+        "HEAD 04da07472571d634c1f42bbd194937f6dadf7b53"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -21515,8 +21505,8 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 113,
-    "components_proven": 73,
-    "components_pending": 34,
+    "components_proven": 76,
+    "components_pending": 31,
     "components_broken": 0,
     "components_unknown": 6,
     "edges": 369,
