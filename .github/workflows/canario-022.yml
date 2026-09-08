@@ -1,0 +1,48 @@
+# ═══════════════════════════════════════════════════════════════════════
+# O CANÁRIO DA 022 — pré-voo primeiro, e o resto só depois de ler
+#
+# Esta é a única porta desta casa para a produção: os segredos vivem aqui,
+# e não na máquina de quem escreve o código. Por isso o pré-voo corre aqui.
+#
+# O JOB `preflight` É SÓ LEITURA. Nem `create table if not exists`, que é
+# DDL na mesma. Ele responde a uma pergunta e a mais nenhuma:
+#
+#     A CADEIA CANÓNICA APLICARIA EXATAMENTE {022}, OU MAIS DO QUE ISSO?
+#
+# Se aplicar mais, o portão fecha — porque o próprio `cadeia_canonica.sh`
+# avisa que reaplicar a 015 RESSUSCITARIA uma coluna que a 018 aposentou, e
+# `add column if not exists` faz isso em silêncio.
+#
+# NÃO HÁ JOB DE APPLY AQUI, DE PROPÓSITO. Aplicar é a decisão seguinte, e
+# ela toma-se com o relatório do pré-voo na mão — não no mesmo empurrão.
+# ═══════════════════════════════════════════════════════════════════════
+name: canario-022
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1 · o cliente do banco existe
+        run: psql --version
+
+      # O pré-voo NÃO escreve. Se um dia alguém lhe acrescentar um `insert`
+      # ou um `create`, este passo deixa de ser o que o nome diz — e o
+      # próprio ficheiro tem o aviso no topo.
+      - name: 2 · pré-voo da 022 (somente leitura)
+        run: bash provas/preflight_022_live.sh
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+
+      - name: 3 · o SHA do ficheiro que seria aplicado
+        run: |
+          sha256sum supabase/migrations/022_o_derivado_ganha_casa.sql
+          echo "Este e o artefato. Se o que for aplicado tiver outro SHA,"
+          echo "nao foi a 022 que se aplicou."
