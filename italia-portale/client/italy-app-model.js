@@ -615,6 +615,14 @@
      as it did when the sentinel arrived as Portuguese prose. */
   const v21S = (v) => { const t = S(v); return t && t !== 'NOT_ESTABLISHED' ? t : null; };
   const v21Known = (v) => S(v) === 'NOT_ESTABLISHED' ? KNOWLEDGE.NOT_ESTABLISHED : (S(v) ? KNOWLEDGE.CLEAR : KNOWLEDGE.NOT_ESTABLISHED);
+  /* NEM TODO NOT_ESTABLISHED E UMA AUSENCIA. Em alguns campos ele e a RESPOSTA:
+     «procurei e nao sei» nao e o mesmo facto que «nao ha campo». `v21S` devolve
+     null para o sentinela — certo onde o campo e opcional, errado onde o
+     sentinela E o estado declarado. `v21Estado` deixa-o passar inteiro.
+
+         UM UNKNOWN QUE VIRA null DEIXA DE SE DISTINGUIR DE UM CAMPO VAZIO,
+         E AS DUAS COISAS SAO FACTOS DIFERENTES SOBRE O CONHECIMENTO. */
+  const v21Estado = (v) => S(v);
 
   /* ── 6 · PRESENTATION TOKENS ─────────────────────────────────────────────
      Icon, colour, order and grouping only. Physically separated from the fact
@@ -2795,6 +2803,97 @@
     },
   ], 'real scientific records with a resolvable source');
 
+  /* ── A FALA, COM A ESCADA INTEIRA ─────────────────────────────────────────
+     184 transcricoes. A escada tem CINCO degraus e NENHUM implica o seguinte:
+     o video existe, a transcricao existe, e utilizavel, entrou no pacote, e
+     foi usada como evidencia. Medido: 184 · 184 · 160 · 160 · ZERO.
+
+         URL DE VIDEO NAO E TRANSCRICAO, E TRANSCRICAO NAO E EVIDENCIA.
+         O ULTIMO DEGRAU E false EM 184 DE 184, E DIZ-SE false — NAO SE OMITE.
+
+     `usedAsEvidence` nao se deriva aqui de nada. Ele so vira true quando um
+     cartao APOIAR uma afirmacao nestes bytes, e nenhum o faz hoje. Derivar
+     «tem texto, logo e prova» seria fabricar a conclusao que a escada existe
+     para impedir.
+
+     TRES PAISES, TRES PERGUNTAS. `sourceCountry` e de quem publicou,
+     `collectionCountry` de quem recolheu, `factCountry` do facto — e cada um
+     traz a sua origem e a sua evidencia. Medido: sourceCountry IT em 126,
+     factCountry UNKNOWN em 177. O texto integral NAO viaja: viajam a contagem
+     e o SHA, e o link leva a fonte. */
+  const transcripts = build('transcripts', [
+    V21('transcripts', (t) => Object.assign(v21Env(t), {
+      id: t.ID, videoId: v21S(t.VIDEO_ID), platform: v21S(t.PLATFORM),
+      title: v21S(t.TITLE), channel: v21S(t.CHANNEL_NAME), channelId: v21S(t.CHANNEL_ID),
+      publishedAt: v21S(t.PUBLICATION_DATE), durationS: N(t.DURATION_S),
+      /* o pais de quem publica NAO e o pais do facto */
+      sourceCountry: v21Estado(t.SOURCE_COUNTRY), sourceCountryOrigin: v21Estado(t.SOURCE_COUNTRY_ORIGIN),
+      collectionCountry: v21Estado(t.COLLECTION_COUNTRY),
+      factCountry: v21Estado(t.FACT_COUNTRY), factCountryOrigin: v21Estado(t.FACT_COUNTRY_ORIGIN),
+      factCountryEvidence: v21S(t.FACT_COUNTRY_EVIDENCE),
+      language: v21Estado(t.SOURCE_LANGUAGE),
+      caseId: v21S(t.CASE_ID), caseCountry: v21S(t.CASE_COUNTRY),
+      /* o escopo da ROTA nao e o lugar nem o assunto do facto: viaja nomeado */
+      routeCrop: v21S(t.CROP_DECLARED_BY_THE_ROUTE),
+      routeIssue: v21S(t.ISSUE_DECLARED_BY_THE_ROUTE),
+      routeRegion: v21S(t.REGION_NAMED_BY_THE_ROUTE),
+      captionSource: v21S(t.CAPTION_SOURCE), collectionId: v21S(t.COLLECTION_ID),
+      observedAt: v21S(t.OBSERVED_AT),
+      videoExists: t.VIDEO_EXISTS === true,
+      transcriptExists: t.TRANSCRIPT_EXISTS === true,
+      usable: t.TRANSCRIPT_USABLE === true,
+      inPackage: t.TRANSCRIPT_INCLUDED_IN_PACKAGE === true,
+      usedAsEvidence: t.TRANSCRIPT_USED_AS_EVIDENCE === true,
+      quality: v21Estado(t.TRANSCRIPT_QUALITY),
+      state: v21Estado(t.STATE), stateReason: v21S(t.STATE_REASON),
+      chars: N(t.CHARS), textSha256: v21S(t.TEXT_SHA256),
+      citedInPackage: t.CITED_IN_PACKAGE === true,
+      sameVideoAsActivityId: v21S(t.SAME_VIDEO_AS_ACTIVITY_ID),
+      evidenceWhy: v21Text(t, 'EVIDENCE_STATUS_WHY'),
+    }), (r) => (!r.id ? 'no ID' : !r.videoId ? 'no video id' : null)),
+  ], 'transcript ladder; five steps, and none implies the next');
+
+  /* ── O CORPUS CIENTIFICO, E A DISTINCAO QUE FALTAVA ───────────────────────
+     763 materiais, dos quais os 88 de scienceRecords sao SUBCONJUNTO (86 casam
+     por DOI). A diferenca nunca foi filtro: nenhum passo da cadeia lia este
+     ficheiro.
+
+         QUERY_CROP E O TERMO DA BUSCA. PROVED_CROP E O QUE O TEXTO SUSTENTA.
+         SAO DUAS COISAS, E CHEGAM AS DUAS, COM A EVIDENCIA DE CADA UMA.
+
+     `abstract` e a palavra da fonte, na lingua em que foi publicada, e NUNCA e
+     substituido. `abstractTranslated` viaja ao lado e esta vazio em 763/763 —
+     viaja vazio de proposito, para que a ausencia de traducao se veja em vez
+     de se adivinhar. E a morada da instituicao nao e o lugar do facto:
+     `institutionCountry` e `countryOfFact` sao campos diferentes. */
+  const scienceCorpus = build('scienceCorpus', [
+    V21('scienceCorpus', (r) => Object.assign(v21Env(r), {
+      id: r.ID, materialId: v21S(r.MATERIAL_ID), doi: v21S(r.DOI),
+      title: v21S(r.TITLE), author: v21S(r.AUTHOR), orcid: v21S(r.ORCID),
+      institution: v21S(r.INSTITUTION), institutionCountry: v21S(r.INSTITUTION_COUNTRY),
+      publishedAt: v21S(r.PUBLISHED_AT), year: (v21S(r.PUBLISHED_AT) || '').slice(0, 4) || null,
+      venue: v21S(r.VENUE), venueKind: v21S(r.VENUE_KIND),
+      materialType: v21S(r.MATERIAL_TYPE), materialRole: v21S(r.MATERIAL_ROLE),
+      language: v21S(r.LANGUAGE), citedBy: N(r.CITED_BY), retracted: r.IS_RETRACTED === true,
+      queryCrop: v21S(r.QUERY_CROP), queryIssue: v21S(r.QUERY_ISSUE),
+      provedCrop: v21Estado(r.PROVED_CROP), provedCropEvidence: v21S(r.PROVED_CROP_EVIDENCE),
+      provedIssue: v21Estado(r.PROVED_ISSUE), provedIssueEvidence: v21S(r.PROVED_ISSUE_EVIDENCE),
+      caseAdherence: v21Estado(r.CASE_ADHERENCE), caseIdDeclared: v21S(r.CASE_ID_DECLARED),
+      countryOfFact: v21Estado(r.COUNTRY_OF_FACT), countryOfFactEvidence: v21S(r.COUNTRY_OF_FACT_EVIDENCE),
+      regionOfFact: v21S(r.REGION_OF_FACT),
+      personProof: v21S(r.PERSON_PROOF), personProofEvidence: v21S(r.PERSON_PROOF_EVIDENCE),
+      domainState: v21Estado(r.DOMAIN_STATE), domainField: v21S(r.DOMAIN_FIELD),
+      abstract: v21S(r.ABSTRACT_ORIGINAL), abstractLanguage: v21S(r.ABSTRACT_LANGUAGE),
+      abstractChars: N(r.ABSTRACT_CHARS), abstractSha256: v21S(r.ABSTRACT_SHA256),
+      abstractSource: v21S(r.ABSTRACT_SOURCE),
+      abstractTranslated: v21S(r.ABSTRACT_TRANSLATED_TEXT),
+      abstractTranslationMethod: v21S(r.ABSTRACT_TRANSLATION_METHOD),
+      state: v21Estado(r.STATE), stateReason: v21S(r.STATE_REASON),
+      inScienceJson: r.IN_SCIENCE_JSON === true, sameEntityAs: v21S(r.SAME_ENTITY_AS),
+      evidenceWhy: v21Text(r, 'EVIDENCE_STATUS_WHY'),
+    }), (r) => (!r.id ? 'no ID' : !r.title ? 'no title' : null)),
+  ], 'the scientific corpus; the 88 published records are a subset of it');
+
   /* AFFILIATION_CAVEAT is the source registry's own limitation, restated as a
      value so it can travel with every institution the portal shows. An
      affiliation belongs to the AUTHOR, not to the study: reading it as
@@ -4603,6 +4702,7 @@
     competitorWindowMoments, communicationAxis,
     /* science */
     scienceRecords, researchers, scienceThemes, resistance, scienceInstitutions,
+    scienceCorpus, transcripts,
     /* voices and people */
     publicVoices, publicChannels, publicPeople, people,
     /* future */

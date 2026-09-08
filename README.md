@@ -182,3 +182,6 @@ documento canônico e para o commit — não fica só na conversa.
    comprovadamente vale para todos.
 6. **Legalidade e licença fazem parte da ficha da fonte.** Acesso técnico possível não é
    permissão de uso.
+7. **Trabalho visual consulta o Design System antes de inventar.** Design, UI, casco, portal,
+   componentes, ícones: a lei permanente e a referência oficial estão em
+   [`CLAUDE.md`](CLAUDE.md) — dono canônico das instruções permanentes deste repositório.

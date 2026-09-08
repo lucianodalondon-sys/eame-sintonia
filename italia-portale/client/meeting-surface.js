@@ -185,7 +185,17 @@
   };
 
   /* ── THE WINDOW · rule and state, separately ────────────────────────── */
-  function windowOf(c, lang) {
+  /* `raw` E O TERCEIRO ARGUMENTO PORQUE A GUARDA APAGA A PROPRIA BANDEIRA.
+     `clientSafe` devolve undefined para toda a chave __PT_ONLY, e o chamador
+     larga a chave — por isso `c['WINDOW_CONDITION__PT_ONLY']` era sempre
+     undefined e o aviso «condizione dichiarata nel documento» nunca desenhava,
+     apesar de 16 dos 43 casos a declararem no snapshot.
+
+         A BANDEIRA QUE DIZ «HA TEXTO E ESTA RETIDO» NAO E O TEXTO.
+         APAGA-LA NAO PROTEGE NINGUEM: SO APAGA A DECLARACAO.
+
+     Atravessa o BOOLEANO e o identificador do documento — nunca a prosa. */
+  function windowOf(c, lang, raw) {
     const defined = c.WINDOW_DEFINED === 'YES';
     const openNow = c.WINDOW_OPEN_NOW;          /* YES · NO · UNKNOWN */
     const ruleState = c.WINDOW_RULE_STATE || null;
@@ -223,7 +233,7 @@
       /* The condition text itself is Portuguese research prose. It crosses as
          the document that carries it — which is true — never as text. */
       conditionDocument: c.WINDOW_EVIDENCE_ID || null,
-      conditionWithheld: !!c['WINDOW_CONDITION__PT_ONLY'],
+      conditionWithheld: !!((raw || c)['WINDOW_CONDITION__PT_ONLY']),
       ruleDocument: c.WINDOW_RULE_EVIDENCE_ID || null,
       isDelegatedToFarm: ruleState === 'RULE_DELEGATED_TO_FARM' || type === 'RULE_DELEGATED_TO_FARM',
       isAdministrativeOnly: ruleState === 'RULE_ADMINISTRATIVE_ONLY',
@@ -437,7 +447,7 @@
     const ONS = (AM && AM.ON_SURFACE) || {};
 
     const whyC = dePointer(lang === 'en' ? c.WHY_COMMERCIAL_EN : c.WHY_COMMERCIAL_IT);
-    const win = windowOf(c, lang);
+    const win = windowOf(c, lang, raw);
     const prod = productsOf(c, lang);
 
     return {
@@ -496,7 +506,10 @@
 
       needDirectionToken: qual('NEED_DIRECTION', c.NEED_DIRECTION), needDirection: lab(c.NEED_DIRECTION, lang),
       needDocument: c.NEED_EVIDENCE_ID || null,
-      needExcerptWithheld: !!c['NEED_EXCERPT__PT_ONLY'],
+      /* Mesma razao que em windowOf: a guarda apaga a bandeira, e o aviso de
+         «trecho retido» — que o markup ja sabe desenhar — nunca aparecia em
+         nenhum dos 17 casos que a declaram. Le-se do bruto; so o booleano. */
+      needExcerptWithheld: !!raw['NEED_EXCERPT__PT_ONLY'],
       /* A pest stage and an action recommendation are DIFFERENT OWNERS. The
          screen carries both and concludes neither from the other: a flight can
          be over while the source still recommends continuing. */
