@@ -94,6 +94,18 @@ QUERY_FAILURE = 'QUERY_FAILURE'
 PARSER_FAILURE = 'PARSER_FAILURE'
 UNKNOWN_FAILURE = 'UNKNOWN_FAILURE'
 
+# ── A PONTE PARA A LÍNGUA ÚNICA ────────────────────────────────────────────
+# Estes nomes nasceram aqui e continuam válidos DENTRO da rota paga: eles falam de
+# TOKEN e de ATOR, que são coisas da Apify. O que não podia continuar preso aqui é
+# a DISTINÇÃO que eles carregam — `PARSER_FAILURE` não é `PLATFORM_FAILURE`.
+# `leis/falhas.py` é agora o dono dessa distinção, e esta ponte apenas traduz.
+# Nada abaixo foi renomeado: quem já lê estes nomes continua lendo.
+def canonico(estado):
+    """Nome desta rota -> nome canônico de `falhas.py`. Não altera comportamento."""
+    import falhas
+    return falhas.traduzir(estado)
+
+
 ROTACIONAM = (TOKEN_EXHAUSTED, TOKEN_INVALID, TOKEN_RATE_LIMITED_ACCOUNT,
               TOKEN_OTHER_AUTH_FAILURE)
 NAO_ROTACIONAM = (PLATFORM_FAILURE, ACTOR_FAILURE, QUERY_FAILURE,
