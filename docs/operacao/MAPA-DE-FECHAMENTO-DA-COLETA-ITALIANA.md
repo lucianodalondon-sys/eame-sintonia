@@ -189,6 +189,29 @@ podiam valer juntas; vale a do contrato.
 **M1 = FECHADA.** A evidência preservada foi esgotada, e as 47 fontes sem rota
 provada têm próxima prova nomeada — todas bloqueadas pela mesma coisa: egresso.
 
+
+### Tres perguntas, tres respostas — e podem discordar sem se contradizer
+
+| veredito | hoje | a pergunta |
+|---|---|---|
+| `M1_CLASSIFICATION_PASS` | **CLOSED** | a classificação acabou? |
+| `SOURCE_NETWORK_COVERAGE` | **INCOMPLETE** | todas as fontes têm caminho percorrido? (**47 não têm**) |
+| `COLLECTION_FOUNDATION_CLOSED` | **NÃO** | as classes necessárias fecharam? (**0 fecharam**) |
+
+> ⚠️ **Uma contradição que existiu e foi desfeita.** A trava da inteligência
+> tinha passado a exigir, para destravar, `SOURCES_ROUTE_UNKNOWN = 0` e
+> `SOURCES_WITH_ONLY_CANDIDATE_ROUTE = 0` — uma exigência **por fonte**. Parecia
+> mais rigorosa; era uma **segunda definição** de «fundação fechada», a competir
+> com a lei que ela devia apenas consumir.
+>
+>     ONE QUESTION → ONE OWNER.
+>
+> A trava lê `leis/fundacao_da_coleta.py`. Não recalcula, e não pode exigir mais
+> do que ele.
+
+**E fechar a M1 não apaga a dívida.** `SOURCE_NETWORK_COVERAGE` continua
+`INCOMPLETE`, com as 47 à vista e cada uma com a próxima prova escrita. O que
+muda é que deixa de travar a missão seguinte.
 ---
 
 ## H — TOP GAPS, RECALCULADOS

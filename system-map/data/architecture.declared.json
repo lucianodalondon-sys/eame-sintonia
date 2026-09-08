@@ -2139,6 +2139,42 @@
     "tests/fixtures/ARESTAS/owner_indireto.py",
     "tests/fixtures/ARESTAS/so_comentario.py"
    ]
+  },
+  {
+   "id": "C-CENSO-CONGELAMENTO",
+   "name": "Censo do congelamento da inteligência",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "❄",
+   "what": "Mede, por ESPÉCIE, que artefatos de inteligência já existiam — e grava o sha de blob de cada um, para provar depois que nenhum avançou.",
+   "why_here": "A trava anterior procurava PASTAS com certos nomes, não achava nenhuma, e daí publicava «zero áreas de inteligência implementadas». Era falso: não havia pasta, havia artefatos espalhados. Procurar num sítio, não achar, e concluir que não existe em sítio nenhum — é o mesmo erro de sempre com outra roupa. Este censo mede espécie, não grep cego: sem marca forte nada é implementação, e o que a própria cadeia gera não se congela (congela-se o gerador).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "system-map/scripts/censo_do_congelamento.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
+   "id": "C-PROVA-TRAVA-MORDE",
+   "name": "A prova de que a trava morde",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⚠",
+   "what": "Viola a trava da inteligência de propósito das duas maneiras possíveis — mexer num artefato congelado, e escrever inteligência nova ao lado — exige que ela reprove nas duas, desfaz e confere que a worktree ficou limpa.",
+   "why_here": "Uma trava que passa sempre é indistinguível de uma trava desligada. Sem esta peça, «os testes da trava passam» não distingue uma trava que funciona de uma que nunca morde.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/trava_da_inteligencia_morde.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

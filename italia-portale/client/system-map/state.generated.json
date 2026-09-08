@@ -671,6 +671,7 @@
       "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
       "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
       "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
+      "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
       "docs/operacao/YOUTUBE-CHECKPOINT-E-RAW.md",
       "docs/operacao/YOUTUBE-OFICIAL.md",
       "docs/operacao/YOUTUBE-PILOTO-ONESHOT.md",
@@ -1114,6 +1115,7 @@
       "provas/testa_coleta_canonica.py",
       "provas/testa_golden_path_pdf.py",
       "provas/testa_rota_italia.py",
+      "provas/trava_da_inteligencia_morde.py",
       "provas/trava_de_drift_de_migration.sh",
       "provas/valida_biblia.py"
     ],
@@ -1279,6 +1281,7 @@
       "system-map/scripts/censo_das_estradas_it.py",
       "system-map/scripts/censo_de_identidade_it.py",
       "system-map/scripts/censo_do_armazem_it.py",
+      "system-map/scripts/censo_do_congelamento.py",
       "system-map/scripts/censo_do_corpus_it.py",
       "system-map/scripts/censo_semantico_it.py",
       "system-map/scripts/generate_system_map.py",
@@ -1345,6 +1348,7 @@
       "tests/test_social_persistencia_pg.py",
       "tests/test_social_sessao.py",
       "tests/test_thread_parcial.py",
+      "tests/test_trava_da_inteligencia.py",
       "tests/test_v21_datas.py",
       "tests/test_v21_geografia.py",
       "tests/test_v21_mercado.py",
@@ -1736,8 +1740,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "82ef1deb1f85975b3ce7ccffdc439f8ee2b3e4f7",
-    "GENERATED_AT": "2026-09-08T19:58:51Z"
+    "HEAD": "51a265509da4246b7069297a55f8eefaf07a9874",
+    "GENERATED_AT": "2026-09-08T17:09:45-03:00"
   },
   "FAMILIES": [
     {
@@ -1792,7 +1796,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 40
+      "count": 42
     },
     {
       "id": "F-ENTREGA",
@@ -2082,7 +2086,7 @@
       "y": 190,
       "w": 1235,
       "h": 2616,
-      "count": 22
+      "count": 24
     },
     {
       "id": "Z-PACOTE",
@@ -5743,6 +5747,75 @@
       "y": 360
     },
     {
+      "id": "C-CENSO-CONGELAMENTO",
+      "name": "Censo do congelamento da inteligência",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Mede, por ESPÉCIE, que artefatos de inteligência já existiam — e grava o sha de blob de cada um, para provar depois que nenhum avançou.",
+      "why_here": "A trava anterior procurava PASTAS com certos nomes, não achava nenhuma, e daí publicava «zero áreas de inteligência implementadas». Era falso: não havia pasta, havia artefatos espalhados. Procurar num sítio, não achar, e concluir que não existe em sítio nenhum — é o mesmo erro de sempre com outra roupa. Este censo mede espécie, não grep cego: sem marca forte nada é implementação, e o que a própria cadeia gera não se congela (congela-se o gerador).",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "❄",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "system-map/scripts/censo_do_congelamento.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe teste que exercita isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-PROVA-TRAVA-MORDE",
+        "C-SCRAP-LEIS",
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-PROVA-TRAVA-MORDE"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "DE_COLETA",
+          "EXTS",
+          "MARCAS_FORTES",
+          "MARCAS_FRACAS"
+        ],
+        "palavras": 37,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 37,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "system-map",
+          "prova": {
+            "file": "system-map/scripts/censo_do_congelamento.py",
+            "line": 253,
+            "snippet": "escreve em destino"
+          }
+        }
+      ],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 15665,
+      "y": 360
+    },
+    {
       "id": "C-CENSO-CORPUS-IT",
       "name": "Censo do corpo italiano",
       "territory": "Z-PROVA",
@@ -5797,8 +5870,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 360
+      "x": 14835,
+      "y": 682
     },
     {
       "id": "C-CENSO-DERIVACOES",
@@ -5868,7 +5941,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 682
     },
     {
@@ -5923,7 +5996,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 682
     },
     {
@@ -5980,8 +6053,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 682
+      "x": 14835,
+      "y": 1004
     },
     {
       "id": "C-CI-COLETA",
@@ -6083,7 +6156,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 1004
     },
     {
@@ -6205,7 +6278,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 1004
     },
     {
@@ -7300,7 +7373,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_das_estradas_it.py",
-            "line": 829,
+            "line": 909,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -7308,8 +7381,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 1004
+      "x": 14835,
+      "y": 1326
     },
     {
       "id": "C-EXECUTOR-TEXTO-PDF",
@@ -7559,7 +7632,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 1326
     },
     {
@@ -7923,7 +7996,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 1326
     },
     {
@@ -8604,8 +8677,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 1326
+      "x": 14835,
+      "y": 1648
     },
     {
       "id": "C-MAPA-GERADOR",
@@ -8683,7 +8756,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 1648
     },
     {
@@ -8772,7 +8845,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15250,
+      "x": 15665,
       "y": 1648
     },
     {
@@ -8830,8 +8903,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 1648
+      "x": 14835,
+      "y": 1970
     },
     {
       "id": "C-MAPA-VALIDADOR",
@@ -8877,7 +8950,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 1970
     },
     {
@@ -8948,7 +9021,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 1970
     },
     {
@@ -10028,8 +10101,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15665,
-      "y": 1970
+      "x": 14835,
+      "y": 2292
     },
     {
       "id": "C-PROVA-COLETA",
@@ -10117,7 +10190,60 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
+      "y": 2292
+    },
+    {
+      "id": "C-PROVA-TRAVA-MORDE",
+      "name": "A prova de que a trava morde",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Viola a trava da inteligência de propósito das duas maneiras possíveis — mexer num artefato congelado, e escrever inteligência nova ao lado — exige que ela reprove nas duas, desfaz e confere que a worktree ficou limpa.",
+      "why_here": "Uma trava que passa sempre é indistinguível de uma trava desligada. Sem esta peça, «os testes da trava passam» não distingue uma trava que funciona de uma que nunca morde.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚠",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "provas/trava_da_inteligencia_morde.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CENSO-CONGELAMENTO"
+      ],
+      "outbound": [
+        "C-CENSO-CONGELAMENTO"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "motor",
+          "prova": {
+            "file": "provas/trava_da_inteligencia_morde.py",
+            "line": 97,
+            "snippet": "escreve em INTRUSO"
+          }
+        }
+      ],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 15665,
       "y": 2292
     },
     {
@@ -10243,8 +10369,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
-      "y": 2292
+      "x": 14835,
+      "y": 2614
     },
     {
       "id": "C-RECEITAS",
@@ -10383,8 +10509,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 2292
+      "x": 15250,
+      "y": 2614
     },
     {
       "id": "C-REGRA-COLETA",
@@ -10855,6 +10981,7 @@
       ],
       "outbound": [
         "C-APIFY-POOL",
+        "C-CENSO-CONGELAMENTO",
         "C-ESTRADAS-IT",
         "C-SCRAP-GUARDA",
         "C-SCRAP-SOCIAL",
@@ -12359,6 +12486,7 @@
         "tests/test_social_persistencia_pg.py",
         "tests/test_social_sessao.py",
         "tests/test_thread_parcial.py",
+        "tests/test_trava_da_inteligencia.py",
         "tests/test_v21_datas.py",
         "tests/test_v21_geografia.py",
         "tests/test_v21_mercado.py",
@@ -12369,9 +12497,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 52,
+      "file_count": 53,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 12 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 13 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -12434,6 +12562,7 @@
       "outbound": [
         "C-ADAMA-ES",
         "C-ASK-SINTONIA",
+        "C-CENSO-CONGELAMENTO",
         "C-CI-PERSIST",
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
@@ -12535,7 +12664,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 14835,
+      "x": 15665,
       "y": 2614
     },
     {
@@ -14078,7 +14207,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 82ef1deb1f85975b3ce7ccffdc439f8ee2b3e4f7"
+        "HEAD 51a265509da4246b7069297a55f8eefaf07a9874"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16127,6 +16256,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-CENSO-CONGELAMENTO",
+      "to": "C-PROVA-TRAVA-MORDE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo do congelamento da inteligência alimenta A prova de que a trava morde. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/trava_da_inteligencia_morde.py",
+          "line": 24,
+          "snippet": "CENSO = os.path.join(RAIZ, \"system-map\", \"scripts\", \"censo_do_congelamento.py\")"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-CENSO-CORPUS-IT",
@@ -20888,6 +21035,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-PROVA-TRAVA-MORDE",
+      "to": "C-CENSO-CONGELAMENTO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que a trava morde alimenta Censo do congelamento da inteligência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_do_congelamento.py",
+          "line": 121,
+          "snippet": "\"provas/trava_da_inteligencia_morde.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
       "from": "C-RECEITAS",
       "to": "C-ESTRADAS-IT",
       "type": "IMPORTS",
@@ -21458,6 +21623,24 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-CENSO-CONGELAMENTO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade alimenta Censo do congelamento da inteligência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_do_congelamento.py",
+          "line": 127,
+          "snippet": "\"leis/fundacao_da_coleta.py\")"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-ESTRADAS-IT",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21487,11 +21670,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade alimenta O censo das classes de estrada da coleta italiana. Provado por 1 linha de codigo.",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade alimenta O censo das classes de estrada da coleta italiana. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 762,
+          "line": 774,
+          "snippet": "'FUNDACAO_DONO': 'leis/fundacao_da_coleta.py',"
+        },
+        {
+          "file": "system-map/scripts/censo_das_estradas_it.py",
+          "line": 841,
           "snippet": "'MATRIZ': 'leis/social_matriz.py',"
         }
       ],
@@ -21566,7 +21754,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_falhas.py",
@@ -21592,6 +21780,11 @@
           "file": "tests/test_thread_parcial.py",
           "line": 28,
           "snippet": "import falhas                     # noqa: E402"
+        },
+        {
+          "file": "tests/test_trava_da_inteligencia.py",
+          "line": 337,
+          "snippet": "import fundacao_da_coleta as lei"
         },
         {
           "file": "tests/test_youtube_antidrift.py",
@@ -21629,7 +21822,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_social_sessao.py",
@@ -21640,6 +21833,11 @@
           "file": "tests/test_social_sessao.py",
           "line": 31,
           "snippet": "'falhas.py': 'leis/falhas.py',"
+        },
+        {
+          "file": "tests/test_trava_da_inteligencia.py",
+          "line": 275,
+          "snippet": "self.assertEqual(v[\"FUNDACAO_DONO\"], \"leis/fundacao_da_coleta.py\")"
         }
       ],
       "categoria": "PROOF"
@@ -22466,6 +22664,24 @@
           "file": "tests/test_metricas.py",
           "line": 232,
           "snippet": "with open(os.path.join(ROOT, 'superficie', 'ask_sintonia.py'), encoding='utf-8') as f:"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-CENSO-CONGELAMENTO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta Censo do congelamento da inteligência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_do_congelamento.py",
+          "line": 120,
+          "snippet": "\"tests/test_trava_da_inteligencia.py\","
         }
       ],
       "categoria": "PROOF"
@@ -23805,20 +24021,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 697,
+  "UNCLAIMED_FILES_COUNT": 698,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 120,
+    "components": 122,
     "components_proven": 73,
-    "components_pending": 41,
+    "components_pending": 43,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 431,
-    "edges_proven": 429,
+    "edges": 435,
+    "edges_proven": 433,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1290,
-    "files_covered": 593,
+    "files_tracked": 1294,
+    "files_covered": 596,
     "files_code_unclaimed": 0
   }
 }

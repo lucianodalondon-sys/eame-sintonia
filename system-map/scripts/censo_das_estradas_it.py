@@ -707,6 +707,85 @@ def orquestrador():
     }
 
 
+def vereditos(resolucao, rotas):
+    """TRES PERGUNTAS DIFERENTES — e cada uma tem UM dono.
+
+    ⚠️ A CONTRADICAO QUE ISTO DESFAZ.
+
+    A trava da inteligencia tinha passado a exigir, para destravar:
+
+        SOURCES_ROUTE_UNKNOWN = 0  e  SOURCES_WITH_ONLY_CANDIDATE_ROUTE = 0
+
+    Isso e uma exigencia POR FONTE. Mas `leis/fundacao_da_coleta.py` — que e o
+    dono canonico — diz que a fundacao fecha quando toda CLASSE DE ESTRADA
+    necessaria tem arquitetura e donos fechados, e diz explicitamente que isso
+    NAO significa «coletamos todas as fontes».
+
+    As duas nao podiam valer juntas, e a trava estava a inventar um criterio
+    mais forte do que a lei que ela devia apenas CONSUMIR.
+
+        EXIGIR ZERO UNKNOWN POR FONTE CRIA O INCENTIVO
+        DE CHAMAR DE BLOCKED O QUE E SO DESCONHECIDO.
+
+    E isso ja teve de ser desfeito uma vez nesta casa.
+
+    A saida nao e afrouxar: e parar de achatar tres perguntas num veredito so.
+    """
+    total = len(resolucao)
+    sem_proxima = sorted(s for s, r in resolucao.items()
+                         if not r.get('CHEAPEST_NEXT_PROOF'))
+    virou_blocked_sem_prova = sorted(
+        s for s, r in resolucao.items()
+        if r.get('ROUTE_RESOLUTION_STATE') == 'BLOCKED'
+        and not r.get('BLOCK_DECISION'))
+    com_prova = sum(1 for r in resolucao.values() if r.get('HAS_PROVEN_ROUTE'))
+
+    # 1 · A CLASSIFICACAO ACABOU? — pergunta sobre o TRABALHO da M1.
+    m1 = 'CLOSED' if (not sem_proxima and not virou_blocked_sem_prova) else 'OPEN'
+
+    # 2 · A REDE DE FONTES ESTA COBERTA? — pergunta sobre DIVIDA, e continua
+    # visivel. Fechar a M1 nao apaga o que falta: muda quem responde por isso.
+    cobertura = 'COMPLETE' if com_prova == total else 'INCOMPLETE'
+
+    # 3 · A FUNDACAO FECHOU? — NAO SE DECIDE AQUI. Le-se do dono.
+    fechadas = [r for r in rotas if r.get('ARCHITECTURE_CLOSED')]
+
+    return {
+        'M1_CLASSIFICATION_PASS': m1,
+        'M1_PERGUNTA': ('toda fonte foi levada ao maximo estado epistemicamente '
+                        'possivel com a politica aprovada, e cada UNKNOWN '
+                        'residual nomeia a proxima prova?'),
+        'M1_ONDE_A_DEFINICAO_VIVE': 'docs/decisoes/DIARIO-DE-DECISOES.md',
+        'M1_FONTES_SEM_PROXIMA_PROVA': sem_proxima,
+        'M1_BLOCKED_SEM_DECISAO_ESCRITA': virou_blocked_sem_prova,
+
+        'SOURCE_NETWORK_COVERAGE': cobertura,
+        'COVERAGE_PERGUNTA': 'todas as fontes tem caminho percorrido?',
+        'COVERAGE_COM_ROTA_PROVADA': com_prova,
+        'COVERAGE_SEM_ROTA_PROVADA': total - com_prova,
+        'COVERAGE_E_DIVIDA_NAO_E_GATE': (
+            'M1 fechar NAO apaga isto. Continua divida operacional visivel, com '
+            'proxima prova escrita por fonte. O que muda e que deixa de travar '
+            'a missao seguinte.'),
+
+        'COLLECTION_FOUNDATION_CLOSED': fdc.COLLECTION_FOUNDATION_CLOSED,
+        'FUNDACAO_PERGUNTA': ('toda CLASSE DE ESTRADA necessaria tem arquitetura '
+                              'e donos fechados, ou blocker escrito?'),
+        'FUNDACAO_DONO': 'leis/fundacao_da_coleta.py',
+        'FUNDACAO_GATE_E_POR_CLASSE_NAO_POR_FONTE': True,
+        'FUNDACAO_CLASSES_FECHADAS': len(fechadas),
+
+        'PORQUE_TRES_E_NAO_UM': (
+            'sao perguntas diferentes e podem discordar sem contradicao. Hoje: a '
+            'classificacao acabou, a cobertura esta incompleta, e a fundacao '
+            'continua aberta. Um veredito so obrigaria a mentir em duas delas.'),
+        'ONE_QUESTION_ONE_OWNER': (
+            'a trava da inteligencia CONSOME COLLECTION_FOUNDATION_CLOSED. Ela '
+            'nao redefine o que fundacao fechada significa, e nao pode inventar '
+            'criterio mais forte que a lei.'),
+    }
+
+
 def main():
     fontes = ordenadas = fontes_it()
     dec, perm, sem_razao = classes_sociais()
@@ -825,6 +904,7 @@ def main():
         'GIT_COMO_BANCO_OPERACIONAL': git_como_banco(),
         'ORQUESTRADOR': orquestrador(),
         'COLLECTION_FOUNDATION_CLOSED': fdc.COLLECTION_FOUNDATION_CLOSED,
+        'VEREDITOS': vereditos(resolucao, rotas),
     }
     with open(SAIDA, 'w', encoding='utf-8') as f:
         json.dump(rel, f, ensure_ascii=False, indent=1)

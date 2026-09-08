@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "82ef1deb1f85975b3ce7ccffdc439f8ee2b3e4f7",
-    "GENERATED_AT": "2026-09-08T19:58:51Z"
+    "HEAD": "51a265509da4246b7069297a55f8eefaf07a9874",
+    "GENERATED_AT": "2026-09-08T17:09:45-03:00"
   },
   "FILES": [
     {
@@ -4489,7 +4489,7 @@
     },
     {
       "path": "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
-      "sha": "865917feb413321ccf5a81009be8f37223eb9d15",
+      "sha": "1ec8d96ac0238fd8d0d4c49af25c00028635e4a8",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4533,6 +4533,13 @@
       "path": "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
       "sha": "bb3013c947f09f67021363422ce8be259eb462bb",
       "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+      "sha": "3cf19203ad5e0f3a0f274ef65358665e6c960193",
+      "ext": ".json",
       "readable": false,
       "code_dir": false
     },
@@ -7449,6 +7456,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/trava_da_inteligencia_morde.py",
+      "sha": "3345a3a0724d868240fff0ece09b9706ddaae36b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/trava_de_drift_de_migration.sh",
       "sha": "2ff146072eb65377be534e5a0cf3cfbfca76a3a8",
       "ext": ".sh",
@@ -8472,7 +8486,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "dca79180518a16ef363b1167df871a83bcc78276",
+      "sha": "f1032f8a2d8b36cd5181dccc3e4a36ab7faa9e03",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8500,7 +8514,7 @@
     },
     {
       "path": "system-map/scripts/censo_das_estradas_it.py",
-      "sha": "2e673747b2b51636dd7de2a2089f454e2f8671ab",
+      "sha": "d9191e8f8c13532669eb0e63fdd11df063619c75",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8515,6 +8529,13 @@
     {
       "path": "system-map/scripts/censo_do_armazem_it.py",
       "sha": "226b1f2938e59043bd5a285a77b190a8c420beb3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/censo_do_congelamento.py",
+      "sha": "087044cc7f232c7ca4c01cc0a480ae55bf0f8169",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8963,6 +8984,13 @@
     {
       "path": "tests/test_thread_parcial.py",
       "sha": "55fdb804a0480dc405bbf2a4ad0e28b539803284",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_trava_da_inteligencia.py",
+      "sha": "dfa2663131e60c56364c384aaa97e3acee2ae827",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23406,6 +23434,28 @@
       }
     },
     {
+      "from_file": "provas/trava_da_inteligencia_morde.py",
+      "to_file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/trava_da_inteligencia_morde.py",
+        "line": 60,
+        "snippet": "open(CONTRATO, 'leitura')  # CONTRATO = docs/operacao/TRAVA-DA-INTELIGENCIA.json"
+      }
+    },
+    {
+      "from_file": "provas/trava_da_inteligencia_morde.py",
+      "to_file": "system-map/scripts/censo_do_congelamento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/trava_da_inteligencia_morde.py",
+        "line": 24,
+        "snippet": "CENSO = os.path.join(RAIZ, \"system-map\", \"scripts\", \"censo_do_congelamento.py\")"
+      }
+    },
+    {
       "from_file": "provas/trava_de_drift_de_migration.sh",
       "to_file": "motor/cadeia_canonica.sh",
       "type": "RUNS",
@@ -24419,6 +24469,17 @@
     },
     {
       "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "docs/decisoes/DIARIO-DE-DECISOES.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 758,
+        "snippet": "'M1_ONDE_A_DEFINICAO_VIVE': 'docs/decisoes/DIARIO-DE-DECISOES.md',"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
       "to_file": "leis/fundacao_da_coleta.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24426,6 +24487,17 @@
         "file": "system-map/scripts/censo_das_estradas_it.py",
         "line": 31,
         "snippet": "import fundacao_da_coleta as fdc    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_das_estradas_it.py",
+      "to_file": "leis/fundacao_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_das_estradas_it.py",
+        "line": 774,
+        "snippet": "'FUNDACAO_DONO': 'leis/fundacao_da_coleta.py',"
       }
     },
     {
@@ -24446,7 +24518,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 762,
+        "line": 841,
         "snippet": "'MATRIZ': 'leis/social_matriz.py',"
       }
     },
@@ -24569,6 +24641,39 @@
         "file": "system-map/scripts/censo_do_armazem_it.py",
         "line": 187,
         "snippet": "from censo_de_identidade_it import caminhos_de_pdf, _sha256, _rel  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_do_congelamento.py",
+      "to_file": "leis/fundacao_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_do_congelamento.py",
+        "line": 127,
+        "snippet": "\"leis/fundacao_da_coleta.py\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_do_congelamento.py",
+      "to_file": "provas/trava_da_inteligencia_morde.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_do_congelamento.py",
+        "line": 121,
+        "snippet": "\"provas/trava_da_inteligencia_morde.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_do_congelamento.py",
+      "to_file": "tests/test_trava_da_inteligencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_do_congelamento.py",
+        "line": 120,
+        "snippet": "\"tests/test_trava_da_inteligencia.py\","
       }
     },
     {
@@ -28488,6 +28593,50 @@
       }
     },
     {
+      "from_file": "tests/test_trava_da_inteligencia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_trava_da_inteligencia.py",
+        "line": 336,
+        "snippet": "import _gavetas  # noqa: F401"
+      }
+    },
+    {
+      "from_file": "tests/test_trava_da_inteligencia.py",
+      "to_file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_trava_da_inteligencia.py",
+        "line": 53,
+        "snippet": "CONTRATO = os.path.join(RAIZ, \"docs\", \"operacao\", \"TRAVA-DA-INTELIGENCIA.json\")"
+      }
+    },
+    {
+      "from_file": "tests/test_trava_da_inteligencia.py",
+      "to_file": "leis/fundacao_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_trava_da_inteligencia.py",
+        "line": 337,
+        "snippet": "import fundacao_da_coleta as lei"
+      }
+    },
+    {
+      "from_file": "tests/test_trava_da_inteligencia.py",
+      "to_file": "leis/fundacao_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_trava_da_inteligencia.py",
+        "line": 275,
+        "snippet": "self.assertEqual(v[\"FUNDACAO_DONO\"], \"leis/fundacao_da_coleta.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_v21_datas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -29392,6 +29541,13 @@
         "constante": "OUT"
       }
     ],
+    "provas/trava_da_inteligencia_morde.py": [
+      {
+        "pasta": "motor",
+        "line": 97,
+        "constante": "INTRUSO"
+      }
+    ],
     "regras/comunicacao_identidade.py": [
       {
         "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
@@ -29444,7 +29600,7 @@
     "system-map/scripts/censo_das_estradas_it.py": [
       {
         "pasta": "system-map",
-        "line": 829,
+        "line": 909,
         "constante": "SAIDA"
       }
     ],
@@ -29462,6 +29618,13 @@
         "constante": "destino"
       }
     ],
+    "system-map/scripts/censo_do_congelamento.py": [
+      {
+        "pasta": "system-map",
+        "line": 253,
+        "constante": "destino"
+      }
+    ],
     "tests/test_estradas_it.py": [
       {
         "pasta": "system-map",
@@ -29471,11 +29634,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1290,
-    "files_readable": 450,
-    "files_code_dir": 501,
-    "file_edges": 1820,
-    "escritas_em_pasta": 60,
+    "files_tracked": 1294,
+    "files_readable": 453,
+    "files_code_dir": 504,
+    "file_edges": 1831,
+    "escritas_em_pasta": 62,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

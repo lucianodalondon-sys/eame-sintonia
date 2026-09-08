@@ -226,20 +226,23 @@ class ODestraveExigeTudoENaoUmaCoisaSo(unittest.TestCase):
             e["ROUTE_CLASSES_REQUIRED_TOTAL"], "UNKNOWN",
             "diz FECHADO sem saber quantas estradas sao precisas")
 
-        # 3 · nenhuma fonte sem caminho provado.
-        # ⚠️ CANDIDATE NÃO CONTA. Uma pista no catálogo é uma frase, não uma
-        # cadeia percorrida — e são justamente as pistas que fariam a fundação
-        # parecer fechada sem ninguém ter ido lá.
-        f = e["FONTES_IT"]
-        self.assertEqual(
-            f["SOURCES_ROUTE_UNKNOWN"], 0,
-            "diz FECHADO com fontes de rota desconhecida")
-        self.assertEqual(
-            f["SOURCES_WITH_ONLY_CANDIDATE_ROUTE"], 0,
-            "diz FECHADO com fontes que so tem pista, e pista nao e rota")
-        self.assertEqual(
-            f["SOURCES_WITH_PROVEN_ROUTE"] + f["SOURCES_BLOCKED"], f["TOTAL"],
-            "ha fontes que nao estao nem provadas nem bloqueadas com razao")
+        # 3 · ⚠️ AQUI EU TINHA POSTO UMA EXIGÊNCIA POR FONTE, E ESTAVA ERRADA.
+        #
+        # Exigia `SOURCES_ROUTE_UNKNOWN == 0` e
+        # `SOURCES_WITH_ONLY_CANDIDATE_ROUTE == 0`. Parecia mais rigoroso. Era
+        # uma segunda definição de «fundação fechada», a competir com a lei.
+        #
+        # `leis/fundacao_da_coleta.py` é o dono, e diz que o gate é por CLASSE
+        # DE ESTRADA — e diz, com todas as letras, que isso NÃO significa
+        # «coletamos todas as fontes».
+        #
+        #     EXIGIR ZERO UNKNOWN POR FONTE CRIA O INCENTIVO
+        #     DE CHAMAR DE BLOCKED O QUE É SÓ DESCONHECIDO.
+        #
+        # E isso já teve de ser desfeito uma vez nesta casa.
+        #
+        # A trava CONSOME o veredito. Não o redefine.
+        pass
 
         # 4 · toda estrada necessária com arquitetura fechada.
         # BLOCKED e DEBT nao saem da conta sozinhos: precisam de razao escrita.
@@ -251,6 +254,66 @@ class ODestraveExigeTudoENaoUmaCoisaSo(unittest.TestCase):
             self.assertTrue(
                 razao,
                 "diz FECHADO com a estrada %s aberta e sem razao escrita" % rid)
+
+    def test_a_trava_consome_o_veredito_e_nao_o_redefine(self):
+        """⚠️ ONE QUESTION → ONE OWNER.
+
+        Três perguntas diferentes, três respostas que podem discordar **sem**
+        contradição — e é exatamente por poderem discordar que não se achatam
+        num número só:
+
+            M1_CLASSIFICATION_PASS        a classificação acabou?
+            SOURCE_NETWORK_COVERAGE       todas as fontes têm caminho?
+            COLLECTION_FOUNDATION_CLOSED  as estradas necessárias fecharam?
+
+        A trava lê a terceira. Não a recalcula, e não pode exigir mais do que
+        ela — foi o que eu fiz, e criou uma segunda definição a competir com a
+        lei."""
+        e = _json(ESTRADAS)
+        v = e["VEREDITOS"]
+        self.assertTrue(v["FUNDACAO_GATE_E_POR_CLASSE_NAO_POR_FONTE"])
+        self.assertEqual(v["FUNDACAO_DONO"], "leis/fundacao_da_coleta.py")
+        # o veredito da fundação é o mesmo em todo o lado
+        self.assertEqual(v["COLLECTION_FOUNDATION_CLOSED"],
+                         e["COLLECTION_FOUNDATION_CLOSED"])
+        c = _json(CONTRATO)
+        na_lei = "SIM" if v["COLLECTION_FOUNDATION_CLOSED"] else "NAO"
+        self.assertEqual(c["COLLECTION_FOUNDATION_CLOSED"], na_lei)
+
+    def test_m1_fechar_nao_destrava_a_inteligencia(self):
+        """A classificação acabar não é a fundação fechar. Se um dia bastasse,
+        a inteligência começaria com todas as estradas ainda abertas."""
+        e = _json(ESTRADAS)
+        v = e["VEREDITOS"]
+        if v["M1_CLASSIFICATION_PASS"] == "CLOSED":
+            self.assertFalse(
+                v["COLLECTION_FOUNDATION_CLOSED"],
+                "M1 fechou e a fundacao tambem, sem nenhuma estrada fechada")
+            self.assertEqual(v["FUNDACAO_CLASSES_FECHADAS"], 0)
+
+    def test_o_unknown_residual_continua_visivel(self):
+        """⚠️ M1 fechar NÃO apaga a dívida.
+
+        `SOURCE_NETWORK_COVERAGE` continua `INCOMPLETE`, com o número por
+        pagar à vista. Uma missão que fecha escondendo o que não fez é pior do
+        que uma missão que não fecha."""
+        v = _json(ESTRADAS)["VEREDITOS"]
+        if v["COVERAGE_SEM_ROTA_PROVADA"] > 0:
+            self.assertEqual(v["SOURCE_NETWORK_COVERAGE"], "INCOMPLETE")
+        self.assertIn("divida", v["COVERAGE_E_DIVIDA_NAO_E_GATE"].lower())
+
+    def test_unknown_nao_vira_blocked_sem_prova(self):
+        """O incentivo perverso que a exigência por fonte criava: bastava
+        chamar `BLOCKED` ao desconhecido para o mapa ficar verde."""
+        v = _json(ESTRADAS)["VEREDITOS"]
+        self.assertEqual(v["M1_BLOCKED_SEM_DECISAO_ESCRITA"], [])
+
+    def test_todo_residual_nomeia_a_proxima_prova(self):
+        """É isto que faz `UNKNOWN` honesto ser diferente de `UNKNOWN`
+        abandonado."""
+        v = _json(ESTRADAS)["VEREDITOS"]
+        if v["M1_CLASSIFICATION_PASS"] == "CLOSED":
+            self.assertEqual(v["M1_FONTES_SEM_PROXIMA_PROVA"], [])
 
     def test_bloquear_nao_e_atalho_para_fechar(self):
         c = _json(CONTRATO)

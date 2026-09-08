@@ -2304,5 +2304,24 @@
   "PROVA": "recebe um Pedido, resolve um Plano em `pedido/receitas.py` e despacha por subprocess. NAO coleta: escolhe quem coleta.",
   "RESSALVA": "alcanca 4 dos executores medidos por censo_da_coleta.py — existir nao e cobrir. E `SINTONIA SCRAP` continua sendo COMPOSITE_EXECUTOR, nao um segundo orquestrador: ele coordena rotas de UMA aquisicao."
  },
- "COLLECTION_FOUNDATION_CLOSED": false
+ "COLLECTION_FOUNDATION_CLOSED": false,
+ "VEREDITOS": {
+  "M1_CLASSIFICATION_PASS": "CLOSED",
+  "M1_PERGUNTA": "toda fonte foi levada ao maximo estado epistemicamente possivel com a politica aprovada, e cada UNKNOWN residual nomeia a proxima prova?",
+  "M1_ONDE_A_DEFINICAO_VIVE": "docs/decisoes/DIARIO-DE-DECISOES.md",
+  "M1_FONTES_SEM_PROXIMA_PROVA": [],
+  "M1_BLOCKED_SEM_DECISAO_ESCRITA": [],
+  "SOURCE_NETWORK_COVERAGE": "INCOMPLETE",
+  "COVERAGE_PERGUNTA": "todas as fontes tem caminho percorrido?",
+  "COVERAGE_COM_ROTA_PROVADA": 7,
+  "COVERAGE_SEM_ROTA_PROVADA": 47,
+  "COVERAGE_E_DIVIDA_NAO_E_GATE": "M1 fechar NAO apaga isto. Continua divida operacional visivel, com proxima prova escrita por fonte. O que muda e que deixa de travar a missao seguinte.",
+  "COLLECTION_FOUNDATION_CLOSED": false,
+  "FUNDACAO_PERGUNTA": "toda CLASSE DE ESTRADA necessaria tem arquitetura e donos fechados, ou blocker escrito?",
+  "FUNDACAO_DONO": "leis/fundacao_da_coleta.py",
+  "FUNDACAO_GATE_E_POR_CLASSE_NAO_POR_FONTE": true,
+  "FUNDACAO_CLASSES_FECHADAS": 0,
+  "PORQUE_TRES_E_NAO_UM": "sao perguntas diferentes e podem discordar sem contradicao. Hoje: a classificacao acabou, a cobertura esta incompleta, e a fundacao continua aberta. Um veredito so obrigaria a mentir em duas delas.",
+  "ONE_QUESTION_ONE_OWNER": "a trava da inteligencia CONSOME COLLECTION_FOUNDATION_CLOSED. Ela nao redefine o que fundacao fechada significa, e nao pode inventar criterio mais forte que a lei."
+ }
 }
