@@ -22,7 +22,25 @@
       {"PREFIXO": "IT/adama-website/MANIFEST", "OBJETOS": 2},
       {"PREFIXO": "IT/adama-website/PRODUCT_DOM", "OBJETOS": 51}
     ],
-    "CHAVES_INDIVIDUAIS": "NAO_FORNECIDAS — so as contagens por prefixo vieram na medicao. Sem a lista de chaves nao se pode casar objeto a objeto com o manifesto."
+    "CHAVES_INDIVIDUAIS": "PARCIAIS — em 08/09/2026 o coordenador voltou ao banco e mediu o prefixo DOCUMENT por dentro. Vieram as CONTAGENS de identidade e as DUAS chaves do unico conteudo guardado em duplicado. As outras 137 chaves continuam por listar.",
+
+    "DOCUMENT_POR_DENTRO": {
+      "MEDIDO_EM": "2026-09-08",
+      "OBJETOS": 139,
+      "ETAG_DISTINTOS": 138,
+      "PREFIXO_SHA16_DISTINTOS": 138,
+      "O_QUE_ISTO_QUER_DIZER": "139 objetos carregam 138 conteudos diferentes. Ha exatamente UMA copia fisica a mais.",
+      "A_COPIA_A_MAIS": {
+        "PREFIXO_SHA16": "227779fdd6be9975",
+        "BYTES": 138284,
+        "ETAG": "igual nos dois",
+        "CHAVES": [
+          "IT/adama-website/DOCUMENT/227779fdd6be9975-6321-Postscript-80-XL---Scheda-di-Sicurezza.pdf",
+          "IT/adama-website/DOCUMENT/227779fdd6be9975-731-Scheda-di-sicurezza---Davai.pdf"
+        ]
+      },
+      "RESSALVA_DO_PREFIXO": "SHA16 e PREFIXO, nao identidade. Dois objetos com o mesmo prefixo sao PREFIX_MATCH, nunca FULL_SHA256_MATCH — a menos que os bytes sejam lidos e batidos, e esta sessao nao os le. O ETag igual e o tamanho igual reforcam, mas tambem nao provam sozinhos."
+    }
   },
 
   "TABELAS": {

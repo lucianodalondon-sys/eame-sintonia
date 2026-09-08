@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "f887ac78f122078cc9b2cd7813f7754cb17588b5",
+    "HEAD": "ac82fae507a78e22e3a1d3f7e0a6ab59b0e8fe5d",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -1648,7 +1648,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": true,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "guarda/preservar_coleta.py"
+      ],
       "no_ci": true
     },
     {
@@ -1718,6 +1720,22 @@
       "no_ci": false
     },
     {
+      "ficheiro": "guarda/preservar_coleta.py",
+      "gaveta": "guarda",
+      "linhas": 378,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "guarda/sql_conferir.py",
       "gaveta": "guarda",
       "linhas": 116,
@@ -1730,18 +1748,20 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "guarda/preservar_coleta.py"
+      ],
       "no_ci": false
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 89,
+    "ficheiros_de_codigo": 90,
     "pontos_de_entrada": 76,
     "executores_que_saem_para_fora": 18,
     "sem_chamador_e_fora_do_ci": 46,
     "gravam_no_banco": 1,
     "escrevem_ficheiro": 65,
-    "deitam_fora_alguma_coisa": 18,
+    "deitam_fora_alguma_coisa": 19,
     "deitam_fora_SEM_escrever_o_motivo": 1,
     "ficheiros_com_decisao_escondida": 2,
     "decisoes_escondidas_ao_todo": 2
@@ -1891,7 +1911,7 @@
       "guarda/es/adama_es_gate.py",
       "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",
-      "guarda/sql_conferir.py"
+      "guarda/preservar_coleta.py"
     ],
     "deitam_fora_sem_motivo": [
       "coleta/ropf_pre_requisito.py"

@@ -718,6 +718,7 @@
       "guarda/es/workflows/adama-es-gate.yml",
       "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",
+      "guarda/preservar_coleta.py",
       "guarda/sql_conferir.py"
     ],
     "handoff": [
@@ -1276,6 +1277,7 @@
       "tests/test_pipeline.py",
       "tests/test_portao.py",
       "tests/test_portoes_eame.py",
+      "tests/test_preservar_coleta.py",
       "tests/test_prioridade_comercial.py",
       "tests/test_proveniencia.py",
       "tests/test_radar_futuro.py",
@@ -1667,8 +1669,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "c7a7826cab7ab711cdd8281ca920364875ae60d7",
-    "GENERATED_AT": "2026-09-08T09:48:46-03:00"
+    "HEAD": "ac82fae507a78e22e3a1d3f7e0a6ab59b0e8fe5d",
+    "GENERATED_AT": "2026-09-08T09:49:25-03:00"
   },
   "FAMILIES": [
     {
@@ -1707,7 +1709,7 @@
       "zones": [
         "Z-GUARDA"
       ],
-      "count": 9
+      "count": 10
     },
     {
       "id": "F-INTELIGENCIA",
@@ -1949,7 +1951,7 @@
       "y": 190,
       "w": 820,
       "h": 2294,
-      "count": 9
+      "count": 10
     },
     {
       "id": "Z-LINEAGE",
@@ -2476,8 +2478,14 @@
         "A PROCEDÊNCIA PERDEU-SE? NAO. Ela nao esta no banco, mas esta no Git: 141 de 141 documentos declaram bytes, hora, URL e fonte. O que nao existe e a CORRIDA.",
         "a corrida, essa: RUN_NOT_PROVABLE — nenhum registo declara run_id.",
         "e por isso: PROCEDENCIA RECUPERAVEL nao autoriza PROCEDENCIA INVENTADA. Inserir hoje uma corrida que nunca foi registada seria escrever no livro de historia um dia que ninguem viveu.",
-        "TRÊS CONTAGENS QUE NÃO BATEM — manifesto 141 · conteúdos únicos 138 · objetos DOCUMENT 139 · NAO_RECONCILIADO",
-        "por que não se resolve aqui: a medicao externa trouxe contagens por prefixo, NAO a lista de chaves. Sem as chaves nao se casa objeto a objeto, e qualquer explicacao para a diferenca seria inventada. E EXATAMENTE esta a conta que uma linha de raw_asset por objeto tornaria trivial.",
+        "AS TRÊS CONTAGENS — manifesto 141 · conteúdos únicos 138 · objetos DOCUMENT 139 · RECONCILIADO_POR_PREFIXO (PREFIX_MATCH)",
+        "como se explicam: 141 - 138 = 3 documentos que servem a DOIS produtos cada um. 139 - 138 = 1 conteudo publicado pela ADAMA em DUAS URLs. As duas diferencas tem causas diferentes, e nenhuma e perda.",
+        "objetos previstos pelo manifesto: 139 · medidos no armazém: 139 · batem: True",
+        "por que a prova não é FULL_SHA256_MATCH: a chave do armazem carrega 16 caracteres do hash, e prefixo curto e endereco, nao identidade. Fechar como FULL_SHA256_MATCH exigiria ler os 139 objetos de volta e bater o sha256 inteiro — esta sessao nao tem credencial para isso.",
+        "algum byte perdido? NENHUM. Todo conteudo do manifesto tem objeto previsto, e a contagem de conteudos distintos no armazem e a mesma do manifesto.",
+        "repetido · 227779fdd6be… — 2 registos, 2 URL(s) → 2 objeto(s): o MESMO byte publicado em 2 enderecos diferentes: sao 2 factos sobre o mundo e UM conteudo (Davai®, FullPage® Rice Cropping Solution)",
+        "repetido · 308764028a95… — 2 registos, 1 URL(s) → 1 objeto(s): dois produtos que apontam para o MESMO endereco: e RELACAO LOGICA, e nao exige byte novo (Highcard®, Max-Ace® Rice Cropping Solution)",
+        "repetido · ef688c782159… — 2 registos, 1 URL(s) → 1 objeto(s): dois produtos que apontam para o MESMO endereco: e RELACAO LOGICA, e nao exige byte novo (Highcard®, Max-Ace® Rice Cropping Solution)",
         "documentos com procedência recuperável no Git: 141 de 141",
         "OS 43 DO GOLDEN PATH ESTÃO AQUI? 0 de 43 — são DOIS ACERVOS diferentes, medidos por impressão digital e não por nome de ficheiro"
       ],
@@ -5404,7 +5412,9 @@
       "file_count": 9,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "docs/biblia/CONFORMIDADE-ITALIA.md"
+      ],
       "produces": [],
       "inbound": [
         "C-PROVA-BIBLIA"
@@ -5512,7 +5522,9 @@
       "file_count": 1,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "system-map/scripts/censo_do_armazem_it.py"
+      ],
       "produces": [],
       "inbound": [
         "C-CENSO-IDENTIDADE-IT",
@@ -5543,7 +5555,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_do_armazem_it.py",
-            "line": 297,
+            "line": 400,
             "snippet": "escreve em destino"
           }
         }
@@ -5843,7 +5855,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "audit",
@@ -5855,9 +5867,11 @@
         ".github/workflows/system-map.yml"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        ".github/workflows/system-map.yml"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -6703,6 +6717,48 @@
       "y": 682
     },
     {
+      "id": "C-DONO-DA-ESCRITA",
+      "name": "ALVO · o dono canônico da escrita",
+      "territory": "Z-GUARDA",
+      "kind": "engine",
+      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → memória → reconciliação → COMPLETE. Ele não fala com o banco: gera SQL auditável, como a casa já fazia para a Espanha. E não sabe apagar byte nenhum.",
+      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe, porque os dois passos nunca foram de ninguém. Esta peça é a garantia PARA A FRENTE do G-42: se o envio passar e a memória falhar, a corrida fica PARTIAL com UPLOAD_PENDING_METADATA — nunca COMPLETE. É ALVO, não estado corrente: nenhuma corrida real passou por aqui ainda.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▷",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-ESPERA",
+      "files": [
+        "guarda/preservar_coleta.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 10770,
+      "y": 682
+    },
+    {
       "id": "C-DS-ADAMA",
       "name": "Extrato local do ADAMA Design System",
       "territory": "Z-SUPERFICIE",
@@ -7246,8 +7302,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 10770,
-      "y": 682
+      "x": 10355,
+      "y": 1004
     },
     {
       "id": "C-IT-CATALOGO",
@@ -7580,7 +7636,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10355,
+      "x": 10770,
       "y": 1004
     },
     {
@@ -7633,8 +7689,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
-      "y": 1004
+      "x": 10355,
+      "y": 1326
     },
     {
       "kind": "engine",
@@ -7685,7 +7741,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10355,
+      "x": 10770,
       "y": 1326
     },
     {
@@ -7746,8 +7802,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
-      "y": 1326
+      "x": 10355,
+      "y": 1648
     },
     {
       "id": "C-LASTMILE",
@@ -8120,7 +8176,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "audit",
@@ -8133,9 +8189,11 @@
         "system-map/scripts/mudar_gaveta.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/generate_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -10490,7 +10548,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10355,
+      "x": 10770,
       "y": 1648
     },
     {
@@ -11564,7 +11622,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -11600,6 +11658,7 @@
         "tests/test_pipeline.py",
         "tests/test_portao.py",
         "tests/test_portoes_eame.py",
+        "tests/test_preservar_coleta.py",
         "tests/test_prioridade_comercial.py",
         "tests/test_proveniencia.py",
         "tests/test_radar_futuro.py",
@@ -11610,10 +11669,12 @@
         "tests/test_v21_traducao_trava.py",
         "tests/test_voz.py"
       ],
-      "file_count": 36,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
-      "changed_since_declared": [],
+      "file_count": 37,
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "tests/test_armazem_italiano.py"
+      ],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
@@ -11636,6 +11697,7 @@
         "C-CONTRATO-ARTEFATO",
         "C-CONTRATO-CAMPOS",
         "C-DATA-CLOCK",
+        "C-DONO-DA-ESCRITA",
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
         "C-FONTES-EU",
@@ -11685,6 +11747,7 @@
           "CAMPOS_DOC_DA_REGRA",
           "CATALOGO",
           "CONTRATO",
+          "CORRIDA",
           "DEFEITO_MEDIDO",
           "ESTADOS",
           "EV",
@@ -11699,11 +11762,11 @@
           "SINAL_LOMBARDIA",
           "SINAL_VENETO"
         ],
-        "palavras": 263,
+        "palavras": 278,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 261,
+        "sem_marca_de_lingua": 276,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13255,7 +13318,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD c7a7826cab7ab711cdd8281ca920364875ae60d7"
+        "HEAD ac82fae507a78e22e3a1d3f7e0a6ab59b0e8fe5d"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -14106,7 +14169,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2348,
+          "line": 2361,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -15240,7 +15303,7 @@
       "evidence": [
         {
           "file": "tests/test_armazem_italiano.py",
-          "line": 180,
+          "line": 215,
           "snippet": "\"censo_do_armazem_it.py\"))"
         }
       ],
@@ -15294,7 +15357,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_do_armazem_it.py",
-          "line": 184,
+          "line": 187,
           "snippet": "from censo_de_identidade_it import caminhos_de_pdf, _sha256, _rel  # noqa: E402"
         }
       ],
@@ -15617,7 +15680,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
@@ -15648,6 +15711,11 @@
           "file": ".github/workflows/system-map.yml",
           "line": 116,
           "snippet": "run: python3 tests/test_armazem_italiano.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 122,
+          "snippet": "run: python3 tests/test_preservar_coleta.py"
         }
       ],
       "categoria": "PROOF"
@@ -16311,6 +16379,24 @@
       "categoria": "RULE"
     },
     {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "ALVO · o dono canônico da escrita alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_preservar_coleta.py",
+          "line": 216,
+          "snippet": "fonte = open(os.path.join(RAIZ, \"guarda\", \"preservar_coleta.py\"),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-DS-ADAMA",
       "to": "C-PORTAL-CASCO",
       "type": "READS",
@@ -16393,7 +16479,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1118,
+          "line": 1131,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -16505,7 +16591,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1100,
+          "line": 1113,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         }
       ],
@@ -16844,7 +16930,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_do_armazem_it.py",
-          "line": 219,
+          "line": 321,
           "snippet": "IMPORTADOR = os.path.join(\"guarda\", \"catalogo_importar.py\")"
         }
       ],
@@ -16962,7 +17048,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2370,
+          "line": 2383,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -17581,17 +17667,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2571,
+          "line": 2584,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2571,
+          "line": 2584,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2572,
+          "line": 2585,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -17755,12 +17841,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3057,
+          "line": 3070,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3057,
+          "line": 3070,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -20246,7 +20332,7 @@
         },
         {
           "file": "tests/test_armazem_italiano.py",
-          "line": 152,
+          "line": 187,
           "snippet": "\"001_fundacao_geografia_e_proveniencia.sql\"))"
         },
         {
@@ -21428,17 +21514,17 @@
   "UNCLAIMED_FILES_COUNT": 677,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 112,
-    "components_proven": 76,
-    "components_pending": 30,
+    "components": 113,
+    "components_proven": 73,
+    "components_pending": 34,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 368,
-    "edges_proven": 366,
+    "edges": 369,
+    "edges_proven": 367,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1221,
-    "files_covered": 544,
+    "files_tracked": 1223,
+    "files_covered": 546,
     "files_code_unclaimed": 0
   }
 }

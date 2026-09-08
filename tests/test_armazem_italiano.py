@@ -125,14 +125,49 @@ class OArmazemOrfaoNaoSeEsconde(unittest.TestCase):
             self.assertIn(exigido, junto)
 
     def test_10_a_divergencia_de_contagem_nao_e_arredondada(self):
-        """Três números que não batem ficam os três escritos. Escolher o mais
-        bonito seria apagar o achado."""
-        t = _json(GERADO)["LACUNA_DO_ARMAZEM"]["TRES_CONTAGENS_QUE_NAO_BATEM"]
+        """Três números diferentes ficam os três escritos, com a causa de cada
+        diferença ao lado.
+
+        ASSERÇÃO ANTIGA: exigia `ESTADO == NAO_RECONCILIADO`. Ficou velha no dia
+        em que a conta fechou — e um teste que exige que um problema continue
+        aberto impede quem o resolve. O que se guarda agora é a propriedade que
+        dura: **as três contagens continuam visíveis, e a conta é explicada, não
+        arredondada.**
+        """
+        t = _json(GERADO)["LACUNA_DO_ARMAZEM"]["TRES_CONTAGENS"]
         valores = [t["DOCUMENTOS_NO_MANIFESTO"], t["CONTEUDOS_UNICOS_NO_MANIFESTO"],
                    t["OBJETOS_DOCUMENT_NO_ARMAZEM"]]
-        self.assertEqual(len(valores), 3)
+        self.assertTrue(all(isinstance(v, int) for v in valores))
         if len(set(valores)) > 1:
-            self.assertEqual(t["ESTADO"], "NAO_RECONCILIADO")
+            self.assertTrue(t["COMO_SE_EXPLICAM"],
+                            "contagens que divergem exigem explicacao escrita")
+
+    def test_10b_a_conta_fecha_por_causa_e_nao_por_coincidencia(self):
+        """A soma tem de vir das URLs de cada grupo, não de um número escrito.
+
+        Se alguém trocar a regra por «os objetos são os conteúdos + 1», este
+        teste continua verde por acaso hoje e reprova no primeiro dia em que
+        houver dois duplicados. Por isso ele recalcula grupo a grupo.
+        """
+        C = _json(GERADO)["A_CONTA_FECHA"]
+        self.assertEqual(C["FORCA_DA_PROVA"], "PREFIX_MATCH")
+        self.assertIn("nao e identidade", C["PORQUE_NAO_E_FULL_SHA256_MATCH"]
+                      .replace("é", "e").replace("ã", "a").lower()
+                      .replace("endereco, nao identidade", "nao e identidade"))
+        extra = sum(g["OBJETOS_PREVISTOS"] - 1 for g in C["GRUPOS_REPETIDOS"])
+        self.assertEqual(C["OBJETOS_PREVISTOS_PELO_MANIFESTO"],
+                         C["CONTEUDOS_UNICOS"] + extra)
+        if C["OBJETOS_MEDIDOS_NO_ARMAZEM"] is not None:
+            self.assertEqual(C["OBJETOS_PREVISTOS_PELO_MANIFESTO"],
+                             C["OBJETOS_MEDIDOS_NO_ARMAZEM"])
+
+    def test_10c_a_divida_historica_nao_recebe_corrida_inventada(self):
+        """`RUN_NOT_PROVABLE` fica `RUN_NOT_PROVABLE`. Nenhum nome de corrida de
+        mentira pode entrar no repositório para tapar o buraco dos 195."""
+        L = _json(GERADO)["LACUNA_DO_ARMAZEM"]
+        self.assertTrue(L["RUN_HISTORICA"].startswith("RUN_NOT_PROVABLE"))
+        for nome in ("LEGACY-IT", "UNKNOWN-RUN", "BACKFILL-RUN", "MIGRATION-RUN"):
+            self.assertNotIn(nome, _texto(GERADO))
 
 
 class DoisAcervosNaoSeSomam(unittest.TestCase):

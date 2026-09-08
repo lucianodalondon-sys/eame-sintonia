@@ -115,6 +115,12 @@ jobs:
       - name: 4f · o armazém italiano não se pinta de saudável
         run: python3 tests/test_armazem_italiano.py
 
+      # A GARANTIA FORWARD do G-42. Envio que passa com memoria que falha NAO
+      # pode dar COMPLETE, e o byte preservado nao se apaga para fingir
+      # atomicidade. Sem este passo, o estado italiano podia voltar calado.
+      - name: 4g · coleta nova não produz armazém sem memória
+        run: python3 tests/test_preservar_coleta.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         run: |
           set -e

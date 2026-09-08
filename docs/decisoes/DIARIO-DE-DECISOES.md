@@ -702,6 +702,49 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
   uploads, 0 DDL, 0 migrations aplicadas, 0 bytes movidos, 0 corridas históricas.
 - **Detalhe completo:** [`../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md`](../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md).
 
+
+### D-031 — A conta do armazém fecha; a garantia é para a frente, e o passado não se fabrica
+
+- **Data:** 2026-09-08
+- **A conta fechou, e com causa.** 141 registos · 138 conteúdos · 139 objetos deixaram de ser
+  «três números que não batem». As duas diferenças têm causas **diferentes**, e é isso que
+  faltava dizer: `141 − 138 = 3` documentos que servem a **dois produtos cada um**;
+  `139 − 138 = 1` conteúdo que a ADAMA **publicou em duas URLs** (`media/731` e `media/6321`).
+  Prova: a `SOURCE_URL` de cada grupo repetido no manifesto — os outros dois grupos têm **uma**
+  URL cada e **um** objeto cada. Objetos previstos pelo manifesto = **139** = objetos medidos.
+  **Nenhum byte perdido.**
+- **E a prova tem força declarada:** `PREFIX_MATCH`, não `FULL_SHA256_MATCH`. A chave carrega
+  16 caracteres do hash, que é **endereço, não identidade**. Subir para igualdade completa
+  exige ler os bytes de volta, e esta sessão não tem credencial.
+- **Decisão sobre o histórico: NÃO backfillar.** Os 195 objetos ficam como classe explícita de
+  dívida — `HISTORICAL_STORAGE_WITHOUT_OPERATIONAL_RUN`. Preservados, com procedência
+  documental recuperável (141 de 141) e `RUN` `NOT_PROVABLE`. **Sem `LEGACY-IT`, sem
+  `UNKNOWN-RUN`, sem `BACKFILL-RUN`** — e **sem relaxar o `run_id NOT NULL`**, que cederia a
+  lei para acomodar a exceção. A migration `001` já dizia que proveniência é prospectiva.
+- **Decisão sobre o futuro: um dono canônico da escrita**, `guarda/preservar_coleta.py`.
+  Censo dos escritores atuais: **cinco, e nenhum dono do par byte+memória** — dois workflows
+  presos a uma rota, três geradores de SQL de um país ou entidade só. Por isso não havia quem
+  estender, e por isso o dono é novo. **Mas o padrão é reusado:** gera SQL auditável em vez de
+  falar com o banco, como `guarda/catalogo_importar.py` já fazia, e passa no portão da casa
+  (`guarda/sql_conferir.py`), apóstrofes italianas incluídas.
+- **A doutrina que ele aplica:** `EXECUTOR` produz artefato e não conhece banco; `DONO
+  CANÔNICO` persiste o par. Nenhum executor grava só porque conhece a `SUPABASE_URL`.
+- **Atomicidade, respondida:** envio passa + memória falha → `RUN_STATE = PARTIAL`,
+  `PENDÊNCIA = UPLOAD_PENDING_METADATA`, **nunca `COMPLETE`**. E o byte **não** é apagado para
+  fingir atomicidade — a porta do armazém tem três métodos e nenhum é «remover». Retry repete
+  **só** a etapa em falta, sem subir byte outra vez e sem duplicar linha
+  (`on conflict (storage_path) do nothing`).
+- **Estado novo no banco: nenhum.** A pendência mora no manifesto e mapeia para o `parcial`
+  que o enum de `001` já tem. Era o candidato mais provável a virar uma sexta alteração de
+  esquema, e não virou.
+- **`derived_artifact` continua sendo a única lacuna de esquema.** Continua **não aplicada**.
+- **G-42 passa a ter duas dimensões no mesmo gap:** forward **FECHADO** em código e teste;
+  histórico **ABERTO de propósito**.
+- **Nada foi escrito, enviado, apagado ou migrado:** 0 escritas LIVE, 0 uploads, 0 deletes,
+  0 migrations aplicadas, 0 corridas retrocriadas, 0 bytes movidos. Tudo provado com armazém
+  de mentira — sem banco, sem rede, sem instalar nada.
+- **Detalhe completo:** [`../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md`](../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md).
+
 ---
 
 ## PERGUNTAS PENDENTES

@@ -326,9 +326,14 @@ que ele estava errado.
 
 `G-42` **`ITALY_STORAGE_METADATA_RECONCILIATION` — 195 objetos italianos no bucket `raw`
 (80,7 MB) com **0** linhas de `raw_asset` e **0** de `collection_run` a reclamá-los.** Um gap
-só, não cinco: cobre os objetos órfãos, as três contagens que não batem (141 no manifesto ·
-138 conteúdos únicos · 139 objetos `DOCUMENT`), o passo de escrita da memória que só existe
-para a Espanha, e a política de atomicidade que ainda não existe. Medido em
+só, em **duas dimensões**: a **garantia forward** está **FECHADA em código e teste**
+(`guarda/preservar_coleta.py` — envio sem memória nunca dá `COMPLETE`, e o byte não se apaga
+para fingir atomicidade); o **histórico** fica **ABERTO de propósito**, como
+`HISTORICAL_STORAGE_WITHOUT_OPERATIONAL_RUN` — preservado, com procedência documental
+recuperável e `RUN` `NOT_PROVABLE`, **sem corrida inventada e sem relaxar o `NOT NULL`**. E a
+conta das três contagens fechou: 141 registos − 138 conteúdos = 3 documentos que servem dois
+produtos; 139 objetos − 138 conteúdos = 1 conteúdo publicado em duas URLs
+(`RECONCILIADO_POR_PREFIXO`). Medido em
 [`../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md`](../operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md) ·
 `G-39` **falta a tabela `derived_artifact` no Supabase** — é a **única** lacuna de esquema que
 o censo de identidade encontrou; SQL projetado e **não aplicado** em

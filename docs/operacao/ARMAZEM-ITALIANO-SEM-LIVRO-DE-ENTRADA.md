@@ -150,24 +150,45 @@ nunca foi escrita.
 
 ---
 
-## F · AS TRÊS CONTAGENS QUE NÃO BATEM
+## F · AS TRÊS CONTAGENS — ✅ FECHADAS EM 08/09/2026
 
 ```
-141   documentos no manifesto
-138   conteúdos únicos no manifesto
-139   objetos DOCUMENT no armazém
+141   registos no manifesto      uma linha por (produto, documento)
+138   conteúdos                  bytes diferentes
+139   objetos no armazém         cópias guardadas
 ```
 
-**Três números, nenhum igual ao outro.** Não escolhi o mais bonito.
+Ontem isto ficou em `NÃO_RECONCILIADO`, à espera das chaves. Elas chegaram pela metade — as
+contagens de identidade e as duas chaves do único duplicado — e bastaram, porque **a
+explicação estava do lado de cá o tempo todo**, no `SOURCE_URL` de cada registo:
 
-Não dá para resolver aqui: a medição externa trouxe **contagens por prefixo, não a lista de
-chaves**. Sem as chaves não se casa objeto a objeto, e qualquer explicação para a diferença
-seria inventada.
+```
+141 − 138 = 3     três documentos servem a DOIS produtos cada um
+139 − 138 = 1     um conteúdo foi PUBLICADO EM DUAS URLs
+```
 
-> **E é exatamente esta a conta que uma linha de `raw_asset` por objeto tornaria trivial.** A
-> lacuna não é teórica: ela está a impedir uma reconciliação agora mesmo.
+**As duas diferenças têm causas diferentes.** Era isso que faltava dizer.
 
-`ESTADO = NÃO_RECONCILIADO`.
+| conteúdo | registos | URLs | objetos | por quê |
+|---|---:|---:|---:|---|
+| `227779fdd6be…` | 2 | **2** | **2** | a ADAMA publicou o mesmo PDF em `media/731` (Davai®) **e** `media/6321` (FullPage®). Duas publicações, dois objetos, um conteúdo |
+| `308764028a95…` | 2 | 1 | 1 | Highcard® e Max-Ace® apontam para a **mesma** `media/6121` — relação lógica, não byte novo |
+| `ef688c782159…` | 2 | 1 | 1 | os mesmos dois produtos, a **mesma** `media/6026` |
+
+```
+OBJETOS PREVISTOS PELO MANIFESTO   139
+OBJETOS MEDIDOS NO ARMAZÉM         139      ✅ batem
+CONTEÚDOS NO MANIFESTO             138
+CONTEÚDOS NO ARMAZÉM               138      ✅ batem
+BYTE PERDIDO                       NENHUM
+```
+
+⚠️ **`FORÇA_DA_PROVA = PREFIX_MATCH`, e não `FULL_SHA256_MATCH`.** A chave carrega 16
+caracteres do hash — isso é **endereço, não identidade**. Fechar como igualdade completa
+exigiria ler os 139 objetos de volta e bater o `sha256` inteiro, e esta sessão não tem
+credencial para isso. `ETag` igual e tamanho igual reforçam; sozinhos não provam.
+
+`ESTADO = RECONCILIADO_POR_PREFIXO`.
 
 ---
 
@@ -264,24 +285,151 @@ nesta missão.**
 
 ---
 
-## J · O GAP — um só, não cinco
+## J · O GAP — um só, em duas dimensões
 
 > ## `G-42 · ITALY_STORAGE_METADATA_RECONCILIATION`
 
-**195 objetos italianos no bucket `raw`, com 0 linhas de `raw_asset` e 0 de `collection_run`
-a reclamá-los.** Cobre: os objetos órfãos, as três contagens que não batem, o passo 2 que não
-existe para a Itália, e a política futura de atomicidade.
+**Um gap, não cinco tickets** — e ele tem duas metades que não se separam:
 
-**Um gap, não cinco tickets** — porque são um problema só visto de quatro ângulos, e partido
-em cinco cada pedaço ficaria pequeno demais para alguém priorizar.
+| dimensão | estado |
+|---|---|
+| **HISTÓRICO** · os 195 objetos existentes sem memória operacional | **ABERTO, e assim fica.** Classe de dívida: `HISTORICAL_STORAGE_WITHOUT_OPERATIONAL_RUN`. Preservados, com procedência documental recuperável e `RUN` `NOT_PROVABLE`. **Sem corrida inventada.** |
+| **GARANTIA FORWARD** · nenhum objeto NOVO pode repetir isto em silêncio | **FECHADO em código e teste.** `guarda/preservar_coleta.py` + 19 provas. Ainda **não** em produção |
+
+### A classe de dívida do histórico, escrita com todas as letras
+
+```
+HISTORICAL_STORAGE_WITHOUT_OPERATIONAL_RUN
+
+  bytes                 PRESERVADOS         195 objetos, 80,7 MB
+  procedência do doc    RECUPERÁVEL         141 de 141, no Git
+  procedência da RUN    NOT_PROVABLE        nenhum registo declara run_id
+  o que se faz          NADA, por agora     e sobretudo: não se inventa
+```
+
+> **A migration `001` declara que proveniência é PROSPECTIVA.** Criar hoje uma
+> `collection_run` para eles — `LEGACY-IT`, `UNKNOWN-RUN`, `BACKFILL-RUN` — seria fabricar
+> história. E **relaxar o `run_id NOT NULL` só para caber o legado** seria pior ainda: cederia
+> a lei para acomodar a exceção, e a partir daí toda coleta nova poderia entrar sem corrida.
 
 ---
 
-## K · A PRÓXIMA AÇÃO SEGURA
+## J2 · A GARANTIA FORWARD — o dono canônico da escrita
 
-1. **Pedir a lista de chaves** do prefixo `IT/` — só ela fecha as três contagens.
-2. Decidir se um *backfill verificável* (141 documentos com procedência completa) é aceitável
-   — **e a corrida continua não sendo recuperável**, o que precisa de resposta própria.
-3. Só depois: `derived_artifact`, testada num Postgres local e descartável.
+`guarda/preservar_coleta.py`. Não conserta o passado; impede o futuro de o repetir.
 
-**Nada disto é para hoje. Hoje era medir e mostrar.**
+### Por que em `guarda/`, e por que não um dono novo
+
+Censo dos escritores atuais — **cinco, e nenhum é dono do par**:
+
+| quem | escreve | escopo |
+|---|---|---|
+| `supabase-fichas-adama.yml` | Storage **+** `raw_asset` | fichas MAPA |
+| `supabase-raw-roundtrip.yml` | Storage **+** `raw_asset` | prova de round-trip |
+| `guarda/catalogo_importar.py` | SQL de `raw_asset` | **só ES** |
+| `coleta/regulatorio_importar.py` | SQL de `collection_run` | regulatório |
+| `coleta/ropf_pre_requisito.py` | SQL de `collection_run` | ROPF |
+
+**Reusar antes de criar, aplicado:** o padrão da casa já estava provado em
+`guarda/catalogo_importar.py` — *gerar SQL auditável em vez de falar com o banco*, porque
+**o primeiro a olhar não pode ser a produção**. O novo dono segue esse padrão exatamente, e
+passa no portão da casa (`guarda/sql_conferir.py`), apóstrofes italianas incluídas.
+
+**Não se criou dono novo por reflexo:** nenhum dos cinco podia assumir a responsabilidade —
+dois são workflows presos a uma rota, três geram SQL de um único país ou entidade.
+
+### A doutrina
+
+```
+EXECUTOR         produz o artefato.  NÃO conhece banco.
+DONO CANÔNICO    persiste o PAR: byte + memória.
+```
+
+Nenhum executor deve gravar no banco só porque conhece a `SUPABASE_URL`. Foi assim que a
+Espanha acabou com cinco escritores e a Itália com zero.
+
+### O fecho, com seis condições medidas
+
+```
+PLANEAR → ENVIAR → CONFERIR → MEMÓRIA → RECONCILIAR → FECHAR
+```
+
+`COMPLETE` exige: `plano_feito` · `bytes_no_armazem` · `bytes_conferidos` ·
+`nenhum_envio_falhado` · **`memoria_escrita`** · **`reconciliacao_bate`**. As duas últimas
+são novas em relação ao fecho da estrada do PDF — e são exatamente as que a Itália não teve.
+
+**A conta é entre espécies comparáveis:**
+`OBJETOS_ESPERADOS == OBJETOS_CONFERIDOS == LINHAS_DE_MEMÓRIA`. Nunca «141 registos = 139
+objetos» — são espécies diferentes e a igualdade seria falsa.
+
+### Atomicidade — e por que não se apaga o byte
+
+Armazém e Postgres não são uma transação só. Se o envio passar e a memória falhar:
+
+```
+RUN_STATE   PARTIAL
+FALTOU      ["memoria_escrita", "reconciliacao_bate"]
+PENDÊNCIA   UPLOAD_PENDING_METADATA
+BYTES       ficam onde estão
+```
+
+> **Nunca `COMPLETE`.** E o byte **não** é apagado para fingir atomicidade — não existe
+> caminho no código para isso. `Armazem` tem três métodos, e nenhum é «remover». Apagar o
+> bruto preservado destruiria a única evidência que sobrou de uma falha.
+
+**Estado novo no banco: nenhum.** O enum de `001` já tem `parcial`, e a pendência mora no
+manifesto da corrida, do lado do Git. Menos esquema, mesma verdade.
+
+### Retry idempotente
+
+Repetir a chamada faz **só o que falta**: o objeto já lá está, `existe()` decide, e nenhum
+byte volta a subir. O `INSERT` traz `on conflict (storage_path) do nothing` — não duplica
+linha nem inventa `captured_at` novo. Provado nos casos H e N.
+
+### Provado sem produção
+
+19 testes em `tests/test_preservar_coleta.py`, com armazém de mentira: **sem banco, sem rede,
+sem instalar nada**. Cobrem A–N, incluindo as duas mortes do processo e a recuperação.
+
+---
+
+## K · `derived_artifact` — continua sendo a única lacuna de esquema
+
+**SIM.** Nada do que se mediu hoje mudou isso, e uma coisa reforçou:
+
+A pendência `UPLOAD_PENDING_METADATA` **não pediu coluna nem enum novo** — mora no manifesto
+da corrida e mapeia para o `parcial` que a `001` já tem. Era o candidato mais provável a
+virar uma sexta alteração de esquema, e não virou.
+
+Continua faltando **uma** tabela, para a etapa de **derivação**: os 43 textos de PDF, com
+`parent_sha256`, tipo, ator e versão. SQL projetado em
+[`IDENTIDADE-DO-ARTEFATO.md`](IDENTIDADE-DO-ARTEFATO.md) §F. **Não aplicado, aqui nem em
+lado nenhum.**
+
+---
+
+## L · O GOLDEN PATH, DEPOIS DESTA MISSÃO
+
+Os 43 **não** foram migrados, e não devem ser até a decisão do enum de custo e um teste da
+`022` num Postgres descartável. O que esta missão prova é que a próxima execução **poderia**
+correr pelo caminho certo:
+
+```
+NOVA CORRIDA → planear → armazém → conferir → memória → reconciliar → COMPLETE
+```
+
+⚠️ **E a cardinalidade não é 43 por decreto.** O plano é calculado dos artefatos que
+entrarem: registos, conteúdos e objetos são três contagens diferentes, e o armazém italiano
+acabou de mostrar por quê. Fixar «43 objetos» na arquitetura repetiria o erro de escrever no
+código um número que só era verdade num dia.
+
+## M · A PRÓXIMA AÇÃO SEGURA
+
+1. **Ler os bytes de volta do armazém** e bater o `sha256` inteiro — sobe a prova de
+   `PREFIX_MATCH` para `FULL_SHA256_MATCH`. Precisa de credencial.
+2. Decidir se um *backfill verificável* dos 141 documentos é aceitável — **e a corrida
+   continua `NOT_PROVABLE`**, o que precisa de resposta própria e não se resolve por conforto.
+3. Testar a `022` (`derived_artifact`) num Postgres local e descartável.
+4. Decidir `ROTA_GRATUITA_PROVADA` no enum de `cost_method`.
+
+**Nenhuma delas foi feita hoje. Hoje era fechar a conta e fechar a porta da frente.**

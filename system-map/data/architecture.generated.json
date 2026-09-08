@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "c7a7826cab7ab711cdd8281ca920364875ae60d7",
-    "GENERATED_AT": "2026-09-08T09:48:46-03:00"
+    "HEAD": "ac82fae507a78e22e3a1d3f7e0a6ab59b0e8fe5d",
+    "GENERATED_AT": "2026-09-08T09:49:25-03:00"
   },
   "FILES": [
     {
@@ -100,7 +100,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "17524cdd4638c22dd6e70402958f6f329ea91706",
+      "sha": "410b4c60b7449b3a5510a144d83169709f01ee91",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -3915,7 +3915,7 @@
     },
     {
       "path": "data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json",
-      "sha": "840e09714100d2dec4036918fcd3570b59df39dd",
+      "sha": "a71870468cd0a6ebda4961d71956d6b19382a2a0",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4062,7 +4062,7 @@
     },
     {
       "path": "docs/biblia/CONFORMIDADE-ITALIA.md",
-      "sha": "f77ee87279a8d475820245519f924b2cc4d5f9ff",
+      "sha": "c866b17f04c446927d844717d8948c9da2b3625c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4118,7 +4118,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "cb22bd00598596eed83cdba03c7ddd83d2842f35",
+      "sha": "ab10e237ee5c71d7b4d9eca7b72b3a425ea3b367",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4293,7 +4293,7 @@
     },
     {
       "path": "docs/operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md",
-      "sha": "edb963698aef7abd067b1bf7340098dcba2e5150",
+      "sha": "293814c70b17ff018ac86ffdbad0b3fbc584a000",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4820,6 +4820,13 @@
       "path": "guarda/italy_preserve.mjs",
       "sha": "1f85713ec766389071fd94ceaa09f5cc4848787d",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "guarda/preservar_coleta.py",
+      "sha": "4a77dcd694cf2e366bd5115cc7396b98c7dbbb61",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -8178,7 +8185,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "989c70cd59ff0468aeca4c8f97f7299a68e5b652",
+      "sha": "d0819efd928a2004b7fab263aba97594aee78128",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8199,7 +8206,7 @@
     },
     {
       "path": "system-map/scripts/censo_do_armazem_it.py",
-      "sha": "2c98517e1dbb1d6ed84d5dce86f3adb195c11d45",
+      "sha": "226b1f2938e59043bd5a285a77b190a8c420beb3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8220,7 +8227,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "e293fcf7fc48f40ef043864d694cde67807a2337",
+      "sha": "6e9304e3508f714f04107a51ce791e50f0d8e01e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8318,7 +8325,7 @@
     },
     {
       "path": "tests/test_armazem_italiano.py",
-      "sha": "f89619aca59ac0eb5ecb3d48abbce01835c9acee",
+      "sha": "95e4ad54dd5c701587cfbf1999112518d75708e2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8480,6 +8487,13 @@
     {
       "path": "tests/test_portoes_eame.py",
       "sha": "c23138e145a3bf309b893da5f1311b33adc89e7f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_preservar_coleta.py",
+      "sha": "0a18d1ee86d1528e180d21f557e3c716168b5dc2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9280,6 +9294,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 103,
         "snippet": "python3 tests/test_observabilidade_estrada.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "tests/test_preservar_coleta.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 122,
+        "snippet": "run: python3 tests/test_preservar_coleta.py"
       }
     },
     {
@@ -23028,7 +23053,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_do_armazem_it.py",
-        "line": 258,
+        "line": 360,
         "snippet": "\"ESTA_PRESO_A_ESPANHA\": \"ADAMA-ES-PRODUCT-INTELLIGENCE.json\" in fonte,"
       }
     },
@@ -23050,7 +23075,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_do_armazem_it.py",
-        "line": 219,
+        "line": 321,
         "snippet": "IMPORTADOR = os.path.join(\"guarda\", \"catalogo_importar.py\")"
       }
     },
@@ -23072,7 +23097,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_do_armazem_it.py",
-        "line": 184,
+        "line": 187,
         "snippet": "from censo_de_identidade_it import caminhos_de_pdf, _sha256, _rel  # noqa: E402"
       }
     },
@@ -23138,7 +23163,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2370,
+        "line": 2383,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -23149,7 +23174,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1100,
+        "line": 1113,
         "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
       }
     },
@@ -23160,7 +23185,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1118,
+        "line": 1131,
         "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
       }
     },
@@ -23171,7 +23196,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1111,
+        "line": 1124,
         "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\","
       }
     },
@@ -23182,7 +23207,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 850,
+        "line": 862,
         "snippet": "\"data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json\"),"
       }
     },
@@ -23193,7 +23218,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2348,
+        "line": 2361,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -23204,7 +23229,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2129,
+        "line": 2142,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -23237,7 +23262,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2549,
+        "line": 2562,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -23248,7 +23273,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2571,
+        "line": 2584,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -23259,7 +23284,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2572,
+        "line": 2585,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -23270,7 +23295,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2571,
+        "line": 2584,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -23292,7 +23317,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3057,
+        "line": 3070,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -23303,7 +23328,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3057,
+        "line": 3070,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -23314,7 +23339,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2310,
+        "line": 2323,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -23897,7 +23922,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_armazem_italiano.py",
-        "line": 152,
+        "line": 187,
         "snippet": "\"001_fundacao_geografia_e_proveniencia.sql\"))"
       }
     },
@@ -23908,7 +23933,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_armazem_italiano.py",
-        "line": 180,
+        "line": 215,
         "snippet": "\"censo_do_armazem_it.py\"))"
       }
     },
@@ -25904,6 +25929,17 @@
       }
     },
     {
+      "from_file": "tests/test_preservar_coleta.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_preservar_coleta.py",
+        "line": 216,
+        "snippet": "fonte = open(os.path.join(RAIZ, \"guarda\", \"preservar_coleta.py\"),"
+      }
+    },
+    {
       "from_file": "tests/test_prioridade_comercial.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -26772,16 +26808,16 @@
     "system-map/scripts/censo_do_armazem_it.py": [
       {
         "pasta": "system-map",
-        "line": 297,
+        "line": 400,
         "constante": "destino"
       }
     ]
   },
   "COUNTS": {
-    "files_tracked": 1221,
-    "files_readable": 404,
-    "files_code_dir": 450,
-    "file_edges": 1621,
+    "files_tracked": 1223,
+    "files_readable": 406,
+    "files_code_dir": 452,
+    "file_edges": 1623,
     "escritas_em_pasta": 57,
     "declared_missing_here": 0
   },

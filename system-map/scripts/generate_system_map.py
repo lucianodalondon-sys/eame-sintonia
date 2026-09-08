@@ -783,7 +783,8 @@ def o_armazem_sem_livro() -> tuple[list, list]:
 
     objetos = L.get("ITALY_STORAGE_OBJETOS", "NÃO SEI")
     mb = round((L.get("ITALY_STORAGE_BYTES") or 0) / 1_000_000, 1)
-    tres = L.get("TRES_CONTAGENS_QUE_NAO_BATEM") or {}
+    tres = L.get("TRES_CONTAGENS") or {}
+    C = A.get("A_CONTA_FECHA") or {}
 
     no = {
         "id": "C-ARMAZEM-IT-SEM-LIVRO",
@@ -828,12 +829,23 @@ def o_armazem_sem_livro() -> tuple[list, list]:
             f"A PROCEDÊNCIA PERDEU-SE? {L.get('A_PROCEDENCIA_PERDEU_SE')}",
             f"a corrida, essa: {L.get('RUN_HISTORICA')}",
             f"e por isso: {L.get('NAO_RETROCRIAR')}",
-            f"TRÊS CONTAGENS QUE NÃO BATEM — manifesto "
+            f"AS TRÊS CONTAGENS — manifesto "
             f"{tres.get('DOCUMENTOS_NO_MANIFESTO')} · conteúdos únicos "
             f"{tres.get('CONTEUDOS_UNICOS_NO_MANIFESTO')} · objetos DOCUMENT "
             f"{tres.get('OBJETOS_DOCUMENT_NO_ARMAZEM')} · "
-            f"{tres.get('ESTADO')}",
-            f"por que não se resolve aqui: {tres.get('PORQUE_NAO_SE_RESOLVE_AQUI')}",
+            f"{tres.get('ESTADO')} ({tres.get('FORCA_DA_PROVA')})",
+            f"como se explicam: {tres.get('COMO_SE_EXPLICAM')}",
+            f"objetos previstos pelo manifesto: "
+            f"{C.get('OBJETOS_PREVISTOS_PELO_MANIFESTO')} · medidos no armazém: "
+            f"{C.get('OBJETOS_MEDIDOS_NO_ARMAZEM')} · batem: {C.get('BATE')}",
+            f"por que a prova não é FULL_SHA256_MATCH: "
+            f"{C.get('PORQUE_NAO_E_FULL_SHA256_MATCH')}",
+            f"algum byte perdido? {C.get('BYTE_PERDIDO')}",]
+        + [f"repetido · {g['SHA256'][:12]}… — {g['REGISTOS']} registos, "
+           f"{g['URLS_DISTINTAS']} URL(s) → {g['OBJETOS_PREVISTOS']} objeto(s): "
+           f"{g['PORQUE']} ({', '.join(g['PRODUTOS'])})"
+           for g in (C.get("GRUPOS_REPETIDOS") or [])]
+        + [
             f"documentos com procedência recuperável no Git: "
             f"{P.get('PROCEDENCIA_RECUPERAVEL')} de {P.get('DOCUMENTOS_DECLARADOS')}",
             f"OS 43 DO GOLDEN PATH ESTÃO AQUI? {D.get('JA_NO_ARMAZEM')} de "
@@ -854,6 +866,7 @@ def o_armazem_sem_livro() -> tuple[list, list]:
         "source": "system-map/data/armazem-it.generated.json",
         "declared_by": "missao reconciliar-o-supabase-real",
     }
+
     return [no], []
 
 

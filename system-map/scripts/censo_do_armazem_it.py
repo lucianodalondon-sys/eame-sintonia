@@ -131,6 +131,7 @@ def lacuna_do_armazem():
     st = ext["STORAGE"]
     tb = ext["TABELAS"]
     proc = procedencia_recuperavel()
+    conta = a_conta_fecha()
 
     objetos_documento = next(
         (p["OBJETOS"] for p in st["POR_PREFIXO"] if p["PREFIXO"].endswith("/DOCUMENT")), None)
@@ -152,18 +153,20 @@ def lacuna_do_armazem():
         "ITALY_COLLECTION_RUN_LINHAS": tb["public.collection_run"]["LINHAS_IT"],
         "LACUNA": "STORAGE_SEM_MEMORIA_OPERACIONAL",
         "OBJETOS_SEM_DONO_DECLARADO": st["OBJETOS"],
-        # AS TRES CONTAGENS QUE NAO BATEM. Nao se escolhe a mais bonita: se
-        # divergem, escreve-se a divergencia, porque e ela o achado.
-        "TRES_CONTAGENS_QUE_NAO_BATEM": {
+        # AS TRES CONTAGENS — ontem nao batiam, e hoje batem com explicacao.
+        # Ficam aqui porque o cartao do mapa as le daqui; a conta inteira, com
+        # a causa de cada diferenca, esta em `a_conta_fecha()`.
+        "TRES_CONTAGENS": {
             "DOCUMENTOS_NO_MANIFESTO": proc.get("DOCUMENTOS_DECLARADOS"),
             "CONTEUDOS_UNICOS_NO_MANIFESTO": proc.get("CONTEUDOS_UNICOS"),
             "OBJETOS_DOCUMENT_NO_ARMAZEM": objetos_documento,
-            "PORQUE_NAO_SE_RESOLVE_AQUI": (
-                "a medicao externa trouxe contagens por prefixo, NAO a lista de "
-                "chaves. Sem as chaves nao se casa objeto a objeto, e qualquer "
-                "explicacao para a diferenca seria inventada. E EXATAMENTE esta "
-                "a conta que uma linha de raw_asset por objeto tornaria trivial."),
-            "ESTADO": "NAO_RECONCILIADO",
+            "ESTADO": conta.get("ESTADO"),
+            "FORCA_DA_PROVA": conta.get("FORCA_DA_PROVA"),
+            "COMO_SE_EXPLICAM": (
+                "141 - 138 = 3 documentos que servem a DOIS produtos cada um. "
+                "139 - 138 = 1 conteudo publicado pela ADAMA em DUAS URLs. As "
+                "duas diferencas tem causas diferentes, e nenhuma e perda."),
+            "ONDE_ESTA_A_CONTA": "A_CONTA_FECHA",
         },
         "A_PROCEDENCIA_PERDEU_SE": (
             "NAO. Ela nao esta no banco, mas esta no Git: %s de %s documentos "
@@ -210,6 +213,105 @@ def dois_acervos():
             "isto compara com o MANIFESTO do armazem, nao com a lista de chaves do "
             "armazem. Se um objeto foi la parar sem passar pelo manifesto, este "
             "censo nao o ve."),
+    }
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# A CONTA QUE NÃO FECHAVA — 141, 138 e 139
+# ─────────────────────────────────────────────────────────────────────────
+def a_conta_fecha():
+    """Os três números explicados, e não só contados.
+
+    Ontem escrevi «três números, nenhum igual» e deixei em `NÃO_RECONCILIADO`,
+    porque faltava a lista de chaves. Ela chegou pela metade — as contagens de
+    identidade e as duas chaves do único duplicado — e é o suficiente, porque a
+    explicação estava do lado de cá o tempo todo, no manifesto:
+
+        141 REGISTOS   uma linha por (produto, documento)
+        138 CONTEÚDOS  bytes diferentes
+        139 OBJETOS    cópias guardadas no armazém
+
+    A diferença dos dois lados tem causas DIFERENTES, e é isso que estava a
+    faltar dizer:
+
+        141 - 138 = 3   três documentos servem a DOIS produtos cada um
+        139 - 138 = 1   um conteúdo foi PUBLICADO EM DUAS URLs
+
+    E prova-se olhando para a `SOURCE_URL` dos três grupos repetidos: o
+    `227779…` tem duas URLs (`media/731` e `media/6321`) e por isso dois
+    objetos; os outros dois têm **uma URL cada** e por isso um objeto cada. O
+    armazém bate com o manifesto, documento a documento.
+
+    ⚠️ E CONTINUA A SER PREFIX_MATCH. A chave carrega 16 caracteres do hash;
+    isso é endereço, não identidade. Sem ler os bytes de volta — e esta sessão
+    não os lê — a igualdade é forte mas parcial. Diz-se isso, não se arredonda.
+    """
+    m = _ler(MANIFESTO) or {}
+    ext = _ler(MEDICAO_EXTERNA) or {}
+    docs = m.get("DOCUMENTS") or []
+    dentro = (ext.get("STORAGE") or {}).get("DOCUMENT_POR_DENTRO") or {}
+
+    por_sha = {}
+    for d in docs:
+        if d.get("SHA256"):
+            por_sha.setdefault(d["SHA256"], []).append(d)
+
+    grupos = []
+    objetos_previstos = 0
+    for sha, entradas in sorted(por_sha.items()):
+        urls = sorted({e.get("SOURCE_URL") for e in entradas})
+        objetos_previstos += len(urls)
+        if len(entradas) > 1:
+            grupos.append({
+                "SHA256": sha,
+                "REGISTOS": len(entradas),
+                "URLS_DISTINTAS": len(urls),
+                "OBJETOS_PREVISTOS": len(urls),
+                "PRODUTOS": sorted({e.get("PRODUCT_NAME") for e in entradas}),
+                "PORQUE": (
+                    "o MESMO byte publicado em %d enderecos diferentes: sao %d "
+                    "factos sobre o mundo e UM conteudo" % (len(urls), len(urls))
+                    if len(urls) > 1 else
+                    "dois produtos que apontam para o MESMO endereco: e RELACAO "
+                    "LOGICA, e nao exige byte novo"),
+            })
+
+    objetos_medidos = dentro.get("OBJETOS")
+    return {
+        "O_QUE_E": (
+            "REGISTO nao e CONTEUDO e nao e OBJETO. Nenhuma das tres contagens "
+            "e derivavel das outras, e as duas diferencas tem causas diferentes."),
+        "REGISTOS_DE_MANIFESTO": len(docs),
+        "CONTEUDOS_UNICOS": len(por_sha),
+        "OBJETOS_PREVISTOS_PELO_MANIFESTO": objetos_previstos,
+        "OBJETOS_MEDIDOS_NO_ARMAZEM": objetos_medidos,
+        "CONTEUDOS_MEDIDOS_NO_ARMAZEM": dentro.get("PREFIXO_SHA16_DISTINTOS"),
+        "AS_DUAS_DIFERENCAS": {
+            "REGISTOS_MENOS_CONTEUDOS": len(docs) - len(por_sha),
+            "PORQUE_ESSA": ("documentos que servem a mais de um produto. E facto "
+                            "a preservar, nao erro — o proprio manifesto ja o dizia."),
+            "OBJETOS_MENOS_CONTEUDOS": (
+                (objetos_medidos - len(por_sha)) if objetos_medidos else None),
+            "PORQUE_ESSA_OUTRA": ("um conteudo publicado em DUAS URLs pela propria "
+                                  "ADAMA. Duas publicacoes, dois objetos, um conteudo."),
+        },
+        "GRUPOS_REPETIDOS": grupos,
+        "BATE": (objetos_medidos is not None
+                 and objetos_previstos == objetos_medidos
+                 and dentro.get("PREFIXO_SHA16_DISTINTOS") == len(por_sha)),
+        "ESTADO": ("RECONCILIADO_POR_PREFIXO"
+                   if (objetos_medidos is not None
+                       and objetos_previstos == objetos_medidos)
+                   else "NAO_RECONCILIADO"),
+        "FORCA_DA_PROVA": "PREFIX_MATCH",
+        "PORQUE_NAO_E_FULL_SHA256_MATCH": (
+            "a chave do armazem carrega 16 caracteres do hash, e prefixo curto e "
+            "endereco, nao identidade. Fechar como FULL_SHA256_MATCH exigiria ler "
+            "os 139 objetos de volta e bater o sha256 inteiro — esta sessao nao "
+            "tem credencial para isso."),
+        "BYTE_PERDIDO": (
+            "NENHUM. Todo conteudo do manifesto tem objeto previsto, e a contagem "
+            "de conteudos distintos no armazem e a mesma do manifesto."),
     }
 
 
@@ -289,6 +391,7 @@ def quem_escreveu():
 def main():
     fora = {
         "PROCEDENCIA_NO_GIT": procedencia_recuperavel(),
+        "A_CONTA_FECHA": a_conta_fecha(),
         "LACUNA_DO_ARMAZEM": lacuna_do_armazem(),
         "QUEM_ESCREVEU": quem_escreveu(),
         "DOIS_ACERVOS": dois_acervos(),
