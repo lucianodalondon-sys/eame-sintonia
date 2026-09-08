@@ -14,13 +14,33 @@ Ele recebe a permissão já dada e executa, contando quota.
 
 AS QUATRO CAPACIDADES, E POR QUE ELAS NÃO SÃO A MESMA
 -------------------------------------------------------
-    SEARCH_KEYWORD          search.list         100 unidades  ← DESCOBERTA, cara
-    INCREMENTAL             playlistItems.list    1 unidade   ← VIGILÂNCIA, barata
-    FETCH_VIDEO_METADATA    videos.list           1 unidade   ← até 50 IDs por chamada
-    FETCH_COMMENTS          commentThreads.list   1 unidade   ← 100 threads por chamada
+    SEARCH_KEYWORD          search.list         bucket SEARCH   1 chamada
+    INCREMENTAL             playlistItems.list  bucket GENERAL  1 unidade
+    FETCH_VIDEO_METADATA    videos.list         bucket GENERAL  1 unidade (até 50 IDs)
+    FETCH_COMMENTS          commentThreads.list bucket GENERAL  1 unidade (100 threads)
 
-`search.list` custa CEM vezes o `playlistItems.list`. Usar busca para vigiar canal
-conhecido queima a quota do dia em 100 chamadas. Por isso são capacidades separadas:
+DOIS BUCKETS, E SOMAR OS DOIS É ERRADO
+----------------------------------------
+A versão anterior deste arquivo declarava `search.list = 100 unidades` e afirmava que
+uma busca custava CEM vezes um `playlistItems.list`. **Isso estava desatualizado, e a
+matriz desta casa já dizia o contrário** — `social_matriz.py` registra, desde a
+medição de 2026-09-08, "1 unidade/chamada, bucket próprio de 100 buscas/dia".
+
+    A MATRIZ SABIA E O ADAPTADOR NÃO PERGUNTOU.
+
+Confirmado hoje na documentação oficial: *"The search.list and videos.insert methods
+have their own quota buckets"* e *"Projects that enable the YouTube Data API have a
+default quota allocation of 100 search.list calls, 100 videos.insert calls, and
+10,000 units per day combined for all other endpoints."*
+
+    SEARCH BUCKET      100 chamadas/dia por projeto
+    GENERAL BUCKET   10.000 unidades/dia por projeto
+
+    1 SEARCH CALL NÃO É 100 GENERAL UNITS.
+    E 4 buscas + 37 unidades NÃO são 41 de nada — são dois números.
+
+A busca continua sendo o recurso ESCASSO, mas por outro motivo: são 100 por dia, e
+acabaram. O `playlistItems.list` cabe 10.000 vezes. A conclusão prática não mudou:
 
     BUSCA DESCOBRE. PLAYLIST DE UPLOADS VIGIA.
 
@@ -29,6 +49,7 @@ O QUE ESTE ARQUIVO NÃO FAZ
 Não busca legenda: `captions.download` exige permissão de EDITAR o vídeo, e para
 vídeo de terceiro não existe rota permitida. Não baixa áudio nem vídeo. Não
 transcreve. Não resume, não traduz e não corrige o texto de ninguém — ver abaixo.
+E não escreve nada: `videos.insert` tem bucket próprio e esta casa nunca publica.
 
 O COMENTÁRIO É EVIDÊNCIA
 --------------------------
@@ -65,24 +86,46 @@ API = 'https://www.googleapis.com/youtube/v3'
 # O nome canônico da credencial. Ela vive em ambiente ou GitHub Secret, NUNCA aqui.
 ENV_CHAVE = 'YOUTUBE_DATA_API_KEY'
 
-# Custo em unidades de quota, da tabela oficial. É o que torna o orçamento real.
+# Os dois buckets. Conferido na documentação oficial em 2026-09-08.
 # https://developers.google.com/youtube/v3/determine_quota_cost
+SEARCH = 'SEARCH'
+GENERAL = 'GENERAL'
+BUCKETS = (SEARCH, GENERAL)
+
+# Tetos PADRÃO do projeto, declarados pela documentação. São o que o Google concede
+# a um projeto novo — não o que ESTE projeto tem. Se alguém pediu aumento, muda.
+LIMITE_PADRAO = {SEARCH: 100, GENERAL: 10000}
+
+# (bucket, custo por chamada). O custo é 1 em todos: o que difere é DE ONDE sai.
 QUOTA = {
-    'search.list': 100,
-    'videos.list': 1,
-    'channels.list': 1,
-    'playlistItems.list': 1,
-    'commentThreads.list': 1,
-    'comments.list': 1,
+    'search.list':         (SEARCH, 1),
+    'videos.list':         (GENERAL, 1),
+    'channels.list':       (GENERAL, 1),
+    'playlistItems.list':  (GENERAL, 1),
+    'commentThreads.list': (GENERAL, 1),
+    'comments.list':       (GENERAL, 1),
 }
+
+# A versão do modelo de quota que este código assume. Existe para que, quando o
+# Google mudar de novo, dê para saber contra qual regra os números antigos foram
+# medidos — em vez de descobrir que a conta de ontem virou outra coisa em silêncio.
+QUOTA_MODEL_VERSION = '2026-09-08:two-buckets'
+QUOTA_BASIS = ('documentação oficial lida em 2026-09-08: search.list e videos.insert '
+               'têm buckets próprios; padrão de 100 chamadas search.list/dia e '
+               '10.000 unidades/dia para os demais endpoints somados')
 
 # A quota é gratuita, e "gratuito" precisa de base declarada — não de silêncio.
 COST_BASIS = 'QUOTA_GRATUITA_OFICIAL'
 COST_USD = 0.0
 
-# Teto de segurança por execução. 10.000 unidades/dia é o padrão da conta; gastar
-# tudo numa rodada deixa o resto do dia sem coleta.
-TETO_UNIDADES_PADRAO = int(os.environ.get('YT_TETO_UNIDADES') or 2000)
+# Tetos de segurança POR EXECUÇÃO, um por bucket. Um teto só sobre os dois somados
+# faria uma rodada de comentários consumir o orçamento de busca do dia, ou o
+# contrário — e nenhuma das duas coisas tem sentido, porque as quotas não se falam.
+#
+# Os padrões deixam margem de propósito: 20 de 100 buscas e 2.000 de 10.000 unidades
+# é um quinto do dia. Uma execução não é o dia inteiro.
+TETO_SEARCH_PADRAO = int(os.environ.get('YT_TETO_SEARCH_CALLS') or 20)
+TETO_GERAL_PADRAO = int(os.environ.get('YT_TETO_GENERAL_UNITS') or 2000)
 
 
 class SemCredencial(RuntimeError):
@@ -107,18 +150,30 @@ def chave(env_=None):
 # O CONTADOR — toda chamada passa por aqui, e nenhuma escapa da conta
 # ══════════════════════════════════════════════════════════════════════════
 class Sessao:
-    """Uma execução: a credencial, o teto, o contador e o transporte.
+    """Uma execução: a credencial, DOIS orçamentos, o contador e o transporte.
+
+    Dois orçamentos porque são duas quotas. Um contador único faria a busca comer
+    o orçamento de comentários — e, pior, faria o relatório somar dois números que
+    não se somam.
 
     O transporte é injetável para que os testes exerçam quota estourada, vídeo
     apagado e comentário desativado SEM rede e SEM chave real. Um teste que
-    depende da internet não roda quando mais precisa.
+    depende da internet não roda quando mais se precisa.
     """
 
-    def __init__(self, *, api_key=None, teto_unidades=None, transporte=None):
+    def __init__(self, *, api_key=None, teto_search=None, teto_geral=None,
+                 transporte=None, teto_unidades=None):
         self.api_key = api_key or chave()
-        self.teto = teto_unidades if teto_unidades is not None else TETO_UNIDADES_PADRAO
+        # `teto_unidades` sobrevive como apelido do teto GERAL para não quebrar
+        # quem já chamava com o nome antigo. Ele nunca governou a busca de verdade.
+        self.teto = {
+            SEARCH: teto_search if teto_search is not None else TETO_SEARCH_PADRAO,
+            GENERAL: (teto_geral if teto_geral is not None
+                      else (teto_unidades if teto_unidades is not None
+                            else TETO_GERAL_PADRAO)),
+        }
         self._transporte = transporte or _http
-        self.unidades = 0
+        self.usado = {SEARCH: 0, GENERAL: 0}
         self.requests = 0
         self.por_metodo = {}
         self.erros = []
@@ -133,30 +188,47 @@ class Sessao:
                 'sem %s no ambiente. Isto é CREDENTIAL_MISSING — a rota liga no dia '
                 'em que a chave existir, e NÃO se cai para scraping por causa disso.'
                 % ENV_CHAVE)
-        custo = QUOTA[metodo]
-        if self.unidades + custo > self.teto:
+        bucket, custo = QUOTA[metodo]
+        if self.usado[bucket] + custo > self.teto[bucket]:
             raise TetoDaExecucao(
-                'teto desta execução (%d unidades) seria ultrapassado por %s (+%d). '
-                'Isto é decisão NOSSA, não recusa da plataforma.'
-                % (self.teto, metodo, custo))
+                'teto do bucket %s nesta execução (%d) seria ultrapassado por %s '
+                '(+%d, usado %d). Isto é decisão NOSSA, não recusa da plataforma — e '
+                'o bucket %s continua intacto.'
+                % (bucket, self.teto[bucket], metodo, custo, self.usado[bucket],
+                   [b for b in BUCKETS if b != bucket][0]))
         caminho = metodo.split('.')[0]
         q = dict(params); q['key'] = self.api_key
         url = '%s/%s?%s' % (API, caminho, urllib.parse.urlencode(q, doseq=True))
         self.requests += 1
-        self.unidades += custo
-        d = self.por_metodo.setdefault(metodo, {'REQUESTS': 0, 'QUOTA_UNITS': 0})
+        self.usado[bucket] += custo
+        d = self.por_metodo.setdefault(metodo, {'REQUESTS': 0, 'BUCKET': bucket,
+                                                'UNITS': 0})
         d['REQUESTS'] += 1
-        d['QUOTA_UNITS'] += custo
+        d['UNITS'] += custo
         return self._transporte(url)
 
     def metricas(self):
+        """Os dois buckets, SEPARADOS. Nunca um total somado.
+
+        `REMAINING` não aparece: a API não devolve saldo, e ninguém consultou o
+        Console. Inventar um saldo seria pior que não ter — daria a alguém a
+        confiança de gastar contra um número imaginado.
+        """
         return {
             'REQUESTS': self.requests,
-            'QUOTA_UNITS': self.unidades,
-            'QUOTA_TETO': self.teto,
+            'SEARCH_CALLS_USED': self.usado[SEARCH],
+            'SEARCH_CALLS_RUN_LIMIT': self.teto[SEARCH],
+            'SEARCH_CALLS_PROJECT_LIMIT_DEFAULT': LIMITE_PADRAO[SEARCH],
+            'GENERAL_UNITS_USED': self.usado[GENERAL],
+            'GENERAL_UNITS_RUN_LIMIT': self.teto[GENERAL],
+            'GENERAL_UNITS_PROJECT_LIMIT_DEFAULT': LIMITE_PADRAO[GENERAL],
+            'SEARCH_CALLS_REMAINING': 'UNKNOWN',
+            'GENERAL_UNITS_REMAINING': 'UNKNOWN',
             'POR_METODO': self.por_metodo,
             'COST_USD': COST_USD,
             'COST_BASIS': COST_BASIS,
+            'QUOTA_BASIS': QUOTA_BASIS,
+            'QUOTA_MODEL_VERSION': QUOTA_MODEL_VERSION,
         }
 
 
@@ -180,7 +252,11 @@ RAZOES = {
     'keyInvalid': 'AUTH_EXPIRED',
     'ipRefererBlocked': 'AUTH_EXPIRED',
     'forbidden': 'BLOCKED',
-    'commentsDisabled': 'NOT_APPLICABLE',
+    # NÃO é NOT_APPLICABLE: a capacidade EXISTE no YouTube e está desligada NESTE
+    # vídeo. E não é ZERO_RESULTS: zero é ausência de fala observada; desligado é
+    # ausência de superfície de fala. Para o FIELD VOICES futuro não é a mesma
+    # evidência, e juntar as duas hoje apaga a diferença para sempre.
+    'commentsDisabled': 'FEATURE_DISABLED',
     'videoNotFound': 'SOURCE_GONE',
     'channelNotFound': 'SOURCE_GONE',
     'playlistNotFound': 'SOURCE_GONE',
@@ -249,7 +325,7 @@ def buscar(*, termo, run_id, country_scope='IT', limit=25, tipo='video',
             raw={'CHANNEL_TITLE': sn.get('channelTitle'),
                  'CHANNEL_ID': sn.get('channelId'),
                  'QUERY': termo, 'API_METHOD': 'search.list',
-                 'COST_BASIS': COST_BASIS,
+                 'COST_BASIS': COST_BASIS, 'QUOTA_BUCKET': SEARCH,
                  # regionCode molda ranking, não prova lugar. Fica no RAW como
                  # PARÂMETRO DO PEDIDO, nunca como propriedade do objeto.
                  'REQUEST_REGION_CODE': regiao or env.DESCONHECIDO,
@@ -260,18 +336,89 @@ def buscar(*, termo, run_id, country_scope='IT', limit=25, tipo='video',
 # ══════════════════════════════════════════════════════════════════════════
 # 2 · INCREMENTAL — vigilância barata do canal conhecido. 1 unidade.
 # ══════════════════════════════════════════════════════════════════════════
-def playlist_de_uploads(channel_id):
-    """O truque documentado: a playlist de uploads é o ID do canal com `UC`→`UU`.
+def uploads_derivado(channel_id):
+    """PALPITE, não contrato: `UC…` → `UU…`.
 
-    Evita uma chamada a `channels.list` só para descobrir um ID derivável.
+    A troca de prefixo funciona hoje na maioria dos canais e NÃO é a rota
+    documentada. Ela fica como reserva declarada, com esse nome, para que ninguém
+    a confunda com a resposta oficial.
+
+        HEURÍSTICA NÃO SUBSTITUI A ROTA OFICIAL
+        QUANDO A API JÁ DÁ O DADO CANÔNICO.
+
+    Quem quer o dado canônico chama `uploads_playlist()`, que pergunta à API.
     """
     if channel_id and channel_id.startswith('UC'):
         return 'UU' + channel_id[2:]
     return None
 
 
+DERIVED_HINT = 'DERIVED_HINT:UC_TO_UU'
+OFICIAL = 'youtube-data-api-v3:channels.list#contentDetails.relatedPlaylists.uploads'
+
+
+def uploads_playlist(*, channel_id, sessao=None, cache=None, permitir_derivado=False):
+    """A playlist de uploads, pela rota OFICIAL: `channels.list part=contentDetails`.
+
+    Devolve `(playlist_id, procedencia)`. A procedência importa tanto quanto o ID:
+    ela diz se aquilo veio da API ou de um palpite, e isso segue para o artefato.
+
+    ECONOMIA: uma vez por canal, não por dia. `cache` é um dicionário
+    `{channel_id: {...}}` que o chamador guarda entre execuções. Quando o canal já
+    está lá, esta função NÃO gasta unidade nenhuma. É por isso que descobrir uma vez
+    e vigiar depois é barato: a descoberta é o custo, a vigilância não.
+
+    `permitir_derivado` só entra quando a rota oficial não pôde ser consultada — e
+    mesmo então o resultado sai carimbado como palpite, nunca como fato.
+    """
+    cache = cache if cache is not None else {}
+    guardado = cache.get(channel_id)
+    if guardado and guardado.get('UPLOADS_PLAYLIST_ID'):
+        return guardado['UPLOADS_PLAYLIST_ID'], dict(guardado, REUSED=True)
+    s = sessao or Sessao()
+    try:
+        d = s.chamar('channels.list', {'part': 'contentDetails', 'id': channel_id})
+        itens = d.get('items') or []
+        if not itens:
+            # Pedido nominalmente e não devolvido. Isso é o canal, não a rota.
+            raise CanalNaoEncontrado(
+                'channels.list não devolveu %s — canal inexistente, encerrado ou '
+                'fora desta região. NÃO é "canal sem uploads".' % channel_id)
+        pl = (((itens[0].get('contentDetails') or {}).get('relatedPlaylists') or {})
+              .get('uploads'))
+        if not pl:
+            raise CanalNaoEncontrado(
+                '%s existe e não declara `relatedPlaylists.uploads`' % channel_id)
+        proc = {'CHANNEL_ID': channel_id, 'UPLOADS_PLAYLIST_ID': pl,
+                'PROVENANCE': OFICIAL, 'RESOLVED_AT': _agora(), 'REUSED': False}
+        cache[channel_id] = dict(proc, REUSED=False)
+        return pl, proc
+    except (SemCredencial, TetoDaExecucao):
+        raise
+    except Exception:
+        if not permitir_derivado:
+            raise
+        pl = uploads_derivado(channel_id)
+        if not pl:
+            raise
+        return pl, {'CHANNEL_ID': channel_id, 'UPLOADS_PLAYLIST_ID': pl,
+                    'PROVENANCE': DERIVED_HINT, 'RESOLVED_AT': _agora(),
+                    'REUSED': False,
+                    'AVISO': 'a rota oficial não respondeu; este ID é PALPITE'}
+
+
+class CanalNaoEncontrado(RuntimeError):
+    """O canal foi pedido nominalmente e negado nominalmente."""
+
+
+def _agora():
+    import datetime
+    return datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')
+
+
 def uploads_recentes(*, channel_id, run_id, country_scope='IT', limit=25,
-                     conhecidos=(), sessao=None):
+                     conhecidos=(), sessao=None, cache=None,
+                     permitir_derivado=False):
     """`playlistItems.list` sobre a playlist de uploads. UMA unidade por página.
 
     `conhecidos` implementa `newest → until known`: a API devolve do mais novo
@@ -282,9 +429,8 @@ def uploads_recentes(*, channel_id, run_id, country_scope='IT', limit=25,
     porque "nada novo hoje" é uma MEDIÇÃO — e não uma coleta que falhou.
     """
     s = sessao or Sessao()
-    pl = playlist_de_uploads(channel_id)
-    if not pl:
-        raise ValueError('channel_id fora do formato UC…: %r' % channel_id)
+    pl, proc = uploads_playlist(channel_id=channel_id, sessao=s, cache=cache,
+                                permitir_derivado=permitir_derivado)
     ja = set(conhecidos or ())
     novos, reusados, examinados, parou = [], 0, 0, False
     token = None
@@ -317,14 +463,19 @@ def uploads_recentes(*, channel_id, run_id, country_scope='IT', limit=25,
                 title=sn.get('title'), text=sn.get('description'),
                 cost_usd=COST_USD, raw_reference=raw,
                 raw={'CHANNEL_ID': channel_id, 'UPLOADS_PLAYLIST': pl,
+                     'UPLOADS_PLAYLIST_PROVENANCE': proc['PROVENANCE'],
                      'API_METHOD': 'playlistItems.list', 'COST_BASIS': COST_BASIS,
+                     'QUOTA_BUCKET': GENERAL,
                      'AUTHOR_LOCATION': env.DESCONHECIDO}))
         token = d.get('nextPageToken')
         if parou or not token or len(novos) >= int(limit):
             break
     return novos, s, {'CHANNEL_ID': channel_id, 'UPLOADS_EXAMINED': examinados,
                       'NEW': len(novos), 'REUSED': reusados,
-                      'STOPPED_AT_KNOWN': parou}
+                      'STOPPED_AT_KNOWN': parou,
+                      'UPLOADS_PLAYLIST_ID': pl,
+                      'UPLOADS_PLAYLIST_PROVENANCE': proc['PROVENANCE'],
+                      'UPLOADS_PLAYLIST_REUSED': proc.get('REUSED', False)}
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -372,6 +523,7 @@ def metadata(*, video_ids, run_id, country_scope='IT', sessao=None):
                      'DURATION': cdt.get('duration'),
                      'TAGS': sn.get('tags') or [],
                      'API_METHOD': 'videos.list', 'COST_BASIS': COST_BASIS,
+                     'QUOTA_BUCKET': GENERAL,
                      'AUTHOR_LOCATION': env.DESCONHECIDO}))
     faltando = [v for v in pedidos if v not in vistos]
     return saida, s, {'IDS_REQUESTED': len(pedidos), 'RETURNED': len(saida),
@@ -412,7 +564,7 @@ def _comentario(c, *, video_id, parent_id, run_id, country_scope, raw_ref, canal
             'UPDATED_AT': sn.get('updatedAt'),
             'LIKE_COUNT': sn.get('likeCount'),
             'API_METHOD': 'commentThreads.list' if parent_id is None else 'comments.list',
-            'COST_BASIS': COST_BASIS,
+            'COST_BASIS': COST_BASIS, 'QUOTA_BUCKET': GENERAL,
             # A API não devolve lugar de quem comentou. Não se inventa.
             'AUTHOR_LOCATION': env.DESCONHECIDO,
         })
@@ -425,8 +577,9 @@ def comentarios(*, video_id, run_id, country_scope='IT', limite_threads=100,
     Devolve `(objetos, sessao, relatorio)`. O relatório separa TRÊS coisas que
     parecem a mesma e não são:
 
-        COMMENTS_DISABLED   o dono desligou. A fonte respondeu — é um FATO sobre
-                            o vídeo, não uma coleta vazia e não uma falha nossa.
+        FEATURE_DISABLED    o dono desligou os comentários. A fonte respondeu, a
+                            rota funcionou, o nosso código funcionou. É um FATO
+                            sobre o vídeo — nem coleta vazia, nem falha nossa.
         ZERO_LEGITIMATE     respondeu, comentários ligados, ninguém comentou.
         <erro canônico>     não conseguimos olhar.
 
@@ -488,6 +641,7 @@ def comentarios(*, video_id, run_id, country_scope='IT', limite_threads=100,
         rel['RECOVERY_ACTION'] = falhas.recuperacao(estado, razao)
         if razao == 'commentsDisabled':
             rel['COMMENTS_DISABLED'] = True
+            rel['FEATURE'] = 'COMMENTS'
         return saida, s, rel
     rel['COMMENTS'] = len(saida)
     rel['STATE'] = 'OK' if saida else 'ZERO_RESULTS'
@@ -527,12 +681,19 @@ def main():
     print('YOUTUBE DATA API v3 — estrada oficial')
     print('  CREDENCIAL   %s (%s)' % ('PRESENTE' if s.disponivel() else 'AUSENTE', ENV_CHAVE))
     print('  COST_BASIS   %s · COST_USD %.2f' % (COST_BASIS, COST_USD))
-    print('  TETO         %d unidades por execução' % s.teto)
-    print('\n  CUSTO EM QUOTA POR MÉTODO')
-    for m, u in sorted(QUOTA.items(), key=lambda x: -x[1]):
-        print('    %-22s %3d unidade%s' % (m, u, 's' if u > 1 else ''))
-    print('\n  search.list custa 100x playlistItems.list.')
+    print('  QUOTA MODEL  %s' % QUOTA_MODEL_VERSION)
+    print('\n  DOIS BUCKETS — e eles NÃO se somam')
+    print('    %-10s padrão do projeto %6s/dia · teto desta execução %6s'
+          % (SEARCH, LIMITE_PADRAO[SEARCH], s.teto[SEARCH]))
+    print('    %-10s padrão do projeto %6s/dia · teto desta execução %6s'
+          % (GENERAL, LIMITE_PADRAO[GENERAL], s.teto[GENERAL]))
+    print('\n  MÉTODO                 BUCKET   CUSTO')
+    for m, (b, u) in sorted(QUOTA.items(), key=lambda x: (x[1][0], x[0])):
+        print('    %-22s %-8s %d' % (m, b, u))
+    print('\n  1 SEARCH CALL NÃO É 100 GENERAL UNITS.')
+    print('  A busca é escassa por ser 100/dia — não por ser cara.')
     print('  BUSCA DESCOBRE. PLAYLIST DE UPLOADS VIGIA.')
+    print('\n  SALDO RESTANTE: UNKNOWN — a API não devolve, e ninguém leu o Console.')
     if not s.disponivel():
         print('\n  ESTADO  CREDENTIAL_MISSING — e isto NÃO autoriza cair para scraping.')
         return 1

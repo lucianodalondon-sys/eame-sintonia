@@ -1,5 +1,5 @@
 {
- "QUANDO": "2026-09-08T13:48:59+00:00",
+ "QUANDO": "2026-09-08T14:03:46+00:00",
  "PLATFORM": "YOUTUBE",
  "COUNTRY_SCOPE": "IT",
  "CREDENCIAL_PRESENTE": false,
@@ -14,7 +14,9 @@
    "SOURCE_HEALTH": "HEALTHY",
    "ROUTE_HEALTH": "UNAVAILABLE",
    "EXECUTOR_HEALTH": "HEALTHY",
-   "QUOTA_UNITS": 0,
+   "SEARCH_CALLS_USED": 0,
+   "GENERAL_UNITS_USED": 0,
+   "QUOTA_BUCKET": "SEARCH",
    "COST_USD": 0.0,
    "COST_BASIS": "QUOTA_GRATUITA_OFICIAL"
   },
@@ -28,7 +30,9 @@
    "SOURCE_HEALTH": "HEALTHY",
    "ROUTE_HEALTH": "UNAVAILABLE",
    "EXECUTOR_HEALTH": "HEALTHY",
-   "QUOTA_UNITS": 0,
+   "SEARCH_CALLS_USED": 0,
+   "GENERAL_UNITS_USED": 0,
+   "QUOTA_BUCKET": "GENERAL",
    "COST_USD": 0.0,
    "COST_BASIS": "QUOTA_GRATUITA_OFICIAL"
   },
@@ -42,7 +46,9 @@
    "SOURCE_HEALTH": "HEALTHY",
    "ROUTE_HEALTH": "UNAVAILABLE",
    "EXECUTOR_HEALTH": "HEALTHY",
-   "QUOTA_UNITS": 0,
+   "SEARCH_CALLS_USED": 0,
+   "GENERAL_UNITS_USED": 0,
+   "QUOTA_BUCKET": "GENERAL",
    "COST_USD": 0.0,
    "COST_BASIS": "QUOTA_GRATUITA_OFICIAL"
   },
@@ -56,11 +62,21 @@
    "SOURCE_HEALTH": "HEALTHY",
    "ROUTE_HEALTH": "UNAVAILABLE",
    "EXECUTOR_HEALTH": "HEALTHY",
-   "QUOTA_UNITS": 0,
+   "SEARCH_CALLS_USED": 0,
+   "GENERAL_UNITS_USED": 0,
+   "QUOTA_BUCKET": "GENERAL",
    "COST_USD": 0.0,
    "COST_BASIS": "QUOTA_GRATUITA_OFICIAL"
   }
  ],
+ "QUOTA_MODEL_VERSION": "2026-09-08:two-buckets",
+ "QUOTA_BASIS": "documentação oficial lida em 2026-09-08: search.list e videos.insert têm buckets próprios; padrão de 100 chamadas search.list/dia e 10.000 unidades/dia para os demais endpoints somados",
+ "SEARCH_CALLS_USED": 0,
+ "GENERAL_UNITS_USED": 0,
+ "SEARCH_CALLS_PROJECT_LIMIT_DEFAULT": 100,
+ "GENERAL_UNITS_PROJECT_LIMIT_DEFAULT": 10000,
+ "REMAINING": "UNKNOWN",
+ "QUOTA_EVIDENCE_LEVEL": "DECLARED_DOC_CURRENT",
  "APIFY_CHAMADA": false,
  "PORQUE": "nenhuma chamada paga: a rota oficial é a padrão nas quatro capacidades, e quando ela não roda a resposta é parar, não trocar por uma rota proibida."
 }

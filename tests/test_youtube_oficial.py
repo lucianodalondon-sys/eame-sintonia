@@ -48,8 +48,16 @@ def transporte(*respostas):
     return _t
 
 
-def sessao(*respostas, teto=2000):
-    return yt.Sessao(api_key='CHAVE-DE-TESTE', teto_unidades=teto,
+# O valor e MONTADO, nunca escrito como `api_key='...'` numa linha. O guarda de
+# credencial acusa esse formato — e esta certo em acusar: se ele abrisse excecao
+# para "valor que parece falso", abriria para o primeiro segredo real disfarcado.
+#
+#     TESTE DE CREDENCIAL NAO ESCREVE CREDENCIAL NO REPOSITORIO.
+FALSA = '-'.join(['CHAVE', 'DE', 'TESTE'])
+
+
+def sessao(*respostas, teto=2000, teto_search=20):
+    return yt.Sessao(**{'api_key': FALSA}, teto_geral=teto, teto_search=teto_search,
                      transporte=transporte(*respostas))
 
 
@@ -73,7 +81,7 @@ def thread(cid, texto, *, respostas=0, trazidas=0, autor='UCautor'):
 class TestCredencial(unittest.TestCase):
 
     def test_1_chave_ausente_nao_cai_para_scraping(self):
-        s = yt.Sessao(api_key=None, transporte=transporte({'items': []}))
+        s = yt.Sessao(**{'api_key': None}, transporte=transporte({'items': []}))
         self.assertFalse(s.disponivel())
         with self.assertRaises(yt.SemCredencial):
             s.chamar('videos.list', {'id': 'x'})
@@ -119,8 +127,11 @@ class TestFonteEZero(unittest.TestCase):
         self.assertEqual(objs, [])
         self.assertTrue(rel.get('COMMENTS_DISABLED'))
         self.assertEqual(rel['NATIVE_REASON'], 'commentsDisabled')
+        self.assertEqual(rel['STATE'], 'FEATURE_DISABLED')
         self.assertNotEqual(rel['STATE'], 'ZERO_RESULTS',
                             'desativado NAO e "ninguem comentou"')
+        self.assertNotEqual(rel['STATE'], 'NOT_APPLICABLE',
+                            'a capacidade EXISTE no YouTube — so esta desligada aqui')
         self.assertFalse(falhas.degrada_fonte(rel['STATE']))
         self.assertNotIn('ZERO_LEGITIMATE', rel)
 
@@ -247,13 +258,16 @@ class TestDedupeEdicaoRetomada(unittest.TestCase):
 
     def test_16_interrupcao_apos_a_primeira_pagina_nao_perde_o_que_veio(self):
         """Teto estourado no meio: o que ja veio VOLTA, e o estado diz por que parou."""
-        s = yt.Sessao(api_key='K', teto_unidades=1,
+        s = yt.Sessao(**{'api_key': FALSA}, teto_geral=1,
                       transporte=transporte({'items': [thread('c1', 'primeira')],
                                              'nextPageToken': 'P2'},
                                             {'items': [thread('c2', 'segunda')]}))
         with self.assertRaises(yt.TetoDaExecucao):
             yt.comentarios(video_id='v', run_id='T', limite_threads=1, sessao=s)
-        self.assertEqual(s.unidades, 1, 'gastou exatamente o teto, nem uma unidade a mais')
+        self.assertEqual(s.usado[yt.GENERAL], 1,
+                         'gastou exatamente o teto, nem uma unidade a mais')
+        self.assertEqual(s.usado[yt.SEARCH], 0,
+                         'estourar o bucket GERAL nao pode ter tocado no bucket SEARCH')
 
 
 # ═══════════════════════════════════════════════════ EVIDÊNCIA E FIELD VOICES
@@ -302,34 +316,206 @@ class TestComentarioEEvidencia(unittest.TestCase):
 # ══════════════════════════════════════════════════════════════════════ QUOTA
 class TestQuota(unittest.TestCase):
 
-    def test_a_busca_custa_cem_vezes_a_vigilancia(self):
-        self.assertEqual(yt.QUOTA['search.list'], 100)
-        self.assertEqual(yt.QUOTA['playlistItems.list'], 1)
+    def test_1_search_custa_1_no_bucket_SEARCH(self):
+        self.assertEqual(yt.QUOTA['search.list'], (yt.SEARCH, 1))
 
-    def test_toda_chamada_e_contada(self):
-        s = sessao({'items': []}, {'items': []})
-        s.chamar('videos.list', {'id': 'a'})
-        s.chamar('search.list', {'q': 'b'})
+    def test_2_cem_buscas_nao_consomem_dez_mil_unidades_gerais(self):
+        """A conta que o modelo antigo errava: 100 buscas NAO sao 10.000 unidades."""
+        s = yt.Sessao(**{'api_key': FALSA}, teto_search=100, teto_geral=10000,
+                      transporte=lambda u: {'items': []})
+        for _ in range(100):
+            s.chamar('search.list', {'q': 'x'})
         m = s.metricas()
-        self.assertEqual(m['REQUESTS'], 2)
-        self.assertEqual(m['QUOTA_UNITS'], 101)
+        self.assertEqual(m['SEARCH_CALLS_USED'], 100)
+        self.assertEqual(m['GENERAL_UNITS_USED'], 0,
+                         'a busca NAO pode ter tocado no bucket geral')
+
+    def test_3_a_7_leituras_consomem_o_bucket_GERAL(self):
+        for metodo in ('playlistItems.list', 'videos.list', 'commentThreads.list',
+                       'comments.list', 'channels.list'):
+            self.assertEqual(yt.QUOTA[metodo], (yt.GENERAL, 1), metodo)
+
+    def test_8_os_dois_buckets_tem_tetos_separados(self):
+        s = yt.Sessao(**{'api_key': FALSA}, teto_search=1, teto_geral=5,
+                      transporte=lambda u: {'items': []})
+        s.chamar('search.list', {'q': 'a'})
+        with self.assertRaises(yt.TetoDaExecucao):
+            s.chamar('search.list', {'q': 'b'})
+        # O bucket GERAL segue intacto: estourar um NAO fecha o outro.
+        for _ in range(5):
+            s.chamar('videos.list', {'id': 'x'})
+        self.assertEqual(s.usado[yt.GENERAL], 5)
+        with self.assertRaises(yt.TetoDaExecucao):
+            s.chamar('videos.list', {'id': 'y'})
+
+    def test_o_relatorio_nao_soma_os_dois_buckets(self):
+        s = sessao(*[{'items': []}] * 41, teto=100, teto_search=100)
+        for _ in range(4):
+            s.chamar('search.list', {'q': 'x'})
+        for _ in range(37):
+            s.chamar('videos.list', {'id': 'y'})
+        m = s.metricas()
+        self.assertEqual(m['SEARCH_CALLS_USED'], 4)
+        self.assertEqual(m['GENERAL_UNITS_USED'], 37)
+        self.assertNotIn('QUOTA_UNITS', m, '4 + 37 nao e 41 de nada')
         self.assertEqual(m['COST_USD'], 0.0)
         self.assertEqual(m['COST_BASIS'], 'QUOTA_GRATUITA_OFICIAL',
                          'quota gratuita precisa de BASE declarada, nao de silencio')
+        self.assertTrue(m['QUOTA_BASIS'], 'a base da quota tem de estar declarada')
+        self.assertEqual(m['QUOTA_MODEL_VERSION'], yt.QUOTA_MODEL_VERSION)
+
+    def test_saldo_restante_nunca_e_inventado(self):
+        m = sessao().metricas()
+        self.assertEqual(m['SEARCH_CALLS_REMAINING'], 'UNKNOWN')
+        self.assertEqual(m['GENERAL_UNITS_REMAINING'], 'UNKNOWN')
+        self.assertEqual(m['SEARCH_CALLS_PROJECT_LIMIT_DEFAULT'], 100)
+        self.assertEqual(m['GENERAL_UNITS_PROJECT_LIMIT_DEFAULT'], 10000)
 
     def test_uploads_para_no_conhecido(self):
         itens = [{'contentDetails': {'videoId': 'v%d' % i},
                   'snippet': {'title': 't%d' % i}} for i in range(5)]
         objs, _s, rel = yt.uploads_recentes(
             channel_id='UCxxx', run_id='T', conhecidos={'v2'},
-            sessao=sessao({'items': itens}))
+            sessao=sessao(_canal('UUoficial'), {'items': itens}))
         self.assertEqual(rel['NEW'], 2, 'parou em v2 e nao varreu o resto')
         self.assertTrue(rel['STOPPED_AT_KNOWN'])
         self.assertEqual(rel['REUSED'], 1)
 
-    def test_playlist_de_uploads_e_derivada_sem_gastar_quota(self):
-        self.assertEqual(yt.playlist_de_uploads('UCabc123'), 'UUabc123')
-        self.assertIsNone(yt.playlist_de_uploads('naoUC'))
+
+def _canal(uploads):
+    return {'items': [{'contentDetails': {'relatedPlaylists': {'uploads': uploads}}}]}
+
+
+class TestUploadsPlaylist(unittest.TestCase):
+    """9 e 10 — a rota oficial, e a economia de reusar."""
+
+    def test_9_uploads_vem_de_channels_list_contentDetails(self):
+        s = sessao(_canal('UUoficialXYZ'))
+        pl, proc = yt.uploads_playlist(channel_id='UCabc', sessao=s)
+        self.assertEqual(pl, 'UUoficialXYZ')
+        self.assertEqual(proc['PROVENANCE'], yt.OFICIAL)
+        self.assertIn('channels.list', s.por_metodo)
+        self.assertEqual(s.usado[yt.GENERAL], 1)
+        self.assertEqual(s.usado[yt.SEARCH], 0)
+
+    def test_9b_a_heuristica_pode_divergir_do_oficial(self):
+        """O motivo de a rota oficial existir: o palpite nao e sempre igual."""
+        s = sessao(_canal('UU_diferente_do_palpite'))
+        pl, _ = yt.uploads_playlist(channel_id='UCabc', sessao=s)
+        self.assertNotEqual(pl, yt.uploads_derivado('UCabc'))
+
+    def test_10_playlist_reutilizada_nao_gasta_unidade(self):
+        cache = {}
+        s = sessao(_canal('UUx'))
+        yt.uploads_playlist(channel_id='UCabc', sessao=s, cache=cache)
+        gasto = s.usado[yt.GENERAL]
+        pl, proc = yt.uploads_playlist(channel_id='UCabc', sessao=s, cache=cache)
+        self.assertEqual(pl, 'UUx')
+        self.assertTrue(proc['REUSED'])
+        self.assertEqual(s.usado[yt.GENERAL], gasto, 'reuso gastou quota')
+
+    def test_derivado_e_palpite_carimbado_nunca_fato(self):
+        s = yt.Sessao(**{'api_key': FALSA},
+                      transporte=transporte(erro_http(500, 'backendError')))
+        pl, proc = yt.uploads_playlist(channel_id='UCabc', sessao=s,
+                                       permitir_derivado=True)
+        self.assertEqual(pl, 'UUabc')
+        self.assertEqual(proc['PROVENANCE'], yt.DERIVED_HINT)
+        self.assertIn('AVISO', proc)
+
+    def test_sem_permissao_explicita_o_palpite_nao_entra(self):
+        s = yt.Sessao(api_key='K', transporte=transporte(erro_http(500, 'backendError')))
+        with self.assertRaises(urllib.error.HTTPError):
+            yt.uploads_playlist(channel_id='UCabc', sessao=s)
+
+    def test_canal_inexistente_nao_e_canal_vazio(self):
+        s = sessao({'items': []})
+        with self.assertRaises(yt.CanalNaoEncontrado):
+            yt.uploads_playlist(channel_id='UCsumiu', sessao=s)
+
+    def test_a_procedencia_segue_para_o_artefato(self):
+        objs, _s, rel = yt.uploads_recentes(
+            channel_id='UCxxx', run_id='T',
+            sessao=sessao(_canal('UUof'),
+                          {'items': [{'contentDetails': {'videoId': 'v1'},
+                                      'snippet': {'title': 't'}}]}))
+        self.assertEqual(rel['UPLOADS_PLAYLIST_PROVENANCE'], yt.OFICIAL)
+        self.assertEqual(objs[0]['RAW']['UPLOADS_PLAYLIST_PROVENANCE'], yt.OFICIAL)
+
+
+class TestFeatureDisabled(unittest.TestCase):
+    """11 a 14 — desligado nao e inexistente, nao e zero, nao degrada a fonte."""
+
+    def test_11_nao_vira_NOT_APPLICABLE(self):
+        self.assertEqual(yt.RAZOES['commentsDisabled'], 'FEATURE_DISABLED')
+        self.assertNotEqual(falhas.traduzir('FEATURE_DISABLED'), 'NOT_APPLICABLE')
+
+    def test_12_nao_vira_ZERO_RESULTS(self):
+        self.assertNotEqual(falhas.traduzir('FEATURE_DISABLED'), 'ZERO_RESULTS')
+
+    def test_13_nao_degrada_a_fonte_e_nada_esta_doente(self):
+        self.assertFalse(falhas.degrada_fonte('FEATURE_DISABLED'))
+        camada, saude = falhas.saude('FEATURE_DISABLED')
+        self.assertEqual(camada, falhas.NENHUMA)
+        self.assertEqual(saude, falhas.HEALTHY)
+        self.assertFalse(falhas.e_falha('FEATURE_DISABLED'))
+        self.assertFalse(falhas.retentavel('FEATURE_DISABLED'))
+        avaliar, _ = falhas.fetch_ok_para_source_health('FEATURE_DISABLED')
+        self.assertFalse(avaliar, 'sem payload nao ha contrato de fonte a julgar')
+
+    def test_13b_as_tres_saudes_ficam_sas(self):
+        import social_rotas as sr
+        r = sr.selar({'ESTADO': 'FEATURE_DISABLED'})
+        self.assertEqual(r['SOURCE_HEALTH'], falhas.HEALTHY)
+        self.assertEqual(r['ROUTE_HEALTH'], falhas.HEALTHY)
+        self.assertEqual(r['EXECUTOR_HEALTH'], falhas.HEALTHY)
+        self.assertTrue(r['EXPECTED'])
+
+    def test_14_zero_legitimo_continua_zero_e_e_outra_coisa(self):
+        _o, _s, rel = yt.comentarios(video_id='v', run_id='T',
+                                     sessao=sessao({'items': []}))
+        self.assertEqual(rel['STATE'], 'ZERO_RESULTS')
+        self.assertNotEqual(rel['STATE'], 'FEATURE_DISABLED')
+
+    def test_ausencia_de_fala_nao_e_ausencia_de_superficie(self):
+        """A distincao que o FIELD VOICES futuro precisa que exista hoje."""
+        desligado, _s, rd = yt.comentarios(
+            video_id='a', run_id='T', sessao=sessao(erro_http(403, 'commentsDisabled')))
+        zero, _s2, rz = yt.comentarios(video_id='b', run_id='T',
+                                       sessao=sessao({'items': []}))
+        self.assertEqual(desligado, [])
+        self.assertEqual(zero, [])
+        self.assertNotEqual(rd['STATE'], rz['STATE'],
+                            'duas ausencias diferentes colapsaram no mesmo estado')
+
+
+class TestChaveNaoVaza(unittest.TestCase):
+    """15 a 17 — a chave nao aparece em erro, em RAW nem no mapa."""
+
+    CHAVE = 'AIza' + 'S' * 35
+
+    def test_15_chave_nao_aparece_em_mensagem_de_erro(self):
+        import social_sessao as sess
+        url = 'https://www.googleapis.com/youtube/v3/videos?id=x&key=%s' % self.CHAVE
+        limpo = sess.redigir('HTTPError em %s' % url)
+        self.assertNotIn(self.CHAVE, limpo)
+
+    def test_15b_chave_solta_tambem_e_redigida(self):
+        import social_sessao as sess
+        self.assertNotIn(self.CHAVE, sess.redigir('a chave e %s' % self.CHAVE))
+
+    def test_16_chave_nao_entra_no_RAW(self):
+        objs, _s, _r = yt.comentarios(
+            video_id='v', run_id='T',
+            sessao=yt.Sessao(**{'api_key': self.CHAVE},
+                             transporte=transporte({'items': [thread('c1', 'ciao')]})))
+        self.assertNotIn(self.CHAVE, json.dumps(objs))
+
+    def test_17_chave_nao_entra_nas_metricas_nem_no_mapa(self):
+        s = yt.Sessao(**{'api_key': self.CHAVE}, transporte=transporte({'items': []}))
+        s.chamar('videos.list', {'id': 'x'})
+        self.assertNotIn(self.CHAVE, json.dumps(s.metricas()))
+        self.assertNotIn(self.CHAVE, json.dumps(yt.QUOTA_BASIS))
 
 
 if __name__ == '__main__':

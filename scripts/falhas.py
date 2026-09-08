@@ -109,6 +109,16 @@ _TABELA = [
        ['NOT_APPLICABLE'],
        'a matriz não declara esta capacidade para esta plataforma. Não é falha de '
        'ninguém: é pergunta que não existe.'),
+    _e('FEATURE_DISABLED', NENHUMA, True, HEALTHY, False, False,
+       ['FEATURE_DISABLED', 'COMMENTS_DISABLED'],
+       'a capacidade EXISTE na plataforma e está desligada NESTE objeto — o dono do '
+       'vídeo fechou os comentários. A fonte respondeu, a rota funcionou, o nosso '
+       'código funcionou: nada quebrou. Separado de NOT_APPLICABLE porque aquilo é '
+       '"a plataforma não tem isso" e isto é "tem, e está desligado aqui"; e separado '
+       'de ZERO_RESULTS porque zero é AUSÊNCIA DE FALA OBSERVADA e desligado é '
+       'AUSÊNCIA DE SUPERFÍCIE DE FALA. Para o FIELD VOICES futuro essas duas '
+       'ausências não são a mesma evidência, e quem juntar as duas hoje apaga a '
+       'diferença para sempre. Não retentável enquanto o dono não reabrir.'),
     _e('ROUTE_NOT_ALLOWED', ROUTE, True, UNAVAILABLE, False, False,
        ['ROUTE_NOT_ALLOWED'],
        'a rota funcionaria e nós escolhemos não usar — robots.txt ou termo. '
@@ -202,7 +212,7 @@ for _e_ in _TABELA:
         _DE_PARA.setdefault(_velho, _e_.nome)
 
 # Os dois estados que NÃO são falha. Tudo o mais é.
-NAO_SAO_FALHA = ('OK', 'ZERO_RESULTS', 'NOT_APPLICABLE')
+NAO_SAO_FALHA = ('OK', 'ZERO_RESULTS', 'NOT_APPLICABLE', 'FEATURE_DISABLED')
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -303,6 +313,7 @@ RECUPERACOES = (ROTATE_CREDENTIAL, HUMAN_RELOGIN, HUMAN_PROVISION_CREDENTIAL,
 # Recuperação por ESTADO canônico. É o padrão quando não há razão nativa.
 _POR_ESTADO = {
     'OK': NO_RETRY, 'ZERO_RESULTS': NO_RETRY, 'NOT_APPLICABLE': NO_RETRY,
+    'FEATURE_DISABLED': NO_RETRY,
     'ROUTE_NOT_ALLOWED': NO_RETRY, 'AUTOMATION_NOT_ALLOWED': NO_RETRY,
     'CREDENTIAL_MISSING': HUMAN_PROVISION_CREDENTIAL, 'QUOTA_EXHAUSTED': ROTATE_CREDENTIAL,
     'BUDGET_EXHAUSTED': NO_RETRY, 'AUTH_EXPIRED': ROTATE_CREDENTIAL,
@@ -359,7 +370,11 @@ def pode_julgar_a_fonte(nome):
     falhou. Falso quando paramos antes, ou quando quem quebrou fomos nós.
     """
     e = estado(nome)
-    return e.camada in (SOURCE, NENHUMA) and e.nome != 'NOT_APPLICABLE'
+    # `NOT_APPLICABLE` e `FEATURE_DISABLED` ficam de fora apesar da camada NENHUMA:
+    # nos dois a fonte está sã e NÃO houve payload. Mandá-los para o contrato de
+    # fonte faria comparar o hash de coisa nenhuma.
+    return (e.camada in (SOURCE, NENHUMA)
+            and e.nome not in ('NOT_APPLICABLE', 'FEATURE_DISABLED'))
 
 
 def fetch_ok_para_source_health(nome):

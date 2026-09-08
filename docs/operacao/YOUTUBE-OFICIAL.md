@@ -81,43 +81,119 @@ fazer coisas diferentes: um abre o Chrome, o outro abre o console da plataforma.
 
 ---
 
-## 3 · O ADAPTER
+## 3 · QUOTA — DOIS BUCKETS, E SOMAR OS DOIS É ERRADO
 
-`scripts/youtube_oficial.py` — **um route executor**, não um motor. Não decide se
-pode rodar; recebe a permissão e executa, contando quota.
+**Correção de 2026-09-08.** A primeira versão deste adapter declarava
+`search.list = 100 unidades` e dizia que uma busca custava 100× um
+`playlistItems.list`. **Estava desatualizado — e a matriz desta casa já dizia o
+contrário**: `social_matriz.py:146` registra *"1 unidade/chamada, bucket próprio de
+100 buscas/dia"*.
 
-| Capacidade | Método | Quota | Papel |
-|---|---|---|---|
-| `SEARCH_KEYWORD` | `search.list` | **100** | descoberta — **cara** |
-| `INCREMENTAL` | `playlistItems.list` | **1** | vigilância diária |
-| `FETCH_VIDEO_METADATA` | `videos.list` | **1** (até 50 IDs) | metadado |
-| `FETCH_COMMENTS` | `commentThreads.list` + `comments.list` | **1** por página | **a prioridade** |
+> **A MATRIZ SABIA E O ADAPTADOR NÃO PERGUNTOU.**
+> É o mesmo defeito da missão passada, do outro lado: lá a política decidia sem
+> consultar a matriz; aqui o executor copiou um número em vez de ler o dono.
 
-> **`search.list` custa 100× `playlistItems.list`.**
+Conferido hoje na documentação oficial
+([determine_quota_cost](https://developers.google.com/youtube/v3/determine_quota_cost)):
+
+> *"The `search.list` and `videos.insert` methods have their own quota buckets."*
+> *"Projects that enable the YouTube Data API have a default quota allocation of
+> 100 `search.list` calls, 100 `videos.insert` calls, and 10,000 units per day
+> combined for all other endpoints."*
+
+| Bucket | Padrão do projeto | Métodos |
+|---|---|---|
+| **SEARCH** | **100 chamadas/dia** | `search.list` |
+| **GENERAL** | **10.000 unidades/dia** | `videos.list` · `channels.list` · `playlistItems.list` · `commentThreads.list` · `comments.list` |
+
+```
+1 SEARCH CALL NÃO É 100 GENERAL UNITS.
+4 buscas + 37 unidades NÃO são 41 de nada — são dois números.
+```
+
+**A conclusão prática não mudou, o motivo mudou.** A busca continua sendo o recurso
+escasso — mas por serem **100 por dia**, não por serem caras. O `playlistItems.list`
+cabe 10.000 vezes.
+
 > **BUSCA DESCOBRE. PLAYLIST DE UPLOADS VIGIA.**
-> Usar busca para vigiar canal conhecido queima a quota do dia em 100 chamadas.
 
-`INCREMENTAL` usa `newest → until known`: para no primeiro vídeo já coletado.
-A playlist de uploads é derivada do `channelId` (`UC…` → `UU…`), **sem gastar quota**.
+**Dois tetos por execução, independentes:** `YT_TETO_SEARCH_CALLS` (padrão **20** de
+100) e `YT_TETO_GENERAL_UNITS` (padrão **2.000** de 10.000) — um quinto do dia.
+Estourar um **não** fecha o outro. Uma execução não é o dia inteiro.
 
-`FETCH_COMMENTS` completa a thread: quando `totalReplyCount` é maior que as respostas
-que vieram no envelope, chama `comments.list(parentId=…)` até fechar, e registra
-`REPLIES_COMPLETED` e `REPLIES_MISSING`.
-**O envelope inicial não garante a conversa inteira.**
+**`REMAINING` sai `UNKNOWN`**, sempre. A API não devolve saldo e ninguém leu o
+Console. Um saldo inventado daria a alguém confiança para gastar contra um número
+imaginado. `QUOTA_MODEL_VERSION = 2026-09-08:two-buckets` existe para que, quando o
+Google mudar de novo, se saiba contra qual regra os números antigos foram medidos.
+
+**`videos.insert` também tem bucket próprio, e é irrelevante:** esta casa nunca publica.
+
+---
+
+## 4 · UPLOADS PLAYLIST — ROTA OFICIAL, NÃO PALPITE
+
+A primeira versão derivava `UC…` → `UU…`. Funciona na maioria dos canais, **não é a
+rota documentada**, e pode divergir.
+
+Agora: **`channels.list part=contentDetails` →
+`contentDetails.relatedPlaylists.uploads`** — 1 unidade do bucket GERAL.
+
+> **HEURÍSTICA NÃO SUBSTITUI A ROTA OFICIAL QUANDO A API JÁ DÁ O DADO CANÔNICO.**
+
+`UC→UU` sobrevive como `uploads_derivado()` — o nome diz o que é — e só entra com
+`permitir_derivado=True`, quando a rota oficial não respondeu. Mesmo então o
+resultado sai carimbado `PROVENANCE = DERIVED_HINT:UC_TO_UU`, com aviso.
+**A procedência viaja para o artefato**, ao lado do ID.
+
+**A economia:** `uploads_playlist()` aceita um `cache` `{channel_id: {...}}`. Canal já
+resolvido **não gasta unidade nenhuma**. Descobrir é o custo; vigiar não é. Por isso
+descobrir 10 canais uma vez e vigiar todo dia cabe folgado em 10.000 unidades.
+
+Canal pedido e não devolvido levanta `CanalNaoEncontrado` — **não é "canal sem uploads"**.
+
+---
+
+## 5 · O ADAPTER
+
+`scripts/youtube_oficial.py` — **um route executor**, não um motor.
+
+| Capacidade | Método | Bucket | Custo |
+|---|---|---|---|
+| `SEARCH_KEYWORD` | `search.list` | **SEARCH** | 1 chamada |
+| `INCREMENTAL` | `channels.list` (1×/canal) + `playlistItems.list` | GENERAL | 1 unidade |
+| `FETCH_VIDEO_METADATA` | `videos.list` | GENERAL | 1 unidade (até 50 IDs) |
+| `FETCH_COMMENTS` | `commentThreads.list` + `comments.list` | GENERAL | 1 unidade/página |
+
+`INCREMENTAL` usa `newest → until known`. `FETCH_COMMENTS` completa a thread quando
+`totalReplyCount` excede as respostas do envelope, e registra `REPLIES_COMPLETED` e
+`REPLIES_MISSING`.
 
 ### Três coisas que parecem a mesma e não são
 
 ```
-COMMENTS_DISABLED   o dono desligou. A fonte RESPONDEU — é fato sobre o vídeo.
-ZERO_LEGITIMATE     respondeu, comentários ligados, ninguém comentou.
+FEATURE_DISABLED    o dono desligou os comentários. A fonte respondeu, a rota
+                    funcionou, o nosso código funcionou — nada quebrou.
+ZERO_RESULTS        respondeu, comentários ligados, ninguém comentou.
 <erro canônico>     não conseguimos olhar.
 ```
 
-A API devolve **403 para as três coisas mais diferentes que existem**: quota acabou,
-chave inválida e comentário desativado. `RAZOES` lê a razão declarada no corpo,
-nunca só o código.
+**`FEATURE_DISABLED` é novo, e substitui um erro meu.** A versão anterior mapeava
+`commentsDisabled → NOT_APPLICABLE`, e isso misturava duas coisas: *"a plataforma
+não tem essa capacidade"* com *"tem, e está desligada neste vídeo"*.
 
----
+Propriedades: **não é falha** · `SOURCE_HEALTH`, `ROUTE_HEALTH` e `EXECUTOR_HEALTH`
+todos `HEALTHY` · `DEGRADES_SOURCE = false` · **não retentável** enquanto o dono não
+reabrir · `NATIVE_REASON = commentsDisabled`.
+
+> **Para o FIELD VOICES futuro isso não é detalhe.**
+> Zero comentários é **ausência de fala observada**.
+> Comentários desligados é **ausência de superfície de fala**.
+> **Não são a mesma evidência**, e quem juntar as duas hoje apaga a diferença para
+> sempre. Há teste que reprova se os dois estados colapsarem.
+
+A API do YouTube devolve **403 para as três coisas mais diferentes que existem** —
+quota acabou, chave inválida e comentário desligado. `RAZOES` lê a razão declarada
+no corpo, nunca só o código.
 
 ## 4 · O COMENTÁRIO É EVIDÊNCIA
 
@@ -210,7 +286,9 @@ Um número de "comentários coletados" seria invenção — **não há nenhum.**
 |---|---|
 | Comentários coletados | **0** — sem credencial |
 | Chamadas à API | **0** |
-| Quota usada | **0** unidades |
+| SEARCH_CALLS_USED | **0** de 100/dia (padrão do projeto) |
+| GENERAL_UNITS_USED | **0** de 10.000/dia (padrão do projeto) |
+| REMAINING | **UNKNOWN** — a API não devolve saldo |
 | Custo | **US$ 0,00** |
 | **Apify chamada** | **NÃO — nenhuma vez** |
 | Apify evitada | **0 chamadas nesta execução** (nada foi coletado por nenhuma rota) |

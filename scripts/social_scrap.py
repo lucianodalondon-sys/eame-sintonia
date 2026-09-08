@@ -300,7 +300,14 @@ def youtube():
     print('\nYOUTUBE · ESTRADA OFICIAL · country_scope=IT\n%s' % ('═' * 78))
     print('  CREDENCIAL  %s (%s)' % ('PRESENTE' if sess.disponivel() else 'AUSENTE',
                                      yt.ENV_CHAVE))
-    print('  COST_BASIS  %s\n' % yt.COST_BASIS)
+    print('  COST_BASIS  %s · QUOTA MODEL %s' % (yt.COST_BASIS, yt.QUOTA_MODEL_VERSION))
+    # Dois buckets, DECLARADOS pela documentação — não observados. Enquanto não
+    # houver run real, "observado" é zero e dizer outra coisa seria invenção.
+    print('  QUOTA       %s %s chamadas/dia · %s %s unidades/dia  (DECLARED/DOC CURRENT)'
+          % (yt.SEARCH, yt.LIMITE_PADRAO[yt.SEARCH],
+             yt.GENERAL, yt.LIMITE_PADRAO[yt.GENERAL]))
+    print('  OBSERVED    SEARCH_CALLS=%d · GENERAL_UNITS=%d · REMAINING=UNKNOWN\n'
+          % (sess.usado[yt.SEARCH], sess.usado[yt.GENERAL]))
     print('  %-22s %-14s %-11s %-20s %s'
           % ('CAPACIDADE', 'TERMOS', 'ROTA', 'BLOQUEIO', 'RECUPERAÇÃO'))
     print('  ' + '─' * 76)
@@ -320,9 +327,14 @@ def youtube():
                           'ROUTE_HEALTH': falhas.UNAVAILABLE if not sess.disponivel()
                           else falhas.HEALTHY,
                           'EXECUTOR_HEALTH': falhas.HEALTHY,
-                          'QUOTA_UNITS': 0, 'COST_USD': 0.0,
-                          'COST_BASIS': yt.COST_BASIS})
+                          'SEARCH_CALLS_USED': 0, 'GENERAL_UNITS_USED': 0,
+                          'QUOTA_BUCKET': (yt.SEARCH if cap == 'SEARCH_KEYWORD'
+                                           else yt.GENERAL),
+                          'COST_USD': 0.0, 'COST_BASIS': yt.COST_BASIS})
     # As duas que NÃO entram nesta missão, e por quê — declaradas, não omitidas.
+    print('\n  A capacidade INCREMENTAL resolve a playlist de uploads por')
+    print('  channels.list#contentDetails.relatedPlaylists.uploads — rota OFICIAL.')
+    print('  UC->UU sobrevive só como DERIVED_HINT, e sai carimbado como palpite.')
     for cap in ('FETCH_TRANSCRIPT', 'FETCH_VIDEO_BYTES'):
         u = ss.usabilidade('YOUTUBE', cap, 'OFFICIAL_API', ss.THIRD_PARTY)
         print('  %-22s %-14s %-11s %-20s %s'
@@ -338,6 +350,14 @@ def youtube():
     env.gravar('YOUTUBE-OFICIAL-ESTADO.json', {
         'QUANDO': env.agora(), 'PLATFORM': 'YOUTUBE', 'COUNTRY_SCOPE': 'IT',
         'CREDENCIAL_PRESENTE': sess.disponivel(), 'CAPACIDADES': registros,
+        'QUOTA_MODEL_VERSION': yt.QUOTA_MODEL_VERSION,
+        'QUOTA_BASIS': yt.QUOTA_BASIS,
+        'SEARCH_CALLS_USED': sess.usado[yt.SEARCH],
+        'GENERAL_UNITS_USED': sess.usado[yt.GENERAL],
+        'SEARCH_CALLS_PROJECT_LIMIT_DEFAULT': yt.LIMITE_PADRAO[yt.SEARCH],
+        'GENERAL_UNITS_PROJECT_LIMIT_DEFAULT': yt.LIMITE_PADRAO[yt.GENERAL],
+        'REMAINING': 'UNKNOWN',
+        'QUOTA_EVIDENCE_LEVEL': 'DECLARED_DOC_CURRENT',
         'APIFY_CHAMADA': False,
         'PORQUE': ('nenhuma chamada paga: a rota oficial é a padrão nas quatro '
                    'capacidades, e quando ela não roda a resposta é parar, '
