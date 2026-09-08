@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/scrap-social-na-biblia-v1",
-    "HEAD": "b38312f85dc4f1c6dedc4174c8a85b6c1dd99750",
-    "GENERATED_AT": "2026-09-08T17:41:38+00:00"
+    "HEAD": "6919675da13ead21cc713ee7e41ec5aabf39729a",
+    "GENERATED_AT": "2026-09-08T18:22:53+00:00"
   },
   "FILES": [
     {
@@ -1305,6 +1305,13 @@
     {
       "path": "coleta/social_envelope.py",
       "sha": "1248eaf49a2cc8e586af62170a544db71b7de8dd",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/social_persistencia.py",
+      "sha": "d2c709e747177ef3a47671266af961d622bf0ed1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7519,6 +7526,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/social_persistencia_no_postgres.py",
+      "sha": "02e92fa569ec6b294a30791542b500271230ef1d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/testa_coleta_canonica.py",
       "sha": "9ead5da22703717b191dbad1e00f3826e3d9a07d",
       "ext": ".py",
@@ -8415,6 +8429,13 @@
       "code_dir": false
     },
     {
+      "path": "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
+      "sha": "cdadb87ff374c97351c943ac7e874986002f7d1f",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "supabase/tests/mutacao_cicatrizes.sql",
       "sha": "10b5bffa23e178553e7dad5b0baf7b1701d1ced7",
       "ext": ".sql",
@@ -8549,7 +8570,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "947d737067a031171fa18aa823a20dc5036df273",
+      "sha": "b127a4f077837a4359a03ccd3df0d48db2caa7d2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8678,6 +8699,27 @@
       "sha": "b37f0ceadb1bb42c4f4cd08c2c473d4cf661a197",
       "ext": ".py",
       "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/YT-RUN-34258433872/PROCEDENCIA.md",
+      "sha": "a100e02c2f53f0dbf56b625ab938c87f2536b208",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
+      "sha": "67ad6ea77b0ecdd0610d8db75e2b9a54625f65ba",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
+      "sha": "2b0b9ce77b9e9453b77dadb68fa6b95391235693",
+      "ext": ".json",
+      "readable": false,
       "code_dir": true
     },
     {
@@ -8912,8 +8954,22 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_social_persistencia_pg.py",
+      "sha": "ac4281e71c8704e1fdf2d32c789da8da8107652e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_social_sessao.py",
       "sha": "86b0b36807a00122bb55f2de7a16aa7cbd40d327",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_thread_parcial.py",
+      "sha": "06d4adc127802ba65a4d510f7027b8bdd687323e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8976,7 +9032,7 @@
     },
     {
       "path": "tests/test_youtube_piloto.py",
-      "sha": "7245d94db1e841449b519759e8677fc283349879",
+      "sha": "64590d2388aed673716e16f94c7549ddb592ddb1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9109,6 +9165,17 @@
         "file": ".github/workflows/banco-descartavel.yml",
         "line": 27,
         "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "provas/social_persistencia_no_postgres.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 104,
+        "snippet": "python3 provas/social_persistencia_no_postgres.py"
       }
     },
     {
@@ -10858,6 +10925,28 @@
         "file": "coleta/sensor_canal_identidade.py",
         "line": 176,
         "snippet": "with open(os.path.join(SAMPLES, 'SPEAKER-UNIVERSE-PILOT-V1.json'), encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "coleta/social_persistencia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_persistencia.py",
+        "line": 57,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/social_persistencia.py",
+      "to_file": "coleta/instagram_pessoal.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_persistencia.py",
+        "line": 59,
+        "snippet": "import instagram_pessoal as ip   # noqa: E402 — dono do sal do pseudonimo"
       }
     },
     {
@@ -22939,6 +23028,17 @@
       }
     },
     {
+      "from_file": "provas/social_persistencia_no_postgres.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/social_persistencia_no_postgres.py",
+        "line": 36,
+        "snippet": "from preservar_coleta_no_postgres import _e_descartavel   # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/testa_coleta_canonica.py",
       "to_file": "AGENTS.md",
       "type": "READS",
@@ -27460,6 +27560,39 @@
       }
     },
     {
+      "from_file": "tests/test_social_persistencia_pg.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_social_persistencia_pg.py",
+        "line": 21,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_social_persistencia_pg.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_social_persistencia_pg.py",
+        "line": 22,
+        "snippet": "import coleta_checkpoint as cc          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_social_persistencia_pg.py",
+      "to_file": "coleta/social_persistencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_social_persistencia_pg.py",
+        "line": 23,
+        "snippet": "import social_persistencia as sp        # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_social_sessao.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -27677,6 +27810,72 @@
         "file": "tests/test_social_sessao.py",
         "line": 232,
         "snippet": "'motor/v21_tm_colher.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_thread_parcial.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_thread_parcial.py",
+        "line": 26,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_thread_parcial.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_thread_parcial.py",
+        "line": 31,
+        "snippet": "import social_envelope as env      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_thread_parcial.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_thread_parcial.py",
+        "line": 29,
+        "snippet": "import youtube_oficial as yt      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_thread_parcial.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_thread_parcial.py",
+        "line": 28,
+        "snippet": "import falhas                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_thread_parcial.py",
+      "to_file": "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_thread_parcial.py",
+        "line": 83,
+        "snippet": "d = corpo('commentThreads-ezRyN8vLVvc.json')"
+      }
+    },
+    {
+      "from_file": "tests/test_thread_parcial.py",
+      "to_file": "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_thread_parcial.py",
+        "line": 90,
+        "snippet": "self.assertEqual(corpo('comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json')['items'], [])"
       }
     },
     {
@@ -28137,7 +28336,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_youtube_piloto.py",
-        "line": 481,
+        "line": 488,
         "snippet": "open(caminho, 'leitura')  # caminho = .github/workflows/scrap-social.yml"
       }
     },
@@ -28148,7 +28347,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_youtube_piloto.py",
-        "line": 361,
+        "line": 368,
         "snippet": "wf = io.open(os.path.join(ROOT, '.github', 'workflows', 'scrap-social.yml'),"
       }
     },
@@ -28192,7 +28391,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_youtube_piloto.py",
-        "line": 389,
+        "line": 396,
         "snippet": "for f in ('coleta/social_scrap.py', 'guarda/social_guarda.py',"
       }
     },
@@ -28214,7 +28413,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_youtube_piloto.py",
-        "line": 390,
+        "line": 397,
         "snippet": "'coleta/youtube_oficial.py'):"
       }
     },
@@ -28225,7 +28424,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_youtube_piloto.py",
-        "line": 160,
+        "line": 167,
         "snippet": "rel = env.ler('YOUTUBE-PILOTO-IT.json')"
       }
     },
@@ -28236,7 +28435,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_youtube_piloto.py",
-        "line": 389,
+        "line": 396,
         "snippet": "for f in ('coleta/social_scrap.py', 'guarda/social_guarda.py',"
       }
     },
@@ -28649,10 +28848,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1283,
-    "files_readable": 427,
-    "files_code_dir": 473,
-    "file_edges": 1751,
+    "files_tracked": 1291,
+    "files_readable": 431,
+    "files_code_dir": 480,
+    "file_edges": 1764,
     "escritas_em_pasta": 58,
     "declared_missing_here": 0
   },

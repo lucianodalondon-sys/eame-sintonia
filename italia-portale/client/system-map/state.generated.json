@@ -206,6 +206,7 @@
       "coleta/rotulos_ler.py",
       "coleta/sensor_canal_identidade.py",
       "coleta/social_envelope.py",
+      "coleta/social_persistencia.py",
       "coleta/social_rotas.py",
       "coleta/social_scrap.py",
       "coleta/speaker_identidade.py",
@@ -1124,6 +1125,7 @@
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
       "provas/preservar_coleta_no_postgres.py",
+      "provas/social_persistencia_no_postgres.py",
       "provas/testa_coleta_canonica.py",
       "provas/testa_golden_path_pdf.py",
       "provas/testa_rota_italia.py",
@@ -1260,6 +1262,7 @@
       "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql",
       "supabase/migrations/021_fato_externo_publicado.sql",
       "supabase/migrations/022_o_derivado_ganha_casa.sql",
+      "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -1304,6 +1307,9 @@
       "tests/.gitkeep",
       "tests/es/test_adama_es_gate.py",
       "tests/es/test_adama_es_import_rules.py",
+      "tests/fixtures/YT-RUN-34258433872/PROCEDENCIA.md",
+      "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
+      "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/test_adama_relevance.py",
       "tests/test_armazem_italiano.py",
@@ -1337,7 +1343,9 @@
       "tests/test_proveniencia.py",
       "tests/test_radar_futuro.py",
       "tests/test_red_team_estrada.py",
+      "tests/test_social_persistencia_pg.py",
       "tests/test_social_sessao.py",
+      "tests/test_thread_parcial.py",
       "tests/test_v21_datas.py",
       "tests/test_v21_geografia.py",
       "tests/test_v21_mercado.py",
@@ -1729,8 +1737,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/scrap-social-na-biblia-v1",
-    "HEAD": "b38312f85dc4f1c6dedc4174c8a85b6c1dd99750",
-    "GENERATED_AT": "2026-09-08T17:41:38+00:00"
+    "HEAD": "6919675da13ead21cc713ee7e41ec5aabf39729a",
+    "GENERATED_AT": "2026-09-08T18:22:53+00:00"
   },
   "FAMILIES": [
     {
@@ -6391,6 +6399,7 @@
         "C-PORTA-FONTE",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
+        "C-SCRAP-SOCIAL",
         "C-TRANSCRICAO"
       ],
       "paises": {},
@@ -9880,10 +9889,11 @@
       "files": [
         "provas/derived_artifact_no_postgres.py",
         "provas/preservar_coleta_no_postgres.py",
+        "provas/social_persistencia_no_postgres.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py"
       ],
-      "file_count": 4,
+      "file_count": 5,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -9920,14 +9930,15 @@
         "listas": [
           "COLS_OBJ",
           "COLS_RUN",
+          "MIGRATIONS",
           "_GAVETAS_IT",
           "_OUTROS",
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 41,
+        "palavras": 57,
         "por_lingua": {},
-        "sem_marca_de_lingua": 41,
+        "sem_marca_de_lingua": 57,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -10729,17 +10740,19 @@
       "family": "F-COLETA",
       "files": [
         "coleta/social_envelope.py",
+        "coleta/social_persistencia.py",
         "coleta/social_rotas.py",
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py"
       ],
-      "file_count": 4,
+      "file_count": 5,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-COLETA-BASE",
+        "C-COLETA-INSTAGRAM",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
         "C-TESTES",
@@ -10764,13 +10777,14 @@
           "ALVOS",
           "ALVOS_YOUTUBE_IT",
           "CONTENT_TYPES",
+          "PLATAFORMA_NO_BANCO",
           "RAZOES",
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 102,
+        "palavras": 118,
         "por_lingua": {},
-        "sem_marca_de_lingua": 102,
+        "sem_marca_de_lingua": 118,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -10951,7 +10965,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "infra"
@@ -10993,6 +11007,7 @@
         "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql",
         "supabase/migrations/021_fato_externo_publicado.sql",
         "supabase/migrations/022_o_derivado_ganha_casa.sql",
+        "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -11004,9 +11019,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 44,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "file_count": 45,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -12159,7 +12174,9 @@
         "tests/test_proveniencia.py",
         "tests/test_radar_futuro.py",
         "tests/test_red_team_estrada.py",
+        "tests/test_social_persistencia_pg.py",
         "tests/test_social_sessao.py",
+        "tests/test_thread_parcial.py",
         "tests/test_v21_datas.py",
         "tests/test_v21_geografia.py",
         "tests/test_v21_mercado.py",
@@ -12170,9 +12187,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 44,
+      "file_count": 46,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -13134,7 +13151,7 @@
         "dessas, autorizadas a coletar: 10",
         "acoes da coleta que passam por aqui: 2",
         "prova: coleta/comunicacao_classificar.py:55",
-        "prova: coleta/social_scrap.py:205"
+        "prova: coleta/social_persistencia.py:73"
       ],
       "status_reason": "2 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
@@ -13440,7 +13457,7 @@
         "prova: coleta/comunicacao_classificar.py:55",
         "prova: coleta/instagram_coleta.py:73",
         "prova: coleta/speaker_identidade.py:171",
-        "prova: coleta/social_scrap.py:205"
+        "prova: coleta/social_persistencia.py:59"
       ],
       "status_reason": "4 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
@@ -13587,7 +13604,7 @@
         "prova: coleta/comunicacao_classificar.py:55",
         "prova: coleta/filas.py:93",
         "prova: coleta/sensor_canal_identidade.py:186",
-        "prova: coleta/social_scrap.py:135"
+        "prova: coleta/social_persistencia.py:72"
       ],
       "status_reason": "4 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
@@ -13727,7 +13744,7 @@
         "prova: coleta/youtube_janela.py:70",
         "prova: coleta/comunicacao_classificar.py:55",
         "prova: coleta/speaker_identidade.py:170",
-        "prova: coleta/social_rotas.py:298"
+        "prova: coleta/social_persistencia.py:71"
       ],
       "status_reason": "4 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
@@ -13861,7 +13878,7 @@
       "icon": "B",
       "facts": [
         "branch claude/scrap-social-na-biblia-v1",
-        "HEAD b38312f85dc4f1c6dedc4174c8a85b6c1dd99750"
+        "HEAD 6919675da13ead21cc713ee7e41ec5aabf39729a"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16358,7 +16375,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
@@ -16369,6 +16386,11 @@
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 31,
           "snippet": "- 'provas/derived_artifact_no_postgres.py'"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 104,
+          "snippet": "python3 provas/social_persistencia_no_postgres.py"
         }
       ],
       "categoria": "PROOF"
@@ -16630,12 +16652,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_coleta_resiliente.py",
           "line": 20,
           "snippet": "import coleta_checkpoint as C    # noqa: E402"
+        },
+        {
+          "file": "tests/test_social_persistencia_pg.py",
+          "line": 22,
+          "snippet": "import coleta_checkpoint as cc          # noqa: E402"
         },
         {
           "file": "tests/test_youtube_antidrift.py",
@@ -16721,6 +16748,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o Instagram tem o seu codigo importado por SINTONIA SCRAP — aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/social_persistencia.py",
+          "line": 59,
+          "snippet": "import instagram_pessoal as ip   # noqa: E402 — dono do sal do pseudonimo"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-COLETA-INSTAGRAM",
@@ -20830,7 +20875,7 @@
         },
         {
           "file": "tests/test_youtube_piloto.py",
-          "line": 389,
+          "line": 396,
           "snippet": "for f in ('coleta/social_scrap.py', 'guarda/social_guarda.py',"
         }
       ],
@@ -20923,7 +20968,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "As leis do SCRAP — falhas e matriz de capacidade tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_falhas.py",
@@ -20939,6 +20984,11 @@
           "file": "tests/test_social_sessao.py",
           "line": 36,
           "snippet": "import social_matriz as mz          # noqa: E402"
+        },
+        {
+          "file": "tests/test_thread_parcial.py",
+          "line": 28,
+          "snippet": "import falhas                     # noqa: E402"
         },
         {
           "file": "tests/test_youtube_antidrift.py",
@@ -20999,7 +21049,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — aquisicao social tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "SINTONIA SCRAP — aquisicao social tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_falhas.py",
@@ -21007,9 +21057,24 @@
           "snippet": "import social_rotas as sr          # noqa: E402"
         },
         {
+          "file": "tests/test_social_persistencia_pg.py",
+          "line": 23,
+          "snippet": "import social_persistencia as sp        # noqa: E402"
+        },
+        {
           "file": "tests/test_social_sessao.py",
           "line": 250,
           "snippet": "import social_rotas"
+        },
+        {
+          "file": "tests/test_thread_parcial.py",
+          "line": 29,
+          "snippet": "import youtube_oficial as yt      # noqa: E402"
+        },
+        {
+          "file": "tests/test_thread_parcial.py",
+          "line": 31,
+          "snippet": "import social_envelope as env      # noqa: E402"
         },
         {
           "file": "tests/test_youtube_antidrift.py",
@@ -21045,21 +21110,6 @@
           "file": "tests/test_youtube_oficial.py",
           "line": 485,
           "snippet": "import social_rotas as sr"
-        },
-        {
-          "file": "tests/test_youtube_piloto.py",
-          "line": 23,
-          "snippet": "import social_scrap as sc          # noqa: E402"
-        },
-        {
-          "file": "tests/test_youtube_piloto.py",
-          "line": 24,
-          "snippet": "import social_envelope as env      # noqa: E402"
-        },
-        {
-          "file": "tests/test_youtube_piloto.py",
-          "line": 25,
-          "snippet": "import youtube_oficial as yt       # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -21106,12 +21156,12 @@
         },
         {
           "file": "tests/test_youtube_piloto.py",
-          "line": 389,
+          "line": 396,
           "snippet": "for f in ('coleta/social_scrap.py', 'guarda/social_guarda.py',"
         },
         {
           "file": "tests/test_youtube_piloto.py",
-          "line": 390,
+          "line": 397,
           "snippet": "'coleta/youtube_oficial.py'):"
         }
       ],
@@ -22655,9 +22705,9 @@
       "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/social_scrap.py",
-          "line": 205,
-          "snippet": "for plat in ('YOUTUBE', 'INSTAGRAM', 'TIKTOK', 'FACEBOOK', 'MASTODON',"
+          "file": "coleta/social_persistencia.py",
+          "line": 73,
+          "snippet": "'FACEBOOK': 'facebook', 'X': 'x', 'WEB': 'web',"
         }
       ],
       "categoria": "DATA"
@@ -22825,9 +22875,9 @@
       "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/social_scrap.py",
-          "line": 205,
-          "snippet": "for plat in ('YOUTUBE', 'INSTAGRAM', 'TIKTOK', 'FACEBOOK', 'MASTODON',"
+          "file": "coleta/social_persistencia.py",
+          "line": 59,
+          "snippet": "import instagram_pessoal as ip"
         }
       ],
       "categoria": "DATA"
@@ -22893,9 +22943,9 @@
       "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/social_scrap.py",
-          "line": 135,
-          "snippet": "('LINKEDIN', 'FETCH_POST', {}),"
+          "file": "coleta/social_persistencia.py",
+          "line": 72,
+          "snippet": "'LINKEDIN': 'linkedin', 'TIKTOK': 'tiktok',"
         }
       ],
       "categoria": "DATA"
@@ -22961,9 +23011,9 @@
       "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/social_rotas.py",
-          "line": 298,
-          "snippet": "def youtube_buscar(*, termo, run_id, country_scope, limit=25, **_):"
+          "file": "coleta/social_persistencia.py",
+          "line": 71,
+          "snippet": "PLATAFORMA_NO_BANCO = {'YOUTUBE': 'youtube', 'INSTAGRAM': 'instagram',"
         }
       ],
       "categoria": "DATA"
@@ -23080,20 +23130,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 715,
+  "UNCLAIMED_FILES_COUNT": 718,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 118,
-    "components_proven": 72,
-    "components_pending": 39,
+    "components_proven": 71,
+    "components_pending": 40,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 410,
-    "edges_proven": 408,
+    "edges": 411,
+    "edges_proven": 409,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1283,
-    "files_covered": 568,
+    "files_tracked": 1291,
+    "files_covered": 573,
     "files_code_unclaimed": 0
   }
 }
