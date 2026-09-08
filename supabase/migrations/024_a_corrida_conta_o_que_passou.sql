@@ -39,7 +39,7 @@
 -- Nao ha `flow_run` aqui: seria uma segunda corrida paralela a `collection_run`,
 -- e duas corridas divergem na primeira pressa.
 --
--- NAO EXECUTADA EM PRODUÇÃO. Aplicada e conferida num PostgreSQL 16 local e
+-- NÃO EXECUTADA EM PRODUÇÃO. Aplicada e conferida num PostgreSQL 16 local e
 -- descartavel. Aplicar em producao continua sendo trabalho de outra missao,
 -- com autorizacao propria.
 -- ═══════════════════════════════════════════════════════════════════════
