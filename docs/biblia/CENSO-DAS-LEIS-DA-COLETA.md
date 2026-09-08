@@ -80,7 +80,7 @@ uma lei, não uma remoção de ficheiro.
 |---|---|---|---|---|---|---|
 | CEN-050 | O pedido de coleta — alvo, acionamento, escopo, filtros; nenhum chamador conhece `coletor_x.py` | `pedido/pedido.py` | sim | `provas/testa_coleta_canonica.py` | sim | **KEEP** → COL-LAW-010 |
 | CEN-051 | Acionamento e escopo são dois eixos, não um; `AUTOMATICO_EVENTO` recusado porque não existe | `pedido/pedido.py` | sim | sim | sim | **KEEP** → COL-LAW-010/016 |
-| CEN-052 | O orquestrador escolhe e assina o recibo; não coleta | `pedido/orquestrador.py` | sim | `provas/testa_coleta_canonica.py` | sim | **KEEP** → COL-LAW-011/012 |
+| CEN-052 | O orquestrador escolhe e assina o recibo; não coleta | `orquestrador/orquestrador.py` | sim | `provas/testa_coleta_canonica.py` | sim | **KEEP** → COL-LAW-011/012 |
 | CEN-053 | A receita é **derivada** do atlas, não escrita; o `NÃO SEI` é o produto mais importante | `pedido/receitas.py` | sim | sim | sim | **KEEP** → COL-LAW-015 |
 | CEN-054 | Contratos obrigatórios de toda corrida (procedência · tempo · lugar · recibo) | `pedido/receitas.py` `CONTRATOS_OBRIGATORIOS` | sim | sim | sim | **KEEP** → COL-LAW-013 |
 | CEN-055 | Ferramenta ≠ veículo ≠ ação — três coisas, três gavetas | `AGENTS.md` | sim | `system-map/tests/test_system_map.py` | CI | **KEEP** → COL-LAW-009 |

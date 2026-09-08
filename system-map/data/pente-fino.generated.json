@@ -1,21 +1,9 @@
 {
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "6f9456eb8d22ac3ab85c460e18acc264f9d06195"
+    "HEAD": "4b3c0d4262c95994a0263a91ec269ca322f62610"
   },
   "PECAS": [
-    {
-      "id": "C-IT-PDF-BRUTO",
-      "nome": "Evidência bruta em PDF (Itália)",
-      "zona": "A SALA DE ESPERA",
-      "de_onde_vem": false,
-      "para_onde_vai": false,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 1,
-      "ficheiros": 0,
-      "estado": "gray"
-    },
     {
       "id": "C-IT-TEXTO-PESQUISAVEL",
       "nome": "O texto que a máquina consegue ler",
@@ -27,18 +15,6 @@
       "respostas": 1,
       "ficheiros": 20,
       "estado": "gray"
-    },
-    {
-      "id": "C-ADMISSAO",
-      "nome": "A porta de admissao",
-      "zona": "4 · A PORTA DE ADMISSAO",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 2,
-      "ficheiros": 1,
-      "estado": "yellow"
     },
     {
       "id": "C-LEITORES",
@@ -63,6 +39,18 @@
       "respostas": 2,
       "ficheiros": 1,
       "estado": "green"
+    },
+    {
+      "id": "C-IT-PDF-BRUTO",
+      "nome": "Evidência bruta em PDF (Itália)",
+      "zona": "A SALA DE ESPERA",
+      "de_onde_vem": false,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 0,
+      "estado": "gray"
     },
     {
       "id": "C-PEDIDO",
@@ -113,6 +101,30 @@
       "estado": "green"
     },
     {
+      "id": "C-ADMISSAO",
+      "nome": "A porta de admissao",
+      "zona": "4 · A PORTA DE ADMISSAO",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "green"
+    },
+    {
+      "id": "C-ESTRADA-PDF",
+      "nome": "A primeira estrada · PDF até à porta",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "green"
+    },
+    {
       "id": "C-RECEITAS",
       "nome": "A receita da coleta",
       "zona": "· PEDIDO — o contrato",
@@ -158,6 +170,18 @@
       "alguem_corre": true,
       "respostas": 3,
       "ficheiros": 2,
+      "estado": "green"
+    },
+    {
+      "id": "C-EXECUTOR-TEXTO-PDF",
+      "nome": "Executor · texto a partir de PDF",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
       "estado": "green"
     },
     {
@@ -245,6 +269,18 @@
       "estado": "yellow"
     },
     {
+      "id": "C-IT-TEXTO-DERIVADO",
+      "nome": "Texto derivado, com pai",
+      "zona": "A SALA DE ESPERA",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 0,
+      "estado": "green"
+    },
+    {
       "id": "V-YOUTUBE",
       "nome": "YOUTUBE",
       "zona": "· os canais",
@@ -290,7 +326,7 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 3,
-      "estado": "yellow"
+      "estado": "green"
     },
     {
       "id": "C-IT-COLETA",
@@ -426,11 +462,11 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 35,
+    "pecas_da_coleta": 38,
     "respondem_as_quatro": 14,
-    "respondem_a_tres": 13,
+    "respondem_a_tres": 17,
     "respondem_a_duas": 6,
-    "respondem_a_uma": 2,
+    "respondem_a_uma": 1,
     "nao_respondem_a_nenhuma": 0
   }
 }

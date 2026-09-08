@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "6f9456eb8d22ac3ab85c460e18acc264f9d06195",
+    "HEAD": "4b3c0d4262c95994a0263a91ec269ca322f62610",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -860,6 +860,28 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/executor_texto_de_pdf.py",
+      "gaveta": "coleta",
+      "linhas": 326,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM"
+      ],
+      "ferramentas": [
+        "LEITOR DE PDF/HTML"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/golden_path_pdf.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/filas.py",
       "gaveta": "coleta",
       "linhas": 128,
@@ -890,6 +912,24 @@
         "HTTP DIRETO"
       ],
       "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/golden_path_pdf.py",
+      "gaveta": "coleta",
+      "linhas": 320,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
@@ -1590,7 +1630,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/golden_path_pdf.py"
+      ],
       "no_ci": false
     },
     {
@@ -1693,12 +1735,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 87,
-    "pontos_de_entrada": 74,
+    "ficheiros_de_codigo": 89,
+    "pontos_de_entrada": 76,
     "executores_que_saem_para_fora": 18,
     "sem_chamador_e_fora_do_ci": 46,
     "gravam_no_banco": 1,
-    "escrevem_ficheiro": 63,
+    "escrevem_ficheiro": 65,
     "deitam_fora_alguma_coisa": 18,
     "deitam_fora_SEM_escrever_o_motivo": 1,
     "ficheiros_com_decisao_escondida": 2,
@@ -1741,8 +1783,10 @@
       "coleta/eppo_gd.py",
       "coleta/es/corpus_es.py",
       "coleta/eu_substancia_adama_it.py",
+      "coleta/executor_texto_de_pdf.py",
       "coleta/filas.py",
       "coleta/gire_mapas.py",
+      "coleta/golden_path_pdf.py",
       "coleta/instagram_coleta.py",
       "coleta/instagram_diario.py",
       "coleta/instagram_janela.py",
@@ -1827,6 +1871,7 @@
       "coleta/es/corpus_es.py",
       "coleta/eu_substancia_adama_it.py",
       "coleta/gire_mapas.py",
+      "coleta/golden_path_pdf.py",
       "coleta/italy_find_docs.mjs",
       "coleta/italy_probe.mjs",
       "coleta/mapa_regfi.py",
@@ -1843,7 +1888,6 @@
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
       "regras/rotulos_censo.py",
-      "admissao/admissao.py",
       "guarda/es/adama_es_gate.py",
       "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",

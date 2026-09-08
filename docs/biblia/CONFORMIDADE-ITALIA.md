@@ -1,11 +1,11 @@
 # ITALY_COLLECTION_COMPLIANCE_MATRIX — apêndice C da Bíblia
 
-**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.2` · **Data:** 2026-09-07 · **HEAD medido:** `73e7270`
+**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.3` · **Data:** 2026-09-07 · **HEAD medido:** `4b3c0d4` (integração)
 
-> Esta matriz mede a **implementação italiana** contra as 100 leis canônicas. Ela não é a
+> Esta matriz mede a **implementação italiana** contra as 104 leis canônicas. Ela não é a
 > lei: a lei está em [`../../BIBLIA-CANONICA-DA-COLETA.md`](../../BIBLIA-CANONICA-DA-COLETA.md).
 >
-> **`LAW = CANONICAL` para todas as 100. Isto aqui mede outra coisa: se já funciona.**
+> **`LAW = CANONICAL` para todas as 104. Isto aqui mede outra coisa: se já funciona.**
 > Confundir os dois é o erro que esta separação existe para impedir.
 
 **Escopo declarado:** `CURRENT IMPLEMENTATION COUNTRY = IT`. Espanha e França **não** foram
@@ -44,7 +44,7 @@ o lado que parece rigoroso.
 | `COL-LAW-008` derivação tem linhagem | `PARTIAL` | a cadeia inversa existe para a rota paga | os derivados de PDF/HTML italianos não declaram `parent_artifact_id` | G-06 |
 | `COL-LAW-009` seis entidades distintas | `IMPLEMENTED` | gavetas + `P2_PASTA_BATE_COM_MAPA` no CI | — | — |
 | `COL-LAW-010` pedido não conhece implementação | `IMPLEMENTED` | `pedido/pedido.py`, recusa `AUTOMATICO_EVENTO` com motivo | — | — |
-| `COL-LAW-011` um dono da orquestração | `PARTIAL` | `pedido/orquestrador.py` assina o recibo | nenhum executor italiano está no `EXECUTORES` da receita | **G-05** |
+| `COL-LAW-011` um dono da orquestração | `PARTIAL` | `orquestrador/orquestrador.py` assina o recibo | nenhum executor italiano está no `EXECUTORES` da receita | **G-05** |
 | `COL-LAW-012` controle ≠ dado | `PARTIAL` | `larga_em` declarado nos 4 executores da receita | os executores `.mjs` italianos não declaram onde largam | G-05 |
 | `COL-LAW-013` contrato comum de executor | `PARTIAL` | os 4 contratos obrigatórios estão declarados | `CHECK` e `STATE` não existem como verbo comum | G-07 |
 | `COL-LAW-014` capacidades declaradas | `PARTIAL` | 6 dos 12 campos em `receitas.py::EXECUTORES` | `cost_class`, `supports_checkpoint`, `supports_retry`, `countries`, `modes`, `artifact_types` | G-07 |
@@ -169,6 +169,21 @@ o lado que parece rigoroso.
 | `COL-LAW-404` conferir ≠ mudar | SIM | `ABSENT` | — | `LAST_CHECKED`, `LAST_CHANGED` e `NEXT_DUE` não existem | G-32 |
 | `COL-LAW-405` a referência tem história | SIM | `ABSENT` | — | sem `VALID_FROM`/`VALID_TO`, uma análise de 2024 usaria o portfólio de 2026 | **G-33** |
 | `COL-LAW-406` definição no Git, registros na memória | SIM | `ABSENT` | — | nada construído dos dois lados | G-32 |
+
+
+---
+
+## A MATRIZ — LEIS DA EMENDA V1.3 (a integração)
+
+> Estas quatro nasceram de medir a **primeira estrada real** contra a lei. O estado delas foi
+> medido no Golden Path reproduzido nesta árvore, não copiado.
+
+| LEI | APLICA-SE | ESTADO | EVIDÊNCIA | O QUE FALTA | PRÓXIMO PASSO |
+|---|---|---|---|---|---|
+| `COL-LAW-501` ocorrência ≠ conteúdo | SIM | `IMPLEMENTED` | medido agora: 49 ocorrências · 43 conteúdos · 6 repetições · `LOST = 0`. O Golden Path já conta separado e não subtrai | — | — |
+| `COL-LAW-502` documento pronto ≠ fato pronto | SIM | `ABSENT` | ⚠️ os 43 derivados saem `NAO_SEI` porque a porta pergunta o tempo do **fato** a um **documento** (`admissao/admissao.py:169`) | a porta responder `NAO_SE_APLICA` no estágio documental | **G-22** |
+| `COL-LAW-503` ferramenta ausente ≠ documento quebrado | SIM | `ABSENT` | ⚠️ `executor_texto_de_pdf.py:140-141` devolve `EXTRACTION_ERROR` a todo PDF quando falta `pdftotext`. O motivo é honesto; o contador não | pré-voo que falha antes de tocar em documento | **G-34** |
+| `COL-LAW-504` árvore escaneada ≠ commit do mapa | SIM | `ABSENT` | ⚠️ um campo só (`PROVENANCE.HEAD`) para duas perguntas; 3 commits de «carimbo do HEAD» na história do ramo | `SOURCE_TREE_FINGERPRINT` e `MAP_ARTIFACT_COMMIT` separados | **G-35** |
 
 
 ---
@@ -302,7 +317,7 @@ que ele estava errado.
 
 ## OS GAPS MENORES, registrados e não priorizados
 
-`G-31` o raio-X mostra tabela, bucket e store do lado físico · `G-29` **`tem_teste` procura a aresta do teste no sentido errado** em
+`G-36` **o chão da coleta está reprovando desde `a32799c`** — `COLLECTED_AT` e `SOURCE_LOCATION` ficam `NAO SEI` nas 43 fichas derivadas; medido em worktree destacado, não foi a integração · `G-34` pré-voo antes de tocar em documento · `G-35` árvore escaneada separada do commit do mapa · `G-31` o raio-X mostra tabela, bucket e store do lado físico · `G-29` **`tem_teste` procura a aresta do teste no sentido errado** em
 `generate_system_map.py:1825` — 3 peças ficam 🟡 tendo teste real; medido e registrado em
 [`EMENDA-V1-1.md`](EMENDA-V1-1.md), **não consertado nesta missão** ·
 `G-19` arestas `OBSERVED` e evidência de RUN no mapa · `G-20` corrida, custo e contagens

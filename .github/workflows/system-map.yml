@@ -94,6 +94,13 @@ jobs:
       - name: 4c · a Bíblia da coleta e o seu registo dizem a mesma coisa
         run: python3 provas/valida_biblia.py
 
+      # A lei confrontada com a estrada real: ocorrencia x conteudo, derivados
+      # com pai, e a prova de que repeticao de conteudo nunca entra como perda.
+      - name: 4d · a Biblia e a primeira estrada continuam a dizer o mesmo
+        run: |
+          python3 tests/test_biblia.py
+          python3 tests/test_integracao_biblia.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         run: |
           set -e

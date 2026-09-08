@@ -45,7 +45,7 @@ Os termos de busca, agrupados por cultura-problema, na lingua de quem trabalha n
 
 | | |
 |---|---|
-| estado | PENDING — o motor importa esta lei para decidir.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
+| estado | PROVEN — o motor importa esta lei para decidir. |
 | onde vive | `regras/rotulos_censo.py` |
 | onde vive | `regras/sensor_coleta.py` |
 | onde vive | `regras/sensor_medir.py` |

@@ -2,7 +2,7 @@
 
 ```
 BIBLE_ID          SINTONIA-COLLECTION-BIBLE
-VERSION           V1.2
+VERSION           V1.3
 STATUS            CANONICAL
 EFFECTIVE_FROM    2026-09-07
 CURRENT_PROFILE   ITALY_PROFILE_V1
@@ -20,11 +20,13 @@ Nenhuma lei muda em silêncio — é a COL-LAW-069. Toda emenda entra aqui e no
 | **V1** | 2026-09-07 | a constituição inicial, consolidando 63 leis maduras já existentes | 48 |
 | **V1.1** | 2026-09-07 | **duas emendas**: a lei da observabilidade (PARTE XVI — o System Map é a placa de vídeo do SINTONIA, e tudo tem de ser renderizável) e as leis roubadas de sistemas maduros de coleta (PARTE XVII — artefato ≠ fato, watermark, run completa, reparo, três eixos de confiança) | **78** (+30) |
 | **V1.2** | 2026-09-08 | **a infraestrutura entra na lei**: o papel canônico do GitHub e do Supabase (PARTE XVIII — infraestrutura não é autoridade semântica) e o Plano de Referência (PARTE XIX — dado de referência não é configuração, e tem história) | **100** (+22) |
+| **V1.3** | 2026-09-08 | **a integração**: a Bíblia e a engenharia italiana passam a viver no mesmo HEAD, e a primeira estrada real (PDF → texto → porta) foi medida contra a lei. Quatro leis novas (PARTE XX) para os quatro pontos onde a lei não bastava; as outras três questões já estavam resolvidas | **104** (+4) |
 
 **Nenhuma lei foi apagada em nenhuma emenda.** Emendas absorvidas por leis existentes, em vez
 de virarem lei nova, estão registradas em
 [`docs/biblia/EMENDA-V1-1.md`](docs/biblia/EMENDA-V1-1.md) e
-[`docs/biblia/EMENDA-V1-2.md`](docs/biblia/EMENDA-V1-2.md).
+[`docs/biblia/EMENDA-V1-2.md`](docs/biblia/EMENDA-V1-2.md) e
+[`docs/biblia/RECONCILIACAO-INTEGRACAO.md`](docs/biblia/RECONCILIACAO-INTEGRACAO.md).
 
 > **Esta é a constituição da coleta do SINTONIA.** Não é tutorial, não é descrição do
 > código de hoje, não é proposta. É a lei que todo prompt futuro de coleta obedece.
@@ -104,7 +106,7 @@ decidia relevância — dentro do coletor, para um canal de cinco.
 **COMO PROVAR.** `py provas/testa_coleta_canonica.py` · o livro em
 `data/samples/LIVRO-DE-DECISOES.json` tem uma linha por decisão, incluindo as negativas.
 
-**CONTRATOS.** `admissao/admissao.py` · `pedido/orquestrador.py`
+**CONTRATOS.** `admissao/admissao.py` · `orquestrador/orquestrador.py`
 **ORIGEM.** `EXISTING_SINTONIA_LAW` (`docs/operacao/CENSO-DA-COLETA.md` §D)
 **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 
@@ -257,7 +259,7 @@ sobre rotação, e a segunda divergiria na primeira pressa.
 **POR QUÊ.** O censo mediu **0 peças que coordenam mais de um executor**. O máximo que uma
 peça coordenava eram 2, e as duas eram do Instagram.
 
-**COMO PROVAR.** `py pedido/orquestrador.py "colete materiais de pesquisadores" --so-plano`
+**COMO PROVAR.** `py orquestrador/orquestrador.py "colete materiais de pesquisadores" --so-plano`
 
 **ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 *(o orquestrador existe e assina; as fontes italianas ainda não passam por ele)*
@@ -286,7 +288,7 @@ nela** — só o teste.
 ser escondido: é o fato mais útil que a corrida produziu, e sai escrito no recibo
 (`COLHEITA_NAO_ENCONTRADA`).
 
-**COMO PROVAR.** `pedido/orquestrador.py::a_colheita` · `pedido/receitas.py` campo `larga_em`
+**COMO PROVAR.** `orquestrador/orquestrador.py::a_colheita` · `pedido/receitas.py` campo `larga_em`
 
 **ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 
@@ -425,7 +427,7 @@ Implementação completa **NÃO** é exigida por esta Bíblia. A lei é.
 Usar a estrutura existente. **NÃO DEVE** ser criada fila complexa sem necessidade
 comprovada.
 
-**JÁ EXISTE, e é o embrião disto:** `py pedido/orquestrador.py --so-a-porta` leva a colheita
+**JÁ EXISTE, e é o embrião disto:** `py orquestrador/orquestrador.py --so-a-porta` leva a colheita
 que **já existe** à peneira sem colher de novo. É o que permite reprocessar quando a regra
 muda — sem isso, mudar a regra obrigaria a coletar tudo outra vez, ninguém o faria, e a
 regra nova valeria só para o que viesse depois.
@@ -2475,6 +2477,156 @@ construção é outra missão.
 
 ---
 
+# PARTE XX · O QUE A PRIMEIRA ESTRADA ENSINOU
+
+> **Emenda V1.3.** Quatro leis, e nenhuma delas foi inventada: **as quatro nasceram de
+> medir a primeira estrada real da coleta italiana** (PDF guardado → texto derivado → porta)
+> contra a Bíblia, e de encontrar quatro pontos onde a lei ainda não dizia o suficiente.
+>
+> As outras três questões constitucionais dessa integração — `ARTIFACT ≠ FACT`,
+> `RUN COMPLETE` e os papéis de GitHub/Supabase — **já estavam resolvidas** por leis
+> existentes, e por isso não viraram lei nova. A conta está em
+> [`docs/biblia/RECONCILIACAO-INTEGRACAO.md`](docs/biblia/RECONCILIACAO-INTEGRACAO.md).
+
+## COL-LAW-501 · OCORRÊNCIA NÃO É CONTEÚDO
+
+**REGRA.**
+
+```
+OCCURRENCE / CAPTURE / SOURCE RECORD   ≠   CONTENT / BLOB / BYTES
+```
+
+Dois caminhos com o **mesmo** `SHA256` são **um conteúdo** e **duas ocorrências**. Uma
+ocorrência tem fonte, corrida e momento próprios; o conteúdo tem só a sua impressão digital.
+
+Uma contagem **NÃO DEVE** subtrair uma da outra:
+
+```
+ERRADO      49 entraram · 43 saíram  →  6 perdidos
+CERTO       RAW OCCURRENCES  49
+            UNIQUE CONTENT   43
+            SAME-CONTENT OCCURRENCES  6
+            LOST              0
+```
+
+**MEDIDO, e é o caso que obriga a lei.** Os 49 PDFs italianos têm **43 conteúdos únicos**;
+os 6 repetidos são **sempre o mesmo par**: o documento na loja do coletor
+(`data/collection-store/italy/...`) e o mesmo documento na amostra versionada
+(`data/samples/IT-SOURCE-SAMPLES/...`). Mesma coisa no mundo, **duas procedências
+diferentes** — e apagar uma perderia a prova de como ela chegou ali.
+
+> **Mesmo conteúdo não é a mesma coleta.** Duas fontes podem publicar o mesmo PDF: são dois
+> fatos sobre o mundo (as duas publicaram) e um conteúdo só.
+
+**LIGA-SE A** COL-LAW-204 (dedupe não destrói a história) e COL-LAW-311 (o caminho é
+endereço, a identidade é o hash). Aquelas dizem *não destrua*; esta diz *não confunda ao
+contar*.
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`
+
+---
+
+## COL-LAW-502 · DOCUMENTO PRONTO NÃO É FATO PRONTO
+
+**REGRA.** São duas prontidões, em dois estágios, e **NÃO DEVEM** ser medidas pela mesma
+pergunta:
+
+| | pergunta | exige |
+|---|---|---|
+| `DOCUMENT READY` | este documento está apto para a **próxima transformação**? | ter sido lido, ter pai provado, ter procedência e impressão digital |
+| `FACT READY` | este **fato** está completo? | `FACT_TIME` e `FACT_LOCATION` do fato — que pertencem ao **claim**, não ao documento |
+
+Cobrar `FACT_TIME` de um documento é aplicar a régua do fato ao artefato — o que a
+COL-LAW-201 já proíbe. **A resposta certa a uma pergunta que não se aplica é
+`NAO_SE_APLICA`, não `NAO_SEI`.**
+
+**MEDIDO, e é exatamente o que acontece hoje.** Os 43 textos derivados chegam à porta com
+`FACT_TIME = "NAO SEI"` — nunca fabricado, e isso está certo. A porta pergunta *«tem tempo
+do fato?»* (`admissao/admissao.py:169`) e devolve `NAO_SEI` aos 43.
+
+> **Os 43 `NAO_SEI` não são um defeito dos documentos. São a porta a fazer, no estágio do
+> documento, uma pergunta que é do estágio do fato.**
+
+**E A PORTA JÁ SABE FAZER ISTO CERTO NOUTRO SÍTIO.** Para ficha de conta e de catálogo ela
+já responde `NAO_SE_APLICA`, com a frase: *«a pergunta não se aplica — o que está aqui é o
+registo de ONDE se pode coletar, não o que se coletou»*. É o mesmo mecanismo.
+
+**NÃO DEVE** ser criado estado novo para isto: os cinco resultados da COL-LAW-038 já
+bastam. **NÃO DEVE** ser inventada data para deixar os 43 verdes (COL-LAW-031 · 035).
+
+**AÇÃO:** gap **G-22**, e **não foi corrigido nesta missão** — é runtime da porta.
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-503 · FERRAMENTA QUE FALTA NÃO É DOCUMENTO QUEBRADO
+
+**REGRA.**
+
+```
+EXECUTOR_UNAVAILABLE · CAPABILITY_UNAVAILABLE · PREFLIGHT_ERROR
+        ≠
+ARTIFACT_EXTRACTION_ERROR
+```
+
+Quando a capacidade não existe na máquina, a corrida **DEVE** falhar **no pré-voo** — antes
+de tocar nos documentos. **NÃO DEVE** percorrer N artefatos e marcá-los como defeituosos.
+
+> **É a COL-LAW-215 aplicada à ferramenta: o nosso bug não vira defeito do mundo.** Um
+> `EXTRACTION_ERROR` em 43 documentos sãos leva alguém a investigar 43 PDFs quando o que
+> falta é um programa.
+
+**MEDIDO.** `coleta/executor_texto_de_pdf.py:140-141`: sem `pdftotext`, **todo** PDF volta
+com `EXTRACTION_ERROR`. O **motivo** é honesto (`"FERRAMENTA_AUSENTE: pdftotext"`) e o
+cabeçalho do ficheiro até declara a intenção certa — mas o **contador** que sobe é o do erro
+de extração. A intenção está escrita; a medição não a acompanha.
+
+**Nesta máquina `pdftotext` existe**, e os 43 saíram com `0 EXTRACTION_ERROR`. O defeito é
+condicional, e por isso mais perigoso: só aparece onde a ferramenta falta.
+
+**NÃO DEVE** ser instalada ferramenta nenhuma para «resolver» isto. A correção é de
+**semântica e de ordem**: pré-voo primeiro.
+
+**AÇÃO:** gap **G-34**, não corrigido nesta missão.
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-504 · A ÁRVORE ESCANEADA NÃO É O COMMIT QUE PUBLICA O MAPA
+
+**REGRA.** São duas perguntas diferentes, e **NÃO DEVEM** partilhar um campo:
+
+```
+SOURCE_HEAD / SOURCE_TREE   qual árvore real foi escaneada?
+MAP_ARTIFACT_COMMIT         em que commit o artefato do mapa foi publicado?
+```
+
+E **NÃO DEVE** ser perseguida a igualdade `SOURCE_HEAD == FINAL_HEAD`: ela é **circular por
+construção**. O mapa é gerado a partir de uma árvore; commitá-lo cria um commit novo; o
+carimbo fica velho no instante em que é gravado. Perseguir isso produz um commit de carimbo
+atrás do outro, para sempre.
+
+**MEDIDO.** O modelo de hoje tem **um campo só** — `PROVENANCE.HEAD` — a fazer os dois
+trabalhos. E o ramo da engenharia carrega **três commits** chamados literalmente
+*«carimbo do HEAD nos ficheiros gerados»*: é a perseguição, registrada na história.
+
+> **É o mesmo defeito do `EAME_COLLECTION_ENTRY_GATE`: um nome a fazer dois trabalhos.** A
+> casa já pagou por ele uma vez.
+
+**A SAÍDA NÃO É UM CARIMBO MELHOR: É PARAR DE COMPARAR COMMITS.** O que identifica a árvore
+escaneada de forma estável é a **impressão digital do conteúdo** (`SOURCE_TREE_FINGERPRINT`),
+que não muda quando o commit muda de nome. O `MAP_ARTIFACT_COMMIT` é opcional e só se sabe
+**depois** de commitar.
+
+**NÃO IMPLEMENTADO NESTA MISSÃO.** A lei define o modelo; mexer no gerador é outra missão.
+Gap **G-35**.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
 # PARTE XV · GOVERNANÇA
 
 ## COL-LAW-069 · NENHUMA LEI MUDA EM SILÊNCIO
@@ -2560,5 +2712,6 @@ E a frase que resume por que esta Bíblia existe:
 | E | [`docs/biblia/EMENDA-V1-1.md`](docs/biblia/EMENDA-V1-1.md) — o registro constitucional da V1.1 |
 | F | [`docs/biblia/CENSO-DA-INFRAESTRUTURA.md`](docs/biblia/CENSO-DA-INFRAESTRUTURA.md) — GitHub e Supabase medidos, antes de a lei ser escrita |
 | G | [`docs/biblia/EMENDA-V1-2.md`](docs/biblia/EMENDA-V1-2.md) — o registro constitucional da V1.2 |
+| H | [`docs/biblia/RECONCILIACAO-INTEGRACAO.md`](docs/biblia/RECONCILIACAO-INTEGRACAO.md) — a V1.3: a lei confrontada com a primeira estrada real, questão por questão |
 
 **Validadores:** `py provas/valida_biblia.py` · `py tests/test_biblia.py`

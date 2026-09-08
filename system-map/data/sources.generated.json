@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "15d46898a913f1b25b729b56cb9a4b050da806cf",
+    "HEAD": "4b3c0d4262c95994a0263a91ec269ca322f62610",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3871,18 +3871,36 @@
         "erro": null,
         "prova": "system-map/data/golden-path-pdf.generated.json",
         "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260908T033724Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
       }
     ],
-    "total": 16,
+    "total": 17,
     "por_pais": {
       "ES": 10,
-      "IT": 3,
+      "IT": 4,
       "NAO SEI": 3
     },
     "por_plataforma": {
       "INSTAGRAM": 1,
       "LINKEDIN": 5,
-      "LOCAL": 3,
+      "LOCAL": 4,
       "OPENALEX": 1,
       "OpenAlex, ORCID": 1,
       "YOUTUBE": 3,
@@ -3919,10 +3937,10 @@
       "IT-T3-001",
       "IT-T4-001"
     ],
-    "com_rendimento_medido": 15,
-    "com_custo_medido": 10,
+    "com_rendimento_medido": 16,
+    "com_custo_medido": 11,
     "custo_total_usd": 0.48,
-    "trouxe_total": 3547,
+    "trouxe_total": 3596,
     "sobrou_total": 3006
   },
   "COLETAS_ITALIANAS": {
@@ -4491,7 +4509,7 @@
     "coletores_com_lugar": 26,
     "coletores_que_separam_fonte_do_fato": 19,
     "coletores_que_registam_descarte": 8,
-    "corridas_registadas": 22,
+    "corridas_registadas": 23,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,
     "fontes_nunca_coletadas": 22,

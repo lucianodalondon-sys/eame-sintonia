@@ -54,7 +54,8 @@ LEIS_JSON = os.path.join(PASTA, 'leis.json')
 APENDICES = (CENSO, CONFLITOS, CONFORMIDADE,
              os.path.join(PASTA, 'EMENDA-V1-1.md'),
              os.path.join(PASTA, 'EMENDA-V1-2.md'),
-             os.path.join(PASTA, 'CENSO-DA-INFRAESTRUTURA.md'))
+             os.path.join(PASTA, 'CENSO-DA-INFRAESTRUTURA.md'),
+             os.path.join(PASTA, 'RECONCILIACAO-INTEGRACAO.md'))
 
 LAW_STATUS_VALIDOS = ('CANONICAL',)
 IMPL_VALIDOS = ('IMPLEMENTED', 'PARTIAL', 'ABSENT', 'NOT_APPLICABLE', 'UNKNOWN')

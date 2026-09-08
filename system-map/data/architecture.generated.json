@@ -2,11 +2,18 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "dfc37ed97cce090f64b574befaa9f2abac1a7bb5",
-    "GENERATED_AT": "2026-09-07T23:41:40-03:00"
+    "BRANCH": "claude/italia-biblia-integracao-v1",
+    "HEAD": "4b3c0d4262c95994a0263a91ec269ca322f62610",
+    "GENERATED_AT": "2026-09-08T00:40:38-03:00"
   },
   "FILES": [
+    {
+      "path": ".claude/launch.json",
+      "sha": "758443ce34383599de400bb0169deea05ac80817",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
     {
       "path": ".gitattributes",
       "sha": "18d452c0c4e6292defb36cc9c2fa0d498f073a0d",
@@ -93,7 +100,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "5d3fd3a3a732f04b1a7cfa0ee465aa95e71e3369",
+      "sha": "c4388530c046d637cac34a9b5e7fcc4507701f92",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -114,7 +121,14 @@
     },
     {
       "path": "AGENTS.md",
-      "sha": "4e649c9633f2a6fd7906c0697099d56759f103b9",
+      "sha": "11784eb7942d069f19d3602722d8d5488f38910f",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "BIBLIA-CANONICA-DA-COLETA.md",
+      "sha": "de066def189b2d0f4057844a05f27067e051e156",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2893,7 +2907,7 @@
     },
     {
       "path": "data/samples/IT-LASTMILE/IT-ROTA-SEM_VPN.json",
-      "sha": "ce46bb224ccdc1fcffb7a680495f30a2fb338bfb",
+      "sha": "1abfb7b40abd1218fd1dbb280b263d80b5905634",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -3418,7 +3432,7 @@
     },
     {
       "path": "data/samples/LIVRO-DE-DECISOES.json",
-      "sha": "36efa5a82533cabac439a1721da4e9819d639c8a",
+      "sha": "a0b03d8591612dd49bb4c5059f0dffa3469fa0b1",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -3691,7 +3705,7 @@
     },
     {
       "path": "data/samples/RUN-MANIFEST.json",
-      "sha": "8770e480cd5b9cfcd9a6a01ed758869c78ecddc6",
+      "sha": "e347b39ef203fd431c2ccf5c4f9e15cbd3e76418",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4026,6 +4040,62 @@
       "code_dir": false
     },
     {
+      "path": "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
+      "sha": "56ec612daf78d428a24a1c6f4cea561f02a6e475",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
+      "sha": "9b63219bd50cba17d3f11c941d77359f6bac5634",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/biblia/CONFORMIDADE-ITALIA.md",
+      "sha": "7162ed606aa01602bf59cffa24daca4268ac8638",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/biblia/EMENDA-V1-1.md",
+      "sha": "58f6a80ab111a7d27f271d0931c3a5be6f8641b2",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/biblia/EMENDA-V1-2.md",
+      "sha": "7177d7702e865254da5d0cce16789d212b98659f",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/biblia/MATRIZ-DE-CONFLITOS.md",
+      "sha": "93f9d457611ccce14a3a3fe1cbd8a3a240ea59a2",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/biblia/RECONCILIACAO-INTEGRACAO.md",
+      "sha": "5ab0de7b364fee8921a4437bcdfaf299cd71643d",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/biblia/leis.json",
+      "sha": "499d36f020a833e56e6951c48dfe2c7ca1525be9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
       "sha": "0b3c2c1085778da484343c33a5417d62f4922d96",
       "ext": ".md",
@@ -4041,7 +4111,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "8c7007535dc373377fe7c9076f0445e879428722",
+      "sha": "4ef3b0859400a1ff287a9f6c0f74165e7e67df39",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7078,8 +7148,15 @@
       "code_dir": true
     },
     {
+      "path": "provas/valida_biblia.py",
+      "sha": "e5f1a2a4834a34da64ee56ed89357ef0e2840005",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "regras/LEIA-ANTES-DE-COLETAR.md",
-      "sha": "5777f60861f54786fce58d57bb5f56e61cd039ee",
+      "sha": "fc77a1f6a2d07b38a8072165d87476d786a97f80",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -8073,7 +8150,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "f71c25daea31c6be05ae1fa19499cb21a49d26d9",
+      "sha": "889486dff67da643969ef06209a226c7783aa988",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8198,6 +8275,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_biblia.py",
+      "sha": "c90a38af1344b763db9a42c9fedd43a69ae7f232",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_calendario_temporal.py",
       "sha": "7f05aa45f2ae319f5eefebbf7654a09ed05b2d40",
       "ext": ".py",
@@ -8270,6 +8354,13 @@
     {
       "path": "tests/test_hero_cases_v1.py",
       "sha": "70d360b8d805f5c131084be7f9f5d55a5cc71cfe",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_integracao_biblia.py",
+      "sha": "afa04d0c8652610adbc7aef32fd1c1f35835737f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8969,6 +9060,17 @@
     },
     {
       "from_file": ".github/workflows/system-map.yml",
+      "to_file": "provas/valida_biblia.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 95,
+        "snippet": "run: python3 provas/valida_biblia.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
       "to_file": "system-map/scripts/censo_da_coleta.py",
       "type": "RUNS",
       "payload": "execucao",
@@ -9053,6 +9155,28 @@
         "file": ".github/workflows/system-map.yml",
         "line": 83,
         "snippet": "run: python3 system-map/tests/test_system_map.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "tests/test_biblia.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 101,
+        "snippet": "python3 tests/test_biblia.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "tests/test_integracao_biblia.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 102,
+        "snippet": "python3 tests/test_integracao_biblia.py"
       }
     },
     {
@@ -21882,6 +22006,127 @@
       }
     },
     {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 45,
+        "snippet": "BIBLIA = os.path.join(ROOT, 'BIBLIA-CANONICA-DA-COLETA.md')"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 43,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 57,
+        "snippet": "os.path.join(PASTA, 'CENSO-DA-INFRAESTRUTURA.md'),"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 47,
+        "snippet": "CENSO = os.path.join(PASTA, 'CENSO-DAS-LEIS-DA-COLETA.md')"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/CONFORMIDADE-ITALIA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 49,
+        "snippet": "CONFORMIDADE = os.path.join(PASTA, 'CONFORMIDADE-ITALIA.md')"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/EMENDA-V1-1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 55,
+        "snippet": "os.path.join(PASTA, 'EMENDA-V1-1.md'),"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/EMENDA-V1-2.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 56,
+        "snippet": "os.path.join(PASTA, 'EMENDA-V1-2.md'),"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/MATRIZ-DE-CONFLITOS.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 48,
+        "snippet": "CONFLITOS = os.path.join(PASTA, 'MATRIZ-DE-CONFLITOS.md')"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/RECONCILIACAO-INTEGRACAO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 58,
+        "snippet": "os.path.join(PASTA, 'RECONCILIACAO-INTEGRACAO.md'))"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/leis.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 50,
+        "snippet": "LEIS_JSON = os.path.join(PASTA, 'leis.json')"
+      }
+    },
+    {
+      "from_file": "provas/valida_biblia.py",
+      "to_file": "docs/biblia/leis.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/valida_biblia.py",
+        "line": 220,
+        "snippet": "open(LEIS_JSON, 'w')  # LEIS_JSON = docs/biblia/leis.json"
+      }
+    },
+    {
       "from_file": "regras/comunicacao_identidade.py",
       "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json",
       "type": "READS",
@@ -23400,6 +23645,72 @@
       }
     },
     {
+      "from_file": "tests/test_biblia.py",
+      "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_biblia.py",
+        "line": 41,
+        "snippet": "BIBLIA = os.path.join(RAIZ, 'BIBLIA-CANONICA-DA-COLETA.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_biblia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_biblia.py",
+        "line": 39,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_biblia.py",
+      "to_file": "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_biblia.py",
+        "line": 363,
+        "snippet": "'CENSO-DA-INFRAESTRUTURA.md'))"
+      }
+    },
+    {
+      "from_file": "tests/test_biblia.py",
+      "to_file": "docs/biblia/CONFORMIDADE-ITALIA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_biblia.py",
+        "line": 42,
+        "snippet": "CONFORMIDADE = os.path.join(RAIZ, 'docs', 'biblia', 'CONFORMIDADE-ITALIA.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_biblia.py",
+      "to_file": "docs/biblia/EMENDA-V1-1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_biblia.py",
+        "line": 43,
+        "snippet": "EMENDA = os.path.join(RAIZ, 'docs', 'biblia', 'EMENDA-V1-1.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_biblia.py",
+      "to_file": "docs/biblia/EMENDA-V1-2.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_biblia.py",
+        "line": 360,
+        "snippet": "cls.emenda2 = ler(os.path.join(RAIZ, 'docs', 'biblia', 'EMENDA-V1-2.md'))"
+      }
+    },
+    {
       "from_file": "tests/test_calendario_temporal.py",
       "to_file": "data/samples/AGRONOMIC-CALENDAR-DESIGN-DATA-CONTRACT-V1.json",
       "type": "READS",
@@ -24431,6 +24742,61 @@
         "file": "tests/test_hero_cases_v1.py",
         "line": 315,
         "snippet": "json.dumps(carrega('SPAIN-HERO-CASES-V1.json'), ensure_ascii=False))"
+      }
+    },
+    {
+      "from_file": "tests/test_integracao_biblia.py",
+      "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_integracao_biblia.py",
+        "line": 30,
+        "snippet": "BIBLIA = os.path.join(RAIZ, 'BIBLIA-CANONICA-DA-COLETA.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_integracao_biblia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_integracao_biblia.py",
+        "line": 28,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_integracao_biblia.py",
+      "to_file": "coleta/golden_path_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_integracao_biblia.py",
+        "line": 158,
+        "snippet": "os.path.join(RAIZ, 'coleta', 'golden_path_pdf.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_integracao_biblia.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_integracao_biblia.py",
+        "line": 32,
+        "snippet": "REG = os.path.join(RAIZ, 'data', 'derivados', 'REGISTO-DE-ARTEFATOS.json')"
+      }
+    },
+    {
+      "from_file": "tests/test_integracao_biblia.py",
+      "to_file": "docs/biblia/RECONCILIACAO-INTEGRACAO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_integracao_biblia.py",
+        "line": 159,
+        "snippet": "os.path.join(RAIZ, 'docs', 'biblia', 'RECONCILIACAO-INTEGRACAO.md')):"
       }
     },
     {
@@ -25910,10 +26276,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1198,
-    "files_readable": 395,
-    "files_code_dir": 441,
-    "file_edges": 1558,
+    "files_tracked": 1211,
+    "files_readable": 398,
+    "files_code_dir": 444,
+    "file_edges": 1583,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
