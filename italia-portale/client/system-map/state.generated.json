@@ -1283,6 +1283,7 @@
       "system-map/scripts/censo_do_armazem_it.py",
       "system-map/scripts/censo_do_congelamento.py",
       "system-map/scripts/censo_do_corpus_it.py",
+      "system-map/scripts/censo_dos_donos.py",
       "system-map/scripts/censo_semantico_it.py",
       "system-map/scripts/generate_system_map.py",
       "system-map/scripts/mudar_gaveta.py",
@@ -1313,6 +1314,7 @@
       "tests/test_biblia.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canonico.py",
+      "tests/test_censo_dos_donos.py",
       "tests/test_cicatrizes_brasil.py",
       "tests/test_coleta_externa.py",
       "tests/test_coleta_resiliente.py",
@@ -1740,8 +1742,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "be73768e6f1ed47aeec00f020bf7ff775a26e54d",
-    "GENERATED_AT": "2026-09-08T17:28:14-03:00"
+    "HEAD": "a9979c2c952d13d187f60cdff2675be16a3c7e18",
+    "GENERATED_AT": "2026-09-08T17:33:03-03:00"
   },
   "FAMILIES": [
     {
@@ -1796,7 +1798,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 43
+      "count": 44
     },
     {
       "id": "F-ENTREGA",
@@ -2054,7 +2056,7 @@
       "y": 190,
       "w": 820,
       "h": 2938,
-      "count": 6
+      "count": 7
     },
     {
       "id": "Z-MOTOR",
@@ -5955,7 +5957,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "red",
+      "ui_status": "gray",
       "icon": "◎",
       "views": [
         "audit",
@@ -5963,10 +5965,12 @@
       ],
       "lane": "official",
       "family": "F-INTELIGENCIA",
-      "files": [],
-      "file_count": 0,
-      "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com system-map/scripts/censo_dos_donos.py.",
+      "files": [
+        "system-map/scripts/censo_dos_donos.py"
+      ],
+      "file_count": 1,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -5974,8 +5978,28 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CONCEITOS"
+        ],
+        "palavras": 88,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 88,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
-      "escreve_na_pasta": [],
+      "escreve_na_pasta": [
+        {
+          "pasta": "system-map",
+          "prova": {
+            "file": "system-map/scripts/censo_dos_donos.py",
+            "line": 200,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -6817,6 +6841,45 @@
       "y": 360
     },
     {
+      "id": "C-CONTRATO-TELEMETRIA",
+      "name": "O contrato da telemetria",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "O vocabulário e as leis que qualquer emissor de telemetria tem de cumprir: espécies de evento, estados de etapa, destinos do item, códigos de diagnóstico, grão de entrada e de saída, e a conta da reconciliação.",
+      "why_here": "MODULE WORKS ≠ EDGE WORKS ≠ FLOW WORKS. Cada módulo pode passar nos seus testes e o fluxo inteiro não trazer nada — três missões acharam estado publicado sem medição, sempre tarde. É contrato e não implementação de propósito: instalar OpenTelemetry ou Grafana antes de saber o que se quer perguntar é comprar a tampa antes de medir o buraco.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "red",
+      "icon": "⧗",
+      "views": [
+        "audit",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [],
+      "file_count": 0,
+      "status": "BROKEN",
+      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com leis/telemetria.py.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 13010,
+      "y": 360
+    },
+    {
       "id": "C-CORPUS",
       "name": "Montar o corpus de fala e de ciencia",
       "territory": "Z-ACOES",
@@ -7038,8 +7101,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13010,
-      "y": 360
+      "x": 12595,
+      "y": 682
     },
     {
       "id": "C-DERIVED-ARTIFACT",
@@ -8667,7 +8730,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12595,
+      "x": 13010,
       "y": 682
     },
     {
@@ -10354,8 +10417,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
-      "y": 682
+      "x": 12595,
+      "y": 1004
     },
     {
       "id": "C-RECALL-PORTA-IT",
@@ -10741,7 +10804,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12595,
+      "x": 13010,
       "y": 1004
     },
     {
@@ -11054,8 +11117,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
-      "y": 1004
+      "x": 12595,
+      "y": 1326
     },
     {
       "id": "C-SCRAP-SOCIAL",
@@ -12489,6 +12552,7 @@
         "tests/test_biblia.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canonico.py",
+        "tests/test_censo_dos_donos.py",
         "tests/test_cicatrizes_brasil.py",
         "tests/test_coleta_externa.py",
         "tests/test_coleta_resiliente.py",
@@ -12535,9 +12599,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 53,
+      "file_count": 54,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 13 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 14 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -14245,7 +14309,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD be73768e6f1ed47aeec00f020bf7ff775a26e54d"
+        "HEAD a9979c2c952d13d187f60cdff2675be16a3c7e18"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -24062,17 +24126,17 @@
   "UNCLAIMED_FILES_COUNT": 698,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 123,
+    "components": 124,
     "components_proven": 73,
     "components_pending": 43,
     "components_broken": 1,
-    "components_unknown": 6,
+    "components_unknown": 7,
     "edges": 435,
     "edges_proven": 433,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1294,
-    "files_covered": 596,
+    "files_tracked": 1296,
+    "files_covered": 598,
     "files_code_unclaimed": 0
   }
 }

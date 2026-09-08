@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "be73768e6f1ed47aeec00f020bf7ff775a26e54d",
-    "GENERATED_AT": "2026-09-08T17:28:14-03:00"
+    "HEAD": "a9979c2c952d13d187f60cdff2675be16a3c7e18",
+    "GENERATED_AT": "2026-09-08T17:33:03-03:00"
   },
   "FILES": [
     {
@@ -8486,7 +8486,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "2dd4819ddd09a0328e33d35cb8c7521469df084a",
+      "sha": "03d5fa9a45274883f5a5392a382d320a7a46cab7",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8543,6 +8543,13 @@
     {
       "path": "system-map/scripts/censo_do_corpus_it.py",
       "sha": "9d75834f4e20627b744c033a4a64d32547fb43b6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/censo_dos_donos.py",
+      "sha": "2f8fd1e67d42d016b96e071fb0a79be3ca22d87b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8739,6 +8746,13 @@
     {
       "path": "tests/test_canonico.py",
       "sha": "b8896c0990b63e9610055df7b8b10dcd588d8f11",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_censo_dos_donos.py",
+      "sha": "93d966b1c25e3ffd1ab5eee169d698b1d572ed7a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29625,6 +29639,13 @@
         "constante": "destino"
       }
     ],
+    "system-map/scripts/censo_dos_donos.py": [
+      {
+        "pasta": "system-map",
+        "line": 200,
+        "constante": "SAIDA"
+      }
+    ],
     "tests/test_estradas_it.py": [
       {
         "pasta": "system-map",
@@ -29634,11 +29655,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1294,
-    "files_readable": 453,
-    "files_code_dir": 504,
+    "files_tracked": 1296,
+    "files_readable": 455,
+    "files_code_dir": 506,
     "file_edges": 1831,
-    "escritas_em_pasta": 62,
+    "escritas_em_pasta": 63,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

@@ -2193,6 +2193,24 @@
    "views": [
     "audit"
    ]
+  },
+  {
+   "id": "C-CONTRATO-TELEMETRIA",
+   "name": "O contrato da telemetria",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "⧗",
+   "what": "O vocabulário e as leis que qualquer emissor de telemetria tem de cumprir: espécies de evento, estados de etapa, destinos do item, códigos de diagnóstico, grão de entrada e de saída, e a conta da reconciliação.",
+   "why_here": "MODULE WORKS ≠ EDGE WORKS ≠ FLOW WORKS. Cada módulo pode passar nos seus testes e o fluxo inteiro não trazer nada — três missões acharam estado publicado sem medição, sempre tarde. É contrato e não implementação de propósito: instalar OpenTelemetry ou Grafana antes de saber o que se quer perguntar é comprar a tampa antes de medir o buraco.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "leis/telemetria.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
