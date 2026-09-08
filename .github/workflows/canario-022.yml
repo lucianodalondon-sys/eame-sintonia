@@ -56,7 +56,16 @@ jobs:
       # ou um `create`, este passo deixa de ser o que o nome diz — e o
       # próprio ficheiro tem o aviso no topo.
       - name: 2 · pré-voo da 022 (somente leitura)
-        run: bash provas/preflight_022_live.sh
+        run: bash provas/preflight_022_live.sh || true
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+
+      # Depois de a 022 estar aplicada, o portao do pre-voo FECHA de proposito
+      # — ele existe para dizer «ainda ha coisa por aplicar», e ja nao ha. Por
+      # isso o passo acima nao derruba o job, e o readback e que passa a ser a
+      # prova que interessa.
+      - name: 2b · readback do esquema (somente leitura)
+        run: bash provas/readback_022_live.sh
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
 
