@@ -97,10 +97,35 @@ class R1_R2_LegacyNaoEForward(unittest.TestCase):
                       'o legado deixou de emitir')
 
     def test_R2_o_ledger_diz_qual_modo_foi_provado(self):
+        """⚠️ ESTE TESTE MEDE, E DEIXOU DE CONGELAR.
+
+        A primeira versao exigia `FORWARD_INSTRUMENTED is False`. Era a medicao
+        daquele minuto escrita como se fosse lei — e no minuto em que o forward
+        passou a emitir (`coleta/derivacao_forward.py`, em O9R), o teste
+        reprovou o CONSERTO em vez do defeito.
+
+            UM TESTE QUE FIXA O NUMERO DE HOJE PROIBE O DE AMANHA.
+
+        O que ele tem de exigir e a CORRESPONDENCIA: o ledger diz `false` e o
+        forward esta calado, ou diz `true` e aponta uma prova que existe. As
+        duas afirmacoes continuam separadas — LEGACY prova o instrumento,
+        FORWARD prova a estrada.
+        """
         p = _ledger()['PROVADOS']['coleta/executor_texto_de_pdf.py']
         self.assertEqual('LEGACY_REPLAY', p['EXECUTION_MODE'])
-        self.assertIs(False, p['FORWARD_INSTRUMENTED'])
-        self.assertTrue(p['PORQUE_FORWARD_NAO_ESTA'])
+        if p['FORWARD_INSTRUMENTED']:
+            fw = p.get('FORWARD') or {}
+            self.assertTrue(fw.get('FRONTEIRA'),
+                            'diz FORWARD_INSTRUMENTED e nao diz por quem')
+            for chave in ('FRONTEIRA', 'PROVA'):
+                self.assertTrue(
+                    os.path.exists(os.path.join(RAIZ, fw[chave])),
+                    '%s aponta para um ficheiro que nao existe: %s'
+                    % (chave, fw[chave]))
+            self.assertFalse(p.get('PORQUE_FORWARD_NAO_ESTA'),
+                             'diz que esta instrumentado E explica por que nao')
+        else:
+            self.assertTrue(p['PORQUE_FORWARD_NAO_ESTA'])
 
     def test_R2_o_ledger_nao_chama_legacy_de_forward(self):
         texto = json.dumps(_ledger(), ensure_ascii=False)
@@ -279,13 +304,35 @@ class R4_R5_R6_Identidade(unittest.TestCase):
 
 
 class R7_R8_ODenominador(unittest.TestCase):
-    """R7 e R8. 54 caminhos nao sao 54 motores provados."""
+    """R7 e R8. Os caminhos varridos nao sao os motores provados."""
 
     def test_R7_nao_se_publica_executores_provados_sem_prova(self):
+        """⚠️ MEDE A RELACAO, E NAO O NUMERO DE HOJE.
+
+        A primeira versao exigia `TOTAL_RELEVANT_PATHS == 54`. Bastou esta
+        missao acrescentar UM ficheiro a `coleta/` para o teste reprovar — e
+        reprovar o acrescento, nao um defeito.
+
+            UM TESTE QUE FIXA O NUMERO DE HOJE PROIBE O DE AMANHA,
+            E O DEFEITO QUE ELE APANHA E O CRESCIMENTO.
+
+        O que R7 existe para impedir e outra coisa, e ela nao tem numero:
+        publicar «executores provados» sem que cada um aponte uma prova. Isso
+        continua exigido, e agora exigido de todos.
+        """
         d = _censo()['DENOMINADORES']
-        self.assertEqual(54, d['TOTAL_RELEVANT_PATHS'])
-        self.assertEqual(1, d['TOTAL_EXECUTORS_PROVEN'])
+        self.assertGreater(d['TOTAL_RELEVANT_PATHS'], 0)
         self.assertLess(d['TOTAL_EXECUTORS_PROVEN'], d['TOTAL_RELEVANT_PATHS'])
+        # Cada provado tem de estar no ledger, com prova apontada.
+        ledger = _ledger()['PROVADOS']
+        provados = [l for l in _censo()['EXECUTORES']
+                    if l['STATE'] == 'INSTRUMENTED']
+        self.assertEqual(d['TOTAL_EXECUTORS_PROVEN'], len(provados))
+        for l in provados:
+            self.assertIn(l['EXECUTOR_ID'], ledger)
+            self.assertTrue(ledger[l['EXECUTOR_ID']].get('PROVA'),
+                            '%s publicado como provado sem prova apontada'
+                            % l['EXECUTOR_ID'])
 
     def test_R7_o_artefato_nao_tem_campo_TOTAL_EXECUTORS(self):
         """O nome que daria autoridade ao denominador errado nao existe."""
@@ -318,9 +365,40 @@ class R9_R10_DuasPerguntas(unittest.TestCase):
     """R9 e R10. Cada nome mede uma coisa so."""
 
     def test_R9_o_instrumento_mede_o_instrumento(self):
-        i = _censo()['M2']['TELEMETRY_INFRASTRUCTURE']
+        """⚠️ O QUE R9 EXIGE E QUE O BLOCO NAO SE ARROGUE A OUTRA PERGUNTA.
+
+        A primeira versao procurava a palavra `LEGACY_REPLAY` na ressalva. Era
+        a maneira de dizer «este bloco nao mede o fluxo forward» no dia em que
+        a unica prova era um replay. Em O9R o forward passou a ter prova
+        propria e o campo mudou de sitio: `CANONICAL_FORWARD_PATH`, ao lado.
+        Procurar a palavra antiga passaria a reprovar a separacao que R9 pediu.
+
+        O que continua exigido — e agora com mais forca — e que o bloco do
+        INSTRUMENTO nao afirme nada sobre a estrada, nem sobre a rota da M2.
+        """
+        m2 = _censo()['M2']
+        i = m2['TELEMETRY_INFRASTRUCTURE']
         self.assertEqual('YES', i['TELEMETRY_INFRASTRUCTURE_PROVED'])
-        self.assertIn('LEGACY_REPLAY', i['O_QUE_NAO_MEDE'])
+        self.assertNotIn('FORWARD_PROVED', i)
+        self.assertNotIn('M2_ROUTE_OBSERVABILITY_READY', i)
+        for palavra in ('rota da M2', 'cobertura'):
+            self.assertIn(palavra, i['O_QUE_NAO_MEDE'])
+        # A pergunta do forward existe, e vive num campo SEPARADO.
+        fw = m2['CANONICAL_FORWARD_PATH']
+        self.assertIn('CANONICAL_FORWARD_PATH_PROVED', fw)
+        self.assertNotIn('TELEMETRY_INFRASTRUCTURE_PROVED', fw)
+
+    def test_R9_o_forward_mede_o_forward_e_aponta_prova(self):
+        """LEGACY_REPLAY_INSTRUMENTED != CANONICAL_FORWARD_INSTRUMENTED."""
+        fw = _censo()['M2']['CANONICAL_FORWARD_PATH']
+        self.assertIn('LEGACY_REPLAY_INSTRUMENTED', fw['A_LEI'])
+        if fw['CANONICAL_FORWARD_PATH_PROVED'] == 'YES':
+            self.assertTrue(fw['FRONTEIRAS'])
+            for caminho in fw['FRONTEIRAS'] + fw['PROVAS']:
+                self.assertTrue(os.path.exists(os.path.join(RAIZ, caminho)),
+                                caminho)
+        else:
+            self.assertEqual([], fw['QUAIS'])
 
     def test_R10_a_rota_mede_a_rota(self):
         r = _censo()['M2']['M2_ROUTE']

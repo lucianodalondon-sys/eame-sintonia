@@ -54,8 +54,10 @@ PARTIAL = 'PARTIAL'
 SKIPPED = 'SKIPPED'
 NOT_APPLICABLE = 'NOT_APPLICABLE'
 
-ETAPAS = ('DECIDE', 'CHECK', 'DISCOVER', 'FETCH', 'RAW', 'DERIVED',
-          'STRUCTURED', 'ADMISSION', 'READY')
+# ⚠️ A QUARTA COPIA, FECHADA EM O9R. Ate aqui este ficheiro escrevia as nove
+# etapas a mao — era a mesma especie de defeito que o O8C desfez nos ESTADOS e
+# nos DESTINOS, e ficou de fora so porque ninguem tinha olhado para ela.
+ETAPAS = tel.ETAPAS_DA_COLETA
 
 # A ordem importa para «onde retomar»: o ultimo PASS na ordem canonica e o
 # ultimo ponto bom, e as etapas depois dele ficam NOT_RUN — nunca REJECTED.

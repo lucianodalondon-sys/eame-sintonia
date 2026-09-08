@@ -182,6 +182,7 @@
       "coleta/corpus_pesquisador.py",
       "coleta/cruzar_regua_rotulo.py",
       "coleta/denominaciones.py",
+      "coleta/derivacao_forward.py",
       "coleta/ephy.sh",
       "coleta/eppo_gd.py",
       "coleta/es/corpus_es.py",
@@ -1120,6 +1121,7 @@
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
       "provas/o_executor_conta_se.py",
+      "provas/o_forward_conta_se.py",
       "provas/o_mapa_nao_mente.py",
       "provas/paridade_da_lingua.py",
       "provas/preflight_022_live.sh",
@@ -1347,6 +1349,7 @@
       "tests/test_evolucao.py",
       "tests/test_execucao_standalone.py",
       "tests/test_falhas.py",
+      "tests/test_forward_instrumentado.py",
       "tests/test_fundacao_da_coleta.py",
       "tests/test_gestao_da_coleta.py",
       "tests/test_handoff.py",
@@ -1775,8 +1778,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "44e2de1b43759cf56588820728933ba501828632",
-    "GENERATED_AT": "2026-09-08T22:24:24+00:00"
+    "HEAD": "c293be6548382459168468b86881b173e773fad1",
+    "GENERATED_AT": "2026-09-08T22:50:19+00:00"
   },
   "FAMILIES": [
     {
@@ -1802,7 +1805,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 47
+      "count": 48
     },
     {
       "id": "F-ESPERA",
@@ -1831,7 +1834,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 51
+      "count": 52
     },
     {
       "id": "F-ENTREGA",
@@ -2012,7 +2015,7 @@
       "y": 190,
       "w": 820,
       "h": 3260,
-      "count": 11
+      "count": 12
     },
     {
       "id": "Z-ADMISSAO",
@@ -2121,7 +2124,7 @@
       "y": 190,
       "w": 1235,
       "h": 3260,
-      "count": 28
+      "count": 29
     },
     {
       "id": "Z-PACOTE",
@@ -5630,7 +5633,8 @@
         "C-SUPABASE"
       ],
       "outbound": [
-        "C-PROVA-EXECUTOR-CONTA"
+        "C-PROVA-EXECUTOR-CONTA",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -6211,7 +6215,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_dos_executores.py",
-            "line": 407,
+            "line": 442,
             "snippet": "escreve em destino"
           }
         }
@@ -6743,6 +6747,7 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-PALAVRAS",
+        "C-PROVA-FORWARD-CONTA",
         "C-RASTRO",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
@@ -7036,6 +7041,7 @@
       "inbound": [],
       "outbound": [
         "C-CENSO-DERIVACOES",
+        "C-DERIVACAO-FORWARD",
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
         "C-PROVA-COLETA",
@@ -7157,6 +7163,7 @@
         "C-FLUXO-NO-SECO",
         "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
+        "C-PROVA-FORWARD-CONTA",
         "C-RASTRO",
         "C-RELATORIO-FLUXO",
         "C-TESTES"
@@ -7173,12 +7180,13 @@
           "DE_ONDE_VIERAM",
           "ESPECIES",
           "ESTADOS_DE_ETAPA",
+          "ETAPAS_DA_COLETA",
           "LEIS",
           "NAO_INSTALAR"
         ],
-        "palavras": 88,
+        "palavras": 98,
         "por_lingua": {},
-        "sem_marca_de_lingua": 88,
+        "sem_marca_de_lingua": 98,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -7414,6 +7422,69 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 13010,
       "y": 682
+    },
+    {
+      "id": "C-DERIVACAO-FORWARD",
+      "name": "A fronteira forward da derivação",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Leva N unidades canónicas — `raw_asset` real no banco → derivado real pelo dono da escrita — e conta a passagem DERIVED ao rastro. Não abre PDF, não julga, não escreve SQL: só sabe de que corrida, de que fonte e por que estrada a unidade é.",
+      "why_here": "REAL CODE != CANONICAL FORWARD FLOW. `medidas/corrida_instrumentada.py` é a fronteira do REPLAY LEGADO, e o ledger de provas dizia `FORWARD_INSTRUMENTED: false` — medido e escrito com todas as letras. Esta peça fecha esse buraco: é o mesmo sensor, na estrada oficial. Vive fora do executor porque O EXECUTOR NÃO CONHECE BANCO — é essa regra que o impede de declarar uma linhagem que não pode provar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⇥",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/derivacao_forward.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CONTRATO-ARTEFATO",
+        "C-EXECUTOR-TEXTO-PDF",
+        "C-GESTAO-COLETA",
+        "C-RASTRO",
+        "C-SCRAP-LEIS"
+      ],
+      "outbound": [
+        "C-PROVA-FORWARD-CONTA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "DESTINO_DO_ESTADO"
+        ],
+        "palavras": 9,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 9,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 7825,
+      "y": 1004
     },
     {
       "id": "C-DERIVED-ARTIFACT",
@@ -7715,8 +7786,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 7825,
-      "y": 1004
+      "x": 7410,
+      "y": 1326
     },
     {
       "id": "C-ESTRADAS-IT",
@@ -7760,6 +7831,7 @@
         "C-TESTES"
       ],
       "outbound": [
+        "C-PROVA-FORWARD-CONTA",
         "C-TESTES"
       ],
       "paises": {},
@@ -7892,12 +7964,14 @@
       ],
       "outbound": [
         "C-CENSO-DERIVACOES",
+        "C-DERIVACAO-FORWARD",
         "C-ESTRADA-PDF",
         "C-FRONTEIRA-TELEMETRIA",
         "C-IT-TEXTO-DERIVADO",
         "C-MAPA-GERADOR",
         "C-PROVA-COLETA",
         "C-PROVA-EXECUTOR-CONTA",
+        "C-PROVA-FORWARD-CONTA",
         "C-TESTES"
       ],
       "paises": {},
@@ -7921,7 +7995,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 7410,
+      "x": 7825,
       "y": 1326
     },
     {
@@ -8092,8 +8166,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 7825,
-      "y": 1326
+      "x": 7410,
+      "y": 1648
     },
     {
       "id": "C-FRONTEIRA-TELEMETRIA",
@@ -8183,8 +8257,10 @@
       ],
       "outbound": [
         "C-CONTRATO-TELEMETRIA",
+        "C-DERIVACAO-FORWARD",
         "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
+        "C-PROVA-FORWARD-CONTA",
         "C-RASTRO",
         "C-TESTES"
       ],
@@ -8577,7 +8653,9 @@
         "C-IT-CONTAS",
         "C-IT-CONTRATOS",
         "C-MAPA-GERADOR",
-        "C-MAPA-SCAN"
+        "C-MAPA-SCAN",
+        "C-PROVA-FORWARD-CONTA",
+        "C-TESTES"
       ],
       "paises": {
         "ITALIA": 8
@@ -8659,7 +8737,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 7410,
+      "x": 7825,
       "y": 1648
     },
     {
@@ -10896,6 +10974,7 @@
         "C-CADEIA-V21",
         "C-CENSO-OBSERVABILIDADE",
         "C-CI-PERSIST",
+        "C-PROVA-FORWARD-CONTA",
         "C-TESTES"
       ],
       "paises": {},
@@ -10975,6 +11054,70 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 15250,
+      "y": 2614
+    },
+    {
+      "id": "C-PROVA-FORWARD-CONTA",
+      "name": "A prova de que o forward se conta",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Aplica a cadeia canónica até à 024 num PostgreSQL 16 descartável, preserva um bruto real pelo dono do bruto, deriva pela fronteira forward e exige 38 factos: linhagem fechada no pai real, contabilidade a zero, identidade PROVADA e não presumida, READY que não nasce sem admissão, falha injectada com código do registry, e a telemetria a não mudar o que é produzido.",
+      "why_here": "DESIGNED não é DB_TESTED, e LEGACY REPLAY não é FORWARD. Esta peça percorre as duas distâncias com uma máquina — e recusa correr contra qualquer banco que não seja local e descartável.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊢",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "provas/o_forward_conta_se.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-COLETA-BASE",
+        "C-CONTRATO-TELEMETRIA",
+        "C-DERIVACAO-FORWARD",
+        "C-ESTRADAS-IT",
+        "C-EXECUTOR-TEXTO-PDF",
+        "C-GESTAO-COLETA",
+        "C-IT-CATALOGO",
+        "C-PROVA-COLETA",
+        "C-RASTRO",
+        "C-SCRAP-LEIS"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "MIGRATIONS"
+        ],
+        "palavras": 23,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 23,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 15665,
       "y": 2614
     },
     {
@@ -11063,8 +11206,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15665,
-      "y": 2614
+      "x": 14835,
+      "y": 2936
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -11116,7 +11259,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15250,
       "y": 2936
     },
     {
@@ -11232,10 +11375,12 @@
       ],
       "outbound": [
         "C-CI-PERSIST",
+        "C-DERIVACAO-FORWARD",
         "C-EXECUTOR-TEXTO-PDF",
         "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
         "C-PROVA-EXECUTOR-CONTA",
+        "C-PROVA-FORWARD-CONTA",
         "C-TESTES"
       ],
       "paises": {},
@@ -11243,17 +11388,6 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "vocabulario": {
-        "papel": "NAO SEI",
-        "listas": [
-          "ETAPAS"
-        ],
-        "palavras": 9,
-        "por_lingua": {},
-        "sem_marca_de_lingua": 9,
-        "de_outro_pais": 0,
-        "de_outro_pais_quais": {}
-      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [
@@ -11321,7 +11455,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 2936
     },
     {
@@ -11461,8 +11595,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 2936
+      "x": 14835,
+      "y": 3258
     },
     {
       "id": "C-REGRA-COLETA",
@@ -11838,8 +11972,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 7825,
-      "y": 1648
+      "x": 7410,
+      "y": 1970
     },
     {
       "id": "C-SAUDE-FONTE",
@@ -11990,10 +12124,12 @@
         "C-CENSO-CONGELAMENTO",
         "C-CENSO-OBSERVABILIDADE",
         "C-CONTRATO-TELEMETRIA",
+        "C-DERIVACAO-FORWARD",
         "C-ESTRADAS-IT",
         "C-FRONTEIRA-TELEMETRIA",
         "C-GESTAO-COLETA",
         "C-PROVA-COLETA",
+        "C-PROVA-FORWARD-CONTA",
         "C-RASTRO",
         "C-SCRAP-GUARDA",
         "C-SCRAP-SOCIAL",
@@ -12108,7 +12244,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 7410,
+      "x": 7825,
       "y": 1970
     },
     {
@@ -13478,6 +13614,7 @@
         "tests/test_evolucao.py",
         "tests/test_execucao_standalone.py",
         "tests/test_falhas.py",
+        "tests/test_forward_instrumentado.py",
         "tests/test_fundacao_da_coleta.py",
         "tests/test_gestao_da_coleta.py",
         "tests/test_handoff.py",
@@ -13525,9 +13662,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 67,
+      "file_count": 68,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 27 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 28 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -13541,6 +13678,7 @@
         "C-APRENDER-COM-A-FONTE",
         "C-AS-FONTES",
         "C-ASK-SINTONIA",
+        "C-BANCO-NO-SECO",
         "C-BIBLIA",
         "C-CADEIA-V21",
         "C-CENSO-ARMAZEM-IT",
@@ -13559,6 +13697,7 @@
         "C-CONTRATO-CAMPOS",
         "C-CONTRATO-TELEMETRIA",
         "C-DATA-CLOCK",
+        "C-DERIVACAO-FORWARD",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
         "C-ESTRADA-PDF",
@@ -13571,6 +13710,7 @@
         "C-GESTAO-COLETA",
         "C-GESTAO-DA-COLETA",
         "C-IDENTIDADE",
+        "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-PRESERVAR",
         "C-LASTMILE",
@@ -13618,7 +13758,7 @@
       },
       "paises_dado": {
         "ESPANHA": 44,
-        "ITALIA": 9,
+        "ITALIA": 10,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -13638,6 +13778,7 @@
           "EV",
           "EXECUTAVEIS",
           "FORTE",
+          "FORWARD",
           "HISTORICOS",
           "LINHA_BOA",
           "PROIBIDO",
@@ -13649,11 +13790,11 @@
           "SINAL_VENETO",
           "_GAVETA_DE"
         ],
-        "palavras": 334,
+        "palavras": 342,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 332,
+        "sem_marca_de_lingua": 340,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13705,7 +13846,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 14835,
+      "x": 15250,
       "y": 3258
     },
     {
@@ -15248,7 +15389,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 44e2de1b43759cf56588820728933ba501828632"
+        "HEAD c293be6548382459168468b86881b173e773fad1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16940,6 +17081,24 @@
       "categoria": "RULE"
     },
     {
+      "from": "C-BANCO-NO-SECO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O banco a seco tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 28,
+          "snippet": "import banco_no_seco as bs              # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-BIBLIA",
       "to": "C-ESTRADA-PDF",
       "type": "READS",
@@ -17437,8 +17596,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo dos executores — caminhos, papeis e cobertura alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Censo dos executores — caminhos, papeis e cobertura alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 211,
+          "snippet": "\"provas-de-execucao.json\"), encoding=\"utf-8\") as f:"
+        },
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
           "line": 38,
@@ -17495,7 +17659,7 @@
       "evidence": [
         {
           "file": "provas/paridade_da_lingua.py",
-          "line": 174,
+          "line": 220,
           "snippet": "open(SCANNER, 'leitura')  # SCANNER = system-map/scripts/censo_da_observabilidade.py"
         }
       ],
@@ -18338,6 +18502,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 68,
+          "snippet": "import coleta_checkpoint as cc          # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -18389,7 +18571,7 @@
         },
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-          "line": 161,
+          "line": 186,
           "snippet": "import coleta_checkpoint as cc"
         },
         {
@@ -18585,6 +18767,24 @@
     },
     {
       "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-DERIVACAO-FORWARD",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por A fronteira forward da derivação. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/derivacao_forward.py",
+          "line": 78,
+          "snippet": "import artefato as art               # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-ARTEFATO",
       "to": "C-ESTRADA-PDF",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -18645,8 +18845,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 128,
+          "snippet": "import artefato as art"
+        },
         {
           "file": "tests/test_red_team_estrada.py",
           "line": 29,
@@ -18775,6 +18980,24 @@
     },
     {
       "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 74,
+          "snippet": "import telemetria as tel                # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -18817,8 +19040,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 33,
+          "snippet": "import telemetria as tel                # noqa: E402"
+        },
         {
           "file": "tests/test_lingua_unica.py",
           "line": 24,
@@ -19071,6 +19299,60 @@
       "categoria": "RULE"
     },
     {
+      "from": "C-DERIVACAO-FORWARD",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira forward da derivação tem o seu codigo importado por A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 69,
+          "snippet": "import derivacao_forward as fwd         # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DERIVACAO-FORWARD",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira forward da derivação tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 29,
+          "snippet": "import derivacao_forward as fwd         # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-DERIVACAO-FORWARD",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira forward da derivação alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 252,
+          "snippet": "self.assertIn(\"coleta/derivacao_forward.py\", fw[\"FRONTEIRAS\"])"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-DONO-DA-ESCRITA",
       "to": "C-CI-PERSIST",
       "type": "READS",
@@ -19307,6 +19589,24 @@
     },
     {
       "from": "C-ESTRADAS-IT",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O censo das classes de estrada da coleta italiana alimenta A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 109,
+          "snippet": "open(MODELO_DAS_ESTRADAS, 'leitura')  # MODELO_DAS_ESTRADAS = system-map/data/estradas-it.model.json"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ESTRADAS-IT",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -19442,6 +19742,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-DERIVACAO-FORWARD",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por A fronteira forward da derivação. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/derivacao_forward.py",
+          "line": 83,
+          "snippet": "import executor_texto_de_pdf as ex   # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-EXECUTOR-TEXTO-PDF",
@@ -19588,6 +19906,42 @@
     },
     {
       "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 71,
+          "snippet": "import executor_texto_de_pdf as ex      # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF alimenta A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 102,
+          "snippet": "def route_class_do_executor(ficheiro_do_executor=\"coleta/executor_texto_de_pdf.py\"):"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -19598,7 +19952,7 @@
       "evidence": [
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-          "line": 251,
+          "line": 276,
           "snippet": "import executor_texto_de_pdf as ex"
         },
         {
@@ -19622,8 +19976,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 215,
+          "snippet": "p = self._ledger()[\"PROVADOS\"][\"coleta/executor_texto_de_pdf.py\"]"
+        },
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
           "line": 42,
@@ -19821,7 +20180,7 @@
       "evidence": [
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-          "line": 243,
+          "line": 268,
           "snippet": "'corrida_instrumentada.py')):"
         },
         {
@@ -19846,6 +20205,24 @@
           "file": "leis/telemetria.py",
           "line": 70,
           "snippet": "import diagnostico as dg   # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-GESTAO-COLETA",
+      "to": "C-DERIVACAO-FORWARD",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por A fronteira forward da derivação. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/derivacao_forward.py",
+          "line": 79,
+          "snippet": "import diagnostico as dg             # noqa: E402"
         }
       ],
       "categoria": "RULE"
@@ -19888,6 +20265,24 @@
     },
     {
       "from": "C-GESTAO-COLETA",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 70,
+          "snippet": "import diagnostico as dg                # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-GESTAO-COLETA",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -19917,8 +20312,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 30,
+          "snippet": "import diagnostico as dg                # noqa: E402"
+        },
         {
           "file": "tests/test_lingua_unica.py",
           "line": 23,
@@ -20354,6 +20754,42 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 132,
+          "snippet": "open(CATALOGO_DE_FONTES, 'leitura')  # CATALOGO_DE_FONTES = candidatas/ITALY-SOURCE-MASTER-V1.json"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 240,
+          "snippet": "\"ITALY-SOURCE-MASTER-V1.json\"),"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-IT-COLETA",
@@ -22930,6 +23366,24 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 64,
+          "snippet": "\"prova_pg\", os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -22950,7 +23404,7 @@
         },
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-          "line": 357,
+          "line": 435,
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
         },
         {
@@ -23122,6 +23576,24 @@
     },
     {
       "from": "C-RASTRO",
+      "to": "C-DERIVACAO-FORWARD",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por A fronteira forward da derivação. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/derivacao_forward.py",
+          "line": 81,
+          "snippet": "import rastro_da_coleta as rastro    # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RASTRO",
       "to": "C-EXECUTOR-TEXTO-PDF",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -23194,14 +23666,37 @@
     },
     {
       "from": "C-RASTRO",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 73,
+          "snippet": "import rastro_da_coleta as rastro       # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RASTRO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 32,
+          "snippet": "import rastro_da_coleta as rastro       # noqa: E402"
+        },
         {
           "file": "tests/test_lingua_unica.py",
           "line": 25,
@@ -23209,7 +23704,7 @@
         },
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-          "line": 178,
+          "line": 203,
           "snippet": "import rastro_da_coleta as rastro"
         },
         {
@@ -23714,7 +24209,7 @@
       "evidence": [
         {
           "file": "medidas/rastro_da_coleta.py",
-          "line": 158,
+          "line": 160,
           "snippet": "import social_sessao as ss"
         }
       ],
@@ -23883,6 +24378,24 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-DERIVACAO-FORWARD",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por A fronteira forward da derivação. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/derivacao_forward.py",
+          "line": 80,
+          "snippet": "import falhas                        # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-ESTRADAS-IT",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -23983,6 +24496,24 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 72,
+          "snippet": "import falhas                           # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24068,7 +24599,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 16 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 17 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_falhas.py",
@@ -24079,6 +24610,11 @@
           "file": "tests/test_falhas.py",
           "line": 95,
           "snippet": "import social_matriz as mz"
+        },
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 31,
+          "snippet": "import falhas                           # noqa: E402"
         },
         {
           "file": "tests/test_fundacao_da_coleta.py",
@@ -24124,11 +24660,6 @@
           "file": "tests/test_trava_da_inteligencia.py",
           "line": 337,
           "snippet": "import fundacao_da_coleta as lei"
-        },
-        {
-          "file": "tests/test_youtube_antidrift.py",
-          "line": 20,
-          "snippet": "import falhas                     # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -26376,17 +26907,17 @@
   "UNCLAIMED_FILES_COUNT": 697,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 137,
+    "components": 139,
     "components_proven": 70,
-    "components_pending": 60,
+    "components_pending": 62,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 497,
-    "edges_proven": 495,
+    "edges": 517,
+    "edges_proven": 515,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1329,
-    "files_covered": 632,
+    "files_tracked": 1332,
+    "files_covered": 635,
     "files_code_unclaimed": 0
   }
 }

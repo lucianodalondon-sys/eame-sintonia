@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "44e2de1b43759cf56588820728933ba501828632",
-    "GENERATED_AT": "2026-09-08T22:24:24+00:00"
+    "HEAD": "c293be6548382459168468b86881b173e773fad1",
+    "GENERATED_AT": "2026-09-08T22:50:19+00:00"
   },
   "FILES": [
     {
@@ -1137,6 +1137,13 @@
     {
       "path": "coleta/denominaciones.py",
       "sha": "4d16c905bf5e083c7c1a664c6b7b31b59ee1e51e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/derivacao_forward.py",
+      "sha": "73831375bf8f191fc5bd3e7ab2a7753f79d0a4ee",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6813,7 +6820,7 @@
     },
     {
       "path": "leis/telemetria.py",
-      "sha": "7d6c964cfad30781cf108c1808b1754dd9afc4b8",
+      "sha": "edba06454f9e1fd7f0a2cc54f6d55db23a97ca97",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6932,7 +6939,7 @@
     },
     {
       "path": "medidas/rastro_da_coleta.py",
-      "sha": "b9ea8a4fdcc059f784b645f390b8cbcc9501a99e",
+      "sha": "8e526bb43f34274275945ec9831f8ebec7f05248",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7491,6 +7498,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/o_forward_conta_se.py",
+      "sha": "658a7d0e461537aa252aff7e8cd9110fe39f5e85",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/o_mapa_nao_mente.py",
       "sha": "c7648b353625cd280a7d2cf2df3f4c0e6f12fba8",
       "ext": ".py",
@@ -7499,7 +7513,7 @@
     },
     {
       "path": "provas/paridade_da_lingua.py",
-      "sha": "3361d5e5da847a39fe889449d3b5386f851fc4b4",
+      "sha": "b7981bd0bed0577312a0b8d031e60cb25525e2f4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8598,7 +8612,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "cea13224ba1b7e4806233d7551b7e5e736c72a6e",
+      "sha": "9428bc28b04c71ff431c568250f909c439f2a81b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8612,7 +8626,7 @@
     },
     {
       "path": "system-map/data/provas-de-execucao.json",
-      "sha": "47496ea9c751e447825101363394c67477b9e250",
+      "sha": "19d7be55b5c86b86c96682a661572306fcaada70",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8682,7 +8696,7 @@
     },
     {
       "path": "system-map/scripts/censo_dos_executores.py",
-      "sha": "c580dfdf967aacbffdb8e9533bee3e68855c9b0e",
+      "sha": "43c459c549c1083c6750c8375757a8108b89e549",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8982,6 +8996,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_forward_instrumentado.py",
+      "sha": "82970e14fd970a71c783a09da2d6aca8bd16de41",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_fundacao_da_coleta.py",
       "sha": "96b20ae3de22362c156141deeb1c84ee15eb1c25",
       "ext": ".py",
@@ -9067,7 +9088,7 @@
     },
     {
       "path": "tests/test_o10r_a_verdade_dos_nomes.py",
-      "sha": "1518c82d169084397e51180230f996891c66833b",
+      "sha": "a6c395f6e7db9f41cd658e966064e0f84488ce3d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10795,6 +10816,72 @@
         "file": "coleta/denominaciones.py",
         "line": 36,
         "snippet": "from pdf_text import text                                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/derivacao_forward.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/derivacao_forward.py",
+        "line": 77,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/derivacao_forward.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/derivacao_forward.py",
+        "line": 83,
+        "snippet": "import executor_texto_de_pdf as ex   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/derivacao_forward.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/derivacao_forward.py",
+        "line": 78,
+        "snippet": "import artefato as art               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/derivacao_forward.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/derivacao_forward.py",
+        "line": 79,
+        "snippet": "import diagnostico as dg             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/derivacao_forward.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/derivacao_forward.py",
+        "line": 80,
+        "snippet": "import falhas                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/derivacao_forward.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/derivacao_forward.py",
+        "line": 81,
+        "snippet": "import rastro_da_coleta as rastro    # noqa: E402"
       }
     },
     {
@@ -18471,7 +18558,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "medidas/rastro_da_coleta.py",
-        "line": 158,
+        "line": 160,
         "snippet": "import social_sessao as ss"
       }
     },
@@ -23833,6 +23920,138 @@
       }
     },
     {
+      "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 59,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 132,
+        "snippet": "open(CATALOGO_DE_FONTES, 'leitura')  # CATALOGO_DE_FONTES = candidatas/ITALY-SOURCE-MASTER-V1.json"
+      }
+    },
+    {
+      "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 68,
+        "snippet": "import coleta_checkpoint as cc          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "coleta/derivacao_forward.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 69,
+        "snippet": "import derivacao_forward as fwd         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 71,
+        "snippet": "import executor_texto_de_pdf as ex      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 102,
+        "snippet": "def route_class_do_executor(ficheiro_do_executor=\"coleta/executor_texto_de_pdf.py\"):"
+      }
+    },
+    {
+      "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 70,
+        "snippet": "import diagnostico as dg                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 72,
+        "snippet": "import falhas                           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 74,
+        "snippet": "import telemetria as tel                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 73,
+        "snippet": "import rastro_da_coleta as rastro       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 64,
+        "snippet": "\"prova_pg\", os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\"))"
+      }
+    },
+    {
+      "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "system-map/data/estradas-it.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 109,
+        "snippet": "open(MODELO_DAS_ESTRADAS, 'leitura')  # MODELO_DAS_ESTRADAS = system-map/data/estradas-it.model.json"
+      }
+    },
+    {
       "from_file": "provas/o_mapa_nao_mente.py",
       "to_file": "system-map/data/architecture.declared.json",
       "type": "READS",
@@ -23949,7 +24168,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/paridade_da_lingua.py",
-        "line": 174,
+        "line": 220,
         "snippet": "open(SCANNER, 'leitura')  # SCANNER = system-map/scripts/censo_da_observabilidade.py"
       }
     },
@@ -27727,6 +27946,138 @@
       }
     },
     {
+      "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 27,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 240,
+        "snippet": "\"ITALY-SOURCE-MASTER-V1.json\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "coleta/derivacao_forward.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 29,
+        "snippet": "import derivacao_forward as fwd         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "coleta/derivacao_forward.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 252,
+        "snippet": "self.assertIn(\"coleta/derivacao_forward.py\", fw[\"FRONTEIRAS\"])"
+      }
+    },
+    {
+      "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 215,
+        "snippet": "p = self._ledger()[\"PROVADOS\"][\"coleta/executor_texto_de_pdf.py\"]"
+      }
+    },
+    {
+      "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 128,
+        "snippet": "import artefato as art"
+      }
+    },
+    {
+      "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 30,
+        "snippet": "import diagnostico as dg                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 31,
+        "snippet": "import falhas                           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 33,
+        "snippet": "import telemetria as tel                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "medidas/banco_no_seco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 28,
+        "snippet": "import banco_no_seco as bs              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 32,
+        "snippet": "import rastro_da_coleta as rastro       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "system-map/data/provas-de-execucao.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 211,
+        "snippet": "\"provas-de-execucao.json\"), encoding=\"utf-8\") as f:"
+      }
+    },
+    {
       "from_file": "tests/test_fundacao_da_coleta.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -28569,7 +28920,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-        "line": 161,
+        "line": 186,
         "snippet": "import coleta_checkpoint as cc"
       }
     },
@@ -28580,7 +28931,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-        "line": 251,
+        "line": 276,
         "snippet": "import executor_texto_de_pdf as ex"
       }
     },
@@ -28613,7 +28964,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-        "line": 243,
+        "line": 268,
         "snippet": "'corrida_instrumentada.py')):"
       }
     },
@@ -28624,7 +28975,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-        "line": 178,
+        "line": 203,
         "snippet": "import rastro_da_coleta as rastro"
       }
     },
@@ -28635,7 +28986,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-        "line": 357,
+        "line": 435,
         "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
       }
     },
@@ -28646,7 +28997,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-        "line": 272,
+        "line": 297,
         "snippet": "'024_a_corrida_conta_o_que_passou.sql'))"
       }
     },
@@ -31329,7 +31680,7 @@
     "system-map/scripts/censo_dos_executores.py": [
       {
         "pasta": "system-map",
-        "line": 407,
+        "line": 442,
         "constante": "destino"
       }
     ],
@@ -31349,10 +31700,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1329,
-    "files_readable": 486,
-    "files_code_dir": 538,
-    "file_edges": 1961,
+    "files_tracked": 1332,
+    "files_readable": 489,
+    "files_code_dir": 541,
+    "file_edges": 1991,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

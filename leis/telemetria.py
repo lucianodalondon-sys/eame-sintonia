@@ -95,6 +95,78 @@ ESTADOS_DE_ETAPA = (
     'NOT_APPLICABLE',   # nao existe nesta rota, com razao escrita
 )
 
+# ⚠️ AS ETAPAS CANONICAS DA AQUISICAO, E O DONO DELAS E ESTE FICHEIRO.
+# Ate O9R esta tupla vivia em `medidas/rastro_da_coleta.py` — o WRITER. O
+# contrato era dono do ESTADO da etapa e do DESTINO do item, e nao do NOME das
+# etapas; e um vocabulario declarado pelo writer e um vocabulario que o
+# contrato nao consegue defender. Foi a mesma classe de defeito que o O8C
+# desfez em tres sitios; aqui esta o quarto.
+#
+# A fronteira termina em READY de proposito: INTELLIGENCE, PACKAGE, PORTAL e
+# DELIVERY nao entram, porque exigi-las agora faria a fundacao da coleta
+# depender de coisas que nao sao coleta. A `024` escreve o mesmo enum a mao, e
+# `provas/paridade_da_lingua.py` reprova no minuto em que os dois divergirem.
+ETAPAS_DA_COLETA = (
+    'DECIDE', 'CHECK', 'DISCOVER', 'FETCH', 'RAW', 'DERIVED',
+    'STRUCTURED', 'ADMISSION', 'READY',
+)
+
+# ⚠️ DERIVED STORED != READY.
+#
+# «O texto derivado aterrou no registo» NAO e `READY`. Aterrar e persistencia;
+# `READY` e um VEREDITO — alguem olhou para o item e disse que ele entra. Quem
+# julga e a porta de admissao, e o executor declara explicitamente que NAO
+# julga. Emitir `READY PASS` sem `ADMISSION` e assinar um veredito por um dono
+# que nao foi chamado, e faz a cadeia parecer fechada exatamente onde ela nao
+# fecha.
+#
+#     STAGE EXISTS IN VOCABULARY != STAGE RAN.
+#
+# Isto nao e ordem cronologica generica — nao se declara aqui que FETCH exige
+# DISCOVER, porque ha rotas legitimas que comecam noutro sitio. E uma lei sobre
+# QUEM ASSINA: `READY` e a unica etapa cujo significado e um julgamento, e por
+# isso e a unica que exige que o juiz tenha corrido.
+EXIGE_QUEM_ASSINE = {
+    'READY': ('ADMISSION',),
+}
+
+# Um `READY` so vale se a etapa ja tiver acontecido de verdade. `NOT_RUN`,
+# `SKIPPED` e `NOT_APPLICABLE` nao sao «aconteceu».
+ETAPA_ACONTECEU = ('PASS', 'PARTIAL')
+
+
+def ready_sem_quem_assine(passagens):
+    """As etapas que se declaram cumpridas sem o dono que as assina.
+
+    Devolve a lista de violacoes; lista vazia = nada a apontar. Cada violacao
+    diz a etapa, o estado com que ela se declarou, e quem faltava.
+
+    `passagens` e uma lista de dicionarios com ETAPA e ESTADO — a forma que
+    `medidas/rastro_da_coleta.passagens()` devolve, e a mesma que o banco a
+    seco produz. Nao le banco nenhum: e uma lei, e leis nao abrem ligacoes.
+    """
+    aconteceu = {p.get('ETAPA') for p in passagens
+                 if p.get('ESTADO') in ETAPA_ACONTECEU}
+    fora = []
+    for p in passagens:
+        etapa, estado = p.get('ETAPA'), p.get('ESTADO')
+        if estado not in ETAPA_ACONTECEU:
+            continue
+        for exigida in EXIGE_QUEM_ASSINE.get(etapa, ()):
+            if exigida not in aconteceu:
+                fora.append({
+                    'ETAPA': etapa,
+                    'ESTADO': estado,
+                    'FALTA': exigida,
+                    'DIAGNOSTIC_CODE': dg.ADMISSION_NOT_CONNECTED,
+                    'PORQUE': (
+                        '%s declarou-se %s e %s nunca aconteceu nesta corrida. '
+                        'DERIVED STORED != READY: persistir nao e julgar.'
+                        % (etapa, estado, exigida)),
+                })
+    return fora
+
+
 # As portas por onde um item de entrada pode sair. Se um item nao sai por
 # nenhuma, ele e UNACCOUNTED — e isso e o defeito que a reconciliacao caca.
 DESTINOS_DO_ITEM = (
@@ -240,6 +312,10 @@ def compara_contagens(etapa):
 
 LEIS = (
     'MODULE WORKS != EDGE WORKS != FLOW WORKS',
+    'DERIVED STORED != READY — SEM ADMISSION NAO HA VEREDITO',
+    'STAGE EXISTS IN VOCABULARY != STAGE RAN',
+    'LEGACY REPLAY INSTRUMENTED != CANONICAL FORWARD INSTRUMENTED',
+    'OBSERVABILITY FAILURE != COLLECTION FAILURE',
     'INPUT != OUTPUT QUANDO O GRAO MUDA',
     '100% NAO PRECISA CHEGAR — 100% PRECISA SER EXPLICADO',
     'UNACCOUNTED_INPUT DEVE SER 0',

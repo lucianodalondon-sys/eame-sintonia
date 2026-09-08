@@ -1,14 +1,15 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "44e2de1b43759cf56588820728933ba501828632",
+  "HEAD": "c293be6548382459168468b86881b173e773fad1",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 56,
- "TOTAL_CAMINHOS_RELEVANTES": 54,
+ "TOTAL_FICHEIROS": 57,
+ "TOTAL_CAMINHOS_RELEVANTES": 55,
  "POR_ESTADO": {
   "NOT_INSTRUMENTED": 53,
+  "PARTIAL": 1,
   "INSTRUMENTED": 1,
   "NOT_APPLICABLE": 2
  },
@@ -22,72 +23,72 @@
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "STAGES": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "EDGE_PASSAGE": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "ACCOUNTING": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "GRAIN": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_STATE": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "DIAGNOSTIC_CODE": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_SNAPSHOT": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "LAST_GOOD": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "RESUME": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "DURATION": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "COST": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "CHECKPOINT": {
    "INSTRUMENTED": 0,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 1
   },
   "REUSED": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 53,
+   "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   }
  },
@@ -104,7 +105,22 @@
     "CONTABILIDADE_FECHA": true,
     "RETOMADA_SABE_ONDE_RECOMECAR": true
    },
-   "O_QUE_NAO_MEDE": "nao mede cobertura, nao mede o fluxo forward canonico — a prova que existe e um LEGACY_REPLAY — e nao mede a rota da M2."
+   "O_QUE_NAO_MEDE": "nao mede cobertura, e nao mede a rota da M2. O fluxo forward canonico tem campo proprio, mesmo aqui ao lado — juntar os dois foi exatamente o erro que O10R desfez."
+  },
+  "CANONICAL_FORWARD_PATH": {
+   "CANONICAL_FORWARD_PATH_PROVED": "YES",
+   "O_QUE_MEDE": "se algum executor tem a sua ESTRADA CANONICA FORWARD instrumentada — raw_asset real no banco, dono canonico da escrita, e a passagem a chegar ao rastro — e nao apenas um replay do corpo historico.",
+   "A_LEI": "LEGACY_REPLAY_INSTRUMENTED != CANONICAL_FORWARD_INSTRUMENTED",
+   "QUAIS": [
+    "coleta/executor_texto_de_pdf.py"
+   ],
+   "FRONTEIRAS": [
+    "coleta/derivacao_forward.py"
+   ],
+   "PROVAS": [
+    "provas/o_forward_conta_se.py"
+   ],
+   "O_QUE_NAO_MEDE": "nao diz que a cadeia forward esta COMPLETA. O caminho provado termina em DERIVED, e termina ai porque STRUCTURED e ADMISSION nao tem dono forward ligado. UM CAMINHO INSTRUMENTADO NAO E TODOS OS EXECUTORES INSTRUMENTADOS."
   },
   "M2_ROUTE": {
    "M2_ROUTE_OBSERVABILITY_READY": "NO",
@@ -125,15 +141,15 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 56,
-  "TOTAL_RELEVANT_PATHS": 54,
+  "TOTAL_FILES_SCANNED": 57,
+  "TOTAL_RELEVANT_PATHS": 55,
   "TOTAL_EXECUTORS_PROVEN": 1,
   "TOTAL_EXECUTORS_BY_ROLE": 10,
   "TOTAL_ORCHESTRATORS": 3,
   "TOTAL_ADAPTERS": 8,
   "TOTAL_PRESERVATION_OWNERS": 3,
   "TOTAL_CHECKPOINT_OWNERS": 1,
-  "TOTAL_TELEMETRY_EMITTERS": 1,
+  "TOTAL_TELEMETRY_EMITTERS": 2,
   "TOTAL_UNKNOWN": 30,
   "A_LEI": "CAMINHO RELEVANTE != EXECUTOR PROVADO. O numero grande e de caminhos varridos; o pequeno e do que foi provado a correr."
  },
@@ -365,6 +381,36 @@
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
    "STATE": "NOT_INSTRUMENTED"
+  },
+  {
+   "EXECUTOR_ID": "coleta/derivacao_forward.py",
+   "GAVETA": "coleta",
+   "LINHAS": 301,
+   "TEM_PORTA": true,
+   "ETAPAS_NOMEADAS": [
+    "RAW",
+    "DERIVED",
+    "STRUCTURED",
+    "ADMISSION",
+    "READY"
+   ],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": true,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": true,
+   "USA_FALHAS": true,
+   "USA_DIAGNOSTICO": true,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "TELEMETRY_EMITTER"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "PARTIAL"
   },
   {
    "EXECUTOR_ID": "coleta/eppo_gd.py",

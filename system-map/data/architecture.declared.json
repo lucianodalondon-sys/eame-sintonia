@@ -2459,6 +2459,42 @@
     "audit",
     "coverage"
    ]
+  },
+  {
+   "id": "C-DERIVACAO-FORWARD",
+   "name": "A fronteira forward da derivação",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "⇥",
+   "what": "Leva N unidades canónicas — `raw_asset` real no banco → derivado real pelo dono da escrita — e conta a passagem DERIVED ao rastro. Não abre PDF, não julga, não escreve SQL: só sabe de que corrida, de que fonte e por que estrada a unidade é.",
+   "why_here": "REAL CODE != CANONICAL FORWARD FLOW. `medidas/corrida_instrumentada.py` é a fronteira do REPLAY LEGADO, e o ledger de provas dizia `FORWARD_INSTRUMENTED: false` — medido e escrito com todas as letras. Esta peça fecha esse buraco: é o mesmo sensor, na estrada oficial. Vive fora do executor porque O EXECUTOR NÃO CONHECE BANCO — é essa regra que o impede de declarar uma linhagem que não pode provar.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/derivacao_forward.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
+   "id": "C-PROVA-FORWARD-CONTA",
+   "name": "A prova de que o forward se conta",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊢",
+   "what": "Aplica a cadeia canónica até à 024 num PostgreSQL 16 descartável, preserva um bruto real pelo dono do bruto, deriva pela fronteira forward e exige 38 factos: linhagem fechada no pai real, contabilidade a zero, identidade PROVADA e não presumida, READY que não nasce sem admissão, falha injectada com código do registry, e a telemetria a não mudar o que é produzido.",
+   "why_here": "DESIGNED não é DB_TESTED, e LEGACY REPLAY não é FORWARD. Esta peça percorre as duas distâncias com uma máquina — e recusa correr contra qualquer banco que não seja local e descartável.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/o_forward_conta_se.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

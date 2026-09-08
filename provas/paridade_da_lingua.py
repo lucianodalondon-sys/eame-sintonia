@@ -167,6 +167,52 @@ def main():
     else:
         ok('P5_WRITER_IMPORTA_DESTINOS', 'rastro.DESTINOS E telemetria.DESTINOS_DO_ITEM')
 
+    # ── P8 · AS ETAPAS TAMBEM TEM UM DONO SO ─────────────────────────────
+    # A quarta copia, fechada em O9R. Ate aqui o WRITER declarava as nove
+    # etapas a mao, e o contrato nao tinha como as defender.
+    if rastro.ETAPAS is not tel.ETAPAS_DA_COLETA:
+        mal('P8_WRITER_IMPORTA_ETAPAS', 'writer tem tupla propria de etapas')
+    else:
+        ok('P8_WRITER_IMPORTA_ETAPAS',
+           'rastro.ETAPAS E telemetria.ETAPAS_DA_COLETA')
+
+    enum_etapa = _enum(_sql(), 'etapa_da_coleta')
+    if not enum_etapa:
+        mal('P8_ENUM_DA_ETAPA_LEGIVEL', 'nao achei create type etapa_da_coleta')
+    elif tuple(enum_etapa) != tuple(tel.ETAPAS_DA_COLETA):
+        mal('P8_ENUM_DA_ETAPA_BATE_COM_O_DONO',
+            'banco=%s dono=%s' % (enum_etapa, list(tel.ETAPAS_DA_COLETA)))
+    else:
+        ok('P8_ENUM_DA_ETAPA_BATE_COM_O_DONO',
+           '%d etapas, exatamente as do contrato' % len(enum_etapa))
+
+    # ── P9 · READY EXIGE QUEM O ASSINE ───────────────────────────────────
+    #     DERIVED STORED != READY.
+    # A lei tem de MORDER e tem de NAO morder a esmo. Uma lei que passasse
+    # sempre seria indistinguivel de uma lei desligada; uma que reprovasse
+    # sempre seria ruido que toda a gente aprende a ignorar.
+    forward = [{'ETAPA': 'RAW', 'ESTADO': 'PASS'},
+               {'ETAPA': 'DERIVED', 'ESTADO': 'PASS'}]
+    morde = tel.ready_sem_quem_assine(forward + [{'ETAPA': 'READY',
+                                                  'ESTADO': 'PASS'}])
+    nao_morde = tel.ready_sem_quem_assine(
+        forward + [{'ETAPA': 'ADMISSION', 'ESTADO': 'PASS'},
+                   {'ETAPA': 'READY', 'ESTADO': 'PASS'}])
+    if len(morde) != 1 or morde[0]['FALTA'] != 'ADMISSION':
+        mal('P9_READY_SEM_ADMISSION_E_APANHADO', 'a lei nao mordeu')
+    elif nao_morde or tel.ready_sem_quem_assine(forward):
+        mal('P9_READY_SEM_ADMISSION_E_APANHADO',
+            'a lei morde uma cadeia honesta: %s' % (nao_morde or 'forward'))
+    else:
+        ok('P9_READY_SEM_ADMISSION_E_APANHADO',
+           'morde a mentira e nao morde a cadeia honesta')
+
+    if not dg.valido(morde[0]['DIAGNOSTIC_CODE']):
+        mal('P9_A_VIOLACAO_TRAZ_CODIGO_DO_REGISTRY',
+            'codigo fora do registry: %s' % morde[0]['DIAGNOSTIC_CODE'])
+    else:
+        ok('P9_A_VIOLACAO_TRAZ_CODIGO_DO_REGISTRY', morde[0]['DIAGNOSTIC_CODE'])
+
     # ── P6. WRITER E SCANNER LEEM O MESMO REGISTRY ──────────────────────
     # O writer aceita um codigo? Entao o scanner tem de o conhecer, e ao
     # contrario. Como os dois passam a ler `diagnostico`, prova-se que o

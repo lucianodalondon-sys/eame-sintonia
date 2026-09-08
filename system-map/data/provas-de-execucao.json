@@ -27,13 +27,36 @@
    "EXECUTION_MODE": "LEGACY_REPLAY",
    "FUNCAO_PROVADA": "correr()",
    "FUNCAO_FORWARD": "derivar_um()",
-   "FORWARD_INSTRUMENTED": false,
-   "PORQUE_FORWARD_NAO_ESTA": "a telemetria esta ligada a `correr()`, que varre os PDF historicos do Git e escreve o REGISTO-DE-ARTEFATOS.json. `derivar_um()` — que recebe um `raw_asset_id` canonico real e entrega ao dono do derivado — nao emite nada. Medido por leitura: zero chamadas a `rastro` dentro de `derivar_um`.",
+   "FORWARD_INSTRUMENTED": true,
+   "PORQUE_FORWARD_NAO_ESTA": null,
    "PORQUE_TERMINA_EM_DERIVED": "COL-LAW-043: READY significa contratos obrigatorios satisfeitos, e NAO «o ficheiro existe». O contrato de saida exige ADMITIDO_POR, e a admissao e de outro dono. Este caminho emitia READY para o texto que aterrou no registo — saltava DOIS estados de COL-LAW-044 (ADMITTED e READY). A etapa foi removida; o que aterrou e `passed` de DERIVED, e o que se emitiu e nao aterrou e `unknown`.",
    "SOURCE_ID": null,
    "ROUTE_CLASS_ID": null,
-   "PORQUE_IDENTIDADE_NULA": "os 49 PDF atravessam OITO source_id reais (IT-T2-001, IT-T2-002, IT-T3-002, IT-T3-008, IT-T3-010, IT-T3-011, IT-T4-001, IT-T5-003) em 23 ficheiros; os outros 26 nao tem source_id derivavel. E route_class nao esta registada por item nem no collection-store nem no collection-ledger. NAO ha um id defensavel para a corrida inteira, e UM ID DE RASTREIO INVENTADO E PIOR DO QUE UNKNOWN. etapa_da_corrida aceita NULL."
+   "PORQUE_IDENTIDADE_NULA": "os 49 PDF atravessam OITO source_id reais (IT-T2-001, IT-T2-002, IT-T3-002, IT-T3-008, IT-T3-010, IT-T3-011, IT-T4-001, IT-T5-003) em 23 ficheiros; os outros 26 nao tem source_id derivavel. E route_class nao esta registada por item nem no collection-store nem no collection-ledger. NAO ha um id defensavel para a corrida inteira, e UM ID DE RASTREIO INVENTADO E PIOR DO QUE UNKNOWN. etapa_da_corrida aceita NULL.",
+   "FORWARD": {
+    "FUNCAO": "derivar_um()",
+    "FRONTEIRA": "coleta/derivacao_forward.py",
+    "PROVA": "provas/o_forward_conta_se.py",
+    "EXECUTOR_MODIFICADO": false,
+    "ETAPAS_OBSERVADAS": [
+     "DERIVED"
+    ],
+    "PORQUE_SO_DERIVED": "esta fronteira NAO emite RAW: quem escreve `raw_asset` e guarda/preservar_coleta.py, e ler a linha de outro nao e ter corrido a etapa dele. E nao emite STRUCTURED, ADMISSION nem READY porque nenhuma delas tem dono forward ligado — NOT_RUN seria mentira, porque NOT_RUN e «fazia parte do plano e nao chegou a vez», e elas nao fazem parte de plano nenhum.",
+    "BANCO": "PostgreSQL 16 descartavel, migrations 001..024 aplicadas (a 008 e conferencia)",
+    "COLLECTION_RUN": "REAL — criado pelo dono do bruto (guarda/preservar_coleta.py). A chave estrangeira da 024 foi provada a morder: um run_id inexistente e recusado pelo banco.",
+    "RAW_ASSET_ID": "REAL — lido com SELECT depois de o dono do bruto escrever a linha. Nao inventado.",
+    "SOURCE_ID": "IT-T2-002",
+    "ROUTE_CLASS_ID": "RC-1",
+    "PORQUE_A_IDENTIDADE_AQUI_E_PROVAVEL_E_NO_LEGADO_NAO": "sao duas perguntas diferentes. O replay legado varre 49 PDF de OITO fontes ao mesmo tempo: nao ha UMA fonte, e por isso NULL e a unica resposta honesta. A unidade forward e UMA: o bruto veio de data/collection-store/italy/IT-T2-002/, o caminho foi escrito pela preservacao, e IT-T2-002 existe em candidatas/ITALY-SOURCE-MASTER-V1.json. A route class nao vem de um registo por item — ela vem do modelo das estradas, que declara STEPS.DERIVED.OWNER = coleta/executor_texto_de_pdf.py para a RC-1 E declara o CANARIO desta estrada como (IT-T2-002, RC-1). A prova RECUSA se a fonte medida nao for a do canario: sem esse par declarado, a rota voltaria a UNKNOWN.",
+    "GOOD_PATH": "1 raw_asset real -> 1 derived_artifact real · linhagem fechada no pai · UNACCOUNTED 0",
+    "FAULT_PATH": "3 unidades: 1 PASSED, 2 ERROR (ficheiro invalido + pai inexistente) · DERIVED FAIL · ITEM_ERROR (falhas) + DERIVATION_FAILED (diagnostico) · last_good aponta o ultimo que passou · UNACCOUNTED 0",
+    "INVARIANCIA": "OUTPUT_FUNCTIONAL_CHANGED = NO. A mesma unidade, com e sem rastro: sha256, bytes, parent_sha256, producer, producer_version, pipeline_version, storage_path e derived_at identicos, e os bytes no armazem iguais.",
+    "TELEMETRY_FAILURE": "com o rastro morto, o derivado ficou no banco e nenhuma falha de FONTE ou de ROTA foi inventada. OBSERVABILITY FAILURE != COLLECTION FAILURE. ⚠️ GAP: a excecao do rastro SOBE por correr(), e nao ha politica escrita nesta casa para «o sensor partiu-se». Fica declarado, e nao fechado com constituicao nova.",
+    "REDE": false,
+    "PAGO": false,
+    "PRODUCAO": false
+   }
   }
  },
- "LEGACY_NAO_E_FORWARD": "REAL EXECUTOR != CANONICAL FORWARD FLOW. Um replay do corpo historico prova o INSTRUMENTO: que o writer, o storage e o scanner aguentam uma passagem real. NAO prova que o fluxo canonico forward esta instrumentado — e nao esta. Publicar LEGACY como FORWARD seria a mesma classe de mentira que chamar READY a um ficheiro guardado."
+ "LEGACY_NAO_E_FORWARD": "REAL EXECUTOR != CANONICAL FORWARD FLOW. Um replay do corpo historico prova o INSTRUMENTO: que o writer, o storage e o scanner aguentam uma passagem real. NAO prova que o fluxo canonico forward esta instrumentado — e nao esta. Publicar LEGACY como FORWARD seria a mesma classe de mentira que chamar READY a um ficheiro guardado. ⚠️ ATUALIZADO: o forward passou a emitir, por coleta/derivacao_forward.py, e isso esta em FORWARD acima — com a sua propria prova contra Postgres real. As duas afirmacoes continuam separadas de proposito: LEGACY_REPLAY prova o INSTRUMENTO, FORWARD prova a ESTRADA. Junta-las voltaria a ser a mentira que este ficheiro existe para impedir."
 }

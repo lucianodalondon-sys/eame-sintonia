@@ -331,6 +331,19 @@ def principal():
     rota_m2 = ('STRUCTURED', 'ADMISSION')
     faltam = [e for e in rota_m2 if e not in etapas_observadas]
 
+    # ── E UMA TERCEIRA PERGUNTA, QUE TAMBEM ESTAVA ESCONDIDA NAS OUTRAS ──
+    #
+    #     REPLAY DE ARQUIVO INSTRUMENTADO != ESTRADA CANONICA INSTRUMENTADA.
+    #
+    # Ate O9R o ledger dizia `FORWARD_INSTRUMENTED: false` para todos, e isso
+    # era medido e verdadeiro. Publicar so `TELEMETRY_INFRASTRUCTURE_PROVED`
+    # deixava a distincao a viver numa nota — e nota nao e campo. Este campo e
+    # DERIVADO do ledger, e nunca digitado: quem quiser move-lo tem de provar
+    # um caminho forward, com fronteira e prova que existam em disco.
+    forward = {k: v.get('FORWARD') for k, v in ledger.items()
+               if v.get('FORWARD_INSTRUMENTED')}
+    forward_provado = sorted(forward)
+
     instrumento = {
         'TELEMETRY_INFRASTRUCTURE_PROVED': (
             'YES' if tem_bom >= 1 and tem_falha >= 1 else 'NO'),
@@ -346,8 +359,28 @@ def principal():
             'RETOMADA_SABE_ONDE_RECOMECAR': tem_falha >= 1,
         },
         'O_QUE_NAO_MEDE': (
-            'nao mede cobertura, nao mede o fluxo forward canonico — a prova '
-            'que existe e um LEGACY_REPLAY — e nao mede a rota da M2.'),
+            'nao mede cobertura, e nao mede a rota da M2. O fluxo forward '
+            'canonico tem campo proprio, mesmo aqui ao lado — juntar os dois '
+            'foi exatamente o erro que O10R desfez.'),
+    }
+
+    caminho_forward = {
+        'CANONICAL_FORWARD_PATH_PROVED': 'YES' if forward_provado else 'NO',
+        'O_QUE_MEDE': (
+            'se algum executor tem a sua ESTRADA CANONICA FORWARD instrumentada '
+            '— raw_asset real no banco, dono canonico da escrita, e a passagem '
+            'a chegar ao rastro — e nao apenas um replay do corpo historico.'),
+        'A_LEI': 'LEGACY_REPLAY_INSTRUMENTED != CANONICAL_FORWARD_INSTRUMENTED',
+        'QUAIS': forward_provado,
+        'FRONTEIRAS': sorted({(v or {}).get('FRONTEIRA')
+                              for v in forward.values() if v}),
+        'PROVAS': sorted({(v or {}).get('PROVA')
+                          for v in forward.values() if v}),
+        'O_QUE_NAO_MEDE': (
+            'nao diz que a cadeia forward esta COMPLETA. O caminho provado '
+            'termina em DERIVED, e termina ai porque STRUCTURED e ADMISSION '
+            'nao tem dono forward ligado. UM CAMINHO INSTRUMENTADO NAO E TODOS '
+            'OS EXECUTORES INSTRUMENTADOS.'),
     }
 
     rota = {
@@ -377,7 +410,9 @@ def principal():
             'fonte e da rota vem do dono ou fica UNKNOWN; nenhum READY antes '
             'da COL-LAW-043; o System Map atualiza por scanner.'),
     }
-    minimo = {'TELEMETRY_INFRASTRUCTURE': instrumento, 'M2_ROUTE': rota}
+    minimo = {'TELEMETRY_INFRASTRUCTURE': instrumento,
+              'CANONICAL_FORWARD_PATH': caminho_forward,
+              'M2_ROUTE': rota}
 
     cabeca = subprocess.run(['git', '-C', RAIZ, 'rev-parse', 'HEAD'],
                             capture_output=True, text=True).stdout.strip()
