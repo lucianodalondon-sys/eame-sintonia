@@ -323,8 +323,15 @@ Linha apagada que você não pretendia apagar é regressão, mesmo quando o fich
 ## VAI COLETAR? COMECE POR UMA PORTA SÓ
 
 ```
-regras/LEIA-ANTES-DE-COLETAR.md
+BIBLIA-CANONICA-DA-COLETA.md      a LEI da coleta — 48 leis numeradas
+regras/LEIA-ANTES-DE-COLETAR.md   as RÉGUAS vivas, geradas do mapa
 ```
+
+A **[`BIBLIA-CANONICA-DA-COLETA.md`](BIBLIA-CANONICA-DA-COLETA.md)** é o dono canônico da
+lei da coleta: o que coletar significa, quem manda, o que se preserva, e como se prova.
+Ela declara `LAW_STATUS` separado de `IMPLEMENTATION_STATUS` — **«é lei» nunca significa
+«já funciona»**. Este ficheiro (`AGENTS.md`) continua sendo o dono da lei do **mapa**, e a
+Bíblia aponta para ele em vez de a repetir.
 
 Toda missão de coleta começa procurando as réguas, e cada uma procura num sítio
 diferente — uma acha a procedência, outra acha a regra de coleta externa, outra

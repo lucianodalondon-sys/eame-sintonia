@@ -546,6 +546,86 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
 
 ---
 
+### D-027 — A Bíblia Canônica da Coleta, e a emenda V1.1
+- **Data:** 2026-09-07
+- **Estado:** DECIDIDO
+- **Contexto:** As leis da coleta viviam espalhadas por 63 sítios — cabeçalho de script,
+  README, prompt de aba e `if` solto. Espalhadas assim não se consultam: redescobrem-se, e a
+  lei redescoberta nunca é igual à que já existia.
+- **Decisão:** `BIBLIA-CANONICA-DA-COLETA.md`, na raiz, passa a ser o **dono canônico da lei
+  da coleta**. `AGENTS.md` continua dono da lei do mapa, `README.md` do método e `CLAUDE.md`
+  do design — a Bíblia aponta para eles e não os repete. Ela separa `LAW_STATUS` de
+  `IMPLEMENTATION_STATUS`: **«é lei» nunca significa «já funciona»**.
+  - **V1** (48 leis) consolidou o que já existia. Nenhuma lei antiga foi apagada: 58 das 63
+    ficam `KEEP`.
+  - **V1.1** (+30 leis, total 78) incorporou duas emendas: a **observabilidade** (PARTE XVI —
+    o System Map é a camada oficial de observabilidade visual, e tudo tem de ser
+    renderizável) e as **leis roubadas** de sistemas maduros de coleta (PARTE XVII —
+    artefato ≠ fato, watermark, corrida `COMPLETE`, corrida de reparo, três eixos de
+    confiança).
+- **Motivo:** Sem uma constituição, cada missão de coleta reabria decisões já tomadas e
+  pagava de novo o preço de aprendê-las. E sem separar lei de implementação, «está escrito»
+  passava por «está funcionando» — foi assim que `EAME_COLLECTION_ENTRY_GATE` chegou a dizer
+  `READY` ao lado de `LOCATION_CONTRACT_COMPLETE = NO`.
+- **Consequência:**
+  - `docs/biblia/leis.json` é **derivado** do texto, nunca escrito à mão, e
+    `provas/valida_biblia.py` + `tests/test_biblia.py` provam que os dois dizem a mesma
+    coisa. Ambos entram no CI.
+  - A matriz `docs/biblia/CONFORMIDADE-ITALIA.md` mede a Itália contra as 78:
+    24 `IMPLEMENTED` · 42 `PARTIAL` · 11 `ABSENT` · 1 `NOT_APPLICABLE`.
+  - Oito conflitos ficaram registrados com ficheiro e linha
+    (`docs/biblia/MATRIZ-DE-CONFLITOS.md`). **Nenhum foi consertado**: missão fundacional.
+  - Fica **uma decisão em aberto para o dono** (C-003): o sentinela do desconhecido tem cinco
+    grafias no repositório (`NAO_SEI` 344 · `NOT_KNOWN` 123 · `UNKNOWN` 95 · `NÃO SEI` 57 ·
+    `NAO SEI` 35). A Bíblia fixou o **significado** e deixou a **grafia** como
+    `DECISION_REQUIRED` — escolher agora quebraria dado já gravado.
+  - Nenhuma plataforma foi instalada. Nenhum coletor, workflow, orquestrador, executor,
+    admissão, banco ou pipeline de produção foi alterado funcionalmente.
+- **Quem decidiu:** Luciano, nas missões fundacionais «Bíblia Canônica da Coleta» e nas duas
+  emendas («GPU do SINTONIA» e «pós-pesquisa de arquiteturas maduras»). As escolhas de
+  consolidação — o que virou lei nova e o que foi absorvido por lei existente — estão
+  registradas em `docs/biblia/EMENDA-V1-1.md`.
+
+---
+
+### D-028 — GitHub guarda a engenharia; Supabase guarda a memória operacional
+- **Data:** 2026-09-08
+- **Estado:** DECIDIDO
+- **Contexto:** O SINTONIA já tem infraestrutura real — GitHub e Supabase — e nenhuma lei
+  dizia o que pertence a cada um. A missão mandava **medir antes de definir**, e a medição
+  está em `docs/biblia/CENSO-DA-INFRAESTRUTURA.md`.
+- **Decisão:** Bíblia **V1.1 → V1.2** (+22 leis, total 100). Duas partes novas:
+  - **PARTE XVIII · A INFRAESTRUTURA** (`COL-LAW-301`–`316`) —
+    `INFRASTRUCTURE ≠ SEMANTIC AUTHORITY`. O GitHub responde *«qual engenharia estava
+    valendo?»*; o Supabase responde *«o que aconteceu, e como está agora?»*; a Bíblia
+    governa os dois. Nenhum produtor escreve no canônico por conhecer a tabela; o GitHub
+    Actions não é orquestrador; agenda não é política de coleta; bytes não são metadata.
+  - **PARTE XIX · O PLANO DE REFERÊNCIA** (`COL-LAW-401`–`406`) — dado de referência não é
+    configuração, declara autoridade, distingue `LAST_CHECKED` de `LAST_CHANGED` e preserva
+    `VALID_FROM`/`VALID_TO`. **`ABSENT` por inteiro** — é `TARGET`, e o mapa não o desenha
+    como `CURRENT`.
+- **Motivo:** Sem papéis declarados, a conveniência decide — e a conveniência escreve JSON no
+  Git porque é fácil. Foi exatamente o que aconteceu com a Itália.
+- **Consequência, e duas surpresas da medição:**
+  - **Bypass para dentro do Supabase: ZERO.** Os 7 caminhos de escrita medidos são todos
+    canônicos. O padrão da casa já é `artefato → gerador → .sql versionado → Actions →
+    Supabase`, e funciona porque **a credencial só existe como segredo do runner**.
+  - **O bypass real é ao contrário.** `coleta/italy_recurrent_collect.mjs:144` grava recibo,
+    144 observações **e 12 MB de bytes** dentro do Git, enquanto `collection_run`,
+    `raw_asset` e o bucket `raw` existem, estão provados por round-trip com hash, e estão
+    vazios. Registrado como **G-30**, e é a mesma fratura da C-002 vista pela
+    infraestrutura — por isso **G-02 e G-30 passam a ser a mesma missão**.
+  - Itália contra 100 leis: 34 `IMPLEMENTED` · 46 `PARTIAL` · 18 `ABSENT` ·
+    2 `NOT_APPLICABLE`. O `IMPLEMENTED` subiu 10 **sem ninguém programar**: era
+    infraestrutura já certa que não tinha lei que a reconhecesse.
+  - **Nada foi migrado, criado ou alterado**: nenhuma tabela, migration, bucket, byte,
+    writer, workflow funcional ou credencial.
+- **Quem decidiu:** Luciano, na missão «Infraestrutura oficial — GitHub + Supabase + System
+  Map». As escolhas de consolidação — o que virou lei e o que foi absorvido — estão em
+  `docs/biblia/EMENDA-V1-2.md`.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
@@ -559,3 +639,5 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
 | P-009 | Obter chave da YouTube Data API e decidir se a ADAMA quer perfilar criadores individuais (T8). Questão de GDPR distinta da de T5. | T8 inteiro | 2026-08-28 |
 | P-008 | Perfilamento de pesquisadores identificados (EU-T5-001/OpenAlex): revisão GDPR antes de qualquer tela que liste pessoas nomeadas. **Continua ABERTA.** A MISSÃO 10C registrou os limites provisórios em `docs/regras/LIMITES-DE-DADO-PESSOAL-EAME.md` — `NAMED_RESEARCHER_PUBLIC_SCREEN = BLOCKED_PENDING_LEGAL_REVIEW`. Isso **não** é parecer jurídico e não fecha a pendência. | T6, people graph, protótipo, filas de 20 | 2026-08-28 |
 | P-007 | Uso e difusão de coordenadas de parcela do RAIF (ES-T3-001): revisão jurídica antes de expor em tela externa. | ES-T3-001, protótipo | 2026-08-28 |
+| P-010 | **A grafia canônica do desconhecido.** Hoje há cinco no repositório. Proposta a decidir: `UNKNOWN` como valor gravado, `NÃO SEI` como texto de tela, com uma função única de comparação. Escolher agora quebra dado já gravado; escolher tarde faz a migração crescer. | `COL-LAW-035` por inteiro | 2026-09-07 |
+| P-011 | **Onde ficam os bytes brutos da Itália?** Hoje: Git (12 MB e crescendo). O bucket `raw` do Supabase existe, é privado e tem round-trip provado. Mover exige decidir o que fazer com o histórico do Git, que não se apaga. | `COL-LAW-303` · `COL-LAW-311` · G-30 | 2026-09-08 |

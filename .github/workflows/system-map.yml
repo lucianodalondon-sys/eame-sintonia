@@ -88,6 +88,12 @@ jobs:
       - name: 4b · o caminho da coleta continua fechado
         run: python3 provas/testa_coleta_canonica.py
 
+      # A Bíblia da coleta declara 48 leis, e `docs/biblia/leis.json` é DERIVADO
+      # do texto dela — nunca escrito à mão. Sem este passo, as duas podiam
+      # divergir em silêncio, e a partir daí nenhuma das duas valeria.
+      - name: 4c · a Bíblia da coleta e o seu registo dizem a mesma coisa
+        run: python3 provas/valida_biblia.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         run: |
           set -e
