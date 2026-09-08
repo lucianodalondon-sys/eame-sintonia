@@ -250,8 +250,104 @@ def carregar_registo() -> dict:
 # a seguir, e não repinta o que ficou para trás.
 
 
-def correr(seco: bool = False, run_id: str = "") -> dict:
-    """A corrida de derivação. Devolve o recibo, sempre — mesmo se falhar."""
+def emitir_rastro(banco, run_id, conta, perdidos, erros, inicio):
+    """O que esta corrida fez, dito na língua comum de `rastro_da_coleta`.
+
+    ⚠️ ISTO NÃO INVENTA NÚMERO NENHUM. Cada valor vem de `conta`, que já era
+    calculado. A tradução é só de nome, e é ela que faltava: os números
+    existiam e ninguém lá fora os conseguia ler.
+
+    Três etapas, porque três foi o que aconteceu de verdade:
+
+        RAW      quantos ficheiros se olharam, e quantos conteúdos distintos
+        DERIVED  quantos textos saíram, e por que os outros não saíram
+        READY    quantos aterraram no registo
+
+    ⚠️ E O GRÃO MUDA NO MEIO. `RAW` conta em CAMINHO; `DERIVED` conta em
+    CONTEÚDO. Não são a mesma unidade, e por isso não se dividem: 49 caminhos
+    dão 43 conteúdos porque seis boletins estão guardados duas vezes.
+
+        DUAS CÓPIAS DO MESMO FICHEIRO NÃO SÃO DOIS DOCUMENTOS.
+
+    Por isso as cópias repetidas entram como `reused`, e não como `rejected`:
+    ninguém as recusou, elas já cá estavam.
+    """
+    import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)
+
+    comum = {"run_id": run_id, "source_id": "IT-PDF-ITALIANOS",
+             "route_class_id": "RC-1", "actor": EXECUTOR_ID,
+             "actor_version": EXECUTOR_VERSION,
+             "policy_version": PIPELINE_VERSION}
+
+    # RAW · o que se olhou. A entrada é CAMINHO; a saída é CONTEÚDO.
+    rastro.registrar(
+        banco, etapa="RAW", estado="PASS",
+        input_grain="caminho de ficheiro", input_count=conta["RAW_INPUT"],
+        output_grain="conteudo distinto",
+        output_count=conta["RAW_CONTEUDOS_DISTINTOS"],
+        cardinalidade="N:1",
+        passed=conta["RAW_CONTEUDOS_DISTINTOS"],
+        reused=conta["RAW_COPIAS_REPETIDAS"],
+        **comum)
+
+    # DERIVED · o que saiu, e por que o resto não saiu.
+    # ⚠️ `JA_EXISTIA` é `reused`, não `rejected`: ninguém o recusou.
+    # ⚠️ `NEEDS_OCR` é `rejected`, não `error`: o PDF não tem camada de texto,
+    #    e isso é uma propriedade DELE — a ferramenta não falhou.
+    entrada_d = conta["RAW_CONTEUDOS_DISTINTOS"]
+    houve_erro = conta["EXTRACTION_ERROR"] > 0
+    rastro.registrar(
+        banco, etapa="DERIVED",
+        estado="FAIL" if houve_erro else "PASS",
+        edge_from="RAW",
+        input_grain="conteudo distinto", input_count=entrada_d,
+        output_grain="texto derivado", output_count=conta["DERIVED_EMITTED"],
+        passed=conta["DERIVED_EMITTED"],
+        rejected=conta["NEEDS_OCR"],
+        error=conta["EXTRACTION_ERROR"],
+        unknown=conta["RAW_UNKNOWN"],
+        reused=conta["JA_EXISTIA"],
+        canonical_state="ERROR" if houve_erro else None,
+        error_class="EXTRACTION_ERROR" if houve_erro else None,
+        error_message=(erros[0].get("ERRO") if erros else None),
+        **comum)
+
+    # READY · o que aterrou.
+    #
+    # ⚠️ SE A ETAPA DE CIMA FALHOU, ESTA NÃO FALHOU — ELA NUNCA COMEÇOU.
+    #
+    # Este defeito estava aqui na primeira versão: com `DERIVED` em FAIL, o
+    # `READY` continuava a sair PASS, e o relato dizia que uma etapa que nunca
+    # correu tinha corrido bem. Ao contrário também engana: marcá-la FAIL faria
+    # UM defeito parecer DOIS, e mandava procurar avaria onde não há nenhuma.
+    #
+    #     NOT_RUN != ERROR != PASS.
+    if houve_erro:
+        rastro.registrar(
+            banco, etapa="READY", estado="NOT_RUN", edge_from="DERIVED",
+            input_grain="texto derivado", input_count=conta["DERIVED_EMITTED"],
+            not_run=conta["DERIVED_EMITTED"],
+            diagnostic_code="UPSTREAM_NOT_RUN",
+            **comum)
+    else:
+        rastro.registrar(
+            banco, etapa="READY",
+            estado="FAIL" if perdidos else "PASS",
+            edge_from="DERIVED",
+            input_grain="texto derivado", input_count=conta["DERIVED_EMITTED"],
+            output_grain="texto no registo",
+            output_count=conta["DERIVED_LANDED"],
+            passed=conta["DERIVED_LANDED"],
+            unknown=perdidos,
+            canonical_state="ERROR" if perdidos else None,
+            **comum)
+
+
+def correr(seco: bool = False, run_id: str = "", rastro=None) -> dict:
+    """A corrida de derivação. Devolve o recibo, sempre — mesmo se falhar.
+
+    `rastro` é um banco onde escrever a telemetria, ou `None` para não emitir.
+    A seco, passa-se `medidas/banco_no_seco.BancoNoSeco()`."""
     inicio = art.agora()
     run_id = run_id or f"DERIV-PDF-{inicio.replace(':', '').replace('-', '')}"
 
@@ -362,6 +458,22 @@ def correr(seco: bool = False, run_id: str = "") -> dict:
     # aqui com nome — porque um número que desaparece sem queixa é o pior tipo
     # de avaria: ninguém vai procurá-lo.
     perdidos = conta["DERIVED_EMITTED"] - conta["DERIVED_LANDED"]
+
+    # ── O RASTRO: A CORRIDA PASSA A CONTAR-SE ───────────────────────────────
+    # ⚠️ INSTRUMENTAR NAO E FAZER ETAPA NOVA.
+    #
+    # Nada aqui muda o que este executor FAZ. Ele já contava tudo isto em
+    # `conta`; o que faltava era dizê-lo em voz alta, na língua comum, para o
+    # scanner poder ler. O contrato já existia — e nenhum executor o falava.
+    #
+    #     MODULE WORKS != EDGE WORKS != FLOW WORKS.
+    #
+    # O `banco` é injectado: a seco vai para memória, ao vivo iria para o
+    # Postgres pelo dono canónico. Instrumentar NÃO pode exigir escrever em
+    # produção — senão só se saberia se funciona no dia em que já fosse tarde.
+    if rastro is not None:
+        emitir_rastro(rastro, run_id, conta, perdidos, erros, inicio)
+
     return {
         "RUN_ID": run_id,
         "STATUS": "SUCCESS" if not erros else "PARTIAL",

@@ -2383,6 +2383,42 @@
    "views": [
     "audit"
    ]
+  },
+  {
+   "id": "C-BANCO-NO-SECO",
+   "name": "O banco a seco",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◌",
+   "what": "Um banco de memória que responde ao mesmo `.executa(sql)` do Postgres, para um executor real emitir rastro sem tocar produção. Tradução declarada das colunas geradas da migration 024.",
+   "why_here": "INSTRUMENTAR NÃO PODE EXIGIR ESCREVER EM PRODUÇÃO. A migration 024 não está aplicada; se instrumentar exigisse banco vivo, a instrumentação só poderia ser provada no dia em que já fosse tarde. É tradução, e tradução pode divergir — por isso há teste que a compara com o texto da própria migration.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "medidas/banco_no_seco.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
+   "id": "C-PROVA-EXECUTOR-CONTA",
+   "name": "A prova de que o executor se conta",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊢",
+   "what": "Corre o executor real a seco, injecta uma falha numa etapa, e exige o relato certo: a de cima PASS, a que falha FAIL com código, a de baixo NOT_RUN — e a conta a fechar em todas.",
+   "why_here": "O contrato existia, o cano existia, o leitor existia — e nenhum executor falava. UM CANO SEM TORNEIRA LEVA A MESMA ÁGUA QUE UM CANO QUE NÃO EXISTE. Esta peça é a primeira torneira, e prova que o relato distingue NÃO CORREU de FALHOU de RECUSADO.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/o_executor_conta_se.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

@@ -9,9 +9,9 @@
  ],
  "CONCEITOS": 15,
  "POR_ESTADO": {
-  "DONO_DUPLICADO": 7,
+  "DONO_DUPLICADO": 8,
   "DONO_E_INSTRUMENTO": 3,
-  "UM_DONO": 5
+  "UM_DONO": 4
  },
  "DETALHE": [
   {
@@ -157,15 +157,15 @@
     "coleta/coletor.py",
     "coleta/comunicacao_medir.py",
     "coleta/corpus_pesquisador.py",
+    "coleta/executor_texto_de_pdf.py",
     "coleta/golden_path_pdf.py",
     "coleta/instagram_pessoal.py",
     "coleta/rotulos_baixar.py",
     "ferramentas/apify_contrato.py",
     "fontes/adama_catalogo_ler.py",
-    "fontes/adama_catalogo_montar.py",
-    "guarda/catalogo_importar.py"
+    "fontes/adama_catalogo_montar.py"
    ],
-   "QUANTOS_LEEM": 84,
+   "QUANTOS_LEEM": 85,
    "INSTRUMENTOS_QUE_CITAM": 29,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -204,9 +204,10 @@
   },
   {
    "CONCEITO": "ROUTE_MODEL",
-   "ESTADO": "UM_DONO",
-   "NOTA": "um so ficheiro escreve",
+   "ESTADO": "DONO_DUPLICADO",
+   "NOTA": "2 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
+    "coleta/executor_texto_de_pdf.py",
     "medidas/rastro_da_coleta.py"
    ],
    "LEEM": [

@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "90062571065160ebf05e16b5fd514701e6ea611a",
-    "GENERATED_AT": "2026-09-08T18:39:48-03:00"
+    "HEAD": "105602f662337d8deac7bca1a3da4abeff75889d",
+    "GENERATED_AT": "2026-09-08T18:43:50-03:00"
   },
   "FILES": [
     {
@@ -1171,7 +1171,7 @@
     },
     {
       "path": "coleta/executor_texto_de_pdf.py",
-      "sha": "97d5284245ab374a05b58186a7c32326f6d49a3c",
+      "sha": "7d053e16b83b5ab786efb2eeb84602c2558782b2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8577,7 +8577,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "fcc4d6082ef1807795d669d3d8d0ad135e877a53",
+      "sha": "7d453f032374e0aea2550adb0d5ad2265191587d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8598,7 +8598,7 @@
     },
     {
       "path": "system-map/scripts/censo_da_observabilidade.py",
-      "sha": "b8ec1c915cd1dd2b9b51542ca61e6b9d3ce04c76",
+      "sha": "8af0c6c15608ba4a3f1dd856fdde4d3297975a4b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10794,6 +10794,17 @@
         "file": "coleta/executor_texto_de_pdf.py",
         "line": 68,
         "snippet": "import artefato as art  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/executor_texto_de_pdf.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_texto_de_pdf.py",
+        "line": 275,
+        "snippet": "import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)"
       }
     },
     {
@@ -24916,7 +24927,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_da_observabilidade.py",
-        "line": 106,
+        "line": 122,
         "snippet": "'ONDE': 'leis/evolucao.py',"
       }
     },
@@ -24949,7 +24960,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_da_observabilidade.py",
-        "line": 115,
+        "line": 131,
         "snippet": "'ONDE': 'leis/gestao_da_coleta.py',"
       }
     },
@@ -24971,7 +24982,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_da_observabilidade.py",
-        "line": 151,
+        "line": 216,
         "snippet": "[sys.executable, os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
       }
     },
@@ -30696,7 +30707,7 @@
     "system-map/scripts/censo_da_observabilidade.py": [
       {
         "pasta": "system-map",
-        "line": 237,
+        "line": 302,
         "constante": "SAIDA"
       }
     ],
@@ -30761,7 +30772,7 @@
     "files_tracked": 1321,
     "files_readable": 479,
     "files_code_dir": 530,
-    "file_edges": 1913,
+    "file_edges": 1914,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

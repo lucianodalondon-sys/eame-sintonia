@@ -83,14 +83,30 @@ def dimensoes(fluxo):
         'RESSALVA': ('so a RC-9 emite. As outras rotas nao emitiram ZERO — '
                      'nao emitem NADA.'),
     })
+    cobertura = cobertura_da_instrumentacao()
+    emitem = cobertura['EMITEM']
+    total_ex = cobertura['EXECUTORES']
     d.append({
         'DIMENSAO': 'DIAGNOSTIC',
-        'ESTADO': 'NOT_INSTRUMENTED',
-        'ONDE': None,
+        # ⚠️ UM EXECUTOR INSTRUMENTADO NAO E O SISTEMA INSTRUMENTADO.
+        # PARCIAL, e nao MEDIDO: o primeiro executor passou a falar, e os
+        # outros continuam calados. Promover isto a MEDIDO seria pintar de
+        # verde o silencio dos que faltam.
+        'ESTADO': ('PARCIAL' if emitem else 'NOT_INSTRUMENTED'),
+        'ONDE': (cobertura['ONDE_SE_VE'] if emitem else None),
         'O_QUE_RESPONDE': 'em que codigo cada etapa parou',
-        'PORQUE': ('o contrato tem %d codigos declarados, e nenhum executor os '
-                   'emite ainda. Quem teria de emitir: cada executor.'
-                   % len(tel.CODIGOS_DE_DIAGNOSTICO)),
+        'PORQUE': (
+            ('%d de %d executores emitem. O contrato tem %d codigos '
+             'declarados; os que emitem usam-nos, e os outros continuam '
+             'calados — e calado nao e zero.'
+             % (emitem, total_ex, len(tel.CODIGOS_DE_DIAGNOSTICO)))
+            if emitem else
+            ('o contrato tem %d codigos declarados, e nenhum executor os '
+             'emite ainda. Quem teria de emitir: cada executor.'
+             % len(tel.CODIGOS_DE_DIAGNOSTICO))),
+        'RESSALVA': ('UM EXECUTOR INSTRUMENTADO != SISTEMA INSTRUMENTADO. '
+                     'Faltam %d.' % (total_ex - emitem)) if emitem else None,
+        'COBERTURA': cobertura,
     })
     d.append({
         'DIMENSAO': 'PERFORMANCE',
@@ -117,6 +133,55 @@ def dimensoes(fluxo):
         'PORQUE': 'ha contrato e nenhuma necessidade declarada ainda.',
     })
     return d
+
+
+def cobertura_da_instrumentacao():
+    """O10 · quantos executores existem, e quantos FALAM.
+
+    ⚠️ MEDIDO NO CODIGO, nao lembrado. A pergunta e estreita e honesta: este
+    ficheiro importa o dono do rastro? Quem nao o importa nao pode estar a
+    emitir — e um NAO aqui e definitivo.
+
+    Isto nao mede QUANTO cada um emite, so SE emite. `PARCIAL` para quem emite
+    parte fica para quando houver mais do que um a comparar; inventar niveis
+    sobre uma amostra de um seria dar-lhes uma precisao que nao tem.
+    """
+    pasta = os.path.join(RAIZ, 'coleta')
+    if not os.path.isdir(pasta):
+        return {'EXECUTORES': 0, 'EMITEM': 0, 'QUAIS': [],
+                'ESTADO': 'UNKNOWN'}
+    executores, emitem = [], []
+    for nome in sorted(os.listdir(pasta)):
+        if not nome.endswith(('.py', '.mjs')) or nome.startswith('_'):
+            continue
+        rel = 'coleta/%s' % nome
+        executores.append(rel)
+        try:
+            with open(os.path.join(pasta, nome), encoding='utf-8',
+                      errors='ignore') as f:
+                texto = f.read()
+        except OSError:
+            continue
+        corpo = '\n'.join(l for l in texto.splitlines()
+                          if not l.strip().startswith('#'))
+        if 'rastro_da_coleta' in corpo and 'registrar(' in corpo:
+            emitem.append(rel)
+    return {
+        'PERGUNTA': 'quantos executores existem, e quantos falam a lingua comum?',
+        'COMO_FOI_MEDIDO': ('importa `rastro_da_coleta` E chama `registrar(`, '
+                            'fora de comentario. Quem nao importa nao pode '
+                            'estar a emitir; um NAO aqui e definitivo.'),
+        'EXECUTORES': len(executores),
+        'EMITEM': len(emitem),
+        'QUAIS_EMITEM': emitem,
+        'QUANTOS_CALADOS': len(executores) - len(emitem),
+        'ONDE_SE_VE': 'provas/o_executor_conta_se.py',
+        'CALADO_NAO_E_ZERO': (
+            'os %d que nao emitem nao emitiram ZERO passagens: nao emitem '
+            'NADA. Sao coisas diferentes, e so a segunda pede codigo novo.'
+            % (len(executores) - len(emitem))),
+        'A_LEI': 'UM EXECUTOR INSTRUMENTADO != SISTEMA INSTRUMENTADO',
+    }
 
 
 def observability_ready(donos):

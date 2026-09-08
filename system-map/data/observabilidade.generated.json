@@ -17,10 +17,24 @@
   },
   {
    "DIMENSAO": "DIAGNOSTIC",
-   "ESTADO": "NOT_INSTRUMENTED",
-   "ONDE": null,
+   "ESTADO": "PARCIAL",
+   "ONDE": "provas/o_executor_conta_se.py",
    "O_QUE_RESPONDE": "em que codigo cada etapa parou",
-   "PORQUE": "o contrato tem 17 codigos declarados, e nenhum executor os emite ainda. Quem teria de emitir: cada executor."
+   "PORQUE": "1 de 42 executores emitem. O contrato tem 17 codigos declarados; os que emitem usam-nos, e os outros continuam calados — e calado nao e zero.",
+   "RESSALVA": "UM EXECUTOR INSTRUMENTADO != SISTEMA INSTRUMENTADO. Faltam 41.",
+   "COBERTURA": {
+    "PERGUNTA": "quantos executores existem, e quantos falam a lingua comum?",
+    "COMO_FOI_MEDIDO": "importa `rastro_da_coleta` E chama `registrar(`, fora de comentario. Quem nao importa nao pode estar a emitir; um NAO aqui e definitivo.",
+    "EXECUTORES": 42,
+    "EMITEM": 1,
+    "QUAIS_EMITEM": [
+     "coleta/executor_texto_de_pdf.py"
+    ],
+    "QUANTOS_CALADOS": 41,
+    "ONDE_SE_VE": "provas/o_executor_conta_se.py",
+    "CALADO_NAO_E_ZERO": "os 41 que nao emitem nao emitiram ZERO passagens: nao emitem NADA. Sao coisas diferentes, e so a segunda pede codigo novo.",
+    "A_LEI": "UM EXECUTOR INSTRUMENTADO != SISTEMA INSTRUMENTADO"
+   }
   },
   {
    "DIMENSAO": "PERFORMANCE",
@@ -46,16 +60,15 @@
  ],
  "POR_ESTADO": {
   "MEDIDO": 2,
-  "NOT_INSTRUMENTED": 1,
   "NOT_MEASURED": 2,
-  "PARCIAL": 1
+  "PARCIAL": 2
  },
  "OBSERVABILITY": {
   "OBSERVABILITY_READY": "SIM",
   "O_QUE_SIGNIFICA": "uma rota nova tem CONTRATO para emitir telemetria e ser diagnosticada, E esse contrato e implementavel de ponta a ponta: contrato, banco, writer e scanner falam a mesma lingua, provado por paridade_da_lingua.py. NAO significa que se esta a medir.",
   "O_QUE_NAO_SIGNIFICA": "CONTRATO PRONTO != INSTRUMENTADO != OBSERVADO",
   "FALTAS": [],
-  "QUANTOS_CONCEITOS_COM_DONO_DUPLICADO": 7,
+  "QUANTOS_CONCEITOS_COM_DONO_DUPLICADO": 8,
   "PORQUE_O_DUPLICADO_IMPORTA": "onde dois ficheiros escrevem o mesmo conceito, a telemetria pode divergir sem ninguem dar por isso. Desde O8C isto DEIXOU de ser so divida: os conceitos da telemetria — estado de etapa, destino de item, codigo de diagnostico, estado de falha — tem dono unico e paridade provada, e READY reprova se divergirem. O numero acima conta duplicacoes noutros conceitos, que continuam por resolver."
  },
  "EVOLUTION": {
