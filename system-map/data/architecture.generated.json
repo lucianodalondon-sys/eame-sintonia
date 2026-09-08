@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "ea42cabd91f76a1d2376e4703a7701cb6a276dbf",
-    "GENERATED_AT": "2026-09-08T02:04:29-03:00"
+    "HEAD": "83616c01a2b2fa9d6cd8d3ecd8a17891bfab7cef",
+    "GENERATED_AT": "2026-09-08T09:03:40-03:00"
   },
   "FILES": [
     {
@@ -100,7 +100,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "df5fd6b5e1ad78739c5746077bb8714312449536",
+      "sha": "9e9cf6fffcf039dc0be3d056f64967e50aa5fb81",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -4111,7 +4111,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "4ef3b0859400a1ff287a9f6c0f74165e7e67df39",
+      "sha": "b5c91100c7e4cc20abac383d897e7f4e956908c2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8164,7 +8164,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "ca2b7bad25d8e3580813650354db481cf7c10b93",
+      "sha": "ed1a371cb6b62489a95a7f6fa8dac38eba25ef45",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8381,7 +8381,7 @@
     },
     {
       "path": "tests/test_identidade_do_artefato.py",
-      "sha": "95381db1b3d882ed02dc029a18a1dd22f27f5018",
+      "sha": "6a098439ee3354c9f78518bffa2d987747ce0295",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9212,6 +9212,17 @@
     },
     {
       "from_file": ".github/workflows/system-map.yml",
+      "to_file": "tests/test_identidade_do_artefato.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 110,
+        "snippet": "run: python3 tests/test_identidade_do_artefato.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
       "to_file": "tests/test_integracao_biblia.py",
       "type": "RUNS",
       "payload": "execucao",
@@ -9230,6 +9241,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 103,
         "snippet": "python3 tests/test_observabilidade_estrada.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "tests/test_red_team_estrada.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 104,
+        "snippet": "python3 tests/test_red_team_estrada.py"
       }
     },
     {
@@ -26603,7 +26625,7 @@
     "files_tracked": 1217,
     "files_readable": 402,
     "files_code_dir": 448,
-    "file_edges": 1608,
+    "file_edges": 1610,
     "escritas_em_pasta": 56,
     "declared_missing_here": 0
   },

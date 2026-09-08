@@ -1663,8 +1663,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italia-biblia-integracao-v1",
-    "HEAD": "ea42cabd91f76a1d2376e4703a7701cb6a276dbf",
-    "GENERATED_AT": "2026-09-08T02:04:29-03:00"
+    "HEAD": "83616c01a2b2fa9d6cd8d3ecd8a17891bfab7cef",
+    "GENERATED_AT": "2026-09-08T09:03:40-03:00"
   },
   "FAMILIES": [
     {
@@ -5334,11 +5334,7 @@
       "file_count": 9,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
-      "changed_since_declared": [
-        "BIBLIA-CANONICA-DA-COLETA.md",
-        "docs/biblia/CONFORMIDADE-ITALIA.md",
-        "docs/biblia/leis.json"
-      ],
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-PROVA-BIBLIA"
@@ -5487,7 +5483,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▦",
       "views": [
         "audit",
@@ -5499,11 +5495,9 @@
         "system-map/scripts/censo_do_corpus_it.py"
       ],
       "file_count": 1,
-      "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        "system-map/scripts/censo_do_corpus_it.py"
-      ],
+      "status": "PROVEN",
+      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -7987,7 +7981,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "⚙",
       "views": [
         "audit",
@@ -8000,11 +7994,9 @@
         "system-map/scripts/mudar_gaveta.py"
       ],
       "file_count": 2,
-      "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
-      "changed_since_declared": [
-        "system-map/scripts/generate_system_map.py"
-      ],
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -11433,7 +11425,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "✓",
       "views": [
         "audit",
@@ -11479,8 +11471,8 @@
         "tests/test_voz.py"
       ],
       "file_count": 35,
-      "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status": "PROVEN",
+      "status_reason": "o teste aponta para codigo real do repositorio.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
@@ -13122,7 +13114,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italia-biblia-integracao-v1",
-        "HEAD ea42cabd91f76a1d2376e4703a7701cb6a276dbf"
+        "HEAD 83616c01a2b2fa9d6cd8d3ecd8a17891bfab7cef"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -15448,7 +15440,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Workflow do System Map manda rodar Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
@@ -15464,6 +15456,16 @@
           "file": ".github/workflows/system-map.yml",
           "line": 103,
           "snippet": "python3 tests/test_observabilidade_estrada.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 104,
+          "snippet": "python3 tests/test_red_team_estrada.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 110,
+          "snippet": "run: python3 tests/test_identidade_do_artefato.py"
         }
       ],
       "categoria": "PROOF"
@@ -21222,8 +21224,8 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 110,
-    "components_proven": 72,
-    "components_pending": 32,
+    "components_proven": 75,
+    "components_pending": 29,
     "components_broken": 0,
     "components_unknown": 6,
     "edges": 365,
