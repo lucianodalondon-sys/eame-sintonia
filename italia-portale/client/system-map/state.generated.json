@@ -1291,6 +1291,7 @@
       "system-map/scripts/mudar_gaveta.py",
       "system-map/scripts/pente_fino_da_coleta.py",
       "system-map/scripts/recall_da_porta_it.py",
+      "system-map/scripts/relatorio_do_fluxo.py",
       "system-map/scripts/scan_casco.py",
       "system-map/scripts/scan_repo.py",
       "system-map/scripts/scan_sources.py",
@@ -1348,6 +1349,7 @@
       "tests/test_proveniencia.py",
       "tests/test_radar_futuro.py",
       "tests/test_red_team_estrada.py",
+      "tests/test_relatorio_do_fluxo.py",
       "tests/test_route_membership.py",
       "tests/test_social_persistencia_pg.py",
       "tests/test_social_sessao.py",
@@ -1745,8 +1747,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "96cbb2e70be07db8ed6289da766cd97aa2bc0786",
-    "GENERATED_AT": "2026-09-08T17:41:33-03:00"
+    "HEAD": "ea647d862da74a2bab865a423894b47c312f5d61",
+    "GENERATED_AT": "2026-09-08T17:46:18-03:00"
   },
   "FAMILIES": [
     {
@@ -1801,7 +1803,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 45
+      "count": 46
     },
     {
       "id": "F-ENTREGA",
@@ -2059,7 +2061,7 @@
       "y": 190,
       "w": 820,
       "h": 2938,
-      "count": 7
+      "count": 8
     },
     {
       "id": "Z-MOTOR",
@@ -6874,6 +6876,7 @@
       "inbound": [],
       "outbound": [
         "C-FLUXO-NO-SECO",
+        "C-RELATORIO-FLUXO",
         "C-TESTES"
       ],
       "paises": {},
@@ -7745,6 +7748,45 @@
       "y": 1326
     },
     {
+      "id": "C-GESTAO-DA-COLETA",
+      "name": "O contrato da gestão da coleta",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "Declara quem decide O QUE e QUANDO coletar, e quem decide COMO e POR ONDE — e as espécies que uma decisão precisa de ter para poder ser avaliada depois: necessidade, satisfação, falta, decisão, resultado, prioridade.",
+      "why_here": "Sem esta fronteira, «vale a pena ir buscar isto outra vez?» acaba escrita dentro de um coletor, e a decisão de coletar passa a viver espalhada por vinte ficheiros com vinte regras. É a G-05 outra vez, uma camada acima. E uma decisão que não fica escrita não pode ser avaliada depois — sem isso não há aprendizagem nenhuma, só opinião a repetir-se.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "red",
+      "icon": "⚖",
+      "views": [
+        "audit",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [],
+      "file_count": 0,
+      "status": "BROKEN",
+      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com leis/gestao_da_coleta.py.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 13010,
+      "y": 682
+    },
+    {
       "kind": "engine",
       "proof": "git-measurement",
       "files": [],
@@ -8369,6 +8411,7 @@
         "C-IT-CONTAS",
         "C-MAPA-SCAN",
         "C-PADRAO-COLETA",
+        "C-RELATORIO-FLUXO",
         "C-TESTES"
       ],
       "paises": {
@@ -8809,8 +8852,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
-      "y": 682
+      "x": 12595,
+      "y": 1004
     },
     {
       "id": "C-MAPA-APP",
@@ -10496,7 +10539,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12595,
+      "x": 13010,
       "y": 1004
     },
     {
@@ -10797,20 +10840,25 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "red",
+      "ui_status": "yellow",
       "icon": "▤",
       "views": [
         "audit"
       ],
       "lane": "official",
       "family": "F-COLETA",
-      "files": [],
-      "file_count": 0,
-      "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com system-map/scripts/relatorio_do_fluxo.py.",
+      "files": [
+        "system-map/scripts/relatorio_do_fluxo.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-CONTRATO-TELEMETRIA",
+        "C-IT-PRESERVAR"
+      ],
       "outbound": [],
       "paises": {},
       "paises_dado": {},
@@ -10818,7 +10866,16 @@
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
       "nivel": "INTERNO",
-      "escreve_na_pasta": [],
+      "escreve_na_pasta": [
+        {
+          "pasta": "system-map",
+          "prova": {
+            "file": "system-map/scripts/relatorio_do_fluxo.py",
+            "line": 172,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -10922,8 +10979,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13010,
-      "y": 1004
+      "x": 12595,
+      "y": 1326
     },
     {
       "id": "C-ROTULOS",
@@ -11235,7 +11292,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12595,
+      "x": 13010,
       "y": 1326
     },
     {
@@ -12702,6 +12759,7 @@
         "tests/test_proveniencia.py",
         "tests/test_radar_futuro.py",
         "tests/test_red_team_estrada.py",
+        "tests/test_relatorio_do_fluxo.py",
         "tests/test_route_membership.py",
         "tests/test_social_persistencia_pg.py",
         "tests/test_social_sessao.py",
@@ -12718,9 +12776,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 55,
+      "file_count": 56,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 15 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 16 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -14429,7 +14487,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 96cbb2e70be07db8ed6289da766cd97aa2bc0786"
+        "HEAD ea647d862da74a2bab865a423894b47c312f5d61"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17710,6 +17768,24 @@
     },
     {
       "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-RELATORIO-FLUXO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato da telemetria tem o seu codigo importado por Relatório do fluxo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/relatorio_do_fluxo.py",
+          "line": 41,
+          "snippet": "import telemetria as t  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -19126,6 +19202,29 @@
           "file": "medidas/padrao_da_coleta.py",
           "line": 66,
           "snippet": "LEDGER_RUNS = os.path.join(ROOT, 'data', 'collection-ledger', 'italy', 'runs.ndjson')"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-RELATORIO-FLUXO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta Relatório do fluxo. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/relatorio_do_fluxo.py",
+          "line": 93,
+          "snippet": "corridas = _linhas('runs.ndjson')"
+        },
+        {
+          "file": "system-map/scripts/relatorio_do_fluxo.py",
+          "line": 94,
+          "snippet": "obs = _linhas('observations.ndjson')"
         }
       ],
       "categoria": "READ"
@@ -24282,17 +24381,17 @@
   "UNCLAIMED_FILES_COUNT": 698,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 126,
+    "components": 127,
     "components_proven": 73,
-    "components_pending": 45,
+    "components_pending": 46,
     "components_broken": 1,
     "components_unknown": 7,
-    "edges": 437,
-    "edges_proven": 435,
+    "edges": 439,
+    "edges_proven": 437,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1299,
-    "files_covered": 601,
+    "files_tracked": 1301,
+    "files_covered": 603,
     "files_code_unclaimed": 0
   }
 }

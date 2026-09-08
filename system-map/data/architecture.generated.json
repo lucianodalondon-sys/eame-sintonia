@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "96cbb2e70be07db8ed6289da766cd97aa2bc0786",
-    "GENERATED_AT": "2026-09-08T17:41:33-03:00"
+    "HEAD": "ea647d862da74a2bab865a423894b47c312f5d61",
+    "GENERATED_AT": "2026-09-08T17:46:18-03:00"
   },
   "FILES": [
     {
@@ -8500,7 +8500,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "0de27d831f8aaf3355b699b7918be02d2be8088f",
+      "sha": "106234ce41c2fb9518a5283aebe311f608be93a6",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8599,6 +8599,13 @@
     {
       "path": "system-map/scripts/recall_da_porta_it.py",
       "sha": "e677f9289ce6c380b298c019788b4b95b630fa73",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/relatorio_do_fluxo.py",
+      "sha": "36cf983f3e15b901d90f7e04727b98c4a5ffa68a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8984,6 +8991,13 @@
     {
       "path": "tests/test_red_team_estrada.py",
       "sha": "1deabb339f23be00fa5dee281d1b2bbb13248770",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_relatorio_do_fluxo.py",
+      "sha": "6ce0032ae5798cbb37aee401db51f905d370af92",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25020,6 +25034,50 @@
       }
     },
     {
+      "from_file": "system-map/scripts/relatorio_do_fluxo.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/relatorio_do_fluxo.py",
+        "line": 40,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/relatorio_do_fluxo.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/relatorio_do_fluxo.py",
+        "line": 94,
+        "snippet": "obs = _linhas('observations.ndjson')"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/relatorio_do_fluxo.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/relatorio_do_fluxo.py",
+        "line": 93,
+        "snippet": "corridas = _linhas('runs.ndjson')"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/relatorio_do_fluxo.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/relatorio_do_fluxo.py",
+        "line": 41,
+        "snippet": "import telemetria as t  # noqa: E402"
+      }
+    },
+    {
       "from_file": "system-map/scripts/scan_casco.py",
       "to_file": "italia-portale/client/italy-i18n.js",
       "type": "READS",
@@ -29711,6 +29769,13 @@
         "constante": "SAIDA"
       }
     ],
+    "system-map/scripts/relatorio_do_fluxo.py": [
+      {
+        "pasta": "system-map",
+        "line": 172,
+        "constante": "SAIDA"
+      }
+    ],
     "tests/test_estradas_it.py": [
       {
         "pasta": "system-map",
@@ -29720,11 +29785,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1299,
-    "files_readable": 458,
-    "files_code_dir": 509,
-    "file_edges": 1835,
-    "escritas_em_pasta": 63,
+    "files_tracked": 1301,
+    "files_readable": 460,
+    "files_code_dir": 511,
+    "file_edges": 1839,
+    "escritas_em_pasta": 64,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}
