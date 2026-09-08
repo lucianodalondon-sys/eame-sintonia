@@ -234,7 +234,7 @@ def authmodes():
     """
     modos = ('PUBLIC', 'OFFICIAL_API', 'LOCAL_SESSION', 'OFFICIAL_PAID_API', 'APIFY')
     print('\nRAIO-X DOS AUTH MODES · medido em %s\n%s' % (mz.MEDIDO_EM, '═' * 78))
-    print('  %-11s %-9s %-13s %-15s %-11s %s'
+    print('  %-11s %-14s %-14s %-14s %-14s %s'
           % ('PLATAFORMA', 'PUBLIC', 'OFFICIAL_API', 'LOCAL_SESSION', 'PAID_API', 'APIFY'))
     print('  ' + '─' * 76)
     for plat in sorted(mz.MATRIZ):
@@ -249,18 +249,30 @@ def authmodes():
                     disponiveis.add(mz.auth_mode(x))
         celulas = []
         for m in modos:
+            # AVAILABLE e USABLE sao coisas diferentes e aparecem separadas.
+            # A rota EXISTIR nesta casa nao e a rota PODER ser usada — pintar as
+            # duas com a mesma cor foi como "estou logado" virou "posso".
             if m == 'LOCAL_SESSION':
                 if plat in ss.POLITICA:
-                    ok, _ = ss.automacao_permitida(plat, ss.THIRD_PARTY)
-                    celulas.append('AVAILABLE' if ok else 'NOT_ALLOWED')
+                    r = ss.usabilidade(plat, '*', 'LOCAL_SESSION', ss.THIRD_PARTY)
+                    celulas.append({ss.USABLE: 'AVAIL+USABLE',
+                                    ss.NEEDS_REVIEW: 'AVAIL/REVIEW',
+                                    ss.NOT_USABLE: 'AVAIL/NOT_USE'}[r['ROUTE_STATUS']])
                 else:
                     celulas.append('—')
+            elif m in disponiveis:
+                r = ss.usabilidade(plat, '*', m, ss.THIRD_PARTY)
+                celulas.append('AVAIL+USABLE' if r['ROUTE_STATUS'] == ss.USABLE
+                               else 'AVAIL/REVIEW')
             else:
-                celulas.append('AVAILABLE' if m in disponiveis else '—')
-        print('  %-11s %-9s %-13s %-15s %-11s %s' % (plat, *celulas))
-    print('\n  LOCAL_SESSION contra TERCEIRO é NOT_ALLOWED nas sete prioritárias.')
-    print('  Contra conta PRÓPRIA da ADAMA é AVAILABLE em todas as sete —')
-    print('  e ainda assim a API oficial costuma ser a rota melhor.')
+                celulas.append('—')
+        print('  %-11s %-14s %-14s %-14s %-14s %s' % (plat, *celulas))
+    print('\n  AVAIL = a rota existe nesta casa. USABLE = ela pode ser usada.')
+    print('  As duas colunas são separadas de propósito: rota disponível não é')
+    print('  rota autorizada, e revisão pendente (REVIEW) não é licença.')
+    print('  LOCAL_SESSION contra TERCEIRO é NOT_USABLE nas sete prioritárias;')
+    print('  contra conta PRÓPRIA é REVIEW — nenhuma cláusula abre exceção ao dono.')
+    print('  E mesmo onde fosse permitida, a API oficial costuma ser a rota melhor.')
     print('\n  O mapa nunca mostra caminho de perfil, usuário, cookie ou token.')
     print('  Ele diz QUE existe sessão. Nunca DE QUEM, nem ONDE.\n')
 

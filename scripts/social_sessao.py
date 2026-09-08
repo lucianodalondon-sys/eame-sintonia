@@ -26,25 +26,49 @@ plataforma. Confundir os dois é como tratar "a porta está destrancada" como
 
     AUTENTICADO NÃO É AUTORIZADO A AUTOMATIZAR QUALQUER COISA.
 
-O EIXO QUE DECIDE DE VERDADE: DE QUEM É A CONTA
--------------------------------------------------
-Medindo os termos das sete plataformas prioritárias (pesquisa de 2026-09-08,
-registrada em `docs/capacidades/SINTONIA-SCRAP-SOCIAL.md`), o que separa o
-permitido do proibido não é a plataforma — é a PROPRIEDADE do alvo:
+SEIS PERGUNTAS, NAO UMA — E ELAS NAO SAO A MESMA
+--------------------------------------------------
+A primeira versao deste arquivo respondia com um eixo so: DE QUEM E A CONTA.
+`OWN_PROPERTY` valia PERMITIDO e `THIRD_PARTY` valia PROIBIDO, nas sete
+plataformas. Isso acerta o caso perigoso e erra os dois lados:
 
-    OWN_PROPERTY    a conta/página é da ADAMA. Ler o próprio dado com a própria
-                    sessão é o que qualquer administrador faz. PERMITIDO.
-    THIRD_PARTY     a conta é de outra pessoa ou empresa. Aqui a sessão
-                    autenticada vira exatamente o que os termos proíbem:
-                    LinkedIn §8.2 ("bots or other unauthorized automated
-                    methods"), TikTok §5 ("automated scripts to collect
-                    information"), YouTube §3 ("any automated means").
-                    NÃO PERMITIDO — e estar logado piora, não melhora.
+  · erra para MENOS: `THIRD_PARTY` nao e proibido em si. Ler comentario de canal
+    alheio pela Data API oficial do YouTube, com chave, e exatamente o que a API
+    existe para fazer. A recusa valia para a SESSAO, e a doutrina generalizou;
+  · erra para MAIS: `OWN_PROPERTY` nao e autorizacao automatica. Os Termos §3 do
+    YouTube proibem "any automated means" e NAO abrem excecao para o dono do
+    canal. Ser dono muda o que se pode LER; nao muda o que se pode AUTOMATIZAR.
 
-Por isso a política aqui não tem exceção escondida: **LOCAL_SESSION contra
-terceiro está fechada em todas as sete plataformas prioritárias.** Isso não é
-timidez; é o que os contratos dizem. A rota existe, está pronta, e liga no dia
-em que houver permissão escrita ou uma conta própria a ler.
+    AUTH E MODO DE ENTRAR. NAO E PERMISSAO DE AUTOMATIZAR.
+    ROBOTS NAO E TERMS.
+    SESSION_AVAILABLE NAO E AUTHORIZATION_ALLOWED.
+    OWN_PROPERTY NAO E AUTOMATION_ALLOWED.
+
+A pergunta certa nunca e "posso usar o Instagram?". E:
+
+    (PLATAFORMA, CAPACIDADE, ROTA, DE QUEM E A CONTA) -> posso?
+
+Uma estrutura de dados, seis campos, um veredito. Nao seis motores:
+
+    TECHNICAL_STATUS       a rota funciona? (medido, vive na matriz)
+    ROBOTS_STATUS          o robots.txt do host barra? So governa robo anonimo.
+                           Para API contratada e para sessao de gente: NOT_APPLICABLE
+    TERMS_STATUS           o contrato permite ESTA rota para ESTE alvo?
+    AUTH_STATUS            temos a credencial? (fato sobre o nosso PC)
+    AUTHORIZATION_STATUS   somos autorizados? (fato sobre o contrato)
+    ROUTE_STATUS           o veredito: USABLE / NOT_USABLE / NEEDS_REVIEW
+
+AUTH_STATUS e AUTHORIZATION_STATUS sao colunas separadas de proposito. Ter a
+sessao aberta e um fato sobre esta maquina. Poder automatiza-la e um fato sobre
+o contrato. Quando as duas moram na mesma variavel, a primeira decide — e foi
+assim que "estou logado" virou "posso".
+
+ONDE NAO HOUVE PROVA, SAI `NEEDS_REVIEW`
+------------------------------------------
+`OWN_PROPERTY` com `LOCAL_SESSION` sai `NEEDS_REVIEW`, nao `ALLOWED`. Nenhuma das
+sete clausulas lidas abre excecao escrita para o dono, e a nota de cada
+plataforma nesta tabela ja diz que a rota certa para conta propria e a API
+oficial. Afirmar ALLOWED seria inventar uma permissao que ninguem leu.
 
 O QUE ESTE ARQUIVO NUNCA FAZ
 ------------------------------
@@ -154,14 +178,97 @@ POLITICA = {
 }
 
 
-def automacao_permitida(platform, ownership=THIRD_PARTY):
-    """A pergunta que precede qualquer uso de sessão. Devolve (bool, motivo)."""
-    p = POLITICA.get(platform.upper())
-    if not p:
-        return False, 'plataforma sem política declarada — o padrão é NÃO'
-    if p.get(ownership):
-        return True, p.get('OWN_NOTA') or 'propriedade própria'
-    return False, p['CLAUSULA']
+# ══════════════════════════════════════════════════════════════════════════
+# OS SEIS EIXOS. Vocabulário — cada um responde UMA pergunta, e só ela.
+# ══════════════════════════════════════════════════════════════════════════
+USABLE = 'USABLE'
+NOT_USABLE = 'NOT_USABLE'
+NEEDS_REVIEW = 'NEEDS_REVIEW'
+
+ALLOWED = 'ALLOWED'
+FORBIDDEN = 'FORBIDDEN'
+NOT_APPLICABLE = 'NOT_APPLICABLE'
+
+# `robots.txt` governa robô ANÔNIMO sobre HTTP. Não governa API contratada (outro
+# host, outro contrato) nem sessão de gente logada. Dizer FORBIDDEN por robots numa
+# chamada de API seria aplicar a regra errada — e dizer ALLOWED seria pior ainda.
+ROBOTS_GOVERNA = ('PUBLIC',)
+
+# A rota de sessão local, para conta de TERCEIRO, é a única fechada por contrato nas
+# sete. Para conta PRÓPRIA fica `NEEDS_REVIEW`: nenhuma cláusula lida abre exceção
+# escrita ao dono, e a nota de cada plataforma já manda usar a API oficial.
+TERMS_LOCAL_SESSION = {THIRD_PARTY: FORBIDDEN, OWN_PROPERTY: NEEDS_REVIEW}
+
+
+def _terms_status(plat, auth_mode, ownership):
+    """O contrato permite ESTA rota, para ESTE tipo de alvo? Só o contrato."""
+    p = POLITICA.get(plat)
+    if auth_mode == 'LOCAL_SESSION':
+        if not p:
+            return FORBIDDEN, 'plataforma sem política declarada — o padrão é NÃO'
+        veredito = TERMS_LOCAL_SESSION[ownership]
+        if veredito == FORBIDDEN:
+            return FORBIDDEN, p['CLAUSULA']
+        return NEEDS_REVIEW, (
+            'conta própria não é exceção escrita: %s Nenhuma cláusula lida abre '
+            'exceção ao dono para automação por navegador — e a rota certa aqui é '
+            'outra: %s' % (p['CLAUSULA'][:90] + '…', p.get('OWN_NOTA') or 'API oficial.'))
+    if auth_mode in ('OFFICIAL_API', 'OFFICIAL_PAID_API'):
+        # A API oficial existe PARA ser chamada por programa, inclusive sobre alvo de
+        # terceiro. É o caso que a doutrina antiga recusava por generalização.
+        return ALLOWED, ('API oficial: o acesso automatizado é o uso previsto, e o '
+                         'alvo de terceiro é o que ela serve. Limite é quota, não contrato.')
+    if auth_mode == 'APIFY':
+        return NEEDS_REVIEW, ('rota terceirizada: quem executa é o fornecedor, e o '
+                              'contrato dele com a plataforma não é legível daqui.')
+    return NEEDS_REVIEW, 'rota pública: quem decide é o robots.txt lido na hora.'
+
+
+def usabilidade(platform, capability, auth_mode, ownership=THIRD_PARTY,
+                technical_status=None, auth_status=None):
+    """(plataforma, capacidade, rota, de quem é a conta) -> os seis eixos + veredito.
+
+    Não é um motor: é uma leitura de tabela. Devolve os seis campos SEPARADOS, para
+    que quem lê o artefato veja POR QUE o veredito é o que é — e para que
+    `AUTH_STATUS` (temos credencial) nunca seja confundido com
+    `AUTHORIZATION_STATUS` (podemos usá-la).
+    """
+    plat = platform.upper()
+    terms, porque = _terms_status(plat, auth_mode, ownership)
+    robots = (UNKNOWN if auth_mode in ROBOTS_GOVERNA else NOT_APPLICABLE)
+    r = {
+        'PLATFORM': plat, 'CAPABILITY': capability.upper(), 'AUTH_MODE': auth_mode,
+        'ACCOUNT_RELATION': ownership,
+        'TECHNICAL_STATUS': technical_status or UNKNOWN,
+        # UNKNOWN, e não ALLOWED: o robots é lido na hora por `social_rotas.permitido()`,
+        # com o User-agent real. Afirmar aqui seria decorar o que precisa ser lido.
+        'ROBOTS_STATUS': robots,
+        'TERMS_STATUS': terms,
+        'AUTH_STATUS': auth_status or UNKNOWN,
+        'AUTHORIZATION_STATUS': ALLOWED if terms == ALLOWED else (
+            FORBIDDEN if terms == FORBIDDEN else NEEDS_REVIEW),
+        'FONTE': (POLITICA.get(plat) or {}).get('FONTE'),
+        'PORQUE': porque,
+    }
+    if r['AUTHORIZATION_STATUS'] == FORBIDDEN:
+        r['ROUTE_STATUS'] = NOT_USABLE
+    elif r['AUTHORIZATION_STATUS'] == NEEDS_REVIEW:
+        r['ROUTE_STATUS'] = NEEDS_REVIEW
+    else:
+        r['ROUTE_STATUS'] = USABLE
+    return r
+
+
+def automacao_permitida(platform, ownership=THIRD_PARTY, capability='*',
+                        auth_mode='LOCAL_SESSION'):
+    """A trava histórica, agora escrita em cima de `usabilidade()`. Devolve (bool, motivo).
+
+    Continua com a mesma assinatura para não quebrar quem já chama — mas mudou de
+    comportamento num ponto, de propósito: `OWN_PROPERTY` já NÃO é um sim automático.
+    Só `USABLE` passa; `NEEDS_REVIEW` não passa, porque revisão pendente não é licença.
+    """
+    r = usabilidade(platform, capability, auth_mode, ownership)
+    return r['ROUTE_STATUS'] == USABLE, r['PORQUE']
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -313,9 +420,21 @@ def classificar_pagina(html, url=''):
 #     dá a impressão de que já foi tratado.
 _SEGREDOS = re.compile(
     r'(?i)(cookie|set-cookie|authorization|csrf|x-csrf-token|sessionid|'
-    r'sessid|session_token|access_token|refresh_token|auth_token|password|passwd|'
+    r'sessid|session_token|access_token|refresh_token|auth_token|token|password|passwd|'
     r'senha|api[_-]?key|client[_-]?secret|ds_user_id|li_at|jsessionid|sid)'
     r'\s*[:=]\s*(?:bearer\s+|basic\s+)?["\']?([^\s"\'&;,}]{4,})')
+
+# Rótulo=valor pega o caso comum. NÃO pega o caso que mais aparece em traceback:
+# o segredo SOLTO dentro de uma URL, sem rótulo nenhum. `apify_pool` já conhecia a
+# forma do token da Apify; aqui ela passa a valer para tudo que passe por `redigir`,
+# porque esta função é a que `social_rotas` usa em TODA exceção.
+#
+#     REDIGIR POR RÓTULO NÃO BASTA. O VALOR TAMBÉM TEM FORMA.
+_SEGREDOS_POR_FORMA = re.compile(
+    r'(?i)(apify_api_[A-Za-z0-9]{10,}'          # token da Apify
+    r'|eyJ[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{5,}'   # JWT
+    r'|gh[pousr]_[A-Za-z0-9]{20,}'              # token do GitHub
+    r'|AIza[A-Za-z0-9_\-]{30,})')              # chave de API do Google
 
 _CAMINHO_PESSOAL = re.compile(
     r'(?i)([A-Z]:\\Users\\[^\\\s"\']+|/home/[^/\s"\']+|/Users/[^/\s"\']+)')
@@ -332,6 +451,9 @@ def redigir(texto):
         return None
     t = str(texto)
     t = _SEGREDOS.sub(lambda m: '%s=<REDIGIDO>' % m.group(1), t)
+    # Depois do rótulo, a forma. A ordem importa: o passo acima já apagou a maioria,
+    # e este pega o que sobrou solto — inclusive dentro de uma URL de traceback.
+    t = _SEGREDOS_POR_FORMA.sub('<REDIGIDO>', t)
     t = _CAMINHO_PESSOAL.sub('<CAMINHO-LOCAL>', t)
     return t
 

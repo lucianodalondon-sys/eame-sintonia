@@ -52,6 +52,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import social_envelope as env      # noqa: E402
 import social_matriz as mz         # noqa: E402
+import falhas                      # noqa: E402  — a lingua unica do erro
 import social_sessao as ss         # noqa: E402  — LOCAL_SESSION é rota, não motor
 
 # O agente se identifica. Não há ganho em mentir e há perda: um host que quer
@@ -298,7 +299,7 @@ ADAPTADORES = {
 }
 
 
-def executar(*, platform, capability, run_id, country_scope='IT',
+def _executar(*, platform, capability, run_id, country_scope='IT',
             permitir_pago=False, motivo_pago=None, ownership=None, **kwargs):
     """Escolhe a rota declarada e executa. Devolve (objetos, registro).
 
@@ -384,14 +385,63 @@ def executar(*, platform, capability, run_id, country_scope='IT',
         registro['ESTADO'] = 'BLOCKED'
         registro['ERRO'] = ss.redigir(str(e))
         return [], registro
+    except urllib.error.HTTPError as e:
+        # O código da resposta é a melhor prova que existe. 401/403 não é vazio,
+        # 429 não é fonte caída, 5xx é a FONTE e 4xx é PEDIDO NOSSO.
+        registro['ESTADO'] = falhas.classificar(http=e.code)
+        registro['ERRO'] = ss.redigir('HTTP %s: %s' % (e.code, e))
+        return [], registro
+    except (urllib.error.URLError, TimeoutError, ConnectionError, OSError) as e:
+        # Transporte caiu. NÃO é rota morta e NÃO é fonte vazia.
+        registro['ESTADO'] = 'TRANSIENT_NETWORK_ERROR'
+        registro['ERRO'] = ss.redigir('%s: %s' % (type(e).__name__, e))
+        return [], registro
+    except (KeyError, IndexError, AttributeError, TypeError, ValueError) as e:
+        # A fonte respondeu e o NOSSO extrator não achou o campo. Este é o estado
+        # que o balde `FAILED` escondia — e o único aqui que pede gente.
+        #
+        #     PARSER QUEBRADO NÃO É FONTE VAZIA.
+        registro['ESTADO'] = 'PARSER_DRIFT'
+        registro['ERRO'] = ss.redigir('%s: %s' % (type(e).__name__, e))
+        return [], registro
     except Exception as e:
         # A exceção é REDIGIDA antes de virar registro. Um traceback de urllib
         # carrega a URL, e a URL pode carregar o token — foi assim que segredo
         # vazou em casa alheia sem ninguém ter escrito `print(cookie)`.
-        registro['ESTADO'] = 'FAILED'
+        registro['ESTADO'] = 'UNKNOWN_ERROR'
         registro['ERRO'] = ss.redigir('%s: %s' % (type(e).__name__, e))
         return [], registro
 
     registro['ESTADO'] = 'OK' if objetos else 'ZERO_RESULTS'
     registro['OBJETOS'] = len(objetos)
     return objetos, registro
+
+
+def executar(**kwargs):
+    """Porta única. Sela TODA saída com a taxonomia canônica — nenhum caminho escapa.
+
+    O selo é aplicado aqui, e não em cada `return`, porque um `return` novo daqui a
+    três meses esqueceria de selar. Envolver é a única forma que não depende de
+    alguém lembrar.
+    """
+    objetos, registro = _executar(**kwargs)
+    return objetos, selar(registro)
+
+
+def selar(registro):
+    """Traduz o estado para o vocabulário canônico e anexa o que ele significa."""
+    bruto = registro.get('ESTADO')
+    if bruto is None:
+        return registro
+    canon = falhas.traduzir(bruto)
+    registro['ESTADO'] = canon
+    if bruto != canon:
+        registro['ESTADO_ORIGINAL'] = bruto
+    camada, saude = falhas.saude(canon)
+    registro['FAILURE_LAYER'] = camada
+    registro['EXPECTED'] = falhas.esperado(canon)
+    registro['DEGRADES_SOURCE'] = falhas.degrada_fonte(canon)
+    registro['SOURCE_HEALTH'] = saude if camada == falhas.SOURCE else falhas.HEALTHY
+    registro['ROUTE_HEALTH'] = saude if camada == falhas.ROUTE else falhas.HEALTHY
+    registro['EXECUTOR_HEALTH'] = saude if camada == falhas.EXECUTOR else falhas.HEALTHY
+    return registro

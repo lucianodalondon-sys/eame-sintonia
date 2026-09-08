@@ -41,10 +41,29 @@ class TestAutomacaoNaoDecorreDeSessao(unittest.TestCase):
         ok, _ = ss.automacao_permitida('REDE_QUE_NAO_EXISTE', ss.THIRD_PARTY)
         self.assertFalse(ok, 'o padrao de uma plataforma nao declarada tem de ser NAO')
 
-    def test_conta_propria_e_permitida(self):
-        """A rota existe de verdade — ela so nao e um passe livre."""
+    def test_conta_propria_NAO_e_passe_livre(self):
+        """CORRIGIDO em 2026-09-08 — este teste afirmava o contrario, e estava errado.
+
+        A versao anterior canonizava `OWN_PROPERTY -> PERMITIDO` nas sete
+        plataformas. Nenhuma das sete clausulas lidas abre excecao escrita ao dono:
+        os Termos §3 do YouTube proibem "any automated means" sem falar em
+        propriedade. E a nota de cada plataforma nesta mesma tabela ja mandava usar
+        a API oficial para conta propria — ou seja, o valor dizia SIM enquanto a
+        nota ao lado dizia "nao por aqui".
+
+            SER DONO MUDA O QUE SE PODE LER. NAO MUDA O QUE SE PODE AUTOMATIZAR.
+
+        O veredito honesto e `NEEDS_REVIEW`, e revisao pendente nao e licenca.
+        """
         ok, _ = ss.automacao_permitida('YOUTUBE', ss.OWN_PROPERTY)
-        self.assertTrue(ok)
+        self.assertFalse(ok, 'OWN_PROPERTY voltou a ser um SIM automatico')
+        r = ss.usabilidade('YOUTUBE', 'FETCH_POST', 'LOCAL_SESSION', ss.OWN_PROPERTY)
+        self.assertEqual(r['ROUTE_STATUS'], ss.NEEDS_REVIEW)
+
+    def test_terceiro_por_api_oficial_NAO_e_recusado(self):
+        """O outro lado do mesmo erro: a recusa valia para a SESSAO, e generalizou."""
+        r = ss.usabilidade('YOUTUBE', 'FETCH_COMMENTS', 'OFFICIAL_API', ss.THIRD_PARTY)
+        self.assertEqual(r['ROUTE_STATUS'], ss.USABLE)
 
 
 class TestEstadosDaSessao(unittest.TestCase):
@@ -211,7 +230,12 @@ class TestPoliticaDeRota(unittest.TestCase):
         _, r = self.sr.executar(platform='X', capability='SEARCH_KEYWORD', run_id='T',
                                 permitir_pago=True,
                                 motivo_pago='porque a Apify ja estava configurada')
-        self.assertEqual(r['ESTADO'], 'PAID_ROUTE_REFUSED')
+        # O estado passou a ser selado pela taxonomia canonica. O nome antigo
+        # sobrevive em ESTADO_ORIGINAL — a traducao e conferivel, nao e fe.
+        self.assertEqual(r['ESTADO'], 'BUDGET_EXHAUSTED')
+        self.assertEqual(r['ESTADO_ORIGINAL'], 'PAID_ROUTE_REFUSED')
+        self.assertFalse(r['DEGRADES_SOURCE'],
+                         'recusa de gasto NOSSA nao diz nada sobre a fonte')
 
     def test_local_session_contra_terceiro_para_antes_de_navegar(self):
         """RED TEAM 9 — sessao usada em capability nao autorizada."""

@@ -226,5 +226,6 @@ Estado por adaptador: `PROVED` / `POSSIBLE_NOT_PROVED` / `BLOCKED` / `ROUTE_NOT_
 | **Supabase** | estado operacional canônico: objeto, evidência, marca d'água, saúde de rota, custo, execução |
 | **Repositório** | matriz de capacidade, contrato, régua, canária, ledger |
 
-> **O estado canônico não pode depender de "esse arquivo está perdido em `C:\Users\...`".**
+> **O estado canônico não pode depender de "esse arquivo está perdido na pasta de
+> usuário de alguma máquina".**
 > O PC local é onde o trabalho acontece. **Não é onde a verdade mora.**
