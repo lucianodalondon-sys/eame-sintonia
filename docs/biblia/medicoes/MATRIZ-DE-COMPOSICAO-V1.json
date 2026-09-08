@@ -1,0 +1,252 @@
+{
+ "MEASUREMENT": "D0.4 · matriz de composição",
+ "READ_ONLY": true,
+ "BASELINE": "a4fb6d81681094925ccfd1638bc7386cbec6f4d4",
+ "OWNER_HEAD_DECLARED_BY_SNAPSHOT": "fb96f49d",
+ "OWNER_BRANCHES": [
+  "claude/acervo-to-package-intelligence-v1",
+  "claude/opportunity-commercial-priority-v1",
+  "claude/trilha-universal-inteligencia-a5rx9d"
+ ],
+ "BASELINE_SCRIPT_IS_STALE": {
+  "FILE": "scripts/v21_oportunidades.py",
+  "LINES_AT_BASELINE": 1216,
+  "LINES_AT_OWNER": 2475,
+  "HAS_estado_de_acao_AT_BASELINE": false,
+  "HAS_estado_de_acao_AT_OWNER": true,
+  "CONSEQUENCE": "a cópia no ramo do portal NÃO é o gerador do snapshot"
+ },
+ "DIMENSIONS": [
+  {
+   "FIELD": "ELIGIBILITY_CLASS",
+   "QUESTION": "este caso tem ligação factual defensável com pelo menos um produto ADAMA?",
+   "OWNER": "scripts/adama_relevance.py",
+   "OWNER_PROVEN": true,
+   "RULE_ID": "ADAMA-RELEVANCE-LAW-V1",
+   "RULE_VERSION": "V21-ef6e7e5f37eaa6e6",
+   "OWNER_BRANCH": "linha B",
+   "INPUTS": [
+    "CADEIA_EXIGIDA (8 elos)",
+    "NAO_ACEITE"
+   ],
+   "OUTPUT_DOMAIN": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "CAN_BLOCK": [
+    "publicação",
+    "promoção a oportunidade"
+   ],
+   "CAN_PROMOTE": [],
+   "MUST_NOT_CHANGE": [
+    "TEMPORAL_STATE",
+    "COMMERCIAL_PRIORITY"
+   ],
+   "UNKNOWN_BEHAVIOR": "classe E — «nunca sobe». Declarada, população 0.",
+   "DERIVED_FROM": null,
+   "EVIDENCE": "DONO_DA_LEI no artefacto"
+  },
+  {
+   "FIELD": "ELIGIBILITY_SURFACE",
+   "QUESTION": "em que superfície esta classe se apresenta?",
+   "OWNER": "scripts/adama_relevance.py",
+   "OWNER_PROVEN": true,
+   "RULE_ID": "SUPERFICIE (dict, linha 194)",
+   "RULE_VERSION": "V21-ef6e7e5f37eaa6e6",
+   "OWNER_BRANCH": "linha B",
+   "INPUTS": [
+    "ELIGIBILITY_CLASS"
+   ],
+   "OUTPUT_DOMAIN": [
+    "OPPORTUNITA",
+    "RADAR",
+    "SEGNALI",
+    "ERRORE"
+   ],
+   "CAN_BLOCK": [],
+   "CAN_PROMOTE": [],
+   "MUST_NOT_CHANGE": [
+    "ELIGIBILITY_CLASS"
+   ],
+   "UNKNOWN_BEHAVIOR": "n/a",
+   "DERIVED_FROM": "ELIGIBILITY_CLASS",
+   "DERIVATION_DECLARED": true,
+   "DERIVATION_LOSSY": true,
+   "DERIVATION_NOTE": "D e E mapeiam ambos para ERRORE: de ERRORE não se recupera a classe",
+   "EVIDENCE": "SUPERFICIE = {'A':'OPPORTUNITA','B':'RADAR','C':'SEGNALI','D':'ERRORE','E':'ERRORE'}"
+  },
+  {
+   "FIELD": "TEMPORAL_STATE (dentro de STATUS)",
+   "QUESTION": "o que sabemos sobre o momento real da janela e da ação?",
+   "OWNER": "scripts/v21_oportunidades.py::estado_de_acao",
+   "OWNER_PROVEN": true,
+   "RULE_ID": "ELOS (5)",
+   "RULE_VERSION": "V21-ef6e7e5f37eaa6e6",
+   "OWNER_BRANCH": "fb96f49d · claude/acervo-to-package-intelligence-v1",
+   "INPUTS": [
+    "SIGNAL_AGE_DAYS",
+    "DAYS_REMAINING",
+    "WINDOW_DEFINED",
+    "WINDOW_OPEN_NOW",
+    "NEED_DIRECTION",
+    "TARGET",
+    "PRODUCT_LINK_STATE",
+    "COMMERCIAL_PRODUCT_COUNT",
+    "ARCHETYPE"
+   ],
+   "OUTPUT_DOMAIN": [
+    "ACT_NOW",
+    "PREPARE_NOW",
+    "FUTURE_PREPARATION",
+    "VALIDATE_NOW",
+    "WATCH"
+   ],
+   "CAN_BLOCK": [],
+   "CAN_PROMOTE": [],
+   "MUST_NOT_CHANGE": [
+    "ELIGIBILITY_CLASS",
+    "COMMERCIAL_PRIORITY"
+   ],
+   "UNKNOWN_BEHAVIOR": "VALIDATE_NOW — «o que falta tem nome»: há necessidade e produto, falta a janela",
+   "DERIVED_FROM": null,
+   "EVIDENCE": "estado_de_acao() reproduzido: 34/34 fora dos overrides"
+  },
+  {
+   "FIELD": "VALIDATION_GATE_STATE (dentro de STATUS)",
+   "QUESTION": "que portão factual falhou e impede a promoção?",
+   "OWNER": "scripts/v21_oportunidades.py::portoes + red_team",
+   "OWNER_PROVEN": true,
+   "RULE_ID": "PORTOES A-H",
+   "RULE_VERSION": "V21-ef6e7e5f37eaa6e6",
+   "OWNER_BRANCH": "fb96f49d",
+   "INPUTS": [
+    "BLOCKING_GATES",
+    "RED_TEAM_FINDINGS"
+   ],
+   "OUTPUT_DOMAIN": [
+    "TO_VALIDATE",
+    "(passa)"
+   ],
+   "CAN_BLOCK": [
+    "OPPORTUNITY_STATE",
+    "publicação"
+   ],
+   "CAN_PROMOTE": [],
+   "MUST_NOT_CHANGE": [
+    "TEMPORAL_STATE"
+   ],
+   "VIOLATION_OBSERVED": "hoje SOBRESCREVE STATUS, apagando o estado temporal do campo",
+   "UNKNOWN_BEHAVIOR": "—",
+   "DERIVED_FROM": null,
+   "EVIDENCE": "v21_oportunidades.py:1812 · STATUS = 'TO_VALIDATE' if falhas"
+  },
+  {
+   "FIELD": "COMMERCIAL_PRIORITY",
+   "QUESTION": "isto vende, e porquê?",
+   "OWNER": "scripts/v21_comercial.py::prioridade",
+   "OWNER_PROVEN": true,
+   "RULE_ID": "PRIORIDADES (5 ramos)",
+   "RULE_VERSION": "V21-ef6e7e5f37eaa6e6",
+   "OWNER_BRANCH": "linha A",
+   "INPUTS": [
+    "ARCHETYPE",
+    "NEED_DIRECTION",
+    "COMMERCIAL_PRODUCT_COUNT",
+    "PRODUCT_LINK_STATE",
+    "TARGET",
+    "CLAIM_GEOGRAPHY_HOLDS",
+    "COMMERCIAL_WINDOW"
+   ],
+   "OUTPUT_DOMAIN": [
+    "SALES_READY",
+    "SALES_PREPARE",
+    "COMMERCIAL_WATCH",
+    "STRATEGIC_OPPORTUNITY",
+    "TO_VALIDATE"
+   ],
+   "CAN_BLOCK": [
+    "EXTERNAL_MATERIAL_READY"
+   ],
+   "CAN_PROMOTE": [],
+   "MUST_NOT_CHANGE": [
+    "ELIGIBILITY_CLASS",
+    "TEMPORAL_STATE"
+   ],
+   "UNKNOWN_BEHAVIOR": "TO_VALIDATE",
+   "DERIVED_FROM": null,
+   "NOTE": "SALES_PREPARE declarado, população 0",
+   "EVIDENCE": "v21_comercial.py:236-289"
+  },
+  {
+   "FIELD": "EXTERNAL_MATERIAL_READY",
+   "QUESTION": "pode sair da ADAMA para RTV, revenda ou terceiro?",
+   "OWNER": "scripts/v21_comercial.py::externo",
+   "OWNER_PROVEN": true,
+   "RULE_ID": "EXTERNAL_LAW + BLOQUEIO_EXTERNO (8 códigos)",
+   "RULE_VERSION": "V21-ef6e7e5f37eaa6e6",
+   "OWNER_BRANCH": "linha A",
+   "INPUTS": [
+    "COMMERCIAL_PRIORITY",
+    "BLOCKING_GATES",
+    "RED_TEAM_FINDINGS",
+    "SOURCE_PRESCRIBED_MEANS"
+   ],
+   "OUTPUT_DOMAIN": [
+    "YES",
+    "VALIDATION_REQUIRED",
+    "NO"
+   ],
+   "CAN_BLOCK": [
+    "PUBLICATION_STATE"
+   ],
+   "CAN_PROMOTE": [],
+   "MUST_NOT_CHANGE": [
+    "COMMERCIAL_PRIORITY"
+   ],
+   "UNKNOWN_BEHAVIOR": "NO com código. UNKNOWN nunca é permissão.",
+   "DERIVED_FROM": "COMMERCIAL_PRIORITY (parcial — 1 dos 8 códigos)",
+   "EVIDENCE": "EXTERNAL_LAW: «SALES_READY sozinho NAO autoriza saida externa»"
+  },
+  {
+   "FIELD": "PUBLICATION_STATE",
+   "QUESTION": "pode atravessar do acervo para o publicável?",
+   "OWNER": "scripts/v21_catraca.py",
+   "OWNER_PROVEN": true,
+   "RULE_ID": "A CATRACA · 5 etapas obrigatórias",
+   "RULE_VERSION": "V21-ef6e7e5f37eaa6e6",
+   "OWNER_BRANCH": "fb96f49d · opportunity-commercial-priority-v1",
+   "INPUTS": [
+    "EXTERNAL_MATERIAL_READY",
+    "IDENTITY_PROVENANCE",
+    "NORMALIZATION",
+    "CLASSIFICATION",
+    "MISSION_RULER",
+    "RELATION_EXTRACTION"
+   ],
+   "OUTPUT_DOMAIN": [
+    "PUBLISHABLE",
+    "VALIDATION_REQUIRED"
+   ],
+   "CAN_BLOCK": [
+    "toda a entrega"
+   ],
+   "CAN_PROMOTE": [],
+   "MUST_NOT_CHANGE": [
+    "EXTERNAL_MATERIAL_READY",
+    "COMMERCIAL_PRIORITY",
+    "ELIGIBILITY_CLASS",
+    "TEMPORAL_STATE"
+   ],
+   "UNKNOWN_BEHAVIOR": "UNKNOWN é o estado que esta camada existe para tornar visível",
+   "DERIVED_FROM": "EXTERNAL_MATERIAL_READY",
+   "DERIVATION_DECLARED": true,
+   "LAW": "A CATRACA SÓ SEGURA. NUNCA EMPURRA. — test_catraca_nunca_promove",
+   "AUDIENCE": "NÃO DECLARADA — ver §5 do contrato",
+   "EVIDENCE": "v21_catraca.py docstring: «PUBLICATION_STATE nasce de EXTERNAL_MATERIAL_READY»"
+  }
+ ],
+ "DIMENSION_COUNT": 7
+}

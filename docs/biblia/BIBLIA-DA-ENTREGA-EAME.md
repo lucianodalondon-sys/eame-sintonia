@@ -4,8 +4,8 @@
 
 ```
 BIBLE_STATUS             DRAFT
-BIBLE_VERSION            V0.3
-SUPERSEDES               V0.2 (2026-09-08) — não a apaga; ver §22, PARTE V e PARTE VI
+BIBLE_VERSION            V0.4
+SUPERSEDES               V0.3 (2026-09-08) — não a apaga; ver §22 e PARTES V, VI, VII
 DATE                     2026-09-08
 IMPLEMENTATION           NONE
 PRODUCTION_TOUCHED       NONE
@@ -1092,6 +1092,7 @@ VERSION · DATE · SUPERSEDES · WHAT_CHANGED · WHY · EVIDENCE · DECISION_REF
 | VERSION | DATE | SUPERSEDES | WHAT_CHANGED | WHY | EVIDENCE |
 |---|---|---|---|---|---|
 | V0.1 | 2026-09-08 | — | primeira escrita | não existia constituição de entrega; 12 superfícies, 1 contrato | `INVENTARIO-DAS-SUPERFICIES-ATUAIS.md` |
+| **V0.4** | **2026-09-08** | **V0.3** | PARTE VII: `L-29` script do baseline ≠ script que produziu o dado (corrige a atribuição de §51) · `L-30` projeção declarada pode ser lossy · `L-31` `OVERWRITE ≠ COMPOSITION` · `L-32` reconstrução por reexecução não é do casco · `L-33` `PUBLISHABLE` sem audiência é semântica incompleta · `L-34` o nome do campo não prova a semântica · `L-35` no estado de entrega toda a autoridade é de bloqueio · `L-36` as sete relações que não são conflito · `L-37` `OBSERVED SET EQUALITY ≠ SEMANTIC IDENTITY` | a genealogia resolveu `U-25` e `U-26`, encontrou o gerador real e mostrou que a igualdade dos três conjuntos é derivação declarada, não coincidência | `docs/biblia/CONTRATO-DE-COMPOSICAO-V1.md` · `medicoes/MATRIZ-DE-COMPOSICAO-V1.{md,json}` · `medicoes/RED-TEAM-COMPOSICAO-V1.{md,json}` |
 | **V0.3** | **2026-09-08** | **V0.2** | PARTE VI: `C-06` reescrito de «duas leis discordam» para **problema de composição** (§48) · a lei `L-26 · duas respostas diferentes não são contradição se respondem a perguntas diferentes` · `L-27 · derivação não declarada é uma segunda verdade em potência` · `L-28 · time since we saw it ≠ time until it closes` · o quinto eixo `EXTERNAL_MATERIAL_READY` (§49) · `MAPPING_TO_ENGINE` reforçado como `NOT_MEASURED` com prova (§50) | a medição dos 43 casos contra os eixos: nenhuma contradição em 43/43, mas duas derivações não declaradas e um colapso de três eixos num só conjunto | `docs/biblia/medicoes/MATRIZ-43-QUATRO-EIXOS.md` · `.json` · `medir_43_quatro_eixos.py` |
 | **V0.2** | **2026-09-08** | **V0.1** | PARTE V: três registos epistemológicos (§32) · modelo temporal e propriedade dos campos (§34) · contrato de card e 3s/30s/3min (§36) · Evidence Drawer (§37) · Home como fila de decisão (§38) · alerta por transição de estado (§39) · briefs por papel e mobile (§40) · superfície de ação (§41) · métrica de valor por ferramenta (§42) · 8 leis novas (§33) · 8 anti-padrões novos (§43) | o benchmark de 16 sistemas trouxe evidência externa; o dono declarou intenção de produto; e a re-execução do baseline destapou duas leis vivas sobre os mesmos 43 casos | `research/product-tools-benchmark-v1@6ef8e70` · `INVENTARIO §A` · `ADJUDICACAO-DO-BENCHMARK-V0.2.md` |
 
@@ -2347,3 +2348,252 @@ PRODUCT_CONTRACT_DEPENDENCY = OPEN
 ```
 
 **Sete `UNKNOWN` novos** (`U-25`…`U-31`), nenhum resolvido por inferência.
+
+---
+
+# PARTE VII · EMENDA V0.4
+
+```
+AMENDMENT_TO      V0.3 (2026-09-08)
+INPUT             D0.4 — genealogia dos campos + contrato de composição + red team
+                  docs/biblia/CONTRATO-DE-COMPOSICAO-V1.md
+                  docs/biblia/medicoes/MATRIZ-DE-COMPOSICAO-V1.{md,json}
+                  docs/biblia/medicoes/RED-TEAM-COMPOSICAO-V1.{md,json}
+                  docs/biblia/medicoes/testar_contrato_composicao.py   READ-ONLY
+COUNTEREXAMPLES   9 leis novas, cada uma com o seu
+CONSTITUTION_LINES_REMOVED   0
+CORREÇÃO          §51 (V0.3) — atribuição de regra corrigida, números mantidos
+```
+
+> **A emenda abre com uma correção da emenda anterior.**
+> V0.3 leu o gerador no ramo errado. Os números estavam certos; o culpado não.
+
+---
+
+## §54 · A CORREÇÃO DE §51
+
+V0.3 concluiu que o motor confundia dois relógios. **Medido agora:** o snapshot declara
+`SOURCE_HEAD = fb96f49d`, e nessa ref o gerador tem **2.475 linhas** e uma função
+`estado_de_acao()` que exige **cinco elos** para `ACT_NOW`, recusando explicitamente a
+idade do sinal sozinha. No baseline `a4fb6d8` o mesmo ficheiro tem **1.216 linhas** e não
+contém essa função.
+
+**O ramo do portal carrega uma cópia obsoleta do gerador.**
+
+| o que V0.3 disse | estado após D0.4 |
+|---|---|
+| `DAYS_REMAINING` nulo em 43/43 | **mantém-se** |
+| `WINDOW_OPEN_NOW` `UNKNOWN` em 41/43 | **mantém-se** |
+| `L-28 · TIME SINCE ≠ TIME UNTIL` | **mantém-se, e o motor já a tem escrita** |
+| *«o motor confunde os dois relógios»* | **CORRIGIDO** — o motor separa-os; a cópia obsoleta é que não |
+
+**Verificação:** a lei de `fb96f49d` reexecutada sobre os 43 reproduz **34 de 34** dos
+casos não sobrescritos.
+
+```
+L-29 · SCRIPT PRESENT IN THE BASELINE ≠ SCRIPT THAT PRODUCED THE DATA
+COUNTEREXAMPLE  V0.3 §51 atribuiu a regra ao ficheiro que estava ao lado do dado,
+                em vez do ficheiro que o dado NOMEIA no seu SOURCE_HEAD. Nenhuma lei
+                de V0.1–V0.3 obrigava a seguir o SOURCE_HEAD antes de ler código.
+CONSEQUÊNCIA    toda leitura de regra começa pelo SOURCE_HEAD do artefacto.
+```
+
+---
+
+## §55 · AS SETE PERGUNTAS — emenda a §34 e a §48
+
+`C-06` foi requalificado em V0.3 como problema de composição. V0.4 **escreve a
+composição**, em `CONTRATO-DE-COMPOSICAO-V1.md`, e a Constituição adota o essencial:
+
+```
+1  ELIGIBILITY_CLASS         ligação factual defensável com produto ADAMA?
+2  ELIGIBILITY_SURFACE       em que superfície se apresenta?        ← derivado de 1
+3  TEMPORAL_STATE            o que sabemos do momento real?
+4  VALIDATION_GATE_STATE     que portão factual falhou?
+5  COMMERCIAL_PRIORITY       isto vende, e porquê?
+6  EXTERNAL_MATERIAL_READY   pode sair para RTV, revenda, terceiro?
+7  PUBLICATION_STATE         pode atravessar do acervo para o publicável?
+
+SETE PERGUNTAS · SETE DONOS · TODOS PROVADOS
+U-25 e U-26 de D0.3: RESOLVIDOS
+```
+
+### §55.1 · A lei da autoridade de entrega
+
+```
+L-35 · NO ESTADO DE ENTREGA, TODA A AUTORIDADE É DE BLOQUEIO.
+
+  Um eixo pode segurar o que outro autorizou. NENHUM pode autorizar o que outro
+  segurou. A promoção só existe na Inteligência, com evidência nova.
+
+  EVIDÊNCIA      nas sete dimensões medidas, a coluna CAN_PROMOTE está vazia
+                 em 7 de 7. E já é lei executável num sítio:
+                 «A CATRACA SÓ SEGURA. NUNCA EMPURRA» + test_catraca_nunca_promove.
+  CONTRAEXEMPLO  §4 de V0.1 definiu DELIVERY_ELIGIBILITY como um portão que
+                 «decide o que publica» — redação que admite leitura de promoção.
+                 Nenhuma lei dizia que um eixo de entrega NUNCA promove.
+  CONSEQUÊNCIA   um Product Contract não pode ter uma regra do tipo
+                 «se X então mostra como oportunidade».
+```
+
+### §55.2 · `OVERWRITE ≠ COMPOSITION`
+
+```
+L-31 · DOIS CONCEITOS NUM CAMPO SÓ NÃO COMPÕEM: UM APAGA O OUTRO.
+
+  EVIDÊNCIA      STATUS carrega TEMPORAL_STATE e, quando um portão falha,
+                 é sobrescrito por TO_VALIDATE (v21_oportunidades.py:1812).
+  CONTRAEXEMPLO  V0.3 §51 chamou-lhe «dois eixos num campo só» e parou aí.
+                 Não distinguiu SOBREPOSIÇÃO de SOBRESCRITA — e é a segunda
+                 que destrói informação.
+  CONSEQUÊNCIA   RR-01: separar em dois campos. NÃO EXECUTADO — é da Inteligência.
+```
+
+**E a informação perdida foi medida, não suposta:**
+
+```
+TEMPORAL_STATE_AFTER_OVERRIDE = RECOVERABLE_BY_RE_EXECUTION
+                                NOT_PERSISTED_AS_FIELD
+    9/9 recuperados · valor WATCH em 9/9
+
+L-32 · RECONSTRUÇÃO POR REEXECUÇÃO NÃO É INFERÊNCIA — E NÃO É DO CASCO.
+       Um script de pesquisa pode reexecutar a lei do dono. Uma superfície de
+       entrega NÃO PODE: reexecutar a lei no casco é o casco a fazer
+       inteligência (L-11). A entrega recebe o valor, ou recebe UNKNOWN.
+```
+
+---
+
+## §56 · DERIVAÇÃO, PROJEÇÃO E O QUE ELAS PERDEM
+
+```
+L-30 · UMA PROJEÇÃO DECLARADA PODE PERDER INFORMAÇÃO, E TEM DE DIZER QUE PERDE.
+
+  EVIDÊNCIA      SUPERFICIE = {'A':'OPPORTUNITA','B':'RADAR','C':'SEGNALI',
+                               'D':'ERRORE','E':'ERRORE'}
+                 D e E colapsam. De ERRORE não se recupera a classe.
+  CONTRAEXEMPLO  L-27 (V0.3) exige que a derivação seja declarada — e esta ESTÁ.
+                 Nenhuma lei cobria uma derivação declarada e NÃO-INJETIVA.
+  CONSEQUÊNCIA   `ONE FACT → ONE OWNER → MANY DECLARED PROJECTIONS` é permitido,
+                 e cada projeção declara se é reversível. Um consumidor que precise
+                 da distinção vai ao original, nunca à projeção.
+```
+
+**`L-27` fica satisfeita e mais precisa:** as duas derivações do sistema —
+`CLASS → SURFACE` e `EXTERNAL → PUBLICATION` — **estão ambas declaradas no código**.
+O defeito que `L-27` temia não existe aqui.
+
+---
+
+## §57 · `OBSERVED SET EQUALITY ≠ SEMANTIC IDENTITY`
+
+```
+L-37 · A IGUALDADE DE CONJUNTOS NUMA AMOSTRA NÃO É IDENTIDADE SEMÂNTICA.
+
+  EVIDÊNCIA      nos 43: SALES_READY == PUBLISHABLE == EXTERNAL_YES, n=6.
+                 E a causa está escrita: é uma CADEIA DE DERIVAÇÃO
+                 COMMERCIAL_PRIORITY → EXTERNAL → PUBLICATION,
+                 onde NENHUM dos dois passos rebaixou nada.
+                 EXTERNAL_BLOCKER_CODES: 1 dos 8 códigos disparou.
+  CONTRAEXEMPLO  basta UM material falhar uma das cinco etapas da catraca para
+                 PUBLISHABLE ⊊ EXTERNAL_YES. O caminho existe, está escrito,
+                 e nunca foi percorrido.
+  CONSEQUÊNCIA   nenhum contrato codifica a igualdade; nenhuma superfície trata
+                 os três como um campo. Verificado por mutação sintética: o
+                 contrato ACEITA a divergência e PRESERVA os três valores.
+```
+
+**Isto responde à quarentena de `SALES_READY`, e absolve-a:**
+
+```
+SALES_READY_AUTHORITY = RESOLVED
+    é COMMERCIAL READINESS — composição de quatro pré-condições
+    (rótulo · necessidade · geografia · tempo)
+    NÃO é prioridade, ordenação, ranking nem score: nenhum ramo compara casos
+    NÃO autoriza saída externa: EXTERNAL_LAW é explícita
+```
+
+```
+L-34 · O NOME DO CAMPO NÃO PROVA A SEMÂNTICA DO CAMPO.
+       SALES_READY vive em COMMERCIAL_PRIORITY e não é prioridade.
+       VALIDATE_NOW chama-se validação e é temporal.
+       TO_VALIDATE está num campo temporal e é validação.
+       Três nomes, três enganos, zero bugs: são campos que ficaram com o nome
+       do dia em que nasceram. Renomear é migração (RR-03), não correção.
+```
+
+---
+
+## §58 · `PUBLISHABLE` SEM AUDIÊNCIA
+
+```
+L-33 · TODO ESTADO DE PUBLICAÇÃO DECLARA A FRONTEIRA QUE AUTORIZA.
+       interno-equipa · interno-ADAMA · brief de papel · terceiro nomeado · público.
+
+  EVIDÊNCIA      v21_catraca.py define PUBLICATION_STATE como fronteira de
+                 MATURIDADE DO MATERIAL. PUBLICATION_AUDIENCE = NOT_DECLARED.
+  CONTRAEXEMPLO  §7 de V0.1 exige EMPTY_STATE, UNKNOWN_STATE e CONFLICT_STATE
+                 num Product Contract — e não exige AUDIENCE num estado de
+                 publicação. Um «publicável» sem destinatário acaba lido como todos.
+  CONSEQUÊNCIA   RR-02. E é por isso que o eixo 6 não é redundante: é o único
+                 com audiência declarada — «revendedor ou RTV».
+```
+
+> ***«VENDER É UMA DECISÃO INTERNA. ENVIAR É UMA AFIRMAÇÃO PÚBLICA.
+> A SEGUNDA PRECISA SOBREVIVER A QUEM A LER SEM NOS CONHECER.»***
+
+E a regra que o red team acrescentou ao contrato, por ter encontrado um buraco nele:
+
+```
+C8 · SÓ EXTERNAL = YES AUTORIZA MATERIAL PARA TERCEIRO.  UNKNOWN NÃO É PERMISSÃO.
+     UM CONTRATO QUE ACEITA POR OMISSÃO NÃO É UM CONTRATO. É UM SILÊNCIO.
+```
+
+---
+
+## §59 · AS SETE RELAÇÕES QUE NÃO SÃO CONFLITO
+
+**Emenda a §48.** `L-26` (V0.3) disse que duas respostas diferentes não são contradição.
+V0.4 nomeia as categorias:
+
+```
+DERIVATION · BLOCK · ORTHOGONAL STATE · NOT_APPLICABLE · UNKNOWN · SUPERSESSION
+                                                            CONTRADICTION ← nenhuma
+```
+
+```
+L-36 · ANTES DE REGISTAR UM CONFLITO, RESPONDER:
+       AS DUAS COISAS RESPONDEM À MESMA PERGUNTA?
+       Se não, é uma das seis relações acima, e o que falta é um contrato,
+       não um vencedor.
+```
+
+**Contradições encontradas em 43 casos e 7 dimensões: zero.**
+
+---
+
+## §60 · O QUE V0.4 NÃO FEZ, E O QUE FICA BLOQUEADO
+
+Não alterou engine, portal, collection, snapshot, schema, base de dados, migration,
+produção nem deploy. Não renomeou campo nenhum. Não separou `STATUS`. Não somou casos
+sintéticos aos 43. Não fez merge.
+
+```
+RUNTIME_RECONCILIATION_REQUIRED — encontrado, NÃO corrigido
+  RR-01  STATUS mistura tempo e portão, e o portão sobrescreve
+  RR-02  PUBLISHABLE sem audiência declarada
+  RR-03  três nomes que não descrevem a semântica
+  RR-04  cópia obsoleta do gerador no ramo do portal
+  RR-05  SALES_PREPARE e classe E declarados com população 0
+```
+
+```
+PRODUCT_CONTRACT_DEPENDENCY = OPEN
+  Opportunity Radar   PARCIAL — bloqueado por RR-01 e RR-02
+  Home                PARCIAL — não pode agrupar por ACTION_STATE enquanto
+                                STATUS misturar dois conceitos
+```
+
+**`UNKNOWN` novos:** `U-32` a audiência de `PUBLISHABLE` · `U-33` se `SALES_PREPARE` e a
+classe `E` são inalcançáveis ou apenas não exercitados · `U-34` se a recuperabilidade do
+estado temporal sobrevive a uma mudança de pacote — hoje é contingente e não declarada.

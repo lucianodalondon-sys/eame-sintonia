@@ -1,0 +1,228 @@
+{
+ "MEASUREMENT": "D0.4 · red team do contrato de composição",
+ "GENERATED_BY": "docs/biblia/medicoes/testar_contrato_composicao.py",
+ "READ_ONLY": true,
+ "BASELINE": "a4fb6d81681094925ccfd1638bc7386cbec6f4d4",
+ "OWNER_HEAD": "fb96f49d",
+ "SYNTHETIC_NOT_OBSERVED": true,
+ "TEMPORAL_RECOVERY": {
+  "RECOVERABLE": true,
+  "METHOD": "RE_EXECUTION",
+  "CASES": {
+   "OPP_00C5B6E15185": "WATCH",
+   "OPP_4C39CCC05EEB": "WATCH",
+   "OPP_568684853264": "WATCH",
+   "OPP_5D03565DB4C3": "WATCH",
+   "OPP_6BA350CA1538": "WATCH",
+   "OPP_8E210567B01F": "WATCH",
+   "OPP_9AB924CA36C8": "WATCH",
+   "OPP_B362181E3A45": "WATCH",
+   "OPP_EE1E2A3869EE": "WATCH"
+  }
+ },
+ "RED_TEAM": [
+  {
+   "ID": "RT-01",
+   "DESC": "oportunidade acionável que não pode ser publicada",
+   "STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "ACT_NOW",
+    "COMMERCIAL": "SALES_READY",
+    "PUBLICATION": "BLOCKED",
+    "EXTERNAL": "NO"
+   },
+   "ACCEPTED_BY_CONTRACT": true,
+   "EXPECTED": true,
+   "PASS": true,
+   "VIOLATIONS": []
+  },
+  {
+   "ID": "RT-02",
+   "DESC": "publicável internamente, brief externo negado",
+   "STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "COMMERCIAL": "SALES_READY",
+    "PUBLICATION": "PUBLISHABLE",
+    "EXTERNAL": "NO"
+   },
+   "ACCEPTED_BY_CONTRACT": true,
+   "EXPECTED": true,
+   "PASS": true,
+   "VIOLATIONS": []
+  },
+  {
+   "ID": "RT-03",
+   "DESC": "urgência tenta promover RADAR a OPPORTUNITY",
+   "STATE": {
+    "ELIGIBILITY": "RADAR",
+    "TEMPORAL": "ACT_NOW",
+    "WINDOW_OPEN_NOW": "YES",
+    "VALIDATION": "REQUIRED",
+    "PUBLICATION": "VALIDATION_REQUIRED",
+    "EXTERNAL": "NO"
+   },
+   "ACCEPTED_BY_CONTRACT": true,
+   "EXPECTED": true,
+   "PASS": true,
+   "VIOLATIONS": []
+  },
+  {
+   "ID": "RT-04",
+   "DESC": "prioridade alta tenta transformar futuro em agora",
+   "STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "FUTURE_PREPARATION",
+    "VALIDATION": "PASS",
+    "COMMERCIAL": "SALES_READY",
+    "PUBLICATION": "PUBLISHABLE",
+    "EXTERNAL": "NO",
+    "PRODUCT_LABEL": "PREPARAR"
+   },
+   "ACCEPTED_BY_CONTRACT": true,
+   "EXPECTED": true,
+   "PASS": true,
+   "VIOLATIONS": []
+  },
+  {
+   "ID": "RT-05",
+   "DESC": "sinal recente tenta virar janela de ação",
+   "STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "UNKNOWN",
+    "SIGNAL_RECENCY": "CURRENT",
+    "DERIVED_ACTION_WINDOW": "OPEN",
+    "PUBLICATION": "VALIDATION_REQUIRED",
+    "EXTERNAL": "NO"
+   },
+   "ACCEPTED_BY_CONTRACT": false,
+   "EXPECTED": false,
+   "PASS": true,
+   "VIOLATIONS": [
+    {
+     "RULE": "C7 · recência de sinal não é janela aberta",
+     "WHY": "recência do sinal promovida a janela aberta"
+    }
+   ]
+  },
+  {
+   "ID": "RT-06",
+   "DESC": "card existe sem inventar timing",
+   "STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "TEMPORAL": "UNKNOWN",
+    "VALIDATION": "PASS",
+    "PRODUCT_LABEL": "TIMING_UNKNOWN",
+    "PUBLICATION": "PUBLISHABLE",
+    "EXTERNAL": "NO"
+   },
+   "ACCEPTED_BY_CONTRACT": true,
+   "EXPECTED": true,
+   "PASS": true,
+   "VIOLATIONS": []
+  },
+  {
+   "ID": "RT-07",
+   "DESC": "material para terceiro com externo desconhecido",
+   "STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "PUBLICATION": "PUBLISHABLE",
+    "EXTERNAL": "UNKNOWN",
+    "EXTERNAL_MATERIAL_EMITTED": true
+   },
+   "ACCEPTED_BY_CONTRACT": false,
+   "EXPECTED": false,
+   "PASS": true,
+   "VIOLATIONS": [
+    {
+     "RULE": "C8 · só EXTERNAL=YES autoriza material para terceiro",
+     "WHY": "material para terceiro emitido com EXTERNAL != YES. UNKNOWN NÃO É PERMISSÃO."
+    }
+   ]
+  },
+  {
+   "ID": "RT-08",
+   "DESC": "externo permissivo sobre publicação negada",
+   "STATE": {
+    "ELIGIBILITY": "OPPORTUNITY",
+    "PUBLICATION": "VALIDATION_REQUIRED",
+    "EXTERNAL": "YES"
+   },
+   "ACCEPTED_BY_CONTRACT": false,
+   "EXPECTED": false,
+   "PASS": true,
+   "VIOLATIONS": [
+    {
+     "RULE": "C5 · entrega externa nunca é menos restritiva que a interna",
+     "WHY": "EXTERNAL mais permissivo que PUBLICATION — proibido. EXTERNAL_DELIVERY ⊆ INTERNAL_PUBLICATION"
+    }
+   ]
+  }
+ ],
+ "CHECKS": [
+  {
+   "CHECK": "a lei de fb96f49d reproduz os 43 fora dos overrides",
+   "PASS": true,
+   "DETAIL": "34 de 34 não-TO_VALIDATE batem"
+  },
+  {
+   "CHECK": "os 9 TO_VALIDATE recuperam um estado temporal por re-execução",
+   "PASS": true,
+   "DETAIL": "9 casos → ['WATCH']"
+  },
+  {
+   "CHECK": "RT-01 · oportunidade acionável que não pode ser publicada",
+   "PASS": true,
+   "DETAIL": "aceite"
+  },
+  {
+   "CHECK": "RT-02 · publicável internamente, brief externo negado",
+   "PASS": true,
+   "DETAIL": "aceite"
+  },
+  {
+   "CHECK": "RT-03 · urgência tenta promover RADAR a OPPORTUNITY",
+   "PASS": true,
+   "DETAIL": "aceite"
+  },
+  {
+   "CHECK": "RT-04 · prioridade alta tenta transformar futuro em agora",
+   "PASS": true,
+   "DETAIL": "aceite"
+  },
+  {
+   "CHECK": "RT-05 · sinal recente tenta virar janela de ação",
+   "PASS": true,
+   "DETAIL": "recusado: recência do sinal promovida a janela aberta"
+  },
+  {
+   "CHECK": "RT-06 · card existe sem inventar timing",
+   "PASS": true,
+   "DETAIL": "aceite"
+  },
+  {
+   "CHECK": "RT-07 · material para terceiro com externo desconhecido",
+   "PASS": true,
+   "DETAIL": "recusado: material para terceiro emitido com EXTERNAL != YES. UNKNOWN NÃO É PERM"
+  },
+  {
+   "CHECK": "RT-08 · externo permissivo sobre publicação negada",
+   "PASS": true,
+   "DETAIL": "recusado: EXTERNAL mais permissivo que PUBLICATION — proibido. EXTERNAL_DELIVERY"
+  },
+  {
+   "CHECK": "divergência SALES_READY≠PUBLISHABLE é ACEITE e preservada",
+   "PASS": true,
+   "DETAIL": "os três valores continuam distintos, nenhum foi corrigido"
+  },
+  {
+   "CHECK": "divergência EXTERNAL>PUBLICATION é RECUSADA",
+   "PASS": true,
+   "DETAIL": "EXTERNAL mais permissivo que PUBLICATION — proibido. EXTERNAL_DELIVERY"
+  },
+  {
+   "CHECK": "o contrato NÃO codifica SALES_READY == PUBLISHABLE",
+   "PASS": true,
+   "DETAIL": "igualdade observada nos 43 não virou regra"
+  }
+ ]
+}
