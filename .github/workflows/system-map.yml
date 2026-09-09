@@ -139,6 +139,35 @@ jobs:
       - name: 4j · a porta de produção continua lacrada
         run: python3 tests/test_porta_de_producao.py
 
+      # ═══════════════════════════════════════════════════════════════
+      # AS PROVAS DA COLETA QUE NAO PRECISAM DE BANCO — e que ninguem corria.
+      #
+      #     UM PORTAO QUE NAO CORRE NAO E UM PORTAO.
+      #
+      # Medido: `grep -rl <nome> .github/workflows/ motor/` devolvia vazio
+      # para as quatro. Nao eram codigo morto — eram GATES DESLIGADOS, que e
+      # outra coisa e mais perigosa: parecem cobertura e nao cobrem nada.
+      #
+      # A prova disto e o que se encontrou ao liga-las: `fluxo_no_seco`
+      # estava VERMELHA, com dois defeitos reais e antigos la dentro.
+      - name: 4k · a lingua e a mesma no contrato, no storage e no scanner
+        run: python3 provas/paridade_da_lingua.py
+
+      - name: 4l · a telemetria distingue NAO CORREU de FALHOU, e a conta fecha
+        run: python3 provas/fluxo_no_seco.py
+
+      - name: 4m · as trinta armadilhas do caminho do PDF continuam vazias
+        run: python3 provas/testa_golden_path_pdf.py
+
+      - name: 4n · o mapa nao diz que nao existe o que existe
+        run: python3 provas/o_mapa_nao_mente.py
+
+      # Sem banco: le migrations e codigo, e confronta cada `on conflict` com
+      # a chave unica que o sustenta. Corre tambem em `banco-descartavel.yml`,
+      # que so acorda por caminho; aqui acorda em todo o push.
+      - name: 4o · toda clausula `on conflict` tem chave que a sustente
+        run: python3 provas/o_dedupe_tem_constraint.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         run: |
           set -e

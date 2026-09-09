@@ -34,6 +34,14 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, RAIZ)
 import _gavetas  # noqa: E402,F401
 import telemetria as t  # noqa: E402
+import diagnostico as dg  # noqa: E402
+import falhas as falhas_lei  # noqa: E402
+
+# O estado do ITEM, lido do dono — e nao escrito a mao aqui. Se `falhas.py`
+# deixar de o declarar, esta prova rebenta em vez de mentir.
+ESTADO_DO_ITEM = 'EXECUTOR_UNAVAILABLE'
+assert ESTADO_DO_ITEM in falhas_lei.ESTADOS, (
+    'leis/falhas.py deixou de declarar %s' % ESTADO_DO_ITEM)
 
 # A cadeia que qualquer estrada percorre. A do meio vai falhar de proposito.
 ETAPAS = ('DISCOVER', 'FETCH', 'RAW', 'DERIVED', 'STRUCTURED', 'ADMISSION')
@@ -47,10 +55,20 @@ def _etapa(nome, estado, entrada=0, **kw):
         'INPUT_GRAIN': kw.get('gi', 'documento'),
         'OUTPUT_GRAIN': kw.get('go', 'documento'),
         'INPUT_COUNT': entrada, 'OUTPUT_COUNT': kw.get('saida', 0),
+        # ⚠️ `ERROR`, E NAO `ERRORS`. O balde chama-se `ERROR` no contrato —
+        # `telemetria.DESTINOS_DO_ITEM` — e e assim que o runtime a serio o
+        # escreve (`medidas/rastro_da_coleta.py:210`). Esta prova inventava o
+        # plural, e por isso a propria reconciliacao dela nao fechava: o
+        # `reconcilia()` somava um balde que nao existia e sobravam 4 itens.
+        # Um sinonimo sem dono nao e um detalhe de escrita: e uma conta errada.
         'PASSED': kw.get('passou', 0), 'REJECTED': kw.get('rejeitado', 0),
-        'ERRORS': kw.get('erros', 0), 'NOT_RUN': kw.get('nao_correu', 0),
+        'ERROR': kw.get('erros', 0), 'NOT_RUN': kw.get('nao_correu', 0),
         'UNKNOWN': kw.get('desconhecido', 0), 'DEDUPED': kw.get('repetido', 0),
         'DIAGNOSTIC_CODE': kw.get('codigo'),
+        # O estado canonico do ITEM, de `leis/falhas.py`. Campo separado de
+        # proposito: a `024` tambem os separa (`diagnostic_code` e
+        # `canonical_state`), porque respondem a perguntas diferentes.
+        'CANONICAL_STATE': kw.get('estado_do_item'),
         'DURATION_MS': kw.get('ms', 0),
     }
     _fecha, sobra = t.reconcilia(linha)
@@ -72,8 +90,26 @@ def corrida_que_falha_no_meio():
             continue
         if nome == ONDE_FALHA:
             # 6 passaram antes de a ferramenta faltar; 4 ficaram por processar.
+            #
+            # ⚠️ DUAS PERGUNTAS, DOIS NOMES — e esta prova punha um so.
+            # Ela escrevia `EXECUTOR_UNAVAILABLE` no `DIAGNOSTIC_CODE`, e
+            # `EXECUTOR_UNAVAILABLE` nao e um codigo de diagnostico: e um
+            # ESTADO DE FALHA DO ITEM, de `leis/falhas.py:216` («a nossa
+            # ferramenta nao esta la... Nada foi medido sobre a fonte»).
+            #
+            #     O ESTADO E DO ITEM. O DIAGNOSTICO E DA ETAPA.
+            #
+            # `provas/paridade_da_lingua.py:101` guarda essa fronteira e
+            # recusa qualquer nome que sirva as duas perguntas. Ninguem
+            # corria esta prova, e por isso a confusao vivia aqui a vontade
+            # — o proprio caso «a falha traz codigo declarado» reprovava.
+            #
+            # Os dois nomes passam a conviver, cada um no seu campo, que e
+            # exactamente o que a `024` desenha: `diagnostic_code` para a
+            # etapa e `canonical_state` para o item.
             etapas.append(_etapa(nome, 'FAIL', entrada, saida=6, passou=6,
-                                 erros=4, codigo='EXECUTOR_UNAVAILABLE',
+                                 erros=4, codigo=dg.RAW_PERSISTENCE_FAILED,
+                                 estado_do_item=ESTADO_DO_ITEM,
                                  ms=120))
             ja_falhou = True
             continue
@@ -83,7 +119,8 @@ def corrida_que_falha_no_meio():
 
     retrato = {
         'RUN_ID': 'DRY-RUN-1', 'STAGE': ONDE_FALHA,
-        'DIAGNOSTIC_CODE': 'EXECUTOR_UNAVAILABLE',
+        'DIAGNOSTIC_CODE': dg.RAW_PERSISTENCE_FAILED,
+        'CANONICAL_STATE': 'EXECUTOR_UNAVAILABLE',
         'O_QUE_ESTAVA_A_MAO': {'ferramenta': 'pdftotext', 'encontrada': False,
                                'itens_por_processar': 4},
         'PORQUE_ISTO_SE_GUARDA': ('sem o retrato, o diagnostico e uma palavra. '
@@ -119,7 +156,7 @@ def main():
     for e in etapas:
         print('  %-11s %-9s %5s %5s %5s %5s  %s'
               % (e['STAGE'], e['STAGE_STATE'], e['INPUT_COUNT'], e['PASSED'],
-                 e['ERRORS'], e['NOT_RUN'], e['DIAGNOSTIC_CODE'] or ''))
+                 e['ERROR'], e['NOT_RUN'], e['DIAGNOSTIC_CODE'] or ''))
     print('')
 
     checks = []
@@ -138,7 +175,7 @@ def main():
     checks.append(('a jusante e NOT_RUN, e NAO FAIL',
                    all(e['STAGE_STATE'] == 'NOT_RUN' for e in jusante)))
     checks.append(('nenhuma etapa a jusante foi contada como erro',
-                   all(e['ERRORS'] == 0 for e in jusante)))
+                   all(e['ERROR'] == 0 for e in jusante)))
     checks.append(('ha retrato do momento da falha',
                    bool(retrato['O_QUE_ESTAVA_A_MAO'])))
     checks.append(('LAST_GOOD_STAGE aponta a ultima que passou',
