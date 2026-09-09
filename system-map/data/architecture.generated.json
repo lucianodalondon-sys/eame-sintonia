@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "700da7770aba6af19bf9db0990f30dec6b2979f7",
-    "GENERATED_AT": "2026-09-08T23:29:39+00:00"
+    "HEAD": "ef9803bbb98fcbb14cb9a31b16ef61fba23980e0",
+    "GENERATED_AT": "2026-09-08T23:49:00+00:00"
   },
   "FILES": [
     {
@@ -1143,7 +1143,7 @@
     },
     {
       "path": "coleta/derivacao_forward.py",
-      "sha": "73831375bf8f191fc5bd3e7ab2a7753f79d0a4ee",
+      "sha": "5e9cd144714a41d653aace5785ee15b91eac21f4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1297,7 +1297,7 @@
     },
     {
       "path": "coleta/rota_forward_documento.py",
-      "sha": "1eef51c78cef7a9e0d34ebd3f396a30a9487e863",
+      "sha": "4343ce48ee0559c6dd35514b9dedff389cf68a87",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7422,7 +7422,7 @@
     },
     {
       "path": "provas/a_rota_m2_atravessa.py",
-      "sha": "23ebd31d637c2c2653fae59d7c4257ccbf5180ad",
+      "sha": "4f21752d2e9410746ad562081f71e3ca79af2af0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8640,7 +8640,7 @@
     },
     {
       "path": "system-map/data/provas-de-execucao.json",
-      "sha": "feca89b2db3ef25e7d7522dc34423eccaf9ba593",
+      "sha": "23e9523843d08458f243a107055a6273c205885a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8710,7 +8710,7 @@
     },
     {
       "path": "system-map/scripts/censo_dos_executores.py",
-      "sha": "4483b1c4bb750b2750a8ab0fecd9807f8e06a98b",
+      "sha": "345fb6e5d9ffa3b6862667fa211c5c7ff089c83e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9074,14 +9074,14 @@
     },
     {
       "path": "tests/test_m2_aresta_observada.py",
-      "sha": "c78aab22a4c50029d2eb7c4183f980dd3c01b78b",
+      "sha": "97d77463c5cd017abe5f8e0c46c50cc6029d61a8",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "tests/test_m2_rota_forward.py",
-      "sha": "87f4c07e2c8ffb79b175216952836a0e7918f711",
+      "sha": "7d50cd755b591cd1914ad10fd637365d6bbeafc0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11431,12 +11431,23 @@
     },
     {
       "from_file": "coleta/rota_forward_documento.py",
+      "to_file": "coleta/derivacao_forward.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/rota_forward_documento.py",
+        "line": 51,
+        "snippet": "import derivacao_forward as deriv     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/rota_forward_documento.py",
       "to_file": "coleta/social_persistencia.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "coleta/rota_forward_documento.py",
-        "line": 54,
+        "line": 55,
         "snippet": "import social_persistencia as sp     # noqa: E402"
       }
     },
@@ -11447,7 +11458,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/rota_forward_documento.py",
-        "line": 51,
+        "line": 52,
         "snippet": "import diagnostico as dg             # noqa: E402"
       }
     },
@@ -11458,7 +11469,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/rota_forward_documento.py",
-        "line": 52,
+        "line": 53,
         "snippet": "import falhas                        # noqa: E402"
       }
     },
@@ -11469,7 +11480,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/rota_forward_documento.py",
-        "line": 53,
+        "line": 54,
         "snippet": "import rastro_da_coleta as rastro    # noqa: E402"
       }
     },
@@ -23833,7 +23844,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 165,
+        "line": 166,
         "snippet": "open(CATALOGO, 'leitura')  # CATALOGO = candidatas/ITALY-SOURCE-MASTER-V1.json"
       }
     },
@@ -23877,7 +23888,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 121,
+        "line": 122,
         "snippet": "== \"coleta/executor_texto_de_pdf.py\"]"
       }
     },
@@ -23894,12 +23905,23 @@
     },
     {
       "from_file": "provas/a_rota_m2_atravessa.py",
-      "to_file": "leis/telemetria.py",
+      "to_file": "coleta/social_persistencia.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
         "line": 72,
+        "snippet": "import social_persistencia as sp          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_rota_m2_atravessa.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_rota_m2_atravessa.py",
+        "line": 73,
         "snippet": "import telemetria as tel                 # noqa: E402"
       }
     },
@@ -23932,7 +23954,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 117,
+        "line": 118,
         "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
       }
     },
@@ -26011,7 +26033,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_dos_executores.py",
-        "line": 508,
+        "line": 527,
         "snippet": "'provas/a_rota_m2_atravessa.py',"
       }
     },
@@ -26022,7 +26044,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_dos_executores.py",
-        "line": 432,
+        "line": 453,
         "snippet": "[sys.executable, os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
       }
     },
@@ -28827,7 +28849,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_aresta_observada.py",
-        "line": 127,
+        "line": 134,
         "snippet": "\"PROVA\": \"provas/a_rota_m2_atravessa.py\"}"
       }
     },
@@ -28838,7 +28860,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_aresta_observada.py",
-        "line": 178,
+        "line": 197,
         "snippet": "open(LEDGER, 'leitura')  # LEDGER = system-map/data/provas-de-execucao.json"
       }
     },
@@ -28849,7 +28871,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 16,
+        "line": 17,
         "snippet": "import _gavetas                       # noqa: E402,F401"
       }
     },
@@ -28860,7 +28882,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 17,
+        "line": 18,
         "snippet": "import admissao                       # noqa: E402"
       }
     },
@@ -28871,8 +28893,30 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 18,
+        "line": 19,
         "snippet": "import coleta_checkpoint as cc        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "coleta/derivacao_forward.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 399,
+        "snippet": "import derivacao_forward as fwd"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 25,
+        "snippet": "import executor_texto_de_pdf as ex    # noqa: E402"
       }
     },
     {
@@ -28882,7 +28926,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 22,
+        "line": 23,
         "snippet": "import rota_forward_documento as m2   # noqa: E402"
       }
     },
@@ -28893,8 +28937,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 332,
-        "snippet": "'rota_forward_documento.py'),"
+        "line": 618,
+        "snippet": "r = led['PROVADOS']['coleta/rota_forward_documento.py']"
       }
     },
     {
@@ -28904,7 +28948,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 23,
+        "line": 24,
         "snippet": "import social_persistencia as sp      # noqa: E402"
       }
     },
@@ -28915,7 +28959,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 19,
+        "line": 20,
         "snippet": "import diagnostico as dg              # noqa: E402"
       }
     },
@@ -28926,7 +28970,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 20,
+        "line": 21,
         "snippet": "import falhas                         # noqa: E402"
       }
     },
@@ -28937,8 +28981,30 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 21,
+        "line": 22,
         "snippet": "import rastro_da_coleta as rastro     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 31,
+        "snippet": "'prova_pg', os.path.join(RAIZ, 'provas', 'preservar_coleta_no_postgres.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "system-map/data/provas-de-execucao.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 616,
+        "snippet": "'provas-de-execucao.json'),"
       }
     },
     {
@@ -32115,7 +32181,7 @@
     "system-map/scripts/censo_dos_executores.py": [
       {
         "pasta": "system-map",
-        "line": 572,
+        "line": 601,
         "constante": "destino"
       }
     ],
@@ -32138,7 +32204,7 @@
     "files_tracked": 1336,
     "files_readable": 493,
     "files_code_dir": 545,
-    "file_edges": 2028,
+    "file_edges": 2034,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "700da7770aba6af19bf9db0990f30dec6b2979f7",
+  "HEAD": "ef9803bbb98fcbb14cb9a31b16ef61fba23980e0",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -129,26 +129,6 @@
   "M2_ROUTE": {
    "M2_ROUTE_OBSERVABILITY_READY": "YES",
    "O_QUE_MEDE": "se a rota que a M2 vai construir — DERIVED -> STRUCTURED -> ADMISSION — ja emite telemetria.",
-   "ROTA_MEDIDA": {
-    "SOURCE_ID": "IT-T2-002",
-    "ROUTE_CLASS_ID": "RC-1",
-    "ETAPAS_OBSERVADAS": [
-     "ADMISSION",
-     "DERIVED",
-     "STRUCTURED"
-    ],
-    "ARESTAS_OBSERVADAS": [
-     [
-      "DERIVED",
-      "STRUCTURED"
-     ],
-     [
-      "STRUCTURED",
-      "ADMISSION"
-     ]
-    ],
-    "PROVA": "provas/a_rota_m2_atravessa.py"
-   },
    "ROTAS_FORWARD_CONHECIDAS": [
     {
      "CAMINHO": "coleta/executor_texto_de_pdf.py",
@@ -159,6 +139,8 @@
       "DERIVED"
      ],
      "ARESTAS_OBSERVADAS": [],
+     "END_TO_END": false,
+     "RUN_UNICO": null,
      "PROVA": "provas/o_forward_conta_se.py",
      "PROVA_DA_ROTA_NUMA_CORRIDA_SO": null
     },
@@ -182,6 +164,8 @@
        "ADMISSION"
       ]
      ],
+     "END_TO_END": true,
+     "RUN_UNICO": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
      "PROVA": "tests/test_m2_rota_forward.py",
      "PROVA_DA_ROTA_NUMA_CORRIDA_SO": "provas/a_rota_m2_atravessa.py"
     }
@@ -191,7 +175,30 @@
    "ARESTAS_DA_ROTA_M2_NUNCA_OBSERVADAS": [],
    "A_LEI_DA_ARESTA": "DECLARED EDGE != OBSERVED EDGE",
    "ONDE_A_ARESTA_E_MEDIDA": "medidas/rastro_da_coleta.o_que_a_rota_observou() · provas/a_rota_m2_atravessa.py",
+   "ROTA_MEDIDA": {
+    "SOURCE_ID": "IT-T2-002",
+    "END_TO_END": true,
+    "RUN_UNICO": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
+    "ROUTE_CLASS_ID": "RC-1",
+    "ETAPAS_OBSERVADAS": [
+     "ADMISSION",
+     "DERIVED",
+     "STRUCTURED"
+    ],
+    "ARESTAS_OBSERVADAS": [
+     [
+      "DERIVED",
+      "STRUCTURED"
+     ],
+     [
+      "STRUCTURED",
+      "ADMISSION"
+     ]
+    ],
+    "PROVA": "provas/a_rota_m2_atravessa.py"
+   },
    "PORQUE_NAO": null,
+   "FALTA_E2E": false,
    "O_PORTAO_CORRETO": "nao e «observar a rota antes de ela existir» — e «a rota nasce instrumentada». O instrumento esta provado e disponivel; a M2 pode CONSTRUIR, e nao pode FECHAR sem a rota emitir.",
    "M2_CONSTRUCTION_CAN_BEGIN": "YES",
    "M2_CANNOT_CLOSE_UNTIL_INSTRUMENTED": true,
@@ -443,7 +450,7 @@
   {
    "EXECUTOR_ID": "coleta/derivacao_forward.py",
    "GAVETA": "coleta",
-   "LINHAS": 301,
+   "LINHAS": 315,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -849,7 +856,7 @@
   {
    "EXECUTOR_ID": "coleta/rota_forward_documento.py",
    "GAVETA": "coleta",
-   "LINHAS": 264,
+   "LINHAS": 355,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",

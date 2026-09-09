@@ -377,6 +377,9 @@ def medir_tudo():
             # solto, que e apenas a intencao de quem escreveu a linha.
             'ARESTAS_OBSERVADAS': [tuple(a) for a in
                                    (f.get('ARESTAS_OBSERVADAS') or [])],
+            # E a declaracao de que tudo isso foi UMA execucao encadeada.
+            'END_TO_END': bool(f.get('END_TO_END')),
+            'RUN_UNICO': f.get('RUN_UNICO'),
             'PROVA': f.get('PROVA'),
             'PROVA_DA_ROTA_NUMA_CORRIDA_SO':
                 f.get('PROVA_DA_ROTA_NUMA_CORRIDA_SO'),
@@ -387,10 +390,23 @@ def medir_tudo():
                   if r['ROUTE_CLASS_ID'] == ROTA_M2_CLASS]
     # Uma rota SO fecha o portao se ELA PROPRIA observar as duas etapas.
     # `any` sobre rotas, `all` sobre etapas — nunca o contrario.
+    # ⚠️ TRES EXIGENCIAS, E ELAS NAO SE SUBSTITUEM.
+    # Duas sessoes chegaram a este portao ao mesmo tempo e cada uma trouxe
+    # metade da trava. Guardam-se as duas, porque medem coisas diferentes:
+    #
+    #   ETAPAS      as tres correram nesta rota
+    #   ARESTAS     e foram PERCORRIDAS, nao so desenhadas —
+    #               UMA SETA DESENHADA NAO E UM CAMINHO PERCORRIDO
+    #   END_TO_END  e tudo isso numa UNICA execucao encadeada —
+    #               SAME ROUTE CLASS != SAME EXECUTION FLOW, e
+    #               TWO COMPATIBLE PROOFS != ONE END-TO-END EXECUTION
+    #
+    # `any` sobre rotas, `all` sobre etapas e arestas — nunca o contrario.
     arestas_m2 = (('DERIVED', 'STRUCTURED'), ('STRUCTURED', 'ADMISSION'))
     rota_completa = next(
         (r for r in candidatas
-         if all(e in r['ETAPAS_OBSERVADAS'] for e in rota_m2)
+         if r.get('END_TO_END')
+         and all(e in r['ETAPAS_OBSERVADAS'] for e in rota_m2)
          and all(a in r['ARESTAS_OBSERVADAS'] for a in arestas_m2)), None)
     # A ORDEM E A DA ROTA, e nao alfabetica: DERIVED -> STRUCTURED ->
     # ADMISSION e uma sequencia, e ler «ADMISSION, STRUCTURED» inverte o
@@ -406,6 +422,11 @@ def medir_tudo():
     faltam = [] if rota_completa else [e for e in rota_m2 if e not in vistas]
     arestas_faltam = ([] if rota_completa else
                       [list(a) for a in arestas_m2 if a not in vistas_arestas])
+    # ⚠️ «NAO FALTA NENHUMA ETAPA» E «AS ETAPAS ESTAO NA MESMA VIAGEM» SAO
+    # DUAS COISAS. Sem esta distincao o relato dizia NO com `faltam=[]`, e um
+    # portao que reprova sem dizer porque e um portao que ninguem consegue
+    # discutir.
+    composta = (not rota_completa) and not faltam and not arestas_faltam
 
     # ── E UMA TERCEIRA PERGUNTA, QUE TAMBEM ESTAVA ESCONDIDA NAS OUTRAS ──
     #
@@ -487,8 +508,6 @@ def medir_tudo():
         'M2_ROUTE_OBSERVABILITY_READY': ('YES' if rota_completa else 'NO'),
         'O_QUE_MEDE': ('se a rota que a M2 vai construir — DERIVED -> '
                        'STRUCTURED -> ADMISSION — ja emite telemetria.'),
-        'ROTA_MEDIDA': (rota_completa or
-                        (candidatas[0] if candidatas else None)),
         'ROTAS_FORWARD_CONHECIDAS': rotas_forward,
         'PORQUE_NAO_A_UNIAO_GLOBAL': (
             'GLOBAL STAGE OBSERVATION != TARGET ROUTE OBSERVATION. Duas rotas '
@@ -506,7 +525,13 @@ def medir_tudo():
         'ONDE_A_ARESTA_E_MEDIDA':
             'medidas/rastro_da_coleta.o_que_a_rota_observou() · '
             'provas/a_rota_m2_atravessa.py',
+        # ⚠️ A PROJECAO MOSTRA O QUE O PORTAO CONSUMIU, e nao menos.
+        # Ela omitia `END_TO_END` e `RUN_UNICO`: o artefato dizia YES e nao
+        # deixava ver por que exigencias ele passou. Um veredito que esconde o
+        # seu criterio nao se consegue discutir.
         'ROTA_MEDIDA': ({'SOURCE_ID': (melhor or {}).get('SOURCE_ID'),
+                         'END_TO_END': (melhor or {}).get('END_TO_END'),
+                         'RUN_UNICO': (melhor or {}).get('RUN_UNICO'),
                          'ROUTE_CLASS_ID': (melhor or {}).get('ROUTE_CLASS_ID'),
                          'ETAPAS_OBSERVADAS': sorted(vistas),
                          'ARESTAS_OBSERVADAS': sorted(vistas_arestas),
@@ -515,10 +540,14 @@ def medir_tudo():
                          or (melhor or {}).get('PROVA')}
                         if melhor else None),
         'PORQUE_NAO': (
-            'STRUCTURED e ADMISSION nunca correram em caminho nenhum, e nao '
-            'correram porque a rota AINDA NAO EXISTE — e a M2 que a vai '
-            'construir. Exigir que ela emita antes de nascer nao e um portao, '
-            'e um impossivel.') if faltam else None,
+            ('as etapas %s nunca correram nesta rota.' % ', '.join(faltam))
+            if faltam else
+            ('as tres etapas aparecem, mas NAO numa unica execucao encadeada. '
+             'SAME ROUTE CLASS != SAME EXECUTION FLOW, e TWO COMPATIBLE PROOFS '
+             '!= ONE END-TO-END EXECUTION. Falta uma prova que atravesse as '
+             'tres no mesmo run, com a saida de cada etapa a alimentar a '
+             'seguinte.') if composta else None),
+        'FALTA_E2E': composta,
         'O_PORTAO_CORRETO': (
             'nao e «observar a rota antes de ela existir» — e «a rota nasce '
             'instrumentada». O instrumento esta provado e disponivel; a M2 '

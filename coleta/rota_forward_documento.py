@@ -48,6 +48,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, RAIZ)
 import _gavetas                      # noqa: E402,F401
 import admissao                      # noqa: E402
+import derivacao_forward as deriv     # noqa: E402
 import diagnostico as dg             # noqa: E402
 import falhas                        # noqa: E402
 import rastro_da_coleta as rastro    # noqa: E402
@@ -224,31 +225,121 @@ def admitir(banco, *, unidade, run_id, conteudo_id, universo=UNIVERSO_PADRAO,
     return decisao
 
 
-def atravessar(banco, *, unidade, run_id, canal_id, universo=UNIVERSO_PADRAO):
-    """A rota inteira: DERIVED (ja emitido) → STRUCTURED → ADMISSION.
+def derivar(banco, *, unidade, run_id, armazem, memoria, tentativa=None):
+    """DERIVED — chamado de verdade, e nao declarado como ja feito.
+
+        PRELOADED DERIVED CONTENT != DERIVATION EXECUTED IN THIS FLOW.
+
+    Ate a M2R esta rota comecava de um objeto que ja trazia `TEXTO`. Isso
+    provava STRUCTURED e ADMISSION, e emprestava o DERIVED de OUTRA prova —
+    a de O9R — porque as duas partilhavam `SOURCE_ID` e `ROUTE_CLASS_ID`.
+
+        SAME ROUTE CLASS != SAME EXECUTION FLOW.
+        TWO COMPATIBLE PROOFS != ONE END-TO-END EXECUTION.
+
+    Agora a derivacao acontece AQUI, no mesmo `run_id`, e o que ela produz e o
+    que segue para a frente. `REUSED` continua a valer — reencontrar por
+    idempotencia e um resultado legitimo — porque REUSED != NOT_RUN: a
+    derivacao foi chamada, e a passagem DERIVED existe nesta execucao.
+    """
+    # ⚠️ A TENTATIVA E MEDIDA, COMO NAS OUTRAS DUAS ETAPAS.
+    # Ela estava fixa em 0 aqui e medida em `estruturar` e `admitir`. Uma
+    # segunda passagem pela mesma corrida colidia na chave
+    # (run_id, etapa, tentativa) — e a linha da segunda derivacao perdia-se.
+    tentativa = _tentativa(banco, run_id, 'DERIVED') if tentativa is None \
+        else tentativa
+    return deriv.correr(
+        [{'RAW_ASSET_ID': unidade['RAW_ASSET_ID'], 'PDF': unidade['PDF']}],
+        banco_do_rastro=banco, run_id=run_id, armazem=armazem, memoria=memoria,
+        source_id=unidade.get('SOURCE_ID'),
+        route_class_id=unidade.get('ROUTE_CLASS_ID'),
+        tentativa=tentativa)
+
+
+def _texto_derivado(recibo_deriv, armazem):
+    """O TEXTO que a derivacao acabou de produzir, lido do armazem.
+
+    ⚠️ ESTA E A DEPENDENCIA REAL, e nao um rotulo `edge_from`.
+
+        EDGE LABEL != DATA DEPENDENCY.
+
+    O `storage_path` vem da linha que o dono do derivado escreveu e releu campo
+    a campo. Ler os bytes por esse caminho e o que faz de STRUCTURED um
+    consumidor do DERIVED desta execucao — se a derivacao nao tiver produzido
+    nada, nao ha o que ler, e a cadeia para aqui em vez de continuar com um
+    texto que veio de outro sitio.
+    """
+    bons = [r for r in (recibo_deriv.get('RESULTADOS') or [])
+            if r.get('PORTA') in ('PASSED', 'REUSED')]
+    if not bons:
+        return None, None
+    caminho = bons[0].get('STORAGE_PATH')
+    if not caminho:
+        return None, None
+    guardado = armazem.objetos.get(caminho) if hasattr(armazem, 'objetos') \
+        else None
+    if guardado is None:
+        return None, caminho
+    dados = guardado[0] if isinstance(guardado, tuple) else guardado
+    return dados.decode('utf-8', errors='replace'), caminho
+
+
+def atravessar(banco, *, unidade, run_id, armazem, memoria, canal_id,
+               universo=UNIVERSO_PADRAO):
+    """A rota inteira, NUMA execucao: DERIVED → STRUCTURED → ADMISSION.
 
     ⚠️ SE STRUCTURED NAO PASSAR, ADMISSION NAO CORRE — E ISSO NAO E UM ERRO
     DELA. Ela sai `NOT_RUN`, porque nunca comecou. Marca-la FAIL faria UM
     defeito parecer DOIS, e mandaria procurar avaria onde nao ha nenhuma.
 
         NOT_RUN != ERROR.
+
+    E se a DERIVACAO nao produzir, a cadeia para em DERIVED: nem STRUCTURED nem
+    ADMISSION aparecem. Uma cadeia que continua depois de a primeira etapa nao
+    entregar estaria a inventar o que atravessou.
     """
-    recibo = estruturar(banco, unidade=unidade, run_id=run_id,
-                        canal_id=canal_id)
-    if recibo.get('STATE') not in ('OK', sp.REOBSERVADO):
+    recibo_d = derivar(banco, unidade=unidade, run_id=run_id,
+                       armazem=armazem, memoria=memoria)
+    texto, caminho = _texto_derivado(recibo_d, armazem)
+    if not texto:
+        # A cadeia diz a verdade sobre onde parou. Nao se forca STRUCTURED a
+        # aparecer para o diagrama ficar bonito.
+        return {'DERIVED': recibo_d, 'STRUCTURED': None, 'ADMISSION': None,
+                'PORQUE_PAROU': ('a derivacao nao entregou artefato nesta '
+                                 'execucao; nao ha texto para estruturar')}
+
+    # ⚠️ A UNIDADE QUE SEGUE E A QUE SAIU DA DERIVACAO, e nao a que entrou.
+    # O texto vem do armazem, pelo `storage_path` da linha do derivado; a
+    # identidade do conteudo e o sha do artefato derivado, e nao um nome
+    # escolhido pelo chamador.
+    bons = [r for r in (recibo_d.get('RESULTADOS') or [])
+            if r.get('PORTA') in ('PASSED', 'REUSED')]
+    linha = (bons[0].get('LINHA') or {}) if bons else {}
+    a_frente = dict(unidade)
+    a_frente['TEXTO'] = texto
+    a_frente['DERIVED_STORAGE_PATH'] = caminho
+    a_frente['DERIVED_SHA256'] = linha.get('sha256')
+    a_frente['CONTENT_ID'] = (linha.get('sha256') or unidade.get('CONTENT_ID'))
+
+    recibo_s = estruturar(banco, unidade=a_frente, run_id=run_id,
+                          canal_id=canal_id)
+    if recibo_s.get('STATE') not in ('OK', sp.REOBSERVADO):
         rastro.registrar(
             banco, etapa='ADMISSION', edge_from='STRUCTURED', estado='NOT_RUN',
             tentativa=_tentativa(banco, run_id, 'ADMISSION'),
             input_grain=GRAO_REGISTO, input_count=1, not_run=1,
             diagnostic_code=dg.UPSTREAM_NOT_RUN,
             last_good_artifact='DERIVED',
-            **dict(_identidade(unidade), run_id=run_id, actor='admissao',
+            **dict(_identidade(a_frente), run_id=run_id, actor='admissao',
                    actor_version=admissao.VERSAO_DA_REGRA,
                    policy_version=POLICY_VERSION))
-        return {'STRUCTURED': recibo, 'ADMISSION': None}
-    decisao = admitir(banco, unidade=unidade, run_id=run_id,
-                      conteudo_id=recibo.get('CONTEUDO_ID'), universo=universo)
-    return {'STRUCTURED': recibo, 'ADMISSION': decisao}
+        return {'DERIVED': recibo_d, 'STRUCTURED': recibo_s, 'ADMISSION': None}
+
+    decisao = admitir(banco, unidade=a_frente, run_id=run_id,
+                      conteudo_id=recibo_s.get('CONTEUDO_ID'),
+                      universo=universo)
+    return {'DERIVED': recibo_d, 'STRUCTURED': recibo_s, 'ADMISSION': decisao,
+            'TEXTO_VEIO_DE': caminho}
 
 
 def main():

@@ -1782,8 +1782,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "700da7770aba6af19bf9db0990f30dec6b2979f7",
-    "GENERATED_AT": "2026-09-08T23:29:39+00:00"
+    "HEAD": "ef9803bbb98fcbb14cb9a31b16ef61fba23980e0",
+    "GENERATED_AT": "2026-09-08T23:49:00+00:00"
   },
   "FAMILIES": [
     {
@@ -6224,7 +6224,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_dos_executores.py",
-            "line": 572,
+            "line": 601,
             "snippet": "escreve em destino"
           }
         }
@@ -7472,6 +7472,7 @@
       "outbound": [
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-ROTA-M2",
         "C-TESTES"
       ],
       "paises": {},
@@ -11264,7 +11265,8 @@
         "C-IT-CATALOGO",
         "C-PROVA-COLETA",
         "C-RASTRO",
-        "C-ROTA-M2"
+        "C-ROTA-M2",
+        "C-SCRAP-SOCIAL"
       ],
       "outbound": [
         "C-CENSO-EXECUTORES",
@@ -11964,6 +11966,7 @@
       "produces": [],
       "inbound": [
         "C-ADMISSAO",
+        "C-DERIVACAO-FORWARD",
         "C-GESTAO-COLETA",
         "C-RASTRO",
         "C-SCRAP-LEIS",
@@ -12356,6 +12359,7 @@
       ],
       "outbound": [
         "C-CI-PERSIST",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
         "C-TESTES"
       ],
@@ -13939,11 +13943,11 @@
           "SINAL_VENETO",
           "_GAVETA_DE"
         ],
-        "palavras": 367,
+        "palavras": 370,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 365,
+        "sem_marca_de_lingua": 368,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15538,7 +15542,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD 700da7770aba6af19bf9db0990f30dec6b2979f7"
+        "HEAD ef9803bbb98fcbb14cb9a31b16ef61fba23980e0"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -15973,7 +15977,7 @@
       "evidence": [
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 17,
+          "line": 18,
           "snippet": "import admissao                       # noqa: E402"
         },
         {
@@ -17786,7 +17790,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo dos executores — caminhos, papeis e cobertura alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Censo dos executores — caminhos, papeis e cobertura alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
@@ -17795,8 +17799,13 @@
         },
         {
           "file": "tests/test_m2_aresta_observada.py",
-          "line": 178,
+          "line": 197,
           "snippet": "open(LEDGER, 'leitura')  # LEDGER = system-map/data/provas-de-execucao.json"
+        },
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 616,
+          "snippet": "'provas-de-execucao.json'),"
         },
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
@@ -18784,7 +18793,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 18,
+          "line": 19,
           "snippet": "import coleta_checkpoint as cc        # noqa: E402"
         },
         {
@@ -19226,7 +19235,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 72,
+          "line": 73,
           "snippet": "import telemetria as tel                 # noqa: E402"
         }
       ],
@@ -19577,18 +19586,41 @@
     },
     {
       "from": "C-DERIVACAO-FORWARD",
+      "to": "C-ROTA-M2",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira forward da derivação tem o seu codigo importado por A rota forward do documento (M2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/rota_forward_documento.py",
+          "line": 51,
+          "snippet": "import derivacao_forward as deriv     # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DERIVACAO-FORWARD",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fronteira forward da derivação tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A fronteira forward da derivação tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
           "line": 29,
           "snippet": "import derivacao_forward as fwd         # noqa: E402"
+        },
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 399,
+          "snippet": "import derivacao_forward as fwd"
         }
       ],
       "categoria": "PROOF"
@@ -19876,7 +19908,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 117,
+          "line": 118,
           "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
         }
       ],
@@ -20247,7 +20279,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 121,
+          "line": 122,
           "snippet": "== \"coleta/executor_texto_de_pdf.py\"]"
         }
       ],
@@ -20261,8 +20293,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 25,
+          "snippet": "import executor_texto_de_pdf as ex    # noqa: E402"
+        },
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
           "line": 337,
@@ -20629,7 +20666,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 51,
+          "line": 52,
           "snippet": "import diagnostico as dg             # noqa: E402"
         }
       ],
@@ -20657,7 +20694,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 19,
+          "line": 20,
           "snippet": "import diagnostico as dg              # noqa: E402"
         },
         {
@@ -21126,7 +21163,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 165,
+          "line": 166,
           "snippet": "open(CATALOGO, 'leitura')  # CATALOGO = candidatas/ITALY-SOURCE-MASTER-V1.json"
         }
       ],
@@ -23674,7 +23711,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_dos_executores.py",
-          "line": 432,
+          "line": 453,
           "snippet": "[sys.executable, os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
         }
       ],
@@ -23785,7 +23822,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_execucao_standalone.py",
@@ -23796,6 +23833,11 @@
           "file": "tests/test_lingua_unica.py",
           "line": 244,
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
+        },
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 31,
+          "snippet": "'prova_pg', os.path.join(RAIZ, 'provas', 'preservar_coleta_no_postgres.py'))"
         },
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
@@ -23945,7 +23987,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_dos_executores.py",
-          "line": 508,
+          "line": 527,
           "snippet": "'provas/a_rota_m2_atravessa.py',"
         }
       ],
@@ -23963,7 +24005,7 @@
       "evidence": [
         {
           "file": "tests/test_m2_aresta_observada.py",
-          "line": 127,
+          "line": 134,
           "snippet": "\"PROVA\": \"provas/a_rota_m2_atravessa.py\"}"
         }
       ],
@@ -24143,7 +24185,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 53,
+          "line": 54,
           "snippet": "import rastro_da_coleta as rastro    # noqa: E402"
         }
       ],
@@ -24176,7 +24218,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 21,
+          "line": 22,
           "snippet": "import rastro_da_coleta as rastro     # noqa: E402"
         },
         {
@@ -24509,7 +24551,7 @@
       "evidence": [
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 22,
+          "line": 23,
           "snippet": "import rota_forward_documento as m2   # noqa: E402"
         }
       ],
@@ -24532,8 +24574,8 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 332,
-          "snippet": "'rota_forward_documento.py'),"
+          "line": 618,
+          "snippet": "r = led['PROVADOS']['coleta/rota_forward_documento.py']"
         }
       ],
       "categoria": "PROOF"
@@ -25078,7 +25120,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 52,
+          "line": 53,
           "snippet": "import falhas                        # noqa: E402"
         }
       ],
@@ -25182,7 +25224,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 20,
+          "line": 21,
           "snippet": "import falhas                         # noqa: E402"
         },
         {
@@ -25276,6 +25318,24 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP — aquisicao social tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 72,
+          "snippet": "import social_persistencia as sp          # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-ROTA-M2",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -25286,7 +25346,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 54,
+          "line": 55,
           "snippet": "import social_persistencia as sp     # noqa: E402"
         }
       ],
@@ -25309,7 +25369,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 23,
+          "line": 24,
           "snippet": "import social_persistencia as sp      # noqa: E402"
         },
         {
@@ -27484,8 +27544,8 @@
     "components_pending": 64,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 538,
-    "edges_proven": 536,
+    "edges": 540,
+    "edges_proven": 538,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1336,

@@ -124,6 +124,13 @@ class OPortaoExigeAsArestas(unittest.TestCase):
                "ETAPAS_OBSERVADAS": ["ADMISSION", "DERIVED", "STRUCTURED"],
                "ARESTAS_OBSERVADAS": [["DERIVED", "STRUCTURED"],
                                       ["STRUCTURED", "ADMISSION"]],
+               # ⚠️ E A DECLARACAO DE QUE FOI UMA VIAGEM SO.
+               # Uma segunda sessao chegou ao mesmo defeito por outro lado e
+               # trouxe `END_TO_END`: as arestas recusam a seta desenhada, e
+               # esta recusa a composicao de duas provas compativeis. As duas
+               # exigencias ficam, e por isso a fixture declara as duas.
+               "END_TO_END": True,
+               "RUN_UNICO": "RUN-M2-E2E",
                "PROVA": "provas/a_rota_m2_atravessa.py"}
 
     def _gate(self, forward):
@@ -167,6 +174,18 @@ class OPortaoExigeAsArestas(unittest.TestCase):
         r = self._gate(dict(self.ROTA_M2,
                             ARESTAS_OBSERVADAS=[["DERIVED", "STRUCTURED"]]))
         self.assertEqual("NO", r["M2_ROUTE_OBSERVABILITY_READY"])
+
+
+    def test_MUTACAO_E2E_as_arestas_sem_uma_viagem_so_nao_abrem(self):
+        """SAME ROUTE CLASS != SAME EXECUTION FLOW.
+
+        As tres etapas e as duas arestas, mas compostas de duas provas: o
+        portao continua fechado, e diz porque.
+        """
+        r = self._gate(dict(self.ROTA_M2, END_TO_END=False))
+        self.assertEqual("NO", r["M2_ROUTE_OBSERVABILITY_READY"])
+        self.assertTrue(r.get("FALTA_E2E"))
+        self.assertIn("unica execucao", r["PORQUE_NAO"])
 
     def test_o_portao_diz_de_que_rota_fala_e_aponta_a_prova(self):
         r = self._gate(self.ROTA_M2)

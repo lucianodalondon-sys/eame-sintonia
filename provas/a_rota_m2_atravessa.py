@@ -69,6 +69,7 @@ import derivacao_forward as fwd          # noqa: E402
 import executor_texto_de_pdf as ex       # noqa: E402
 import rastro_da_coleta as rastro        # noqa: E402
 import rota_forward_documento as m2      # noqa: E402
+import social_persistencia as sp          # noqa: E402
 import telemetria as tel                 # noqa: E402
 from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256  # noqa: E402
 from guarda import preservar_derivado as pd   # noqa: E402
@@ -309,8 +310,21 @@ def main():
                "DERIVED_ARTIFACT_ID": filho["id"],
                "PARENT_SHA256": filho["parent_sha256"]}
 
-    r_m2 = m2.atravessar(sql, unidade=unidade, run_id=RUN, canal_id=canal_id)
-    dec = r_m2.get("ADMISSION")
+    # ⚠️ AQUI NAO SE CHAMA `atravessar()`, E A RAZAO E BOA.
+    # Desde a M2R, `m2.atravessar()` faz a cadeia INTEIRA — deriva, estrutura e
+    # admite. Esta prova ja derivou acima, de proposito, para poder conferir o
+    # `derived_artifact` campo a campo antes de o texto seguir. Chamar
+    # `atravessar()` agora derivaria uma SEGUNDA vez na mesma corrida.
+    #
+    # Entao chamam-se as duas etapas que faltam, que sao funcoes publicas do
+    # mesmo dono. A cadeia continua a ser uma so: mesmo `RUN`, mesmo texto
+    # vindo do armazem, mesma unidade.
+    r_s = m2.estruturar(sql, unidade=unidade, run_id=RUN, canal_id=canal_id)
+    dec = None
+    if (r_s or {}).get("STATE") in ("OK", sp.REOBSERVADO):
+        dec = m2.admitir(sql, unidade=unidade, run_id=RUN,
+                         conteudo_id=r_s.get("CONTEUDO_ID"))
+    r_m2 = {"DERIVED": r_der, "STRUCTURED": r_s, "ADMISSION": dec}
     print("  STRUCTURED  %s" % (r_m2["STRUCTURED"] or {}).get("STATE"))
     print("  ADMISSION   %s · a porta respondeu: %s"
           % ("correu" if dec else "NAO CORREU",

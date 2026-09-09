@@ -204,12 +204,26 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
                     relogio=relogio)
         porta = _porta(r)
         baldes[porta] += 1
+        # ⚠️ A LINHA DO DERIVADO SAI NO RECIBO, e nao so o veredito.
+        # Ate a M2R esta funcao calculava a linha, tirava dela o
+        # `storage_path` para o `last_good_artifact`, e DEITAVA-A FORA. Quem
+        # chamasse ficava a saber que a derivacao passou — e nao a saber O QUE
+        # ela produziu. Sem isso, a etapa seguinte tinha de arranjar o texto
+        # noutro sitio, e a aresta DERIVED -> STRUCTURED virava um rotulo.
+        #
+        #     EDGE LABEL != DATA DEPENDENCY.
+        #
+        # Nada aqui muda o que e derivado: expoe-se o que ja estava calculado.
+        linha = (r.get("LINHA_ESCRITA") or r.get("LINHA_EXISTENTE") or {}) \
+            if porta in ("PASSED", "REUSED") else {}
         resultados.append({"RAW_ASSET_ID": u["RAW_ASSET_ID"], "PDF": u["PDF"],
                            "ESTADO": r.get("ESTADO"), "PORTA": porta,
                            "PORQUE": r.get("PORQUE"),
+                           "LINHA": linha or None,
+                           "STORAGE_PATH": (linha.get("storage_path")
+                                            or r.get("STORAGE_PATH")),
                            "MOTIVO_DO_EXECUTOR": r.get("MOTIVO_DO_EXECUTOR")})
         if porta in ("PASSED", "REUSED"):
-            linha = r.get("LINHA_ESCRITA") or r.get("LINHA_EXISTENTE") or {}
             ultimo_bom = linha.get("storage_path") or ultimo_bom
         elif porta == "ERROR" and primeiro_erro is None:
             primeiro_erro = r
