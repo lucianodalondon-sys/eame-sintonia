@@ -752,6 +752,33 @@ prova("nenhum_dado_atravessa_para_a_inteligencia_depois_do_rehome",
       "mudar a arrumacao nao pode criar autorizacao que nao existia")
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# UM ARTEFATO, UM AUTOR — e o autor decidido por gente, nao por ordem alfabetica
+#
+# Tres pecas escreviam `data/samples/RUN-MANIFEST.json`, cada uma a sua maneira,
+# e duas nao passavam pelo contrato. Esta e a divida medida no proprio ficheiro:
+# das 20 corridas, DEZ sem `DATASET_ID`/`SOURCE_VERSION`/`RAW_EVIDENCE_PATH`/
+# `RAW_EVIDENCE_STATE`, e TRES com `STATUS: OK`, palavra que a lei nao aceita.
+#
+#     EXECUTAR A CORRIDA NAO E SER A AUTORIDADE SOBRE A PROCEDENCIA DELA.
+# ─────────────────────────────────────────────────────────────────────────────
+prova("a_decisao_de_dono_esta_declarada",
+      any(c["file"] == "data/samples/RUN-MANIFEST.json"
+          and c["owner"] == "C-PROCEDENCIA" for c in S.get("CANONICAL_OWNERS", [])),
+      "a escolha e de gente e vive em architecture.declared.json, nao num teste")
+prova("nenhum_dono_canonico_contornado",
+      not S.get("CANONICAL_OWNER_VIOLATIONS"),
+      f"MULTIPLE_CANONICAL_WRITERS: {S.get('CANONICAL_OWNER_VIOLATIONS')}")
+_esc_man = sorted({e["from_file"] for e in _G["FILE_EDGES"]
+                   if e["type"] == "WRITES" and e["to_file"].endswith("RUN-MANIFEST.json")})
+prova("so_a_proveniencia_escreve_o_manifesto",
+      _esc_man == ["regras/proveniencia.py"],
+      f"escrevem o RUN-MANIFEST: {_esc_man}")
+prova("a_porta_do_manifesto_existe_e_e_a_declarada",
+      "def acrescentar(" in (RAIZ / "regras" / "proveniencia.py").read_text(encoding="utf-8"),
+      "a decisao aponta para regras/proveniencia.py::acrescentar")
+
+
 print()
 if falhas:
     print(f"TESTES_SYSTEM_MAP=FAIL · {len(falhas)} reprovada(s): {', '.join(falhas)}")

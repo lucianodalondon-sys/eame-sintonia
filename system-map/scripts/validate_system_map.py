@@ -410,6 +410,18 @@ def main() -> int:
     prova("P8_UM_DONO", "nenhum ficheiro reivindicado por duas pecas",
           not conf, "; ".join(conf[:6]))
 
+    # ── P8b · o dono decidido por gente e o unico que escreve ───────────────
+    # O dono eleito por ordem alfabetica muda sozinho quando alguem renomeia uma
+    # peca. Onde ha decisao humana em `CANONICAL_OWNERS`, ela e lei — e esta
+    # prova mede se o CODIGO a respeita, e nao se o cartao a repete.
+    #
+    #     MUDAR O CARTAO NAO E MUDAR A ARQUITETURA.
+    viol = [f"{v['file']}: declarado {v['declared_owner']}, escrevem "
+            f"{', '.join(v['written_by']) or 'NINGUEM'} [{v['verdict']}]"
+            for v in S.get("CANONICAL_OWNER_VIOLATIONS", [])]
+    prova("P8_DONO_CANONICO", "so o dono declarado escreve o artefato dele",
+          not viol, "; ".join(viol[:4]))
+
     # ── P9 · anti-drift: codigo novo tem de ser declarado ────────────────────
     orfaos = S["UNCLAIMED_CODE_FILES"]
     prova("P9_CODIGO_DECLARADO", "todo ficheiro de codigo pertence a uma peca do mapa",

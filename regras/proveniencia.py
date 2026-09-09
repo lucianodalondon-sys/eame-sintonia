@@ -115,18 +115,15 @@ def resolver(run_id):
     return carregar().get(run_id)
 
 
-def gravar(runs, *, captured_at):
-    """Persiste o manifesto. `runs` é lista de dicionários já no contrato."""
-    for r in runs:
-        faltando = set(CAMPOS_RUN) - set(r)
-        if faltando:
-            raise KeyError('manifesto incompleto, faltam: %s' % sorted(faltando))
-        checar_token(r)
-        if r['STATUS'] not in STATUS_RUN:
-            raise ValueError('STATUS fora do contrato: %s' % r['STATUS'])
-        if r['RAW_EVIDENCE_STATE'] not in ESTADOS_RAW:
-            raise ValueError('RAW_EVIDENCE_STATE fora do contrato: %s' % r['RAW_EVIDENCE_STATE'])
-    corpo = {
+def _cabecalho(captured_at):
+    """As frases que o manifesto diz sobre si proprio. Um sitio so.
+
+    Estavam dentro de `gravar()`, e por isso quem escrevesse por fora ficava sem
+    elas — foi exactamente o que aconteceu com as duas pecas que apendiam o
+    recibo a mao. Uma casa com duas cabecas escreve dois ficheiros diferentes
+    com o mesmo nome.
+    """
+    return {
         'SOURCE_ID': 'RUN-MANIFEST',
         'source': 'manifesto de execuções de coleta do SINTONIA EAME',
         'SOURCE_LOCATION': 'interno — metadado de coleta',
@@ -142,14 +139,115 @@ def gravar(runs, *, captured_at):
             'É confissão, não ausência de dado — e é diferente de NÃO SEI, que é a fonte '
             'não informar.'),
         'NUNCA_GRAVAR_TOKEN': 'INPUT guarda consulta e parâmetros. Credencial, jamais.',
-        'RUNS': runs,
     }
+
+
+def gravar(runs, *, captured_at):
+    """Persiste o manifesto. `runs` é lista de dicionários já no contrato."""
+    for r in runs:
+        faltando = set(CAMPOS_RUN) - set(r)
+        if faltando:
+            raise KeyError('manifesto incompleto, faltam: %s' % sorted(faltando))
+        checar_token(r)
+        if r['STATUS'] not in STATUS_RUN:
+            raise ValueError('STATUS fora do contrato: %s' % r['STATUS'])
+        if r['RAW_EVIDENCE_STATE'] not in ESTADOS_RAW:
+            raise ValueError('RAW_EVIDENCE_STATE fora do contrato: %s' % r['RAW_EVIDENCE_STATE'])
+    corpo = dict(_cabecalho(captured_at), RUNS=runs)
     with open(MANIFESTO, 'w', encoding='utf-8') as f:
         json.dump(corpo, f, ensure_ascii=False, indent=1)
     return corpo
 
 
 # ---------------------------------------------------------------- ordem entre camadas
+# ─────────────────────────────────────────────────────────────────────────────
+# A PORTA UNICA DO MANIFESTO
+# ─────────────────────────────────────────────────────────────────────────────
+class ManifestoIlegivel(Exception):
+    """O ficheiro existe e nao se consegue ler. Nao se escreve por cima."""
+
+
+def acrescentar(recibo, *, captured_at=None):
+    """A UNICA porta por onde uma corrida entra no RUN-MANIFEST.
+
+    ⚠️ TRES PECAS ESCREVIAM AQUI, CADA UMA A SUA MANEIRA.
+
+        orquestrador/orquestrador.py   le, junta, escreve com indent=2
+        coleta/golden_path_pdf.py      le, junta, escreve com indent=2
+        regras/proveniencia.py         valida o contrato e escreve com indent=1
+
+    e o mapa elegia dono por ordem alfabetica — ou seja, por sorteio. Duas das
+    tres nao passavam por `gravar()`, que e onde o contrato e conferido, e o
+    resultado esta medido no proprio ficheiro: das 20 corridas, DEZ nao trazem
+    `DATASET_ID`, `SOURCE_VERSION`, `RAW_EVIDENCE_PATH` nem `RAW_EVIDENCE_STATE`,
+    e TRES trazem `STATUS: OK` — uma palavra que o contrato nao aceita.
+
+        EXECUTAR UMA CORRIDA NAO E SER A AUTORIDADE SOBRE A PROCEDENCIA DELA.
+
+    Quem corre continua a correr e a trazer o que sabe: run id, ator, horas,
+    rota, contagens, custo. Quem ESCREVE e esta casa, que e a dona da lei.
+
+    O QUE ESTA FUNCAO GARANTE, E O QUE ELA RECUSA
+    ----------------------------------------------
+    · Campo do contrato que o chamador nao trouxe fica `NOT_PRESERVED`, que e a
+      confissao definida no proprio manifesto — «existiu na execucao e nao foi
+      capturado». Nao fica AUSENTE, que e nao ter havido afirmacao nenhuma, e
+      nao fica inventado. A lista dos campos completados VOLTA ao chamador, para
+      a divida ter numero em vez de ficar escondida.
+    · `STATUS` e `RAW_EVIDENCE_STATE` fora do contrato LEVANTAM. Duas palavras
+      para o mesmo estado e o mesmo defeito da autoria, um andar abaixo.
+    · Manifesto ilegivel LEVANTA. Um ficheiro truncado lido como zero corridas
+      apagaria a historia toda na escrita seguinte — foi assim que o livro de
+      decisoes quase se perdeu, e a licao e a mesma:
+
+          FICHEIRO ILEGIVEL != FICHEIRO VAZIO.
+
+    · A historia NAO e revalidada. As corridas que ja la estao ficam como estao:
+      sao divida medida, e conferi-las agora rebentaria a escrita de hoje por
+      causa de ontem. O aperto e para a frente.
+    """
+    corpo = {}
+    if os.path.exists(MANIFESTO):
+        try:
+            with open(MANIFESTO, encoding='utf-8') as f:
+                corpo = json.load(f)
+        except (json.JSONDecodeError, OSError) as e:
+            raise ManifestoIlegivel(
+                'RUN-MANIFEST ilegivel (%s). NAO foi escrito nada — o que la '
+                'esta seria apagado por um ficheiro novo.' % e) from e
+        if not isinstance(corpo, dict):
+            raise ManifestoIlegivel(
+                'RUN-MANIFEST nao e um objecto com RUNS. NAO foi escrito nada.')
+
+    novo = dict(recibo)
+    completados = sorted(c for c in CAMPOS_RUN if c not in novo)
+    for c in completados:
+        novo[c] = NOT_PRESERVED
+
+    checar_token(novo)
+    if novo['STATUS'] not in STATUS_RUN:
+        raise ValueError(
+            'STATUS fora do contrato: %r. O manifesto fala %s.'
+            % (novo['STATUS'], STATUS_RUN))
+    if novo['RAW_EVIDENCE_STATE'] not in ESTADOS_RAW:
+        raise ValueError('RAW_EVIDENCE_STATE fora do contrato: %r'
+                         % novo['RAW_EVIDENCE_STATE'])
+
+    runs = list(corpo.get('RUNS') or [])
+    if any(r.get('RUN_ID') == novo.get('RUN_ID') for r in runs):
+        return completados          # ja registada; nao se duplica nem se reescreve
+    runs.append(novo)
+
+    corpo.update(_cabecalho(captured_at or corpo.get('captured_at')
+                            or datetime.datetime.now(
+                                datetime.timezone.utc).isoformat()))
+    corpo['RUNS'] = runs
+    os.makedirs(os.path.dirname(MANIFESTO), exist_ok=True)
+    with open(MANIFESTO, 'w', encoding='utf-8') as f:
+        json.dump(corpo, f, ensure_ascii=False, indent=1)
+    return completados
+
+
 def instante(v):
     """Converte um carimbo em datetime COM FUSO, ou devolve None.
 

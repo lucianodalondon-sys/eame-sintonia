@@ -3241,5 +3241,14 @@
   "EVOLUTION": "versao de politica, champion, challenger, baseline, promocao",
   "COLLECTION_STRATEGY": "por fonte: ciclo, papel, rotas, ultima verificacao, proxima",
   "NOTA": "Sem telemetria, a lente mostra NOT_INSTRUMENTED ou NOT_MEASURED. NUNCA verde por ausencia: uma corrida sem rastro e uma corrida que ninguem mediu, e isso nao pode parecer uma corrida sa."
- }
+ },
+ "CANONICAL_OWNERS": [
+  {
+   "file": "data/samples/RUN-MANIFEST.json",
+   "owner": "C-PROCEDENCIA",
+   "decided_by": "humano · missao C-TOPOLOGY-2, decisao 2, 2026-09-09",
+   "why": "O manifesto da corrida e o registo de PROCEDENCIA da execucao. O orquestrador inicia a corrida e a estrada do PDF conhece os detalhes da dela — mas RUN EXECUTION != RUN PROVENANCE AUTHORITY. Os dois continuam a trazer run id, ator, horas, rota, contagens e custo; quem escreve e o dono da lei do manifesto.",
+   "door": "regras/proveniencia.py::acrescentar"
+  }
+ ]
 }

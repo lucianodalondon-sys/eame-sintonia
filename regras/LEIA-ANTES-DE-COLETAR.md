@@ -57,7 +57,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 | | |
 |---|---|
-| estado | PROVEN — o motor importa esta lei para decidir. |
+| estado | PENDING — o motor importa esta lei para decidir.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `regras/proveniencia.py` |
 
 ### O contrato de cada fonte italiana

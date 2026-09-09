@@ -48,9 +48,10 @@ sys.path.insert(0, str(RAIZ))
 import _gavetas  # noqa: E402,F401
 import artefato as art  # noqa: E402
 import admissao as adm  # noqa: E402
+import proveniencia as pv  # noqa: E402
 import executor_texto_de_pdf as ex  # noqa: E402
 
-MANIFESTO = RAIZ / "data" / "samples" / "RUN-MANIFEST.json"
+# O caminho do RUN-MANIFEST vive no dono dele, `regras/proveniencia.py`.
 RECONCILIACAO = RAIZ / "system-map" / "data" / "golden-path-pdf.generated.json"
 UNIVERSO = "T7"
 
@@ -422,42 +423,44 @@ def main() -> int:
         json.dumps(reconc, ensure_ascii=False, indent=1) + "\n",
         encoding="utf-8")
 
-    # ── 7 · o recibo entra no manifesto que a casa ja usa ────────────────────
-    d = {"RUNS": []}
-    if MANIFESTO.is_file():
-        try:
-            d = json.loads(MANIFESTO.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            pass
-    ja = {r.get("RUN_ID") for r in d.get("RUNS", [])}
-    if recibo["RUN_ID"] not in ja:
-        d.setdefault("RUNS", []).append({
-            "RUN_ID": recibo["RUN_ID"],
-            "PLATFORM": "LOCAL",
-            "ACTOR": recibo["EXECUTOR_ID"],
-            "ACTOR_VERSION": recibo["EXECUTOR_VERSION"],
-            "STARTED_AT": recibo["STARTED_AT"],
-            "FINISHED_AT": recibo["FINISHED_AT"],
-            "COUNTRY": "IT",
-            "MISSION": recibo["MISSION"],
-            "STATUS": recibo["STATUS"],
-            # O ESTADO DE FECHO VIAJA COM O RECIBO. Sem ele, quem le o
-            # manifesto so sabe que o executor terminou.
-            "RUN_STATE": reconc["RUN_STATE"],
-            "ROUTE": reconc["ROUTE"],
-            "GIT_COMMIT": reconc["GIT_COMMIT"],
-            "BIBLE_VERSION": reconc["BIBLE_VERSION"],
-            "PIPELINE_VERSION": recibo["PIPELINE_VERSION"],
-            "ERROR": "",
-            "CAPTURE_METHOD": "DERIVATION_RUN",
-            "ITEM_COUNT_RAW": c["RAW_INPUT"],
-            "ITEM_COUNT_NORMALIZED": aterrados,
-            "COST_USD": 0.0,
-            "EVIDENCE_PATH": RECONCILIACAO.relative_to(RAIZ).as_posix(),
-            "OUTPUT_WRITTEN_AT": art.agora(),
-        })
-        MANIFESTO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n",
-                             encoding="utf-8")
+    # ── 7 · o recibo vai para quem e dono da procedencia ────────────────────
+    # Isto lia e escrevia o RUN-MANIFEST a mao, sem passar pelo contrato. O dono
+    # e `regras/proveniencia.py`: ele e que sabe que campos a lei exige, que
+    # palavras `STATUS` aceita, e o que fazer quando o ficheiro esta ilegivel.
+    #
+    #     CONHECER OS DETALHES DA PROPRIA CORRIDA
+    #     NAO E SER A AUTORIDADE SOBRE A PROCEDENCIA DELA.
+    #
+    # A estrada continua a trazer tudo o que sabe — e sabe muito, incluindo o
+    # estado de fecho. So deixou de ser ela a escrever.
+    faltaram = pv.acrescentar({
+        "RUN_ID": recibo["RUN_ID"],
+        "PLATFORM": "LOCAL",
+        "ACTOR": recibo["EXECUTOR_ID"],
+        "ACTOR_VERSION": recibo["EXECUTOR_VERSION"],
+        "STARTED_AT": recibo["STARTED_AT"],
+        "FINISHED_AT": recibo["FINISHED_AT"],
+        "COUNTRY": "IT",
+        "MISSION": recibo["MISSION"],
+        "STATUS": recibo["STATUS"],
+        # O ESTADO DE FECHO VIAJA COM O RECIBO. Sem ele, quem le o
+        # manifesto so sabe que o executor terminou.
+        "RUN_STATE": reconc["RUN_STATE"],
+        "ROUTE": reconc["ROUTE"],
+        "GIT_COMMIT": reconc["GIT_COMMIT"],
+        "BIBLE_VERSION": reconc["BIBLE_VERSION"],
+        "PIPELINE_VERSION": recibo["PIPELINE_VERSION"],
+        "ERROR": "",
+        "CAPTURE_METHOD": "DERIVATION_RUN",
+        "ITEM_COUNT_RAW": c["RAW_INPUT"],
+        "ITEM_COUNT_NORMALIZED": aterrados,
+        "COST_USD": 0.0,
+        "EVIDENCE_PATH": RECONCILIACAO.relative_to(RAIZ).as_posix(),
+        "OUTPUT_WRITTEN_AT": art.agora(),
+    })
+    if faltaram:
+        print("  · manifesto: %d campo(s) do contrato ficaram NOT_PRESERVED: %s"
+              % (len(faltaram), ", ".join(faltaram)))
 
     print("  6 · emitidos %d · guardados %d · vistos pela porta %d · PERDIDOS %d"
           % (emitidos, aterrados, vistos, perdidos))

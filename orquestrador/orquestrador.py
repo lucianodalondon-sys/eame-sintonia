@@ -52,6 +52,7 @@ import _gavetas  # noqa: E402,F401
 from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402
 from receitas import resolver, Plano  # noqa: E402
 import admissao as adm  # noqa: E402
+import proveniencia as pv  # noqa: E402
 
 PRONTOS = RAIZ / "data" / "samples" / "PRONTO-PARA-INTELIGENCIA"
 
@@ -125,7 +126,10 @@ def pela_porta(itens: list, universo: str, run_id: str) -> dict:
             "ficheiro": (PRONTOS / f"{run_id}.json").relative_to(RAIZ).as_posix()
                         if aceites else ""}
 
-MANIFESTO = RAIZ / "data" / "samples" / "RUN-MANIFEST.json"
+# O caminho do RUN-MANIFEST NAO vive aqui. Deixar a constante para tras seria
+# deixar a porta destrancada: a proxima pessoa escreve `MANIFESTO.write_text` e
+# o contrato volta a ser contornado sem ninguem reparar. O dono e
+# `regras/proveniencia.py`, e o caminho e dele.
 
 
 def agora() -> str:
@@ -150,22 +154,24 @@ def novo_run_id(p: Pedido) -> str:
 
 
 def guardar_recibo(recibo: dict) -> None:
-    """Acrescenta a corrida ao manifesto que ja existe, sem reescrever o resto.
+    """Entrega a corrida a quem e dono da procedencia. Nao escreve o ficheiro.
 
-    Reescrever o ficheiro inteiro ja custou caro nesta casa: `sensor_coleta.py`
-    documenta um lote que empurrou primeiro e apagou o outro. Aqui le-se, junta-se
-    e escreve-se — nunca se substitui o que estava la.
+    ⚠️ ESTA FUNCAO ESCREVIA O MANIFESTO DIRECTAMENTE, e por isso o contrato nunca
+    passava por aqui. O resultado esta medido no proprio ficheiro: das 20
+    corridas, DEZ nao trazem `DATASET_ID`, `SOURCE_VERSION`, `RAW_EVIDENCE_PATH`
+    nem `RAW_EVIDENCE_STATE`. Todas as dez sairam deste `write_text`.
+
+        EXECUTAR A CORRIDA NAO E SER A AUTORIDADE SOBRE A PROCEDENCIA DELA.
+
+    O orquestrador sabe o que correu, e continua a dize-lo. Quem escreve e
+    `regras/proveniencia.py`, que e a peca que conhece a lei do manifesto — e
+    que agora recusa palavra fora do contrato e confessa em `NOT_PRESERVED` o
+    campo que nao veio, em vez de o deixar simplesmente ausente.
     """
-    d = {"RUNS": []}
-    if MANIFESTO.is_file():
-        try:
-            d = json.loads(MANIFESTO.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            pass
-    d.setdefault("RUNS", []).append(recibo)
-    MANIFESTO.parent.mkdir(parents=True, exist_ok=True)
-    MANIFESTO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n",
-                         encoding="utf-8")
+    faltaram = pv.acrescentar(recibo)
+    if faltaram:
+        print("  · manifesto: %d campo(s) do contrato ficaram NOT_PRESERVED: %s"
+              % (len(faltaram), ", ".join(faltaram)))
 
 
 def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
@@ -218,7 +224,12 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
 
     recibo = {
         "RUN_ID": novo_run_id(p),
-        "STATUS": "OK" if codigo == 0 else ERRO,
+        # O CONTRATO FALA `SUCCESS`/`FAILED`. Isto dizia `OK`, e as tres
+        # corridas com `STATUS: OK` no manifesto sao dai. Duas palavras
+        # para o mesmo estado sao o mesmo defeito da autoria, um andar
+        # abaixo. `ESTADO_DOS_ITENS` continua a falar COLHIDO/ERRO —
+        # esse e outro campo e outra pergunta.
+        "STATUS": "SUCCESS" if codigo == 0 else "FAILED",
         "PEDIDO": p.para_json(),
         "MISSION": p.assunto,
         "COUNTRY": p.filtros.get("pais", "NAO SEI"),
@@ -314,7 +325,7 @@ def main() -> int:
             print(f"  prontos para a inteligencia: {a['prontos']} -> {a['ficheiro']}")
     if seco:
         print("  (ensaio seco: nada foi coletado e nada foi escrito no manifesto)")
-    return 0 if recibo["STATUS"] == "OK" else 1
+    return 0 if recibo["STATUS"] == "SUCCESS" else 1
 
 
 if __name__ == "__main__":

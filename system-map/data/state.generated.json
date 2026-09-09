@@ -1791,8 +1791,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "53390ddd55cdf060a62bbe70c1ce6a57dd4d82da",
-    "GENERATED_AT": "2026-09-09T06:43:06+00:00"
+    "HEAD": "2f0f0079f2dd8b782fcb8d32b1560aba8e88510c",
+    "GENERATED_AT": "2026-09-09T10:38:58+00:00"
   },
   "FAMILIES": [
     {
@@ -4810,7 +4810,9 @@
             "SOURCE_LOCATION"
           ],
           "separa_fonte_do_fato": true,
-          "leis_que_obedece": [],
+          "leis_que_obedece": [
+            "proveniencia"
+          ],
           "regista_descarte": []
         },
         {
@@ -7514,7 +7516,7 @@
         "data/samples/DATA-CLOCK-manifest.json"
       ],
       "inbound": [
-        "C-ESTRADA-PDF",
+        "C-PROCEDENCIA",
         "C-SUPABASE"
       ],
       "outbound": [
@@ -7897,7 +7899,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "◉",
       "views": [
         "acervo",
@@ -7910,53 +7912,34 @@
         "coleta/golden_path_pdf.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
-      "produces": [
-        "data/samples/RUN-MANIFEST.json"
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "coleta/golden_path_pdf.py"
       ],
+      "produces": [],
       "inbound": [
         "C-ADMISSAO",
         "C-BIBLIA",
         "C-CONTRATO-ARTEFATO",
         "C-EXECUTOR-TEXTO-PDF",
-        "C-ORQUESTRADOR",
         "C-PROCEDENCIA"
       ],
       "outbound": [
-        "C-DATA-CLOCK",
         "C-MAPA-GERADOR",
-        "C-MAPA-SCAN",
-        "C-ORQUESTRADOR",
-        "C-PADRAO-COLETA",
-        "C-PROCEDENCIA",
         "C-PROVA-COLETA",
-        "C-RECEITAS",
-        "C-REGRA-COLETA",
         "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [
-        "data/samples/RUN-MANIFEST.json"
-      ],
+      "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "data/samples/RUN-MANIFEST.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 6705,
       "y": 1004
     },
@@ -9812,12 +9795,12 @@
       "inbound": [
         "C-AS-FONTES",
         "C-CI-MAPA",
-        "C-ESTRADA-PDF",
         "C-IT-CATALOGO",
         "C-IT-PRESERVAR",
         "C-PORTA-FONTE",
         "C-PORTAL-DADOS",
         "C-PORTAL-MODELO",
+        "C-PROCEDENCIA",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-TELA-FIELD"
       ],
@@ -9897,6 +9880,7 @@
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-MAPA-VALIDADOR",
+        "C-PROCEDENCIA",
         "C-PROVA-MAPA-NAO-MENTE"
       ],
       "outbound": [],
@@ -10128,7 +10112,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "acervo"
@@ -10139,19 +10123,20 @@
         "orquestrador/orquestrador.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "orquestrador/orquestrador.py"
+      ],
       "produces": [],
       "inbound": [
         "C-ADMISSAO",
         "C-CI-COLETA",
-        "C-ESTRADA-PDF",
         "C-PEDIDO",
+        "C-PROCEDENCIA",
         "C-RECEITAS"
       ],
       "outbound": [
-        "C-ESTRADA-PDF",
         "C-ESTRADAS-IT",
         "C-PROVA-COLETA"
       ],
@@ -10162,18 +10147,9 @@
       "parado_na_coleta": [],
       "nivel": "PRINCIPAL",
       "escreve_na_pasta": [],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "data/samples/RUN-MANIFEST.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 2475,
       "y": 360
     },
@@ -10392,8 +10368,8 @@
       "inbound": [
         "C-AS-FONTES",
         "C-CI-MAPA",
-        "C-ESTRADA-PDF",
-        "C-IT-PRESERVAR"
+        "C-IT-PRESERVAR",
+        "C-PROCEDENCIA"
       ],
       "outbound": [],
       "paises": {},
@@ -10990,7 +10966,7 @@
         "INTELIGENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "◈",
       "views": [
         "acervo",
@@ -11002,20 +10978,26 @@
         "regras/proveniencia.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o motor importa esta lei para decidir.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "regras/proveniencia.py"
+      ],
       "produces": [
-        "data/samples/POLITICA-RAW-ROTA-PAGA.json"
+        "data/samples/POLITICA-RAW-ROTA-PAGA.json",
+        "data/samples/RUN-MANIFEST.json"
       ],
-      "inbound": [
-        "C-ESTRADA-PDF"
-      ],
+      "inbound": [],
       "outbound": [
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
+        "C-DATA-CLOCK",
         "C-ESTRADA-PDF",
+        "C-MAPA-SCAN",
+        "C-MAPA-TESTES",
+        "C-ORQUESTRADOR",
+        "C-PADRAO-COLETA",
         "C-RECEITAS",
         "C-REGRA-COLETA",
         "C-SENSOR-COLETA",
@@ -11025,7 +11007,8 @@
       "paises_dado": {},
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [
-        "data/samples/POLITICA-RAW-ROTA-PAGA.json"
+        "data/samples/POLITICA-RAW-ROTA-PAGA.json",
+        "data/samples/RUN-MANIFEST.json"
       ],
       "parado_na_coleta": [],
       "vocabulario": {
@@ -11046,7 +11029,7 @@
           "pasta": "data/samples",
           "prova": {
             "file": "regras/proveniencia.py",
-            "line": 147,
+            "line": 157,
             "snippet": "escreve em MANIFESTO"
           }
         }
@@ -11225,10 +11208,11 @@
       ],
       "file_count": 11,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "provas/derived_artifact_no_postgres.py",
-        "provas/preservar_coleta_no_postgres.py"
+        "provas/preservar_coleta_no_postgres.py",
+        "provas/testa_coleta_canonica.py"
       ],
       "produces": [],
       "inbound": [
@@ -12007,7 +11991,6 @@
         "C-COLETA-PUBLICA",
         "C-CORPUS",
         "C-DATA-CLOCK",
-        "C-ESTRADA-PDF",
         "C-FONTES-EU",
         "C-LUGAR-COLETA",
         "C-PEDIDO",
@@ -12159,7 +12142,6 @@
         "C-CICATRIZES-BR",
         "C-CONTRATO-CAMPOS",
         "C-DATA-CLOCK",
-        "C-ESTRADA-PDF",
         "C-FONTES-EU",
         "C-MEDICAO",
         "C-PROCEDENCIA",
@@ -16107,7 +16089,7 @@
       "evidence": [
         {
           "file": "provas/testa_coleta_canonica.py",
-          "line": 131,
+          "line": 134,
           "snippet": "REMOVIDOS = (\".github/workflows/adama-es-gate.yml\",)"
         }
       ],
@@ -17782,7 +17764,7 @@
       "evidence": [
         {
           "file": "coleta/golden_path_pdf.py",
-          "line": 200,
+          "line": 201,
           "snippet": "biblia = json.loads((RAIZ / \"docs\" / \"biblia\" / \"leis.json\")"
         }
       ],
@@ -20590,24 +20572,6 @@
     },
     {
       "from": "C-ESTRADA-PDF",
-      "to": "C-DATA-CLOCK",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A primeira estrada · PDF até à porta alimenta Regua do tempo. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "leis/data_clock.py",
-          "line": 75,
-          "snippet": "('RUN-MANIFEST', 'data/samples/RUN-MANIFEST.json', '2026-08-29',"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-ESTRADA-PDF",
       "to": "C-MAPA-GERADOR",
       "type": "READS",
       "payload": "artefacto",
@@ -20620,78 +20584,6 @@
           "file": "system-map/scripts/generate_system_map.py",
           "line": 1389,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-ESTRADA-PDF",
-      "to": "C-MAPA-SCAN",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A primeira estrada · PDF até à porta alimenta Scanner do System Map. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "system-map/scripts/scan_sources.py",
-          "line": 429,
-          "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-ESTRADA-PDF",
-      "to": "C-ORQUESTRADOR",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A primeira estrada · PDF até à porta alimenta O orquestrador. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "orquestrador/orquestrador.py",
-          "line": 128,
-          "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-ESTRADA-PDF",
-      "to": "C-PADRAO-COLETA",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A primeira estrada · PDF até à porta alimenta O padrao do departamento de coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "medidas/padrao_da_coleta.py",
-          "line": 63,
-          "snippet": "MANIFESTO = os.path.join(ROOT, 'data', 'samples', 'RUN-MANIFEST.json')"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-ESTRADA-PDF",
-      "to": "C-PROCEDENCIA",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A primeira estrada · PDF até à porta alimenta De onde veio — carimbado na coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "regras/proveniencia.py",
-          "line": 108,
-          "snippet": "with open(MANIFESTO, encoding='utf-8') as f:"
         }
       ],
       "categoria": "READ"
@@ -20734,59 +20626,18 @@
     },
     {
       "from": "C-ESTRADA-PDF",
-      "to": "C-RECEITAS",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A primeira estrada · PDF até à porta alimenta A receita da coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "pedido/receitas.py",
-          "line": 117,
-          "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-ESTRADA-PDF",
-      "to": "C-REGRA-COLETA",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A primeira estrada · PDF até à porta alimenta A regra de coleta externa. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "medidas/portao.py",
-          "line": 44,
-          "snippet": "if os.path.basename(caminho) == 'RUN-MANIFEST.json':"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-ESTRADA-PDF",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A primeira estrada · PDF até à porta alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A primeira estrada · PDF até à porta alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_integracao_biblia.py",
           "line": 158,
           "snippet": "os.path.join(RAIZ, 'coleta', 'golden_path_pdf.py'),"
-        },
-        {
-          "file": "tests/test_portao.py",
-          "line": 251,
-          "snippet": "d = json.load(open(os.path.join(SAMPLES, 'RUN-MANIFEST.json'), encoding='utf-8'))"
         },
         {
           "file": "tests/test_red_team_estrada.py",
@@ -21041,7 +20892,7 @@
       "evidence": [
         {
           "file": "coleta/golden_path_pdf.py",
-          "line": 51,
+          "line": 52,
           "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
         }
       ],
@@ -23008,7 +22859,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3638,
+          "line": 3668,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
         },
         {
@@ -23059,12 +22910,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3651,
+          "line": 3681,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3651,
+          "line": 3681,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -23412,24 +23263,6 @@
     },
     {
       "from": "C-ORQUESTRADOR",
-      "to": "C-ESTRADA-PDF",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "raw_type": "WRITES",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O orquestrador escreve em A primeira estrada · PDF até à porta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "orquestrador/orquestrador.py",
-          "line": 167,
-          "snippet": "MANIFESTO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\","
-        }
-      ],
-      "categoria": "WRITE"
-    },
-    {
-      "from": "C-ORQUESTRADOR",
       "to": "C-ESTRADAS-IT",
       "type": "READS",
       "payload": "artefacto",
@@ -23558,7 +23391,7 @@
       "evidence": [
         {
           "file": "provas/testa_coleta_canonica.py",
-          "line": 160,
+          "line": 163,
           "snippet": "import sensor_medir as _sm"
         }
       ],
@@ -24470,21 +24303,116 @@
     },
     {
       "from": "C-PROCEDENCIA",
-      "to": "C-ESTRADA-PDF",
-      "type": "WRITES",
+      "to": "C-DATA-CLOCK",
+      "type": "READS",
       "payload": "artefacto",
-      "raw_type": "WRITES",
+      "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta escreve em A primeira estrada · PDF até à porta. Provado por 1 linha de codigo.",
+      "reason": "De onde veio — carimbado na coleta alimenta Regua do tempo. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "regras/proveniencia.py",
-          "line": 147,
-          "snippet": "with open(MANIFESTO, 'w', encoding='utf-8') as f:"
+          "file": "leis/data_clock.py",
+          "line": 75,
+          "snippet": "('RUN-MANIFEST', 'data/samples/RUN-MANIFEST.json', '2026-08-29',"
         }
       ],
-      "categoria": "WRITE"
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-ESTRADA-PDF",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por A primeira estrada · PDF até à porta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/golden_path_pdf.py",
+          "line": 51,
+          "snippet": "import proveniencia as pv  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-MAPA-SCAN",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta alimenta Scanner do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/scan_sources.py",
+          "line": 429,
+          "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta alimenta Testes do System Map. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_system_map.py",
+          "line": 766,
+          "snippet": "any(c[\"file\"] == \"data/samples/RUN-MANIFEST.json\""
+        },
+        {
+          "file": "system-map/tests/test_system_map.py",
+          "line": 775,
+          "snippet": "_esc_man == [\"regras/proveniencia.py\"],"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-ORQUESTRADOR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 55,
+          "snippet": "import proveniencia as pv  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-PADRAO-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta alimenta O padrao do departamento de coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/padrao_da_coleta.py",
+          "line": 63,
+          "snippet": "MANIFESTO = os.path.join(ROOT, 'data', 'samples', 'RUN-MANIFEST.json')"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-PROCEDENCIA",
@@ -24494,12 +24422,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta A receita da coleta. Provado por 1 linha de codigo.",
+      "reason": "De onde veio — carimbado na coleta alimenta A receita da coleta. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "pedido/receitas.py",
           "line": 111,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
+        },
+        {
+          "file": "pedido/receitas.py",
+          "line": 117,
+          "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
         }
       ],
       "categoria": "RULE"
@@ -24518,6 +24451,24 @@
           "file": "medidas/portao.py",
           "line": 20,
           "snippet": "import proveniencia as pv  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-REGRA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta alimenta A regra de coleta externa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/portao.py",
+          "line": 44,
+          "snippet": "if os.path.basename(caminho) == 'RUN-MANIFEST.json':"
         }
       ],
       "categoria": "RULE"
@@ -24576,8 +24527,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "De onde veio — carimbado na coleta alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_portao.py",
+          "line": 251,
+          "snippet": "d = json.load(open(os.path.join(SAMPLES, 'RUN-MANIFEST.json'), encoding='utf-8'))"
+        },
         {
           "file": "tests/test_proveniencia.py",
           "line": 216,
@@ -26503,7 +26459,7 @@
       "evidence": [
         {
           "file": "provas/testa_coleta_canonica.py",
-          "line": 286,
+          "line": 289,
           "snippet": "import sensor_coleta as sc  # noqa: E402"
         }
       ],
@@ -26521,7 +26477,7 @@
       "evidence": [
         {
           "file": "provas/testa_coleta_canonica.py",
-          "line": 406,
+          "line": 409,
           "snippet": "_PERMITIDO = ('regras/sensor_coleta.py', 'provas/testa_coleta_canonica.py')"
         }
       ],
@@ -28427,15 +28383,6 @@
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
-      "file": "data/samples/RUN-MANIFEST.json",
-      "written_by": [
-        "C-ESTRADA-PDF",
-        "C-ORQUESTRADOR",
-        "C-PROCEDENCIA"
-      ],
-      "owner_elected": "C-ESTRADA-PDF"
-    },
-    {
       "file": "system-map/data/architecture.declared.json",
       "written_by": [
         "C-MAPA-GERADOR",
@@ -28444,14 +28391,24 @@
       "owner_elected": "C-PROVA-MAPA-NAO-MENTE"
     }
   ],
+  "CANONICAL_OWNERS": [
+    {
+      "file": "data/samples/RUN-MANIFEST.json",
+      "owner": "C-PROCEDENCIA",
+      "decided_by": "humano · missao C-TOPOLOGY-2, decisao 2, 2026-09-09",
+      "why": "O manifesto da corrida e o registo de PROCEDENCIA da execucao. O orquestrador inicia a corrida e a estrada do PDF conhece os detalhes da dela — mas RUN EXECUTION != RUN PROVENANCE AUTHORITY. Os dois continuam a trazer run id, ator, horas, rota, contagens e custo; quem escreve e o dono da lei do manifesto.",
+      "door": "regras/proveniencia.py::acrescentar"
+    }
+  ],
+  "CANONICAL_OWNER_VIOLATIONS": [],
   "COUNTS": {
     "components": 148,
-    "components_proven": 66,
-    "components_pending": 76,
+    "components_proven": 63,
+    "components_pending": 79,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 567,
-    "edges_proven": 565,
+    "edges": 565,
+    "edges_proven": 563,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1345,

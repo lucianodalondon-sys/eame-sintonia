@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "53390ddd55cdf060a62bbe70c1ce6a57dd4d82da",
-    "GENERATED_AT": "2026-09-09T06:43:06+00:00"
+    "HEAD": "2f0f0079f2dd8b782fcb8d32b1560aba8e88510c",
+    "GENERATED_AT": "2026-09-09T10:38:58+00:00"
   },
   "FILES": [
     {
@@ -1199,7 +1199,7 @@
     },
     {
       "path": "coleta/golden_path_pdf.py",
-      "sha": "cb7fc0ab240be388b7b0d38f3292de0125b7748f",
+      "sha": "7c6dab13386790b5933aa36289c16d3b375a5d4e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7254,7 +7254,7 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "e6d9cccad2ee16d47ff403e2d94b99029b640aac",
+      "sha": "adddcb16a4b4bbc4e6bee04c4faf7eca387938fb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7604,7 +7604,7 @@
     },
     {
       "path": "provas/testa_coleta_canonica.py",
-      "sha": "9ead5da22703717b191dbad1e00f3826e3d9a07d",
+      "sha": "3c07f20a1ad23ad777ed67b4863637359e5c220b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7646,7 +7646,7 @@
     },
     {
       "path": "regras/LEIA-ANTES-DE-COLETAR.md",
-      "sha": "421ccdb411ad5ec3a89e87f5478c03d6fb484457",
+      "sha": "a054571d4b80c93899123461148fd085da9b6eb9",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -7709,7 +7709,7 @@
     },
     {
       "path": "regras/proveniencia.py",
-      "sha": "ed6c8a44342a5ef59dcb73023296d5bca9e3754a",
+      "sha": "e89461aba7ba11e8196213586d72515f00b915b3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8661,7 +8661,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e4e0608f16ba41818a64d9ca894409bced5b09ee",
+      "sha": "426a760d603b48ebebd2662d6518ce3efc10707f",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8780,7 +8780,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "f910bd0ed44a817a3b4cc612a6d5a154123b7f7e",
+      "sha": "745d712ea0a7db84733467748c21df55b6ea3251",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8836,14 +8836,14 @@
     },
     {
       "path": "system-map/scripts/validate_system_map.py",
-      "sha": "4ac98308718845587065cfd99c2ce34148e08a26",
+      "sha": "7e4e8a641adf08f90d246d2d2434b8a1537a57f4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/tests/test_system_map.py",
-      "sha": "5aa83944beacb5d83448d2c218c205398ae32d60",
+      "sha": "fa390ee23838376afe3f61ef6561b4a0163c0615",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11147,30 +11147,8 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/golden_path_pdf.py",
-        "line": 51,
+        "line": 52,
         "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
-      }
-    },
-    {
-      "from_file": "coleta/golden_path_pdf.py",
-      "to_file": "data/samples/RUN-MANIFEST.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "coleta/golden_path_pdf.py",
-        "line": 53,
-        "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
-      }
-    },
-    {
-      "from_file": "coleta/golden_path_pdf.py",
-      "to_file": "data/samples/RUN-MANIFEST.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "coleta/golden_path_pdf.py",
-        "line": 459,
-        "snippet": "MANIFESTO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\","
       }
     },
     {
@@ -11180,7 +11158,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/golden_path_pdf.py",
-        "line": 200,
+        "line": 201,
         "snippet": "biblia = json.loads((RAIZ / \"docs\" / \"biblia\" / \"leis.json\")"
       }
     },
@@ -11193,6 +11171,17 @@
         "file": "coleta/golden_path_pdf.py",
         "line": 49,
         "snippet": "import artefato as art  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 51,
+        "snippet": "import proveniencia as pv  # noqa: E402"
       }
     },
     {
@@ -21405,28 +21394,6 @@
     },
     {
       "from_file": "orquestrador/orquestrador.py",
-      "to_file": "data/samples/RUN-MANIFEST.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "orquestrador/orquestrador.py",
-        "line": 128,
-        "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
-      }
-    },
-    {
-      "from_file": "orquestrador/orquestrador.py",
-      "to_file": "data/samples/RUN-MANIFEST.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "orquestrador/orquestrador.py",
-        "line": 167,
-        "snippet": "MANIFESTO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\","
-      }
-    },
-    {
-      "from_file": "orquestrador/orquestrador.py",
       "to_file": "pedido/pedido.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21445,6 +21412,17 @@
         "file": "orquestrador/orquestrador.py",
         "line": 53,
         "snippet": "from receitas import resolver, Plano  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 55,
+        "snippet": "import proveniencia as pv  # noqa: E402"
       }
     },
     {
@@ -24765,7 +24743,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 143,
+        "line": 146,
         "snippet": "if not l.startswith((\"guarda/es/\", \"docs/\", \"AGENTS.md\","
       }
     },
@@ -24798,7 +24776,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 131,
+        "line": 134,
         "snippet": "REMOVIDOS = (\".github/workflows/adama-es-gate.yml\",)"
       }
     },
@@ -24842,7 +24820,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 286,
+        "line": 289,
         "snippet": "import sensor_coleta as sc  # noqa: E402"
       }
     },
@@ -24853,7 +24831,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 406,
+        "line": 409,
         "snippet": "_PERMITIDO = ('regras/sensor_coleta.py', 'provas/testa_coleta_canonica.py')"
       }
     },
@@ -24864,7 +24842,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 160,
+        "line": 163,
         "snippet": "import sensor_medir as _sm"
       }
     },
@@ -25403,7 +25381,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/proveniencia.py",
-        "line": 362,
+        "line": 460,
         "snippet": "with open(POLITICA, encoding='utf-8') as f:"
       }
     },
@@ -25414,7 +25392,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/proveniencia.py",
-        "line": 366,
+        "line": 464,
         "snippet": "with open(POLITICA, 'w', encoding='utf-8') as f:"
       }
     },
@@ -25436,7 +25414,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/proveniencia.py",
-        "line": 147,
+        "line": 157,
         "snippet": "with open(MANIFESTO, 'w', encoding='utf-8') as f:"
       }
     },
@@ -26613,7 +26591,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3638,
+        "line": 3668,
         "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -26635,7 +26613,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3651,
+        "line": 3681,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -26646,7 +26624,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3651,
+        "line": 3681,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -27070,6 +27048,17 @@
     },
     {
       "from_file": "system-map/tests/test_system_map.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_system_map.py",
+        "line": 766,
+        "snippet": "any(c[\"file\"] == \"data/samples/RUN-MANIFEST.json\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_system_map.py",
       "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
       "type": "READS",
       "payload": "artefacto",
@@ -27077,6 +27066,17 @@
         "file": "system-map/tests/test_system_map.py",
         "line": 445,
         "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_system_map.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_system_map.py",
+        "line": 775,
+        "snippet": "_esc_man == [\"regras/proveniencia.py\"],"
       }
     },
     {
@@ -32541,7 +32541,7 @@
     "regras/proveniencia.py": [
       {
         "pasta": "data/samples",
-        "line": 147,
+        "line": 157,
         "constante": "MANIFESTO"
       }
     ],

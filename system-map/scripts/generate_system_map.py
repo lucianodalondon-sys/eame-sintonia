@@ -3140,6 +3140,34 @@ def main_uma_vez(stamp: bool) -> int:
     varios_autores = [{"file": a, "written_by": sorted(p), "owner_elected": dono[a]}
                       for a, p in sorted(autores.items()) if len(p) > 1]
 
+    # ── O DONO DECIDIDO POR GENTE, CONFERIDO CONTRA O QUE O CODIGO FAZ ──────
+    # A eleicao alfabetica acima e um sorteio, e um sorteio nao e um dono. Onde
+    # ha decisao humana registada em `CANONICAL_OWNERS`, ela manda — e o mapa
+    # mede se o codigo a respeita. Nao chega mudar o cartao: a arquitetura tem
+    # de convergir, e o unico sitio onde isso se ve e em quem escreve.
+    #
+    #     MULTIPLE_CANONICAL_WRITERS
+    #     e o nome de uma decisao que alguem contornou.
+    donos_declarados = {c["file"]: c for c in D.get("CANONICAL_OWNERS", [])}
+    violacoes = []
+    for caminho, decl in sorted(donos_declarados.items()):
+        escrevem = sorted(autores.get(caminho, set()))
+        intrusos = [a for a in escrevem if a != decl["owner"]]
+        if intrusos or (escrevem and decl["owner"] not in escrevem):
+            violacoes.append({
+                "file": caminho, "declared_owner": decl["owner"],
+                "written_by": escrevem, "intruders": intrusos,
+                "verdict": "MULTIPLE_CANONICAL_WRITERS" if intrusos
+                           else "DECLARED_OWNER_DOES_NOT_WRITE"})
+        # o dono decidido por gente vence a eleicao alfabetica
+        if decl["owner"] in escrevem:
+            dono[caminho] = decl["owner"]
+            for a in escrevem:
+                if caminho in produz.get(a, []) and a != decl["owner"]:
+                    produz[a].remove(caminho)
+            if caminho not in produz.setdefault(decl["owner"], []):
+                produz[decl["owner"]].append(caminho)
+
     veiculos, lig_veiculos = os_veiculos(comps, dono, G)
     gerados += veiculos
 
@@ -3610,6 +3638,8 @@ def main_uma_vez(stamp: bool) -> int:
         "UNCLAIMED_FILES_COUNT": len(nao_reivindicados),
         "OWNERSHIP_CONFLICTS": conflitos,
         "ARTEFACT_MULTIPLE_AUTHORS": varios_autores,
+        "CANONICAL_OWNERS": D.get("CANONICAL_OWNERS", []),
+        "CANONICAL_OWNER_VIOLATIONS": violacoes,
     }
 
     st = [n["status"] for n in nos]
