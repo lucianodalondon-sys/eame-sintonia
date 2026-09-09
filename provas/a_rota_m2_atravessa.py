@@ -160,8 +160,25 @@ def canal_da_fonte(banco_sql, fonte):
         CHANNEL_ID PROVA O CANAL, NAO PROVA A ORIGEM.
 
     Aqui a identidade e escrita no banco DESCARTAVEL, com o que o catalogo ja
-    nomeia — a organizacao e o `OWNER_ID` daquela fonte. Nada e inventado, e
-    nada disto vale como dono: o dono continua a nao existir.
+    nomeia — a organizacao e o `OWNER_ID` daquela fonte. E nada disto vale como
+    dono: o dono continua a nao existir.
+
+    ⚠️ E A M2I MEDIU DUAS COISAS QUE ESTA FIXTURE DECIDE SOZINHA.
+    Dizer «nada e inventado» era generoso demais comigo:
+
+      · `'orgao_publico'` — o catalogo diz `OWNER_KIND: OFFICIAL_REGIONAL_AGENCY`,
+        e `organizacao.tipo` so aceita nove nomes, nenhum deles esse. A
+        traducao entre os dois vocabularios NAO esta declarada em lado nenhum:
+        fui eu que a escolhi, aqui.
+      · a URL de recurso `https://exemplo.it/<fonte>` — que so existe porque
+        esta e uma bancada. `canal.url` e NULLABLE: um dono a serio deixaria
+        NULL em vez de fabricar endereco.
+
+        UMA TRADUCAO QUE NINGUEM DECLAROU E UMA DECISAO QUE NINGUEM ASSINOU.
+
+    As duas ficam AQUI, visiveis, e nao sobem para runtime. A medicao da
+    autoridade esta em `provas/a_autoridade_da_fonte.py`, e o veredito dela e
+    `SOURCE_AUTHORITY[IT-T2-002] = UNRESOLVED`.
     """
     with open(CATALOGO, encoding="utf-8") as f:
         catalogo = json.load(f)

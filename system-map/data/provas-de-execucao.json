@@ -134,5 +134,40 @@
   }
  },
  "LEGACY_NAO_E_FORWARD": "REAL EXECUTOR != CANONICAL FORWARD FLOW. Um replay do corpo historico prova o INSTRUMENTO: que o writer, o storage e o scanner aguentam uma passagem real. NAO prova que o fluxo canonico forward esta instrumentado — e nao esta. Publicar LEGACY como FORWARD seria a mesma classe de mentira que chamar READY a um ficheiro guardado. ⚠️ ATUALIZADO: o forward passou a emitir, por coleta/derivacao_forward.py, e isso esta em FORWARD acima — com a sua propria prova contra Postgres real. As duas afirmacoes continuam separadas de proposito: LEGACY_REPLAY prova o INSTRUMENTO, FORWARD prova a ESTRADA. Junta-las voltaria a ser a mentira que este ficheiro existe para impedir.",
- "ARESTA_DECLARADA_NAO_E_ARESTA_OBSERVADA": "DECLARED EDGE != OBSERVED EDGE. `edge_from` e a INTENCAO de quem escreveu a linha. A aresta so existe quando as DUAS pontas deixaram passagem na MESMA rota. Medido: a primeira corrida que provou a rota da M2 tinha STRUCTURED a declarar `edge_from=DERIVED` e nenhuma passagem de DERIVED — a etapa correra noutra corrida, noutro ficheiro."
+ "ARESTA_DECLARADA_NAO_E_ARESTA_OBSERVADA": "DECLARED EDGE != OBSERVED EDGE. `edge_from` e a INTENCAO de quem escreveu a linha. A aresta so existe quando as DUAS pontas deixaram passagem na MESMA rota. Medido: a primeira corrida que provou a rota da M2 tinha STRUCTURED a declarar `edge_from=DERIVED` e nenhuma passagem de DERIVED — a etapa correra noutra corrida, noutro ficheiro.",
+ "GAPS_DE_IDENTIDADE": {
+  "CHANNEL_IDENTITY_NOT_RESOLVED": {
+   "ESTADO": "OPEN",
+   "MEDIDO_EM": "M2I · 2026-09-09",
+   "PROVA": "provas/a_autoridade_da_fonte.py",
+   "O_QUE_FALTA": "AUTORIDADE, e nao verdade. ARPAV publica mesmo aquele boletim; o que nao existe e quem tenha autoridade canonica para o AFIRMAR ao banco.",
+   "A_PERGUNTA": "quem tem autoridade para dizer que IT-T2-002 pertence a IT-OWN-003 / ARPAV?",
+   "MISSING_AUTHORITY": [
+    {
+     "N": 1,
+     "FALTA": "ficha no registo canonico",
+     "ONDE_DEVIA_ESTAR": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+     "MEDIDO": "IT-T2-002 nao aparece no atlas (0 ocorrencias). O atlas tem 42 fontes com ficha, e nenhuma delas e esta.",
+     "QUEM_O_DIZ": "system-map/data/sources.generated.json, campo RECONCILIACAO.leitura: «52 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico»"
+    },
+    {
+     "N": 2,
+     "FALTA": "contrato canonico com OWNER declarado",
+     "ONDE_DEVIA_ESTAR": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+     "MEDIDO": "o contrato declara OWNER para 5 fontes — FR-T4-001, ES-T4-005, IT-T4-001, ES-T3-001, EU-T4-001 — e IT-T2-002 nao e uma delas."
+    },
+    {
+     "N": 3,
+     "FALTA": "traducao declarada de OWNER_KIND para organizacao.tipo",
+     "ONDE_DEVIA_ESTAR": "sem dono hoje",
+     "MEDIDO": "o schema (002) aceita 9 tipos; o catalogo fala 12 OWNER_KIND, e NENHUM coincide. A prova da M2 escreve `orgao_publico` para `OFFICIAL_REGIONAL_AGENCY` por escolha de quem a escreveu.",
+     "PORQUE_IMPORTA": "mesmo depois de a fonte ser promovida, ninguem sabe materializar a especie da organizacao sem alguem decidir a traducao. UMA TRADUCAO QUE NINGUEM DECLAROU E UMA DECISAO QUE NINGUEM ASSINOU."
+    }
+   ],
+   "ONDE_A_RELACAO_VIVE_HOJE": "candidatas/ITALY-SOURCE-MASTER-V1.json — que se declara «aditivo e nao altera o placar», e cuja ficha desta fonte diz status=NEW, verdict=NAO SEI",
+   "PORQUE_NAO_SE_CRIOU_O_DONO": "CANDIDATE RECORD != CANONICAL FACT. Criar o resolver sobre o candidato seria promover um candidato para a prova ficar verde — e a identidade errada nao se desfaz: ela propaga-se para tudo o que for admitido a seguir.",
+   "O_QUE_JA_ESTA_CERTO_E_NAO_SE_MEXEU": "coleta/social_persistencia.exigir_canal() RECUSA criar canal e nomeia QUEM_RESOLVE. A recusa esta correta e continua intacta: CONTENT PERSISTENCE != IDENTITY RESOLUTION.",
+   "MENOR_PROXIMO_PASSO": "promover IT-T2-002 a ficha no atlas (decisao de conteudo, com evidencia sobre a fonte) OU dar-lhe contrato em CONTRATOS-DAS-FONTES-EAME.md. Depois disso, declarar a traducao OWNER_KIND -> organizacao.tipo. So entao o resolver tem sobre o que assentar."
+  }
+ }
 }

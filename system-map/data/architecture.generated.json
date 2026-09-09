@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "ef9803bbb98fcbb14cb9a31b16ef61fba23980e0",
-    "GENERATED_AT": "2026-09-08T23:49:00+00:00"
+    "HEAD": "ff26485c7d2544335656f1c2df6948e1e13a778d",
+    "GENERATED_AT": "2026-09-09T00:08:15+00:00"
   },
   "FILES": [
     {
@@ -7421,8 +7421,15 @@
       "code_dir": false
     },
     {
+      "path": "provas/a_autoridade_da_fonte.py",
+      "sha": "7a2600be0223586a52b6088c6c91603392dc5e17",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/a_rota_m2_atravessa.py",
-      "sha": "4f21752d2e9410746ad562081f71e3ca79af2af0",
+      "sha": "1d3c86fca772c4e0e9d5436766c08dcacfb8525a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8626,7 +8633,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "917741cf1dd3bc8cd4fd794977c8605c513af961",
+      "sha": "6195e2950ebac833d3dc1fd09ebcc6d05b739a00",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8640,7 +8647,7 @@
     },
     {
       "path": "system-map/data/provas-de-execucao.json",
-      "sha": "23e9523843d08458f243a107055a6273c205885a",
+      "sha": "95fab691385a41713f96c92cb62e9e439be555ba",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8900,6 +8907,13 @@
     {
       "path": "tests/test_armazem_italiano.py",
       "sha": "ed70730e1f9731dcf6fefbed7ab92c6fd0c481f2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_autoridade_da_fonte.py",
+      "sha": "0ccd7b84c8cdd704ca39b8bc6a406a8254083085",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23816,6 +23830,72 @@
       }
     },
     {
+      "from_file": "provas/a_autoridade_da_fonte.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_autoridade_da_fonte.py",
+        "line": 53,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/a_autoridade_da_fonte.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_autoridade_da_fonte.py",
+        "line": 59,
+        "snippet": "CANDIDATO = os.path.join(RAIZ, \"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "provas/a_autoridade_da_fonte.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_autoridade_da_fonte.py",
+        "line": 56,
+        "snippet": "ATLAS = os.path.join(RAIZ, \"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")"
+      }
+    },
+    {
+      "from_file": "provas/a_autoridade_da_fonte.py",
+      "to_file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_autoridade_da_fonte.py",
+        "line": 57,
+        "snippet": "CONTRATOS = os.path.join(RAIZ, \"docs\", \"operacao\", \"CONTRATOS-DAS-FONTES-EAME.md\")"
+      }
+    },
+    {
+      "from_file": "provas/a_autoridade_da_fonte.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_autoridade_da_fonte.py",
+        "line": 261,
+        "snippet": "\"preservar_coleta_no_postgres.py\"))"
+      }
+    },
+    {
+      "from_file": "provas/a_autoridade_da_fonte.py",
+      "to_file": "supabase/migrations/002_identidade_pessoa_org_canal.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_autoridade_da_fonte.py",
+        "line": 61,
+        "snippet": "\"002_identidade_pessoa_org_canal.sql\")"
+      }
+    },
+    {
       "from_file": "provas/a_rota_m2_atravessa.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -23844,7 +23924,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 166,
+        "line": 183,
         "snippet": "open(CATALOGO, 'leitura')  # CATALOGO = candidatas/ITALY-SOURCE-MASTER-V1.json"
       }
     },
@@ -27047,6 +27127,61 @@
         "file": "tests/test_armazem_italiano.py",
         "line": 24,
         "snippet": "GERADOR = os.path.join(RAIZ, \"system-map\", \"scripts\", \"generate_system_map.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_autoridade_da_fonte.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_autoridade_da_fonte.py",
+        "line": 31,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_autoridade_da_fonte.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_autoridade_da_fonte.py",
+        "line": 84,
+        "snippet": "self.assertEqual(\"candidatas/ITALY-SOURCE-MASTER-V1.json\","
+      }
+    },
+    {
+      "from_file": "tests/test_autoridade_da_fonte.py",
+      "to_file": "coleta/social_persistencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_autoridade_da_fonte.py",
+        "line": 144,
+        "snippet": "import social_persistencia as sp"
+      }
+    },
+    {
+      "from_file": "tests/test_autoridade_da_fonte.py",
+      "to_file": "coleta/social_persistencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_autoridade_da_fonte.py",
+        "line": 145,
+        "snippet": "fonte = open(os.path.join(RAIZ, \"coleta\", \"social_persistencia.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_autoridade_da_fonte.py",
+      "to_file": "provas/a_autoridade_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_autoridade_da_fonte.py",
+        "line": 32,
+        "snippet": "import a_autoridade_da_fonte as au  # noqa: E402"
       }
     },
     {
@@ -32201,10 +32336,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1336,
-    "files_readable": 493,
-    "files_code_dir": 545,
-    "file_edges": 2034,
+    "files_tracked": 1338,
+    "files_readable": 495,
+    "files_code_dir": 547,
+    "file_edges": 2045,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 20375,
-    "h": 3750
+    "h": 4072
   },
   "INVENTORY": {
     ".claude": [
@@ -1110,6 +1110,7 @@
       "prototype/portal/index.html"
     ],
     "provas": [
+      "provas/a_autoridade_da_fonte.py",
       "provas/a_rota_m2_atravessa.py",
       "provas/auditoria.py",
       "provas/auditoria_live.sh",
@@ -1336,6 +1337,7 @@
       "tests/test_aprender_com_a_fonte.py",
       "tests/test_arestas.py",
       "tests/test_armazem_italiano.py",
+      "tests/test_autoridade_da_fonte.py",
       "tests/test_biblia.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canonico.py",
@@ -1782,8 +1784,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "ef9803bbb98fcbb14cb9a31b16ef61fba23980e0",
-    "GENERATED_AT": "2026-09-08T23:49:00+00:00"
+    "HEAD": "ff26485c7d2544335656f1c2df6948e1e13a778d",
+    "GENERATED_AT": "2026-09-09T00:08:15+00:00"
   },
   "FAMILIES": [
     {
@@ -1793,7 +1795,7 @@
       "x": 260,
       "y": 60,
       "w": 10190,
-      "h": 3430,
+      "h": 3752,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -1818,7 +1820,7 @@
       "x": 10670,
       "y": 60,
       "w": 1315,
-      "h": 3430,
+      "h": 3752,
       "zones": [
         "Z-GUARDA"
       ],
@@ -1831,14 +1833,14 @@
       "x": 12205,
       "y": 60,
       "w": 4260,
-      "h": 3430,
+      "h": 3752,
       "zones": [
         "Z-LINEAGE",
         "Z-REGUAS",
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 53
+      "count": 54
     },
     {
       "id": "F-ENTREGA",
@@ -1847,7 +1849,7 @@
       "x": 16685,
       "y": 60,
       "w": 3430,
-      "h": 3430,
+      "h": 3752,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -1869,7 +1871,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 1
     },
     {
@@ -1883,7 +1885,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 1
     },
     {
@@ -1898,7 +1900,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 2
     },
     {
@@ -1913,7 +1915,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 1
     },
     {
@@ -1928,7 +1930,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 2
     },
     {
@@ -1943,7 +1945,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 2
     },
     {
@@ -1959,7 +1961,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 4
     },
     {
@@ -1973,7 +1975,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 1
     },
     {
@@ -1988,7 +1990,7 @@
       "x": 5940,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 4
     },
     {
@@ -2002,7 +2004,7 @@
       "x": 6645,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 5
     },
     {
@@ -2018,7 +2020,7 @@
       "x": 7350,
       "y": 190,
       "w": 1235,
-      "h": 3260,
+      "h": 3582,
       "count": 13
     },
     {
@@ -2033,7 +2035,7 @@
       "x": 8885,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 1
     },
     {
@@ -2048,7 +2050,7 @@
       "x": 9590,
       "y": 190,
       "w": 820,
-      "h": 3260,
+      "h": 3582,
       "count": 12
     },
     {
@@ -2063,7 +2065,7 @@
       "x": 10710,
       "y": 190,
       "w": 1235,
-      "h": 3260,
+      "h": 3582,
       "count": 13
     },
     {
@@ -2079,7 +2081,7 @@
       "x": 12245,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 4
     },
     {
@@ -2095,7 +2097,7 @@
       "x": 12950,
       "y": 190,
       "w": 820,
-      "h": 3260,
+      "h": 3582,
       "count": 11
     },
     {
@@ -2111,7 +2113,7 @@
       "x": 14070,
       "y": 190,
       "w": 820,
-      "h": 3260,
+      "h": 3582,
       "count": 8
     },
     {
@@ -2127,8 +2129,8 @@
       "x": 15190,
       "y": 190,
       "w": 1235,
-      "h": 3260,
-      "count": 30
+      "h": 3582,
+      "count": 31
     },
     {
       "id": "Z-PACOTE",
@@ -2143,7 +2145,7 @@
       "x": 16725,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 3
     },
     {
@@ -2159,7 +2161,7 @@
       "x": 17430,
       "y": 190,
       "w": 820,
-      "h": 3260,
+      "h": 3582,
       "count": 7
     },
     {
@@ -2175,7 +2177,7 @@
       "x": 18550,
       "y": 190,
       "w": 405,
-      "h": 3260,
+      "h": 3582,
       "count": 5
     },
     {
@@ -2190,7 +2192,7 @@
       "x": 19255,
       "y": 190,
       "w": 820,
-      "h": 3260,
+      "h": 3582,
       "count": 11
     }
   ],
@@ -2792,6 +2794,7 @@
         "C-MAPA-TESTES",
         "C-PACOTE-CAMADAS",
         "C-PADRAO-COLETA",
+        "C-PROVA-AUTORIDADE-FONTE",
         "C-SITE-INGEST",
         "C-TESTES",
         "V-FACEBOOK",
@@ -8670,6 +8673,7 @@
         "C-IT-CONTRATOS",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
+        "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
@@ -10863,6 +10867,55 @@
       "y": 1326
     },
     {
+      "id": "C-PROVA-AUTORIDADE-FONTE",
+      "name": "A medição da autoridade da fonte",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Mede, só por leitura dos artefatos canónicos, se existe autoridade para ligar um SOURCE_ID a uma entidade — e nomeia exactamente onde ela falta. Não resolve identidade, não escreve em `organizacao`, `pessoa`, `origem` nem `canal`, e prova no banco descartável que medir não escreveu nada.",
+      "why_here": "SOURCE CATALOG DECLARATION != DB IDENTITY AUTHORITY. A relação IT-T2-002 → IT-OWN-003 → ARPAV existe apenas em `candidatas/`, que se declara aditivo; o registo canónico nunca lhe deu ficha. Criar o resolver sobre isso seria promover um candidato para a prova ficar verde — e identidade errada não se desfaz: propaga-se para tudo o que for admitido a seguir. O gap fica OPEN, com a autoridade em falta nomeada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊘",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "provas/a_autoridade_da_fonte.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-AS-FONTES",
+        "C-IT-CATALOGO",
+        "C-PROVA-COLETA",
+        "C-SUPABASE"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 16080,
+      "y": 2292
+    },
+    {
       "id": "C-PROVA-BIBLIA",
       "name": "O validador da Bíblia",
       "territory": "Z-PROVA",
@@ -10925,8 +10978,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 16080,
-      "y": 2292
+      "x": 15250,
+      "y": 2614
     },
     {
       "id": "C-PROVA-COLETA",
@@ -10992,6 +11045,7 @@
         "C-CENSO-EXECUTORES",
         "C-CENSO-OBSERVABILIDADE",
         "C-CI-PERSIST",
+        "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
@@ -11026,7 +11080,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 2614
     },
     {
@@ -11072,7 +11126,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 2614
     },
     {
@@ -11136,8 +11190,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 2614
+      "x": 15250,
+      "y": 2936
     },
     {
       "id": "C-PROVA-MAPA-NAO-MENTE",
@@ -11225,7 +11279,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15250,
+      "x": 15665,
       "y": 2936
     },
     {
@@ -11293,7 +11347,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 2936
     },
     {
@@ -11346,8 +11400,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 2936
+      "x": 15250,
+      "y": 3258
     },
     {
       "id": "C-PROVENIENCIA",
@@ -11544,7 +11598,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 3258
     },
     {
@@ -11684,7 +11738,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 3258
     },
     {
@@ -12639,6 +12693,7 @@
         "C-FONTES-EU",
         "C-IMPORTAR",
         "C-MAPA-GERADOR",
+        "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
         "C-REGRA-COLETA",
         "C-ROTULOS",
@@ -13746,6 +13801,7 @@
         "tests/test_aprender_com_a_fonte.py",
         "tests/test_arestas.py",
         "tests/test_armazem_italiano.py",
+        "tests/test_autoridade_da_fonte.py",
         "tests/test_biblia.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canonico.py",
@@ -13811,9 +13867,9 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 70,
+      "file_count": 71,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 30 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 31 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
@@ -13871,6 +13927,7 @@
         "C-NAVEGADOR",
         "C-PACOTE-CAMADAS",
         "C-PROCEDENCIA",
+        "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -13909,7 +13966,7 @@
       },
       "paises_dado": {
         "ESPANHA": 44,
-        "ITALIA": 10,
+        "ITALIA": 11,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -13999,8 +14056,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 16080,
-      "y": 3258
+      "x": 15250,
+      "y": 3580
     },
     {
       "id": "C-TRANSCRICAO",
@@ -15542,7 +15599,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD ef9803bbb98fcbb14cb9a31b16ef61fba23980e0"
+        "HEAD ff26485c7d2544335656f1c2df6948e1e13a778d"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16600,6 +16657,29 @@
           "file": "medidas/padrao_da_coleta.py",
           "line": 62,
           "snippet": "CONTRATOS = os.path.join(ROOT, 'docs', 'operacao', 'CONTRATOS-DAS-FONTES-EAME.md')"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "C-PROVA-AUTORIDADE-FONTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES alimenta A medição da autoridade da fonte. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_autoridade_da_fonte.py",
+          "line": 56,
+          "snippet": "ATLAS = os.path.join(RAIZ, \"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")"
+        },
+        {
+          "file": "provas/a_autoridade_da_fonte.py",
+          "line": 57,
+          "snippet": "CONTRATOS = os.path.join(RAIZ, \"docs\", \"operacao\", \"CONTRATOS-DAS-FONTES-EAME.md\")"
         }
       ],
       "categoria": "READ"
@@ -21135,6 +21215,24 @@
     },
     {
       "from": "C-IT-CATALOGO",
+      "to": "C-PROVA-AUTORIDADE-FONTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta A medição da autoridade da fonte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_autoridade_da_fonte.py",
+          "line": 59,
+          "snippet": "CANDIDATO = os.path.join(RAIZ, \"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-IT-CATALOGO",
       "to": "C-PROVA-FORWARD-CONTA",
       "type": "READS",
       "payload": "artefacto",
@@ -21163,7 +21261,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 166,
+          "line": 183,
           "snippet": "open(CATALOGO, 'leitura')  # CATALOGO = candidatas/ITALY-SOURCE-MASTER-V1.json"
         }
       ],
@@ -21177,8 +21275,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O levantamento das fontes italianas alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O levantamento das fontes italianas alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_autoridade_da_fonte.py",
+          "line": 84,
+          "snippet": "self.assertEqual(\"candidatas/ITALY-SOURCE-MASTER-V1.json\","
+        },
         {
           "file": "tests/test_forward_instrumentado.py",
           "line": 240,
@@ -23659,6 +23762,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-PROVA-AUTORIDADE-FONTE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A medição da autoridade da fonte tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_autoridade_da_fonte.py",
+          "line": 32,
+          "snippet": "import a_autoridade_da_fonte as au  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-PROVA-BIBLIA",
       "to": "C-BIBLIA",
       "type": "WRITES",
@@ -23774,6 +23895,24 @@
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 39,
           "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
+      "to": "C-PROVA-AUTORIDADE-FONTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta A medição da autoridade da fonte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_autoridade_da_fonte.py",
+          "line": 261,
+          "snippet": "\"preservar_coleta_no_postgres.py\"))"
         }
       ],
       "categoria": "PROOF"
@@ -25360,8 +25499,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — aquisicao social tem o seu codigo importado por Suite de testes. Provado por 16 linhas de codigo.",
+      "reason": "SINTONIA SCRAP — aquisicao social tem o seu codigo importado por Suite de testes. Provado por 17 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_autoridade_da_fonte.py",
+          "line": 144,
+          "snippet": "import social_persistencia as sp"
+        },
         {
           "file": "tests/test_falhas.py",
           "line": 20,
@@ -25416,11 +25560,6 @@
           "file": "tests/test_youtube_oficial.py",
           "line": 22,
           "snippet": "import youtube_oficial as yt      # noqa: E402"
-        },
-        {
-          "file": "tests/test_youtube_oficial.py",
-          "line": 25,
-          "snippet": "import social_envelope as _env     # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -25433,8 +25572,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — aquisicao social alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "SINTONIA SCRAP — aquisicao social alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_autoridade_da_fonte.py",
+          "line": 145,
+          "snippet": "fonte = open(os.path.join(RAIZ, \"coleta\", \"social_persistencia.py\"),"
+        },
         {
           "file": "tests/test_social_sessao.py",
           "line": 26,
@@ -25922,6 +26066,24 @@
           "file": "system-map/scripts/generate_system_map.py",
           "line": 903,
           "snippet": "migracao = \"supabase/migrations/022_o_derivado_ganha_casa.sql\""
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-SUPABASE",
+      "to": "C-PROVA-AUTORIDADE-FONTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O banco onde o dado fica guardado alimenta A medição da autoridade da fonte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_autoridade_da_fonte.py",
+          "line": 61,
+          "snippet": "\"002_identidade_pessoa_org_canal.sql\")"
         }
       ],
       "categoria": "READ"
@@ -27539,17 +27701,17 @@
   "UNCLAIMED_FILES_COUNT": 697,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 141,
+    "components": 142,
     "components_proven": 70,
-    "components_pending": 64,
+    "components_pending": 65,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 540,
-    "edges_proven": 538,
+    "edges": 545,
+    "edges_proven": 543,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1336,
-    "files_covered": 639,
+    "files_tracked": 1338,
+    "files_covered": 641,
     "files_code_unclaimed": 0
   }
 }

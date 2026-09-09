@@ -2533,6 +2533,24 @@
    "views": [
     "audit"
    ]
+  },
+  {
+   "id": "C-PROVA-AUTORIDADE-FONTE",
+   "name": "A medição da autoridade da fonte",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊘",
+   "what": "Mede, só por leitura dos artefatos canónicos, se existe autoridade para ligar um SOURCE_ID a uma entidade — e nomeia exactamente onde ela falta. Não resolve identidade, não escreve em `organizacao`, `pessoa`, `origem` nem `canal`, e prova no banco descartável que medir não escreveu nada.",
+   "why_here": "SOURCE CATALOG DECLARATION != DB IDENTITY AUTHORITY. A relação IT-T2-002 → IT-OWN-003 → ARPAV existe apenas em `candidatas/`, que se declara aditivo; o registo canónico nunca lhe deu ficha. Criar o resolver sobre isso seria promover um candidato para a prova ficar verde — e identidade errada não se desfaz: propaga-se para tudo o que for admitido a seguir. O gap fica OPEN, com a autoridade em falta nomeada.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/a_autoridade_da_fonte.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
