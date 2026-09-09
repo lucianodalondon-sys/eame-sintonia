@@ -236,9 +236,27 @@ def linhagem() -> list:
        VERDE,
        "E a branch onde este mapa foi medido. Ela consome inteligencia; nao e dona do gerador.",
        "Separar consumidor de gerador impede que a linha do portal reescreva inteligencia com uma cadeia atrasada.",
-       [f"branch {ramo}", f"HEAD {head}"],
+       # ⚠️ O HEAD SAIU DAQUI, E NAO POR LIMPEZA.
+       # `validate_system_map.py` remove o bloco PROVENANCE antes de comparar,
+       # e diz porque: «HEAD e BRANCH mudam a cada commit; compara-los faria o
+       # portao reprovar toda a gente, sempre». A regra esta certa e estava
+       # incompleta — o mesmo carimbo vazava para dentro dos FACTOS deste
+       # cartao, onde a remocao nao chega.
+       #
+       # O efeito era estrutural, nao cosmetico: commitar o mapa muda o HEAD,
+       # o que invalida o mapa acabado de commitar. NAO HAVIA ESTADO EM QUE O
+       # P1 PASSASSE depois de um commit — a arvore ficava suja para sempre, e
+       # uma arvore permanentemente suja esconde a proxima mudanca a serio.
+       #
+       #     UM PORTAO ANTI-DRIFT QUE NENHUM COMMIT PODE SATISFAZER
+       #     NAO MEDE DRIFT: MEDE O RELOGIO.
+       #
+       # A BRANCH fica, porque e o facto arquitetural — quem consome. O commit
+       # e proveniencia, e continua inteiro em PROVENANCE.HEAD, que e onde o
+       # validador ja sabe nao olhar.
+       [f"branch {ramo}"],
        "Medido pelo proprio git desta arvore no momento em que o mapa foi gerado.",
-       "o git prova a branch e o commit; nao ha aqui nada declarado a mao.",
+       "o git prova a branch; o commit exacto vive em PROVENANCE.HEAD.",
        proof="git-measurement")
 
     if not contrato.exists():

@@ -1791,8 +1791,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "4c91cc65679bde09747e9e15fce5e9eb8cb014e8",
-    "GENERATED_AT": "2026-09-09T04:45:50+00:00"
+    "HEAD": "8f7ff4c5938097fe8c4ef1e793d39f355fdcffb3",
+    "GENERATED_AT": "2026-09-09T04:47:24+00:00"
   },
   "FAMILIES": [
     {
@@ -16090,8 +16090,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/collection-topology-census-v1",
-        "HEAD 4c91cc65679bde09747e9e15fce5e9eb8cb014e8"
+        "branch claude/collection-topology-census-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16101,7 +16100,7 @@
       "why_here": "Separar consumidor de gerador impede que a linha do portal reescreva inteligencia com uma cadeia atrasada.",
       "files": [],
       "file_count": 0,
-      "status_reason": "o git prova a branch e o commit; nao ha aqui nada declarado a mao.",
+      "status_reason": "o git prova a branch; o commit exacto vive em PROVENANCE.HEAD.",
       "evidence_text": "Medido pelo proprio git desta arvore no momento em que o mapa foi gerado.",
       "departments": [
         "ENGENHARIA"
@@ -16449,7 +16448,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 976,
+          "line": 994,
           "snippet": "\"evidence\": [{\"file\": \"admissao/admissao.py\", \"line\": 391,"
         }
       ],
@@ -17144,12 +17143,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 422,
+          "line": 440,
           "snippet": "CONTRATOS_REL = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\""
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2592,
+          "line": 2610,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -21060,7 +21059,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1344,
+          "line": 1362,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -21418,7 +21417,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1326,
+          "line": 1344,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         }
       ],
@@ -22392,7 +22391,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2614,
+          "line": 2632,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -23164,17 +23163,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2815,
+          "line": 2833,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2815,
+          "line": 2833,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2816,
+          "line": 2834,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -23356,12 +23355,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3371,
+          "line": 3389,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3371,
+          "line": 3389,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -25325,7 +25324,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 940,
+          "line": 958,
           "snippet": "\"evidence_text\": \"provas/a_fronteira_da_coleta.py\","
         }
       ],
@@ -27576,7 +27575,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1011,
+          "line": 1029,
           "snippet": "migracao = \"supabase/migrations/022_o_derivado_ganha_casa.sql\""
         }
       ],
