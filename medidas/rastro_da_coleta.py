@@ -152,15 +152,28 @@ def registrar(banco, *, run_id, etapa, estado, edge_from=None, tentativa=0,
             'ESTADO': linha[2], 'DIAGNOSTIC_CODE': linha[3] or None}
 
 
+def _uma_linha(texto):
+    """Uma mensagem de erro nao pode partir o leitor do rastro.
+
+    ⚠️ MEDIDO NA M2: o `psql` devolve o erro em VARIAS linhas e com `|`, que e
+    o separador do leitor. Uma delas entrou no rastro e a leitura seguinte
+    partiu as colunas ao meio — `KeyError: DURACAO_MS`. O retrato da falha
+    estragava a leitura de TODAS as passagens da corrida, inclusive as boas.
+
+        UMA FALHA NAO PODE APAGAR O RELATO DAS QUE CORRERAM BEM.
+    """
+    return ' · '.join(str(texto).replace('|', '/').split())
+
+
 def _redigir(msg):
     """Nenhum segredo entra no rastro. O rastro e para ser lido."""
     if not msg:
         return None
     try:
         import social_sessao as ss
-        return ss.redigir(str(msg))[:400]
+        return _uma_linha(ss.redigir(str(msg)))[:400]
     except Exception:                                        # noqa: BLE001
-        return str(msg)[:400]
+        return _uma_linha(msg)[:400]
 
 
 # ═════════════════════════════════════════════════════════════════════════
@@ -169,6 +182,7 @@ def _redigir(msg):
 def passagens(banco, *, run_id):
     linhas = banco.executa(
         "select etapa::text, coalesce(edge_from::text,'-'), estado::text,"
+        " coalesce(source_id,'-'), coalesce(route_class_id,'-'),"
         " coalesce(input_grain,'-'), coalesce(input_count,-1),"
         " coalesce(output_grain,'-'), coalesce(output_count,-1),"
         " passed, rejected, error_count, not_run_count, unknown_count, reused,"
@@ -181,7 +195,17 @@ def passagens(banco, *, run_id):
         " from public.etapa_da_corrida where run_id = %s"
         " order by tentativa, id" % _lit(run_id))
     # A ORDEM E A DO SELECT, e os nomes dos baldes sao os DESTINOS do contrato.
-    campos = ('ETAPA', 'EDGE_FROM', 'ESTADO', 'INPUT_GRAIN', 'INPUT_COUNT',
+    campos = ('ETAPA', 'EDGE_FROM', 'ESTADO',
+              # ⚠️ A ROTA TAMBEM VOLTA, E ELA FALTAVA.
+              # O writer guardava `source_id` e `route_class_id`; o leitor nao
+              # os devolvia. E a mesma especie de defeito que ja foi corrigido
+              # aqui para `canonical_state`, `actor` e `actor_version` — este
+              # ficou de fora, e sem ele NAO SE CONSEGUE PERGUNTAR AO BANCO
+              # «esta passagem e de que rota?». O portao da M2 tinha de
+              # acreditar no que o ledger DECLARA, em vez de conferir o que o
+              # banco MEDIU.
+              'SOURCE_ID', 'ROUTE_CLASS_ID',
+              'INPUT_GRAIN', 'INPUT_COUNT',
               'OUTPUT_GRAIN', 'OUTPUT_COUNT',
               'PASSED', 'REJECTED', 'ERROR', 'NOT_RUN', 'UNKNOWN', 'REUSED',
               'ACCOUNTED', 'UNACCOUNTED', 'DIAGNOSTIC_CODE',
@@ -200,7 +224,8 @@ def passagens(banco, *, run_id):
         for k in (('INPUT_COUNT', 'OUTPUT_COUNT') + DESTINOS +
                   ('ACCOUNTED', 'UNACCOUNTED', 'DURACAO_MS', 'TENTATIVA')):
             d[k] = int(d[k])
-        for k in ('EDGE_FROM', 'INPUT_GRAIN', 'OUTPUT_GRAIN', 'DIAGNOSTIC_CODE',
+        for k in ('EDGE_FROM', 'SOURCE_ID', 'ROUTE_CLASS_ID',
+                  'INPUT_GRAIN', 'OUTPUT_GRAIN', 'DIAGNOSTIC_CODE',
                   'CANONICAL_STATE', 'ERROR_CLASS', 'ERROR_MESSAGE', 'ACTOR',
                   'ACTOR_VERSION', 'LAST_GOOD_ARTIFACT'):
             d[k] = None if d[k] == '-' else d[k]
@@ -208,6 +233,71 @@ def passagens(banco, *, run_id):
             d[k] = None if d[k] == -1 else d[k]
         saida.append(d)
     return saida
+
+
+# ═════════════════════════════════════════════════════════════════════════
+# A IDENTIDADE DA ROTA, E O QUE ELA ATRAVESSOU DE VERDADE
+# ═════════════════════════════════════════════════════════════════════════
+#
+#     DECLARED EDGE  !=  OBSERVED EDGE.
+#
+# ⚠️ NAO SE INVENTOU UM `ROUTE_ID`. A `024` ja declara qual e a chave da rota,
+# e declara-a onde ela e usada: `v_saude_da_rota` agrupa por
+# `(source_id, route_class_id)`, e o comentario da view diz porque — «a saude
+# e do par (fonte, rota)». Um identificador novo seria uma SEGUNDA identidade,
+# e as duas divergiriam no dia em que alguem escrevesse uma e lesse a outra.
+def identidade_da_rota(passagem):
+    """O par (fonte, rota) desta passagem, ou `None` se ela nao o declara.
+
+    `None` NAO e um valor de rota: e a ausencia dele. Uma passagem anonima nao
+    pertence a rota nenhuma para efeitos de cobertura, e conta-la a favor da
+    rota que da jeito seria dar-lhe uma prova que ela nao tem.
+    """
+    fonte = passagem.get('SOURCE_ID')
+    rota = passagem.get('ROUTE_CLASS_ID')
+    if not fonte or not rota:
+        return None
+    return (fonte, rota)
+
+
+def o_que_a_rota_observou(passagens_da_corrida, rota):
+    """As etapas e as ARESTAS que ESTA rota atravessou — lidas do banco.
+
+    ⚠️ ETAPA OBSERVADA E ETAPA QUE ACONTECEU, e nao etapa que tem linha.
+    `NOT_RUN`, `SKIPPED` e `NOT_APPLICABLE` deixam linha e nao sao passagem. Se
+    contassem, bastava escrever uma linha vazia para uma rota parecer coberta.
+
+    ⚠️ E UMA ARESTA SO E OBSERVADA COM OS DOIS TOPOS.
+    Uma passagem que diz `edge_from='DERIVED'` esta a DECLARAR de onde veio.
+    Isso e a intencao de quem escreveu a linha — nao a prova de que a etapa de
+    cima aconteceu nesta rota. Medido: na corrida que provava a rota da M2, o
+    `STRUCTURED` declarava vir de `DERIVED` e NAO havia passagem de `DERIVED`
+    nenhuma naquela corrida; a etapa tinha corrido noutra, noutro ficheiro.
+
+        UMA SETA DESENHADA NAO E UM CAMINHO PERCORRIDO.
+
+    Por isso a aresta so entra em `ARESTAS` quando a etapa de origem TAMBEM
+    aconteceu nesta rota. O que foi apenas declarado fica em
+    `ARESTAS_DECLARADAS_SEM_TOPO` — visivel, e nao contado.
+    """
+    minhas = [p for p in passagens_da_corrida
+              if identidade_da_rota(p) == tuple(rota)]
+    aconteceram = {p['ETAPA'] for p in minhas
+                   if p.get('ESTADO') in ('PASS', 'PARTIAL')}
+    declaradas = {(p['EDGE_FROM'], p['ETAPA']) for p in minhas
+                  if p.get('EDGE_FROM') and p.get('ESTADO') in ('PASS', 'PARTIAL')}
+    observadas = {(de, para) for de, para in declaradas if de in aconteceram}
+    return {'ROTA': tuple(rota),
+            'ETAPAS': aconteceram,
+            'ARESTAS': observadas,
+            'ARESTAS_DECLARADAS_SEM_TOPO': declaradas - observadas,
+            'PASSAGENS': len(minhas)}
+
+
+def rotas_da_corrida(passagens_da_corrida):
+    """As rotas que deixaram passagem nesta corrida, sem as anonimas."""
+    return sorted({r for r in (identidade_da_rota(p)
+                               for p in passagens_da_corrida) if r})
 
 
 def ultimo_bom(passagens_da_corrida):

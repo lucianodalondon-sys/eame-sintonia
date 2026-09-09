@@ -2513,6 +2513,62 @@
    "views": [
     "audit"
    ]
+  },
+  {
+   "id": "C-ROTA-M2",
+   "name": "A rota forward do documento (M2)",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "⇥",
+   "what": "A costura DERIVED -> STRUCTURED -> ADMISSION sobre uma unidade real italiana. Chama os tres donos canonicos e conta cada passagem no mesmo ato em que ela acontece.",
+   "why_here": "MODULE EXISTS != EDGE EXISTS != FLOW EXISTS. As tres pecas ja existiam e nenhuma estava ligada a seguinte. A M2 nao reimplementa decisao nenhuma — cria a aresta e a telemetria, e termina em ADMISSION porque ADMISSION PASS != READY PASS (COL-LAW-043).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/rota_forward_documento.py"
+   ],
+   "views": [
+    "audit",
+    "trace",
+    "diagnostic"
+   ]
+  },
+  {
+   "id": "C-PROVA-ROTA-M2-ATRAVESSA",
+   "name": "A prova de que a rota da M2 atravessa",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊢",
+   "what": "Corre DERIVED → STRUCTURED → ADMISSION numa corrida só, sobre uma unidade real, com o artefato a viajar entre as etapas — os bytes que entram no STRUCTURED são os do `derived_artifact` que o DERIVED acabou de escrever, conferidos por sha256. Depois pergunta AO BANCO o que aquela rota atravessou, e exige que as duas arestas tenham os dois topos.",
+   "why_here": "DECLARED EDGE != OBSERVED EDGE. A rota estava provada por etapas e a aresta de entrada nunca fora observada: no banco, o STRUCTURED declarava vir de DERIVED e não havia passagem de DERIVED naquela corrida — a etapa correra noutra, noutro ficheiro. UMA SETA DESENHADA NÃO É UM CAMINHO PERCORRIDO.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/a_rota_m2_atravessa.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
+   "id": "C-PROVA-AUTORIDADE-FONTE",
+   "name": "A medição da autoridade da fonte",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊘",
+   "what": "Mede, só por leitura dos artefatos canónicos, se existe autoridade para ligar um SOURCE_ID a uma entidade — e nomeia exactamente onde ela falta. Não resolve identidade, não escreve em `organizacao`, `pessoa`, `origem` nem `canal`, e prova no banco descartável que medir não escreveu nada.",
+   "why_here": "SOURCE CATALOG DECLARATION != DB IDENTITY AUTHORITY. A relação IT-T2-002 → IT-OWN-003 → ARPAV existe apenas em `candidatas/`, que se declara aditivo; o registo canónico nunca lhe deu ficha. Criar o resolver sobre isso seria promover um candidato para a prova ficar verde — e identidade errada não se desfaz: propaga-se para tudo o que for admitido a seguir. O gap fica OPEN, com a autoridade em falta nomeada.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/a_autoridade_da_fonte.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

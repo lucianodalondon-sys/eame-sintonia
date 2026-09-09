@@ -56,7 +56,118 @@
     "PAGO": false,
     "PRODUCAO": false
    }
+  },
+  "coleta/rota_forward_documento.py": {
+   "EXECUTION_MODE": "FORWARD",
+   "PAPEL": "RUNNER — a costura, e nao um executor. Ela nao deriva, nao escreve conteudo e nao julga: chama os tres donos.",
+   "GOOD_PATH_PROVED": true,
+   "FAULT_PATH_PROVED": true,
+   "PROVA": "tests/test_m2_rota_forward.py",
+   "FRONTEIRA": "coleta/rota_forward_documento.py",
+   "EXECUTOR_MODIFICADO": false,
+   "ETAPAS_OBSERVADAS": [
+    "DERIVED",
+    "STRUCTURED",
+    "ADMISSION"
+   ],
+   "FORWARD": {
+    "FUNCAO": "atravessar()",
+    "FRONTEIRA": "coleta/rota_forward_documento.py",
+    "PROVA": "tests/test_m2_rota_forward.py",
+    "ETAPAS_OBSERVADAS": [
+     "DERIVED",
+     "STRUCTURED",
+     "ADMISSION"
+    ],
+    "PORQUE_DERIVED_CONTA": "porque a derivacao e CHAMADA nesta execucao, e nao emprestada de outra prova. Ate a M2R o ledger compunha: O9R provava DERIVED e a M2 provava STRUCTURED+ADMISSION, e as duas partilhavam SOURCE_ID e ROUTE_CLASS_ID. SAME ROUTE CLASS != SAME EXECUTION FLOW.",
+    "SOURCE_ID": "IT-T2-002",
+    "ROUTE_CLASS_ID": "RC-1",
+    "DONOS": {
+     "DERIVED": "coleta/derivacao_forward.py -> executor_texto_de_pdf.derivar_um()",
+     "STRUCTURED": "coleta/social_persistencia.py (dono de public.conteudo)",
+     "ADMISSION": "admissao/admissao.py (a peneira comum)"
+    },
+    "SEGUNDO_DONO_CRIADO": false,
+    "O_QUE_A_M2_CRIOU": "a COSTURA e a telemetria. Nenhuma das tres decisoes foi reimplementada; `persistir_video` aprendeu o parametro `tipo` (default `video`, sem mudar chamador nenhum) porque escrevia a especie fixa no SQL.",
+    "BANCO": "PostgreSQL 16 descartavel, migrations 001..024. Zero producao.",
+    "GOOD_PATH": "bruto real IT-T2-002 (ARPAV) -> DERIVED PASS -> STRUCTURED PASS -> ADMISSION PASS · UNACCOUNTED 0 nas tres · ordem DERIVED, STRUCTURED, ADMISSION",
+    "FAULT_PATH_STRUCTURED": "DERIVED corre e entrega; a estruturacao nao prossegue -> ADMISSION NOT_RUN com UPSTREAM_NOT_RUN e LAST_GOOD=DERIVED. Zero ERROR em cascata.",
+    "FAULT_PATH_ADMISSION": "a porta diz NAO no universo T9 -> a ETAPA continua PASS e o ITEM sai por REJECTED, com regra e motivo guardados.",
+    "READY_EMITIDO": false,
+    "PORQUE_SEM_READY": "COL-LAW-043. ADMISSION PASS != READY PASS: a porta dizer sim nao e a lei de READY cumprida.",
+    "ARESTAS_OBSERVADAS": [
+     [
+      "DERIVED",
+      "STRUCTURED"
+     ],
+     [
+      "STRUCTURED",
+      "ADMISSION"
+     ]
+    ],
+    "PROVA_DA_ROTA_NUMA_CORRIDA_SO": "provas/a_rota_m2_atravessa.py",
+    "ARESTAS_COMO_FORAM_MEDIDAS": "lidas do BANCO, e nao declaradas aqui: `medidas/rastro_da_coleta.o_que_a_rota_observou()` so conta uma aresta quando a etapa de ORIGEM tambem deixou passagem naquela rota. Uma linha que diz `edge_from=DERIVED` sem que DERIVED tenha corrido e uma SETA DESENHADA, e nao um caminho percorrido.",
+    "ARESTAS_DECLARADAS_SEM_TOPO": [
+     [
+      "RAW",
+      "DERIVED"
+     ]
+    ],
+    "PORQUE_RAW_FICA_SEM_TOPO": "`coleta/derivacao_forward.py` emite DERIVED com `edge_from=RAW` e NAO emite RAW: quem escreve `raw_asset` e `guarda/preservar_coleta.py`, e ler a linha de outro nao e ter corrido a etapa dele. E o gap RAW_FORWARD_NAO_EMITE, declarado desde O9R — agora visivel na medicao, e nao so em prosa.",
+    "O_ARTEFATO_VIAJA": "o texto que entra no STRUCTURED sao os BYTES do `derived_artifact` que a etapa DERIVED acabou de escrever, lidos do armazem e conferidos por sha256 — e nao um ficheiro do registo legado com o mesmo conteudo. ARTEFATO QUE NAO VIAJA NAO E ARESTA: E COINCIDENCIA.",
+    "ADMISSION_RESPONDEU": "NAO_SEI para esta unidade (boletim agrometeo da ARPAV): o vocabulario do universo nao lhe chega. A ETAPA passou e o ITEM saiu por `unknown`. AUSENCIA DE EVIDENCIA NAO E EVIDENCIA DE AUSENCIA — e por isso nao e um NAO.",
+    "END_TO_END": true,
+    "RUN_UNICO": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
+    "DEPENDENCIA_REAL": "o texto que entra em STRUCTURED e lido do armazem pelo `storage_path` da linha de derived_artifact escrita NESTA execucao, e o `content_id` do registo estruturado e o sha256 desse artefato derivado. EDGE LABEL != DATA DEPENDENCY.",
+    "LINHAGEM": "raw_asset (preservado pelo dono) -> derived_artifact (raw_asset_id + parent_sha256) -> conteudo (content_id = sha do derivado) -> decisao de admissao",
+    "FAULT_PATH_DERIVED": "a derivacao nao entrega -> a cadeia PARA em DERIVED: nem STRUCTURED nem ADMISSION aparecem. A cadeia diz a verdade sobre onde parou.",
+    "DUAS_SESSOES_MEDIRAM_O_MESMO": "duas sessoes chegaram a este defeito ao mesmo tempo e cada uma trouxe metade da trava. ARESTAS_OBSERVADAS (medida no banco: uma aresta so conta com as duas pontas) e END_TO_END (uma unica execucao encadeada) NAO se substituem — a primeira recusa a seta desenhada, a segunda recusa a composicao de duas provas compativeis. As duas ficam."
+   },
+   "FORWARD_INSTRUMENTED": true,
+   "GAP_DECLARADO": "a identidade do canal NAO tem dono forward. `exigir_canal` recusa criar um (CHANNEL_IDENTITY_NOT_RESOLVED) porque `origem` exige pessoa OU organizacao, e o writer nao tem autoridade para escolher — CHANNEL_ID PROVA O CANAL, NAO PROVA A ORIGEM. Na prova, a identidade e resolvida no banco descartavel com dados REAIS do catalogo (ARPAV, IT-OWN-003). Em producao isto exige um dono de identidade, e ele nao existe. E o menor proximo trabalho.",
+   "SOURCE_ID": "IT-T2-002",
+   "ROUTE_CLASS_ID": "RC-1",
+   "REDE": false,
+   "PAGO": false,
+   "PRODUCAO": false,
+   "LINEAGE_PROOF_GAP": "ha como CONFERIR, nao ha como IMPEDIR. `public.conteudo` NAO tem chave estrangeira para `derived_artifact`: as colunas sao raw_asset_id, content_id e hash_conteudo. A costura escreve `content_id` = sha256 do derivado e `hash_conteudo` = hash do texto, e por isso a linhagem e verificavel por cruzamento e uma forja e detetavel pelo corpo. Mas e uma CONVENCAO DA COSTURA, e nao uma trava do banco: um writer que escrevesse outra coisa nao seria recusado pelo Postgres. Fechar isto exige coluna/constraint nova, e a M2R nao a cria."
   }
  },
- "LEGACY_NAO_E_FORWARD": "REAL EXECUTOR != CANONICAL FORWARD FLOW. Um replay do corpo historico prova o INSTRUMENTO: que o writer, o storage e o scanner aguentam uma passagem real. NAO prova que o fluxo canonico forward esta instrumentado — e nao esta. Publicar LEGACY como FORWARD seria a mesma classe de mentira que chamar READY a um ficheiro guardado. ⚠️ ATUALIZADO: o forward passou a emitir, por coleta/derivacao_forward.py, e isso esta em FORWARD acima — com a sua propria prova contra Postgres real. As duas afirmacoes continuam separadas de proposito: LEGACY_REPLAY prova o INSTRUMENTO, FORWARD prova a ESTRADA. Junta-las voltaria a ser a mentira que este ficheiro existe para impedir."
+ "LEGACY_NAO_E_FORWARD": "REAL EXECUTOR != CANONICAL FORWARD FLOW. Um replay do corpo historico prova o INSTRUMENTO: que o writer, o storage e o scanner aguentam uma passagem real. NAO prova que o fluxo canonico forward esta instrumentado — e nao esta. Publicar LEGACY como FORWARD seria a mesma classe de mentira que chamar READY a um ficheiro guardado. ⚠️ ATUALIZADO: o forward passou a emitir, por coleta/derivacao_forward.py, e isso esta em FORWARD acima — com a sua propria prova contra Postgres real. As duas afirmacoes continuam separadas de proposito: LEGACY_REPLAY prova o INSTRUMENTO, FORWARD prova a ESTRADA. Junta-las voltaria a ser a mentira que este ficheiro existe para impedir.",
+ "ARESTA_DECLARADA_NAO_E_ARESTA_OBSERVADA": "DECLARED EDGE != OBSERVED EDGE. `edge_from` e a INTENCAO de quem escreveu a linha. A aresta so existe quando as DUAS pontas deixaram passagem na MESMA rota. Medido: a primeira corrida que provou a rota da M2 tinha STRUCTURED a declarar `edge_from=DERIVED` e nenhuma passagem de DERIVED — a etapa correra noutra corrida, noutro ficheiro.",
+ "GAPS_DE_IDENTIDADE": {
+  "CHANNEL_IDENTITY_NOT_RESOLVED": {
+   "ESTADO": "OPEN",
+   "MEDIDO_EM": "M2I · 2026-09-09",
+   "PROVA": "provas/a_autoridade_da_fonte.py",
+   "O_QUE_FALTA": "AUTORIDADE, e nao verdade. ARPAV publica mesmo aquele boletim; o que nao existe e quem tenha autoridade canonica para o AFIRMAR ao banco.",
+   "A_PERGUNTA": "quem tem autoridade para dizer que IT-T2-002 pertence a IT-OWN-003 / ARPAV?",
+   "MISSING_AUTHORITY": [
+    {
+     "N": 1,
+     "FALTA": "ficha no registo canonico",
+     "ONDE_DEVIA_ESTAR": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+     "MEDIDO": "IT-T2-002 nao aparece no atlas (0 ocorrencias). O atlas tem 42 fontes com ficha, e nenhuma delas e esta.",
+     "QUEM_O_DIZ": "system-map/data/sources.generated.json, campo RECONCILIACAO.leitura: «52 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico»"
+    },
+    {
+     "N": 2,
+     "FALTA": "contrato canonico com OWNER declarado",
+     "ONDE_DEVIA_ESTAR": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+     "MEDIDO": "o contrato declara OWNER para 5 fontes — FR-T4-001, ES-T4-005, IT-T4-001, ES-T3-001, EU-T4-001 — e IT-T2-002 nao e uma delas."
+    },
+    {
+     "N": 3,
+     "FALTA": "traducao declarada de OWNER_KIND para organizacao.tipo",
+     "ONDE_DEVIA_ESTAR": "sem dono hoje",
+     "MEDIDO": "o schema (002) aceita 9 tipos; o catalogo fala 12 OWNER_KIND, e NENHUM coincide. A prova da M2 escreve `orgao_publico` para `OFFICIAL_REGIONAL_AGENCY` por escolha de quem a escreveu.",
+     "PORQUE_IMPORTA": "mesmo depois de a fonte ser promovida, ninguem sabe materializar a especie da organizacao sem alguem decidir a traducao. UMA TRADUCAO QUE NINGUEM DECLAROU E UMA DECISAO QUE NINGUEM ASSINOU."
+    }
+   ],
+   "ONDE_A_RELACAO_VIVE_HOJE": "candidatas/ITALY-SOURCE-MASTER-V1.json — que se declara «aditivo e nao altera o placar», e cuja ficha desta fonte diz status=NEW, verdict=NAO SEI",
+   "PORQUE_NAO_SE_CRIOU_O_DONO": "CANDIDATE RECORD != CANONICAL FACT. Criar o resolver sobre o candidato seria promover um candidato para a prova ficar verde — e a identidade errada nao se desfaz: ela propaga-se para tudo o que for admitido a seguir.",
+   "O_QUE_JA_ESTA_CERTO_E_NAO_SE_MEXEU": "coleta/social_persistencia.exigir_canal() RECUSA criar canal e nomeia QUEM_RESOLVE. A recusa esta correta e continua intacta: CONTENT PERSISTENCE != IDENTITY RESOLUTION.",
+   "MENOR_PROXIMO_PASSO": "promover IT-T2-002 a ficha no atlas (decisao de conteudo, com evidencia sobre a fonte) OU dar-lhe contrato em CONTRATOS-DAS-FONTES-EAME.md. Depois disso, declarar a traducao OWNER_KIND -> organizacao.tipo. So entao o resolver tem sobre o que assentar."
+  }
+ }
 }

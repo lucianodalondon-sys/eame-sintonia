@@ -20,15 +20,17 @@
    "ESTADO": "PARCIAL",
    "ONDE": "provas/o_executor_conta_se.py",
    "O_QUE_RESPONDE": "em que codigo cada etapa parou",
-   "PORQUE": "1 de 42 executores emitem. O contrato tem 17 codigos declarados; os que emitem usam-nos, e os outros continuam calados — e calado nao e zero.",
+   "PORQUE": "3 de 44 executores emitem. O contrato tem 17 codigos declarados; os que emitem usam-nos, e os outros continuam calados — e calado nao e zero.",
    "RESSALVA": "UM EXECUTOR INSTRUMENTADO != SISTEMA INSTRUMENTADO. Faltam 41.",
    "COBERTURA": {
     "PERGUNTA": "quantos executores existem, e quantos falam a lingua comum?",
     "COMO_FOI_MEDIDO": "importa `rastro_da_coleta` E chama `registrar(`, fora de comentario. Quem nao importa nao pode estar a emitir; um NAO aqui e definitivo.",
-    "EXECUTORES": 42,
-    "EMITEM": 1,
+    "EXECUTORES": 44,
+    "EMITEM": 3,
     "QUAIS_EMITEM": [
-     "coleta/executor_texto_de_pdf.py"
+     "coleta/derivacao_forward.py",
+     "coleta/executor_texto_de_pdf.py",
+     "coleta/rota_forward_documento.py"
     ],
     "QUANTOS_CALADOS": 41,
     "ONDE_SE_VE": "provas/o_executor_conta_se.py",

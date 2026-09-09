@@ -1,16 +1,16 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "c293be6548382459168468b86881b173e773fad1",
+  "HEAD": "ef9803bbb98fcbb14cb9a31b16ef61fba23980e0",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 57,
- "TOTAL_CAMINHOS_RELEVANTES": 55,
+ "TOTAL_FICHEIROS": 58,
+ "TOTAL_CAMINHOS_RELEVANTES": 56,
  "POR_ESTADO": {
   "NOT_INSTRUMENTED": 53,
   "PARTIAL": 1,
-  "INSTRUMENTED": 1,
+  "INSTRUMENTED": 2,
   "NOT_APPLICABLE": 2
  },
  "PROXIMO_MAIS_BARATO": [
@@ -22,84 +22,85 @@
  ],
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "STAGES": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "EDGE_PASSAGE": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "ACCOUNTING": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "GRAIN": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_STATE": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "DIAGNOSTIC_CODE": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_SNAPSHOT": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "LAST_GOOD": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "RESUME": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "DURATION": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "COST": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   },
   "CHECKPOINT": {
-   "INSTRUMENTED": 0,
+   "INSTRUMENTED": 1,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 1
   },
   "REUSED": {
-   "INSTRUMENTED": 1,
+   "INSTRUMENTED": 2,
    "NOT_INSTRUMENTED": 54,
    "NOT_APPLICABLE": 0
   }
  },
- "GOOD_PATH_PROVED": 1,
- "FAULT_PATH_PROVED": 1,
+ "GOOD_PATH_PROVED": 2,
+ "FAULT_PATH_PROVED": 2,
  "M2": {
   "TELEMETRY_INFRASTRUCTURE": {
    "TELEMETRY_INFRASTRUCTURE_PROVED": "YES",
    "O_QUE_MEDE": "o instrumento — contrato, storage, writer e scanner — aguenta uma passagem real, boa e quebrada. Mede UMA coisa so.",
    "CRITERIOS": {
-    "CONTRATO_IMPLEMENTAVEL_PONTA_A_PONTA": "paridade_da_lingua.py PASS (contrato=storage=writer=scanner)",
+    "CONTRATO_IMPLEMENTAVEL_PONTA_A_PONTA": true,
+    "ONDE_SE_MEDE_ISSO": "provas/paridade_da_lingua.py (consumida, e nao citada: o codigo de saida dela entra no veredito)",
     "CAMINHO_REAL_PROVADO_BOM": true,
     "CAMINHO_REAL_PROVADO_QUEBRADO": true,
     "CONTABILIDADE_FECHA": true,
@@ -112,28 +113,92 @@
    "O_QUE_MEDE": "se algum executor tem a sua ESTRADA CANONICA FORWARD instrumentada — raw_asset real no banco, dono canonico da escrita, e a passagem a chegar ao rastro — e nao apenas um replay do corpo historico.",
    "A_LEI": "LEGACY_REPLAY_INSTRUMENTED != CANONICAL_FORWARD_INSTRUMENTED",
    "QUAIS": [
-    "coleta/executor_texto_de_pdf.py"
+    "coleta/executor_texto_de_pdf.py",
+    "coleta/rota_forward_documento.py"
    ],
    "FRONTEIRAS": [
-    "coleta/derivacao_forward.py"
+    "coleta/derivacao_forward.py",
+    "coleta/rota_forward_documento.py"
    ],
    "PROVAS": [
-    "provas/o_forward_conta_se.py"
+    "provas/o_forward_conta_se.py",
+    "tests/test_m2_rota_forward.py"
    ],
    "O_QUE_NAO_MEDE": "nao diz que a cadeia forward esta COMPLETA. O caminho provado termina em DERIVED, e termina ai porque STRUCTURED e ADMISSION nao tem dono forward ligado. UM CAMINHO INSTRUMENTADO NAO E TODOS OS EXECUTORES INSTRUMENTADOS."
   },
   "M2_ROUTE": {
-   "M2_ROUTE_OBSERVABILITY_READY": "NO",
+   "M2_ROUTE_OBSERVABILITY_READY": "YES",
    "O_QUE_MEDE": "se a rota que a M2 vai construir — DERIVED -> STRUCTURED -> ADMISSION — ja emite telemetria.",
-   "ETAPAS_OBSERVADAS_EM_ALGUM_CAMINHO": [
-    "DERIVED",
-    "RAW"
+   "ROTAS_FORWARD_CONHECIDAS": [
+    {
+     "CAMINHO": "coleta/executor_texto_de_pdf.py",
+     "FRONTEIRA": "coleta/derivacao_forward.py",
+     "ROUTE_CLASS_ID": "RC-1",
+     "SOURCE_ID": "IT-T2-002",
+     "ETAPAS_OBSERVADAS": [
+      "DERIVED"
+     ],
+     "ARESTAS_OBSERVADAS": [],
+     "END_TO_END": false,
+     "RUN_UNICO": null,
+     "PROVA": "provas/o_forward_conta_se.py",
+     "PROVA_DA_ROTA_NUMA_CORRIDA_SO": null
+    },
+    {
+     "CAMINHO": "coleta/rota_forward_documento.py",
+     "FRONTEIRA": "coleta/rota_forward_documento.py",
+     "ROUTE_CLASS_ID": "RC-1",
+     "SOURCE_ID": "IT-T2-002",
+     "ETAPAS_OBSERVADAS": [
+      "ADMISSION",
+      "DERIVED",
+      "STRUCTURED"
+     ],
+     "ARESTAS_OBSERVADAS": [
+      [
+       "DERIVED",
+       "STRUCTURED"
+      ],
+      [
+       "STRUCTURED",
+       "ADMISSION"
+      ]
+     ],
+     "END_TO_END": true,
+     "RUN_UNICO": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
+     "PROVA": "tests/test_m2_rota_forward.py",
+     "PROVA_DA_ROTA_NUMA_CORRIDA_SO": "provas/a_rota_m2_atravessa.py"
+    }
    ],
-   "ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS": [
-    "STRUCTURED",
-    "ADMISSION"
-   ],
-   "PORQUE_NAO": "STRUCTURED e ADMISSION nunca correram em caminho nenhum, e nao correram porque a rota AINDA NAO EXISTE — e a M2 que a vai construir. Exigir que ela emita antes de nascer nao e um portao, e um impossivel.",
+   "PORQUE_NAO_A_UNIAO_GLOBAL": "GLOBAL STAGE OBSERVATION != TARGET ROUTE OBSERVATION. Duas rotas diferentes a observar uma etapa cada nao fazem uma rota que observa as duas. O portao le UM bloco FORWARD, e exige que ELE carregue STRUCTURED e ADMISSION.",
+   "ETAPAS_DA_ROTA_M2_NUNCA_OBSERVADAS": [],
+   "ARESTAS_DA_ROTA_M2_NUNCA_OBSERVADAS": [],
+   "A_LEI_DA_ARESTA": "DECLARED EDGE != OBSERVED EDGE",
+   "ONDE_A_ARESTA_E_MEDIDA": "medidas/rastro_da_coleta.o_que_a_rota_observou() · provas/a_rota_m2_atravessa.py",
+   "ROTA_MEDIDA": {
+    "SOURCE_ID": "IT-T2-002",
+    "END_TO_END": true,
+    "RUN_UNICO": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
+    "ROUTE_CLASS_ID": "RC-1",
+    "ETAPAS_OBSERVADAS": [
+     "ADMISSION",
+     "DERIVED",
+     "STRUCTURED"
+    ],
+    "ARESTAS_OBSERVADAS": [
+     [
+      "DERIVED",
+      "STRUCTURED"
+     ],
+     [
+      "STRUCTURED",
+      "ADMISSION"
+     ]
+    ],
+    "PROVA": "provas/a_rota_m2_atravessa.py"
+   },
+   "PORQUE_NAO": null,
+   "FALTA_E2E": false,
    "O_PORTAO_CORRETO": "nao e «observar a rota antes de ela existir» — e «a rota nasce instrumentada». O instrumento esta provado e disponivel; a M2 pode CONSTRUIR, e nao pode FECHAR sem a rota emitir.",
    "M2_CONSTRUCTION_CAN_BEGIN": "YES",
    "M2_CANNOT_CLOSE_UNTIL_INSTRUMENTED": true,
@@ -141,15 +206,15 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 57,
-  "TOTAL_RELEVANT_PATHS": 55,
-  "TOTAL_EXECUTORS_PROVEN": 1,
+  "TOTAL_FILES_SCANNED": 58,
+  "TOTAL_RELEVANT_PATHS": 56,
+  "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 10,
   "TOTAL_ORCHESTRATORS": 3,
   "TOTAL_ADAPTERS": 8,
   "TOTAL_PRESERVATION_OWNERS": 3,
   "TOTAL_CHECKPOINT_OWNERS": 1,
-  "TOTAL_TELEMETRY_EMITTERS": 2,
+  "TOTAL_TELEMETRY_EMITTERS": 3,
   "TOTAL_UNKNOWN": 30,
   "A_LEI": "CAMINHO RELEVANTE != EXECUTOR PROVADO. O numero grande e de caminhos varridos; o pequeno e do que foi provado a correr."
  },
@@ -385,7 +450,7 @@
   {
    "EXECUTOR_ID": "coleta/derivacao_forward.py",
    "GAVETA": "coleta",
-   "LINHAS": 301,
+   "LINHAS": 315,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -465,7 +530,7 @@
   {
    "EXECUTOR_ID": "coleta/executor_texto_de_pdf.py",
    "GAVETA": "coleta",
-   "LINHAS": 565,
+   "LINHAS": 592,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -789,6 +854,35 @@
    "STATE": "NOT_INSTRUMENTED"
   },
   {
+   "EXECUTOR_ID": "coleta/rota_forward_documento.py",
+   "GAVETA": "coleta",
+   "LINHAS": 355,
+   "TEM_PORTA": true,
+   "ETAPAS_NOMEADAS": [
+    "RAW",
+    "DERIVED",
+    "STRUCTURED",
+    "ADMISSION"
+   ],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": true,
+   "USA_FALHAS": true,
+   "USA_DIAGNOSTICO": true,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "TELEMETRY_EMITTER"
+   ],
+   "GOOD_PATH_PROVED": true,
+   "FAULT_PATH_PROVED": true,
+   "PROVA": "tests/test_m2_rota_forward.py",
+   "STATE": "INSTRUMENTED"
+  },
+  {
    "EXECUTOR_ID": "coleta/rotulos_baixar.py",
    "GAVETA": "coleta",
    "LINHAS": 143,
@@ -891,7 +985,7 @@
   {
    "EXECUTOR_ID": "coleta/social_persistencia.py",
    "GAVETA": "coleta",
-   "LINHAS": 413,
+   "LINHAS": 423,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW"
