@@ -110,9 +110,21 @@ jobs:
       # Roda em `powershell`, que existe no Windows sem depender de nada, e
       # escreve em `$GITHUB_PATH` — que vale para os passos SEGUINTES. Por isso
       # ele é o primeiro passo depois do checkout, e não um passo qualquer.
-      - name: 0z · garantir `bash` no PATH deste runner Windows
+      - name: 0z - garantir bash no PATH deste runner Windows
         if: runner.os == 'Windows'
         shell: powershell
+        # O CORPO DESTE PASSO E ASCII PURO, E ISSO NAO E ESTILO.
+        # ---------------------------------------------------------
+        # Medido na corrida 34310752720: a primeira versao deste passo tinha
+        # acento e travessao no texto, e o PowerShell recusou com
+        # `TerminatorExpectedAtEndOfString`. O runner grava o script num `.ps1`
+        # e o Windows PowerShell le `.ps1` como ANSI quando nao ha BOM — os
+        # bytes de UTF-8 viram lixo no meio de uma string e a aspa nunca fecha.
+        #
+        #     O QUE VAI PARA DENTRO DO `run:` DE POWERSHELL NAO PODE TER ACENTO.
+        #
+        # A explicacao fica AQUI, em comentario de YAML, que nunca chega ao
+        # arquivo executado. O codigo la embaixo fica seco de proposito.
         run: |
           $candidatos = @(
             "C:\Program Files\Git\bin",
@@ -124,10 +136,8 @@ jobs:
             if (Test-Path (Join-Path $c "bash.exe")) { $achado = $c; break }
           }
           if (-not $achado) {
-            # Falhar aqui com o motivo certo é melhor que falhar tres passos
-            # adiante com "bash: command not found", que manda procurar defeito
-            # no script em vez de na maquina.
-            Write-Host "BASH_NAO_ENCONTRADO — o Git for Windows existe sem o Git Bash?"
+            Write-Host "BASH_NAO_ENCONTRADO"
+            Write-Host "O Git for Windows parece instalado sem o Git Bash."
             exit 1
           }
           Write-Host "BASH_EM=$achado"
