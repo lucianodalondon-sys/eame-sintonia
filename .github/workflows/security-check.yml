@@ -74,6 +74,12 @@ jobs:
         if: '!cancelled()'
         run: python3 security/ratchet.py
 
+      - name: "6a · o monitor de deriva classifica bem (sem tocar na base)"
+        # Censos sinteticos, nenhuma ligacao. A prova que interessa e a de que
+        # uma deriva SEGURA continua a ser reportada como deriva.
+        if: '!cancelled()'
+        run: python3 -m unittest tests.test_security_drift_db -v
+
       - name: "6 · o proprio ratchet ainda morde"
         # Um portao que nunca foi atacado nao se sabe se morde. Estas provas
         # montam um repositorio minimo e tentam passar-lhe uma exposicao a frente.

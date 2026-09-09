@@ -98,10 +98,22 @@ def comparar(obs):
                     "anon ganhou privilegio efectivo onde o esperado nao previa nenhum")
         if not v(t, "rls") and esp_tab.get(nome, {}).get("rls") is True:
             add("RLS_DESLIGADA", nome, "RLS estava activa no esperado e nao esta na base viva")
+    # O Postgres grava esta opcao como `on`, nao como `true`. Comparar com
+    # "true" daria sempre desigual e transformaria as 16 vistas correctas em
+    # 16 achados — e um portao que acusa o que esta certo e um portao desligado.
     for nome, w in obs["vistas"].items():
-        if v(w, "anon_s") and w.get("invoker") != "true":
+        invoker_ligado = w.get("invoker") in ("on", "true")
+        if v(w, "anon_s") and not invoker_ligado:
             add("VISTA_SEM_SECURITY_INVOKER_LEGIVEL_POR_ANON", nome,
-                "uma vista sem security_invoker corre com os direitos de quem a criou")
+                "uma vista sem security_invoker corre com os direitos de quem a criou: "
+                "e um caminho a volta da RLS das tabelas que ela le")
+        elif not invoker_ligado:
+            # Fechada hoje, porque anon nao a alcanca. Mas o dia em que alguem
+            # der SELECT a anon, esta vista passa a ler com os direitos do dono.
+            #     A PORTA LATERAL NAO PRECISA DE ESTAR ABERTA PARA EXISTIR.
+            add("VISTA_SEM_SECURITY_INVOKER_LATENTE", nome,
+                "sem security_invoker; hoje inalcancavel por anon, mas seria "
+                "uma porta lateral no dia em que o for")
 
     # 2 · a base e a que dissemos que era? Esta e a pergunta de DERIVA.
     vivas = set(obs["tabelas"])
