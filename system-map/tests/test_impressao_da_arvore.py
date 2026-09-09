@@ -195,10 +195,22 @@ prova("o_portao_do_mapa_nao_corre_as_provas_da_coleta",
       "padrao_da_coleta.py" not in texto.split(f"\n  {portao.get('JOB')}:\n")[-1]
       .split("\n  coleta:\n")[0],
       "um veredito sobre duas perguntas nao responde a nenhuma")
-prova("a_tela_nao_traz_o_nome_do_portao_escrito_dentro",
-      portao.get("NOME") not in (RAIZ / "system-map" / "app" / "map.js")
-      .read_text(encoding="utf-8"),
+# ⚠️ A PRIMEIRA VERSAO DESTA PROVA PROCURAVA O NOME NO FICHEIRO INTEIRO, e
+# reprovou por causa de um COMENTARIO — a lista dos factos separados nomeia
+# «SYSTEM MAP CHECK» como texto, e nomear e o trabalho de um comentario. O
+# defeito a apanhar e outro: o nome ESCRITO COMO LITERAL no codigo, que e a
+# segunda copia capaz de divergir do manifesto sem ninguem reparar.
+#
+#     MENCIONAR NAO E CODIFICAR. Uma guarda que nao separa as duas coisas
+#     ensina a apagar o comentario, que e o oposto do que se quer.
+js = (RAIZ / "system-map" / "app" / "map.js").read_text(encoding="utf-8")
+literais = [f"{a}{portao.get('NOME')}{a}" for a in ("'", '"', "`")]
+prova("a_tela_nao_traz_o_nome_do_portao_como_literal",
+      not any(x in js for x in literais),
       "o nome tem de viajar no artefato, nao ser uma segunda copia no browser")
+prova("a_tela_le_o_nome_do_portao_do_artefato",
+      "MAP_GATE_NAME" in js,
+      "sem isto a tela nao sabe por que portao perguntar")
 
 print()
 if falhas:

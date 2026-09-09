@@ -143,6 +143,14 @@ jobs:
       - name: 4k · a lei da frescura nunca fica verde sem as quatro provas
         run: node system-map/tests/test_freshness.mjs
 
+      # A lista de exclusão da impressão não se lê: corre-se a cadeia num clone
+      # e vai-se ver o que ela mexeu. Excluir de menos dá alarme falso; excluir
+      # de MAIS dá VERDE FALSO, e verde falso é o único erro que esta lei não
+      # pode cometer. Corre também a mutilação do `.vercelignore`, que é a razão
+      # de a impressão existir.
+      - name: 4l · a impressão mede a árvore, e a lista confere-se sozinha
+        run: python3 system-map/tests/test_impressao_da_arvore.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         run: |
           set -e

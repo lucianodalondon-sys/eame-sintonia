@@ -934,13 +934,29 @@ function bind() {
      DEPLOYED COMMIT        `deployment.generated.json` → DEPLOYED_COMMIT
                             nasce no BUILD, onde a Vercel sabe a resposta
      LATEST CANONICAL HEAD  a API publica do GitHub, ao vivo
-     SYSTEM MAP CHECK       o veredito do validador, gravado no build
+     MAP GATE               o veredito do validador para o commit servido —
+                            do build quando ele consegue validar, e do portao do
+                            mapa no CI quando ele nao consegue (na Vercel nunca
+                            consegue: validar exige regenerar, e regenerar exige
+                            a arvore inteira). Falando os dois, fica-se com a
+                            PIOR das duas respostas.
+     IMPRESSAO DAS FONTES   `deployment.generated.json`, lida do INDICE do git
+                            dentro da build. E ela que responde «este mapa e o
+                            mapa DESTA arvore?» — a pergunta que um SHA de commit
+                            nunca pode responder de dentro do proprio commit.
 
    NENHUMA CREDENCIAL VIVE AQUI, E NAO E POR DISCIPLINA — E POR MEDICAO.
    O repositorio e PUBLICO (medido: `visibility: public` na API do GitHub), e a
-   API publica responde a `commits/<branch>` sem qualquer autenticacao, com
-   `Access-Control-Allow-Origin: *`. Por isso a cabeca remota mede-se do proprio
-   browser, sem token, sem funcao serverless e sem backend novo.
+   API publica responde a `commits/<branch>` e a `commits/<sha>/check-runs` com
+   `Access-Control-Allow-Origin: *`. Por isso a cabeca remota e o veredito do
+   portao medem-se do proprio browser, sem token, sem funcao serverless e sem
+   backend novo.
+
+   ⚠️ E ha um limite que tem de estar escrito aqui: a chamada ANONIMA nao foi
+   medida. Do contentor onde isto foi feito, o proxy de saida injecta
+   autenticacao — a resposta veio com 15000 pedidos/hora de app instalada, nao
+   com os 60 de quem nao se identifica. A suposicao nao sustenta verde nenhum:
+   falhando a chamada, o veredito cai para UNKNOWN e a tela fica BRANCA.
 
        NAO HA SEGREDO NO CLIENTE PORQUE NAO HA SEGREDO NENHUM A PRECISAR.
 
