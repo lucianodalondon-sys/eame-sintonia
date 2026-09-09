@@ -126,9 +126,42 @@ def custo_estimado(n_usernames):
 # ══════════════════════════════════════════════════════════════════════════
 # Marcas que só existem em Reel/post do feed. Se QUALQUER uma aparece, o item
 # não é Story, por mais verde que o run tenha ficado.
-MARCAS_DE_REEL = ('product_type', 'is_reel', 'play_count', 'comment_count',
-                  'like_count', 'caption_is_edited', 'shortcode')
-PRODUTOS_QUE_NAO_SAO_STORY = ('clips', 'feed', 'igtv', 'carousel_container')
+# ══════════════════════════════════════════════════════════════════════════
+# A PORTA DE TIPO — e a medição que a consertou antes do primeiro dólar
+# ══════════════════════════════════════════════════════════════════════════
+# Remedindo a saída REAL do ator em 2026-09-09, antes do piloto vivo, o registro
+# de Story mostrou-se muito mais parecido com um post do que a versão anterior
+# desta porta supunha. Um Story de verdade TRAZ:
+#
+#     product_type          e o valor é 'story'
+#     caption_is_edited     presente, normalmente false
+#     code                  o análogo do shortcode
+#     is_reel_media         presente, e normalmente TRUE
+#
+# A porta anterior recusava item que trouxesse `product_type`, `caption_is_edited`
+# ou `shortcode`. Ou seja: ela teria recusado CEM POR CENTO dos Stories reais, e
+# o piloto teria reportado CONTRACT_DRIFT em tudo — que se leria como «o ator
+# mudou», quando quem estava errado era a porta.
+#
+#     UMA TRAVA CALIBRADA EM CIMA DE FIXTURE INVENTADA MEDE A FIXTURE.
+#
+# E há uma armadilha de nome que precisa ficar escrita, porque ela vai enganar
+# alguém de novo: no vocabulário interno do Instagram, `is_reel_media` NÃO quer
+# dizer Reel. Quer dizer «mídia da bandeja de Stories». Um Story tem
+# `is_reel_media=true`. Tratar esse campo como prova de Reel inverteria a porta.
+#
+#     `is_reel_media` É STORY. `product_type='clips'` É REEL.
+#
+# Por isso a porta passou a ser POSITIVA em cima do campo certo: `product_type`
+# tem de VALER 'story'. Ausência de marca de Reel nunca foi prova de Story.
+PRODUTO_DE_STORY = ('story',)
+PRODUTOS_QUE_NAO_SAO_STORY = ('clips', 'feed', 'igtv', 'carousel_container', 'ad')
+
+# Métricas que só existem em conteúdo de feed. Nenhuma delas aparece no registro
+# de Story medido — e a checagem é por presença COM valor, para que um campo
+# nulo herdado não barre coleta boa.
+MARCAS_DE_FEED = ('play_count', 'like_count', 'comment_count', 'view_count',
+                  'shortcode', 'is_reel')
 
 
 class NaoEStory(ValueError):
@@ -136,20 +169,23 @@ class NaoEStory(ValueError):
 
 
 def _e_story(item):
-    """Prova positiva de Story, não ausência de prova de Reel.
+    """Prova POSITIVA de Story. Ausência de marca de Reel nunca foi prova.
 
-    Exigir a marca do Story (`expiring_at`) em vez de só recusar a marca do Reel
-    é o que faz esta porta sobreviver a um formato novo: um Reel com campos
-    renomeados passaria por uma lista de proibições, e não passa por uma
-    exigência.
+    Três exigências, e a ordem é a do custo de errar: o tipo declarado pela
+    plataforma, o prazo de expiração, e a garantia de que não é Highlight.
     """
-    prod = str(item.get('product_type') or '').lower()
-    if prod in PRODUTOS_QUE_NAO_SAO_STORY:
-        raise NaoEStory('item com product_type=%r — isto é Reel/feed, não Story' % prod)
-    for marca in MARCAS_DE_REEL:
-        if marca in item and item.get(marca) not in (None, ''):
-            raise NaoEStory('item traz `%s`, campo que Story não tem — o ator devolveu '
-                            'outra classe de conteúdo' % marca)
+    prod = item.get('product_type')
+    prod_s = str(prod or '').lower()
+    if prod_s in PRODUTOS_QUE_NAO_SAO_STORY:
+        raise NaoEStory('item com product_type=%r — isto é Reel/feed/anúncio, não Story'
+                        % prod_s)
+    if prod is not None and prod_s not in PRODUTO_DE_STORY:
+        raise NaoEStory('item com product_type=%r, que não é `story` — classe '
+                        'desconhecida não entra por omissão' % prod_s)
+    for marca in MARCAS_DE_FEED:
+        if item.get(marca) not in (None, '', False):
+            raise NaoEStory('item traz `%s`, métrica que só existe em conteúdo de '
+                            'feed — o ator devolveu outra classe' % marca)
     if item.get('is_highlight') or item.get('highlight_id') or item.get('highlightId'):
         raise NaoEStory('item é HIGHLIGHT, não Story ativo. Highlight é permanente; '
                         'Story expira. Não são a mesma evidência.')
@@ -310,3 +346,102 @@ def classificar(manifesto, itens, pedidos):
                                        'provou que processou nenhum. Ausência não medida '
                                        'não é ausência.')}
     return saida
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# O BYTE ANTES DA FILA
+# ══════════════════════════════════════════════════════════════════════════
+# A lei do conteúdo efêmero, e ela é executável, não documental:
+#
+#     DISCOVER -> VALIDATE -> DOWNLOAD -> HASH -> PROCESS
+#
+# e nunca:
+#
+#     DISCOVER -> «depois a gente baixa»
+#
+# Para Story não existe «depois». A URL do CDN é assinada e morre em horas, e —
+# medido no R2 — o transcritor desta casa conserta URL vencida relendo o EMBED
+# público do post. Story não tem embed público. Se o byte não veio no mesmo run
+# que o descobriu, não vem mais: não há caminho de renovação, e a evidência
+# some com o prazo.
+MEDIA_PRESERVED = 'MEDIA_PRESERVED'
+MEDIA_NOT_DURABLE = 'MEDIA_NOT_DURABLE'
+
+TIMEOUT_MIDIA = 60
+MAX_BYTES_POR_MIDIA = 80 * 1024 * 1024      # Story não passa disso; teto contra surpresa
+
+
+def baixar_midia(objeto, pasta):
+    """Puxa o byte do Story AGORA e devolve o objeto com o estado da preservação.
+
+    Nunca levanta: falha de download é ESTADO do objeto, não exceção da coleta.
+    Um Story descoberto e não baixado continua sendo uma descoberta válida — o
+    que ele não é, é evidência preservada, e o objeto passa a dizer isso.
+    """
+    import hashlib
+    import urllib.request
+
+    url = objeto.get('MEDIA_URL')
+    if not url or url == env.DESCONHECIDO:
+        objeto['MEDIA_DURABILITY'] = MEDIA_NOT_DURABLE
+        objeto['MEDIA_NOT_DURABLE_REASON'] = 'o ator não devolveu URL de mídia'
+        return objeto
+
+    os.makedirs(pasta, exist_ok=True)
+    ext = '.mp4' if objeto.get('MEDIA_TYPE') == 'VIDEO' else '.jpg'
+    destino = os.path.join(pasta, 'STORY-%s-%s%s'
+                           % (objeto['SOURCE_ACCOUNT'], objeto['NATIVE_ID'], ext))
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=TIMEOUT_MIDIA) as r:
+            tipo_http = r.headers.get('Content-Type')
+            corpo = r.read(MAX_BYTES_POR_MIDIA + 1)
+    except Exception as e:                                   # noqa: BLE001
+        # A URL assinada pode já ter morrido entre a descoberta e aqui. Isso é
+        # exatamente o risco que esta função existe para medir — e o nome dele
+        # não é «erro», é «não preservado».
+        objeto['MEDIA_DURABILITY'] = MEDIA_NOT_DURABLE
+        objeto['MEDIA_NOT_DURABLE_REASON'] = '%s ao baixar no mesmo run' % type(e).__name__
+        return objeto
+
+    if len(corpo) > MAX_BYTES_POR_MIDIA:
+        objeto['MEDIA_DURABILITY'] = MEDIA_NOT_DURABLE
+        objeto['MEDIA_NOT_DURABLE_REASON'] = 'mídia acima do teto de %d bytes' % MAX_BYTES_POR_MIDIA
+        return objeto
+
+    with open(destino, 'wb') as f:
+        f.write(corpo)
+    objeto['MEDIA_DURABILITY'] = MEDIA_PRESERVED
+    objeto['MEDIA_PATH'] = os.path.relpath(destino, RAIZ).replace('\\', '/')
+    objeto['MEDIA_BYTES'] = len(corpo)
+    objeto['MEDIA_SHA256'] = hashlib.sha256(corpo).hexdigest()
+    objeto['MEDIA_CONTENT_TYPE'] = tipo_http or env.DESCONHECIDO
+    return objeto
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# O TETO DA MISSÃO — e ele morde ANTES, não depois
+# ══════════════════════════════════════════════════════════════════════════
+# Duas travas independentes, e as duas precisam abrir:
+#
+#     PAID_ROUTE_AUTHORIZED   alguém disse `--pagar`
+#     WITHIN_BUDGET           a previsão cabe no que sobrou do teto
+#
+# Uma sem a outra não roda. A autorização de gasto não é um cheque em branco, e
+# um teto que só se descobre na fatura não é teto.
+TETO_DA_MISSAO_USD = 0.50
+
+
+class ForaDoOrcamento(RuntimeError):
+    """A previsão não cabe no teto. Recusado ANTES de acender execução."""
+
+
+def cabe_no_teto(n_usernames, ja_gasto_usd=0.0, teto=TETO_DA_MISSAO_USD):
+    """(previsão, sobra). Levanta se o run previsto estoura o teto restante."""
+    previsto = custo_estimado(n_usernames)
+    sobra = round(teto - ja_gasto_usd, 6)
+    if previsto > sobra:
+        raise ForaDoOrcamento(
+            'run previsto em US$ %.4f e só sobram US$ %.4f do teto de US$ %.2f '
+            'desta missão' % (previsto, sobra, teto))
+    return previsto, sobra

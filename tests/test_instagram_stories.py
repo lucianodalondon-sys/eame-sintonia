@@ -36,9 +36,20 @@ import social_sessao as ss        # noqa: E402
 AGORA = 1789000000          # instante fixo: teste não pode depender do relógio
 DEPOIS = AGORA + 86400
 
+# A FORMA REAL, lida da página do ator em 2026-09-09 antes do piloto vivo. Ela
+# importa mais que qualquer outra linha deste arquivo: a fixture inventada da R2
+# não tinha `product_type` nem `caption_is_edited`, e por isso a porta de tipo
+# passou nos testes enquanto teria recusado 100% dos Stories verdadeiros.
+#
+#     UMA TRAVA CALIBRADA EM CIMA DE FIXTURE INVENTADA MEDE A FIXTURE.
 STORY_IMAGEM = {
-    'pk': '3210000000000000001', 'media_type': 1,
-    'taken_at': AGORA, 'expiring_at': DEPOIS,
+    'pk': '3210000000000000001', 'id': '3210000000000000001_999',
+    'media_type': 1, 'taken_at': AGORA, 'expiring_at': DEPOIS,
+    'product_type': 'story',        # o valor que PROVA a classe
+    'is_reel_media': True,          # e que NÃO prova Reel — ver abaixo
+    'caption_is_edited': False, 'code': 'CxYzStory', 'caption': None,
+    'like_and_view_counts_disabled': True, 'fb_aggregated_like_count': 0,
+    'has_liked': False, 'story_hashtags': [], 'story_link_stickers': [],
     'user': {'username': 'conta_publica_exemplo', 'id': '999'},
     'image_versions2': {'candidates': [{'url': 'https://cdn.example/i.jpg?sig=abc'}]},
     'original_width': 1080, 'original_height': 1920,
@@ -48,11 +59,8 @@ STORY_VIDEO = dict(STORY_IMAGEM, pk='3210000000000000002', media_type=2,
                    has_audio=True)
 
 # O item que quebrou o mercado: um Reel vestido de Story.
-REEL_DISFARCADO = {
-    'pk': '3210000000000000009', 'product_type': 'clips', 'taken_at': AGORA,
-    'expiring_at': DEPOIS, 'play_count': 12345, 'shortcode': 'CxYzAbC',
-    'user': {'username': 'conta_publica_exemplo'},
-}
+REEL_DISFARCADO = dict(STORY_IMAGEM, pk='3210000000000000009',
+                       product_type='clips', play_count=12345, shortcode='CxYzAbC')
 
 
 def _norm(item, u='conta_publica_exemplo'):
@@ -78,6 +86,21 @@ class RunVerdeNaoEClasseCerta(unittest.TestCase):
         with self.assertRaises(ist.NaoEStory):
             _norm(item)
 
+    def test_o_story_REAL_passa_pela_porta(self):
+        """A prova que faltava na R2: a porta calibrada contra a forma medida."""
+        self.assertEqual(_norm(STORY_IMAGEM)['CONTENT_TYPE'], 'STORY')
+
+    def test_is_reel_media_TRUE_nao_e_prova_de_reel(self):
+        """Armadilha de nome: no vocabulário do Instagram, `reel media` é a
+        BANDEJA DE STORIES. Um Story tem `is_reel_media=true`. Ler esse campo
+        como prova de Reel inverteria a porta e recusaria tudo o que é certo."""
+        self.assertTrue(STORY_IMAGEM['is_reel_media'])
+        self.assertEqual(_norm(STORY_IMAGEM)['CONTENT_TYPE'], 'STORY')
+
+    def test_product_type_desconhecido_nao_entra_por_omissao(self):
+        with self.assertRaises(ist.NaoEStory):
+            _norm(dict(STORY_IMAGEM, product_type='alguma_coisa_nova'))
+
     def test_highlight_nao_e_story(self):
         """Highlight é permanente. Story expira. Não são a mesma evidência."""
         item = dict(STORY_IMAGEM, is_highlight=True, highlight_id='h1')
@@ -89,10 +112,16 @@ class RunVerdeNaoEClasseCerta(unittest.TestCase):
         with self.assertRaises(ist.NaoEStory):
             _norm(item)
 
-    def test_item_sem_id_nativo_e_recusado_porque_sem_id_nao_ha_dedupe(self):
-        item = dict(STORY_IMAGEM); item.pop('pk')
+    def test_item_sem_NENHUM_id_nativo_e_recusado(self):
+        """Sem ID estável não há dedupe, e sem dedupe a mesma Story vira duas."""
+        item = {k: v for k, v in STORY_IMAGEM.items() if k not in ('pk', 'id')}
         with self.assertRaises(ist.NaoEStory):
             _norm(item)
+
+    def test_sem_pk_o_id_composto_serve_de_identidade(self):
+        """Recusar aqui perderia Story bom: `id` é tão estável quanto `pk`."""
+        item = dict(STORY_IMAGEM); item.pop('pk')
+        self.assertEqual(_norm(item)['NATIVE_ID'], STORY_IMAGEM['id'])
 
     def test_na_porta_do_dispatcher_a_recusa_vira_contract_drift(self):
         """E nunca um `continue` silencioso que deixaria o Reel entrar."""
@@ -263,6 +292,90 @@ class OTokenNaoVazaPeloCaminhoDoErro(unittest.TestCase):
     def test_cabecalho_de_autorizacao_e_redigido(self):
         cab = 'Authoriz' + 'ation: Bearer ' + ('K' * 30)
         self.assertNotIn('K' * 30, ss.redigir(cab))
+
+
+class OByteVemAntesDaFila(unittest.TestCase):
+    """§37-§39 — a lei do conteúdo efêmero, executável e não documental."""
+
+    def test_sem_url_de_midia_o_objeto_confessa_que_nao_e_duravel(self):
+        o = _norm(STORY_IMAGEM)
+        o['MEDIA_URL'] = 'UNKNOWN'
+        r = ist.baixar_midia(o, '/tmp/claude-0/nao-usado')
+        self.assertEqual(r['MEDIA_DURABILITY'], ist.MEDIA_NOT_DURABLE)
+
+    def test_url_morta_nao_derruba_a_coleta_e_vira_estado(self):
+        """A URL assinada pode morrer entre descobrir e baixar. Isso é ESTADO."""
+        o = _norm(STORY_IMAGEM)
+        o['MEDIA_URL'] = 'https://cdn.invalido.invalido/nada.jpg'
+        r = ist.baixar_midia(o, '/tmp/claude-0/story-teste')
+        self.assertEqual(r['MEDIA_DURABILITY'], ist.MEDIA_NOT_DURABLE)
+        self.assertIn('no mesmo run', r['MEDIA_NOT_DURABLE_REASON'])
+
+    def test_story_descoberto_sem_byte_nao_pode_parecer_preservado(self):
+        o = ist.baixar_midia(dict(_norm(STORY_IMAGEM), MEDIA_URL='UNKNOWN'), '/tmp/claude-0/x')
+        self.assertNotEqual(o.get('MEDIA_DURABILITY'), ist.MEDIA_PRESERVED)
+        self.assertIsNone(o.get('MEDIA_SHA256'))
+
+
+class OTetoMorde(unittest.TestCase):
+    """§99-§100, §127-§128 — duas travas independentes, e as duas precisam abrir."""
+
+    def test_a_previsao_que_nao_cabe_e_recusada_antes_de_executar(self):
+        with self.assertRaises(ist.ForaDoOrcamento):
+            ist.cabe_no_teto(3, ja_gasto_usd=0.45)
+
+    def test_o_que_cabe_passa_e_devolve_a_sobra(self):
+        previsto, sobra = ist.cabe_no_teto(3, ja_gasto_usd=0.10)
+        self.assertAlmostEqual(previsto, 0.108, places=3)
+        self.assertAlmostEqual(sobra, 0.40, places=3)
+
+    def test_intencao_de_pagar_sem_orcamento_nao_roda(self):
+        """`--pagar` é INTENÇÃO. O teto é CAPACIDADE. Uma não substitui a outra."""
+        with self.assertRaises(ist.ForaDoOrcamento):
+            ist.cabe_no_teto(25, ja_gasto_usd=0.40)
+
+    def test_orcamento_sem_intencao_de_pagar_nao_roda(self):
+        _o, r = sr.executar(platform='INSTAGRAM', capability='FETCH_STORIES',
+                            run_id='TEST-TETO', country_scope='IT', perfis=['fao'])
+        self.assertEqual(r['ESTADO'], 'BUDGET_EXHAUSTED')
+
+
+class OTranscritorRecebeOByteENaoVaiBuscaLo(unittest.TestCase):
+    """§59-§60 — separar AQUISIÇÃO de TRANSCRIÇÃO, sem Story fingir ser Reel."""
+
+    def setUp(self):
+        sys.path.insert(0, os.path.join(RAIZ, 'ferramentas'))
+        import story_transcrever
+        self.st = story_transcrever
+
+    def test_arquivo_ausente_e_estado_da_nossa_cadeia_e_nao_silencio_do_story(self):
+        r = self.st.transcrever('/tmp/claude-0/nao-existe-nenhum.mp4')
+        self.assertEqual(r['TRANSCRIPT_STATE'], self.st.MEDIA_MISSING)
+        self.assertIsNone(r['TRANSCRIPT'])
+
+    def test_story_de_imagem_nao_entra_na_cadeia_de_video(self):
+        o = self.st.anexar(_norm(STORY_IMAGEM))
+        self.assertNotIn('DERIVED_TRANSCRIPT', o)
+
+    def test_video_sem_byte_preservado_nao_e_enfileirado_para_depois(self):
+        o = dict(_norm(STORY_VIDEO), MEDIA_DURABILITY=ist.MEDIA_NOT_DURABLE)
+        r = self.st.anexar(o)
+        self.assertEqual(r['DERIVED_TRANSCRIPT']['TRANSCRIPT_STATE'],
+                         self.st.MEDIA_MISSING)
+
+    def test_o_transcritor_nao_conhece_shortcode_nem_instagram(self):
+        """Se ele soubesse buscar, teria o caminho de renovação que para Story
+        SEMPRE falha — e falharia em silêncio, devolvendo «sem fala»."""
+        fonte = open(os.path.join(RAIZ, 'ferramentas', 'story_transcrever.py'),
+                     encoding='utf-8').read()
+        corpo = fonte.split('"""', 2)[2]      # fora da docstring, que explica o porquê
+        self.assertNotIn('shortcode', corpo)
+        self.assertNotIn('urlopen', corpo)
+
+    def test_o_custo_em_dolar_e_zero_e_o_tempo_de_maquina_e_outro_campo(self):
+        r = self.st.transcrever('/tmp/claude-0/nao-existe.mp4')
+        self.assertEqual(r['USD_COST'], 0.0)
+        self.assertIn('LOCAL_COMPUTE_S', r)
 
 
 if __name__ == '__main__':
