@@ -54,25 +54,64 @@ missão.
 SCRAP SUCCESS != ADMITTED EVIDENCE.
 ```
 
-## 4. STORIES — a pergunta obrigatória, respondida separada
+## 4. STORIES — respondido de novo, depois do SCRAP-R2
 
-| escopo | estado | por quê |
-|---|---|---|
-| Instagram, terceiro público | `BLOCKED` | Story não é superfície pública; não há rota permitida |
-| Instagram, conta própria/autorizada | `AUTH_BLOCK` | exige sessão; a política desta casa marca LOCAL_SESSION contra terceiro como NOT_USABLE, e conta própria como REVIEW pendente |
-| Instagram, rota paga permitida | `PAID_ROUTE_ONLY` | `apify~instagram-scraper` declara `resultsType: "stories"`; **nunca executado, custo por Story não medido** |
-| Facebook Stories | `NOT_SUPPORTED` | nenhuma capacidade declarada |
+A resposta do R1 (`não há capacidade STORY`) foi corrigida: `INSTAGRAM/FETCH_STORIES`
+existe na matriz, tem escada de rota, adaptador, normalizador e 36 testes.
 
-Não há capacidade `STORY` em `leis/social_matriz.py`. Não foi inventada uma.
-Se o C-FINAL quiser Stories, o que falta é, nesta ordem:
+```
+STORIES_CAPABILITY_READY          = PARTIAL   (bloqueio único: LIVE_SAMPLE)
+STORIES_COLLECTION_ADMISSION_READY = NO
+STORY_COLLECTION_BOUNDARY          = WAITING_FOR_C_FINAL
+C_FINAL_HEAD_SEEN                  = ecad2148
+```
 
-1. decidir o escopo de conta (própria vs terceiro) — é decisão jurídica, não técnica;
-2. declarar a capacidade na matriz com `PERMITIDA` justificada;
-3. medir o custo real do ator numa execução única;
-4. separar `STORY_PUBLICATION_TIME`, `OBSERVED_TIME`, `COLLECTED_TIME` no envelope;
-5. só então `piloto` com alvo legítimo.
+O bloqueio **não** é técnico, nem de política, nem de custo, nem de confiabilidade
+do Actor. É credencial: não há chave da Apify neste ambiente, e o piloto para com
+`CREDENTIAL_MISSING` em vez de cair para a rota pública — que foi medida `BLOCKED`
+para Story.
 
-**Nenhum destes cinco foi feito.** `STORIES_READY = NO`.
+### O que o objeto Story já emite
+
+```
+CONTENT_TYPE = STORY          (classe própria; não POST, não REEL, não HIGHLIGHT)
+NATIVE_ID                     `pk` do Instagram — a chave da dedupe
+SOURCE_ACCOUNT · URL
+PUBLISHED_AT                  `taken_at` da plataforma
+EXPIRES_AT + EXPIRES_AT_SOURCE  `expiring_at` NATIVO, nunca «publicado + 24 h»
+OBSERVED_AT · COLLECTED_AT      separados desde já
+MEDIA_TYPE · MEDIA_URL · MEDIA_DIMENSIONS
+MEDIA_URL_DURABILITY = TEMPORARY_CDN_SIGNED_URL
+RAW_REFERENCE + SHA256
+FACT_TIME · FACT_LOCATION · ACCOUNT_LOCATION = UNKNOWN  (e assim devem ficar)
+DATA_CLASS = PERSONAL_DATA_POSSIBLE
+LEGAL_INTERPRETATION_REQUIRED = true
+```
+
+### O que o C-FINAL precisa decidir, e o SCRAP não decidiu
+
+1. **Onde o byte do Story mora.** Hoje o RAW sai como `NOT_PRESERVED` apontando
+   para o disco do runner, como todo o resto. Para Story isso é mais grave que
+   para post: o original não volta.
+2. **Se `EXPIRES_AT` muda o tratamento na admissão.** Uma evidência com prazo é
+   uma classe que a Collection ainda não tem.
+3. **A base legal do monitoramento recorrente.** Perfis de pesquisadores e
+   agrônomos são dados pessoais mesmo sendo públicos. O objeto já confessa isso
+   e marca `LEGAL_INTERPRETATION_REQUIRED`; quem decide não é esta missão.
+
+### O contrato de alvo, definido e ainda não povoado
+
+```
+SOURCE_ID · PERSON_ID (só se provado) · ACCOUNT_ID · PLATFORM · PROFILE_URL
+IDENTITY_STATE · WHY_MONITORED · LEGAL_POLICY_STATE · FREQUENCY
+```
+
+Os três perfis do piloto são institucionais e públicos, e estão marcados no
+código como alvo de piloto, não de watchlist.
+
+```
+PILOT TARGET != CANONICAL WATCHLIST TARGET.
+```
 
 ## 5. Watchlist de alto valor
 

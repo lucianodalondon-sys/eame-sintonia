@@ -59,14 +59,54 @@ Sem a chave, o estado é `CREDENTIAL_MISSING` e a coleta **para** — nunca cai 
 
 ## STORIES
 
-**Não há capacidade STORY declarada na matriz.** Nenhuma plataforma, nenhuma rota.
-O único caminho conhecido é o enum `resultsType: "stories"` do ator
-`apify~instagram-scraper 0.0.776` — **rota paga, nunca exercida por esta casa**, e
-Story de terceiro não é conteúdo público. Ver `SCRAP-COLLECTION-INTEGRATION-HANDOFF.md`.
+`FETCH_STORIES` é capacidade declarada da matriz desde 2026-09-09 (SCRAP-R2).
+Comando: `py coleta/social_scrap.py stories --pagar`.
 
 ```
-STORIES_READY = NO   ·   classe: PAID_ROUTE_ONLY + NO_LIVE_SAMPLE
+STORIES_CAPABILITY_READY   = PARTIAL   (falta só LIVE_SAMPLE)
+LIVE_PROOF                 = NO — CREDENTIAL_MISSING neste ambiente
 ```
+
+Tudo o que não depende da chave está pronto e testado: matriz, política de rota,
+adaptador, normalizador, estados por perfil, dedupe e as travas. O que falta é
+uma execução com a chave da Apify, que este ambiente não tem.
+
+### A escada de rota, medida
+
+| rota | estado | por quê |
+|---|---|---|
+| pública deslogada | `BLOCKED` | Instagram serve Story atrás de parede de login |
+| Graph API oficial | `ROUTE_NOT_ALLOWED` | só entrega Story da **própria** conta, nunca de terceiro |
+| `datavoyantlab/advanced-instagram-stories-scraper` | **ESCOLHIDO** | sem login, só perfil público, devolve `expiring_at` nativo |
+| `muhammetakkurtt/instagram-scraper` | fallback | sem login, mas não documenta `expiring_at` |
+
+Dois Actors foram **recusados por escrito**: o que exige o cookie `sessionid` de
+uma conta real, e o `apify/instagram-scraper`, cujo `resultsType=stories`
+devolvia **Reels** e foi depreciado pelo próprio publisher.
+
+### Custo, pelo preço publicado
+
+US$ 0,099 por execução + US$ 0,003 por perfil.
+
+| contas | 1x/dia | 2x/dia |
+|---|---|---|
+| 10 | US$ 3,87/mês | US$ 7,74/mês |
+| 25 | US$ 5,22/mês | US$ 10,44/mês |
+| 50 | US$ 7,47/mês | US$ 14,94/mês |
+| 100 | US$ 11,97/mês | US$ 23,94/mês |
+
+Nenhum run foi executado. `ESTIMATED_SAVINGS = UNKNOWN`: não há custo anterior
+comparável, porque esta casa nunca coletou Story.
+
+### Limitações que já são conhecidas
+
+- **Story em vídeo não transcreve ainda.** O transcritor local é indexado por
+  `shortcode` e renova URL vencida relendo o embed público. Story não tem nem um
+  nem outro: se a URL assinada morrer antes do download, não há segunda chance.
+  O byte tem de ser baixado no mesmo run que o descobriu.
+- **A URL do CDN é assinada e temporária.** Ela é pista, nunca evidência.
+- **Perfil privado não é conta vazia**, e zero linha de um ator que falhou não é
+  «não postou». Os dois têm estado próprio.
 
 ## As três leis que mordem
 

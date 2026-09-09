@@ -7,6 +7,7 @@ SINTONIA SCRAP — o executor composto. Uma fase por comando, sempre auditável.
     py scripts/social_scrap.py video                 # GRÁTIS · de onde sai vídeo italiano
     py scripts/social_scrap.py gap                   # GRÁTIS · onde a Apify ainda é precisa
     py scripts/social_scrap.py piloto                # GRÁTIS · a prova pequena, ao vivo
+    py scripts/social_scrap.py stories               # PAGA   · Stories ativos (só com --pagar)
     py scripts/social_scrap.py ledger                # GRÁTIS · o que a missão rodou e gastou
     py scripts/social_scrap.py sessao                # GRÁTIS · preflight da sessão local
     py scripts/social_scrap.py politica              # GRÁTIS · onde LOCAL_SESSION é permitida
@@ -795,6 +796,64 @@ def _imprimir_piloto(rel, m):
     print('  %s' % rel['GEOGRAFIA'])
 
 
+ALVOS_STORIES_PILOTO = [
+    # PERFIL PÚBLICO INSTITUCIONAL / TÉCNICO. Estes são ALVOS DE PILOTO, e a
+    # distinção não é formalidade:
+    #
+    #     PILOT TARGET != CANONICAL WATCHLIST TARGET.
+    #
+    # Nenhum deles foi provado como fonte canônica do SINTONIA, nenhuma pessoa
+    # foi identificada e nenhum canal foi atribuído a ninguém. São contas
+    # institucionais públicas de agricultura, escolhidas para provar a CAPACIDADE
+    # — não para começar a vigiar alguém.
+    'fao',            # FAO — instituição, agricultura
+    'cnr_ibe',        # CNR-IBE — instituto de pesquisa italiano
+    'coldiretti',     # Coldiretti — associação do setor agrícola italiano
+]
+
+
+def stories(perfis=None, autorizar_gasto=False):
+    """A prova pequena de Story. PAGA — e por isso recusa por padrão.
+
+    O gasto não é liberado por descuido: sem `--pagar` explícito, a trava de rota
+    paga do dispatcher devolve BUDGET_EXHAUSTED e nada é acendido.
+    """
+    run = _run_id('stories')
+    alvos = perfis or ALVOS_STORIES_PILOTO
+    print('\nPILOTO DE STORIES · run=%s\n%s' % (run, '─' * 74))
+    print('  alvos               %s' % ', '.join(alvos))
+    import instagram_stories as ist
+    print('  ator                %s' % ist.ATOR)
+    print('  custo estimado      US$ %.4f  (US$ %.3f de partida + %d x US$ %.3f)'
+          % (ist.custo_estimado(len(alvos)), ist.ATOR_START_USD,
+             len(alvos), ist.ATOR_POR_USERNAME_USD))
+    print('  gasto autorizado    %s' % ('SIM' if autorizar_gasto else 'NÃO'))
+
+    objetos, reg = sr.executar(
+        platform='INSTAGRAM', capability='FETCH_STORIES', run_id=run,
+        country_scope='IT', perfis=alvos,
+        permitir_pago=bool(autorizar_gasto),
+        motivo_pago='FREE_ROUTE_INSUFFICIENT_CAPABILITY' if autorizar_gasto else None)
+
+    print('\n  ESTADO              %s' % reg['ESTADO'])
+    if reg.get('ERRO'):
+        print('  PORQUE              %s' % reg['ERRO'][:150])
+    print('  objetos             %d' % len(objetos))
+    por_perfil = getattr(sr, '_ULTIMO_ESTADO_POR_PERFIL', {})
+    if por_perfil:
+        print('\n  ── um estado POR PERFIL, porque a lista inteira não é um estado ──')
+        for u, e in por_perfil.items():
+            print('    %-22s %-20s stories=%d' % (u, e['ESTADO'], e['STORIES']))
+    if objetos:
+        _registrar([reg], objetos, 'STORIES-IT.json')
+        print('\n  artefato            data/samples/SOCIAL-IT/STORIES-IT.json')
+    else:
+        # CAN DO != DID DO. Sem objeto, não há prova viva — e o relatório diz isso
+        # em vez de mostrar uma capacidade declarada como se fosse coleta feita.
+        print('\n  LIVE_PROOF          NO — %s' % reg['ESTADO'])
+    return reg
+
+
 def portao(url):
     ok, motivo = sr.permitido(url)
     print('\n  URL       %s' % url)
@@ -839,6 +898,8 @@ def main():
         portao(args[1])
     elif cmd == 'piloto':
         piloto()
+    elif cmd == 'stories':
+        stories(autorizar_gasto=('--pagar' in sys.argv))
     elif cmd == 'ledger':
         ledger()
     elif cmd in ('sessao', 'politica'):
