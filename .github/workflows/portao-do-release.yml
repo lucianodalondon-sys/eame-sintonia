@@ -109,5 +109,21 @@ jobs:
         run: |
           npm install --no-save playwright-core@1.63.0
           npx --yes playwright@1.63.0 install --with-deps chromium
+      # CONSTRUIR ANTES DE AUDITAR, porque e a arvore CONSTRUIDA que vai ao ar.
+      #
+      # O portao B2 — «todo recurso que o HTML referencia existe em disco» —
+      # reprovou aqui e tinha razao: `index.html` do mapa aponta para
+      # `deployment.generated.json`, e esse ficheiro nasce na build e NAO se
+      # commita (um ficheiro commitado nunca pode conhecer o SHA do commit que
+      # o contem). Num checkout limpo ele nao existe.
+      #
+      #     AUDITAR O REPOSITORIO NAO E AUDITAR O QUE VAI SER SERVIDO.
+      #
+      # Correr a build primeiro nao afrouxa o B2: continua a exigir que TUDO o
+      # que o HTML aponta exista, e agora exige-o sobre a arvore real, a mesma
+      # que a Vercel monta. Isolar o ficheiro numa excepcao teria calado o
+      # portao para todos os outros recursos ao mesmo tempo.
+      - name: construir, como a Vercel constroi
+        run: npm run build
       - name: os 73 portoes do portal
         run: node italia-portale/audit/run.mjs
