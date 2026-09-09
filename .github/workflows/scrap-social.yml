@@ -91,6 +91,48 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
 
+      # O RUNNER DE WINDOWS NÃO NASCE COM `bash` NO CAMINHO
+      # ---------------------------------------------------
+      # Medido em 2026-09-09, corridas 34308758672 e 34309850267: o runner local
+      # recolheu o job, fez checkout e morreu no primeiro passo com
+      # `bash: command not found`. O Git for Windows está instalado — o log acha
+      # `git.exe` em `C:\Program Files\Git\cmd` — mas `bash.exe` mora em
+      # `Git\bin`, e essa pasta não está no PATH que o SERVIÇO enxerga. Serviço
+      # herda o PATH da máquina, não o da pessoa que instalou o Git.
+      #
+      # Consertar isso na máquina funciona e é frágil: some no próximo runner, na
+      # próxima reinstalação, na próxima máquina. Consertar aqui vale para
+      # qualquer Windows que recolha este workflow, hoje e depois.
+      #
+      #     O WORKFLOW NÃO PODE DEPENDER DE UMA VARIÁVEL DE AMBIENTE QUE
+      #     ALGUÉM PRECISA LEMBRAR DE ARRUMAR À MÃO.
+      #
+      # Roda em `powershell`, que existe no Windows sem depender de nada, e
+      # escreve em `$GITHUB_PATH` — que vale para os passos SEGUINTES. Por isso
+      # ele é o primeiro passo depois do checkout, e não um passo qualquer.
+      - name: 0z · garantir `bash` no PATH deste runner Windows
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          $candidatos = @(
+            "C:\Program Files\Git\bin",
+            "C:\Program Files (x86)\Git\bin",
+            "$env:LOCALAPPDATA\Programs\Git\bin"
+          )
+          $achado = $null
+          foreach ($c in $candidatos) {
+            if (Test-Path (Join-Path $c "bash.exe")) { $achado = $c; break }
+          }
+          if (-not $achado) {
+            # Falhar aqui com o motivo certo é melhor que falhar tres passos
+            # adiante com "bash: command not found", que manda procurar defeito
+            # no script em vez de na maquina.
+            Write-Host "BASH_NAO_ENCONTRADO — o Git for Windows existe sem o Git Bash?"
+            exit 1
+          }
+          Write-Host "BASH_EM=$achado"
+          Add-Content -Path $env:GITHUB_PATH -Value $achado
+
       - uses: actions/setup-python@v5
         if: inputs.fase != 'sessao' && inputs.auth_mode != 'LOCAL_SESSION'
         with:
