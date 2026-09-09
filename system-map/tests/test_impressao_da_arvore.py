@@ -230,6 +230,28 @@ for exigido in ("test_system_map.py", "test_freshness.mjs",
     prova(f"as_provas_separadas_continuam_a_correr[{exigido}]",
           exigido in bloco_das_regras,
           "SEPARAR NAO E DESLIGAR: a prova tem de continuar a reprovar a build")
+# ── UM PORTAO QUE NUNCA CORRE NAO E UM PORTAO ────────────────────────────────
+# Medido em 4f8be09b: `MAP RULES CHECK` cortou no passo 4 e os passos 4k, 4l, 5,
+# 6, 7 e 8 nao correram. `set -e` de um job para no primeiro erro, e o resultado
+# e um erro visivel com seis silencios atras dele. Esta prova impede que isso
+# volte por distraccao: todo passo `- name:` depois do primeiro de cada job tem
+# de correr mesmo com o anterior vermelho.
+import re as _re  # noqa: E402
+_jobs = _re.split(r"\n  (?=[a-z_-]+:\n)", texto)
+_sem_guarda = []
+for _b in _jobs:
+    _n = _re.match(r"\s*([a-z_-]+):", _b)
+    if not _n or "runs-on" not in _b:
+        continue
+    _passos = _re.split(r"(?m)^      - name: ", _b)[1:]
+    for _i, _p in enumerate(_passos):
+        if _i == 0:
+            continue
+        if "if: '!cancelled()'" not in _p.split("\n        run:")[0]:
+            _sem_guarda.append(f"{_n.group(1)}: {_p.splitlines()[0][:40]}")
+prova("nenhum_passo_e_engolido_pelo_erro_do_anterior", not _sem_guarda,
+      f"passos sem `if: !cancelled()`: {_sem_guarda[:4]}")
+
 prova("a_tela_mostra_o_portao_das_regras",
       "MAP_RULES_GATE_NAME" in js,
       "esconder o portao das regras seria comprar o verde com silencio")

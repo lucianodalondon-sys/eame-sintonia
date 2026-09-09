@@ -18,7 +18,7 @@ git**, que o `.vercelignore` não apaga.
 | | |
 |---|---|
 | `BRANCH` | `claude/system-map-freshness-v1` |
-| `HEAD` | `34ac891f` |
+| `HEAD` | `4f8be09b` + o `!cancelled()` |
 | `BASE` | `96db9f1d` (system-map) + `c268f3ba` (canónica, M2I fechada) |
 | `MERGE` | feito · 5 conflitos, os **cinco derivados**, resolvidos regenerando |
 | `MERGEADO NA CANÓNICA` | **NÃO** |
@@ -95,6 +95,21 @@ SYSTEM MAP CHECK   1 · 2 · 2b                    «este mapa é o mapa desta �
 MAP RULES CHECK    4 · 4k · 4l · 5 · 6 · 7 · 8   «as regras não afrouxaram?»
 COLETA CHECK       3 · 4b..4j                    «a coleta não piorou?»
 ```
+
+#### E separar ainda não chegou — `set -e` engolia seis passos
+
+Medido em `4f8be09b`: `MAP RULES CHECK` cortou no passo 4, e **`4k`, `4l`, `5`,
+`6`, `7` e `8` não correram** — o mesmo `set -e` que já tinha apagado quatro
+provas no job `check` antigo, agora dentro do job que eu acabara de criar para o
+resolver.
+
+> **Um portão que nunca corre não é um portão — inclusive o meu.**
+
+Todos os passos depois do primeiro de cada job levam `if: '!cancelled()'`. O job
+continua a reprovar; o que muda é que passa a haver **um relatório por corrida**
+em vez de um erro e um silêncio atrás dele. `always()` não serve: correria também
+depois de um cancelamento. E há uma prova a guardar isto —
+`nenhum_passo_e_engolido_pelo_erro_do_anterior`.
 
 **Separar não é desligar, e isso é provado.** `MAP RULES CHECK` está **VERMELHO**
 e continua a reprovar a build com o nome dele. `test_impressao_da_arvore.py`
@@ -218,6 +233,21 @@ para `UNKNOWN` e a tela fica **branca**, com o motivo escrito.
 
 **Quem promover a produção deve confirmar isto no browser real**, e é a única
 verificação que fica por fazer nesta linha.
+
+---
+
+## O CI RESPONDEU, NO COMMIT REAL
+
+Em `4f8be09b`, no GitHub, não em simulação:
+
+```
+SYSTEM MAP CHECK   success     <- é este que a tela lê para poder ficar verde
+MAP RULES CHECK    failure     <- as duas provas de arquitetura de 8e1947d2
+COLETA CHECK       failure     <- padrao_da_coleta.py, também de antes
+verificar          success
+```
+
+**O portão de que o verde depende passou no CI real.**
 
 ---
 
