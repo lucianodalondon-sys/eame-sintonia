@@ -492,6 +492,20 @@ _SEGREDOS_POR_FORMA = re.compile(
     r'|gh[pousr]_[A-Za-z0-9]{20,}'              # token do GitHub
     r'|AIza[A-Za-z0-9_\-]{30,})')              # chave de API do Google
 
+# A terceira forma: a credencial que mora no PRÓPRIO ENDEREÇO, entre `//` e `@`.
+# Medida em 2026-09-09 no red team desta missão: a DSN do Supabase atravessava
+# `redigir()` inteira, com a senha em claro. Nenhum dos dois passos acima a pegava —
+# não há rótulo `password=` e a senha não tem forma reconhecível, porque a forma de
+# uma senha é não ter forma.
+#
+#     O ENDEREÇO TAMBÉM É SEGREDO. `postgresql://user:SENHA@host` É UM VAZAMENTO
+#     COM CARA DE URL.
+#
+# O host sobrevive de propósito: sem ele o registro não diz nem PARA ONDE a coleta
+# falhou, e um log que não localiza nada não é privacidade, é cegueira.
+_CREDENCIAL_NA_URL = re.compile(
+    r'(?i)\b([a-z][a-z0-9+.\-]*://)([^/\s:@"\']{1,128}):([^/\s@"\']{1,256})@')
+
 _CAMINHO_PESSOAL = re.compile(
     r'(?i)([A-Z]:\\Users\\[^\\\s"\']+|/home/[^/\s"\']+|/Users/[^/\s"\']+)')
 
@@ -510,6 +524,8 @@ def redigir(texto):
     # Depois do rótulo, a forma. A ordem importa: o passo acima já apagou a maioria,
     # e este pega o que sobrou solto — inclusive dentro de uma URL de traceback.
     t = _SEGREDOS_POR_FORMA.sub('<REDIGIDO>', t)
+    # E a credencial embutida no endereço, que não tem rótulo nem forma própria.
+    t = _CREDENCIAL_NA_URL.sub(lambda m: '%s%s:<REDIGIDO>@' % (m.group(1), m.group(2)), t)
     t = _CAMINHO_PESSOAL.sub('<CAMINHO-LOCAL>', t)
     return t
 
