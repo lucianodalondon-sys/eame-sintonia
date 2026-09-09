@@ -804,11 +804,35 @@ def main() -> int:
     # A DIVERGENCIA, dita na cara. Nao corrijo o documento nem escondo o numero:
     # registo os dois e deixo a diferenca visivel, porque quem tem de decidir o
     # que fazer com ela e gente, nao este script.
+    # ⚠️ E HA UM TERCEIRO NUMERO, QUE FALTAVA AQUI E JA CAUSOU UMA FRASE ERRADA.
+    # A M2I escreveu, para justificar que IT-T2-002 nao esta no atlas: «o atlas
+    # tem 42 fontes com ficha». Nao tem. 42 e quantos SOURCE_IDs sao MENCIONADOS
+    # em qualquer sitio do texto — tabelas de resumo incluidas. Fichas ha 23.
+    #
+    #     MENCIONADO NO ATLAS  !=  TEM FICHA NO ATLAS.
+    #
+    # A conclusao da M2I nao muda (IT-T2-002 aparece zero vezes, nas duas
+    # contas), mas a frase media uma coisa e dizia outra — e este scanner nao
+    # publicava o numero que ela usou, o que deixava a confusao sem arbitro.
+    # Agora os TRES vivem lado a lado, e ninguem tem de adivinhar qual e qual.
+    mencionados = sorted(set(re.findall(
+        r"\b(?:ES|EU|FR|IT)-T\d+-\d+\b",
+        (RAIZ / ATLAS).read_text(encoding="utf-8"))))
     decl = contagem_declarada()
     if decl:
         dados["HEADER_CLAIM"] = {
             **decl,
             "fichas_completas": len(fontes),
+            "ids_mencionados_no_atlas": len(mencionados),
+            "mencionados_sem_ficha": sorted(
+                set(mencionados) - {f["source_id"] for f in fontes
+                                    if isinstance(f, dict) and f.get("source_id")}),
+            "os_tres_numeros": (
+                f"{decl['total']} = o que o CABECALHO declara · "
+                f"{len(mencionados)} = SOURCE_IDs MENCIONADOS no texto · "
+                f"{len(fontes)} = FICHAS completas. Sao tres perguntas "
+                "diferentes, e nenhuma delas e as outras duas."
+            ),
             "divergencia": decl["total"] - len(fontes),
             "leitura": (
                 f"O cabecalho do atlas diz {decl['total']} fontes registradas; "

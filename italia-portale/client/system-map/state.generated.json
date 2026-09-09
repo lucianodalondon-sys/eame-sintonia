@@ -1795,9 +1795,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-freshness-v1",
-    "HEAD": "c65e4e98c08a6b70582047d55f24c40677283463",
-    "GENERATED_AT": "2026-09-09T01:05:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "6620244b1b3437637eb336acf2e76b615f200c2ee5c1ab792269f41207467747"
+    "HEAD": "bcab7c25e6ec721ce3452f3b2022288fc71dc7c1",
+    "GENERATED_AT": "2026-09-09T01:11:57+00:00",
+    "SOURCE_TREE_FINGERPRINT": "74d9cf4db2d821171cfa2f8a840b3d77468d5f8d95ac50834323f943e581e38e"
   },
   "FAMILIES": [
     {
@@ -3968,6 +3968,29 @@
         "yellow": 4,
         "nao_sei": 17,
         "fichas_completas": 23,
+        "ids_mencionados_no_atlas": 42,
+        "mencionados_sem_ficha": [
+          "ES-T1-001",
+          "ES-T13-001",
+          "ES-T7-001",
+          "ES-T8-001",
+          "ES-T8-002",
+          "ES-T8-003",
+          "ES-T9-001",
+          "EU-T10-002",
+          "EU-T10-003",
+          "EU-T8-001",
+          "EU-T9-002",
+          "FR-T1-001",
+          "FR-T11-001",
+          "FR-T9-001",
+          "IT-T1-001",
+          "IT-T11-001",
+          "IT-T12-001",
+          "IT-T13-001",
+          "IT-T9-001"
+        ],
+        "os_tres_numeros": "37 = o que o CABECALHO declara · 42 = SOURCE_IDs MENCIONADOS no texto · 23 = FICHAS completas. Sao tres perguntas diferentes, e nenhuma delas e as outras duas.",
         "divergencia": 14,
         "leitura": "O cabecalho do atlas diz 37 fontes registradas; fichas completas, com SOURCE_ID valido, ha 23. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
       },
@@ -9780,9 +9803,10 @@
       ],
       "file_count": 4,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
-        "system-map/scripts/scan_repo.py"
+        "system-map/scripts/scan_repo.py",
+        "system-map/scripts/scan_sources.py"
       ],
       "produces": [],
       "inbound": [
@@ -15785,7 +15809,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-freshness-v1",
-        "HEAD c65e4e98c08a6b70582047d55f24c40677283463"
+        "HEAD bcab7c25e6ec721ce3452f3b2022288fc71dc7c1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
