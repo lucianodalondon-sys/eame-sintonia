@@ -793,7 +793,20 @@ def main():
             'RADAR': per_superficie.get('RADAR', 0),
             'SEGNALI': per_superficie.get('SEGNALI', 0),
             'ERRORE': per_superficie.get('ERRORE', 0),
-            'LEGGE_ADAMA': LEI_ADAMA,
+            # A MESMA LEI, A VIAJAR PELA SEGUNDA VEZ.
+            # `adama-relevance.js` ja a levava inteira; este pacote levava-a
+            # outra vez, 2.342 bytes, dentro de OPPORTUNITA_ATTUALI. Nenhum dos
+            # dois era lido: medido em 2026-09-09, zero linhas do portal
+            # referenciam LEGGE_ADAMA.
+            #
+            #     UMA COISA QUE NINGUEM LE, TRANSPORTADA DUAS VEZES,
+            #     CONTINUA A SER LIDA POR QUEM ABRIR O DEVTOOLS.
+            #
+            # Fica a impressao digital, que responde «qual lei decidiu isto?»
+            # sem responder «qual e a lei».
+            'LEGGE_ADAMA_SHA256': hashlib.sha256(
+                json.dumps(LEI_ADAMA, ensure_ascii=False, sort_keys=True).encode('utf-8')
+            ).hexdigest(),
             'SOURCE_HEAD': MI['SOURCE_HEAD'],
             'BUILD_ID': MI['BUILD_ID'],
             'MEETING_CUTOFF': MI['MEETING_CUTOFF'],
@@ -1023,15 +1036,40 @@ def main():
                            'PERCHE': x['RILEVANZA_PERCHE'],
                            'PROVA': (x['PROVA_ADAMA'] or {}).get('PRODOTTO')}
                  for x in casos}
+    # ── A LEI FICA. O TEXTO DELA NAO VIAJA. ──────────────────────────────
+    # O browser recebia as nove clausulas escritas da lei de relevancia — 2.342
+    # bytes que explicam COMO o SINTONIA decide o que e oportunidade. Medido em
+    # 2026-09-09: nenhuma linha de codigo do portal le `LEGGE`. O unico campo
+    # lido de ADAMA_RELEVANCE e `VERDETTI`, em italy-app-model.js.
+    #
+    #     O CLIENTE PRECISA DA RESPOSTA. NAO PRECISA DA RECEITA.
+    #
+    # Sai o texto, entra a impressao digital. Assim continua a ser possivel
+    # provar QUE LEI produziu aquele veredito — e continua impossivel
+    # reconstrui-la a partir do que foi servido.
+    #
+    #     PROVENIENCIA NAO EXIGE DIVULGACAO.
+    #
+    # A lei nao se perde: vive em leis/adama_relevance.py, e o veredito
+    # continua a ser decidido LA, como sempre foi.
+    lei_sha = hashlib.sha256(
+        json.dumps(LEI_ADAMA, ensure_ascii=False, sort_keys=True).encode('utf-8')
+    ).hexdigest()
     rel = {'GERADO_POR': 'superficie/it_casa_dados.py + leis/adama_relevance.py',
            'DONO_DA_LEI': 'leis/adama_relevance.py',
-           'LEGGE': LEI_ADAMA, 'TOTALE': total,
+           'LEGGE_SHA256': lei_sha,
+           'LEGGE_CLAUSULAS': len(LEI_ADAMA),
+           'TOTALE': total,
            'PER_CLASSE': por_classe, 'PER_SUPERFICIE': per_superficie,
            'SOURCE_HEAD': MI['SOURCE_HEAD'], 'BUILD_ID': MI['BUILD_ID'],
            'VERDETTI': vereditos}
     js_rel = ('/* GERADO por superficie/it_casa_dados.py — nao editar a mao.\n'
               '   A LEI vive em leis/adama_relevance.py e decide-se LA. Este ficheiro\n'
-              '   transporta o veredito para o browser, que nunca o recalcula. */\n'
+              '   transporta o VEREDITO para o browser, que nunca o recalcula — e nao\n'
+              '   transporta o TEXTO da lei, que nenhuma linha do portal lia.\n'
+              '   LEGGE_SHA256 prova qual lei decidiu, sem a revelar.\n'
+              '\n'
+              '       O CLIENTE PRECISA DA RESPOSTA. NAO PRECISA DA RECEITA. */\n'
               'window.ADAMA_RELEVANCE = '
               + json.dumps(rel, ensure_ascii=False, indent=1, sort_keys=True) + ';\n')
     with io.open(OUT_REL, 'w', encoding='utf-8', newline='\n') as f:

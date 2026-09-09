@@ -1,0 +1,1300 @@
+{
+  "SCHEMA": "SINTONIA-SECURITY-BASELINE/2",
+  "MEASURED_AT": "2026-09-09",
+  "SECURITY_BRANCH": "claude/security-foundation-v1",
+  "BASE_BRANCH": "claude/system-map-freshness-v1",
+  "BASE_HEAD": "baaddcf191778e01297427e7a0b167d66c9c4354",
+  "WHY_THIS_BASE": "unica linha que contem integralmente collection-foundation-integration-v1 e carrega a maior superficie de cliente publicada (95 ficheiros / 30461784 bytes)",
+  "NOT_TOUCHED": [
+    "production",
+    "system-map",
+    "collection",
+    "supabase-live",
+    "repo-visibility"
+  ],
+  "MEASUREMENTS": {
+    "REPO": {
+      "visibility": "public",
+      "created_at": "2026-08-28",
+      "branches_visible_anonymously": 85,
+      "branches_protected": 0,
+      "forks_allowed": true,
+      "has_wiki": true,
+      "has_pages": false,
+      "codeowners": false,
+      "dependabot_config": false,
+      "tracked_files": 1517,
+      "tracked_bytes": 196872709,
+      "bytes_by_family": {
+        "ACERVO_EVIDENCE": 137906986,
+        "PORTAL_CLIENT_SERVED": 30461784,
+        "INTERNAL_ARCHITECTURE_RESEARCH": 6379301,
+        "DATABASE_SCHEMA": 4760130,
+        "SYSTEM_MAP": 3704745,
+        "PROPRIETARY_ENGINE": 2419258,
+        "CI_TOOLING": 1159993,
+        "PROPRIETARY_RULES": 494339,
+        "OTHER": 9586173
+      }
+    },
+    "LIVE_PRODUCTION_ANONYMOUS": {
+      "host": "sintonia-eame-preview.vercel.app",
+      "italy-handoff-v21.js": {
+        "http": 200,
+        "bytes": 11198842,
+        "distinct_source_urls": 3352,
+        "client_safe_false_records": 7133,
+        "qa_unreviewed": 3323,
+        "derivation_formula_fields": 981
+      },
+      "portale": {
+        "http": 200,
+        "bytes": 1090951
+      },
+      "meeting-intelligence-snapshot.json": {
+        "http": 200,
+        "bytes": 646889
+      },
+      "blocked_by_vercelignore_confirmed_404": [
+        "/package.json",
+        "/.vercelignore",
+        "/supabase/migrations/006_regulatorio_e_rls.sql"
+      ],
+      "headers_present": [
+        "strict-transport-security",
+        "x-content-type-options",
+        "referrer-policy"
+      ],
+      "headers_absent": [
+        "content-security-policy",
+        "frame-ancestors",
+        "permissions-policy",
+        "cross-origin-*"
+      ],
+      "headers_questionable": [
+        "access-control-allow-origin: *"
+      ]
+    },
+    "LIVE_PREVIEW_ANONYMOUS": {
+      "deployment_protection": {
+        "password": false,
+        "vercel_authentication": false,
+        "trusted_ips": false
+      },
+      "system-map/state.generated.json": {
+        "http": 200,
+        "bytes": 1058169
+      },
+      "italy-v21.js": {
+        "http": 200,
+        "bytes": 10359119
+      },
+      "system-map/": {
+        "http": 200,
+        "bytes": 9254
+      }
+    },
+    "CLIENT_CORPUS": {
+      "collections": 26,
+      "records": 7078,
+      "client_safe_false": 3882,
+      "distinct_source_urls": 1438,
+      "largest": {
+        "products.relationships": 2030,
+        "cropEconomicWeight": 2978,
+        "competitors": 577,
+        "sources": 189
+      }
+    },
+    "SYSTEM_MAP_PUBLIC": {
+      "nodes": 145,
+      "edges": 556,
+      "files_tracked": 1351,
+      "named_gaps_with_file_and_line": 9
+    },
+    "SUPABASE_SCHEMA": {
+      "tables_created": 66,
+      "rls_enabled": 54,
+      "rls_absent": 12,
+      "create_policy": 0,
+      "explicit_grants": 0,
+      "views_security_invoker": 21,
+      "views_security_definer": 0,
+      "tables_without_rls": [
+        "public.boletim_fitossanitario",
+        "public.clima_observacao",
+        "public.conteudo_lugar",
+        "public.decisao_de_coleta",
+        "public.estatistica_agricola",
+        "public.etapa_da_corrida",
+        "public.evento_setorial",
+        "public.fonte_acesso_teste",
+        "public.fonte_externa",
+        "public.mercado_observacao",
+        "public.origem_lugar",
+        "public.sinal_regulatorio_futuro"
+      ]
+    },
+    "SECRETS": {
+      "tree_scan": "DONE",
+      "history_scan": "DONE",
+      "blobs_scanned": 9809,
+      "false_positives": [
+        "detector patterns",
+        "localhost CI DSNs",
+        "FAKE_JWT test constant"
+      ],
+      "service_role_in_client": "NO",
+      "NO_REAL_SECRET_DETECTED_BY_CURRENT_SCAN": "YES",
+      "ROTATION_REQUIRED_FROM_CURRENT_SCAN": "NO",
+      "CAVEAT": "varredura por padrao conhecido. NOT DETECTED != IMPOSSIBLE TO EXIST. Nao prova ausencia historica."
+    },
+    "CI": {
+      "workflows": 15,
+      "explicit_permissions": 15,
+      "write_all": 0,
+      "pull_request_target": 0,
+      "self_hosted_workflows": 5,
+      "self_hosted_triggers": [
+        "workflow_dispatch"
+      ],
+      "unpinned_actions": "major-tag, all actions/*",
+      "lockfiles": 0,
+      "runtime_npm_dependencies": 0,
+      "external_cdn_at_runtime": 0
+    },
+    "FRONTEND": {
+      "api_endpoints": 0,
+      "serverless_functions": 0,
+      "outbound_fetch": [
+        "state.generated.json (local)"
+      ],
+      "innerHTML_sites": {
+        "system-map/map.js": 18,
+        "support.js": 7,
+        "casa.html": 2
+      },
+      "user_input_to_dom": "none measured",
+      "own_source_maps_published": 0
+    },
+    "PORTAL_AUTH": {
+      "authentication": "NONE",
+      "authorization": "NONE",
+      "sso": "NONE",
+      "mfa": "NONE",
+      "session": "NONE",
+      "country_isolation": "NONE",
+      "mechanism": "accesso.html submit -> window.location.href='casa.html'",
+      "self_declared": "Ambiente dimostrativo - nessuna autenticazione"
+    },
+    "PLATFORM": {
+      "vercel_team": "London Creative",
+      "vercel_plan": "pro",
+      "waf": "AVAILABLE_PLAN_INCLUDED",
+      "rate_limit": "AVAILABLE_PLAN_INCLUDED",
+      "log_drains": "PLAN_DEPENDENT",
+      "logging_configured": "NO",
+      "audit_configured": "NO",
+      "backup": "UNKNOWN",
+      "restore_proved": "NO",
+      "incident_response": "NONE"
+    },
+    "PERSONAL_DATA": {
+      "GDPR_APPLICABILITY_BEFORE": "NOT_APPLICABLE_YET (incorrecto: derivado de ADAMA_CONFIDENTIAL_DATA=NOT_PRESENT)",
+      "GDPR_APPLICABILITY_AFTER": "LIKELY_APPLICABLE · REQUIRES_DATA_INVENTORY_AND_LEGAL_INTERPRETATION",
+      "IDENTIFIABLE_NATURAL_PERSON_DATA_FOUND": "YES",
+      "INVENTORY_COMPLETE": "NO — cobre o corpus servido (italy-v21.js); nao cobre Supabase, data/, build/, research/",
+      "in_public_client": {
+        "researchers_PERSON": 60,
+        "researchers_ORCID": 60,
+        "science_AUTHOR": 88,
+        "science_ORCID": 88,
+        "voices_PERSON_pseudonymised_handles": 58,
+        "channels_CHANNEL_URL": 62,
+        "distinct_named_natural_persons": 65,
+        "distinct_orcid_identifiers": 60
+      },
+      "in_live_production_file": {
+        "ORCID_fields": 911,
+        "AUTHOR_fields": 859,
+        "PERSON_fields": 118,
+        "PERSON_IDENTITY_STATE": 58
+      },
+      "mitigating_facts": [
+        "origem maioritariamente ja publica (ORCID, autoria cientifica, handles publicos)",
+        "PERSON_IDENTITY_STATE ja marca 58 registos como pseudonimizados — Art.25 na pratica, feito antes de ser exigido"
+      ],
+      "aggravating_facts": [
+        "pseudonimizacao nao e anonimizacao: continua a ser dado pessoal",
+        "republicar dado pessoal publico continua a ser tratamento",
+        "servido anonimamente a nivel mundial, sem aviso de privacidade nem base legal declarada"
+      ],
+      "LEGAL_INTERPRETATION_REQUIRED": [
+        "base legal",
+        "papel de responsavel/subcontratante",
+        "obrigacao de AIPD",
+        "transferencia internacional",
+        "prazos de conservacao",
+        "direitos dos titulares"
+      ]
+    },
+    "ADAMA_CONFIDENTIAL_DATA": "NOT_PRESENT (irrelevante para a aplicabilidade do GDPR)"
+  },
+  "CONTROLS": [
+    {
+      "CONTROL_ID": "SEC-001",
+      "DOMAIN": "supply-chain",
+      "STATUS": "PROVED",
+      "SEVERITY": "info",
+      "OWNER": "CI",
+      "EVIDENCE": "17/17 workflows com permissions explicito (era 14/15: banco-descartavel corrigido). Classe de ratchet WORKFLOW_SEM_PERMISSIONS + NEW_WRITE_ALL_PERMISSION, com provas que mordem.",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "NONE",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true
+    },
+    {
+      "CONTROL_ID": "SEC-002",
+      "DOMAIN": "supply-chain",
+      "STATUS": "PROVED",
+      "SEVERITY": "info",
+      "OWNER": "CI",
+      "EVIDENCE": "0 pull_request_target; self-hosted so em workflow_dispatch. Agora com portao: NEW_PULL_REQUEST_TARGET e SELF_HOSTED_EM_EVENTO_NAO_CONFIAVEL, provados por mutacao.",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "NONE",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true
+    },
+    {
+      "CONTROL_ID": "SEC-003",
+      "DOMAIN": "secrets",
+      "STATUS": "PROVED",
+      "SEVERITY": "info",
+      "OWNER": "repo",
+      "EVIDENCE": "guarda/social_guarda.py alargada com as formas de plataforma (Supabase, GitHub, Apify, Google, AWS, JWT, chave privada, DSN remoto). 21 provas, fixtures montadas em runtime. Corre no SECURITY CHECK.",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "NONE",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true
+    },
+    {
+      "CONTROL_ID": "SEC-004",
+      "DOMAIN": "data-boundary",
+      "STATUS": "PROVED",
+      "SEVERITY": "info",
+      "OWNER": ".vercelignore + vercel.json",
+      "EVIDENCE": "security/superficie_publica.py e o dono unico: 87 ficheiros, 30.395.915 bytes, validado contra a evidencia HTTP. Classe NEW_SENSITIVE_PATH_PUBLISHED, provada apagando a regra do .vercelignore.",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true
+    },
+    {
+      "CONTROL_ID": "SEC-005",
+      "DOMAIN": "transport",
+      "STATUS": "PROVED",
+      "SEVERITY": "info",
+      "OWNER": "Vercel",
+      "EVIDENCE": "HSTS max-age=63072000 includeSubDomains preload; nosniff; referrer-policy",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "NONE",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true
+    },
+    {
+      "CONTROL_ID": "SEC-006",
+      "DOMAIN": "database",
+      "STATUS": "PARTIAL",
+      "SEVERITY": "high",
+      "OWNER": "supabase/migrations",
+      "EVIDENCE": "RLS em 54/66 tabelas; 0 create policy; 21 views security_invoker",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "live confirma: 67/67 tabelas com RLS e 0 politicas. Deny-all real, nao so no schema. Continua PARTIAL porque deny-all nao e modelo de autorizacao."
+    },
+    {
+      "CONTROL_ID": "SEC-007",
+      "DOMAIN": "database",
+      "STATUS": "PROVED",
+      "SEVERITY": "info",
+      "OWNER": "supabase live",
+      "EVIDENCE": "censo de metadados live 2026-09-09: 12/12 presentes, 12/12 com RLS activa, 0 privilegio efectivo de anon ou authenticated (select, insert, update, delete). Agregado: 67/67 tabelas de public com RLS, 0 com anon select ou write.",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "NONE",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "duas negacoes independentes: sem privilegio efectivo E RLS activa sem politica. ROW_DATA_READ=0."
+    },
+    {
+      "CONTROL_ID": "SEC-008",
+      "DOMAIN": "authentication",
+      "STATUS": "ABSENT",
+      "SEVERITY": "high",
+      "OWNER": "portal",
+      "EVIDENCE": "accesso.html e um redirect client-side; demo auto-declarado",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "NONE",
+      "AUTOMATABLE": false,
+      "BLOCKS_NEW_REGRESSION": false
+    },
+    {
+      "CONTROL_ID": "SEC-009",
+      "DOMAIN": "authorization",
+      "STATUS": "ABSENT",
+      "SEVERITY": "high",
+      "OWNER": "nao existe",
+      "EVIDENCE": "sem papel, pais, departamento ou scope em lado nenhum",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "NONE",
+      "AUTOMATABLE": false,
+      "BLOCKS_NEW_REGRESSION": false
+    },
+    {
+      "CONTROL_ID": "SEC-010",
+      "DOMAIN": "ip-boundary",
+      "STATUS": "PARTIAL",
+      "SEVERITY": "medium",
+      "OWNER": "portal",
+      "EVIDENCE": "medido: o motor NAO corre no browser (0 funcoes de pontuacao). Viaja o corpus (76,2% dos bytes) e a lei escrita. Piloto: a lei de relevancia deixou de viajar, com paridade provada. 585 campos servidos e nao lidos ficam congelados.",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "MEDIUM",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "a projeccao dos pacotes grandes e a S2B: italy-v21.js sozinho poupa 6,2 MB."
+    },
+    {
+      "CONTROL_ID": "SEC-011",
+      "DOMAIN": "deploy",
+      "STATUS": "ABSENT",
+      "SEVERITY": "medium",
+      "OWNER": "Vercel project",
+      "EVIDENCE": "medido 2026-09-09: password, SSO e IPs todos desligados. NAO alterado: ligar partiria system-map-deploy-verify.yml, que faz fetch anonimo ao preview.",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "ADMIN_ACTION_REQUIRED com pre-requisito: Protection Bypass for Automation antes de ligar."
+    },
+    {
+      "CONTROL_ID": "SEC-012",
+      "DOMAIN": "repo-governance",
+      "STATUS": "PARTIAL",
+      "SEVERITY": "medium",
+      "OWNER": "GitHub",
+      "EVIDENCE": "CODEOWNERS e dependabot.yml (github-actions) implementados. Rulesets continuam vazios: /rulesets devolve []. CODEOWNERS FILE != REQUIRED REVIEW.",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true
+    },
+    {
+      "CONTROL_ID": "SEC-013",
+      "DOMAIN": "headers",
+      "STATUS": "PARTIAL",
+      "SEVERITY": "low",
+      "OWNER": "vercel.json",
+      "EVIDENCE": "frame-ancestors 'none', X-Frame-Options: DENY e Permissions-Policy ligados e provados num Chromium real, com controlo negativo. CSP completa continua BREAKAGE_RISK=HIGH.",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true
+    },
+    {
+      "CONTROL_ID": "SEC-014",
+      "DOMAIN": "logging",
+      "STATUS": "ABSENT",
+      "SEVERITY": "medium",
+      "OWNER": "nao existe",
+      "EVIDENCE": "sem log de acesso, sem auditoria, sem retencao definida",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": false
+    },
+    {
+      "CONTROL_ID": "SEC-015",
+      "DOMAIN": "resilience",
+      "STATUS": "UNKNOWN",
+      "SEVERITY": "medium",
+      "OWNER": "Supabase",
+      "EVIDENCE": "backup, retencao, RPO, RTO e restore nao medidos. Nao inventar numeros.",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "NONE",
+      "AUTOMATABLE": false,
+      "BLOCKS_NEW_REGRESSION": false
+    },
+    {
+      "CONTROL_ID": "SEC-016",
+      "DOMAIN": "incident-response",
+      "STATUS": "PARTIAL",
+      "SEVERITY": "medium",
+      "OWNER": "nao existe",
+      "EVIDENCE": "security/INCIDENTE.md: dono nomeado, 5 casos, contencao antes de investigacao, e o que a pagina NAO resolve.",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "NONE",
+      "AUTOMATABLE": false,
+      "BLOCKS_NEW_REGRESSION": false
+    },
+    {
+      "CONTROL_ID": "SEC-018",
+      "DOMAIN": "privacy",
+      "STATUS": "PARTIAL",
+      "SEVERITY": "high",
+      "OWNER": "corpus canonico / italia-portale/client",
+      "EVIDENCE": "divida congelada; classe NEW_PERSONAL_DATA_FIELD_IN_PUBLIC_OUTPUT executavel, com 37 nomes de campo e provas de mordida e de falso positivo (ORCID fora da superficie publicada nao e achado).",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "PERSON_IDENTITY_STATE ja pseudonimiza 58 registos por desenho proprio — Art.25 cumprido em parte antes de ser exigido"
+    },
+    {
+      "CONTROL_ID": "SEC-019",
+      "DOMAIN": "error-handling",
+      "STATUS": "NOT_APPLICABLE",
+      "SEVERITY": "info",
+      "OWNER": "portal",
+      "EVIDENCE": "0 endpoints, 0 serverless, 0 input de terceiro para o DOM",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "NONE",
+      "AUTOMATABLE": false,
+      "BLOCKS_NEW_REGRESSION": false
+    },
+    {
+      "CONTROL_ID": "SEC-020",
+      "DOMAIN": "schema-governance",
+      "STATUS": "PROVED",
+      "SEVERITY": "low",
+      "OWNER": "supabase/migrations",
+      "EVIDENCE": "security/drift_db.py + censo diario. Medido: SECURITY_STATUS=SAFE, DRIFT_STATUS=DRIFT com 19 diferencas — 12 LIVE_MORE_RESTRICTIVE, 1 TABLE_ONLY_IN_LIVE (schema_migracao), 6 vistas sem security_invoker (latentes).",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "a deriva deixou de ser invisivel. Alinhar repo e base viva continua por decidir: DRIFT DETECTED != FORCE LIVE TO MATCH REPO."
+    },
+    {
+      "CONTROL_ID": "SEC-021",
+      "DOMAIN": "database",
+      "STATUS": "PARTIAL",
+      "SEVERITY": "low",
+      "OWNER": "supabase (vistas)",
+      "EVIDENCE": "6 de 22 vistas de public sem security_invoker; nenhuma alcancavel por anon hoje",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "latente: uma vista sem security_invoker le com os direitos de quem a criou. A PORTA LATERAL NAO PRECISA DE ESTAR ABERTA PARA EXISTIR."
+    },
+    {
+      "CONTROL_ID": "SEC-022",
+      "DOMAIN": "ip-boundary",
+      "STATUS": "PARTIAL",
+      "SEVERITY": "medium",
+      "OWNER": "geradores de pacote (superficie/, portoes/)",
+      "EVIDENCE": "585 de 1.935 campos publicados nao sao lidos por nenhuma linha de interface",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "UM CAMPO QUE NINGUEM LE NAO E APRESENTACAO. E EXPORTACAO."
+    }
+  ],
+  "PRIORITIES": {
+    "P0_CONFIRMED": 0,
+    "P0_CANDIDATE": 0,
+    "P0_STATUS": "DISPROVED_BY_LIVE_METADATA",
+    "P1": 5,
+    "P2": 4,
+    "P3": 0,
+    "P2_CHANGE": "SEC-020 desce de medium para low (medido e monitorizado); SEC-021 entra como low"
+  },
+  "RATCHET": {
+    "BASELINE_COMMIT": "baaddcf191778e01297427e7a0b167d66c9c4354",
+    "KNOWN_FINDINGS": 28,
+    "GATE_NAME": "SECURITY CHECK",
+    "INDEPENDENT_OF": [
+      "COLLECTION CHECK",
+      "SYSTEM MAP CHECK"
+    ],
+    "QUESTION": "esta mudanca piorou a seguranca?",
+    "BLOCK_ON": {
+      "NEW_CRITICAL": 0,
+      "NEW_HIGH": 0,
+      "NEW_SECRET": 0,
+      "NEW_PUBLIC_ENGINE_EXPOSURE": 0,
+      "NEW_PULL_REQUEST_TARGET": 0,
+      "NEW_TABLE_WITHOUT_RLS": 0,
+      "NEW_WRITE_ALL_PERMISSION": 0,
+      "NEW_OWN_SOURCE_MAP_PUBLISHED": 0,
+      "NEW_PERSONAL_DATA_FIELD_IN_PUBLIC_OUTPUT": 0,
+      "NEW_INTERNAL_FIELD_EXPOSED_TO_CLIENT": 0
+    },
+    "DO_NOT_BLOCK_ON": [
+      "missing SSO",
+      "missing WAF",
+      "documentation debt",
+      "inherited low-risk header gap",
+      "declared demo weakness"
+    ],
+    "ADDED_IN_S0R": [
+      "NEW_PERSONAL_DATA_FIELD_IN_PUBLIC_OUTPUT"
+    ],
+    "WHY_ADDED": "Art.25 do GDPR; testavel por maquina (o contrato canonico nomeia os campos); valor alto, friccao baixa",
+    "GDPR_NOTE": "Art.32(1)(d) exige teste regular da eficacia das medidas. O ratchet e esse processo, e corre a cada commit.",
+    "NOT_A_BLOCKER": "divida conhecida (SSO, WAF, headers herdados) nunca bloqueia; so regressao nova",
+    "NOTE_ON_NEW_TABLE_WITHOUT_RLS": "a classe le o repositorio. O censo live de 2026-09-09 mostrou que o repositorio nao e a autoridade: complementar com o censo de metadados.",
+    "IMPLEMENTADO": "security/ratchet.py",
+    "CORRE_EM": ".github/workflows/security-check.yml",
+    "PROVAS_QUE_ATACAM_O_PORTAO": 19,
+    "NOVA_CLASSE_S1": "WORKFLOW_YAML_INVALIDO — um workflow que nao analisa nao corre, e falha com zero jobs",
+    "ADDED_IN_S2A": [
+      "NEW_INTERNAL_FIELD_EXPOSED_TO_CLIENT"
+    ]
+  },
+  "VERDICT": {
+    "S0_MEASUREMENT": "PASS",
+    "S0_STANDARDS_ALIGNMENT": "PASS",
+    "S0R": "PASS",
+    "SECURITY_BASELINE_PROVED": "YES",
+    "GDPR_APPLICABILITY": "LIKELY_APPLICABLE · REQUIRES_DATA_INVENTORY_AND_LEGAL_INTERPRETATION",
+    "P0_CONFIRMED": 0,
+    "P0_TO_MEASURE": 0,
+    "SECURITY_FOUNDATION_S0": "CLOSED",
+    "SECURITY_ARCHITECTURE_READY_FOR_IMPLEMENTATION": "YES",
+    "S1_STARTED": "NO",
+    "S0_P0M1": "PASS",
+    "P0_DISPROVED_BY_LIVE_METADATA": "YES",
+    "S0_P0M2_REQUIRED": "NO",
+    "S1": "PARTIAL",
+    "S1_RAZAO": "preview protection e as definicoes do GitHub exigem accao administrativa; tudo o resto implementado e provado",
+    "SECURITY_CHECK": "PASS",
+    "LIVE_DB_DRIFT": "MONITORED",
+    "SECURITY_RATCHET": "EXECUTABLE",
+    "S2_READY": "YES",
+    "NEW_FAILURES": 0,
+    "SYSTEM_MAP_CHECK": "PASS",
+    "BROWSER_REGRESSION": "PASS",
+    "S2A": "PASS",
+    "PUBLIC_SURFACE_AUDITED": "100%",
+    "UNKNOWN": 0,
+    "CLIENT_SERVER_BOUNDARY": "MEDIDA — ja existe em tempo de build",
+    "PILOT_PROVED": "YES",
+    "PARITY": "PASS",
+    "PRIVATE_REPO_READY_FOR_NEXT_STEP": "YES com uma condicao"
+  },
+  "REVISION": "S2A client/server boundary",
+  "REVISED_AT": "2026-09-09",
+  "STANDARDS": [
+    {
+      "name": "OWASP ASVS",
+      "version": "5.0.0",
+      "status": "STABLE",
+      "released": "2025-05-30",
+      "url": "https://owasp.org/www-project-application-security-verification-standard/",
+      "date_accessed": "2026-09-09",
+      "note": "17 capitulos V1-V17, ~350 requisitos",
+      "level_recommended": "L2 com L3 selectivo",
+      "level_rationale": "aplicacao corporativa de BI; auth/authz futuras; dados proprietarios e dados pessoais; nao critica para seguranca humana. L3 selectivo em V8 (autorizacao), projeccao por pais/papel e exportacao em massa."
+    },
+    {
+      "name": "OWASP Top 10",
+      "version": "2025",
+      "status": "FINAL",
+      "url": "https://owasp.org/Top10/2025/",
+      "date_accessed": "2026-09-09",
+      "COVERAGE": {
+        "TOP10_REFERENCED": "10/10",
+        "TOP10_CURRENTLY_MATERIAL": "8/10",
+        "TOP10_FUTURE_SURFACE": [
+          "A05:2025 Injection",
+          "A10:2025 Mishandling of Exceptional Conditions"
+        ],
+        "WHY": "A05 e A10 sao referenciadas em SEC-019 mas classificadas NOT_APPLICABLE hoje: o portal e estatico, sem API, sem serverless e sem input de terceiro para o DOM. Nascem com a primeira API autorizada.",
+        "NOTE": "o handoff da S0R escreveu '8 de 10 mapeadas', o que confundia referenciadas com materiais. As dez estao referenciadas; oito sao materiais hoje."
+      },
+      "referenced_list": [
+        "A01:2025",
+        "A02:2025",
+        "A03:2025",
+        "A04:2025",
+        "A05:2025",
+        "A06:2025",
+        "A07:2025",
+        "A08:2025",
+        "A09:2025",
+        "A10:2025"
+      ]
+    },
+    {
+      "name": "NIST SSDF",
+      "version": "SP 800-218 v1.1",
+      "status": "FINAL / NORMATIVE",
+      "released": "2022-02",
+      "url": "https://csrc.nist.gov/projects/ssdf",
+      "date_accessed": "2026-09-09"
+    },
+    {
+      "name": "NIST SSDF",
+      "version": "SP 800-218r1 v1.2",
+      "status": "DRAFT (IPD 2025-12-17) — NAO NORMATIVO",
+      "url": "https://csrc.nist.gov/projects/ssdf",
+      "date_accessed": "2026-09-09"
+    },
+    {
+      "name": "GDPR",
+      "version": "Reg. (UE) 2016/679, Art. 4(1), 25, 32",
+      "status": "IN FORCE",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679",
+      "date_accessed": "2026-09-09"
+    }
+  ],
+  "STANDARDS_MAPPING": [
+    {
+      "CONTROL_ID": "SEC-008",
+      "TOPIC": "authentication",
+      "ASVS_5_0_0": [
+        "V6 Authentication",
+        "V7 Session Management"
+      ],
+      "OWASP_TOP10_2025": [
+        "A07:2025 Authentication Failures"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [
+        "Art.32(1)(b)"
+      ],
+      "WHY_RELEVANT": "o portal nao tem autenticacao; o ecra de acesso e um redirect client-side",
+      "CURRENT_STATUS": "ABSENT",
+      "PHASE": "BEFORE_REAL_USERS",
+      "NEXT_ACTION": "SSO OIDC/SAML com o IdP corporativo da ADAMA; sessao verificada no servidor"
+    },
+    {
+      "CONTROL_ID": "SEC-009",
+      "TOPIC": "authorization",
+      "ASVS_5_0_0": [
+        "V8 Authorization"
+      ],
+      "OWASP_TOP10_2025": [
+        "A01:2025 Broken Access Control"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [
+        "Art.25 (minimizacao de acesso)",
+        "Art.32(1)(b)"
+      ],
+      "WHY_RELEVANT": "nao existe papel, pais, departamento nem scope. ASVS L3 selectivo aqui.",
+      "CURRENT_STATUS": "ABSENT",
+      "PHASE": "BEFORE_REAL_USERS",
+      "NEXT_ACTION": "modelo pais+papel+departamento+scope, provado em ALLOW e em DENY"
+    },
+    {
+      "CONTROL_ID": "SEC-006",
+      "TOPIC": "database-authorization",
+      "ASVS_5_0_0": [
+        "V8 Authorization",
+        "V14 Data Protection"
+      ],
+      "OWASP_TOP10_2025": [
+        "A01:2025 Broken Access Control"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [
+        "Art.32(1)(b)"
+      ],
+      "WHY_RELEVANT": "54/66 tabelas com RLS e zero politicas: deny-all por ausencia, nao por desenho",
+      "CURRENT_STATUS": "PARTIAL",
+      "PHASE": "BEFORE_REAL_USERS",
+      "NEXT_ACTION": "politicas RLS explicitas, testadas em ALLOW e DENY"
+    },
+    {
+      "CONTROL_ID": "SEC-007",
+      "TOPIC": "database-anon-surface",
+      "ASVS_5_0_0": [
+        "V13 Configuration",
+        "V8 Authorization"
+      ],
+      "OWASP_TOP10_2025": [
+        "A01:2025 Broken Access Control",
+        "A02:2025 Security Misconfiguration"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [
+        "Art.32(1)(b)"
+      ],
+      "WHY_RELEVANT": "12 tabelas sem RLS incluindo fonte_externa e decisao_de_coleta",
+      "CURRENT_STATUS": "PROVED",
+      "PHASE": "NOW",
+      "NEXT_ACTION": "fechado por metadados live. Manter o censo como prova recorrente com LAST_VERIFIED."
+    },
+    {
+      "CONTROL_ID": "SEC-010",
+      "TOPIC": "client-server-boundary",
+      "ASVS_5_0_0": [
+        "V14 Data Protection",
+        "V15 Secure Coding and Architecture"
+      ],
+      "OWASP_TOP10_2025": [
+        "A06:2025 Insecure Design"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [
+        "Art.25 (minimizacao de dados)"
+      ],
+      "WHY_RELEVANT": "o browser recebe a receita inteira em vez da resposta. IP, e nao so seguranca.",
+      "CURRENT_STATUS": "ABSENT",
+      "PHASE": "BEFORE_CONTRACT",
+      "NEXT_ACTION": "projeccao no servidor; o cliente recebe o minimo necessario"
+    },
+    {
+      "CONTROL_ID": "SEC-011",
+      "TOPIC": "deploy-protection",
+      "ASVS_5_0_0": [
+        "V13 Configuration"
+      ],
+      "OWASP_TOP10_2025": [
+        "A02:2025 Security Misconfiguration"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [],
+      "WHY_RELEVANT": "previews anonimos servem o System Map e o corpus completo",
+      "CURRENT_STATUS": "ABSENT",
+      "PHASE": "NOW",
+      "NEXT_ACTION": "ligar Vercel Deployment Protection nos previews"
+    },
+    {
+      "CONTROL_ID": "SEC-012",
+      "TOPIC": "repo-governance",
+      "ASVS_5_0_0": [
+        "V13 Configuration",
+        "V15 Secure Coding and Architecture"
+      ],
+      "OWASP_TOP10_2025": [
+        "A02:2025 Security Misconfiguration",
+        "A08:2025 Software or Data Integrity Failures"
+      ],
+      "NIST_SSDF_1_1": [
+        "PO.5 implement and maintain secure environments",
+        "PS.1 protect all forms of code from unauthorized access and tampering"
+      ],
+      "GDPR": [],
+      "WHY_RELEVANT": "0/85 branches protegidas; sem CODEOWNERS; sem dependabot",
+      "CURRENT_STATUS": "ABSENT",
+      "PHASE": "NOW",
+      "NEXT_ACTION": "branch protection nas linhas activas, CODEOWNERS, Dependabot, CodeQL, push protection"
+    },
+    {
+      "CONTROL_ID": "SEC-013",
+      "TOPIC": "security-headers",
+      "ASVS_5_0_0": [
+        "V3 Web Frontend Security",
+        "V13 Configuration"
+      ],
+      "OWASP_TOP10_2025": [
+        "A02:2025 Security Misconfiguration"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [],
+      "WHY_RELEVANT": "sem CSP, frame-ancestors ou Permissions-Policy; CORS *",
+      "CURRENT_STATUS": "PARTIAL",
+      "PHASE": "NOW",
+      "NEXT_ACTION": "frame-ancestors e Permissions-Policy primeiro; CSP so depois de remover inline (BREAKAGE_RISK=HIGH)"
+    },
+    {
+      "CONTROL_ID": "SEC-014",
+      "TOPIC": "logging-audit",
+      "ASVS_5_0_0": [
+        "V16 Security Logging and Error Handling"
+      ],
+      "OWASP_TOP10_2025": [
+        "A09:2025 Security Logging and Alerting Failures"
+      ],
+      "NIST_SSDF_1_1": [
+        "RV.1 identify and confirm vulnerabilities on an ongoing basis"
+      ],
+      "GDPR": [
+        "Art.32(1)(d)"
+      ],
+      "WHY_RELEVANT": "sem log de acesso, sem auditoria, sem alerta",
+      "CURRENT_STATUS": "ABSENT",
+      "PHASE": "BEFORE_REAL_USERS",
+      "NEXT_ACTION": "log de autenticacao, autorizacao negada, accao admin e exportacao. Nunca token nem conteudo sensivel."
+    },
+    {
+      "CONTROL_ID": "SEC-015",
+      "TOPIC": "resilience-restore",
+      "ASVS_5_0_0": [
+        "V13 Configuration"
+      ],
+      "OWASP_TOP10_2025": [],
+      "NIST_SSDF_1_1": [
+        "PS.3 archive and protect each software release"
+      ],
+      "GDPR": [
+        "Art.32(1)(b)",
+        "Art.32(1)(c)"
+      ],
+      "WHY_RELEVANT": "Art.32(1)(c) exige restauro atempado; nunca foi provado",
+      "CURRENT_STATUS": "UNKNOWN",
+      "PHASE": "BEFORE_CONTRACT",
+      "NEXT_ACTION": "medir backup e retencao; executar um restauro real e datar a prova"
+    },
+    {
+      "CONTROL_ID": "SEC-016",
+      "TOPIC": "incident-response",
+      "ASVS_5_0_0": [],
+      "OWASP_TOP10_2025": [
+        "A09:2025 Security Logging and Alerting Failures"
+      ],
+      "NIST_SSDF_1_1": [
+        "RV.2 assess, prioritize, and remediate vulnerabilities",
+        "RV.3 analyze vulnerabilities to identify root causes"
+      ],
+      "GDPR": [],
+      "WHY_RELEVANT": "sem dono, sem rotacao, sem revogacao, sem rollback documentado",
+      "CURRENT_STATUS": "ABSENT",
+      "PHASE": "BEFORE_CONTRACT",
+      "NEXT_ACTION": "uma pagina executavel: quem, como cortar acesso, como rodar segredo, como fazer rollback"
+    },
+    {
+      "CONTROL_ID": "SEC-001",
+      "TOPIC": "ci-permissions",
+      "ASVS_5_0_0": [
+        "V13 Configuration"
+      ],
+      "OWASP_TOP10_2025": [
+        "A03:2025 Software Supply Chain Failures"
+      ],
+      "NIST_SSDF_1_1": [
+        "PO.5 implement and maintain secure environments for software development"
+      ],
+      "GDPR": [],
+      "WHY_RELEVANT": "permissions explicito em 15/15 workflows, zero write-all",
+      "CURRENT_STATUS": "PROVED",
+      "PHASE": "NOW",
+      "NEXT_ACTION": "manter como classe do ratchet: NEW_WRITE_ALL_PERMISSION = 0"
+    },
+    {
+      "CONTROL_ID": "SEC-002",
+      "TOPIC": "ci-untrusted-code",
+      "ASVS_5_0_0": [
+        "V13 Configuration"
+      ],
+      "OWASP_TOP10_2025": [
+        "A03:2025 Software Supply Chain Failures",
+        "A08:2025 Software or Data Integrity Failures"
+      ],
+      "NIST_SSDF_1_1": [
+        "PS.1 protect all forms of code from unauthorized access and tampering",
+        "PW.4 reuse existing, well-secured software"
+      ],
+      "GDPR": [],
+      "WHY_RELEVANT": "zero pull_request_target; self-hosted so em workflow_dispatch. Fechado por convencao, nao por regra.",
+      "CURRENT_STATUS": "PROVED",
+      "PHASE": "NOW",
+      "NEXT_ACTION": "ratchet: NEW_PULL_REQUEST_TARGET = 0"
+    },
+    {
+      "CONTROL_ID": "SEC-003",
+      "TOPIC": "secrets",
+      "ASVS_5_0_0": [
+        "V13 Configuration",
+        "V11 Cryptography"
+      ],
+      "OWASP_TOP10_2025": [
+        "A04:2025 Cryptographic Failures"
+      ],
+      "NIST_SSDF_1_1": [
+        "PO.5",
+        "PS.1"
+      ],
+      "GDPR": [],
+      "WHY_RELEVANT": "9.809 blobs varridos, zero segredos reais detectados",
+      "CURRENT_STATUS": "PROVED",
+      "PHASE": "NOW",
+      "NEXT_ACTION": "ligar GitHub push protection para tornar a prova continua em vez de pontual"
+    },
+    {
+      "CONTROL_ID": "SEC-004",
+      "TOPIC": "build-vs-public-output",
+      "ASVS_5_0_0": [
+        "V14 Data Protection",
+        "V5 File Handling"
+      ],
+      "OWASP_TOP10_2025": [
+        "A02:2025 Security Misconfiguration"
+      ],
+      "NIST_SSDF_1_1": [
+        "PS.2 provide a mechanism for verifying software release integrity"
+      ],
+      "GDPR": [
+        "Art.25 (minimizacao)"
+      ],
+      "WHY_RELEVANT": ".vercelignore provado por HTTP: acervo, schema e docs nao sao servidos",
+      "CURRENT_STATUS": "PROVED",
+      "PHASE": "NOW",
+      "NEXT_ACTION": "ratchet: NEW_PUBLIC_ENGINE_EXPOSURE = 0"
+    },
+    {
+      "CONTROL_ID": "SEC-005",
+      "TOPIC": "transport",
+      "ASVS_5_0_0": [
+        "V12 Secure Communication"
+      ],
+      "OWASP_TOP10_2025": [
+        "A04:2025 Cryptographic Failures"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [
+        "Art.32(1)(a)"
+      ],
+      "WHY_RELEVANT": "HSTS 2 anos com preload, nosniff, referrer-policy",
+      "CURRENT_STATUS": "PROVED",
+      "PHASE": "NOW",
+      "NEXT_ACTION": "manter"
+    },
+    {
+      "CONTROL_ID": "SEC-018",
+      "TOPIC": "personal-data-in-public-output",
+      "ASVS_5_0_0": [
+        "V14 Data Protection"
+      ],
+      "OWASP_TOP10_2025": [
+        "A01:2025 Broken Access Control"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [
+        "Art.4(1)",
+        "Art.25",
+        "Art.32"
+      ],
+      "WHY_RELEVANT": "65 pessoas nomeadas, 60 ORCID e 58 handles pseudonimizados servidos anonimamente",
+      "CURRENT_STATUS": "PARTIAL",
+      "PHASE": "BEFORE_REAL_USERS",
+      "NEXT_ACTION": "completar o inventario (Supabase, data/, build/); base legal e aviso de privacidade: LEGAL_INTERPRETATION_REQUIRED"
+    },
+    {
+      "CONTROL_ID": "SEC-019",
+      "TOPIC": "exceptional-conditions",
+      "ASVS_5_0_0": [
+        "V2 Validation and Business Logic",
+        "V16 Security Logging and Error Handling"
+      ],
+      "OWASP_TOP10_2025": [
+        "A10:2025 Mishandling of Exceptional Conditions",
+        "A05:2025 Injection"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [],
+      "WHY_RELEVANT": "superficie hoje minima (portal estatico, sem API); nasce com a primeira API",
+      "CURRENT_STATUS": "NOT_APPLICABLE",
+      "PHASE": "BEFORE_CONTRACT",
+      "NEXT_ACTION": "reavaliar no dia em que existir a primeira API autorizada"
+    },
+    {
+      "CONTROL_ID": "SEC-020",
+      "TOPIC": "schema-drift",
+      "ASVS_5_0_0": [
+        "V13 Configuration"
+      ],
+      "OWASP_TOP10_2025": [
+        "A02:2025 Security Misconfiguration",
+        "A08:2025 Software or Data Integrity Failures"
+      ],
+      "NIST_SSDF_1_1": [
+        "PS.2 provide a mechanism for verifying software release integrity",
+        "PO.5 implement and maintain secure environments"
+      ],
+      "GDPR": [],
+      "WHY_RELEVANT": "o ratchet le o repositorio; se a base viva diverge, o ratchet mede a coisa errada",
+      "CURRENT_STATUS": "PARTIAL",
+      "PHASE": "NOW",
+      "NEXT_ACTION": "tornar o censo de metadados recorrente e comparar live contra migrations; a deriva vira sinal, nao surpresa"
+    },
+    {
+      "CONTROL_ID": "SEC-021",
+      "TOPIC": "view-security-invoker",
+      "ASVS_5_0_0": [
+        "V8 Authorization"
+      ],
+      "OWASP_TOP10_2025": [
+        "A01:2025 Broken Access Control"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [],
+      "WHY_RELEVANT": "caminho a volta da RLS das tabelas que a vista le",
+      "CURRENT_STATUS": "PARTIAL",
+      "PHASE": "BEFORE_REAL_USERS",
+      "NEXT_ACTION": "ligar security_invoker nas 6 vistas quando houver politicas RLS a respeitar"
+    },
+    {
+      "CONTROL_ID": "SEC-022",
+      "TOPIC": "data-projection",
+      "ASVS_5_0_0": [
+        "V14 Data Protection"
+      ],
+      "OWASP_TOP10_2025": [
+        "A01:2025 Broken Access Control"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [
+        "Art.25 (minimizacao de dados)"
+      ],
+      "WHY_RELEVANT": "o browser recebe o metodo junto com a resposta",
+      "CURRENT_STATUS": "PARTIAL",
+      "PHASE": "BEFORE_CONTRACT",
+      "NEXT_ACTION": "podar no gerador, um pacote de cada vez, comecando por italy-v21.js"
+    }
+  ],
+  "MEASURED_LIVE_SUPABASE": {
+    "MEASURED_AT": "2026-09-09",
+    "RUN": "https://github.com/lucianodalondon-sys/eame-sintonia/actions/runs/34304621266",
+    "METHOD": "psql read-only via workflow rls-censo-metadados.yml sobre SUPABASE_DB_URL; so catalogo (pg_class, pg_policy, pg_attribute, pg_roles) com has_table_privilege/has_schema_privilege",
+    "MUTATIONS": 0,
+    "ROW_DATA_READ": 0,
+    "PERSONAL_DATA_READ": 0,
+    "SESSION": "default_transaction_read_only = on; portao de lista branca antes da ligacao",
+    "CAVEAT": "conexao administrativa. ADMIN CAN INSPECT != ANON CAN ACCESS — por isso a resposta vem de has_table_privilege('anon',...), nao do que o admin consegue ler.",
+    "database": "postgres",
+    "connected_as": "postgres",
+    "roles_present": [
+      "anon",
+      "authenticated",
+      "authenticator",
+      "service_role"
+    ],
+    "schema_public": {
+      "anon_usage": true,
+      "anon_create": false,
+      "authenticated_usage": true,
+      "authenticated_create": false
+    },
+    "pgrst_db_schemas": "NAO_DEFINIDO_AO_NIVEL_DA_BD — a configuracao de schemas expostos vive na API do Supabase, nao no catalogo. Nao medido.",
+    "aggregate_public_schema": {
+      "tables": 67,
+      "rls_enabled": 67,
+      "with_policy": 0,
+      "anon_select": 0,
+      "anon_write": 0
+    },
+    "candidates": {
+      "expected_from_repo": 12,
+      "found_live": 12,
+      "not_found_live": 0,
+      "all_rls_enabled_live": true,
+      "all_force_rls": false,
+      "policies_total": 0,
+      "anon_select": 0,
+      "anon_insert": 0,
+      "anon_update": 0,
+      "anon_delete": 0,
+      "authenticated_select": 0,
+      "authenticated_write": 0,
+      "per_table_state": {
+        "boletim_fitossanitario": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "clima_observacao": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "conteudo_lugar": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "decisao_de_coleta": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "estatistica_agricola": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "etapa_da_corrida": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "evento_setorial": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "fonte_acesso_teste": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "fonte_externa": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "mercado_observacao": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "origem_lugar": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "sinal_regulatorio_futuro": "NO_EFFECTIVE_ANON_PRIVILEGE"
+      }
+    },
+    "SCHEMA_DRIFT": {
+      "found": true,
+      "rls": "as 12 tabelas NAO tem 'enable row level security' em nenhuma das 24 migrations, mas tem RLS activa na base viva",
+      "table_count": "migrations criam 66 tabelas; a base viva tem 67 em public",
+      "meaning": "o repositorio nao e a autoridade sobre o estado da base viva",
+      "severity": "low para exposicao (a deriva foi no sentido seguro), medium para governanca"
+    },
+    "VERDICT": "P0_CANDIDATE = DISPROVED_BY_LIVE_METADATA"
+  },
+  "MEASURED_S1": {
+    "MEASURED_AT": "2026-09-09",
+    "SECURITY_CHECK": {
+      "workflow": ".github/workflows/security-check.yml",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "offline": true,
+      "duracao_aprox_s": 40,
+      "passos": 7,
+      "passos_saltados_em_silencio": 0,
+      "independente_de": [
+        "COLETA CHECK",
+        "SYSTEM MAP CHECK"
+      ]
+    },
+    "DEEP_CHECKS": {
+      "rls-censo-metadados": "schema/migrations + diario 04:17 UTC",
+      "regressao-de-navegador": "vercel.json + italia-portale/client/**"
+    },
+    "SUPERFICIE_PUBLICA": {
+      "dono": "security/superficie_publica.py",
+      "ficheiros": 87,
+      "bytes": 30395915,
+      "validado_contra": "evidencia HTTP da S0 (publicados 200, excluidos 404)"
+    },
+    "RATCHET": {
+      "programa": "security/ratchet.py",
+      "baseline": "security/ratchet-baseline.json",
+      "chaves_de_divida_congeladas": 28,
+      "classes": [
+        "NEW_PULL_REQUEST_TARGET",
+        "NEW_WRITE_ALL_PERMISSION",
+        "WORKFLOW_SEM_PERMISSIONS",
+        "SELF_HOSTED_EM_EVENTO_NAO_CONFIAVEL",
+        "WORKFLOW_YAML_INVALIDO",
+        "NEW_PERSONAL_DATA_FIELD_IN_PUBLIC_OUTPUT",
+        "NEW_PUBLIC_ENGINE_EXPOSURE",
+        "NEW_OWN_SOURCE_MAP_PUBLISHED",
+        "NEW_SENSITIVE_PATH_PUBLISHED",
+        "NEW_TABLE_WITHOUT_RLS"
+      ]
+    },
+    "PROVAS": {
+      "tests/test_security_ratchet.py": 19,
+      "tests/test_security_secret_shapes.py": 21,
+      "tests/test_security_drift_db.py": 11,
+      "total": 51
+    },
+    "CABECALHOS": {
+      "antes": [
+        "HSTS (plataforma)",
+        "X-Content-Type-Options",
+        "Referrer-Policy"
+      ],
+      "acrescentados": [
+        "Content-Security-Policy: frame-ancestors 'none'",
+        "X-Frame-Options: DENY",
+        "Permissions-Policy (14 recursos)"
+      ],
+      "provado_em": "Chromium real, 5 paginas + controlo positivo de iframe + controlo negativo",
+      "csp_completa": "NAO — script inline em 2 paginas, style inline em todas, data: URI, babel-standalone. BREAKAGE_RISK=HIGH",
+      "cors": "inalterado: o portal nao faz pedido cross-origin, mas a linha do URL canonico do System Map trabalha em paralelo"
+    },
+    "GOVERNANCA": {
+      "CODEOWNERS": ".github/CODEOWNERS, dono @lucianodalondon-sys (o dono real do repo)",
+      "dependabot": ".github/dependabot.yml, so github-actions (unico ecossistema que existe)",
+      "rulesets": "MEDIDO: /rulesets devolve [] — 0 de 85 ramos protegidos",
+      "codeql": "UNKNOWN — a API responde 403 atraves do proxy; nao criado workflow para nao competir com um Default Setup possivel",
+      "secret_scanning": "UNKNOWN — 403",
+      "push_protection": "UNKNOWN — 403"
+    },
+    "PREVIEW_PROTECTION": {
+      "antes": "tudo desligado",
+      "depois": "tudo desligado — NAO alterado",
+      "porque": "system-map-deploy-verify.yml faz fetch anonimo ao URL de preview do commit (system-map/scripts/verificar_deploy.py). Ligar Vercel Authentication devolveria a pagina de login e partiria esse portao em todos os ramos. Requer primeiro um Protection Bypass for Automation ligado a esse workflow.",
+      "estado": "ADMIN_ACTION_REQUIRED com pre-requisito provado"
+    },
+    "BACKUP": {
+      "estado": "UNKNOWN — a API de gestao do Supabase nao e alcancavel daqui; nao inventar numeros"
+    },
+    "INCIDENTE": "security/INCIDENTE.md — uma pagina, 5 casos, contencao primeiro",
+    "CORRECCAO_DA_S0": "a S0 declarou 15/15 workflows com permissions explicito. Eram 14/15: banco-descartavel.yml nunca teve o bloco. Corrigido com contents: read.",
+    "REGRESSAO": {
+      "falhas_na_linha_base": [
+        "COLETA CHECK passo 3",
+        "MAP RULES CHECK passo 4"
+      ],
+      "falhas_no_fim": [
+        "COLETA CHECK passo 3",
+        "MAP RULES CHECK passo 4"
+      ],
+      "novas": 0,
+      "resolvidas": 1,
+      "nota": "SYSTEM MAP CHECK passava na base, partiu-se nesta linha por codigo novo sem peca no mapa, e foi reposto declarando as tres pecas e regerando a cadeia."
+    },
+    "DOCUMENTOS": [
+      "security/SECURITY-FOUNDATION.md",
+      "security/THREAT-MODEL.md",
+      "security/security-baseline.json",
+      "security/INCIDENTE.md",
+      "security/PARA-QUEM-DESENVOLVE.md",
+      "security/CABECALHOS.md",
+      "security/ACCOES-DE-ADMINISTRADOR.md"
+    ]
+  },
+  "MEASURED_S2A": {
+    "SUPERFICIE_AUDITADA": {
+      "linha": "release/canonical 9ae641bd (a que producao serve)",
+      "ficheiros": 88,
+      "bytes": 37338284,
+      "auditados": 88,
+      "unknown": 0
+    },
+    "POR_CLASSE": {
+      "PROPRIETARY_DATA": {
+        "f": 16,
+        "b": 28452920
+      },
+      "PUBLIC_ASSET": {
+        "f": 51,
+        "b": 5724143
+      },
+      "PUBLIC_UI": {
+        "f": 15,
+        "b": 2021750
+      },
+      "INTERNAL_METADATA": {
+        "f": 1,
+        "b": 1067491
+      },
+      "PROPRIETARY_RULE": {
+        "f": 5,
+        "b": 71980
+      }
+    },
+    "CORRECCAO_DA_S0": "a S0 disse que o motor viaja para o browser. Medido: zero funcoes de pontuacao, peso ou limiar no cliente publicado. O motor corre em tempo de BUILD, em Python. O que viaja e o corpus e a lei escrita.",
+    "PROJECCAO": {
+      "campos_publicados": 1935,
+      "lidos": 1350,
+      "transportados_e_nao_lidos": 585,
+      "italy-v21.js": {
+        "campos": 400,
+        "nao_lidos": 110,
+        "bytes_antes": 10320591,
+        "bytes_depois": 4109002,
+        "poupanca_pct": 60.2
+      }
+    },
+    "PILOTO": {
+      "componente": "a lei de relevancia ADAMA (LEGGE / LEGGE_ADAMA)",
+      "gerador": "superficie/it_casa_dados.py",
+      "viajava_em": [
+        "adama-relevance.js",
+        "italy-casa.js"
+      ],
+      "bytes_por_copia": 2342,
+      "leitores_medidos": 0,
+      "depois": "LEGGE_SHA256 + LEGGE_CLAUSULAS",
+      "paridade": "43 vereditos identicos",
+      "lei_no_servido": 0,
+      "regressao_navegador": "5 paginas OK, 0 recusas de politica",
+      "bytes": {
+        "antes": 8740,
+        "depois": 6586
+      }
+    },
+    "REPO_PRIVADO": {
+      "pronto": "YES com uma condicao",
+      "condicao": "proxy de leitura do GitHub para a frescura do System Map",
+      "medido": {
+        "system-map/app/map.js": "chama api.github.com do browser sem credencial; passa a UNKNOWN, nao mente",
+        "vercel git": "app instalada, nao depende de visibilidade",
+        "actions": "GITHUB_TOKEN do repositorio, sobrevive",
+        "raw.githubusercontent no servido": 0
+      }
+    },
+    "ARQUITECTURA": "manter a fronteira em tempo de build. Uma funcao de pedido so se justifica quando a resposta depender de QUEM pergunta, e isso e a S3. MORE SERVICES != MORE SECURITY."
+  }
+}

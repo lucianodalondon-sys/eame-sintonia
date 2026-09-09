@@ -620,11 +620,15 @@ function openDetail(id) {
         <h4>Mudou desde a última leitura humana</h4>${
         n.changed_since_declared.map(f => `<div class="file">${esc(f)}</div>`).join('')}</div>` : ''}
 
-      <div class="sec"><h4>Snapshot</h4><p>
+      <div class="sec"><h4>De que árvore isto foi medido</h4><p>
         repo <code>${esc(S.PROVENANCE.REPO)}</code><br>
-        branch <code>${esc(S.PROVENANCE.BRANCH)}</code><br>
-        commit <code>${esc(S.PROVENANCE.HEAD.slice(0, 10))}</code><br>
-        gerado <code>${esc(S.PROVENANCE.GENERATED_AT.slice(0, 10))}</code></p></div>
+        source branch <code>${esc(S.PROVENANCE.BRANCH)}</code><br>
+        generated from <code>${esc(S.PROVENANCE.HEAD.slice(0, 10))}</code><br>
+        generated at <code>${esc(S.PROVENANCE.GENERATED_AT.slice(0, 10))}</code></p>
+        <p style="font-size:10px;color:#8a827e">GENERATED FROM é a árvore que o
+        gerador mediu, e <b>não</b> prova qual commit está implantado nem qual é a
+        cabeça atual da linha. Esses dois estão em SYSTEM MAP STATUS, no topo.</p>
+        </div>
 
       ${termosDe(n).length ? `<div class="sec">
         <h4>Palavras realmente usadas na busca (${
@@ -920,6 +924,406 @@ function bind() {
   addEventListener('resize', mini);
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   SYSTEM MAP STATUS — medir, e so depois decidir
+
+   QUATRO FACTOS, QUATRO ORIGENS DIFERENTES. Nenhum deriva do outro:
+
+     GENERATED FROM         `state.generated.json` → PROVENANCE.HEAD
+                            a arvore que o gerador MEDIU
+     DEPLOYED COMMIT        `deployment.generated.json` → DEPLOYED_COMMIT
+                            nasce no BUILD, onde a Vercel sabe a resposta
+     LATEST CANONICAL HEAD  a API publica do GitHub, ao vivo
+     MAP GATE               o veredito do validador para o commit servido —
+                            do build quando ele consegue validar, e do portao do
+                            mapa no CI quando ele nao consegue (na Vercel nunca
+                            consegue: validar exige regenerar, e regenerar exige
+                            a arvore inteira). Falando os dois, fica-se com a
+                            PIOR das duas respostas.
+     IMPRESSAO DAS FONTES   `deployment.generated.json`, lida do INDICE do git
+                            dentro da build. E ela que responde «este mapa e o
+                            mapa DESTA arvore?» — a pergunta que um SHA de commit
+                            nunca pode responder de dentro do proprio commit.
+
+   NENHUMA CREDENCIAL VIVE AQUI, E NAO E POR DISCIPLINA — E POR MEDICAO.
+   O repositorio e PUBLICO (medido: `visibility: public` na API do GitHub), e a
+   API publica responde a `commits/<branch>` e a `commits/<sha>/check-runs` com
+   `Access-Control-Allow-Origin: *`. Por isso a cabeca remota e o veredito do
+   portao medem-se do proprio browser, sem token, sem funcao serverless e sem
+   backend novo.
+
+   ⚠️ E ha um limite que tem de estar escrito aqui: a chamada ANONIMA nao foi
+   medida. Do contentor onde isto foi feito, o proxy de saida injecta
+   autenticacao — a resposta veio com 15000 pedidos/hora de app instalada, nao
+   com os 60 de quem nao se identifica. A suposicao nao sustenta verde nenhum:
+   falhando a chamada, o veredito cai para UNKNOWN e a tela fica BRANCA.
+
+       NAO HA SEGREDO NO CLIENTE PORQUE NAO HA SEGREDO NENHUM A PRECISAR.
+
+   Se o repositorio passar a privado, esta chamada devolve 404 e a tela cai para
+   FRESHNESS UNKNOWN — que e a verdade. A partir desse dia, medir ao vivo exige
+   credencial, e credencial vive SERVER-SIDE (uma funcao minima, read-only, que
+   devolva so repo/branch/head/checked_at). Nunca no browser.
+
+   E o limite de pedidos sem autenticacao (60/hora por IP) tambem cai em UNKNOWN,
+   nunca em verde: a falha e sempre para o lado honesto.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Timeout curto e explicito. Sem ele, uma rede lenta deixava o botao em
+   «A MEDIR…» para sempre — e um estado que nunca resolve e um estado que quem
+   olha acaba por ler como «esta bem». */
+async function buscarJson(url, ms) {
+  const parar = new AbortController();
+  const t = setTimeout(() => parar.abort(), ms || 7000);
+  try {
+    const r = await fetch(url, { cache: 'no-store', signal: parar.signal,
+      headers: { Accept: 'application/json' } });
+    return { ok: r.ok, status: r.status, corpo: r.ok ? await r.json() : null };
+  } catch (e) {
+    return { ok: false, status: 0, corpo: null, erro: e && e.name === 'AbortError'
+      ? 'timeout' : 'rede indisponivel' };
+  } finally { clearTimeout(t); }
+}
+
+/* A CABECA REMOTA, MEDIDA — nunca presumida.
+   Devolve tambem QUANTOS commits de atraso, e so quando o GitHub consegue
+   calcula-lo: «MAP IS N COMMITS BEHIND» com um N inventado seria pior do que
+   «HEAD MISMATCH», porque parece precisao. */
+async function medirCabecaRemota(repo, ramo, servido) {
+  if (!repo || !ramo) return { head: null, erro: 'repo ou branch desconhecidos' };
+  const base = `https://api.github.com/repos/${repo}`;
+  const r = await buscarJson(`${base}/commits/${encodeURIComponent(ramo)}`);
+  if (!r.ok || !r.corpo || typeof r.corpo.sha !== 'string') {
+    return { head: null, behind: null,
+      erro: r.erro || `GitHub respondeu ${r.status}` };
+  }
+  const head = r.corpo.sha;
+  let behind = null;
+  if (servido && head && servido !== head) {
+    const c = await buscarJson(`${base}/compare/${servido}...${head}`);
+    if (c.ok && c.corpo && c.corpo.status === 'ahead'
+        && Number.isInteger(c.corpo.ahead_by)) behind = c.corpo.ahead_by;
+  }
+  return { head, behind, erro: null };
+}
+
+/* O VEREDITO DO VALIDADOR PARA O COMMIT SERVIDO, MEDIDO ONDE ELE EXISTE.
+
+   Validar exige REGENERAR e comparar (a P1, anti-drift). Regenerar exige a
+   arvore inteira. A arvore inteira nao chega ao contentor da Vercel, e nao vai
+   passar a chegar: o `.vercelignore` e uma tranca, e trocar uma tranca por uma
+   bolinha verde nao e um negocio que se faca.
+
+       O CONTENTOR NAO PODE PRODUZIR ESTA PROVA. O CI JA A PRODUZ.
+
+   Entao pergunta-se ao GitHub qual foi a conclusao do portao DO MAPA naquele
+   commit exacto. O nome do portao vem no artefato de deploy, que o leu de
+   `CADEIA-DO-MAPA.json` — nao esta escrito aqui.
+
+   ⚠️ O QUE ISTO PRESSUPOE, E NAO FOI MEDIDO DAQUI. Esta chamada tem de partir do
+   browser SEM CREDENCIAL. O repositorio e publico (medido: `private: false`) e
+   `api.github.com` devolve `Access-Control-Allow-Origin: *` (medido). O que NAO
+   foi possivel medir a partir do contentor desta missao e a chamada ANONIMA: o
+   proxy de saida injecta autenticacao, e a resposta veio com o limite de 15000
+   pedidos/hora de uma app instalada — nao com os 60 de quem nao se identifica.
+   Por isso a suposicao nao esta a sustentar nenhum verde: se a chamada falhar,
+   `check` fica UNKNOWN e a tela fica BRANCA, com o motivo escrito. Uma
+   suposicao que so pode empurrar para NAO SEI nao consegue mentir para verde. */
+async function lerPortoes(repo, commit) {
+  if (!repo || !commit) return { erro: 'nao ha repo ou commit servido', runs: null };
+  const r = await buscarJson(
+    `https://api.github.com/repos/${repo}/commits/${commit}/check-runs`);
+  if (!r.ok || !r.corpo || !Array.isArray(r.corpo.check_runs)) {
+    return { erro: `nao consegui ler os portoes no GitHub (${r.erro || r.status})`,
+      runs: null };
+  }
+  return { erro: null, runs: r.corpo.check_runs };
+}
+
+/* UMA IDA AO GITHUB, DOIS VEREDITOS LIDOS DELA. Sao perguntas diferentes e
+   ficam em campos diferentes; o que nao podem e custar duas chamadas a uma API
+   que responde 60 vezes por hora a quem nao se identifica. */
+function vereditoDoPortao(portoes, nome) {
+  if (!nome) {
+    return { check: 'UNKNOWN', razao: 'nao ha nome de portao para perguntar' };
+  }
+  if (!portoes.runs) return { check: 'UNKNOWN', razao: portoes.erro };
+  /* SO O PORTAO PEDIDO. Os outros check runs deste commit — a coleta, o
+     comentario de preview da Vercel — respondem por outras perguntas, e usar a
+     conclusao deles seria responder a pergunta errada com confianca. */
+  const meus = portoes.runs.filter(x => x && x.name === nome);
+  if (!meus.length) {
+    return { check: 'UNKNOWN',
+      razao: `nenhum portao chamado «${nome}» correu no commit servido` };
+  }
+  const ultimo = meus[0];
+  if (ultimo.status !== 'completed') {
+    return { check: 'UNKNOWN', razao: `o portao ainda esta ${ultimo.status}` };
+  }
+  if (ultimo.conclusion === 'success') return { check: 'PASS', razao: null };
+  if (ultimo.conclusion === 'failure' || ultimo.conclusion === 'timed_out') {
+    return { check: 'FAIL', razao: `o portao «${nome}» deu ${ultimo.conclusion}` };
+  }
+  /* `cancelled`, `skipped`, `neutral`, `stale`: nao sao reprovacao NEM
+     aprovacao. Chamar-lhes FAIL gritaria por nada; chamar-lhes PASS seria dar
+     verde a um portao que nao correu. NAO SEI e o que eles sao. */
+  return { check: 'UNKNOWN',
+    razao: `o portao «${nome}» terminou como ${ultimo.conclusion || 'sem conclusao'}` };
+}
+
+const sha8 = s => (typeof s === 'string' && s.length >= 8 ? s.slice(0, 8) : null);
+const ouUnknown = v => (v ? esc(String(v)) : '<i>UNKNOWN</i>');
+const relogio = s => (typeof s === 'string' ? esc(s.slice(0, 16).replace('T', ' ')) : null);
+
+/* OS BURACOS DECLARADOS, NA TELA.
+
+   Eles ja existiam — em tuplos `GAPS` no codigo e em chaves de
+   `provas-de-execucao.json` — e nenhum aparecia aqui. Um buraco declarado que
+   ninguem ve nao esta a fazer o trabalho para que foi declarado.
+
+       O QUE NAO SE FECHOU TEM DE SER TAO VISIVEL COMO O QUE SE FECHOU.
+
+   `null` e AUSENCIA DE MEDICAO, e nunca se pinta como zero: «o censo nao correu»
+   e «nao ha buracos» sao frases opostas, e a segunda seria a mentira confortavel.
+   Um mapa sem buracos nenhuns tambem se diz por extenso, para nao se confundir
+   com a ausencia. */
+function blocoDosBuracos() {
+  const B = S.BURACOS;
+  const cabeca = (dentro) => '<div class="statusScope"><b>O QUE ESTÁ DECLARADO '
+    + `E NÃO FECHADO.</b><br>${dentro}</div>`;
+  if (!B) {
+    return cabeca('<i>NÃO MEDIDO</i> — o censo dos buracos não correu nesta '
+      + 'árvore. Isto não quer dizer que não haja nenhum.');
+  }
+  const lista = Array.isArray(B.BURACOS) ? B.BURACOS : [];
+  if (!lista.length) {
+    return cabeca('Nenhum buraco declarado nesta árvore. Isto foi MEDIDO — o '
+      + 'censo correu e não encontrou nenhuma declaração.');
+  }
+  const linhas = lista.map(b => {
+    const onde = esc(String(b.ONDE || '?')) + (b.LINHA ? `:${esc(String(b.LINHA))}` : '');
+    const estado = b.ESTADO ? ` <b>${esc(String(b.ESTADO))}</b>` : '';
+    /* AS FALTAS ENTRAM ANINHADAS, e não ao lado dos buracos.
+       Elas são as RAZÕES de um buraco estar aberto — não são outros buracos.
+       Pô-las no mesmo nível faria a tela dizer treze onde há oito, e um número
+       inflado é uma mentira tão eficaz como um número escondido. */
+    const faltas = Array.isArray(b.FALTAS) ? b.FALTAS : [];
+    const dentro = faltas.length
+      ? `<ol class="faltas">${faltas.map(f =>
+        `<li><b>${esc(String(f.FALTA || '?'))}</b>`
+        + `<br><small>${esc(String(f.MEDIDO || '').slice(0, 260))}</small>`
+        + (f.CASO ? `<br><small>caso: ${esc(String(f.CASO))}</small>` : '')
+        + '</li>').join('')}</ol>`
+        + `<small>${esc(String(faltas.length))} falta(s) medida(s) — este buraco `
+        + 'só fecha quando todas fecharem.</small>'
+      : '';
+    return `<li><code>${esc(String(b.NOME || '?'))}</code>${estado}`
+      + `<br><small>${esc(String(b.O_QUE_FALTA || '').slice(0, 320))}</small>`
+      + `<br><small>declarado em ${onde}</small>${dentro}</li>`;
+  }).join('');
+  const c = B.COUNTS || {};
+  const nf = c.faltas_medidas;
+  return cabeca(`${esc(String(c.buracos ?? lista.length))} declarado(s)`
+    + (nf ? `, com ${esc(String(nf))} falta(s) medida(s) dentro deles` : '') + ` — `
+    + `${esc(String(c.em_codigo ?? '?'))} no código, `
+    + `${esc(String(c.em_provas ?? '?'))} nas provas. Fechar um é apagar a `
+    + `declaração dele; este bloco é derivado, nunca escrito à mão.`
+    + `<ul class="buracos">${linhas}</ul>`);
+}
+
+async function provarFrescura() {
+  const P = S.PROVENANCE || {};
+  const c = S.COUNTS || {};
+
+  /* O ARTEFATO DE DEPLOY. Ausente e um resultado, nao um erro: quer dizer que
+     ninguem provou que commit esta implantado — e sem isso nao ha verde. */
+  const d = await buscarJson('deployment.generated.json', 5000);
+  const dep = d.ok && d.corpo && typeof d.corpo === 'object' ? d.corpo : null;
+
+  const ramo = (dep && dep.SOURCE_BRANCH) || P.BRANCH || null;
+  const repo = (dep && dep.REPOSITORY) || P.REPO || null;
+  const servido = dep ? dep.DEPLOYED_COMMIT : null;
+
+  const remoto = await medirCabecaRemota(repo, ramo,
+    SM_FRESHNESS.SHA_RE.test(String(servido)) ? servido : null);
+
+  /* O MAPA SERVIDO FOI DERIVADO DA ARVORE IMPLANTADA?
+
+     O carimbo `PROVENANCE.HEAD` do ficheiro commitado nomeia o commit ANTERIOR
+     — por construcao —, e por isso nunca serviu como prova de pertenca. A
+     IMPRESSAO DAS FONTES serve: ela exclui as saidas da cadeia, logo guardar o
+     mapa regerado nao a move, e le-se do INDICE do git dentro do contentor da
+     Vercel, onde 1126 dos 1504 ficheiros nao chegam ao disco.
+
+     A build ja comparou as duas e escreveu o veredito. Aqui so se LE — comparar
+     outra vez no browser seria a segunda implementacao da mesma lei.
+
+     O caminho antigo fica como ALTERNATIVA, e nao como preferencia: um artefato
+     escrito antes desta lei nao traz o campo, e nesse caso a pergunta volta a
+     ser «a build regerou e o validador passou ali mesmo?». Faltando os dois,
+     `null` — NAO SEI —, e NAO SEI nunca fica verde. */
+  const pertence = dep && typeof dep.MAP_BELONGS_TO_DEPLOYED_TREE === 'boolean'
+    ? dep.MAP_BELONGS_TO_DEPLOYED_TREE
+    : (dep && dep.REGENERATED_AT_BUILD === true
+      ? dep.SYSTEM_MAP_CHECK === 'PASS'
+      : null);
+
+  /* O VEREDITO DO VALIDADOR, DE DUAS FONTES QUE NAO SE ANULAM.
+
+     A build produz um veredito quando consegue regenerar (o CI a seco consegue;
+     a Vercel nunca vai conseguir). O portao do CI produz sempre, para aquele
+     commit exacto.
+
+     ⚠️ A PRIMEIRA VERSAO DISTO FICAVA COM A PIOR DAS DUAS, e o browser apanhou-a:
+     com `MAP GATE (CI) = PASS` e `MAP GATE (BUILD) = UNKNOWN`, a tela ficava
+     BRANCA — a regra vetava a unica prova que existia, usando a AUSENCIA da
+     outra. E na Vercel isso e sempre assim, o que tornava o portao do CI inutil
+     exactamente no caso para que ele foi buscado.
+
+         UNKNOWN E A AUSENCIA DE UMA RESPOSTA, NAO UMA RESPOSTA.
+         «NAO CONSEGUI CORRER» NAO CONTRADIZ «CORRI, E PASSOU».
+
+     Entao: FAIL de qualquer uma das duas manda — seja reprovacao real, seja
+     contradicao entre elas, e nos dois casos vermelho e o que se quer. Sem
+     nenhum FAIL, um PASS medido conta. Nenhum dos dois a falar: UNKNOWN. */
+  const portoes = await lerPortoes(repo, servido);
+  const portao = vereditoDoPortao(portoes, dep ? dep.MAP_GATE_NAME : null);
+  /* AS REGRAS DO MAPA — LIDAS, MOSTRADAS, E FORA DA DECISAO.
+     «As regras nao afrouxaram» nao diz se o que esta servido esta actualizado.
+     Deixa-lo decidir a frescura repetiria o defeito que esta missao passou a
+     missao inteira a desmontar. Escondê-lo seria comprar o verde com silencio,
+     que e pior. Entao ele aparece numa linha propria, com o seu estado. */
+  const regras = vereditoDoPortao(portoes, dep ? dep.MAP_RULES_GATE_NAME : null);
+  /* E o da coleta, pela mesma razao e com a mesma regra: lido, mostrado, e fora
+     da decisao. Ele nao fala do mapa — mas quem ve o mapa verde tem de ver, na
+     mesma pagina, que a coleta nao esta. MAPA ACTUAL != SISTEMA SAUDAVEL. */
+  const coleta = vereditoDoPortao(portoes, dep ? dep.COLETA_GATE_NAME : null);
+  const daBuild = (dep && ['PASS', 'FAIL'].includes(dep.SYSTEM_MAP_CHECK))
+    ? dep.SYSTEM_MAP_CHECK : 'UNKNOWN';
+  const vozes = [portao.check, daBuild];
+  const check = vozes.includes('FAIL') ? 'FAIL'
+    : vozes.includes('PASS') ? 'PASS' : 'UNKNOWN';
+  const porqueCheck = check === 'PASS' ? null
+    : portao.razao || (dep && dep.NOT_REGENERATED_REASON) || null;
+
+  const v = SM_FRESHNESS.decidir({
+    repository: dep ? dep.REPOSITORY : null,
+    state_repository: P.REPO || null,
+    source_branch: dep ? dep.SOURCE_BRANCH : null,
+    state_branch: P.BRANCH || null,
+    generated_from: P.HEAD || null,
+    deployed_commit: servido,
+    latest_canonical_head: remoto.head,
+    latest_head_error: remoto.erro,
+    system_map_check: check,
+    check_reason: porqueCheck,
+    map_belongs_to_deployed_tree: pertence,
+    behind_by: remoto.behind,
+    deployment_present: !!dep,
+    schema_do_estado: S.SCHEMA || null,
+    schema_declarado: dep ? dep.SYSTEM_MAP_SCHEMA : null,
+  });
+
+  const classe = `sync-${v.state.toLowerCase()}`;
+  const botao = $('syncBadge');
+  botao.className = `syncBadge ${classe}`;
+  botao.textContent = `${v.emoji} ${v.titulo}${v.atraso ? ` · ${v.atraso}` : ''}`;
+  botao.title = v.frase;
+
+  /* GRITAR quando tem de gritar. A barra e fixa e nao fecha. */
+  const barra = $('staleBar');
+  if (v.grita) {
+    barra.innerHTML = `${v.emoji} ${esc(v.titulo)}${v.atraso ? ` · ${esc(v.atraso)}` : ''}`
+      + ` — ${esc(v.frase)}<small>${v.razoes.map(esc).join(' ')}</small>`;
+    barra.hidden = false;
+    document.body.classList.add('staleOn');
+  } else {
+    barra.hidden = true;
+    document.body.classList.remove('staleOn');
+  }
+
+  /* O PAINEL: um facto por linha, com o rotulo a dizer qual dos quatro ele e.
+     COVERAGE entra AQUI EM BAIXO e rotulada, longe do veredito — ela nunca
+     participou da decisao e a tela nao pode sugerir que participa. */
+  const linha = (rot, val) => `<div class="statusRow"><dt>${rot}</dt><dd>${val}</dd></div>`;
+  $('statusPanel').innerHTML = `
+    <h3>System map status</h3>
+    <div class="statusVerdict ${classe}">SYNC ${esc(v.emoji)} ${esc(v.titulo)}
+      ${v.atraso ? `· ${esc(v.atraso)}` : ''}<small>${esc(v.frase)}</small></div>
+    <dl style="margin:0">
+    ${linha('Repository', ouUnknown(repo))}
+    ${linha('Scope', '<b>THIS BRANCH / THIS TREE ONLY</b>')}
+    ${linha('Source branch', ouUnknown(ramo))}
+    ${linha('Generated from', P.HEAD ? `<code>${esc(sha8(P.HEAD))}</code>` : '<i>UNKNOWN</i>')}
+    ${linha('Deployed commit', servido ? `<code>${esc(sha8(servido))}</code>` : '<i>UNKNOWN</i>')}
+    ${linha('Latest canonical head', remoto.head
+      ? `<code>${esc(sha8(remoto.head))}</code>`
+      : `<i>UNKNOWN</i>${remoto.erro ? ` — ${esc(remoto.erro)}` : ''}`)}
+    ${linha('Generated at', ouUnknown(relogio(P.GENERATED_AT)))}
+    ${linha('Deployed at', dep && dep.BUILD_TIME
+      ? esc(relogio(dep.BUILD_TIME)) : '<i>UNKNOWN</i>')}
+    ${linha('Build id', dep ? ouUnknown(dep.BUILD_ID) : '<i>UNKNOWN</i>')}
+    ${linha('Environment', dep ? ouUnknown(dep.ENVIRONMENT) : '<i>UNKNOWN</i>')}
+    ${linha('Regenerated at build', dep
+      ? (dep.REGENERATED_AT_BUILD ? 'YES' : `NO — ${ouUnknown(dep.NOT_REGENERATED_REASON)}`)
+      : '<i>UNKNOWN</i>')}
+    ${linha('Build tree complete', dep && dep.BUILD_TREE_COMPLETE !== undefined
+      ? (dep.BUILD_TREE_COMPLETE ? 'YES'
+        : `NO — ${dep.BUILD_TREE_MISSING} de ${dep.BUILD_TREE_TRACKED} `
+          + 'ficheiros rastreados não chegaram ao disco da build')
+      : '<i>UNKNOWN</i>')}
+    ${linha('Source tree fingerprint', dep && dep.SOURCE_TREE_FINGERPRINT
+      ? `<code>${esc(String(dep.SOURCE_TREE_FINGERPRINT).slice(0, 12))}</code>`
+        + (dep.SOURCE_TREE_FINGERPRINT_FILES
+          ? ` <small>sobre ${esc(String(dep.SOURCE_TREE_FINGERPRINT_FILES))} ficheiros-fonte</small>`
+          : '')
+      : '<i>UNKNOWN</i>')}
+    ${linha('Map was generated from', dep && dep.MAP_SOURCE_TREE_FINGERPRINT
+      ? `<code>${esc(String(dep.MAP_SOURCE_TREE_FINGERPRINT).slice(0, 12))}</code>`
+      : '<i>UNKNOWN</i>')}
+    ${linha('Map derived from deployed tree',
+      pertence === true ? 'PROVEN' : pertence === false ? 'NO' : '<i>UNPROVEN</i>')}
+    ${linha('System map check', `<b>${esc(check)}</b>`
+      + (porqueCheck ? ` <small>— ${esc(porqueCheck)}</small>` : ''))}
+    ${linha('Map gate (CI, this commit)', dep && dep.MAP_GATE_NAME
+      ? `${esc(portao.check)} <small>«${esc(dep.MAP_GATE_NAME)}»</small>`
+      : '<i>UNKNOWN</i>')}
+    ${linha('Map gate (this build)', dep ? ouUnknown(dep.SYSTEM_MAP_CHECK) : '<i>UNKNOWN</i>')}
+    ${linha('Map rules gate (CI)', dep && dep.MAP_RULES_GATE_NAME
+      ? `<b>${esc(regras.check)}</b> <small>«${esc(dep.MAP_RULES_GATE_NAME)}»`
+        + `${regras.razao ? ` — ${esc(regras.razao)}` : ''}</small>`
+        + '<br><small>não entra na decisão de frescura: «as regras afrouxaram» '
+        + 'não é «o que está servido está velho».</small>'
+      : '<i>UNKNOWN</i>')}
+    ${linha('Collection gate (CI)', dep && dep.COLETA_GATE_NAME
+      ? `<b>${esc(coleta.check)}</b> <small>«${esc(dep.COLETA_GATE_NAME)}»`
+        + `${coleta.razao ? ` — ${esc(coleta.razao)}` : ''}</small>`
+        + '<br><small>não fala do mapa e não entra na decisão de frescura. '
+        + 'MAPA ACTUAL ≠ SISTEMA SAUDÁVEL.</small>'
+      : '<i>UNKNOWN</i>')}
+    ${linha(esc(SM_FRESHNESS.COBERTURA_ROTULO),
+      `${c.files_covered}&thinsp;/&thinsp;${c.files_tracked} tracked files`)}
+    </dl>
+    ${blocoDosBuracos()}
+    <div class="statusScope"><b>MAP COVERAGE não é FRESHNESS.</b><br>
+      ${esc(SM_FRESHNESS.COBERTURA_EXPLICACAO)}</div>
+    <div class="statusScope"><b>SCOPE: esta é a foto de UMA árvore.</b><br>
+      Uma branch, num commit. O mapa não soma branches: BRANCH A + BRANCH B não
+      é um sistema real. Linhas paralelas que não estão integradas aqui não
+      aparecem aqui — e é isso que este bloco garante.</div>
+    <ul class="statusWhy">${v.razoes.map(r => `<li>${esc(r)}</li>`).join('')}</ul>`;
+
+  const abrir = () => {
+    const painel = $('statusPanel'), aberto = !painel.hidden;
+    painel.hidden = aberto;
+    botao.setAttribute('aria-expanded', aberto ? 'false' : 'true');
+  };
+  botao.onclick = abrir;
+  /* STALE e BROKEN abrem o painel sozinhos: quem chega a um mapa desatualizado
+     precisa de ver POR QUE, e nao de descobrir que ha um botao. */
+  if (v.grita) abrir();
+}
+
 async function arrancar() {
   try {
     S = await (await fetch('state.generated.json', { cache: 'no-store' })).json();
@@ -933,12 +1337,11 @@ async function arrancar() {
   nodes = S.NODES; edges = S.EDGES; MUNDO = S.WORLD;
   nodeById = Object.fromEntries(nodes.map(n => [n.id, n]));
 
-  const c = S.COUNTS, P = S.PROVENANCE;
-  $('snapshotTop').innerHTML =
-    `<b>REPO</b> ${esc(P.REPO)}<br>` +
-    `<b>BRANCH</b> ${esc(P.BRANCH)} @ ${esc(P.HEAD.slice(0, 7))}<br>` +
-    `<b>GERADO</b> ${esc(P.GENERATED_AT.slice(0, 10))} · ` +
-    `${c.files_covered}/${c.files_tracked} arquivos cobertos`;
+  /* A FRESCURA CORRE A PARTE, e nunca bloqueia o desenho. O mapa desta arvore
+     e util mesmo antes de se saber se a arvore e a mais nova; o que nao e
+     aceitavel e ele parecer actual sem prova. Por isso o botao arranca em
+     «A MEDIR…» e nunca em verde. */
+  provarFrescura();
 
   // OS ACHADOS FICAM RECOLHIDOS. Eles sao a parte mais valiosa do mapa e a que
   // mais atrapalha: aberto, o painel tapa um terco do desenho, e o mapa existe

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "243cd25712bbc38108c26105bca7dfc46109deb9"
+    "HEAD": "8625b1cb1807431423062310eb9d356d0e9fb6e6"
   },
   "PECAS": [
     {
@@ -62,7 +62,7 @@
       "alguem_corre": false,
       "respostas": 2,
       "ficheiros": 1,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-IT-PDF-BRUTO",
@@ -113,6 +113,18 @@
       "estado": "green"
     },
     {
+      "id": "C-PORTA-FONTE",
+      "nome": "A porta de entrada de fonte nova",
+      "zona": "· de onde vem uma fonte",
+      "de_onde_vem": false,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 3,
+      "ficheiros": 2,
+      "estado": "yellow"
+    },
+    {
       "id": "C-ESTRADA-PDF",
       "nome": "A primeira estrada · PDF até à porta",
       "zona": "· os executores",
@@ -122,7 +134,7 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 1,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-RECEITAS",
@@ -134,7 +146,7 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 1,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-AS-FONTES",
@@ -195,6 +207,18 @@
       "respostas": 3,
       "ficheiros": 0,
       "estado": "green"
+    },
+    {
+      "id": "C-IT-PRESERVAR",
+      "nome": "Guardar com impressao digital",
+      "zona": "A SALA DE ESPERA",
+      "de_onde_vem": false,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 3,
+      "ficheiros": 3,
+      "estado": "yellow"
     },
     {
       "id": "V-INSTAGRAM",
@@ -353,18 +377,6 @@
       "estado": "yellow"
     },
     {
-      "id": "C-PORTA-FONTE",
-      "nome": "A porta de entrada de fonte nova",
-      "zona": "· de onde vem uma fonte",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 4,
-      "ficheiros": 2,
-      "estado": "yellow"
-    },
-    {
       "id": "C-ROTA-M2",
       "nome": "A rota forward do documento (M2)",
       "zona": "· os executores",
@@ -385,7 +397,7 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 4,
+      "ficheiros": 2,
       "estado": "yellow"
     },
     {
@@ -458,18 +470,6 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 1,
-      "estado": "yellow"
-    },
-    {
-      "id": "C-IT-PRESERVAR",
-      "nome": "Guardar com impressao digital",
-      "zona": "A SALA DE ESPERA",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 4,
-      "ficheiros": 3,
       "estado": "yellow"
     },
     {
@@ -571,8 +571,8 @@
   ],
   "RESUMO": {
     "pecas_da_coleta": 47,
-    "respondem_as_quatro": 22,
-    "respondem_a_tres": 16,
+    "respondem_as_quatro": 20,
+    "respondem_a_tres": 18,
     "respondem_a_duas": 6,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0

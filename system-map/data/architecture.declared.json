@@ -1626,8 +1626,8 @@
    "name": "Gerador do System Map",
    "territory": "Z-PROVA",
    "kind": "engine",
-   "what": "Junta o que a maquina mediu com o que o humano declarou, calcula o status de cada peca — e move peca de gaveta levando os ficheiros e as chamadas junto.",
-   "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando.",
+   "what": "Junta o que a maquina mediu com o que o humano declarou, calcula o status de cada peca, move peca de gaveta levando ficheiros e chamadas junto — e publica a app pela lista unica de `CADEIA-DO-MAPA.json`.",
+   "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando. E a lista do que e publicado tem um dono so: quatro copias dela deixavam um ficheiro da app fora do que e servido, sem uma queixa.",
    "departments": [
     "ENGENHARIA"
    ],
@@ -1643,8 +1643,8 @@
    "name": "Validador do System Map",
    "territory": "Z-PROVA",
    "kind": "gate",
-   "what": "Reprova a mudanca quando o mapa fica desatualizado, quando ha aresta sem prova ou verde sem evidencia.",
-   "why_here": "E o dente da lei. Sem ele, AGENTS.md seria so um texto pedindo por favor.",
+   "what": "Reprova a mudanca quando o mapa fica desatualizado, quando ha aresta sem prova ou verde sem evidencia — e confere ficheiro a ficheiro a copia que vai ser servida.",
+   "why_here": "E o dente da lei. Sem ele, AGENTS.md seria so um texto pedindo por favor. A lista do que e servido vem da cadeia: escrita aqui, deixava a lei da frescura fora da conferencia anti-drift.",
    "departments": [
     "ENGENHARIA"
    ],
@@ -1661,8 +1661,8 @@
    "name": "Interface do System Map",
    "territory": "Z-PROVA",
    "kind": "surface",
-   "what": "A tela do mapa: navegar, aproximar, buscar, filtrar e clicar em cada peca.",
-   "why_here": "So renderiza. Nenhum fato arquitetural mora dentro dela.",
+   "what": "A tela do mapa: navegar, aproximar, buscar, filtrar e clicar em cada peca — e provar, no topo, se o que esta no ecra e a arvore mais nova da linha.",
+   "why_here": "So renderiza e MEDE; nenhum facto arquitetural mora dentro dela. A lei da frescura vive em `freshness.js` a parte, porque CURRENT so com prova: GENERATED != DEPLOYED != LATEST REMOTE, e COVERAGE nunca e FRESHNESS.",
    "departments": [
     "ENGENHARIA",
     "LIDERANCA"
@@ -1678,13 +1678,13 @@
    "name": "Testes do System Map",
    "territory": "Z-PROVA",
    "kind": "test",
-   "what": "Provam que o mapa nao inventa aresta, nao pinta verde sem evidencia e nao perde o NAO SEI.",
-   "why_here": "Um mapa de auditoria que nao e auditado nao vale nada.",
+   "what": "Provam que o mapa nao inventa aresta, nao pinta verde sem evidencia, nao perde o NAO SEI — e que a frescura nunca fica verde sem as quatro provas.",
+   "why_here": "Um mapa de auditoria que nao e auditado nao vale nada. E ausencia de prova de staleness nao e prova de current: isso e provado por forca bruta, sobre todas as combinacoes das medicoes.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
-    "system-map/tests/*.py"
+    "system-map/tests/*"
    ],
    "views": [],
    "icon": "✓"
@@ -1694,13 +1694,13 @@
    "name": "Workflow do System Map",
    "territory": "Z-PROVA",
    "kind": "workflow",
-   "what": "Em cada mudanca, regera o mapa e reprova se o que foi commitado nao bate com o repositorio.",
+   "what": "Em cada mudanca, regera o mapa e reprova se o que foi commitado nao bate com o repositorio — e, depois do deploy, reprova se o URL publico nao estiver a servir esse mesmo commit.",
    "why_here": "E o que impede o 'depois alguem atualiza o mapa'.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
-    ".github/workflows/system-map.yml"
+    ".github/workflows/system-map*.yml"
    ],
    "views": [],
    "icon": "▶"
@@ -2669,6 +2669,125 @@
    "views": [
     "audit"
    ]
+  },
+  {
+   "id": "C-CENSO-DOS-BURACOS",
+   "name": "Censo dos buracos declarados",
+   "territory": "Z-PROVA",
+   "kind": "scanner",
+   "what": "Le por AST os tuplos `GAPS` de qualquer ficheiro rastreado e as chaves com corpo de buraco em `provas-de-execucao.json`, e junta-os num so sitio para a tela os desenhar.",
+   "why_here": "Quatro buracos com nome viviam em tres formatos, e um deles era um `print` — invisivel para qualquer maquina. Copia-los para um JSON novo criaria o quarto sitio e faria os outros deixarem de valer. Este censo MEDE onde eles ja estao: fechar um buraco e apagar a declaracao dele, e nao ha segunda coisa a actualizar.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "system-map/scripts/censo_dos_buracos.py"
+   ],
+   "views": [],
+   "icon": "◌"
+  },
+  {
+   "id": "C-DERIVA-DA-BASE",
+   "name": "A deriva entre o repositorio e a base viva",
+   "territory": "Z-PROVA",
+   "kind": "gate",
+   "icon": "⚖",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    ".github/workflows/rls-censo-metadados.yml",
+    "provas/rls_censo_metadados.sql",
+    "provas/rls_censo_portao.py",
+    "security/drift_db.py",
+    "security/live-db-expected.json"
+   ],
+   "what": "Le o catalogo da base viva em leitura, uma vez por dia e quando o schema muda, e compara-o com o estado declarado. Responde a duas perguntas separadas: a porta esta fechada, e a base e a que dissemos que era. Um portao de lista branca recusa a consulta antes da ligacao se ela nao for so select, with ou set.",
+   "why_here": "As migrations criam 66 tabelas e nao declaram RLS em doze; a base viva tem 67 e RLS em todas. Estava mais segura do que o repositorio dizia, o que foi sorte e nao desenho — e ninguem sabia. Uma base segura mas diferente do esperado da SAFE e DRIFT ao mesmo tempo, e o verde silencioso seria a pior das respostas."
+  },
+  {
+   "id": "C-IMPRESSAO-DA-ARVORE",
+   "name": "Impressao da arvore-fonte",
+   "territory": "Z-PROVA",
+   "kind": "gate",
+   "what": "Sela as FONTES rastreadas — e exclui as saidas da propria cadeia — numa impressao que se le tanto do disco (ao gerar) como do INDICE do git (ao implantar). E assim que o mapa servido prova de que arvore veio.",
+   "why_here": "Um ficheiro commitado nao pode nomear o commit que o contem: o carimbo nascia sempre a apontar para o commit anterior, e a pertenca era impossivel por construcao. A impressao nao se move quando o commit guarda o mapa regerado. E le-se do indice, que o `.vercelignore` nao apaga — logo o contentor prova que arvore implanta sem receber a arvore, e a tranca fica fechada.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "system-map/scripts/impressao_da_arvore.py"
+   ],
+   "views": [],
+   "icon": "⊙"
+  },
+  {
+   "id": "C-MAPA-DEPLOY",
+   "name": "Publicador do System Map no deploy",
+   "territory": "Z-PROVA",
+   "kind": "gate",
+   "what": "Corre no BUILD: regera o mapa pela cadeia que o CI ja usa, guarda o veredito do validador, e escreve qual commit esta REALMENTE implantado — e depois do deploy confere, contra o URL publico, se aquele commit foi mesmo publicado.",
+   "why_here": "O commit implantado nao pode viver num ficheiro commitado: gera-se com o HEAD A, commita-se, o commit passa a B, e o ficheiro nasce um commit atras de si mesmo. GENERATED != DEPLOYED, e so o build sabe o segundo.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "system-map/scripts/CADEIA-DO-MAPA.json",
+    "system-map/scripts/publicar_no_deploy.mjs",
+    "system-map/scripts/verificar_deploy.py"
+   ],
+   "views": [],
+   "icon": "⇪"
+  },
+  {
+   "id": "C-REGRESSAO-NAVEGADOR",
+   "name": "Os cabecalhos, provados num navegador",
+   "territory": "Z-PROVA",
+   "kind": "gate",
+   "icon": "⚖",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    ".github/workflows/regressao-de-navegador.yml",
+    "security/regressao_de_navegador.mjs",
+    "security/servir_como_a_vercel.py"
+   ],
+   "what": "Serve a superficie publicada com os cabecalhos lidos do proprio vercel.json e abre as paginas reais num Chromium. Falha se alguma nao renderizar, se o navegador recusar alguma coisa por politica, ou se o portal conseguir entrar dentro de um iframe.",
+   "why_here": "Um cabecalho que parte o produto e desligado no dia seguinte, e um cabecalho que nao faz nada da exactamente o mesmo verde que um que funciona. Le a configuracao em vez de a copiar, porque a prova que copia a configuracao envelhece no dia em que ela muda."
+  },
+  {
+   "id": "C-SECURITY-CHECK",
+   "name": "O portao de seguranca",
+   "territory": "Z-PROVA",
+   "kind": "gate",
+   "icon": "⚖",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    ".github/workflows/security-check.yml",
+    "security/ratchet.py",
+    "security/ratchet-baseline.json",
+    "security/validate-baseline.py",
+    "security/superficie_publica.py",
+    "security/security-baseline.json",
+    "security/projeccao.py",
+    "security/projeccao-baseline.json",
+    "security/censo_do_cliente.py",
+    "security/cliente-classificacao.json"
+   ],
+   "what": "Corre em cada push, offline, em cerca de quarenta segundos. Pergunta uma coisa so: esta mudanca piorou a seguranca? A divida herdada fica visivel e nao bloqueia; uma exposicao nova bloqueia e diz o ficheiro e o campo, nunca o valor. Traz o dono da fronteira publicada, que calcula o que o deploy serve a partir do vercel.json e do .vercelignore — 87 ficheiros, 30,4 MB.",
+   "why_here": "A fundacao de seguranca media o sistema e nao o vigiava, e um validador que ninguem corre nao e um portao. Fica ao lado dos outros portoes de CI e separado deles de proposito: quando dois portoes partilham resultado, o vermelho de um esconde o verde do outro e ninguem sabe qual reprovou."
   }
  ],
  "BUSINESS_EDGES": [

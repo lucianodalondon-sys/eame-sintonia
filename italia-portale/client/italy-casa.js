@@ -110,8 +110,8 @@ window.ITALY_CASA = {
  },
  "DETERMINISTICO": "SIM — sem relogio, sem aleatorio, chaves ordenadas",
  "DONOS_DA_APRESENTACAO": {
-  "meeting-intelligence-snapshot.json": "sha256:2135e7c0b558e1a3a3e3e0f0b1c72c8e7757d2917053bccff52af77eba4047cd",
-  "meeting-labels.js": "sha256:8ea7e824d12866626441acc8f10fa2525116241cde054be7122808a06adf6c2a"
+  "meeting-intelligence-snapshot.json": "sha256:b5369ecf2b5f4417e4d7f27e4e605d43ccaa4958f5563c053c0f546241b73f16",
+  "meeting-labels.js": "sha256:e40b46dec4e14759bc178e8d4c18b3a06b5fea5b81405630771552ec2b61a13b"
  },
  "DO_NOT_SHOW": [
   {
@@ -212,8 +212,8 @@ window.ITALY_CASA = {
   "IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json": "sha256:328310a59e715c593405a51ee5eef4290bc17f502a3b6b6b854bb530158ed0db",
   "IT-HANDOFF-LINHA-B-FONTES-V1.json": "sha256:1f2058f40f0d0ff537c93eb7fa11deb605161f55d5d79e920e8a8265d3e901e1",
   "IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json": "sha256:f7958ff29c00dddd282c9437c127c80d6b476c2e182e3ac558a53eefc33608f2",
-  "IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json": "sha256:1283b4f7a292798f19a964421966316603e7c25aaa9d5b52aa7764bba74ec560",
-  "IT-TOP3-SENSORES-V1.json": "sha256:bf134391b9f6f6ca7f5d8262516a13d5c3b43d877b2e5bbc24b2b7d045e39d88"
+  "IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json": "sha256:8bb9818e6b461427f054df7e2db03bef16099eead782006998c34a133b60b775",
+  "IT-TOP3-SENSORES-V1.json": "sha256:6e01c45b6ed3b5ed004b1404ad6bbbcc26cf10f59010d152ad8e7b2fd06a446c"
  },
  "LABELS": {
   "ACT": {
@@ -14642,41 +14642,7 @@ window.ITALY_CASA = {
   ],
   "DA_VALIDARE": 17,
   "ERRORE": 1,
-  "LEGGE_ADAMA": {
-   "APPROVAL_EXPIRY_NAO_E_RISCO": "uma data de expiracao europeia NAO e risco de nao-renovacao. Medido nos 47 factos regulatorios do pacote: EU_STATE=APPROVED e IS_RISK=false em 47/47, e o proprio artefacto declara «APPROVAL EXPIRY IS NOT NON-RENEWAL». Um facto regulatorio NUNCA contribui para a classe A por si so; precisa de facto adicional de risco, que hoje nao existe em registo nenhum.",
-   "BASTA_UM_PRODUTO": "um caso e oportunidade se PELO MENOS UM produto fechar a cadeia inteira. Os outros produtos ligados nao sao a prova e nao a estragam — o cartao nomeia qual deles a carrega. Exigir que TODOS fechassem derrubaria OPP_75C37DED9160, onde Lamdex Extra fecha e MAVRIK SMART nao.",
-   "CADEIA_EXIGIDA": [
-    "PAIS",
-    "CULTURA",
-    "ALVO/PROBLEMA",
-    "PRODUTO ADAMA",
-    "RELACAO produto x cultura (pagina de catalogo)",
-    "RELACAO produto x alvo (rotulo ministerial)",
-    "PROBLEMA OBSERVADO (evidencia que sustenta o sinal ou declara a direccao)",
-    "AUTORIZACAO VIVA (registo + estado)"
-   ],
-   "CLASSES": {
-    "A": "PRODUTO ADAMA PROVADO — publica-se como OPORTUNIDADE",
-    "B": "PLAUSIVEL, NAO PROVADO — fica em RADAR / A VALIDAR",
-    "C": "SEM PRODUTO ADAMA LIGAVEL — fica como SINAL BRUTO",
-    "D": "LIGACAO ERRADA — NAO PUBLICAVEL, e um erro a corrigir",
-    "E": "NAO SEI — dados insuficientes; nunca sobe"
-   },
-   "DATASET": "ADAMA-RELEVANCE-LAW-V1",
-   "LEI": "todo caso promovido como inteligencia relevante tem de ter ligacao factual e defensavel com pelo menos um produto ADAMA. Sem ela, o caso continua a existir — como radar, sinal ou erro — mas nao como oportunidade.",
-   "NAO_ACEITE": [
-    "correspondencia lexical",
-    "mesmo ingrediente activo",
-    "produto parecido",
-    "catalogo generico",
-    "template",
-    "inferencia nao provada",
-    "proximidade de data de expiracao europeia",
-    "alvo escrito no caso sem fonte que o tenha observado"
-   ],
-   "PREENCHER_NAO_PROMOVE": "TARGET_FIT vale ON_MINISTERIAL_LABEL em 65 de 65 correspondencias: e uma constante, e nao distingue nada. Se a lei se apoiasse nela, escrever um alvo no caso promovia-o — medido, 10 dos 21 B subiriam sem nada observado. Por isso o problema agronomico exige evidencia que DECIDA um elo (SUPPORTS_SIGNAL ou SUPPORTS_DIRECTION). Com a regra, preencher o alvo nos 21 B promove UM: OPP_00C5B6E15185, que ja traz 4 sinais de campo e 4 evidencias de sinal — esse subiria por ter facto, nao por ter campo cheio.",
-   "SO_A_PUBLICA": true
-  },
+  "LEGGE_ADAMA_SHA256": "23d3b1e3527861fee2262f50e84b6dacc4fe672ae65032479cbdcf1aa87704a8",
   "MEETING_CUTOFF": "2026-09-07T01:41:30Z",
   "OPPORTUNITA": 13,
   "ORIZZONTE": "ADESSO",

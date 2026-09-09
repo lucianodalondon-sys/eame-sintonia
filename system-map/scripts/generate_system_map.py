@@ -3162,6 +3162,20 @@ def leia_antes_de_coletar(estado: dict) -> None:
     destino.write_text(chr(10).join(L), encoding="utf-8")
 
 
+def _buracos() -> dict | None:
+    """O que o censo dos buracos mediu — ou `None` se ele nao correu.
+
+    `None` e nao `{}`: um censo que nao correu e um numero que nao existe, e um
+    zero ali leria-se como «nao ha buracos declarados». Sao coisas opostas.
+    """
+    f = DADOS / "buracos.generated.json"
+    if not f.exists():
+        return None
+    d = json.loads(f.read_text(encoding="utf-8"))
+    return {"COUNTS": d.get("COUNTS", {}), "NOMES": d.get("NOMES", []),
+            "BURACOS": d.get("BURACOS", [])}
+
+
 def construir(estado: dict) -> None:
     """Publica a app dentro do que a Vercel serve, numa rota SEPARADA.
 
@@ -3179,11 +3193,20 @@ def construir(estado: dict) -> None:
     # Os ficheiros sao NOMEADOS, e nao varridos da pasta. Varrer copiava em
     # silencio o que la estivesse — um rascunho, uma sobra — e faltava em
     # silencio o que nao estivesse. Nomear falha alto quando falta.
-    for nome in ("system-map/app/index.html", "system-map/app/map.js",
-                 "system-map/app/map.css"):
-        origem = RAIZ / nome
+    #
+    # E a LISTA vem de `CADEIA-DO-MAPA.json`, nao daqui: a build da Vercel, o
+    # validador e o workflow conferem a MESMA lista. Enquanto ela estava escrita
+    # em quatro sitios, acrescentar um ficheiro a app significava lembrar-se de
+    # quatro — e esquecer um deles publicava uma app incompleta sem uma queixa.
+    cadeia = json.loads((Path(__file__).with_name("CADEIA-DO-MAPA.json"))
+                        .read_text(encoding="utf-8"))
+    dados = cadeia["ARTEFATO_DE_DEPLOY"], "state.generated.json"
+    for nome in cadeia["PUBLICADO"]:
+        if nome in dados:
+            continue
+        origem = RAIZ / "system-map" / "app" / nome
         if not origem.exists():
-            print(f"FALTA={nome} · a app esta incompleta", file=sys.stderr)
+            print(f"FALTA={origem} · a app esta incompleta", file=sys.stderr)
             raise SystemExit(2)
         shutil.copyfile(origem, destino / Path(nome).name)
     (destino / "state.generated.json").write_text(
@@ -3765,6 +3788,13 @@ def main_uma_vez(stamp: bool) -> int:
         "ARTEFACT_MULTIPLE_AUTHORS": varios_autores,
         "CANONICAL_OWNERS": D.get("CANONICAL_OWNERS", []),
         "CANONICAL_OWNER_VIOLATIONS": violacoes,
+        # OS BURACOS DECLARADOS, MEDIDOS ONDE ELES JA VIVEM.
+        # Isto nao e um registo: `censo_dos_buracos.py` le os tuplos `GAPS` do
+        # codigo por AST e as chaves de `provas-de-execucao.json`. Fechar um
+        # buraco e apagar a declaracao dele — nao ha segunda coisa a actualizar.
+        # Ficheiro ausente e `None`, e a tela diz que nao mediu; nunca zero, que
+        # se leria como «nao ha buracos».
+        "BURACOS": _buracos(),
     }
 
     st = [n["status"] for n in nos]

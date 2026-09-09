@@ -41,6 +41,241 @@ Nunca no sentido contrário. O mapa não é uma segunda verdade arquitetural.
 
 ---
 
+## 🕐 O MAPA TEM DE PROVAR QUE ESTÁ ATUAL — QUATRO FACTOS, NUNCA UM
+
+O mapa é a foto de **uma** árvore. Isso está certo, e continua a ser a lei. O
+defeito era outro: **ele podia mostrar uma foto velha sem avisar.**
+
+Aconteceu, e foi medido. A tela dizia `BRANCH … @ 105602f · 624/1321 arquivos
+cobertos` enquanto a cabeça da linha canónica já ia em `8e1947d2`. Nada na tela
+estava errado. Nada na tela avisava.
+
+**Quatro coisas diferentes existiam, e a tela mostrava uma só:**
+
+| facto | de onde vem | rótulo na tela |
+|---|---|---|
+| a árvore que o gerador **mediu** | `state.generated.json` → `PROVENANCE.HEAD` | `GENERATED FROM` |
+| o commit que a build **implantou** | `deployment.generated.json` → `DEPLOYED_COMMIT` | `DEPLOYED COMMIT` |
+| a cabeça **atual** da linha | API pública do GitHub, ao vivo | `LATEST CANONICAL HEAD` |
+| o veredito do **validador** | gravado no build | `SYSTEM MAP CHECK` |
+
+```
+GENERATED  !=  DEPLOYED  !=  LATEST REMOTE
+MAP VALID  !=  MAP CURRENT
+COVERAGE   !=  FRESHNESS
+```
+
+### O commit não pode conhecer o seu próprio SHA
+
+Gera-se o ficheiro com o HEAD `A`, commita-se, o commit passa a ser `B` — e o
+ficheiro nasce **um commit atrás de si mesmo**. Oito commits seguidos foram
+medidos, e os oito tinham o desencontro. Nenhuma disciplina conserta isto.
+
+Por isso `italia-portale/client/system-map/deployment.generated.json` **nasce no
+build** e está no `.gitignore`. Se ele aparecer no índice do git, o CI reprova.
+
+#### E por isso a prova de pertença não é um SHA — é a IMPRESSÃO DAS FONTES
+
+Metade deste defeito ficou fechada pelo artefato de build: o *commit implantado*
+passou a nascer onde a resposta existe. Faltava a outra metade, que é a pergunta
+a que o verde obedece:
+
+> **ESTE MAPA É O MAPA DESTA ÁRVORE?**
+
+Enquanto essa prova for um SHA de commit, ela é **impossível por construção** —
+pela mesma razão de cima.
+
+> **A pergunta certa não é «que commit?». É «que fontes?».**
+
+[`system-map/scripts/impressao_da_arvore.py`](system-map/scripts/impressao_da_arvore.py)
+sela as **fontes rastreadas** e exclui as **saídas da própria cadeia**. Guardar o
+mapa regerado não mexe nas fontes, logo **não move a impressão**: o carimbo feito
+antes do commit bate com a árvore depois do commit. Mexer numa fonte move-a — e
+aí a resposta certa é «não».
+
+A lista de exclusão é canónica (`CADEIA-DO-MAPA.json` → `IMPRESSAO_DA_ARVORE`) e
+**confere-se sozinha**: `test_impressao_da_arvore.py` corre a cadeia num clone e
+reprova se ela escrever fora da lista. Excluir de menos dá alarme falso; excluir
+de **mais** dá **verde falso**, e verde falso é o único erro que esta lei não
+pode cometer.
+
+##### O PREÇO, DITO EM VOZ ALTA
+
+A impressão cobre a árvore **inteira**. Cobrir «só o que alimenta o mapa» exigiria
+adivinhar o que seis scanners leem, e adivinhar de menos produz verde falso.
+
+**O preço é que mexer em qualquer ficheiro rastreado obriga a correr a cadeia
+outra vez.** Isto já era a lei; agora **reprova** em vez de pedir por favor —
+o passo `2b` do portão do mapa compara o carimbo do mapa commitado com a árvore
+commitada. Sem ele, mudar um `.md` sem regerar passava no CI, era implantado, e
+só então a tela gritava STALE.
+
+> **Um alarme que só toca depois do deploy está mal colocado.**
+
+### O build regenera antes de servir — quando a árvore está inteira
+
+`package.json` → `build` corre
+[`system-map/scripts/publicar_no_deploy.mjs`](system-map/scripts/publicar_no_deploy.mjs),
+que corre **a mesma cadeia** do CI, lida de
+[`system-map/scripts/CADEIA-DO-MAPA.json`](system-map/scripts/CADEIA-DO-MAPA.json).
+
+**Não existe uma segunda implementação dos scanners.** Não há versão Node do
+scanner, e não há atalho para quando o Python falta: se a cadeia não conseguir
+correr, o artefato diz `REGENERATED_AT_BUILD: false` com o motivo, e a tela cai
+para UNKNOWN. Nunca finge.
+
+#### ⚠️ NA VERCEL A ÁRVORE DA BUILD NÃO É A ÁRVORE DO REPOSITÓRIO
+
+Medido no log de uma build real:
+
+```
+Found .vercelignore
+Removed 1125 ignored files defined in .vercelignore
+```
+
+O scanner mediu **311** ficheiros em vez de **1338**. Python 3.12 e git
+**existem lá** — o problema não é toolchain. Regenerar naquele contentor produz
+um mapa **real de uma árvore mutilada**: 11 peças partidas, 25 em NÃO SEI,
+cobertura 297/311.
+
+> **UM MAPA DA ÁRVORE ERRADA É PIOR DO QUE UM MAPA DA ÁRVORE ANTIGA.**
+
+Por isso o publicador **mede a completude antes de correr a cadeia**. E mede o
+**disco**, não o índice: `git ls-files` continua a listar os 1503 caminhos mesmo
+depois de o `.vercelignore` ter apagado os ficheiros, porque quem foi apagado foi
+o ficheiro e não o nome.
+
+> **ESTAR NO ÍNDICE ≠ ESTAR NO DISCO.**
+
+A pergunta certa é a que `git ls-files --deleted` responde: que ficheiros o git
+conhece e o disco não tem? Zero é a única resposta que autoriza regerar. Se
+faltar algum, **nada é regerado**, o mapa commitado continua a ser servido, e o
+artefato diz `BUILD_TREE_COMPLETE: false` com o número ao lado.
+
+**O que a tela mostra então:** `⚪ FRESHNESS UNKNOWN`, com o motivo escrito. E,
+crucialmente, **STALE continua a funcionar**: se o commit servido não for a
+cabeça da linha, a barra vermelha aparece na mesma. Staleness prova-se sozinha.
+
+> **NÃO SEI SE ESTÁ VÁLIDO ≠ NÃO SEI SE ESTÁ ATRASADO.**
+
+**Para o mapa poder ficar 🟢 na Vercel** é preciso que o contentor receba a
+árvore inteira — ou seja, afrouxar o `.vercelignore`. Isso **não foi feito
+aqui**: aquele ficheiro existe para impedir que `/build /data /docs /handoff
+/research /supabase` sejam sequer enviados para um contentor cujo output é
+público, e trocar uma tranca de segurança por uma bolinha verde é uma decisão
+do dono, não de quem passa. Está registada no handoff.
+
+A lista de passos está escrita **à vista** no workflow *e* no ficheiro da cadeia,
+e um teste reprova se as duas divergirem. Isso não é descuido: quando a lista
+passou a ser lida em runtime, o mapa respondeu na hora que ninguém mandava rodar
+o scanner — o scanner lê o workflow para saber quem corre o quê.
+
+> **Esconder a chamada para não a repetir é pior do que a repetir.**
+
+#### O `.vercelignore` CONTINUA FECHADO — e a build ainda assim prova a árvore
+
+Afrouxá-lo foi **medido**: 899 ficheiros a mais, **151.1 MB**, dos quais 127.3 MB
+são o acervo — enviados para um contentor cujo output é público. **Não se faz.**
+
+Não é preciso. O `.vercelignore` apaga **ficheiros do disco**; não apaga o
+**índice do git**, e o índice carrega o SHA do blob de cada ficheiro rastreado.
+
+> **ESTAR NO ÍNDICE ≠ ESTAR NO DISCO** — e desta vez isso joga a nosso favor.
+
+Provado com 999 ficheiros apagados do disco: a árvore mutilada devolve a **mesma
+impressão** que a árvore inteira, byte a byte. Por isso o contentor responde «que
+árvore estou a implantar?» sobre uma árvore que nunca lhe chegou, e
+`MAP_BELONGS_TO_DEPLOYED_TREE` pode ficar **PROVEN** com **zero** ficheiros a
+mais enviados.
+
+O que ele continua a **não** poder produzir é o veredito do validador: validar
+exige regenerar, e regenerar exige a árvore inteira. Esse vem do CI — ver abaixo.
+
+#### DOIS PORTÕES, PORQUE SÃO DUAS PERGUNTAS
+
+O job era um só, chamado `check`, e misturava «o mapa corresponde à árvore?» com
+«a coleta não piorou?». Medido: os passos `4k`, `6`, `7` e `8` **nunca chegaram a
+correr** no GitHub, porque um passo vermelho da coleta parava o job antes.
+
+> **Um portão que nunca corre não é um portão.**
+> **Um veredito sobre duas perguntas não responde a nenhuma.**
+
+Agora são **`SYSTEM MAP CHECK`** e **`COLETA CHECK`**, em paralelo, os dois
+obrigatórios. O nome do portão do mapa vive em `CADEIA-DO-MAPA.json` →
+`PORTAO_DO_MAPA`, viaja no artefato de deploy, e a tela vai buscar a conclusão
+dele **para o commit servido** na API pública do GitHub.
+
+**`UNKNOWN` é a ausência de uma resposta, não uma resposta.** Se a build não
+conseguiu validar e o CI conseguiu, o `PASS` do CI conta: «não consegui correr»
+não contradiz «corri, e passou». Um `FAIL` de qualquer um dos dois manda.
+
+### Os quatro estados de SYNC
+
+| | estado | quando |
+|---|---|---|
+| 🟢 | `CURRENT` | cabeça remota **medida**, `DEPLOYED == LATEST`, o mapa **provadamente derivado** daquela árvore, e `SYSTEM_MAP_CHECK = PASS` |
+| 🔴 | `STALE` | `DEPLOYED != LATEST`, ou o mapa servido é provadamente de outra árvore. Barra vermelha, largura toda, sem botão de fechar |
+| ⚪ | `UNKNOWN` | não se conseguiu medir a cabeça remota, ou não há artefato de build, ou o validador não correu, ou ninguém provou a que árvore o mapa pertence |
+| 🔴 | `BROKEN` | `SYSTEM_MAP_CHECK = FAIL`, ou a proveniência do que está servido contradiz-se |
+
+**A ordem importa, e é medida:** o vermelho do atraso vem **antes** do portão do
+validador. Se a cabeça remota foi medida e o commit servido não é ela, o mapa
+está atrás — e continua a estar quer o validador tenha corrido, quer não. Pôr o
+atraso depois transformaria uma prova de staleness que existe num UNKNOWN, que é
+a única maneira de esta lei mentir para o lado confortável.
+
+`GENERATED FROM` **não é** prova de pertença. Por construção ele nomeia o commit
+anterior; quem prova a pertença é a regeneração no build, validada ali mesmo.
+
+**A regra que manda em todas:**
+
+> **AUSÊNCIA DE PROVA DE STALENESS NÃO É PROVA DE CURRENT.**
+
+Verde é o **último** recurso, nunca o estado por omissão. A lei vive em
+[`system-map/app/freshness.js`](system-map/app/freshness.js), num ficheiro só, e
+`system-map/tests/test_freshness.mjs` prova por força bruta que nenhuma combinação
+de medições incompletas devolve `CURRENT`.
+
+### `624/1321` era COBERTURA, e cobertura não é frescura
+
+É quantos ficheiros rastreados **desta árvore** o mapa consegue representar e
+classificar. Não é «ficheiros atualizados». Por isso a tela a rotula
+`MAP COVERAGE`, longe do veredito — e `decidir()` **não recebe cobertura**: um
+número que não entra na função não pode influenciar a decisão, e o teste
+consegue provar isso.
+
+### Nenhuma credencial no browser, e não por disciplina
+
+O repositório é **público** (medido: `visibility: public` na API do GitHub), e a
+API pública responde a `commits/<branch>` sem autenticação, com
+`Access-Control-Allow-Origin: *`. A cabeça remota mede-se do próprio browser,
+sem token, sem função serverless e sem backend novo.
+
+Se o repositório passar a privado, a chamada devolve 404 e a tela cai para
+UNKNOWN — que é a verdade. A partir desse dia, medir ao vivo exige credencial, e
+credencial vive **server-side**: uma função mínima, read-only, devolvendo só
+`repo`, `branch`, `head`, `checked_at`. **Nunca no browser.**
+
+### Uma autoridade de deploy
+
+A Vercel publica, via integração Git, e continua a ser a única que publica.
+[`.github/workflows/system-map-deploy-verify.yml`](.github/workflows/system-map-deploy-verify.yml)
+é o **verificador**: depois do push, ele acha o URL pelo GitHub Deployments API
+(só com o `GITHUB_TOKEN` da corrida) e confere que
+`/system-map/deployment.generated.json` traz o SHA daquele push.
+
+> **Dois donos do mesmo endereço servem a versão errada sem ninguém perceber.**
+
+### O escopo está na tela
+
+`SCOPE: THIS BRANCH / THIS TREE ONLY`. O mapa não soma branches.
+
+```
+BRANCH A  +  BRANCH B  !=  UM SISTEMA REAL
+```
+
+---
+
 ## A OBRIGAÇÃO
 
 Toda alteração que modifique **arquitetura · fonte · coleta · fluxo · contrato ·
@@ -77,7 +312,15 @@ Antes de concluir qualquer mudança relevante, corra:
 py system-map/scripts/generate_system_map.py    # regerar o mapa
 py system-map/scripts/validate_system_map.py    # provar que ele corresponde ao repo
 py system-map/tests/test_system_map.py          # provar que as regras não afrouxaram
+node system-map/tests/test_freshness.mjs        # provar que verde exige as quatro provas
+python3 system-map/tests/test_impressao_da_arvore.py   # a impressão mede a árvore
+node system-map/scripts/publicar_no_deploy.mjs  # o que a build corre: regerar, validar, carimbar
+python3 system-map/scripts/impressao_da_arvore.py --conferir-carimbo  # DEPOIS de commitar
 ```
+
+O último corre **depois** do commit, e é o passo `2b` do portão: ele compara o
+carimbo do mapa commitado com a árvore commitada. Se der `DIFERENTE`, alguém
+mexeu numa fonte e não regerou — corra a cadeia e commite o resultado.
 
 Use `python3` em vez de `py` em Linux/CI. Se o validador reprovar, **a mudança
 não está pronta** — não é um aviso, é um portão.
@@ -128,6 +371,17 @@ Recarimbar sem reler é o único jeito de mentir neste sistema. Não faça isso.
 | `P8_UM_DONO` | nenhum ficheiro reivindicado por duas peças |
 | `P9_CODIGO_DECLARADO` | todo ficheiro de código pertence a uma peça do mapa |
 | `P10_STATUS_VALIDO` | status só pode ser um dos quatro valores |
+
+E as provas da frescura, em `system-map/tests/`:
+
+| | |
+|---|---|
+| `SMF-04` · `SMF-05` | `DEPLOYED != LATEST` dá STALE; iguais com `PASS` dão CURRENT |
+| `SMF-06` · `SMF-11` | cabeça remota indisponível dá UNKNOWN, **nunca** verde |
+| `SMF-07` | `SYSTEM_MAP_CHECK = FAIL` dá BROKEN mesmo com os SHA iguais |
+| `SMF-08` · `SMF-09` | cobertura não entra na decisão, e continua verdadeira quando stale |
+| `SMF-12` · `SMF-13` | o build regenera antes de publicar, e sem segundo scanner |
+| `SMF-14` · `SMF-15` | nenhum segredo no artefato público nem no bundle do cliente |
 
 Corre no CI em
 [`.github/workflows/system-map.yml`](.github/workflows/system-map.yml), em cada

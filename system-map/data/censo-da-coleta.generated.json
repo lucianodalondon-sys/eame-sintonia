@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "243cd25712bbc38108c26105bca7dfc46109deb9",
+    "HEAD": "8625b1cb1807431423062310eb9d356d0e9fb6e6",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -330,26 +330,6 @@
       "no_ci": false
     },
     {
-      "ficheiro": "ferramentas/apify_contrato.py",
-      "gaveta": "ferramentas",
-      "linhas": 211,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [
-        "LINKEDIN"
-      ],
-      "ferramentas": [
-        "APIFY (rota paga)"
-      ],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": true,
-      "chamado_por": [],
-      "no_ci": false
-    },
-    {
       "ficheiro": "ferramentas/apify_pool.py",
       "gaveta": "ferramentas",
       "linhas": 311,
@@ -368,31 +348,9 @@
         "coleta/coleta_checkpoint.py",
         "coleta/comunicacao_coleta.py",
         "coleta/instagram_coleta.py",
-        "ferramentas/apify_contrato.py",
-        "ferramentas/apify_recuperar.py",
         "regras/sensor_coleta.py"
       ],
       "no_ci": true
-    },
-    {
-      "ficheiro": "ferramentas/apify_recuperar.py",
-      "gaveta": "ferramentas",
-      "linhas": 229,
-      "e_ponto_de_entrada": true,
-      "sai_para_fora": false,
-      "veiculos": [
-        "LINKEDIN"
-      ],
-      "ferramentas": [
-        "APIFY (rota paga)"
-      ],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": true,
-      "chamado_por": [],
-      "no_ci": false
     },
     {
       "ficheiro": "ferramentas/cdp.py",
@@ -948,7 +906,7 @@
     {
       "ficheiro": "coleta/golden_path_pdf.py",
       "gaveta": "coleta",
-      "linhas": 479,
+      "linhas": 482,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -960,7 +918,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "regras/proveniencia.py"
+      ],
       "no_ci": false
     },
     {
@@ -1689,7 +1649,7 @@
     {
       "ficheiro": "regras/proveniencia.py",
       "gaveta": "regras",
-      "linhas": 391,
+      "linhas": 489,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1703,6 +1663,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/coletor.py",
+        "coleta/golden_path_pdf.py",
         "coleta/instagram_janela.py",
         "pedido/receitas.py",
         "regras/sensor_coleta.py"
@@ -1968,16 +1929,18 @@
     {
       "ficheiro": "guarda/social_guarda.py",
       "gaveta": "guarda",
-      "linhas": 231,
+      "linhas": 290,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
         "INSTAGRAM",
         "LINKEDIN"
       ],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
@@ -2032,13 +1995,13 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 102,
-    "pontos_de_entrada": 84,
+    "ficheiros_de_codigo": 100,
+    "pontos_de_entrada": 82,
     "executores_que_saem_para_fora": 21,
-    "sem_chamador_e_fora_do_ci": 45,
+    "sem_chamador_e_fora_do_ci": 42,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 66,
-    "deitam_fora_alguma_coisa": 24,
+    "escrevem_ficheiro": 64,
+    "deitam_fora_alguma_coisa": 25,
     "deitam_fora_SEM_escrever_o_motivo": 2,
     "ficheiros_com_decisao_escondida": 2,
     "decisoes_escondidas_ao_todo": 2
@@ -2057,9 +2020,7 @@
       "fontes/adama_it_labels.py",
       "fontes/adama_it_moa.py",
       "fontes/adama_it_qa.py",
-      "ferramentas/apify_contrato.py",
       "ferramentas/apify_pool.py",
-      "ferramentas/apify_recuperar.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
       "ferramentas/html_text.mjs",
@@ -2167,8 +2128,6 @@
       "fontes/adama_it_gaps.py",
       "fontes/adama_it_labels.py",
       "fontes/adama_it_qa.py",
-      "ferramentas/apify_contrato.py",
-      "ferramentas/apify_recuperar.py",
       "ferramentas/html_text.mjs",
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
@@ -2178,7 +2137,6 @@
       "coleta/es/corpus_es.py",
       "coleta/eu_substancia_adama_it.py",
       "coleta/gire_mapas.py",
-      "coleta/golden_path_pdf.py",
       "coleta/italy_find_docs.mjs",
       "coleta/italy_probe.mjs",
       "coleta/mapa_regfi.py",

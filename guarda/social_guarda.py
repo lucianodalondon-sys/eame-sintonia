@@ -80,7 +80,66 @@ CONTEUDO_PROIBIDO = (
     ('senha literal', re.compile(r'(?i)\b(password|passwd|senha)\s*[:=]\s*["\'][^"\']{3,}["\']')),
     ('chave de API literal', re.compile(r'(?i)\b(api[_-]?key|client[_-]?secret)\s*[:=]\s*["\'][^"\']{8,}["\']')),
     ('caminho pessoal Windows', re.compile(r'(?i)[A-Z]:\\Users\\(?!<)[^\\\s"\']{2,}')),
+
+    # ── FORMAS DE CREDENCIAL DE PLATAFORMA ──────────────────────────────────
+    # As familias acima nasceram do SCRAP e cobrem cookie e cabecalho. Estas
+    # nasceram do censo de seguranca: sao as chaves que ESTE projecto usa de
+    # facto — Supabase, GitHub, Apify, Google — mais as duas formas genericas
+    # que qualquer projecto acaba por colar num relatorio. Ficam aqui, e nao
+    # num segundo varredor, porque a pergunta e a mesma e a pergunta tem um dono.
+    #
+    #     ONE CONCEPT -> ONE OWNER.
+    ('chave Supabase', re.compile(r'\bsb_(secret|publishable)_[A-Za-z0-9_-]{15,}')),
+    ('token de acesso Supabase', re.compile(r'\bsbp_[a-f0-9]{40}\b')),
+    ('token GitHub', re.compile(r'\b(ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{36}\b')),
+    ('token GitHub (fine-grained)', re.compile(r'\bgithub_pat_[A-Za-z0-9_]{30,}')),
+    ('token Apify', re.compile(r'\bapify_api_[A-Za-z0-9]{25,}')),
+    ('chave de API Google', re.compile(r'\bAIza[A-Za-z0-9_-]{30,}')),
+    ('chave de acesso AWS', re.compile(r'\bAKIA[0-9A-Z]{16}\b')),
+    ('chave OpenAI/generica sk-', re.compile(r'\bsk-[A-Za-z0-9]{40,}')),
+    ('chave privada', re.compile(r'-----BEGIN [A-Z ]*PRIVATE KEY-----')),
+    ('JSON Web Token', re.compile(r'\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{5,}')),
+
+    # DSN so conta quando aponta para FORA. O CI deste repositorio levanta um
+    # Postgres descartavel em localhost com senha visivel de proposito, e
+    # acusa-lo seria acusar exactamente a pratica correcta.
+    #
+    #     SENHA DE BANCO QUE MORRE COM O JOB NAO E SEGREDO.
+    ('DSN de base de dados remota', re.compile(
+        r'\bpostgres(?:ql)?://[^:@/\s"\']+:[^@/\s"\']{6,}@'
+        r'(?!localhost|127\.0\.0\.1|db[:/]|postgres[:/])[A-Za-z0-9.-]+')),
 )
+
+# ── VALOR DECLARADO FALSO ────────────────────────────────────────────────────
+# Uma forma de segredo pode aparecer legitimamente numa prova que precisa
+# EXACTAMENTE dessa forma para provar que a redaccao funciona. A constante
+# chama-se FAKE_JWT justamente para dizer isso a quem le. Sem esta excecao, a
+# unica forma de calar a guarda seria apagar a prova — e ficariamos sem a prova.
+#
+#     FIXTURE WITH SECRET SHAPE IS SECRET TO THE SCANNER.
+#     ENTAO A FIXTURE DECLARA-SE, OU CONSTROI-SE EM TEMPO DE EXECUCAO.
+#
+# A segunda familia sao os IDIOMAS DE PLACEHOLDER: ninguem tem uma senha que e
+# literalmente a palavra «senha», nem um host chamado «host-interno». Quando o
+# proprio VALOR se descreve como fictício, ele descreve-se para quem le o codigo
+# e para a guarda ao mesmo tempo.
+#
+# A fronteira e `(?<![A-Za-z])`, e nao `\b`: o sublinhado E caracter de palavra,
+# por isso `\bfake\b` NAO casa `FAKE_JWT` — que e precisamente o nome da
+# constante que existe neste repositorio para provar a redaccao. A prova de
+# formas apanhou este defeito antes de ele chegar a arvore.
+#
+#     A FRONTEIRA DE PALAVRA NAO E A FRONTEIRA QUE UM NOME DE CONSTANTE USA.
+_DECLARADO_FALSO = re.compile(
+    r'(?i)((?<![A-Za-z])(fake|dummy|exemplo|example|placeholder|redigido|redacted|'
+    r'mock|sample|invalido|invalid|nao[_-]?e[_-]?segredo)(?![A-Za-z])'
+    r'|senha[_-]?secreta|host[_-]?interno|:(senha|password|secret|pass|xxx)@)')
+
+
+def _linha_declara_falso(texto, pos):
+    ini = texto.rfind('\n', 0, pos) + 1
+    fim = texto.find('\n', pos)
+    return bool(_DECLARADO_FALSO.search(texto[ini:fim if fim != -1 else len(texto)]))
 
 # A exceção é sempre explícita e sempre nomeada. Estes arquivos DESCREVEM os
 # padrões (é o trabalho deles) e por isso casariam com as próprias regras.
@@ -182,7 +241,7 @@ def varrer(caminhos, rotulo):
             continue
         for nome, padrao in CONTEUDO_PROIBIDO:
             m = padrao.search(texto)
-            if m and _valor_e_segredo(m.group(0)):
+            if m and _valor_e_segredo(m.group(0)) and not _linha_declara_falso(texto, m.start()):
                 linha = texto[:m.start()].count('\n') + 1
                 achados.append((rotulo, '%s:%d' % (rel, linha), nome,
                                 # O trecho NUNCA é impresso. Dizer QUE achou e

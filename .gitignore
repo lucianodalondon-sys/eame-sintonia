@@ -69,3 +69,16 @@ build/ITALY-REALITY-HANDOFF-V2.1/
 cookies.txt
 cookies.sqlite
 cookiejar
+
+
+# ── O COMMIT NAO PODE CONHECER O SEU PROPRIO SHA ─────────────────────────────
+# `deployment.generated.json` diz QUE COMMIT ESTA IMPLANTADO. Essa resposta
+# nasce no build, dentro do contentor, onde a Vercel a sabe. Commita-lo seria
+# repetir o defeito que ele veio fechar: gera-se com o HEAD A, commita-se, o
+# commit passa a ser B, e o ficheiro nasce um commit atras de si mesmo.
+#
+#     GENERATED != DEPLOYED. UM FICHEIRO COMMITADO SO CONSEGUE DIZER O PRIMEIRO.
+#
+# Se ele nao existir no que e servido, a tela nao fica verde: diz UNKNOWN, que e
+# a verdade — nada provou qual commit esta la.
+italia-portale/client/system-map/deployment.generated.json

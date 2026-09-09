@@ -1,0 +1,36 @@
+# ATUALIZACAO DE DEPENDENCIAS — so os ecossistemas que existem de facto.
+#
+# Medido em 2026-09-09: o package.json nao declara uma unica dependencia de
+# runtime, nao ha lockfile, e as bibliotecas do portal estao commitadas em
+# `italia-portale/client/vendor/`. Nao ha requirements.txt. Declarar aqui npm
+# ou pip criaria um ecossistema vazio que nunca abre um PR — e um controlo que
+# nunca faz nada e indistinguivel de um controlo que nao existe.
+#
+#     ADICIONAR UM ECOSSISTEMA INEXISTENTE NAO E COBERTURA: E TEATRO.
+#
+# Fica o que existe: quinze workflows, todos a usar actions com tag movel
+# (@v4, @v5). Tag movel significa que o codigo que corre hoje pode nao ser o
+# que corria ontem, com os mesmos segredos a mao.
+#
+#     TAG MOVEL E UM CONTRATO COM ALGUEM QUE PODE MUDAR DE IDEIAS.
+#
+# A alternativa seria fixar cada action por SHA. Fixar SEM um mecanismo de
+# actualizacao troca um risco por outro: uma correccao de seguranca a montante
+# deixaria de chegar, e ninguem se lembraria de a ir buscar.
+#
+#     SECURITY THAT DEPENDS ON MEMORY DEGRADES WITH TIME.
+#
+# Por isso o Dependabot vem PRIMEIRO. Com ele a abrir o PR de actualizacao, a
+# fixacao por SHA passa a ser sustentavel — e fica proposta para a S2, nao
+# feita as escuras aqui.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "cadeia de fornecimento"
+    labels:
+      - "seguranca"

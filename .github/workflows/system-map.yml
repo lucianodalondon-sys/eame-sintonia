@@ -40,7 +40,35 @@ permissions:
   contents: read
 
 jobs:
-  check:
+
+# DOIS PORTÕES, PORQUE SÃO DUAS PERGUNTAS — E ISTO FOI MEDIDO
+# -----------------------------------------------------------
+# Havia um job só, chamado `check`, e ele misturava «o mapa corresponde à
+# árvore?» com «o departamento de coleta não piorou?». O passo 3 está vermelho
+# na linha canónica desde antes desta missão — é da coleta, e a M2 é dona dele —
+# e `set -e` de um job pára no primeiro passo que falha. Medido no GitHub:
+#
+#     os passos 4k, 6, 7 e 8 NUNCA CHEGARAM A CORRER. Nem uma vez.
+#
+#     UM PORTÃO QUE NUNCA CORRE NÃO É UM PORTÃO.
+#
+# Um vermelho da coleta apagava quatro provas do mapa e, ao mesmo tempo, tornava
+# impossível responder «o validador aprovou ESTE commit?» — porque a resposta
+# que a API do GitHub dá é a do job inteiro, e o job inteiro falava das duas
+# coisas ao mesmo tempo.
+#
+#     UM VEREDITO SOBRE DUAS PERGUNTAS NÃO RESPONDE A NENHUMA.
+#
+# Separar NÃO afrouxa nada: os mesmos passos correm, os dois jobs continuam
+# obrigatórios, e passam a correr EM PARALELO — o mapa deixa de depender de a
+# coleta estar verde para ser verificado. Correm MAIS provas do que antes, não
+# menos.
+#
+# O nome `SYSTEM MAP CHECK` é lido pela tela do mapa através da API pública do
+# GitHub, e por isso vive em `CADEIA-DO-MAPA.json` (`NOME_DO_PORTAO`), num sítio
+# só. `test_system_map.py` reprova se os dois deixarem de dizer o mesmo.
+  mapa:
+    name: SYSTEM MAP CHECK
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -72,6 +100,26 @@ jobs:
           sudo apt-get install -y poppler-utils
           pdftotext -v
 
+      # A LISTA FICA ESCRITA AQUI, À VISTA — e isto foi MEDIDO, não escolhido.
+      # A primeira versão desta mudança lia a lista de `CADEIA-DO-MAPA.json` em
+      # tempo de execução, para não haver duas listas. O mapa regenerado logo
+      # respondeu:
+      #
+      #     C-MAPA-SCAN      «existe, mas nada no repositório manda rodar»
+      #     C-MAPA-GERADOR   «existe, mas nada no repositório manda rodar»
+      #
+      # E era verdade: o scanner lê o workflow para descobrir QUEM CORRE O QUÊ, e
+      # um caminho montado em runtime não aparece em texto nenhum. A cadeia única
+      # tinha comprado consistência ao preço de apagar duas arestas reais.
+      #
+      #     ESCONDER A CHAMADA PARA NÃO A REPETIR É PIOR DO QUE A REPETIR.
+      #
+      # Então a lista volta a estar aqui, legível pelo scanner e por gente, e a
+      # divergência com a build da Vercel é fechada por um PORTÃO em vez de por
+      # uma boa intenção: `test_system_map.py` reprova se esta lista deixar de ser
+      # exactamente a de `CADEIA-DO-MAPA.json`, na mesma ordem.
+      #
+      #     TEXTO NÃO REPROVA NADA. WORKFLOW REPROVA.
       - name: 1 · regerar o mapa a partir desta árvore
         run: |
           python3 system-map/scripts/scan_repo.py
@@ -115,6 +163,7 @@ jobs:
           python3 system-map/scripts/censo_dos_executores.py
           python3 system-map/scripts/censo_semantico_it.py
           python3 system-map/scripts/recall_da_porta_it.py
+          python3 system-map/scripts/censo_dos_buracos.py
           python3 system-map/scripts/generate_system_map.py
 
       # O censo da topologia: quem chama cada cartao, o que atravessa cada
@@ -129,29 +178,288 @@ jobs:
       # acabou de regerar o mapa. O validador compara a ARQUITETURA, ignorando
       # o carimbo, e cobre tambem a copia que vai ser servida.
       - name: 2 · o validador (provas anti-drift, falha fechado)
+        # Ele REGENERA por dentro (é a P1), logo não depende do passo 1 ter
+        # corrido. Correr na mesma dá o segundo diagnóstico em vez do silêncio.
+        if: '!cancelled()'
         run: python3 system-map/scripts/validate_system_map.py
 
-      - name: 3 · o padrão do departamento de coleta não piorou
-        run: python3 medidas/padrao_da_coleta.py
+      # A P1 do validador IGNORA o bloco PROVENANCE — e tem de ignorar, senão
+      # reprovaria toda a gente em todo o commit. Só que a impressão das fontes
+      # vive lá dentro, e é ela que a tela usa para dizer «este mapa é o mapa
+      # desta árvore». Sem este passo, mudar um `.md` sem regerar passava aqui,
+      # era implantado, e só então a tela gritava STALE.
+      #
+      #     UM ALARME QUE SÓ TOCA DEPOIS DO DEPLOY ESTÁ MAL COLOCADO.
+      #
+      # O preço desta lei cobra-se à porta: quem mexe na árvore volta a correr a
+      # cadeia. `AGENTS.md` já mandava; agora reprova em vez de pedir por favor.
+      - name: 2b · o carimbo do mapa é o desta árvore, e não de outra
+        # Independente do passo 2: um mede se o mapa corresponde à árvore, o
+        # outro se o CARIMBO corresponde. São dois diagnósticos, e quem lê o
+        # vermelho merece os dois — não o primeiro e um silêncio.
+        if: '!cancelled()'
+        run: python3 system-map/scripts/impressao_da_arvore.py --conferir-carimbo
+
+  # E O `mapa` FOI SEPARADO OUTRA VEZ, PELA MESMA RAZÃO — E TAMBÉM MEDIDO.
+  # -------------------------------------------------------------------------
+  # A tela lê a conclusão de `SYSTEM MAP CHECK` para saber se o validador
+  # aprovou o commit servido. Só que o job carregava DUAS perguntas:
+  #
+  #     «o mapa corresponde a esta árvore?»        passos 1, 2 e 2b
+  #     «as regras do mapa não afrouxaram?»        passos 4 em diante
+  #
+  # Medido no GitHub: os passos 1, 2 e 2b PASSARAM, e o job ficou vermelho no
+  # passo 4, em duas provas que já reprovavam em `8e1947d2` — `C-RASTRO` está
+  # numa gaveta que a medição contradiz, e a receita tem três consumidores onde
+  # a regra quer um. São achados reais de ARQUITETURA, e não dizem nada sobre a
+  # frescura do que está servido.
+  #
+  #     UM VEREDITO SOBRE DUAS PERGUNTAS NÃO RESPONDE A NENHUMA.
+  #
+  # NADA FOI DESLIGADO. As mesmas provas correm, no mesmo commit, e continuam a
+  # reprovar a build com o nome delas — `MAP RULES CHECK` está VERMELHO, e a
+  # tela mostra-o numa linha própria. O que mudou é que cada veredito passou a
+  # responder pela sua pergunta.
+  #
+  # ⚠️ SE ALGUÉM QUISER FAZER A TELA FICAR VERDE, O CAMINHO NÃO É POR AQUI.
+  # `SYSTEM MAP CHECK` só passa se a cadeia correr, o validador aprovar e o
+  # carimbo bater com a árvore. Não há passo neste job que se possa afrouxar
+  # sem que a tela deixe de dizer a verdade — e é por isso que ele é este.
+  # ⚠️ `!cancelled()` EM TODOS OS PASSOS DEPOIS DO PRIMEIRO, E ISTO FOI MEDIDO.
+  #
+  # Separar os jobs não chegou. Medido em `4f8be09b`: `MAP RULES CHECK` cortou no
+  # passo 4 e os passos `4k`, `4l`, `5`, `6`, `7` e `8` NÃO CORRERAM — o mesmo
+  # `set -e` que já tinha apagado quatro provas no job `check` antigo, agora
+  # dentro do job que eu acabara de criar para o resolver.
+  #
+  #     UM PORTÃO QUE NUNCA CORRE NÃO É UM PORTÃO — inclusive o meu.
+  #
+  # `!cancelled()` faz cada passo correr mesmo que o anterior tenha reprovado, e
+  # o job continua a reprovar na mesma: nada é engolido, e passa a haver UM
+  # relatório por corrida em vez de um só erro e um silêncio atrás dele.
+  # `always()` não serve: correria também depois de um cancelamento, e gastar
+  # runner a medir uma corrida que alguém mandou parar não prova nada.
+  regras:
+    name: MAP RULES CHECK
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # O scanner lê `git ls-files` e o SHA de cada blob. Profundidade 1
+          # basta: ele mede a ÁRVORE, não o histórico.
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Sem dependências. O scanner usa só a biblioteca padrão, de propósito:
+      # um mapa de arquitetura que depende de pacote de terceiro para ser
+      # gerado tem uma dependência que o próprio mapa não consegue explicar.
+      # A LISTA FICA ESCRITA AQUI, À VISTA — e isto foi MEDIDO, não escolhido.
+      # A primeira versão desta mudança lia a lista de `CADEIA-DO-MAPA.json` em
+      # tempo de execução, para não haver duas listas. O mapa regenerado logo
+      # respondeu:
+      #
+      #     C-MAPA-SCAN      «existe, mas nada no repositório manda rodar»
+      #     C-MAPA-GERADOR   «existe, mas nada no repositório manda rodar»
+      #
+      # E era verdade: o scanner lê o workflow para descobrir QUEM CORRE O QUÊ, e
+      # um caminho montado em runtime não aparece em texto nenhum. A cadeia única
+      # tinha comprado consistência ao preço de apagar duas arestas reais.
+      #
+      #     ESCONDER A CHAMADA PARA NÃO A REPETIR É PIOR DO QUE A REPETIR.
+      #
+      # Então a lista volta a estar aqui, legível pelo scanner e por gente, e a
+      # divergência com a build da Vercel é fechada por um PORTÃO em vez de por
+      # uma boa intenção: `test_system_map.py` reprova se esta lista deixar de ser
+      # exactamente a de `CADEIA-DO-MAPA.json`, na mesma ordem.
+      #
+      #     TEXTO NÃO REPROVA NADA. WORKFLOW REPROVA.
+      - name: 1 · regerar o mapa a partir desta árvore
+        run: |
+          python3 system-map/scripts/scan_repo.py
+          python3 system-map/scripts/scan_sources.py
+          python3 system-map/scripts/scan_casco.py
+          python3 system-map/scripts/censo_da_coleta.py
+          python3 system-map/scripts/pente_fino_da_coleta.py
+          python3 system-map/scripts/censo_dos_buracos.py
+          python3 system-map/scripts/generate_system_map.py
+
+      # A comparacao anti-drift NAO e um `git diff` cru, de proposito: o bloco
+      # PROVENANCE carrega HEAD e BRANCH, que mudam a cada commit e a cada ramo.
+      # Um diff cru reprovaria toda a gente, sempre — inclusive o commit que
+      # acabou de regerar o mapa. O validador compara a ARQUITETURA, ignorando
+      # o carimbo, e cobre tambem a copia que vai ser servida.
 
       - name: 4 · as regras do mapa não afrouxaram
+        if: '!cancelled()'
         run: python3 system-map/tests/test_system_map.py
+
+      - name: 4k · a lei da frescura nunca fica verde sem as quatro provas
+        if: '!cancelled()'
+        run: node system-map/tests/test_freshness.mjs
+
+      # A lista de exclusão da impressão não se lê: corre-se a cadeia num clone
+      # e vai-se ver o que ela mexeu. Excluir de menos dá alarme falso; excluir
+      # de MAIS dá VERDE FALSO, e verde falso é o único erro que esta lei não
+      # pode cometer. Corre também a mutilação do `.vercelignore`, que é a razão
+      # de a impressão existir.
+      - name: 4l · a impressão mede a árvore, e a lista confere-se sozinha
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_impressao_da_arvore.py
+
+      - name: 5 · o que vai ser publicado existe e é servível
+        if: '!cancelled()'
+        run: |
+          set -e
+          # Pela mesma razão do passo 1: escrito à vista, e a divergência com
+          # `CADEIA-DO-MAPA.json` fechada por teste, não por confiança.
+          for f in index.html map.js map.css freshness.js state.generated.json; do
+            test -s "italia-portale/client/system-map/$f" \
+              || { echo "::error::falta italia-portale/client/system-map/$f"; exit 1; }
+          done
+          # A app carrega os tokens oficiais em `../_ds/`. Se esse caminho não
+          # existir no que é servido, a página publica sai sem a marca ADAMA —
+          # e uma página que perde o Design System em silêncio é pior do que
+          # uma que não abre.
+          test -f italia-portale/client/_ds/adama-brandwell/tokens/colors.css \
+            || { echo "::error::o Design System não está no caminho servido"; exit 1; }
+          python3 - <<'PY'
+          import json
+          s = json.load(open('italia-portale/client/system-map/state.generated.json',
+                             encoding='utf-8'))
+          c = s['COUNTS']
+          print(f"PUBLICAVEL=YES · HEAD={s['PROVENANCE']['HEAD'][:10]} · peças={c['components']} "
+                f"(P{c['components_proven']} p{c['components_pending']} "
+                f"B{c['components_broken']} U{c['components_unknown']}) "
+                f"· ligações={c['edges']} · cobertura={c['files_covered']}/{c['files_tracked']}")
+          PY
+
+      - name: 6 · nenhum segredo atravessa para o que é publicado
+        if: '!cancelled()'
+        run: |
+          # O repositório é público e o mapa é servido. Ele carrega caminho de
+          # ficheiro e trecho de linha — e trecho de linha é exatamente onde um
+          # segredo se esconderia sem ninguém reparar.
+          if grep -rIEn '(APIFY_TOKEN|SUPABASE_[A-Z_]*KEY|SERVICE_ROLE|BEGIN [A-Z ]*PRIVATE KEY)[^A-Z_]*[:=][[:space:]]*['"'"'"][A-Za-z0-9_-]{16,}' \
+               italia-portale/client/system-map/ ; then
+            echo "::error::possível segredo no que vai ser publicado"; exit 1
+          fi
+          echo "SEM_SEGREDO=YES"
+
+      # O ARTEFATO DE DEPLOY NÃO SE COMMITA. Se ele aparecer no índice do git,
+      # alguém repetiu o defeito que ele veio fechar: um ficheiro dentro de um
+      # commit nunca pode conhecer o SHA desse commit.
+      - name: 7 · o commit implantado não vive num ficheiro commitado
+        if: '!cancelled()'
+        run: |
+          set -e
+          A=$(python3 -c "import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])")
+          if git ls-files --error-unmatch "italia-portale/client/system-map/$A" >/dev/null 2>&1; then
+            echo "::error::$A está commitado — ele nasceria sempre um commit atrás de si mesmo"
+            exit 1
+          fi
+          echo "ARTEFATO_DE_DEPLOY_NASCE_NO_BUILD=YES"
+
+      # O BUILD DA VERCEL REGENERA — provado aqui, no seco, com o mesmo comando
+      # que a Vercel corre. Sem este passo, «o build regenera» seria uma frase
+      # num README, e um README não reprova nada.
+      - name: 8 · o publicador do build corre, regenera e escreve o artefato
+        if: '!cancelled()'
+        run: |
+          set -e
+          node system-map/scripts/publicar_no_deploy.mjs
+          python3 - <<'PY'
+          import json, sys
+          d = json.load(open('italia-portale/client/system-map/deployment.generated.json',
+                             encoding='utf-8'))
+          s = json.load(open('italia-portale/client/system-map/state.generated.json',
+                             encoding='utf-8'))
+          erros = []
+          # AQUI a árvore ESTÁ inteira (o checkout do CI não passa por
+          # `.vercelignore`), e por isso aqui o build TEM de regenerar. Este passo
+          # é o que prova que o publicador funciona — e, por contraste, que o
+          # UNKNOWN que ele produz na Vercel vem do ambiente e não de um defeito.
+          if not d['BUILD_TREE_COMPLETE']:
+              erros.append(f"árvore do CI incompleta: {d['BUILD_TREE_MISSING']} de "
+                           f"{d['BUILD_TREE_TRACKED']} ficheiros rastreados não estão "
+                           f"no disco")
+          if not d['REGENERATED_AT_BUILD']:
+              erros.append(f"não regenerou: {d['NOT_REGENERATED_REASON']}")
+          if d['SYSTEM_MAP_CHECK'] != 'PASS':
+              erros.append(f"SYSTEM_MAP_CHECK={d['SYSTEM_MAP_CHECK']}")
+          if d['DEPLOYED_COMMIT'] != s['PROVENANCE']['HEAD']:
+              erros.append('DEPLOYED_COMMIT != GENERATED FROM: o mapa publicado '
+                           'não é o mapa desta árvore')
+          if d['PUBLISHED_FILES_MISSING']:
+              erros.append(f"falta no publicado: {d['PUBLISHED_FILES_MISSING']}")
+          for chave, valor in d.items():
+              if any(x in chave.upper() for x in ('TOKEN', 'SECRET', 'KEY', 'PASSWORD')):
+                  erros.append(f'campo suspeito no artefato público: {chave}')
+          if erros:
+              print('::error::' + ' · '.join(erros)); sys.exit(1)
+          print(f"BUILD_REGENERA=YES · DEPLOYED={d['DEPLOYED_COMMIT'][:10]}"
+                f" · GENERATED_FROM={s['PROVENANCE']['HEAD'][:10]} · MESMA_ARVORE=SIM")
+          PY
+
+  # O PORTÃO DA COLETA. Vermelho aqui não apaga o veredito do mapa, e vice-versa:
+  # cada um responde pela sua pergunta, e a tela sabe qual é qual.
+  coleta:
+    name: COLETA CHECK
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # ⚠️ AQUI A PROFUNDIDADE 1 NÃO BASTA, E ISTO FOI MEDIDO.
+          #
+          # `provas/testa_coleta_canonica.py` compara com `origin/main...HEAD`
+          # para provar que nenhum ficheiro de Espanha ou França foi alterado.
+          # Num clone raso `origin/main` não existe, o diff sai vazio, e a prova
+          # RECUSA-SE a passar — de propósito, e o autor escreveu porquê:
+          #
+          #     UMA PROVA QUE PASSA POR NÃO MEDIR É PIOR DO QUE NENHUMA PROVA.
+          #
+          # Ela nunca tinha corrido no CI: o passo 3 cortava antes. Ao pôr todos
+          # os passos a correr, ela correu, e disse a verdade — «não consegui
+          # medir». O conserto é dar-lhe o histórico, nunca afrouxar a prova.
+          #
+          # Os jobs do mapa ficam em 1 na mesma: eles medem a ÁRVORE, não o
+          # histórico, e puxar 1500 commits para não os ler é gastar por nada.
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 3 · o padrão do departamento de coleta não piorou
+        if: '!cancelled()'
+        run: python3 medidas/padrao_da_coleta.py
 
       # As sete maneiras conhecidas de o caminho da coleta mentir. Sem isto no
       # CI, «erro não é rejeição» e «não sei não é não» seriam boas intenções
       # escritas num comentário — e voltariam a confundir-se na primeira pressa.
       - name: 4b · o caminho da coleta continua fechado
+        if: '!cancelled()'
         run: python3 provas/testa_coleta_canonica.py
 
       # A Bíblia da coleta declara 48 leis, e `docs/biblia/leis.json` é DERIVADO
       # do texto dela — nunca escrito à mão. Sem este passo, as duas podiam
       # divergir em silêncio, e a partir daí nenhuma das duas valeria.
       - name: 4c · a Bíblia da coleta e o seu registo dizem a mesma coisa
+        if: '!cancelled()'
         run: python3 provas/valida_biblia.py
 
       # A lei confrontada com a estrada real: ocorrencia x conteudo, derivados
       # com pai, e a prova de que repeticao de conteudo nunca entra como perda.
       - name: 4d · a Biblia e a primeira estrada continuam a dizer o mesmo
+        if: '!cancelled()'
         run: |
           python3 tests/test_biblia.py
           python3 tests/test_integracao_biblia.py
@@ -162,18 +470,21 @@ jobs:
       # tambem RE-CORRE o censo de identidade e compara-o com o ficheiro
       # comitado: se alguem editar o gerado a mao, o CI apanha.
       - name: 4e · as quatro espécies do artefato não voltam a confundir-se
+        if: '!cancelled()'
         run: python3 tests/test_identidade_do_artefato.py
 
       # BYTES PRESENTES != PROVENIENCIA OPERACIONAL COMPLETA. Sem este passo, os
       # 195 objetos italianos guardados sem dono voltariam a parecer saude — e a
       # leitura do coordenador podia virar OBSERVED sem ninguem reparar.
       - name: 4f · o armazém italiano não se pinta de saudável
+        if: '!cancelled()'
         run: python3 tests/test_armazem_italiano.py
 
       # A GARANTIA FORWARD do G-42. Envio que passa com memoria que falha NAO
       # pode dar COMPLETE, e o byte preservado nao se apaga para fingir
       # atomicidade. Sem este passo, o estado italiano podia voltar calado.
       - name: 4g · coleta nova não produz armazém sem memória
+        if: '!cancelled()'
         run: python3 tests/test_preservar_coleta.py
 
       # SQL ACEITE NAO E LINHA GRAVADA. Aqui a reconciliacao vem de um SELECT
@@ -181,17 +492,20 @@ jobs:
       # banco tambem disser `concluida`. O mesmo contra Postgres 16 real corre
       # no workflow `banco-descartavel.yml`.
       - name: 4h · a reconciliação é lida de um banco, não presumida
+        if: '!cancelled()'
         run: python3 tests/test_preservar_coleta_no_banco.py
 
       # ON CONFLICT DO NOTHING NAO E IDEMPOTENCIA. Sem este passo, uma derivacao
       # que passasse a produzir outro resultado entraria como REUSED — e o
       # sistema ficaria calado no dia em que devia gritar.
       - name: 4i · a mesma receita com outro resultado grita
+        if: '!cancelled()'
         run: python3 tests/test_preservar_derivado.py
 
       # MISSAO ONE-SHOT TERMINOU -> PORTA ONE-SHOT E FECHADA. E migration
       # aplicada e artefato imutavel: versao igual com SHA diferente e drift.
       - name: 4j · a porta de produção continua lacrada
+        if: '!cancelled()'
         run: python3 tests/test_porta_de_producao.py
 
       # ═══════════════════════════════════════════════════════════════
