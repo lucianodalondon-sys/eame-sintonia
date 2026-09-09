@@ -132,19 +132,42 @@ decisão do dono, não de quem passa.
 > **Subir não é servir** — `outputDirectory` continua a ser `italia-portale/client`.
 > Mas o `.vercelignore` é a segunda fechadura, e quem a abre tem de saber que a abriu.
 
-### 2 · O `SYSTEM MAP CHECK` do CI está **vermelho na linha canónica**, e já estava
+### 2 · O job `check` está **vermelho na linha canónica**, e já estava
 
 `check` dá `failure` em `8e1947d2`, `700da777` e `ef9803bb` — **antes desta
-missão**. Duas provas reprovam, e são da coleta, não do mapa:
+missão** — e o corte é no **passo 3**, `medidas/padrao_da_coleta.py`:
+
+```
+PADRAO_DA_COLETA=FAIL · alguma coisa piorou desde o chão
+mudou: coleta/executor_texto_de_pdf.py, coleta/golden_path_pdf.py,
+       coleta/social_envelope.py, coleta/social_rotas.py, coleta/youtube_oficial.py
+```
+
+Corrido no commit base `8e1947d2` e na minha branch, o relatório sai **byte a
+byte idêntico**. Não é meu, e é da coleta — território da M2.
+
+Como o passo 3 corta antes, **os passos novos nunca chegaram a correr no
+GitHub**. Foram corridos localmente, exactamente como estão escritos:
+
+```
+4k · TESTES_FRESCURA=PASS · 49 provas
+6  · SEM_SEGREDO=YES
+7  · ARTEFATO_DE_DEPLOY_NASCE_NO_BUILD=YES
+8  · BUILD_REGENERA=YES · DEPLOYED=b601b9ec · GENERATED_FROM=b601b9ec · MESMA_ARVORE=SIM
+```
+
+E o passo 4, `test_system_map.py`, reprova em duas provas que **também já
+reprovavam** em `8e1947d2`, e também são da coleta:
 
 ```
 regua_que_carimba_nao_e_regua_que_mede
-  O rastro da coleta está em Z-MEDIDAS, medido como Z-REGRAS
 E2_receita_continua_com_um_consumidor
-  consumidores da receita: C-ESTRADAS-IT, C-ORQUESTRADOR, C-PROVA-COLETA
 ```
 
 **NEW_FAILURES desta missão = 0.**
+
+O workflow novo, `system-map-deploy-verify`, **passa**: `verificar` deu
+`success` em `b601b9ec` — o commit empurrado foi mesmo o commit publicado.
 
 ### 3 · Nada foi recarimbado
 
@@ -174,6 +197,41 @@ CANONICAL HEAD`, `SYSTEM MAP CHECK`, `MAP COVERAGE`.
 ficheiros rastreados desta árvore o mapa classifica. Nunca foi um indicador de
 atualização, e `decidir()` **não recebe cobertura** — o teste prova isso pela
 assinatura da função, não pela confiança.
+
+---
+
+## PREVIEW · o que foi verificado, e como
+
+O preview foi aberto num browser real sobre **os bytes que estão publicados**
+(descarregados do URL e servidos localmente, com a chamada ao GitHub
+interceptada para tornar cada cenário determinístico).
+
+| verificação | resultado |
+|---|---|
+| o mapa abre | ✅ 140 peças desenhadas, zero erros de JS |
+| branch correta | ✅ `claude/system-map-freshness-v1` |
+| deployed commit correto | ✅ `b601b9ec`, de `VERCEL_GIT_COMMIT_SHA` |
+| generated source correto | ✅ `33468386`, o mapa commitado, intacto |
+| coverage correto | ✅ `641 / 1339 tracked files`, rotulado `MAP COVERAGE` |
+| sync status correto | ✅ `⚪ FRESHNESS UNKNOWN`, com o motivo na tela |
+| STALE simulado fica vermelho | ✅ `🔴 STALE · MAP IS 7 COMMITS BEHIND`, barra que não fecha |
+| UNKNOWN não vira verde | ✅ |
+| nada fora de `/system-map/` mudou | ✅ zero ficheiros funcionais fora do escopo |
+
+O guarda de completude foi provado **duas vezes**: numa simulação local (clone
+com as pastas do `.vercelignore` apagadas do disco e o índice intacto) e na
+build real da Vercel, que respondeu `1126 dos 1504 ficheiros rastreados não
+chegaram ao disco` e **recusou-se a regenerar**. O mapa servido continua o
+correcto: 1339 ficheiros rastreados, 0 peças partidas.
+
+**PRODUÇÃO NÃO FOI PROMOVIDA.** E há um facto a registar sobre o alias oficial:
+`sintonia-eame-preview.vercel.app/system-map/` responde **404**. Todos os
+deployments recentes têm `target: null` — são preview — e o projecto diz
+`live: false`. O alias de produção serve um deployment **anterior ao System Map
+existir**. Quem promover tem de saber que está a promover a primeira versão do
+mapa para aquele endereço, e não a substituir uma.
+
+---
 
 **Nenhuma credencial no browser**, e não por disciplina: o repositório é público
 (medido), e a API do GitHub responde à cabeça da branch sem autenticação e com
