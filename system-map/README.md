@@ -103,6 +103,12 @@ COVERAGE   !=  FRESHNESS
 dentro de um commit nunca pode conhecer o SHA desse commit. Se ele não existir no
 que é servido, a tela diz `⚪ FRESHNESS UNKNOWN` — nunca verde.
 
+⚠️ **Na Vercel, hoje, o estado é `⚪ UNKNOWN` e isso está certo.** Medido no log
+de uma build real: `Removed 1125 ignored files defined in .vercelignore` — o
+contentor recebe 311 dos 1338 ficheiros, e regenerar ali daria o mapa de uma
+árvore mutilada. O publicador recusa-se a fazê-lo. **STALE continua a funcionar
+na mesma**, porque staleness prova-se sozinha. Ver `AGENTS.md`.
+
 **A regra que manda em todas:** ausência de prova de staleness não é prova de
 current. A lei está em [`app/freshness.js`](app/freshness.js) e as provas em
 [`tests/test_freshness.mjs`](tests/test_freshness.mjs). Os detalhes, incluindo

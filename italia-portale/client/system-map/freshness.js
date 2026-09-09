@@ -91,6 +91,11 @@
    *   latest_canonical_head   sha40    medido ao vivo, ou null
    *   latest_head_error       string   porque falhou a medicao, ou null
    *   system_map_check        PASS|FAIL|UNKNOWN
+   *   check_reason            string   porque o validador nao correu, ou null
+   *   map_belongs_to_deployed_tree
+   *                           true|false|null  o mapa servido foi DERIVADO da
+   *                           arvore implantada? true so quando a build a
+   *                           regerou e validou; null quando ninguem provou
    *   behind_by               int      commits de atraso, so se calculavel
    *   deployment_present      bool     existe artefato de deploy?
    *   schema_do_estado        string   SCHEMA do estado servido
@@ -111,7 +116,7 @@
        Vem primeiro porque um mapa que se contradiz nao merece a pergunta
        seguinte. Se a proveniencia mente, «esta actual?» nao tem resposta. */
     if (check === 'FAIL') {
-      razoes.push('SYSTEM_MAP_CHECK reprovou nesta build.');
+      razoes.push('SYSTEM_MAP_CHECK REPROVOU para o que esta servido.');
       return veredito(BROKEN, razoes, null);
     }
     if (m.deployment_present && servido && !SHA.test(servido)) {
@@ -128,30 +133,62 @@
         + `${m.repository} vs ${m.state_repository}`);
       return veredito(BROKEN, razoes, null);
     }
-    if (m.deployment_present && m.source_branch && m.state_branch
-        && m.source_branch !== m.state_branch) {
-      razoes.push('o artefato de deploy e o estado gerado discordam sobre a BRANCH: '
-        + `${m.source_branch} vs ${m.state_branch}`);
-      return veredito(BROKEN, razoes, null);
-    }
     if (m.deployment_present && m.schema_declarado && m.schema_do_estado
         && m.schema_declarado !== m.schema_do_estado) {
       razoes.push('o SCHEMA do estado servido nao e o que o artefato de deploy declara.');
       return veredito(BROKEN, razoes, null);
     }
 
-    /* ── 2 · NAO SEI ─────────────────────────────────────────────────────────
-       Vem ANTES do vermelho e ANTES do verde. Sem os dois lados da comparacao
-       nao ha comparacao — e inventar um lado seria exactamente a mentira que
-       esta missao veio apagar. */
+    /* A BRANCH DIVERGENTE E UM AVISO, NAO UM VEREDITO — e isto foi medido.
+       Um alias de branch estava a servir um mapa cujo `PROVENANCE.BRANCH` dizia
+       OUTRA branch, legitimamente: a arvore veio de la. E ao regenerar dentro do
+       contentor da Vercel, `git rev-parse --abbrev-ref HEAD` responde `master`,
+       porque o checkout dela nao carrega o nome do ramo. Reprovar por isto seria
+       gritar por uma diferenca que nao prova nada sobre frescura. */
+    if (m.source_branch && m.state_branch && m.source_branch !== m.state_branch) {
+      razoes.push(`aviso: o deploy saiu de ${m.source_branch} e o mapa servido foi `
+        + `gerado em ${m.state_branch}.`);
+    }
+
+    /* ── 2 · SEM O COMMIT SERVIDO NAO HA PERGUNTA ────────────────────────────
+       Uma copia commitada nao prova o que a build implantou. */
     if (!m.deployment_present || !servido) {
       razoes.push('nao existe artefato de deploy: o commit efectivamente servido '
         + 'nao foi provado. Uma copia commitada nao prova o que a build implantou.');
       return veredito(UNKNOWN, razoes, null);
     }
+
+    /* ── 3 · ATRASADO — E ISTO PROVA-SE SOZINHO ──────────────────────────────
+       ⚠️ VEM ANTES DAS MEDICOES QUE FALTAM, DE PROPOSITO. Se a cabeca remota foi
+       medida e o commit servido nao e ela, o mapa ESTA atras — e continua a estar
+       quer o validador tenha corrido, quer nao. Po-lo depois do portao do
+       validador transformaria uma prova de staleness QUE EXISTE num UNKNOWN, que
+       e a unica maneira de esta lei mentir para o lado confortavel.
+
+           NAO SEI SE ESTA VALIDO  !=  NAO SEI SE ESTA ATRASADO. */
+    if (remoto && SHA.test(remoto) && servido !== remoto) {
+      const atraso = Number.isInteger(m.behind_by) && m.behind_by > 0
+        ? `MAP IS ${m.behind_by} COMMIT${m.behind_by > 1 ? 'S' : ''} BEHIND`
+        : 'HEAD MISMATCH';
+      razoes.push(`o commit servido (${curto(servido)}) nao e a cabeca actual `
+        + `desta linha (${curto(remoto)}).`);
+      return veredito(STALE, razoes, atraso);
+    }
+    if (m.map_belongs_to_deployed_tree === false) {
+      razoes.push(`o mapa servido foi gerado de ${curto(gerado)} e nao corresponde `
+        + `a arvore de ${curto(servido)}: ele nao e o mapa DESTA arvore.`);
+      return veredito(STALE, razoes, 'MAP OF ANOTHER TREE');
+    }
+
+    /* ── 4 · O QUE NAO SE CONSEGUIU MEDIR ────────────────────────────────────
+       Aqui nao ha prova de atraso. E isso NAO e prova de actualidade. */
     if (check !== 'PASS') {
-      razoes.push('SYSTEM_MAP_CHECK nao correu nesta build (toolchain ausente): '
-        + 'nao ha veredito do validador para este commit.');
+      razoes.push('SYSTEM_MAP_CHECK nao deu PASS para o que esta servido'
+        + (m.check_reason ? `: ${m.check_reason}` : '.'));
+      return veredito(UNKNOWN, razoes, null);
+    }
+    if (m.map_belongs_to_deployed_tree !== true) {
+      razoes.push('nada prova que o mapa servido foi derivado da arvore implantada.');
       return veredito(UNKNOWN, razoes, null);
     }
     if (!remoto || !SHA.test(remoto)) {
@@ -161,29 +198,10 @@
       return veredito(UNKNOWN, razoes, null);
     }
 
-    /* ── 3 · ATRASADO ────────────────────────────────────────────────────────
-       Duas maneiras diferentes de estar atras, e as duas sao vermelhas:
-       a arvore servida nao e a mais nova, OU o mapa servido nao e daquela
-       arvore. A segunda e o defeito do commit que se autoreferencia. */
-    let atraso = null;
-    if (servido !== remoto) {
-      atraso = Number.isInteger(m.behind_by) && m.behind_by > 0
-        ? `MAP IS ${m.behind_by} COMMIT${m.behind_by > 1 ? 'S' : ''} BEHIND`
-        : 'HEAD MISMATCH';
-      razoes.push(`o commit servido (${curto(servido)}) nao e a cabeca actual `
-        + `desta linha (${curto(remoto)}).`);
-      return veredito(STALE, razoes, atraso);
-    }
-    if (gerado !== servido) {
-      razoes.push(`o mapa servido foi gerado de ${curto(gerado)}, e o que esta `
-        + `implantado e ${curto(servido)}: ele nao e o mapa DESTA arvore.`);
-      return veredito(STALE, razoes, 'GENERATED FROM ANOTHER COMMIT');
-    }
-
-    /* ── 4 · VERDE, e so agora ───────────────────────────────────────────────
-       As quatro condicoes, todas medidas: cabeca remota medida, servido igual
-       a ela, mapa gerado daquela arvore, e validador PASS. */
-    razoes.push('cabeca remota medida, commit servido igual a ela, mapa gerado '
+    /* ── 5 · VERDE, e so agora ───────────────────────────────────────────────
+       As quatro condicoes, todas MEDIDAS: cabeca remota medida, commit servido
+       igual a ela, mapa provadamente derivado daquela arvore, e validador PASS. */
+    razoes.push('cabeca remota medida, commit servido igual a ela, mapa derivado '
       + 'desta mesma arvore, validador PASS.');
     return veredito(CURRENT, razoes, null);
   }

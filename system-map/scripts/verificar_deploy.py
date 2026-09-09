@@ -100,25 +100,47 @@ def conferir(base: str) -> tuple:
     if status != 200 or not isinstance(d, dict):
         return False, [f"{base}/system-map/deployment.generated.json respondeu {status}"], None
 
+    # ── O QUE REPROVA ────────────────────────────────────────────────────────
+    # ESTE SCRIPT RESPONDE A UMA PERGUNTA SO: «o commit X foi publicado?». Ele
+    # NAO e o validador do mapa, e nao pode passar a se-lo — misturar as duas
+    # perguntas daria um portao que grita por coisas diferentes com a mesma voz.
     q = []
     servido = d.get("DEPLOYED_COMMIT")
     if servido != SHA:
         q.append(f"DEPLOYED_COMMIT={str(servido)[:10]} mas esta corrida e {SHA[:10]}")
-    prov = d.get("ARCHITECTURE_SOURCE_PROVENANCE") or {}
-    if prov.get("HEAD") != SHA:
-        q.append(f"o mapa servido foi gerado de {str(prov.get('HEAD'))[:10]}, "
-                 f"e nao de {SHA[:10]}: nao e o mapa desta arvore")
-    if not d.get("REGENERATED_AT_BUILD"):
-        q.append(f"a build nao regenerou o mapa: {d.get('NOT_REGENERATED_REASON')}")
-    if d.get("SYSTEM_MAP_CHECK") != "PASS":
-        q.append(f"SYSTEM_MAP_CHECK={d.get('SYSTEM_MAP_CHECK')} no que esta servido")
     if REF and d.get("SOURCE_BRANCH") and d["SOURCE_BRANCH"] != REF:
         q.append(f"SOURCE_BRANCH={d['SOURCE_BRANCH']} mas o push foi em {REF}")
     if d.get("PUBLISHED_FILES_MISSING"):
         q.append(f"falta no publicado: {d['PUBLISHED_FILES_MISSING']}")
+    if d.get("SYSTEM_MAP_CHECK") == "FAIL":
+        q.append("SYSTEM_MAP_CHECK=FAIL no que esta servido")
     sujos = [k for k in d if any(s in k.upper() for s in SUSPEITO)]
     if sujos:
         q.append(f"campo com cara de segredo no artefato publico: {sujos}")
+
+    # ── O QUE SE RELATA SEM REPROVAR ─────────────────────────────────────────
+    # MEDIDO NUMA BUILD REAL DA VERCEL: `Removed 1125 ignored files defined in
+    # .vercelignore`. O contentor recebe 311 dos 1338 ficheiros, e regenerar ali
+    # daria o mapa de uma arvore mutilada. O publicador RECUSA-SE a faze-lo, e a
+    # tela fica ⚪ UNKNOWN com o numero ao lado.
+    #
+    #     NAO CONSEGUIR VALIDAR NAO E O MESMO QUE VALIDAR E REPROVAR.
+    #
+    # Reprovar aqui por um bloqueio ja medido, escrito e visivel na propria tela
+    # seria um portao vermelho permanente — e um portao sempre vermelho e um
+    # portao desligado. Levantar o bloqueio e uma decisao de quem e dono do
+    # `.vercelignore`, e esta registada no handoff.
+    avisos = []
+    if not d.get("REGENERATED_AT_BUILD"):
+        avisos.append(f"a build nao regenerou: {d.get('NOT_REGENERATED_REASON')}")
+    if d.get("SYSTEM_MAP_CHECK") == "UNKNOWN":
+        avisos.append("SYSTEM_MAP_CHECK=UNKNOWN — a tela mostra FRESHNESS UNKNOWN, "
+                      "nunca verde")
+    prov = d.get("ARCHITECTURE_SOURCE_PROVENANCE") or {}
+    if prov.get("HEAD") != SHA:
+        avisos.append(f"o mapa servido foi gerado de {str(prov.get('HEAD'))[:10]} "
+                      f"e nao de {SHA[:10]}")
+    d["_AVISOS"] = avisos
     return not q, q, d
 
 
@@ -139,12 +161,17 @@ def main() -> int:
                 if ok:
                     print(f"\nDEPLOY_VERIFICADO=PASS · {base}/system-map/")
                     print(f"  DEPLOYED_COMMIT       {d['DEPLOYED_COMMIT'][:10]}")
-                    print(f"  GENERATED FROM        "
-                          f"{d['ARCHITECTURE_SOURCE_PROVENANCE']['HEAD'][:10]}")
+                    print("  GENERATED FROM        "
+                          + str((d.get('ARCHITECTURE_SOURCE_PROVENANCE') or {})
+                                .get('HEAD'))[:10])
                     print(f"  SOURCE_BRANCH         {d.get('SOURCE_BRANCH')}")
                     print(f"  ENVIRONMENT           {d.get('ENVIRONMENT')}")
                     print(f"  SYSTEM_MAP_CHECK      {d.get('SYSTEM_MAP_CHECK')}")
                     print(f"  REGENERATED_AT_BUILD  {d.get('REGENERATED_AT_BUILD')}")
+                    print(f"  BUILD_TREE_COMPLETE   {d.get('BUILD_TREE_COMPLETE')} "
+                          f"({d.get('BUILD_TREE_FILES')}/{d.get('MAP_TREE_FILES')})")
+                    for a in d.get("_AVISOS", []):
+                        print(f"  ::notice::{a}")
                     return 0
                 ultimas = [f"{base}: {x}" for x in queixas]
                 for x in queixas:

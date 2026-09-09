@@ -455,17 +455,36 @@ prova("SMF-12_o_publicador_regenera_pela_cadeia",
 # comecar a medir a arvore por conta propria, passam a existir duas arquiteturas
 # com o mesmo nome — e a que o CI valida deixa de ser a que o URL serve.
 # COMENTARIO NAO E CODIGO. O publicador EXPLICA, no cabecalho, porque nao mede a
-# arvore sozinho — e a explicacao cita `git ls-files`. Um teste que lesse a
+# arvore sozinho — e a explicacao cita comandos do git. Um teste que lesse a
 # explicacao como se fosse implementacao reprovaria o proprio comentario que o
-# defende, e a correcao seria apagar a explicacao: exactamente o contrario do que
-# se quer. Por isso o codigo e lido sem comentarios.
+# defende, e a correcao seria apagar a explicacao: o contrario do que se quer.
 pub_codigo = re.sub(r"/\*.*?\*/", "", pub, flags=re.S)
 pub_codigo = re.sub(r"^\s*//.*$", "", pub_codigo, flags=re.M)
-proibido_no_build = [k for k in ("ls-files", "cat-file", "ast.parse", "readdirSync",
-                                 "walkSync", "globSync")
-                     if k in pub_codigo]
-prova("SMF-13_o_build_nao_reimplementa_o_scanner", not proibido_no_build,
-      f"o publicador comecou a medir sozinho: {proibido_no_build}")
+
+# CONTAR FICHEIROS NAO E ESCANEAR ARQUITETURA, e a diferenca nao e de grau.
+# O publicador PRECISA de `git ls-files` para uma coisa so: saber se a arvore
+# desta build esta inteira — na Vercel ela nao esta, e regenerar ali daria o mapa
+# de uma arvore mutilada. Ele nao le o CONTEUDO de ficheiro nenhum, nao extrai
+# import, nao monta no nem aresta. Por isso o portao nao e uma lista negra de
+# palavras: e uma LISTA BRANCA do que ele pode perguntar ao git.
+usa_git = set(re.findall(r"comando\('git', \['([a-z-]+)'", pub_codigo))
+prova("SMF-13_o_build_so_faz_ao_git_perguntas_de_leitura",
+      usa_git <= {"rev-parse", "ls-files"},
+      f"comandos git fora da lista branca: {sorted(usa_git - {'rev-parse', 'ls-files'})}")
+lendo = [k for k in ("ast.parse", "readdirSync", "walkSync", "globSync", "cat-file",
+                     "extname", "createRequire")
+         if k in pub_codigo]
+prova("SMF-13_o_build_nao_percorre_nem_analisa_a_arvore", not lendo,
+      f"o publicador comecou a medir sozinho: {lendo}")
+# E, sobretudo: ELE NAO ESCREVE O MAPA. Quem escreve `state.generated.json` e o
+# gerador, chamado pela cadeia. Se este ficheiro passar a escrever o estado,
+# passam a existir duas arquiteturas com o mesmo nome.
+escreve = re.findall(r"writeFileSync\(([A-Za-z_]+)", pub_codigo)
+prova("SMF-13_o_build_nao_escreve_o_mapa", escreve == ["ARTEFATO"],
+      f"writeFileSync sobre: {escreve} — so o artefato de deploy pode ser escrito aqui")
+prova("SMF-13_o_build_mede_a_completude_antes_de_regerar",
+      "arvoreInteira" in pub_codigo and "BUILD_TREE_COMPLETE" in pub_codigo,
+      "sem esta medicao a Vercel publica o mapa de uma arvore mutilada")
 # A CADEIA DO CI E A CADEIA DO BUILD SAO A MESMA — provado, nao prometido.
 #
 # A primeira versao desta missao fez o workflow LER a lista de

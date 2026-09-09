@@ -50,6 +50,7 @@ const sa = (extra) => ({
   generated_from: A, deployed_commit: A, latest_canonical_head: A,
   latest_head_error: null, system_map_check: 'PASS', behind_by: null,
   deployment_present: true, schema_do_estado: SCHEMA, schema_declarado: SCHEMA,
+  map_belongs_to_deployed_tree: true,
   ...extra,
 });
 
@@ -71,10 +72,17 @@ const eq = (nome, m, esperado) => {
 
 console.log('\n── SMF · a lei da frescura ──────────────────────────────────────');
 
-/* SMF-01 · SOURCE BRANCH e medido (vem do artefato ou do estado, nunca de um
-   literal na tela) — provado por o desacordo entre os dois dar BROKEN. */
-eq('SMF-01_source_branch_medido_e_nao_escrito_a_mao',
-  sa({ source_branch: 'outra/branch' }), ESTADOS.BROKEN);
+/* SMF-01 · SOURCE BRANCH e MEDIDO, e a divergencia com a branch onde o mapa foi
+   gerado e DITA — mas nao e um veredito. Medido em producao: o checkout da Vercel
+   responde `master` a `git rev-parse --abbrev-ref HEAD`, e um alias de branch
+   servia legitimamente um mapa gerado noutra. Reprovar por isto seria gritar por
+   uma diferenca que nao prova nada sobre frescura. */
+{
+  const v = decidir(sa({ source_branch: 'outra/branch' }));
+  prova('SMF-01_branch_divergente_e_dita_e_nao_e_veredito',
+    v.state === ESTADOS.CURRENT && v.razoes.join(' ').includes('outra/branch'),
+    `${v.state}: ${v.razoes.join(' ')}`);
+}
 
 /* SMF-02 · DEPLOYED COMMIT e medido no build: sem artefato nao existe. */
 eq('SMF-02_sem_artefato_de_build_nao_existe_deployed_commit',
@@ -148,13 +156,33 @@ eq('SMF-07c_check_com_valor_desconhecido_nao_da_verde',
 /* O DEFEITO ORIGINAL, NOMEADO: o mapa gerado de OUTRO commit que aquele que
    esta implantado. Era isto que o commit-que-se-autoreferencia produzia, e a
    tela dizia «BRANCH x @ 105602f» como se fosse a posicao da branch. */
-eq('SMF-04b_mapa_gerado_de_outra_arvore_da_stale',
-  sa({ generated_from: B }), ESTADOS.STALE);
+eq('SMF-04b_mapa_provadamente_de_outra_arvore_da_stale',
+  sa({ map_belongs_to_deployed_tree: false, generated_from: B }), ESTADOS.STALE);
 {
-  const v = decidir(sa({ generated_from: B }));
+  const v = decidir(sa({ map_belongs_to_deployed_tree: false, generated_from: B }));
   prova('SMF-04c_stale_por_outra_arvore_diz_porque',
-    v.atraso === 'GENERATED FROM ANOTHER COMMIT', v.atraso);
+    v.atraso === 'MAP OF ANOTHER TREE', v.atraso);
 }
+/* PERTENCA NAO PROVADA NAO E PERTENCA REFUTADA. `null` cai em UNKNOWN, nunca em
+   verde e nunca em vermelho: e o caso real da build da Vercel, onde o
+   `.vercelignore` deixa a arvore incompleta e a cadeia nao pode correr. */
+eq('SMF-04g_pertenca_nao_provada_da_unknown',
+  sa({ map_belongs_to_deployed_tree: null }), ESTADOS.UNKNOWN);
+{
+  const v = decidir(sa({ map_belongs_to_deployed_tree: null, system_map_check: 'UNKNOWN',
+    check_reason: 'a arvore desta build esta incompleta: 311 de 1338 ficheiros' }));
+  prova('SMF-04h_unknown_diz_o_motivo_medido',
+    v.state === ESTADOS.UNKNOWN && v.razoes.join(' ').includes('311 de 1338'),
+    v.razoes.join(' '));
+}
+/* A PROVA QUE MAIS IMPORTA DESTA REVISAO: staleness prova-se sozinha. Com o
+   validador em UNKNOWN e a pertenca por provar, um commit servido diferente da
+   cabeca remota continua a ser STALE — e nao vira UNKNOWN. Po-lo depois do
+   portao do validador seria a unica maneira de esta lei mentir para o lado
+   confortavel. */
+eq('SMF-04i_stale_prova_se_sozinha_mesmo_sem_validador',
+  sa({ latest_canonical_head: B, system_map_check: 'UNKNOWN',
+    map_belongs_to_deployed_tree: null }), ESTADOS.STALE);
 
 /* «N COMMITS BEHIND» so quando N e realmente calculavel. */
 {
@@ -201,16 +229,17 @@ console.log('\n── FORCA BRUTA · verde exige as quatro provas ────�
   for (const presente of [true, false]) {
     for (const dep of [A, B, null, 'HEAD']) {
       for (const rem of [A, B, null]) {
-        for (const ger of [A, B, null]) {
-          for (const chk of ['PASS', 'FAIL', 'UNKNOWN']) {
+        for (const chk of ['PASS', 'FAIL', 'UNKNOWN']) {
+          for (const pert of [true, false, null]) {
             const m = sa({ deployment_present: presente, deployed_commit: dep,
-              latest_canonical_head: rem, generated_from: ger, system_map_check: chk });
+              latest_canonical_head: rem, system_map_check: chk,
+              map_belongs_to_deployed_tree: pert });
             const v = decidir(m);
             if (v.state !== ESTADOS.CURRENT) continue;
             verdes += 1;
-            const legitimo = presente && dep === rem && ger === dep
+            const legitimo = presente && dep === rem && pert === true
               && typeof dep === 'string' && dep.length === 40 && chk === 'PASS';
-            if (!legitimo) errados.push(JSON.stringify({ presente, dep, rem, ger, chk }));
+            if (!legitimo) errados.push(JSON.stringify({ presente, dep, rem, chk, pert }));
           }
         }
       }

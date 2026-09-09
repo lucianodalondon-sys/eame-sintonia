@@ -96,9 +96,49 @@ nota(`python=${versaoPython || 'AUSENTE'} · git=${temGit ? 'SIM' : 'AUSENTE'}`)
 nota(`ambiente publico lido: ${Object.keys(amb).join(' ') || '(nenhuma)'}`);
 
 /* ── 2 e 3 · regenerar pela cadeia que ja existe, e validar ────────────────── */
+/* ⚠️ A ARVORE DA BUILD PODE NAO SER A ARVORE DO REPOSITORIO — E NA VERCEL NAO E.
+   Medido nesta missao, no log de uma build real:
+
+       Found .vercelignore
+       Removed 1125 ignored files defined in .vercelignore
+
+   O `.vercelignore` existe por uma razao seria: impedir que /build /data /docs
+   /handoff /research /supabase /tests /.github sejam sequer ENVIADOS para um
+   contentor cujo output e publico. Duas fechaduras, e a segunda e essa.
+
+   Consequencia: dentro da build o repositorio tem 311 ficheiros em vez de 1338.
+   Regenerar ali produz um mapa REAL de uma arvore MUTILADA — 11 pecas partidas,
+   25 em NAO SEI, cobertura 297/311 — e publica-lo por cima do mapa commitado
+   seria substituir um mapa correcto por um mapa errado que PARECE fresco.
+
+       UM MAPA DA ARVORE ERRADA E PIOR DO QUE UM MAPA DA ARVORE ANTIGA.
+
+   Por isso a completude e MEDIDA antes de a cadeia correr, e a cadeia so corre
+   se a arvore estiver inteira. Quando nao esta, nada e regerado, o mapa
+   commitado continua a ser servido, e o artefato diz UNKNOWN com o numero exacto
+   ao lado — a tela nao fica verde, e diz porque.
+
+   Levantar esta trava e uma decisao de quem e dono do `.vercelignore`, e nao
+   deste script: significa enviar o repositorio inteiro para o contentor. */
 let regenerou = false;
 let check = 'UNKNOWN';
 let porqueNaoRegenerou = null;
+
+/* A contagem esperada vem do proprio mapa commitado: ele foi gerado (e validado
+   no CI) sobre a arvore inteira, e `COUNTS.files_tracked` e quantos ficheiros
+   isso eram. Nao ha numero magico escrito aqui. */
+let estadoCommitado = null;
+try {
+  estadoCommitado = JSON.parse(readFileSync(ESTADO, 'utf8'));
+} catch { /* tratado abaixo, junto com o resto */ }
+const esperados = estadoCommitado && estadoCommitado.COUNTS
+  ? estadoCommitado.COUNTS.files_tracked : null;
+const listados = temGit ? comando('git', ['ls-files']) : null;
+const medidos = listados === null ? null : listados.split('\n').filter(Boolean).length;
+const arvoreInteira = Number.isInteger(esperados) && Number.isInteger(medidos)
+  && medidos >= esperados;
+nota(`arvore da build: ${medidos === null ? 'nao medida' : medidos} ficheiro(s)`
+  + ` · o mapa commitado foi feito sobre ${esperados === null ? 'nao sei' : esperados}`);
 
 if (!python) {
   porqueNaoRegenerou = 'Python nao existe neste contentor de build';
@@ -107,6 +147,12 @@ if (!python) {
      `.git` ele nao mede — e um mapa montado sobre uma medicao que falhou seria
      pior do que o mapa velho, porque pareceria novo. */
   porqueNaoRegenerou = 'a arvore de build nao tem .git; o scanner mede a arvore pelo indice do git';
+} else if (!arvoreInteira) {
+  porqueNaoRegenerou = `a arvore desta build esta incompleta: ${medidos} de ${esperados} `
+    + 'ficheiros (o .vercelignore nao envia /build /data /docs /handoff /research '
+    + '/supabase /tests /.github para o contentor). Regenerar aqui daria o mapa de '
+    + 'uma arvore mutilada. O mapa commitado continua a ser servido, e a frescura '
+    + 'fica UNKNOWN em vez de verde.';
 } else {
   nota(`a regerar pela cadeia de ${CADEIA.REGERAR.length} passos (a mesma do CI)`);
   try {
@@ -176,6 +222,9 @@ const artefato = {
   SYSTEM_MAP_CHECK: check,
   REGENERATED_AT_BUILD: regenerou,
   NOT_REGENERATED_REASON: porqueNaoRegenerou,
+  BUILD_TREE_COMPLETE: arvoreInteira,
+  BUILD_TREE_FILES: medidos,
+  MAP_TREE_FILES: esperados,
   PUBLISHED_FILES_MISSING: faltam,
   ARCHITECTURE_SOURCE_PROVENANCE: prov
     ? {

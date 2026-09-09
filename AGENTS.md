@@ -74,7 +74,7 @@ medidos, e os oito tinham o desencontro. Nenhuma disciplina conserta isto.
 Por isso `italia-portale/client/system-map/deployment.generated.json` **nasce no
 build** e está no `.gitignore`. Se ele aparecer no índice do git, o CI reprova.
 
-### O build regenera antes de servir
+### O build regenera antes de servir — quando a árvore está inteira
 
 `package.json` → `build` corre
 [`system-map/scripts/publicar_no_deploy.mjs`](system-map/scripts/publicar_no_deploy.mjs),
@@ -85,6 +85,41 @@ que corre **a mesma cadeia** do CI, lida de
 scanner, e não há atalho para quando o Python falta: se a cadeia não conseguir
 correr, o artefato diz `REGENERATED_AT_BUILD: false` com o motivo, e a tela cai
 para UNKNOWN. Nunca finge.
+
+#### ⚠️ NA VERCEL A ÁRVORE DA BUILD NÃO É A ÁRVORE DO REPOSITÓRIO
+
+Medido no log de uma build real:
+
+```
+Found .vercelignore
+Removed 1125 ignored files defined in .vercelignore
+```
+
+O contentor recebe **311** dos **1338** ficheiros. Python 3.12 e git **existem
+lá** — o problema não é toolchain. Regenerar naquele contentor produz um mapa
+**real de uma árvore mutilada**: 11 peças partidas, 25 em NÃO SEI, cobertura
+297/311.
+
+> **UM MAPA DA ÁRVORE ERRADA É PIOR DO QUE UM MAPA DA ÁRVORE ANTIGA.**
+
+Por isso o publicador **mede a completude antes de correr a cadeia**, comparando
+`git ls-files` com o `COUNTS.files_tracked` do mapa commitado — nenhum número
+mágico. Se a árvore estiver incompleta, **nada é regerado**, o mapa commitado
+continua a ser servido, e o artefato diz `BUILD_TREE_COMPLETE: false` com
+`311 / 1338` ao lado.
+
+**O que a tela mostra então:** `⚪ FRESHNESS UNKNOWN`, com o motivo escrito. E,
+crucialmente, **STALE continua a funcionar**: se o commit servido não for a
+cabeça da linha, a barra vermelha aparece na mesma. Staleness prova-se sozinha.
+
+> **NÃO SEI SE ESTÁ VÁLIDO ≠ NÃO SEI SE ESTÁ ATRASADO.**
+
+**Para o mapa poder ficar 🟢 na Vercel** é preciso que o contentor receba a
+árvore inteira — ou seja, afrouxar o `.vercelignore`. Isso **não foi feito
+aqui**: aquele ficheiro existe para impedir que `/build /data /docs /handoff
+/research /supabase` sejam sequer enviados para um contentor cujo output é
+público, e trocar uma tranca de segurança por uma bolinha verde é uma decisão
+do dono, não de quem passa. Está registada no handoff.
 
 A lista de passos está escrita **à vista** no workflow *e* no ficheiro da cadeia,
 e um teste reprova se as duas divergirem. Isso não é descuido: quando a lista
@@ -97,10 +132,19 @@ o scanner — o scanner lê o workflow para saber quem corre o quê.
 
 | | estado | quando |
 |---|---|---|
-| 🟢 | `CURRENT` | cabeça remota **medida**, `DEPLOYED == LATEST`, o mapa servido foi gerado **daquela** árvore, e `SYSTEM_MAP_CHECK = PASS` |
-| 🔴 | `STALE` | `DEPLOYED != LATEST`, ou o mapa servido veio de outra árvore. Barra vermelha, largura toda, sem botão de fechar |
-| ⚪ | `UNKNOWN` | não se conseguiu medir a cabeça remota, ou não há artefato de build, ou o validador não correu |
+| 🟢 | `CURRENT` | cabeça remota **medida**, `DEPLOYED == LATEST`, o mapa **provadamente derivado** daquela árvore, e `SYSTEM_MAP_CHECK = PASS` |
+| 🔴 | `STALE` | `DEPLOYED != LATEST`, ou o mapa servido é provadamente de outra árvore. Barra vermelha, largura toda, sem botão de fechar |
+| ⚪ | `UNKNOWN` | não se conseguiu medir a cabeça remota, ou não há artefato de build, ou o validador não correu, ou ninguém provou a que árvore o mapa pertence |
 | 🔴 | `BROKEN` | `SYSTEM_MAP_CHECK = FAIL`, ou a proveniência do que está servido contradiz-se |
+
+**A ordem importa, e é medida:** o vermelho do atraso vem **antes** do portão do
+validador. Se a cabeça remota foi medida e o commit servido não é ela, o mapa
+está atrás — e continua a estar quer o validador tenha corrido, quer não. Pôr o
+atraso depois transformaria uma prova de staleness que existe num UNKNOWN, que é
+a única maneira de esta lei mentir para o lado confortável.
+
+`GENERATED FROM` **não é** prova de pertença. Por construção ele nomeia o commit
+anterior; quem prova a pertença é a regeneração no build, validada ali mesmo.
 
 **A regra que manda em todas:**
 

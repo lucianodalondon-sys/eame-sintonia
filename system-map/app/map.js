@@ -1011,6 +1011,16 @@ async function provarFrescura() {
   const remoto = await medirCabecaRemota(repo, ramo,
     SM_FRESHNESS.SHA_RE.test(String(servido)) ? servido : null);
 
+  /* O MAPA SERVIDO FOI DERIVADO DA ARVORE IMPLANTADA?
+     `true` so quando a build a regerou E o validador passou ali mesmo. Qualquer
+     outra coisa e `null` — NAO SEI —, e NAO SEI nunca fica verde. Note que este
+     e um facto SEPARADO de «gerado de» e de «implantado»: o carimbo do ficheiro
+     commitado nomeia o commit ANTERIOR por construcao, e por isso nunca serviu
+     como prova de pertenca. */
+  const pertence = dep && dep.REGENERATED_AT_BUILD === true
+    ? dep.SYSTEM_MAP_CHECK === 'PASS'
+    : null;
+
   const v = SM_FRESHNESS.decidir({
     repository: dep ? dep.REPOSITORY : null,
     state_repository: P.REPO || null,
@@ -1021,6 +1031,8 @@ async function provarFrescura() {
     latest_canonical_head: remoto.head,
     latest_head_error: remoto.erro,
     system_map_check: dep ? dep.SYSTEM_MAP_CHECK : 'UNKNOWN',
+    check_reason: dep ? dep.NOT_REGENERATED_REASON : null,
+    map_belongs_to_deployed_tree: pertence,
     behind_by: remoto.behind,
     deployment_present: !!dep,
     schema_do_estado: S.SCHEMA || null,
@@ -1070,6 +1082,12 @@ async function provarFrescura() {
     ${linha('Regenerated at build', dep
       ? (dep.REGENERATED_AT_BUILD ? 'YES' : `NO — ${ouUnknown(dep.NOT_REGENERATED_REASON)}`)
       : '<i>UNKNOWN</i>')}
+    ${linha('Build tree complete', dep && dep.BUILD_TREE_COMPLETE !== undefined
+      ? (dep.BUILD_TREE_COMPLETE ? 'YES'
+        : `NO — ${dep.BUILD_TREE_FILES} / ${dep.MAP_TREE_FILES} ficheiros`)
+      : '<i>UNKNOWN</i>')}
+    ${linha('Map derived from deployed tree',
+      pertence === true ? 'PROVEN' : pertence === false ? 'NO' : '<i>UNPROVEN</i>')}
     ${linha('System map check', dep ? ouUnknown(dep.SYSTEM_MAP_CHECK) : '<i>UNKNOWN</i>')}
     ${linha(esc(SM_FRESHNESS.COBERTURA_ROTULO),
       `${c.files_covered}&thinsp;/&thinsp;${c.files_tracked} tracked files`)}
