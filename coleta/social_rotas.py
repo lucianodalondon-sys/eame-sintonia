@@ -39,6 +39,7 @@ E não julga conteúdo. Ele traz o objeto e preserva o bruto. Se é relevante
 para a ADAMA, se é ameaça, se é oportunidade — isso é decisão de outra camada,
 que roda de graça sobre o artefato e pode ser refeita sem recoletar.
 """
+import inspect
 import json
 import os
 import sys
@@ -428,6 +429,24 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
                             % escolhida['ROTA'])
         return [], registro
 
+    # A ENTRADA É CONFERIDA ANTES DA PRIMEIRA REQUISIÇÃO.
+    #
+    # Sem isto, um pedido sem `channel_id` chegava ao adaptador, o Python
+    # levantava `TypeError` na própria assinatura, e o `except` de parser lá
+    # embaixo carimbava `PARSER_DRIFT` — que AFIRMA que a fonte respondeu e o
+    # nosso extrator falhou. A fonte nunca foi tocada. O registro mentia sobre
+    # quem quebrou, e mentia para o lado mais caro: manda gente depurar parser
+    # quando o defeito está em quem montou o pedido.
+    #
+    #     ENTRADA QUE FALTA NÃO É FONTE QUE MUDOU.
+    faltando = _entradas_faltando(fn, kwargs)
+    if faltando:
+        registro['ESTADO'] = 'CONTRACT_DRIFT'
+        registro['ERRO'] = ('pedido sem entrada obrigatória para %s/%s: %s'
+                            % (plat, cap, ', '.join(faltando)))
+        registro['RECOVERY_ACTION'] = falhas.NEEDS_HUMAN_FIX
+        return [], registro
+
     try:
         objetos = fn(run_id=run_id, country_scope=country_scope, **kwargs)
     except RotaNaoPermitida as e:
@@ -439,6 +458,18 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         registro['ESTADO'] = e.rel.get('STATE')
         registro['NATIVE_REASON'] = e.rel.get('NATIVE_REASON')
         registro['RECOVERY_ACTION'] = e.rel.get('RECOVERY_ACTION')
+        registro['ERRO'] = ss.redigir(str(e))
+        return [], registro
+    except _SemCredencial() as e:
+        # A chave não está no ambiente. A lei do YouTube desta casa já dizia isso
+        # na própria mensagem — e o registro dizia `UNKNOWN_ERROR`, porque a
+        # exceção caía no balde genérico lá embaixo. `UNKNOWN` manda investigar;
+        # `CREDENTIAL_MISSING` manda PROVISIONAR. São ações diferentes, e a
+        # segunda é a certa.
+        #
+        #     CREDENCIAL AUSENTE NÃO É ERRO DESCONHECIDO — E NUNCA AUTORIZA
+        #     CAIR PARA SCRAPING.
+        registro['ESTADO'] = 'CREDENTIAL_MISSING'
         registro['ERRO'] = ss.redigir(str(e))
         return [], registro
     except RotaBloqueada as e:
@@ -475,6 +506,44 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
     registro['ESTADO'] = 'OK' if objetos else 'ZERO_RESULTS'
     registro['OBJETOS'] = len(objetos)
     return objetos, registro
+
+
+def _SemCredencial():
+    """A classe de credencial ausente do dono do YouTube, sem importá-lo cedo.
+
+    `youtube_oficial` só é carregado quando a rota do YouTube é escolhida; um
+    import no topo tornaria toda rota grátis refém dele. Se ele não estiver
+    presente, devolvemos uma exceção que nunca casa — o `except` some, e nada
+    mais muda.
+    """
+    try:
+        import youtube_oficial as yt
+        return yt.SemCredencial
+    except Exception:
+        class _Nunca(Exception):
+            pass
+        return _Nunca
+
+
+_JA_DADOS = ('run_id', 'country_scope')
+
+
+def _entradas_faltando(fn, kwargs):
+    """Os argumentos obrigatórios do adaptador que o pedido não trouxe.
+
+    Só olha parâmetro KEYWORD_ONLY sem default — que é como todo adaptador
+    desta casa declara o que precisa. Adaptador com `**_` continua aceitando
+    extra: o portão recusa entrada que FALTA, nunca entrada a mais.
+    """
+    try:
+        params = inspect.signature(fn).parameters
+    except (TypeError, ValueError):
+        return []
+    return [n for n, p in params.items()
+            if p.kind is inspect.Parameter.KEYWORD_ONLY
+            and p.default is inspect.Parameter.empty
+            and n not in _JA_DADOS
+            and n not in kwargs]
 
 
 def executar(**kwargs):
