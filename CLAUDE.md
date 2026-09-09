@@ -25,6 +25,21 @@ alguém lembrar dela na conversa.
 Método, estados de evidência e disciplina `SOURCE → EVIDENCE → … → PORTAL` continuam em
 [`README.md`](README.md). Este arquivo não os repete.
 
+## MISSÕES SUBSTANCIAIS — CONTEXTO CURTO, PROVA FORTE
+
+Para missões substanciais de engenharia, auditoria, arquitetura, integração, refactor,
+Collection, Security, System Map, Scrap, Intelligence ou portal, use a skill de projeto
+[`sintonia-mission-discipline`](.claude/skills/sintonia-mission-discipline/SKILL.md).
+
+A skill é o dono do **método de execução da missão**: escopo estreito, autoridade apontada em
+vez de repetida, diagnóstico separado de implementação quando há incerteza, contexto
+progressivo, checkpoints em Git e poucos critérios objetivos de conclusão.
+
+> **Tarefa longa não significa prompt longo.**
+>
+> O repositório carrega o conhecimento; a missão carrega a intenção; os testes carregam a
+> prova; o Git carrega a continuidade.
+
 ---
 
 ## LEI DE DESIGN — O ADAMA DESIGN SYSTEM É A FONTE VISUAL OFICIAL
