@@ -354,14 +354,15 @@
     {
       "CONTROL_ID": "SEC-010",
       "DOMAIN": "ip-boundary",
-      "STATUS": "ABSENT",
-      "SEVERITY": "high",
+      "STATUS": "PARTIAL",
+      "SEVERITY": "medium",
       "OWNER": "portal",
-      "EVIDENCE": "11198842 bytes de corpus canonico servidos anonimamente em producao",
+      "EVIDENCE": "medido: o motor NAO corre no browser (0 funcoes de pontuacao). Viaja o corpus (76,2% dos bytes) e a lei escrita. Piloto: a lei de relevancia deixou de viajar, com paridade provada. 585 campos servidos e nao lidos ficam congelados.",
       "USER_FRICTION": "NONE",
       "DEV_FRICTION": "MEDIUM",
       "AUTOMATABLE": true,
-      "BLOCKS_NEW_REGRESSION": true
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "a projeccao dos pacotes grandes e a S2B: italy-v21.js sozinho poupa 6,2 MB."
     },
     {
       "CONTROL_ID": "SEC-011",
@@ -486,6 +487,19 @@
       "AUTOMATABLE": true,
       "BLOCKS_NEW_REGRESSION": true,
       "NOTE": "latente: uma vista sem security_invoker le com os direitos de quem a criou. A PORTA LATERAL NAO PRECISA DE ESTAR ABERTA PARA EXISTIR."
+    },
+    {
+      "CONTROL_ID": "SEC-022",
+      "DOMAIN": "ip-boundary",
+      "STATUS": "PARTIAL",
+      "SEVERITY": "medium",
+      "OWNER": "geradores de pacote (superficie/, portoes/)",
+      "EVIDENCE": "585 de 1.935 campos publicados nao sao lidos por nenhuma linha de interface",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "UM CAMPO QUE NINGUEM LE NAO E APRESENTACAO. E EXPORTACAO."
     }
   ],
   "PRIORITIES": {
@@ -515,7 +529,8 @@
       "NEW_TABLE_WITHOUT_RLS": 0,
       "NEW_WRITE_ALL_PERMISSION": 0,
       "NEW_OWN_SOURCE_MAP_PUBLISHED": 0,
-      "NEW_PERSONAL_DATA_FIELD_IN_PUBLIC_OUTPUT": 0
+      "NEW_PERSONAL_DATA_FIELD_IN_PUBLIC_OUTPUT": 0,
+      "NEW_INTERNAL_FIELD_EXPOSED_TO_CLIENT": 0
     },
     "DO_NOT_BLOCK_ON": [
       "missing SSO",
@@ -534,7 +549,10 @@
     "IMPLEMENTADO": "security/ratchet.py",
     "CORRE_EM": ".github/workflows/security-check.yml",
     "PROVAS_QUE_ATACAM_O_PORTAO": 19,
-    "NOVA_CLASSE_S1": "WORKFLOW_YAML_INVALIDO — um workflow que nao analisa nao corre, e falha com zero jobs"
+    "NOVA_CLASSE_S1": "WORKFLOW_YAML_INVALIDO — um workflow que nao analisa nao corre, e falha com zero jobs",
+    "ADDED_IN_S2A": [
+      "NEW_INTERNAL_FIELD_EXPOSED_TO_CLIENT"
+    ]
   },
   "VERDICT": {
     "S0_MEASUREMENT": "PASS",
@@ -558,9 +576,16 @@
     "S2_READY": "YES",
     "NEW_FAILURES": 0,
     "SYSTEM_MAP_CHECK": "PASS",
-    "BROWSER_REGRESSION": "PASS"
+    "BROWSER_REGRESSION": "PASS",
+    "S2A": "PASS",
+    "PUBLIC_SURFACE_AUDITED": "100%",
+    "UNKNOWN": 0,
+    "CLIENT_SERVER_BOUNDARY": "MEDIDA — ja existe em tempo de build",
+    "PILOT_PROVED": "YES",
+    "PARITY": "PASS",
+    "PRIVATE_REPO_READY_FOR_NEXT_STEP": "YES com uma condicao"
   },
-  "REVISION": "S1 low-friction hardening",
+  "REVISION": "S2A client/server boundary",
   "REVISED_AT": "2026-09-09",
   "STANDARDS": [
     {
@@ -1003,6 +1028,24 @@
       "CURRENT_STATUS": "PARTIAL",
       "PHASE": "BEFORE_REAL_USERS",
       "NEXT_ACTION": "ligar security_invoker nas 6 vistas quando houver politicas RLS a respeitar"
+    },
+    {
+      "CONTROL_ID": "SEC-022",
+      "TOPIC": "data-projection",
+      "ASVS_5_0_0": [
+        "V14 Data Protection"
+      ],
+      "OWASP_TOP10_2025": [
+        "A01:2025 Broken Access Control"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [
+        "Art.25 (minimizacao de dados)"
+      ],
+      "WHY_RELEVANT": "o browser recebe o metodo junto com a resposta",
+      "CURRENT_STATUS": "PARTIAL",
+      "PHASE": "BEFORE_CONTRACT",
+      "NEXT_ACTION": "podar no gerador, um pacote de cada vez, comecando por italy-v21.js"
     }
   ],
   "MEASURED_LIVE_SUPABASE": {
@@ -1180,5 +1223,78 @@
       "security/CABECALHOS.md",
       "security/ACCOES-DE-ADMINISTRADOR.md"
     ]
+  },
+  "MEASURED_S2A": {
+    "SUPERFICIE_AUDITADA": {
+      "linha": "release/canonical 9ae641bd (a que producao serve)",
+      "ficheiros": 88,
+      "bytes": 37338284,
+      "auditados": 88,
+      "unknown": 0
+    },
+    "POR_CLASSE": {
+      "PROPRIETARY_DATA": {
+        "f": 16,
+        "b": 28452920
+      },
+      "PUBLIC_ASSET": {
+        "f": 51,
+        "b": 5724143
+      },
+      "PUBLIC_UI": {
+        "f": 15,
+        "b": 2021750
+      },
+      "INTERNAL_METADATA": {
+        "f": 1,
+        "b": 1067491
+      },
+      "PROPRIETARY_RULE": {
+        "f": 5,
+        "b": 71980
+      }
+    },
+    "CORRECCAO_DA_S0": "a S0 disse que o motor viaja para o browser. Medido: zero funcoes de pontuacao, peso ou limiar no cliente publicado. O motor corre em tempo de BUILD, em Python. O que viaja e o corpus e a lei escrita.",
+    "PROJECCAO": {
+      "campos_publicados": 1935,
+      "lidos": 1350,
+      "transportados_e_nao_lidos": 585,
+      "italy-v21.js": {
+        "campos": 400,
+        "nao_lidos": 110,
+        "bytes_antes": 10320591,
+        "bytes_depois": 4109002,
+        "poupanca_pct": 60.2
+      }
+    },
+    "PILOTO": {
+      "componente": "a lei de relevancia ADAMA (LEGGE / LEGGE_ADAMA)",
+      "gerador": "superficie/it_casa_dados.py",
+      "viajava_em": [
+        "adama-relevance.js",
+        "italy-casa.js"
+      ],
+      "bytes_por_copia": 2342,
+      "leitores_medidos": 0,
+      "depois": "LEGGE_SHA256 + LEGGE_CLAUSULAS",
+      "paridade": "43 vereditos identicos",
+      "lei_no_servido": 0,
+      "regressao_navegador": "5 paginas OK, 0 recusas de politica",
+      "bytes": {
+        "antes": 8740,
+        "depois": 6586
+      }
+    },
+    "REPO_PRIVADO": {
+      "pronto": "YES com uma condicao",
+      "condicao": "proxy de leitura do GitHub para a frescura do System Map",
+      "medido": {
+        "system-map/app/map.js": "chama api.github.com do browser sem credencial; passa a UNKNOWN, nao mente",
+        "vercel git": "app instalada, nao depende de visibilidade",
+        "actions": "GITHUB_TOKEN do repositorio, sobrevive",
+        "raw.githubusercontent no servido": 0
+      }
+    },
+    "ARQUITECTURA": "manter a fronteira em tempo de build. Uma funcao de pedido so se justifica quando a resposta depender de QUEM pergunta, e isso e a S3. MORE SERVICES != MORE SECURITY."
   }
 }

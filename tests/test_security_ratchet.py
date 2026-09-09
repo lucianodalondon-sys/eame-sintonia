@@ -27,7 +27,7 @@ class Casinha:
     def __enter__(self):
         self.dir = pathlib.Path(tempfile.mkdtemp(prefix="ratchet-redteam-"))
         (self.dir / "security").mkdir()
-        for f in ("ratchet.py", "superficie_publica.py"):
+        for f in ("ratchet.py", "superficie_publica.py", "projeccao.py"):
             shutil.copy(RAIZ / "security" / f, self.dir / "security" / f)
         (self.dir / ".github" / "workflows").mkdir(parents=True)
         (self.dir / "supabase" / "migrations").mkdir(parents=True)
@@ -234,3 +234,66 @@ class WorkflowQueNaoCorre(unittest.TestCase):
         for w in sorted((RAIZ / ".github" / "workflows").glob("*.yml")):
             with self.subTest(workflow=w.name):
                 yaml.safe_load(w.read_text(encoding="utf-8"))
+
+
+class ProjeccaoParaOCliente(unittest.TestCase):
+    """DISPLAY INPUT != COMPUTATION INPUT.
+
+    O motor nao corre no browser — medido, nao suposto. O que viaja e o corpus,
+    e dentro dele os campos internos do metodo: como uma proveniencia foi
+    recuperada, porque uma evidencia conta. Esses ensinam a receita.
+
+        UM CAMPO QUE NINGUEM LE NAO E APRESENTACAO. E EXPORTACAO.
+    """
+
+    def _casa_com_pacote(self, c, corpo, codigo_ui=""):
+        c.cliente("italy-v21.js", "window.ITALY = " + corpo + ";\n")
+        c.cliente("portale.html", "<script>" + codigo_ui + "</script>")
+
+    def test_campo_interno_novo_e_recusado(self):
+        with Casinha() as c:
+            self._casa_com_pacote(c, '{"a":[{"NOME":1},{"NOME":2}]}', 'x.NOME')
+            c.congelar()
+            self.assertEqual(c.portao().returncode, 0, "a casa limpa ja falhava")
+            self._casa_com_pacote(
+                c, '{"a":[{"NOME":1,"PROVENANCE_STRENGTH":"x"},'
+                   '{"NOME":2,"PROVENANCE_STRENGTH":"y"}]}', 'x.NOME')
+            r = c.portao()
+            self.assertEqual(r.returncode, 1, r.stdout)
+            self.assertIn("NEW_INTERNAL_FIELD_EXPOSED_TO_CLIENT", r.stdout)
+            self.assertIn("PROVENANCE_STRENGTH", r.stdout)
+
+    def test_campo_novo_que_a_interface_LE_nao_e_achado(self):
+        """Um campo novo que a tela mostra e apresentacao, e passa."""
+        with Casinha() as c:
+            self._casa_com_pacote(c, '{"a":[{"NOME":1},{"NOME":2}]}', 'x.NOME')
+            c.congelar()
+            self._casa_com_pacote(
+                c, '{"a":[{"NOME":1,"TITULO":"x"},{"NOME":2,"TITULO":"y"}]}',
+                'x.NOME + x.TITULO')
+            self.assertEqual(c.portao().returncode, 0, c.portao().stdout)
+
+    def test_identificador_novo_nao_e_campo(self):
+        """UM CAMPO DE ESQUEMA REPETE-SE. UM IDENTIFICADOR NAO.
+        Um caso novo no pacote nao pode acordar o portao — seria o caminho mais
+        curto para alguem o desligar."""
+        with Casinha() as c:
+            self._casa_com_pacote(c, '{"a":[{"NOME":1},{"NOME":2}]}', 'x.NOME')
+            c.congelar()
+            self._casa_com_pacote(
+                c, '{"a":[{"NOME":1},{"NOME":2}],"OPP_75C37DED9160":{"x":1}}', 'x.NOME')
+            self.assertEqual(c.portao().returncode, 0, c.portao().stdout)
+
+    def test_campo_citado_so_num_comentario_nao_conta_como_lido(self):
+        """Um campo citado num comentario nao e um campo lido: o comentario nao
+        chega ao ecra de ninguem."""
+        with Casinha() as c:
+            self._casa_com_pacote(c, '{"a":[{"NOME":1},{"NOME":2}]}', 'x.NOME')
+            c.congelar()
+            self._casa_com_pacote(
+                c, '{"a":[{"NOME":1,"SEGREDO_DO_METODO":"x"},'
+                   '{"NOME":2,"SEGREDO_DO_METODO":"y"}]}',
+                '/* usamos x.SEGREDO_DO_METODO um dia */ x.NOME')
+            r = c.portao()
+            self.assertEqual(r.returncode, 1, r.stdout)
+            self.assertIn("SEGREDO_DO_METODO", r.stdout)

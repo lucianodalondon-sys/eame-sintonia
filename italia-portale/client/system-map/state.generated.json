@@ -1823,10 +1823,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/security-foundation-v1",
-    "HEAD": "fb6b548b2135d75b90d61da49ba9e0e27a8c4224",
-    "GENERATED_AT": "2026-09-09T04:23:17+00:00",
-    "SOURCE_TREE_FINGERPRINT": "03ac2b5a453915496942c9872298fe134121ca2ed2c64d1b3749f15a6fe39e6c"
+    "BRANCH": "claude/security-s2-client-server-boundary-v1",
+    "HEAD": "0cdcbe03f9c475be4e6fe80f43c37fdc74f90236",
+    "GENERATED_AT": "2026-09-09T04:27:36+00:00",
+    "SOURCE_TREE_FINGERPRINT": "c1e9fe6f4cdb23dee2ce072690f2d67daf21a5fa2229865181d71811685f02d7"
   },
   "FAMILIES": [
     {
@@ -10829,7 +10829,7 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▣",
       "views": [
         "meeting",
@@ -10855,9 +10855,12 @@
         "superficie/it_casa_dados.py"
       ],
       "file_count": 15,
-      "status": "PROVEN",
-      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "italia-portale/client/adama-relevance.js",
+        "superficie/it_casa_dados.py"
+      ],
       "produces": [
         "build/sintonia-es.html"
       ],
@@ -10953,7 +10956,7 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▣",
       "views": [
         "meeting",
@@ -10969,9 +10972,11 @@
         "italia-portale/client/support.js"
       ],
       "file_count": 5,
-      "status": "PROVEN",
-      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "italia-portale/client/italy-casa.js"
+      ],
       "produces": [],
       "inbound": [
         "C-LASTMILE",
@@ -10988,6 +10993,7 @@
         "C-PORTAO-BUILD",
         "C-TELA-ARCHIVE",
         "C-TELA-FIELD",
+        "C-TESTES",
         "C-V21-COMERCIAL"
       ],
       "paises": {},
@@ -14331,6 +14337,7 @@
         "C-MEDICAO",
         "C-NAVEGADOR",
         "C-PACOTE-CAMADAS",
+        "C-PORTAL-MODELO",
         "C-PROCEDENCIA",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
@@ -16008,8 +16015,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/security-foundation-v1",
-        "HEAD fb6b548b2135d75b90d61da49ba9e0e27a8c4224"
+        "branch claude/security-s2-client-server-boundary-v1",
+        "HEAD 0cdcbe03f9c475be4e6fe80f43c37fdc74f90236"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -22374,7 +22381,7 @@
         {
           "file": "italia-portale/client/italy-casa.js",
           "line": 113,
-          "snippet": "\"meeting-intelligence-snapshot.json\": \"sha256:2135e7c0b558e1a3a3e3e0f0b1c72c8e7757d2917053bccff52af77eba4047cd\","
+          "snippet": "\"meeting-intelligence-snapshot.json\": \"sha256:b5369ecf2b5f4417e4d7f27e4e605d43ccaa4958f5563c053c0f546241b73f16\","
         }
       ],
       "categoria": "READ"
@@ -23630,7 +23637,7 @@
         {
           "file": "italia-portale/client/italy-casa.js",
           "line": 114,
-          "snippet": "\"meeting-labels.js\": \"sha256:8ea7e824d12866626441acc8f10fa2525116241cde054be7122808a06adf6c2a\""
+          "snippet": "\"meeting-labels.js\": \"sha256:e40b46dec4e14759bc178e8d4c18b3a06b5fea5b81405630771552ec2b61a13b\""
         },
         {
           "file": "italia-portale/client/italy-casa.js",
@@ -24065,6 +24072,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-PORTAL-MODELO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo de aplicacao do portal alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_security_ratchet.py",
+          "line": 250,
+          "snippet": "c.cliente(\"italy-v21.js\", \"window.ITALY = \" + corpo + \";\\n\")"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-PORTAL-MODELO",
@@ -25261,12 +25286,12 @@
       "evidence": [
         {
           "file": "italia-portale/client/adama-relevance.js",
-          "line": 6,
+          "line": 10,
           "snippet": "\"DONO_DA_LEI\": \"leis/adama_relevance.py\","
         },
         {
           "file": "superficie/it_casa_dados.py",
-          "line": 1027,
+          "line": 1059,
           "snippet": "'DONO_DA_LEI': 'leis/adama_relevance.py',"
         }
       ],
@@ -25638,7 +25663,7 @@
       "evidence": [
         {
           "file": "security/ratchet.py",
-          "line": 198,
+          "line": 218,
           "snippet": "delegar(\"git-secrets (guarda/social_guarda.py)\", [sys.executable, \"guarda/social_guarda.py\"]),"
         }
       ],
@@ -26347,7 +26372,7 @@
         {
           "file": "tests/test_security_ratchet.py",
           "line": 30,
-          "snippet": "for f in (\"ratchet.py\", \"superficie_publica.py\"):"
+          "snippet": "for f in (\"ratchet.py\", \"superficie_publica.py\", \"projeccao.py\"):"
         }
       ],
       "categoria": "PROOF"
@@ -28644,12 +28669,12 @@
   },
   "COUNTS": {
     "components": 148,
-    "components_proven": 67,
-    "components_pending": 74,
+    "components_proven": 65,
+    "components_pending": 76,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 564,
-    "edges_proven": 562,
+    "edges": 565,
+    "edges_proven": 563,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1376,

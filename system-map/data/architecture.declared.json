@@ -2620,7 +2620,11 @@
         "security/ratchet-baseline.json",
         "security/validate-baseline.py",
         "security/superficie_publica.py",
-        "security/security-baseline.json"
+        "security/security-baseline.json",
+        "security/projeccao.py",
+        "security/projeccao-baseline.json",
+        "security/censo_do_cliente.py",
+        "security/cliente-classificacao.json"
       ],
       "what": "Corre em cada push, offline, em cerca de quarenta segundos. Pergunta uma coisa so: esta mudanca piorou a seguranca? A divida herdada fica visivel e nao bloqueia; uma exposicao nova bloqueia e diz o ficheiro e o campo, nunca o valor. Traz o dono da fronteira publicada, que calcula o que o deploy serve a partir do vercel.json e do .vercelignore — 87 ficheiros, 30,4 MB.",
       "why_here": "A fundacao de seguranca media o sistema e nao o vigiava, e um validador que ninguem corre nao e um portao. Fica ao lado dos outros portoes de CI e separado deles de proposito: quando dois portoes partilham resultado, o vermelho de um esconde o verde do outro e ninguem sabe qual reprovou."

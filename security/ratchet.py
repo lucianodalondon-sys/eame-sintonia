@@ -159,6 +159,25 @@ def checar_superficie():
     return out, s
 
 
+# ══ 2b. O QUE VIAJA E NINGUEM LE ══════════════════════════════════════════
+# DISPLAY INPUT != COMPUTATION INPUT. Um campo interno que chega ao browser e
+# nunca e lido nao e apresentacao: e exportacao do metodo. A divida conhecida
+# fica congelada em projeccao-baseline.json; um campo NOVO bloqueia.
+def checar_projeccao():
+    from projeccao import medir, CONGELADO
+    m = medir(RAIZ)
+    conhecidas = set(json.loads(CONGELADO.read_text(encoding="utf-8"))["chaves"]) \
+        if CONGELADO.exists() else set()
+    out = []
+    for f, d in m["pacotes"].items():
+        for c in d.get("nao_lidos", []):
+            if f"{f}|{c}" not in conhecidas:
+                out.append(achado("NEW_INTERNAL_FIELD_EXPOSED_TO_CLIENT", f, c,
+                                  "campo interno servido ao browser e nao lido por "
+                                  "nenhuma linha de interface"))
+    return out, sum(len(d.get("nao_lidos", [])) for d in m["pacotes"].values())
+
+
 # ══ 3. MIGRATIONS ═════════════════════════════════════════════════════════
 def checar_migrations():
     d = RAIZ / "supabase" / "migrations"
@@ -190,7 +209,8 @@ def main():
     achados, n_wf = checar_workflows()
     sup_ach, sup = checar_superficie()
     mig_ach, n_tab = checar_migrations()
-    achados += sup_ach + mig_ach
+    proj_ach, n_proj = checar_projeccao()
+    achados += sup_ach + mig_ach + proj_ach
 
     # As delegacoes so correm na arvore real: nas provas nao existem donos a chamar.
     delegacoes = [] if os.environ.get("SINTONIA_RATCHET_RAIZ") else [
@@ -222,6 +242,7 @@ def main():
         return 1 if (novos or any(not d["ok"] for d in delegacoes)) else 0
 
     print(f"workflows {n_wf} · tabelas nas migrations {n_tab} · ficheiros publicados {len(sup['ficheiros'])}")
+    print(f"campos servidos e nao lidos (divida conhecida): {n_proj}")
     print(f"divida herdada (visivel, nao bloqueia): {herdados}")
     for d in delegacoes:
         print(f"  [{'ok' if d['ok'] else 'FALHA'}] {d['nome']}")
