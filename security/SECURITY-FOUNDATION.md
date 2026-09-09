@@ -645,3 +645,94 @@ S1_STARTED               NO
 ```
 
     S0 = MEASURE.  S0R = ALIGN.  S1 = IMPLEMENT LOW-FRICTION CONTROLS.
+
+---
+
+## 16. S1 — O QUE PASSOU A CORRER SOZINHO (2026-09-09)
+
+A S0 mediu. A S0R alinhou. A S0-P0M1 fechou o candidato a P0. A S1 poe os
+controlos a correr.
+
+### O portao
+
+`.github/workflows/security-check.yml`, em cada push e cada PR, offline, cerca
+de quarenta segundos. Sete passos, cada um com a sua pergunta no nome, e
+`if: '!cancelled()'` para que a falha do primeiro nao esconda o diagnostico dos
+outros. Independente do Collection Gate e do System Map: quando dois portoes
+partilham resultado, o vermelho de um esconde o verde do outro.
+
+Cadencias separadas, porque um controlo que trava cada commit e um controlo que
+alguem contorna: a base viva uma vez por dia, o navegador quando os cabecalhos
+mudam.
+
+### O dono que faltava
+
+`security/superficie_publica.py` responde, antes do deploy, o que o deploy
+publica: 87 ficheiros, 30.395.915 bytes. Calculado das duas fontes que mandam,
+e batido contra a evidencia HTTP da S0. Todos os ratchets de exposicao consomem
+daqui; nenhum mantem lista propria.
+
+### O ratchet, e a divida que nao bloqueia
+
+28 chaves de divida congeladas. Dez classes de regressao, e 51 provas — 19 delas
+a atacar o proprio portao com mutacoes que ele tem de recusar, e varias a
+provar o contrario: um comentario nao e um achado, um ORCID fora da superficie
+publicada nao e exposicao publica, um source map de vendor nao e nosso.
+
+### Tres erros que os proprios portoes apanharam
+
+**A S0 contou mal.** Declarou 15/15 workflows com `permissions` explicito. Eram
+14/15 — `banco-descartavel.yml` nunca teve o bloco. Eu tinha lido uma amostra e
+generalizado; o portao leu todos, um a um. Corrigido.
+
+**O portao apagou-se a si proprio.** Um `:` dentro do nome de um passo fez o
+SECURITY CHECK falhar com ZERO jobs — sem log, sem passo, sem nada.
+
+    UM PORTAO COM ERRO DE SINTAXE NAO FALHA: DESAPARECE.
+
+Agora o ratchet analisa cada workflow e recusa o que nao le, dizendo a linha.
+
+**A prova do cabecalho nao provava nada.** A verificacao de `frame-ancestors`
+dizia RECUSADO contra um servidor que nunca arrancou: nao havia moldura porque
+nao havia nada, e a ausencia lia-se como proteccao. Foi o controlo negativo que
+o mostrou.
+
+    UMA MOLDURA VAZIA NAO PROVA UM CABECALHO. PROVA UM SERVIDOR MORTO.
+    INCONCLUSIVO NAO E VERDE.
+
+### SEC-020 deixou de ser invisivel
+
+O censo passou a ler o schema inteiro e a comparar com o estado declarado em
+`security/live-db-expected.json`. Duas perguntas, separadas de proposito:
+
+```
+SECURITY_STATUS = SAFE       a porta esta fechada
+DRIFT_STATUS    = DRIFT      19 diferencas, nenhuma delas exposicao
+```
+
+Doze tabelas com RLS que nenhuma migration declara, uma tabela viva que nenhuma
+migration cria, e seis vistas sem `security_invoker` — inalcancaveis hoje,
+registadas como latentes. Alinhar os dois lados fica por decidir:
+`DRIFT DETECTED != FORCE LIVE TO MATCH REPO`.
+
+### Cabecalhos
+
+`frame-ancestors 'none'`, `X-Frame-Options: DENY` e `Permissions-Policy` com
+catorze recursos negados — e a area de transferencia deliberadamente fora da
+lista, porque `portale.html` usa `navigator.clipboard`. Provado num Chromium
+real: as cinco paginas renderizam, e o portal e mesmo recusado dentro de um
+iframe.
+
+A CSP completa continua por fazer, por medicao e nao por esquecimento.
+
+### O que precisa de um clique
+
+Nao foi feito, e cada um diz porque em `security-baseline.json`:
+proteccao de previews (partiria o `system-map-deploy-verify`, que faz fetch
+anonimo ao preview — precisa primeiro de um bypass para automacao), rulesets de
+ramo (`/rulesets` devolve `[]`), e o estado do CodeQL, secret scanning e push
+protection, que a API recusa (403) atraves deste proxy.
+
+
+    O DESENVOLVEDOR TRABALHA NORMALMENTE. O SISTEMA OBSERVA.
+    A DIVIDA ANTIGA NAO BLOQUEIA. UMA EXPOSICAO NOVA NAO PASSA EM SILENCIO.

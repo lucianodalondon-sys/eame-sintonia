@@ -247,7 +247,7 @@
       "STATUS": "PROVED",
       "SEVERITY": "info",
       "OWNER": "CI",
-      "EVIDENCE": "15/15 workflows com permissions: explicito; 0 write-all",
+      "EVIDENCE": "17/17 workflows com permissions explicito (era 14/15: banco-descartavel corrigido). Classe de ratchet WORKFLOW_SEM_PERMISSIONS + NEW_WRITE_ALL_PERMISSION, com provas que mordem.",
       "USER_FRICTION": "NONE",
       "DEV_FRICTION": "NONE",
       "AUTOMATABLE": true,
@@ -259,7 +259,7 @@
       "STATUS": "PROVED",
       "SEVERITY": "info",
       "OWNER": "CI",
-      "EVIDENCE": "0 pull_request_target; 5 workflows self-hosted so em workflow_dispatch",
+      "EVIDENCE": "0 pull_request_target; self-hosted so em workflow_dispatch. Agora com portao: NEW_PULL_REQUEST_TARGET e SELF_HOSTED_EM_EVENTO_NAO_CONFIAVEL, provados por mutacao.",
       "USER_FRICTION": "NONE",
       "DEV_FRICTION": "NONE",
       "AUTOMATABLE": true,
@@ -271,7 +271,7 @@
       "STATUS": "PROVED",
       "SEVERITY": "info",
       "OWNER": "repo",
-      "EVIDENCE": "9809 blobs varridos, 0 segredos reais, tree e historia",
+      "EVIDENCE": "guarda/social_guarda.py alargada com as formas de plataforma (Supabase, GitHub, Apify, Google, AWS, JWT, chave privada, DSN remoto). 21 provas, fixtures montadas em runtime. Corre no SECURITY CHECK.",
       "USER_FRICTION": "NONE",
       "DEV_FRICTION": "NONE",
       "AUTOMATABLE": true,
@@ -283,7 +283,7 @@
       "STATUS": "PROVED",
       "SEVERITY": "info",
       "OWNER": ".vercelignore + vercel.json",
-      "EVIDENCE": "404 anonimo em /package.json, /.vercelignore, /supabase/migrations/*.sql",
+      "EVIDENCE": "security/superficie_publica.py e o dono unico: 87 ficheiros, 30.395.915 bytes, validado contra a evidencia HTTP. Classe NEW_SENSITIVE_PATH_PUBLISHED, provada apagando a regra do .vercelignore.",
       "USER_FRICTION": "NONE",
       "DEV_FRICTION": "LOW",
       "AUTOMATABLE": true,
@@ -369,19 +369,20 @@
       "STATUS": "ABSENT",
       "SEVERITY": "medium",
       "OWNER": "Vercel project",
-      "EVIDENCE": "deployment protection integralmente desligada; System Map anonimo em preview",
+      "EVIDENCE": "medido 2026-09-09: password, SSO e IPs todos desligados. NAO alterado: ligar partiria system-map-deploy-verify.yml, que faz fetch anonimo ao preview.",
       "USER_FRICTION": "NONE",
       "DEV_FRICTION": "LOW",
       "AUTOMATABLE": true,
-      "BLOCKS_NEW_REGRESSION": true
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "ADMIN_ACTION_REQUIRED com pre-requisito: Protection Bypass for Automation antes de ligar."
     },
     {
       "CONTROL_ID": "SEC-012",
       "DOMAIN": "repo-governance",
-      "STATUS": "ABSENT",
+      "STATUS": "PARTIAL",
       "SEVERITY": "medium",
       "OWNER": "GitHub",
-      "EVIDENCE": "0/85 branches protegidas; sem CODEOWNERS; sem dependabot.yml",
+      "EVIDENCE": "CODEOWNERS e dependabot.yml (github-actions) implementados. Rulesets continuam vazios: /rulesets devolve []. CODEOWNERS FILE != REQUIRED REVIEW.",
       "USER_FRICTION": "NONE",
       "DEV_FRICTION": "LOW",
       "AUTOMATABLE": true,
@@ -393,9 +394,9 @@
       "STATUS": "PARTIAL",
       "SEVERITY": "low",
       "OWNER": "vercel.json",
-      "EVIDENCE": "sem CSP, frame-ancestors, Permissions-Policy; CORS *; inline script/style e babel-standalone tornam CSP estrita BREAKAGE_RISK=HIGH",
+      "EVIDENCE": "frame-ancestors 'none', X-Frame-Options: DENY e Permissions-Policy ligados e provados num Chromium real, com controlo negativo. CSP completa continua BREAKAGE_RISK=HIGH.",
       "USER_FRICTION": "NONE",
-      "DEV_FRICTION": "MEDIUM",
+      "DEV_FRICTION": "LOW",
       "AUTOMATABLE": true,
       "BLOCKS_NEW_REGRESSION": true
     },
@@ -426,10 +427,10 @@
     {
       "CONTROL_ID": "SEC-016",
       "DOMAIN": "incident-response",
-      "STATUS": "ABSENT",
+      "STATUS": "PARTIAL",
       "SEVERITY": "medium",
       "OWNER": "nao existe",
-      "EVIDENCE": "sem dono de incidente, sem procedimento de rotacao, revogacao ou rollback",
+      "EVIDENCE": "security/INCIDENTE.md: dono nomeado, 5 casos, contencao antes de investigacao, e o que a pagina NAO resolve.",
       "USER_FRICTION": "NONE",
       "DEV_FRICTION": "NONE",
       "AUTOMATABLE": false,
@@ -441,7 +442,7 @@
       "STATUS": "PARTIAL",
       "SEVERITY": "high",
       "OWNER": "corpus canonico / italia-portale/client",
-      "EVIDENCE": "65 pessoas singulares nomeadas, 60 ORCID, 58 handles; live: 911 campos ORCID, 859 AUTHOR",
+      "EVIDENCE": "divida congelada; classe NEW_PERSONAL_DATA_FIELD_IN_PUBLIC_OUTPUT executavel, com 37 nomes de campo e provas de mordida e de falso positivo (ORCID fora da superficie publicada nao e achado).",
       "USER_FRICTION": "NONE",
       "DEV_FRICTION": "LOW",
       "AUTOMATABLE": true,
@@ -463,15 +464,28 @@
     {
       "CONTROL_ID": "SEC-020",
       "DOMAIN": "schema-governance",
-      "STATUS": "PARTIAL",
-      "SEVERITY": "medium",
+      "STATUS": "PROVED",
+      "SEVERITY": "low",
       "OWNER": "supabase/migrations",
-      "EVIDENCE": "12 tabelas com RLS live e sem declaracao de RLS nas migrations; 67 tabelas live contra 66 criadas nas migrations",
+      "EVIDENCE": "security/drift_db.py + censo diario. Medido: SECURITY_STATUS=SAFE, DRIFT_STATUS=DRIFT com 19 diferencas — 12 LIVE_MORE_RESTRICTIVE, 1 TABLE_ONLY_IN_LIVE (schema_migracao), 6 vistas sem security_invoker (latentes).",
       "USER_FRICTION": "NONE",
       "DEV_FRICTION": "LOW",
       "AUTOMATABLE": true,
       "BLOCKS_NEW_REGRESSION": true,
-      "NOTE": "a deriva foi no sentido seguro desta vez. O problema e que ninguem o sabia."
+      "NOTE": "a deriva deixou de ser invisivel. Alinhar repo e base viva continua por decidir: DRIFT DETECTED != FORCE LIVE TO MATCH REPO."
+    },
+    {
+      "CONTROL_ID": "SEC-021",
+      "DOMAIN": "database",
+      "STATUS": "PARTIAL",
+      "SEVERITY": "low",
+      "OWNER": "supabase (vistas)",
+      "EVIDENCE": "6 de 22 vistas de public sem security_invoker; nenhuma alcancavel por anon hoje",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "latente: uma vista sem security_invoker le com os direitos de quem a criou. A PORTA LATERAL NAO PRECISA DE ESTAR ABERTA PARA EXISTIR."
     }
   ],
   "PRIORITIES": {
@@ -479,13 +493,13 @@
     "P0_CANDIDATE": 0,
     "P0_STATUS": "DISPROVED_BY_LIVE_METADATA",
     "P1": 5,
-    "P2": 5,
+    "P2": 4,
     "P3": 0,
-    "P2_CHANGE": "+1 (SEC-020 deriva entre o schema do repositorio e a base viva)"
+    "P2_CHANGE": "SEC-020 desce de medium para low (medido e monitorizado); SEC-021 entra como low"
   },
   "RATCHET": {
     "BASELINE_COMMIT": "baaddcf191778e01297427e7a0b167d66c9c4354",
-    "KNOWN_FINDINGS": 12,
+    "KNOWN_FINDINGS": 28,
     "GATE_NAME": "SECURITY CHECK",
     "INDEPENDENT_OF": [
       "COLLECTION CHECK",
@@ -516,7 +530,11 @@
     "WHY_ADDED": "Art.25 do GDPR; testavel por maquina (o contrato canonico nomeia os campos); valor alto, friccao baixa",
     "GDPR_NOTE": "Art.32(1)(d) exige teste regular da eficacia das medidas. O ratchet e esse processo, e corre a cada commit.",
     "NOT_A_BLOCKER": "divida conhecida (SSO, WAF, headers herdados) nunca bloqueia; so regressao nova",
-    "NOTE_ON_NEW_TABLE_WITHOUT_RLS": "a classe le o repositorio. O censo live de 2026-09-09 mostrou que o repositorio nao e a autoridade: complementar com o censo de metadados."
+    "NOTE_ON_NEW_TABLE_WITHOUT_RLS": "a classe le o repositorio. O censo live de 2026-09-09 mostrou que o repositorio nao e a autoridade: complementar com o censo de metadados.",
+    "IMPLEMENTADO": "security/ratchet.py",
+    "CORRE_EM": ".github/workflows/security-check.yml",
+    "PROVAS_QUE_ATACAM_O_PORTAO": 19,
+    "NOVA_CLASSE_S1": "WORKFLOW_YAML_INVALIDO — um workflow que nao analisa nao corre, e falha com zero jobs"
   },
   "VERDICT": {
     "S0_MEASUREMENT": "PASS",
@@ -531,9 +549,15 @@
     "S1_STARTED": "NO",
     "S0_P0M1": "PASS",
     "P0_DISPROVED_BY_LIVE_METADATA": "YES",
-    "S0_P0M2_REQUIRED": "NO"
+    "S0_P0M2_REQUIRED": "NO",
+    "S1": "PARTIAL",
+    "S1_RAZAO": "preview protection e as definicoes do GitHub exigem accao administrativa; tudo o resto implementado e provado",
+    "SECURITY_CHECK": "ACTIVE",
+    "LIVE_DB_DRIFT": "MONITORED",
+    "SECURITY_RATCHET": "EXECUTABLE",
+    "S2_READY": "YES"
   },
-  "REVISION": "S0-P0M1 live metadata census",
+  "REVISION": "S1 low-friction hardening",
   "REVISED_AT": "2026-09-09",
   "STANDARDS": [
     {
@@ -960,6 +984,22 @@
       "CURRENT_STATUS": "PARTIAL",
       "PHASE": "NOW",
       "NEXT_ACTION": "tornar o censo de metadados recorrente e comparar live contra migrations; a deriva vira sinal, nao surpresa"
+    },
+    {
+      "CONTROL_ID": "SEC-021",
+      "TOPIC": "view-security-invoker",
+      "ASVS_5_0_0": [
+        "V8 Authorization"
+      ],
+      "OWASP_TOP10_2025": [
+        "A01:2025 Broken Access Control"
+      ],
+      "NIST_SSDF_1_1": [],
+      "GDPR": [],
+      "WHY_RELEVANT": "caminho a volta da RLS das tabelas que a vista le",
+      "CURRENT_STATUS": "PARTIAL",
+      "PHASE": "BEFORE_REAL_USERS",
+      "NEXT_ACTION": "ligar security_invoker nas 6 vistas quando houver politicas RLS a respeitar"
     }
   ],
   "MEASURED_LIVE_SUPABASE": {
@@ -1029,5 +1069,91 @@
       "severity": "low para exposicao (a deriva foi no sentido seguro), medium para governanca"
     },
     "VERDICT": "P0_CANDIDATE = DISPROVED_BY_LIVE_METADATA"
+  },
+  "MEASURED_S1": {
+    "MEASURED_AT": "2026-09-09",
+    "SECURITY_CHECK": {
+      "workflow": ".github/workflows/security-check.yml",
+      "triggers": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "offline": true,
+      "duracao_aprox_s": 40,
+      "passos": 7,
+      "passos_saltados_em_silencio": 0,
+      "independente_de": [
+        "COLETA CHECK",
+        "SYSTEM MAP CHECK"
+      ]
+    },
+    "DEEP_CHECKS": {
+      "rls-censo-metadados": "schema/migrations + diario 04:17 UTC",
+      "regressao-de-navegador": "vercel.json + italia-portale/client/**"
+    },
+    "SUPERFICIE_PUBLICA": {
+      "dono": "security/superficie_publica.py",
+      "ficheiros": 87,
+      "bytes": 30395915,
+      "validado_contra": "evidencia HTTP da S0 (publicados 200, excluidos 404)"
+    },
+    "RATCHET": {
+      "programa": "security/ratchet.py",
+      "baseline": "security/ratchet-baseline.json",
+      "chaves_de_divida_congeladas": 28,
+      "classes": [
+        "NEW_PULL_REQUEST_TARGET",
+        "NEW_WRITE_ALL_PERMISSION",
+        "WORKFLOW_SEM_PERMISSIONS",
+        "SELF_HOSTED_EM_EVENTO_NAO_CONFIAVEL",
+        "WORKFLOW_YAML_INVALIDO",
+        "NEW_PERSONAL_DATA_FIELD_IN_PUBLIC_OUTPUT",
+        "NEW_PUBLIC_ENGINE_EXPOSURE",
+        "NEW_OWN_SOURCE_MAP_PUBLISHED",
+        "NEW_SENSITIVE_PATH_PUBLISHED",
+        "NEW_TABLE_WITHOUT_RLS"
+      ]
+    },
+    "PROVAS": {
+      "tests/test_security_ratchet.py": 19,
+      "tests/test_security_secret_shapes.py": 21,
+      "tests/test_security_drift_db.py": 11,
+      "total": 51
+    },
+    "CABECALHOS": {
+      "antes": [
+        "HSTS (plataforma)",
+        "X-Content-Type-Options",
+        "Referrer-Policy"
+      ],
+      "acrescentados": [
+        "Content-Security-Policy: frame-ancestors 'none'",
+        "X-Frame-Options: DENY",
+        "Permissions-Policy (14 recursos)"
+      ],
+      "provado_em": "Chromium real, 5 paginas + controlo positivo de iframe + controlo negativo",
+      "csp_completa": "NAO — script inline em 2 paginas, style inline em todas, data: URI, babel-standalone. BREAKAGE_RISK=HIGH",
+      "cors": "inalterado: o portal nao faz pedido cross-origin, mas a linha do URL canonico do System Map trabalha em paralelo"
+    },
+    "GOVERNANCA": {
+      "CODEOWNERS": ".github/CODEOWNERS, dono @lucianodalondon-sys (o dono real do repo)",
+      "dependabot": ".github/dependabot.yml, so github-actions (unico ecossistema que existe)",
+      "rulesets": "MEDIDO: /rulesets devolve [] — 0 de 85 ramos protegidos",
+      "codeql": "UNKNOWN — a API responde 403 atraves do proxy; nao criado workflow para nao competir com um Default Setup possivel",
+      "secret_scanning": "UNKNOWN — 403",
+      "push_protection": "UNKNOWN — 403"
+    },
+    "PREVIEW_PROTECTION": {
+      "antes": "tudo desligado",
+      "depois": "tudo desligado — NAO alterado",
+      "porque": "system-map-deploy-verify.yml faz fetch anonimo ao URL de preview do commit (system-map/scripts/verificar_deploy.py). Ligar Vercel Authentication devolveria a pagina de login e partiria esse portao em todos os ramos. Requer primeiro um Protection Bypass for Automation ligado a esse workflow.",
+      "estado": "ADMIN_ACTION_REQUIRED com pre-requisito provado"
+    },
+    "BACKUP": {
+      "estado": "UNKNOWN — a API de gestao do Supabase nao e alcancavel daqui; nao inventar numeros"
+    },
+    "INCIDENTE": "security/INCIDENTE.md — uma pagina, 5 casos, contencao primeiro",
+    "CORRECCAO_DA_S0": "a S0 declarou 15/15 workflows com permissions explicito. Eram 14/15: banco-descartavel.yml nunca teve o bloco. Corrigido com contents: read."
   }
 }
