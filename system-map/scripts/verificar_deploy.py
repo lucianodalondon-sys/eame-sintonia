@@ -55,6 +55,30 @@ ESPERA_S = int(os.environ.get("ESPERA_S", "25"))
 SUSPEITO = ("TOKEN", "SECRET", "KEY", "PASSWORD", "PASSWD", "CREDENTIAL")
 
 
+# ── O QUE ESTE PORTAO AINDA NAO CONSEGUE PROVAR, DECLARADO ──────────────────
+# Mesmo formato de `coleta/derivacao_forward.py`: (NOME, O_QUE_FALTA). O censo
+# dos buracos le-o por AST e o mapa desenha-o. Ele vive AQUI porque este e o
+# dono, do lado Python, da pergunta «o que esta servido esta actual?» — e a
+# consulta que a tela faz ao GitHub e o unico passo dessa pergunta que ainda
+# nao foi provado.
+GAPS = (
+    ("LIVE_HEAD_LOOKUP_NEEDS_SERVER_SIDE_READONLY_PROXY",
+     "A tela pergunta ao GitHub qual e a cabeca da linha, e essa chamada tem de "
+     "partir do browser SEM CREDENCIAL. Foi medido o que se conseguiu medir: o "
+     "repositorio e publico (`private: false`) e `api.github.com` devolve "
+     "`Access-Control-Allow-Origin: *`. O que NAO se conseguiu medir e a "
+     "chamada ANONIMA: todo o HTTPS do contentor onde isto foi feito atravessa "
+     "um proxy que injecta autenticacao, e a resposta ao browser real veio com "
+     "`x-ratelimit-limit: 5000` — o limite de quem se identifica, nunca os 60 "
+     "de quem nao se identifica. REPO PUBLICO E CORS ABERTO NAO SAO O MESMO QUE "
+     "PEDIDO ANONIMO ACEITE. A arquitetura nao fica insegura por isto: falhando "
+     "a chamada, a frescura cai para UNKNOWN e a tela fica BRANCA com o motivo. "
+     "Fecha-se de duas maneiras — abrindo o preview numa rede sem proxy, ou "
+     "pondo uma funcao server-side READ-ONLY a fazer a consulta. NENHUMA das "
+     "duas foi feita aqui, e credencial no browser nao e uma terceira."),
+)
+
+
 def pedir(url: str, autenticado: bool = False, timeout: int = 20):
     req = urllib.request.Request(url, headers={
         "Accept": "application/vnd.github+json" if autenticado else "application/json",

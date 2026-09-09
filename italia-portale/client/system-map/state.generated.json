@@ -757,6 +757,7 @@
     "handoff": [
       "handoff/SYSTEM-MAP-FRESHNESS-V1.md",
       "handoff/SYSTEM-MAP-SM-P1.md",
+      "handoff/SYSTEM-MAP-SM-P1R.md",
       "handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json",
       "handoff/paused-v2/MANIFEST.md",
       "handoff/paused-v2/MANIFESTO.json",
@@ -1796,9 +1797,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-freshness-v1",
-    "HEAD": "070d944953ce97f8a718092edf0c18fef94eceeb",
-    "GENERATED_AT": "2026-09-09T01:45:28+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d68926ca84aa9c3e1ab065d6cbb4c2eb38ba09bf2da1fdbfc3be07bb2d2a1fd4"
+    "HEAD": "8b5e1a40f8abddbf293eb4846789eaee9b283417",
+    "GENERATED_AT": "2026-09-09T02:00:09+00:00",
+    "SOURCE_TREE_FINGERPRINT": "522211a6f2a6f383e4d82e066dbbfdffab8fecb156af3341f0d3bc437afd79d1"
   },
   "FAMILIES": [
     {
@@ -15812,7 +15813,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-freshness-v1",
-        "HEAD 070d944953ce97f8a718092edf0c18fef94eceeb"
+        "HEAD 8b5e1a40f8abddbf293eb4846789eaee9b283417"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -28144,13 +28145,13 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 699,
+  "UNCLAIMED_FILES_COUNT": 700,
   "OWNERSHIP_CONFLICTS": [],
   "BURACOS": {
     "COUNTS": {
-      "buracos": 8,
-      "nomes_distintos": 8,
-      "em_codigo": 5,
+      "buracos": 9,
+      "nomes_distintos": 9,
+      "em_codigo": 6,
       "em_provas": 3,
       "faltas_medidas": 5
     },
@@ -28159,6 +28160,7 @@
       "CHANNEL_IDENTITY_NOT_RESOLVED",
       "GAP_DECLARADO",
       "LINEAGE_PROOF_GAP",
+      "LIVE_HEAD_LOOKUP_NEEDS_SERVER_SIDE_READONLY_PROXY",
       "RAW_FORWARD_NAO_EMITE",
       "READY_NAO_TEM_DONO",
       "STRUCTURED_SEM_DONO_LIGADO",
@@ -28234,6 +28236,13 @@
         "ESTADO": null
       },
       {
+        "NOME": "LIVE_HEAD_LOOKUP_NEEDS_SERVER_SIDE_READONLY_PROXY",
+        "ONDE": "system-map/scripts/verificar_deploy.py",
+        "LINHA": 64,
+        "FORMA": "tuplo GAPS",
+        "O_QUE_FALTA": "A tela pergunta ao GitHub qual e a cabeca da linha, e essa chamada tem de partir do browser SEM CREDENCIAL. Foi medido o que se conseguiu medir: o repositorio e publico (`private: false`) e `api.github.com` devolve `Access-Control-Allow-Origin: *`. O que NAO se conseguiu medir e a chamada ANONIMA: todo o HTTPS do contentor onde isto foi feito atravessa um proxy que injecta autenticacao, e a resposta ao browser real veio com `x-ratelimit-limit: 5000` — o limite de quem se identifica, nunca os 60 de quem nao se identifica. REPO PUBLICO E CORS ABERTO NAO SAO O MESMO QUE PEDIDO ANONIMO ACEITE. A arquitetura nao fica insegura por isto: falhando a chamada, a frescura cai para UNKNOWN e a tela fica BRANCA com o motivo. Fecha-se de duas maneiras — abrindo o preview numa rede sem proxy, ou pondo uma funcao server-side READ-ONLY a fazer a consulta. NENHUMA das duas foi feita aqui, e credencial no browser nao e uma terceira."
+      },
+      {
         "NOME": "RAW_FORWARD_NAO_EMITE",
         "ONDE": "coleta/derivacao_forward.py",
         "LINHA": 153,
@@ -28273,7 +28282,7 @@
     "edges_proven": 554,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1350,
+    "files_tracked": 1351,
     "files_covered": 651,
     "files_code_unclaimed": 0
   }
