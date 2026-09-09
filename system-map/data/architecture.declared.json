@@ -1653,13 +1653,15 @@
       "name": "Publicador do System Map no deploy",
       "territory": "Z-PROVA",
       "kind": "gate",
-      "what": "Corre no BUILD: regera o mapa pela cadeia que o CI ja usa, guarda o veredito do validador, e escreve qual commit esta REALMENTE implantado — e depois do deploy confere, contra o URL publico, se aquele commit foi mesmo publicado.",
-      "why_here": "O commit implantado nao pode viver num ficheiro commitado: gera-se com o HEAD A, commita-se, o commit passa a B, e o ficheiro nasce um commit atras de si mesmo. GENERATED != DEPLOYED, e so o build sabe o segundo.",
+      "what": "Corre no BUILD: regera o mapa pela cadeia que o CI ja usa, guarda o veredito do validador, e escreve qual commit esta REALMENTE implantado — depois do deploy confere, contra o URL publico, se aquele commit foi mesmo publicado, e antes da promocao decide se este deployment pode ficar atras do endereco fixo do produto.",
+      "why_here": "O commit implantado nao pode viver num ficheiro commitado: gera-se com o HEAD A, commita-se, o commit passa a B, e o ficheiro nasce um commit atras de si mesmo. GENERATED != DEPLOYED, e so o build sabe o segundo. E porque o projecto Vercel serve o portal inteiro, promover o mapa promove o site: quem publica e quem tem de provar que o resto nao regrediu. UMA AUTORIDADE DE PUBLICACAO, e nao tres branches a competir pelo mesmo alias.",
       "departments": [
         "ENGENHARIA"
       ],
       "files": [
+        "system-map/CANONICAL-PUBLICATION.json",
         "system-map/scripts/CADEIA-DO-MAPA.json",
+        "system-map/scripts/portao_da_promocao.py",
         "system-map/scripts/publicar_no_deploy.mjs",
         "system-map/scripts/verificar_deploy.py"
       ],

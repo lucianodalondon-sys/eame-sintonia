@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-url-v1",
-    "HEAD": "78e46a1d352cce18f7097755dd5a73ed1b9d9362",
-    "GENERATED_AT": "2026-09-09T02:24:03+00:00",
-    "SOURCE_TREE_FINGERPRINT": "0e958497cb73ba5ab71a154915182e60e6fb37dadb8e8cd1fbfd202f4e3e4362"
+    "HEAD": "63b3906313359b72bb948ce203f83b95a2767378",
+    "GENERATED_AT": "2026-09-09T02:37:46+00:00",
+    "SOURCE_TREE_FINGERPRINT": "35869d0da346970e648a7f42c38692a0c19a77b6b854193f9d0d59e8dcad2315"
   },
   "FILES": [
     {
@@ -8675,6 +8675,13 @@
       "code_dir": true
     },
     {
+      "path": "system-map/CANONICAL-PUBLICATION.json",
+      "sha": "ce97c2bd98bee7d67dcdb3eb02e9be792a36dbff",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "system-map/README.md",
       "sha": "bf05dd9ff14301ad12fff69006372a82c43b4b86",
       "ext": ".md",
@@ -8718,7 +8725,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "14193a891523ab30de0a65f7ea82173d0eef2d5c",
+      "sha": "27a95d9bb165ed28b54efb0784edf65c98922874",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8852,6 +8859,13 @@
     {
       "path": "system-map/scripts/pente_fino_da_coleta.py",
       "sha": "7c6f8bd541be3e5aef7aaf3df2514af423f14928",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/portao_da_promocao.py",
+      "sha": "6885ec9396be439ef2e4a9d35864a1e66ad9d07b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26831,6 +26845,17 @@
       }
     },
     {
+      "from_file": "system-map/scripts/portao_da_promocao.py",
+      "to_file": "system-map/CANONICAL-PUBLICATION.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/portao_da_promocao.py",
+        "line": 137,
+        "snippet": "open(CONTRATO, 'leitura')  # CONTRATO = system-map/CANONICAL-PUBLICATION.json"
+      }
+    },
+    {
       "from_file": "system-map/scripts/publicar_no_deploy.mjs",
       "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
       "type": "READS",
@@ -32939,10 +32964,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1358,
-    "files_readable": 510,
-    "files_code_dir": 563,
-    "file_edges": 2087,
+    "files_tracked": 1360,
+    "files_readable": 511,
+    "files_code_dir": 565,
+    "file_edges": 2088,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },
