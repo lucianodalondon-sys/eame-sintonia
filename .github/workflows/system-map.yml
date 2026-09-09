@@ -59,6 +59,19 @@ jobs:
       # Sem dependências. O scanner usa só a biblioteca padrão, de propósito:
       # um mapa de arquitetura que depende de pacote de terceiro para ser
       # gerado tem uma dependência que o próprio mapa não consegue explicar.
+      # ⚠️ SEM `pdftotext`, VARIOS PASSOS ABAIXO PASSAM SEM MEDIR.
+      # Medido nesta arvore, com a ferramenta retirada do PATH:
+      #   tests/test_preservar_derivado.py  -> OK (skipped=2)
+      #   provas/o_executor_conta_se.py     -> PASS, saida byte a byte igual
+      # Os casos de PDF ficavam permanentemente pulados neste workflow — o que
+      # corre em TODO push — e um pulo silencioso tem a cor do verde.
+      # Instalar custa segundos; nao instalar custa a confianca nos passos.
+      - name: 0 · a ferramenta de texto existe
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y poppler-utils
+          pdftotext -v
+
       - name: 1 · regerar o mapa a partir desta árvore
         run: |
           python3 system-map/scripts/scan_repo.py
@@ -172,7 +185,14 @@ jobs:
       # continuem a declarar o MESMO contrato, e que ele tenha um dono so.
       # Ela NAO falha por nao haver consumidor — isso e um buraco declarado,
       # e o trabalho dela e medi-lo, nao pinta-lo de verde.
-      - name: 4p · a fronteira tem um contrato, um dono, e a lei bate com o codigo
+      # Ele RECUSA-SE a correr sem `pdftotext` — antes passava sem a
+      # ferramenta, medindo os derivados ja em arvore como REUSED e chamando
+      # a isso «um executor REAL». Com o passo 0 acima, a recusa nunca chega
+      # a ser precisa aqui, e e essa a intencao.
+      - name: 4p · o executor conta-se, e a lingua que ele fala e a comum
+        run: python3 provas/o_executor_conta_se.py
+
+      - name: 4q · a fronteira tem um contrato, um dono, e a lei bate com o codigo
         run: python3 provas/a_fronteira_da_coleta.py
 
       - name: 5 · o que vai ser publicado existe e é servível

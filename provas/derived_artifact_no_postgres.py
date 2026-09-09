@@ -472,9 +472,22 @@ def cenarios(banco):
 def main():
     url = os.environ.get("BANCO_DESCARTAVEL_URL", "")
     if not url:
-        print("BANCO_DESCARTAVEL_URL nao definido — esta prova so corre no "
+        print("BANCO_DESCARTAVEL_URL nao definido · NOT_RUN — esta prova so corre no "
               "workflow banco-descartavel.yml.")
-        return 0
+        # ⚠️ NOT_RUN NAO E PASS, E O CODIGO DE SAIDA TEM DE O DIZER.
+        #
+        # Isto devolvia 0. Sem a variavel de ambiente a prova nao aplicava
+        # migration nenhuma, nao falava com banco nenhum, e saia com o codigo
+        # do sucesso — de modo que um workflow a que alguem tirasse o bloco
+        # `env:` ficava verde para sempre sem nunca ter tocado no Postgres.
+        #
+        #     UM TESTE QUE PASSA PORQUE NAO CONSEGUIU MEDIR
+        #     E PIOR DO QUE TESTE NENHUM.
+        #
+        # Nao vira FAIL: nao ha defeito nenhum provado. Vira NOT_RUN, que e uma
+        # terceira coisa, com o codigo de saida 2 — o mesmo que
+        # `provas/a_autoridade_da_fonte.py` ja usa. Uma casa, um vocabulario.
+        return 2
     banco = Banco(url)
     for nome in MIGRACOES:
         with open(os.path.join(RAIZ, "supabase", "migrations", nome),

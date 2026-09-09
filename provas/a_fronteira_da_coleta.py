@@ -116,6 +116,24 @@ def _grep(padrao, pastas):
         ["grep", "-rnE", "--include=*.py", "--include=*.mjs", "--include=*.js",
          "--include=*.yml", "--include=*.sh", padrao] + list(pastas),
         cwd=RAIZ, capture_output=True, text=True)
+    # ⚠️ O CODIGO DE SAIDA DO `grep` NAO PODE SER IGNORADO.
+    # 0 = achou · 1 = nao achou · 2+ = NAO CONSEGUIU PROCURAR (pasta que nao
+    # existe, padrao invalido, grep ausente). A primeira versao devolvia `[]`
+    # nos tres casos, e um censo que nao conseguiu procurar imprimia
+    # «PRODUTORES 0 · CONSUMIDORES 0» com a mesma cara de quem procurou.
+    #
+    #     NAO ACHOU != NAO CONSEGUIU PROCURAR.
+    #     UNKNOWN VESTIDO DE ZERO E A MENTIRA MAIS BARATA QUE HA.
+    #
+    # Este proprio ficheiro ja escreveu, num comentario, que uma sintaxe errada
+    # lhe devolveu 0 produtores — e o conserto de entao foi o `-E`, nao olhar
+    # para o codigo de saida. A classe ficou aberta ate um red team a apontar.
+    # Rebenta, e diz o que nao conseguiu fazer.
+    if r.returncode > 1:
+        raise SystemExit(
+            "RECUSADO: o grep nao conseguiu procurar (codigo %d) — padrao %r, "
+            "pastas %s. Um censo que nao mediu nao pode imprimir zero.\n%s"
+            % (r.returncode, padrao, list(pastas), r.stderr.strip()[:300]))
     return [l for l in r.stdout.splitlines() if l.strip()]
 
 
@@ -164,8 +182,19 @@ def main():
     #
     # `pedido/pedido.py` declara-o como estado legal de um pedido, pela
     # mesma razao, e tambem nao e um segundo dono.
-    outros = [l for l in _grep(r'.ESTADO.[[:space:]]*:[[:space:]]*.PRONTO_PARA_INTELIGENCIA',
-                               PASTAS_DA_COLETA)
+    # Tres formas de escrever a mesma coisa, e nao uma. Um red team mostrou
+    # que a versao anterior so via o literal de dicionario
+    # (`"ESTADO": "PRONTO..."`), e deixava passar `r["ESTADO"] = "PRONTO..."`,
+    # `d.update(ESTADO=...)` e um `setdefault`.
+    #
+    # ⚠️ E CONTINUA A NAO SER PROVA DE AUSENCIA. Quem quiser mesmo montar um
+    # segundo dono consegue escapar a qualquer regex — com uma constante, com
+    # uma chave montada por concatenacao. Isto apanha o descuido, que e o que
+    # acontece de facto; nao apanha o disfarce, e nao promete apanhar.
+    outros = [l for l in _grep(
+                  r'ESTADO.{0,4}[:=].{0,4}.PRONTO_PARA_INTELIGENCIA'
+                  r'|ESTADO[[:space:]]*=[[:space:]]*.PRONTO_PARA_INTELIGENCIA',
+                  PASTAS_DA_COLETA)
               if not l.startswith('admissao/admissao.py')]
     caso("F3_so_o_dono_constroi_o_registo_READY",
          not outros,

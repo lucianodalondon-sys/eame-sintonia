@@ -19,9 +19,26 @@ def amostra(nome):
         return json.load(f)
 
 
+# A regua mudou de gaveta em `0bfac81d` («regua que carimba nao e regua que
+# mede — e agora sao duas gavetas») e este ficheiro ficou a apontar para a
+# gaveta antiga. Quatro casos morriam em `FileNotFoundError`, e um erro de
+# caminho parece-se com uma regra que sumiu.
+#
+#     FICHEIRO NAO ENCONTRADO != REGRA NAO EXISTE.
+#
+# Se ela voltar a mudar de sitio, isto tem de rebentar a dizer QUE ficheiro
+# falta — e nao devolver texto vazio, que faria os `assertIn` passarem a
+# procurar dentro de nada.
+REGUA = os.path.join(ROOT, 'medidas', 'REGRA-DE-COLETA-EXTERNA-EAME.md')
+
+
 def regra():
-    with open(os.path.join(ROOT, 'docs', 'regras', 'REGRA-DE-COLETA-EXTERNA-EAME.md'),
-              encoding='utf-8') as f:
+    if not os.path.exists(REGUA):
+        raise FileNotFoundError(
+            'a regua da coleta externa nao esta em %s. Ela ja mudou de gaveta '
+            'uma vez; se mudou outra, e o caminho aqui que tem de a seguir.'
+            % os.path.relpath(REGUA, ROOT))
+    with open(REGUA, encoding='utf-8') as f:
         return f.read()
 
 

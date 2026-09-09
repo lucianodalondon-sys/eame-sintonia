@@ -371,14 +371,50 @@ def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:
                    motivo=motivo, evidencia=ev, corrida=corrida)
 
 
+class LivroIlegivel(Exception):
+    """O livro existe e nao se conseguiu ler. NAO e um livro vazio."""
+
+
 def escrever(decisoes: list) -> int:
-    """Junta ao livro; nunca reescreve o que ja estava la."""
+    """Junta ao livro; nunca reescreve o que ja estava la.
+
+    ⚠️ ESTA FRASE JA FOI FALSA, E DE MANEIRA DESTRUTIVA.
+
+    O `except json.JSONDecodeError: pass` engolia a falha de leitura, `d`
+    ficava `{"DECISOES": []}`, e a linha seguinte ESCREVIA esse dicionario por
+    cima do ficheiro. Um livro truncado — um `write` interrompido, um disco
+    cheio, um merge mal resolvido — era lido como zero decisoes e substituido
+    pelo lote da vez. Reproduzido nesta arvore:
+
+        813 decisoes  ->  livro truncado  ->  escrever([1 decisao])
+        813 decisoes  ->  1
+
+    e a funcao devolvia `1` como se fosse o total verdadeiro, de modo que nem
+    quem chamou ficava a saber.
+
+        FICHEIRO ILEGIVEL != FICHEIRO VAZIO.
+        UNKNOWN NASCIDO COMO ZERO, E AQUI COM PODER DE APAGAR.
+
+    Agora recusa-se. Um livro que nao se consegue ler e um caso para uma
+    pessoa olhar — nunca para uma maquina resolver deitando fora o que nao
+    entendeu. O ficheiro fica intacto: quem levanta esta excecao nao escreveu
+    nada.
+    """
     d = {"DECISOES": []}
     if LIVRO.is_file():
         try:
             d = json.loads(LIVRO.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            pass
+        except json.JSONDecodeError as e:
+            raise LivroIlegivel(
+                "%s existe e nao e JSON valido (%s). NAO foi escrito nada: um "
+                "livro ilegivel nao e um livro vazio, e continuar aqui "
+                "apagaria as decisoes que ja la estavam. Repare o ficheiro, ou "
+                "arquive-o com outro nome, antes de voltar a correr."
+                % (LIVRO, e)) from e
+        if not isinstance(d, dict) or not isinstance(d.get("DECISOES", []), list):
+            raise LivroIlegivel(
+                "%s tem JSON valido mas nao a forma do livro (esperava um "
+                "objecto com a lista DECISOES). NAO foi escrito nada." % LIVRO)
     d.setdefault("DECISOES", []).extend(asdict(x) for x in decisoes)
     LIVRO.parent.mkdir(parents=True, exist_ok=True)
     LIVRO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n",

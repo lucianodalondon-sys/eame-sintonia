@@ -74,6 +74,18 @@ BACKED, PARCIAL_SO, SEM_CHAVE, NOMEADA_AUSENTE = (
 # A chave arbitra, mas so porque `NULLS NOT DISTINCT` faz o NULL da coluna
 # omitida comparar igual. Nao e defeito — e uma dependencia que merece nome.
 POR_NND = 'BACKED_VIA_NULLS_NOT_DISTINCT'
+# ⚠️ NAO SE LEU A LISTA DE COLUNAS — e isso NAO E «esta coberto».
+# Um red team apontou que a primeira versao marcava este caso como BACKED e o
+# somava ao verde. Reproduzido: um `insert into public.organizacao select ...
+# on conflict do nothing` — o MESMO defeito que esta prova veio caçar, escrito
+# na forma `select` em vez de `values` — saia daqui classificado como coberto.
+#
+#     UNKNOWN != ZERO.  E UNKNOWN NAO ENTRA NA CONTA DO VERDE.
+#
+# Continua a nao FALHAR a prova, porque acusar sem ter medido e pior. Passa a
+# ter balde proprio, contado e impresso, para que ninguem leia o total como
+# cobertura.
+NAO_LIDO = 'UNKNOWN_COLUMNS_NOT_READ'
 
 # `on conflict (a, b)` · `on conflict on constraint nome` · `on conflict do ...`
 #
@@ -208,7 +220,7 @@ def achados():
                 chave = '(nu) colunas=%s' % (
                     ', '.join(sorted(cols_ins)) if cols_ins else 'NAO LIDAS')
                 if cols_ins is None:
-                    v = BACKED          # nao se leu a lista: nao se acusa
+                    v = NAO_LIDO        # nao se leu a lista: nao se acusa
                 elif any(k <= cols_ins for k in totais):
                     v = BACKED
                 elif any(k <= cols_ins for k in parciais):
@@ -248,15 +260,29 @@ FORMA_PARTIDA = """insert into public.organizacao (nome_canonico, tipo)
  values ('X', 'orgao_publico') on conflict do nothing returning id;
 """
 
+# A MESMA falta, na forma `select` — que a primeira versao desta prova nao via.
+# A mutacao tem de cobrir as duas: um mutante que so testa a forma que o
+# medidor ja sabe ler nao testa o medidor, testa o mutante.
+# ⚠️ SEM LISTA DE COLUNAS — e e ESSA a forma cega. A primeira tentativa de
+# mutante escrevia `insert into X (a, b) select ...`, que traz a lista e
+# portanto o medidor LE. Um mutante que so exercita o caminho que o medidor ja
+# sabe percorrer nao testa o medidor: testa o mutante.
+FORMA_PARTIDA_SELECT = """insert into public.organizacao
+ select nome, tipo from staging on conflict do nothing returning id;
+"""
+
 
 def a_mutacao_morde():
     """True se, com a forma partida no disco, o medidor a apanha."""
     try:
-        io.open(MUTANTE, 'w', encoding='utf-8').write(FORMA_PARTIDA)
-        maus = [a for a in achados()
-                if a[0].endswith('_mutacao_dedupe_TEMPORARIO.sql')
-                and a[4] == SEM_CHAVE]
-        return len(maus) == 1
+        io.open(MUTANTE, 'w', encoding='utf-8').write(
+            FORMA_PARTIDA + FORMA_PARTIDA_SELECT)
+        vistos = [a for a in achados()
+                  if a[0].endswith('_mutacao_dedupe_TEMPORARIO.sql')]
+        # A forma `values` tem de dar SEM_CHAVE. A forma `select` tem de dar,
+        # no minimo, NAO_LIDO — nunca BACKED, que era o veredito antigo.
+        return (len([a for a in vistos if a[4] == SEM_CHAVE]) == 1
+                and len([a for a in vistos if a[4] in (SEM_CHAVE, NAO_LIDO)]) == 2)
     finally:
         if os.path.exists(MUTANTE):
             os.remove(MUTANTE)
@@ -273,6 +299,9 @@ def main():
           % (len(todos), len({a[0] for a in todos})))
     print('  BACKED        %d' % len([a for a in todos if a[4] == BACKED]))
     print('  VIA_NND       %d' % len([a for a in todos if a[4] == POR_NND]))
+    nao_lidos = [a for a in todos if a[4] == NAO_LIDO]
+    print('  NAO_LIDO      %d   (lista de colunas ilegivel — nao e cobertura)'
+          % len(nao_lidos))
     print('  PARTIAL_ONLY  %d' % len(avisos))
     print('  UNBACKED      %d' % len(maus))
     print()
@@ -284,6 +313,11 @@ def main():
     for rel, linha, tab, chave, v in maus:
         print('  FALHA  %s:%d  %s (%s) — %s' % (rel, linha, tab, chave, v))
 
+    for rel, linha, tab, chave, v in nao_lidos:
+        print('  NAO_LIDO  %s:%d  %s — a lista de colunas nao se leu, e por isso'
+              ' esta clausula NAO foi verificada' % (rel, linha, tab))
+    if nao_lidos:
+        print()
     if maus:
         print()
         print('DEDUPE_TEM_CONSTRAINT=FAIL · %d clausula(s) que nao deduplicam nada.' % len(maus))
@@ -303,8 +337,11 @@ def main():
     print('  MUTACAO  a forma partida conhecida, escrita no disco, FOI APANHADA')
     print()
     print('DEDUPE_TEM_CONSTRAINT=PASS')
-    print('  o que isto prova: toda clausula `on conflict` desta arvore tem')
-    print('  uma chave unica DECLARADA NAS MIGRATIONS que a arbitra.')
+    print('  o que isto prova: das %d clausulas `on conflict` desta arvore,'
+          % len(todos))
+    print('  %d tem chave unica DECLARADA NAS MIGRATIONS que as arbitra, e %d'
+          % (len(todos) - len(nao_lidos), len(nao_lidos)))
+    print('  nao foram verificadas porque a lista de colunas nao se leu.')
     print('  o que NAO prova: que as colunas escolhidas sejam as certas, nem')
     print('  o estado de banco nenhum. Isto le o Git, e so o Git.')
     return 0
