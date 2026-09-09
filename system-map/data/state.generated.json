@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 21080,
-    "h": 4072
+    "h": 4394
   },
   "INVENTORY": {
     ".claude": [
@@ -1305,6 +1305,7 @@
       "system-map/data/rota-m2.observada.json",
       "system-map/scripts/censo_da_coleta.py",
       "system-map/scripts/censo_da_observabilidade.py",
+      "system-map/scripts/censo_da_topologia.py",
       "system-map/scripts/censo_das_derivacoes.py",
       "system-map/scripts/censo_das_estradas_it.py",
       "system-map/scripts/censo_de_identidade_it.py",
@@ -1789,8 +1790,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "68dfda6212b7bb857edb8d710e9d4bb08f176c29",
-    "GENERATED_AT": "2026-09-09T04:24:10+00:00"
+    "HEAD": "539644f67a8babf3ab633b204483c2a9c0169c26",
+    "GENERATED_AT": "2026-09-09T04:30:43+00:00"
   },
   "FAMILIES": [
     {
@@ -1800,7 +1801,7 @@
       "x": 260,
       "y": 60,
       "w": 13550,
-      "h": 3752,
+      "h": 4074,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -1817,7 +1818,7 @@
         "Z-REGRAS",
         "Z-MEDIDAS"
       ],
-      "count": 63
+      "count": 64
     },
     {
       "id": "F-ESPERA",
@@ -1826,7 +1827,7 @@
       "x": 10380,
       "y": 60,
       "w": 485,
-      "h": 3752,
+      "h": 4074,
       "zones": [
         "Z-ESPERA"
       ],
@@ -1839,14 +1840,14 @@
       "x": 11790,
       "y": 60,
       "w": 5380,
-      "h": 3752,
+      "h": 4074,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA",
         "Z-MOTOR",
         "Z-LINEAGE"
       ],
-      "count": 56
+      "count": 57
     },
     {
       "id": "F-ENTREGA",
@@ -1855,7 +1856,7 @@
       "x": 17390,
       "y": 60,
       "w": 3430,
-      "h": 3752,
+      "h": 4074,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -1877,7 +1878,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 1
     },
     {
@@ -1891,7 +1892,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 1
     },
     {
@@ -1906,7 +1907,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 2
     },
     {
@@ -1921,7 +1922,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 1
     },
     {
@@ -1936,7 +1937,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 2
     },
     {
@@ -1951,7 +1952,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 2
     },
     {
@@ -1965,7 +1966,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 2
     },
     {
@@ -1979,7 +1980,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 5
     },
     {
@@ -1994,7 +1995,7 @@
       "x": 5940,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 4
     },
     {
@@ -2010,7 +2011,7 @@
       "x": 6645,
       "y": 190,
       "w": 1235,
-      "h": 3582,
+      "h": 3904,
       "count": 13
     },
     {
@@ -2025,7 +2026,7 @@
       "x": 8180,
       "y": 190,
       "w": 1235,
-      "h": 3582,
+      "h": 3904,
       "count": 13
     },
     {
@@ -2040,7 +2041,7 @@
       "x": 9715,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 1
     },
     {
@@ -2055,7 +2056,7 @@
       "x": 10420,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 1
     },
     {
@@ -2071,8 +2072,8 @@
       "x": 11125,
       "y": 190,
       "w": 405,
-      "h": 3582,
-      "count": 4
+      "h": 3904,
+      "count": 5
     },
     {
       "id": "Z-REGUAS",
@@ -2087,7 +2088,7 @@
       "x": 11830,
       "y": 190,
       "w": 820,
-      "h": 3582,
+      "h": 3904,
       "count": 11
     },
     {
@@ -2102,7 +2103,7 @@
       "x": 12950,
       "y": 190,
       "w": 820,
-      "h": 3582,
+      "h": 3904,
       "count": 12
     },
     {
@@ -2118,8 +2119,8 @@
       "x": 14070,
       "y": 190,
       "w": 1235,
-      "h": 3582,
-      "count": 33
+      "h": 3904,
+      "count": 34
     },
     {
       "id": "Z-MOTOR",
@@ -2134,7 +2135,7 @@
       "x": 15605,
       "y": 190,
       "w": 820,
-      "h": 3582,
+      "h": 3904,
       "count": 8
     },
     {
@@ -2150,7 +2151,7 @@
       "x": 16725,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 4
     },
     {
@@ -2166,7 +2167,7 @@
       "x": 17430,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 3
     },
     {
@@ -2182,7 +2183,7 @@
       "x": 18135,
       "y": 190,
       "w": 820,
-      "h": 3582,
+      "h": 3904,
       "count": 7
     },
     {
@@ -2198,7 +2199,7 @@
       "x": 19255,
       "y": 190,
       "w": 405,
-      "h": 3582,
+      "h": 3904,
       "count": 5
     },
     {
@@ -2213,7 +2214,7 @@
       "x": 19960,
       "y": 190,
       "w": 820,
-      "h": 3582,
+      "h": 3904,
       "count": 11
     }
   ],
@@ -2554,7 +2555,7 @@
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
-        "C-PALAVRAS",
+        "C-SENSOR-COLETA",
         "C-TESTES",
         "V-FACEBOOK",
         "V-INSTAGRAM",
@@ -6430,7 +6431,8 @@
       "inbound": [
         "C-ADMISSAO",
         "C-CI-MAPA",
-        "C-PALAVRAS"
+        "C-PALAVRAS",
+        "C-SENSOR-COLETA"
       ],
       "outbound": [],
       "paises": {},
@@ -6456,6 +6458,48 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 14545,
+      "y": 1004
+    },
+    {
+      "id": "C-CENSO-TOPOLOGIA",
+      "name": "Censo da topologia da coleta",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Responde, cartao a cartao, as perguntas que se fazem diante de um cartao e que ninguem conseguia responder sem abrir o repositorio: quem te chama, estas na esteira ou es apoio, o que atravessa a tua aresta, e porque estas sozinho. Separa ENTRYPOINT de ALCANCADO POR UMA CORRIDA de CLI DOCUMENTADO de NINGUEM CORRE.",
+      "why_here": "O mapa responde «o que existe». Faltava responder «quem te chama» — e sem isso um modulo que so um humano corre, um que um workflow corre e um que ninguem corre tinham todos a mesma cara. NENHUM CHAMADOR != NINGUEM CORRE, e SER O ENTRYPOINT NAO E NAO TER CHAMADOR: as duas distincoes custaram uma medicao errada cada uma antes de este censo servir.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊞",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "system-map/scripts/censo_da_topologia.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CI-MAPA"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 14960,
       "y": 1004
     },
     {
@@ -6495,7 +6539,7 @@
         "C-COLETA-PUBLICA",
         "C-IDENTIDADE",
         "C-ORQUESTRADOR",
-        "C-PALAVRAS",
+        "C-SENSOR-COLETA",
         "C-TESTES"
       ],
       "paises": {},
@@ -6552,6 +6596,7 @@
         "C-CENSO-IDENTIDADE-IT",
         "C-CENSO-OBSERVABILIDADE",
         "C-CENSO-SEMANTICO-IT",
+        "C-CENSO-TOPOLOGIA",
         "C-ESTRADAS-IT",
         "C-FLUXO-NO-SECO",
         "C-MAPA-GERADOR",
@@ -6576,8 +6621,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14960,
-      "y": 1004
+      "x": 14130,
+      "y": 1326
     },
     {
       "id": "C-CI-PERSIST",
@@ -6723,7 +6768,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
+      "x": 14545,
       "y": 1326
     },
     {
@@ -6846,11 +6891,11 @@
       "outbound": [
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
-        "C-PALAVRAS",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
         "C-SCRAP-SOCIAL",
+        "C-SENSOR-COLETA",
         "C-TESTES"
       ],
       "paises": {},
@@ -7351,7 +7396,8 @@
       "outbound": [
         "C-PACOTE-CAMADAS",
         "C-PALAVRAS",
-        "C-RECEITAS"
+        "C-RECEITAS",
+        "C-SENSOR-COLETA"
       ],
       "paises": {
         "ESPANHA": 1
@@ -7982,7 +8028,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14545,
+      "x": 14960,
       "y": 1326
     },
     {
@@ -8173,8 +8219,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14960,
-      "y": 1326
+      "x": 14130,
+      "y": 1648
     },
     {
       "id": "C-FONTES-EU",
@@ -8550,7 +8596,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
+      "x": 14545,
       "y": 1648
     },
     {
@@ -8920,7 +8966,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14545,
+      "x": 14960,
       "y": 1648
     },
     {
@@ -9611,8 +9657,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14960,
-      "y": 1648
+      "x": 14130,
+      "y": 1970
     },
     {
       "id": "C-MAPA-GERADOR",
@@ -9696,7 +9742,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
+      "x": 14545,
       "y": 1970
     },
     {
@@ -9786,7 +9832,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14545,
+      "x": 14960,
       "y": 1970
     },
     {
@@ -9847,8 +9893,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14960,
-      "y": 1970
+      "x": 14130,
+      "y": 2292
     },
     {
       "id": "C-MAPA-VALIDADOR",
@@ -9899,7 +9945,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
+      "x": 14545,
       "y": 2292
     },
     {
@@ -9974,7 +10020,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14545,
+      "x": 14960,
       "y": 2292
     },
     {
@@ -10351,7 +10397,7 @@
       "territory": "Z-REGRAS",
       "kind": "contract",
       "what": "Os termos de busca, agrupados por cultura-problema, na lingua de quem trabalha no campo. Sao 103 palavras em dois ficheiros: 35 do censo de rotulos, todas italianas, e 68 do sensor, das quais 13 recortes de 17 sao da Italia.",
-      "why_here": "Buscar 'septoria wheat' na Italia devolve literatura internacional, nao a conversa tecnica de quem esta no campo — o que se procura e 'septoriosi del frumento'. E o CROP e o ISSUE de cada item saem DESTA consulta, nunca de leitura livre do titulo, e e isso que torna a linha auditavel.",
+      "why_here": "Buscar 'septoria wheat' na Italia devolve literatura internacional, nao a conversa tecnica de quem esta no campo — o que se procura e 'septoriosi del frumento'. E o CROP e o ISSUE de cada item saem DESTA consulta, nunca de leitura livre do titulo, e e isso que torna a linha auditavel.  ⚠️ DIVIDIDO EM 2026-09-09: este cartao carregava tambem `regras/sensor_coleta.py`, que NAO e uma regua — e um COLETOR. Ele importa `apify_pool`, fala HTTP por `urlopen`, e e corrido pelo workflow `apify-sensores.yml`. Tres responsabilidades num cartao chamado «as palavras que a busca digita»: um coletor, uma medicao e um censo. UM CARTAO COM TRES DONOS NAO TEM DONO.",
       "departments": [
         "TECNICO_CIENCIA",
         "DESENVOLVIMENTO_MERCADO"
@@ -10367,10 +10413,9 @@
       "family": "F-COLETA",
       "files": [
         "regras/rotulos_censo.py",
-        "regras/sensor_coleta.py",
         "regras/sensor_medir.py"
       ],
-      "file_count": 3,
+      "file_count": 2,
       "status": "PROVEN",
       "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
@@ -10378,11 +10423,7 @@
         "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json"
       ],
       "inbound": [
-        "C-APIFY-POOL",
-        "C-CI-COLETA",
-        "C-COLETA-BASE",
         "C-CORPUS",
-        "C-PROCEDENCIA",
         "C-ROTULOS"
       ],
       "outbound": [
@@ -10404,12 +10445,10 @@
       "vocabulario": {
         "papel": "BUSCA",
         "listas": [
-          "ATORES",
           "CANAL_HOBBY",
           "CANAL_PROFISSIONAL",
           "EVENTO",
           "INTERPRETACAO",
-          "LOTES",
           "LUGARES",
           "MARKETING",
           "NOTICIA",
@@ -10422,18 +10461,18 @@
           "SEM_ASSUNTO",
           "TERMOS"
         ],
-        "palavras": 482,
+        "palavras": 365,
         "por_lingua": {
-          "IT": 29,
-          "FR": 8,
-          "ES": 6,
-          "PT": 1
+          "IT": 4,
+          "FR": 2,
+          "PT": 1,
+          "ES": 1
         },
-        "sem_marca_de_lingua": 438,
-        "de_outro_pais": 14,
+        "sem_marca_de_lingua": 357,
+        "de_outro_pais": 3,
         "de_outro_pais_quais": {
-          "ES": 6,
-          "FR": 8
+          "ES": 1,
+          "FR": 2
         }
       },
       "nivel": "INTERNO",
@@ -10441,9 +10480,9 @@
         {
           "pasta": "data/samples/SENSOR-PILOT",
           "prova": {
-            "file": "regras/sensor_coleta.py",
-            "line": 355,
-            "snippet": "escreve em SAIDA"
+            "file": "regras/sensor_medir.py",
+            "line": 541,
+            "snippet": "escreve em PILOT"
           }
         }
       ],
@@ -10934,9 +10973,9 @@
         "C-MAPA-SCAN",
         "C-ORQUESTRADOR",
         "C-PADRAO-COLETA",
-        "C-PALAVRAS",
         "C-RECEITAS",
         "C-REGRA-COLETA",
+        "C-SENSOR-COLETA",
         "C-TESTES"
       ],
       "paises": {},
@@ -11040,8 +11079,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14960,
-      "y": 2292
+      "x": 14130,
+      "y": 2614
     },
     {
       "id": "C-PROVA-BIBLIA",
@@ -11108,7 +11147,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14130,
+      "x": 14545,
       "y": 2614
     },
     {
@@ -11168,6 +11207,7 @@
         "C-RASTRO",
         "C-RECEITAS",
         "C-SCRAP-LEIS",
+        "C-SENSOR-COLETA",
         "C-SUPABASE",
         "C-TESTES"
       ],
@@ -11211,7 +11251,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14545,
+      "x": 14960,
       "y": 2614
     },
     {
@@ -11269,8 +11309,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14960,
-      "y": 2614
+      "x": 14130,
+      "y": 2936
     },
     {
       "id": "C-PROVA-EXECUTOR-CONTA",
@@ -11318,7 +11358,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
+      "x": 14545,
       "y": 2936
     },
     {
@@ -11385,7 +11425,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14545,
+      "x": 14960,
       "y": 2936
     },
     {
@@ -11442,8 +11482,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14960,
-      "y": 2936
+      "x": 14130,
+      "y": 3258
     },
     {
       "id": "C-PROVA-MAPA-NAO-MENTE",
@@ -11532,7 +11572,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14130,
+      "x": 14545,
       "y": 3258
     },
     {
@@ -11603,7 +11643,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14545,
+      "x": 14960,
       "y": 3258
     },
     {
@@ -11656,8 +11696,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14960,
-      "y": 3258
+      "x": 14130,
+      "y": 3580
     },
     {
       "id": "C-PROVENIENCIA",
@@ -11904,7 +11944,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
+      "x": 14545,
       "y": 3580
     },
     {
@@ -12044,7 +12084,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14545,
+      "x": 14960,
       "y": 3580
     },
     {
@@ -12809,6 +12849,88 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 6705,
+      "y": 1648
+    },
+    {
+      "id": "C-SENSOR-COLETA",
+      "name": "Coletor dos sensores tecnicos · canal, video e fala",
+      "territory": "Z-REGRAS",
+      "kind": "engine",
+      "what": "Colhe o canal publico, os videos e a transcricao das identidades ja provadas do piloto de sensores. Fases: contratos (gratis, so o schema), canais, videos, transcricao.",
+      "why_here": "Estava dentro de `C-PALAVRAS`, um cartao de REGUA — e uma regua nao chama a Apify nem abre socket. Este modulo importa `apify_pool` (o dono unico da rotacao de chaves), fala HTTP por `urllib.request.urlopen`, e tem chamador de runtime a serio: `.github/workflows/apify-sensores.yml`. Estava na zona das reguas que CARIMBAM, e o que ele faz e COLHER. A prova do mapa `regua_que_carimba_nao_e_regua_que_mede` apanhava a consequencia disto sem conseguir nomear a causa.  ⚠️ E ELE FICA EM Z-REGRAS, que NAO e onde devia estar. O mapa amarra territorio a pasta (P2_PASTA_BATE_COM_MAPA), e este ficheiro vive em `regras/`. Move-lo para Z-ACOES exige mover o FICHEIRO para `coleta/` — uma mudanca de codigo real, com imports a seguir atras, e nao se faz de passagem no meio de um censo. Fica REGISTADO como rehome: `regras/sensor_coleta.py` -> `coleta/`. O cartao ja diz a verdade sobre o que ele e; a gaveta e que ainda nao.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "◎",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "regras/sensor_coleta.py"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-APIFY-POOL",
+        "C-CI-COLETA",
+        "C-COLETA-BASE",
+        "C-CORPUS",
+        "C-PROCEDENCIA"
+      ],
+      "outbound": [
+        "C-CENSO-SEMANTICO-IT",
+        "C-PROVA-COLETA"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ATORES",
+          "LOTES",
+          "TERMOS"
+        ],
+        "palavras": 117,
+        "por_lingua": {
+          "IT": 25,
+          "FR": 6,
+          "ES": 5
+        },
+        "sem_marca_de_lingua": 81,
+        "de_outro_pais": 11,
+        "de_outro_pais_quais": {
+          "ES": 5,
+          "FR": 6
+        }
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "data/samples/SENSOR-PILOT",
+          "prova": {
+            "file": "regras/sensor_coleta.py",
+            "line": 355,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 11185,
       "y": 1648
     },
     {
@@ -14426,8 +14548,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 14960,
-      "y": 3580
+      "x": 14130,
+      "y": 3902
     },
     {
       "id": "C-TRANSCRICAO",
@@ -15969,7 +16091,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-topology-census-v1",
-        "HEAD 68dfda6212b7bb857edb8d710e9d4bb08f176c29"
+        "HEAD 539644f67a8babf3ab633b204483c2a9c0169c26"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16588,13 +16710,13 @@
     },
     {
       "from": "C-APIFY-POOL",
-      "to": "C-PALAVRAS",
+      "to": "C-SENSOR-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Apify — a rota paga tem o seu codigo importado por As palavras que a busca digita. Provado por 1 linha de codigo.",
+      "reason": "Apify — a rota paga tem o seu codigo importado por Coletor dos sensores tecnicos · canal, video e fala. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "regras/sensor_coleta.py",
@@ -17073,7 +17195,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 404,
+          "line": 437,
           "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
         }
       ],
@@ -18565,13 +18687,13 @@
     },
     {
       "from": "C-CI-COLETA",
-      "to": "C-PALAVRAS",
+      "to": "C-SENSOR-COLETA",
       "type": "RUNS",
       "payload": "execucao",
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que disparam a coleta manda rodar As palavras que a busca digita. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que disparam a coleta manda rodar Coletor dos sensores tecnicos · canal, video e fala. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/apify-sensores.yml",
@@ -18775,6 +18897,24 @@
           "file": ".github/workflows/system-map.yml",
           "line": 105,
           "snippet": "python3 system-map/scripts/censo_semantico_it.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-CENSO-TOPOLOGIA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar Censo da topologia da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 113,
+          "snippet": "run: python3 system-map/scripts/censo_da_topologia.py"
         }
       ],
       "categoria": "CONTROL"
@@ -19746,24 +19886,6 @@
     },
     {
       "from": "C-COLETA-BASE",
-      "to": "C-PALAVRAS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por As palavras que a busca digita. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "regras/sensor_coleta.py",
-          "line": 63,
-          "snippet": "import coletor                 # noqa: E402  — porta única das rotas pagas"
-        }
-      ],
-      "categoria": "CODE"
-    },
-    {
-      "from": "C-COLETA-BASE",
       "to": "C-PROVA-FORWARD-CONTA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -19830,6 +19952,24 @@
           "file": "coleta/youtube_oficial.py",
           "line": 315,
           "snippet": "import coleta_checkpoint as cc"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-SENSOR-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por Coletor dos sensores tecnicos · canal, video e fala. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 63,
+          "snippet": "import coletor                 # noqa: E402  — porta única das rotas pagas"
         }
       ],
       "categoria": "CODE"
@@ -20455,13 +20595,8 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Montar o corpus de fala e de ciencia alimenta As palavras que a busca digita. Provado por 2 linhas de codigo.",
+      "reason": "Montar o corpus de fala e de ciencia alimenta As palavras que a busca digita. Provado por 1 linha de codigo.",
       "evidence": [
-        {
-          "file": "regras/sensor_coleta.py",
-          "line": 345,
-          "snippet": "open(UNIVERSO, 'leitura')  # UNIVERSO = data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
-        },
         {
           "file": "regras/sensor_medir.py",
           "line": 491,
@@ -20489,6 +20624,24 @@
           "file": "pedido/receitas.py",
           "line": 66,
           "snippet": "\"larga_em\": [\"data/samples/RESEARCHER-CORPUS-EAME-V1.json\"],"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-CORPUS",
+      "to": "C-SENSOR-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Montar o corpus de fala e de ciencia alimenta Coletor dos sensores tecnicos · canal, video e fala. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 345,
+          "snippet": "open(UNIVERSO, 'leitura')  # UNIVERSO = data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
         }
       ],
       "categoria": "READ"
@@ -23039,12 +23192,12 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 205,
+          "line": 227,
           "snippet": "MAPA_JS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 444,
+          "line": 477,
           "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
         }
       ],
@@ -23103,7 +23256,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 226,
+          "line": 248,
           "snippet": "GERADOR = (RAIZ / \"system-map\" / \"scripts\" / \"generate_system_map.py\").read_text("
         }
       ],
@@ -23226,7 +23379,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 411,
+          "line": 444,
           "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"scan_repo.py\")],"
         }
       ],
@@ -23272,7 +23425,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 430,
+          "line": 463,
           "snippet": "\"validate_system_map.py\" in lei,"
         }
       ],
@@ -23657,13 +23810,8 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As palavras que a busca digita alimenta Censo das palavras da Itália. Provado por 3 linhas de codigo.",
+      "reason": "As palavras que a busca digita alimenta Censo das palavras da Itália. Provado por 2 linhas de codigo.",
       "evidence": [
-        {
-          "file": "system-map/scripts/censo_semantico_it.py",
-          "line": 49,
-          "snippet": "(\"regras/sensor_coleta.py\", \"TERMOS\", \"BUSCA\","
-        },
         {
           "file": "system-map/scripts/censo_semantico_it.py",
           "line": 51,
@@ -23703,35 +23851,12 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As palavras que a busca digita tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "As palavras que a busca digita tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "provas/testa_coleta_canonica.py",
           "line": 160,
           "snippet": "import sensor_medir as _sm"
-        },
-        {
-          "file": "provas/testa_coleta_canonica.py",
-          "line": 286,
-          "snippet": "import sensor_coleta as sc  # noqa: E402"
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
-      "from": "C-PALAVRAS",
-      "to": "C-PROVA-COLETA",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "As palavras que a busca digita alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/testa_coleta_canonica.py",
-          "line": 406,
-          "snippet": "_PERMITIDO = ('regras/sensor_coleta.py', 'provas/testa_coleta_canonica.py')"
         }
       ],
       "categoria": "PROOF"
@@ -24737,24 +24862,6 @@
     },
     {
       "from": "C-PROCEDENCIA",
-      "to": "C-PALAVRAS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por As palavras que a busca digita. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "regras/sensor_coleta.py",
-          "line": 64,
-          "snippet": "import proveniencia as pv      # noqa: E402"
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-PROCEDENCIA",
       "to": "C-RECEITAS",
       "type": "READS",
       "payload": "artefacto",
@@ -24808,6 +24915,24 @@
           "file": "medidas/portao.py",
           "line": 44,
           "snippet": "if os.path.basename(caminho) == 'RUN-MANIFEST.json':"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-SENSOR-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Coletor dos sensores tecnicos · canal, video e fala. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 64,
+          "snippet": "import proveniencia as pv      # noqa: E402"
         }
       ],
       "categoria": "RULE"
@@ -26956,6 +27081,60 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-SENSOR-COLETA",
+      "to": "C-CENSO-SEMANTICO-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Censo das palavras da Itália. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_semantico_it.py",
+          "line": 49,
+          "snippet": "(\"regras/sensor_coleta.py\", \"TERMOS\", \"BUSCA\","
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SENSOR-COLETA",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/testa_coleta_canonica.py",
+          "line": 286,
+          "snippet": "import sensor_coleta as sc  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SENSOR-COLETA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/testa_coleta_canonica.py",
+          "line": 406,
+          "snippet": "_PERMITIDO = ('regras/sensor_coleta.py', 'provas/testa_coleta_canonica.py')"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-SINTONIA-SCRAP",
       "to": "C-APIFY-POOL",
       "type": "RUNS",
@@ -28991,17 +29170,17 @@
   "UNCLAIMED_FILES_COUNT": 700,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 146,
-    "components_proven": 69,
-    "components_pending": 71,
+    "components": 148,
+    "components_proven": 70,
+    "components_pending": 72,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 595,
-    "edges_proven": 593,
+    "edges": 599,
+    "edges_proven": 597,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1343,
-    "files_covered": 643,
+    "files_tracked": 1344,
+    "files_covered": 644,
     "files_code_unclaimed": 0
   }
 }

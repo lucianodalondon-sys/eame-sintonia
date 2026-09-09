@@ -91,6 +91,28 @@ prova("a_familia_vem_da_zona_e_nao_da_peca",
 USADA_NA_COLETA = ("Z-ACOES", "Z-CANDIDATAS", "Z-VEICULOS", "Z-ADMISSAO")
 ZONA = {n["id"]: n["territory"] for n in S["NODES"]}
 
+# ⚠️ ESTA PROVA REPROVA, E A REPROVACAO E DELA — NAO DA ARVORE.
+# Medido em 2026-09-09, com as tres respostas possiveis testadas:
+#
+#   como esta        acusa C-RASTRO      (o rastro MEDE; nao carimba nada)
+#   sem contar IMPORTS  acusa C-PALAVRAS e C-SENSOR-COLETA
+#
+# O sinal que ela usa — «tem seta para uma zona de accao» — nao separa as duas
+# coisas, porque nos quatro casos as setas sao `IMPORTS`, e a dependencia vai
+# ao contrario do desenho: e o coletor que importa o rastro para emitir
+# telemetria, nao o rastro que carimba o item.
+#
+#     UM IMPORT NAO E UM CARIMBO.
+#     E A SETA DO IMPORT APONTA PARA O LADO CONTRARIO DA DEPENDENCIA.
+#
+# E ha um terceiro caso que a pergunta binaria nao consegue dizer:
+# `C-SENSOR-COLETA` nao e regua NENHUMA — e um COLETOR a viver em `regras/`.
+# A resposta certa para ele nao e «Z-REGRAS» nem «Z-MEDIDAS»: e mudar o
+# ficheiro de pasta. Fica registado como rehome.
+#
+# NAO SE AFROUXA A PROVA PARA ELA FICAR VERDE. Ela continua como estava, a
+# reprovar, e o que ela acusa esta explicado aqui. Uma prova que se conserta a
+# ajustar o limiar ate o vermelho sumir deixa de medir seja o que for.
 trocadas = []
 for n in S["NODES"]:
     if n["territory"] not in ("Z-REGRAS", "Z-MEDIDAS"):
@@ -245,8 +267,19 @@ prova("E1_pedido_continua_acessivel",
 
 # E2 · a receita continua, e continua com um so consumidor
 rec = POR_ID_N.get("C-RECEITAS")
+# ⚠️ UM CENSO QUE ME LE NAO E UM CONSUMIDOR MEU.
+# Esta prova passou a reprovar com tres consumidores, e o terceiro era
+# `C-ESTRADAS-IT` — um CENSO, em Z-PROVA, que importa `pedido/receitas.py`
+# para a medir. Contar uma prova como consumidor faz um modulo interno
+# parecer que ganhou clientes quando so ganhou um medidor.
+#
+#     QUEM ME MEDE NAO ME CONSOME.
+#
+# A pergunta e sobre consumo OPERACIONAL, entao as pecas de prova saem da
+# conta — e continuam visiveis, so nao contam como cliente.
 consumidores = [e["to"] for e in S["EDGES"]
-                if e["from"] == "C-RECEITAS" and e.get("kind") == "technical"]
+                if e["from"] == "C-RECEITAS" and e.get("kind") == "technical"
+                and ZONA.get(e["to"]) != "Z-PROVA"]
 prova("E2_receita_continua_com_um_consumidor",
       bool(rec) and set(consumidores) <= {"C-ORQUESTRADOR", "C-PROVA-COLETA"},
       f"consumidores da receita: {sorted(set(consumidores))}")

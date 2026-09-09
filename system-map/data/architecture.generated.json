@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "68dfda6212b7bb857edb8d710e9d4bb08f176c29",
-    "GENERATED_AT": "2026-09-09T04:24:10+00:00"
+    "HEAD": "539644f67a8babf3ab633b204483c2a9c0169c26",
+    "GENERATED_AT": "2026-09-09T04:30:43+00:00"
   },
   "FILES": [
     {
@@ -7639,7 +7639,7 @@
     },
     {
       "path": "regras/LEIA-ANTES-DE-COLETAR.md",
-      "sha": "fc77a1f6a2d07b38a8072165d87476d786a97f80",
+      "sha": "421ccdb411ad5ec3a89e87f5478c03d6fb484457",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -8654,7 +8654,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "9a05a2814a2871b0a5141d1e8dcf21e7b7a61b15",
+      "sha": "0853610835af16911be3d498259120d628b112cc",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8697,6 +8697,13 @@
     {
       "path": "system-map/scripts/censo_da_observabilidade.py",
       "sha": "8af0c6c15608ba4a3f1dd856fdde4d3297975a4b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/censo_da_topologia.py",
+      "sha": "3575061d316d59a75253ff579c0dea9948e70f2f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8829,7 +8836,7 @@
     },
     {
       "path": "system-map/tests/test_system_map.py",
-      "sha": "c046ae76b4d9c0a748011155280340d157cdf2f1",
+      "sha": "e782eec1e2091f04f6aa2c38b0f47fa96a628305",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10662,6 +10669,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 96,
         "snippet": "python3 system-map/scripts/censo_da_observabilidade.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/censo_da_topologia.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 113,
+        "snippet": "run: python3 system-map/scripts/censo_da_topologia.py"
       }
     },
     {
@@ -27380,7 +27398,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 425,
+        "line": 458,
         "snippet": "agents = RAIZ / \"AGENTS.md\""
       }
     },
@@ -27391,7 +27409,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 434,
+        "line": 467,
         "snippet": "claude = RAIZ / \"CLAUDE.md\""
       }
     },
@@ -27402,7 +27420,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 437,
+        "line": 470,
         "snippet": "readme = RAIZ / \"README.md\""
       }
     },
@@ -27413,7 +27431,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 329,
+        "line": 362,
         "snippet": "(RAIZ / \"_gavetas.py\").exists(),"
       }
     },
@@ -27424,7 +27442,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 404,
+        "line": 437,
         "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
       }
     },
@@ -27435,7 +27453,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 444,
+        "line": 477,
         "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -27446,7 +27464,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 205,
+        "line": 227,
         "snippet": "MAPA_JS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -27468,7 +27486,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 226,
+        "line": 248,
         "snippet": "GERADOR = (RAIZ / \"system-map\" / \"scripts\" / \"generate_system_map.py\").read_text("
       }
     },
@@ -27479,7 +27497,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 411,
+        "line": 444,
         "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"scan_repo.py\")],"
       }
     },
@@ -27490,7 +27508,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 430,
+        "line": 463,
         "snippet": "\"validate_system_map.py\" in lei,"
       }
     },
@@ -32987,10 +33005,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1343,
-    "files_readable": 497,
-    "files_code_dir": 551,
-    "file_edges": 2101,
+    "files_tracked": 1344,
+    "files_readable": 498,
+    "files_code_dir": 552,
+    "file_edges": 2102,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

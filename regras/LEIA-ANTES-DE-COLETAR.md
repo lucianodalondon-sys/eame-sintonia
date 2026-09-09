@@ -41,13 +41,12 @@ Cada uma vale no **momento em que o dado entra**. Depois é tarde.
 
 Os termos de busca, agrupados por cultura-problema, na lingua de quem trabalha no campo. Sao 103 palavras em dois ficheiros: 35 do censo de rotulos, todas italianas, e 68 do sensor, das quais 13 recortes de 17 sao da Italia.
 
-*Por que existe:* Buscar 'septoria wheat' na Italia devolve literatura internacional, nao a conversa tecnica de quem esta no campo — o que se procura e 'septoriosi del frumento'. E o CROP e o ISSUE de cada item saem DESTA consulta, nunca de leitura livre do titulo, e e isso que torna a linha auditavel.
+*Por que existe:* Buscar 'septoria wheat' na Italia devolve literatura internacional, nao a conversa tecnica de quem esta no campo — o que se procura e 'septoriosi del frumento'. E o CROP e o ISSUE de cada item saem DESTA consulta, nunca de leitura livre do titulo, e e isso que torna a linha auditavel.  ⚠️ DIVIDIDO EM 2026-09-09: este cartao carregava tambem `regras/sensor_coleta.py`, que NAO e uma regua — e um COLETOR. Ele importa `apify_pool`, fala HTTP por `urlopen`, e e corrido pelo workflow `apify-sensores.yml`. Tres responsabilidades num cartao chamado «as palavras que a busca digita»: um coletor, uma medicao e um censo. UM CARTAO COM TRES DONOS NAO TEM DONO.
 
 | | |
 |---|---|
 | estado | PROVEN — o motor importa esta lei para decidir. |
 | onde vive | `regras/rotulos_censo.py` |
-| onde vive | `regras/sensor_coleta.py` |
 | onde vive | `regras/sensor_medir.py` |
 
 ### De onde veio — carimbado na coleta
