@@ -89,7 +89,7 @@ jobs:
           echo "INTERPRETADOR=NENHUM"; exit 1
 
       - name: 1 · censo do pool (presença e quantidade — nunca valor)
-        run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
+        run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py
 
       # A régua de identidade roda de novo, de graça, ANTES da fase paga. Ela é
       # determinística sobre a evidência gravada: se o resultado mudar aqui,
@@ -101,7 +101,7 @@ jobs:
       # decisão humana, não conserto silencioso de máquina.
       - name: 2 · reconferir a régua e os testes (grátis, não regera o lote)
         run: |
-          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_identidade.py
+          PYTHONIOENCODING=utf-8 $PY regras/comunicacao_identidade.py
           PYTHONIOENCODING=utf-8 $PY tests/test_comunicacao.py
           PYTHONIOENCODING=utf-8 $PY - <<'PYEOF'
           import json
@@ -129,18 +129,22 @@ jobs:
           RUNNER_NAME: ${{ runner.name }}
         run: |
           echo "FASE=${{ inputs.fase }} · PLATAFORMA=${{ inputs.plataforma }}"
-          if [ "${{ inputs.fase }}" = "contratos" ]; then
-            PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_coleta.py contratos
-          else
-            PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_coleta.py posts \
-              "${{ inputs.plataforma }}"
-          fi
+          # O BOTÃO PEDE; NÃO MANDA.
+          # Estas linhas chamavam `coleta/comunicacao_coleta.py` pelo nome e
+          # sabiam a linha de comando dele de cor. Isso é um caminho paralelo ao
+          # orquestrador: no dia em que o executor mudar de nome ou de
+          # argumentos, o botão quebra — e ninguém descobre até alguém clicar.
+          # Agora o botão diz O QUE quer; o orquestrador escolhe COMO e assina o
+          # recibo da corrida no RUN-MANIFEST, que antes ninguém escrevia.
+          PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "colete concorrentes" \
+            --filtro fase=${{ inputs.fase }} \
+            --filtro plataforma="${{ inputs.plataforma }}"
 
       - name: 4 · classificar e medir (grátis, sobre o que acabou de chegar)
         if: always()
         run: |
-          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_classificar.py || true
-          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_medir.py || true
+          PYTHONIOENCODING=utf-8 $PY coleta/comunicacao_classificar.py || true
+          PYTHONIOENCODING=utf-8 $PY coleta/comunicacao_medir.py || true
 
       - name: 5 · devolver o resultado ao repositório
         run: |

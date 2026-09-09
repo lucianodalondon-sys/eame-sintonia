@@ -6,7 +6,7 @@ foi ocupado.
 
 Artefatos: [`RESEARCHER-CORPUS-EAME-V1.json`](../../data/samples/RESEARCHER-CORPUS-EAME-V1.json)
 · [`EXPERT-DIRECTORY-EAME-V1.json`](../../data/samples/EXPERT-DIRECTORY-EAME-V1.json)
-· código em [`scripts/corpus_pesquisador.py`](../../scripts/corpus_pesquisador.py).
+· código em [`coleta/corpus_pesquisador.py`](../../coleta/corpus_pesquisador.py).
 
 Esta missão é **auxiliar e não bloqueante**. Ela não reabre
 `TECHNICAL_PERSON_SENSOR = NOT_PROVED`, não tenta provar que YouTube pessoal é fonte

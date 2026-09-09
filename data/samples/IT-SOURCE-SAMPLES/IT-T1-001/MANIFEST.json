@@ -1,0 +1,49 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T1-001",
+ "CAPTURE": {
+  "CAPTURED_AT_UTC": "2026-09-07T14:02:24.356Z",
+  "METODO": "curl GET na API SDMX 2.1 com Accept de CSV, do IP italiano",
+  "EGRESS_IP": "205.147.30.20",
+  "EGRESS_GEO": "Milano, IT — Proton AG",
+  "EGRESS_KIND": "VPN_COMERCIAL",
+  "AUTH_USED": "NENHUMA — a API nao pede chave"
+ },
+ "FILES": [
+  {
+   "RAW_FILE": "ISTAT_101_1015_COLTIVAZIONI_2_2025.csv",
+   "SOURCE_URL": "https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015_DF_DCSP_COLTIVAZIONI_2,1.0/?startPeriod=2025&endPeriod=2025",
+   "HTTP_STATUS": 200,
+   "MIME": "application/vnd.sdmx.data+csv; charset=utf-8",
+   "BYTES": 8011209,
+   "SHA256": "b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec",
+   "ASSINATURA_REAL_DOS_BYTES": "CSV"
+  }
+ ],
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "ORIGINAL_LANGUAGE": "it",
+ "OWNER_ID": "IT-OWN-ISTAT",
+ "OWNER_CANONICAL_NAME": "ISTAT — Istituto Nazionale di Statistica",
+ "OWNER_KIND": "OFFICIAL_NATIONAL_AGENCY",
+ "SOURCE_NAME": "Coltivazioni — superfici e produzione, dado provincial (dataflow 101_1015_DF_DCSP_COLTIVAZIONI_2)",
+ "TERRITORY": "T1",
+ "SOURCE_TYPE": "SERIE_ESTATISTICA",
+ "ACCESS_METHOD": "API — SDMX 2.1 REST, documentada e sem chave",
+ "ROTA": "https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015_DF_DCSP_COLTIVAZIONI_2,1.0/?startPeriod=&endPeriod=  com Accept: application/vnd.sdmx.data+csv",
+ "SOURCE_DATE": "consulta de 2025 em diante; o retorno ja traz linhas de 2026",
+ "SOURCE_LOCATION": "Roma",
+ "FACT_LOCATION": "todas as provincias italianas",
+ "EVIDENCE_CLASS": "SERIE_OFICIAL_DE_PRODUCAO (nem sinal de campo, nem preco)",
+ "CROP": "233 tipos de cultura distintos no arquivo preservado",
+ "TOPICS": "superficie, producao, provincia, ano",
+ "conteudo_medido": "77.363 linhas; colunas DATAFLOW, FREQ, REF_AREA, DATA_TYPE, TYPE_OF_CROP, TIME_PERIOD, OBS_VALUE, UNIT_MEAS",
+ "WHAT_IT_PROVES": "area e producao por cultura e por provincia, oficial, com serie temporal",
+ "WHAT_IT_DOES_NOT_PROVE": "praga · clima · preco · uso de defensivo · quem plantou · decisao de compra",
+ "UPDATE_FREQUENCY": "ANNUAL (declarado pela natureza da serie) — nao medido por captura repetida",
+ "AUTOMATION_FEASIBILITY": "HIGH pela API SDMX. ATENCAO: o portal visual esploradati.istat.it exige JavaScript e chegou a devolver erro de servidor — a API funciona, o site nao. Sao coisas diferentes.",
+ "SOURCE_ROLE": "MARKET_SOURCE / contexto de producao",
+ "VERDICT": "GREEN",
+ "por_que": "amostra real preservada com hash, rota SDMX oficial e estavel, granularidade provincial e 233 culturas. E a fonte que diz ONDE existe cultura o bastante para o resto importar.",
+ "PRIORITY": "P0",
+ "pergunta_da_missao": "Se o SINTONIA coletar isto, a ADAMA para de tratar 'Italia' como um lugar so: passa a saber em que provincia ha hectare de oliveira, de milho ou de trigo duro suficiente para uma acao valer a pena."
+}

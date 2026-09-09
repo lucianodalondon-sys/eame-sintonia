@@ -1,10 +1,10 @@
-/* GERADO por scripts/it_casa_dados.py — nao editar a mao.
-   A LEI vive em scripts/adama_relevance.py e decide-se LA. Este ficheiro
+/* GERADO por superficie/it_casa_dados.py — nao editar a mao.
+   A LEI vive em leis/adama_relevance.py e decide-se LA. Este ficheiro
    transporta o veredito para o browser, que nunca o recalcula. */
 window.ADAMA_RELEVANCE = {
  "BUILD_ID": "V21-ef6e7e5f37eaa6e6",
- "DONO_DA_LEI": "scripts/adama_relevance.py",
- "GERADO_POR": "scripts/it_casa_dados.py + scripts/adama_relevance.py",
+ "DONO_DA_LEI": "leis/adama_relevance.py",
+ "GERADO_POR": "superficie/it_casa_dados.py + leis/adama_relevance.py",
  "LEGGE": {
   "APPROVAL_EXPIRY_NAO_E_RISCO": "uma data de expiracao europeia NAO e risco de nao-renovacao. Medido nos 47 factos regulatorios do pacote: EU_STATE=APPROVED e IS_RISK=false em 47/47, e o proprio artefacto declara «APPROVAL EXPIRY IS NOT NON-RENEWAL». Um facto regulatorio NUNCA contribui para a classe A por si so; precisa de facto adicional de risco, que hoje nao existe em registo nenhum.",
   "BASTA_UM_PRODUTO": "um caso e oportunidade se PELO MENOS UM produto fechar a cadeia inteira. Os outros produtos ligados nao sao a prova e nao a estragam — o cartao nomeia qual deles a carrega. Exigir que TODOS fechassem derrubaria OPP_75C37DED9160, onde Lamdex Extra fecha e MAVRIK SMART nao.",

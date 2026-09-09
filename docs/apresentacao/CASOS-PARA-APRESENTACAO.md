@@ -100,7 +100,7 @@ Três leituras, todas apoiadas em documento oficial:
 `data/samples/EU-T4-001/CELEX-32026R1696-eng.xhtml` (formato do ato, texto integral)
 `data/samples/X-006-eu-cas-to-ephy.json` (a cadeia medida)
 `data/samples/FR-T4-001/` (registro francês, produtos e usos ADAMA)
-Reprodução: `scripts/cellar.sh` e `scripts/ephy.sh`
+Reprodução: `coleta/cellar.sh` e `coleta/ephy.sh`
 
 **SCREEN_AVAILABLE**   ainda não — protótipo não iniciado
 **STATUS**             **REAL** (todos os elementos vêm direto de fonte oficial;

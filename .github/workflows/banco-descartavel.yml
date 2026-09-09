@@ -1,0 +1,182 @@
+# ═══════════════════════════════════════════════════════════════════════
+# A GARANTIA FORWARD, CONTRA POSTGRES DE VERDADE
+#
+# A bateria local prova a reconciliacao contra um banco real — mas SQLite.
+# As travas que interessam sao as mesmas; o motor nao e. Dizer «provado no
+# banco» sem dizer QUAL seria esconder metade da frase.
+#
+# Aqui a migration 001 ORIGINAL e aplicada num Postgres 16 que nasce e morre
+# dentro deste job — enum `run_status` incluido, que o SQLite teve de traduzir
+# para um CHECK.
+#
+#   SQL ACEITE          nao e  LINHA GRAVADA
+#   TESTE COM SIMULACRO nao e  RECONCILIACAO DE BANCO
+#   COMPLETE NO PYTHON  nao e  CONCLUIDA NO POSTGRES
+#
+# NADA AQUI TOCA PRODUCAO. Este workflow nao le nenhum segredo do Supabase, e
+# a propria prova recusa-se a arrancar se o endereco do banco nao for
+# visivelmente local.
+# ═══════════════════════════════════════════════════════════════════════
+name: banco-descartavel
+
+on:
+  push:
+    paths:
+      - 'guarda/preservar_coleta.py'
+      - 'guarda/memoria_descartavel.py'
+      - 'provas/preservar_coleta_no_postgres.py'
+      - 'supabase/migrations/001_*.sql'
+      - 'supabase/migrations/022_*.sql'
+      - 'supabase/migrations/023_*.sql'
+      - 'supabase/migrations/024_*.sql'
+      - 'medidas/rastro_da_coleta.py'
+      - 'provas/rastro_no_postgres.py'
+      - 'provas/social_persistencia_no_postgres.py'
+      - 'coleta/social_persistencia.py'
+      - 'provas/derived_artifact_no_postgres.py'
+      - 'guarda/preservar_derivado.py'
+      - 'motor/cadeia_canonica.sh'
+      - 'provas/trava_de_drift_de_migration.sh'
+      - '.github/workflows/banco-descartavel.yml'
+  workflow_dispatch:
+
+jobs:
+  postgres-descartavel:
+    runs-on: ubuntu-latest
+
+    # O contentor morre com o job. Nao ha volume, nao ha persistencia, e a
+    # senha e visivel de proposito: nao ha nada la dentro para proteger.
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: descartavel
+          POSTGRES_DB: descartavel
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # `psql` ja existe no runner. Nao se instala pacote global so para um
+      # teste passar — a prova fala com o banco pelo cliente que ja la esta.
+      - name: 1 · o cliente do banco existe, e o banco responde
+        run: |
+          psql --version
+          psql "$BANCO_DESCARTAVEL_URL" -c 'select version();'
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      - name: 2 · a mesma garantia, contra Postgres 16 real (schema da fundação)
+        run: python3 provas/preservar_coleta_no_postgres.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # A casa do derivado: a migration 022 tem de APLICAR num Postgres real, e
+      # as travas dela tem de morder. DESIGNED nao e DB_TESTED, e a distancia
+      # entre os dois ja custou uma promocao prematura nesta casa.
+      #
+      # Banco proprio (`derivado`), para nao herdar as linhas da prova anterior:
+      # um caso que passa por causa do estado deixado por outro nao prova nada.
+      - name: 2b · a casa do derivado aplica e as travas mordem
+        run: |
+          psql "$ADMIN_URL" -c 'create database derivado;'
+          python3 provas/derived_artifact_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/derivado
+
+      # SKIP CEGO E PROIBIDO. Reproduz o defeito antigo e prova o conserto:
+      # migration aplicada e depois editada tem de fazer o aplicador falhar
+      # ANTES de qualquer DDL.
+      - name: 2c · migration aplicada que muda faz a cadeia parar
+        run: bash provas/trava_de_drift_de_migration.sh
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # A prova de que a trava contra o acidente e real: apontada para fora,
+      # ela tem de RECUSAR-SE a correr.
+      #
+      # `if: always()` NAO e conforto. Se o passo 2 rebentar — e ja rebentou —
+      # a trava de seguranca e JUSTAMENTE o que continua a ter de ser conferido.
+      # Uma tranca que so se testa quando esta tudo bem nao e uma tranca.
+      # O contrato de persistencia social: a 023 tem de APLICAR num Postgres
+      # real, e as duas travas dela tem de morder. Reproduzido antes de existir:
+      # dois «Grazie!» com IDs diferentes davam UMA linha, e uma resposta perdia
+      # o pai ao entrar na camada estruturada.
+      #
+      #     COMMENT_ID NAO E COMMENT_TEXT.
+      #     REPLY NAO E TOP-LEVEL.
+      #
+      # `2d`, e nao `2c`: a Biblia ja tem um `2c` (a trava de drift de
+      # migration). Dois passos com o mesmo numero fariam o leitor do log
+      # atribuir o resultado de um ao outro.
+      #
+      # SEM `if: always()`. No ramo social ele existia para contornar uma
+      # reprovacao herdada do `2b` — que a Biblia ja consertou em 9b4dc299.
+      # Manter o always() aqui esconderia uma dependencia real entre provas
+      # sequenciais, e uma prova que corre sobre um banco que a etapa anterior
+      # deixou pela metade nao prova o que diz provar.
+      #
+      # Banco proprio (`social`), para nao herdar linhas das provas anteriores.
+      - name: 2d · o contrato de persistencia social aplica e as travas mordem
+        run: |
+          psql "$ADMIN_URL" -c 'create database social;'
+          python3 provas/social_persistencia_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/social
+
+      # O rastro da coleta: a 024 tem de APLICAR num Postgres real, e as
+      # travas dela tem de morder — ERRO sem codigo de diagnostico, contagem
+      # sem grao declarado, decisao sem versao de politica e decisao sem
+      # WHY_NOW sao todas recusadas pelo banco, nao por convencao.
+      #
+      #     NAO E OBRIGATORIO QUE 100% CHEGUE AO FIM.
+      #     E OBRIGATORIO QUE 100% TENHA EXPLICACAO.
+      #
+      # Banco proprio (`rastro`): herdar linhas de outra prova faria um caso
+      # passar por causa do estado alheio.
+      # Banco VIRGEM, e nao um nome novo: `provas/preservar_coleta_no_postgres.py`
+      # limita a lista de bancos permitidos a tres «para que crescer doa», e um
+      # teste da casa guarda esse limite. A trava esta certa — pedir o quarto
+      # nome seria afrouxa-la por conveniencia. Recriar `social` do zero da o
+      # mesmo isolamento sem tocar nela.
+      - name: 2e · o rastro da coleta aplica e as travas mordem
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists social;'
+          psql "$ADMIN_URL" -c 'create database social;'
+          python3 provas/rastro_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/social
+
+      - name: 3 · a prova recusa-se a correr fora de um banco descartável
+        if: always()
+        run: |
+          falhou=0
+          testar() {
+            if BANCO_DESCARTAVEL_URL="$1" python3 provas/preservar_coleta_no_postgres.py; then
+              echo "FALHOU: aceitou $1"; falhou=1
+            else
+              echo "OK  recusou: $1"
+            fi
+          }
+          # host remoto
+          testar "postgresql://alguem@db.exemplo-remoto.com:5432/producao"
+          # host que so CONTEM a palavra localhost
+          testar "postgresql://alguem@localhost.atacante.example:5432/descartavel"
+          # host local, mas banco que nao e o descartavel
+          testar "postgresql://alguem@localhost:5432/producao"
+          # host chamado `db`, que a versao anterior aceitava por substring
+          testar "postgresql://alguem@db:5432/descartavel"
+          exit $falhou

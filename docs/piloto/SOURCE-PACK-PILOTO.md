@@ -95,6 +95,6 @@ revogação. CSV datado, CC BY 4.0.
 > Corrigido na MISSÃO 09. O resumo anterior listava quatro delas, acrescentava a
 > `EU-T2-001` — que é `USEFUL` na própria ficha — e **omitia a `ES-T4-005`**, que é a
 > fonte crítica sem fallback equivalente. A lista agora é derivada das fichas por
-> `scripts/metricas_canonicas.py` e há prova que reprova a divergência.
+> `pacote/metricas_canonicas.py` e há prova que reprova a divergência.
 **Se qualquer uma das quatro primeiras cair, o piloto perde uma business question inteira.**
 Todas são públicas, gratuitas e de licença aberta. **Nenhuma exige contrato.**

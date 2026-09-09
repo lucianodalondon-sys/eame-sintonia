@@ -15,7 +15,8 @@ import sys
 import unittest
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(RAIZ, 'scripts'))
+sys.path.insert(0, RAIZ)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import portoes_eame as P                                          # noqa: E402
 
 

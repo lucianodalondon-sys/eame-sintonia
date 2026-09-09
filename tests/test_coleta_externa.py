@@ -9,7 +9,8 @@ import json, os, re, sys, unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
-sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+sys.path.insert(0, ROOT)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import voz  # noqa: E402
 
 
@@ -24,7 +25,7 @@ def regra():
         return f.read()
 
 
-# A lista da regra, transcrita aqui de proposito. Se scripts/voz.py encolher, os dois
+# A lista da regra, transcrita aqui de proposito. Se medidas/voz.py encolher, os dois
 # lados divergem e o teste reprova — que e exatamente o ponto.
 CAMPOS_DA_REGRA = [
     'SOURCE_ID', 'ORIGIN_ID', 'CHANNEL_ID', 'CONTENT_ID', 'PLATFORM', 'EXTERNAL_ID', 'URL',
@@ -40,7 +41,7 @@ class TestContratoDeCampos(unittest.TestCase):
 
     def test_a_lista_nao_encolheu(self):
         self.assertEqual(CAMPOS_DA_REGRA, voz.CAMPOS_VIDEO,
-                         'scripts/voz.py divergiu da lista de campos da regra')
+                         'medidas/voz.py divergiu da lista de campos da regra')
 
     def test_registro_vazio_tem_todas_as_chaves(self):
         r = voz.registro_vazio()
@@ -651,5 +652,5 @@ class TestSnapshotHistoricoNaoViraCorrente(unittest.TestCase):
                          else 'BLOCKED', self.atual['STATUS'])
 
     def test_o_corrente_nao_se_declara_dono_do_estado_vivo(self):
-        self.assertIn('scripts/rede.py', self.atual['QUEM_MANDA'])
+        self.assertIn('superficie/rede.py', self.atual['QUEM_MANDA'])
         self.assertIn('REGISTRO', self.atual['QUEM_MANDA'])

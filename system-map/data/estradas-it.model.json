@@ -1,0 +1,491 @@
+{
+ "SCHEMA": "estradas-it/model/v1",
+ "NOTA": "O MODELO diz QUAIS etapas cada estrada tem e QUEM seria o dono. Ele NAO diz se a etapa esta ligada — isso o censo MEDE, procurando no ficheiro do dono a marca (`EDGE`) que so existe se ele realmente tocar o artefato da etapa anterior. OWNER EXISTS != OWNER CONNECTED.",
+ "ROUTE_CLASSES": [
+  {
+   "ID": "RC-1",
+   "NAME": "OFFICIAL_HTTP_DOCUMENT",
+   "STEPS": {
+    "DISCOVER": {
+     "OWNER": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+     "STATE": "DECLARED",
+     "EDGE": null,
+     "PROOF_KIND": "CATALOGO"
+    },
+    "FETCH": {
+     "OWNER": "coleta/texto_fonte.py",
+     "STATE": "OBSERVED",
+     "EDGE": [
+      "coleta/texto_fonte.py",
+      "urllib"
+     ],
+     "PROOF_KIND": "CANARIO_LIVE",
+     "PROOF_REF": "0feb4967"
+    },
+    "RAW": {
+     "OWNER": "guarda/preservar_coleta.py",
+     "STATE": "OBSERVED",
+     "EDGE": [
+      "guarda/preservar_coleta.py",
+      "raw_asset"
+     ],
+     "PROOF_KIND": "CANARIO_LIVE",
+     "PROOF_REF": "7dc58f81"
+    },
+    "RUN": {
+     "OWNER": "guarda/preservar_coleta.py",
+     "STATE": "OBSERVED",
+     "EDGE": [
+      "guarda/preservar_coleta.py",
+      "collection_run"
+     ],
+     "PROOF_KIND": "CANARIO_LIVE",
+     "PROOF_REF": "7dc58f81"
+    },
+    "CHECKPOINT": {
+     "OWNER": null,
+     "STATE": "NOT_APPLICABLE",
+     "NOT_APPLICABLE_REASON": "captura de documento unico e sem janela incremental: nao ha unidade a retomar. Se um dia houver recorrencia por fonte, deixa de ser N/A."
+    },
+    "DERIVED": {
+     "OWNER": "coleta/executor_texto_de_pdf.py",
+     "STATE": "OBSERVED",
+     "EDGE": [
+      "coleta/executor_texto_de_pdf.py",
+      "raw_asset_id"
+     ],
+     "PROOF_KIND": "CANARIO_LIVE",
+     "PROOF_REF": "derived_artifact id=1"
+    },
+    "STRUCTURED": {
+     "OWNER": "guarda/importar_italia.py",
+     "STATE": "CODE",
+     "EDGE": [
+      "guarda/importar_italia.py",
+      "derived_artifact"
+     ],
+     "PROOF_KIND": "NENHUMA",
+     "DIRECT_REQUIRED": true,
+     "DIRECT_REQUIRED_PORQUE": "o contrato desta etapa e RECEBER o artefato da etapa anterior. Se houvesse ajudante, o resolvedor transitivo o teria achado em dois saltos. Ausencia aqui e conclusiva."
+    },
+    "ADMISSION": {
+     "OWNER": "admissao/admissao.py",
+     "STATE": "CODE",
+     "EDGE": [
+      "admissao/admissao.py",
+      "derived_artifact"
+     ],
+     "PROOF_KIND": "NENHUMA",
+     "DIRECT_REQUIRED": true,
+     "DIRECT_REQUIRED_PORQUE": "o contrato desta etapa e RECEBER o artefato da etapa anterior. Se houvesse ajudante, o resolvedor transitivo o teria achado em dois saltos. Ausencia aqui e conclusiva."
+    }
+   }
+  },
+  {
+   "ID": "RC-2",
+   "NAME": "YOUTUBE_OFFICIAL_API",
+   "STEPS": {
+    "DISCOVER": {
+     "OWNER": "coleta/youtube_oficial.py",
+     "STATE": "OBSERVED",
+     "EDGE": [
+      "coleta/youtube_oficial.py",
+      "channels.list"
+     ],
+     "PROOF_KIND": "RUN_ACTIONS",
+     "PROOF_REF": "34258433872"
+    },
+    "FETCH": {
+     "OWNER": "coleta/youtube_oficial.py",
+     "STATE": "OBSERVED",
+     "EDGE": [
+      "coleta/youtube_oficial.py",
+      "commentThreads.list"
+     ],
+     "PROOF_KIND": "RUN_ACTIONS",
+     "PROOF_REF": "34258433872"
+    },
+    "RAW": {
+     "OWNER": "coleta/social_envelope.py",
+     "STATE": "LOCAL_TESTED",
+     "EDGE": [
+      "coleta/social_envelope.py",
+      "guardar_raw"
+     ],
+     "PROOF_KIND": "ARTEFATO_ACTIONS",
+     "PROOF_REF": "10068850407 — PILOT_PROOF, nao OPERATIONAL_STORAGE"
+    },
+    "RUN": {
+     "OWNER": "guarda/preservar_coleta.py",
+     "STATE": "CODE",
+     "EDGE": [
+      "coleta/social_persistencia.py",
+      "collection_run"
+     ],
+     "PROOF_KIND": "NENHUMA",
+     "DIRECT_REQUIRED": true,
+     "DIRECT_REQUIRED_PORQUE": "o contrato desta etapa e RECEBER o artefato da etapa anterior. Se houvesse ajudante, o resolvedor transitivo o teria achado em dois saltos. Ausencia aqui e conclusiva."
+    },
+    "CHECKPOINT": {
+     "OWNER": "coleta/coleta_checkpoint.py",
+     "STATE": "DB_TESTED",
+     "EDGE": [
+      "coleta/coleta_checkpoint.py",
+      "checkpoint_coleta"
+     ],
+     "PROOF_KIND": "POSTGRES_DESCARTAVEL",
+     "PROOF_REF": "provas/social_persistencia_no_postgres.py"
+    },
+    "DERIVED": {
+     "OWNER": null,
+     "STATE": "NOT_APPLICABLE",
+     "NOT_APPLICABLE_REASON": "a API devolve texto ja estruturado; nada e produzido por nos a partir do bruto. Legenda do YouTube NAO e derivado nosso — COL-LAW-007."
+    },
+    "STRUCTURED": {
+     "OWNER": "coleta/social_persistencia.py",
+     "STATE": "DB_TESTED",
+     "EDGE": [
+      "coleta/social_persistencia.py",
+      "public.conteudo"
+     ],
+     "PROOF_KIND": "POSTGRES_DESCARTAVEL",
+     "PROOF_REF": "provas/social_persistencia_no_postgres.py"
+    },
+    "ADMISSION": {
+     "OWNER": "admissao/admissao.py",
+     "STATE": "CODE",
+     "EDGE": [
+      "admissao/admissao.py",
+      "public.conteudo"
+     ],
+     "PROOF_KIND": "NENHUMA",
+     "DIRECT_REQUIRED": true,
+     "DIRECT_REQUIRED_PORQUE": "o contrato desta etapa e RECEBER o artefato da etapa anterior. Se houvesse ajudante, o resolvedor transitivo o teria achado em dois saltos. Ausencia aqui e conclusiva."
+    }
+   }
+  },
+  {
+   "ID": "RC-3",
+   "NAME": "PUBLIC_NATIVE_API",
+   "STEPS": {
+    "DISCOVER": {
+     "OWNER": "coleta/social_rotas.py",
+     "STATE": "LOCAL_TESTED",
+     "EDGE": [
+      "coleta/social_rotas.py",
+      "searchActors"
+     ],
+     "PROOF_KIND": "TESTE_LOCAL"
+    },
+    "FETCH": {
+     "OWNER": "coleta/social_rotas.py",
+     "STATE": "LOCAL_TESTED",
+     "EDGE": [
+      "coleta/social_rotas.py",
+      "authorFeed"
+     ],
+     "PROOF_KIND": "TESTE_LOCAL"
+    },
+    "RAW": {
+     "OWNER": "coleta/social_envelope.py",
+     "STATE": "LOCAL_TESTED",
+     "EDGE": [
+      "coleta/social_rotas.py",
+      "guardar_raw"
+     ],
+     "PROOF_KIND": "TESTE_LOCAL"
+    },
+    "RUN": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "CHECKPOINT": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "DERIVED": {
+     "OWNER": null,
+     "STATE": "NOT_APPLICABLE",
+     "NOT_APPLICABLE_REASON": "API devolve texto; nada e derivado por nos"
+    },
+    "STRUCTURED": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "ADMISSION": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    }
+   }
+  },
+  {
+   "ID": "RC-4",
+   "NAME": "SCIENCE_METADATA_API",
+   "STEPS": {
+    "DISCOVER": {
+     "OWNER": "coleta/universo_ciencia_it.py",
+     "STATE": "LOCAL_TESTED",
+     "EDGE": [
+      "coleta/universo_ciencia_it.py",
+      "urllib"
+     ],
+     "PROOF_KIND": "TESTE_LOCAL"
+    },
+    "FETCH": {
+     "OWNER": "coleta/corpus_pesquisador.py",
+     "STATE": "LOCAL_TESTED",
+     "EDGE": [
+      "coleta/corpus_pesquisador.py",
+      "urllib"
+     ],
+     "PROOF_KIND": "TESTE_LOCAL"
+    },
+    "RAW": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "RUN": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "CHECKPOINT": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "DERIVED": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "STRUCTURED": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "ADMISSION": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    }
+   }
+  },
+  {
+   "ID": "RC-5",
+   "NAME": "REGULATORY_BULK_IMPORT",
+   "STEPS": {
+    "DISCOVER": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "FETCH": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "RAW": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "RUN": {
+     "OWNER": "coleta/regulatorio_importar.py",
+     "STATE": "LIVE_SCHEMA",
+     "EDGE": [
+      "coleta/regulatorio_importar.py",
+      "collection_run"
+     ],
+     "PROOF_KIND": "SQL_DETERMINISTICO"
+    },
+    "CHECKPOINT": {
+     "OWNER": null,
+     "STATE": "NOT_APPLICABLE",
+     "NOT_APPLICABLE_REASON": "importacao de um snapshot fechado, nao coleta recorrente: nao ha unidade a retomar"
+    },
+    "DERIVED": {
+     "OWNER": null,
+     "STATE": "NOT_APPLICABLE",
+     "NOT_APPLICABLE_REASON": "a entrada ja e registro estruturado; nada e derivado de bruto"
+    },
+    "STRUCTURED": {
+     "OWNER": "coleta/regulatorio_importar.py",
+     "STATE": "LIVE_SCHEMA",
+     "EDGE": [
+      "coleta/regulatorio_importar.py",
+      "registro_regulatorio"
+     ],
+     "PROOF_KIND": "SQL_DETERMINISTICO"
+    },
+    "ADMISSION": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    }
+   }
+  },
+  {
+   "ID": "RC-6",
+   "NAME": "PUBLIC_BROWSER",
+   "BLOCKED_REASON": "robots/termos: zero capabilities permitidas na matriz",
+   "STEPS": {}
+  },
+  {
+   "ID": "RC-7",
+   "NAME": "LOCAL_SESSION",
+   "BLOCKED_REASON": "AUTOMATION_NOT_ALLOWED: sessao humana nao autoriza automacao",
+   "STEPS": {}
+  },
+  {
+   "ID": "RC-8",
+   "NAME": "PAID_FALLBACK",
+   "BLOCKED_REASON": "APIFY-LAST: zero rotas permitidas hoje na matriz",
+   "STEPS": {}
+  },
+  {
+   "ID": "RC-9",
+   "NAME": "GIT_LEDGER",
+   "DEBT_REASON": "estado operacional em Git, contra P-011. Nao e estrada a fechar: e divida a mover.",
+   "STEPS": {}
+  },
+  {
+   "ID": "RC-10",
+   "NAME": "OFFICIAL_HTTP_DATASET",
+   "MOTIVO_MATERIAL": "A aquisicao e igual a da RC-1 (HTTP -> RAW -> RUN), mas a CADEIA DIVERGE em DERIVED: a RC-1 tem um passo obrigatorio e PROVADO de extracao de texto de PDF; um dataset (CSV/TEXTO) ja chega estruturado e nao passa por ele. Medido: IT-T4-001 aparece no ledger com MIME_ASSINATURA=TEXTO, e o catalogo declara «CSV direto, sem chave». Nao e formato sozinho — e uma etapa obrigatoria de uma classe que na outra nao existe.",
+   "STEPS": {
+    "DISCOVER": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "FETCH": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "RAW": {
+     "OWNER": "guarda/preservar_coleta.py",
+     "STATE": "CODE",
+     "EDGE": [
+      "guarda/preservar_coleta.py",
+      "raw_asset"
+     ],
+     "PROOF_KIND": "NENHUMA"
+    },
+    "RUN": {
+     "OWNER": "guarda/preservar_coleta.py",
+     "STATE": "CODE",
+     "EDGE": [
+      "guarda/preservar_coleta.py",
+      "collection_run"
+     ],
+     "PROOF_KIND": "NENHUMA"
+    },
+    "CHECKPOINT": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "DERIVED": {
+     "OWNER": null,
+     "STATE": "NOT_APPLICABLE",
+     "NOT_APPLICABLE_REASON": "dataset ja chega estruturado: nao ha texto a extrair de bruto"
+    },
+    "STRUCTURED": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "ADMISSION": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    }
+   }
+  },
+  {
+   "ID": "RC-11",
+   "NAME": "OFFICIAL_STATISTICAL_API",
+   "MOTIVO_MATERIAL": "SDMX nao e documento nem dataset de ficheiro unico: o DISCOVER e um catalogo de dataflows e o FETCH e uma consulta por dimensao, com paginacao propria. Nenhuma classe modelada tem essas duas etapas. Declarado por IT-T1-001 (ISTAT) e NAO confirmado — a classe nasce MODELADA, nao provada.",
+   "STEPS": {
+    "DISCOVER": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "FETCH": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "RAW": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "RUN": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "CHECKPOINT": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "DERIVED": {
+     "OWNER": null,
+     "STATE": "NOT_APPLICABLE",
+     "NOT_APPLICABLE_REASON": "a API devolve series ja estruturadas"
+    },
+    "STRUCTURED": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "ADMISSION": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    }
+   }
+  },
+  {
+   "ID": "RC-12",
+   "NAME": "SYNDICATED_FEED",
+   "MOTIVO_MATERIAL": "Duas etapas divergem, nao o formato. DISCOVER: a RC-1 descobre por catalogo escrito a mao; um feed enumera as publicacoes sozinho, e o endereco dele vem declarado por maquina no `<link rel=alternate>` do `<head>`. INCREMENTALIDADE: a RC-1 tem CHECKPOINT N/A por ser documento unico sem janela; um feed tem cursor natural por entrada, e portanto TEM unidade a retomar. Medido: 7 fontes com RSS declarado, no probe de 2026-09-07.",
+   "STEPS": {
+    "DISCOVER": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "FETCH": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "RAW": {
+     "OWNER": "guarda/preservar_coleta.py",
+     "STATE": "CODE",
+     "EDGE": [
+      "guarda/preservar_coleta.py",
+      "raw_asset"
+     ],
+     "PROOF_KIND": "NENHUMA"
+    },
+    "RUN": {
+     "OWNER": "guarda/preservar_coleta.py",
+     "STATE": "CODE",
+     "EDGE": [
+      "guarda/preservar_coleta.py",
+      "collection_run"
+     ],
+     "PROOF_KIND": "NENHUMA"
+    },
+    "CHECKPOINT": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "DERIVED": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "STRUCTURED": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    },
+    "ADMISSION": {
+     "OWNER": null,
+     "STATE": "UNKNOWN"
+    }
+   }
+  }
+ ],
+ "CANARIO": {
+  "SOURCE_ID": "IT-T2-002",
+  "ROUTE_CLASS_ID": "RC-1",
+  "PROOF_KIND": "LIVE_FETCH_PROVEN",
+  "PROOF_REF": "0feb4967",
+  "PROOF_DETALHE": "ARPAV, HTTP 200, application/pdf, 463630 bytes, assinatura %PDF-, raw_asset -> derived_artifact id=1",
+  "NOTA": "Alguem precisa dizer QUAL fonte foi o canario — isso nao se deduz do catalogo. O que torna a afirmacao conferivel e o PROOF_REF: um commit que existe no repositorio. Um teste recusa PROOF_REF que nao resolva."
+ }
+}

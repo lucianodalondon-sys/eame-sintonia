@@ -1,0 +1,82 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T2-002",
+ "OWNER_ID": "IT-OWN-ARPAV",
+ "CAPTURE": {
+  "CAPTURED_AT_UTC": "2026-09-07T14:31:58.541Z",
+  "METODO": "curl HTTP GET com User-Agent de navegador, do IP de saida italiano",
+  "EGRESS_IP": "205.147.30.20",
+  "EGRESS_GEO": "Milano, Lombardia, IT — AS208172 Proton AG",
+  "EGRESS_KIND": "VPN_COMERCIAL — nao e ISP residencial italiano",
+  "AUTH_USED": "NENHUMA. Nao se tentou contornar autenticacao."
+ },
+ "FILES": [
+  {
+   "RAW_FILE": "agro_01.pdf",
+   "SOURCE_URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_01.pdf",
+   "URL_EFETIVA": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_01.pdf",
+   "HTTP_STATUS": 200,
+   "MIME": "application/pdf",
+   "BYTES": 463630,
+   "SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+   "ASSINATURA_REAL_DOS_BYTES": "PDF de verdade",
+   "ALERTA": null,
+   "SERVER_IP": "185.213.112.65"
+  },
+  {
+   "RAW_FILE": "agro_09.pdf",
+   "SOURCE_URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_09.pdf",
+   "URL_EFETIVA": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_09.pdf",
+   "HTTP_STATUS": 200,
+   "MIME": "application/pdf",
+   "BYTES": 463423,
+   "SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+   "ASSINATURA_REAL_DOS_BYTES": "PDF de verdade",
+   "ALERTA": null,
+   "SERVER_IP": "185.213.112.65"
+  }
+ ],
+ "SOURCE_DATE": "agro_01 gerado em 03/09/2026 16:09; agro_09 gerado em 02/09/2026 15:26 (data lida do proprio PDF)",
+ "ORIGINAL_LANGUAGE": "it",
+ "ORIGINAL_TITLE": "Agrometeo...informa — bollettino di zona",
+ "SOURCE_LOCATION": "Padova/Teolo — ARPAV",
+ "FACT_LOCATION": "zona agrometeorologica do Veneto correspondente ao numero do arquivo. DIFERENTE da sede.",
+ "EVIDENCE_CLASS": "AGROCLIMATIC_SIGNAL",
+ "CROP": "n/a — agrometeorologia",
+ "TOPICS": "temperatura, chuva, zona agrometeorologica",
+ "WHAT_IT_PROVES": "que a ARPAV publica boletim agrometeorologico por zona, em PDF aberto, com 32 zonas e geracao independente por zona (datas diferentes entre agro_01 e agro_09)",
+ "WHAT_IT_DOES_NOT_PROVE": "o conteudo especifico de cada boletim (nao lido) · praga · risco modelado · decisao de tratamento",
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "UPDATE_FREQUENCY": "a propria pagina DECLARA: zonas 2-15, 23, 24 atualizadas segunda e quinta no periodo primavera-verao e quarta no outono-inverno; zonas 1, 16, 20-33 em outro calendario. DECLARADO PELO SITE, nao medido por nos. UPDATE_FREQUENCY = NÃO SEI ate captura repetida.",
+ "AUTOMATION_FEASIBILITY": "HIGH — 32 URLs fixas e previsiveis, sem login, sem JavaScript para baixar",
+ "VERDICT": "YELLOW",
+ "OWNER_CANONICAL_NAME": "ARPAV — Agenzia Regionale per la Prevenzione e Protezione Ambientale del Veneto",
+ "OWNER_KIND": "OFFICIAL_REGIONAL_AGENCY",
+ "TERRITORY": "T2",
+ "SOURCE_NAME": "Bollettino Agrometeo...informa, por zona",
+ "SOURCE_TYPE": "BOLLETTINO_PERIODICO",
+ "ACCESS_METHOD": "PDF",
+ "ACCESS_INSTRUMENT": "BROWSER",
+ "VPN_COUNTRY": "IT",
+ "BROWSER_REQUIRED": "NAO para baixar, SIM para descobrir: os 32 links de zona nao apareceram na leitura simples do HTML; so o navegador os revelou",
+ "JS_REQUIRED": "NO",
+ "INTERACTION_REQUIRED": "NO",
+ "LOGIN_REQUIRED": "NO",
+ "CAPTCHA_OBSERVED": "NO",
+ "WAF_OBSERVED": "NO",
+ "ROTA_NAVEGADA": "arpa.veneto.it > Dati ambientali > Bollettini > Agrometeo > Agrometeo...informa > escolher a zona",
+ "ROTA": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_<NN>.pdf  (NN = 01..32)",
+ "LEI_DE_NAO_PROMOCAO": {
+  "regra": "AGROCLIMATIC_SIGNAL != PEST_OCCURRENCE",
+  "nota": "mesma lei aplicada a ARPAE (IT-T2-001)"
+ },
+ "GEOGRAPHIC_GRANULARITY": "ZONA — 32 zonas, agrupando comuni",
+ "LIMITE_DA_NOSSA_LEITURA": "o texto interno dos PDFs NAO saiu no nosso extrator (1 pagina, 12 imagens, 14 fontes — provavel layout grafico). Confirmamos: sao PDFs de verdade pelos bytes, sao arquivos DIFERENTES entre zonas (hashes distintos) e trazem data de geracao diferente por zona. O conteudo nao foi lido palavra por palavra.",
+ "HISTORICAL_DEPTH": "NENHUMA — o nome do arquivo nao tem data; cada zona tem UM arquivo que e sobrescrito. Quem nao coletar na hora, perde.",
+ "PRIORITY": "P1",
+ "por_que": "amostras reais preservadas e rota automatizavel, MAS o conteudo nao foi lido e nao ha arquivo historico. YELLOW por limitacao real, nao por duvida sobre a fonte.",
+ "DECISAO_ADAMA": [
+  "TECHNICAL"
+ ],
+ "pergunta_da_missao": "A ADAMA ganha a leitura climatica do Veneto zona a zona — util para explicar pressao agronomica junto com um boletim fitossanitario. Sozinho nao decide nada."
+}

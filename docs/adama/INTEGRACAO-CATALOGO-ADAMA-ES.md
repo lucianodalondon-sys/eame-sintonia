@@ -62,7 +62,7 @@ Integração **seletiva**. Não houve merge.
 |---|---|---|
 | **A · migration** | `supabase/migrations/014_catalogo_publico_fabricante.sql` | renumerada de 010; único conteúdo alterado |
 | **B · import** | `supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql` | **regenerado**, não copiado |
-| **B · gerador** | `scripts/catalogo_importar.py` | adaptado ao schema de hoje |
+| **B · gerador** | `guarda/catalogo_importar.py` | adaptado ao schema de hoje |
 | **C · consultas** | `supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql` | perguntas de controle |
 | **C · regressões** | `supabase/tests/regressoes_catalogo_es.sql` | novo: 33 afirmações, red team incluído |
 | **D · artefatos** | `ADAMA-ES-PRODUCT-INTELLIGENCE`, `…-CONFIRMACAO-REGULATORIA-DO-PAR`, `ES-MAPA-VOCABULARIO-IDS`, `…-PRESERVACAO-{PLANO,RELATORIO,DIAGNOSTICO}`, `…-DOCUMENTOS-MANIFEST` | entradas do gerador e prova da preservação |

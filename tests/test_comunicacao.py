@@ -21,7 +21,8 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+sys.path.insert(0, ROOT)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 
 import comunicacao_classificar as cl      # noqa: E402
 import comunicacao_identidade as ident    # noqa: E402
@@ -149,7 +150,7 @@ checa('duas reprovacoes produzem DUAS razoes, nao uma',
 # Nenhum artefato desta missao pode criar ranking de prova que ninguem mediu.
 print('\nnenhum ranking de prova inventado:')
 import re as _re
-_fonte = io.open(os.path.join(ROOT, 'scripts', 'comunicacao_identidade.py'),
+_fonte = io.open(os.path.join(ROOT, 'regras', 'comunicacao_identidade.py'),
                  encoding='utf-8').read()
 checa('nao existe "prova mais forte" no codigo',
       bool(_re.search(r'(mais forte|melhor prova|prova mais)', _fonte)), False)

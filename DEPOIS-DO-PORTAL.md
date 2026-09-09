@@ -58,7 +58,7 @@ produzir.
 ## 3 · BW3 · UM TÍTULO DE 25 px EM CAIXA ALTA
 
 `"AZOXYSTROBIN + PROTHIOCONAZOLE"` vem do dado — `italy-casa.js`, gerado por
-`scripts/it_casa_dados.py` — e não do estilo. Uma transformação genérica de
+`superficie/it_casa_dados.py` — e não do estilo. Uma transformação genérica de
 caixa arriscaria estragar nomes de substância activa. Corrige-se a montante,
 no gerador.
 

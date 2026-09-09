@@ -265,7 +265,7 @@ what it cannot say:   tendência de conversa pública; participação de mercado
 ## ASK SINTONIA — `BUILDABLE`
 ```
 STATUS:               **BUILDABLE — provado que a camada é consultável**
-evidence:             scripts/ask_sintonia.py responde 4 perguntas reais com
+evidence:             superficie/ask_sintonia.py responde 4 perguntas reais com
                       FACT / DERIVED / UNKNOWN e confiança, e **recusa** a quinta
 contract:             toda resposta devolve ANSWER · EVIDENCE · SOURCE · WHAT_IS_FACT ·
                       WHAT_IS_DERIVED · WHAT_IS_UNKNOWN · CONFIDENCE

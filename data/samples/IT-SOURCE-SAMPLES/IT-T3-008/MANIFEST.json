@@ -1,0 +1,140 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T3-008",
+ "OWNER_ID": "IT-OWN-ARIF",
+ "CAPTURE": {
+  "CAPTURED_AT_UTC": "2026-09-07T14:36:30.583Z",
+  "METODO": "curl HTTP GET com User-Agent de navegador, do IP de saida italiano",
+  "EGRESS_IP": "205.147.30.20",
+  "EGRESS_GEO": "Milano, Lombardia, IT — AS208172 Proton AG",
+  "EGRESS_KIND": "VPN_COMERCIAL — nao e ISP residencial italiano",
+  "AUTH_USED": "NENHUMA. Nao se tentou contornar autenticacao."
+ },
+ "FILES": [
+  {
+   "RAW_FILE": "Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+   "SOURCE_URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+   "URL_EFETIVA": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+   "HTTP_STATUS": 200,
+   "MIME": "application/pdf",
+   "BYTES": 2703344,
+   "SHA256": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+   "ASSINATURA_REAL_DOS_BYTES": "PDF de verdade",
+   "ALERTA": null,
+   "SERVER_IP": "93.56.31.69"
+  },
+  {
+   "RAW_FILE": "Notiziario_Agrometeorologico_N35_26-08-2026.pdf",
+   "SOURCE_URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N35_26-08-2026.pdf",
+   "URL_EFETIVA": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N35_26-08-2026.pdf",
+   "HTTP_STATUS": 200,
+   "MIME": "application/pdf",
+   "BYTES": 2723072,
+   "SHA256": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+   "ASSINATURA_REAL_DOS_BYTES": "PDF de verdade",
+   "ALERTA": null,
+   "SERVER_IP": "93.56.31.69"
+  },
+  {
+   "RAW_FILE": "Giornaliero_Meteorologico_N136_07-09-2026.pdf",
+   "SOURCE_URL": "https://www.agrometeopuglia.it/bollettino-elettronico/quotidiano/2026/Giornaliero_Meteorologico_N136_07-09-2026.pdf",
+   "URL_EFETIVA": "https://www.agrometeopuglia.it/bollettino-elettronico/quotidiano/2026/Giornaliero_Meteorologico_N136_07-09-2026.pdf",
+   "HTTP_STATUS": 200,
+   "MIME": "application/pdf",
+   "BYTES": 1446423,
+   "SHA256": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+   "ASSINATURA_REAL_DOS_BYTES": "PDF de verdade",
+   "ALERTA": null,
+   "SERVER_IP": "93.56.31.69"
+  }
+ ],
+ "SOURCE_DATE": "Notiziario n.36 de 02/09/2026 (valido ate 08/09) · n.35 de 26/08/2026 · Bollettino diario n.136 de 07/09/2026",
+ "ORIGINAL_LANGUAGE": "it",
+ "ORIGINAL_TITLE": "Notiziario Agrometeorologico & Fitosanitario Regionale n. 36 del 02 settembre 2026 — Settimanale N.36 Anno XL",
+ "SOURCE_LOCATION": "Bari — ARIF Puglia",
+ "FACT_LOCATION": "Puglia (regional)",
+ "EVIDENCE_CLASS": "OBSERVED_FIELD_SIGNAL (bloco Situazione Fitosanitaria) + TECHNICAL_GUIDELINE (bloco Programma di Difesa) — separados por bloco, nunca somados",
+ "CROP": "32 blocos de cultura; nesta edicao identificam-se olivo, vite, agrumi, pomodoro entre outros — por DERIVACAO a partir da praga, nao por extracao",
+ "ISSUE": "mosca dell olivo, oziorrinco, peronospora, oidio, tignoletta, Ceratitis capitata, Tuta absoluta, cocciniglia rossa forte, entre outras",
+ "TOPICS": "agrometeorologia regional, quadro sinotico, e uma secao fitossanitaria declarada no titulo",
+ "WHAT_IT_PROVES": "que a Puglia tem boletim regional semanal declaradamente agrometeorologico E fitossanitario, no ano XL (quadragesimo), em PDF aberto, com rota previsivel; e um boletim meteorologico diario de segunda a sexta",
+ "WHAT_IT_DOES_NOT_PROVE": "o conteudo fitossanitario especifico (nao lido) · cultura · praga · limiar · nenhuma ocorrencia de campo pode ser afirmada a partir desta amostra",
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "UPDATE_FREQUENCY": "WEEKLY para o Notiziario — PROVADO pela listagem: N36 02/09, N35 26/08, N34 19/08, N33 12/08, N32 05/08, N31 29/07, N30 22/07, N29 15/07, N28 08/07, N27 01/07, N26 24/06. Espacamento de exatos 7 dias, saida as quartas, como o site declara. DAILY (seg-sex) para o Bollettino — declarado pelo site e coerente com a numeracao (n.136 em 07/09).",
+ "AUTOMATION_FEASIBILITY": "MEDIUM — rota previsivel e texto legivel por pdftotext, mas o nome da cultura exige derivacao a partir da praga",
+ "VERDICT": "GREEN",
+ "OWNER_CANONICAL_NAME": "ARIF Puglia — Agenzia regionale per le attivita irrigue e forestali",
+ "OWNER_KIND": "OFFICIAL_REGIONAL_AGENCY",
+ "TERRITORY": "T3",
+ "SOURCE_NAME": "Notiziario Agrometeorologico & Fitosanitario Regionale (semanal) + Bollettino Meteorologico Regionale (diario)",
+ "SOURCE_TYPE": "BOLLETTINO_PERIODICO",
+ "ACCESS_METHOD": "PDF",
+ "ACCESS_INSTRUMENT": "BROWSER",
+ "VPN_COUNTRY": "IT",
+ "BROWSER_REQUIRED": "NO",
+ "JS_REQUIRED": "NO",
+ "INTERACTION_REQUIRED": "NO",
+ "LOGIN_REQUIRED": "NO",
+ "CAPTCHA_OBSERVED": "NO",
+ "WAF_OBSERVED": "NO",
+ "ACHADO_PRINCIPAL": "o dominio do catalogo (arifpuglia.it) devolve 403 do CloudFront ATE no navegador italiano. Mas a ARIF publica — em OUTRO dominio: agrometeopuglia.it, que abre normalmente. E o caso classico de ROUTE_NOT_FOUND != SOURCE_BLOCKED. A rodada anterior teria condenado uma fonte viva.",
+ "OLD_ROUTE": "https://www.arifpuglia.it — DEAD (403 CloudFront, no curl E no navegador italiano)",
+ "CURRENT_ROUTE": "https://www.agrometeopuglia.it/bollettini — FOUND",
+ "ROTA": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/<ANO>/Notiziario_Agrometeorologico_N<NN>_<DD-MM-AAAA>.pdf  ·  .../quotidiano/<ANO>/Giornaliero_Meteorologico_N<NN>_<DD-MM-AAAA>.pdf",
+ "GEOGRAPHIC_GRANULARITY": "REGIONAL (a granularidade interna nao foi medida)",
+ "LIMITE_DA_NOSSA_LEITURA": "documento de 26 paginas, 55 imagens, 18 fontes. Nosso extrator simples leu as paginas iniciais (situacao meteorologica sinotica) e NAO conseguiu extrair a secao fitossanitaria. Buscas por 'oliv', 'mosca', 'soglia' no texto extraido deram ZERO. Isso NAO prova que a secao nao existe — prova que nao conseguimos ler. Fica registrado como limite do instrumento, nao como ausencia da fonte.",
+ "HISTORICAL_DEPTH": "o caminho tem o ano; 'Anno XL' no cabecalho sugere 40 anos de serie. Anos anteriores NAO testados.",
+ "PRIORITY": "P0",
+ "por_que": "a secao fitossanitaria foi lida e entrega o que a ficha prometia: praga com nome cientifico, estado observado, limiar de intervencao e substancia ativa, por cultura, semanalmente, com recorrencia de 7 dias provada. O que sustentava o YELLOW era a promessa nao verificada — agora esta verificada.",
+ "DECISAO_ADAMA": [
+  "TECHNICAL",
+  "MARKET_DEVELOPMENT"
+ ],
+ "PROXIMO_PASSO": "ler o PDF com extrator de PDF de verdade (poppler/pdftotext) e confirmar a secao fitossanitaria. Se ela trouxer cultura x praga x limiar, vira GREEN e provavelmente P0 absoluto.",
+ "REAVALIACAO_2026_09_07": {
+  "o_que_mudou": "instalado o uso de pdftotext -layout (ja presente na maquina, versao 4.06 xpdf). A secao fitossanitaria foi lida.",
+  "aviso": "NAO promovido por eu ter conseguido ler. Promovido porque a leitura MOSTROU que a fonte entrega o que a ficha prometia.",
+  "o_que_a_leitura_mostrou": {
+   "blocos_por_cultura": 32,
+   "estrutura_por_bloco": "Situazione Fenologica / Situazione Fitosanitaria / Programma di Difesa",
+   "pragas_com_nome_cientifico": [
+    "Bactrocera oleae",
+    "Otiorhynchus cribricollis",
+    "Plasmopara viticola",
+    "Uncinula necator",
+    "Ceratitis capitata",
+    "Tuta absoluta",
+    "Aleurocanthus spiniferus",
+    "Aonidiella aurantii",
+    "Botritis cinerea",
+    "Camarosporium dalmaticum",
+    "Palpita unionalis",
+    "Sphaerotheca pannosa",
+    "Jacobisca lybica"
+   ],
+   "soglie_de_intervencao": [
+    "4-5% (olive da olio)",
+    "5%",
+    "10%",
+    "20%"
+   ],
+   "sostanze_attive_nomeadas": [
+    "acetamiprid",
+    "flupyradifurone",
+    "deltametrina",
+    "spinosad",
+    "cyantraniliprole",
+    "pyriproxyfen",
+    "Bacillus thuringiensis"
+   ],
+   "referencia_regulatoria": "Piano d azione Xylella fastidiosa, DGR 1593 de 25/11/2024, biennio 2024-2026"
+  },
+  "separacao_obrigatoria": {
+   "OBSERVED": "bloco Situazione Fitosanitaria — o que o servico VIU (ex.: sporadiche catture nelle trappole a feromoni)",
+   "RECOMMENDED": "bloco Programma di Difesa — o que ele MANDA fazer. RECOMENDACAO != TRATAMENTO REALIZADO.",
+   "REGULATORY": "a citacao da DGR da Xylella e ponteiro para norma, nao autorizacao de produto",
+   "MODELLED": "nenhum modelo de risco identificado nesta edicao"
+  },
+  "limite_que_permanece": "o NOME DA CULTURA e imagem, nao texto. Pode ser DERIVADO da praga (Bactrocera oleae -> olivo). Marcar CROP_DERIVED, nunca CROP_EXTRACTED."
+ }
+}

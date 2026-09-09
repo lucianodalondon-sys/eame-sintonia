@@ -47,3 +47,38 @@ italia-portale/tmp_*/
 #
 #     O ARTEFATO QUE SE RECONSTROI SOZINHO NAO PRECISA DE DUAS CASAS.
 build/ITALY-REALITY-HANDOFF-V2.1/
+
+
+# ── SESSÃO DE NAVEGADOR NUNCA ENTRA NO GIT ───────────────────────────────────
+# O perfil dedicado vive FORA do repositório (~/.sintonia-browser, ou onde
+# SINTONIA_BROWSER_PROFILE_DIR apontar). Estas linhas são a segunda tranca: se
+# alguém criar um perfil aqui dentro por engano, o `git add -A` não o leva.
+# A primeira tranca é `guarda/social_guarda.py`, que FALHA o commit — porque
+# .gitignore só protege o que ainda não entrou.
+#
+#     O GITHUB NAO E COFRE DE SENHA HUMANA.
+.sintonia-browser/
+**/chrome-profile/
+**/browser-profile/
+**/firefox-profile/
+**/Default/Cookies
+**/Default/Login Data
+**/Default/Web Data
+**/Local Storage/
+**/Session Storage/
+cookies.txt
+cookies.sqlite
+cookiejar
+
+
+# ── O COMMIT NAO PODE CONHECER O SEU PROPRIO SHA ─────────────────────────────
+# `deployment.generated.json` diz QUE COMMIT ESTA IMPLANTADO. Essa resposta
+# nasce no build, dentro do contentor, onde a Vercel a sabe. Commita-lo seria
+# repetir o defeito que ele veio fechar: gera-se com o HEAD A, commita-se, o
+# commit passa a ser B, e o ficheiro nasce um commit atras de si mesmo.
+#
+#     GENERATED != DEPLOYED. UM FICHEIRO COMMITADO SO CONSEGUE DIZER O PRIMEIRO.
+#
+# Se ele nao existir no que e servido, a tela nao fica verde: diz UNKNOWN, que e
+# a verdade — nada provou qual commit esta la.
+italia-portale/client/system-map/deployment.generated.json

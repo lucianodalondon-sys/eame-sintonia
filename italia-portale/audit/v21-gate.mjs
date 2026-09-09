@@ -209,7 +209,7 @@ if (!assinaturaOk) {
      sorveglia — prosa portoghese davanti al cliente italiano — e misurato
      ASSENTE altrove: browser BR4 e meeting-browser NO_PORTUGUESE_ON_SCREEN,
      entrambi zero. Il debito e la rigenerazione, non una parola a schermo. */
-  console.log('        rebuild with: python3 scripts/site_v21_ingest.py');
+  console.log('        rebuild with: python3 portoes/site_v21_ingest.py');
   console.log('        richiede il pacchetto canonico in build/ — assente per contratto in questo repository');
   console.log('        cio che la firma sorveglia e misurato assente: BR4 = 0 · NO_PORTUGUESE_ON_SCREEN = 0');
 }

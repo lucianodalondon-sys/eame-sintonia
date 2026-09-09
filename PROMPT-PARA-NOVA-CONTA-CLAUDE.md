@@ -46,8 +46,8 @@ Depois leia, NESTA ORDEM (é o mapa da seção AA do handoff):
 
   1. docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md      <- se dois documentos discordarem, ESTE vence
   2. docs/regras/MODELO-DE-IDENTIDADE-EAME.md
-  3. docs/regras/REGRA-DE-COLETA-EXTERNA-EAME.md
-  4. docs/operacao/PORTOES-DE-COLETA-10B.md
+  3. medidas/REGRA-DE-COLETA-EXTERNA-EAME.md
+  4. medidas/PORTOES-DE-COLETA-10B.md
   5. docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md
   6. docs/fontes/ATLAS-DE-FONTES-EAME.md
   7. docs/decisoes/DIARIO-DE-DECISOES.md
@@ -73,9 +73,9 @@ Nota: pytest NÃO está instalado. Use unittest. Só biblioteca padrão do Pytho
 PASSO 4 — REPRODUZIR AS MÉTRICAS SENTINELA
 ==================================================
 
-python3 scripts/metricas_canonicas.py
-python3 scripts/portao.py
-python3 scripts/proveniencia.py
+python3 pacote/metricas_canonicas.py
+python3 medidas/portao.py
+python3 regras/proveniencia.py
 
 Confira estas sentinelas contra o que o handoff afirma:
 
@@ -196,5 +196,5 @@ Não comece trabalho nenhum antes de entregar o acceptance report.
   divergir do handoff, o ledger vence e a divergência é o primeiro achado da nova conta.
 - Este arquivo é **copiado e colado**, por isso não leva marcador `<!--M:-->` dentro do
   bloco. O dono dos seus números é `tests/test_handoff.py`, que os compara com
-  `scripts/metricas_canonicas.py` e **reprova** quando a suíte cresce e o número aqui não.
+  `pacote/metricas_canonicas.py` e **reprova** quando a suíte cresce e o número aqui não.
 - O relatório de aceite é o **filtro de qualidade**: se ele vier vago, a nova conta não leu.

@@ -1,5 +1,23 @@
 # CLAUDE.md — instruções permanentes do SINTONIA EAME
 
+> ## ⚖️ LEI OBRIGATÓRIA DO PROJETO
+>
+> **Leia [`AGENTS.md`](AGENTS.md) antes de fazer qualquer alteração.**
+>
+> O SINTONIA System Map tem de continuar sincronizado com **toda** mudança
+> relevante de arquitetura. **Rode o validador do System Map antes de fechar a
+> tarefa:**
+>
+> ```bash
+> py system-map/scripts/generate_system_map.py
+> py system-map/scripts/validate_system_map.py
+> ```
+>
+> A lei inteira vive em `AGENTS.md` e **não** é repetida aqui — uma lei em dois
+> sítios diverge, e a partir daí nenhuma das duas vale.
+
+---
+
 Este arquivo é o **dono canônico** das instruções permanentes para o Claude Code neste
 repositório. Regra registrada aqui vale para **todas as missões futuras** e não depende de
 alguém lembrar dela na conversa.

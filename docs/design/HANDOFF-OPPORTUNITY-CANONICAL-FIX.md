@@ -7,7 +7,7 @@ TARGET_BRANCH  claude/opportunity-commercial-priority-v1
 TARGET_BASE    55c2674b785a3a373ef0bad2812c244ed80c31eb
 ```
 
-`55c2674` é exatamente o SHA que `scripts/v21_cadeia.sh` já nomeia como gerador
+`55c2674` é exatamente o SHA que `motor/v21_cadeia.sh` já nomeia como gerador
 canónico. Ele não se moveu desde então: o alvo deste handoff é o mesmo que o
 repositório declara há semanas.
 
@@ -45,10 +45,10 @@ E os 8 testes de motor correm **verdes contra o gerador canónico corrigido**.
 | | |
 |---|---|
 | **`CHANGE_ID`** | `OPP-01` · varredura de portfólio declarada |
-| `SOURCE_FILE` | `scripts/v21_oportunidades.py` |
+| `SOURCE_FILE` | `motor/v21_oportunidades.py` |
 | `SOURCE_COMMIT` | `40539e0` |
 | `TARGET_OWNER` | o mesmo ficheiro, em `55c2674` |
-| `TARGET_FILE` | `scripts/v21_oportunidades.py` (linha 1365, `produtos[:12]`) |
+| `TARGET_FILE` | `motor/v21_oportunidades.py` (linha 1365, `produtos[:12]`) |
 | `WHY` | o corte existe nos dois lados e não declara nada. Um total sem contador lê-se como total. |
 | `FACT_PROVED_BY` | 10 cartões cortados, 81 produtos removidos — reconstruindo a entrada arquétipo a arquétipo |
 | `BEHAVIOR_BEFORE` | `PRODUCT_RELATIONSHIPS` traz ≤12 nomes e nenhum campo diz que houve corte |
@@ -59,7 +59,7 @@ E os 8 testes de motor correm **verdes contra o gerador canónico corrigido**.
 | | |
 |---|---|
 | **`CHANGE_ID`** | `OPP-02` · consulta a todas as famílias do pacote |
-| `SOURCE_FILE` · `SOURCE_COMMIT` | `scripts/v21_oportunidades.py` · `40539e0` |
+| `SOURCE_FILE` · `SOURCE_COMMIT` | `motor/v21_oportunidades.py` · `40539e0` |
 | `TARGET_FILE` | mesmo ficheiro; a lista de 14 coleções é **byte-idêntica** nas duas linhagens |
 | `WHY` | onze famílias existiam no pacote e nunca eram lidas; `PUBLIC-VOICES` era lida e deitada fora. Sem consulta, «não encontrei» é indistinguível de «não olhei». |
 | `FACT_PROVED_BY` | 14 carregadas / 13 usadas → 24 consultadas; `MOTOR_CARREGA_E_NAO_TOCA` passa de 12 para 0 |
@@ -82,7 +82,7 @@ canónica.)
 | | |
 |---|---|
 | **`CHANGE_ID`** | `OPP-03` · O5 associa produto de outra cultura ao cartão |
-| `TARGET_FILE` | `scripts/v21_oportunidades.py:1663` — `crops[0] if len(crops) == 1 else None` |
+| `TARGET_FILE` | `motor/v21_oportunidades.py:1663` — `crops[0] if len(crops) == 1 else None` |
 | `WHY` | o cartão recebe uma cultura quando a substância toca **uma só**, mas lista **todos** os produtos que a contêm, venham da cultura que vierem |
 | `FACT_PROVED_BY` | 4 cartões, 6 produtos: VINETO (videira) num cartão POMODORO; POSTSCRIPT 80 e 80 XL (milho/arroz/girassol) num cartão SOIA; STAVENTO (frumento) e SOLOFOL AP (sem cultura) num cartão **VITE**; ANTARKTIS (sem cultura) num cartão ORZO |
 | `BEHAVIOR_AFTER` (proposto) | ou o cartão O5 **não** recebe cultura, ou `PRODUCT_RELATIONSHIPS` é filtrado pela cultura do cartão e os excluídos vão para `EXCLUDED_WITH_REASON` |
@@ -98,7 +98,7 @@ canónica.)
 | | |
 |---|---|
 | **`CHANGE_ID`** | `OPP-04` · catálogo perde 656 pares produto × cultura |
-| `TARGET_OWNER` | `scripts/adama_catalogo_montar.py` (produz) → `scripts/v21_ingest.py:292` (transporta) |
+| `TARGET_OWNER` | `fontes/adama_catalogo_montar.py` (produz) → `motor/v21_ingest.py:292` (transporta) |
 | `RISK` | **alto — muda `CROP_FIT` e portanto o que o ecrã mostra** |
 | **`CHERRY_PICK_SAFE`** | **NÃO** — ver §4 |
 
@@ -108,7 +108,7 @@ canónica.)
 |---|---|---|
 | `OPP-05` | `tests/test_completude_oportunidade.py` — classes `TestVarreduraDoMotor` e `TestCruzamentoDeInteligencia` | **8 testes, verdes contra `55c2674` corrigido.** Vão direto. |
 | `OPP-06` | mesma classe `TestMedidaPublicada` (4 testes) | depende de `data/samples/IT-COMPLETUDE/…json`. Portar **só** se o medidor for junto. |
-| `OPP-07` | `scripts/v21_completude_oportunidade.py` | lê o pacote **servido**, não o motor. Útil como régua independente; opcional. |
+| `OPP-07` | `motor/v21_completude_oportunidade.py` | lê o pacote **servido**, não o motor. Útil como régua independente; opcional. |
 
 ### D · Achados que NÃO devem virar código ainda
 
@@ -199,9 +199,9 @@ do motor lê contagem de anúncio (o O4 usa concorrência, este cartão é O1).
 ## 4 · O catálogo, e os 656 pares
 
 ```
-CATALOG_OWNER   scripts/adama_catalogo_montar.py  (CULTURA_PAGINA → linha 238)
-                → scripts/v21_ingest.py:292       (transporta para o pacote)
-                → scripts/v21_comercial.py:293    catalogo_declara_cultura()
+CATALOG_OWNER   fontes/adama_catalogo_montar.py  (CULTURA_PAGINA → linha 238)
+                → motor/v21_ingest.py:292       (transporta para o pacote)
+                → motor/v21_comercial.py:293    catalogo_declara_cultura()
                 → CROP_FIT em PORTFOLIO_MATCHES
 
 CURRENT_FIELD       CROPS_DECLARED_ON_SITE
@@ -244,10 +244,10 @@ ecrã. Precisa de decisão sobre o que fazer com as 142 culturas que entrariam.
 ## 5 · `PORTFOLIO_MATCHES` e `PRIMARY_MATCH`
 
 ```
-PORTFOLIO_MATCHES_OWNER  portfolio()  em scripts/v21_oportunidades.py:535
+PORTFOLIO_MATCHES_OWNER  portfolio()  em motor/v21_oportunidades.py:535
                          do gerador canónico 55c2674 — NÃO existe nesta linhagem
 PRIMARY_MATCH_OWNER      a mesma função (devolve matches, primário, razão)
-GENERATOR_FILE           scripts/v21_oportunidades.py @ 55c2674, atribuído em :1438-1440
+GENERATOR_FILE           motor/v21_oportunidades.py @ 55c2674, atribuído em :1438-1440
 
 INPUTS   o (o cartão) · rotulos (linhas de rótulo do caso)
          casados  ← CM.casar(rotulos, ix_comercial), v21_comercial.py:191

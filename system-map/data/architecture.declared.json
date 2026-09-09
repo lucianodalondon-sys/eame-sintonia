@@ -1,0 +1,3185 @@
+{
+  "SCHEMA": "sintonia.system-map.declared/1",
+  "NOTA": [
+    "Este ficheiro carrega o que o codigo NAO consegue saber sozinho: o nome de gente,",
+    "a frase que explica para que serve, o departamento que consome, a expectativa",
+    "arquitetural. Tudo o mais — que ficheiro existe, quem importa quem, quem roda o",
+    "que — e MEDIDO pelo scanner e nunca escrito aqui a mao.",
+    "",
+    "REGRA: nada aqui cria verdade tecnica. Se este ficheiro disser que A alimenta B e",
+    "o scanner nao achar linha nenhuma que prove, o mapa mostra a aresta como EXPECTED",
+    "e o status vai para AMARELO com o motivo escrito. Declaracao nao promove a verde.",
+    "",
+    "DECLARED_BLOBS e carimbado pela maquina (`generate_system_map.py --stamp`). Quando",
+    "um ficheiro do componente muda, a descricao humana passa a estar POTENCIALMENTE",
+    "DESATUALIZADA e o componente cai de verde para amarelo ate alguem reler e recarimbar.",
+    "E de proposito: descricao velha em mapa verde e pior do que nao ter mapa."
+  ],
+  "DEPARTMENTS": {
+    "DESENVOLVIMENTO_MERCADO": "Desenvolvimento de Mercado — destinatario proprio, nao e Marketing nem Comercial nem Inteligencia.",
+    "COMERCIAL": "Comercial / vendas.",
+    "MARKETING": "Marketing.",
+    "TECNICO_CIENCIA": "Tecnico / Ciencia agronomica.",
+    "REGULATORIO_PORTFOLIO": "Regulatorio e Portfolio.",
+    "FIELD_SALES": "Field Sales.",
+    "INTELIGENCIA": "Inteligencia de mercado.",
+    "LIDERANCA": "Lideranca.",
+    "ENGENHARIA": "Engenharia do proprio SINTONIA (nao e departamento da ADAMA)."
+  },
+  "TERRITORIES": [
+    {
+      "id": "Z-BIBLIA",
+      "family": "F-COLETA",
+      "name": "0 · A CONSTITUIÇÃO DA COLETA",
+      "why": "A lei da coleta, num sitio so. Ela nao coleta nada: ela diz o que coletar significa nesta casa, o que se preserva, quem manda, e como se prova. Fica antes do pedido porque toda a faixa obedece a ela.",
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "Z-ENTRADA",
+      "family": "F-COLETA",
+      "name": "1 · ENTRADA DE COLETA",
+      "why": "Por onde uma coleta comeca. Hoje so ha uma forma que existe de verdade: alguem clica num botao. Agendado e por acontecimento estao previstos no contrato e NAO existem — e por isso nao aparecem aqui",
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "Z-PEDIDO",
+      "family": "F-COLETA",
+      "name": "· PEDIDO — o contrato",
+      "why": "O envelope do que se pede: alvo, acionamento, escopo e filtros. NAO E UMA ESTACAO por onde o dado passa — e a forma do pedido, e a politica que o orquestrador usa para o resolver. Fica aqui para se poder abrir",
+      "views": [
+        "acervo"
+      ],
+      "folder": "pedido"
+    },
+    {
+      "id": "Z-ORQUESTRADOR",
+      "family": "F-COLETA",
+      "name": "2 · ORQUESTRADOR",
+      "why": "O unico dono da pergunta «como atender este pedido?». Recebe o pedido, consulta a receita, as fontes e os contratos, escolhe o executor, assina a corrida e leva a colheita a porta",
+      "views": [
+        "acervo"
+      ],
+      "folder": "orquestrador"
+    },
+    {
+      "id": "Z-CANDIDATAS",
+      "family": "F-COLETA",
+      "name": "· de onde vem uma fonte",
+      "why": "Antes de ser fonte, foi candidata. Aqui alguem anota o que apareceu, abre, olha e levanta o que aquilo entrega — so depois vira ficha. Fonte nasce, nao aparece pronta",
+      "views": [
+        "acervo"
+      ],
+      "folder": "candidatas"
+    },
+    {
+      "id": "Z-FONTES",
+      "family": "F-COLETA",
+      "name": "· as fontes",
+      "why": "De onde o dado vem — de fora e de dentro. O acervo que se consulta ANTES de coletar, o que a ADAMA ja sabe de si, e a porta por onde entra fonte nova",
+      "views": [
+        "acervo"
+      ],
+      "folder": "fontes"
+    },
+    {
+      "id": "Z-REGRAS",
+      "family": "F-COLETA",
+      "name": "· as reguas que carimbam",
+      "why": "O que se aplica ao item NO MOMENTO em que ele entra: de onde veio, quem esta autorizado, que palavras se digitam, o contrato de cada fonte. Vem antes das acoes porque sao elas que as consultam",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "folder": "regras"
+    },
+    {
+      "id": "Z-EXECUCAO",
+      "family": "F-COLETA",
+      "name": "3 · EXECUCAO",
+      "why": "Quem faz o trabalho. Nao e um ficheiro: e o sitio onde vivem os executores, e as ferramentas e os canais que eles usam aparecem por baixo, nao ao lado",
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "Z-FERRAMENTAS",
+      "family": "F-COLETA",
+      "name": "· as ferramentas da execucao",
+      "why": "Com o que se vai: a rota paga, a rota gratis pelo navegador e a transcricao local",
+      "views": [
+        "infra"
+      ],
+      "folder": "ferramentas"
+    },
+    {
+      "id": "Z-VEICULOS",
+      "family": "F-COLETA",
+      "name": "· os canais",
+      "why": "De ONDE o dado vem: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Vem antes da acao porque e dali que a coleta chega; a acao e quem vai busca-la e quem a guarda",
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "Z-ACOES",
+      "family": "F-COLETA",
+      "name": "· os executores",
+      "why": "O que se FAZ dentro de um veiculo: colher o YouTube, colher o que o concorrente publica, baixar os rotulos. Acao e verbo — se for um sitio por onde se passa, e veiculo, nao acao",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "folder": "coleta"
+    },
+    {
+      "id": "Z-ADMISSAO",
+      "family": "F-COLETA",
+      "name": "4 · A PORTA DE ADMISSAO",
+      "why": "A peneira comum, e o livro que guarda cada nao com motivo, regra, versao e prova. Daqui sai PRONTO_PARA_INTELIGENCIA — e a fronteira",
+      "views": [
+        "acervo"
+      ],
+      "folder": "admissao"
+    },
+    {
+      "id": "Z-MEDIDAS",
+      "family": "F-COLETA",
+      "name": "· as medidas da coleta",
+      "why": "O que olha para tras e da nota: quanto falta, que fonte respondeu torto, que lei do Brasil ainda nao foi portada. NAO BARRA NADA — medir nao e filtrar, e confundir os dois faz parecer que ha peneira onde so ha termometro",
+      "views": [
+        "audit"
+      ],
+      "folder": "medidas"
+    },
+    {
+      "id": "Z-GUARDA",
+      "family": "F-ESPERA",
+      "name": "A SALA DE ESPERA",
+      "why": "Onde fica o que ja foi colhido, limpo e guardado, a espera de entrar na inteligencia. Cor neutra de proposito: aqui nada e transformado, so guardado",
+      "views": [
+        "infra"
+      ],
+      "folder": "guarda"
+    },
+    {
+      "id": "Z-LINEAGE",
+      "family": "F-INTELIGENCIA",
+      "name": "LINHAGENS E DONOS",
+      "why": "Qual branch decide, qual consome e qual pacote e o canonico. A inteligencia tem UM dono",
+      "views": [
+        "lineage",
+        "official"
+      ],
+      "folder": null
+    },
+    {
+      "id": "Z-REGUAS",
+      "family": "F-INTELIGENCIA",
+      "name": "REGUAS E LEIS",
+      "why": "As leis que decidem o que conta como verdade: procedencia, lugar do fato, tempo, relevancia, voz",
+      "views": [
+        "opportunity",
+        "science"
+      ],
+      "folder": "leis"
+    },
+    {
+      "id": "Z-MOTOR",
+      "family": "F-INTELIGENCIA",
+      "name": "MOTOR — CADEIA V2.1",
+      "why": "Onde o dado bruto vira caso. A ordem e lei, nao convencao",
+      "views": [
+        "generator",
+        "opportunity"
+      ],
+      "folder": "motor"
+    },
+    {
+      "id": "Z-PROVA",
+      "family": "F-INTELIGENCIA",
+      "name": "PROVAS E MEDICAO",
+      "why": "O que separa 'esta escrito' de 'esta provado'. Guarda as tres familias, e vive aqui porque provar e como o sistema sabe o que sabe",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "folder": "provas"
+    },
+    {
+      "id": "Z-PACOTE",
+      "family": "F-ENTREGA",
+      "name": "PACOTE CANONICO",
+      "why": "O artefato fechado que sai daqui. Derivado e reproduzivel — nunca dono da lei",
+      "views": [
+        "generator",
+        "portal"
+      ],
+      "folder": "pacote"
+    },
+    {
+      "id": "Z-PORTOES",
+      "family": "F-ENTREGA",
+      "name": "FRONTEIRA E PORTOES",
+      "why": "O unico ponto por onde o pacote atravessa para a tela, e tudo o que impede coisa errada de atravessar",
+      "views": [
+        "portal",
+        "audit"
+      ],
+      "folder": "portoes"
+    },
+    {
+      "id": "Z-SUPERFICIE",
+      "family": "F-ENTREGA",
+      "name": "SUPERFICIES",
+      "why": "O que o cliente e a reuniao realmente veem. Apresenta decisao ja tomada; nao recalcula nada",
+      "views": [
+        "portal",
+        "meeting"
+      ],
+      "folder": "superficie"
+    },
+    {
+      "id": "Z-TELAS",
+      "family": "F-ENTREGA",
+      "name": "AS ONZE FERRAMENTAS DO PORTAL",
+      "why": "O fim da estrada: as onze ferramentas que a pessoa abre e usa, com o nome que o portal mostra. Cada uma diz o que esta ligado nela hoje",
+      "views": [
+        "portal",
+        "entrega"
+      ]
+    }
+  ],
+  "COMPONENTS": [
+    {
+      "id": "C-BIBLIA",
+      "name": "A Bíblia canônica da coleta",
+      "territory": "Z-BIBLIA",
+      "kind": "contract",
+      "icon": "⚖",
+      "views": [
+        "acervo"
+      ],
+      "what": "104 leis numeradas (V1.3) que governam toda coleta do SINTONIA: o censo das 63 leis maduras que ja existiam, o censo da infraestrutura, a matriz de conflitos com ficheiro e linha, as tres emendas constitucionais e a medicao da Italia contra elas.",
+      "why_here": "As leis da coleta viviam espalhadas por cabecalho de script, README, prompt de aba e if solto. Espalhadas assim nao se consultam: redescobrem-se, e a lei redescoberta nunca e igual a que ja existia. Ela declara LAW_STATUS separado de IMPLEMENTATION_STATUS para que «e lei» nunca signifique «ja funciona»; a V1.1 poe o proprio System Map dentro da lei; e a V1.2 da papel canonico ao GitHub (engenharia versionada) e ao Supabase (memoria operacional), com a regra que governa os dois: INFRAESTRUTURA NAO E AUTORIDADE SEMANTICA. E a V1.3 poe a lei frente a frente com a PRIMEIRA ESTRADA REAL: das sete questoes constitucionais, tres ja estavam resolvidas e quatro viraram lei nova — ocorrencia nao e conteudo, documento pronto nao e fato pronto, ferramenta que falta nao e documento quebrado, e a arvore escaneada nao e o commit que publica o mapa.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "BIBLIA-CANONICA-DA-COLETA.md",
+        "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
+        "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
+        "docs/biblia/CONFORMIDADE-ITALIA.md",
+        "docs/biblia/EMENDA-V1-1.md",
+        "docs/biblia/EMENDA-V1-2.md",
+        "docs/biblia/MATRIZ-DE-CONFLITOS.md",
+        "docs/biblia/RECONCILIACAO-INTEGRACAO.md",
+        "docs/biblia/leis.json"
+      ]
+    },
+    {
+      "id": "C-IT-CATALOGO",
+      "name": "O levantamento das fontes italianas",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "icon": "◫",
+      "views": [
+        "acervo"
+      ],
+      "what": "Monta e mantem o catalogo das 54 fontes italianas: dono, territorio, rota, cultura, cadencia — e o que cada uma NAO prova.",
+      "why_here": "Tem campos que o atlas nao tem, e o melhor deles e `WHAT_IT_DOES_NOT_PROVE` — a pergunta que quase nenhum catalogo faz. Mas nasceu AO LADO do atlas, e nao dentro dele: duas listas a responder «que fontes temos» sao duas verdades, e a segunda envelhece calada. O mapa reconcilia as duas, fonte a fonte.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "candidatas/italy_fill_manifests.mjs",
+        "candidatas/italy_fill_manifests_browser.mjs",
+        "candidatas/italy_fix_semantics.mjs",
+        "candidatas/italy_profiles.mjs",
+        "candidatas/italy_update_master_browser.mjs",
+        "candidatas/italy_write_matrix.mjs",
+        "candidatas/ITALY-SOURCE-MASTER-V1.json",
+        "candidatas/ITALY-SOURCE-MASTER-V1.md"
+      ]
+    },
+    {
+      "id": "C-IT-COLETA",
+      "name": "Colher as fontes italianas",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "⇩",
+      "views": [
+        "acervo"
+      ],
+      "what": "Mede a porta de cada fonte, acha o documento do dia, colhe e volta amanha reconhecendo o que ja viu.",
+      "why_here": "Bate a porta antes de entrar: medir custa zero e evita gastar maquina onde nao ha ninguem. E `ACCESS_OK` no curl e sinal FORTE, mas `BLOCKED` e sinal FRACO — muitos sites recusam curl e aceitam navegador. Confundir os dois faz um endereco nosso errado virar «o pais bloqueia».",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "coleta/italy_find_docs.mjs",
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/italy_probe.mjs",
+        "coleta/italy_recurrent_collect.mjs"
+      ]
+    },
+    {
+      "id": "C-LEITORES",
+      "name": "Abrir PDF, ODS e HTML",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "icon": "▤",
+      "views": [
+        "infra"
+      ],
+      "what": "Tira o texto de dentro de um PDF, de uma planilha ODS ou de uma pagina.",
+      "why_here": "O `pdftotext` ja estava na maquina o tempo todo, e a seccao fitossanitaria que faltava apareceu inteira sem OCR nenhum. Procurar ferramenta antes de escrever uma custa uma tarde e poupa um mes.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "ferramentas/html_text.mjs",
+        "ferramentas/italy_extract_fields.mjs",
+        "ferramentas/ods_peek.mjs",
+        "ferramentas/pdf_peek.mjs",
+        "ferramentas/italy-forward-only-live.cmd"
+      ]
+    },
+    {
+      "id": "C-IT-CONTRATOS",
+      "name": "O contrato de cada fonte italiana",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "icon": "§",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA.",
+      "why_here": "Os testes precisaram de ver vermelho: oito documentos foram corrompidos de proposito, na memoria e nunca no disco, e os oito reprovaram. Um PDF que virou «Access denied» com HTTP 200 reprovou — porque 200 nao e prova de nada. Teste que nunca viu vermelho nao e teste.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "regras/italy_contract_test.mjs",
+        "regras/italy_contracts.mjs",
+        "regras/italy_pilot_guards.mjs",
+        "regras/italy_scheduling_guards.mjs",
+        "regras/italy_source_health.mjs",
+        "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md"
+      ]
+    },
+    {
+      "id": "C-IT-PRESERVAR",
+      "name": "Guardar com impressao digital",
+      "territory": "Z-GUARDA",
+      "kind": "engine",
+      "icon": "⛃",
+      "views": [
+        "infra"
+      ],
+      "what": "Guarda o documento e o SHA256 dele: se um byte mudar, o numero muda.",
+      "why_here": "Testemunho nao e prova — ver na tela nao vale. E o Git ia trocar as quebras de linha dos ficheiros guardados, o que mudaria os bytes e quebraria TODOS os hashes: a prova viraria mentira sem ninguem reparar. Foi travado antes de gravar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "guarda/italy_preserve.mjs",
+        "data/collection-ledger/italy/observations.ndjson",
+        "data/collection-ledger/italy/runs.ndjson"
+      ],
+      "family": "F-ESPERA"
+    },
+    {
+      "id": "C-IT-CONTAS",
+      "name": "A conta da coleta italiana",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "icon": "∑",
+      "views": [
+        "audit"
+      ],
+      "what": "Conta o que foi medido e tenta quebrar o que foi guardado, com casos negativos de proposito.",
+      "why_here": "Numero digitado a mao mente: o placar errou duas vezes e a contagem de organizacoes tres. A contabilidade passou a ser CALCULADA, nunca digitada. E `ACCESS_CLASSIFICATION` nao e `ANALYTIC_VERDICT` — estado de porta nao e veredito sobre a fonte.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/italy_accounting.mjs",
+        "provas/italy_pilot_negativos.mjs",
+        "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
+        "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md"
+      ]
+    },
+    {
+      "id": "C-PADRAO-COLETA",
+      "name": "O padrao do departamento de coleta",
+      "territory": "Z-MEDIDAS",
+      "kind": "gate",
+      "icon": "⚖",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "Mede seis coisas em toda a coleta — ficha antes de coletar, carimbo de data, fonte separada do fato, descarte registado, rendimento e custo — e reprova se alguma piorar.",
+      "why_here": "Medir uma vez nao conserta nada. Ele nao exige que esteja tudo certo hoje: exige NAO PIORAR. «Esta tudo certo» nao e executavel hoje; «nao piorou» e. A divida fica a vista, com nome e numero, em vez de virar silencio.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "medidas/padrao_da_coleta.py",
+        "medidas/PADRAO-DA-COLETA-CHAO.json"
+      ]
+    },
+    {
+      "id": "C-PROCEDENCIA",
+      "name": "De onde veio — carimbado na coleta",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "icon": "◈",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "Carimba, em cada registo, de onde ele veio — no momento em que ele entra.",
+      "why_here": "Sem procedencia, um numero vira verdade so porque esta escrito. E ela so vale se for posta na coleta: depois e tarde, porque o dado ja entrou sem ela e ninguem consegue recuperar a origem.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "regras/proveniencia.py"
+      ]
+    },
+    {
+      "id": "C-LUGAR-COLETA",
+      "name": "O lugar do fato — carimbado na coleta",
+      "territory": "Z-MEDIDAS",
+      "kind": "contract",
+      "icon": "⌖",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "Separa o lugar de onde o documento veio do lugar onde o fato aconteceu, e propoe o candidato lendo o texto na lingua do pais.",
+      "why_here": "Uma fonte italiana a falar de Espanha nao torna o fato italiano. Esta e das licoes que o Brasil ensinou a esta casa, e so vale se for aplicada quando o dado entra.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "medidas/lugar_do_fato.py",
+        "medidas/fato_local.py"
+      ]
+    },
+    {
+      "id": "C-CONTRATO-CAMPOS",
+      "name": "O que a coleta tem de trazer",
+      "territory": "Z-MEDIDAS",
+      "kind": "contract",
+      "icon": "☰",
+      "views": [
+        "acervo"
+      ],
+      "what": "O contrato de campos por video — 32 campos, em codigo — e a regua de como o sistema fala do que colheu.",
+      "why_here": "A lista esta em codigo para que o proximo pais nao a redigite e nao a encolha em silencio. Sinal nao vira pedido, ausencia nao vira negativo.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "medidas/voz.py"
+      ]
+    },
+    {
+      "id": "C-RECORRENCIA",
+      "name": "A prova de que o fato se refaz",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "icon": "↻",
+      "views": [
+        "audit"
+      ],
+      "what": "Refaz o caminho inteiro de um fato — fonte, busca, leitura, identidade, normalizacao — e falha fechado se qualquer degrau nao reproduzir.",
+      "why_here": "Responde a pergunta que documentacao nenhuma responde: um engenheiro novo consegue refazer os fatos do piloto sem conhecer a historia das missoes? Ele NAO produz o fato — prova que o fato se refaz. E por isso nao esta na cadeia de producao: nada o corre em producao, e nao devia.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/chain.py"
+      ]
+    },
+    {
+      "id": "C-IMPORTAR",
+      "name": "Levar o dado para o banco",
+      "territory": "Z-GUARDA",
+      "kind": "engine",
+      "icon": "⇥",
+      "views": [
+        "infra"
+      ],
+      "what": "Transforma o artefato do Git em SQL idempotente e leva-o para o banco.",
+      "why_here": "Gera SQL em vez de falar direto com o banco porque o SQL e AUDITAVEL: ele entra no Git e pode ser lido antes de correr.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "guarda/catalogo_importar.py",
+        "guarda/importar_italia.py"
+      ],
+      "family": "F-ESPERA"
+    },
+    {
+      "id": "C-COLETA-YOUTUBE",
+      "name": "Colher o YouTube",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "▶",
+      "views": [
+        "acervo"
+      ],
+      "what": "Le os canais, lista os videos, e decide quais valem a hora de maquina da transcricao.",
+      "why_here": "Video entrega o que nenhuma outra camada entrega: fala tecnica longa. Medido na Espanha: 15 videos deram 705.149 caracteres de fala tecnica — nenhuma outra camada chegou perto por unidade de custo.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "coleta/youtube_janela.py",
+        "coleta/youtube_relevancia.py"
+      ]
+    },
+    {
+      "id": "C-REGRA-COLETA",
+      "name": "A regra de coleta externa",
+      "territory": "Z-MEDIDAS",
+      "kind": "contract",
+      "icon": "§",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "A lei que diz o que se coleta primeiro e o que nao pode ser esquecido: video, pesquisadores e LinkedIn nao sao acessorios.",
+      "why_here": "Veiculo sem regra atropela. A ordem de prioridade nao e gosto: video vem primeiro porque e a unica camada que entrega fala tecnica longa.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md",
+        "medidas/PORTOES-DE-COLETA-10B.md",
+        "medidas/portao.py",
+        "medidas/portoes_eame.py"
+      ]
+    },
+    {
+      "id": "C-PALAVRAS",
+      "name": "As palavras que a busca digita",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "icon": "“",
+      "views": [
+        "acervo"
+      ],
+      "what": "Os termos de busca, agrupados por cultura-problema, na lingua de quem trabalha no campo. Sao 103 palavras em dois ficheiros: 35 do censo de rotulos, todas italianas, e 68 do sensor, das quais 13 recortes de 17 sao da Italia.",
+      "why_here": "Buscar 'septoria wheat' na Italia devolve literatura internacional, nao a conversa tecnica de quem esta no campo — o que se procura e 'septoriosi del frumento'. E o CROP e o ISSUE de cada item saem DESTA consulta, nunca de leitura livre do titulo, e e isso que torna a linha auditavel.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "regras/sensor_coleta.py",
+        "regras/sensor_medir.py",
+        "regras/rotulos_censo.py"
+      ]
+    },
+    {
+      "id": "C-IDENTIDADE",
+      "name": "Quem esta autorizado a ser coletado",
+      "territory": "Z-REGRAS",
+      "kind": "contract",
+      "icon": "⛨",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "A regua que decide se uma conta publica entra na coleta: identidade provada e conta local do pais.",
+      "why_here": "Estar na lista nao e autorizacao. Sem esta regua, oito execucoes pagas ja foram queimadas nesta casa devolvendo o alvo errado.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "regras/comunicacao_identidade.py",
+        "regras/comunicacao_lote.py",
+        "regras/comunicacao_universo.py",
+        "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json"
+      ]
+    },
+    {
+      "id": "C-SAUDE-FONTE",
+      "name": "A saude de cada fonte",
+      "territory": "Z-MEDIDAS",
+      "kind": "contract",
+      "icon": "♥",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "what": "Diz se uma fonte respondeu bem, respondeu torto, ou nao respondeu.",
+      "why_here": "HTTP 200 nao basta: ha 200 com pagina de erro — status bom, corpo lixo. Por isso a checagem e de schema e identidade. E lista vazia e FALHA, nunca 'zero resultados': a diferenca entre 'nao ha' e 'nao consegui ver' e a diferenca entre um relatorio e uma mentira.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "medidas/source_health.py"
+      ]
+    },
+    {
+      "id": "C-SINTONIA-SCRAP",
+      "name": "SINTONIA SCRAP — o despachador",
+      "territory": "Z-EXECUCAO",
+      "kind": "workflow",
+      "icon": "⚡",
+      "views": [
+        "infra",
+        "acervo"
+      ],
+      "what": "O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina.",
+      "why_here": "Os cinco `instagram_*.py` rodavam A MAO. Isso significa que a coleta so existia enquanto alguem estivesse sentado nela. Aqui ela vira despacho: quem pede nao precisa estar na maquina, e o que rodou fica no historico. A ordem e lei: LOTE CONGELADO -> PERFIL -> OBJETO -> so entao ROTA PAGA.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        ".github/workflows/sintonia-scrap.yml"
+      ]
+    },
+    {
+      "id": "C-NAVEGADOR",
+      "name": "O navegador — a rota gratis",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "icon": "◎",
+      "views": [
+        "infra"
+      ],
+      "what": "Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.",
+      "why_here": "A rota publica ja entrega bio, seguidores, os 12 posts recentes, a legenda inteira, a data e as curtidas. Pagar por isso seria pagar duas vezes.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "ferramentas/navegador.py",
+        "ferramentas/cdp.py"
+      ]
+    },
+    {
+      "id": "C-TRANSCRICAO",
+      "name": "A fala vira texto, sem fatura",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "engine",
+      "icon": "♪",
+      "views": [
+        "infra"
+      ],
+      "what": "Transcreve o audio dos videos na propria maquina, com whisper local.",
+      "why_here": "Custa tempo de maquina, nao fatura. A rota paga de transcricao cobra por minuto — e ha ator que cobra por minuto INICIADO.",
+      "departments": [
+        "ENGENHARIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "ferramentas/instagram_transcrever.py",
+        "ferramentas/youtube_transcrever.py"
+      ]
+    },
+    {
+      "id": "C-PORTA-FONTE",
+      "name": "A porta de entrada de fonte nova",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "icon": "⊕",
+      "what": "Onde se anota uma fonte nova que apareceu — no meio de uma coleta ou na mao — organizada por tipo, com para que serve e quem a viu.",
+      "why_here": "O acervo de fontes e capital parado: consulta-se antes de coletar. Sem porta, fonte nova morre no historico do terminal de quem a viu. Mas o que entra e CANDIDATA, nunca fonte: fonte nasce quando alguem abre, olha e guarda prova.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "acervo"
+      ],
+      "files": [
+        "candidatas/fonte_nova.py",
+        "candidatas/FONTES-CANDIDATAS.json"
+      ]
+    },
+    {
+      "id": "C-APIFY-POOL",
+      "name": "Apify — a rota paga",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "library",
+      "what": "Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.",
+      "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "ferramentas/apify_pool.py",
+        "ferramentas/apify_contrato.py",
+        "ferramentas/apify_recuperar.py",
+        "ferramentas/contrato_ator.py"
+      ],
+      "views": [],
+      "icon": "€"
+    },
+    {
+      "id": "C-COLETA-PUBLICA",
+      "name": "Colher o que o concorrente publica",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Recolhe o que os concorrentes publicam em canais abertos e classifica cada peca.",
+      "why_here": "Saber o que o concorrente esta dizendo em publico, sem depender de ninguem contar.",
+      "departments": [
+        "INTELIGENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "coleta/comunicacao_coleta.py",
+        "coleta/comunicacao_classificar.py",
+        "coleta/comunicacao_medir.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-COLETA-INSTAGRAM",
+      "name": "Colher o Instagram",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Recolhe publicacoes de Instagram das contas autorizadas e transcreve o que e falado em video.",
+      "why_here": "Boa parte da fala real de produtor e de tecnico nao esta em texto — esta em video.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "coleta/instagram_coleta.py",
+        "coleta/instagram_diario.py",
+        "coleta/instagram_janela.py",
+        "coleta/instagram_pessoal.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-COLETA-BASE",
+      "name": "O motor de buscar",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "O motor generico de coleta e o portao que decide, de graca, se vale gastar maquina antes de gastar.",
+      "why_here": "Coletar sem portao ja custou execucoes pagas que devolveram o alvo errado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "coleta/coletor.py",
+        "coleta/coleta_checkpoint.py",
+        "coleta/filas.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-FONTES-EU",
+      "name": "Ler as bases oficiais da Europa",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Le as bases oficiais da Europa — registro de produtos, pragas, denominacoes, dados agroalimentares.",
+      "why_here": "Fonte oficial e o unico chao que nao depende de alguem ter postado.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "coleta/agrifood_ue.py",
+        "coleta/cellar.sh",
+        "coleta/denominaciones.py",
+        "coleta/ephy.sh",
+        "coleta/eppo_gd.py",
+        "coleta/eu_substancia_adama_it.py",
+        "coleta/gire_mapas.py",
+        "coleta/regulatorio*.py",
+        "coleta/texto_fonte.py"
+      ],
+      "views": [
+        "science"
+      ],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-CORPUS",
+      "name": "Montar o corpus de fala e de ciencia",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Junta a fala real de campo e a producao dos pesquisadores num corpo de texto consultavel.",
+      "why_here": "A voz do campo e a ciencia sao duas evidencias diferentes e nao podem virar a mesma coisa.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "coleta/corpus_*.py",
+        "coleta/es/corpus_*.py",
+        "coleta/sensor_canal_identidade.py",
+        "coleta/speaker*.py",
+        "coleta/universo_ciencia_it.py"
+      ],
+      "views": [
+        "science"
+      ],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-PROVENIENCIA",
+      "name": "A procedencia dentro do pacote",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "Confere que cada caso do pacote continua a carregar de onde veio.",
+      "why_here": "A lei de onde-veio e carimbada na COLETA. Aqui e a conferencia dela sobre o pacote ja montado — outra coisa, outro momento.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "leis/v21_carimbar_origem.py",
+        "leis/v21_procedencia_contrato.py",
+        "leis/v21_procedencia_religar.py"
+      ],
+      "views": [],
+      "icon": "§"
+    },
+    {
+      "id": "C-LUGAR-DO-FATO",
+      "name": "A geografia do pacote",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "Confere a geografia dos casos no pacote fechado.",
+      "why_here": "A lei do lugar do fato e carimbada na COLETA. Aqui e a conferencia dela sobre o pacote.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "leis/v21_geografia_contrato.py"
+      ],
+      "views": [],
+      "icon": "§"
+    },
+    {
+      "id": "C-DATA-CLOCK",
+      "name": "Regua do tempo",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "Decide qual data vale: a do fato, nao a da publicacao, e nunca a data regulatoria virando janela agronomica.",
+      "why_here": "Trocar data de publicacao por data do fato desloca a safra inteira.",
+      "departments": [
+        "TECNICO_CIENCIA",
+        "REGULATORIO_PORTFOLIO"
+      ],
+      "files": [
+        "leis/data_clock.py",
+        "leis/v21_datas*.py",
+        "leis/calendario_*.py"
+      ],
+      "views": [],
+      "icon": "§"
+    },
+    {
+      "id": "C-RELEVANCIA",
+      "name": "Regua de relevancia ADAMA",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "Decide se um sinal interessa a ADAMA, e o quanto.",
+      "why_here": "Ha um unico dono da relevancia. Duas reguas de relevancia sao duas verdades.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "leis/adama_relevance.py",
+        "leis/regua*.py",
+        "leis/auditoria_regua_comercial.py"
+      ],
+      "views": [
+        "opportunity"
+      ],
+      "icon": "§"
+    },
+    {
+      "id": "C-CICATRIZES-BR",
+      "name": "Cicatrizes do Brasil (lei portada)",
+      "territory": "Z-MEDIDAS",
+      "kind": "contract",
+      "what": "Traz para o EAME as leis que o Brasil ja aprendeu na dor, em vez de reinventar cada uma.",
+      "why_here": "O EAME nao inventa contrato novo quando o Brasil ja tem lei madura para a mesma pergunta.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "medidas/cicatrizes_brasil.py"
+      ],
+      "views": [],
+      "icon": "§"
+    },
+    {
+      "id": "C-ADAMA-IT",
+      "name": "O que a ADAMA sabe de si",
+      "territory": "Z-FONTES",
+      "kind": "contract",
+      "what": "O catalogo comercial e o portfolio da ADAMA lidos por dentro: o que vende em cada pais, com que rotulo, modo de acao e substancia — e onde ha lacuna.",
+      "why_here": "Sem saber o que a ADAMA vende naquele pais, nao da para dizer se uma oportunidade e atendivel. Nada aqui sai para buscar: o catalogo veio de paginas salvas a mao, e o portfolio e reaproveitado como entrada. E o inventario que se consulta ANTES de coletar.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "fontes/adama_it_eu.py",
+        "fontes/adama_it_frac.py",
+        "fontes/adama_it_gaps.py",
+        "fontes/adama_it_intelligence.py",
+        "fontes/adama_it_labels.py",
+        "fontes/adama_it_moa.py",
+        "fontes/adama_it_qa.py",
+        "fontes/adama_catalogo_ler.py",
+        "fontes/adama_catalogo_montar.py"
+      ],
+      "views": [
+        "science"
+      ],
+      "icon": "◪"
+    },
+    {
+      "id": "C-ADAMA-ES",
+      "name": "O portao do catalogo espanhol · projeto futuro",
+      "territory": "Z-GUARDA",
+      "kind": "gate",
+      "what": "Mede o que o catalogo espanhol entrega, campo por campo, e decide se ele pode entrar. Nao importa nada.",
+      "why_here": "A Espanha entrou depois e com fonte diferente. As regras de normalizacao vivem no ponto onde o artefato vira linha canonica — o unico lugar onde podem ser auditadas contra o texto literal da fonte. PROJETO FUTURO: construido e provado no piloto de Espanha, guardado a espera do seu momento. Nao e legado — nao morreu; e nao e rota de hoje — nao esta a andar.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO"
+      ],
+      "files": [
+        "guarda/es/adama_es_gate.py",
+        "guarda/es/adama_es_import_rules.py",
+        "guarda/es/workflows/adama-es-gate.yml"
+      ],
+      "views": [],
+      "icon": "⛨",
+      "lane": "futuro",
+      "family": "F-ESPERA"
+    },
+    {
+      "id": "C-ROTULOS",
+      "name": "Baixar e ler os rotulos oficiais",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Baixa, conta e le os rotulos oficiais dos produtos.",
+      "why_here": "O rotulo e o unico documento que diz o que e legalmente permitido fazer com o produto.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "coleta/rotulos_baixar.py",
+        "coleta/rotulos_ler.py",
+        "coleta/cruzar_regua_rotulo.py",
+        "coleta/pdf_text.py",
+        "coleta/preservar_pdf.py",
+        "coleta/mapa_regfi.py",
+        "coleta/ropf_pre_requisito.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-V2-LEGADO",
+      "name": "Cadeia V2 (legado)",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "A geracao anterior do motor, antes da V2.1.",
+      "why_here": "Continua no repositorio e por isso aparece no mapa — mas nao e a cadeia oficial de hoje.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": true,
+      "files": [
+        "motor/v2_*.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-V21-COMERCIAL",
+      "name": "Leitura comercial e completude",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "Mede se o caso esta completo o bastante para virar conversa comercial, e reavalia quando muda.",
+      "why_here": "Caso incompleto virando pedido de venda e o erro mais caro que este sistema pode cometer.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "motor/v21_comercial.py",
+        "motor/v21_completude_oportunidade.py",
+        "motor/v21_necessidade.py",
+        "motor/v21_reavaliar_35.py",
+        "motor/v21_reverificacao_ledger.py",
+        "motor/v21_antes_e_depois.py",
+        "motor/v21_campos_de_lingua.py",
+        "motor/v21_adama_registro_validar.py",
+        "motor/v21_tm_colher.py"
+      ],
+      "views": [
+        "meeting",
+        "opportunity"
+      ],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-LASTMILE",
+      "name": "Ultima milha da entrega",
+      "territory": "Z-PACOTE",
+      "kind": "engine",
+      "what": "Leva o resultado ate onde ele e consumido: inventario, relatorio, banco e entrega final.",
+      "why_here": "Resultado que fica no disco da maquina nao chegou a ninguem.",
+      "departments": [
+        "ENGENHARIA",
+        "COMERCIAL"
+      ],
+      "files": [
+        "pacote/lastmile_*.py",
+        "pacote/ler_saida_leque.py",
+        "pacote/meeting_snapshot.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-ASK-SINTONIA",
+      "name": "Ask Sintonia",
+      "territory": "Z-SUPERFICIE",
+      "kind": "engine",
+      "what": "A porta de pergunta em linguagem de gente sobre o que o sistema ja provou.",
+      "why_here": "E a unica peca desenhada para quem nao sabe onde procurar.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO",
+        "LIDERANCA"
+      ],
+      "files": [
+        "superficie/ask_sintonia.py",
+        "superficie/rede.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-MEDICAO",
+      "name": "Auditoria, cobertura e custo",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Mede o proprio sistema: o que foi coberto, o que era esperado e quanto custou.",
+      "why_here": "Sistema que nao se mede nao sabe o que esta faltando nele.",
+      "departments": [
+        "ENGENHARIA",
+        "LIDERANCA"
+      ],
+      "files": [
+        "provas/auditoria.py",
+        "provas/coverage.py",
+        "provas/corrigir_custo.py",
+        "provas/inventario_esperado.py",
+        "provas/es/freeze_es.py",
+        "provas/testa_rota_italia.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-CADEIA-V21",
+      "name": "Cadeia canonica V2.1",
+      "territory": "Z-MOTOR",
+      "kind": "chain",
+      "what": "O roteiro que roda os trinta passos do motor na ordem certa, do dado bruto ate o pacote fechado.",
+      "why_here": "A ordem nao e adivinhavel. Rodar um passo sozinho produz um pacote que parece bom e esta errado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "motor/v21_cadeia.sh",
+        "motor/cadeia_canonica.sh"
+      ],
+      "views": [],
+      "icon": "⛓"
+    },
+    {
+      "id": "C-V21-INGEST",
+      "name": "Ingestao V2.1",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "Entrada do motor: le o dado bruto e o coloca no formato que o resto da cadeia entende.",
+      "why_here": "Primeiro degrau da cadeia. Tudo depois depende do que entra aqui.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "motor/v21_ingest*.py",
+        "motor/v21_normalizar.py",
+        "motor/normalize*.py",
+        "motor/pacote_normalizar.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-V21-CRUZAMENTO",
+      "name": "Cruzamentos e convergencia",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "Cruza sinais de origens diferentes e ve onde eles se encontram.",
+      "why_here": "Um sinal sozinho e ruido. O valor esta no encontro de dois.",
+      "departments": [
+        "INTELIGENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "motor/v21_crossings.py",
+        "motor/pacote_convergencia.py",
+        "motor/consolidar_leque.py",
+        "motor/matriz*.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-V21-OPORTUNIDADE",
+      "name": "Motor de Oportunidade",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "Transforma cruzamento provado em caso de oportunidade, com dono, lugar e momento.",
+      "why_here": "E aqui que o sistema decide. A tela nao recalcula nada disto.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO",
+        "FIELD_SALES"
+      ],
+      "files": [
+        "motor/v21_oportunidades.py",
+        "motor/v21_dominio_da_alegacao.py",
+        "motor/v21_fechar.py"
+      ],
+      "views": [
+        "opportunity"
+      ],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-V21-CONTRATO",
+      "name": "Contrato do pacote",
+      "territory": "Z-MOTOR",
+      "kind": "contract",
+      "what": "Confere se o pacote fechado obedece as contagens e as regras antes de existir.",
+      "why_here": "Pacote que nao prova a si mesmo nao pode chegar ao portal.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "motor/v21_contrato_do_pacote.py",
+        "motor/v21_aceitacao.py",
+        "motor/v21_traducao_trava.py"
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "§"
+    },
+    {
+      "id": "C-V21-FONTES",
+      "name": "Religacao de fontes do pacote",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "Garante que cada caso do pacote continua ligado a fonte que o provou.",
+      "why_here": "Caso sem fonte religada e afirmacao orfa.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "motor/v21_fontes_*.py",
+        "motor/v21_vozes_reconciliar.py",
+        "motor/source*.py"
+      ],
+      "views": [],
+      "icon": "⚙",
+      "exclude": [
+        "motor/source_health.py"
+      ]
+    },
+    {
+      "id": "C-PACOTE-CAMADAS",
+      "name": "Montagem do pacote por camadas",
+      "territory": "Z-PACOTE",
+      "kind": "engine",
+      "what": "Monta o pacote de entrega em camadas e mede o que ficou dentro.",
+      "why_here": "Separar montagem de decisao: aqui so se empacota o que o motor ja decidiu.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "pacote/pacote*.py",
+        "pacote/metricas_canonicas.py",
+        "pacote/v21_handoff_json.py"
+      ],
+      "exclude": [
+        "pacote/pacote_normalizar.py",
+        "pacote/pacote_convergencia.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-SITE-INGEST",
+      "name": "Ingestao do pacote no site",
+      "territory": "Z-PORTOES",
+      "kind": "engine",
+      "what": "Pega o pacote fechado e o transforma no ficheiro que o portal carrega.",
+      "why_here": "Unica porta entre o motor e a tela. Recusa pacote que nao prove a propria procedencia.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "portoes/site_v21_ingest.py",
+        "portoes/build_portal.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-ARTEFACTO-V21",
+      "name": "Artefacto embarcado (italy-handoff-v21.js)",
+      "territory": "Z-PACOTE",
+      "kind": "artifact",
+      "what": "O ficheiro de dados que viaja para o cliente. E o unico que chega la.",
+      "why_here": "Derivado — nunca dono da lei. Se ele e a lei divergirem, quem manda e a lei.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/client/italy-handoff-v21.js",
+        "italia-portale/client/italy-ingested.js"
+      ],
+      "views": [],
+      "icon": "◫"
+    },
+    {
+      "id": "C-PORTAL-CASCO",
+      "name": "Casco do portal",
+      "territory": "Z-SUPERFICIE",
+      "kind": "surface",
+      "what": "As paginas que o cliente abre: entrada, casa e portal.",
+      "why_here": "A superficie apresenta o que ja foi decidido. Nao decide.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO",
+        "LIDERANCA"
+      ],
+      "files": [
+        "italia-portale/client/*.html"
+      ],
+      "views": [
+        "meeting"
+      ],
+      "icon": "▣"
+    },
+    {
+      "id": "C-PORTAL-MODELO",
+      "name": "Modelo de aplicacao do portal",
+      "territory": "Z-SUPERFICIE",
+      "kind": "surface",
+      "what": "A logica de tela: o que aparece, em que ordem, com que rotulo.",
+      "why_here": "Guarda a leitura, nao a decisao.",
+      "departments": [
+        "COMERCIAL",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "italia-portale/client/italy-app-model.js",
+        "italia-portale/client/italy-v21.js",
+        "italia-portale/client/italy-casa.js",
+        "italia-portale/client/italy-i18n.js",
+        "italia-portale/client/support.js"
+      ],
+      "views": [],
+      "icon": "▣"
+    },
+    {
+      "id": "C-PORTAL-DADOS",
+      "name": "Camadas de dado do portal",
+      "territory": "Z-SUPERFICIE",
+      "kind": "surface",
+      "what": "Os blocos de conteudo que o portal mostra: casos, catalogo, ciencia, rotulo, mercado, reuniao.",
+      "why_here": "Cada bloco tem um dono de dado diferente e por isso e listado separado.",
+      "departments": [
+        "COMERCIAL",
+        "TECNICO_CIENCIA",
+        "REGULATORIO_PORTFOLIO",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "italia-portale/client/italy-*.js",
+        "italia-portale/client/meeting-*.js",
+        "italia-portale/client/adama-relevance.js",
+        "superficie/it_casa_dados.py",
+        "superficie/es/proto_es.py"
+      ],
+      "exclude": [
+        "italia-portale/client/italy-app-model.js",
+        "italia-portale/client/italy-v21.js",
+        "italia-portale/client/italy-casa.js",
+        "italia-portale/client/italy-i18n.js",
+        "italia-portale/client/italy-handoff-v21.js",
+        "italia-portale/client/italy-ingested.js"
+      ],
+      "views": [
+        "meeting"
+      ],
+      "icon": "▣"
+    },
+    {
+      "id": "C-PORTAO-BUILD",
+      "name": "Portao da build",
+      "territory": "Z-PORTOES",
+      "kind": "gate",
+      "what": "Roda antes de qualquer publicacao e barra pacote atrasado ou artefacto que nao prove sua origem.",
+      "why_here": "Nao ha bandeira para desligar. Portao que se chama a parte e disciplina; no caminho, e regra.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/audit/build-gate.mjs",
+        "italia-portale/audit/ingestion-provenance.mjs",
+        "italia-portale/audit/casa-gate.mjs"
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⛨"
+    },
+    {
+      "id": "C-AUDIT-HARNESS",
+      "name": "Harness de auditoria",
+      "territory": "Z-PORTOES",
+      "kind": "library",
+      "what": "A base comum que todas as auditorias usam para rodar e relatar do mesmo jeito.",
+      "why_here": "E o ficheiro mais importado do repositorio inteiro.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/audit/lib/*.mjs"
+      ],
+      "views": [],
+      "icon": "▤"
+    },
+    {
+      "id": "C-AUDIT-BLOCOS",
+      "name": "Auditoria de blocos do portal",
+      "territory": "Z-PORTOES",
+      "kind": "gate",
+      "what": "Confere bloco por bloco se a tela mostra o que o contrato daquele bloco manda.",
+      "why_here": "Bloco e a unidade de contrato da superficie.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/audit/blocks.mjs",
+        "italia-portale/audit/blocks/*.js",
+        "italia-portale/audit/BLOCK-CONTRACTS.md"
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⛨"
+    },
+    {
+      "id": "C-AUDIT-CASCO",
+      "name": "Auditoria do casco",
+      "territory": "Z-PORTOES",
+      "kind": "gate",
+      "what": "Confere a paridade visual, a demo, os falsos zeros e a fuga de conteudo do casco.",
+      "why_here": "Casco quebrado engana antes de o dado ser lido.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/audit/casco/*.mjs"
+      ],
+      "exclude": [
+        "italia-portale/audit/casco/brandwell-parita.mjs"
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⛨"
+    },
+    {
+      "id": "C-AUDIT-MARCA",
+      "name": "Auditoria de marca ADAMA",
+      "territory": "Z-PORTOES",
+      "kind": "gate",
+      "what": "Confere se a tela obedece ao Design System oficial da ADAMA.",
+      "why_here": "A forma tambem tem lei, e ela nao e opcional.",
+      "departments": [
+        "MARKETING",
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/audit/brandwell.mjs",
+        "italia-portale/audit/casco/brandwell-parita.mjs",
+        "italia-portale/audit/adama-*.mjs"
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⛨"
+    },
+    {
+      "id": "C-AUDIT-GERAL",
+      "name": "Demais auditorias do portal",
+      "territory": "Z-PORTOES",
+      "kind": "gate",
+      "what": "O resto das conferencias: aceitacao, numeros do contrato, superficie, navegacao, idioma.",
+      "why_here": "Cada uma prova uma promessa diferente da tela.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "italia-portale/audit/*.mjs"
+      ],
+      "exclude": [
+        "italia-portale/audit/build-gate.mjs",
+        "italia-portale/audit/ingestion-provenance.mjs",
+        "italia-portale/audit/casa-gate.mjs",
+        "italia-portale/audit/blocks.mjs",
+        "italia-portale/audit/brandwell.mjs",
+        "italia-portale/audit/adama-*.mjs"
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⛨"
+    },
+    {
+      "id": "C-SUPABASE",
+      "name": "O banco onde o dado fica guardado",
+      "territory": "Z-GUARDA",
+      "kind": "engine",
+      "what": "O schema canonico em 21 migrations versionadas, as provas SQL e o SQL de importacao gerado antes de correr. E a MEMORIA OPERACIONAL do SINTONIA: collection_run, raw_asset, checkpoint_coleta, fonte_externa, e o bucket privado `raw` onde os bytes vivem com o pais no caminho e a identidade no hash.",
+      "why_here": "INFRAESTRUTURA NAO E AUTORIDADE SEMANTICA (COL-LAW-301): uma tabela existir nao torna canonico o que esta nela, e conseguir fazer INSERT nao da a ninguem autoridade para decidir o que e verdade. O Supabase GUARDA; quem JULGA sao os contratos, a admissao e o livro de decisoes. Medido em 08/09/2026: 7 caminhos de escrita, 7 canonicos, ZERO bypasses — porque a credencial so existe como segredo do runner, e o SQL entra no Git para alguem ler ANTES de rodar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "supabase/**",
+        "guarda/sql*.py",
+        "guarda/supabase*.py"
+      ],
+      "views": [],
+      "icon": "⚙",
+      "family": "F-ESPERA"
+    },
+    {
+      "id": "C-CI-COLETA",
+      "name": "Os botoes que disparam a coleta",
+      "territory": "Z-ENTRADA",
+      "kind": "workflow",
+      "what": "Os botoes do GitHub, que sao a forma manual de fazer um pedido. Nenhum tem hora marcada: se ninguem clicar, nao se colhe nada.",
+      "why_here": "Um botao e um pedido com acionamento MANUAL — nao e um passo antes do pedido. Separa-los obrigava a olhar dois cartoes para entender uma coisa so.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        ".github/workflows/apify-*.yml",
+        ".github/workflows/comunicacao-publica.yml"
+      ],
+      "views": [],
+      "icon": "▶"
+    },
+    {
+      "id": "C-CI-PERSIST",
+      "name": "Os botoes que cuidam do banco",
+      "territory": "Z-GUARDA",
+      "kind": "workflow",
+      "what": "Os workflows que aplicam a cadeia canonica no Supabase, criam o bucket privado, provam o round-trip do RAW (Git -> Storage -> Postgres -> download -> hash) e testam a conexao sem nunca imprimir o valor de um segredo.",
+      "why_here": "O GitHub Actions e INFRAESTRUTURA DE EXECUCAO, nao orquestrador (COL-LAW-309): ele agenda, dispara, testa, valida e publica — e nao decide que fonte e relevante, que executor usar nem o que e admissivel. YAML nao e um segundo orquestrador. Medido: zero cron nos 11 workflows; o unico relogio do SINTONIA e o Agendador do Windows, porque o runner do GitHub sai por datacenter e a coleta italiana precisa sair pela VPN italiana.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        ".github/workflows/supabase-*.yml",
+        ".github/workflows/banco-descartavel.yml",
+        ".github/workflows/auditoria-live.yml"
+      ],
+      "views": [],
+      "icon": "▶",
+      "family": "F-ESPERA"
+    },
+    {
+      "id": "C-CI-REGRESSAO",
+      "name": "Calendario de regressoes",
+      "territory": "Z-PROVA",
+      "kind": "workflow",
+      "what": "Roda de tempos em tempos as provas que garantem que nada quebrou sozinho.",
+      "why_here": "Coisa que passou ontem pode falhar hoje sem ninguem ter mexido nela.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        ".github/workflows/calendario-regressoes.yml"
+      ],
+      "views": [],
+      "icon": "▶"
+    },
+    {
+      "id": "C-TESTES",
+      "name": "Suite de testes",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "what": "As provas executaveis do repositorio, uma por lei ou por peca.",
+      "why_here": "E o que separa 'esta escrito' de 'esta provado'.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "tests/*.py",
+        "tests/es/*.py"
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "✓"
+    },
+    {
+      "id": "C-DS-ADAMA",
+      "name": "Extrato local do ADAMA Design System",
+      "territory": "Z-SUPERFICIE",
+      "kind": "library",
+      "what": "As cores, tipografia, espacamentos e fontes oficiais da ADAMA, versionados aqui como extrato.",
+      "why_here": "Extrato local nao e o Design System — serve para o codigo nao divergir dos tokens.",
+      "departments": [
+        "MARKETING"
+      ],
+      "files": [
+        "italia-portale/client/_ds/**",
+        "italia-portale/BASELINE/_ds/**"
+      ],
+      "views": [],
+      "icon": "▤"
+    },
+    {
+      "id": "C-MAPA-SCAN",
+      "name": "Scanner do System Map",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Le o repositorio e devolve so os fatos: que ficheiro existe, quem importa quem, quem roda o que — e le tambem o atlas de fontes, os contratos de busca e as palavras usadas na coleta.",
+      "why_here": "E a unica fonte de aresta tecnica do mapa. Sem ele, o mapa seria opiniao desenhada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/scan_repo.py",
+        "system-map/scripts/scan_sources.py",
+        "system-map/scripts/scan_casco.py",
+        "system-map/scripts/pente_fino_da_coleta.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-MAPA-GERADOR",
+      "name": "Gerador do System Map",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Junta o que a maquina mediu com o que o humano declarou, calcula o status de cada peca, move peca de gaveta levando ficheiros e chamadas junto — e publica a app pela lista unica de `CADEIA-DO-MAPA.json`.",
+      "why_here": "O status nasce de regra escrita, nao de escolha de quem esta olhando. E a lista do que e publicado tem um dono so: quatro copias dela deixavam um ficheiro da app fora do que e servido, sem uma queixa.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/generate_system_map.py",
+        "system-map/scripts/mudar_gaveta.py"
+      ],
+      "views": [],
+      "icon": "⚙"
+    },
+    {
+      "id": "C-MAPA-VALIDADOR",
+      "name": "Validador do System Map",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "what": "Reprova a mudanca quando o mapa fica desatualizado, quando ha aresta sem prova ou verde sem evidencia — e confere ficheiro a ficheiro a copia que vai ser servida.",
+      "why_here": "E o dente da lei. Sem ele, AGENTS.md seria so um texto pedindo por favor. A lista do que e servido vem da cadeia: escrita aqui, deixava a lei da frescura fora da conferencia anti-drift.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/validate_system_map.py"
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⛨"
+    },
+    {
+      "id": "C-MAPA-DEPLOY",
+      "name": "Publicador do System Map no deploy",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "what": "Corre no BUILD: regera o mapa pela cadeia que o CI ja usa, guarda o veredito do validador, e escreve qual commit esta REALMENTE implantado — e depois do deploy confere, contra o URL publico, se aquele commit foi mesmo publicado.",
+      "why_here": "O commit implantado nao pode viver num ficheiro commitado: gera-se com o HEAD A, commita-se, o commit passa a B, e o ficheiro nasce um commit atras de si mesmo. GENERATED != DEPLOYED, e so o build sabe o segundo.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/CADEIA-DO-MAPA.json",
+        "system-map/scripts/publicar_no_deploy.mjs",
+        "system-map/scripts/verificar_deploy.py"
+      ],
+      "views": [],
+      "icon": "⇪"
+    },
+    {
+      "id": "C-IMPRESSAO-DA-ARVORE",
+      "name": "Impressao da arvore-fonte",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "what": "Sela as FONTES rastreadas — e exclui as saidas da propria cadeia — numa impressao que se le tanto do disco (ao gerar) como do INDICE do git (ao implantar). E assim que o mapa servido prova de que arvore veio.",
+      "why_here": "Um ficheiro commitado nao pode nomear o commit que o contem: o carimbo nascia sempre a apontar para o commit anterior, e a pertenca era impossivel por construcao. A impressao nao se move quando o commit guarda o mapa regerado. E le-se do indice, que o `.vercelignore` nao apaga — logo o contentor prova que arvore implanta sem receber a arvore, e a tranca fica fechada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/impressao_da_arvore.py"
+      ],
+      "views": [],
+      "icon": "⊙"
+    },
+    {
+      "id": "C-CENSO-DOS-BURACOS",
+      "name": "Censo dos buracos declarados",
+      "territory": "Z-PROVA",
+      "kind": "scanner",
+      "what": "Le por AST os tuplos `GAPS` de qualquer ficheiro rastreado e as chaves com corpo de buraco em `provas-de-execucao.json`, e junta-os num so sitio para a tela os desenhar.",
+      "why_here": "Quatro buracos com nome viviam em tres formatos, e um deles era um `print` — invisivel para qualquer maquina. Copia-los para um JSON novo criaria o quarto sitio e faria os outros deixarem de valer. Este censo MEDE onde eles ja estao: fechar um buraco e apagar a declaracao dele, e nao ha segunda coisa a actualizar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_dos_buracos.py"
+      ],
+      "views": [],
+      "icon": "◌"
+    },
+    {
+      "id": "C-MAPA-APP",
+      "name": "Interface do System Map",
+      "territory": "Z-PROVA",
+      "kind": "surface",
+      "what": "A tela do mapa: navegar, aproximar, buscar, filtrar e clicar em cada peca — e provar, no topo, se o que esta no ecra e a arvore mais nova da linha.",
+      "why_here": "So renderiza e MEDE; nenhum facto arquitetural mora dentro dela. A lei da frescura vive em `freshness.js` a parte, porque CURRENT so com prova: GENERATED != DEPLOYED != LATEST REMOTE, e COVERAGE nunca e FRESHNESS.",
+      "departments": [
+        "ENGENHARIA",
+        "LIDERANCA"
+      ],
+      "files": [
+        "system-map/app/**"
+      ],
+      "views": [],
+      "icon": "▣"
+    },
+    {
+      "id": "C-MAPA-TESTES",
+      "name": "Testes do System Map",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "what": "Provam que o mapa nao inventa aresta, nao pinta verde sem evidencia, nao perde o NAO SEI — e que a frescura nunca fica verde sem as quatro provas.",
+      "why_here": "Um mapa de auditoria que nao e auditado nao vale nada. E ausencia de prova de staleness nao e prova de current: isso e provado por forca bruta, sobre todas as combinacoes das medicoes.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/tests/*"
+      ],
+      "views": [],
+      "icon": "✓"
+    },
+    {
+      "id": "C-CI-MAPA",
+      "name": "Workflow do System Map",
+      "territory": "Z-PROVA",
+      "kind": "workflow",
+      "what": "Em cada mudanca, regera o mapa e reprova se o que foi commitado nao bate com o repositorio — e, depois do deploy, reprova se o URL publico nao estiver a servir esse mesmo commit.",
+      "why_here": "E o que impede o 'depois alguem atualiza o mapa'.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        ".github/workflows/system-map*.yml"
+      ],
+      "views": [],
+      "icon": "▶"
+    },
+    {
+      "id": "C-PEDIDO",
+      "name": "O pedido de coleta",
+      "territory": "Z-PEDIDO",
+      "kind": "contract",
+      "icon": "◎",
+      "what": "O contrato de entrada: alvo, acionamento, escopo e filtros. Traduz «colete materiais de pesquisadores» para o territorio que o atlas ja usa.",
+      "why_here": "O censo mediu 79 pontos de entrada em 92 ficheiros. Setenta e nove maneiras de comecar uma coleta nao sao uma coleta: sao setenta e nove.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "pedido/pedido.py"
+      ],
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "C-RECEITAS",
+      "name": "A receita da coleta",
+      "territory": "Z-PEDIDO",
+      "kind": "engine",
+      "icon": "◈",
+      "what": "Do assunto pedido ate as fontes, rotas, executor, contratos obrigatorios e saida esperada — derivado do atlas, nao escrito a mao.",
+      "why_here": "O «como se coleta X» vivia espalhado por cabecalho, README e prompt. Espalhado assim nao se consulta: redescobre-se, uma coleta de cada vez.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "pedido/receitas.py"
+      ],
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "C-ORQUESTRADOR",
+      "name": "O orquestrador",
+      "territory": "Z-ORQUESTRADOR",
+      "kind": "engine",
+      "icon": "⚙",
+      "what": "Escolhe o executor, coordena a corrida e ASSINA o recibo no RUN-MANIFEST. Nao raspa nada: so decide o caminho.",
+      "why_here": "O recibo ja existia e cinco reguas ja o liam — mas nenhum executor o escrevia. Por isso metade das corridas guardadas diz NOT_PRESERVED.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "orquestrador/orquestrador.py"
+      ],
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "C-ADMISSAO",
+      "name": "A porta de admissao",
+      "territory": "Z-ADMISSAO",
+      "kind": "gate",
+      "icon": "⊞",
+      "what": "Decide, por par (item, universo), se entra: SIM, NAO, NAO_SEI, NAO_SE_APLICA ou ERRO — e escreve o motivo, a regra, a versao e a prova no livro de decisoes.",
+      "why_here": "So um ficheiro em toda a coleta decidia relevancia, para cinco veiculos. O caminho era colher, carimbar e guardar tudo — sem peneira.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "admissao/admissao.py"
+      ],
+      "views": [
+        "acervo"
+      ]
+    },
+    {
+      "id": "C-PROVA-COLETA",
+      "name": "Provas da coleta canonica",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "icon": "✓",
+      "what": "Sete casos ponta a ponta: erro nao vira rejeicao, falta de prova nao vira nao, o mesmo bruto decide-se por universo, e trocar de executor nao mexe em quem pede.",
+      "why_here": "Sao as sete maneiras conhecidas de este caminho mentir.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/auditoria_live.sh",
+        "provas/derived_artifact_no_postgres.py",
+        "provas/preflight_022_live.sh",
+        "provas/preservar_coleta_no_postgres.py",
+        "provas/rastro_no_postgres.py",
+        "provas/readback_022_live.sh",
+        "provas/social_persistencia_no_postgres.py",
+        "provas/testa_coleta_canonica.py",
+        "provas/testa_golden_path_pdf.py",
+        "provas/trava_de_drift_de_migration.sh",
+        "provas/paridade_da_lingua.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CENSO-COLETA",
+      "name": "Censo da coleta",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Conta o que existe hoje na coleta: entradas, executores, veiculos, quem deita fora sem escrever porque, e decisoes escondidas dentro dos coletores.",
+      "why_here": "Numero de memoria nao e facto. «44 coletores» eram 18 quando se mediu.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_da_coleta.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CENSO-SEMANTICO-IT",
+      "name": "Censo das palavras da Itália",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Conta, lista a lista e palavra a palavra, todo o vocabulário que a rota italiana usa, e diz de que língua é cada palavra. Falha alto se a conta não fechar.",
+      "why_here": "Os números 482 e 68 não somavam porque se contava tudo o que parecia palavra. Contagem que não fecha não é medida, é palpite.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_semantico_it.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CENSO-CORPUS-IT",
+      "name": "Censo do corpo italiano",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Conta, ficheiro a ficheiro, quantas linhas o corpo italiano tem e quanta prosa há dentro delas — duas contagens separadas, porque são coisas diferentes. Também conta o material cru que está guardado e nunca foi transformado em texto.",
+      "why_here": "«Milhões de caracteres» e «4.654 registos» eram contas feitas à mão que ninguém conseguia repetir. Conta que não se repete não é medida.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_do_corpus_it.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CENSO-IDENTIDADE-IT",
+      "name": "Censo de identidade do artefato",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Decide, para cada PDF guardado em mais de um caminho, se foram duas coletas de verdade ou uma coleta copiada duas vezes — e decide pela prova de captura de cada caminho, nunca pelo nome da pasta.",
+      "why_here": "O censo do corpo contava certo e explicava errado: dizia que os seis repetidos eram fotocópias. Caminho diferente não prova captura diferente, e SHA igual não prova a mesma captura — e a diferença entre as duas leituras muda o desenho do banco.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_de_identidade_it.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CENSO-ARMAZEM-IT",
+      "name": "Censo do armazém italiano",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Confronta os bytes italianos que já estão guardados no Supabase com a memória operacional que devia descrevê-los — e mostra que a segunda não existe. Também mede se aqueles bytes têm alguma coisa a ver com os 49 PDFs do Golden Path.",
+      "why_here": "O mapa deixava passar «a Itália não está no Supabase». Está — só que pela metade: 195 objetos guardados e zero linhas a dizer quem os trouxe. Bytes presentes não é procedência operacional completa, e um armazém cheio sem livro de entrada parece saúde e é o contrário.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_do_armazem_it.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CENSO-DERIVACOES",
+      "name": "Censo das derivações",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Pergunta ao repositório quem produz derivado, e de que espécie é cada saída — antes de qualquer tabela ser desenhada.",
+      "why_here": "«Derivado» não é «tudo o que não é o PDF original». A legenda que o YouTube entrega com o vídeo não foi produzida por nós, e metê-la na tabela dos derivados declararia uma linhagem que não existe. Desenhar primeiro e medir depois é medir o buraco pelo tamanho da tampa já comprada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_das_derivacoes.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-DONO-DA-ESCRITA",
+      "name": "O dono canônico da escrita do bruto (OBSERVED)",
+      "territory": "Z-GUARDA",
+      "kind": "engine",
+      "icon": "▷",
+      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`.",
+      "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ✅ DEIXOU DE SER ALVO em 08/09/2026: uma captura italiana nova passou por ela em produção — corrida IT-CANARY, raw_asset 890, RUN_STATE=COMPLETE, byte conferido no armazém. UMA unidade, e o legado ficou intocado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "guarda/preservar_coleta.py",
+        "guarda/memoria_descartavel.py",
+        "guarda/portas_live.py"
+      ],
+      "views": [
+        "infra",
+        "audit"
+      ]
+    },
+    {
+      "id": "C-DONO-DO-DERIVADO",
+      "name": "O dono canônico da escrita do derivado (OBSERVED)",
+      "territory": "Z-GUARDA",
+      "kind": "engine",
+      "icon": "▷",
+      "what": "Quem escreve na tabela do derivado. Ele possui — e mais ninguém — o sha256 do pai (lido do banco), o sha256 e o tamanho do filho (calculados dos bytes), a serialização dos parâmetros, o momento da derivação e o endereço no armazém.",
+      "why_here": "A tabela já recusa a linha repetida; isso não chega. Se quem escreve ler esse silêncio como «tudo igual», uma derivação que passou a produzir OUTRO resultado entra como REUSED. Aqui a idempotência é reencontro + comparação + prova de igualdade. ✅ DEIXOU DE SER ALVO em 08/09/2026: o primeiro derivado italiano nasceu por ela em produção — derived_artifact id=1, pai 890, e o retry deu REUSED com o byte conferido.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "guarda/preservar_derivado.py"
+      ],
+      "views": [
+        "infra",
+        "audit"
+      ]
+    },
+    {
+      "id": "C-RECALL-PORTA-IT",
+      "name": "Quanto a peneira apanha na Itália",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Passa pela porta de admissão cada item italiano que tem texto de verdade, e conta o que ela decidiu: passou, recusou, ou não soube.",
+      "why_here": "«O vocabulário passou de 0 para 29 palavras» conta palavras, não acertos. Dicionário grande não prova que a porta acerta.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/recall_da_porta_it.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CONTRATO-ARTEFATO",
+      "name": "O contrato comum de artefato",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "icon": "§",
+      "what": "A folha que todo executor preenche ao entregar: quem sou, de onde vim, quando, onde, quem me fez. Identidade, impressão digital, pai, tempos separados, geografia separada, versões.",
+      "why_here": "Sem uma língua comum, ligar o orquestrador obrigaria o cérebro da casa a adivinhar o que cada executor produziu — e adivinhação no meio não se conserta depois, espalha-se.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "leis/artefato.py"
+      ],
+      "views": [
+        "infra",
+        "audit"
+      ]
+    },
+    {
+      "id": "C-EXECUTOR-TEXTO-PDF",
+      "name": "Executor · texto a partir de PDF",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "⚙",
+      "what": "Abre o PDF e guarda o texto ao lado, como outro artefato com pai declarado. Não julga: não decide se o documento serve. Corre local, sem rede, sem custo, sem OCR.",
+      "why_here": "É o primeiro executor real a provar o contrato. Um contrato que ninguém usa não vale nada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "coleta/executor_texto_de_pdf.py"
+      ],
+      "views": [
+        "infra",
+        "audit"
+      ]
+    },
+    {
+      "id": "C-ESTRADA-PDF",
+      "name": "A primeira estrada · PDF até à porta",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "◉",
+      "what": "Junta a corrida inteira: tira a impressao digital dos originais antes e depois, manda derivar, audita os textos antigos feitos a mao, leva cada texto a porta de admissao, e faz as contas baterem.",
+      "why_here": "Nada some em silêncio. Emitido menos guardado tem de dar zero, e guardado menos visto pela porta também.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "coleta/golden_path_pdf.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-IT-TEXTO-PESQUISAVEL",
+      "name": "O texto que a máquina consegue ler",
+      "territory": "Z-GUARDA",
+      "kind": "store",
+      "icon": "▤",
+      "what": "O texto italiano já derivado: 6 ficheiros .txt tirados à mão de PDF (48.730 letras) mais 50.537 letras de prosa dentro das planilhas. É só isto que o vocabulário, a classificação e a peneira conseguem alcançar.",
+      "why_here": "É o outro lado do corte. Ter 62,7 MB guardados e ter isto para ler são factos separados, e escrevem-se separados.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "data/samples/IT-ARPAV-VENETO/*.txt",
+        "data/samples/PIEMONTE-FD/*.txt"
+      ],
+      "views": [
+        "infra",
+        "audit"
+      ]
+    },
+    {
+      "id": "C-PROVA-BIBLIA",
+      "name": "O validador da Bíblia",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "icon": "◉",
+      "views": [
+        "acervo"
+      ],
+      "what": "Prova que a Biblia, os quatro apendices e o registo por maquina dizem a mesma coisa: ids unicos, estados validos, lei citada que existe, ficheiro citado que existe, e a matriz que nao contradiz a Biblia sobre o estado de cada lei.",
+      "why_here": "leis.json e DERIVADO do texto da Biblia, nunca escrito a mao — pela mesma razao que state.generated.json e derivado do repositorio. Duas listas de leis divergiriam, e a partir dai nenhuma das duas valeria.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/valida_biblia.py"
+      ]
+    },
+    {
+      "id": "C-SCRAP-SOCIAL",
+      "name": "SINTONIA SCRAP — aquisicao social",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "◉",
+      "views": [
+        "acervo"
+      ],
+      "what": "O executor composto da aquisicao social. Quem chama diz PLATAFORMA + CAPABILITY e nunca escolhe ferramenta; a rota e decisao da casa. Reune o CLI das fases (censo, portao, video, gap, piloto, ledger, sessao, politica, guarda, youtube, youtube-piloto, youtube-piloto-oneshot), o adaptador oficial do YouTube Data API v3, as rotas gratuitas (Mastodon, Bluesky, Telegram) e o envelope que grava o RAW antes de qualquer normalizacao. Inclui o dono da PERSISTENCIA SOCIAL (conteudo, comentario, reobservacao), que recebe um canal ja resolvido e RECUSA com CHANNEL_IDENTITY_NOT_RESOLVED em vez de criar pessoa ou organizacao por conta propria.",
+      "why_here": "A rota vivia espalhada por if de script: cada chamador redescobria por conta propria se uma plataforma podia ser lida, e a redescoberta nunca saia igual. Aqui o chamador declara a intencao e a casa resolve a rota na ordem PERMITIDA -> BARATA -> CAPAZ, com a permissao decidida ANTES do preco. Duas leis que o codigo carrega em teste: OFFICIAL_API EXISTS NAO E THIS CAPABILITY EXISTS, e CHECKOUT NAO E COLETA — o inventario da prova bruta conta o que ESTE processo escreveu, nunca o que o clone trouxe. E a terceira lei, medida num Postgres 16 real antes de virar migration: COMMENT_ID NAO E COMMENT_TEXT — dois «Grazie!» de pessoas diferentes davam UMA linha no banco, porque a identidade estava travada no hash do texto.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "coleta/social_scrap.py",
+        "coleta/social_rotas.py",
+        "coleta/social_envelope.py",
+        "coleta/youtube_oficial.py",
+        "coleta/social_persistencia.py"
+      ]
+    },
+    {
+      "id": "C-SCRAP-LEIS",
+      "name": "As leis do SCRAP — a taxonomia canonica da falha",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "icon": "⚖",
+      "views": [
+        "acervo"
+      ],
+      "what": "`falhas.py` e o DONO UNICO do FAILURE STATE: 23 estados canonicos com camada (SOURCE/ROUTE/EXECUTOR), a flag `esperado` e a recuperacao, mais 54 nomes antigos traduzidos. Mais a matriz de capacidade e a fundacao da coleta.",
+      "why_here": "ROTA CAIDA NAO E FONTE CAIDA, e PARSER QUEBRADO NAO E FONTE VAZIA — sem estas camadas um coletor partido publica um zero que nao mediu nada. E anterior as duas sessoes que escreveram a observabilidade, e por isso e ELE o dono: quem chegou depois importa, nao redeclara.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "leis/falhas.py",
+        "leis/fundacao_da_coleta.py",
+        "leis/social_matriz.py"
+      ]
+    },
+    {
+      "id": "C-SCRAP-GUARDA",
+      "name": "A guarda de credencial e de sessao do SCRAP",
+      "territory": "Z-GUARDA",
+      "kind": "gate",
+      "icon": "⛨",
+      "views": [
+        "acervo"
+      ],
+      "what": "`social_guarda.py` varre o repositorio atras de segredo, cookie, perfil de navegador e caminho pessoal antes de qualquer execucao. `social_sessao.py` decide usabilidade em seis eixos separados — TECHNICAL, ROBOTS, TERMS, AUTH, AUTHORIZATION, ROUTE — e redige segredo de qualquer texto que va para log, RAW ou relatorio.",
+      "why_here": "Segredo commitado nao sai do historico com `git rm`: fica no pack para sempre, entao a unica hora util de barrar e ANTES. E os seis eixos existem porque a casa ja tinha colapsado tres perguntas diferentes numa so: LOCAL_SESSION NAO E AUTOMATION_PERMISSION, ROBOTS_STATUS NAO E TERMS_STATUS, OWN_PROPERTY NAO E AUTOMATION_ALLOWED.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "guarda/social_guarda.py",
+        "guarda/social_sessao.py"
+      ]
+    },
+    {
+      "id": "C-ESTRADAS-IT",
+      "name": "O censo das classes de estrada da coleta italiana",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "◈",
+      "views": [
+        "acervo"
+      ],
+      "what": "Mede as classes de estrada da coleta IT e CALCULA os estados que o mapa de fechamento publica: ARCHITECTURE_CLOSED, OBSERVATION_STATE, e as contagens de fonte por PROVEN / CANDIDATE / UNKNOWN. Le o modelo em `estradas-it.model.json` — que diz quais etapas cada estrada tem e quem SERIA o dono — e mede, etapa a etapa, se o dono existe no disco e se ele cita o artefato da etapa anterior. As fixtures em `tests/fixtures/ARESTAS/` sao a prova viva de que a escada distingue comentario, codigo direto e caminho transitivo — nao apagar.",
+      "why_here": "A versao anterior do mapa publicava «2 estradas fechadas» porque uma pessoa escreveu 2. Quando a medicao passou a rodar, o resultado foi ZERO: `guarda/importar_italia.py` estava listado como o STRUCTURED da estrada do documento oficial e nao le `derived_artifact` nenhum. OWNER EXISTS NAO E OWNER CONNECTED, e um numero escrito a mao nunca descobre isso sozinho. Aqui os dois eixos ficam separados de proposito: uma estrada pode ter arquitetura fechada e nunca ter rodado, e uma cor nao responde duas perguntas.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/data/estradas-it.model.json",
+        "system-map/scripts/censo_das_estradas_it.py",
+        "tests/fixtures/ARESTAS/ajudante.py",
+        "tests/fixtures/ARESTAS/codigo_real.py",
+        "tests/fixtures/ARESTAS/owner_indireto.py",
+        "tests/fixtures/ARESTAS/so_comentario.py"
+      ]
+    },
+    {
+      "id": "C-CENSO-CONGELAMENTO",
+      "name": "Censo do congelamento da inteligência",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "❄",
+      "what": "Mede, por ESPÉCIE, que artefatos de inteligência já existiam — e grava o sha de blob de cada um, para provar depois que nenhum avançou.",
+      "why_here": "A trava anterior procurava PASTAS com certos nomes, não achava nenhuma, e daí publicava «zero áreas de inteligência implementadas». Era falso: não havia pasta, havia artefatos espalhados. Procurar num sítio, não achar, e concluir que não existe em sítio nenhum — é o mesmo erro de sempre com outra roupa. Este censo mede espécie, não grep cego: sem marca forte nada é implementação, e o que a própria cadeia gera não se congela (congela-se o gerador).",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_do_congelamento.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-PROVA-TRAVA-MORDE",
+      "name": "A prova de que a trava morde",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⚠",
+      "what": "Viola a trava da inteligência de propósito das duas maneiras possíveis — mexer num artefato congelado, e escrever inteligência nova ao lado — exige que ela reprove nas duas, desfaz e confere que a worktree ficou limpa.",
+      "why_here": "Uma trava que passa sempre é indistinguível de uma trava desligada. Sem esta peça, «os testes da trava passam» não distingue uma trava que funciona de uma que nunca morde.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/trava_da_inteligencia_morde.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CENSO-DONOS",
+      "name": "Censo dos donos",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "◎",
+      "what": "Pergunta ao repositório quem JÁ escreve cada conceito que a observabilidade vai precisar de citar — e separa escrever de ler, e ler de mencionar.",
+      "why_here": "REUSE FIRST. A maneira mais rápida de estragar a observabilidade é começar por desenhar tabelas: mede-se o buraco pelo tamanho da tampa já comprada. Achado que ele torna visível: 7 dos 15 conceitos têm mais de um ficheiro a escrevê-los, e é aí que a telemetria diverge sem ninguém dar por isso.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_dos_donos.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CONTRATO-TELEMETRIA",
+      "name": "Contrato da telemetria — a forma do fluxo",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "icon": "⧗",
+      "what": "Dono de DUAS perguntas e so dessas: o ESTADO DA ETAPA (7 valores) e o DESTINO DO ITEM (6 portas), mais a conta que tem de fechar. NAO e dono de codigo nenhum de falha ou de diagnostico: importa-os de `falhas.py` e `diagnostico.py` e expoe-os, para que ninguem precise de os copiar.",
+      "why_here": "Ate O8C este ficheiro declarava um registry proprio de 12 codigos, e TRES deles ja pertenciam a `falhas.py` — que e anterior e ja e importado por quatro coletores reais. O scanner lia esta lista e o writer lia a outra: WRITER TRUTH = A e SCANNER TRUTH = B. Um conceito, um dono; os outros importam. `provas/paridade_da_lingua.py` reprova se voltarem a divergir.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "leis/telemetria.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-FLUXO-NO-SECO",
+      "name": "O fluxo no seco",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⊹",
+      "what": "Corre um fluxo de mentira, em memória, onde a etapa do meio falha — e exige que o relato distinga NÃO CORREU de FALHOU, guarde o retrato da falha, aponte a última etapa boa e feche a conta mesmo assim.",
+      "why_here": "Um contrato que nunca foi exercido é uma intenção, não uma garantia. Dizer «NOT_RUN ≠ ERROR» é fácil; esta peça mostra a diferença a acontecer. Sem ela, um defeito numa etapa apareceria como três, e ninguém saberia por onde recomeçar. Zero rede, zero produção, zero ficheiro tocado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/fluxo_no_seco.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-RELATORIO-FLUXO",
+      "name": "Relatório do fluxo",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "icon": "▤",
+      "what": "Conta o que o sistema consegue contar hoje sobre o próprio fluxo — por corrida, fonte, destino, MIME e hora — lendo só o ledger que já existe. Onde ninguém mediu, escreve NOT_INSTRUMENTED com o nome de quem teria de emitir.",
+      "why_here": "Um relatório que mostra 0 onde ninguém mediu convida a concluir que nada aconteceu, e é pior do que não existir. SEM DADO NÃO É ZERO. O buraco que ele torna visível é o produto: o ledger sabe corrida, fonte e contagem, e não sabe etapa, executor nem custo.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/relatorio_do_fluxo.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-GESTAO-DA-COLETA",
+      "name": "O contrato da gestão da coleta",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "icon": "⚖",
+      "what": "Declara quem decide O QUE e QUANDO coletar, e quem decide COMO e POR ONDE — e as espécies que uma decisão precisa de ter para poder ser avaliada depois: necessidade, satisfação, falta, decisão, resultado, prioridade.",
+      "why_here": "Sem esta fronteira, «vale a pena ir buscar isto outra vez?» acaba escrita dentro de um coletor, e a decisão de coletar passa a viver espalhada por vinte ficheiros com vinte regras. É a G-05 outra vez, uma camada acima. E uma decisão que não fica escrita não pode ser avaliada depois — sem isso não há aprendizagem nenhuma, só opinião a repetir-se.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "leis/gestao_da_coleta.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-APRENDER-COM-A-FONTE",
+      "name": "O contrato da aprendizagem sobre a fonte",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "icon": "◈",
+      "what": "O ciclo de vida de uma fonte, o papel que ela cumpre, e as medidas que se guardam sobre ela — saúde da fonte e saúde da rota em separado, rendimento único e rendimento admitido em separado.",
+      "why_here": "UMA FONTE NÃO TEM UMA NOTA. A tentação é juntar tudo num SOURCE_SCORE e ordenar, e é por ser óbvia que é perigosa: um número só esconde qual das medidas o produziu, e a partir daí ninguém consegue discutir a decisão. Uma fonte cara que traz o que mais ninguém tem pode valer mais do que três baratas que se repetem.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "leis/aprender_com_a_fonte.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-EVOLUCAO",
+      "name": "O contrato da evolução",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "icon": "⟳",
+      "what": "A espinha para representar que houve uma alternativa, que ela foi comparada e o que se decidiu: baseline, campeão, desafiante, sombra, experiência, promoção e rollback. E a porta estreita que decide se pode promover.",
+      "why_here": "APRENDER AUTOMATICAMENTE ≠ PROMOVER AUTOMATICAMENTE. Um sistema pode medir sozinho, comparar sozinho e até ter razão sozinho — nada disso o autoriza a trocar a política em produção sem alguém assinar. E sem baseline não há aprendizagem, há só mudança: trocar e medir depois não diz nada, porque não se sabe como estava antes.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "leis/evolucao.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-CENSO-OBSERVABILIDADE",
+      "name": "Censo da observabilidade",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "icon": "◉",
+      "what": "Diz, dimensão a dimensão, se há dado — separando «ninguém emite» de «emite-se e ninguém leu» de «medido». E formaliza OBSERVABILITY_READY e EVOLUTION_READY.",
+      "why_here": "NUNCA VERDE POR SILÊNCIO. Uma dimensão sem dado não é uma dimensão saudável, e as três respostas pedem coisas diferentes: código que emita, um leitor, ou leitura. E os dois READY dizem por escrito o que NÃO significam — contrato pronto não é instrumentado, e instrumentado não é observado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_da_observabilidade.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-RASTRO",
+      "name": "O rastro da coleta — etapa, aresta, contagem e falha",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "diagnostic",
+        "trace",
+        "performance"
+      ],
+      "what": "Dono do rastro. UMA linha por passagem, que e ao mesmo tempo o STAGE TRACE, o EDGE PASSAGE (edge_from -> etapa) e o FAILURE SNAPSHOT (estado=ERROR com diagnostico). Declara o GRAO dos dois lados e contabiliza cada item num balde: passou, recusado, unknown, erro ou pulado. `accounted` e `unaccounted` sao colunas GERADAS pelo banco.",
+      "why_here": "Tres missoes seguidas acharam o mesmo defeito e sempre tarde: um estado publicado sem a medicao que o sustentaria. NAO E OBRIGATORIO QUE 100% CHEGUE AO FIM; E OBRIGATORIO QUE 100% TENHA EXPLICACAO. E o grao e obrigatorio porque 100 documentos que viram 250 alegacoes nao sao 250% de rendimento — o grao mudou, e a razao nao e rendimento.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "medidas/rastro_da_coleta.py",
+        "medidas/scanner_da_coleta.py"
+      ]
+    },
+    {
+      "id": "C-GESTAO-COLETA",
+      "name": "Politica da coleta e roteamento de diagnostico",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "icon": "⚖",
+      "views": [
+        "audit",
+        "evolution",
+        "collection-strategy"
+      ],
+      "what": "Duas autoridades distintas. `politica_da_coleta.py` responde O QUE coletar e quando. `diagnostico.py` e o DONO UNICO do DIAGNOSTIC CODE: ONDE no fluxo parou, e que buraco estrutural isso denuncia — 17 codigos, cada um com o dono que tem de agir.",
+      "why_here": "DIAGNOSTIC CODE nao e FAILURE STATE. Uma falha de rede em FETCH tem as duas respostas e elas diferem: estado canonico `TRANSIENT_NETWORK_ERROR` (`falhas.py`) e codigo `FETCH_FAILED` (aqui). Zero nomes partilhados entre os dois registries, e um teste recusa qualquer colisao futura.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "leis/politica_da_coleta.py",
+        "leis/diagnostico.py"
+      ]
+    },
+    {
+      "id": "C-PROVA-MAPA-NAO-MENTE",
+      "name": "A prova de que o mapa não mente sobre existência",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⌕",
+      "what": "Injecta de propósito três situações — ficheiro real ainda não rastreado, ficheiro que nunca existiu, e uma mentira sintética — e exige a resposta certa em cada uma. Depois desfaz e confere.",
+      "why_here": "O mapa publicou e commitou que um ficheiro não existia, com ele no disco, e o SYSTEM_MAP_CHECK deu PASS. EXISTE NO DISCO ≠ RASTREADO PELO GIT ≠ NÃO EXISTE. Medido: toda peça nova nascia falsamente partida e curava-se sozinha no commit seguinte — uma mentira que desaparece antes de alguém a investigar, e por isso a mais difícil de apanhar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/o_mapa_nao_mente.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-BANCO-NO-SECO",
+      "name": "O banco a seco",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "icon": "◌",
+      "what": "Um banco de memória que responde ao mesmo `.executa(sql)` do Postgres, para um executor real emitir rastro sem tocar produção. Tradução declarada das colunas geradas da migration 024.",
+      "why_here": "INSTRUMENTAR NÃO PODE EXIGIR ESCREVER EM PRODUÇÃO. A migration 024 não está aplicada; se instrumentar exigisse banco vivo, a instrumentação só poderia ser provada no dia em que já fosse tarde. É tradução, e tradução pode divergir — por isso há teste que a compara com o texto da própria migration.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "medidas/banco_no_seco.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-PROVA-EXECUTOR-CONTA",
+      "name": "A prova de que o executor se conta",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⊢",
+      "what": "Corre o executor real a seco, injecta uma falha numa etapa, e exige o relato certo: a de cima PASS, a que falha FAIL com código, a de baixo NOT_RUN — e a conta a fechar em todas.",
+      "why_here": "O contrato existia, o cano existia, o leitor existia — e nenhum executor falava. UM CANO SEM TORNEIRA LEVA A MESMA ÁGUA QUE UM CANO QUE NÃO EXISTE. Esta peça é a primeira torneira, e prova que o relato distingue NÃO CORREU de FALHOU de RECUSADO.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/o_executor_conta_se.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-FRONTEIRA-TELEMETRIA",
+      "name": "A fronteira instrumentada",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "icon": "⊸",
+      "what": "O ponto de entrada instrumentado: abre a corrida, passa o banco pela costura do executor, e cobre o caso em que ele MORRE antes de emitir — medindo a tentativa, para que a linha da morte nunca colida e se perca. Declara a identidade da corrida como NULA, porque nao ha nenhuma provada.",
+      "why_here": "A LOCALIZACAO DA FALHA NAO PODE MUDAR A IDENTIDADE DA FONTE. Esta fronteira dizia IT-CORPUS-PDF e o executor dizia IT-PDF-ITALIANOS — dois nomes para a mesma corrida, e nenhum no catalogo. Os 49 PDF atravessam OITO fontes reais e 26 nao tem nenhuma derivavel; a rota nao esta registada por item. UM ID DE RASTREIO INVENTADO E PIOR DO QUE UNKNOWN.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "medidas/corrida_instrumentada.py"
+      ],
+      "views": [
+        "audit",
+        "trace",
+        "diagnostic"
+      ]
+    },
+    {
+      "id": "C-CENSO-EXECUTORES",
+      "name": "Censo dos executores — caminhos, papeis e cobertura",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "icon": "▦",
+      "what": "Mede por AST as 4 gavetas — rede, custo, producao, etapas nomeadas, input preservado — e TIPA cada caminho (EXECUTOR, ORCHESTRATOR, ADAPTER, PRESERVATION_OWNER, CHECKPOINT_OWNER, TELEMETRY_EMITTER, UNKNOWN), com evidencia por papel. Cruza com o ledger de provas e publica os denominadores SEPARADOS.",
+      "why_here": "CAMINHO RELEVANTE != EXECUTOR PROVADO. Publicar «54 executores» repetiria o erro do 42: um denominador que ninguem mediu a dar autoridade a uma fracao. Hoje: 56 ficheiros varridos, 54 caminhos relevantes, 1 executor provado, 30 ainda UNKNOWN — e UNKNOWN e uma resposta, nao uma falha.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_dos_executores.py",
+        "system-map/data/provas-de-execucao.json"
+      ],
+      "views": [
+        "audit",
+        "coverage"
+      ]
+    },
+    {
+      "id": "C-DERIVACAO-FORWARD",
+      "name": "A fronteira forward da derivação",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "⇥",
+      "what": "Leva N unidades canónicas — `raw_asset` real no banco → derivado real pelo dono da escrita — e conta a passagem DERIVED ao rastro. Não abre PDF, não julga, não escreve SQL: só sabe de que corrida, de que fonte e por que estrada a unidade é.",
+      "why_here": "REAL CODE != CANONICAL FORWARD FLOW. `medidas/corrida_instrumentada.py` é a fronteira do REPLAY LEGADO, e o ledger de provas dizia `FORWARD_INSTRUMENTED: false` — medido e escrito com todas as letras. Esta peça fecha esse buraco: é o mesmo sensor, na estrada oficial. Vive fora do executor porque O EXECUTOR NÃO CONHECE BANCO — é essa regra que o impede de declarar uma linhagem que não pode provar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "coleta/derivacao_forward.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-PROVA-FORWARD-CONTA",
+      "name": "A prova de que o forward se conta",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⊢",
+      "what": "Aplica a cadeia canónica até à 024 num PostgreSQL 16 descartável, preserva um bruto real pelo dono do bruto, deriva pela fronteira forward e exige 38 factos: linhagem fechada no pai real, contabilidade a zero, identidade PROVADA e não presumida, READY que não nasce sem admissão, falha injectada com código do registry, e a telemetria a não mudar o que é produzido.",
+      "why_here": "DESIGNED não é DB_TESTED, e LEGACY REPLAY não é FORWARD. Esta peça percorre as duas distâncias com uma máquina — e recusa correr contra qualquer banco que não seja local e descartável.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/o_forward_conta_se.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-ROTA-M2",
+      "name": "A rota forward do documento (M2)",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "⇥",
+      "what": "A costura DERIVED -> STRUCTURED -> ADMISSION sobre uma unidade real italiana. Chama os tres donos canonicos e conta cada passagem no mesmo ato em que ela acontece.",
+      "why_here": "MODULE EXISTS != EDGE EXISTS != FLOW EXISTS. As tres pecas ja existiam e nenhuma estava ligada a seguinte. A M2 nao reimplementa decisao nenhuma — cria a aresta e a telemetria, e termina em ADMISSION porque ADMISSION PASS != READY PASS (COL-LAW-043).",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "coleta/rota_forward_documento.py"
+      ],
+      "views": [
+        "audit",
+        "trace",
+        "diagnostic"
+      ]
+    },
+    {
+      "id": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "name": "A prova de que a rota da M2 atravessa",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⊢",
+      "what": "Corre DERIVED → STRUCTURED → ADMISSION numa corrida só, sobre uma unidade real, com o artefato a viajar entre as etapas — os bytes que entram no STRUCTURED são os do `derived_artifact` que o DERIVED acabou de escrever, conferidos por sha256. Depois pergunta AO BANCO o que aquela rota atravessou, e exige que as duas arestas tenham os dois topos.",
+      "why_here": "DECLARED EDGE != OBSERVED EDGE. A rota estava provada por etapas e a aresta de entrada nunca fora observada: no banco, o STRUCTURED declarava vir de DERIVED e não havia passagem de DERIVED naquela corrida — a etapa correra noutra, noutro ficheiro. UMA SETA DESENHADA NÃO É UM CAMINHO PERCORRIDO.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/a_rota_m2_atravessa.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-PROVA-AUTORIDADE-FONTE",
+      "name": "A medição da autoridade da fonte",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⊘",
+      "what": "Mede, só por leitura dos artefatos canónicos, se existe autoridade para ligar um SOURCE_ID a uma entidade — e nomeia exactamente onde ela falta. Não resolve identidade, não escreve em `organizacao`, `pessoa`, `origem` nem `canal`, e prova no banco descartável que medir não escreveu nada.",
+      "why_here": "SOURCE CATALOG DECLARATION != DB IDENTITY AUTHORITY. A relação IT-T2-002 → IT-OWN-003 → ARPAV existe apenas em `candidatas/`, que se declara aditivo; o registo canónico nunca lhe deu ficha. Criar o resolver sobre isso seria promover um candidato para a prova ficar verde — e identidade errada não se desfaz: propaga-se para tudo o que for admitido a seguir. O gap fica OPEN, com a autoridade em falta nomeada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/a_autoridade_da_fonte.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    }
+  ],
+  "BUSINESS_EDGES": [
+    {
+      "from": "C-V21-OPORTUNIDADE",
+      "to": "DEPT:DESENVOLVIMENTO_MERCADO",
+      "type": "FEEDS_BUSINESS",
+      "reason": "O caso de oportunidade e o produto que Desenvolvimento de Mercado consome para decidir onde abrir mercado.",
+      "source": "docs/design/COMMERCIAL-PRIORITY-V11.md",
+      "declared_by": "missao system-map-canonical-v1",
+      "declared_at": "2026-09-07"
+    },
+    {
+      "from": "C-V21-OPORTUNIDADE",
+      "to": "DEPT:COMERCIAL",
+      "type": "FEEDS_BUSINESS",
+      "reason": "Prioridade comercial sai do mesmo caso, com outra leitura.",
+      "source": "docs/design/COMMERCIAL-PRIORITY-V11.md",
+      "declared_by": "missao system-map-canonical-v1",
+      "declared_at": "2026-09-07"
+    },
+    {
+      "from": "C-PORTAL-CASCO",
+      "to": "DEPT:LIDERANCA",
+      "type": "FEEDS_BUSINESS",
+      "reason": "O portal e a superficie usada em reuniao de lideranca.",
+      "source": "HANDOFF-BUILD-DA-REUNIAO.md",
+      "declared_by": "missao system-map-canonical-v1",
+      "declared_at": "2026-09-07"
+    },
+    {
+      "from": "C-FONTES-EU",
+      "to": "DEPT:REGULATORIO_PORTFOLIO",
+      "type": "FEEDS_BUSINESS",
+      "reason": "Registro oficial de produto e substancia e materia de Regulatorio e Portfolio.",
+      "source": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "declared_by": "missao system-map-canonical-v1",
+      "declared_at": "2026-09-07"
+    }
+  ],
+  "EXPECTED_EDGES": [
+    {
+      "from": "C-IT-TEXTO-PESQUISAVEL",
+      "to": "C-ADMISSAO",
+      "type": "ALIMENTA",
+      "reason": "Depois do corte, o caminho existe: o texto que a máquina consegue ler é o que chega ao vocabulário, à classificação e à peneira. Medido: dos 49 itens italianos com texto, 42 passaram e 7 ficaram em NÃO SEI.",
+      "source": "system-map/data/recall-porta-it.generated.json",
+      "declared_by": "missao system-map-canonical-v1, etapa 2.6",
+      "declared_at": "2026-09-07"
+    }
+  ],
+  "DECLARED_BLOBS": {
+    ".github/workflows/apify-conexao.yml": "2c37dc40f924a3474c65b049793afc9b525347ba",
+    ".github/workflows/apify-sensores.yml": "d9890ae3d47b6b07bb2832697bf55a51dfcacfff",
+    ".github/workflows/auditoria-live.yml": "716fc979e5711803c17e946a4effd7a0f26e76dd",
+    ".github/workflows/banco-descartavel.yml": "1cadb0837ea9c5f9378dc11d90baa67eaca9b13a",
+    ".github/workflows/calendario-regressoes.yml": "d18c4b3e00fac8ff2a31295af78b7a1cd251ec77",
+    ".github/workflows/comunicacao-publica.yml": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
+    ".github/workflows/sintonia-scrap.yml": "39606dfca9e38e60d93c7eb6f097414143f5780a",
+    ".github/workflows/supabase-conexao.yml": "19a9de9f85a9091400ee5ea4733d4a57d4cc247b",
+    ".github/workflows/supabase-fichas-adama.yml": "4a5d2d2d7f927a8fb901e59db0fd397d2b892c56",
+    ".github/workflows/supabase-migrate.yml": "b095047c1f2677adedb49df52b12490526caa87b",
+    ".github/workflows/supabase-raw-roundtrip.yml": "3e9934e706d73022a109633a464cd452ea8a7ad1",
+    ".github/workflows/supabase-storage.yml": "243c29e74bc77b843dd2910df8f0f98ec8b7cf91",
+    ".github/workflows/system-map.yml": "73ee92303b6392f8c109c43d727f89c10cee7a34",
+    "BIBLIA-CANONICA-DA-COLETA.md": "59d872e549763015047d1e0f81a448929f771acd",
+    "admissao/admissao.py": "f619753dbad4e1ec8aa1bace67eb4b36c96af3fc",
+    "candidatas/FONTES-CANDIDATAS.json": "ef5d20af7253dd06350a414a81f37e8327d5b83a",
+    "candidatas/ITALY-SOURCE-MASTER-V1.json": "690de91954cf7bf72c4263680682ef79d9c4cfd0",
+    "candidatas/ITALY-SOURCE-MASTER-V1.md": "439ece69dcd84db85d4d2eabc2d6866cfc52be52",
+    "candidatas/fonte_nova.py": "9a96acc19f31d08a1aebca168fcc0380268c46c9",
+    "candidatas/italy_fill_manifests.mjs": "ffa51a075f620037661662daba0dfe9a12b637e7",
+    "candidatas/italy_fill_manifests_browser.mjs": "c2f0ca08f5f5408db7a1945e0d02f2ea6997b803",
+    "candidatas/italy_fix_semantics.mjs": "c693f1082a418418d16a83cf9f9a375451266019",
+    "candidatas/italy_profiles.mjs": "445164345e6aa765e10fc1a9bf87639365da383f",
+    "candidatas/italy_update_master_browser.mjs": "ec5f5c5ebcea8f4ab9b5255d5d72039d467eab40",
+    "candidatas/italy_write_matrix.mjs": "3e64e612d2b80748c5e9d65d2c432deb70bc3161",
+    "coleta/agrifood_ue.py": "fe26635e77232549b7c0b65996590ebccf3ea97a",
+    "coleta/cellar.sh": "150f34ad949acc35661264d9e114058fc1506b71",
+    "coleta/coleta_checkpoint.py": "2342b58dc8fd09531556cd6c9c3aa097465f7160",
+    "coleta/coletor.py": "7ac48f9d4811b9b94bd72682ebc69bfd777ac27c",
+    "coleta/comunicacao_classificar.py": "3c1d6af0ab7aca36b38615b64c7eb1ee32457559",
+    "coleta/comunicacao_coleta.py": "e13c01805ce58ae4f5cb2dd69f48a9dac27e5526",
+    "coleta/comunicacao_medir.py": "eda976cee16adac1dd8485837df599671c1248c0",
+    "coleta/corpus_pesquisador.py": "782195bb69f038c09746f9d93538ac56df553347",
+    "coleta/cruzar_regua_rotulo.py": "353de8af0005e8dc180c0131a79ab6cb4cd56727",
+    "coleta/denominaciones.py": "4d16c905bf5e083c7c1a664c6b7b31b59ee1e51e",
+    "coleta/ephy.sh": "7f226e19c715e62bdbec3058c39356649afc7dc5",
+    "coleta/eppo_gd.py": "bdebec8e0ed7549a6174e06432d559cf60bc1ee9",
+    "coleta/es/corpus_es.py": "71b0ef71396766fc1660b662f7c1c31637187638",
+    "coleta/eu_substancia_adama_it.py": "93600f2cc5f920838d750aa57675b22329583dd0",
+    "coleta/executor_texto_de_pdf.py": "97d5284245ab374a05b58186a7c32326f6d49a3c",
+    "coleta/filas.py": "1ca7c6d1021b4b7a3df025fcd8fa304959ca5801",
+    "coleta/gire_mapas.py": "4a54507d756ae72eaf0442c37717ed190eaaad95",
+    "coleta/golden_path_pdf.py": "cb7fc0ab240be388b7b0d38f3292de0125b7748f",
+    "coleta/instagram_coleta.py": "4672abd66ebf1dea06863ca4bffaf88369eb1544",
+    "coleta/instagram_diario.py": "1c929dd7bd7227b6b6f8ff0212d870e2ceab310c",
+    "coleta/instagram_janela.py": "0b89f4e2ddd937fab12c1a52a4abdcdd08ab2c97",
+    "coleta/instagram_pessoal.py": "957774eff46891cbf73b0f57bc3ea0273f074370",
+    "coleta/italy_find_docs.mjs": "dc23a5c5efab88225f510b58970568f66bdb69f6",
+    "coleta/italy_pilot_collect.mjs": "bddf9028c4b4abd3815f11201a304288f9eafa70",
+    "coleta/italy_probe.mjs": "e86f2017f2a8d87168d3c3ffdbde559ab6d7d074",
+    "coleta/italy_recurrent_collect.mjs": "af33d941dac1a9efc3b687a106450c50c70b3642",
+    "coleta/mapa_regfi.py": "700246eeb5f5705e8a7456893fa22bac1416d2c5",
+    "coleta/pdf_text.py": "88b6b6d24e4f58a1948a390a0d72d4a21efa495c",
+    "coleta/preservar_pdf.py": "af5efc50628d60d4958c57220d34e03408d67553",
+    "coleta/regulatorio_importar.py": "0b3ef5130d3bd3355c208eb7d0572022414535a1",
+    "coleta/ropf_pre_requisito.py": "9e12db2b075779f9cb91f107d40eb53723332308",
+    "coleta/rotulos_baixar.py": "aba8a506f4e2837a1f27e53952ec4ad8bc9edadb",
+    "coleta/rotulos_ler.py": "55336ae99e341e8b2f89b7a48a63cee2e309c11d",
+    "coleta/sensor_canal_identidade.py": "025065240dc3d51d7fd2069cad101a8caa9f0a26",
+    "coleta/speaker_identidade.py": "650544a132429f9942578f40631c4fbb9029254d",
+    "coleta/speaker_universo.py": "a8b3143a3825c3716071a1c52a7d69984e0f97b8",
+    "coleta/texto_fonte.py": "6181dd80bb943829ceeec0ef583763ed8edf0884",
+    "coleta/universo_ciencia_it.py": "8ade2b98a6d08ed0a7f9665b8ad99032dfce93a7",
+    "coleta/youtube_janela.py": "799d36f9f1e35bbe3b9e1348416c4a9bfd2dc053",
+    "coleta/youtube_relevancia.py": "95f7077a66ff3982976d6697232435ab8886d950",
+    "data/collection-ledger/italy/observations.ndjson": "c6750b2d1039a302cb88cf5ab4aa47ce2550d794",
+    "data/collection-ledger/italy/runs.ndjson": "8ef7ad2f772c2baa8c78b7e1a3c116bca19e45fb",
+    "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "b47bf9831be360ffe664e51b825b48a1d434f64a",
+    "data/samples/IT-ARPAV-VENETO/boll.txt": "bb373ceee382d79a9d4d8eb9357f6a8ea1c3e657",
+    "data/samples/IT-ARPAV-VENETO/fe.txt": "fd59072b2229133728c063f2c1402b43da8b65d7",
+    "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.txt": "45164a42b07d539363c9732c0ddc5d975d0acdf8",
+    "data/samples/IT-ARPAV-VENETO/lug_full.txt": "7a5e7d2eb72b92c379b931cb55acd3c4bbc833a8",
+    "data/samples/IT-ARPAV-VENETO/olivicolo_29_020926.txt": "409aa07b89246ef5ef7e9f7bbc072189aebb71a5",
+    "data/samples/IT-ARPAV-VENETO/orticolo_22_260826.txt": "60d27a9ac5d6c0dae36c246624eb04967338396d",
+    "data/samples/IT-ARPAV-VENETO/vite_20_270826.txt": "b27277b82251ac4dda15b69c39bf6a7e0adf9d0a",
+    "data/samples/PIEMONTE-FD/aggiornamento_2025_strategie2026_pt.txt": "133cdb1d34da15bf22eb13f3af97f5ca75cb3288",
+    "data/samples/PIEMONTE-FD/area_delimitata_2026_pt.txt": "bf9c3a8de9c7841e8372190a4748cf76173dcce4",
+    "data/samples/PIEMONTE-FD/dd_280_2026.txt": "3c7834c6d1748903386ae358dd09083c4d4a5208",
+    "data/samples/PIEMONTE-FD/dd_280_2026_pt.txt": "c910c588de3499e0207929c9f72d85037cc3174e",
+    "data/samples/PIEMONTE-FD/insetticidi_ammessi_2026.txt": "8fc95b5acd03af384ed6cce04718b9fd46b95c14",
+    "data/samples/PIEMONTE-FD/insetticidi_ammessi_2026_pt.txt": "cbdb2bcd5410989d2ee60bb76ea3a5d55970f8a1",
+    "data/samples/PIEMONTE-FD/locandina_2026_pt.txt": "11d4e63e7a4dbf3b0ed6c21aad8c0cc4b52f25f3",
+    "data/samples/PIEMONTE-FD/pagina.txt": "93f4eb07b44687d2a8a902a1240103d50bcd5300",
+    "data/samples/PIEMONTE-FD/piano_operativo_2026.txt": "385ca43fea7ece5cfbd0d944e486da1fa53fd0f5",
+    "data/samples/PIEMONTE-FD/piano_operativo_2026_pt.txt": "50d824c63d7570e34572980d7f295812a28c016b",
+    "data/samples/PIEMONTE-FD/progetti_pilota_2025_pt.txt": "662bc9ff92a665a2a51479238146463cb47b5d9c",
+    "data/samples/PIEMONTE-FD/sintesi_disposizioni_2026.txt": "084448604943358b29dc14e7a35bd0dc47ecf10e",
+    "data/samples/PIEMONTE-FD/sintesi_disposizioni_2026_pt.txt": "4645e17f54cb29cfb93924f03ad887dc9709522c",
+    "docs/biblia/CENSO-DA-INFRAESTRUTURA.md": "56ec612daf78d428a24a1c6f4cea561f02a6e475",
+    "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md": "9b63219bd50cba17d3f11c941d77359f6bac5634",
+    "docs/biblia/CONFORMIDADE-ITALIA.md": "48c33d6cb09187fa2c638deb5e31d07bd465de0c",
+    "docs/biblia/EMENDA-V1-1.md": "58f6a80ab111a7d27f271d0931c3a5be6f8641b2",
+    "docs/biblia/EMENDA-V1-2.md": "7177d7702e865254da5d0cce16789d212b98659f",
+    "docs/biblia/MATRIZ-DE-CONFLITOS.md": "93f9d457611ccce14a3a3fe1cbd8a3a240ea59a2",
+    "docs/biblia/RECONCILIACAO-INTEGRACAO.md": "5ab0de7b364fee8921a4437bcdfaf299cd71643d",
+    "docs/biblia/leis.json": "0ac5ca55d26f3c7759e89ed8978c5770859b22ae",
+    "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md": "44f3fa897abc8d8b968b9880eb4f841c081c1521",
+    "docs/operacao/ITALY-RECURRENT-PILOT-V1.md": "7010dba9d6ac96d6a950a7ee3df2534be627f3ad",
+    "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md": "f5008231ad8a9dad60ca32f5283e2c4d9c0cf1ef",
+    "ferramentas/apify_contrato.py": "086011405938a0a9de149c70af055ee21eeef09a",
+    "ferramentas/apify_pool.py": "9c743407c0e9beda65c726d7b5aa10725a182bf7",
+    "ferramentas/apify_recuperar.py": "7a71bf276daade550d51a1d5433fffd4663d226b",
+    "ferramentas/cdp.py": "41e8859018030289384dbcc57f0c428b2a7ed980",
+    "ferramentas/contrato_ator.py": "aae0c5d013b5512c8a0c862278ef91b7fc86ead0",
+    "ferramentas/html_text.mjs": "68d594d0ddab390834943caf08f1206c68dcb547",
+    "ferramentas/instagram_transcrever.py": "108f8d14a52324e395a47fc9d094bd8cd33f9af3",
+    "ferramentas/italy-forward-only-live.cmd": "e64b11653b1662df091dfec638c98121dd36424e",
+    "ferramentas/italy_extract_fields.mjs": "00faf5a979beb1d74960d3dbb2111aebf537245a",
+    "ferramentas/navegador.py": "3db1f62a4e99cef50c8fd1e7ba15e1e7722224d2",
+    "ferramentas/ods_peek.mjs": "c9ae639b7bb399e36adc8dbf7a599ee56bf5b833",
+    "ferramentas/pdf_peek.mjs": "8bf939a51b4307b39bf0af5296b0a51e339e9164",
+    "ferramentas/youtube_transcrever.py": "ef47ea13f6d1fea264d283ee8b6824c50a777a1a",
+    "fontes/adama_catalogo_ler.py": "fdb84d6323ba7a85117f49ac051daeb37f3c5fd5",
+    "fontes/adama_catalogo_montar.py": "6cdf2f0363c1c3b3c405ec221797c9004ad32796",
+    "fontes/adama_it_eu.py": "0c20516dedec3feee45b64c166f971299e6210cd",
+    "fontes/adama_it_frac.py": "27e504ebb70a54fd864c2b0f83f16e8e1bdeaa97",
+    "fontes/adama_it_gaps.py": "6d9f000b542aec4a904857dc8787abd65ee3d4fb",
+    "fontes/adama_it_intelligence.py": "d281a6fd1de8d9ceb67295468b39db66cabf93bf",
+    "fontes/adama_it_labels.py": "87db0859ef4007449c4ecda1ae46eb662d234594",
+    "fontes/adama_it_moa.py": "0032c45d1f76387b055d331ba7027d575f500016",
+    "fontes/adama_it_qa.py": "ce6ff9b883c40d75f95c72237f45f8626a834c10",
+    "guarda/catalogo_importar.py": "3048c6d98a2dbe010cd10c35b6d08157987af183",
+    "guarda/es/adama_es_gate.py": "81395ee5b97a6a23438440bbfe21739f55f3c762",
+    "guarda/es/adama_es_import_rules.py": "cb99445ccbe61a4ec53f019064ac6c29cb2413f1",
+    "guarda/es/workflows/adama-es-gate.yml": "19fa96384d9e4eb485ccdc9ef60c06671dd5f84c",
+    "guarda/importar_italia.py": "f3fa576094ddfce98bc4d244c791085feb5fbc35",
+    "guarda/italy_preserve.mjs": "1f85713ec766389071fd94ceaa09f5cc4848787d",
+    "guarda/memoria_descartavel.py": "316ad71ed74fba8188d9499d725360be431f9329",
+    "guarda/portas_live.py": "44d93bf69d7b5bf7e4ec43ccff4e6dc250e65cda",
+    "guarda/preservar_coleta.py": "f44eb40eb298d308bb1b2383c12470739b7d4c18",
+    "guarda/preservar_derivado.py": "b1a0f91d148cf5026d4c4f732074c0e850c21a23",
+    "guarda/sql_conferir.py": "4e8fcc8432225e17a461f0de03f427f6ec1145d0",
+    "italia-portale/BASELINE/_ds/adama-brandwell/_adherence.oxlintrc.json": "33b460a7e2a4606240e3ce74c734a2ca6a4ae703",
+    "italia-portale/BASELINE/_ds/adama-brandwell/_ds_bundle.js": "5181841ff9f5e3a465908bcdcbd563655bbd6b67",
+    "italia-portale/BASELINE/_ds/adama-brandwell/_ds_manifest.json": "1a13f1400c39b3d0e066cf95835bbb7d2e56aeff",
+    "italia-portale/BASELINE/_ds/adama-brandwell/readme.md": "7bc722ef8b6f014b0c6151665b68fc6a4309d25c",
+    "italia-portale/BASELINE/_ds/adama-brandwell/styles.css": "46556cec812dae83a4480a502ed89f30c83ef7a6",
+    "italia-portale/BASELINE/_ds/adama-brandwell/tokens/base.css": "308cab2e0dd2f5645e73a9d8fa8c744913130fd3",
+    "italia-portale/BASELINE/_ds/adama-brandwell/tokens/colors.css": "3fc5a7e1a08d3675b4e76a99a65985199f6d727e",
+    "italia-portale/BASELINE/_ds/adama-brandwell/tokens/patterns.css": "4c5a944aa549f08500aecd3fcdea272adcd9758e",
+    "italia-portale/BASELINE/_ds/adama-brandwell/tokens/spacing.css": "8223f888cfe4f45733d9bf06aeaa0daecd0b9d54",
+    "italia-portale/BASELINE/_ds/adama-brandwell/tokens/typography.css": "08dea8bd33e596b66c0c7e6f52e012182b855993",
+    "italia-portale/audit/BLOCK-CONTRACTS.md": "726cbf2485e6f0f00fe1a137276d2ab1198bbb91",
+    "italia-portale/audit/acceptance.mjs": "aa39480f6d80590cdccea9a370f9712f8fe9829c",
+    "italia-portale/audit/action-map-consistency.mjs": "ae86863b397a0a0f17ed82e3f70e9abd2631f5fb",
+    "italia-portale/audit/adama-product-claim.mjs": "d8004057597e66729031d1eff954d43d40997465",
+    "italia-portale/audit/adama-relevance-gate.mjs": "182a0a93a4ffc9e73601bfa91b3435bc32e8b356",
+    "italia-portale/audit/blocks.mjs": "38767f3395d7b80cf52b6ff3474aad03038466a9",
+    "italia-portale/audit/blocks/archive.js": "0e1655d00c429c14ea037c0253b7b5398205df53",
+    "italia-portale/audit/blocks/brief.js": "0c67f9cb4320deb421cea8f9782a13a470bfed76",
+    "italia-portale/audit/blocks/calendar.js": "5617158ec8d6dfabc86602447e4746739b7073ea",
+    "italia-portale/audit/blocks/case.js": "3bab4b41ae5d86c4b85988198423ca917540b052",
+    "italia-portale/audit/blocks/competitor.js": "62b40b5a746fce8e7d64d86d5903cd5f59012e03",
+    "italia-portale/audit/blocks/field.js": "91babc3612ce8abdae47c168d6605d668b0c5b78",
+    "italia-portale/audit/blocks/future.js": "0fef7c29feea0131721f7b4ff2edf39a660d063e",
+    "italia-portale/audit/blocks/head.js": "c1fb5c55a27245a17557dc5cea3423f3c2a6a36f",
+    "italia-portale/audit/blocks/helpers.js": "bc49c8df4de0b39d618e733680d87cf3d5950894",
+    "italia-portale/audit/blocks/market.js": "f507ad339d83fd2f26907567c0ba38f464878012",
+    "italia-portale/audit/blocks/nav.js": "79703545eed52e586ba3b5998a8384b43e7b5e35",
+    "italia-portale/audit/blocks/portfolio.js": "e43b9f001b46093a4382ad127cd23b4986269ea3",
+    "italia-portale/audit/blocks/product.js": "29b29936765661ab3fbc3d52d14845431fd7d4cc",
+    "italia-portale/audit/blocks/science.js": "ea800bae798762bce523519df5789810e2a87fdc",
+    "italia-portale/audit/blocks/search.js": "e8cad694b061b28e1c97b33d186c97d721941a9b",
+    "italia-portale/audit/blocks/signal.js": "a0bc9c0f2ce7e8bdbbeb57ac45f0361207811765",
+    "italia-portale/audit/blocks/voci.js": "9f67acb28bcfa6c79d93a641229fab3c68c3a53e",
+    "italia-portale/audit/blocks/windows.js": "0f5c8bfecdd73f5144fa3b837b84f0b316b5b313",
+    "italia-portale/audit/brandwell.mjs": "c14bc46d83a1e37a4599f8c522bdc671255426ff",
+    "italia-portale/audit/browser-deep.mjs": "0d22453c15c2f732523d53fc55f6750c004e4768",
+    "italia-portale/audit/browser.mjs": "ddf1156c44f5f7a6ea9dfe8f5e330113a462c7c2",
+    "italia-portale/audit/build-gate.mjs": "b66bee7593d991b4b9ea0b7d47369976a1302d79",
+    "italia-portale/audit/build-v21.mjs": "727f59496b8f2666d8a253cccc96c45ab2e99b62",
+    "italia-portale/audit/cadeia-de-familias.mjs": "f8289e2c9a7d51fe51c6475f60ce882778291b06",
+    "italia-portale/audit/casa-gate.mjs": "797b103e345fbac57381f60c605cbe3fe3156bc2",
+    "italia-portale/audit/casco/brandwell-parita.mjs": "d1c68d3409e17c427a854fcc3fe3170709cb79c5",
+    "italia-portale/audit/casco/censo-demo.mjs": "cdf5af3338393132986708d8cbcff3cbd519fa4d",
+    "italia-portale/audit/casco/censo-precedenza.mjs": "d2129d8bc38be6b9a015ac96267426be463c8e7e",
+    "italia-portale/audit/casco/demo-visibile.mjs": "ff30e1be45b2fd98c6b03ec35818d744d96e9c56",
+    "italia-portale/audit/casco/due-mappe.mjs": "b0f81cde49b063ba83b559f30a95fde8de7aa0b5",
+    "italia-portale/audit/casco/falso-zero.mjs": "48a50c33647ea0453af027a5bf3031a3e254e56b",
+    "italia-portale/audit/casco/fase4-inventario.mjs": "af5405e933e1aa1b4c8380bf1ac74ea2618da066",
+    "italia-portale/audit/casco/fonti-collegate.mjs": "b58c11f336b8735463882f2564f277cf7bff1810",
+    "italia-portale/audit/casco/fonti-divario.mjs": "01adbc8c20446e8016d522027fd1e4b559c38322",
+    "italia-portale/audit/casco/fuga-tsr.mjs": "7326eca834dfdd02dd70bf7b4fd521d18b4d3261",
+    "italia-portale/audit/casco/mappa-azioni.mjs": "6f5917b8dbe9a55cc5a0ffd683b5cdf5ab4c9d85",
+    "italia-portale/audit/casco/parita-visiva.mjs": "b512f1ad187b1f40412bedf563ca988068eb7644",
+    "italia-portale/audit/casco/quarantatre.mjs": "9834f2f3598b0669b8e6bba381ae2241065b95fa",
+    "italia-portale/audit/casco/release-gate.mjs": "e6064fd03edf497740ec0357f7a9f107e46992cc",
+    "italia-portale/audit/casco/ricchezza.mjs": "1ecc1d12db7f9a6009e9f1d0b56ba37f4c5b1048",
+    "italia-portale/audit/casco/sinale.mjs": "d2099713fe77511d5a3c305e540ef3400816ec1e",
+    "italia-portale/audit/casco/sperimentali.mjs": "be879a0ffff1f710fee5bb257900158cb4edea7a",
+    "italia-portale/audit/checks.mjs": "8a5ecfff95657e799731c546601067026ec2e84f",
+    "italia-portale/audit/click-audit.mjs": "73d9da04a82ab01d257d773ed795927f3ca4cda8",
+    "italia-portale/audit/client-boundary.mjs": "de27a2b9b2676fff96cd3dfb2890014b56a20fa8",
+    "italia-portale/audit/client-surface.mjs": "62a26649de51b6f3b84eafa478f7d018e7ee35fd",
+    "italia-portale/audit/competitor-population.mjs": "53659af12fcb3540c4582dac707e15eaa271ae73",
+    "italia-portale/audit/contract-numbers.mjs": "917c337f975062cf550d9e8e0d83a25ed7fbbc88",
+    "italia-portale/audit/counters.mjs": "c3947bbbfed9ea287a48be05db333029f42cf5a2",
+    "italia-portale/audit/cta-navigation.mjs": "0f1caac3d1459cdc391a8b5b4902d95ee57ab19a",
+    "italia-portale/audit/deploy-surface.mjs": "a9171c295f3c394b288c86a7dccdbb7a3b1e7797",
+    "italia-portale/audit/do-not-show.mjs": "5eb1417c12e8ff13e2f266bf2120335fdf71dd03",
+    "italia-portale/audit/exposure.mjs": "d96becff244eb89aa9f544c8c076901b2ed45a41",
+    "italia-portale/audit/external-only.mjs": "fe40ea5f288c8d0095f7920e9b77a1d66f0faa8f",
+    "italia-portale/audit/future-ruler.mjs": "63ebd5dbd881f230cf724b3dda7e30ebd1e3c5d6",
+    "italia-portale/audit/ingestion-provenance.mjs": "baf57837b73dc5b38941b5961e39dab70366a92a",
+    "italia-portale/audit/internal-token.mjs": "f2876eca327feddf23abedca09d06c69283d7141",
+    "italia-portale/audit/inventory.mjs": "39a121934694344bfd47002fe7be9d7917b5c673",
+    "italia-portale/audit/lang.mjs": "449e9ccf4257880a890af5923dc535a0b2ae754f",
+    "italia-portale/audit/lib/drive.mjs": "544a7379b75c5fa94fe5e2c2af670c33f17b32e6",
+    "italia-portale/audit/lib/harness.mjs": "5db40ef549f216d22399de6a5e9e6b786b64c309",
+    "italia-portale/audit/lib/nav-names.mjs": "18598f2ce5a0e068328563b44cb7d3129ac4abc6",
+    "italia-portale/audit/lib/pacote.mjs": "95c4a70bed357c671de92012263adc65ba94f217",
+    "italia-portale/audit/lib/scan.mjs": "5f4801a1a5afbe26a72f6e7978af7b82979d0042",
+    "italia-portale/audit/link-asset.mjs": "c2ff758a5f9ca668c18bfeb7eb7f5029ec5e24bd",
+    "italia-portale/audit/lote-completo.mjs": "6cb61e309b2ea0f740b922df924b9694f50f9571",
+    "italia-portale/audit/market-price-claim.mjs": "f7508e42380f649586439a3e6c7f2e41e9f66bea",
+    "italia-portale/audit/markup-flat.mjs": "3405dc274f1052963fa8671e4680f4d02e4b0bf6",
+    "italia-portale/audit/markup-holes.mjs": "169a769f675ea668338c74b9c660872debc883ec",
+    "italia-portale/audit/meeting-browser.mjs": "2f37dfa2c6afa3d26b39d1bd05a7bffb3f52ba95",
+    "italia-portale/audit/meeting-gate.mjs": "0beb6400416059fe44820387b4429095bd036bb2",
+    "italia-portale/audit/meeting-public.mjs": "e2d6419fcd45bef2ade645d7ea1a598086f0fbed",
+    "italia-portale/audit/mirror.mjs": "3c4d367e5751a8b6e6224667498a96ce1b1f5124",
+    "italia-portale/audit/mobile.mjs": "a412fd0c603992d7ab5184786f74630ccae8006a",
+    "italia-portale/audit/negative-control.mjs": "a5b8f28230ac175634ade6d2bad8639c1cc130a8",
+    "italia-portale/audit/opportunity-detail.mjs": "9e9b372c2a9ee040a8ca34efd5426388678b5598",
+    "italia-portale/audit/opportunity-hub.mjs": "d592244de2af0b5e608ea97f87081bc404baa9c6",
+    "italia-portale/audit/opportunity-trace.mjs": "7400e274fecf4a15145a77c3dde86a42830cd96b",
+    "italia-portale/audit/pdf-gate.mjs": "2a4281c77a205a19c7d9aa05a06ac273290c191c",
+    "italia-portale/audit/portfolio-claims.mjs": "7fd64459e6c999e2dc7040f2bbff8551fba5394b",
+    "italia-portale/audit/probe-relationships.mjs": "19ebc18a9f31e7e91c5696b0f96d129ebf6addbc",
+    "italia-portale/audit/probe-v21.mjs": "19a279831ce7b63d94b94854ca2e2a8f848beece",
+    "italia-portale/audit/product-identity.mjs": "9ff4e3510e15634b15e28d36ca780efa4ce158e7",
+    "italia-portale/audit/production.mjs": "840c3a18aa1e6d9b273c6263b0cf9b408c67fc16",
+    "italia-portale/audit/prova-da-build.mjs": "42403091914246770125d9cea42f0c3b86f5f63f",
+    "italia-portale/audit/publication-boundary.mjs": "dc3b25f45bd53aed06c359ebe94e0aaaeb0c16b5",
+    "italia-portale/audit/reachability.mjs": "3751b589e1b177f08926ed11f24bfd7de6aa6079",
+    "italia-portale/audit/reconciliacao-do-catalogo.mjs": "b454090e113ece1cc151d5e84a60ff17c69764f9",
+    "italia-portale/audit/responsive.mjs": "2c47504b57cc53748db69b3bf85a0d2c7d9c50b7",
+    "italia-portale/audit/rtv-gate.mjs": "4f154593eca57998a639fa583b619a0f3ebd0eec",
+    "italia-portale/audit/run.mjs": "aa9a9b3deeb929a6b152c4a4f75ff13b6a35fb36",
+    "italia-portale/audit/screen-arithmetic.mjs": "b39826a196f7db54a5b368b99dc377621b4a92c4",
+    "italia-portale/audit/serve.mjs": "4425fd4bec8cda226f73374a0efda78ba5a66cc7",
+    "italia-portale/audit/snapshot-failure.mjs": "690a8275393b63b237138c8f1d654c7deb0055d2",
+    "italia-portale/audit/splice.mjs": "4fad0234e3e420af8b84c041dc7b485bcbe7e484",
+    "italia-portale/audit/stale-generator-gate.mjs": "69bd6edd5de822eec3e12d96332f8ffafd499fe4",
+    "italia-portale/audit/surface-contract.mjs": "f76c7e67b6c2479bf533bc2751aa574ecdb62a36",
+    "italia-portale/audit/upstream-ingestion.mjs": "7ad6a4b86a2d5f7508854c206e72d856e2117dd9",
+    "italia-portale/audit/v21-gate.mjs": "04f77cce2738e0ab243869f68eee6b29bbce8cce",
+    "italia-portale/client/_ds/adama-brandwell/_adherence.oxlintrc.json": "33b460a7e2a4606240e3ce74c734a2ca6a4ae703",
+    "italia-portale/client/_ds/adama-brandwell/_ds_bundle.js": "5181841ff9f5e3a465908bcdcbd563655bbd6b67",
+    "italia-portale/client/_ds/adama-brandwell/_ds_manifest.json": "1a13f1400c39b3d0e066cf95835bbb7d2e56aeff",
+    "italia-portale/client/_ds/adama-brandwell/readme.md": "7bc722ef8b6f014b0c6151665b68fc6a4309d25c",
+    "italia-portale/client/_ds/adama-brandwell/styles.css": "46556cec812dae83a4480a502ed89f30c83ef7a6",
+    "italia-portale/client/_ds/adama-brandwell/tokens/base.css": "308cab2e0dd2f5645e73a9d8fa8c744913130fd3",
+    "italia-portale/client/_ds/adama-brandwell/tokens/colors.css": "3fc5a7e1a08d3675b4e76a99a65985199f6d727e",
+    "italia-portale/client/_ds/adama-brandwell/tokens/patterns.css": "4c5a944aa549f08500aecd3fcdea272adcd9758e",
+    "italia-portale/client/_ds/adama-brandwell/tokens/spacing.css": "8223f888cfe4f45733d9bf06aeaa0daecd0b9d54",
+    "italia-portale/client/_ds/adama-brandwell/tokens/typography.css": "08dea8bd33e596b66c0c7e6f52e012182b855993",
+    "italia-portale/client/accesso.html": "7c568bb918cb7f94e2c6ac69c550b51fcbcdfdfe",
+    "italia-portale/client/adama-relevance.js": "f14f6b7b0c791deabce9c46f597cb043f41ba73a",
+    "italia-portale/client/casa.html": "ceb0e72e4f6e62849c0b2e1a1abcb97bedab4640",
+    "italia-portale/client/index.html": "5600cfb46d54bd2f4cf76ad0489d8155db7c3fd3",
+    "italia-portale/client/italy-app-model.js": "ea1a40c8750dfdedbb4016875829f046f654dcc2",
+    "italia-portale/client/italy-briefs.js": "f26e0fd5f554eff59ce7af699bab5ab5838bff18",
+    "italia-portale/client/italy-canonical-windows.js": "29419598ad376ee7fb1273b3d1d7188e620a0683",
+    "italia-portale/client/italy-casa.js": "a465c7f4d0eb27f09699e78237702ab7cc109572",
+    "italia-portale/client/italy-catalog.js": "3d414b4147a5ca8e6d5d8b8eb964067f1b961a24",
+    "italia-portale/client/italy-demo-data.js": "31d2b1e3afb3bf7fded5798a768485de8778c404",
+    "italia-portale/client/italy-handoff-v21.js": "fbd410cec87eaf8696d9d9826f3439b72a244555",
+    "italia-portale/client/italy-i18n.js": "efb575bf66109f9ea49d72984294a0ade49bc61d",
+    "italia-portale/client/italy-ingested.js": "53bcf4a3c40f9f98120d3b5b5a2494dbb84b3437",
+    "italia-portale/client/italy-label-verdicts.js": "5ca55b6aff7d7f5c3cf8ce603c8d9ed4ab49e990",
+    "italia-portale/client/italy-market-pulse.js": "5ae7d07fd4056133f212012321f92844745c7ea6",
+    "italia-portale/client/italy-pdf.js": "dbd891879039ec4f07698d2d9a27dbeebb553ab8",
+    "italia-portale/client/italy-real-intelligence.js": "ccca2071aa5865f5ae0408987eef1dc94ab8405e",
+    "italia-portale/client/italy-science-business.js": "94f897e77d635161cc0060712dba81375d7ffd4c",
+    "italia-portale/client/italy-v21.js": "2a28b62c73f893d93c632e89efadaec26b7fdaf2",
+    "italia-portale/client/meeting-intelligence-snapshot.js": "fab5bcf8d85729474871bc6254fad12258681cd7",
+    "italia-portale/client/meeting-labels.js": "02e46c198fae0a55efbff4a41bc7403b799a4f07",
+    "italia-portale/client/meeting-surface.js": "561a66b36fdb3907df375956cbde3a2ba7099c43",
+    "italia-portale/client/support.js": "5d75829d4340877d95f162d7f09569a980ce634c",
+    "leis/adama_relevance.py": "f53957a04450ec4e9a291d1bed4952f924fef8d2",
+    "leis/artefato.py": "db12c95938b9d3558a8304516e40e99cb87c94dc",
+    "leis/auditoria_regua_comercial.py": "0b74e427335ff870fb7c815426e92832e67127d4",
+    "leis/calendario_handoff.py": "72b198af8ac7f2b8b1a55ad0f16548e8bc6da142",
+    "leis/data_clock.py": "608696a5eca4881d600a5631b9d55bb5a432c5b3",
+    "leis/regua_italia.py": "6c6c579407782c92ecb3e3f6e0c6323a55ee07d9",
+    "leis/v21_carimbar_origem.py": "db0c0d9fdc8df157afa15b6616d5a00b744b3370",
+    "leis/v21_datas.py": "36f83ad1f374bdb3eceedc07774cd0bfec039da4",
+    "leis/v21_geografia_contrato.py": "76dd230ecc5cc08571a25cffe74cac93d149725d",
+    "leis/v21_procedencia_contrato.py": "2767b61921fd8c2ad1a19372d429e69f9b328168",
+    "leis/v21_procedencia_religar.py": "6e8af7ed38ffa1ea59961b0c93692b9072bdef56",
+    "medidas/PADRAO-DA-COLETA-CHAO.json": "9988b598dcfeb896b416068b5368d9d99ddfe267",
+    "medidas/PORTOES-DE-COLETA-10B.md": "9642888d903cbea0fb2aa5eb5ea351977d9bb42f",
+    "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md": "ce98fc51bb7d81d551803c10edb0a14430ea6ea3",
+    "medidas/cicatrizes_brasil.py": "34c9f52b6bee0946cc79261037a1a1272c2950ea",
+    "medidas/fato_local.py": "2d873f38b027e730743b4ef0b8739f91983e0335",
+    "medidas/lugar_do_fato.py": "0b01a177cf2d3c396a9966bbde80986c653b695d",
+    "medidas/padrao_da_coleta.py": "e6a12f1f6065e35e0043a01243f456f0388684bb",
+    "medidas/portao.py": "3f640ba91536830c750d90cba26531a9877b3f91",
+    "medidas/portoes_eame.py": "19d35c34a97651fa85a941d88b3890978c910cef",
+    "medidas/source_health.py": "eddcfe57243c04b7f55e747d9558276d49a55b30",
+    "medidas/voz.py": "0208fe739bd7ad1ac0ed7f5fa6d106112a42bdf0",
+    "motor/cadeia_canonica.sh": "df0c764dcfaa334a05fdfcf4cffdb99cf44225d9",
+    "motor/consolidar_leque.py": "fdcf45d90fa394705a285f18d5b93849a4af9fa8",
+    "motor/matriz_recorte.py": "f29488775bcf7be3340f081a15f47e841c4349b8",
+    "motor/normalize_agro.py": "81822bd84e0ba8c18d2cf960c15adaed5ef91c9b",
+    "motor/normalize_substance.py": "5dbd0e97f681a3ad7ce6e36027ae5c6b432bdfce",
+    "motor/pacote_convergencia.py": "0a2923c41d9427c641ffa7d9b0e67f72e8903ba4",
+    "motor/pacote_normalizar.py": "c2d08c2031610aa7b11e20c59ce4728610eb66d8",
+    "motor/v21_aceitacao.py": "e27fc41cdd79ccaa8465781f55d12ea326c842c1",
+    "motor/v21_adama_registro_validar.py": "a8250a7a08a315825d10d8b14726525aefdac955",
+    "motor/v21_antes_e_depois.py": "915344b8496ad41d9034fd9006c3c45d1a0e2450",
+    "motor/v21_cadeia.sh": "6725f205865a7cc7f517a0a1c9c0b90af3001f5b",
+    "motor/v21_campos_de_lingua.py": "9861a6180e680e2877392b844df73e27986dfb00",
+    "motor/v21_comercial.py": "92e7a82d3d690decdc336a2c262b5c478e182fd7",
+    "motor/v21_completude_oportunidade.py": "20b3b2466318b6439763b1416bee2143cf6c86ae",
+    "motor/v21_contrato_do_pacote.py": "2429e52d11f4de699aa11fe07672a6a3f229da1d",
+    "motor/v21_crossings.py": "dc1e2297917e4944c8c00409aa359f40b854812d",
+    "motor/v21_dominio_da_alegacao.py": "f16645015d6afd17b45d2692871c93af983984cd",
+    "motor/v21_fechar.py": "5e1a0a0efdc24c0c12f16a9bb371cfc0f4a239ad",
+    "motor/v21_fontes_faltantes.py": "5c64bbb8aaaf37d101b2e1727624f322fa266753",
+    "motor/v21_fontes_rechavear.py": "0c17f4e130e1dd788608f653028814402a56bcca",
+    "motor/v21_ingest.py": "073238e0a40a10a5255efa54dfd7edd4bc4e675b",
+    "motor/v21_ingest_b.py": "c130cc8fcf59162ba3e39cfa4e7e19e3276551c6",
+    "motor/v21_ingest_c.py": "8deaee83c28832d7597abcb049e0f0576e96dee4",
+    "motor/v21_necessidade.py": "b7626073eaa968b21ffc2b6292b691ee7dcd1f5f",
+    "motor/v21_normalizar.py": "dc53fc4a37ccf158e701659b4b95ced1f2c2936c",
+    "motor/v21_oportunidades.py": "edb67ee2aadf91a8fc58fba8538028e093c8cbbb",
+    "motor/v21_reavaliar_35.py": "445bff6a17d38f061f4fb80bcce367b214430210",
+    "motor/v21_reverificacao_ledger.py": "686f776b8a099bec5e684cbb24dbeed42c4e3a32",
+    "motor/v21_tm_colher.py": "2b3d1de69fe4180dc2b160185c71f278cbc7e78e",
+    "motor/v21_traducao_trava.py": "cf56becb816eeb73c09783c096c18c2684742eef",
+    "motor/v21_vozes_reconciliar.py": "c64802a2c98135a77a6303b14ea2c553b2787381",
+    "motor/v2_conflitos.py": "d6efda2434f923d4511e7e62324fc1e0dfbe7c2a",
+    "motor/v2_cruzamentos.py": "af4a2ff755595cf0cac385df4294becc0b76c950",
+    "motor/v2_dedup_e_familias.py": "bb3d422595d963938474fee8e21aa779e519c7c1",
+    "motor/v2_fechar.py": "1656d3e683c7f05d514f64d2ab57aef5dff44d92",
+    "motor/v2_montar_handoff.py": "0f25853bb9ce9470838893eabba5dc72798eca52",
+    "motor/v2_qa_atribuir.py": "586208251e0b02b02cfd24dee9640cd772c06271",
+    "motor/v2_relatorio.py": "9eb92494f1e464dcd88c7a6c92f5a46fd80b33ed",
+    "orquestrador/orquestrador.py": "e6d9cccad2ee16d47ff403e2d94b99029b640aac",
+    "pacote/lastmile_entregar.py": "349ca4149746f9458b75585a41a90904e41ec45b",
+    "pacote/lastmile_inventario.py": "b6cbc7e79364aa73c245d075c3bcda69ce4fb9af",
+    "pacote/lastmile_para_supabase.py": "987238ff6768915fd4c99278c641053fb175d7d2",
+    "pacote/lastmile_relatorio.py": "6886f631282125dfd7bb6bb0ea830b6f8328457e",
+    "pacote/ler_saida_leque.py": "56e677e1815ce85db7053b3a8012bee953b89d12",
+    "pacote/meeting_snapshot.py": "dbc13c1c3e0996b57cd3aeb9322781d8363a928a",
+    "pacote/metricas_canonicas.py": "f6837c87b96b56e643d501f4e5bbbb0959fd51b1",
+    "pacote/pacote.py": "eecc38c5ae99aca83dc30911a4b7e5e761d6a185",
+    "pacote/pacote_camadas.py": "eac213d109999af0997c65db8660a1fa391107ad",
+    "pacote/pacote_camadas2.py": "dcfcf498775fce16927fc06c1424467283b502b7",
+    "pacote/pacote_camadas3.py": "c47dc8fe6c62a868a2672ead50101fead3a40aec",
+    "pacote/pacote_docs.py": "b0337846ede9489d23556afb1aee38e2943fc321",
+    "pacote/pacote_fenologia.py": "1615ebdf78cf2641428a7a082ff8f2528f8ef2ab",
+    "pacote/pacote_mercado.py": "72873d540697b31dcaa4aaaf450178025339d13d",
+    "pacote/pacote_montar.py": "7902be8b68946dc9c1be0e429fbf7768e7a2a176",
+    "pacote/pacote_relacoes_convergencia.py": "31ef6178bce498b40cb9a87174b6cb214b82e687",
+    "pacote/v21_handoff_json.py": "94aadd8693d949bef7a77d109872e1e372d9f8d0",
+    "pedido/pedido.py": "783852b225b497ca118f1f250f650123d1f81df0",
+    "pedido/receitas.py": "38e9779c369d70ce0ae5c926ce96472360c78fa9",
+    "portoes/build_portal.py": "1656c9eb410273792b34866ba744e5b553b0ffe7",
+    "portoes/site_v21_ingest.py": "1e64382050462c6a5307f36c40aced83ac3527c2",
+    "provas/auditoria.py": "5b0375fdf9f334142d56f869dae339c7cf010868",
+    "provas/auditoria_live.sh": "fd45c1c15751ff4ef3d7fcbdef0a5462a698cfd8",
+    "provas/chain.py": "d5c07eec3c026b3e2fad7b2013db9da49a3fba90",
+    "provas/corrigir_custo.py": "b68fed443f41d88e003d2ba4d853a9a5927c0ae9",
+    "provas/coverage.py": "08545f17174b1d8b6a2d85143f90b2ccee0e1ae1",
+    "provas/derived_artifact_no_postgres.py": "cbbc6a8b528a3bc83718a51c679a010bcfef17fa",
+    "provas/es/freeze_es.py": "6e653cdade470d3f2f769a5cec74ebe2c2d7c460",
+    "provas/inventario_esperado.py": "66f22a11bd9356fb70dbca6167f26dbddc288760",
+    "provas/italy_accounting.mjs": "6d87dca1623f5be4b0dc81bf217d8cf7cab3270b",
+    "provas/italy_pilot_negativos.mjs": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
+    "provas/preflight_022_live.sh": "1d8900d3eb82b3f8cc1110219fd062f5ed99c68c",
+    "provas/preservar_coleta_no_postgres.py": "991be91d76d4daceae7c66e80e29d75ab4a106c9",
+    "provas/readback_022_live.sh": "c1ac05ce1e6f69eec128842b245d2606bb231903",
+    "provas/testa_coleta_canonica.py": "9ead5da22703717b191dbad1e00f3826e3d9a07d",
+    "provas/testa_golden_path_pdf.py": "9423756789328f35ba6b4b924e65f4e8c301850d",
+    "provas/testa_rota_italia.py": "fc1de4e6f7b84f7709459d61f02413820827a2b2",
+    "provas/trava_de_drift_de_migration.sh": "2ff146072eb65377be534e5a0cf3cfbfca76a3a8",
+    "provas/valida_biblia.py": "e5f1a2a4834a34da64ee56ed89357ef0e2840005",
+    "regras/comunicacao_identidade.py": "94c42ae11e5f4d2880ddbb71b2f36fc1d12a9160",
+    "regras/comunicacao_lote.py": "1aed0cecdff1f7a2ac42451eea43e87ba82b655f",
+    "regras/comunicacao_universo.py": "6c25a78aa4314def6ee4354b0f5329f3d9cce622",
+    "regras/italy_contract_test.mjs": "593d2c51c898ba6b811b4d61b2bae46fe00b670f",
+    "regras/italy_contracts.mjs": "ae6fc38c114ed3b996021f6f120632a234c8a533",
+    "regras/italy_pilot_guards.mjs": "b1a1e27587938b7c23b24f0a90bd4846b2b17afe",
+    "regras/italy_scheduling_guards.mjs": "8cea2854f0470892f5b08051a76303a5336fc548",
+    "regras/italy_source_health.mjs": "c3ecad25f05f09c596c54c6eb0d9a0445bfa5618",
+    "regras/proveniencia.py": "ed6c8a44342a5ef59dcb73023296d5bca9e3754a",
+    "regras/rotulos_censo.py": "f5caa7816711270b5813e9b1a23ee87920e20825",
+    "regras/sensor_coleta.py": "6267585dda56bda9ff2c8b4e443e0d2386b82ccc",
+    "regras/sensor_medir.py": "78a08f1ac8d8d832df55ae53a667d28792f0b307",
+    "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql": "924f59840046e5b5c27f9c743d4b89732a440761",
+    "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql": "15e6053919ac670242ce4ef46b50edbc5a858253",
+    "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql": "96a9403d67687e4fd935ed44a10cb4b215dbf68c",
+    "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql": "519804d3f6718263da0eaca0e774a8d793dc4a70",
+    "supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql": "26a18a1395f0149b1c3056cda53b679726458822",
+    "supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql": "f17c4976e1453dfd0ee4026addfb3efd7bec5c28",
+    "supabase/fixtures/es_calendario_mvp.sql": "9d39d8a9f8a1ed477f7905e2b748857c7268ddb4",
+    "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql": "8f418263f9375616923f5ea6bc732b38fa6cc16f",
+    "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql": "0c512c28b89c1556bc2f42321c3740caab842d54",
+    "supabase/importacoes/IT-CAMADAS-2026-09-02.sql": "7aeff3d0618977a1d44d3ac3e49ae15c1e846b7d",
+    "supabase/importacoes/IT-LASTMILE-2026-09-02.sql": "6cd32d278e0c47c144ff76148b06c7667b868457",
+    "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql": "8afa5826994e13f6950712111a07ec13d5cb4f49",
+    "supabase/migrations/002_identidade_pessoa_org_canal.sql": "a935b7965d7deadbd25742d2f4f22f225b472b7b",
+    "supabase/migrations/003_conteudo_documento_video_transcricao.sql": "f4b4470ceb8cf2eaf0e9c4c23baf0af52e9b652d",
+    "supabase/migrations/004_crop_issue_par_explicito.sql": "90d34bb9f04a21138d775cbc195b1d91900f0c29",
+    "supabase/migrations/005_camada_analitica_observado_vs_derivado.sql": "e17fa704f2e3773d4623eb09f4f197340c9439b1",
+    "supabase/migrations/006_regulatorio_e_rls.sql": "7ad08a299f5435a73cbd5c0bcd036af7d3fcf48c",
+    "supabase/migrations/007_views_de_apoio.sql": "afa7709fd1c4d38750c4b664c18b584fe81179f2",
+    "supabase/migrations/008_verificacao_pos_aplicacao.sql": "25141889cc3563e7a460e1625f85b16f891e59e5",
+    "supabase/migrations/009_semantica_de_pais.sql": "1093d4628dd779d70235ea5d5997feb625177c3a",
+    "supabase/migrations/010_calendario_agronomico.sql": "78f3a01a9263a622c5f73e8422e2d22a0f3d8377",
+    "supabase/migrations/011_calendario_consultas.sql": "a78bda7f29899c236e04ecb8a490fe5cf7065512",
+    "supabase/migrations/012_contexto_temporal_do_caso.sql": "d6d6f19b1fc5b5fcadede136b4a28bc78f44b2d8",
+    "supabase/migrations/013_captura_nao_e_registro.sql": "1808b26832a7dd7bc0980900bd2cd8a1e122bb07",
+    "supabase/migrations/014_catalogo_publico_fabricante.sql": "218518d0ed72bf83b458e118d15dabf5cc424c2d",
+    "supabase/migrations/015_cicatrizes_do_brasil.sql": "44c4477576342ed5ca39c37485ee130198dfba5f",
+    "supabase/migrations/016_checkpoint_e_unidade_analitica.sql": "98a3ce59565f1418e2de40ed2900de882e5d261e",
+    "supabase/migrations/017_o_que_a_conferencia_de_localizacao_achou.sql": "a9c60a979d4ccbbf2f380d8a291de0736f87e6a7",
+    "supabase/migrations/018_o_lugar_do_fato_ganha_dono.sql": "1cb0c4e4d14eb1c60dc05da47af325ed1be2ce42",
+    "supabase/migrations/019_camada_ue_e_resistencia.sql": "4746bc07217a79fa267c9d1e480a4eba504c782b",
+    "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql": "b4c8d944c58745ae594c18792a6c1820775b646b",
+    "supabase/migrations/021_fato_externo_publicado.sql": "3b9aaaf05e34bd5bd48b29d921b46b9251f13346",
+    "supabase/migrations/022_o_derivado_ganha_casa.sql": "1760f3d66d61eda491c3d942b94b58bde4961d32",
+    "supabase/tests/mutacao_cicatrizes.sql": "10b5bffa23e178553e7dad5b0baf7b1701d1ced7",
+    "supabase/tests/mutacao_coleta.sql": "26e430b57753b6b615307606afcddfa6547d2f01",
+    "supabase/tests/mutacao_lugar_do_fato.sql": "ebfacdcd5d1c51e7f2ba3d259917f9e0c2cfbf90",
+    "supabase/tests/regressoes_calendario.sql": "11344c0a394031331720e05d0ef5a3f335a1fac5",
+    "supabase/tests/regressoes_captura.sql": "03bd1b797f6882152dd6abdc3c48c973126d6913",
+    "supabase/tests/regressoes_catalogo_es.sql": "f49b1e052b1b69b1a259135cb32849eacc1e6ccd",
+    "supabase/tests/regressoes_cicatrizes.sql": "0ee6d87513aa3a2be4f7d15bffa876797f9ee83c",
+    "supabase/tests/regressoes_coleta.sql": "deec1fbd4a51c3095b64bc950cabe4739e977978",
+    "supabase/tests/regressoes_lugar_do_fato.sql": "957287a1d79fe946e6265ccb6333d0fb771e3662",
+    "supabase/tests/regressoes_regulatorio_es.sql": "720953c2a852a63f293995ddd11115c429dbfbf7",
+    "superficie/ask_sintonia.py": "87352bed9f3ef2cc57331710d16589735aed1ce5",
+    "superficie/es/proto_es.py": "6e574cee8e56f64184caff9a90a26769d011f589",
+    "superficie/it_casa_dados.py": "ea4ef19118f35b42dba189b3a7b134a7eab8ba25",
+    "superficie/rede.py": "2724f549c7198dec600f4eaac13739e1a53b156b",
+    "system-map/app/index.html": "e03ea69361b475d380b1256e170346f9d3e2cbd1",
+    "system-map/app/map.css": "509ff2a37ebb527c7563a88cdf4a6a5429a6b1af",
+    "system-map/app/map.js": "433aa0bc66add1fc4ec82aea3471ba9b3015c8be",
+    "system-map/scripts/censo_da_coleta.py": "3fa99e2b2154151b55c6f4ff5f1f87c7b27b8d8d",
+    "system-map/scripts/censo_das_derivacoes.py": "93d101c4f09a8fd0a30e6f3c7226765e81e631a9",
+    "system-map/scripts/censo_de_identidade_it.py": "4b2b973fd332532addbc1fb2530653851ec009ff",
+    "system-map/scripts/censo_do_armazem_it.py": "226b1f2938e59043bd5a285a77b190a8c420beb3",
+    "system-map/scripts/censo_do_corpus_it.py": "9d75834f4e20627b744c033a4a64d32547fb43b6",
+    "system-map/scripts/censo_semantico_it.py": "575e2343b667b163062998901e7422bdf381887c",
+    "system-map/scripts/generate_system_map.py": "2d5178495550369a2b46142c6e88a749ac842590",
+    "system-map/scripts/mudar_gaveta.py": "99736f74a118a545f946246f88c041153e4bb342",
+    "system-map/scripts/pente_fino_da_coleta.py": "7c6f8bd541be3e5aef7aaf3df2514af423f14928",
+    "system-map/scripts/recall_da_porta_it.py": "e677f9289ce6c380b298c019788b4b95b630fa73",
+    "system-map/scripts/scan_casco.py": "ff41767da8af0d50f153179d517e6cabd636c014",
+    "system-map/scripts/scan_repo.py": "2721f4eace153fcaf95ff45e0f6633247bb24cb3",
+    "system-map/scripts/scan_sources.py": "ebf2ca643c3fc39caed844e26ec7ae88846d2343",
+    "system-map/scripts/validate_system_map.py": "049a768123347c52a32588b49d3fd6d65c564a8d",
+    "system-map/tests/test_system_map.py": "6ed6682aa01a24ffd67cd3a7e89c77a84379a399",
+    "tests/es/test_adama_es_gate.py": "6a314fa029012cc403351afa7248c1b89666e786",
+    "tests/es/test_adama_es_import_rules.py": "b37f0ceadb1bb42c4f4cd08c2c473d4cf661a197",
+    "tests/test_adama_relevance.py": "4337978c67cf52681f3eddbcaeb2423eca2291e8",
+    "tests/test_armazem_italiano.py": "ed70730e1f9731dcf6fefbed7ab92c6fd0c481f2",
+    "tests/test_biblia.py": "c90a38af1344b763db9a42c9fedd43a69ae7f232",
+    "tests/test_calendario_temporal.py": "7f05aa45f2ae319f5eefebbf7654a09ed05b2d40",
+    "tests/test_canonico.py": "b8896c0990b63e9610055df7b8b10dcd588d8f11",
+    "tests/test_cicatrizes_brasil.py": "552985ef5ebec590ae95fbf977e725fa5cf27c56",
+    "tests/test_coleta_externa.py": "2f9444100547afb997f524346bcfefed41e953de",
+    "tests/test_coleta_resiliente.py": "b39d73ebe81e094e4f87036b5ffeb4129db875a2",
+    "tests/test_competitor_layer.py": "0b802fab641b0dd7008f5bcc5201c86551396e4e",
+    "tests/test_completude_oportunidade.py": "397437e76d2c0cc46bc6b34792fc3d33e61d49d8",
+    "tests/test_comunicacao.py": "0ddef95ea6db0b4a0a5675332735c8728e41784f",
+    "tests/test_evidence.py": "dc2524beb6f59d549553696071b81874c157b00d",
+    "tests/test_handoff.py": "2aa4ae8280e1a278494e67404cb21736221f8654",
+    "tests/test_hero_cases_v1.py": "70d360b8d805f5c131084be7f9f5d55a5cc71cfe",
+    "tests/test_identidade_do_artefato.py": "6855dee111d814d69254a0c1b039ea698925a1d7",
+    "tests/test_integracao_biblia.py": "afa04d0c8652610adbc7aef32fd1c1f35835737f",
+    "tests/test_lugar_do_fato.py": "a876b6eb1500313bf6ee2222eeb3ad7a02dd6428",
+    "tests/test_metricas.py": "6ddd125f41dfb3b684b06733b2ca5df6abb068d2",
+    "tests/test_migrations.py": "5a0a3113c7d32bb50bb48d13f2314c7e1e926235",
+    "tests/test_navegador.py": "6785b0150ea26a6221ae25ee3b13d43c0d15605f",
+    "tests/test_observabilidade_estrada.py": "1b4fdf6b86c682a2d19f7849d0ae800df7a5430e",
+    "tests/test_operacao.py": "48640522ddc7851506c9a30fc49aaf402eaa098b",
+    "tests/test_pipeline.py": "69c58f5e55c697745f14af6392d165a68e50119a",
+    "tests/test_porta_de_producao.py": "4b613055d801139787d9de3437af222417c3db9c",
+    "tests/test_portao.py": "a8544ae2e330301b29d402928515f8fcfe110ebd",
+    "tests/test_portoes_eame.py": "c23138e145a3bf309b893da5f1311b33adc89e7f",
+    "tests/test_preservar_coleta.py": "aee012b7e98f6748419c5d66600a449a4265fd60",
+    "tests/test_preservar_coleta_no_banco.py": "b9189349023c8237e1d97bb10c60ba32eca63d71",
+    "tests/test_preservar_derivado.py": "cac6f89c57c8134ea8c42f867c5dc9c022bc0e79",
+    "tests/test_prioridade_comercial.py": "5bde89fe1b8e49a68002a431dce24ef9f5c6c25d",
+    "tests/test_proveniencia.py": "ecaa222d96c785a4cc8d695c76dde80ee4b4d938",
+    "tests/test_radar_futuro.py": "f844094a28cf69ca1b986b666d4ebd3a88ad0e9d",
+    "tests/test_red_team_estrada.py": "1deabb339f23be00fa5dee281d1b2bbb13248770",
+    "tests/test_v21_datas.py": "1c743d7c3a76aa35e96635bce9f8070c731c5a04",
+    "tests/test_v21_geografia.py": "b1cdf7054e55b3da37544360c0b690af8df6d008",
+    "tests/test_v21_mercado.py": "b7a7cde4628f9b59e97bcd7f86bd9e7fa3e7b0c6",
+    "tests/test_v21_traducao_trava.py": "e0a4d34194dbf01532620db40606d6b06bc88f04",
+    "tests/test_voz.py": "9024c8951eb004056317fad9b865ca2ecaa2bd7c"
+  },
+  "FAMILIES": [
+    {
+      "id": "F-COLETA",
+      "name": "COLETA",
+      "why": "Trazer para dentro o que existe la fora. Nada no SINTONIA comeca sem passar por aqui."
+    },
+    {
+      "id": "F-ESPERA",
+      "name": "A ESPERA",
+      "why": "O que ja passou por toda a coleta e ainda nao entrou na inteligencia. Nao e coleta (o trabalho ja acabou) nem inteligencia (ainda nao comecou) — e o sitio onde o dado dorme entre as duas"
+    },
+    {
+      "id": "F-INTELIGENCIA",
+      "name": "INTELIGENCIA",
+      "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa."
+    },
+    {
+      "id": "F-ENTREGA",
+      "name": "ENTREGA",
+      "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado."
+    }
+  ],
+  "LENTES": {
+    "ARCHITECTURE": "como esta ligado",
+    "DIAGNOSTIC": "onde esta quebrado",
+    "TRACE": "por onde passou, filtrando por corrida, fonte ou rota",
+    "PERFORMANCE": "por hora, dia, fonte, rota, executor e etapa",
+    "EVOLUTION": "versao de politica, champion, challenger, baseline, promocao",
+    "COLLECTION_STRATEGY": "por fonte: ciclo, papel, rotas, ultima verificacao, proxima",
+    "NOTA": "Sem telemetria, a lente mostra NOT_INSTRUMENTED ou NOT_MEASURED. NUNCA verde por ausencia: uma corrida sem rastro e uma corrida que ninguem mediu, e isso nao pode parecer uma corrida sa."
+  }
+}

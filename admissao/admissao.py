@@ -1,0 +1,419 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+A PORTA DE ADMISSAO — a peneira comum, e o livro que guarda cada nao.
+
+O censo mediu o buraco com numero: **um** ficheiro em toda a coleta decide o que
+presta (`coleta/youtube_relevancia.py`), para **cinco** veiculos. Nos outros
+quatro canais nao ha peneira nenhuma. O caminho de hoje e:
+
+    colher -> carimbar -> guardar TUDO -> inteligencia
+
+e nao:
+
+    colher -> carimbar -> separar -> guardar o que passou -> inteligencia
+
+A tentacao era escrever `instagram_relevancia.py`, `linkedin_relevancia.py`,
+`facebook_relevancia.py`. Seriam quatro arquitecturas independentes para um
+problema que e um so — e daqui a um ano seriam quatro leis diferentes sobre a
+mesma pergunta, cada uma com o seu bug.
+
+AS TRES REGRAS QUE ESTA PORTA NAO QUEBRA
+-----------------------------------------
+
+1 · RELEVANCIA NAO E UM BOOLEANO UNIVERSAL.
+    O mesmo video pode ser ouro para Ciencia, ruido para Concorrencia e NAO_SEI
+    para Regulatorio. Guardar `relevante=true` no item obriga a escolher um
+    dono para a verdade, e o segundo universo que perguntar recebe a resposta
+    do primeiro. Por isso a decisao e sempre do PAR (item, universo), e o mesmo
+    bruto pode ter tres decisoes diferentes ao mesmo tempo, todas certas.
+
+2 · ERRO NAO VIRA NAO.
+    «Nao consegui ler o ficheiro» nao e «li e nao serve». Se a ferramenta
+    falhou, o estado e ERRO, e o item volta a fila — nao morre com um carimbo
+    de rejeitado que ninguem vai reabrir.
+
+3 · AUSENCIA DE PROVA NAO VIRA NAO.
+    NAO_SEI e uma resposta legitima e fica escrita como tal. Empurrar o NAO_SEI
+    para o NAO faz a coleta encolher sozinha, sem ninguem ter decidido isso — e
+    o encolhimento nao aparece em lado nenhum, porque um «nao» parece uma
+    decisao tomada.
+
+O LIVRO DE DECISOES
+-------------------
+`discarded=true` nao serve para nada: nao diz porque, nem por qual regra, nem
+com que prova, nem se a regra mudou entretanto. Descarte sem testemunha e
+trabalho perdido duas vezes — perde-se o item, e perde-se a informacao de que
+aquela fonte entrega lixo. Na coleta seguinte gasta-se maquina para redescobrir
+exatamente a mesma coisa.
+
+Cada decisao guarda: o item, o universo, a regra, a versao da regra, o
+resultado, o motivo em palavras, a prova, e de que corrida veio. Com a versao
+guardada, quando a regra mudar da para reprocessar so o que ela decidiu.
+
+SAIDA: data/samples/LIVRO-DE-DECISOES.json
+"""
+
+from __future__ import annotations
+
+import json
+import sys
+from dataclasses import dataclass, asdict, field
+from datetime import datetime, timezone
+from pathlib import Path
+
+RAIZ = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(RAIZ))
+import _gavetas  # noqa: E402,F401
+
+LIVRO = RAIZ / "data" / "samples" / "LIVRO-DE-DECISOES.json"
+
+# ── OS QUATRO RESULTADOS, E SO ESTES ────────────────────────────────────────
+SIM = "SIM"                      # entra
+NAO = "NAO"                      # olhei e nao serve para ESTE universo
+NAO_SEI = "NAO_SEI"              # nao ha prova suficiente para dizer sim ou nao
+NAO_SE_APLICA = "NAO_SE_APLICA"  # a pergunta nao faz sentido para este item
+ERRO = "ERRO"                    # nao consegui olhar — NAO e uma rejeicao
+
+RESULTADOS = (SIM, NAO, NAO_SEI, NAO_SE_APLICA, ERRO)
+
+# A versao da regra vive aqui e sobe quando a regra muda. E o que permite dizer
+# «reprocessa tudo o que a versao 1 rejeitou» sem reprocessar o resto.
+# A VERSAO SOBE QUANDO A LEI MUDA, e ela mudou: a versao 1 dava NAO por
+# ausencia de palavra. Tudo o que ela rejeitou assim tem de poder ser
+# reprocessado — e sem numero de versao nao ha como saber o que reabrir.
+# 3 · a porta passou a perguntar pelo ESTAGIO do item (COL-LAW-502). O que
+#     mudou de resultado nao foi a evidencia: foi a pergunta. Decisoes
+#     antigas ficam como estao — a versao e o que permite dizer «reavalia
+#     so o que a v2 decidiu» sem reprocessar o resto.
+VERSAO_DA_REGRA = "3"
+
+
+@dataclass
+class Decisao:
+    item: str
+    universo: str
+    resultado: str
+    regra: str
+    motivo: str
+    evidencia: dict = field(default_factory=dict)
+    versao: str = VERSAO_DA_REGRA
+    corrida: str = "NAO SEI"
+    quando: str = ""
+
+    def __post_init__(self):
+        if self.resultado not in RESULTADOS:
+            raise ValueError(f"resultado «{self.resultado}» nao existe. "
+                             f"Ha: {', '.join(RESULTADOS)}")
+        self.quando = self.quando or datetime.now(timezone.utc).strftime(
+            "%Y-%m-%dT%H:%M:%SZ")
+
+
+# ── AS PERGUNTAS DA PORTA ───────────────────────────────────────────────────
+# Cada uma devolve (resultado, motivo, evidencia). A ordem importa: as que
+# apuram se DA PARA OLHAR vem primeiro, porque nao se julga o que nao se leu.
+# NAO E UMA COISA COLHIDA — E UM REGISTO SOBRE A COLETA.
+#
+# Sao duas especies diferentes, e confundi-las escondeu o achado mais duro desta
+# missao. Ao ligar a porta pela primeira vez a uma colheita real, 253 registos
+# sairam todos barrados na primeira pergunta, e o motivo dizia so «veio sem
+# texto». Parecia um defeito da peneira. Nao era.
+#
+#     `RESEARCHER-CORPUS` guarda 12 PESSOAS com o campo MATERIALS_FOUND = 124.
+#     Guarda a CONTAGEM dos materiais. Nao guarda os materiais.
+#
+# Um registo destes nao e um item mal colhido: e outra especie de coisa — a
+# ficha de onde se pode coletar, ou o resumo do que se coletou. Chamar-lhe
+# NAO_SEI e dar uma resposta educada a uma pergunta que nao se devia ter feito,
+# e por isso ninguem vai investigar.
+NAO_E_ITEM = (
+    # ficha de conta: onde se pode coletar
+    "ACCOUNT_HANDLE", "ACCOUNT_URL", "ACCOUNT_IDENTITY_STATE",
+    "COLLECTION_AUTHORIZED", "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH", "ANCHOR_KIND",
+    # ficha de pessoa com contagem: o resumo do que se coletou
+    "PERSON_ID", "MATERIALS_FOUND", "ORCID_WORKS_DECLARED", "IDENTITY_STATE",
+    "PUBLIC_CHANNELS_DECLARED",
+)
+CHEIRA_A_CATALOGO = NAO_E_ITEM  # nome antigo, mantido para nao partir chamadas
+
+
+def _legivel(item: dict) -> tuple:
+    t = item.get("texto") or item.get("title") or item.get("nome") or ""
+    if item.get("erro_de_leitura"):
+        return ERRO, ("nao consegui ler este item — a ferramenta falhou. "
+                      "Isto nao e uma rejeicao: ninguem chegou a olhar."), \
+               {"erro": str(item["erro_de_leitura"])[:200]}
+    if not str(t).strip():
+        # SEPARAR «VEIO VAZIO» DE «NAO E UM ITEM».
+        # A primeira vez que a porta correu sobre uma colheita real, os 78
+        # registos sairam todos NAO_SEI — e isso escondia o que importava: nao
+        # eram publicacoes mal colhidas, eram FICHAS DE CONTA. A pasta guardava
+        # o catalogo de quem se pode coletar, nao o que foi coletado.
+        # NAO_SEI ali era uma resposta educada a uma pergunta que nao se devia
+        # ter feito, e por isso ninguem ia investigar.
+        marcas = [k for k in CHEIRA_A_CATALOGO if k in item]
+        if marcas:
+            return NAO_SE_APLICA, (
+                "isto nao e uma coisa colhida: e uma ficha de conta ou de "
+                "catalogo. A pergunta «serve para este universo?» nao se aplica "
+                "— o que esta aqui e o registo de ONDE se pode coletar, nao o "
+                "que se coletou."), {"campos_de_catalogo": marcas[:4]}
+        return NAO_SEI, ("o item veio sem texto nenhum. Sem conteudo nao da para "
+                         "dizer se serve — e «nao consegui ver» nao e «nao serve»."), {}
+    return SIM, "tem conteudo legivel", {"caracteres": len(str(t))}
+
+
+def _tem_origem(item: dict) -> tuple:
+    fonte = item.get("source_id") or item.get("fonte") or item.get("url")
+    if not fonte:
+        return NAO_SEI, ("nao da para dizer de onde este item veio. Um item sem "
+                         "origem nao se consegue conferir depois, e um numero que "
+                         "nao se confere e um palpite bem vestido."), {}
+    return SIM, "a origem esta declarada", {"origem": str(fonte)[:160]}
+
+
+def _tem_quando(item: dict) -> tuple:
+    q = item.get("fact_time") or item.get("data") or item.get("published_at")
+    if not q:
+        return NAO_SEI, ("o item nao diz quando o fato aconteceu. Fica NAO_SEI, "
+                         "nao NAO: falta a prova, nao o valor."), {}
+    return SIM, "tem tempo do fato", {"quando": str(q)[:40]}
+
+
+def _tem_pai(item: dict) -> tuple:
+    """A pergunta de prontidao DOCUMENTAL que faltava: de onde este texto nasceu?
+
+    Um derivado sem pai nao se consegue conferir contra o original — e um texto
+    que ninguem consegue ligar ao PDF de onde saiu e indistinguivel de um texto
+    que alguem escreveu a mao.
+    """
+    pai = item.get("parent_artifact_id") or item.get("parent_sha256")
+    if item.get("artifact_type") == "RAW":
+        return SIM, "e o original: nao tem pai, e nao devia ter", {}
+    if not pai or str(pai) in (NAO_SEI, "NAO_SE_APLICA", ""):
+        return NAO_SEI, ("este documento nao diz de que original nasceu. Sem pai "
+                         "nao da para conferir contra o bruto."), {}
+    return SIM, "o pai esta declarado", {"pai": str(pai)[:60]}
+
+
+# ── AS DUAS PRONTIDOES, E O ESTAGIO QUE AS SEPARA ───────────────────────────
+# COL-LAW-502: DOCUMENTO PRONTO nao e FATO PRONTO. Sao duas perguntas, em dois
+# momentos, e mede-las com a mesma regua faz o documento reprovar por nao saber
+# uma coisa que so o fato sabe.
+#
+#     43 textos derivados sairam NAO_SEI porque a porta lhes perguntava «quando
+#     o fato aconteceu». Um boletim nao acontece: ele RELATA. A data e do fato
+#     que esta dentro dele, e esse fato ainda nao foi extraido.
+#
+# NAO SE CRIOU SEGUNDA PORTA. E a mesma, e ela passou a perguntar o que se
+# aplica ao estagio do item — que e o que a lei manda.
+DOCUMENTO, FATO, ESTAGIO_DESCONHECIDO = "DOCUMENTO", "FATO", "ESTAGIO_DESCONHECIDO"
+
+# Marcas que dizem «isto e um fato/claim, nao um documento». Um claim tem
+# sujeito e predicado; um documento tem bytes e pai.
+MARCAS_DE_FATO = ("claim_id", "subject", "predicate", "fact_id")
+
+
+def estagio(item: dict) -> str:
+    """Que especie de coisa e esta? A resposta decide as perguntas."""
+    if any(k in item for k in MARCAS_DE_FATO):
+        return FATO
+    if str(item.get("artifact_type") or "").upper() in ("RAW", "DERIVED"):
+        return DOCUMENTO
+    # NAO SE ADIVINHA. Quem nao se declara continua a ser medido pela regua
+    # antiga — mudar o resultado de quem nao pediu seria alterar decisoes de
+    # caminhos que esta missao nao mediu.
+    return ESTAGIO_DESCONHECIDO
+
+
+def perguntas_do_estagio(est: str) -> tuple:
+    """As perguntas aplicaveis, por estagio. Uma arquitetura, duas reguas."""
+    if est == DOCUMENTO:
+        # Prontidao DOCUMENTAL: da para ler, sabe de onde veio, sabe de que
+        # original nasceu. O tempo do FATO nao se pergunta aqui.
+        return (("legivel", _legivel), ("origem", _tem_origem),
+                ("linhagem", _tem_pai))
+    # FATO e ESTAGIO_DESCONHECIDO continuam a responder pelo tempo do fato.
+    return (("legivel", _legivel), ("origem", _tem_origem),
+            ("tempo do fato", _tem_quando))
+
+
+def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
+    """Pertence ao universo pedido? A resposta muda com o universo — de proposito.
+
+    A LEI CANONICA QUE ESTA FUNCAO VIOLAVA
+    ---------------------------------------
+        AUSENCIA DE EVIDENCIA NAO E EVIDENCIA DE AUSENCIA.
+
+    Ela devolvia NAO sempre que nenhuma palavra casava. Isso parece razoavel e
+    nao e: «nao encontrei nada deste universo» pode querer dizer duas coisas
+    completamente diferentes —
+
+        o item nao e disto                     ... e uma conclusao
+        o meu vocabulario nao chega a este item ... e uma confissao
+
+    e a porta nao tinha como as distinguir. Com um vocabulario incompleto — e o
+    desta casa esta comprovadamente incompleto — o NAO por ausencia transforma
+    cada buraco do lexico numa rejeicao com ar de julgamento. A coleta encolhe
+    sozinha e ninguem ve, porque um «nao» parece uma decisao tomada.
+
+    AGORA SO HA NAO COM EVIDENCIA POSITIVA:
+    quando o item fala claramente de OUTRO universo e nao deste. Isso e uma
+    prova a favor da exclusao, nao a falta de uma prova a favor da inclusao.
+
+    Sem essa prova, a resposta e NAO_SEI — que e mais util do que um nao errado,
+    porque um NAO_SEI faz alguem ir ver, e um NAO fecha o assunto.
+    """
+    if not palavras:
+        return NAO_SE_APLICA, (f"nao ha regra escrita do que conta como «{universo}». "
+                               f"Sem regra, esta porta nao inventa uma."), {}
+    texto = " ".join(str(item.get(k) or "") for k in
+                     ("texto", "title", "nome", "topics", "crops", "resumo")).lower()
+    achadas = [p for p in palavras if p.lower() in texto]
+    if achadas:
+        return SIM, (f"fala de {', '.join(achadas[:4])} — que e do que «{universo}» "
+                     f"trata"), {"palavras": achadas[:8]}
+
+    # nada deste universo. Fala de outro? Isso e prova POSITIVA de exclusao.
+    noutros = {}
+    for outro, termos in PERGUNTAS_DO_UNIVERSO.items():
+        if outro == universo:
+            continue
+        casou = [t for t in termos if t.lower() in texto]
+        if casou:
+            noutros[outro] = casou[:4]
+    if noutros:
+        quais = "; ".join(f"{u}: {', '.join(w)}" for u, w in noutros.items())
+        return NAO, (f"nao fala de «{universo}», e fala claramente de outro "
+                     f"universo ({quais}). Isto e um NAO com prova a favor — nao "
+                     f"a simples falta de uma palavra."), {"achado_noutro": noutros}
+
+    return NAO_SEI, (f"nao encontrei nada de «{universo}» — nem de nenhum outro "
+                     f"universo. Isso NAO prova que o item nao pertence: prova que "
+                     f"o vocabulario nao lhe chegou. Ausencia de evidencia nao e "
+                     f"evidencia de ausencia, e por isso fica NAO_SEI."), {}
+
+
+# ── A PORTA TEM DE FALAR A LINGUA DO ITEM ──────────────────────────────────
+# Esta lista nasceu em PORTUGUES, e a porta decide sobre item ITALIANO. Medido
+# contra o unico texto italiano real desta arvore: **1 de 28** palavras aparecia
+# la. E das 28, **20 mudam** em italiano — `pesquisa` e `ricerca`, `artigo` e
+# `articolo`, `rotulo` e `etichetta`, `doenca` e `malattia`.
+#
+#     A BUSCA FOI CORRIGIDA E A PORTA FICOU PARA TRAS.
+#
+# O efeito e o pior possivel: o item chega, e como nenhuma palavra casa, ele nao
+# vira NAO_SEI — vira «nao pertence a este universo». Uma peneira que fala outra
+# lingua nao separa o que presta do que nao presta: rejeita tudo, e com ar de
+# quem julgou.
+#
+# NAO SE TRADUZ A LISTA: JUNTA-SE A OUTRA LINGUA AO LADO.
+# Traduzir apagaria o portugues, e ha itens nesta casa que vem em portugues (as
+# licoes do Brasil, os relatorios). O termo internacional — `doi`, `orcid` — nao
+# tem lingua e serve a todos.
+#
+# O QUE ISTO **NAO** RESOLVE, e fica dito: a arquitetura certa e CONCEITO ->
+# TERMO LOCAL (um `WHEAT_SEPTORIA` com as suas formas em IT/ES/FR/EN), e ela
+# NAO existe aqui. Isto e a correcao minima que faz a porta italiana funcionar
+# hoje; a arquitetura fica registada como proposta.
+PERGUNTAS_DO_UNIVERSO = {
+    # T7 · ciencia e ensaio
+    "T7": ["doi", "orcid",                                   # sem lingua
+           "estudo", "ensaio", "pesquisa", "revista", "artigo",
+           "universidade", "instituto", "publicacao",        # pt
+           "studio", "prova", "ricerca", "rivista", "articolo",
+           "universita", "istituto", "pubblicazione", "convegno",
+           "sperimentazione", "tesi"],                       # it
+    # T9 · o que o concorrente publica
+    "T9": ["concorrente", "evento",                          # serve nas duas
+           "lancamento", "campanha", "produto", "anuncio",   # pt
+           "lancio", "campagna", "prodotto", "annuncio",
+           "novita", "fiera"],                               # it
+    # T4 · regulatorio
+    "T4": ["registro", "ministero", "decreto",               # serve nas duas
+           "autorizacao", "rotulo", "bula",                  # pt
+           "autorizzazione", "etichetta", "foglietto",
+           "registrazione", "gazzetta"],                     # it
+    # T3 · praga e doenca
+    "T3": ["fungo",                                          # serve nas duas
+           "praga", "doenca", "inseto", "infestacao", "sintoma",   # pt
+           "parassita", "malattia", "insetto", "infestazione",
+           "sintomo", "avversita", "patogeno"],              # it
+}
+
+
+def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:
+    """A porta. Uma decisao por par (item, universo) — nunca uma por item.
+
+    E as perguntas vem do ESTAGIO do item (COL-LAW-502): a um documento nao se
+    pergunta o tempo de um fato que ainda nao foi extraido dele.
+    """
+    est = estagio(item)
+    for nome, f in perguntas_do_estagio(est):
+        r, motivo, ev = f(item)
+        if r != SIM:
+            return Decisao(item=str(item.get("id") or item.get("url") or "?"),
+                           universo=universo, resultado=r, regra=nome,
+                           motivo=motivo, evidencia=dict(ev, estagio=est),
+                           corrida=corrida)
+
+    r, motivo, ev = _do_universo(item, universo, PERGUNTAS_DO_UNIVERSO.get(universo, []))
+    ev = dict(ev, estagio=est)
+    if est == DOCUMENTO:
+        # O que NAO foi perguntado fica escrito. Um silencio nao explicado
+        # reabre-se como duvida daqui a tres meses.
+        ev["tempo_do_fato"] = (
+            "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao "
+            "documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o "
+            "fato for extraido.")
+    return Decisao(item=str(item.get("id") or item.get("url") or "?"),
+                   universo=universo, resultado=r, regra="pertence ao universo",
+                   motivo=motivo, evidencia=ev, corrida=corrida)
+
+
+def escrever(decisoes: list) -> int:
+    """Junta ao livro; nunca reescreve o que ja estava la."""
+    d = {"DECISOES": []}
+    if LIVRO.is_file():
+        try:
+            d = json.loads(LIVRO.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            pass
+    d.setdefault("DECISOES", []).extend(asdict(x) for x in decisoes)
+    LIVRO.parent.mkdir(parents=True, exist_ok=True)
+    LIVRO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n",
+                     encoding="utf-8")
+    return len(d["DECISOES"])
+
+
+# ── A FRONTEIRA DESTA MISSAO ────────────────────────────────────────────────
+def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
+    """O contrato de saida. A inteligencia recebe ISTO, e mais nada.
+
+    Ela nao sabe — nem precisa de saber — qual raspador trouxe, qual API, qual
+    veiculo, nem que remendo foi preciso pelo caminho. Se amanha o executor for
+    outro, este contrato nao muda, e nenhum consumidor a jusante mexe uma linha.
+    """
+    if decisao.resultado != SIM:
+        raise ValueError(f"item {decisao.item} nao passou a porta ({decisao.resultado})")
+    return {
+        "ESTADO": "PRONTO_PARA_INTELIGENCIA",
+        "ITEM_ID": decisao.item,
+        "UNIVERSO": decisao.universo,
+        "TEXTO": item.get("texto") or item.get("title") or "",
+        "SOURCE_ID": item.get("source_id") or item.get("fonte") or "NAO SEI",
+        "SOURCE_LOCATION": item.get("source_location", "NAO SEI"),
+        "FACT_LOCATION": item.get("fact_location", "NAO SEI"),
+        "FACT_TIME": item.get("fact_time") or item.get("data") or "NAO SEI",
+        "CAPTURED_AT": item.get("captured_at", "NAO SEI"),
+        "CORRIDA": decisao.corrida,
+        "ADMITIDO_POR": f"{decisao.regra} v{decisao.versao}",
+    }
+
+
+if __name__ == "__main__":
+    exemplo = {"id": "demo-1", "texto": "Ensaio de campo publicado com DOI",
+               "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
+    d = decidir(exemplo, "T7", corrida="demo")
+    print(f"{d.resultado} · {d.regra} · {d.motivo}")
+    print(json.dumps(pronto_para_inteligencia(exemplo, d), ensure_ascii=False, indent=2))

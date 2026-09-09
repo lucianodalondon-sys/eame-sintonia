@@ -1,0 +1,151 @@
+{
+  "SCHEMA": "EXTERNAL_LIVE_MEASUREMENT/1",
+  "O_QUE_ISTO_E": "Uma leitura READ-ONLY do Supabase LIVE feita pelo COORDENADOR, fora desta sessao. NAO e observacao desta maquina: esta sessao nao tem credencial e nao conseguiu reproduzi-la. Por isso o estado destes numeros e EXTERNAL_LIVE_MEASUREMENT, e nunca OBSERVED. Quem mede tem de aparecer ao lado do que foi medido.",
+  "POR_QUE_ISTO_NAO_E_OBSERVED": "OBSERVED significa 'esta casa foi la e viu'. Esta casa nao foi. Chamar isto de OBSERVED faria o mapa dizer que ha prova local onde ha um recado de terceiro — e recado de terceiro pode estar certo e continuar nao sendo prova nossa.",
+  "MEDIDO_POR": "COORDENADOR",
+  "MEDIDO_EM": "2026-09-08",
+  "REGISTADO_EM": "2026-09-08",
+  "PROJETO": "eame-sintonia",
+  "MODO": "READ_ONLY",
+  "ESCRITAS": 0,
+  "STORAGE": {
+    "BUCKET": "raw",
+    "VISIBILIDADE": "PRIVADO",
+    "NOTA_DE_SEMANTICA": "IT/ e PREFIXO DE OBJETO, nao pasta. O Storage nao tem diretorios: a barra faz parte do nome da chave.",
+    "PREFIXO": "IT/",
+    "OBJETOS": 195,
+    "BYTES": 80714570,
+    "POR_PREFIXO": [
+      {
+        "PREFIXO": "IT/adama-website/CAPTURE",
+        "OBJETOS": 3
+      },
+      {
+        "PREFIXO": "IT/adama-website/DOCUMENT",
+        "OBJETOS": 139
+      },
+      {
+        "PREFIXO": "IT/adama-website/MANIFEST",
+        "OBJETOS": 2
+      },
+      {
+        "PREFIXO": "IT/adama-website/PRODUCT_DOM",
+        "OBJETOS": 51
+      }
+    ],
+    "CHAVES_INDIVIDUAIS": "PARCIAIS — em 08/09/2026 o coordenador voltou ao banco e mediu o prefixo DOCUMENT por dentro. Vieram as CONTAGENS de identidade e as DUAS chaves do unico conteudo guardado em duplicado. As outras 137 chaves continuam por listar.",
+    "DOCUMENT_POR_DENTRO": {
+      "MEDIDO_EM": "2026-09-08",
+      "OBJETOS": 139,
+      "ETAG_DISTINTOS": 138,
+      "PREFIXO_SHA16_DISTINTOS": 138,
+      "O_QUE_ISTO_QUER_DIZER": "139 objetos carregam 138 conteudos diferentes. Ha exatamente UMA copia fisica a mais.",
+      "A_COPIA_A_MAIS": {
+        "PREFIXO_SHA16": "227779fdd6be9975",
+        "BYTES": 138284,
+        "ETAG": "igual nos dois",
+        "CHAVES": [
+          "IT/adama-website/DOCUMENT/227779fdd6be9975-6321-Postscript-80-XL---Scheda-di-Sicurezza.pdf",
+          "IT/adama-website/DOCUMENT/227779fdd6be9975-731-Scheda-di-sicurezza---Davai.pdf"
+        ]
+      },
+      "RESSALVA_DO_PREFIXO": "SHA16 e PREFIXO, nao identidade. Dois objetos com o mesmo prefixo sao PREFIX_MATCH, nunca FULL_SHA256_MATCH — a menos que os bytes sejam lidos e batidos, e esta sessao nao os le. O ETag igual e o tamanho igual reforcam, mas tambem nao provam sozinhos."
+    }
+  },
+  "TABELAS": {
+    "public.collection_run": {
+      "LINHAS": 8,
+      "SOURCE_COUNTRY": "ES em todas",
+      "LINHAS_IT": 0
+    },
+    "public.raw_asset": {
+      "LINHAS": 251,
+      "STORAGE_PATH": "ES/... em todas",
+      "LINHAS_IT": 0
+    },
+    "public.conteudo": {
+      "LINHAS": 0
+    },
+    "public.conteudo_visto_em": {
+      "LINHAS": 0
+    }
+  },
+  "O_QUE_ISTO_PROVA": "ITALY_STORAGE_BYTES = PRESENTE (195 objetos, 80,7 MB) e, ao mesmo tempo, ITALY_RAW_ASSET_METADATA = AUSENTE e ITALY_COLLECTION_RUN = AUSENTE. Os bytes italianos estao la; a memoria operacional deles nao.",
+  "O_QUE_ISTO_NAO_PROVA": "Nao prova que os 195 objetos sejam os do acervo do Golden Path — sao universos diferentes ate se provar o contrario. Nao prova que nada se perdeu. Nao prova que a proveniencia seja recuperavel: isso mede-se noutro sitio, no manifesto que vive no Git.",
+  "CANARIO_FORWARD_2026_09_08": {
+    "O_QUE_E": "A PRIMEIRA escrita italiana canonica. Ja NAO e medicao externa: foi feita por esta casa, pelos donos canonicos, e lida de volta. Estado OBSERVED — e o unico bloco deste ficheiro que o e.",
+    "CI_RUNS_LIDOS": {
+      "pre_voo": 34257470111,
+      "apply_022": 34257805728,
+      "readback_e_canario": 34259433336
+    },
+    "MIGRATION_022": {
+      "SHA256_DO_FICHEIRO": "230be77df8b6facfc3319b273a665120669c813feb9bc6ceac87f3497ac3f718",
+      "APPLIED_SET": [
+        "022"
+      ],
+      "READBACK": "PASS · 30 provas",
+      "LINHAS_LOGO_APOS": 0,
+      "COMO_SE_MEDE": "sha256 do BLOB do Git (LF), que e o que o CI faz checkout e o que a producao recebeu — nao o do ficheiro no disco.",
+      "CORRECAO": "a primeira publicacao dizia 7f46ea93e01ee0b6175a6c5291e9edea358fda82dcb771f94102cf96e42d13cb, o sha do ficheiro num disco Windows com CRLF. Errado. O livro-razao da producao sempre teve 230be77df8b6facfc3319b273a665120669c813feb9bc6ceac87f3497ac3f718.",
+      "ONDE_ESTA_NA_PRODUCAO": "public.schema_migracao versao=022 resultado=APLICADA"
+    },
+    "CAPTURA": {
+      "SOURCE_ID": "IT-T2-002",
+      "SOURCE_URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_01.pdf",
+      "HTTP_STATUS": 200,
+      "CONTENT_TYPE": "application/pdf",
+      "BYTES": 463630,
+      "COLLECTED_AT": "2026-09-08T17:44:25Z",
+      "SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+      "SHA_IGUAL_AO_DO_LEDGER": true,
+      "O_QUE_ISSO_QUER_DIZER": "o documento NAO mudou desde a captura historica. E uma CAPTURA nova de um CONTEUDO que ja se conhecia — duas idas a fonte, um conteudo. E exatamente a lei que esta casa escreveu: mesmos bytes nao apagam a diferenca entre duas capturas."
+    },
+    "RUN": {
+      "run_id_prefixo": "IT-CANARY-",
+      "SOURCE_COUNTRY": "IT",
+      "MISSION": "GOLDEN_PATH_FORWARD_CANARY",
+      "RUN_STATE": "COMPLETE"
+    },
+    "RAW": {
+      "raw_asset_id": 890,
+      "storage_path": "IT/arpav-veneto/DOCUMENT/f88c89d73d6a132a-IT-T2-002-agro_01.pdf"
+    },
+    "DERIVED": {
+      "id": 1,
+      "raw_asset_id": 890,
+      "kind": "TEXT_EXTRACTION",
+      "producer": "texto-de-pdf",
+      "producer_version": "1",
+      "sha256": "1c790820b1354e1575b5cea386785857f79c3ed167be0eabb856e0fa20f3e704",
+      "bytes": 4968,
+      "derived_at": "2026-09-08T17:51:43Z",
+      "storage_path": "IT/derivados/TEXT_EXTRACTION/texto-de-pdf-1-363dd54d6058d5bd43676f075f95f9e89bedf179d8afafc3b816778098c57c69.txt"
+    },
+    "RETRY": {
+      "ESTADO": "REUSED",
+      "NOVO_UPLOAD": false,
+      "NOVA_LINHA": false,
+      "BYTES_CONFERIDOS_NO_ARMAZEM": true
+    },
+    "DEPOIS": {
+      "collection_run_IT": 1,
+      "raw_asset_total": 252,
+      "derived_artifact": 1
+    },
+    "DELTA": {
+      "collection_run_IT": 1,
+      "raw_asset": 1,
+      "derived_artifact": 1,
+      "storage_raw": 1,
+      "storage_derived": 1,
+      "DDL": 1
+    },
+    "LEGADO": {
+      "TOCADO": false,
+      "HISTORICOS_MIGRADOS": 0,
+      "OS_195_OBJETOS": "intocados",
+      "OS_43_DERIVADOS": "intocados"
+    }
+  }
+}

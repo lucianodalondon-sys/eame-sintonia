@@ -37,8 +37,8 @@ a falar sai errada. São três superfícies.
 FUTURE_RADAR_OWNER =
   A · italia-portale/client/upstream/IT-FUTURO-HANDOFF-LINHA-B-V1.json
       (DONO DO JULGAMENTO — congelado a montante, FORA deste repositório)
-      + scripts/it_casa_dados.py  (EMPACOTADOR, nunca juiz)
-  B · scripts/v21_ingest_b.py:384-387  (NORMALIZADOR de pass-through)
+      + superficie/it_casa_dados.py  (EMPACOTADOR, nunca juiz)
+  B · motor/v21_ingest_b.py:384-387  (NORMALIZADOR de pass-through)
   C · italia-portale/audit/future-ruler.mjs  (RÉGUA, que se recusa a promover)
 ```
 
@@ -166,7 +166,7 @@ FUTURE_CASES_BASED_ONLY_ON_DATE_MATH = 19
   12  registos de FUTURE-EVENTS (de 14)
 ```
 
-**Os 7.** `scripts/v21_oportunidades.py:216-218` — `estado_temporal()` devolve
+**Os 7.** `motor/v21_oportunidades.py:216-218` — `estado_temporal()` devolve
 `FUTURE_PREPARATION` **na primeira linha**, por arquétipo, antes de ler `dias`
 ou `tem_janela`. Nos 7: `SIGNAL_DATE` nulo, `WINDOW_STATE` UNKNOWN, e as quatro
 famílias de evidência (`ACTIVE_INGREDIENT`, `LABEL_USE_RELATIONSHIP`,

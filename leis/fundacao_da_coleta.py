@@ -1,0 +1,110 @@
+#!/usr/bin/env python3
+"""COLLECTION_FOUNDATION_CLOSED != SIM  ->  INTELLIGENCE_IMPLEMENTATION_BLOCKED.
+
+A direcao do projeto e uma so, e ela e sequencial:
+
+    COLETA -> PRESERVACAO -> PROVENIENCIA -> PERSISTENCIA
+           -> ADMISSION/READY -> COLLECTION_FOUNDATION_CLOSED
+           -> e SO ENTAO inteligencia.
+
+Este ficheiro existe porque uma regra que vive so num relatorio nao segura
+nada. A tentacao de comecar a inteligencia antes da fundacao nao aparece como
+uma decisao anunciada — aparece como um ficheiro pequeno que «so calcula um
+score», e quando alguem repara ja ha um consumidor.
+
+    O QUE FALTA NAO E MODELO. E FUNDACAO.
+
+O QUE ESTA CONGELADO
+--------------------
+Implementacao, escrita e ativacao de: Field Voices, Opportunity, signals,
+scoring, recommendations e a ligacao de inteligencia no portal.
+
+O QUE NAO ESTA
+--------------
+LER essas areas. Um contrato futuro que ninguem pode ler e um contrato que se
+quebra por ignorancia. Ler, medir, documentar e desenhar continua permitido —
+o que nao se faz e IMPLEMENTAR.
+
+    LER NAO E IMPLEMENTAR.
+    DESENHAR NAO E ATIVAR.
+
+COMO ISTO DEIXA DE VALER
+------------------------
+Nao por alguem achar que ja da. `COLLECTION_FOUNDATION_CLOSED` vira SIM quando
+os criterios do mapa de fechamento estiverem satisfeitos ou com blocker
+explicito — e quem muda esta constante muda junto o mapa que a sustenta.
+
+E ele NAO significa «coletamos todas as fontes». Significa: toda CLASSE DE
+ESTRADA necessaria tem arquitetura e donos fechados, ou um blocker escrito.
+"""
+import os
+
+MAPA = os.path.join('docs', 'operacao', 'MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md')
+# O ESTADO GERADO, nao a prosa. Quem quiser saber se a fundacao fechou le este
+# ficheiro, produzido por `system-map/scripts/censo_das_estradas_it.py` — nunca
+# uma tabela escrita a mao.
+#
+#     SISTEMA REAL -> CENSO -> ESTADO GERADO -> DOCUMENTO.
+ESTADO = os.path.join('system-map', 'data', 'estradas-it.generated.json')
+
+# O estado medido em 2026-09-08, quando o censo passou a CALCULAR em vez de
+# repetir: ZERO estradas com arquitetura fechada. O mapa anterior publicava
+# duas, porque uma pessoa as escreveu.
+#
+#     OWNER EXISTS NAO E OWNER CONNECTED.
+COLLECTION_FOUNDATION_CLOSED = False
+
+# ── DOIS CRITERIOS NOVOS, DECIDIDOS PELO DONO DO PROJETO ─────────────────
+# A casa passa a exigir nascer DIAGNOSTICAVEL e EVOLUTION-READY. A lei nao se
+# altera em silencio: a decisao esta em `docs/decisoes/DIARIO-DE-DECISOES.md`.
+#
+# OBSERVABILITY_READY NAO significa que toda rota ja rodou ao vivo. Significa
+# que uma rota NOVA tem contrato OBRIGATORIO de emitir rastro, contabilidade,
+# falha, diagnostico, custo e tempo — e que isso pode ser visto.
+#
+# EVOLUTION_READY NAO significa AI que aprende sozinha. Significa que as
+# decisoes sao versionadas, os resultados ligaveis, e que baseline, politica,
+# teste de fonte e champion/challenger sao representaveis.
+#
+#     A FUNDACAO PODE FECHAR COM POLITICA DETERMINISTICA.
+#     NAO PODE FECHAR SE NAO PRODUZ OS DADOS PARA APRENDER DEPOIS.
+OBSERVABILITY_READY = 'OBSERVABILITY_READY'
+EVOLUTION_READY = 'EVOLUTION_READY'
+
+CRITERIOS_NOVOS = {
+    OBSERVABILITY_READY: (
+        'medidas/rastro_da_coleta.py + leis/diagnostico.py + migration 024. '
+        'DB_TESTED em PostgreSQL 16 descartavel; NAO aplicada em producao.'),
+    EVOLUTION_READY: (
+        'leis/gestao_da_coleta.py: decisao versionada, satisfacao antes do '
+        'gasto, ciclo de vida da fonte, champion/challenger e rollback como '
+        'contrato. Nenhuma promocao automatica.'),
+}
+
+AREAS_CONGELADAS = (
+    'FIELD_VOICES', 'OPPORTUNITY', 'SIGNALS', 'SCORING',
+    'RECOMMENDATIONS', 'PORTAL_INTELLIGENCE_WIRING',
+)
+
+BLOQUEIO = 'INTELLIGENCE_IMPLEMENTATION_BLOCKED'
+PERMITIDO_LER = 'INTELLIGENCE_READ_ALLOWED'
+
+
+def pode_implementar_inteligencia():
+    """→ (pode, motivo). O padrao e NAO, e isso e a trava — nao um aviso."""
+    if COLLECTION_FOUNDATION_CLOSED:
+        return True, 'COLLECTION_FOUNDATION_CLOSED=SIM — a fundacao fechou'
+    return False, (
+        '%s · a fundacao da coleta ainda nao fechou. Ler, medir e desenhar '
+        'continua permitido (%s); implementar, escrever e ativar, nao. '
+        'O que falta esta em %s.' % (BLOQUEIO, PERMITIDO_LER, MAPA))
+
+
+if __name__ == '__main__':
+    pode, motivo = pode_implementar_inteligencia()
+    print('COLLECTION_FOUNDATION_CLOSED = %s' % ('SIM' if COLLECTION_FOUNDATION_CLOSED else 'NAO'))
+    for k, v in sorted(CRITERIOS_NOVOS.items()):
+        print('%-24s %s' % (k, v[:60]))
+    print('INTELLIGENCE_IMPLEMENTATION  = %s' % ('LIBERADA' if pode else BLOQUEIO))
+    print()
+    print(motivo)

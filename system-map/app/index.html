@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>SINTONIA EAME · Mapa fiel ao repositório</title>
+
+<!-- Tokens oficiais do ADAMA Design System. Extrato versionado no repositório;
+     a fonte continua a ser o Claude Design (ver CLAUDE.md). Caminho relativo
+     porque a app é servida em /system-map/, ao lado de /_ds/. -->
+<link rel="stylesheet" href="../_ds/adama-brandwell/tokens/colors.css">
+<link rel="stylesheet" href="../_ds/adama-brandwell/tokens/typography.css">
+<link rel="stylesheet" href="map.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     Esta página é a casca do protótipo aprovado, mantida como estava.
+     A diferença é o que a preenche: nada aqui está escrito à mão. Zonas, peças,
+     ligações, estados e o inventário vêm de `state.generated.json`, que o
+     gerador produz a partir do repositório.
+
+         O MAPA É DERIVADO DO REPO. O REPO NÃO É DERIVADO DO MAPA.
+
+     Se encontrar neste ficheiro o nome de uma peça ou de um commit escrito à
+     mão, isso é um bug: é um facto a esconder-se na tela, onde nenhum validador
+     o alcança.
+     ══════════════════════════════════════════════════════════════════════════ -->
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brandMark"></div>
+    <div>
+      <div class="brandTitle">SINTONIA EAME</div>
+      <div class="brandSub">Mapa vivo · arquitetura factual do repositório</div>
+    </div>
+  </div>
+  <div class="search">
+    <input id="search" placeholder="Buscar peça, arquivo, régua, função…"
+           aria-label="buscar no mapa">
+  </div>
+  <!-- SYSTEM MAP STATUS. Quatro factos que nunca podem colapsar num so:
+       de que arvore o mapa foi GERADO, que commit esta IMPLANTADO, qual e a
+       cabeca ACTUAL da linha, e o que o validador disse. O botao mostra o
+       veredito; o painel mostra as medicoes que o sustentam. -->
+  <div class="snapshotTop" id="snapshotTop">
+    <button id="syncBadge" class="syncBadge sync-unknown" aria-expanded="false"
+            aria-controls="statusPanel">⚪ A MEDIR…</button>
+  </div>
+</header>
+
+<!-- STALE E BROKEN TEM DE GRITAR. Esta barra nao se fecha, e ocupa a largura
+     toda: um aviso que se pode ignorar com um clique nao e um aviso. -->
+<div class="staleBar" id="staleBar" hidden></div>
+
+<div class="statusPanel" id="statusPanel" hidden></div>
+
+<div class="workspace" id="workspace">
+  <aside class="sidebar">
+    <div class="sideTitle">As partes</div>
+    <div id="fams"></div>
+    <div class="filter">
+      <div class="sideTitle">Visão</div>
+      <div id="views"></div>
+    </div>
+    <div class="filter">
+      <div class="sideTitle">Conexões</div>
+      <label class="check"><input type="checkbox" name="cat" value="DATA" checked>
+        <b>DADO</b> — um item passa mesmo daqui para ali</label>
+      <label class="check"><input type="checkbox" name="cat" value="CONTROL" checked>
+        <b>COMANDO</b> — uma peça manda a outra executar</label>
+      <label class="check"><input type="checkbox" name="cat" value="WRITE">
+        ESCRITA — guarda o resultado num lugar</label>
+      <label class="check"><input type="checkbox" name="cat" value="READ">
+        LEITURA — lê um arquivo que a outra escreveu</label>
+      <label class="check"><input type="checkbox" name="cat" value="RULE">
+        REGRA — consulta uma lei para decidir</label>
+      <label class="check"><input type="checkbox" name="cat" value="PROOF">
+        PROVA — um teste ou medição observa</label>
+      <label class="check"><input type="checkbox" name="cat" value="CODE">
+        CÓDIGO — só dependência técnica, nenhum dado passa</label>
+      <label class="check"><input type="checkbox" name="cat" value="UNKNOWN">
+        NÃO SEI — não foi possível classificar</label>
+      <p class="hint">Começa com DADO e COMANDO ligados: é o caminho que a coleta
+        percorre. Ligue as outras para auditar — nada é escondido, só recolhido.
+        Nenhum cartão desaparece; só as setas.</p>
+    <div class="filter">
+      <div class="sideTitle">País da fonte</div>
+      <div id="paises"></div>
+    </div>
+    <div class="filter">
+      <div class="sideTitle">Departamento / dono</div>
+      <div id="depts"></div>
+    </div>
+    <div class="filter">
+      <div class="sideTitle">Estado</div>
+      <label class="check"><input type="checkbox" name="status" value="green" checked><span class="dot green"></span>Provado atual</label>
+      <label class="check"><input type="checkbox" name="status" value="yellow" checked><span class="dot yellow"></span>Atenção / limitação</label>
+      <label class="check"><input type="checkbox" name="status" value="red" checked><span class="dot red"></span>Bloqueado / órfão provado</label>
+      <label class="check"><input type="checkbox" name="status" value="gray" checked><span class="dot gray"></span>NÃO SEI</label>
+    </div>
+    <div class="infoBox"><b>Lei do mapa</b><br>
+      Uma seta verde precisa de import, chamada, runner ou artefato — com ficheiro
+      e linha que se possam apontar. Linha cinza tracejada = relação declarada e
+      ainda <b>não provada</b>. Nada aqui foi desenhado por parecer lógico.</div>
+    <button class="invBtn" id="openInventory">Abrir inventário de arquivos rastreados</button>
+  </aside>
+
+  <main class="mapWrap">
+    <div class="canvasTitle">
+      <b>COLETA → <i>a espera</i> → INTELIGÊNCIA → ENTREGA</b>
+      <span>Entre a coleta e a inteligência há uma faixa cinzenta: é onde o que já
+        foi colhido dorme até entrar no processo seguinte. Cinzenta porque ali nada
+        é transformado — só guardado. Arraste · zoom · passe o mouse · clique ·
+        “mostrar caminho completo”</span>
+    </div>
+    <div class="warning" id="warning"></div>
+
+    <div id="viewport"><div id="world">
+      <svg id="edges">
+        <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3"
+              orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L8,3 z" fill="#6e7e78"/></marker></defs>
+        <g id="edgeLayer"></g>
+      </svg>
+      <div id="families"></div>
+      <div id="zones"></div>
+      <div id="nodes"></div>
+    </div></div>
+
+    <div class="mini">
+      <div class="miniTitle">Mapa</div>
+      <svg id="miniSvg" preserveAspectRatio="none">
+        <g id="miniNodes"></g><rect id="miniView"/>
+      </svg>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b id="kNodes">—</b>peças</div>
+      <div class="kpi"><b id="kEdges">—</b>ligações</div>
+      <div class="kpi"><b id="kProven">—</b>provadas</div>
+      <div class="kpi"><b id="kUnknown">—</b>não sei</div>
+    </div>
+    <div class="controls">
+      <button class="ctrl" id="fit"   title="Enquadrar">□</button>
+      <button class="ctrl" id="minus" title="Afastar">−</button>
+      <button class="ctrl" id="plus"  title="Aproximar">+</button>
+      <button class="ctrl" id="reset" title="Limpar seleção">×</button>
+    </div>
+  </main>
+
+  <aside class="detail" id="detail">
+    <div class="empty">Clique em uma peça para entender o que faz, por que está
+      ali, arquivos reais e evidência.</div>
+  </aside>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="modal" id="inventoryModal">
+  <div class="modalCard">
+    <div class="modalHead">
+      <h2>Inventário rastreado do repositório</h2>
+      <input class="modalSearch" id="invSearch" placeholder="Filtrar caminho…">
+      <button class="modalClose" id="closeInventory">×</button>
+    </div>
+    <div class="modalBody" id="inventoryBody"></div>
+  </div>
+</div>
+
+<!-- SEM JAVASCRIPT: o conteúdo continua alcançável. Um mapa de auditoria que
+     desaparece quando o JS falha não serve para auditar nada. -->
+<noscript><div style="position:fixed;left:8px;right:8px;bottom:8px;z-index:9999;
+  background:#fff8e2;border:1px solid #eedb9e;padding:10px;border-radius:10px;
+  font:12px/1.5 Arial,sans-serif">
+  O mapa precisa de JavaScript para ser navegado. O mesmo conteúdo, em formato de
+  máquina, está em <a href="state.generated.json">state.generated.json</a> —
+  peças, ligações, estados e a evidência de cada uma. O commit que está
+  <b>implantado</b> está em
+  <a href="deployment.generated.json">deployment.generated.json</a>, e sem JS
+  <b>não é possível confirmar</b> se ele é a cabeça atual da linha: sem essa
+  confirmação, o estado é UNKNOWN, nunca CURRENT.
+</div></noscript>
+
+<!-- A LEI DA FRESCURA vem antes da tela, e e um ficheiro so. A tela mede; este
+     decide. Separados porque a decisao tem de ser testavel sem um browser, e
+     porque uma regra escondida no meio de mil linhas de desenho nao se audita. -->
+<script src="freshness.js"></script>
+<script src="map.js"></script>
+</body>
+</html>

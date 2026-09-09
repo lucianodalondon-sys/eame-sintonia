@@ -41,11 +41,25 @@ on:
           - transcricao
           - comentarios
       lote:
-        description: 'A vai para o runner 1, B para o runner 2'
+        # OS LOTES ITALIANOS NAO ESTAVAM AQUI, E ISSO PARAVA A COLETA DA ITALIA.
+        # O codigo tem cinco lotes. So A e B apareciam neste botao, e os dois sao
+        # de quando o projeto cobria tres paises: cada um leva UM recorte italiano
+        # e DOIS estrangeiros (Espanha e Franca). C, D e E sao 100% italianos —
+        # onze recortes ao todo — e nao havia como escolhe-los.
+        #
+        # Ou seja: quem clicasse hoje gastava dois tercos da rota paga a buscar
+        # espanhol e frances num repositorio que e da Italia, e o que interessa
+        # ficava inalcancavel. Nao era uma coleta ma: era a coleta errada, e a
+        # unica que o botao deixava fazer.
+        #
+        # A e B FICAM, e de proposito: os artefatos deles ja foram medidos e
+        # citados, e apagar a opcao nao apagaria o passado — so tornaria mais
+        # dificil repetir uma corrida antiga para comparar. Ficam com o aviso.
+        description: 'C, D, E são só Itália · A e B são de 3 países (legado)'
         required: true
-        default: A
+        default: C
         type: choice
-        options: [A, B]
+        options: [C, D, E, A, B]
 
 permissions:
   contents: write          # a fase grava o resultado de volta no repositório
@@ -54,7 +68,11 @@ jobs:
   coleta:
     # O lote escolhe a máquina. Os dois runners rodam ESTE MESMO arquivo com a MESMA
     # régua — só o universo atribuído muda. Paralelismo compra tempo, não permissividade.
-    runs-on: ${{ inputs.lote == 'A'
+    #
+    # A regra era «A vai para o runner 1, o resto para o 2». Com cinco lotes isso
+    # poria C, D e E todos na mesma máquina, em fila. Divide-se por metade: os
+    # lotes ímpares num runner, os pares no outro.
+    runs-on: ${{ (inputs.lote == 'A' || inputs.lote == 'C' || inputs.lote == 'E')
       && fromJSON('["self-hosted","Windows","X64","eame-sintonia-local"]')
       || fromJSON('["self-hosted","Windows","X64","eame-sintonia-local-2"]') }}
     defaults:
@@ -96,14 +114,14 @@ jobs:
           echo "INTERPRETADOR=NENHUM"; exit 1
 
       - name: 1 · censo do pool (nunca valor)
-        run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
+        run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py
 
       - name: 2 · rodar a fase
         env:
           RUNNER_NAME: ${{ runner.name }}
         run: |
           echo "FASE=${{ inputs.fase }} · LOTE=${{ inputs.lote }} · RUNNER=${{ runner.name }}"
-          PYTHONIOENCODING=utf-8 $PY scripts/sensor_coleta.py \
+          PYTHONIOENCODING=utf-8 $PY regras/sensor_coleta.py \
             "${{ inputs.fase }}" "${{ inputs.lote }}"
 
       - name: 3 · devolver o resultado ao repositório

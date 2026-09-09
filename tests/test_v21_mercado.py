@@ -11,8 +11,9 @@ da cultura. A causa: a cultura vinha de `crop_id(CROP or PRODUCT)`, e
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
-    os.path.abspath(__file__))), 'scripts'))
+sys.path.insert(0, os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))))
+import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho
 import v21_normalizar as N  # noqa: E402
 
 

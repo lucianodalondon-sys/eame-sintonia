@@ -1,0 +1,152 @@
+{
+  "SCHEMA": "sintonia.system-map.cadeia/1",
+  "NOTA": [
+    "A CADEIA DO MAPA, ESCRITA UMA VEZ SO.",
+    "",
+    "O GitHub Actions regenera o mapa antes de o validar. A build da Vercel",
+    "passou a regenerar tambem, porque servir uma copia commitada e servir o",
+    "mapa da arvore ANTERIOR — o ficheiro nasce sempre um commit atras de si",
+    "mesmo, e foi exactamente esse o defeito desta missao.",
+    "",
+    "    DOIS SITIOS COM A LISTA DOS PASSOS SAO DUAS CADEIAS.",
+    "",
+    "Bastava alguem acrescentar um censo ao workflow e esquecer a build para o",
+    "URL publico servir um mapa montado sobre uma medicao mais velha — sem",
+    "reclamar, porque cada lado corria a sua propria lista sem erro nenhum.",
+    "Por isso a lista vive AQUI, e os dois leem-na daqui.",
+    "",
+    "NAO EXISTE UMA SEGUNDA IMPLEMENTACAO DESTES SCANNERS. Nao ha versao Node",
+    "do scanner, nao ha atalho para quando o Python falta: se a cadeia nao",
+    "consegue correr, o mapa servido diz que nao conseguiu — nunca finge."
+  ],
+  "REGERAR": [
+    "system-map/scripts/scan_repo.py",
+    "system-map/scripts/scan_sources.py",
+    "system-map/scripts/scan_casco.py",
+    "system-map/scripts/censo_da_coleta.py",
+    "system-map/scripts/pente_fino_da_coleta.py",
+    "system-map/scripts/censo_dos_buracos.py",
+    "system-map/scripts/generate_system_map.py"
+  ],
+  "VALIDAR": [
+    "system-map/scripts/validate_system_map.py"
+  ],
+  "PUBLICADO": [
+    "index.html",
+    "map.js",
+    "map.css",
+    "freshness.js",
+    "state.generated.json"
+  ],
+  "ARTEFATO_DE_DEPLOY": "deployment.generated.json",
+  "IMPRESSAO_DA_ARVORE": {
+    "NOTA": [
+      "A IMPRESSAO DA ARVORE-FONTE, E PORQUE ELA EXISTE.",
+      "",
+      "O carimbo do mapa nomeava um COMMIT, e um ficheiro commitado nunca pode",
+      "nomear o commit que o contem: o mapa nascia sempre a apontar para o commit",
+      "ANTERIOR. Oito commits seguidos medidos, oito desencontros. Enquanto a prova",
+      "de pertenca for um SHA de commit, ela e impossivel por construcao.",
+      "",
+      "    A PERGUNTA NAO E «QUE COMMIT?». E «QUE FONTES?».",
+      "",
+      "Esta impressao mede as FONTES e exclui as SAIDAS da propria cadeia. Por isso",
+      "ela NAO MUDA quando o commit guarda o mapa regerado — e por isso a pergunta",
+      "«este mapa e o mapa desta arvore?» passa a ter resposta.",
+      "",
+      "E mede-se do INDICE do git, nao do disco. Medido numa build real da Vercel:",
+      "1126 de 1504 ficheiros rastreados nao chegaram ao disco, e o indice continuou",
+      "com os 1504. O `.vercelignore` apaga FICHEIROS, nunca o INDICE — e por isso o",
+      "contentor consegue provar que arvore esta a implantar sem receber a arvore.",
+      "",
+      "    A TRANCA CONTINUA FECHADA. ZERO FICHEIROS A MAIS FORAM ENVIADOS.",
+      "",
+      "A lista de EXCLUIDO nao e confianca: `test_impressao_da_arvore.py` corre a",
+      "cadeia e reprova se ela escrever fora desta lista, ou se algum nome aqui nao",
+      "for escrito por ninguem. Uma lista de exclusao que ninguem confere e uma",
+      "porta das traseiras com um comentario bonito por cima."
+    ],
+    "ALGORITMO": "sha256",
+    "LINHA": "<blob_sha1> <caminho>",
+    "SEPARADOR": "\n",
+    "NOTA_MODO": "O modo do ficheiro NAO entra. `scan_repo.py` nao le modos, logo mudar o bit de execucao nao muda o mapa — e uma impressao que muda sem o mapa mudar gritaria STALE por uma diferenca que nao existe. Medido: esta arvore so tem 100644 e 100755, e zero symlinks.",
+    "EXCLUIDO": [
+      "system-map/data/architecture.generated.json",
+      "system-map/data/sources.generated.json",
+      "system-map/data/casco.generated.json",
+      "system-map/data/censo-da-coleta.generated.json",
+      "system-map/data/pente-fino.generated.json",
+      "system-map/data/state.generated.json",
+      "italia-portale/client/system-map/",
+      "system-map/data/buracos.generated.json"
+    ]
+  },
+  "PORTAO_DO_MAPA": {
+    "NOTA": [
+      "O PORTAO QUE RESPONDE PELO MAPA, E SO PELO MAPA.",
+      "",
+      "O job era um so e chamava-se `check`. Ele juntava «o mapa corresponde a",
+      "arvore?» com «a coleta nao piorou?», e o passo 3 (coleta) esta vermelho na",
+      "linha canonica desde antes desta missao. Medido: os passos 4k, 6, 7 e 8",
+      "NUNCA CHEGARAM A CORRER no GitHub, porque o job parava antes.",
+      "",
+      "    UM VEREDITO SOBRE DUAS PERGUNTAS NAO RESPONDE A NENHUMA.",
+      "",
+      "Agora sao dois jobs. Este nome e o que a tela do mapa procura na API publica",
+      "do GitHub para saber se o validador aprovou O COMMIT QUE ESTA SERVIDO — a",
+      "unica prova que o contentor da Vercel nao consegue produzir sozinho, porque",
+      "validar exige regenerar e regenerar exige a arvore inteira.",
+      "",
+      "O nome viaja para a tela dentro do artefato de deploy; ele nao esta escrito",
+      "no browser. `test_system_map.py` reprova se o workflow e este ficheiro",
+      "deixarem de dizer o mesmo nome.",
+      "",
+      "E ELE FOI SEPARADO OUTRA VEZ, PELA MESMA RAZAO.",
+      "",
+      "Medido no GitHub: os passos 1, 2 e 2b PASSARAM, e o job ficou vermelho no",
+      "passo 4 — em duas provas que ja reprovavam em 8e1947d2 e que falam de",
+      "ARQUITETURA, nao de frescura. A tela le este nome para saber se o validador",
+      "aprovou o commit servido; carregar tambem «as regras nao afrouxaram» fazia",
+      "esse veredito responder por uma pergunta que ele nao tinha.",
+      "",
+      "NADA FOI DESLIGADO: as mesmas provas correm em PORTAO_DAS_REGRAS, no mesmo",
+      "commit, e continuam a reprovar a build. A tela mostra as duas em linhas",
+      "separadas — a das regras nao entra na decisao de frescura, e por isso nao",
+      "esta escondida: esta ao lado, com o seu proprio nome e o seu proprio estado."
+    ],
+    "WORKFLOW": ".github/workflows/system-map.yml",
+    "JOB": "mapa",
+    "NOME": "SYSTEM MAP CHECK"
+  },
+  "PORTAO_DAS_REGRAS": {
+    "NOTA": [
+      "O PORTAO DAS REGRAS DO MAPA.",
+      "",
+      "«As regras nao afrouxaram, o pacote publicavel esta inteiro, nenhum segredo",
+      "atravessa» — tres perguntas de qualidade sobre o mapa, e nenhuma delas diz",
+      "se o que esta servido esta actualizado. Ele aparece na tela numa linha",
+      "propria, e NAO entra em `decidir()`: um veredito que nao responde a pergunta",
+      "da frescura nao pode decidir a frescura."
+    ],
+    "WORKFLOW": ".github/workflows/system-map.yml",
+    "JOB": "regras",
+    "NOME": "MAP RULES CHECK"
+  },
+  "PORTAO_DA_COLETA": {
+    "NOTA": [
+      "O PORTAO DA COLETA, NA TELA DO MAPA — E FORA DA DECISAO DE FRESCURA.",
+      "",
+      "Ele nao responde por nada do mapa, e por isso nao entra em `decidir()`. Mas",
+      "estar fora da decisao nao e razao para estar fora da tela: quem abre o mapa e",
+      "ve verde tem de conseguir ver, na mesma pagina, que outra coisa esta vermelha.",
+      "",
+      "    MAPA ACTUAL != SISTEMA SAUDAVEL.",
+      "    FRESCURA VERDE != TUDO VERDE.",
+      "",
+      "Um verde que esconde um vermelho ao lado e pior do que o vermelho."
+    ],
+    "WORKFLOW": ".github/workflows/system-map.yml",
+    "JOB": "coleta",
+    "NOME": "COLETA CHECK"
+  }
+}

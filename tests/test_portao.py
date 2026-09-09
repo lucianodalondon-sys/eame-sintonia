@@ -7,7 +7,8 @@ metade destes testes verifica que ele reprova quando deve.
 import json, os, sys, unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+sys.path.insert(0, ROOT)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import portao, filas, voz          # noqa: E402
 import proveniencia as pv          # noqa: E402
 

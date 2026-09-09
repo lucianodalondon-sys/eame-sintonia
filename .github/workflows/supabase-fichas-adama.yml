@@ -17,7 +17,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import os,sys,json,hashlib,subprocess,datetime,urllib.request,urllib.error
-          sys.path.insert(0,'scripts'); import mapa_regfi as m
+          sys.path.insert(0, '.'); import _gavetas; import mapa_regfi as m
           URL,KEY=os.environ['SUPABASE_URL'].rstrip('/'),os.environ['SUPABASE_SECRET_KEY']
           DB=os.environ['SUPABASE_DB_URL']; H={'apikey':KEY,'Authorization':'Bearer '+KEY}
           def agora(): return datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat()

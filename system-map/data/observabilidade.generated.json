@@ -1,0 +1,95 @@
+{
+ "SCHEMA": "observabilidade/v1",
+ "NUNCA_VERDE_POR_SILENCIO": "uma dimensao sem dado nao e uma dimensao saudavel. NOT_INSTRUMENTED (ninguem emite) != NOT_MEASURED (emite-se e ninguem leu) != MEDIDO. As tres pedem coisas diferentes.",
+ "DIMENSOES": [
+  {
+   "DIMENSAO": "ARCHITECTURE",
+   "ESTADO": "MEDIDO",
+   "ONDE": "system-map/data/estradas-it.generated.json",
+   "O_QUE_RESPONDE": "que etapas existem, quem e dono, e quem esta ligado"
+  },
+  {
+   "DIMENSAO": "TRACE",
+   "ESTADO": "MEDIDO",
+   "ONDE": "system-map/data/fluxo.generated.json",
+   "O_QUE_RESPONDE": "que corridas houve, e o que entrou e saiu de cada",
+   "RESSALVA": "so a RC-9 emite. As outras rotas nao emitiram ZERO — nao emitem NADA."
+  },
+  {
+   "DIMENSAO": "DIAGNOSTIC",
+   "ESTADO": "PARCIAL",
+   "ONDE": "provas/o_executor_conta_se.py",
+   "O_QUE_RESPONDE": "em que codigo cada etapa parou",
+   "PORQUE": "3 de 44 executores emitem. O contrato tem 17 codigos declarados; os que emitem usam-nos, e os outros continuam calados — e calado nao e zero.",
+   "RESSALVA": "UM EXECUTOR INSTRUMENTADO != SISTEMA INSTRUMENTADO. Faltam 41.",
+   "COBERTURA": {
+    "PERGUNTA": "quantos executores existem, e quantos falam a lingua comum?",
+    "COMO_FOI_MEDIDO": "importa `rastro_da_coleta` E chama `registrar(`, fora de comentario. Quem nao importa nao pode estar a emitir; um NAO aqui e definitivo.",
+    "EXECUTORES": 44,
+    "EMITEM": 3,
+    "QUAIS_EMITEM": [
+     "coleta/derivacao_forward.py",
+     "coleta/executor_texto_de_pdf.py",
+     "coleta/rota_forward_documento.py"
+    ],
+    "QUANTOS_CALADOS": 41,
+    "ONDE_SE_VE": "provas/o_executor_conta_se.py",
+    "CALADO_NAO_E_ZERO": "os 41 que nao emitem nao emitiram ZERO passagens: nao emitem NADA. Sao coisas diferentes, e so a segunda pede codigo novo.",
+    "A_LEI": "UM EXECUTOR INSTRUMENTADO != SISTEMA INSTRUMENTADO"
+   }
+  },
+  {
+   "DIMENSAO": "PERFORMANCE",
+   "ESTADO": "PARCIAL",
+   "ONDE": "system-map/data/fluxo.generated.json",
+   "O_QUE_RESPONDE": "quanto tempo e quanto custou",
+   "RESSALVA": "ha duracao POR CORRIDA e nao por etapa. Custo: NOT_INSTRUMENTED — nenhuma rota italiana e paga hoje."
+  },
+  {
+   "DIMENSAO": "EVOLUTION",
+   "ESTADO": "NOT_MEASURED",
+   "ONDE": "leis/evolucao.py",
+   "O_QUE_RESPONDE": "que alternativas foram comparadas e o que se decidiu",
+   "PORQUE": "ha contrato e nao ha experiencia nenhuma registada. NOT_MEASURED e nao NOT_INSTRUMENTED: o sitio existe, o dado e que nao."
+  },
+  {
+   "DIMENSAO": "COLLECTION_STRATEGY",
+   "ESTADO": "NOT_MEASURED",
+   "ONDE": "leis/gestao_da_coleta.py",
+   "O_QUE_RESPONDE": "que faltas se conhecem, e o que se decidiu sobre elas",
+   "PORQUE": "ha contrato e nenhuma necessidade declarada ainda."
+  }
+ ],
+ "POR_ESTADO": {
+  "MEDIDO": 2,
+  "NOT_MEASURED": 2,
+  "PARCIAL": 2
+ },
+ "OBSERVABILITY": {
+  "OBSERVABILITY_READY": "SIM",
+  "O_QUE_SIGNIFICA": "uma rota nova tem CONTRATO para emitir telemetria e ser diagnosticada, E esse contrato e implementavel de ponta a ponta: contrato, banco, writer e scanner falam a mesma lingua, provado por paridade_da_lingua.py. NAO significa que se esta a medir.",
+  "O_QUE_NAO_SIGNIFICA": "CONTRATO PRONTO != INSTRUMENTADO != OBSERVADO",
+  "FALTAS": [],
+  "QUANTOS_CONCEITOS_COM_DONO_DUPLICADO": 8,
+  "PORQUE_O_DUPLICADO_IMPORTA": "onde dois ficheiros escrevem o mesmo conceito, a telemetria pode divergir sem ninguem dar por isso. Desde O8C isto DEIXOU de ser so divida: os conceitos da telemetria — estado de etapa, destino de item, codigo de diagnostico, estado de falha — tem dono unico e paridade provada, e READY reprova se divergirem. O numero acima conta duplicacoes noutros conceitos, que continuam por resolver."
+ },
+ "EVOLUTION": {
+  "EVOLUTION_READY": "SIM",
+  "O_QUE_SIGNIFICA": "decisoes tem versao, ha baseline, e outcome pode ser ligado a decisao. Uma experiencia teria onde ser guardada.",
+  "O_QUE_NAO_SIGNIFICA": "NAO significa IA autonoma pronta",
+  "FALTAS": [],
+  "PROIBIDO_HOJE": [
+   "ML_LIVE",
+   "BANDIT_LIVE",
+   "AUTO_PROMOTION"
+  ]
+ },
+ "COLLECTION_FOUNDATION_CLOSED": false,
+ "O_SCANNER_EXISTIR_NAO_FECHA_FUNDACAO": "sao perguntas diferentes. Este censo nao decide a fundacao: le-a de leis/fundacao_da_coleta.py, que e o dono.",
+ "CONTRATOS_QUE_JA_EXISTEM": {
+  "TELEMETRIA": "TELEMETRIA/v1",
+  "GESTAO_DA_COLETA": "GESTAO_DA_COLETA/v1",
+  "APRENDER_COM_A_FONTE": "APRENDER_COM_A_FONTE/v1",
+  "EVOLUCAO": "EVOLUCAO/v1"
+ }
+}

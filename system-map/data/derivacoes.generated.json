@@ -1,0 +1,173 @@
+{
+  "PRODUTORES": {
+    "O_QUE_E": "Nem tudo o que nao e o PDF original e derivado. Derivado e o que NOS produzimos a partir de bytes que guardamos.",
+    "PRODUTORES_MEDIDOS": 7,
+    "TODOS_EXISTEM": true,
+    "POR_ESPECIE": {
+      "BIBLIOTECA": 1,
+      "CLAIM_OU_JUIZO": 1,
+      "DERIVED_ARTIFACT": 3,
+      "RAW_CAPTURE": 1,
+      "STRUCTURED_RECORD": 1
+    },
+    "PRODUTORES_DE_DERIVADO": 3,
+    "FERRAMENTAS_DE_DERIVACAO": [
+      "texto-de-pdf",
+      "whisper"
+    ],
+    "TIPOS_REAIS_HOJE": [
+      "texto simples",
+      "transcricao"
+    ],
+    "QUANTOS_TEM_VERSAO_ESCOLHIVEL": 3,
+    "PORQUE_A_VERSAO_IMPORTA": "o Whisper tem MODELO escolhivel: `base` e `small` sobre o mesmo audio dao dois textos diferentes, e ambos sao legitimos. Nao e hipotese — esta escrito em ferramentas/youtube_transcrever.py. Sem a versao na identidade, o segundo apagaria o primeiro em silencio.",
+    "PRODUTORES": [
+      {
+        "PRODUTOR": "coleta/executor_texto_de_pdf.py",
+        "ENTRADA": "PDF preservado (RAW)",
+        "SAIDA": "texto simples",
+        "FORMATO": "text/plain",
+        "ESPECIE": "DERIVED_ARTIFACT",
+        "PORQUE": "nos produzimos, a partir de bytes que guardamos. Declara pai, tipo de derivacao, executor e versao — e escreve em data/derivados/.",
+        "FERRAMENTA": "texto-de-pdf",
+        "TEM_VERSAO": true,
+        "TEM_PAI": true,
+        "TEM_QUANDO": true,
+        "EXISTE": true
+      },
+      {
+        "PRODUTOR": "coleta/pdf_text.py",
+        "ENTRADA": "PDF",
+        "SAIDA": "texto simples",
+        "FORMATO": "text/plain",
+        "ESPECIE": "BIBLIOTECA",
+        "PORQUE": "nao e produtor: e a biblioteca que o executor usa. Nao escreve artefato nenhum, e nao entra na tabela.",
+        "FERRAMENTA": null,
+        "TEM_VERSAO": false,
+        "TEM_PAI": false,
+        "TEM_QUANDO": false,
+        "EXISTE": true
+      },
+      {
+        "PRODUTOR": "ferramentas/youtube_transcrever.py",
+        "ENTRADA": "audio de video",
+        "SAIDA": "transcricao",
+        "FORMATO": "text/plain",
+        "ESPECIE": "DERIVED_ARTIFACT",
+        "PORQUE": "Whisper local. Nos produzimos, e o MODELO e escolhivel (`base`, `small`, ...) — dois modelos sobre o mesmo audio dao dois textos diferentes, ambos legitimos.",
+        "FERRAMENTA": "whisper",
+        "TEM_VERSAO": true,
+        "TEM_PAI": true,
+        "TEM_QUANDO": true,
+        "EXISTE": true
+      },
+      {
+        "PRODUTOR": "ferramentas/instagram_transcrever.py",
+        "ENTRADA": "audio de reel",
+        "SAIDA": "transcricao",
+        "FORMATO": "text/plain",
+        "ESPECIE": "DERIVED_ARTIFACT",
+        "PORQUE": "o mesmo caso do YouTube, noutra plataforma.",
+        "FERRAMENTA": "whisper",
+        "TEM_VERSAO": true,
+        "TEM_PAI": true,
+        "TEM_QUANDO": true,
+        "EXISTE": true
+      },
+      {
+        "PRODUTOR": "data/samples/ES-T8-001-transcricoes.json",
+        "ENTRADA": "a propria plataforma",
+        "SAIDA": "legenda entregue pelo YouTube",
+        "FORMATO": "text/plain",
+        "ESPECIE": "RAW_CAPTURE",
+        "PORQUE": "⚠️ NAO E DERIVADO. A legenda veio COM a coleta; nos nao a produzimos. Mete-la em derived_artifact seria declarar uma linhagem que nao existe.",
+        "FERRAMENTA": null,
+        "TEM_VERSAO": false,
+        "TEM_PAI": false,
+        "TEM_QUANDO": false,
+        "EXISTE": true
+      },
+      {
+        "PRODUTOR": "ferramentas/italy_extract_fields.mjs",
+        "ENTRADA": "documento italiano",
+        "SAIDA": "campos extraidos",
+        "FORMATO": "application/json",
+        "ESPECIE": "STRUCTURED_RECORD",
+        "PORQUE": "extrai CAMPOS, nao um artefato com bytes proprios. Uma linha normalizada tem casa noutro andar do banco.",
+        "FERRAMENTA": null,
+        "TEM_VERSAO": false,
+        "TEM_PAI": false,
+        "TEM_QUANDO": false,
+        "EXISTE": true
+      },
+      {
+        "PRODUTOR": "admissao/admissao.py",
+        "ENTRADA": "documento ou claim",
+        "SAIDA": "decisao de admissao",
+        "FORMATO": "decisao",
+        "ESPECIE": "CLAIM_OU_JUIZO",
+        "PORQUE": "julga, nao produz artefato. COL-LAW-502: documento pronto nao e fato pronto, e o juizo sobre um texto nao e um derivado dele.",
+        "FERRAMENTA": null,
+        "TEM_VERSAO": false,
+        "TEM_PAI": false,
+        "TEM_QUANDO": false,
+        "EXISTE": true
+      }
+    ]
+  },
+  "CONTRATO_JA_EXISTENTE": {
+    "O_QUE_E": "A lei do artefato ja existe em codigo, e distingue RAW de DERIVED. A tabela nao inventa vocabulario: traduz este.",
+    "ONDE_VIVE": "leis\\artefato.py",
+    "CAMPOS_EXIGIDOS": [
+      "ARTIFACT_TYPE",
+      "PARENT_ARTIFACT_ID",
+      "PARENT_SHA256",
+      "DERIVATION_TYPE",
+      "EXECUTOR_ID",
+      "EXECUTOR_VERSION",
+      "PIPELINE_VERSION",
+      "SHA256",
+      "BYTES"
+    ],
+    "CAMPOS_PRESENTES": [
+      "ARTIFACT_TYPE",
+      "PARENT_ARTIFACT_ID",
+      "PARENT_SHA256",
+      "DERIVATION_TYPE",
+      "EXECUTOR_ID",
+      "EXECUTOR_VERSION",
+      "PIPELINE_VERSION",
+      "SHA256",
+      "BYTES"
+    ],
+    "CONTRATO_COMPLETO": true
+  },
+  "ACERVO_DERIVADO": {
+    "O_QUE_E": "Os derivados que esta casa ja produziu, medidos do registo.",
+    "DERIVADOS": 43,
+    "PAIS_DISTINTOS": 43,
+    "FILHOS_DISTINTOS_POR_BYTES": 43,
+    "CHAVES_DE_DERIVACAO_DISTINTAS": 43,
+    "POR_TIPO": {
+      "TEXT_EXTRACTION": 43
+    },
+    "POR_FERRAMENTA": {
+      "texto-de-pdf": 43
+    },
+    "POR_ESTADO": {
+      "TEXT_LAYER_PRESENT": 43
+    },
+    "COM_DERIVED_AT": 43,
+    "COM_COLLECTED_AT_DO_PAI": 0,
+    "O_TEMPO_DO_PAI_NAO_SE_INVENTA": "43 de 43 derivados sabem quando foram derivados; 0 sabem quando o pai foi colhido. Onde falta, fica UNKNOWN — copiar o `derived_at` para o `captured_at` daria uma data com cara de medida."
+  },
+  "O_PAI_CANONICO": {
+    "O_QUE_E": "Quantos derivados existentes conseguem apontar para um raw_asset canonico. E a pergunta que decide se ha backfill honesto a fazer.",
+    "DERIVADOS_EXISTENTES": 43,
+    "LINHAS_DE_RAW_ASSET_IT": 0,
+    "LIGAVEIS_HONESTAMENTE": 0,
+    "CLASSE": "LEGACY_DERIVATION_WITHOUT_CANONICAL_RAW_PARENT",
+    "PORQUE": "raw_asset IT = 0. Sem pai no banco nao ha chave estrangeira a cumprir, e inventar as linhas em falta seria fabricar a coleta que nunca foi registada.",
+    "O_QUE_SE_FAZ": "NADA com o legado. A migration e FORWARD: ela abre a casa para o que vier a seguir, e nao pinta de novo o que ficou para tras."
+  }
+}

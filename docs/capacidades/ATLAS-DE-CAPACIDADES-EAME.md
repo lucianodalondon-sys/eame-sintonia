@@ -69,7 +69,7 @@ GEOGRAPHY:           União Europeia. NÃO desce a país, região ou cultura.
 TIME:                todo o acervo CELEX; verificado de 2026-01 a 2026-07
 UPDATE_FREQUENCY:    contínua (cada edição do Jornal Oficial)
 CAN_AUTOMATE:        SIM — SPARQL público + content negotiation, sem chave, sem scraping.
-                     Reproduzível por `scripts/cellar.sh`.
+                     Reproduzível por `coleta/cellar.sh`.
 CAN_HISTORY:         SIM — série histórica completa por CELEX
 CONFIDENCE:          COMPROVADO
 ADAMA_DECISION:      REGULATORY: antecipar perda de substância e janela de expiração.
@@ -127,7 +127,7 @@ GEOGRAPHY:           PAÍS. A AMM é nacional — não há recorte regional. For
 TIME:                estado corrente + data de decisão por uso + data de 1ª autorização
                      e de retirada por produto
 UPDATE_FREQUENCY:    semanal
-CAN_AUTOMATE:        SIM — dados abertos, `scripts/ephy.sh download`
+CAN_AUTOMATE:        SIM — dados abertos, `coleta/ephy.sh download`
 CAN_HISTORY:         PARCIAL — o dataset é um retrato do estado atual. Série histórica
                      exige arquivar as versões semanais a partir de agora. Datas de
                      retirada e de 1ª autorização dão profundidade parcial retroativa.
@@ -621,7 +621,7 @@ CROP:                todas — é capacidade de registro, não de cultura
 GEOGRAPHY:           nacional
 TIME:                28/05/2025 → 26/08/2026 (uma comparação, 15 meses)
 UPDATE_FREQUENCY:    a da fonte (semanal), a partir do momento em que o arquivamento liga
-CAN_AUTOMATE:        SIM — scripts/denominaciones.py + scripts/mapa_regfi.py
+CAN_AUTOMATE:        SIM — coleta/denominaciones.py + coleta/mapa_regfi.py
 CAN_HISTORY:         NÃO — só existe história a partir das versões que guardamos. O registro
                      publica apenas o ÚLTIMO trâmite, sem histórico.
 CONFIDENCE:          COMPROVADO

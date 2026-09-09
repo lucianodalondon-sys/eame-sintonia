@@ -327,7 +327,7 @@ portão, ele teria aparecido na tela do cliente.
 
 | prova | resultado |
 |---|---|
-| `tests/test_adama_es_gate.py` | **35 testes**, OK |
+| `tests/es/test_adama_es_gate.py` | **35 testes**, OK |
 | suíte completa | **494 testes**, OK |
 | mutações do red team | **10 de 10 pegaram** |
 | ensaio dos cinco casos, Postgres 16 descartável | 5 de 5 representados sem perda |

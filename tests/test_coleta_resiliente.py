@@ -1,6 +1,6 @@
 """Token acaba, processo morre, e a coleta nao recomeca do zero.
 
-O teste atravessa o MESMO caminho da producao: scripts/coleta_checkpoint.py
+O teste atravessa o MESMO caminho da producao: coleta/coleta_checkpoint.py
 chamando scripts/apify_pool.executar_com_pool. Nao ha ator falso dentro do
 modulo — o falso e o `trabalho`, que e o ponto de extensao que o proprio
 pool ja expunha.
@@ -14,7 +14,8 @@ import sys
 import unittest
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(RAIZ, 'scripts'))
+sys.path.insert(0, RAIZ)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import apify_pool as ap          # noqa: E402
 import coleta_checkpoint as C    # noqa: E402
 

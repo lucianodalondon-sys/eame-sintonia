@@ -9,7 +9,7 @@
   "SOURCE_HEAD": "fb96f49d",
   "SOURCE_BRANCH": "claude/acervo-to-package-intelligence-v1",
   "BUILD_ID": "V21-ef6e7e5f37eaa6e6",
-  "CHAIN": "bash scripts/v21_cadeia.sh — exit 0. Sai 0 desde e58351fd, que corrigiu as contagens declaradas do CONTRATO DA SUPERFICIE. Antes desse commit reprovava por 4 criterios, e reprovava tambem na corrida de CONTROLO sem alteracao nenhuma: era divida anterior, e foi paga por outra sessao.",
+  "CHAIN": "bash motor/v21_cadeia.sh — exit 0. Sai 0 desde e58351fd, que corrigiu as contagens declaradas do CONTRATO DA SUPERFICIE. Antes desse commit reprovava por 4 criterios, e reprovava tambem na corrida de CONTROLO sem alteracao nenhuma: era divida anterior, e foi paga por outra sessao.",
   "O_ARTEFACTO_CONTINUA_DERIVADO": "o commit e o dono; isto e o recibo, nao a fonte",
   "CASES": 43,
   "CASE_IDS_SHA256": "b8b8da9bd331bd6687c6912c99bdb7ba5fa131b55fba67cc8aaa32a5c081ff11",
@@ -91,7 +91,7 @@
     "BRANCH": "claude/auditoria-acervo-inteligencia-2nknje",
     "HEAD_BEFORE": "8b590a559610699cf5832659aaeabc6ee3630243",
     "ARTEFACTO": "italia-portale/client/italy-handoff-v21.js",
-    "GERADOR": "py scripts/site_v21_ingest.py"
+    "GERADOR": "py portoes/site_v21_ingest.py"
   },
   "PORTAO": "italia-portale/audit/ingestion-provenance.mjs — recusa pacote sem BUILD_ID canonico, sem MEETING_SURFACE_RULE, ou com estado revogado",
   "CONTROLO_ANTES_DE_MEDIR": {

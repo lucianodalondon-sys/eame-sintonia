@@ -1,0 +1,2359 @@
+{
+ "artifact": "ITALY-SOURCE-MASTER-V1",
+ "version": "1.0.0",
+ "created_at": "2026-09-07",
+ "mission": "ITALIA — ORGANIZAR, TESTAR E PROVAR FONTES",
+ "phases_completed": [
+  "A_INVENTARIO",
+  "B_RECONCILIACAO"
+ ],
+ "phases_blocked": {
+  "C_PROBE": "sem navegador italiano — ver access_environment",
+  "D_SMALL_SAMPLE": "depende de C",
+  "E_CONTRATO": "depende de D",
+  "F_VEREDITO": "depende de D",
+  "G_PRIORIDADE": "depende de F",
+  "H_TESTES": "sem interpretador Python nesta máquina"
+ },
+ "access_environment": {
+  "measured_at": "2026-09-07",
+  "requirement_of_mission": "SINTONIA SCRAP + BROWSER NORMAL + VPN ITALIA",
+  "what_is_actually_available": {
+   "in_app_browser": {
+    "exit_ip": "188.240.57.237",
+    "exit_hostname": "237.57.240.188.baremetal.zare.com",
+    "exit_city": "Edinburgh",
+    "exit_country": "GB",
+    "exit_org": "AS25369 Hydra Communications Ltd",
+    "nature": "DATACENTER",
+    "italian": false,
+    "measured_via": "https://ipinfo.io/json"
+   },
+   "user_real_chrome": {
+    "available": false,
+    "reason": "extensão Claude in Chrome não conectada; list_connected_browsers devolveu lista vazia",
+    "would_be_italian_if_vpn_on": "NÃO SEI — não verificável enquanto desconectado"
+   },
+   "python_interpreter": {
+    "available": false,
+    "reason": "nenhum python.exe encontrado no disco; py resolve para C:\\actions-runner-2\\... inexistente e a pasta Programs/Python/Python312 não contém o binário",
+    "consequence": "tests/ (unittest/pytest) não executável nesta máquina"
+   },
+   "node": {
+    "available": true,
+    "version": "v24.18.0"
+   }
+  },
+  "why_no_verdict_was_emitted": [
+   "A REGRA 0 da missão determina BLOCKED_EM_DATACENTER != BLOCKED_EM_BROWSER_ITALIANO.",
+   "Medir daqui produziria RED falso: mediria o bloqueio de Edimburgo, não o da Itália.",
+   "Portanto TODA fonte deste catálogo está NOT_TESTED, e nenhuma recebeu GREEN/YELLOW/RED."
+  ],
+  "asymmetry_rule_for_phase_C": {
+   "ACCESS_OK_from_any_exit": "sinal válido — se abre de fora, abre da Itália (exceto geo-bloqueio explícito)",
+   "BLOCKED_from_non_italian_exit": "sinal nulo — obrigatório remedir de IP italiano antes de qualquer RED"
+  }
+ },
+ "phase_C_partial": {
+  "method": "DUAS RODADAS, MÉTODOS DIFERENTES — registrar separado, porque a força de evidência é diferente. RODADA 1 (manhã de 2026-09-07): OBSERVACAO_ASSISTIDA — o usuário navegou no próprio Chrome com VPN italiana e enviou capturas de tela; o agente não navegou. RODADA 2 (13:04Z e 13:29Z de 2026-09-07): COLETA_DIRETA — a VPN italiana continuava ligada e o curl DESTA máquina sai por ela (verificado: 205.147.30.20, Milão, IT). O agente baixou o documento e preservou com SHA256.",
+  "correcao_de_metodo": "a RODADA 1 assumiu que sem a extensão do Chrome não havia coleta possível. Estava errado: a VPN é do sistema inteiro, então o curl também sai pela Itália. A extensão do Chrome NÃO era pré-requisito para preservar evidência nesta fonte.",
+  "vpn_confirmed": {
+   "measured_at": "2026-09-07",
+   "exit_ip": "205.147.30.20",
+   "exit_city": "Milan",
+   "exit_region": "Lombardy",
+   "exit_country": "IT",
+   "exit_org": "AS208172 Proton AG",
+   "timezone": "Europe/Rome",
+   "verdict": "REQUISITO DA MISSÃO ATENDIDO — saída italiana confirmada",
+   "caveat": "é IP de VPN comercial (Proton), não de ISP residencial italiano. Um bloqueio observado deste IP deve ser registrado como POSSIVEL_BLOQUEIO_DE_FAIXA_VPN, e não como bloqueio à Itália."
+  },
+  "probes": [
+   {
+    "SOURCE_ID": "IT-T7-001",
+    "OWNER_ID": "IT-OWN-008",
+    "URL": "https://www.terretruria.it",
+    "RESULTADO": "ACCESS_OK",
+    "detalhes": "homepage carregou sem login, sem captcha, sem challenge anti-robô",
+    "descoberta": "o menu 'SERVIZIO AGRONOMICO' tem SETE sub-rotas, não três como este catálogo previa: COLTURE · CONTATTI · MONITORAGGIO MOSCA DELL'OLIVO · QUADERNO DI CAMPAGNA · PROGETTI · WEBINAR · PAROLA DI TERRE",
+    "correcao_ao_catalogo": "IT-OWN-008 tem mais canais que os 3 registrados. Ampliar após medir cada um.",
+    "sinal_lateral": "banner rotativo 'RIUNIONI PRE-CAMPAGNA CON OLIVICOLTORI' — atividade de rede técnica com olivicultores"
+   },
+   {
+    "SOURCE_ID": "IT-T3-005",
+    "OWNER_ID": "IT-OWN-008",
+    "SOURCE_NAME": "Monitoraggio mosca dell'olivo",
+    "RESULTADO": "ACCESS_OK",
+    "SOURCE_DATE": "bollettino do período 31-08-2026 a 06-09-2026",
+    "CAPTURED_AT": "2026-09-07",
+    "UPDATE_FREQUENCY_OBSERVADA": "SEMANAL — o documento declara período fechado de 7 dias",
+    "recorrencia_status": "UMA edição observada. NÃO PROVA recorrência: falta ver o arquivo de edições anteriores. UPDATE_FREQUENCY permanece NÃO SEI até isso.",
+    "defasagem": "1 dia (boletim fecha 06/09, observado em 07/09) — fonte viva",
+    "GEOGRAPHIC_GRANULARITY": "PONTO — 139 pontos de monitoramento geolocalizados (lat/lon com 4 casas)",
+    "correcao_contagem": "o catálogo dizia ~60-80 pontos, estimados a olho no mapa. A contagem no documento preservado dá 139 point_id únicos e 139 pares lat/lon únicos.",
+    "FACT_LOCATION": "costa da Toscana: Lucca, Pisa, Livorno, Piombino, Grosseto, Orbetello",
+    "SOURCE_LOCATION": "Livorno (sede da cooperativa) — DIFERENTE de FACT_LOCATION",
+    "camada_publica": {
+     "nome": "Mappa infestazione attiva",
+     "acesso": "ABERTA, sem cadastro",
+     "conteudo_observado": "139 pontos coloridos em escala (verde, amarelo, vermelho, azul, cinza)",
+     "URL_EXATA": "https://www.terretruria.it/monitoraggio",
+     "legenda_infestazione": {
+      "LIGHTGREY": "Dato non rilevato",
+      "GREEN": "Nessuna allerta",
+      "YELLOW": "Pre allerta",
+      "RED": "Allerta",
+      "BLUE": "Sotto trattamento"
+     },
+     "legenda_catture": {
+      "LIGHTGREY": "Dato non rilevato",
+      "GREEN": "Stazionario",
+      "YELLOW": "In aumento",
+      "RED": "In forte aumento",
+      "base_de_comparacao": "rispetto alla settimana precedente",
+      "nota": "a legenda é pública; o VALOR de catture por ponto é LOGIN_REQUIRED"
+     },
+     "o_que_um_ponto_revela": [
+      "nome do ponto (COMUNE, localidade)",
+      "point_id interno do site",
+      "latitude e longitude",
+      "data di campionamento (dia exato da coleta em campo)",
+      "infestazione attiva: percentual inteiro + rótulo de alerta + cor",
+      "catture adulti: LOGIN_REQUIRED — texto literal 'Dato per utenti registrati'"
+     ],
+     "onde_o_dado_mora": "todos os 139 blocos de ponto já vêm no HTML da página pública; o clique no mapa só revela o bloco que já estava lá. NÃO há API nem XHR a descobrir.",
+     "leitura_da_edicao_31-08_a_06-09": "110 dos 139 pontos com valor, 29 sem dado. Dos 110: 4 em Allerta, 5 em Pre allerta, 6 Sotto trattamento, 95 Nessuna allerta. O próprio boletim cita 5% de infestação ativa como limiar para intervento larvicida.",
+     "nao_observado_ainda": "nada da camada aberta — foi toda lida e preservada"
+    },
+    "arquivo_de_edicoes_anteriores": {
+     "RESULTADO": "NÃO EXISTE PUBLICAMENTE",
+     "evidencia_1": "o link /bollettini está no rodapé do site e devolve HTTP 404",
+     "evidencia_2": "o sitemap.xml oficial tem 927 URLs e só UMA rota de monitoramento — nenhuma página de arquivo, nenhum PDF de boletim",
+     "evidencia_3": "a Wayback Machine estava fora do ar em 2026-09-07, então não deu para usar snapshot de terceiro como prova de recorrência",
+     "indicios_que_NAO_sao_prova": "há um <h3> comentado no HTML com 'Bollettino del periodo dal 07/09/2026 al 13/09/2026' (próxima edição já preparada, não publicada) e outro comentado com 'L'attività di monitoraggio riprenderà a Giugno 2025' (resquício de temporada anterior). São indícios no código-fonte, não edições publicadas.",
+     "consequencia": "o site mostra uma edição por vez e substitui a anterior. Prova de recorrência só virá de captura repetida nossa."
+    },
+    "camada_fechada": {
+     "nome": "Mappa catture adulti",
+     "acesso": "LOGIN_REQUIRED — a própria página declara 'Solo per utenti registrati'",
+     "classificacao": "PUBLIC_CAPABILITY",
+     "regra_aplicada": "NÃO se tentou contornar autenticação, conforme a missão determina"
+    },
+    "EVIDENCE_CLASS": "OBSERVED_FIELD_SIGNAL (infestação ativa)",
+    "RAW_EVIDENCE_STATE": "PRESERVED",
+    "evidencia_preservada": {
+     "pasta": "data/samples/ITALY-T3-005-MONITORAGGIO/",
+     "manifesto": "MANIFEST.json",
+     "documento_primario": "monitoraggio-2026-09-07.html",
+     "MIME": "text/html; charset=UTF-8",
+     "BYTES": 274247,
+     "SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+     "derivado": "points-2026-09-07.json (139 pontos) — SHA256 859eefd5e5d5059a51457c4a205e9db3aa3d03f18ca098848931d782567ccb6d",
+     "aviso": "o derivado NÃO é evidência; a evidência é o HTML com o hash acima",
+     "estabilidade": "duas coletas (13:04Z e 13:29Z) devolveram SHA256 idêntico — a página é byte-estável, então o hash serve como prova re-verificável",
+     "conformidade": "robots.txt do site diz 'User-agent: * / Allow: /'; nenhuma autenticação foi usada ou contornada"
+    },
+    "WHAT_IT_PROVES": "que existe monitoramento semanal de mosca-da-azeitona, por ponto geolocalizado, na costa toscana, com infestação ativa publicada abertamente",
+    "WHAT_IT_DOES_NOT_PROVE": "o valor numérico de cada ponto (ainda não visto) · captura de armadilha (fechada) · venda · estoque · uso de produto · incidência nacional",
+    "VERDICT": "NÃO SEI — promissora, agora com evidência preservada",
+    "por_que_ainda_nao_GREEN": "falta UMA coisa só: prova de recorrência. UPDATE_FREQUENCY segue NÃO SEI, porque uma edição preservada não prova frequência e o site não guarda arquivo. Legenda, conteúdo do ponto e preservação com hash estão resolvidos.",
+    "proximo_passo": "recapturar https://www.terretruria.it/monitoraggio depois de 2026-09-13. Se o título mudar de período e o SHA256 mudar junto, UPDATE_FREQUENCY = SEMANAL fica provado e o veredito pode virar GREEN."
+   }
+  ],
+  "o_que_esta_medicao_mudou": "IT-T3-005 deixou de ser hipótese. A rota existe, é pública, é semanal e é por ponto. Continua sem veredito porque falta evidência preservada — e a missão proíbe transformar testemunho de leitura em evidência re-verificável."
+ },
+ "taxonomy": {
+  "canonical_territories": {
+   "T1": "CROP & PRODUCTION",
+   "T2": "CLIMATE / WATER / SOIL",
+   "T3": "PEST / DISEASE / WEEDS",
+   "T4": "REGULATORY",
+   "T5": "SCIENCE",
+   "T6": "RESEARCHERS",
+   "T7": "TECHNICAL NETWORK",
+   "T8": "FARMERS & INFLUENCERS",
+   "T9": "COMPETITORS",
+   "T10": "MARKET / TRADE / INDUSTRY",
+   "T11": "EVENTS",
+   "T12": "POLICY / AGRICULTURAL ENVIRONMENT"
+  },
+  "separations_enforced_here": {
+   "TERRITORY": "o que a rota mede",
+   "OWNER_KIND": "quem publica",
+   "ACCESS_METHOD": "como acessamos",
+   "note": "COOPERATIVE é OWNER_KIND, nunca TERRITORY"
+  },
+  "source_role": {
+   "definition": "para que a fonte serve na operação — separado de TERRITORY",
+   "values": [
+    "DISCOVERY_SOURCE",
+    "IDENTITY_SOURCE",
+    "FIELD_SIGNAL_SOURCE",
+    "TECHNICAL_GUIDANCE_SOURCE",
+    "VALIDATION_SOURCE",
+    "MARKET_SOURCE",
+    "SCIENCE_SOURCE"
+   ]
+  }
+ },
+ "taxonomy_debt": {
+  "T13": {
+   "status": "EXISTE NO ACERVO — não removido nesta missão",
+   "where": "docs/fontes/ATLAS-DE-FONTES-EAME.md, seção 'T13 · DISTRIBUTION — FRANCE' (linhas ~1269-1316)",
+   "opened_in": "MISSÃO 03",
+   "why_it_was_opened": "a apresentação promete DISTRIBUTION como camada (DECK-008, DECK-021) e T1–T12 não a cobriam",
+   "what_it_represents": "identidade das entidades que distribuem insumo — a rede entre a ADAMA e o produtor",
+   "occupants": [
+    {
+     "id": "FR-T13-001",
+     "name": "Annuaire des Entreprises / base SIRENE",
+     "verdict_in_atlas": "GREEN",
+     "delivers": "razão social, SIREN, comuna, efetivo, NAF — a REDE"
+    },
+    {
+     "id": "ES-T13-001",
+     "verdict_in_atlas": "NÃO SEI",
+     "note": "equivalente aberto não investigado"
+    },
+    {
+     "id": "IT-T13-001",
+     "verdict_in_atlas": "NÃO SEI",
+     "note": "Registro Imprese; sem API aberta comparável conhecida"
+    }
+   ],
+   "conflict_with_this_mission": "a REGRA 1 proíbe criar T13 e manda preservar T1–T12",
+   "reconciliation_proposed": {
+    "principle": "T13 não é um fenômeno novo; é DUAS perguntas diferentes que foram fundidas num território só",
+    "split": [
+     {
+      "question": "QUEM são e ONDE estão as entidades que distribuem?",
+      "goes_to": "T7 TECHNICAL NETWORK",
+      "justification": "a definição de T7 no próprio Atlas já inclui 'cooperativas, associações'; FR-T13-001 entrega identidade de entidade, que é exatamente o que T7 coleciona",
+      "source_role": "IDENTITY_SOURCE"
+     },
+     {
+      "question": "QUANTO flui, com que catálogo, a que preço?",
+      "goes_to": "T10 MARKET / TRADE / INDUSTRY",
+      "justification": "volume, catálogo e acordo comercial são fato de comércio, não de rede",
+      "source_role": "MARKET_SOURCE",
+      "warning": "o próprio Atlas registra que FR-T13-001 NÃO entrega isto — 'ela dá a rede, não o fluxo'. Esta perna está VAZIA hoje, nos três países."
+     }
+    ],
+    "practical_effect": "hoje 100% do conteúdo real de T13 (FR-T13-001) migra para T7. A perna T10 nasce vazia — o que é uma informação, não uma perda."
+   },
+   "migration_cost_measured": {
+    "blocking": true,
+    "why": "SOURCE_ID não é reciclável (Atlas, §Convenção de SOURCE_ID). Renomear FR-T13-001 → FR-T7-00X quebra a regra do próprio acervo.",
+    "guarded_by_tests": [
+     "tests/test_handoff.py:111 — assert SOURCE_ID_COUNT == 37 (hardcoded)",
+     "tests/test_canonico.py:58 e :353 — cabeçalho e total de SOURCE_IDs do Atlas",
+     "tests/test_metricas.py:56 — marcador SOURCE_ID_COUNT replicado em piloto/ENTRADA-PARA-CLAUDE-DESIGN.md e outros"
+    ],
+    "recommended_action": "NÃO migrar agora. Registrar a dívida (este bloco), manter FR-T13-001 com o ID que tem, e decidir a migração numa missão própria que possa atualizar Atlas + marcadores + 3 arquivos de teste na mesma mudança.",
+    "decision_owner": "Luciano"
+   },
+   "what_this_mission_did": "registrou a dívida e NÃO renomeou nada; nenhum artefato canônico foi alterado"
+  },
+  "other_debts": [
+   {
+    "id": "IT-T12-001",
+    "issue": "aparece no Atlas (linha 131) apenas como EXEMPLO da convenção de SOURCE_ID, não como fonte real",
+    "risk": "um grep ingênuo por 'IT-T\\d+-\\d+' devolve 7 fontes italianas quando existem 6",
+    "action": "nenhuma alteração; registrado para que a contagem futura de T12-ITALY não colida com um ID que parece ocupado e não está"
+   }
+  ]
+ },
+ "inventory_before_this_mission": {
+  "source": "docs/fontes/ATLAS-DE-FONTES-EAME.md, estado 2026-08-30",
+  "total_source_ids_all_countries": 37,
+  "italy_source_ids": 6,
+  "italy_breakdown": {
+   "GREEN": 1,
+   "YELLOW": 2,
+   "RED": 0,
+   "NAO_SEI": 3
+  },
+  "italy_sources": [
+   {
+    "id": "IT-T1-001",
+    "name": "ISTAT — coltivazioni (SDMX)",
+    "territory": "T1",
+    "verdict": "NÃO SEI",
+    "measured_reason": "esploradati.istat.it não respondeu no tempo limite; sdmx.istat.it devolveu 302 sem conteúdo"
+   },
+   {
+    "id": "IT-T3-001",
+    "name": "Bollettini di produzione integrata — Emilia-Romagna e consórcios provinciais",
+    "territory": "T3",
+    "verdict": "YELLOW",
+    "note": "cobertura de UMA das 20 regiões italianas; tratar Emilia-Romagna como 'a Itália' é declarado erro grosseiro no próprio Atlas"
+   },
+   {
+    "id": "IT-T4-001",
+    "name": "Ministero della Salute — banca dati prodotti fitosanitari",
+    "territory": "T4",
+    "verdict": "GREEN",
+    "note": "17.695 produtos, 3.712 em vigor; ADAMA ITALIA com 155 autorizações de vencimento futuro. NÃO traz cultura nem alvo."
+   },
+   {
+    "id": "IT-T9-001",
+    "name": "sites de comunicação de concorrentes (ficha compartilhada FR/ES/IT)",
+    "territory": "T9",
+    "verdict": "NÃO SEI",
+    "measured_reason": "corteva.it/notizie.html → 404; a ficha é compartilhada entre três países e não mede empresa a empresa"
+   },
+   {
+    "id": "IT-T11-001",
+    "name": "EIMA International (FederUnacoma)",
+    "territory": "T11",
+    "verdict": "YELLOW",
+    "note": "47ª edição, 10–14/11/2026, Bologna; catálogo de expositores on-line, sem formato estruturado"
+   },
+   {
+    "id": "IT-T13-001",
+    "name": "Registro Imprese / cooperative italiane",
+    "territory": "T13",
+    "verdict": "NÃO SEI",
+    "note": "ver taxonomy_debt.T13"
+   }
+  ]
+ },
+ "owners": [
+  {
+   "OWNER_ID": "IT-OWN-001",
+   "OWNER_CANONICAL_NAME": "ISTAT — Istituto Nazionale di Statistica",
+   "OWNER_KIND": "OFFICIAL_NATIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Roma",
+   "WEBSITE": "https://www.istat.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-002",
+   "OWNER_CANONICAL_NAME": "ARPAE Emilia-Romagna",
+   "OWNER_KIND": "OFFICIAL_REGIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "Emilia-Romagna",
+   "PROVINCE": "Bologna",
+   "WEBSITE": "https://www.arpae.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-003",
+   "OWNER_CANONICAL_NAME": "ARPAV — Agenzia Regionale per la Prevenzione e Protezione Ambientale del Veneto",
+   "OWNER_KIND": "OFFICIAL_REGIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "Veneto",
+   "PROVINCE": "Padova",
+   "WEBSITE": "https://www.arpa.veneto.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-004",
+   "OWNER_CANONICAL_NAME": "CNR-IBE — Istituto per la BioEconomia",
+   "OWNER_KIND": "RESEARCH_INSTITUTION",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Firenze",
+   "WEBSITE": "https://www.ibe.cnr.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-005",
+   "OWNER_CANONICAL_NAME": "SIAS — Servizio Informativo Agrometeorologico Siciliano",
+   "OWNER_KIND": "OFFICIAL_REGIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "Sicilia",
+   "PROVINCE": "Palermo",
+   "WEBSITE": "http://www.sias.regione.sicilia.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-006",
+   "OWNER_CANONICAL_NAME": "ALSIA — Agenzia Lucana di Sviluppo e Innovazione in Agricoltura",
+   "OWNER_KIND": "OFFICIAL_REGIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "Basilicata",
+   "PROVINCE": "Matera",
+   "WEBSITE": "https://www.alsia.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-007",
+   "OWNER_CANONICAL_NAME": "Regione Campania — Servizio Fitosanitario Regionale",
+   "OWNER_KIND": "OFFICIAL_REGIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "Campania",
+   "PROVINCE": "Napoli",
+   "WEBSITE": "https://www.agricoltura.regione.campania.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-008",
+   "OWNER_CANONICAL_NAME": "Terre dell'Etruria — Società Cooperativa Agricola",
+   "OWNER_KIND": "COOPERATIVE",
+   "COUNTRY": "ITALY",
+   "REGION": "Toscana",
+   "PROVINCE": "Livorno",
+   "WEBSITE": "https://www.terretruria.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-009",
+   "OWNER_CANONICAL_NAME": "Regione Siciliana — Servizio Fitosanitario Regionale",
+   "OWNER_KIND": "OFFICIAL_REGIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "Sicilia",
+   "PROVINCE": "Palermo",
+   "WEBSITE": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea"
+  },
+  {
+   "OWNER_ID": "IT-OWN-010",
+   "OWNER_CANONICAL_NAME": "ARIF Puglia — Agenzia Regionale per le Attività Irrigue e Forestali",
+   "OWNER_KIND": "OFFICIAL_REGIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "Puglia",
+   "PROVINCE": "Bari",
+   "WEBSITE": "https://www.arifpuglia.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-011",
+   "OWNER_CANONICAL_NAME": "Assoproli Bari — Associazione Produttori Olivicoli",
+   "OWNER_KIND": "PRODUCER_ORG",
+   "COUNTRY": "ITALY",
+   "REGION": "Puglia",
+   "PROVINCE": "Bari",
+   "WEBSITE": "https://www.assoproli.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-012",
+   "OWNER_CANONICAL_NAME": "APOL Lecce — Associazione Produttori Olivicoli Lecce",
+   "OWNER_KIND": "PRODUCER_ORG",
+   "COUNTRY": "ITALY",
+   "REGION": "Puglia",
+   "PROVINCE": "Lecce",
+   "WEBSITE": "NÃO SEI"
+  },
+  {
+   "OWNER_ID": "IT-OWN-013",
+   "OWNER_CANONICAL_NAME": "AGRIOS — Arbeitsgruppe für den Integrierten Obstbau Südtirol",
+   "OWNER_KIND": "TECHNICAL_NETWORK",
+   "COUNTRY": "ITALY",
+   "REGION": "Trentino-Alto Adige (Südtirol)",
+   "PROVINCE": "Bolzano",
+   "WEBSITE": "https://www.agrios.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-014",
+   "OWNER_CANONICAL_NAME": "Fondazione Edmund Mach (FEM)",
+   "OWNER_KIND": "FOUNDATION",
+   "COUNTRY": "ITALY",
+   "REGION": "Trentino-Alto Adige",
+   "PROVINCE": "Trento (San Michele all'Adige)",
+   "WEBSITE": "https://www.fmach.it",
+   "already_known_in_acervo": "citada no ATLAS em EU-T5-001 (Michele Perazzolli, 12 trabalhos) e na nota de ponte T5→T3; NUNCA teve ficha de fonte própria"
+  },
+  {
+   "OWNER_ID": "IT-OWN-015",
+   "OWNER_CANONICAL_NAME": "Ministero della Salute",
+   "OWNER_KIND": "OFFICIAL_NATIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Roma",
+   "WEBSITE": "https://www.dati.salute.gov.it",
+   "note": "owner de IT-T4-001, já GREEN no Atlas"
+  },
+  {
+   "OWNER_ID": "IT-OWN-016",
+   "OWNER_CANONICAL_NAME": "CREA — Consiglio per la ricerca in agricoltura e l'analisi dell'economia agraria",
+   "OWNER_KIND": "RESEARCH_INSTITUTION",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Roma",
+   "WEBSITE": "https://www.crea.gov.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-017",
+   "OWNER_CANONICAL_NAME": "Giornate Fitopatologiche",
+   "OWNER_KIND": "OTHER",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Bologna",
+   "WEBSITE": "https://www.giornatefitopatologiche.it",
+   "owner_kind_note": "comitê científico permanente ligado à Università di Bologna; não é agência nem empresa"
+  },
+  {
+   "OWNER_ID": "IT-OWN-018",
+   "OWNER_CANONICAL_NAME": "CNR — Consiglio Nazionale delle Ricerche (repositório IRIS)",
+   "OWNER_KIND": "RESEARCH_INSTITUTION",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Roma",
+   "WEBSITE": "https://iris.cnr.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-019",
+   "OWNER_CANONICAL_NAME": "SIRFI — Società Italiana per la Ricerca sulla Flora Infestante",
+   "OWNER_KIND": "OTHER",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "NÃO SEI",
+   "WEBSITE": "https://www.sirfi.it",
+   "owner_kind_note": "sociedade científica"
+  },
+  {
+   "OWNER_ID": "IT-OWN-020",
+   "OWNER_CANONICAL_NAME": "MASAF — Ministero dell'Agricoltura, della Sovranità Alimentare e delle Foreste",
+   "OWNER_KIND": "OFFICIAL_NATIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Roma",
+   "WEBSITE": "https://www.politicheagricole.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-021",
+   "OWNER_CANONICAL_NAME": "ICQRF — Dipartimento dell'Ispettorato centrale della tutela della qualità e repressione frodi",
+   "OWNER_KIND": "OFFICIAL_NATIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Roma",
+   "WEBSITE": "https://www.politicheagricole.it",
+   "owner_relation": "departamento DENTRO do MASAF (IT-OWN-020). Ficha própria porque publica série própria com identidade própria (Cantina Italia, Frantoio Italia). Registrado para não duplicar o MASAF."
+  },
+  {
+   "OWNER_ID": "IT-OWN-022",
+   "OWNER_CANONICAL_NAME": "Consorzi Agrari d'Italia — CAI S.p.A.",
+   "OWNER_KIND": "CONSORTIUM",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Roma",
+   "WEBSITE": "https://www.consorziagrariditalia.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-023",
+   "OWNER_CANONICAL_NAME": "Apo Conerpo",
+   "OWNER_KIND": "AOP",
+   "COUNTRY": "ITALY",
+   "REGION": "Emilia-Romagna",
+   "PROVINCE": "Bologna",
+   "WEBSITE": "https://www.apoconerpo.com"
+  },
+  {
+   "OWNER_ID": "IT-OWN-024",
+   "OWNER_CANONICAL_NAME": "Agrintesa Società Cooperativa Agricola",
+   "OWNER_KIND": "COOPERATIVE",
+   "COUNTRY": "ITALY",
+   "REGION": "Emilia-Romagna",
+   "PROVINCE": "Ravenna (Faenza)",
+   "WEBSITE": "https://www.agrintesa.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-025",
+   "OWNER_CANONICAL_NAME": "Apofruit Italia Società Cooperativa Agricola",
+   "OWNER_KIND": "COOPERATIVE",
+   "COUNTRY": "ITALY",
+   "REGION": "Emilia-Romagna",
+   "PROVINCE": "Forlì-Cesena",
+   "WEBSITE": "https://www.apofruit.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-026",
+   "OWNER_CANONICAL_NAME": "Ortofruit Italia",
+   "OWNER_KIND": "PRODUCER_ORG",
+   "COUNTRY": "ITALY",
+   "REGION": "Piemonte",
+   "PROVINCE": "Cuneo",
+   "WEBSITE": "https://www.ortofruititalia.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-027",
+   "OWNER_CANONICAL_NAME": "VOG — Consorzio Cooperative Ortofrutticole Alto Adige",
+   "OWNER_KIND": "COOPERATIVE",
+   "COUNTRY": "ITALY",
+   "REGION": "Trentino-Alto Adige (Südtirol)",
+   "PROVINCE": "Bolzano",
+   "WEBSITE": "https://www.vog.it",
+   "owner_relation": "distinto de AGRIOS (IT-OWN-013). VOG é rede de produtores; AGRIOS emite a diretriz técnica. A missão exige separá-los."
+  },
+  {
+   "OWNER_ID": "IT-OWN-028",
+   "OWNER_CANONICAL_NAME": "Melinda Consorzio",
+   "OWNER_KIND": "CONSORTIUM",
+   "COUNTRY": "ITALY",
+   "REGION": "Trentino-Alto Adige",
+   "PROVINCE": "Trento (Val di Non)",
+   "WEBSITE": "https://www.melinda.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-029",
+   "OWNER_CANONICAL_NAME": "CAVIT — Cantina Viticoltori Trentini",
+   "OWNER_KIND": "COOPERATIVE",
+   "COUNTRY": "ITALY",
+   "REGION": "Trentino-Alto Adige",
+   "PROVINCE": "Trento",
+   "WEBSITE": "https://www.cavit.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-030",
+   "OWNER_CANONICAL_NAME": "PICA — Piattaforma Integrata Cartografica Agriviticola",
+   "OWNER_KIND": "OTHER",
+   "COUNTRY": "ITALY",
+   "REGION": "Trentino-Alto Adige",
+   "PROVINCE": "Trento",
+   "WEBSITE": "NÃO SEI",
+   "owner_relation": "sistema técnico do ecossistema CAVIT (IT-OWN-029) / FEM (IT-OWN-014). Vínculo de propriedade a confirmar na Fase C."
+  },
+  {
+   "OWNER_ID": "IT-OWN-031",
+   "OWNER_CANONICAL_NAME": "ISMEA — Istituto di Servizi per il Mercato Agricolo Alimentare",
+   "OWNER_KIND": "OFFICIAL_NATIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Roma",
+   "WEBSITE": "https://www.ismeamercati.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-032",
+   "OWNER_CANONICAL_NAME": "BMTI — Borsa Merci Telematica Italiana S.c.p.A.",
+   "OWNER_KIND": "OTHER",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Roma",
+   "WEBSITE": "https://www.bmti.it",
+   "owner_kind_note": "sociedade consortil de interesse público"
+  },
+  {
+   "OWNER_ID": "IT-OWN-033",
+   "OWNER_CANONICAL_NAME": "Regione Emilia-Romagna — Servizio Fitosanitario",
+   "OWNER_KIND": "OFFICIAL_REGIONAL_AGENCY",
+   "COUNTRY": "ITALY",
+   "REGION": "Emilia-Romagna",
+   "PROVINCE": "Bologna",
+   "WEBSITE": "https://agricoltura.regione.emilia-romagna.it",
+   "owner_relation": "owner de IT-T3-001 (já YELLOW). DISTINTO de ARPAE (IT-OWN-002): mesma região, órgãos diferentes — ARPAE mede ambiente/clima (T2), o Servizio Fitosanitario mede sanidade vegetal (T3)."
+  },
+  {
+   "OWNER_ID": "IT-OWN-034",
+   "OWNER_CANONICAL_NAME": "FederUnacoma / EIMA International",
+   "OWNER_KIND": "TRADE_ASSOCIATION",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Bologna",
+   "WEBSITE": "https://www.eima.it",
+   "note": "owner de IT-T11-001, já YELLOW"
+  },
+  {
+   "OWNER_ID": "IT-OWN-035",
+   "OWNER_CANONICAL_NAME": "Veronafiere S.p.A. (Fieragricola)",
+   "OWNER_KIND": "COMPANY",
+   "COUNTRY": "ITALY",
+   "REGION": "Veneto",
+   "PROVINCE": "Verona",
+   "WEBSITE": "https://www.fieragricola.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-036",
+   "OWNER_CANONICAL_NAME": "Unione Italiana Vini (Enovitis in Campo)",
+   "OWNER_KIND": "TRADE_ASSOCIATION",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Milano",
+   "WEBSITE": "https://www.enovitisincampo.it"
+  },
+  {
+   "OWNER_ID": "IT-OWN-040",
+   "OWNER_CANONICAL_NAME": "ADAMA Italia S.r.l.",
+   "OWNER_KIND": "COMPANY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Bergamo (Grassobbio)",
+   "WEBSITE": "https://www.adama.com/italia",
+   "competitor_layer": "SELF"
+  },
+  {
+   "OWNER_ID": "IT-OWN-041",
+   "OWNER_CANONICAL_NAME": "BASF Italia S.p.A.",
+   "OWNER_KIND": "COMPANY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Milano (Cesano Maderno)",
+   "WEBSITE": "https://www.agro.basf.it",
+   "competitor_layer": "COMPETITOR"
+  },
+  {
+   "OWNER_ID": "IT-OWN-042",
+   "OWNER_CANONICAL_NAME": "Bayer CropScience Italia",
+   "OWNER_KIND": "COMPANY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Milano",
+   "WEBSITE": "https://www.cropscience.bayer.it",
+   "competitor_layer": "COMPETITOR"
+  },
+  {
+   "OWNER_ID": "IT-OWN-043",
+   "OWNER_CANONICAL_NAME": "Syngenta Italia S.p.A.",
+   "OWNER_KIND": "COMPANY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Milano",
+   "WEBSITE": "https://www.syngenta.it",
+   "competitor_layer": "COMPETITOR"
+  },
+  {
+   "OWNER_ID": "IT-OWN-044",
+   "OWNER_CANONICAL_NAME": "Corteva Agriscience Italia",
+   "OWNER_KIND": "COMPANY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Cremona",
+   "WEBSITE": "https://www.corteva.it",
+   "competitor_layer": "COMPETITOR",
+   "prior_measurement": "ATLAS registra corteva.it/notizie.html → 404 (caminho inválido, não bloqueio)"
+  },
+  {
+   "OWNER_ID": "IT-OWN-045",
+   "OWNER_CANONICAL_NAME": "Nufarm Italia S.r.l.",
+   "OWNER_KIND": "COMPANY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Bologna",
+   "WEBSITE": "https://www.nufarm.com/it",
+   "competitor_layer": "COMPETITOR"
+  },
+  {
+   "OWNER_ID": "IT-OWN-046",
+   "OWNER_CANONICAL_NAME": "FMC Agricultural Solutions Italia",
+   "OWNER_KIND": "COMPANY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Milano",
+   "WEBSITE": "https://www.fmcagro.it",
+   "competitor_layer": "COMPETITOR"
+  },
+  {
+   "OWNER_ID": "IT-OWN-047",
+   "OWNER_CANONICAL_NAME": "UPL Italia S.r.l.",
+   "OWNER_KIND": "COMPANY",
+   "COUNTRY": "ITALY",
+   "REGION": "nacional",
+   "PROVINCE": "Milano",
+   "WEBSITE": "https://www.upl-ltd.com/it",
+   "competitor_layer": "COMPETITOR"
+  }
+ ],
+ "sources": [
+  {
+   "SOURCE_ID": "IT-T1-001",
+   "OWNER_ID": "IT-OWN-001",
+   "SOURCE_NAME": "ISTAT — coltivazioni (SDMX / esploradati)",
+   "TERRITORY": "T1",
+   "SOURCE_ROLE": "VALIDATION_SOURCE",
+   "SOURCE_TYPE": "estatística oficial nacional",
+   "ACCESS_METHOD": "NÃO SEI — SDMX declarado, rota não confirmada",
+   "URL": "https://esploradati.istat.it",
+   "CROPS": "todas as culturas do censo italiano",
+   "TOPICS": "área, produção, ano, região",
+   "REGION": "nacional com desagregação regional",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI (esperado: região/província)",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "PRE_EXISTING",
+   "ATLAS_VERDICT": "NÃO SEI",
+   "THIS_MISSION": "NOT_TESTED",
+   "objective_phase_C": "confirmar rota atual; capturar amostra regional real com cultura, ano, área/produção",
+   "WHAT_IT_PROVES": "área e produção declaradas oficialmente",
+   "WHAT_IT_DOES_NOT_PROVE": "pressão de praga · preço · uso de produto · decisão do produtor"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "OWNER_ID": "IT-OWN-002",
+   "SOURCE_NAME": "ARPAE — Bollettino agrometeorologico regionale",
+   "TERRITORY": "T2",
+   "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+   "SOURCE_TYPE": "boletim agrometeorológico",
+   "ACCESS_METHOD": "NÃO SEI (esperado HTML/PDF)",
+   "URL": "https://www.arpae.it/it/temi-ambientali/meteo/agrometeo",
+   "CROPS": "transversal",
+   "TOPICS": "precipitação, temperatura, água no solo, agroclima",
+   "REGION": "Emilia-Romagna",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI (esperado: região/zona)",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "objective_phase_C": "capturar UMA edição recente real do bollettino agrometeorologico",
+   "EVIDENCE_CLASS_EXPECTED": "OBSERVED_FIELD_SIGNAL (medida de estação) + MODELLED_RISK (índices derivados) — separar",
+   "WHAT_IT_PROVES": "condição meteorológica medida e interpretada na região",
+   "WHAT_IT_DOES_NOT_PROVE": "incidência de doença · tratamento realizado · perda de produção",
+   "owner_disambiguation": "ARPAE (ambiente) != Servizio Fitosanitario da mesma região (IT-OWN-033, owner de IT-T3-001)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "OWNER_ID": "IT-OWN-003",
+   "SOURCE_NAME": "ARPAV — Agrometeo / Agrometeo Informa / bollettini zonali",
+   "TERRITORY": "T2",
+   "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+   "SOURCE_TYPE": "boletim agrometeorológico zonal",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF/HTML)",
+   "URL": "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo",
+   "CROPS": "transversal, com recortes por cultura nos bollettini zonali",
+   "TOPICS": "chuva, temperatura, evapotranspiração, alerta agroclimático",
+   "REGION": "Veneto",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI (esperado: zona)",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "objective_phase_C": "capturar ao menos um documento recente (Agrometeo Informa ou bollettino zonale)",
+   "WHAT_IT_PROVES": "condição agrometeorológica medida no Veneto",
+   "WHAT_IT_DOES_NOT_PROVE": "praga · doença · mercado"
+  },
+  {
+   "SOURCE_ID": "IT-T2-003",
+   "OWNER_ID": "IT-OWN-004",
+   "SOURCE_NAME": "CNR-IBE — Drought Observatory / Osservatorio Siccità",
+   "TERRITORY": "T2",
+   "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+   "SOURCE_TYPE": "observatório de seca com índices e mapas",
+   "ACCESS_METHOD": "NÃO SEI — investigar; NÃO PRESUMIR API",
+   "URL": "https://drought.climateservices.it",
+   "CROPS": "transversal",
+   "TOPICS": "seca, SPI/SPEI, mapas, downloads geográficos",
+   "REGION": "nacional com grade geográfica",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI (esperado: grade/província)",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "objective_phase_C": "descobrir a rota real por navegação; classificar corretamente se for API, PUBLIC_APPLICATION_ROUTE ou download",
+   "EVIDENCE_CLASS_EXPECTED": "MODELLED_RISK — índice de seca é modelo, não medida direta de campo",
+   "WHAT_IT_PROVES": "índice de seca modelado por área e período",
+   "WHAT_IT_DOES_NOT_PROVE": "estresse observado na lavoura · perda · irrigação realizada"
+  },
+  {
+   "SOURCE_ID": "IT-T2-004",
+   "OWNER_ID": "IT-OWN-005",
+   "SOURCE_NAME": "SIAS Sicilia — agrometeorologia regional",
+   "TERRITORY": "T2",
+   "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+   "SOURCE_TYPE": "serviço agrometeorológico regional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "http://www.sias.regione.sicilia.it",
+   "CROPS": "transversal",
+   "TOPICS": "chuva, temperatura, seca, território",
+   "REGION": "Sicilia",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI (esperado: estação/ponto)",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "objective_phase_C": "descobrir a rota real disponível pelo navegador italiano",
+   "WHAT_IT_PROVES": "medida agrometeorológica siciliana",
+   "WHAT_IT_DOES_NOT_PROVE": "sanidade da cultura · mercado"
+  },
+  {
+   "SOURCE_ID": "IT-T2-005",
+   "OWNER_ID": "IT-OWN-006",
+   "SOURCE_NAME": "ALSIA — agrometeorologia Basilicata",
+   "TERRITORY": "T2",
+   "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+   "SOURCE_TYPE": "serviço agrometeorológico regional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.alsia.it",
+   "CROPS": "transversal",
+   "TOPICS": "agrometeorologia, estações",
+   "REGION": "Basilicata",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "channel_split_rule": "OBRIGATÓRIO separar de IT-T3-004 (mesma ALSIA, rota fitossanitária). A missão proíbe colocar tudo numa fonte genérica.",
+   "WHAT_IT_PROVES": "clima medido na Basilicata",
+   "WHAT_IT_DOES_NOT_PROVE": "praga · doença"
+  },
+  {
+   "SOURCE_ID": "IT-T3-001",
+   "OWNER_ID": "IT-OWN-033",
+   "SOURCE_NAME": "Bollettini di produzione integrata — Emilia-Romagna e consórcios provinciais",
+   "TERRITORY": "T3",
+   "SOURCE_ROLE": "TECHNICAL_GUIDANCE_SOURCE",
+   "SOURCE_TYPE": "boletim oficial de defesa integrada",
+   "ACCESS_METHOD": "PDF semanal por província, caminho previsível",
+   "URL": "https://agricoltura.regione.emilia-romagna.it",
+   "CROPS": "múltiplas",
+   "TOPICS": "defesa integrada, recomendação por província",
+   "REGION": "Emilia-Romagna",
+   "GEOGRAPHIC_GRANULARITY": "província",
+   "UPDATE_FREQUENCY": "semanal na safra",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "PRE_EXISTING",
+   "ATLAS_VERDICT": "YELLOW",
+   "THIS_MISSION": "NOT_RETESTED",
+   "WHAT_IT_PROVES": "recomendação oficial de defesa por província e semana",
+   "WHAT_IT_DOES_NOT_PROVE": "tratamento realizado · incidência medida · venda"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "OWNER_ID": "IT-OWN-007",
+   "SOURCE_NAME": "Campania — Bollettini fitosanitari regionali",
+   "TERRITORY": "T3",
+   "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+   "SOURCE_TYPE": "boletim fitossanitário oficial",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "URL": "https://www.agricoltura.regione.campania.it",
+   "CROPS": "múltiplas",
+   "TOPICS": "fenologia, avversità, difesa integrata, província",
+   "REGION": "Campania",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI (esperado: província)",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "priority_in_mission": 2,
+   "objective_phase_C": "capturar bollettino fitosanitario 2026 com província, cultura, fenologia, avversità",
+   "EVIDENCE_CLASS_EXPECTED": "misto — separar OBSERVED_FIELD_SIGNAL de TECHNICAL_GUIDELINE dentro do mesmo documento",
+   "WHAT_IT_PROVES": "observação e recomendação oficial regional",
+   "WHAT_IT_DOES_NOT_PROVE": "incidência nacional · aplicação realizada"
+  },
+  {
+   "SOURCE_ID": "IT-T3-003",
+   "OWNER_ID": "IT-OWN-007",
+   "SOURCE_NAME": "SIMFITO — sistema informativo fitossanitário da Campania",
+   "TERRITORY": "T3",
+   "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+   "SOURCE_TYPE": "sistema informativo",
+   "ACCESS_METHOD": "NÃO SEI — verificar se há parte pública",
+   "URL": "NÃO SEI",
+   "CROPS": "NÃO SEI",
+   "TOPICS": "monitoramento fitossanitário",
+   "REGION": "Campania",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "channel_split_rule": "mesmo OWNER que IT-T3-002 (Campania SFR), canal diferente — não duplicar a organização",
+   "constraint": "se exigir autenticação, classificar PUBLIC_CAPABILITY e NÃO tentar contornar login"
+  },
+  {
+   "SOURCE_ID": "IT-T3-004",
+   "OWNER_ID": "IT-OWN-006",
+   "SOURCE_NAME": "ALSIA — bollettini fitosanitari Basilicata",
+   "TERRITORY": "T3",
+   "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+   "SOURCE_TYPE": "boletim fitossanitário regional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.alsia.it",
+   "CROPS": "NÃO SEI",
+   "TOPICS": "fitossanidade, defesa",
+   "REGION": "Basilicata",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "priority_in_mission": 3,
+   "channel_split_rule": "mesmo OWNER que IT-T2-005, canal e território diferentes"
+  },
+  {
+   "SOURCE_ID": "IT-T3-005",
+   "OWNER_ID": "IT-OWN-008",
+   "SOURCE_NAME": "Terre dell'Etruria — Monitoraggio mosca dell'olivo",
+   "TERRITORY": "T3",
+   "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+   "SOURCE_TYPE": "rede de monitoramento de armadilha em campo",
+   "ACCESS_METHOD": "NÃO SEI (esperado HTML/PDF periódico)",
+   "URL": "https://www.terretruria.it",
+   "CROPS": "OLIVE",
+   "TOPICS": "Bactrocera oleae, captura, infestação, fenologia, alerta, recomendação",
+   "REGION": "Toscana (costa, Livorno/Grosseto)",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI (esperado: PONTO de monitoramento)",
+   "UPDATE_FREQUENCY": "NÃO SEI (esperado: semanal/quinzenal na estação)",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "priority_in_mission": 1,
+   "objective_phase_C": "obter data · ponto · local · fenologia · captura/amostra · infestação · alerta · recomendação",
+   "why_highest_priority": "é a única candidata identificada nesta missão a entregar SINAL DE CAMPO MEDIDO POR PONTO em olivo — a granularidade que hoje só a RAIF andaluza (ES-T3-001) entrega no acervo inteiro",
+   "EVIDENCE_CLASS_EXPECTED": "OBSERVED_FIELD_SIGNAL (captura) + COOPERATIVE_GUIDANCE (recomendação) — NUNCA fundidos",
+   "WHAT_IT_PROVES": "monitoramento · fenologia · captura · observação · recomendação técnica",
+   "WHAT_IT_DOES_NOT_PROVE": "venda · estoque · market share · uso realizado · produto ADAMA comprado · incidência nacional"
+  },
+  {
+   "SOURCE_ID": "IT-T3-006",
+   "OWNER_ID": "IT-OWN-008",
+   "SOURCE_NAME": "Terre dell'Etruria — Bollettini tecnici",
+   "TERRITORY": "T3",
+   "SOURCE_ROLE": "TECHNICAL_GUIDANCE_SOURCE",
+   "SOURCE_TYPE": "boletim técnico de cooperativa",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.terretruria.it",
+   "CROPS": "múltiplas — separar por cultura se necessário",
+   "TOPICS": "orientação técnica de defesa",
+   "REGION": "Toscana",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "channel_split_rule": "mesmo OWNER que IT-T3-005 e IT-T7-001 — UMA organização, TRÊS canais, TRÊS fichas",
+   "EVIDENCE_CLASS_EXPECTED": "COOPERATIVE_GUIDANCE"
+  },
+  {
+   "SOURCE_ID": "IT-T3-007",
+   "OWNER_ID": "IT-OWN-009",
+   "SOURCE_NAME": "Sicilia — Servizio Fitosanitario / difesa integrata",
+   "TERRITORY": "T3",
+   "SOURCE_ROLE": "TECHNICAL_GUIDANCE_SOURCE",
+   "SOURCE_TYPE": "documento fitossanitário oficial regional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.regione.sicilia.it",
+   "CROPS": "múltiplas",
+   "TOPICS": "difesa integrata, deroghe, avversità",
+   "REGION": "Sicilia",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "priority_in_mission": 4,
+   "classification_warning": "ao capturar, decidir explicitamente se é CURRENT_FIELD_SIGNAL, TECHNICAL_GUIDELINE ou DEROGA. Não misturar. DISCIPLINARE != CURRENT_FIELD_SIGNAL.",
+   "feeds_also": "T12 quando for deroga/disciplinare — mantendo origem única"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "OWNER_ID": "IT-OWN-010",
+   "SOURCE_NAME": "ARIF Puglia / Agrometeo Puglia — rete fitosanitaria",
+   "TERRITORY": "T3",
+   "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+   "SOURCE_TYPE": "rede regional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.arifpuglia.it",
+   "CROPS": "OLIVE · DURUM_WHEAT",
+   "TOPICS": "monitoramento, alerta, agrometeorologia",
+   "REGION": "Puglia",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "objective_phase_C": "medir quem é HOJE o dono real do sinal na Puglia para OLIVE e DURUM_WHEAT"
+  },
+  {
+   "SOURCE_ID": "IT-T3-009",
+   "OWNER_ID": "IT-OWN-011",
+   "SOURCE_NAME": "Assoproli Bari — assistenza tecnica e monitoraggio olivicolo",
+   "TERRITORY": "T3",
+   "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+   "SOURCE_TYPE": "organização de produtores",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.assoproli.it",
+   "CROPS": "OLIVE",
+   "TOPICS": "monitoramento, mosca, assistência técnica",
+   "REGION": "Puglia (Bari)",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "OWNER_ID": "IT-OWN-012",
+   "SOURCE_NAME": "APOL Lecce — monitoraggio olivicolo",
+   "TERRITORY": "T3",
+   "SOURCE_ROLE": "FIELD_SIGNAL_SOURCE",
+   "SOURCE_TYPE": "organização de produtores",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "NÃO SEI",
+   "CROPS": "OLIVE",
+   "TOPICS": "monitoramento olivícola",
+   "REGION": "Puglia (Lecce)",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "note": "existência e URL a confirmar na Fase C — não presumir que a organização publica"
+  },
+  {
+   "SOURCE_ID": "IT-T3-011",
+   "OWNER_ID": "IT-OWN-013",
+   "SOURCE_NAME": "AGRIOS — direttive, aggiornamenti e deroghe per la produzione integrata",
+   "TERRITORY": "T3",
+   "SOURCE_ROLE": "TECHNICAL_GUIDANCE_SOURCE",
+   "SOURCE_TYPE": "diretriz técnica de rede",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "URL": "https://www.agrios.it",
+   "CROPS": "APPLE",
+   "TOPICS": "difesa integrata, direttive, aggiornamenti, deroghe",
+   "REGION": "Südtirol (Bolzano)",
+   "GEOGRAPHIC_GRANULARITY": "província",
+   "UPDATE_FREQUENCY": "NÃO SEI (esperado: anual + atualizações na safra)",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "priority_in_mission": 10,
+   "EVIDENCE_CLASS_EXPECTED": "TECHNICAL_GUIDELINE — e DEROGA quando for exceção autorizada",
+   "owner_disambiguation": "AGRIOS emite a diretriz; VOG (IT-OWN-027) é a rede de produtores. Owners distintos, territórios distintos (T3/T12 vs T7).",
+   "WHAT_IT_PROVES": "o que a rede sul-tirolesa RECOMENDA e o que autoriza por exceção",
+   "WHAT_IT_DOES_NOT_PROVE": "o que foi aplicado no pomar · produto comprado"
+  },
+  {
+   "SOURCE_ID": "IT-T3-012",
+   "OWNER_ID": "IT-OWN-014",
+   "SOURCE_NAME": "FEM — Bollettini / guide tecniche di difesa integrata",
+   "TERRITORY": "T3",
+   "SOURCE_ROLE": "TECHNICAL_GUIDANCE_SOURCE",
+   "SOURCE_TYPE": "boletim técnico de fundação de pesquisa",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.fmach.it",
+   "CROPS": "GRAPE · APPLE",
+   "TOPICS": "difesa integrata, avversità, fenologia",
+   "REGION": "Trentino",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "priority_in_mission": 8,
+   "acervo_link": "o ATLAS já registra a ponte FEM: T5 (Perazzolli, míldio da videira) e a existência dos Bollettini Difesa integrata do Trentino — mas SEM ficha de fonte. Esta é a ficha que faltava.",
+   "channel_split_rule": "FEM = 1 owner, 5 canais: IT-T3-012 (boletim) · IT-T5-002 (OpenPub) · T6 (pesquisadores, via EU-T5-001) · IT-T7-006 (assistência técnica) · IT-T11-004 (eventos)"
+  },
+  {
+   "SOURCE_ID": "IT-T4-001",
+   "OWNER_ID": "IT-OWN-015",
+   "SOURCE_NAME": "Ministero della Salute — banca dati prodotti fitosanitari",
+   "TERRITORY": "T4",
+   "SOURCE_ROLE": "VALIDATION_SOURCE",
+   "SOURCE_TYPE": "registro oficial de autorizações, dados abertos",
+   "ACCESS_METHOD": "CSV direto (4,6 MB), sem chave",
+   "URL": "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
+   "CROPS": "NÃO PRESENTE no arquivo",
+   "TOPICS": "registro, titular, vencimento, revogação, substâncias ativas",
+   "REGION": "nacional",
+   "GEOGRAPHIC_GRANULARITY": "PAÍS",
+   "UPDATE_FREQUENCY": "arquivo datado; versão obtida 2026-08-24",
+   "HISTORICAL_DEPTH": "desde 1970",
+   "STATUS": "PRE_EXISTING",
+   "ATLAS_VERDICT": "GREEN",
+   "THIS_MISSION": "NOT_RETESTED",
+   "mission_instruction": "não expandir T4 horizontalmente; apenas validar saúde da fonte atual",
+   "WHAT_IT_PROVES": "REGULATORY_AUTHORIZATION — o que está autorizado e até quando",
+   "WHAT_IT_DOES_NOT_PROVE": "cultura · alvo · disponibilidade comercial · venda. AUTORIZADO != COMERCIALMENTE DISPONÍVEL."
+  },
+  {
+   "SOURCE_ID": "IT-T5-001",
+   "OWNER_ID": "IT-OWN-016",
+   "SOURCE_NAME": "CREA — Giornata del Mais (programa e contribuições técnicas)",
+   "TERRITORY": "T5",
+   "SOURCE_ROLE": "SCIENCE_SOURCE",
+   "SOURCE_TYPE": "evento científico com material técnico",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF/vídeo)",
+   "URL": "https://www.crea.gov.it",
+   "CROPS": "MAIZE",
+   "TOPICS": "tema, cultura, problema, autor, instituição, ano",
+   "REGION": "nacional",
+   "GEOGRAPHIC_GRANULARITY": "não aplicável",
+   "UPDATE_FREQUENCY": "ANNUAL (a confirmar)",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "priority_in_mission": 14,
+   "gap_it_closes": "MAIZE é uma das três lacunas declaradas de cultura desta missão",
+   "EVIDENCE_CLASS_EXPECTED": "SCIENTIFIC_EVIDENCE"
+  },
+  {
+   "SOURCE_ID": "IT-T5-002",
+   "OWNER_ID": "IT-OWN-014",
+   "SOURCE_NAME": "FEM OpenPub — repositório de publicações",
+   "TERRITORY": "T5",
+   "SOURCE_ROLE": "SCIENCE_SOURCE",
+   "SOURCE_TYPE": "repositório institucional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://publications.fmach.it",
+   "CROPS": "GRAPE · APPLE e outras",
+   "TOPICS": "papers, autores, instituição",
+   "REGION": "Trentino",
+   "GEOGRAPHIC_GRANULARITY": "não aplicável (afiliação != local do experimento)",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "geography_warning": "SOURCE_LOCATION (Trentino) != FACT_LOCATION (onde o experimento ocorreu) — mesma limitação estrutural já registrada em EU-T5-001"
+  },
+  {
+   "SOURCE_ID": "IT-T5-003",
+   "OWNER_ID": "IT-OWN-017",
+   "SOURCE_NAME": "Giornate Fitopatologiche — atti e programma",
+   "TERRITORY": "T5",
+   "SOURCE_ROLE": "SCIENCE_SOURCE",
+   "SOURCE_TYPE": "anais de congresso científico",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "URL": "https://www.giornatefitopatologiche.it",
+   "CROPS": "múltiplas",
+   "TOPICS": "cultura, problema, substância/prática quando explícita, autor, instituição",
+   "REGION": "nacional",
+   "GEOGRAPHIC_GRANULARITY": "não aplicável",
+   "UPDATE_FREQUENCY": "BIENAL (a confirmar)",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "priority_in_mission": 15,
+   "dual_territory": "também T11 (evento) — MESMA fonte, não duplicar owner",
+   "why_valuable": "é a fonte candidata mais direta a ligar CULTURA × PROBLEMA × SUBSTÂNCIA × AUTOR num único documento italiano"
+  },
+  {
+   "SOURCE_ID": "IT-T5-004",
+   "OWNER_ID": "IT-OWN-018",
+   "SOURCE_NAME": "CNR IRIS — repositório institucional",
+   "TERRITORY": "T5",
+   "SOURCE_ROLE": "SCIENCE_SOURCE",
+   "SOURCE_TYPE": "repositório institucional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://iris.cnr.it",
+   "CROPS": "transversal",
+   "TOPICS": "produção científica do CNR",
+   "REGION": "nacional",
+   "GEOGRAPHIC_GRANULARITY": "não aplicável",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "overlap_warning": "provável sobreposição com EU-T5-001 (OpenAlex), que já é GREEN e já cobre afiliação italiana. Medir o que IRIS acrescenta ANTES de operacionalizar — pode ser duplicação (P3)."
+  },
+  {
+   "SOURCE_ID": "IT-T5-005",
+   "OWNER_ID": "IT-OWN-019",
+   "SOURCE_NAME": "SIRFI — flora infestante e resistência a herbicidas",
+   "TERRITORY": "T5",
+   "SOURCE_ROLE": "SCIENCE_SOURCE",
+   "SOURCE_TYPE": "sociedade científica",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.sirfi.it",
+   "CROPS": "transversal",
+   "TOPICS": "weed science, resistência a herbicida, flora infestante",
+   "REGION": "nacional",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "adama_relevance": "resistência a herbicida é eixo direto de portfólio; o acervo já tem o caso análogo francês (Christophe Délye, EU-T5-001)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-001",
+   "OWNER_ID": "IT-OWN-008",
+   "SOURCE_NAME": "Terre dell'Etruria — Servizio agronomico / agronomi",
+   "TERRITORY": "T7",
+   "SOURCE_ROLE": "IDENTITY_SOURCE",
+   "SOURCE_TYPE": "rede técnica de cooperativa",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.terretruria.it",
+   "CROPS": "OLIVE e outras",
+   "TOPICS": "agrônomos, assistência técnica",
+   "REGION": "Toscana",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "IRREGULAR (esperado)",
+   "HISTORICAL_DEPTH": "não aplicável",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "channel_split_rule": "terceiro canal do MESMO owner IT-OWN-008. OWNER_KIND=COOPERATIVE; TERRITORY=T7. Cooperativa NÃO é território.",
+   "gdpr_flag": "NÃO SEI / REQUER REVISÃO — nomes de agrônomos são pessoas físicas identificadas"
+  },
+  {
+   "SOURCE_ID": "IT-T7-002",
+   "OWNER_ID": "IT-OWN-020",
+   "SOURCE_NAME": "MASAF — elenco delle OP e AOP riconosciute",
+   "TERRITORY": "T7",
+   "SOURCE_ROLE": "IDENTITY_SOURCE",
+   "SOURCE_TYPE": "lista oficial de reconhecimento",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF/XLSX)",
+   "URL": "https://www.politicheagricole.it",
+   "CROPS": "por setor",
+   "TOPICS": "nome, tipo, setor, região, reconhecimento, data/lista",
+   "REGION": "nacional com desagregação regional",
+   "GEOGRAPHIC_GRANULARITY": "região (esperado)",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "priority_in_mission": 5,
+   "role_warning": "É DISCOVERY / IDENTITY. NÃO é sinal agronômico. Tratar a lista de OP do MASAF como sinal de campo seria o erro que a missão nomeia explicitamente.",
+   "why_high_priority": "é a única fonte candidata a dar IDENTIDADE OFICIAL das organizações de produtores — o denominador sem o qual toda contagem de cooperativa italiana fica sem base",
+   "WHAT_IT_PROVES": "quais organizações o Estado italiano reconhece, em que setor e região",
+   "WHAT_IT_DOES_NOT_PROVE": "atividade · volume · influência técnica · pressão de praga"
+  },
+  {
+   "SOURCE_ID": "IT-T7-003",
+   "OWNER_ID": "IT-OWN-022",
+   "SOURCE_NAME": "CAI — assistenza tecnica, prove e note tecniche",
+   "TERRITORY": "T7",
+   "SOURCE_ROLE": "TECHNICAL_GUIDANCE_SOURCE",
+   "SOURCE_TYPE": "consórcio agrário nacional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.consorziagrariditalia.it",
+   "CROPS": "múltiplas",
+   "TOPICS": "agronomi, assistenza tecnica, ricerca e sviluppo, prove, note tecniche, bollettini",
+   "REGION": "nacional",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "priority_in_mission": 9,
+   "objective_phase_C": "capturar UM conteúdo técnico real, se houver. Homepage institucional NÃO conta como amostra."
+  },
+  {
+   "SOURCE_ID": "IT-T7-004",
+   "OWNER_ID": "IT-OWN-023",
+   "SOURCE_NAME": "Apo Conerpo — assistenza tecnica, ricerca e progetti",
+   "TERRITORY": "T7",
+   "SOURCE_ROLE": "IDENTITY_SOURCE",
+   "SOURCE_TYPE": "AOP",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.apoconerpo.com",
+   "CROPS": "hortofrutícolas",
+   "TOPICS": "assistência técnica, pesquisa, projetos, cooperativas associadas",
+   "REGION": "Emilia-Romagna e nacional",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED"
+  },
+  {
+   "SOURCE_ID": "IT-T7-005",
+   "OWNER_ID": "IT-OWN-024",
+   "SOURCE_NAME": "Agrintesa — agronomi / rete tecnica",
+   "TERRITORY": "T7",
+   "SOURCE_ROLE": "IDENTITY_SOURCE",
+   "SOURCE_TYPE": "cooperativa",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.agrintesa.it",
+   "CROPS": "frutícolas",
+   "TOPICS": "agrônomos, rede técnica",
+   "REGION": "Emilia-Romagna",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "explicit_rule": "NÃO classificar homepage institucional como sinal. Se houver boletim técnico → ficha T3 separada; se houver número próprio de produção → ficha T1 separada. Mesmo owner, canais distintos."
+  },
+  {
+   "SOURCE_ID": "IT-T7-006",
+   "OWNER_ID": "IT-OWN-014",
+   "SOURCE_NAME": "FEM — Centro Trasferimento Tecnologico (assistência técnica)",
+   "TERRITORY": "T7",
+   "SOURCE_ROLE": "IDENTITY_SOURCE",
+   "SOURCE_TYPE": "serviço de extensão de fundação",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.fmach.it",
+   "CROPS": "GRAPE · APPLE",
+   "TOPICS": "transferência tecnológica, técnicos",
+   "REGION": "Trentino",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED"
+  },
+  {
+   "SOURCE_ID": "IT-T7-007",
+   "OWNER_ID": "IT-OWN-025",
+   "SOURCE_NAME": "Apofruit — Apofruit Notizie e conteúdo técnico",
+   "TERRITORY": "T7",
+   "SOURCE_ROLE": "TECHNICAL_GUIDANCE_SOURCE",
+   "SOURCE_TYPE": "publicação de cooperativa",
+   "ACCESS_METHOD": "NÃO SEI (PDF é rota válida)",
+   "URL": "https://www.apofruit.it",
+   "CROPS": "frutícolas",
+   "TOPICS": "conteúdo técnico, temas de campo",
+   "REGION": "Emilia-Romagna e nacional",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED"
+  },
+  {
+   "SOURCE_ID": "IT-T7-008",
+   "OWNER_ID": "IT-OWN-026",
+   "SOURCE_NAME": "Ortofruit Italia — ufficio tecnico",
+   "TERRITORY": "T7",
+   "SOURCE_ROLE": "IDENTITY_SOURCE",
+   "SOURCE_TYPE": "organização de produtores",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.ortofruititalia.it",
+   "CROPS": "frutícolas",
+   "TOPICS": "técnicos, especialização por cultura",
+   "REGION": "Piemonte",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED"
+  },
+  {
+   "SOURCE_ID": "IT-T7-009",
+   "OWNER_ID": "IT-OWN-027",
+   "SOURCE_NAME": "VOG — rede de cooperativas produtoras",
+   "TERRITORY": "T7",
+   "SOURCE_ROLE": "IDENTITY_SOURCE",
+   "SOURCE_TYPE": "consórcio de cooperativas",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.vog.it",
+   "CROPS": "APPLE",
+   "TOPICS": "rede de produtores, cooperativas associadas",
+   "REGION": "Südtirol",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "owner_disambiguation": "separar de AGRIOS (IT-T3-011). O sinal técnico do Südtirol vive na AGRIOS; a rede de produtores vive na VOG."
+  },
+  {
+   "SOURCE_ID": "IT-T7-010",
+   "OWNER_ID": "IT-OWN-028",
+   "SOURCE_NAME": "Melinda — rede de produtores da Val di Non",
+   "TERRITORY": "T7",
+   "SOURCE_ROLE": "IDENTITY_SOURCE",
+   "SOURCE_TYPE": "consórcio",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.melinda.it",
+   "CROPS": "APPLE",
+   "TOPICS": "rede de produtores",
+   "REGION": "Trentino (Val di Non)",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "explicit_rule": "NÃO exigir sinal de campo da Melinda — o sinal do Trentino vive na FEM (IT-T3-012). Usar como rede de produtores."
+  },
+  {
+   "SOURCE_ID": "IT-T7-011",
+   "OWNER_ID": "IT-OWN-029",
+   "SOURCE_NAME": "CAVIT — rede cooperativa e sistema técnico",
+   "TERRITORY": "T7",
+   "SOURCE_ROLE": "IDENTITY_SOURCE",
+   "SOURCE_TYPE": "cooperativa vitivinícola",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.cavit.it",
+   "CROPS": "GRAPE",
+   "TOPICS": "rede cooperativa, sistema técnico",
+   "REGION": "Trentino",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "portfolio_warning": "o painel EAME já está concentrado em viticultura (ES-T3-001 vid, EU-T5-001 míldio da videira). Medir se CAVIT acrescenta ou repete antes de priorizar."
+  },
+  {
+   "SOURCE_ID": "IT-T7-012",
+   "OWNER_ID": "IT-OWN-030",
+   "SOURCE_NAME": "PICA — plataforma técnica",
+   "TERRITORY": "T7",
+   "SOURCE_ROLE": "IDENTITY_SOURCE",
+   "SOURCE_TYPE": "sistema de informação técnica",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "NÃO SEI",
+   "CROPS": "GRAPE",
+   "TOPICS": "cartografia agrivitícola integrada",
+   "REGION": "Trentino",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "hard_constraint": "testar SOMENTE o que for público. Se o sistema existir mas os dados forem privados → classificar PUBLIC_CAPABILITY. NÃO tentar contornar autenticação."
+  },
+  {
+   "SOURCE_ID": "IT-T9-001",
+   "OWNER_ID": "IT-OWN-041",
+   "SOURCE_NAME": "BASF Italia — comunicação pública",
+   "TERRITORY": "T9",
+   "SOURCE_ROLE": "DISCOVERY_SOURCE",
+   "SOURCE_TYPE": "site institucional de empresa",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.agro.basf.it",
+   "CROPS": "múltiplas",
+   "TOPICS": "comunicação técnica, produto, cultura",
+   "REGION": "nacional",
+   "GEOGRAPHIC_GRANULARITY": "país",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "REDEFINED",
+   "redefinition_note": "IT-T9-001 existia como ficha COMPARTILHADA FR/ES/IT que não media empresa a empresa. A missão exige medir cada uma. Proposta: manter o ID e abrir IT-T9-002..008 por empresa. Requer decisão — o ID já está contado no placar do Atlas.",
+   "layer": "COMPETITOR_PUBLIC_COMMUNICATION (nunca fundir com COMPETITOR_REGISTERED_RESPONSE)",
+   "THIS_MISSION": "NOT_TESTED",
+   "WHAT_IT_PROVES": "COMPANY_CLAIM — o que a empresa diz publicamente",
+   "WHAT_IT_DOES_NOT_PROVE": "registro · venda · market share · uso real. COMPANY_CLAIM != REGULATORY_FACT."
+  },
+  {
+   "SOURCE_ID": "IT-T9-002",
+   "OWNER_ID": "IT-OWN-042",
+   "SOURCE_NAME": "Bayer CropScience Italia — comunicação pública",
+   "TERRITORY": "T9",
+   "SOURCE_ROLE": "DISCOVERY_SOURCE",
+   "SOURCE_TYPE": "site institucional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.cropscience.bayer.it",
+   "REGION": "nacional",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "layer": "COMPETITOR_PUBLIC_COMMUNICATION"
+  },
+  {
+   "SOURCE_ID": "IT-T9-003",
+   "OWNER_ID": "IT-OWN-043",
+   "SOURCE_NAME": "Syngenta Italia — comunicação pública",
+   "TERRITORY": "T9",
+   "SOURCE_ROLE": "DISCOVERY_SOURCE",
+   "SOURCE_TYPE": "site institucional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.syngenta.it",
+   "REGION": "nacional",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "layer": "COMPETITOR_PUBLIC_COMMUNICATION",
+   "prior_measurement": "o análogo francês syngenta.fr devolveu 403 (anti-robô) de datacenter — exatamente o caso que exige remedição de IP italiano"
+  },
+  {
+   "SOURCE_ID": "IT-T9-004",
+   "OWNER_ID": "IT-OWN-044",
+   "SOURCE_NAME": "Corteva Italia — comunicação pública",
+   "TERRITORY": "T9",
+   "SOURCE_ROLE": "DISCOVERY_SOURCE",
+   "SOURCE_TYPE": "site institucional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.corteva.it",
+   "REGION": "nacional",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "layer": "COMPETITOR_PUBLIC_COMMUNICATION",
+   "prior_measurement": "corteva.it/notizie.html → 404: caminho inválido, NÃO bloqueio. Na Fase C, navegar o menu em vez de adivinhar a URL."
+  },
+  {
+   "SOURCE_ID": "IT-T9-005",
+   "OWNER_ID": "IT-OWN-045",
+   "SOURCE_NAME": "Nufarm Italia — comunicação pública",
+   "TERRITORY": "T9",
+   "SOURCE_ROLE": "DISCOVERY_SOURCE",
+   "SOURCE_TYPE": "site institucional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.nufarm.com/it",
+   "REGION": "nacional",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "layer": "COMPETITOR_PUBLIC_COMMUNICATION"
+  },
+  {
+   "SOURCE_ID": "IT-T9-006",
+   "OWNER_ID": "IT-OWN-046",
+   "SOURCE_NAME": "FMC Italia — comunicação pública",
+   "TERRITORY": "T9",
+   "SOURCE_ROLE": "DISCOVERY_SOURCE",
+   "SOURCE_TYPE": "site institucional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.fmcagro.it",
+   "REGION": "nacional",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "layer": "COMPETITOR_PUBLIC_COMMUNICATION"
+  },
+  {
+   "SOURCE_ID": "IT-T9-007",
+   "OWNER_ID": "IT-OWN-047",
+   "SOURCE_NAME": "UPL Italia — comunicação pública",
+   "TERRITORY": "T9",
+   "SOURCE_ROLE": "DISCOVERY_SOURCE",
+   "SOURCE_TYPE": "site institucional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.upl-ltd.com/it",
+   "REGION": "nacional",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "layer": "COMPETITOR_PUBLIC_COMMUNICATION"
+  },
+  {
+   "SOURCE_ID": "IT-T9-008",
+   "OWNER_ID": "IT-OWN-040",
+   "SOURCE_NAME": "ADAMA Italia — comunicação pública",
+   "TERRITORY": "T9",
+   "SOURCE_ROLE": "DISCOVERY_SOURCE",
+   "SOURCE_TYPE": "site institucional",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.adama.com/italia",
+   "REGION": "nacional",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "layer": "SELF_PUBLIC_COMMUNICATION",
+   "note": "não é concorrente; entra para permitir comparação da própria ADAMA com o conjunto"
+  },
+  {
+   "SOURCE_ID": "IT-T10-001",
+   "OWNER_ID": "IT-OWN-031",
+   "SOURCE_NAME": "ISMEA Mercati — preços por produto e praça",
+   "TERRITORY": "T10",
+   "SOURCE_ROLE": "MARKET_SOURCE",
+   "SOURCE_TYPE": "série oficial de preços de mercado",
+   "ACCESS_METHOD": "NÃO SEI — investigar exportação estruturada",
+   "URL": "https://www.ismeamercati.it",
+   "CROPS": "múltiplas",
+   "TOPICS": "produto, mercado/praça, data, preço, unidade, variação",
+   "REGION": "nacional com praças nomeadas",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI (esperado: praça)",
+   "UPDATE_FREQUENCY": "NÃO SEI (esperado: semanal)",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "priority_in_mission": 6,
+   "overlap_to_measure": "EU-T10-001 (DG AGRI) já é GREEN e já dá 16 praças italianas de cereais. Medir o que a ISMEA acrescenta: culturas fora de cereal (hortofrutícola, azeite, vinho) é a hipótese de valor real.",
+   "EVIDENCE_CLASS_EXPECTED": "MARKET_PRICE",
+   "WHAT_IT_PROVES": "preço praticado numa praça, numa data",
+   "WHAT_IT_DOES_NOT_PROVE": "volume vendido · margem do produtor · decisão de compra de insumo"
+  },
+  {
+   "SOURCE_ID": "IT-T10-002",
+   "OWNER_ID": "IT-OWN-032",
+   "SOURCE_NAME": "BMTI — analisi di mercato cereali",
+   "TERRITORY": "T10",
+   "SOURCE_ROLE": "MARKET_SOURCE",
+   "SOURCE_TYPE": "análise de mercado telemática",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.bmti.it",
+   "CROPS": "DURUM_WHEAT · SOFT_WHEAT · MAIZE",
+   "TOPICS": "preço, tendência, análise",
+   "REGION": "nacional",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "priority_in_mission": 7,
+   "gap_it_closes": "DURUM_WHEAT e MAIZE são duas das três lacunas de cultura desta missão"
+  },
+  {
+   "SOURCE_ID": "IT-T10-003",
+   "OWNER_ID": "IT-OWN-001",
+   "SOURCE_NAME": "ISTAT — commercio estero (import/export agrícola)",
+   "TERRITORY": "T10",
+   "SOURCE_ROLE": "MARKET_SOURCE",
+   "SOURCE_TYPE": "estatística oficial de comércio exterior",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.coeweb.istat.it",
+   "CROPS": "por commodity",
+   "TOPICS": "commodity, import/export, período, país, valor/volume",
+   "REGION": "nacional",
+   "GEOGRAPHIC_GRANULARITY": "país",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "channel_split_rule": "mesmo OWNER que IT-T1-001 (ISTAT), canal e território diferentes — não duplicar a organização",
+   "acervo_link": "o Atlas registra EU-T10-003 (Eurostat ext_lt_maineu) como NÃO SEI por consulta malformada. Se a rota ISTAT funcionar, cobre a mesma pergunta pelo lado italiano."
+  },
+  {
+   "SOURCE_ID": "IT-T10-004",
+   "OWNER_ID": "IT-OWN-021",
+   "SOURCE_NAME": "ICQRF — Cantina Italia",
+   "TERRITORY": "T10",
+   "SOURCE_ROLE": "MARKET_SOURCE",
+   "SOURCE_TYPE": "relatório oficial de estoque declarado",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "URL": "https://www.politicheagricole.it",
+   "CROPS": "GRAPE (vinho)",
+   "TOPICS": "estoque declarado de vinho por região",
+   "REGION": "nacional com desagregação regional",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI (esperado: região)",
+   "UPDATE_FREQUENCY": "NÃO SEI (esperado: mensal)",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "channel_split_rule": "separar de IT-T10-005 (Frantoio Italia) — mesmo owner, duas séries distintas",
+   "rare_value": "é uma das pouquíssimas fontes candidatas a ESTOQUE DECLARADO no acervo inteiro — o Atlas registra estoque como coisa que nenhuma fonte prova"
+  },
+  {
+   "SOURCE_ID": "IT-T10-005",
+   "OWNER_ID": "IT-OWN-021",
+   "SOURCE_NAME": "ICQRF — Frantoio Italia",
+   "TERRITORY": "T10",
+   "SOURCE_ROLE": "MARKET_SOURCE",
+   "SOURCE_TYPE": "relatório oficial de estoque declarado",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "URL": "https://www.politicheagricole.it",
+   "CROPS": "OLIVE (azeite)",
+   "TOPICS": "estoque declarado de azeite por região",
+   "REGION": "nacional com desagregação regional",
+   "GEOGRAPHIC_GRANULARITY": "NÃO SEI",
+   "UPDATE_FREQUENCY": "NÃO SEI",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "gap_it_closes": "OLIVE — cultura prioritária desta missão; casa com IT-T3-005 (mosca) pelo lado do mercado"
+  },
+  {
+   "SOURCE_ID": "IT-T11-001",
+   "OWNER_ID": "IT-OWN-034",
+   "SOURCE_NAME": "EIMA International",
+   "TERRITORY": "T11",
+   "SOURCE_ROLE": "DISCOVERY_SOURCE",
+   "SOURCE_TYPE": "feira internacional",
+   "ACCESS_METHOD": "site institucional (HTML)",
+   "URL": "https://www.eima.it",
+   "CROPS": "transversal (maquinário)",
+   "TOPICS": "expositores, planta do salão, edição, datas",
+   "REGION": "Bologna",
+   "GEOGRAPHIC_GRANULARITY": "não aplicável",
+   "UPDATE_FREQUENCY": "EVENT_DRIVEN (bienal)",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "PRE_EXISTING",
+   "ATLAS_VERDICT": "YELLOW",
+   "THIS_MISSION": "NOT_RETESTED",
+   "mission_instruction": "amostra pequena"
+  },
+  {
+   "SOURCE_ID": "IT-T11-002",
+   "OWNER_ID": "IT-OWN-036",
+   "SOURCE_NAME": "Enovitis in Campo",
+   "TERRITORY": "T11",
+   "SOURCE_ROLE": "DISCOVERY_SOURCE",
+   "SOURCE_TYPE": "feira de campo",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.enovitisincampo.it",
+   "CROPS": "GRAPE",
+   "TOPICS": "evento, local, data, expositor, sessão/tema",
+   "REGION": "itinerante",
+   "GEOGRAPHIC_GRANULARITY": "não aplicável",
+   "UPDATE_FREQUENCY": "EVENT_DRIVEN (anual)",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "acceptance_rule": "evento NÃO entra só como agenda. Precisa render pelo menos um de: tema · speaker · empresa · tecnologia · cultura · produto explícito."
+  },
+  {
+   "SOURCE_ID": "IT-T11-003",
+   "OWNER_ID": "IT-OWN-035",
+   "SOURCE_NAME": "Fieragricola (Veronafiere)",
+   "TERRITORY": "T11",
+   "SOURCE_ROLE": "DISCOVERY_SOURCE",
+   "SOURCE_TYPE": "feira agrícola",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.fieragricola.it",
+   "CROPS": "transversal",
+   "TOPICS": "expositores, programa",
+   "REGION": "Verona",
+   "GEOGRAPHIC_GRANULARITY": "não aplicável",
+   "UPDATE_FREQUENCY": "EVENT_DRIVEN (bienal)",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "mission_instruction": "amostra pequena"
+  },
+  {
+   "SOURCE_ID": "IT-T11-004",
+   "OWNER_ID": "IT-OWN-014",
+   "SOURCE_NAME": "FEM — eventos e convegni técnicos",
+   "TERRITORY": "T11",
+   "SOURCE_ROLE": "DISCOVERY_SOURCE",
+   "SOURCE_TYPE": "eventos de fundação de pesquisa",
+   "ACCESS_METHOD": "NÃO SEI",
+   "URL": "https://www.fmach.it",
+   "CROPS": "GRAPE · APPLE",
+   "TOPICS": "convegni, temas, speakers",
+   "REGION": "Trentino",
+   "GEOGRAPHIC_GRANULARITY": "não aplicável",
+   "UPDATE_FREQUENCY": "EVENT_DRIVEN",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "channel_split_rule": "quinto canal do owner FEM"
+  },
+  {
+   "SOURCE_ID": "IT-T12-002",
+   "OWNER_ID": "IT-OWN-020",
+   "SOURCE_NAME": "MASAF — PSP / Piano Strategico della PAC in Italia",
+   "TERRITORY": "T12",
+   "SOURCE_ROLE": "TECHNICAL_GUIDANCE_SOURCE",
+   "SOURCE_TYPE": "documento oficial de política",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "URL": "https://www.politicheagricole.it",
+   "CROPS": "transversal",
+   "TOPICS": "produção integrada, redução de insumos, orgânico, água, solo, agricultura de precisão",
+   "REGION": "nacional",
+   "GEOGRAPHIC_GRANULARITY": "país (com intervenções regionais)",
+   "UPDATE_FREQUENCY": "NÃO SEI (versões do plano)",
+   "HISTORICAL_DEPTH": "NÃO SEI",
+   "STATUS": "NEW",
+   "THIS_MISSION": "NOT_TESTED",
+   "id_note": "recebe 002 e NÃO 001 porque IT-T12-001 aparece no Atlas como exemplo da convenção de ID (ver taxonomy_debt.other_debts). Evita colisão futura.",
+   "channel_split_rule": "mesmo OWNER que IT-T7-002 (MASAF OP/AOP), canal e território diferentes",
+   "objective_phase_C": "capturar a versão vigente e extrair ao menos UMA intervenção relevante",
+   "EVIDENCE_CLASS_EXPECTED": "POLICY_REQUIREMENT",
+   "WHAT_IT_PROVES": "o que a política exige e financia",
+   "WHAT_IT_DOES_NOT_PROVE": "adesão do produtor · prática realizada em campo"
+  }
+ ],
+ "duplication_analysis": {
+  "PRE_EXISTING_REUSED": [
+   "IT-T1-001",
+   "IT-T3-001",
+   "IT-T4-001",
+   "IT-T11-001"
+  ],
+  "PRE_EXISTING_NEEDS_DECISION": [
+   {
+    "id": "IT-T9-001",
+    "issue": "ficha compartilhada FR/ES/IT que não mede empresa a empresa",
+    "proposal": "reatribuir a BASF Italia e abrir IT-T9-002..008; a ficha compartilhada continua existindo para FR e ES",
+    "blocker": "o ID já está contado no placar do Atlas (37) e em tests/test_handoff.py:111"
+   },
+   {
+    "id": "IT-T13-001",
+    "issue": "território T13 proibido por esta missão",
+    "proposal": "ver taxonomy_debt.T13"
+   }
+  ],
+  "MERGE_BY_OWNER": [
+   {
+    "owner": "IT-OWN-008 Terre dell'Etruria",
+    "channels": [
+     "IT-T3-005",
+     "IT-T3-006",
+     "IT-T7-001"
+    ],
+    "rule": "1 organização, 3 fichas, 0 duplicação de owner"
+   },
+   {
+    "owner": "IT-OWN-014 FEM",
+    "channels": [
+     "IT-T3-012",
+     "IT-T5-002",
+     "IT-T7-006",
+     "IT-T11-004"
+    ],
+    "rule": "+ T6 servido por EU-T5-001, sem ficha nova"
+   },
+   {
+    "owner": "IT-OWN-020 MASAF",
+    "channels": [
+     "IT-T7-002",
+     "IT-T12-002"
+    ]
+   },
+   {
+    "owner": "IT-OWN-021 ICQRF",
+    "channels": [
+     "IT-T10-004",
+     "IT-T10-005"
+    ],
+    "note": "ICQRF é departamento do MASAF; owner próprio para não duplicar o MASAF nem fundir séries distintas"
+   },
+   {
+    "owner": "IT-OWN-001 ISTAT",
+    "channels": [
+     "IT-T1-001",
+     "IT-T10-003"
+    ]
+   },
+   {
+    "owner": "IT-OWN-006 ALSIA",
+    "channels": [
+     "IT-T2-005",
+     "IT-T3-004"
+    ]
+   },
+   {
+    "owner": "IT-OWN-007 Campania SFR",
+    "channels": [
+     "IT-T3-002",
+     "IT-T3-003"
+    ]
+   }
+  ],
+  "SPLIT_BY_OWNER_NOT_TO_MERGE": [
+   {
+    "pair": [
+     "IT-OWN-002 ARPAE",
+     "IT-OWN-033 Emilia-Romagna Servizio Fitosanitario"
+    ],
+    "why": "mesma região, órgãos diferentes, territórios diferentes (T2 vs T3)"
+   },
+   {
+    "pair": [
+     "IT-OWN-013 AGRIOS",
+     "IT-OWN-027 VOG"
+    ],
+    "why": "AGRIOS emite diretriz técnica; VOG é rede de produtores. A missão exige separar."
+   },
+   {
+    "pair": [
+     "IT-OWN-005 SIAS",
+     "IT-OWN-009 Sicilia Servizio Fitosanitario"
+    ],
+    "why": "mesma região, agrometeorologia vs fitossanidade"
+   }
+  ],
+  "OVERLAP_TO_MEASURE_BEFORE_OPERATIONALIZING": [
+   {
+    "new": "IT-T10-001 ISMEA",
+    "existing": "EU-T10-001 DG AGRI (GREEN, 16 praças IT de cereais)",
+    "question": "o que a ISMEA acrescenta fora de cereal?"
+   },
+   {
+    "new": "IT-T5-004 CNR IRIS",
+    "existing": "EU-T5-001 OpenAlex (GREEN, já filtra afiliação italiana)",
+    "question": "IRIS acrescenta tipo documental que o OpenAlex não cobre (relatório técnico, projeto)?"
+   },
+   {
+    "new": "IT-T10-003 ISTAT commercio estero",
+    "existing": "EU-T10-003 Eurostat (NÃO SEI, consulta malformada)",
+    "question": "resolver a consulta Eurostat pode ser mais barato que abrir rota nova"
+   }
+  ]
+ },
+ "counts": {
+  "owners_registered": 44,
+  "sources_in_catalog": 54,
+  "pre_existing": 4,
+  "redefined": 1,
+  "new_candidates": 49,
+  "by_territory": {
+   "T1": 1,
+   "T2": 5,
+   "T3": 12,
+   "T4": 1,
+   "T5": 5,
+   "T7": 12,
+   "T9": 8,
+   "T10": 5,
+   "T11": 4,
+   "T12": 1
+  },
+  "tested_this_mission": 54,
+  "GREEN": 10,
+  "YELLOW": 5,
+  "RED": 0,
+  "NOT_TESTED": 38,
+  "note": "CALCULADO por provas/italy_accounting.mjs. O texto anterior desta chave estava desatualizado e foi substituido. Placar sobre as fontes ANALYTICALLY_CLASSIFIED; estado de porta nao entra aqui.",
+  "amostras_preservadas": 14,
+  "nota_de_contagem": "placar sobre as 16 fontes com amostra e classificacao.",
+  "verified_by": "provas/italy_accounting.mjs — CALCULADO dos manifestos, nunca digitado a mao",
+  "NAO_SEI": 1
+ },
+ "canonical_artifacts_touched": {
+  "modified": [],
+  "reason": "docs/fontes/ATLAS-DE-FONTES-EAME.md está protegido por contagem travada (SOURCE_ID_COUNT=37) em tests/test_handoff.py:111, tests/test_canonico.py e tests/test_metricas.py. A missão determina só alterar canônico se não quebrar contratos. Este catálogo é aditivo e não altera o placar."
+ },
+ "fase_C_D_executada_2026_09_07": {
+  "metodo": "curl com User-Agent de navegador, saindo pelo IP italiano (VPN Proton, Milao). A extensao do Chrome nao pareou, e descobriu-se que nao era pre-requisito.",
+  "regra_de_assimetria_do_curl": {
+   "ACCESS_OK": "sinal FORTE — se abre para curl, abre para navegador",
+   "BLOCKED": "sinal FRACO — BLOCKED_EM_CURL_ITALIANO != BLOCKED_EM_BROWSER_ITALIANO. Vira NAO SEI, nunca RED.",
+   "consequencia": "nenhum RED foi emitido nesta missao"
+  },
+  "probe": {
+   "arquivo": "data/samples/IT-PROBE/probe-fase-c.json",
+   "urls": 43,
+   "ACCESS_OK": 31,
+   "ACCESS_OK_MAS_MAGRO": 2,
+   "BLOCKED_PARA_CURL": 4,
+   "NETWORK_ERROR": 5,
+   "ROTA_INEXISTENTE": 1
+  },
+  "correcoes_de_endereco": [
+   {
+    "fonte": "ARPAE T2",
+    "erro": "404 na URL do catalogo",
+    "certo": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo"
+   },
+   {
+    "fonte": "Campania T3",
+    "erro": "certificado nao bate com www",
+    "certo": "https://agricoltura.regione.campania.it (sem www)"
+   },
+   {
+    "fonte": "FEM OpenPub T5",
+    "erro": "publications.fmach.it nao existe",
+    "certo": "https://openpub.fmach.it"
+   },
+   {
+    "fonte": "ISTAT T1",
+    "erro": "portal exige JavaScript",
+    "certo": "API SDMX 2.1 no mesmo dominio, sem chave"
+   },
+   {
+    "fonte": "FMC Italia T9",
+    "erro": "www.fmcagro.it nao existe",
+    "certo": "NAO SEI — nenhuma variante resolveu"
+   },
+   {
+    "fonte": "CAI T7",
+    "erro": "conexao derrubada",
+    "certo": "NAO SEI — reteste em navegador"
+   },
+   {
+    "fonte": "Giornate Fitopatologiche T5/T11",
+    "erro": "tratada como um owner so",
+    "certo": "os PDFs moram em aipp.it — sao DUAS organizacoes"
+   }
+  ],
+  "amostras_preservadas": [
+   {
+    "SOURCE_ID": "IT-T3-002",
+    "VERDICT": "GREEN",
+    "PRIORITY": "P0",
+    "recorrencia": "WEEKLY provado (14 edicoes de 7 em 7 dias)"
+   },
+   {
+    "SOURCE_ID": "IT-T2-001",
+    "VERDICT": "GREEN",
+    "PRIORITY": "P0",
+    "recorrencia": "WEEKLY provado (numeracao sequencial + 7 dias)"
+   },
+   {
+    "SOURCE_ID": "IT-T4-001",
+    "VERDICT": "GREEN",
+    "PRIORITY": "P0",
+    "recorrencia": "NAO SEI — so uma data observada"
+   },
+   {
+    "SOURCE_ID": "IT-T1-001",
+    "VERDICT": "GREEN",
+    "PRIORITY": "P0",
+    "recorrencia": "ANNUAL declarado, nao medido"
+   },
+   {
+    "SOURCE_ID": "IT-T3-005",
+    "VERDICT": "NAO SEI",
+    "PRIORITY": "P0 candidato",
+    "recorrencia": "NAO SEI — o site nao guarda arquivo"
+   },
+   {
+    "SOURCE_ID": "IT-T10-002",
+    "VERDICT": "YELLOW",
+    "PRIORITY": "P1",
+    "recorrencia": "NAO SEI"
+   },
+   {
+    "SOURCE_ID": "IT-T5-003",
+    "VERDICT": "YELLOW",
+    "PRIORITY": "P1",
+    "recorrencia": "ANNUAL / EVENT_DRIVEN"
+   }
+  ],
+  "exigem_navegador_nao_sao_RED": [
+   "AGRIOS (JavaScript)",
+   "SIAS Sicilia (frameset antigo)",
+   "ARPAV escolha de zona (JavaScript)",
+   "MASAF lista OP/AOP",
+   "ALSIA bollettini fitosanitari",
+   "ARIF Puglia / Bayer / Syngenta / ADAMA (403 para curl)",
+   "CAI (conexao derrubada)"
+  ],
+  "owners_novos_descobertos": [
+   {
+    "OWNER_ID": "IT-OWN-AIPP",
+    "nome": "AIPP — Associazione Italiana per la Protezione delle Piante",
+    "OWNER_KIND": "TRADE_ASSOCIATION",
+    "papel": "hospeda os PDFs das Giornate Fitopatologiche"
+   },
+   {
+    "OWNER_ID": "IT-OWN-CAMPANIA-SFR",
+    "nome": "Regione Campania — Servizio Fitosanitario Regionale",
+    "OWNER_KIND": "OFFICIAL_REGIONAL_AGENCY"
+   }
+  ]
+ },
+ "estados_de_cobertura_2026_09_07": {
+  "porque_existe": "quatro estados separados, nunca colapsados. Atualizado apos a rodada browser.",
+  "ROTAS_NO_CATALOGO": 54,
+  "ROUTE_PROBED": {
+   "n": 54,
+   "o_que_significa": "porta medida. Subiu de 51 para 54: as tres sem URL ganharam endereco nesta rodada."
+  },
+  "SAMPLE_CAPTURED": {
+   "n": 16
+  },
+  "RAW_PRESERVED": {
+   "n": 14
+  },
+  "BROWSER_RENDERED_EXTRACT": {
+   "n": 2,
+   "quais": [
+    "IT-T9-008",
+    "IT-T9-002"
+   ]
+  },
+  "ANALYTICALLY_CLASSIFIED": {
+   "n": 16
+  },
+  "NUNCA_TOCADAS": {
+   "n": 0,
+   "nota": "as tres que faltavam endereco foram todas localizadas nesta rodada"
+  },
+  "PROBADAS_SEM_AMOSTRA": {
+   "n": 38
+  },
+  "aviso": "SAMPLE_CAPTURED (16) = RAW_PRESERVED (14) + BROWSER_RENDERED_EXTRACT (2). Nao somar duas vezes."
+ },
+ "leis_permanentes": {
+  "ROUTE_NOT_FOUND_NAO_E_SOURCE_BLOCKED": {
+   "lei": "ROUTE_NOT_FOUND != SOURCE_BLOCKED",
+   "lei_irma": "OLD_URL_FAILURE != CURRENT_SOURCE_FAILURE",
+   "de_onde_veio": "nesta rodada, 7 supostos bloqueios eram endereco errado no nosso proprio catalogo: um 'www' a mais (Campania), um host morto (publications.fmach.it), um caminho antigo (ARPAE 404). Se ninguem conferisse, virariam 'a Italia bloqueia'.",
+   "antes_de_escrever_BLOCKED_e_obrigatorio": [
+    "1 · verificar o dominio oficial",
+    "2 · localizar a pagina canonica atual",
+    "3 · conferir redirects",
+    "4 · procurar o link atual a partir da homepage ou da busca do proprio site",
+    "5 · so entao registrar bloqueio"
+   ],
+   "consequencia": "erro de catalogo NOSSO nunca vira defeito DA FONTE",
+   "lei_relacionada": "BLOCKED_EM_CURL_ITALIANO != BLOCKED_EM_BROWSER_ITALIANO (ver fase_C_D_executada_2026_09_07.regra_de_assimetria_do_curl)"
+  }
+ },
+ "rodada_browser_2026_09_07": {
+  "instrumento": "navegador com janela, do IP italiano. IP de saida do NAVEGADOR verificado antes de tudo: 205.147.30.20 · Milano · IT · Proton AG. A extensao do Chrome do usuario continua nao pareada; usou-se o navegador embutido, que sai pela mesma VPN do sistema.",
+  "base": "claude/italy-source-master-v1 @ d1639e61b9460948a65fd94ed87030a17623e840",
+  "o_que_o_browser_resolveu": [
+   {
+    "fonte": "IT-T7-002 MASAF OP/AOP",
+    "antes": "lista nao aparecia por navegacao simples",
+    "agora": "planilha .ods com 269 organizacoes, achada pelo menu Politiche nazionali > Filiere"
+   },
+   {
+    "fonte": "IT-T3-011 AGRIOS",
+    "antes": "marcada como 'provavel JavaScript'",
+    "agora": "nao era JavaScript — o site e em ALEMAO. Direttive 2026 em italiano preservadas."
+   },
+   {
+    "fonte": "IT-T2-002 ARPAV",
+    "antes": "escolha de zona parecia JavaScript",
+    "agora": "32 PDFs de zona com URL fixa, que so o navegador revelou"
+   },
+   {
+    "fonte": "IT-T2-004 SIAS Sicilia",
+    "antes": "frameset devolvia casca vazia",
+    "agora": "tabela diaria por estacao, 88 estacoes declaradas"
+   },
+   {
+    "fonte": "IT-T3-008 ARIF Puglia",
+    "antes": "403 ao curl",
+    "agora": "arifpuglia.it da 403 ATE no navegador, MAS a ARIF publica em agrometeopuglia.it — semanal fitossanitario, Anno XL"
+   },
+   {
+    "fonte": "IT-T3-010 APOL Lecce",
+    "antes": "sem URL no catalogo",
+    "agora": "http://www.apol.it (HTTP, nao HTTPS) — 9 boletins semanais de mosca-da-azeitona em 2026 + 14 em 2025"
+   },
+   {
+    "fonte": "IT-T5-002 FEM OpenPub",
+    "antes": "host do catalogo nao resolvia",
+    "agora": "openpub.fmach.it — artigo com abstract preservado"
+   },
+   {
+    "fonte": "IT-T9-008 ADAMA / IT-T9-002 Bayer",
+    "antes": "403 ao curl",
+    "agora": "ABREM no navegador italiano. 403 era filtro anti-robo, nao bloqueio ao pais."
+   }
+  ],
+  "concorrentes_T9": {
+   "lei": "COMPANY_CLAIM != REGULATORY_FACT — vale inclusive para a ADAMA",
+   "ADAMA_Italia": {
+    "ACCESS": "ACCESS_OK no navegador",
+    "BROWSER_REQUIRED": "YES",
+    "WAF": "YES (403 ao curl com cabecalhos completos)",
+    "CONTENT_AVAILABLE": "YES",
+    "amostra": "artigo 03/06/2026 sobre Sonavio®/bifenox, inibidor de PPO, resistencia de infestantes em horticolas/tomate",
+    "estado": "BROWSER_RENDERED_EXTRACT"
+   },
+   "Bayer_Crop_Science_Italia": {
+    "ACCESS": "ACCESS_OK no navegador",
+    "BROWSER_REQUIRED": "YES",
+    "WAF": "YES",
+    "CONTENT_AVAILABLE": "YES",
+    "amostra": "Mais Lab — podcast sobre diserbo e resistencia de infestantes em milho, com quatro tecnicos nomeados e a marca Dekalb",
+    "estado": "BROWSER_RENDERED_EXTRACT"
+   },
+   "Syngenta_Italia": {
+    "ACCESS": "WAF_CHALLENGE",
+    "detalhe": "pagina de verificacao anti-bot nao foi vencida em 6 segundos de espera no navegador",
+    "CONTENT_AVAILABLE": "NO nesta tentativa",
+    "VERDICT": "NÃO SEI — nao vira RED"
+   },
+   "achado_comparativo": "ADAMA e Bayer estao, no mesmo ano, comunicando o MESMO problema — resistencia de plantas daninhas a herbicida — em culturas diferentes. Observacao direta de duas paginas datadas, sem inferencia.",
+   "aviso_de_preservacao": "os dois extratos NAO sao RAW_PRESERVED. Sao BROWSER_RENDERED_EXTRACT: o site recusa qualquer cliente sem navegador, entao os bytes servidos nao puderam ser guardados."
+  },
+  "tres_fontes_sem_url": {
+   "IT-T3-003": {
+    "resultado": "URL ENCONTRADA, AMOSTRA NAO",
+    "URL": "https://simfito.regione.campania.it/",
+    "rota_dos_boletins": "https://simfito.regione.campania.it/bollettini",
+    "estado": "SOURCE_REAL_BUT_REQUIRES_LOGIN — a pagina pede login e aceite de licenca",
+    "classificacao": "PUBLIC_CAPABILITY",
+    "regra_aplicada": "NAO se tentou contornar autenticacao",
+    "VERDICT": "NÃO SEI",
+    "nota": "a landing publica descreve uma plataforma GIS do Servizio Fitosanitario da Campania. A existencia esta provada; a entrega, nao."
+   },
+   "IT-T3-010": {
+    "resultado": "RESOLVIDA COM AMOSTRA",
+    "URL": "http://www.apol.it",
+    "causa_do_erro_anterior": "o site e HTTP, nao HTTPS — o teste com https:// devolvia zero",
+    "VERDICT": "GREEN"
+   },
+   "IT-T7-012": {
+    "resultado": "URL ENCONTRADA, IDENTIDADE PROVADA, AMOSTRA NAO",
+    "URL": "https://pica.cavit.it/",
+    "identidade": "PICA e mesmo a Piattaforma Integrata Cartografica Agri-vitivinicola, e o vinculo com a CAVIT esta PROVADO — o sistema mora no dominio cavit.it",
+    "estado": "OPERATIONAL_DATA = NOT_PUBLICLY_ACCESSIBLE — ha AREA RISERVATA com login",
+    "classificacao": "PUBLIC_CAPABILITY",
+    "regra_aplicada": "NAO se tentou contornar autenticacao. Resultado negativo e resultado valido.",
+    "VERDICT": "NÃO SEI"
+   }
+  },
+  "fontes_que_continuam_sem_amostra": {
+   "Syngenta_Italia": "WAF_CHALLENGE no navegador",
+   "ISMEA_Mercati": "rota do banco de precos ENCONTRADA (4 vistas: prodotto/varieta, prodotto/piazza, prodotto/piazza-condizione, piazza/prodotto), mas o painel nao renderizou a tabela nesta sessao e nenhuma chamada de dados apareceu no trafego. Criterio de parada aplicado. VERDICT = NÃO SEI.",
+   "ICQRF": "nao alcancada nesta rodada — sem tempo, nao por bloqueio",
+   "cooperativas_P3": "Agrintesa, Apofruit, Apo Conerpo, Ortofruit, VOG, Melinda, CAI nao foram testadas nesta rodada. Continuam ROUTE_PROBED sem amostra.",
+   "CNR_IRIS_e_SIRFI": "nao alcancadas nesta rodada"
+  },
+  "leis_confirmadas_em_campo": [
+   "ROUTE_NOT_FOUND != SOURCE_BLOCKED — confirmada TRES vezes nesta rodada: ARIF (outro dominio), APOL (HTTP e nao HTTPS), FEM OpenPub (outro host)",
+   "BROWSER_REQUIRED != SOURCE_UNAUTOMATABLE — ADAMA e Bayer exigem navegador e continuam automatizaveis com navegador",
+   "AGROCLIMATIC_SIGNAL != PEST_OCCURRENCE — aplicada a ARPAV e ao SIAS",
+   "COMPANY_CLAIM != REGULATORY_FACT — aplicada a ADAMA e a Bayer",
+   "ACCESS_OK != SOURCE_ANALYTICALLY_USEFUL — por isso IT-T3-008 ficou YELLOW: o PDF esta preservado, mas a secao fitossanitaria nao foi lida"
+  ],
+  "CORRECAO_MASAF": "publiquei 269 e depois 264 organizacoes. Ambos ERRADOS. O certo e 272 (264 OP + 8 AOP), 0 duplicados — meu regex nao casava codigo de AOP, que tem quatro segmentos."
+ },
+ "matriz_regiao_x_cultura": {
+  "metodo": "so entra celula com FONTE PROVADA (amostra preservada ou extrato) nesta ou na rodada anterior. Nada inferido.",
+  "PUGLIA": {
+   "OLIVE": "IT-T3-010 APOL Lecce — sinal de campo semanal por comprensorio · IT-T7-002 MASAF: 62 OP na regiao",
+   "GERAL": "IT-T3-008 ARIF/Agrometeopuglia — semanal agromet+fitossanitario (secao fito nao lida)",
+   "DURUM_WHEAT": "AINDA VAZIO"
+  },
+  "SICILIA": {
+   "CLIMA": "IT-T2-004 SIAS — diario por estacao",
+   "FITOSSANITARIO": "AINDA VAZIO"
+  },
+  "CAMPANIA": {
+   "AGRUMI, DRUPACEE, POMACEE, OLIVO": "IT-T3-002 — boletim semanal por provincia, com limiar e substancia ativa",
+   "SISTEMA": "IT-T3-003 SIMFITO existe mas pede login"
+  },
+  "EMILIA-ROMAGNA": {
+   "CLIMA": "IT-T2-001 ARPAE — semanal, arquivo de 6 anos"
+  },
+  "VENETO": {
+   "CLIMA": "IT-T2-002 ARPAV — 32 zonas (conteudo nao lido)"
+  },
+  "TOSCANA": {
+   "OLIVE": "IT-T3-005 Terre dell'Etruria — 139 pontos, mosca dell'olivo"
+  },
+  "BASILICATA": {
+   "OLIVE": "IT-T5-003 bilancio fitossanitario anual (retrospectivo)"
+  },
+  "MARCHE": {
+   "OLIVE": "IT-T5-003 bilancio fitossanitario anual (retrospectivo)"
+  },
+  "TRENTINO-ALTO ADIGE": {
+   "APPLE": "IT-T3-011 AGRIOS — disciplinar 2026 de pomacee",
+   "VINE": "IT-T7-012 PICA existe mas o dado e privado",
+   "CIENCIA": "IT-T5-002 FEM OpenPub"
+  },
+  "PIEMONTE": {
+   "nada": "sem fonte propria provada"
+  },
+  "NACIONAL": {
+   "TODAS": "IT-T1-001 ISTAT (233 culturas por provincia) · IT-T4-001 registro de autorizacoes · IT-T7-002 MASAF OP · IT-T10-002 BMTI (mais e grano tenero)"
+  },
+  "leitura_das_culturas_prioritarias": {
+   "OLIVE": "MUITO melhor: Puglia (sinal semanal), Toscana (139 pontos), Basilicata e Marche (retrospectivo), + 103 OP de azeite no MASAF",
+   "MAIZE": "parcial: preco (BMTI), producao (ISTAT), comunicacao de concorrente (Bayer). Sem sinal de campo.",
+   "VINE": "fraco em sinal: PICA e privado; ha ciencia (FEM) e producao (ISTAT)",
+   "APPLE": "regra tecnica (AGRIOS) e ciencia (FEM). Sem sinal de campo.",
+   "DURUM_WHEAT": "CONTINUA A MAIOR LACUNA — nenhuma fonte nova cobre. So preco e producao nacional."
+  }
+ },
+ "contabilidade_reconciliada_2026_09_07": {
+  "LEI": "ACCESS_CLASSIFICATION != ANALYTIC_VERDICT",
+  "dois_erros_meus": [
+   "no JSON eu DIGITEI YELLOW=5 e NAO_SEI=2. Calculado: YELLOW=6 e NAO_SEI=1.",
+   "no relatorio contei 3 NAO SEI da rodada browser, mas Syngenta, SIMFITO e PICA nunca receberam veredito analitico — sao ESTADO DE PORTA. Erro de categoria; por isso a soma dava 12 em vez de 9."
+  ],
+  "ANALYTICALLY_CLASSIFIED": 16,
+  "VEREDITOS_ATUAIS": {
+   "GREEN": 10,
+   "YELLOW": 5,
+   "RED": 0,
+   "NAO_SEI": 1,
+   "SEM_VEREDITO": 0
+  },
+  "VEREDITOS_BASE": {
+   "GREEN": 4,
+   "YELLOW": 2,
+   "RED": 0,
+   "NAO_SEI": 1,
+   "SEM_VEREDITO": 0
+  },
+  "ROUND_BROWSER_DELTA": {
+   "novas_por_source_id": [
+    "IT-T2-002=YELLOW",
+    "IT-T2-004=GREEN",
+    "IT-T3-008=GREEN",
+    "IT-T3-010=GREEN",
+    "IT-T3-011=GREEN",
+    "IT-T5-002=GREEN",
+    "IT-T7-002=GREEN",
+    "IT-T9-002=YELLOW",
+    "IT-T9-008=YELLOW"
+   ],
+   "quantas": 9,
+   "por_veredito": {
+    "GREEN": 6,
+    "YELLOW": 3,
+    "RED": 0,
+    "NAO_SEI": 0,
+    "SEM_VEREDITO": 0
+   }
+  },
+  "BASE_CLASSIFIED_SET": [
+   "IT-T1-001",
+   "IT-T2-001",
+   "IT-T3-002",
+   "IT-T3-005",
+   "IT-T4-001",
+   "IT-T5-003",
+   "IT-T10-002"
+  ],
+  "SO_ESTADO_DE_PORTA": {
+   "IT-T3-003": {
+    "nome": "SIMFITO (Campania)",
+    "ACCESS_STATE": "LOGIN_REQUIRED",
+    "classificacao": "PUBLIC_CAPABILITY",
+    "ANALYTIC_VERDICT": null
+   },
+   "IT-T7-012": {
+    "nome": "PICA (CAVIT)",
+    "ACCESS_STATE": "LOGIN_REQUIRED",
+    "classificacao": "PUBLIC_CAPABILITY",
+    "ANALYTIC_VERDICT": null
+   },
+   "IT-T9-003": {
+    "nome": "Syngenta Italia",
+    "ACCESS_STATE": "WAF_CHALLENGE",
+    "classificacao": null,
+    "ANALYTIC_VERDICT": null
+   },
+   "IT-T10-001": {
+    "nome": "ISMEA Mercati",
+    "ACCESS_STATE": "ROUTE_FOUND_PANEL_NOT_RENDERED",
+    "classificacao": null,
+    "ANALYTIC_VERDICT": null
+   }
+  },
+  "fecha": true,
+  "nota_da_reavaliacao": "IT-T3-008 (Puglia) subiu de YELLOW para GREEN nesta missao, ao ser lido com pdftotext. Por isso o delta da rodada browser mostra +6 GREEN / +3 YELLOW aqui, e nao +5/+4: o placar reflete o estado ATUAL das mesmas 9 fontes, nao o estado no dia da rodada."
+ }
+}

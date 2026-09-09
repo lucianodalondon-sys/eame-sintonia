@@ -1,6 +1,6 @@
 # O motor de oportunidades · V1
 
-> Todo numero aqui sai de `scripts/v21_oportunidades.py`, que roda no passo 5e da
+> Todo numero aqui sai de `motor/v21_oportunidades.py`, que roda no passo 5e da
 > cadeia e reconta do proprio pacote a cada build.
 > `BUILD_ID` desta leitura: `V21-99226fbb90dcdbc2`
 
