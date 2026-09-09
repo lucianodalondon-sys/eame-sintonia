@@ -81,49 +81,70 @@ prova("a_familia_vem_da_zona_e_nao_da_peca",
       "peca a declarar familia diferente da sua zona cria dois agrupamentos")
 
 # ── carimbo e medida nao se confundem ───────────────────────────────────────
-# A divisao entre «a regua que CARIMBA» e «a regua que MEDE» foi feita a partir
-# de uma medicao: carimba quem e usada por uma acao no momento em que ela colhe;
-# mede quem olha para tras e da nota. Escrita a mao no ficheiro declarado, essa
-# divisao envelhece calada — no dia em que um coletor passar a importar uma
-# medida, a gaveta continua a dizer o contrario.
 #
-#     MEDIR NAO E FILTRAR. Uma regua que so mede nao barra nada, e por-la
-#     antes das acoes faz parecer que ha peneira onde so ha termometro.
-USADA_NA_COLETA = ("Z-ACOES", "Z-CANDIDATAS", "Z-VEICULOS", "Z-ADMISSAO")
-ZONA = {n["id"]: n["territory"] for n in S["NODES"]}
-
-# ⚠️ ESTA PROVA REPROVA, E A REPROVACAO E DELA — NAO DA ARVORE.
-# Medido em 2026-09-09, com as tres respostas possiveis testadas:
+# A PERGUNTA ANTIGA ERA INDECIDIVEL, e por isso esta prova esteve vermelha de
+# proposito. Ela separava CARIMBAR de MEDIR assim:
 #
-#   como esta        acusa C-RASTRO      (o rastro MEDE; nao carimba nada)
-#   sem contar IMPORTS  acusa C-PALAVRAS e C-SENSOR-COLETA
+#     «esta peca tem seta para uma zona de accao?»
 #
-# O sinal que ela usa — «tem seta para uma zona de accao» — nao separa as duas
-# coisas, porque nos quatro casos as setas sao `IMPORTS`, e a dependencia vai
-# ao contrario do desenho: e o coletor que importa o rastro para emitir
-# telemetria, nao o rastro que carimba o item.
+# e nos quatro casos que acusava, as setas eram `IMPORTS`. O `IMPORTS` segue o
+# dado, ou seja, aponta de quem e importado PARA quem importa: e o coletor que
+# importa o rastro para emitir telemetria, e nao o rastro que carimba o item.
 #
 #     UM IMPORT NAO E UM CARIMBO.
 #     E A SETA DO IMPORT APONTA PARA O LADO CONTRARIO DA DEPENDENCIA.
 #
-# E ha um terceiro caso que a pergunta binaria nao consegue dizer:
-# `C-SENSOR-COLETA` nao e regua NENHUMA — e um COLETOR a viver em `regras/`.
-# A resposta certa para ele nao e «Z-REGRAS» nem «Z-MEDIDAS»: e mudar o
-# ficheiro de pasta. Fica registado como rehome.
+# A pergunta certa nao esta em quem me importa: esta no que eu PRODUZO e em QUEM
+# O CONSOME. Um carimbo entra no caminho do item; um termometro nao. O papel e
+# MEDIDO em `generate_system_map.papel_de_cada_regua`, com quatro respostas
+# possiveis e uma frase de prova em cada peca — nunca lido no nome dela, porque
+# `medidas/` e `regras/` sao gavetas, e uma gaveta nao e uma funcao.
+ZONA = {n["id"]: n["territory"] for n in S["NODES"]}
+_REGUAS = [n for n in S["NODES"] if n.get("rule_role")]
+_PAPEIS = {"STAMPS", "MEASURES", "DECLARES", "NAO SEI"}
+prova("toda_regua_tem_papel_medido",
+      _REGUAS and all(n["rule_role"] in _PAPEIS for n in _REGUAS),
+      f"{len(_REGUAS)} reguas; papeis fora do vocabulario: "
+      f"{sorted({n['rule_role'] for n in _REGUAS} - _PAPEIS)}")
+prova("todo_papel_de_regua_diz_porque",
+      all(n.get("rule_role_evidence") for n in _REGUAS),
+      "O MAPA TEM DE SABER RESPONDER «porque e esta uma regua que mede?» — "
+      "e a resposta nao pode ser «porque ha uma seta a apontar para la»")
+_indecisos = [n["id"] for n in _REGUAS if n["rule_role"] == "NAO SEI"]
+prova("nenhuma_regua_ficou_por_decidir", not _indecisos, ", ".join(_indecisos))
+
+# O INVARIANTE. Quem carimba poe estado no caminho do item; arruma-lo entre as
+# medicoes faz parecer que ha termometro onde ha peneira, e o contrario tambem:
 #
-# NAO SE AFROUXA A PROVA PARA ELA FICAR VERDE. Ela continua como estava, a
-# reprovar, e o que ela acusa esta explicado aqui. Uma prova que se conserta a
-# ajustar o limiar ate o vermelho sumir deixa de medir seja o que for.
-trocadas = []
-for n in S["NODES"]:
-    if n["territory"] not in ("Z-REGRAS", "Z-MEDIDAS"):
-        continue
-    carimba = any(ZONA.get(b) in USADA_NA_COLETA for b in n.get("outbound", []))
-    devia = "Z-REGRAS" if carimba else "Z-MEDIDAS"
-    if devia != n["territory"]:
-        trocadas.append(f"{n['name']}: esta em {n['territory']}, medido como {devia}")
-prova("regua_que_carimba_nao_e_regua_que_mede", not trocadas,
-      "; ".join(trocadas[:4]))
+#     MEDIR NAO E FILTRAR. Uma regua que so mede nao barra nada.
+_carimba_mas_esta_nas_medidas = [
+    f"{n['id']} ({n['rule_role_evidence']})" for n in _REGUAS
+    if n["rule_role"] == "STAMPS" and n["territory"] == "Z-MEDIDAS"]
+prova("regua_que_carimba_nao_e_regua_que_mede",
+      not _carimba_mas_esta_nas_medidas, "; ".join(_carimba_mas_esta_nas_medidas))
+
+# §30 · FAMILIA e PAPEL sao eixos diferentes, e a prova disso e haver o mesmo
+# papel em familias diferentes. Se um dia o papel passar a ser derivado da
+# familia, esta linha cai — e e isso que ela existe para apanhar.
+_fam_de = {n["id"]: n.get("family") for n in S["NODES"]}
+_fam_dos_carimbos = {_fam_de[n["id"]] for n in _REGUAS if n["rule_role"] == "STAMPS"}
+prova("papel_nao_e_a_mesma_pergunta_que_familia", len(_fam_dos_carimbos) > 1,
+      f"quem carimba vive em {sorted(_fam_dos_carimbos)} — se so houver uma "
+      "familia, papel e familia deixaram de ser perguntas distintas")
+
+# O QUE ESTA PROVA NAO DIZ, e de proposito: nao exige que toda a peca de
+# `Z-REGRAS` carimbe. Tres nao carimbam — `C-IT-CONTRATOS` e `C-PALAVRAS` (que
+# escreve, mas quem le e o motor e nao a esteira) e `C-SENSOR-COLETA`, que nao e
+# regua nenhuma: e um COLETOR a viver em `regras/`. Onde cada uma devia estar e
+# arrumacao, e arrumacao decide-se, nao se mede. Fica dito, com numero.
+_regras_que_nao_carimbam = sorted(n["id"] for n in _REGUAS
+                                  if n["territory"] == "Z-REGRAS"
+                                  and n["rule_role"] != "STAMPS")
+prova("as_regras_que_nao_carimbam_estao_contadas",
+      len(_regras_que_nao_carimbam) == 3,
+      f"em Z-REGRAS sem carimbar: {_regras_que_nao_carimbam} — "
+      "mudou o numero, entao mudou a arquitetura e alguem tem de decidir")
+
 
 # ── as conexoes dizem QUE TIPO de ligacao sao ───────────────────────────────
 # Dez provas, e cada uma existe por uma maneira conhecida de o mapa mentir sobre

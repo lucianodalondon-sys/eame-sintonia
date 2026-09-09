@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
-    "w": 21080,
+    "w": 21495,
     "h": 4394
   },
   "INVENTORY": {
@@ -1007,8 +1007,10 @@
       "leis/diagnostico.py",
       "leis/evolucao.py",
       "leis/falhas.py",
+      "leis/fato_local.py",
       "leis/fundacao_da_coleta.py",
       "leis/gestao_da_coleta.py",
+      "leis/lugar_do_fato.py",
       "leis/politica_da_coleta.py",
       "leis/regua_italia.py",
       "leis/social_matriz.py",
@@ -1026,8 +1028,6 @@
       "medidas/banco_no_seco.py",
       "medidas/cicatrizes_brasil.py",
       "medidas/corrida_instrumentada.py",
-      "medidas/fato_local.py",
-      "medidas/lugar_do_fato.py",
       "medidas/padrao_da_coleta.py",
       "medidas/portao.py",
       "medidas/portoes_eame.py",
@@ -1791,8 +1791,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "2f0f0079f2dd8b782fcb8d32b1560aba8e88510c",
-    "GENERATED_AT": "2026-09-09T10:38:58+00:00"
+    "HEAD": "a908a40b57d84e44bf3a30da32f07cd89db29344",
+    "GENERATED_AT": "2026-09-09T10:47:50+00:00"
   },
   "FAMILIES": [
     {
@@ -1819,7 +1819,7 @@
         "Z-MEDIDAS",
         "Z-ADMISSAO"
       ],
-      "count": 64
+      "count": 63
     },
     {
       "id": "F-ESPERA",
@@ -1855,13 +1855,13 @@
       "transversal": true,
       "x": 18385,
       "y": 60,
-      "w": 2435,
+      "w": 2850,
       "h": 4074,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 45
+      "count": 47
     },
     {
       "id": "F-ENTREGA",
@@ -2074,7 +2074,7 @@
       "y": 190,
       "w": 820,
       "h": 3904,
-      "count": 12
+      "count": 11
     },
     {
       "id": "Z-ADMISSAO",
@@ -2213,9 +2213,9 @@
       "folder": "leis",
       "x": 18425,
       "y": 190,
-      "w": 820,
+      "w": 1235,
       "h": 3904,
-      "count": 11
+      "count": 13
     },
     {
       "id": "Z-PROVA",
@@ -2227,7 +2227,7 @@
         "infra"
       ],
       "folder": "provas",
-      "x": 19545,
+      "x": 19960,
       "y": 190,
       "w": 1235,
       "h": 3904,
@@ -2652,7 +2652,7 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "o motor importa esta lei para decidir.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-CENSO-OBSERVABILIDADE.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -2684,6 +2684,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
       "x": 18485,
       "y": 360
     },
@@ -5728,6 +5730,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
       "x": 10480,
       "y": 360
     },
@@ -5764,7 +5768,11 @@
       "file_count": 9,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "BIBLIA-CANONICA-DA-COLETA.md",
+        "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
+        "docs/biblia/MATRIZ-DE-CONFLITOS.md"
+      ],
       "produces": [],
       "inbound": [
         "C-PROVA-BIBLIA"
@@ -5915,7 +5923,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19605,
+      "x": 20020,
       "y": 360
     },
     {
@@ -5970,7 +5978,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 360
     },
     {
@@ -6040,7 +6048,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 360
     },
     {
@@ -6101,7 +6109,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19605,
+      "x": 20020,
       "y": 682
     },
     {
@@ -6173,7 +6181,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 682
     },
     {
@@ -6235,7 +6243,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 682
     },
     {
@@ -6307,6 +6315,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
       "x": 10895,
       "y": 360
     },
@@ -6364,7 +6374,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19605,
+      "x": 20020,
       "y": 1004
     },
     {
@@ -6426,6 +6436,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
       "x": 10480,
       "y": 682
     },
@@ -6485,7 +6497,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 1004
     },
     {
@@ -6527,7 +6539,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 1004
     },
     {
@@ -6650,7 +6662,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19605,
+      "x": 20020,
       "y": 1326
     },
     {
@@ -6771,7 +6783,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 1326
     },
     {
@@ -6797,7 +6809,7 @@
       ],
       "file_count": 1,
       "status": "PROVEN",
-      "status_reason": "existe teste que exercita esta lei.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-REGRA-COLETA.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json"
@@ -6851,6 +6863,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "escreve data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json, e quem le nao esta na esteira: C-TESTES",
       "x": 10895,
       "y": 682
     },
@@ -7182,7 +7196,7 @@
       ],
       "file_count": 1,
       "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-DERIVACAO-FORWARD, C-ESTRADA-PDF, C-EXECUTOR-TEXTO-PDF.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -7202,6 +7216,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
       "x": 18900,
       "y": 360
     },
@@ -7230,7 +7246,7 @@
       ],
       "file_count": 1,
       "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-REGRA-COLETA.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -7270,6 +7286,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
       "x": 10480,
       "y": 1004
     },
@@ -7298,11 +7316,11 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "o motor importa esta lei para decidir.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-CENSO-OBSERVABILIDADE, C-FRONTEIRA-TELEMETRIA, C-RASTRO, C-RELATORIO-FLUXO.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-GESTAO-COLETA",
+        "C-DIAGNOSTICO",
         "C-SCRAP-LEIS"
       ],
       "outbound": [
@@ -7343,8 +7361,10 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18485,
-      "y": 682
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 19315,
+      "y": 360
     },
     {
       "id": "C-CORPUS",
@@ -7510,7 +7530,7 @@
       ],
       "file_count": 3,
       "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-V21-INGEST, C-V21-OPORTUNIDADE.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/DATA-CLOCK-manifest.json"
@@ -7567,7 +7587,9 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 18900,
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "escreve data/samples/DATA-CLOCK-manifest.json, e quem le nao esta na esteira: C-REGRA-COLETA, C-SAUDE-FONTE, C-TESTES",
+      "x": 18485,
       "y": 682
     },
     {
@@ -7600,8 +7622,8 @@
       "produces": [],
       "inbound": [
         "C-CONTRATO-ARTEFATO",
+        "C-DIAGNOSTICO",
         "C-EXECUTOR-TEXTO-PDF",
-        "C-GESTAO-COLETA",
         "C-RASTRO",
         "C-SCRAP-LEIS"
       ],
@@ -7693,6 +7715,73 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 8240,
+      "y": 682
+    },
+    {
+      "id": "C-DIAGNOSTICO",
+      "name": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "O DONO UNICO do DIAGNOSTIC CODE: 17 codigos que dizem ONDE no fluxo parou e que buraco estrutural isso denuncia, cada um com o dono que tem de agir.",
+      "why_here": "DIAGNOSTIC CODE nao e FAILURE STATE. Uma falha de rede em FETCH tem as duas respostas e elas diferem: estado canonico `TRANSIENT_NETWORK_ERROR` (`leis/falhas.py`) e codigo `FETCH_FAILED` (aqui). Zero nomes partilhados entre os dois registos, e um teste recusa qualquer colisao futura. O ESTADO E DO ITEM; O DIAGNOSTICO E DA ETAPA. ⚠️ MEDIDO: esta lei E aplicada — `coleta/derivacao_forward.py` e `coleta/rota_forward_documento.py` importam-na em runtime, alem de provas e testes.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚑",
+      "views": [
+        "audit",
+        "evolution",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "leis/diagnostico.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-CONTRATO-TELEMETRIA, C-DERIVACAO-FORWARD, C-FRONTEIRA-TELEMETRIA, C-RASTRO.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-SCRAP-LEIS"
+      ],
+      "outbound": [
+        "C-CONTRATO-TELEMETRIA",
+        "C-DERIVACAO-FORWARD",
+        "C-FLUXO-NO-SECO",
+        "C-FRONTEIRA-TELEMETRIA",
+        "C-PROVA-COLETA",
+        "C-PROVA-FORWARD-CONTA",
+        "C-RASTRO",
+        "C-ROTA-M2",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "POR_ETAPA"
+        ],
+        "palavras": 6,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 6,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 18900,
       "y": 682
     },
     {
@@ -8021,7 +8110,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 1326
     },
     {
@@ -8049,7 +8138,7 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "o motor importa esta lei para decidir.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-CENSO-OBSERVABILIDADE.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -8080,8 +8169,10 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18485,
-      "y": 1004
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 19315,
+      "y": 682
     },
     {
       "id": "C-EXECUTOR-TEXTO-PDF",
@@ -8200,7 +8291,7 @@
       "inbound": [
         "C-CI-MAPA",
         "C-CONTRATO-TELEMETRIA",
-        "C-GESTAO-COLETA",
+        "C-DIAGNOSTICO",
         "C-SCRAP-LEIS"
       ],
       "outbound": [
@@ -8225,7 +8316,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19605,
+      "x": 20020,
       "y": 1648
     },
     {
@@ -8374,8 +8465,8 @@
       "produces": [],
       "inbound": [
         "C-CONTRATO-TELEMETRIA",
+        "C-DIAGNOSTICO",
         "C-EXECUTOR-TEXTO-PDF",
-        "C-GESTAO-COLETA",
         "C-RASTRO",
         "C-SCRAP-LEIS"
       ],
@@ -8392,81 +8483,9 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
       "x": 10895,
-      "y": 1004
-    },
-    {
-      "id": "C-GESTAO-COLETA",
-      "name": "Politica da coleta e roteamento de diagnostico",
-      "territory": "Z-REGUAS",
-      "kind": "contract",
-      "what": "Duas autoridades distintas. `politica_da_coleta.py` responde O QUE coletar e quando. `diagnostico.py` e o DONO UNICO do DIAGNOSTIC CODE: ONDE no fluxo parou, e que buraco estrutural isso denuncia — 17 codigos, cada um com o dono que tem de agir.",
-      "why_here": "DIAGNOSTIC CODE nao e FAILURE STATE. Uma falha de rede em FETCH tem as duas respostas e elas diferem: estado canonico `TRANSIENT_NETWORK_ERROR` (`falhas.py`) e codigo `FETCH_FAILED` (aqui). Zero nomes partilhados entre os dois registries, e um teste recusa qualquer colisao futura.",
-      "departments": [
-        "ENGENHARIA",
-        "INTELIGENCIA"
-      ],
-      "legacy": false,
-      "ui_status": "yellow",
-      "icon": "⚖",
-      "views": [
-        "audit",
-        "collection-strategy",
-        "evolution",
-        "opportunity",
-        "science"
-      ],
-      "lane": "official",
-      "family": "F-GOVERNANCA",
-      "files": [
-        "leis/diagnostico.py",
-        "leis/politica_da_coleta.py"
-      ],
-      "file_count": 2,
-      "status": "PENDING",
-      "status_reason": "o motor importa esta lei para decidir.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
-      "changed_since_declared": [],
-      "produces": [],
-      "inbound": [
-        "C-SCRAP-LEIS"
-      ],
-      "outbound": [
-        "C-CONTRATO-TELEMETRIA",
-        "C-DERIVACAO-FORWARD",
-        "C-FLUXO-NO-SECO",
-        "C-FRONTEIRA-TELEMETRIA",
-        "C-PROVA-COLETA",
-        "C-PROVA-FORWARD-CONTA",
-        "C-RASTRO",
-        "C-ROTA-M2",
-        "C-TESTES"
-      ],
-      "paises": {},
-      "paises_dado": {},
-      "pais": "TRANSVERSAL",
-      "vocabulario": {
-        "papel": "NAO SEI",
-        "listas": [
-          "CANDIDATA_EXIGE",
-          "CICLO",
-          "DIMENSOES",
-          "PAPEIS",
-          "POR_ETAPA",
-          "PROMOCAO_EXIGE",
-          "TRANSICOES"
-        ],
-        "palavras": 68,
-        "por_lingua": {},
-        "sem_marca_de_lingua": 68,
-        "de_outro_pais": 0,
-        "de_outro_pais_quais": {}
-      },
-      "nivel": "INTERNO",
-      "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18900,
       "y": 1004
     },
     {
@@ -8494,7 +8513,7 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "o motor importa esta lei para decidir.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-CENSO-OBSERVABILIDADE.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -8531,8 +8550,10 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
       "x": 18485,
-      "y": 1326
+      "y": 1004
     },
     {
       "kind": "engine",
@@ -8602,7 +8623,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 1648
     },
     {
@@ -8633,7 +8654,7 @@
       ],
       "file_count": 4,
       "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
+      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).",
       "changed_since_declared": [],
       "produces": [
         "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json"
@@ -8700,6 +8721,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "STAMPS",
+      "rule_role_evidence": "escreve data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json, e C-COLETA-PUBLICA — peca da esteira — le isso",
       "x": 9775,
       "y": 360
     },
@@ -8972,7 +8995,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 1648
     },
     {
@@ -9035,6 +9058,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
       "x": 9775,
       "y": 682
     },
@@ -9467,32 +9492,36 @@
     },
     {
       "id": "C-LUGAR-COLETA",
-      "name": "O lugar do fato — carimbado na coleta",
-      "territory": "Z-MEDIDAS",
+      "name": "O lugar do fato — a lei escrita, e ainda nao aplicada",
+      "territory": "Z-REGUAS",
       "kind": "contract",
       "what": "Separa o lugar de onde o documento veio do lugar onde o fato aconteceu, e propoe o candidato lendo o texto na lingua do pais.",
-      "why_here": "Uma fonte italiana a falar de Espanha nao torna o fato italiano. Esta e das licoes que o Brasil ensinou a esta casa, e so vale se for aplicada quando o dado entra.",
+      "why_here": "Uma fonte italiana a falar de Espanha nao torna o fato italiano. Esta e das licoes que o Brasil ensinou a esta casa, e — como o proprio texto anterior dizia — SO VALE SE FOR APLICADA QUANDO O DADO ENTRA. ⚠️ NAO ESTA. Medido: `grep -rn 'import lugar_do_fato'` e `'import fato_local'` em toda a arvore devolvem UMA linha cada, e as duas estao em `tests/test_lugar_do_fato.py`. Nenhum workflow corre estes ficheiros. O cartao dizia «o motor importa esta lei para decidir», e isso era falso. A lei continua valida e por isso NAO foi apagada — mudou de sitio: sai de Z-MEDIDAS (esteira da coleta) para Z-REGUAS, em F-GOVERNANCA, onde vivem as leis. E fica classificada como DECLARED_RULE_NOT_ENFORCED em vez de fingir que o motor a consulta. Nenhuma aresta foi criada para a fazer parecer usada. Aplica-la quando o dado entra e decisao de arquitetura, e continua por tomar.",
       "departments": [
         "TECNICO_CIENCIA",
         "INTELIGENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⌖",
       "views": [
-        "acervo",
-        "audit"
+        "audit",
+        "opportunity",
+        "science"
       ],
       "lane": "official",
-      "family": "F-COLETA",
+      "family": "F-GOVERNANCA",
       "files": [
-        "medidas/fato_local.py",
-        "medidas/lugar_do_fato.py"
+        "leis/fato_local.py",
+        "leis/lugar_do_fato.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "leis/fato_local.py",
+        "leis/lugar_do_fato.py"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -9502,8 +9531,6 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
-      "parado_na_coleta": [],
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
@@ -9532,8 +9559,10 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10480,
-      "y": 1326
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 18900,
+      "y": 1004
     },
     {
       "id": "C-LUGAR-DO-FATO",
@@ -9596,8 +9625,10 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18900,
-      "y": 1326
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 19315,
+      "y": 1004
     },
     {
       "id": "C-MAPA-APP",
@@ -9647,7 +9678,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19605,
+      "x": 20020,
       "y": 1970
     },
     {
@@ -9757,7 +9788,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 1970
     },
     {
@@ -9839,7 +9870,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 1970
     },
     {
@@ -9905,7 +9936,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19605,
+      "x": 20020,
       "y": 2292
     },
     {
@@ -9957,7 +9988,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 2292
     },
     {
@@ -10031,7 +10062,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 2292
     },
     {
@@ -10403,7 +10434,9 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10895,
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "x": 10480,
       "y": 1326
     },
     {
@@ -10432,7 +10465,7 @@
       ],
       "file_count": 2,
       "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-YOUTUBE, C-RELEVANCIA.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json"
@@ -10513,6 +10546,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "escreve data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json, e quem le nao esta na esteira: C-V21-CRUZAMENTO",
       "x": 9775,
       "y": 1004
     },
@@ -10539,7 +10574,7 @@
       ],
       "file_count": 1,
       "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-ORQUESTRADOR, C-RECEITAS.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -10587,6 +10622,69 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1770,
       "y": 360
+    },
+    {
+      "id": "C-POLITICA-COLETA",
+      "name": "A politica da coleta — o que colher, quando, e se ja temos",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "O CONTEUDO da decisao de colher: os cinco estados de SATISFACAO (ja tenho fresco · ja tenho velho · tenho parte · nao tenho · nao sei), as cinco ACOES (CHECK · FETCH · SKIP · TRIAL · RETRY), os tiers, o ciclo de vida da fonte e a politica V1 deterministica. Responde O QUE, QUANDO e COM QUE PRIORIDADE.",
+      "why_here": "Estava colada aos codigos de diagnostico num cartao so, e o proprio texto dele admitia «duas autoridades distintas» sem relacao entre si. Sao duas perguntas diferentes: esta responde O QUE COLHER; a outra responde ONDE O FLUXO PAROU. Um cartao com duas autoridades nao tem dono — tem dois, e por isso nenhum. ⚠️ MEDIDO: nenhum modulo de runtime a importa. O unico `import` em toda a arvore e `tests/test_politica_da_coleta.py`. A lei esta escrita e nao esta a ser aplicada — DECLARED_RULE_NOT_ENFORCED — e o cartao diz isso em vez de fingir que o motor a consulta.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "audit",
+        "collection-strategy",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "leis/politica_da_coleta.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CANDIDATA_EXIGE",
+          "CICLO",
+          "DIMENSOES",
+          "PAPEIS",
+          "PROMOCAO_EXIGE",
+          "TRANSICOES"
+        ],
+        "palavras": 62,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 62,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 18485,
+      "y": 1326
     },
     {
       "id": "C-PORTA-FONTE",
@@ -10979,7 +11077,7 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "o motor importa esta lei para decidir.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-ORQUESTRADOR.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "regras/proveniencia.py"
       ],
@@ -11052,6 +11150,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "STAMPS",
+      "rule_role_evidence": "escreve data/samples/POLITICA-RAW-ROTA-PAGA.json, e C-RECEITAS — peca da esteira — le isso",
       "x": 9775,
       "y": 1326
     },
@@ -11103,7 +11203,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19605,
+      "x": 20020,
       "y": 2614
     },
     {
@@ -11171,7 +11271,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 2614
     },
     {
@@ -11223,9 +11323,9 @@
         "C-CI-PERSIST",
         "C-CONTRATO-ARTEFATO",
         "C-CONTRATO-TELEMETRIA",
+        "C-DIAGNOSTICO",
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
-        "C-GESTAO-COLETA",
         "C-ORQUESTRADOR",
         "C-PALAVRAS",
         "C-PEDIDO",
@@ -11275,7 +11375,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 2614
     },
     {
@@ -11331,7 +11431,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19605,
+      "x": 20020,
       "y": 2936
     },
     {
@@ -11378,7 +11478,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 2936
     },
     {
@@ -11413,9 +11513,9 @@
         "C-COLETA-BASE",
         "C-CONTRATO-TELEMETRIA",
         "C-DERIVACAO-FORWARD",
+        "C-DIAGNOSTICO",
         "C-ESTRADAS-IT",
         "C-EXECUTOR-TEXTO-PDF",
-        "C-GESTAO-COLETA",
         "C-IT-CATALOGO",
         "C-PROVA-COLETA",
         "C-RASTRO",
@@ -11443,7 +11543,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 2936
     },
     {
@@ -11500,7 +11600,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19605,
+      "x": 20020,
       "y": 3258
     },
     {
@@ -11590,7 +11690,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 3258
     },
     {
@@ -11660,7 +11760,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3258
     },
     {
@@ -11713,7 +11813,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19605,
+      "x": 20020,
       "y": 3580
     },
     {
@@ -11786,8 +11886,10 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 18485,
-      "y": 1648
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "x": 18900,
+      "y": 1326
     },
     {
       "id": "C-RASTRO",
@@ -11822,7 +11924,7 @@
       "inbound": [
         "C-COLETA-BASE",
         "C-CONTRATO-TELEMETRIA",
-        "C-GESTAO-COLETA",
+        "C-DIAGNOSTICO",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS"
       ],
@@ -11856,8 +11958,10 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit).",
-      "x": 10480,
-      "y": 1648
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 10895,
+      "y": 1326
     },
     {
       "id": "C-READY",
@@ -11958,7 +12062,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 3580
     },
     {
@@ -11972,7 +12076,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "◈",
       "views": [
         "acervo"
@@ -11983,9 +12087,11 @@
         "pedido/receitas.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "pedido/receitas.py"
+      ],
       "produces": [],
       "inbound": [
         "C-COLETA-PUBLICA",
@@ -12098,7 +12204,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3580
     },
     {
@@ -12129,7 +12235,7 @@
       ],
       "file_count": 4,
       "status": "PENDING",
-      "status_reason": "o motor importa esta lei para decidir.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "medidas/portao.py"
       ],
@@ -12194,7 +12300,9 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 10895,
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "escreve data/samples/PORTOES-EAME.json, e quem le nao esta na esteira: C-TESTES",
+      "x": 10480,
       "y": 1648
     },
     {
@@ -12248,8 +12356,10 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10480,
-      "y": 1970
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "x": 10895,
+      "y": 1648
     },
     {
       "id": "C-RELEVANCIA",
@@ -12278,7 +12388,7 @@
       ],
       "file_count": 3,
       "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-PORTAL-DADOS.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/AUDITORIA-SOMBRA/AUDITORIA-REGUA-COMERCIAL-37.json",
@@ -12348,8 +12458,10 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 18900,
-      "y": 1648
+      "rule_role": "STAMPS",
+      "rule_role_evidence": "escreve data/samples/AUDITORIA-SOMBRA/AUDITORIA-REGUA-COMERCIAL-37.json, e C-ROTULOS — peca da esteira — le isso",
+      "x": 19315,
+      "y": 1326
     },
     {
       "id": "C-ROTA-M2",
@@ -12384,7 +12496,7 @@
       "inbound": [
         "C-ADMISSAO",
         "C-DERIVACAO-FORWARD",
-        "C-GESTAO-COLETA",
+        "C-DIAGNOSTICO",
         "C-RASTRO",
         "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL"
@@ -12560,7 +12672,7 @@
       ],
       "file_count": 1,
       "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
+      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -12580,7 +12692,9 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10895,
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "x": 10480,
       "y": 1970
     },
     {
@@ -12676,7 +12790,7 @@
       ],
       "file_count": 3,
       "status": "PENDING",
-      "status_reason": "o motor importa esta lei para decidir.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-APIFY-POOL, C-CENSO-OBSERVABILIDADE, C-CONTRATO-TELEMETRIA, C-DERIVACAO-FORWARD.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -12689,10 +12803,10 @@
         "C-CENSO-OBSERVABILIDADE",
         "C-CONTRATO-TELEMETRIA",
         "C-DERIVACAO-FORWARD",
+        "C-DIAGNOSTICO",
         "C-ESTRADAS-IT",
         "C-FLUXO-NO-SECO",
         "C-FRONTEIRA-TELEMETRIA",
-        "C-GESTAO-COLETA",
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
         "C-RASTRO",
@@ -12730,8 +12844,10 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
       "x": 18485,
-      "y": 1970
+      "y": 1648
     },
     {
       "id": "C-SCRAP-ROTA",
@@ -12937,6 +13053,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
       "x": 9775,
       "y": 1648
     },
@@ -14364,9 +14482,10 @@
       ],
       "file_count": 71,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 6 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "tests/test_coleta_externa.py",
+        "tests/test_lugar_do_fato.py",
         "tests/test_metricas.py",
         "tests/test_migrations.py",
         "tests/test_operacao.py",
@@ -14403,6 +14522,7 @@
         "C-CONTRATO-TELEMETRIA",
         "C-DATA-CLOCK",
         "C-DERIVACAO-FORWARD",
+        "C-DIAGNOSTICO",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
         "C-ESTRADA-PDF",
@@ -14412,7 +14532,6 @@
         "C-FLUXO-NO-SECO",
         "C-FONTES-EU",
         "C-FRONTEIRA-TELEMETRIA",
-        "C-GESTAO-COLETA",
         "C-GESTAO-DA-COLETA",
         "C-IDENTIDADE",
         "C-IT-CATALOGO",
@@ -14426,6 +14545,7 @@
         "C-MEDICAO",
         "C-NAVEGADOR",
         "C-PACOTE-CAMADAS",
+        "C-POLITICA-COLETA",
         "C-PROCEDENCIA",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
@@ -14555,7 +14675,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 19605,
+      "x": 20020,
       "y": 3902
     },
     {
@@ -14926,7 +15046,7 @@
       ],
       "file_count": 3,
       "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-V21-COMERCIAL.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -16220,7 +16340,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1021,
+          "line": 1054,
           "snippet": "\"evidence\": [_onde_esta(\"admissao/admissao.py\","
         }
       ],
@@ -16920,12 +17040,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 441,
+          "line": 474,
           "snippet": "CONTRATOS_REL = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\""
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2839,
+          "line": 2958,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -16971,7 +17091,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 445,
+          "line": 466,
           "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
         }
       ],
@@ -19711,7 +19831,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 651,
+          "line": 672,
           "snippet": "GEN._fala_com_a_rede(\"coleta/comunicacao_coleta.py\"),"
         }
       ],
@@ -20129,7 +20249,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 648,
+          "line": 669,
           "snippet": "not GEN._fala_com_a_rede(\"coleta/sensor_canal_identidade.py\"),"
         }
       ],
@@ -20454,6 +20574,216 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-DIAGNOSTICO",
+      "to": "C-CONTRATO-TELEMETRIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir tem o seu codigo importado por Contrato da telemetria — a forma do fluxo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/telemetria.py",
+          "line": 70,
+          "snippet": "import diagnostico as dg   # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-DIAGNOSTICO",
+      "to": "C-DERIVACAO-FORWARD",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir tem o seu codigo importado por A fronteira forward da derivação. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/derivacao_forward.py",
+          "line": 79,
+          "snippet": "import diagnostico as dg             # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-DIAGNOSTICO",
+      "to": "C-FLUXO-NO-SECO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir tem o seu codigo importado por O fluxo no seco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/fluxo_no_seco.py",
+          "line": 37,
+          "snippet": "import diagnostico as dg  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-DIAGNOSTICO",
+      "to": "C-FRONTEIRA-TELEMETRIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir tem o seu codigo importado por A fronteira instrumentada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/corrida_instrumentada.py",
+          "line": 58,
+          "snippet": "import diagnostico as dg           # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-DIAGNOSTICO",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/paridade_da_lingua.py",
+          "line": 38,
+          "snippet": "import diagnostico as dg            # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-DIAGNOSTICO",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir tem o seu codigo importado por A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 70,
+          "snippet": "import diagnostico as dg                # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-DIAGNOSTICO",
+      "to": "C-RASTRO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir tem o seu codigo importado por O rastro da coleta — etapa, aresta, contagem e falha. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/rastro_da_coleta.py",
+          "line": 36,
+          "snippet": "import diagnostico as dg    # noqa: E402"
+        },
+        {
+          "file": "medidas/scanner_da_coleta.py",
+          "line": 26,
+          "snippet": "import diagnostico as dg            # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-DIAGNOSTICO",
+      "to": "C-ROTA-M2",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir tem o seu codigo importado por A rota forward do documento (M2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/rota_forward_documento.py",
+          "line": 52,
+          "snippet": "import diagnostico as dg             # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-DIAGNOSTICO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 30,
+          "snippet": "import diagnostico as dg                # noqa: E402"
+        },
+        {
+          "file": "tests/test_lingua_unica.py",
+          "line": 23,
+          "snippet": "import diagnostico as dg            # noqa: E402"
+        },
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 20,
+          "snippet": "import diagnostico as dg              # noqa: E402"
+        },
+        {
+          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
+          "line": 262,
+          "snippet": "import diagnostico as dg"
+        },
+        {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 24,
+          "snippet": "import diagnostico as dg            # noqa: E402"
+        },
+        {
+          "file": "tests/test_rastro_pg.py",
+          "line": 20,
+          "snippet": "import diagnostico as dg            # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-DIAGNOSTICO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_execucao_standalone.py",
+          "line": 26,
+          "snippet": "'leis/diagnostico.py',"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-DONO-DA-ESCRITA",
       "to": "C-TESTES",
       "type": "READS",
@@ -20582,7 +20912,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1389,
+          "line": 1422,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -20963,12 +21293,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1371,
+          "line": 1404,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1382,
+          "line": 1415,
           "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\","
         }
       ],
@@ -21377,231 +21707,6 @@
       "categoria": "PROOF"
     },
     {
-      "from": "C-GESTAO-COLETA",
-      "to": "C-CONTRATO-TELEMETRIA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por Contrato da telemetria — a forma do fluxo. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "leis/telemetria.py",
-          "line": 70,
-          "snippet": "import diagnostico as dg   # noqa: E402"
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-GESTAO-COLETA",
-      "to": "C-DERIVACAO-FORWARD",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por A fronteira forward da derivação. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "coleta/derivacao_forward.py",
-          "line": 79,
-          "snippet": "import diagnostico as dg             # noqa: E402"
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-GESTAO-COLETA",
-      "to": "C-FLUXO-NO-SECO",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por O fluxo no seco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/fluxo_no_seco.py",
-          "line": 37,
-          "snippet": "import diagnostico as dg  # noqa: E402"
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-GESTAO-COLETA",
-      "to": "C-FRONTEIRA-TELEMETRIA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por A fronteira instrumentada. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "medidas/corrida_instrumentada.py",
-          "line": 58,
-          "snippet": "import diagnostico as dg           # noqa: E402"
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-GESTAO-COLETA",
-      "to": "C-PROVA-COLETA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/paridade_da_lingua.py",
-          "line": 38,
-          "snippet": "import diagnostico as dg            # noqa: E402"
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
-      "from": "C-GESTAO-COLETA",
-      "to": "C-PROVA-FORWARD-CONTA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por A prova de que o forward se conta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/o_forward_conta_se.py",
-          "line": 70,
-          "snippet": "import diagnostico as dg                # noqa: E402"
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-GESTAO-COLETA",
-      "to": "C-RASTRO",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por O rastro da coleta — etapa, aresta, contagem e falha. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "medidas/rastro_da_coleta.py",
-          "line": 36,
-          "snippet": "import diagnostico as dg    # noqa: E402"
-        },
-        {
-          "file": "medidas/scanner_da_coleta.py",
-          "line": 26,
-          "snippet": "import diagnostico as dg            # noqa: E402"
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-GESTAO-COLETA",
-      "to": "C-ROTA-M2",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por A rota forward do documento (M2). Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "coleta/rota_forward_documento.py",
-          "line": 52,
-          "snippet": "import diagnostico as dg             # noqa: E402"
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-GESTAO-COLETA",
-      "to": "C-TESTES",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_forward_instrumentado.py",
-          "line": 30,
-          "snippet": "import diagnostico as dg                # noqa: E402"
-        },
-        {
-          "file": "tests/test_lingua_unica.py",
-          "line": 23,
-          "snippet": "import diagnostico as dg            # noqa: E402"
-        },
-        {
-          "file": "tests/test_m2_rota_forward.py",
-          "line": 20,
-          "snippet": "import diagnostico as dg              # noqa: E402"
-        },
-        {
-          "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-          "line": 262,
-          "snippet": "import diagnostico as dg"
-        },
-        {
-          "file": "tests/test_o9_caminho_instrumentado.py",
-          "line": 24,
-          "snippet": "import diagnostico as dg            # noqa: E402"
-        },
-        {
-          "file": "tests/test_politica_da_coleta.py",
-          "line": 18,
-          "snippet": "import politica_da_coleta as g    # noqa: E402"
-        },
-        {
-          "file": "tests/test_rastro_pg.py",
-          "line": 20,
-          "snippet": "import diagnostico as dg            # noqa: E402"
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
-      "from": "C-GESTAO-COLETA",
-      "to": "C-TESTES",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Politica da coleta e roteamento de diagnostico alimenta Suite de testes. Provado por 3 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_execucao_standalone.py",
-          "line": 26,
-          "snippet": "'leis/diagnostico.py',"
-        },
-        {
-          "file": "tests/test_execucao_standalone.py",
-          "line": 28,
-          "snippet": "'leis/politica_da_coleta.py',"
-        },
-        {
-          "file": "tests/test_politica_da_coleta.py",
-          "line": 28,
-          "snippet": "with open(caminho, encoding='utf-8') as fh:"
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
       "from": "C-GESTAO-DA-COLETA",
       "to": "C-CENSO-OBSERVABILIDADE",
       "type": "IMPORTS",
@@ -21962,7 +22067,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2861,
+          "line": 2980,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -22658,12 +22763,12 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — carimbado na coleta alimenta A receita da coleta. Provado por 1 linha de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta A receita da coleta. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "pedido/receitas.py",
           "line": 115,
-          "snippet": "(\"lugar do fato\", \"medidas/fato_local.py\","
+          "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
         }
       ],
       "categoria": "RULE"
@@ -22676,7 +22781,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O lugar do fato — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_lugar_do_fato.py",
@@ -22703,17 +22808,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3062,
+          "line": 3181,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3062,
+          "line": 3181,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3063,
+          "line": 3182,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -22731,12 +22836,12 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 235,
+          "line": 256,
           "snippet": "MAPA_JS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 485,
+          "line": 506,
           "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
         }
       ],
@@ -22795,7 +22900,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 256,
+          "line": 277,
           "snippet": "GERADOR = (RAIZ / \"system-map\" / \"scripts\" / \"generate_system_map.py\").read_text("
         }
       ],
@@ -22859,7 +22964,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3668,
+          "line": 3792,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
         },
         {
@@ -22910,12 +23015,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3681,
+          "line": 3805,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3681,
+          "line": 3805,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -22933,7 +23038,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 452,
+          "line": 473,
           "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"scan_repo.py\")],"
         }
       ],
@@ -22979,7 +23084,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 471,
+          "line": 492,
           "snippet": "\"validate_system_map.py\" in lei,"
         }
       ],
@@ -23486,6 +23591,47 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-POLITICA-COLETA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A politica da coleta — o que colher, quando, e se ja temos tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_politica_da_coleta.py",
+          "line": 18,
+          "snippet": "import politica_da_coleta as g    # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-POLITICA-COLETA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A politica da coleta — o que colher, quando, e se ja temos alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_execucao_standalone.py",
+          "line": 28,
+          "snippet": "'leis/politica_da_coleta.py',"
+        },
+        {
+          "file": "tests/test_politica_da_coleta.py",
+          "line": 28,
+          "snippet": "with open(caminho, encoding='utf-8') as fh:"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-PORTA-FONTE",
@@ -24367,12 +24513,12 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 766,
+          "line": 787,
           "snippet": "any(c[\"file\"] == \"data/samples/RUN-MANIFEST.json\""
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 775,
+          "line": 796,
           "snippet": "_esc_man == [\"regras/proveniencia.py\"],"
         }
       ],
@@ -24764,7 +24910,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 977,
+          "line": 1010,
           "snippet": "\"evidence_text\": \"provas/a_fronteira_da_coleta.py\","
         }
       ],
@@ -25851,6 +25997,24 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-DIAGNOSTICO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Os codigos de diagnostico — onde o fluxo parou e quem tem de agir. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/diagnostico.py",
+          "line": 35,
+          "snippet": "import falhas    # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-ESTRADAS-IT",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -25927,24 +26091,6 @@
           "file": "medidas/corrida_instrumentada.py",
           "line": 59,
           "snippet": "import falhas                      # noqa: E402"
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-SCRAP-LEIS",
-      "to": "C-GESTAO-COLETA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Politica da coleta e roteamento de diagnostico. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "leis/diagnostico.py",
-          "line": 35,
-          "snippet": "import falhas    # noqa: E402"
         }
       ],
       "categoria": "RULE"
@@ -26925,7 +27071,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1056,
+          "line": 1089,
           "snippet": "migracao = \"supabase/migrations/022_o_derivado_ganha_casa.sql\""
         }
       ],
@@ -28297,7 +28443,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 206,
+          "line": 239,
           "snippet": "contrato = RAIZ / \"italia-portale\" / \"audit\" / \"CANONICAL-PACKAGE-CONTRACT.json\""
         }
       ],
@@ -28402,13 +28548,13 @@
   ],
   "CANONICAL_OWNER_VIOLATIONS": [],
   "COUNTS": {
-    "components": 148,
-    "components_proven": 63,
-    "components_pending": 79,
+    "components": 149,
+    "components_proven": 61,
+    "components_pending": 82,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 565,
-    "edges_proven": 563,
+    "edges": 567,
+    "edges_proven": 565,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1345,

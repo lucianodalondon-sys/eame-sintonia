@@ -82,7 +82,23 @@ def casa(caminho: str, padrao: str) -> bool:
 # ─────────────────────────────────────────────────────────────────────────────
 # A prova exigida de cada tipo de peca
 # ─────────────────────────────────────────────────────────────────────────────
-def prova_do_tipo(kind: str, ent: list, sai: list, tem_teste: bool) -> tuple[bool, str]:
+# Uma peca que me importa DE DENTRO DA LANE DE PROVA nao e o sistema a usar-me.
+# Prova e teste existem para me medir; medir-me nao e depender de mim.
+#
+#     UMA PROVA QUE ME MEDE NAO ESTA NO MEU CAMINHO.
+ZONAS_SEM_RUNTIME = ("Z-PROVA",)
+IDS_SEM_RUNTIME = ("C-TESTES", "C-MAPA-TESTES")
+
+
+def _importadores_de_runtime(sai: list, zona_de: dict) -> list:
+    """Quem me importa e NAO e prova nem teste."""
+    return sorted({l["to"] for l in sai if l["type"] == "IMPORTS"
+                   and l["to"] not in IDS_SEM_RUNTIME
+                   and zona_de.get(l["to"]) not in ZONAS_SEM_RUNTIME})
+
+
+def prova_do_tipo(kind: str, ent: list, sai: list, tem_teste: bool,
+                  importadores_runtime: list | None = None) -> tuple[bool, str]:
     """Devolve (passou, frase que explica em portugues comum).
 
     ATENCAO A DIRECAO. Desde que o `IMPORTS` passou a seguir o dado, «quem me
@@ -110,10 +126,27 @@ def prova_do_tipo(kind: str, ent: list, sai: list, tem_teste: bool) -> tuple[boo
         return False, "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado."
 
     if kind == "contract":
+        # ⚠️ «O MOTOR IMPORTA ESTA LEI PARA DECIDIR» ERA UMA AFIRMACAO SOBRE
+        # QUEM IMPORTA, e a regra nao olhava para quem. `C-LUGAR-COLETA` dizia
+        # exactamente isso, e o unico `import` em toda a arvore estava em
+        # `tests/test_lugar_do_fato.py`. O mesmo aconteceu, na hora, ao cartao
+        # novo da politica da coleta.
+        #
+        #     UM TESTE QUE ME IMPORTA NAO E O MOTOR A DECIDIR COM A MINHA LEI.
+        #
+        # Uma lei so provada por teste continua VERDE — ha prova executavel a
+        # apontar para ela —, mas a frase deixa de prometer runtime que nao ha.
+        rt = importadores_runtime or []
+        if rt:
+            return True, ("o sistema importa esta lei em runtime para decidir: "
+                          + ", ".join(rt[:4]) + ".")
         if tem_teste:
-            return True, "existe teste que exercita esta lei."
+            return True, ("existe teste que exercita esta lei. NENHUM modulo de "
+                          "runtime a importa — a lei esta escrita e nao esta a "
+                          "ser aplicada (DECLARED_RULE_NOT_ENFORCED).")
         if importado:
-            return True, "o motor importa esta lei para decidir."
+            return True, ("so peca de prova a importa. NENHUM modulo de runtime "
+                          "a importa (DECLARED_RULE_NOT_ENFORCED).")
         return False, "e uma lei sem prova executavel apontando para ela."
 
     if kind == "gate":
@@ -2447,6 +2480,92 @@ def vocabulario_das_pecas(nos: list) -> None:
         }
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# O QUE UMA REGUA FAZ — medido, e nao lido no nome dela
+# ─────────────────────────────────────────────────────────────────────────────
+#
+# ⚠️ A PERGUNTA ANTIGA ERA INDECIDIVEL, E EU DEIXEI-A VERMELHA DE PROPOSITO NA
+# MISSAO ANTERIOR. Ela tentava separar CARIMBAR de MEDIR assim:
+#
+#     «esta peca tem seta para uma zona de accao?»
+#
+# Nos quatro casos que ela acusava, as setas eram `IMPORTS` — e o `IMPORTS`
+# segue o dado, ou seja, aponta de quem e importado para quem importa. E o
+# COLETOR que importa o rastro para emitir telemetria, e nao o rastro que
+# carimba o item.
+#
+#     UM IMPORT NAO E UM CARIMBO.
+#     E A SETA DO IMPORT APONTA PARA O LADO CONTRARIO DA DEPENDENCIA.
+#
+# O sinal que decide nao esta em quem me importa: esta no que eu PRODUZO e em
+# QUEM O CONSOME. Um carimbo entra no caminho do item; um termometro nao.
+#
+#     STAMPS   escreve artefato que uma peca DA ESTEIRA le. O que sai daqui
+#              entra no caminho do item — isso e carimbar.
+#     MEASURES le artefato, e o que escreve (quando escreve) so e lido por
+#              prova, censo, relatorio, motor, ou por ninguem. Olha e da nota.
+#     DECLARES nao le nem escreve artefato nenhum: define vocabulario,
+#              constantes, contrato. Nao carimba nem mede — enuncia.
+#     NAO SEI  escreve e nao ha como dizer quem le. Nao se adivinha.
+#
+# NAO se classifica por nome. `medidas/` e `regras/` sao gavetas, e uma gaveta
+# nao e uma funcao: `regras/sensor_coleta.py` e um COLETOR a viver em `regras/`.
+PAPEIS_DA_REGUA = ("STAMPS", "MEASURES", "DECLARES", "NAO SEI")
+ZONAS_DE_REGUA = ("Z-REGRAS", "Z-MEDIDAS", "Z-REGUAS")
+
+
+def papel_de_cada_regua(nos: list, G: dict, dono: dict) -> None:
+    """Escreve `rule_role` e `rule_role_evidence` em cada peca de regua."""
+    escreve: dict[str, set] = {}
+    leem: dict[str, set] = {}
+    for e in G["FILE_EDGES"]:
+        if e["type"] == "WRITES":
+            escreve.setdefault(e["from_file"], set()).add(e["to_file"])
+        elif e["type"] == "READS":
+            leem.setdefault(e["to_file"], set()).add(e["from_file"])
+
+    por_id = {n["id"]: n for n in nos}
+
+    def _na_esteira(cid: str) -> bool:
+        """Peca da COLETA que nao e ela propria uma medicao."""
+        n = por_id.get(cid)
+        return bool(n) and n.get("family") == "F-COLETA" \
+            and n.get("territory") not in ("Z-MEDIDAS",)
+
+    for n in nos:
+        if n.get("territory") not in ZONAS_DE_REGUA:
+            continue
+        fs = n.get("files") or []
+        artefactos = sorted({a for f in fs for a in escreve.get(f, ())})
+        consumidores = sorted({dono.get(f) for a in artefactos
+                               for f in leem.get(a, ())
+                               if dono.get(f) and dono.get(f) != n["id"]})
+        esteira = [c for c in consumidores if _na_esteira(c)]
+        le_artefacto = any(f in escreve or any(f in v for v in leem.values())
+                           for f in fs) or any(
+            e["type"] == "READS" and e["from_file"] in fs for e in G["FILE_EDGES"])
+
+        if artefactos and esteira:
+            papel = "STAMPS"
+            porque = ("escreve %s, e %s — peca da esteira — le isso"
+                      % (artefactos[0], esteira[0]))
+        elif artefactos and consumidores:
+            papel = "MEASURES"
+            porque = ("escreve %s, e quem le nao esta na esteira: %s"
+                      % (artefactos[0], ", ".join(consumidores[:3])))
+        elif artefactos:
+            papel = "NAO SEI"
+            porque = "escreve %s e este mapa nao viu ninguem ler" % artefactos[0]
+        elif le_artefacto:
+            papel = "MEASURES"
+            porque = "le artefato e nao escreve nenhum: olha e da nota"
+        else:
+            papel = "DECLARES"
+            porque = "nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        n["rule_role"] = papel
+        n["rule_role_evidence"] = porque
+
+
 def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
     """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
     direita — que e a direcao em que o dado corre: fonte → motor → pacote → tela."""
@@ -3277,6 +3396,8 @@ def main_uma_vez(stamp: bool) -> int:
     blobs_declarados = D.get("DECLARED_BLOBS", {})
     novos_blobs: dict[str, str] = {}
     nos = []
+    zona_da_peca = {c["id"]: c.get("territory") for c in comps}
+    zona_da_peca.update({n["id"]: n.get("territory") for n in gerados})
     for c in comps:
         fs = c["_files"]
         ent = [l for l in ligacoes.values() if l["to"] == c["id"] and l["kind"] == "technical"]
@@ -3324,7 +3445,9 @@ def main_uma_vez(stamp: bool) -> int:
                                      "repositorio aponta para eles e eles nao apontam para "
                                      "nada. Nao da para provar o que isto faz hoje.")
         else:
-            passou, frase = prova_do_tipo(c["kind"], ent, sai, tem_teste)
+            passou, frase = prova_do_tipo(
+                c["kind"], ent, sai, tem_teste,
+                _importadores_de_runtime(sai, zona_da_peca))
             status, motivo = (VERDE, frase) if passou else (AMARELO, frase)
 
         # ── o carimbo: descricao velha nao segura verde ──────────────────────
@@ -3607,6 +3730,7 @@ def main_uma_vez(stamp: bool) -> int:
         n["escreve_na_pasta"] = pastas
 
     onde_para_o_que_sai(nos, produz, _rastreados(), G, dono)
+    papel_de_cada_regua(nos, G, dono)
 
     desvios = desvios_do_controlo(ligacoes, nos)
 

@@ -45,7 +45,7 @@ Os termos de busca, agrupados por cultura-problema, na lingua de quem trabalha n
 
 | | |
 |---|---|
-| estado | PROVEN — o motor importa esta lei para decidir. |
+| estado | PROVEN — o sistema importa esta lei em runtime para decidir: C-COLETA-YOUTUBE, C-RELEVANCIA. |
 | onde vive | `regras/rotulos_censo.py` |
 | onde vive | `regras/sensor_medir.py` |
 
@@ -57,7 +57,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 | | |
 |---|---|
-| estado | PENDING — o motor importa esta lei para decidir.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
+| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-ORQUESTRADOR.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `regras/proveniencia.py` |
 
 ### O contrato de cada fonte italiana
@@ -84,7 +84,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 
 | | |
 |---|---|
-| estado | PROVEN — o motor importa esta lei para decidir. |
+| estado | PROVEN — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED). |
 | onde vive | `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json` |
 | onde vive | `regras/comunicacao_identidade.py` |
 | onde vive | `regras/comunicacao_lote.py` |

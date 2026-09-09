@@ -315,7 +315,7 @@ Protocolo externo **NÃO DEVE** ser copiado literalmente. Esta é a versão SINT
 |---|---|
 | procedência | `regras/proveniencia.py` |
 | tempo do fato | `leis/data_clock.py` |
-| lugar do fato | `medidas/fato_local.py` · `medidas/lugar_do_fato.py` |
+| lugar do fato | `leis/fato_local.py` · `leis/lugar_do_fato.py` |
 | recibo da corrida | `data/samples/RUN-MANIFEST.json` |
 
 **ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
@@ -752,10 +752,10 @@ texto: `"NAO_SEI — pagina sem data de publicacao visivel"` começa por `N`, e
 
 **⚠️ VIOLAÇÃO VIVA, hoje, neste repositório.** `admissao/admissao.py:169` aceita
 `published_at` como resposta à pergunta «tem tempo do fato», enquanto
-`medidas/fato_local.py:411` declara que *«`published_at` NUNCA o preenche»*. Ver C-001. Gap
+`leis/fato_local.py:411` declara que *«`published_at` NUNCA o preenche»*. Ver C-001. Gap
 **G-01**.
 
-**CONTRATOS.** `leis/v21_datas.py` · `leis/data_clock.py` · `medidas/fato_local.py::tempo_do_fato`
+**CONTRATOS.** `leis/v21_datas.py` · `leis/data_clock.py` · `leis/fato_local.py::tempo_do_fato`
 **ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 
 ---
@@ -806,7 +806,7 @@ sistema chamava de outra coisa. **E a lei já estava escrita no `CLAUDE.md` dele
 
 > **LEI QUE NINGUÉM MEDE É COMENTÁRIO.**
 
-**CONTRATOS.** `medidas/lugar_do_fato.py` (a lei, sem idioma) · `medidas/fato_local.py` (o
+**CONTRATOS.** `leis/lugar_do_fato.py` (a lei, sem idioma) · `leis/fato_local.py` (o
 leitor italiano) · `leis/v21_geografia_contrato.py` (o contador que falha fechado) ·
 migration 015 (as constraints)
 **ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `IMPLEMENTED`

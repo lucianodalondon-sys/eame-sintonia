@@ -473,23 +473,22 @@
   },
   {
    "id": "C-LUGAR-COLETA",
-   "name": "O lugar do fato — carimbado na coleta",
-   "territory": "Z-MEDIDAS",
+   "name": "O lugar do fato — a lei escrita, e ainda nao aplicada",
+   "territory": "Z-REGUAS",
    "kind": "contract",
    "icon": "⌖",
    "views": [
-    "acervo",
     "audit"
    ],
    "what": "Separa o lugar de onde o documento veio do lugar onde o fato aconteceu, e propoe o candidato lendo o texto na lingua do pais.",
-   "why_here": "Uma fonte italiana a falar de Espanha nao torna o fato italiano. Esta e das licoes que o Brasil ensinou a esta casa, e so vale se for aplicada quando o dado entra.",
+   "why_here": "Uma fonte italiana a falar de Espanha nao torna o fato italiano. Esta e das licoes que o Brasil ensinou a esta casa, e — como o proprio texto anterior dizia — SO VALE SE FOR APLICADA QUANDO O DADO ENTRA. ⚠️ NAO ESTA. Medido: `grep -rn 'import lugar_do_fato'` e `'import fato_local'` em toda a arvore devolvem UMA linha cada, e as duas estao em `tests/test_lugar_do_fato.py`. Nenhum workflow corre estes ficheiros. O cartao dizia «o motor importa esta lei para decidir», e isso era falso. A lei continua valida e por isso NAO foi apagada — mudou de sitio: sai de Z-MEDIDAS (esteira da coleta) para Z-REGUAS, em F-GOVERNANCA, onde vivem as leis. E fica classificada como DECLARED_RULE_NOT_ENFORCED em vez de fingir que o motor a consulta. Nenhuma aresta foi criada para a fazer parecer usada. Aplica-la quando o dado entra e decisao de arquitetura, e continua por tomar.",
    "departments": [
     "TECNICO_CIENCIA",
     "INTELIGENCIA"
    ],
    "files": [
-    "medidas/lugar_do_fato.py",
-    "medidas/fato_local.py"
+    "leis/lugar_do_fato.py",
+    "leis/fato_local.py"
    ]
   },
   {
@@ -2356,24 +2355,41 @@
    ]
   },
   {
-   "id": "C-GESTAO-COLETA",
-   "name": "Politica da coleta e roteamento de diagnostico",
+   "id": "C-POLITICA-COLETA",
+   "name": "A politica da coleta — o que colher, quando, e se ja temos",
    "territory": "Z-REGUAS",
    "kind": "contract",
    "icon": "⚖",
    "views": [
     "audit",
-    "evolution",
     "collection-strategy"
    ],
-   "what": "Duas autoridades distintas. `politica_da_coleta.py` responde O QUE coletar e quando. `diagnostico.py` e o DONO UNICO do DIAGNOSTIC CODE: ONDE no fluxo parou, e que buraco estrutural isso denuncia — 17 codigos, cada um com o dono que tem de agir.",
-   "why_here": "DIAGNOSTIC CODE nao e FAILURE STATE. Uma falha de rede em FETCH tem as duas respostas e elas diferem: estado canonico `TRANSIENT_NETWORK_ERROR` (`falhas.py`) e codigo `FETCH_FAILED` (aqui). Zero nomes partilhados entre os dois registries, e um teste recusa qualquer colisao futura.",
+   "what": "O CONTEUDO da decisao de colher: os cinco estados de SATISFACAO (ja tenho fresco · ja tenho velho · tenho parte · nao tenho · nao sei), as cinco ACOES (CHECK · FETCH · SKIP · TRIAL · RETRY), os tiers, o ciclo de vida da fonte e a politica V1 deterministica. Responde O QUE, QUANDO e COM QUE PRIORIDADE.",
+   "why_here": "Estava colada aos codigos de diagnostico num cartao so, e o proprio texto dele admitia «duas autoridades distintas» sem relacao entre si. Sao duas perguntas diferentes: esta responde O QUE COLHER; a outra responde ONDE O FLUXO PAROU. Um cartao com duas autoridades nao tem dono — tem dois, e por isso nenhum. ⚠️ MEDIDO: nenhum modulo de runtime a importa. O unico `import` em toda a arvore e `tests/test_politica_da_coleta.py`. A lei esta escrita e nao esta a ser aplicada — DECLARED_RULE_NOT_ENFORCED — e o cartao diz isso em vez de fingir que o motor a consulta.",
    "departments": [
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
    "files": [
-    "leis/politica_da_coleta.py",
+    "leis/politica_da_coleta.py"
+   ]
+  },
+  {
+   "id": "C-DIAGNOSTICO",
+   "name": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "⚑",
+   "views": [
+    "audit",
+    "evolution"
+   ],
+   "what": "O DONO UNICO do DIAGNOSTIC CODE: 17 codigos que dizem ONDE no fluxo parou e que buraco estrutural isso denuncia, cada um com o dono que tem de agir.",
+   "why_here": "DIAGNOSTIC CODE nao e FAILURE STATE. Uma falha de rede em FETCH tem as duas respostas e elas diferem: estado canonico `TRANSIENT_NETWORK_ERROR` (`leis/falhas.py`) e codigo `FETCH_FAILED` (aqui). Zero nomes partilhados entre os dois registos, e um teste recusa qualquer colisao futura. O ESTADO E DO ITEM; O DIAGNOSTICO E DA ETAPA. ⚠️ MEDIDO: esta lei E aplicada — `coleta/derivacao_forward.py` e `coleta/rota_forward_documento.py` importam-na em runtime, alem de provas e testes.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
     "leis/diagnostico.py"
    ]
   },
@@ -2992,6 +3008,8 @@
   "leis/auditoria_regua_comercial.py": "0b74e427335ff870fb7c815426e92832e67127d4",
   "leis/calendario_handoff.py": "72b198af8ac7f2b8b1a55ad0f16548e8bc6da142",
   "leis/data_clock.py": "608696a5eca4881d600a5631b9d55bb5a432c5b3",
+  "leis/fato_local.py": "2d873f38b027e730743b4ef0b8739f91983e0335",
+  "leis/lugar_do_fato.py": "0b01a177cf2d3c396a9966bbde80986c653b695d",
   "leis/regua_italia.py": "6c6c579407782c92ecb3e3f6e0c6323a55ee07d9",
   "leis/v21_carimbar_origem.py": "db0c0d9fdc8df157afa15b6616d5a00b744b3370",
   "leis/v21_datas.py": "36f83ad1f374bdb3eceedc07774cd0bfec039da4",
@@ -3002,8 +3020,6 @@
   "medidas/PORTOES-DE-COLETA-10B.md": "9642888d903cbea0fb2aa5eb5ea351977d9bb42f",
   "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md": "ce98fc51bb7d81d551803c10edb0a14430ea6ea3",
   "medidas/cicatrizes_brasil.py": "34c9f52b6bee0946cc79261037a1a1272c2950ea",
-  "medidas/fato_local.py": "2d873f38b027e730743b4ef0b8739f91983e0335",
-  "medidas/lugar_do_fato.py": "0b01a177cf2d3c396a9966bbde80986c653b695d",
   "medidas/padrao_da_coleta.py": "e6a12f1f6065e35e0043a01243f456f0388684bb",
   "medidas/portao.py": "3f640ba91536830c750d90cba26531a9877b3f91",
   "medidas/portoes_eame.py": "19d35c34a97651fa85a941d88b3890978c910cef",

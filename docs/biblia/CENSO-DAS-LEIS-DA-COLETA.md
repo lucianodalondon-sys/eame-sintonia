@@ -39,15 +39,15 @@ uma lei, não uma remoção de ficheiro.
 |---|---|---|---|---|---|---|
 | CEN-010 | Contrato temporal V2.1 — prosa nunca vira data; `UNKNOWN` não entra em «próximos» | `leis/v21_datas.py` | sim | sim | motor V2.1 | **KEEP** → COL-LAW-031 |
 | CEN-011 | DATA CLOCK — versão da fonte com `VERSION_DATE`, `COLLECTION_DATE`, `SHA256` | `leis/data_clock.py` | sim | manifesto | sim | **KEEP** → COL-LAW-031/029 |
-| CEN-012 | `PUBLISHED_AT ≠ FACT_TIME` | `medidas/lugar_do_fato.py` · `AGENTS.md` | sim | `tests/test_lugar_do_fato.py` | sim | **MERGE** → COL-LAW-031 |
+| CEN-012 | `PUBLISHED_AT ≠ FACT_TIME` | `leis/lugar_do_fato.py` · `AGENTS.md` | sim | `tests/test_lugar_do_fato.py` | sim | **MERGE** → COL-LAW-031 |
 | CEN-013 | `OUTPUT_WRITTEN_AT` nunca vira `STARTED_AT`; ordem só com instante com fuso | `regras/proveniencia.py` · `medidas/PORTOES-DE-COLETA-10B.md` §H | sim | `tests/test_portao.py` | sim | **KEEP** → COL-LAW-031 |
 
 ## 3 · GEOGRAFIA
 
 | ID | NOME | FICHEIRO | IMPL | TEST | USO | DESTINO |
 |---|---|---|---|---|---|---|
-| CEN-020 | A lei do lugar do fato, independente de idioma — 4 espécies, escada de precisão | `medidas/lugar_do_fato.py` | sim | sim | sim | **KEEP** → COL-LAW-032 |
-| CEN-021 | O leitor italiano do lugar do fato (gazetteer IT) | `medidas/fato_local.py` | sim | sim | piloto IT | **KEEP** — implementação de país, não lei |
+| CEN-020 | A lei do lugar do fato, independente de idioma — 4 espécies, escada de precisão | `leis/lugar_do_fato.py` | sim | sim | sim | **KEEP** → COL-LAW-032 |
+| CEN-021 | O leitor italiano do lugar do fato (gazetteer IT) | `leis/fato_local.py` | sim | sim | piloto IT | **KEEP** — implementação de país, não lei |
 | CEN-022 | Contrato de geografia V2.1 — `PROVINCIAL ≠ REGIONAL`, cruzamento não alega mais que o apoio | `leis/v21_geografia_contrato.py` | sim | falha fechada (exit 1) | motor V2.1 | **KEEP** → COL-LAW-032 |
 | CEN-023 | Como se soube o lugar: `ESCRITO/CITADO/DA_FONTE/DEDUZIDO`, com `DA_FONTE` e `DEDUZIDO` proibidos de sustentar fato | `supabase/` migration 015 · `docs/regras/BRAZIL-LESSONS-TRANSFER-EAME.md` | sim | constraints do banco | sim | **KEEP** → COL-LAW-032 |
 

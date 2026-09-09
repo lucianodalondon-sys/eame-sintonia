@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
 PROVENIÊNCIA — PORTADO VERBATIM da branch claude/sintonia-italy-pilot-b1l401,
-arquivo medidas/fato_local.py. Nenhuma linha foi reescrita.
+arquivo leis/fato_local.py. Nenhuma linha foi reescrita.
 
 Este é o LEITOR ITALIANO: ele lê texto em italiano e propõe candidatos a
 lugar do fato. O vocabulário dele — gazetteer de regiões e províncias
 italianas, âncoras em italiano, nomes de meses — é do PILOTO, e não sobe
 para o domínio geral.
 
-A LEI que ele exerce, essa é do core, e mora em medidas/lugar_do_fato.py:
+A LEI que ele exerce, essa é do core, e mora em leis/lugar_do_fato.py:
 as quatro espécies de lugar, a escada de precisão, as espécies de evidência,
 os estados de recusa. Os dois arquivos NÃO podem discordar, e há um teste
 que compara os dois vocabulários e reprova se divergirem — é assim que se
