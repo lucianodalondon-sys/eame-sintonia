@@ -1136,6 +1136,7 @@
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
       "provas/o_dedupe_tem_constraint.py",
+      "provas/o_encanamento_tem_uma_porta.py",
       "provas/o_executor_conta_se.py",
       "provas/o_forward_conta_se.py",
       "provas/o_mapa_nao_mente.py",
@@ -1836,9 +1837,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-plumbing-canonical-v1",
-    "HEAD": "d877b4839c513db52982f2c9964532a953e65e8d",
-    "GENERATED_AT": "2026-09-09T14:23:04+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4be036526a395f0dc6552a31adfd36a85599ebdceea0f8477fbbc17ce480b669"
+    "HEAD": "c62cd1d84c8bc8c052161e06aa94200fc15e28a9",
+    "GENERATED_AT": "2026-09-09T14:36:54+00:00",
+    "SOURCE_TREE_FINGERPRINT": "96e8fd6344a0fb89259e29417dd11e223713b5ca476af86ecff72e08ccafda06"
   },
   "FAMILIES": [
     {
@@ -29809,8 +29810,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 708,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/o_encanamento_tem_uma_porta.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 709,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -29982,8 +29985,8 @@
     "edges_proven": 600,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1388,
+    "files_tracked": 1389,
     "files_covered": 680,
-    "files_code_unclaimed": 0
+    "files_code_unclaimed": 1
   }
 }

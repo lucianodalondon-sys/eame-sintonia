@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-plumbing-canonical-v1",
-    "HEAD": "d877b4839c513db52982f2c9964532a953e65e8d",
-    "GENERATED_AT": "2026-09-09T14:23:04+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4be036526a395f0dc6552a31adfd36a85599ebdceea0f8477fbbc17ce480b669"
+    "HEAD": "c62cd1d84c8bc8c052161e06aa94200fc15e28a9",
+    "GENERATED_AT": "2026-09-09T14:36:54+00:00",
+    "SOURCE_TREE_FINGERPRINT": "96e8fd6344a0fb89259e29417dd11e223713b5ca476af86ecff72e08ccafda06"
   },
   "FILES": [
     {
@@ -7604,6 +7604,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/o_encanamento_tem_uma_porta.py",
+      "sha": "a13d08ccd28d0dab7a4841b0ebed7b3da6de4cff",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/o_executor_conta_se.py",
       "sha": "c9001d3d61238395cde46c6acd98f926f3a8b0e1",
       "ext": ".py",
@@ -10494,6 +10501,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 544,
         "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "provas/o_encanamento_tem_uma_porta.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 538,
+        "snippet": "run: python3 provas/o_encanamento_tem_uma_porta.py"
       }
     },
     {
@@ -24885,6 +24903,83 @@
       }
     },
     {
+      "from_file": "provas/o_encanamento_tem_uma_porta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_encanamento_tem_uma_porta.py",
+        "line": 27,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/o_encanamento_tem_uma_porta.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_encanamento_tem_uma_porta.py",
+        "line": 30,
+        "snippet": "import ingresso as ing          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_encanamento_tem_uma_porta.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_encanamento_tem_uma_porta.py",
+        "line": 59,
+        "snippet": "if not nome.endswith(\".py\") or nome in (\"ingresso.py\",):"
+      }
+    },
+    {
+      "from_file": "provas/o_encanamento_tem_uma_porta.py",
+      "to_file": "guarda/memoria_descartavel.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_encanamento_tem_uma_porta.py",
+        "line": 191,
+        "snippet": "\"memoria_descartavel.py\"):"
+      }
+    },
+    {
+      "from_file": "provas/o_encanamento_tem_uma_porta.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_encanamento_tem_uma_porta.py",
+        "line": 190,
+        "snippet": "if not nome.endswith(\".py\") or nome in (\"preservar_coleta.py\","
+      }
+    },
+    {
+      "from_file": "provas/o_encanamento_tem_uma_porta.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_encanamento_tem_uma_porta.py",
+        "line": 29,
+        "snippet": "import artefato as art          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_encanamento_tem_uma_porta.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_encanamento_tem_uma_porta.py",
+        "line": 165,
+        "snippet": "orq = _codigo(os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\"))"
+      }
+    },
+    {
       "from_file": "provas/o_executor_conta_se.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -33718,10 +33813,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1388,
-    "files_readable": 522,
-    "files_code_dir": 569,
-    "file_edges": 2140,
+    "files_tracked": 1389,
+    "files_readable": 523,
+    "files_code_dir": 570,
+    "file_edges": 2148,
     "escritas_em_pasta": 66,
     "declared_missing_here": 0
   },
