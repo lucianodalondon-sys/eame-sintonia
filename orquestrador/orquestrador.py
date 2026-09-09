@@ -53,6 +53,7 @@ from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: 
 from receitas import resolver, Plano  # noqa: E402
 import admissao as adm  # noqa: E402
 import proveniencia as pv  # noqa: E402
+import ingresso as ing  # noqa: E402  — a porta de entrada da coleta
 
 PRONTOS = RAIZ / "data" / "samples" / "PRONTO-PARA-INTELIGENCIA"
 
@@ -96,6 +97,35 @@ def a_colheita(e: dict) -> tuple[list, str]:
                     x.setdefault("_de", f.relative_to(RAIZ).as_posix())
                     itens.append(x)
     return itens, " · ".join(notas)
+
+
+def pela_entrada(itens: list, recibo: dict) -> dict:
+    """Leva a colheita a PORTA DE ENTRADA da coleta, que a preserva como RAW.
+
+    Ela nao julga nada: quem julga e a admissao, logo a seguir. Aqui responde-se
+    so «posso preservar esta observacao?», e o que nao passa sai com nome —
+    `INGRESS_SEM_CONTEUDO`, `INGRESS_CONTRATO_QUEBRADO` — que NAO e o mesmo que
+    ser rejeitado na admissao, nem que ter dado erro, nem que nao ter corrido.
+
+        RECUSA NA PORTA != REJEITADO NA ADMISSAO != ERRO != NAO CORREU.
+
+    O armazem e LOCAL de proposito. Preservar nao pode depender de haver rede
+    nem credencial: um coletor que corre offline continua a ter de deixar
+    rasto. Quando houver banco, ele entra por `memoria=` sem esta funcao mudar.
+    """
+    armazem = ing.ArmazemLocal(RAIZ)
+    r = ing.receber(itens, corrida=recibo, armazem=armazem, raiz=str(RAIZ))
+    bruto = r.get("RAW") or {}
+    return {
+        "PRESERVADOS": len(r["ACEITES"]),
+        "RECUSADOS": len(r["RECUSAS"]),
+        "PORQUE_RECUSADOS": [x["PORQUE"] for x in r["RECUSAS"]],
+        "RUN_STATE": bruto.get("RUN_STATE", "NAO_CORREU"),
+        # O banco NAO foi medido nesta corrida, e dizer 0 seria dizer que se
+        # olhou e nao havia. Nao se olhou.
+        "BANCO": (bruto.get("MEMORIA") or {}).get("COMO_FOI_MEDIDO",
+                                                  "NAO MEDIDO — sem banco ligado"),
+    }
 
 
 def pela_porta(itens: list, universo: str, run_id: str) -> dict:
@@ -265,6 +295,20 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     itens, notas = a_colheita(e)
     recibo["COLHEITA_ENCONTRADA"] = len(itens)
     recibo["COLHEITA_NAO_ENCONTRADA"] = notas
+
+    # ── E A COLHEITA ENTRA PELA PORTA, ANTES DE ALGUEM A JULGAR ─────────────
+    # ⚠️ ATE AQUI, O QUE O EXECUTOR LARGAVA IA DIRECTO A ADMISSAO. A etapa RAW
+    # existia, estava provada contra Postgres, e nunca corria: o item era
+    # julgado sem nunca ter sido PRESERVADO, e sem passar pelo contrato comum
+    # que `leis/artefato.py` escreveu exactamente para isto.
+    #
+    #     OBSERVAR NAO E PRESERVAR. PRESERVAR NAO E JULGAR.
+    #
+    # A porta responde «posso preservar esta observacao como RAW?». A admissao,
+    # logo a seguir, responde outra pergunta: «isto pode entrar no universo?».
+    # Sao duas perguntas, e agora sao duas etapas.
+    if itens and (so_a_porta or not seco):
+        recibo["INGRESSO"] = pela_entrada(itens, recibo)
     if itens and (so_a_porta or not seco):
         r = pela_porta(itens, p.alvo, recibo["RUN_ID"])
         recibo["ADMISSAO"] = r

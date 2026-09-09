@@ -54,6 +54,7 @@ descartável sem tocar em produção.
 """
 import hashlib
 import json
+import os
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -131,6 +132,49 @@ class Memoria:
         """Todas as linhas de `raw_asset` daquela corrida. É esta leitura que
         produz `LINHAS_OBSERVADAS` — nunca uma contagem esperada."""
         raise NotImplementedError
+
+
+class ArmazemLocal(Armazem):
+    """O armazem em disco. A terceira implementacao, e faltava-lhe o sitio.
+
+    ⚠️ A PORTA DO ARMAZEM TINHA DUAS IMPLEMENTACOES: uma DE MENTIRA, para
+    provar, e a da Supabase, que e producao remota. Nao havia nenhuma que
+    corresse aqui — e essa e uma das razoes por que nenhum ficheiro de producao
+    chamava `preservar()`: para preservar era preciso ou fingir, ou ir a rede.
+
+        UM DONO QUE SO SABE ESCREVER LONGE
+        E UM DONO QUE NINGUEM CHAMA DE PERTO.
+
+    Ela nao apaga, como nenhum armazem desta casa apaga: se a memoria falhar
+    depois do envio, o byte enviado e a unica evidencia que sobra.
+    """
+
+    def __init__(self, raiz):
+        self.raiz = str(raiz)
+        self.envios = 0
+
+    def _abs(self, caminho):
+        # O caminho vem do artefato e e relativo a raiz. Um caminho absoluto ou
+        # com `..` escreveria fora do armazem, e um armazem que escreve fora de
+        # si nao e um armazem.
+        alvo = os.path.normpath(os.path.join(self.raiz, caminho))
+        if not alvo.startswith(os.path.normpath(self.raiz) + os.sep):
+            raise ValueError("caminho fora do armazem: %s" % caminho)
+        return alvo
+
+    def existe(self, caminho):
+        return os.path.isfile(self._abs(caminho))
+
+    def enviar(self, caminho, dados, media_type):
+        alvo = self._abs(caminho)
+        os.makedirs(os.path.dirname(alvo), exist_ok=True)
+        with open(alvo, "wb") as fh:
+            fh.write(dados)
+        self.envios += 1
+
+    def ler(self, caminho):
+        with open(self._abs(caminho), "rb") as fh:
+            return fh.read()
 
 
 class ArmazemDeMentira(Armazem):
