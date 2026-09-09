@@ -1791,8 +1791,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "6606586e9f40562f6f109d183574a8ac7ebdb1f7",
-    "GENERATED_AT": "2026-09-09T05:59:16+00:00"
+    "HEAD": "4dc27acdf676c13f6cd9181a2aabde349d5eaedb",
+    "GENERATED_AT": "2026-09-09T06:18:40+00:00"
   },
   "FAMILIES": [
     {
@@ -6964,7 +6964,6 @@
         "V-INSTAGRAM"
       ],
       "outbound": [
-        "C-PORTA-FONTE",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL",
@@ -7038,6 +7037,7 @@
         "V-YOUTUBE"
       ],
       "outbound": [
+        "C-MAPA-TESTES",
         "C-RECEITAS",
         "C-TESTES"
       ],
@@ -7378,12 +7378,10 @@
         "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
       ],
       "inbound": [
-        "V-HTTP",
-        "V-INSTAGRAM",
-        "V-LINKEDIN",
-        "V-YOUTUBE"
+        "V-HTTP"
       ],
       "outbound": [
+        "C-MAPA-TESTES",
         "C-PACOTE-CAMADAS",
         "C-PALAVRAS",
         "C-RECEITAS",
@@ -8650,8 +8648,7 @@
       ],
       "inbound": [
         "C-AS-FONTES",
-        "C-CI-COLETA",
-        "C-MAPA-SCAN"
+        "C-CI-COLETA"
       ],
       "outbound": [
         "C-CI-COLETA",
@@ -9831,7 +9828,6 @@
         "C-TELA-FIELD"
       ],
       "outbound": [
-        "C-IDENTIDADE",
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR"
@@ -9863,18 +9859,9 @@
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 14960,
       "y": 1970
     },
@@ -9910,6 +9897,8 @@
       "inbound": [
         "C-AS-FONTES",
         "C-CI-MAPA",
+        "C-COLETA-PUBLICA",
+        "C-CORPUS",
         "C-MAPA-APP",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
@@ -10653,9 +10642,7 @@
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [
-        "C-COLETA-INSTAGRAM"
-      ],
+      "inbound": [],
       "outbound": [
         "C-MAPA-SCAN"
       ],
@@ -12854,7 +12841,6 @@
         "C-SCRAP-LEIS",
         "C-SCRAP-ROTA",
         "V-HTTP",
-        "V-LINKEDIN",
         "V-YOUTUBE"
       ],
       "outbound": [
@@ -15403,10 +15389,10 @@
       "facts": [
         "contas publicas mapeadas neste canal: 17",
         "dessas, autorizadas a coletar: 10",
-        "acoes da coleta que passam por aqui: 1",
-        "prova: coleta/comunicacao_coleta.py:85"
+        "acoes da coleta que nomeiam este canal: 1",
+        "prova: coleta/comunicacao_coleta.py:192"
       ],
-      "status_reason": "1 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "1 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -15478,14 +15464,14 @@
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
-        "acoes da coleta que passam por aqui: 6",
+        "acoes da coleta que nomeiam este canal: 6",
         "prova: coleta/youtube_janela.py:61",
         "prova: coleta/instagram_janela.py:440",
         "prova: coleta/agrifood_ue.py:29",
         "prova: coleta/corpus_pesquisador.py:92",
         "prova: coleta/mapa_regfi.py:42"
       ],
-      "status_reason": "6 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "6 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -15697,18 +15683,17 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "A pagina publica: o que a marca publica para quem a segue. Hoje 3 acao(oes) da coleta passam por aqui.",
+      "what": "A pagina publica: o que a marca publica para quem a segue. Hoje 2 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 7",
         "dessas, autorizadas a coletar: 5",
-        "acoes da coleta que passam por aqui: 3",
-        "prova: coleta/comunicacao_coleta.py:84",
-        "prova: coleta/instagram_coleta.py:73",
-        "prova: coleta/speaker_identidade.py:171"
+        "acoes da coleta que nomeiam este canal: 2",
+        "prova: coleta/comunicacao_coleta.py:146",
+        "prova: coleta/instagram_coleta.py:73"
       ],
-      "status_reason": "3 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "2 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -15724,8 +15709,7 @@
       ],
       "outbound": [
         "C-COLETA-INSTAGRAM",
-        "C-COLETA-PUBLICA",
-        "C-CORPUS"
+        "C-COLETA-PUBLICA"
       ],
       "file_count": 0,
       "o_que_recebe": {
@@ -15750,66 +15734,6 @@
             "file": "coleta/comunicacao_classificar.py",
             "line": 249,
             "snippet": "escreve em SAIDA"
-          }
-        },
-        {
-          "_chave": "data/raw",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/raw/  (pasta inteira)",
-          "prova": {
-            "file": "coleta/es/corpus_es.py",
-            "line": 90,
-            "snippet": "escreve em DEST"
-          }
-        },
-        {
-          "_chave": "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
-          "prova": {
-            "file": "coleta/corpus_pesquisador.py",
-            "line": 1,
-            "snippet": ""
-          }
-        },
-        {
-          "_chave": "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
-          "prova": {
-            "file": "coleta/corpus_pesquisador.py",
-            "line": 1,
-            "snippet": ""
-          }
-        },
-        {
-          "_chave": "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
-          "prova": {
-            "file": "coleta/sensor_canal_identidade.py",
-            "line": 1,
-            "snippet": ""
-          }
-        },
-        {
-          "_chave": "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
-          "prova": {
-            "file": "coleta/speaker_identidade.py",
-            "line": 1,
-            "snippet": ""
-          }
-        },
-        {
-          "_chave": "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
-          "prova": {
-            "file": "coleta/universo_ciencia_it.py",
-            "line": 1,
-            "snippet": ""
           }
         }
       ],
@@ -15841,18 +15765,16 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "A pagina de empresa e a das pessoas: contratacao, evento, anuncio. Hoje 3 acao(oes) da coleta passam por aqui.",
+      "what": "A pagina de empresa e a das pessoas: contratacao, evento, anuncio. Hoje 1 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 6",
         "dessas, autorizadas a coletar: 0",
-        "acoes da coleta que passam por aqui: 3",
-        "prova: coleta/comunicacao_coleta.py:86",
-        "prova: coleta/sensor_canal_identidade.py:186",
-        "prova: coleta/social_scrap.py:135"
+        "acoes da coleta que nomeiam este canal: 1",
+        "prova: coleta/comunicacao_coleta.py:86"
       ],
-      "status_reason": "3 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "1 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -15866,9 +15788,7 @@
         "C-AS-FONTES"
       ],
       "outbound": [
-        "C-COLETA-PUBLICA",
-        "C-CORPUS",
-        "C-SCRAP-SOCIAL"
+        "C-COLETA-PUBLICA"
       ],
       "file_count": 0,
       "o_que_recebe": {
@@ -15888,71 +15808,9 @@
             "line": 249,
             "snippet": "escreve em SAIDA"
           }
-        },
-        {
-          "_chave": "data/raw",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/raw/  (pasta inteira)",
-          "prova": {
-            "file": "coleta/es/corpus_es.py",
-            "line": 90,
-            "snippet": "escreve em DEST"
-          }
-        },
-        {
-          "_chave": "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
-          "prova": {
-            "file": "coleta/corpus_pesquisador.py",
-            "line": 1,
-            "snippet": ""
-          }
-        },
-        {
-          "_chave": "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
-          "prova": {
-            "file": "coleta/corpus_pesquisador.py",
-            "line": 1,
-            "snippet": ""
-          }
-        },
-        {
-          "_chave": "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
-          "prova": {
-            "file": "coleta/sensor_canal_identidade.py",
-            "line": 1,
-            "snippet": ""
-          }
-        },
-        {
-          "_chave": "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
-          "prova": {
-            "file": "coleta/speaker_identidade.py",
-            "line": 1,
-            "snippet": ""
-          }
-        },
-        {
-          "_chave": "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
-          "prova": {
-            "file": "coleta/universo_ciencia_it.py",
-            "line": 1,
-            "snippet": ""
-          }
         }
       ],
-      "saem_daqui_sem_destino": [
-        "C-SCRAP-SOCIAL"
-      ],
+      "saem_daqui_sem_destino": [],
       "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
@@ -15978,19 +15836,18 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "Video publico: o que o canal do concorrente e o do sector poem no ar. Hoje 4 acao(oes) da coleta passam por aqui.",
+      "what": "Video publico: o que o canal do concorrente e o do sector poem no ar. Hoje 3 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 14",
         "dessas, autorizadas a coletar: 7",
-        "acoes da coleta que passam por aqui: 4",
+        "acoes da coleta que nomeiam este canal: 3",
         "prova: coleta/youtube_janela.py:70",
         "prova: coleta/comunicacao_coleta.py:83",
-        "prova: coleta/speaker_identidade.py:170",
         "prova: coleta/social_rotas.py:298"
       ],
-      "status_reason": "4 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "3 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -16007,7 +15864,6 @@
       "outbound": [
         "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
-        "C-CORPUS",
         "C-SCRAP-SOCIAL"
       ],
       "file_count": 0,
@@ -16033,66 +15889,6 @@
             "file": "coleta/comunicacao_classificar.py",
             "line": 249,
             "snippet": "escreve em SAIDA"
-          }
-        },
-        {
-          "_chave": "data/raw",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/raw/  (pasta inteira)",
-          "prova": {
-            "file": "coleta/es/corpus_es.py",
-            "line": 90,
-            "snippet": "escreve em DEST"
-          }
-        },
-        {
-          "_chave": "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
-          "prova": {
-            "file": "coleta/corpus_pesquisador.py",
-            "line": 1,
-            "snippet": ""
-          }
-        },
-        {
-          "_chave": "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
-          "prova": {
-            "file": "coleta/corpus_pesquisador.py",
-            "line": 1,
-            "snippet": ""
-          }
-        },
-        {
-          "_chave": "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
-          "prova": {
-            "file": "coleta/sensor_canal_identidade.py",
-            "line": 1,
-            "snippet": ""
-          }
-        },
-        {
-          "_chave": "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
-          "prova": {
-            "file": "coleta/speaker_identidade.py",
-            "line": 1,
-            "snippet": ""
-          }
-        },
-        {
-          "_chave": "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
-          "acao": "C-CORPUS",
-          "ficheiro": "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
-          "prova": {
-            "file": "coleta/universo_ciencia_it.py",
-            "line": 1,
-            "snippet": ""
           }
         }
       ],
@@ -17148,7 +16944,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2687,
+          "line": 2812,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -19856,24 +19652,6 @@
     },
     {
       "from": "C-COLETA-INSTAGRAM",
-      "to": "C-PORTA-FONTE",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Colher o Instagram alimenta A porta de entrada de fonte nova. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "candidatas/fonte_nova.py",
-          "line": 49,
-          "snippet": "url=..., para_que=..., quem_viu=\"instagram_coleta.py\","
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-COLETA-INSTAGRAM",
       "to": "C-SCRAP-GUARDA",
       "type": "READS",
       "payload": "artefacto",
@@ -19944,6 +19722,24 @@
       ],
       "categoria": "DATA",
       "passa_pelo_preparo": true
+    },
+    {
+      "from": "C-COLETA-PUBLICA",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o que o concorrente publica alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_system_map.py",
+          "line": 643,
+          "snippet": "GEN._fala_com_a_rede(\"coleta/comunicacao_coleta.py\"),"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-COLETA-PUBLICA",
@@ -20341,6 +20137,24 @@
           "file": "tests/test_lingua_unica.py",
           "line": 56,
           "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'telemetria.py'), encoding='utf-8').read()"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CORPUS",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Montar o corpus de fala e de ciencia alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_system_map.py",
+          "line": 640,
+          "snippet": "not GEN._fala_com_a_rede(\"coleta/sensor_canal_identidade.py\"),"
         }
       ],
       "categoria": "PROOF"
@@ -22303,7 +22117,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2709,
+          "line": 2834,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -23075,17 +22889,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2910,
+          "line": 3035,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2910,
+          "line": 3035,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2911,
+          "line": 3036,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -23231,7 +23045,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3473,
+          "line": 3598,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
         },
         {
@@ -23272,24 +23086,6 @@
     },
     {
       "from": "C-MAPA-SCAN",
-      "to": "C-IDENTIDADE",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "raw_type": "WRITES",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Scanner do System Map escreve em Quem esta autorizado a ser coletado. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "system-map/scripts/scan_repo.py",
-          "line": 460,
-          "snippet": "\"\"\"`'PUBLIC-COMM-FIRST-BATCH-EAME.json'` -> o unico ficheiro com esse nome."
-        }
-      ],
-      "categoria": "WRITE"
-    },
-    {
-      "from": "C-MAPA-SCAN",
       "to": "C-MAPA-GERADOR",
       "type": "READS",
       "payload": "artefacto",
@@ -23300,12 +23096,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3486,
+          "line": 3611,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3486,
+          "line": 3611,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -24452,17 +24248,12 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Scanner do System Map. Provado por 2 linhas de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Scanner do System Map. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/scan_casco.py",
           "line": 95,
           "snippet": "I18N = \"italia-portale/client/italy-i18n.js\""
-        },
-        {
-          "file": "system-map/scripts/scan_repo.py",
-          "line": 470,
-          "snippet": "\"\"\"`<script src=\"italy-v21.js\">` e um caminho relativo a propria pasta."
         }
       ],
       "categoria": "READ"
@@ -25095,7 +24886,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_repo.py",
-          "line": 691,
+          "line": 733,
           "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
         }
       ],
@@ -28347,8 +28138,8 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 85,
-          "snippet": "'FACEBOOK': ('apify~facebook-posts-scraper', 'NAO_VERIFICADO'),"
+          "line": 192,
+          "snippet": "if plataforma == 'FACEBOOK':"
         }
       ],
       "categoria": "DATA"
@@ -28483,25 +28274,8 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 84,
-          "snippet": "'INSTAGRAM': ('apify~instagram-scraper', 'NAO_VERIFICADO'),"
-        }
-      ],
-      "categoria": "DATA"
-    },
-    {
-      "from": "V-INSTAGRAM",
-      "to": "C-CORPUS",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «Montar o corpus de fala e de ciencia», que e quem o chama e quem guarda o que ele devolve.",
-      "evidence": [
-        {
-          "file": "coleta/speaker_identidade.py",
-          "line": 171,
-          "snippet": "('instagram.com', 'INSTAGRAM'),"
+          "line": 146,
+          "snippet": "exemplo = {'ACCOUNT_URL': 'https://www.instagram.com/exemplo/',"
         }
       ],
       "categoria": "DATA"
@@ -28519,40 +28293,6 @@
           "file": "coleta/comunicacao_coleta.py",
           "line": 86,
           "snippet": "'LINKEDIN': ('harvestapi~linkedin-post-search', 'JA_RODOU_NESTA_CASA'),"
-        }
-      ],
-      "categoria": "DATA"
-    },
-    {
-      "from": "V-LINKEDIN",
-      "to": "C-CORPUS",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «Montar o corpus de fala e de ciencia», que e quem o chama e quem guarda o que ele devolve.",
-      "evidence": [
-        {
-          "file": "coleta/sensor_canal_identidade.py",
-          "line": 186,
-          "snippet": "if c['SOURCE_PLATFORM'] != 'LINKEDIN':"
-        }
-      ],
-      "categoria": "DATA"
-    },
-    {
-      "from": "V-LINKEDIN",
-      "to": "C-SCRAP-SOCIAL",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «Executor do SCRAP · a aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
-      "evidence": [
-        {
-          "file": "coleta/social_scrap.py",
-          "line": 135,
-          "snippet": "('LINKEDIN', 'FETCH_POST', {}),"
         }
       ],
       "categoria": "DATA"
@@ -28587,23 +28327,6 @@
           "file": "coleta/youtube_janela.py",
           "line": 70,
           "snippet": "SAIDA = os.path.join(SAMPLES, 'YOUTUBE-JANELA')"
-        }
-      ],
-      "categoria": "DATA"
-    },
-    {
-      "from": "V-YOUTUBE",
-      "to": "C-CORPUS",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «Montar o corpus de fala e de ciencia», que e quem o chama e quem guarda o que ele devolve.",
-      "evidence": [
-        {
-          "file": "coleta/speaker_identidade.py",
-          "line": 170,
-          "snippet": "('youtube.com', 'YOUTUBE'), ('youtu.be', 'YOUTUBE'),"
         }
       ],
       "categoria": "DATA"
@@ -28764,8 +28487,8 @@
     "components_pending": 75,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 573,
-    "edges_proven": 571,
+    "edges": 569,
+    "edges_proven": 567,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1345,

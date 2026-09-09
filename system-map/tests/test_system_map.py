@@ -596,6 +596,88 @@ prova("o_artefacto_com_dois_autores_esta_declarado",
       "renomeia uma peca, e ninguem repara")
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# PROSA NAO E CODIGO · VOCABULARIO NAO E ROTA
+#
+# Quatro voltas da mesma licao, cada uma medida sobre uma aresta que o mapa
+# publicava como PROVEN. As tres primeiras olham a FORMA da linha; a quarta le
+# o que a linha DIZ.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# 1 · o varredor lia a sua propria documentacao
+# A prova localiza-se sozinha: procura no proprio varredor uma linha que esta
+# dentro de um docstring e outra que e codigo, e exige que a regra as separe.
+_alvo = "system-map/scripts/scan_repo.py"
+_linhas = (RAIZ / _alvo).read_text(encoding="utf-8").splitlines()
+_prosa_do_scan = SCAN.linhas_de_prosa(_alvo)
+_na_frase = next((i for i, l in enumerate(_linhas, 1)
+                  if "e um caminho relativo a propria pasta" in l), None)
+_no_codigo = next((i for i, l in enumerate(_linhas, 1)
+                   if l.startswith("def relativo(")), None)
+prova("linha_de_docstring_nao_e_linha_de_codigo",
+      _na_frase is not None and _no_codigo is not None
+      and _na_frase in _prosa_do_scan and _no_codigo not in _prosa_do_scan,
+      f"frase={_na_frase} codigo={_no_codigo} — a regra tem de excluir a "
+      "primeira e deixar a segunda")
+_G = json.loads((DADOS / "architecture.generated.json").read_text(encoding="utf-8"))
+_prosa = {}
+for _e in _G["FILE_EDGES"]:
+    _f = _e["evidence"]["file"]
+    if not _f.endswith(".py"):
+        continue
+    if _f not in _prosa:
+        _prosa[_f] = SCAN.linhas_de_prosa(_f)
+    if _e["evidence"]["line"] in _prosa[_f]:
+        falhas.append("aresta provada por docstring")
+        break
+prova("nenhuma_aresta_e_provada_por_docstring",
+      "aresta provada por docstring" not in falhas,
+      "o varredor chegou a escrever que escreve num ficheiro que nunca abre, "
+      "porque o nome dele aparecia na frase que explica a regra")
+
+# 2 · a rede vista no CODIGO, nao numa string
+prova("campo_que_regista_zero_apify_nao_e_chamada_a_apify",
+      not GEN._fala_com_a_rede("coleta/sensor_canal_identidade.py"),
+      "a unica palavra de rede naquele ficheiro e a chave 'APIFY_RUNS': 0")
+prova("import_de_apify_pool_continua_a_ser_rede",
+      GEN._fala_com_a_rede("coleta/comunicacao_coleta.py"),
+      "`import apify_pool` e um NOME no codigo, e nao um rotulo entre aspas")
+
+# 3 · comparar uma URL com um dominio nao e ter ido la buscar algo
+prova("tabela_de_hosts_nao_e_rota",
+      GEN._e_tabela_de_hosts("    ('youtube.com', 'YOUTUBE'), ('youtu.be', 'YOUTUBE'),"),
+      "a tabela HOSTS reconhece o dominio de uma URL que a PESSOA declarou no ORCID")
+prova("id_de_ator_nao_e_dominio",
+      not GEN._e_tabela_de_hosts(
+          "    'YOUTUBE': ('streamers~youtube-scraper', 'JA_RODOU_NESTA_CASA'),"),
+      "a regra tem de deixar passar a rota a serio que vive na linha ao lado")
+
+# 4 · uma linha que diz NOT_TESTED nao prova travessia nenhuma
+prova("linha_que_diz_que_nao_correu_nao_prova_passagem",
+      GEN._diz_que_nao_aconteceu("{'LINKEDIN': 'NOT_TESTED', 'YOUTUBE': 'NOT_TESTED',"),
+      "DECLARED != OBSERVED, e ERROR != REJECTED != UNKNOWN != NOT_RUN")
+prova("linha_que_diz_que_ja_correu_continua_a_valer",
+      not GEN._diz_que_nao_aconteceu(
+          "    'YOUTUBE': ('streamers~youtube-scraper', 'JA_RODOU_NESTA_CASA'),"))
+
+# 5 · e o cartao do canal nao pode prometer mais do que mediu
+_canais = [n for n in S["NODES"] if n["id"].startswith("V-") and n["id"] != "V-HTTP"]
+prova("o_cartao_do_canal_diz_que_a_rota_e_declarada",
+      all("NOMEIAM" in n["status_reason"] or "NAO SEI" in n["status_reason"]
+          for n in _canais),
+      "O CODIGO NOMEAR UM CANAL NAO E ALGO TER VINDO POR ELE — "
+      "e o cartao tem de o dizer, senao le-se como travessia observada")
+
+# O corpus le o ORCID, e nao o LinkedIn, o YouTube nem o Instagram. Foram tres
+# arestas, cada uma provada por uma linha pior que a anterior.
+_do_corpus = {e["from"] for e in S["EDGES"]
+              if e["to"] == "C-CORPUS" and e["type"] == "VIAJA_POR"}
+prova("o_corpus_nao_colhe_das_redes_sociais",
+      _do_corpus <= {"V-HTTP"},
+      f"canais ligados a C-CORPUS: {sorted(_do_corpus)} — a unica rede daquele "
+      "ficheiro e pub.orcid.org")
+
+
 print()
 if falhas:
     print(f"TESTES_SYSTEM_MAP=FAIL · {len(falhas)} reprovada(s): {', '.join(falhas)}")

@@ -479,6 +479,45 @@ def relativo(lit: str, origem: str, arquivos: dict) -> str | None:
     return alvo if alvo in arquivos else None
 
 
+def linhas_de_prosa(caminho: str) -> set:
+    """As linhas ocupadas por DOCSTRING — modulo, classe e funcao.
+
+        UMA FRASE SOBRE UMA LIGACAO NAO E UMA LIGACAO.
+
+    Esta casa ja aprendeu isto tres vezes noutros censos (ver o aviso em
+    `censo_dos_executores._codigo_executavel`), e o varredor de arestas continuava
+    a le-la. Ele ja tirava o que vem depois do `#`, mas um exemplo de uso dentro
+    de aspas triplas passava inteiro. Medido: TRES arestas cuja unica prova era
+    prosa — e DUAS delas eram este proprio ficheiro a ler a sua documentacao:
+
+        scan_repo.py -> PUBLIC-COMM-FIRST-BATCH-EAME.json   WRITES
+          prova: a linha do docstring que EXPLICA como um nome unico se resolve
+
+    O varredor escreveu que escreve num ficheiro que nunca abre, porque o nome
+    dele aparece na frase que descreve a regra. A terceira, `fonte_nova.py:49`,
+    e o «COMO SE USA» do modulo: `quem_viu="instagram_coleta.py"` e um exemplo,
+    e o mapa dava-o como leitura real.
+    """
+    try:
+        arvore = ast.parse((RAIZ / caminho).read_text(encoding="utf-8",
+                                                      errors="replace"))
+    except (SyntaxError, OSError):
+        return set()
+    fora = set()
+    for no in ast.walk(arvore):
+        corpo = getattr(no, "body", None)
+        if not isinstance(no, (ast.Module, ast.ClassDef, ast.FunctionDef,
+                               ast.AsyncFunctionDef)) or not corpo:
+            continue
+        primeiro = corpo[0]
+        if (isinstance(primeiro, ast.Expr)
+                and isinstance(primeiro.value, ast.Constant)
+                and isinstance(primeiro.value.value, str)):
+            fora.update(range(primeiro.lineno,
+                              (primeiro.end_lineno or primeiro.lineno) + 1))
+    return fora
+
+
 def arestas(arquivos: dict) -> tuple[list, dict]:
     saida: list[dict] = []
     vistas: set[tuple] = set()
@@ -533,6 +572,7 @@ def arestas(arquivos: dict) -> tuple[list, dict]:
                 add(caminho, alvo, tipo, prova(caminho, n, linha), "artefacto")
         ext = meta["ext"]
         linhas = ler(caminho)
+        prosa = linhas_de_prosa(caminho) if ext == ".py" else set()
         # Onde acaba o bloco `on:` e comecam os passos. Antes disto, um `.yml`
         # so declara GATILHOS — e um gatilho nao corre nem le nada.
         inicio_dos_jobs = 0
@@ -542,6 +582,8 @@ def arestas(arquivos: dict) -> tuple[list, dict]:
                     inicio_dos_jobs = _i
                     break
         for n, linha in enumerate(linhas, 1):
+            if n in prosa:
+                continue
             crua = linha.rstrip()
             if ext in (".py", ".sh", ".yml", ".yaml"):
                 sem_comentario = crua.split("#")[0]

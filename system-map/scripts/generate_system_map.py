@@ -1397,10 +1397,13 @@ def a_estrada_do_pdf() -> tuple[list, list]:
 
 # O que faz um ficheiro conseguir CHEGAR a um canal. Sem uma destas, ele nao
 # fala com a rede — e entao nao pode ser a prova de que algo veio de la.
+_io = __import__("io")
+_tokenize = __import__("tokenize")
 _RE_REDE = __import__("re").compile(
     r"urllib|requests\.|http\.client|urlopen|fetch\(|apify|yt_dlp|playwright"
     r"|navegador|cdp|curl", __import__("re").I)
 _CACHE_REDE: dict = {}
+_CACHE_CODIGO: dict = {}
 
 
 _NOMES_DE_CANAL = ("YOUTUBE", "INSTAGRAM", "FACEBOOK", "LINKEDIN", "TIKTOK",
@@ -1424,6 +1427,118 @@ def _e_lista_de_canais(linha: str) -> bool:
     import re as _r
     return sum(1 for c in _NOMES_DE_CANAL
                if _r.search(r"\b%s\b" % c, linha)) >= 3
+
+
+_RE_NAO_ACONTECEU = __import__("re").compile(
+    r"NOT_TESTED|NAO_VERIFICADO|NOT_RUN|NAO_RODOU|NAO_CORREU|NUNCA_RODOU"
+    r"|PROIBID[AO]|RECUSAD[AO]|BLOQUEAD[AO]|SEM_ADAPTADOR|NOT_PRESERVED")
+
+
+def _diz_que_nao_aconteceu(linha: str) -> bool:
+    """A linha declara, ela propria, que aquela rota NAO foi exercida.
+
+    ⚠️ QUARTA VOLTA, E A ULTIMA QUE E DECIDIVEL SEM ADIVINHAR.
+
+    As tres regras anteriores olham para a FORMA da linha — quantos canais tem,
+    se ha um dominio nu. Esta le o que a linha DIZ. Depois de excluida a tabela
+    de hosts, as tres travessias de `C-CORPUS` caiam na linha seguinte:
+
+        coleta/speaker_identidade.py:490
+            {'LINKEDIN': 'NOT_TESTED', 'YOUTUBE': 'NOT_TESTED',
+
+        O MAPA ESTAVA A DESENHAR UMA TRAVESSIA
+        COM BASE NUMA LINHA QUE DIZ «NOT_TESTED».
+
+    E a lei da casa ao contrario: `DECLARED != OBSERVED` e
+    `ERROR != REJECTED != UNKNOWN != NOT_RUN`. Nenhum destes rotulos afirma
+    passagem; todos afirmam o contrario. O que sobrevive continua a sobreviver:
+    `'YOUTUBE': ('streamers~youtube-scraper', 'JA_RODOU_NESTA_CASA')` diz, na
+    propria linha, que ja correu nesta casa.
+    """
+    return bool(_RE_NAO_ACONTECEU.search(linha))
+
+
+_RE_HOST_NU = __import__("re").compile(
+    r"""['"]([a-z0-9-]+(?:\.[a-z0-9-]+)+)['"]""")
+
+
+def _e_tabela_de_hosts(linha: str) -> bool:
+    """Uma linha que emparelha um DOMINIO com o nome do canal RECONHECE, nao colhe.
+
+    ⚠️ TERCEIRA VOLTA DA MESMA LICAO, e a mais fina das tres.
+
+        coleta/speaker_identidade.py:169-171
+            ('linkedin.com', 'LINKEDIN'),
+            ('youtube.com', 'YOUTUBE'), ('youtu.be', 'YOUTUBE'),
+            ('instagram.com', 'INSTAGRAM'),
+
+    Por causa destas tres linhas, `C-CORPUS` aparecia a receber do LinkedIn, do
+    YouTube e do Instagram. Nao recebe: a tabela `HOSTS` existe para RECONHECER
+    o dominio de uma URL que o proprio investigador declarou no campo
+    `researcher-urls` do ORCID — o comentario por cima di-lo em voz alta,
+    «nao e busca por nome, nao e scraping [...] e declaracao». A unica rede
+    daquele ficheiro e `pub.orcid.org`.
+
+    Os dois sinais anteriores nao chegam aqui: o ficheiro FALA com a rede (fala
+    com o ORCID) e a linha nomeia UM canal so.
+
+        COMPARAR UMA URL COM UM DOMINIO
+        NAO E TER IDO BUSCAR ALGO A ESSE DOMINIO.
+
+    O sinal que decide e o DOMINIO NU — `youtu.be`, sem esquema e sem caminho.
+    Ninguem colhe de uma string dessas; compara-se com ela. As rotas a serio
+    desta arvore nao se parecem com isso e ficam todas de pe: `import
+    urllib.request`, `def youtube_buscar(...)`, `import instagram_pessoal`, e o
+    mapa de atores `'YOUTUBE': ('streamers~youtube-scraper', ...)`, cujo lado
+    direito e um id de ator e nao um dominio.
+    """
+    return bool(_RE_HOST_NU.search(linha))
+
+
+def _so_o_codigo(caminho: str) -> str:
+    """O ficheiro sem comentarios, sem docstrings e sem NENHUMA string.
+
+    ⚠️ SEGUNDA VOLTA DA MESMA LICAO. A primeira excluiu o vocabulario que vive
+    num modulo SEM rede. Esta exclui o vocabulario que vive num modulo que
+    parece ter rede — e nao tem, porque a unica palavra de rede no ficheiro esta
+    DENTRO DE ASPAS, e e o nome de um campo de relatorio:
+
+        coleta/sensor_canal_identidade.py:224   'APIFY_RUNS': 0, 'COST_USD': 0,
+        coleta/social_scrap.py:377              'APIFY_CHAMADA': False,
+
+        UM CAMPO QUE REGISTA ZERO CHAMADAS A APIFY
+        NAO E UMA CHAMADA A APIFY.
+
+    E o contrario do que o mapa desenhava: por causa dessas duas linhas, o canal
+    LINKEDIN aparecia ligado a `C-CORPUS` e a `C-SCRAP-SOCIAL`. A prova da
+    segunda era `social_scrap.py:135` — `('LINKEDIN', 'FETCH_POST', {})` — uma
+    linha do bloco ADVERSARIAL, cujo comentario diz «rotas que a matriz declara
+    proibidas [...] TÊM que falhar». O mapa estava a desenhar como travessia
+    exactamente a rota que aquele bloco existe para provar RECUSADA.
+
+    Ficam de pe as chamadas a serio: `import apify_pool` e um NOME no codigo, e
+    `urlopen(` tambem. Medido: dos 11 ficheiros que provavam um `VIAJA_POR`,
+    NOVE mantem-se e DOIS caem — os dois de cima.
+    """
+    achado = _CACHE_CODIGO.get(caminho)
+    if achado is None:
+        try:
+            texto = (RAIZ / caminho).read_text(encoding="utf-8", errors="replace")
+            pedacos = [t.string for t in _tokenize.generate_tokens(
+                _io.StringIO(texto).readline)
+                if t.type not in (_tokenize.COMMENT, _tokenize.STRING)]
+            achado = " ".join(pedacos)
+        except (OSError, SyntaxError, IndentationError,
+                _tokenize.TokenError, ValueError):
+            # Nao dando para separar codigo de prosa, nao se finge que deu: o
+            # ficheiro inteiro volta, e a regra de cima decide como antes.
+            try:
+                achado = (RAIZ / caminho).read_text(encoding="utf-8",
+                                                    errors="replace")
+            except OSError:
+                achado = ""
+        _CACHE_CODIGO[caminho] = achado
+    return achado
 
 
 def _fala_com_a_rede(caminho: str) -> bool:
@@ -1453,11 +1568,7 @@ def _fala_com_a_rede(caminho: str) -> bool:
     """
     v = _CACHE_REDE.get(caminho)
     if v is None:
-        try:
-            v = bool(_RE_REDE.search(
-                (RAIZ / caminho).read_text(encoding="utf-8", errors="replace")))
-        except OSError:
-            v = False
+        v = bool(_RE_REDE.search(_so_o_codigo(caminho)))
         _CACHE_REDE[caminho] = v
     return v
 
@@ -1517,7 +1628,9 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
                 if not _fala_com_a_rede(f):
                     continue
                 achou = next(((i, l) for i, l in enumerate(linhas, 1)
-                              if rx.search(l) and not _e_lista_de_canais(l)), None)
+                              if rx.search(l) and not _e_lista_de_canais(l)
+                              and not _e_tabela_de_hosts(l)
+                              and not _diz_que_nao_aconteceu(l)), None)
                 if achou:
                     quem.append(a["id"])
                     provas.append({"acao": a["id"], "veiculo": vid,
@@ -1589,11 +1702,23 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
             "facts": ([f"contas publicas mapeadas neste canal: {recebe['contas']}",
                        f"dessas, autorizadas a coletar: {recebe['autorizadas']}"]
                       if recebe else [])
-                     + [f"acoes da coleta que passam por aqui: {len(quem)}"]
+                     + [f"acoes da coleta que nomeiam este canal: {len(quem)}"]
                      + [f"prova: {p['file']}:{p['line']}" for p in provas[:5]],
+            # O QUE ESTA LINHA PODE E O QUE NAO PODE DIZER. Ela mede uma coisa
+            # so: o codigo daquela acao NOMEIA este canal, numa linha que nao e
+            # vocabulario, nem tabela de dominios, nem rotulo a dizer que a rota
+            # nao foi exercida. Isso e DECLARACAO, e nao passagem.
+            #
+            #     O CODIGO NOMEAR UM CANAL NAO E ALGO TER VINDO POR ELE.
+            #
+            # Dizer «cada uma tem ficheiro e linha que o prova» convidava a ler
+            # como travessia observada aquilo que e, quando muito, rota
+            # declarada. Quem quiser a travessia tem de a ver no rasto da
+            # corrida, e nao no grep.
             "status_reason": (
-                f"{len(quem)} acao(oes) chamam este canal, e cada uma tem ficheiro e "
-                f"linha que o prova." if quem else
+                f"{len(quem)} acao(oes) NOMEIAM este canal no codigo, cada uma com "
+                f"ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou "
+                f"por aqui, so que o caminho esta escrito." if quem else
                 "NAO SEI: o canal esta descrito aqui, mas nenhuma acao da coleta o "
                 "chama no codigo de hoje. Ou nao se usa, ou usa-se por um caminho "
                 "que este mapa ainda nao ve."),
