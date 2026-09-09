@@ -363,6 +363,14 @@ def instagram_stories(*, perfis, run_id, country_scope, **_):
     except ist.EntradaInvalida as e:
         raise _EntradaReprovada(str(e))
 
+    # A SEGUNDA TRAVA. `permitir_pago` já passou lá em cima — isso é INTENÇÃO.
+    # Esta aqui é CAPACIDADE: a previsão tem de caber no teto da missão. As duas
+    # são independentes de propósito, e uma sem a outra não roda.
+    try:
+        previsto, _sobra = ist.cabe_no_teto(len(corpo['usernames']))
+    except ist.ForaDoOrcamento as e:
+        raise _ForaDoOrcamento(str(e))
+
     chaves = ap.pool()
     if not chaves:
         # Sem chave não se acende run. E, como no YouTube, credencial ausente
@@ -384,13 +392,17 @@ def instagram_stories(*, perfis, run_id, country_scope, **_):
     por_item = (custo / len(itens)) if itens else 0.0
 
     raw_ref = env.guardar_raw('INSTAGRAM', 'stories-%s' % run_id, itens)
+    pasta_midia = os.path.join(RAIZ, 'data', 'samples', 'SOCIAL-IT', 'raw-stories', run_id)
     objetos = []
     for it in itens:
         u = (it.get('user') or {}).get('username') or it.get('username') or '?'
         # NaoEStory sobe. Ela é CONTRACT_DRIFT na porta — nunca um `continue`.
-        objetos.append(ist.normalizar(
+        o = ist.normalizar(
             it, username=u, run_id=run_id, country_scope=country_scope,
-            route='apify:%s' % ist.ATOR, cost_usd=por_item, raw_reference=raw_ref))
+            route='apify:%s' % ist.ATOR, cost_usd=por_item, raw_reference=raw_ref)
+        # E o byte vem AGORA, no mesmo run que o descobriu. Não há fila antes
+        # daqui: para Story, «depois» pode não existir.
+        objetos.append(ist.baixar_midia(o, pasta_midia))
     _ULTIMO_ESTADO_POR_PERFIL.clear()
     _ULTIMO_ESTADO_POR_PERFIL.update(estados)
     return objetos
@@ -400,6 +412,10 @@ def instagram_stories(*, perfis, run_id, country_scope, **_):
 # a diferença entre "ninguém tinha Story" e "um perfil é privado". Fica aqui,
 # ao lado da execução que o produziu.
 _ULTIMO_ESTADO_POR_PERFIL = {}
+
+
+class _ForaDoOrcamento(RuntimeError):
+    """A previsão de gasto não cabe no teto da missão. BUDGET_EXHAUSTED."""
 
 
 class _EntradaReprovada(ValueError):
@@ -529,6 +545,12 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         registro['ESTADO'] = e.rel.get('STATE')
         registro['NATIVE_REASON'] = e.rel.get('NATIVE_REASON')
         registro['RECOVERY_ACTION'] = e.rel.get('RECOVERY_ACTION')
+        registro['ERRO'] = ss.redigir(str(e))
+        return [], registro
+    except _ForaDoOrcamento as e:
+        # O teto morde ANTES da execução. Um teto que só aparece na fatura não
+        # é teto — é lamento.
+        registro['ESTADO'] = 'BUDGET_EXHAUSTED'
         registro['ERRO'] = ss.redigir(str(e))
         return [], registro
     except _EntradaReprovada as e:
