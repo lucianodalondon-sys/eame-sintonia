@@ -1301,6 +1301,7 @@
       "system-map/data/architecture.declared.json",
       "system-map/data/estradas-it.model.json",
       "system-map/data/provas-de-execucao.json",
+      "system-map/data/rota-m2.observada.json",
       "system-map/scripts/censo_da_coleta.py",
       "system-map/scripts/censo_da_observabilidade.py",
       "system-map/scripts/censo_das_derivacoes.py",
@@ -1787,8 +1788,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "b4310443d0746c8b7d569dd5095d1acbe0e59009",
-    "GENERATED_AT": "2026-09-09T03:33:33+00:00"
+    "HEAD": "c99907d916f6671a81bb4009667fd80ffd0ed391",
+    "GENERATED_AT": "2026-09-09T04:01:29+00:00"
   },
   "FAMILIES": [
     {
@@ -15793,7 +15794,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-topology-census-v1",
-        "HEAD b4310443d0746c8b7d569dd5095d1acbe0e59009"
+        "HEAD c99907d916f6671a81bb4009667fd80ffd0ed391"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -26320,7 +26321,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — aquisicao social tem o seu codigo importado por Suite de testes. Provado por 17 linhas de codigo.",
+      "reason": "SINTONIA SCRAP — aquisicao social tem o seu codigo importado por Suite de testes. Provado por 18 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -26336,6 +26337,11 @@
           "file": "tests/test_m2_rota_forward.py",
           "line": 24,
           "snippet": "import social_persistencia as sp      # noqa: E402"
+        },
+        {
+          "file": "tests/test_politica_da_coleta.py",
+          "line": 200,
+          "snippet": "import social_envelope as se"
         },
         {
           "file": "tests/test_social_persistencia_pg.py",
@@ -26376,11 +26382,6 @@
           "file": "tests/test_youtube_checkpoint_pg.py",
           "line": 21,
           "snippet": "import youtube_oficial as yt        # noqa: E402"
-        },
-        {
-          "file": "tests/test_youtube_oficial.py",
-          "line": 22,
-          "snippet": "import youtube_oficial as yt      # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -26393,12 +26394,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — aquisicao social alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "SINTONIA SCRAP — aquisicao social alimenta Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
           "line": 145,
           "snippet": "fonte = open(os.path.join(RAIZ, \"coleta\", \"social_persistencia.py\"),"
+        },
+        {
+          "file": "tests/test_politica_da_coleta.py",
+          "line": 210,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'social_persistencia.py'),"
         },
         {
           "file": "tests/test_social_sessao.py",
@@ -28519,7 +28525,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 698,
+  "UNCLAIMED_FILES_COUNT": 699,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 144,
@@ -28531,7 +28537,7 @@
     "edges_proven": 577,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1341,
+    "files_tracked": 1342,
     "files_covered": 643,
     "files_code_unclaimed": 0
   }

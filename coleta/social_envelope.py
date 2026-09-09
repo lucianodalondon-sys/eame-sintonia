@@ -85,6 +85,41 @@ def esquecer_produzidos():
 NOT_PRESERVED = 'NOT_PRESERVED'
 PRESERVED = 'PRESERVED'
 
+# ── O BURACO DESTA FRONTEIRA, COM NOME ──────────────────────────────────────
+#
+# Ele ja estava descrito — em quatro sitios, em prosa, e ate viaja com cada
+# artefacto em `PRESERVATION_OWNER`. O que nao existia era um NOME que uma
+# maquina conseguisse ler. Um censo de buracos nao consegue desenhar
+#
+#     SCRAP -> [GAP: o dono do RAW nunca recebe estes bytes]
+#
+# a partir de um comentario. E o mapa, hoje, nao mostra buraco nenhum aqui:
+# mostra o SCRAP a coletar e cala o que acontece a seguir.
+#
+#     UM BURACO DESCRITO EM PROSA E UMA DIVIDA QUE SO O AUTOR HERDA.
+#     UM BURACO COM NOME E UMA DIVIDA QUE O SISTEMA INTEIRO VE.
+#
+# MEDIDO nesta arvore:
+#   coleta/social_persistencia.py escreve `conteudo`, `conteudo_visto_em` e
+#   `comentario` — e NAO escreve `raw_asset`. Os unicos escritores de
+#   `raw_asset` sao guarda/preservar_coleta.py, guarda/catalogo_importar.py e
+#   guarda/memoria_descartavel.py, e nenhum deles e chamado pelo SCRAP.
+#   coleta/social_scrap.py:668 di-lo por escrito: «PILOT_PROOF, nao
+#   OPERATIONAL_STORAGE. O dono forward do G-42 (Storage + raw_asset) NAO
+#   recebeu estes bytes.»
+#
+# ⚠️ ISTO NAO E UM DEFEITO A CONSERTAR AQUI. Ligar o SCRAP ao dono do RAW e
+# uma DECISAO DE ARQUITETURA — muda o que a coleta social preserva, quanto
+# custa e o que passa a ser reproduzivel. Esta linha nomeia; nao decide.
+GAPS = (
+    ("SCRAP_RAW_NAO_RECEBIDO",
+     "a aquisicao social preserva os bytes como artefacto do Actions "
+     "(RETENTION_CLASS ACTIONS_ARTIFACT_30D) e escreve a estrutura em "
+     "`conteudo`/`comentario`, mas o dono forward do RAW — Storage + "
+     "`raw_asset` — nunca os recebe. A rota social NAO atravessa RAW. "
+     "SCRAP SUCCESS != ADMITTED EVIDENCE."),
+)
+
 CONTENT_TYPES = ('VIDEO', 'POST', 'PROFILE', 'CHANNEL', 'COMMENT', 'ARTICLE', 'DISCOVERY')
 
 # `UNKNOWN` é o valor de partida dos dois campos que a casa mais erra quando

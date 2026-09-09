@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "b4310443d0746c8b7d569dd5095d1acbe0e59009",
-    "GENERATED_AT": "2026-09-09T03:33:33+00:00"
+    "HEAD": "c99907d916f6671a81bb4009667fd80ffd0ed391",
+    "GENERATED_AT": "2026-09-09T04:01:29+00:00"
   },
   "FILES": [
     {
@@ -1325,7 +1325,7 @@
     },
     {
       "path": "coleta/social_envelope.py",
-      "sha": "1248eaf49a2cc8e586af62170a544db71b7de8dd",
+      "sha": "196819855d39293a0d647cd5f563c92e24bb175f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8674,6 +8674,13 @@
       "code_dir": true
     },
     {
+      "path": "system-map/data/rota-m2.observada.json",
+      "sha": "ad5684fd11205390716ec823a0c831156ac129a6",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "system-map/scripts/censo_da_coleta.py",
       "sha": "3fa99e2b2154151b55c6f4ff5f1f87c7b27b8d8d",
       "ext": ".py",
@@ -9193,7 +9200,7 @@
     },
     {
       "path": "tests/test_politica_da_coleta.py",
-      "sha": "43cbf0caba6b559437c983099c5412e7d01f5850",
+      "sha": "5ca2656b1812f493807349c57c947e51df2b0020",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24456,6 +24463,17 @@
       }
     },
     {
+      "from_file": "provas/a_rota_m2_atravessa.py",
+      "to_file": "system-map/data/rota-m2.observada.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_rota_m2_atravessa.py",
+        "line": 84,
+        "snippet": "OBSERVADO = os.path.join(RAIZ, \"system-map\", \"data\", \"rota-m2.observada.json\")"
+      }
+    },
+    {
       "from_file": "provas/chain.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -30540,6 +30558,28 @@
     },
     {
       "from_file": "tests/test_politica_da_coleta.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_politica_da_coleta.py",
+        "line": 200,
+        "snippet": "import social_envelope as se"
+      }
+    },
+    {
+      "from_file": "tests/test_politica_da_coleta.py",
+      "to_file": "coleta/social_persistencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_politica_da_coleta.py",
+        "line": 210,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'social_persistencia.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_politica_da_coleta.py",
       "to_file": "leis/fundacao_da_coleta.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -32775,10 +32815,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1341,
+    "files_tracked": 1342,
     "files_readable": 497,
-    "files_code_dir": 549,
-    "file_edges": 2083,
+    "files_code_dir": 550,
+    "file_edges": 2086,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },
