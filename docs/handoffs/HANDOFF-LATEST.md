@@ -1,4 +1,4 @@
-# HANDOFF — ÚLTIMO ESTADO · 2026-09-08
+# HANDOFF — ÚLTIMO ESTADO · 2026-09-09
 
 > O ficheiro grande é
 > [`HANDOFF-EMERGENCIA-COLLECTION-FOUNDATION-2026-09-08.md`](HANDOFF-EMERGENCIA-COLLECTION-FOUNDATION-2026-09-08.md).
@@ -6,154 +6,160 @@
 
 ```
 WORK_BRANCH   claude/collection-foundation-integration-v1
-WORK_HEAD     ef9803bb          (medir outra vez: git fetch)
+WORK_HEAD     c268f3ba          (medir outra vez: git fetch)
 WORKTREE      limpa
 M2_STATE      CLOSED
+M2I_STATE     PARTIAL
 ```
 
-⚠️ **Duas sessões trabalham nesta branch ao mesmo tempo.** Já colidimos cinco
-vezes — duas delas nesta missão, e as duas correram bem porque a regra foi
-cumprida. `git fetch` **antes de começar** e **antes de cada commit**. Nunca
-`--force`. Se o remoto andou: **parar de escrever, ler os commits novos, e
-integrar por medição** — não por antiguidade, e não por quem chegou primeiro.
+⚠️ **Duas sessões trabalham nesta branch.** Já colidimos sete vezes, e as sete
+correram bem porque a regra foi cumprida: `git fetch` **antes de começar** e
+**antes de cada commit**; se o remoto andou, **parar de escrever, ler, e
+integrar por medição** — nunca por antiguidade, nunca com `--force`.
 
-## Checkpoints empurrados
+⚠️ **Não integrar `claude/system-map-freshness-v1`** enquanto essa missão não
+entregar handoff próprio.
+
+## Checkpoints
 
 | commit | o que fechou |
 |---|---|
-| `51a26550` … `0552424a` | **M1A · O1–O8** · a trava, o contrato, o fluxo no seco |
-| `105602f6` | **O8B** · o mapa deixa de dizer que não existe o que existe |
-| `124c6999` · `44e2de1b` | **O9** · o primeiro executor fala; a fronteira do replay |
-| `c293be65` | **O10R** · os nomes deixam de prometer mais do que provam |
 | `8e1947d2` | **O9R** · o sensor sai do replay e entra na estrada oficial |
-| `a13565b6` | **preflight** · quatro nomes que ainda prometiam demais |
 | `700da777` | **M2** · a rota atravessa DERIVED → STRUCTURED → ADMISSION |
-| `ef9803bb` | **M2** · a aresta deixa de ser desenhada e passa a ser percorrida |
+| `ef9803bb` | **M2** · a aresta passa a ser percorrida, não desenhada |
+| `ff26485c` | **M2R** · a travessia deixa de ser composta e passa a ser uma só |
+| `c268f3ba` | **M2I** · a autoridade da identidade, medida — e não inventada |
 
-## A rota da M2, e quem são os donos
-
-```
-DERIVED      coleta/derivacao_forward.py      → executor_texto_de_pdf.derivar_um
-                                                 → guarda/preservar_derivado.py
-STRUCTURED   coleta/social_persistencia.py     o dono de public.conteudo
-ADMISSION    admissao/admissao.py              a peneira comum
-COSTURA      coleta/rota_forward_documento.py  não reimplementa nenhuma decisão
-```
-
-`ROUTE_IDENTITY` = o par **`(source_id, route_class_id)`** = **`(IT-T2-002, RC-1)`**.
-**Não é um id novo:** é a chave por que a `024` agrupa `v_saude_da_rota` — *«a
-saúde é do par (fonte, rota)»*.
-
-## O que `ef9803bb` fechou, e por que era o que faltava
-
-O portão já exigia que **a mesma rota** carregasse as três etapas. Isso é
-necessário e não chega:
+## M2I — o veredito, e por que ele é este
 
 ```
-TRÊS ETAPAS NA MESMA ROTA PODEM SER TRÊS ACONTECIMENTOS SOLTOS.
+M2I = PARTIAL
+CHANNEL_IDENTITY_NOT_RESOLVED = OPEN
 ```
 
-Medido no banco, não suposto — na corrida que provava a rota havia
-`STRUCTURED edge_from=DERIVED PASS` e **nenhuma passagem de `DERIVED`**: a
-etapa de cima correra noutra corrida, noutro ficheiro.
+A missão pedia para resolver `SOURCE → OWNER → ORGANIZAÇÃO → ORIGEM → CANAL`,
+que hoje só existe montada à mão dentro da prova. E dizia: **se não houver
+autoridade canónica suficiente, termina PARTIAL.** Não há.
+
+### O censo, antes de qualquer código
+
+Quem **escreve** as quatro tabelas de identidade hoje:
 
 ```
-DECLARED EDGE ≠ OBSERVED EDGE.
-UMA SETA DESENHADA NÃO É UM CAMINHO PERCORRIDO.
+organizacao   tests/ e provas/ — mais ninguém
+pessoa        NINGUÉM
+origem        tests/ e provas/ — mais ninguém
+canal         tests/ e provas/ — mais ninguém
 ```
 
-E o artefato também não viajava: o `STRUCTURED` lia um ficheiro de
-`data/derivados/texto/` (o registo **legado**), e não o `derived_artifact` que
-o DERIVED acabara de escrever.
-
 ```
-ARTEFATO QUE NÃO VIAJA NÃO É ARESTA: É COINCIDÊNCIA.
+MODULE EXISTS ≠ OWNER EXISTS.
+WRITER EXISTS ≠ IDENTITY AUTHORITY EXISTS.
 ```
 
-Agora `rastro.o_que_a_rota_observou()` lê do **banco** e só conta uma aresta
-com os **dois topos**. O que fica só declarado aparece em
-`ARESTAS_DECLARADAS_SEM_TOPO` — visível, e não contado.
+Há dois módulos com «identidade» no nome e **nenhum é este dono**:
+`regras/comunicacao_identidade.py` decide se uma conta social é oficial, de que
+país e da empresa ou de uma marca — outra pergunta, outro corpus, e escreve
+JSON. `coleta/sensor_canal_identidade.py` decide se um candidato de busca é
+mesmo a pessoa. Nenhum liga `SOURCE_ID` a entidade.
 
-## GOOD_PATH · uma corrida, uma rota, o artefato a viajar
+**Não faltava schema.** A `002` já separa pessoa de organização, exige que uma
+`origem` seja UMA das duas (`num_nonnulls = 1`) e põe `UNIQUE (plataforma,
+channel_id)` no canal.
 
-`provas/a_rota_m2_atravessa.py` — 18 factos contra PostgreSQL 16 descartável:
-
-```
-raw_asset REAL       escrito pelo dono do bruto, id lido do banco
-DERIVED              derived_artifact real, linhagem fechada no pai
-o artefato viaja     os BYTES do derivado, conferidos por sha256
-STRUCTURED           1 artefato → 1 registo
-ADMISSION            a porta respondeu NAO_SEI · item por `unknown`
-UMA rota na corrida  (IT-T2-002, RC-1)
-as duas arestas      com os DOIS topos
-conta fecha          UNACCOUNTED_INPUT = 0 nas três etapas
-last good            ADMISSION
-READY                zero — perguntado ao banco
-```
-
-⚠️ **A porta disse `NAO_SEI`, e isso não é falha.** O boletim agrometeo da
-ARPAV não encontra vocabulário de universo nenhum. A **etapa** passou; o
-**item** saiu por `unknown`. *Ausência de evidência não é evidência de
-ausência* — por isso não é um `NAO`.
-
-## FAULT_PATH
-
-Os três caminhos de falha vivem em `tests/test_m2_rota_forward.py` (a outra
-sessão): `STRUCTURED` recusa → `ADMISSION NOT_RUN` com `UPSTREAM_NOT_RUN`;
-`STRUCTURED` quebra → `FAIL` com estado canónico; a porta diz **NÃO** (universo
-T9) → a **etapa** continua `PASS` e o **item** sai por `REJECTED`.
+### A prova: `provas/a_autoridade_da_fonte.py` — 13 factos
 
 ```
-UMA RECUSA NÃO É UMA FALHA TÉCNICA. A PENEIRA A FUNCIONAR NÃO É AVARIA.
+o registo canónico é docs/fontes/ATLAS-DE-FONTES-EAME.md
+  — e quem o diz é o scanner da casa, em sources.generated.json:
+    «52 foram levantadas em Itália e nunca ganharam ficha no atlas
+     — e o atlas é o registo canónico»
+
+IT-T2-002 no atlas ................. 0 ocorrências (o atlas tem 42 fontes)
+IT-T2-002 em CONTRATOS-DAS-FONTES ... não (o contrato declara OWNER para 5:
+                                      FR-T4-001 ES-T4-005 IT-T4-001
+                                      ES-T3-001 EU-T4-001)
+a relação existe .................... só em candidatas/ITALY-SOURCE-MASTER-V1.json
+                                      status=NEW · verdict=NAO SEI
+e esse ficheiro diz de si próprio ... «aditivo e não altera o placar»
 ```
 
-E as mutações da aresta em `tests/test_m2_aresta_observada.py`: três etapas sem
-arestas **não** abrem o portão; meia cadeia **não** abre; `NOT_RUN` não cobre.
-
-## Os dois portões, e por que podem ser os dois `YES`
-
-```
-TELEMETRY_INFRASTRUCTURE_PROVED   YES   e agora CONSOME paridade_da_lingua
-CANONICAL_FORWARD_PATH_PROVED     YES
-M2_ROUTE_OBSERVABILITY_READY      YES   com as ARESTAS por trás
-```
-
-`QUESTION A ≠ QUESTION B` **não é** `ANSWER A ≠ ANSWER B`. A separação está no
-dono, no critério e na evidência — e há mutação que exige que `YES/YES` seja
-permitido.
-
-## Um susto que virou trava
-
-O censo media **e** escrevia na mesma função. Uma mutação que trocava o
-veredito da paridade **gravou `PARIDADE: UNKNOWN` no artefato commitado**.
+**A mutação está escrita na prova:** admitir o catálogo candidato como
+autoridade viraria o veredito para `RESOLVED`. Era esse o atalho — e é por isso
+que ele fica visível, e não tapado.
 
 ```
-UM TESTE QUE PERSISTE A PRÓPRIA MENTIRA DEIXA-A LÁ DEPOIS DE ACABAR.
+SOURCE CATALOG DECLARATION ≠ DB IDENTITY AUTHORITY.
+CANDIDATE RECORD           ≠ CANONICAL FACT.
 ```
 
-`medir_tudo()` mede e não toca no disco; `principal()` escreve. Há teste que
-reprova se a medição voltar a alcançar o ficheiro.
+### O achado que poupa a próxima missão
+
+**Promover a fonte não chega.** `organizacao.tipo` aceita **nove** nomes; o
+catálogo fala **doze** `OWNER_KIND`, e **nenhum coincide** —
+`OFFICIAL_REGIONAL_AGENCY`, `AOP`, `TECHNICAL_NETWORK`, `PRODUCER_ORG`,
+`CONSORTIUM` não têm alvo.
+
+A prova da M2 escreve `'orgao_publico'` para `OFFICIAL_REGIONAL_AGENCY`.
+Ninguém declarou essa tradução — foi escolha de quem escreveu a prova.
+
+```
+UMA TRADUÇÃO QUE NINGUÉM DECLAROU É UMA DECISÃO QUE NINGUÉM ASSINOU.
+```
+
+Fica anotado na própria fixture, com a outra coisa que ela decide sozinha: a
+URL de recurso `https://exemplo.it/<fonte>`. **`canal.url` é NULLABLE** — um
+dono a sério deixaria `NULL` em vez de fabricar endereço.
+
+### O que NÃO foi feito, de propósito
+
+Nenhum owner runtime nasceu. Há teste que **reprova se um escritor de
+identidade aparecer fora de `provas/` e `tests/`**. `exigir_canal()` continua a
+recusar e a nomear quem teria de resolver — a recusa está certa e não se lhe
+tocou.
+
+```
+CONTENT PERSISTENCE ≠ IDENTITY RESOLUTION.
+```
+
+## A M2 não regrediu
+
+Sobre a base da M2R, que tornou a travessia uma execução única:
+
+```
+DERIVED · STRUCTURED · ADMISSION            observados, mesma rota, mesma corrida
+DERIVED→STRUCTURED · STRUCTURED→ADMISSION   arestas com os dois topos
+UNACCOUNTED_INPUT = 0 · READY = 0
+M2_ROUTE_OBSERVABILITY_READY = YES · TELEMETRY_INFRASTRUCTURE_PROVED = YES
+```
 
 ## O que continua aberto, com nome
 
-| gap | quem | o que custa |
+| gap | estado | o que falta |
 |---|---|---|
-| `RAW_FORWARD_NAO_EMITE` | `guarda/preservar_coleta.py` | a aresta `RAW→DERIVED` fica **declarada sem topo** — agora visível na medição, e não só em prosa |
-| `CHANNEL_IDENTITY_NOT_RESOLVED` | ninguém | `conteudo` exige `canal_id`; criar canal exige decidir **de quem** ele é, e o writer recusa-se a escolher. *CHANNEL_ID prova o canal, não prova a origem.* Na prova é resolvido no banco descartável com dados do catálogo |
-| `TELEMETRY_FAILURE_SEM_POLITICA` | ninguém | a excepção do rastro **sobe** pelo chamador; não há política escrita, e **não se inventou uma para passar num teste** |
-| `024` não aplicada em produção | — | de propósito. Missão própria, com autorização própria |
+| `CHANNEL_IDENTITY_NOT_RESOLVED` | **OPEN** | as três autoridades abaixo |
+| `RAW_FORWARD_NAO_EMITE` | OPEN | `guarda/preservar_coleta.py` é mudo; a aresta `RAW→DERIVED` fica declarada sem topo |
+| `TELEMETRY_FAILURE_SEM_POLITICA` | OPEN | a excepção do rastro sobe pelo chamador; não há política escrita |
+| `LINEAGE_PROOF_GAP` (M2R) | OPEN | `conteudo` não tem FK para `derived_artifact`: há como conferir, não há como impedir |
+| `024` | DESIGNED · DB_TESTED | não aplicada em produção, de propósito |
+
+### `MISSING_AUTHORITY`, com nome
+
+```
+1 · ficha em docs/fontes/ATLAS-DE-FONTES-EAME.md
+2 · contrato em docs/operacao/CONTRATOS-DAS-FONTES-EAME.md
+3 · tradução declarada de OWNER_KIND → organizacao.tipo
+```
 
 ## NEXT_CHECKPOINT
 
-**O menor próximo trabalho é `CHANNEL_IDENTITY_NOT_RESOLVED`** — é a única
-pré-condição que hoje só existe dentro do banco descartável, e é o que separa
-«a rota corre numa bancada» de «a rota corre». Depois dele: `RAW_FORWARD_NAO_EMITE`,
-que fecharia a única aresta que ainda é só declarada.
+**Promover `IT-T2-002`** — dar-lhe ficha no atlas **ou** contrato em
+`CONTRATOS-DAS-FONTES-EAME.md`. É uma **decisão de conteúdo**, com evidência
+sobre a fonte, e não trabalho de engenharia: por isso não coube nesta missão.
+Depois dela, **declarar a tradução `OWNER_KIND → organizacao.tipo`**. Só então
+o resolver tem sobre o que assentar — e aí é pequeno.
 
-**Não** perseguir cobertura por número, **não** instrumentar executor genérico,
-**não** tocar Portal nem Inteligência.
-
-## Verificar em oito comandos
+## Verificar em nove comandos
 
 ```bash
 cd <repo> && git fetch origin && git status --porcelain
@@ -163,16 +169,22 @@ python3 provas/o_executor_conta_se.py
 export BANCO_DESCARTAVEL_URL=postgresql://postgres@127.0.0.1:5433/descartavel
 python3 provas/o_forward_conta_se.py
 python3 provas/a_rota_m2_atravessa.py
+python3 provas/a_autoridade_da_fonte.py
 python3 -m unittest discover -s tests -q
 ```
 
 Esperado: `SYSTEM_MAP_CHECK=PASS` · `PARIDADE=PASS` · `EXECUTOR_CONTA_SE=PASS` ·
-`FORWARD_CONTA_SE=PASS` · `ROTA_M2_ATRAVESSA=PASS`, e a suíte em
-**1629 · 1422 PASS · 17 FAIL · 20 ERROR · 170 SKIP**, com as **38 falhas
-herdadas** medidas em `700da777` (`NEW_FAILURES = 0`).
+`FORWARD_CONTA_SE=PASS` · `ROTA_M2_ATRAVESSA=PASS` ·
+`AUTORIDADE_DA_FONTE=PASS` com `SOURCE_AUTHORITY[IT-T2-002] = UNRESOLVED`, e a
+suíte em **1645 · 1433 PASS · 17 FAIL · 20 ERROR · 175 SKIP**, com as **38
+falhas herdadas** medidas em `ff26485c` (`NEW_FAILURES = 0`).
 
 ⚠️ `pdftotext` (poppler-utils) tem de estar na máquina. Sem ele as provas
 **recusam correr**, em vez de passarem a verde medindo a ausência da máquina.
 
-**Zero escritas em produção. Zero Supabase. Zero rede na coleta. `024` por
-aplicar. A M2 termina em ADMISSION — e terminar aí é a verdade.**
+**Zero escritas em produção. Zero Supabase. Zero Intelligence, Delivery ou
+Portal. `024` por aplicar.**
+
+> O que falta não é verdade — a ARPAV publica mesmo aquele boletim.
+> O que falta é **autoridade**.
+> `UNKNOWN HONESTO > IDENTIDADE INVENTADA.`
