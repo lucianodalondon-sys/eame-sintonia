@@ -1,0 +1,77 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# S0-P0M1 · CENSO DE METADADOS DAS 12 CANDIDATAS
+#
+# SO LE CATALOGO. Zero mutacao: nenhum insert, update, delete, alter, grant,
+# revoke, create policy ou migration. Nenhuma linha de negocio e lida — nem uma
+# coluna de conteudo, nem um dado pessoal.
+#
+#     A PORTA ESTA ABERTA OU FECHADA?
+#     SE O CATALOGO DA PROPRIA BASE RESPONDE, NAO SE TOCA NA MACANETA.
+#
+# ── PORQUE O RESULTADO SENSIVEL NAO E IMPRESSO ────────────────────────────
+#
+# Este repositorio e PUBLICO, e o log de um workflow num repositorio publico e
+# publico. Provar que uma porta esta FECHADA nao ensina nada a ninguem, e pode
+# ser impresso inteiro. Provar que uma porta esta ABERTA, com o nome da tabela,
+# e entregar a um estranho o primeiro passo de um ataque, antes de existir
+# contencao.
+#
+#     PROVA DE PORTA FECHADA  -> publicavel.
+#     PROVA DE PORTA ABERTA   -> primeiro fecha-se, depois publica-se.
+#
+# Por isso o passo de classificacao imprime a matriz completa apenas quando ela
+# esta limpa. Havendo exposicao, imprime o VEREDITO e a CONTAGEM, e retem os
+# nomes. Quem tem a chave do projeto le o detalhe pela sua propria conexao; o
+# resto do mundo nao precisa dele para saber que a missao correu.
+#
+# Os secrets vivem so na memoria do runner. Nenhum passo os imprime, nem o DSN.
+# ═══════════════════════════════════════════════════════════════════════════
+name: rls-censo-metadados
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/rls-censo-metadados.yml'
+      - 'provas/rls_censo_metadados.sql'
+
+permissions:
+  contents: read
+
+jobs:
+  censo:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 0 · a consulta nao pode mutar nada
+        # O portao corre ANTES da ligacao. Um censo que pudesse escrever nao e
+        # um censo. Isto e barato, e e a unica coisa entre nos e a base viva.
+        run: |
+          if grep -inE '^[^-]*\b(insert|update|delete|alter|drop|create|grant|revoke|truncate|copy)\b' \
+               provas/rls_censo_metadados.sql; then
+            echo "RECUSADO: a consulta contem uma palavra de mutacao fora de comentario."
+            exit 1
+          fi
+          echo "SQL_READ_ONLY=PROVED"
+
+      - name: 1 · presenca do secret (booleano, nunca valor)
+        run: |
+          printf 'SUPABASE_DB_URL PRESENT=%s\n' "$([ -n "$SUPABASE_DB_URL" ] && echo YES || echo NO)"
+          [ -n "$SUPABASE_DB_URL" ] || { echo "LIVE_METADATA_ACCESS=UNAVAILABLE"; exit 1; }
+
+      - name: 2 · censo de metadados (sessao read-only)
+        run: |
+          # default_transaction_read_only=on: mesmo que algo escapasse ao portao
+          # do passo 0, a propria sessao recusa escrever. Duas trancas.
+          psql "$SUPABASE_DB_URL" \
+            -v ON_ERROR_STOP=1 \
+            -c "set default_transaction_read_only = on" \
+            -f provas/rls_censo_metadados.sql > /tmp/censo.txt 2>/tmp/censo.err \
+          || { echo "PSQL_FAILED"; sed -E 's#postgres(ql)?://[^ ]*#[DSN REDIGIDO]#g' /tmp/censo.err | tail -5; exit 1; }
+          echo "CENSO_LINHAS=$(wc -l < /tmp/censo.txt)"
+
+      - name: 3 · classificar (detalhe sensivel retido)
+        run: python3 provas/rls_censo_classificar.py /tmp/censo.txt
