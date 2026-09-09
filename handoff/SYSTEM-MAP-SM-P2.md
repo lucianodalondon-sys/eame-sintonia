@@ -125,12 +125,54 @@ engenharia, e não se entregam ao dono do produto como endereço.
 
     PREVIEW URL  !=  USER URL.
 
+### O 403 ERA PASSAGEIRO, E A FRESCURA FUNCIONA
+
+Registado porque estava escrito o contrário neste ficheiro e no contrato: o
+`403` do GitHub anónimo, visto no browser do dono do produto, **não era
+permanente**. Era limite de pedidos. Voltou a responder sozinho.
+
+Medido depois, na tela servida, e sem nada por medir:
+
+```
+LATEST CANONICAL HEAD   0affd2b2          ← lido ao vivo
+SYSTEM MAP CHECK        PASS
+MAP GATE (CI)           PASS
+MAP RULES GATE (CI)     FAIL   ← vermelho herdado, à vista
+COLLECTION GATE (CI)    FAIL   ← vermelho herdado, à vista
+SYNC                    STALE · MAP IS 6 COMMITS BEHIND
+```
+
+O aparelho inteiro funciona. E o vermelho do SYNC não é defeito: é a tela a
+dizer, sozinha, o que antes só se sabia perguntando a um engenheiro.
+
+    A PERGUNTA «ESTÁ ACTUALIZADO?» DEIXA DE TER DONO HUMANO.
+
+O STALE existia porque a versão do endereço só mudava quando alguém promovia,
+e o trabalho continuava. Com a branch de produção a publicar sozinha, a branch
+do endereço e o que está no ar deixam de se separar — e o verde passa a ser o
+normal, com o vermelho a voltar a significar «há algo errado» em vez de
+«ninguém clicou ainda».
+
+`LIVE_HEAD_LOOKUP_SECURITY_ARCHITECTURE` continua `TEMPORARY`: quando o
+repositório for privado, esta leitura deixa de funcionar e passa para o lado do
+servidor. O endereço não muda.
+
 ### O QUE FALTA, E NÃO É CÓDIGO
 
 Protecção de branch em `release/canonical`: exigir os três jobs, proibir push
 directo. Sem isso o portão existe e pode ser contornado por quem tiver pressa.
 
     UM PORTAO QUE SE PODE CONTORNAR E UMA SUGESTAO.
+
+Ao criar a regra, os três nomes foram guardados **numa linha só**, como se
+fossem um check chamado `RELEASE · PROVENIENCIA RELEASE · SYSTEM MAP CHECK
+RELEASE · PORTAL REGRESSION CHECK`. Esse check não existe e nunca vai existir:
+o merge ficaria bloqueado para sempre.
+
+    A MESMA ARMADILHA DO CÓDIGO, OUTRA VEZ, NA CONFIGURAÇÃO.
+
+Os três têm de ser três linhas. Depois desta primeira passagem eles já correram,
+e passam a aparecer prontos na busca do ruleset.
 
 ### E SE PRECISAR DE POUSAR UMA VERSÃO À MÃO
 
