@@ -95,18 +95,24 @@ Found .vercelignore
 Removed 1125 ignored files defined in .vercelignore
 ```
 
-O contentor recebe **311** dos **1338** ficheiros. Python 3.12 e git **existem
-lá** — o problema não é toolchain. Regenerar naquele contentor produz um mapa
-**real de uma árvore mutilada**: 11 peças partidas, 25 em NÃO SEI, cobertura
-297/311.
+O scanner mediu **311** ficheiros em vez de **1338**. Python 3.12 e git
+**existem lá** — o problema não é toolchain. Regenerar naquele contentor produz
+um mapa **real de uma árvore mutilada**: 11 peças partidas, 25 em NÃO SEI,
+cobertura 297/311.
 
 > **UM MAPA DA ÁRVORE ERRADA É PIOR DO QUE UM MAPA DA ÁRVORE ANTIGA.**
 
-Por isso o publicador **mede a completude antes de correr a cadeia**, comparando
-`git ls-files` com o `COUNTS.files_tracked` do mapa commitado — nenhum número
-mágico. Se a árvore estiver incompleta, **nada é regerado**, o mapa commitado
-continua a ser servido, e o artefato diz `BUILD_TREE_COMPLETE: false` com
-`311 / 1338` ao lado.
+Por isso o publicador **mede a completude antes de correr a cadeia**. E mede o
+**disco**, não o índice: `git ls-files` continua a listar os 1503 caminhos mesmo
+depois de o `.vercelignore` ter apagado os ficheiros, porque quem foi apagado foi
+o ficheiro e não o nome.
+
+> **ESTAR NO ÍNDICE ≠ ESTAR NO DISCO.**
+
+A pergunta certa é a que `git ls-files --deleted` responde: que ficheiros o git
+conhece e o disco não tem? Zero é a única resposta que autoriza regerar. Se
+faltar algum, **nada é regerado**, o mapa commitado continua a ser servido, e o
+artefato diz `BUILD_TREE_COMPLETE: false` com o número ao lado.
 
 **O que a tela mostra então:** `⚪ FRESHNESS UNKNOWN`, com o motivo escrito. E,
 crucialmente, **STALE continua a funcionar**: se o commit servido não for a

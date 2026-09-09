@@ -124,21 +124,28 @@ let regenerou = false;
 let check = 'UNKNOWN';
 let porqueNaoRegenerou = null;
 
-/* A contagem esperada vem do proprio mapa commitado: ele foi gerado (e validado
-   no CI) sobre a arvore inteira, e `COUNTS.files_tracked` e quantos ficheiros
-   isso eram. Nao ha numero magico escrito aqui. */
-let estadoCommitado = null;
-try {
-  estadoCommitado = JSON.parse(readFileSync(ESTADO, 'utf8'));
-} catch { /* tratado abaixo, junto com o resto */ }
-const esperados = estadoCommitado && estadoCommitado.COUNTS
-  ? estadoCommitado.COUNTS.files_tracked : null;
-const listados = temGit ? comando('git', ['ls-files']) : null;
-const medidos = listados === null ? null : listados.split('\n').filter(Boolean).length;
-const arvoreInteira = Number.isInteger(esperados) && Number.isInteger(medidos)
-  && medidos >= esperados;
-nota(`arvore da build: ${medidos === null ? 'nao medida' : medidos} ficheiro(s)`
-  + ` · o mapa commitado foi feito sobre ${esperados === null ? 'nao sei' : esperados}`);
+/* ⚠️ CONTAR O INDICE NAO MEDE O DISCO — E A PRIMEIRA VERSAO DISTO ERRAVA AQUI.
+   A guarda comparava `git ls-files` com o `files_tracked` do mapa commitado, e
+   deu ARVORE INTEIRA no contentor da Vercel: `git ls-files` lista o INDICE, e o
+   indice continua com os 1503 caminhos mesmo depois de o `.vercelignore` ter
+   apagado 1125 FICHEIROS DO DISCO. A guarda media a lista de nomes, e a lista
+   de nomes nao tinha sido tocada.
+
+       ESTAR NO INDICE  !=  ESTAR NO DISCO.
+
+   `scan_repo.py` mede o CONTEUDO EM DISCO e salta em silencio o que nao
+   encontra (`except OSError: continue`) — foi assim que 1503 caminhos deram 311
+   ficheiros medidos. A pergunta certa e portanto a que `git ls-files --deleted`
+   responde: que ficheiros o git conhece e o disco nao tem? Zero e a unica
+   resposta que autoriza regerar. */
+const ausentes = temGit ? comando('git', ['ls-files', '--deleted']) : null;
+const rastreados = temGit ? comando('git', ['ls-files']) : null;
+const nLinhas = (s) => (s === null ? null : s.split('\n').filter(Boolean).length);
+const emFalta = nLinhas(ausentes);
+const noIndice = nLinhas(rastreados);
+const arvoreInteira = emFalta === 0;
+nota(`arvore da build: ${noIndice === null ? 'nao medida' : noIndice} ficheiro(s) no`
+  + ` indice · ${emFalta === null ? 'nao medido' : emFalta} ausente(s) do disco`);
 
 if (!python) {
   porqueNaoRegenerou = 'Python nao existe neste contentor de build';
@@ -148,11 +155,11 @@ if (!python) {
      pior do que o mapa velho, porque pareceria novo. */
   porqueNaoRegenerou = 'a arvore de build nao tem .git; o scanner mede a arvore pelo indice do git';
 } else if (!arvoreInteira) {
-  porqueNaoRegenerou = `a arvore desta build esta incompleta: ${medidos} de ${esperados} `
-    + 'ficheiros (o .vercelignore nao envia /build /data /docs /handoff /research '
-    + '/supabase /tests /.github para o contentor). Regenerar aqui daria o mapa de '
-    + 'uma arvore mutilada. O mapa commitado continua a ser servido, e a frescura '
-    + 'fica UNKNOWN em vez de verde.';
+  porqueNaoRegenerou = `a arvore desta build esta incompleta: ${emFalta} dos `
+    + `${noIndice} ficheiros rastreados nao chegaram ao disco (o .vercelignore nao `
+    + 'envia /build /data /docs /handoff /research /supabase /tests /.github para o '
+    + 'contentor). Regenerar aqui daria o mapa de uma arvore mutilada. O mapa '
+    + 'commitado continua a ser servido, e a frescura fica UNKNOWN em vez de verde.';
 } else {
   nota(`a regerar pela cadeia de ${CADEIA.REGERAR.length} passos (a mesma do CI)`);
   try {
@@ -223,8 +230,8 @@ const artefato = {
   REGENERATED_AT_BUILD: regenerou,
   NOT_REGENERATED_REASON: porqueNaoRegenerou,
   BUILD_TREE_COMPLETE: arvoreInteira,
-  BUILD_TREE_FILES: medidos,
-  MAP_TREE_FILES: esperados,
+  BUILD_TREE_TRACKED: noIndice,
+  BUILD_TREE_MISSING: emFalta,
   PUBLISHED_FILES_MISSING: faltam,
   ARCHITECTURE_SOURCE_PROVENANCE: prov
     ? {

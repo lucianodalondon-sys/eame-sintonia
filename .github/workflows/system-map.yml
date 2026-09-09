@@ -231,8 +231,9 @@ jobs:
           # é o que prova que o publicador funciona — e, por contraste, que o
           # UNKNOWN que ele produz na Vercel vem do ambiente e não de um defeito.
           if not d['BUILD_TREE_COMPLETE']:
-              erros.append(f"árvore do CI incompleta: {d['BUILD_TREE_FILES']}"
-                           f"/{d['MAP_TREE_FILES']}")
+              erros.append(f"árvore do CI incompleta: {d['BUILD_TREE_MISSING']} de "
+                           f"{d['BUILD_TREE_TRACKED']} ficheiros rastreados não estão "
+                           f"no disco")
           if not d['REGENERATED_AT_BUILD']:
               erros.append(f"não regenerou: {d['NOT_REGENERATED_REASON']}")
           if d['SYSTEM_MAP_CHECK'] != 'PASS':

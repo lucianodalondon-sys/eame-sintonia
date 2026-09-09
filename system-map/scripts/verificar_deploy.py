@@ -120,8 +120,9 @@ def conferir(base: str) -> tuple:
 
     # ── O QUE SE RELATA SEM REPROVAR ─────────────────────────────────────────
     # MEDIDO NUMA BUILD REAL DA VERCEL: `Removed 1125 ignored files defined in
-    # .vercelignore`. O contentor recebe 311 dos 1338 ficheiros, e regenerar ali
-    # daria o mapa de uma arvore mutilada. O publicador RECUSA-SE a faze-lo, e a
+    # .vercelignore`. O indice continua com os 1503 caminhos, mas o disco so tem
+    # uma parte deles, e o scanner mediu 311 ficheiros em vez de 1338. Regenerar
+    # ali da o mapa de uma arvore mutilada; o publicador RECUSA-SE a faze-lo, e a
     # tela fica ⚪ UNKNOWN com o numero ao lado.
     #
     #     NAO CONSEGUIR VALIDAR NAO E O MESMO QUE VALIDAR E REPROVAR.
@@ -169,7 +170,8 @@ def main() -> int:
                     print(f"  SYSTEM_MAP_CHECK      {d.get('SYSTEM_MAP_CHECK')}")
                     print(f"  REGENERATED_AT_BUILD  {d.get('REGENERATED_AT_BUILD')}")
                     print(f"  BUILD_TREE_COMPLETE   {d.get('BUILD_TREE_COMPLETE')} "
-                          f"({d.get('BUILD_TREE_FILES')}/{d.get('MAP_TREE_FILES')})")
+                          f"({d.get('BUILD_TREE_MISSING')} de "
+                          f"{d.get('BUILD_TREE_TRACKED')} ausentes do disco)")
                     for a in d.get("_AVISOS", []):
                         print(f"  ::notice::{a}")
                     return 0

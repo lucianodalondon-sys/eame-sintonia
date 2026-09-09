@@ -1084,7 +1084,8 @@ async function provarFrescura() {
       : '<i>UNKNOWN</i>')}
     ${linha('Build tree complete', dep && dep.BUILD_TREE_COMPLETE !== undefined
       ? (dep.BUILD_TREE_COMPLETE ? 'YES'
-        : `NO — ${dep.BUILD_TREE_FILES} / ${dep.MAP_TREE_FILES} ficheiros`)
+        : `NO — ${dep.BUILD_TREE_MISSING} de ${dep.BUILD_TREE_TRACKED} `
+          + 'ficheiros rastreados não chegaram ao disco da build')
       : '<i>UNKNOWN</i>')}
     ${linha('Map derived from deployed tree',
       pertence === true ? 'PROVEN' : pertence === false ? 'NO' : '<i>UNPROVEN</i>')}
