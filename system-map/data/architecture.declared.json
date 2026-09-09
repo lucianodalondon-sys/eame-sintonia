@@ -2601,6 +2601,71 @@
       "views": [
         "audit"
       ]
+    },
+    {
+      "id": "C-SECURITY-CHECK",
+      "name": "O portao de seguranca",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "icon": "⚖",
+      "views": [
+        "audit"
+      ],
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        ".github/workflows/security-check.yml",
+        "security/ratchet.py",
+        "security/ratchet-baseline.json",
+        "security/validate-baseline.py",
+        "security/superficie_publica.py",
+        "security/security-baseline.json"
+      ],
+      "what": "Corre em cada push, offline, em cerca de quarenta segundos. Pergunta uma coisa so: esta mudanca piorou a seguranca? A divida herdada fica visivel e nao bloqueia; uma exposicao nova bloqueia e diz o ficheiro e o campo, nunca o valor. Traz o dono da fronteira publicada, que calcula o que o deploy serve a partir do vercel.json e do .vercelignore — 87 ficheiros, 30,4 MB.",
+      "why_here": "A fundacao de seguranca media o sistema e nao o vigiava, e um validador que ninguem corre nao e um portao. Fica ao lado dos outros portoes de CI e separado deles de proposito: quando dois portoes partilham resultado, o vermelho de um esconde o verde do outro e ninguem sabe qual reprovou."
+    },
+    {
+      "id": "C-DERIVA-DA-BASE",
+      "name": "A deriva entre o repositorio e a base viva",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "icon": "⚖",
+      "views": [
+        "audit"
+      ],
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        ".github/workflows/rls-censo-metadados.yml",
+        "provas/rls_censo_metadados.sql",
+        "provas/rls_censo_portao.py",
+        "security/drift_db.py",
+        "security/live-db-expected.json"
+      ],
+      "what": "Le o catalogo da base viva em leitura, uma vez por dia e quando o schema muda, e compara-o com o estado declarado. Responde a duas perguntas separadas: a porta esta fechada, e a base e a que dissemos que era. Um portao de lista branca recusa a consulta antes da ligacao se ela nao for so select, with ou set.",
+      "why_here": "As migrations criam 66 tabelas e nao declaram RLS em doze; a base viva tem 67 e RLS em todas. Estava mais segura do que o repositorio dizia, o que foi sorte e nao desenho — e ninguem sabia. Uma base segura mas diferente do esperado da SAFE e DRIFT ao mesmo tempo, e o verde silencioso seria a pior das respostas."
+    },
+    {
+      "id": "C-REGRESSAO-NAVEGADOR",
+      "name": "Os cabecalhos, provados num navegador",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "icon": "⚖",
+      "views": [
+        "audit"
+      ],
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        ".github/workflows/regressao-de-navegador.yml",
+        "security/regressao_de_navegador.mjs",
+        "security/servir_como_a_vercel.py"
+      ],
+      "what": "Serve a superficie publicada com os cabecalhos lidos do proprio vercel.json e abre as paginas reais num Chromium. Falha se alguma nao renderizar, se o navegador recusar alguma coisa por politica, ou se o portal conseguir entrar dentro de um iframe.",
+      "why_here": "Um cabecalho que parte o produto e desligado no dia seguinte, e um cabecalho que nao faz nada da exactamente o mesmo verde que um que funciona. Le a configuracao em vez de a copiar, porque a prova que copia a configuracao envelhece no dia em que ela muda."
     }
   ],
   "BUSINESS_EDGES": [

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "8b5e1a40f8abddbf293eb4846789eaee9b283417",
+    "HEAD": "149f0cbe24828ae55a05aa26ced2e7bed9d77eee",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -1960,16 +1960,18 @@
     {
       "ficheiro": "guarda/social_guarda.py",
       "gaveta": "guarda",
-      "linhas": 231,
+      "linhas": 290,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
         "INSTAGRAM",
         "LINKEDIN"
       ],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
@@ -2030,7 +2032,7 @@
     "sem_chamador_e_fora_do_ci": 46,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 66,
-    "deitam_fora_alguma_coisa": 23,
+    "deitam_fora_alguma_coisa": 24,
     "deitam_fora_SEM_escrever_o_motivo": 2,
     "ficheiros_com_decisao_escondida": 2,
     "decisoes_escondidas_ao_todo": 2

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-freshness-v1",
-    "HEAD": "8b5e1a40f8abddbf293eb4846789eaee9b283417",
-    "GENERATED_AT": "2026-09-09T02:00:09+00:00",
-    "SOURCE_TREE_FINGERPRINT": "522211a6f2a6f383e4d82e066dbbfdffab8fecb156af3341f0d3bc437afd79d1"
+    "BRANCH": "claude/security-foundation-v1",
+    "HEAD": "149f0cbe24828ae55a05aa26ced2e7bed9d77eee",
+    "GENERATED_AT": "2026-09-09T04:08:25+00:00",
+    "SOURCE_TREE_FINGERPRINT": "aea0df4cd75d8217c4dc2ce4cc189ec097024a79edd892f8225ca1a0c3bd7757"
   },
   "FILES": [
     {
@@ -23,10 +23,24 @@
       "code_dir": false
     },
     {
+      "path": ".github/CODEOWNERS",
+      "sha": "324cdc527ebecd901a73fd66d819d0f98f762198",
+      "ext": "",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": ".github/copilot-instructions.md",
       "sha": "84b591b6c6731582a79b8c8e93645c24262accb7",
       "ext": ".md",
       "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "sha": "9c6d0304c88dceca3cff0772c9048b7c232443f0",
+      "ext": ".yml",
+      "readable": true,
       "code_dir": false
     },
     {
@@ -52,7 +66,7 @@
     },
     {
       "path": ".github/workflows/banco-descartavel.yml",
-      "sha": "bb8d6c607880d97fe05315ba3bbdfc2b7f7f26a3",
+      "sha": "3b3253bf25703f097b20fe426763caf51c0d9108",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -72,8 +86,29 @@
       "code_dir": true
     },
     {
+      "path": ".github/workflows/regressao-de-navegador.yml",
+      "sha": "bf5bf5ba1eed78c792809a288c3211505386eeb2",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/rls-censo-metadados.yml",
+      "sha": "f7d6d3294902ba5127a653b296369bdf06e21933",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": ".github/workflows/scrap-social.yml",
       "sha": "f90761dd672d3a1ed224c365fdc3f64927d9632e",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/security-check.yml",
+      "sha": "67485eb45d21696feae885236ac3e70f4f020549",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -5050,7 +5085,7 @@
     },
     {
       "path": "guarda/social_guarda.py",
-      "sha": "dd4ad088a6948db9672887177d11ccc941258d05",
+      "sha": "842c7a0bcc601bf4430f4986c9fa37524be430a9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7597,6 +7632,20 @@
       "code_dir": true
     },
     {
+      "path": "provas/rls_censo_metadados.sql",
+      "sha": "503192dfd1c8d28100c71428dd484b7dc000de50",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/rls_censo_portao.py",
+      "sha": "4c3c9b2eddb5730884b9ce16748fb255e14884f0",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/social_persistencia_no_postgres.py",
       "sha": "02e92fa569ec6b294a30791542b500271230ef1d",
       "ext": ".py",
@@ -8283,6 +8332,104 @@
       "code_dir": true
     },
     {
+      "path": "security/CABECALHOS.md",
+      "sha": "14f284710fe9a066578216f0877aaf32bd679443",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "security/INCIDENTE.md",
+      "sha": "56b3373d422dad4ee0cdf14f71652b8af9d2f354",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "security/PARA-QUEM-DESENVOLVE.md",
+      "sha": "e1ed0b155b0a0102479cdbf3fb4aafe0897d782d",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "security/SECURITY-FOUNDATION.md",
+      "sha": "a3346bee5152691788c73106bd93b17873a11830",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "security/THREAT-MODEL.md",
+      "sha": "2bc55debe5dc5e52a23732365ad409cb1fbc8c57",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "security/drift_db.py",
+      "sha": "703b8b4de92b14c55e86598cf01f28d5dcd380b1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "security/live-db-expected.json",
+      "sha": "b9c78c23a14249830252cd5e01e0302759b2ecc7",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "security/ratchet-baseline.json",
+      "sha": "d98fe2f43754270afb7645e76a2145eadf333593",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "security/ratchet.py",
+      "sha": "8409182e5e1ca981e98c716f902ac924787f7c45",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "security/regressao_de_navegador.mjs",
+      "sha": "9c51eaa0ae4161443b586830585d69e596d8e3d9",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "security/security-baseline.json",
+      "sha": "08d971200264881938395e1bc34c80ae58582bc9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "security/servir_como_a_vercel.py",
+      "sha": "d3a5671cdbb59fd79922fba2e1956cce150b1a5a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "security/superficie_publica.py",
+      "sha": "3ba2a94d664fe281f248b63e001bbbdb33dceea7",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "security/validate-baseline.py",
+      "sha": "785a0014ec1185df13fcb071630c4e3e1e33cb50",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
       "sha": "924f59840046e5b5c27f9c743d4b89732a440761",
       "ext": ".sql",
@@ -8669,7 +8816,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "14193a891523ab30de0a65f7ea82173d0eef2d5c",
+      "sha": "84af078942cb26e7beb6a615ee1fda8dea819f54",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9361,6 +9508,27 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_security_drift_db.py",
+      "sha": "d38111848db400eb529f291e12f888809932bc99",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_security_ratchet.py",
+      "sha": "0979b1c8b5171f9f16be8d161c43a9789034fa31",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_security_secret_shapes.py",
+      "sha": "3f937ddd9b2cd8dd6b96c280d4f092792d5a4a7e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_social_persistencia_pg.py",
       "sha": "81620bfc135343ba2d0ccdd1cb25c699f4ceb839",
       "ext": ".py",
@@ -9460,7 +9628,7 @@
     },
     {
       "path": "vercel.json",
-      "sha": "c8a80bcac42ec6af5ad28ffce2f369a9da6a0bf1",
+      "sha": "2762eeafa1a9a2579edf613e1838d9d60a037a85",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -9540,7 +9708,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 35,
+        "line": 44,
         "snippet": "- 'coleta/social_persistencia.py'"
       }
     },
@@ -9551,7 +9719,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 35,
+        "line": 44,
         "snippet": "- 'coleta/social_persistencia.py'"
       }
     },
@@ -9562,7 +9730,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 26,
+        "line": 35,
         "snippet": "- 'guarda/memoria_descartavel.py'"
       }
     },
@@ -9573,7 +9741,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 26,
+        "line": 35,
         "snippet": "- 'guarda/memoria_descartavel.py'"
       }
     },
@@ -9584,7 +9752,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 25,
+        "line": 34,
         "snippet": "- 'guarda/preservar_coleta.py'"
       }
     },
@@ -9595,7 +9763,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 25,
+        "line": 34,
         "snippet": "- 'guarda/preservar_coleta.py'"
       }
     },
@@ -9606,7 +9774,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 37,
+        "line": 46,
         "snippet": "- 'guarda/preservar_derivado.py'"
       }
     },
@@ -9617,7 +9785,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 37,
+        "line": 46,
         "snippet": "- 'guarda/preservar_derivado.py'"
       }
     },
@@ -9628,7 +9796,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 32,
+        "line": 41,
         "snippet": "- 'medidas/rastro_da_coleta.py'"
       }
     },
@@ -9639,7 +9807,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 32,
+        "line": 41,
         "snippet": "- 'medidas/rastro_da_coleta.py'"
       }
     },
@@ -9650,7 +9818,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 38,
+        "line": 47,
         "snippet": "- 'motor/cadeia_canonica.sh'"
       }
     },
@@ -9661,7 +9829,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 38,
+        "line": 47,
         "snippet": "- 'motor/cadeia_canonica.sh'"
       }
     },
@@ -9672,7 +9840,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 36,
+        "line": 45,
         "snippet": "- 'provas/derived_artifact_no_postgres.py'"
       }
     },
@@ -9683,7 +9851,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 36,
+        "line": 45,
         "snippet": "- 'provas/derived_artifact_no_postgres.py'"
       }
     },
@@ -9694,7 +9862,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 27,
+        "line": 36,
         "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
       }
     },
@@ -9705,7 +9873,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 27,
+        "line": 36,
         "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
       }
     },
@@ -9716,7 +9884,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 33,
+        "line": 42,
         "snippet": "- 'provas/rastro_no_postgres.py'"
       }
     },
@@ -9727,7 +9895,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 33,
+        "line": 42,
         "snippet": "- 'provas/rastro_no_postgres.py'"
       }
     },
@@ -9738,7 +9906,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 34,
+        "line": 43,
         "snippet": "- 'provas/social_persistencia_no_postgres.py'"
       }
     },
@@ -9749,7 +9917,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 34,
+        "line": 43,
         "snippet": "- 'provas/social_persistencia_no_postgres.py'"
       }
     },
@@ -9760,7 +9928,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 39,
+        "line": 48,
         "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
       }
     },
@@ -9771,7 +9939,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 39,
+        "line": 48,
         "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
       }
     },
@@ -10117,6 +10285,83 @@
       }
     },
     {
+      "from_file": ".github/workflows/regressao-de-navegador.yml",
+      "to_file": "security/regressao_de_navegador.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/regressao-de-navegador.yml",
+        "line": 27,
+        "snippet": "- 'security/regressao_de_navegador.mjs'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/regressao-de-navegador.yml",
+      "to_file": "security/servir_como_a_vercel.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/regressao-de-navegador.yml",
+        "line": 28,
+        "snippet": "- 'security/servir_como_a_vercel.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/regressao-de-navegador.yml",
+      "to_file": "vercel.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/regressao-de-navegador.yml",
+        "line": 25,
+        "snippet": "- 'vercel.json'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/rls-censo-metadados.yml",
+      "to_file": "provas/rls_censo_metadados.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/rls-censo-metadados.yml",
+        "line": 47,
+        "snippet": "- 'provas/rls_censo_metadados.sql'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/rls-censo-metadados.yml",
+      "to_file": "provas/rls_censo_portao.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/rls-censo-metadados.yml",
+        "line": 72,
+        "snippet": "run: python3 provas/rls_censo_portao.py provas/rls_censo_metadados.sql"
+      }
+    },
+    {
+      "from_file": ".github/workflows/rls-censo-metadados.yml",
+      "to_file": "security/drift_db.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/rls-censo-metadados.yml",
+        "line": 48,
+        "snippet": "- 'security/drift_db.py'"
+      }
+    },
+    {
+      "from_file": ".github/workflows/rls-censo-metadados.yml",
+      "to_file": "security/live-db-expected.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": ".github/workflows/rls-censo-metadados.yml",
+        "line": 49,
+        "snippet": "- 'security/live-db-expected.json'"
+      }
+    },
+    {
       "from_file": ".github/workflows/scrap-social.yml",
       "to_file": "coleta/coleta_checkpoint.py",
       "type": "RUNS",
@@ -10169,6 +10414,17 @@
         "file": ".github/workflows/scrap-social.yml",
         "line": 107,
         "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
+      }
+    },
+    {
+      "from_file": ".github/workflows/security-check.yml",
+      "to_file": "guarda/social_guarda.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/security-check.yml",
+        "line": 55,
+        "snippet": "# Dono unico desta pergunta: guarda/social_guarda.py. O SECURITY CHECK"
       }
     },
     {
@@ -13258,7 +13514,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "guarda/social_guarda.py",
-        "line": 96,
+        "line": 155,
         "snippet": "'docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md',"
       }
     },
@@ -13269,7 +13525,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "guarda/social_guarda.py",
-        "line": 94,
+        "line": 153,
         "snippet": "'guarda/social_sessao.py',"
       }
     },
@@ -13280,7 +13536,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "guarda/social_guarda.py",
-        "line": 134,
+        "line": 193,
         "snippet": "'scripts/v21_tm_colher.py':"
       }
     },
@@ -13291,7 +13547,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "guarda/social_guarda.py",
-        "line": 95,
+        "line": 154,
         "snippet": "'tests/test_social_sessao.py',"
       }
     },
@@ -25528,6 +25784,94 @@
       }
     },
     {
+      "from_file": "security/drift_db.py",
+      "to_file": "security/live-db-expected.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "security/drift_db.py",
+        "line": 34,
+        "snippet": "ESPERADO = RAIZ / \"security\" / \"live-db-expected.json\""
+      }
+    },
+    {
+      "from_file": "security/ratchet.py",
+      "to_file": "guarda/social_guarda.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "security/ratchet.py",
+        "line": 198,
+        "snippet": "delegar(\"git-secrets (guarda/social_guarda.py)\", [sys.executable, \"guarda/social_guarda.py\"]),"
+      }
+    },
+    {
+      "from_file": "security/ratchet.py",
+      "to_file": "security/ratchet-baseline.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "security/ratchet.py",
+        "line": 40,
+        "snippet": "BASELINE = RAIZ / \"security\" / \"ratchet-baseline.json\""
+      }
+    },
+    {
+      "from_file": "security/ratchet.py",
+      "to_file": "security/superficie_publica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "security/ratchet.py",
+        "line": 42,
+        "snippet": "from superficie_publica import superficie  # noqa: E402  (o dono da fronteira publicada)"
+      }
+    },
+    {
+      "from_file": "security/ratchet.py",
+      "to_file": "security/validate-baseline.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "security/ratchet.py",
+        "line": 197,
+        "snippet": "delegar(\"baseline-schema\", [sys.executable, \"security/validate-baseline.py\"]),"
+      }
+    },
+    {
+      "from_file": "security/servir_como_a_vercel.py",
+      "to_file": "vercel.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "security/servir_como_a_vercel.py",
+        "line": 22,
+        "snippet": "CFG = json.loads((RAIZ / \"vercel.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "security/superficie_publica.py",
+      "to_file": "vercel.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "security/superficie_publica.py",
+        "line": 98,
+        "snippet": "cfg = json.loads((raiz / \"vercel.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "security/validate-baseline.py",
+      "to_file": "security/security-baseline.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "security/validate-baseline.py",
+        "line": 16,
+        "snippet": "p = pathlib.Path(__file__).with_name(\"security-baseline.json\")"
+      }
+    },
+    {
       "from_file": "superficie/ask_sintonia.py",
       "to_file": "data/samples/ASK-SINTONIA-benchmark.json",
       "type": "READS",
@@ -31259,6 +31603,72 @@
       }
     },
     {
+      "from_file": "tests/test_security_drift_db.py",
+      "to_file": "security/drift_db.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_security_drift_db.py",
+        "line": 19,
+        "snippet": "_spec = importlib.util.spec_from_file_location(\"drift_db\", RAIZ / \"security\" / \"drift_db.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_security_drift_db.py",
+      "to_file": "security/live-db-expected.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_security_drift_db.py",
+        "line": 120,
+        "snippet": "d = json.loads((RAIZ / \"security\" / \"live-db-expected.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_security_ratchet.py",
+      "to_file": "security/ratchet.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_security_ratchet.py",
+        "line": 21,
+        "snippet": "RATCHET = RAIZ / \"security\" / \"ratchet.py\""
+      }
+    },
+    {
+      "from_file": "tests/test_security_ratchet.py",
+      "to_file": "security/superficie_publica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_security_ratchet.py",
+        "line": 30,
+        "snippet": "for f in (\"ratchet.py\", \"superficie_publica.py\"):"
+      }
+    },
+    {
+      "from_file": "tests/test_security_ratchet.py",
+      "to_file": "vercel.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_security_ratchet.py",
+        "line": 36,
+        "snippet": "(self.dir / \"vercel.json\").write_text("
+      }
+    },
+    {
+      "from_file": "tests/test_security_secret_shapes.py",
+      "to_file": "guarda/social_guarda.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_security_secret_shapes.py",
+        "line": 22,
+        "snippet": "_spec = importlib.util.spec_from_file_location(\"social_guarda\", RAIZ / \"guarda\" / \"social_guarda.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_social_persistencia_pg.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -32692,10 +33102,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1351,
-    "files_readable": 504,
-    "files_code_dir": 557,
-    "file_edges": 2069,
+    "files_tracked": 1375,
+    "files_readable": 518,
+    "files_code_dir": 565,
+    "file_edges": 2091,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

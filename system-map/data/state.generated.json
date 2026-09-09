@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 20375,
-    "h": 4394
+    "h": 4716
   },
   "INVENTORY": {
     ".claude": [
@@ -29,14 +29,19 @@
       "vercel.json"
     ],
     ".github": [
+      ".github/CODEOWNERS",
       ".github/copilot-instructions.md",
+      ".github/dependabot.yml",
       ".github/workflows/apify-conexao.yml",
       ".github/workflows/apify-sensores.yml",
       ".github/workflows/auditoria-live.yml",
       ".github/workflows/banco-descartavel.yml",
       ".github/workflows/calendario-regressoes.yml",
       ".github/workflows/comunicacao-publica.yml",
+      ".github/workflows/regressao-de-navegador.yml",
+      ".github/workflows/rls-censo-metadados.yml",
       ".github/workflows/scrap-social.yml",
+      ".github/workflows/security-check.yml",
       ".github/workflows/sintonia-scrap.yml",
       ".github/workflows/supabase-conexao.yml",
       ".github/workflows/supabase-fichas-adama.yml",
@@ -1135,6 +1140,8 @@
       "provas/preservar_coleta_no_postgres.py",
       "provas/rastro_no_postgres.py",
       "provas/readback_022_live.sh",
+      "provas/rls_censo_metadados.sql",
+      "provas/rls_censo_portao.py",
       "provas/social_persistencia_no_postgres.py",
       "provas/testa_coleta_canonica.py",
       "provas/testa_golden_path_pdf.py",
@@ -1239,6 +1246,22 @@
     ],
     "scripts": [
       "scripts/.gitkeep"
+    ],
+    "security": [
+      "security/CABECALHOS.md",
+      "security/INCIDENTE.md",
+      "security/PARA-QUEM-DESENVOLVE.md",
+      "security/SECURITY-FOUNDATION.md",
+      "security/THREAT-MODEL.md",
+      "security/drift_db.py",
+      "security/live-db-expected.json",
+      "security/ratchet-baseline.json",
+      "security/ratchet.py",
+      "security/regressao_de_navegador.mjs",
+      "security/security-baseline.json",
+      "security/servir_como_a_vercel.py",
+      "security/superficie_publica.py",
+      "security/validate-baseline.py"
     ],
     "supabase": [
       "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
@@ -1401,6 +1424,9 @@
       "tests/test_red_team_estrada.py",
       "tests/test_relatorio_do_fluxo.py",
       "tests/test_route_membership.py",
+      "tests/test_security_drift_db.py",
+      "tests/test_security_ratchet.py",
+      "tests/test_security_secret_shapes.py",
       "tests/test_social_persistencia_pg.py",
       "tests/test_social_sessao.py",
       "tests/test_telemetria.py",
@@ -1796,10 +1822,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-freshness-v1",
-    "HEAD": "8b5e1a40f8abddbf293eb4846789eaee9b283417",
-    "GENERATED_AT": "2026-09-09T02:00:09+00:00",
-    "SOURCE_TREE_FINGERPRINT": "522211a6f2a6f383e4d82e066dbbfdffab8fecb156af3341f0d3bc437afd79d1"
+    "BRANCH": "claude/security-foundation-v1",
+    "HEAD": "149f0cbe24828ae55a05aa26ced2e7bed9d77eee",
+    "GENERATED_AT": "2026-09-09T04:08:25+00:00",
+    "SOURCE_TREE_FINGERPRINT": "aea0df4cd75d8217c4dc2ce4cc189ec097024a79edd892f8225ca1a0c3bd7757"
   },
   "FAMILIES": [
     {
@@ -1809,7 +1835,7 @@
       "x": 260,
       "y": 60,
       "w": 10190,
-      "h": 4074,
+      "h": 4396,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -1834,7 +1860,7 @@
       "x": 10670,
       "y": 60,
       "w": 1315,
-      "h": 4074,
+      "h": 4396,
       "zones": [
         "Z-GUARDA"
       ],
@@ -1847,14 +1873,14 @@
       "x": 12205,
       "y": 60,
       "w": 4260,
-      "h": 4074,
+      "h": 4396,
       "zones": [
         "Z-LINEAGE",
         "Z-REGUAS",
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 57
+      "count": 60
     },
     {
       "id": "F-ENTREGA",
@@ -1863,7 +1889,7 @@
       "x": 16685,
       "y": 60,
       "w": 3430,
-      "h": 4074,
+      "h": 4396,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -1885,7 +1911,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 1
     },
     {
@@ -1899,7 +1925,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 1
     },
     {
@@ -1914,7 +1940,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 2
     },
     {
@@ -1929,7 +1955,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 1
     },
     {
@@ -1944,7 +1970,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 2
     },
     {
@@ -1959,7 +1985,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 2
     },
     {
@@ -1975,7 +2001,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 4
     },
     {
@@ -1989,7 +2015,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 1
     },
     {
@@ -2004,7 +2030,7 @@
       "x": 5940,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 4
     },
     {
@@ -2018,7 +2044,7 @@
       "x": 6645,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 5
     },
     {
@@ -2034,7 +2060,7 @@
       "x": 7350,
       "y": 190,
       "w": 1235,
-      "h": 3904,
+      "h": 4226,
       "count": 13
     },
     {
@@ -2049,7 +2075,7 @@
       "x": 8885,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 1
     },
     {
@@ -2064,7 +2090,7 @@
       "x": 9590,
       "y": 190,
       "w": 820,
-      "h": 3904,
+      "h": 4226,
       "count": 12
     },
     {
@@ -2079,7 +2105,7 @@
       "x": 10710,
       "y": 190,
       "w": 1235,
-      "h": 3904,
+      "h": 4226,
       "count": 13
     },
     {
@@ -2095,7 +2121,7 @@
       "x": 12245,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 4
     },
     {
@@ -2111,7 +2137,7 @@
       "x": 12950,
       "y": 190,
       "w": 820,
-      "h": 3904,
+      "h": 4226,
       "count": 11
     },
     {
@@ -2127,7 +2153,7 @@
       "x": 14070,
       "y": 190,
       "w": 820,
-      "h": 3904,
+      "h": 4226,
       "count": 8
     },
     {
@@ -2143,8 +2169,8 @@
       "x": 15190,
       "y": 190,
       "w": 1235,
-      "h": 3904,
-      "count": 34
+      "h": 4226,
+      "count": 37
     },
     {
       "id": "Z-PACOTE",
@@ -2159,7 +2185,7 @@
       "x": 16725,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 3
     },
     {
@@ -2175,7 +2201,7 @@
       "x": 17430,
       "y": 190,
       "w": 820,
-      "h": 3904,
+      "h": 4226,
       "count": 7
     },
     {
@@ -2191,7 +2217,7 @@
       "x": 18550,
       "y": 190,
       "w": 405,
-      "h": 3904,
+      "h": 4226,
       "count": 5
     },
     {
@@ -2206,7 +2232,7 @@
       "x": 19255,
       "y": 190,
       "w": 820,
-      "h": 3904,
+      "h": 4226,
       "count": 11
     }
   ],
@@ -5516,6 +5542,7 @@
         "C-PORTAL-MODELO",
         "C-PORTAO-BUILD",
         "C-SITE-INGEST",
+        "C-TESTES",
         "C-V21-FONTES"
       ],
       "outbound": [
@@ -7527,6 +7554,52 @@
       "y": 682
     },
     {
+      "id": "C-DERIVA-DA-BASE",
+      "name": "A deriva entre o repositorio e a base viva",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "what": "Le o catalogo da base viva em leitura, uma vez por dia e quando o schema muda, e compara-o com o estado declarado. Responde a duas perguntas separadas: a porta esta fechada, e a base e a que dissemos que era. Um portao de lista branca recusa a consulta antes da ligacao se ela nao for so select, with ou set.",
+      "why_here": "As migrations criam 66 tabelas e nao declaram RLS em doze; a base viva tem 67 e RLS em todas. Estava mais segura do que o repositorio dizia, o que foi sorte e nao desenho — e ninguem sabia. Uma base segura mas diferente do esperado da SAFE e DRIFT ao mesmo tempo, e o verde silencioso seria a pior das respostas.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        ".github/workflows/rls-censo-metadados.yml",
+        "provas/rls_censo_metadados.sql",
+        "provas/rls_censo_portao.py",
+        "security/drift_db.py",
+        "security/live-db-expected.json"
+      ],
+      "file_count": 5,
+      "status": "PENDING",
+      "status_reason": "portao que ninguem chama.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 16080,
+      "y": 1326
+    },
+    {
       "id": "C-DERIVACAO-FORWARD",
       "name": "A fronteira forward da derivação",
       "territory": "Z-ACOES",
@@ -7971,8 +8044,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 1326
+      "x": 15250,
+      "y": 1648
     },
     {
       "id": "C-EVOLUCAO",
@@ -8157,7 +8230,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 1648
     },
     {
@@ -8533,7 +8606,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 1648
     },
     {
@@ -8760,8 +8833,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 1648
+      "x": 15250,
+      "y": 1970
     },
     {
       "id": "C-IT-CATALOGO",
@@ -8946,7 +9019,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 1970
     },
     {
@@ -9632,7 +9705,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 1970
     },
     {
@@ -9693,8 +9766,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 1970
+      "x": 15250,
+      "y": 2292
     },
     {
       "id": "C-MAPA-GERADOR",
@@ -9736,6 +9809,7 @@
         "C-MAPA-SCAN",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-SUPABASE",
+        "C-TESTES",
         "lineage_stale"
       ],
       "outbound": [
@@ -9776,7 +9850,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 2292
     },
     {
@@ -9870,7 +9944,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15665,
+      "x": 16080,
       "y": 2292
     },
     {
@@ -9937,8 +10011,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 2292
+      "x": 15250,
+      "y": 2614
     },
     {
       "id": "C-MAPA-VALIDADOR",
@@ -9989,7 +10063,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 2614
     },
     {
@@ -10060,7 +10134,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 2614
     },
     {
@@ -11126,8 +11200,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 2614
+      "x": 15250,
+      "y": 2936
     },
     {
       "id": "C-PROVA-BIBLIA",
@@ -11192,7 +11266,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15250,
+      "x": 15665,
       "y": 2936
     },
     {
@@ -11294,7 +11368,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 2936
     },
     {
@@ -11340,8 +11414,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 2936
+      "x": 15250,
+      "y": 3258
     },
     {
       "id": "C-PROVA-FORWARD-CONTA",
@@ -11404,7 +11478,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 3258
     },
     {
@@ -11493,7 +11567,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15665,
+      "x": 16080,
       "y": 3258
     },
     {
@@ -11561,8 +11635,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 3258
+      "x": 15250,
+      "y": 3580
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -11614,7 +11688,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 3580
     },
     {
@@ -11812,7 +11886,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 3580
     },
     {
@@ -11952,8 +12026,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 3580
+      "x": 15250,
+      "y": 3902
     },
     {
       "id": "C-REGRA-COLETA",
@@ -12048,6 +12122,50 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 10065,
       "y": 1648
+    },
+    {
+      "id": "C-REGRESSAO-NAVEGADOR",
+      "name": "Os cabecalhos, provados num navegador",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "what": "Serve a superficie publicada com os cabecalhos lidos do proprio vercel.json e abre as paginas reais num Chromium. Falha se alguma nao renderizar, se o navegador recusar alguma coisa por politica, ou se o portal conseguir entrar dentro de um iframe.",
+      "why_here": "Um cabecalho que parte o produto e desligado no dia seguinte, e um cabecalho que nao faz nada da exactamente o mesmo verde que um que funciona. Le a configuracao em vez de a copiar, porque a prova que copia a configuracao envelhece no dia em que ela muda.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        ".github/workflows/regressao-de-navegador.yml",
+        "security/regressao_de_navegador.mjs",
+        "security/servir_como_a_vercel.py"
+      ],
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "portao que ninguem chama.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-TESTES"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 15665,
+      "y": 3902
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -12466,12 +12584,14 @@
         "C-COLETA-INSTAGRAM",
         "C-NAVEGADOR",
         "C-SCRAP-LEIS",
+        "C-SECURITY-CHECK",
         "C-TESTES",
         "C-V21-COMERCIAL"
       ],
       "outbound": [
         "C-RASTRO",
         "C-SCRAP-SOCIAL",
+        "C-SECURITY-CHECK",
         "C-TESTES"
       ],
       "paises": {},
@@ -12483,9 +12603,9 @@
           "CONTEUDO_PROIBIDO",
           "POLITICA"
         ],
-        "palavras": 46,
+        "palavras": 64,
         "por_lingua": {},
-        "sem_marca_de_lingua": 46,
+        "sem_marca_de_lingua": 64,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12661,6 +12781,71 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 7410,
       "y": 1648
+    },
+    {
+      "id": "C-SECURITY-CHECK",
+      "name": "O portao de seguranca",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "what": "Corre em cada push, offline, em cerca de quarenta segundos. Pergunta uma coisa so: esta mudanca piorou a seguranca? A divida herdada fica visivel e nao bloqueia; uma exposicao nova bloqueia e diz o ficheiro e o campo, nunca o valor. Traz o dono da fronteira publicada, que calcula o que o deploy serve a partir do vercel.json e do .vercelignore — 87 ficheiros, 30,4 MB.",
+      "why_here": "A fundacao de seguranca media o sistema e nao o vigiava, e um validador que ninguem corre nao e um portao. Fica ao lado dos outros portoes de CI e separado deles de proposito: quando dois portoes partilham resultado, o vermelho de um esconde o verde do outro e ninguem sabe qual reprovou.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        ".github/workflows/security-check.yml",
+        "security/ratchet-baseline.json",
+        "security/ratchet.py",
+        "security/security-baseline.json",
+        "security/superficie_publica.py",
+        "security/validate-baseline.py"
+      ],
+      "file_count": 6,
+      "status": "PENDING",
+      "status_reason": "portao que ninguem chama.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-SCRAP-GUARDA",
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-SCRAP-GUARDA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMINHOS_SENSIVEIS",
+          "CAMPOS_PESSOAIS",
+          "MARCADORES_MOTOR",
+          "VALID_STATUS"
+        ],
+        "palavras": 73,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 73,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 16080,
+      "y": 3902
     },
     {
       "id": "C-SINTONIA-SCRAP",
@@ -14066,6 +14251,9 @@
         "tests/test_red_team_estrada.py",
         "tests/test_relatorio_do_fluxo.py",
         "tests/test_route_membership.py",
+        "tests/test_security_drift_db.py",
+        "tests/test_security_ratchet.py",
+        "tests/test_security_secret_shapes.py",
         "tests/test_social_persistencia_pg.py",
         "tests/test_social_sessao.py",
         "tests/test_telemetria.py",
@@ -14081,14 +14269,15 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 71,
+      "file_count": 74,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 31 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 34 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         ".github/workflows/scrap-social.yml",
         "data/samples/SPAIN-HERO-CASES-V1.json",
-        "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+        "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
+        "vercel.json"
       ],
       "inbound": [
         "C-ADAMA-ES",
@@ -14116,6 +14305,7 @@
         "C-CONTRATO-CAMPOS",
         "C-CONTRATO-TELEMETRIA",
         "C-DATA-CLOCK",
+        "C-DERIVA-DA-BASE",
         "C-DERIVACAO-FORWARD",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
@@ -14155,6 +14345,7 @@
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL",
+        "C-SECURITY-CHECK",
         "C-SUPABASE",
         "C-V21-COMERCIAL",
         "C-V21-CONTRATO",
@@ -14164,16 +14355,20 @@
       "outbound": [
         "C-ADAMA-ES",
         "C-ASK-SINTONIA",
+        "C-AUDIT-GERAL",
         "C-CENSO-CONGELAMENTO",
         "C-CI-PERSIST",
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
         "C-ESTRADAS-IT",
+        "C-MAPA-GERADOR",
         "C-PACOTE-CAMADAS",
         "C-PORTAL-DADOS",
         "C-PROVA-COLETA",
+        "C-REGRESSAO-NAVEGADOR",
         "C-SCRAP-GUARDA",
-        "C-SCRAP-SOCIAL"
+        "C-SCRAP-SOCIAL",
+        "C-SECURITY-CHECK"
       ],
       "paises": {
         "ESPANHA": 2
@@ -14271,7 +14466,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
       "x": 15250,
-      "y": 3902
+      "y": 4224
     },
     {
       "id": "C-TRANSCRICAO",
@@ -15812,8 +16007,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-freshness-v1",
-        "HEAD 8b5e1a40f8abddbf293eb4846789eaee9b283417"
+        "branch claude/security-foundation-v1",
+        "HEAD 149f0cbe24828ae55a05aa26ced2e7bed9d77eee"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17750,7 +17945,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 38,
+          "line": 47,
           "snippet": "- 'motor/cadeia_canonica.sh'"
         }
       ],
@@ -18662,7 +18857,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 38,
+          "line": 47,
           "snippet": "- 'motor/cadeia_canonica.sh'"
         },
         {
@@ -18685,12 +18880,12 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 25,
+          "line": 34,
           "snippet": "- 'guarda/preservar_coleta.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 26,
+          "line": 35,
           "snippet": "- 'guarda/memoria_descartavel.py'"
         }
       ],
@@ -18708,7 +18903,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 37,
+          "line": 46,
           "snippet": "- 'guarda/preservar_derivado.py'"
         }
       ],
@@ -18749,27 +18944,27 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 27,
+          "line": 36,
           "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 33,
+          "line": 42,
           "snippet": "- 'provas/rastro_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 34,
+          "line": 43,
           "snippet": "- 'provas/social_persistencia_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 36,
+          "line": 45,
           "snippet": "- 'provas/derived_artifact_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 39,
+          "line": 48,
           "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
         }
       ],
@@ -18787,7 +18982,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 32,
+          "line": 41,
           "snippet": "- 'medidas/rastro_da_coleta.py'"
         }
       ],
@@ -18823,7 +19018,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 35,
+          "line": 44,
           "snippet": "- 'coleta/social_persistencia.py'"
         }
       ],
@@ -19953,6 +20148,29 @@
       "categoria": "RULE"
     },
     {
+      "from": "C-DERIVA-DA-BASE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A deriva entre o repositorio e a base viva alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_security_drift_db.py",
+          "line": 19,
+          "snippet": "_spec = importlib.util.spec_from_file_location(\"drift_db\", RAIZ / \"security\" / \"drift_db.py\")"
+        },
+        {
+          "file": "tests/test_security_drift_db.py",
+          "line": 120,
+          "snippet": "d = json.loads((RAIZ / \"security\" / \"live-db-expected.json\").read_text(encoding=\"utf-8\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-DERIVACAO-FORWARD",
       "to": "C-PROVA-FORWARD-CONTA",
       "type": "IMPORTS",
@@ -20059,12 +20277,12 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 25,
+          "line": 34,
           "snippet": "- 'guarda/preservar_coleta.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 26,
+          "line": 35,
           "snippet": "- 'guarda/memoria_descartavel.py'"
         }
       ],
@@ -20110,7 +20328,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 37,
+          "line": 46,
           "snippet": "- 'guarda/preservar_derivado.py'"
         }
       ],
@@ -24320,27 +24538,27 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 27,
+          "line": 36,
           "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 33,
+          "line": 42,
           "snippet": "- 'provas/rastro_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 34,
+          "line": 43,
           "snippet": "- 'provas/social_persistencia_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 36,
+          "line": 45,
           "snippet": "- 'provas/derived_artifact_no_postgres.py'"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 39,
+          "line": 48,
           "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
         }
       ],
@@ -24627,7 +24845,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 32,
+          "line": 41,
           "snippet": "- 'medidas/rastro_da_coleta.py'"
         }
       ],
@@ -25409,6 +25627,24 @@
     },
     {
       "from": "C-SCRAP-GUARDA",
+      "to": "C-SECURITY-CHECK",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A guarda de credencial e de sessao do SCRAP alimenta O portao de seguranca. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "security/ratchet.py",
+          "line": 198,
+          "snippet": "delegar(\"git-secrets (guarda/social_guarda.py)\", [sys.executable, \"guarda/social_guarda.py\"]),"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-SCRAP-GUARDA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -25448,8 +25684,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A guarda de credencial e de sessao do SCRAP alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A guarda de credencial e de sessao do SCRAP alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_security_secret_shapes.py",
+          "line": 22,
+          "snippet": "_spec = importlib.util.spec_from_file_location(\"social_guarda\", RAIZ / \"guarda\" / \"social_guarda.py\")"
+        },
         {
           "file": "tests/test_social_sessao.py",
           "line": 24,
@@ -25896,7 +26137,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 35,
+          "line": 44,
           "snippet": "- 'coleta/social_persistencia.py'"
         }
       ],
@@ -26065,6 +26306,47 @@
           "file": "tests/test_youtube_piloto.py",
           "line": 398,
           "snippet": "'coleta/youtube_oficial.py'):"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SECURITY-CHECK",
+      "to": "C-SCRAP-GUARDA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao de seguranca manda rodar A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/security-check.yml",
+          "line": 55,
+          "snippet": "# Dono unico desta pergunta: guarda/social_guarda.py. O SECURITY CHECK"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-SECURITY-CHECK",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao de seguranca alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_security_ratchet.py",
+          "line": 21,
+          "snippet": "RATCHET = RAIZ / \"security\" / \"ratchet.py\""
+        },
+        {
+          "file": "tests/test_security_ratchet.py",
+          "line": 30,
+          "snippet": "for f in (\"ratchet.py\", \"superficie_publica.py\"):"
         }
       ],
       "categoria": "PROOF"
@@ -26794,6 +27076,34 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-AUDIT-GERAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta Demais auditorias do portal. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/deploy-surface.mjs",
+          "line": 59,
+          "snippet": "const vjPath = path.join(ROOT, 'vercel.json');"
+        },
+        {
+          "file": "italia-portale/audit/prova-da-build.mjs",
+          "line": 46,
+          "snippet": "for (const rel of ['package.json', 'vercel.json', 'italia-portale/client']) {"
+        },
+        {
+          "file": "italia-portale/audit/stale-generator-gate.mjs",
+          "line": 149,
+          "snippet": "const vercel = JSON.parse(fs.readFileSync(path.join(RAIZ, 'vercel.json'), 'utf8'));"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-CENSO-CONGELAMENTO",
       "type": "READS",
       "payload": "artefacto",
@@ -26884,6 +27194,24 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-MAPA-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta Gerador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 2430,
+          "snippet": "vj = RAIZ / \"vercel.json\""
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-PACOTE-CAMADAS",
       "type": "READS",
       "payload": "artefacto",
@@ -26943,6 +27271,29 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-REGRESSAO-NAVEGADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta Os cabecalhos, provados num navegador. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/regressao-de-navegador.yml",
+          "line": 25,
+          "snippet": "- 'vercel.json'"
+        },
+        {
+          "file": "security/servir_como_a_vercel.py",
+          "line": 22,
+          "snippet": "CFG = json.loads((RAIZ / \"vercel.json\").read_text(encoding=\"utf-8\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-SCRAP-GUARDA",
       "type": "READS",
       "payload": "artefacto",
@@ -26953,7 +27304,7 @@
       "evidence": [
         {
           "file": "guarda/social_guarda.py",
-          "line": 95,
+          "line": 154,
           "snippet": "'tests/test_social_sessao.py',"
         }
       ],
@@ -26996,6 +27347,24 @@
           "file": ".github/workflows/scrap-social.yml",
           "line": 108,
           "snippet": "coleta/youtube_oficial.py; do"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-SECURITY-CHECK",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta O portao de seguranca. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "security/superficie_publica.py",
+          "line": 98,
+          "snippet": "cfg = json.loads((raiz / \"vercel.json\").read_text(encoding=\"utf-8\"))"
         }
       ],
       "categoria": "PROOF"
@@ -27109,7 +27478,7 @@
       "evidence": [
         {
           "file": "guarda/social_guarda.py",
-          "line": 134,
+          "line": 193,
           "snippet": "'scripts/v21_tm_colher.py':"
         }
       ],
@@ -28145,7 +28514,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 700,
+  "UNCLAIMED_FILES_COUNT": 706,
   "OWNERSHIP_CONFLICTS": [],
   "BURACOS": {
     "COUNTS": {
@@ -28273,17 +28642,17 @@
     ]
   },
   "COUNTS": {
-    "components": 145,
+    "components": 148,
     "components_proven": 67,
-    "components_pending": 71,
+    "components_pending": 74,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 556,
-    "edges_proven": 554,
+    "edges": 564,
+    "edges_proven": 562,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1351,
-    "files_covered": 651,
+    "files_tracked": 1375,
+    "files_covered": 669,
     "files_code_unclaimed": 0
   }
 }
