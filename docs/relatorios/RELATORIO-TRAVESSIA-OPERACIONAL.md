@@ -353,3 +353,85 @@ A régua de derivação em si é injectável (`correr(..., derivar=None)` cai em
 `ex.derivar_um`), portanto o dono não está preso a PDF por dentro. Mas a **forma
 da unidade** que ele aceita hoje está, e é isso que limita o alcance de qualquer
 travessia que se ligue nesta missão.
+
+---
+
+## A TRAVESSIA JÁ ATRAVESSA — CONTRA POSTGRES DE VERDADE
+
+`provas/a_rota_m2_atravessa.py` foi **corrido**, não lido, contra o Postgres 16
+descartável com as 23 migrations aplicadas por ela própria num banco virgem, e
+com um PDF real da loja (`IT-T2-002`, boletim agrometeorológico da ARPAV):
+
+```
+A ROTA, NUMA CORRIDA SO
+  DERIVED     PASS · {'PASSED': 1}
+  STRUCTURED  OK
+  ADMISSION   correu · a porta respondeu: NAO_SEI
+
+ROTA_M2_ATRAVESSA=PASS          21 casos, 21 PASS
+  raw_asset_id=1  ->  derived_artifact id=1  ->  conteudo  ->  decisao
+  arestas observadas: [('DERIVED','STRUCTURED'), ('STRUCTURED','ADMISSION')]
+```
+
+**DERIVED → STRUCTURED → ADMISSION não é uma promessa: corre hoje, com o
+artefato a viajar entre as etapas e as duas arestas com os dois topos no banco.**
+
+E a mesma prova nomeia, sem eufemismo, o que falta:
+
+```
+A9  sem topo: [('RAW','DERIVED')] · RAW_FORWARD_NAO_EMITE e gap declarado do O9R
+A13 nenhum READY nasceu em corrida nenhuma · ADMISSION PASS != READY PASS
+    o que NAO prova: producao, nem READY. A rota termina em ADMISSION.
+```
+
+## OS TRÊS BURACOS, JÁ DECLARADOS PELA PRÓPRIA CASA
+
+Não foi preciso descobri-los. `coleta/derivacao_forward.py:153` já os tinha
+escrito num tuplo `GAPS`, legível por AST:
+
+| Gap declarado | O que diz | O que a missão tem de fazer |
+|---|---|---|
+| `RAW_FORWARD_NAO_EMITE` | «`guarda/preservar_coleta.py` escreve `raw_asset` e não emite rastro. A etapa RAW existe, tem dono e corre — **e é muda**.» | fazer a etapa RAW falar: uma passagem no rastro, para a aresta `RAW → DERIVED` ganhar o topo de cima |
+| `READY_NAO_TEM_DONO` | «READY TEM contrato (COL-LAW-043, 11 campos) · TEM dono (`admissao.pronto_para_inteligencia()`) · TEM **0 produtores em runtime** · TEM 0 consumidores» | READY tem produtor — é `orquestrador.pela_porta`. O defeito não é falta de dono: é que ele produz READY **a partir do item cru** |
+| (não estava no tuplo) | `atravessar()` tem zero chamadores | ligar, não construir |
+
+    OS TRÊS BURACOS ESTAVAM ESCRITOS NO REPOSITÓRIO.
+    O QUE FALTAVA NÃO ERA DESCOBRI-LOS. ERA FECHÁ-LOS.
+
+## AS TRÊS PORTAS QUE A TRAVESSIA PEDE — TODAS EXISTEM
+
+`atravessar(banco, *, unidade, run_id, armazem, memoria, canal_id, universo)`
+pede três portas, e nenhuma precisa de ser construída:
+
+| Porta | Implementação | Onde vive | Interface |
+|---|---|---|---|
+| `armazem` | `ArmazemLocal` | `guarda/preservar_coleta.py` | `existe · enviar · ler` |
+| `memoria` | `MemoriaSupabase` | `guarda/portas_live.py` | `aplicar · corrida · objeto_em · objetos_da_corrida · raw_por_id · derivado_com_identidade` |
+| `banco` | `Banco(dsn)` | `coleta/coleta_checkpoint.py` | `executa(sql) -> linhas` |
+
+As três falam `psql` ou disco. Nenhuma precisa de driver instalado, e a casa já
+tem essa regra escrita: «instalar um pacote global só para um teste passar
+continua proibido». `pdftotext 24.02.0` está presente, portanto a régua de
+derivação é real e não um esqueleto.
+
+## O ALCANCE HONESTO: T4 É A ROTA QUE FECHA
+
+`pedido/receitas.py` declara quatro executores. Só um larga documentos:
+
+| | executor | o que traz |
+|---|---|---|
+| T7 | `corpus-pesquisador` | obra publicada, JSON |
+| **T4** | **`rotulos-oficiais`** | **«o rótulo oficial do produto, como PDF»** |
+| T3 | `eppo` | ficha de praga, JSON |
+| T9 | `comunicacao-publica` | post social, JSON |
+
+A travessia que existe é a do documento e pede `{'RAW_ASSET_ID', 'PDF'}`. Logo,
+**a rota que consegue fechar RAW → READY em produção é a T4**, e as outras três
+param onde a régua de derivação delas não existe.
+
+Isso não é uma desculpa para as saltar em silêncio. Uma unidade sem régua de
+derivação tem de sair com nome — `NOT_RUN` e um motivo — e não desaparecer do
+caminho como se nunca tivesse entrado:
+
+    AUSÊNCIA DE RÉGUA NÃO É AUTORIZAÇÃO PARA PULAR ETAPA.
+    É EXATAMENTE A MESMA LEI QUE A MISSÃO ESCREVEU SOBRE A AUSÊNCIA DE BANCO.
