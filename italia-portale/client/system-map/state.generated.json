@@ -36,6 +36,7 @@
       ".github/workflows/banco-descartavel.yml",
       ".github/workflows/calendario-regressoes.yml",
       ".github/workflows/comunicacao-publica.yml",
+      ".github/workflows/portao-do-release.yml",
       ".github/workflows/scrap-social.yml",
       ".github/workflows/sintonia-scrap.yml",
       ".github/workflows/supabase-conexao.yml",
@@ -1807,9 +1808,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-url-v1",
-    "HEAD": "ffa9fb9b63d0030b8e16e39c9524d85c2c222a7c",
-    "GENERATED_AT": "2026-09-09T03:42:24+00:00",
-    "SOURCE_TREE_FINGERPRINT": "e312698fb8887bde47fbe2b97e2011de9a5db30281438c1966f8987db6460b5b"
+    "HEAD": "37664db410cb791ecb645b18a12be2d2d6260fc8",
+    "GENERATED_AT": "2026-09-09T03:54:10+00:00",
+    "SOURCE_TREE_FINGERPRINT": "83913f86268de09e2a5533b9dd3a627f741efb2b69f5f514a7396145f08c6b72"
   },
   "FAMILIES": [
     {
@@ -1864,7 +1865,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 57
+      "count": 58
     },
     {
       "id": "F-ENTREGA",
@@ -2154,7 +2155,7 @@
       "y": 190,
       "w": 1235,
       "h": 3904,
-      "count": 34
+      "count": 35
     },
     {
       "id": "Z-PACOTE",
@@ -6756,6 +6757,48 @@
       "y": 1326
     },
     {
+      "id": "C-CI-RELEASE",
+      "name": "O portao do release",
+      "territory": "Z-PROVA",
+      "kind": "workflow",
+      "what": "Antes de um merge entrar em release/canonical — a branch de producao — corre tres provas separadas: a proveniencia do artefacto servido, o System Map contra esta arvore, e os 73 portoes do portal.",
+      "why_here": "O que entra em release/canonical vai ao ar sozinho, e o projecto serve o portal inteiro e nao so /system-map/. Enquanto publicar era um clique, uma pessoa olhava; automatizar sem estes portoes seria trocar essa pessoa por nada. Corre antes do merge porque depois do push ja esta no ar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▶",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        ".github/workflows/portao-do-release.yml"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-MAPA-VALIDADOR"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 16080,
+      "y": 1326
+    },
+    {
       "id": "C-CICATRIZES-BR",
       "name": "Cicatrizes do Brasil (lei portada)",
       "territory": "Z-MEDIDAS",
@@ -7999,8 +8042,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 1326
+      "x": 15250,
+      "y": 1648
     },
     {
       "id": "C-EVOLUCAO",
@@ -8185,7 +8228,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 1648
     },
     {
@@ -8561,7 +8604,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 1648
     },
     {
@@ -8788,8 +8831,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 1648
+      "x": 15250,
+      "y": 1970
     },
     {
       "id": "C-IT-CATALOGO",
@@ -8974,7 +9017,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 1970
     },
     {
@@ -9660,7 +9703,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 1970
     },
     {
@@ -9723,8 +9766,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 1970
+      "x": 15250,
+      "y": 2292
     },
     {
       "id": "C-MAPA-GERADOR",
@@ -9806,7 +9849,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 2292
     },
     {
@@ -9900,7 +9943,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15665,
+      "x": 16080,
       "y": 2292
     },
     {
@@ -9967,8 +10010,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 2292
+      "x": 15250,
+      "y": 2614
     },
     {
       "id": "C-MAPA-VALIDADOR",
@@ -10001,6 +10044,7 @@
       "produces": [],
       "inbound": [
         "C-CI-MAPA",
+        "C-CI-RELEASE",
         "C-MAPA-DEPLOY",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
@@ -10019,7 +10063,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 2614
     },
     {
@@ -10090,7 +10134,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 2614
     },
     {
@@ -11172,8 +11216,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 2614
+      "x": 15250,
+      "y": 2936
     },
     {
       "id": "C-PROVA-BIBLIA",
@@ -11238,7 +11282,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15250,
+      "x": 15665,
       "y": 2936
     },
     {
@@ -11340,7 +11384,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 2936
     },
     {
@@ -11386,8 +11430,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 2936
+      "x": 15250,
+      "y": 3258
     },
     {
       "id": "C-PROVA-FORWARD-CONTA",
@@ -11450,7 +11494,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 3258
     },
     {
@@ -11539,7 +11583,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15665,
+      "x": 16080,
       "y": 3258
     },
     {
@@ -11607,8 +11651,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 3258
+      "x": 15250,
+      "y": 3580
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -11660,7 +11704,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
       "y": 3580
     },
     {
@@ -11858,7 +11902,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
+      "x": 16080,
       "y": 3580
     },
     {
@@ -11998,8 +12042,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 3580
+      "x": 15250,
+      "y": 3902
     },
     {
       "id": "C-REGRA-COLETA",
@@ -14372,7 +14416,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 15250,
+      "x": 15665,
       "y": 3902
     },
     {
@@ -15915,7 +15959,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-url-v1",
-        "HEAD ffa9fb9b63d0030b8e16e39c9524d85c2c222a7c"
+        "HEAD 37664db410cb791ecb645b18a12be2d2d6260fc8"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -19082,6 +19126,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-CI-RELEASE",
+      "to": "C-MAPA-VALIDADOR",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao do release manda rodar Validador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/portao-do-release.yml",
+          "line": 68,
+          "snippet": "run: python3 system-map/scripts/validate_system_map.py"
+        }
+      ],
+      "categoria": "CONTROL"
     },
     {
       "from": "C-CICATRIZES-BR",
@@ -28417,17 +28479,17 @@
     ]
   },
   "COUNTS": {
-    "components": 146,
+    "components": 147,
     "components_proven": 58,
-    "components_pending": 80,
+    "components_pending": 81,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 557,
-    "edges_proven": 555,
+    "edges": 558,
+    "edges_proven": 556,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1361,
-    "files_covered": 659,
+    "files_tracked": 1362,
+    "files_covered": 660,
     "files_code_unclaimed": 0
   }
 }

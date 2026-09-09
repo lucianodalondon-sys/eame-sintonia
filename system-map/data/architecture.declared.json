@@ -1750,6 +1750,22 @@
       "icon": "▶"
     },
     {
+      "id": "C-CI-RELEASE",
+      "name": "O portao do release",
+      "territory": "Z-PROVA",
+      "kind": "workflow",
+      "what": "Antes de um merge entrar em release/canonical — a branch de producao — corre tres provas separadas: a proveniencia do artefacto servido, o System Map contra esta arvore, e os 73 portoes do portal.",
+      "why_here": "O que entra em release/canonical vai ao ar sozinho, e o projecto serve o portal inteiro e nao so /system-map/. Enquanto publicar era um clique, uma pessoa olhava; automatizar sem estes portoes seria trocar essa pessoa por nada. Corre antes do merge porque depois do push ja esta no ar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        ".github/workflows/portao-do-release.yml"
+      ],
+      "views": [],
+      "icon": "▶"
+    },
+    {
       "id": "C-PEDIDO",
       "name": "O pedido de coleta",
       "territory": "Z-PEDIDO",

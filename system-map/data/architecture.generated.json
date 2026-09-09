@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-url-v1",
-    "HEAD": "ffa9fb9b63d0030b8e16e39c9524d85c2c222a7c",
-    "GENERATED_AT": "2026-09-09T03:42:24+00:00",
-    "SOURCE_TREE_FINGERPRINT": "e312698fb8887bde47fbe2b97e2011de9a5db30281438c1966f8987db6460b5b"
+    "HEAD": "37664db410cb791ecb645b18a12be2d2d6260fc8",
+    "GENERATED_AT": "2026-09-09T03:54:10+00:00",
+    "SOURCE_TREE_FINGERPRINT": "83913f86268de09e2a5533b9dd3a627f741efb2b69f5f514a7396145f08c6b72"
   },
   "FILES": [
     {
@@ -67,6 +67,13 @@
     {
       "path": ".github/workflows/comunicacao-publica.yml",
       "sha": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/portao-do-release.yml",
+      "sha": "310ac4a2039862a9538f37f352de16a1ca86b1d7",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -8732,7 +8739,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "27a95d9bb165ed28b54efb0784edf65c98922874",
+      "sha": "fe3911fdd1dd096fceb31419f528d592d532b996",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10184,6 +10191,17 @@
         "file": ".github/workflows/comunicacao-publica.yml",
         "line": 105,
         "snippet": "PYTHONIOENCODING=utf-8 $PY tests/test_comunicacao.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/portao-do-release.yml",
+      "to_file": "system-map/scripts/validate_system_map.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/portao-do-release.yml",
+        "line": 68,
+        "snippet": "run: python3 system-map/scripts/validate_system_map.py"
       }
     },
     {
@@ -32971,10 +32989,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1361,
-    "files_readable": 511,
-    "files_code_dir": 565,
-    "file_edges": 2088,
+    "files_tracked": 1362,
+    "files_readable": 512,
+    "files_code_dir": 566,
+    "file_edges": 2089,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },
