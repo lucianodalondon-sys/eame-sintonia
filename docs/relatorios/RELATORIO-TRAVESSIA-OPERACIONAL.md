@@ -258,3 +258,98 @@ Decide a entrada de P22: o buraco medido **não** é «falta um orquestrador» n
 Não decide qual dos dois modelos — A (síncrono) ou B (RAW durável, depois
 processador) — fecha isto. Essa é a decisão de P22, e ela vem a seguir, com
 estas medições em cima da mesa e não sem elas.
+
+---
+
+## O QUE ACONTECE SE A PORTA RECEBER `memoria=` — MEDIDO
+
+Antes de decidir modelo, mediu-se a coisa mais barata de medir: **passar o
+argumento que o orquestrador não passa.** Nenhuma linha de código foi alterada.
+
+Contra o Postgres 16 descartável, com `guarda/portas_live.MemoriaSupabase`
+apontada à URL descartável:
+
+| | sem `memoria=` (produção hoje) | com `memoria=` |
+|---|---|---|
+| `RUN_STATE` | `PARTIAL` | `COMPLETE` |
+| `PENDENCIA` | `UPLOAD_PENDING_METADATA` | `PRESERVED_AND_REGISTERED` |
+| `FALTOU` | `banco_diz_concluida`, `campos_batem_apos_escrita`, `memoria_aplicada`, `reconciliacao_observada` | `[]` |
+| reconciliação | não houve | `2 == 2 == 2`, o último de um `SELECT` |
+
+E as sete perguntas do §48, feitas por um **processo novo** depois de o anterior
+morrer:
+
+```
+UNIDADES_REENCONTRADAS: 2
+DE_QUE_CORRIDA_VEIO   : run-p21-com-memoria
+QUANDO_FOI_COLHIDO    : 2026-09-09T00:00:00Z
+QUAL_O_SHA_CONFERIDO  : 45c0dc215ae06dedbbaf7d63  (DECLARADO, comparável)
+ONDE_ESTAO_OS_BYTES   : IT/it-t2-001/OBSERVATION/45c0dc21…
+JA_FOI_DERIVADO       : NÃO   (derived_artifact = 0)
+JA_FOI_ESTRUTURADO    : NÃO   (conteudo = 0)
+ESTA_PENDENTE         : SIM — há raw_asset sem derived_artifact
+```
+
+**Sete `NAO SEI` viraram sete respostas.** O que faltava não era arquitetura: era
+um argumento.
+
+### E não é preciso uma quarta `Memoria`
+
+Mediu-se também se a porta de **produção** fala com um Postgres descartável:
+
+```
+classe             : MemoriaSupabase
+modulo             : guarda.portas_live
+e MemoriaDoDerivado: True
+contar raw_asset   : 0
+corrida escrita    : rodando
+started_at lido    : 2026-09-09T00:00:00Z
+```
+
+`guarda/portas_live.MemoriaSupabase` **não tem nada de Supabase por dentro**: não
+faz HTTP, não conhece a API, não lê bucket. É `psql` com uma URL, e a própria
+docstring já o diz — «O Postgres de produção, falado por `psql`». O único traço
+de Supabase é o *nome da classe* e o nome da variável de ambiente por omissão,
+`SUPABASE_DB_URL`.
+
+    A PORTA DE PRODUÇÃO JÁ É GENÉRICA.
+    O QUE MUDA ENTRE PROVA E PRODUÇÃO É A URL, E MAIS NADA.
+
+Isso resolve `TEST PATH = PRODUCTION PATH` sem construir nada — e sem SQLite,
+que a missão proíbe introduzir por impulso e que aqui nem faria falta.
+
+Fica registado o único desconforto honesto: **o nome mente um bocado.** Uma
+classe chamada `MemoriaSupabase` que corre contra um banco local descartável não
+descreve o que faz. É uma questão de nome, não de arquitetura, e não se resolve
+sozinha.
+
+---
+
+## O QUE A TRAVESSIA EXIGE DA UNIDADE — E O SEU LIMITE
+
+`derivar()` chama `deriv.correr()` com esta unidade, e só com esta:
+
+```python
+[{'RAW_ASSET_ID': unidade['RAW_ASSET_ID'], 'PDF': unidade['PDF']}]
+```
+
+Duas coisas ficam medidas, e as duas importam:
+
+1. **`RAW_ASSET_ID`** é o id do banco. Confirma o censo pelo lado do chamador:
+   sem a linha de `raw_asset`, `derivar()` não tem sequer o que passar. E
+   `derivacao_forward.correr` escreve-o na própria docstring: «`run_id` tem de
+   existir em `collection_run`. A `024` tem chave estrangeira e o banco recusa
+   se não existir; **não se contorna**.»
+
+2. **`PDF`** é um caminho para um documento. A travessia que existe é a do
+   **documento** — o ficheiro chama-se `rota_forward_documento.py` e não esconde
+   isso. Uma observação social em JSON não tem PDF para derivar.
+
+    EXISTE UMA TRAVESSIA. ELA É A DO DOCUMENTO.
+    DIZER «A TRAVESSIA» SEM DIZER «DO DOCUMENTO» SERIA PROMETER MAIS
+    DO QUE ESTÁ ESCRITO.
+
+A régua de derivação em si é injectável (`correr(..., derivar=None)` cai em
+`ex.derivar_um`), portanto o dono não está preso a PDF por dentro. Mas a **forma
+da unidade** que ele aceita hoje está, e é isso que limita o alcance de qualquer
+travessia que se ligue nesta missão.
