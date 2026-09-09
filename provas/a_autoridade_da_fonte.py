@@ -36,6 +36,8 @@ O QUE ELE MEDE, E EM QUE ORDEM
     AU6  MUTACAO: admitir o candidato como autoridade vira o veredito
     AU7  mesmo depois de promovida, o que ainda faltaria
     AU8  no banco, ninguem escreveu identidade a correr isto
+    AU9  um SEGUNDO sitio declara dono, e os dois discordam
+    AU10 e nenhuma gaveta de runtime escreve identidade
 
 ⚠️ ESTE FICHEIRO NAO E O DONO DA IDENTIDADE, E NAO DEVE VIRAR UM.
 Ele vive em `provas/` de propósito: nada de runtime pode depender dele. Se um
@@ -151,6 +153,46 @@ def owner_kinds_do_candidato():
 
 
 # ═════════════════════════════════════════════════════════════════════════
+def o_que_o_contrato_de_acesso_diz(source_id):
+    """O SEGUNDO sitio que declara um dono para a mesma fonte.
+
+    `regras/italy_contracts.mjs` e um contrato de ACESSO — diz como abrir a
+    fonte (URL, mime, assinatura, template de rota). Mas ele traz `OWNER_ID`
+    junto, e para 13 fontes.
+    """
+    caminho = os.path.join(RAIZ, "regras", "italy_contracts.mjs")
+    if not os.path.exists(caminho):
+        return None
+    texto = _texto(caminho)
+    i = texto.find('"%s"' % source_id)
+    if i < 0:
+        return None
+    m = re.search(r'OWNER_ID:\s*"([^"]+)"', texto[i:i + 500])
+    return m.group(1) if m else None
+
+
+def escritores_de_identidade_em_runtime():
+    """Quem ESCREVE identidade fora de ensaio, prova e fixture.
+
+        TEST FIXTURE RESOLVES PRECONDITION != FORWARD IDENTITY OWNER EXISTS.
+    """
+    gavetas = ("coleta/", "guarda/", "admissao/", "leis/", "medidas/",
+               "regras/", "orquestrador/", "ferramentas/", "fontes/",
+               "pedido/", "pacote/")
+    achados = []
+    saida = subprocess.run(["git", "-C", RAIZ, "ls-files"],
+                           capture_output=True, text=True).stdout.split("\n")
+    for f in saida:
+        if not f.startswith(gavetas) or not f.endswith((".py", ".sql", ".mjs")):
+            continue
+        corpo = "\n".join(re.sub(r"#.*$", "", l) for l in _texto(
+            os.path.join(RAIZ, f)).split("\n"))
+        for tabela in ("organizacao", "pessoa", "origem", "canal"):
+            if re.search(r"insert\s+into\s+public\.%s\b" % tabela, corpo, re.I):
+                achados.append("%s -> %s" % (f, tabela))
+    return achados
+
+
 def main():
     print("A CADEIA DE AUTORIDADE, MEDIDA NOS ARTEFATOS CANONICOS")
     print("=" * 70)
@@ -230,6 +272,37 @@ def main():
     caso("AU6b_MUTACAO_admitir_o_candidato_viraria_o_veredito",
          com == "RESOLVED" and com != sem,
          "seria RESOLVED por «%s» — e e por isso que nao se admite" % porque_com)
+
+    # ── AU9 · E O CATALOGO CANDIDATO NAO ESTA SOZINHO ────────────────────
+    #
+    # Ha um SEGUNDO sitio a declarar um dono para a mesma fonte, e os dois
+    # NAO dizem o mesmo. Isto nao enfraquece o veredito — endurece-o: mesmo
+    # que alguem decidisse admitir um catalogo nao promovido, teria de
+    # escolher QUAL dos dois, e nada no repositorio diz qual vence.
+    #
+    #     AMBIGUOUS != FIRST MATCH.
+    dono_acesso = o_que_o_contrato_de_acesso_diz(A_FONTE_DA_M2)
+    dono_catalogo = (fonte_cand or {}).get("OWNER_ID")
+    caso("AU9a_um_segundo_sitio_declara_dono_para_a_mesma_fonte",
+         bool(dono_acesso),
+         "regras/italy_contracts.mjs diz OWNER_ID=%s" % dono_acesso)
+    caso("AU9b_e_os_dois_NAO_concordam",
+         bool(dono_acesso) and bool(dono_catalogo)
+         and dono_acesso != dono_catalogo,
+         "catalogo diz %s · contrato de acesso diz %s — escolher um seria "
+         "inventar identidade" % (dono_catalogo, dono_acesso))
+
+    # ── AU10 · E NINGUEM, EM RUNTIME, PODE ESCREVER IDENTIDADE ───────────
+    #
+    # Mesmo que a autoridade existisse, nao ha quem a materialize: os unicos
+    # escritores de `organizacao`, `pessoa`, `origem` e `canal` sao ensaios
+    # SQL, provas e fixtures de teste.
+    escritores = escritores_de_identidade_em_runtime()
+    caso("AU10_nenhuma_gaveta_de_runtime_escreve_identidade",
+         escritores == [],
+         "zero escritores em coleta/, guarda/, admissao/, leis/, medidas/, "
+         "regras/, orquestrador/, ferramentas/, fontes/, pedido/, pacote/"
+         if not escritores else "apareceram: %s" % escritores)
 
     # ── AU7 · o que faltaria AINDA DEPOIS de promover ────────────────────
     #

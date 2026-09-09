@@ -98,6 +98,23 @@ class Base(unittest.TestCase):
             except Exception:                                # noqa: BLE001
                 pass
 
+        # ⚠️ A FIXTURA DE IDENTIDADE TAMBEM E SUJIDADE.
+        # `provas/a_autoridade_da_fonte.py` (AU8) mede que MEDIR a autoridade
+        # nao escreve identidade nenhuma. Se esta suite correr antes e deixar
+        # canal/origem/organizacao para tras, AU8 le linhas que nao sao dela e
+        # da FAIL — nao por defeito do codigo, mas por lixo deste ficheiro.
+        # A ordem e a das dependencias: canal -> origem -> organizacao.
+        for sql in (
+            "delete from public.canal where plataforma = 'web'"
+            " and channel_id = 'IT-T2-002'",
+            "delete from public.origem where rotulo = 'IT-OWN-003'",
+            "delete from public.organizacao where nome_canonico like 'ARPAV%'",
+        ):
+            try:
+                cls.banco.executa(sql)
+            except Exception:                                # noqa: BLE001
+                pass
+
     def setUp(self):
         """⚠️ A CORRIDA NASCE DO DONO DO BRUTO, e nao deste teste.
 
@@ -126,17 +143,25 @@ class Base(unittest.TestCase):
         escreve-se a que o catalogo ja nomeia.
         """
         b = self.banco
+        # ⚠️ `on conflict do nothing` NAO DEDUPLICA SEM CONSTRAINT UNICA.
+        # Nao ha unique em `organizacao.nome_canonico` nem em `origem.rotulo`,
+        # entao a clausula nunca dispara e cada metodo inseria outra linha:
+        # medido, 23 organizacoes e 23 origens ao fim da suite. A deduplicacao
+        # tem de ser explicita — `where not exists`.
         org = b.executa(
             "with novo as (insert into public.organizacao (nome_canonico, tipo)"
-            " values ('ARPAV — Agenzia Regionale per la Prevenzione e"
-            " Protezione Ambientale del Veneto', 'orgao_publico')"
-            " on conflict do nothing returning id)"
+            " select 'ARPAV — Agenzia Regionale per la Prevenzione e"
+            " Protezione Ambientale del Veneto', 'orgao_publico'"
+            " where not exists (select 1 from public.organizacao"
+            "   where nome_canonico like 'ARPAV%') returning id)"
             " select coalesce((select id from novo),"
             "  (select id from public.organizacao where nome_canonico like 'ARPAV%'))")
         org_id = int(org[0][0])
         ori = b.executa(
             "with novo as (insert into public.origem (organizacao_id, rotulo)"
-            " values (%d, 'IT-OWN-003') on conflict do nothing returning id)"
+            " select %d, 'IT-OWN-003' where not exists"
+            "  (select 1 from public.origem where rotulo = 'IT-OWN-003')"
+            " returning id)"
             " select coalesce((select id from novo),"
             "  (select id from public.origem where rotulo = 'IT-OWN-003'))"
             % org_id)

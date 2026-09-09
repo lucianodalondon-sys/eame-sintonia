@@ -1784,8 +1784,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "ff26485c7d2544335656f1c2df6948e1e13a778d",
-    "GENERATED_AT": "2026-09-09T00:08:15+00:00"
+    "HEAD": "c268f3ba8adc130748f15539c03b3edefaccfccd",
+    "GENERATED_AT": "2026-09-09T00:21:35+00:00"
   },
   "FAMILIES": [
     {
@@ -8858,7 +8858,8 @@
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
-        "C-IT-PRESERVAR"
+        "C-IT-PRESERVAR",
+        "C-PROVA-AUTORIDADE-FONTE"
       ],
       "paises": {
         "ITALIA": 6
@@ -10896,6 +10897,7 @@
       "inbound": [
         "C-AS-FONTES",
         "C-IT-CATALOGO",
+        "C-IT-CONTRATOS",
         "C-PROVA-COLETA",
         "C-SUPABASE"
       ],
@@ -10904,7 +10906,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 1
+        "ITALIA": 2
       },
       "pais": "TRANSVERSAL",
       "nivel": "INTERNO",
@@ -15599,7 +15601,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-foundation-integration-v1",
-        "HEAD ff26485c7d2544335656f1c2df6948e1e13a778d"
+        "HEAD c268f3ba8adc130748f15539c03b3edefaccfccd"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16673,12 +16675,12 @@
       "evidence": [
         {
           "file": "provas/a_autoridade_da_fonte.py",
-          "line": 56,
+          "line": 58,
           "snippet": "ATLAS = os.path.join(RAIZ, \"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")"
         },
         {
           "file": "provas/a_autoridade_da_fonte.py",
-          "line": 57,
+          "line": 59,
           "snippet": "CONTRATOS = os.path.join(RAIZ, \"docs\", \"operacao\", \"CONTRATOS-DAS-FONTES-EAME.md\")"
         }
       ],
@@ -17884,7 +17886,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 616,
+          "line": 641,
           "snippet": "'provas-de-execucao.json'),"
         },
         {
@@ -19699,7 +19701,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 399,
+          "line": 424,
           "snippet": "import derivacao_forward as fwd"
         }
       ],
@@ -21225,7 +21227,7 @@
       "evidence": [
         {
           "file": "provas/a_autoridade_da_fonte.py",
-          "line": 59,
+          "line": 61,
           "snippet": "CANDIDATO = os.path.join(RAIZ, \"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")"
         }
       ],
@@ -21489,6 +21491,24 @@
         }
       ],
       "categoria": "WRITE"
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-PROVA-AUTORIDADE-FONTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana alimenta A medição da autoridade da fonte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_autoridade_da_fonte.py",
+          "line": 81,
+          "snippet": "open(caminho, 'leitura')  # caminho = regras/italy_contracts.mjs"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-IT-PDF-BRUTO",
@@ -23911,7 +23931,7 @@
       "evidence": [
         {
           "file": "provas/a_autoridade_da_fonte.py",
-          "line": 261,
+          "line": 334,
           "snippet": "\"preservar_coleta_no_postgres.py\"))"
         }
       ],
@@ -24713,7 +24733,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 618,
+          "line": 643,
           "snippet": "r = led['PROVADOS']['coleta/rota_forward_documento.py']"
         }
       ],
@@ -26082,7 +26102,7 @@
       "evidence": [
         {
           "file": "provas/a_autoridade_da_fonte.py",
-          "line": 61,
+          "line": 63,
           "snippet": "\"002_identidade_pessoa_org_canal.sql\")"
         }
       ],
@@ -27706,8 +27726,8 @@
     "components_pending": 65,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 545,
-    "edges_proven": 543,
+    "edges": 546,
+    "edges_proven": 544,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1338,

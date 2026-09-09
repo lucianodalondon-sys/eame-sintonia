@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "ff26485c7d2544335656f1c2df6948e1e13a778d",
-    "GENERATED_AT": "2026-09-09T00:08:15+00:00"
+    "HEAD": "c268f3ba8adc130748f15539c03b3edefaccfccd",
+    "GENERATED_AT": "2026-09-09T00:21:35+00:00"
   },
   "FILES": [
     {
@@ -7422,7 +7422,7 @@
     },
     {
       "path": "provas/a_autoridade_da_fonte.py",
-      "sha": "7a2600be0223586a52b6088c6c91603392dc5e17",
+      "sha": "aa11f517fadfb314e5bb294f0e824507eecec868",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8647,7 +8647,7 @@
     },
     {
       "path": "system-map/data/provas-de-execucao.json",
-      "sha": "95fab691385a41713f96c92cb62e9e439be555ba",
+      "sha": "24b2389839918ca4e8181ecdf3e45bf3ef0b1868",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9095,7 +9095,7 @@
     },
     {
       "path": "tests/test_m2_rota_forward.py",
-      "sha": "7d50cd755b591cd1914ad10fd637365d6bbeafc0",
+      "sha": "f203b80b90046172e75a2af523996456bd26a96b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9270,7 +9270,7 @@
     },
     {
       "path": "tests/test_social_persistencia_pg.py",
-      "sha": "0e0bb928f503dce7364406f04bbdc7ff3b263400",
+      "sha": "81620bfc135343ba2d0ccdd1cb25c699f4ceb839",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23836,7 +23836,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 53,
+        "line": 55,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -23847,7 +23847,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 59,
+        "line": 61,
         "snippet": "CANDIDATO = os.path.join(RAIZ, \"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")"
       }
     },
@@ -23858,7 +23858,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 56,
+        "line": 58,
         "snippet": "ATLAS = os.path.join(RAIZ, \"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")"
       }
     },
@@ -23869,7 +23869,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 57,
+        "line": 59,
         "snippet": "CONTRATOS = os.path.join(RAIZ, \"docs\", \"operacao\", \"CONTRATOS-DAS-FONTES-EAME.md\")"
       }
     },
@@ -23880,8 +23880,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 261,
+        "line": 334,
         "snippet": "\"preservar_coleta_no_postgres.py\"))"
+      }
+    },
+    {
+      "from_file": "provas/a_autoridade_da_fonte.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_autoridade_da_fonte.py",
+        "line": 81,
+        "snippet": "open(caminho, 'leitura')  # caminho = regras/italy_contracts.mjs"
       }
     },
     {
@@ -23891,7 +23902,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 61,
+        "line": 63,
         "snippet": "\"002_identidade_pessoa_org_canal.sql\")"
       }
     },
@@ -29039,7 +29050,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 399,
+        "line": 424,
         "snippet": "import derivacao_forward as fwd"
       }
     },
@@ -29072,7 +29083,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 618,
+        "line": 643,
         "snippet": "r = led['PROVADOS']['coleta/rota_forward_documento.py']"
       }
     },
@@ -29138,7 +29149,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 616,
+        "line": 641,
         "snippet": "'provas-de-execucao.json'),"
       }
     },
@@ -32339,7 +32350,7 @@
     "files_tracked": 1338,
     "files_readable": 495,
     "files_code_dir": 547,
-    "file_edges": 2045,
+    "file_edges": 2046,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },
