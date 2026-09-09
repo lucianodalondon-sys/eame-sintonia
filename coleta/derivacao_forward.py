@@ -161,9 +161,27 @@ GAPS = (
     ("ADMISSION_SEM_DONO_LIGADO",
      "RC-1 STEPS.ADMISSION: STATE=CODE, PROOF_KIND=NENHUMA. admissao/admissao.py "
      "julga o registo legado, e nao `derived_artifact`."),
+    # ⚠️ O NOME DESTE GAP DIZ MAIS DO QUE SE MEDIU, e fica com o texto
+    # corrigido em vez de ser apagado — porque a FALTA e real, so que nao e
+    # a que o nome anuncia. Medido em `provas/a_fronteira_da_coleta.py`:
+    #
+    #     READY TEM contrato   COL-LAW-043, 11 campos, fixos
+    #     READY TEM dono       admissao.pronto_para_inteligencia()
+    #     READY TEM 0 produtores em runtime (so um CLI e uma prova)
+    #     READY TEM 0 consumidores, e o destino nem sequer existe
+    #
+    # `leis/artefato.py:43` ja dizia «ja e o READY desta casa», e este tuplo
+    # dizia «nao tem dono». Os dois nao podiam estar certos.
+    #
+    # O ID nao muda: ele e citado noutras linhas desta casa, e trocar um
+    # identificador para melhorar uma frase espalha o custo por toda a gente.
     ("READY_NAO_TEM_DONO",
-     "nenhuma peca decide que um derivado esta PRONTO. READY sem ADMISSION nao "
-     "e uma etapa: e uma afirmacao sem quem a assine."),
+     "o NOME esta errado e o buraco e real: READY TEM dono "
+     "(admissao.pronto_para_inteligencia) e TEM contrato (COL-LAW-043, 11 "
+     "campos). O que nao tem e caminho: a rota forward termina em ADMISSION e "
+     "nao chega la — o dono recebe `item` e a rota produz `derived_artifact` — "
+     "e nao tem NENHUM consumidor. UMA PORTA POR ONDE NINGUEM PASSA NAO E UMA "
+     "PORTA. Medido em provas/a_fronteira_da_coleta.py."),
     # ⚠️ ESTE ESTAVA DECLARADO SO NUM `print`.
     # `provas/o_forward_conta_se.py` media-o e escrevia-o no ecra — e mais
     # nada. Nao estava neste tuplo, nao estava em JSON nenhum, e nenhum

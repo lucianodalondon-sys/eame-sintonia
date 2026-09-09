@@ -168,6 +168,13 @@ jobs:
       - name: 4o · toda clausula `on conflict` tem chave que a sustente
         run: python3 provas/o_dedupe_tem_constraint.py
 
+      # A fronteira entre a coleta e a inteligencia: que a lei e o codigo
+      # continuem a declarar o MESMO contrato, e que ele tenha um dono so.
+      # Ela NAO falha por nao haver consumidor — isso e um buraco declarado,
+      # e o trabalho dela e medi-lo, nao pinta-lo de verde.
+      - name: 4p · a fronteira tem um contrato, um dono, e a lei bate com o codigo
+        run: python3 provas/a_fronteira_da_coleta.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         run: |
           set -e
