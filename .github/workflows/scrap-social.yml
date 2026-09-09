@@ -51,7 +51,12 @@ on:
         default: censo
         type: choice
         options: [censo, portao, video, gap, piloto, ledger, sessao, politica, guarda,
-                  youtube, youtube-piloto, youtube-piloto-oneshot]
+                  youtube, youtube-piloto, youtube-piloto-oneshot, stories]
+      pagar:
+        description: 'SÓ a fase `stories` gasta dólar. Sem isto, ela recusa.'
+        required: false
+        default: false
+        type: boolean
       url:
         description: 'só para a fase `portao`: a URL a testar'
         required: false
@@ -147,10 +152,30 @@ jobs:
           # a mesma chave, e dois cofres divergem. Ausente, a fase `youtube-piloto`
           # para em CHECKPOINT_CANONICAL_UNAVAILABLE e NÃO cai para JSON nem Git.
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          # A CHAVE PAGA. É o MESMO cofre que `apify-conexao.yml` e
+          # `apify-sensores.yml` já usam — um nome novo seria um segundo cofre
+          # para a mesma finalidade, e dois cofres divergem.
+          #
+          #     ONE CREDENTIAL PURPOSE -> ONE SECRET OWNER.
+          #
+          # Ausente, a fase `stories` para em CREDENTIAL_MISSING e NÃO cai para a
+          # rota pública — que foi MEDIDA `BLOCKED` para Story. Cair ali daria
+          # coleta vazia com cara de coleta feita, todo dia.
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
         run: |
           echo "FASE=${{ inputs.fase }}"
+          # As DUAS travas do gasto são independentes, e o workflow só controla a
+          # primeira. `--pagar` é INTENÇÃO; o teto de US$ 0,50 por missão é
+          # CAPACIDADE, e vive no código, onde ninguém o esquece ao editar YAML.
+          PAGAR=""
+          if [ "${{ inputs.fase }}" = "stories" ] && [ "${{ inputs.pagar }}" = "true" ]; then
+            PAGAR="--pagar"
+            echo "GASTO_AUTORIZADO=YES"
+          elif [ "${{ inputs.fase }}" = "stories" ]; then
+            echo "GASTO_AUTORIZADO=NO — a fase vai recusar, e isso é o correto"
+          fi
           PYTHONIOENCODING=utf-8 python3 coleta/social_scrap.py \
-            "${{ inputs.fase }}" ${{ inputs.fase == 'portao' && inputs.url || '' }}
+            "${{ inputs.fase }}" ${{ inputs.fase == 'portao' && inputs.url || '' }} $PAGAR
 
       # A PROVA BRUTA DO PILOTO SOBE COMO ARTEFATO, NÃO COMO COMMIT
       # ------------------------------------------------------------
@@ -282,6 +307,58 @@ jobs:
       # `-A` numa pasta: `-A` leva o que alguém puser lá amanhã, e é assim que
       # checkpoint volta pelo lado. Checkpoint, run state e ledger operacional têm
       # dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`.
+      # A MÍDIA DO STORY SOBE COMO ARTEFATO, E NUNCA COMO COMMIT
+      # --------------------------------------------------------
+      # JPG e MP4 de Story são prova de PILOTO com retenção declarada, não acervo.
+      # Commitar binário efêmero faria o histórico crescer para sempre com o
+      # arquivo de menor vida útil que esta casa coleta.
+      #
+      #     PILOT PROOF != OPERATIONAL STORAGE.
+      #
+      # E o inventário é escrito ANTES do upload, do que o run ACABOU de produzir:
+      # `upload success` não prova que o artefato existe, e um inventário lido do
+      # checkout provaria o checkout, não a corrida.
+      - name: 4b · inventário da mídia que ESTE run capturou
+        if: always() && inputs.fase == 'stories'
+        id: midia
+        run: |
+          PASTA="data/samples/SOCIAL-IT/raw-stories"
+          if [ ! -d "$PASTA" ]; then
+            echo "MEDIA_FILES=0" >> "$GITHUB_OUTPUT"
+            echo "MEDIA_BYTES=0"  >> "$GITHUB_OUTPUT"
+            echo "SEM MIDIA — nada foi capturado nesta corrida"; exit 0
+          fi
+          N=$(find "$PASTA" -type f | wc -l)
+          B=$(find "$PASTA" -type f -printf '%s\n' | awk '{t+=$1} END {print t+0}')
+          echo "MEDIA_FILES=$N" >> "$GITHUB_OUTPUT"
+          echo "MEDIA_BYTES=$B" >> "$GITHUB_OUTPUT"
+          echo "FILE|BYTES|SHA256"
+          find "$PASTA" -type f -exec sh -c 'echo "$1|$(stat -c%s "$1")|$(sha256sum "$1" | cut -d" " -f1)"' _ {} \;
+
+      - name: 4c · a prova do Story sobe como artefato
+        if: always() && inputs.fase == 'stories' && steps.midia.outputs.MEDIA_FILES != '0'
+        id: subir_story
+        uses: actions/upload-artifact@v4
+        with:
+          name: stories-prova-${{ github.run_id }}
+          path: |
+            data/samples/SOCIAL-IT/raw-stories/**
+            data/samples/SOCIAL-IT/STORIES-IT.json
+          retention-days: 7
+          if-no-files-found: error
+
+      - name: 4d · UPLOAD SUCCESS != ARTIFACT EXISTS
+        if: always() && inputs.fase == 'stories' && steps.midia.outputs.MEDIA_FILES != '0'
+        run: |
+          ID="${{ steps.subir_story.outputs.artifact-id }}"
+          if [ -z "$ID" ]; then
+            echo "RECUSADO: o passo de upload passou e NAO devolveu artifact-id."
+            echo "A lei desta casa: UPLOAD SUCCESS != ARTIFACT EXISTS."
+            exit 1
+          fi
+          echo "ARTIFACT_ID=$ID"
+          echo "ARTIFACT_RETENTION_DAYS=7"
+
       - name: 5 · devolver a amostra de PROVA ao repositório
         if: inputs.fase == 'piloto' || inputs.fase == 'youtube-piloto'
           || inputs.fase == 'youtube-piloto-oneshot'
