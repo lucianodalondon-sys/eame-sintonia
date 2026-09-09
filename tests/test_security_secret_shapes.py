@@ -16,7 +16,7 @@ e uma fixture commitada faria a propria guarda acusar o repositorio para sempre.
 
     python3 -m unittest tests.test_security_secret_shapes -v
 """
-import importlib.util, pathlib, unittest
+import importlib.util, os, pathlib, unittest
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 _spec = importlib.util.spec_from_file_location("social_guarda", RAIZ / "guarda" / "social_guarda.py")
@@ -124,3 +124,54 @@ class ArvoreReal(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class RedaccaoEmTempoDeExecucao(unittest.TestCase):
+    """SECRET NOT IN GIT != SECRET CANNOT LEAK AT RUNTIME.
+
+    Sao duas perguntas e por isso sao duas provas. A guarda de credencial olha
+    a arvore; esta olha o que um programa IMPRIME quando alguma coisa corre mal.
+    Um traceback com um DSN dentro vaza tao bem como um ficheiro commitado.
+
+    A prova em si e do SCRAP e e CONSUMIDA, nao copiada — nao ha segundo
+    redactor. Mas consumi-la pelo nome exacto da classe seria uma coupling
+    frágil: no dia em que o SCRAP reorganizasse os seus testes, o SECURITY CHECK
+    ficaria vermelho por uma razao que nao e uma regressao de seguranca.
+
+        UM PORTAO QUE FALHA PELA RAZAO ERRADA ENSINA A IGNORAR O PORTAO.
+
+    Entao procura-se a prova pelo CONTRATO — o que ela promete — e nao pela
+    morada. Se ela desaparecer, a mensagem diz isso, e nao outra coisa.
+    """
+
+    CONTRATO = ("segredo", "preflight")
+
+    def _encontrar(self):
+        import unittest as _u
+        achadas = []
+        for mod in ("tests.test_youtube_antidrift",):
+            try:
+                suite = _u.defaultTestLoader.loadTestsFromName(mod)
+            except Exception as e:                      # pragma: no cover
+                self.fail(f"nao foi possivel carregar {mod}: {e}")
+            for t in _u.defaultTestLoader.suiteClass(suite):
+                for caso in t:
+                    nome = caso.id().rsplit(".", 1)[-1]
+                    if all(p in nome for p in self.CONTRATO):
+                        achadas.append(caso)
+        return achadas
+
+    def test_a_prova_de_redaccao_existe(self):
+        achadas = self._encontrar()
+        self.assertTrue(achadas,
+                        "a prova de redaccao em tempo de execucao desapareceu. "
+                        "Ela e do SCRAP e o SECURITY CHECK consome-a: se mudou de "
+                        "nome, actualize o CONTRATO; se foi apagada, ha um controlo "
+                        "de seguranca a menos e nao um teste a menos.")
+
+    def test_a_prova_de_redaccao_passa(self):
+        import unittest as _u
+        suite = _u.TestSuite(self._encontrar())
+        r = _u.TextTestRunner(stream=open(os.devnull, "w"), verbosity=0).run(suite)
+        self.assertTrue(r.wasSuccessful(),
+                        f"o segredo vaza em tempo de execucao: {r.failures or r.errors}")

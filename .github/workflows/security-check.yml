@@ -62,11 +62,12 @@ jobs:
         if: '!cancelled()'
         run: python3 -m unittest tests.test_security_secret_shapes -v
 
-      - name: "4 · o segredo nao vaza em tempo de execucao"
-        # SECRET NOT IN GIT != SECRET CANNOT LEAK AT RUNTIME. Duas perguntas,
-        # duas provas. Esta e do SCRAP, e e consumida, nao copiada.
-        if: '!cancelled()'
-        run: python3 -m unittest tests.test_youtube_antidrift.AntiDrift.test_10_nenhum_segredo_no_veredito_do_preflight -v
+      # A prova de redaccao em tempo de execucao e do SCRAP e e consumida pelo
+      # passo 3, que a procura pelo CONTRATO e nao pela morada. Chama-la aqui
+      # pelo nome exacto da classe ficaria vermelha no dia em que o SCRAP
+      # reorganizasse os seus testes — vermelha por uma razao que nao e uma
+      # regressao de seguranca, que e a maneira mais rapida de ensinar alguem a
+      # ignorar um portao.
 
       - name: "5 · o ratchet: nenhuma exposicao NOVA"
         # Divida herdada fica visivel e nao bloqueia. Regressao nova bloqueia,
