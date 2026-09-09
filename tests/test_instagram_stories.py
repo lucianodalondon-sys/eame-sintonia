@@ -378,5 +378,33 @@ class OTranscritorRecebeOByteENaoVaiBuscaLo(unittest.TestCase):
         self.assertIn('LOCAL_COMPUTE_S', r)
 
 
+class AusenciaDeCustoNaoECustoZero(unittest.TestCase):
+    """O defeito que matou a PRIMEIRA corrida viva, em 2026-09-09 03:37 UTC.
+
+    `coletor` grava `COST_USD = 'NOT_PRESERVED'` — uma STRING — quando a Apify
+    não devolve `usageTotalUsd`. O adaptador fazia `float(...)` e explodia. O
+    estado publicado foi `PARSER_DRIFT`, que culpa o ATOR por um defeito NOSSO,
+    e o diagnóstico real da execução não apareceu em lugar nenhum.
+    """
+
+    def test_a_sentinela_nao_derruba_e_nao_vira_zero(self):
+        self.assertIsNone(ist.custo_do_manifesto({'COST_USD': 'NOT_PRESERVED'}))
+
+    def test_custo_de_verdade_atravessa(self):
+        self.assertEqual(ist.custo_do_manifesto({'COST_USD': 0.108}), 0.108)
+
+    def test_nao_sei_e_diferente_de_nao_custou(self):
+        """Um relatório de gasto não pode perder essa distinção."""
+        self.assertIsNone(ist.custo_do_manifesto({}))
+        self.assertEqual(ist.custo_do_manifesto({'COST_USD': 0}), 0.0)
+
+    def test_o_campo_do_contrato_e_ERROR_e_nao_ERRO(self):
+        """Lendo a chave errada, a classificação nunca teria funcionado: toda
+        falha viraria ACTOR_FAILED genérico."""
+        e = ist.classificar({'STATUS': 'FAILED', 'ERROR': 'HTTP 429 rate limit'},
+                            [], ['a'])
+        self.assertEqual(e['a']['ESTADO'], 'RATE_LIMITED')
+
+
 if __name__ == '__main__':
     unittest.main()

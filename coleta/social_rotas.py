@@ -388,8 +388,22 @@ def instagram_stories(*, perfis, run_id, country_scope, **_):
         teto_usd=ist.TETO_USD_POR_RUN)
 
     estados = ist.classificar(manifesto, itens, corpo['usernames'])
-    custo = float(manifesto.get('COST_USD') or 0)
-    por_item = (custo / len(itens)) if itens else 0.0
+
+    # O QUE O ATOR FEZ VIAJA COM O REGISTRO, mesmo (e principalmente) quando
+    # falhou. Sem isto, a primeira corrida viva morreu com `PARSER_DRIFT` e o
+    # estado real da execução — status, erro, run e dataset — não apareceu em
+    # lugar nenhum. Um relatório que perde o diagnóstico custa outra execução.
+    registro['ACTOR'] = ist.ATOR
+    registro['ACTOR_RUN_STATUS'] = manifesto.get('STATUS')
+    registro['ACTOR_RUN_ERROR'] = ss.redigir(ist._erro_do_manifesto(manifesto))[:300]
+    registro['DATASET_ID'] = manifesto.get('DATASET_ID')
+    registro['ITEM_COUNT_RAW'] = manifesto.get('ITEM_COUNT_RAW')
+    registro['ESTADO_POR_PERFIL'] = estados
+
+    custo = ist.custo_do_manifesto(manifesto)
+    registro['COST_USD'] = custo if custo is not None else 'UNKNOWN'
+    registro['COST_MEASURED'] = custo is not None
+    por_item = (custo / len(itens)) if (custo and itens) else 0.0
 
     raw_ref = env.guardar_raw('INSTAGRAM', 'stories-%s' % run_id, itens)
     pasta_midia = os.path.join(RAIZ, 'data', 'samples', 'SOCIAL-IT', 'raw-stories', run_id)

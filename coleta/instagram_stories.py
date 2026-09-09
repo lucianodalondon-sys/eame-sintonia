@@ -286,6 +286,32 @@ def normalizar(item, *, username, run_id, country_scope, route, cost_usd=0.0,
 # ══════════════════════════════════════════════════════════════════════════
 # O ESTADO DE CADA PERFIL
 # ══════════════════════════════════════════════════════════════════════════
+def custo_do_manifesto(manifesto):
+    """O custo real da execução, ou None quando a plataforma não o expôs.
+
+    `coletor` grava `COST_USD = NOT_PRESERVED` quando a Apify não devolve
+    `usageTotalUsd` — e essa sentinela é uma STRING. Tratá-la como número
+    derrubou o primeiro piloto vivo inteiro, com o estado `PARSER_DRIFT`
+    culpando o ator por um defeito nosso.
+
+        AUSÊNCIA DE CUSTO NÃO É CUSTO ZERO, E NÃO É UM NÚMERO.
+
+    Devolver `None` obriga quem chama a distinguir «não custou» de «não sei» —
+    que é exatamente a distinção que um relatório de gasto não pode perder.
+    """
+    v = (manifesto or {}).get('COST_USD')
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
+
+
+def _erro_do_manifesto(manifesto):
+    """O texto do erro. O campo do contrato é `ERROR`; `ERRO` é só o nosso hábito."""
+    m = manifesto or {}
+    return str(m.get('ERROR') or m.get('ERRO') or '')
+
+
 def classificar(manifesto, itens, pedidos):
     """Um estado canônico POR PERFIL pedido. Zero nunca vira ausência sozinho.
 
@@ -293,7 +319,7 @@ def classificar(manifesto, itens, pedidos):
     `itens` é o dataset cru; `pedidos` são os usernames que mandamos.
     """
     status = (manifesto or {}).get('STATUS')
-    msg = str((manifesto or {}).get('ERRO') or '')
+    msg = _erro_do_manifesto(manifesto)
     baixo = msg.lower()
 
     # A execução inteira falhou: NENHUM perfil foi medido. Dizer

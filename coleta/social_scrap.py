@@ -845,7 +845,54 @@ def stories(perfis=None, autorizar_gasto=False):
         for u, e in por_perfil.items():
             print('    %-22s %-20s stories=%d' % (u, e['ESTADO'], e['STORIES']))
     if objetos:
-        _registrar([reg], objetos, 'STORIES-IT.json')
+        # ── A SEGUNDA VARREDURA ────────────────────────────────────────────
+        # Um Story ativo lido duas vezes continua sendo UM Story. A prova só
+        # existe se a passada de agora for confrontada com a anterior — dentro
+        # de um run só, a dedupe nunca teria o que fundir.
+        #
+        # A identidade é PLATFORM+NATIVE_ID. Nunca a URL (o CDN troca o endereço
+        # assinado a cada leitura) e nunca o hash da imagem em primeiro lugar
+        # (duas Stories com a mesma arte e IDs diferentes são duas Stories).
+        antes = env.ler('STORIES-IT.json') or {}
+        anteriores = {o['NATIVE_ID'] for o in (antes.get('OBJETOS') or [])
+                      if o.get('PLATFORM') == 'INSTAGRAM'}
+        agora_ids = {o['NATIVE_ID'] for o in objetos}
+        revistos = sorted(anteriores & agora_ids)
+        novos = sorted(agora_ids - anteriores)
+        rel = _registrar([reg], objetos, 'STORIES-IT.json')
+        print('\n  ── a segunda passada não faz o mesmo Story nascer duas vezes ──')
+        print('    varredura anterior  %d Stories' % len(anteriores))
+        print('    esta varredura      %d Stories' % len(agora_ids))
+        print('    REVISTOS            %d  (mesmo NATIVE_ID; não viram objeto novo)'
+              % len(revistos))
+        print('    NOVOS               %d' % len(novos))
+        if rel:
+            print('    DUPLICADOS CRIADOS  %d' % (len(objetos) - rel['DISTINTOS']))
+        preservadas = [o for o in objetos if o.get('MEDIA_DURABILITY') == 'MEDIA_PRESERVED']
+        print('\n  ── o byte, capturado no mesmo run que descobriu ──')
+        print('    MIDIA PRESERVADA    %d de %d' % (len(preservadas), len(objetos)))
+        for o in preservadas[:6]:
+            print('      %-11s %-22s %8d bytes  sha256=%s'
+                  % (o['MEDIA_TYPE'], o['NATIVE_ID'], o['MEDIA_BYTES'],
+                     o['MEDIA_SHA256'][:16]))
+        for o in objetos:
+            if o.get('MEDIA_DURABILITY') != 'MEDIA_PRESERVED':
+                print('      NAO DURAVEL %-14s %s'
+                      % (o['NATIVE_ID'], o.get('MEDIA_NOT_DURABLE_REASON')))
+        videos = [o for o in preservadas if o['MEDIA_TYPE'] == 'VIDEO']
+        if videos:
+            print('\n  ── vídeo: o byte já está no disco, a transcrição é DERIVED ──')
+            sys.path.insert(0, os.path.join(RAIZ, 'ferramentas'))
+            import story_transcrever as st
+            for o in videos[:2]:
+                st.anexar(o)
+                t = o['DERIVED_TRANSCRIPT']
+                print('    %-22s %-16s lingua=%s(%s) %ss de máquina, US$ %.2f'
+                      % (o['NATIVE_ID'], t['TRANSCRIPT_STATE'], t['LANGUAGE'],
+                         t['LANGUAGE_PROBABILITY'], t['LOCAL_COMPUTE_S'], t['USD_COST']))
+        else:
+            print('\n  VIDEO_STORY_SAMPLE  NOT_AVAILABLE — nenhum Story de vídeo nesta '
+                  'passada; não se inventa amostra')
         print('\n  artefato            data/samples/SOCIAL-IT/STORIES-IT.json')
     else:
         # CAN DO != DID DO. Sem objeto, não há prova viva — e o relatório diz isso
