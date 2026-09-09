@@ -522,3 +522,30 @@ Isto não aparece em teste nenhum, porque nenhum teste alimenta a porta com um
 ficheiro que contém muitos itens — que é exatamente o formato em que quatro dos
 quatro executores desta casa largam o que colhem. **Só apareceu porque a água
 passou pelo cano.**
+
+### E o furo não é do T4. É de todos.
+
+Mediu-se a mesma coisa para os quatro executores que a casa declara, cada um com
+o que está realmente largado nesta árvore:
+
+| alvo | executor | itens | objectos distintos | veredito |
+|---|---|---:|---:|---|
+| T3 | `eppo` | 0 | — | nada largado nesta árvore |
+| T4 | `rotulos-oficiais` | 163 | **1** | colapsa 163 → 1 |
+| T7 | `corpus-pesquisador` | 12 | **1** | colapsa 12 → 1 |
+| T9 | `comunicacao-publica` | 78 | **4** | colapsa 78 → 4 |
+
+**253 itens. 6 objectos.** E os seis não são itens: são os ficheiros-contentor em
+que os itens vieram — um por ficheiro lido.
+
+    HOJE, NENHUM ITEM DESTA CASA TEM RAW PRÓPRIO.
+    TODOS TÊM, COMO RAW, A CAIXA EM QUE CHEGARAM.
+
+A porta que a C-PLUMB-1 construiu está certa no que decidiu fazer — recusa com
+nome, não julga, não inventa `FACT_TIME`. O que ela não previu foi a forma em que
+esta casa entrega: **um ficheiro com muitos itens lá dentro**, que é a forma de
+quatro em quatro executores. E é por isso que P24 não pode começar por ligar
+`RAW → DERIVED`: ligar a seta agora derivaria 253 vezes o mesmo contentor.
+
+    PRIMEIRO O RAW TEM DE SER DA UNIDADE.
+    UMA SETA CERTA A PARTIR DE UM RAW ERRADO CONTINUA A LEVAR AO SÍTIO ERRADO.
