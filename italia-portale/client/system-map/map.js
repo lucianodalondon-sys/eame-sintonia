@@ -1194,6 +1194,10 @@ async function provarFrescura() {
      missao inteira a desmontar. Escondê-lo seria comprar o verde com silencio,
      que e pior. Entao ele aparece numa linha propria, com o seu estado. */
   const regras = vereditoDoPortao(portoes, dep ? dep.MAP_RULES_GATE_NAME : null);
+  /* E o da coleta, pela mesma razao e com a mesma regra: lido, mostrado, e fora
+     da decisao. Ele nao fala do mapa — mas quem ve o mapa verde tem de ver, na
+     mesma pagina, que a coleta nao esta. MAPA ACTUAL != SISTEMA SAUDAVEL. */
+  const coleta = vereditoDoPortao(portoes, dep ? dep.COLETA_GATE_NAME : null);
   const daBuild = (dep && ['PASS', 'FAIL'].includes(dep.SYSTEM_MAP_CHECK))
     ? dep.SYSTEM_MAP_CHECK : 'UNKNOWN';
   const vozes = [portao.check, daBuild];
@@ -1290,6 +1294,12 @@ async function provarFrescura() {
         + `${regras.razao ? ` — ${esc(regras.razao)}` : ''}</small>`
         + '<br><small>não entra na decisão de frescura: «as regras afrouxaram» '
         + 'não é «o que está servido está velho».</small>'
+      : '<i>UNKNOWN</i>')}
+    ${linha('Collection gate (CI)', dep && dep.COLETA_GATE_NAME
+      ? `<b>${esc(coleta.check)}</b> <small>«${esc(dep.COLETA_GATE_NAME)}»`
+        + `${coleta.razao ? ` — ${esc(coleta.razao)}` : ''}</small>`
+        + '<br><small>não fala do mapa e não entra na decisão de frescura. '
+        + 'MAPA ACTUAL ≠ SISTEMA SAUDÁVEL.</small>'
       : '<i>UNKNOWN</i>')}
     ${linha(esc(SM_FRESHNESS.COBERTURA_ROTULO),
       `${c.files_covered}&thinsp;/&thinsp;${c.files_tracked} tracked files`)}

@@ -314,6 +314,9 @@ const artefato = {
   /* O portao das REGRAS viaja tambem, e nao entra na decisao de frescura. Ele
      aparece na tela ao lado — esconde-lo seria comprar o verde com silencio. */
   MAP_RULES_GATE_NAME: (CADEIA.PORTAO_DAS_REGRAS && CADEIA.PORTAO_DAS_REGRAS.NOME) || null,
+  /* E o da coleta. Ele nao fala do mapa e nao decide frescura nenhuma — mas
+     estar fora da decisao nao e razao para estar fora da tela. */
+  COLETA_GATE_NAME: (CADEIA.PORTAO_DA_COLETA && CADEIA.PORTAO_DA_COLETA.NOME) || null,
   REGENERATED_AT_BUILD: regenerou,
   NOT_REGENERATED_REASON: porqueNaoRegenerou,
   /* TRES FACTOS SEPARADOS, e nenhum se deixa confundir com o outro:

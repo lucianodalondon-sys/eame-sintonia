@@ -131,5 +131,22 @@
     "WORKFLOW": ".github/workflows/system-map.yml",
     "JOB": "regras",
     "NOME": "MAP RULES CHECK"
+  },
+  "PORTAO_DA_COLETA": {
+    "NOTA": [
+      "O PORTAO DA COLETA, NA TELA DO MAPA — E FORA DA DECISAO DE FRESCURA.",
+      "",
+      "Ele nao responde por nada do mapa, e por isso nao entra em `decidir()`. Mas",
+      "estar fora da decisao nao e razao para estar fora da tela: quem abre o mapa e",
+      "ve verde tem de conseguir ver, na mesma pagina, que outra coisa esta vermelha.",
+      "",
+      "    MAPA ACTUAL != SISTEMA SAUDAVEL.",
+      "    FRESCURA VERDE != TUDO VERDE.",
+      "",
+      "Um verde que esconde um vermelho ao lado e pior do que o vermelho."
+    ],
+    "WORKFLOW": ".github/workflows/system-map.yml",
+    "JOB": "coleta",
+    "NOME": "COLETA CHECK"
   }
 }

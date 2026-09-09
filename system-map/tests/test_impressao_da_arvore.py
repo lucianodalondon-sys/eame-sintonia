@@ -182,6 +182,7 @@ shutil.rmtree(r.parent, ignore_errors=True)
 # manifesto disserem nomes diferentes, a tela procura um portao que nao existe e
 # cai para UNKNOWN sem ninguem perceber porque.
 js = (RAIZ / "system-map" / "app" / "map.js").read_text(encoding="utf-8")
+pub = (RAIZ / "system-map" / "scripts" / "publicar_no_deploy.mjs").read_text(encoding="utf-8")
 portao = CADEIA.get("PORTAO_DO_MAPA") or {}
 wf = (RAIZ / portao.get("WORKFLOW", ".github/workflows/system-map.yml"))
 texto = wf.read_text(encoding="utf-8") if wf.exists() else ""
@@ -255,6 +256,29 @@ prova("nenhum_passo_e_engolido_pelo_erro_do_anterior", not _sem_guarda,
 prova("a_tela_mostra_o_portao_das_regras",
       "MAP_RULES_GATE_NAME" in js,
       "esconder o portao das regras seria comprar o verde com silencio")
+
+# OS TRES PORTOES TEM DE CHEGAR A TELA, E SO UM DECIDE.
+# Estar fora da decisao de frescura nao e razao para estar fora da tela: quem
+# abre o mapa e ve verde tem de conseguir ver, na mesma pagina, o que esta
+# vermelho ao lado. MAPA ACTUAL != SISTEMA SAUDAVEL.
+_coleta = CADEIA.get("PORTAO_DA_COLETA") or {}
+prova("o_manifesto_declara_o_portao_da_coleta",
+      bool(_coleta.get("NOME")) and f"name: {_coleta.get('NOME')}" in texto,
+      "o nome tem de viver num sitio so, e o workflow tem de o usar")
+prova("a_tela_mostra_o_portao_da_coleta", "COLETA_GATE_NAME" in js,
+      "um verde que esconde um vermelho ao lado e pior do que o vermelho")
+prova("o_publicador_entrega_os_tres_nomes_a_tela",
+      all(n in pub for n in ("MAP_GATE_NAME", "MAP_RULES_GATE_NAME",
+                             "COLETA_GATE_NAME")),
+      "o nome viaja no artefato; escreve-lo no browser seria a segunda copia")
+# E SO UM DECIDE. Se um portao que nao fala de frescura entrar em `decidir()`,
+# a tela volta a pintar vermelho por uma coisa que nao e proveniencia.
+_decisao = js[js.index("SM_FRESHNESS.decidir({"):]
+_decisao = _decisao[:_decisao.index("});")]
+for _fora in ("regras", "coleta"):
+    prova(f"o_portao_[{_fora}]_nao_entra_na_decisao_de_frescura",
+          f"{_fora}." not in _decisao and f": {_fora}" not in _decisao,
+          "COVERAGE != FRESHNESS, e REGRAS != FRESCURA pela mesma razao")
 # ⚠️ A PRIMEIRA VERSAO DESTA PROVA PROCURAVA O NOME NO FICHEIRO INTEIRO, e
 # reprovou por causa de um COMENTARIO — a lista dos factos separados nomeia
 # «SYSTEM MAP CHECK» como texto, e nomear e o trabalho de um comentario. O
