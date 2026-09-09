@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-freshness-v1",
-    "HEAD": "4f8be09b487e7ad4b6a9d3463ab4e36f17567bbc",
-    "GENERATED_AT": "2026-09-09T01:25:26+00:00",
-    "SOURCE_TREE_FINGERPRINT": "0a9e57b0a59dda3d0cb8a5d97e1b02d24ab73e03509338034f2fdb0e2512d2a8"
+    "HEAD": "20f4ea58f87fddc649f750fc351129fce5f9b080",
+    "GENERATED_AT": "2026-09-09T01:29:28+00:00",
+    "SOURCE_TREE_FINGERPRINT": "9d8cfb7a342aa1655f7ebe58305329a14d5c78196e2abdc4f87db7dc779a9a73"
   },
   "FILES": [
     {
@@ -129,7 +129,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "e92c6333a8156f1dc9b6e99cf8c454f06555a051",
+      "sha": "be3f205264c82d91d1d82aa6e9772431f5b59657",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -5078,7 +5078,7 @@
     },
     {
       "path": "handoff/SYSTEM-MAP-SM-P1.md",
-      "sha": "32a81cb6384ef4b9be43d7920361caa0844e7e28",
+      "sha": "68e4519a1c77315f1822cec608537f614861a261",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10358,7 +10358,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 375,
+        "line": 388,
         "snippet": "run: python3 medidas/padrao_da_coleta.py"
       }
     },
@@ -10369,8 +10369,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 382,
-        "snippet": "run: python3 provas/testa_coleta_canonica.py"
+        "line": 367,
+        "snippet": "# `provas/testa_coleta_canonica.py` compara com `origin/main...HEAD`"
       }
     },
     {
@@ -10380,7 +10380,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 389,
+        "line": 402,
         "snippet": "run: python3 provas/valida_biblia.py"
       }
     },
@@ -10545,7 +10545,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 413,
+        "line": 426,
         "snippet": "run: python3 tests/test_armazem_italiano.py"
       }
     },
@@ -10556,7 +10556,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 396,
+        "line": 409,
         "snippet": "python3 tests/test_biblia.py"
       }
     },
@@ -10567,7 +10567,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 406,
+        "line": 419,
         "snippet": "run: python3 tests/test_identidade_do_artefato.py"
       }
     },
@@ -10578,7 +10578,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 397,
+        "line": 410,
         "snippet": "python3 tests/test_integracao_biblia.py"
       }
     },
@@ -10589,7 +10589,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 398,
+        "line": 411,
         "snippet": "python3 tests/test_observabilidade_estrada.py"
       }
     },
@@ -10600,7 +10600,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 441,
+        "line": 454,
         "snippet": "run: python3 tests/test_porta_de_producao.py"
       }
     },
@@ -10611,7 +10611,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 420,
+        "line": 433,
         "snippet": "run: python3 tests/test_preservar_coleta.py"
       }
     },
@@ -10622,7 +10622,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 428,
+        "line": 441,
         "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py"
       }
     },
@@ -10633,7 +10633,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 435,
+        "line": 448,
         "snippet": "run: python3 tests/test_preservar_derivado.py"
       }
     },
@@ -10644,7 +10644,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 399,
+        "line": 412,
         "snippet": "python3 tests/test_red_team_estrada.py"
       }
     },

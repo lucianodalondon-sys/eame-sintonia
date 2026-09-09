@@ -111,6 +111,26 @@ em vez de um erro e um silêncio atrás dele. `always()` não serve: correria ta
 depois de um cancelamento. E há uma prova a guardar isto —
 `nenhum_passo_e_engolido_pelo_erro_do_anterior`.
 
+#### E pôr tudo a correr descobriu uma prova que nunca tinha corrido
+
+Com `!cancelled()`, `provas/testa_coleta_canonica.py` correu no CI **pela
+primeira vez** — o passo 3 sempre cortara antes dela. E reprovou dizendo:
+
+```
+FALHA  T18_nenhum_pais_fora_da_italia_foi_alterado
+       — Ficheiros de outro país alterados: nenhum
+```
+
+Reprovar com **zero** ficheiros alterados parece um defeito, e não é: ela compara
+`origin/main...HEAD`, e num clone raso (`fetch-depth: 1`) `origin/main` não
+existe. O autor previu isto e escreveu porquê:
+
+> **Uma prova que passa por não medir é pior do que nenhuma prova.**
+
+**Ela estava certa: não conseguiu medir, e disse-o.** O conserto é dar-lhe o
+histórico — `fetch-depth: 0` **só no job da coleta** —, nunca afrouxar a prova.
+Os jobs do mapa ficam em 1: medem a árvore, não o histórico.
+
 **Separar não é desligar, e isso é provado.** `MAP RULES CHECK` está **VERMELHO**
 e continua a reprovar a build com o nome dele. `test_impressao_da_arvore.py`
 ganhou quatro provas que exigem que cada prova separada continue no portão das

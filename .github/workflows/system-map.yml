@@ -362,9 +362,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # O scanner lê `git ls-files` e o SHA de cada blob. Profundidade 1
-          # basta: ele mede a ÁRVORE, não o histórico.
-          fetch-depth: 1
+          # ⚠️ AQUI A PROFUNDIDADE 1 NÃO BASTA, E ISTO FOI MEDIDO.
+          #
+          # `provas/testa_coleta_canonica.py` compara com `origin/main...HEAD`
+          # para provar que nenhum ficheiro de Espanha ou França foi alterado.
+          # Num clone raso `origin/main` não existe, o diff sai vazio, e a prova
+          # RECUSA-SE a passar — de propósito, e o autor escreveu porquê:
+          #
+          #     UMA PROVA QUE PASSA POR NÃO MEDIR É PIOR DO QUE NENHUMA PROVA.
+          #
+          # Ela nunca tinha corrido no CI: o passo 3 cortava antes. Ao pôr todos
+          # os passos a correr, ela correu, e disse a verdade — «não consegui
+          # medir». O conserto é dar-lhe o histórico, nunca afrouxar a prova.
+          #
+          # Os jobs do mapa ficam em 1 na mesma: eles medem a ÁRVORE, não o
+          # histórico, e puxar 1500 commits para não os ler é gastar por nada.
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
