@@ -435,3 +435,90 @@ caminho como se nunca tivesse entrado:
 
     AUSÊNCIA DE RÉGUA NÃO É AUTORIZAÇÃO PARA PULAR ETAPA.
     É EXATAMENTE A MESMA LEI QUE A MISSÃO ESCREVEU SOBRE A AUSÊNCIA DE BANCO.
+
+---
+
+## A ÁGUA PASSOU PELO CANO — E O CANO TEM UM FURO QUE SÓ SE VÊ MOLHADO
+
+Correu-se o caminho de produção a sério, sem rede e sem custo:
+
+```
+py orquestrador/orquestrador.py "colete rotulos" --so-a-porta
+
+CORRIDA SUCCESS · XX-T4-2026-09-09-151703
+  executor coleta/rotulos_baixar.py @ b8321b07
+  colheita encontrada: 163 item(ns)
+  pela porta de admissao: NAO_SEI 163
+```
+
+E o recibo que ficou escrito:
+
+```json
+"INGRESSO": {"PRESERVADOS": 163, "RECUSADOS": 0,
+             "RUN_STATE": "PARTIAL",
+             "BANCO": "NAO MEDIDO — nao houve leitura do banco"},
+"ADMISSAO": {"itens": 163, "por_resultado": {"NAO_SEI": 163}, "prontos": 0},
+"ITEM_COUNT_RAW": 163, "ITEM_COUNT_NORMALIZED": 0,
+"ESTADO_DOS_ITENS": "NA_PORTA"
+```
+
+Três coisas ficam medidas de uma vez, e a terceira não se via de nenhuma outra
+maneira.
+
+**Primeira.** `DERIVED` e `STRUCTURED` não aparecem no recibo porque **não
+correram**. A corrida vai de RAW a ADMISSION num salto, como o código já dizia.
+
+**Segunda.** `RUN_STATE: PARTIAL` e `BANCO: NAO MEDIDO` — a corrida é honesta
+sobre o que não fez. Não finge ter registado.
+
+**Terceira, e esta é nova.** Ficheiros que aterraram no disco: **um**.
+
+```
+XX/nao-sei/OBSERVATION/c71063d1972a3844-…-_MANIFESTO.json
+```
+
+O recibo diz `PRESERVADOS: 163`. O disco tem **um objecto**. Mediu-se o porquê,
+ficha a ficha:
+
+```
+ITENS DA COLHEITA          : 163
+com _de                    : 163
+valores de _de distintos   : 1
+FICHAS                     : 163
+STORAGE_LOCATION distintos : 1     <- data/raw/IT-ROTULOS/_MANIFESTO.json
+SHA256 distintos           : 1
+bytes de cada ficha        : [63040]
+```
+
+A causa está em duas linhas que se leem, cada uma, muito bem sozinhas.
+`orquestrador.a_colheita` carimba a **procedência** de cada item:
+
+```python
+x.setdefault("_de", f.relative_to(RAIZ).as_posix())   # orquestrador.py:97
+```
+
+E `ingresso.ficha` lê esse mesmo campo como **identidade**:
+
+```python
+caminho = item.get("STORAGE_LOCATION") or item.get("_de") or ""   # ingresso.py:…
+if abs_ and os.path.isfile(abs_):
+    return art.raw_do_disco(abs_, raiz, **comum)
+```
+
+    UM CAMPO DIZ «DE QUE FICHEIRO EU VIM».
+    O OUTRO LADO LÊ «EU SOU ESSE FICHEIRO».
+
+O resultado é que o RAW preservado do rótulo do produto `GOLTIX`, registo
+`002732`, é **o manifesto inteiro dos 163 rótulos** — e o mesmo para os outros
+162. A etapa RAW corre, devolve `SUCCESS`, e preserva o contentor no lugar do
+conteúdo.
+
+E `PRESERVADOS: 163` conta **fichas aceites**, não objectos preservados. É a lei
+da casa a ser quebrada pela própria casa:
+
+    DECLARED != OBSERVED.
+
+Isto não aparece em teste nenhum, porque nenhum teste alimenta a porta com um
+ficheiro que contém muitos itens — que é exatamente o formato em que quatro dos
+quatro executores desta casa largam o que colhem. **Só apareceu porque a água
+passou pelo cano.**
