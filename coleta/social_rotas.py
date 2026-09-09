@@ -340,6 +340,76 @@ class _EstadoDaApi(RuntimeError):
                                                     rel.get('NATIVE_REASON')))
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# INSTAGRAM · STORIES — a única rota paga com adaptador nesta casa
+# ══════════════════════════════════════════════════════════════════════════
+def instagram_stories(*, perfis, run_id, country_scope, **_):
+    """Stories ATIVOS de perfis PÚBLICOS, via ator que não pede login.
+
+    Esta função não abre conexão nem guarda chave: a porta paga continua sendo
+    `coletor.executar` e o dono da chave continua sendo `apify_pool`. O que ela
+    faz é o que nenhum dos dois pode fazer — decidir se o que voltou é Story.
+
+    A ordem é deliberada: PEDIDO conferido, CHAVE conferida, execução, e só
+    então normalização. Cada passo recusa com um nome diferente, porque cada um
+    custa uma coisa diferente de consertar.
+    """
+    import apify_pool as ap
+    import coletor
+    import instagram_stories as ist
+
+    try:
+        corpo = ist.entrada(perfis)
+    except ist.EntradaInvalida as e:
+        raise _EntradaReprovada(str(e))
+
+    chaves = ap.pool()
+    if not chaves:
+        # Sem chave não se acende run. E, como no YouTube, credencial ausente
+        # NUNCA autoriza tentar a rota grátis: ela foi medida BLOCKED para Story.
+        raise _SemChaveApify(
+            'sem chave da Apify no ambiente (APIFY_TOKEN_POOL / APIFY_TOKEN). '
+            'Isto é CREDENTIAL_MISSING, e não autoriza cair para rota pública: '
+            'a rota pública NÃO entrega Story.')
+
+    itens, manifesto = coletor.executar(
+        ist.ATOR, corpo, token=chaves[0], run_id=run_id,
+        platform='INSTAGRAM', country=country_scope, mission='SCRAP-R2-STORIES',
+        query='stories:%s' % ','.join(corpo['usernames']),
+        source_version=ist.ATOR, evidence_path='SOCIAL-IT',
+        teto_usd=ist.TETO_USD_POR_RUN)
+
+    estados = ist.classificar(manifesto, itens, corpo['usernames'])
+    custo = float(manifesto.get('COST_USD') or 0)
+    por_item = (custo / len(itens)) if itens else 0.0
+
+    raw_ref = env.guardar_raw('INSTAGRAM', 'stories-%s' % run_id, itens)
+    objetos = []
+    for it in itens:
+        u = (it.get('user') or {}).get('username') or it.get('username') or '?'
+        # NaoEStory sobe. Ela é CONTRACT_DRIFT na porta — nunca um `continue`.
+        objetos.append(ist.normalizar(
+            it, username=u, run_id=run_id, country_scope=country_scope,
+            route='apify:%s' % ist.ATOR, cost_usd=por_item, raw_reference=raw_ref))
+    _ULTIMO_ESTADO_POR_PERFIL.clear()
+    _ULTIMO_ESTADO_POR_PERFIL.update(estados)
+    return objetos
+
+
+# O estado POR PERFIL não cabe no registro de UMA execução, e perdê-lo apagaria
+# a diferença entre "ninguém tinha Story" e "um perfil é privado". Fica aqui,
+# ao lado da execução que o produziu.
+_ULTIMO_ESTADO_POR_PERFIL = {}
+
+
+class _EntradaReprovada(ValueError):
+    """Pedido malformado. CONTRACT_DRIFT, e antes de acender run pago."""
+
+
+class _SemChaveApify(RuntimeError):
+    """Sem credencial. CREDENTIAL_MISSING, e nunca fallback para rota grátis."""
+
+
 ADAPTADORES = {
     ('MASTODON', 'SEARCH_HASHTAG'): mastodon_tag,
     ('MASTODON', 'INCREMENTAL'): mastodon_conta_statuses,
@@ -350,6 +420,7 @@ ADAPTADORES = {
     ('YOUTUBE', 'INCREMENTAL'): youtube_uploads,
     ('YOUTUBE', 'FETCH_VIDEO_METADATA'): youtube_metadata,
     ('YOUTUBE', 'FETCH_COMMENTS'): youtube_comentarios,
+    ('INSTAGRAM', 'FETCH_STORIES'): instagram_stories,
 }
 
 
@@ -460,6 +531,29 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         registro['RECOVERY_ACTION'] = e.rel.get('RECOVERY_ACTION')
         registro['ERRO'] = ss.redigir(str(e))
         return [], registro
+    except _EntradaReprovada as e:
+        # Pedido malformado recusado ANTES de acender execução paga. `CONTRACT_DRIFT`
+        # e não `PARSER_DRIFT`: nada foi coletado, nada mudou na fonte, e o run
+        # custou zero porque nunca nasceu.
+        registro['ESTADO'] = 'CONTRACT_DRIFT'
+        registro['ERRO'] = ss.redigir(str(e))
+        registro['RECOVERY_ACTION'] = falhas.NEEDS_HUMAN_FIX
+        return [], registro
+    except _SemChaveApify as e:
+        registro['ESTADO'] = 'CREDENTIAL_MISSING'
+        registro['ERRO'] = ss.redigir(str(e))
+        return [], registro
+    except _NaoEStory() as e:
+        # O ator devolveu item de outra classe. Isto NÃO é parser quebrado: o
+        # nosso extrator entendeu perfeitamente o que veio, e o que veio está
+        # errado. Aceitar em silêncio é como o `resultsType=stories` que servia
+        # Reel — run verde, custo cobrado, classe errada no acervo.
+        #
+        #     RUN VERDE NÃO É CLASSE CERTA.
+        registro['ESTADO'] = 'CONTRACT_DRIFT'
+        registro['ERRO'] = ss.redigir(str(e))
+        registro['RECOVERY_ACTION'] = falhas.NEEDS_HUMAN_FIX
+        return [], registro
     except _SemCredencial() as e:
         # A chave não está no ambiente. A lei do YouTube desta casa já dizia isso
         # na própria mensagem — e o registro dizia `UNKNOWN_ERROR`, porque a
@@ -506,6 +600,17 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
     registro['ESTADO'] = 'OK' if objetos else 'ZERO_RESULTS'
     registro['OBJETOS'] = len(objetos)
     return objetos, registro
+
+
+def _NaoEStory():
+    """A classe de recusa de tipo do dono de Story, sem importá-lo cedo."""
+    try:
+        import instagram_stories as ist
+        return ist.NaoEStory
+    except Exception:
+        class _Nunca(Exception):
+            pass
+        return _Nunca
 
 
 def _SemCredencial():
