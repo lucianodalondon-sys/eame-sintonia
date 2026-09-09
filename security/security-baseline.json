@@ -311,19 +311,21 @@
       "USER_FRICTION": "NONE",
       "DEV_FRICTION": "LOW",
       "AUTOMATABLE": true,
-      "BLOCKS_NEW_REGRESSION": true
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "live confirma: 67/67 tabelas com RLS e 0 politicas. Deny-all real, nao so no schema. Continua PARTIAL porque deny-all nao e modelo de autorizacao."
     },
     {
       "CONTROL_ID": "SEC-007",
       "DOMAIN": "database",
-      "STATUS": "UNKNOWN",
-      "SEVERITY": "critical-candidate",
+      "STATUS": "PROVED",
+      "SEVERITY": "info",
       "OWNER": "supabase live",
-      "EVIDENCE": "12 tabelas sem RLS incluindo fonte_externa, decisao_de_coleta, etapa_da_corrida. Acesso anon nao medido: proibido tocar live nesta missao.",
+      "EVIDENCE": "censo de metadados live 2026-09-09: 12/12 presentes, 12/12 com RLS activa, 0 privilegio efectivo de anon ou authenticated (select, insert, update, delete). Agregado: 67/67 tabelas de public com RLS, 0 com anon select ou write.",
       "USER_FRICTION": "NONE",
       "DEV_FRICTION": "NONE",
       "AUTOMATABLE": true,
-      "BLOCKS_NEW_REGRESSION": true
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "duas negacoes independentes: sem privilegio efectivo E RLS activa sem politica. ROW_DATA_READ=0."
     },
     {
       "CONTROL_ID": "SEC-008",
@@ -457,17 +459,29 @@
       "DEV_FRICTION": "NONE",
       "AUTOMATABLE": false,
       "BLOCKS_NEW_REGRESSION": false
+    },
+    {
+      "CONTROL_ID": "SEC-020",
+      "DOMAIN": "schema-governance",
+      "STATUS": "PARTIAL",
+      "SEVERITY": "medium",
+      "OWNER": "supabase/migrations",
+      "EVIDENCE": "12 tabelas com RLS live e sem declaracao de RLS nas migrations; 67 tabelas live contra 66 criadas nas migrations",
+      "USER_FRICTION": "NONE",
+      "DEV_FRICTION": "LOW",
+      "AUTOMATABLE": true,
+      "BLOCKS_NEW_REGRESSION": true,
+      "NOTE": "a deriva foi no sentido seguro desta vez. O problema e que ninguem o sabia."
     }
   ],
   "PRIORITIES": {
     "P0_CONFIRMED": 0,
-    "P0_CANDIDATE": 1,
-    "P0_STATUS": "UNKNOWN",
+    "P0_CANDIDATE": 0,
+    "P0_STATUS": "DISPROVED_BY_LIVE_METADATA",
     "P1": 5,
-    "P2": 4,
+    "P2": 5,
     "P3": 0,
-    "P1_CHANGE": "+1 (SEC-018 dados pessoais em output publico) — descoberto pelo estudo do GDPR Art.4(1)",
-    "P3_CHANGE": "-1 (o mapeamento ASVS era P3 e foi feito nesta rodada)"
+    "P2_CHANGE": "+1 (SEC-020 deriva entre o schema do repositorio e a base viva)"
   },
   "RATCHET": {
     "BASELINE_COMMIT": "baaddcf191778e01297427e7a0b167d66c9c4354",
@@ -501,7 +515,8 @@
     ],
     "WHY_ADDED": "Art.25 do GDPR; testavel por maquina (o contrato canonico nomeia os campos); valor alto, friccao baixa",
     "GDPR_NOTE": "Art.32(1)(d) exige teste regular da eficacia das medidas. O ratchet e esse processo, e corre a cada commit.",
-    "NOT_A_BLOCKER": "divida conhecida (SSO, WAF, headers herdados) nunca bloqueia; so regressao nova"
+    "NOT_A_BLOCKER": "divida conhecida (SSO, WAF, headers herdados) nunca bloqueia; so regressao nova",
+    "NOTE_ON_NEW_TABLE_WITHOUT_RLS": "a classe le o repositorio. O censo live de 2026-09-09 mostrou que o repositorio nao e a autoridade: complementar com o censo de metadados."
   },
   "VERDICT": {
     "S0_MEASUREMENT": "PASS",
@@ -510,12 +525,15 @@
     "SECURITY_BASELINE_PROVED": "YES",
     "GDPR_APPLICABILITY": "LIKELY_APPLICABLE · REQUIRES_DATA_INVENTORY_AND_LEGAL_INTERPRETATION",
     "P0_CONFIRMED": 0,
-    "P0_TO_MEASURE": 1,
+    "P0_TO_MEASURE": 0,
     "SECURITY_FOUNDATION_S0": "CLOSED",
     "SECURITY_ARCHITECTURE_READY_FOR_IMPLEMENTATION": "YES",
-    "S1_STARTED": "NO"
+    "S1_STARTED": "NO",
+    "S0_P0M1": "PASS",
+    "P0_DISPROVED_BY_LIVE_METADATA": "YES",
+    "S0_P0M2_REQUIRED": "NO"
   },
-  "REVISION": "S0R standards alignment",
+  "REVISION": "S0-P0M1 live metadata census",
   "REVISED_AT": "2026-09-09",
   "STANDARDS": [
     {
@@ -534,7 +552,29 @@
       "version": "2025",
       "status": "FINAL",
       "url": "https://owasp.org/Top10/2025/",
-      "date_accessed": "2026-09-09"
+      "date_accessed": "2026-09-09",
+      "COVERAGE": {
+        "TOP10_REFERENCED": "10/10",
+        "TOP10_CURRENTLY_MATERIAL": "8/10",
+        "TOP10_FUTURE_SURFACE": [
+          "A05:2025 Injection",
+          "A10:2025 Mishandling of Exceptional Conditions"
+        ],
+        "WHY": "A05 e A10 sao referenciadas em SEC-019 mas classificadas NOT_APPLICABLE hoje: o portal e estatico, sem API, sem serverless e sem input de terceiro para o DOM. Nascem com a primeira API autorizada.",
+        "NOTE": "o handoff da S0R escreveu '8 de 10 mapeadas', o que confundia referenciadas com materiais. As dez estao referenciadas; oito sao materiais hoje."
+      },
+      "referenced_list": [
+        "A01:2025",
+        "A02:2025",
+        "A03:2025",
+        "A04:2025",
+        "A05:2025",
+        "A06:2025",
+        "A07:2025",
+        "A08:2025",
+        "A09:2025",
+        "A10:2025"
+      ]
     },
     {
       "name": "NIST SSDF",
@@ -633,9 +673,9 @@
         "Art.32(1)(b)"
       ],
       "WHY_RELEVANT": "12 tabelas sem RLS incluindo fonte_externa e decisao_de_coleta",
-      "CURRENT_STATUS": "UNKNOWN",
+      "CURRENT_STATUS": "PROVED",
       "PHASE": "NOW",
-      "NEXT_ACTION": "executar a medicao de 3 camadas desenhada em SECURITY-FOUNDATION.md seccao 5"
+      "NEXT_ACTION": "fechado por metadados live. Manter o censo como prova recorrente com LAST_VERIFIED."
     },
     {
       "CONTROL_ID": "SEC-010",
@@ -900,6 +940,94 @@
       "CURRENT_STATUS": "NOT_APPLICABLE",
       "PHASE": "BEFORE_CONTRACT",
       "NEXT_ACTION": "reavaliar no dia em que existir a primeira API autorizada"
+    },
+    {
+      "CONTROL_ID": "SEC-020",
+      "TOPIC": "schema-drift",
+      "ASVS_5_0_0": [
+        "V13 Configuration"
+      ],
+      "OWASP_TOP10_2025": [
+        "A02:2025 Security Misconfiguration",
+        "A08:2025 Software or Data Integrity Failures"
+      ],
+      "NIST_SSDF_1_1": [
+        "PS.2 provide a mechanism for verifying software release integrity",
+        "PO.5 implement and maintain secure environments"
+      ],
+      "GDPR": [],
+      "WHY_RELEVANT": "o ratchet le o repositorio; se a base viva diverge, o ratchet mede a coisa errada",
+      "CURRENT_STATUS": "PARTIAL",
+      "PHASE": "NOW",
+      "NEXT_ACTION": "tornar o censo de metadados recorrente e comparar live contra migrations; a deriva vira sinal, nao surpresa"
     }
-  ]
+  ],
+  "MEASURED_LIVE_SUPABASE": {
+    "MEASURED_AT": "2026-09-09",
+    "RUN": "https://github.com/lucianodalondon-sys/eame-sintonia/actions/runs/34304621266",
+    "METHOD": "psql read-only via workflow rls-censo-metadados.yml sobre SUPABASE_DB_URL; so catalogo (pg_class, pg_policy, pg_attribute, pg_roles) com has_table_privilege/has_schema_privilege",
+    "MUTATIONS": 0,
+    "ROW_DATA_READ": 0,
+    "PERSONAL_DATA_READ": 0,
+    "SESSION": "default_transaction_read_only = on; portao de lista branca antes da ligacao",
+    "CAVEAT": "conexao administrativa. ADMIN CAN INSPECT != ANON CAN ACCESS — por isso a resposta vem de has_table_privilege('anon',...), nao do que o admin consegue ler.",
+    "database": "postgres",
+    "connected_as": "postgres",
+    "roles_present": [
+      "anon",
+      "authenticated",
+      "authenticator",
+      "service_role"
+    ],
+    "schema_public": {
+      "anon_usage": true,
+      "anon_create": false,
+      "authenticated_usage": true,
+      "authenticated_create": false
+    },
+    "pgrst_db_schemas": "NAO_DEFINIDO_AO_NIVEL_DA_BD — a configuracao de schemas expostos vive na API do Supabase, nao no catalogo. Nao medido.",
+    "aggregate_public_schema": {
+      "tables": 67,
+      "rls_enabled": 67,
+      "with_policy": 0,
+      "anon_select": 0,
+      "anon_write": 0
+    },
+    "candidates": {
+      "expected_from_repo": 12,
+      "found_live": 12,
+      "not_found_live": 0,
+      "all_rls_enabled_live": true,
+      "all_force_rls": false,
+      "policies_total": 0,
+      "anon_select": 0,
+      "anon_insert": 0,
+      "anon_update": 0,
+      "anon_delete": 0,
+      "authenticated_select": 0,
+      "authenticated_write": 0,
+      "per_table_state": {
+        "boletim_fitossanitario": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "clima_observacao": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "conteudo_lugar": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "decisao_de_coleta": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "estatistica_agricola": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "etapa_da_corrida": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "evento_setorial": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "fonte_acesso_teste": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "fonte_externa": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "mercado_observacao": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "origem_lugar": "NO_EFFECTIVE_ANON_PRIVILEGE",
+        "sinal_regulatorio_futuro": "NO_EFFECTIVE_ANON_PRIVILEGE"
+      }
+    },
+    "SCHEMA_DRIFT": {
+      "found": true,
+      "rls": "as 12 tabelas NAO tem 'enable row level security' em nenhuma das 24 migrations, mas tem RLS activa na base viva",
+      "table_count": "migrations criam 66 tabelas; a base viva tem 67 em public",
+      "meaning": "o repositorio nao e a autoridade sobre o estado da base viva",
+      "severity": "low para exposicao (a deriva foi no sentido seguro), medium para governanca"
+    },
+    "VERDICT": "P0_CANDIDATE = DISPROVED_BY_LIVE_METADATA"
+  }
 }

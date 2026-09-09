@@ -6,6 +6,7 @@ hoje**, nao o que alcancaria num sistema imaginado.
 | Actor | O que alcanca hoje | O que quer | O que temos de impedir | O que nao conseguimos impedir |
 |---|---|---|---|---|
 | **Anonimo na internet** | Portal inteiro; 11,2 MB de corpus canonico; 197 MB de repo; todos os previews; System Map | curiosidade, indexacao | acesso a dados de cliente e a escrita | que leia o que decidimos publicar |
+| **Anonimo contra a base de dados** | **NADA.** Medido em 2026-09-09: 0 privilegio efectivo em 67/67 tabelas, RLS activa em todas | ler ou escrever no acervo | que um `grant` futuro reabra a porta em silencio | nada a impedir hoje: a porta esta fechada |
 | **Concorrente** | O mesmo — mais o registo de 3.352 URLs de fonte, as formulas de derivacao e o mapa de 145 componentes | replicar o metodo | exposicao do motor, das regras e do acervo | que copie uma resposta que ja viu |
 | **Funcionario ADAMA autorizado** | Tudo (nao ha autorizacao) | fazer o trabalho | acesso a paises e papeis que nao lhe pertencem | que leia o que tem direito a ler |
 | **Autorizado mas curioso** | Tudo | ver mais do que precisa | travessia entre paises e exportacao em massa | que veja bem o seu proprio scope |
@@ -41,7 +42,8 @@ terceiros, nada destrutivo.
 | XSS no DOM | **NAO ALCANCADO** — `innerHTML` existe, mas nao ha input controlado por terceiros: sem API, sem leitura de parametros de URL para o DOM |
 | IDOR / BOLA | **N/A** — nao ha objectos por identidade |
 | Enumeracao em massa | **ALCANCA** — sem rate limit e sem autenticacao |
-| Escrita anonima na base de dados | **NAO MEDIDO** — 12 tabelas sem RLS; medicao live proibida nesta missao. Unico candidato a P0. |
+| Leitura anonima na base de dados | **NAO ALCANCA** — `has_table_privilege('anon', ...)` devolve falso nas 12 candidatas e nas 67 tabelas de `public` |
+| Escrita anonima na base de dados | **NAO ALCANCA** — insert, update e delete negados em todas; RLS activa sem politica nega ainda as linhas |
 
 ## Revisao S0R (2026-09-09)
 

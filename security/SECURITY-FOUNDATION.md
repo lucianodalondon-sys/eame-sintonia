@@ -340,6 +340,80 @@ Enquanto nao houver essa autorizacao, o estado correcto e `UNKNOWN`, e
 `UNKNOWN` fica escrito. Nao se promove a critico sem prova, nem se rebaixa a
 baixo sem prova.
 
+### RESULTADO — medido na base viva em 2026-09-09
+
+A pergunta foi feita ao catalogo da propria base, com uma ligacao de leitura,
+sessao `default_transaction_read_only` e um portao de lista branca antes de
+haver ligacao. **Zero mutacoes. Zero linhas de negocio lidas. Zero dados
+pessoais lidos.** Corrida:
+`actions/runs/34304621266`.
+
+Nota de metodo: a ligacao e administrativa, e por isso a resposta nao vem do
+que o administrador consegue ler.
+
+    ADMIN CAN INSPECT != ANON CAN ACCESS.
+
+Vem de `has_table_privilege('anon', ...)`, que devolve o privilegio **efectivo**
+— ja com heranca de role, `GRANT` a `PUBLIC` e default privileges dentro.
+`information_schema.table_privileges` sozinho veria so o grant textual na
+tabela, e perderia exactamente os caminhos pelos quais o Supabase costuma abrir
+a porta.
+
+| | |
+|---|---:|
+| Candidatas esperadas do repositorio | 12 |
+| Encontradas vivas | 12 |
+| Com RLS activa na base viva | 12 |
+| Politicas | 0 |
+| `anon` SELECT / INSERT / UPDATE / DELETE | 0 / 0 / 0 / 0 |
+| `authenticated` SELECT / escrita | 0 / 0 |
+| Linhas de negocio lidas | 0 |
+
+E o contexto de fundo, para saber se as 12 eram excepcao ou regra: das **67
+tabelas do schema `public`, 67 tem RLS activa, 0 tem politica, 0 dao SELECT a
+`anon` e 0 dao escrita a `anon`**. `anon` tem `USAGE` no schema e nada mais.
+
+```
+P0_CANDIDATE = DISPROVED_BY_LIVE_METADATA
+P0_CONFIRMED = 0        P0_TO_MEASURE = 0
+S0-P0M2 (teste anonimo) = NAO NECESSARIO
+```
+
+A porta esta fechada por duas trancas independentes: nao ha privilegio
+efectivo, e ainda que houvesse, a RLS esta activa sem politica nenhuma, o que
+nega todas as linhas. Nao se toca na macaneta.
+
+### O QUE A MEDICAO REVELOU E NAO ESTAVA A SER PROCURADO
+
+**Nenhuma das 12 tabelas tem `enable row level security` em nenhuma das 24
+migrations. Todas as 12 tem RLS activa na base viva.** E o repositorio cria 66
+tabelas; a base viva tem 67 em `public`.
+
+A base viva e mais segura do que o repositorio diz. Isso e sorte, nao desenho.
+
+    O REPOSITORIO NAO E A AUTORIDADE SOBRE A BASE VIVA.
+
+Desta vez a deriva foi no sentido seguro. O problema nao e a direccao — e
+ninguem a conhecer. Uma deriva silenciosa que hoje protege pode amanha expor, e
+o ratchet nao daria por ela, porque a classe `NEW_TABLE_WITHOUT_RLS` le o
+repositorio. Fica registada como **SEC-020**, prioridade P2, e a correccao
+natural nao e uma migration: e tornar este censo recorrente, para que a deriva
+passe a ser um sinal em vez de uma surpresa.
+
+    SECURITY THAT DEPENDS ON MEMORY DEGRADES WITH TIME.
+    ESTE CENSO NAO DEPENDE DE MEMORIA: E UM FICHEIRO QUE CORRE.
+
+### DEPENDENCIAS, PARA NAO CONSERTAR O QUE NAO ESTA PARTIDO
+
+Nao ha contencao a propor: nao ha exposicao. Isso poupa a pergunta mais
+perigosa desta fase, que seria `WHO WOULD BREAK?` — a Collection escreve nestas
+tabelas atraves da `service_role`, que ignora RLS, e um `revoke` apressado
+sobre `anon` nao lhe tocaria de qualquer modo. Mas nada disso e preciso, e por
+isso nada disso e feito. A linha da Collection nao foi tocada.
+
+    SECURE BY BREAKING PRODUCTION -- nao, e desta vez nem foi preciso escolher.
+
+
 
 ---
 
@@ -424,11 +498,11 @@ e o julgamento humano por tras das regras. Isso e pouco consolo.
 ## 9. PRIORIDADES
 
 ```
-P0  Superficie anon do Supabase nas 12 tabelas sem RLS.
-    ESTADO: UNKNOWN — plano de medicao desenhado (seccao 5), nao executado.
-    Impacto se confirmado: leitura (ou escrita) anonima do registo de fontes
-    e das decisoes do colector. CONTENCAO MINIMA: habilitar RLS nas 12.
-    P0_CONFIRMADO = 0. P0_CANDIDATE = 1. P0_STATUS = UNKNOWN.
+P0  FECHADO. Medido na base viva em 2026-09-09 (seccao 5): as 12 tabelas
+    existem, tem RLS activa, e nem anon nem authenticated tem qualquer
+    privilegio efectivo. Agregado: 67/67 tabelas de public com RLS, 0 com
+    acesso anon. P0_CONFIRMADO = 0. P0_CANDIDATE = 0.
+    P0_STATUS = DISPROVED_BY_LIVE_METADATA.
 
 P1  Motor + acervo proprietario servidos ao browser (11,2 MB, live, provado).
 P1  Repositorio publico com 197 MB de tecnologia; 0/85 branches protegidas.
@@ -443,6 +517,9 @@ P2  Deployment Protection desligada — previews anonimos com o System Map.
 P2  Runners self-hosted em repo publico protegidos so por convencao.
 P2  Logging e auditoria inexistentes.
 P2  CSP, frame-ancestors, Permissions-Policy, CORS `*`.
+P2  Deriva entre o schema do repositorio e a base viva.        [NOVO P0M1]
+    RLS activa live em 12 tabelas que as migrations nao declaram;
+    67 tabelas vivas contra 66 nas migrations.
 
 P3  Mapeamento ASVS, evidencia formal, pentest, formalizacao contratual da IP.
 ```
@@ -561,7 +638,7 @@ SECURITY_BASELINE_PROVED YES
 GDPR_APPLICABILITY       LIKELY_APPLICABLE · REQUIRES_DATA_INVENTORY
                          AND_LEGAL_INTERPRETATION
 P0_CONFIRMED             0
-P0_TO_MEASURE            1
+P0_TO_MEASURE            0   (fechado em 2026-09-09 por metadados live)
 SECURITY_FOUNDATION_S0   CLOSED
 READY_FOR_IMPLEMENTATION YES
 S1_STARTED               NO
