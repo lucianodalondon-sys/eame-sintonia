@@ -419,9 +419,20 @@ RE_JS_IMPORT = re.compile(r"""(?:from|import)\s+['"]([^'"]+)['"]""")
 RE_LITERAL = re.compile(r"""['"]([A-Za-z0-9_./-]+\.[A-Za-z0-9]{1,6})['"]""")
 # Caminho escrito sem aspas nenhumas, como acontece em teste de shell.
 RE_CAMINHO_NU = re.compile(r"(?<![\w/'\"-])((?:data|docs|build|supabase)/[\w./-]+\.\w{2,6})")
+# ⚠️ O `>` E REDIRECCIONAMENTO DE SHELL, E NAO A SETA DO JAVASCRIPT.
+# Sem a guarda de tras, `=>` casava com a alternativa do redireccionamento e
+# QUATRO leituras viravam escritas — todas em `.mjs`, e uma delas grave:
+#
+#   regras/italy_pilot_guards.mjs:9   WRITES  data/collection-ledger/italy/runs.ndjson
+#     `const runs = readFileSync("data/collection-ledger/italy/runs.ndjson", ...)`
+#
+# o mapa dizia que a REGRA escreve no livro da coleta, quando ela so o le. Uma
+# regra que parece escrever no livro que audita e a inversao mais perigosa que
+# este mapa pode publicar. `>>` continua a contar: so se recusa o `>` que vem
+# atras de `=`, `-`, `<` ou `!`, que em shell nunca redirecciona.
 RE_ESCRITA = re.compile(
     r"open\([^)]*['\"][wa]|json\.dump|write_text|writeFileSync|\.to_csv|"
-    r"savefig|mkdir|>\s*[\"']?\$?\w"
+    r"savefig|mkdir|(?<![=\-<!])>\s*[\"']?\$?\w"
 )
 # `run:` de workflow chamando script do repo
 _PASTAS_CHAMAVEIS = "|".join(list(GAVETAS) + [

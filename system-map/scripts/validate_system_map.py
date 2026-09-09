@@ -332,6 +332,39 @@ def main() -> int:
     prova("P5_PROVA_APONTAVEL", "toda prova aponta para ficheiro e linha que existem",
           not mal_formada, ", ".join(sorted(set(mal_formada))[:6]))
 
+    # ── P5c · a linha citada tem de DIZER alguma coisa ───────────────────────
+    # A P5 acima so exige que o numero caiba no ficheiro, e isso deixa passar o
+    # envelhecimento silencioso: a prova mais importante da fronteira da coleta
+    # (C-ADMISSAO -> C-READY) apontava para `admissao/admissao.py:391` com um
+    # `snippet` escrito a mao. A funcao mudou de sitio, a linha 391 ficou EM
+    # BRANCO, e nenhum portao reparou — porque a linha existe.
+    #
+    #     UMA PROVA QUE APONTA PARA UMA LINHA EM BRANCO NAO E UMA PROVA.
+    #
+    # So se recusa o indecidivel-por-omissao: linha vazia ou feita so de
+    # fecho de parenteses, virgulas e aspas. O que ela diz continua a ser
+    # julgado por gente.
+    _cache_l: dict = {}
+
+    def _linha(f: str, n: int):
+        if f not in _cache_l:
+            try:
+                _cache_l[f] = (RAIZ / f).read_text(
+                    encoding="utf-8", errors="replace").splitlines()
+            except OSError:
+                _cache_l[f] = []
+        L = _cache_l[f]
+        return L[n - 1] if 0 < n <= len(L) else None
+
+    _trivial = __import__("re").compile(r"^[\s\)\]\}\,\'\";:]*$")
+    ocas = [f"{e['from']}->{e['to']} ({ev['file']}:{ev['line']})"
+            for e in S["EDGES"] for ev in e.get("evidence", [])
+            if isinstance(ev.get("line"), int) and ev.get("file") in existentes
+            and (_l := _linha(ev["file"], ev["line"])) is not None
+            and _trivial.match(_l)]
+    prova("P5_PROVA_TEM_CONTEUDO", "nenhuma prova aponta para linha sem conteudo",
+          not ocas, ", ".join(sorted(set(ocas))[:6]))
+
     # ── P6 · verde exige prova, nunca "o ficheiro existe" ────────────────────
     verde_frouxo = [n["id"] for n in S["NODES"]
                     if n["status"] == "PROVEN"

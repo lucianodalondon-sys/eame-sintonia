@@ -902,6 +902,24 @@ def o_armazem_sem_livro() -> tuple[list, list]:
     return [no], []
 
 
+def _onde_esta(caminho: str, agulha: str) -> dict:
+    """A linha onde aquilo esta HOJE, com o texto que la esta hoje.
+
+    Prova escrita a mao envelhece em silencio: o ficheiro muda, o numero fica,
+    e o portao nao acusa nada porque a linha continua a existir.
+    """
+    try:
+        linhas = (RAIZ / caminho).read_text(encoding="utf-8",
+                                            errors="replace").splitlines()
+    except OSError:
+        linhas = []
+    for i, l in enumerate(linhas, 1):
+        if agulha in l:
+            return {"file": caminho, "line": i, "snippet": l.strip()[:160]}
+    return {"file": caminho, "line": 1,
+            "snippet": f"NAO ENCONTRADO NESTE FICHEIRO: {agulha}"}
+
+
 def a_sala_de_espera() -> tuple[list, list]:
     """O READY — o que a coleta produz, e que ninguem ainda le.
 
@@ -991,8 +1009,16 @@ def a_sala_de_espera() -> tuple[list, list]:
              "quem passa a porta com SIM sai por `pronto_para_inteligencia()`, "
              "no mesmo ficheiro — e so quem passa: a funcao levanta erro para "
              "qualquer outro resultado."),
-         "evidence": [{"file": "admissao/admissao.py", "line": 391,
-                       "snippet": "def pronto_para_inteligencia(item, decisao)"}]},
+         # A LINHA PROCURA-SE, NAO SE ESCREVE. Isto estava fixo em 391 com um
+         # `snippet` que eu proprio tinha redigido — e a funcao mudou de sitio.
+         # A linha 391 e hoje uma linha em branco: o mapa apontava a prova mais
+         # importante da fronteira para o nada, e nenhum portao reparava porque
+         # a linha EXISTE (so nao diz nada).
+         #
+         #     UMA PROVA QUE APONTA PARA UMA LINHA EM BRANCO
+         #     NAO E UMA PROVA.
+         "evidence": [_onde_esta("admissao/admissao.py",
+                                 "def pronto_para_inteligencia")]},
     ]
     return [no], ligacoes
 

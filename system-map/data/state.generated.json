@@ -1791,8 +1791,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "4dc27acdf676c13f6cd9181a2aabde349d5eaedb",
-    "GENERATED_AT": "2026-09-09T06:18:40+00:00"
+    "HEAD": "49e5844018e7ffd17f88eedb7b35bd50f5873456",
+    "GENERATED_AT": "2026-09-09T06:30:43+00:00"
   },
   "FAMILIES": [
     {
@@ -5520,9 +5520,7 @@
       "status": "PROVEN",
       "status_reason": "esta no caminho: alguem o chama antes de publicar.",
       "changed_since_declared": [],
-      "produces": [
-        "italia-portale/client/upstream/UPSTREAM-PINS.json"
-      ],
+      "produces": [],
       "inbound": [
         "C-ARTEFACTO-V21",
         "C-AUDIT-BLOCOS",
@@ -5545,18 +5543,9 @@
       "pais": "TRANSVERSAL",
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "italia-portale/client/upstream/UPSTREAM-PINS.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 18195,
       "y": 682
     },
@@ -8915,7 +8904,7 @@
         "ITALIA": 4
       },
       "paises_dado": {
-        "ITALIA": 13
+        "ITALIA": 12
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -9019,50 +9008,29 @@
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
+        "C-IT-PRESERVAR",
         "C-LEITORES"
       ],
       "outbound": [
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
-        "C-IT-PRESERVAR",
         "C-PROVA-AUTORIDADE-FONTE"
       ],
       "paises": {
         "ITALIA": 6
       },
       "paises_dado": {
-        "ITALIA": 33
+        "ITALIA": 32
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "coleta/italy_pilot_collect.mjs",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "data/collection-ledger/italy/runs.ndjson",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "provas/italy_pilot_negativos.mjs",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 11185,
       "y": 682
     },
@@ -9166,13 +9134,12 @@
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [
-        "C-IT-CONTRATOS"
-      ],
+      "inbound": [],
       "outbound": [
         "C-CENSO-IDENTIDADE-IT",
         "C-ESTRADAS-IT",
         "C-IT-CONTAS",
+        "C-IT-CONTRATOS",
         "C-MAPA-SCAN",
         "C-PADRAO-COLETA",
         "C-RELATORIO-FLUXO",
@@ -16239,8 +16206,8 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 994,
-          "snippet": "\"evidence\": [{\"file\": \"admissao/admissao.py\", \"line\": 391,"
+          "line": 1020,
+          "snippet": "\"evidence\": [_onde_esta(\"admissao/admissao.py\","
         }
       ],
       "categoria": "READ"
@@ -16352,8 +16319,8 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 391,
-          "snippet": "def pronto_para_inteligencia(item, decisao)"
+          "line": 426,
+          "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:"
         }
       ]
     },
@@ -16944,7 +16911,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2812,
+          "line": 2838,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -17300,7 +17267,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Demais auditorias do portal alimenta Portao da build. Provado por 3 linhas de codigo.",
+      "reason": "Demais auditorias do portal alimenta Portao da build. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/casa-gate.mjs",
@@ -17311,11 +17278,6 @@
           "file": "italia-portale/audit/casa-gate.mjs",
           "line": 38,
           "snippet": "import { medir, controloNegativo, QA } from './do-not-show.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 368,
-          "snippet": "const PINS = J('UPSTREAM-PINS.json').PINS || {};"
         }
       ],
       "categoria": "READ"
@@ -20624,7 +20586,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1362,
+          "line": 1388,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -21118,12 +21080,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1344,
+          "line": 1370,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1355,
+          "line": 1381,
           "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\","
         }
       ],
@@ -22117,7 +22079,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2834,
+          "line": 2860,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -22290,12 +22252,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A conta da coleta italiana alimenta O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "reason": "A conta da coleta italiana alimenta O contrato de cada fonte italiana. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "regras/italy_contract_test.mjs",
           "line": 157,
           "snippet": "const { contabilidade, ACCESS_ONLY, BASE_CLASSIFIED_SET } = await import(\"./italy_accounting.mjs\");"
+        },
+        {
+          "file": "regras/italy_pilot_guards.mjs",
+          "line": 99,
+          "snippet": "const arquivos = [\"coleta/italy_pilot_collect.mjs\", \"provas/italy_pilot_negativos.mjs\"].map(f => readFileSync(f, \"utf8\")).join(\"\");"
         }
       ],
       "categoria": "PROOF"
@@ -22348,24 +22315,6 @@
     },
     {
       "from": "C-IT-CONTRATOS",
-      "to": "C-IT-COLETA",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "raw_type": "WRITES",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana escreve em Colher as fontes italianas. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "regras/italy_pilot_guards.mjs",
-          "line": 99,
-          "snippet": "const arquivos = [\"coleta/italy_pilot_collect.mjs\", \"provas/italy_pilot_negativos.mjs\"].map(f => readFileSync(f, \"utf8\")).join(\"\");"
-        }
-      ],
-      "categoria": "WRITE"
-    },
-    {
-      "from": "C-IT-CONTRATOS",
       "to": "C-IT-CONTAS",
       "type": "READS",
       "payload": "artefacto",
@@ -22381,42 +22330,6 @@
         }
       ],
       "categoria": "PROOF"
-    },
-    {
-      "from": "C-IT-CONTRATOS",
-      "to": "C-IT-CONTAS",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "raw_type": "WRITES",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana escreve em A conta da coleta italiana. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "regras/italy_pilot_guards.mjs",
-          "line": 99,
-          "snippet": "const arquivos = [\"coleta/italy_pilot_collect.mjs\", \"provas/italy_pilot_negativos.mjs\"].map(f => readFileSync(f, \"utf8\")).join(\"\");"
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
-      "from": "C-IT-CONTRATOS",
-      "to": "C-IT-PRESERVAR",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "raw_type": "WRITES",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana escreve em Guardar com impressao digital. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "regras/italy_pilot_guards.mjs",
-          "line": 9,
-          "snippet": "const runs = readFileSync(\"data/collection-ledger/italy/runs.ndjson\", \"utf8\").trim().split(\"\\n\").map(l => JSON.parse(l));"
-        }
-      ],
-      "categoria": "WRITE"
     },
     {
       "from": "C-IT-CONTRATOS",
@@ -22518,6 +22431,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-IT-CONTRATOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/italy_pilot_guards.mjs",
+          "line": 9,
+          "snippet": "const runs = readFileSync(\"data/collection-ledger/italy/runs.ndjson\", \"utf8\").trim().split(\"\\n\").map(l => JSON.parse(l));"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-IT-PRESERVAR",
@@ -22889,17 +22820,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3035,
+          "line": 3061,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3035,
+          "line": 3061,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3036,
+          "line": 3062,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -23045,7 +22976,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3598,
+          "line": 3624,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
         },
         {
@@ -23096,12 +23027,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3611,
+          "line": 3637,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3611,
+          "line": 3637,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -24845,7 +24776,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 958,
+          "line": 976,
           "snippet": "\"evidence_text\": \"provas/a_fronteira_da_coleta.py\","
         }
       ],
@@ -24886,7 +24817,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_repo.py",
-          "line": 733,
+          "line": 744,
           "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
         }
       ],
@@ -27006,7 +26937,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1029,
+          "line": 1055,
           "snippet": "migracao = \"supabase/migrations/022_o_derivado_ganha_casa.sql\""
         }
       ],
@@ -28460,7 +28391,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 696,
+  "UNCLAIMED_FILES_COUNT": 697,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -28487,12 +28418,12 @@
     "components_pending": 75,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 569,
-    "edges_proven": 567,
+    "edges": 567,
+    "edges_proven": 565,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1345,
-    "files_covered": 649,
+    "files_covered": 648,
     "files_code_unclaimed": 0
   }
 }
