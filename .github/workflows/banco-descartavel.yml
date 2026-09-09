@@ -19,6 +19,15 @@
 # ═══════════════════════════════════════════════════════════════════════
 name: banco-descartavel
 
+# Este job le codigo e levanta um Postgres efemero. Nao escreve no repositorio,
+# nao publica artefacto e nao le segredo. O escopo minimo e portanto o de
+# leitura — e escreve-lo e o que impede que a omissao herde, amanha, o que quer
+# que passe a ser o escopo por omissao do repositorio.
+#
+#     PERMISSAO POR OMISSAO E PERMISSAO QUE NINGUEM DECIDIU.
+permissions:
+  contents: read
+
 on:
   push:
     paths:
