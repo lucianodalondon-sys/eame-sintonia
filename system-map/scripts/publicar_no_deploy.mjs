@@ -43,6 +43,7 @@
 'use strict';
 
 import { execFileSync, spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -144,6 +145,62 @@ const nLinhas = (s) => (s === null ? null : s.split('\n').filter(Boolean).length
 const emFalta = nLinhas(ausentes);
 const noIndice = nLinhas(rastreados);
 const arvoreInteira = emFalta === 0;
+
+/* ── A IMPRESSAO DA ARVORE-FONTE, LIDA DO INDICE ────────────────────────────
+   ISTO E O QUE ESTA BUILD CONSEGUE PROVAR SEM RECEBER A ARVORE.
+
+   O `.vercelignore` apaga FICHEIROS DO DISCO. Nao apaga o INDICE DO GIT — e o
+   indice carrega o SHA do blob de cada ficheiro rastreado. Medido nesta mesma
+   build: 1504 caminhos no indice, 1126 ausentes do disco, e o indice intacto.
+
+       ESTAR NO INDICE != ESTAR NO DISCO — e aqui isso joga a nosso favor.
+
+   Por isso o contentor consegue responder «que arvore estou eu a implantar?»
+   com a arvore que nunca lhe chegou, e comparar essa resposta com o carimbo que
+   o mapa servido traz de quando foi gerado. A tranca fica fechada: ZERO
+   ficheiros a mais foram enviados para aqui.
+
+   A formula vive em `CADEIA-DO-MAPA.json`, num sitio so, e o lado Python le-a
+   do mesmo sitio. `test_impressao_da_arvore.py` corre as duas e reprova se
+   discordarem — porque duas formulas com o mesmo nome sao duas verdades.
+
+   ⚠️ O QUE ISTO NAO PROVA: impressao igual diz QUE ARVORE, nunca que o mapa e o
+   mapa CORRECTO daquela arvore. Quem prova isso e a P1 do validador, que
+   regenera e compara, e essa precisa da arvore inteira. Sao dois factos, e
+   continuam separados no artefato e na tela. */
+const LEI_DA_IMPRESSAO = CADEIA.IMPRESSAO_DA_ARVORE;
+
+function impressaoDoIndice() {
+  if (!temGit || !LEI_DA_IMPRESSAO) return null;
+  const cru = comando('git', ['ls-files', '-s']);
+  if (cru === null) return null;
+  const excluido = (p) => LEI_DA_IMPRESSAO.EXCLUIDO
+    .some(e => p === e || p.startsWith(e));
+  const linhas = [];
+  for (const ln of cru.split('\n')) {
+    if (!ln) continue;
+    const corte = ln.indexOf('\t');
+    if (corte < 0) return null;
+    const caminho = ln.slice(corte + 1);
+    if (excluido(caminho)) continue;
+    /* <modo> <sha> <andar>\t<caminho> — o modo e o andar caem fora de proposito:
+       a linha declarada e `<blob_sha1> <caminho>`, e `scan_repo.py` nao le modos. */
+    const sha = ln.slice(0, corte).split(/\s+/)[1];
+    if (!/^[0-9a-f]{40}$/.test(sha)) return null;
+    linhas.push(`${sha} ${caminho}`);
+  }
+  linhas.sort();
+  const corpo = linhas.join(LEI_DA_IMPRESSAO.SEPARADOR) + LEI_DA_IMPRESSAO.SEPARADOR;
+  return {
+    impressao: createHash(LEI_DA_IMPRESSAO.ALGORITMO).update(corpo, 'utf8').digest('hex'),
+    ficheiros: linhas.length,
+  };
+}
+
+const impressaoDaBuild = impressaoDoIndice();
+nota(`impressao da arvore-fonte: ${impressaoDaBuild
+  ? `${impressaoDaBuild.impressao.slice(0, 12)} sobre ${impressaoDaBuild.ficheiros} ficheiro(s)`
+  : 'NAO MEDIDA'}`);
 nota(`arvore da build: ${noIndice === null ? 'nao medida' : noIndice} ficheiro(s) no`
   + ` indice · ${emFalta === null ? 'nao medido' : emFalta} ausente(s) do disco`);
 
@@ -198,6 +255,26 @@ try {
 }
 const prov = (estado && estado.PROVENANCE) || null;
 
+/* ── O MAPA SERVIDO E O MAPA DESTA ARVORE? ──────────────────────────────────
+   A pergunta que o SHA do commit nunca pode responder, e a impressao responde.
+
+   `PROVENANCE.HEAD` nomeia o commit ANTERIOR aquele que guardou o ficheiro —
+   por construcao, e nao por descuido. Ja a impressao exclui as saidas da
+   cadeia, logo guardar o mapa regerado nao a move: o carimbo feito ANTES do
+   commit continua a bater com a arvore DEPOIS do commit.
+
+   Falta a impressao de um dos lados? Entao a resposta e `null` — NAO SEI —, e
+   NAO SEI nunca fica verde. Um mapa antigo, sem carimbo nenhum, cai aqui: fica
+   por provar, e nao passa a provado por ser antigo. */
+const impressaoDoMapa = (prov && typeof prov.SOURCE_TREE_FINGERPRINT === 'string')
+  ? prov.SOURCE_TREE_FINGERPRINT : null;
+const impressaoDaArvore = impressaoDaBuild ? impressaoDaBuild.impressao : null;
+const pertence = (impressaoDoMapa && impressaoDaArvore)
+  ? impressaoDoMapa === impressaoDaArvore
+  : null;
+nota(`o mapa servido pertence a esta arvore: ${pertence === true ? 'SIM'
+  : pertence === false ? 'NAO' : 'NAO SEI'}`);
+
 /* ── 5 · o commit REALMENTE implantado ─────────────────────────────────────── */
 /* A ordem e deliberada. A Vercel e a autoridade sobre o que ela implantou; o git
    da arvore e a segunda melhor prova; nunca se inventa um terceiro. Se nenhuma
@@ -227,8 +304,26 @@ const artefato = {
   ENVIRONMENT: amb.VERCEL_TARGET_ENV || amb.VERCEL_ENV || (amb.CI ? 'ci' : 'local'),
   SYSTEM_MAP_SCHEMA: estado ? estado.SCHEMA : null,
   SYSTEM_MAP_CHECK: check,
+  /* O NOME DO PORTAO, entregue a tela em vez de escrito nela.
+     Validar exige regenerar, regenerar exige a arvore inteira, e a arvore
+     inteira nao chega a este contentor — de proposito. Logo o veredito do
+     validador para ESTE commit so existe no CI, e a tela vai busca-lo a API
+     publica do GitHub por este nome. Escreve-lo no browser seria a segunda
+     copia de um nome que ja vive em CADEIA-DO-MAPA.json. */
+  MAP_GATE_NAME: (CADEIA.PORTAO_DO_MAPA && CADEIA.PORTAO_DO_MAPA.NOME) || null,
   REGENERATED_AT_BUILD: regenerou,
   NOT_REGENERATED_REASON: porqueNaoRegenerou,
+  /* TRES FACTOS SEPARADOS, e nenhum se deixa confundir com o outro:
+     a impressao DA ARVORE IMPLANTADA, a impressao QUE O MAPA SERVIDO TRAZ, e
+     se as duas batem. Publicar so o veredito escondia de onde ele veio. */
+  SOURCE_TREE_FINGERPRINT: impressaoDaArvore,
+  SOURCE_TREE_FINGERPRINT_FILES: impressaoDaBuild ? impressaoDaBuild.ficheiros : null,
+  MAP_SOURCE_TREE_FINGERPRINT: impressaoDoMapa,
+  MAP_BELONGS_TO_DEPLOYED_TREE: pertence,
+  MAP_BELONGS_PROOF: pertence === null
+    ? (impressaoDaArvore ? 'o mapa servido nao traz impressao das fontes'
+      : 'a impressao da arvore desta build nao foi medida')
+    : 'impressao das fontes, lida do indice do git (o .vercelignore nao a toca)',
   BUILD_TREE_COMPLETE: arvoreInteira,
   BUILD_TREE_TRACKED: noIndice,
   BUILD_TREE_MISSING: emFalta,
@@ -249,6 +344,7 @@ const igual = implantado && prov && prov.HEAD === implantado;
 console.log(`DEPLOY_METADATA=OK · DEPLOYED_COMMIT=${(implantado || 'UNKNOWN').slice(0, 10)}`
   + ` · GENERATED_FROM=${((prov && prov.HEAD) || 'UNKNOWN').slice(0, 10)}`
   + ` · MESMA_ARVORE=${igual ? 'SIM' : 'NAO'} · SYSTEM_MAP_CHECK=${check}`
+  + ` · PERTENCE=${pertence === true ? 'SIM' : pertence === false ? 'NAO' : 'NAO_SEI'}`
   + ` · REGENERADO=${regenerou ? 'SIM' : 'NAO'}`);
 
 /* Sair 0 sempre que o artefato ficou escrito. A honestidade do artefato e o

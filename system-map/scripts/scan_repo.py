@@ -36,6 +36,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+import impressao_da_arvore  # noqa: E402  o dono unico da impressao das fontes
+
 RAIZ = Path(__file__).resolve().parents[2]
 SAIDA = RAIZ / "system-map" / "data" / "architecture.generated.json"
 
@@ -527,6 +530,14 @@ def main() -> int:
 
     head = git("rev-parse", "HEAD")
     _arestas, _em_pasta = arestas(arquivos)
+    _impressao, _n_impressao, _ausentes = impressao_da_arvore.do_disco()
+    if _ausentes:
+        # Gerar sobre uma arvore mutilada da um mapa REAL de uma arvore ERRADA,
+        # e um mapa da arvore errada e pior do que um mapa da arvore antiga.
+        print(f"ARVORE_INCOMPLETA={len(_ausentes)} ficheiro(s) rastreado(s) "
+              f"ausente(s) do disco · {' '.join(_ausentes[:3])}", file=sys.stderr)
+        raise SystemExit(2)
+
     fatos = {
         "SCHEMA": "sintonia.system-map.generated/1",
         # PROVENIENCIA vive num bloco a parte, e o validador IGNORA-O ao medir
@@ -544,6 +555,19 @@ def main() -> int:
             "HEAD": head,
             # Data do COMMIT, nao do relogio. Ver regra 2 no cabecalho.
             "GENERATED_AT": git("show", "-s", "--format=%cI", head),
+            # A IMPRESSAO DAS FONTES — a prova de pertenca que o HEAD nunca
+            # pode ser. `HEAD` aqui em cima nomeia, POR CONSTRUCAO, o commit
+            # ANTERIOR aquele que vai guardar este ficheiro. A impressao nao
+            # tem esse defeito: ela exclui as saidas da cadeia, logo guardar o
+            # mapa regerado nao a move.
+            #
+            #     «QUE COMMIT?» nao tem resposta possivel aqui dentro.
+            #     «QUE FONTES?» tem.
+            #
+            # E ela e legivel dentro do contentor da Vercel a partir do INDICE
+            # do git, que o `.vercelignore` nao toca. Ver
+            # `system-map/scripts/impressao_da_arvore.py`.
+            "SOURCE_TREE_FINGERPRINT": _impressao,
         },
         "FILES": list(arquivos.values()),
         "FILE_EDGES": _arestas,

@@ -37,5 +37,70 @@
     "freshness.js",
     "state.generated.json"
   ],
-  "ARTEFATO_DE_DEPLOY": "deployment.generated.json"
+  "ARTEFATO_DE_DEPLOY": "deployment.generated.json",
+  "IMPRESSAO_DA_ARVORE": {
+    "NOTA": [
+      "A IMPRESSAO DA ARVORE-FONTE, E PORQUE ELA EXISTE.",
+      "",
+      "O carimbo do mapa nomeava um COMMIT, e um ficheiro commitado nunca pode",
+      "nomear o commit que o contem: o mapa nascia sempre a apontar para o commit",
+      "ANTERIOR. Oito commits seguidos medidos, oito desencontros. Enquanto a prova",
+      "de pertenca for um SHA de commit, ela e impossivel por construcao.",
+      "",
+      "    A PERGUNTA NAO E «QUE COMMIT?». E «QUE FONTES?».",
+      "",
+      "Esta impressao mede as FONTES e exclui as SAIDAS da propria cadeia. Por isso",
+      "ela NAO MUDA quando o commit guarda o mapa regerado — e por isso a pergunta",
+      "«este mapa e o mapa desta arvore?» passa a ter resposta.",
+      "",
+      "E mede-se do INDICE do git, nao do disco. Medido numa build real da Vercel:",
+      "1126 de 1504 ficheiros rastreados nao chegaram ao disco, e o indice continuou",
+      "com os 1504. O `.vercelignore` apaga FICHEIROS, nunca o INDICE — e por isso o",
+      "contentor consegue provar que arvore esta a implantar sem receber a arvore.",
+      "",
+      "    A TRANCA CONTINUA FECHADA. ZERO FICHEIROS A MAIS FORAM ENVIADOS.",
+      "",
+      "A lista de EXCLUIDO nao e confianca: `test_impressao_da_arvore.py` corre a",
+      "cadeia e reprova se ela escrever fora desta lista, ou se algum nome aqui nao",
+      "for escrito por ninguem. Uma lista de exclusao que ninguem confere e uma",
+      "porta das traseiras com um comentario bonito por cima."
+    ],
+    "ALGORITMO": "sha256",
+    "LINHA": "<blob_sha1> <caminho>",
+    "SEPARADOR": "\n",
+    "NOTA_MODO": "O modo do ficheiro NAO entra. `scan_repo.py` nao le modos, logo mudar o bit de execucao nao muda o mapa — e uma impressao que muda sem o mapa mudar gritaria STALE por uma diferenca que nao existe. Medido: esta arvore so tem 100644 e 100755, e zero symlinks.",
+    "EXCLUIDO": [
+      "system-map/data/architecture.generated.json",
+      "system-map/data/sources.generated.json",
+      "system-map/data/casco.generated.json",
+      "system-map/data/censo-da-coleta.generated.json",
+      "system-map/data/pente-fino.generated.json",
+      "system-map/data/state.generated.json",
+      "italia-portale/client/system-map/"
+    ]
+  },
+  "PORTAO_DO_MAPA": {
+    "NOTA": [
+      "O PORTAO QUE RESPONDE PELO MAPA, E SO PELO MAPA.",
+      "",
+      "O job era um so e chamava-se `check`. Ele juntava «o mapa corresponde a",
+      "arvore?» com «a coleta nao piorou?», e o passo 3 (coleta) esta vermelho na",
+      "linha canonica desde antes desta missao. Medido: os passos 4k, 6, 7 e 8",
+      "NUNCA CHEGARAM A CORRER no GitHub, porque o job parava antes.",
+      "",
+      "    UM VEREDITO SOBRE DUAS PERGUNTAS NAO RESPONDE A NENHUMA.",
+      "",
+      "Agora sao dois jobs. Este nome e o que a tela do mapa procura na API publica",
+      "do GitHub para saber se o validador aprovou O COMMIT QUE ESTA SERVIDO — a",
+      "unica prova que o contentor da Vercel nao consegue produzir sozinho, porque",
+      "validar exige regenerar e regenerar exige a arvore inteira.",
+      "",
+      "O nome viaja para a tela dentro do artefato de deploy; ele nao esta escrito",
+      "no browser. `test_system_map.py` reprova se o workflow e este ficheiro",
+      "deixarem de dizer o mesmo nome."
+    ],
+    "WORKFLOW": ".github/workflows/system-map.yml",
+    "JOB": "mapa",
+    "NOME": "SYSTEM MAP CHECK"
+  }
 }

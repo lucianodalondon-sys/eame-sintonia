@@ -991,6 +991,62 @@ async function medirCabecaRemota(repo, ramo, servido) {
   return { head, behind, erro: null };
 }
 
+/* O VEREDITO DO VALIDADOR PARA O COMMIT SERVIDO, MEDIDO ONDE ELE EXISTE.
+
+   Validar exige REGENERAR e comparar (a P1, anti-drift). Regenerar exige a
+   arvore inteira. A arvore inteira nao chega ao contentor da Vercel, e nao vai
+   passar a chegar: o `.vercelignore` e uma tranca, e trocar uma tranca por uma
+   bolinha verde nao e um negocio que se faca.
+
+       O CONTENTOR NAO PODE PRODUZIR ESTA PROVA. O CI JA A PRODUZ.
+
+   Entao pergunta-se ao GitHub qual foi a conclusao do portao DO MAPA naquele
+   commit exacto. O nome do portao vem no artefato de deploy, que o leu de
+   `CADEIA-DO-MAPA.json` — nao esta escrito aqui.
+
+   ⚠️ O QUE ISTO PRESSUPOE, E NAO FOI MEDIDO DAQUI. Esta chamada tem de partir do
+   browser SEM CREDENCIAL. O repositorio e publico (medido: `private: false`) e
+   `api.github.com` devolve `Access-Control-Allow-Origin: *` (medido). O que NAO
+   foi possivel medir a partir do contentor desta missao e a chamada ANONIMA: o
+   proxy de saida injecta autenticacao, e a resposta veio com o limite de 15000
+   pedidos/hora de uma app instalada — nao com os 60 de quem nao se identifica.
+   Por isso a suposicao nao esta a sustentar nenhum verde: se a chamada falhar,
+   `check` fica UNKNOWN e a tela fica BRANCA, com o motivo escrito. Uma
+   suposicao que so pode empurrar para NAO SEI nao consegue mentir para verde. */
+async function medirPortaoDoMapa(repo, commit, nome) {
+  if (!repo || !commit || !nome) {
+    return { check: 'UNKNOWN',
+      razao: 'nao ha repo, commit servido ou nome de portao para perguntar' };
+  }
+  const r = await buscarJson(
+    `https://api.github.com/repos/${repo}/commits/${commit}/check-runs`);
+  if (!r.ok || !r.corpo || !Array.isArray(r.corpo.check_runs)) {
+    return { check: 'UNKNOWN',
+      razao: `nao consegui ler o portao no GitHub (${r.erro || r.status})` };
+  }
+  /* SO O PORTAO DO MAPA. Os outros check runs deste commit — a coleta, o
+     comentario de preview da Vercel — respondem por outras perguntas, e usar a
+     conclusao deles seria responder a pergunta errada com confianca. */
+  const meus = r.corpo.check_runs.filter(x => x && x.name === nome);
+  if (!meus.length) {
+    return { check: 'UNKNOWN',
+      razao: `nenhum portao chamado «${nome}» correu no commit servido` };
+  }
+  const ultimo = meus[0];
+  if (ultimo.status !== 'completed') {
+    return { check: 'UNKNOWN', razao: `o portao ainda esta ${ultimo.status}` };
+  }
+  if (ultimo.conclusion === 'success') return { check: 'PASS', razao: null };
+  if (ultimo.conclusion === 'failure' || ultimo.conclusion === 'timed_out') {
+    return { check: 'FAIL', razao: `o portao «${nome}» deu ${ultimo.conclusion}` };
+  }
+  /* `cancelled`, `skipped`, `neutral`, `stale`: nao sao reprovacao NEM
+     aprovacao. Chamar-lhes FAIL gritaria por nada; chamar-lhes PASS seria dar
+     verde a um portao que nao correu. NAO SEI e o que eles sao. */
+  return { check: 'UNKNOWN',
+    razao: `o portao «${nome}» terminou como ${ultimo.conclusion || 'sem conclusao'}` };
+}
+
 const sha8 = s => (typeof s === 'string' && s.length >= 8 ? s.slice(0, 8) : null);
 const ouUnknown = v => (v ? esc(String(v)) : '<i>UNKNOWN</i>');
 const relogio = s => (typeof s === 'string' ? esc(s.slice(0, 16).replace('T', ' ')) : null);
@@ -1012,14 +1068,44 @@ async function provarFrescura() {
     SM_FRESHNESS.SHA_RE.test(String(servido)) ? servido : null);
 
   /* O MAPA SERVIDO FOI DERIVADO DA ARVORE IMPLANTADA?
-     `true` so quando a build a regerou E o validador passou ali mesmo. Qualquer
-     outra coisa e `null` — NAO SEI —, e NAO SEI nunca fica verde. Note que este
-     e um facto SEPARADO de «gerado de» e de «implantado»: o carimbo do ficheiro
-     commitado nomeia o commit ANTERIOR por construcao, e por isso nunca serviu
-     como prova de pertenca. */
-  const pertence = dep && dep.REGENERATED_AT_BUILD === true
-    ? dep.SYSTEM_MAP_CHECK === 'PASS'
-    : null;
+
+     O carimbo `PROVENANCE.HEAD` do ficheiro commitado nomeia o commit ANTERIOR
+     — por construcao —, e por isso nunca serviu como prova de pertenca. A
+     IMPRESSAO DAS FONTES serve: ela exclui as saidas da cadeia, logo guardar o
+     mapa regerado nao a move, e le-se do INDICE do git dentro do contentor da
+     Vercel, onde 1126 dos 1504 ficheiros nao chegam ao disco.
+
+     A build ja comparou as duas e escreveu o veredito. Aqui so se LE — comparar
+     outra vez no browser seria a segunda implementacao da mesma lei.
+
+     O caminho antigo fica como ALTERNATIVA, e nao como preferencia: um artefato
+     escrito antes desta lei nao traz o campo, e nesse caso a pergunta volta a
+     ser «a build regerou e o validador passou ali mesmo?». Faltando os dois,
+     `null` — NAO SEI —, e NAO SEI nunca fica verde. */
+  const pertence = dep && typeof dep.MAP_BELONGS_TO_DEPLOYED_TREE === 'boolean'
+    ? dep.MAP_BELONGS_TO_DEPLOYED_TREE
+    : (dep && dep.REGENERATED_AT_BUILD === true
+      ? dep.SYSTEM_MAP_CHECK === 'PASS'
+      : null);
+
+  /* O VEREDITO DO VALIDADOR, DE DUAS FONTES, E FICA-SE COM A PIOR.
+
+     A build produz um veredito quando consegue regenerar (o CI a seco consegue;
+     a Vercel nao). O CI produz sempre. Quando as duas falam, a pior ganha:
+
+         FAIL  pior que  UNKNOWN  pior que  PASS
+
+     Nao e pessimismo decorativo — e a unica ordem em que uma discordancia entre
+     as duas nao consegue produzir um verde. Se elas se contradizem, alguma
+     coisa esta errada, e «alguma coisa esta errada» nunca e verde. */
+  const portao = await medirPortaoDoMapa(repo, servido, dep ? dep.MAP_GATE_NAME : null);
+  const daBuild = (dep && ['PASS', 'FAIL'].includes(dep.SYSTEM_MAP_CHECK))
+    ? dep.SYSTEM_MAP_CHECK : 'UNKNOWN';
+  const ORDEM = { FAIL: 0, UNKNOWN: 1, PASS: 2 };
+  const check = ORDEM[portao.check] <= ORDEM[daBuild] ? portao.check : daBuild;
+  const porqueCheck = check === 'PASS' ? null
+    : (check === portao.check && portao.razao) ? portao.razao
+      : (dep && dep.NOT_REGENERATED_REASON) || portao.razao;
 
   const v = SM_FRESHNESS.decidir({
     repository: dep ? dep.REPOSITORY : null,
@@ -1030,8 +1116,8 @@ async function provarFrescura() {
     deployed_commit: servido,
     latest_canonical_head: remoto.head,
     latest_head_error: remoto.erro,
-    system_map_check: dep ? dep.SYSTEM_MAP_CHECK : 'UNKNOWN',
-    check_reason: dep ? dep.NOT_REGENERATED_REASON : null,
+    system_map_check: check,
+    check_reason: porqueCheck,
     map_belongs_to_deployed_tree: pertence,
     behind_by: remoto.behind,
     deployment_present: !!dep,
@@ -1087,9 +1173,23 @@ async function provarFrescura() {
         : `NO — ${dep.BUILD_TREE_MISSING} de ${dep.BUILD_TREE_TRACKED} `
           + 'ficheiros rastreados não chegaram ao disco da build')
       : '<i>UNKNOWN</i>')}
+    ${linha('Source tree fingerprint', dep && dep.SOURCE_TREE_FINGERPRINT
+      ? `<code>${esc(String(dep.SOURCE_TREE_FINGERPRINT).slice(0, 12))}</code>`
+        + (dep.SOURCE_TREE_FINGERPRINT_FILES
+          ? ` <small>sobre ${esc(String(dep.SOURCE_TREE_FINGERPRINT_FILES))} ficheiros-fonte</small>`
+          : '')
+      : '<i>UNKNOWN</i>')}
+    ${linha('Map was generated from', dep && dep.MAP_SOURCE_TREE_FINGERPRINT
+      ? `<code>${esc(String(dep.MAP_SOURCE_TREE_FINGERPRINT).slice(0, 12))}</code>`
+      : '<i>UNKNOWN</i>')}
     ${linha('Map derived from deployed tree',
       pertence === true ? 'PROVEN' : pertence === false ? 'NO' : '<i>UNPROVEN</i>')}
-    ${linha('System map check', dep ? ouUnknown(dep.SYSTEM_MAP_CHECK) : '<i>UNKNOWN</i>')}
+    ${linha('System map check', `<b>${esc(check)}</b>`
+      + (porqueCheck ? ` <small>— ${esc(porqueCheck)}</small>` : ''))}
+    ${linha('Map gate (CI, this commit)', dep && dep.MAP_GATE_NAME
+      ? `${esc(portao.check)} <small>«${esc(dep.MAP_GATE_NAME)}»</small>`
+      : '<i>UNKNOWN</i>')}
+    ${linha('Map gate (this build)', dep ? ouUnknown(dep.SYSTEM_MAP_CHECK) : '<i>UNKNOWN</i>')}
     ${linha(esc(SM_FRESHNESS.COBERTURA_ROTULO),
       `${c.files_covered}&thinsp;/&thinsp;${c.files_tracked} tracked files`)}
     </dl>

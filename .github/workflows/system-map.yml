@@ -40,7 +40,35 @@ permissions:
   contents: read
 
 jobs:
-  check:
+
+# DOIS PORTÕES, PORQUE SÃO DUAS PERGUNTAS — E ISTO FOI MEDIDO
+# -----------------------------------------------------------
+# Havia um job só, chamado `check`, e ele misturava «o mapa corresponde à
+# árvore?» com «o departamento de coleta não piorou?». O passo 3 está vermelho
+# na linha canónica desde antes desta missão — é da coleta, e a M2 é dona dele —
+# e `set -e` de um job pára no primeiro passo que falha. Medido no GitHub:
+#
+#     os passos 4k, 6, 7 e 8 NUNCA CHEGARAM A CORRER. Nem uma vez.
+#
+#     UM PORTÃO QUE NUNCA CORRE NÃO É UM PORTÃO.
+#
+# Um vermelho da coleta apagava quatro provas do mapa e, ao mesmo tempo, tornava
+# impossível responder «o validador aprovou ESTE commit?» — porque a resposta
+# que a API do GitHub dá é a do job inteiro, e o job inteiro falava das duas
+# coisas ao mesmo tempo.
+#
+#     UM VEREDITO SOBRE DUAS PERGUNTAS NÃO RESPONDE A NENHUMA.
+#
+# Separar NÃO afrouxa nada: os mesmos passos correm, os dois jobs continuam
+# obrigatórios, e passam a correr EM PARALELO — o mapa deixa de depender de a
+# coleta estar verde para ser verificado. Correm MAIS provas do que antes, não
+# menos.
+#
+# O nome `SYSTEM MAP CHECK` é lido pela tela do mapa através da API pública do
+# GitHub, e por isso vive em `CADEIA-DO-MAPA.json` (`NOME_DO_PORTAO`), num sítio
+# só. `test_system_map.py` reprova se os dois deixarem de dizer o mesmo.
+  mapa:
+    name: SYSTEM MAP CHECK
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -96,68 +124,21 @@ jobs:
       - name: 2 · o validador (provas anti-drift, falha fechado)
         run: python3 system-map/scripts/validate_system_map.py
 
-      - name: 3 · o padrão do departamento de coleta não piorou
-        run: python3 medidas/padrao_da_coleta.py
+      # A P1 do validador IGNORA o bloco PROVENANCE — e tem de ignorar, senão
+      # reprovaria toda a gente em todo o commit. Só que a impressão das fontes
+      # vive lá dentro, e é ela que a tela usa para dizer «este mapa é o mapa
+      # desta árvore». Sem este passo, mudar um `.md` sem regerar passava aqui,
+      # era implantado, e só então a tela gritava STALE.
+      #
+      #     UM ALARME QUE SÓ TOCA DEPOIS DO DEPLOY ESTÁ MAL COLOCADO.
+      #
+      # O preço desta lei cobra-se à porta: quem mexe na árvore volta a correr a
+      # cadeia. `AGENTS.md` já mandava; agora reprova em vez de pedir por favor.
+      - name: 2b · o carimbo do mapa é o desta árvore, e não de outra
+        run: python3 system-map/scripts/impressao_da_arvore.py --conferir-carimbo
 
       - name: 4 · as regras do mapa não afrouxaram
         run: python3 system-map/tests/test_system_map.py
-
-      # As sete maneiras conhecidas de o caminho da coleta mentir. Sem isto no
-      # CI, «erro não é rejeição» e «não sei não é não» seriam boas intenções
-      # escritas num comentário — e voltariam a confundir-se na primeira pressa.
-      - name: 4b · o caminho da coleta continua fechado
-        run: python3 provas/testa_coleta_canonica.py
-
-      # A Bíblia da coleta declara 48 leis, e `docs/biblia/leis.json` é DERIVADO
-      # do texto dela — nunca escrito à mão. Sem este passo, as duas podiam
-      # divergir em silêncio, e a partir daí nenhuma das duas valeria.
-      - name: 4c · a Bíblia da coleta e o seu registo dizem a mesma coisa
-        run: python3 provas/valida_biblia.py
-
-      # A lei confrontada com a estrada real: ocorrencia x conteudo, derivados
-      # com pai, e a prova de que repeticao de conteudo nunca entra como perda.
-      - name: 4d · a Biblia e a primeira estrada continuam a dizer o mesmo
-        run: |
-          python3 tests/test_biblia.py
-          python3 tests/test_integracao_biblia.py
-          python3 tests/test_observabilidade_estrada.py
-          python3 tests/test_red_team_estrada.py
-
-      # CAMINHO nao e CAPTURA, e SHA igual nao prova a mesma captura. Este passo
-      # tambem RE-CORRE o censo de identidade e compara-o com o ficheiro
-      # comitado: se alguem editar o gerado a mao, o CI apanha.
-      - name: 4e · as quatro espécies do artefato não voltam a confundir-se
-        run: python3 tests/test_identidade_do_artefato.py
-
-      # BYTES PRESENTES != PROVENIENCIA OPERACIONAL COMPLETA. Sem este passo, os
-      # 195 objetos italianos guardados sem dono voltariam a parecer saude — e a
-      # leitura do coordenador podia virar OBSERVED sem ninguem reparar.
-      - name: 4f · o armazém italiano não se pinta de saudável
-        run: python3 tests/test_armazem_italiano.py
-
-      # A GARANTIA FORWARD do G-42. Envio que passa com memoria que falha NAO
-      # pode dar COMPLETE, e o byte preservado nao se apaga para fingir
-      # atomicidade. Sem este passo, o estado italiano podia voltar calado.
-      - name: 4g · coleta nova não produz armazém sem memória
-        run: python3 tests/test_preservar_coleta.py
-
-      # SQL ACEITE NAO E LINHA GRAVADA. Aqui a reconciliacao vem de um SELECT
-      # num banco de verdade e descartavel — e a corrida so diz COMPLETE se o
-      # banco tambem disser `concluida`. O mesmo contra Postgres 16 real corre
-      # no workflow `banco-descartavel.yml`.
-      - name: 4h · a reconciliação é lida de um banco, não presumida
-        run: python3 tests/test_preservar_coleta_no_banco.py
-
-      # ON CONFLICT DO NOTHING NAO E IDEMPOTENCIA. Sem este passo, uma derivacao
-      # que passasse a produzir outro resultado entraria como REUSED — e o
-      # sistema ficaria calado no dia em que devia gritar.
-      - name: 4i · a mesma receita com outro resultado grita
-        run: python3 tests/test_preservar_derivado.py
-
-      # MISSAO ONE-SHOT TERMINOU -> PORTA ONE-SHOT E FECHADA. E migration
-      # aplicada e artefato imutavel: versao igual com SHA diferente e drift.
-      - name: 4j · a porta de produção continua lacrada
-        run: python3 tests/test_porta_de_producao.py
 
       - name: 4k · a lei da frescura nunca fica verde sem as quatro provas
         run: node system-map/tests/test_freshness.mjs
@@ -251,3 +232,82 @@ jobs:
           print(f"BUILD_REGENERA=YES · DEPLOYED={d['DEPLOYED_COMMIT'][:10]}"
                 f" · GENERATED_FROM={s['PROVENANCE']['HEAD'][:10]} · MESMA_ARVORE=SIM")
           PY
+
+  # O PORTÃO DA COLETA. Vermelho aqui não apaga o veredito do mapa, e vice-versa:
+  # cada um responde pela sua pergunta, e a tela sabe qual é qual.
+  coleta:
+    name: COLETA CHECK
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # O scanner lê `git ls-files` e o SHA de cada blob. Profundidade 1
+          # basta: ele mede a ÁRVORE, não o histórico.
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 3 · o padrão do departamento de coleta não piorou
+        run: python3 medidas/padrao_da_coleta.py
+
+      # As sete maneiras conhecidas de o caminho da coleta mentir. Sem isto no
+      # CI, «erro não é rejeição» e «não sei não é não» seriam boas intenções
+      # escritas num comentário — e voltariam a confundir-se na primeira pressa.
+      - name: 4b · o caminho da coleta continua fechado
+        run: python3 provas/testa_coleta_canonica.py
+
+      # A Bíblia da coleta declara 48 leis, e `docs/biblia/leis.json` é DERIVADO
+      # do texto dela — nunca escrito à mão. Sem este passo, as duas podiam
+      # divergir em silêncio, e a partir daí nenhuma das duas valeria.
+      - name: 4c · a Bíblia da coleta e o seu registo dizem a mesma coisa
+        run: python3 provas/valida_biblia.py
+
+      # A lei confrontada com a estrada real: ocorrencia x conteudo, derivados
+      # com pai, e a prova de que repeticao de conteudo nunca entra como perda.
+      - name: 4d · a Biblia e a primeira estrada continuam a dizer o mesmo
+        run: |
+          python3 tests/test_biblia.py
+          python3 tests/test_integracao_biblia.py
+          python3 tests/test_observabilidade_estrada.py
+          python3 tests/test_red_team_estrada.py
+
+      # CAMINHO nao e CAPTURA, e SHA igual nao prova a mesma captura. Este passo
+      # tambem RE-CORRE o censo de identidade e compara-o com o ficheiro
+      # comitado: se alguem editar o gerado a mao, o CI apanha.
+      - name: 4e · as quatro espécies do artefato não voltam a confundir-se
+        run: python3 tests/test_identidade_do_artefato.py
+
+      # BYTES PRESENTES != PROVENIENCIA OPERACIONAL COMPLETA. Sem este passo, os
+      # 195 objetos italianos guardados sem dono voltariam a parecer saude — e a
+      # leitura do coordenador podia virar OBSERVED sem ninguem reparar.
+      - name: 4f · o armazém italiano não se pinta de saudável
+        run: python3 tests/test_armazem_italiano.py
+
+      # A GARANTIA FORWARD do G-42. Envio que passa com memoria que falha NAO
+      # pode dar COMPLETE, e o byte preservado nao se apaga para fingir
+      # atomicidade. Sem este passo, o estado italiano podia voltar calado.
+      - name: 4g · coleta nova não produz armazém sem memória
+        run: python3 tests/test_preservar_coleta.py
+
+      # SQL ACEITE NAO E LINHA GRAVADA. Aqui a reconciliacao vem de um SELECT
+      # num banco de verdade e descartavel — e a corrida so diz COMPLETE se o
+      # banco tambem disser `concluida`. O mesmo contra Postgres 16 real corre
+      # no workflow `banco-descartavel.yml`.
+      - name: 4h · a reconciliação é lida de um banco, não presumida
+        run: python3 tests/test_preservar_coleta_no_banco.py
+
+      # ON CONFLICT DO NOTHING NAO E IDEMPOTENCIA. Sem este passo, uma derivacao
+      # que passasse a produzir outro resultado entraria como REUSED — e o
+      # sistema ficaria calado no dia em que devia gritar.
+      - name: 4i · a mesma receita com outro resultado grita
+        run: python3 tests/test_preservar_derivado.py
+
+      # MISSAO ONE-SHOT TERMINOU -> PORTA ONE-SHOT E FECHADA. E migration
+      # aplicada e artefato imutavel: versao igual com SHA diferente e drift.
+      - name: 4j · a porta de produção continua lacrada
+        run: python3 tests/test_porta_de_producao.py
