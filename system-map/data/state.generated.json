@@ -659,6 +659,7 @@
       "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "docs/operacao/ESTADO-DA-FUNDACAO-DA-COLETA.md",
       "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
       "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
       "docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md",
@@ -1111,6 +1112,7 @@
     ],
     "provas": [
       "provas/a_autoridade_da_fonte.py",
+      "provas/a_fronteira_da_coleta.py",
       "provas/a_rota_m2_atravessa.py",
       "provas/auditoria.py",
       "provas/auditoria_live.sh",
@@ -1123,6 +1125,7 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/o_dedupe_tem_constraint.py",
       "provas/o_executor_conta_se.py",
       "provas/o_forward_conta_se.py",
       "provas/o_mapa_nao_mente.py",
@@ -1783,9 +1786,9 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-foundation-integration-v1",
-    "HEAD": "c268f3ba8adc130748f15539c03b3edefaccfccd",
-    "GENERATED_AT": "2026-09-09T00:21:35+00:00"
+    "BRANCH": "claude/collection-topology-census-v1",
+    "HEAD": "b4310443d0746c8b7d569dd5095d1acbe0e59009",
+    "GENERATED_AT": "2026-09-09T03:33:33+00:00"
   },
   "FAMILIES": [
     {
@@ -1840,7 +1843,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 54
+      "count": 56
     },
     {
       "id": "F-ENTREGA",
@@ -2130,7 +2133,7 @@
       "y": 190,
       "w": 1235,
       "h": 3582,
-      "count": 31
+      "count": 33
     },
     {
       "id": "Z-PACOTE",
@@ -2425,7 +2428,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⊞",
       "views": [
         "acervo"
@@ -2436,19 +2439,24 @@
         "admissao/admissao.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "admissao/admissao.py"
+      ],
       "produces": [],
       "inbound": [
+        "C-CI-PERSIST",
         "C-IT-TEXTO-DERIVADO"
       ],
       "outbound": [
         "C-CENSO-DERIVACOES",
         "C-CENSO-SEMANTICO-IT",
+        "C-CI-PERSIST",
         "C-ESTRADA-PDF",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-PROVA-FRONTEIRA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RECALL-PORTA-IT",
         "C-ROTA-M2",
@@ -5710,6 +5718,7 @@
       "outbound": [
         "C-ESTRADA-PDF",
         "C-PROVA-BIBLIA",
+        "C-PROVA-FRONTEIRA",
         "C-TESTES"
       ],
       "paises": {},
@@ -6201,6 +6210,7 @@
         "C-PROVA-ROTA-M2-ATRAVESSA"
       ],
       "outbound": [
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
       "paises": {},
@@ -6475,7 +6485,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "audit",
@@ -6487,13 +6497,16 @@
         ".github/workflows/system-map.yml"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        ".github/workflows/system-map.yml"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
         "C-CENSO-COLETA",
+        "C-FLUXO-NO-SECO",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
@@ -6501,6 +6514,10 @@
         "C-PADRAO-COLETA",
         "C-PROVA-BIBLIA",
         "C-PROVA-COLETA",
+        "C-PROVA-DEDUPE",
+        "C-PROVA-EXECUTOR-CONTA",
+        "C-PROVA-FRONTEIRA",
+        "C-PROVA-MAPA-NAO-MENTE",
         "C-TESTES"
       ],
       "paises": {},
@@ -6549,23 +6566,44 @@
       ],
       "produces": [],
       "inbound": [
+        "C-ADMISSAO",
         "C-CADEIA-V21",
+        "C-CONTRATO-TELEMETRIA",
+        "C-DERIVACAO-FORWARD",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
+        "C-EXECUTOR-TEXTO-PDF",
+        "C-MEDICAO",
+        "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
+        "C-PROVA-DEDUPE",
+        "C-PROVA-EXECUTOR-CONTA",
+        "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
+        "C-ROTA-M2",
         "C-SCRAP-SOCIAL",
         "C-SUPABASE",
         "C-TESTES"
       ],
       "outbound": [
+        "C-ADMISSAO",
         "C-CADEIA-V21",
+        "C-CONTRATO-TELEMETRIA",
+        "C-DERIVACAO-FORWARD",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
+        "C-EXECUTOR-TEXTO-PDF",
         "C-MEDICAO",
+        "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
+        "C-PROVA-DEDUPE",
+        "C-PROVA-EXECUTOR-CONTA",
+        "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
         "C-REGRA-COLETA",
+        "C-ROTA-M2",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
@@ -7168,11 +7206,13 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-CI-PERSIST",
         "C-GESTAO-COLETA",
         "C-SCRAP-LEIS"
       ],
       "outbound": [
         "C-CENSO-OBSERVABILIDADE",
+        "C-CI-PERSIST",
         "C-FLUXO-NO-SECO",
         "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
@@ -7462,10 +7502,11 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-CI-PERSIST",
         "C-CONTRATO-ARTEFATO",
         "C-EXECUTOR-TEXTO-PDF",
         "C-GESTAO-COLETA",
@@ -7473,6 +7514,7 @@
         "C-SCRAP-LEIS"
       ],
       "outbound": [
+        "C-CI-PERSIST",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
@@ -7486,11 +7528,12 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "DESTINO_DO_ESTADO"
+          "DESTINO_DO_ESTADO",
+          "GAPS"
         ],
-        "palavras": 9,
+        "palavras": 14,
         "por_lingua": {},
-        "sem_marca_de_lingua": 9,
+        "sem_marca_de_lingua": 14,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -7969,18 +8012,20 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "coleta/executor_texto_de_pdf.py"
       ],
       "produces": [],
       "inbound": [
+        "C-CI-PERSIST",
         "C-CONTRATO-ARTEFATO",
         "C-IT-PDF-BRUTO",
         "C-RASTRO"
       ],
       "outbound": [
         "C-CENSO-DERIVACOES",
+        "C-CI-PERSIST",
         "C-DERIVACAO-FORWARD",
         "C-ESTRADA-PDF",
         "C-FRONTEIRA-TELEMETRIA",
@@ -8040,11 +8085,14 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CONTRATO-TELEMETRIA"
+        "C-CI-MAPA",
+        "C-CONTRATO-TELEMETRIA",
+        "C-GESTAO-COLETA",
+        "C-SCRAP-LEIS"
       ],
       "outbound": [
         "C-TESTES"
@@ -8276,6 +8324,7 @@
       "outbound": [
         "C-CONTRATO-TELEMETRIA",
         "C-DERIVACAO-FORWARD",
+        "C-FLUXO-NO-SECO",
         "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
@@ -9794,7 +9843,7 @@
         "LIDERANCA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "audit",
@@ -9811,16 +9860,20 @@
         "provas/testa_rota_italia.py"
       ],
       "file_count": 6,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "provas/inventario_esperado.py"
+      ],
       "produces": [],
       "inbound": [
         "C-CI-PERSIST",
         "C-CI-REGRESSAO"
       ],
       "outbound": [
+        "C-CI-PERSIST",
         "C-COLETA-INSTAGRAM",
+        "C-PROVA-DEDUPE",
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
         "C-TESTES"
@@ -10891,17 +10944,19 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
+        "C-CI-PERSIST",
         "C-IT-CATALOGO",
         "C-IT-CONTRATOS",
         "C-PROVA-COLETA",
         "C-SUPABASE"
       ],
       "outbound": [
+        "C-CI-PERSIST",
         "C-TESTES"
       ],
       "paises": {},
@@ -10928,7 +10983,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "◉",
       "views": [
         "acervo",
@@ -10941,9 +10996,11 @@
         "provas/valida_biblia.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "provas/valida_biblia.py"
+      ],
       "produces": [],
       "inbound": [
         "C-BIBLIA",
@@ -11017,8 +11074,9 @@
       ],
       "file_count": 11,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
+        "provas/derived_artifact_no_postgres.py",
         "provas/preservar_coleta_no_postgres.py"
       ],
       "produces": [],
@@ -11086,6 +11144,64 @@
       "y": 2614
     },
     {
+      "id": "C-PROVA-DEDUPE",
+      "name": "A prova de que o dedupe tem chave",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Confronta cada cláusula `on conflict` da árvore com a chave única que as migrations declaram para aquela tabela — total, parcial ou `nulls not distinct` — e separa num balde próprio as que não conseguiu ler, para que UNKNOWN nunca entre na conta do verde. Escreve no disco a forma partida conhecida e exige que o próprio medidor a apanhe.",
+      "why_here": "ON CONFLICT DO NOTHING SEM CONSTRAINT RELEVANTE != DEDUPLICAÇÃO. A cláusula é SQL válido, corre sem erro e não deduplica nada; quem lê o código vê a palavra `conflict` e acredita. Medido nesta casa duas vezes — três inserts iguais, três linhas, três identidades diferentes — e a segunda vez foi num ficheiro ao lado do que já tinha sido consertado. Um conserto num ficheiro não conserta a classe.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊗",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "provas/o_dedupe_tem_constraint.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CI-MAPA",
+        "C-CI-PERSIST",
+        "C-MEDICAO"
+      ],
+      "outbound": [
+        "C-CI-PERSIST"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "EXTS",
+          "PASTAS"
+        ],
+        "palavras": 23,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 23,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 16080,
+      "y": 2614
+    },
+    {
       "id": "C-PROVA-EXECUTOR-CONTA",
       "name": "A prova de que o executor se conta",
       "territory": "Z-PROVA",
@@ -11109,16 +11225,19 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-BANCO-NO-SECO",
+        "C-CI-MAPA",
+        "C-CI-PERSIST",
         "C-EXECUTOR-TEXTO-PDF",
         "C-RASTRO"
       ],
       "outbound": [
-        "C-CENSO-OBSERVABILIDADE"
+        "C-CENSO-OBSERVABILIDADE",
+        "C-CI-PERSIST"
       ],
       "paises": {},
       "paises_dado": {},
@@ -11128,8 +11247,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 2614
+      "x": 15250,
+      "y": 2936
     },
     {
       "id": "C-PROVA-FORWARD-CONTA",
@@ -11155,10 +11274,11 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-CI-PERSIST",
         "C-COLETA-BASE",
         "C-CONTRATO-TELEMETRIA",
         "C-DERIVACAO-FORWARD",
@@ -11170,7 +11290,9 @@
         "C-RASTRO",
         "C-SCRAP-LEIS"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-CI-PERSIST"
+      ],
       "paises": {},
       "paises_dado": {
         "ITALIA": 1
@@ -11192,7 +11314,62 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 15665,
+      "y": 2936
+    },
+    {
+      "id": "C-PROVA-FRONTEIRA",
+      "name": "A medição da fronteira com a Inteligência",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Mede as QUATRO perguntas que a casa vinha achatando numa só: o contrato de saída está DECLARADO (COL-LAW-043, 11 campos), está IMPLEMENTADO (admissao.pronto_para_inteligencia devolve exactamente esses campos), é PRODUZIDO (por quem, e em runtime ou só em CLI/prova) e é CONSUMIDO (por ninguém). Guarda o que tem de ser verdade — lei e código declaram os mesmos campos, há UM dono, a porta recusa quem não passou — e RELATA, sem falhar, o que é buraco declarado.",
+      "why_here": "DECLARED != IMPLEMENTED != PRODUCED != CONSUMED. Três sítios desta árvore diziam coisas incompatíveis sobre o mesmo READY: a Bíblia dizia que era lei, o censo dos contratos dizia que já tinha consumidor, e o tuplo GAPS dizia que não tinha dono. Os dois últimos exageravam em direcções opostas, e ninguém tinha um medidor para os confrontar. Esta prova NÃO falha por não haver consumidor: fazê-la ficar verde inventando um seria a doença que ela veio diagnosticar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊣",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "provas/a_fronteira_da_coleta.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-BIBLIA",
+        "C-CI-MAPA"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "PASTAS_DA_COLETA"
+        ],
+        "palavras": 15,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 15,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 16080,
       "y": 2936
     },
     {
@@ -11219,12 +11396,13 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "system-map/data/architecture.declared.json"
       ],
       "inbound": [
+        "C-CI-MAPA",
         "C-MAPA-GERADOR",
         "C-MAPA-VALIDADOR"
       ],
@@ -11281,8 +11459,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15665,
-      "y": 2936
+      "x": 15250,
+      "y": 3258
     },
     {
       "id": "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -11308,11 +11486,13 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-ADMISSAO",
+        "C-CENSO-EXECUTORES",
+        "C-CI-PERSIST",
         "C-COLETA-BASE",
         "C-CONTRATO-TELEMETRIA",
         "C-DERIVACAO-FORWARD",
@@ -11326,6 +11506,7 @@
       ],
       "outbound": [
         "C-CENSO-EXECUTORES",
+        "C-CI-PERSIST",
         "C-TESTES"
       ],
       "paises": {},
@@ -11349,8 +11530,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 2936
+      "x": 15665,
+      "y": 3258
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -11402,7 +11583,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
+      "x": 16080,
       "y": 3258
     },
     {
@@ -11600,8 +11781,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15665,
-      "y": 3258
+      "x": 15250,
+      "y": 3580
     },
     {
       "id": "C-RECEITAS",
@@ -11740,8 +11921,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16080,
-      "y": 3258
+      "x": 15665,
+      "y": 3580
     },
     {
       "id": "C-REGRA-COLETA",
@@ -11755,7 +11936,7 @@
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "§",
       "views": [
         "acervo",
@@ -11770,9 +11951,11 @@
         "medidas/portoes_eame.py"
       ],
       "file_count": 4,
-      "status": "PROVEN",
-      "status_reason": "o motor importa esta lei para decidir.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o motor importa esta lei para decidir.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "medidas/portao.py"
+      ],
       "produces": [
         "data/samples/PORTOES-EAME.json"
       ],
@@ -12017,11 +12200,12 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-ADMISSAO",
+        "C-CI-PERSIST",
         "C-DERIVACAO-FORWARD",
         "C-GESTAO-COLETA",
         "C-RASTRO",
@@ -12029,6 +12213,7 @@
         "C-SCRAP-SOCIAL"
       ],
       "outbound": [
+        "C-CI-PERSIST",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
@@ -12326,6 +12511,7 @@
         "C-CONTRATO-TELEMETRIA",
         "C-DERIVACAO-FORWARD",
         "C-ESTRADAS-IT",
+        "C-FLUXO-NO-SECO",
         "C-FRONTEIRA-TELEMETRIA",
         "C-GESTAO-COLETA",
         "C-PROVA-COLETA",
@@ -13871,8 +14057,14 @@
       ],
       "file_count": 71,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 31 ficheiro(s) novos que nunca foram lidos por gente.",
-      "changed_since_declared": [],
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "tests/test_coleta_externa.py",
+        "tests/test_metricas.py",
+        "tests/test_migrations.py",
+        "tests/test_operacao.py",
+        "tests/test_proveniencia.py"
+      ],
       "produces": [
         ".github/workflows/scrap-social.yml",
         "data/samples/SPAIN-HERO-CASES-V1.json",
@@ -14058,7 +14250,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 15250,
+      "x": 16080,
       "y": 3580
     },
     {
@@ -15600,8 +15792,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/collection-foundation-integration-v1",
-        "HEAD c268f3ba8adc130748f15539c03b3edefaccfccd"
+        "branch claude/collection-topology-census-v1",
+        "HEAD b4310443d0746c8b7d569dd5095d1acbe0e59009"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -15913,6 +16105,24 @@
     },
     {
       "from": "C-ADMISSAO",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 45,
+          "snippet": "- 'admissao/admissao.py'"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ADMISSAO",
       "to": "C-ESTRADA-PDF",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -15972,6 +16182,42 @@
     },
     {
       "from": "C-ADMISSAO",
+      "to": "C-PROVA-FRONTEIRA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por A medição da fronteira com a Inteligência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_fronteira_da_coleta.py",
+          "line": 64,
+          "snippet": "import admissao  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-PROVA-FRONTEIRA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao alimenta A medição da fronteira com a Inteligência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_fronteira_da_coleta.py",
+          "line": 198,
+          "snippet": "if not l.startswith('admissao/admissao.py')]"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ADMISSAO",
       "to": "C-PROVA-ROTA-M2-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -15982,7 +16228,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 66,
+          "line": 67,
           "snippet": "import admissao                          # noqa: E402"
         }
       ],
@@ -16807,7 +17053,7 @@
       "evidence": [
         {
           "file": "tests/test_coleta_externa.py",
-          "line": 551,
+          "line": 568,
           "snippet": "import rede"
         }
       ],
@@ -16825,7 +17071,7 @@
       "evidence": [
         {
           "file": "tests/test_coleta_externa.py",
-          "line": 655,
+          "line": 672,
           "snippet": "self.assertIn('superficie/rede.py', self.atual['QUEM_MANDA'])"
         }
       ],
@@ -17452,6 +17698,24 @@
     },
     {
       "from": "C-BIBLIA",
+      "to": "C-PROVA-FRONTEIRA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Bíblia canônica da coleta alimenta A medição da fronteira com a Inteligência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_fronteira_da_coleta.py",
+          "line": 66,
+          "snippet": "BIBLIA = os.path.join(RAIZ, \"BIBLIA-CANONICA-DA-COLETA.md\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-BIBLIA",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -17538,7 +17802,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 38,
+          "line": 53,
           "snippet": "- 'motor/cadeia_canonica.sh'"
         }
       ],
@@ -17866,6 +18130,24 @@
     },
     {
       "from": "C-CENSO-EXECUTORES",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo dos executores — caminhos, papeis e cobertura alimenta A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 85,
+          "snippet": "LEDGER = os.path.join(RAIZ, \"system-map\", \"data\", \"provas-de-execucao.json\")"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CENSO-EXECUTORES",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -18118,8 +18400,26 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 67,
+          "line": 80,
           "snippet": "python3 system-map/scripts/censo_da_coleta.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-FLUXO-NO-SECO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar O fluxo no seco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 170,
+          "snippet": "run: python3 provas/fluxo_no_seco.py"
         }
       ],
       "categoria": "CONTROL"
@@ -18136,7 +18436,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 69,
+          "line": 82,
           "snippet": "python3 system-map/scripts/generate_system_map.py"
         }
       ],
@@ -18154,22 +18454,22 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 64,
+          "line": 77,
           "snippet": "python3 system-map/scripts/scan_repo.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 65,
+          "line": 78,
           "snippet": "python3 system-map/scripts/scan_sources.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 66,
+          "line": 79,
           "snippet": "python3 system-map/scripts/scan_casco.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 68,
+          "line": 81,
           "snippet": "python3 system-map/scripts/pente_fino_da_coleta.py"
         }
       ],
@@ -18187,7 +18487,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 83,
+          "line": 96,
           "snippet": "run: python3 system-map/tests/test_system_map.py"
         }
       ],
@@ -18205,7 +18505,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 77,
+          "line": 90,
           "snippet": "run: python3 system-map/scripts/validate_system_map.py"
         }
       ],
@@ -18223,7 +18523,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 80,
+          "line": 93,
           "snippet": "run: python3 medidas/padrao_da_coleta.py"
         }
       ],
@@ -18241,7 +18541,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 95,
+          "line": 108,
           "snippet": "run: python3 provas/valida_biblia.py"
         }
       ],
@@ -18255,15 +18555,97 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "Workflow do System Map manda rodar Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 89,
+          "line": 102,
           "snippet": "run: python3 provas/testa_coleta_canonica.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 167,
+          "snippet": "run: python3 provas/paridade_da_lingua.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 173,
+          "snippet": "run: python3 provas/testa_golden_path_pdf.py"
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-PROVA-DEDUPE",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar A prova de que o dedupe tem chave. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 182,
+          "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-PROVA-EXECUTOR-CONTA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar A prova de que o executor se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 65,
+          "snippet": "#   provas/o_executor_conta_se.py     -> PASS, saida byte a byte igual"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-PROVA-FRONTEIRA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar A medição da fronteira com a Inteligência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 196,
+          "snippet": "run: python3 provas/a_fronteira_da_coleta.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-PROVA-MAPA-NAO-MENTE",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar A prova de que o mapa não mente sobre existência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 176,
+          "snippet": "run: python3 provas/o_mapa_nao_mente.py"
+        }
+      ],
+      "categoria": "CONTROL"
     },
     {
       "from": "C-CI-MAPA",
@@ -18277,56 +18659,74 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 101,
+          "line": 64,
+          "snippet": "#   tests/test_preservar_derivado.py  -> OK (skipped=2)"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 114,
           "snippet": "python3 tests/test_biblia.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 102,
+          "line": 115,
           "snippet": "python3 tests/test_integracao_biblia.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 103,
+          "line": 116,
           "snippet": "python3 tests/test_observabilidade_estrada.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 104,
+          "line": 117,
           "snippet": "python3 tests/test_red_team_estrada.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 110,
+          "line": 123,
           "snippet": "run: python3 tests/test_identidade_do_artefato.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 116,
+          "line": 129,
           "snippet": "run: python3 tests/test_armazem_italiano.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 122,
+          "line": 135,
           "snippet": "run: python3 tests/test_preservar_coleta.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 129,
+          "line": 142,
           "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 135,
-          "snippet": "run: python3 tests/test_preservar_derivado.py"
-        },
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 140,
+          "line": 153,
           "snippet": "run: python3 tests/test_porta_de_producao.py"
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-ADMISSAO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar A porta de admissao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 45,
+          "snippet": "- 'admissao/admissao.py'"
+        }
+      ],
+      "categoria": "CONTROL"
     },
     {
       "from": "C-CI-PERSIST",
@@ -18340,13 +18740,49 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 38,
+          "line": 53,
           "snippet": "- 'motor/cadeia_canonica.sh'"
         },
         {
           "file": ".github/workflows/supabase-migrate.yml",
           "line": 4,
           "snippet": "# A ordem NAO mora aqui: mora em motor/cadeia_canonica.sh, que o CI usa"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-CONTRATO-TELEMETRIA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar Contrato da telemetria — a forma do fluxo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 46,
+          "snippet": "- 'leis/telemetria.py'"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-DERIVACAO-FORWARD",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar A fronteira forward da derivação. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 42,
+          "snippet": "- 'coleta/derivacao_forward.py'"
         }
       ],
       "categoria": "CONTROL"
@@ -18394,18 +18830,59 @@
     },
     {
       "from": "C-CI-PERSIST",
+      "to": "C-EXECUTOR-TEXTO-PDF",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar Executor · texto a partir de PDF. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 44,
+          "snippet": "- 'coleta/executor_texto_de_pdf.py'"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
       "to": "C-MEDICAO",
       "type": "RUNS",
       "payload": "execucao",
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Auditoria, cobertura e custo. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 52,
+          "snippet": "- 'provas/inventario_esperado.py'"
+        },
         {
           "file": ".github/workflows/supabase-migrate.yml",
           "line": 80,
           "snippet": "\"$(python3 provas/inventario_esperado.py --sql)\")"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-PROVA-AUTORIDADE-FONTE",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar A medição da autoridade da fonte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 50,
+          "snippet": "- 'provas/a_autoridade_da_fonte.py'"
         }
       ],
       "categoria": "CONTROL"
@@ -18447,11 +18924,83 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 39,
+          "line": 54,
           "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-PROVA-DEDUPE",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar A prova de que o dedupe tem chave. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 51,
+          "snippet": "- 'provas/o_dedupe_tem_constraint.py'"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-PROVA-EXECUTOR-CONTA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar A prova de que o executor se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 49,
+          "snippet": "- 'provas/o_executor_conta_se.py'"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 48,
+          "snippet": "- 'provas/o_forward_conta_se.py'"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 47,
+          "snippet": "- 'provas/a_rota_m2_atravessa.py'"
+        }
+      ],
+      "categoria": "CONTROL"
     },
     {
       "from": "C-CI-PERSIST",
@@ -18488,6 +19037,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-ROTA-M2",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar A rota forward do documento (M2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 43,
+          "snippet": "- 'coleta/rota_forward_documento.py'"
+        }
+      ],
+      "categoria": "CONTROL"
     },
     {
       "from": "C-CI-PERSIST",
@@ -18816,7 +19383,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 67,
+          "line": 68,
           "snippet": "import coleta_checkpoint as cc           # noqa: E402"
         }
       ],
@@ -19235,6 +19802,24 @@
     },
     {
       "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato da telemetria — a forma do fluxo alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 46,
+          "snippet": "- 'leis/telemetria.py'"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
       "to": "C-FLUXO-NO-SECO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -19317,7 +19902,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 73,
+          "line": 74,
           "snippet": "import telemetria as tel                 # noqa: E402"
         }
       ],
@@ -19588,7 +20173,7 @@
         },
         {
           "file": "tests/test_proveniencia.py",
-          "line": 276,
+          "line": 308,
           "snippet": "vigiados = {f['FILE'] for f in amostra('DATA-CLOCK-manifest.json')['files']}"
         }
       ],
@@ -19632,6 +20217,24 @@
     },
     {
       "from": "C-DERIVACAO-FORWARD",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira forward da derivação alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 42,
+          "snippet": "- 'coleta/derivacao_forward.py'"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-DERIVACAO-FORWARD",
       "to": "C-PROVA-FORWARD-CONTA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -19660,7 +20263,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 68,
+          "line": 69,
           "snippet": "import derivacao_forward as fwd          # noqa: E402"
         }
       ],
@@ -19990,7 +20593,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 118,
+          "line": 122,
           "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
         }
       ],
@@ -20130,6 +20733,24 @@
           "file": "system-map/scripts/censo_das_derivacoes.py",
           "line": 54,
           "snippet": "\"PRODUTOR\": \"coleta/executor_texto_de_pdf.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 44,
+          "snippet": "- 'coleta/executor_texto_de_pdf.py'"
         }
       ],
       "categoria": "READ"
@@ -20343,7 +20964,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 69,
+          "line": 70,
           "snippet": "import executor_texto_de_pdf as ex       # noqa: E402"
         }
       ],
@@ -20361,7 +20982,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 122,
+          "line": 126,
           "snippet": "== \"coleta/executor_texto_de_pdf.py\"]"
         }
       ],
@@ -20655,6 +21276,24 @@
           "file": "coleta/derivacao_forward.py",
           "line": 79,
           "snippet": "import diagnostico as dg             # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-GESTAO-COLETA",
+      "to": "C-FLUXO-NO-SECO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Politica da coleta e roteamento de diagnostico tem o seu codigo importado por O fluxo no seco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/fluxo_no_seco.py",
+          "line": 37,
+          "snippet": "import diagnostico as dg  # noqa: E402"
         }
       ],
       "categoria": "RULE"
@@ -21263,7 +21902,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 183,
+          "line": 187,
           "snippet": "open(CATALOGO, 'leitura')  # CATALOGO = candidatas/ITALY-SOURCE-MASTER-V1.json"
         }
       ],
@@ -22270,6 +22909,24 @@
     },
     {
       "from": "C-MEDICAO",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria, cobertura e custo alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 52,
+          "snippet": "- 'provas/inventario_esperado.py'"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-MEDICAO",
       "to": "C-COLETA-INSTAGRAM",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -22282,6 +22939,24 @@
           "file": "coleta/instagram_coleta.py",
           "line": 556,
           "snippet": "import corrigir_custo as cc"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-MEDICAO",
+      "to": "C-PROVA-DEDUPE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Auditoria, cobertura e custo tem o seu codigo importado por A prova de que o dedupe tem chave. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_dedupe_tem_constraint.py",
+          "line": 63,
+          "snippet": "from inventario_esperado import NND, PARCIAL, uniques_declaradas  # noqa: E402"
         }
       ],
       "categoria": "CODE"
@@ -23775,11 +24450,29 @@
         },
         {
           "file": "tests/test_proveniencia.py",
-          "line": 184,
+          "line": 216,
           "snippet": "self.pol = amostra('POLITICA-RAW-ROTA-PAGA.json')"
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-AUTORIDADE-FONTE",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A medição da autoridade da fonte alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 50,
+          "snippet": "- 'provas/a_autoridade_da_fonte.py'"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-PROVA-AUTORIDADE-FONTE",
@@ -23811,7 +24504,7 @@
       "evidence": [
         {
           "file": "provas/valida_biblia.py",
-          "line": 220,
+          "line": 237,
           "snippet": "open(LEIS_JSON, 'w')  # LEIS_JSON = docs/biblia/leis.json"
         }
       ],
@@ -23913,7 +24606,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 39,
+          "line": 54,
           "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
         }
       ],
@@ -23931,7 +24624,7 @@
       "evidence": [
         {
           "file": "provas/a_autoridade_da_fonte.py",
-          "line": 334,
+          "line": 339,
           "snippet": "\"preservar_coleta_no_postgres.py\"))"
         }
       ],
@@ -23967,7 +24660,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 62,
+          "line": 63,
           "snippet": "\"prova_pg\", os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\"))"
         }
       ],
@@ -24017,6 +24710,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-PROVA-DEDUPE",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o dedupe tem chave alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 51,
+          "snippet": "- 'provas/o_dedupe_tem_constraint.py'"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
       "from": "C-PROVA-EXECUTOR-CONTA",
       "to": "C-CENSO-OBSERVABILIDADE",
       "type": "READS",
@@ -24030,6 +24741,42 @@
           "file": "system-map/scripts/censo_da_observabilidade.py",
           "line": 178,
           "snippet": "'ONDE_SE_VE': 'provas/o_executor_conta_se.py',"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-EXECUTOR-CONTA",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o executor se conta alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 49,
+          "snippet": "- 'provas/o_executor_conta_se.py'"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-FORWARD-CONTA",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o forward se conta alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 48,
+          "snippet": "- 'provas/o_forward_conta_se.py'"
         }
       ],
       "categoria": "READ"
@@ -24148,6 +24895,24 @@
           "file": "system-map/scripts/censo_dos_executores.py",
           "line": 527,
           "snippet": "'provas/a_rota_m2_atravessa.py',"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que a rota da M2 atravessa alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 47,
+          "snippet": "- 'provas/a_rota_m2_atravessa.py'"
         }
       ],
       "categoria": "READ"
@@ -24326,7 +25091,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 70,
+          "line": 71,
           "snippet": "import rastro_da_coleta as rastro        # noqa: E402"
         }
       ],
@@ -24486,24 +25251,6 @@
       "categoria": "PROOF"
     },
     {
-      "from": "C-RECORRENCIA",
-      "to": "C-TESTES",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova de que o fato se refaz alimenta Suite de testes. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_operacao.py",
-          "line": 428,
-          "snippet": "fonte = open(os.path.join(ROOT, 'motor', 'chain.py'), encoding='utf-8').read()"
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
       "from": "C-REGRA-COLETA",
       "to": "C-TESTES",
       "type": "IMPORTS",
@@ -24538,8 +25285,8 @@
       "evidence": [
         {
           "file": "tests/test_coleta_externa.py",
-          "line": 23,
-          "snippet": "with open(os.path.join(ROOT, 'docs', 'regras', 'REGRA-DE-COLETA-EXTERNA-EAME.md'),"
+          "line": 41,
+          "snippet": "open(REGUA, 'leitura')  # REGUA = medidas/REGRA-DE-COLETA-EXTERNA-EAME.md"
         },
         {
           "file": "tests/test_portoes_eame.py",
@@ -24682,6 +25429,24 @@
     },
     {
       "from": "C-ROTA-M2",
+      "to": "C-CI-PERSIST",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A rota forward do documento (M2) alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 43,
+          "snippet": "- 'coleta/rota_forward_documento.py'"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ROTA-M2",
       "to": "C-PROVA-ROTA-M2-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24692,11 +25457,29 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 71,
+          "line": 72,
           "snippet": "import rota_forward_documento as m2      # noqa: E402"
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-ROTA-M2",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A rota forward do documento (M2) alimenta A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 433,
+          "snippet": ".get(\"coleta/rota_forward_documento.py\") or {}).get(\"FORWARD\") or {}"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-ROTA-M2",
@@ -25179,6 +25962,24 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-FLUXO-NO-SECO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por O fluxo no seco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/fluxo_no_seco.py",
+          "line": 38,
+          "snippet": "import falhas as falhas_lei  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-FRONTEIRA-TELEMETRIA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -25487,7 +26288,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 72,
+          "line": 73,
           "snippet": "import social_persistencia as sp          # noqa: E402"
         }
       ],
@@ -26135,7 +26936,7 @@
         },
         {
           "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 511,
+          "line": 524,
           "snippet": "open(MIGRACAO, 'leitura')  # MIGRACAO = supabase/migrations/001_fundacao_geografia_e_proveniencia.sql"
         }
       ],
@@ -27718,20 +28519,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 697,
+  "UNCLAIMED_FILES_COUNT": 698,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 142,
-    "components_proven": 70,
-    "components_pending": 65,
+    "components": 144,
+    "components_proven": 65,
+    "components_pending": 72,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 546,
-    "edges_proven": 544,
+    "edges": 579,
+    "edges_proven": 577,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1338,
-    "files_covered": 641,
+    "files_tracked": 1341,
+    "files_covered": 643,
     "files_code_unclaimed": 0
   }
 }

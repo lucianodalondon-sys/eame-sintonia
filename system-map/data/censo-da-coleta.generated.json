@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "105602f662337d8deac7bca1a3da4abeff75889d",
+    "HEAD": "b4310443d0746c8b7d569dd5095d1acbe0e59009",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -794,6 +794,24 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/derivacao_forward.py",
+      "gaveta": "coleta",
+      "linhas": 351,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/rota_forward_documento.py"
+      ],
+      "no_ci": true
+    },
+    {
       "ficheiro": "coleta/ephy.sh",
       "gaveta": "coleta",
       "linhas": 47,
@@ -868,7 +886,7 @@
     {
       "ficheiro": "coleta/executor_texto_de_pdf.py",
       "gaveta": "coleta",
-      "linhas": 516,
+      "linhas": 592,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -883,9 +901,10 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/derivacao_forward.py",
         "coleta/golden_path_pdf.py"
       ],
-      "no_ci": false
+      "no_ci": true
     },
     {
       "ficheiro": "coleta/filas.py",
@@ -1188,6 +1207,22 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/rota_forward_documento.py",
+      "gaveta": "coleta",
+      "linhas": 355,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
       "ficheiro": "coleta/rotulos_baixar.py",
       "gaveta": "coleta",
       "linhas": 143,
@@ -1271,7 +1306,7 @@
     {
       "ficheiro": "coleta/social_persistencia.py",
       "gaveta": "coleta",
-      "linhas": 413,
+      "linhas": 423,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1286,7 +1321,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/rota_forward_documento.py"
+      ],
       "no_ci": true
     },
     {
@@ -1738,7 +1775,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 420,
+      "linhas": 456,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1754,9 +1791,11 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
-        "coleta/golden_path_pdf.py"
+        "coleta/derivacao_forward.py",
+        "coleta/golden_path_pdf.py",
+        "coleta/rota_forward_documento.py"
       ],
-      "no_ci": false
+      "no_ci": true
     },
     {
       "ficheiro": "guarda/catalogo_importar.py",
@@ -1821,7 +1860,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/derivacao_forward.py"
+      ],
       "no_ci": false
     },
     {
@@ -1888,6 +1929,8 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/derivacao_forward.py",
+        "coleta/rota_forward_documento.py",
         "guarda/portas_live.py",
         "guarda/preservar_derivado.py"
       ],
@@ -1907,6 +1950,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/derivacao_forward.py",
         "coleta/executor_texto_de_pdf.py",
         "guarda/memoria_descartavel.py",
         "guarda/portas_live.py"
@@ -1980,10 +2024,10 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 100,
-    "pontos_de_entrada": 82,
+    "ficheiros_de_codigo": 102,
+    "pontos_de_entrada": 84,
     "executores_que_saem_para_fora": 21,
-    "sem_chamador_e_fora_do_ci": 46,
+    "sem_chamador_e_fora_do_ci": 45,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 66,
     "deitam_fora_alguma_coisa": 23,
@@ -2025,6 +2069,7 @@
       "coleta/corpus_pesquisador.py",
       "coleta/cruzar_regua_rotulo.py",
       "coleta/denominaciones.py",
+      "coleta/derivacao_forward.py",
       "coleta/eppo_gd.py",
       "coleta/es/corpus_es.py",
       "coleta/eu_substancia_adama_it.py",
@@ -2045,6 +2090,7 @@
       "coleta/preservar_pdf.py",
       "coleta/regulatorio_importar.py",
       "coleta/ropf_pre_requisito.py",
+      "coleta/rota_forward_documento.py",
       "coleta/rotulos_baixar.py",
       "coleta/rotulos_ler.py",
       "coleta/sensor_canal_identidade.py",
@@ -2142,7 +2188,6 @@
       "regras/italy_scheduling_guards.mjs",
       "regras/rotulos_censo.py",
       "guarda/es/adama_es_gate.py",
-      "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",
       "guarda/portas_live.py",
       "guarda/sql_conferir.py"

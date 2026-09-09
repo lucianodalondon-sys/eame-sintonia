@@ -46,6 +46,7 @@ O QUE ELA NAO PROVA
 Nao prova producao: a `024` continua por aplicar, e nada aqui toca Supabase.
 Nao prova READY — a rota termina em ADMISSION, e terminar ai e a verdade.
 """
+import io
 import json
 import os
 import subprocess
@@ -79,6 +80,9 @@ MIGRATIONS = ['001', '002', '003', '004', '005', '006', '007', '009', '010',
               '020', '021', '022', '023', '024']
 
 MODELO = os.path.join(RAIZ, "system-map", "data", "estradas-it.model.json")
+# Onde a medicao desta corrida fica escrita, e o ledger que ela confere.
+OBSERVADO = os.path.join(RAIZ, "system-map", "data", "rota-m2.observada.json")
+LEDGER = os.path.join(RAIZ, "system-map", "data", "provas-de-execucao.json")
 CATALOGO = os.path.join(RAIZ, "candidatas", "ITALY-SOURCE-MASTER-V1.json")
 LOJA = "data/collection-store/italy"
 RELOGIO = "2026-09-08T02:00:00Z"
@@ -385,6 +389,66 @@ def main():
     caso("A8_as_duas_arestas_foram_OBSERVADAS_com_os_dois_topos",
          set(ARESTAS_DA_M2) <= visto["ARESTAS"],
          "arestas observadas: %s" % sorted(visto["ARESTAS"]))
+    # ── O LEDGER NAO PODE PROMETER MAIS DO QUE O BANCO MOSTROU ───────────
+    #
+    # `system-map/data/provas-de-execucao.json` e um ledger ESCRITO A MAO, e
+    # ele diz porque: correr todos os executores exigiria rede, API paga e
+    # producao. Para a maioria das linhas isso e honesto e continua a valer.
+    #
+    # Para ESTA rota, nao. Ela corre inteira num Postgres descartavel, com PDF
+    # local, sem rede e sem fatura — e e exactamente o que este ficheiro
+    # acabou de medir NO BANCO. Enquanto o ledger declarava
+    # `ETAPAS_OBSERVADAS`, `ARESTAS_OBSERVADAS` e `END_TO_END` como literais,
+    # `M2_ROUTE_OBSERVABILITY_READY` (censo_dos_executores.py:508) derivava de
+    # texto que ninguem confrontava com medicao nenhuma.
+    #
+    #     UM PORTAO QUE LE UM LITERAL MEDE A ESCRITA, NAO O SISTEMA.
+    #
+    # Entao a medicao passa a ser ESCRITA em disco, e o ledger passa a ser
+    # CONFERIDO contra ela: ele pode declarar MENOS do que se observou (uma
+    # linha conservadora e legitima), nunca MAIS. Quem editar o ledger para
+    # prometer uma etapa ou aresta que o banco nao mostrou faz esta prova
+    # reprovar.
+    io.open(OBSERVADO, "w", encoding="utf-8").write(json.dumps({
+        "SCHEMA": "rota-m2-observada/v1",
+        "O_QUE_ISTO_E": (
+            "O que o BANCO mostrou nesta corrida, escrito por quem mediu. "
+            "NAO e declaracao: e leitura de `etapa_da_corrida` depois de a "
+            "rota ter corrido. O ledger de provas-de-execucao.json e "
+            "conferido contra este ficheiro."),
+        "GERADO_POR": "provas/a_rota_m2_atravessa.py",
+        "SOURCE_ID": ROTA[0], "ROUTE_CLASS_ID": ROTA[1],
+        "ETAPAS_OBSERVADAS": sorted(visto["ETAPAS"]),
+        "ARESTAS_OBSERVADAS": sorted([list(a) for a in visto["ARESTAS"]]),
+        "ARESTAS_DECLARADAS_SEM_TOPO": sorted(
+            [list(a) for a in visto["ARESTAS_DECLARADAS_SEM_TOPO"]]),
+        "END_TO_END": True,
+        "RUN_UNICO": RUN,
+    }, ensure_ascii=False, indent=1) + "\n")
+
+    ledger_f = {}
+    try:
+        _L = json.loads(io.open(LEDGER, encoding="utf-8").read())
+        ledger_f = ((_L.get("PROVADOS") or {})
+                    .get("coleta/rota_forward_documento.py") or {}).get("FORWARD") or {}
+    except (OSError, ValueError):
+        ledger_f = {}
+    etapas_declaradas = set(ledger_f.get("ETAPAS_OBSERVADAS") or [])
+    arestas_declaradas = {tuple(a) for a in (ledger_f.get("ARESTAS_OBSERVADAS") or [])}
+    excesso_e = sorted(etapas_declaradas - visto["ETAPAS"])
+    excesso_a = sorted(arestas_declaradas - visto["ARESTAS"])
+    caso("A8b_o_ledger_nao_declara_etapa_que_o_banco_nao_mostrou",
+         not excesso_e,
+         "ledger %s <= banco %s" % (sorted(etapas_declaradas), sorted(visto["ETAPAS"]))
+         if not excesso_e else "o ledger promete e o banco nao mostra: %s" % excesso_e)
+    caso("A8c_o_ledger_nao_declara_aresta_que_o_banco_nao_mostrou",
+         not excesso_a,
+         "ledger %d aresta(s) <= banco %d" % (len(arestas_declaradas), len(visto["ARESTAS"]))
+         if not excesso_a else "o ledger promete e o banco nao mostra: %s" % excesso_a)
+    caso("A8d_e_o_END_TO_END_do_ledger_e_o_desta_corrida",
+         bool(ledger_f.get("END_TO_END")) is True,
+         "END_TO_END declarado e medido na mesma corrida (%s)" % RUN)
+
     # ⚠️ E O QUE SOBRA DE DECLARADO TEM DE SER EXATAMENTE O GAP JA CONHECIDO.
     #
     # Esta prova apanhou uma aresta a mais do que eu esperava — `RAW -> DERIVED`

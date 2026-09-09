@@ -2551,6 +2551,42 @@
    "views": [
     "audit"
    ]
+  },
+  {
+   "id": "C-PROVA-FRONTEIRA",
+   "name": "A medição da fronteira com a Inteligência",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊣",
+   "what": "Mede as QUATRO perguntas que a casa vinha achatando numa só: o contrato de saída está DECLARADO (COL-LAW-043, 11 campos), está IMPLEMENTADO (admissao.pronto_para_inteligencia devolve exactamente esses campos), é PRODUZIDO (por quem, e em runtime ou só em CLI/prova) e é CONSUMIDO (por ninguém). Guarda o que tem de ser verdade — lei e código declaram os mesmos campos, há UM dono, a porta recusa quem não passou — e RELATA, sem falhar, o que é buraco declarado.",
+   "why_here": "DECLARED != IMPLEMENTED != PRODUCED != CONSUMED. Três sítios desta árvore diziam coisas incompatíveis sobre o mesmo READY: a Bíblia dizia que era lei, o censo dos contratos dizia que já tinha consumidor, e o tuplo GAPS dizia que não tinha dono. Os dois últimos exageravam em direcções opostas, e ninguém tinha um medidor para os confrontar. Esta prova NÃO falha por não haver consumidor: fazê-la ficar verde inventando um seria a doença que ela veio diagnosticar.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/a_fronteira_da_coleta.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
+   "id": "C-PROVA-DEDUPE",
+   "name": "A prova de que o dedupe tem chave",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊗",
+   "what": "Confronta cada cláusula `on conflict` da árvore com a chave única que as migrations declaram para aquela tabela — total, parcial ou `nulls not distinct` — e separa num balde próprio as que não conseguiu ler, para que UNKNOWN nunca entre na conta do verde. Escreve no disco a forma partida conhecida e exige que o próprio medidor a apanhe.",
+   "why_here": "ON CONFLICT DO NOTHING SEM CONSTRAINT RELEVANTE != DEDUPLICAÇÃO. A cláusula é SQL válido, corre sem erro e não deduplica nada; quem lê o código vê a palavra `conflict` e acredita. Medido nesta casa duas vezes — três inserts iguais, três linhas, três identidades diferentes — e a segunda vez foi num ficheiro ao lado do que já tinha sido consertado. Um conserto num ficheiro não conserta a classe.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/o_dedupe_tem_constraint.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
