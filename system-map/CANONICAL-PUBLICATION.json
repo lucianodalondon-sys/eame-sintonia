@@ -121,5 +121,28 @@
     "METODO": "promocao explicita no painel da Vercel",
     "ROLLBACK_TARGET": "dpl_3MQEgpUsrc7d8VvSL47gQRU74HKA",
     "REGRESSOES": "0 — /, /accesso e /portale byte a byte iguais ao candidato provado"
-  }
+  },
+  "O_QUE_O_PORTAO_DO_RELEASE_NAO_PODE_SER": [
+    "A primeira versao deste portao corria `validate_system_map.py` sem regenerar",
+    "antes. Reprovava — e reprovaria TODO merge, para sempre.",
+    "",
+    "O motivo nao e um bug meu: o mapa grava o HEAD da arvore como facto de uma",
+    "peca, e o HEAD muda no proprio commit que grava o mapa. A copia commitada",
+    "nasce sempre um commit atras de si mesma. Medido tambem no head da linha do",
+    "System Map, antes desta missao: a mesma prova reprova la.",
+    "",
+    "    UM PORTAO QUE REPROVA SEMPRE NAO E RIGOR. E RUIDO, E DESLIGA-SE NUMA SEMANA.",
+    "",
+    "Por isso o portao regenera e depois valida — a mesma ordem de system-map.yml,",
+    "e a cadeia e LIDA de CADEIA-DO-MAPA.json, nunca reescrita:",
+    "",
+    "    DOIS SITIOS COM A LISTA DOS PASSOS SAO DUAS CADEIAS.",
+    "",
+    "FICA REGISTADO O QUE ISTO CUSTA, E NAO SE MAQUIA: regenerar antes de validar",
+    "faz com que P1_SEM_DRIFT nunca apanhe uma copia commitada desactualizada — os",
+    "ficheiros ja foram reescritos quando a comparacao corre. Quem apanha o desvio",
+    "e o artefacto de deploy, por impressao da arvore-fonte",
+    "(MAP_BELONGS_TO_DEPLOYED_TREE), que nao depende de ficheiro commitado nenhum.",
+    "Mudar isto e trabalho do dono do System Map, e nao desta missao."
+  ]
 }

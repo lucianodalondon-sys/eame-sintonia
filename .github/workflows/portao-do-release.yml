@@ -62,10 +62,34 @@ jobs:
         with: { fetch-depth: 1 }
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      # O mapa commitado tem de corresponder À ÁRVORE QUE VAI AO AR. Se não
-      # corresponder, o endereço passa a mostrar o retrato de outro sistema.
+      # REGENERAR ANTES DE VALIDAR, e pela cadeia lida de `CADEIA-DO-MAPA.json`
+      # — nunca por uma lista escrita aqui.
+      #
+      #     DOIS SITIOS COM A LISTA DOS PASSOS SAO DUAS CADEIAS.
+      #
+      # A ordem importa e não é burocracia. O mapa grava o HEAD da árvore como
+      # facto de uma peça, e o HEAD muda no próprio commit que grava o mapa —
+      # por isso a cópia commitada nasce sempre um commit atrás de si mesma.
+      # Validar sem regenerar reprovaria TODO merge, para sempre, por uma
+      # condição que nenhuma disciplina consegue satisfazer.
+      #
+      #     UM PORTAO QUE REPROVA SEMPRE NAO E RIGOR. E RUIDO, E DESLIGA-SE.
+      #
+      # É a mesma ordem de `system-map.yml`, de propósito: este portão faz a
+      # mesma pergunta que o SYSTEM MAP CHECK, e duas respostas diferentes para
+      # a mesma pergunta seriam duas leis.
       - name: o mapa corresponde a esta arvore
-        run: python3 system-map/scripts/validate_system_map.py
+        run: |
+          python3 - <<'EOF' > /tmp/cadeia.txt
+          import json
+          c = json.load(open('system-map/scripts/CADEIA-DO-MAPA.json', encoding='utf-8'))
+          print('\n'.join(c['REGERAR'] + c['VALIDAR']))
+          EOF
+          while read -r passo; do
+            [ -n "$passo" ] || continue
+            echo "· $passo"
+            python3 "$passo"
+          done < /tmp/cadeia.txt
 
   portal:
     name: RELEASE · PORTAL REGRESSION CHECK

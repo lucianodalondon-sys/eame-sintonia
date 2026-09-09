@@ -1808,9 +1808,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-url-v1",
-    "HEAD": "e27cf96b62e3358e305e10edcf4c7d818d9c47de",
-    "GENERATED_AT": "2026-09-09T03:56:24+00:00",
-    "SOURCE_TREE_FINGERPRINT": "83913f86268de09e2a5533b9dd3a627f741efb2b69f5f514a7396145f08c6b72"
+    "HEAD": "e83e919f05fe1cf75200142521c6200212018263",
+    "GENERATED_AT": "2026-09-09T03:57:35+00:00",
+    "SOURCE_TREE_FINGERPRINT": "97b34e262ee796cdc0d2615a15ee69cc74a452fdbad549b53de73ab0e504bffa"
   },
   "FAMILIES": [
     {
@@ -6780,13 +6780,13 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "workflow que nao chama nenhum script deste repositorio.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
-      "outbound": [
-        "C-MAPA-VALIDADOR"
+      "inbound": [
+        "C-MAPA-DEPLOY"
       ],
+      "outbound": [],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -9742,6 +9742,7 @@
       ],
       "outbound": [
         "C-CI-MAPA",
+        "C-CI-RELEASE",
         "C-IMPRESSAO-DA-ARVORE",
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
@@ -10044,7 +10045,6 @@
       "produces": [],
       "inbound": [
         "C-CI-MAPA",
-        "C-CI-RELEASE",
         "C-MAPA-DEPLOY",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
@@ -15959,7 +15959,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-canonical-url-v1",
-        "HEAD e27cf96b62e3358e305e10edcf4c7d818d9c47de"
+        "HEAD e83e919f05fe1cf75200142521c6200212018263"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -19126,24 +19126,6 @@
         }
       ],
       "categoria": "PROOF"
-    },
-    {
-      "from": "C-CI-RELEASE",
-      "to": "C-MAPA-VALIDADOR",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O portao do release manda rodar Validador do System Map. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/portao-do-release.yml",
-          "line": 68,
-          "snippet": "run: python3 system-map/scripts/validate_system_map.py"
-        }
-      ],
-      "categoria": "CONTROL"
     },
     {
       "from": "C-CICATRIZES-BR",
@@ -22531,6 +22513,24 @@
           "file": ".github/workflows/system-map.yml",
           "line": 306,
           "snippet": "A=$(python3 -c \"import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-MAPA-DEPLOY",
+      "to": "C-CI-RELEASE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Publicador do System Map no deploy alimenta O portao do release. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/portao-do-release.yml",
+          "line": 85,
+          "snippet": "c = json.load(open('system-map/scripts/CADEIA-DO-MAPA.json', encoding='utf-8'))"
         }
       ],
       "categoria": "READ"
