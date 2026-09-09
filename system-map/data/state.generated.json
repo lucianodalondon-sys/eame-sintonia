@@ -1834,9 +1834,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/security-s2-topology-reconcile-v1",
-    "HEAD": "8625b1cb1807431423062310eb9d356d0e9fb6e6",
-    "GENERATED_AT": "2026-09-09T11:09:58+00:00",
-    "SOURCE_TREE_FINGERPRINT": "162dd8adf997582fe70c7e8c5d45746a8743f8dca5bc1e95b3ecd135bcbbb7a9"
+    "HEAD": "150ac3218fe77e47876c47219b5a516e7d959342",
+    "GENERATED_AT": "2026-09-09T12:16:11+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b39678a78eb6441aeaa90501d8847f26b5167705e94f08074c6304ca6e29ec94"
   },
   "FAMILIES": [
     {
@@ -12745,6 +12745,7 @@
         "C-PACOTE-CAMADAS",
         "C-PORTAL-DADOS",
         "C-ROTULOS",
+        "C-SECURITY-CHECK",
         "C-TESTES",
         "C-V21-CRUZAMENTO"
       ],
@@ -13352,10 +13353,11 @@
       ],
       "file_count": 10,
       "status": "PENDING",
-      "status_reason": "portao que ninguem chama.",
+      "status_reason": "importa coisas, mas ninguem o chama — portao fora do caminho nao guarda nada.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-RELEVANCIA",
         "C-SCRAP-GUARDA",
         "C-TESTES"
       ],
@@ -26206,6 +26208,24 @@
     },
     {
       "from": "C-RELEVANCIA",
+      "to": "C-SECURITY-CHECK",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua de relevancia ADAMA tem o seu codigo importado por O portao de seguranca. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "security/ratchet.py",
+          "line": 202,
+          "snippet": "from adama_relevance import CONTRATO"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RELEVANCIA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -26570,7 +26590,7 @@
       "evidence": [
         {
           "file": "security/ratchet.py",
-          "line": 218,
+          "line": 276,
           "snippet": "delegar(\"git-secrets (guarda/social_guarda.py)\", [sys.executable, \"guarda/social_guarda.py\"]),"
         }
       ],
@@ -29558,8 +29578,8 @@
     "components_pending": 90,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 587,
-    "edges_proven": 585,
+    "edges": 588,
+    "edges_proven": 586,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1386,

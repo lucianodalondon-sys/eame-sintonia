@@ -178,6 +178,63 @@ def checar_projeccao():
     return out, sum(len(d.get("nao_lidos", [])) for d in m["pacotes"].values())
 
 
+# ══ 2c. O TEXTO DA LEI NAO VIAJA ══════════════════════════════════════════
+# ⚠️ ESTE PORTAO NASCEU DE UM ATAQUE QUE PASSOU.
+# A S2A tirou as nove clausulas escritas da lei de relevancia do que e servido
+# ao browser. Na reconciliacao pos-se o texto de volta, de proposito, para ver
+# o ratchet reprovar — e ele PASSOU. `checar_projeccao` so ve campos que
+# aparecem DUAS ou mais vezes no pacote, para nao contar identificadores; e
+# `LEGGE` aparece uma vez so, no topo. A trava do campo novo nunca foi uma
+# trava do texto da lei.
+#
+#     UM PORTAO QUE NAO REPROVA O ATAQUE QUE O ORIGINOU NAO E UM PORTAO.
+#
+# Este mede outra coisa: as FRASES da lei, lidas do dono
+# (`leis/adama_relevance.py`), procuradas nos bytes servidos. Nao e heuristica
+# de nome de campo — e o texto em si.
+#
+#     O CLIENTE PRECISA DA RESPOSTA. NAO PRECISA DA RECEITA.
+#     PROVENIENCIA NAO EXIGE DIVULGACAO.
+def checar_lei_publicada():
+    import sys as _sys
+    _sys.path.insert(0, str(RAIZ / "leis"))
+    try:
+        from adama_relevance import CONTRATO
+    except ImportError:
+        return [], 0                      # sem dono nao se inventa veredito
+
+    # So as frases longas: uma palavra solta ou um rotulo curto aparece em
+    # qualquer sitio e daria falso positivo. Sessenta caracteres e uma FRASE.
+    frases = []
+    def colher(v):
+        if isinstance(v, str) and len(v) >= 60:
+            frases.append(v)
+        elif isinstance(v, dict):
+            [colher(x) for x in v.values()]
+        elif isinstance(v, (list, tuple)):
+            [colher(x) for x in v]
+    colher(CONTRATO)
+
+    pub = superficie(RAIZ)["ficheiros"]
+    out = []
+    for rel in pub:
+        f = RAIZ / rel
+        if f.suffix not in (".js", ".json", ".html") or not f.is_file():
+            continue
+        try:
+            texto = f.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        for frase in frases:
+            if frase in texto:
+                out.append(achado("RELEVANCE_LAW_TEXT_PUBLIC", rel, frase[:40] + "…",
+                                  "o texto da lei de relevancia esta a ser servido ao "
+                                  "browser; o veredito basta, e LEGGE_SHA256 prova qual "
+                                  "lei o produziu"))
+                break
+    return out, len(frases)
+
+
 # ══ 3. MIGRATIONS ═════════════════════════════════════════════════════════
 def checar_migrations():
     d = RAIZ / "supabase" / "migrations"
@@ -210,7 +267,8 @@ def main():
     sup_ach, sup = checar_superficie()
     mig_ach, n_tab = checar_migrations()
     proj_ach, n_proj = checar_projeccao()
-    achados += sup_ach + mig_ach + proj_ach
+    lei_ach, n_frases = checar_lei_publicada()
+    achados += sup_ach + mig_ach + proj_ach + lei_ach
 
     # As delegacoes so correm na arvore real: nas provas nao existem donos a chamar.
     delegacoes = [] if os.environ.get("SINTONIA_RATCHET_RAIZ") else [
@@ -243,6 +301,7 @@ def main():
 
     print(f"workflows {n_wf} · tabelas nas migrations {n_tab} · ficheiros publicados {len(sup['ficheiros'])}")
     print(f"campos servidos e nao lidos (divida conhecida): {n_proj}")
+    print(f"frases da lei de relevancia procuradas no que e servido: {n_frases}")
     print(f"divida herdada (visivel, nao bloqueia): {herdados}")
     for d in delegacoes:
         print(f"  [{'ok' if d['ok'] else 'FALHA'}] {d['nome']}")

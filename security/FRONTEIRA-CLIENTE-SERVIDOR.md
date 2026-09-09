@@ -260,3 +260,79 @@ o proxy de leitura para a frescura do System Map antes de virar a chave.
 4. **Proxy de leitura do GitHub** — a pre-condicao do repositorio privado.
 
 E so entao o repositorio privado, que fecha a segunda pergunta.
+
+---
+
+# APÊNDICE · S2A-R — os números remedidos na árvore reconciliada
+
+Este documento nasceu na linha de segurança, que partiu de uma árvore anterior
+às duas missões de topologia. **Os números acima são os de lá.** A missão S2A-R
+juntou as duas linhas, e cada número foi medido outra vez aqui — nenhum foi
+herdado.
+
+```
+                                       S2A (árvore antiga)   S2A-R (reconciliada)
+CAMPOS PUBLICADOS                              —                 1946 -> 1935
+TRANSPORTADOS E NUNCA LIDOS                  585                  586 ->  585
+BYTES DO CORPUS PÚBLICO (.js)                  —          21.442.219 -> 21.437.624
+LEGGE — texto integral servido                 —                    1 ->     0
+LEGGE_SHA256                                   —                 presente
+LEGGE_CLAUSULAS                                —                        9
+VERDETTI                                       —              43 casos, idênticos
+VERDICT_DIFFERENCES                            —                        0
+FICHEIROS PUBLICADOS                          87                       87
+BYTES PUBLICADOS                        30,4 MB                30.430.652
+UNKNOWN na classificação do cliente            0                        0
+```
+
+**O 585 continua 585, e isso é uma medição, não uma cópia.** A topologia não
+mexeu na superfície servida ao browser; o que a S2A tirou foi o texto da lei, e
+isso vale 11 campos publicados e 4.595 bytes.
+
+## O ataque que passou, e o portão que nasceu dele
+
+A reconciliação repôs o texto integral da lei no payload, de propósito, para ver
+o ratchet reprovar.
+
+**Ele passou.**
+
+`checar_projeccao` só olha para campos que aparecem **duas ou mais vezes** no
+pacote — uma regra certa, que existe para não contar identificadores. Mas
+`LEGGE` aparece **uma vez só**, no topo. A trava do campo novo nunca foi uma
+trava do texto da lei.
+
+```
+UM PORTÃO QUE NÃO REPROVA O ATAQUE QUE O ORIGINOU NÃO É UM PORTÃO.
+```
+
+Entra `RELEVANCE_LAW_TEXT_PUBLIC`: lê as frases da lei no dono
+(`leis/adama_relevance.py`), procura-as nos bytes que o deploy serve, e reprova
+se alguma aparecer. Não é heurística de nome de campo — é o texto em si. Só
+frases de 60 caracteres ou mais entram, porque um rótulo curto aparece em
+qualquer sítio e daria falso positivo. **Cinco frases** vigiadas hoje.
+
+Repetido o ataque com o portão novo:
+
+```
+RELEVANCE_LAW_TEXT_PUBLIC
+  ficheiro : italia-portale/client/adama-relevance.js
+  marcador : todo caso promovido como inteligencia re…
+RATCHET = FALHA
+```
+
+## O motor, remedido — e o número não é zero
+
+```
+SCORE_FUNCTIONS_PUBLIC          1     portale.html:2875
+WEIGHTS_PUBLIC                  0
+THRESHOLDS_PUBLIC               0
+CLASSIFICATION_ARITHMETIC_PUBLIC 0
+```
+
+A única função é `const score = (r) => (anyWord(r.issueHay) ? 3 : 0) + …` — um
+**ordenador de busca por texto**: decide qual linha já calculada mostrar primeiro
+quando alguém escreve na caixa de pesquisa. Não usa pesos da lei, não produz
+classe e não altera veredito nenhum.
+
+`ENGINE_CODE_IN_BROWSER = 0` continua verdadeiro para o motor de relevância. E
+**não foi criado backend nenhum** para o dizer: `MORE SERVICES != MORE SECURITY`.

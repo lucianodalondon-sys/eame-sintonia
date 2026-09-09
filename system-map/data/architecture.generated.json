@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/security-s2-topology-reconcile-v1",
-    "HEAD": "8625b1cb1807431423062310eb9d356d0e9fb6e6",
-    "GENERATED_AT": "2026-09-09T11:09:58+00:00",
-    "SOURCE_TREE_FINGERPRINT": "162dd8adf997582fe70c7e8c5d45746a8743f8dca5bc1e95b3ecd135bcbbb7a9"
+    "HEAD": "150ac3218fe77e47876c47219b5a516e7d959342",
+    "GENERATED_AT": "2026-09-09T12:16:11+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b39678a78eb6441aeaa90501d8847f26b5167705e94f08074c6304ca6e29ec94"
   },
   "FILES": [
     {
@@ -8361,7 +8361,7 @@
     },
     {
       "path": "security/FRONTEIRA-CLIENTE-SERVIDOR.md",
-      "sha": "5e33c52984ebad0924e0f6971a4f0b5a27a8f1e7",
+      "sha": "63ead1e944354c275060bdb2e4bb1136c8ac07a9",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8445,7 +8445,7 @@
     },
     {
       "path": "security/ratchet.py",
-      "sha": "ec4c3a085c5f14868e861c10b01607b7d7b9e59c",
+      "sha": "56cb3fc5e456215e6289ee5a9dc2606d0a0b6457",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -25955,8 +25955,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "security/ratchet.py",
-        "line": 218,
+        "line": 276,
         "snippet": "delegar(\"git-secrets (guarda/social_guarda.py)\", [sys.executable, \"guarda/social_guarda.py\"]),"
+      }
+    },
+    {
+      "from_file": "security/ratchet.py",
+      "to_file": "leis/adama_relevance.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "security/ratchet.py",
+        "line": 202,
+        "snippet": "from adama_relevance import CONTRATO"
       }
     },
     {
@@ -25988,7 +25999,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "security/ratchet.py",
-        "line": 222,
+        "line": 280,
         "snippet": "BASELINE.write_text(json.dumps({"
       }
     },
@@ -26010,7 +26021,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "security/ratchet.py",
-        "line": 217,
+        "line": 275,
         "snippet": "delegar(\"baseline-schema\", [sys.executable, \"security/validate-baseline.py\"]),"
       }
     },
@@ -33421,7 +33432,7 @@
     "files_tracked": 1386,
     "files_readable": 521,
     "files_code_dir": 568,
-    "file_edges": 2114,
+    "file_edges": 2115,
     "escritas_em_pasta": 66,
     "declared_missing_here": 0
   },
