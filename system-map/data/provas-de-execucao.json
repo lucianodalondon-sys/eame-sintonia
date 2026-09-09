@@ -162,6 +162,22 @@
      "ONDE_DEVIA_ESTAR": "sem dono hoje",
      "MEDIDO": "o schema (002) aceita 9 tipos; o catalogo fala 12 OWNER_KIND, e NENHUM coincide. A prova da M2 escreve `orgao_publico` para `OFFICIAL_REGIONAL_AGENCY` por escolha de quem a escreveu.",
      "PORQUE_IMPORTA": "mesmo depois de a fonte ser promovida, ninguem sabe materializar a especie da organizacao sem alguem decidir a traducao. UMA TRADUCAO QUE NINGUEM DECLAROU E UMA DECISAO QUE NINGUEM ASSINOU."
+    },
+    {
+     "N": 4,
+     "FALTA": "desempate entre DOIS sitios que ja declaram dono para a mesma fonte",
+     "ONDE_DEVIA_ESTAR": "sem dono hoje",
+     "MEDIDO": "candidatas/ITALY-SOURCE-MASTER-V1.json diz OWNER_ID=IT-OWN-003; regras/italy_contracts.mjs (contrato de ACESSO, que traz OWNER_ID para 13 fontes) diz OWNER_ID=IT-OWN-ARPAV. Os dois nao concordam, e nada no repositorio diz qual vence.",
+     "PORQUE_IMPORTA": "AMBIGUOUS != FIRST MATCH. Isto nao enfraquece o veredito UNRESOLVED — endurece-o: mesmo quem decidisse admitir um catalogo nao promovido teria de escolher QUAL dos dois, e escolher sem contrato e inventar identidade.",
+     "CASO": "AU9a / AU9b em provas/a_autoridade_da_fonte.py"
+    },
+    {
+     "N": 5,
+     "FALTA": "um escritor de identidade em runtime",
+     "ONDE_DEVIA_ESTAR": "alguma gaveta de runtime — coleta/, guarda/, admissao/, leis/, medidas/, regras/, orquestrador/, ferramentas/, fontes/, pedido/, pacote/",
+     "MEDIDO": "zero. Os unicos `insert into public.organizacao|pessoa|origem|canal` do repositorio estao em ensaios SQL, provas e fixtures de teste.",
+     "PORQUE_IMPORTA": "TEST FIXTURE RESOLVES PRECONDITION != FORWARD IDENTITY OWNER EXISTS. Mesmo que a autoridade fosse declarada amanha, nao ha hoje quem a materialize no banco: a fixtura da prova da M2 resolve a pre-condicao dela propria e nada mais.",
+     "CASO": "AU10 em provas/a_autoridade_da_fonte.py"
     }
    ],
    "ONDE_A_RELACAO_VIVE_HOJE": "candidatas/ITALY-SOURCE-MASTER-V1.json — que se declara «aditivo e nao altera o placar», e cuja ficha desta fonte diz status=NEW, verdict=NAO SEI",

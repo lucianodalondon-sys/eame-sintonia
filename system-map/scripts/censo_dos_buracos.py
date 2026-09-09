@@ -88,6 +88,37 @@ def dos_tuplos() -> list[dict]:
     return achados
 
 
+def _faltas(gap: dict) -> list[dict]:
+    """As FALTAS medidas dentro de um buraco — as razoes de ele estar aberto.
+
+    ⚠️ ELAS NAO SAO CINCO BURACOS. Sao as cinco coisas que faltam para UM
+    buracos fechar, e achatar as duas coisas no mesmo nivel faria a tela dizer
+    treze onde ha oito.
+
+        A RAZAO DE UM BURACO ESTAR ABERTO NAO E OUTRO BURACO.
+
+    Reconhecem-se pela forma, como tudo aqui: um dicionario que diz o que FALTA.
+    O delta `1c99a48b` acrescentou a quarta e a quinta a `MISSING_AUTHORITY` de
+    `CHANNEL_IDENTITY_NOT_RESOLVED`, e este censo passa a DERIVA-LAS de onde
+    elas ja vivem — copia-las para aqui seria o quarto registo, e a partir dai
+    nenhum dos outros valeria.
+    """
+    saida = []
+    for _chave, valor in gap.items():
+        if not isinstance(valor, list):
+            continue
+        for item in valor:
+            if isinstance(item, dict) and "FALTA" in item:
+                saida.append({
+                    "N": item.get("N"),
+                    "FALTA": item.get("FALTA", ""),
+                    "ONDE_DEVIA_ESTAR": item.get("ONDE_DEVIA_ESTAR"),
+                    "MEDIDO": item.get("MEDIDO", ""),
+                    "CASO": item.get("CASO"),
+                })
+    return sorted(saida, key=lambda f: (f["N"] is None, f["N"]))
+
+
 def das_provas() -> list[dict]:
     """Os buracos dentro de `provas-de-execucao.json`.
 
@@ -121,6 +152,7 @@ def das_provas() -> list[dict]:
                         "FORMA": f"chave em {caminho or '(raiz)'}",
                         "O_QUE_FALTA": v.get("O_QUE_FALTA", ""),
                         "ESTADO": v.get("ESTADO"),
+                        "FALTAS": _faltas(v),
                     })
                 elif isinstance(v, str) and "GAP" in k.upper():
                     achados.append({
@@ -154,14 +186,19 @@ def main() -> int:
                        "MEDIDO_POR": "censo_dos_buracos.py"},
         "COUNTS": {"buracos": len(achados), "nomes_distintos": len(nomes),
                    "em_codigo": sum(1 for a in achados if a["ONDE"].endswith(".py")),
-                   "em_provas": sum(1 for a in achados if a["ONDE"].endswith(".json"))},
+                   "em_provas": sum(1 for a in achados if a["ONDE"].endswith(".json")),
+                   # As FALTAS contam-se a parte dos buracos, de proposito: elas
+                   # sao as razoes de um buraco estar aberto, e somar as duas
+                   # coisas daria um numero que nao e nenhuma das duas.
+                   "faltas_medidas": sum(len(a.get("FALTAS") or []) for a in achados)},
         "NOMES": nomes,
         "BURACOS": achados,
     }
     SAIDA.write_text(json.dumps(dados, ensure_ascii=False, indent=2) + "\n",
                      encoding="utf-8")
     print(f"BURACOS=OK · {len(achados)} declarado(s) · {len(nomes)} nome(s) · "
-          f"codigo={dados['COUNTS']['em_codigo']} provas={dados['COUNTS']['em_provas']}")
+          f"codigo={dados['COUNTS']['em_codigo']} provas={dados['COUNTS']['em_provas']}"
+          f" · faltas medidas dentro deles={dados['COUNTS']['faltas_medidas']}")
     return 0
 
 

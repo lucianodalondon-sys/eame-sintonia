@@ -1103,12 +1103,28 @@ function blocoDosBuracos() {
   const linhas = lista.map(b => {
     const onde = esc(String(b.ONDE || '?')) + (b.LINHA ? `:${esc(String(b.LINHA))}` : '');
     const estado = b.ESTADO ? ` <b>${esc(String(b.ESTADO))}</b>` : '';
+    /* AS FALTAS ENTRAM ANINHADAS, e não ao lado dos buracos.
+       Elas são as RAZÕES de um buraco estar aberto — não são outros buracos.
+       Pô-las no mesmo nível faria a tela dizer treze onde há oito, e um número
+       inflado é uma mentira tão eficaz como um número escondido. */
+    const faltas = Array.isArray(b.FALTAS) ? b.FALTAS : [];
+    const dentro = faltas.length
+      ? `<ol class="faltas">${faltas.map(f =>
+        `<li><b>${esc(String(f.FALTA || '?'))}</b>`
+        + `<br><small>${esc(String(f.MEDIDO || '').slice(0, 260))}</small>`
+        + (f.CASO ? `<br><small>caso: ${esc(String(f.CASO))}</small>` : '')
+        + '</li>').join('')}</ol>`
+        + `<small>${esc(String(faltas.length))} falta(s) medida(s) — este buraco `
+        + 'só fecha quando todas fecharem.</small>'
+      : '';
     return `<li><code>${esc(String(b.NOME || '?'))}</code>${estado}`
       + `<br><small>${esc(String(b.O_QUE_FALTA || '').slice(0, 320))}</small>`
-      + `<br><small>declarado em ${onde}</small></li>`;
+      + `<br><small>declarado em ${onde}</small>${dentro}</li>`;
   }).join('');
   const c = B.COUNTS || {};
-  return cabeca(`${esc(String(c.buracos ?? lista.length))} declarado(s) — `
+  const nf = c.faltas_medidas;
+  return cabeca(`${esc(String(c.buracos ?? lista.length))} declarado(s)`
+    + (nf ? `, com ${esc(String(nf))} falta(s) medida(s) dentro deles` : '') + ` — `
     + `${esc(String(c.em_codigo ?? '?'))} no código, `
     + `${esc(String(c.em_provas ?? '?'))} nas provas. Fechar um é apagar a `
     + `declaração dele; este bloco é derivado, nunca escrito à mão.`

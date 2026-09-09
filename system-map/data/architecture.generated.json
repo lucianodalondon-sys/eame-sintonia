@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-freshness-v1",
-    "HEAD": "a87f32fd01b38f56d8dd513f1e01e4efc77bd178",
-    "GENERATED_AT": "2026-09-09T01:33:52+00:00",
-    "SOURCE_TREE_FINGERPRINT": "76b47dd3cfb418ab8dec902858ce8c263312f74ef73e11b49fbcf620df3c8a10"
+    "HEAD": "44532540e3d668ef51eb05cc8232caf544bd0162",
+    "GENERATED_AT": "2026-09-09T01:35:56+00:00",
+    "SOURCE_TREE_FINGERPRINT": "42abff844d633515e757af1b7e5e2de91c993b3f307133c48469b322de6ff61c"
   },
   "FILES": [
     {
@@ -7444,7 +7444,7 @@
     },
     {
       "path": "provas/a_autoridade_da_fonte.py",
-      "sha": "7a2600be0223586a52b6088c6c91603392dc5e17",
+      "sha": "aa11f517fadfb314e5bb294f0e824507eecec868",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8641,14 +8641,14 @@
     },
     {
       "path": "system-map/app/map.css",
-      "sha": "218f03e41ffc76e0c8fe0f1a44d53fc3a1d8f9dd",
+      "sha": "77fe7180ce4dd29c96dc19dfd4e760bcacc96c66",
       "ext": ".css",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "dd3c9438734e9876cb90682a12f5c0766950949d",
+      "sha": "74e5c60de9531c64ae5fe9f34f1b5aad3d1d2fe4",
       "ext": ".js",
       "readable": true,
       "code_dir": true
@@ -8676,7 +8676,7 @@
     },
     {
       "path": "system-map/data/provas-de-execucao.json",
-      "sha": "95fab691385a41713f96c92cb62e9e439be555ba",
+      "sha": "24b2389839918ca4e8181ecdf3e45bf3ef0b1868",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8746,7 +8746,7 @@
     },
     {
       "path": "system-map/scripts/censo_dos_buracos.py",
-      "sha": "c80e7ef9ace8ce1cd9654318ea98078094df8f10",
+      "sha": "416f564b7757a87f290a30d9a50039263ab7d180",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9180,7 +9180,7 @@
     },
     {
       "path": "tests/test_m2_rota_forward.py",
-      "sha": "7d50cd755b591cd1914ad10fd637365d6bbeafc0",
+      "sha": "f203b80b90046172e75a2af523996456bd26a96b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9355,7 +9355,7 @@
     },
     {
       "path": "tests/test_social_persistencia_pg.py",
-      "sha": "0e0bb928f503dce7364406f04bbdc7ff3b263400",
+      "sha": "81620bfc135343ba2d0ccdd1cb25c699f4ceb839",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23998,7 +23998,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 53,
+        "line": 55,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -24009,7 +24009,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 59,
+        "line": 61,
         "snippet": "CANDIDATO = os.path.join(RAIZ, \"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")"
       }
     },
@@ -24020,7 +24020,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 56,
+        "line": 58,
         "snippet": "ATLAS = os.path.join(RAIZ, \"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")"
       }
     },
@@ -24031,7 +24031,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 57,
+        "line": 59,
         "snippet": "CONTRATOS = os.path.join(RAIZ, \"docs\", \"operacao\", \"CONTRATOS-DAS-FONTES-EAME.md\")"
       }
     },
@@ -24042,8 +24042,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 261,
+        "line": 334,
         "snippet": "\"preservar_coleta_no_postgres.py\"))"
+      }
+    },
+    {
+      "from_file": "provas/a_autoridade_da_fonte.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_autoridade_da_fonte.py",
+        "line": 81,
+        "snippet": "open(caminho, 'leitura')  # caminho = regras/italy_contracts.mjs"
       }
     },
     {
@@ -24053,7 +24064,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 61,
+        "line": 63,
         "snippet": "\"002_identidade_pessoa_org_canal.sql\")"
       }
     },
@@ -29377,7 +29388,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 399,
+        "line": 424,
         "snippet": "import derivacao_forward as fwd"
       }
     },
@@ -29410,7 +29421,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 618,
+        "line": 643,
         "snippet": "r = led['PROVADOS']['coleta/rota_forward_documento.py']"
       }
     },
@@ -29476,7 +29487,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 616,
+        "line": 641,
         "snippet": "'provas-de-execucao.json'),"
       }
     },
@@ -32677,7 +32688,7 @@
     "files_tracked": 1350,
     "files_readable": 504,
     "files_code_dir": 557,
-    "file_edges": 2068,
+    "file_edges": 2069,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

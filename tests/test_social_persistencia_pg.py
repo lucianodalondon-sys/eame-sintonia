@@ -45,6 +45,35 @@ class BaseComCadeia(unittest.TestCase):
     def setUpClass(cls):
         cls.banco = cc.Banco(DSN)
 
+    @classmethod
+    def tearDownClass(cls):
+        """⚠️ LIMPAR AO ENTRAR NAO E LIMPAR AO SAIR.
+
+        Esta suite montava a cadeia de identidade no `setUp` e nunca a desfazia.
+        Quem corresse a seguir encontrava `organizacao`, `origem` e `canal` que
+        nao eram seus — e `provas/a_autoridade_da_fonte.py` (AU8), que mede que
+        MEDIR a autoridade nao escreve identidade nenhuma, dava FAIL por lixo
+        alheio.
+
+            TEST PASSES ALONE != TEST IS SAFE.
+
+        A ordem e a das dependencias, e nao a alfabetica.
+        """
+        for sql in (
+            "delete from public.comentario",
+            "delete from public.conteudo_visto_em",
+            "delete from public.conteudo",
+            "delete from public.checkpoint_coleta",
+            "delete from public.canal where channel_id = '%s'" % cls.CANAL,
+            "delete from public.origem where rotulo = 'ORIGEM-DE-TESTE'",
+            "delete from public.organizacao where nome_canonico = 'ORG-DE-TESTE'",
+            "delete from public.collection_run where run_id like 'RUN-%'",
+        ):
+            try:
+                cls.banco.executa(sql)
+            except Exception:                                # noqa: BLE001
+                pass
+
     def setUp(self):
         b = self.banco
         b.executa("delete from public.comentario")

@@ -8,14 +8,15 @@
     "isso que este ficheiro nao e um registo."
   ],
   "PROVENANCE": {
-    "HEAD": "a87f32fd01b38f56d8dd513f1e01e4efc77bd178",
+    "HEAD": "44532540e3d668ef51eb05cc8232caf544bd0162",
     "MEDIDO_POR": "censo_dos_buracos.py"
   },
   "COUNTS": {
     "buracos": 8,
     "nomes_distintos": 8,
     "em_codigo": 5,
-    "em_provas": 3
+    "em_provas": 3,
+    "faltas_medidas": 5
   },
   "NOMES": [
     "ADMISSION_SEM_DONO_LIGADO",
@@ -41,7 +42,44 @@
       "LINHA": null,
       "FORMA": "chave em GAPS_DE_IDENTIDADE",
       "O_QUE_FALTA": "AUTORIDADE, e nao verdade. ARPAV publica mesmo aquele boletim; o que nao existe e quem tenha autoridade canonica para o AFIRMAR ao banco.",
-      "ESTADO": "OPEN"
+      "ESTADO": "OPEN",
+      "FALTAS": [
+        {
+          "N": 1,
+          "FALTA": "ficha no registo canonico",
+          "ONDE_DEVIA_ESTAR": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+          "MEDIDO": "IT-T2-002 nao aparece no atlas (0 ocorrencias). O atlas tem 42 fontes com ficha, e nenhuma delas e esta.",
+          "CASO": null
+        },
+        {
+          "N": 2,
+          "FALTA": "contrato canonico com OWNER declarado",
+          "ONDE_DEVIA_ESTAR": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+          "MEDIDO": "o contrato declara OWNER para 5 fontes — FR-T4-001, ES-T4-005, IT-T4-001, ES-T3-001, EU-T4-001 — e IT-T2-002 nao e uma delas.",
+          "CASO": null
+        },
+        {
+          "N": 3,
+          "FALTA": "traducao declarada de OWNER_KIND para organizacao.tipo",
+          "ONDE_DEVIA_ESTAR": "sem dono hoje",
+          "MEDIDO": "o schema (002) aceita 9 tipos; o catalogo fala 12 OWNER_KIND, e NENHUM coincide. A prova da M2 escreve `orgao_publico` para `OFFICIAL_REGIONAL_AGENCY` por escolha de quem a escreveu.",
+          "CASO": null
+        },
+        {
+          "N": 4,
+          "FALTA": "desempate entre DOIS sitios que ja declaram dono para a mesma fonte",
+          "ONDE_DEVIA_ESTAR": "sem dono hoje",
+          "MEDIDO": "candidatas/ITALY-SOURCE-MASTER-V1.json diz OWNER_ID=IT-OWN-003; regras/italy_contracts.mjs (contrato de ACESSO, que traz OWNER_ID para 13 fontes) diz OWNER_ID=IT-OWN-ARPAV. Os dois nao concordam, e nada no repositorio diz qual vence.",
+          "CASO": "AU9a / AU9b em provas/a_autoridade_da_fonte.py"
+        },
+        {
+          "N": 5,
+          "FALTA": "um escritor de identidade em runtime",
+          "ONDE_DEVIA_ESTAR": "alguma gaveta de runtime — coleta/, guarda/, admissao/, leis/, medidas/, regras/, orquestrador/, ferramentas/, fontes/, pedido/, pacote/",
+          "MEDIDO": "zero. Os unicos `insert into public.organizacao|pessoa|origem|canal` do repositorio estao em ensaios SQL, provas e fixtures de teste.",
+          "CASO": "AU10 em provas/a_autoridade_da_fonte.py"
+        }
+      ]
     },
     {
       "NOME": "GAP_DECLARADO",
