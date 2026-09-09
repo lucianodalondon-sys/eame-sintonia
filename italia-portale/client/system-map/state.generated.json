@@ -1791,8 +1791,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "04a7f62c87e3ce277ad582111ebc449793c7de97",
-    "GENERATED_AT": "2026-09-09T04:50:32+00:00"
+    "HEAD": "243cd25712bbc38108c26105bca7dfc46109deb9",
+    "GENERATED_AT": "2026-09-09T05:53:02+00:00"
   },
   "FAMILIES": [
     {
@@ -6608,6 +6608,7 @@
         "C-PROVA-FRONTEIRA",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-RECALL-PORTA-IT",
+        "C-RELATORIO-FLUXO",
         "C-TESTES"
       ],
       "paises": {},
@@ -6854,8 +6855,7 @@
       "produces": [],
       "inbound": [
         "C-APIFY-POOL",
-        "C-PROCEDENCIA",
-        "V-LINKEDIN"
+        "C-PROCEDENCIA"
       ],
       "outbound": [
         "C-COLETA-INSTAGRAM",
@@ -9686,11 +9686,12 @@
           "PAPEIS",
           "PAPEL_DO_VOCABULARIO",
           "RX_PAPEL",
-          "TRADUZ_PAIS"
+          "TRADUZ_PAIS",
+          "_NOMES_DE_CANAL"
         ],
-        "palavras": 139,
+        "palavras": 148,
         "por_lingua": {},
-        "sem_marca_de_lingua": 139,
+        "sem_marca_de_lingua": 148,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12152,10 +12153,11 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-CI-MAPA",
         "C-CONTRATO-TELEMETRIA",
         "C-IT-PRESERVAR"
       ],
@@ -12750,9 +12752,7 @@
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
         "C-SCRAP-ROTA",
-        "V-FACEBOOK",
         "V-HTTP",
-        "V-INSTAGRAM",
         "V-LINKEDIN",
         "V-YOUTUBE"
       ],
@@ -15296,17 +15296,16 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "A pagina publica da marca, ainda viva em varios mercados agricolas. Hoje 2 acao(oes) da coleta passam por aqui.",
+      "what": "A pagina publica da marca, ainda viva em varios mercados agricolas. Hoje 1 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 17",
         "dessas, autorizadas a coletar: 10",
-        "acoes da coleta que passam por aqui: 2",
-        "prova: coleta/comunicacao_classificar.py:55",
-        "prova: coleta/social_persistencia.py:75"
+        "acoes da coleta que passam por aqui: 1",
+        "prova: coleta/comunicacao_coleta.py:85"
       ],
-      "status_reason": "2 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "1 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -15320,8 +15319,7 @@
         "C-AS-FONTES"
       ],
       "outbound": [
-        "C-COLETA-PUBLICA",
-        "C-SCRAP-SOCIAL"
+        "C-COLETA-PUBLICA"
       ],
       "file_count": 0,
       "o_que_recebe": {
@@ -15349,9 +15347,7 @@
           }
         }
       ],
-      "saem_daqui_sem_destino": [
-        "C-SCRAP-SOCIAL"
-      ],
+      "saem_daqui_sem_destino": [],
       "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
       "paises": {},
@@ -15600,19 +15596,18 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "A pagina publica: o que a marca publica para quem a segue. Hoje 4 acao(oes) da coleta passam por aqui.",
+      "what": "A pagina publica: o que a marca publica para quem a segue. Hoje 3 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 7",
         "dessas, autorizadas a coletar: 5",
-        "acoes da coleta que passam por aqui: 4",
-        "prova: coleta/comunicacao_classificar.py:55",
+        "acoes da coleta que passam por aqui: 3",
+        "prova: coleta/comunicacao_coleta.py:84",
         "prova: coleta/instagram_coleta.py:73",
-        "prova: coleta/speaker_identidade.py:171",
-        "prova: coleta/social_persistencia.py:59"
+        "prova: coleta/speaker_identidade.py:171"
       ],
-      "status_reason": "4 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "3 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -15629,8 +15624,7 @@
       "outbound": [
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
-        "C-CORPUS",
-        "C-SCRAP-SOCIAL"
+        "C-CORPUS"
       ],
       "file_count": 0,
       "o_que_recebe": {
@@ -15719,8 +15713,7 @@
         }
       ],
       "saem_daqui_sem_destino": [
-        "C-COLETA-INSTAGRAM",
-        "C-SCRAP-SOCIAL"
+        "C-COLETA-INSTAGRAM"
       ],
       "precisa_de_ferramenta": true,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
@@ -15747,19 +15740,18 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "A pagina de empresa e a das pessoas: contratacao, evento, anuncio. Hoje 4 acao(oes) da coleta passam por aqui.",
+      "what": "A pagina de empresa e a das pessoas: contratacao, evento, anuncio. Hoje 3 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 6",
         "dessas, autorizadas a coletar: 0",
-        "acoes da coleta que passam por aqui: 4",
-        "prova: coleta/comunicacao_classificar.py:55",
-        "prova: coleta/filas.py:93",
+        "acoes da coleta que passam por aqui: 3",
+        "prova: coleta/comunicacao_coleta.py:86",
         "prova: coleta/sensor_canal_identidade.py:186",
-        "prova: coleta/social_persistencia.py:74"
+        "prova: coleta/social_scrap.py:135"
       ],
-      "status_reason": "4 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "3 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -15773,7 +15765,6 @@
         "C-AS-FONTES"
       ],
       "outbound": [
-        "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
         "C-CORPUS",
         "C-SCRAP-SOCIAL"
@@ -15859,7 +15850,6 @@
         }
       ],
       "saem_daqui_sem_destino": [
-        "C-COLETA-BASE",
         "C-SCRAP-SOCIAL"
       ],
       "precisa_de_ferramenta": true,
@@ -15895,9 +15885,9 @@
         "dessas, autorizadas a coletar: 7",
         "acoes da coleta que passam por aqui: 4",
         "prova: coleta/youtube_janela.py:70",
-        "prova: coleta/comunicacao_classificar.py:55",
+        "prova: coleta/comunicacao_coleta.py:83",
         "prova: coleta/speaker_identidade.py:170",
-        "prova: coleta/social_persistencia.py:73"
+        "prova: coleta/social_rotas.py:298"
       ],
       "status_reason": "4 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
@@ -16662,9 +16652,9 @@
       "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
       "evidence": [
         {
-          "file": "coleta/comunicacao_classificar.py",
-          "line": 11,
-          "snippet": "Apify. É a mesma separação que o piloto de sensores já usa nesta casa."
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 57,
+          "snippet": "import apify_pool as ap        # noqa: E402  — dono único da rotação de chave"
         }
       ],
       "categoria": "CONTROL"
@@ -16679,9 +16669,9 @@
       "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
       "evidence": [
         {
-          "file": "coleta/comunicacao_classificar.py",
-          "line": 11,
-          "snippet": "Apify. É a mesma separação que o piloto de sensores já usa nesta casa."
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 57,
+          "snippet": "import apify_pool as ap        # noqa: E402  — dono único da rotação de chave"
         }
       ],
       "categoria": "CONTROL"
@@ -16696,9 +16686,9 @@
       "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
       "evidence": [
         {
-          "file": "coleta/comunicacao_classificar.py",
-          "line": 11,
-          "snippet": "Apify. É a mesma separação que o piloto de sensores já usa nesta casa."
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 57,
+          "snippet": "import apify_pool as ap        # noqa: E402  — dono único da rotação de chave"
         }
       ],
       "categoria": "CONTROL"
@@ -17052,7 +17042,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2610,
+          "line": 2687,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -18613,7 +18603,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 100,
+          "line": 111,
           "snippet": "python3 system-map/scripts/censo_do_armazem_it.py"
         }
       ],
@@ -18649,7 +18639,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 101,
+          "line": 112,
           "snippet": "python3 system-map/scripts/censo_do_congelamento.py"
         }
       ],
@@ -18667,7 +18657,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 102,
+          "line": 113,
           "snippet": "python3 system-map/scripts/censo_do_corpus_it.py"
         }
       ],
@@ -18685,7 +18675,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 97,
+          "line": 108,
           "snippet": "python3 system-map/scripts/censo_das_derivacoes.py"
         }
       ],
@@ -18703,7 +18693,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 103,
+          "line": 114,
           "snippet": "python3 system-map/scripts/censo_dos_donos.py"
         }
       ],
@@ -18721,7 +18711,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 104,
+          "line": 115,
           "snippet": "python3 system-map/scripts/censo_dos_executores.py"
         }
       ],
@@ -18739,7 +18729,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 99,
+          "line": 110,
           "snippet": "python3 system-map/scripts/censo_de_identidade_it.py"
         }
       ],
@@ -18757,7 +18747,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 96,
+          "line": 107,
           "snippet": "python3 system-map/scripts/censo_da_observabilidade.py"
         }
       ],
@@ -18775,7 +18765,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 105,
+          "line": 116,
           "snippet": "python3 system-map/scripts/censo_semantico_it.py"
         }
       ],
@@ -18793,7 +18783,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 113,
+          "line": 124,
           "snippet": "run: python3 system-map/scripts/censo_da_topologia.py"
         }
       ],
@@ -18811,7 +18801,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 98,
+          "line": 109,
           "snippet": "python3 system-map/scripts/censo_das_estradas_it.py"
         }
       ],
@@ -18829,7 +18819,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 201,
+          "line": 212,
           "snippet": "run: python3 provas/fluxo_no_seco.py"
         }
       ],
@@ -18847,7 +18837,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 107,
+          "line": 118,
           "snippet": "python3 system-map/scripts/generate_system_map.py"
         }
       ],
@@ -18898,7 +18888,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 127,
+          "line": 138,
           "snippet": "run: python3 system-map/tests/test_system_map.py"
         }
       ],
@@ -18916,7 +18906,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 121,
+          "line": 132,
           "snippet": "run: python3 system-map/scripts/validate_system_map.py"
         }
       ],
@@ -18934,7 +18924,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 124,
+          "line": 135,
           "snippet": "run: python3 medidas/padrao_da_coleta.py"
         }
       ],
@@ -18952,7 +18942,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 139,
+          "line": 150,
           "snippet": "run: python3 provas/valida_biblia.py"
         }
       ],
@@ -18970,17 +18960,17 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 133,
+          "line": 144,
           "snippet": "run: python3 provas/testa_coleta_canonica.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 198,
+          "line": 209,
           "snippet": "run: python3 provas/paridade_da_lingua.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 204,
+          "line": 215,
           "snippet": "run: python3 provas/testa_golden_path_pdf.py"
         }
       ],
@@ -18998,7 +18988,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 213,
+          "line": 224,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
         }
       ],
@@ -19016,7 +19006,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 224,
+          "line": 235,
           "snippet": "run: python3 provas/o_executor_conta_se.py"
         }
       ],
@@ -19034,7 +19024,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 227,
+          "line": 238,
           "snippet": "run: python3 provas/a_fronteira_da_coleta.py"
         }
       ],
@@ -19052,7 +19042,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 207,
+          "line": 218,
           "snippet": "run: python3 provas/o_mapa_nao_mente.py"
         }
       ],
@@ -19070,8 +19060,26 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 106,
+          "line": 117,
           "snippet": "python3 system-map/scripts/recall_da_porta_it.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-RELATORIO-FLUXO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar Relatório do fluxo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 106,
+          "snippet": "python3 system-map/scripts/relatorio_do_fluxo.py"
         }
       ],
       "categoria": "CONTROL"
@@ -19088,52 +19096,52 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 145,
+          "line": 156,
           "snippet": "python3 tests/test_biblia.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 146,
+          "line": 157,
           "snippet": "python3 tests/test_integracao_biblia.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 147,
+          "line": 158,
           "snippet": "python3 tests/test_observabilidade_estrada.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 148,
+          "line": 159,
           "snippet": "python3 tests/test_red_team_estrada.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 154,
+          "line": 165,
           "snippet": "run: python3 tests/test_identidade_do_artefato.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 160,
+          "line": 171,
           "snippet": "run: python3 tests/test_armazem_italiano.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 166,
+          "line": 177,
           "snippet": "run: python3 tests/test_preservar_coleta.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 173,
+          "line": 184,
           "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 179,
+          "line": 190,
           "snippet": "run: python3 tests/test_preservar_derivado.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 184,
+          "line": 195,
           "snippet": "run: python3 tests/test_porta_de_producao.py"
         }
       ],
@@ -21964,7 +21972,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2632,
+          "line": 2709,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -22736,17 +22744,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2833,
+          "line": 2910,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2833,
+          "line": 2910,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2834,
+          "line": 2911,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -22928,12 +22936,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3389,
+          "line": 3466,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3389,
+          "line": 3466,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -28056,26 +28064,9 @@
       "reason": "O que sai deste canal entra em «Colher o que o concorrente publica», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/comunicacao_classificar.py",
-          "line": 55,
-          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
-        }
-      ],
-      "categoria": "DATA"
-    },
-    {
-      "from": "V-FACEBOOK",
-      "to": "C-SCRAP-SOCIAL",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «Executor do SCRAP · a aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
-      "evidence": [
-        {
-          "file": "coleta/social_persistencia.py",
-          "line": 75,
-          "snippet": "'FACEBOOK': 'facebook', 'X': 'x', 'WEB': 'web',"
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 85,
+          "snippet": "'FACEBOOK': ('apify~facebook-posts-scraper', 'NAO_VERIFICADO'),"
         }
       ],
       "categoria": "DATA"
@@ -28209,9 +28200,9 @@
       "reason": "O que sai deste canal entra em «Colher o que o concorrente publica», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/comunicacao_classificar.py",
-          "line": 55,
-          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 84,
+          "snippet": "'INSTAGRAM': ('apify~instagram-scraper', 'NAO_VERIFICADO'),"
         }
       ],
       "categoria": "DATA"
@@ -28234,40 +28225,6 @@
       "categoria": "DATA"
     },
     {
-      "from": "V-INSTAGRAM",
-      "to": "C-SCRAP-SOCIAL",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «Executor do SCRAP · a aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
-      "evidence": [
-        {
-          "file": "coleta/social_persistencia.py",
-          "line": 59,
-          "snippet": "import instagram_pessoal as ip"
-        }
-      ],
-      "categoria": "DATA"
-    },
-    {
-      "from": "V-LINKEDIN",
-      "to": "C-COLETA-BASE",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «O motor de buscar», que e quem o chama e quem guarda o que ele devolve.",
-      "evidence": [
-        {
-          "file": "coleta/filas.py",
-          "line": 93,
-          "snippet": "origens = _ler('ES-VOICE-LINKEDIN.json')['ORIGINS']"
-        }
-      ],
-      "categoria": "DATA"
-    },
-    {
       "from": "V-LINKEDIN",
       "to": "C-COLETA-PUBLICA",
       "type": "VIAJA_POR",
@@ -28277,9 +28234,9 @@
       "reason": "O que sai deste canal entra em «Colher o que o concorrente publica», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/comunicacao_classificar.py",
-          "line": 55,
-          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 86,
+          "snippet": "'LINKEDIN': ('harvestapi~linkedin-post-search', 'JA_RODOU_NESTA_CASA'),"
         }
       ],
       "categoria": "DATA"
@@ -28311,9 +28268,9 @@
       "reason": "O que sai deste canal entra em «Executor do SCRAP · a aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/social_persistencia.py",
-          "line": 74,
-          "snippet": "'LINKEDIN': 'linkedin', 'TIKTOK': 'tiktok',"
+          "file": "coleta/social_scrap.py",
+          "line": 135,
+          "snippet": "('LINKEDIN', 'FETCH_POST', {}),"
         }
       ],
       "categoria": "DATA"
@@ -28328,9 +28285,9 @@
       "reason": "O que sai deste canal entra em «Colher o que o concorrente publica», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/comunicacao_classificar.py",
-          "line": 55,
-          "snippet": "PLATAFORMAS = ('YOUTUBE', 'INSTAGRAM', 'FACEBOOK', 'LINKEDIN')"
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 83,
+          "snippet": "'YOUTUBE': ('streamers~youtube-scraper', 'JA_RODOU_NESTA_CASA'),"
         }
       ],
       "categoria": "DATA"
@@ -28379,9 +28336,9 @@
       "reason": "O que sai deste canal entra em «Executor do SCRAP · a aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/social_persistencia.py",
-          "line": 73,
-          "snippet": "PLATAFORMA_NO_BANCO = {'YOUTUBE': 'youtube', 'INSTAGRAM': 'instagram',"
+          "file": "coleta/social_rotas.py",
+          "line": 298,
+          "snippet": "def youtube_buscar(*, termo, run_id, country_scope, limit=25, **_):"
         }
       ],
       "categoria": "DATA"
@@ -28506,8 +28463,8 @@
     "components_pending": 75,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 568,
-    "edges_proven": 566,
+    "edges": 566,
+    "edges_proven": 564,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1345,

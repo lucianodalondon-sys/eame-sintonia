@@ -93,6 +93,17 @@ jobs:
           # nao estava a apodrecer.
           #
           #     UM CENSO QUE NAO CORRE NAO E UM CENSO. E UMA FOTOGRAFIA.
+          # ⚠️ A ORDEM AQUI E UMA DEPENDENCIA, NAO ARRUMACAO.
+          # `relatorio_do_fluxo.py` ESCREVE `fluxo.generated.json` (linha 44,
+          # json.dump na 172) e `censo_da_observabilidade.py` LE-O nas linhas
+          # 54, 81 e 114 para decidir as dimensoes TRACE e PERFORMANCE.
+          # Ao ligar os onze censos, liguei o CONSUMIDOR e deixei o PRODUTOR
+          # de fora — o censo passaria a correr sempre sobre um ficheiro que
+          # ninguem refazia.
+          #
+          #     LIGAR QUEM LE E DEIXAR QUEM ESCREVE DE FORA
+          #     E TROCAR UM FICHEIRO PARADO POR UM NUMERO CONFIANTE.
+          python3 system-map/scripts/relatorio_do_fluxo.py
           python3 system-map/scripts/censo_da_observabilidade.py
           python3 system-map/scripts/censo_das_derivacoes.py
           python3 system-map/scripts/censo_das_estradas_it.py

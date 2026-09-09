@@ -1395,6 +1395,73 @@ def a_estrada_do_pdf() -> tuple[list, list]:
     return nos, ligacoes
 
 
+# O que faz um ficheiro conseguir CHEGAR a um canal. Sem uma destas, ele nao
+# fala com a rede — e entao nao pode ser a prova de que algo veio de la.
+_RE_REDE = __import__("re").compile(
+    r"urllib|requests\.|http\.client|urlopen|fetch\(|apify|yt_dlp|playwright"
+    r"|navegador|cdp|curl", __import__("re").I)
+_CACHE_REDE: dict = {}
+
+
+_NOMES_DE_CANAL = ("YOUTUBE", "INSTAGRAM", "FACEBOOK", "LINKEDIN", "TIKTOK",
+                   "MASTODON", "PODCAST", "X", "WEB", "API")
+
+
+def _e_lista_de_canais(linha: str) -> bool:
+    """Uma linha que nomeia TRES canais ou mais e um vocabulario, nao uma rota.
+
+    Ninguem colhe do Facebook e do LinkedIn e do YouTube na mesma linha. Quem
+    escreve os tres juntos esta a declarar uma LISTA — um tuplo de rotulos, um
+    ciclo, um mapa de traducao.
+
+    O sinal do ficheiro (`_fala_com_a_rede`) nao chega para este caso, porque
+    a lista pode viver dentro de um modulo que fala com a rede por outras
+    razoes: `coleta/social_scrap.py:205` e exactamente isso.
+
+    Contraste que a regra preserva: `social_rotas.py:298` e
+    `def youtube_buscar(...)` — UM canal, e uma funcao que o vai buscar.
+    """
+    import re as _r
+    return sum(1 for c in _NOMES_DE_CANAL
+               if _r.search(r"\b%s\b" % c, linha)) >= 3
+
+
+def _fala_com_a_rede(caminho: str) -> bool:
+    """O ficheiro consegue, sequer, chegar a um canal?
+
+    ⚠️ ISTO PINTAVA CARTOES DE VERDE SEM NINGUEM PASSAR POR ELES.
+    `V-FACEBOOK` estava VERDE com «2 acoes da coleta passam por aqui», e uma
+    das duas provas era:
+
+        coleta/social_persistencia.py:75
+            'FACEBOOK': 'facebook', 'X': 'x', 'WEB': 'web',
+
+    um dicionario que traduz o nome da plataforma para o valor que o banco
+    aceita. O ficheiro nao faz UMA chamada de rede.
+
+        NOMEAR UMA PLATAFORMA NUM VOCABULARIO
+        NAO E UM CANAL POR ONDE ALGO VIAJOU.
+
+    A regra ja excluia PROSA — «o muro do Instagram» — ao exigir maiusculas. O
+    que faltava era excluir VOCABULARIO, que vem em maiusculas tambem. O sinal
+    que separa os dois nao esta na linha: esta no ficheiro. Quem nao consegue
+    abrir uma ligacao nao pode testemunhar uma travessia.
+
+    Medido: das 20 provas de `VIAJA_POR`, cinco vinham de ficheiros sem rede —
+    quatro do mapa de nomes acima e uma de `coleta/filas.py`, que le uma lista
+    ja versionada em `data/samples/`. As quinze restantes mantiveram-se.
+    """
+    v = _CACHE_REDE.get(caminho)
+    if v is None:
+        try:
+            v = bool(_RE_REDE.search(
+                (RAIZ / caminho).read_text(encoding="utf-8", errors="replace")))
+        except OSError:
+            v = False
+        _CACHE_REDE[caminho] = v
+    return v
+
+
 def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
     """Um cartao por canal, e uma seta de cada acao para o canal que ela usa.
 
@@ -1439,8 +1506,18 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
                         cam.read_text(encoding="utf-8", errors="replace")).splitlines()
                 except OSError:
                     continue
+                # DOIS SINAIS, e cada um apanha o que o outro deixa passar.
+                # O do FICHEIRO exclui o vocabulario que vive num modulo sem
+                # rede (`social_persistencia.py`, o mapa de nomes para o
+                # banco). O da LINHA exclui o vocabulario que vive DENTRO de
+                # um modulo com rede — `social_scrap.py:205` e
+                # `for plat in ('YOUTUBE','INSTAGRAM','TIKTOK','FACEBOOK',...)`,
+                # um ciclo sobre uma lista, num ficheiro que fala com a rede
+                # por outras razoes.
+                if not _fala_com_a_rede(f):
+                    continue
                 achou = next(((i, l) for i, l in enumerate(linhas, 1)
-                              if rx.search(l)), None)
+                              if rx.search(l) and not _e_lista_de_canais(l)), None)
                 if achou:
                     quem.append(a["id"])
                     provas.append({"acao": a["id"], "veiculo": vid,
