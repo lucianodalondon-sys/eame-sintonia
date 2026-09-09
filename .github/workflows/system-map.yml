@@ -79,7 +79,38 @@ jobs:
           python3 system-map/scripts/scan_casco.py
           python3 system-map/scripts/censo_da_coleta.py
           python3 system-map/scripts/pente_fino_da_coleta.py
+          # ⚠️ OS OUTROS ONZE CENSOS NAO CORRIAM AQUI, E O MAPA MOSTRA-OS.
+          # Medido em 2026-09-09: de 21 scripts do mapa, o CI corria SEIS. Os
+          # `.generated.json` dos outros alimentam cartoes — o do derivado, o
+          # dos donos, o do armazem italiano — e ninguem os regerava. Correr os
+          # doze deu diferenca em SETE:
+          #
+          #   corpus-it       276 linhas · donos  78 · semantica-it  48
+          #   recall-porta-it  30 · executores 6 · congelamento 2 · derivacoes 2
+          #
+          # E o P1_SEM_DRIFT nao apanhava, porque ele so regera o que o CI
+          # regera: a verificacao anti-drift media exactamente a metade que
+          # nao estava a apodrecer.
+          #
+          #     UM CENSO QUE NAO CORRE NAO E UM CENSO. E UMA FOTOGRAFIA.
+          python3 system-map/scripts/censo_da_observabilidade.py
+          python3 system-map/scripts/censo_das_derivacoes.py
+          python3 system-map/scripts/censo_das_estradas_it.py
+          python3 system-map/scripts/censo_de_identidade_it.py
+          python3 system-map/scripts/censo_do_armazem_it.py
+          python3 system-map/scripts/censo_do_congelamento.py
+          python3 system-map/scripts/censo_do_corpus_it.py
+          python3 system-map/scripts/censo_dos_donos.py
+          python3 system-map/scripts/censo_dos_executores.py
+          python3 system-map/scripts/censo_semantico_it.py
+          python3 system-map/scripts/recall_da_porta_it.py
           python3 system-map/scripts/generate_system_map.py
+
+      # O censo da topologia: quem chama cada cartao, o que atravessa cada
+      # aresta, e porque um cartao esta sozinho. Corre depois do mapa porque
+      # le o estado gerado.
+      - name: 1b · o censo da topologia da coleta
+        run: python3 system-map/scripts/censo_da_topologia.py
 
       # A comparacao anti-drift NAO e um `git diff` cru, de proposito: o bloco
       # PROVENANCE carrega HEAD e BRANCH, que mudam a cada commit e a cada ramo.

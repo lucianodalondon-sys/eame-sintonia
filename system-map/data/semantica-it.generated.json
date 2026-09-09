@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "caf160c8ae20e968e092408e5110409e5a8c1806"
+    "HEAD": "68dfda6212b7bb857edb8d710e9d4bb08f176c29"
   },
   "VOCABULARIOS": [
     {
@@ -24,7 +24,10 @@
       "FECHA": true,
       "FOREIGN_ONLY": 11,
       "CONSUMERS": [
-        ".github/workflows/apify-sensores.yml"
+        ".github/workflows/apify-sensores.yml",
+        "provas/testa_coleta_canonica.py",
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_trava_da_inteligencia.py"
       ],
       "TERMOS": [
         {
@@ -317,7 +320,9 @@
       "UNKNOWN": 7,
       "FECHA": true,
       "FOREIGN_ONLY": 0,
-      "CONSUMERS": [],
+      "CONSUMERS": [
+        "system-map/scripts/censo_semantico_it.py"
+      ],
       "TERMOS": [
         {
           "termo": "scaphoideus",
@@ -480,7 +485,8 @@
       "CONSUMERS": [
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
-        "provas/testa_coleta_canonica.py"
+        "provas/testa_coleta_canonica.py",
+        "system-map/scripts/censo_semantico_it.py"
       ],
       "TERMOS": [
         {
@@ -585,7 +591,8 @@
       "CONSUMERS": [
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
-        "provas/testa_coleta_canonica.py"
+        "provas/testa_coleta_canonica.py",
+        "system-map/scripts/censo_semantico_it.py"
       ],
       "TERMOS": [
         {
@@ -674,7 +681,8 @@
       "CONSUMERS": [
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
-        "provas/testa_coleta_canonica.py"
+        "provas/testa_coleta_canonica.py",
+        "system-map/scripts/censo_semantico_it.py"
       ],
       "TERMOS": [
         {
@@ -767,7 +775,8 @@
       "CONSUMERS": [
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
-        "provas/testa_coleta_canonica.py"
+        "provas/testa_coleta_canonica.py",
+        "system-map/scripts/censo_semantico_it.py"
       ],
       "TERMOS": [
         {
@@ -996,7 +1005,8 @@
       "CONSUMERS": [
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
-        "provas/testa_coleta_canonica.py"
+        "provas/testa_coleta_canonica.py",
+        "system-map/scripts/censo_semantico_it.py"
       ],
       "TERMOS": [
         {
@@ -1077,7 +1087,8 @@
       "CONSUMERS": [
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
-        "provas/testa_coleta_canonica.py"
+        "provas/testa_coleta_canonica.py",
+        "system-map/scripts/censo_semantico_it.py"
       ],
       "TERMOS": [
         {
@@ -1150,7 +1161,8 @@
       "CONSUMERS": [
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
-        "provas/testa_coleta_canonica.py"
+        "provas/testa_coleta_canonica.py",
+        "system-map/scripts/censo_semantico_it.py"
       ],
       "TERMOS": [
         {
@@ -1210,9 +1222,23 @@
       "FECHA": true,
       "FOREIGN_ONLY": 0,
       "CONSUMERS": [
+        ".github/workflows/banco-descartavel.yml",
+        "coleta/derivacao_forward.py",
+        "coleta/golden_path_pdf.py",
+        "coleta/rota_forward_documento.py",
+        "leis/artefato.py",
         "orquestrador/orquestrador.py",
+        "provas/a_fronteira_da_coleta.py",
+        "provas/a_rota_m2_atravessa.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/tests/test_system_map.py"
+        "provas/testa_golden_path_pdf.py",
+        "system-map/scripts/censo_das_derivacoes.py",
+        "system-map/scripts/censo_semantico_it.py",
+        "system-map/scripts/generate_system_map.py",
+        "system-map/scripts/recall_da_porta_it.py",
+        "system-map/tests/test_system_map.py",
+        "tests/test_m2_rota_forward.py",
+        "tests/test_red_team_estrada.py"
       ],
       "TERMOS": [
         {

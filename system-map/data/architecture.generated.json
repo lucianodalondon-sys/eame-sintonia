@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "b3404f8020d1f6c77207889f61050afea5b6297d",
-    "GENERATED_AT": "2026-09-09T04:18:51+00:00"
+    "HEAD": "68dfda6212b7bb857edb8d710e9d4bb08f176c29",
+    "GENERATED_AT": "2026-09-09T04:24:10+00:00"
   },
   "FILES": [
     {
@@ -121,7 +121,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "693c52328966519115aec8235532487a70f93292",
+      "sha": "eaae242f7a909753dad98689b83e97f28b0aba7e",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -10539,7 +10539,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 93,
+        "line": 124,
         "snippet": "run: python3 medidas/padrao_da_coleta.py"
       }
     },
@@ -10550,7 +10550,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 196,
+        "line": 227,
         "snippet": "run: python3 provas/a_fronteira_da_coleta.py"
       }
     },
@@ -10561,7 +10561,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 170,
+        "line": 201,
         "snippet": "run: python3 provas/fluxo_no_seco.py"
       }
     },
@@ -10572,7 +10572,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 182,
+        "line": 213,
         "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
       }
     },
@@ -10594,7 +10594,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 176,
+        "line": 207,
         "snippet": "run: python3 provas/o_mapa_nao_mente.py"
       }
     },
@@ -10605,7 +10605,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 167,
+        "line": 198,
         "snippet": "run: python3 provas/paridade_da_lingua.py"
       }
     },
@@ -10616,7 +10616,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 102,
+        "line": 133,
         "snippet": "run: python3 provas/testa_coleta_canonica.py"
       }
     },
@@ -10627,7 +10627,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 173,
+        "line": 204,
         "snippet": "run: python3 provas/testa_golden_path_pdf.py"
       }
     },
@@ -10638,7 +10638,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 108,
+        "line": 139,
         "snippet": "run: python3 provas/valida_biblia.py"
       }
     },
@@ -10655,12 +10655,122 @@
     },
     {
       "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/censo_da_observabilidade.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 96,
+        "snippet": "python3 system-map/scripts/censo_da_observabilidade.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/censo_das_derivacoes.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 97,
+        "snippet": "python3 system-map/scripts/censo_das_derivacoes.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/censo_das_estradas_it.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 98,
+        "snippet": "python3 system-map/scripts/censo_das_estradas_it.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/censo_de_identidade_it.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 99,
+        "snippet": "python3 system-map/scripts/censo_de_identidade_it.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/censo_do_armazem_it.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 100,
+        "snippet": "python3 system-map/scripts/censo_do_armazem_it.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/censo_do_congelamento.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 101,
+        "snippet": "python3 system-map/scripts/censo_do_congelamento.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/censo_do_corpus_it.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 102,
+        "snippet": "python3 system-map/scripts/censo_do_corpus_it.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/censo_dos_donos.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 103,
+        "snippet": "python3 system-map/scripts/censo_dos_donos.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/censo_dos_executores.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 104,
+        "snippet": "python3 system-map/scripts/censo_dos_executores.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/censo_semantico_it.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 105,
+        "snippet": "python3 system-map/scripts/censo_semantico_it.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
       "to_file": "system-map/scripts/generate_system_map.py",
       "type": "RUNS",
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 82,
+        "line": 107,
         "snippet": "python3 system-map/scripts/generate_system_map.py"
       }
     },
@@ -10673,6 +10783,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 81,
         "snippet": "python3 system-map/scripts/pente_fino_da_coleta.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/scripts/recall_da_porta_it.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 106,
+        "snippet": "python3 system-map/scripts/recall_da_porta_it.py"
       }
     },
     {
@@ -10715,7 +10836,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 90,
+        "line": 121,
         "snippet": "run: python3 system-map/scripts/validate_system_map.py"
       }
     },
@@ -10726,7 +10847,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 96,
+        "line": 127,
         "snippet": "run: python3 system-map/tests/test_system_map.py"
       }
     },
@@ -10737,7 +10858,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 129,
+        "line": 160,
         "snippet": "run: python3 tests/test_armazem_italiano.py"
       }
     },
@@ -10748,7 +10869,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 114,
+        "line": 145,
         "snippet": "python3 tests/test_biblia.py"
       }
     },
@@ -10759,7 +10880,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 123,
+        "line": 154,
         "snippet": "run: python3 tests/test_identidade_do_artefato.py"
       }
     },
@@ -10770,7 +10891,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 115,
+        "line": 146,
         "snippet": "python3 tests/test_integracao_biblia.py"
       }
     },
@@ -10781,7 +10902,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 116,
+        "line": 147,
         "snippet": "python3 tests/test_observabilidade_estrada.py"
       }
     },
@@ -10792,7 +10913,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 153,
+        "line": 184,
         "snippet": "run: python3 tests/test_porta_de_producao.py"
       }
     },
@@ -10803,7 +10924,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 135,
+        "line": 166,
         "snippet": "run: python3 tests/test_preservar_coleta.py"
       }
     },
@@ -10814,7 +10935,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 142,
+        "line": 173,
         "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py"
       }
     },
@@ -10836,7 +10957,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 117,
+        "line": 148,
         "snippet": "python3 tests/test_red_team_estrada.py"
       }
     },
@@ -32869,7 +32990,7 @@
     "files_tracked": 1343,
     "files_readable": 497,
     "files_code_dir": 551,
-    "file_edges": 2090,
+    "file_edges": 2101,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },
