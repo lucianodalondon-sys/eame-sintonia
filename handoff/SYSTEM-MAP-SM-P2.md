@@ -12,8 +12,7 @@ com o URL de um deployment ensina o dono do produto a seguir deployments.
 
     O ENDEREÇO É DO PRODUTO. O DEPLOYMENT É DA ENGENHARIA.
 
-**Estado: falta um clique.** Tudo o que autoriza a promoção está medido e
-passa. A promoção em si não pôde ser executada — ver *O QUE FALTA*, no fim.
+**Estado: PROMOVIDO E PROVADO.** O alias serve o deployment integrado.
 
 ---
 
@@ -128,45 +127,62 @@ falso. Muda o backend da frescura; o host e a rota ficam iguais.
 
 ---
 
-## O QUE FALTA — E É UM CLIQUE
+## A PROMOÇÃO — FEITA, E MEDIDA DEPOIS
 
-A promoção não foi executada. Não por falta de prova: **por falta de
-credencial**. Este ambiente não tem token da Vercel, não tem a CLI, e o servidor
-MCP da Vercel não expõe operação de promote nem de alias. Ler deployments, sim;
-mudar o alias, não.
-
-Não se improvisou à volta disso. Havia um caminho — publicar ficheiros
-directamente com `target: production` — e foi recusado: criaria um segundo dono
-do mesmo endereço, sem metadata de Git, contra a lei que este repositório já
-tinha escrita («UMA AUTORIDADE DE DEPLOY»).
-
-**O passo mínimo**, no painel da Vercel, projecto `sintonia-eame-preview`:
-promover o deployment da **cabeça de `claude/system-map-canonical-url-v1`**, e
-guardar o alvo de rollback.
+O portão autorizou; a promoção foi executada no painel da Vercel (este ambiente
+não tem credencial da Vercel, e o atalho de publicar ficheiros com
+`target: production` foi recusado: criaria um segundo dono do mesmo endereço).
 
 ```
-rollback   dpl_3MQEgpUsrc7d8VvSL47gQRU74HKA
-           commit a4fb6d81681094925ccfd1638bc7386cbec6f4d4
-           branch claude/visible-intelligence-v1
+canónico    dpl_BP8bckP7YdG6ha5A3m2dpJiMdcJu
+            commit a7a746b8af8183a4680e2d8593d9a3f40797305d
+            branch claude/system-map-canonical-url-v1
+            target production
+
+rollback    dpl_3MQEgpUsrc7d8VvSL47gQRU74HKA
+            commit a4fb6d81681094925ccfd1638bc7386cbec6f4d4
 ```
 
-O id do candidato não se escreve aqui a fixo — cada commit faz um novo, e um id
-escrito à mão fica velho no commit seguinte. Pergunta-se ao próprio deployment,
-pelo alias estável da branch:
+Medido **depois**, no host canónico, e não na API da Vercel:
 
-```bash
-curl -s https://sintonia-eame-preview-git-claude-system-34de93-london-creative.vercel.app/system-map/deployment.generated.json
+| | |
+|---|---|
+| `/` · `/accesso` · `/portale` · `/system-map/` | 200 |
+| `/` `/accesso` `/portale` | **byte a byte iguais** ao candidato provado |
+| recursos referenciados pelo portal | 35/35 servidos |
+| `italy-label-intelligence.js` · `italy-label-lexicon.js` | 200 — os dois que a promoção directa teria apagado |
+| `MAP_BELONGS_TO_DEPLOYED_TREE` | PROVEN |
+| regressões pós-promoção | **0** · rollback não foi preciso |
 
-py system-map/scripts/portao_da_promocao.py \
-    --candidato https://sintonia-eame-preview-git-claude-system-34de93-london-creative.vercel.app \
-    --commit    <o DEPLOYED_COMMIT que veio acima> \
-    --rollback  dpl_3MQEgpUsrc7d8VvSL47gQRU74HKA
-```
+No browser, na tela servida pelo endereço canónico: o mapa abre, a frescura
+fica branca com a frase «não é prova de que está actual», e os quatro estados
+continuam em linhas separadas.
 
-Promover só com «PROMOCAO AUTORIZADA». Depois, confirmar que `/` **e**
-`/system-map/` respondem 200 no host canónico — e se algo regredir, voltar
-imediatamente ao deployment de rollback, sem deixar produção partida para
-investigar depois.
+### O 403 DO GITHUB — MEDIDO NO BROWSER CERTO
+
+`LATEST CANONICAL HEAD: UNKNOWN — GitHub respondeu 403`.
+
+Ficou provado no browser do dono do produto, não só num contentor: a chamada
+anónima ao GitHub é recusada. O SM-P1R suspeitava do proxy; agora sabe-se que
+não era só isso.
+
+Isto **não** derruba o endereço, e não derrubou a promoção, porque o modo de
+falha é o certo: bolinha branca, frase a dizer que não é prova, e nenhum verde.
+
+    UNKNOWN != PASS. FALHAR PARA BRANCO NAO E MENTIR DE VERDE.
+
+O conserto é o que a Security Foundation já ia estudar — mover a leitura da
+cabeça para o lado do servidor. Muda o backend da frescura; o endereço fica.
+`LIVE_HEAD_LOOKUP_SECURITY_ARCHITECTURE = TEMPORARY`, e agora com uma medição
+real por trás.
+
+### O ALIAS É INDEPENDENTE DO DEPLOYMENT
+
+Provado sem inventar mudança nenhuma: os commits deste handoff continuam a
+gerar previews novos na branch, e o endereço canónico continua a servir
+`a7a746b8`. O alias não segue o último build.
+
+    MANY BUILDS. MANY PREVIEWS. ONE CANONICAL URL.
 
 ---
 
