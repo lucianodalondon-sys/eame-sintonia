@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "a908a40b57d84e44bf3a30da32f07cd89db29344",
+    "HEAD": "435b6277d31755c77a367e06d66c3b1e651671bb",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4101,31 +4101,6 @@
   },
   "ENDPOINTS": [
     {
-      "endpoint": "https://api.apify.com/v2",
-      "usado_por": [
-        {
-          "file": "coleta/comunicacao_coleta.py",
-          "line": 129
-        },
-        {
-          "file": "ferramentas/apify_contrato.py",
-          "line": 128
-        },
-        {
-          "file": "ferramentas/contrato_ator.py",
-          "line": 26
-        },
-        {
-          "file": "provas/corrigir_custo.py",
-          "line": 44
-        },
-        {
-          "file": "superficie/rede.py",
-          "line": 32
-        }
-      ]
-    },
-    {
       "endpoint": "https://exemplo.it/%s",
       "usado_por": [
         {
@@ -4147,6 +4122,27 @@
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 56
+        }
+      ]
+    },
+    {
+      "endpoint": "https://api.apify.com/v2",
+      "usado_por": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 129
+        },
+        {
+          "file": "ferramentas/contrato_ator.py",
+          "line": 26
+        },
+        {
+          "file": "provas/corrigir_custo.py",
+          "line": 44
+        },
+        {
+          "file": "superficie/rede.py",
+          "line": 32
         }
       ]
     },
@@ -4206,23 +4202,6 @@
         {
           "file": "pacote/pacote_camadas2.py",
           "line": 38
-        }
-      ]
-    },
-    {
-      "endpoint": "https://api.apify.com/v2'",
-      "usado_por": [
-        {
-          "file": "coleta/coletor.py",
-          "line": 79
-        },
-        {
-          "file": "ferramentas/apify_recuperar.py",
-          "line": 61
-        },
-        {
-          "file": "ferramentas/contrato_ator.py",
-          "line": 65
         }
       ]
     },
@@ -4300,6 +4279,19 @@
         {
           "file": "coleta/texto_fonte.py",
           "line": 26
+        }
+      ]
+    },
+    {
+      "endpoint": "https://api.apify.com/v2'",
+      "usado_por": [
+        {
+          "file": "coleta/coletor.py",
+          "line": 79
+        },
+        {
+          "file": "ferramentas/contrato_ator.py",
+          "line": 65
         }
       ]
     },

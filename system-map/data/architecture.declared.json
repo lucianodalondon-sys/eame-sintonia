@@ -737,14 +737,12 @@
    "territory": "Z-FERRAMENTAS",
    "kind": "library",
    "what": "Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.",
-   "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica.",
+   "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica. ⚠️ 2026-09-09: `apify_contrato.py` e `apify_recuperar.py` sairam desta peca e do repositorio. Medido: zero importadores, zero workflows a corre-los, e as saidas que declaravam — `IT-APIFY-CONTRATO.json` e `IT-LINKEDIN-RECOVERY.json` — nunca existiram no disco. O portao gratis do gasto continua vivo e e `ferramentas/contrato_ator.py`, que a esteira importa em runtime: o conceito ficou, o ficheiro morto saiu.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
     "ferramentas/apify_pool.py",
-    "ferramentas/apify_contrato.py",
-    "ferramentas/apify_recuperar.py",
     "ferramentas/contrato_ator.py"
    ],
    "views": [],
@@ -2822,9 +2820,7 @@
   "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md": "44f3fa897abc8d8b968b9880eb4f841c081c1521",
   "docs/operacao/ITALY-RECURRENT-PILOT-V1.md": "7010dba9d6ac96d6a950a7ee3df2534be627f3ad",
   "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md": "f5008231ad8a9dad60ca32f5283e2c4d9c0cf1ef",
-  "ferramentas/apify_contrato.py": "086011405938a0a9de149c70af055ee21eeef09a",
   "ferramentas/apify_pool.py": "9c743407c0e9beda65c726d7b5aa10725a182bf7",
-  "ferramentas/apify_recuperar.py": "7a71bf276daade550d51a1d5433fffd4663d226b",
   "ferramentas/cdp.py": "41e8859018030289384dbcc57f0c428b2a7ed980",
   "ferramentas/contrato_ator.py": "aae0c5d013b5512c8a0c862278ef91b7fc86ead0",
   "ferramentas/html_text.mjs": "68d594d0ddab390834943caf08f1206c68dcb547",

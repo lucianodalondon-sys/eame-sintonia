@@ -2260,9 +2260,10 @@ PAPEIS = (
 
 RX_PAPEL = {
     "chama_subprocesso": r"subprocess\.run|os\.system",
-    # ESCREVER o recibo, nao mencionar o ficheiro. `apify_contrato.py` fala do
-    # RUN-MANIFEST numa frase e saiu classificado como ORQUESTRADOR — a mesma
-    # armadilha do Supabase e do Instagram: mencionar nao e usar.
+    # ESCREVER o recibo, nao mencionar o ficheiro. `apify_contrato.py` (removido
+    # em 2026-09-09 por estar morto) falava do RUN-MANIFEST numa frase e saiu
+    # classificado como ORQUESTRADOR — a mesma armadilha do Supabase e do
+    # Instagram: mencionar nao e usar. A licao fica; o ficheiro nao.
     "assina_recibo": r"guardar_recibo\(",
     "acessa_rede": r"requests\.(get|post)|httpx|urllib\.request|aiohttp",
     "grava": r"open\([^)]*['\"][wa]|write_text\(|json\.dump\(",

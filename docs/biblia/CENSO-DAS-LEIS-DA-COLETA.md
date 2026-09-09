@@ -100,7 +100,7 @@ uma lei, não uma remoção de ficheiro.
 | ID | NOME | FICHEIRO | IMPL | TEST | USO | DESTINO |
 |---|---|---|---|---|---|---|
 | CEN-070 | Política de chaves descartáveis Apify — orçamento por chave, `ACTIVE/EXHAUSTED/ABANDONED` | `docs/regras/POLITICA-DE-CHAVES-DESCARTAVEIS.md` | parcial | — | sim | **KEEP** → COL-LAW-019 |
-| CEN-071 | Contrato do ator lido de graça **antes** de gastar; `CONTRACT_MATCH ≠ USEFUL_DATA` | `ferramentas/apify_contrato.py` · `ferramentas/contrato_ator.py` | sim | sim | rota paga | **KEEP** → COL-LAW-018/019 |
+| CEN-071 | Contrato do ator lido de graça **antes** de gastar; `CONTRACT_MATCH ≠ USEFUL_DATA` | `ferramentas/contrato_ator.py` | sim | sim | rota paga | **KEEP** → COL-LAW-018/019 |
 | CEN-072 | `SEM_CHECKPOINT_NAO_GASTEI` e `JA_CONCLUIDO_NAO_PAGAR_DUAS_VEZES` | `coleta/coleta_checkpoint.py` | sim | `tests/test_coleta_resiliente.py` | coleta paga | **KEEP** → COL-LAW-017/021 |
 | CEN-073 | `teto_usd → maxTotalChargeUsd`; trava do lado da plataforma | `coleta/coletor.py` | sim | sim | rota paga | **KEEP** → COL-LAW-019 |
 | CEN-074 | Fluxo obrigatório `DISCOVERY → TESTE PEQUENO → MEDIÇÃO → ESCOLHA → ESCALA` | `medidas/REGRA-DE-COLETA-EXTERNA-EAME.md` §21 | parcial | — | sim | **MERGE** → COL-LAW-018 |

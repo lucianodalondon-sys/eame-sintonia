@@ -320,7 +320,8 @@ def retentavel(nome):
 #
 # Escolha deliberada: NÃO separar os estados. Medido nesta casa em 2026-09-08,
 # `falhas.rotaciona()` não tem NENHUM consumidor em produção — os cinco
-# chamadores reais (`apify_pool`, `apify_recuperar`, `sensor_coleta`,
+# chamadores reais (`apify_pool`, `apify_recuperar` — este removido em
+# 2026-09-09 —, `sensor_coleta`,
 # `coleta_checkpoint`, `instagram_coleta`) usam a tupla `ap.ROTACIONAM` direto.
 # Então acrescentar uma coluna não muda comportamento de ninguém, e separar
 # estados mudaria — e ainda incharia a taxonomia. Menor correção que preserva

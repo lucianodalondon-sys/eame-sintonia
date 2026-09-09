@@ -497,8 +497,16 @@ crédito.
 **ESTADO HONESTO.** ⚠️ Os cinco campos de escalada **não existem hoje** em nenhum ficheiro
 deste repositório. Esta é lei futura, e a Bíblia diz isso em vez de fingir.
 
+**HISTÓRICO.** Até 2026-09-09 esta lei nomeava a ferramenta apify_contrato.py, que foi
+removida do repositório por estar morta: zero importadores, zero execuções, e a saída que
+declarava nunca existiu no disco. O CONCEITO — **ler o contrato do ator de graça antes de
+gastar** — continua canônico, e o dono vivo dele é `ferramentas/contrato_ator.py`, que a
+esteira importa em runtime.
+
+> **UMA LEI NÃO DEPENDE DE UM NOME DE FICHEIRO. DEPENDE DO QUE ELA EXIGE.**
+
 **CONTRATOS.** `docs/regras/POLITICA-DE-CHAVES-DESCARTAVEIS.md` ·
-`ferramentas/apify_contrato.py` · `coleta/coletor.py`
+`ferramentas/contrato_ator.py` · `coleta/coletor.py`
 **ORIGEM.** `ARCHITECTURAL_DECISION` + `EXISTING_SINTONIA_LAW`
 **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
 

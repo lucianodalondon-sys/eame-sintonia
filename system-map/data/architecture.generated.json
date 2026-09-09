@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "a908a40b57d84e44bf3a30da32f07cd89db29344",
-    "GENERATED_AT": "2026-09-09T10:47:50+00:00"
+    "HEAD": "435b6277d31755c77a367e06d66c3b1e651671bb",
+    "GENERATED_AT": "2026-09-09T10:58:34+00:00"
   },
   "FILES": [
     {
@@ -149,7 +149,7 @@
     },
     {
       "path": "BIBLIA-CANONICA-DA-COLETA.md",
-      "sha": "2d31dd5aa457af8a563c3700ef180a3e1f659b42",
+      "sha": "b1a91b187f30adb4189d3ff14a6e65786cf0cbb2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1094,7 +1094,7 @@
     },
     {
       "path": "coleta/coletor.py",
-      "sha": "7ac48f9d4811b9b94bd72682ebc69bfd777ac27c",
+      "sha": "f3abb53d9f75f02e3060c7187b2a191b3296e781",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4139,7 +4139,7 @@
     },
     {
       "path": "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
-      "sha": "74089046645d3cbb7cc9f03b2ba5be716b443644",
+      "sha": "85ed14855e291c7633a36f1c994ed508e149691c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4824,22 +4824,8 @@
       "code_dir": false
     },
     {
-      "path": "ferramentas/apify_contrato.py",
-      "sha": "086011405938a0a9de149c70af055ee21eeef09a",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
       "path": "ferramentas/apify_pool.py",
       "sha": "ae8f12d5ac931b41d0d205e0d12c6b6b00831025",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
-      "path": "ferramentas/apify_recuperar.py",
-      "sha": "7a71bf276daade550d51a1d5433fffd4663d226b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6799,7 +6785,7 @@
     },
     {
       "path": "leis/falhas.py",
-      "sha": "76c666d9154b041d54bab31291c67b3a35c360db",
+      "sha": "6294391442c3e6e26a3e3e3a914e39c9b2343002",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8661,7 +8647,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "8f35dc6a6954a075daf8e450c7052cf09da92164",
+      "sha": "440b848cfc0642a130822e8a7f6c47a462dd7980",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8766,7 +8752,7 @@
     },
     {
       "path": "system-map/scripts/censo_dos_executores.py",
-      "sha": "345fb6e5d9ffa3b6862667fa211c5c7ff089c83e",
+      "sha": "c67fa84c29b841776d0c3ceb6cd529404770c694",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8780,7 +8766,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "3e2361ec8513460c431e619c9ab975f21929f462",
+      "sha": "ae57c1245761f322b536d1dd0ef500f97d4b3fed",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12076,28 +12062,6 @@
       }
     },
     {
-      "from_file": "ferramentas/apify_contrato.py",
-      "to_file": "_gavetas.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "ferramentas/apify_contrato.py",
-        "line": 44,
-        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
-      }
-    },
-    {
-      "from_file": "ferramentas/apify_contrato.py",
-      "to_file": "ferramentas/apify_pool.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "ferramentas/apify_contrato.py",
-        "line": 45,
-        "snippet": "import apify_pool as ap  # noqa: E402"
-      }
-    },
-    {
       "from_file": "ferramentas/apify_pool.py",
       "to_file": "leis/falhas.py",
       "type": "IMPORTS",
@@ -12106,28 +12070,6 @@
         "file": "ferramentas/apify_pool.py",
         "line": 105,
         "snippet": "import falhas"
-      }
-    },
-    {
-      "from_file": "ferramentas/apify_recuperar.py",
-      "to_file": "_gavetas.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "ferramentas/apify_recuperar.py",
-        "line": 58,
-        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
-      }
-    },
-    {
-      "from_file": "ferramentas/apify_recuperar.py",
-      "to_file": "ferramentas/apify_pool.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "ferramentas/apify_recuperar.py",
-        "line": 59,
-        "snippet": "import apify_pool as ap  # noqa: E402"
       }
     },
     {
@@ -26305,7 +26247,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_dos_executores.py",
-        "line": 527,
+        "line": 531,
         "snippet": "'provas/a_rota_m2_atravessa.py',"
       }
     },
@@ -26316,7 +26258,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_dos_executores.py",
-        "line": 453,
+        "line": 457,
         "snippet": "[sys.executable, os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
       }
     },
@@ -26327,7 +26269,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_dos_executores.py",
-        "line": 227,
+        "line": 231,
         "snippet": "return json.load(open(PROVAS, encoding='utf-8')).get('PROVADOS', {})"
       }
     },
@@ -26393,7 +26335,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2980,
+        "line": 2981,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -26448,7 +26390,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2958,
+        "line": 2959,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -26459,7 +26401,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2739,
+        "line": 2740,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -26470,7 +26412,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2741,
+        "line": 2742,
         "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
       }
     },
@@ -26514,7 +26456,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3159,
+        "line": 3160,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -26525,7 +26467,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3161,
+        "line": 3162,
         "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
       }
     },
@@ -26547,7 +26489,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3181,
+        "line": 3182,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -26558,7 +26500,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3182,
+        "line": 3183,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -26569,7 +26511,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3181,
+        "line": 3182,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -26591,7 +26533,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3792,
+        "line": 3793,
         "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -26613,7 +26555,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3805,
+        "line": 3806,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -26624,7 +26566,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3805,
+        "line": 3806,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -26635,7 +26577,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2920,
+        "line": 2921,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -32223,20 +32165,6 @@
         "constante": "SAIDA"
       }
     ],
-    "ferramentas/apify_contrato.py": [
-      {
-        "pasta": "data/samples",
-        "line": 192,
-        "constante": "DEST"
-      }
-    ],
-    "ferramentas/apify_recuperar.py": [
-      {
-        "pasta": "data/samples",
-        "line": 222,
-        "constante": "DEST"
-      }
-    ],
     "fontes/adama_it_gaps.py": [
       {
         "pasta": "research/adama-italy-product-intelligence-deep",
@@ -32618,7 +32546,7 @@
     "system-map/scripts/censo_dos_executores.py": [
       {
         "pasta": "system-map",
-        "line": 601,
+        "line": 605,
         "constante": "destino"
       }
     ],
@@ -32638,11 +32566,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1345,
-    "files_readable": 498,
-    "files_code_dir": 552,
-    "file_edges": 2068,
-    "escritas_em_pasta": 68,
+    "files_tracked": 1343,
+    "files_readable": 496,
+    "files_code_dir": 550,
+    "file_edges": 2064,
+    "escritas_em_pasta": 66,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

@@ -379,7 +379,7 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     manifesto['STATUS_POLLS'] = consultas
     # A cadeia de proveniência ganha impressão digital. Até 2026-09-02 ela era feita só de
     # CAMINHO e RÓTULO: nada provava que o arquivo em `RAW_EVIDENCE_PATH` ainda é o que a
-    # execução produziu. `apify_recuperar.py` (a porta de recuperação) já gravava
+    # execução produziu. `apify_recuperar.py` (a porta de recuperação, removida em 2026-09-09) já gravava
     # `RAW_SHA256`; a porta PRINCIPAL não gravava — duas portas, dois contratos.
     manifesto['RAW_SHA256'] = raw_sha
     manifesto['RAW_SHA256_OF'] = ('json.dumps(itens, sort_keys=True) em UTF-8 — o CONTEÚDO, '

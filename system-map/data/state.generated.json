@@ -714,9 +714,7 @@
       "docs/research/SINTONIA-SCRAP-ENGINEERING-BENCHMARK.md"
     ],
     "ferramentas": [
-      "ferramentas/apify_contrato.py",
       "ferramentas/apify_pool.py",
-      "ferramentas/apify_recuperar.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
       "ferramentas/html_text.mjs",
@@ -1791,8 +1789,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "a908a40b57d84e44bf3a30da32f07cd89db29344",
-    "GENERATED_AT": "2026-09-09T10:47:50+00:00"
+    "HEAD": "435b6277d31755c77a367e06d66c3b1e651671bb",
+    "GENERATED_AT": "2026-09-09T10:58:34+00:00"
   },
   "FAMILIES": [
     {
@@ -2548,7 +2546,7 @@
       "territory": "Z-FERRAMENTAS",
       "kind": "library",
       "what": "Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.",
-      "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica.",
+      "why_here": "Sem isto, um erro de rede imprimia a chave inteira no log de uma execucao publica. ⚠️ 2026-09-09: `apify_contrato.py` e `apify_recuperar.py` sairam desta peca e do repositorio. Medido: zero importadores, zero workflows a corre-los, e as saidas que declaravam — `IT-APIFY-CONTRATO.json` e `IT-LINKEDIN-RECOVERY.json` — nunca existiram no disco. O portao gratis do gasto continua vivo e e `ferramentas/contrato_ator.py`, que a esteira importa em runtime: o conceito ficou, o ficheiro morto saiu.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -2562,12 +2560,10 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "ferramentas/apify_contrato.py",
         "ferramentas/apify_pool.py",
-        "ferramentas/apify_recuperar.py",
         "ferramentas/contrato_ator.py"
       ],
-      "file_count": 4,
+      "file_count": 2,
       "status": "PENDING",
       "status_reason": "outras pecas importam ou carregam isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -2601,26 +2597,16 @@
         "papel": "NAO SEI",
         "listas": [
           "CHEIRO_DE_CREDENCIAL",
-          "PLANO",
           "ROTULOS"
         ],
-        "palavras": 35,
+        "palavras": 24,
         "por_lingua": {},
-        "sem_marca_de_lingua": 35,
+        "sem_marca_de_lingua": 24,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
-      "escreve_na_pasta": [
-        {
-          "pasta": "data/samples",
-          "prova": {
-            "file": "ferramentas/apify_contrato.py",
-            "line": 192,
-            "snippet": "escreve em DEST"
-          }
-        }
-      ],
+      "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -6307,7 +6293,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_dos_executores.py",
-            "line": 601,
+            "line": 605,
             "snippet": "escreve em destino"
           }
         }
@@ -6894,9 +6880,10 @@
       ],
       "file_count": 3,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
-        "coleta/coleta_checkpoint.py"
+        "coleta/coleta_checkpoint.py",
+        "coleta/coletor.py"
       ],
       "produces": [],
       "inbound": [
@@ -17045,7 +17032,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2958,
+          "line": 2959,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -22067,7 +22054,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2980,
+          "line": 2981,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -22808,17 +22795,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3181,
-          "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
-        },
-        {
-          "file": "system-map/scripts/generate_system_map.py",
-          "line": 3181,
+          "line": 3182,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
           "line": 3182,
+          "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
+        },
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 3183,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -22964,7 +22951,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3792,
+          "line": 3793,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
         },
         {
@@ -23015,12 +23002,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3805,
+          "line": 3806,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3805,
+          "line": 3806,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -24759,7 +24746,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_dos_executores.py",
-          "line": 453,
+          "line": 457,
           "snippet": "[sys.executable, os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
         }
       ],
@@ -25028,7 +25015,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_dos_executores.py",
-          "line": 527,
+          "line": 531,
           "snippet": "'provas/a_rota_m2_atravessa.py',"
         }
       ],
@@ -28557,8 +28544,8 @@
     "edges_proven": 565,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1345,
-    "files_covered": 648,
+    "files_tracked": 1343,
+    "files_covered": 646,
     "files_code_unclaimed": 0
   }
 }
