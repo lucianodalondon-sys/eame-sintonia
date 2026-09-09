@@ -94,23 +94,49 @@ momento, por isso actualiza-se sozinha.
 
 ---
 
-## O PROCESSO, DAQUI PARA A FRENTE
+## O PROCESSO, DAQUI PARA A FRENTE — AUTOMATICO
+
+A branch de produção do projecto Vercel é `release/canonical`. O que entra nela
+vai ao ar sozinho, e nada mais vai.
 
 ```
-commit → preview da branch → SYSTEM MAP CHECK → PORTAL REGRESSION CHECK
-       → READY → promoção explícita → o mesmo endereço de sempre
+commit  →  preview da branch de trabalho
+        →  PR para release/canonical
+        →  PROVENIENCIA · SYSTEM MAP CHECK · PORTAL REGRESSION CHECK
+        →  merge
+        →  o mesmo endereço de sempre, com a versão nova
 ```
 
-Os previews continuam a existir e são úteis: são a bancada da engenharia.
-**Não se entregam ao dono do produto como endereço.**
+**O dono do produto nunca promove.** Nunca promoveu por desenho; a primeira
+promoção foi manual só porque a automação ainda não existia. Agora existe.
 
-    PREVIEW URL       ≠  USER URL
-    PREVIEW READY     ≠  CANONICAL PUBLISHED
-    LATEST DEPLOYMENT ≠  APPROVED DEPLOYMENT
+A conferência não desapareceu — mudou de sítio. Corria antes do clique; corre
+antes do merge, que é o último momento em que reprovar ainda serve para alguma
+coisa, porque depois do push já está no ar.
 
-`AUTO_PROMOTION_CANDIDATE = NO`, por agora. O que falta para o ser está listado
-no contrato — e um dos três itens é um segredo de promoção no CI, que é matéria
-da Security Foundation e não desta missão.
+    LATEST DEPLOYMENT != APPROVED DEPLOYMENT — a não ser que alguém prove.
+
+Os 73 portões do portal passam a correr em CI. Nunca tinham corrido. Enquanto a
+publicação era um clique, um humano olhava; automatizar sem eles seria trocar um
+humano atento por nada.
+
+Os previews das branches de trabalho continuam a existir. São a bancada da
+engenharia, e não se entregam ao dono do produto como endereço.
+
+    PREVIEW URL  !=  USER URL.
+
+### O QUE FALTA, E NÃO É CÓDIGO
+
+Protecção de branch em `release/canonical`: exigir os três jobs, proibir push
+directo. Sem isso o portão existe e pode ser contornado por quem tiver pressa.
+
+    UM PORTAO QUE SE PODE CONTORNAR E UMA SUGESTAO.
+
+### E SE PRECISAR DE POUSAR UMA VERSÃO À MÃO
+
+`portao_da_promocao.py` continua a existir para isso — um rollback, ou um
+recurso. Não foi apagado por a automação ter chegado: o caminho automático é
+para o dia normal, e um caminho manual provado é o que se tem no dia mau.
 
 ---
 

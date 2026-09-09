@@ -1,0 +1,89 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# O PORTÃO DO RELEASE — o que entra em `release/canonical` vai ao ar sozinho
+#
+# `release/canonical` é a branch de produção do projecto Vercel. Um push nela
+# não pede licença a ninguém: torna-se o que o endereço fixo serve.
+#
+#     LATEST DEPLOYMENT != APPROVED DEPLOYMENT — a não ser que alguém prove.
+#
+# Este workflow é esse alguém, e corre ANTES do merge, que é o único momento em
+# que reprovar ainda serve para alguma coisa. Depois do push já está no ar.
+#
+# POR QUE O AUDIT DO PORTAL ESTÁ AQUI E NÃO SÓ O DO MAPA
+# ------------------------------------------------------
+# O projecto serve o PORTAL INTEIRO, e não só `/system-map/`. Foi medido nesta
+# missão: o deployment do mapa sozinho devolvia 200 em `/portale` e ao mesmo
+# tempo deixava de servir `italy-label-intelligence.js`.
+#
+#     A ROTA RESPONDER NÃO É A PÁGINA ESTAR INTEIRA.
+#
+# Os 73 portões do portal nunca tinham corrido em CI. Enquanto a publicação era
+# um clique, um humano olhava. Automatizar sem eles seria trocar um humano
+# atento por nada.
+#
+# TRÊS JOBS, TRÊS PERGUNTAS — pela mesma razão que `system-map.yml` tem dois:
+# um veredito sobre três perguntas não responde a nenhuma, e o primeiro
+# vermelho apagaria as provas que vinham a seguir.
+# ═══════════════════════════════════════════════════════════════════════════
+name: portao-do-release
+
+on:
+  pull_request:
+    branches: [release/canonical]
+  push:
+    branches: [release/canonical]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portao-do-release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  proveniencia:
+    name: RELEASE · PROVENIENCIA
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - name: o artefacto servido prova de onde vem
+        run: node italia-portale/audit/build-gate.mjs
+
+  mapa:
+    name: RELEASE · SYSTEM MAP CHECK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      # O mapa commitado tem de corresponder À ÁRVORE QUE VAI AO AR. Se não
+      # corresponder, o endereço passa a mostrar o retrato de outro sistema.
+      - name: o mapa corresponde a esta arvore
+        run: python3 system-map/scripts/validate_system_map.py
+
+  portal:
+    name: RELEASE · PORTAL REGRESSION CHECK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      # Os portões abrem um browser de verdade. Sem binário, `chromium.launch()`
+      # não falha alto: falha com «cannot find package», e um portão que falha
+      # por falta de ferramenta parece um portão que reprovou o produto. São
+      # coisas diferentes, e confundi-las ensina a gente a ignorar o vermelho.
+      - name: o browser que os portoes usam
+        run: |
+          npm install --no-save playwright-core@1.63.0
+          npx --yes playwright@1.63.0 install --with-deps chromium
+      - name: os 73 portoes do portal
+        run: node italia-portale/audit/run.mjs

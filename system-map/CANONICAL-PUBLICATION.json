@@ -1,6 +1,5 @@
 {
   "SCHEMA": "sintonia.canonical-publication/1",
-
   "PORQUE_ISTO_EXISTE": [
     "O dono do produto recebia um endereco diferente a cada commit. O endereco",
     "e do produto; o deployment e da engenharia. Este ficheiro e o sitio onde",
@@ -15,36 +14,40 @@
     "    LATEST DEPLOYMENT  !=  APPROVED DEPLOYMENT",
     "    SYSTEM MAP CURRENT !=  WHOLE PORTAL REGRESSION-FREE"
   ],
-
   "CANONICAL_HOST": "sintonia-eame-preview.vercel.app",
   "CANONICAL_ROUTE": "/system-map/",
   "CANONICAL_URL": "https://sintonia-eame-preview.vercel.app/system-map/",
-
   "O_QUE_ESTE_HOST_E": [
     "O ambiente oficial de preview/demo da Sintonia EAME. Dentro do ambiente",
     "actual e o endereco fixo do produto. NAO e afirmacao de que sera o dominio",
     "contratual final da ADAMA — esse podera mudar por contrato/IT. Se mudar,",
     "muda AQUI, num sitio so, e o resto do desenho nao se move."
   ],
-
-  "CANONICAL_DEPLOY_OWNER": "explicit promotion only",
+  "CANONICAL_DEPLOY_OWNER": "release/canonical",
   "PORQUE_ESSE_DONO": [
     "O alias nao acompanha «o ultimo deploy de qualquer branch». Se acompanhasse,",
     "tres linhas paralelas competiriam pelo mesmo endereco e a ultima a construir",
     "ganhava — que e como o portal regride sem ninguem decidir nada.",
-    "A Vercel continua a ser a UNICA autoridade que publica. A promocao e o acto",
-    "explicito que escolhe QUAL dos deployments dela fica atras do alias."
+    "",
+    "`release/canonical` e a branch de producao do projecto Vercel: o que entra",
+    "nela vai ao ar sozinho, e nada mais vai. Uma branch dona, e nao tres.",
+    "",
+    "    UM ENDERECO, UM DONO.",
+    "",
+    "Ninguem empurra directamente para ela. Entra-se por merge, e o merge tem de",
+    "passar o portao do release. A conferencia mudou de sitio, nao desapareceu:",
+    "passou de antes do clique para antes do merge — que e o ultimo momento em que",
+    "reprovar ainda serve para alguma coisa. Depois do push ja esta no ar."
   ],
-
   "PROMOTION_AUTHORITY_BRANCHES": [
-    "claude/system-map-canonical-url-v1"
+    "release/canonical"
   ],
   "NOTA_SOBRE_A_AUTORIDADE": [
-    "Uma branch nesta lista e autorizada a ser CANDIDATA. Nao e autorizada a",
-    "promover-se sozinha: o portao abaixo tem de passar primeiro. Acrescentar um",
-    "nome aqui e uma decisao humana, e fica no diff."
+    "Esta lista e usada por `portao_da_promocao.py`, que continua a existir para a",
+    "promocao manual — o caminho de recurso quando for preciso pousar uma versao",
+    "no endereco sem passar pelo fluxo normal (um rollback, por exemplo).",
+    "Acrescentar um nome aqui e uma decisao humana, e fica no diff."
   ],
-
   "PORTAO_DA_PROMOCAO": "system-map/scripts/portao_da_promocao.py",
   "CONDICOES_DE_PROMOCAO": [
     "CANDIDATE_STATE = READY",
@@ -55,13 +58,11 @@
     "PORTAL_REGRESSION_CHECK = PASS  (nenhuma rota do canonico actual piora)",
     "ROLLBACK_TARGET_KNOWN = YES"
   ],
-
   "ROTAS_DO_PORTAL_QUE_NAO_PODEM_REGREDIR": [
     "/",
     "/accesso",
     "/portale"
   ],
-
   "GATES_HERDADOS_NAO_BLOQUEIAM": [
     "MAP RULES CHECK e COLETA CHECK estao vermelhos por divida herdada, medida e",
     "declarada. Vermelho herdado nao e regressao de deploy, e nao se esconde:",
@@ -71,13 +72,11 @@
     "    UNKNOWN        !=  PASS",
     "    DEPLOYED       !=  CURRENT"
   ],
-
   "PREVIEW_URL_POLICY": [
     "Os previews continuam a existir e sao uteis — sao a bancada da engenharia.",
     "Nao se entregam ao dono do produto como endereco. Qualquer handoff futuro",
     "apresenta primeiro CANONICAL_URL; o URL do deployment vive na seccao tecnica."
   ],
-
   "FUTURE_PRIVATE_REPO_COMPATIBLE": true,
   "PORQUE_SOBREVIVE_A_SECURITY_FOUNDATION": [
     "O endereco nao depende de o GitHub ser publico. O que depende e a leitura da",
@@ -92,15 +91,35 @@
     "declara-o para que a mudanca seja visivel se alguem tentar."
   ],
   "LIVE_HEAD_LOOKUP_SECURITY_ARCHITECTURE": "TEMPORARY",
-
-  "AUTO_PROMOTION_CANDIDATE": false,
+  "AUTO_PROMOTION_CANDIDATE": true,
   "O_QUE_FALTA_PARA_AUTOMATIZAR": [
-    "Hoje a promocao e explicita, de proposito. Para a automatizar com seguranca",
-    "faltam tres portoes a correr no CI, nesta ordem, antes de tocar no alias:",
-    "  1. SYSTEM MAP CHECK = PASS na arvore completa (ja existe: system-map.yml);",
-    "  2. PORTAL REGRESSION CHECK = PASS contra o canonico servido (existe aqui,",
-    "     em portao_da_promocao.py, e teria de correr no CI e nao a mao);",
-    "  3. um segredo de promocao da Vercel no CI — que hoje NAO existe, e cuja",
-    "     introducao e materia da Security Foundation, nao desta missao."
-  ]
+    "Nada — esta feito, e sem segredo novo nenhum. A Vercel publica a branch de",
+    "producao pela integracao Git que ja existe; nao ha token de promocao no CI,",
+    "e por isso nao ha segredo novo a guardar nem a rodar.",
+    "",
+    "    UMA AUTORIDADE DE DEPLOY. CONTINUA A SER A VERCEL.",
+    "",
+    "O que o CI faz e a segunda opiniao, antes do merge, em tres jobs separados:",
+    "  1. RELEASE · PROVENIENCIA          — o artefacto servido prova de onde vem;",
+    "  2. RELEASE · SYSTEM MAP CHECK      — o mapa corresponde a esta arvore;",
+    "  3. RELEASE · PORTAL REGRESSION CHECK — os 73 portoes do portal.",
+    "",
+    "Tres jobs e nao um, pela mesma razao que system-map.yml tem dois: um veredito",
+    "sobre tres perguntas nao responde a nenhuma, e o primeiro vermelho apagaria as",
+    "provas que vinham a seguir.",
+    "",
+    "FALTA UMA COISA QUE NAO E CODIGO: proteccao de branch em `release/canonical`,",
+    "exigindo os tres jobs e proibindo push directo. Sem isso o portao existe e",
+    "pode ser contornado por quem tiver pressa.",
+    "",
+    "    UM PORTAO QUE SE PODE CONTORNAR E UMA SUGESTAO."
+  ],
+  "PORTAO_DO_RELEASE": ".github/workflows/portao-do-release.yml",
+  "PRIMEIRA_PROMOCAO": {
+    "DEPLOYMENT": "dpl_BP8bckP7YdG6ha5A3m2dpJiMdcJu",
+    "COMMIT": "a7a746b8af8183a4680e2d8593d9a3f40797305d",
+    "METODO": "promocao explicita no painel da Vercel",
+    "ROLLBACK_TARGET": "dpl_3MQEgpUsrc7d8VvSL47gQRU74HKA",
+    "REGRESSOES": "0 — /, /accesso e /portale byte a byte iguais ao candidato provado"
+  }
 }

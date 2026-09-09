@@ -145,17 +145,39 @@ provado antes de o alias mudar.
 
 ### Como uma versão nova chega lá
 
-O projecto Vercel serve o **portal inteiro**, e não só o mapa. Promover um
-deployment do System Map promove o site todo com ele — por isso a promoção não
-é automática:
+O projecto Vercel serve o **portal inteiro**, e não só o mapa. A branch de
+produção é `release/canonical`: o que entra nela vai ao ar sozinho, e nada mais
+vai.
 
 ```
-commit → preview da branch → SYSTEM MAP CHECK → PORTAL REGRESSION CHECK
-       → READY → promoção explícita → o mesmo endereço de sempre
+commit  →  preview da branch de trabalho
+        →  PR para release/canonical
+        →  PROVENIENCIA · SYSTEM MAP CHECK · PORTAL REGRESSION CHECK
+        →  merge
+        →  o mesmo endereço de sempre, já com a versão nova
 ```
 
-O portão que autoriza (ou recusa) está em
-[`scripts/portao_da_promocao.py`](scripts/portao_da_promocao.py):
+Ninguém empurra directamente para `release/canonical`. A conferência corre
+**antes do merge** — o último momento em que reprovar ainda serve para alguma
+coisa, porque depois do push já está no ar.
+
+O portão está em
+[`../.github/workflows/portao-do-release.yml`](../.github/workflows/portao-do-release.yml),
+em três jobs separados. Os 73 portões do portal correm lá: enquanto a publicação
+era um clique, um humano olhava; automatizar sem eles seria trocar um humano
+atento por nada.
+
+    A ROTA RESPONDER NÃO É A PÁGINA ESTAR INTEIRA.
+
+**Falta uma coisa que não é código:** protecção de branch em
+`release/canonical`, exigindo os três jobs e proibindo push directo.
+
+    UM PORTÃO QUE SE PODE CONTORNAR É UMA SUGESTÃO.
+
+### Pousar uma versão à mão (rollback, ou recurso)
+
+[`scripts/portao_da_promocao.py`](scripts/portao_da_promocao.py) continua a
+existir para quando for preciso trocar a versão sem passar pelo fluxo normal:
 
 ```bash
 py system-map/scripts/portao_da_promocao.py \
