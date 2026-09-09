@@ -18,7 +18,7 @@ git**, que o `.vercelignore` não apaga.
 | | |
 |---|---|
 | `BRANCH` | `claude/system-map-freshness-v1` |
-| `HEAD` | `4f8be09b` + o `!cancelled()` |
+| `HEAD` | `a87f32fd` |
 | `BASE` | `96db9f1d` (system-map) + `c268f3ba` (canónica, M2I fechada) |
 | `MERGE` | feito · 5 conflitos, os **cinco derivados**, resolvidos regenerando |
 | `MERGEADO NA CANÓNICA` | **NÃO** |
@@ -258,16 +258,21 @@ verificação que fica por fazer nesta linha.
 
 ## O CI RESPONDEU, NO COMMIT REAL
 
-Em `4f8be09b`, no GitHub, não em simulação:
+Em `a87f32fd`, no GitHub, não em simulação — **e agora todos os passos correm**:
 
 ```
-SYSTEM MAP CHECK   success     <- é este que a tela lê para poder ficar verde
-MAP RULES CHECK    failure     <- as duas provas de arquitetura de 8e1947d2
-COLETA CHECK       failure     <- padrao_da_coleta.py, também de antes
+SYSTEM MAP CHECK   success    1 ✓   2 ✓   2b ✓
+MAP RULES CHECK    failure    1 ✓   4 ✗   4k ✓ 4l ✓ 5 ✓ 6 ✓ 7 ✓ 8 ✓
+COLETA CHECK       failure    3 ✗   4b ✓ 4c ✓ 4d ✓ 4e ✓ 4f ✓ 4g ✓ 4h ✓ 4i ✓ 4j ✓
 verificar          success
 ```
 
-**O portão de que o verde depende passou no CI real.**
+**O portão de que o verde depende passou no CI real.** E os dois vermelhos são
+cada um **um passo só**, os mesmos de antes desta missão — tudo o que os rodeia
+está verde e, pela primeira vez, VISÍVEL.
+
+`4h` (`test_preservar_coleta_no_banco.py`) **passou no CI**, com Postgres a
+sério: 31 testes. Não é SKIP — foi medido lá.
 
 ---
 
@@ -288,8 +293,8 @@ estava.
 
 > **NEW_FAILURES desta missão = 0.**
 
-`4h` (`test_preservar_coleta_no_banco.py`) não foi corrido aqui: precisa de
-Postgres. **SKIP declarado, não PASS presumido.**
+`4h` (`test_preservar_coleta_no_banco.py`) não foi corrido **neste contentor** —
+precisa de Postgres. **Correu no CI e passou**, 31 testes contra um banco real.
 
 ---
 
