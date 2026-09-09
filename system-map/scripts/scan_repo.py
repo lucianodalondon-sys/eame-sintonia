@@ -456,6 +456,14 @@ def arestas(arquivos: dict) -> tuple[list, dict]:
                     "artefacto")
         ext = meta["ext"]
         linhas = ler(caminho)
+        # Onde acaba o bloco `on:` e comecam os passos. Antes disto, um `.yml`
+        # so declara GATILHOS — e um gatilho nao corre nem le nada.
+        inicio_dos_jobs = 0
+        if caminho.endswith((".yml", ".yaml")):
+            for _i, _l in enumerate(linhas, 1):
+                if _l.startswith("jobs:"):
+                    inicio_dos_jobs = _i
+                    break
         for n, linha in enumerate(linhas, 1):
             crua = linha.rstrip()
             if ext in (".py", ".sh", ".yml", ".yaml"):
@@ -483,8 +491,47 @@ def arestas(arquivos: dict) -> tuple[list, dict]:
                         add(caminho, alvo, "IMPORTS", prova(caminho, n, crua), "codigo")
 
             # ── workflow chamando script ─────────────────────────────────
-            if ext in (".yml", ".yaml"):
-                for alvo in RE_RUN_SCRIPT.findall(crua):
+            # ⚠️ UM `paths:` NAO E UMA EXECUCAO.
+            #
+            # Isto corria sobre QUALQUER linha do `.yml`, e o bloco `on:` de um
+            # workflow lista ficheiros — `paths:` diz «acorda quando este
+            # ficheiro mudar», nao «este workflow corre este ficheiro». Medido:
+            # 48 arestas da arvore tinham como unica prova uma linha de lista
+            # dentro do `on:`, e cada uma dessas linhas produzia DUAS falsas:
+            #
+            #   C-CI-PERSIST -> C-ADMISSAO   RUNS    (o CI nao corre admissao.py)
+            #   C-ADMISSAO   -> C-CI-PERSIST READS   (e a direccao ao contrario)
+            #
+            # ambas apontando para `banco-descartavel.yml:45`, que e
+            # `- 'admissao/admissao.py'` dentro do filtro de caminhos.
+            #
+            #     ACORDAR COM A MUDANCA DE UM FICHEIRO
+            #     NAO E EXECUTAR ESSE FICHEIRO.
+            #
+            # E eu piorei isto na missao anterior: acrescentei dez caminhos ao
+            # `paths:` do `banco-descartavel.yml` para o portao acordar quando
+            # a estrada mudasse — e sem saber criei dez arestas falsas.
+            #
+            # A fronteira e estrutural e nao heuristica: em todos os 15
+            # workflows desta arvore o `on:` vem antes do `jobs:`, os dois na
+            # coluna zero. Tudo o que esta antes de `jobs:` e GATILHO.
+            # ⚠️ E UM COMENTARIO TAMBEM NAO E UMA EXECUCAO.
+            # Isto lia a linha CRUA, enquanto o ramo do `.sh` logo abaixo ja
+            # usava `sem_comentario`. A inconsistencia custou cinco arestas
+            # RUNS cuja unica prova era prosa — e tres delas nasceram de
+            # comentarios que EU escrevi a explicar o que o passo faz:
+            #
+            #   C-CI-PERSIST -> C-PROVA-ROTA-M2-ATRAVESSA
+            #     prova: «# `provas/a_rota_m2_atravessa.py` e a unica prova...»
+            #
+            # A aresta ate era VERDADEIRA — o passo 2g corre mesmo esse
+            # ficheiro — mas a prova apontava para a frase, nao para o comando.
+            # Uma aresta certa com prova errada e uma aresta que ninguem
+            # consegue conferir.
+            #
+            #     EXPLICAR UMA EXECUCAO NAO E EXECUTAR.
+            if ext in (".yml", ".yaml") and n > inicio_dos_jobs:
+                for alvo in RE_RUN_SCRIPT.findall(sem_comentario):
                     add(caminho, alvo, "RUNS", prova(caminho, n, crua), "execucao")
 
             # ── shell chamando script ────────────────────────────────────
@@ -498,8 +545,13 @@ def arestas(arquivos: dict) -> tuple[list, dict]:
             # ou lixo — e adivinhar qual e disso seria fabricar aresta.
             # sem aspas tambem conta: `if [ ! -f data/samples/x.json ]` num passo
             # de shell e uma leitura tao real como qualquer outra.
-            crus = RE_LITERAL.findall(sem_comentario)
-            if ext in (".sh", ".yml", ".yaml"):
+            # A mesma fronteira vale para a leitura: um caminho listado no
+            # `paths:` nao e um ficheiro que alguem abriu. Era daqui que saia a
+            # aresta ao contrario — `admissao/admissao.py READS o workflow`.
+            crus = ([] if (ext in (".yml", ".yaml") and n <= inicio_dos_jobs)
+                    else RE_LITERAL.findall(sem_comentario))
+            if ext in (".sh", ".yml", ".yaml") and not (
+                    ext in (".yml", ".yaml") and n <= inicio_dos_jobs):
                 crus += RE_CAMINHO_NU.findall(sem_comentario)
             for lit in crus:
                 alvo = lit if lit in arquivos else relativo(lit, caminho, arquivos)

@@ -1791,8 +1791,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "8f7ff4c5938097fe8c4ef1e793d39f355fdcffb3",
-    "GENERATED_AT": "2026-09-09T04:47:24+00:00"
+    "HEAD": "04a7f62c87e3ce277ad582111ebc449793c7de97",
+    "GENERATED_AT": "2026-09-09T04:50:32+00:00"
   },
   "FAMILIES": [
     {
@@ -2262,8 +2262,7 @@
         "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json"
       ],
       "inbound": [
-        "C-SUPABASE",
-        "C-TESTES"
+        "C-SUPABASE"
       ],
       "outbound": [
         "C-PROVA-COLETA",
@@ -2273,7 +2272,7 @@
         "ESPANHA": 3
       },
       "paises_dado": {
-        "ESPANHA": 19
+        "ESPANHA": 15
       },
       "pais": "ESPANHA",
       "entregue_a_inteligencia": [
@@ -2470,13 +2469,11 @@
       ],
       "produces": [],
       "inbound": [
-        "C-CI-PERSIST",
         "C-IT-TEXTO-DERIVADO"
       ],
       "outbound": [
         "C-CENSO-DERIVACOES",
         "C-CENSO-SEMANTICO-IT",
-        "C-CI-PERSIST",
         "C-ESTRADA-PDF",
         "C-MAPA-GERADOR",
         "C-ORQUESTRADOR",
@@ -5798,7 +5795,6 @@
       ],
       "outbound": [
         "C-AUDIT-GERAL",
-        "C-CI-PERSIST",
         "C-LUGAR-DO-FATO",
         "C-PACOTE-CAMADAS",
         "C-PROVENIENCIA",
@@ -6660,45 +6656,18 @@
       ],
       "produces": [],
       "inbound": [
-        "C-ADMISSAO",
-        "C-CADEIA-V21",
-        "C-CONTRATO-TELEMETRIA",
-        "C-DERIVACAO-FORWARD",
-        "C-DONO-DA-ESCRITA",
-        "C-DONO-DO-DERIVADO",
-        "C-EXECUTOR-TEXTO-PDF",
-        "C-MEDICAO",
-        "C-PROVA-AUTORIDADE-FONTE",
-        "C-PROVA-COLETA",
-        "C-PROVA-DEDUPE",
-        "C-PROVA-EXECUTOR-CONTA",
-        "C-PROVA-FORWARD-CONTA",
-        "C-PROVA-ROTA-M2-ATRAVESSA",
-        "C-RASTRO",
-        "C-ROTA-M2",
-        "C-SCRAP-SOCIAL",
         "C-SUPABASE",
         "C-TESTES"
       ],
       "outbound": [
-        "C-ADMISSAO",
         "C-CADEIA-V21",
-        "C-CONTRATO-TELEMETRIA",
-        "C-DERIVACAO-FORWARD",
-        "C-DONO-DA-ESCRITA",
-        "C-DONO-DO-DERIVADO",
-        "C-EXECUTOR-TEXTO-PDF",
         "C-MEDICAO",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
         "C-PROVA-DEDUPE",
-        "C-PROVA-EXECUTOR-CONTA",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
-        "C-RASTRO",
         "C-REGRA-COLETA",
-        "C-ROTA-M2",
-        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "paises": {},
@@ -6878,7 +6847,7 @@
       ],
       "file_count": 3,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "coleta/coleta_checkpoint.py"
       ],
@@ -6886,7 +6855,6 @@
       "inbound": [
         "C-APIFY-POOL",
         "C-PROCEDENCIA",
-        "C-SCRAP-ROTA",
         "V-LINKEDIN"
       ],
       "outbound": [
@@ -7302,13 +7270,11 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-PERSIST",
         "C-GESTAO-COLETA",
         "C-SCRAP-LEIS"
       ],
       "outbound": [
         "C-CENSO-OBSERVABILIDADE",
-        "C-CI-PERSIST",
         "C-FLUXO-NO-SECO",
         "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
@@ -7599,11 +7565,10 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-PERSIST",
         "C-CONTRATO-ARTEFATO",
         "C-EXECUTOR-TEXTO-PDF",
         "C-GESTAO-COLETA",
@@ -7611,7 +7576,6 @@
         "C-SCRAP-LEIS"
       ],
       "outbound": [
-        "C-CI-PERSIST",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
@@ -7712,7 +7676,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▷",
       "views": [
         "audit",
@@ -7726,15 +7690,12 @@
         "guarda/preservar_coleta.py"
       ],
       "file_count": 3,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [
-        "C-CI-PERSIST"
-      ],
+      "inbound": [],
       "outbound": [
-        "C-CI-PERSIST",
         "C-TESTES"
       ],
       "paises": {},
@@ -7787,7 +7748,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▷",
       "views": [
         "audit",
@@ -7799,15 +7760,12 @@
         "guarda/preservar_derivado.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [
-        "C-CI-PERSIST"
-      ],
+      "inbound": [],
       "outbound": [
-        "C-CI-PERSIST",
         "C-TESTES"
       ],
       "paises": {},
@@ -8116,20 +8074,18 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "coleta/executor_texto_de_pdf.py"
       ],
       "produces": [],
       "inbound": [
-        "C-CI-PERSIST",
         "C-CONTRATO-ARTEFATO",
         "C-IT-PDF-BRUTO",
         "C-RASTRO"
       ],
       "outbound": [
         "C-CENSO-DERIVACOES",
-        "C-CI-PERSIST",
         "C-DERIVACAO-FORWARD",
         "C-ESTRADA-PDF",
         "C-FRONTEIRA-TELEMETRIA",
@@ -9757,7 +9713,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "audit",
@@ -9772,9 +9728,11 @@
         "system-map/scripts/scan_sources.py"
       ],
       "file_count": 4,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/scan_repo.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -9989,7 +9947,6 @@
         "C-CI-REGRESSAO"
       ],
       "outbound": [
-        "C-CI-PERSIST",
         "C-COLETA-INSTAGRAM",
         "C-PROVA-DEDUPE",
         "C-RECORRENCIA",
@@ -11067,7 +11024,6 @@
         "C-SUPABASE"
       ],
       "outbound": [
-        "C-CI-PERSIST",
         "C-TESTES"
       ],
       "paises": {},
@@ -11216,7 +11172,6 @@
         "C-CADEIA-V21",
         "C-CENSO-EXECUTORES",
         "C-CENSO-OBSERVABILIDADE",
-        "C-CI-PERSIST",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -11287,9 +11242,7 @@
         "C-CI-PERSIST",
         "C-MEDICAO"
       ],
-      "outbound": [
-        "C-CI-PERSIST"
-      ],
+      "outbound": [],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -11343,13 +11296,11 @@
       "inbound": [
         "C-BANCO-NO-SECO",
         "C-CI-MAPA",
-        "C-CI-PERSIST",
         "C-EXECUTOR-TEXTO-PDF",
         "C-RASTRO"
       ],
       "outbound": [
-        "C-CENSO-OBSERVABILIDADE",
-        "C-CI-PERSIST"
+        "C-CENSO-OBSERVABILIDADE"
       ],
       "paises": {},
       "paises_dado": {},
@@ -11402,9 +11353,7 @@
         "C-RASTRO",
         "C-SCRAP-LEIS"
       ],
-      "outbound": [
-        "C-CI-PERSIST"
-      ],
+      "outbound": [],
       "paises": {},
       "paises_dado": {
         "ITALIA": 1
@@ -11620,7 +11569,6 @@
       ],
       "outbound": [
         "C-CENSO-EXECUTORES",
-        "C-CI-PERSIST",
         "C-TESTES"
       ],
       "paises": {},
@@ -11800,11 +11748,10 @@
       ],
       "file_count": 2,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-PERSIST",
         "C-COLETA-BASE",
         "C-CONTRATO-TELEMETRIA",
         "C-GESTAO-COLETA",
@@ -11812,7 +11759,6 @@
         "C-SCRAP-LEIS"
       ],
       "outbound": [
-        "C-CI-PERSIST",
         "C-DERIVACAO-FORWARD",
         "C-EXECUTOR-TEXTO-PDF",
         "C-FRONTEIRA-TELEMETRIA",
@@ -12363,12 +12309,11 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-ADMISSAO",
-        "C-CI-PERSIST",
         "C-DERIVACAO-FORWARD",
         "C-GESTAO-COLETA",
         "C-RASTRO",
@@ -12376,7 +12321,6 @@
         "C-SCRAP-SOCIAL"
       ],
       "outbound": [
-        "C-CI-PERSIST",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
@@ -12751,7 +12695,6 @@
         "C-TESTES"
       ],
       "outbound": [
-        "C-COLETA-BASE",
         "C-SCRAP-GUARDA",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
@@ -12802,7 +12745,6 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-PERSIST",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-SCRAP-GUARDA",
@@ -12815,7 +12757,6 @@
         "V-YOUTUBE"
       ],
       "outbound": [
-        "C-CI-PERSIST",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
         "C-TESTES"
@@ -14441,7 +14382,6 @@
         "C-V21-OPORTUNIDADE"
       ],
       "outbound": [
-        "C-ADAMA-ES",
         "C-ASK-SINTONIA",
         "C-CENSO-CONGELAMENTO",
         "C-CI-PERSIST",
@@ -14457,7 +14397,7 @@
         "ESPANHA": 2
       },
       "paises_dado": {
-        "ESPANHA": 44,
+        "ESPANHA": 42,
         "ITALIA": 11,
         "EUROPA": 2
       },
@@ -16306,24 +16246,6 @@
       "categoria": "PROOF"
     },
     {
-      "from": "C-ADAMA-ES",
-      "to": "C-TESTES",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O portao do catalogo espanhol · projeto futuro manda rodar Suite de testes. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "guarda/es/workflows/adama-es-gate.yml",
-          "line": 18,
-          "snippet": "- 'tests/es/test_adama_es_gate.py'"
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
       "from": "C-ADAMA-IT",
       "to": "C-LASTMILE",
       "type": "READS",
@@ -16396,24 +16318,6 @@
           "file": "system-map/scripts/censo_semantico_it.py",
           "line": 60,
           "snippet": "(\"admissao/admissao.py\", \"PERGUNTAS_DO_UNIVERSO\", \"ADMISSAO\","
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-ADMISSAO",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 45,
-          "snippet": "- 'admissao/admissao.py'"
         }
       ],
       "categoria": "READ"
@@ -18124,24 +18028,6 @@
     },
     {
       "from": "C-CADEIA-V21",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 53,
-          "snippet": "- 'motor/cadeia_canonica.sh'"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-CADEIA-V21",
       "to": "C-LUGAR-DO-FATO",
       "type": "RUNS",
       "payload": "execucao",
@@ -18600,8 +18486,8 @@
       "evidence": [
         {
           "file": ".github/workflows/apify-conexao.yml",
-          "line": 21,
-          "snippet": "# `ferramentas/apify_pool.py` já é o dono desta regra: `censo()` devolve presença,"
+          "line": 68,
+          "snippet": "PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py"
         },
         {
           "file": ".github/workflows/apify-sensores.yml",
@@ -18626,13 +18512,8 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que disparam a coleta manda rodar Colher o que o concorrente publica. Provado por 3 linhas de codigo.",
+      "reason": "Os botoes que disparam a coleta manda rodar Colher o que o concorrente publica. Provado por 2 linhas de codigo.",
       "evidence": [
-        {
-          "file": ".github/workflows/comunicacao-publica.yml",
-          "line": 133,
-          "snippet": "# Estas linhas chamavam `coleta/comunicacao_coleta.py` pelo nome e"
-        },
         {
           "file": ".github/workflows/comunicacao-publica.yml",
           "line": 146,
@@ -19135,8 +19016,8 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 65,
-          "snippet": "#   provas/o_executor_conta_se.py     -> PASS, saida byte a byte igual"
+          "line": 224,
+          "snippet": "run: python3 provas/o_executor_conta_se.py"
         }
       ],
       "categoria": "CONTROL"
@@ -19207,11 +19088,6 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 64,
-          "snippet": "#   tests/test_preservar_derivado.py  -> OK (skipped=2)"
-        },
-        {
-          "file": ".github/workflows/system-map.yml",
           "line": 145,
           "snippet": "python3 tests/test_biblia.py"
         },
@@ -19252,29 +19128,16 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
+          "line": 179,
+          "snippet": "run: python3 tests/test_preservar_derivado.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
           "line": 184,
           "snippet": "run: python3 tests/test_porta_de_producao.py"
         }
       ],
       "categoria": "PROOF"
-    },
-    {
-      "from": "C-CI-PERSIST",
-      "to": "C-ADMISSAO",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar A porta de admissao. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 45,
-          "snippet": "- 'admissao/admissao.py'"
-        }
-      ],
-      "categoria": "CONTROL"
     },
     {
       "from": "C-CI-PERSIST",
@@ -19284,112 +19147,12 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Cadeia canonica V2.1. Provado por 2 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Cadeia canonica V2.1. Provado por 1 linha de codigo.",
       "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 53,
-          "snippet": "- 'motor/cadeia_canonica.sh'"
-        },
         {
           "file": ".github/workflows/supabase-migrate.yml",
-          "line": 4,
-          "snippet": "# A ordem NAO mora aqui: mora em motor/cadeia_canonica.sh, que o CI usa"
-        }
-      ],
-      "categoria": "CONTROL"
-    },
-    {
-      "from": "C-CI-PERSIST",
-      "to": "C-CONTRATO-TELEMETRIA",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Contrato da telemetria — a forma do fluxo. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 46,
-          "snippet": "- 'leis/telemetria.py'"
-        }
-      ],
-      "categoria": "CONTROL"
-    },
-    {
-      "from": "C-CI-PERSIST",
-      "to": "C-DERIVACAO-FORWARD",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar A fronteira forward da derivação. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 42,
-          "snippet": "- 'coleta/derivacao_forward.py'"
-        }
-      ],
-      "categoria": "CONTROL"
-    },
-    {
-      "from": "C-CI-PERSIST",
-      "to": "C-DONO-DA-ESCRITA",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar O dono canônico da escrita do bruto (OBSERVED). Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 25,
-          "snippet": "- 'guarda/preservar_coleta.py'"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 26,
-          "snippet": "- 'guarda/memoria_descartavel.py'"
-        }
-      ],
-      "categoria": "CONTROL"
-    },
-    {
-      "from": "C-CI-PERSIST",
-      "to": "C-DONO-DO-DERIVADO",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar O dono canônico da escrita do derivado (OBSERVED). Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 37,
-          "snippet": "- 'guarda/preservar_derivado.py'"
-        }
-      ],
-      "categoria": "CONTROL"
-    },
-    {
-      "from": "C-CI-PERSIST",
-      "to": "C-EXECUTOR-TEXTO-PDF",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Executor · texto a partir de PDF. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 44,
-          "snippet": "- 'coleta/executor_texto_de_pdf.py'"
+          "line": 92,
+          "snippet": "run: bash motor/cadeia_canonica.sh migrations \"$SUPABASE_DB_URL\""
         }
       ],
       "categoria": "CONTROL"
@@ -19402,13 +19165,8 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Auditoria, cobertura e custo. Provado por 2 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Auditoria, cobertura e custo. Provado por 1 linha de codigo.",
       "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 52,
-          "snippet": "- 'provas/inventario_esperado.py'"
-        },
         {
           "file": ".github/workflows/supabase-migrate.yml",
           "line": 80,
@@ -19429,8 +19187,8 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 50,
-          "snippet": "- 'provas/a_autoridade_da_fonte.py'"
+          "line": 235,
+          "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
         }
       ],
       "categoria": "CONTROL"
@@ -19447,33 +19205,33 @@
       "evidence": [
         {
           "file": ".github/workflows/auditoria-live.yml",
-          "line": 35,
-          "snippet": "- 'provas/auditoria_live.sh'"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 27,
-          "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 33,
-          "snippet": "- 'provas/rastro_no_postgres.py'"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 34,
-          "snippet": "- 'provas/social_persistencia_no_postgres.py'"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 36,
-          "snippet": "- 'provas/derived_artifact_no_postgres.py'"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
           "line": 54,
-          "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
+          "snippet": "run: bash provas/auditoria_live.sh"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 106,
+          "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 119,
+          "snippet": "python3 provas/derived_artifact_no_postgres.py"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 128,
+          "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 160,
+          "snippet": "python3 provas/social_persistencia_no_postgres.py"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 184,
+          "snippet": "python3 provas/rastro_no_postgres.py"
         }
       ],
       "categoria": "PROOF"
@@ -19490,26 +19248,8 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 51,
-          "snippet": "- 'provas/o_dedupe_tem_constraint.py'"
-        }
-      ],
-      "categoria": "CONTROL"
-    },
-    {
-      "from": "C-CI-PERSIST",
-      "to": "C-PROVA-EXECUTOR-CONTA",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar A prova de que o executor se conta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 49,
-          "snippet": "- 'provas/o_executor_conta_se.py'"
+          "line": 244,
+          "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
         }
       ],
       "categoria": "CONTROL"
@@ -19526,8 +19266,8 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 48,
-          "snippet": "- 'provas/o_forward_conta_se.py'"
+          "line": 210,
+          "snippet": "python3 provas/o_forward_conta_se.py"
         }
       ],
       "categoria": "CONTROL"
@@ -19544,26 +19284,8 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 47,
-          "snippet": "- 'provas/a_rota_m2_atravessa.py'"
-        }
-      ],
-      "categoria": "CONTROL"
-    },
-    {
-      "from": "C-CI-PERSIST",
-      "to": "C-RASTRO",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar O rastro da coleta — etapa, aresta, contagem e falha. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 32,
-          "snippet": "- 'medidas/rastro_da_coleta.py'"
+          "line": 219,
+          "snippet": "python3 provas/a_rota_m2_atravessa.py"
         }
       ],
       "categoria": "CONTROL"
@@ -19585,42 +19307,6 @@
         }
       ],
       "categoria": "READ"
-    },
-    {
-      "from": "C-CI-PERSIST",
-      "to": "C-ROTA-M2",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar A rota forward do documento (M2). Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 43,
-          "snippet": "- 'coleta/rota_forward_documento.py'"
-        }
-      ],
-      "categoria": "CONTROL"
-    },
-    {
-      "from": "C-CI-PERSIST",
-      "to": "C-SCRAP-SOCIAL",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Executor do SCRAP · a aquisicao social. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 35,
-          "snippet": "- 'coleta/social_persistencia.py'"
-        }
-      ],
-      "categoria": "CONTROL"
     },
     {
       "from": "C-CI-PERSIST",
@@ -19681,24 +19367,6 @@
       "categoria": "PROOF"
     },
     {
-      "from": "C-CI-PERSIST",
-      "to": "C-TESTES",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Suite de testes. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/auditoria-live.yml",
-          "line": 52,
-          "snippet": "# diz — e há teste em `tests/test_porta_de_producao.py` que reprova."
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
       "from": "C-CI-REGRESSAO",
       "to": "C-CADEIA-V21",
       "type": "RUNS",
@@ -19710,8 +19378,8 @@
       "evidence": [
         {
           "file": ".github/workflows/calendario-regressoes.yml",
-          "line": 159,
-          "snippet": "# os dois chamam o MESMO motor/cadeia_canonica.sh. Se a ordem mudar"
+          "line": 169,
+          "snippet": "bash motor/cadeia_canonica.sh migrations \"$CADEIA\" | tail -3"
         }
       ],
       "categoria": "CONTROL"
@@ -20350,24 +20018,6 @@
     },
     {
       "from": "C-CONTRATO-TELEMETRIA",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Contrato da telemetria — a forma do fluxo alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 46,
-          "snippet": "- 'leis/telemetria.py'"
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-CONTRATO-TELEMETRIA",
       "to": "C-FLUXO-NO-SECO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -20778,24 +20428,6 @@
     },
     {
       "from": "C-DERIVACAO-FORWARD",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A fronteira forward da derivação alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 42,
-          "snippet": "- 'coleta/derivacao_forward.py'"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-DERIVACAO-FORWARD",
       "to": "C-PROVA-FORWARD-CONTA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -20891,29 +20523,6 @@
     },
     {
       "from": "C-DONO-DA-ESCRITA",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Os botoes que cuidam do banco. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 25,
-          "snippet": "- 'guarda/preservar_coleta.py'"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 26,
-          "snippet": "- 'guarda/memoria_descartavel.py'"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-DONO-DA-ESCRITA",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -20939,24 +20548,6 @@
         }
       ],
       "categoria": "PROOF"
-    },
-    {
-      "from": "C-DONO-DO-DERIVADO",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O dono canônico da escrita do derivado (OBSERVED) alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 37,
-          "snippet": "- 'guarda/preservar_derivado.py'"
-        }
-      ],
-      "categoria": "READ"
     },
     {
       "from": "C-DONO-DO-DERIVADO",
@@ -21294,24 +20885,6 @@
           "file": "system-map/scripts/censo_das_derivacoes.py",
           "line": 54,
           "snippet": "\"PRODUTOR\": \"coleta/executor_texto_de_pdf.py\","
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-EXECUTOR-TEXTO-PDF",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 44,
-          "snippet": "- 'coleta/executor_texto_de_pdf.py'"
         }
       ],
       "categoria": "READ"
@@ -23468,24 +23041,6 @@
     },
     {
       "from": "C-MEDICAO",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Auditoria, cobertura e custo alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 52,
-          "snippet": "- 'provas/inventario_esperado.py'"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-MEDICAO",
       "to": "C-COLETA-INSTAGRAM",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24989,24 +24544,6 @@
     },
     {
       "from": "C-PROVA-AUTORIDADE-FONTE",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A medição da autoridade da fonte alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 50,
-          "snippet": "- 'provas/a_autoridade_da_fonte.py'"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-PROVA-AUTORIDADE-FONTE",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -25096,49 +24633,6 @@
           "file": "system-map/scripts/censo_da_observabilidade.py",
           "line": 216,
           "snippet": "[sys.executable, os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
-      "from": "C-PROVA-COLETA",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Os botoes que cuidam do banco. Provado por 6 linhas de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/auditoria-live.yml",
-          "line": 35,
-          "snippet": "- 'provas/auditoria_live.sh'"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 27,
-          "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 33,
-          "snippet": "- 'provas/rastro_no_postgres.py'"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 34,
-          "snippet": "- 'provas/social_persistencia_no_postgres.py'"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 36,
-          "snippet": "- 'provas/derived_artifact_no_postgres.py'"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 54,
-          "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
         }
       ],
       "categoria": "PROOF"
@@ -25241,24 +24735,6 @@
       "categoria": "PROOF"
     },
     {
-      "from": "C-PROVA-DEDUPE",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova de que o dedupe tem chave alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 51,
-          "snippet": "- 'provas/o_dedupe_tem_constraint.py'"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
       "from": "C-PROVA-EXECUTOR-CONTA",
       "to": "C-CENSO-OBSERVABILIDADE",
       "type": "READS",
@@ -25272,42 +24748,6 @@
           "file": "system-map/scripts/censo_da_observabilidade.py",
           "line": 178,
           "snippet": "'ONDE_SE_VE': 'provas/o_executor_conta_se.py',"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-PROVA-EXECUTOR-CONTA",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova de que o executor se conta alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 49,
-          "snippet": "- 'provas/o_executor_conta_se.py'"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-PROVA-FORWARD-CONTA",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova de que o forward se conta alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 48,
-          "snippet": "- 'provas/o_forward_conta_se.py'"
         }
       ],
       "categoria": "READ"
@@ -25365,7 +24805,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_repo.py",
-          "line": 562,
+          "line": 614,
           "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
         }
       ],
@@ -25450,24 +24890,6 @@
     },
     {
       "from": "C-PROVA-ROTA-M2-ATRAVESSA",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A prova de que a rota da M2 atravessa alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 47,
-          "snippet": "- 'provas/a_rota_m2_atravessa.py'"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-PROVA-ROTA-M2-ATRAVESSA",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -25501,24 +24923,6 @@
         }
       ],
       "categoria": "READ"
-    },
-    {
-      "from": "C-RASTRO",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O rastro da coleta — etapa, aresta, contagem e falha alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 32,
-          "snippet": "- 'medidas/rastro_da_coleta.py'"
-        }
-      ],
-      "categoria": "RULE"
     },
     {
       "from": "C-RASTRO",
@@ -25975,24 +25379,6 @@
         }
       ],
       "categoria": "RULE"
-    },
-    {
-      "from": "C-ROTA-M2",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 43,
-          "snippet": "- 'coleta/rota_forward_documento.py'"
-        }
-      ],
-      "categoria": "READ"
     },
     {
       "from": "C-ROTA-M2",
@@ -26809,24 +26195,6 @@
     },
     {
       "from": "C-SCRAP-ROTA",
-      "to": "C-COLETA-BASE",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar O motor de buscar. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/scrap-social.yml",
-          "line": 284,
-          "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
-        }
-      ],
-      "categoria": "CONTROL"
-    },
-    {
-      "from": "C-SCRAP-ROTA",
       "to": "C-SCRAP-GUARDA",
       "type": "RUNS",
       "payload": "execucao",
@@ -26888,24 +26256,6 @@
         }
       ],
       "categoria": "PROOF"
-    },
-    {
-      "from": "C-SCRAP-SOCIAL",
-      "to": "C-CI-PERSIST",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Executor do SCRAP · a aquisicao social alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 35,
-          "snippet": "- 'coleta/social_persistencia.py'"
-        }
-      ],
-      "categoria": "READ"
     },
     {
       "from": "C-SCRAP-SOCIAL",
@@ -27819,24 +27169,6 @@
         }
       ],
       "categoria": "READ"
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-ADAMA-ES",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes alimenta O portao do catalogo espanhol · projeto futuro. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "guarda/es/workflows/adama-es-gate.yml",
-          "line": 18,
-          "snippet": "- 'tests/es/test_adama_es_gate.py'"
-        }
-      ],
-      "categoria": "PROOF"
     },
     {
       "from": "C-TESTES",
@@ -29170,12 +28502,12 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 148,
-    "components_proven": 70,
-    "components_pending": 72,
+    "components_proven": 67,
+    "components_pending": 75,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 599,
-    "edges_proven": 597,
+    "edges": 568,
+    "edges_proven": 566,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1345,

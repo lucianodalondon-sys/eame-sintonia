@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "8f7ff4c5938097fe8c4ef1e793d39f355fdcffb3",
-    "GENERATED_AT": "2026-09-09T04:47:24+00:00"
+    "HEAD": "04a7f62c87e3ce277ad582111ebc449793c7de97",
+    "GENERATED_AT": "2026-09-09T04:50:32+00:00"
   },
   "FILES": [
     {
@@ -8822,7 +8822,7 @@
     },
     {
       "path": "system-map/scripts/scan_repo.py",
-      "sha": "2721f4eace153fcaf95ff45e0f6633247bb24cb3",
+      "sha": "1b01c64a4dba78e785992eb9f702039fe7747afd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9431,8 +9431,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/apify-conexao.yml",
-        "line": 21,
-        "snippet": "# `ferramentas/apify_pool.py` já é o dono desta regra: `censo()` devolve presença,"
+        "line": 68,
+        "snippet": "PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py"
       }
     },
     {
@@ -9460,287 +9460,12 @@
     {
       "from_file": ".github/workflows/auditoria-live.yml",
       "to_file": "provas/auditoria_live.sh",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/auditoria-live.yml",
-        "line": 35,
-        "snippet": "- 'provas/auditoria_live.sh'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/auditoria-live.yml",
-      "to_file": "provas/auditoria_live.sh",
       "type": "RUNS",
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/auditoria-live.yml",
-        "line": 35,
-        "snippet": "- 'provas/auditoria_live.sh'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/auditoria-live.yml",
-      "to_file": "tests/test_porta_de_producao.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/auditoria-live.yml",
-        "line": 52,
-        "snippet": "# diz — e há teste em `tests/test_porta_de_producao.py` que reprova."
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "admissao/admissao.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 45,
-        "snippet": "- 'admissao/admissao.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "admissao/admissao.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 45,
-        "snippet": "- 'admissao/admissao.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "coleta/derivacao_forward.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 42,
-        "snippet": "- 'coleta/derivacao_forward.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "coleta/derivacao_forward.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 42,
-        "snippet": "- 'coleta/derivacao_forward.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "coleta/executor_texto_de_pdf.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 44,
-        "snippet": "- 'coleta/executor_texto_de_pdf.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "coleta/executor_texto_de_pdf.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 44,
-        "snippet": "- 'coleta/executor_texto_de_pdf.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "coleta/rota_forward_documento.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 43,
-        "snippet": "- 'coleta/rota_forward_documento.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "coleta/rota_forward_documento.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 43,
-        "snippet": "- 'coleta/rota_forward_documento.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "coleta/social_persistencia.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 35,
-        "snippet": "- 'coleta/social_persistencia.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "coleta/social_persistencia.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 35,
-        "snippet": "- 'coleta/social_persistencia.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "guarda/memoria_descartavel.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 26,
-        "snippet": "- 'guarda/memoria_descartavel.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "guarda/memoria_descartavel.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 26,
-        "snippet": "- 'guarda/memoria_descartavel.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "guarda/preservar_coleta.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 25,
-        "snippet": "- 'guarda/preservar_coleta.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "guarda/preservar_coleta.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 25,
-        "snippet": "- 'guarda/preservar_coleta.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "guarda/preservar_derivado.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 37,
-        "snippet": "- 'guarda/preservar_derivado.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "guarda/preservar_derivado.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 37,
-        "snippet": "- 'guarda/preservar_derivado.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "leis/telemetria.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 46,
-        "snippet": "- 'leis/telemetria.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "leis/telemetria.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 46,
-        "snippet": "- 'leis/telemetria.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "medidas/rastro_da_coleta.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 32,
-        "snippet": "- 'medidas/rastro_da_coleta.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "medidas/rastro_da_coleta.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 32,
-        "snippet": "- 'medidas/rastro_da_coleta.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "motor/cadeia_canonica.sh",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 53,
-        "snippet": "- 'motor/cadeia_canonica.sh'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "motor/cadeia_canonica.sh",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 53,
-        "snippet": "- 'motor/cadeia_canonica.sh'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/a_autoridade_da_fonte.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 50,
-        "snippet": "- 'provas/a_autoridade_da_fonte.py'"
+        "line": 54,
+        "snippet": "run: bash provas/auditoria_live.sh"
       }
     },
     {
@@ -9750,19 +9475,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 50,
-        "snippet": "- 'provas/a_autoridade_da_fonte.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/a_rota_m2_atravessa.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 47,
-        "snippet": "- 'provas/a_rota_m2_atravessa.py'"
+        "line": 235,
+        "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
       }
     },
     {
@@ -9772,19 +9486,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 47,
-        "snippet": "- 'provas/a_rota_m2_atravessa.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/derived_artifact_no_postgres.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 36,
-        "snippet": "- 'provas/derived_artifact_no_postgres.py'"
+        "line": 219,
+        "snippet": "python3 provas/a_rota_m2_atravessa.py"
       }
     },
     {
@@ -9794,41 +9497,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 36,
-        "snippet": "- 'provas/derived_artifact_no_postgres.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/inventario_esperado.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 52,
-        "snippet": "- 'provas/inventario_esperado.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/inventario_esperado.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 52,
-        "snippet": "- 'provas/inventario_esperado.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/o_dedupe_tem_constraint.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 51,
-        "snippet": "- 'provas/o_dedupe_tem_constraint.py'"
+        "line": 119,
+        "snippet": "python3 provas/derived_artifact_no_postgres.py"
       }
     },
     {
@@ -9838,41 +9508,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 51,
-        "snippet": "- 'provas/o_dedupe_tem_constraint.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/o_executor_conta_se.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 49,
-        "snippet": "- 'provas/o_executor_conta_se.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/o_executor_conta_se.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 49,
-        "snippet": "- 'provas/o_executor_conta_se.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/o_forward_conta_se.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 48,
-        "snippet": "- 'provas/o_forward_conta_se.py'"
+        "line": 244,
+        "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
       }
     },
     {
@@ -9882,19 +9519,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 48,
-        "snippet": "- 'provas/o_forward_conta_se.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/preservar_coleta_no_postgres.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 27,
-        "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
+        "line": 210,
+        "snippet": "python3 provas/o_forward_conta_se.py"
       }
     },
     {
@@ -9904,19 +9530,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 27,
-        "snippet": "- 'provas/preservar_coleta_no_postgres.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/rastro_no_postgres.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 33,
-        "snippet": "- 'provas/rastro_no_postgres.py'"
+        "line": 106,
+        "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
       }
     },
     {
@@ -9926,19 +9541,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 33,
-        "snippet": "- 'provas/rastro_no_postgres.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/social_persistencia_no_postgres.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 34,
-        "snippet": "- 'provas/social_persistencia_no_postgres.py'"
+        "line": 184,
+        "snippet": "python3 provas/rastro_no_postgres.py"
       }
     },
     {
@@ -9948,19 +9552,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 34,
-        "snippet": "- 'provas/social_persistencia_no_postgres.py'"
-      }
-    },
-    {
-      "from_file": ".github/workflows/banco-descartavel.yml",
-      "to_file": "provas/trava_de_drift_de_migration.sh",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": ".github/workflows/banco-descartavel.yml",
-        "line": 54,
-        "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
+        "line": 160,
+        "snippet": "python3 provas/social_persistencia_no_postgres.py"
       }
     },
     {
@@ -9970,8 +9563,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 54,
-        "snippet": "- 'provas/trava_de_drift_de_migration.sh'"
+        "line": 128,
+        "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
       }
     },
     {
@@ -9992,8 +9585,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/calendario-regressoes.yml",
-        "line": 159,
-        "snippet": "# os dois chamam o MESMO motor/cadeia_canonica.sh. Se a ordem mudar"
+        "line": 169,
+        "snippet": "bash motor/cadeia_canonica.sh migrations \"$CADEIA\" | tail -3"
       }
     },
     {
@@ -10229,17 +9822,6 @@
     },
     {
       "from_file": ".github/workflows/comunicacao-publica.yml",
-      "to_file": "coleta/comunicacao_coleta.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/comunicacao-publica.yml",
-        "line": 133,
-        "snippet": "# Estas linhas chamavam `coleta/comunicacao_coleta.py` pelo nome e"
-      }
-    },
-    {
-      "from_file": ".github/workflows/comunicacao-publica.yml",
       "to_file": "coleta/comunicacao_medir.py",
       "type": "RUNS",
       "payload": "execucao",
@@ -10313,17 +9895,6 @@
         "file": ".github/workflows/comunicacao-publica.yml",
         "line": 105,
         "snippet": "PYTHONIOENCODING=utf-8 $PY tests/test_comunicacao.py"
-      }
-    },
-    {
-      "from_file": ".github/workflows/scrap-social.yml",
-      "to_file": "coleta/coleta_checkpoint.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/scrap-social.yml",
-        "line": 284,
-        "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
       }
     },
     {
@@ -10498,8 +10069,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/supabase-migrate.yml",
-        "line": 4,
-        "snippet": "# A ordem NAO mora aqui: mora em motor/cadeia_canonica.sh, que o CI usa"
+        "line": 92,
+        "snippet": "run: bash motor/cadeia_canonica.sh migrations \"$SUPABASE_DB_URL\""
       }
     },
     {
@@ -10597,8 +10168,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 65,
-        "snippet": "#   provas/o_executor_conta_se.py     -> PASS, saida byte a byte igual"
+        "line": 224,
+        "snippet": "run: python3 provas/o_executor_conta_se.py"
       }
     },
     {
@@ -10971,8 +10542,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 64,
-        "snippet": "#   tests/test_preservar_derivado.py  -> OK (skipped=2)"
+        "line": 179,
+        "snippet": "run: python3 tests/test_preservar_derivado.py"
       }
     },
     {
@@ -13431,23 +13002,12 @@
     {
       "from_file": "guarda/es/workflows/adama-es-gate.yml",
       "to_file": "guarda/es/adama_es_gate.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "guarda/es/workflows/adama-es-gate.yml",
-        "line": 16,
-        "snippet": "- 'guarda/es/adama_es_gate.py'"
-      }
-    },
-    {
-      "from_file": "guarda/es/workflows/adama-es-gate.yml",
-      "to_file": "guarda/es/adama_es_gate.py",
       "type": "RUNS",
       "payload": "execucao",
       "evidence": {
         "file": "guarda/es/workflows/adama-es-gate.yml",
-        "line": 16,
-        "snippet": "- 'guarda/es/adama_es_gate.py'"
+        "line": 80,
+        "snippet": "python3 guarda/es/adama_es_gate.py --dsn \"$CINCO\" \\"
       }
     },
     {
@@ -13514,28 +13074,6 @@
         "file": "guarda/es/workflows/adama-es-gate.yml",
         "line": 125,
         "snippet": "psql \"$PGURL\" -f supabase/tests/regressoes_captura.sql 2>&1 | tail -3"
-      }
-    },
-    {
-      "from_file": "guarda/es/workflows/adama-es-gate.yml",
-      "to_file": "tests/es/test_adama_es_gate.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "guarda/es/workflows/adama-es-gate.yml",
-        "line": 18,
-        "snippet": "- 'tests/es/test_adama_es_gate.py'"
-      }
-    },
-    {
-      "from_file": "guarda/es/workflows/adama-es-gate.yml",
-      "to_file": "tests/es/test_adama_es_gate.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": "guarda/es/workflows/adama-es-gate.yml",
-        "line": 18,
-        "snippet": "- 'tests/es/test_adama_es_gate.py'"
       }
     },
     {
@@ -27196,7 +26734,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_repo.py",
-        "line": 562,
+        "line": 614,
         "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
       }
     },
@@ -33015,7 +32553,7 @@
     "files_tracked": 1345,
     "files_readable": 498,
     "files_code_dir": 552,
-    "file_edges": 2102,
+    "file_edges": 2060,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },
