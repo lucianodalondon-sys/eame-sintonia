@@ -24,6 +24,15 @@ Uso:
 """
 import json, os, re, subprocess, sys, pathlib
 
+try:
+    import yaml
+except ImportError:                                     # pragma: no cover
+    # Sem analisador de YAML nao ha como provar que os workflows correm. Isso e
+    # uma falha do portao, nao um passo a saltar em silencio.
+    #     SILENTLY SKIPPED STEP = 0.
+    raise SystemExit("RATCHET INDISPONIVEL: falta PyYAML, e sem ele os workflows "
+                     "nao podem ser verificados. `pip install pyyaml`.")
+
 # Substituivel para que as provas possam montar um repositorio minimo e mutar-lo.
 #     UM PORTAO QUE NAO PODE SER ATACADO NAO FOI PROVADO.
 RAIZ = pathlib.Path(os.environ.get("SINTONIA_RATCHET_RAIZ") or
@@ -79,6 +88,19 @@ def checar_workflows():
     out, wfs = [], sorted((RAIZ / ".github" / "workflows").glob("*.yml"))
     for w in wfs:
         nome, txt = w.name, w.read_text(encoding="utf-8")
+        # Um workflow que nao analisa nao corre — e um portao que nao corre nao
+        # e um portao. Esta linha entrou depois de um `:` dentro do nome de um
+        # passo ter feito o proprio SECURITY CHECK nao arrancar: a corrida deu
+        # `failure` com ZERO jobs, que e a forma mais silenciosa de falhar.
+        #
+        #     UM PORTAO COM ERRO DE SINTAXE NAO FALHA: DESAPARECE.
+        try:
+            yaml.safe_load(txt)
+        except yaml.YAMLError as e:
+            marca = getattr(e, "problem_mark", None)
+            out.append(achado("WORKFLOW_YAML_INVALIDO", f".github/workflows/{nome}",
+                              f"linha {marca.line + 1}" if marca else "erro de analise",
+                              "o GitHub nao consegue ler este workflow: ele nao corre"))
         sem_comentarios = "\n".join(l for l in txt.splitlines() if not l.lstrip().startswith("#"))
         if re.search(r"^\s*pull_request_target\s*:", sem_comentarios, re.M):
             out.append(achado("NEW_PULL_REQUEST_TARGET", f".github/workflows/{nome}",

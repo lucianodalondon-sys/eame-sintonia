@@ -207,3 +207,30 @@ class RedTeamRatchet(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class WorkflowQueNaoCorre(unittest.TestCase):
+    """Um `:` dentro do nome de um passo fez o proprio SECURITY CHECK nao
+    arrancar: a corrida deu failure com ZERO jobs. Nao ha log a ler, nao ha
+    passo a inspeccionar — o portao simplesmente nao existiu naquele commit.
+
+        UM PORTAO COM ERRO DE SINTAXE NAO FALHA: DESAPARECE.
+    """
+
+    def test_yaml_invalido_e_recusado(self):
+        with Casinha() as c:
+            c.congelar()
+            c.wf("partido.yml",
+                 "name: x\npermissions:\n  contents: read\non:\n  push:\njobs:\n  j:\n"
+                 "    steps:\n      - name: 5 · o ratchet: nenhuma exposicao\n")
+            r = c.portao()
+            self.assertEqual(r.returncode, 1, r.stdout)
+            self.assertIn("WORKFLOW_YAML_INVALIDO", r.stdout)
+            self.assertIn("linha", r.stdout, "tem de dizer ONDE, nao so que falhou")
+
+    def test_todos_os_workflows_reais_analisam(self):
+        """A prova que teria evitado a corrida vazia, a correr na arvore real."""
+        import yaml
+        for w in sorted((RAIZ / ".github" / "workflows").glob("*.yml")):
+            with self.subTest(workflow=w.name):
+                yaml.safe_load(w.read_text(encoding="utf-8"))

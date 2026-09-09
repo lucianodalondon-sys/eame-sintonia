@@ -45,42 +45,42 @@ jobs:
         with:
           fetch-depth: 0   # a guarda de credencial pergunta o que ESTA rastreado
 
-      - name: 1 · o baseline de seguranca e coerente consigo mesmo
+      - name: "1 · o baseline de seguranca e coerente consigo mesmo"
         # Um mapeamento que aponta para um controlo inexistente e uma norma sem
         # dono, e degrada em silencio.
         if: '!cancelled()'
         run: python3 security/validate-baseline.py
 
-      - name: 2 · a arvore versionada continua sem credencial
+      - name: "2 · a arvore versionada continua sem credencial"
         # Dono unico desta pergunta: guarda/social_guarda.py. O SECURITY CHECK
         # chama-o, nao o reescreve.  ONE CONCEPT -> ONE OWNER.
         if: '!cancelled()'
         run: python3 guarda/social_guarda.py
 
-      - name: 3 · as formas de credencial continuam a ser reconhecidas
+      - name: "3 · as formas de credencial continuam a ser reconhecidas"
         # SECURITY TOOL EXISTS != SECURITY CONTROL WORKS.
         if: '!cancelled()'
         run: python3 -m unittest tests.test_security_secret_shapes -v
 
-      - name: 4 · o segredo nao vaza em tempo de execucao
+      - name: "4 · o segredo nao vaza em tempo de execucao"
         # SECRET NOT IN GIT != SECRET CANNOT LEAK AT RUNTIME. Duas perguntas,
         # duas provas. Esta e do SCRAP, e e consumida, nao copiada.
         if: '!cancelled()'
         run: python3 -m unittest tests.test_youtube_antidrift.AntiDrift.test_10_nenhum_segredo_no_veredito_do_preflight -v
 
-      - name: 5 · o ratchet: nenhuma exposicao NOVA
+      - name: "5 · o ratchet: nenhuma exposicao NOVA"
         # Divida herdada fica visivel e nao bloqueia. Regressao nova bloqueia,
         # e o erro diz o ficheiro e o campo — nunca o valor.
         if: '!cancelled()'
         run: python3 security/ratchet.py
 
-      - name: 6 · o proprio ratchet ainda morde
+      - name: "6 · o proprio ratchet ainda morde"
         # Um portao que nunca foi atacado nao se sabe se morde. Estas provas
         # montam um repositorio minimo e tentam passar-lhe uma exposicao a frente.
         if: '!cancelled()'
         run: python3 -m unittest tests.test_security_ratchet -v
 
-      - name: 7 · a fronteira publicada continua a ser o que dizemos que e
+      - name: "7 · a fronteira publicada continua a ser o que dizemos que e"
         # BUILD INPUT != PUBLIC OUTPUT. Imprime a superficie calculada para que
         # o log guarde a evidencia do dia sem guardar o conteudo dela.
         if: '!cancelled()'
