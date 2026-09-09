@@ -501,13 +501,39 @@ prova("SMF-13_o_build_mede_a_completude_antes_de_regerar",
 # mesma ordem, mesmos ficheiros. Divergir aqui deixaria a Vercel a montar o mapa
 # sobre uma medicao mais velha do que a que o CI validou.
 CI_YML = (RAIZ / ".github" / "workflows" / "system-map.yml").read_text(encoding="utf-8")
-no_ci = re.findall(r"^\s*(?:run:\s*)?python3 (system-map/scripts/\S+\.py)\s*$",
-                   CI_YML, re.M)
-so_da_cadeia = [x for x in no_ci if x in CADEIA["REGERAR"] or x in CADEIA["VALIDAR"]]
+# ⚠️ A CADEIA CORRE EM MAIS DE UM JOB, E ESTA PROVA PASSOU A OLHAR JOB A JOB.
+# Ela juntava as linhas do ficheiro INTEIRO e exigia UMA sequencia. Ao separar
+# `SYSTEM MAP CHECK` de `MAP RULES CHECK`, os dois passaram a regerar — os dois
+# precisam do mapa desta arvore para responder as suas perguntas — e a lista
+# apareceu duas vezes. A prova reprovou, e tinha razao em reclamar.
+#
+# A resposta nao e afrouxar para «contem a cadeia algures». E olhar JOB A JOB:
+# CADA sitio que corre a cadeia tem de a correr INTEIRA e NA ORDEM. Isso e mais
+# apertado do que era, nao menos — antes, um job podia correr metade dela desde
+# que outro corresse a outra metade, e a soma parecia certa.
+#
+#     UMA SEQUENCIA CERTA SOMADA DE DOIS SITIOS NAO PROVA NENHUM DELES.
+JOBS = re.split(r"\n  (?=[a-z_-]+:\n)", CI_YML)
 esperado = list(CADEIA["REGERAR"]) + list(CADEIA["VALIDAR"])
+so_regerar = list(CADEIA["REGERAR"])
+por_job, torto = [], []
+for bloco in JOBS:
+    nome = re.match(r"\s*([a-z_-]+):", bloco)
+    linhas = [x for x in re.findall(
+        r"^\s*(?:run:\s*)?python3 (system-map/scripts/\S+\.py)\s*$", bloco, re.M)
+        if x in CADEIA["REGERAR"] or x in CADEIA["VALIDAR"]]
+    if not linhas:
+        continue
+    por_job.append(nome.group(1) if nome else "?")
+    if linhas not in (esperado, so_regerar):
+        torto.append(f"{nome.group(1) if nome else '?'}: {linhas}")
 prova("SMF-13_a_cadeia_do_build_e_a_do_CI_na_mesma_ordem",
-      so_da_cadeia == esperado,
-      f"CI corre {so_da_cadeia}\n        cadeia diz {esperado}")
+      bool(por_job) and not torto,
+      f"jobs que correm a cadeia: {por_job}\n        torto: {torto}"
+      f"\n        cadeia diz {esperado}")
+prova("SMF-13_alguem_corre_mesmo_a_cadeia_no_CI", bool(por_job),
+      "a cadeia declarada nao e corrida por job nenhum — a prova de cima "
+      "passaria por vacuidade")
 prova("SMF-13_o_CI_confere_a_mesma_lista_de_publicados",
       all(f in CI_YML for f in CADEIA["PUBLICADO"]),
       "um ficheiro publicado que o CI nao confere pode sair velho sem uma queixa")

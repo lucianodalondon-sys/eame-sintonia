@@ -181,6 +181,7 @@ shutil.rmtree(r.parent, ignore_errors=True)
 # A tela procura o portao do mapa por NOME na API do GitHub. Se o workflow e o
 # manifesto disserem nomes diferentes, a tela procura um portao que nao existe e
 # cai para UNKNOWN sem ninguem perceber porque.
+js = (RAIZ / "system-map" / "app" / "map.js").read_text(encoding="utf-8")
 portao = CADEIA.get("PORTAO_DO_MAPA") or {}
 wf = (RAIZ / portao.get("WORKFLOW", ".github/workflows/system-map.yml"))
 texto = wf.read_text(encoding="utf-8") if wf.exists() else ""
@@ -191,10 +192,47 @@ prova("o_workflow_usa_o_nome_declarado",
 prova("o_job_declarado_existe_no_workflow",
       f"\n  {portao.get('JOB')}:\n" in texto,
       f"job «{portao.get('JOB')}» nao existe")
+def _comandos(bloco: str) -> str:
+    """So o que CORRE. Comentario nao e comando — e a guarda apanhou-me nisto.
+
+    A primeira versao olhava para o bloco inteiro e reprovou porque o comentario
+    do passo 1 NOMEIA `test_system_map.py` ao explicar quem confere a lista da
+    cadeia. Explicar quem confere e o trabalho de um comentario.
+
+        MENCIONAR NAO E CORRER. A segunda vez que isto me apanha nesta missao.
+    """
+    return "\n".join(l for l in bloco.split("\n")
+                     if not l.lstrip().startswith("#"))
+
+
+bloco_do_mapa = _comandos(texto.split(f"\n  {portao.get('JOB')}:\n")[-1]
+                          .split("\n  regras:\n")[0].split("\n  coleta:\n")[0])
 prova("o_portao_do_mapa_nao_corre_as_provas_da_coleta",
-      "padrao_da_coleta.py" not in texto.split(f"\n  {portao.get('JOB')}:\n")[-1]
-      .split("\n  coleta:\n")[0],
+      "padrao_da_coleta.py" not in bloco_do_mapa,
       "um veredito sobre duas perguntas nao responde a nenhuma")
+# O PORTAO QUE A TELA LE SO PODE RESPONDER PELA FRESCURA. Se um dia alguem lhe
+# acrescentar uma prova de qualidade — as regras, o pacote, o segredo — o
+# veredito volta a misturar duas perguntas e a tela volta a pintar BROKEN por
+# uma coisa que nao e proveniencia. Foi exactamente o que aconteceu, medido no
+# GitHub: passos 1, 2 e 2b verdes, e o job vermelho no passo 4.
+for intruso in ("test_system_map.py", "test_freshness.mjs",
+                "test_impressao_da_arvore.py", "publicar_no_deploy.mjs"):
+    prova(f"o_portao_da_frescura_nao_carrega[{intruso}]",
+          intruso not in bloco_do_mapa,
+          "o veredito que a tela le so pode responder pela frescura")
+regras = CADEIA.get("PORTAO_DAS_REGRAS") or {}
+prova("o_portao_das_regras_existe_e_esta_declarado",
+      bool(regras.get("NOME")) and f"name: {regras.get('NOME')}" in texto,
+      "separar sem declarar deixaria as provas a correr sem ninguem as ler")
+bloco_das_regras = _comandos(texto.split(f"\n  {regras.get('JOB')}:\n")[-1].split("\n  coleta:\n")[0])
+for exigido in ("test_system_map.py", "test_freshness.mjs",
+                "test_impressao_da_arvore.py", "publicar_no_deploy.mjs"):
+    prova(f"as_provas_separadas_continuam_a_correr[{exigido}]",
+          exigido in bloco_das_regras,
+          "SEPARAR NAO E DESLIGAR: a prova tem de continuar a reprovar a build")
+prova("a_tela_mostra_o_portao_das_regras",
+      "MAP_RULES_GATE_NAME" in js,
+      "esconder o portao das regras seria comprar o verde com silencio")
 # ⚠️ A PRIMEIRA VERSAO DESTA PROVA PROCURAVA O NOME NO FICHEIRO INTEIRO, e
 # reprovou por causa de um COMENTARIO — a lista dos factos separados nomeia
 # «SYSTEM MAP CHECK» como texto, e nomear e o trabalho de um comentario. O
@@ -203,7 +241,6 @@ prova("o_portao_do_mapa_nao_corre_as_provas_da_coleta",
 #
 #     MENCIONAR NAO E CODIFICAR. Uma guarda que nao separa as duas coisas
 #     ensina a apagar o comentario, que e o oposto do que se quer.
-js = (RAIZ / "system-map" / "app" / "map.js").read_text(encoding="utf-8")
 literais = [f"{a}{portao.get('NOME')}{a}" for a in ("'", '"', "`")]
 prova("a_tela_nao_traz_o_nome_do_portao_como_literal",
       not any(x in js for x in literais),

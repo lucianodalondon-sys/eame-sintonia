@@ -311,6 +311,9 @@ const artefato = {
      publica do GitHub por este nome. Escreve-lo no browser seria a segunda
      copia de um nome que ja vive em CADEIA-DO-MAPA.json. */
   MAP_GATE_NAME: (CADEIA.PORTAO_DO_MAPA && CADEIA.PORTAO_DO_MAPA.NOME) || null,
+  /* O portao das REGRAS viaja tambem, e nao entra na decisao de frescura. Ele
+     aparece na tela ao lado — esconde-lo seria comprar o verde com silencio. */
+  MAP_RULES_GATE_NAME: (CADEIA.PORTAO_DAS_REGRAS && CADEIA.PORTAO_DAS_REGRAS.NOME) || null,
   REGENERATED_AT_BUILD: regenerou,
   NOT_REGENERATED_REASON: porqueNaoRegenerou,
   /* TRES FACTOS SEPARADOS, e nenhum se deixa confundir com o outro:

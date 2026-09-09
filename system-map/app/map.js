@@ -1029,21 +1029,29 @@ async function medirCabecaRemota(repo, ramo, servido) {
    Por isso a suposicao nao esta a sustentar nenhum verde: se a chamada falhar,
    `check` fica UNKNOWN e a tela fica BRANCA, com o motivo escrito. Uma
    suposicao que so pode empurrar para NAO SEI nao consegue mentir para verde. */
-async function medirPortaoDoMapa(repo, commit, nome) {
-  if (!repo || !commit || !nome) {
-    return { check: 'UNKNOWN',
-      razao: 'nao ha repo, commit servido ou nome de portao para perguntar' };
-  }
+async function lerPortoes(repo, commit) {
+  if (!repo || !commit) return { erro: 'nao ha repo ou commit servido', runs: null };
   const r = await buscarJson(
     `https://api.github.com/repos/${repo}/commits/${commit}/check-runs`);
   if (!r.ok || !r.corpo || !Array.isArray(r.corpo.check_runs)) {
-    return { check: 'UNKNOWN',
-      razao: `nao consegui ler o portao no GitHub (${r.erro || r.status})` };
+    return { erro: `nao consegui ler os portoes no GitHub (${r.erro || r.status})`,
+      runs: null };
   }
-  /* SO O PORTAO DO MAPA. Os outros check runs deste commit — a coleta, o
+  return { erro: null, runs: r.corpo.check_runs };
+}
+
+/* UMA IDA AO GITHUB, DOIS VEREDITOS LIDOS DELA. Sao perguntas diferentes e
+   ficam em campos diferentes; o que nao podem e custar duas chamadas a uma API
+   que responde 60 vezes por hora a quem nao se identifica. */
+function vereditoDoPortao(portoes, nome) {
+  if (!nome) {
+    return { check: 'UNKNOWN', razao: 'nao ha nome de portao para perguntar' };
+  }
+  if (!portoes.runs) return { check: 'UNKNOWN', razao: portoes.erro };
+  /* SO O PORTAO PEDIDO. Os outros check runs deste commit — a coleta, o
      comentario de preview da Vercel — respondem por outras perguntas, e usar a
      conclusao deles seria responder a pergunta errada com confianca. */
-  const meus = r.corpo.check_runs.filter(x => x && x.name === nome);
+  const meus = portoes.runs.filter(x => x && x.name === nome);
   if (!meus.length) {
     return { check: 'UNKNOWN',
       razao: `nenhum portao chamado «${nome}» correu no commit servido` };
@@ -1162,7 +1170,14 @@ async function provarFrescura() {
      Entao: FAIL de qualquer uma das duas manda — seja reprovacao real, seja
      contradicao entre elas, e nos dois casos vermelho e o que se quer. Sem
      nenhum FAIL, um PASS medido conta. Nenhum dos dois a falar: UNKNOWN. */
-  const portao = await medirPortaoDoMapa(repo, servido, dep ? dep.MAP_GATE_NAME : null);
+  const portoes = await lerPortoes(repo, servido);
+  const portao = vereditoDoPortao(portoes, dep ? dep.MAP_GATE_NAME : null);
+  /* AS REGRAS DO MAPA — LIDAS, MOSTRADAS, E FORA DA DECISAO.
+     «As regras nao afrouxaram» nao diz se o que esta servido esta actualizado.
+     Deixa-lo decidir a frescura repetiria o defeito que esta missao passou a
+     missao inteira a desmontar. Escondê-lo seria comprar o verde com silencio,
+     que e pior. Entao ele aparece numa linha propria, com o seu estado. */
+  const regras = vereditoDoPortao(portoes, dep ? dep.MAP_RULES_GATE_NAME : null);
   const daBuild = (dep && ['PASS', 'FAIL'].includes(dep.SYSTEM_MAP_CHECK))
     ? dep.SYSTEM_MAP_CHECK : 'UNKNOWN';
   const vozes = [portao.check, daBuild];
@@ -1254,6 +1269,12 @@ async function provarFrescura() {
       ? `${esc(portao.check)} <small>«${esc(dep.MAP_GATE_NAME)}»</small>`
       : '<i>UNKNOWN</i>')}
     ${linha('Map gate (this build)', dep ? ouUnknown(dep.SYSTEM_MAP_CHECK) : '<i>UNKNOWN</i>')}
+    ${linha('Map rules gate (CI)', dep && dep.MAP_RULES_GATE_NAME
+      ? `<b>${esc(regras.check)}</b> <small>«${esc(dep.MAP_RULES_GATE_NAME)}»`
+        + `${regras.razao ? ` — ${esc(regras.razao)}` : ''}</small>`
+        + '<br><small>não entra na decisão de frescura: «as regras afrouxaram» '
+        + 'não é «o que está servido está velho».</small>'
+      : '<i>UNKNOWN</i>')}
     ${linha(esc(SM_FRESHNESS.COBERTURA_ROTULO),
       `${c.files_covered}&thinsp;/&thinsp;${c.files_tracked} tracked files`)}
     </dl>
