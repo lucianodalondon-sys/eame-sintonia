@@ -164,6 +164,24 @@ GAPS = (
     ("READY_NAO_TEM_DONO",
      "nenhuma peca decide que um derivado esta PRONTO. READY sem ADMISSION nao "
      "e uma etapa: e uma afirmacao sem quem a assine."),
+    # ⚠️ ESTE ESTAVA DECLARADO SO NUM `print`.
+    # `provas/o_forward_conta_se.py` media-o e escrevia-o no ecra — e mais
+    # nada. Nao estava neste tuplo, nao estava em JSON nenhum, e nenhum
+    # teste o guardava: era o unico dos oito buracos desta casa que podia
+    # desaparecer sem dar erro em sitio nenhum.
+    #
+    #     UM BURACO DECLARADO E UMA DIVIDA.
+    #     UM BURACO SO NUM `print` E UMA DIVIDA QUE NINGUEM HERDA.
+    #
+    # O sitio e este porque a excecao sobe por `correr()`, que e daqui. E
+    # continua sem POLITICA de proposito: escrever aqui o que fazer quando
+    # o sensor se parte seria inventar constituicao para passar num exame.
+    # Declara-se a falta; nao se preenche.
+    ("TELEMETRY_FAILURE_SEM_POLITICA",
+     "a excecao do rastro SOBE por `correr()`. O artefato fica guardado — a "
+     "coleta NAO falhou — mas quem chama perde o recibo e pode ler a excecao "
+     "como corrida falhada. Nao ha politica escrita para «o sensor partiu-se». "
+     "OBSERVABILITY FAILURE != COLLECTION FAILURE."),
 )
 
 

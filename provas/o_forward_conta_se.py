@@ -353,7 +353,8 @@ def main():
          (mordida[0]["PORQUE"] if mordida else "a lei NAO mordeu")[:96])
     caso("F6f_o_buraco_a_jusante_esta_declarado_e_nao_calado",
          {"STRUCTURED_SEM_DONO_LIGADO", "ADMISSION_SEM_DONO_LIGADO",
-          "READY_NAO_TEM_DONO"} <= set(recibo["GAPS"]),
+          "READY_NAO_TEM_DONO", "TELEMETRY_FAILURE_SEM_POLITICA"}
+         <= set(recibo["GAPS"]),
          "GAPS: %s" % ", ".join(recibo["GAPS"]))
 
     # ── F8 · A TELEMETRIA NAO MUDA O QUE E PRODUZIDO ─────────────────────
@@ -485,6 +486,10 @@ def main():
          "OBSERVABILITY FAILURE != COLLECTION FAILURE")
 
     # ⚠️ O QUE ISTO **NAO** FECHA, E FICA DECLARADO.
+    # O texto abaixo EXPLICA o buraco; quem o DECLARA e `derivacao_forward.GAPS`,
+    # e o caso F-GAPS acima exige que ele continue la. Ate 2026-09-09 este era
+    # o unico sitio onde ele existia, e um `print` nao e uma declaracao: nenhum
+    # teste o guardava, nenhum censo o via, e ele podia sumir em silencio.
     print("\n  GAP MEDIDO — TELEMETRY_FAILURE_SEM_POLITICA")
     print("    Hoje a excecao do rastro SOBE por `derivacao_forward.correr()`:")
     print("    %s" % (rebentou or "nao subiu"))
