@@ -552,10 +552,13 @@
     "S0_P0M2_REQUIRED": "NO",
     "S1": "PARTIAL",
     "S1_RAZAO": "preview protection e as definicoes do GitHub exigem accao administrativa; tudo o resto implementado e provado",
-    "SECURITY_CHECK": "ACTIVE",
+    "SECURITY_CHECK": "PASS",
     "LIVE_DB_DRIFT": "MONITORED",
     "SECURITY_RATCHET": "EXECUTABLE",
-    "S2_READY": "YES"
+    "S2_READY": "YES",
+    "NEW_FAILURES": 0,
+    "SYSTEM_MAP_CHECK": "PASS",
+    "BROWSER_REGRESSION": "PASS"
   },
   "REVISION": "S1 low-friction hardening",
   "REVISED_AT": "2026-09-09",
@@ -1154,6 +1157,28 @@
       "estado": "UNKNOWN — a API de gestao do Supabase nao e alcancavel daqui; nao inventar numeros"
     },
     "INCIDENTE": "security/INCIDENTE.md — uma pagina, 5 casos, contencao primeiro",
-    "CORRECCAO_DA_S0": "a S0 declarou 15/15 workflows com permissions explicito. Eram 14/15: banco-descartavel.yml nunca teve o bloco. Corrigido com contents: read."
+    "CORRECCAO_DA_S0": "a S0 declarou 15/15 workflows com permissions explicito. Eram 14/15: banco-descartavel.yml nunca teve o bloco. Corrigido com contents: read.",
+    "REGRESSAO": {
+      "falhas_na_linha_base": [
+        "COLETA CHECK passo 3",
+        "MAP RULES CHECK passo 4"
+      ],
+      "falhas_no_fim": [
+        "COLETA CHECK passo 3",
+        "MAP RULES CHECK passo 4"
+      ],
+      "novas": 0,
+      "resolvidas": 1,
+      "nota": "SYSTEM MAP CHECK passava na base, partiu-se nesta linha por codigo novo sem peca no mapa, e foi reposto declarando as tres pecas e regerando a cadeia."
+    },
+    "DOCUMENTOS": [
+      "security/SECURITY-FOUNDATION.md",
+      "security/THREAT-MODEL.md",
+      "security/security-baseline.json",
+      "security/INCIDENTE.md",
+      "security/PARA-QUEM-DESENVOLVE.md",
+      "security/CABECALHOS.md",
+      "security/ACCOES-DE-ADMINISTRADOR.md"
+    ]
   }
 }

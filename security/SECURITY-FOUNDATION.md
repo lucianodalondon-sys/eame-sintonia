@@ -733,6 +733,47 @@ anonimo ao preview — precisa primeiro de um bypass para automacao), rulesets d
 ramo (`/rulesets` devolve `[]`), e o estado do CodeQL, secret scanning e push
 protection, que a API recusa (403) atraves deste proxy.
 
+### O que a S1 nao resolveu, e nao devia
+
+Continuam de pe, e sao S2 e S3:
+autenticacao, autorizacao, isolamento por pais, repositorio privado, motor
+proprietario do lado do servidor, registo de acesso, base legal do GDPR e
+politicas RLS de producao. A S1 nunca prometeu nenhum deles.
+
+    SECURITY FOUNDATION CLOSED != SYSTEM SECURE.
+
+### Regressao
+
+```
+FALHAS NA LINHA BASE   COLETA CHECK (passo 3) · MAP RULES CHECK (passo 4)
+FALHAS NO FIM          COLETA CHECK (passo 3) · MAP RULES CHECK (passo 4)
+NOVAS                  0
+RESOLVIDAS             1   (SYSTEM MAP CHECK, que eu proprio tinha partido)
+```
+
+As duas que restam falham com o mesmo passo e a mesma mensagem na linha base.
+Sao herdadas, ficam herdadas, e nao sao minhas para corrigir.
+
+### Para a S2
+
+Por ordem de valor, e nenhuma comecada:
+
+1. **Fronteira cliente/servidor.** O maior P1 e o unico que muda a resposta a
+   «o que um concorrente copia hoje». O browser deve receber a projeccao, nao o
+   corpus.
+2. **Repositorio privado**, com as pre-condicoes medidas antes: o System Map
+   consulta a API do GitHub, a Vercel usa a integracao Git, e os links publicos
+   nos handoffs deixariam de abrir.
+3. **Proteccao de previews**, depois do bypass para automacao.
+4. **Fixar as actions por SHA**, agora que o Dependabot as pode actualizar.
+5. **Arquitectura de registo e auditoria**, que a S3 vai precisar antes de haver
+   utilizadores para registar.
+
+Para a S3: SSO da ADAMA, sessao, autorizacao por pais, papel e departamento,
+politicas RLS e auditoria de accoes. E ao desenhar o modelo, lembrar que o
+Market Development e um utilizador central futuro — nao criar o papel agora,
+so nao fechar a porta a ele.
+
 
     O DESENVOLVEDOR TRABALHA NORMALMENTE. O SISTEMA OBSERVA.
     A DIVIDA ANTIGA NAO BLOQUEIA. UMA EXPOSICAO NOVA NAO PASSA EM SILENCIO.
