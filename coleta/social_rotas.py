@@ -340,106 +340,6 @@ class _EstadoDaApi(RuntimeError):
                                                     rel.get('NATIVE_REASON')))
 
 
-# ══════════════════════════════════════════════════════════════════════════
-# INSTAGRAM · STORIES — a única rota paga com adaptador nesta casa
-# ══════════════════════════════════════════════════════════════════════════
-def instagram_stories(*, perfis, run_id, country_scope, **_):
-    """Stories ATIVOS de perfis PÚBLICOS, via ator que não pede login.
-
-    Esta função não abre conexão nem guarda chave: a porta paga continua sendo
-    `coletor.executar` e o dono da chave continua sendo `apify_pool`. O que ela
-    faz é o que nenhum dos dois pode fazer — decidir se o que voltou é Story.
-
-    A ordem é deliberada: PEDIDO conferido, CHAVE conferida, execução, e só
-    então normalização. Cada passo recusa com um nome diferente, porque cada um
-    custa uma coisa diferente de consertar.
-    """
-    import apify_pool as ap
-    import coletor
-    import instagram_stories as ist
-
-    try:
-        corpo = ist.entrada(perfis)
-    except ist.EntradaInvalida as e:
-        raise _EntradaReprovada(str(e))
-
-    # A SEGUNDA TRAVA. `permitir_pago` já passou lá em cima — isso é INTENÇÃO.
-    # Esta aqui é CAPACIDADE: a previsão tem de caber no teto da missão. As duas
-    # são independentes de propósito, e uma sem a outra não roda.
-    try:
-        previsto, _sobra = ist.cabe_no_teto(len(corpo['usernames']))
-    except ist.ForaDoOrcamento as e:
-        raise _ForaDoOrcamento(str(e))
-
-    chaves = ap.pool()
-    if not chaves:
-        # Sem chave não se acende run. E, como no YouTube, credencial ausente
-        # NUNCA autoriza tentar a rota grátis: ela foi medida BLOCKED para Story.
-        raise _SemChaveApify(
-            'sem chave da Apify no ambiente (APIFY_TOKEN_POOL / APIFY_TOKEN). '
-            'Isto é CREDENTIAL_MISSING, e não autoriza cair para rota pública: '
-            'a rota pública NÃO entrega Story.')
-
-    itens, manifesto = coletor.executar(
-        ist.ATOR, corpo, token=chaves[0], run_id=run_id,
-        platform='INSTAGRAM', country=country_scope, mission='SCRAP-R2-STORIES',
-        query='stories:%s' % ','.join(corpo['usernames']),
-        source_version=ist.ATOR, evidence_path='SOCIAL-IT',
-        teto_usd=ist.TETO_USD_POR_RUN)
-
-    estados = ist.classificar(manifesto, itens, corpo['usernames'])
-
-    # O QUE O ATOR FEZ VIAJA COM O REGISTRO, mesmo (e principalmente) quando
-    # falhou. Sem isto, a primeira corrida viva morreu com `PARSER_DRIFT` e o
-    # estado real da execução — status, erro, run e dataset — não apareceu em
-    # lugar nenhum. Um relatório que perde o diagnóstico custa outra execução.
-    registro['ACTOR'] = ist.ATOR
-    registro['ACTOR_RUN_STATUS'] = manifesto.get('STATUS')
-    registro['ACTOR_RUN_ERROR'] = ss.redigir(ist._erro_do_manifesto(manifesto))[:300]
-    registro['DATASET_ID'] = manifesto.get('DATASET_ID')
-    registro['ITEM_COUNT_RAW'] = manifesto.get('ITEM_COUNT_RAW')
-    registro['ESTADO_POR_PERFIL'] = estados
-
-    custo = ist.custo_do_manifesto(manifesto)
-    registro['COST_USD'] = custo if custo is not None else 'UNKNOWN'
-    registro['COST_MEASURED'] = custo is not None
-    por_item = (custo / len(itens)) if (custo and itens) else 0.0
-
-    raw_ref = env.guardar_raw('INSTAGRAM', 'stories-%s' % run_id, itens)
-    pasta_midia = os.path.join(RAIZ, 'data', 'samples', 'SOCIAL-IT', 'raw-stories', run_id)
-    objetos = []
-    for it in itens:
-        u = (it.get('user') or {}).get('username') or it.get('username') or '?'
-        # NaoEStory sobe. Ela é CONTRACT_DRIFT na porta — nunca um `continue`.
-        o = ist.normalizar(
-            it, username=u, run_id=run_id, country_scope=country_scope,
-            route='apify:%s' % ist.ATOR, cost_usd=por_item, raw_reference=raw_ref)
-        # E o byte vem AGORA, no mesmo run que o descobriu. Não há fila antes
-        # daqui: para Story, «depois» pode não existir.
-        objetos.append(ist.baixar_midia(o, pasta_midia))
-    _ULTIMO_ESTADO_POR_PERFIL.clear()
-    _ULTIMO_ESTADO_POR_PERFIL.update(estados)
-    return objetos
-
-
-# O estado POR PERFIL não cabe no registro de UMA execução, e perdê-lo apagaria
-# a diferença entre "ninguém tinha Story" e "um perfil é privado". Fica aqui,
-# ao lado da execução que o produziu.
-_ULTIMO_ESTADO_POR_PERFIL = {}
-
-
-class _ForaDoOrcamento(RuntimeError):
-    """A previsão de gasto não cabe no teto da missão. BUDGET_EXHAUSTED."""
-
-
-class _EntradaReprovada(ValueError):
-    """Pedido malformado. CONTRACT_DRIFT, e antes de acender run pago."""
-
-
-class _SemChaveApify(RuntimeError):
-    """Sem credencial. CREDENTIAL_MISSING, e nunca fallback para rota grátis."""
-
-
 ADAPTADORES = {
     ('MASTODON', 'SEARCH_HASHTAG'): mastodon_tag,
     ('MASTODON', 'INCREMENTAL'): mastodon_conta_statuses,
@@ -450,7 +350,6 @@ ADAPTADORES = {
     ('YOUTUBE', 'INCREMENTAL'): youtube_uploads,
     ('YOUTUBE', 'FETCH_VIDEO_METADATA'): youtube_metadata,
     ('YOUTUBE', 'FETCH_COMMENTS'): youtube_comentarios,
-    ('INSTAGRAM', 'FETCH_STORIES'): instagram_stories,
 }
 
 
@@ -559,24 +458,6 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         registro['ESTADO'] = e.rel.get('STATE')
         registro['NATIVE_REASON'] = e.rel.get('NATIVE_REASON')
         registro['RECOVERY_ACTION'] = e.rel.get('RECOVERY_ACTION')
-        registro['ERRO'] = ss.redigir(str(e))
-        return [], registro
-    except _ForaDoOrcamento as e:
-        # O teto morde ANTES da execução. Um teto que só aparece na fatura não
-        # é teto — é lamento.
-        registro['ESTADO'] = 'BUDGET_EXHAUSTED'
-        registro['ERRO'] = ss.redigir(str(e))
-        return [], registro
-    except _EntradaReprovada as e:
-        # Pedido malformado recusado ANTES de acender execução paga. `CONTRACT_DRIFT`
-        # e não `PARSER_DRIFT`: nada foi coletado, nada mudou na fonte, e o run
-        # custou zero porque nunca nasceu.
-        registro['ESTADO'] = 'CONTRACT_DRIFT'
-        registro['ERRO'] = ss.redigir(str(e))
-        registro['RECOVERY_ACTION'] = falhas.NEEDS_HUMAN_FIX
-        return [], registro
-    except _SemChaveApify as e:
-        registro['ESTADO'] = 'CREDENTIAL_MISSING'
         registro['ERRO'] = ss.redigir(str(e))
         return [], registro
     except _NaoEStory() as e:

@@ -2,13 +2,22 @@
 """
 STORY — a classe própria. Não é post, não é reel, não é highlight.
 
+    ESTE ARQUIVO NÃO ADQUIRE NADA. Ele diz o que É Story e o que não é.
+    Quem vai buscar é `coleta/story_local.py`, pela sessão local desta casa.
+
+Em 2026-09-09 a Apify saiu de Stories por decisão do dono do projeto, e o que
+sobreviveu daquele trabalho foi justamente o que não era da Apify: a porta de
+tipo e a porta do zero. Elas valem para QUALQUER rota — foi um ator pago que
+serviu Reel chamando de Story, e nada impede que uma rota gratuita erre igual.
+
+    ONE STORY CAPABILITY -> ONE CANONICAL ACQUISITION OWNER.
+
     STORY  conteúdo ATIVO de um perfil, que a plataforma apaga em ~24 h.
 
-Este arquivo é o dono da capacidade `INSTAGRAM/FETCH_STORIES`: ele conhece o
-contrato do ator, traduz a saída para o envelope social que já existe e — a
-parte que mais importa — decide QUAL ESTADO cada perfil recebeu. Ele não abre
-conexão, não guarda chave e não é um scraper novo: a porta paga continua sendo
-`coletor.executar`, e o pool de chaves continua sendo `apify_pool`.
+Este arquivo traduz a saída de QUALQUER rota para o envelope social que já
+existe e — a parte que mais importa — decide QUAL ESTADO cada perfil recebeu.
+Ele não abre conexão, não guarda chave e não conhece plataforma nenhuma por
+dentro.
 
 POR QUE STORY NÃO PODE SER `POST`
 -----------------------------------
@@ -57,69 +66,6 @@ RAIZ = os.path.dirname(HERE)
 sys.path.insert(0, RAIZ)
 import _gavetas  # noqa: E402,F401
 import social_envelope as env   # noqa: E402
-
-# ══════════════════════════════════════════════════════════════════════════
-# O ATOR ESCOLHIDO, E OS QUE FORAM RECUSADOS — COM O MOTIVO
-# ══════════════════════════════════════════════════════════════════════════
-# Medido em 2026-09-09 lendo a página viva de cada ator. Preço é o publicado;
-# nenhum foi executado nesta missão, e por isso nada aqui é `PROVED`.
-ATOR = 'datavoyantlab/advanced-instagram-stories-scraper'
-ATOR_START_USD = 0.099            # taxa fixa por execução
-ATOR_POR_USERNAME_USD = 0.003     # US$ 3,00 por 1.000 usernames
-
-ATOR_FALLBACK = 'muhammetakkurtt/instagram-scraper'   # resultsType='stories'
-FALLBACK_POR_ITEM_USD = 0.001     # US$ 1,00 por 1.000 itens salvos
-
-# Recusados, e o motivo fica escrito para ninguém "redescobrir" daqui a três meses:
-RECUSADOS = {
-    'automation-lab/instagram-stories-scraper': (
-        'exige `sessionCookie` — o cookie `sessionid` de uma conta real, tirado do '
-        'DevTools. Entregar sessão humana a um ator de terceiro está fora desta '
-        'arquitetura, e nenhuma vantagem de preço compra isso de volta.'),
-    'apify/instagram-scraper': (
-        '`resultsType=stories` devolvia REELS e foi depreciado pelo próprio publisher. '
-        'É a prova histórica de que enum não é capacidade.'),
-}
-
-# Teto do lado da plataforma. Vale mesmo que este arquivo tenha um defeito.
-TETO_USD_POR_RUN = 0.50
-
-MAX_PERFIS_POR_RUN = 25   # trava NOSSA, não do ator: piloto não é vigilância
-
-# ══════════════════════════════════════════════════════════════════════════
-# ENTRADA
-# ══════════════════════════════════════════════════════════════════════════
-
-
-class EntradaInvalida(ValueError):
-    """O pedido não serve. Recusado ANTES de acender execução paga."""
-
-
-def entrada(usernames):
-    """Monta a entrada do ator. Recusa antes de gastar, nunca depois."""
-    if not usernames:
-        raise EntradaInvalida('nenhum username: um run vazio custa a taxa de partida '
-                              'de US$ %.3f e não traz nada' % ATOR_START_USD)
-    limpos = []
-    for u in usernames:
-        u = str(u or '').strip().lstrip('@')
-        if not u:
-            raise EntradaInvalida('username vazio na lista')
-        if '/' in u or ' ' in u:
-            raise EntradaInvalida('username com forma de URL ou com espaço: %r. '
-                                  'Este ator pede o handle, não o endereço.' % u)
-        limpos.append(u)
-    if len(limpos) > MAX_PERFIS_POR_RUN:
-        raise EntradaInvalida('%d perfis num run; o teto desta casa é %d. '
-                              'PILOTO NÃO É MONITORAMENTO EM MASSA.'
-                              % (len(limpos), MAX_PERFIS_POR_RUN))
-    return {'usernames': limpos}
-
-
-def custo_estimado(n_usernames):
-    """O que UM run com N perfis custa, pelo preço publicado do ator."""
-    return round(ATOR_START_USD + n_usernames * ATOR_POR_USERNAME_USD, 6)
-
 
 # ══════════════════════════════════════════════════════════════════════════
 # A PORTA DE TIPO — onde o Reel morre
@@ -245,7 +191,7 @@ def normalizar(item, *, username, run_id, country_scope, route, cost_usd=0.0,
         url='https://www.instagram.com/stories/%s/%s/' % (username, nid),
         content_type='STORY',
         route=route,
-        executor=ATOR,
+        executor=route,
         run_id=run_id,
         country_scope=country_scope,
         source_account=username,
@@ -286,32 +232,6 @@ def normalizar(item, *, username, run_id, country_scope, route, cost_usd=0.0,
 # ══════════════════════════════════════════════════════════════════════════
 # O ESTADO DE CADA PERFIL
 # ══════════════════════════════════════════════════════════════════════════
-def custo_do_manifesto(manifesto):
-    """O custo real da execução, ou None quando a plataforma não o expôs.
-
-    `coletor` grava `COST_USD = NOT_PRESERVED` quando a Apify não devolve
-    `usageTotalUsd` — e essa sentinela é uma STRING. Tratá-la como número
-    derrubou o primeiro piloto vivo inteiro, com o estado `PARSER_DRIFT`
-    culpando o ator por um defeito nosso.
-
-        AUSÊNCIA DE CUSTO NÃO É CUSTO ZERO, E NÃO É UM NÚMERO.
-
-    Devolver `None` obriga quem chama a distinguir «não custou» de «não sei» —
-    que é exatamente a distinção que um relatório de gasto não pode perder.
-    """
-    v = (manifesto or {}).get('COST_USD')
-    try:
-        return float(v)
-    except (TypeError, ValueError):
-        return None
-
-
-def _erro_do_manifesto(manifesto):
-    """O texto do erro. O campo do contrato é `ERROR`; `ERRO` é só o nosso hábito."""
-    m = manifesto or {}
-    return str(m.get('ERROR') or m.get('ERRO') or '')
-
-
 def classificar(manifesto, itens, pedidos):
     """Um estado canônico POR PERFIL pedido. Zero nunca vira ausência sozinho.
 
@@ -319,7 +239,8 @@ def classificar(manifesto, itens, pedidos):
     `itens` é o dataset cru; `pedidos` são os usernames que mandamos.
     """
     status = (manifesto or {}).get('STATUS')
-    msg = _erro_do_manifesto(manifesto)
+    m = manifesto or {}
+    msg = str(m.get('ERROR') or m.get('ERRO') or '')
     baixo = msg.lower()
 
     # A execução inteira falhou: NENHUM perfil foi medido. Dizer
@@ -372,102 +293,3 @@ def classificar(manifesto, itens, pedidos):
                                        'provou que processou nenhum. Ausência não medida '
                                        'não é ausência.')}
     return saida
-
-
-# ══════════════════════════════════════════════════════════════════════════
-# O BYTE ANTES DA FILA
-# ══════════════════════════════════════════════════════════════════════════
-# A lei do conteúdo efêmero, e ela é executável, não documental:
-#
-#     DISCOVER -> VALIDATE -> DOWNLOAD -> HASH -> PROCESS
-#
-# e nunca:
-#
-#     DISCOVER -> «depois a gente baixa»
-#
-# Para Story não existe «depois». A URL do CDN é assinada e morre em horas, e —
-# medido no R2 — o transcritor desta casa conserta URL vencida relendo o EMBED
-# público do post. Story não tem embed público. Se o byte não veio no mesmo run
-# que o descobriu, não vem mais: não há caminho de renovação, e a evidência
-# some com o prazo.
-MEDIA_PRESERVED = 'MEDIA_PRESERVED'
-MEDIA_NOT_DURABLE = 'MEDIA_NOT_DURABLE'
-
-TIMEOUT_MIDIA = 60
-MAX_BYTES_POR_MIDIA = 80 * 1024 * 1024      # Story não passa disso; teto contra surpresa
-
-
-def baixar_midia(objeto, pasta):
-    """Puxa o byte do Story AGORA e devolve o objeto com o estado da preservação.
-
-    Nunca levanta: falha de download é ESTADO do objeto, não exceção da coleta.
-    Um Story descoberto e não baixado continua sendo uma descoberta válida — o
-    que ele não é, é evidência preservada, e o objeto passa a dizer isso.
-    """
-    import hashlib
-    import urllib.request
-
-    url = objeto.get('MEDIA_URL')
-    if not url or url == env.DESCONHECIDO:
-        objeto['MEDIA_DURABILITY'] = MEDIA_NOT_DURABLE
-        objeto['MEDIA_NOT_DURABLE_REASON'] = 'o ator não devolveu URL de mídia'
-        return objeto
-
-    os.makedirs(pasta, exist_ok=True)
-    ext = '.mp4' if objeto.get('MEDIA_TYPE') == 'VIDEO' else '.jpg'
-    destino = os.path.join(pasta, 'STORY-%s-%s%s'
-                           % (objeto['SOURCE_ACCOUNT'], objeto['NATIVE_ID'], ext))
-    try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=TIMEOUT_MIDIA) as r:
-            tipo_http = r.headers.get('Content-Type')
-            corpo = r.read(MAX_BYTES_POR_MIDIA + 1)
-    except Exception as e:                                   # noqa: BLE001
-        # A URL assinada pode já ter morrido entre a descoberta e aqui. Isso é
-        # exatamente o risco que esta função existe para medir — e o nome dele
-        # não é «erro», é «não preservado».
-        objeto['MEDIA_DURABILITY'] = MEDIA_NOT_DURABLE
-        objeto['MEDIA_NOT_DURABLE_REASON'] = '%s ao baixar no mesmo run' % type(e).__name__
-        return objeto
-
-    if len(corpo) > MAX_BYTES_POR_MIDIA:
-        objeto['MEDIA_DURABILITY'] = MEDIA_NOT_DURABLE
-        objeto['MEDIA_NOT_DURABLE_REASON'] = 'mídia acima do teto de %d bytes' % MAX_BYTES_POR_MIDIA
-        return objeto
-
-    with open(destino, 'wb') as f:
-        f.write(corpo)
-    objeto['MEDIA_DURABILITY'] = MEDIA_PRESERVED
-    objeto['MEDIA_PATH'] = os.path.relpath(destino, RAIZ).replace('\\', '/')
-    objeto['MEDIA_BYTES'] = len(corpo)
-    objeto['MEDIA_SHA256'] = hashlib.sha256(corpo).hexdigest()
-    objeto['MEDIA_CONTENT_TYPE'] = tipo_http or env.DESCONHECIDO
-    return objeto
-
-
-# ══════════════════════════════════════════════════════════════════════════
-# O TETO DA MISSÃO — e ele morde ANTES, não depois
-# ══════════════════════════════════════════════════════════════════════════
-# Duas travas independentes, e as duas precisam abrir:
-#
-#     PAID_ROUTE_AUTHORIZED   alguém disse `--pagar`
-#     WITHIN_BUDGET           a previsão cabe no que sobrou do teto
-#
-# Uma sem a outra não roda. A autorização de gasto não é um cheque em branco, e
-# um teto que só se descobre na fatura não é teto.
-TETO_DA_MISSAO_USD = 0.50
-
-
-class ForaDoOrcamento(RuntimeError):
-    """A previsão não cabe no teto. Recusado ANTES de acender execução."""
-
-
-def cabe_no_teto(n_usernames, ja_gasto_usd=0.0, teto=TETO_DA_MISSAO_USD):
-    """(previsão, sobra). Levanta se o run previsto estoura o teto restante."""
-    previsto = custo_estimado(n_usernames)
-    sobra = round(teto - ja_gasto_usd, 6)
-    if previsto > sobra:
-        raise ForaDoOrcamento(
-            'run previsto em US$ %.4f e só sobram US$ %.4f do teto de US$ %.2f '
-            'desta missão' % (previsto, sobra, teto))
-    return previsto, sobra

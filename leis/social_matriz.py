@@ -369,13 +369,54 @@ MATRIZ = {
               'scripts/instagram_janela.py'),
         ],
         'FETCH_STORIES': [
-            # A escada inteira, medida em 2026-09-09. Nenhuma linha aqui foi
-            # executada: o estado mais alto que esta capacidade pode reivindicar
-            # hoje é POSSIBLE_NOT_PROVED, e ele está escrito.
+            # 2026-09-09, SCRAP-R3: a APIFY SAIU desta capacidade por decisão do
+            # dono do projeto. Não é otimização de preço — é arquitetura. Story é
+            # SENSOR DE CALOR, e a casa não quer intermediário pago entre a fonte
+            # e o sinal. As duas rotas Apify medidas na R2 ficam na história do
+            # Git, não aqui: código morto para lembrar é dívida, não memória.
+            r('instaloader:get_stories(userids) na sessão local', 'LOCAL_SESSION',
+              'CONDICIONAL', 'POSSIBLE_NOT_PROVED',
+              'zero dólar externo; custo é de máquina local',
+              'ESCOLHIDA em 2026-09-09 por medição de código-fonte, não por gosto. '
+              'MIT (pode ser dependência de verdade), mantida em 2026, e — o que '
+              'decidiu — `get_stories(userids=[...])` aceita ID numérico e pula a '
+              'resolução de username: UMA chamada GraphQL para até 50 contas, contra '
+              'uma resolução de perfil por conta. O endpoint de perfil é justamente o '
+              'ponto quente de 429 relatado em 2026. Documenta «does not mark stories '
+              'as seen», e o código confirma: não existe chamada ao endpoint de visto. '
+              'Expõe `expiring_utc` nativo. RISCO ESTRUTURAL REGISTRADO: o query_hash '
+              'de Story é o último consumidor do mecanismo legado e não é tocado desde '
+              '2024, enquanto perfil e post migraram para doc_id em 2026. '
+              'NUNCA EXECUTADA AO VIVO: runner local offline em 2026-09-09.',
+              'https://github.com/instaloader/instaloader'),
+            r('gallery-dl:instagram stories (subprocesso)', 'LOCAL_SESSION', 'CONDICIONAL',
+              'POSSIBLE_NOT_PROVED', 'zero dólar externo',
+              'FALLBACK DECLARADO, nunca automático. Passa nas cinco regras (sem senha '
+              '— o upstream REMOVEU login por senha; lê o cookie do navegador no disco '
+              'em vez de exigir arquivo exportado; sem proxy, sem stealth, sem CAPTCHA) '
+              'e traz `expires` nativo. Perde em duas coisas: GPLv2-only, o que obriga a '
+              'usá-la como PROCESSO e nunca como import, e uma chamada por conta em vez '
+              'de uma por lote. Quebra aberta em 2026-09-04 (#9731).',
+              'https://github.com/mikf/gallery-dl'),
+            r('instagrapi:user_stories', 'LOCAL_SESSION', 'NAO', 'ROUTE_NOT_ALLOWED',
+              'n/a',
+              'RECUSADA, e não por preço. Ela viola quatro regras desta casa POR '
+              'DESENHO, não por configuração: exige senha (`login()` recusa sem ela), '
+              'emula um dispositivo Android com versão de app fixa, traz proxy embutido '
+              'e tem resolução de CAPTCHA — reCAPTCHA e selfie — numa classe BASE do '
+              'cliente. Não dá para configurar para fora disso: a API privada só '
+              'responde a quem parece um app.',
+              'https://github.com/subzeroid/instagrapi'),
+            r('cdp:sessão local observada', 'LOCAL_SESSION', 'CONDICIONAL',
+              'POSSIBLE_NOT_PROVED', 'zero dólar externo',
+              'NÃO é a rota de busca, e a distinção importa: ver Story pelo visualizador '
+              'do navegador significa ABRIR o Story, o que conta visualização e custa '
+              'muito mais requisições. Fica como dono de SAÚDE DE SESSÃO e de '
+              'DESCOBERTA DE ID — as duas coisas que a rota escolhida precisa e não faz.',
+              'ferramentas/cdp.py'),
             r('instagram_janela.py:publico', 'PUBLIC_BROWSER', 'NAO', 'BLOCKED', 'zero',
               'Story ativo não aparece na moldura pública deslogada: o Instagram serve '
-              'Story atrás de parede de login. A rota grátis desta casa NÃO cobre Story, '
-              'e fingir que cobre custaria uma coleta vazia por dia.',
+              'Story atrás de parede de login. A rota grátis desta casa NÃO cobre Story.',
               'coleta/instagram_janela.py'),
             r('graph:/{ig-user-id}/stories', 'OFFICIAL_API_FREE', 'NAO', 'ROUTE_NOT_ALLOWED',
               'zero dentro da quota',
@@ -383,21 +424,6 @@ MATRIZ = {
               'terceiro. Para monitorar pesquisador ou instituição de fora, ela não é '
               'rota — é a rota de outra pergunta.',
               'https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-user/stories/'),
-            r('apify:datavoyantlab/advanced-instagram-stories-scraper', 'APIFY',
-              'CONDICIONAL', 'POSSIBLE_NOT_PROVED',
-              'US$ 0,099 por run + US$ 0,003 por username',
-              'ESCOLHIDO. Não pede login, cookie nem sessão; só perfil público; devolve '
-              '`pk`, `taken_at` e `expiring_at` nativos — o `expiring_at` é o que evita '
-              'calcular «publicado + 24 h» e chamar chute de prazo. NUNCA EXECUTADO: '
-              'sem chave da Apify neste ambiente. Motivo canônico do gasto: '
-              'FREE_ROUTE_INSUFFICIENT_CAPABILITY.',
-              'https://apify.com/datavoyantlab/advanced-instagram-stories-scraper'),
-            r('apify:muhammetakkurtt/instagram-scraper', 'APIFY', 'CONDICIONAL',
-              'POSSIBLE_NOT_PROVED', 'US$ 1,00 por 1.000 itens',
-              'FALLBACK, para não ficar preso a um publisher só. Também dispensa login. '
-              'Perde para o escolhido em uma coisa que importa: não documenta '
-              '`expiring_at`, e sem ele o prazo vira cálculo.',
-              'https://apify.com/muhammetakkurtt/instagram-scraper'),
         ],
         'FETCH_POST': [
             r('instagram_janela.py:embed', 'PUBLIC_BROWSER', 'CONDICIONAL', 'PROVED', 'zero',

@@ -204,6 +204,66 @@ class Aba:
                           str(motivo)[:400]))
         return (r.get('result') or {}).get('value')
 
+    def escutar(self, metodos, *, segundos=20, ate=None):
+        """Junta EVENTOS do navegador durante uma navegação normal.
+
+        `comando()` descarta evento de propósito: ele casa resposta por `id` e
+        pula tudo que não tem. Isso é certo para perguntar coisas, e é justamente
+        o que impede OBSERVAR — e observar é a metade que faltava aqui.
+
+        POR QUE OBSERVAR EM VEZ DE CHAMAR ENDPOINT
+        --------------------------------------------
+        A alternativa seria escrever à mão o endereço interno que a página usa.
+        Endereço interno muda sem aviso e sem versão, e no dia em que mudar o
+        nosso código pede uma coisa que não existe mais — e o erro se parece com
+        "a conta não tem Story". Observar o que a PÁGINA já pediu, enquanto ela
+        é usada normalmente, não inventa requisição nenhuma: a rota continua
+        sendo a que o navegador faria de qualquer jeito.
+
+            NÃO PEDIR NADA QUE A PÁGINA JÁ NÃO FOSSE PEDIR.
+
+        Devolve a lista de eventos crus. `ate(evento)` corta a espera cedo.
+        """
+        fim = time.time() + segundos
+        colhidos = []
+        antigo = self._s.gettimeout()
+        try:
+            while time.time() < fim:
+                restante = max(0.5, fim - time.time())
+                self._s.settimeout(restante)
+                try:
+                    m = json.loads(_receber(self._s))
+                except (socket.timeout, TimeoutError):
+                    break
+                except Erro:
+                    break
+                if m.get('id') is not None:
+                    continue                      # resposta de comando; não é evento
+                if m.get('method') in metodos:
+                    colhidos.append(m)
+                    if ate and ate(m):
+                        break
+        finally:
+            try:
+                self._s.settimeout(antigo)
+            except OSError:
+                pass
+        return colhidos
+
+    def corpo_da_resposta(self, request_id):
+        """O corpo que a página recebeu, sem repetir a requisição.
+
+        Repetir seria uma segunda chamada à plataforma para ler o que já
+        chegou — e para Story, onde cada requisição conta, isso é desperdício
+        com risco de rate limit anexado.
+        """
+        r = self.comando('Network.getResponseBody', requestId=request_id)
+        corpo = r.get('body') or ''
+        if r.get('base64Encoded'):
+            import base64
+            return base64.b64decode(corpo)
+        return corpo
+
     def fechar(self):
         try:
             self._s.close()
