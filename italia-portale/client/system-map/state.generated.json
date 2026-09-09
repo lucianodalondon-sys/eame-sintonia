@@ -1838,9 +1838,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-plumbing-canonical-v1",
-    "HEAD": "249cd6463ae1ec302042f610c6fedba6c634bce1",
-    "GENERATED_AT": "2026-09-09T14:39:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "96e8fd6344a0fb89259e29417dd11e223713b5ca476af86ecff72e08ccafda06"
+    "HEAD": "c68d8113f758bb870f8ed56dfcf6593254ee1e49",
+    "GENERATED_AT": "2026-09-09T14:40:39+00:00",
+    "SOURCE_TREE_FINGERPRINT": "79bdb6384eaf04420155a6d76545f32d0a113964372aad706db5d361eb9dc9c3"
   },
   "FAMILIES": [
     {
@@ -1909,7 +1909,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 53
+      "count": 54
     },
     {
       "id": "F-ENTREGA",
@@ -2279,7 +2279,7 @@
       "y": 190,
       "w": 1235,
       "h": 4548,
-      "count": 40
+      "count": 41
     }
   ],
   "DEPARTMENTS": {
@@ -6775,6 +6775,7 @@
         "C-PROVA-BIBLIA",
         "C-PROVA-COLETA",
         "C-PROVA-DEDUPE",
+        "C-PROVA-ENCANAMENTO",
         "C-PROVA-EXECUTOR-CONTA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-MAPA-NAO-MENTE",
@@ -7336,6 +7337,7 @@
         "C-EXECUTOR-TEXTO-PDF",
         "C-INGRESSO",
         "C-PROVA-COLETA",
+        "C-PROVA-ENCANAMENTO",
         "C-TESTES"
       ],
       "paises": {},
@@ -8008,6 +8010,7 @@
         "C-DONO-DO-DERIVADO",
         "C-INGRESSO",
         "C-PROVA-COLETA",
+        "C-PROVA-ENCANAMENTO",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
@@ -9090,6 +9093,7 @@
       ],
       "outbound": [
         "C-ORQUESTRADOR",
+        "C-PROVA-ENCANAMENTO",
         "C-TESTES"
       ],
       "paises": {},
@@ -10558,7 +10562,8 @@
       ],
       "outbound": [
         "C-ESTRADAS-IT",
-        "C-PROVA-COLETA"
+        "C-PROVA-COLETA",
+        "C-PROVA-ENCANAMENTO"
       ],
       "paises": {},
       "paises_dado": {},
@@ -11835,6 +11840,52 @@
       "y": 3258
     },
     {
+      "id": "C-PROVA-ENCANAMENTO",
+      "name": "A prova do encanamento — uma porta, uma ordem, um dono",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Catorze invariantes pequenos e separados sobre o caminho de uma unidade colhida: a porta existe e e uma so, delega ao dono do RAW sem conhecer a tabela, nao julga admissao, nao inventa FACT_TIME nem FACT_LOCATION, recusa com nome proprio, nao duplica ao reobservar, e o orquestrador chama-a ANTES da admissao.",
+      "why_here": "Ate a missao C-PLUMB-1 a colheita ia do executor DIRECTO a admissao: a etapa RAW existia, estava provada contra Postgres, e nenhum ficheiro de producao chamava `preservar()`. Separados de proposito — quando dois portoes partilham resultado, o vermelho de um esconde o verde do outro. Dois destes casos nasceram de ataques que PASSARAM: um procurava o NOME da funcao em vez da CHAMADA, e outro lia o codigo sem prosa quando o risco era justamente o SQL dentro de uma string.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊟",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/o_encanamento_tem_uma_porta.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CI-MAPA",
+        "C-CONTRATO-ARTEFATO",
+        "C-DONO-DA-ESCRITA",
+        "C-INGRESSO",
+        "C-ORQUESTRADOR"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20850,
+      "y": 3258
+    },
+    {
       "id": "C-PROVA-EXECUTOR-CONTA",
       "name": "A prova de que o executor se conta",
       "territory": "Z-PROVA",
@@ -11878,8 +11929,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3258
+      "x": 20020,
+      "y": 3580
     },
     {
       "id": "C-PROVA-FORWARD-CONTA",
@@ -11944,7 +11995,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 3580
     },
     {
@@ -12001,7 +12052,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3580
     },
     {
@@ -12091,8 +12142,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 3580
+      "x": 20020,
+      "y": 3902
     },
     {
       "id": "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -12162,7 +12213,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 3902
     },
     {
@@ -12215,7 +12266,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3902
     },
     {
@@ -12464,8 +12515,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3902
+      "x": 20020,
+      "y": 4224
     },
     {
       "id": "C-RECEITAS",
@@ -12606,7 +12657,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4224
     },
     {
@@ -12748,7 +12799,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4224
     },
     {
@@ -13505,8 +13556,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 4224
+      "x": 20020,
+      "y": 4546
     },
     {
       "id": "C-SENSOR-COLETA",
@@ -15222,7 +15273,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 4546
     },
     {
@@ -19679,6 +19730,24 @@
     },
     {
       "from": "C-CI-MAPA",
+      "to": "C-PROVA-ENCANAMENTO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar A prova do encanamento — uma porta, uma ordem, um dono. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 538,
+          "snippet": "run: python3 provas/o_encanamento_tem_uma_porta.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-MAPA",
       "to": "C-PROVA-EXECUTOR-CONTA",
       "type": "RUNS",
       "payload": "execucao",
@@ -20640,6 +20709,24 @@
     },
     {
       "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-PROVA-ENCANAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por A prova do encanamento — uma porta, uma ordem, um dono. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_encanamento_tem_uma_porta.py",
+          "line": 29,
+          "snippet": "import artefato as art          # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-ARTEFATO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21539,6 +21626,29 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-PROVA-ENCANAMENTO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta A prova do encanamento — uma porta, uma ordem, um dono. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_encanamento_tem_uma_porta.py",
+          "line": 190,
+          "snippet": "if not nome.endswith(\".py\") or nome in (\"preservar_coleta.py\","
+        },
+        {
+          "file": "provas/o_encanamento_tem_uma_porta.py",
+          "line": 191,
+          "snippet": "\"memoria_descartavel.py\"):"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-DONO-DA-ESCRITA",
@@ -22931,6 +23041,42 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-INGRESSO",
+      "to": "C-PROVA-ENCANAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por A prova do encanamento — uma porta, uma ordem, um dono. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_encanamento_tem_uma_porta.py",
+          "line": 30,
+          "snippet": "import ingresso as ing          # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-INGRESSO",
+      "to": "C-PROVA-ENCANAMENTO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta alimenta A prova do encanamento — uma porta, uma ordem, um dono. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_encanamento_tem_uma_porta.py",
+          "line": 59,
+          "snippet": "if not nome.endswith(\".py\") or nome in (\"ingresso.py\",):"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-INGRESSO",
@@ -24501,6 +24647,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-ORQUESTRADOR",
+      "to": "C-PROVA-ENCANAMENTO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador alimenta A prova do encanamento — uma porta, uma ordem, um dono. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_encanamento_tem_uma_porta.py",
+          "line": 165,
+          "snippet": "orq = _codigo(os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\"))"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-PACOTE-CAMADAS",
@@ -29811,10 +29975,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/o_encanamento_tem_uma_porta.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 710,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 709,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -29977,17 +30139,17 @@
     ]
   },
   "COUNTS": {
-    "components": 156,
+    "components": 157,
     "components_proven": 60,
-    "components_pending": 90,
+    "components_pending": 91,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 602,
-    "edges_proven": 600,
+    "edges": 608,
+    "edges_proven": 606,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1390,
-    "files_covered": 680,
-    "files_code_unclaimed": 1
+    "files_covered": 681,
+    "files_code_unclaimed": 0
   }
 }

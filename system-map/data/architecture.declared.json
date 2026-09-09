@@ -428,6 +428,25 @@
    "family": "F-ESPERA"
   },
   {
+   "id": "C-PROVA-ENCANAMENTO",
+   "name": "A prova do encanamento — uma porta, uma ordem, um dono",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊟",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "what": "Catorze invariantes pequenos e separados sobre o caminho de uma unidade colhida: a porta existe e e uma so, delega ao dono do RAW sem conhecer a tabela, nao julga admissao, nao inventa FACT_TIME nem FACT_LOCATION, recusa com nome proprio, nao duplica ao reobservar, e o orquestrador chama-a ANTES da admissao.",
+   "why_here": "Ate a missao C-PLUMB-1 a colheita ia do executor DIRECTO a admissao: a etapa RAW existia, estava provada contra Postgres, e nenhum ficheiro de producao chamava `preservar()`. Separados de proposito — quando dois portoes partilham resultado, o vermelho de um esconde o verde do outro. Dois destes casos nasceram de ataques que PASSARAM: um procurava o NOME da funcao em vez da CHAMADA, e outro lia o codigo sem prosa quando o risco era justamente o SQL dentro de uma string.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/o_encanamento_tem_uma_porta.py"
+   ]
+  },
+  {
    "id": "C-IT-CONTAS",
    "name": "A conta da coleta italiana",
    "territory": "Z-PROVA",
