@@ -1067,6 +1067,46 @@ const sha8 = s => (typeof s === 'string' && s.length >= 8 ? s.slice(0, 8) : null
 const ouUnknown = v => (v ? esc(String(v)) : '<i>UNKNOWN</i>');
 const relogio = s => (typeof s === 'string' ? esc(s.slice(0, 16).replace('T', ' ')) : null);
 
+/* OS BURACOS DECLARADOS, NA TELA.
+
+   Eles ja existiam — em tuplos `GAPS` no codigo e em chaves de
+   `provas-de-execucao.json` — e nenhum aparecia aqui. Um buraco declarado que
+   ninguem ve nao esta a fazer o trabalho para que foi declarado.
+
+       O QUE NAO SE FECHOU TEM DE SER TAO VISIVEL COMO O QUE SE FECHOU.
+
+   `null` e AUSENCIA DE MEDICAO, e nunca se pinta como zero: «o censo nao correu»
+   e «nao ha buracos» sao frases opostas, e a segunda seria a mentira confortavel.
+   Um mapa sem buracos nenhuns tambem se diz por extenso, para nao se confundir
+   com a ausencia. */
+function blocoDosBuracos() {
+  const B = S.BURACOS;
+  const cabeca = (dentro) => '<div class="statusScope"><b>O QUE ESTÁ DECLARADO '
+    + `E NÃO FECHADO.</b><br>${dentro}</div>`;
+  if (!B) {
+    return cabeca('<i>NÃO MEDIDO</i> — o censo dos buracos não correu nesta '
+      + 'árvore. Isto não quer dizer que não haja nenhum.');
+  }
+  const lista = Array.isArray(B.BURACOS) ? B.BURACOS : [];
+  if (!lista.length) {
+    return cabeca('Nenhum buraco declarado nesta árvore. Isto foi MEDIDO — o '
+      + 'censo correu e não encontrou nenhuma declaração.');
+  }
+  const linhas = lista.map(b => {
+    const onde = esc(String(b.ONDE || '?')) + (b.LINHA ? `:${esc(String(b.LINHA))}` : '');
+    const estado = b.ESTADO ? ` <b>${esc(String(b.ESTADO))}</b>` : '';
+    return `<li><code>${esc(String(b.NOME || '?'))}</code>${estado}`
+      + `<br><small>${esc(String(b.O_QUE_FALTA || '').slice(0, 320))}</small>`
+      + `<br><small>declarado em ${onde}</small></li>`;
+  }).join('');
+  const c = B.COUNTS || {};
+  return cabeca(`${esc(String(c.buracos ?? lista.length))} declarado(s) — `
+    + `${esc(String(c.em_codigo ?? '?'))} no código, `
+    + `${esc(String(c.em_provas ?? '?'))} nas provas. Fechar um é apagar a `
+    + `declaração dele; este bloco é derivado, nunca escrito à mão.`
+    + `<ul class="buracos">${linhas}</ul>`);
+}
+
 async function provarFrescura() {
   const P = S.PROVENANCE || {};
   const c = S.COUNTS || {};
@@ -1217,6 +1257,7 @@ async function provarFrescura() {
     ${linha(esc(SM_FRESHNESS.COBERTURA_ROTULO),
       `${c.files_covered}&thinsp;/&thinsp;${c.files_tracked} tracked files`)}
     </dl>
+    ${blocoDosBuracos()}
     <div class="statusScope"><b>MAP COVERAGE não é FRESHNESS.</b><br>
       ${esc(SM_FRESHNESS.COBERTURA_EXPLICACAO)}</div>
     <div class="statusScope"><b>SCOPE: esta é a foto de UMA árvore.</b><br>

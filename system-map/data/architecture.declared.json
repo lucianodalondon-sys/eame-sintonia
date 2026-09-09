@@ -1683,6 +1683,22 @@
       "icon": "⊙"
     },
     {
+      "id": "C-CENSO-DOS-BURACOS",
+      "name": "Censo dos buracos declarados",
+      "territory": "Z-PROVA",
+      "kind": "scanner",
+      "what": "Le por AST os tuplos `GAPS` de qualquer ficheiro rastreado e as chaves com corpo de buraco em `provas-de-execucao.json`, e junta-os num so sitio para a tela os desenhar.",
+      "why_here": "Quatro buracos com nome viviam em tres formatos, e um deles era um `print` — invisivel para qualquer maquina. Copia-los para um JSON novo criaria o quarto sitio e faria os outros deixarem de valer. Este censo MEDE onde eles ja estao: fechar um buraco e apagar a declaracao dele, e nao ha segunda coisa a actualizar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/censo_dos_buracos.py"
+      ],
+      "views": [],
+      "icon": "◌"
+    },
+    {
       "id": "C-MAPA-APP",
       "name": "Interface do System Map",
       "territory": "Z-PROVA",

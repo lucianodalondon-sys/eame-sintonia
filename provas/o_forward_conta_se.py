@@ -92,6 +92,20 @@ RELOGIO = "2026-09-08T02:00:00Z"
 fora = []
 
 
+# ── O QUE ESTA CORRIDA NAO FECHA, DECLARADO ONDE SE LE POR MAQUINA ──────────
+# Mesmo formato de `coleta/derivacao_forward.py`: (NOME, O_QUE_FALTA). O censo
+# dos buracos le os dois por AST, e um buraco so vale se estiver aqui.
+GAPS = (
+    ("TELEMETRY_FAILURE_SEM_POLITICA",
+     "A excecao do rastro SOBE por `derivacao_forward.correr()`. O artefato "
+     "fica guardado — a coleta NAO falhou — mas quem chama perde o recibo, e "
+     "um chamador desatento pode ler a excecao como corrida falhada. Nao ha "
+     "politica escrita nesta casa para «o sensor partiu-se», e inventar uma "
+     "aqui para fechar o teste seria escrever constituicao para passar num "
+     "exame. Fica como divida com nome."),
+)
+
+
 def caso(nome, condicao, detalhe=""):
     fora.append((nome, bool(condicao), detalhe))
 
@@ -485,7 +499,18 @@ def main():
          "OBSERVABILITY FAILURE != COLLECTION FAILURE")
 
     # ⚠️ O QUE ISTO **NAO** FECHA, E FICA DECLARADO.
-    print("\n  GAP MEDIDO — TELEMETRY_FAILURE_SEM_POLITICA")
+    #
+    # ⚠️ UM BURACO QUE SO EXISTE NUM `print` NAO EXISTE PARA NINGUEM.
+    # Ele estava so aqui em baixo, em texto impresso, e por isso o mapa nao
+    # conseguia desenha-lo: `derivacao_forward.py` declara os seus num tuplo
+    # `GAPS` que se le por AST, e este ficava de fora da medicao por escrever a
+    # mesma coisa de outra maneira.
+    #
+    #     DUAS MANEIRAS DE DECLARAR A MESMA COISA E UMA DELAS INVISIVEL.
+    #
+    # O tuplo la em cima e agora o dono; estes `print` continuam a existir para
+    # quem le a corrida, mas ja nao sao o unico sitio onde o buraco vive.
+    print("\n  GAP MEDIDO — %s" % GAPS[0][0])
     print("    Hoje a excecao do rastro SOBE por `derivacao_forward.correr()`:")
     print("    %s" % (rebentou or "nao subiu"))
     print("    O artefato ficou guardado — a coleta NAO falhou — mas quem")

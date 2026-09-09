@@ -1,0 +1,91 @@
+{
+  "SCHEMA": "sintonia.system-map.buracos/1",
+  "NOTA": [
+    "DERIVADO. Nao editar a mao — ele e medido, nunca escrito.",
+    "Fechar um buraco e apagar a linha onde ele esta DECLARADO (o tuplo",
+    "`GAPS` do ficheiro, ou a chave em provas-de-execucao.json). O censo",
+    "seguinte deixa de o ver. Nao ha segunda coisa a actualizar, e e por",
+    "isso que este ficheiro nao e um registo."
+  ],
+  "PROVENANCE": {
+    "HEAD": "c65e4e98c08a6b70582047d55f24c40677283463",
+    "MEDIDO_POR": "censo_dos_buracos.py"
+  },
+  "COUNTS": {
+    "buracos": 8,
+    "nomes_distintos": 8,
+    "em_codigo": 5,
+    "em_provas": 3
+  },
+  "NOMES": [
+    "ADMISSION_SEM_DONO_LIGADO",
+    "CHANNEL_IDENTITY_NOT_RESOLVED",
+    "GAP_DECLARADO",
+    "LINEAGE_PROOF_GAP",
+    "RAW_FORWARD_NAO_EMITE",
+    "READY_NAO_TEM_DONO",
+    "STRUCTURED_SEM_DONO_LIGADO",
+    "TELEMETRY_FAILURE_SEM_POLITICA"
+  ],
+  "BURACOS": [
+    {
+      "NOME": "ADMISSION_SEM_DONO_LIGADO",
+      "ONDE": "coleta/derivacao_forward.py",
+      "LINHA": 153,
+      "FORMA": "tuplo GAPS",
+      "O_QUE_FALTA": "RC-1 STEPS.ADMISSION: STATE=CODE, PROOF_KIND=NENHUMA. admissao/admissao.py julga o registo legado, e nao `derived_artifact`."
+    },
+    {
+      "NOME": "CHANNEL_IDENTITY_NOT_RESOLVED",
+      "ONDE": "system-map/data/provas-de-execucao.json",
+      "LINHA": null,
+      "FORMA": "chave em GAPS_DE_IDENTIDADE",
+      "O_QUE_FALTA": "AUTORIDADE, e nao verdade. ARPAV publica mesmo aquele boletim; o que nao existe e quem tenha autoridade canonica para o AFIRMAR ao banco.",
+      "ESTADO": "OPEN"
+    },
+    {
+      "NOME": "GAP_DECLARADO",
+      "ONDE": "system-map/data/provas-de-execucao.json",
+      "LINHA": null,
+      "FORMA": "frase em PROVADOS/coleta/rota_forward_documento.py",
+      "O_QUE_FALTA": "a identidade do canal NAO tem dono forward. `exigir_canal` recusa criar um (CHANNEL_IDENTITY_NOT_RESOLVED) porque `origem` exige pessoa OU organizacao, e o writer nao tem autoridade para escolher — CHANNEL_ID PROVA O CANAL, NAO PROVA A ORIGEM. Na prova, a identidade e resolvida no banco descartavel com dados REAIS do catalogo (ARPAV, IT-OWN-003). Em producao isto exige um dono de identidade, e ele nao existe. E o menor proximo trabalho.",
+      "ESTADO": null
+    },
+    {
+      "NOME": "LINEAGE_PROOF_GAP",
+      "ONDE": "system-map/data/provas-de-execucao.json",
+      "LINHA": null,
+      "FORMA": "frase em PROVADOS/coleta/rota_forward_documento.py",
+      "O_QUE_FALTA": "ha como CONFERIR, nao ha como IMPEDIR. `public.conteudo` NAO tem chave estrangeira para `derived_artifact`: as colunas sao raw_asset_id, content_id e hash_conteudo. A costura escreve `content_id` = sha256 do derivado e `hash_conteudo` = hash do texto, e por isso a linhagem e verificavel por cruzamento e uma forja e detetavel pelo corpo. Mas e uma CONVENCAO DA COSTURA, e nao uma trava do banco: um writer que escrevesse outra coisa nao seria recusado pelo Postgres. Fechar isto exige coluna/constraint nova, e a M2R nao a cria.",
+      "ESTADO": null
+    },
+    {
+      "NOME": "RAW_FORWARD_NAO_EMITE",
+      "ONDE": "coleta/derivacao_forward.py",
+      "LINHA": 153,
+      "FORMA": "tuplo GAPS",
+      "O_QUE_FALTA": "guarda/preservar_coleta.py escreve `raw_asset` e nao emite rastro. A etapa RAW existe, tem dono e corre — e e muda. Esta fronteira NAO fala por ela."
+    },
+    {
+      "NOME": "READY_NAO_TEM_DONO",
+      "ONDE": "coleta/derivacao_forward.py",
+      "LINHA": 153,
+      "FORMA": "tuplo GAPS",
+      "O_QUE_FALTA": "nenhuma peca decide que um derivado esta PRONTO. READY sem ADMISSION nao e uma etapa: e uma afirmacao sem quem a assine."
+    },
+    {
+      "NOME": "STRUCTURED_SEM_DONO_LIGADO",
+      "ONDE": "coleta/derivacao_forward.py",
+      "LINHA": 153,
+      "FORMA": "tuplo GAPS",
+      "O_QUE_FALTA": "RC-1 STEPS.STRUCTURED: STATE=CODE, PROOF_KIND=NENHUMA. Ha codigo em guarda/importar_italia.py e ele nunca correu nesta cadeia."
+    },
+    {
+      "NOME": "TELEMETRY_FAILURE_SEM_POLITICA",
+      "ONDE": "provas/o_forward_conta_se.py",
+      "LINHA": 98,
+      "FORMA": "tuplo GAPS",
+      "O_QUE_FALTA": "A excecao do rastro SOBE por `derivacao_forward.correr()`. O artefato fica guardado — a coleta NAO falhou — mas quem chama perde o recibo, e um chamador desatento pode ler a excecao como corrida falhada. Nao ha politica escrita nesta casa para «o sensor partiu-se», e inventar uma aqui para fechar o teste seria escrever constituicao para passar num exame. Fica como divida com nome."
+    }
+  ]
+}

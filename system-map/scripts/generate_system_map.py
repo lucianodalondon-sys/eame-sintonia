@@ -2671,6 +2671,20 @@ def leia_antes_de_coletar(estado: dict) -> None:
     destino.write_text(chr(10).join(L), encoding="utf-8")
 
 
+def _buracos() -> dict | None:
+    """O que o censo dos buracos mediu — ou `None` se ele nao correu.
+
+    `None` e nao `{}`: um censo que nao correu e um numero que nao existe, e um
+    zero ali leria-se como «nao ha buracos declarados». Sao coisas opostas.
+    """
+    f = DADOS / "buracos.generated.json"
+    if not f.exists():
+        return None
+    d = json.loads(f.read_text(encoding="utf-8"))
+    return {"COUNTS": d.get("COUNTS", {}), "NOMES": d.get("NOMES", []),
+            "BURACOS": d.get("BURACOS", [])}
+
+
 def construir(estado: dict) -> None:
     """Publica a app dentro do que a Vercel serve, numa rota SEPARADA.
 
@@ -3179,6 +3193,13 @@ def main_uma_vez(stamp: bool) -> int:
         "UNCLAIMED_CODE_FILES": orfaos_de_codigo,
         "UNCLAIMED_FILES_COUNT": len(nao_reivindicados),
         "OWNERSHIP_CONFLICTS": conflitos,
+        # OS BURACOS DECLARADOS, MEDIDOS ONDE ELES JA VIVEM.
+        # Isto nao e um registo: `censo_dos_buracos.py` le os tuplos `GAPS` do
+        # codigo por AST e as chaves de `provas-de-execucao.json`. Fechar um
+        # buraco e apagar a declaracao dele — nao ha segunda coisa a actualizar.
+        # Ficheiro ausente e `None`, e a tela diz que nao mediu; nunca zero, que
+        # se leria como «nao ha buracos».
+        "BURACOS": _buracos(),
     }
 
     st = [n["status"] for n in nos]
