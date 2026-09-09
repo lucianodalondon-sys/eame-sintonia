@@ -808,6 +808,7 @@
       "italia-portale/BASELINE/support.js",
       "italia-portale/BASELINE/vercel.json",
       "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md",
+      "italia-portale/CHECKPOINT-SUPERFICIE-VISIVEL.md",
       "italia-portale/README.md",
       "italia-portale/RICEVITORE-V2.1.md",
       "italia-portale/audit/BASELINE-SHA256.txt",
@@ -829,6 +830,7 @@
       "italia-portale/audit/action-map-consistency.mjs",
       "italia-portale/audit/adama-product-claim.mjs",
       "italia-portale/audit/adama-relevance-gate.mjs",
+      "italia-portale/audit/barras-de-busca.mjs",
       "italia-portale/audit/baseline-reports/RAPPORTO-ARCHITETTURA.md",
       "italia-portale/audit/baseline-reports/RAPPORTO-RICEVITORE-2.md",
       "italia-portale/audit/baseline-reports/RAPPORTO-RICEVITORE-3.md",
@@ -905,6 +907,7 @@
       "italia-portale/audit/cta-navigation.mjs",
       "italia-portale/audit/deploy-surface.mjs",
       "italia-portale/audit/do-not-show.mjs",
+      "italia-portale/audit/etichette-gate.mjs",
       "italia-portale/audit/exposure.mjs",
       "italia-portale/audit/external-only.mjs",
       "italia-portale/audit/future-ruler.mjs",
@@ -933,6 +936,7 @@
       "italia-portale/audit/opportunity-trace.mjs",
       "italia-portale/audit/pdf-gate.mjs",
       "italia-portale/audit/portfolio-claims.mjs",
+      "italia-portale/audit/portfolio-lacunas.mjs",
       "italia-portale/audit/probe-relationships.mjs",
       "italia-portale/audit/probe-v21.mjs",
       "italia-portale/audit/product-identity.mjs",
@@ -949,6 +953,7 @@
       "italia-portale/audit/snapshot-failure.mjs",
       "italia-portale/audit/splice.mjs",
       "italia-portale/audit/stale-generator-gate.mjs",
+      "italia-portale/audit/superficie-visivel.mjs",
       "italia-portale/audit/surface-contract.mjs",
       "italia-portale/audit/upstream-ingestion.mjs",
       "italia-portale/audit/v21-gate.mjs",
@@ -978,6 +983,8 @@
       "italia-portale/client/italy-handoff-v21.js",
       "italia-portale/client/italy-i18n.js",
       "italia-portale/client/italy-ingested.js",
+      "italia-portale/client/italy-label-intelligence.js",
+      "italia-portale/client/italy-label-lexicon.js",
       "italia-portale/client/italy-label-verdicts.js",
       "italia-portale/client/italy-market-pulse.js",
       "italia-portale/client/italy-pdf.js",
@@ -1421,8 +1428,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 538 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 538 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 545 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 545 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1796,10 +1803,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-freshness-v1",
-    "HEAD": "baaddcf191778e01297427e7a0b167d66c9c4354",
-    "GENERATED_AT": "2026-09-09T02:06:22+00:00",
-    "SOURCE_TREE_FINGERPRINT": "363c34e907353eb2c091f5ebc6d2c664f319dba82f7e153238e82159568f930b"
+    "BRANCH": "claude/system-map-canonical-url-v1",
+    "HEAD": "a0e08e7ce73d08fb91fc76a8231eeab48e3ce46f",
+    "GENERATED_AT": "2026-09-09T02:22:57+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a3739dd8057c036c11afa78cdec6ae0f1e22e4e44ab9576521470931cab4491a"
   },
   "FAMILIES": [
     {
@@ -1870,7 +1877,7 @@
         "Z-SUPERFICIE",
         "Z-TELAS"
       ],
-      "count": 26
+      "count": 27
     }
   ],
   "TERRITORIES": [
@@ -2207,7 +2214,7 @@
       "y": 190,
       "w": 820,
       "h": 3904,
-      "count": 11
+      "count": 12
     }
   ],
   "DEPARTMENTS": {
@@ -2723,7 +2730,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "◫",
       "views": [
         "generator",
@@ -2736,9 +2743,11 @@
         "italia-portale/client/italy-ingested.js"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum portao ou pagina le este artefacto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum portao ou pagina le este artefacto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "italia-portale/client/italy-handoff-v21.js"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -5302,7 +5311,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⛨",
       "views": [
         "audit",
@@ -5333,9 +5342,11 @@
         "italia-portale/audit/blocks/windows.js"
       ],
       "file_count": 20,
-      "status": "PROVEN",
-      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "italia-portale/audit/BLOCK-CONTRACTS.md"
+      ],
       "produces": [],
       "inbound": [
         "C-AUDIT-HARNESS"
@@ -5403,7 +5414,9 @@
       "file_count": 16,
       "status": "PENDING",
       "status_reason": "importa coisas, mas ninguem o chama — portao fora do caminho nao guarda nada.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "italia-portale/audit/casco/release-gate.mjs"
+      ],
       "produces": [],
       "inbound": [
         "C-AUDIT-HARNESS",
@@ -5432,7 +5445,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⛨",
       "views": [
         "audit",
@@ -5443,6 +5456,7 @@
       "files": [
         "italia-portale/audit/acceptance.mjs",
         "italia-portale/audit/action-map-consistency.mjs",
+        "italia-portale/audit/barras-de-busca.mjs",
         "italia-portale/audit/browser-deep.mjs",
         "italia-portale/audit/browser.mjs",
         "italia-portale/audit/build-v21.mjs",
@@ -5457,6 +5471,7 @@
         "italia-portale/audit/cta-navigation.mjs",
         "italia-portale/audit/deploy-surface.mjs",
         "italia-portale/audit/do-not-show.mjs",
+        "italia-portale/audit/etichette-gate.mjs",
         "italia-portale/audit/exposure.mjs",
         "italia-portale/audit/external-only.mjs",
         "italia-portale/audit/future-ruler.mjs",
@@ -5479,6 +5494,7 @@
         "italia-portale/audit/opportunity-trace.mjs",
         "italia-portale/audit/pdf-gate.mjs",
         "italia-portale/audit/portfolio-claims.mjs",
+        "italia-portale/audit/portfolio-lacunas.mjs",
         "italia-portale/audit/probe-relationships.mjs",
         "italia-portale/audit/probe-v21.mjs",
         "italia-portale/audit/product-identity.mjs",
@@ -5495,14 +5511,20 @@
         "italia-portale/audit/snapshot-failure.mjs",
         "italia-portale/audit/splice.mjs",
         "italia-portale/audit/stale-generator-gate.mjs",
+        "italia-portale/audit/superficie-visivel.mjs",
         "italia-portale/audit/surface-contract.mjs",
         "italia-portale/audit/upstream-ingestion.mjs",
         "italia-portale/audit/v21-gate.mjs"
       ],
-      "file_count": 57,
-      "status": "PROVEN",
-      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
-      "changed_since_declared": [],
+      "file_count": 61,
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "italia-portale/audit/checks.mjs",
+        "italia-portale/audit/cta-navigation.mjs",
+        "italia-portale/audit/meeting-gate.mjs",
+        "italia-portale/audit/run.mjs"
+      ],
       "produces": [
         "italia-portale/client/upstream/UPSTREAM-PINS.json"
       ],
@@ -5515,6 +5537,7 @@
         "C-PORTAL-DADOS",
         "C-PORTAL-MODELO",
         "C-PORTAO-BUILD",
+        "C-ROTULOS",
         "C-SITE-INGEST",
         "C-V21-FONTES"
       ],
@@ -5523,7 +5546,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 10
+        "ITALIA": 11
       },
       "pais": "TRANSVERSAL",
       "nivel": "INTERNO",
@@ -5554,7 +5577,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▤",
       "views": [
         "audit",
@@ -5570,9 +5593,11 @@
         "italia-portale/audit/lib/scan.mjs"
       ],
       "file_count": 5,
-      "status": "PROVEN",
-      "status_reason": "outras pecas importam ou carregam isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "italia-portale/audit/lib/harness.mjs"
+      ],
       "produces": [],
       "inbound": [
         "C-ARTEFACTO-V21",
@@ -10692,7 +10717,7 @@
         "LIDERANCA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▣",
       "views": [
         "meeting",
@@ -10706,9 +10731,13 @@
         "italia-portale/client/index.html"
       ],
       "file_count": 3,
-      "status": "PROVEN",
-      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "italia-portale/client/accesso.html",
+        "italia-portale/client/casa.html",
+        "italia-portale/client/index.html"
+      ],
       "produces": [],
       "inbound": [
         "C-DS-ADAMA",
@@ -10754,7 +10783,7 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▣",
       "views": [
         "meeting",
@@ -10768,6 +10797,8 @@
         "italia-portale/client/italy-canonical-windows.js",
         "italia-portale/client/italy-catalog.js",
         "italia-portale/client/italy-demo-data.js",
+        "italia-portale/client/italy-label-intelligence.js",
+        "italia-portale/client/italy-label-lexicon.js",
         "italia-portale/client/italy-label-verdicts.js",
         "italia-portale/client/italy-market-pulse.js",
         "italia-portale/client/italy-pdf.js",
@@ -10779,10 +10810,14 @@
         "superficie/es/proto_es.py",
         "superficie/it_casa_dados.py"
       ],
-      "file_count": 15,
-      "status": "PROVEN",
-      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
-      "changed_since_declared": [],
+      "file_count": 17,
+      "status": "PENDING",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "italia-portale/client/adama-relevance.js",
+        "italia-portale/client/meeting-intelligence-snapshot.js",
+        "italia-portale/client/meeting-surface.js"
+      ],
       "produces": [
         "build/sintonia-es.html"
       ],
@@ -10878,7 +10913,7 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▣",
       "views": [
         "meeting",
@@ -10894,9 +10929,13 @@
         "italia-portale/client/support.js"
       ],
       "file_count": 5,
-      "status": "PROVEN",
-      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "italia-portale/client/italy-app-model.js",
+        "italia-portale/client/italy-casa.js",
+        "italia-portale/client/italy-i18n.js"
+      ],
       "produces": [],
       "inbound": [
         "C-LASTMILE",
@@ -10939,7 +10978,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⛨",
       "views": [
         "audit",
@@ -10953,9 +10992,11 @@
         "italia-portale/audit/ingestion-provenance.mjs"
       ],
       "file_count": 3,
-      "status": "PROVEN",
-      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "italia-portale/audit/casa-gate.mjs"
+      ],
       "produces": [],
       "inbound": [
         "C-ARTEFACTO-V21",
@@ -12269,7 +12310,7 @@
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "acervo",
@@ -12287,9 +12328,11 @@
         "coleta/rotulos_ler.py"
       ],
       "file_count": 7,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "coleta/rotulos_ler.py"
+      ],
       "produces": [
         "data/raw/IT-ROTULOS/_MANIFESTO.json",
         "data/samples/IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json",
@@ -12302,6 +12345,7 @@
         "V-HTTP"
       ],
       "outbound": [
+        "C-AUDIT-GERAL",
         "C-CENSO-DERIVACOES",
         "C-FONTES-EU",
         "C-PALAVRAS",
@@ -12754,7 +12798,9 @@
       "file_count": 2,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "portoes/site_v21_ingest.py"
+      ],
       "produces": [],
       "inbound": [
         "C-ARTEFACTO-V21",
@@ -12783,12 +12829,12 @@
           "HTML",
           "LITERAIS"
         ],
-        "palavras": 763,
+        "palavras": 768,
         "por_lingua": {
           "PT": 2,
           "ES": 1
         },
-        "sem_marca_de_lingua": 760,
+        "sem_marca_de_lingua": 765,
         "de_outro_pais": 1,
         "de_outro_pais_quais": {
           "ES": 1
@@ -12936,7 +12982,7 @@
       "icon": "▤",
       "territory": "Z-TELAS",
       "family": "F-ENTREGA",
-      "ordem": 8,
+      "ordem": 9,
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
@@ -13052,7 +13098,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19315,
+      "x": 19730,
       "y": 1648
     },
     {
@@ -13062,7 +13108,7 @@
       "icon": "▤",
       "territory": "Z-TELAS",
       "family": "F-ENTREGA",
-      "ordem": 5,
+      "ordem": 6,
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
@@ -13153,8 +13199,59 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19730,
-      "y": 1004
+      "x": 19315,
+      "y": 1326
+    },
+    {
+      "id": "C-TELA-ETICHETTE",
+      "name": "Label Intelligence",
+      "kind": "tela",
+      "icon": "▤",
+      "territory": "Z-TELAS",
+      "family": "F-ENTREGA",
+      "ordem": 2,
+      "status": "UNKNOWN",
+      "ui_status": "gray",
+      "proof": "document",
+      "what": "«Label Intelligence». NAO SEI de onde vem o que ela mostra: nao ha contrato de bloco escrito para esta tela, e sem isso nao da para dizer que dado esta por baixo dos numeros que ela poe no ecra.",
+      "nome_em_portugues": "",
+      "texto_do_contrato": "",
+      "why_here": "E uma das ferramentas que a pessoa abre no portal. Existe para responder uma pergunta de negocio — e so vale a resposta se der para dizer de onde veio cada numero.",
+      "files": [
+        "italia-portale/client/portale.html"
+      ],
+      "facts": [
+        "aparece no menu do portal como «Label Intelligence»",
+        "contratos de bloco que a descrevem: 0",
+        "camadas de dado ligadas a ela: 0"
+      ],
+      "status_reason": "Nao da para dizer de onde vem o que esta nesta tela. Esta ferramenta nao tem contrato de bloco nenhum escrito.",
+      "evidence_text": "",
+      "departments": [],
+      "views": [
+        "entrega"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "de_onde_vem": "NAO SEI",
+      "ligado_nela": [],
+      "tecido_comum": [],
+      "riscos": [],
+      "perguntas_abertas": [],
+      "file_count": 1,
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 19315,
+      "y": 682
     },
     {
       "id": "C-TELA-FIELD",
@@ -13163,7 +13260,7 @@
       "icon": "▤",
       "territory": "Z-TELAS",
       "family": "F-ENTREGA",
-      "ordem": 10,
+      "ordem": 11,
       "status": "UNKNOWN",
       "ui_status": "gray",
       "proof": "document",
@@ -13217,7 +13314,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19315,
+      "x": 19730,
       "y": 1970
     },
     {
@@ -13282,7 +13379,7 @@
       "icon": "▤",
       "territory": "Z-TELAS",
       "family": "F-ENTREGA",
-      "ordem": 3,
+      "ordem": 4,
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
@@ -13358,8 +13455,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19730,
-      "y": 682
+      "x": 19315,
+      "y": 1004
     },
     {
       "id": "C-TELA-MEETING",
@@ -13502,7 +13599,7 @@
       "icon": "▤",
       "territory": "Z-TELAS",
       "family": "F-ENTREGA",
-      "ordem": 7,
+      "ordem": 8,
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
@@ -13627,8 +13724,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19730,
-      "y": 1326
+      "x": 19315,
+      "y": 1648
     },
     {
       "id": "C-TELA-SCIENCE",
@@ -13637,7 +13734,7 @@
       "icon": "▤",
       "territory": "Z-TELAS",
       "family": "F-ENTREGA",
-      "ordem": 6,
+      "ordem": 7,
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
@@ -13756,7 +13853,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19315,
+      "x": 19730,
       "y": 1326
     },
     {
@@ -13766,7 +13863,7 @@
       "icon": "▤",
       "territory": "Z-TELAS",
       "family": "F-ENTREGA",
-      "ordem": 9,
+      "ordem": 10,
       "status": "UNKNOWN",
       "ui_status": "gray",
       "proof": "document",
@@ -13807,8 +13904,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19730,
-      "y": 1648
+      "x": 19315,
+      "y": 1970
     },
     {
       "id": "C-TELA-VOICES",
@@ -13817,7 +13914,7 @@
       "icon": "▤",
       "territory": "Z-TELAS",
       "family": "F-ENTREGA",
-      "ordem": 4,
+      "ordem": 5,
       "status": "UNKNOWN",
       "ui_status": "gray",
       "proof": "document",
@@ -13861,7 +13958,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19315,
+      "x": 19730,
       "y": 1004
     },
     {
@@ -13871,7 +13968,7 @@
       "icon": "▤",
       "territory": "Z-TELAS",
       "family": "F-ENTREGA",
-      "ordem": 2,
+      "ordem": 3,
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "document",
@@ -13986,7 +14083,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 19315,
+      "x": 19730,
       "y": 682
     },
     {
@@ -15812,8 +15909,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-freshness-v1",
-        "HEAD baaddcf191778e01297427e7a0b167d66c9c4354"
+        "branch claude/system-map-canonical-url-v1",
+        "HEAD a0e08e7ce73d08fb91fc76a8231eeab48e3ce46f"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -15856,7 +15953,7 @@
       "icon": "A",
       "facts": [
         "branch claude/acervo-to-package-intelligence-v1",
-        "COMMIT 51010733be8a846a280e5f52e7e50d671c68a18f"
+        "COMMIT fb96f49d"
       ],
       "proof": "document",
       "territory": "Z-LINEAGE",
@@ -15900,13 +15997,13 @@
       "kind": "artefato",
       "icon": "◫",
       "facts": [
-        "EXPECTED_BUILD_ID V21-06c6421d001ea52a"
+        "EXPECTED_BUILD_ID V21-ef6e7e5f37eaa6e6"
       ],
       "proof": "document",
       "territory": "Z-LINEAGE",
       "status": "PROVEN",
       "ui_status": "green",
-      "what": "O unico BUILD_ID que pode atravessar para o site: V21-06c6421d001ea52a.",
+      "what": "O unico BUILD_ID que pode atravessar para o site: V21-ef6e7e5f37eaa6e6.",
       "why_here": "Um pacote que nao prova a sua identidade nao chega ao cliente.",
       "files": [
         "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json"
@@ -15940,14 +16037,18 @@
     },
     {
       "id": "lineage_stale",
-      "name": "Safras atrasadas conhecidas (4)",
+      "name": "Safras atrasadas conhecidas (8)",
       "kind": "artefato vencido",
       "icon": "✕",
       "facts": [
         "V21-99226fbb90dcdbc2 — o zip historico commitado: 37 casos, sem MEETING_SURFACE_RULE",
         "V21-5d312cb90a0de01d — o que a cadeia local desta linhagem produz hoje: PREPARE_NOW em 11 cas",
         "V21-69bf448ac934a6d9 — a safra de 55c2674: 43 casos e vereditos identicos aos de hoje, mas se",
-        "V21-044e4924854d5f0a — a safra de 5fac11f: mesmos 43 casos e mesmos vereditos, mas sem TRANSC"
+        "V21-044e4924854d5f0a — a safra de 5fac11f: mesmos 43 casos e mesmos vereditos, mas sem TRANSC",
+        "V21-06c6421d001ea52a — a safra de 5101073 com o rotulo lido a 02/09: 2030 pares de uso, 102 d",
+        "V21-fb74d2728213e8dd — a safra de 40477d5: 2.389 pares e 119 dos 163 rotulos lidos. Mesmos 43",
+        "V21-15071cc31d3461d3 — a safra de b0103bc: 2.702 pares declarados e 132/163 rotulos lidos. SA",
+        "V21-56e837c134a2bcd3 — a safra intermedia desta mesma sessao: mesmos 5.402 pares e mesmos 43 "
       ],
       "proof": "document",
       "territory": "Z-LINEAGE",
@@ -16585,7 +16686,7 @@
         },
         {
           "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 58,
+          "line": 74,
           "snippet": "vm.runInContext(fs.readFileSync(path.join(CLIENTE, 'italy-handoff-v21.js'), 'utf8'), g);"
         },
         {
@@ -17124,7 +17225,7 @@
         },
         {
           "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 368,
+          "line": 398,
           "snippet": "const PINS = J('UPSTREAM-PINS.json').PINS || {};"
         }
       ],
@@ -17320,7 +17421,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Harness de auditoria tem o seu codigo importado por Demais auditorias do portal. Provado por 66 linhas de codigo.",
+      "reason": "Harness de auditoria tem o seu codigo importado por Demais auditorias do portal. Provado por 70 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/acceptance.mjs",
@@ -17341,6 +17442,11 @@
           "file": "italia-portale/audit/action-map-consistency.mjs",
           "line": 28,
           "snippet": "import { loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/barras-de-busca.mjs",
+          "line": 22,
+          "snippet": "import { serve, open } from './lib/drive.mjs';"
         },
         {
           "file": "italia-portale/audit/browser-deep.mjs",
@@ -17376,11 +17482,6 @@
           "file": "italia-portale/audit/cadeia-de-familias.mjs",
           "line": 53,
           "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/checks.mjs",
-          "line": 12,
-          "snippet": "import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';"
         }
       ],
       "categoria": "CODE"
@@ -17393,7 +17494,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Harness de auditoria alimenta Demais auditorias do portal. Provado por 66 linhas de codigo.",
+      "reason": "Harness de auditoria alimenta Demais auditorias do portal. Provado por 70 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/acceptance.mjs",
@@ -17414,6 +17515,11 @@
           "file": "italia-portale/audit/action-map-consistency.mjs",
           "line": 28,
           "snippet": "import { loadData } from './lib/harness.mjs';"
+        },
+        {
+          "file": "italia-portale/audit/barras-de-busca.mjs",
+          "line": 22,
+          "snippet": "import { serve, open } from './lib/drive.mjs';"
         },
         {
           "file": "italia-portale/audit/browser-deep.mjs",
@@ -17449,11 +17555,6 @@
           "file": "italia-portale/audit/cadeia-de-familias.mjs",
           "line": 53,
           "snippet": "import { statoDelPacchetto, perchePuoiNonMisurare } from './lib/pacote.mjs';"
-        },
-        {
-          "file": "italia-portale/audit/checks.mjs",
-          "line": 12,
-          "snippet": "import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';"
         }
       ],
       "categoria": "READ"
@@ -22155,7 +22256,7 @@
         {
           "file": "italia-portale/client/italy-casa.js",
           "line": 113,
-          "snippet": "\"meeting-intelligence-snapshot.json\": \"sha256:2135e7c0b558e1a3a3e3e0f0b1c72c8e7757d2917053bccff52af77eba4047cd\","
+          "snippet": "\"meeting-intelligence-snapshot.json\": \"sha256:986ac3e3f6f0e53e422db5fc8ea9577c83e96ba89e4f016b5e6c3076e12d6828\","
         }
       ],
       "categoria": "READ"
@@ -22172,7 +22273,7 @@
       "evidence": [
         {
           "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 490,
+          "line": 520,
           "snippet": "const MI = JSON.parse(fs.readFileSync(path.join(CLIENTE, 'meeting-intelligence-snapshot.json'), 'utf8'));"
         }
       ],
@@ -23206,7 +23307,7 @@
       "evidence": [
         {
           "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 552,
+          "line": 582,
           "snippet": "const html = fs.readFileSync(path.join(CLIENTE, 'casa.html'), 'utf8');"
         }
       ],
@@ -23220,17 +23321,12 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Casco do portal alimenta Rete Commerciale di Campo. Provado por 2 linhas de codigo.",
+      "reason": "Casco do portal alimenta Rete Commerciale di Campo. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
-          "line": 252,
+          "line": 263,
           "snippet": "<a href=\"accesso.html\" style=\"display:inline-flex;flex:0 0 auto;align-items:center;padding:6px 13px;border-radius:9999px;border:1px solid rgba(203,197,195,0.22)"
-        },
-        {
-          "file": "italia-portale/client/portale.html",
-          "line": 4458,
-          "snippet": "go: () => { window.location.href = 'casa.html'; },"
         }
       ],
       "categoria": "READ"
@@ -23243,12 +23339,22 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Camadas de dado do portal alimenta Demais auditorias do portal. Provado por 5 linhas de codigo.",
+      "reason": "Camadas de dado do portal alimenta Demais auditorias do portal. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/browser-deep.mjs",
           "line": 248,
           "snippet": "vmDeep.runInContext(fsDeep.readFileSync(pathDeep.join(CLIENT, 'meeting-labels.js'), 'utf8'), ctx, { filename: 'meeting-labels.js' });"
+        },
+        {
+          "file": "italia-portale/audit/etichette-gate.mjs",
+          "line": 54,
+          "snippet": "const bruto = fs.readFileSync(path.join(CLIENTE, 'italy-label-intelligence.js'), 'utf8');"
+        },
+        {
+          "file": "italia-portale/audit/etichette-gate.mjs",
+          "line": 96,
+          "snippet": "const lexBruto = fs.readFileSync(path.join(CLIENTE, 'italy-label-lexicon.js'), 'utf8');"
         },
         {
           "file": "italia-portale/audit/lote-completo.mjs",
@@ -23281,7 +23387,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Camadas de dado do portal alimenta Harness de auditoria. Provado por 5 linhas de codigo.",
+      "reason": "Camadas de dado do portal alimenta Harness de auditoria. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/lib/harness.mjs",
@@ -23295,12 +23401,22 @@
         },
         {
           "file": "italia-portale/audit/lib/harness.mjs",
-          "line": 49,
+          "line": 57,
+          "snippet": "'italy-label-intelligence.js',"
+        },
+        {
+          "file": "italia-portale/audit/lib/harness.mjs",
+          "line": 58,
+          "snippet": "'italy-label-lexicon.js',"
+        },
+        {
+          "file": "italia-portale/audit/lib/harness.mjs",
+          "line": 59,
           "snippet": "'adama-relevance.js',"
         },
         {
           "file": "italia-portale/audit/lib/harness.mjs",
-          "line": 50,
+          "line": 60,
           "snippet": "'meeting-surface.js',"
         },
         {
@@ -23433,12 +23549,12 @@
       "evidence": [
         {
           "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 497,
+          "line": 527,
           "snippet": "const surf = fs.readFileSync(path.join(CLIENTE, 'meeting-surface.js'), 'utf8');"
         },
         {
           "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 553,
+          "line": 583,
           "snippet": "const gerador = fs.readFileSync(path.resolve(AQUI, '..', '..', 'superficie', 'it_casa_dados.py'), 'utf8');"
         }
       ],
@@ -23496,7 +23612,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Camadas de dado do portal alimenta Rete Commerciale di Campo. Provado por 13 linhas de codigo.",
+      "reason": "Camadas de dado do portal alimenta Rete Commerciale di Campo. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "italia-portale/client/portale.html",
@@ -23550,13 +23666,13 @@
         },
         {
           "file": "italia-portale/client/portale.html",
-          "line": 48,
-          "snippet": "<script src=\"adama-relevance.js\"></script>"
+          "line": 54,
+          "snippet": "<script src=\"italy-label-intelligence.js\"></script>"
         },
         {
           "file": "italia-portale/client/portale.html",
-          "line": 49,
-          "snippet": "<script src=\"meeting-surface.js\"></script>"
+          "line": 55,
+          "snippet": "<script src=\"italy-label-lexicon.js\"></script>"
         }
       ],
       "categoria": "READ"
@@ -23696,7 +23812,7 @@
       "evidence": [
         {
           "file": "italia-portale/audit/lib/harness.mjs",
-          "line": 62,
+          "line": 72,
           "snippet": "'italy-casa.js',"
         }
       ],
@@ -23755,7 +23871,7 @@
       "evidence": [
         {
           "file": "italia-portale/client/casa.html",
-          "line": 212,
+          "line": 228,
           "snippet": "<script src=\"italy-casa.js\"></script>"
         }
       ],
@@ -23791,7 +23907,7 @@
       "evidence": [
         {
           "file": "italia-portale/audit/casa-gate.mjs",
-          "line": 398,
+          "line": 428,
           "snippet": "const noDado = [...new Set((fs.readFileSync(path.join(CLIENTE, 'italy-casa.js'), 'utf8')"
         }
       ],
@@ -23841,7 +23957,7 @@
         },
         {
           "file": "italia-portale/client/portale.html",
-          "line": 58,
+          "line": 69,
           "snippet": "<script src=\"italy-casa.js\"></script>"
         }
       ],
@@ -25168,6 +25284,24 @@
     },
     {
       "from": "C-ROTULOS",
+      "to": "C-AUDIT-GERAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Baixar e ler os rotulos oficiais alimenta Demais auditorias do portal. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "italia-portale/audit/portfolio-lacunas.mjs",
+          "line": 32,
+          "snippet": "path.join(RAIZ, 'data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json'), 'utf8'));"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ROTULOS",
       "to": "C-CENSO-DERIVACOES",
       "type": "READS",
       "payload": "artefacto",
@@ -26219,7 +26353,7 @@
       "evidence": [
         {
           "file": "portoes/site_v21_ingest.py",
-          "line": 472,
+          "line": 482,
           "snippet": "src = io.open(os.path.join(ROOT, 'italia-portale', 'audit', 'lang.mjs'),"
         }
       ],
@@ -26714,8 +26848,8 @@
         },
         {
           "file": "italia-portale/audit/casco/release-gate.mjs",
-          "line": 54,
-          "snippet": "const SRC = fs.readFileSync(new URL('../../client/portale.html', import.meta.url), 'utf8');"
+          "line": 60,
+          "snippet": "const SRC = fs.readFileSync(SPECCHIO ? (SPECCHIO + '/portale.html') : new URL('../../client/portale.html', import.meta.url), 'utf8');"
         }
       ],
       "categoria": "READ"
@@ -26746,11 +26880,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Rete Commerciale di Campo alimenta Casco do portal. Provado por 1 linha de codigo.",
+      "reason": "Rete Commerciale di Campo alimenta Casco do portal. Provado por 2 linhas de codigo.",
       "evidence": [
         {
+          "file": "italia-portale/client/accesso.html",
+          "line": 315,
+          "snippet": "window.location.href = 'portale.html';"
+        },
+        {
           "file": "italia-portale/client/casa.html",
-          "line": 633,
+          "line": 692,
           "snippet": "+ '<a class=\"cta top\" href=\"portale.html\">'"
         }
       ],
@@ -27360,12 +27499,12 @@
       "evidence": [
         {
           "file": "portoes/site_v21_ingest.py",
-          "line": 219,
+          "line": 229,
           "snippet": "'publicVoices': ('PUBLIC-VOICES.json', ("
         },
         {
           "file": "portoes/site_v21_ingest.py",
-          "line": 234,
+          "line": 244,
           "snippet": "'sources': ('SOURCES.json', ("
         }
       ],
@@ -28041,7 +28180,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Safras atrasadas conhecidas (4) alimenta Harness de auditoria. Provado por 1 linha de codigo.",
+      "reason": "Safras atrasadas conhecidas (8) alimenta Harness de auditoria. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/lib/pacote.mjs",
@@ -28059,7 +28198,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Safras atrasadas conhecidas (4) alimenta Gerador do System Map. Provado por 1 linha de codigo.",
+      "reason": "Safras atrasadas conhecidas (8) alimenta Gerador do System Map. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
@@ -28077,7 +28216,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Safras atrasadas conhecidas (4) alimenta Portao da build. Provado por 1 linha de codigo.",
+      "reason": "Safras atrasadas conhecidas (8) alimenta Portao da build. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "italia-portale/audit/ingestion-provenance.mjs",
@@ -28095,11 +28234,11 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Safras atrasadas conhecidas (4) alimenta Ingestao do pacote no site. Provado por 1 linha de codigo.",
+      "reason": "Safras atrasadas conhecidas (8) alimenta Ingestao do pacote no site. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "portoes/site_v21_ingest.py",
-          "line": 714,
+          "line": 724,
           "snippet": "'CANONICAL-PACKAGE-CONTRACT.json')"
         }
       ],
@@ -28145,7 +28284,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 700,
+  "UNCLAIMED_FILES_COUNT": 701,
   "OWNERSHIP_CONFLICTS": [],
   "BURACOS": {
     "COUNTS": {
@@ -28273,17 +28412,17 @@
     ]
   },
   "COUNTS": {
-    "components": 145,
-    "components_proven": 67,
-    "components_pending": 71,
+    "components": 146,
+    "components_proven": 58,
+    "components_pending": 80,
     "components_broken": 0,
-    "components_unknown": 7,
-    "edges": 556,
-    "edges_proven": 554,
+    "components_unknown": 8,
+    "edges": 557,
+    "edges_proven": 555,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1351,
-    "files_covered": 651,
+    "files_tracked": 1358,
+    "files_covered": 657,
     "files_code_unclaimed": 0
   }
 }

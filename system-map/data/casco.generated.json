@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.casco/1",
   "PROVENANCE": {
-    "HEAD": "baaddcf191778e01297427e7a0b167d66c9c4354",
+    "HEAD": "a0e08e7ce73d08fb91fc76a8231eeab48e3ce46f",
     "BLOCOS": "italia-portale/audit/blocks",
     "CLIENTE": "italia-portale/client"
   },
@@ -12,7 +12,7 @@
       "chave_do_rotulo": "navMeeting",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 4421,
+        "line": 5676,
         "snippet": "['meeting', mtL('navMeeting'), relev ? relev.OPPORTUNITA : meetingCount],"
       },
       "blocos": [
@@ -109,8 +109,8 @@
       "chave_do_rotulo": "navFuture",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 4427,
-        "snippet": "['future', T.navFuture, navN('futureSignals')],"
+        "line": 5678,
+        "snippet": "Qui stava `['future', T.navFuture, navN('futureSignals')]`. Tre voci"
       },
       "blocos": [],
       "o_que_alimenta": "",
@@ -130,12 +130,34 @@
       "registos_citados": []
     },
     {
+      "vista": "etichette",
+      "nome": "Label Intelligence",
+      "chave_do_rotulo": "navLabels",
+      "prova_do_nome": {
+        "file": "italia-portale/client/portale.html",
+        "line": 5704,
+        "snippet": "['etichette', T.navLabels,"
+      },
+      "blocos": [],
+      "o_que_alimenta": "",
+      "resumo": "",
+      "confianca": "",
+      "camadas": {},
+      "riscos": [],
+      "perguntas_abertas": [],
+      "ficheiros": [],
+      "confissoes": [],
+      "de_onde_vem": "NAO SEI",
+      "leitura": "Nao da para dizer de onde vem o que esta nesta tela. Esta ferramenta nao tem contrato de bloco nenhum escrito.",
+      "registos_citados": []
+    },
+    {
       "vista": "windows",
       "nome": "Finestre Colturali",
       "chave_do_rotulo": "navWindows",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 4428,
+        "line": 5706,
         "snippet": "['windows', T.navWindows, navN('windows')],"
       },
       "blocos": [
@@ -223,7 +245,7 @@
       "chave_do_rotulo": "navMarket",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 4429,
+        "line": 5707,
         "snippet": "['market', T.navMarket, navN('marketObservations')],"
       },
       "blocos": [
@@ -284,7 +306,7 @@
       "chave_do_rotulo": "navVoices",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 4430,
+        "line": 5708,
         "snippet": "['voices', T.navVoices, navN('voices')],"
       },
       "blocos": [],
@@ -309,7 +331,7 @@
       "chave_do_rotulo": "navCompetitors",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 4431,
+        "line": 5709,
         "snippet": "['competitors', T.navCompetitors, navN('competitorActivities')],"
       },
       "blocos": [
@@ -376,7 +398,7 @@
       "chave_do_rotulo": "navScience",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 4432,
+        "line": 5710,
         "snippet": "['science', T.navScience, navN('scienceRecords')],"
       },
       "blocos": [
@@ -464,7 +486,7 @@
       "chave_do_rotulo": "navPortfolio",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 4433,
+        "line": 5711,
         "snippet": "['portfolio', T.navPortfolio, navN('products')],"
       },
       "blocos": [
@@ -558,7 +580,7 @@
       "chave_do_rotulo": "navArchive",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 4434,
+        "line": 5712,
         "snippet": "['archive', T.navArchive, navN('archive')],"
       },
       "blocos": [
@@ -643,7 +665,7 @@
       "chave_do_rotulo": "navSources",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 4435,
+        "line": 5713,
         "snippet": "['sources', T.navSources, navN('sources')]"
       },
       "blocos": [],
@@ -665,7 +687,7 @@
       "chave_do_rotulo": "navField",
       "prova_do_nome": {
         "file": "italia-portale/client/portale.html",
-        "line": 4437,
+        "line": 5715,
         "snippet": "const navIntegrations = [['field', T.navField, allMessages.length]];"
       },
       "blocos": [],
@@ -707,6 +729,12 @@
     "ITALY_INGEST": [
       "italia-portale/client/italy-ingested.js"
     ],
+    "ITALY_LABEL_INTELLIGENCE": [
+      "italia-portale/client/italy-label-intelligence.js"
+    ],
+    "ITALY_LABEL_LEXICON": [
+      "italia-portale/client/italy-label-lexicon.js"
+    ],
     "ITALY_LABEL_VERDICTS": [
       "italia-portale/client/italy-label-verdicts.js"
     ],
@@ -733,12 +761,12 @@
     ]
   },
   "COUNTS": {
-    "ferramentas": 11,
+    "ferramentas": 12,
     "por_origem": {
       "MISTURA": 6,
-      "NAO SEI": 4,
+      "NAO SEI": 5,
       "REAL": 1
     },
-    "camadas_publicadas": 15
+    "camadas_publicadas": 17
   }
 }
