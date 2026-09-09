@@ -28,12 +28,26 @@
 # ═══════════════════════════════════════════════════════════════════════════
 name: rls-censo-metadados
 
+# ── QUANDO CORRER, E PORQUE NAO EM CADA COMMIT ────────────────────────────
+# Falar com a base viva custa uma ligacao e um segredo. Um controlo que trava
+# cada commit e um controlo que alguem contorna.
+#
+#     FAST CHECK EM CADA COMMIT. DEEP CHECK NA SUA HORA.
+#
+# A hora e esta: quando o schema ou a propria prova mudam — que e quando a
+# deriva pode nascer — e uma vez por dia, porque a deriva tambem nasce fora do
+# Git, e foi exactamente assim que nasceu a que encontramos.
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '17 4 * * *'
   push:
     paths:
       - '.github/workflows/rls-censo-metadados.yml'
       - 'provas/rls_censo_metadados.sql'
+      - 'security/drift_db.py'
+      - 'security/live-db-expected.json'
+      - 'supabase/migrations/**'
 
 permissions:
   contents: read
@@ -73,5 +87,12 @@ jobs:
           || { echo "PSQL_FAILED"; sed -E 's#postgres(ql)?://[^ ]*#[DSN REDIGIDO]#g' /tmp/censo.err | tail -5; exit 1; }
           echo "CENSO_LINHAS=$(wc -l < /tmp/censo.txt)"
 
-      - name: 3 · classificar (detalhe sensivel retido)
-        run: python3 provas/rls_censo_classificar.py /tmp/censo.txt
+      - name: 3 · censo em bruto (estrutural; publicavel enquanto a porta estiver fechada)
+        if: '!cancelled()'
+        run: cat /tmp/censo.txt
+
+      - name: 4 · deriva e seguranca, medidas em separado
+        # SECURITY_STATUS e DRIFT_STATUS sao duas perguntas. Juntar as duas foi
+        # o defeito que deixou passar uma base viva diferente do repositorio.
+        if: '!cancelled()'
+        run: python3 security/drift_db.py /tmp/censo.txt
