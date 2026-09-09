@@ -137,10 +137,30 @@ class TestMigrationsCoerentes(unittest.TestCase):
 
     def test_nenhuma_migration_foi_executada(self):
         """Esta missao PROPOE. Se aparecer codigo de conexao aqui, alguem executou."""
+        # ⚠️ AS DUAS GRAFIAS VALEM, e nao por preguica.
+        # 23 das 24 migrations escrevem «NÃO EXECUTADA»; a `022` escreve
+        # «NAO EXECUTADA», sem til, como todo o resto do ficheiro dela. A
+        # marca esta la nas 24 — o que variava era o acento.
+        #
+        # O caminho obvio seria corrigir a `022`. Nao se corrige, e a razao
+        # e operacional: `motor/cadeia_canonica.sh:99` guarda o `sha256sum`
+        # do FICHEIRO INTEIRO em `schema_migracao`, e a trava de drift para
+        # a cadeia quando o sha muda. Editar um comentario mudaria o sha e
+        # partiria a cadeia em qualquer banco onde a 022 ja tenha sido
+        # aplicada. O cabecalho dela diz que producao nao foi tocada; se ha
+        # um ambiente de dev com ela aplicada, ninguem aqui consegue medir.
+        #
+        #     NAO SE MEXE NUM FICHEIRO CUJO HASH E CONTRATO
+        #     PARA ARRUMAR UM ACENTO.
+        #
+        # E a invariante que este caso guarda e «a migration DECLARA que nao
+        # foi executada» — nao «declara com til». As duas grafias declaram.
         for f in self.arqs:
             s = open(os.path.join(MIG, f), encoding='utf-8').read()
             with self.subTest(arquivo=f):
-                self.assertIn('NÃO EXECUTADA', s, f'{f} sem a marca de proposta')
+                self.assertTrue(
+                    'NÃO EXECUTADA' in s or 'NAO EXECUTADA' in s,
+                    f'{f} sem a marca de proposta')
         for proibido in ('SUPABASE_URL', 'SUPABASE_KEY', 'postgresql://', 'psycopg'):
             self.assertNotIn(proibido, self.todo,
                              f'credencial ou conexao ({proibido}) dentro de migration')
@@ -289,3 +309,15 @@ class TestRawPesadoNaoVoltaParaOGit(unittest.TestCase):
         with open(caminho, encoding='utf-8') as f:
             n = len([x for x in f.read().split('\n') if x.strip()])
         self.assertGreaterEqual(n, 11, 'a lista congelada perdeu entradas')
+
+
+# ⚠️ SEM ISTO, `python3 tests/test_migrations.py` NAO CORRIA NADA.
+# O ficheiro define 3 classes e 20 casos, e sem um arranque saia com 0 e
+# sem uma linha de saida — indistinguivel de uma bateria verde. Um censo
+# feito por `for f in tests/test_*.py; do python3 $f; done` contava-o como
+# aprovado; ele nunca tinha corrido.
+#
+#     NAO CORREU != PASSOU.
+if __name__ == '__main__':
+    import sys
+    sys.exit(0 if unittest.main(exit=False).result.wasSuccessful() else 1)
