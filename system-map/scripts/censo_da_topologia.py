@@ -158,6 +158,42 @@ def escreve_le(ficheiros):
     return sorted(escreve), sorted(le - set(escreve))
 
 
+def orfaos_por_vista(N, E):
+    """Os cartoes que parecem sozinhos SO porque os vizinhos vivem noutra vista.
+
+    ⚠️ ESTA E A RESPOSTA A «HA CARTOES SEM LIGACAO».
+    No grafo inteiro a coleta nao tem um unico orfao. Na tela, tem — porque a
+    tela mostra UMA vista de cada vez, e um cartao pode ter todas as suas
+    ligacoes para vizinhos que nao estao naquela vista.
+
+        ORFAO NO GRAFO   e um buraco de arquitetura.
+        ORFAO NA VISTA   e um efeito da lente, e nao quer dizer nada sobre o
+                         sistema — mas parece exactamente igual a quem olha.
+
+    Distinguir os dois e o que impede alguem de ir procurar um dono que nunca
+    faltou. Um cartao que aparece aqui NAO precisa de ligacao nova: precisa de
+    estar na mesma vista de quem ja fala com ele, ou de nao estar naquela vista
+    de todo.
+    """
+    fora = {}
+    vistas = sorted({v for n in N.values() for v in (n.get('views') or [])})
+    for vista in vistas:
+        dentro = {i for i, n in N.items() if vista in (n.get('views') or [])}
+        grau = {}
+        for e in E:
+            if e['from'] in dentro and e['to'] in dentro:
+                grau[e['from']] = grau.get(e['from'], 0) + 1
+                grau[e['to']] = grau.get(e['to'], 0) + 1
+        for i in dentro:
+            if grau.get(i):
+                continue
+            vizinhos = [e['to'] if e['from'] == i else e['from']
+                        for e in E if i in (e['from'], e['to'])]
+            if vizinhos:      # tem ligacoes — so nao NESTA vista
+                fora.setdefault(i, []).append(vista)
+    return fora
+
+
 def porque_sozinho(n, grau):
     """A razao de um cartao nao ter ligacao. UNKNOWN e uma resposta."""
     if grau:
@@ -195,6 +231,7 @@ def main():
         grau[e['to']] = grau.get(e['to'], 0) + 1
 
     RAIZES, ALCANCADOS = alcancaveis_do_runtime()
+    FALSOS = orfaos_por_vista(N, E)
 
     fichas = []
     for i in universo:
@@ -231,6 +268,7 @@ def main():
             'CATEGORIAS_QUE_ENTRAM': sorted({e.get('categoria') for e in ent}),
             'CATEGORIAS_QUE_SAEM': sorted({e.get('categoria') for e in sai}),
             'PORQUE_SOZINHO': porque_sozinho(n, grau.get(i, 0)),
+            'ORFAO_FALSO_NAS_VISTAS': FALSOS.get(i, []),
             'GAP': n.get('gap'),
         })
 
@@ -253,6 +291,7 @@ def main():
             and not f['DOCUMENTADO_COMO_CLI'] and not f['SO_MEDEM_ESTE']),
         'SEM_LIGACAO': {f['CARD_ID']: f['PORQUE_SOZINHO']
                         for f in fichas if f['PORQUE_SOZINHO']},
+        'ORFAOS_FALSOS_POR_VISTA': {k: v for k, v in sorted(FALSOS.items())},
         'SEM_LIGACAO_INEXPLICADOS': sorted(
             f['CARD_ID'] for f in fichas if f['PORQUE_SOZINHO'] == 'UNKNOWN'),
         'CATEGORIAS_DAS_ARESTAS': {

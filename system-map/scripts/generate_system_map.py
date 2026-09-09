@@ -931,7 +931,12 @@ def a_sala_de_espera() -> tuple[list, list]:
         "proof": "git-measurement",
         "lane": "official", "legacy": False, "changed_since_declared": [],
         "files": [], "file_count": 0, "departments": ["ENGENHARIA"],
-        "views": ["acervo", "audit"], "inbound": [], "outbound": [],
+        # ⚠️ AS MESMAS VISTAS DA ADMISSAO, e nao mais.
+        # Com `audit` aqui e so `acervo` na porta, o READY ficava sozinho na
+        # vista de auditoria — nao por nao ter ligacao, mas por o vizinho dela
+        # nao estar la. Um cartao orfao por ausencia do OUTRO e um orfao falso,
+        # e manda procurar um buraco que nao existe.
+        "views": ["acervo"], "inbound": [], "outbound": [],
         "evidence_text": "provas/a_fronteira_da_coleta.py",
         "what": (
             f"O contrato de saida da coleta: {len(campos)} campos fixos, "

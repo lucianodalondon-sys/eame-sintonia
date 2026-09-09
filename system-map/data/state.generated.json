@@ -1790,8 +1790,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "539644f67a8babf3ab633b204483c2a9c0169c26",
-    "GENERATED_AT": "2026-09-09T04:30:43+00:00"
+    "HEAD": "38d3ef4b307ef82080c5c0873c429121e8520110",
+    "GENERATED_AT": "2026-09-09T04:38:49+00:00"
   },
   "FAMILIES": [
     {
@@ -11863,8 +11863,7 @@
         "ENGENHARIA"
       ],
       "views": [
-        "acervo",
-        "audit"
+        "acervo"
       ],
       "inbound": [
         "C-ADMISSAO"
@@ -12722,7 +12721,7 @@
     },
     {
       "id": "C-SCRAP-ROTA",
-      "name": "Despacho do SCRAP · rota, sessao e guarda",
+      "name": "SCRAP rota e sessao · o despachador (auth_mode)",
       "territory": "Z-EXECUCAO",
       "kind": "workflow",
       "what": "O segundo botao do SCRAP, e o que decide COMO se chega ao canal: `auth_mode` (AUTO, PUBLIC, OFFICIAL_API, LOCAL_SESSION) e as fases de censo, portao, sessao, politica e guarda. AUTO deixa a politica escolher; os outros FORCAM e podem recusar.",
@@ -12935,7 +12934,7 @@
     },
     {
       "id": "C-SINTONIA-SCRAP",
-      "name": "Despacho do SCRAP · aquisicao (Instagram, YouTube)",
+      "name": "SCRAP aquisicao · o despachador (Instagram, YouTube)",
       "territory": "Z-EXECUCAO",
       "kind": "workflow",
       "what": "O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina.",
@@ -16091,7 +16090,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-topology-census-v1",
-        "HEAD 539644f67a8babf3ab633b204483c2a9c0169c26"
+        "HEAD 38d3ef4b307ef82080c5c0873c429121e8520110"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16449,7 +16448,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 971,
+          "line": 976,
           "snippet": "\"evidence\": [{\"file\": \"admissao/admissao.py\", \"line\": 391,"
         }
       ],
@@ -17149,7 +17148,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2587,
+          "line": 2592,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -21060,7 +21059,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1339,
+          "line": 1344,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -21418,7 +21417,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1321,
+          "line": 1326,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         }
       ],
@@ -22193,7 +22192,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Quem esta autorizado a ser coletado alimenta Despacho do SCRAP · aquisicao (Instagram, YouTube). Provado por 1 linha de codigo.",
+      "reason": "Quem esta autorizado a ser coletado alimenta SCRAP aquisicao · o despachador (Instagram, YouTube). Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -22392,7 +22391,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2609,
+          "line": 2614,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -23164,17 +23163,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2810,
+          "line": 2815,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2810,
+          "line": 2815,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2811,
+          "line": 2816,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ],
@@ -23356,12 +23355,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3366,
+          "line": 3371,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3366,
+          "line": 3371,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -25325,7 +25324,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 935,
+          "line": 940,
           "snippet": "\"evidence_text\": \"provas/a_fronteira_da_coleta.py\","
         }
       ],
@@ -26816,7 +26815,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Despacho do SCRAP · rota, sessao e guarda manda rodar O motor de buscar. Provado por 1 linha de codigo.",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar O motor de buscar. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
@@ -26834,7 +26833,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Despacho do SCRAP · rota, sessao e guarda manda rodar A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
@@ -26852,7 +26851,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Despacho do SCRAP · rota, sessao e guarda manda rodar Executor do SCRAP · a aquisicao social. Provado por 2 linhas de codigo.",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar Executor do SCRAP · a aquisicao social. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
@@ -26875,7 +26874,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Despacho do SCRAP · rota, sessao e guarda alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_youtube_antidrift.py",
@@ -27142,7 +27141,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Despacho do SCRAP · aquisicao (Instagram, YouTube) manda rodar Apify — a rota paga. Provado por 1 linha de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar Apify — a rota paga. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -27160,7 +27159,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Despacho do SCRAP · aquisicao (Instagram, YouTube) manda rodar Colher o Instagram. Provado por 4 linhas de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar Colher o Instagram. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -27193,7 +27192,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Despacho do SCRAP · aquisicao (Instagram, YouTube) manda rodar Colher o YouTube. Provado por 2 linhas de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar Colher o YouTube. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -27216,7 +27215,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Despacho do SCRAP · aquisicao (Instagram, YouTube) manda rodar O navegador — a rota gratis. Provado por 1 linha de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar O navegador — a rota gratis. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -27234,7 +27233,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Despacho do SCRAP · aquisicao (Instagram, YouTube) manda rodar A fala vira texto, sem fatura. Provado por 2 linhas de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar A fala vira texto, sem fatura. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -27576,7 +27575,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1006,
+          "line": 1011,
           "snippet": "migracao = \"supabase/migrations/022_o_derivado_ganha_casa.sql\""
         }
       ],
@@ -28014,7 +28013,7 @@
       "raw_type": "WRITES",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes escreve em Despacho do SCRAP · rota, sessao e guarda. Provado por 1 linha de codigo.",
+      "reason": "Suite de testes escreve em SCRAP rota e sessao · o despachador (auth_mode). Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_youtube_piloto.py",
