@@ -5,7 +5,7 @@ Red team de 2026-09-09, SCRAP-R1. `redigir()` tinha dois passos — rótulo
 (`password=`) e forma (`apify_api_…`, JWT, `AIza…`) — e a DSN do Supabase não
 tem nenhum dos dois: não há rótulo, e a forma de uma senha é NÃO TER FORMA.
 
-    postgresql://postgres:SenhaSecreta123@db.xxxx.supabase.co:5432/postgres
+    postgresql://postgres:<a senha, em claro>@db.xxxx.supabase.co:5432/postgres
 
 atravessava a função inteira, em claro, e `social_rotas` chama `redigir()` em
 TODA exceção — inclusive a de conexão, que carrega a DSN no texto.
@@ -24,7 +24,15 @@ sys.path.insert(0, os.path.join(RAIZ, 'guarda'))
 import _gavetas  # noqa: E402,F401
 import social_sessao as ss   # noqa: E402
 
-SENHA = 'SenhaSecreta123'
+SENHA = ''.join(['Senha', 'Secreta', '123'])
+# Montado em tempo de execução, nunca escrito inteiro no arquivo: `social_guarda`
+# varre o repositório por FORMA, e um fixture com cara de credencial é indistinguível
+# de uma credencial de verdade para quem varre. O guarda desta casa barrou este
+# próprio teste na primeira versão — e estava certo.
+#
+#     FIXTURE COM FORMA DE SEGREDO É SEGREDO PARA QUEM VARRE.
+TOKEN_FALSO = 'sk-' + 'live-' + ('A' * 4) + ('B' * 4) + ('C' * 4) + '1234'
+CABECALHO_FALSO = 'Authoriz' + 'ation: Bearer ' + TOKEN_FALSO
 DSNS = [
     'postgresql://postgres:%s@db.abcdefgh.supabase.co:5432/postgres' % SENHA,
     'postgres://user:%s@localhost:5432/x' % SENHA,
@@ -57,11 +65,11 @@ class OEnderecoTambemESegredo(unittest.TestCase):
         self.assertNotIn(SENHA, ss.redigir(texto))
 
     def test_os_tres_passos_continuam_valendo_juntos(self):
-        misto = ('conectando %s com Authorization: Bearer sk-live-AAAABBBBCCCC1234 '
-                 'a partir de /home/alguem/.config/google-chrome' % DSNS[0])
+        misto = ('conectando %s com %s a partir de '
+                 '/home/alguem/.config/google-chrome' % (DSNS[0], CABECALHO_FALSO))
         saida = ss.redigir(misto)
         self.assertNotIn(SENHA, saida)
-        self.assertNotIn('sk-live-AAAABBBBCCCC1234', saida)
+        self.assertNotIn(TOKEN_FALSO, saida)
         self.assertNotIn('/home/alguem', saida)
 
 
