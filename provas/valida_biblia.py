@@ -55,7 +55,11 @@ APENDICES = (CENSO, CONFLITOS, CONFORMIDADE,
              os.path.join(PASTA, 'EMENDA-V1-1.md'),
              os.path.join(PASTA, 'EMENDA-V1-2.md'),
              os.path.join(PASTA, 'CENSO-DA-INFRAESTRUTURA.md'),
-             os.path.join(PASTA, 'RECONCILIACAO-INTEGRACAO.md'))
+             os.path.join(PASTA, 'RECONCILIACAO-INTEGRACAO.md'),
+             # O apendice I (V1.4) nao mora em docs/biblia/ porque fala do mapa;
+             # mora ao lado dele. O que decide se um ficheiro entra aqui nao e a
+             # pasta: e CITAR LEI. Quem cita lei tem de ser conferido.
+             os.path.join(ROOT, 'system-map', 'contracts', 'CARD-CONTRACT-V1.md'))
 
 LAW_STATUS_VALIDOS = ('CANONICAL',)
 IMPL_VALIDOS = ('IMPLEMENTED', 'PARTIAL', 'ABSENT', 'NOT_APPLICABLE', 'UNKNOWN')

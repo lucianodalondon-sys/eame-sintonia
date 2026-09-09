@@ -2,7 +2,7 @@
  "SCHEMA": "sintonia.collection-bible/1",
  "NOTA": "DERIVADO de BIBLIA-CANONICA-DA-COLETA.md. Nao editar a mao: corra `py provas/valida_biblia.py --build`.",
  "BIBLE_ID": "SINTONIA-COLLECTION-BIBLE",
- "VERSION": "V1.3",
+ "VERSION": "V1.4",
  "STATUS": "CANONICAL",
  "EFFECTIVE_FROM": "2026-09-07",
  "CURRENT_PROFILE": "ITALY_PROFILE_V1",
@@ -934,6 +934,159 @@
   {
    "id": "COL-LAW-504",
    "nome": "A ÁRVORE ESCANEADA NÃO É O COMMIT QUE PUBLICA O MAPA",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-601",
+   "nome": "CARTÃO NÃO É FICHEIRO",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-602",
+   "nome": "TODO CARTÃO RESPONDE A UMA PERGUNTA — `OWNS_QUESTION`",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-603",
+   "nome": "AS PORTAS DO CARTÃO",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-604",
+   "nome": "`DECIDES` E `MUST_NOT_DECIDE`",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-605",
+   "nome": "OS TIPOS CANÔNICOS DE CARTÃO",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-606",
+   "nome": "MEDIR NÃO É FAZER — A LEI DO SENSOR",
+   "origem": [
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-607",
+   "nome": "COORDENAR NÃO É TRANSPORTAR — A LEI DO ORQUESTRADOR",
+   "origem": [
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-608",
+   "nome": "REGISTRO ≠ POLÍTICA ≠ PORTÃO",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-609",
+   "nome": "EXECUTOR ≠ FERRAMENTA ≠ ADAPTADOR",
+   "origem": [
+    "EXISTING_SINTONIA_LAW"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-610",
+   "nome": "A GUARDA PRESERVA; A TRANSFORMAÇÃO PRODUZ OUTRA REPRESENTAÇÃO",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-611",
+   "nome": "SUBCOMPONENTES — SIMPLICIDADE VISUAL NÃO É OCULTAÇÃO ARQUITETURAL",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-612",
+   "nome": "A ARESTA TEM SIGNIFICADO",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-613",
+   "nome": "AS LEIS ANTI-FALSO-POSITIVO DO CARTÃO E DA ARESTA",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-614",
+   "nome": "CICLO DE VIDA E EVIDÊNCIA SÃO DOIS EIXOS",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-615",
+   "nome": "NENHUM CARTÃO NASCE NO DESENHO",
+   "origem": [
+    "CONSOLIDATED_FROM_MULTIPLE"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "PARTIAL"
+  },
+  {
+   "id": "COL-LAW-616",
+   "nome": "DUAS AUTORIDADES NUM CARTÃO É `SPLIT_CANDIDATE`",
+   "origem": [
+    "ARCHITECTURAL_DECISION"
+   ],
+   "law_status": "CANONICAL",
+   "italia": "ABSENT"
+  },
+  {
+   "id": "COL-LAW-617",
+   "nome": "MERGE EXIGE AUTORIDADE REALMENTE ÚNICA",
    "origem": [
     "ARCHITECTURAL_DECISION"
    ],

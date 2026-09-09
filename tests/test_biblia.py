@@ -363,8 +363,9 @@ class Integridade(unittest.TestCase):
                                            'CENSO-DA-INFRAESTRUTURA.md'))
 
     def test_versao_bate_com_o_historico(self):
-        self.assertRegex(self.t, r'VERSION\s+V1\.3')
-        for v in ('| **V1** |', '| **V1.1** |', '| **V1.2** |', '| **V1.3** |'):
+        self.assertRegex(self.t, r'VERSION\s+V1\.4')
+        for v in ('| **V1** |', '| **V1.1** |', '| **V1.2** |', '| **V1.3** |',
+                  '| **V1.4** |'):
             self.assertIn(v, self.t, f'{v} sumiu do historico constitucional')
 
     def test_a_lei_da_infra_nasceu_de_medicao(self):

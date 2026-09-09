@@ -2,7 +2,7 @@
 
 ```
 BIBLE_ID          SINTONIA-COLLECTION-BIBLE
-VERSION           V1.3
+VERSION           V1.4
 STATUS            CANONICAL
 EFFECTIVE_FROM    2026-09-07
 CURRENT_PROFILE   ITALY_PROFILE_V1
@@ -21,12 +21,14 @@ Nenhuma lei muda em silêncio — é a COL-LAW-069. Toda emenda entra aqui e no
 | **V1.1** | 2026-09-07 | **duas emendas**: a lei da observabilidade (PARTE XVI — o System Map é a placa de vídeo do SINTONIA, e tudo tem de ser renderizável) e as leis roubadas de sistemas maduros de coleta (PARTE XVII — artefato ≠ fato, watermark, run completa, reparo, três eixos de confiança) | **78** (+30) |
 | **V1.2** | 2026-09-08 | **a infraestrutura entra na lei**: o papel canônico do GitHub e do Supabase (PARTE XVIII — infraestrutura não é autoridade semântica) e o Plano de Referência (PARTE XIX — dado de referência não é configuração, e tem história) | **100** (+22) |
 | **V1.3** | 2026-09-08 | **a integração**: a Bíblia e a engenharia italiana passam a viver no mesmo HEAD, e a primeira estrada real (PDF → texto → porta) foi medida contra a lei. Quatro leis novas (PARTE XX) para os quatro pontos onde a lei não bastava; as outras três questões já estavam resolvidas | **104** (+4) |
+| **V1.4** | 2026-09-09 | **o cartão ganha contrato**: a PARTE XXI escreve o que um componente **é** — dono, tipo, portas, autoridade, e o que ele **não pode decidir**. Ela não reorganiza cartão nenhum e não toca no universo que está a ser censado: governa a reorganização futura | **121** (+17) |
 
 **Nenhuma lei foi apagada em nenhuma emenda.** Emendas absorvidas por leis existentes, em vez
 de virarem lei nova, estão registradas em
 [`docs/biblia/EMENDA-V1-1.md`](docs/biblia/EMENDA-V1-1.md) e
 [`docs/biblia/EMENDA-V1-2.md`](docs/biblia/EMENDA-V1-2.md) e
-[`docs/biblia/RECONCILIACAO-INTEGRACAO.md`](docs/biblia/RECONCILIACAO-INTEGRACAO.md).
+[`docs/biblia/RECONCILIACAO-INTEGRACAO.md`](docs/biblia/RECONCILIACAO-INTEGRACAO.md) e
+[`system-map/contracts/CARD-CONTRACT-V1.md`](system-map/contracts/CARD-CONTRACT-V1.md).
 
 > **Esta é a constituição da coleta do SINTONIA.** Não é tutorial, não é descrição do
 > código de hoje, não é proposta. É a lei que todo prompt futuro de coleta obedece.
@@ -2701,6 +2703,538 @@ Gap **G-35**.
 
 ---
 
+# PARTE XXI · A LEI DOS COMPONENTES E DOS CARTÕES — CARD CONTRACT V1
+
+> **Emenda V1.4.** Esta parte **não reorganiza cartão nenhum**. Ela escreve a lei que
+> governará a reorganização futura — e que impedirá que os cartões voltem a ficar
+> desarrumados depois de arrumados.
+>
+> ```
+> COL-LAW-104   o que um componente tem de conseguir MOSTRAR
+> PARTE XXI     o que um componente É, e o que ele NÃO PODE decidir
+> ```
+>
+> **Ela não cria uma segunda autoridade sobre componentes.** A COL-LAW-104 (contrato de
+> componente renderizável) e a COL-LAW-105 (contrato de conexão renderizável) continuam
+> inteiras e continuam a ser o contrato de **exibição**. Esta parte acrescenta o que
+> faltava do outro lado: o contrato de **responsabilidade**. Onde a 104 diz `ROLE`, esta
+> parte define o que um papel é; onde a 105 diz `TYPE`, esta parte **não** redefine nada —
+> aponta para a COL-LAW-048, que já é a dona dessa taxonomia.
+>
+> **E ela não recomeça do zero.** Quase tudo aqui já tinha sido descoberto a medir esta
+> árvore, uma frase de cada vez: *«uma gaveta não é uma função»*, *«um import não é um
+> carimbo»*, *«executar a corrida não é ser a autoridade sobre a procedência dela»*,
+> *«um dono eleito por ordem alfabética não é um dono»*. Estavam espalhadas por relatórios
+> de missão, onde nenhum portão as alcança. Aqui viram lei, com nome e número.
+>
+> **O universo censado não muda por causa desta parte.** Os 130 componentes declarados, os
+> 157 cartões e as 608 arestas de hoje continuam exactamente como estão. O censo mede uma
+> fotografia; mexer nela a meio da medição faria com que ninguém soubesse mais qual das
+> duas coisas mudou o resultado.
+
+## COL-LAW-601 · CARTÃO NÃO É FICHEIRO
+
+**REGRA.** Um cartão do System Map representa uma **responsabilidade arquitetural
+identificável**, com dono, tipo, fronteira, entradas, saídas e autoridade explícita.
+**NÃO É** um ficheiro, uma pasta, um módulo, nem um agrupamento de imports.
+
+```
+1 ficheiro   PODE implementar 1 cartão, PARTE de 1 cartão, ou conter subcomponentes
+1 cartão     PODE possuir vários ficheiros
+```
+
+**AGRUPAMENTO NÃO CRIA RESPONSABILIDADE.** Estar na mesma pasta, estar no mesmo ficheiro,
+ou importar-se um ao outro **NÃO DEVE** ser lido como prova de que duas coisas são a mesma
+responsabilidade.
+
+> **UMA GAVETA NÃO É UMA FUNÇÃO.**
+
+**POR QUÊ.** A prateleira (`AGENTS.md`) diz onde um ficheiro **mora**. Ela nunca disse o
+que a peça **faz** — e durante meses o mapa deixou a pasta responder por ela. A gaveta
+«OS VEÍCULOS» passou meses sem conter um único veículo (COL-LAW-009), e a divisão entre
+`regras/` e `medidas/` só parou de ser palpite quando passou a ser medida pelo que cada
+peça **produz** e por **quem a consome** — nunca pela pasta.
+
+**VIOLAÇÃO MEDIDA, HOJE, NESTA ÁRVORE.** A gaveta continua a discordar da função em peças
+que ninguém errou de propósito: `C-INGRESSO` — a porta de entrada da coleta — é do tipo
+`gate` e vive em `Z-ACOES`, a zona dos executores; `C-DONO-DA-ESCRITA` e
+`C-DONO-DO-DERIVADO` guardam estágios diferentes e estão ambos como `engine`. Nenhuma
+destas é uma peça mal feita. São peças cujo **tipo** e cuja **gaveta** respondem a
+perguntas diferentes, e hoje só uma delas está escrita.
+
+**COMO PROVAR.** `P8_UM_DONO` e `P9_CODIGO_DECLARADO` em
+`system-map/scripts/validate_system_map.py` já provam a metade fácil: todo ficheiro de
+código pertence a um cartão, e nenhum a dois. A outra metade — que o cartão é uma
+responsabilidade, e não um saco de ficheiros — é o que esta parte passa a exigir.
+
+**CONTRATOS.** `system-map/data/architecture.declared.json` ·
+`system-map/contracts/CARD-CONTRACT-V1.md`
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-602 · TODO CARTÃO RESPONDE A UMA PERGUNTA — `OWNS_QUESTION`
+
+**REGRA.** Todo cartão canônico **DEVE** declarar identidade e responsabilidade:
+
+```
+IDENTIDADE        CARD_ID · NAME · TYPE · OWNER · LIFECYCLE
+RESPONSABILIDADE  PURPOSE · OWNS_QUESTION
+```
+
+`OWNS_QUESTION` é **a pergunta principal cuja autoridade pertence àquele cartão**. É o
+teste mais curto de que o cartão existe por um motivo, e não por um ficheiro.
+
+**DUAS PEÇAS NÃO PODEM SER DONAS DA MESMA PERGUNTA.** Se forem, ou uma é subcomponente da
+outra, ou há duas verdades — e a segunda envelhece calada. É a mesma lei do dono único que
+já governa a orquestração (COL-LAW-011) e o cadastro da fonte (COL-LAW-053).
+
+**EXEMPLO — perguntas desta árvore, e não perguntas inventadas:**
+
+| cartão | `OWNS_QUESTION` |
+|---|---|
+| `C-PEDIDO` | «o que foi solicitado?» |
+| `C-ORQUESTRADOR` | «como atender este pedido?» |
+| `C-INGRESSO` | «por onde entra o que foi colhido?» |
+| `C-DONO-DA-ESCRITA` | «que unidade bruta ficou preservada?» |
+| `C-ADMISSAO` | «isto entra neste universo, não entra, ou NÃO SEI?» |
+| `C-PROCEDENCIA` | «de onde veio isto, e em que corrida?» |
+
+**VIOLAÇÃO MEDIDA.** Três peças escreviam `data/samples/RUN-MANIFEST.json`, e o mapa
+elegia dono **por ordem alfabética**: o dono mudou sozinho de uma peça para outra sem
+ninguém tocar no repositório.
+
+> **UM DONO ELEITO POR ORDEM ALFABÉTICA NÃO É UM DONO.**
+> **EXECUTAR A CORRIDA NÃO É SER A AUTORIDADE SOBRE A PROCEDÊNCIA DELA.**
+
+**COMO PROVAR.** `P8_DONO_CANONICO` já prova o caso do artefato com dono declarado
+(`CANONICAL_OWNERS` em `system-map/data/state.generated.json`). Para a **pergunta** não há
+prova nenhuma: nenhum dos 130 componentes declarados desta árvore declara `OWNS_QUESTION`.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-603 · AS PORTAS DO CARTÃO
+
+**REGRA.** Todo cartão **DEVE** poder declarar, **quando aplicável**, as suas portas:
+
+```
+CONTROL_IN   CONTROL_OUT      quem manda em mim · em quem eu mando
+DATA_IN      DATA_OUT         o que atravessa a linha, nos dois sentidos
+POLICY_IN    POLICY_OUT       a regra que recebo · a decisão que publico
+CONFIG_IN                     o que me parametriza sem me mandar
+READS        WRITES           o que leio · o que escrevo
+STATE_OUT                     onde parei
+PROOF_OUT                     a evidência que deixo
+META_OUT                      o que digo sobre mim — contagens, custo, tempo
+```
+
+**AUSÊNCIA É AUSÊNCIA.** Porta inaplicável **NÃO DEVE** ser preenchida para deixar o
+desenho simétrico. `UNKNOWN` e `NOT_APPLICABLE` são coisas diferentes (COL-LAW-035), e
+inventar porta é, do lado do cartão, o que a COL-LAW-105 já proíbe do lado da aresta.
+
+> **DUAS ENTRADAS E DUAS SAÍDAS NÃO IMPLICAM QUE TODAS AS ENTRADAS ALIMENTAM TODAS AS
+> SAÍDAS.**
+
+**RELAÇÃO COM A COL-LAW-104.** A 104 lista o que o cartão tem de **mostrar** —
+`INPUTS` · `OUTPUTS` · `READS` · `WRITES` · `CONTROLS` · `RULES`. Esta lei diz **de que
+natureza** é cada porta, para que uma ligação de controle não entre pela porta do dado. É
+a mesma lista, separada pelos dois planos que a COL-LAW-012 já separa.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-604 · `DECIDES` E `MUST_NOT_DECIDE`
+
+**REGRA.** Todo cartão **DEVE** declarar as duas listas:
+
+```
+DECIDES           as decisões que lhe pertencem
+MUST_NOT_DECIDE   as decisões que, se ele tomar, são defeito de arquitetura
+```
+
+**Se o runtime provar que um componente toma uma decisão declarada como proibida, isso
+DEVE ser tratável como `ARCHITECTURE_MISMATCH`** — e **NÃO DEVE** ser resolvido apagando a
+proibição para o mapa ficar verde.
+
+**POR QUÊ.** Sem a segunda lista, toda peça parece bem-comportada: vê-se o que ela faz,
+nunca o que ela não devia estar a fazer. Com a segunda lista, um defeito antigo ganha nome
+na primeira medição — e nome é o que permite fechá-lo.
+
+**VIOLAÇÃO MEDIDA.** «Como atender este pedido» é decidido em **três** sítios: a receita
+escolhe fonte, rota e executor; o orquestrador escolhe executor; e o SINTONIA SCRAP escolhe
+a rota da fase (`COL-010`, em `system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json`). A
+COL-LAW-011 já proibia isto desde a V1. O que faltava era o campo onde a proibição se
+escreve **por cartão**, para deixar de ser uma frase que só um humano atento aplica.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-605 · OS TIPOS CANÔNICOS DE CARTÃO
+
+**REGRA.** `UM TIPO → UM SIGNIFICADO.` Todo cartão **DEVE** declarar um `TYPE`, e o `TYPE`
+**DEVE** vir desta lista. **Nenhum tipo aqui foi inventado:** cada um tem gaveta na
+prateleira (`AGENTS.md`) ou papel já medido nesta árvore.
+
+| `TYPE` | na língua da casa | decide | **NÃO DEVE** decidir |
+|---|---|---|---|
+| `TRIGGER` | a entrada · o botão | **quando** começa | qual ferramenta, qual rota, qual executor |
+| `CONTRACT` | o pedido · a ficha | **o que** se quer | como se faz |
+| `REGISTRY` | o cadastro (`fontes/` · `candidatas/`) | **que opções existem** | qual opção se usa |
+| `POLICY` | a receita · a política | **qual opção se usa** | executar a opção que escolheu |
+| `ORCHESTRATOR` | o orquestrador | **quem faz o quê, e em que ordem** | transportar dado, julgar conteúdo |
+| `EXECUTOR` | a ação (`coleta/`) | **como realizar esta aquisição** | se o item pertence ao universo |
+| `TOOL` | a ferramenta (`ferramentas/`) | **como se faz tecnicamente este pedaço** | o que colher, de onde, quando |
+| `ADAPTER` | o tradutor do que vem de fora | **como o de fora vira o contrato de casa** | o que o de fora significa |
+| `GATE` | a porta (`admissao/` · `portoes/`) | **entra · não entra · NÃO SEI** | qual alternativa usar quando recusa |
+| `RULE` | a régua que carimba (`regras/`) | **o que fica escrito no item ao entrar** | se o item entra |
+| `TRANSFORM` | o motor (`motor/`) | **que representação sai desta** | ocupar o lugar do original preservado |
+| `STORE` | a guarda (`guarda/`) | **que unidade fica preservada, e de que estágio** | o que a unidade significa |
+| `MEASURE` | a régua que mede (`medidas/`) | **o que aconteceu nesta etapa** | barrar, escolher, corrigir |
+| `PROOF` | a prova (`provas/` · `tests/`) | **isto é verdade** | mudar aquilo que mede |
+| `SURFACE` | a tela · o pacote (`superficie/` · `pacote/`) | **como uma pessoa vê isto** | recalcular a decisão do motor |
+| `EXTERNAL` | o veículo — de onde o dado vem | **nada desta casa** | tudo |
+
+**TIPO NÃO É GAVETA, E NÃO É FAMÍLIA.** São três eixos, e já há prova disso: quem carimba
+vive em **duas** famílias diferentes. Os três papéis já medidos nesta árvore —
+`STAMPS` 3 · `MEASURES` 15 · `DECLARES` 11 — são a leitura fina do que aqui se chama
+`RULE` e `MEASURE`, e foram decididos pelo que a peça produz e por quem a consome.
+
+**ANTES DE CRIAR UM TIPO NOVO: procurar o equivalente.** É a mesma disciplina da PARTE XIV.
+Dezenas de tipos são a mesma coisa que nenhum tipo.
+
+**⚠️ `ARCHETYPE` NÃO É PALAVRA LIVRE.** Ela já tem dono nesta casa — os arquétipos de
+oportunidade do motor V2.1 (`O3_RESISTANCE_MOA` · `O4_COMPETITIVE_OPENING` ·
+`O5_REGULATORY_PREPARATION`). O tipo do cartão chama-se `TYPE`, e nunca `ARCHETYPE`.
+
+**ESTADO HONESTO.** O mapa de hoje já tem um campo de tipo — `kind` —, e ele **não é esta
+taxonomia**. São 12 valores para 130 componentes, e **63 deles estão no valor genérico**:
+
+```
+engine 63 · contract 25 · gate 16 · test 6 · workflow 6 · library 5
+surface 4 · proof 1 · chain 1 · artifact 1 · store 1 · scanner 1
+```
+
+Dois desses valores — `proof` e `scanner` — nasceram depois dos outros, um de cada vez, sem
+lista fechada a que obedecer. **A conversão para esta taxonomia é trabalho futuro, e não
+foi feita aqui.** E `artifact` não é tipo de cartão nenhum: artefato é **entidade**
+(COL-LAW-009), não responsabilidade.
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-606 · MEDIR NÃO É FAZER — A LEI DO SENSOR
+
+**REGRA.** `MEASURE` **observa** uma operação. Ele **NÃO DEVE** tornar-se executor da
+operação que observa.
+
+Se um componente **escolhe ferramenta**, **abre rota**, **chama coletor** ou **executa
+aquisição**, ele **NÃO DEVE** ser classificado como `MEASURE` só porque também mede.
+
+> **MEDIR NÃO É FILTRAR, E TAMBÉM NÃO É COLHER.**
+
+**POR QUÊ.** Uma régua que mede não barra nada: ela conta quanto falta. Pô-la no caminho
+faz parecer que há peneira onde só há termômetro — e foi exactamente essa confusão que
+deixou a coleta anos sem porta de admissão.
+
+**COMO PROVAR.** `regua_que_carimba_nao_e_regua_que_mede`, em
+`system-map/tests/test_system_map.py`. A pergunta dela era indecidível enquanto olhava quem
+importa quem; ficou decidível quando passou a olhar o que a peça **produz** e **quem
+consome** o que ela produz.
+
+**ORIGEM.** `EXISTING_SINTONIA_LAW` (`AGENTS.md`, §«Régua que carimba não é régua que
+mede») · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-607 · COORDENAR NÃO É TRANSPORTAR — A LEI DO ORQUESTRADOR
+
+**REGRA.** `ORCHESTRATOR` **coordena componentes**. Coordenação **NÃO É**:
+
+```
+transporte · scraping · HTTP · armazenamento · julgamento de conteúdo
+```
+
+Um componente que faz qualquer uma dessas coisas **NÃO DEVE** ser tipado `ORCHESTRATOR`
+por também coordenar.
+
+**Esta lei é a COL-LAW-011 e a COL-LAW-012 ditas no vocabulário do cartão** — não é uma
+segunda lei sobre o orquestrador. E ela **NÃO DEVE** codificar detalhe do runtime de hoje:
+o nome do ficheiro pode mudar; a separação dos dois planos, não.
+
+**COMO PROVAR.** `orquestrador/orquestrador.py` · `provas/testa_coleta_canonica.py`
+**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-608 · REGISTRO ≠ POLÍTICA ≠ PORTÃO
+
+**REGRA.** São três autoridades, e juntá-las esconde a mais importante das três.
+
+| | responde | **não** responde |
+|---|---|---|
+| `REGISTRY` | «que opções, fatos ou configuração canônica existem?» | qual se usa |
+| `POLICY` | «qual opção se usa, e segundo que regra?» | se o resultado pode entrar |
+| `GATE` | «entra, não entra, ou NÃO SEI?» | qual alternativa usar |
+
+**UM PORTÃO NÃO ESCOLHE ALTERNATIVA AO RECUSAR.** Recusar e propor são duas decisões, e a
+segunda pertence à `POLICY`. Um portão que sugere o caminho seguinte deixou de ser portão.
+
+**E O `NÃO SEI` É RESULTADO VÁLIDO DO PORTÃO** — nunca um `NÃO` disfarçado (COL-LAW-035).
+
+**COMO PROVAR.** `admissao/admissao.py` (portão) · `pedido/receitas.py` (política) ·
+`system-map/data/sources.generated.json` (registro)
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-609 · EXECUTOR ≠ FERRAMENTA ≠ ADAPTADOR
+
+**REGRA.** Três coisas, três donos.
+
+```
+EXECUTOR   faz o trabalho de domínio           — vai buscar, e guarda
+TOOL       fornece capacidade técnica          — com que se viaja
+ADAPTER    traduz um serviço externo para o contrato interno
+```
+
+**O facto de um executor usar Apify, navegador ou API NÃO transforma a ferramenta em dona
+da decisão de domínio.** A ferramenta responde «como se faz tecnicamente»; ela nunca
+responde «o que colher, de onde, quando».
+
+**Esta lei estende a regra irmã já madura** — `FERRAMENTA` · `VEÍCULO` · `AÇÃO`
+(COL-LAW-009) — acrescentando `ADAPTER`, que hoje **não tem gaveta própria** e vive
+diluído dentro de `ferramentas/`. Enquanto não tiver, `ADAPTER` é tipo declarado e não
+gaveta — e isso **DEVE** ficar dito, em vez de escondido.
+
+**VIOLAÇÃO MEDIDA.** Dois botões chamam a Apify **pelo nome**
+(`.github/workflows/apify-conexao.yml` e `.github/workflows/apify-sensores.yml`). Um botão
+devia dizer **o quê**; nunca **qual ferramenta** (`COL-008`).
+
+**COMO PROVAR.** `P2_PASTA_BATE_COM_MAPA` · `ferramentas/apify_pool.py` ·
+`ferramentas/contrato_ator.py`
+**ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-610 · A GUARDA PRESERVA; A TRANSFORMAÇÃO PRODUZ OUTRA REPRESENTAÇÃO
+
+**REGRA.**
+
+```
+STORE      preserva uma unidade — e diz QUAL estágio preserva
+TRANSFORM  recebe uma representação e produz outra, com linhagem
+```
+
+`RAW` ≠ `DERIVED` ≠ `STRUCTURED`. O nome genérico «guarda» **NÃO DEVE** fazer desaparecer
+o estágio que está a ser preservado: um cartão `STORE` **DEVE** dizer de que estágio é
+dono, e dois estágios diferentes **não** são o mesmo cartão só por viverem na mesma gaveta.
+
+**POR QUÊ.** É a COL-LAW-006 e a COL-LAW-007 no vocabulário do cartão. A esteira medida tem
+dono para o `RAW` (`guarda/preservar_coleta.py`) e dono para o `DERIVED`
+(`guarda/preservar_derivado.py`) — e o `STRUCTURED` tem **cinco escritores e nenhum dono
+único**. Sem esta lei, os três cabiam num cartão chamado «a guarda», e o buraco do meio
+desaparecia do mapa por arrumação.
+
+**COMO PROVAR.** `docs/operacao/TOPOLOGIA-DA-COLETA.md` §3 — a esteira, dono a dono.
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-611 · SUBCOMPONENTES — SIMPLICIDADE VISUAL NÃO É OCULTAÇÃO ARQUITETURAL
+
+**REGRA.** Nem toda unidade técnica precisa de virar cartão principal no mapa. Um cartão
+**PODE** ter `SUBCOMPONENTS`.
+
+**Mas subcomponente com autoridade própria relevante DEVE continuar visível e
+inspecionável.** O mapa principal **PODE** mostrar só o componente; ao abrir, as partes
+relevantes **DEVEM** aparecer.
+
+> **VISUAL SIMPLICITY ≠ ARCHITECTURAL HIDING.**
+
+**É a COL-LAW-109 (níveis de zoom) aplicada ao cartão**, e o limite dela é a COL-LAW-101: a
+UI escolhe o nível de detalhe; a arquitetura escolhe o que existe para ser mostrado.
+Esconder uma autoridade dentro de outra por ficar bonito é a única maneira de o mapa
+emagrecer sem o sistema emagrecer.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-612 · A ARESTA TEM SIGNIFICADO
+
+**REGRA.** Uma aresta **NÃO É** `A → B`. Toda aresta **DEVE** declarar:
+
+```
+FROM · TO · TYPE · DIRECTION
+```
+
+e, **quando aplicável**, `PAYLOAD` / `CONTRACT` — o que atravessa a linha, e sob que
+contrato.
+
+**A TAXONOMIA DO `TYPE` É A DA COL-LAW-048, E NÃO UMA SEGUNDA.** Sete valores, já medidos
+e já publicados no estado gerado:
+
+```
+READ 171 · PROOF 170 · RULE 91 · CODE 70 · CONTROL 63 · DATA 36 · WRITE 7
+```
+
+`POLICY` **não entra como oitavo nome**: a decisão de política atravessa como `RULE`, que é
+o nome que esta casa já usa e já mede. `CONFIG` e `META` **não entram**: nenhuma aresta
+desta árvore foi medida como uma delas, e categoria sem referente é vocabulário que
+envelhece antes de ser usado. Entram no dia em que uma medição as exigir — é a mesma
+disciplina que recusou três das quatro entidades candidatas na emenda V1.1.
+
+**`DIRECTION` É A DIREÇÃO DO QUE ATRAVESSA, NÃO A DA CHAMADA.** A ação chama o YouTube, e
+isso é controlo; o que atravessa a linha é a colheita, e ela corre ao contrário
+(COL-LAW-048).
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-613 · AS LEIS ANTI-FALSO-POSITIVO DO CARTÃO E DA ARESTA
+
+**REGRA.** Nenhuma destas equivalências **DEVE** ser feita — nem por scanner, nem por
+pessoa, nem por desenho:
+
+```
+IMPORT              ≠ CONTROL
+IMPORT              ≠ DATA FLOW
+READ                ≠ WRITE
+PROOF               ≠ RUNTIME
+TEST CALLER         ≠ PRODUCTION CALLER
+COMMENT             ≠ EDGE
+DOCSTRING           ≠ EDGE
+NOME DE COMPONENTE  ≠ EVIDÊNCIA DE RESPONSABILIDADE
+MODULE EXISTS       ≠ EDGE EXISTS ≠ FLOW EXISTS
+DECLARED            ≠ OBSERVED
+```
+
+**Nenhuma delas foi suposta.** Cada uma custou uma medição, e todas foram medidas sobre
+arestas que o mapa publicava como `PROVEN`:
+
+| equivalência | o que ela produziu, medido |
+|---|---|
+| `DOCSTRING` = aresta | 3 arestas cuja prova era uma linha **dentro de um docstring** — duas delas o varredor a ler a própria documentação |
+| `COMMENT` = aresta | a prova de `V-LINKEDIN → C-SCRAP-SOCIAL` era uma linha do bloco **adversarial**, que existe para provar aquela rota **fechada** |
+| `NOME` = evidência | 4 arestas nasceram de o código **nomear** um canal; nomear não é ter vindo por ele |
+| `READ` = `WRITE` | um `=>` de JavaScript apanhado por uma regra que procurava `>` fez 4 leituras virarem escritas — e uma delas publicava o **leitor** de um livro como seu **autor** |
+| `IMPORT` = carimbo | a seta do import aponta ao contrário da dependência, e por isso não decide papel nenhum |
+
+> **UM IMPORT NÃO É UM CARIMBO.**
+> **O CÓDIGO NOMEAR UM CANAL NÃO É ALGO TER VINDO POR ELE.**
+
+**Sem prova: `UNKNOWN`.** Ausência de prova não é prova de ausência — e também não é prova
+de presença.
+
+**COMO PROVAR.** `P5_ARESTA_PROVADA` · `P5_PROVA_APONTAVEL` · `P5_PROVA_TEM_CONTEUDO` ·
+`P7_NAO_SEI_VIVE`
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-614 · CICLO DE VIDA E EVIDÊNCIA SÃO DOIS EIXOS
+
+**REGRA.** Um cartão carrega **dois** estados, e eles **NÃO DEVEM** ser misturados:
+
+```
+LIFECYCLE   PROPOSED · ACTIVE · DEPRECATED · RETIRED      — que lugar ele ocupa
+EVIDENCE    DECLARED · CODE · OBSERVED · BIBLE · UNKNOWN  — o que se consegue provar
+```
+
+O eixo da evidência **é o da COL-LAW-102**, e não um novo. `WIRED` **não entra como nome
+novo**: é exactamente o que esta casa já chama `CODE` — «há implementação real que
+permite». Dois nomes para um conceito é o começo de duas verdades.
+
+**Um componente PODE ser `ACTIVE` + `CODE` sem ser `OBSERVED`.** «Está ligado» nunca
+significa «já correu» — é a mesma separação que a Bíblia inteira faz entre `LAW_STATUS` e
+`IMPLEMENTATION`.
+
+**`DEPRECATED` NÃO É `PROPOSED`, E `RETIRED` NÃO É `FUTURO`.** A casa já pagou por esta
+confusão: legado é o que morreu; futuro é o que está pronto e parado. Marcar o piloto de
+Espanha como legado seria enterrá-lo vivo (COL-LAW-050).
+
+**ESTADO HONESTO.** Hoje existe metade: as quatro verdades da COL-LAW-102, os quatro
+estados de exibição (`PROVEN` · `PENDING` · `BROKEN` · `UNKNOWN`) e os três estados de rota
+(`official` · `futuro` · `legacy`). **`LIFECYCLE` não existe como campo de cartão**, e os
+dois eixos ainda não estão separados no contrato.
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-615 · NENHUM CARTÃO NASCE NO DESENHO
+
+**REGRA.** Um cartão **NÃO DEVE** ser criado directamente no desenho do System Map. O
+caminho canônico é:
+
+```
+NECESSIDADE → CARD CONTRACT → VALIDAÇÃO → CHECAGEM ARQUITETURAL
+            → EVIDÊNCIA DE RUNTIME → SYSTEM MAP
+```
+
+**O System Map apresenta. Ele não é autoridade por desenho.** É a COL-LAW-047 e o
+`AGENTS.md` §«MUDAR PELO MAPA — NÃO» ditos do lado de quem **cria** a peça, e não do lado
+de quem a **mostra**.
+
+> **NUNCA `browser → desenha seta → vira verdade`.**
+
+**A definição de pronto continua a ser a da COL-LAW-110** —
+`FUNCTIONAL + TESTED + PROVEN + OBSERVABLE + SYSTEM MAP PARITY PASS + BIBLE COMPLIANCE
+KNOWN`. Esta lei acrescenta o degrau que vem **antes** de tudo isso: o contrato do cartão.
+
+**ORIGEM.** `CONSOLIDATED_FROM_MULTIPLE` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
+
+---
+
+## COL-LAW-616 · DUAS AUTORIDADES NUM CARTÃO É `SPLIT_CANDIDATE`
+
+**REGRA.** Se um componente possuir **duas ou mais autoridades primárias independentes**,
+ele **DEVE** ser auditado como `SPLIT_CANDIDATE`.
+
+**Isto é um sinal forte, não uma regra burra.** `SPLIT_CANDIDATE` **NÃO É** split
+automático: quem decide é a evidência — os chamadores, o que a peça produz, e quem consome
+o que ela produz.
+
+**PRECEDENTE MEDIDO.** `C-GESTAO-COLETA` juntava duas autoridades distintas. Os chamadores
+provaram que eram duas coisas, e os nomes vieram da função real: `C-POLITICA-COLETA` («o
+que colher, quando, e se já temos» — 1 chamador, e é um teste) e `C-DIAGNOSTICO` («onde o
+fluxo parou e quem tem de agir» — 17 códigos, chamado por runtime, provas e testes).
+
+**COMO PROVAR.** `system-map/scripts/censo_da_topologia.py` mede chamadores e consumo;
+`docs/operacao/TOPOLOGIA-DA-COLETA.md` §3A guarda o caso.
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-617 · MERGE EXIGE AUTORIDADE REALMENTE ÚNICA
+
+**REGRA.** Dois cartões **NÃO DEVEM** ser unidos só porque:
+
+```
+estão no mesmo ficheiro · estão na mesma pasta
+um chama o outro · têm nomes parecidos
+```
+
+`MERGE` exige **responsabilidade arquitetural realmente única**: a mesma `OWNS_QUESTION`,
+o mesmo `DECIDES`, a mesma fronteira.
+
+**POR QUÊ.** É a COL-LAW-601 lida ao contrário: se agrupamento não cria responsabilidade,
+agrupamento também não a funde. Cinco peças desta árvore chamam-se «SINTONIA SCRAP» e
+divergiam só no fim do rótulo; medidas, eram **cinco papéis distintos** — despacho de
+aquisição, despacho de rota, executor, guarda de credencial e regras. Fundi-las por nome
+teria apagado quatro autoridades de uma vez.
+
+**COMO PROVAR.** `docs/operacao/TOPOLOGIA-DA-COLETA.md` §4 — o dossiê do SINTONIA SCRAP.
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
 # PARTE XV · GOVERNANÇA
 
 ## COL-LAW-069 · NENHUMA LEI MUDA EM SILÊNCIO
@@ -2787,5 +3321,6 @@ E a frase que resume por que esta Bíblia existe:
 | F | [`docs/biblia/CENSO-DA-INFRAESTRUTURA.md`](docs/biblia/CENSO-DA-INFRAESTRUTURA.md) — GitHub e Supabase medidos, antes de a lei ser escrita |
 | G | [`docs/biblia/EMENDA-V1-2.md`](docs/biblia/EMENDA-V1-2.md) — o registro constitucional da V1.2 |
 | H | [`docs/biblia/RECONCILIACAO-INTEGRACAO.md`](docs/biblia/RECONCILIACAO-INTEGRACAO.md) — a V1.3: a lei confrontada com a primeira estrada real, questão por questão |
+| I | [`system-map/contracts/CARD-CONTRACT-V1.md`](system-map/contracts/CARD-CONTRACT-V1.md) — a V1.4: o CARD CONTRACT em forma operacional, o vocabulário de hoje medido contra ele, e o que foi recusado |
 
 **Validadores:** `py provas/valida_biblia.py` · `py tests/test_biblia.py`

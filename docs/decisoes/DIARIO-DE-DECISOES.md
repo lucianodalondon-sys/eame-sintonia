@@ -1204,3 +1204,62 @@ nenhuma.
 **SUPOSIÇÃO NÃO ASSUMIDA:** não se decide aqui que a política determinística é
 suficiente para sempre. Decide-se que ela **basta para fechar**, desde que
 produza os dados que uma política melhor precisaria para ser comparada com ela.
+
+---
+
+## 2026-09-09 · O CARTÃO GANHA CONTRATO — A BÍBLIA VAI PARA V1.4
+
+Registo exigido pela **COL-LAW-069**: nenhuma lei muda em silêncio.
+
+```
+LAW_ID    COL-LAW-601 a COL-LAW-617  (PARTE XXI, bloco 6xx — 17 leis novas)
+BEFORE    a Bíblia dizia o que um componente tem de conseguir MOSTRAR
+          (COL-LAW-104) e o que uma ligação tem de declarar (COL-LAW-105).
+          Não dizia em lado nenhum o que um componente É, de que pergunta
+          ele é dono, nem o que ele NÃO PODE decidir.
+AFTER     existe o CARD CONTRACT V1: identidade, responsabilidade
+          (OWNS_QUESTION), portas, autoridade (DECIDES / MUST_NOT_DECIDE),
+          16 tipos canônicos, ciclo de vida separado da evidência, e as
+          regras de split, merge e anti-falso-positivo.
+WHY       o mapa tinha 130 componentes declarados e 63 deles no valor
+          genérico `engine`. Sem contrato de responsabilidade, a pasta
+          respondia pela função — e já respondeu errado: a gaveta «OS
+          VEÍCULOS» passou meses sem um único veículo.
+EVIDENCE  system-map/data/architecture.declared.json (130 componentes) ·
+          system-map/data/state.generated.json (157 cartões, 608 arestas) ·
+          system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json (30 achados) ·
+          docs/operacao/TOPOLOGIA-DA-COLETA.md (o censo da topologia)
+IMPACT    nenhuma lei antiga mudou de texto nem de estado. As 104 continuam
+          exactamente onde estavam. A matriz de conformidade passa de 104
+          para 121 linhas: 11 PARTIAL + 6 ABSENT, zero IMPLEMENTED.
+VERSION   V1.3 -> V1.4
+```
+
+**Quem decidiu:** o dono do projeto, no enunciado da missão CARD CONTRACT V1.
+
+**O que esta emenda NÃO fez, e é a parte que importa.** Não renomeou, moveu,
+partiu, fundiu nem recarimbou cartão nenhum. Não criou nem apagou aresta. Não
+regenerou o System Map. Não escreveu `card.schema.json`, validador, hook, passo
+de CI nem Skill.
+
+    O CENSO ESTÁ A MEDIR UMA FOTOGRAFIA.
+    MEXER NELA A MEIO FARIA COM QUE NINGUÉM SOUBESSE MAIS
+    QUAL DAS DUAS COISAS MUDOU O RESULTADO.
+
+**Uma escolha que precisa de ficar escrita: recusar nome novo.** Quatro
+candidatos foram pesados e recusados por já terem dono — `WIRED` (é `CODE`,
+COL-LAW-102), a aresta `POLICY` (é `RULE`, COL-LAW-048), e as arestas `CONFIG` e
+`META`, que entram no dia em que uma medição as exigir e não antes. E a palavra
+`ARCHETYPE` não foi usada para o tipo do cartão porque já é dos arquétipos de
+oportunidade do motor V2.1. O registo completo está em
+`system-map/contracts/CARD-CONTRACT-V1.md` §4.
+
+**Seis gaps novos — G-50 a G-55.** Nenhum foi aberto por esta emenda: já
+existiam sem nome. Lacuna com nome é lacuna que alguém pode fechar.
+
+**PENDENTE, e assumido em voz alta:** esta emenda mexe em ficheiros rastreados e
+**não regenerou o mapa**, por ordem expressa da missão. A impressão da árvore
+(`system-map/scripts/impressao_da_arvore.py`) vai divergir e o passo `2b` do
+portão do mapa vai reprovar neste ramo até alguém correr a cadeia. É o preço,
+escolhido, de não entrar na fotografia do censo — e fica aqui em vez de aparecer
+como surpresa vermelha no CI.

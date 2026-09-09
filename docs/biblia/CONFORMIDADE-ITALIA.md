@@ -1,11 +1,11 @@
 # ITALY_COLLECTION_COMPLIANCE_MATRIX — apêndice C da Bíblia
 
-**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.3` · **Data:** 2026-09-07 · **HEAD medido:** `4b3c0d4` (integração)
+**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.4` · **Data:** 2026-09-09 · **HEAD medido:** `572647dc` (a lei dos cartões)
 
-> Esta matriz mede a **implementação italiana** contra as 104 leis canônicas. Ela não é a
+> Esta matriz mede a **implementação italiana** contra as 121 leis canônicas. Ela não é a
 > lei: a lei está em [`../../BIBLIA-CANONICA-DA-COLETA.md`](../../BIBLIA-CANONICA-DA-COLETA.md).
 >
-> **`LAW = CANONICAL` para todas as 104. Isto aqui mede outra coisa: se já funciona.**
+> **`LAW = CANONICAL` para todas as 121. Isto aqui mede outra coisa: se já funciona.**
 > Confundir os dois é o erro que esta separação existe para impedir.
 
 **Escopo declarado:** `CURRENT IMPLEMENTATION COUNTRY = IT`. Espanha e França **não** foram
@@ -15,14 +15,19 @@ alteradas, medidas nem portadas nesta missão.
 
 ## O PLACAR
 
-| estado | V1 | V1.1 | **V1.3** | |
-|---|---:|---:|---:|---|
-| `IMPLEMENTED` | 21 | 24 | **37** | há código no caminho produtivo e prova executável |
-| `PARTIAL` | 23 | 42 | **47** | existe em parte, ou existe para um caminho e não para os outros |
-| `ABSENT` | 4 | 11 | **18** | é lei, e não há implementação nenhuma |
-| `NOT_APPLICABLE` | 0 | 1 | **2** | a lei não se aplica ao perfil italiano de hoje |
-| `UNKNOWN` | 0 | 0 | **0** | — |
-| **total** | 48 | 78 | **104** | |
+| estado | V1 | V1.1 | V1.3 | **V1.4** | |
+|---|---:|---:|---:|---:|---|
+| `IMPLEMENTED` | 21 | 24 | 37 | **37** | há código no caminho produtivo e prova executável |
+| `PARTIAL` | 23 | 42 | 47 | **58** | existe em parte, ou existe para um caminho e não para os outros |
+| `ABSENT` | 4 | 11 | 18 | **24** | é lei, e não há implementação nenhuma |
+| `NOT_APPLICABLE` | 0 | 1 | 2 | **2** | a lei não se aplica ao perfil italiano de hoje |
+| `UNKNOWN` | 0 | 0 | 0 | **0** | — |
+| **total** | 48 | 78 | 104 | **121** | |
+
+> **NENHUMA LEI ANTIGA MUDOU DE ESTADO NA V1.4.** As 104 continuam exactamente onde
+> estavam. As 17 novas entram como **11 `PARTIAL` + 6 `ABSENT`**, e nenhuma entra como
+> `IMPLEMENTED`: o contrato do cartão não existe ainda em campo nenhum do mapa. **A régua
+> cresceu; a Itália não piorou nem melhorou por causa desta emenda.**
 
 > **DUAS LEIS DESCERAM DE `IMPLEMENTED` PARA `PARTIAL` em 08/09/2026 — e ninguém desfez
 > trabalho nenhum.** A COL-LAW-106 e a COL-LAW-210 tinham sido dadas por cumpridas medindo
@@ -192,6 +197,55 @@ o lado que parece rigoroso.
 | `COL-LAW-503` ferramenta ausente ≠ documento quebrado | SIM | `IMPLEMENTED` | pré-voo no passo 0: sem a ferramenta a corrida para com `FAILED_PRECONDITION`, zero documentos tocados | — | — |
 | `COL-LAW-504` árvore escaneada ≠ commit do mapa | SIM | `ABSENT` | ⚠️ um campo só (`PROVENANCE.HEAD`) para duas perguntas; 3 commits de «carimbo do HEAD» na história do ramo | `SOURCE_TREE_FINGERPRINT` e `MAP_ARTIFACT_COMMIT` separados | **G-35** |
 
+
+---
+
+## A MATRIZ — LEIS DA EMENDA V1.4 (a lei dos cartões)
+
+> Estas dezassete são o **CARD CONTRACT V1**. Nenhuma delas foi implementada nesta missão,
+> de propósito: a missão era escrever a lei, não migrar os cartões. O estado abaixo mede o
+> que **já existe por acidente feliz** — provas e leis anteriores que cobrem parte do
+> contrato — e nomeia o que falta.
+>
+> **`PARTIAL` aqui quer dizer: há guarda a morder alguma parte disto.** `ABSENT` quer
+> dizer: não há campo, nem prova, nem guarda — a lei existe e ninguém a mede ainda.
+
+| LEI | APLICA-SE | ESTADO | EVIDÊNCIA | O QUE FALTA | PRÓXIMO PASSO |
+|---|---|---|---|---|---|
+| `COL-LAW-601` cartão ≠ ficheiro | SIM | `PARTIAL` | `P8_UM_DONO` e `P9_CODIGO_DECLARADO` provam a posse ficheiro↔cartão; a divisão `regras/`÷`medidas/` é medida pela função (`STAMPS` 3 · `MEASURES` 15 · `DECLARES` 11) e não pela pasta | nada impede que um cartão continue a ser um saco de ficheiros: `C-INGRESSO` é `gate` dentro de `Z-ACOES` e ninguém reprova | **G-50** |
+| `COL-LAW-602` `OWNS_QUESTION` | SIM | `ABSENT` | — | zero dos 130 componentes declara a pergunta de que é dono; o campo não existe | **G-50** |
+| `COL-LAW-603` as portas do cartão | SIM | `ABSENT` | — | `inbound`/`outbound` são **medidos**, não declarados; `CONTROL_IN`, `POLICY_OUT`, `STATE_OUT`, `PROOF_OUT` e `META_OUT` não existem como campo | G-51 |
+| `COL-LAW-604` `DECIDES` / `MUST_NOT_DECIDE` | SIM | `ABSENT` | — | a proibição existe em texto de lei (COL-LAW-011) e não por cartão; `ARCHITECTURE_MISMATCH` não é estado de lado nenhum | **G-50** |
+| `COL-LAW-605` tipos canônicos | SIM | `PARTIAL` | existe campo de tipo — `kind`, 12 valores | 63 dos 130 estão no valor genérico `engine`; a lista não é fechada (`proof` e `scanner` entraram avulsos) e não é esta taxonomia | **G-52** |
+| `COL-LAW-606` medir ≠ fazer | SIM | `PARTIAL` | `regua_que_carimba_nao_e_regua_que_mede` corre no CI e reprova | a prova cobre régua×medida; não cobre um `MEASURE` que passe a colher | G-53 |
+| `COL-LAW-607` coordenar ≠ transportar | SIM | `PARTIAL` | COL-LAW-011/012 no CI via `testa_coleta_canonica.py`; os dois planos estão separados no contrato | `COL-010`: a rota é decidida em três sítios, e nada reprova | **G-05** |
+| `COL-LAW-608` registro ≠ política ≠ portão | SIM | `PARTIAL` | os três existem e são peças distintas: `sources.generated.json`, `pedido/receitas.py`, `admissao/admissao.py` | nada impede um portão de propor alternativa; a separação é convenção, não guarda | G-53 |
+| `COL-LAW-609` executor ≠ ferramenta ≠ adaptador | SIM | `PARTIAL` | `P2_PASTA_BATE_COM_MAPA` mantém `ferramentas/` e `coleta/` separadas | `ADAPTER` não tem gaveta nem tipo; `COL-008` — dois botões escolhem a ferramenta pelo nome | G-51 |
+| `COL-LAW-610` guarda preserva ≠ transformação produz | SIM | `PARTIAL` | donos distintos e medidos para `RAW` e `DERIVED` (`preservar_coleta.py` · `preservar_derivado.py`) | `STRUCTURED` tem 5 escritores e nenhum dono único; o cartão `STORE` não declara de que estágio é dono | **G-54** |
+| `COL-LAW-611` subcomponentes visíveis | SIM | `ABSENT` | — | `SUBCOMPONENTS` não existe; hoje ou a peça é cartão, ou é invisível | G-51 |
+| `COL-LAW-612` a aresta tem significado | SIM | `PARTIAL` | `categoria` publica os 7 tipos da COL-LAW-048 em 608 arestas, e `payload` diz o que atravessa | `DIRECTION` é implícita no par from/to, e `CONTRACT` não existe | G-19 |
+| `COL-LAW-613` anti-falso-positivo | SIM | `PARTIAL` | `P5_ARESTA_PROVADA` · `P5_PROVA_APONTAVEL` · `P5_PROVA_TEM_CONTEUDO` · `P7_NAO_SEI_VIVE` — e as quatro armadilhas do vocabulário lido como rota já foram fechadas | `TEST CALLER ≠ PRODUCTION CALLER` não é medido: o mapa não distingue quem chama em teste de quem chama em produção | **G-55** |
+| `COL-LAW-614` ciclo de vida × evidência | SIM | `PARTIAL` | as 4 verdades da COL-LAW-102, os 4 estados de exibição e os 3 estados de rota (`official`/`futuro`/`legacy`) | `LIFECYCLE` não existe como campo; os dois eixos não estão separados no cartão | G-51 |
+| `COL-LAW-615` nenhum cartão nasce no desenho | SIM | `PARTIAL` | o mapa é leitura (`AGENTS.md` §«MUDAR PELO MAPA — NÃO») e `state.generated.json` é saída | a cadeia `NECESSIDADE → CONTRACT → VALIDAÇÃO → RUNTIME → MAPA` não tem portão em degrau nenhum | **G-50** |
+| `COL-LAW-616` `SPLIT_CANDIDATE` | SIM | `ABSENT` | precedente feito à mão: `C-GESTAO-COLETA` partido em `C-POLITICA-COLETA` + `C-DIAGNOSTICO` | o sinal não é calculado por ninguém; foi um humano que reparou | G-52 |
+| `COL-LAW-617` merge exige autoridade única | SIM | `ABSENT` | precedente feito à mão: os 5 papéis do SINTONIA SCRAP não foram fundidos | nada impede um merge por semelhança de nome | G-52 |
+
+### OS SEIS GAPS NOVOS — e a ordem deles não é gosto
+
+Nenhum destes foi aberto nesta missão: eles já existiam sem nome. **Lacuna com nome é
+lacuna que alguém pode fechar.**
+
+| gap | o que falta | depende de |
+|---|---|---|
+| `G-50` | o cartão declara `OWNS_QUESTION`, `DECIDES` e `MUST_NOT_DECIDE` | — é o primeiro |
+| `G-51` | o cartão declara portas, `LIFECYCLE` e `SUBCOMPONENTS` | `G-50` |
+| `G-52` | a taxonomia de `TYPE` fecha, e `SPLIT_CANDIDATE`/`MERGE` passam a ser calculados | `G-50` |
+| `G-53` | as guardas de tipo mordem: um `MEASURE` que colhe e um `GATE` que propõe reprovam | `G-52` |
+| `G-54` | o `STRUCTURED` ganha dono único, como o `RAW` e o `DERIVED` já têm | — independente |
+| `G-55` | o mapa distingue chamador de teste de chamador de produção | — independente |
+
+> **Nenhum deles foi fechado aqui, e nenhum cartão foi tocado.** Esta emenda escreve a
+> régua; medir com ela é a missão seguinte.
 
 ---
 
