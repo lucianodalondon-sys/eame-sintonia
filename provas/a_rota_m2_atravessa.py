@@ -201,18 +201,43 @@ def canal_da_fonte(banco_sql, fonte):
     def q(v):
         return "'" + str(v).replace("'", "''") + "'"
 
+    # ⚠️ `on conflict do nothing` NAO DEDUPLICA SEM CONSTRAINT UNICA — e aqui
+    # nao ha nenhuma: `public.organizacao` so tem unique em `ror_id` (002:22-32)
+    # e `public.origem` nao tem unique em `rotulo` (so os indices PARCIAIS
+    # `origem_por_pessoa_idx` / `origem_por_organizacao_idx`). A clausula nunca
+    # disparava, e cada chamada inseria outra linha com outro `id`:
+    #
+    #     MEDIDO, com a forma antiga, tres vezes o MESMO nome:
+    #     ids devolvidos 1, 2, 3 · linhas em organizacao: 3
+    #
+    # Nao e so lixo: o `coalesce` devolvia uma IDENTIDADE DIFERENTE em cada
+    # replay, e a rota que esta prova diz atravessar deixava de ser a mesma.
+    #
+    #     ON CONFLICT DO NOTHING SEM CONSTRAINT RELEVANTE != DEDUPLICACAO.
+    #
+    # `tests/test_m2_rota_forward.py:146` ja tinha medido e consertado isto no
+    # lado do teste; o lado da PROVA ficou com a forma partida. A deduplicacao
+    # tem de ser explicita — `where not exists`.
+    #
+    # O `canal`, mais abaixo, continua com `on conflict (plataforma,
+    # channel_id)`: esse tem constraint unica de verdade (002), e por isso a
+    # clausula la e honesta.
     org = banco_sql.executa(
         "with novo as (insert into public.organizacao (nome_canonico, tipo)"
-        " values (%s, 'orgao_publico') on conflict do nothing returning id)"
+        " select %s, 'orgao_publico' where not exists"
+        "  (select 1 from public.organizacao where nome_canonico = %s)"
+        " returning id)"
         " select coalesce((select id from novo),"
         "  (select id from public.organizacao where nome_canonico = %s))"
-        % (q(nome), q(nome)))
+        % (q(nome), q(nome), q(nome)))
     ori = banco_sql.executa(
         "with novo as (insert into public.origem (organizacao_id, rotulo)"
-        " values (%d, %s) on conflict do nothing returning id)"
+        " select %d, %s where not exists"
+        "  (select 1 from public.origem where rotulo = %s)"
+        " returning id)"
         " select coalesce((select id from novo),"
         "  (select id from public.origem where rotulo = %s))"
-        % (int(org[0][0]), q(dono), q(dono)))
+        % (int(org[0][0]), q(dono), q(dono), q(dono)))
     can = banco_sql.executa(
         "with novo as (insert into public.canal"
         " (origem_id, plataforma, channel_id, url) values (%d, 'web', %s, %s)"
