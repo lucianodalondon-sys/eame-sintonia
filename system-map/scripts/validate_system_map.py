@@ -392,11 +392,28 @@ def main() -> int:
     prova("P10_STATUS_VALIDO", "todo status e um dos quatro valores conhecidos",
           not maus, ", ".join(maus))
 
-    return relatar()
+    return relatar(S.get("ARTEFACT_MULTIPLE_AUTHORS", []))
 
 
-def relatar() -> int:
+def relatar(varios_autores: list | tuple = ()) -> int:
     print("\n".join(provas))
+
+    # ── OBSERVACAO · o artefacto escrito por mais de uma peca ────────────────
+    # Nao e prova, e por isso nao reprova: nao ha lei nesta casa que proiba dois
+    # autores para o mesmo ficheiro. Mas o mapa tem de eleger UM dono, e elege
+    # por ordem alfabetica — o dono muda sozinho quando alguem renomeia uma
+    # peca. Isto diz, em voz alta, onde a resposta a pergunta «de quem e isto?»
+    # esta a ser dada por um sorteio.
+    if varios_autores:
+        print("\n" + "-" * 70)
+        print(f"OBSERVACAO · {len(varios_autores)} artefacto(s) com MAIS DE UM autor:")
+        for v in varios_autores:
+            print(f"  · {v['file']}")
+            print(f"      escrito por {', '.join(v['written_by'])}"
+                  f" · dono eleito por ordem alfabetica: {v['owner_elected']}")
+        print("  UM DONO ELEITO POR ORDEM ALFABETICA NAO E UM DONO."
+              "\n  Quem decide e gente, e a decisao vai em architecture.declared.json.")
+
     if falhas:
         print("\n" + "=" * 70)
         print(f"SYSTEM_MAP_CHECK=FAIL · {len(falhas)} prova(s) reprovada(s)")

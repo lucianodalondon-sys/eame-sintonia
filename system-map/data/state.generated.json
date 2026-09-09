@@ -1791,8 +1791,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "243cd25712bbc38108c26105bca7dfc46109deb9",
-    "GENERATED_AT": "2026-09-09T05:53:02+00:00"
+    "HEAD": "6606586e9f40562f6f109d183574a8ac7ebdb1f7",
+    "GENERATED_AT": "2026-09-09T05:59:16+00:00"
   },
   "FAMILIES": [
     {
@@ -2467,7 +2467,9 @@
       "changed_since_declared": [
         "admissao/admissao.py"
       ],
-      "produces": [],
+      "produces": [
+        "data/samples/LIVRO-DE-DECISOES.json"
+      ],
       "inbound": [
         "C-IT-TEXTO-DERIVADO"
       ],
@@ -2488,7 +2490,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
+      "entregue_a_inteligencia": [
+        "data/samples/LIVRO-DE-DECISOES.json"
+      ],
       "parado_na_coleta": [],
       "vocabulario": {
         "papel": "ADMISSAO",
@@ -2507,9 +2511,18 @@
       },
       "nivel": "PRINCIPAL",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/LIVRO-DE-DECISOES.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 9775,
       "y": 360
     },
@@ -5243,12 +5256,14 @@
       "status_reason": "outra peca do sistema importa isto para funcionar.",
       "changed_since_declared": [],
       "produces": [
+        "data/samples/ASK-SINTONIA-benchmark.json",
         "data/samples/ASK-SINTONIA-teste.json"
       ],
       "inbound": [
         "C-TESTES"
       ],
       "outbound": [
+        "C-PACOTE-CAMADAS",
         "C-TESTES"
       ],
       "paises": {},
@@ -5276,6 +5291,12 @@
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/ASK-SINTONIA-benchmark.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
         {
           "onde": "GIT",
           "file": "data/samples/ASK-SINTONIA-teste.json",
@@ -6042,7 +6063,8 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-MAPA"
+        "C-CI-MAPA",
+        "C-EXECUTOR-TEXTO-PDF"
       ],
       "outbound": [
         "C-CENSO-IDENTIDADE-IT",
@@ -6310,6 +6332,7 @@
       "inbound": [
         "C-CENSO-CORPUS-IT",
         "C-CI-MAPA",
+        "C-EXECUTOR-TEXTO-PDF",
         "C-IT-PRESERVAR"
       ],
       "outbound": [
@@ -7486,7 +7509,7 @@
         "data/samples/DATA-CLOCK-manifest.json"
       ],
       "inbound": [
-        "C-PROCEDENCIA",
+        "C-ESTRADA-PDF",
         "C-SUPABASE"
       ],
       "outbound": [
@@ -7883,29 +7906,50 @@
       "status": "PROVEN",
       "status_reason": "outra peca do sistema importa isto para funcionar.",
       "changed_since_declared": [],
-      "produces": [],
+      "produces": [
+        "data/samples/RUN-MANIFEST.json"
+      ],
       "inbound": [
         "C-ADMISSAO",
         "C-BIBLIA",
         "C-CONTRATO-ARTEFATO",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-ORQUESTRADOR",
         "C-PROCEDENCIA"
       ],
       "outbound": [
+        "C-DATA-CLOCK",
         "C-MAPA-GERADOR",
+        "C-MAPA-SCAN",
+        "C-ORQUESTRADOR",
+        "C-PADRAO-COLETA",
+        "C-PROCEDENCIA",
         "C-PROVA-COLETA",
+        "C-RECEITAS",
+        "C-REGRA-COLETA",
         "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
+      "entregue_a_inteligencia": [
+        "data/samples/RUN-MANIFEST.json"
+      ],
       "parado_na_coleta": [],
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/RUN-MANIFEST.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 6705,
       "y": 1004
     },
@@ -8078,14 +8122,18 @@
       "changed_since_declared": [
         "coleta/executor_texto_de_pdf.py"
       ],
-      "produces": [],
+      "produces": [
+        "data/derivados/REGISTO-DE-ARTEFATOS.json"
+      ],
       "inbound": [
         "C-CONTRATO-ARTEFATO",
         "C-IT-PDF-BRUTO",
         "C-RASTRO"
       ],
       "outbound": [
+        "C-CENSO-CORPUS-IT",
         "C-CENSO-DERIVACOES",
+        "C-CENSO-IDENTIDADE-IT",
         "C-DERIVACAO-FORWARD",
         "C-ESTRADA-PDF",
         "C-FRONTEIRA-TELEMETRIA",
@@ -8100,7 +8148,9 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
+      "entregue_a_inteligencia": [
+        "data/derivados/REGISTO-DE-ARTEFATOS.json"
+      ],
       "parado_na_coleta": [],
       "vocabulario": {
         "papel": "NAO SEI",
@@ -8115,9 +8165,18 @@
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 7120,
       "y": 1004
     },
@@ -9646,7 +9705,10 @@
       "changed_since_declared": [
         "system-map/scripts/generate_system_map.py"
       ],
-      "produces": [],
+      "produces": [
+        "docs/fontes/INDICE-DE-FONTES.md",
+        "regras/LEIA-ANTES-DE-COLETAR.md"
+      ],
       "inbound": [
         "C-ADMISSAO",
         "C-AS-FONTES",
@@ -9697,9 +9759,30 @@
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "docs/fontes/INDICE-DE-FONTES.md",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "regras/LEIA-ANTES-DE-COLETAR.md",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "system-map/data/architecture.declared.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 14545,
       "y": 1970
     },
@@ -9738,12 +9821,12 @@
       "inbound": [
         "C-AS-FONTES",
         "C-CI-MAPA",
+        "C-ESTRADA-PDF",
         "C-IT-CATALOGO",
         "C-IT-PRESERVAR",
         "C-PORTA-FONTE",
         "C-PORTAL-DADOS",
         "C-PORTAL-MODELO",
-        "C-PROCEDENCIA",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-TELA-FIELD"
       ],
@@ -10077,11 +10160,12 @@
       "inbound": [
         "C-ADMISSAO",
         "C-CI-COLETA",
+        "C-ESTRADA-PDF",
         "C-PEDIDO",
-        "C-PROCEDENCIA",
         "C-RECEITAS"
       ],
       "outbound": [
+        "C-ESTRADA-PDF",
         "C-ESTRADAS-IT",
         "C-PROVA-COLETA"
       ],
@@ -10092,9 +10176,18 @@
       "parado_na_coleta": [],
       "nivel": "PRINCIPAL",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/RUN-MANIFEST.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 2475,
       "y": 360
     },
@@ -10144,6 +10237,7 @@
       ],
       "inbound": [
         "C-AS-FONTES",
+        "C-ASK-SINTONIA",
         "C-CADEIA-V21",
         "C-CORPUS",
         "C-RELEVANCIA",
@@ -10312,8 +10406,8 @@
       "inbound": [
         "C-AS-FONTES",
         "C-CI-MAPA",
-        "C-IT-PRESERVAR",
-        "C-PROCEDENCIA"
+        "C-ESTRADA-PDF",
+        "C-IT-PRESERVAR"
       ],
       "outbound": [],
       "paises": {},
@@ -10583,9 +10677,18 @@
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "candidatas/FONTES-CANDIDATAS.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 3180,
       "y": 682
     },
@@ -10919,19 +11022,16 @@
       "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
       "produces": [
-        "data/samples/POLITICA-RAW-ROTA-PAGA.json",
-        "data/samples/RUN-MANIFEST.json"
+        "data/samples/POLITICA-RAW-ROTA-PAGA.json"
       ],
-      "inbound": [],
+      "inbound": [
+        "C-ESTRADA-PDF"
+      ],
       "outbound": [
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
-        "C-DATA-CLOCK",
         "C-ESTRADA-PDF",
-        "C-MAPA-SCAN",
-        "C-ORQUESTRADOR",
-        "C-PADRAO-COLETA",
         "C-RECEITAS",
         "C-REGRA-COLETA",
         "C-SENSOR-COLETA",
@@ -10941,8 +11041,7 @@
       "paises_dado": {},
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [
-        "data/samples/POLITICA-RAW-ROTA-PAGA.json",
-        "data/samples/RUN-MANIFEST.json"
+        "data/samples/POLITICA-RAW-ROTA-PAGA.json"
       ],
       "parado_na_coleta": [],
       "vocabulario": {
@@ -11924,6 +12023,7 @@
         "C-COLETA-PUBLICA",
         "C-CORPUS",
         "C-DATA-CLOCK",
+        "C-ESTRADA-PDF",
         "C-FONTES-EU",
         "C-LUGAR-COLETA",
         "C-PEDIDO",
@@ -12075,6 +12175,7 @@
         "C-CICATRIZES-BR",
         "C-CONTRATO-CAMPOS",
         "C-DATA-CLOCK",
+        "C-ESTRADA-PDF",
         "C-FONTES-EU",
         "C-MEDICAO",
         "C-PROCEDENCIA",
@@ -16230,7 +16331,7 @@
         {
           "file": "tests/es/test_adama_es_gate.py",
           "line": 21,
-          "snippet": "open(PORTAO, 'leitura')  # PORTAO = data/samples/ADAMA-ES-HANDOFF-GATE-V1.json"
+          "snippet": "with open(PORTAO, encoding='utf-8') as f:"
         }
       ],
       "categoria": "PROOF"
@@ -16527,12 +16628,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A porta de admissao alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_observabilidade_estrada.py",
           "line": 269,
           "snippet": "porta = ler(os.path.join(RAIZ, 'admissao', 'admissao.py'))"
+        },
+        {
+          "file": "tests/test_red_team_estrada.py",
+          "line": 243,
+          "snippet": "livro = js(os.path.join(RAIZ, 'data', 'samples', 'LIVRO-DE-DECISOES.json'))"
         }
       ],
       "categoria": "PROOF"
@@ -16961,7 +17067,7 @@
         {
           "file": "motor/v21_completude_oportunidade.py",
           "line": 87,
-          "snippet": "open(PORTAL, 'leitura')  # PORTAL = italia-portale/client/italy-handoff-v21.js"
+          "snippet": "s = open(PORTAL, encoding='utf-8').read()"
         }
       ],
       "categoria": "READ"
@@ -17269,6 +17375,24 @@
     },
     {
       "from": "C-ASK-SINTONIA",
+      "to": "C-PACOTE-CAMADAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia alimenta Montagem do pacote por camadas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/metricas_canonicas.py",
+          "line": 257,
+          "snippet": "bench = _sample('ASK-SINTONIA-benchmark.json')"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ASK-SINTONIA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -17293,12 +17417,22 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ask Sintonia alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Ask Sintonia alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_canonico.py",
+          "line": 223,
+          "snippet": "'ASK-SINTONIA-benchmark.json'), encoding='utf-8') as f:"
+        },
         {
           "file": "tests/test_coleta_externa.py",
           "line": 672,
           "snippet": "self.assertIn('superficie/rede.py', self.atual['QUEM_MANDA'])"
+        },
+        {
+          "file": "tests/test_metricas.py",
+          "line": 209,
+          "snippet": "with open(os.path.join(ROOT, 'data', 'samples', 'ASK-SINTONIA-benchmark.json'),"
         }
       ],
       "categoria": "PROOF"
@@ -18372,7 +18506,7 @@
         {
           "file": "tests/test_m2_aresta_observada.py",
           "line": 197,
-          "snippet": "open(LEDGER, 'leitura')  # LEDGER = system-map/data/provas-de-execucao.json"
+          "snippet": "with open(LEDGER, encoding=\"utf-8\") as f:"
         },
         {
           "file": "tests/test_m2_rota_forward.py",
@@ -18382,7 +18516,7 @@
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
           "line": 38,
-          "snippet": "open(LEDGER, 'leitura')  # LEDGER = system-map/data/provas-de-execucao.json"
+          "snippet": "return json.load(open(LEDGER, encoding='utf-8'))"
         }
       ],
       "categoria": "PROOF"
@@ -18436,7 +18570,7 @@
         {
           "file": "provas/paridade_da_lingua.py",
           "line": 220,
-          "snippet": "open(SCANNER, 'leitura')  # SCANNER = system-map/scripts/censo_da_observabilidade.py"
+          "snippet": "fonte_scanner = open(SCANNER, encoding='utf-8').read()"
         }
       ],
       "categoria": "PROOF"
@@ -18453,8 +18587,8 @@
       "evidence": [
         {
           "file": "tests/test_lingua_unica.py",
-          "line": 85,
-          "snippet": "open(caminho, 'leitura')  # caminho = system-map/scripts/censo_da_observabilidade.py"
+          "line": 73,
+          "snippet": "fonte = open(caminho, encoding='utf-8').read()"
         },
         {
           "file": "tests/test_mapa_nao_mente.py",
@@ -19518,7 +19652,7 @@
         {
           "file": "tests/test_cicatrizes_brasil.py",
           "line": 21,
-          "snippet": "open(MATRIZ, 'leitura')  # MATRIZ = data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json"
+          "snippet": "with open(MATRIZ, encoding='utf-8') as f:"
         }
       ],
       "categoria": "PROOF"
@@ -20298,7 +20432,7 @@
         {
           "file": "regras/sensor_coleta.py",
           "line": 345,
-          "snippet": "open(UNIVERSO, 'leitura')  # UNIVERSO = data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+          "snippet": "with open(UNIVERSO, encoding='utf-8') as f:"
         }
       ],
       "categoria": "READ"
@@ -20352,7 +20486,7 @@
         {
           "file": "medidas/source_health.py",
           "line": 157,
-          "snippet": "open(man, 'leitura')  # man = data/samples/DATA-CLOCK-manifest.json"
+          "snippet": "with open(man, encoding='utf-8') as f:"
         }
       ],
       "categoria": "RULE"
@@ -20648,6 +20782,24 @@
     },
     {
       "from": "C-ESTRADA-PDF",
+      "to": "C-DATA-CLOCK",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A primeira estrada · PDF até à porta alimenta Regua do tempo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/data_clock.py",
+          "line": 75,
+          "snippet": "('RUN-MANIFEST', 'data/samples/RUN-MANIFEST.json', '2026-08-29',"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ESTRADA-PDF",
       "to": "C-MAPA-GERADOR",
       "type": "READS",
       "payload": "artefacto",
@@ -20660,6 +20812,78 @@
           "file": "system-map/scripts/generate_system_map.py",
           "line": 1362,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ESTRADA-PDF",
+      "to": "C-MAPA-SCAN",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A primeira estrada · PDF até à porta alimenta Scanner do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/scan_sources.py",
+          "line": 429,
+          "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ESTRADA-PDF",
+      "to": "C-ORQUESTRADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A primeira estrada · PDF até à porta alimenta O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 128,
+          "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ESTRADA-PDF",
+      "to": "C-PADRAO-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A primeira estrada · PDF até à porta alimenta O padrao do departamento de coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/padrao_da_coleta.py",
+          "line": 63,
+          "snippet": "MANIFESTO = os.path.join(ROOT, 'data', 'samples', 'RUN-MANIFEST.json')"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ESTRADA-PDF",
+      "to": "C-PROCEDENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A primeira estrada · PDF até à porta alimenta De onde veio — carimbado na coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/proveniencia.py",
+          "line": 108,
+          "snippet": "with open(MANIFESTO, encoding='utf-8') as f:"
         }
       ],
       "categoria": "READ"
@@ -20702,18 +20926,59 @@
     },
     {
       "from": "C-ESTRADA-PDF",
+      "to": "C-RECEITAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A primeira estrada · PDF até à porta alimenta A receita da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 117,
+          "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ESTRADA-PDF",
+      "to": "C-REGRA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A primeira estrada · PDF até à porta alimenta A regra de coleta externa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/portao.py",
+          "line": 44,
+          "snippet": "if os.path.basename(caminho) == 'RUN-MANIFEST.json':"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ESTRADA-PDF",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A primeira estrada · PDF até à porta alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A primeira estrada · PDF até à porta alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_integracao_biblia.py",
           "line": 158,
           "snippet": "os.path.join(RAIZ, 'coleta', 'golden_path_pdf.py'),"
+        },
+        {
+          "file": "tests/test_portao.py",
+          "line": 251,
+          "snippet": "d = json.load(open(os.path.join(SAMPLES, 'RUN-MANIFEST.json'), encoding='utf-8'))"
         },
         {
           "file": "tests/test_red_team_estrada.py",
@@ -20736,7 +21001,7 @@
         {
           "file": "provas/o_forward_conta_se.py",
           "line": 109,
-          "snippet": "open(MODELO_DAS_ESTRADAS, 'leitura')  # MODELO_DAS_ESTRADAS = system-map/data/estradas-it.model.json"
+          "snippet": "with open(MODELO_DAS_ESTRADAS, encoding=\"utf-8\") as f:"
         }
       ],
       "categoria": "READ"
@@ -20754,7 +21019,7 @@
         {
           "file": "provas/a_rota_m2_atravessa.py",
           "line": 122,
-          "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
+          "snippet": "with open(MODELO, encoding=\"utf-8\") as f:"
         }
       ],
       "categoria": "READ"
@@ -20792,7 +21057,7 @@
         {
           "file": "tests/test_estradas_it.py",
           "line": 50,
-          "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
+          "snippet": "with open(MODELO, encoding='utf-8') as f:"
         },
         {
           "file": "tests/test_route_membership.py",
@@ -20881,18 +21146,59 @@
     },
     {
       "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-CENSO-CORPUS-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF alimenta Censo do corpo italiano. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_do_corpus_it.py",
+          "line": 276,
+          "snippet": "reg = os.path.join(RAIZ, 'data', 'derivados', 'REGISTO-DE-ARTEFATOS.json')"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
       "to": "C-CENSO-DERIVACOES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Censo das derivações. Provado por 1 linha de codigo.",
+      "reason": "Executor · texto a partir de PDF alimenta Censo das derivações. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "system-map/scripts/censo_das_derivacoes.py",
+          "line": 42,
+          "snippet": "REGISTO = os.path.join(\"data\", \"derivados\", \"REGISTO-DE-ARTEFATOS.json\")"
+        },
         {
           "file": "system-map/scripts/censo_das_derivacoes.py",
           "line": 54,
           "snippet": "\"PRODUTOR\": \"coleta/executor_texto_de_pdf.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-CENSO-IDENTIDADE-IT",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF alimenta Censo de identidade do artefato. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_de_identidade_it.py",
+          "line": 66,
+          "snippet": "REGISTO_DERIVADOS = os.path.join(\"data\", \"derivados\", \"REGISTO-DE-ARTEFATOS.json\")"
         }
       ],
       "categoria": "READ"
@@ -20994,12 +21300,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Gerador do System Map. Provado por 1 linha de codigo.",
+      "reason": "Executor · texto a partir de PDF alimenta Gerador do System Map. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
           "line": 1344,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
+        },
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 1355,
+          "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\","
         }
       ],
       "categoria": "READ"
@@ -21171,7 +21482,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
@@ -21179,9 +21490,14 @@
           "snippet": "p = self._ledger()[\"PROVADOS\"][\"coleta/executor_texto_de_pdf.py\"]"
         },
         {
+          "file": "tests/test_integracao_biblia.py",
+          "line": 32,
+          "snippet": "REG = os.path.join(RAIZ, 'data', 'derivados', 'REGISTO-DE-ARTEFATOS.json')"
+        },
+        {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-          "line": 42,
-          "snippet": "open(p, 'leitura')  # p = coleta/executor_texto_de_pdf.py"
+          "line": 27,
+          "snippet": "EXECUTOR = os.path.join(RAIZ, 'coleta', 'executor_texto_de_pdf.py')"
         },
         {
           "file": "tests/test_o9_caminho_instrumentado.py",
@@ -21189,9 +21505,24 @@
           "snippet": "'EXECUTOR_ID': 'coleta/executor_texto_de_pdf.py',"
         },
         {
+          "file": "tests/test_o9_caminho_instrumentado.py",
+          "line": 315,
+          "snippet": "ex.REGISTO = Path(pasta) / 'REGISTO-DE-ARTEFATOS.json'"
+        },
+        {
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 369,
+          "snippet": "with open(caminho, encoding=\"utf-8\") as f:"
+        },
+        {
           "file": "tests/test_preservar_derivado.py",
           "line": 514,
           "snippet": "with open(os.path.join(RAIZ, \"coleta\", \"executor_texto_de_pdf.py\"),"
+        },
+        {
+          "file": "tests/test_preservar_derivado.py",
+          "line": 541,
+          "snippet": "with open(registo, encoding=\"utf-8\") as f:"
         }
       ],
       "categoria": "PROOF"
@@ -21299,7 +21630,7 @@
         {
           "file": "coleta/regulatorio_importar.py",
           "line": 186,
-          "snippet": "open(SAIDA, 'w')  # SAIDA = supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql"
+          "snippet": "with open(SAIDA, 'w', encoding='utf-8') as f:"
         }
       ],
       "categoria": "WRITE"
@@ -21381,7 +21712,7 @@
         {
           "file": "tests/test_o9_caminho_instrumentado.py",
           "line": 535,
-          "snippet": "open(caminho, 'leitura')  # caminho = medidas/corrida_instrumentada.py"
+          "snippet": "arvore = ast.parse(open(caminho, encoding='utf-8').read())"
         }
       ],
       "categoria": "PROOF"
@@ -21606,7 +21937,7 @@
         {
           "file": "tests/test_politica_da_coleta.py",
           "line": 28,
-          "snippet": "open(caminho, 'leitura')  # caminho = leis/politica_da_coleta.py"
+          "snippet": "with open(caminho, encoding='utf-8') as fh:"
         }
       ],
       "categoria": "PROOF"
@@ -21714,12 +22045,12 @@
         {
           "file": "coleta/instagram_coleta.py",
           "line": 113,
-          "snippet": "open(LOTE, 'leitura')  # LOTE = data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json"
+          "snippet": "with open(LOTE, encoding='utf-8') as f:"
         },
         {
           "file": "coleta/instagram_janela.py",
           "line": 333,
-          "snippet": "open(LOTE, 'leitura')  # LOTE = data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json"
+          "snippet": "with open(LOTE, encoding='utf-8') as f:"
         }
       ],
       "categoria": "RULE"
@@ -21737,7 +22068,7 @@
         {
           "file": "coleta/comunicacao_coleta.py",
           "line": 96,
-          "snippet": "open(LOTE, 'leitura')  # LOTE = data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json"
+          "snippet": "with open(LOTE, encoding='utf-8') as f:"
         },
         {
           "file": "coleta/comunicacao_medir.py",
@@ -21760,7 +22091,7 @@
         {
           "file": "coleta/youtube_janela.py",
           "line": 141,
-          "snippet": "open(LOTE, 'leitura')  # LOTE = data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json"
+          "snippet": "with open(LOTE, encoding='utf-8') as f:"
         }
       ],
       "categoria": "RULE"
@@ -21855,7 +22186,7 @@
         {
           "file": "guarda/catalogo_importar.py",
           "line": 637,
-          "snippet": "open(SQL_OUT, 'w')  # SQL_OUT = supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql"
+          "snippet": "with open(SQL_OUT, 'w', encoding='utf-8') as f:"
         }
       ],
       "categoria": "WRITE"
@@ -21873,7 +22204,7 @@
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
           "line": 39,
-          "snippet": "open(CATALOGO, 'leitura')  # CATALOGO = candidatas/ITALY-SOURCE-MASTER-V1.json"
+          "snippet": "with open(CATALOGO, encoding='utf-8') as f:"
         }
       ],
       "categoria": "READ"
@@ -22027,7 +22358,7 @@
         {
           "file": "provas/o_forward_conta_se.py",
           "line": 132,
-          "snippet": "open(CATALOGO_DE_FONTES, 'leitura')  # CATALOGO_DE_FONTES = candidatas/ITALY-SOURCE-MASTER-V1.json"
+          "snippet": "with open(CATALOGO_DE_FONTES, encoding=\"utf-8\") as f:"
         }
       ],
       "categoria": "READ"
@@ -22044,8 +22375,8 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 187,
-          "snippet": "open(CATALOGO, 'leitura')  # CATALOGO = candidatas/ITALY-SOURCE-MASTER-V1.json"
+          "line": 119,
+          "snippet": "with open(CATALOGO, encoding=\"utf-8\") as f:"
         }
       ],
       "categoria": "READ"
@@ -22285,8 +22616,8 @@
       "evidence": [
         {
           "file": "provas/a_autoridade_da_fonte.py",
-          "line": 81,
-          "snippet": "open(caminho, 'leitura')  # caminho = regras/italy_contracts.mjs"
+          "line": 163,
+          "snippet": "caminho = os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")"
         }
       ],
       "categoria": "RULE"
@@ -22351,7 +22682,7 @@
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
           "line": 449,
-          "snippet": "open(LEDGER, 'leitura')  # LEDGER = data/collection-ledger/italy/observations.ndjson"
+          "snippet": "with open(LEDGER, encoding='utf-8') as f:"
         }
       ],
       "categoria": "READ"
@@ -22578,7 +22909,7 @@
         {
           "file": "pacote/meeting_snapshot.py",
           "line": 188,
-          "snippet": "open(pjs, 'w')  # pjs = italia-portale/client/meeting-intelligence-snapshot.js"
+          "snippet": "with open(pjs, 'w', encoding='utf-8') as f:"
         }
       ],
       "categoria": "WRITE"
@@ -22650,7 +22981,7 @@
         {
           "file": "motor/v21_completude_oportunidade.py",
           "line": 73,
-          "snippet": "open(SNAPSHOT, 'leitura')  # SNAPSHOT = italia-portale/client/meeting-intelligence-snapshot.json"
+          "snippet": "return json.load(open(SNAPSHOT, encoding='utf-8'))"
         }
       ],
       "categoria": "READ"
@@ -22850,8 +23181,18 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gerador do System Map alimenta Validador do System Map. Provado por 1 linha de codigo.",
+      "reason": "Gerador do System Map alimenta Validador do System Map. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "system-map/scripts/validate_system_map.py",
+          "line": 129,
+          "snippet": "INDICE = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
+        },
+        {
+          "file": "system-map/scripts/validate_system_map.py",
+          "line": 133,
+          "snippet": "PORTA = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
+        },
         {
           "file": "system-map/scripts/validate_system_map.py",
           "line": 140,
@@ -22877,6 +23218,29 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-MAPA-GERADOR",
+      "to": "C-PROVA-MAPA-NAO-MENTE",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do System Map escreve em A prova de que o mapa não mente sobre existência. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 3473,
+          "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
+        },
+        {
+          "file": "system-map/scripts/mudar_gaveta.py",
+          "line": 112,
+          "snippet": "DECL.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding='utf-8')"
+        }
+      ],
+      "categoria": "WRITE"
     },
     {
       "from": "C-MAPA-GERADOR",
@@ -22918,7 +23282,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_repo.py",
-          "line": 385,
+          "line": 460,
           "snippet": "\"\"\"`'PUBLIC-COMM-FIRST-BATCH-EAME.json'` -> o unico ficheiro com esse nome."
         }
       ],
@@ -22936,12 +23300,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3466,
+          "line": 3486,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3466,
+          "line": 3486,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -23289,6 +23653,24 @@
     },
     {
       "from": "C-ORQUESTRADOR",
+      "to": "C-ESTRADA-PDF",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador escreve em A primeira estrada · PDF até à porta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 167,
+          "snippet": "MANIFESTO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\","
+        }
+      ],
+      "categoria": "WRITE"
+    },
+    {
+      "from": "C-ORQUESTRADOR",
       "to": "C-ESTRADAS-IT",
       "type": "READS",
       "payload": "artefacto",
@@ -23299,8 +23681,8 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 265,
-          "snippet": "open(caminho, 'leitura')  # caminho = orquestrador/orquestrador.py"
+          "line": 688,
+          "snippet": "caminho = os.path.join(RAIZ, 'orquestrador', 'orquestrador.py')"
         }
       ],
       "categoria": "READ"
@@ -24079,7 +24461,7 @@
         },
         {
           "file": "system-map/scripts/scan_repo.py",
-          "line": 395,
+          "line": 470,
           "snippet": "\"\"\"`<script src=\"italy-v21.js\">` e um caminho relativo a propria pasta."
         }
       ],
@@ -24202,7 +24584,7 @@
         {
           "file": "motor/v21_completude_oportunidade.py",
           "line": 77,
-          "snippet": "open(CASA, 'leitura')  # CASA = italia-portale/client/italy-casa.js"
+          "snippet": "s = open(CASA, encoding='utf-8').read()"
         }
       ],
       "categoria": "READ"
@@ -24334,93 +24716,21 @@
     },
     {
       "from": "C-PROCEDENCIA",
-      "to": "C-DATA-CLOCK",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta Regua do tempo. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "leis/data_clock.py",
-          "line": 75,
-          "snippet": "('RUN-MANIFEST', 'data/samples/RUN-MANIFEST.json', '2026-08-29',"
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-PROCEDENCIA",
       "to": "C-ESTRADA-PDF",
-      "type": "READS",
+      "type": "WRITES",
       "payload": "artefacto",
-      "raw_type": "READS",
+      "raw_type": "WRITES",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta A primeira estrada · PDF até à porta. Provado por 1 linha de codigo.",
+      "reason": "De onde veio — carimbado na coleta escreve em A primeira estrada · PDF até à porta. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "coleta/golden_path_pdf.py",
-          "line": 53,
-          "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
+          "file": "regras/proveniencia.py",
+          "line": 147,
+          "snippet": "with open(MANIFESTO, 'w', encoding='utf-8') as f:"
         }
       ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-PROCEDENCIA",
-      "to": "C-MAPA-SCAN",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta Scanner do System Map. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "system-map/scripts/scan_sources.py",
-          "line": 429,
-          "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-PROCEDENCIA",
-      "to": "C-ORQUESTRADOR",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta O orquestrador. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "orquestrador/orquestrador.py",
-          "line": 128,
-          "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-PROCEDENCIA",
-      "to": "C-PADRAO-COLETA",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta O padrao do departamento de coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "medidas/padrao_da_coleta.py",
-          "line": 63,
-          "snippet": "MANIFESTO = os.path.join(ROOT, 'data', 'samples', 'RUN-MANIFEST.json')"
-        }
-      ],
-      "categoria": "RULE"
+      "categoria": "WRITE"
     },
     {
       "from": "C-PROCEDENCIA",
@@ -24430,17 +24740,12 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta A receita da coleta. Provado por 2 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta alimenta A receita da coleta. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "pedido/receitas.py",
           "line": 111,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
-        },
-        {
-          "file": "pedido/receitas.py",
-          "line": 117,
-          "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
         }
       ],
       "categoria": "RULE"
@@ -24459,24 +24764,6 @@
           "file": "medidas/portao.py",
           "line": 20,
           "snippet": "import proveniencia as pv  # noqa: E402"
-        }
-      ],
-      "categoria": "RULE"
-    },
-    {
-      "from": "C-PROCEDENCIA",
-      "to": "C-REGRA-COLETA",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta A regra de coleta externa. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "medidas/portao.py",
-          "line": 44,
-          "snippet": "if os.path.basename(caminho) == 'RUN-MANIFEST.json':"
         }
       ],
       "categoria": "RULE"
@@ -24535,13 +24822,8 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta alimenta Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
-        {
-          "file": "tests/test_portao.py",
-          "line": 251,
-          "snippet": "d = json.load(open(os.path.join(SAMPLES, 'RUN-MANIFEST.json'), encoding='utf-8'))"
-        },
         {
           "file": "tests/test_proveniencia.py",
           "line": 216,
@@ -24581,7 +24863,7 @@
         {
           "file": "provas/valida_biblia.py",
           "line": 237,
-          "snippet": "open(LEIS_JSON, 'w')  # LEIS_JSON = docs/biblia/leis.json"
+          "snippet": "with open(LEIS_JSON, 'w', encoding='utf-8') as f:"
         }
       ],
       "categoria": "PROOF"
@@ -24736,8 +25018,8 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 369,
-          "snippet": "open(caminho, 'leitura')  # caminho = provas/preservar_coleta_no_postgres.py"
+          "line": 450,
+          "snippet": "caminho = os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\")"
         }
       ],
       "categoria": "PROOF"
@@ -24813,7 +25095,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_repo.py",
-          "line": 614,
+          "line": 691,
           "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
         }
       ],
@@ -25247,7 +25529,7 @@
         {
           "file": "tests/test_coleta_externa.py",
           "line": 41,
-          "snippet": "open(REGUA, 'leitura')  # REGUA = medidas/REGRA-DE-COLETA-EXTERNA-EAME.md"
+          "snippet": "with open(REGUA, encoding='utf-8') as f:"
         },
         {
           "file": "tests/test_portoes_eame.py",
@@ -25347,7 +25629,7 @@
         {
           "file": "coleta/cruzar_regua_rotulo.py",
           "line": 89,
-          "snippet": "open(CORPUS, 'leitura')  # CORPUS = data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json"
+          "snippet": "corpus = json.load(open(CORPUS, encoding='utf-8'))"
         }
       ],
       "categoria": "RULE"
@@ -25568,7 +25850,7 @@
         {
           "file": "coleta/ropf_pre_requisito.py",
           "line": 119,
-          "snippet": "open(SAIDA, 'w')  # SAIDA = supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql"
+          "snippet": "with open(SAIDA, 'w', encoding='utf-8') as f:"
         }
       ],
       "categoria": "WRITE"
@@ -26260,7 +26542,7 @@
         {
           "file": "tests/test_youtube_piloto.py",
           "line": 512,
-          "snippet": "open(caminho, 'leitura')  # caminho = .github/workflows/scrap-social.yml"
+          "snippet": "with open(caminho, encoding='utf-8') as f:"
         }
       ],
       "categoria": "PROOF"
@@ -26713,7 +26995,7 @@
         {
           "file": "medidas/banco_no_seco.py",
           "line": 157,
-          "snippet": "open(MIGRATION, 'leitura')  # MIGRATION = supabase/migrations/024_a_corrida_conta_o_que_passou.sql"
+          "snippet": "with open(MIGRATION, encoding='utf-8') as f:"
         }
       ],
       "categoria": "READ"
@@ -26980,12 +27262,12 @@
         {
           "file": "provas/paridade_da_lingua.py",
           "line": 60,
-          "snippet": "open(MIGRATION, 'leitura')  # MIGRATION = supabase/migrations/024_a_corrida_conta_o_que_passou.sql"
+          "snippet": "return open(MIGRATION, encoding='utf-8').read()"
         },
         {
           "file": "provas/preservar_coleta_no_postgres.py",
           "line": 524,
-          "snippet": "open(MIGRACAO, 'leitura')  # MIGRACAO = supabase/migrations/001_fundacao_geografia_e_proveniencia.sql"
+          "snippet": "with open(MIGRACAO, encoding=\"utf-8\") as f:"
         }
       ],
       "categoria": "PROOF"
@@ -27054,7 +27336,7 @@
         {
           "file": "tests/es/test_adama_es_gate.py",
           "line": 304,
-          "snippet": "open(p, 'leitura')  # p = supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql"
+          "snippet": "with open(p, encoding='utf-8') as f:"
         },
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -27263,7 +27545,7 @@
         {
           "file": "tests/test_estradas_it.py",
           "line": 54,
-          "snippet": "open(MODELO, 'w')  # MODELO = system-map/data/estradas-it.model.json"
+          "snippet": "with open(MODELO, 'w', encoding='utf-8') as f:"
         }
       ],
       "categoria": "PROOF"
@@ -27417,7 +27699,7 @@
         {
           "file": "motor/v21_vozes_reconciliar.py",
           "line": 53,
-          "snippet": "open(QA, 'leitura')  # QA = data/samples/IT-V2/IT-V2-QA-ATRIBUIDO.json"
+          "snippet": "qa = json.load(open(QA, encoding='utf-8'))"
         }
       ],
       "categoria": "READ"
@@ -27512,7 +27794,7 @@
         {
           "file": "tests/test_completude_oportunidade.py",
           "line": 178,
-          "snippet": "open(MEDIDA, 'leitura')  # MEDIDA = data/samples/IT-COMPLETUDE/IT-COMPLETUDE-OPORTUNIDADE.json"
+          "snippet": "with open(MEDIDA, encoding='utf-8') as f:"
         },
         {
           "file": "tests/test_social_sessao.py",
@@ -27558,7 +27840,7 @@
         {
           "file": "motor/v21_traducao_trava.py",
           "line": 351,
-          "snippet": "open(TM, 'leitura')  # TM = data/i18n/v21-traducoes.json"
+          "snippet": "d = json.load(open(TM, encoding='utf-8'))"
         }
       ],
       "categoria": "READ"
@@ -28455,20 +28737,39 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 701,
+  "UNCLAIMED_FILES_COUNT": 696,
   "OWNERSHIP_CONFLICTS": [],
+  "ARTEFACT_MULTIPLE_AUTHORS": [
+    {
+      "file": "data/samples/RUN-MANIFEST.json",
+      "written_by": [
+        "C-ESTRADA-PDF",
+        "C-ORQUESTRADOR",
+        "C-PROCEDENCIA"
+      ],
+      "owner_elected": "C-ESTRADA-PDF"
+    },
+    {
+      "file": "system-map/data/architecture.declared.json",
+      "written_by": [
+        "C-MAPA-GERADOR",
+        "C-PROVA-MAPA-NAO-MENTE"
+      ],
+      "owner_elected": "C-PROVA-MAPA-NAO-MENTE"
+    }
+  ],
   "COUNTS": {
     "components": 148,
     "components_proven": 67,
     "components_pending": 75,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 566,
-    "edges_proven": 564,
+    "edges": 573,
+    "edges_proven": 571,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1345,
-    "files_covered": 644,
+    "files_covered": 649,
     "files_code_unclaimed": 0
   }
 }

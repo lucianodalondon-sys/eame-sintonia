@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "243cd25712bbc38108c26105bca7dfc46109deb9",
-    "GENERATED_AT": "2026-09-09T05:53:02+00:00"
+    "HEAD": "6606586e9f40562f6f109d183574a8ac7ebdb1f7",
+    "GENERATED_AT": "2026-09-09T05:59:16+00:00"
   },
   "FILES": [
     {
@@ -8780,7 +8780,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "25b29e1732f6b5acb37e1b0ce6b230ee2893ae50",
+      "sha": "23483973019de8edf763d57307f60f255b01237f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8822,7 +8822,7 @@
     },
     {
       "path": "system-map/scripts/scan_repo.py",
-      "sha": "1b01c64a4dba78e785992eb9f702039fe7747afd",
+      "sha": "d5b8c9da90cca3105e06584143d0630185661d87",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8836,14 +8836,14 @@
     },
     {
       "path": "system-map/scripts/validate_system_map.py",
-      "sha": "7da7f4909430f88b6792717877318210486bd1ef",
+      "sha": "21a1dda613e4dad3397a772899cfe9ad2cebacd7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/tests/test_system_map.py",
-      "sha": "e782eec1e2091f04f6aa2c38b0f47fa96a628305",
+      "sha": "967f66ab599b4b3d215bb718b5bf289ba47b4169",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10591,6 +10591,17 @@
       }
     },
     {
+      "from_file": "admissao/admissao.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "admissao/admissao.py",
+        "line": 420,
+        "snippet": "LIVRO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\","
+      }
+    },
+    {
       "from_file": "candidatas/fonte_nova.py",
       "to_file": "candidatas/FONTES-CANDIDATAS.json",
       "type": "READS",
@@ -10599,6 +10610,17 @@
         "file": "candidatas/fonte_nova.py",
         "line": 63,
         "snippet": "FILA = RAIZ / \"data\" / \"samples\" / \"FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "candidatas/fonte_nova.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/fonte_nova.py",
+        "line": 155,
+        "snippet": "FILA.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
       }
     },
     {
@@ -10752,7 +10774,7 @@
       "evidence": {
         "file": "coleta/comunicacao_coleta.py",
         "line": 96,
-        "snippet": "open(LOTE, 'leitura')  # LOTE = data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json"
+        "snippet": "with open(LOTE, encoding='utf-8') as f:"
       }
     },
     {
@@ -10840,7 +10862,7 @@
       "evidence": {
         "file": "coleta/corpus_pesquisador.py",
         "line": 729,
-        "snippet": "open(DIRETORIO, 'w')  # DIRETORIO = data/samples/EXPERT-DIRECTORY-EAME-V1.json"
+        "snippet": "json.dump(corpo2, open(DIRETORIO, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -10851,7 +10873,7 @@
       "evidence": {
         "file": "coleta/corpus_pesquisador.py",
         "line": 735,
-        "snippet": "open(DEST, 'leitura')  # DEST = data/samples/RESEARCHER-CORPUS-EAME-V1.json"
+        "snippet": "c = json.load(open(DEST, encoding='utf-8'))"
       }
     },
     {
@@ -10862,7 +10884,7 @@
       "evidence": {
         "file": "coleta/corpus_pesquisador.py",
         "line": 653,
-        "snippet": "open(DEST, 'w')  # DEST = data/samples/RESEARCHER-CORPUS-EAME-V1.json"
+        "snippet": "json.dump(corpo, open(DEST, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -10873,7 +10895,7 @@
       "evidence": {
         "file": "coleta/corpus_pesquisador.py",
         "line": 251,
-        "snippet": "open(FONTE, 'leitura')  # FONTE = data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+        "snippet": "d = json.load(open(FONTE, encoding='utf-8'))"
       }
     },
     {
@@ -10895,7 +10917,7 @@
       "evidence": {
         "file": "coleta/cruzar_regua_rotulo.py",
         "line": 219,
-        "snippet": "open(destino, 'w')  # destino = data/samples/IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json"
+        "snippet": "json.dump(saida, open(destino, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -10906,7 +10928,7 @@
       "evidence": {
         "file": "coleta/cruzar_regua_rotulo.py",
         "line": 89,
-        "snippet": "open(CORPUS, 'leitura')  # CORPUS = data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json"
+        "snippet": "corpus = json.load(open(CORPUS, encoding='utf-8'))"
       }
     },
     {
@@ -10917,7 +10939,7 @@
       "evidence": {
         "file": "coleta/cruzar_regua_rotulo.py",
         "line": 90,
-        "snippet": "open(ROTULO, 'leitura')  # ROTULO = data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json"
+        "snippet": "rotulo = json.load(open(ROTULO, encoding='utf-8'))"
       }
     },
     {
@@ -11027,7 +11049,7 @@
       "evidence": {
         "file": "coleta/eu_substancia_adama_it.py",
         "line": 181,
-        "snippet": "open(cam, 'w')  # cam = data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json"
+        "snippet": "with open(cam, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -11050,6 +11072,17 @@
         "file": "coleta/executor_texto_de_pdf.py",
         "line": 97,
         "snippet": "REGISTO = RAIZ / \"data\" / \"derivados\" / \"REGISTO-DE-ARTEFATOS.json\""
+      }
+    },
+    {
+      "from_file": "coleta/executor_texto_de_pdf.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/executor_texto_de_pdf.py",
+        "line": 526,
+        "snippet": "REGISTO.write_text(json.dumps(ja, ensure_ascii=False, indent=1) + \"\\n\","
       }
     },
     {
@@ -11142,6 +11175,17 @@
     },
     {
       "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 459,
+        "snippet": "MANIFESTO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
       "to_file": "docs/biblia/leis.json",
       "type": "READS",
       "payload": "artefacto",
@@ -11214,7 +11258,7 @@
       "evidence": {
         "file": "coleta/instagram_coleta.py",
         "line": 113,
-        "snippet": "open(LOTE, 'leitura')  # LOTE = data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json"
+        "snippet": "with open(LOTE, encoding='utf-8') as f:"
       }
     },
     {
@@ -11313,7 +11357,7 @@
       "evidence": {
         "file": "coleta/instagram_janela.py",
         "line": 333,
-        "snippet": "open(LOTE, 'leitura')  # LOTE = data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json"
+        "snippet": "with open(LOTE, encoding='utf-8') as f:"
       }
     },
     {
@@ -11434,7 +11478,7 @@
       "evidence": {
         "file": "coleta/preservar_pdf.py",
         "line": 92,
-        "snippet": "open(cam, 'w')  # cam = data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json"
+        "snippet": "with open(cam, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -11445,7 +11489,7 @@
       "evidence": {
         "file": "coleta/regulatorio_importar.py",
         "line": 74,
-        "snippet": "open(FONTE, 'leitura')  # FONTE = data/samples/ES-ADAMA-PORTFOLIO-ROPF.json"
+        "snippet": "with open(FONTE, encoding='utf-8') as f:"
       }
     },
     {
@@ -11467,7 +11511,7 @@
       "evidence": {
         "file": "coleta/regulatorio_importar.py",
         "line": 186,
-        "snippet": "open(SAIDA, 'w')  # SAIDA = supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql"
+        "snippet": "with open(SAIDA, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -11478,7 +11522,7 @@
       "evidence": {
         "file": "coleta/ropf_pre_requisito.py",
         "line": 52,
-        "snippet": "open(FONTE, 'leitura')  # FONTE = data/samples/ES-ADAMA-PORTFOLIO-ROPF.json"
+        "snippet": "with open(FONTE, encoding='utf-8') as f:"
       }
     },
     {
@@ -11500,7 +11544,7 @@
       "evidence": {
         "file": "coleta/ropf_pre_requisito.py",
         "line": 119,
-        "snippet": "open(SAIDA, 'w')  # SAIDA = supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql"
+        "snippet": "with open(SAIDA, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -11588,7 +11632,7 @@
       "evidence": {
         "file": "coleta/rotulos_baixar.py",
         "line": 77,
-        "snippet": "open(PRODUTOS, 'leitura')  # PRODUTOS = build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json"
+        "snippet": "produtos = json.load(open(PRODUTOS, encoding='utf-8'))['PRODUCTS']"
       }
     },
     {
@@ -11599,7 +11643,7 @@
       "evidence": {
         "file": "coleta/rotulos_baixar.py",
         "line": 83,
-        "snippet": "open(MANIFESTO, 'leitura')  # MANIFESTO = data/raw/IT-ROTULOS/_MANIFESTO.json"
+        "snippet": "open(MANIFESTO, encoding='utf-8'))['ITENS'] if r['ESTADO'] == 'OK'}"
       }
     },
     {
@@ -11610,7 +11654,7 @@
       "evidence": {
         "file": "coleta/rotulos_baixar.py",
         "line": 134,
-        "snippet": "open(MANIFESTO, 'w')  # MANIFESTO = data/raw/IT-ROTULOS/_MANIFESTO.json"
+        "snippet": "}, open(MANIFESTO, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -11654,7 +11698,7 @@
       "evidence": {
         "file": "coleta/rotulos_ler.py",
         "line": 895,
-        "snippet": "open(destino, 'w')  # destino = data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json"
+        "snippet": "json.dump(saida, open(destino, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -11676,7 +11720,7 @@
       "evidence": {
         "file": "coleta/sensor_canal_identidade.py",
         "line": 237,
-        "snippet": "open(destino, 'w')  # destino = data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json"
+        "snippet": "with open(destino, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -11896,7 +11940,7 @@
       "evidence": {
         "file": "coleta/speaker_identidade.py",
         "line": 576,
-        "snippet": "open(DEST, 'leitura')  # DEST = data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+        "snippet": "with open(DEST, encoding='utf-8') as f:"
       }
     },
     {
@@ -11907,7 +11951,7 @@
       "evidence": {
         "file": "coleta/speaker_identidade.py",
         "line": 570,
-        "snippet": "open(DEST, 'w')  # DEST = data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+        "snippet": "with open(DEST, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -11929,7 +11973,7 @@
       "evidence": {
         "file": "coleta/universo_ciencia_it.py",
         "line": 249,
-        "snippet": "open(cam, 'w')  # cam = data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json"
+        "snippet": "with open(cam, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -11951,7 +11995,7 @@
       "evidence": {
         "file": "coleta/youtube_janela.py",
         "line": 141,
-        "snippet": "open(LOTE, 'leitura')  # LOTE = data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json"
+        "snippet": "with open(LOTE, encoding='utf-8') as f:"
       }
     },
     {
@@ -12215,7 +12259,7 @@
       "evidence": {
         "file": "fontes/adama_catalogo_ler.py",
         "line": 149,
-        "snippet": "open(REGISTRO, 'leitura')  # REGISTRO = build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json"
+        "snippet": "reg = json.load(open(REGISTRO, encoding='utf-8'))['PRODUCTS']"
       }
     },
     {
@@ -12237,7 +12281,7 @@
       "evidence": {
         "file": "fontes/adama_catalogo_ler.py",
         "line": 216,
-        "snippet": "open(destino, 'w')  # destino = data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json"
+        "snippet": "json.dump(saida, open(destino, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -12248,7 +12292,7 @@
       "evidence": {
         "file": "fontes/adama_catalogo_montar.py",
         "line": 278,
-        "snippet": "open(REGISTRO, 'leitura')  # REGISTRO = build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json"
+        "snippet": "reg = json.load(open(REGISTRO, encoding='utf-8'))['PRODUCTS'] \\"
       }
     },
     {
@@ -12270,7 +12314,7 @@
       "evidence": {
         "file": "fontes/adama_catalogo_montar.py",
         "line": 353,
-        "snippet": "open(d, 'w')  # d = data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json"
+        "snippet": "json.dump(saida, open(d, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -12292,7 +12336,7 @@
       "evidence": {
         "file": "fontes/adama_it_eu.py",
         "line": 128,
-        "snippet": "open(caminho, 'w')  # caminho = research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json"
+        "snippet": "with open(caminho, \"w\", encoding=\"utf-8\") as fh:"
       }
     },
     {
@@ -12302,8 +12346,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_it_frac.py",
-        "line": 50,
-        "snippet": "open(caminho, 'rb')  # caminho = research/adama-italy-product-intelligence-deep/MOA-SOURCE-FRAC.json"
+        "line": 131,
+        "snippet": "caminho = os.path.join(OUT, \"MOA-SOURCE-FRAC.json\")"
       }
     },
     {
@@ -12314,7 +12358,7 @@
       "evidence": {
         "file": "fontes/adama_it_frac.py",
         "line": 132,
-        "snippet": "open(caminho, 'w')  # caminho = research/adama-italy-product-intelligence-deep/MOA-SOURCE-FRAC.json"
+        "snippet": "with open(caminho, \"w\", encoding=\"utf-8\") as fh:"
       }
     },
     {
@@ -12897,7 +12941,7 @@
       "evidence": {
         "file": "guarda/catalogo_importar.py",
         "line": 637,
-        "snippet": "open(SQL_OUT, 'w')  # SQL_OUT = supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql"
+        "snippet": "with open(SQL_OUT, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -12930,7 +12974,7 @@
       "evidence": {
         "file": "guarda/es/adama_es_gate.py",
         "line": 1030,
-        "snippet": "open(SAIDA, 'w')  # SAIDA = data/samples/ADAMA-ES-HANDOFF-GATE-V1.json"
+        "snippet": "with open(SAIDA, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -12963,7 +13007,7 @@
       "evidence": {
         "file": "guarda/es/adama_es_gate.py",
         "line": 415,
-        "snippet": "open(ROPF, 'leitura')  # ROPF = data/samples/ES-ADAMA-PORTFOLIO-ROPF.json"
+        "snippet": "with open(ROPF, encoding='utf-8') as f:"
       }
     },
     {
@@ -17792,7 +17836,7 @@
       "evidence": {
         "file": "leis/auditoria_regua_comercial.py",
         "line": 570,
-        "snippet": "open(SAIDA, 'w')  # SAIDA = data/samples/AUDITORIA-SOMBRA/AUDITORIA-REGUA-COMERCIAL-37.json"
+        "snippet": "with open(SAIDA, 'w', encoding='utf-8') as fh:"
       }
     },
     {
@@ -17924,7 +17968,7 @@
       "evidence": {
         "file": "leis/data_clock.py",
         "line": 105,
-        "snippet": "open(OUT, 'w')  # OUT = data/samples/DATA-CLOCK-manifest.json"
+        "snippet": "with open(OUT, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -18100,7 +18144,7 @@
       "evidence": {
         "file": "leis/regua_italia.py",
         "line": 474,
-        "snippet": "open(cam, 'w')  # cam = data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json"
+        "snippet": "with open(cam, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -18254,7 +18298,7 @@
       "evidence": {
         "file": "leis/v21_procedencia_religar.py",
         "line": 146,
-        "snippet": "open(pr, 'leitura')  # pr = research/adama-italy-product-intelligence-deep/PRODUCTS-REGULATORY.json"
+        "snippet": "for r in json.load(open(pr, encoding='utf-8'))['RECORDS']:"
       }
     },
     {
@@ -18276,7 +18320,7 @@
       "evidence": {
         "file": "medidas/banco_no_seco.py",
         "line": 157,
-        "snippet": "open(MIGRATION, 'leitura')  # MIGRATION = supabase/migrations/024_a_corrida_conta_o_que_passou.sql"
+        "snippet": "with open(MIGRATION, encoding='utf-8') as f:"
       }
     },
     {
@@ -18298,7 +18342,7 @@
       "evidence": {
         "file": "medidas/cicatrizes_brasil.py",
         "line": 600,
-        "snippet": "open(SAIDA, 'w')  # SAIDA = data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json"
+        "snippet": "with open(SAIDA, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -18529,7 +18573,7 @@
       "evidence": {
         "file": "medidas/portao.py",
         "line": 367,
-        "snippet": "open(caminho, 'leitura')  # caminho = data/samples/VERIFICACAO-ADVERSARIAL-PORTOES.json"
+        "snippet": "with open(caminho, encoding='utf-8') as f:"
       }
     },
     {
@@ -18606,7 +18650,7 @@
       "evidence": {
         "file": "medidas/portoes_eame.py",
         "line": 357,
-        "snippet": "open(SAIDA, 'w')  # SAIDA = data/samples/PORTOES-EAME.json"
+        "snippet": "with open(SAIDA, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -18617,7 +18661,7 @@
       "evidence": {
         "file": "medidas/portoes_eame.py",
         "line": 131,
-        "snippet": "open(RAW_ES, 'leitura')  # RAW_ES = data/samples/RAW-GATE-ES.json"
+        "snippet": "with open(RAW_ES, encoding='utf-8') as f:"
       }
     },
     {
@@ -18815,7 +18859,7 @@
       "evidence": {
         "file": "medidas/source_health.py",
         "line": 157,
-        "snippet": "open(man, 'leitura')  # man = data/samples/DATA-CLOCK-manifest.json"
+        "snippet": "with open(man, encoding='utf-8') as f:"
       }
     },
     {
@@ -18903,7 +18947,7 @@
       "evidence": {
         "file": "motor/matriz_recorte.py",
         "line": 382,
-        "snippet": "open(DEST, 'w')  # DEST = data/samples/PILOT-SCOPE-MATRIX-V1.json"
+        "snippet": "with open(DEST, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -18936,7 +18980,7 @@
       "evidence": {
         "file": "motor/normalize_agro.py",
         "line": 75,
-        "snippet": "open(ESDICT, 'leitura')  # ESDICT = data/samples/ES-T4-001/eppo-dictionary.json"
+        "snippet": "with open(ESDICT, encoding='utf-8') as f:"
       }
     },
     {
@@ -18947,7 +18991,7 @@
       "evidence": {
         "file": "motor/normalize_agro.py",
         "line": 292,
-        "snippet": "open(OUT, 'leitura')  # OUT = data/samples/X-007-canonical-agro-dictionary.json"
+        "snippet": "with open(OUT, encoding='utf-8') as f:"
       }
     },
     {
@@ -18958,7 +19002,7 @@
       "evidence": {
         "file": "motor/normalize_agro.py",
         "line": 297,
-        "snippet": "open(OUT, 'w')  # OUT = data/samples/X-007-canonical-agro-dictionary.json"
+        "snippet": "with open(OUT, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -18991,7 +19035,7 @@
       "evidence": {
         "file": "motor/normalize_substance.py",
         "line": 218,
-        "snippet": "open(OUT, 'w')  # OUT = data/samples/X-006-substance-normalisation.json"
+        "snippet": "with open(OUT, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -19266,7 +19310,7 @@
       "evidence": {
         "file": "motor/v21_antes_e_depois.py",
         "line": 179,
-        "snippet": "open(SAIDA, 'w')  # SAIDA = data/samples/AUDITORIA-SOMBRA/V11-ANTES-E-DEPOIS.json"
+        "snippet": "json.dump(fora, open(SAIDA, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -19474,8 +19518,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/v21_completude_oportunidade.py",
-        "line": 181,
-        "snippet": "p = os.path.join(SAMPLES, 'IT-CATALOGO', 'IT-ADAMA-CATALOG-CENSUS-2026-09-02.json')"
+        "line": 182,
+        "snippet": "return json.load(open(p, encoding='utf-8')).get('PRODUCTS', [])"
       }
     },
     {
@@ -19485,8 +19529,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/v21_completude_oportunidade.py",
-        "line": 182,
-        "snippet": "open(p, 'leitura')  # p = data/samples/IT-COMPLETUDE/IT-COMPLETUDE-OPORTUNIDADE.json"
+        "line": 744,
+        "snippet": "p = os.path.join(SAIDA, 'IT-COMPLETUDE-OPORTUNIDADE.json')"
       }
     },
     {
@@ -19497,7 +19541,7 @@
       "evidence": {
         "file": "motor/v21_completude_oportunidade.py",
         "line": 745,
-        "snippet": "open(p, 'w')  # p = data/samples/IT-COMPLETUDE/IT-COMPLETUDE-OPORTUNIDADE.json"
+        "snippet": "json.dump(rel, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -19508,7 +19552,7 @@
       "evidence": {
         "file": "motor/v21_completude_oportunidade.py",
         "line": 77,
-        "snippet": "open(CASA, 'leitura')  # CASA = italia-portale/client/italy-casa.js"
+        "snippet": "s = open(CASA, encoding='utf-8').read()"
       }
     },
     {
@@ -19519,7 +19563,7 @@
       "evidence": {
         "file": "motor/v21_completude_oportunidade.py",
         "line": 87,
-        "snippet": "open(PORTAL, 'leitura')  # PORTAL = italia-portale/client/italy-handoff-v21.js"
+        "snippet": "s = open(PORTAL, encoding='utf-8').read()"
       }
     },
     {
@@ -19530,7 +19574,7 @@
       "evidence": {
         "file": "motor/v21_completude_oportunidade.py",
         "line": 73,
-        "snippet": "open(SNAPSHOT, 'leitura')  # SNAPSHOT = italia-portale/client/meeting-intelligence-snapshot.json"
+        "snippet": "return json.load(open(SNAPSHOT, encoding='utf-8'))"
       }
     },
     {
@@ -19585,7 +19629,7 @@
       "evidence": {
         "file": "motor/v21_contrato_do_pacote.py",
         "line": 81,
-        "snippet": "open(README, 'leitura')  # README = docs/design/ITALY-V2.1-README-FIRST.md"
+        "snippet": "txt = open(README, encoding='utf-8').read()"
       }
     },
     {
@@ -19871,7 +19915,7 @@
       "evidence": {
         "file": "motor/v21_fontes_faltantes.py",
         "line": 45,
-        "snippet": "open(p, 'leitura')  # p = build/ITALY-REALITY-HANDOFF-V2/SOURCES.json"
+        "snippet": "d = json.load(open(p, encoding='utf-8'))"
       }
     },
     {
@@ -19882,7 +19926,7 @@
       "evidence": {
         "file": "motor/v21_fontes_faltantes.py",
         "line": 132,
-        "snippet": "open(p, 'w')  # p = build/ITALY-REALITY-HANDOFF-V2/SOURCES.json"
+        "snippet": "json.dump(d, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -19893,7 +19937,7 @@
       "evidence": {
         "file": "motor/v21_fontes_rechavear.py",
         "line": 59,
-        "snippet": "open(p, 'leitura')  # p = build/ITALY-REALITY-HANDOFF-V2/SOURCES.json"
+        "snippet": "d = json.load(open(p, encoding='utf-8'))"
       }
     },
     {
@@ -19904,7 +19948,7 @@
       "evidence": {
         "file": "motor/v21_fontes_rechavear.py",
         "line": 188,
-        "snippet": "open(p, 'w')  # p = build/ITALY-REALITY-HANDOFF-V2/SOURCES.json"
+        "snippet": "json.dump(d, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -20553,7 +20597,7 @@
       "evidence": {
         "file": "motor/v21_reverificacao_ledger.py",
         "line": 41,
-        "snippet": "open(ACHADOS_ORIGEM, 'leitura')  # ACHADOS_ORIGEM = handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json"
+        "snippet": "with open(ACHADOS_ORIGEM, encoding='utf-8') as fh:"
       }
     },
     {
@@ -20575,7 +20619,7 @@
       "evidence": {
         "file": "motor/v21_reverificacao_ledger.py",
         "line": 127,
-        "snippet": "open(destino, 'w')  # destino = handoff/paused-v2/REVERIFICACAO-LEDGER.json"
+        "snippet": "with open(destino, 'w', encoding='utf-8') as fh:"
       }
     },
     {
@@ -20619,7 +20663,7 @@
       "evidence": {
         "file": "motor/v21_tm_colher.py",
         "line": 149,
-        "snippet": "open(TM, 'w')  # TM = data/i18n/v21-traducoes.json"
+        "snippet": "}, open(TM, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -20652,7 +20696,7 @@
       "evidence": {
         "file": "motor/v21_traducao_trava.py",
         "line": 351,
-        "snippet": "open(TM, 'leitura')  # TM = data/i18n/v21-traducoes.json"
+        "snippet": "d = json.load(open(TM, encoding='utf-8'))"
       }
     },
     {
@@ -20685,7 +20729,7 @@
       "evidence": {
         "file": "motor/v21_vozes_reconciliar.py",
         "line": 71,
-        "snippet": "open(p, 'leitura')  # p = build/ITALY-REALITY-HANDOFF-V2/PUBLIC-VOICES.json"
+        "snippet": "d = json.load(open(p, encoding='utf-8'))"
       }
     },
     {
@@ -20696,7 +20740,7 @@
       "evidence": {
         "file": "motor/v21_vozes_reconciliar.py",
         "line": 107,
-        "snippet": "open(p, 'w')  # p = build/ITALY-REALITY-HANDOFF-V2/PUBLIC-VOICES.json"
+        "snippet": "json.dump(d, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -20707,7 +20751,7 @@
       "evidence": {
         "file": "motor/v21_vozes_reconciliar.py",
         "line": 53,
-        "snippet": "open(QA, 'leitura')  # QA = data/samples/IT-V2/IT-V2-QA-ATRIBUIDO.json"
+        "snippet": "qa = json.load(open(QA, encoding='utf-8'))"
       }
     },
     {
@@ -20772,8 +20816,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/v2_conflitos.py",
-        "line": 58,
-        "snippet": "open(p, 'leitura')  # p = data/samples/IT-V2/IT-V2-CONFLITOS.json"
+        "line": 194,
+        "snippet": "p = os.path.join(V2, 'IT-V2-CONFLITOS.json')"
       }
     },
     {
@@ -20784,7 +20828,7 @@
       "evidence": {
         "file": "motor/v2_conflitos.py",
         "line": 195,
-        "snippet": "open(p, 'w')  # p = data/samples/IT-V2/IT-V2-CONFLITOS.json"
+        "snippet": "json.dump(saida, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -20960,7 +21004,7 @@
       "evidence": {
         "file": "motor/v2_dedup_e_familias.py",
         "line": 240,
-        "snippet": "open(p, 'w')  # p = data/samples/IT-V2/IT-V2-CANONICO.json"
+        "snippet": "json.dump(saida, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -21267,8 +21311,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/v2_qa_atribuir.py",
-        "line": 73,
-        "snippet": "open(p, 'leitura')  # p = data/samples/IT-V2/IT-V2-QA-ATRIBUIDO.json"
+        "line": 137,
+        "snippet": "p = os.path.join(SAIDA, 'IT-V2-QA-ATRIBUIDO.json')"
       }
     },
     {
@@ -21279,7 +21323,7 @@
       "evidence": {
         "file": "motor/v2_qa_atribuir.py",
         "line": 138,
-        "snippet": "open(p, 'w')  # p = data/samples/IT-V2/IT-V2-QA-ATRIBUIDO.json"
+        "snippet": "json.dump(saida, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -21390,6 +21434,17 @@
         "file": "orquestrador/orquestrador.py",
         "line": 128,
         "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 167,
+        "snippet": "MANIFESTO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\","
       }
     },
     {
@@ -21631,7 +21686,7 @@
       "evidence": {
         "file": "pacote/lastmile_para_supabase.py",
         "line": 220,
-        "snippet": "open(ISTAT, 'leitura')  # ISTAT = data/samples/IT-ISTAT-COLTIVAZIONI/istat_101_1015_coltivazioni_regioni_2024_2026.csv"
+        "snippet": "with open(ISTAT, encoding='utf-8') as f:"
       }
     },
     {
@@ -21718,8 +21773,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pacote/lastmile_relatorio.py",
-        "line": 37,
-        "snippet": "open(p, 'leitura')  # p = research/italy-lastmile/LAST-MILE-REALITY-GAPS.md"
+        "line": 337,
+        "snippet": "p = os.path.join(SAIDA, 'LAST-MILE-REALITY-GAPS.md')"
       }
     },
     {
@@ -21730,7 +21785,7 @@
       "evidence": {
         "file": "pacote/lastmile_relatorio.py",
         "line": 338,
-        "snippet": "open(p, 'w')  # p = research/italy-lastmile/LAST-MILE-REALITY-GAPS.md"
+        "snippet": "open(p, 'w', encoding='utf-8').write(''.join(L))"
       }
     },
     {
@@ -21774,7 +21829,7 @@
       "evidence": {
         "file": "pacote/meeting_snapshot.py",
         "line": 188,
-        "snippet": "open(pjs, 'w')  # pjs = italia-portale/client/meeting-intelligence-snapshot.js"
+        "snippet": "with open(pjs, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -21796,7 +21851,7 @@
       "evidence": {
         "file": "pacote/meeting_snapshot.py",
         "line": 185,
-        "snippet": "open(pj, 'w')  # pj = italia-portale/client/meeting-intelligence-snapshot.json"
+        "snippet": "with open(pj, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -23083,7 +23138,7 @@
       "evidence": {
         "file": "pacote/pacote_montar.py",
         "line": 283,
-        "snippet": "open(manifesto, 'leitura')  # manifesto = build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/06-HANDOFF-MANIFEST/PROSA-COPIADA.json"
+        "snippet": "escritos_antes = json.load(open(manifesto, encoding='utf-8'))['ARQUIVOS']"
       }
     },
     {
@@ -23094,7 +23149,7 @@
       "evidence": {
         "file": "pacote/pacote_montar.py",
         "line": 318,
-        "snippet": "open(manifesto, 'w')  # manifesto = build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/06-HANDOFF-MANIFEST/PROSA-COPIADA.json"
+        "snippet": "open(manifesto, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -23270,7 +23325,7 @@
       "evidence": {
         "file": "pacote/pacote_relacoes_convergencia.py",
         "line": 279,
-        "snippet": "open(destino, 'w')  # destino = build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/RELATIONSHIPS/convergence-links.json"
+        "snippet": "json.dump(d, open(destino, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -23940,8 +23995,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_autoridade_da_fonte.py",
-        "line": 81,
-        "snippet": "open(caminho, 'leitura')  # caminho = regras/italy_contracts.mjs"
+        "line": 163,
+        "snippet": "caminho = os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")"
       }
     },
     {
@@ -24039,8 +24094,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 187,
-        "snippet": "open(CATALOGO, 'leitura')  # CATALOGO = candidatas/ITALY-SOURCE-MASTER-V1.json"
+        "line": 119,
+        "snippet": "with open(CATALOGO, encoding=\"utf-8\") as f:"
       }
     },
     {
@@ -24161,7 +24216,7 @@
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
         "line": 122,
-        "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
+        "snippet": "with open(MODELO, encoding=\"utf-8\") as f:"
       }
     },
     {
@@ -24282,7 +24337,7 @@
       "evidence": {
         "file": "provas/es/freeze_es.py",
         "line": 19,
-        "snippet": "open(PACK, 'leitura')  # PACK = data/samples/SPAIN-DEMO-CONTENT-V1.json"
+        "snippet": "with open(PACK, encoding='utf-8') as f:"
       }
     },
     {
@@ -24447,7 +24502,7 @@
       "evidence": {
         "file": "provas/o_forward_conta_se.py",
         "line": 132,
-        "snippet": "open(CATALOGO_DE_FONTES, 'leitura')  # CATALOGO_DE_FONTES = candidatas/ITALY-SOURCE-MASTER-V1.json"
+        "snippet": "with open(CATALOGO_DE_FONTES, encoding=\"utf-8\") as f:"
       }
     },
     {
@@ -24557,7 +24612,7 @@
       "evidence": {
         "file": "provas/o_forward_conta_se.py",
         "line": 109,
-        "snippet": "open(MODELO_DAS_ESTRADAS, 'leitura')  # MODELO_DAS_ESTRADAS = system-map/data/estradas-it.model.json"
+        "snippet": "with open(MODELO_DAS_ESTRADAS, encoding=\"utf-8\") as f:"
       }
     },
     {
@@ -24568,7 +24623,7 @@
       "evidence": {
         "file": "provas/o_mapa_nao_mente.py",
         "line": 109,
-        "snippet": "open(DECLARADO, 'leitura')  # DECLARADO = system-map/data/architecture.declared.json"
+        "snippet": "with open(DECLARADO, encoding=\"utf-8\") as f:"
       }
     },
     {
@@ -24579,7 +24634,7 @@
       "evidence": {
         "file": "provas/o_mapa_nao_mente.py",
         "line": 115,
-        "snippet": "open(DECLARADO, 'w')  # DECLARADO = system-map/data/architecture.declared.json"
+        "snippet": "with open(DECLARADO, \"w\", encoding=\"utf-8\", newline=\"\\n\") as f:"
       }
     },
     {
@@ -24667,7 +24722,7 @@
       "evidence": {
         "file": "provas/paridade_da_lingua.py",
         "line": 60,
-        "snippet": "open(MIGRATION, 'leitura')  # MIGRATION = supabase/migrations/024_a_corrida_conta_o_que_passou.sql"
+        "snippet": "return open(MIGRATION, encoding='utf-8').read()"
       }
     },
     {
@@ -24678,7 +24733,7 @@
       "evidence": {
         "file": "provas/paridade_da_lingua.py",
         "line": 220,
-        "snippet": "open(SCANNER, 'leitura')  # SCANNER = system-map/scripts/censo_da_observabilidade.py"
+        "snippet": "fonte_scanner = open(SCANNER, encoding='utf-8').read()"
       }
     },
     {
@@ -24700,7 +24755,7 @@
       "evidence": {
         "file": "provas/preservar_coleta_no_postgres.py",
         "line": 524,
-        "snippet": "open(MIGRACAO, 'leitura')  # MIGRACAO = supabase/migrations/001_fundacao_geografia_e_proveniencia.sql"
+        "snippet": "with open(MIGRACAO, encoding=\"utf-8\") as f:"
       }
     },
     {
@@ -24931,7 +24986,7 @@
       "evidence": {
         "file": "provas/trava_da_inteligencia_morde.py",
         "line": 60,
-        "snippet": "open(CONTRATO, 'leitura')  # CONTRATO = docs/operacao/TRAVA-DA-INTELIGENCIA.json"
+        "snippet": "with open(CONTRATO, encoding=\"utf-8\") as f:"
       }
     },
     {
@@ -25074,7 +25129,7 @@
       "evidence": {
         "file": "provas/valida_biblia.py",
         "line": 237,
-        "snippet": "open(LEIS_JSON, 'w')  # LEIS_JSON = docs/biblia/leis.json"
+        "snippet": "with open(LEIS_JSON, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -25140,7 +25195,7 @@
       "evidence": {
         "file": "regras/comunicacao_universo.py",
         "line": 186,
-        "snippet": "open(destino, 'w')  # destino = data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json"
+        "snippet": "with open(destino, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -25382,7 +25437,7 @@
       "evidence": {
         "file": "regras/proveniencia.py",
         "line": 362,
-        "snippet": "open(POLITICA, 'leitura')  # POLITICA = data/samples/POLITICA-RAW-ROTA-PAGA.json"
+        "snippet": "with open(POLITICA, encoding='utf-8') as f:"
       }
     },
     {
@@ -25393,7 +25448,7 @@
       "evidence": {
         "file": "regras/proveniencia.py",
         "line": 366,
-        "snippet": "open(POLITICA, 'w')  # POLITICA = data/samples/POLITICA-RAW-ROTA-PAGA.json"
+        "snippet": "with open(POLITICA, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -25404,7 +25459,7 @@
       "evidence": {
         "file": "regras/proveniencia.py",
         "line": 108,
-        "snippet": "open(MANIFESTO, 'leitura')  # MANIFESTO = data/samples/RUN-MANIFEST.json"
+        "snippet": "with open(MANIFESTO, encoding='utf-8') as f:"
       }
     },
     {
@@ -25415,7 +25470,7 @@
       "evidence": {
         "file": "regras/proveniencia.py",
         "line": 147,
-        "snippet": "open(MANIFESTO, 'w')  # MANIFESTO = data/samples/RUN-MANIFEST.json"
+        "snippet": "with open(MANIFESTO, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -25448,7 +25503,7 @@
       "evidence": {
         "file": "regras/rotulos_censo.py",
         "line": 146,
-        "snippet": "open(destino, 'w')  # destino = data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json"
+        "snippet": "json.dump(saida, open(destino, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
       }
     },
     {
@@ -25481,7 +25536,7 @@
       "evidence": {
         "file": "regras/sensor_coleta.py",
         "line": 345,
-        "snippet": "open(UNIVERSO, 'leitura')  # UNIVERSO = data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+        "snippet": "with open(UNIVERSO, encoding='utf-8') as f:"
       }
     },
     {
@@ -25541,6 +25596,17 @@
     },
     {
       "from_file": "superficie/ask_sintonia.py",
+      "to_file": "data/samples/ASK-SINTONIA-benchmark.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "superficie/ask_sintonia.py",
+        "line": 351,
+        "snippet": "open(out, 'w'), ensure_ascii=False, indent=2)"
+      }
+    },
+    {
+      "from_file": "superficie/ask_sintonia.py",
       "to_file": "data/samples/ASK-SINTONIA-teste.json",
       "type": "READS",
       "payload": "artefacto",
@@ -25557,8 +25623,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "superficie/ask_sintonia.py",
-        "line": 351,
-        "snippet": "open(out, 'w')  # out = data/samples/ASK-SINTONIA-teste.json"
+        "line": 370,
+        "snippet": "'questions': ANSWERS}, open(out, 'w'), ensure_ascii=False, indent=2)"
       }
     },
     {
@@ -25569,7 +25635,7 @@
       "evidence": {
         "file": "superficie/ask_sintonia.py",
         "line": 72,
-        "snippet": "open(p, 'leitura')  # p = data/samples/ES-T3-001-raif-olivar-repilo-2026.json"
+        "snippet": "d = json.load(open(p, encoding='utf-8'))"
       }
     },
     {
@@ -25591,7 +25657,7 @@
       "evidence": {
         "file": "superficie/es/proto_es.py",
         "line": 497,
-        "snippet": "open(dest, 'w')  # dest = build/sintonia-es.html"
+        "snippet": "with open(dest, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -26042,7 +26108,7 @@
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
         "line": 39,
-        "snippet": "open(CATALOGO, 'leitura')  # CATALOGO = candidatas/ITALY-SOURCE-MASTER-V1.json"
+        "snippet": "with open(CATALOGO, encoding='utf-8') as f:"
       }
     },
     {
@@ -26053,7 +26119,7 @@
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
         "line": 449,
-        "snippet": "open(LEDGER, 'leitura')  # LEDGER = data/collection-ledger/italy/observations.ndjson"
+        "snippet": "with open(LEDGER, encoding='utf-8') as f:"
       }
     },
     {
@@ -26064,7 +26130,7 @@
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
         "line": 468,
-        "snippet": "open(PROBE, 'leitura')  # PROBE = data/samples/IT-PROBE/probe-fase-c.json"
+        "snippet": "with open(PROBE, encoding='utf-8') as f:"
       }
     },
     {
@@ -26129,8 +26195,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
-        "line": 265,
-        "snippet": "open(caminho, 'leitura')  # caminho = orquestrador/orquestrador.py"
+        "line": 688,
+        "snippet": "caminho = os.path.join(RAIZ, 'orquestrador', 'orquestrador.py')"
       }
     },
     {
@@ -26152,7 +26218,7 @@
       "evidence": {
         "file": "system-map/scripts/censo_das_estradas_it.py",
         "line": 312,
-        "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
+        "snippet": "with open(MODELO, encoding='utf-8') as f:"
       }
     },
     {
@@ -26317,7 +26383,7 @@
       "evidence": {
         "file": "system-map/scripts/censo_dos_executores.py",
         "line": 227,
-        "snippet": "open(PROVAS, 'leitura')  # PROVAS = system-map/data/provas-de-execucao.json"
+        "snippet": "return json.load(open(PROVAS, encoding='utf-8')).get('PROVADOS', {})"
       }
     },
     {
@@ -26454,6 +26520,17 @@
     },
     {
       "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "docs/fontes/INDICE-DE-FONTES.md",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 2470,
+        "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
       "to_file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
       "type": "READS",
       "payload": "artefacto",
@@ -26494,6 +26571,17 @@
         "file": "system-map/scripts/generate_system_map.py",
         "line": 2888,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "regras/LEIA-ANTES-DE-COLETAR.md",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 2890,
+        "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
       }
     },
     {
@@ -26553,6 +26641,17 @@
     },
     {
       "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "system-map/data/architecture.declared.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 3473,
+        "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
       "to_file": "system-map/data/fronteira.observada.json",
       "type": "READS",
       "payload": "artefacto",
@@ -26569,7 +26668,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3466,
+        "line": 3486,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -26580,7 +26679,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3466,
+        "line": 3486,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -26604,6 +26703,17 @@
         "file": "system-map/scripts/mudar_gaveta.py",
         "line": 31,
         "snippet": "DECL = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/mudar_gaveta.py",
+      "to_file": "system-map/data/architecture.declared.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/mudar_gaveta.py",
+        "line": 112,
+        "snippet": "DECL.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding='utf-8')"
       }
     },
     {
@@ -26723,7 +26833,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_repo.py",
-        "line": 385,
+        "line": 460,
         "snippet": "\"\"\"`'PUBLIC-COMM-FIRST-BATCH-EAME.json'` -> o unico ficheiro com esse nome."
       }
     },
@@ -26734,7 +26844,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_repo.py",
-        "line": 395,
+        "line": 470,
         "snippet": "\"\"\"`<script src=\"italy-v21.js\">` e um caminho relativo a propria pasta."
       }
     },
@@ -26745,7 +26855,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_repo.py",
-        "line": 614,
+        "line": 691,
         "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
       }
     },
@@ -27076,7 +27186,7 @@
       "evidence": {
         "file": "tests/es/test_adama_es_gate.py",
         "line": 21,
-        "snippet": "open(PORTAO, 'leitura')  # PORTAO = data/samples/ADAMA-ES-HANDOFF-GATE-V1.json"
+        "snippet": "with open(PORTAO, encoding='utf-8') as f:"
       }
     },
     {
@@ -27087,7 +27197,7 @@
       "evidence": {
         "file": "tests/es/test_adama_es_gate.py",
         "line": 304,
-        "snippet": "open(p, 'leitura')  # p = supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql"
+        "snippet": "with open(p, encoding='utf-8') as f:"
       }
     },
     {
@@ -27493,8 +27603,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_calendario_temporal.py",
-        "line": 315,
-        "snippet": "p = os.path.join(FIXTURES, 'es_calendario_mvp.sql')"
+        "line": 317,
+        "snippet": "with open(p, encoding='utf-8') as f:"
       }
     },
     {
@@ -27548,8 +27658,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_calendario_temporal.py",
-        "line": 317,
-        "snippet": "open(p, 'leitura')  # p = supabase/tests/regressoes_calendario.sql"
+        "line": 343,
+        "snippet": "with open(p, encoding='utf-8') as f:"
       }
     },
     {
@@ -27780,7 +27890,7 @@
       "evidence": {
         "file": "tests/test_cicatrizes_brasil.py",
         "line": 21,
-        "snippet": "open(MATRIZ, 'leitura')  # MATRIZ = data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json"
+        "snippet": "with open(MATRIZ, encoding='utf-8') as f:"
       }
     },
     {
@@ -28077,7 +28187,7 @@
       "evidence": {
         "file": "tests/test_coleta_externa.py",
         "line": 41,
-        "snippet": "open(REGUA, 'leitura')  # REGUA = medidas/REGRA-DE-COLETA-EXTERNA-EAME.md"
+        "snippet": "with open(REGUA, encoding='utf-8') as f:"
       }
     },
     {
@@ -28231,7 +28341,7 @@
       "evidence": {
         "file": "tests/test_completude_oportunidade.py",
         "line": 178,
-        "snippet": "open(MEDIDA, 'leitura')  # MEDIDA = data/samples/IT-COMPLETUDE/IT-COMPLETUDE-OPORTUNIDADE.json"
+        "snippet": "with open(MEDIDA, encoding='utf-8') as f:"
       }
     },
     {
@@ -28319,7 +28429,7 @@
       "evidence": {
         "file": "tests/test_estradas_it.py",
         "line": 127,
-        "snippet": "open(MAPA, 'leitura')  # MAPA = docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md"
+        "snippet": "with open(MAPA, encoding='utf-8') as f:"
       }
     },
     {
@@ -28330,7 +28440,7 @@
       "evidence": {
         "file": "tests/test_estradas_it.py",
         "line": 50,
-        "snippet": "open(MODELO, 'leitura')  # MODELO = system-map/data/estradas-it.model.json"
+        "snippet": "with open(MODELO, encoding='utf-8') as f:"
       }
     },
     {
@@ -28341,7 +28451,7 @@
       "evidence": {
         "file": "tests/test_estradas_it.py",
         "line": 54,
-        "snippet": "open(MODELO, 'w')  # MODELO = system-map/data/estradas-it.model.json"
+        "snippet": "with open(MODELO, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -28362,8 +28472,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_evidence.py",
-        "line": 22,
-        "snippet": "open(p, 'leitura')  # p = data/samples/EU-T4-001/evidence-32026R1696.json"
+        "line": 73,
+        "snippet": "p = os.path.join(SAMPLES, 'EU-T4-001', 'evidence-32026R1696.json')"
       }
     },
     {
@@ -29100,7 +29210,7 @@
       "evidence": {
         "file": "tests/test_lingua_unica.py",
         "line": 29,
-        "snippet": "open(MIGRATION, 'leitura')  # MIGRATION = supabase/migrations/024_a_corrida_conta_o_que_passou.sql"
+        "snippet": "SQL = open(MIGRATION, encoding='utf-8').read()"
       }
     },
     {
@@ -29110,8 +29220,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_lingua_unica.py",
-        "line": 85,
-        "snippet": "open(caminho, 'leitura')  # caminho = system-map/scripts/censo_da_observabilidade.py"
+        "line": 73,
+        "snippet": "fonte = open(caminho, encoding='utf-8').read()"
       }
     },
     {
@@ -29210,7 +29320,7 @@
       "evidence": {
         "file": "tests/test_m2_aresta_observada.py",
         "line": 197,
-        "snippet": "open(LEDGER, 'leitura')  # LEDGER = system-map/data/provas-de-execucao.json"
+        "snippet": "with open(LEDGER, encoding=\"utf-8\") as f:"
       }
     },
     {
@@ -29683,7 +29793,7 @@
       "evidence": {
         "file": "tests/test_migrations.py",
         "line": 293,
-        "snippet": "open(caminho, 'leitura')  # caminho = data/samples/RAW-PESADO-CONGELADO.txt"
+        "snippet": "with open(caminho, encoding='utf-8') as f:"
       }
     },
     {
@@ -29759,8 +29869,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
-        "line": 42,
-        "snippet": "open(p, 'leitura')  # p = coleta/executor_texto_de_pdf.py"
+        "line": 27,
+        "snippet": "EXECUTOR = os.path.join(RAIZ, 'coleta', 'executor_texto_de_pdf.py')"
       }
     },
     {
@@ -29859,7 +29969,7 @@
       "evidence": {
         "file": "tests/test_o10r_a_verdade_dos_nomes.py",
         "line": 38,
-        "snippet": "open(LEDGER, 'leitura')  # LEDGER = system-map/data/provas-de-execucao.json"
+        "snippet": "return json.load(open(LEDGER, encoding='utf-8'))"
       }
     },
     {
@@ -29969,7 +30079,7 @@
       "evidence": {
         "file": "tests/test_o9_caminho_instrumentado.py",
         "line": 535,
-        "snippet": "open(caminho, 'leitura')  # caminho = medidas/corrida_instrumentada.py"
+        "snippet": "arvore = ast.parse(open(caminho, encoding='utf-8').read())"
       }
     },
     {
@@ -30200,7 +30310,7 @@
       "evidence": {
         "file": "tests/test_operacao.py",
         "line": 462,
-        "snippet": "open(p, 'leitura')  # p = data/samples/ES-T4-005-ficha-primaria-es01717.json"
+        "snippet": "with open(p, encoding='utf-8') as f:"
       }
     },
     {
@@ -30288,7 +30398,7 @@
       "evidence": {
         "file": "tests/test_pipeline.py",
         "line": 24,
-        "snippet": "open(FIXTURE, 'leitura')  # FIXTURE = tests/fixtures/yt-raw-minimo.json"
+        "snippet": "with open(FIXTURE, encoding='utf-8') as f:"
       }
     },
     {
@@ -30354,7 +30464,7 @@
       "evidence": {
         "file": "tests/test_politica_da_coleta.py",
         "line": 28,
-        "snippet": "open(caminho, 'leitura')  # caminho = leis/politica_da_coleta.py"
+        "snippet": "with open(caminho, encoding='utf-8') as fh:"
       }
     },
     {
@@ -30672,8 +30782,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preservar_coleta_no_banco.py",
-        "line": 365,
-        "snippet": "\"REGISTO-DE-ARTEFATOS.json\")"
+        "line": 369,
+        "snippet": "with open(caminho, encoding=\"utf-8\") as f:"
       }
     },
     {
@@ -30705,8 +30815,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preservar_coleta_no_banco.py",
-        "line": 369,
-        "snippet": "open(caminho, 'leitura')  # caminho = provas/preservar_coleta_no_postgres.py"
+        "line": 450,
+        "snippet": "caminho = os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\")"
       }
     },
     {
@@ -30728,7 +30838,7 @@
       "evidence": {
         "file": "tests/test_preservar_derivado.py",
         "line": 541,
-        "snippet": "open(registo, 'leitura')  # registo = data/derivados/REGISTO-DE-ARTEFATOS.json"
+        "snippet": "with open(registo, encoding=\"utf-8\") as f:"
       }
     },
     {
@@ -31718,7 +31828,7 @@
       "evidence": {
         "file": "tests/test_voz.py",
         "line": 22,
-        "snippet": "open(DOC, 'leitura')  # DOC = docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md"
+        "snippet": "with open(DOC, encoding='utf-8') as f:"
       }
     },
     {
@@ -31982,7 +32092,7 @@
       "evidence": {
         "file": "tests/test_youtube_piloto.py",
         "line": 512,
-        "snippet": "open(caminho, 'leitura')  # caminho = .github/workflows/scrap-social.yml"
+        "snippet": "with open(caminho, encoding='utf-8') as f:"
       }
     },
     {
@@ -32564,7 +32674,7 @@
     "files_tracked": 1345,
     "files_readable": 498,
     "files_code_dir": 552,
-    "file_edges": 2061,
+    "file_edges": 2071,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

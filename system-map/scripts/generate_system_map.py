@@ -2959,15 +2959,34 @@ def main_uma_vez(stamp: bool) -> int:
     # ── 1b · o artefato pertence a quem o escreve ────────────────────────────
     # Duas passagens: um artefato pode ser escrito por um script que so ganhou
     # dono na primeira volta.
+    #
+    # E O ARTEFACTO COM DOIS AUTORES? A eleicao aqui e por ordem alfabetica, e
+    # isso nunca se tinha notado porque so se via UM autor por artefacto — os
+    # que escrevem por `pathlib` eram invisiveis para o censo (ver
+    # `escritas_por_constante`). Assim que passaram a ver-se, o dono de
+    # `data/samples/RUN-MANIFEST.json` mudou sozinho de C-PROCEDENCIA para
+    # C-ESTRADA-PDF, sem ninguem ter mexido no repositorio.
+    #
+    #     UM DONO ELEITO POR ORDEM ALFABETICA NAO E UM DONO.
+    #
+    # Nao invento o dono certo: registo que ha mais de um, e quem sao. A escolha
+    # e de gente, e enquanto nao for feita o mapa diz que nao esta feita.
     produz: dict[str, list] = {}
+    autores: dict[str, set] = {}
     for _ in range(2):
         for e in G["FILE_EDGES"]:
             if e["type"] != "WRITES":
                 continue
             autor = dono.get(e["from_file"])
-            if autor and e["to_file"] not in dono:
+            if not autor:
+                continue
+            autores.setdefault(e["to_file"], set()).add(autor)
+            if e["to_file"] not in dono:
                 dono[e["to_file"]] = autor
                 produz.setdefault(autor, []).append(e["to_file"])
+
+    varios_autores = [{"file": a, "written_by": sorted(p), "owner_elected": dono[a]}
+                      for a, p in sorted(autores.items()) if len(p) > 1]
 
     veiculos, lig_veiculos = os_veiculos(comps, dono, G)
     gerados += veiculos
@@ -3425,6 +3444,7 @@ def main_uma_vez(stamp: bool) -> int:
         "UNCLAIMED_CODE_FILES": orfaos_de_codigo,
         "UNCLAIMED_FILES_COUNT": len(nao_reivindicados),
         "OWNERSHIP_CONFLICTS": conflitos,
+        "ARTEFACT_MULTIPLE_AUTHORS": varios_autores,
     }
 
     st = [n["status"] for n in nos]

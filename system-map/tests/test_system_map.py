@@ -496,6 +496,106 @@ proibido = [t for t in ("const nodes=[", "const edges=[", "const NODES", "const 
 prova("a_tela_nao_guarda_facto_nenhum", not proibido,
       f"encontrado no map.js: {proibido} — facto escrito na tela nao passa por validador")
 
+# ─────────────────────────────────────────────────────────────────────────────
+# A CONSTANTE QUE ESCONDE O AUTOR
+#
+# `scan_repo.escritas_por_constante` liga a linha que DA NOME ao ficheiro com a
+# linha que o ESCREVE, seiscentas linhas abaixo. Duas coisas escapavam-lhe, e as
+# duas apagavam autoria real do mapa:
+#
+#   1 · so via `open(X, 'w')`. Metade desta casa escreve com `pathlib`, e
+#       `LIVRO.write_text(...)` nao passa por `open()` nenhum. A porta de
+#       admissao aparecia com `produces: []` — o mapa dizia, por escrito, que
+#       nada saia dela — e `REGISTO-DE-ARTEFATOS.json` tinha nove leitores e
+#       zero autores.
+#
+#   2 · deixava a ULTIMA atribuicao ganhar, varrendo o modulo inteiro sem olhar
+#       a escopo nem a ordem. Sessenta nomes desta arvore estao ligados a mais
+#       de um ficheiro, e isso fabricava arestas.
+# ─────────────────────────────────────────────────────────────────────────────
+sys.path.insert(0, str(RAIZ / "system-map" / "scripts"))
+import scan_repo as SCAN  # noqa: E402
+
+_UNICOS = {"UM.json": ["data/UM.json"], "DOIS.json": ["data/DOIS.json"]}
+
+_PATHLIB = """
+import pathlib
+LIVRO = pathlib.Path('data/UM.json')
+def escrever():
+    LIVRO.write_text('{}')
+"""
+_achado = SCAN.escritas_por_constante("sintetico.py", _UNICOS, _PATHLIB)
+prova("escrita_por_pathlib_tem_autor",
+      [(a, t) for a, t, *_ in _achado] == [("data/UM.json", "WRITES")],
+      f"`CONST.write_text()` e uma escrita como qualquer outra; medido: {_achado}")
+
+# MUTACAO 1 · o detector tem de estar preso ao METODO, nao a presenca do nome.
+_MUTANTE = _PATHLIB.replace("write_text", "resolve")
+prova("mutacao_metodo_que_nao_escreve_nao_vira_autor",
+      not SCAN.escritas_por_constante("sintetico.py", _UNICOS, _MUTANTE),
+      "`LIVRO.resolve()` nao escreve nada e nao pode dar autoria a ninguem")
+
+# MUTACAO 2 · a prova tem de ser a LINHA QUE ESCREVE. Uma aresta certa com prova
+# inventada e uma aresta que ninguem consegue conferir.
+prova("a_prova_e_a_linha_que_escreve",
+      _achado and _achado[0][5] == "LIVRO.write_text('{}')" and _achado[0][2] == 5,
+      f"medido: linha {_achado[0][2] if _achado else '-'} · {_achado[0][5] if _achado else '-'}")
+
+# ESCOPO · a ligacao viva e a ultima ANTES daquela linha, no escopo mais proximo.
+# Este e o caso real de `superficie/ask_sintonia.py`: a escrita do BENCHMARK
+# estava a ser atribuida ao TESTE porque a atribuicao de baixo tinha ganho.
+_ESCOPO = """
+import json
+def benchmark():
+    out = 'data/UM.json'
+    json.dump({}, open(out, 'w'))
+out = 'data/DOIS.json'
+json.dump({}, open(out, 'w'))
+"""
+_e = sorted((a, t, n) for a, t, n, *_ in SCAN.escritas_por_constante(
+    "sintetico.py", _UNICOS, _ESCOPO))
+prova("cada_escrita_vai_para_o_ficheiro_que_estava_vivo_ali",
+      _e == [("data/DOIS.json", "WRITES", 7), ("data/UM.json", "WRITES", 5)],
+      f"a atribuicao de baixo nao pode roubar a escrita de cima; medido: {_e}")
+
+# MUTACAO 3 · sem nenhuma ligacao ANTES da linha, nao se responde. Adivinhar o
+# ficheiro seria fabricar a aresta mais importante do mapa.
+_DEPOIS = """
+import json
+def escrever():
+    json.dump({}, open(out, 'w'))
+out = 'data/UM.json'
+"""
+prova("sem_ligacao_antes_da_linha_o_censo_cala_se",
+      not SCAN.escritas_por_constante("sintetico.py", _UNICOS, _DEPOIS),
+      "nome so ligado DEPOIS da escrita: nao ha como saber, e nao se inventa")
+
+# ── e no repositorio de verdade: os tres artefactos que nao tinham autor ─────
+_AUTORES = {}
+for _e in G["FILE_EDGES"]:
+    if _e["type"] == "WRITES":
+        _AUTORES.setdefault(_e["to_file"], []).append(_e["from_file"])
+# O nome vem partido de proposito. Este teste NAO abre nenhum destes ficheiros:
+# le o mapa e pergunta-lhe quem os escreve. Escrever o caminho inteiro aqui
+# criaria tres arestas READS a dizer que o teste os consome — e foi contra
+# exactamente esse tipo de aresta (um nome numa lista nao e uma rota) que este
+# bloco todo foi escrito.
+for _pasta, _nome in (("data/samples", "LIVRO-DE-DECISOES"),
+                      ("data/derivados", "REGISTO-DE-ARTEFATOS"),
+                      ("data/samples", "RUN-MANIFEST")):
+    _art = f"{_pasta}/{_nome}.json"
+    prova(f"tem_autor_{_nome}", bool(_AUTORES.get(_art)),
+          "UM ARTEFACTO SEM AUTOR NAO E UM ARTEFACTO SEM AUTOR — "
+          "E UMA MEDICAO QUE NAO OLHOU")
+
+# O dono eleito por ordem alfabetica nao e um dono: quando ha mais de um autor,
+# o mapa tem de o DIZER em vez de sortear em silencio.
+prova("o_artefacto_com_dois_autores_esta_declarado",
+      "ARTEFACT_MULTIPLE_AUTHORS" in S,
+      "sem esta lista, o dono de RUN-MANIFEST.json muda sozinho quando alguem "
+      "renomeia uma peca, e ninguem repara")
+
+
 print()
 if falhas:
     print(f"TESTES_SYSTEM_MAP=FAIL · {len(falhas)} reprovada(s): {', '.join(falhas)}")
