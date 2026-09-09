@@ -539,3 +539,363 @@ decidindo**, e a decisão é sua.
    nenhum módulo de runtime o importa.
 4. **`apify_contrato.py` e `apify_recuperar.py` ficam ou saem?** Estão parados,
    nunca produziram nada, e duas leis da Bíblia nomeiam-nos.
+
+---
+
+# APÊNDICE II · C-TOPOLOGY-2 — as quatro decisões, executadas
+
+O §R deste relatório terminava com quatro perguntas para gente. As quatro foram
+respondidas, e este apêndice regista o que a resposta mudou no repositório —
+não no desenho.
+
+## 1 · GOVERNANÇA — a família que faltava
+
+`Z-PROVA` (34 cartões) e `Z-REGUAS` (11) viviam em `F-INTELIGENCIA` por não
+haver sítio para elas. Nasce **`F-GOVERNANCA`**, uma família transversal (uma, e
+não duas), e as duas zonas mudam de casa.
+
+```
+PROVA ≠ INTELIGÊNCIA.   REGRA ≠ INTELIGÊNCIA.
+E NENHUMA DAS DUAS É ETAPA OPERACIONAL.
+```
+
+**Nenhuma aresta foi tocada.** As relações são exactamente as mesmas; o que mudou
+foi a arrumação. E o número que a queixa original media desabou:
+
+```
+COLLECTION → INTELLIGENCE     149  ->    6
+COLLECTION → GOVERNANCE         –  ->  143
+das que atravessam, levam DADO           0
+```
+
+As **seis** que sobram são explicáveis uma a uma, e cada uma tem linha de código:
+
+| aresta | categoria | prova |
+|---|---|---|
+| `C-ADAMA-IT → C-V21-INGEST` | READ | `motor/v21_ingest.py:266` |
+| `C-CI-PERSIST → C-CADEIA-V21` | CONTROL | `supabase-migrate.yml:92` |
+| `C-FONTES-EU → C-V21-INGEST` | CODE | `motor/normalize_agro.py:29` |
+| `C-PALAVRAS → C-V21-CRUZAMENTO` | RULE | `motor/pacote_convergencia.py:101` |
+| `C-ROTULOS → C-V21-CRUZAMENTO` | READ | `motor/pacote_convergencia.py:40` |
+| `C-SUPABASE → C-CADEIA-V21` | READ | `motor/cadeia_canonica.sh:151` |
+
+A arrumação mudou também no desenho: a moldura de uma família é o rectângulo que
+envolve as zonas dela, e as zonas estavam intercaladas — a caixa da COLETA
+engolia a da GOVERNANÇA. Cada família passa a ocupar um bloco contíguo, e a
+**governança fica no fim, fora da esteira**. A espinha da vista principal
+lê-se da esquerda para a direita e **acaba no READY**.
+
+**Design.** O endereço do ADAMA Design System devolve `HTTP 403` nesta sessão:
+`ADAMA_DESIGN_SYSTEM_CONSULTA = NAO_ALCANCADA`. Não foi inventada cor — foi
+reutilizado `--color-secondary-purple` do extracto versionado, com moldura mais
+fina e borda tracejada para se ler como apoio.
+`ADAMA_DESIGN_SYSTEM_MATCH = TOKEN_OFICIAL_REUTILIZADO`.
+
+## 2 · O MANIFESTO — um dono, e a arquitectura a convergir com ele
+
+Três peças escreviam `data/samples/RUN-MANIFEST.json`. **Dono canónico:
+`C-PROCEDENCIA`**, porque o manifesto é o registo de procedência da execução.
+
+```
+EXECUTAR A CORRIDA NÃO É SER A AUTORIDADE SOBRE A PROCEDÊNCIA DELA.
+```
+
+O que o sorteio custava está medido no próprio ficheiro: das 20 corridas, **10**
+sem `DATASET_ID`/`SOURCE_VERSION`/`RAW_EVIDENCE_PATH`/`RAW_EVIDENCE_STATE`, e
+**3** com `STATUS: OK`, palavra que a lei não aceita. As treze saíram das duas
+peças que apendiam o recibo à mão, sem passar pelo contrato.
+
+Nasce a **menor interface possível dentro do dono que já existia** —
+`regras/proveniencia.py::acrescentar` — e não um `manifest_writer_v2.py` ao
+lado. As outras duas deixam de ter sequer o **caminho** do ficheiro: uma
+constante órfã é uma porta destrancada.
+
+```
+escritores do RUN-MANIFEST   3  ->  1
+```
+
+## 3A · O CARTÃO-PACOTE PARTIDO
+
+`C-GESTAO-COLETA` juntava «duas autoridades distintas». Os chamadores provam que
+são duas coisas, e os nomes vieram da função real:
+
+| cartão | o que é | chamadores |
+|---|---|---|
+| `C-POLITICA-COLETA` | o que colher, quando, e se já temos | 1, e é um teste |
+| `C-DIAGNOSTICO` | onde o fluxo parou e quem tem de agir — 17 códigos | runtime, provas e testes |
+
+O cartão antigo **não ficou como alias**: desapareceu, e com ele a colisão de
+nome com `C-GESTAO-DA-COLETA`.
+
+## 3B · A LEI QUE FINGIA SER MOTOR
+
+`C-LUGAR-COLETA` dizia «o motor importa esta lei para decidir». Medido: uma linha
+de `import` em toda a árvore para cada ficheiro, e as duas em
+`tests/test_lugar_do_fato.py`.
+
+A frase não era falha do cartão: era da **regra que a escrevia**. Corrigida,
+aparecem **cinco** leis nesta condição, e não uma —
+`C-IDENTIDADE`, `C-LUGAR-COLETA`, `C-POLITICA-COLETA`, `C-REGRA-COLETA`,
+`C-SAUDE-FONTE`. Todas ficam `DECLARED_RULE_NOT_ENFORCED`, e **nenhuma aresta foi
+criada para as fazer parecer usadas**.
+
+A lei continua válida e por isso não foi apagada: mudou de sítio, e os **dois
+ficheiros mudaram de gaveta com ela** (`medidas/` → `leis/`), porque o mapa exige
+que a prateleira e o mapa contem a mesma história. Nove ficheiros apontavam para
+o caminho antigo; os nove foram actualizados.
+
+## 4 · AS DUAS FERRAMENTAS MORTAS
+
+```
+ferramentas/apify_contrato.py    importadores 0 · workflows 0 · saída nunca existiu
+ferramentas/apify_recuperar.py   importadores 0 · workflows 0 · saída nunca existiu
+```
+
+As duas saíram, **sem stub**. Isto **não é «remover Apify do SINTONIA»**:
+`apify_pool.py` continua, e os dois workflows que o correm continuam.
+
+A lei não morre com o ficheiro. `COL-LAW-019` nomeava `apify_contrato.py`, e o
+que ela exige — ler o contrato do ator **de graça** antes de gastar — continua
+canónico. O dono vivo desse conceito já existia: `ferramentas/contrato_ator.py`,
+importado em runtime pela esteira. **A ferramenta morta era o duplicado.**
+
+```
+UMA LEI NÃO DEPENDE DE UM NOME DE FICHEIRO. DEPENDE DO QUE ELA EXIGE.
+```
+
+## 5 · «MEDE» E «CARIMBA» — decidido pela função real
+
+A prova `regua_que_carimba_nao_e_regua_que_mede` estava vermelha desde a missão
+anterior, e de propósito: a pergunta dela era indecidível.
+
+```
+UM IMPORT NÃO É UM CARIMBO.
+E A SETA DO IMPORT APONTA PARA O LADO CONTRÁRIO DA DEPENDÊNCIA.
+```
+
+O sinal que decide não está em quem me importa: está no que eu **produzo** e em
+**quem o consome**.
+
+| papel | como se mede | quantos |
+|---|---|---|
+| `STAMPS` | escreve artefacto que uma peça **da esteira** lê | 3 |
+| `MEASURES` | lê artefacto; o que escreve só é lido por prova, censo, motor ou ninguém | 15 |
+| `DECLARES` | não lê nem escreve artefacto: enuncia vocabulário | 11 |
+| `NÃO SEI` | escreve e não há como dizer quem lê | **0** |
+
+Cada peça carrega a frase que o prova. **Não se classifica por nome:** `medidas/`
+e `regras/` são gavetas, e uma gaveta não é uma função.
+
+**Família e papel são eixos diferentes**, e há prova disso: quem carimba vive em
+duas famílias. Se um dia o papel passar a sair da família, essa prova cai.
+
+## 6 · O RED TEAM — seis ataques, seis reprovações
+
+Nenhuma destas guardas foi suposta: cada uma foi atacada e vista a morder.
+
+| ataque | o que reprovou |
+|---|---|
+| `Z-PROVA` volta para `F-INTELIGENCIA` | `prova_e_regua_vivem_na_governanca` · `nenhuma_zona_de_prova_ou_regua_ficou_na_inteligencia` · `a_coleta_nao_conversa_com_o_motor_as_centenas` |
+| outro componente volta a escrever o `RUN-MANIFEST` | `CANONICAL_OWNER_VIOLATIONS = MULTIPLE_CANONICAL_WRITERS` · `nenhum_dono_canonico_contornado` · `so_a_proveniencia_escreve_o_manifesto` · `P8_DONO_CANONICO` |
+| uma régua `MEASURES` passa a escrever estado que a esteira lê | `regua_que_carimba_nao_e_regua_que_mede` |
+| a lei volta a exigir o caminho da ferramenta morta | `B9_FICHEIROS_CITADOS` · `BIBLIA_CHECK=FAIL` |
+| aresta `DATA` do RAW direto para a Intelligence | `T5b_nenhum_dado_salta_a_porta_para_a_inteligencia` · `nenhum_dado_atravessa_para_a_inteligencia_depois_do_rehome` |
+| `'APIFY_RUNS': 0` tenta gerar rota | as três guardas continuam a recusar: rede, tabela de hosts e `NOT_TESTED` |
+
+## 7 · A ENTREGA
+
+```
+GIT
+  A. BRANCH                        claude/collection-topology-census-v1
+  B. INITIAL_HEAD                  53390ddd
+  C. FINAL_HEAD                    (o desta entrega)
+  D. COMMITS                       5
+  E. PUSHED                        SIM
+
+GOVERNANÇA
+  F. F_GOVERNANCA_CREATED          SIM · transversal
+  G. Z_PROVA_MOVED                 SIM
+  H. Z_REGUAS_MOVED                SIM
+  I. COLLECTION_INTELLIGENCE_EDGES_BEFORE   149
+  J. COLLECTION_INTELLIGENCE_EDGES_AFTER      6
+  K. COLLECTION_GOVERNANCE_EDGES_AFTER      143
+
+MANIFESTO
+  L. RUN_MANIFEST_OWNER            C-PROCEDENCIA
+  M. RUN_MANIFEST_WRITERS_BEFORE   3  (C-ORQUESTRADOR · C-ESTRADA-PDF · C-PROCEDENCIA)
+  N. RUN_MANIFEST_WRITERS_AFTER    1  (regras/proveniencia.py)
+  O. DIRECT_UNAUTHORIZED_MANIFEST_WRITERS   0
+
+GESTÃO
+  P. C_GESTAO_COLETA_SPLIT         SIM
+  Q. RESULTING_COMPONENTS          C-POLITICA-COLETA · C-DIAGNOSTICO
+  R. OLD_CARD_REMAINING            NÃO
+
+LUGAR
+  S. C_LUGAR_COLETA_RUNTIME_CARD   NÃO
+  T. RULE_RETAINED                 SIM — Z-REGUAS, F-GOVERNANCA, ficheiros em leis/
+  U. RULE_ENFORCED                 NÃO — DECLARED_RULE_NOT_ENFORCED
+
+APIFY
+  V. APIFY_CONTRATO_REMOVED        SIM
+  W. APIFY_RECUPERAR_REMOVED       SIM
+  X. ACTIVE_REFERENCES_TO_REMOVED_TOOLS     0
+
+SEMÂNTICA DO MAPA
+  Y. RULE_ROLE_MODEL               STAMPS · MEASURES · DECLARES · NÃO SEI
+                                   29 réguas · 3 · 15 · 11 · 0
+  Z. MEASURE_VS_STAMP_TEST         PASS  (por correcção semântica, não por afrouxamento)
+
+ARESTAS
+  AA. EDGES_TOTAL                  567
+  AB. EDGES_WITH_CATEGORY          567
+  AC. UNKNOWN_EDGES                0
+  AD. COLLECTION_INTELLIGENCE_DATA_EDGES    0
+
+SCRAP
+  AE. SCRAP_RAW_NAO_RECEBIDO       ABERTO
+
+READY
+  AF. READY_PRODUCTION_CONSUMERS   0
+  AG. READY_SEM_CONSUMIDOR         ABERTO
+
+STRUCTURED
+  AH. STRUCTURED_OWNER             sem dono ligado
+  AI. STRUCTURED_GAP               ABERTO
+
+TESTES
+  AJ. BASE_FAIL                    6   (BASE_PASS 63, de 69 módulos)
+  AK. FINAL_FAIL                   6   (os mesmos seis)
+  AL. NEW_FAILURES                 0
+  AM. SYSTEM_MAP_CHECK             PASS
+      TESTES_SYSTEM_MAP            PASS  (era FAIL · 1)
+      BIBLIA_CHECK                 PASS
+      PRODUCTION_MUTATION          0
+```
+
+**VEREDITO: `C-TOPOLOGY-2 = PASS`**
+
+```
+F_GOVERNANCA          = PROVED
+RUN_MANIFEST_OWNER    = UNIQUE
+C_GESTAO_COLETA       = SPLIT
+C_LUGAR_COLETA        = NO LONGER FALSE RUNTIME COMPONENT
+DEAD_APIFY_TOOLS      = REMOVED
+MEASURE_VS_STAMP      = SEMANTICALLY DECIDABLE
+UNKNOWN_EDGES         = 0
+UNEXPLAINED_INTELLIGENCE_EDGES = 0
+NEW_FAILURES          = 0
+```
+
+**A Collection continua `PARTIAL`, e isso não é falha desta missão.** Os gaps
+reais continuam gaps: `READY_SEM_CONSUMIDOR`, `SCRAP_RAW_NAO_RECEBIDO`,
+`STRUCTURED_SEM_DONO_LIGADO`, a dívida histórica de 10 manifestos e a escolha
+`IT-OWN-003` × `IT-OWN-ARPAV`. Nenhum foi fechado por decreto.
+
+---
+
+# §Q2 · EM PALAVRAS FÁCEIS — as catorze perguntas
+
+**1 · Por que parecia que a Collection tinha 149 ligações com a Intelligence?**
+Porque a prateleira das **provas** e a das **réguas** estavam guardadas dentro da
+Intelligence. Uma prova que mede a coleta tinha de ser desenhada a atravessar a
+fronteira — e são 143 dessas. O número era verdadeiro; a leitura era falsa.
+
+**2 · Quantas sobraram depois de separar a Governança?**
+**Seis.** E as seis estão na tabela do §1, cada uma com ficheiro e linha.
+
+**3 · Alguma delas leva dado?**
+**Nenhuma.** Três são leitura, uma é código, uma é regra, uma é controlo. E há
+uma prova que tenta o contrário: mete um atalho `DATA` do RAW para o motor e
+exige que ela reprove. Reprova.
+
+**4 · Quem é agora o dono único do manifesto da corrida?**
+**`C-PROCEDENCIA`** — `regras/proveniencia.py`. É a única peça que escreve o
+ficheiro, e há três guardas a medir isso, não a repeti-lo.
+
+**5 · Por que os outros dois deixaram de ser donos?**
+Porque correr não é ter autoridade. O orquestrador inicia a corrida e a estrada
+do PDF conhece os detalhes da dela — os dois continuam a trazer tudo o que
+sabem. **Escrever** é do dono da lei. E não é teoria: enquanto escreveram por
+fora, dez das vinte corridas ficaram sem quatro campos do contrato e três
+gravaram uma palavra que a lei não aceita.
+
+**6 · Em que dois componentes o `C-GESTAO-COLETA` virou?**
+`C-POLITICA-COLETA` (o que colher, quando, e se já temos) e `C-DIAGNOSTICO` (onde
+o fluxo parou e quem tem de agir). Os nomes vieram da função, não de «parte 1» e
+«parte 2». O cartão antigo não ficou.
+
+**7 · O que aconteceu com o `C-LUGAR-COLETA`?**
+Saiu da esteira. A lei é válida e ficou; a frase «o motor importa esta lei para
+decidir» é que era falsa. Está em `F-GOVERNANCA`, marcada
+`DECLARED_RULE_NOT_ENFORCED`, e os ficheiros mudaram de `medidas/` para `leis/`,
+que é onde as leis vivem. **Aplicá-la quando o dado entra continua por decidir.**
+
+**8 · As duas ferramentas Apify mortas saíram?**
+Saíram, e sem deixar ficheiro vazio no lugar. Zero referências activas.
+
+**9 · Alguma função real foi perdida?**
+**Não.** `apify_contrato.py` era o duplicado de `ferramentas/contrato_ator.py`,
+que está vivo e é importado pela esteira em runtime — é ele que a lei aponta
+agora. `apify_recuperar.py` nunca produziu a saída que declarava. E
+`apify_pool.py`, a rota paga a sério, não foi tocado.
+
+**10 · A regra «mede vs carimba» agora é decidida por quê?**
+Pelo que a peça **produz** e por **quem consome** o que ela produz. Carimba quem
+escreve algo que uma peça da esteira lê — isso entra no caminho do item. Mede
+quem olha e dá nota. Antes a pergunta era «tem uma seta a apontar para uma zona
+de acção?», e essa seta era um `import`, que aponta ao contrário da dependência.
+
+**11 · O mapa agora distingue dependência de código de fluxo de dados?**
+Sim, e são categorias diferentes em cada aresta: `CODE` é um import, `DATA` é
+artefacto a viajar. Das 567 arestas, **567 sabem dizer o que transportam** e
+nenhuma ficou `UNKNOWN`. Das seis que atravessam para a Intelligence, uma é
+`CODE` e **nenhuma** é `DATA`.
+
+**12 · Ainda existe algum card operacional cuja função não sabemos?**
+**Não.** Os 105 cartões da Collection têm «o que faz» e «por que está aqui», os
+dois que estão sozinhos são armazéns (terminais legítimos), e
+`SEM_LIGACAO_INEXPLICADOS = 0`.
+
+**13 · Ainda existe alguma edge cuja razão não sabemos?**
+**Não.** `UNKNOWN_EDGES = 0`.
+
+**14 · Quais gaps reais da Collection continuam?**
+
+| gap | falta o quê |
+|---|---|
+| `READY_SEM_CONSUMIDOR` | **arquitectura** — quem, do lado da Intelligence, lê a saída. Produtores há dois; consumidores, zero |
+| `SCRAP_RAW_NAO_RECEBIDO` | **arquitectura** — onde o bruto do SCRAP é preservado |
+| `STRUCTURED_SEM_DONO_LIGADO` | **arquitectura** — o STRUCTURED continua sem dono ligado |
+| 10 de 20 manifestos históricos incompletos | **dívida de dado** — a causa está fechada, a história fica |
+| `IT-T2-002`: `IT-OWN-003` ou `IT-OWN-ARPAV` | **decisão humana**, uma escolha entre duas |
+| 5 leis `DECLARED_RULE_NOT_ENFORCED` | **decisão** — aplicar, ou assumir que são só doutrina |
+| 3 peças em `Z-REGRAS` que não carimbam | **arrumação** — `C-IT-CONTRATOS`, `C-PALAVRAS` e `C-SENSOR-COLETA` (este é um coletor a viver em `regras/`; o rehome continua registado) |
+
+---
+
+## 8 · A LINHA PARALELA — o que existe, e o que NÃO foi integrado
+
+`git fetch --all --prune` no fecho encontrou duas linhas que se mexeram:
+
+| ramo | tocou o System Map? | integrado? |
+|---|---|---|
+| `claude/sintonia-scrap-stories-no-apify-v1` | não | — |
+| `claude/security-s2-client-server-boundary-v1` | **sim, 26 ficheiros** | **não** |
+
+A linha de Security partiu de `1c99a48b` — a base de **antes** destas duas
+missões — e mexeu no `architecture.declared.json`, no `map.js`, no `map.css` e
+no `index.html`. Ela ainda tem **22 zonas, 122 peças e `Z-PROVA` em
+`F-INTELIGENCIA`**.
+
+**Não foi integrada, e é de propósito:** Security Foundation está fora do
+escopo desta missão, e puxar o trabalho dela para cá seria decidir por ela. O
+que fica registado, para quem fizer a junção:
+
+- os `.generated.json` **não se resolvem à mão**: correm-se
+  `scan_repo.py` e `generate_system_map.py` e o conflito desaparece;
+- o que precisa de olhos é o `architecture.declared.json` — lá a família de
+  `Z-PROVA` ainda é `F-INTELIGENCIA`, e aqui é `F-GOVERNANCA`. **A semântica
+  desta missão é a mais nova**, e as guardas que a seguram estão no §6;
+- `map.css` e `index.html` mudaram dos dois lados por razões diferentes: aqui,
+  a cor e a moldura da governança.
