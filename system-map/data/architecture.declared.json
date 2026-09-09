@@ -655,7 +655,7 @@
   },
   {
    "id": "C-SINTONIA-SCRAP",
-   "name": "SINTONIA SCRAP — o despachador",
+   "name": "Despacho do SCRAP · aquisicao (Instagram, YouTube)",
    "territory": "Z-EXECUCAO",
    "kind": "workflow",
    "icon": "⚡",
@@ -2069,7 +2069,7 @@
   },
   {
    "id": "C-SCRAP-SOCIAL",
-   "name": "SINTONIA SCRAP — aquisicao social",
+   "name": "Executor do SCRAP · a aquisicao social",
    "territory": "Z-ACOES",
    "kind": "engine",
    "icon": "◉",
@@ -2596,6 +2596,25 @@
    ],
    "views": [
     "audit"
+   ]
+  },
+  {
+   "id": "C-SCRAP-ROTA",
+   "name": "Despacho do SCRAP · rota, sessao e guarda",
+   "territory": "Z-EXECUCAO",
+   "kind": "workflow",
+   "icon": "⇉",
+   "what": "O segundo botao do SCRAP, e o que decide COMO se chega ao canal: `auth_mode` (AUTO, PUBLIC, OFFICIAL_API, LOCAL_SESSION) e as fases de censo, portao, sessao, politica e guarda. AUTO deixa a politica escolher; os outros FORCAM e podem recusar.",
+   "why_here": "MAP BLIND SPOT, ate 2026-09-09: `.github/workflows/scrap-social.yml` corre `guarda/social_guarda.py` e `coleta/social_scrap.py` e NAO pertencia a cartao nenhum. O validador so exige dono para ficheiros de CODIGO, e um `.yml` passava. Eram dois botoes do SCRAP no repositorio e um no mapa — parte do «mais de um SINTONIA SCRAP» que se via na tela era, na verdade, um que estava a MAIS no disco e a MENOS no mapa. E os dois nao sao o mesmo papel: um despacha AQUISICAO (24 fases: janela, transcrever, diario), o outro despacha ROTA E SESSAO.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    ".github/workflows/scrap-social.yml"
+   ],
+   "views": [
+    "acervo",
+    "infra"
    ]
   }
  ],

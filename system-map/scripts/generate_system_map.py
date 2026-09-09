@@ -3236,8 +3236,40 @@ def main_uma_vez(stamp: bool) -> int:
     # Isto NAO e inferir DATA de um import: a prova e o que a ferramenta faz
     # (audio entra, texto sai), medido em `momento_das_ferramentas`.
     preparo = {n["id"] for n in nos if n.get("momento") == "PREPARO"}
+    # ⚠️ MAS SO QUANDO O OUTRO LADO ESTA NO CAMINHO DO ITEM.
+    #
+    # A regra acima e boa e estava larga demais: disparava se QUALQUER um dos
+    # topos fosse preparo, sem olhar para o outro. Medido, tres ligacoes
+    # falsas — e eram justamente as unicas tres que o mapa apresentava como
+    # DATA a atravessar a fronteira para a inteligencia:
+    #
+    #   C-TRANSCRICAO -> C-CENSO-DERIVACOES   um censo a LER o codigo dela
+    #   C-LEITORES    -> C-CENSO-DERIVACOES   idem
+    #   C-TRANSCRICAO -> C-SCRAP-LEIS         uma lei a ser CONSULTADA
+    #
+    # Um censo que mede a ferramenta nao recebe o item dela: recebe o texto do
+    # ficheiro .py. E uma lei consultada nao carrega item nenhum.
+    #
+    #     UMA PROVA QUE ME MEDE NAO ESTA NO MEU CAMINHO.
+    #     UMA REGRA QUE EU CONSULTO NAO VIAJA COMIGO.
+    #
+    # Sem esta guarda, o unico DATA que cruzava para a inteligencia era ruido —
+    # e um falso atravessamento e pior do que nenhum, porque manda procurar um
+    # desvio de dado onde so ha um `import`.
+    por_id_ct = {n["id"]: n for n in nos}
+
+    def _fora_do_caminho(i):
+        n = por_id_ct.get(i) or {}
+        return (n.get("territory") == "Z-PROVA"
+                or n.get("territory") in ZONAS_DE_LEI
+                or n.get("kind") in ("test", "contract"))
+
     for l in ligacoes.values():
-        if l["kind"] == "technical" and (l["from"] in preparo or l["to"] in preparo):
+        if l["kind"] != "technical":
+            continue
+        toca = (l["from"] in preparo or l["to"] in preparo)
+        outro = l["to"] if l["from"] in preparo else l["from"]
+        if toca and not _fora_do_caminho(outro):
             if l["categoria"] in (CODE, READ):
                 l["categoria"] = DATA
                 l["passa_pelo_preparo"] = True

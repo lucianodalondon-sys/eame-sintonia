@@ -159,6 +159,41 @@ mau_proof = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in TECNICAS
              if e.get("categoria") == "PROOF" and e.get("payload") == "coleta"]
 prova("T5_prova_nao_e_fluxo_de_dado", not mau_proof, "; ".join(mau_proof[:3]))
 
+# T5b · NENHUM DADO SALTA A FRONTEIRA PARA A INTELIGENCIA
+#
+# A coleta entrega pela porta: ADMISSAO -> READY. Um artefacto que va de uma
+# peca da coleta DIRECTO para uma peca da inteligencia esta a saltar a porta —
+# e isso ou tem uma lei que o autorize, ou e um desvio.
+#
+#     COLETAR != ADMITIR != JULGAR.
+#
+# Medido em 2026-09-09: das 148 ligacoes que atravessam essa fronteira, ZERO
+# sao DATA. 77 sao PROOF (provas que MEDEM a coleta), 38 READ, 14 CODE, 11
+# RULE e 8 CONTROL. Nenhuma leva item nenhum.
+#
+# As tres que o mapa mostrava como DATA eram falsas, e todas pelo mesmo
+# defeito: a regra que promove a ligacao de uma ferramenta de PREPARO a DATA
+# disparava sem olhar para o outro topo, e apanhava um censo que LE o codigo
+# da ferramenta e uma lei que ela CONSULTA.
+#
+#     UMA PROVA QUE ME MEDE NAO ESTA NO MEU CAMINHO.
+#     UMA REGRA QUE EU CONSULTO NAO VIAJA COMIGO.
+#
+# Este caso NAO exige zero para sempre. Exige que, se um dado passar a
+# atravessar, alguem tenha de vir aqui declarar a lei que o autoriza — em vez
+# de o desvio aparecer calado no meio de 148 ligacoes legitimas.
+FAM = {n["id"]: n.get("family") for n in S["NODES"]}
+LADO_DA_COLETA = {"F-COLETA", "F-ESPERA"}
+# Preenche-se com (from, to, LEI) quando existir travessia autorizada.
+TRAVESSIAS_AUTORIZADAS: set = set()
+saltam = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in TECNICAS
+          if e.get("categoria") == "DATA"
+          and FAM.get(e["from"]) in LADO_DA_COLETA
+          and FAM.get(e["to"]) == "F-INTELIGENCIA"
+          and (e["from"], e["to"]) not in TRAVESSIAS_AUTORIZADAS]
+prova("T5b_nenhum_dado_salta_a_porta_para_a_inteligencia", not saltam,
+      "; ".join(saltam[:3]))
+
 # T6 · a evidencia continua acessivel
 sem_prova = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in TECNICAS
              if not e.get("evidence")

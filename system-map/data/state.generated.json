@@ -1789,8 +1789,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "1766c2329de8c4eeaf0afe5f1772250b3e7266dc",
-    "GENERATED_AT": "2026-09-09T04:17:56+00:00"
+    "HEAD": "b3404f8020d1f6c77207889f61050afea5b6297d",
+    "GENERATED_AT": "2026-09-09T04:18:51+00:00"
   },
   "FAMILIES": [
     {
@@ -1817,7 +1817,7 @@
         "Z-REGRAS",
         "Z-MEDIDAS"
       ],
-      "count": 62
+      "count": 63
     },
     {
       "id": "F-ESPERA",
@@ -1966,7 +1966,7 @@
       "y": 190,
       "w": 405,
       "h": 3582,
-      "count": 1
+      "count": 2
     },
     {
       "id": "Z-VEICULOS",
@@ -6818,7 +6818,7 @@
       "inbound": [
         "C-APIFY-POOL",
         "C-PROCEDENCIA",
-        "C-TESTES",
+        "C-SCRAP-ROTA",
         "V-LINKEDIN"
       ],
       "outbound": [
@@ -9791,7 +9791,9 @@
       "file_count": 1,
       "status": "PENDING",
       "status_reason": "teste que nao toca em nada do repositorio.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "system-map/tests/test_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -12536,6 +12538,7 @@
         "C-COLETA-INSTAGRAM",
         "C-NAVEGADOR",
         "C-SCRAP-LEIS",
+        "C-SCRAP-ROTA",
         "C-TESTES",
         "C-V21-COMERCIAL"
       ],
@@ -12654,8 +12657,57 @@
       "y": 1970
     },
     {
+      "id": "C-SCRAP-ROTA",
+      "name": "Despacho do SCRAP · rota, sessao e guarda",
+      "territory": "Z-EXECUCAO",
+      "kind": "workflow",
+      "what": "O segundo botao do SCRAP, e o que decide COMO se chega ao canal: `auth_mode` (AUTO, PUBLIC, OFFICIAL_API, LOCAL_SESSION) e as fases de censo, portao, sessao, politica e guarda. AUTO deixa a politica escolher; os outros FORCAM e podem recusar.",
+      "why_here": "MAP BLIND SPOT, ate 2026-09-09: `.github/workflows/scrap-social.yml` corre `guarda/social_guarda.py` e `coleta/social_scrap.py` e NAO pertencia a cartao nenhum. O validador so exige dono para ficheiros de CODIGO, e um `.yml` passava. Eram dois botoes do SCRAP no repositorio e um no mapa — parte do «mais de um SINTONIA SCRAP» que se via na tela era, na verdade, um que estava a MAIS no disco e a MENOS no mapa. E os dois nao sao o mesmo papel: um despacha AQUISICAO (24 fases: janela, transcrever, diario), o outro despacha ROTA E SESSAO.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⇉",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        ".github/workflows/scrap-social.yml"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-TESTES"
+      ],
+      "outbound": [
+        "C-COLETA-BASE",
+        "C-SCRAP-GUARDA",
+        "C-SCRAP-SOCIAL",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "PRINCIPAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 4590,
+      "y": 360
+    },
+    {
       "id": "C-SCRAP-SOCIAL",
-      "name": "SINTONIA SCRAP — aquisicao social",
+      "name": "Executor do SCRAP · a aquisicao social",
       "territory": "Z-ACOES",
       "kind": "engine",
       "what": "O executor composto da aquisicao social. Quem chama diz PLATAFORMA + CAPABILITY e nunca escolhe ferramenta; a rota e decisao da casa. Reune o CLI das fases (censo, portao, video, gap, piloto, ledger, sessao, politica, guarda, youtube, youtube-piloto, youtube-piloto-oneshot), o adaptador oficial do YouTube Data API v3, as rotas gratuitas (Mastodon, Bluesky, Telegram) e o envelope que grava o RAW antes de qualquer normalizacao. Inclui o dono da PERSISTENCIA SOCIAL (conteudo, comentario, reobservacao), que recebe um canal ja resolvido e RECUSA com CHANNEL_IDENTITY_NOT_RESOLVED em vez de criar pessoa ou organizacao por conta propria.",
@@ -12691,7 +12743,7 @@
         "C-COLETA-INSTAGRAM",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
-        "C-TESTES",
+        "C-SCRAP-ROTA",
         "V-FACEBOOK",
         "V-HTTP",
         "V-INSTAGRAM",
@@ -12737,7 +12789,7 @@
     },
     {
       "id": "C-SINTONIA-SCRAP",
-      "name": "SINTONIA SCRAP — o despachador",
+      "name": "Despacho do SCRAP · aquisicao (Instagram, YouTube)",
       "territory": "Z-EXECUCAO",
       "kind": "workflow",
       "what": "O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina.",
@@ -12799,7 +12851,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 4590,
-      "y": 360
+      "y": 682
     },
     {
       "id": "C-SITE-INGEST",
@@ -14167,7 +14219,6 @@
         "tests/test_proveniencia.py"
       ],
       "produces": [
-        ".github/workflows/scrap-social.yml",
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
       ],
@@ -14235,6 +14286,7 @@
         "C-SAUDE-FONTE",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
+        "C-SCRAP-ROTA",
         "C-SCRAP-SOCIAL",
         "C-SUPABASE",
         "C-V21-COMERCIAL",
@@ -14248,13 +14300,12 @@
         "C-CENSO-CONGELAMENTO",
         "C-CI-PERSIST",
         "C-CICATRIZES-BR",
-        "C-COLETA-BASE",
         "C-ESTRADAS-IT",
         "C-PACOTE-CAMADAS",
         "C-PORTAL-DADOS",
         "C-PROVA-COLETA",
         "C-SCRAP-GUARDA",
-        "C-SCRAP-SOCIAL"
+        "C-SCRAP-ROTA"
       ],
       "paises": {
         "ESPANHA": 2
@@ -15894,7 +15945,7 @@
       "icon": "B",
       "facts": [
         "branch claude/collection-topology-census-v1",
-        "HEAD 1766c2329de8c4eeaf0afe5f1772250b3e7266dc"
+        "HEAD b3404f8020d1f6c77207889f61050afea5b6297d"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16998,7 +17049,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 369,
+          "line": 404,
           "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
         }
       ],
@@ -19200,7 +19251,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar SINTONIA SCRAP — aquisicao social. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Executor do SCRAP · a aquisicao social. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
@@ -19551,7 +19602,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por SINTONIA SCRAP — aquisicao social. Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Executor do SCRAP · a aquisicao social. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "coleta/youtube_oficial.py",
@@ -19694,7 +19745,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram tem o seu codigo importado por SINTONIA SCRAP — aquisicao social. Provado por 1 linha de codigo.",
+      "reason": "Colher o Instagram tem o seu codigo importado por Executor do SCRAP · a aquisicao social. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "coleta/social_persistencia.py",
@@ -21767,7 +21818,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Quem esta autorizado a ser coletado alimenta SINTONIA SCRAP — o despachador. Provado por 1 linha de codigo.",
+      "reason": "Quem esta autorizado a ser coletado alimenta Despacho do SCRAP · aquisicao (Instagram, YouTube). Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -22665,8 +22716,7 @@
           "snippet": "\"PRODUTOR\": \"ferramentas/italy_extract_fields.mjs\","
         }
       ],
-      "categoria": "DATA",
-      "passa_pelo_preparo": true
+      "categoria": "READ"
     },
     {
       "from": "C-LEITORES",
@@ -22684,8 +22734,7 @@
           "snippet": "if (tipo === \"ZIP\") { try { return execFileSync(\"node\", [\"ferramentas/ods_peek.mjs\", caminho, \"4000\"], { encoding: \"utf8\" }); } catch { return \"\"; } }"
         }
       ],
-      "categoria": "DATA",
-      "passa_pelo_preparo": true
+      "categoria": "READ"
     },
     {
       "from": "C-LUGAR-COLETA",
@@ -22768,12 +22817,12 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 170,
+          "line": 205,
           "snippet": "MAPA_JS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 409,
+          "line": 444,
           "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
         }
       ],
@@ -22832,7 +22881,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 191,
+          "line": 226,
           "snippet": "GERADOR = (RAIZ / \"system-map\" / \"scripts\" / \"generate_system_map.py\").read_text("
         }
       ],
@@ -22932,12 +22981,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3334,
+          "line": 3366,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3334,
+          "line": 3366,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -22955,7 +23004,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 376,
+          "line": 411,
           "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"scan_repo.py\")],"
         }
       ],
@@ -23001,7 +23050,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 395,
+          "line": 430,
           "snippet": "\"validate_system_map.py\" in lei,"
         }
       ],
@@ -25897,7 +25946,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A guarda de credencial e de sessao do SCRAP tem o seu codigo importado por SINTONIA SCRAP — aquisicao social. Provado por 3 linhas de codigo.",
+      "reason": "A guarda de credencial e de sessao do SCRAP tem o seu codigo importado por Executor do SCRAP · a aquisicao social. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/social_rotas.py",
@@ -26266,7 +26315,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP — aquisicao social. Provado por 6 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Executor do SCRAP · a aquisicao social. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/social_rotas.py",
@@ -26413,6 +26462,88 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-SCRAP-ROTA",
+      "to": "C-COLETA-BASE",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Despacho do SCRAP · rota, sessao e guarda manda rodar O motor de buscar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 284,
+          "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-SCRAP-ROTA",
+      "to": "C-SCRAP-GUARDA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Despacho do SCRAP · rota, sessao e guarda manda rodar A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 107,
+          "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-SCRAP-ROTA",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Despacho do SCRAP · rota, sessao e guarda manda rodar Executor do SCRAP · a aquisicao social. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 107,
+          "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
+        },
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 108,
+          "snippet": "coleta/youtube_oficial.py; do"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-SCRAP-ROTA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Despacho do SCRAP · rota, sessao e guarda alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 255,
+          "snippet": "wf = os.path.join(ROOT, '.github', 'workflows', 'scrap-social.yml')"
+        },
+        {
+          "file": "tests/test_youtube_piloto.py",
+          "line": 512,
+          "snippet": "open(caminho, 'leitura')  # caminho = .github/workflows/scrap-social.yml"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-SCRAP-SOCIAL",
       "to": "C-CI-PERSIST",
       "type": "READS",
@@ -26420,7 +26551,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — aquisicao social alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
+      "reason": "Executor do SCRAP · a aquisicao social alimenta Os botoes que cuidam do banco. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
@@ -26438,7 +26569,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — aquisicao social tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "reason": "Executor do SCRAP · a aquisicao social tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
@@ -26456,7 +26587,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — aquisicao social tem o seu codigo importado por A rota forward do documento (M2). Provado por 1 linha de codigo.",
+      "reason": "Executor do SCRAP · a aquisicao social tem o seu codigo importado por A rota forward do documento (M2). Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
@@ -26474,7 +26605,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — aquisicao social tem o seu codigo importado por Suite de testes. Provado por 18 linhas de codigo.",
+      "reason": "Executor do SCRAP · a aquisicao social tem o seu codigo importado por Suite de testes. Provado por 18 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -26547,7 +26678,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — aquisicao social alimenta Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "Executor do SCRAP · a aquisicao social alimenta Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -26610,7 +26741,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — o despachador manda rodar Apify — a rota paga. Provado por 1 linha de codigo.",
+      "reason": "Despacho do SCRAP · aquisicao (Instagram, YouTube) manda rodar Apify — a rota paga. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -26628,7 +26759,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — o despachador manda rodar Colher o Instagram. Provado por 4 linhas de codigo.",
+      "reason": "Despacho do SCRAP · aquisicao (Instagram, YouTube) manda rodar Colher o Instagram. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -26661,7 +26792,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — o despachador manda rodar Colher o YouTube. Provado por 2 linhas de codigo.",
+      "reason": "Despacho do SCRAP · aquisicao (Instagram, YouTube) manda rodar Colher o YouTube. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -26684,7 +26815,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — o despachador manda rodar O navegador — a rota gratis. Provado por 1 linha de codigo.",
+      "reason": "Despacho do SCRAP · aquisicao (Instagram, YouTube) manda rodar O navegador — a rota gratis. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -26702,7 +26833,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP — o despachador manda rodar A fala vira texto, sem fatura. Provado por 2 linhas de codigo.",
+      "reason": "Despacho do SCRAP · aquisicao (Instagram, YouTube) manda rodar A fala vira texto, sem fatura. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -27381,24 +27512,6 @@
     },
     {
       "from": "C-TESTES",
-      "to": "C-COLETA-BASE",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes manda rodar O motor de buscar. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/scrap-social.yml",
-          "line": 284,
-          "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
-      "from": "C-TESTES",
       "to": "C-ESTRADAS-IT",
       "type": "WRITES",
       "payload": "artefacto",
@@ -27494,41 +27607,18 @@
     },
     {
       "from": "C-TESTES",
-      "to": "C-SCRAP-GUARDA",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
+      "to": "C-SCRAP-ROTA",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Suite de testes manda rodar A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
+      "reason": "Suite de testes escreve em Despacho do SCRAP · rota, sessao e guarda. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": ".github/workflows/scrap-social.yml",
-          "line": 107,
-          "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
-      "from": "C-TESTES",
-      "to": "C-SCRAP-SOCIAL",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Suite de testes manda rodar SINTONIA SCRAP — aquisicao social. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/scrap-social.yml",
-          "line": 107,
-          "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
-        },
-        {
-          "file": ".github/workflows/scrap-social.yml",
-          "line": 108,
-          "snippet": "coleta/youtube_oficial.py; do"
+          "file": "tests/test_youtube_piloto.py",
+          "line": 369,
+          "snippet": "wf = io.open(os.path.join(ROOT, '.github', 'workflows', 'scrap-social.yml'),"
         }
       ],
       "categoria": "PROOF"
@@ -27554,8 +27644,7 @@
           "snippet": "\"PRODUTOR\": \"ferramentas/instagram_transcrever.py\","
         }
       ],
-      "categoria": "DATA",
-      "passa_pelo_preparo": true
+      "categoria": "READ"
     },
     {
       "from": "C-TRANSCRICAO",
@@ -27573,8 +27662,7 @@
           "snippet": "'scripts/instagram_transcrever.py'),"
         }
       ],
-      "categoria": "DATA",
-      "passa_pelo_preparo": true
+      "categoria": "READ"
     },
     {
       "from": "C-V2-LEGADO",
@@ -28250,7 +28338,7 @@
       "payload": "coleta",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
+      "reason": "O que sai deste canal entra em «Executor do SCRAP · a aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
           "file": "coleta/social_persistencia.py",
@@ -28352,7 +28440,7 @@
       "payload": "coleta",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
+      "reason": "O que sai deste canal entra em «Executor do SCRAP · a aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
           "file": "coleta/social_rotas.py",
@@ -28420,7 +28508,7 @@
       "payload": "coleta",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
+      "reason": "O que sai deste canal entra em «Executor do SCRAP · a aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
           "file": "coleta/social_persistencia.py",
@@ -28488,7 +28576,7 @@
       "payload": "coleta",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
+      "reason": "O que sai deste canal entra em «Executor do SCRAP · a aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
           "file": "coleta/social_persistencia.py",
@@ -28556,7 +28644,7 @@
       "payload": "coleta",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «SINTONIA SCRAP — aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
+      "reason": "O que sai deste canal entra em «Executor do SCRAP · a aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
           "file": "coleta/social_persistencia.py",
@@ -28681,13 +28769,13 @@
   "UNCLAIMED_FILES_COUNT": 700,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 145,
+    "components": 146,
     "components_proven": 65,
-    "components_pending": 73,
+    "components_pending": 74,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 582,
-    "edges_proven": 580,
+    "edges": 584,
+    "edges_proven": 582,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1343,
