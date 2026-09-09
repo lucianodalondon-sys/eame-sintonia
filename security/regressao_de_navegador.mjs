@@ -13,12 +13,24 @@
  * porque so procurava erros de CSP, e nao havia nenhum, porque nao havia
  * pagina nenhuma.
  */
+import { existsSync } from 'node:fs';
 import { chromium } from 'playwright';
 
 const BASE = process.argv[2] || 'http://127.0.0.1:8799';
 const PAGINAS = ['/', '/accesso', '/casa', '/portale', '/system-map/'];
 
-const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+/* O caminho do navegador nao pode ser o da maquina de quem escreveu a prova.
+ * A primeira versao fixava /opt/pw-browsers/chromium, que existe no contentor
+ * onde ela nasceu e nao existe no runner do GitHub — e a prova morria antes de
+ * abrir uma pagina.
+ *
+ *     UMA PROVA QUE SO CORRE NA MAQUINA DE QUEM A ESCREVEU NAO E UMA PROVA.
+ *
+ * Usa-se o caminho pre-instalado quando ele existe; caso contrario deixa-se a
+ * Playwright encontrar o que ela propria instalou. */
+const PRE_INSTALADO = '/opt/pw-browsers/chromium';
+const b = await chromium.launch(
+  existsSync(PRE_INSTALADO) ? { executablePath: PRE_INSTALADO } : {});
 let mau = 0;
 
 for (const p of PAGINAS) {
