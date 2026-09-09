@@ -1,0 +1,99 @@
+{
+  "SCHEMA": "SINTONIA-SECURITY-BASELINE/1",
+  "MEASURED_AT": "2026-09-09",
+  "SECURITY_BRANCH": "claude/security-foundation-v1",
+  "BASE_BRANCH": "claude/system-map-freshness-v1",
+  "BASE_HEAD": "baaddcf191778e01297427e7a0b167d66c9c4354",
+  "WHY_THIS_BASE": "unica linha que contem integralmente collection-foundation-integration-v1 e carrega a maior superficie de cliente publicada (95 ficheiros / 30461784 bytes)",
+  "NOT_TOUCHED": ["production", "system-map", "collection", "supabase-live", "repo-visibility"],
+
+  "MEASUREMENTS": {
+    "REPO": {
+      "visibility": "public",
+      "created_at": "2026-08-28",
+      "branches_visible_anonymously": 85,
+      "branches_protected": 0,
+      "forks_allowed": true,
+      "has_wiki": true,
+      "has_pages": false,
+      "codeowners": false,
+      "dependabot_config": false,
+      "tracked_files": 1517,
+      "tracked_bytes": 196872709,
+      "bytes_by_family": {
+        "ACERVO_EVIDENCE": 137906986,
+        "PORTAL_CLIENT_SERVED": 30461784,
+        "INTERNAL_ARCHITECTURE_RESEARCH": 6379301,
+        "DATABASE_SCHEMA": 4760130,
+        "SYSTEM_MAP": 3704745,
+        "PROPRIETARY_ENGINE": 2419258,
+        "CI_TOOLING": 1159993,
+        "PROPRIETARY_RULES": 494339,
+        "OTHER": 9586173
+      }
+    },
+    "LIVE_PRODUCTION_ANONYMOUS": {
+      "host": "sintonia-eame-preview.vercel.app",
+      "italy-handoff-v21.js": {"http": 200, "bytes": 11198842, "distinct_source_urls": 3352, "client_safe_false_records": 7133, "qa_unreviewed": 3323, "derivation_formula_fields": 981},
+      "portale": {"http": 200, "bytes": 1090951},
+      "meeting-intelligence-snapshot.json": {"http": 200, "bytes": 646889},
+      "blocked_by_vercelignore_confirmed_404": ["/package.json", "/.vercelignore", "/supabase/migrations/006_regulatorio_e_rls.sql"],
+      "headers_present": ["strict-transport-security", "x-content-type-options", "referrer-policy"],
+      "headers_absent": ["content-security-policy", "frame-ancestors", "permissions-policy", "cross-origin-*"],
+      "headers_questionable": ["access-control-allow-origin: *"]
+    },
+    "LIVE_PREVIEW_ANONYMOUS": {
+      "deployment_protection": {"password": false, "vercel_authentication": false, "trusted_ips": false},
+      "system-map/state.generated.json": {"http": 200, "bytes": 1058169},
+      "italy-v21.js": {"http": 200, "bytes": 10359119},
+      "system-map/": {"http": 200, "bytes": 9254}
+    },
+    "CLIENT_CORPUS": {
+      "collections": 26, "records": 7078, "client_safe_false": 3882, "distinct_source_urls": 1438,
+      "largest": {"products.relationships": 2030, "cropEconomicWeight": 2978, "competitors": 577, "sources": 189}
+    },
+    "SYSTEM_MAP_PUBLIC": {"nodes": 145, "edges": 556, "files_tracked": 1351, "named_gaps_with_file_and_line": 9},
+    "SUPABASE_SCHEMA": {"tables_created": 66, "rls_enabled": 54, "rls_absent": 12, "create_policy": 0, "explicit_grants": 0, "views_security_invoker": 21, "views_security_definer": 0,
+      "tables_without_rls": ["public.boletim_fitossanitario","public.clima_observacao","public.conteudo_lugar","public.decisao_de_coleta","public.estatistica_agricola","public.etapa_da_corrida","public.evento_setorial","public.fonte_acesso_teste","public.fonte_externa","public.mercado_observacao","public.origem_lugar","public.sinal_regulatorio_futuro"]},
+    "SECRETS": {"tree_scan": "DONE", "history_scan": "DONE", "blobs_scanned": 9809, "real_secrets_found": 0, "rotation_required": "NO", "false_positives": ["detector patterns", "localhost CI DSNs", "FAKE_JWT test constant"], "service_role_in_client": "NO"},
+    "CI": {"workflows": 15, "explicit_permissions": 15, "write_all": 0, "pull_request_target": 0, "self_hosted_workflows": 5, "self_hosted_triggers": ["workflow_dispatch"], "unpinned_actions": "major-tag, all actions/*", "lockfiles": 0, "runtime_npm_dependencies": 0, "external_cdn_at_runtime": 0},
+    "FRONTEND": {"api_endpoints": 0, "serverless_functions": 0, "outbound_fetch": ["state.generated.json (local)"], "innerHTML_sites": {"system-map/map.js": 18, "support.js": 7, "casa.html": 2}, "user_input_to_dom": "none measured", "own_source_maps_published": 0},
+    "PORTAL_AUTH": {"authentication": "NONE", "authorization": "NONE", "sso": "NONE", "mfa": "NONE", "session": "NONE", "country_isolation": "NONE", "mechanism": "accesso.html submit -> window.location.href='casa.html'", "self_declared": "Ambiente dimostrativo - nessuna autenticazione"},
+    "PLATFORM": {"vercel_team": "London Creative", "vercel_plan": "pro", "waf": "AVAILABLE_PLAN_INCLUDED", "rate_limit": "AVAILABLE_PLAN_INCLUDED", "log_drains": "PLAN_DEPENDENT", "logging_configured": "NO", "audit_configured": "NO", "backup": "UNKNOWN", "restore_proved": "NO", "incident_response": "NONE"},
+    "ADAMA_CONFIDENTIAL_DATA": "NOT_PRESENT"
+  },
+
+  "CONTROLS": [
+    {"CONTROL_ID":"SEC-001","DOMAIN":"supply-chain","STATUS":"PROVED","SEVERITY":"info","OWNER":"CI","EVIDENCE":"15/15 workflows com permissions: explicito; 0 write-all","USER_FRICTION":"NONE","DEV_FRICTION":"NONE","AUTOMATABLE":true,"BLOCKS_NEW_REGRESSION":true},
+    {"CONTROL_ID":"SEC-002","DOMAIN":"supply-chain","STATUS":"PROVED","SEVERITY":"info","OWNER":"CI","EVIDENCE":"0 pull_request_target; 5 workflows self-hosted so em workflow_dispatch","USER_FRICTION":"NONE","DEV_FRICTION":"NONE","AUTOMATABLE":true,"BLOCKS_NEW_REGRESSION":true},
+    {"CONTROL_ID":"SEC-003","DOMAIN":"secrets","STATUS":"PROVED","SEVERITY":"info","OWNER":"repo","EVIDENCE":"9809 blobs varridos, 0 segredos reais, tree e historia","USER_FRICTION":"NONE","DEV_FRICTION":"NONE","AUTOMATABLE":true,"BLOCKS_NEW_REGRESSION":true},
+    {"CONTROL_ID":"SEC-004","DOMAIN":"data-boundary","STATUS":"PROVED","SEVERITY":"info","OWNER":".vercelignore + vercel.json","EVIDENCE":"404 anonimo em /package.json, /.vercelignore, /supabase/migrations/*.sql","USER_FRICTION":"NONE","DEV_FRICTION":"LOW","AUTOMATABLE":true,"BLOCKS_NEW_REGRESSION":true},
+    {"CONTROL_ID":"SEC-005","DOMAIN":"transport","STATUS":"PROVED","SEVERITY":"info","OWNER":"Vercel","EVIDENCE":"HSTS max-age=63072000 includeSubDomains preload; nosniff; referrer-policy","USER_FRICTION":"NONE","DEV_FRICTION":"NONE","AUTOMATABLE":true,"BLOCKS_NEW_REGRESSION":true},
+    {"CONTROL_ID":"SEC-006","DOMAIN":"database","STATUS":"PARTIAL","SEVERITY":"high","OWNER":"supabase/migrations","EVIDENCE":"RLS em 54/66 tabelas; 0 create policy; 21 views security_invoker","USER_FRICTION":"NONE","DEV_FRICTION":"LOW","AUTOMATABLE":true,"BLOCKS_NEW_REGRESSION":true},
+    {"CONTROL_ID":"SEC-007","DOMAIN":"database","STATUS":"UNKNOWN","SEVERITY":"critical-candidate","OWNER":"supabase live","EVIDENCE":"12 tabelas sem RLS incluindo fonte_externa, decisao_de_coleta, etapa_da_corrida. Acesso anon nao medido: proibido tocar live nesta missao.","USER_FRICTION":"NONE","DEV_FRICTION":"NONE","AUTOMATABLE":true,"BLOCKS_NEW_REGRESSION":true},
+    {"CONTROL_ID":"SEC-008","DOMAIN":"authentication","STATUS":"ABSENT","SEVERITY":"high","OWNER":"portal","EVIDENCE":"accesso.html e um redirect client-side; demo auto-declarado","USER_FRICTION":"NONE","DEV_FRICTION":"NONE","AUTOMATABLE":false,"BLOCKS_NEW_REGRESSION":false},
+    {"CONTROL_ID":"SEC-009","DOMAIN":"authorization","STATUS":"ABSENT","SEVERITY":"high","OWNER":"nao existe","EVIDENCE":"sem papel, pais, departamento ou scope em lado nenhum","USER_FRICTION":"NONE","DEV_FRICTION":"NONE","AUTOMATABLE":false,"BLOCKS_NEW_REGRESSION":false},
+    {"CONTROL_ID":"SEC-010","DOMAIN":"ip-boundary","STATUS":"ABSENT","SEVERITY":"high","OWNER":"portal","EVIDENCE":"11198842 bytes de corpus canonico servidos anonimamente em producao","USER_FRICTION":"NONE","DEV_FRICTION":"MEDIUM","AUTOMATABLE":true,"BLOCKS_NEW_REGRESSION":true},
+    {"CONTROL_ID":"SEC-011","DOMAIN":"deploy","STATUS":"ABSENT","SEVERITY":"medium","OWNER":"Vercel project","EVIDENCE":"deployment protection integralmente desligada; System Map anonimo em preview","USER_FRICTION":"NONE","DEV_FRICTION":"LOW","AUTOMATABLE":true,"BLOCKS_NEW_REGRESSION":true},
+    {"CONTROL_ID":"SEC-012","DOMAIN":"repo-governance","STATUS":"ABSENT","SEVERITY":"medium","OWNER":"GitHub","EVIDENCE":"0/85 branches protegidas; sem CODEOWNERS; sem dependabot.yml","USER_FRICTION":"NONE","DEV_FRICTION":"LOW","AUTOMATABLE":true,"BLOCKS_NEW_REGRESSION":true},
+    {"CONTROL_ID":"SEC-013","DOMAIN":"headers","STATUS":"PARTIAL","SEVERITY":"low","OWNER":"vercel.json","EVIDENCE":"sem CSP, frame-ancestors, Permissions-Policy; CORS *; inline script/style e babel-standalone tornam CSP estrita BREAKAGE_RISK=HIGH","USER_FRICTION":"NONE","DEV_FRICTION":"MEDIUM","AUTOMATABLE":true,"BLOCKS_NEW_REGRESSION":true},
+    {"CONTROL_ID":"SEC-014","DOMAIN":"logging","STATUS":"ABSENT","SEVERITY":"medium","OWNER":"nao existe","EVIDENCE":"sem log de acesso, sem auditoria, sem retencao definida","USER_FRICTION":"NONE","DEV_FRICTION":"LOW","AUTOMATABLE":true,"BLOCKS_NEW_REGRESSION":false},
+    {"CONTROL_ID":"SEC-015","DOMAIN":"resilience","STATUS":"UNKNOWN","SEVERITY":"medium","OWNER":"Supabase","EVIDENCE":"backup, retencao, RPO, RTO e restore nao medidos. Nao inventar numeros.","USER_FRICTION":"NONE","DEV_FRICTION":"NONE","AUTOMATABLE":false,"BLOCKS_NEW_REGRESSION":false},
+    {"CONTROL_ID":"SEC-016","DOMAIN":"incident-response","STATUS":"ABSENT","SEVERITY":"medium","OWNER":"nao existe","EVIDENCE":"sem dono de incidente, sem procedimento de rotacao, revogacao ou rollback","USER_FRICTION":"NONE","DEV_FRICTION":"NONE","AUTOMATABLE":false,"BLOCKS_NEW_REGRESSION":false},
+    {"CONTROL_ID":"SEC-017","DOMAIN":"gdpr","STATUS":"NOT_APPLICABLE_YET","SEVERITY":"info","OWNER":"produto","EVIDENCE":"ADAMA_CONFIDENTIAL_DATA=NOT_PRESENT; sem dados pessoais de utilizador. Art.25/32 desenhados antes do dado entrar. LEGAL_INTERPRETATION_REQUIRED para o resto.","USER_FRICTION":"NONE","DEV_FRICTION":"NONE","AUTOMATABLE":false,"BLOCKS_NEW_REGRESSION":false}
+  ],
+
+  "PRIORITIES": {"P0_CONFIRMED": 0, "P0_TO_MEASURE": 1, "P1": 4, "P2": 4, "P3": 1},
+
+  "RATCHET": {
+    "BASELINE_COMMIT": "baaddcf191778e01297427e7a0b167d66c9c4354",
+    "KNOWN_FINDINGS": 11,
+    "GATE_NAME": "SECURITY CHECK",
+    "INDEPENDENT_OF": ["COLLECTION CHECK", "SYSTEM MAP CHECK"],
+    "QUESTION": "esta mudanca piorou a seguranca?",
+    "BLOCK_ON": {"NEW_CRITICAL": 0, "NEW_HIGH": 0, "NEW_SECRET": 0, "NEW_PUBLIC_ENGINE_EXPOSURE": 0, "NEW_PULL_REQUEST_TARGET": 0, "NEW_TABLE_WITHOUT_RLS": 0, "NEW_WRITE_ALL_PERMISSION": 0, "NEW_OWN_SOURCE_MAP_PUBLISHED": 0},
+    "DO_NOT_BLOCK_ON": ["missing SSO", "missing WAF", "documentation debt", "inherited low-risk header gap", "declared demo weakness"]
+  },
+
+  "VERDICT": {"S0": "PASS", "SECURITY_BASELINE_PROVED": "YES", "P0": 0, "P0_PENDING_LIVE_MEASUREMENT": 1, "SECURITY_ARCHITECTURE_READY_FOR_IMPLEMENTATION": "YES"}
+}
