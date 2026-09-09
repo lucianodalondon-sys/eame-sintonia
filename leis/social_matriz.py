@@ -351,12 +351,53 @@ MATRIZ = {
               'zero dólar, ~6 h/1.000 vídeos no modelo small',
               'já medido nesta casa; reusar, não recriar',
               'scripts/instagram_transcrever.py'),
+            r('instagram_transcrever.py:faster-whisper <- STORY', 'LOCAL_EXECUTOR',
+              'SIM', 'POSSIBLE_NOT_PROVED', 'zero dólar',
+              'O MESMO transcritor serve Story em vídeo, e NÃO foi ligado — por um motivo '
+              'medido, não por falta de tempo. Ele é indexado por `shortcode`, e o seu '
+              'conserto de URL vencida (`_url_nova`) relê o EMBED público do post. Story '
+              'não tem shortcode e não tem embed público: se a URL assinada morrer antes '
+              'do download, NÃO HÁ SEGUNDA CHANCE. Para Story, o byte tem de ser baixado '
+              'no mesmo run que o descobriu. Ligar isso sem essa trava produziria uma '
+              'cadeia que falha em silêncio justamente no conteúdo que não volta.',
+              'ferramentas/instagram_transcrever.py'),
         ],
         'FETCH_COMMENTS': [
             r('apify:comments', 'APIFY', 'CONDICIONAL', 'PROVED', 'por item',
               'O ÚNICO buraco real medido: a rota grátis dá o NÚMERO de comentários, nunca '
               'o TEXTO. Motivo canônico: FREE_ROUTE_INSUFFICIENT_CAPABILITY.',
               'scripts/instagram_janela.py'),
+        ],
+        'FETCH_STORIES': [
+            # A escada inteira, medida em 2026-09-09. Nenhuma linha aqui foi
+            # executada: o estado mais alto que esta capacidade pode reivindicar
+            # hoje é POSSIBLE_NOT_PROVED, e ele está escrito.
+            r('instagram_janela.py:publico', 'PUBLIC_BROWSER', 'NAO', 'BLOCKED', 'zero',
+              'Story ativo não aparece na moldura pública deslogada: o Instagram serve '
+              'Story atrás de parede de login. A rota grátis desta casa NÃO cobre Story, '
+              'e fingir que cobre custaria uma coleta vazia por dia.',
+              'coleta/instagram_janela.py'),
+            r('graph:/{ig-user-id}/stories', 'OFFICIAL_API_FREE', 'NAO', 'ROUTE_NOT_ALLOWED',
+              'zero dentro da quota',
+              'a Graph API serve Stories da PRÓPRIA conta ligada à Página, nunca de '
+              'terceiro. Para monitorar pesquisador ou instituição de fora, ela não é '
+              'rota — é a rota de outra pergunta.',
+              'https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-user/stories/'),
+            r('apify:datavoyantlab/advanced-instagram-stories-scraper', 'APIFY',
+              'CONDICIONAL', 'POSSIBLE_NOT_PROVED',
+              'US$ 0,099 por run + US$ 0,003 por username',
+              'ESCOLHIDO. Não pede login, cookie nem sessão; só perfil público; devolve '
+              '`pk`, `taken_at` e `expiring_at` nativos — o `expiring_at` é o que evita '
+              'calcular «publicado + 24 h» e chamar chute de prazo. NUNCA EXECUTADO: '
+              'sem chave da Apify neste ambiente. Motivo canônico do gasto: '
+              'FREE_ROUTE_INSUFFICIENT_CAPABILITY.',
+              'https://apify.com/datavoyantlab/advanced-instagram-stories-scraper'),
+            r('apify:muhammetakkurtt/instagram-scraper', 'APIFY', 'CONDICIONAL',
+              'POSSIBLE_NOT_PROVED', 'US$ 1,00 por 1.000 itens',
+              'FALLBACK, para não ficar preso a um publisher só. Também dispensa login. '
+              'Perde para o escolhido em uma coisa que importa: não documenta '
+              '`expiring_at`, e sem ele o prazo vira cálculo.',
+              'https://apify.com/muhammetakkurtt/instagram-scraper'),
         ],
         'FETCH_POST': [
             r('instagram_janela.py:embed', 'PUBLIC_BROWSER', 'CONDICIONAL', 'PROVED', 'zero',

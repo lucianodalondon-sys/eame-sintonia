@@ -100,9 +100,13 @@ _TABELA = [
        ['OK'], 'a rota respondeu e trouxe pelo menos um objeto. É o único estado '
               'que autoriza contar coleta como feita.'),
     _e('ZERO_RESULTS', NENHUMA, True, HEALTHY, False, False,
-       ['ZERO_RESULTS', 'SOURCE_EMPTY', 'REQUESTED_EMPTY'],
+       ['ZERO_RESULTS', 'SOURCE_EMPTY', 'REQUESTED_EMPTY', 'NO_ACTIVE_STORIES'],
        'a fonte respondeu e não tinha nada. É MEDIÇÃO, não falha — e é por isso que '
-       'a camada é NENHUMA e a saúde é HEALTHY. Pedida e vazia é um ESTADO.'),
+       'a camada é NENHUMA e a saúde é HEALTHY. Pedida e vazia é um ESTADO. '
+       '`NO_ACTIVE_STORIES` é o nome próprio deste zero para conteúdo efêmero: uma '
+       'conta pública que simplesmente não postou nas últimas 24 h. Ele SÓ pode ser '
+       'usado quando ficou provado que o perfil FOI processado — zero linha de um ator '
+       'que falhou é UNKNOWN, nunca ausência de Story.'),
 
     # ── NÃO CHEGAMOS A TENTAR ──────────────────────────────────────────────
     _e('NOT_APPLICABLE', NENHUMA, True, DESCONHECIDA, False, False,
@@ -183,9 +187,11 @@ _TABELA = [
        ['RATE_LIMITED', 'TOKEN_RATE_LIMITED_ACCOUNT'],
        'pedimos rápido demais. Retentável COM espera. Não é fonte caída.'),
     _e('BLOCKED', ROUTE, True, UNHEALTHY, True, False,
-       ['BLOCKED', 'PLATFORM_BLOCKED'],
+       ['BLOCKED', 'PLATFORM_BLOCKED', 'PRIVATE_PROFILE', 'PRIVATE_OR_RESTRICTED'],
        'a plataforma nos impediu tecnicamente — desafio de bot, 403 de agente. '
-       'Repetir igual só piora; trocar de rota ou de identidade é o caminho.'),
+       'Repetir igual só piora; trocar de rota ou de identidade é o caminho. '
+       'PERFIL PRIVADO CAI AQUI, E NÃO EM ZERO: a conta tem conteúdo e nos recusou. '
+       'Contar isso como vazio apagaria a diferença entre «não postou» e «não posso ver».'),
     _e('ROUTE_UNAVAILABLE', ROUTE, True, UNAVAILABLE, True, True,
        ['ROUTE_UNAVAILABLE', 'ATOR_NAO_ALCANCADO'],
        'a rota específica não respondeu, e outra rota da mesma capacidade pode servir.'),
@@ -215,7 +221,7 @@ _TABELA = [
        'ENTRADA PROVADA ONTEM NÃO É ENTRADA VÁLIDA HOJE.'),
     _e('EXECUTOR_UNAVAILABLE', EXECUTOR, False, BROKEN, False, False,
        ['EXECUTOR_UNAVAILABLE', 'BROWSER_NOT_REACHED', 'ATOR_NAO_ENCONTRADO',
-        'ACTOR_FAILURE'],
+        'ACTOR_FAILURE', 'ACTOR_FAILED'],
        'a nossa ferramenta não está lá — Chrome não subiu, ator não existe. '
        'Nada foi medido sobre a fonte.'),
     _e('PERMANENT_HTTP_ERROR', EXECUTOR, False, BROKEN, False, False,

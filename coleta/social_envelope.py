@@ -85,7 +85,15 @@ def esquecer_produzidos():
 NOT_PRESERVED = 'NOT_PRESERVED'
 PRESERVED = 'PRESERVED'
 
-CONTENT_TYPES = ('VIDEO', 'POST', 'PROFILE', 'CHANNEL', 'COMMENT', 'ARTICLE', 'DISCOVERY')
+# `STORY` é classe própria, e não um POST com prazo. A diferença não é
+# taxonômica: POST continua lá amanhã e pode ser recoletado; STORY some em ~24 h
+# e, se o byte não foi preservado enquanto existia, a evidência acabou. Somar os
+# dois numa consulta faria "o que esta conta publicou?" misturar o recuperável
+# com o irrecuperável — e é justamente o irrecuperável que exige agir agora.
+#
+#     STORY != POST. STORY != REEL. STORY != HIGHLIGHT.
+CONTENT_TYPES = ('VIDEO', 'POST', 'PROFILE', 'CHANNEL', 'COMMENT', 'ARTICLE',
+                 'DISCOVERY', 'STORY')
 
 # `UNKNOWN` é o valor de partida dos dois campos que a casa mais erra quando
 # tem pressa. Nenhum deles é preenchido por inferência de texto.
