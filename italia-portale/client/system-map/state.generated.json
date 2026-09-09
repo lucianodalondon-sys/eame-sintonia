@@ -1327,7 +1327,8 @@
       "system-map/scripts/verificar_deploy.py",
       "system-map/tests/test_freshness.mjs",
       "system-map/tests/test_impressao_da_arvore.py",
-      "system-map/tests/test_system_map.py"
+      "system-map/tests/test_system_map.py",
+      "system-map/tests/verificar_a_tela.mjs"
     ],
     "tests": [
       "tests/.gitkeep",
@@ -1793,9 +1794,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-freshness-v1",
-    "HEAD": "61eecb038d45fa7dc4b3e28a680b01d09ef7a815",
-    "GENERATED_AT": "2026-09-09T00:58:50+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b6f3a4782181180cf5f6957d119ce8454025dc3b8390203bedcab76c4e916ec5"
+    "HEAD": "ce204335e68863b2420196209742dc4605a14493",
+    "GENERATED_AT": "2026-09-09T01:01:22+00:00",
+    "SOURCE_TREE_FINGERPRINT": "079b8ee058613df98bb05bd8ae22e7eb5b6539a31e1535bbf4ae78d903df7eed"
   },
   "FAMILIES": [
     {
@@ -9821,9 +9822,10 @@
       "files": [
         "system-map/tests/test_freshness.mjs",
         "system-map/tests/test_impressao_da_arvore.py",
-        "system-map/tests/test_system_map.py"
+        "system-map/tests/test_system_map.py",
+        "system-map/tests/verificar_a_tela.mjs"
       ],
-      "file_count": 3,
+      "file_count": 4,
       "status": "PENDING",
       "status_reason": "teste que nao toca em nada do repositorio.",
       "changed_since_declared": [
@@ -15737,7 +15739,7 @@
       "icon": "B",
       "facts": [
         "branch claude/system-map-freshness-v1",
-        "HEAD 61eecb038d45fa7dc4b3e28a680b01d09ef7a815"
+        "HEAD ce204335e68863b2420196209742dc4605a14493"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -28027,8 +28029,8 @@
     "edges_proven": 551,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1347,
-    "files_covered": 649,
+    "files_tracked": 1348,
+    "files_covered": 650,
     "files_code_unclaimed": 0
   }
 }

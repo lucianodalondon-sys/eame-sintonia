@@ -74,6 +74,44 @@ medidos, e os oito tinham o desencontro. Nenhuma disciplina conserta isto.
 Por isso `italia-portale/client/system-map/deployment.generated.json` **nasce no
 build** e está no `.gitignore`. Se ele aparecer no índice do git, o CI reprova.
 
+#### E por isso a prova de pertença não é um SHA — é a IMPRESSÃO DAS FONTES
+
+Metade deste defeito ficou fechada pelo artefato de build: o *commit implantado*
+passou a nascer onde a resposta existe. Faltava a outra metade, que é a pergunta
+a que o verde obedece:
+
+> **ESTE MAPA É O MAPA DESTA ÁRVORE?**
+
+Enquanto essa prova for um SHA de commit, ela é **impossível por construção** —
+pela mesma razão de cima.
+
+> **A pergunta certa não é «que commit?». É «que fontes?».**
+
+[`system-map/scripts/impressao_da_arvore.py`](system-map/scripts/impressao_da_arvore.py)
+sela as **fontes rastreadas** e exclui as **saídas da própria cadeia**. Guardar o
+mapa regerado não mexe nas fontes, logo **não move a impressão**: o carimbo feito
+antes do commit bate com a árvore depois do commit. Mexer numa fonte move-a — e
+aí a resposta certa é «não».
+
+A lista de exclusão é canónica (`CADEIA-DO-MAPA.json` → `IMPRESSAO_DA_ARVORE`) e
+**confere-se sozinha**: `test_impressao_da_arvore.py` corre a cadeia num clone e
+reprova se ela escrever fora da lista. Excluir de menos dá alarme falso; excluir
+de **mais** dá **verde falso**, e verde falso é o único erro que esta lei não
+pode cometer.
+
+##### O PREÇO, DITO EM VOZ ALTA
+
+A impressão cobre a árvore **inteira**. Cobrir «só o que alimenta o mapa» exigiria
+adivinhar o que seis scanners leem, e adivinhar de menos produz verde falso.
+
+**O preço é que mexer em qualquer ficheiro rastreado obriga a correr a cadeia
+outra vez.** Isto já era a lei; agora **reprova** em vez de pedir por favor —
+o passo `2b` do portão do mapa compara o carimbo do mapa commitado com a árvore
+commitada. Sem ele, mudar um `.md` sem regerar passava no CI, era implantado, e
+só então a tela gritava STALE.
+
+> **Um alarme que só toca depois do deploy está mal colocado.**
+
 ### O build regenera antes de servir — quando a árvore está inteira
 
 `package.json` → `build` corre
@@ -133,6 +171,43 @@ passou a ser lida em runtime, o mapa respondeu na hora que ninguém mandava roda
 o scanner — o scanner lê o workflow para saber quem corre o quê.
 
 > **Esconder a chamada para não a repetir é pior do que a repetir.**
+
+#### O `.vercelignore` CONTINUA FECHADO — e a build ainda assim prova a árvore
+
+Afrouxá-lo foi **medido**: 899 ficheiros a mais, **151.1 MB**, dos quais 127.3 MB
+são o acervo — enviados para um contentor cujo output é público. **Não se faz.**
+
+Não é preciso. O `.vercelignore` apaga **ficheiros do disco**; não apaga o
+**índice do git**, e o índice carrega o SHA do blob de cada ficheiro rastreado.
+
+> **ESTAR NO ÍNDICE ≠ ESTAR NO DISCO** — e desta vez isso joga a nosso favor.
+
+Provado com 999 ficheiros apagados do disco: a árvore mutilada devolve a **mesma
+impressão** que a árvore inteira, byte a byte. Por isso o contentor responde «que
+árvore estou a implantar?» sobre uma árvore que nunca lhe chegou, e
+`MAP_BELONGS_TO_DEPLOYED_TREE` pode ficar **PROVEN** com **zero** ficheiros a
+mais enviados.
+
+O que ele continua a **não** poder produzir é o veredito do validador: validar
+exige regenerar, e regenerar exige a árvore inteira. Esse vem do CI — ver abaixo.
+
+#### DOIS PORTÕES, PORQUE SÃO DUAS PERGUNTAS
+
+O job era um só, chamado `check`, e misturava «o mapa corresponde à árvore?» com
+«a coleta não piorou?». Medido: os passos `4k`, `6`, `7` e `8` **nunca chegaram a
+correr** no GitHub, porque um passo vermelho da coleta parava o job antes.
+
+> **Um portão que nunca corre não é um portão.**
+> **Um veredito sobre duas perguntas não responde a nenhuma.**
+
+Agora são **`SYSTEM MAP CHECK`** e **`COLETA CHECK`**, em paralelo, os dois
+obrigatórios. O nome do portão do mapa vive em `CADEIA-DO-MAPA.json` →
+`PORTAO_DO_MAPA`, viaja no artefato de deploy, e a tela vai buscar a conclusão
+dele **para o commit servido** na API pública do GitHub.
+
+**`UNKNOWN` é a ausência de uma resposta, não uma resposta.** Se a build não
+conseguiu validar e o CI conseguiu, o `PASS` do CI conta: «não consegui correr»
+não contradiz «corri, e passou». Um `FAIL` de qualquer um dos dois manda.
 
 ### Os quatro estados de SYNC
 
@@ -238,8 +313,14 @@ py system-map/scripts/generate_system_map.py    # regerar o mapa
 py system-map/scripts/validate_system_map.py    # provar que ele corresponde ao repo
 py system-map/tests/test_system_map.py          # provar que as regras não afrouxaram
 node system-map/tests/test_freshness.mjs        # provar que verde exige as quatro provas
+python3 system-map/tests/test_impressao_da_arvore.py   # a impressão mede a árvore
 node system-map/scripts/publicar_no_deploy.mjs  # o que a build corre: regerar, validar, carimbar
+python3 system-map/scripts/impressao_da_arvore.py --conferir-carimbo  # DEPOIS de commitar
 ```
+
+O último corre **depois** do commit, e é o passo `2b` do portão: ele compara o
+carimbo do mapa commitado com a árvore commitada. Se der `DIFERENTE`, alguém
+mexeu numa fonte e não regerou — corra a cadeia e commite o resultado.
 
 Use `python3` em vez de `py` em Linux/CI. Se o validador reprovar, **a mudança
 não está pronta** — não é um aviso, é um portão.
