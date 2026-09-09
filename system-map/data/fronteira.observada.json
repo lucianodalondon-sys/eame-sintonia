@@ -1,0 +1,46 @@
+{
+ "SCHEMA": "fronteira-observada/v1",
+ "O_QUE_ISTO_E": "O estado medido da fronteira COLETA -> INTELIGENCIA. Escrito por quem mediu, para o mapa nao ter de acreditar em texto nenhum.",
+ "GERADO_POR": "provas/a_fronteira_da_coleta.py",
+ "LEI": "COL-LAW-043",
+ "CAMPOS_DO_CONTRATO": [
+  "ESTADO",
+  "ITEM_ID",
+  "UNIVERSO",
+  "TEXTO",
+  "SOURCE_ID",
+  "SOURCE_LOCATION",
+  "FACT_LOCATION",
+  "FACT_TIME",
+  "CAPTURED_AT",
+  "CORRIDA",
+  "ADMITIDO_POR"
+ ],
+ "CAMPOS_DO_CODIGO": [
+  "ESTADO",
+  "ITEM_ID",
+  "UNIVERSO",
+  "TEXTO",
+  "SOURCE_ID",
+  "SOURCE_LOCATION",
+  "FACT_LOCATION",
+  "FACT_TIME",
+  "CAPTURED_AT",
+  "CORRIDA",
+  "ADMITIDO_POR"
+ ],
+ "LEI_E_CODIGO_BATEM": true,
+ "DONO": "admissao/admissao.py :: pronto_para_inteligencia()",
+ "PRODUTORES": [
+  "orquestrador/orquestrador.py",
+  "provas/testa_coleta_canonica.py"
+ ],
+ "PRODUTORES_EM_RUNTIME": [
+  "orquestrador/orquestrador.py"
+ ],
+ "CONSUMIDORES": [],
+ "DESTINO": "data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json",
+ "DESTINO_EXISTE": false,
+ "GAP": "READY_SEM_CONSUMIDOR",
+ "GAP_PORQUE": "o contrato existe, tem dono e o codigo devolve exactamente os campos da lei — e ninguem le a saida. UMA PORTA POR ONDE NINGUEM PASSA NAO E UMA PORTA."
+}

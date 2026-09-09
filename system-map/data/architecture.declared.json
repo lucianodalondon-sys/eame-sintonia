@@ -86,21 +86,19 @@
    "folder": "fontes"
   },
   {
-   "id": "Z-REGRAS",
-   "family": "F-COLETA",
-   "name": "· as reguas que carimbam",
-   "why": "O que se aplica ao item NO MOMENTO em que ele entra: de onde veio, quem esta autorizado, que palavras se digitam, o contrato de cada fonte. Vem antes das acoes porque sao elas que as consultam",
-   "views": [
-    "acervo",
-    "audit"
-   ],
-   "folder": "regras"
-  },
-  {
    "id": "Z-EXECUCAO",
    "family": "F-COLETA",
    "name": "3 · EXECUCAO",
    "why": "Quem faz o trabalho. Nao e um ficheiro: e o sitio onde vivem os executores, e as ferramentas e os canais que eles usam aparecem por baixo, nao ao lado",
+   "views": [
+    "acervo"
+   ]
+  },
+  {
+   "id": "Z-VEICULOS",
+   "family": "F-COLETA",
+   "name": "· os canais",
+   "why": "De ONDE o dado vem: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Vem antes da acao porque e dali que a coleta chega; a acao e quem vai busca-la e quem a guarda",
    "views": [
     "acervo"
    ]
@@ -116,15 +114,6 @@
    "folder": "ferramentas"
   },
   {
-   "id": "Z-VEICULOS",
-   "family": "F-COLETA",
-   "name": "· os canais",
-   "why": "De ONDE o dado vem: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Vem antes da acao porque e dali que a coleta chega; a acao e quem vai busca-la e quem a guarda",
-   "views": [
-    "acervo"
-   ]
-  },
-  {
    "id": "Z-ACOES",
    "family": "F-COLETA",
    "name": "· os executores",
@@ -134,6 +123,16 @@
     "infra"
    ],
    "folder": "coleta"
+  },
+  {
+   "id": "Z-GUARDA",
+   "family": "F-COLETA",
+   "name": "A SALA DE ESPERA",
+   "why": "Onde fica o que ja foi colhido, limpo e guardado, a espera de entrar na inteligencia. Cor neutra de proposito: aqui nada e transformado, so guardado  ⚠️ CORRIGIDO EM 2026-09-09: esta zona estava em F-ESPERA, a familia que se define como «o que ja passou por TODA a coleta e ainda nao entrou na inteligencia». Ela guarda os donos do RAW (guarda/preservar_coleta.py) e do DERIVED (guarda/preservar_derivado.py) — as etapas 5 e 6 das nove, provadas em provas/a_rota_m2_atravessa.py (A3 e A4). Preservar o bruto nao e o dado a dormir depois da coleta: E a coleta. Com a zona em F-ESPERA, a espinha da esteira aparecia fora da faixa da COLETA, e ninguem conseguia ler o mapa da esquerda para a direita.",
+   "views": [
+    "infra"
+   ],
+   "folder": "guarda"
   },
   {
    "id": "Z-ADMISSAO",
@@ -146,35 +145,25 @@
    "folder": "admissao"
   },
   {
-   "id": "Z-MEDIDAS",
-   "family": "F-COLETA",
-   "name": "· as medidas da coleta",
-   "why": "O que olha para tras e da nota: quanto falta, que fonte respondeu torto, que lei do Brasil ainda nao foi portada. NAO BARRA NADA — medir nao e filtrar, e confundir os dois faz parecer que ha peneira onde so ha termometro",
+   "id": "Z-ESPERA",
+   "family": "F-ESPERA",
+   "name": "· A SALA DE ESPERA",
+   "why": "Onde o que a coleta terminou fica, antes de a inteligencia o ler. A faixa «A ESPERA» ja existia e estava ocupada pela Z-GUARDA — que guarda os donos do RAW e do DERIVED, etapas 5 e 6 das nove, e portanto e COLETA, nao espera. O inquilino certo desta sala e o READY: ele tem lei (COL-LAW-043), tem dono (admissao.pronto_para_inteligencia) e o codigo devolve exactamente os 11 campos que a lei declara. O que ele NAO tem e quem o leia. Esta zona existe para que essa falta seja VISIVEL no mapa, em vez de ficar num relatorio.",
    "views": [
+    "acervo",
+    "audit"
+   ]
+  },
+  {
+   "id": "Z-REGRAS",
+   "family": "F-COLETA",
+   "name": "· as reguas que carimbam",
+   "why": "O que se aplica ao item NO MOMENTO em que ele entra: de onde veio, quem esta autorizado, que palavras se digitam, o contrato de cada fonte. Vem antes das acoes porque sao elas que as consultam",
+   "views": [
+    "acervo",
     "audit"
    ],
-   "folder": "medidas"
-  },
-  {
-   "id": "Z-GUARDA",
-   "family": "F-ESPERA",
-   "name": "A SALA DE ESPERA",
-   "why": "Onde fica o que ja foi colhido, limpo e guardado, a espera de entrar na inteligencia. Cor neutra de proposito: aqui nada e transformado, so guardado",
-   "views": [
-    "infra"
-   ],
-   "folder": "guarda"
-  },
-  {
-   "id": "Z-LINEAGE",
-   "family": "F-INTELIGENCIA",
-   "name": "LINHAGENS E DONOS",
-   "why": "Qual branch decide, qual consome e qual pacote e o canonico. A inteligencia tem UM dono",
-   "views": [
-    "lineage",
-    "official"
-   ],
-   "folder": null
+   "folder": "regras"
   },
   {
    "id": "Z-REGUAS",
@@ -188,15 +177,14 @@
    "folder": "leis"
   },
   {
-   "id": "Z-MOTOR",
-   "family": "F-INTELIGENCIA",
-   "name": "MOTOR — CADEIA V2.1",
-   "why": "Onde o dado bruto vira caso. A ordem e lei, nao convencao",
+   "id": "Z-MEDIDAS",
+   "family": "F-COLETA",
+   "name": "· as medidas da coleta",
+   "why": "O que olha para tras e da nota: quanto falta, que fonte respondeu torto, que lei do Brasil ainda nao foi portada. NAO BARRA NADA — medir nao e filtrar, e confundir os dois faz parecer que ha peneira onde so ha termometro",
    "views": [
-    "generator",
-    "opportunity"
+    "audit"
    ],
-   "folder": "motor"
+   "folder": "medidas"
   },
   {
    "id": "Z-PROVA",
@@ -208,6 +196,28 @@
     "infra"
    ],
    "folder": "provas"
+  },
+  {
+   "id": "Z-MOTOR",
+   "family": "F-INTELIGENCIA",
+   "name": "MOTOR — CADEIA V2.1",
+   "why": "Onde o dado bruto vira caso. A ordem e lei, nao convencao",
+   "views": [
+    "generator",
+    "opportunity"
+   ],
+   "folder": "motor"
+  },
+  {
+   "id": "Z-LINEAGE",
+   "family": "F-INTELIGENCIA",
+   "name": "LINHAGENS E DONOS",
+   "why": "Qual branch decide, qual consome e qual pacote e o canonico. A inteligencia tem UM dono",
+   "views": [
+    "lineage",
+    "official"
+   ],
+   "folder": null
   },
   {
    "id": "Z-PACOTE",

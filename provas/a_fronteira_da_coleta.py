@@ -53,6 +53,7 @@ doenca que ela veio diagnosticar.
     UM BURACO PINTADO DE VERDE E UMA MENTIRA COM TESTE.
 """
 import io
+import json
 import os
 import re
 import subprocess
@@ -64,6 +65,8 @@ import _gavetas  # noqa: E402,F401
 import admissao  # noqa: E402
 
 BIBLIA = os.path.join(RAIZ, "BIBLIA-CANONICA-DA-COLETA.md")
+# Onde a medicao desta fronteira fica escrita, para o mapa a derivar.
+OBSERVADA = os.path.join(RAIZ, "system-map", "data", "fronteira.observada.json")
 LEI = "COL-LAW-043"
 
 # Onde a coleta vive. `italia-portale/` e portal, `system-map/` e instrumento.
@@ -260,6 +263,45 @@ def main():
     lê = sorted({c.split(':')[0] for c in consumidores
                  if not c.startswith(('orquestrador/', 'provas/a_fronteira'))})
     print("  CONSUMIDORES      %d  %s" % (len(lê), lê or "— ninguem le esta saida"))
+    # ── A MEDICAO FICA ESCRITA, PARA O MAPA A PODER DESENHAR ─────────────
+    #
+    # O mapa nao tinha cartao nenhum para a fronteira: desenhava a porta de
+    # admissao e calava o que vem depois dela. A faixa «A ESPERA» existia — e
+    # e definida como «o que ja passou por toda a coleta e ainda nao entrou na
+    # inteligencia», que e READY palavra por palavra — mas estava ocupada pelos
+    # donos do RAW e do DERIVED, que sao etapas 5 e 6 das nove.
+    #
+    #     A SALA DE ESPERA EXISTIA NO MAPA, COM OS INQUILINOS ERRADOS,
+    #     E O INQUILINO CERTO NAO TINHA CARTAO.
+    #
+    # Nao se cria `ready.py` para ter cartao — o C-FINAL ja recusou isso, e com
+    # razao. Cria-se um cartao DERIVADO DESTA MEDICAO, como o do derivado
+    # nasce do censo das derivacoes. O que ele mostra e o que se mediu aqui,
+    # incluindo o buraco.
+    io.open(OBSERVADA, "w", encoding="utf-8").write(json.dumps({
+        "SCHEMA": "fronteira-observada/v1",
+        "O_QUE_ISTO_E": (
+            "O estado medido da fronteira COLETA -> INTELIGENCIA. Escrito por "
+            "quem mediu, para o mapa nao ter de acreditar em texto nenhum."),
+        "GERADO_POR": "provas/a_fronteira_da_coleta.py",
+        "LEI": LEI,
+        "CAMPOS_DO_CONTRATO": lei or [],
+        "CAMPOS_DO_CODIGO": codigo,
+        "LEI_E_CODIGO_BATEM": bool(lei) and set(lei or []) == set(codigo),
+        "DONO": "admissao/admissao.py :: pronto_para_inteligencia()",
+        "PRODUTORES": produtores,
+        "PRODUTORES_EM_RUNTIME": runtime,
+        "CONSUMIDORES": lê,
+        "DESTINO": "data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json",
+        "DESTINO_EXISTE": os.path.isdir(destino),
+        "GAP": (None if lê else "READY_SEM_CONSUMIDOR"),
+        "GAP_PORQUE": (
+            None if lê else
+            "o contrato existe, tem dono e o codigo devolve exactamente os "
+            "campos da lei — e ninguem le a saida. UMA PORTA POR ONDE NINGUEM "
+            "PASSA NAO E UMA PORTA."),
+    }, ensure_ascii=False, indent=1) + "\n")
+
     print()
     print("  O QUE ISTO QUER DIZER, sem exagerar para nenhum dos lados:")
     print("    · READY TEM dono e TEM contrato. Dizer «READY_NAO_TEM_DONO» e")

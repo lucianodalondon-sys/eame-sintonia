@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "b4310443d0746c8b7d569dd5095d1acbe0e59009",
+    "HEAD": "f2e668db75ab37f8b7c79ba0985cac18fcfd67e0",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -1283,7 +1283,7 @@
     {
       "ficheiro": "coleta/social_envelope.py",
       "gaveta": "coleta",
-      "linhas": 231,
+      "linhas": 266,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1291,8 +1291,8 @@
         "YOUTUBE"
       ],
       "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
@@ -1322,7 +1322,8 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
-        "coleta/rota_forward_documento.py"
+        "coleta/rota_forward_documento.py",
+        "coleta/social_envelope.py"
       ],
       "no_ci": true
     },
@@ -1371,7 +1372,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/social_envelope.py"
+      ],
       "no_ci": true
     },
     {
@@ -1810,7 +1813,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": true,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/social_envelope.py"
+      ],
       "no_ci": true
     },
     {
@@ -1894,7 +1899,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/social_envelope.py"
+      ],
       "no_ci": true
     },
     {
@@ -1931,6 +1938,7 @@
       "chamado_por": [
         "coleta/derivacao_forward.py",
         "coleta/rota_forward_documento.py",
+        "coleta/social_envelope.py",
         "guarda/portas_live.py",
         "guarda/preservar_derivado.py"
       ],
@@ -2030,7 +2038,7 @@
     "sem_chamador_e_fora_do_ci": 45,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 66,
-    "deitam_fora_alguma_coisa": 23,
+    "deitam_fora_alguma_coisa": 24,
     "deitam_fora_SEM_escrever_o_motivo": 2,
     "ficheiros_com_decisao_escondida": 2,
     "decisoes_escondidas_ao_todo": 2

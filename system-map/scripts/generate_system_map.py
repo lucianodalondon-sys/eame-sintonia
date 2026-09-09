@@ -174,6 +174,19 @@ ZONA_GAP = 300                 # entre zonas: a fronteira tem de se ver
 TOPO = 190
 FAM_TOPO, FAM_PAD = 60, 40      # a faixa da familia abraca as zonas dela
 
+# A FAMILIA VEM DA ZONA, NUNCA DA PECA. Uma peca que declara familia diferente
+# da sua zona cria dois agrupamentos para a mesma coisa, e o mapa passa a ter
+# duas respostas para «onde e que isto vive».
+#
+# ⚠️ ISTO ERA UM DICIONARIO LOCAL, e quatro cartoes gerados aqui escreviam
+# `"family": "F-ESPERA"` a mao ao lado de `"territory": "Z-GUARDA"`. Enquanto a
+# zona e os literais concordaram, ninguem notou; quando a Z-GUARDA passou para
+# F-COLETA — porque guarda os donos do RAW e do DERIVED — os quatro ficaram a
+# apontar para a familia antiga e o P2_PECA_TEM_FAMILIA reprovou. A regra ja
+# estava escrita em comentario; passa a estar escrita em codigo.
+FAMILIA_DA_ZONA = {"Z-PROVA": "F-INTELIGENCIA", "Z-GUARDA": "F-COLETA",
+                   "Z-EXECUCAO": "F-COLETA", "Z-ACOES": "F-COLETA"}
+
 
 def linhagem() -> list:
     """As pecas da zona LINHAGENS E DONOS.
@@ -646,7 +659,7 @@ def o_corte_do_pdf() -> tuple[list, list]:
     bruto = {
         "id": "C-IT-PDF-BRUTO", "name": "Evidência bruta em PDF (Itália)",
         "kind": "acervo", "icon": "▤",
-        "territory": "Z-GUARDA", "family": "F-ESPERA",
+        "territory": "Z-GUARDA", "family": FAMILIA_DA_ZONA["Z-GUARDA"],
         "status": CINZA, "ui_status": "gray", "proof": "git-measurement",
         "what": (f"{OC.get('OCORRENCIAS', n_pdf)} ocorrências de PDF italiano "
                  f"guardadas — boletins regionais, bilanci fitosanitari, "
@@ -791,7 +804,7 @@ def o_armazem_sem_livro() -> tuple[list, list]:
         "id": "C-ARMAZEM-IT-SEM-LIVRO",
         "name": "Armazém italiano no Supabase (sem livro de entrada)",
         "kind": "acervo", "icon": "▤",
-        "territory": "Z-GUARDA", "family": "F-ESPERA",
+        "territory": "Z-GUARDA", "family": FAMILIA_DA_ZONA["Z-GUARDA"],
         # AMARELO POR CONSTRUCAO. Nao ha caminho por onde este cartao fique
         # verde enquanto houver objeto sem dono declarado.
         "status": AMARELO, "ui_status": "yellow",
@@ -871,6 +884,96 @@ def o_armazem_sem_livro() -> tuple[list, list]:
     return [no], []
 
 
+def a_sala_de_espera() -> tuple[list, list]:
+    """O READY — o que a coleta produz, e que ninguem ainda le.
+
+    POR QUE ESTE CARTAO E GERADO, E NAO DECLARADO
+
+    O READY nao e um ficheiro. E uma FUNCAO (`admissao.pronto_para_inteligencia`),
+    um CONTRATO (COL-LAW-043, 11 campos fixos) e uma FRONTEIRA — e o ficheiro que
+    o contem ja tem dono (`C-ADMISSAO`, que cobre `admissao/admissao.py`).
+    Declara-lo como peca com gaveta propria obrigaria a tirar aquele ficheiro do
+    dono que ja o tem, e o mapa proibe dois donos para um ficheiro.
+
+    E NAO SE CRIA `ready.py` PARA TER CARTAO. Isso ja foi recusado, e com razao:
+    inventar um modulo para um cartao ficar verde e a doenca, nao o conserto.
+
+    Entao ele nasce da MEDICAO, como o cartao do derivado. Os numeros vem de
+    `provas/a_fronteira_da_coleta.py`, que le a lei, chama o dono e conta quem
+    produz e quem consome. Nada aqui esta escrito a mao.
+
+    E ELE NAO PODE FICAR VERDE
+
+        CONTRATO EXISTE  nao e  ALGUEM ENTREGA
+        ALGUEM ENTREGA   nao e  ALGUEM RECOLHE
+
+    Enquanto ninguem ler esta saida, o cartao mostra o buraco com nome. Uma
+    porta por onde ninguem passa nao e uma porta: e uma parede com macaneta.
+    """
+    f = DADOS / "fronteira.observada.json"
+    if not f.is_file():
+        return [], []
+    F = json.loads(f.read_text(encoding="utf-8"))
+    prod = F.get("PRODUTORES_EM_RUNTIME") or []
+    cons = F.get("CONSUMIDORES") or []
+    campos = F.get("CAMPOS_DO_CONTRATO") or []
+    batem = F.get("LEI_E_CODIGO_BATEM")
+
+    # AMARELO POR CONSTRUCAO enquanto nao houver consumidor. Nao ha caminho por
+    # onde este cartao fique verde sem alguem do outro lado ler a saida — e
+    # pinta-lo de verde faria toda a gente concluir que a fronteira ja funciona.
+    no = {
+        "id": "C-READY", "name": "READY · o que a coleta entrega",
+        "kind": "acervo", "icon": "◈",
+        "territory": "Z-ESPERA", "family": "F-ESPERA",
+        "status": AMARELO if not cons else VERDE,
+        "ui_status": "yellow" if not cons else "green",
+        "proof": "git-measurement",
+        "lane": "official", "legacy": False, "changed_since_declared": [],
+        "files": [], "file_count": 0, "departments": ["ENGENHARIA"],
+        "views": ["acervo", "audit"], "inbound": [], "outbound": [],
+        "evidence_text": "provas/a_fronteira_da_coleta.py",
+        "what": (
+            f"O contrato de saida da coleta: {len(campos)} campos fixos, "
+            f"declarados na {F.get('LEI')} e devolvidos por "
+            f"{F.get('DONO')}. A inteligencia recebe isto e mais nada — nao "
+            f"sabe que raspador trouxe, nem que remendo foi preciso. "
+            f"Produtores em runtime: {len(prod)}. Consumidores: {len(cons)}."),
+        "why_here": (
+            "A faixa «A ESPERA» define-se como «o que ja passou por toda a "
+            "coleta e ainda nao entrou na inteligencia» — que e o READY, "
+            "palavra por palavra. Ela estava ocupada pela Z-GUARDA, que guarda "
+            "os donos do RAW e do DERIVED (etapas 5 e 6 das nove, provadas em "
+            "provas/a_rota_m2_atravessa.py A3 e A4) e portanto e COLETA. A "
+            "sala de espera existia no mapa com os inquilinos errados, e o "
+            "inquilino certo nao tinha cartao nenhum."),
+        "facts": [
+            f"a lei e o codigo declaram os mesmos campos: "
+            f"{'SIM' if batem else 'NAO'} ({len(campos)} campos)",
+            f"produtores em runtime: {', '.join(prod) if prod else 'NENHUM'}"
+            + (" — e e um CLI, nao um workflow" if prod else ""),
+            f"consumidores: {', '.join(cons) if cons else 'NENHUM'}",
+            f"destino declarado {F.get('DESTINO')} existe: "
+            f"{'SIM' if F.get('DESTINO_EXISTE') else 'NAO'}",
+        ],
+        "status_reason": (F.get("GAP_PORQUE") or "a fronteira tem consumidor."),
+        "gap": F.get("GAP"),
+        "produces": [],
+    }
+    ligacoes = [
+        {"from": "C-ADMISSAO", "to": "C-READY", "type": "PRODUZ",
+         "kind": "technical", "status": VERDE, "payload": "dado",
+         "categoria": "DATA",
+         "reason": (
+             "quem passa a porta com SIM sai por `pronto_para_inteligencia()`, "
+             "no mesmo ficheiro — e so quem passa: a funcao levanta erro para "
+             "qualquer outro resultado."),
+         "evidence": [{"file": "admissao/admissao.py", "line": 391,
+                       "snippet": "def pronto_para_inteligencia(item, decisao)"}]},
+    ]
+    return [no], ligacoes
+
+
 def a_casa_do_derivado() -> tuple[list, list]:
     """A tabela do derivado — DESENHADA E PROVADA, e nao aplicada.
 
@@ -907,7 +1010,7 @@ def a_casa_do_derivado() -> tuple[list, list]:
         "id": "C-DERIVED-ARTIFACT",
         "name": "ALVO · a casa do derivado (migration 022)",
         "kind": "acervo", "icon": "▷",
-        "territory": "Z-GUARDA", "family": "F-ESPERA",
+        "territory": "Z-GUARDA", "family": FAMILIA_DA_ZONA["Z-GUARDA"],
         # ✅ VERDE, E SO AGORA. Ate 08/09/2026 este cartao era ALVO: a tabela
         # existia no papel e nao em producao. Nesse dia a 022 foi aplicada, o
         # esquema foi lido de volta objeto a objeto, e o primeiro derivado
@@ -1051,8 +1154,6 @@ def a_estrada_do_pdf() -> tuple[list, list]:
     # A FAMILIA VEM DA ZONA, NUNCA DA PECA. Uma peca que declara familia
     # diferente da sua zona cria dois agrupamentos para a mesma coisa, e o mapa
     # passa a ter duas respostas para «onde e que isto vive».
-    FAMILIA_DA_ZONA = {"Z-PROVA": "F-INTELIGENCIA", "Z-GUARDA": "F-ESPERA",
-                       "Z-EXECUCAO": "F-COLETA", "Z-ACOES": "F-COLETA"}
     comum = {
         "kind": "engine", "proof": "git-measurement",
         "files": [], "file_count": 0, "departments": ["ENGENHARIA"],
@@ -1714,6 +1815,24 @@ CATEGORIA_DO_TIPO = {
     "VIAJA_POR": DATA,          # a colheita vem do canal para a acao
     "FEEDS": DATA,              # a camada de dado alimenta a tela
     "ENTREGA_A_LISTA": DATA,    # as fontes entregam ao canal a lista de contas
+    # ⚠️ ESTES QUATRO FALTAVAM, E ERAM A ESPINHA.
+    # Sem traducao, caiam em UNKNOWN — e as SEIS unicas ligacoes UNKNOWN do mapa
+    # inteiro eram exactamente a esteira da coleta:
+    #
+    #   PDF BRUTO -DERIVA_TEXTO-> EXECUTOR -PRODUZ-> TEXTO DERIVADO
+    #             -ALIMENTA-> ADMISSAO -PRODUZ-> READY
+    #
+    # As 112 arestas de `import` estavam todas classificadas como CODE, com
+    # cuidado. O caminho por onde o dado anda de verdade e que nao tinha nome.
+    #
+    #     O MAPA CLASSIFICOU OS IMPORTS E DEIXOU A ESTEIRA POR CLASSIFICAR.
+    #
+    # Quatro delas trazem `payload: dado` escrito pelo proprio gerador; e por
+    # elas que o artefato viaja, uma etapa para a seguinte.
+    "DERIVA_TEXTO": DATA,       # o bruto entra no executor e sai texto
+    "DERIVA_TEXTO_A_MAO": DATA, # a mesma travessia, por rota manual
+    "PRODUZ": DATA,             # a etapa produz o artefato da etapa seguinte
+    "ALIMENTA": DATA,           # o artefato chega a etapa que o consome
     # ordem de execucao
     "RUNS": CONTROL,
     "ABRE_O_CANAL": CONTROL,    # e por esta ferramenta que se chega la
@@ -2767,6 +2886,10 @@ def main_uma_vez(stamp: bool) -> int:
     der_nos, lig_der = a_casa_do_derivado()
     gerados += der_nos
     lig_pdf += lig_der
+
+    esp_nos, lig_esp = a_sala_de_espera()
+    gerados += esp_nos
+    lig_pdf += lig_esp
 
     # ── 2 · arestas de ficheiro sobem para arestas de componente ─────────────
     # Cada aresta de componente carrega TODAS as linhas que a provam. E o que
