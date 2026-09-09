@@ -77,10 +77,36 @@ canónica desde antes desta missão. Medido:
 > **Um portão que nunca corre não é um portão.**
 > **Um veredito sobre duas perguntas não responde a nenhuma.**
 
-Agora são **`SYSTEM MAP CHECK`** e **`COLETA CHECK`**, em paralelo, os dois
-obrigatórios. **Correm mais provas do que antes, não menos.** A tela vai buscar a
-conclusão do portão **do mapa** para o commit servido, pelo nome que viaja no
-artefato — o nome vive em `CADEIA-DO-MAPA.json`, nunca escrito no browser.
+### 2b · e o CI apanhou o mesmo defeito uma camada abaixo — em mim
+
+Depois de separar, o CI respondeu em `34ac891f`: passos **1, 2 e 2b PASSARAM**, e
+o job ficou vermelho no **passo 4**, nas duas provas de arquitetura que já
+reprovavam em `8e1947d2`. Mas a tela lê aquele veredito para responder «o
+validador aprovou este commit?» — e estava a pintar **SYSTEM MAP INVALID por
+causa de uma gaveta**.
+
+> **É a terceira vez que esta frase se aplica nesta missão, e da terceira era
+> sobre mim.**
+
+**São três portões**, todos obrigatórios, todos a correr:
+
+```
+SYSTEM MAP CHECK   1 · 2 · 2b                    «este mapa é o mapa desta árvore?»
+MAP RULES CHECK    4 · 4k · 4l · 5 · 6 · 7 · 8   «as regras não afrouxaram?»
+COLETA CHECK       3 · 4b..4j                    «a coleta não piorou?»
+```
+
+**Separar não é desligar, e isso é provado.** `MAP RULES CHECK` está **VERMELHO**
+e continua a reprovar a build com o nome dele. `test_impressao_da_arvore.py`
+ganhou quatro provas que exigem que cada prova separada continue no portão das
+regras, e quatro que a proíbem de voltar ao da frescura. E a tela mostra
+`Map rules gate (CI)` numa linha própria, com o estado e com a frase de que ela
+não entra na decisão.
+
+> **Um verde que esconde um vermelho ao lado é pior do que o vermelho.**
+
+A tela vai buscar as conclusões pelos nomes que viajam no artefato — eles vivem
+em `CADEIA-DO-MAPA.json`, nunca escritos no browser.
 
 ---
 
@@ -107,7 +133,7 @@ virar um STALE depois do deploy.
 
 ---
 
-## VERIFICADO NUM BROWSER A SÉRIO · 7/7
+## VERIFICADO NUM BROWSER A SÉRIO · 8/8
 
 Sobre **os bytes que a build produziu** — contentor montado como o da Vercel,
 publicador real, `deployment.generated.json` **não escrito à mão**. Só as
@@ -122,9 +148,11 @@ respostas do GitHub foram interceptadas, para cada cenário ser determinístico.
 | o portão ainda está a correr | ⚪ `FRESHNESS UNKNOWN` |
 | o mapa é de OUTRA árvore | 🔴 `STALE · MAP OF ANOTHER TREE` |
 | o portão correu com outro nome | ⚪ `FRESHNESS UNKNOWN` |
+| **as REGRAS vermelhas e a frescura provada** | 🟢 `CURRENT` **com `Map rules gate: FAIL` visível no painel** |
 
-**Cinco dos sete exigem que a tela NÃO fique verde.** 145 peças desenhadas, zero
-erros de JS. O harness está em `system-map/tests/verificar_a_tela.mjs`, com uma
+**Cinco dos oito exigem que a tela NÃO fique verde**, e o oitavo exige que o
+verde **não esconda** o vermelho ao lado — é o cenário que esta linha vive hoje.
+145 peças desenhadas, zero erros de JS. O harness está em `system-map/tests/verificar_a_tela.mjs`, com uma
 etiqueta honesta: **ele não é um portão** (precisa de browser, e a cadeia do mapa
 não carrega dependência de terceiro).
 
@@ -225,5 +253,19 @@ Postgres. **SKIP declarado, não PASS presumido.**
 3. **Recarimbar o que foi relido.** Nada foi recarimbado aqui — `--stamp` carimba
    **todos** os ficheiros, e recarimbar sem reler é o único jeito de mentir neste
    sistema.
-4. **O vermelho da coleta** (`padrao_da_coleta.py`) continua de pé, e agora está
+4. **`MAP RULES CHECK` está vermelho**, por duas provas de arquitetura que já
+   reprovavam em `8e1947d2`:
+   - `regua_que_carimba_nao_e_regua_que_mede` — `C-RASTRO-DA-COLETA` está em
+     `Z-MEDIDAS` e a medição diz `Z-REGRAS`, porque as ações da coleta passaram
+     a chamá-lo;
+   - `E2_receita_continua_com_um_consumidor` — a receita tem três consumidores
+     (`C-ESTRADAS-IT`, `C-ORQUESTRADOR`, `C-PROVA-COLETA`) e a regra quer um.
+
+   **Não foram tocadas aqui.** As duas são achados de arquitetura em território
+   da coleta/M2, e esta missão não tinha autorização para reabrir isso — e
+   arrumá-las às pressas para pintar um portão de verde é exactamente a troca
+   que a missão proíbe. Ficam vermelhas, com nome, no portão que responde por
+   elas.
+
+5. **O vermelho da coleta** (`padrao_da_coleta.py`) continua de pé, e agora está
    isolado no seu próprio portão: ele já não apaga as provas do mapa.

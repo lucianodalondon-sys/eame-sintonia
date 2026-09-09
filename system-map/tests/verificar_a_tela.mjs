@@ -77,6 +77,15 @@ const CENARIOS = [
   { nome: 'UNKNOWN · o portao correu mas com outro nome',
     head: COMMIT, portao: { status:'completed', conclusion:'success', nome:'outro-portao' },
     espera: 'UNKNOWN' },
+  /* O CENARIO QUE ESTA LINHA VIVE HOJE, e o mais facil de fazer mal.
+     `MAP RULES CHECK` esta VERMELHO na canonica por duas provas de arquitetura
+     que ja reprovavam em 8e1947d2. A frescura tem de continuar a responder pela
+     frescura — e o vermelho das regras tem de APARECER, nao desaparecer. Um
+     verde que esconde um vermelho ao lado e pior do que o vermelho. */
+  { nome: 'CURRENT com as REGRAS vermelhas — verde na frescura, e o vermelho a vista',
+    head: COMMIT, portao: { status:'completed', conclusion:'success' },
+    regras: { status:'completed', conclusion:'failure' },
+    espera: 'CURRENT', exigeNoPainel: ['Map rules gate', 'FAIL'] },
 ];
 
 const navegador = await chromium.launch({ executablePath: process.env.CHROMIUM || undefined });
@@ -90,9 +99,14 @@ for (const c of CENARIOS) {
     if (url.includes('/check-runs')) {
       const p = c.portao;
       if (!p) return rota.abort('failed');
+      const runs = [{ name: p.nome || 'SYSTEM MAP CHECK',
+        status: p.status, conclusion: p.conclusion }];
+      if (c.regras) {
+        runs.push({ name: 'MAP RULES CHECK',
+          status: c.regras.status, conclusion: c.regras.conclusion });
+      }
       return rota.fulfill({ status:200, contentType:'application/json',
-        body: JSON.stringify({ total_count:1, check_runs:[
-          { name: p.nome || 'SYSTEM MAP CHECK', status:p.status, conclusion:p.conclusion }]}) });
+        body: JSON.stringify({ total_count: runs.length, check_runs: runs }) });
     }
     if (url.includes('/compare/')) {
       return rota.fulfill({ status:200, contentType:'application/json',
@@ -120,10 +134,14 @@ for (const c of CENARIOS) {
   const pecas = await pagina.evaluate(() => document.querySelectorAll('.node, .component, [data-id]').length);
   const barra = await pagina.evaluate(() => {
     const b = document.getElementById('staleBar'); return b && !b.hidden; });
-  const ok = classe.includes(`sync-${c.espera.toLowerCase()}`);
+  const painel = await pagina.evaluate(
+    () => (document.getElementById('statusPanel') || {}).innerText || '');
+  const faltaNoPainel = (c.exigeNoPainel || []).filter(x => !painel.includes(x));
+  const ok = classe.includes(`sync-${c.espera.toLowerCase()}`) && !faltaNoPainel.length;
   if (!ok) falhas++;
   console.log(`  ${ok ? 'PASS' : 'FAIL'}  ${c.nome}`);
-  console.log(`        badge=${JSON.stringify((badge||'').trim())} · classe=${classe} · barra_vermelha=${barra} · nos=${pecas}`);
+  console.log(`        badge=${JSON.stringify((badge||'').trim())} · classe=${classe} · barra_vermelha=${barra} · nos=${pecas}`
+    + (faltaNoPainel.length ? ` · FALTA NO PAINEL: ${faltaNoPainel.join(', ')}` : ''));
   await pagina.close();
 }
 await navegador.close(); servidor.close();
