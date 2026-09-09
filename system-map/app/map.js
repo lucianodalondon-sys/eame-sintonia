@@ -1104,24 +1104,32 @@ async function provarFrescura() {
       ? dep.SYSTEM_MAP_CHECK === 'PASS'
       : null);
 
-  /* O VEREDITO DO VALIDADOR, DE DUAS FONTES, E FICA-SE COM A PIOR.
+  /* O VEREDITO DO VALIDADOR, DE DUAS FONTES QUE NAO SE ANULAM.
 
      A build produz um veredito quando consegue regenerar (o CI a seco consegue;
-     a Vercel nao). O CI produz sempre. Quando as duas falam, a pior ganha:
+     a Vercel nunca vai conseguir). O portao do CI produz sempre, para aquele
+     commit exacto.
 
-         FAIL  pior que  UNKNOWN  pior que  PASS
+     ⚠️ A PRIMEIRA VERSAO DISTO FICAVA COM A PIOR DAS DUAS, e o browser apanhou-a:
+     com `MAP GATE (CI) = PASS` e `MAP GATE (BUILD) = UNKNOWN`, a tela ficava
+     BRANCA — a regra vetava a unica prova que existia, usando a AUSENCIA da
+     outra. E na Vercel isso e sempre assim, o que tornava o portao do CI inutil
+     exactamente no caso para que ele foi buscado.
 
-     Nao e pessimismo decorativo — e a unica ordem em que uma discordancia entre
-     as duas nao consegue produzir um verde. Se elas se contradizem, alguma
-     coisa esta errada, e «alguma coisa esta errada» nunca e verde. */
+         UNKNOWN E A AUSENCIA DE UMA RESPOSTA, NAO UMA RESPOSTA.
+         «NAO CONSEGUI CORRER» NAO CONTRADIZ «CORRI, E PASSOU».
+
+     Entao: FAIL de qualquer uma das duas manda — seja reprovacao real, seja
+     contradicao entre elas, e nos dois casos vermelho e o que se quer. Sem
+     nenhum FAIL, um PASS medido conta. Nenhum dos dois a falar: UNKNOWN. */
   const portao = await medirPortaoDoMapa(repo, servido, dep ? dep.MAP_GATE_NAME : null);
   const daBuild = (dep && ['PASS', 'FAIL'].includes(dep.SYSTEM_MAP_CHECK))
     ? dep.SYSTEM_MAP_CHECK : 'UNKNOWN';
-  const ORDEM = { FAIL: 0, UNKNOWN: 1, PASS: 2 };
-  const check = ORDEM[portao.check] <= ORDEM[daBuild] ? portao.check : daBuild;
+  const vozes = [portao.check, daBuild];
+  const check = vozes.includes('FAIL') ? 'FAIL'
+    : vozes.includes('PASS') ? 'PASS' : 'UNKNOWN';
   const porqueCheck = check === 'PASS' ? null
-    : (check === portao.check && portao.razao) ? portao.razao
-      : (dep && dep.NOT_REGENERATED_REASON) || portao.razao;
+    : portao.razao || (dep && dep.NOT_REGENERATED_REASON) || null;
 
   const v = SM_FRESHNESS.decidir({
     repository: dep ? dep.REPOSITORY : null,
