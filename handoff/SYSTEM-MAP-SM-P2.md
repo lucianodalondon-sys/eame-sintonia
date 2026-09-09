@@ -141,19 +141,32 @@ do mesmo endereço, sem metadata de Git, contra a lei que este repositório já
 tinha escrita («UMA AUTORIDADE DE DEPLOY»).
 
 **O passo mínimo**, no painel da Vercel, projecto `sintonia-eame-preview`:
+promover o deployment da **cabeça de `claude/system-map-canonical-url-v1`**, e
+guardar o alvo de rollback.
 
 ```
-promover   dpl_A7LS4FUDJnLweSoqVaSi9UifaBeB
-           commit 22373dd43f403bc31a687f71d5a84a47d42d2cc4
-           branch claude/system-map-canonical-url-v1
-           state  READY
-
 rollback   dpl_3MQEgpUsrc7d8VvSL47gQRU74HKA
            commit a4fb6d81681094925ccfd1638bc7386cbec6f4d4
+           branch claude/visible-intelligence-v1
 ```
 
-Correr o portão outra vez imediatamente antes, e depois de promover confirmar
-que `/` e `/system-map/` respondem 200 no host canónico.
+O id do candidato não se escreve aqui a fixo — cada commit faz um novo, e um id
+escrito à mão fica velho no commit seguinte. Pergunta-se ao próprio deployment,
+pelo alias estável da branch:
+
+```bash
+curl -s https://sintonia-eame-preview-git-claude-system-34de93-london-creative.vercel.app/system-map/deployment.generated.json
+
+py system-map/scripts/portao_da_promocao.py \
+    --candidato https://sintonia-eame-preview-git-claude-system-34de93-london-creative.vercel.app \
+    --commit    <o DEPLOYED_COMMIT que veio acima> \
+    --rollback  dpl_3MQEgpUsrc7d8VvSL47gQRU74HKA
+```
+
+Promover só com «PROMOCAO AUTORIZADA». Depois, confirmar que `/` **e**
+`/system-map/` respondem 200 no host canónico — e se algo regredir, voltar
+imediatamente ao deployment de rollback, sem deixar produção partida para
+investigar depois.
 
 ---
 
