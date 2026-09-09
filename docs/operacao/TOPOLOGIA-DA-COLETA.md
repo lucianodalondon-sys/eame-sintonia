@@ -197,6 +197,29 @@ para separar carimbar de medir. Nos quatro casos testados as setas são
    de quem já fala entre si, não criar ligações.
 3. Sete colisões de prefixo, a maior «A prova de...» ×7.
 
+### A integração, medida
+
+A vossa linha andou durante esta missão: `ffa9fb9b → 6ad45b9a`. Comparado
+cartão a cartão e território a território, **não há colisão**:
+
+```
+a vossa linha acrescentou   C-CI-RELEASE                        1 cartão
+                            territórios alterados               NENHUM
+
+esta linha acrescentou      C-PROVA-FRONTEIRA · C-PROVA-DEDUPE
+                            C-CENSO-TOPOLOGIA · C-SCRAP-ROTA
+                            C-SENSOR-COLETA                     5 cartões
+                            Z-GUARDA  F-ESPERA -> F-COLETA
+                            Z-ESPERA  (nova)
+
+IDs em colisão              NENHUM
+territórios em colisão      NENHUM
+```
+
+O conflito textual no JSON é provável; o semântico não existe. Os
+`.generated.json` **não se resolvem à mão** — regeneram-se, e agora com os
+doze censos, não com os seis de antes.
+
 ---
 
 ## 8 · O QUE NÃO FOI TOCADO
