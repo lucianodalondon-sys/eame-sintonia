@@ -624,7 +624,39 @@ def rota_declarada(platform, capability, auth_mode):
     return None
 
 
-def _rota_padrao(rotas):
+# ══════════════════════════════════════════════════════════════════════════
+# AS CAPACIDADES QUE NUNCA PODEM CUSTAR DINHEIRO
+# ══════════════════════════════════════════════════════════════════════════
+# Isto não é preferência de preço. É decisão de arquitetura do dono do projeto,
+# tomada em 2026-09-09: para Stories, não existe intermediário pago entre a
+# fonte e o sinal.
+#
+# A decisão precisava virar TRAVA, não declaração. Enquanto ela vivia só na
+# ausência de rotas pagas na escada, bastava alguém declarar uma rota APIFY com
+# `PERMITIDA='SIM'` e `PROVED` para ela VENCER a rota local — porque
+# `_rota_padrao` ordena por permissão antes de classe. Medido por mutação, e a
+# mutação passou.
+#
+#     UMA REGRA QUE DEPENDE DE NINGUÉM DECLARAR A ROTA ERRADA
+#     NÃO É UMA REGRA. É UMA TORCIDA.
+#
+# Agora a exclusão é aplicada na hora de escolher, e vale para quem declarar o
+# que for. Apify continua inteira para as OUTRAS capacidades desta casa —
+# `apify_pool`, `apify-sensores` e as rotas pagas do resto seguem intocadas.
+#
+#     APIFY FORA DE STORIES != APIFY FORA DO SINTONIA.
+CLASSES_PAGAS = ('APIFY', 'OFFICIAL_API_PAID')
+
+SEM_ROTA_PAGA = {
+    ('INSTAGRAM', 'FETCH_STORIES'),
+}
+
+
+def rota_paga_proibida(platform, capability):
+    return (str(platform).upper(), str(capability).upper()) in SEM_ROTA_PAGA
+
+
+def _rota_padrao(rotas, platform=None, capability=None):
     """A rota DEFAULT: PERMITIDA primeiro, BARATA depois, PROVADA por último.
 
     A ordem importa e já esteve errada. A versão anterior ordenava só por preço,
@@ -641,6 +673,10 @@ def _rota_padrao(rotas):
     """
     viaveis = [x for x in rotas if x['PERMITIDA'] in ('SIM', 'CONDICIONAL')
                and x['ESTADO'] not in ('ROUTE_NOT_ALLOWED',)]
+    # A exclusão vem ANTES da ordenação. Depois seria tarde: a rota paga já
+    # teria ganhado o primeiro lugar e alguém a leria como «a mais permitida».
+    if rota_paga_proibida(platform, capability):
+        viaveis = [x for x in viaveis if x['CLASSE'] not in CLASSES_PAGAS]
     if not viaveis:
         return None
     return sorted(viaveis, key=lambda x: (x['PERMITIDA'] != 'SIM',

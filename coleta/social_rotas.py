@@ -376,7 +376,18 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         registro['ERRO'] = 'capacidade não declarada na matriz para esta plataforma'
         return [], registro
 
-    escolhida = mz._rota_padrao(rotas)
+    escolhida = mz._rota_padrao(rotas, plat, cap)
+
+    # SEGUNDA TRAVA, e ela é de propósito redundante com a primeira. A escolha já
+    # exclui classe paga nesta capacidade; esta aqui recusa mesmo que alguém
+    # mude o escolhedor amanhã. Duas travas independentes custam três linhas e
+    # valem uma fatura que ninguém autorizou.
+    if escolhida and mz.rota_paga_proibida(plat, cap) \
+            and escolhida['CLASSE'] in mz.CLASSES_PAGAS:
+        registro['ESTADO'] = 'ROUTE_NOT_ALLOWED'
+        registro['ERRO'] = ('%s/%s não pode usar rota paga (%s): esta capacidade é '
+                            'declarada SEM_ROTA_PAGA' % (plat, cap, escolhida['CLASSE']))
+        return [], registro
     if escolhida is None:
         registro['ESTADO'] = 'ROUTE_NOT_ALLOWED'
         registro['ERRO'] = 'nenhuma rota permitida para %s/%s' % (plat, cap)

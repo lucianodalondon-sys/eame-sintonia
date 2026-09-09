@@ -7,7 +7,7 @@ SINTONIA SCRAP — o executor composto. Uma fase por comando, sempre auditável.
     py scripts/social_scrap.py video                 # GRÁTIS · de onde sai vídeo italiano
     py scripts/social_scrap.py gap                   # GRÁTIS · onde a Apify ainda é precisa
     py scripts/social_scrap.py piloto                # GRÁTIS · a prova pequena, ao vivo
-    py scripts/social_scrap.py stories               # PAGA   · Stories ativos (só com --pagar)
+    py scripts/social_scrap.py stories               # GRÁTIS · Stories ativos, sem rota paga
     py scripts/social_scrap.py ledger                # GRÁTIS · o que a missão rodou e gastou
     py scripts/social_scrap.py sessao                # GRÁTIS · preflight da sessão local
     py scripts/social_scrap.py politica              # GRÁTIS · onde LOCAL_SESSION é permitida
@@ -812,91 +812,53 @@ ALVOS_STORIES_PILOTO = [
 ]
 
 
-def stories(perfis=None, autorizar_gasto=False):
-    """A prova pequena de Story. PAGA — e por isso recusa por padrão.
+def stories(perfis=None):
+    """A prova pequena de Story. GRÁTIS, e sem porta para deixar de ser.
 
-    O gasto não é liberado por descuido: sem `--pagar` explícito, a trava de rota
-    paga do dispatcher devolve BUDGET_EXHAUSTED e nada é acendido.
+    NÃO existe `--pagar` aqui, e a ausência é a decisão. Enquanto o parâmetro
+    existia — inerte, porque a escada não tem mais rota paga — ele era uma porta
+    aberta esperando alguém religar. Medido em 2026-09-09: a fase aceitava
+    `--pagar`, imprimia «custo estimado» e falava em dólar, numa capacidade que
+    não pode gastar um centavo.
+
+        UM PARÂMETRO INERTE NÃO É UM PARÂMETRO INOFENSIVO. É UM CONVITE.
+
+    A prova de que nenhum caminho leva a rota paga não é este comentário: é
+    `tests/test_stories_sem_apify.py`, que reprova se alguém declarar uma rota
+    APIFY ou paga em FETCH_STORIES.
     """
     run = _run_id('stories')
     alvos = perfis or ALVOS_STORIES_PILOTO
     print('\nPILOTO DE STORIES · run=%s\n%s' % (run, '─' * 74))
     print('  alvos               %s' % ', '.join(alvos))
-    import instagram_stories as ist
-    print('  ator                %s' % ist.ATOR)
-    print('  custo estimado      US$ %.4f  (US$ %.3f de partida + %d x US$ %.3f)'
-          % (ist.custo_estimado(len(alvos)), ist.ATOR_START_USD,
-             len(alvos), ist.ATOR_POR_USERNAME_USD))
-    print('  gasto autorizado    %s' % ('SIM' if autorizar_gasto else 'NÃO'))
+    print('  custo externo       US$ 0,00 — esta capacidade não tem rota paga')
 
     objetos, reg = sr.executar(
         platform='INSTAGRAM', capability='FETCH_STORIES', run_id=run,
-        country_scope='IT', perfis=alvos,
-        permitir_pago=bool(autorizar_gasto),
-        motivo_pago='FREE_ROUTE_INSUFFICIENT_CAPABILITY' if autorizar_gasto else None)
+        country_scope='IT', perfis=alvos)
 
     print('\n  ESTADO              %s' % reg['ESTADO'])
+    print('  ROTA ESCOLHIDA      %s' % reg.get('ROTA_ESCOLHIDA', 'nenhuma'))
     if reg.get('ERRO'):
-        print('  PORQUE              %s' % reg['ERRO'][:150])
+        print('  PORQUE              %s' % reg['ERRO'][:200])
     print('  objetos             %d' % len(objetos))
-    por_perfil = getattr(sr, '_ULTIMO_ESTADO_POR_PERFIL', {})
-    if por_perfil:
-        print('\n  ── um estado POR PERFIL, porque a lista inteira não é um estado ──')
-        for u, e in por_perfil.items():
-            print('    %-22s %-20s stories=%d' % (u, e['ESTADO'], e['STORIES']))
+    print('  APIFY_CALLS         0')
+    print('  PAID_API_CALLS      0')
+
     if objetos:
-        # ── A SEGUNDA VARREDURA ────────────────────────────────────────────
-        # Um Story ativo lido duas vezes continua sendo UM Story. A prova só
-        # existe se a passada de agora for confrontada com a anterior — dentro
-        # de um run só, a dedupe nunca teria o que fundir.
-        #
-        # A identidade é PLATFORM+NATIVE_ID. Nunca a URL (o CDN troca o endereço
-        # assinado a cada leitura) e nunca o hash da imagem em primeiro lugar
-        # (duas Stories com a mesma arte e IDs diferentes são duas Stories).
         antes = env.ler('STORIES-IT.json') or {}
         anteriores = {o['NATIVE_ID'] for o in (antes.get('OBJETOS') or [])
                       if o.get('PLATFORM') == 'INSTAGRAM'}
         agora_ids = {o['NATIVE_ID'] for o in objetos}
-        revistos = sorted(anteriores & agora_ids)
-        novos = sorted(agora_ids - anteriores)
         rel = _registrar([reg], objetos, 'STORIES-IT.json')
         print('\n  ── a segunda passada não faz o mesmo Story nascer duas vezes ──')
-        print('    varredura anterior  %d Stories' % len(anteriores))
-        print('    esta varredura      %d Stories' % len(agora_ids))
-        print('    REVISTOS            %d  (mesmo NATIVE_ID; não viram objeto novo)'
-              % len(revistos))
-        print('    NOVOS               %d' % len(novos))
+        print('    REVISTOS            %d' % len(anteriores & agora_ids))
+        print('    NOVOS               %d' % len(agora_ids - anteriores))
         if rel:
             print('    DUPLICADOS CRIADOS  %d' % (len(objetos) - rel['DISTINTOS']))
-        preservadas = [o for o in objetos if o.get('MEDIA_DURABILITY') == 'MEDIA_PRESERVED']
-        print('\n  ── o byte, capturado no mesmo run que descobriu ──')
-        print('    MIDIA PRESERVADA    %d de %d' % (len(preservadas), len(objetos)))
-        for o in preservadas[:6]:
-            print('      %-11s %-22s %8d bytes  sha256=%s'
-                  % (o['MEDIA_TYPE'], o['NATIVE_ID'], o['MEDIA_BYTES'],
-                     o['MEDIA_SHA256'][:16]))
-        for o in objetos:
-            if o.get('MEDIA_DURABILITY') != 'MEDIA_PRESERVED':
-                print('      NAO DURAVEL %-14s %s'
-                      % (o['NATIVE_ID'], o.get('MEDIA_NOT_DURABLE_REASON')))
-        videos = [o for o in preservadas if o['MEDIA_TYPE'] == 'VIDEO']
-        if videos:
-            print('\n  ── vídeo: o byte já está no disco, a transcrição é DERIVED ──')
-            sys.path.insert(0, os.path.join(RAIZ, 'ferramentas'))
-            import story_transcrever as st
-            for o in videos[:2]:
-                st.anexar(o)
-                t = o['DERIVED_TRANSCRIPT']
-                print('    %-22s %-16s lingua=%s(%s) %ss de máquina, US$ %.2f'
-                      % (o['NATIVE_ID'], t['TRANSCRIPT_STATE'], t['LANGUAGE'],
-                         t['LANGUAGE_PROBABILITY'], t['LOCAL_COMPUTE_S'], t['USD_COST']))
-        else:
-            print('\n  VIDEO_STORY_SAMPLE  NOT_AVAILABLE — nenhum Story de vídeo nesta '
-                  'passada; não se inventa amostra')
-        print('\n  artefato            data/samples/SOCIAL-IT/STORIES-IT.json')
     else:
-        # CAN DO != DID DO. Sem objeto, não há prova viva — e o relatório diz isso
-        # em vez de mostrar uma capacidade declarada como se fosse coleta feita.
+        # CAN DO != DID DO. Sem objeto não há prova viva, e o relatório diz isso
+        # em vez de mostrar capacidade declarada como se fosse coleta feita.
         print('\n  LIVE_PROOF          NO — %s' % reg['ESTADO'])
     return reg
 
@@ -946,7 +908,7 @@ def main():
     elif cmd == 'piloto':
         piloto()
     elif cmd == 'stories':
-        stories(autorizar_gasto=('--pagar' in sys.argv))
+        stories()
     elif cmd == 'ledger':
         ledger()
     elif cmd in ('sessao', 'politica'):

@@ -52,11 +52,12 @@ on:
         type: choice
         options: [censo, portao, video, gap, piloto, ledger, sessao, politica, guarda,
                   youtube, youtube-piloto, youtube-piloto-oneshot, stories]
-      pagar:
-        description: 'SÓ a fase `stories` gasta dólar. Sem isto, ela recusa.'
+      runner:
+        description: 'qual PC executa as fases de sessão local. AUTO usa o padrão.'
         required: false
-        default: false
-        type: boolean
+        default: AUTO
+        type: choice
+        options: [AUTO, eame-sintonia-local, eame-sintonia-local-2]
       url:
         description: 'só para a fase `portao`: a URL a testar'
         required: false
@@ -80,8 +81,21 @@ jobs:
     # faz a coleta paga.
     #
     #     O GITHUB DISPARA. O PC EXECUTA. A SESSÃO NÃO VIAJA.
+    # QUAL PC TEM A SESSÃO É PERGUNTA MENSURÁVEL, NÃO PERGUNTA PARA O OPERADOR
+    # -----------------------------------------------------------------------
+    # Existem duas máquinas registradas, `eame-sintonia-local` e a `-2`, e até
+    # aqui o workflow apontava para a primeira por hábito, não por medição. O
+    # operador não deve precisar lembrar em qual delas mora o Chrome logado: a
+    # fase `sessao` pergunta isso à própria máquina, e o `runner` de entrada
+    # existe para que ela possa ser feita nas DUAS, uma de cada vez.
+    #
+    #     A SESSÃO É DESCOBERTA, NÃO LEMBRADA.
+    #
+    # `AUTO` preserva o comportamento antigo para as fases que já dependiam
+    # dele; nenhuma outra fase muda de máquina por causa desta entrada.
     runs-on: ${{ (inputs.fase == 'sessao' || inputs.auth_mode == 'LOCAL_SESSION')
-      && fromJSON('["self-hosted","Windows","X64","eame-sintonia-local"]')
+      && fromJSON(format('["self-hosted","Windows","X64","{0}"]',
+           inputs.runner == 'AUTO' && 'eame-sintonia-local' || inputs.runner))
       || fromJSON('"ubuntu-latest"') }}
     defaults:
       run:
@@ -204,30 +218,10 @@ jobs:
           # a mesma chave, e dois cofres divergem. Ausente, a fase `youtube-piloto`
           # para em CHECKPOINT_CANONICAL_UNAVAILABLE e NÃO cai para JSON nem Git.
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
-          # A CHAVE PAGA. É o MESMO cofre que `apify-conexao.yml` e
-          # `apify-sensores.yml` já usam — um nome novo seria um segundo cofre
-          # para a mesma finalidade, e dois cofres divergem.
-          #
-          #     ONE CREDENTIAL PURPOSE -> ONE SECRET OWNER.
-          #
-          # Ausente, a fase `stories` para em CREDENTIAL_MISSING e NÃO cai para a
-          # rota pública — que foi MEDIDA `BLOCKED` para Story. Cair ali daria
-          # coleta vazia com cara de coleta feita, todo dia.
-          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
         run: |
           echo "FASE=${{ inputs.fase }}"
-          # As DUAS travas do gasto são independentes, e o workflow só controla a
-          # primeira. `--pagar` é INTENÇÃO; o teto de US$ 0,50 por missão é
-          # CAPACIDADE, e vive no código, onde ninguém o esquece ao editar YAML.
-          PAGAR=""
-          if [ "${{ inputs.fase }}" = "stories" ] && [ "${{ inputs.pagar }}" = "true" ]; then
-            PAGAR="--pagar"
-            echo "GASTO_AUTORIZADO=YES"
-          elif [ "${{ inputs.fase }}" = "stories" ]; then
-            echo "GASTO_AUTORIZADO=NO — a fase vai recusar, e isso é o correto"
-          fi
           PYTHONIOENCODING=utf-8 python3 coleta/social_scrap.py \
-            "${{ inputs.fase }}" ${{ inputs.fase == 'portao' && inputs.url || '' }} $PAGAR
+            "${{ inputs.fase }}" ${{ inputs.fase == 'portao' && inputs.url || '' }}
 
       # A PROVA BRUTA DO PILOTO SOBE COMO ARTEFATO, NÃO COMO COMMIT
       # ------------------------------------------------------------
