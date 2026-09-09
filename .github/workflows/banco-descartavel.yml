@@ -35,6 +35,21 @@ on:
       - 'coleta/social_persistencia.py'
       - 'provas/derived_artifact_no_postgres.py'
       - 'guarda/preservar_derivado.py'
+      # A ROTA FORWARD INTEIRA. Estes eram os ficheiros que a travessia
+      # atravessa e que NAO estavam na lista: mexer neles nao acordava
+      # portao nenhum, e a unica prova ponta-a-ponta da coleta so corria
+      # se um humano se lembrasse dela a mao.
+      - 'coleta/derivacao_forward.py'
+      - 'coleta/rota_forward_documento.py'
+      - 'coleta/executor_texto_de_pdf.py'
+      - 'admissao/admissao.py'
+      - 'leis/telemetria.py'
+      - 'provas/a_rota_m2_atravessa.py'
+      - 'provas/o_forward_conta_se.py'
+      - 'provas/o_executor_conta_se.py'
+      - 'provas/a_autoridade_da_fonte.py'
+      - 'provas/o_dedupe_tem_constraint.py'
+      - 'provas/inventario_esperado.py'
       - 'motor/cadeia_canonica.sh'
       - 'provas/trava_de_drift_de_migration.sh'
       - '.github/workflows/banco-descartavel.yml'
@@ -69,6 +84,17 @@ jobs:
 
       # `psql` ja existe no runner. Nao se instala pacote global so para um
       # teste passar — a prova fala com o banco pelo cliente que ja la esta.
+      # `pdftotext` NAO E DETALHE DE MAQUINA AQUI. Sem ele o executor de
+      # texto devolve FERRAMENTA_AUSENTE para tudo, e a prova da rota
+      # mediria o runner em vez de medir a estrada. Ela recusa-se a correr
+      # nesse caso — e uma recusa silenciosa num CI e um portao que nao
+      # corre. Instala-se, e assim a recusa nunca precisa de acontecer.
+      - name: 0 · a ferramenta de texto existe
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y poppler-utils
+          pdftotext -v
+
       - name: 1 · o cliente do banco existe, e o banco responde
         run: |
           psql --version
@@ -159,6 +185,63 @@ jobs:
         env:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/social
+
+      # ═══════════════════════════════════════════════════════════════
+      # A TRAVESSIA. Ate aqui este workflow provava PECAS: a casa do bruto,
+      # a casa do derivado, o contrato social, o rastro. Nenhuma delas
+      # perguntava se a ESTRADA existe.
+      #
+      #     UM PORTAO QUE NAO CORRE NAO E UM PORTAO.
+      #
+      # `provas/a_rota_m2_atravessa.py` e a unica prova de que a MESMA rota
+      # atravessa DERIVED -> STRUCTURED -> ADMISSION numa corrida so, com o
+      # artefato a viajar e as duas arestas com os dois topos no banco — e
+      # ela nao era chamada por workflow nenhum. Corria quando alguem se
+      # lembrasse. Passa a correr aqui.
+      #
+      # Banco VIRGEM antes de cada uma: a cadeia de migrations nao e
+      # idempotente (a segunda aplicacao morre em «type pais already
+      # exists»), e uma prova que corre sobre o esquema deixado por outra
+      # nao prova o que diz provar.
+      - name: 2f · a estrada forward emite, e termina onde termina de verdade
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/o_forward_conta_se.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      - name: 2g · A MESMA rota atravessa as tres etapas, numa corrida so
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/a_rota_m2_atravessa.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # Corre LOGO A SEGUIR a travessia, e de proposito no MESMO banco: o
+      # AU8 pergunta se MEDIR a autoridade escreve identidade, e essa
+      # resposta tem de ser a mesma com o banco cheio do trabalho da rota.
+      # Media contagens absolutas e mudava de veredito conforme a ordem;
+      # hoje mede o delta, e este passo e o que guarda esse conserto.
+      #
+      # ⚠️ ESTE PASSO NAO FECHA O GAP DA IDENTIDADE. Ele MEDE-O. O veredito
+      # esperado e `SOURCE_AUTHORITY[IT-T2-002] = UNRESOLVED`, e isso e um
+      # PASS: a prova passa quando consegue medir a falta, nao quando a
+      # falta desaparece. Quem a fizer «passar» inventando um dono partiu-a.
+      - name: 2h · a autoridade da fonte, medida — e o que medir nao escreve
+        run: python3 provas/a_autoridade_da_fonte.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # Sem banco: le migrations e codigo, e confronta cada `on conflict`
+      # com a chave unica que o sustenta. `if: always()` porque a pergunta
+      # dele nao depende de nenhum passo acima ter corrido.
+      - name: 2i · toda clausula `on conflict` tem chave que a sustente
+        if: always()
+        run: python3 provas/o_dedupe_tem_constraint.py
 
       - name: 3 · a prova recusa-se a correr fora de um banco descartável
         if: always()

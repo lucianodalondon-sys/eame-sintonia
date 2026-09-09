@@ -326,6 +326,11 @@ def main():
          "escreveu a prova, e nao de um contrato")
 
     # ── AU8 · nada foi escrito ao medir ──────────────────────────────────
+    # O que NAO se conseguiu medir. Fica separado dos que falharam: `FAIL` e
+    # «mediu-se e esta mal», `NOT_RUN` e «nao se chegou a olhar», e achatar
+    # os dois num so numero e como esta casa perde a confianca nos proprios
+    # painéis.
+    nao_mediu = []
     url = os.environ.get("BANCO_DESCARTAVEL_URL") or ""
     if url:
         import importlib.util as u
@@ -342,18 +347,72 @@ def main():
             alvo = [f for f in sorted(os.listdir(pasta)) if f.startswith(n + "_")][0]
             subprocess.run(["psql", url, "-q", "-f", os.path.join(pasta, alvo)],
                            capture_output=True, text=True)
-        contagens = {}
-        for t in TABELAS_DE_IDENTIDADE:
-            r = subprocess.run(["psql", url, "-tA", "-c",
-                                "select count(*) from public.%s" % t],
-                               capture_output=True, text=True)
-            contagens[t] = r.stdout.strip() if r.returncode == 0 else "?"
+        # ⚠️ ESTA CONTA ERA ABSOLUTA, E POR ISSO DEPENDIA DE QUEM CORREU ANTES.
+        #
+        # A pergunta do AU8 e «MEDIR a autoridade escreveu identidade?».
+        # A resposta a essa pergunta e um DELTA. A versao anterior media o
+        # TOTAL de linhas do banco e exigia zero — o que so e a mesma coisa
+        # num banco virgem.
+        #
+        # MEDIDO, no mesmo banco descartavel, com a ordem trocada:
+        #
+        #     virgem                        -> AU8 PASS  (canal=0, org=0)
+        #     depois de a_rota_m2_atravessa -> AU8 FAIL  (canal=1, org=1)
+        #
+        # e a rota TEM de escrever aquelas linhas: e o trabalho dela. O AU8
+        # estava a acusar o vizinho de um crime que ele nao cometeu, e a
+        # mudar de veredito conforme a ordem dos ficheiros.
+        #
+        #     UM TESTE QUE PASSA SOZINHO NAO E UM TESTE SEGURO.
+        #
+        # Antes e depois, e a diferenca. Assim a resposta e a mesma em banco
+        # virgem e em banco com trabalho de outra prova la dentro.
+        def contar():
+            fora_ = {}
+            for t in TABELAS_DE_IDENTIDADE:
+                r = subprocess.run(["psql", url, "-tA", "-c",
+                                    "select count(*) from public.%s" % t],
+                                   capture_output=True, text=True)
+                fora_[t] = r.stdout.strip() if r.returncode == 0 else "?"
+            return fora_
+
+        antes = contar()
+        # MEDIR DE NOVO, entre as duas contagens — e com as MESMAS gavetas
+        # que este ficheiro usa para responder a pergunta da autoridade.
+        # Se alguma delas escrevesse identidade a caminho, aparecia aqui.
+        contratos_com_owner()
+        fontes_com_ficha_no_atlas()
+        o_que_o_reconciliado_diz(A_FONTE_DA_M2)
+        o_que_o_candidato_diz(A_FONTE_DA_M2)
+        o_que_o_contrato_de_acesso_diz(A_FONTE_DA_M2)
+        tipos_que_o_schema_aceita()
+        owner_kinds_do_candidato()
+        escritores_de_identidade_em_runtime()
+        depois = contar()
+        delta = {t: (antes.get(t), depois.get(t)) for t in TABELAS_DE_IDENTIDADE}
+        mexeu = [t for t, (a, d) in delta.items() if a != d or "?" in (a, d)]
         caso("AU8_medir_a_autoridade_nao_escreve_identidade_nenhuma",
-             all(v == "0" for v in contagens.values()),
-             "linhas depois de medir: %s"
-             % ", ".join("%s=%s" % kv for kv in sorted(contagens.items())))
+             not mexeu,
+             "delta ao medir: %s" % ", ".join(
+                 "%s %s->%s" % (t, delta[t][0], delta[t][1])
+                 for t in sorted(delta)))
     else:
-        print("  (AU8 PULADO — sem BANCO_DESCARTAVEL_URL. Pulado nao e provado.)")
+        # ⚠️ PULADO NAO E PROVADO — E O CODIGO DE SAIDA TEM DE O DIZER.
+        #
+        # A versao anterior imprimia esta frase e depois devolvia 0. O unico
+        # sitio onde uma MAQUINA le o resultado dizia PASS, e um CI que
+        # esquecesse a variavel de ambiente ficava verde para sempre sem
+        # nunca ter olhado para o banco.
+        #
+        #     UM TESTE QUE PASSA PORQUE NAO CONSEGUIU MEDIR
+        #     E PIOR DO QUE TESTE NENHUM.
+        #
+        # Nao se transforma isto num FAIL: nao ha defeito nenhum provado. O
+        # veredito passa a ser NOT_RUN, que e uma terceira coisa, e o codigo
+        # de saida deixa de ser o do sucesso.
+        nao_mediu.append("AU8 — sem BANCO_DESCARTAVEL_URL")
+        print("  (AU8 NAO CORREU — sem BANCO_DESCARTAVEL_URL. "
+              "NOT_RUN nao e PASS.)")
 
     # ── O RELATORIO ──────────────────────────────────────────────────────
     print()
@@ -362,7 +421,11 @@ def main():
         print("  %s  %-56s %s" % ("PASS" if ok else "FAIL", nome, detalhe))
     print("=" * 70)
     veredito = "UNRESOLVED" if sem == "UNRESOLVED" else "RESOLVED"
-    print("AUTORIDADE_DA_FONTE=%s" % ("PASS" if not mal else "FAIL"))
+    # Tres vereditos, e nao dois. `PARTIAL` e «o que correu passou, e falta
+    # correr algo» — nem o verde de quem mediu tudo, nem o vermelho de quem
+    # achou defeito. Achatar isto em PASS foi exactamente o defeito anterior.
+    print("AUTORIDADE_DA_FONTE=%s" % (
+        "FAIL" if mal else ("PARTIAL" if nao_mediu else "PASS")))
     print("SOURCE_AUTHORITY[%s] = %s" % (A_FONTE_DA_M2, veredito))
     print()
     print("  MISSING_AUTHORITY, com nome:")
@@ -378,7 +441,17 @@ def main():
     print("  O QUE ISTO NAO CONCLUI: que a relacao esteja errada. ARPAV publica")
     print("  mesmo aquele boletim. O que falta nao e verdade — e AUTORIDADE.")
     print("  UNKNOWN HONESTO > IDENTIDADE INVENTADA.")
-    return 0 if not mal else 1
+    if nao_mediu:
+        print()
+        print("  NOT_RUN — %d caso(s) que esta corrida nao chegou a medir:"
+              % len(nao_mediu))
+        for x in nao_mediu:
+            print("    · %s" % x)
+        print("  NOT_RUN != PASS. Correr com BANCO_DESCARTAVEL_URL apontado")
+        print("  a um banco descartavel local para fechar esta metade.")
+    if mal:
+        return 1
+    return 0 if not nao_mediu else 2
 
 
 if __name__ == "__main__":
