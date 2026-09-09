@@ -117,6 +117,61 @@ onde ficaria uma credencial se o repositório deixar de ser público, estão em
 
 ---
 
+## O ENDEREÇO
+
+```
+https://sintonia-eame-preview.vercel.app/system-map/
+```
+
+É este, e não muda. Nem quando há commit novo, nem quando há build nova, nem
+quando a linha geradora muda de nome.
+
+Os endereços longos da Vercel — `...-nsmkrrwth-london-creative.vercel.app`,
+`...-git-claude-<branch>-...` — são **previews de engenharia**. Continuam a
+existir e são úteis: é onde se testa antes de decidir. Não são o produto.
+
+    PREVIEW URL      ≠  USER URL
+    DEPLOYMENT URL   ≠  CANONICAL PRODUCT URL
+    LATEST DEPLOYMENT ≠ APPROVED DEPLOYMENT
+
+**Nunca entregar um URL de deployment ao dono do produto como se fosse o
+endereço.** Qualquer handoff apresenta primeiro o endereço canónico; o URL do
+deployment vive na secção técnica, mais abaixo, e não no topo.
+
+O contrato legível por máquina está em
+[`CANONICAL-PUBLICATION.json`](CANONICAL-PUBLICATION.json): o host, a rota, quem
+é dono da publicação, que branches podem ser candidatas e o que tem de estar
+provado antes de o alias mudar.
+
+### Como uma versão nova chega lá
+
+O projecto Vercel serve o **portal inteiro**, e não só o mapa. Promover um
+deployment do System Map promove o site todo com ele — por isso a promoção não
+é automática:
+
+```
+commit → preview da branch → SYSTEM MAP CHECK → PORTAL REGRESSION CHECK
+       → READY → promoção explícita → o mesmo endereço de sempre
+```
+
+O portão que autoriza (ou recusa) está em
+[`scripts/portao_da_promocao.py`](scripts/portao_da_promocao.py):
+
+```bash
+py system-map/scripts/portao_da_promocao.py \
+    --candidato https://<deployment>.vercel.app \
+    --commit    <sha> \
+    --rollback  <id do deployment canónico actual>
+```
+
+Ele recusa quando a branch não tem autoridade, quando o commit servido não é o
+esperado, quando o mapa servido foi gerado de outra árvore, e — a que custa caro
+errar — quando alguma rota do portal piora ou algum recurso que o portal serve
+hoje deixa de ser servido. A lista desses recursos não se escreve à mão: lê-se
+do canónico servido no momento, por isso actualiza-se sozinha.
+
+---
+
 ## A SEPARAÇÃO QUE SUSTENTA TUDO
 
 ```
