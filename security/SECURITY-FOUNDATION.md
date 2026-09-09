@@ -24,6 +24,57 @@ System Map, Collection e Supabase live nao foram tocados.
 
 ---
 
+## 0. STANDARDS BASIS (S0R, 2026-09-09)
+
+Medido nas fontes oficiais, nao de memoria. Nao guardamos o texto das normas:
+so a versao, o estado e os requisitos que nos dizem respeito.
+
+| Fonte | Versao | Estado | URL | Lido em |
+|---|---|---|---|---|
+| OWASP ASVS | 5.0.0 (2025-05-30) | STABLE | owasp.org/www-project-application-security-verification-standard | 2026-09-09 |
+| OWASP Top 10 | 2025 | FINAL | owasp.org/Top10/2025/ | 2026-09-09 |
+| NIST SSDF | SP 800-218 v1.1 (2022-02) | **FINAL / NORMATIVO** | csrc.nist.gov/projects/ssdf | 2026-09-09 |
+| NIST SSDF | SP 800-218r1 v1.2 (IPD 2025-12-17) | **DRAFT — nao normativo** | csrc.nist.gov/projects/ssdf | 2026-09-09 |
+| GDPR | Reg. (UE) 2016/679, Art. 4(1), 25, 32 | EM VIGOR | eur-lex.europa.eu CELEX:32016R0679 | 2026-09-09 |
+
+ASVS 5.0.0 tem 17 capitulos (V1 a V17) e cerca de 350 requisitos. Usamos os
+capitulos como enderecos; nao copiamos requisitos para dentro do repositorio.
+
+**ASVS_LEVEL_RECOMMENDED = L2**, com L3 selectivo. Justificacao pelo perfil
+real e nao por habito: o SINTONIA e uma aplicacao corporativa de business
+intelligence, com autenticacao e autorizacao futuras, dados proprietarios,
+utilizadores EAME e — medido nesta rodada — dados pessoais no corpus. Nao e
+infraestrutura critica de seguranca humana, nao move dinheiro e nao guarda
+categorias especiais do Art. 9. L1 seria insuficiente para uma aplicacao que
+vai isolar paises e papeis. L3 inteiro seria teatro: obrigaria todo o produto a
+um nivel que so faz sentido em componentes especificos. **L3 selectivo** aplica-se
+a tres sitios e so a esses: a fronteira de autorizacao (V8), a projeccao por
+pais e papel, e o caminho de exportacao em massa.
+
+Nota de fronteira, que nenhuma destas normas cobre:
+
+    APPLICATION SECURITY != IP PROTECTION.
+
+O ASVS nao diz que o motor nao deve viajar para o browser. Essa continua a ser
+uma lei nossa, e continua a valer com a mesma forca.
+
+### Onde cada norma nos aponta
+
+`security-baseline.json` carrega o mapeamento completo, controlo a controlo.
+Resumo do que ele diz:
+
+- **A01 Broken Access Control / ASVS V8** — SEC-008 e SEC-009: nao ha nada.
+  E o maior buraco, e as tres normas concordam.
+- **A02 Security Misconfiguration / ASVS V13** — SEC-011, SEC-012, SEC-013:
+  previews sem proteccao, 0/85 branches protegidas, sem CSP.
+- **A03 Software Supply Chain Failures / SSDF PS, PW.4** — SEC-001 e SEC-002:
+  ja PROVED. E o dominio onde estamos melhor.
+- **A09 Security Logging and Alerting Failures / ASVS V16** — SEC-014: ausente.
+- **A10 Mishandling of Exceptional Conditions** — nao medido em S0. Superficie
+  hoje minima (portal estatico, sem API), mas nasce no dia em que houver API.
+
+---
+
 ## 1. O QUE E PUBLICO HOJE — MEDIDO, NAO ASSUMIDO
 
 O repositorio **e publico**. Medido pela API do GitHub em 2026-09-09:
@@ -131,7 +182,14 @@ Para um auditor isso e virtude. Publicado anonimamente, e um mapa de ataque.
 
 ## 4. SEGREDOS — VARRIDO, TREE E HISTORIA
 
-**Nenhum segredo real encontrado. Nenhuma rotacao exigida por esta medicao.**
+**Nenhum segredo real detectado pela varredura actual. Nenhuma rotacao exigida
+pela evidencia que temos.**
+
+    NOT DETECTED != IMPOSSIBLE TO EXIST.
+
+A varredura foi por padrao conhecido. Ela nao prova ausencia: prova que os
+padroes que procuramos nao apareceram em 9.809 blobs. E boa evidencia, e e a
+melhor que existe sem push protection ligada. Nao e uma certeza historica.
 
 - Tree actual: 3 ficheiros com correspondencia, todos falsos positivos
   (padroes de deteccao em `pacote/pacote_montar.py`, DSNs `localhost` de teste).
@@ -143,14 +201,75 @@ Para um auditor isso e virtude. Publicado anonimamente, e um mapa de ataque.
 Valores nao sao impressos aqui, nem foram testados contra qualquer servico.
 
 ```
-SECRET_SCAN_CURRENT_TREE = DONE     SECRETS_FOUND = 0
-SECRET_SCAN_HISTORY      = DONE     ROTATION_REQUIRED = NO
-SERVICE_ROLE_IN_CLIENT   = NO   (medido: 0 ocorrencias em italia-portale/client)
+SECRET_SCAN_CURRENT_TREE = DONE
+SECRET_SCAN_HISTORY      = DONE   (9.809 blobs, todos os refs)
+NO_REAL_SECRET_DETECTED_BY_CURRENT_SCAN  = YES
+ROTATION_REQUIRED_FROM_CURRENT_SCAN      = NO
+SERVICE_ROLE_IN_CLIENT   = NO     (0 ocorrencias em italia-portale/client)
 ```
 
 Nota de lei: `PRIVATE NOW ≠ NEVER PUBLIC`. Aqui a lei nao morde, porque nada
 sensivel esteve la. O que esteve publico — e continua — e a tecnologia, nao a
 credencial.
+
+---
+
+## 4b. DADOS PESSOAIS E GDPR — CORRECCAO DA S0
+
+A S0 concluiu `GDPR = NOT_APPLICABLE_YET` a partir de
+`ADAMA_CONFIDENTIAL_DATA = NOT_PRESENT`. **Essa conclusao estava errada, e a
+correccao muda a prioridade.**
+
+O GDPR nao depende de existirem dados confidenciais da ADAMA. Depende de haver
+tratamento de dados pessoais de pessoas singulares. Art. 4(1): informacao
+relativa a uma pessoa singular **identificada ou identificavel**.
+
+Medido no corpus servido:
+
+| Coleccao | Registos | Campo | O que e |
+|---|---:|---|---|
+| `researchers` | 60 | `PERSON` + `ORCID` | nome completo real e identificador persistente global |
+| `science` | 88 | `AUTHOR` + `ORCID` | autores de publicacoes, com ORCID |
+| `voices` | 58 | `PERSON` | handles publicos, marcados pelo proprio sistema como `NAO_ATRIBUIVEL — handle publico pseudonimizado` |
+| `channels` | 62 | `CHANNEL_URL` | canais, alguns provavelmente de pessoas singulares |
+
+**65 pessoas singulares distintas por nome. 60 identificadores ORCID distintos.**
+
+E isto esta live. Contado no ficheiro de 11,2 MB servido anonimamente em
+producao: **911 campos `ORCID`, 859 `AUTHOR`, 118 `PERSON`, 58
+`PERSON_IDENTITY_STATE`**.
+
+Tres notas de rigor, para nao dramatizar nem minimizar:
+
+1. Quase toda esta informacao **ja era publica na origem** — ORCID e autoria
+   cientifica sao metadados publicados; handles do YouTube sao publicos. Isto
+   nao e uma fuga. Mas republicar dado pessoal publico continua a ser
+   **tratamento**, e tratamento precisa de base legal, de finalidade e de
+   transparencia.
+2. O sistema **ja pensou nisto sozinho**: `PERSON_IDENTITY_STATE` existe e
+   marca 58 registos como pseudonimizados. Isso e Art. 25 na pratica, feito
+   antes de alguem o exigir. Merece ser reconhecido.
+3. Pseudonimizacao **nao e** anonimizacao. Dado pseudonimizado continua a ser
+   dado pessoal.
+
+```
+GDPR_APPLICABILITY (S0)   NOT_APPLICABLE_YET          <- errado
+GDPR_APPLICABILITY (S0R)  LIKELY_APPLICABLE ·
+                          REQUIRES_DATA_INVENTORY_AND_LEGAL_INTERPRETATION
+```
+
+Esta missao **nao** determina base legal, papel de responsavel ou
+subcontratante, obrigacao de AIPD, legalidade de transferencia internacional
+nem prazos de conservacao. Tudo isso e `LEGAL_INTERPRETATION_REQUIRED`.
+
+O que esta missao faz e a parte de engenharia dos Art. 25 e 32: minimizacao de
+dados, minimizacao de acesso, confidencialidade, integridade, disponibilidade,
+resiliencia e **testabilidade** — o Art. 32(1)(d) pede um processo de teste
+regular da eficacia das medidas, que e exactamente o Security Ratchet. E os
+Art. 32(1)(b) e (c) pedem resiliencia e restauro, que hoje estao em
+`SEC-015 UNKNOWN`.
+
+Nao esta escrito em lado nenhum que somos `GDPR COMPLIANT`, e nao vai estar.
 
 ---
 
@@ -184,6 +303,43 @@ Nao foi tocado nada live (proibido nesta missao), por isso o estado real fica
 
 > **RLS ENABLED ≠ RLS POLICY PROVED. AUTHENTICATED ≠ AUTHORIZED.**
 > E a prova futura tem de testar ALLOW **e** DENY.
+
+### Como medir o P0-candidate, com seguranca
+
+`TABLE WITHOUT RLS IN MIGRATION != PROVED ANONYMOUS LIVE ACCESS.`
+`NO EXPLICIT GRANT IN REPO != NO LIVE GRANT.`
+
+O schema nao decide: quem decide e a configuracao viva. A prova desenhada, por
+camadas, da mais barata para a mais cara. Nenhuma delas foi executada nesta
+missao.
+
+**Camada 1 — configuracao, sem tocar em dados.** Ler o Security Advisor do
+Supabase, que ja reporta `rls_disabled_in_public`, e listar os grants efectivos
+de `anon` e `authenticated` nas 12 tabelas via `information_schema`. Isto e
+leitura de metadados, nao de conteudo. Custo quase zero, e sozinho ja pode
+fechar a questao.
+
+**Camada 2 — leitura anonima, projeccao minima.** So se a camada 1 nao resolver.
+Por tabela, com a chave publicavel e nunca com a `service_role`:
+`select` de uma unica coluna nao sensivel, `limit 1`. **Nunca extrair o corpus.**
+O que importa e o codigo de resposta, nao a linha: 200 com dados prova acesso,
+401/403 ou lista vazia prova a negacao. Registar ALLOW **e** DENY, porque
+`RLS ENABLED != RLS POLICY PROVED`.
+
+**Camada 3 — escrita, nunca em producao.** Provar escrita anonima replicando
+grants, RLS e configuracao num ambiente descartavel. O repositorio ja tem essa
+peca: o workflow `banco-descartavel.yml` e o Postgres efemero que ele levanta.
+Reaproveitar, nao inventar.
+
+**Proibido em todas as camadas:** `insert`, `update`, `delete`, `alter`,
+aplicar migration ou alterar RLS em producao.
+
+**Autorizacao.** Camada 1 precisa de credencial de leitura de metadados.
+Camada 2 precisa de autorizacao explicita do dono, porque toca no servico vivo.
+Enquanto nao houver essa autorizacao, o estado correcto e `UNKNOWN`, e
+`UNKNOWN` fica escrito. Nao se promove a critico sem prova, nem se rebaixa a
+baixo sem prova.
+
 
 ---
 
@@ -242,7 +398,7 @@ Classificacao: **risco baixo hoje, risco alto no dia em que existir input**.
 isolamento por pais; previews sem proteccao; ausencia de politicas RLS provadas;
 ausencia de log de acesso e de auditoria; ausencia de backup/restore provado;
 ausencia de plano de resposta a incidente; repositorio publico com codigo de
-producao.
+producao; **e dados pessoais publicados sem base legal nem aviso de privacidade**.
 
 **Passaria:** higiene de segredos (limpa, tree e historia); permissoes de CI
 explicitas; ausencia de `pull_request_target`; separacao build-input/public-output
@@ -269,15 +425,19 @@ e o julgamento humano por tras das regras. Isso e pouco consolo.
 
 ```
 P0  Superficie anon do Supabase nas 12 tabelas sem RLS.
-    ESTADO: UNKNOWN — nao medido live por proibicao desta missao.
+    ESTADO: UNKNOWN — plano de medicao desenhado (seccao 5), nao executado.
     Impacto se confirmado: leitura (ou escrita) anonima do registo de fontes
     e das decisoes do colector. CONTENCAO MINIMA: habilitar RLS nas 12.
-    P0_CONFIRMADO_NESTA_RODADA = 0. P0_A_MEDIR = 1.
+    P0_CONFIRMADO = 0. P0_CANDIDATE = 1. P0_STATUS = UNKNOWN.
 
 P1  Motor + acervo proprietario servidos ao browser (11,2 MB, live, provado).
 P1  Repositorio publico com 197 MB de tecnologia; 0/85 branches protegidas.
 P1  Fronteira cliente/servidor inexistente — o portal E o motor.
 P1  Autorizacao real inexistente (nem pais, nem papel, nem departamento).
+P1  Dados pessoais servidos publicamente sem base legal declarada.   [NOVO S0R]
+    65 pessoas nomeadas, 60 ORCID, 58 handles pseudonimizados, live.
+    Nao e fuga: quase tudo ja era publico na origem. Mas e tratamento,
+    e tratamento precisa de base legal e de transparencia.
 
 P2  Deployment Protection desligada — previews anonimos com o System Map.
 P2  Runners self-hosted em repo publico protegidos so por convencao.
@@ -338,9 +498,24 @@ NEW_CRITICAL = 0   NEW_HIGH = 0   NEW_SECRET = 0
 NEW_PUBLIC_ENGINE_EXPOSURE = 0
 NEW_PULL_REQUEST_TARGET = 0        (a porta dos runners self-hosted)
 NEW_TABLE_WITHOUT_RLS = 0
+NEW_WRITE_ALL_PERMISSION = 0
+NEW_OWN_SOURCE_MAP_PUBLISHED = 0
+NEW_PERSONAL_DATA_FIELD_IN_PUBLIC_OUTPUT = 0   [NOVO S0R]
 ```
 
-Divida herdada fica visivel. Regressao nova fica bloqueada.
+A ultima classe entrou depois de ler o Art. 25: nova categoria de dado pessoal
+a chegar ao output publico e testavel por maquina (o contrato canonico ja nomeia
+os campos), tem valor alto e friccao baixa. Foram estas as tres perguntas.
+Nenhuma outra classe foi acrescentada, porque o resto do que ASVS, Top 10 e SSDF
+apontam ja esta representado, e um standard e uma referencia, nao um dono novo:
+
+    STANDARD REFERENCE != NEW OWNER.
+
+Divida herdada fica visivel. Regressao nova fica bloqueada. O ratchet nao
+bloqueia por o SSO ainda nao existir — isso e divida conhecida, nao regressao.
+
+O Art. 32(1)(d) do GDPR pede um processo regular de teste da eficacia das
+medidas de seguranca. O ratchet e esse processo, e corre a cada commit.
 
 ## 13. LEIS QUE FICAM ESCRITAS
 
@@ -374,3 +549,22 @@ REPO_VISIBILITY       inalterada (continua publica, por decisao desta missao)
 FORCE_PUSH            NO
 MERGE INTO ACTIVE     NO
 ```
+
+---
+
+## 15. ESTADO DA FUNDACAO
+
+```
+S0_MEASUREMENT           PASS   (rodada anterior, 852f2762)
+S0_STANDARDS_ALIGNMENT   PASS   (esta rodada)
+SECURITY_BASELINE_PROVED YES
+GDPR_APPLICABILITY       LIKELY_APPLICABLE · REQUIRES_DATA_INVENTORY
+                         AND_LEGAL_INTERPRETATION
+P0_CONFIRMED             0
+P0_TO_MEASURE            1
+SECURITY_FOUNDATION_S0   CLOSED
+READY_FOR_IMPLEMENTATION YES
+S1_STARTED               NO
+```
+
+    S0 = MEASURE.  S0R = ALIGN.  S1 = IMPLEMENT LOW-FRICTION CONTROLS.

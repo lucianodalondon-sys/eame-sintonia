@@ -16,6 +16,8 @@ hoje**, nao o que alcancaria num sistema imaginado.
 | **Dependencia maliciosa** | Superficie quase nula: 0 dependencias npm em runtime, vendor commitado, 0 CDN | execucao no cliente | reintroducao de CDN ou de dependencia nao fixada | um vendor ja commitado estar comprometido a montante |
 | **Token vazado** | Nada encontrado: 0 segredos reais em 9.809 blobs | credenciais | novo segredo commitado (push protection) | um segredo que vaze fora do Git |
 | **Scraper automatizado** | 30 MB por deployment, sem rate limit, sem WAF | copiar o corpus | descarga em massa nao autenticada | copia de um ecra legitimamente visto |
+| **Titular de dados** (investigador, autor, autor de comentario) | Encontra o seu nome, ORCID ou handle publicado no nosso portal | saber porque esta la, e sair | tratamento sem base legal, sem transparencia e sem via de resposta | que a informacao ja fosse publica na origem |
+| **Exposicao de backup** | Estado desconhecido: backup, retencao e restauro nunca medidos | copia integral do acervo fora dos nossos controlos | que a copia de seguranca tenha uma fronteira mais fraca do que o sistema | nada, ate haver medicao |
 
 ## Red team — o que foi executado
 
@@ -40,6 +42,21 @@ terceiros, nada destrutivo.
 | IDOR / BOLA | **N/A** — nao ha objectos por identidade |
 | Enumeracao em massa | **ALCANCA** — sem rate limit e sem autenticacao |
 | Escrita anonima na base de dados | **NAO MEDIDO** — 12 tabelas sem RLS; medicao live proibida nesta missao. Unico candidato a P0. |
+
+## Revisao S0R (2026-09-09)
+
+O estudo das normas oficiais nao revelou nenhum actor em falta neste modelo.
+Insider autenticado malicioso, exportacao em massa, travessia entre paises e
+abuso de privilegio de admin ja estavam representados em
+**Autorizado mas curioso**, **Conta ADAMA comprometida** e **Scraper**;
+comprometimento de pacote e de identidade de CI ja estavam em
+**Dependencia maliciosa** e **CI/CD comprometido**. Nao se duplicam linhas
+porque uma norma usa outro nome para o mesmo risco.
+
+Duas linhas foram acrescentadas, e nenhuma veio do ASVS ou do Top 10: vieram da
+leitura do Art. 4(1) do GDPR e do Art. 32(1)(c). O titular de dados nao e um
+atacante — e uma pessoa com direitos sobre algo que nos publicamos. E o backup
+e a unica fronteira do sistema que continua por medir.
 
 ## A licao que o modelo devolve
 
