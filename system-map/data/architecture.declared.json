@@ -320,6 +320,24 @@
    ]
   },
   {
+   "id": "C-INGRESSO",
+   "name": "A porta de entrada da coleta",
+   "territory": "Z-ACOES",
+   "kind": "gate",
+   "icon": "⇥",
+   "views": [
+    "acervo"
+   ],
+   "what": "A porta unica por onde entra o que qualquer coletor largou. Faz a ficha no contrato comum (`leis/artefato.py`), confere as leis dele, traduz para a lingua do dono do RAW e entrega a `guarda/preservar_coleta.preservar()`. Responde UMA pergunta: posso preservar esta observacao como RAW?",
+   "why_here": "O contrato comum foi escrito para o orquestrador nao ter de ADIVINHAR o que cada executor entrega — e o orquestrador adivinhava mesmo: pegava «o primeiro campo do ficheiro que seja uma lista de fichas» e mandava direto a admissao. A etapa RAW existia, estava provada contra Postgres, e nunca corria: `tests/test_preservar_coleta_no_banco.py` guardava por escrito que NENHUM ficheiro de producao chamava `preservar()`. O COLETOR OBSERVA. A PORTA PRESERVA. A ADMISSAO JULGA.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/ingresso.py"
+   ]
+  },
+  {
    "id": "C-IT-COLETA",
    "name": "Colher as fontes italianas",
    "territory": "Z-ACOES",

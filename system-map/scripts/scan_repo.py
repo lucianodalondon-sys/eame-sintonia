@@ -450,6 +450,18 @@ def modulo_para_ficheiro(mod: str, origem: str, arquivos: dict) -> str | None:
     (json, pathlib, requests) nao resolve e portanto nao vira aresta — o mapa
     e do SINTONIA, nao do ecossistema Python.
     """
+    # ⚠️ `from guarda.preservar_coleta import ...` NAO E `import guarda`.
+    # Isto lia so o primeiro segmento, procurava `guarda.py` — que nao existe —
+    # e desistia. Medido: VINTE E SETE imports reais invisiveis, e nao quaisquer
+    # uns: sao os que ligam ao DONO DO RAW e ao DONO DO DERIVADO. As duas pecas
+    # que mais pareciam desligadas do encanamento eram-no no desenho, e nao no
+    # codigo.
+    #
+    #     UM IMPORT COM PONTO E UM IMPORT.
+    pontuado = mod.replace(".", "/") + ".py"
+    if pontuado in arquivos:
+        return pontuado
+
     base = mod.split(".")[0]
     pasta = str(Path(origem).parent).replace("\\", "/")
     # A propria gaveta primeiro; depois as outras, porque `_gavetas.py` poe todas

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "e106d150aa867be9c63ed18180b81df2979a7db3",
+    "HEAD": "d877b4839c513db52982f2c9964532a953e65e8d",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3075,6 +3075,24 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/ingresso.py",
+      "como_se_chama": "",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "RECUSAD",
+        "REJEIT"
+      ]
+    },
+    {
       "ficheiro": "coleta/instagram_coleta.py",
       "como_se_chama": "coleta/instagram_coleta.py contratos",
       "carimba_data": [
@@ -4635,11 +4653,11 @@
     "search_terms": 103,
     "endpoints": 40,
     "candidates": 0,
-    "coletores": 45,
-    "coletores_com_data": 13,
-    "coletores_com_lugar": 30,
-    "coletores_que_separam_fonte_do_fato": 19,
-    "coletores_que_registam_descarte": 9,
+    "coletores": 46,
+    "coletores_com_data": 14,
+    "coletores_com_lugar": 31,
+    "coletores_que_separam_fonte_do_fato": 20,
+    "coletores_que_registam_descarte": 10,
     "corridas_registadas": 26,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,

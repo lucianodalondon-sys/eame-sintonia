@@ -403,13 +403,28 @@ class OGoldenPathPODERIAPassarPorAqui(CasoBase):
         self.assertEqual(self.banco.corrida(CORRIDA["RUN_ID"])["status"],
                          "concluida")
 
-    def test_esta_peca_ainda_nao_tem_caller_real(self):
-        """CAN DO ≠ DID DO, e o repositório tem de o admitir.
+    def test_o_raw_tem_um_caller_e_e_a_porta_canonica(self):
+        """A PEÇA GANHOU CALLER, E O CALLER É UM SÓ.
 
-        Medido: nenhum ficheiro de produção chama `preservar()`. Só testes,
-        provas e o adaptador descartável. Enquanto for assim, o mapa não pode
-        pintar isto como estrada corrente — e é este teste que segura a
-        honestidade se alguém ligar a peça e esquecer de atualizar o estado.
+        ⚠️ ESTE TESTE MUDOU DE PERGUNTA PORQUE A ÁRVORE MUDOU DE ESTADO, e ele
+        próprio pediu que assim fosse: dizia «é este teste que segura a
+        honestidade se alguém ligar a peça e esquecer de atualizar o estado».
+
+        Alguém ligou a peça — a missão C-PLUMB-1 — e o estado está atualizado
+        aqui. Até então a medição era `nenhum ficheiro de produção chama
+        preservar()`: a etapa RAW existia, estava provada contra Postgres, e a
+        coleta ia do executor DIRECTO à admissão, sem preservar nada.
+
+        A pergunta que fica não é mais «há caller?». É a que interessa agora:
+
+            HÁ UM CALLER, E É A PORTA CANÓNICA?
+
+        Um segundo caminho de produção a chamar `preservar()` seria uma segunda
+        entrada na coleta — e duas entradas é exactamente o que a porta existe
+        para não haver. `coleta/ingresso.py` é o dono da travessia da entrada;
+        quem colhe entrega a ele, e ele entrega ao dono do RAW.
+
+            O COLETOR OBSERVA. A PORTA PRESERVA. A ADMISSÃO JULGA.
         """
         chamadores = []
         for pasta, _sub, ficheiros in os.walk(RAIZ):
@@ -431,9 +446,9 @@ class OGoldenPathPODERIAPassarPorAqui(CasoBase):
                 if "preservar(" in fonte and "def preservar(" not in fonte:
                     chamadores.append(os.path.relpath(caminho, RAIZ))
         self.assertEqual(
-            chamadores, [],
-            "a peca ganhou caller real: atualize o estado do G-42 forward de "
-            "DB_TESTED para OPERATIONAL e o cartao do mapa junto")
+            chamadores, ["coleta/ingresso.py"],
+            "o dono do RAW tem de ser chamado pela porta canonica, e SO por ela: "
+            "um segundo chamador de producao e uma segunda entrada na coleta")
 
 
 class AProvaEmPostgresEACuaTranca(unittest.TestCase):

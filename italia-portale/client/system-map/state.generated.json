@@ -197,6 +197,7 @@
       "coleta/filas.py",
       "coleta/gire_mapas.py",
       "coleta/golden_path_pdf.py",
+      "coleta/ingresso.py",
       "coleta/instagram_coleta.py",
       "coleta/instagram_diario.py",
       "coleta/instagram_janela.py",
@@ -1512,7 +1513,7 @@
     {
       "id": "coleta-sem-data-nem-lugar",
       "titulo": "16 coletores gravam registo sem data nem lugar.",
-      "texto": "14 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · social_rotas.py · texto_fonte.py",
+      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · social_rotas.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/coletor.py",
@@ -1834,10 +1835,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/security-s2-topology-reconcile-v1",
-    "HEAD": "e106d150aa867be9c63ed18180b81df2979a7db3",
-    "GENERATED_AT": "2026-09-09T12:36:13+00:00",
-    "SOURCE_TREE_FINGERPRINT": "7e52ea07aa4d39735db597905076ad7f6a25a6239970b63149da82a8211f142a"
+    "BRANCH": "claude/collection-plumbing-canonical-v1",
+    "HEAD": "d877b4839c513db52982f2c9964532a953e65e8d",
+    "GENERATED_AT": "2026-09-09T14:23:04+00:00",
+    "SOURCE_TREE_FINGERPRINT": "4be036526a395f0dc6552a31adfd36a85599ebdceea0f8477fbbc17ce480b669"
   },
   "FAMILIES": [
     {
@@ -1864,7 +1865,7 @@
         "Z-MEDIDAS",
         "Z-ADMISSAO"
       ],
-      "count": 63
+      "count": 64
     },
     {
       "id": "F-ESPERA",
@@ -2072,7 +2073,7 @@
       "y": 190,
       "w": 1235,
       "h": 4548,
-      "count": 13
+      "count": 14
     },
     {
       "id": "Z-GUARDA",
@@ -4874,6 +4875,24 @@
           "regista_descarte": []
         },
         {
+          "ficheiro": "coleta/ingresso.py",
+          "como_se_chama": "",
+          "carimba_data": [
+            "CAPTURED_AT"
+          ],
+          "carimba_lugar": [
+            "COUNTRY",
+            "FACT_LOCATION",
+            "SOURCE_LOCATION"
+          ],
+          "separa_fonte_do_fato": true,
+          "leis_que_obedece": [],
+          "regista_descarte": [
+            "RECUSAD",
+            "REJEIT"
+          ]
+        },
+        {
           "ficheiro": "coleta/instagram_coleta.py",
           "como_se_chama": "coleta/instagram_coleta.py contratos",
           "carimba_data": [
@@ -7304,7 +7323,7 @@
       ],
       "file_count": 1,
       "status": "PROVEN",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-DERIVACAO-FORWARD, C-ESTRADA-PDF, C-EXECUTOR-TEXTO-PDF.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-DERIVACAO-FORWARD, C-ESTRADA-PDF, C-EXECUTOR-TEXTO-PDF, C-INGRESSO.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -7313,6 +7332,7 @@
         "C-DERIVACAO-FORWARD",
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-INGRESSO",
         "C-PROVA-COLETA",
         "C-TESTES"
       ],
@@ -7974,11 +7994,20 @@
       ],
       "file_count": 3,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "guarda/preservar_coleta.py"
+      ],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-DONO-DO-DERIVADO"
+      ],
       "outbound": [
+        "C-DONO-DO-DERIVADO",
+        "C-INGRESSO",
+        "C-PROVA-COLETA",
+        "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
       "paises": {},
@@ -8031,7 +8060,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "▷",
       "views": [
         "acervo",
@@ -8044,12 +8073,17 @@
         "guarda/preservar_derivado.py"
       ],
       "file_count": 1,
-      "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status": "PROVEN",
+      "status_reason": "outra peca do sistema importa isto para funcionar.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-DONO-DA-ESCRITA"
+      ],
       "outbound": [
+        "C-DONO-DA-ESCRITA",
+        "C-EXECUTOR-TEXTO-PDF",
+        "C-PROVA-COLETA",
         "C-TESTES"
       ],
       "paises": {},
@@ -8371,6 +8405,7 @@
       ],
       "inbound": [
         "C-CONTRATO-ARTEFATO",
+        "C-DONO-DO-DERIVADO",
         "C-IT-PDF-BRUTO",
         "C-RASTRO"
       ],
@@ -9021,6 +9056,66 @@
       "y": 1970
     },
     {
+      "id": "C-INGRESSO",
+      "name": "A porta de entrada da coleta",
+      "territory": "Z-ACOES",
+      "kind": "gate",
+      "what": "A porta unica por onde entra o que qualquer coletor largou. Faz a ficha no contrato comum (`leis/artefato.py`), confere as leis dele, traduz para a lingua do dono do RAW e entrega a `guarda/preservar_coleta.preservar()`. Responde UMA pergunta: posso preservar esta observacao como RAW?",
+      "why_here": "O contrato comum foi escrito para o orquestrador nao ter de ADIVINHAR o que cada executor entrega — e o orquestrador adivinhava mesmo: pegava «o primeiro campo do ficheiro que seja uma lista de fichas» e mandava direto a admissao. A etapa RAW existia, estava provada contra Postgres, e nunca corria: `tests/test_preservar_coleta_no_banco.py` guardava por escrito que NENHUM ficheiro de producao chamava `preservar()`. O COLETOR OBSERVA. A PORTA PRESERVA. A ADMISSAO JULGA.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⇥",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/ingresso.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CONTRATO-ARTEFATO",
+        "C-DONO-DA-ESCRITA"
+      ],
+      "outbound": [
+        "C-ORQUESTRADOR",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CORRIDA_PARA_O_RAW",
+          "DO_COLETOR"
+        ],
+        "palavras": 20,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 20,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 6705,
+      "y": 1326
+    },
+    {
       "id": "C-IT-CATALOGO",
       "name": "O levantamento das fontes italianas",
       "territory": "Z-CANDIDATAS",
@@ -9149,7 +9244,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 6705,
+      "x": 7120,
       "y": 1326
     },
     {
@@ -10454,6 +10549,7 @@
       "inbound": [
         "C-ADMISSAO",
         "C-CI-COLETA",
+        "C-INGRESSO",
         "C-PEDIDO",
         "C-PROCEDENCIA",
         "C-RECEITAS"
@@ -11623,6 +11719,8 @@
         "C-CONTRATO-ARTEFATO",
         "C-CONTRATO-TELEMETRIA",
         "C-DIAGNOSTICO",
+        "C-DONO-DA-ESCRITA",
+        "C-DONO-DO-DERIVADO",
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
         "C-MAPA-TESTES",
@@ -11814,6 +11912,7 @@
         "C-CONTRATO-TELEMETRIA",
         "C-DERIVACAO-FORWARD",
         "C-DIAGNOSTICO",
+        "C-DONO-DA-ESCRITA",
         "C-ESTRADAS-IT",
         "C-EXECUTOR-TEXTO-PDF",
         "C-IT-CATALOGO",
@@ -12027,6 +12126,7 @@
         "C-COLETA-BASE",
         "C-CONTRATO-TELEMETRIA",
         "C-DERIVACAO-FORWARD",
+        "C-DONO-DA-ESCRITA",
         "C-ESTRADAS-IT",
         "C-EXECUTOR-TEXTO-PDF",
         "C-IT-CATALOGO",
@@ -12860,7 +12960,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 7120,
+      "x": 7535,
       "y": 1326
     },
     {
@@ -12990,8 +13090,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 7535,
-      "y": 1326
+      "x": 6705,
+      "y": 1648
     },
     {
       "id": "C-SAUDE-FONTE",
@@ -13318,7 +13418,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 6705,
+      "x": 7120,
       "y": 1648
     },
     {
@@ -14917,13 +15017,14 @@
       ],
       "file_count": 74,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 6 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 7 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "tests/test_coleta_externa.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_metricas.py",
         "tests/test_migrations.py",
         "tests/test_operacao.py",
+        "tests/test_preservar_coleta_no_banco.py",
         "tests/test_proveniencia.py"
       ],
       "produces": [
@@ -14971,6 +15072,7 @@
         "C-FRONTEIRA-TELEMETRIA",
         "C-GESTAO-DA-COLETA",
         "C-IDENTIDADE",
+        "C-INGRESSO",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-PRESERVAR",
@@ -15089,7 +15191,7 @@
         {
           "onde": "SUPABASE",
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 628,
+          "line": 643,
           "snippet": "for proibido in (\"os.environ\", \"getenv\", \"SUPABASE_URL =\"):"
         },
         {
@@ -16461,7 +16563,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/security-s2-topology-reconcile-v1"
+        "branch claude/collection-plumbing-canonical-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -19567,7 +19669,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 538,
+          "line": 544,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
         }
       ],
@@ -19585,7 +19687,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 549,
+          "line": 555,
           "snippet": "run: python3 provas/o_executor_conta_se.py"
         }
       ],
@@ -19603,7 +19705,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 552,
+          "line": 558,
           "snippet": "run: python3 provas/a_fronteira_da_coleta.py"
         }
       ],
@@ -20500,6 +20602,24 @@
     },
     {
       "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-INGRESSO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por A porta de entrada da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/ingresso.py",
+          "line": 77,
+          "snippet": "import artefato as art                                    # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-ARTEFATO",
       "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21361,6 +21481,149 @@
     },
     {
       "from": "C-DONO-DA-ESCRITA",
+      "to": "C-DONO-DO-DERIVADO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por O dono canônico da escrita do derivado (OBSERVED). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "guarda/preservar_derivado.py",
+          "line": 55,
+          "snippet": "from guarda.preservar_coleta import Armazem, Memoria, sha256  # noqa: F401"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-INGRESSO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A porta de entrada da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/ingresso.py",
+          "line": 78,
+          "snippet": "from guarda.preservar_coleta import ArmazemLocal, preservar  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/derived_artifact_no_postgres.py",
+          "line": 312,
+          "snippet": "from guarda.preservar_coleta import ArmazemDeMentira"
+        },
+        {
+          "file": "provas/preservar_coleta_no_postgres.py",
+          "line": 44,
+          "snippet": "from guarda.preservar_coleta import (  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-PROVA-FORWARD-CONTA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A prova de que o forward se conta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 75,
+          "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 75,
+          "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_forward_instrumentado.py",
+          "line": 34,
+          "snippet": "from guarda.preservar_coleta import ArmazemDeMentira    # noqa: E402"
+        },
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 26,
+          "snippet": "from guarda.preservar_coleta import (ArmazemDeMentira, preservar,  # noqa: E402"
+        },
+        {
+          "file": "tests/test_preservar_coleta.py",
+          "line": 34,
+          "snippet": "from guarda.preservar_coleta import (  # noqa: E402"
+        },
+        {
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 33,
+          "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402"
+        },
+        {
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 34,
+          "snippet": "from guarda.preservar_coleta import (  # noqa: E402"
+        },
+        {
+          "file": "tests/test_preservar_derivado.py",
+          "line": 33,
+          "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402"
+        },
+        {
+          "file": "tests/test_preservar_derivado.py",
+          "line": 34,
+          "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, sha256  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -21376,13 +21639,90 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 423,
+          "line": 438,
           "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 423,
+          "line": 438,
           "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-DONO-DO-DERIVADO",
+      "to": "C-DONO-DA-ESCRITA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) tem o seu codigo importado por O dono canônico da escrita do bruto (OBSERVED). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "guarda/memoria_descartavel.py",
+          "line": 43,
+          "snippet": "from guarda.preservar_derivado import MemoriaDoDerivado"
+        },
+        {
+          "file": "guarda/portas_live.py",
+          "line": 37,
+          "snippet": "from guarda.preservar_derivado import MemoriaDoDerivado"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DO-DERIVADO",
+      "to": "C-EXECUTOR-TEXTO-PDF",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) tem o seu codigo importado por Executor · texto a partir de PDF. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/executor_texto_de_pdf.py",
+          "line": 204,
+          "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DO-DERIVADO",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/derived_artifact_no_postgres.py",
+          "line": 313,
+          "snippet": "from guarda.preservar_derivado import ("
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-DONO-DO-DERIVADO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_preservar_derivado.py",
+          "line": 35,
+          "snippet": "from guarda.preservar_derivado import (  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -21526,6 +21866,24 @@
           "file": "provas/testa_golden_path_pdf.py",
           "line": 184,
           "snippet": "_fonte_gp = (RAIZ / \"coleta\" / \"golden_path_pdf.py\").read_text(encoding=\"utf-8\")"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-ESTRADA-PDF",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A primeira estrada · PDF até à porta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_red_team_estrada.py",
+          "line": 72,
+          "snippet": "import coleta.golden_path_pdf as gp  # noqa: PLC0415"
         }
       ],
       "categoria": "PROOF"
@@ -22014,7 +22372,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_m2_rota_forward.py",
@@ -22030,6 +22388,11 @@
           "file": "tests/test_o9_caminho_instrumentado.py",
           "line": 59,
           "snippet": "import executor_texto_de_pdf as ex"
+        },
+        {
+          "file": "tests/test_preservar_derivado.py",
+          "line": 577,
+          "snippet": "import coleta.executor_texto_de_pdf as ex"
         },
         {
           "file": "tests/test_red_team_estrada.py",
@@ -22548,6 +22911,42 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-INGRESSO",
+      "to": "C-ORQUESTRADOR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 56,
+          "snippet": "import ingresso as ing  # noqa: E402  — a porta de entrada da coleta"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-INGRESSO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 449,
+          "snippet": "chamadores, [\"coleta/ingresso.py\"],"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-IT-CATALOGO",
@@ -25591,7 +25990,7 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 450,
+          "line": 465,
           "snippet": "caminho = os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\")"
         }
       ],
@@ -25668,7 +26067,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_repo.py",
-          "line": 768,
+          "line": 780,
           "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
         }
       ],
@@ -29574,17 +29973,17 @@
     ]
   },
   "COUNTS": {
-    "components": 155,
-    "components_proven": 59,
+    "components": 156,
+    "components_proven": 60,
     "components_pending": 90,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 588,
-    "edges_proven": 586,
+    "edges": 602,
+    "edges_proven": 600,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1387,
-    "files_covered": 679,
+    "files_tracked": 1388,
+    "files_covered": 680,
     "files_code_unclaimed": 0
   }
 }

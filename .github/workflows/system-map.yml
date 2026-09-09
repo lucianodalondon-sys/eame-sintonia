@@ -531,6 +531,12 @@ jobs:
       - name: 4n · o mapa nao diz que nao existe o que existe
         run: python3 provas/o_mapa_nao_mente.py
 
+      # O ENCANAMENTO: uma porta, uma ordem, um dono do RAW. Catorze
+      # invariantes pequenos e separados — um portao gigante esconde qual das
+      # perguntas reprovou.
+      - name: 4n2 · a coleta tem UMA porta de entrada, e ela vem antes da admissao
+        run: python3 provas/o_encanamento_tem_uma_porta.py
+
       # Sem banco: le migrations e codigo, e confronta cada `on conflict` com
       # a chave unica que o sustenta. Corre tambem em `banco-descartavel.yml`,
       # que so acorda por caminho; aqui acorda em todo o push.

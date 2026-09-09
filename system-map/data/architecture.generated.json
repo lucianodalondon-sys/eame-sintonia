@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/security-s2-topology-reconcile-v1",
-    "HEAD": "e106d150aa867be9c63ed18180b81df2979a7db3",
-    "GENERATED_AT": "2026-09-09T12:36:13+00:00",
-    "SOURCE_TREE_FINGERPRINT": "7e52ea07aa4d39735db597905076ad7f6a25a6239970b63149da82a8211f142a"
+    "BRANCH": "claude/collection-plumbing-canonical-v1",
+    "HEAD": "d877b4839c513db52982f2c9964532a953e65e8d",
+    "GENERATED_AT": "2026-09-09T14:23:04+00:00",
+    "SOURCE_TREE_FINGERPRINT": "4be036526a395f0dc6552a31adfd36a85599ebdceea0f8477fbbc17ce480b669"
   },
   "FILES": [
     {
@@ -164,7 +164,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "00eb90dda05f94edba0fe2443e1c31b9caaddefe",
+      "sha": "c46fa6462ae9b7a3be71f31fce04abb325159525",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -1243,6 +1243,13 @@
     {
       "path": "coleta/golden_path_pdf.py",
       "sha": "7c6dab13386790b5933aa36289c16d3b375a5d4e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/ingresso.py",
+      "sha": "b6191c885ed5e72f0e971c149197c84f611252fa",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5071,7 +5078,7 @@
     },
     {
       "path": "guarda/preservar_coleta.py",
-      "sha": "f44eb40eb298d308bb1b2383c12470739b7d4c18",
+      "sha": "0772e9a3c8b7fca1f68529e458f7482ff1a330dc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7311,7 +7318,7 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "adddcb16a4b4bbc4e6bee04c4faf7eca387938fb",
+      "sha": "105f0e73eaa35c1f8ff3dbb4bd13db46ce75b9e8",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8879,7 +8886,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "6389866d9282de66e8774e1f7363d16bf08e0b01",
+      "sha": "3657b4ccad900f1528531a413d0e4c9db4c527d2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9068,7 +9075,7 @@
     },
     {
       "path": "system-map/scripts/scan_repo.py",
-      "sha": "9bfa305d254e06cdae9b060ad10d6dfc7c1a80e8",
+      "sha": "20523161e08aab212a8609a95dc07b8d9041410a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9530,7 +9537,7 @@
     },
     {
       "path": "tests/test_preservar_coleta_no_banco.py",
-      "sha": "b9189349023c8237e1d97bb10c60ba32eca63d71",
+      "sha": "24470f3d2a748a9b0eea044287fd7ac916a3f81a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10463,7 +10470,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 552,
+        "line": 558,
         "snippet": "run: python3 provas/a_fronteira_da_coleta.py"
       }
     },
@@ -10485,7 +10492,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 538,
+        "line": 544,
         "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
       }
     },
@@ -10496,7 +10503,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 549,
+        "line": 555,
         "snippet": "run: python3 provas/o_executor_conta_se.py"
       }
     },
@@ -11470,6 +11477,17 @@
     },
     {
       "from_file": "coleta/executor_texto_de_pdf.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_texto_de_pdf.py",
+        "line": 204,
+        "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
+      }
+    },
+    {
+      "from_file": "coleta/executor_texto_de_pdf.py",
       "to_file": "leis/artefato.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -11576,6 +11594,39 @@
         "file": "coleta/golden_path_pdf.py",
         "line": 51,
         "snippet": "import proveniencia as pv  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/ingresso.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/ingresso.py",
+        "line": 75,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/ingresso.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/ingresso.py",
+        "line": 78,
+        "snippet": "from guarda.preservar_coleta import ArmazemLocal, preservar  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/ingresso.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/ingresso.py",
+        "line": 77,
+        "snippet": "import artefato as art                                    # noqa: E402"
       }
     },
     {
@@ -13501,6 +13552,50 @@
         "file": "guarda/importar_italia.py",
         "line": 97,
         "snippet": "eu = ler_local('IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2.json') or          ler_local('IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json')"
+      }
+    },
+    {
+      "from_file": "guarda/memoria_descartavel.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/memoria_descartavel.py",
+        "line": 43,
+        "snippet": "from guarda.preservar_derivado import MemoriaDoDerivado"
+      }
+    },
+    {
+      "from_file": "guarda/portas_live.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/portas_live.py",
+        "line": 36,
+        "snippet": "from guarda.preservar_coleta import Armazem"
+      }
+    },
+    {
+      "from_file": "guarda/portas_live.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/portas_live.py",
+        "line": 37,
+        "snippet": "from guarda.preservar_derivado import MemoriaDoDerivado"
+      }
+    },
+    {
+      "from_file": "guarda/preservar_derivado.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/preservar_derivado.py",
+        "line": 55,
+        "snippet": "from guarda.preservar_coleta import Armazem, Memoria, sha256  # noqa: F401"
       }
     },
     {
@@ -21744,6 +21839,17 @@
     },
     {
       "from_file": "orquestrador/orquestrador.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 56,
+        "snippet": "import ingresso as ing  # noqa: E402  — a porta de entrada da coleta"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
       "to_file": "pedido/pedido.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24483,6 +24589,17 @@
     },
     {
       "from_file": "provas/a_rota_m2_atravessa.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_rota_m2_atravessa.py",
+        "line": 75,
+        "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_rota_m2_atravessa.py",
       "to_file": "leis/telemetria.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24600,6 +24717,28 @@
         "file": "provas/chain.py",
         "line": 42,
         "snippet": "from coverage import Coverage                                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/derived_artifact_no_postgres.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/derived_artifact_no_postgres.py",
+        "line": 312,
+        "snippet": "from guarda.preservar_coleta import ArmazemDeMentira"
+      }
+    },
+    {
+      "from_file": "provas/derived_artifact_no_postgres.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/derived_artifact_no_postgres.py",
+        "line": 313,
+        "snippet": "from guarda.preservar_derivado import ("
       }
     },
     {
@@ -24857,6 +24996,17 @@
     },
     {
       "from_file": "provas/o_forward_conta_se.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_forward_conta_se.py",
+        "line": 75,
+        "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_forward_conta_se.py",
       "to_file": "leis/diagnostico.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -25051,6 +25201,17 @@
         "file": "provas/preflight_022_live.sh",
         "line": 120,
         "snippet": "echo \"Lembrete do proprio motor/cadeia_canonica.sh: reaplicar a 015\""
+      }
+    },
+    {
+      "from_file": "provas/preservar_coleta_no_postgres.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/preservar_coleta_no_postgres.py",
+        "line": 44,
+        "snippet": "from guarda.preservar_coleta import (  # noqa: E402"
       }
     },
     {
@@ -27337,7 +27498,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_repo.py",
-        "line": 768,
+        "line": 780,
         "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
       }
     },
@@ -29422,6 +29583,17 @@
     },
     {
       "from_file": "tests/test_forward_instrumentado.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_forward_instrumentado.py",
+        "line": 34,
+        "snippet": "from guarda.preservar_coleta import ArmazemDeMentira    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_forward_instrumentado.py",
       "to_file": "leis/artefato.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -30100,6 +30272,17 @@
         "file": "tests/test_m2_rota_forward.py",
         "line": 24,
         "snippet": "import social_persistencia as sp      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 26,
+        "snippet": "from guarda.preservar_coleta import (ArmazemDeMentira, preservar,  # noqa: E402"
       }
     },
     {
@@ -31458,12 +31641,34 @@
     {
       "from_file": "tests/test_preservar_coleta.py",
       "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_preservar_coleta.py",
+        "line": 34,
+        "snippet": "from guarda.preservar_coleta import (  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_coleta.py",
+      "to_file": "guarda/preservar_coleta.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preservar_coleta.py",
         "line": 186,
         "snippet": "fonte = open(os.path.join(RAIZ, \"guarda\", \"preservar_coleta.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_coleta_no_banco.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_preservar_coleta_no_banco.py",
+        "line": 449,
+        "snippet": "chamadores, [\"coleta/ingresso.py\"],"
       }
     },
     {
@@ -31480,12 +31685,34 @@
     {
       "from_file": "tests/test_preservar_coleta_no_banco.py",
       "to_file": "guarda/memoria_descartavel.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_preservar_coleta_no_banco.py",
+        "line": 33,
+        "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_coleta_no_banco.py",
+      "to_file": "guarda/memoria_descartavel.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preservar_coleta_no_banco.py",
-        "line": 423,
+        "line": 438,
         "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_coleta_no_banco.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_preservar_coleta_no_banco.py",
+        "line": 34,
+        "snippet": "from guarda.preservar_coleta import (  # noqa: E402"
       }
     },
     {
@@ -31495,7 +31722,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preservar_coleta_no_banco.py",
-        "line": 423,
+        "line": 438,
         "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
       }
     },
@@ -31506,8 +31733,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_preservar_coleta_no_banco.py",
-        "line": 450,
+        "line": 465,
         "snippet": "caminho = os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_derivado.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_preservar_derivado.py",
+        "line": 577,
+        "snippet": "import coleta.executor_texto_de_pdf as ex"
       }
     },
     {
@@ -31530,6 +31768,39 @@
         "file": "tests/test_preservar_derivado.py",
         "line": 541,
         "snippet": "with open(registo, encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_derivado.py",
+      "to_file": "guarda/memoria_descartavel.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_preservar_derivado.py",
+        "line": 33,
+        "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_derivado.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_preservar_derivado.py",
+        "line": 34,
+        "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, sha256  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_preservar_derivado.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_preservar_derivado.py",
+        "line": 35,
+        "snippet": "from guarda.preservar_derivado import (  # noqa: E402"
       }
     },
     {
@@ -31849,6 +32120,17 @@
         "file": "tests/test_red_team_estrada.py",
         "line": 30,
         "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_red_team_estrada.py",
+      "to_file": "coleta/golden_path_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_red_team_estrada.py",
+        "line": 72,
+        "snippet": "import coleta.golden_path_pdf as gp  # noqa: PLC0415"
       }
     },
     {
@@ -33436,10 +33718,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1387,
-    "files_readable": 521,
-    "files_code_dir": 568,
-    "file_edges": 2115,
+    "files_tracked": 1388,
+    "files_readable": 522,
+    "files_code_dir": 569,
+    "file_edges": 2140,
     "escritas_em_pasta": 66,
     "declared_missing_here": 0
   },

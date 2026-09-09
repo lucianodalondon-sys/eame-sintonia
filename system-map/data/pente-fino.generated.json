@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "e106d150aa867be9c63ed18180b81df2979a7db3"
+    "HEAD": "d877b4839c513db52982f2c9964532a953e65e8d"
   },
   "PECAS": [
     {
@@ -111,6 +111,18 @@
       "respostas": 2,
       "ficheiros": 0,
       "estado": "green"
+    },
+    {
+      "id": "C-INGRESSO",
+      "nome": "A porta de entrada da coleta",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "yellow"
     },
     {
       "id": "C-PORTA-FONTE",
@@ -266,30 +278,6 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 6,
-      "estado": "yellow"
-    },
-    {
-      "id": "C-DONO-DA-ESCRITA",
-      "nome": "O dono canônico da escrita do bruto (OBSERVED)",
-      "zona": "A SALA DE ESPERA",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 3,
-      "ficheiros": 3,
-      "estado": "yellow"
-    },
-    {
-      "id": "C-DONO-DO-DERIVADO",
-      "nome": "O dono canônico da escrita do derivado (OBSERVED)",
-      "zona": "A SALA DE ESPERA",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 3,
-      "ficheiros": 1,
       "estado": "yellow"
     },
     {
@@ -509,6 +497,30 @@
       "estado": "yellow"
     },
     {
+      "id": "C-DONO-DA-ESCRITA",
+      "nome": "O dono canônico da escrita do bruto (OBSERVED)",
+      "zona": "A SALA DE ESPERA",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 3,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-DONO-DO-DERIVADO",
+      "nome": "O dono canônico da escrita do derivado (OBSERVED)",
+      "zona": "A SALA DE ESPERA",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 1,
+      "estado": "green"
+    },
+    {
       "id": "C-IT-CATALOGO",
       "nome": "O levantamento das fontes italianas",
       "zona": "· de onde vem uma fonte",
@@ -570,9 +582,9 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 47,
-    "respondem_as_quatro": 20,
-    "respondem_a_tres": 18,
+    "pecas_da_coleta": 48,
+    "respondem_as_quatro": 22,
+    "respondem_a_tres": 17,
     "respondem_a_duas": 6,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
