@@ -208,7 +208,14 @@ FAM = {n["id"]: n.get("family") for n in S["NODES"]}
 LADO_DA_COLETA = {"F-COLETA", "F-ESPERA"}
 # Preenche-se com (from, to, LEI) quando existir travessia autorizada.
 TRAVESSIAS_AUTORIZADAS: set = set()
-saltam = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in TECNICAS
+# ⚠️ TODAS as ligacoes, e nao so as TECNICAS. Uma aresta `expected` — declarada
+# e ainda por provar — tambem sabe hoje dizer que leva DADO, desde que se
+# deixou de confundir «esta provada?» com «o que e que viaja?». Se este caso
+# olhasse so para as tecnicas, bastava declarar a travessia a mao para ela
+# passar por baixo da porta.
+#
+#     DECLARAR UM ATALHO NAO E TER PERMISSAO PARA ELE.
+saltam = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in S["EDGES"]
           if e.get("categoria") == "DATA"
           and FAM.get(e["from"]) in LADO_DA_COLETA
           and FAM.get(e["to"]) == "F-INTELIGENCIA"

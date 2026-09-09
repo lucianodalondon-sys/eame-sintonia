@@ -1791,8 +1791,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "49e5844018e7ffd17f88eedb7b35bd50f5873456",
-    "GENERATED_AT": "2026-09-09T06:30:43+00:00"
+    "HEAD": "b53ff66053873680d57e674e7a2f62870114d017",
+    "GENERATED_AT": "2026-09-09T06:35:17+00:00"
   },
   "FAMILIES": [
     {
@@ -16957,7 +16957,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 437,
+          "line": 444,
           "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
         }
       ],
@@ -19697,7 +19697,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 643,
+          "line": 650,
           "snippet": "GEN._fala_com_a_rede(\"coleta/comunicacao_coleta.py\"),"
         }
       ],
@@ -20115,7 +20115,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 640,
+          "line": 647,
           "snippet": "not GEN._fala_com_a_rede(\"coleta/sensor_canal_identidade.py\"),"
         }
       ],
@@ -22376,7 +22376,7 @@
       "reason": "⚪ O CAMINHO ANTIGO, FEITO À MÃO. 6 textos foram tirados de PDF por uma pessoa, antes de haver contrato, sem registo de quem nem de quando. Destes, 3 conseguem provar de que PDF vieram — o texto do ficheiro aparece mesmo dentro do documento. Os outros 3 não: estar ao lado com o mesmo nome é indício, não prova, e por isso o pai ficou NÃO SEI. Fica cinzenta porque continua sem código que a sustente. O caminho novo, esse, está desenhado a cheio: BRUTO → EXECUTOR → TEXTO DERIVADO → PORTA.",
       "source": "system-map/data/golden-path-pdf.generated.json",
       "declared_by": "missao system-map-canonical-v1, fase 1 do data plane",
-      "categoria": "UNKNOWN"
+      "categoria": "DATA"
     },
     {
       "from": "C-IT-PRESERVAR",
@@ -22570,7 +22570,7 @@
       "kind": "expected",
       "status": "UNKNOWN",
       "evidence": [],
-      "categoria": "UNKNOWN"
+      "categoria": "DATA"
     },
     {
       "from": "C-LASTMILE",
@@ -22848,12 +22848,12 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 227,
+          "line": 234,
           "snippet": "MAPA_JS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 477,
+          "line": 484,
           "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
         }
       ],
@@ -22912,7 +22912,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 248,
+          "line": 255,
           "snippet": "GERADOR = (RAIZ / \"system-map\" / \"scripts\" / \"generate_system_map.py\").read_text("
         }
       ],
@@ -22976,7 +22976,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3624,
+          "line": 3637,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
         },
         {
@@ -23027,12 +23027,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3637,
+          "line": 3650,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3637,
+          "line": 3650,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -23050,7 +23050,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 444,
+          "line": 451,
           "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"scan_repo.py\")],"
         }
       ],
@@ -23096,7 +23096,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 463,
+          "line": 470,
           "snippet": "\"validate_system_map.py\" in lei,"
         }
       ],

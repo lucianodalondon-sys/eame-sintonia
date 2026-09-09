@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-topology-census-v1",
-    "HEAD": "49e5844018e7ffd17f88eedb7b35bd50f5873456",
-    "GENERATED_AT": "2026-09-09T06:30:43+00:00"
+    "HEAD": "b53ff66053873680d57e674e7a2f62870114d017",
+    "GENERATED_AT": "2026-09-09T06:35:17+00:00"
   },
   "FILES": [
     {
@@ -4559,7 +4559,7 @@
     },
     {
       "path": "docs/operacao/TOPOLOGIA-DA-COLETA.md",
-      "sha": "8139da4e4c36c96388b6785b70b911f7032211bb",
+      "sha": "680eb2b8c988d0a4bd50004d3d5c6d5dfeb3b79f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8710,7 +8710,7 @@
     },
     {
       "path": "system-map/scripts/censo_da_topologia.py",
-      "sha": "1d3d5383fe944413fc698390aec5ac80e05b4d5d",
+      "sha": "4ca030cd5f310888a571d52d8424e7902d34822a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8780,7 +8780,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "66c8e6093177c781ffaec14e8d5132636d2d1b7a",
+      "sha": "94d88ab43e5194d9cb7f49aaa00372549fd6e26c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8843,7 +8843,7 @@
     },
     {
       "path": "system-map/tests/test_system_map.py",
-      "sha": "34a3f6b15190521a6b9c760adc3db46af85bfbad",
+      "sha": "a360f8e6b127e0926296dd3310936b00a11beb5a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26613,7 +26613,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3624,
+        "line": 3637,
         "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -26635,7 +26635,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3637,
+        "line": 3650,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -26646,7 +26646,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3637,
+        "line": 3650,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -27009,7 +27009,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 458,
+        "line": 465,
         "snippet": "agents = RAIZ / \"AGENTS.md\""
       }
     },
@@ -27020,7 +27020,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 467,
+        "line": 474,
         "snippet": "claude = RAIZ / \"CLAUDE.md\""
       }
     },
@@ -27031,7 +27031,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 470,
+        "line": 477,
         "snippet": "readme = RAIZ / \"README.md\""
       }
     },
@@ -27042,7 +27042,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 362,
+        "line": 369,
         "snippet": "(RAIZ / \"_gavetas.py\").exists(),"
       }
     },
@@ -27053,7 +27053,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 643,
+        "line": 650,
         "snippet": "GEN._fala_com_a_rede(\"coleta/comunicacao_coleta.py\"),"
       }
     },
@@ -27064,7 +27064,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 640,
+        "line": 647,
         "snippet": "not GEN._fala_com_a_rede(\"coleta/sensor_canal_identidade.py\"),"
       }
     },
@@ -27075,7 +27075,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 437,
+        "line": 444,
         "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
       }
     },
@@ -27086,7 +27086,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 477,
+        "line": 484,
         "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -27097,7 +27097,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 227,
+        "line": 234,
         "snippet": "MAPA_JS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -27119,7 +27119,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 248,
+        "line": 255,
         "snippet": "GERADOR = (RAIZ / \"system-map\" / \"scripts\" / \"generate_system_map.py\").read_text("
       }
     },
@@ -27130,7 +27130,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 444,
+        "line": 451,
         "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"scan_repo.py\")],"
       }
     },
@@ -27141,7 +27141,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 463,
+        "line": 470,
         "snippet": "\"validate_system_map.py\" in lei,"
       }
     },

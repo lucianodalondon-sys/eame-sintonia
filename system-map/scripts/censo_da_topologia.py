@@ -273,6 +273,11 @@ def main():
         })
 
     rel = [e for e in E if e['from'] in set(universo) or e['to'] in set(universo)]
+    # Travessias de familia: da coleta para a inteligencia, uma a uma.
+    atravessa = [e for e in E
+                 if N.get(e['from'], {}).get('family') == 'F-COLETA'
+                 and N.get(e['to'], {}).get('family') == 'F-INTELIGENCIA']
+
     resumo = {
         'CARTOES_NO_UNIVERSO': len(universo),
         'CARTOES_AUDITADOS': len(fichas),
@@ -298,6 +303,29 @@ def main():
             c: len([e for e in rel if e.get('categoria') == c])
             for c in sorted({e.get('categoria') for e in rel} - {None})},
         'GAPS_NOMEADOS': sorted({f['GAP'] for f in fichas if f['GAP']}),
+        # ── A FRONTEIRA, CONTADA ─────────────────────────────────────────
+        # A queixa que abriu esta missao foi «cartoes da coleta ligados
+        # direto a inteligencia». Sao 149 travessias, e o numero sozinho da
+        # razao a queixa. Repartido, diz outra coisa: 138 delas vao parar a
+        # Z-PROVA — a zona das PROVAS, que esta arrumada debaixo de
+        # F-INTELIGENCIA por nao haver familia para ela. Uma prova a ler o
+        # que a coleta produziu e o trabalho dela, e nao uma fuga de dado.
+        #
+        #     UMA PROVA NAO E A INTELIGENCIA.
+        #
+        # Ao motor propriamente dito (Z-MOTOR) chegam SEIS, e nenhuma leva
+        # dado. Nao mudo familia nenhuma aqui: a familia e do desenho, e o
+        # desenho e de gente. Deixo o numero a vista para a pergunta poder
+        # ser feita com ele em cima da mesa.
+        'TRAVESSIAS_COLETA_PARA_INTELIGENCIA': len(atravessa),
+        'TRAVESSIAS_POR_ZONA_DE_DESTINO': {
+            z: len([e for e in atravessa if N[e['to']]['territory'] == z])
+            for z in sorted({N[e['to']]['territory'] for e in atravessa})},
+        'TRAVESSIAS_POR_CATEGORIA': {
+            c: len([e for e in atravessa if e.get('categoria') == c])
+            for c in sorted({e.get('categoria') or 'UNKNOWN' for e in atravessa})},
+        'TRAVESSIAS_QUE_LEVAM_DADO': len(
+            [e for e in atravessa if e.get('categoria') == 'DATA']),
     }
 
     if '--json' in sys.argv:

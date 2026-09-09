@@ -3491,9 +3491,22 @@ def main_uma_vez(stamp: bool) -> int:
     # Feito aqui, no fim, porque a categoria depende do TIPO das duas pecas —
     # e as pecas geradas (canais, telas, linhagem) so existem a esta altura.
     por_id = {n["id"]: n for n in nos}
+    # ⚠️ «ESTA PROVADA?» E «O QUE E QUE VIAJA?» SAO DUAS PERGUNTAS.
+    # A ligacao `expected` — declarada e ainda por provar — levava categoria
+    # UNKNOWN so por ser `expected`, e isso misturava os dois eixos: o `status`
+    # ja diz que ela nao esta provada. Ficavam DUAS arestas da coleta sem
+    # ninguem poder dizer o que corre por elas —
+    #
+    #   C-IT-PDF-BRUTO -DERIVA_TEXTO_A_MAO-> C-IT-TEXTO-PESQUISAVEL
+    #   C-IT-TEXTO-PESQUISAVEL -ALIMENTA-> C-ADMISSAO
+    #
+    # e as duas sao o caminho do PDF tirado a mao, que e dado a viajar. Elas
+    # continuam CINZENTAS (NAO SEI se aconteceu); passam a saber dizer o que
+    # levariam. Uma aresta que nao sabe o que transporta e uma aresta que
+    # ninguem consegue julgar.
     for l in ligacoes.values():
-        if l["kind"] != "technical":
-            l["categoria"] = PROOF if l.get("payload") == "negocio" else DESCONHECIDA
+        if l["kind"] != "technical" and l.get("payload") == "negocio":
+            l["categoria"] = PROOF
             continue
         l["categoria"] = categoria_da_ligacao(
             l["type"], por_id.get(l["from"]), por_id.get(l["to"]))
