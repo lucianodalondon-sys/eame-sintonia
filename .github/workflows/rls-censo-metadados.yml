@@ -48,14 +48,14 @@ jobs:
 
       - name: 0 · a consulta nao pode mutar nada
         # O portao corre ANTES da ligacao. Um censo que pudesse escrever nao e
-        # um censo. Isto e barato, e e a unica coisa entre nos e a base viva.
-        run: |
-          if grep -inE '^[^-]*\b(insert|update|delete|alter|drop|create|grant|revoke|truncate|copy)\b' \
-               provas/rls_censo_metadados.sql; then
-            echo "RECUSADO: a consulta contem uma palavra de mutacao fora de comentario."
-            exit 1
-          fi
-          echo "SQL_READ_ONLY=PROVED"
+        # um censo. E lista BRANCA, nao lista negra: cada instrucao tem de
+        # comecar por select, with ou set. Uma lista negra reprovaria
+        # has_table_privilege(..., 'INSERT'), que pergunta por um privilegio de
+        # escrita sem escrever — e deixaria passar o que ainda nao sabemos nomear.
+        #
+        #     PROCURAR A PALAVRA != PROCURAR O ACTO.
+        #     LISTA BRANCA FALHA FECHADA. LISTA NEGRA FALHA ABERTA.
+        run: python3 provas/rls_censo_portao.py provas/rls_censo_metadados.sql
 
       - name: 1 · presenca do secret (booleano, nunca valor)
         run: |
