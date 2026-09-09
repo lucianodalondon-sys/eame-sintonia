@@ -60,7 +60,8 @@ prova("todo_no_tem_motivo_de_status",
 # A trava continua: as partes sao ESTAS e sao NESTA ORDEM. Trocar «tres» por
 # «quatro» so adiaria o problema — daqui a um mes seriam cinco sem ninguem
 # decidir. Nomear cada uma obriga a passar por aqui quem quiser mudar o desenho.
-PARTES_ESPERADAS = ["F-COLETA", "F-ESPERA", "F-INTELIGENCIA", "F-ENTREGA"]
+PARTES_ESPERADAS = ["F-COLETA", "F-ESPERA", "F-INTELIGENCIA",
+                    "F-GOVERNANCA", "F-ENTREGA"]
 FAMS = {f["id"] for f in S["FAMILIES"]}
 prova("as_partes_sao_estas_e_nesta_ordem",
       [f["id"] for f in S["FAMILIES"]] == PARTES_ESPERADAS,
@@ -683,6 +684,72 @@ prova("o_corpus_nao_colhe_das_redes_sociais",
       _do_corpus <= {"V-HTTP"},
       f"canais ligados a C-CORPUS: {sorted(_do_corpus)} — a unica rede daquele "
       "ficheiro e pub.orcid.org")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# GOVERNANCA — o que mede e o que regula nao e um passo da esteira
+#
+# `Z-PROVA` (34) e `Z-REGUAS` (11) viviam em `F-INTELIGENCIA` por nao haver
+# familia para elas, e isso fazia 143 ligacoes de PROVA e de REGRA parecerem a
+# coleta a falar com o motor. A leitura «a Collection conversa 149 vezes com a
+# Intelligence» nascia inteira daqui.
+#
+#     PROVA != INTELIGENCIA.   REGRA != INTELIGENCIA.
+#     E NENHUMA DAS DUAS E ETAPA OPERACIONAL.
+# ─────────────────────────────────────────────────────────────────────────────
+_GOV = [z for z in S["TERRITORIES"] if z.get("family") == "F-GOVERNANCA"]
+prova("a_governanca_existe_como_familia",
+      any(f["id"] == "F-GOVERNANCA" for f in S["FAMILIES"]),
+      "sem familia propria, prova e regra voltam a contar como Intelligence")
+prova("a_governanca_e_transversal",
+      next((f for f in S["FAMILIES"] if f["id"] == "F-GOVERNANCA"), {}).get("transversal") is True,
+      "a familia tem de dizer que atravessa o sistema, e nao que e um troco da esteira")
+prova("prova_e_regua_vivem_na_governanca",
+      {z["id"] for z in _GOV} == {"Z-PROVA", "Z-REGUAS"},
+      f"em F-GOVERNANCA: {sorted(z['id'] for z in _GOV)} — esperava Z-PROVA e Z-REGUAS")
+# A moldura de uma familia e o retangulo que envolve as zonas dela. Com as zonas
+# intercaladas, a caixa da COLETA engolia a da GOVERNANCA e o desenho passava a
+# dizer o contrario do que a arrumacao diz. A ordem das zonas e a regra.
+_ORDEM = [z["family"] for z in S["TERRITORIES"]]
+_blocos = [f for i, f in enumerate(_ORDEM) if i == 0 or f != _ORDEM[i - 1]]
+prova("cada_familia_ocupa_um_bloco_contiguo",
+      len(_blocos) == len(set(_blocos)),
+      f"familias intercaladas na ordem das zonas: {_blocos}")
+prova("a_governanca_fica_fora_da_esteira",
+      _blocos[-1] == "F-GOVERNANCA",
+      f"a esteira acaba em {_blocos[-1]}; governanca no meio le-se como mais um passo")
+# A espinha da coleta, da esquerda para a direita, e o que Luciano le primeiro.
+_ESPINHA = ["Z-BIBLIA", "Z-ENTRADA", "Z-PEDIDO", "Z-ORQUESTRADOR", "Z-CANDIDATAS",
+            "Z-FONTES", "Z-EXECUCAO", "Z-VEICULOS", "Z-FERRAMENTAS", "Z-ACOES",
+            "Z-GUARDA", "Z-REGRAS", "Z-ADMISSAO", "Z-ESPERA"]
+_no_acervo = [z["id"] for z in S["TERRITORIES"] if "acervo" in z.get("views", [])]
+prova("a_esteira_le_se_da_esquerda_para_a_direita", _no_acervo == _ESPINHA,
+      f"a vista do acervo esta em {_no_acervo}")
+prova("a_esteira_acaba_no_ready", _no_acervo[-1] == "Z-ESPERA",
+      "nada pode vir depois do READY na vista principal")
+
+prova("nenhuma_zona_de_prova_ou_regua_ficou_na_inteligencia",
+      not [z["id"] for z in S["TERRITORIES"]
+           if z["id"] in ("Z-PROVA", "Z-REGUAS") and z.get("family") == "F-INTELIGENCIA"],
+      "voltar Z-PROVA para F-INTELIGENCIA repoe as 143 travessias falsas")
+
+# A conta, medida — e nao a impressao. O que sobra para a INTELIGENCIA tem de
+# ser pequeno e explicavel peca a peca; o que vai para a GOVERNANCA e grande e
+# tambem esta certo.
+_FAMN = {n["id"]: n.get("family") for n in S["NODES"]}
+def _atravessa(a, b):
+    return [e for e in S["EDGES"] if _FAMN.get(e["from"]) == a and _FAMN.get(e["to"]) == b]
+_ci, _cg = _atravessa("F-COLETA", "F-INTELIGENCIA"), _atravessa("F-COLETA", "F-GOVERNANCA")
+prova("a_coleta_nao_conversa_com_o_motor_as_centenas", len(_ci) <= 12,
+      f"COLETA -> INTELIGENCIA = {len(_ci)}; COLETA -> GOVERNANCA = {len(_cg)}")
+prova("toda_travessia_para_a_inteligencia_tem_prova",
+      all(e.get("evidence") for e in _ci),
+      "uma travessia que sobra tem de conseguir dizer POR QUE existe")
+
+# E o portao continua a valer: a mudanca de familia nao pode ter aberto porta.
+prova("nenhum_dado_atravessa_para_a_inteligencia_depois_do_rehome",
+      not [e for e in _ci if e.get("categoria") == "DATA"],
+      "mudar a arrumacao nao pode criar autorizacao que nao existia")
 
 
 print()

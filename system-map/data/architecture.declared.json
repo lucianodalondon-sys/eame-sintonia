@@ -109,6 +109,7 @@
    "name": "· as ferramentas da execucao",
    "why": "Com o que se vai: a rota paga, a rota gratis pelo navegador e a transcricao local",
    "views": [
+    "acervo",
     "infra"
    ],
    "folder": "ferramentas"
@@ -130,9 +131,31 @@
    "name": "A SALA DE ESPERA",
    "why": "Onde fica o que ja foi colhido, limpo e guardado, a espera de entrar na inteligencia. Cor neutra de proposito: aqui nada e transformado, so guardado  ⚠️ CORRIGIDO EM 2026-09-09: esta zona estava em F-ESPERA, a familia que se define como «o que ja passou por TODA a coleta e ainda nao entrou na inteligencia». Ela guarda os donos do RAW (guarda/preservar_coleta.py) e do DERIVED (guarda/preservar_derivado.py) — as etapas 5 e 6 das nove, provadas em provas/a_rota_m2_atravessa.py (A3 e A4). Preservar o bruto nao e o dado a dormir depois da coleta: E a coleta. Com a zona em F-ESPERA, a espinha da esteira aparecia fora da faixa da COLETA, e ninguem conseguia ler o mapa da esquerda para a direita.",
    "views": [
+    "acervo",
     "infra"
    ],
    "folder": "guarda"
+  },
+  {
+   "id": "Z-REGRAS",
+   "family": "F-COLETA",
+   "name": "· as reguas que carimbam",
+   "why": "O que se aplica ao item NO MOMENTO em que ele entra: de onde veio, quem esta autorizado, que palavras se digitam, o contrato de cada fonte. Vem antes das acoes porque sao elas que as consultam",
+   "views": [
+    "acervo",
+    "audit"
+   ],
+   "folder": "regras"
+  },
+  {
+   "id": "Z-MEDIDAS",
+   "family": "F-COLETA",
+   "name": "· as medidas da coleta",
+   "why": "O que olha para tras e da nota: quanto falta, que fonte respondeu torto, que lei do Brasil ainda nao foi portada. NAO BARRA NADA — medir nao e filtrar, e confundir os dois faz parecer que ha peneira onde so ha termometro",
+   "views": [
+    "audit"
+   ],
+   "folder": "medidas"
   },
   {
    "id": "Z-ADMISSAO",
@@ -153,49 +176,6 @@
     "acervo",
     "audit"
    ]
-  },
-  {
-   "id": "Z-REGRAS",
-   "family": "F-COLETA",
-   "name": "· as reguas que carimbam",
-   "why": "O que se aplica ao item NO MOMENTO em que ele entra: de onde veio, quem esta autorizado, que palavras se digitam, o contrato de cada fonte. Vem antes das acoes porque sao elas que as consultam",
-   "views": [
-    "acervo",
-    "audit"
-   ],
-   "folder": "regras"
-  },
-  {
-   "id": "Z-REGUAS",
-   "family": "F-INTELIGENCIA",
-   "name": "REGUAS E LEIS",
-   "why": "As leis que decidem o que conta como verdade: procedencia, lugar do fato, tempo, relevancia, voz",
-   "views": [
-    "opportunity",
-    "science"
-   ],
-   "folder": "leis"
-  },
-  {
-   "id": "Z-MEDIDAS",
-   "family": "F-COLETA",
-   "name": "· as medidas da coleta",
-   "why": "O que olha para tras e da nota: quanto falta, que fonte respondeu torto, que lei do Brasil ainda nao foi portada. NAO BARRA NADA — medir nao e filtrar, e confundir os dois faz parecer que ha peneira onde so ha termometro",
-   "views": [
-    "audit"
-   ],
-   "folder": "medidas"
-  },
-  {
-   "id": "Z-PROVA",
-   "family": "F-INTELIGENCIA",
-   "name": "PROVAS E MEDICAO",
-   "why": "O que separa 'esta escrito' de 'esta provado'. Guarda as tres familias, e vive aqui porque provar e como o sistema sabe o que sabe",
-   "views": [
-    "audit",
-    "infra"
-   ],
-   "folder": "provas"
   },
   {
    "id": "Z-MOTOR",
@@ -261,6 +241,28 @@
     "portal",
     "entrega"
    ]
+  },
+  {
+   "id": "Z-REGUAS",
+   "family": "F-GOVERNANCA",
+   "name": "REGUAS E LEIS",
+   "why": "As leis que decidem o que conta como verdade: procedencia, lugar do fato, tempo, relevancia, voz",
+   "views": [
+    "opportunity",
+    "science"
+   ],
+   "folder": "leis"
+  },
+  {
+   "id": "Z-PROVA",
+   "family": "F-GOVERNANCA",
+   "name": "PROVAS E MEDICAO",
+   "why": "O que separa 'esta escrito' de 'esta provado'. Guarda as tres familias, e vive aqui porque provar e como o sistema sabe o que sabe",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "folder": "provas"
   }
  ],
  "COMPONENTS": [
@@ -3218,6 +3220,12 @@
    "id": "F-INTELIGENCIA",
    "name": "INTELIGENCIA",
    "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa."
+  },
+  {
+   "id": "F-GOVERNANCA",
+   "name": "GOVERNANCA",
+   "why": "O que MEDE e o que REGULA a esteira, sem ser um passo dela. Prova e regra atravessam o sistema inteiro: nao colhem, nao transformam, nao entregam. Viviam em INTELIGENCIA por nao haver sitio para elas, e isso fazia 143 ligacoes de prova e de regra parecerem a coleta a falar com o motor. PROVA != INTELIGENCIA e REGRA != INTELIGENCIA — e nenhuma das duas e etapa operacional.",
+   "transversal": true
   },
   {
    "id": "F-ENTREGA",

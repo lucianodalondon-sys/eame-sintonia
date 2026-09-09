@@ -184,7 +184,8 @@ FAM_TOPO, FAM_PAD = 60, 40      # a faixa da familia abraca as zonas dela
 # F-COLETA — porque guarda os donos do RAW e do DERIVED — os quatro ficaram a
 # apontar para a familia antiga e o P2_PECA_TEM_FAMILIA reprovou. A regra ja
 # estava escrita em comentario; passa a estar escrita em codigo.
-FAMILIA_DA_ZONA = {"Z-PROVA": "F-INTELIGENCIA", "Z-GUARDA": "F-COLETA",
+FAMILIA_DA_ZONA = {"Z-PROVA": "F-GOVERNANCA", "Z-REGUAS": "F-GOVERNANCA",
+                   "Z-GUARDA": "F-COLETA",
                    "Z-EXECUCAO": "F-COLETA", "Z-ACOES": "F-COLETA"}
 
 

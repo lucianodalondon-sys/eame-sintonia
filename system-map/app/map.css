@@ -98,17 +98,27 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
     coleta que acabou e a inteligencia que ainda nao comecou. Pintar de cor
     forte faria a sala de espera parecer mais uma etapa de trabalho. */
  --fam-espera:#8a827e;--fam-espera-bg:#f4f2f1;
+ /* GOVERNANCA NAO E UM PEDACO DA ESTEIRA. Azul, verde e laranja marcam os tres
+    passos por onde o dado passa; a prova e a regra nao sao um passo — medem e
+    regulam os outros. Roxo escuro porque e a unica cor oficial da ADAMA que
+    nao esta ja a dizer «etapa», e a moldura dela e mais fina e mais apagada de
+    proposito: le-se como apoio por tras da esteira, e nao como mais um troco
+    dela. Token: --color-secondary-purple do extracto ADAMA versionado. */
+ --fam-governanca:#752157;--fam-governanca-bg:#f7f1f4;
 }
 .family{position:absolute;border-radius:34px;border:2px dashed;z-index:1;pointer-events:none}
 .family.F-COLETA{border-color:var(--fam-coleta);background:var(--fam-coleta-bg)}
 .family.F-ESPERA{border-color:var(--fam-espera);background:var(--fam-espera-bg)}
 .family.F-INTELIGENCIA{border-color:var(--fam-inteligencia);background:var(--fam-inteligencia-bg)}
 .family.F-ENTREGA{border-color:var(--fam-entrega);background:var(--fam-entrega-bg)}
+.family.F-GOVERNANCA{border-color:var(--fam-governanca);background:var(--fam-governanca-bg);
+ border-width:1px;opacity:.86}
 .familyHead{position:absolute;left:50%;transform:translateX(-50%);top:-1px;text-align:center;padding:10px 22px;border-radius:0 0 18px 18px;color:#fff;white-space:nowrap}
 .family.F-COLETA .familyHead{background:var(--fam-coleta)}
 .family.F-ESPERA .familyHead{background:var(--fam-espera)}
 .family.F-INTELIGENCIA .familyHead{background:var(--fam-inteligencia)}
 .family.F-ENTREGA .familyHead{background:var(--fam-entrega)}
+.family.F-GOVERNANCA .familyHead{background:var(--fam-governanca)}
 .familyName{font-size:30px;font-weight:800;letter-spacing:.06em;line-height:1}
 .familyWhy{font-size:12px;margin-top:6px;opacity:.92;max-width:760px;white-space:normal;margin-inline:auto}
 .family.dim{opacity:.18}
@@ -120,11 +130,14 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 .zone.F-ESPERA{border-top:5px solid var(--fam-espera)}
 .zone.F-INTELIGENCIA{border-top:5px solid var(--fam-inteligencia)}
 .zone.F-ENTREGA{border-top:5px solid var(--fam-entrega)}
+/* A zona de governanca marca-se a tracejado: e apoio, nao passo. */
+.zone.F-GOVERNANCA{border-top:5px dashed var(--fam-governanca)}
 .zoneFam{font-size:8.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
 .zone.F-COLETA .zoneFam{color:var(--fam-coleta)}
 .zone.F-ESPERA .zoneFam{color:var(--fam-espera)}
 .zone.F-INTELIGENCIA .zoneFam{color:var(--fam-inteligencia)}
 .zone.F-ENTREGA .zoneFam{color:var(--fam-entrega)}
+.zone.F-GOVERNANCA .zoneFam{color:var(--fam-governanca)}
 .zoneHead{height:auto;min-height:78px}
 
 /* A barra lateral: escolher uma familia e a primeira coisa que se faz. */
@@ -142,6 +155,7 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 .famBtn.active[data-fam="F-INTELIGENCIA"]{background:var(--fam-inteligencia)}
 .famBtn.active[data-fam="F-ENTREGA"]{background:var(--fam-entrega)}
 .famBtn.active[data-fam="F-ESPERA"]{background:var(--fam-espera)}
+.famBtn.active[data-fam="F-GOVERNANCA"]{background:var(--fam-governanca)}
 .famBtn.active .swatch{background:#fff}
 .famBtn small{display:block;font-weight:400;font-size:9px;opacity:.8;margin-top:2px}
 
