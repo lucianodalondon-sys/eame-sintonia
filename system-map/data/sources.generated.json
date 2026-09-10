@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "05848ad1e53a5bd58ca34fcf7f3c4eee9217290b",
+    "HEAD": "70a45e5aa73f74446d6fb297f7881f8d94a0ebda",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4128,6 +4128,31 @@
   },
   "ENDPOINTS": [
     {
+      "endpoint": "https://www.instagram.com/p",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 183
+        },
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 484
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 673
+        },
+        {
+          "file": "ferramentas/instagram_transcrever.py",
+          "line": 187
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 282
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/%s",
       "usado_por": [
         {
@@ -4195,27 +4220,6 @@
       ]
     },
     {
-      "endpoint": "https://www.instagram.com/p",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_coleta.py",
-          "line": 183
-        },
-        {
-          "file": "coleta/instagram_diario.py",
-          "line": 484
-        },
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 673
-        },
-        {
-          "file": "ferramentas/instagram_transcrever.py",
-          "line": 187
-        }
-      ]
-    },
-    {
       "endpoint": "https://publications.europa.eu/webapi",
       "usado_por": [
         {
@@ -4246,6 +4250,23 @@
         {
           "file": "superficie/rede.py",
           "line": 26
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.instagram.com/%s",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 374
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 671
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 212
         }
       ]
     },
@@ -4323,19 +4344,6 @@
       ]
     },
     {
-      "endpoint": "https://www.instagram.com/%s",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_diario.py",
-          "line": 374
-        },
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 671
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.fitosanitari.salute.gov.it/",
       "usado_por": [
         {
@@ -4397,6 +4405,19 @@
         {
           "file": "tests/test_navegador.py",
           "line": 109
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.instagram.com/reel",
+      "usado_por": [
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 7
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 116
         }
       ]
     },
@@ -4631,15 +4652,6 @@
         {
           "file": "coleta/speaker_identidade.py",
           "line": 128
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/'",
-      "usado_por": [
-        {
-          "file": "coleta/youtube_janela.py",
-          "line": 169
         }
       ]
     }

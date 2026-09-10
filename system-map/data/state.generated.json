@@ -564,6 +564,13 @@
       "data/samples/RAW-GATE-ES.json",
       "data/samples/RAW-PESADO-CONGELADO.txt",
       "data/samples/REDTEAM-CASE-014-datas.json",
+      "data/samples/REEL-TRANSCRICOES/C-FanW_CYMz.txt",
+      "data/samples/REEL-TRANSCRICOES/C2b0GJrIJ8t.txt",
+      "data/samples/REEL-TRANSCRICOES/DW6X5lZkU41.txt",
+      "data/samples/REEL-TRANSCRICOES/Db5QG2Dk3sF.txt",
+      "data/samples/REEL-TRANSCRICOES/MODELO-COMPARACAO-V1.json",
+      "data/samples/REEL-TRANSCRICOES/QUALIDADE-DA-FALA-V1.json",
+      "data/samples/REEL-TRANSCRICOES/TRANSCRICOES-REEL.json",
       "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
       "data/samples/RESEARCHER-OUTLOOK-V1.json",
       "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json",
@@ -740,6 +747,7 @@
       "ferramentas/apify_pool.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
+      "ferramentas/fala_local.py",
       "ferramentas/html_text.mjs",
       "ferramentas/instagram_transcrever.py",
       "ferramentas/italy-forward-only-live.cmd",
@@ -747,6 +755,7 @@
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
       "ferramentas/pdf_peek.mjs",
+      "ferramentas/reel_transcricao.py",
       "ferramentas/youtube_transcrever.py"
     ],
     "fontes": [
@@ -1162,6 +1171,7 @@
       "provas/preservar_coleta_no_postgres.py",
       "provas/rastro_no_postgres.py",
       "provas/readback_022_live.sh",
+      "provas/reel_fala_qualidade.py",
       "provas/rls_censo_metadados.sql",
       "provas/rls_censo_portao.py",
       "provas/social_persistencia_no_postgres.py",
@@ -1458,6 +1468,7 @@
       "tests/test_rastro_pg.py",
       "tests/test_raw_observation_id_volta.py",
       "tests/test_red_team_estrada.py",
+      "tests/test_reel_transcricao.py",
       "tests/test_relatorio_do_fluxo.py",
       "tests/test_route_membership.py",
       "tests/test_security_drift_db.py",
@@ -1858,10 +1869,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "05848ad1e53a5bd58ca34fcf7f3c4eee9217290b",
-    "GENERATED_AT": "2026-09-10T21:27:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "6d3bef68e9d039dc9bc87b6bfa52987306a8b069bf91ae4bc9c337ca178d0031"
+    "BRANCH": "claude/jolly-archimedes-lqpvlf",
+    "HEAD": "70a45e5aa73f74446d6fb297f7881f8d94a0ebda",
+    "GENERATED_AT": "2026-09-10T22:27:46+00:00",
+    "SOURCE_TREE_FINGERPRINT": "404054d9ae854ffdc8520f76ebea0268aae6ef94c29a1fc8d340f6e1502aba64"
   },
   "FAMILIES": [
     {
@@ -1930,7 +1941,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 54
+      "count": 55
     },
     {
       "id": "F-ENTREGA",
@@ -2300,7 +2311,7 @@
       "y": 190,
       "w": 1235,
       "h": 4548,
-      "count": 41
+      "count": 42
     }
   ],
   "DEPARTMENTS": {
@@ -7190,7 +7201,7 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "acervo",
@@ -7204,9 +7215,12 @@
         "coleta/comunicacao_medir.py"
       ],
       "file_count": 3,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "coleta/comunicacao_classificar.py",
+        "coleta/comunicacao_coleta.py"
+      ],
       "produces": [],
       "inbound": [
         "C-APIFY-POOL",
@@ -7214,6 +7228,7 @@
         "C-CI-COLETA",
         "C-COLETA-BASE",
         "C-IDENTIDADE",
+        "C-TRANSCRICAO",
         "V-FACEBOOK",
         "V-INSTAGRAM",
         "V-LINKEDIN",
@@ -7234,17 +7249,18 @@
         "listas": [
           "ATORES",
           "CULTURAS",
+          "FONTES_DE_TEXTO",
           "LUGARES",
           "PROBLEMAS",
           "TIPOS"
         ],
-        "palavras": 206,
+        "palavras": 211,
         "por_lingua": {
           "IT": 10,
           "ES": 7,
           "FR": 5
         },
-        "sem_marca_de_lingua": 184,
+        "sem_marca_de_lingua": 189,
         "de_outro_pais": 12,
         "de_outro_pais_quais": {
           "ES": 7,
@@ -7257,7 +7273,7 @@
           "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
           "prova": {
             "file": "coleta/comunicacao_classificar.py",
-            "line": 249,
+            "line": 319,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -7341,7 +7357,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "§",
       "views": [
         "audit",
@@ -7355,9 +7371,11 @@
         "leis/artefato.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-DERIVACAO-FORWARD, C-ESTRADA-PDF, C-EXECUTOR-TEXTO-PDF, C-INGRESSO.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-DERIVACAO-FORWARD, C-ESTRADA-PDF, C-EXECUTOR-TEXTO-PDF, C-INGRESSO.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "leis/artefato.py"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -7368,7 +7386,8 @@
         "C-INGRESSO",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
-        "C-TESTES"
+        "C-TESTES",
+        "C-TRANSCRICAO"
       ],
       "paises": {},
       "paises_dado": {},
@@ -11989,6 +12008,80 @@
       "y": 3580
     },
     {
+      "id": "C-PROVA-FALA-QUALIDADE",
+      "name": "A prova de que a fala escrita bate com a fala dita",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Confere cada transcricao contra termos esperados declarados, com a origem de cada termo, e devolve PASS/PARTIAL/FAIL por caso.",
+      "why_here": "«Gerou texto» nao e aprovacao. Um lote inteiro pode sair com estado OK e o corpus estar arruinado, porque o modelo barato acerta a frase e erra o nome da cultura e o da marca — medido: «MICE» onde se disse «mais». Sem gabarito oficial nao ha taxa de erro por palavra, entao o denominador desta prova esta impresso ao lado de cada resultado.",
+      "departments": [
+        "ENGENHARIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "♪",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/reel_fala_qualidade.py"
+      ],
+      "file_count": 1,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [
+        "data/samples/REEL-TRANSCRICOES/QUALIDADE-DA-FALA-V1.json"
+      ],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ESPERADO"
+        ],
+        "palavras": 32,
+        "por_lingua": {
+          "IT": 1
+        },
+        "sem_marca_de_lingua": 31,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "data/samples/REEL-TRANSCRICOES",
+          "prova": {
+            "file": "provas/reel_fala_qualidade.py",
+            "line": 196,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/REEL-TRANSCRICOES/QUALIDADE-DA-FALA-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "x": 20435,
+      "y": 3580
+    },
+    {
       "id": "C-PROVA-FORWARD-CONTA",
       "name": "A prova de que o forward se conta",
       "territory": "Z-PROVA",
@@ -12051,7 +12144,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3580
     },
     {
@@ -12108,8 +12201,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3580
+      "x": 20020,
+      "y": 3902
     },
     {
       "id": "C-PROVA-MAPA-NAO-MENTE",
@@ -12198,7 +12291,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 3902
     },
     {
@@ -12269,7 +12362,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3902
     },
     {
@@ -12322,8 +12415,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3902
+      "x": 20020,
+      "y": 4224
     },
     {
       "id": "C-PROVENIENCIA",
@@ -12571,7 +12664,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4224
     },
     {
@@ -12717,7 +12810,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4224
     },
     {
@@ -12859,8 +12952,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4224
+      "x": 20020,
+      "y": 4546
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -13616,7 +13709,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 4546
     },
     {
@@ -15113,6 +15206,7 @@
         "tests/test_rastro_pg.py",
         "tests/test_raw_observation_id_volta.py",
         "tests/test_red_team_estrada.py",
+        "tests/test_reel_transcricao.py",
         "tests/test_relatorio_do_fluxo.py",
         "tests/test_route_membership.py",
         "tests/test_security_drift_db.py",
@@ -15133,7 +15227,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 77,
+      "file_count": 78,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15228,6 +15322,7 @@
         "C-SCRAP-SOCIAL",
         "C-SECURITY-CHECK",
         "C-SUPABASE",
+        "C-TRANSCRICAO",
         "C-V21-COMERCIAL",
         "C-V21-CONTRATO",
         "C-V21-INGEST",
@@ -15345,7 +15440,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 4546
     },
     {
@@ -15353,14 +15448,14 @@
       "name": "A fala vira texto, sem fatura",
       "territory": "Z-FERRAMENTAS",
       "kind": "engine",
-      "what": "Transcreve o audio dos videos na propria maquina, com whisper local.",
-      "why_here": "Custa tempo de maquina, nao fatura. A rota paga de transcricao cobra por minuto — e ha ator que cobra por minuto INICIADO.",
+      "what": "Transcreve o audio dos videos na propria maquina, com whisper local. `fala_local.py` e o DONO UNICO do reconhecimento; `reel_transcricao.py` e a cadeia que liga um Reel publico ao texto falado, com RAW e DERIVED separados; os dois programas de lote chamam o mesmo dono.",
+      "why_here": "Custa tempo de maquina, nao fatura. A rota paga de transcricao cobra por minuto — e ha ator que cobra por minuto INICIADO. E a fala e o unico sitio onde esta o conteudo tecnico de um Reel cuja legenda diz so «confira nosso dia de campo»: LEGENDA != FALA.",
       "departments": [
         "ENGENHARIA",
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "♪",
       "views": [
         "acervo",
@@ -15369,22 +15464,30 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "ferramentas/fala_local.py",
+        "ferramentas/instagram_transcrever.py",
+        "ferramentas/reel_transcricao.py",
+        "ferramentas/youtube_transcrever.py"
+      ],
+      "file_count": 4,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
         "ferramentas/instagram_transcrever.py",
         "ferramentas/youtube_transcrever.py"
       ],
-      "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-COLETA-INSTAGRAM",
+        "C-CONTRATO-ARTEFATO",
         "C-NAVEGADOR",
         "C-SINTONIA-SCRAP"
       ],
       "outbound": [
         "C-CENSO-DERIVACOES",
-        "C-SCRAP-LEIS"
+        "C-COLETA-PUBLICA",
+        "C-SCRAP-LEIS",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -15394,7 +15497,16 @@
       "momento": "PREPARO",
       "momento_texto": "depois da coleta, sobre o que voltou — antes da peneira",
       "nivel": "INTERNO",
-      "escreve_na_pasta": [],
+      "escreve_na_pasta": [
+        {
+          "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
+          "prova": {
+            "file": "ferramentas/reel_transcricao.py",
+            "line": 840,
+            "snippet": "escreve em caminho"
+          }
+        }
+      ],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -16200,7 +16312,7 @@
           "ficheiro": "data/samples/COMPETITOR-PUBLIC-COMM/  (pasta inteira)",
           "prova": {
             "file": "coleta/comunicacao_classificar.py",
-            "line": 249,
+            "line": 319,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -16503,7 +16615,7 @@
           "ficheiro": "data/samples/COMPETITOR-PUBLIC-COMM/  (pasta inteira)",
           "prova": {
             "file": "coleta/comunicacao_classificar.py",
-            "line": 249,
+            "line": 319,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -16576,7 +16688,7 @@
           "ficheiro": "data/samples/COMPETITOR-PUBLIC-COMM/  (pasta inteira)",
           "prova": {
             "file": "coleta/comunicacao_classificar.py",
-            "line": 249,
+            "line": 319,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -16658,7 +16770,7 @@
           "ficheiro": "data/samples/COMPETITOR-PUBLIC-COMM/  (pasta inteira)",
           "prova": {
             "file": "coleta/comunicacao_classificar.py",
-            "line": 249,
+            "line": 319,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -16688,7 +16800,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/raw-observation-identity-3jbwco"
+        "branch claude/jolly-archimedes-lqpvlf"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -20666,12 +20778,40 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Colher o que o concorrente publica tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_comunicacao.py",
           "line": 27,
           "snippet": "import comunicacao_classificar as cl      # noqa: E402"
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 28,
+          "snippet": "import comunicacao_classificar as cc  # noqa: E402"
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 430,
+          "snippet": "import comunicacao_coleta as cco"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-COLETA-PUBLICA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 426,
+          "snippet": "self.assertEqual(comando, ['coleta/comunicacao_coleta.py', 'transcrever',"
         }
       ],
       "categoria": "PROOF"
@@ -20810,7 +20950,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
@@ -20821,9 +20961,32 @@
           "file": "tests/test_red_team_estrada.py",
           "line": 29,
           "snippet": "import artefato as art  # noqa: E402"
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 25,
+          "snippet": "import artefato as art               # noqa: E402"
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-TRANSCRICAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por A fala vira texto, sem fatura. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 89,
+          "snippet": "import artefato as art          # noqa: E402 — o contrato de artefato, dono único"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-CONTRATO-CAMPOS",
@@ -21198,7 +21361,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 138,
+          "line": 149,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
         }
       ],
@@ -24196,7 +24359,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 140,
+          "line": 151,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
         }
       ],
@@ -25193,12 +25356,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 54,
           "snippet": "from pedido import de_uma_frase            # noqa: E402"
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 416,
+          "snippet": "from pedido import Pedido"
         }
       ],
       "categoria": "PROOF"
@@ -26201,12 +26369,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 136,
+          "line": 147,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
         },
         {
           "file": "pedido/receitas.py",
-          "line": 142,
+          "line": 153,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
         }
       ],
@@ -26986,7 +27154,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_italia_na_porta_canonica.py",
@@ -26997,6 +27165,11 @@
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 293,
           "snippet": "from receitas import EXECUTORES"
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 417,
+          "snippet": "from receitas import resolver"
         }
       ],
       "categoria": "PROOF"
@@ -29405,6 +29578,25 @@
     },
     {
       "from": "C-TRANSCRICAO",
+      "to": "C-COLETA-PUBLICA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Colher o que o concorrente publica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 382,
+          "snippet": "import reel_transcricao as rt"
+        }
+      ],
+      "categoria": "DATA",
+      "passa_pelo_preparo": true
+    },
+    {
+      "from": "C-TRANSCRICAO",
       "to": "C-SCRAP-LEIS",
       "type": "READS",
       "payload": "artefacto",
@@ -29420,6 +29612,57 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-TRANSCRICAO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 26,
+          "snippet": "import fala_local as fl              # noqa: E402"
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 27,
+          "snippet": "import reel_transcricao as rt        # noqa: E402"
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 386,
+          "snippet": "import instagram_transcrever as it"
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 387,
+          "snippet": "import youtube_transcrever as yt"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TRANSCRICAO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 55,
+          "snippet": "'ASR_MODEL': 'small', 'TRANSCRIBER_ID': 'ferramentas/fala_local.py',"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-V2-LEGADO",
@@ -30404,7 +30647,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 723,
+  "UNCLAIMED_FILES_COUNT": 729,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30567,17 +30810,17 @@
     ]
   },
   "COUNTS": {
-    "components": 157,
-    "components_proven": 61,
-    "components_pending": 90,
+    "components": 158,
+    "components_proven": 58,
+    "components_pending": 93,
     "components_broken": 0,
-    "components_unknown": 6,
-    "edges": 620,
-    "edges_proven": 618,
+    "components_unknown": 7,
+    "edges": 625,
+    "edges_proven": 623,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1411,
-    "files_covered": 688,
+    "files_tracked": 1422,
+    "files_covered": 693,
     "files_code_unclaimed": 0
   }
 }

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "05848ad1e53a5bd58ca34fcf7f3c4eee9217290b",
+    "HEAD": "70a45e5aa73f74446d6fb297f7881f8d94a0ebda",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -35,7 +35,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 260,
+      "linhas": 271,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -45,7 +45,8 @@
         "YOUTUBE"
       ],
       "ferramentas": [
-        "APIFY (rota paga)"
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
       ],
       "descarta": true,
       "escreve_o_motivo_do_descarte": true,
@@ -348,6 +349,7 @@
         "coleta/coleta_checkpoint.py",
         "coleta/comunicacao_coleta.py",
         "coleta/instagram_coleta.py",
+        "ferramentas/reel_transcricao.py",
         "regras/sensor_coleta.py"
       ],
       "no_ci": true
@@ -403,6 +405,34 @@
       "no_ci": false
     },
     {
+      "ficheiro": "ferramentas/fala_local.py",
+      "gaveta": "ferramentas",
+      "linhas": 414,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [
+        "if descart"
+      ],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/comunicacao_coleta.py",
+        "ferramentas/instagram_transcrever.py",
+        "ferramentas/reel_transcricao.py",
+        "ferramentas/youtube_transcrever.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "ferramentas/html_text.mjs",
       "gaveta": "ferramentas",
       "linhas": 31,
@@ -423,12 +453,13 @@
     {
       "ficheiro": "ferramentas/instagram_transcrever.py",
       "gaveta": "ferramentas",
-      "linhas": 396,
+      "linhas": 362,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
         "HTTP DIRETO",
-        "INSTAGRAM"
+        "INSTAGRAM",
+        "YOUTUBE"
       ],
       "ferramentas": [
         "APIFY (rota paga)",
@@ -439,7 +470,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "ferramentas/fala_local.py"
+      ],
       "no_ci": true
     },
     {
@@ -515,9 +548,34 @@
       "no_ci": false
     },
     {
+      "ficheiro": "ferramentas/reel_transcricao.py",
+      "gaveta": "ferramentas",
+      "linhas": 1001,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/comunicacao_coleta.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "ferramentas/youtube_transcrever.py",
       "gaveta": "ferramentas",
-      "linhas": 305,
+      "linhas": 309,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -528,12 +586,14 @@
         "APIFY (rota paga)",
         "TRANSCRICAO"
       ],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "ferramentas/fala_local.py"
+      ],
       "no_ci": true
     },
     {
@@ -616,6 +676,7 @@
       "chamado_por": [
         "coleta/comunicacao_coleta.py",
         "coleta/instagram_coleta.py",
+        "ferramentas/reel_transcricao.py",
         "regras/sensor_coleta.py"
       ],
       "no_ci": false
@@ -623,7 +684,7 @@
     {
       "ficheiro": "coleta/comunicacao_classificar.py",
       "gaveta": "coleta",
-      "linhas": 260,
+      "linhas": 330,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -633,20 +694,23 @@
         "YOUTUBE"
       ],
       "ferramentas": [
-        "APIFY (rota paga)"
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
       ],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "ferramentas/reel_transcricao.py"
+      ],
       "no_ci": true
     },
     {
       "ficheiro": "coleta/comunicacao_coleta.py",
       "gaveta": "coleta",
-      "linhas": 356,
+      "linhas": 408,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -656,7 +720,8 @@
         "YOUTUBE"
       ],
       "ferramentas": [
-        "APIFY (rota paga)"
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
       ],
       "descarta": true,
       "escreve_o_motivo_do_descarte": true,
@@ -665,6 +730,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "ferramentas/contrato_ator.py",
+        "ferramentas/reel_transcricao.py",
         "pedido/receitas.py"
       ],
       "no_ci": true
@@ -2034,16 +2100,16 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 102,
-    "pontos_de_entrada": 83,
-    "executores_que_saem_para_fora": 21,
+    "ficheiros_de_codigo": 104,
+    "pontos_de_entrada": 85,
+    "executores_que_saem_para_fora": 22,
     "sem_chamador_e_fora_do_ci": 42,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 66,
-    "deitam_fora_alguma_coisa": 26,
+    "escrevem_ficheiro": 67,
+    "deitam_fora_alguma_coisa": 29,
     "deitam_fora_SEM_escrever_o_motivo": 2,
-    "ficheiros_com_decisao_escondida": 2,
-    "decisoes_escondidas_ao_todo": 2
+    "ficheiros_com_decisao_escondida": 3,
+    "decisoes_escondidas_ao_todo": 3
   },
   "LISTAS": {
     "pontos_de_entrada": [
@@ -2062,11 +2128,13 @@
       "ferramentas/apify_pool.py",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
+      "ferramentas/fala_local.py",
       "ferramentas/html_text.mjs",
       "ferramentas/instagram_transcrever.py",
       "ferramentas/navegador.py",
       "ferramentas/ods_peek.mjs",
       "ferramentas/pdf_peek.mjs",
+      "ferramentas/reel_transcricao.py",
       "ferramentas/youtube_transcrever.py",
       "coleta/agrifood_ue.py",
       "coleta/coleta_checkpoint.py",
@@ -2135,6 +2203,7 @@
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
       "ferramentas/instagram_transcrever.py",
+      "ferramentas/reel_transcricao.py",
       "ferramentas/youtube_transcrever.py",
       "coleta/agrifood_ue.py",
       "coleta/corpus_pesquisador.py",
@@ -2203,6 +2272,12 @@
       "guarda/portas_live.py"
     ],
     "decisoes_escondidas": [
+      {
+        "ficheiro": "ferramentas/fala_local.py",
+        "linhas": [
+          "if descart"
+        ]
+      },
       {
         "ficheiro": "coleta/instagram_diario.py",
         "linhas": [

@@ -739,13 +739,15 @@
    "views": [
     "infra"
    ],
-   "what": "Transcreve o audio dos videos na propria maquina, com whisper local.",
-   "why_here": "Custa tempo de maquina, nao fatura. A rota paga de transcricao cobra por minuto — e ha ator que cobra por minuto INICIADO.",
+   "what": "Transcreve o audio dos videos na propria maquina, com whisper local. `fala_local.py` e o DONO UNICO do reconhecimento; `reel_transcricao.py` e a cadeia que liga um Reel publico ao texto falado, com RAW e DERIVED separados; os dois programas de lote chamam o mesmo dono.",
+   "why_here": "Custa tempo de maquina, nao fatura. A rota paga de transcricao cobra por minuto — e ha ator que cobra por minuto INICIADO. E a fala e o unico sitio onde esta o conteudo tecnico de um Reel cuja legenda diz so «confira nosso dia de campo»: LEGENDA != FALA.",
    "departments": [
     "ENGENHARIA",
     "TECNICO_CIENCIA"
    ],
    "files": [
+    "ferramentas/fala_local.py",
+    "ferramentas/reel_transcricao.py",
     "ferramentas/instagram_transcrever.py",
     "ferramentas/youtube_transcrever.py"
    ]
@@ -2827,6 +2829,26 @@
    ],
    "what": "Corre em cada push, offline, em cerca de quarenta segundos. Pergunta uma coisa so: esta mudanca piorou a seguranca? A divida herdada fica visivel e nao bloqueia; uma exposicao nova bloqueia e diz o ficheiro e o campo, nunca o valor. Traz o dono da fronteira publicada, que calcula o que o deploy serve a partir do vercel.json e do .vercelignore — 87 ficheiros, 30,4 MB.",
    "why_here": "A fundacao de seguranca media o sistema e nao o vigiava, e um validador que ninguem corre nao e um portao. Fica ao lado dos outros portoes de CI e separado deles de proposito: quando dois portoes partilham resultado, o vermelho de um esconde o verde do outro e ninguem sabe qual reprovou."
+  },
+  {
+   "id": "C-PROVA-FALA-QUALIDADE",
+   "name": "A prova de que a fala escrita bate com a fala dita",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "♪",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "what": "Confere cada transcricao contra termos esperados declarados, com a origem de cada termo, e devolve PASS/PARTIAL/FAIL por caso.",
+   "why_here": "«Gerou texto» nao e aprovacao. Um lote inteiro pode sair com estado OK e o corpus estar arruinado, porque o modelo barato acerta a frase e erra o nome da cultura e o da marca — medido: «MICE» onde se disse «mais». Sem gabarito oficial nao ha taxa de erro por palavra, entao o denominador desta prova esta impresso ao lado de cada resultado.",
+   "departments": [
+    "ENGENHARIA",
+    "TECNICO_CIENCIA"
+   ],
+   "files": [
+    "provas/reel_fala_qualidade.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

@@ -707,8 +707,24 @@ def _fechar(base, ident, *, run_id, capture, midia, raw, fala, provider,
             der.ERROR = ' | '.join(quebras)
         derived_json = der.para_json()
 
+    # ── UM TEXTO SEM PAI PRESERVADO DIZ QUE NAO TEM PAI ─────────────────────
+    # A rota paga pode devolver a fala PRONTA e nenhum byte de video. Nesse caso
+    # nao ha ficheiro para preservar, logo nao ha artefato pai — e isso e uma
+    # diferenca real de forca de prova: o texto existe, mas ninguem nesta casa
+    # consegue voltar ao audio e conferir a citacao contra o segundo exato.
+    #
+    #     TEXTO SEM PAI NAO E TEXTO ERRADO. E TEXTO QUE NAO SE CONFERE.
+    #
+    # Deixar isso implicito seria o pior dos mundos: dois textos lado a lado no
+    # mesmo livro, um conferivel e outro nao, sem nada a distingui-los.
+    sem_pai = fala.get('TRANSCRIPT') and raw is None
     base.update({
         'CAPTURE_PROVIDER': capture,
+        'TRANSCRIPT_WITHOUT_PRESERVED_PARENT': 'YES' if sem_pai else 'NO',
+        'TRANSCRIPT_WITHOUT_PRESERVED_PARENT_WHY': (
+            'a fala veio pronta da fonte e nenhum byte de video foi preservado. '
+            'Nao ha artefato pai, logo nenhuma citacao deste texto se confere '
+            'contra o audio.') if sem_pai else '',
         'MEDIA_STATE': MEDIA_OK if raw is not None else NAO_SE_APLICA,
         'TRANSCRIPT_PROVIDER': provider,
         'TRANSCRIPT_TEXT': fala.get('TRANSCRIPT'),
@@ -759,6 +775,8 @@ def proveniencia(ident, raw, derived, fala, capture, provider):
         'QUAL_SHA256_DA_MIDIA': raw.SHA256 if raw is not None else NOT_KNOWN,
         'QUAL_ARTEFATO_PAI': raw.ARTIFACT_ID if raw is not None else NOT_KNOWN,
         'QUAL_ARTEFATO_FILHO': (derived or {}).get('ARTIFACT_ID', NOT_KNOWN),
+        'TEM_PAI_PRESERVADO': 'YES' if raw is not None else (
+            'NO — a fala veio pronta e nenhum byte ficou preservado nesta casa'),
         'QUEM_TRANSCREVEU': fala.get('TRANSCRIBER_ID', NAO_SE_APLICA),
         'QUAL_MOTOR': fala.get('ASR_ENGINE', NAO_SE_APLICA),
         'QUAL_MODELO': fala.get('ASR_MODEL', NAO_SE_APLICA),

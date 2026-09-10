@@ -188,6 +188,19 @@ class LegendaNaoEFala(Cadeia):
         self.assertEqual(r['PROVENANCE']['QUAL_MOTOR'], art.NAO_SE_APLICA)
         self.assertEqual(r['PROVENANCE']['QUEM_TRANSCREVEU'], art.NAO_SE_APLICA)
 
+    def test_a_fala_da_fonte_confessa_que_nao_tem_pai_preservado(self):
+        """Um texto sem pai não é texto errado: é texto que não se confere."""
+        r = rt.transcrever_reel(self._ident(), run_id='RUN-1',
+                                transcript_da_fonte='texto vindo pronto da fonte')
+        self.assertEqual(r['TRANSCRIPT_WITHOUT_PRESERVED_PARENT'], 'YES')
+        self.assertIn('nenhuma citacao', r['TRANSCRIPT_WITHOUT_PRESERVED_PARENT_WHY'])
+        self.assertIn('NO —', r['PROVENANCE']['TEM_PAI_PRESERVADO'])
+
+    def test_a_nossa_fala_tem_pai_preservado(self):
+        r = self._correr()
+        self.assertEqual(r['TRANSCRIPT_WITHOUT_PRESERVED_PARENT'], 'NO')
+        self.assertEqual(r['PROVENANCE']['TEM_PAI_PRESERVADO'], 'YES')
+
     def test_a_nossa_fala_diz_que_e_nossa(self):
         r = self._correr()
         self.assertEqual(r['TRANSCRIPT_PROVIDER'], rt.ASR_LOCAL)
