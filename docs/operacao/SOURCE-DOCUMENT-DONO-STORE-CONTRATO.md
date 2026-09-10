@@ -6,6 +6,15 @@
 > Admission, zero READY, zero contrato de fonte, zero registo T-06, zero Bíblia, zero
 > System Map.
 
+> **EMENDA C-PLAN-A5.1a · 2026-09-10.** A primeira redacção deste documento escreveu, em
+> três sítios, que as outras observações da mesma versão se encontram com
+> `where sha256 = content_sha256`. **Estava errado.** A C-PLAN-0 já tinha fechado que o
+> `sha256` é identidade dos **bytes** e **não** da observação nem do documento — e a casa
+> tem o caso medido: a ADAMA publicou o **mesmo PDF** em `media/731` e em `media/6321`
+> (`guarda/preservar_coleta.py:216-218`). Mesmos bytes, duas publicações. Corrigido na §6:
+> **nenhuma decisão de identidade, dono, casa, texto, testemunha, corrida ou migration
+> muda** — muda a frase que deixava o conteúdo fazer o trabalho do documento.
+
 A A4 fechou o conceito. Esta missão fecha **uma** coisa: onde ele mora, quem é o dono, e
 **se o texto é copiado ou apontado**.
 
@@ -171,7 +180,8 @@ STRUCTURED:** `conteudo` · `registro_regulatorio` · `catalogo_produto_document
 
 E a chave natural **foi medida contra dado real**: 35 valores distintos em 144 linhas de
 livro, zero sentinelas, zero colisões. **Nenhum hash entra na identidade** — o `sha256` está
-lá para encontrar as irmãs, não para nomear a linha.
+lá para **conferir os bytes**, não para nomear a linha nem para provar que dois documentos
+são o mesmo (§6).
 
 ---
 
@@ -184,7 +194,7 @@ De SOURCE_DOCUMENT conseguimos voltar deterministicamente até RAW e até a corr
 | ligação | coluna | obrigatória? | o que é |
 |---|---|---|---|
 | `RAW_LINK` | `raw_observation_id → raw_asset(id)` | **NOT NULL** | **testemunha**: de que observação se leu |
-| conteúdo | `content_sha256 char(64)` | **NOT NULL** | é por aqui que se acham **todas** as observações da mesma versão |
+| conteúdo | `content_sha256 char(64)` | **NOT NULL** | **confere os bytes**, e entra — junto com fonte e documento — na junção com o lado RAW. **Nunca sozinho** |
 | `DERIVED_LINK` | `derived_artifact_id → derived_artifact(id)` | **nulável** | `NULL` quando `parent_stage = 'RAW'` |
 | `RUN_LINK` | `run_id → collection_run(run_id)` | **NOT NULL** | a corrida que **estruturou** |
 
@@ -195,8 +205,42 @@ própria migration 022 sobre o campo equivalente dela:
 > escrito assim na coluna — não se finge que é a identidade do pai.»*
 
 Uma versão de documento tem N observações (medido: até 6). Guardar **uma** delas como se
-fosse *a* observação seria mentir sobre a cardinalidade. As irmãs encontram-se com
-`where sha256 = content_sha256`.
+fosse *a* observação seria mentir sobre a cardinalidade.
+
+### ⚠️ E as irmãs NÃO se encontram pelo `sha256` sozinho
+
+> ## MESMOS BYTES NÃO PROVAM MESMO DOCUMENTO.
+
+A C-PLAN-0 já o tinha fechado — `CONTENT_SHA256` é identidade dos **bytes**, e **não** da
+observação — e a casa tem o caso **medido**, escrito dentro do código de produção:
+
+> *«O DISCRIMINANTE separa duas publicações do MESMO byte. Medido nos 195 objetos
+> italianos: a ADAMA publicou o mesmo PDF em `media/731` e em `media/6321`. Dois factos
+> sobre o mundo, um conteúdo só.»*
+> — `guarda/preservar_coleta.py:216-218`
+
+Duas publicações do mesmo byte são **dois documentos**. Uma consulta por `sha256` sozinho
+juntá-las-ia numa só, e ninguém veria o erro: o número sairia certo e a resposta estaria
+errada.
+
+**A pergunta correcta, e ela usa a chave que a C-PLAN-0 já decidiu:**
+
+```
+observações COM OS MESMOS BYTES            where sha256 = content_sha256
+                                           — responde sobre CONTEÚDO, e só
+
+observações DA MESMA VERSÃO DOCUMENTAL     where source_id = … and document_key = …
+                                           and sha256 = content_sha256
+                                           — é a IDEMPOTENCY_KEY da C-PLAN-0 sem o run_id
+```
+
+Nenhuma tabela nova, nenhuma relação nova: é a mesma tupla que a C-PLAN-0 já mandou
+`raw_asset` carregar (`source_id`, `document_key`, `content_sha256`).
+
+**E essa pergunta não é desta tabela.** *«De que observação esta estruturação saiu?»* é
+proveniência, e é o que `source_document` responde. *«Quantas vezes esta versão foi
+observada?»* é história de observação, e o dono dela é o RAW. `ONE CONCEPT → ONE OWNER`
+vale também para perguntas que parecem vizinhas.
 
 E `run_id` é a corrida que estruturou — que **pode não ser** a que observou primeiro. São
 duas perguntas, e ficam em dois sítios.
@@ -381,7 +425,7 @@ sobre a chave natural.
 | **H** `LOGICAL_UNIQUE_KEY` | `(source_id, document_id, document_version_id)` |
 | **I** `REQUIRED_FIELDS` | 10, listados na §7 |
 | **J** `OPTIONAL_FIELDS` | `derived_artifact_id` · `published_at` |
-| **K** `RAW_LINK` | `raw_observation_id → raw_asset(id)`, **NOT NULL**, testemunha |
+| **K** `RAW_LINK` | `raw_observation_id → raw_asset(id)`, **NOT NULL**, testemunha — **uma** observação provada, não todas |
 | **L** `DERIVED_LINK` | `derived_artifact_id → derived_artifact(id)`, nulável, amarrado a `parent_stage` |
 | **M** `RUN_LINK` | `run_id → collection_run(run_id)`, **NOT NULL** |
 | **N** `TEXT_STORAGE_STRATEGY` | **REFERENCE** |
@@ -415,6 +459,7 @@ SOURCE_DOCUMENT_OWNER    = ONE     guarda/preservar_documento.py
 SOURCE_DOCUMENT_STORE    = ONE     public.source_document
 SOURCE_DOCUMENT_IDENTITY = CLOSED  surrogate + UNIQUE(source, document, version)
 SOURCE_DOCUMENT_LINEAGE  = CLOSED  raw_observation_id · content_sha256 · derived_artifact_id · run_id
+SHA_SEMANTICS            = CLOSED  identifica BYTES; nunca documento (§6)
 TEXT_STORAGE_STRATEGY    = CLOSED  REFERENCE
 MINIMUM_SCHEMA_CONTRACT  = CLOSED  10 obrigatórios · 2 opcionais
 BACKFILL_MEASURED        = YES     7 completas · 28 parciais · 0 impossíveis
@@ -445,6 +490,10 @@ texto.
 
 5. **Como voltamos ao arquivo original?** Dois saltos com hash a conferir: pela observação
    RAW chega-se aos bytes; pelo derivado chega-se ao texto.
+
+   E para saber quantas vezes aquela versão foi vista, pergunta-se ao lado RAW por
+   **fonte + documento + bytes** — nunca só pelos bytes. Duas fontes podem publicar o
+   mesmo ficheiro, e isso já aconteceu aqui (§6).
 
 6. **As 144 observações antigas entram?** Entram **35 linhas** — porque 144 observações são
    35 versões de documento vistas várias vezes. Sete completas, vinte e oito parciais.
