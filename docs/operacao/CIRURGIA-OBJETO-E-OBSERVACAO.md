@@ -818,6 +818,12 @@ DOCUMENT_KEY       = DOCUMENT_ID      quando a fonte dá identidade semântica
 DOCUMENT_KEY_BASIS = SOURCE_DOCUMENT_ID | CONTENT_DERIVED
 ```
 
+⚠️ **A segunda linha foi RETIRADA na secção S.4.** Bytes iguais não provam
+unidade documental igual — a S.1 reproduziu o contraexemplo desta casa. Não há
+fallback de conteúdo: `DOCUMENT_KEY` existe só com `DOCUMENT_ID` provado, e a
+observação que não o tem vai para `FORWARD_IDENTITY_UNPROVEN` (S.5). O resto
+desta secção Q.4 continua de pé.
+
 ```
 NUNCA são DOCUMENT_ID válido:  UNKNOWN · NAO_SEI · NÃO SEI · "" · null
 NUNCA substituem a chave:      DOCUMENT_VERSION_ID · SOURCE_NATIVE_ID ·
@@ -1182,6 +1188,10 @@ afirmação falsa, não uma confissão.
 
 ### R.5 · `CONTENT_DERIVED` ⇒ A CHAVE É O SHA INTEIRO — E ISSO É `CHECK`, NÃO CONVENÇÃO
 
+⚠️ **CORRIGIDA PELA S.4:** `CONTENT_DERIVED` foi retirado do vocabulário. O
+raciocínio abaixo — «isto é verificável pelo banco, não pelo writer» — continua
+certo; o predicado final é o da S.4, mais curto.
+
 A Q.4 fechou a regra e deixou-a do lado do writer. Ela não precisa de lá ficar:
 os dois campos vivem **na mesma linha**, logo o predicado é verificável pelo
 banco sem função, sem subconsulta e sem gatilho.
@@ -1265,8 +1275,13 @@ Nada aqui cria `FORWARD_IDENTITY_UNPROVEN`. A Q.5 fica de pé sem uma emenda:
 
 ```
 IDENTITY_STATE_VOCABULARY = LEGACY_PRE_IDEMPOTENCY | FORWARD_IDENTIFIED
-THIRD_STATE_CREATED       = NO
+THIRD_STATE_CREATED       = NO      ← passou a YES na S.5
 ```
+
+⚠️ **A S.5 fez nascer `FORWARD_IDENTITY_UNPROVEN`, e dentro da condição que
+esta secção escreveu.** Não foi antecipação: apareceu um contraexemplo medido
+(S.1) e a `COL-LAW-006` obriga o emissor a existir. A frase abaixo continua a
+ser o teste certo; o que mudou foi ele ter passado a ser satisfeito.
 
 E a razão é agora mais forte do que era na Q.5. Lá o terceiro estado não nascia
 por não haver emissor que o pedisse. Aqui ele não nasce porque **o buraco que o
@@ -1322,12 +1337,12 @@ se escreve nenhum deles.**
 IDENTITY_STATE_TRANSITION_NULLABLE                    = YES  (só na fase 7)
 IDENTITY_STATE_TARGET_NULLABLE                        = NO
 IDENTITY_STATE_HAS_DEFAULT                            = NO
-IDENTITY_STATE_VOCABULARY                             = LEGACY_PRE_IDEMPOTENCY | FORWARD_IDENTIFIED
-THIRD_STATE_CREATED                                   = NO
+IDENTITY_STATE_VOCABULARY                             = ver S.5 — três estados
+THIRD_STATE_CREATED                                   = YES na S.5
 FORWARD_NULL_ESCAPE_PREVENTED_BY_DATABASE             = YES
 NULL_STATE_ROWS_ALLOWED_AT_PHASE_9                    = NO
 UNKNOWN_IDENTITY_CAN_ENTER_PARTIAL_UNIQUE_AS_REAL_ID  = NO
-CONTENT_DERIVED_KEY_EQUALS_FULL_SHA256                = DB_ENFORCED
+CONTENT_DERIVED_KEY_EQUALS_FULL_SHA256                = RETIRADO na S.4
 LEGACY_BY_OMISSION_RISK                               = CLOSED_BY_DATABASE
 LEGACY_BY_EXPLICIT_DECLARATION_RISK                   = DB_ENFORCED
 IDENTITY_INVARIANTS_ENFORCEMENT_CLASS                 = DB_ENFORCED + CODE_ENFORCED + TEST_ENFORCED
@@ -1340,3 +1355,515 @@ A TERCEIRA CLASSE SILENCIOSA ESTÁ ELIMINADA DO ESTADO ALVO.
 
 O índice parcial da fase 9 continua a excluir por **estado**, e agora toda linha
 tem um. `PHASE_10_STILL_REQUIRED = YES`, e nada nesta secção o antecipa.
+
+---
+
+## S · C-RECON-B5B — A CONTRAPROVA EXTERNA, RECONCILIADA CONTRA O HEAD
+
+**C-RECON-B5B** · reconciliação, zero implementação · a partir de `e375ee5d`
+
+> Uma contraprova externa read-only comparou o B5 com OpenLineage, Temporal,
+> Airbyte e PostgreSQL e devolveu `PASS_WITH_REQUIRED_FIXES` com quatro
+> candidatos. **Nenhuma das quatro soluções propostas foi aceite por vir de
+> fora.** Cada uma foi reproduzida contra esta árvore, e três mudaram de forma
+> ao passar pela medição.
+
+### S.1 · B-1 · A CHAVE COLAPSA — E COLAPSA MESMO
+
+Cenário do benchmark: mesma `RUN`, mesmo `SOURCE_ID`, duas publicações
+diferentes, os mesmos bytes, sem `DOCUMENT_ID` comprovado.
+
+Regra da Q.4, aplicada literalmente:
+
+```
+publicação P1   sem DOCUMENT_ID  →  DOCUMENT_KEY = H   (BASIS = CONTENT_DERIVED)
+publicação P2   sem DOCUMENT_ID  →  DOCUMENT_KEY = H   (BASIS = CONTENT_DERIVED)
+
+(RUN, SOURCE, H, H)  ==  (RUN, SOURCE, H, H)
+```
+
+```
+SAME_BYTES_DISTINCT_PUBLICATIONS_COLLAPSE = YES
+```
+
+E não é hipótese. O contraexemplo está medido nesta casa desde a secção B:
+
+```
+IT/adama-website/DOCUMENT/227779fdd6be9975-6321-Postscript-80-XL---Scheda-di-Sicurezza.pdf
+IT/adama-website/DOCUMENT/227779fdd6be9975-731-Scheda-di-sicurezza---Davai.pdf
+    mesmo etag · mesmos 138.284 bytes · DUAS publicações
+```
+
+⚠️ **O endereço já sabia separá-las e a chave proposta não sabia.** O
+`caminho_do_objeto()` carrega um DISCRIMINANTE exatamente para isto — está
+escrito na docstring dele. A chave `(RUN, SOURCE, DOCUMENT_KEY, SHA)` com
+`DOCUMENT_KEY = sha` não carrega nada equivalente.
+
+**O defeito não é a chave ter poucos campos. É o fallback afirmar identidade
+documental a partir de bytes, que não a provam.**
+
+### S.2 · `SOURCE_NATIVE_ID` NÃO É A SAÍDA — MEDIDO CAMPO A CAMPO
+
+A contraprova sugeriu a cadeia `DOCUMENT_ID → SOURCE_NATIVE_ID → SHA256`.
+Recusada, e com prova de linha:
+
+```python
+coleta/ingresso.py:215
+nativo = (item.get("SOURCE_NATIVE_ID") or item.get("ID")
+          or item.get("id") or f.SHA256[:16])
+...
+"SOURCE_NATIVE_ID": _slug(nativo),
+```
+
+| | pergunta | resposta | prova |
+|---|---|---|---|
+| A | tem definição canónica única? | **NÃO na produção** | `COL-LAW-206` define-o como «o id que a própria fonte dá»; o runtime aceita três chaves diferentes e um fallback |
+| B | é sempre fornecido pela fonte? | **NÃO** | o fallback existe precisamente porque não é; `CONFORMIDADE-ITALIA.md` regista «`SOURCE_NATIVE_ID` não é campo» |
+| C | é estável entre retries? | **NÃO garantido** | quando cai no fallback é `SHA256[:16]`; muda com os bytes, não com a publicação |
+| D | é escopado à publicação/documento? | **NÃO** | `item.get("ID")`/`item.get("id")` é a chave que a observação por acaso trouxer |
+| E | pode ser id de produto, relação, linha ou post? | **SIM** | nada no código restringe a espécie; `_slug()` aceita qualquer texto |
+| F | algum caminho o fabrica a partir do SHA? | **SIM** | `f.SHA256[:16]`, e depois `_slug()` por cima |
+
+```
+GENERIC_SOURCE_NATIVE_ID_IS_SAFE_DOCUMENT_KEY = NO
+```
+
+⚠️ **Promovê-lo a chave fecharia B-1 escrevendo o defeito com outra letra.** No
+pior caso o «id nativo» É o sha16 — e aí a chave de idempotência passaria a
+conter o hash duas vezes, uma delas disfarçada de identidade da fonte. Um
+prefixo de 16 dígitos com nome de identidade é pior do que o sha inteiro
+assumido: mente sobre a origem além de não distinguir.
+
+E há o corte de qualidade: `_slug()` é declaradamente **endereço, nunca
+identidade** — a docstring dele diz isso, e a Q.3 já o tinha usado para recusar
+`SOURCE_SLUG` como fonte.
+
+### S.3 · O CONCEITO CANÓNICO JÁ TEM DONO — NÃO SE CRIA SINÓNIMO
+
+A pergunta certa era «que identidade comprovada distingue duas UNIDADES
+PUBLICADAS da mesma fonte?». A resposta já existe nesta árvore, e não é um
+campo: é um **contrato por fonte**.
+
+```
+regras/italy_contracts.mjs
+    IDENTITY_KEYS      quais campos nativos identificam a unidade publicada
+    DOCUMENT_ID_RULE   como se monta o DOCUMENT_ID a partir deles
+    FAIL_CLOSED_RULE   o que fazer quando eles não aparecem
+```
+
+Medido em **todas** as fontes do piloto. Dois exemplos que respondem
+diretamente à sugestão do benchmark:
+
+```
+FEM      DOCUMENT_ID_RULE = "FEM:HANDLE:{10449/NNNNN}"
+         ← um id NATIVO promovido a identidade documental PELO CONTRATO
+
+ADAMA    DOCUMENT_ID_RULE = "ADAMA:{CANONICAL_URL}:{PUBLISHED_TIME}"
+         FAIL_CLOSED_RULE = "extrato sem canonical_url ou sem published_time
+                             nao tem identidade — FAILED"
+         ← e é este contrato que separa media/731 de media/6321
+```
+
+```
+CANONICAL_NATIVE_PUBLICATION_ID_CONCEPT = DOCUMENT_ID, via IDENTITY_KEYS +
+                                          DOCUMENT_ID_RULE do contrato da fonte
+NEW_BASIS_NAME_REQUIRED = NO
+```
+
+**`SOURCE_NATIVE_PUBLICATION_ID` não nasce.** Seria um sinónimo de uma coisa
+com dono. Um id nativo pode participar da identidade documental — mas apenas
+atravessando o contrato, e aí ele já é `DOCUMENT_ID` com
+`BASIS = SOURCE_DOCUMENT_ID`. Nunca por promoção automática no encanamento.
+
+### S.4 · O FALLBACK DE HASH — E ELE NÃO SOBREVIVE
+
+Pergunta do §6, respondida sem rodeio:
+
+> Quando só conhecemos os bytes, podemos afirmar que duas ocorrências de bytes
+> iguais são a mesma UNIDADE documental?
+
+```
+NO — e o contraexemplo é da própria casa: 227779fdd6be9975, duas publicações.
+```
+
+Logo `CONTENT_DERIVED` não pode carregar o selo `FORWARD_IDENTIFIED`. E a
+consequência é maior do que parece: **se o hash nunca prova identidade
+documental, o hash nunca é uma `DOCUMENT_KEY`.** Um campo que só se preenche
+quando não se sabe a resposta não é uma chave; é uma confissão com nome de
+chave.
+
+```
+DOCUMENT_KEY_FINAL_RULE
+
+  DOCUMENT_KEY  existe SOMENTE quando o contrato da fonte prova identidade
+                documental — DOCUMENT_ID, e nada mais.
+  NÃO EXISTE    fallback de conteúdo. O sha256 continua na linha, continua na
+                chave de idempotência e continua a ser a identidade dos BYTES.
+                Ele não muda de espécie por ser copiado para outra coluna.
+
+DOCUMENT_KEY_BASIS_FINAL_ENUM = SOURCE_DOCUMENT_ID
+```
+
+```
+CONTENT_DERIVED = RETIRADO
+```
+
+⚠️ **Isto corrige a R.5 desta mesma sessão.** A R.5 tinha decidido um `check`
+para garantir que `CONTENT_DERIVED ⇒ document_key = sha256` — um `check` correto
+sobre uma regra que não devia existir. O predicado certo é mais curto:
+
+```sql
+constraint base_da_chave_tem_vocabulario
+  check (document_key_basis is null or document_key_basis = 'SOURCE_DOCUMENT_ID')
+```
+
+A Q.4 fica corrigida no mesmo movimento: a linha «`= CONTENT_SHA256` quando não
+dá» deixa de valer para a `DOCUMENT_KEY`.
+
+### S.5 · O DESTINO DE UM FORWARD SEM IDENTIDADE — E AQUI O TERCEIRO ESTADO NASCE
+
+Retirado o fallback, sobra a pergunta que a R.7 tinha deixado adormecida: o que
+acontece a uma coleta forward cujos bytes chegaram e cuja identidade documental
+não se prova?
+
+As três opções do §6, pesadas:
+
+| | o que faz | veredito |
+|---|---|---|
+| A · recusar até haver identidade | a linha não entra | **insuficiente** — e a razão é uma LEI, não uma preferência |
+| **B · estado explícito `FORWARD_IDENTITY_UNPROVEN`** | os bytes ficam, a chave não se inventa | **escolhida** |
+| C · solução existente | — | não existe: hoje o coletor resolve isto deitando os bytes fora |
+
+**A lei que decide.** `COL-LAW-006 · RAW PRIMEIRO`:
+
+```
+CAPTUROU → PRESERVA O ORIGINAL → DEPOIS DERIVA
+
+«O RAW DEVE ser gravado antes de qualquer normalização, extração,
+ transcrição ou CLASSIFICAÇÃO.»
+```
+
+Resolver identidade **é** classificação. Recusar a linha por falta de
+identidade é subordinar a preservação do original a um passo que a lei manda
+correr depois dele. A opção A não é «mais rigorosa»: é a ordem invertida.
+
+```
+FORWARD_WITHOUT_PROVABLE_DOCUMENT_ID_POLICY = PRESERVE_AND_DECLARE_UNPROVEN
+THIRD_STATE_REQUIRED = YES
+```
+
+E ele nasce dentro da condição que a Q.5 tinha escrito — não por antecipação.
+Há agora um contraexemplo medido (S.1) **e** uma lei que obriga o emissor a
+existir. O que faltava era isso.
+
+```
+IDENTITY_STATE_VOCABULARY  (final)
+
+  LEGACY_PRE_IDEMPOTENCY     anterior ao contrato · sem identidade inventada
+  FORWARD_IDENTIFIED         source_id + document_key + basis, os três válidos
+  FORWARD_IDENTITY_UNPROVEN  source_id válido · document_key NULL · basis NULL
+                             bytes preservados · FORA do índice parcial
+```
+
+⚠️ **`document_key` fica NULL, e nunca o sha.** É a diferença entre «não provei
+qual documento é» e «declarei que o documento é o seu próprio conteúdo». A
+primeira é verdadeira; a segunda é a S.1 outra vez.
+
+`source_id` continua obrigatório nos dois estados forward: a Collection sempre
+soube a que fonte pediu. O que pode faltar é a identidade do documento, nunca a
+da fonte.
+
+```sql
+constraint forward_identificado_exige_identidade
+  check (identity_state <> 'FORWARD_IDENTIFIED'
+         or (source_id is not null and btrim(source_id) <> ''
+         and document_key is not null and btrim(document_key) <> ''
+         and document_key_basis is not null))
+
+constraint forward_sem_prova_nao_finge_chave
+  check (identity_state <> 'FORWARD_IDENTITY_UNPROVEN'
+         or (source_id is not null and btrim(source_id) <> ''
+         and document_key is null and document_key_basis is null))
+```
+
+O índice parcial não muda de forma: continua a nomear
+`identity_state = 'FORWARD_IDENTIFIED'`, e agora há um terceiro estado que ele
+exclui **por declaração**, como exclui o legado.
+
+### S.6 · O CASO ITALIANO DE HOJE — E A DÍVIDA QUE ELE EXPÕE
+
+Medido em `coleta/italy_pilot_collect.mjs`, caminho de sucesso:
+
+```js
+:349   const RAW_SHA256 = sha(r.buf);
+:350   const ident = identidade(sourceId, alvo, r.buf);
+:352   if (!ident.DOCUMENT_ID) {
+:354     HEALTH_STATE: "FAILED", OBSERVATION_RESULT: "IDENTITY_FAILED"
+:355     gravar(obs); detalhes.push(obs); continue;      ← e guardarRaw NUNCA corre
+:392   const g = guardarRaw(sourceId, ident.DOCUMENT_ID, …);
+```
+
+```
+CURRENT_ITALY_SUCCESS_CAN_REACH_CONTENT_DERIVED_DOCUMENT_KEY = NO
+```
+
+**B-1 é uma lacuna estrutural do caminho genérico/futuro, e NÃO um bug exercido
+pelo slice italiano atual.** Dito com todas as letras, porque a diferença
+decide o que é urgente: nenhuma observação italiana chega hoje ao dono do RAW
+sem `DOCUMENT_ID`, e `CONTENT_DERIVED` tem **zero emissores** em todo o código
+versionado — medido por varredura, o termo só existe nos documentos de plano.
+
+Mas a mesma medição expõe a dívida:
+
+```
+RAW_PRESERVED_BEFORE_PARSE                    = YES   (linha 392 antes de 396)
+RAW_PRESERVED_BEFORE_IDENTITY_CLASSIFICATION  = NO    (linha 352 antes de 392)
+```
+
+```
+DÍVIDA COL-LAW-006 · o coletor italiano descarta bytes válidos quando a
+classificação de identidade falha. Bytes que passaram na validação de
+assinatura são perdidos por um passo que a lei manda correr DEPOIS.
+```
+
+Não se conserta aqui: `RUNTIME_CHANGED = 0`. Fica registada, com dono
+(`coleta/italy_pilot_collect.mjs`) e com o efeito prático de que
+`FORWARD_IDENTITY_UNPROVEN` **não terá emissor** enquanto ela não for paga.
+Instalar o estado sem emissor é barato e correto; usá-lo é outro trabalho.
+
+### S.7 · B-2 · JÁ FECHADO, E SEM `NULLS NOT DISTINCT`
+
+A secção R fechou o escape do estado nulo com `NOT NULL` sem `DEFAULT`. Falta
+responder à cláusula que o benchmark propôs.
+
+O índice parcial cobre **apenas** linhas com `identity_state =
+'FORWARD_IDENTIFIED'`. Dentro desse predicado:
+
+```
+run_id        NOT NULL   desde a 001
+sha256        NOT NULL   desde a 001
+source_id     NOT NULL   pelo check forward_identificado_exige_identidade
+document_key  NOT NULL   pelo mesmo check
+```
+
+Nenhuma coluna indexada pode ser nula nas linhas indexadas. `NULLS NOT
+DISTINCT` não muda um único resultado.
+
+```
+NULLS_NOT_DISTINCT_REQUIRED_FOR_CORRECTNESS = NO
+```
+
+**Não se acrescenta.** Uma cláusula que não altera nenhum caso é ruído que
+sugere uma proteção inexistente — e daqui a um ano alguém lê-a como se os
+campos pudessem ser nulos.
+
+### S.8 · B-3 · O BANCO ACEITA UMA OBSERVAÇÃO A APONTAR PARA OUTRO CONTEÚDO
+
+Lido na `025`, tal como ficou:
+
+```sql
+alter table public.raw_asset
+  add column if not exists storage_object_id bigint
+    references public.storage_object(id) on delete restrict;
+```
+
+Uma FK simples, para `id` e mais nada.
+
+```
+DECLARED_SHA_AGREEMENT_EXISTS_IN_DB = NO
+```
+
+O teste conceptual do §9, contra o schema de hoje:
+
+```
+raw_asset.sha256            = H1
+raw_asset.storage_object_id = 10
+storage_object.id           = 10
+storage_object.sha256       = H2
+
+FK       passa — o objeto 10 existe
+CHECK    passa — H1 tem formato de sha
+resultado: a linha entra, e diz duas coisas ao mesmo tempo
+```
+
+```
+DB_ACCEPTS_OBSERVATION_POINTING_TO_DIFFERENT_CONTENT = YES
+```
+
+⚠️ **Esta casa já apanhou este defeito uma vez, e fechou-o.** Está escrito na
+`022`, sobre o derivado:
+
+> «com chaves estrangeiras separadas, dava para escrever `raw_asset_id` = A e
+> `parent_sha256` = os bytes de B. As duas travas passavam. **FK EXISTIR NÃO
+> BASTA.**»
+
+Logo a solução mínima não é candidata nova: é o padrão da casa, aplicado ao
+par que a `025` deixou de fora.
+
+```sql
+alter table public.storage_object
+  add constraint objeto_id_e_sha_juntos unique (id, sha256);
+
+alter table public.raw_asset
+  add constraint a_observacao_e_a_copia_falam_do_mesmo_conteudo
+  foreign key (storage_object_id, sha256)
+  references public.storage_object(id, sha256) on delete restrict;
+```
+
+```
+COMPOSITE_STORAGE_FK_REQUIRED = YES
+```
+
+**Quando é obrigatório — e as três perguntas não têm a mesma resposta:**
+
+```
+REQUIRED_BEFORE_PHASE_9   = NO
+    o índice parcial é sobre colunas da própria observação; a divergência não
+    o corrompe. E entre as fases 7 e 9 nada torna a divergência alcançável:
+    a fase 4 ligou por ENDEREÇO e `unique (storage_path)` mantém 1:1.
+
+REQUIRED_BEFORE_PHASE_10  = YES  ← O GATE
+    a fase 10 é o que torna N:1 real. Caindo `unique (storage_path)`, o writer
+    passa a REENCONTRAR um objeto para reutilizar, e reencontrar é onde se
+    aponta para a cópia errada. É a fase que abre a porta, e a trava tem de
+    estar posta antes de ela abrir.
+
+REQUIRED_BEFORE_PHASE_11  = YES
+    já obrigatório desde a 10; e na 11, sem `storage_path` na observação, o
+    `sha256` fica a ÚNICA conferência cruzada que sobra.
+```
+
+Recomendação operacional: **instalar na fase 7**, junto com o resto. É aditiva,
+não varre dado que não caiba num fôlego e não depende de nada das fases 8-9.
+Adiá-la até à véspera da 10 é guardar uma dívida conhecida sem ganhar nada.
+
+O writer canónico de hoje **não** consegue produzir a divergência — o SQL da
+`preservar_coleta` procura o objeto por `storage_path` e escreve o `sha256` da
+mesma linha conferida. O buraco é do schema, não do emissor. Mas um buraco de
+schema é exatamente o que a `022` disse que não se deixa aberto.
+
+### S.9 · B-4 · `source_url` É ATRIBUTO, E A CORREÇÃO ESPERA PELA B-1
+
+Hoje:
+
+```python
+guarda/preservar_coleta.py:81
+IDENTIDADE_DO_OBJETO = ("run_id", "sha256", "bytes", "captured_at", "source_url")
+```
+
+Cenário do §10: mesma `RUN`, mesmo `SOURCE_ID`, mesma unidade documental, os
+mesmos bytes, URL A na tentativa 1 e URL B na tentativa 2 — um espelho, um
+redirecionamento, um parâmetro que a fonte acrescentou.
+
+```
+SHOULD_THIS_BE_RETRY = YES
+```
+
+É a mesma corrida, o mesmo documento e os mesmos bytes. O que mudou foi **por
+onde a tentativa passou**, e `COL-LAW-206` já diz que a URL não é uma das
+identidades.
+
+```
+SOURCE_URL_IS_IDEMPOTENCY_IDENTITY = NO
+```
+
+**Mas não se retira agora.**
+
+```
+B4_FIX_DEPENDS_ON_B1 = YES
+```
+
+Enquanto a `DOCUMENT_KEY` não existir em coluna, `source_url` é o **único**
+campo da identidade atual que separa duas publicações dos mesmos bytes da mesma
+fonte. Retirá-lo antes seria abrir a S.1 no writer que funciona hoje, para
+fechar um defeito que ainda não tem substituto instalado.
+
+```
+ORDEM OBRIGATÓRIA
+
+  1. fases 7-8 instalam e preenchem source_id + document_key + estado
+  2. a chave de idempotência passa a existir de facto
+  3. SÓ ENTÃO source_url sai de IDENTIDADE_DO_OBJETO
+
+Retirá-lo no passo 1 seria trocar uma trava a mais por nenhuma.
+```
+
+### S.10 · O INVARIANTE DO BENCHMARK — REFUTADO, E O DETECTOR FICA
+
+Proposta: «a chave de idempotência deve distinguir pelo menos tanto quanto o
+endereço.» Testada contra o que o endereço realmente é:
+
+```
+caminho_do_objeto() = PAIS/FONTE/TIPO/<sha16>-<discriminante>-<nome>
+                                                              ↑
+                                          basename do STORAGE_LOCATION
+```
+
+O `<nome>` é um nome de ficheiro. Duas observações da MESMA unidade documental,
+dos mesmos bytes, na mesma corrida, com nomes de ficheiro diferentes, produzem
+endereços diferentes — e são a mesma observação. Uma chave obrigada a
+distingui-las estaria obrigada a tratar uma renomeação como um facto novo.
+
+```
+IDEMPOTENCY_KEY_MUST_BE_AT_LEAST_AS_DISCRIMINATING_AS_STORAGE_PATH = NO
+```
+
+A regra correta:
+
+```
+A CHAVE PRECISA DISTINGUIR TODA DIFERENÇA SEMÂNTICA/OBSERVACIONAL COMPROVADA.
+NÃO TODA DIFERENÇA FÍSICA OU NOMINAL DO ENDEREÇO.
+```
+
+⚠️ **Mas o invariante do benchmark é um bom DETECTOR, e por isso não se deita
+fora inteiro.** Quando o endereço distingue mais do que a chave, há duas
+leituras possíveis, e só uma é inofensiva:
+
+```
+o endereço distingue por <nome>          → diferença NOMINAL   → a chave está certa
+o endereço distingue por <discriminante> → diferença SEMÂNTICA → é a S.1, e é bug
+```
+
+Foi exatamente assim que a B-1 se deixou ver: `227779fdd6be9975-731` e
+`227779fdd6be9975-6321` separam-se no discriminante, e a chave proposta não os
+separava. O invariante não é a lei; é o alarme que aponta para ela.
+
+### S.11 · O FECHO DA RECONCILIAÇÃO
+
+```
+B-1  DOCUMENT_KEY colapsa duas publicações      REPRODUZIDO · CORRIGIDO na S.4/S.5
+     solução do benchmark (promover native id)  RECUSADA · S.2
+B-2  identidade NULL escapa do índice parcial   JÁ FECHADO na R · NULLS NOT DISTINCT recusado
+B-3  sem acordo declarativo de sha              CONFIRMADO · FK composta, gate na fase 10
+B-4  source_url na identidade do writer         CONFIRMADO · retirada depende da B-1
+     invariante «chave ≥ endereço»              REFUTADO · fica como detector · S.10
+```
+
+```
+AS OITO CONDIÇÕES DO NOVO READY
+
+ 1. significado da DOCUMENT_KEY sem DOCUMENT_ID   FECHADO   não existe; sem fallback
+ 2. quando um id nativo participa                 FECHADO   só via DOCUMENT_ID_RULE do contrato
+ 3. destino do forward sem identidade             FECHADO   FORWARD_IDENTITY_UNPROVEN
+ 4. state NULL impossível no alvo                 FECHADO   secção R
+ 5. forward exige source/document/basis           FECHADO   secções R e S.5
+ 6. acordo raw_asset.sha ↔ storage_object.sha     FECHADO   FK composta, padrão da 022
+ 7. source_url classificado                       FECHADO   atributo; sai depois da B-1
+ 8. fase 10 continua proibida                     SIM
+```
+
+```
+READY_FOR_B5B_IMPLEMENTATION = YES
+
+B5B_BLOCKERS = nenhum
+
+DÍVIDAS REGISTADAS, e nenhuma delas bloqueia o B5B:
+  · COL-LAW-006 no coletor italiano (S.6) — sem ela, o terceiro estado nasce sem emissor
+  · o fio da Q.3 — SOURCE_ID e DOCUMENT_KEY ainda não chegam ao dono do RAW
+```
+
+```
+NEXT_STEP = B5B · implementar SOMENTE as fases 7, 8 e 9, agora com:
+            três estados · sem CONTENT_DERIVED · FK composta do objeto
+            e continuar a NÃO tocar nas fases 10 e 11
+```
