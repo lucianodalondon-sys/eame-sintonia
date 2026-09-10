@@ -196,3 +196,6 @@ if [ "$falhou" = "0" ]; then
   echo "AUDITORIA_LIVE=PASS"; exit 0
 fi
 echo "AUDITORIA_LIVE=FAIL"; exit 1
+# ── SEGUNDA LEITURA · DEPOIS DA 025 ─────────────────────────────────────
+# O mesmo censo, corrido outra vez. Nao ha versao «de depois»: se as
+# perguntas mudassem entre as duas leituras, a comparacao nao valia nada.
