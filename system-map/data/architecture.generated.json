@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "05848ad1e53a5bd58ca34fcf7f3c4eee9217290b",
-    "GENERATED_AT": "2026-09-10T21:27:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "6d3bef68e9d039dc9bc87b6bfa52987306a8b069bf91ae4bc9c337ca178d0031"
+    "HEAD": "72e6f7f2cbd4ed0989aeff478cf30065c3d565bb",
+    "GENERATED_AT": "2026-09-10T21:47:47+00:00",
+    "SOURCE_TREE_FINGERPRINT": "058d3b9df41897748d7e620d629dcf05d5fb07380320c8b6be34d8c132f0ae6b"
   },
   "FILES": [
     {
@@ -129,7 +129,7 @@
     },
     {
       "path": ".github/workflows/supabase-fichas-adama.yml",
-      "sha": "4a5d2d2d7f927a8fb901e59db0fd397d2b892c56",
+      "sha": "d19b3665d97a863d163364141467ec79e5d868b6",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -143,7 +143,7 @@
     },
     {
       "path": ".github/workflows/supabase-raw-roundtrip.yml",
-      "sha": "3e9934e706d73022a109633a464cd452ea8a7ad1",
+      "sha": "68afd9c0d6ada4bb54eae1b97635c1daae7236ff",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -5127,7 +5127,7 @@
     },
     {
       "path": "guarda/catalogo_importar.py",
-      "sha": "3048c6d98a2dbe010cd10c35b6d08157987af183",
+      "sha": "338137c22c5aa3f47b5a2ed46c2ecfc4da64c9a5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5220,6 +5220,13 @@
       "path": "guarda/sql_conferir.py",
       "sha": "4e8fcc8432225e17a461f0de03f427f6ec1145d0",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "guarda/trava_do_escritor_antigo.sh",
+      "sha": "88ffb58a25e7591cd0ffdfa7b30624cd850c1b48",
+      "ext": ".sh",
       "readable": true,
       "code_dir": true
     },
@@ -7164,7 +7171,7 @@
     },
     {
       "path": "motor/cadeia_canonica.sh",
-      "sha": "df0c764dcfaa334a05fdfcf4cffdb99cf44225d9",
+      "sha": "0739206a388c068e31f4130b6d63e4f381094ae5",
       "ext": ".sh",
       "readable": true,
       "code_dir": true
@@ -7640,7 +7647,7 @@
     },
     {
       "path": "provas/auditoria_live.sh",
-      "sha": "fd45c1c15751ff4ef3d7fcbdef0a5462a698cfd8",
+      "sha": "5977b4c88f3f25fddf6e63a489afcd71234449c4",
       "ext": ".sh",
       "readable": true,
       "code_dir": true
@@ -7745,7 +7752,7 @@
     },
     {
       "path": "provas/objeto_e_observacao_no_postgres.py",
-      "sha": "182bdef18e0e5eb8a9e1e9925ccd04b6e9787830",
+      "sha": "1bb4d2368174b744abef63f791f8a6ed86acaaef",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9663,7 +9670,7 @@
     },
     {
       "path": "tests/test_porta_de_producao.py",
-      "sha": "4b613055d801139787d9de3437af222417c3db9c",
+      "sha": "3b6e4e2ef584912e2950e89b075b284ad5ceebd4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10559,6 +10566,17 @@
       }
     },
     {
+      "from_file": ".github/workflows/supabase-fichas-adama.yml",
+      "to_file": "guarda/trava_do_escritor_antigo.sh",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/supabase-fichas-adama.yml",
+        "line": 20,
+        "snippet": "run: bash guarda/trava_do_escritor_antigo.sh supabase-fichas-adama"
+      }
+    },
+    {
       "from_file": ".github/workflows/supabase-migrate.yml",
       "to_file": "motor/cadeia_canonica.sh",
       "type": "RUNS",
@@ -10611,6 +10629,17 @@
         "file": ".github/workflows/supabase-migrate.yml",
         "line": 158,
         "snippet": "psql \"$SUPABASE_DB_URL\" -f supabase/tests/regressoes_regulatorio_es.sql 2>&1 | tee /tmp/rg"
+      }
+    },
+    {
+      "from_file": ".github/workflows/supabase-raw-roundtrip.yml",
+      "to_file": "guarda/trava_do_escritor_antigo.sh",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/supabase-raw-roundtrip.yml",
+        "line": 19,
+        "snippet": "run: bash guarda/trava_do_escritor_antigo.sh supabase-raw-roundtrip"
       }
     },
     {
@@ -13515,6 +13544,17 @@
         "file": "guarda/catalogo_importar.py",
         "line": 39,
         "snippet": "IDS_MAPA = os.path.join(SAMPLES, 'ES-MAPA-VOCABULARIO-IDS.json')"
+      }
+    },
+    {
+      "from_file": "guarda/catalogo_importar.py",
+      "to_file": "guarda/trava_do_escritor_antigo.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "guarda/catalogo_importar.py",
+        "line": 665,
+        "snippet": "['bash', os.path.join(ROOT, 'guarda', 'trava_do_escritor_antigo.sh'),"
       }
     },
     {
@@ -19497,7 +19537,7 @@
       "payload": "execucao",
       "evidence": {
         "file": "motor/cadeia_canonica.sh",
-        "line": 161,
+        "line": 190,
         "snippet": "if ! python3 \"$RAIZ/guarda/sql_conferir.py\" \"$RAIZ/$f\"; then"
       }
     },
@@ -19508,7 +19548,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/cadeia_canonica.sh",
-        "line": 152,
+        "line": 181,
         "snippet": "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql \\"
       }
     },
@@ -19519,7 +19559,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/cadeia_canonica.sh",
-        "line": 151,
+        "line": 180,
         "snippet": "for f in supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql \\"
       }
     },
@@ -19530,7 +19570,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "motor/cadeia_canonica.sh",
-        "line": 153,
+        "line": 182,
         "snippet": "supabase/importacoes/IT-LASTMILE-2026-09-02.sql; do"
       }
     },
@@ -25461,6 +25501,17 @@
         "file": "provas/objeto_e_observacao_no_postgres.py",
         "line": 722,
         "snippet": "fonte_do_writer = open(os.path.join(RAIZ, \"guarda\", \"preservar_coleta.py\"),"
+      }
+    },
+    {
+      "from_file": "provas/objeto_e_observacao_no_postgres.py",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/objeto_e_observacao_no_postgres.py",
+        "line": 898,
+        "snippet": "[\"bash\", os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),"
       }
     },
     {
@@ -31982,7 +32033,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 203,
+        "line": 270,
         "snippet": "self.assertNotIn(\"auditoria-live.yml\", achados)"
       }
     },
@@ -31993,7 +32044,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 147,
+        "line": 214,
         "snippet": "with open(os.path.join(WORKFLOWS, \"auditoria-live.yml\"),"
       }
     },
@@ -32004,7 +32055,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 188,
+        "line": 255,
         "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}"
       }
     },
@@ -32015,7 +32066,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 188,
+        "line": 255,
         "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}"
       }
     },
@@ -32026,8 +32077,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 186,
-        "snippet": "ESCRITORES = {\"supabase-migrate.yml\", \"supabase-fichas-adama.yml\","
+        "line": 185,
+        "snippet": "\"supabase-fichas-adama.yml\"),"
       }
     },
     {
@@ -32037,7 +32088,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 186,
+        "line": 253,
         "snippet": "ESCRITORES = {\"supabase-migrate.yml\", \"supabase-fichas-adama.yml\","
       }
     },
@@ -32048,8 +32099,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 187,
-        "snippet": "\"supabase-raw-roundtrip.yml\", \"supabase-storage.yml\","
+        "line": 183,
+        "snippet": "\"supabase-raw-roundtrip.yml\"),"
       }
     },
     {
@@ -32059,8 +32110,30 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 187,
+        "line": 254,
         "snippet": "\"supabase-raw-roundtrip.yml\", \"supabase-storage.yml\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": "guarda/catalogo_importar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 186,
+        "snippet": "os.path.join(RAIZ, \"guarda\", \"catalogo_importar.py\")):"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": "guarda/trava_do_escritor_antigo.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 157,
+        "snippet": "self.assertIn(\"trava_do_escritor_antigo.sh\", self.fonte)"
       }
     },
     {
@@ -32081,7 +32154,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 164,
+        "line": 231,
         "snippet": "with open(os.path.join(RAIZ, \"provas\", \"auditoria_live.sh\"),"
       }
     },
@@ -34484,10 +34557,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1411,
-    "files_readable": 528,
-    "files_code_dir": 575,
-    "file_edges": 2195,
+    "files_tracked": 1412,
+    "files_readable": 529,
+    "files_code_dir": 576,
+    "file_edges": 2201,
     "escritas_em_pasta": 66,
     "declared_missing_here": 0
   },

@@ -774,7 +774,8 @@
       "guarda/preservar_derivado.py",
       "guarda/social_guarda.py",
       "guarda/social_sessao.py",
-      "guarda/sql_conferir.py"
+      "guarda/sql_conferir.py",
+      "guarda/trava_do_escritor_antigo.sh"
     ],
     "handoff": [
       "handoff/S2A-R-RECONCILIACAO.md",
@@ -1859,9 +1860,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "05848ad1e53a5bd58ca34fcf7f3c4eee9217290b",
-    "GENERATED_AT": "2026-09-10T21:27:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "6d3bef68e9d039dc9bc87b6bfa52987306a8b069bf91ae4bc9c337ca178d0031"
+    "HEAD": "72e6f7f2cbd4ed0989aeff478cf30065c3d565bb",
+    "GENERATED_AT": "2026-09-10T21:47:47+00:00",
+    "SOURCE_TREE_FINGERPRINT": "058d3b9df41897748d7e620d629dcf05d5fb07380320c8b6be34d8c132f0ae6b"
   },
   "FAMILIES": [
     {
@@ -5915,7 +5916,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⛓",
       "views": [
         "generator",
@@ -5928,9 +5929,11 @@
         "motor/v21_cadeia.sh"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "motor/cadeia_canonica.sh"
+      ],
       "produces": [],
       "inbound": [
         "C-CI-PERSIST",
@@ -5942,6 +5945,7 @@
         "C-AUDIT-GERAL",
         "C-LUGAR-DO-FATO",
         "C-PACOTE-CAMADAS",
+        "C-PROVA-COLETA",
         "C-PROVENIENCIA",
         "C-REGRA-COLETA",
         "C-SUPABASE",
@@ -6854,9 +6858,11 @@
       ],
       "file_count": 7,
       "status": "PENDING",
-      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
-        ".github/workflows/banco-descartavel.yml"
+        ".github/workflows/banco-descartavel.yml",
+        ".github/workflows/supabase-fichas-adama.yml",
+        ".github/workflows/supabase-raw-roundtrip.yml"
       ],
       "produces": [],
       "inbound": [
@@ -8973,7 +8979,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⇥",
       "views": [
         "acervo",
@@ -8986,9 +8992,11 @@
         "guarda/importar_italia.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "guarda/catalogo_importar.py"
+      ],
       "produces": [],
       "inbound": [
         "C-CI-REGRESSAO",
@@ -8997,7 +9005,8 @@
       ],
       "outbound": [
         "C-CENSO-ARMAZEM-IT",
-        "C-SUPABASE"
+        "C-SUPABASE",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -11765,8 +11774,9 @@
       ],
       "file_count": 12,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
+        "provas/auditoria_live.sh",
         "provas/derived_artifact_no_postgres.py",
         "provas/preservar_coleta_no_postgres.py",
         "provas/testa_coleta_canonica.py"
@@ -11775,6 +11785,7 @@
       "inbound": [
         "C-ADAMA-ES",
         "C-ADMISSAO",
+        "C-CADEIA-V21",
         "C-CENSO-OBSERVABILIDADE",
         "C-CI-MAPA",
         "C-CI-PERSIST",
@@ -15135,13 +15146,14 @@
       ],
       "file_count": 77,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 10 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "tests/test_coleta_externa.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_metricas.py",
         "tests/test_migrations.py",
         "tests/test_operacao.py",
+        "tests/test_porta_de_producao.py",
         "tests/test_preservar_coleta.py",
         "tests/test_preservar_coleta_no_banco.py",
         "tests/test_preservar_derivado.py",
@@ -15192,6 +15204,7 @@
         "C-FRONTEIRA-TELEMETRIA",
         "C-GESTAO-DA-COLETA",
         "C-IDENTIDADE",
+        "C-IMPORTAR",
         "C-INGRESSO",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
@@ -18750,6 +18763,24 @@
     },
     {
       "from": "C-CADEIA-V21",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/objeto_e_observacao_no_postgres.py",
+          "line": 898,
+          "snippet": "[\"bash\", os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CADEIA-V21",
       "to": "C-PROVENIENCIA",
       "type": "RUNS",
       "payload": "execucao",
@@ -18806,7 +18837,7 @@
       "evidence": [
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 161,
+          "line": 190,
           "snippet": "if ! python3 \"$RAIZ/guarda/sql_conferir.py\" \"$RAIZ/$f\"; then"
         }
       ],
@@ -20167,32 +20198,32 @@
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 186,
+          "line": 183,
+          "snippet": "\"supabase-raw-roundtrip.yml\"),"
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 185,
+          "snippet": "\"supabase-fichas-adama.yml\"),"
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 253,
           "snippet": "ESCRITORES = {\"supabase-migrate.yml\", \"supabase-fichas-adama.yml\","
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 186,
-          "snippet": "ESCRITORES = {\"supabase-migrate.yml\", \"supabase-fichas-adama.yml\","
-        },
-        {
-          "file": "tests/test_porta_de_producao.py",
-          "line": 187,
+          "line": 254,
           "snippet": "\"supabase-raw-roundtrip.yml\", \"supabase-storage.yml\","
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 187,
-          "snippet": "\"supabase-raw-roundtrip.yml\", \"supabase-storage.yml\","
-        },
-        {
-          "file": "tests/test_porta_de_producao.py",
-          "line": 188,
+          "line": 255,
           "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}"
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 203,
+          "line": 270,
           "snippet": "self.assertNotIn(\"auditoria-live.yml\", achados)"
         },
         {
@@ -20269,7 +20300,7 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 188,
+          "line": 255,
           "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}"
         }
       ],
@@ -23130,6 +23161,24 @@
         }
       ],
       "categoria": "WRITE"
+    },
+    {
+      "from": "C-IMPORTAR",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Levar o dado para o banco alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 186,
+          "snippet": "os.path.join(RAIZ, \"guarda\", \"catalogo_importar.py\")):"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-IMPRESSAO-DA-ARVORE",
@@ -28625,17 +28674,17 @@
       "evidence": [
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 151,
+          "line": 180,
           "snippet": "for f in supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql \\"
         },
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 152,
+          "line": 181,
           "snippet": "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql \\"
         },
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 153,
+          "line": 182,
           "snippet": "supabase/importacoes/IT-LASTMILE-2026-09-02.sql; do"
         }
       ],
@@ -29189,7 +29238,7 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 147,
+          "line": 214,
           "snippet": "with open(os.path.join(WORKFLOWS, \"auditoria-live.yml\"),"
         }
       ],
@@ -29302,7 +29351,7 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 164,
+          "line": 231,
           "snippet": "with open(os.path.join(RAIZ, \"provas\", \"auditoria_live.sh\"),"
         }
       ],
@@ -30403,8 +30452,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 723,
+  "UNCLAIMED_CODE_FILES": [
+    "guarda/trava_do_escritor_antigo.sh"
+  ],
+  "UNCLAIMED_FILES_COUNT": 724,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30568,16 +30619,16 @@
   },
   "COUNTS": {
     "components": 157,
-    "components_proven": 61,
-    "components_pending": 90,
+    "components_proven": 59,
+    "components_pending": 92,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 620,
-    "edges_proven": 618,
+    "edges": 622,
+    "edges_proven": 620,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1411,
+    "files_tracked": 1412,
     "files_covered": 688,
-    "files_code_unclaimed": 0
+    "files_code_unclaimed": 1
   }
 }

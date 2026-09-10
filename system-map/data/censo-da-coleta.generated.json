@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "05848ad1e53a5bd58ca34fcf7f3c4eee9217290b",
+    "HEAD": "72e6f7f2cbd4ed0989aeff478cf30065c3d565bb",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -1802,7 +1802,7 @@
     {
       "ficheiro": "guarda/catalogo_importar.py",
       "gaveta": "guarda",
-      "linhas": 663,
+      "linhas": 680,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2031,10 +2031,26 @@
       "escreve_ficheiro": false,
       "chamado_por": [],
       "no_ci": false
+    },
+    {
+      "ficheiro": "guarda/trava_do_escritor_antigo.sh",
+      "gaveta": "guarda",
+      "linhas": 72,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": true
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 102,
+    "ficheiros_de_codigo": 103,
     "pontos_de_entrada": 83,
     "executores_que_saem_para_fora": 21,
     "sem_chamador_e_fora_do_ci": 42,
