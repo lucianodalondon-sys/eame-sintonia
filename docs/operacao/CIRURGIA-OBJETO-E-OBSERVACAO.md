@@ -886,12 +886,19 @@ LEGACY» obriga a linha a **declarar-se** legado para sair — e nenhum
 esquecimento declara nada.
 
 ```
-FORWARD_NULL_ESCAPE_PREVENTED_BY_DESIGN = YES
+FORWARD_NULL_ESCAPE_PREVENTED_BY_DATABASE = YES     ← corrigido na secção R
 ```
 
-O writer forward escreve o estado, e o `check` que a fase 7 instala recusa uma
-linha forward sem `source_id` ou sem `document_key`. Uma coleta nova não escapa
-por campo vazio: ela é recusada.
+⚠️ **A redação anterior desta linha dizia `PREVENTED_BY_DESIGN`, e era
+insuficiente.** Ela assumia que o writer forward *escreve* o estado. Um writer
+que **esquece** a coluna não escreve estado nenhum: a linha entra com
+`identity_state = NULL`, o `check` da fase 7 — escrito como «forward exige
+identidade» — não a toca, e a cláusula parcial do índice também não. Isso é uma
+terceira classe silenciosa, e ela não pode existir.
+
+A trava real está fechada na **secção R**: a coluna termina a fase 8
+`NOT NULL` e **sem `DEFAULT`**, de modo que omitir a coluna é ERRO do banco, e
+não uma classificação por omissão.
 
 ### Q.7 · RETRY NÃO É REOBSERVAÇÃO
 
@@ -961,7 +968,7 @@ DOCUMENT_KEY_RULE             = CLOSED      C-PLAN-0, confirmada aqui
 DOCUMENT_KEY_INPUT/FALLBACK   = AVAILABLE   o item original chega à tradução
 LEGACY_VS_FORWARD_STATE       = EXPLICIT    dois estados, e o terceiro só se aparecer
 PARTIAL_INDEX_SCOPE           = EXPLICIT    exclui por ESTADO, nunca por NULL
-FORWARD_NULL_ESCAPE           = BLOCKED BY DESIGN
+FORWARD_NULL_ESCAPE           = BLOCKED BY DATABASE   ← corrigido na secção R
 RETRY_VS_NEW_RUN              = DISTINGUISHABLE BY KEY
 PHASE_10_STILL_REQUIRED       = YES
 ```
@@ -979,3 +986,357 @@ razão para dizer que a arquitetura é desconhecida.
 NEXT_STEP = B5B · implementar SOMENTE as fases 7, 8 e 9
             e continuar a NÃO tocar nas fases 10 e 11
 ```
+
+---
+
+## R · C-CORR-B5B — A TERCEIRA CLASSE SILENCIOSA NÃO PODE EXISTIR
+
+**C-CORR-B5B** · correção de decisão, zero implementação · a partir de `2ae05493`
+
+> Zero migration, zero runtime, zero escrita em banco. Esta secção corrige a
+> Q.6 e a Q.9 e fecha o mecanismo. Não instala nada: nomeia o que a fase 7 e a
+> fase 8 do B5B terão de instalar, e porquê.
+
+### R.0 · A LACUNA, DITA SEM ATENUAÇÃO
+
+A Q.6 provou a coisa certa e parou um passo antes do fim. Ela provou que
+**excluir por ESTADO é melhor do que excluir por NULL** — e é. Mas depois
+sustentou a garantia numa frase sobre o writer:
+
+```
+«O writer forward escreve o estado.»
+```
+
+Isso é uma **convenção de escrita**, e uma convenção não é uma trava. A linha
+que ninguém escreveu é exatamente a linha que o argumento não cobre:
+
+```
+identity_state  = NULL
+source_id       = NULL
+document_key    = NULL
+
+não é FORWARD_IDENTIFIED       → o check «forward exige identidade» não a toca
+não é LEGACY_PRE_IDEMPOTENCY   → não declarou nada
+não entra no índice parcial    → a cláusula nomeia um estado que ela não tem
+```
+
+```
+UM CAMPO ESQUECIDO VIRARIA UMA CATEGORIA.
+```
+
+E uma categoria que nasce de esquecimento é pior do que o `NULL` que a Q.6
+recusou, porque tem a aparência de estar coberta por três travas e não está
+coberta por nenhuma.
+
+### R.1 · O MECANISMO — E ELE NÃO É NOVO NESTA CASA
+
+A casa já resolve isto duas vezes, e as duas estão medidas nesta árvore:
+
+| onde | como | o que ensina |
+|---|---|---|
+| `001` · `raw_asset.preserved` | `boolean not null default true` + `CHECK (preserved OR not_preserved_reason IS NOT NULL)` | ausência de bruto é **estado declarado com motivo**, nunca silêncio |
+| `016` · `canal.tipo_de_perfil` | `text not null default 'NOT_KNOWN'` + `check (… in (…))` + `check (tipo_de_perfil = 'NOT_KNOWN' or evidencia is not null)` | um estado declarado exige evidência; o estado que não exige nada é o padrão |
+| `018` · `geografia.especie` | `text not null default 'ADMIN'` + `check (… in (…))` | vocabulário fechado num `check`, e `ADD COLUMN NOT NULL DEFAULT` corre sobre tabela povoada |
+
+O `016` é o precedente mais próximo — e é também onde a diferença tem de ser
+dita, porque **copiá-lo inteiro reabriria a lacuna**:
+
+```
+NO 016   omitir a coluna → cai no DEFAULT 'NOT_KNOWN'  → classificação por omissão
+AQUI     omitir a coluna → tem de ser ERRO             → nenhuma classificação
+```
+
+```
+O DEFAULT É A PORTA DE FUGA.
+```
+
+Um `default 'LEGACY_PRE_IDEMPOTENCY'` fecharia o `NULL` e abriria pior: todo
+writer forward que esquecesse a coluna passaria a escrever **legado declarado**
+sem o declarar, e o índice parcial excluí-lo-ia com a consciência limpa. Trocar
+um escape silencioso por outro não é fechar nada.
+
+```
+IDENTITY_STATE_HAS_DEFAULT = NO
+```
+
+`NOT NULL` **sem** `DEFAULT` é o que transforma o esquecimento em recusa:
+
+```
+insert into raw_asset (run_id, storage_path, …)      -- sem identity_state
+ERROR:  null value in column "identity_state" violates not-null constraint
+```
+
+Não é aviso, não é `NULL`, não é uma terceira classe. É a escrita a não
+acontecer.
+
+### R.2 · A ORDEM, PORQUE ELA É A METADE DA GARANTIA
+
+`ADD COLUMN … NOT NULL` sem `DEFAULT` não corre sobre tabela povoada — as 252
+linhas vivas não têm valor para a coluna nova. Logo a coluna **nasce nullable**,
+e a janela em que ela o é tem de fechar **antes** do índice da fase 9:
+
+```
+FASE 7   add column identity_state text            -- NULLABLE, e só aqui
+         add column source_id text
+         add column document_key text
+         add column document_key_basis text
+         check de vocabulário e check de forward-exige-identidade
+             instalados NOT VALID
+
+FASE 8   update … set identity_state = 'LEGACY_PRE_IDEMPOTENCY'
+             where identity_state is null            -- todas as linhas de hoje
+         alter column identity_state set not null    ← ACTO DE FECHO DA FASE 8
+         (e NUNCA um set default)
+         validate constraint …
+
+FASE 9   create unique index … where identity_state = 'FORWARD_IDENTIFIED'
+```
+
+```
+IDENTITY_STATE_TRANSITION_NULLABLE   = YES   -- apenas dentro da fase 7
+IDENTITY_STATE_TARGET_NULLABLE       = NO
+NULL_STATE_ROWS_ALLOWED_AT_PHASE_9   = NO
+```
+
+⚠️ **A fase 9 não pode começar com uma linha em `NULL`.** O índice parcial é o
+que dá sentido ao estado; instalá-lo enquanto o estado ainda é opcional é
+instalar a proteção e deixar a porta aberta ao lado dela. O `set not null` é
+pré-condição da fase 9, e não um acabamento posterior.
+
+### R.3 · OS SEIS CASOS, DECIDIDOS EXECUTAVELMENTE
+
+Cada caso abaixo é uma escrita concreta e um veredito do **banco**, não do
+writer.
+
+| | escrita | veredito | quem recusa |
+|---|---|---|---|
+| **A** | `identity_state = NULL` | **REJECT** | `NOT NULL` da coluna (fecho da fase 8) |
+| **B** | `FORWARD_IDENTIFIED` · `source_id = NULL` | **REJECT** | `forward_exige_identidade` |
+| **C** | `FORWARD_IDENTIFIED` · `document_key = NULL` | **REJECT** | `forward_exige_identidade` |
+| **D** | `FORWARD_IDENTIFIED` · `document_key_basis = NULL` | **REJECT** | `forward_exige_identidade` |
+| **E** | `LEGACY_PRE_IDEMPOTENCY` · os três `NULL` | **ALLOW** | ninguém — e é isso que se quer |
+| **F** | writer **omite** a coluna | **REJECT** | `NOT NULL` **e a ausência de `DEFAULT`** |
+
+O predicado, escrito uma vez e a morder só o forward:
+
+```sql
+constraint estado_de_identidade_tem_vocabulario
+  check (identity_state in ('LEGACY_PRE_IDEMPOTENCY','FORWARD_IDENTIFIED'))
+
+constraint forward_exige_identidade
+  check (identity_state <> 'FORWARD_IDENTIFIED'
+         or (source_id          is not null and btrim(source_id)          <> ''
+         and document_key       is not null and btrim(document_key)       <> ''
+         and document_key_basis is not null))
+```
+
+```
+O CASO E É O QUE PROVA QUE O PREDICADO ESTÁ CERTO.
+```
+
+Um `check` que exigisse identidade de **todas** as linhas reprovaria as 252 e a
+fase 8 não passaria — e a saída fácil seria fabricar-lhes `SOURCE_ID`, que a
+Q.5 proíbe. O predicado morde por estado, e o legado sai por declaração.
+
+`btrim(x) <> ''` não é adorno: é o mesmo mecanismo que a `025` já usa em
+`objeto_tem_endereco`. Espaço em branco não é identidade.
+
+### R.4 · O VOCABULÁRIO DE SENTINELA — MEDIDO, NÃO INVENTADO
+
+A pergunta «que valores não podem passar por identidade real?» não se responde
+com uma lista de imaginação. Contei o que esta árvore usa:
+
+```
+supabase/migrations/*.sql     'NAO_SEI' 33 · 'NOT_KNOWN' 31 · 'UNKNOWN' 3 · 'NAO_SE_APLICA' 1
+leis/ coleta/ guarda/         "UNKNOWN" 12 · "NAO SEI" 6 · "NOT_KNOWN" 5 · "NAO_SE_APLICA" 5 · "NAO_SEI" 4
+leis/artefato.py              NAO_SEI = "NAO SEI"   ·   NAO_SE_APLICA = "NAO_SE_APLICA"
+                              DERIVATION_UNKNOWN = "UNKNOWN"
+```
+
+São **seis** literais em circulação, e a Q.4 já proibia cinco deles como
+`DOCUMENT_ID`. A diferença é que a Q.4 os proibia numa regra escrita e a fase 7
+tem de os proibir num `check`:
+
+```sql
+constraint identidade_forward_nao_aceita_sentinela
+  check (identity_state <> 'FORWARD_IDENTIFIED'
+         or (upper(btrim(source_id))    not in
+                ('NAO SEI','NAO_SEI','NÃO SEI','NAO_SE_APLICA','UNKNOWN','NOT_KNOWN')
+         and upper(btrim(document_key)) not in
+                ('NAO SEI','NAO_SEI','NÃO SEI','NAO_SE_APLICA','UNKNOWN','NOT_KNOWN')))
+```
+
+```
+UNKNOWN_IDENTITY_CAN_ENTER_PARTIAL_UNIQUE_AS_REAL_ID = NO
+```
+
+⚠️ **Uma confissão preenchida é pior do que um campo vazio quando existe um
+índice em cima.** `UNIQUE (run_id, source_id, document_key, sha256)` com
+`source_id = 'NAO SEI'` não protege coisa nenhuma: junta observações de fontes
+diferentes debaixo de uma palavra que quer dizer «não sei qual». O índice
+passaria a colidir por ignorância partilhada.
+
+`NAO_SE_APLICA` entra na lista pela mesma razão e por outra: identidade de fonte
+**aplica-se sempre** a uma observação forward. Dizer que não se aplica é uma
+afirmação falsa, não uma confissão.
+
+### R.5 · `CONTENT_DERIVED` ⇒ A CHAVE É O SHA INTEIRO — E ISSO É `CHECK`, NÃO CONVENÇÃO
+
+A Q.4 fechou a regra e deixou-a do lado do writer. Ela não precisa de lá ficar:
+os dois campos vivem **na mesma linha**, logo o predicado é verificável pelo
+banco sem função, sem subconsulta e sem gatilho.
+
+```sql
+constraint chave_derivada_do_conteudo_e_o_sha_inteiro
+  check (document_key_basis <> 'CONTENT_DERIVED' or document_key = sha256)
+
+constraint base_da_chave_tem_vocabulario
+  check (document_key_basis is null
+         or document_key_basis in ('SOURCE_DOCUMENT_ID','CONTENT_DERIVED'))
+```
+
+```
+CONTENT_DERIVED_KEY_EQUALS_FULL_SHA256 = DB_ENFORCED
+```
+
+Decisão: **constraint, não writer.** O writer continua a escrever a regra; o
+banco deixa de acreditar nele. Isto fecha por construção o prefixo de 16 que a
+Q.4 proibia por escrito — `substr(sha256,1,16) <> sha256`, e o `check` reprova.
+
+### R.6 · OS DOIS RISCOS DO LEGADO EXPLÍCITO — E ELES NÃO SÃO O MESMO RISCO
+
+Excluir por estado obriga a linha a declarar-se legado. Falta perguntar quem
+consegue fazer essa declaração.
+
+**RISCO A · declaração por esquecimento.** O writer não escreve a coluna e a
+linha acaba legado sem ninguém o ter decidido.
+
+```
+LEGACY_BY_OMISSION_RISK = CLOSED_BY_DATABASE
+```
+
+Fechado pela R.1: sem `DEFAULT` não há classificação por omissão. Não é
+convenção, não é revisão de código, não é teste. É a escrita a falhar.
+
+**RISCO B · declaração explícita e falsa.** Um runtime novo escreve
+`identity_state = 'LEGACY_PRE_IDEMPOTENCY'` numa observação de hoje, e sai da
+proteção pela porta da frente.
+
+Este é o risco que a Q.6 não viu, e ele **também** tem trava de banco, porque
+`LEGACY_PRE_IDEMPOTENCY` tem uma definição temporal: *linha anterior à lei*. A
+`raw_asset` já carrega o relógio para o provar — `created_at timestamptz not
+null default now()`, medido na `001`. O corte congela-se no instante da fase 8:
+
+```sql
+do $$
+declare corte timestamptz := now();
+begin
+  execute format(
+    'alter table public.raw_asset add constraint legado_e_anterior_a_lei '
+    'check (identity_state <> %L or created_at < %L) not valid',
+    'LEGACY_PRE_IDEMPOTENCY', corte);
+end $$;
+```
+
+```
+LEGACY_BY_EXPLICIT_DECLARATION_RISK = DB_ENFORCED
+```
+
+Todas as linhas de hoje têm `created_at` anterior ao corte e passam a
+validação; nenhuma linha futura o consegue ter. O estado de legado deixa de ser
+uma etiqueta escolhível e passa a ser um **facto sobre quando a linha nasceu**.
+
+⚠️ **O limite desta trava, dito antes que alguém o descubra:** ela é forjável
+por um writer que **também** falsifique `created_at`, porque a coluna tem
+`DEFAULT` e não proibição de escrita explícita. Mas isso deixa de ser
+esquecimento e passa a ser proveniência falsificada — outra lei, mais alta, e
+já escrita. Registo o limite; não o escondo atrás da palavra `DB_ENFORCED`.
+
+```
+NENHUMA DESTAS TRÊS FRASES É A MESMA:
+  o writer costuma escrever certo        →  CONVENÇÃO
+  o writer é obrigado por código a isso  →  CODE_ENFORCED
+  a escrita errada não entra             →  DB_ENFORCED
+```
+
+### R.7 · O TERCEIRO ESTADO CONTINUA A NÃO NASCER
+
+Nada aqui cria `FORWARD_IDENTITY_UNPROVEN`. A Q.5 fica de pé sem uma emenda:
+
+```
+IDENTITY_STATE_VOCABULARY = LEGACY_PRE_IDEMPOTENCY | FORWARD_IDENTIFIED
+THIRD_STATE_CREATED       = NO
+```
+
+E a razão é agora mais forte do que era na Q.5. Lá o terceiro estado não nascia
+por não haver emissor que o pedisse. Aqui ele não nasce porque **o buraco que o
+justificaria foi tapado**: a linha sem estado não existe, e a linha forward sem
+identidade não entra. Um terceiro estado só voltaria à mesa com um emissor
+forward real, medido, que precise de escrever durante as fases 7-9 sem
+conseguir provar identidade — e aí seria uma decisão com contraexemplo à
+frente, não uma antecipação.
+
+### R.8 · O QUE O BANCO NÃO FECHA, E QUEM FECHA
+
+Honestidade de camadas, porque chamar tudo `DB_ENFORCED` seria o mesmo erro da
+Q.6 com outro nome:
+
+```
+DB_ENFORCED     estado não-nulo · sem default · vocabulário · forward exige
+                identidade · sentinela recusada · CONTENT_DERIVED = sha inteiro
+                · legado é anterior ao corte
+
+CODE_ENFORCED   ligar SOURCE_ID e DOCUMENT_KEY até ao dono do RAW — o fio da
+                Q.3. O banco recusa a linha errada; ele não sabe transportar
+                o campo certo.
+
+TEST_ENFORCED   que os seis casos continuem a ser recusados/aceites depois de
+                cada alteração do writer.
+```
+
+```
+TEST_ENFORCED_INVARIANTS
+
+  1. insert sem identity_state              → REJEITADO  (caso F)
+  2. insert com identity_state = NULL       → REJEITADO  (caso A)
+  3. FORWARD sem source_id                  → REJEITADO  (caso B)
+  4. FORWARD sem document_key               → REJEITADO  (caso C)
+  5. FORWARD sem document_key_basis         → REJEITADO  (caso D)
+  6. FORWARD com source_id = 'NAO SEI'      → REJEITADO  (R.4)
+  7. FORWARD com source_id = '   '          → REJEITADO  (R.3)
+  8. LEGACY com os três campos nulos        → ACEITE     (caso E)
+  9. CONTENT_DERIVED com key = sha16        → REJEITADO  (R.5)
+ 10. CONTENT_DERIVED com key = sha256       → ACEITE     (R.5)
+ 11. LEGACY escrito numa linha de agora     → REJEITADO  (R.6, risco B)
+ 12. após a fase 8, zero linhas com estado nulo — contagem, não amostra
+```
+
+Estes doze são casos da bateria `banco-descartavel` contra **Postgres 16**, e
+não de SQLite: `NOT VALID`/`VALIDATE`, `btrim` e o `do $$` do corte só existem
+lá. Escrevem-se no B5B, junto com a migration que instalam. **Nesta missão não
+se escreve nenhum deles.**
+
+### R.9 · O FECHO
+
+```
+IDENTITY_STATE_TRANSITION_NULLABLE                    = YES  (só na fase 7)
+IDENTITY_STATE_TARGET_NULLABLE                        = NO
+IDENTITY_STATE_HAS_DEFAULT                            = NO
+IDENTITY_STATE_VOCABULARY                             = LEGACY_PRE_IDEMPOTENCY | FORWARD_IDENTIFIED
+THIRD_STATE_CREATED                                   = NO
+FORWARD_NULL_ESCAPE_PREVENTED_BY_DATABASE             = YES
+NULL_STATE_ROWS_ALLOWED_AT_PHASE_9                    = NO
+UNKNOWN_IDENTITY_CAN_ENTER_PARTIAL_UNIQUE_AS_REAL_ID  = NO
+CONTENT_DERIVED_KEY_EQUALS_FULL_SHA256                = DB_ENFORCED
+LEGACY_BY_OMISSION_RISK                               = CLOSED_BY_DATABASE
+LEGACY_BY_EXPLICIT_DECLARATION_RISK                   = DB_ENFORCED
+IDENTITY_INVARIANTS_ENFORCEMENT_CLASS                 = DB_ENFORCED + CODE_ENFORCED + TEST_ENFORCED
+TEST_ENFORCED_INVARIANTS                              = 12 casos, listados na R.8
+```
+
+```
+A TERCEIRA CLASSE SILENCIOSA ESTÁ ELIMINADA DO ESTADO ALVO.
+```
+
+O índice parcial da fase 9 continua a excluir por **estado**, e agora toda linha
+tem um. `PHASE_10_STILL_REQUIRED = YES`, e nada nesta secção o antecipa.
