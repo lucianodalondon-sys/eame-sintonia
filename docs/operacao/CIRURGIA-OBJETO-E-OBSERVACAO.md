@@ -2424,3 +2424,104 @@ B5B_026_BLOCKER_HISTORICAL_IMPORTER = OPEN
 ```
 READY_FOR_PHASE_10 = NO
 ```
+
+---
+
+## V · C-LIVE-026 — A OBSERVAÇÃO GANHOU IDENTIDADE NO BANCO VIVO
+
+**C-LIVE-026** · aplicação controlada · 2026-09-10
+
+> A 026 deixou de ser proposta. Aplicada ao banco canónico pelo aplicador da
+> casa — o mesmo que a C-PREP-026 corrigiu — com o censo congelado antes e
+> conferido depois.
+
+### V.1 · O QUE FOI FEITO, E POR QUE PORTA
+
+```
+REF DA OPERAÇÃO   claude/raw-observation-identity-3jbwco @ 81ca1eda
+                  026_BLOB_SHA = 0963ff53d784e5422f9ed4b96afe478311b4d090
+                  igual ao que a preparação aprovou, recalculado
+PROCEDIMENTO      workflow_dispatch de .github/workflows/supabase-migrate.yml
+                  importar = false
+CORRIDAS          censo BEFORE   34534258240
+                  aplicação      34537688899
+```
+
+Desta vez **não foi preciso ramo operacional**: o ponteiro existia para esconder
+a 026 do migrador, e agora ela é justamente o que se quer aplicar. A fundação é
+o ref auditado.
+
+```
+MIGRATION_001..025 = SKIP (ja no livro-razao) HASH=MATCH
+MIGRATION_026      = PASS
+POST_APPLY_VERIFICATION (008) = PASS
+passos 5, 6 e 7 (importações) = skipped
+```
+
+### V.2 · A CORREÇÃO DA C-PREP-026 ESTAVA A SEGURAR
+
+A 026 entrou por um aplicador que só existe desde a preparação: cada ficheiro
+corre com `--single-transaction`, e o registo no livro-razão viaja no mesmo
+fluxo. Se a fase 8 tivesse reprovado — por exemplo na precondição da sequência —
+não teria ficado uma coluna sequer.
+
+```
+A 026 TEM SEIS FASES. SEM ATOMICIDADE, UMA FALHA A MEIO
+DEIXARIA METADE DA IDENTIDADE INSTALADA E O LIVRO SEM SABER.
+```
+
+### V.3 · O QUE MUDOU, MEDIDO DOS DOIS LADOS
+
+| | BEFORE | AFTER |
+|---|---|---|
+| `raw_asset` linhas | 252 | 252 |
+| min · max `id` | 1 · 890 | 1 · 890 |
+| ids distintos | 252 | 252 |
+| **md5 do CONJUNTO de ids** | `bf54cf47…86ce` | `bf54cf47…86ce` |
+| `storage_object` | 252 | 252 |
+| observações ligadas | 252 | 252 |
+| preservadas sem cópia | 0 | 0 |
+| caminho / sha divergentes | 0 / 0 | 0 / 0 |
+| `unique (storage_path)` | presente | presente |
+| checks em `public` | 129 | 135 |
+| índices únicos em `public` | 135 | 137 |
+
+As seis colunas da 026 não existiam antes — confirmado por **enumeração** das
+colunas de `raw_asset`, e não por um probe que só encontra o que procura.
+
+### V.4 · O LEGADO, E O QUE NINGUÉM LHE INVENTOU
+
+```
+LEGACY_ROWS                    = 252
+LEGACY_COM_IDENTIDADE          = 0
+IDENTITY_STATE_NOT_NULL        = true
+IDENTITY_STATE_TEM_DEFAULT     = 0
+```
+
+⚠️ **Nenhuma das 252 recebeu fonte ou documento.** Elas não são anónimas por
+descuido: são anteriores à lei, e dizê-lo é a única coisa honesta que se podia
+escrever nelas. O corte que as separa do futuro é o `id`, congelado sob
+`ACCESS EXCLUSIVE` — não um relógio, que a C-CORR-B5B2 já tinha reprovado.
+
+### V.5 · A AUDITORIA PASSA A COBRAR O CONTRATO DA 026
+
+O que a auditoria fazia pela 025 passa a fazer pela 026: contar, comparar e
+**reprovar**. Sete travas pelo nome, com `convalidated`; o estado sem `default`;
+zero observação sem estado; zero identidade no legado; e o índice de
+idempotência forward válido.
+
+```
+UMA TRAVA CRIADA E NÃO VALIDADA É UMA PROMESSA SOBRE O FUTURO
+E UM SILÊNCIO SOBRE O PASSADO.
+```
+
+### V.6 · O QUE CONTINUA FECHADO
+
+```
+NEW_RAW_ASSET_ROWS_CREATED_BY_C_LIVE_026 = 0
+    Nenhum canário. A prova do writer forward foi feita em banco descartável
+    na preparação, e o banco vivo termina com as mesmas 252 observações.
+
+UNIQUE(raw_asset.storage_path)  PRESENTE
+READY_FOR_PHASE_10              NO
+```

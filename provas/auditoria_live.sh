@@ -183,7 +183,54 @@ uniq_path=$(q "select count(*) from pg_indexes where schemaname='public' and tab
 [ "$uniq_path" -ge 1 ] 2>/dev/null && ok "unique (raw_asset.storage_path) continua de pe" \
                                    || mal "UNIQUE(storage_path) DESAPARECEU" "fase 10 nao foi autorizada"
 
-# ── F · O QUE A CADEIA VERIA COMO PENDENTE ────────────────────────────
+# ── F · A IDENTIDADE DA OBSERVACAO, DEPOIS DA 026 ─────────────────────
+# A 026 dá identidade à observação. O contrato dela é cobrado aqui, e não
+# apenas impresso — do mesmo modo que o da 025 acima.
+echo
+echo "-- F · a identidade da observacao"
+tem_estado=$(q "select count(*) from information_schema.columns where table_schema='public' and table_name='raw_asset' and column_name='identity_state'")
+echo "  RAW_ASSET_TEM_identity_state=$tem_estado"
+if [ "$tem_estado" = "1" ]; then
+  echo "  IDENTITY_STATE_NOT_NULL=$(q "select attnotnull::text from pg_attribute where attrelid='public.raw_asset'::regclass and attname='identity_state'")"
+  com_default=$(q "select count(*) from pg_attrdef d join pg_attribute a on a.attrelid=d.adrelid and a.attnum=d.adnum where d.adrelid='public.raw_asset'::regclass and a.attname='identity_state'")
+  echo "  IDENTITY_STATE_TEM_DEFAULT=$com_default"
+  sem_estado=$(q "select count(*) from public.raw_asset where identity_state is null")
+  echo "  LEGACY_ROWS=$(q "select count(*) from public.raw_asset where identity_state = 'LEGACY_PRE_IDEMPOTENCY'")"
+  # O LEGADO NAO PODE TER GANHO IDENTIDADE. Ninguem lhe inventou fonte nem
+  # documento na migration, e ninguem lho pode acrescentar depois sem missao.
+  legado_com_id=$(q "select count(*) from public.raw_asset where identity_state = 'LEGACY_PRE_IDEMPOTENCY' and (source_id is not null or document_key is not null or document_key_basis is not null)")
+  echo "  LEGACY_COM_IDENTIDADE=$legado_com_id"
+  echo "  FORWARD_IDENTIFIED_ROWS=$(q "select count(*) from public.raw_asset where identity_state = 'FORWARD_IDENTIFIED'")"
+  echo "  FORWARD_IDENTITY_UNPROVEN_ROWS=$(q "select count(*) from public.raw_asset where identity_state = 'FORWARD_IDENTITY_UNPROVEN'")"
+  corte=$(q "select coalesce(substring(pg_get_constraintdef(oid) from 'id <= ([0-9]+)'),'-') from pg_constraint where conname='legado_e_anterior_ao_corte'")
+  echo "  LEGACY_CUTOFF_VALUE=$corte"
+  idx=$(q "select count(*) from pg_index i join pg_class c on c.oid=i.indexrelid where c.relname='raw_identidade_forward_idx' and i.indisvalid and i.indisunique")
+  echo "  FORWARD_IDEMPOTENCY_INDEX_VALID=$idx"
+  [ "$sem_estado" = "0" ] && ok "nenhuma observacao sem estado de identidade" \
+                          || mal "OBSERVACAO SEM ESTADO" "$sem_estado"
+  [ "$com_default" = "0" ] && ok "identity_state continua SEM default" \
+                           || mal "identity_state GANHOU default" "o esquecimento voltaria a classificar"
+  [ "$legado_com_id" = "0" ] && ok "nenhuma identidade inventada no legado" \
+                             || mal "LEGADO COM IDENTIDADE" "$legado_com_id"
+  [ "$idx" = "1" ] && ok "indice de idempotencia forward valido" \
+                   || mal "indice de idempotencia forward" "ausente ou invalido"
+  # As seis travas da 026, pelo nome. Uma trava criada e nao validada e uma
+  # promessa sobre o futuro e um silencio sobre o passado.
+  faltam=""
+  for c in estado_de_identidade_tem_vocabulario fonte_real_em_qualquer_estado_forward \
+           forward_identificado_exige_identidade forward_sem_prova_nao_finge_chave \
+           base_da_chave_tem_vocabulario a_observacao_e_a_copia_falam_do_mesmo_conteudo \
+           legado_e_anterior_ao_corte; do
+    [ "$(q "select count(*) from pg_constraint where conrelid='public.raw_asset'::regclass and conname='$c' and convalidated")" = "1" ] \
+      || faltam="$faltam $c"
+  done
+  [ -z "$faltam" ] && ok "as sete travas da 026 estao presentes e validadas" \
+                   || mal "TRAVA DA 026 AUSENTE OU NAO VALIDADA" "$faltam"
+else
+  echo "  (a 026 ainda nao esta neste banco — nada a conferir aqui)"
+fi
+
+# ── G · O QUE A CADEIA VERIA COMO PENDENTE ────────────────────────────
 # O aplicador salta o que esta no livro-razao. Aqui faz-se a mesma conta sem
 # escrever nada: saber o que FALTA e tao operacional como saber o que entrou.
 echo
