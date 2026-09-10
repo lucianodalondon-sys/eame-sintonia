@@ -91,7 +91,7 @@ mais 5 testes e 3 documentos de operação.
 | linhas duplicadas por Reel | **PROVEN** | chave passou a ser o RAW; teste `test_um_resultado_corrigido_substitui_o_antigo` |
 | refactor do YouTube | **PROVEN** | nenhum `WhisperModel(` nos dois programas de lote |
 | `medium` como padrão de Reels | **PROVEN** | `reel_transcricao.MODELO_PADRAO` |
-| quatro idiomas provados | **PARTIAL** | ES 3/3 · FR 2/2 · EN 2/2 · **IT 2/3** (a marca sai «di singenta») |
+| quatro idiomas provados | **3 PASS + IT PARTIAL** (nunca «4 PROVEN») | ES 3/3 · FR 2/2 · EN 2/2 · **IT 2/3** (a marca sai «di singenta») |
 | trava que o batched não executava | **PROVEN** | `_sem_os_mudos`, conferido contra a biblioteca instalada |
 
 `python3 -m unittest tests.test_reel_transcricao` → **47/47 OK**.
@@ -130,9 +130,11 @@ LOCAL_SESSION contra TERCEIRO = NOT_USABLE nas sete prioritárias.
 
 ---
 
-## D · LINKEDIN — O CAPÍTULO QUE INVERTE A PRIORIDADE
+## D · LINKEDIN — TÉCNICO PROVADO, AUTORIZAÇÃO EM ABERTO
 
-O coordenador pôs LinkedIn como P0. A medição diz que o obstáculo **não é técnico**.
+O coordenador pôs LinkedIn como P0. A medição **não o descarta**: mostra que a captura
+por URL direta funciona e é melhor que a do Instagram, e que o que falta resolver mudou
+de lugar — saiu da engenharia de captura e foi para **descoberta** e **autorização**.
 
 ### Tecnicamente, funciona — e melhor do que o Instagram
 
@@ -145,12 +147,18 @@ Amostra mínima, 1 post público, sem login, hoje:
 | `yt-dlp -J --skip-download` | **funciona** |
 | identidade | `id = 7151241570371948544` — **é o activity id**, identificador real da plataforma |
 | mídia | **3 MP4 progressivos** (58/125/143 kbps) em `dms.licdn.com` — não HLS, não DASH |
-| expiração | `e=2147483647` (≈ 2038) — **URL efetivamente permanente** |
+| expiração | `e=2147483647` (≈ 2038) — **`LONG_LIVED_OBSERVED_URL`** |
 | legenda nativa | **WebVTT com timestamps**, 4.283 B, obtida e legível |
 
 > A legenda nativa muda o custo inteiro: para LinkedIn dá para ter transcript **com tempos,
 > sem baixar vídeo e sem ASR**. É a rota mais barata que existe — e é a mesma lei de
 > «legenda primeiro» que a casa já escreveu para o YouTube.
+
+> ⚠️ **`LONG_LIVED_OBSERVED_URL`, não «permanente».** `e=2147483647` é o máximo de um
+> inteiro de 32 bits, o que se lê como «sem expiração prevista». Isso é **uma observação,
+> numa amostra, num dia** — não é garantia documental da plataforma. As quatro
+> classificações que esta casa passa a usar são `TEMPORARY` · `LONG_LIVED_OBSERVED` ·
+> `DOCUMENTED_STABLE` · `UNKNOWN`. Esta é a segunda.
 
 ### E mesma forma que o Instagram
 
@@ -158,28 +166,53 @@ Amostra mínima, 1 post público, sem login, hoje:
 DESCOBRIR: bloqueado.    CAPTURAR por URL direta: vivo.
 ```
 
-### Por permissão, não
+### Por permissão, ainda não decidido — e isto NÃO é um parecer jurídico
 
-Três provas independentes, e todas dizem o mesmo:
+**Correção ao que escrevi antes.** A primeira versão deste documento concluiu «o bloqueio
+não é técnico, é de permissão, e engenharia não resolve». Isso **colapsou três coisas de
+naturezas diferentes numa só** e transformou `robots.txt` em veredito. Está corrigido: cada
+evidência entra no seu próprio eixo, e nenhuma delas, sozinha, decide.
 
-1. **`leis/social_matriz.py`** — `FETCH_POST` por API oficial **e** por Apify:
-   `PERMITIDA = NAO` / `ROUTE_NOT_ALLOWED`. Nota verbatim: *«`r_organization_social` lê a
-   Página que o app ADMINISTRA — a nossa, não a do concorrente. Não existe API que leia
-   post público de organização de terceiro. Para vigilância ampla de concorrente: NÃO
-   EXISTE ROTA PERMITIDA. Isto é uma resposta, não uma pendência.»*
-2. **robots.txt do LinkedIn** — `Disallow: /` para todos menos LinkedInBot.
-3. **User Agreement §8.2** — alcança dado obtido *«through third parties (such as data
-   aggregators or brokers)»*. O intermediário Apify não muda a cláusula. Já gastos
-   US$ 0,484 em 120 perfis por essa rota, registados como dependência legada com risco
-   jurídico aberto.
+| eixo | LinkedIn | evidência |
+|---|---|---|
+| `TECHNICAL_CAPABILITY` | **PROVEN, para a URL direta testada** | 1 amostra, hoje, medida acima |
+| `ROBOTS_STATUS` | **RESTRICTED** | `User-agent: * / Disallow: /`; só LinkedInBot tem `Allow` |
+| `TERMS_STATUS` | **REQUIRES_LEGAL/CLIENT_REVIEW** | User Agreement §8.2 alcança dado obtido «through third parties (such as data aggregators or brokers)» |
+| `OFFICIAL_API_STATUS` | **RESTRICTED a Páginas próprias** | `r_organization_social` lê a Página que o app ADMINISTRA |
+| `HOUSE_POLICY_STATUS` | **NOT_ALLOWED** | `leis/social_matriz.py` marca `FETCH_POST` `PERMITIDA=NAO` pelas duas rotas |
+| `CLIENT_AUTHORIZATION_STATUS` | **UNKNOWN** | nunca foi perguntado ao cliente |
+| `PRODUCTION_AUTHORIZATION_STATUS` | **REQUIRES_REVIEW** | consequência das linhas acima, não substituto delas |
 
 ```
-LINKEDIN_VIDEO_FEASIBILITY = YES tecnicamente · NO por permissão.
-Engenharia não resolve isto. Só decisão humana resolve.
+robots.txt NÃO É PARECER JURÍDICO. É evidência operacional, e entra como uma linha
+entre várias — nunca como a conclusão.
 ```
 
-As saídas legítimas são três, e nenhuma é código: pedir whitelist a
-`whitelist-crawl@linkedin.com`, entrar num programa de parceiro, ou desistir do LinkedIn.
+O que muda na prática: **o LinkedIn não está descartado.** O que está é a autorização de
+produção, que é uma decisão humana e não uma medição. As saídas conhecidas são pedir
+whitelist a `whitelist-crawl@linkedin.com`, entrar num programa de parceiro, obter
+autorização explícita do cliente, ou desistir.
+
+### E a pergunta técnica que ficou aberta
+
+A pergunta já **não** é «conseguimos baixar vídeo do LinkedIn?» — numa URL direta,
+aparentemente sim. É:
+
+```
+COMO DESCOBRIMOS LEGITIMAMENTE OS POSTS QUE QUEREMOS PROCESSAR?
+```
+
+E por isso `LINKEDIN` deixa de ser uma célula e passa a ser sete:
+
+| capacidade | estado |
+|---|---|
+| `LINKEDIN_DIRECT_POST_CAPTURE` | TECHNICAL_CAPABILITY = PROVEN (1 amostra) |
+| `LINKEDIN_NATIVE_VIDEO` | PROVEN (3 MP4 progressivos) |
+| `LINKEDIN_NATIVE_CAPTIONS` | PROVEN (WebVTT com tempos) |
+| `LINKEDIN_DISCOVERY` | **NOT_EXECUTED — é a pergunta em aberto** |
+| `LINKEDIN_COMPANY_PAGE` | listagem → 302 login |
+| `LINKEDIN_HISTORY` | UNKNOWN |
+| `LINKEDIN_COMMENTS` | UNKNOWN |
 
 ---
 
@@ -240,3 +273,79 @@ medição, não previsão.**
 Nenhuma branch foi integrada. Nenhuma migration. Nenhum toque em banco live, portal,
 casco ou deploy. Nenhum merge. Nenhuma coleta ampla: cada teste de plataforma usou
 **uma** amostra. Nenhum login, cookie de terceiro, CAPTCHA ou bypass.
+
+---
+
+## I · CLAIMS DOS AGENTES, VERIFICADOS POR MIM
+
+O benchmark paralelo produz afirmações. **Nenhuma entra sem eu a repetir.** Estas três
+eram as mais graves, e as três mudaram de forma ao serem medidas.
+
+### I.1 · «`redigir()` não apaga uma DSN» — CONFIRMADO, e menor do que parecia
+
+Reproduzido: `social_sessao.redigir()` **e** `apify_pool.redigir()` devolvem
+`postgresql://postgres:SenhaSecreta123@…` **intacto**. A branch órfã
+`operational-readiness-v1` já tem o conserto (uma regra `_CREDENCIAL_NA_URL`) e ele
+**não está no HEAD**.
+
+Mas medi também o caminho vivo, e ele é mais estreito do que a manchete sugere:
+`coleta/coleta_checkpoint.py:65` corre `psql <dsn>` e passa `stderr` por `redigir()`.
+Com um host inexistente, o `stderr` real do psql foi
+`could not translate host name "db.…" to address` — **sem a senha**.
+
+```
+VERDICT · o GUARDA tem o buraco (CONFIRMADO).
+          o VAZAMENTO na rota que consegui reproduzir NÃO aconteceu (NOT_REPRODUCED).
+```
+
+Não corrigido nesta missão: o conserto vive na outra linhagem, e importar código de lá é
+exatamente o que esta missão não pode fazer. Entra em `AO · CONVERGÊNCIA PROPOSTA`.
+
+### I.2 · «80 ficheiros RAW dizem PRESERVED e não existem» — CONFIRMADO, e a causa é outra
+
+Contei: **111 registos** com `RAW_EVIDENCE_PATH`, **11 existem**, **100 não**. Dos ausentes,
+**80 declaram `RAW_EVIDENCE_STATE = PRESERVED`**.
+
+A causa **não é perda**. É política: `.gitignore:26` (`data/samples/**/*.gz`) exclui esses
+ficheiros desde 2026-08-29, pela decisão D-003 — «o bruto pesado vai para Storage; o Git
+guarda hash e manifesto». Os 11 que restam são os grandfathered dessa mesma decisão.
+
+O defeito real é de **contrato**, e é mais interessante:
+
+```
+O registo tem RAW_EVIDENCE_PATH e RAW_EVIDENCE_STATE. Não tem NENHUM campo que diga
+ONDE está preservado. «PRESERVED» aponta para um caminho que o repositório exclui de
+propósito — e quem lê não consegue distinguir preservado-no-Storage de perdido.
+```
+
+Isto toca a lei da Collection de frente: `STORAGE_PATH` endereça o objeto físico e **não**
+identifica a observação. Um `PRESERVED` sem endereço verificável não é preservação: é uma
+afirmação não falsificável.
+
+### I.3 · «o dono único de ASR é único» — PARTIAL, e agora quantificado
+
+`grep -rn "WhisperModel(\|BatchedInferencePipeline("` no HEAD devolve **três linhas, todas
+em `fala_local.py`**. No HEAD a lei vale.
+
+Na ponta SCRAP não existe `fala_local.py` nem `reel_transcricao.py`, e existem **três**
+carregadores separados. E `story_transcrever.py` repete, uma a uma, decisões que o HEAD já
+mediu e reverteu:
+
+| decisão | HEAD (medido) | `story_transcrever.py` (branch SCRAP) |
+|---|---|---|
+| `beam_size` | 1 — «5 custa o dobro por 2.079 contra 2.054 chars» | **5 fixo** |
+| texto vazio | `REQUESTED_EMPTY` | **`OK`** — o defeito que o HEAD declara ter consertado |
+| idioma | declarado quando o país é provado | **sempre detetado** |
+
+```
+SINGLE_ASR_OWNER = PARTIAL. Não é um refactor pendente: é a mesma lição aprendida
+duas vezes, em dois sítios, com resultados opostos.
+```
+
+### I.4 · «`medium` é o padrão dos Reels» — preciso demais para ficar como estava
+
+Há **quatro** constantes de modelo independentes: `fala_local` `small` ·
+`instagram_transcrever` `small` · `youtube_transcrever` `small` · `reel_transcricao`
+`medium`. O `medium` é o padrão **da cadeia `reel_transcricao`**, não «dos Reels» em geral.
+Um Reel que entre pelo transcritor de Instagram sai em `small` — e é `small` que escreve
+«MICE» onde se disse «mais».
