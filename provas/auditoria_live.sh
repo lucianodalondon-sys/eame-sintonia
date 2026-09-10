@@ -103,6 +103,80 @@ q "select 'derived id='||id||' raw_asset_id='||raw_asset_id||
           ' sha='||substring(sha256,1,16)||' bytes='||bytes
    from public.derived_artifact" | sed 's/^/  /'
 
+# ═══════════════════════════════════════════════════════════════════════
+# D · O CENSO DA 025 — SÓ SELECT, E EXISTE PARA UMA MISSÃO SÓ
+#
+# A C-LIVE-025 exige congelar o estado ANTES de escrever e prová-lo igual
+# DEPOIS. Contagem não chega: o contrato da 025 é que NENHUM `raw_asset.id`
+# muda, e um conjunto não se prova com um número.
+#
+#     COUNT IGUAL NÃO É CONJUNTO IGUAL.
+#
+# Este bloco vive num ramo operacional temporário e não entra na fundação.
+# Quando a missão fechar, ele sai com o ramo — porta de missão única é porta
+# que se fecha.
+# ═══════════════════════════════════════════════════════════════════════
+echo
+echo "-- D · censo da 025 (BEFORE/AFTER, as mesmas perguntas)"
+echo "  CENSO_MEDIDO_EM=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+for par in \
+  "RAW_ASSET_COUNT|select count(*) from public.raw_asset" \
+  "RAW_ASSET_MIN_ID|select coalesce(min(id)::text,'-') from public.raw_asset" \
+  "RAW_ASSET_MAX_ID|select coalesce(max(id)::text,'-') from public.raw_asset" \
+  "RAW_ASSET_DISTINCT_IDS|select count(distinct id) from public.raw_asset" \
+  "RAW_ASSET_DISTINCT_STORAGE_PATHS|select count(distinct storage_path) from public.raw_asset" \
+  "PRESERVED_RAW_ASSETS|select count(*) from public.raw_asset where preserved" \
+  "NULL_STORAGE_PATH|select count(*) from public.raw_asset where storage_path is null" \
+  "BLANK_STORAGE_PATH|select count(*) from public.raw_asset where btrim(coalesce(storage_path,'x'))=''" \
+  "NULL_SHA256|select count(*) from public.raw_asset where sha256 is null" \
+  "INVALID_SHA256|select count(*) from public.raw_asset where sha256 is not null and btrim(sha256) !~ '^[0-9a-f]{64}\$'" \
+  ; do
+  echo "  ${par%%|*}=$(q "${par#*|}")"
+done
+
+# O CONJUNTO, e não um resumo dele. O md5 serve para comparar de relance; a
+# lista inteira está aqui para que a comparação seja conferível por gente.
+echo "  RAW_ASSET_ID_SET_MD5=$(q "select coalesce(md5(string_agg(id::text, ',' order by id)),'-') from public.raw_asset")"
+echo "  RAW_ASSET_ID_SET_INICIO=$(q "select coalesce(string_agg(id::text, ',' order by id),'-') from public.raw_asset" | cut -c1-160)"
+echo "  RAW_ASSET_ID_SET_FIM=$(q "select coalesce(string_agg(id::text, ',' order by id),'-') from public.raw_asset" | tail -c 160)"
+
+# ── O QUE A 025 CRIA, E O QUE A 026 CRIARIA ──────────────────────────
+echo "  STORAGE_OBJECT_EXISTS=$(q "select count(*) from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname='storage_object' and c.relkind='r'")"
+echo "  STORAGE_OBJECT_ROWS=$(q "select case when to_regclass('public.storage_object') is null then '-' else (select count(*)::text from public.storage_object) end")"
+echo "  STORAGE_OBJECT_RLS=$(q "select coalesce((select relrowsecurity::text from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname='storage_object'),'-')")"
+for col in storage_object_id identity_state source_id document_key document_key_basis attempts last_attempt_at; do
+  echo "  RAW_ASSET_TEM_$col=$(q "select count(*) from information_schema.columns where table_schema='public' and table_name='raw_asset' and column_name='$col'")"
+done
+echo "  LINKED_RAW_ASSETS=$(q "select case when (select count(*) from information_schema.columns where table_schema='public' and table_name='raw_asset' and column_name='storage_object_id')=0 then '-' else (select count(*)::text from public.raw_asset where storage_object_id is not null) end")"
+echo "  PRESERVED_WITHOUT_OBJECT=$(q "select case when (select count(*) from information_schema.columns where table_schema='public' and table_name='raw_asset' and column_name='storage_object_id')=0 then '-' else (select count(*)::text from public.raw_asset where preserved and storage_object_id is null) end")"
+# A LIGACAO E PELO ENDERECO. Um par que discorde de caminho e a copia errada.
+echo "  RAW_STORAGE_PATH_MISMATCHES=$(q "select case when to_regclass('public.storage_object') is null then '-' else (select count(*)::text from public.raw_asset a join public.storage_object o on o.id = a.storage_object_id where o.storage_path is distinct from a.storage_path) end")"
+echo "  RAW_STORAGE_SHA_MISMATCHES=$(q "select case when to_regclass('public.storage_object') is null then '-' else (select count(*)::text from public.raw_asset a join public.storage_object o on o.id = a.storage_object_id where o.sha256 is distinct from a.sha256) end")"
+
+# ── AS TRAVAS, LIDAS DE `pg_constraint` E NAO DA PROSA ────────────────
+echo "  CONSTRAINTS_DE_RAW_ASSET:"
+q "select '    '||conname||' | '||contype||' | convalidated='||convalidated
+   from pg_constraint where conrelid='public.raw_asset'::regclass order by conname"
+echo "  UNIQUE_STORAGE_PATH_PRESENTE=$(q "select count(*) from pg_indexes where schemaname='public' and tablename='raw_asset' and indexdef ilike '%unique%' and indexdef ilike '%storage_path%'")"
+
+# ── E · A PROVA SECA: O QUE A CADEIA VERIA COMO PENDENTE ──────────────
+# O aplicador percorre os ficheiros e salta os que estao no livro-razao. Aqui
+# faz-se a mesma conta, sem escrever nada: se aparecer mais do que a 025, o
+# portao fecha e ninguem dispara.
+echo
+echo "-- E · o que a cadeia veria como PENDENTE neste ref"
+pendentes=""
+for f in "$RAIZ"/supabase/migrations/*.sql; do
+  n=$(basename "$f" | cut -c1-3)
+  [ "$n" = "008" ] && continue
+  no_livro=$(q "select count(*) from public.schema_migracao where versao='$n'")
+  [ "$no_livro" = "0" ] && pendentes="$pendentes $n"
+done
+echo "  MIGRATIONS_PENDENTES=${pendentes:-nenhuma}"
+echo "  026_PRESENTE_NESTE_REF=$([ -f "$RAIZ/supabase/migrations/026_a_observacao_ganha_identidade.sql" ] && echo YES || echo NO)"
+echo "  026_NO_LIVRO_RAZAO=$(q "select count(*) from public.schema_migracao where versao='026'")"
+
 echo
 if [ "$falhou" = "0" ]; then
   echo "AUDITORIA_LIVE=PASS"; exit 0
