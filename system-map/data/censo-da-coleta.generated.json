@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "c68d8113f758bb870f8ed56dfcf6593254ee1e49",
+    "HEAD": "c5aa2f25f75eec56b061015bcef8f29f91bcc06d",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -35,7 +35,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 235,
+      "linhas": 260,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -926,7 +926,7 @@
     {
       "ficheiro": "coleta/ingresso.py",
       "gaveta": "coleta",
-      "linhas": 256,
+      "linhas": 280,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -936,7 +936,10 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/italy_executor.py",
+        "pedido/receitas.py"
+      ],
       "no_ci": false
     },
     {
@@ -1031,6 +1034,24 @@
       "no_ci": true
     },
     {
+      "ficheiro": "coleta/italy_executor.py",
+      "gaveta": "coleta",
+      "linhas": 264,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "pedido/receitas.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/italy_find_docs.mjs",
       "gaveta": "coleta",
       "linhas": 46,
@@ -1049,7 +1070,7 @@
     {
       "ficheiro": "coleta/italy_pilot_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 416,
+      "linhas": 525,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1083,7 +1104,7 @@
     {
       "ficheiro": "coleta/italy_recurrent_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 181,
+      "linhas": 190,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1608,6 +1629,7 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "candidatas/italy_write_matrix.mjs",
+        "coleta/italy_pilot_collect.mjs",
         "regras/italy_pilot_guards.mjs"
       ],
       "no_ci": false
@@ -1866,7 +1888,7 @@
     {
       "ficheiro": "guarda/memoria_descartavel.py",
       "gaveta": "guarda",
-      "linhas": 238,
+      "linhas": 266,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1884,7 +1906,7 @@
     {
       "ficheiro": "guarda/portas_live.py",
       "gaveta": "guarda",
-      "linhas": 229,
+      "linhas": 253,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -1902,7 +1924,7 @@
     {
       "ficheiro": "guarda/preservar_coleta.py",
       "gaveta": "guarda",
-      "linhas": 690,
+      "linhas": 808,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2012,12 +2034,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 101,
-    "pontos_de_entrada": 82,
+    "ficheiros_de_codigo": 102,
+    "pontos_de_entrada": 83,
     "executores_que_saem_para_fora": 21,
-    "sem_chamador_e_fora_do_ci": 43,
+    "sem_chamador_e_fora_do_ci": 42,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 65,
+    "escrevem_ficheiro": 66,
     "deitam_fora_alguma_coisa": 26,
     "deitam_fora_SEM_escrever_o_motivo": 2,
     "ficheiros_com_decisao_escondida": 2,
@@ -2067,6 +2089,7 @@
       "coleta/instagram_diario.py",
       "coleta/instagram_janela.py",
       "coleta/instagram_pessoal.py",
+      "coleta/italy_executor.py",
       "coleta/italy_find_docs.mjs",
       "coleta/italy_pilot_collect.mjs",
       "coleta/italy_probe.mjs",
@@ -2154,7 +2177,6 @@
       "coleta/es/corpus_es.py",
       "coleta/eu_substancia_adama_it.py",
       "coleta/gire_mapas.py",
-      "coleta/ingresso.py",
       "coleta/italy_find_docs.mjs",
       "coleta/italy_probe.mjs",
       "coleta/mapa_regfi.py",

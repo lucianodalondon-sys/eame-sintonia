@@ -1858,9 +1858,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "7c475ad16e216ff186dfecab8f79a11705fb65a2",
-    "GENERATED_AT": "2026-09-10T18:38:54+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3162c0e0c0ad952c8667d2bf4c935ef39715e791a7b7e2f8c66463feaa6cb762"
+    "HEAD": "c5aa2f25f75eec56b061015bcef8f29f91bcc06d",
+    "GENERATED_AT": "2026-09-10T19:11:19+00:00",
+    "SOURCE_TREE_FINGERPRINT": "fcf75dcb579d9382a87e05df5a53c5e1be84ee9587d556f51499255bdbba77a7"
   },
   "FAMILIES": [
     {
@@ -11750,6 +11750,7 @@
       "files": [
         "provas/auditoria_live.sh",
         "provas/derived_artifact_no_postgres.py",
+        "provas/objeto_e_observacao_no_postgres.py",
         "provas/paridade_da_lingua.py",
         "provas/preflight_022_live.sh",
         "provas/preservar_coleta_no_postgres.py",
@@ -11760,7 +11761,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 11,
+      "file_count": 12,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11821,9 +11822,9 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 112,
+        "palavras": 113,
         "por_lingua": {},
-        "sem_marca_de_lingua": 112,
+        "sem_marca_de_lingua": 113,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12036,9 +12037,9 @@
         "listas": [
           "MIGRATIONS"
         ],
-        "palavras": 23,
+        "palavras": 24,
         "por_lingua": {},
-        "sem_marca_de_lingua": 23,
+        "sem_marca_de_lingua": 24,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12254,9 +12255,9 @@
         "listas": [
           "MIGRATIONS"
         ],
-        "palavras": 23,
+        "palavras": 24,
         "por_lingua": {},
-        "sem_marca_de_lingua": 23,
+        "sem_marca_de_lingua": 24,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -19056,7 +19057,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 85,
+          "line": 92,
           "snippet": "LEDGER = os.path.join(RAIZ, \"system-map\", \"data\", \"provas-de-execucao.json\")"
         }
       ],
@@ -20027,7 +20028,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 6 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/auditoria-live.yml",
@@ -20043,6 +20044,11 @@
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 130,
           "snippet": "python3 provas/derived_artifact_no_postgres.py"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 145,
+          "snippet": "python3 provas/objeto_e_observacao_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
@@ -21678,12 +21684,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/derived_artifact_no_postgres.py",
           "line": 324,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira"
+        },
+        {
+          "file": "provas/objeto_e_observacao_no_postgres.py",
+          "line": 53,
+          "snippet": "from guarda.preservar_coleta import (  # noqa: E402"
         },
         {
           "file": "provas/preservar_coleta_no_postgres.py",
@@ -22126,7 +22137,7 @@
       "evidence": [
         {
           "file": "provas/o_forward_conta_se.py",
-          "line": 123,
+          "line": 130,
           "snippet": "with open(MODELO_DAS_ESTRADAS, encoding=\"utf-8\") as f:"
         }
       ],
@@ -22144,7 +22155,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 122,
+          "line": 129,
           "snippet": "with open(MODELO, encoding=\"utf-8\") as f:"
         }
       ],
@@ -22525,7 +22536,7 @@
       "evidence": [
         {
           "file": "provas/o_forward_conta_se.py",
-          "line": 116,
+          "line": 123,
           "snippet": "def route_class_do_executor(ficheiro_do_executor=\"coleta/executor_texto_de_pdf.py\"):"
         }
       ],
@@ -22561,7 +22572,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 126,
+          "line": 133,
           "snippet": "== \"coleta/executor_texto_de_pdf.py\"]"
         }
       ],
@@ -23386,7 +23397,7 @@
       "evidence": [
         {
           "file": "provas/o_forward_conta_se.py",
-          "line": 146,
+          "line": 153,
           "snippet": "with open(CATALOGO_DE_FONTES, encoding=\"utf-8\") as f:"
         }
       ],
@@ -23404,7 +23415,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 119,
+          "line": 126,
           "snippet": "with open(CATALOGO, encoding=\"utf-8\") as f:"
         }
       ],
@@ -27210,7 +27221,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 433,
+          "line": 440,
           "snippet": ".get(\"coleta/rota_forward_documento.py\") or {}).get(\"FORWARD\") or {}"
         }
       ],
@@ -28826,7 +28837,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 6 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/derived_artifact_no_postgres.py",
@@ -28842,6 +28853,21 @@
           "file": "provas/derived_artifact_no_postgres.py",
           "line": 51,
           "snippet": "\"025_o_objeto_ganha_casa.sql\","
+        },
+        {
+          "file": "provas/objeto_e_observacao_no_postgres.py",
+          "line": 56,
+          "snippet": "MIGRACOES = [\"001_fundacao_geografia_e_proveniencia.sql\","
+        },
+        {
+          "file": "provas/objeto_e_observacao_no_postgres.py",
+          "line": 57,
+          "snippet": "\"022_o_derivado_ganha_casa.sql\"]"
+        },
+        {
+          "file": "provas/objeto_e_observacao_no_postgres.py",
+          "line": 58,
+          "snippet": "M025 = \"025_o_objeto_ganha_casa.sql\""
         },
         {
           "file": "provas/paridade_da_lingua.py",
@@ -30339,10 +30365,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/objeto_e_observacao_no_postgres.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 724,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 723,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30498,7 +30522,7 @@
       {
         "NOME": "TELEMETRY_FAILURE_SEM_POLITICA",
         "ONDE": "provas/o_forward_conta_se.py",
-        "LINHA": 98,
+        "LINHA": 105,
         "FORMA": "tuplo GAPS",
         "O_QUE_FALTA": "A excecao do rastro SOBE por `derivacao_forward.correr()`. O artefato fica guardado — a coleta NAO falhou — mas quem chama perde o recibo, e um chamador desatento pode ler a excecao como corrida falhada. Nao ha politica escrita nesta casa para «o sensor partiu-se», e inventar uma aqui para fechar o teste seria escrever constituicao para passar num exame. Fica como divida com nome."
       }
@@ -30515,7 +30539,7 @@
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1410,
-    "files_covered": 686,
-    "files_code_unclaimed": 1
+    "files_covered": 687,
+    "files_code_unclaimed": 0
   }
 }
