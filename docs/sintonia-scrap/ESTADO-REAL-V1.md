@@ -193,13 +193,35 @@ produção, que é uma decisão humana e não uma medição. As saídas conhecid
 whitelist a `whitelist-crawl@linkedin.com`, entrar num programa de parceiro, obter
 autorização explícita do cliente, ou desistir.
 
-### E a pergunta técnica que ficou aberta
+### CORREÇÃO · a descoberta não está bloqueada. Está RASA.
 
-A pergunta já **não** é «conseguimos baixar vídeo do LinkedIn?» — numa URL direta,
-aparentemente sim. É:
+Escrevi antes que a descoberta do LinkedIn estava bloqueada. **Estava errado**, e o erro foi
+meu: testei o código HTTP de `/company/<slug>/posts/` (302) e concluí a partir dele, sem
+abrir a landing.
+
+Medido por mim depois, em `https://www.linkedin.com/company/syngenta/`, como convidado,
+sem login:
+
+| medida | resultado |
+|---|---|
+| HTTP | **200**, 395.126 bytes |
+| `urn:li:activity:` distintos no HTML | **11** |
+| `href` para `/posts/…` | **10** |
+| paginação | «Show more» aparece 4x, **sem URL de página seguinte** |
 
 ```
-COMO DESCOBRIMOS LEGITIMAMENTE OS POSTS QUE QUEREMOS PROCESSAR?
+A LANDING DE CONVIDADO É RENDERIZADA NO SERVIDOR E JÁ TRAZ OS POSTS RECENTES.
+O teto não é o ACESSO. É a PROFUNDIDADE.
+```
+
+Ou seja, a cadeia inteira fecha hoje sem login, sem browser e sem Apify — **para a janela
+recente**. O que continua sem substituto é o **histórico**, e é isso que a rota paga
+comprava.
+
+A pergunta técnica passa então a ser mais estreita, e mais respondível:
+
+```
+QUANTO HISTÓRICO PRECISAMOS, E VALE O QUE CUSTA OBTÊ-LO?
 ```
 
 E por isso `LINKEDIN` deixa de ser uma célula e passa a ser sete:
@@ -209,8 +231,8 @@ E por isso `LINKEDIN` deixa de ser uma célula e passa a ser sete:
 | `LINKEDIN_DIRECT_POST_CAPTURE` | TECHNICAL_CAPABILITY = PROVEN (1 amostra) |
 | `LINKEDIN_NATIVE_VIDEO` | PROVEN (3 MP4 progressivos) |
 | `LINKEDIN_NATIVE_CAPTIONS` | PROVEN (WebVTT com tempos) |
-| `LINKEDIN_DISCOVERY` | **NOT_EXECUTED — é a pergunta em aberto** |
-| `LINKEDIN_COMPANY_PAGE` | listagem → 302 login |
+| `LINKEDIN_DISCOVERY` | **PROVEN, com teto raso** — ver correção abaixo |
+| `LINKEDIN_COMPANY_PAGE` | landing legível como convidado; aba `/posts/` → 302 login |
 | `LINKEDIN_HISTORY` | UNKNOWN |
 | `LINKEDIN_COMMENTS` | UNKNOWN |
 
