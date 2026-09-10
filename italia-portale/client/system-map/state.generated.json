@@ -666,6 +666,7 @@
       "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
       "docs/operacao/CENSO-DA-COLETA.md",
       "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
+      "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
@@ -1155,6 +1156,7 @@
       "provas/o_executor_conta_se.py",
       "provas/o_forward_conta_se.py",
       "provas/o_mapa_nao_mente.py",
+      "provas/objeto_e_observacao_no_postgres.py",
       "provas/paridade_da_lingua.py",
       "provas/preflight_022_live.sh",
       "provas/preservar_coleta_no_postgres.py",
@@ -1325,6 +1327,7 @@
       "supabase/migrations/022_o_derivado_ganha_casa.sql",
       "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
       "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
+      "supabase/migrations/025_o_objeto_ganha_casa.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -1855,9 +1858,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "9889d1a40d65a1392592b77cfa7dff6ff8a5b804",
-    "GENERATED_AT": "2026-09-10T17:14:10+00:00",
-    "SOURCE_TREE_FINGERPRINT": "e109eae7261be2ffce4bede78411ea5be764516345f62544eb3dd94f032d4686"
+    "HEAD": "7c475ad16e216ff186dfecab8f79a11705fb65a2",
+    "GENERATED_AT": "2026-09-10T18:38:54+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3162c0e0c0ad952c8667d2bf4c935ef39715e791a7b7e2f8c66463feaa6cb762"
   },
   "FAMILIES": [
     {
@@ -8024,8 +8027,9 @@
       ],
       "file_count": 3,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
+        "guarda/memoria_descartavel.py",
         "guarda/portas_live.py",
         "guarda/preservar_coleta.py"
       ],
@@ -13909,6 +13913,7 @@
         "supabase/migrations/022_o_derivado_ganha_casa.sql",
         "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
         "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
+        "supabase/migrations/025_o_objeto_ganha_casa.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -13920,9 +13925,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 46,
+      "file_count": 47,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -15125,7 +15130,7 @@
       ],
       "file_count": 77,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 7 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 8 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "tests/test_coleta_externa.py",
         "tests/test_lugar_do_fato.py",
@@ -15133,6 +15138,7 @@
         "tests/test_migrations.py",
         "tests/test_operacao.py",
         "tests/test_preservar_coleta_no_banco.py",
+        "tests/test_preservar_derivado.py",
         "tests/test_proveniencia.py"
       ],
       "produces": [
@@ -15304,7 +15310,7 @@
         {
           "onde": "SUPABASE",
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 643,
+          "line": 676,
           "snippet": "for proibido in (\"os.environ\", \"getenv\", \"SUPABASE_URL =\"):"
         },
         {
@@ -20007,7 +20013,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 244,
+          "line": 261,
           "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
         }
       ],
@@ -20030,27 +20036,27 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 115,
+          "line": 117,
           "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 128,
+          "line": 130,
           "snippet": "python3 provas/derived_artifact_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 137,
+          "line": 154,
           "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 169,
+          "line": 186,
           "snippet": "python3 provas/social_persistencia_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 193,
+          "line": 210,
           "snippet": "python3 provas/rastro_no_postgres.py"
         }
       ],
@@ -20068,7 +20074,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 253,
+          "line": 270,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
         }
       ],
@@ -20086,7 +20092,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 219,
+          "line": 236,
           "snippet": "python3 provas/o_forward_conta_se.py"
         }
       ],
@@ -20104,7 +20110,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 228,
+          "line": 245,
           "snippet": "python3 provas/a_rota_m2_atravessa.py"
         }
       ],
@@ -21676,7 +21682,7 @@
       "evidence": [
         {
           "file": "provas/derived_artifact_no_postgres.py",
-          "line": 312,
+          "line": 324,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira"
         },
         {
@@ -21803,7 +21809,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 220,
+          "line": 224,
           "snippet": "from guarda.portas_live import MemoriaSupabase"
         }
       ],
@@ -21826,22 +21832,22 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 438,
+          "line": 451,
           "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 438,
+          "line": 451,
           "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 330,
+          "line": 334,
           "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 330,
+          "line": 334,
           "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
         }
       ],
@@ -21900,7 +21906,7 @@
       "evidence": [
         {
           "file": "provas/derived_artifact_no_postgres.py",
-          "line": 313,
+          "line": 325,
           "snippet": "from guarda.preservar_derivado import ("
         }
       ],
@@ -21936,7 +21942,7 @@
       "evidence": [
         {
           "file": "tests/test_preservar_derivado.py",
-          "line": 173,
+          "line": 182,
           "snippet": "if not nome.endswith(\".py\") or nome == \"preservar_derivado.py\":"
         }
       ],
@@ -22588,7 +22594,7 @@
         },
         {
           "file": "tests/test_preservar_derivado.py",
-          "line": 577,
+          "line": 586,
           "snippet": "import coleta.executor_texto_de_pdf as ex"
         },
         {
@@ -22636,17 +22642,17 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 369,
+          "line": 382,
           "snippet": "with open(caminho, encoding=\"utf-8\") as f:"
         },
         {
           "file": "tests/test_preservar_derivado.py",
-          "line": 514,
+          "line": 523,
           "snippet": "with open(os.path.join(RAIZ, \"coleta\", \"executor_texto_de_pdf.py\"),"
         },
         {
           "file": "tests/test_preservar_derivado.py",
-          "line": 541,
+          "line": 550,
           "snippet": "with open(registo, encoding=\"utf-8\") as f:"
         }
       ],
@@ -23203,12 +23209,12 @@
       "evidence": [
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 449,
+          "line": 462,
           "snippet": "chamadores, [\"coleta/ingresso.py\"],"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 323,
+          "line": 327,
           "snippet": "self.assertNotIn(\"RAW_OBSERVATIONS\", _codigo(\"coleta/ingresso.py\"))"
         }
       ],
@@ -24931,7 +24937,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 286,
+          "line": 290,
           "snippet": "import orquestrador as orq"
         }
       ],
@@ -26438,7 +26444,7 @@
       "evidence": [
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 245,
+          "line": 249,
           "snippet": "import preservar_coleta_no_postgres as pg"
         }
       ],
@@ -26481,7 +26487,7 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 465,
+          "line": 478,
           "snippet": "caminho = os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\")"
         }
       ],
@@ -26955,7 +26961,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 287,
+          "line": 291,
           "snippet": "from receitas import EXECUTORES"
         }
       ],
@@ -28820,7 +28826,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/derived_artifact_no_postgres.py",
@@ -28833,14 +28839,24 @@
           "snippet": "\"022_o_derivado_ganha_casa.sql\","
         },
         {
+          "file": "provas/derived_artifact_no_postgres.py",
+          "line": 51,
+          "snippet": "\"025_o_objeto_ganha_casa.sql\","
+        },
+        {
           "file": "provas/paridade_da_lingua.py",
           "line": 60,
           "snippet": "return open(MIGRATION, encoding='utf-8').read()"
         },
         {
           "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 537,
-          "snippet": "with open(MIGRACAO, encoding=\"utf-8\") as f:"
+          "line": 50,
+          "snippet": "\"001_fundacao_geografia_e_proveniencia.sql\")"
+        },
+        {
+          "file": "provas/preservar_coleta_no_postgres.py",
+          "line": 55,
+          "snippet": "\"025_o_objeto_ganha_casa.sql\")"
         }
       ],
       "categoria": "PROOF"
@@ -30323,8 +30339,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 722,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/objeto_e_observacao_no_postgres.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 724,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30496,8 +30514,8 @@
     "edges_proven": 617,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1407,
-    "files_covered": 685,
-    "files_code_unclaimed": 0
+    "files_tracked": 1410,
+    "files_covered": 686,
+    "files_code_unclaimed": 1
   }
 }
