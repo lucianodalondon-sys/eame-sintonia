@@ -96,6 +96,49 @@ TETO_MINIMO_S = 120
 # num corpus que compara Itália, Espanha e França.
 CONFIANCA_MINIMA = 0.6
 
+# ── O DESCARTE POR SILÊNCIO, QUE O MODO EM LOTE **NÃO** FAZ ─────────────────
+# Lido no código de `faster_whisper 1.2.1`, não na documentação:
+#
+#   · `WhisperModel.generate_segments` aplica a regra: descarta o trecho quando
+#     `no_speech_prob > no_speech_threshold`, a menos que `avg_logprob` esteja
+#     acima de `log_prob_threshold` — «não descartes se o modelo estava seguro».
+#   · `BatchedInferencePipeline._batched_segments_generator` NÃO aplica regra
+#     nenhuma. Ele só REPORTA `no_speech_prob` e `avg_logprob` por trecho.
+#     Também fixa `hallucination_silence_threshold=None` e
+#     `temperatures=temperature[:1]` — sem recuo de temperatura.
+#
+# Ou seja: passar os limiares em modo lote não os liga. Quem os quiser tem de
+# os aplicar por fora — e é o que se faz aqui, com a MESMA conjunção do caminho
+# sequencial, para os dois modos darem a mesma resposta.
+#
+#     PASSAR UM PARÂMETRO NÃO É O MESMO QUE ELE SER APLICADO.
+#
+# E AGORA A PARTE QUE INTERESSA, PORQUE FOI MEDIDA E CONTRARIA O ÓBVIO
+# --------------------------------------------------------------------
+# Esta trava, sozinha, NÃO teria salvo o caso real. Em 2026-09-10, com o detetor
+# de voz desligado, dez segundos de música corporativa (@syngentaus, Reel
+# `C6TiLBCCBz8`) devolveram a palavra «Music» — e os números dela foram:
+#
+#     no_speech_prob = 0,380      →  ABAIXO do limiar de 0,6
+#     avg_logprob    = -1,509     →  abaixo de -1,0
+#
+# A conjunção da biblioteca exige as DUAS, e a primeira não se verificou. A
+# alucinação passaria.
+#
+#     QUEM SALVOU FOI O DETETOR DE VOZ. Com `vad_filter=True` o mesmo áudio deu
+#     ZERO trechos, e o estado saiu REQUESTED_EMPTY.
+#
+# Por isso a ordem de defesa é esta, e por esta ordem: (1) VAD, que é o que
+# realmente mordeu; (2) esta trava, que é a rede que o modo em lote não estende
+# sozinho; (3) `_tem_conteudo`, para o `...` que escapa às duas.
+#
+# E por isso esta trava NÃO foi endurecida para apanhar o «Music»: bastaria
+# descartar por `avg_logprob` sozinho — e isso deitaria fora fala real gravada
+# ao vento, num trator, no meio de um campo, que é metade do que este corpus
+# tem. Uma trava que apaga o sinal é pior do que a alucinação que ela evita.
+NO_SPEECH_LIMITE = float(os.environ.get('SINTONIA_ASR_NO_SPEECH') or 0.6)
+LOGPROB_LIMITE = float(os.environ.get('SINTONIA_ASR_LOGPROB') or -1.0)
+
 # As bibliotecas pesadas vivem FORA do repositório. A memória desta casa regista
 # o acidente: `pip` sem `--target` criou `C:\eame-sintonia\Scripts`, e apagar
 # `Scripts` apagou `scripts` — no Windows os dois nomes são a MESMA pasta.
@@ -145,7 +188,13 @@ def carimbo(modelo=None):
         'ASR_BATCH': LOTE,
         'ASR_DEVICE': 'cpu/int8/%d threads' % nucleos(),
         'ASR_VAD': 'YES',
+        # Em modo lote a biblioteca FIXA isto em False por dentro; declaramos na
+        # mesma, porque o carimbo tem de dizer com que regra o texto nasceu.
         'ASR_CONDITION_ON_PREVIOUS_TEXT': 'NO',
+        'ASR_NO_SPEECH_THRESHOLD': NO_SPEECH_LIMITE,
+        'ASR_LOGPROB_THRESHOLD': LOGPROB_LIMITE,
+        'ASR_SILENCE_DISCARD': 'APLICADO_POR_FORA — o modo em lote da biblioteca '
+                               'nao aplica os limiares que recebe',
         'TRANSCRIBER_ID': 'ferramentas/fala_local.py',
         'TRANSCRIBER_VERSION': VERSAO,
     }
@@ -205,8 +254,16 @@ def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None):
         segs, info = pipe.transcribe(
             wav, batch_size=LOTE, beam_size=BEAM, vad_filter=True,
             language=idioma,
-            # OBRIGATÓRIO — ver o cabeçalho. Sem isto o decodificador não termina.
-            condition_on_previous_text=False)
+            # Em modo LOTE a biblioteca já força isto a False por dentro — logo
+            # o laço não acontece por construção, e não por esta linha. Ela fica
+            # à mesma: o dia em que este ficheiro chamar o caminho sequencial,
+            # aqui é que a proteção passa a depender de alguém a ter escrito.
+            condition_on_previous_text=False,
+            # PASSADOS, E MEDIDOS INERTES. `_batched_segments_generator` recebe
+            # estes três e nunca os usa para descartar nada — só os reporta por
+            # trecho. `_sem_os_mudos()` é quem os aplica, logo abaixo.
+            no_speech_threshold=NO_SPEECH_LIMITE,
+            log_prob_threshold=LOGPROB_LIMITE)
         # ── O TETO MORDE DURANTE, NÃO DEPOIS ────────────────────────────
         # O gerador é preguiçoso: os segmentos só são decodificados enquanto se
         # itera. Esperar o fim para depois medir o tempo deixaria um vídeo em
@@ -227,6 +284,10 @@ def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None):
                          nao_significa='que o áudio não tem fala. O reconhecedor '
                                        'é que caiu.')
     dt = time.time() - t0
+
+    # O descarte que o modo em lote não faz. Cada trecho descartado fica
+    # contado: descartar em silêncio é o mesmo defeito que aceitar em silêncio.
+    segs, mudos = _sem_os_mudos(segs)
     texto = ' '.join(s.text.strip() for s in segs).strip()
 
     # ── O TEXTO QUE NÃO É TEXTO ─────────────────────────────────────────────
@@ -249,7 +310,13 @@ def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None):
         descartado, texto = texto, ''
 
     # A EVIDÊNCIA DE SILÊNCIO, e é evidência — não veredito.
-    probs = [float(getattr(s, 'no_speech_prob', 0) or 0) for s in segs]
+    # `getattr(..., 0) or 0` colapsaria tres casos num so: campo ausente, campo
+    # None, e uma probabilidade genuinamente 0,0 — que quer dizer «o modelo tem
+    # a certeza de que ha fala aqui», o oposto de nao saber.
+    probs = [float(s.no_speech_prob) for s in segs
+             if getattr(s, 'no_speech_prob', None) is not None]
+    logps = [float(s.avg_logprob) for s in segs
+             if getattr(s, 'avg_logprob', None) is not None]
     fora = _resposta(
         OK if texto else REQUESTED_EMPTY, modelo_nome,
         texto=texto or None,
@@ -263,6 +330,30 @@ def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None):
         voiced=len(segs),
         no_speech=round(sum(probs) / len(probs), 3) if probs else NAO_SEI,
     )
+    # A confianca media do que ficou. Sozinha nao decide nada — e evidencia para
+    # uma camada acima, como o resto desta ficha.
+    fora['AVG_LOGPROB_MEAN'] = (round(sum(logps) / len(logps), 3) if logps
+                                else NAO_SEI)
+    # ⚠️ EM MODO LOTE, todos os subtrechos partidos do mesmo bloco de 30 s
+    # carregam O MESMO `no_speech_prob`. A media acima nao e uma media de
+    # medicoes independentes, e nao se deve ler como tal.
+    fora['NO_SPEECH_PROB_NOTE'] = ('em modo lote os subtrechos do mesmo bloco de '
+                                   '30 s partilham o valor: nao sao medicoes '
+                                   'independentes')
+    fora['SEGMENTS_DISCARDED_AS_SILENCE'] = len(mudos)
+    if mudos:
+        # O TEXTO DESCARTADO FICA À VISTA. Sem isto, «o vídeo não tinha fala» e
+        # «eu deitei fora o que ele disse» leem-se exactamente igual.
+        fora['DISCARDED_AS_SILENCE'] = [
+            {'start': round(x.start, 2), 'end': round(x.end, 2),
+             'text': x.text.strip(),
+             'no_speech_prob': round(float(getattr(x, 'no_speech_prob', 0) or 0), 3),
+             'avg_logprob': round(float(getattr(x, 'avg_logprob', 0) or 0), 3)}
+            for x in mudos[:20]]
+        fora['DISCARD_RULE'] = (
+            'no_speech_prob > %s E avg_logprob <= %s — a mesma conjuncao que o '
+            'caminho sequencial do faster-whisper usa, e que o modo em lote nao '
+            'aplica sozinho.' % (NO_SPEECH_LIMITE, LOGPROB_LIMITE))
     if descartado is not None:
         fora['DISCARDED_OUTPUT'] = descartado
         fora['WHY'] = ('o reconhecedor devolveu %r — sem uma letra ou algarismo. '
@@ -282,6 +373,30 @@ def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None):
                        % (dt, info.duration, teto))
         fora['NAO_SIGNIFICA'] = 'ausência de fala.'
     return fora
+
+
+def _sem_os_mudos(segs):
+    """→ (trechos com fala, trechos descartados). A regra é a do caminho sequencial.
+
+    A conjunção importa e não é redundante: `no_speech_prob` alto sozinho não
+    basta. Quando o modelo esteve SEGURO do que ouviu (`avg_logprob` alto), a
+    biblioteca não descarta — e nós também não. Descartar por um sinal só
+    deitaria fora fala real gravada em ambiente barulhento, que é metade do que
+    um vídeo de campo tem.
+    """
+    fica, fora = [], []
+    for s in segs:
+        nsp = getattr(s, 'no_speech_prob', None)
+        alp = getattr(s, 'avg_logprob', None)
+        if nsp is None or nsp <= NO_SPEECH_LIMITE:
+            fica.append(s)
+            continue
+        if alp is not None and alp > LOGPROB_LIMITE:
+            # o modelo estava seguro apesar do silencio aparente: fica.
+            fica.append(s)
+            continue
+        fora.append(s)
+    return fica, fora
 
 
 def _resposta(estado, modelo_nome, *, texto=None, maquina_s=NAO_SEI,

@@ -261,6 +261,40 @@ class Alucinacao(unittest.TestCase):
             with self.subTest(saida=lixo):
                 self.assertFalse(fl._tem_conteudo(lixo))
 
+    def test_o_descarte_por_silencio_e_o_do_caminho_sequencial(self):
+        """A biblioteca NÃO aplica esta regra em modo lote. Este ficheiro aplica."""
+        class S:
+            def __init__(self, nsp, alp, txt='qualquer coisa'):
+                self.no_speech_prob, self.avg_logprob = nsp, alp
+                self.text, self.start, self.end = txt, 0.0, 1.0
+        # silêncio provável E modelo inseguro → fora
+        fica, fora = fl._sem_os_mudos([S(0.95, -1.8)])
+        self.assertEqual((len(fica), len(fora)), (0, 1))
+        # silêncio provável MAS modelo seguro → fica (é a excecao da biblioteca)
+        fica, fora = fl._sem_os_mudos([S(0.95, -0.2)])
+        self.assertEqual((len(fica), len(fora)), (1, 0))
+        # sem silêncio provável → fica, por mais baixa que seja a confiança
+        fica, fora = fl._sem_os_mudos([S(0.10, -2.5)])
+        self.assertEqual((len(fica), len(fora)), (1, 0))
+        # campo ausente → fica. Nao saber nao e motivo para deitar fora.
+        class Mudo:
+            text, start, end = 'x', 0.0, 1.0
+        fica, fora = fl._sem_os_mudos([Mudo()])
+        self.assertEqual((len(fica), len(fora)), (1, 0))
+
+    def test_a_alucinacao_medida_nao_seria_apanhada_por_esta_trava(self):
+        """O caso REAL de 2026-09-10: «Music», no_speech=0,380, logprob=-1,509.
+
+        Quem o apanhou foi o detetor de voz, nao esta trava. O teste existe para
+        ninguem acreditar o contrario e desligar o VAD achando que esta coberto.
+        """
+        class S:
+            no_speech_prob, avg_logprob = 0.380, -1.509
+            text, start, end = 'Music', 0.0, 10.0
+        fica, fora = fl._sem_os_mudos([S()])
+        self.assertEqual(len(fora), 0, 'a trava nao apanha este caso — e isso e '
+                                       'o que esta medido, nao um defeito escondido')
+
     def test_fala_de_verdade_passa_em_qualquer_alfabeto(self):
         for bom in ('Buongiorno', 'Ça va', 'año 2026', 'Ήταν', 'Привет', '2026'):
             with self.subTest(saida=bom):
