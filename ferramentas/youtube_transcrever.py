@@ -176,20 +176,21 @@ def fase_rodar(modelo=None, teto=None):
     if teto:
         itens = itens[:int(teto)]
 
-    try:
-        from faster_whisper import BatchedInferencePipeline, WhisperModel
-    except ImportError:
-        print('falta a biblioteca de transcrição. Instale FORA do repositório:\n'
-              '  py -m pip install --target %s faster-whisper yt-dlp\n'
-              'NUNCA instalar sem --target: no Windows o pip cria `Scripts/`, que é '
-              'a MESMA pasta que `scripts/`.' % LIBS)
+    # O RECONHECEDOR NÃO VIVE MAIS AQUI. O cabeçalho deste ficheiro sempre disse
+    # que os parâmetros «vêm de instagram_transcrever.py» — o que é outra forma de
+    # dizer que a lógica estava copiada. Agora os dois chamam o mesmo dono,
+    # `ferramentas/fala_local.py`, e a medição vive num sítio só.
+    import fala_local as fl
+    ha, porque = fl.disponivel()
+    if not ha:
+        print(porque + '\n(e `yt-dlp` para o áudio)')
         return 1
 
-    nucleos = os.cpu_count() or 4
-    print('modelo %s · %d núcleos · lote %d · beam %d' % (modelo, nucleos, LOTE, BEAM))
+    nucleos = fl.nucleos()
+    print('modelo %s · %d núcleos · lote %d · beam %d'
+          % (modelo, nucleos, fl.LOTE, fl.BEAM))
     t0 = time.time()
-    m = WhisperModel(modelo, device='cpu', compute_type='int8', cpu_threads=nucleos)
-    pipe = BatchedInferencePipeline(model=m)
+    fl.modelo(modelo)
     print('carregado em %.1f s' % (time.time() - t0))
 
     # Retomar: transcrição é cara em TEMPO, e refazer o pronto é o mesmo desperdício
@@ -234,39 +235,42 @@ def fase_rodar(modelo=None, teto=None):
         dur = o.get('DURATION_S')
         limite = max(TETO_MINIMO_S,
                      int(dur * TETO_FATOR) if isinstance(dur, (int, float)) else TETO_MINIMO_S)
-        t = time.time()
-        try:
-            segs, info = pipe.transcribe(
-                wav, batch_size=LOTE, beam_size=BEAM, vad_filter=True,
-                language=idioma, condition_on_previous_text=False)
-            trechos, texto = [], []
-            for s in segs:
-                if time.time() - t > limite:
-                    base['TRUNCADO_POR_TEMPO_S'] = limite
-                    break
-                trechos.append({'T_S': round(s.start, 2), 'FIM_S': round(s.end, 2),
-                                'TEXTO': s.text.strip()})
-                texto.append(s.text.strip())
-        except Exception as e:
+        r = fl.transcrever(wav, idioma=idioma, modelo_nome=modelo,
+                           duracao_s=dur if isinstance(dur, (int, float)) else None)
+        if r['TRANSCRIPT_STATE'] in (fl.ASR_FALHOU, fl.ASR_INDISPONIVEL):
             saida.append(dict(base, **{
-                'TRANSCRIPT': None, 'TRANSCRIPT_STATE': 'ASR_FALHOU',
-                'WHY': '%s: %s' % (type(e).__name__, str(e)[:150])}))
+                'TRANSCRIPT': None, 'TRANSCRIPT_STATE': r['TRANSCRIPT_STATE'],
+                'WHY': r.get('ERROR', '')}))
             print('  %3d/%d %-13s ASR FALHOU' % (n, len(itens), vid))
             continue
-        gasto = time.time() - t
+        if r.get('TRUNCATED_BY_TIME') == 'YES':
+            base['TRUNCADO_POR_TEMPO_S'] = r.get('TIMEOUT_LIMIT_S', NAO_SEI)
+        gasto = r.get('MACHINE_SECONDS')
+        gasto = gasto if isinstance(gasto, (int, float)) else 0.0
         seg_maquina += gasto
         if isinstance(dur, (int, float)):
             seg_audio += dur
+        texto = r.get('TRANSCRIPT') or ''
         saida.append(dict(base, **{
-            'TRANSCRIPT': ' '.join(texto),
-            'TRANSCRIPT_SEGMENTS': trechos,
-            'TRANSCRIPT_CHARS': len(' '.join(texto)),
-            'TRANSCRIPT_STATE': 'OK',
-            'ASR_LANGUAGE': (idioma or getattr(info, 'language', NAO_SEI)),
-            'ASR_LANGUAGE_DECLARADO': bool(idioma),
+            'TRANSCRIPT': r.get('TRANSCRIPT'),
+            # Os tempos de cada trecho ficam com o nome que este ficheiro sempre
+            # usou; o dono unico devolve-os em `SEGMENTS`, e a traducao e aqui.
+            'TRANSCRIPT_SEGMENTS': [{'T_S': x['start'], 'FIM_S': x['end'],
+                                     'TEXTO': x['text']} for x in r.get('SEGMENTS', [])],
+            'TRANSCRIPT_CHARS': r.get('TRANSCRIPT_CHARS', 0),
+            # ⚠️ ISTO DIZIA `'OK'` SEMPRE, mesmo com texto vazio. Um video sem
+            # fala saia daqui a afirmar transcricao bem-sucedida, e a diferenca
+            # entre «ouvi e nao havia» e «ouvi e transcrevi» desaparecia.
+            'TRANSCRIPT_STATE': r['TRANSCRIPT_STATE'],
+            'WHY': r.get('WHY', ''),
+            'NAO_SIGNIFICA': r.get('NAO_SIGNIFICA', ''),
+            'DISCARDED_OUTPUT': r.get('DISCARDED_OUTPUT'),
+            'ASR_LANGUAGE': r.get('LANGUAGE', NAO_SEI),
+            'ASR_LANGUAGE_DECLARADO': r.get('LANGUAGE_SOURCE') == 'DECLARED',
+            'ASR_LANGUAGE_CONFIDENCE': r.get('LANGUAGE_CONFIDENCE', NAO_SEI),
             'SEGUNDOS_DE_MAQUINA': round(gasto, 1)}))
-        print('  %3d/%d %-13s %6.1f s de máquina · %5d chars · %s'
-              % (n, len(itens), vid, gasto, len(' '.join(texto)),
+        print('  %3d/%d %-13s %6.1f s de máquina · %5d chars · %-18s %s'
+              % (n, len(itens), vid, gasto, len(texto), r['TRANSCRIPT_STATE'],
                  str(o.get('TITLE'))[:32]))
 
     vel = (seg_audio / seg_maquina) if seg_maquina else 0
@@ -281,7 +285,7 @@ def fase_rodar(modelo=None, teto=None):
         'CUSTO_E_TEMPO_NAO_FATURA': ('zero dólar. O custo é %.0f s de máquina para '
                                      '%.0f s de áudio.' % (seg_maquina, seg_audio)),
         'VELOCIDADE_MEDIDA_AGORA': round(vel, 2),
-        'ASR_MODEL': modelo,
+        **fl.carimbo(modelo),
         'A_FILA_QUE_MANDOU': 'data/samples/YOUTUBE-RELEVANCIA/FILA-WHISPER.json',
         'O_QUE_NAO_ESTA_AQUI': ('todo vídeo que já tinha legenda pública. Ele não foi '
                                 'esquecido: está em YOUTUBE-JANELA/LEGENDAS.json, de '

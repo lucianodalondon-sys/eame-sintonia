@@ -227,8 +227,29 @@ def normalizar(bruto, conta, plataforma, dias, man=None):
         'LAST_OBSERVED': _hoje().isoformat(),
         'URL': g('url', 'postUrl', 'link'),
         'TITLE': g('title', 'headline'),
+        # `TEXT` E A LEGENDA — o que o autor escreveu. Fica dito aqui porque, a
+        # partir de 2026-09-10, existe um segundo texto no mesmo item: a FALA.
+        # Somar os dois neste campo apagaria qual deles sustentou o que vier
+        # depois. A fala entra em `TRANSCRIPT_TEXT`, e nunca aqui.
         'TEXT': g('text', 'caption', 'description', 'content'),
+        'TEXT_KIND': 'CAPTION',
         'MEDIA_TYPE': g('type', 'mediaType', 'productType'),
+        # ── O ENDERECO DO VIDEO, QUE ATE AQUI SE PERDIA ─────────────────────
+        # A normalizacao deitava fora o endereco da midia. Sem ele, um Reel
+        # coletado (e pago) nao podia ser ouvido depois sem se coletar outra
+        # vez — e coletar outra vez custa. O endereco e ASSINADO e MORRE em
+        # horas; guarda-lo nao e preserva-lo, e por isso o campo diz TEMPORARY.
+        #
+        #     ENDERECO VENCIDO != VIDEO INEXISTENTE.
+        'MEDIA_URL_TEMPORARY': g('videoUrl', 'video_url', 'videoUrlBackup',
+                                 'displayUrl', 'mediaUrl'),
+        'MEDIA_DURATION_S': g('videoDuration', 'duration', 'durationSeconds'),
+        'IS_VIDEO': ('YES' if str(g('type', 'mediaType', 'productType')).upper()
+                     in ('VIDEO', 'REEL', 'CLIPS', 'IGTV') else NAO_SEI),
+        # A FALA AINDA NAO FOI PEDIDA. Nascer NOT_REQUESTED, e nao vazio, e o
+        # que impede «ninguem transcreveu» de se ler como «nao havia fala».
+        'TRANSCRIPT_TEXT': None,
+        'TRANSCRIPT_STATE': 'NOT_REQUESTED',
         'COLLECTION_WINDOW_DAYS': dias,
         'COLLECTION_WINDOW_FROM': _desde(dias),
         'DATASET_OWNER': DATASET_OWNER,
@@ -341,15 +362,46 @@ def fase_posts(plataforma):
     return corpo
 
 
+def fase_transcrever(plataforma, run_id=None, teto=None):
+    """A FALA DOS VIDEOS JA COLETADOS. Nenhuma execucao paga nova acontece aqui.
+
+    POR QUE ESTA FASE VIVE NESTE FICHEIRO, E NAO NOUTRO
+    ----------------------------------------------------
+    Porque o orquestrador ja conhece este executor (T9), e a receita ja traduz
+    `fase` e `plataforma` do pedido em argumentos da linha de comando. Registar
+    um executor novo criaria uma segunda porta para a mesma capacidade — e o
+    orquestrador so chama o PRIMEIRO executor de cada alvo, portanto a segunda
+    porta nunca seria aberta e ficaria a mentir no registo.
+
+        O BOTAO PEDE. O ORQUESTRADOR DECIDE COMO. UMA CAPACIDADE, UMA PORTA.
+
+    O trabalho em si nao e daqui: e de `ferramentas/reel_transcricao.py`, que e
+    a cadeia, e de `ferramentas/fala_local.py`, que e o reconhecedor. Esta
+    funcao so leva o pedido ate la.
+    """
+    import reel_transcricao as rt
+    return rt.fase_posts(plataforma, teto=teto, run_id=run_id)
+
+
 if __name__ == '__main__':
     fase = sys.argv[1] if len(sys.argv) > 1 else 'contratos'
+    resto = [a for a in sys.argv[2:] if not a.startswith('--')]
+    op = dict(a[2:].split('=', 1) for a in sys.argv[2:]
+              if a.startswith('--') and '=' in a)
     if fase == 'contratos':
         fase_contratos()
     elif fase == 'posts':
-        if len(sys.argv) < 3 or sys.argv[2] not in ATORES:
+        if not resto or resto[0] not in ATORES:
             print('uso: comunicacao_coleta.py posts {%s}' % '|'.join(sorted(ATORES)))
             raise SystemExit(2)
-        fase_posts(sys.argv[2])
+        fase_posts(resto[0])
+    elif fase == 'transcrever':
+        if not resto or resto[0] not in ATORES:
+            print('uso: comunicacao_coleta.py transcrever {%s}'
+                  % '|'.join(sorted(ATORES)))
+            raise SystemExit(2)
+        raise SystemExit(fase_transcrever(resto[0], run_id=op.get('run-id'),
+                                          teto=op.get('teto')))
     else:
         print('fase desconhecida: %s' % fase)
         raise SystemExit(2)

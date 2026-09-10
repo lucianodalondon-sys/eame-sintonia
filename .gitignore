@@ -87,3 +87,31 @@ italia-portale/client/system-map/deployment.generated.json
 # corrida, e o arquivo e o livro append-only da coleta. Versiona-lo faria cada
 # corrida propor um commit com a colheita da anterior.
 data/colheita/
+
+# ── MÍDIA PESADA E MODELO DE RECONHECIMENTO NUNCA ENTRAM NO GIT ──────────────
+# Medido em 2026-09-10: quatro Reels reais pesam 10,7 MB, e o WAV de trabalho
+# pesa mais do que o MP4 que o gerou (16 kHz PCM não comprime). Mil Reels seriam
+# ~2,7 GB de bytes que entram no pack pelo tamanho integral, PARA SEMPRE — a
+# mesma conta que tirou o bruto pesado daqui em 2026-08-29 (D-003).
+#
+# `data/raw/` já estava coberto, e `ferramentas/reel_transcricao.py` grava lá de
+# propósito. Estas linhas são a SEGUNDA TRANCA, para o caso de alguém apontar um
+# cache de mídia para dentro de `data/samples/`, que É versionado — foi para lá
+# que `ferramentas/instagram_transcrever.py` sempre apontou o `audio-cache/`.
+#
+#     O GIT NÃO É DEPÓSITO DE VÍDEO.
+data/samples/**/audio-cache/
+data/samples/**/*.mp4
+data/samples/**/*.wav
+data/samples/**/*.m4a
+data/samples/**/*.webm
+data/samples/**/*.mkv
+data/samples/**/*.mp3
+data/samples/**/*.ogg
+
+# O modelo de reconhecimento vive FORA do repositório, como as outras bibliotecas
+# pesadas (`~/.sintonia-libs`, ou onde SINTONIA_LIBS apontar). `small` em
+# CTranslate2/int8 pesa ~500 MB; `large-v3` passa de 3 GB.
+.sintonia-libs/
+**/whisper-models/
+**/.cache/huggingface/

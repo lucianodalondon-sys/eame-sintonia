@@ -119,13 +119,24 @@ EXECUTORES = {
         # pedido — nao de quem o chama. Declarar aqui QUE filtros viram
         # argumentos e o que permite ao botao do GitHub parar de conhecer a
         # linha de comando do script: ele pede, e a receita traduz.
+        # `fase` aceita hoje: `contratos` (gratis, le o schema do ator),
+        # `posts` (a coleta paga) e `transcrever` — a FALA dos videos ja
+        # coletados, que corre local e custa zero dolares.
+        #
+        # A fala entrou por AQUI, e nao como executor novo, de proposito: o
+        # orquestrador chama apenas o PRIMEIRO executor de cada alvo, portanto
+        # um segundo registo em T9 nunca seria aberto e ficaria a mentir nesta
+        # lista. Uma capacidade, uma porta.
         "argumentos_de_filtros": ["fase", "plataforma"],
         "filtros_por_omissao": {"fase": "posts"},
-        "larga_em": ["data/samples/COMPETITOR-PUBLIC-COMM"],
+        "larga_em": ["data/samples/COMPETITOR-PUBLIC-COMM",
+                     "data/samples/REEL-TRANSCRICOES"],
         "rotas": ["YouTube", "Instagram", "LinkedIn", "Facebook"],
         "o_que_traz": "o que o concorrente publicou em canal aberto, com a data "
-                      "e o endereco de onde veio",
-        "custo": "pago quando passa pela rota Apify",
+                      "e o endereco de onde veio — e, com `fase=transcrever`, a "
+                      "FALA do video, num campo separado da legenda",
+        "custo": "pago quando passa pela rota Apify; `transcrever` custa zero "
+                 "dolares e paga-se em tempo de maquina",
     }],
 }
 

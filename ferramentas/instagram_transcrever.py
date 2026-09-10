@@ -232,20 +232,21 @@ def fase_rodar(modelo=None, teto=None):
     if teto:
         dentro = dentro[:int(teto)]
 
-    try:
-        from faster_whisper import BatchedInferencePipeline, WhisperModel
-    except ImportError:
-        print('falta a biblioteca de transcrição. Instale FORA do repositório:\n'
-              '  py -m pip install --target %s faster-whisper\n'
-              'e rode de novo. NUNCA instalar sem --target: no Windows o pip cria '
-              '`Scripts/`, que é a MESMA pasta que `scripts/`.' % LIBS)
+    # O RECONHECEDOR NÃO VIVE MAIS AQUI. Ele foi para `ferramentas/fala_local.py`,
+    # que é agora o dono único — este ficheiro e o do YouTube tinham a MESMA lógica
+    # copiada, e duas cópias da mesma lei são duas leis. Os parâmetros medidos aqui
+    # em 2026-09-02 foram para lá inteiros, com a medição junto.
+    import fala_local as fl
+    ha, porque = fl.disponivel()
+    if not ha:
+        print(porque)
         return 1
 
-    nucleos = os.cpu_count() or 4
-    print('modelo %s · %d núcleos · lote %d · beam %d' % (modelo, nucleos, LOTE, BEAM))
+    nucleos = fl.nucleos()
+    print('modelo %s · %d núcleos · lote %d · beam %d'
+          % (modelo, nucleos, fl.LOTE, fl.BEAM))
     t0 = time.time()
-    m = WhisperModel(modelo, device='cpu', compute_type='int8', cpu_threads=nucleos)
-    pipe = BatchedInferencePipeline(model=m)
+    fl.modelo(modelo)
     print('carregado em %.1f s' % (time.time() - t0))
 
     # Retomar de onde parou: transcrição é cara em TEMPO, e refazer o que já está pronto
@@ -288,67 +289,35 @@ def fase_rodar(modelo=None, teto=None):
 
         # O idioma vem do PAÍS DA CONTA, provado de graça na fase de identidade.
         idioma = IDIOMA_DO_PAIS.get(str(o.get('COUNTRY_SCOPE') or '').upper())
+        # O TETO DE TEMPO tambem mudou de dono: `fala_local` calcula-o a partir da
+        # duracao, com os mesmos 6x e os mesmos 120 s de piso medidos aqui.
         dur = o.get('VIDEO_DURATION_S')
-        teto = max(TETO_MINIMO_S,
-                   int(dur * TETO_FATOR) if isinstance(dur, (int, float)) else TETO_MINIMO_S)
-        t = time.time()
-        try:
-            segs, info = pipe.transcribe(
-                wav, batch_size=LOTE, beam_size=BEAM, vad_filter=True,
-                language=idioma,
-                # OBRIGATÓRIO. Sem isto, áudio repetitivo (música, refrão, ruído de
-                # motor) faz o decodificador se alimentar do próprio texto anterior e
-                # entrar em laço: ele não erra, ele NÃO TERMINA. Medido aqui antes do
-                # conserto: um vídeo de 30 s levou 112 s, e um de 47 s levou 87 s —
-                # enquanto os outros faziam 3x o tempo real.
-                condition_on_previous_text=False)
-            segs = list(segs)
-        except Exception as e:                               # noqa: BLE001
+        r = fl.transcrever(wav, idioma=idioma, modelo_nome=modelo,
+                           duracao_s=dur if isinstance(dur, (int, float)) else None)
+        if r['TRANSCRIPT_STATE'] in (fl.ASR_FALHOU, fl.ASR_INDISPONIVEL):
             itens.append(dict(base, **{
-                'TRANSCRIPT': None, 'TRANSCRIPT_STATE': 'ASR_FALHOU',
-                'WHY': '%s: %s' % (type(e).__name__, str(e)[:160]),
-                'NAO_SIGNIFICA': 'que o vídeo não tem fala. O reconhecedor é que caiu.'}))
-            print('  %3d/%d %-13s ASR FALHOU — %s' % (n, len(dentro), sc, type(e).__name__))
+                'TRANSCRIPT': None, 'TRANSCRIPT_STATE': r['TRANSCRIPT_STATE'],
+                'WHY': r.get('ERROR', ''),
+                'NAO_SIGNIFICA': r.get('NAO_SIGNIFICA', '')}))
+            print('  %3d/%d %-13s ASR FALHOU' % (n, len(dentro), sc))
             continue
-        dt = time.time() - t
-        if dt > teto:
-            # Passou do teto: os segmentos que vieram podem estar em laço. Marcar, nunca
-            # descartar em silêncio e nunca tratar como "vídeo sem fala".
-            itens.append(dict(base, **{
-                'TRANSCRIPT': ' '.join(s.text.strip() for s in segs).strip() or None,
-                'TRANSCRIPT_STATE': 'TRANSCRIPTION_TIMEOUT',
-                'MACHINE_SECONDS': round(dt, 2), 'TIMEOUT_LIMIT_S': teto,
-                'WHY': ('levou %.0fs para %.0fs de áudio (teto %ds). Texto preservado, '
-                        'mas pode conter repetição em laço.' % (dt, info.duration, teto)),
-                'NAO_SIGNIFICA': 'ausência de fala.'}))
-            print('  %3d/%d %-13s ESTOUROU O TETO (%.0fs > %ds)' % (n, len(dentro), sc, dt, teto))
+        if r['TRANSCRIPT_STATE'] == fl.TRANSCRIPTION_TIMEOUT:
+            itens.append(dict(base, **{k: r[k] for k in r if k != 'SEGMENTS'}))
+            print('  %3d/%d %-13s ESTOUROU O TETO (%ss > %ss)'
+                  % (n, len(dentro), sc, r.get('MACHINE_SECONDS'),
+                     r.get('TIMEOUT_LIMIT_S')))
             continue
-        seg_audio += info.duration
-        seg_maquina += dt
-        texto = ' '.join(s.text.strip() for s in segs).strip()
-        itens.append(dict(base, **{
-            'TRANSCRIPT': texto or None,
-            'TRANSCRIPT_STATE': 'OK' if texto else 'REQUESTED_EMPTY',
-            'TRANSCRIPT_CHARS': len(texto),
-            # A língua é DETECTADA, não declarada — e a confiança vem junto. Abaixo de
-            # 0,6 o texto pode estar sendo lido na língua errada, e isso muda tudo num
-            # corpus que compara Itália, Espanha e França.
-            'LANGUAGE_DETECTED': info.language,
-            'LANGUAGE_CONFIDENCE': round(float(info.language_probability), 3),
-            'LANGUAGE_STATE': ('CONFIAVEL' if info.language_probability >= 0.6
-                               else 'BAIXA_CONFIANCA — pode estar na língua errada'),
-            'AUDIO_SECONDS': round(float(info.duration), 2),
-            'MACHINE_SECONDS': round(dt, 2),
-            'REALTIME_FACTOR': round(info.duration / dt, 2) if dt else NAO_SEI,
-            # Os tempos ficam: sem eles, uma citação não pode ser conferida contra o
-            # segundo exato do vídeo, e citação que não se confere não é evidência.
-            'SEGMENTS': [{'start': round(s.start, 2), 'end': round(s.end, 2),
-                          'text': s.text.strip()} for s in segs],
-            'SPEECH_TYPE': 'NOT_CLASSIFIED',
-        }))
-        print('  %3d/%d %-13s %-3s %4.2f  %5.0fs áudio em %5.0fs  %s'
-              % (n, len(dentro), sc, info.language, info.language_probability,
-                 info.duration, dt, (texto[:42] + '…') if texto else '(sem fala)'))
+        if isinstance(r.get('AUDIO_SECONDS'), (int, float)):
+            seg_audio += r['AUDIO_SECONDS']
+        if isinstance(r.get('MACHINE_SECONDS'), (int, float)):
+            seg_maquina += r['MACHINE_SECONDS']
+        itens.append(dict(base, **r))
+        texto = r.get('TRANSCRIPT')
+        print('  %3d/%d %-13s %-3s %-5s  %5ss áudio em %5ss  %s'
+              % (n, len(dentro), sc, r.get('LANGUAGE_DETECTED'),
+                 r.get('LANGUAGE_CONFIDENCE'), r.get('AUDIO_SECONDS'),
+                 r.get('MACHINE_SECONDS'),
+                 (texto[:42] + '…') if texto else '(nao saiu texto)'))
 
     com = sum(1 for i in itens if i.get('TRANSCRIPT_STATE') == 'OK')
     caminho = _gravar('TRANSCRICOES.json', {
@@ -361,10 +330,7 @@ def fase_rodar(modelo=None, teto=None):
         'APIFY_RUNS': 0, 'COST_USD': 0,
         'COST_NOTE': ('custo em dólar é zero: o reconhecimento roda nesta máquina. '
                       'O custo real é TEMPO DE MÁQUINA, e está medido abaixo.'),
-        'ASR_ENGINE': 'faster-whisper', 'ASR_MODEL': modelo,
-        'ASR_PARAMS': {'beam_size': BEAM, 'batch_size': LOTE,
-                       'compute_type': 'int8', 'cpu_threads': nucleos,
-                       'vad_filter': True},
+        **fl.carimbo(modelo),
         'OBJECTS_IN_QUEUE': len(dentro),
         'OBJECTS_EXCLUDED': len(fora),
         'EXCLUSION_REASONS': sorted({m.split(':')[0] for _o, m in fora}),

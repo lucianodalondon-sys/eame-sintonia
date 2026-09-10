@@ -1,0 +1,171 @@
+{
+ "SOURCE_ID": "REEL-TRANSCRICOES/QUALIDADE-DA-FALA-V1",
+ "source": "conferencia mecanica da fala escrita contra termos esperados declarados, com a origem de cada termo",
+ "SOURCE_LOCATION": "derivado — nenhuma execucao, nenhum custo",
+ "FACT_LOCATION": "NAO_SE_APLICA",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "O_QUE_ISTO_NAO_E": [
+  "nao e taxa de erro por palavra (WER): nao ha transcricao oficial destes Reels, e inventar o denominador seria pior do que nao medir",
+  "nao mede fluencia nem pontuacao",
+  "PASS quer dizer «os termos que importam apareceram», nao «esta perfeita»"
+ ],
+ "CASOS": 10,
+ "POR_VEREDITO": {
+  "NAO_CONFERIDO": 6,
+  "PARTIAL": 1,
+  "PASS": 3
+ },
+ "LINHAS": [
+  {
+   "REEL": "C-63RfHoJTU",
+   "VEREDITO": "NAO_CONFERIDO",
+   "PORQUE": "nao ha termos esperados declarados para este caso. Isto NAO e reprovacao: e ausencia de gabarito.",
+   "TRANSCRIPT_STATE": "REQUESTED_EMPTY",
+   "TERMOS_ESPERADOS": 0,
+   "TERMOS_ENCONTRADOS": 0
+  },
+  {
+   "REEL": "C-FanW_CYMz",
+   "CONTA": "@syngentaitalia",
+   "IDIOMA": "it",
+   "VEREDITO": "PARTIAL",
+   "TRANSCRIPT_STATE": "OK",
+   "ASR_MODEL": "medium",
+   "TERMOS_ESPERADOS": 3,
+   "TERMOS_ENCONTRADOS": 2,
+   "DENOMINADOR": "3 termos declarados nesta tabela, com origem. Nao e taxa de erro por palavra.",
+   "TERMOS": [
+    {
+     "TERMO": "mais",
+     "ORIGEM": "CAPTION — a legenda escreve «appassionato di 🌽 Mais»",
+     "ENCONTRADO": "YES"
+    },
+    {
+     "TERMO": "syngenta",
+     "ORIGEM": "ACCOUNT — a conta é a da Syngenta Italia",
+     "ENCONTRADO": "NO"
+    },
+    {
+     "TERMO": "discovery seeds",
+     "ORIGEM": "CAPTION — a legenda abre com «DISCOVERY SEEDS»",
+     "ENCONTRADO": "YES"
+    }
+   ]
+  },
+  {
+   "REEL": "C2b0GJrIJ8t",
+   "CONTA": "@rtl_france",
+   "IDIOMA": "fr",
+   "VEREDITO": "PASS",
+   "TRANSCRIPT_STATE": "OK",
+   "ASR_MODEL": "medium",
+   "TERMOS_ESPERADOS": 2,
+   "TERMOS_ENCONTRADOS": 2,
+   "DENOMINADOR": "2 termos declarados nesta tabela, com origem. Nao e taxa de erro por palavra.",
+   "TERMOS": [
+    {
+     "TERMO": "paris",
+     "ORIGEM": "TEMA — a pergunta da entrevista é «jusqu'à bloquer Paris ?»",
+     "ENCONTRADO": "YES"
+    },
+    {
+     "TERMO": "ministre",
+     "ORIGEM": "TEMA — a fala cita o primeiro-ministro",
+     "ENCONTRADO": "YES"
+    }
+   ]
+  },
+  {
+   "REEL": "C6TiLBCCBz8",
+   "VEREDITO": "NAO_CONFERIDO",
+   "PORQUE": "nao ha termos esperados declarados para este caso. Isto NAO e reprovacao: e ausencia de gabarito.",
+   "TRANSCRIPT_STATE": "REQUESTED_EMPTY",
+   "TERMOS_ESPERADOS": 0,
+   "TERMOS_ENCONTRADOS": 0
+  },
+  {
+   "REEL": "CuU0NGVAO9U",
+   "VEREDITO": "NAO_CONFERIDO",
+   "PORQUE": "nao ha termos esperados declarados para este caso. Isto NAO e reprovacao: e ausencia de gabarito.",
+   "TRANSCRIPT_STATE": "REQUESTED_EMPTY",
+   "TERMOS_ESPERADOS": 0,
+   "TERMOS_ENCONTRADOS": 0
+  },
+  {
+   "REEL": "DCZQ6A3hvEC",
+   "VEREDITO": "NAO_CONFERIDO",
+   "PORQUE": "nao ha termos esperados declarados para este caso. Isto NAO e reprovacao: e ausencia de gabarito.",
+   "TRANSCRIPT_STATE": "NOT_REQUESTED",
+   "TERMOS_ESPERADOS": 0,
+   "TERMOS_ENCONTRADOS": 0
+  },
+  {
+   "REEL": "DQhloXtjTep",
+   "VEREDITO": "NAO_CONFERIDO",
+   "PORQUE": "nao ha termos esperados declarados para este caso. Isto NAO e reprovacao: e ausencia de gabarito.",
+   "TRANSCRIPT_STATE": "REQUESTED_EMPTY",
+   "TERMOS_ESPERADOS": 0,
+   "TERMOS_ENCONTRADOS": 0
+  },
+  {
+   "REEL": "DW6X5lZkU41",
+   "CONTA": "@syngenta (agronomic service rep)",
+   "IDIOMA": "en",
+   "VEREDITO": "PASS",
+   "TRANSCRIPT_STATE": "OK",
+   "ASR_MODEL": "medium",
+   "TERMOS_ESPERADOS": 2,
+   "TERMOS_ENCONTRADOS": 2,
+   "DENOMINADOR": "2 termos declarados nesta tabela, com origem. Nao e taxa de erro por palavra.",
+   "TERMOS": [
+    {
+     "TERMO": "wheat",
+     "ORIGEM": "TEMA — a publicação é sobre trigo em rotação",
+     "ENCONTRADO": "YES"
+    },
+    {
+     "TERMO": "rotation",
+     "ORIGEM": "TEMA — a fala explica por que o trigo entra na rotação",
+     "ENCONTRADO": "YES"
+    }
+   ]
+  },
+  {
+   "REEL": "Db5QG2Dk3sF",
+   "CONTA": "@syngenta.es",
+   "IDIOMA": "es",
+   "VEREDITO": "PASS",
+   "TRANSCRIPT_STATE": "OK",
+   "ASR_MODEL": "medium",
+   "TERMOS_ESPERADOS": 3,
+   "TERMOS_ENCONTRADOS": 3,
+   "DENOMINADOR": "3 termos declarados nesta tabela, com origem. Nao e taxa de erro por palavra.",
+   "TERMOS": [
+    {
+     "TERMO": "syngenta",
+     "ORIGEM": "CAPTION — a legenda cita «Syngenta es una empresa de ciencia agrícola»",
+     "ENCONTRADO": "YES"
+    },
+    {
+     "TERMO": "agricola",
+     "ORIGEM": "CAPTION — mesma frase da legenda",
+     "ENCONTRADO": "YES"
+    },
+    {
+     "TERMO": "fitosanitarios",
+     "ORIGEM": "TEMA — a fala contrapõe fitossanitários a ciência agrícola; o termo é do setor",
+     "ENCONTRADO": "YES"
+    }
+   ]
+  },
+  {
+   "REEL": "ZZZZZZZZZZZ",
+   "VEREDITO": "NAO_CONFERIDO",
+   "PORQUE": "nao ha termos esperados declarados para este caso. Isto NAO e reprovacao: e ausencia de gabarito.",
+   "TRANSCRIPT_STATE": "NOT_REQUESTED",
+   "TERMOS_ESPERADOS": 0,
+   "TERMOS_ENCONTRADOS": 0
+  }
+ ]
+}

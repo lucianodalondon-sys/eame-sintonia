@@ -150,22 +150,88 @@ def _achar(texto, tabela):
                    if any(_casa(texto, t) for t in termos)})
 
 
+# ── AS DUAS FONTES DE TEXTO DE UMA PUBLICAÇÃO, E ELAS NÃO SE SOMAM ──────────
+# `TEXT` é a LEGENDA: o que o autor escreveu. `TRANSCRIPT_TEXT` é a FALA: o que
+# alguém disse no vídeo. São dois textos do mesmo minuto, de dois atos
+# diferentes — e um Reel pode ter noventa segundos de septoriose na fala e
+# «confira nosso dia de campo» na legenda.
+#
+# Antes de 2026-09-10 esta camada lia só `TITLE` e `TEXT`, e o conteúdo falado
+# era invisível. Fechar esse buraco NÃO é concatenar os dois: se uma
+# classificação nascer de uma frase falada, tem de continuar a ser possível
+# prová-lo — e um campo somado apaga exatamente essa prova.
+#
+#     CASAR NOS DOIS, MAS SABER EM QUAL CASOU.
+FONTES_DE_TEXTO = (
+    ('CAPTION', ('TITLE', 'TEXT')),
+    ('TRANSCRIPT', ('TRANSCRIPT_TEXT',)),
+)
+
+
+def _textos(item):
+    """→ {fonte: texto normalizado} para cada fonte que REALMENTE trouxe texto."""
+    fora = {}
+    for fonte, campos in FONTES_DE_TEXTO:
+        pedaços = [item.get(c) for c in campos]
+        pedaços = [p for p in pedaços if p and p != NAO_SEI]
+        t = _norm(' '.join(str(p) for p in pedaços))
+        if t.strip():
+            fora[fonte] = t
+    return fora
+
+
+def _achar_por_fonte(textos, tabela):
+    """→ (rótulos ordenados, {rótulo: [fontes que o sustentam]}).
+
+    A segunda metade é o que impede a evidência de se perder: saber QUE um post
+    fala de septoriose vale pouco se ninguém puder dizer se isso estava escrito
+    ou foi dito em voz alta.
+    """
+    origem = {}
+    for fonte, texto in textos.items():
+        for rotulo in _achar(texto, tabela):
+            origem.setdefault(rotulo, []).append(fonte)
+    return sorted(origem), {k: sorted(v) for k, v in origem.items()}
+
+
 def classificar(item):
     """→ o item com os campos do §5 e do §6. Não altera o original."""
-    texto = _norm('%s %s' % (item.get('TITLE') or '', item.get('TEXT') or ''))
-    tem_texto = bool(texto.strip()) and item.get('TEXT') != NAO_SEI
+    textos = _textos(item)
+    # Compatibilidade: `texto` continua a existir e continua a ser a legenda +
+    # título, porque é isso que os campos antigos sempre mediram.
+    texto = textos.get('CAPTION', '')
+    tem_texto = bool(textos)
 
-    tipos = _achar(texto, TIPOS) if tem_texto else []
-    culturas = _achar(texto, CULTURAS) if tem_texto else []
-    problemas = _achar(texto, PROBLEMAS) if tem_texto else []
-    paises = _achar(texto, LUGARES) if tem_texto else []
+    tipos, tipos_de = _achar_por_fonte(textos, TIPOS)
+    culturas, culturas_de = _achar_por_fonte(textos, CULTURAS)
+    problemas, problemas_de = _achar_por_fonte(textos, PROBLEMAS)
+    paises, paises_de = _achar_por_fonte(textos, LUGARES)
+
+    fontes = sorted(textos)
+    so_da_fala = sorted({r for r, f in list(tipos_de.items()) + list(culturas_de.items())
+                         + list(problemas_de.items()) if f == ['TRANSCRIPT']})
 
     fora = dict(item)
     fora.update({
         'TEXT_AVAILABLE': 'YES' if tem_texto else 'NO',
+        # QUAIS fontes de texto este item tinha. Sem isto, «não casou nada» num
+        # Reel mudo e num Reel nunca transcrito leem-se igual.
+        'TEXT_SOURCES': fontes or [NAO_SEI],
+        'CAPTION_AVAILABLE': 'YES' if 'CAPTION' in textos else 'NO',
+        'TRANSCRIPT_AVAILABLE': 'YES' if 'TRANSCRIPT' in textos else 'NO',
+        'TRANSCRIPT_STATE': item.get('TRANSCRIPT_STATE', NAO_SEI),
+        # O QUE SÓ A FALA TROUXE. É a medida do buraco que a transcrição fechou.
+        'FOUND_ONLY_IN_TRANSCRIPT': so_da_fala or [],
+        'EVIDENCE_BY_LABEL': {
+            'COMMUNICATION_TYPES': tipos_de,
+            'CROP': culturas_de,
+            'ISSUE': problemas_de,
+            'COUNTRY_OF_FACT': paises_de,
+        },
         'COMMUNICATION_TYPES': tipos or [NAO_SEI],
         'COMMUNICATION_TYPE_EVIDENCE': (
-            'termos casados no texto do próprio post' if tipos else
+            'termos casados em: %s' % ', '.join(
+                sorted({f for fs in tipos_de.values() for f in fs})) if tipos else
             ('nenhum termo da tabela casou — NOT_KNOWN, não OTHER'
              if tem_texto else 'a coleta não devolveu texto para este item')),
         'CROP': culturas or [NAO_SEI],
@@ -174,8 +240,12 @@ def classificar(item):
         # espanhola; o post pode ser sobre Berlim.
         'COUNTRY_OF_FACT': (paises[0] if len(paises) == 1 else
                             (paises if paises else NAO_SEI)),
+        # ONDE o lugar foi nomeado importa tanto quanto QUE lugar. Um nome ouvido
+        # numa fala e um nome escrito pelo autor não têm o mesmo peso, e quem
+        # decidir depois precisa de saber qual dos dois foi.
         'COUNTRY_OF_FACT_EVIDENCE': (
-            'o texto nomeia o lugar' if paises else
+            'o lugar é nomeado em: %s' % ', '.join(
+                sorted({f for fs in paises_de.values() for f in fs})) if paises else
             'o texto não nomeia lugar. A conta é de %s, mas conta != fato — e a língua '
             'não decide país.' % item.get('COUNTRY_SCOPE', NAO_SEI)),
         'REGION_OF_FACT': NAO_SEI,

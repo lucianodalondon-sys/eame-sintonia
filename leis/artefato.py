@@ -85,6 +85,13 @@ DERIVED = "DERIVED"      # nasceu de outro artefato, aqui dentro
 # nome próprio que diz exatamente o que são.
 TEXT_EXTRACTION = "TEXT_EXTRACTION"
 MANUAL_LEGACY = "MANUAL_LEGACY"
+# A fala de um video, reconhecida aqui dentro. E derivacao como as outras: o
+# texto NASCE AO LADO do original, com pai declarado, e nao substitui o video.
+#
+#     O QUE FOI OUVIDO NAO E O QUE FOI ESCRITO. Legenda do autor e CAPTION e
+#     entra pelo texto da publicacao; isto e a FALA, e entra por aqui. Juntar
+#     as duas num campo so apaga qual delas sustentou uma classificacao.
+SPEECH_TRANSCRIPTION = "SPEECH_TRANSCRIPTION"
 
 # ── OS ESTADOS DE DERIVAÇÃO ─────────────────────────────────────────────────
 # NEEDS_OCR **NÃO** é rejeição. Um PDF que é fotografia de papel não é
