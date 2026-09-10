@@ -33,21 +33,24 @@ V-FACEBOOK
 V-HTTP
 ```
 
-## ESTADO APÓS LOTE 10
+## ESTADO FINAL DO CENSO DA FOTOGRAFIA
 
 ```text
-AUDITED_COLLECTION_NODES = 55 / 64
+AUDITED_COLLECTION_NODES = 64 / 64
 AUDITED_DECLARED = 54 / 54
-AUDITED_SYNTHETIC = 1 / 10
+AUDITED_SYNTHETIC = 10 / 10
 REMAINING_DECLARED = 0
-REMAINING_SYNTHETIC = 9
+REMAINING_SYNTHETIC = 0
 
 DECLARED_COLLECTION_CENSUS_CLOSED = YES
-SYNTHETIC_COLLECTION_CENSUS_CLOSED = NO
-FULL_COLLECTION_CENSUS_CLOSED = NO
+SYNTHETIC_COLLECTION_CENSUS_CLOSED = YES
+FULL_COLLECTION_CENSUS_CLOSED = YES
+READY_FOR_TRANSVERSAL_CONSOLIDATION = YES
 ```
 
 Além desses, 4 cards auditados historicamente pertencem hoje a F-GOVERNANCA e não entram no denominador da Collection.
+
+**Interpretação obrigatória:** `FULL_COLLECTION_CENSUS_CLOSED = YES` significa apenas que todos os 64 nós da fotografia foram explicados. Não significa arquitetura correta, runtime funcional, Collection pronta ou autorização para implementar.
 
 ## LOTE 01
 
@@ -309,9 +312,9 @@ Achados dominantes:
 - `registro_regulatorio` continua sem owner canônico provado.
 ```
 
-## PRÓXIMO UNIVERSO A AUDITAR
+## SYNTHETIC CENSUS — FECHAMENTO FINAL
 
-Os nove sintéticos restantes são:
+O sintético `C-AS-FONTES` já havia sido auditado no Lote 01. A missão final auditou:
 
 ```text
 C-IT-PDF-BRUTO
@@ -325,11 +328,69 @@ V-FACEBOOK
 V-HTTP
 ```
 
-`C-AS-FONTES` já foi auditado no Lote 01.
+```text
+SYNTHETIC_AUDITED = 9/9 nesta missão
+MAP_EDGES_AUDITED = 27/27
+TRUE = 21
+EVIDENCE_MISPLACED = 5
+EXPECTED_ONLY = 1
+MISSING_RUNTIME_EDGES = 7
+FALSE_EDGES = 0
+UNKNOWN_RELATIONS = 0
+SYNTHETIC_COLLECTION_CENSUS_CLOSED = YES
+FULL_COLLECTION_CENSUS_CLOSED = YES
+```
+
+Classificação final:
+
+```text
+C-AS-FONTES                    synthetic medido; histórico L01
+C-IT-PDF-BRUTO                 SYNTHETIC_STORE; KEEP_SYNTHETIC
+C-ARMAZEM-IT-SEM-LIVRO        SYNTHETIC_STORE; KEEP_SYNTHETIC
+C-DERIVED-ARTIFACT             SYNTHETIC_STORE; RENAME_SYNTHETIC_CANDIDATE
+C-IT-TEXTO-DERIVADO           SYNTHETIC_ARTIFACT; KEEP_SYNTHETIC
+V-YOUTUBE                      SYNTHETIC_PLATFORM; KEEP_SYNTHETIC
+V-INSTAGRAM                    SYNTHETIC_PLATFORM; KEEP_SYNTHETIC
+V-LINKEDIN                     SYNTHETIC_PLATFORM; KEEP_SYNTHETIC
+V-FACEBOOK                     SYNTHETIC_PLATFORM; KEEP_SYNTHETIC
+V-HTTP                         SYNTHETIC_PROTOCOL; KEEP_SYNTHETIC
+```
+
+Achados dominantes:
+
+```text
+- `synthetic` junta duas famílias diferentes: nós de medição/estado e nós de taxonomia/veículo.
+- C-IT-PDF-BRUTO representa 49 PDFs, 43 conteúdos únicos, com múltiplos writers e sem owner canônico.
+- C-ARMAZEM-IT-SEM-LIVRO representa storage externo observado sem raw_asset/collection_run IT; uploader indicado está fora do repo.
+- C-DERIVED-ARTIFACT é store, distinto do owner C-DONO-DO-DERIVADO; a edge owner->store está ausente.
+- C-IT-TEXTO-DERIVADO é saída machine TEXT_EXTRACTION e não duplica o acervo manual/searchable.
+- plataforma != account != source_id; V-* social não identifica quem foi coletado.
+- V-HTTP é protocolo/transporte, não a mesma espécie dos quatro V-* sociais.
+- a taxonomia de plataformas tem três autoridades: lei 11, persistência 9, mapa 4 sociais.
+- scanner `ABRE_O_CANAL` ainda aceita docstring/string/contador de zero em provas; filtros anti-prosa não são aplicados uniformemente.
+- synthetics com `files=[]` ficam invisíveis ao mecanismo genérico de FILE_EDGE e podem aparecer órfãos mesmo com relações reais.
+- synthetic correto pode revelar owner ausente ao redor dele sem precisar virar card.
+```
+
+Responsabilidades/autoridades ausentes reveladas pelo synthetic census:
+
+```text
+SYN-H-001  fronteira/owner do uploader externo do Storage IT
+SYN-H-002  owner canônico do acervo bruto italiano em disco
+SYN-H-003  resolver dois livros do DERIVED: registro Git vs public.derived_artifact
+```
+
+## PRÓXIMA FASE
+
+```text
+READY_FOR_TRANSVERSAL_CONSOLIDATION = YES
+```
+
+A próxima fase deve consolidar toda a fotografia antes de implementar: KEEP, SPLIT, MOVE, RENAME, duplicate authorities, hidden responsibilities, missing/false edges, bypasses, owners ausentes, stores sem owner, outputs sem consumidor, gaps e classes CORE/EAME/COUNTRY, usando o Card Contract V1 como critério de arquitetura-alvo.
 
 ## REGRA DE ATUALIZAÇÃO
 
-Depois de cada lote fechado:
+Depois de cada lote fechado ou fase material:
 
 1. acrescentar os IDs auditados;
 2. separar Collection de Governança/Prova;
@@ -348,4 +409,9 @@ Depois de cada lote fechado:
 15. `OUTPUT_OBSERVED != GENERATOR_RUNTIME_ALIVE`;
 16. `DRY_TESTED != DB_TESTED`;
 17. proveniência local de um aprendizado não torna a regra local;
-18. `DECLARED_COLLECTION_CENSUS_CLOSED` não implica `FULL_COLLECTION_CENSUS_CLOSED`.
+18. `DECLARED_COLLECTION_CENSUS_CLOSED` não implica `FULL_COLLECTION_CENSUS_CLOSED`;
+19. `FULL_COLLECTION_CENSUS_CLOSED` não implica arquitetura correta ou runtime pronto;
+20. `SYNTHETIC` precisa ser classificado pelo mecanismo de criação e pelo conceito representado;
+21. owner da responsabilidade e store/artefato representado são conceitos diferentes;
+22. plataforma, transporte, account e SOURCE_ID não devem ser colapsados;
+23. synthetic sem `files` precisa de mecanismo de edges por conceito/store/owner, não só por ownership de ficheiro.
