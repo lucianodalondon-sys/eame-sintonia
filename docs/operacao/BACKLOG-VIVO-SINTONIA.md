@@ -391,6 +391,54 @@ Há contrato de secret handling, redaction test e prova de que telemetria operac
 
 ---
 
+## BV-011 — Proveniência de registro regulatório: falta run_id
+
+**STATUS:** PLANEJAR  
+**ÁREA:** Collection / Structured / Proveniência
+
+**O QUE FALTA**
+
+`registro_regulatorio` existe como conceito/store canônico, mas o C-PLAN-A4 mediu que a tabela não carrega `run_id`.
+
+**POR QUE IMPORTA**
+
+Sem `run_id`, o registro estruturado perde uma ligação direta com a corrida que o produziu e enfraquece a proveniência ponta a ponta.
+
+**DEPENDÊNCIAS**
+
+Não bloqueia o primeiro slice `SOURCE_DOCUMENT`. Deve ser tratado na missão específica de proveniência/schema do conceito regulatório.
+
+**COMO SABER QUE FECHOU**
+
+Cada novo `REGULATORY_REGISTRATION` pode ser ligado deterministicamente à corrida que o produziu, com backfill/compatibilidade definidos para registros históricos.
+
+---
+
+## BV-012 — caption_source real fora do enum atual
+
+**STATUS:** PRECISA_MEDIR  
+**ÁREA:** Collection / Social / Transcrição
+
+**O QUE FALTA**
+
+O C-PLAN-A4 mediu 15 legendas cujo `caption_source` real aparece como `PLATFORM_CAPTIONS via Apify`, fora dos quatro valores atualmente aceitos pelo contrato/enum.
+
+É preciso decidir com medição se existe um valor canônico equivalente, se o enum deve ganhar uma origem como `PLATFORM_FETCHED`, ou se os históricos precisam permanecer `NÃO SEI`.
+
+**POR QUE IMPORTA**
+
+Não podemos reclassificar silenciosamente a origem de uma legenda só para fazê-la caber no enum.
+
+**DEPENDÊNCIAS**
+
+Não bloqueia `SOURCE_DOCUMENT`. Tratar quando entrar o slice social/transcrição.
+
+**COMO SABER QUE FECHOU**
+
+Todas as legendas novas recebem `caption_source` válido e fiel à origem observada; os 15 históricos ficam classificados por evidência ou explicitamente `NÃO SEI`, sem inferência silenciosa.
+
+---
+
 # FEITOS
 
 Nenhum item deste arquivo foi marcado como `FEITO` na criação inicial.
