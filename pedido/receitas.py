@@ -87,6 +87,31 @@ EXECUTORES = {
                       "distribuicao declarada",
         "custo": "gratuito",
     }],
+    "T2": [{
+        "id": "italia-recorrente",
+        # O COLETOR ITALIANO E NODE, e a rota canonica corre executores com
+        # `sys.executable`. Quem entra aqui e o ADAPTER em Python — ele e que
+        # sabe chamar o Node, ler o livro append-only e largar a colheita DESTA
+        # corrida na lingua da porta. Sem ele, a Italia colhia ha meses e nunca
+        # passava por `coleta/ingresso.py`: 144 observacoes preservadas num
+        # armazem paralelo, zero linhas em `raw_asset`.
+        "roda": ["coleta/italy_executor.py"],
+        # ⚠️ O ADAPTER PRECISA DA CORRIDA QUE O T-04 CUNHOU, e nao de uma que
+        # ele proprio invente. Este campo e OPT-IN: os outros executores nao o
+        # declaram e continuam a ser chamados exactamente como antes.
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        # precedente: o T9 ja traduz filtros do pedido em argumentos do executor.
+        "argumentos_de_filtros": ["fonte"],
+        # A A5.2 autorizou UMA fonte para o primeiro corte. O coletor sabe
+        # percorrer sete; registar as sete de uma vez seria prometer o que nao
+        # foi provado por aqui.
+        "filtros_por_omissao": {"fonte": "IT-T2-002"},
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "o boletim agrometeorologico da zona, como PDF, com a "
+                      "versao do documento e o sitio onde o byte ficou",
+        "custo": "gratuito",
+    }],
     "T9": [{
         "id": "comunicacao-publica",
         "roda": ["coleta/comunicacao_coleta.py"],

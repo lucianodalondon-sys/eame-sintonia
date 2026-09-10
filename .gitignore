@@ -82,3 +82,8 @@ cookiejar
 # Se ele nao existir no que e servido, a tela nao fica verde: diz UNKNOWN, que e
 # a verdade — nada provou qual commit esta la.
 italia-portale/client/system-map/deployment.generated.json
+
+# O BALCAO entre o executor e a porta NAO E ARQUIVO: ele e reescrito a cada
+# corrida, e o arquivo e o livro append-only da coleta. Versiona-lo faria cada
+# corrida propor um commit com a colheita da anterior.
+data/colheita/

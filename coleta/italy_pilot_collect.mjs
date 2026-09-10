@@ -16,15 +16,26 @@
 //   PARSER_FAILURE MUST NOT DESTROY CAPTURED_RAW
 //
 // Uso:
-//   node coleta/italy_pilot_collect.mjs                 executa uma rodada real
-//   node coleta/italy_pilot_collect.mjs --dry           usa so o que ja esta no disco
-//   node coleta/italy_pilot_collect.mjs --negativos     roda os controles negativos
+//   node coleta/italy_pilot_collect.mjs --run-id=<RUN_ID> [--fonte=<ID>...]
+//                                             executa uma rodada real
+//   node coleta/italy_pilot_collect.mjs --negativos         roda os controles negativos
+//
+// ⚠️ `--dry` ESTAVA DOCUMENTADO E NUNCA EXISTIU: `process.argv` so alimentava a
+// `nota`, e a flag virava texto do recibo. A linha foi apagada em vez de ser
+// implementada — prometer modo seco no cabecalho e nao o ter e pior do que nao
+// o ter. Para correr sem rede, injecta-se `forcarBuf`, que e o mecanismo que
+// esta casa ja usa.
 
 import { execFileSync, execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, appendFileSync, rmSync } from "node:fs";
-import { createHash, randomUUID } from "node:crypto";
-import { CONTRACTS } from "./italy_contracts.mjs";
+import { createHash } from "node:crypto";
+import { pathToFileURL } from "node:url";
+// ⚠️ `./italy_contracts.mjs` NAO EXISTE AQUI desde a mudanca para gavetas: os
+// contratos moraram sempre em `regras/`. O Python ganhou `_gavetas.py` para
+// resolver os nomes curtos; o lado Node ficou com os imports da pasta unica, e
+// por isso este coletor NAO CARREGAVA — nao e sintaxe, e o caminho.
+import { CONTRACTS } from "../regras/italy_contracts.mjs";
 
 const run = promisify(execFile);
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
@@ -258,15 +269,36 @@ export function normalizarSias(buf) {
 }
 
 // ---------- execucao ----------
-export async function executarRodada({ nota = "", forcarBuf = null, pularParse = false, apenas = null, arpavZonas = null } = {}) {
+// ⚠️ `runId` E OBRIGATORIO, E ISSO E A CORRECCAO DO B1.
+// Ate aqui este ficheiro cunhava o proprio `PILOT_RUN_...`. Uma corrida cunhada
+// pelo executor existe ANTES de quem coordena saber dela — e a partir dai duas
+// camadas sao donas da mesma corrida. A lei ja estava escrita no comentario de
+// `collection_run`: «PROVENIENCIA E PROSPECTIVA: nao se preenche elo de
+// execucao passada.»
+//
+//     ONE RUN = ONE RUN_ID.  Quem coordena cunha; quem colhe recebe.
+//
+// Sem `runId` isto REBENTA. Nao ha valor por omissao, e nao se cunha outro:
+// cunhar em silencio seria exactamente o defeito que o B1 veio fechar.
+export async function executarRodada({ runId = null, nota = "", forcarBuf = null, pularParse = false, apenas = null, arpavZonas = null } = {}) {
+  if (!runId || typeof runId !== "string" || !runId.trim()) {
+    throw new Error("RUN_ID_AUSENTE: executarRodada() exige runId de quem coordena. "
+                    + "Este coletor NAO cunha corrida.");
+  }
   globalThis.__ARPAV_TODAS = arpavZonas === "TODAS";
   const FONTES = apenas ?? PILOT_SOURCES;
   const anterior = lerLedger();
   const primeira = anterior.length === 0;
-  const RUN_ID = `PILOT_RUN_${new Date().toISOString().replace(/[-:T.]/g, "").slice(0, 14)}_${randomUUID().slice(0, 6)}`;
+  const RUN_ID = runId;
   const STARTED_AT = agora();
-  let egress = "NAO SEI";
-  try { egress = JSON.parse((await run("curl", ["-s", "--max-time", "15", "https://ipinfo.io/json"], { encoding: "utf8" })).stdout); } catch { }
+  // ⚠️ BYTES INJECTADOS NAO TEM EGRESSO. Com `forcarBuf` nao ha ida a fonte, e
+  // medir o IP desta maquina registaria um endereco por onde nada passou —
+  // numero com cara de medida. NAO_SE_APLICA e a resposta certa, e e diferente
+  // de NAO SEI: aqui a pergunta e que nao faz sentido.
+  let egress = forcarBuf ? "NAO_SE_APLICA" : "NAO SEI";
+  if (!forcarBuf) {
+    try { egress = JSON.parse((await run("curl", ["-s", "--max-time", "15", "https://ipinfo.io/json"], { encoding: "utf8" })).stdout); } catch { }
+  }
   const GIT_HEAD = (() => { try { return execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(); } catch { return "NAO SEI"; } })();
 
   const cont = { SOURCES_ATTEMPTED: 0, HEALTHY: 0, DEGRADED: 0, FAILED: 0, UNKNOWN: 0, NEW_DOCUMENTS: 0, CHANGED_IN_PLACE: 0, SEEN_AGAIN: 0, SEMANTIC_ID_CHANGED_SAME_BYTES: 0, RAW_OBJECTS_CREATED: 0, NORMALIZED_OBSERVATIONS_NEW: 0 };
@@ -335,12 +367,19 @@ export async function executarRodada({ nota = "", forcarBuf = null, pularParse =
       }
 
       // ---- 3) RAW imutavel ANTES de qualquer parse ----
-      let rawCriado = false, rawDir = null;
-      if (OBSERVATION_RESULT !== "SEEN_AGAIN") {
-        const g = guardarRaw(sourceId, ident.DOCUMENT_ID, DOCUMENT_VERSION_ID, alvo.nome, r.buf);
-        rawCriado = g.criado; rawDir = g.dir;
-        if (g.criado) cont.RAW_OBJECTS_CREATED++;
-      }
+      // ⚠️ AQUI O `SEEN_AGAIN` SAIA SEM `RAW_PATH`, e isso confundia duas coisas:
+      //
+      //     NAO CRIEI O OBJECTO AGORA   !=   NAO HA BYTES EM LADO NENHUM
+      //
+      // Quem lia a observacao reencontrada nao tinha como chegar ao documento —
+      // e a porta de entrada, sem caminho, preservaria o JSON da colheita como
+      // se fosse o documento. `RAW_OBJECT_CREATED` continua a responder «criei
+      // agora?»; `RAW_PATH` passa a responder «onde estao os bytes?». Sao duas
+      // perguntas. `guardarRaw` ja era idempotente: se o ficheiro esta la,
+      // devolve o sitio e nao escreve.
+      const g = guardarRaw(sourceId, ident.DOCUMENT_ID, DOCUMENT_VERSION_ID, alvo.nome, r.buf);
+      const rawCriado = g.criado, rawDir = g.dir;
+      if (g.criado) cont.RAW_OBJECTS_CREATED++;
 
       // ---- 4) so agora o parse. Se ele explodir, o RAW ja esta salvo. ----
       let parse = null, parseErro = null;
@@ -396,7 +435,8 @@ export async function executarRodada({ nota = "", forcarBuf = null, pularParse =
     RUN_ID, STARTED_AT, FINISHED_AT,
     IS_BASELINE: primeira,
     nota_do_baseline: primeira ? "FIRST_RUN = BASELINE — esta execucao NAO pode dizer 'novo desde ontem'. Ela so estabelece o ponto de partida." : null,
-    VPN_COUNTRY: egress?.country ?? "NAO SEI", EGRESS_IP: egress?.ip ?? "NAO SEI",
+    VPN_COUNTRY: egress?.country ?? (forcarBuf ? "NAO_SE_APLICA" : "NAO SEI"),
+    EGRESS_IP: egress?.ip ?? (forcarBuf ? "NAO_SE_APLICA" : "NAO SEI"),
     COLLECTOR_VERSION, SOURCE_CONTRACT_VERSION: "italy-contracts-v1", GIT_HEAD,
     nota, contadores: cont
   };
@@ -405,8 +445,43 @@ export async function executarRodada({ nota = "", forcarBuf = null, pularParse =
   return { resumo, detalhes };
 }
 
-if (process.argv[1] && import.meta.url === `file:///${process.argv[1].replace(/\\/g, "/")}`) {
-  const { resumo, detalhes } = await executarRodada({ nota: process.argv.slice(2).join(" ") });
+// ⚠️ ESTA GUARDA NUNCA FOI VERDADE FORA DO WINDOWS, e por isso a CLI deste
+// coletor NUNCA CORREU NO LINUX: em POSIX `process.argv[1]` ja comeca por `/`,
+// e `file:///` + `/home/...` da `file:////home/...` — quatro barras contra as
+// tres de `import.meta.url`. O ficheiro carregava, nao dizia nada, e saia com
+// codigo 0: o silencio parecia sucesso.
+//
+//     CORRER SEM FAZER NADA E SAIR COM ZERO
+//     E A FORMA MAIS CARA DE FALHAR.
+//
+// `pathToFileURL` e a conversao que o proprio Node exporta para isto, e vale
+// nos dois sistemas.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  // A CLI tambem NAO cunha. Quem corre a mao passa a corrida a mao — e assim a
+  // linha de comando conta a mesma verdade que a rota canonica.
+  const args = process.argv.slice(2);
+  const rid = (args.find(a => a.startsWith("--run-id=")) || "").split("=")[1];
+  if (!rid) {
+    console.error("uso: node coleta/italy_pilot_collect.mjs --run-id=<RUN_ID> [--fonte=<ID>...] [nota...]");
+    console.error("     este coletor NAO cunha corrida. O RUN_ID vem de quem coordena.");
+    process.exit(2);
+  }
+  // `--fonte=` existe porque o REGISTO ja declara um filtro de fonte, e um
+  // filtro declarado que nao chega ao coletor e um filtro que nao filtra. Sem
+  // ele, pedir «IT-T2-002» corria as sete fontes na mesma. Repete-se para
+  // pedir mais do que uma; sem nenhum, corre o piloto inteiro.
+  const fontes = args.filter(a => a.startsWith("--fonte="))
+                     .map(a => a.split("=")[1]).filter(Boolean);
+  const desconhecidas = fontes.filter(f => !PILOT_SOURCES.includes(f));
+  if (desconhecidas.length) {
+    console.error(`FONTE_DESCONHECIDA: ${desconhecidas.join(", ")} — este coletor `
+                  + `percorre ${PILOT_SOURCES.join(", ")}. Nao se finge que correu.`);
+    process.exit(2);
+  }
+  const { resumo, detalhes } = await executarRodada({
+    runId: rid,
+    apenas: fontes.length ? fontes : null,
+    nota: args.filter(a => !a.startsWith("--run-id=") && !a.startsWith("--fonte=")).join(" ") });
   console.log(JSON.stringify(resumo, null, 1));
   console.log("\nSOURCE_ID     RESULTADO                        SAUDE     CADENCIA            DOCUMENT_ID");
   for (const d of detalhes) {

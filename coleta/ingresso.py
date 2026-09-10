@@ -100,8 +100,17 @@ def _bytes_do_item(item: dict) -> bytes:
     Um item que veio como JSON E o JSON: assina-se o que se recebeu. Ordenar as
     chaves nao e arrumacao — e o que torna a impressao digital reproduzivel
     quando o mesmo objecto e observado outra vez.
+
+    As chaves com `_` a frente NAO entram, e nao e arrumacao tambem: sao
+    anotacoes que esta casa poe no item DEPOIS de o receber — `_de` diz de que
+    ficheiro ele foi lido. Deixa-las entrar faria a impressao digital da
+    observacao mudar quando o ficheiro de colheita mudasse de nome, e a mesma
+    observacao passaria a ser duas.
+
+        A IDENTIDADE E DO QUE SE OBSERVOU, NAO DE ONDE SE LEU.
     """
-    return json.dumps(item, ensure_ascii=False, sort_keys=True).encode("utf-8")
+    limpo = {k: v for k, v in item.items() if not str(k).startswith("_")}
+    return json.dumps(limpo, ensure_ascii=False, sort_keys=True).encode("utf-8")
 
 
 def ficha(item: dict, *, corrida: dict, raiz: str = RAIZ) -> art.Artefato:
@@ -110,8 +119,23 @@ def ficha(item: dict, *, corrida: dict, raiz: str = RAIZ) -> art.Artefato:
     Se o item aponta para um ficheiro que existe, a ficha e desse ficheiro — os
     bytes preservados sao os bytes originais. Se nao aponta, a observacao E o
     item, e e ele que se preserva.
+
+    ⚠️ AQUI ESTAVA `or item.get("_de")`, E ELE CONTRADIZIA O PARAGRAFO ACIMA.
+    `_de` e posto pelo orquestrador em `a_colheita`, e diz de que FICHEIRO DE
+    COLHEITA o item foi extraido — um ficheiro que, por construcao, traz uma
+    LISTA de itens. Usa-lo como origem dos bytes dava a todas as observacoes
+    da mesma colheita o mesmo `sha256`, e portanto o mesmo caminho no armazem:
+
+        cem observacoes  ->  um unico `raw_asset`, com os bytes do ficheiro
+                             inteiro, e as outras noventa e nove caladas.
+
+    Nao era um caso de bordo: era o caminho normal de qualquer executor que
+    larga uma lista. A observacao que nao aponta para ficheiro E o item — como
+    esta docstring sempre disse — e e assim que ela se preserva agora.
+
+        O SITIO DE ONDE UM ITEM FOI LIDO NAO E O CORPO DO ITEM.
     """
-    caminho = item.get("STORAGE_LOCATION") or item.get("_de") or ""
+    caminho = item.get("STORAGE_LOCATION") or ""
     abs_ = os.path.join(raiz, caminho) if caminho else ""
     declarados = {k: item[k] for k in DO_COLETOR if item.get(k)}
     comum = dict(

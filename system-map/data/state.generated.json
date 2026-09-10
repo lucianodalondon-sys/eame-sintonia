@@ -660,30 +660,42 @@
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
       "docs/operacao/A-CASA-DO-DERIVADO.md",
+      "docs/operacao/ALLOWED-STRUCTURED-TARGETS-POR-FONTE.md",
       "docs/operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md",
       "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
       "docs/operacao/CENSO-DA-COLETA.md",
       "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
+      "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
       "docs/operacao/ENCANAMENTO-DA-COLETA.md",
       "docs/operacao/ESTADO-DA-FUNDACAO-DA-COLETA.md",
       "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
       "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
       "docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md",
+      "docs/operacao/IDEIAS-E-PENDENCIAS.md",
+      "docs/operacao/IDENTIDADE-DA-OBSERVACAO-RAW.md",
       "docs/operacao/IDENTIDADE-DO-ARTEFATO.md",
+      "docs/operacao/ITALIA-NA-PORTA-CANONICA.md",
       "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
       "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
       "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md",
       "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
       "docs/operacao/MODELO-DAS-CONEXOES.md",
+      "docs/operacao/ORQUESTRACAO-UM-CEREBRO.md",
       "docs/operacao/P-011-DADO-OPERACIONAL-NO-GIT.md",
+      "docs/operacao/PONTE-OBSERVACAO-UNIDADE.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
+      "docs/operacao/REGISTO-CONCEITO-DONO.md",
       "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
+      "docs/operacao/RESOLVED-STRUCTURED-TARGET-NA-UNIDADE.md",
       "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
+      "docs/operacao/SOURCE-DOCUMENT-DONO-STORE-CONTRATO.md",
+      "docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md",
       "docs/operacao/TOPOLOGIA-DA-COLETA.md",
       "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+      "docs/operacao/TRAVESSIA-GENERICA-DA-UNIDADE.md",
       "docs/operacao/YOUTUBE-CHECKPOINT-E-RAW.md",
       "docs/operacao/YOUTUBE-OFICIAL.md",
       "docs/operacao/YOUTUBE-PILOTO-ONESHOT.md",
@@ -1462,8 +1474,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 538 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 538 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 539 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 539 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1514,8 +1526,8 @@
     },
     {
       "id": "coleta-sem-data-nem-lugar",
-      "titulo": "16 coletores gravam registo sem data nem lugar.",
-      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · social_rotas.py · texto_fonte.py",
+      "titulo": "17 coletores gravam registo sem data nem lugar.",
+      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · italy_executor.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · social_rotas.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/coletor.py",
@@ -1837,10 +1849,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-plumbing-canonical-v1",
-    "HEAD": "c68d8113f758bb870f8ed56dfcf6593254ee1e49",
-    "GENERATED_AT": "2026-09-09T14:40:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "79bdb6384eaf04420155a6d76545f32d0a113964372aad706db5d361eb9dc9c3"
+    "BRANCH": "claude/raw-observation-identity-3jbwco",
+    "HEAD": "2a412269330b0451e2f3ff7532119a1ffbd89469",
+    "GENERATED_AT": "2026-09-10T15:22:16+00:00",
+    "SOURCE_TREE_FINGERPRINT": "dd49b825331574a2251b4314e08bf28deb884931773c0f6365f51546930ff5e4"
   },
   "FAMILIES": [
     {
@@ -9225,7 +9237,10 @@
       "file_count": 4,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/italy_recurrent_collect.mjs"
+      ],
       "produces": [],
       "inbound": [
         "C-IT-CATALOGO",
@@ -9240,7 +9255,7 @@
         "ITALIA": 4
       },
       "paises_dado": {
-        "ITALIA": 12
+        "ITALIA": 13
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -9319,7 +9334,7 @@
         "INTELIGENCIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "green",
       "icon": "§",
       "views": [
         "acervo",
@@ -9336,8 +9351,8 @@
         "regras/italy_source_health.mjs"
       ],
       "file_count": 6,
-      "status": "PENDING",
-      "status_reason": "e uma lei sem prova executavel apontando para ela.",
+      "status": "PROVEN",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-IT-COLETA.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -9357,7 +9372,7 @@
         "ITALIA": 6
       },
       "paises_dado": {
-        "ITALIA": 32
+        "ITALIA": 33
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -12577,7 +12592,7 @@
         "valida": false,
         "e_workflow": false,
         "executa": false,
-        "executores_que_chama": 4
+        "executores_que_chama": 5
       },
       "vocabulario": {
         "papel": "NAO SEI",
@@ -12585,9 +12600,9 @@
           "CONTRATOS_OBRIGATORIOS",
           "EXECUTORES"
         ],
-        "palavras": 58,
+        "palavras": 74,
         "por_lingua": {},
-        "sem_marca_de_lingua": 58,
+        "sem_marca_de_lingua": 74,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -16616,7 +16631,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/collection-plumbing-canonical-v1"
+        "branch claude/raw-observation-identity-3jbwco"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -20575,7 +20590,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 92,
+          "line": 117,
           "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],"
         }
       ],
@@ -21121,7 +21136,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 113,
+          "line": 138,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
         }
       ],
@@ -23131,7 +23146,7 @@
         },
         {
           "file": "coleta/italy_recurrent_collect.mjs",
-          "line": 27,
+          "line": 29,
           "snippet": "import { PROFILES, PERFIL_PADRAO } from \"./italy_profiles.mjs\";"
         }
       ],
@@ -23422,6 +23437,24 @@
     {
       "from": "C-IT-CONTRATOS",
       "to": "C-IT-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Colher as fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 38,
+          "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-IT-COLETA",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -23431,12 +23464,12 @@
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
-          "line": 27,
-          "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+          "line": 38,
+          "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";"
         },
         {
           "file": "coleta/italy_recurrent_collect.mjs",
-          "line": 28,
+          "line": 30,
           "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
         }
       ],
@@ -23908,7 +23941,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 115,
+          "line": 140,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
         }
       ],
@@ -25854,12 +25887,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 111,
+          "line": 136,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
         },
         {
           "file": "pedido/receitas.py",
-          "line": 117,
+          "line": 142,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
         }
       ],
@@ -29976,7 +30009,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 709,
+  "UNCLAIMED_FILES_COUNT": 721,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30140,15 +30173,15 @@
   },
   "COUNTS": {
     "components": 157,
-    "components_proven": 60,
-    "components_pending": 91,
+    "components_proven": 61,
+    "components_pending": 90,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 608,
-    "edges_proven": 606,
+    "edges": 609,
+    "edges_proven": 607,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1390,
+    "files_tracked": 1402,
     "files_covered": 681,
     "files_code_unclaimed": 0
   }

@@ -99,7 +99,7 @@ def a_colheita(e: dict) -> tuple[list, str]:
     return itens, " · ".join(notas)
 
 
-def pela_entrada(itens: list, recibo: dict) -> dict:
+def pela_entrada(itens: list, recibo: dict, memoria=None) -> dict:
     """Leva a colheita a PORTA DE ENTRADA da coleta, que a preserva como RAW.
 
     Ela nao julga nada: quem julga e a admissao, logo a seguir. Aqui responde-se
@@ -111,10 +111,24 @@ def pela_entrada(itens: list, recibo: dict) -> dict:
 
     O armazem e LOCAL de proposito. Preservar nao pode depender de haver rede
     nem credencial: um coletor que corre offline continua a ter de deixar
-    rasto. Quando houver banco, ele entra por `memoria=` sem esta funcao mudar.
+    rasto.
+
+    ⚠️ A `memoria` E O BANCO, E ELA NAO CHEGAVA AQUI. A frase acima dizia
+    «quando houver banco, ele entra por `memoria=` sem esta funcao mudar» — e
+    era falsa por uma unica razao: esta funcao nao tinha por onde o receber.
+    `ing.receber` sempre aceitou `memoria=`; quem o chamava e que nao o
+    passava, e por isso `collection_run` e `raw_asset` nunca viam uma corrida
+    da rota canonica.
+
+        UM PARAMETRO OPCIONAL QUE NINGUEM CONSEGUE PASSAR
+        NAO E OPCIONAL: E INEXISTENTE.
+
+    Continua a ser opcional de verdade: sem banco ligado, `memoria=None`, e a
+    preservacao em disco acontece na mesma.
     """
     armazem = ing.ArmazemLocal(RAIZ)
-    r = ing.receber(itens, corrida=recibo, armazem=armazem, raiz=str(RAIZ))
+    r = ing.receber(itens, corrida=recibo, armazem=armazem, memoria=memoria,
+                    raiz=str(RAIZ))
     bruto = r.get("RAW") or {}
     return {
         "PRESERVADOS": len(r["ACEITES"]),
@@ -205,7 +219,7 @@ def guardar_recibo(recibo: dict) -> None:
 
 
 def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
-           so_a_porta: bool = False) -> dict:
+           so_a_porta: bool = False, memoria=None) -> dict:
     """Do pedido ao recibo. Devolve o recibo, sempre — mesmo quando falha."""
     plano = resolver(p)
 
@@ -224,6 +238,20 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
 
     e = plano.executores[0]
     caminho = e["roda"][0]
+
+    # ── A CORRIDA NASCE AQUI, ANTES DE QUALQUER COISA CORRER ────────────────
+    # ⚠️ O `RUN_ID` NASCIA OITO LINHAS DEPOIS DE O EXECUTOR JA TER CORRIDO.
+    # O executor ia a fonte, trazia bytes, e so entao esta casa decidia como se
+    # chamava a corrida que os trouxe. Enquanto o executor era mudo isso
+    # passava despercebido; no dia em que um executor precisa de DIZER em nome
+    # de que corrida colheu, deixa de passar.
+    #
+    #     PROVENIENCIA E PROSPECTIVA. Quem so a decide depois do facto
+    #     nao a regista: reconstroi-a — e reconstrucao nao e testemunho.
+    #
+    # O nome nao mudou, nem o formato: mudou QUANDO se pergunta.
+    run_id = novo_run_id(p)
+
     # o comando nasce do PEDIDO, nao de quem chama o orquestrador
     comando = list(e["roda"])
     valores = {**(e.get("filtros_por_omissao") or {}), **p.filtros}
@@ -231,6 +259,12 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
         v = valores.get(nome)
         if v:
             comando.append(str(v))
+    # OPT-IN, e declarado no registo. O executor que nao pede a corrida
+    # continua a ser chamado com exactamente os mesmos argumentos de antes —
+    # acrescentar isto a todos mudaria a linha de comando de quatro executores
+    # que nunca a pediram.
+    if e.get("recebe_run_id"):
+        comando.append("--run-id=%s" % run_id)
     inicio = agora()
     saida, erro, codigo = "", "", 0
 
@@ -253,7 +287,7 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
             erro, codigo = f"{type(ex).__name__}: {ex}", 1
 
     recibo = {
-        "RUN_ID": novo_run_id(p),
+        "RUN_ID": run_id,
         # O CONTRATO FALA `SUCCESS`/`FAILED`. Isto dizia `OK`, e as tres
         # corridas com `STATUS: OK` no manifesto sao dai. Duas palavras
         # para o mesmo estado sao o mesmo defeito da autoria, um andar
@@ -308,7 +342,7 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     # logo a seguir, responde outra pergunta: «isto pode entrar no universo?».
     # Sao duas perguntas, e agora sao duas etapas.
     if itens and (so_a_porta or not seco):
-        recibo["INGRESSO"] = pela_entrada(itens, recibo)
+        recibo["INGRESSO"] = pela_entrada(itens, recibo, memoria=memoria)
     if itens and (so_a_porta or not seco):
         r = pela_porta(itens, p.alvo, recibo["RUN_ID"])
         recibo["ADMISSAO"] = r
