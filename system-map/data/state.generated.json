@@ -685,6 +685,7 @@
       "docs/operacao/MODELO-DAS-CONEXOES.md",
       "docs/operacao/ORQUESTRACAO-UM-CEREBRO.md",
       "docs/operacao/P-011-DADO-OPERACIONAL-NO-GIT.md",
+      "docs/operacao/POLITICA-DOS-DOIS-ARMAZENS.md",
       "docs/operacao/PONTE-OBSERVACAO-UNIDADE.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
@@ -1451,6 +1452,7 @@
       "tests/test_proveniencia.py",
       "tests/test_radar_futuro.py",
       "tests/test_rastro_pg.py",
+      "tests/test_raw_observation_id_volta.py",
       "tests/test_red_team_estrada.py",
       "tests/test_relatorio_do_fluxo.py",
       "tests/test_route_membership.py",
@@ -1853,9 +1855,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "07ec43fbc16f14d4b92ce3648bcf1a79f46dad0f",
-    "GENERATED_AT": "2026-09-10T16:31:38+00:00",
-    "SOURCE_TREE_FINGERPRINT": "033be568b7889736c50d00cfe8631646f5eb3a338333856227a4b3814db02f0d"
+    "HEAD": "9889d1a40d65a1392592b77cfa7dff6ff8a5b804",
+    "GENERATED_AT": "2026-09-10T17:14:10+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e109eae7261be2ffce4bede78411ea5be764516345f62544eb3dd94f032d4686"
   },
   "FAMILIES": [
     {
@@ -8022,8 +8024,9 @@
       ],
       "file_count": 3,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
+        "guarda/portas_live.py",
         "guarda/preservar_coleta.py"
       ],
       "produces": [],
@@ -15098,6 +15101,7 @@
         "tests/test_proveniencia.py",
         "tests/test_radar_futuro.py",
         "tests/test_rastro_pg.py",
+        "tests/test_raw_observation_id_volta.py",
         "tests/test_red_team_estrada.py",
         "tests/test_relatorio_do_fluxo.py",
         "tests/test_route_membership.py",
@@ -15119,7 +15123,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 76,
+      "file_count": 77,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 7 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15238,7 +15242,7 @@
       },
       "paises_dado": {
         "ESPANHA": 42,
-        "ITALIA": 19,
+        "ITALIA": 21,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -21750,7 +21754,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
@@ -21791,6 +21795,16 @@
           "file": "tests/test_preservar_derivado.py",
           "line": 34,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, sha256  # noqa: E402"
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 45,
+          "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel    # noqa: E402"
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 220,
+          "snippet": "from guarda.portas_live import MemoriaSupabase"
         }
       ],
       "categoria": "PROOF"
@@ -21803,7 +21817,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_preservar_coleta.py",
@@ -21819,6 +21833,16 @@
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 438,
           "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 330,
+          "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 330,
+          "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
         }
       ],
       "categoria": "PROOF"
@@ -23147,7 +23171,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -23158,6 +23182,11 @@
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 50,
           "snippet": "import ingresso as ing                     # noqa: E402"
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 43,
+          "snippet": "import ingresso as ing                                       # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -23170,12 +23199,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 449,
           "snippet": "chamadores, [\"coleta/ingresso.py\"],"
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 323,
+          "snippet": "self.assertNotIn(\"RAW_OBSERVATIONS\", _codigo(\"coleta/ingresso.py\"))"
         }
       ],
       "categoria": "PROOF"
@@ -23465,7 +23499,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -23476,6 +23510,11 @@
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 51,
           "snippet": "import italy_executor as adapter           # noqa: E402"
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 44,
+          "snippet": "import italy_executor as adapter                             # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -23488,7 +23527,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -23519,6 +23558,11 @@
           "file": "tests/test_observabilidade_estrada.py",
           "line": 280,
           "snippet": "colector = ler(os.path.join(RAIZ, 'coleta', 'italy_recurrent_collect.mjs'))"
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 90,
+          "snippet": "\"ACTOR\": \"coleta/italy_executor.py\","
         }
       ],
       "categoria": "PROOF"
@@ -24878,12 +24922,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 52,
           "snippet": "import orquestrador as orq                 # noqa: E402"
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 286,
+          "snippet": "import orquestrador as orq"
         }
       ],
       "categoria": "PROOF"
@@ -26380,6 +26429,24 @@
     {
       "from": "C-PROVA-COLETA",
       "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 245,
+          "snippet": "import preservar_coleta_no_postgres as pg"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
+      "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -26879,12 +26946,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 55,
           "snippet": "from receitas import EXECUTORES            # noqa: E402"
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 287,
+          "snippet": "from receitas import EXECUTORES"
         }
       ],
       "categoria": "PROOF"
@@ -28767,7 +28839,7 @@
         },
         {
           "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 524,
+          "line": 537,
           "snippet": "with open(MIGRACAO, encoding=\"utf-8\") as f:"
         }
       ],
@@ -30252,7 +30324,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 721,
+  "UNCLAIMED_FILES_COUNT": 722,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30420,12 +30492,12 @@
     "components_pending": 90,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 618,
-    "edges_proven": 616,
+    "edges": 619,
+    "edges_proven": 617,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1405,
-    "files_covered": 684,
+    "files_tracked": 1407,
+    "files_covered": 685,
     "files_code_unclaimed": 0
   }
 }

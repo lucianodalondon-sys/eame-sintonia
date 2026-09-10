@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "07ec43fbc16f14d4b92ce3648bcf1a79f46dad0f",
-    "GENERATED_AT": "2026-09-10T16:31:38+00:00",
-    "SOURCE_TREE_FINGERPRINT": "033be568b7889736c50d00cfe8631646f5eb3a338333856227a4b3814db02f0d"
+    "HEAD": "9889d1a40d65a1392592b77cfa7dff6ff8a5b804",
+    "GENERATED_AT": "2026-09-10T17:14:10+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e109eae7261be2ffce4bede78411ea5be764516345f62544eb3dd94f032d4686"
   },
   "FILES": [
     {
@@ -4636,6 +4636,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/POLITICA-DOS-DOIS-ARMAZENS.md",
+      "sha": "0face360db38446639db2a633063a31b42fbd1e0",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/PONTE-OBSERVACAO-UNIDADE.md",
       "sha": "331c52a4099c8e6487a2d92baca0e9666be32380",
       "ext": ".md",
@@ -5169,14 +5176,14 @@
     },
     {
       "path": "guarda/portas_live.py",
-      "sha": "44d93bf69d7b5bf7e4ec43ccff4e6dc250e65cda",
+      "sha": "b808a368d5fff984b401185a2ca27c20f2cdc8bc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "guarda/preservar_coleta.py",
-      "sha": "0772e9a3c8b7fca1f68529e458f7482ff1a330dc",
+      "sha": "50c4229d879b7f753b58a9ff3fff637b66e17549",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7745,7 +7752,7 @@
     },
     {
       "path": "provas/preservar_coleta_no_postgres.py",
-      "sha": "d3dae1260ce78e10fdc079efa67128c5bbaed540",
+      "sha": "476bb042e6c67a81475434aec9d001d74ecae38c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9692,6 +9699,13 @@
     {
       "path": "tests/test_rastro_pg.py",
       "sha": "3c8a344f129722a935138b8c74497f6d604163a5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_raw_observation_id_volta.py",
+      "sha": "8ddbdf751e19eebbc29446a5d79de570d2303264",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25472,7 +25486,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/preservar_coleta_no_postgres.py",
-        "line": 524,
+        "line": 537,
         "snippet": "with open(MIGRACAO, encoding=\"utf-8\") as f:"
       }
     },
@@ -32528,6 +32542,149 @@
       }
     },
     {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 41,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 43,
+        "snippet": "import ingresso as ing                                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 323,
+        "snippet": "self.assertNotIn(\"RAW_OBSERVATIONS\", _codigo(\"coleta/ingresso.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 44,
+        "snippet": "import italy_executor as adapter                             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 90,
+        "snippet": "\"ACTOR\": \"coleta/italy_executor.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "guarda/memoria_descartavel.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 45,
+        "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "guarda/portas_live.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 220,
+        "snippet": "from guarda.portas_live import MemoriaSupabase"
+      }
+    },
+    {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "guarda/portas_live.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 330,
+        "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
+      }
+    },
+    {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 330,
+        "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
+      }
+    },
+    {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 286,
+        "snippet": "import orquestrador as orq"
+      }
+    },
+    {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 287,
+        "snippet": "from receitas import EXECUTORES"
+      }
+    },
+    {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 245,
+        "snippet": "import preservar_coleta_no_postgres as pg"
+      }
+    },
+    {
+      "from_file": "tests/test_raw_observation_id_volta.py",
+      "to_file": "tests/test_italia_na_porta_canonica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_raw_observation_id_volta.py",
+        "line": 47,
+        "snippet": "from test_italia_na_porta_canonica import CasoB1             # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_red_team_estrada.py",
       "to_file": "README.md",
       "type": "READS",
@@ -34167,10 +34324,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1405,
-    "files_readable": 526,
-    "files_code_dir": 573,
-    "file_edges": 2170,
+    "files_tracked": 1407,
+    "files_readable": 527,
+    "files_code_dir": 574,
+    "file_edges": 2183,
     "escritas_em_pasta": 66,
     "declared_missing_here": 0
   },
