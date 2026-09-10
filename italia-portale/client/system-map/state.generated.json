@@ -1860,9 +1860,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "72e6f7f2cbd4ed0989aeff478cf30065c3d565bb",
-    "GENERATED_AT": "2026-09-10T21:47:47+00:00",
-    "SOURCE_TREE_FINGERPRINT": "058d3b9df41897748d7e620d629dcf05d5fb07380320c8b6be34d8c132f0ae6b"
+    "HEAD": "984a35aefe9bc65dad9d7a9c698fad079f7b51dd",
+    "GENERATED_AT": "2026-09-10T21:48:02+00:00",
+    "SOURCE_TREE_FINGERPRINT": "0a13fbdbcb1a58488e8346148f371f9745c506e5e600ee2f002f7be12e061b19"
   },
   "FAMILIES": [
     {
@@ -6871,6 +6871,7 @@
       ],
       "outbound": [
         "C-CADEIA-V21",
+        "C-DONO-DA-ESCRITA",
         "C-MEDICAO",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
@@ -8030,11 +8031,12 @@
       "files": [
         "guarda/memoria_descartavel.py",
         "guarda/portas_live.py",
-        "guarda/preservar_coleta.py"
+        "guarda/preservar_coleta.py",
+        "guarda/trava_do_escritor_antigo.sh"
       ],
-      "file_count": 3,
+      "file_count": 4,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "guarda/memoria_descartavel.py",
         "guarda/portas_live.py",
@@ -8042,10 +8044,12 @@
       ],
       "produces": [],
       "inbound": [
+        "C-CI-PERSIST",
         "C-DONO-DO-DERIVADO"
       ],
       "outbound": [
         "C-DONO-DO-DERIVADO",
+        "C-IMPORTAR",
         "C-INGRESSO",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
@@ -9000,6 +9004,7 @@
       "produces": [],
       "inbound": [
         "C-CI-REGRESSAO",
+        "C-DONO-DA-ESCRITA",
         "C-FONTES-EU",
         "C-SUPABASE"
       ],
@@ -20022,6 +20027,29 @@
     },
     {
       "from": "C-CI-PERSIST",
+      "to": "C-DONO-DA-ESCRITA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar O dono canônico da escrita do bruto (OBSERVED). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/supabase-fichas-adama.yml",
+          "line": 20,
+          "snippet": "run: bash guarda/trava_do_escritor_antigo.sh supabase-fichas-adama"
+        },
+        {
+          "file": ".github/workflows/supabase-raw-roundtrip.yml",
+          "line": 19,
+          "snippet": "run: bash guarda/trava_do_escritor_antigo.sh supabase-raw-roundtrip"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
       "to": "C-MEDICAO",
       "type": "RUNS",
       "payload": "execucao",
@@ -21696,6 +21724,24 @@
     },
     {
       "from": "C-DONO-DA-ESCRITA",
+      "to": "C-IMPORTAR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Levar o dado para o banco. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "guarda/catalogo_importar.py",
+          "line": 665,
+          "snippet": "['bash', os.path.join(ROOT, 'guarda', 'trava_do_escritor_antigo.sh'),"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
       "to": "C-INGRESSO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21888,8 +21934,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 157,
+          "snippet": "self.assertIn(\"trava_do_escritor_antigo.sh\", self.fonte)"
+        },
         {
           "file": "tests/test_preservar_coleta.py",
           "line": 189,
@@ -30452,10 +30503,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "guarda/trava_do_escritor_antigo.sh"
-  ],
-  "UNCLAIMED_FILES_COUNT": 724,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 723,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30623,12 +30672,12 @@
     "components_pending": 92,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 622,
-    "edges_proven": 620,
+    "edges": 624,
+    "edges_proven": 622,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1412,
-    "files_covered": 688,
-    "files_code_unclaimed": 1
+    "files_covered": 689,
+    "files_code_unclaimed": 0
   }
 }
