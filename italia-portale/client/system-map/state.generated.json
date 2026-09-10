@@ -1852,9 +1852,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "63f53de40fe4d3ae508d83dd21cd67b1153dcfa2",
-    "GENERATED_AT": "2026-09-10T16:00:22+00:00",
-    "SOURCE_TREE_FINGERPRINT": "505a59f8f50f5faeb4e2d9b9d67c23e44a58e4d74a744804718e0d9c64937657"
+    "HEAD": "33bd5fad6f9b09c42dfc0034004056ee6cb4c359",
+    "GENERATED_AT": "2026-09-10T16:03:55+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ba6c6fdd666a22919cb2a62535c980801e529e281fa959d06f04f9597e72f604"
   },
   "FAMILIES": [
     {
@@ -9240,14 +9240,15 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "coleta/italy_executor.py",
         "coleta/italy_find_docs.mjs",
         "coleta/italy_pilot_collect.mjs",
         "coleta/italy_probe.mjs",
         "coleta/italy_recurrent_collect.mjs"
       ],
-      "file_count": 4,
+      "file_count": 5,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "coleta/italy_pilot_collect.mjs",
         "coleta/italy_recurrent_collect.mjs"
@@ -9255,22 +9256,35 @@
       "produces": [],
       "inbound": [
         "C-IT-CATALOGO",
-        "C-IT-CONTRATOS"
+        "C-IT-CONTRATOS",
+        "C-IT-PRESERVAR"
       ],
       "outbound": [
         "C-IT-CONTAS",
         "C-IT-CONTRATOS",
+        "C-RECEITAS",
         "C-TESTES"
       ],
       "paises": {
-        "ITALIA": 4
+        "ITALIA": 5
       },
       "paises_dado": {
-        "ITALIA": 14
+        "ITALIA": 15
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "DA_OBSERVACAO_PARA_A_PORTA"
+        ],
+        "palavras": 6,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 6,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -9503,6 +9517,7 @@
       "outbound": [
         "C-CENSO-IDENTIDADE-IT",
         "C-ESTRADAS-IT",
+        "C-IT-COLETA",
         "C-IT-CONTAS",
         "C-IT-CONTRATOS",
         "C-MAPA-SCAN",
@@ -12579,6 +12594,7 @@
         "C-CORPUS",
         "C-DATA-CLOCK",
         "C-FONTES-EU",
+        "C-IT-COLETA",
         "C-LUGAR-COLETA",
         "C-PEDIDO",
         "C-PROCEDENCIA",
@@ -23415,14 +23431,55 @@
     },
     {
       "from": "C-IT-COLETA",
+      "to": "C-RECEITAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta A receita da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 98,
+          "snippet": "\"roda\": [\"coleta/italy_executor.py\"],"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-IT-COLETA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_italia_na_porta_canonica.py",
+          "line": 51,
+          "snippet": "import italy_executor as adapter           # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-IT-COLETA",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_italia_na_porta_canonica.py",
+          "line": 132,
+          "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"adapter-v1\","
+        },
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 178,
@@ -23620,6 +23677,24 @@
           "file": "system-map/scripts/censo_das_estradas_it.py",
           "line": 449,
           "snippet": "with open(LEDGER, encoding='utf-8') as f:"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-IT-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta Colher as fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/italy_executor.py",
+          "line": 79,
+          "snippet": "LIVRO = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
         }
       ],
       "categoria": "READ"
@@ -30128,10 +30203,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "coleta/italy_executor.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 722,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 721,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30299,12 +30372,12 @@
     "components_pending": 90,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 614,
-    "edges_proven": 612,
+    "edges": 617,
+    "edges_proven": 615,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1404,
-    "files_covered": 682,
-    "files_code_unclaimed": 1
+    "files_covered": 683,
+    "files_code_unclaimed": 0
   }
 }
