@@ -5,6 +5,14 @@
 > **Nada foi implementado.** Zero alteração de runtime, de Admission, de READY, de schema,
 > de banco, de Bíblia e de System Map. Zero migration. Este documento **mede e decide**.
 
+> **EMENDA C-PLAN-A1 · 2026-09-10.** A primeira redacção deste documento escreveu, em seis
+> sítios, que *«o construtor do READY continua a ser o T-50»*. **Estava errado, e o erro era
+> de redacção, não de arquitectura:** eu li a co-localização da função dentro de
+> `admissao/admissao.py` como se fosse propriedade do conceito. `ADMISSION_OWNER = T-50` e
+> `READY_OWNER = T-52` são dois donos, e a casa já os separava em três sítios antes desta
+> missão. A correcção está inteira na §3, e **nenhuma decisão de chamador mudou**: T-32
+> continua a ser o único que chama a porta, e o único que chama o READY depois do `SIM`.
+
 Pergunta única, e a única coisa que se fecha aqui:
 
 > **Quem coordena a corrida, quem atravessa uma unidade, e qual deve ser o ÚNICO caminho
@@ -160,6 +168,7 @@ Medido pelo próprio censo da fronteira, que corre em CI (`system-map.yml:558`):
 ```
 CONTRATO     COL-LAW-043 · 11 campos
 DONO         admissao/admissao.py :: pronto_para_inteligencia()   (construtor único, F3 PASS)
+             ⚠️ isto e a LOCALIZACAO DO FICHEIRO, nao o dono do conceito — ver abaixo
 PRODUTORES   1 em runtime: orquestrador/orquestrador.py
 CONSUMIDORES 0 — e o destino declarado nem existe
 ```
@@ -167,7 +176,50 @@ CONSUMIDORES 0 — e o destino declarado nem existe
 `READY_CALLERS_CURRENT = 1` · `READY_TARGET_CALLER = T-32`, **imediatamente depois de um
 `SIM` do T-50**, dentro da mesma unidade.
 
-O construtor **não muda de dono**: continua a ser T-50. Muda a boca que o chama.
+### O construtor é do T-52, e a co-localização não muda isso
+
+> ## LOCALIZAÇÃO DE MÓDULO NÃO É PROPRIEDADE DE CONCEITO.
+
+`pronto_para_inteligencia()` vive dentro de `admissao/admissao.py`, que é o ficheiro do
+T-50. **Isso não faz do T-50 o dono do READY** — e o próprio contrato de cartão desta casa
+já tinha escrito porquê, antes desta missão:
+
+> *«O READY não é um ficheiro. É uma FUNÇÃO (`admissao.pronto_para_inteligencia`), um
+> CONTRATO (COL-LAW-043, 11 campos fixos) e uma FRONTEIRA — e o ficheiro que o contém já
+> tem dono (`C-ADMISSAO`, que cobre `admissao/admissao.py`). Declará-lo como peça com
+> gaveta própria obrigaria a tirar aquele ficheiro do dono que já o tem, e o mapa proíbe
+> dois donos para um ficheiro.»*
+> — `system-map/scripts/generate_system_map.py:958-966`
+
+`C-READY` é **cartão próprio**, com território (`Z-ESPERA`), família (`F-ESPERA`), estado,
+prova e `gap` próprios. A aresta entre os dois é `C-ADMISSAO -PRODUZ-> C-READY`
+(`:1039-1041`) — e **PRODUZ é uma aresta entre dois donos, não dentro de um**.
+
+O cartão declarado do T-50 confirma pelo silêncio. O `what` de `C-ADMISSAO`
+(`architecture.declared.json:1800`) é, inteiro:
+
+> *«Decide, por par (item, universo), se entra: SIM, NAO, NAO_SEI, NAO_SE_APLICA ou ERRO —
+> e escreve o motivo, a regra, a versão e a prova no livro de decisões.»*
+
+**Decidir e escrever o livro. READY não está lá.** E a COL-LAW-043 define o READY como
+*contrato de saída* — 11 campos — e não atribui construtor a ninguém. Nenhuma lei diz que
+o T-50 possui o READY.
+
+A topologia da casa já os listava como duas etapas, com dois donos
+(`docs/operacao/TOPOLOGIA-DA-COLETA.md:90-91`):
+
+```
+ADMISSION | C-ADMISSAO | admissao/admissao.py
+READY     | C-READY    | admissao.pronto_para_inteligencia()
+```
+
+Duas linhas. Na primeira o implementador é o módulo; na segunda é a **função**. A distinção
+já estava escrita — eu é que a perdi na redacção.
+
+**Correcção, e é só isto:** onde a C-PLAN-A escreveu *«o construtor continua a ser T-50»*,
+leia-se **o construtor é do T-52**. `admissao/admissao.py` continua a ser o sítio onde a
+função mora, por a casa já ter recusado criar `ready.py` só para o cartão existir — e um
+sítio partilhado não é um dono partilhado.
 
 T-32 declara hoje *«NÃO emite READY … o contrato de saída exige `ADMITIDO_POR`»* (`:26-32`).
 Isso era verdade **antes** de `admitir()` existir. `admitir()` devolve a `Decisao`, e
@@ -181,7 +233,7 @@ no instante em que `admitir()` retorna.** Ler os 11 campos contra a unidade do T
 | ausentes → `NAO SEI` | `SOURCE_LOCATION` · `FACT_LOCATION` · `FACT_TIME` |
 
 **Se três `NAO SEI` são um READY aceitável é pergunta da C-PLAN-C, não desta.** Aqui fecha-se
-só a direcção: **T-04 nunca constrói READY; T-32 chama, T-50 constrói.**
+só a direcção: **T-04 nunca constrói READY; T-32 chama; o T-52 constrói.**
 
 ---
 
@@ -317,7 +369,9 @@ T-04  ORCHESTRATOR       orquestrador/orquestrador.py :: correr
            T-50  ADMISSION    admissao/admissao.py :: decidir      ← ÚNICO chamador: T-32
              ↓  (só se SIM)
            T-52  READY        admissao/admissao.py :: pronto_para_inteligencia
-                              construtor continua T-50 · chamador passa a ser T-32
+                              DONO DO CONCEITO T-52 (cartao C-READY)
+                              chamador passa a ser T-32
+                              o ficheiro e do T-50; o conceito nao
 ```
 
 **Por que T-30 fica com T-04 e não dentro de T-32.** T-32 declara *«NÃO emite RAW»* (`:23`),
@@ -336,7 +390,8 @@ etapa da corrida, coordenada por T-04, e não etapa da unidade.
 | executor resolution | partido: registry em T-06 · escolha em T-04 | **T-06** | T-04 pergunta em vez de indexar |
 | unit traversal | **nenhum em runtime** (T-32 órfã) | **T-32** | T-04 passa a chamar `atravessar()` por unidade |
 | **Admission** | **3**: T-04 · golden_path · T-32 | **T-32** | T-04 e golden_path deixam de chamar em runtime |
-| READY construction | construtor T-50 · chamador T-04 | construtor **T-50** · chamador **T-32** | move-se a chamada, não o construtor |
+| **Admission decision** | T-50 | **T-50** | nenhuma |
+| **READY construction** | dono T-52 · chamador T-04 | dono **T-52** · chamador **T-32** | move-se a chamada; o dono do conceito nunca foi o T-50 |
 | admission universe | 3 escritores · dono real T-02 | **T-02** | matar `UNIVERSO_PADRAO` e a constante `UNIVERSO` |
 | global retry | **nenhum** | **T-04** | criar o dono |
 
@@ -406,7 +461,7 @@ tropeçar nela.
 | **V** `GLOBAL_RETRY_OWNER` | hoje **0** → alvo **T-04** |
 | **W** `EXECUTOR_LOCAL_RETRY_BOUNDARY` | transporte com limite e lista fechada fica no executor; tudo o que muda o plano da corrida é T-04 |
 | **X** `READY_CALLERS_CURRENT` | **1** — `orquestrador.py:145` |
-| **Y** `READY_TARGET_CALLER` | **T-32**, depois do `SIM`; construtor continua T-50 |
+| **Y** `READY_TARGET_CALLER` | **T-32**, depois do `SIM`; o construtor é do **T-52** |
 | **Z** `CRITICAL_MULTIPLE_OWNERS_CURRENT` | **4**: Admission (3) · universo (3) · executor selection (2) · route policy e retry global (0 = ninguém, que é o mesmo defeito ao contrário) |
 | **AA** `CRITICAL_MULTIPLE_OWNERS_TARGET` | **0** |
 
@@ -442,8 +497,9 @@ dono de quê**.
    ele tem a corrida. O golden path porque é prova, e prova não é produção.
 7. **De onde vem o universo?** Do **pedido** (`Pedido.alvo`), que já valida contra o atlas e
    já se recusa a adivinhar. Nunca de um `UNIVERSO_PADRAO = 'T3'` dentro do encaminhador.
-8. **Quem constrói READY?** A **admissão** constrói, como hoje. Quem passa a **chamar** é o
-   T-32, logo depois do `SIM`.
+8. **Quem constrói READY?** O **T-52**, que é dono do contrato de saída. A função mora
+   hoje no ficheiro da admissão, e morar junto não é ser a mesma peça. Quem passa a
+   **chamar** é o T-32, logo depois do `SIM`.
 9. **Quem decide retry da corrida?** O **T-04**. Hoje ninguém decide. Retry de transporte
    continua dentro do executor, com limite e lista fechada.
 10. **Há decisão crítica ainda aberta?** **Não.** Há cinco perguntas em §11-AB, e nenhuma é
