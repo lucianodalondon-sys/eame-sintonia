@@ -1228,6 +1228,16 @@ LEGACY_BY_OMISSION_RISK = CLOSED_BY_DATABASE
 Fechado pela R.1: sem `DEFAULT` não há classificação por omissão. Não é
 convenção, não é revisão de código, não é teste. É a escrita a falhar.
 
+> ### ⛔ REVOGADO PELA SECÇÃO T — o corte por `created_at` não funciona
+>
+> O mecanismo descrito no RISCO B abaixo foi **reproduzido em PostgreSQL 16.13
+> descartável e falhou**. `now()` é `transaction_timestamp()`: uma transação
+> aberta ANTES do corte carrega a hora de abertura para dentro de um `INSERT`
+> feito DEPOIS dele, e a linha futura declara-se legado com a trava a aplaudir.
+> Fica aqui como histórico do raciocínio. **A trava válida é a da secção T** —
+> corte pelo surrogate `raw_asset.id`, com lock. Nenhuma instrução deste bloco
+> deve ser implementada.
+
 **RISCO B · declaração explícita e falsa.** Um runtime novo escreve
 `identity_state = 'LEGACY_PRE_IDEMPOTENCY'` numa observação de hoje, e sai da
 proteção pela porta da frente.
@@ -1309,8 +1319,15 @@ TEST_ENFORCED   que os seis casos continuem a ser recusados/aceites depois de
                 cada alteração do writer.
 ```
 
+> ### ⛔ SUPERSEDED PELA SECÇÃO T.7 — esta lista tem dois casos revogados
+>
+> Os casos **9 e 10** mandam aceitar `CONTENT_DERIVED`, e a S.4 revogou esse
+> valor. O caso **11** apoia-se no corte por `created_at`, que a T.2 reprovou.
+> **A lista executável final é a da T.7.** Esta fica como histórico e NÃO se
+> implementa.
+
 ```
-TEST_ENFORCED_INVARIANTS
+TEST_ENFORCED_INVARIANTS   ⛔ SUPERSEDED — ver T.7
 
   1. insert sem identity_state              → REJEITADO  (caso F)
   2. insert com identity_state = NULL       → REJEITADO  (caso A)
@@ -1320,9 +1337,11 @@ TEST_ENFORCED_INVARIANTS
   6. FORWARD com source_id = 'NAO SEI'      → REJEITADO  (R.4)
   7. FORWARD com source_id = '   '          → REJEITADO  (R.3)
   8. LEGACY com os três campos nulos        → ACEITE     (caso E)
-  9. CONTENT_DERIVED com key = sha16        → REJEITADO  (R.5)
- 10. CONTENT_DERIVED com key = sha256       → ACEITE     (R.5)
- 11. LEGACY escrito numa linha de agora     → REJEITADO  (R.6, risco B)
+  9. CONTENT_DERIVED com key = sha16        → REJEITADO  ⛔ ver T.7
+ 10. CONTENT_DERIVED com key = sha256       → ACEITE     ⛔ REVOGADO pela T.7,
+                                                            que manda REJEITAR
+ 11. LEGACY escrito numa linha de agora     → REJEITADO  ⛔ mecanismo revogado;
+                                                            veredito mantido, ver T.7
  12. após a fase 8, zero linhas com estado nulo — contagem, não amostra
 ```
 
@@ -1344,9 +1363,10 @@ NULL_STATE_ROWS_ALLOWED_AT_PHASE_9                    = NO
 UNKNOWN_IDENTITY_CAN_ENTER_PARTIAL_UNIQUE_AS_REAL_ID  = NO
 CONTENT_DERIVED_KEY_EQUALS_FULL_SHA256                = RETIRADO na S.4
 LEGACY_BY_OMISSION_RISK                               = CLOSED_BY_DATABASE
-LEGACY_BY_EXPLICIT_DECLARATION_RISK                   = DB_ENFORCED
+LEGACY_BY_EXPLICIT_DECLARATION_RISK                   = DB_ENFORCED, mas pelo
+                                                        SURROGATE (T), nunca pelo relógio
 IDENTITY_INVARIANTS_ENFORCEMENT_CLASS                 = DB_ENFORCED + CODE_ENFORCED + TEST_ENFORCED
-TEST_ENFORCED_INVARIANTS                              = 12 casos, listados na R.8
+TEST_ENFORCED_INVARIANTS                              = lista final na T.7
 ```
 
 ```
@@ -1573,7 +1593,16 @@ primeira é verdadeira; a segunda é a S.1 outra vez.
 soube a que fonte pediu. O que pode faltar é a identidade do documento, nunca a
 da fonte.
 
+> ### ⛔ SUPERSEDED PELA T.1 — estes dois `check` deixam entrar `'NAO SEI'`
+>
+> Ambos exigem `source_id` não-nulo e não-branco, e mais nada. Uma observação
+> `FORWARD_IDENTITY_UNPROVEN` com `source_id = 'NAO SEI'` passa nos dois — e
+> «não sei qual documento é» não é «não sei que fonte pedi». A T.1 substitui-os
+> por um par onde a exigência de FONTE REAL é uma trava só, comum aos dois
+> estados forward. **Implementar a T.1, não este bloco.**
+
 ```sql
+-- ⛔ SUPERSEDED — ver T.1
 constraint forward_identificado_exige_identidade
   check (identity_state <> 'FORWARD_IDENTIFIED'
          or (source_id is not null and btrim(source_id) <> ''
@@ -1865,5 +1894,428 @@ DÍVIDAS REGISTADAS, e nenhuma delas bloqueia o B5B:
 ```
 NEXT_STEP = B5B · implementar SOMENTE as fases 7, 8 e 9, agora com:
             três estados · sem CONTENT_DERIVED · FK composta do objeto
+            e continuar a NÃO tocar nas fases 10 e 11
+```
+
+---
+
+## T · C-CORR-B5B2 — OS TRÊS BLOQUEIOS FINAIS, FECHADOS CONTRA POSTGRES 16
+
+**C-CORR-B5B2** · correção de especificação, zero implementação · a partir de `621a8d3f`
+
+> Zero migration, zero runtime, zero banco vivo. As decisões abaixo foram
+> **reproduzidas em PostgreSQL 16.13 descartável** (`127.0.0.1:55432`, cluster
+> criado e destruído dentro desta missão). Onde diz REPROVADO, foi o banco que
+> reprovou — não o raciocínio.
+
+### T.0 · O QUE ESTA SECÇÃO REVOGA
+
+Três instruções anteriores desta mesma cadeia deixam de valer. Ficam no
+documento como histórico, marcadas no sítio, e **nenhuma delas se implementa**:
+
+```
+R.6   corte do legado por created_at            ⛔ REVOGADO   → T.2 · T.3
+R.8   casos 9, 10 e 11 da bateria               ⛔ SUPERSEDED → T.7
+S.5   os dois check de identidade forward       ⛔ SUPERSEDED → T.1
+```
+
+```
+DUAS ORDENS EXECUTÁVEIS NO MESMO DOCUMENTO SÃO ZERO ORDENS.
+```
+
+### T.1 · BLOQUEIO 1 · «NÃO SEI QUAL DOCUMENTO» ≠ «NÃO SEI QUE FONTE PEDI»
+
+A S.5 escreveu dois `check` separados, e ambos exigiam do `source_id` apenas
+não-nulo e não-branco. Isto entrava:
+
+```
+identity_state = 'FORWARD_IDENTITY_UNPROVEN'
+source_id      = 'NAO SEI'
+document_key   = NULL
+document_key_basis = NULL
+```
+
+A R.4 já tinha recusado a sentinela — mas só no estado `FORWARD_IDENTIFIED`. O
+terceiro estado nasceu na S.5 **depois** dessa trava e passou ao lado dela.
+
+**A correção não é uma terceira trava: é uma só, comum aos dois estados
+forward.** O `source_id` não é a parte incerta de uma identidade incompleta. A
+Collection sempre soube a que fonte pediu; o que pode faltar é o documento.
+
+```sql
+constraint fonte_real_em_qualquer_estado_forward
+  check (identity_state = 'LEGACY_PRE_IDEMPOTENCY'
+         or (source_id is not null and btrim(source_id) <> ''
+             and upper(btrim(source_id)) not in
+                 ('NAO SEI','NAO_SEI','NÃO SEI','NAO_SE_APLICA','UNKNOWN','NOT_KNOWN')));
+
+constraint forward_identificado_exige_identidade
+  check (identity_state <> 'FORWARD_IDENTIFIED'
+         or (document_key is not null and btrim(document_key) <> ''
+             and upper(btrim(document_key)) not in
+                 ('NAO SEI','NAO_SEI','NÃO SEI','NAO_SE_APLICA','UNKNOWN','NOT_KNOWN')
+             and document_key_basis is not null));
+
+constraint forward_sem_prova_nao_finge_chave
+  check (identity_state <> 'FORWARD_IDENTITY_UNPROVEN'
+         or (document_key is null and document_key_basis is null));
+```
+
+⚠️ **O predicado é `= 'LEGACY_PRE_IDEMPOTENCY' or …`, e não `<> 'FORWARD_…'`.**
+A diferença decide o futuro: escrito assim, qualquer estado que venha a nascer
+cai automaticamente **dentro** da exigência de fonte real. Só o legado — que é
+o único estado com licença para não ter identidade — fica de fora, e fica de
+fora por nome.
+
+O vocabulário é o **medido na R.4**, seis literais, e não uma lista nova.
+
+```
+FORWARD_UNPROVEN_UNKNOWN_SOURCE_CAN_ENTER = NO
+```
+
+Sem FK nova. Sem mudar o conceito de `SOURCE_ID`.
+
+### T.2 · BLOQUEIO 3 · O CORTE POR RELÓGIO REPROVOU NO BANCO
+
+A R.6 propôs congelar um instante e escrever `created_at < corte`. O revisor
+apontou o contraexemplo; reproduzi-o antes de aceitar.
+
+```
+W  abriu a transacao em   20:00:03.851962
+M  congelou o corte em    20:00:05.857606
+M  terminou em            20:00:05.863010
+W  INSERIU depois disso, com created_at = 20:00:03.851962   ← a hora da ABERTURA
+```
+
+```
+resultado: id 6 | IT/nova/created-at-1 | LEGACY_PRE_IDEMPOTENCY
+```
+
+Uma linha criada **depois** do corte declarou-se legado, e a trava deixou.
+`now()` é `transaction_timestamp()`: congela na abertura da transação e não
+anda. Não é um defeito da proposta — é o que a função faz, e a proposta não o
+sabia.
+
+```
+CREATED_AT_CUTOFF_IS_SUFFICIENT = NO   ← medido, PostgreSQL 16.13
+```
+
+E o remédio não é `clock_timestamp()`: `created_at` tem `DEFAULT`, logo quem
+escreve pode simplesmente dar-lhe outro valor. **Um relógio que a linha carrega
+não serve para datar a linha contra ela própria.**
+
+### T.3 · A TRAVA QUE FUNCIONA — O SURROGATE, COM LOCK
+
+O corte deixa de ser um instante e passa a ser um **número que já não pode ser
+sorteado outra vez**. `raw_asset.id` é `bigserial` desde a `001`, e é o
+`RAW_OBSERVATION_ID`. A fase 8 inteira corre numa transação:
+
+```sql
+begin;
+  lock table public.raw_asset in access exclusive mode;   -- 1 · fecha a porta
+
+  select coalesce(max(id),0) into corte from public.raw_asset;   -- 2 · congela
+
+  update public.raw_asset                                        -- 3 · classifica
+     set identity_state = 'LEGACY_PRE_IDEMPOTENCY'
+   where identity_state is null;
+
+  execute format(                                                -- 4 · trava constante
+    'alter table public.raw_asset add constraint legado_e_anterior_ao_corte '
+    'check (identity_state <> %L or id <= %s) not valid',
+    'LEGACY_PRE_IDEMPOTENCY', corte);
+  alter table public.raw_asset validate constraint legado_e_anterior_ao_corte;
+
+  alter table public.raw_asset alter column identity_state set not null;   -- 5
+commit;                                                          -- 6 · abre a porta
+```
+
+Como o banco a guardou, lida de volta de `pg_constraint`:
+
+```
+CHECK (((identity_state <> 'LEGACY_PRE_IDEMPOTENCY'::text) OR (id <= 6)))
+```
+
+```
+LEGACY_CUTOFF_MECHANISM = SURROGATE_ID_FROZEN_UNDER_LOCK
+```
+
+⚠️ **É um literal, e essa é a metade do valor.** Sem função, sem relógio, sem
+nada que possa devolver outra resposta amanhã. Um `CHECK` só é uma promessa se
+o predicado não depender de quem o lê nem de quando.
+
+**O lock, e porque é este.** `ACCESS EXCLUSIVE` conflitua com o
+`ROW EXCLUSIVE` que todo `INSERT` toma, e é o mesmo que os dois `ALTER TABLE`
+dos passos 4 e 5 iriam tomar de qualquer maneira. Tomá-lo **uma vez, no topo**,
+evita a subida de lock a meio da transação — que é onde nascem os deadlocks.
+
+```
+LOCK_USED = LOCK TABLE public.raw_asset IN ACCESS EXCLUSIVE MODE
+```
+
+### T.4 · OS DOIS CENÁRIOS DE CONCORRÊNCIA, MEDIDOS
+
+**CENÁRIO A · a transação velha que ainda não inseriu.**
+
+```
+W  abriu a transacao ANTES da migration
+M  pegou ACCESS EXCLUSIVE as        20:00:40.176614
+M  congelou LEGACY_CUTOFF_ID = 5
+W  tentou o INSERT as               20:00:41.177087
+        observador: pid 908 | wait_event_type=Lock | insert into raw_asset …
+M  fez COMMIT as                    20:00:43.183625
+W  conseguiu inserir as             20:00:43.186488   com id 6
+```
+
+```
+PRE_MIGRATION_TX_WITHOUT_INSERT_RESULT = BLOQUEADO ATE AO COMMIT · id 6 > corte 5
+```
+
+O `INSERT` não «passou primeiro»: ficou à espera, e quando a porta abriu o
+número que lhe coube já estava fora do conjunto congelado.
+
+**CENÁRIO B · a transação que já inseriu e ainda não commitou.**
+
+```
+W  INSERIU (sem commit) id 6 as     20:01:00.574133
+        observador: pid 936 | wait_event_type=Lock | lock table raw_asset in access …
+W  fez COMMIT as                    20:01:03.577955
+M  pegou ACCESS EXCLUSIVE as        20:01:03.579369   ← 1,4 ms depois
+M  congelou LEGACY_CUTOFF_ID = 6    ← VIU a linha
+```
+
+```
+PRE_MIGRATION_TX_WITH_UNCOMMITTED_INSERT_RESULT = A MIGRATION ESPERA E DEPOIS VE
+```
+
+A migration esperou pela transação inteira, e ao pedir `max(id)` depois do lock
+— em `READ COMMITTED`, snapshot novo por instrução — encontrou a linha 6 e
+classificou-a. Nenhuma linha ficou com estado nulo:
+
+```
+select count(*) from raw_asset where identity_state is null   →   0
+```
+
+⚠️ **E se tivesse ficado, o passo 5 gritava.** `set not null` sobre uma linha
+nula reprova a migration inteira. A trava não depende de eu ter pensado em
+todos os casos: a que sobrar reprova a fase, em vez de passar calada.
+
+### T.5 · O QUE UM `INSERT` FUTURO CONSEGUE E NÃO CONSEGUE
+
+```
+CANONICAL_WRITER_EXPLICITLY_WRITES_RAW_ASSET_ID = NO
+```
+
+Medido nos três emissores que existem:
+
+```
+guarda/preservar_coleta.py:440   insert into public.raw_asset (run_id, storage_path,
+                                 media_type, bytes, sha256, captured_at, source_url,
+                                 storage_object_id)                  ← sem id
+guarda/catalogo_importar.py:430  mesma lista                          ← sem id
+supabase/importacoes/ADAMA-ES-…  (run_id, storage_path, …)            ← sem id
+```
+
+Nenhum toca no `id`. Logo o número vem sempre da sequência, e a sequência só
+anda para a frente:
+
+```
+depois de um ROLLBACK a sequencia esta em 33 — o numero foi gasto, nao devolvido
+```
+
+```
+NATURAL_FUTURE_ID_CAN_FALL_INSIDE_LEGACY_CUTOFF = NO
+```
+
+O `nextval` de um `INSERT` é avaliado **dentro** do próprio `INSERT`, que precisa
+de `ROW EXCLUSIVE` — e é precisamente esse lock que a fase 8 segura. Enquanto o
+corte não está congelado e travado, nenhum número novo sai.
+
+**O limite, medido em vez de assumido.** Abri um buraco no `id` 4 e escrevi o
+`id` à mão:
+
+```
+insert … (id, …, identity_state) values (4, …, 'LEGACY_PRE_IDEMPOTENCY')
+    → INSERT 0 1          ACEITE
+
+insert … (…,  identity_state) values (    …, 'LEGACY_PRE_IDEMPOTENCY')
+    → ERROR: violates check constraint "legado_e_anterior_ao_corte"
+```
+
+```
+LEGACY_CUTOFF_DB_ENFORCED = YES  para todo caminho que deixe a sequência atribuir o id
+RESIDUO                   = quem escreve o surrogate À MÃO, para dentro de um
+                            buraco abaixo do corte, ainda declara legado
+```
+
+Isto **não** é escape por esquecimento — é forjar o identificador da observação,
+a mesma família de `created_at` falsificado, e mais estreita: exige um buraco
+*e* um `id` explícito. Nenhum emissor desta árvore o faz.
+
+```
+BLOCKS_B5B = NO
+```
+
+Endurecimento **opcional**, para o B5B avaliar e não para adotar aqui:
+converter `id` para `generated always as identity`, que recusa `id` explícito
+sem `OVERRIDING SYSTEM VALUE`. Fecha o resíduo, mas mexe na coluna que nove FKs
+apontam e teria de ser provada lá. **Não decidido nesta missão.**
+
+### T.6 · BLOQUEIO 2 · `CONTENT_DERIVED` NÃO TEM MAIS NENHUMA ORDEM DE ACEITAÇÃO
+
+A S.4 revogou o valor; a R.8 continuava a mandar aceitá-lo num caso de teste.
+Duas ordens executáveis, e a mais velha era a mais concreta.
+
+```sql
+constraint base_da_chave_tem_vocabulario
+  check (document_key_basis is null or document_key_basis = 'SOURCE_DOCUMENT_ID')
+```
+
+Medido contra o banco, e o resultado é o mesmo dos dois lados:
+
+```
+basis = CONTENT_DERIVED + key = sha256 INTEIRO   → RECUSADO  base_da_chave_tem_vocabulario
+basis = CONTENT_DERIVED + key = sha16            → RECUSADO  base_da_chave_tem_vocabulario
+```
+
+```
+CONTENT_DERIVED_FINAL_STATUS          = REVOKED
+CONTENT_DERIVED_ACCEPTANCE_TESTS_REMAIN = NO
+```
+
+⚠️ **A recusa não olha para o `document_key`.** Não é «CONTENT_DERIVED com a
+chave errada»: é o valor que não existe. Um `check` que examinasse a chave
+sugeriria que há uma forma certa de o escrever.
+
+```
+FORWARD_IDENTIFIED  ⇒  document_key_basis = 'SOURCE_DOCUMENT_ID'
+```
+
+### T.7 · A BATERIA FINAL — 27 CASOS, TODOS CORRIDOS
+
+Substitui a lista da R.8. Correu contra PostgreSQL 16.13 com as travas da T.1,
+T.3 e T.6 instaladas; **todos os 27 deram o veredito esperado.**
+
+```
+CORTE DO LEGADO
+  1  novo INSERT declarando LEGACY                      REJEITADO  legado_e_anterior_ao_corte
+  2  novo FORWARD_IDENTIFIED completo                   ACEITE
+  3  novo FORWARD_IDENTITY_UNPROVEN com fonte real      ACEITE
+
+O ESTADO NÃO PODE FALTAR
+  4  identity_state = NULL                              REJEITADO  not-null
+  5  o writer OMITE a coluna                            REJEITADO  not-null (sem DEFAULT)
+
+FONTE REAL NOS DOIS ESTADOS FORWARD          ← as seis sentinelas, duas vezes
+  6-11   FORWARD_IDENTIFIED       + source_id = NAO SEI · NAO_SEI · NÃO SEI ·
+                                    NAO_SE_APLICA · UNKNOWN · NOT_KNOWN   REJEITADO ×6
+ 12-17   FORWARD_IDENTITY_UNPROVEN + as mesmas seis                       REJEITADO ×6
+ 18  UNPROVEN + source_id = 'unknown' (minúsculas)      REJEITADO  upper() apanha
+ 19  UNPROVEN + source_id = '   '                       REJEITADO  btrim() apanha
+ 20  UNPROVEN + source_id = NULL                        REJEITADO
+
+CONTENT_DERIVED REVOGADO
+ 21  basis = CONTENT_DERIVED + key = sha256 inteiro     REJEITADO  base_da_chave_tem_vocabulario
+ 22  basis = CONTENT_DERIVED + key = sha16              REJEITADO  base_da_chave_tem_vocabulario
+
+COERÊNCIA DOS DOIS ESTADOS FORWARD
+ 23  IDENTIFIED sem document_key                        REJEITADO  forward_identificado_exige_identidade
+ 24  IDENTIFIED sem document_key_basis                  REJEITADO  forward_identificado_exige_identidade
+ 25  UNPROVEN a fingir chave documental                 REJEITADO  forward_sem_prova_nao_finge_chave
+ 26  estado inventado 'FORWARD_QUALQUER_COISA'          REJEITADO  estado_de_identidade_tem_vocabulario
+ 27  após a fase 8, linhas com estado nulo              CONTAGEM = 0
+```
+
+E os dois cenários de concorrência da T.4, que não são casos de `INSERT` e por
+isso se contam à parte.
+
+**Estes 27 escrevem-se no B5B, junto com a migration que instalam. Nesta missão
+não se escreveu nenhum ficheiro de prova** — o cluster foi criado, medido e
+destruído.
+
+### T.8 · `PHASE_10_UNPROVEN_GATE` — REGISTADO, NÃO RESOLVIDO
+
+O índice parcial da fase 9 nomeia `FORWARD_IDENTIFIED`. **Ele não protege
+`FORWARD_IDENTITY_UNPROVEN`** — e hoje isso não custa nada, porque
+`unique (raw_asset.storage_path)` ainda segura tudo. A fase 10 é que retira
+essa rede.
+
+```
+PHASE_10_UNPROVEN_GATE
+
+  Antes de retirar UNIQUE(raw_asset.storage_path), pelo menos UM tem de ser
+  verdadeiro:
+
+    A   FORWARD_IDENTITY_UNPROVEN_EMITTERS = 0
+    B   IDEMPOTENCY_FOR_FORWARD_IDENTITY_UNPROVEN = DEFINED_AND_PROVEN
+
+  Hoje: A é verdadeiro — o coletor italiano recusa a observação sem
+  DOCUMENT_ID (S.6), logo o estado nasce sem emissor. Mas isso muda no dia em
+  que a dívida COL-LAW-006 for paga, e o gate é o que impede que mude em
+  silêncio.
+```
+
+**A chave de idempotência do UNPROVEN não se define agora.** Sem emissor não há
+caso a decidir, e decidir sem caso é o que a Q.5 chamou antecipação. O que se
+regista é a obrigação de a decidir **antes** da fase 10, nunca depois.
+
+`source_url` entra aqui pela mesma porta: a S.9 já tinha dito que ele sai só
+depois de a `DOCUMENT_KEY` estar instalada, preenchida e usada. Para o UNPROVEN
+não há chave documental nenhuma, logo **remoção global de `source_url` não fica
+autorizada enquanto este gate não fechar**.
+
+### T.9 · O QUE NÃO SE REABRIU
+
+```
+FK COMPOSTA DO OBJETO   decidida na S.8, mantida:
+                        storage_object unique(id, sha256)
+                        raw_asset fk (storage_object_id, sha256) → (id, sha256)
+                        REQUIRED_BEFORE_PHASE_10 = YES · aditiva no B5B
+
+SOURCE_URL              SOURCE_URL_IS_IDEMPOTENCY_IDENTITY = NO, mantido.
+                        Não sai até DOCUMENT_KEY instalada, preenchida e usada;
+                        e para o UNPROVEN, até o gate da T.8.
+
+B5A                     fases 1-6 intactas. Nada nesta secção lhes toca.
+FASES 10 e 11           continuam proibidas.
+```
+
+### T.10 · O FECHO
+
+```
+FORWARD_IDENTIFIED_SENTINELS_REJECTED     = YES   (6 casos)
+FORWARD_UNPROVEN_SENTINELS_REJECTED       = YES   (6 casos)
+FORWARD_UNPROVEN_UNKNOWN_SOURCE_CAN_ENTER = NO
+
+CONTENT_DERIVED_FINAL_STATUS              = REVOKED
+CONTENT_DERIVED_ACCEPTANCE_TESTS_REMAIN   = NO
+
+CREATED_AT_CUTOFF_IS_SUFFICIENT           = NO    (reproduzido e reprovado)
+LEGACY_CUTOFF_MECHANISM                   = SURROGATE_ID_FROZEN_UNDER_LOCK
+LEGACY_CUTOFF_DB_ENFORCED                 = YES   (caminho natural)
+LOCK_USED                                 = ACCESS EXCLUSIVE
+CANONICAL_WRITER_EXPLICITLY_WRITES_ID     = NO
+NATURAL_FUTURE_ID_CAN_FALL_INSIDE_CUTOFF  = NO
+
+IDENTITY_STATE_TARGET_NULLABLE            = NO
+IDENTITY_STATE_HAS_DEFAULT                = NO
+IDENTITY_STATE_VOCABULARY                 = LEGACY_PRE_IDEMPOTENCY
+                                          | FORWARD_IDENTIFIED
+                                          | FORWARD_IDENTITY_UNPROVEN
+
+PHASE_10_UNPROVEN_GATE                    = REGISTADO (T.8)
+PHASE_10_STILL_FORBIDDEN                  = YES
+```
+
+```
+READY_FOR_B5B_IMPLEMENTATION = YES
+READY_FOR_PHASE_10           = NO
+B5B_BLOCKERS                 = nenhum
+```
+
+```
+NEXT_STEP = B5B · implementar SOMENTE as fases 7, 8 e 9, com:
+            três estados · fonte real nos dois forward · CONTENT_DERIVED fora ·
+            corte do legado pelo surrogate sob lock · FK composta do objeto
             e continuar a NÃO tocar nas fases 10 e 11
 ```
