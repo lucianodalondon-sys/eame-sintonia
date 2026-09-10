@@ -130,7 +130,13 @@ class Memoria:
 
     def objetos_da_corrida(self, run_id: str) -> list:
         """Todas as linhas de `raw_asset` daquela corrida. É esta leitura que
-        produz `LINHAS_OBSERVADAS` — nunca uma contagem esperada."""
+        produz `LINHAS_OBSERVADAS` — nunca uma contagem esperada.
+
+        E é dela que sai também o `RAW_OBSERVATION_ID`. Por isso cada linha
+        **tem de trazer `id`, como inteiro positivo**, em toda implementação
+        desta porta. `bigserial` no banco e `"17"` no Python seriam o mesmo
+        campo com dois tipos, e quem consome escolheria um e partiria no outro.
+        """
         raise NotImplementedError
 
 
@@ -454,6 +460,11 @@ def conferir_o_que_ficou_escrito(run: dict, plano: dict, memoria: Memoria) -> di
             conferidos.append(caminho)
     return {
         "POST_WRITE_METADATA_MATCH": len(conferidos),
+        # A LISTA, E NAO SO A CONTA. Ela ja era calculada aqui e deitada fora
+        # ao virar numero. Quem devolve a identidade de uma observacao precisa
+        # de saber QUAIS linhas foram confirmadas, e nao quantas — contar de
+        # novo noutro sitio seria uma segunda autoridade sobre a mesma medida.
+        "CONFERIDOS": conferidos,
         "DIVERGENTES": divergentes,
         "AUSENTES": ausentes,
         "CAMPOS_COMPARADOS": list(CAMPOS_DA_LINHA),
@@ -463,6 +474,74 @@ def conferir_o_que_ficou_escrito(run: dict, plano: dict, memoria: Memoria) -> di
             "divergente no mesmo caminho; o `do nothing` cala-se e a conta "
             "fecha na mesma. Contar nao e conferir."),
     }
+
+
+def observacoes_confirmadas(run: dict, linhas: list, pos_escrita: dict) -> list:
+    """As observacoes desta corrida que o banco confirmou, com o id REAL.
+
+    O `RAW_OBSERVATION_ID` e o surrogate da OBSERVACAO, fechado na C-PLAN-0, e
+    o unico sitio de onde ele pode vir e uma linha que o banco devolveu.
+
+        NAO E O sha256      esse e a identidade dos BYTES
+        NAO E o storage_path esse e um ENDERECO, e endereco muda
+        NAO E o DOCUMENT_ID  esse e a identidade do DOCUMENTO
+        NAO E o ARTIFACT_ID  esse e do contrato comum, e nasce do sha
+
+    E nao e calculado de nenhum deles. Um id derivado de qualquer coisa que a
+    casa ja tinha em maos seria um id que a casa podia ter escrito sozinha — e
+    entao ele nao provaria que a linha existe, que e a unica coisa que ele
+    serve para provar.
+
+    ⚠️ DUAS TRAVAS, E A SEGUNDA NASCEU DE UM DEFEITO MEDIDO NO B3.
+
+    O mesmo conteudo, na corrida seguinte, cai no MESMO `storage_path` — o
+    endereco e do conteudo e nao da vez em que o vimos. Quem perguntasse
+    «que linha vive neste caminho?» receberia a linha da corrida ANTERIOR, com
+    o id dela, e daria a observacao de hoje o nome da observacao de ontem.
+
+        UM ID EMPRESTADO DE OUTRA CORRIDA NAO E UM ID ERRADO.
+        E UMA OBSERVACAO A FAZER-SE PASSAR POR OUTRA.
+
+    Por isso so entra aqui a linha que cumpre as duas:
+
+        1. o `run_id` dela e o DESTA corrida
+        2. o caminho dela passou na conferencia campo a campo depois de escrever
+
+    Sem linha, sem id. Nao se devolve `null`, `UNKNOWN`, `NAO SEI` nem o
+    caminho no lugar do id: **ausencia e ausencia**, e ela diz exactamente o
+    que aconteceu — esta observacao ainda nao existe no banco.
+    """
+    confirmados = set(pos_escrita.get("CONFERIDOS") or []) if pos_escrita else set()
+    fora = []
+    for linha in linhas or []:
+        if linha.get("run_id") != run["RUN_ID"]:
+            continue
+        if linha.get("storage_path") not in confirmados:
+            continue
+        ident = linha.get("id")
+        if not isinstance(ident, int) or isinstance(ident, bool) or ident <= 0:
+            # O CONTRATO DA PORTA E QUE ISTO SEJA UM INTEIRO POSITIVO. Uma
+            # porta que devolve `"17"` e outra que devolve `17` sao dois
+            # contratos com o mesmo nome, e quem os consome escolhe um e parte
+            # no outro. Calar aqui esconderia a divergencia dentro de um campo
+            # que parece preenchido.
+            raise ValueError(
+                "porta de memoria fora do contrato: raw_asset.id veio como %r "
+                "(%s) para %s. `objetos_da_corrida()` tem de devolver `id` "
+                "como inteiro positivo em TODAS as implementacoes."
+                % (ident, type(ident).__name__, linha.get("storage_path")))
+        fora.append({
+            # A IDENTIDADE DA OBSERVACAO.
+            "RAW_OBSERVATION_ID": ident,
+            # A CORRIDA QUE A PRODUZIU. Nao e a identidade dela; e a
+            # proveniencia, e e o que separa duas observacoes do mesmo byte.
+            "RUN_ID": linha["run_id"],
+            # O LOCATOR. Onde o byte esta, e nao quem a observacao e.
+            "STORAGE_PATH": linha["storage_path"],
+            # A IDENTIDADE DOS BYTES. Outra especie, outra pergunta.
+            "SHA256": linha.get("sha256"),
+        })
+    return fora
 
 
 def sql_de_fecho(run_id: str, terminou_em: str, quantos: int) -> str:
@@ -570,6 +649,19 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
     conferidos = len(prova["CONFERIDOS"])
     observadas = memoria_estado["LINHAS_OBSERVADAS"]
 
+    # ── A IDENTIDADE VOLTA DA MESMA LEITURA QUE JA SUSTENTA A RECONCILIACAO ──
+    # `linhas` acima veio de um SELECT por `run_id`. Abrir uma segunda consulta
+    # so para buscar ids daria duas autoridades sobre a mesma medida, e no dia
+    # em que discordassem nao haveria como saber qual valia.
+    #
+    #     UMA LEITURA -> reconciliacao E identidade.
+    #
+    # Sem banco ligado nao ha linha, e sem linha nao ha id. `preservar()`
+    # continua a guardar os bytes; o que ele NAO faz e cunhar um surrogate
+    # local para tapar o buraco.
+    raw_observations = (observacoes_confirmadas(run, linhas, pos_escrita)
+                        if memoria is not None else [])
+
     campos_batem = (pos_escrita is not None
                     and not pos_escrita["DIVERGENTES"]
                     and pos_escrita["POST_WRITE_METADATA_MATCH"] == esperados)
@@ -652,6 +744,7 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
         },
         "MEMORIA": memoria_estado,
         "CONFERENCIA_POS_ESCRITA": pos_escrita,
+        "RAW_OBSERVATIONS": raw_observations,
         "FECHO_NO_BANCO": fecho,
         "SQL": sql,
         "RECONCILIACAO": {

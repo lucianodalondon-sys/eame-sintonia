@@ -110,13 +110,30 @@ class MemoriaSupabase(MemoriaDoDerivado):
             raise IOError("esperava UM valor e vieram %d" % len(linhas))
         return linhas[0]
 
+    # O `psql` devolve TUDO como texto, e `raw_asset.id` e `bigserial`. Sem
+    # esta conversao a porta descartavel devolveria `17` e esta devolveria
+    # `"17"` — o mesmo campo com dois tipos e o mesmo nome. Quem consome
+    # escolhe um dos dois e parte no outro, e o erro aparece longe daqui.
+    #
+    #     DUAS PORTAS DA MESMA COISA TEM DE FALAR A MESMA LINGUA,
+    #     SENAO NAO SAO DUAS PORTAS: SAO DOIS CONTRATOS.
+    #
+    # So o `id` entra: converter tudo o que parece numero transformaria um
+    # `sha256` de digitos ou um identificador nativo em inteiro, e um
+    # identificador que muda de tipo conforme o conteudo nao e identificador.
+    INTEIROS = ("id",)
+
     def _linhas(self, sql, colunas):
         fora = []
         for linha in self._psql(sql).splitlines():
             if not linha.strip():
                 continue
             v = linha.split(self.SEP)
-            fora.append({c: (x if x != "" else None) for c, x in zip(colunas, v)})
+            d = {c: (x if x != "" else None) for c, x in zip(colunas, v)}
+            for c in self.INTEIROS:
+                if d.get(c) is not None:
+                    d[c] = int(d[c])
+            fora.append(d)
         return fora
 
     def aplicar(self, sql):
@@ -138,6 +155,12 @@ class MemoriaSupabase(MemoriaDoDerivado):
                 "finished_at")
     COLS_OBJ = ("run_id", "storage_path", "media_type", "bytes", "sha256",
                 "captured_at", "source_url")
+    # ⚠️ `objetos_da_corrida()` LIA SEM O `id`, e por isso a identidade da
+    # observacao nao tinha por onde voltar desta porta: a coluna existe na
+    # tabela desde a migration 001, e era a PROJECAO que a deixava de fora.
+    # `objeto_em()` continua com `COLS_OBJ` — ele responde «ja ha linha neste
+    # caminho?», e para essa pergunta o id nao acrescenta nada.
+    COLS_OBJ_DA_CORRIDA = ("id",) + COLS_OBJ
     COLS_RAW = ("id", "run_id", "storage_path", "media_type", "bytes",
                 "sha256", "captured_at", "source_url")
     COLS_DER = ("id", "raw_asset_id", "parent_sha256", "kind", "producer",
@@ -164,8 +187,9 @@ class MemoriaSupabase(MemoriaDoDerivado):
     def objetos_da_corrida(self, run_id):
         return self._linhas(
             "select %s from public.raw_asset where run_id='%s' "
-            "order by storage_path" % (self._select(self.COLS_OBJ), run_id),
-            self.COLS_OBJ)
+            "order by storage_path"
+            % (self._select(self.COLS_OBJ_DA_CORRIDA), run_id),
+            self.COLS_OBJ_DA_CORRIDA)
 
     def raw_por_id(self, raw_asset_id):
         # Todas as colunas do bruto com prefixo `a.`: sem isso o `run_id` fica

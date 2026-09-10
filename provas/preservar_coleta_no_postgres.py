@@ -156,14 +156,22 @@ class MemoriaPostgres(Memoria):
         if r.returncode != 0:
             raise IOError(r.stderr.strip()[:400])
 
+    # O `psql` devolve tudo como texto, e `raw_asset.id` e `bigserial`. Mesma
+    # razao do dialeto acima: a porta descartavel devolve `17` e esta devolveria
+    # `"17"`, e o mesmo campo com dois tipos e dois contratos com um nome so.
+    INTEIROS = ("id",)
+
     def _linhas(self, sql, colunas):
         fora = []
         for linha in self._psql(sql).splitlines():
             if not linha.strip():
                 continue
             valores = linha.split("\x1f")
-            fora.append({c: (v if v != "" else None)
-                         for c, v in zip(colunas, valores)})
+            d = {c: (v if v != "" else None) for c, v in zip(colunas, valores)}
+            for c in self.INTEIROS:
+                if d.get(c) is not None:
+                    d[c] = int(d[c])
+            fora.append(d)
         return fora
 
     # O TEMPO TEM DE VOLTAR NA MESMA FORMA EM QUE FOI ESCRITO.
@@ -181,6 +189,10 @@ class MemoriaPostgres(Memoria):
                 "finished_at")
     COLS_OBJ = ("run_id", "storage_path", "media_type", "bytes", "sha256",
                 "captured_at", "source_url")
+    # A leitura da corrida traz o `id`, porque e dela que sai o
+    # `RAW_OBSERVATION_ID`. `objeto_em()` fica sem ele: aquela pergunta e «ja ha
+    # linha neste caminho?», e a identidade nao acrescenta nada a ela.
+    COLS_OBJ_DA_CORRIDA = ("id",) + COLS_OBJ
     TEMPOS = ("started_at", "finished_at", "captured_at", "derived_at")
 
     def _select(self, colunas):
@@ -203,8 +215,9 @@ class MemoriaPostgres(Memoria):
     def objetos_da_corrida(self, run_id):
         return self._linhas(
             "select %s from public.raw_asset where run_id = '%s' "
-            "order by storage_path" % (self._select(self.COLS_OBJ), run_id),
-            self.COLS_OBJ)
+            "order by storage_path"
+            % (self._select(self.COLS_OBJ_DA_CORRIDA), run_id),
+            self.COLS_OBJ_DA_CORRIDA)
 
     def contar(self, tabela):
         return int(self._valor("select count(*) from public.%s" % tabela))
