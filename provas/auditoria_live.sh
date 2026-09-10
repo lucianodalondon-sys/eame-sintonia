@@ -143,20 +143,34 @@ echo "  RAW_ASSET_ID_SET_FIM=$(q "select coalesce(string_agg(id::text, ',' order
 
 # ── O QUE A 025 CRIA, E O QUE A 026 CRIARIA ──────────────────────────
 echo "  STORAGE_OBJECT_EXISTS=$(q "select count(*) from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname='storage_object' and c.relkind='r'")"
-echo "  STORAGE_OBJECT_ROWS=$(q "select case when to_regclass('public.storage_object') is null then '-' else (select count(*)::text from public.storage_object) end")"
+tem_obj=$(q "select count(*) from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname='storage_object' and c.relkind='r'")
+tem_col=$(q "select count(*) from information_schema.columns where table_schema='public' and table_name='raw_asset' and column_name='storage_object_id'")
+[ "$tem_obj" = "1" ] && echo "  STORAGE_OBJECT_ROWS=$(q "select count(*) from public.storage_object")" \
+                     || echo "  STORAGE_OBJECT_ROWS=- (a tabela ainda nao existe)"
 echo "  STORAGE_OBJECT_RLS=$(q "select coalesce((select relrowsecurity::text from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname='storage_object'),'-')")"
 for col in storage_object_id identity_state source_id document_key document_key_basis attempts last_attempt_at; do
   echo "  RAW_ASSET_TEM_$col=$(q "select count(*) from information_schema.columns where table_schema='public' and table_name='raw_asset' and column_name='$col'")"
 done
-echo "  LINKED_RAW_ASSETS=$(q "select case when (select count(*) from information_schema.columns where table_schema='public' and table_name='raw_asset' and column_name='storage_object_id')=0 then '-' else (select count(*)::text from public.raw_asset where storage_object_id is not null) end")"
-echo "  PRESERVED_WITHOUT_OBJECT=$(q "select case when (select count(*) from information_schema.columns where table_schema='public' and table_name='raw_asset' and column_name='storage_object_id')=0 then '-' else (select count(*)::text from public.raw_asset where preserved and storage_object_id is null) end")"
+if [ "$tem_col" = "1" ]; then
+  echo "  LINKED_RAW_ASSETS=$(q "select count(*) from public.raw_asset where storage_object_id is not null")"
+  echo "  PRESERVED_WITHOUT_OBJECT=$(q "select count(*) from public.raw_asset where preserved and storage_object_id is null")"
+else
+  echo "  LINKED_RAW_ASSETS=- (a coluna ainda nao existe)"
+  echo "  PRESERVED_WITHOUT_OBJECT=- (a coluna ainda nao existe)"
+fi
 # A LIGACAO E PELO ENDERECO. Um par que discorde de caminho e a copia errada.
-echo "  RAW_STORAGE_PATH_MISMATCHES=$(q "select case when to_regclass('public.storage_object') is null then '-' else (select count(*)::text from public.raw_asset a join public.storage_object o on o.id = a.storage_object_id where o.storage_path is distinct from a.storage_path) end")"
-echo "  RAW_STORAGE_SHA_MISMATCHES=$(q "select case when to_regclass('public.storage_object') is null then '-' else (select count(*)::text from public.raw_asset a join public.storage_object o on o.id = a.storage_object_id where o.sha256 is distinct from a.sha256) end")"
+if [ "$tem_obj" = "1" ] && [ "$tem_col" = "1" ]; then
+  echo "  RAW_STORAGE_PATH_MISMATCHES=$(q "select count(*) from public.raw_asset a join public.storage_object o on o.id = a.storage_object_id where o.storage_path is distinct from a.storage_path")"
+  echo "  RAW_STORAGE_SHA_MISMATCHES=$(q "select count(*) from public.raw_asset a join public.storage_object o on o.id = a.storage_object_id where o.sha256 is distinct from a.sha256")"
+  echo "  OBJETOS_SEM_OBSERVACAO=$(q "select count(*) from public.storage_object o where not exists (select 1 from public.raw_asset a where a.storage_object_id = o.id)")"
+else
+  echo "  RAW_STORAGE_PATH_MISMATCHES=- (ainda nao ha as duas especies)"
+  echo "  RAW_STORAGE_SHA_MISMATCHES=- (ainda nao ha as duas especies)"
+fi
 
 # ── AS TRAVAS, LIDAS DE `pg_constraint` E NAO DA PROSA ────────────────
 echo "  CONSTRAINTS_DE_RAW_ASSET:"
-q "select '    '||conname||' | '||contype||' | convalidated='||convalidated
+q "select '    '||conname||' | '||contype::text||' | convalidated='||convalidated::text
    from pg_constraint where conrelid='public.raw_asset'::regclass order by conname"
 echo "  UNIQUE_STORAGE_PATH_PRESENTE=$(q "select count(*) from pg_indexes where schemaname='public' and tablename='raw_asset' and indexdef ilike '%unique%' and indexdef ilike '%storage_path%'")"
 
