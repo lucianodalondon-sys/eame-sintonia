@@ -13,6 +13,11 @@ jobs:
       SUPABASE_DB_URL:     ${{ secrets.SUPABASE_DB_URL }}
     steps:
       - uses: actions/checkout@v4
+      - name: 0 · a trava do escritor antigo — este banco ja conhece a 026?
+        # Este caminho escreve `raw_asset` no formato anterior a 026. Contra um
+        # banco que ja tenha a 026 ele nao consegue escrever — e falhar aqui, com
+        # o motivo, e melhor do que falhar a meio com um erro de constraint.
+        run: bash guarda/trava_do_escritor_antigo.sh supabase-fichas-adama
       - name: fichas oficiais MAPA -> Storage -> raw_asset (execucao NOVA, hora real)
         run: |
           python3 - <<'PY'

@@ -103,6 +103,100 @@ q "select 'derived id='||id||' raw_asset_id='||raw_asset_id||
           ' sha='||substring(sha256,1,16)||' bytes='||bytes
    from public.derived_artifact" | sed 's/^/  /'
 
+# ── D · A SAUDE DO ACERVO, E OS IDS QUE NAO SE MEXEM ──────────────────
+# Nasceu na C-LIVE-025, onde foi preciso congelar o estado antes de escrever e
+# prova-lo igual depois. Fica permanente porque a pergunta e permanente:
+#
+#     COUNT IGUAL NAO E CONJUNTO IGUAL.
+#
+# Nove chaves estrangeiras de cinco migrations apontam para `raw_asset.id`. Um
+# id que se mexe leva todas atras dele, e uma contagem certa nao ve isso. O
+# `md5` do CONJUNTO ordenado ve.
+echo
+echo "-- D · o acervo bruto"
+for par in \
+  "RAW_ASSET_COUNT|select count(*) from public.raw_asset" \
+  "RAW_ASSET_MIN_ID|select coalesce(min(id)::text,'-') from public.raw_asset" \
+  "RAW_ASSET_MAX_ID|select coalesce(max(id)::text,'-') from public.raw_asset" \
+  "RAW_ASSET_DISTINCT_IDS|select count(distinct id) from public.raw_asset" \
+  "RAW_ASSET_DISTINCT_STORAGE_PATHS|select count(distinct storage_path) from public.raw_asset" \
+  "PRESERVED_RAW_ASSETS|select count(*) from public.raw_asset where preserved" \
+  ; do
+  echo "  ${par%%|*}=$(q "${par#*|}")"
+done
+echo "  RAW_ASSET_ID_SET_MD5=$(q "select coalesce(md5(string_agg(id::text, ',' order by id)),'-') from public.raw_asset")"
+
+# O ENDERECO E O HASH TEM DE SER AFIRMAVEIS. Um caminho em branco ou um hash
+# malformado nao e «quase certo»: e uma linha que diz onde esta sem dizer onde.
+sem_endereco=$(q "select count(*) from public.raw_asset where storage_path is null or btrim(storage_path) = ''")
+sem_hash=$(q "select count(*) from public.raw_asset where sha256 is null or btrim(sha256) !~ '^[0-9a-f]{64}\$'")
+[ "$sem_endereco" = "0" ] && ok "todo bruto tem endereco" \
+                          || mal "bruto sem endereco" "$sem_endereco"
+[ "$sem_hash" = "0" ] && ok "todo bruto tem hash com forma de sha256" \
+                      || mal "hash ausente ou malformado" "$sem_hash"
+
+# As colunas que a tabela REALMENTE tem. Sem lista fixa: uma lista fixa
+# envelhece a cada migration e passa a reprovar o estado esperado.
+echo "  RAW_ASSET_COLUNAS=$(q "select string_agg(column_name, ',' order by ordinal_position) from information_schema.columns where table_schema='public' and table_name='raw_asset'")"
+
+# ── E · O OBJETO E A OBSERVACAO, DEPOIS DA 025 ────────────────────────
+# A 025 separou as duas especies. Estas contas sao o contrato dela, e sao
+# cobradas — nao apenas impressas.
+echo
+echo "-- E · o objeto e a observacao"
+tem_obj=$(q "select count(*) from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname='storage_object' and c.relkind='r'")
+tem_col=$(q "select count(*) from information_schema.columns where table_schema='public' and table_name='raw_asset' and column_name='storage_object_id'")
+echo "  STORAGE_OBJECT_EXISTS=$tem_obj"
+echo "  RAW_ASSET_TEM_storage_object_id=$tem_col"
+if [ "$tem_obj" = "1" ] && [ "$tem_col" = "1" ]; then
+  echo "  STORAGE_OBJECT_ROWS=$(q "select count(*) from public.storage_object")"
+  echo "  STORAGE_OBJECT_RLS=$(q "select relrowsecurity::text from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname='storage_object'")"
+  echo "  LINKED_RAW_ASSETS=$(q "select count(*) from public.raw_asset where storage_object_id is not null")"
+  orfaos=$(q "select count(*) from public.raw_asset where preserved and storage_object_id is null")
+  # A LIGACAO E PELO ENDERECO, e nunca pelo sha: dois objetos podem carregar os
+  # mesmos bytes, e um join por hash ligaria a copia errada com ar de certa.
+  fora_caminho=$(q "select count(*) from public.raw_asset a join public.storage_object o on o.id = a.storage_object_id where o.storage_path is distinct from a.storage_path")
+  fora_sha=$(q "select count(*) from public.raw_asset a join public.storage_object o on o.id = a.storage_object_id where o.sha256 is distinct from a.sha256")
+  sem_obs=$(q "select count(*) from public.storage_object o where not exists (select 1 from public.raw_asset a where a.storage_object_id = o.id)")
+  echo "  PRESERVED_WITHOUT_OBJECT=$orfaos"
+  echo "  RAW_STORAGE_PATH_MISMATCHES=$fora_caminho"
+  echo "  RAW_STORAGE_SHA_MISMATCHES=$fora_sha"
+  echo "  OBJETOS_SEM_OBSERVACAO=$sem_obs"
+  [ "$orfaos" = "0" ] && ok "nenhum preservado sem copia" || mal "preservado sem copia" "$orfaos"
+  [ "$fora_caminho" = "0" ] && ok "observacao e copia no mesmo endereco" \
+                            || mal "ENDERECO DIVERGENTE" "$fora_caminho"
+  [ "$fora_sha" = "0" ] && ok "observacao e copia com o mesmo conteudo" \
+                        || mal "SHA DIVERGENTE entre observacao e copia" "$fora_sha"
+else
+  echo "  (a 025 ainda nao esta neste banco — nada a conferir aqui)"
+fi
+
+# As travas, lidas de `pg_constraint`. `convalidated` importa: uma trava criada
+# NOT VALID e uma promessa sobre o futuro e um silencio sobre o passado.
+echo "  CONSTRAINTS_DE_RAW_ASSET:"
+q "select '    '||conname||' | '||contype::text||' | convalidated='||convalidated::text
+   from pg_constraint where conrelid='public.raw_asset'::regclass order by conname"
+
+# ⚠️ SENTINELA DA FASE 10. Enquanto ela nao for resolvida, esta trava fica — e
+# se um dia desaparecer sem missao que o declare, a auditoria grita.
+uniq_path=$(q "select count(*) from pg_indexes where schemaname='public' and tablename='raw_asset' and indexdef ilike '%unique%' and indexdef ilike '%storage_path%'")
+[ "$uniq_path" -ge 1 ] 2>/dev/null && ok "unique (raw_asset.storage_path) continua de pe" \
+                                   || mal "UNIQUE(storage_path) DESAPARECEU" "fase 10 nao foi autorizada"
+
+# ── F · O QUE A CADEIA VERIA COMO PENDENTE ────────────────────────────
+# O aplicador salta o que esta no livro-razao. Aqui faz-se a mesma conta sem
+# escrever nada: saber o que FALTA e tao operacional como saber o que entrou.
+echo
+echo "-- F · migrations que o livro-razao ainda nao tem"
+pendentes=""
+for f in "$RAIZ"/supabase/migrations/*.sql; do
+  n=$(basename "$f" | cut -c1-3)
+  [ "$n" = "008" ] && continue
+  [ "$(q "select count(*) from public.schema_migracao where versao='$n'")" = "0" ] \
+    && pendentes="$pendentes $n"
+done
+echo "  MIGRATIONS_PENDENTES=${pendentes:-nenhuma}"
+
 echo
 if [ "$falhou" = "0" ]; then
   echo "AUDITORIA_LIVE=PASS"; exit 0

@@ -125,9 +125,30 @@ case "$ETAPA" in
         echo "  NENHUMA migration posterior sera aplicada."
         exit 1
       fi
-      if psql "$URL" -v ON_ERROR_STOP=1 -q -f "$f" >/tmp/cc.out 2>/tmp/cc.err; then
-        psql "$URL" -q -c "insert into public.schema_migracao (versao, resultado, sha256)
-          values ('$num','APLICADA','$sha') on conflict (versao) do nothing" >/dev/null
+      # ── UMA MIGRATION ENTRA INTEIRA, OU NAO ENTRA ─────────────────
+      # Sem `--single-transaction`, cada instrucao do ficheiro confirma-se
+      # sozinha. Reproduzido num Postgres descartavel com um ficheiro
+      # A / B / ERRO / C: depois do erro, A e B FICARAM na tabela.
+      #
+      #     META MIGRATION APLICADA E PIOR DO QUE NENHUMA:
+      #     o livro-razao nao a tem, e o banco ja mudou.
+      #
+      # Medido antes de escolher: nenhuma migration desta arvore usa
+      # `concurrently`, `vacuum` ou `alter system`, que nao correm dentro de
+      # transacao. As unicas com `begin;`/`commit;` proprios sao a 023 e a
+      # 024, e nas duas o `commit;` e a ULTIMA linha — nada corre depois dele.
+      #
+      # E O LIVRO-RAZAO VIAJA NO MESMO FLUXO. Antes ele era uma SEGUNDA
+      # chamada ao psql: entre o DDL e o registo havia uma janela em que o
+      # banco ja tinha mudado e o livro ainda nao sabia. Agora o `insert` do
+      # registo entra a seguir ao ficheiro, na mesma transacao — e se o
+      # ficheiro reprovar, o registo reprova com ele.
+      if { cat "$f"
+           printf '\ninsert into public.schema_migracao (versao, resultado, sha256)'
+           printf " values ('%s','APLICADA','%s') on conflict (versao) do nothing;\n" \
+                  "$num" "$sha"
+         } | psql "$URL" -v ON_ERROR_STOP=1 --single-transaction -q -f - \
+               >/tmp/cc.out 2>/tmp/cc.err; then
         echo "MIGRATION_$num=PASS"
       elif grep -qiE "already exists|ja existe|já existe" /tmp/cc.err; then
         # O banco respondeu que os objetos já estão lá. Isso é RESPOSTA, e
@@ -141,6 +162,14 @@ case "$ETAPA" in
     done
     ;;
   importacoes)
+    # ── A TRAVA DO ESCRITOR ANTIGO, ANTES DE QUALQUER IMPORT ──────────
+    # O catalogo ADAMA traz 138 `insert` em `raw_asset` sem identidade. Contra
+    # um banco com a 026 eles sao recusados — e o `on conflict` NAO salva: o
+    # NOT NULL e cobrado ao formar a linha, antes de haver conflito para
+    # resolver. Recusar aqui e recusar com o motivo.
+    bash "$RAIZ/motor/../guarda/trava_do_escritor_antigo.sh" "cadeia_canonica importacoes" \
+      || { echo "IMPORTACOES=RECUSADAS pela trava do escritor antigo"; exit 1; }
+
     # A ordem É a lei. Regulatório primeiro.
     #
     # A IT-LASTMILE entra POR ULTIMO, e nao e preferencia: ela referencia

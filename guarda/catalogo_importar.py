@@ -652,6 +652,23 @@ if __name__ == '__main__':
         if not os.path.exists(SQL_OUT):
             print('rode --sql antes')
             sys.exit(4)
+        # ── A TRAVA DO ESCRITOR ANTIGO ──────────────────────────────────
+        # O SQL gerado aqui traz `insert` em `raw_asset` no formato anterior a
+        # 026: sem source_id, sem document_key, sem estado. Contra um banco com
+        # a 026 essas linhas sao recusadas, e o `on conflict do nothing` nao
+        # salva — o NOT NULL e cobrado ao formar a linha.
+        #
+        # E NAO HA IDENTIDADE PARA DECLARAR: `adama-website` e uma
+        # ORGANIZACAO, e nao um codigo de fonte do atlas. Inventar um seria
+        # registar uma fonte que esta casa nunca teve.
+        trava = subprocess.run(
+            ['bash', os.path.join(ROOT, 'guarda', 'trava_do_escritor_antigo.sh'),
+             'catalogo_importar --aplicar'],
+            capture_output=True, text=True, env=dict(os.environ, SUPABASE_DB_URL=db))
+        print((trava.stdout or '').strip())
+        if trava.returncode:
+            print((trava.stderr or '')[-500:].replace(db, '<OMITIDO>'))
+            sys.exit(5)
         r = subprocess.run(['psql', db, '-v', 'ON_ERROR_STOP=1', '-f', SQL_OUT],
                            capture_output=True, text=True)
         # nunca imprimir a URL do banco: ela carrega a senha

@@ -121,6 +121,73 @@ class OMigradorNaoPulaCego(unittest.TestCase):
         self.assertNotIn('echo "MIGRATION_$num=SKIP (ja no livro-razao)"\n',
                          self.fonte.replace("HASH=MATCH", "X"))
 
+    def test_a_migration_entra_inteira_ou_nao_entra(self):
+        """Sem `--single-transaction`, cada instrução do ficheiro confirma-se
+        sozinha. Reproduzido num Postgres descartável com um ficheiro
+        A / B / ERRO / C: depois do erro, A e B FICARAM na tabela.
+
+            META MIGRATION APLICADA É PIOR DO QUE NENHUMA:
+            o livro-razão não a tem, e o banco já mudou.
+        """
+        self.assertIn("--single-transaction", self.fonte)
+
+    def test_o_livro_razao_viaja_com_o_ddl(self):
+        """O registo entra na MESMA transação do ficheiro.
+
+        Enquanto ele era uma segunda chamada ao `psql`, havia uma janela entre
+        o banco já ter mudado e o livro ainda não saber — e um processo morto
+        ali deixava a migration aplicada e invisível.
+        """
+        # `rindex`, e não `index`: a primeira ocorrência de
+        # `--single-transaction` está no COMENTÁRIO que explica porque ele
+        # passou a existir. Procurar a primeira cortaria o ficheiro antes do
+        # código e reprovaria a coisa certa pelo motivo errado.
+        i = self.fonte.rindex("--single-transaction")
+        # o `insert` do registo tem de estar no fluxo que ENTRA no psql, e não
+        # numa chamada a seguir: procura-se ANTES do `--single-transaction`,
+        # que é onde o `cat "$f"` e o `printf` do registo vivem.
+        antes = self.fonte[:i]
+        self.assertIn('cat "$f"', antes)
+        self.assertIn("insert into public.schema_migracao", antes)
+
+    def test_o_caminho_antigo_de_importacao_passa_pela_trava(self):
+        """O catálogo histórico escreve `raw_asset` sem identidade. Contra um
+        banco com a 026 ele é recusado — e recusar cedo, com o motivo, não é a
+        mesma coisa que rebentar a meio com um erro de constraint."""
+        self.assertIn("trava_do_escritor_antigo.sh", self.fonte)
+
+
+class ATravaDoEscritorAntigoSoLe(unittest.TestCase):
+    """Ela recusa, e é só isso que faz."""
+
+    def setUp(self):
+        with open(os.path.join(RAIZ, "guarda", "trava_do_escritor_antigo.sh"),
+                  encoding="utf-8") as f:
+            self.corpo = "\n".join(l for l in f if not l.strip().startswith("#"))
+
+    def test_nao_escreve(self):
+        for verbo in ("insert into", "update ", "delete from", "drop ",
+                      "alter table", "create table"):
+            self.assertNotIn(verbo, self.corpo.lower(), verbo)
+
+    def test_pergunta_pela_coluna_da_026(self):
+        self.assertIn("identity_state", self.corpo)
+
+    def test_nao_ecoa_a_url(self):
+        self.assertIn("sanitiza", self.corpo)
+
+    def test_todo_caminho_antigo_conhecido_a_chama(self):
+        """Três caminhos escrevem `raw_asset` no formato anterior à 026, e os
+        três têm de bater na trava antes de tentar."""
+        for caminho in (os.path.join(RAIZ, ".github", "workflows",
+                                     "supabase-raw-roundtrip.yml"),
+                        os.path.join(RAIZ, ".github", "workflows",
+                                     "supabase-fichas-adama.yml"),
+                        os.path.join(RAIZ, "guarda", "catalogo_importar.py")):
+            with open(caminho, encoding="utf-8") as f:
+                self.assertIn("trava_do_escritor_antigo", f.read(),
+                              os.path.basename(caminho))
+
 
 class APortaOneShotFoiAposentada(unittest.TestCase):
     """O `canario-022` não existe mais, e nada o substituiu com poder."""
