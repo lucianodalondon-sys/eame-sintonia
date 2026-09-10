@@ -33,13 +33,13 @@ V-FACEBOOK
 V-HTTP
 ```
 
-## ESTADO APÓS LOTE 07
+## ESTADO APÓS LOTE 08
 
 ```text
-AUDITED_COLLECTION_NODES = 38 / 64
-AUDITED_DECLARED = 37 / 54
+AUDITED_COLLECTION_NODES = 44 / 64
+AUDITED_DECLARED = 43 / 54
 AUDITED_SYNTHETIC = 1 / 10
-REMAINING_DECLARED = 17
+REMAINING_DECLARED = 11
 REMAINING_SYNTHETIC = 9
 ```
 
@@ -208,6 +208,61 @@ Correções importantes do Lote 07:
 - 25 de 35 RAW apontam para caminho absoluto fora do repo auditado.
 ```
 
+## LOTE 08
+
+```text
+C-SAUDE-FONTE
+C-CENSO-EXECUTORES
+C-CENSO-OBSERVABILIDADE
+C-CONTRATO-CAMPOS
+C-REGRA-COLETA
+C-RELATORIO-FLUXO
+```
+
+Resultado do lote:
+
+```text
+CARDS_AUDITED = 6/6
+MAP_EDGES_AUDITED = 38/38
+TRUE = 25
+FALSE_EDGES = 6
+EVIDENCE_MISPLACED = 3
+TYPE_WRONG = 4
+EXPECTED_ONLY = 0
+UNKNOWN_RELATIONS = 0
+MISSING_RUNTIME_EDGES = 2
+LOTE_08_CLOSED = YES
+```
+
+Achado dominante: a camada auditada mede partes reais do sistema, mas nenhuma das seis peças é runtime enforcement e, em conjunto, não detecta as oito classes de defeito já conhecidas dos Lotes 06/07 (módulo que não carrega, YAML writer/coletor, writer fora do owner, bypass de Ingresso, saída sem consumidor, path local absoluto, contrato não consumido e edge criada por prosa/literal).
+
+Vereditos provisórios:
+
+```text
+C-SAUDE-FONTE           KEEP
+C-CENSO-EXECUTORES      KEEP
+C-CENSO-OBSERVABILIDADE KEEP
+C-CONTRATO-CAMPOS       SPLIT_CANDIDATE
+C-REGRA-COLETA          SPLIT_CANDIDATE
+C-RELATORIO-FLUXO       KEEP
+```
+
+Correções e lições importantes do Lote 08:
+
+```text
+- medir != bloquear != enforcement;
+- C-CENSO-EXECUTORES vê só .py no topo de 4 gavetas e não detecta broken import;
+- provas-de-execucao.json não teve writer encontrado: PROVED manual precisa ser distinguido de prova executada;
+- C-CENSO-OBSERVABILIDADE tem uma dimensão realmente medida e outras publicadas por literal/repasse;
+- C-CONTRATO-CAMPOS mistura schema/cobertura com classificador semântico;
+- C-REGRA-COLETA olha artefatos depois da coleta e não bloqueia runtime;
+- C-RELATORIO-FLUXO mede o ledger, mas A_CONTA_FECHA não prova acessibilidade do RAW;
+- falso verde deve ser separado em PROOF_FALSE, PROOF_SCOPE_TOO_NARROW e SURFACE_OVERCLAIMS_PROOF;
+- seis edges falsas do lote nasceram de nomes de arquivos em strings de prosa;
+- generated artifacts precisam de provenance do snapshot;
+- camada de medição deve tender a CORE parametrizado para novos países.
+```
+
 ## REGRA DE ATUALIZAÇÃO
 
 Depois de cada lote fechado:
@@ -219,4 +274,6 @@ Depois de cada lote fechado:
 5. nunca promover card a auditado por ter aparecido apenas como vizinho;
 6. nunca apagar histórico de lote;
 7. se a fotografia de censo mudar, abrir nova seção de snapshot em vez de misturar universos;
-8. quando resumo final contradizer o critério detalhado, reconciliar pela evidência e registrar a correção.
+8. quando resumo final contradizer o critério detalhado, reconciliar pela evidência e registrar a correção;
+9. distinguir `MEASURED`, `GATED` e `RUNTIME_ENFORCED`;
+10. nunca tratar estado `PROVED/MEDIDO/OBSERVED` como autoexplicativo: exigir origem/evidência e snapshot quando aplicável.
