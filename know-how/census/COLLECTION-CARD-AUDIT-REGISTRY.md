@@ -33,13 +33,13 @@ V-FACEBOOK
 V-HTTP
 ```
 
-## ESTADO APÓS LOTE 06
+## ESTADO APÓS LOTE 07
 
 ```text
-AUDITED_COLLECTION_NODES = 32 / 64
-AUDITED_DECLARED = 31 / 54
+AUDITED_COLLECTION_NODES = 38 / 64
+AUDITED_DECLARED = 37 / 54
 AUDITED_SYNTHETIC = 1 / 10
-REMAINING_DECLARED = 23
+REMAINING_DECLARED = 17
 REMAINING_SYNTHETIC = 9
 ```
 
@@ -156,6 +156,58 @@ C-TRANSCRICAO         SPLIT_CANDIDATE
 C-PADRAO-COLETA       KEEP, com reclassificação futura a estudar
 ```
 
+## LOTE 07
+
+```text
+C-PORTA-FONTE
+C-IT-CATALOGO
+C-FONTES-EU
+C-IT-COLETA
+C-IT-CONTRATOS
+C-IDENTIDADE
+```
+
+Resultado do lote:
+
+```text
+CARDS_AUDITED = 6/6
+MAP_EDGES_AUDITED = 41/41
+MISSING_RUNTIME_EDGES = 7
+FALSE_EDGES = 2
+EVIDENCE_MISPLACED = 5
+TYPE_WRONG = 6
+EXPECTED_ONLY = 5
+UNKNOWN_RELATIONS = 0
+LOTE_07_CLOSED = YES
+```
+
+Achado dominante: a cadeia italiana do snapshot auditado possui 10 imports relativos quebrados e componentes centrais falham em tempo de carga; recibos históricos de outros HEADs não provam executabilidade deste HEAD.
+
+Vereditos provisórios reconciliados pela regra dura de split:
+
+```text
+C-PORTA-FONTE     KEEP
+C-IT-CATALOGO     SPLIT_CANDIDATE
+C-FONTES-EU       KEEP; MOVE_CANDIDATE para coleta/regulatorio_importar.py
+C-IT-COLETA       SPLIT_CANDIDATE
+C-IT-CONTRATOS    KEEP; guardas/scripts podem precisar MOVE/REMAP
+C-IDENTIDADE      KEEP
+```
+
+Correções importantes do Lote 07:
+
+```text
+- gerar SQL não é escrever no banco;
+- C-FONTES-EU não foi provado como writer direto de registro_regulatorio;
+- C-IT-COLETA é o writer real de observations.ndjson e runs.ndjson;
+- SOURCE_ID não tem owner/gerador canônico provado;
+- CHANNEL_IDENTITY_NOT_RESOLVED continua OPEN;
+- contratos italianos existem e são máquina-legíveis, mas só parte pequena governa runtime;
+- o fluxo candidato → fonte registrada não existe de forma canônica;
+- o coletor italiano não passa por Pedido → Orquestrador → Ingresso;
+- 25 de 35 RAW apontam para caminho absoluto fora do repo auditado.
+```
+
 ## REGRA DE ATUALIZAÇÃO
 
 Depois de cada lote fechado:
@@ -166,4 +218,5 @@ Depois de cada lote fechado:
 4. atualizar os quatro contadores do estado;
 5. nunca promover card a auditado por ter aparecido apenas como vizinho;
 6. nunca apagar histórico de lote;
-7. se a fotografia de censo mudar, abrir nova seção de snapshot em vez de misturar universos.
+7. se a fotografia de censo mudar, abrir nova seção de snapshot em vez de misturar universos;
+8. quando resumo final contradizer o critério detalhado, reconciliar pela evidência e registrar a correção.
