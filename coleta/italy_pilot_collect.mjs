@@ -44,6 +44,18 @@ const LEDGER_DIR = `${RAIZ}/data/collection-ledger/italy`;
 const STORE = `${RAIZ}/data/collection-store/italy`;
 const COLLECTOR_VERSION = "pilot-v1";
 
+// ── O UNICO CONCEITO QUE ESTE CORTE SABE RESOLVER ──────────────────────────
+// `RESOLVED_STRUCTURED_TARGET` responde a UMA pergunta, e nao a outra parecida:
+//
+//     o que esta materializacao PRODUZIU   <- e esta
+//     o que esta fonte PODE produzir       <- e a permissao, e vive no contrato
+//
+// A permissao (`ALLOWED_STRUCTURED_TARGETS`) ainda nao esta instalada em lado
+// nenhum. Isso NAO autoriza este coletor a manter uma segunda lista sua: uma
+// constante e o nome do que ele acabou de fazer; uma lista seria uma autoridade
+// paralela, e a casa ja mediu o que custa ter duas.
+const SOURCE_DOCUMENT = "SOURCE_DOCUMENT";
+
 export const PILOT_SOURCES = ["IT-T3-005", "IT-T2-002", "IT-T2-004", "IT-T3-002", "IT-T3-010", "IT-T3-008", "IT-T4-001"];
 
 const sha = b => createHash("sha256").update(b).digest("hex");
@@ -407,6 +419,28 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
       const obs = {
         RUN_ID, SOURCE_ID: sourceId, SOURCE_URL: alvo.url,
         DOCUMENT_ID: ident.DOCUMENT_ID, DOCUMENT_VERSION_ID, RAW_SHA256,
+        // ── O QUE ESTA MATERIALIZACAO PRODUZIU ─────────────────────────────
+        // A razao do carimbo e uma so: acabou de nascer uma IDENTIDADE
+        // DOCUMENTAL. Nao e o PDF, nem o MIME, nem a extensao, nem o nome da
+        // fonte, nem o nome deste ficheiro — nenhum desses prova que houve
+        // documento. `DOCUMENT_ID` e `DOCUMENT_VERSION_ID` com valor real
+        // provam, porque sao o que a casa acabou de construir.
+        //
+        // E por isso ele e CONDICIONAL e nao constante. As quatro observacoes
+        // de falha ali acima nao passam por aqui, e nenhuma delas leva o campo:
+        // sem identidade, o alvo nao foi resolvido, e a resposta certa e a
+        // AUSENCIA do campo. Escrever `null`, `UNKNOWN` ou `NAO SEI` poria uma
+        // confissao num sitio onde so cabe um CONCEPT_ID, e quem lesse depois
+        // teria de adivinhar se aquilo era um conceito ou uma desculpa.
+        //
+        //     ALVO AUSENTE != ALVO DESCONHECIDO != ALVO NENHUM.
+        //
+        // ⚠️ E ele NAO diz que esta observacao so produz isto. O mesmo boletim
+        // pode vir a dar 1045 linhas (IT-T2-004) ou 139 pontos (IT-T3-005), e
+        // cada uma dessas unidades tera o alvo dela. Aqui diz-se apenas que a
+        // materializacao DOCUMENTAL deste corte e um SOURCE_DOCUMENT.
+        ...(ident.DOCUMENT_ID && DOCUMENT_VERSION_ID
+            ? { RESOLVED_STRUCTURED_TARGET: SOURCE_DOCUMENT } : {}),
         BYTES: r.buf.length, MIME_ASSINATURA: sig,
         SOURCE_DATE: ident.SOURCE_DATE, SOURCE_DATE_ISO: ident.SOURCE_DATE_ISO,
         FACT_TIME: ident.FACT_TIME ?? "UNKNOWN",
