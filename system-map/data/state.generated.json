@@ -202,6 +202,7 @@
       "coleta/instagram_diario.py",
       "coleta/instagram_janela.py",
       "coleta/instagram_pessoal.py",
+      "coleta/italy_executor.py",
       "coleta/italy_find_docs.mjs",
       "coleta/italy_pilot_collect.mjs",
       "coleta/italy_probe.mjs",
@@ -1423,6 +1424,7 @@
       "tests/test_hero_cases_v1.py",
       "tests/test_identidade_do_artefato.py",
       "tests/test_integracao_biblia.py",
+      "tests/test_italia_na_porta_canonica.py",
       "tests/test_lingua_unica.py",
       "tests/test_lugar_do_fato.py",
       "tests/test_m2_aresta_observada.py",
@@ -1474,8 +1476,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 539 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 539 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 540 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 540 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1850,9 +1852,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "2a412269330b0451e2f3ff7532119a1ffbd89469",
-    "GENERATED_AT": "2026-09-10T15:22:16+00:00",
-    "SOURCE_TREE_FINGERPRINT": "dd49b825331574a2251b4314e08bf28deb884931773c0f6365f51546930ff5e4"
+    "HEAD": "63f53de40fe4d3ae508d83dd21cd67b1153dcfa2",
+    "GENERATED_AT": "2026-09-10T16:00:22+00:00",
+    "SOURCE_TREE_FINGERPRINT": "505a59f8f50f5faeb4e2d9b9d67c23e44a58e4d74a744804718e0d9c64937657"
   },
   "FAMILIES": [
     {
@@ -4960,6 +4962,15 @@
           "carimba_lugar": [
             "COUNTRY"
           ],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
+          "ficheiro": "coleta/italy_executor.py",
+          "como_se_chama": "coleta/italy_executor.py --run-id",
+          "carimba_data": [],
+          "carimba_lugar": [],
           "separa_fonte_do_fato": false,
           "leis_que_obedece": [],
           "regista_descarte": []
@@ -9255,7 +9266,7 @@
         "ITALIA": 4
       },
       "paises_dado": {
-        "ITALIA": 13
+        "ITALIA": 14
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -9503,7 +9514,7 @@
         "ITALIA": 1
       },
       "paises_dado": {
-        "ITALIA": 2
+        "ITALIA": 3
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -10578,7 +10589,8 @@
       "outbound": [
         "C-ESTRADAS-IT",
         "C-PROVA-COLETA",
-        "C-PROVA-ENCANAMENTO"
+        "C-PROVA-ENCANAMENTO",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -10992,7 +11004,8 @@
       "outbound": [
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
-        "C-RECEITAS"
+        "C-RECEITAS",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -12574,10 +12587,13 @@
       "outbound": [
         "C-ESTRADAS-IT",
         "C-ORQUESTRADOR",
-        "C-PROVA-COLETA"
+        "C-PROVA-COLETA",
+        "C-TESTES"
       ],
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
@@ -15037,6 +15053,7 @@
         "tests/test_hero_cases_v1.py",
         "tests/test_identidade_do_artefato.py",
         "tests/test_integracao_biblia.py",
+        "tests/test_italia_na_porta_canonica.py",
         "tests/test_lingua_unica.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_m2_aresta_observada.py",
@@ -15083,7 +15100,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 74,
+      "file_count": 75,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 7 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15151,7 +15168,9 @@
         "C-MAPA-VALIDADOR",
         "C-MEDICAO",
         "C-NAVEGADOR",
+        "C-ORQUESTRADOR",
         "C-PACOTE-CAMADAS",
+        "C-PEDIDO",
         "C-POLITICA-COLETA",
         "C-PORTAL-MODELO",
         "C-PROCEDENCIA",
@@ -15160,6 +15179,7 @@
         "C-PROVA-MAPA-NAO-MENTE",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
+        "C-RECEITAS",
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
         "C-RELEVANCIA",
@@ -15198,7 +15218,7 @@
       },
       "paises_dado": {
         "ESPANHA": 42,
-        "ITALIA": 11,
+        "ITALIA": 14,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -21709,12 +21729,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
           "line": 34,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira    # noqa: E402"
+        },
+        {
+          "file": "tests/test_italia_na_porta_canonica.py",
+          "line": 53,
+          "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402"
         },
         {
           "file": "tests/test_m2_rota_forward.py",
@@ -23096,6 +23121,24 @@
     {
       "from": "C-INGRESSO",
       "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_italia_na_porta_canonica.py",
+          "line": 50,
+          "snippet": "import ingresso as ing                     # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-INGRESSO",
+      "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -23378,8 +23421,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_italia_na_porta_canonica.py",
+          "line": 178,
+          "snippet": "r = subprocess.run([\"node\", \"coleta/italy_pilot_collect.mjs\"],"
+        },
         {
           "file": "tests/test_observabilidade_estrada.py",
           "line": 280,
@@ -24700,6 +24748,42 @@
       "categoria": "READ"
     },
     {
+      "from": "C-ORQUESTRADOR",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_italia_na_porta_canonica.py",
+          "line": 52,
+          "snippet": "import orquestrador as orq                 # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-ORQUESTRADOR",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_italia_na_porta_canonica.py",
+          "line": 163,
+          "snippet": "fonte = io.open(os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\"),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-PACOTE-CAMADAS",
       "to": "C-TESTES",
       "type": "IMPORTS",
@@ -24888,6 +24972,24 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-PEDIDO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_italia_na_porta_canonica.py",
+          "line": 54,
+          "snippet": "from pedido import de_uma_frase            # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-POLITICA-COLETA",
@@ -26642,6 +26744,24 @@
           "file": "provas/testa_coleta_canonica.py",
           "line": 32,
           "snippet": "from receitas import resolver  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RECEITAS",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_italia_na_porta_canonica.py",
+          "line": 55,
+          "snippet": "from receitas import EXECUTORES            # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -30008,8 +30128,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 721,
+  "UNCLAIMED_CODE_FILES": [
+    "coleta/italy_executor.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 722,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30177,12 +30299,12 @@
     "components_pending": 90,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 609,
-    "edges_proven": 607,
+    "edges": 614,
+    "edges_proven": 612,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1402,
-    "files_covered": 681,
-    "files_code_unclaimed": 0
+    "files_tracked": 1404,
+    "files_covered": 682,
+    "files_code_unclaimed": 1
   }
 }

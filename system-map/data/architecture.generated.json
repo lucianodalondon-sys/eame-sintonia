@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "2a412269330b0451e2f3ff7532119a1ffbd89469",
-    "GENERATED_AT": "2026-09-10T15:22:16+00:00",
-    "SOURCE_TREE_FINGERPRINT": "dd49b825331574a2251b4314e08bf28deb884931773c0f6365f51546930ff5e4"
+    "HEAD": "63f53de40fe4d3ae508d83dd21cd67b1153dcfa2",
+    "GENERATED_AT": "2026-09-10T16:00:22+00:00",
+    "SOURCE_TREE_FINGERPRINT": "505a59f8f50f5faeb4e2d9b9d67c23e44a58e4d74a744804718e0d9c64937657"
   },
   "FILES": [
     {
@@ -1278,6 +1278,13 @@
     {
       "path": "coleta/instagram_pessoal.py",
       "sha": "957774eff46891cbf73b0f57bc3ea0273f074370",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/italy_executor.py",
+      "sha": "003913c114c4a8af59135550932f2b2573dc9c37",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7822,7 +7829,7 @@
     },
     {
       "path": "regras/LEIA-ANTES-DE-COLETAR.md",
-      "sha": "961236ef2db4bc5ac4396e527434bc51a49bd01c",
+      "sha": "6f6ea5c1bd39809796015212d1d068faf3926369",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -9496,6 +9503,13 @@
     {
       "path": "tests/test_integracao_biblia.py",
       "sha": "afa04d0c8652610adbc7aef32fd1c1f35835737f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_italia_na_porta_canonica.py",
+      "sha": "823ab145535195dfa37fee11a939bec11dc47576",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11912,6 +11926,28 @@
         "file": "coleta/instagram_janela.py",
         "line": 74,
         "snippet": "import proveniencia as pv        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/italy_executor.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_executor.py",
+        "line": 78,
+        "snippet": "COLETOR = os.path.join(\"coleta\", \"italy_pilot_collect.mjs\")"
+      }
+    },
+    {
+      "from_file": "coleta/italy_executor.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_executor.py",
+        "line": 79,
+        "snippet": "LIVRO = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
       }
     },
     {
@@ -24071,6 +24107,17 @@
     },
     {
       "from_file": "pedido/receitas.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 98,
+        "snippet": "\"roda\": [\"coleta/italy_executor.py\"],"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
       "to_file": "coleta/rotulos_baixar.py",
       "type": "READS",
       "payload": "artefacto",
@@ -30186,6 +30233,116 @@
       }
     },
     {
+      "from_file": "tests/test_italia_na_porta_canonica.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_italia_na_porta_canonica.py",
+        "line": 48,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_italia_na_porta_canonica.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_italia_na_porta_canonica.py",
+        "line": 50,
+        "snippet": "import ingresso as ing                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_italia_na_porta_canonica.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_italia_na_porta_canonica.py",
+        "line": 51,
+        "snippet": "import italy_executor as adapter           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_italia_na_porta_canonica.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_italia_na_porta_canonica.py",
+        "line": 132,
+        "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"adapter-v1\","
+      }
+    },
+    {
+      "from_file": "tests/test_italia_na_porta_canonica.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_italia_na_porta_canonica.py",
+        "line": 178,
+        "snippet": "r = subprocess.run([\"node\", \"coleta/italy_pilot_collect.mjs\"],"
+      }
+    },
+    {
+      "from_file": "tests/test_italia_na_porta_canonica.py",
+      "to_file": "guarda/memoria_descartavel.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_italia_na_porta_canonica.py",
+        "line": 53,
+        "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_italia_na_porta_canonica.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_italia_na_porta_canonica.py",
+        "line": 52,
+        "snippet": "import orquestrador as orq                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_italia_na_porta_canonica.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_italia_na_porta_canonica.py",
+        "line": 163,
+        "snippet": "fonte = io.open(os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_italia_na_porta_canonica.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_italia_na_porta_canonica.py",
+        "line": 54,
+        "snippet": "from pedido import de_uma_frase            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_italia_na_porta_canonica.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_italia_na_porta_canonica.py",
+        "line": 55,
+        "snippet": "from receitas import EXECUTORES            # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_lingua_unica.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -33915,10 +34072,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1402,
-    "files_readable": 523,
-    "files_code_dir": 570,
-    "file_edges": 2149,
+    "files_tracked": 1404,
+    "files_readable": 525,
+    "files_code_dir": 572,
+    "file_edges": 2162,
     "escritas_em_pasta": 66,
     "declared_missing_here": 0
   },
