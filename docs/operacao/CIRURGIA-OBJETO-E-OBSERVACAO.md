@@ -2319,3 +2319,108 @@ NEXT_STEP = B5B · implementar SOMENTE as fases 7, 8 e 9, com:
             corte do legado pelo surrogate sob lock · FK composta do objeto
             e continuar a NÃO tocar nas fases 10 e 11
 ```
+
+---
+
+## U · C-LIVE-025 — A 025 ENTROU NO BANCO VIVO
+
+**C-LIVE-025** · aplicação controlada · 2026-09-10
+
+> A migration 025 deixou de ser proposta. Foi aplicada ao banco canónico pelo
+> aplicador da casa, com o censo congelado antes e conferido depois.
+
+### U.1 · O FICHEIRO CONTINUA A DIZER «NÃO EXECUTADA», E ISSO ESTÁ CERTO
+
+```
+supabase/migrations/025_o_objeto_ganha_casa.sql  ← NÃO foi editado
+```
+
+⚠️ **Uma migration aplicada é artefacto imutável.** O livro-razão guarda o
+`sha256` do ficheiro inteiro, e reescrevê-lo para dizer que correu partiria a
+cadeia em qualquer banco onde ele já esteja. A 022 vive com a mesma frase desde
+que foi aplicada, e há teste que exige que assim continue.
+
+```
+QUEM DIZ QUE UMA MIGRATION CORREU É O LIVRO-RAZÃO, NUNCA O FICHEIRO.
+```
+
+### U.2 · O QUE FOI FEITO, E POR QUE PORTA
+
+```
+REF DA OPERAÇÃO   ops/live-025-only-20260910 → 09277bf8
+                  ponteiro puro. A 025 lá está; a 026 ainda não existia.
+PROCEDIMENTO      workflow_dispatch de .github/workflows/supabase-migrate.yml
+                  importar = false
+CORRIDAS          censo BEFORE   34531578033
+                  aplicação      34531767304
+                  censo AFTER    34531982144
+```
+
+O aplicador percorreu a cadeia inteira e escreveu **uma** linha:
+
+```
+MIGRATION_001..024 = SKIP (ja no livro-razao) HASH=MATCH
+MIGRATION_025      = PASS
+POST_APPLY_VERIFICATION (008) = PASS
+passos de importação = skipped
+```
+
+### U.3 · O QUE MUDOU, MEDIDO DOS DOIS LADOS
+
+| | BEFORE | AFTER |
+|---|---|---|
+| `raw_asset` linhas | 252 | 252 |
+| min · max `id` | 1 · 890 | 1 · 890 |
+| ids distintos | 252 | 252 |
+| `storage_path` distintos | 252 | 252 |
+| preservados | 252 | 252 |
+| **md5 do CONJUNTO de ids** | `bf54cf47…86ce` | `bf54cf47…86ce` |
+| `storage_object` | não existia | 252 linhas, RLS activa |
+| `raw_asset.storage_object_id` | não existia | 252 ligadas, 0 preservadas sem cópia |
+| ligações com caminho divergente | — | 0 |
+| ligações com sha divergente | — | 0 |
+| objectos sem observação | — | 0 |
+| `unique (storage_path)` | presente | presente |
+
+```
+RAW_ASSET_ID_SET_PRESERVED = YES — e é o md5 do conjunto que o diz,
+                             não a contagem. Count igual não é conjunto igual.
+```
+
+A trava condicional da 025 entrou **validada**, e não apenas criada:
+
+```
+preservado_aponta_para_a_copia    | c | convalidated = true
+raw_asset_storage_object_id_fkey  | f | convalidated = true
+```
+
+### U.4 · E A 026 CONTINUA FORA
+
+```
+raw_asset.identity_state · source_id · document_key · document_key_basis
+attempts · last_attempt_at                    NENHUMA existe no banco vivo
+026 no livro-razão                            ausente
+B5B_026_LIVE_APPLIED = NO
+```
+
+O ref da operação foi escolhido **exactamente** por isso: no `09277bf8` a 026
+ainda não tinha nascido, logo o aplicador não tinha como a ver. Não se apagou
+nada da fundação para conseguir isso.
+
+### U.5 · OS DOIS BLOQUEIOS DA 026, QUE ESTA MISSÃO NÃO TOCOU
+
+```
+B5B_026_BLOCKER_ATOMICITY           = OPEN
+    o aplicador corre cada ficheiro sem `--single-transaction`. Uma falha a
+    meio da 026 deixa a fase 7 aplicada e o estado por fechar. É recuperável
+    repetindo, e isso está medido — mas não é atómico.
+
+B5B_026_BLOCKER_HISTORICAL_IMPORTER = OPEN
+    o caminho de importações sob demanda carrega 138 `insert` em `raw_asset`
+    sem identidade. Depois da 026 eles são recusados, e o `on conflict` não
+    salva: o NOT NULL é cobrado antes de haver conflito para resolver.
+```
+
+```
+READY_FOR_PHASE_10 = NO
+```
