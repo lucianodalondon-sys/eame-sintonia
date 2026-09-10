@@ -1328,6 +1328,7 @@
       "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
       "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
       "supabase/migrations/025_o_objeto_ganha_casa.sql",
+      "supabase/migrations/026_a_observacao_ganha_identidade.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -1858,8 +1859,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "09277bf89c0d9a28324fa7681e437b5e5e094b67",
-    "GENERATED_AT": "2026-09-10T20:06:46+00:00",
+    "HEAD": "4f9a2e2911cffaa29d7c31a4c139b702afbe3761",
+    "GENERATED_AT": "2026-09-10T20:52:53+00:00",
     "SOURCE_TREE_FINGERPRINT": "44796f71add222b9c13ccd8f14fa06d12db0c67c3a7e0a531e36686d5d3848f1"
   },
   "FAMILIES": [
@@ -13917,6 +13918,7 @@
         "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
         "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
         "supabase/migrations/025_o_objeto_ganha_casa.sql",
+        "supabase/migrations/026_a_observacao_ganha_identidade.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -13928,9 +13930,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 47,
+      "file_count": 48,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -28858,7 +28860,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 9 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/derived_artifact_no_postgres.py",
@@ -28876,6 +28878,11 @@
           "snippet": "\"025_o_objeto_ganha_casa.sql\","
         },
         {
+          "file": "provas/derived_artifact_no_postgres.py",
+          "line": 52,
+          "snippet": "\"026_a_observacao_ganha_identidade.sql\","
+        },
+        {
           "file": "provas/objeto_e_observacao_no_postgres.py",
           "line": 57,
           "snippet": "MIGRACOES = [\"001_fundacao_geografia_e_proveniencia.sql\","
@@ -28891,6 +28898,11 @@
           "snippet": "M025 = \"025_o_objeto_ganha_casa.sql\""
         },
         {
+          "file": "provas/objeto_e_observacao_no_postgres.py",
+          "line": 60,
+          "snippet": "M026 = \"026_a_observacao_ganha_identidade.sql\""
+        },
+        {
           "file": "provas/paridade_da_lingua.py",
           "line": 60,
           "snippet": "return open(MIGRATION, encoding='utf-8').read()"
@@ -28904,6 +28916,11 @@
           "file": "provas/preservar_coleta_no_postgres.py",
           "line": 57,
           "snippet": "\"025_o_objeto_ganha_casa.sql\")"
+        },
+        {
+          "file": "provas/preservar_coleta_no_postgres.py",
+          "line": 59,
+          "snippet": "\"026_a_observacao_ganha_identidade.sql\")"
         }
       ],
       "categoria": "PROOF"
@@ -30559,8 +30576,8 @@
     "edges_proven": 618,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1410,
-    "files_covered": 687,
+    "files_tracked": 1411,
+    "files_covered": 688,
     "files_code_unclaimed": 0
   }
 }

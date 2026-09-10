@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "09277bf89c0d9a28324fa7681e437b5e5e094b67",
-    "GENERATED_AT": "2026-09-10T20:06:46+00:00",
+    "HEAD": "4f9a2e2911cffaa29d7c31a4c139b702afbe3761",
+    "GENERATED_AT": "2026-09-10T20:52:53+00:00",
     "SOURCE_TREE_FINGERPRINT": "44796f71add222b9c13ccd8f14fa06d12db0c67c3a7e0a531e36686d5d3848f1"
   },
   "FILES": [
@@ -8873,6 +8873,13 @@
     {
       "path": "supabase/migrations/025_o_objeto_ganha_casa.sql",
       "sha": "7a7ade2c2de5cd85ba3342ed0d0d1850b3acd09d",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "supabase/migrations/026_a_observacao_ganha_identidade.sql",
+      "sha": "0963ff53d784e5422f9ed4b96afe478311b4d090",
       "ext": ".sql",
       "readable": false,
       "code_dir": false
@@ -25006,6 +25013,17 @@
       }
     },
     {
+      "from_file": "provas/derived_artifact_no_postgres.py",
+      "to_file": "supabase/migrations/026_a_observacao_ganha_identidade.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/derived_artifact_no_postgres.py",
+        "line": 52,
+        "snippet": "\"026_a_observacao_ganha_identidade.sql\","
+      }
+    },
+    {
       "from_file": "provas/es/freeze_es.py",
       "to_file": "data/samples/SPAIN-DEMO-CONTENT-V1.json",
       "type": "READS",
@@ -25490,6 +25508,17 @@
       }
     },
     {
+      "from_file": "provas/objeto_e_observacao_no_postgres.py",
+      "to_file": "supabase/migrations/026_a_observacao_ganha_identidade.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/objeto_e_observacao_no_postgres.py",
+        "line": 60,
+        "snippet": "M026 = \"026_a_observacao_ganha_identidade.sql\""
+      }
+    },
+    {
       "from_file": "provas/paridade_da_lingua.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -25608,6 +25637,17 @@
         "file": "provas/preservar_coleta_no_postgres.py",
         "line": 57,
         "snippet": "\"025_o_objeto_ganha_casa.sql\")"
+      }
+    },
+    {
+      "from_file": "provas/preservar_coleta_no_postgres.py",
+      "to_file": "supabase/migrations/026_a_observacao_ganha_identidade.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/preservar_coleta_no_postgres.py",
+        "line": 59,
+        "snippet": "\"026_a_observacao_ganha_identidade.sql\")"
       }
     },
     {
@@ -34444,10 +34484,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1410,
+    "files_tracked": 1411,
     "files_readable": 528,
     "files_code_dir": 575,
-    "file_edges": 2192,
+    "file_edges": 2195,
     "escritas_em_pasta": 66,
     "declared_missing_here": 0
   },
