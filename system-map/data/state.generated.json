@@ -1858,9 +1858,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "cb8e0968c27ba48aeb88d9ee5151c0c852bc7c3d",
-    "GENERATED_AT": "2026-09-10T20:06:06+00:00",
-    "SOURCE_TREE_FINGERPRINT": "fcbd21a849740b39788e57e8d0bbd8ed02e457bcd2d7ba4e8e4dac4e23842330"
+    "HEAD": "09277bf89c0d9a28324fa7681e437b5e5e094b67",
+    "GENERATED_AT": "2026-09-10T20:06:46+00:00",
+    "SOURCE_TREE_FINGERPRINT": "44796f71add222b9c13ccd8f14fa06d12db0c67c3a7e0a531e36686d5d3848f1"
   },
   "FAMILIES": [
     {
@@ -8060,11 +8060,12 @@
           "COLS_RAW",
           "COLS_RUN",
           "IDENTIDADE_DA_CORRIDA",
-          "IDENTIDADE_DO_OBJETO"
+          "IDENTIDADE_DO_OBJETO",
+          "SENTINELAS"
         ],
-        "palavras": 54,
+        "palavras": 72,
         "por_lingua": {},
-        "sem_marca_de_lingua": 54,
+        "sem_marca_de_lingua": 72,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11817,14 +11818,15 @@
           "COLS_RUN",
           "COLUNA_DO_DESTINO",
           "MIGRATIONS",
+          "SENTINELAS_MEDIDAS",
           "_GAVETAS_IT",
           "_OUTROS",
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 113,
+        "palavras": 124,
         "por_lingua": {},
-        "sem_marca_de_lingua": 113,
+        "sem_marca_de_lingua": 124,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12037,9 +12039,9 @@
         "listas": [
           "MIGRATIONS"
         ],
-        "palavras": 24,
+        "palavras": 25,
         "por_lingua": {},
-        "sem_marca_de_lingua": 24,
+        "sem_marca_de_lingua": 25,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12255,9 +12257,9 @@
         "listas": [
           "MIGRATIONS"
         ],
-        "palavras": 24,
+        "palavras": 25,
         "por_lingua": {},
-        "sem_marca_de_lingua": 24,
+        "sem_marca_de_lingua": 25,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15131,13 +15133,14 @@
       ],
       "file_count": 77,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 8 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "tests/test_coleta_externa.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_metricas.py",
         "tests/test_migrations.py",
         "tests/test_operacao.py",
+        "tests/test_preservar_coleta.py",
         "tests/test_preservar_coleta_no_banco.py",
         "tests/test_preservar_derivado.py",
         "tests/test_proveniencia.py"
@@ -15311,7 +15314,7 @@
         {
           "onde": "SUPABASE",
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 676,
+          "line": 711,
           "snippet": "for proibido in (\"os.environ\", \"getenv\", \"SUPABASE_URL =\"):"
         },
         {
@@ -21688,7 +21691,7 @@
       "evidence": [
         {
           "file": "provas/derived_artifact_no_postgres.py",
-          "line": 324,
+          "line": 329,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira"
         },
         {
@@ -21700,6 +21703,24 @@
           "file": "provas/preservar_coleta_no_postgres.py",
           "line": 44,
           "snippet": "from guarda.preservar_coleta import (  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/objeto_e_observacao_no_postgres.py",
+          "line": 722,
+          "snippet": "fonte_do_writer = open(os.path.join(RAIZ, \"guarda\", \"preservar_coleta.py\"),"
         }
       ],
       "categoria": "PROOF"
@@ -21820,7 +21841,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 224,
+          "line": 226,
           "snippet": "from guarda.portas_live import MemoriaSupabase"
         }
       ],
@@ -21838,27 +21859,27 @@
       "evidence": [
         {
           "file": "tests/test_preservar_coleta.py",
-          "line": 186,
+          "line": 189,
           "snippet": "fonte = open(os.path.join(RAIZ, \"guarda\", \"preservar_coleta.py\"),"
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 451,
+          "line": 483,
           "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 451,
+          "line": 483,
           "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 334,
+          "line": 336,
           "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 334,
+          "line": 336,
           "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
         }
       ],
@@ -21917,7 +21938,7 @@
       "evidence": [
         {
           "file": "provas/derived_artifact_no_postgres.py",
-          "line": 325,
+          "line": 330,
           "snippet": "from guarda.preservar_derivado import ("
         }
       ],
@@ -21953,7 +21974,7 @@
       "evidence": [
         {
           "file": "tests/test_preservar_derivado.py",
-          "line": 182,
+          "line": 186,
           "snippet": "if not nome.endswith(\".py\") or nome == \"preservar_derivado.py\":"
         }
       ],
@@ -22605,7 +22626,7 @@
         },
         {
           "file": "tests/test_preservar_derivado.py",
-          "line": 586,
+          "line": 590,
           "snippet": "import coleta.executor_texto_de_pdf as ex"
         },
         {
@@ -22653,17 +22674,17 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 382,
+          "line": 412,
           "snippet": "with open(caminho, encoding=\"utf-8\") as f:"
         },
         {
           "file": "tests/test_preservar_derivado.py",
-          "line": 523,
+          "line": 527,
           "snippet": "with open(os.path.join(RAIZ, \"coleta\", \"executor_texto_de_pdf.py\"),"
         },
         {
           "file": "tests/test_preservar_derivado.py",
-          "line": 550,
+          "line": 554,
           "snippet": "with open(registo, encoding=\"utf-8\") as f:"
         }
       ],
@@ -23220,12 +23241,12 @@
       "evidence": [
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 462,
+          "line": 494,
           "snippet": "chamadores, [\"coleta/ingresso.py\"],"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 327,
+          "line": 329,
           "snippet": "self.assertNotIn(\"RAW_OBSERVATIONS\", _codigo(\"coleta/ingresso.py\"))"
         }
       ],
@@ -24948,7 +24969,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 290,
+          "line": 292,
           "snippet": "import orquestrador as orq"
         }
       ],
@@ -26455,7 +26476,7 @@
       "evidence": [
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 249,
+          "line": 251,
           "snippet": "import preservar_coleta_no_postgres as pg"
         }
       ],
@@ -26498,7 +26519,7 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 478,
+          "line": 510,
           "snippet": "caminho = os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\")"
         }
       ],
@@ -26972,7 +26993,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 291,
+          "line": 293,
           "snippet": "from receitas import EXECUTORES"
         }
       ],
@@ -27221,7 +27242,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 440,
+          "line": 441,
           "snippet": ".get(\"coleta/rota_forward_documento.py\") or {}).get(\"FORWARD\") or {}"
         }
       ],
@@ -28856,17 +28877,17 @@
         },
         {
           "file": "provas/objeto_e_observacao_no_postgres.py",
-          "line": 56,
+          "line": 57,
           "snippet": "MIGRACOES = [\"001_fundacao_geografia_e_proveniencia.sql\","
         },
         {
           "file": "provas/objeto_e_observacao_no_postgres.py",
-          "line": 57,
+          "line": 58,
           "snippet": "\"022_o_derivado_ganha_casa.sql\"]"
         },
         {
           "file": "provas/objeto_e_observacao_no_postgres.py",
-          "line": 58,
+          "line": 59,
           "snippet": "M025 = \"025_o_objeto_ganha_casa.sql\""
         },
         {
@@ -28881,7 +28902,7 @@
         },
         {
           "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 55,
+          "line": 57,
           "snippet": "\"025_o_objeto_ganha_casa.sql\")"
         }
       ],
@@ -30534,8 +30555,8 @@
     "components_pending": 90,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 619,
-    "edges_proven": 617,
+    "edges": 620,
+    "edges_proven": 618,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1410,
