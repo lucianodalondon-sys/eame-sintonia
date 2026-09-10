@@ -32,7 +32,7 @@ sys.path.insert(0, RAIZ)
 
 from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402
 from guarda.preservar_coleta import (  # noqa: E402
-    METADATA_CONFLICT, PRESERVED_AND_REGISTERED, RUN_ID_CONFLICT,
+    METADATA_CONFLICT, NEW_RUN_SAME_STORAGE_PATH, PRESERVED_AND_REGISTERED, RUN_ID_CONFLICT,
     RUN_NOT_CLOSED_IN_DB, UPLOAD_PENDING_METADATA, ArmazemDeMentira,
     caminho_do_objeto, preservar, sha256)
 
@@ -50,6 +50,9 @@ A, B = b"o conteudo A", b"o conteudo B"
 def _art(nome, dados, nativo, url=None):
     return {
         "COUNTRY": "IT", "SOURCE_SLUG": "fonte-de-teste",
+        # 026: a observacao diz DE QUEM e DE QUE ela e. Sem SOURCE_ID real o
+        # dono do RAW recusa — e nao ha estado de identidade para inventar.
+        "SOURCE_ID": "IT-T2-002", "DOCUMENT_ID": "ARPAV:Z07:%s" % nativo,
         "ARTIFACT_KIND": "DOCUMENT", "NAME": nome, "SOURCE_NATIVE_ID": nativo,
         "SHA256": sha256(dados), "BYTES": len(dados),
         "MEDIA_TYPE": "application/pdf", "CAPTURED_AT": "2026-09-08T00:00:00Z",
@@ -135,25 +138,50 @@ class OConflitoNaoEEngolido(CasoBase):
         impostor["SHA256"] = art["SHA256"]
         caminho = caminho_do_objeto(impostor)
         self.assertEqual(caminho, caminho_do_objeto(art))
-        # e agora muda-se so o conteudo declarado, mantendo o endereco
-        self.banco.con.execute(
-            "update raw_asset set sha256 = ? where storage_path = ?",
-            (sha256(B), caminho))
+        # e agora poe-se OUTRO conteudo no mesmo endereco. Desde a 026 isso
+        # troca as DUAS especies: a chave estrangeira composta recusa a
+        # observacao dizer H1 e a copia dizer H2 — e essa recusa e a trava.
+        self.banco.aplicar(
+            "delete from raw_asset where storage_path = '%s';\n"
+            "delete from storage_object where storage_path = '%s';\n"
+            "insert into storage_object (storage_path, media_type, bytes, "
+            "sha256) values ('%s','application/pdf',1,'%s');\n"
+            "insert into raw_asset (run_id, storage_path, media_type, bytes, "
+            "sha256, captured_at, storage_object_id, identity_state, "
+            "source_id, document_key, document_key_basis) select "
+            "'%s','%s','application/pdf',1,'%s','2026-09-08T00:00:00Z', o.id,"
+            "'FORWARD_IDENTIFIED','IT-T2-002','DOC:OUTRO','SOURCE_DOCUMENT_ID' "
+            "from storage_object o where o.storage_path = '%s';"
+            % (caminho, caminho, caminho, sha256(B), CORRIDA["RUN_ID"], caminho,
+               sha256(B), caminho))
         r = self.correr([art])
         self.assertEqual(r["PENDENCIA"], METADATA_CONFLICT)
         self.assertEqual(r["RUN_STATE"], "PARTIAL")
         self.assertIn("sem_conflito_de_metadata", r["COMPLETION_BASIS"]["FALTOU"])
         divergencias = r["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"][0]
-        self.assertEqual(divergencias["DIVERGENCIAS"][0]["CAMPO"], "sha256")
+        self.assertIn("sha256",
+                      [d["CAMPO"] for d in divergencias["DIVERGENCIAS"]])
 
-    def test_G_mesmo_caminho_com_outra_corrida_e_CONFLICT(self):
-        """Byte reclamado por duas corridas não se resolve por antiguidade."""
+    def test_G_mesmo_caminho_com_outra_corrida_e_NEW_RUN_SAME_STORAGE_PATH(self):
+        """Byte reclamado por duas corridas não se resolve por antiguidade.
+
+        E desde a 026 o conflito tem NOME PRÓPRIO. Divergir só na corrida não é
+        «duas verdades no mesmo endereço»: é a MESMA verdade observada outra
+        vez, e a chave de idempotência sabe disso. O que impede a segunda
+        observação de entrar é a trava física antiga — `unique (storage_path)`,
+        que só cai na FASE 10. Chamar-lhe METADATA_CONFLICT escondia a fase
+        atrás de um diagnóstico errado.
+        """
         art = _art("a.pdf", A, "11")
         self.correr([art])
         outra = dict(CORRIDA, RUN_ID="IT-BANCO-0002")
         r = self.correr([art], run=outra)
-        self.assertEqual(r["PENDENCIA"], METADATA_CONFLICT)
+        self.assertEqual(r["PENDENCIA"], NEW_RUN_SAME_STORAGE_PATH)
         self.assertEqual(r["RUN_STATE"], "PARTIAL")
+        conflito = r["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"][0]
+        self.assertEqual(conflito["TIPO"], NEW_RUN_SAME_STORAGE_PATH)
+        self.assertEqual([d["CAMPO"] for d in conflito["DIVERGENCIAS"]],
+                         ["run_id"])
 
     def test_J_mesmo_run_id_com_outra_identidade_e_RUN_ID_CONFLICT(self):
         """A configuração da corrida é congelada (COL-LAW-211). Se ela mudar,
@@ -300,9 +328,11 @@ class ContarNaoEConferir(CasoBase):
                 original(
                     "insert into public.raw_asset (run_id, storage_path, "
                     "media_type, bytes, sha256, captured_at, "
-                    "storage_object_id) select 'INTRUSA', '%s', "
+                    "storage_object_id, identity_state, source_id, "
+                    "document_key, document_key_basis) select 'INTRUSA', '%s', "
                     "'application/pdf', 999, '%s', '2026-01-01T00:00:00Z', "
-                    "o.id from public.storage_object o "
+                    "o.id, 'FORWARD_IDENTIFIED','IT-INTRUSA','DOC:INTRUSA',"
+                    "'SOURCE_DOCUMENT_ID' from public.storage_object o "
                     "where o.storage_path = '%s';"
                     % (caminho, "e" * 64, caminho))
                 self.banco.aplicar = original
@@ -394,6 +424,8 @@ class OGoldenPathPODERIAPassarPorAqui(CasoBase):
             conteudo[sha256(dados)] = dados
             arts.append({
                 "COUNTRY": "IT", "SOURCE_SLUG": "golden-path",
+                "SOURCE_ID": "IT-T2-002",
+                "DOCUMENT_ID": "ARPAV:GOLDEN:" + sha[:8],
                 "ARTIFACT_KIND": "DOCUMENT",
                 "NAME": (a.get("PARENT_ARTIFACT_ID") or sha[:12]) + ".pdf",
                 "SOURCE_NATIVE_ID": sha[:8], "SHA256": sha256(dados),
@@ -648,9 +680,12 @@ class AsTravasDoEsquemaSaoReais(CasoBase):
         with self.assertRaises(sqlite3.IntegrityError):
             self.banco.con.execute(
                 "insert into raw_asset (run_id, storage_path, media_type, "
-                "bytes, sha256, captured_at, storage_object_id) "
+                "bytes, sha256, captured_at, storage_object_id, "
+                "identity_state, source_id, document_key, document_key_basis) "
                 "select 'CORRIDA-QUE-NAO-EXISTE','x','application/pdf',1,'a',"
-                "'t', o.id from storage_object o where o.storage_path = 'x'")
+                "'t', o.id, 'FORWARD_IDENTIFIED','IT-T2-002','DOC:X',"
+                "'SOURCE_DOCUMENT_ID' from storage_object o "
+                "where o.storage_path = 'x'")
 
     def test_storage_path_e_unico_e_sha256_nao_e(self):
         """O mesmo conteúdo em dois endereços continua a caber — foi o que os

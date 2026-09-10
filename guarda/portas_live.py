@@ -153,8 +153,14 @@ class MemoriaSupabase(MemoriaDoDerivado):
     COLS_RUN = ("run_id", "actor", "actor_version", "source_country",
                 "started_at", "rule_version", "capture_method", "status",
                 "finished_at")
+    # 026: a identidade da observacao entra na projecao. Sem ela, o writer
+    # perguntaria «ja ha linha neste caminho?» e receberia a linha SEM saber se
+    # ela e a mesma observacao — que e exactamente a pergunta que a chave de
+    # idempotencia responde.
     COLS_OBJ = ("run_id", "storage_path", "media_type", "bytes", "sha256",
-                "captured_at", "source_url")
+                "captured_at", "source_url",
+                "identity_state", "source_id", "document_key",
+                "document_key_basis")
     # ⚠️ `objetos_da_corrida()` LIA SEM O `id`, e por isso a identidade da
     # observacao nao tinha por onde voltar desta porta: a coluna existe na
     # tabela desde a migration 001, e era a PROJECAO que a deixava de fora.
@@ -162,7 +168,9 @@ class MemoriaSupabase(MemoriaDoDerivado):
     # caminho?», e para essa pergunta o id nao acrescenta nada.
     COLS_OBJ_DA_CORRIDA = ("id",) + COLS_OBJ
     COLS_RAW = ("id", "run_id", "storage_path", "media_type", "bytes",
-                "sha256", "captured_at", "source_url")
+                "sha256", "captured_at", "source_url",
+                "identity_state", "source_id", "document_key",
+                "document_key_basis")
     COLS_DER = ("id", "raw_asset_id", "parent_sha256", "kind", "producer",
                 "producer_version", "pipeline_version", "parameters_hash",
                 "serie_posicao", "sha256", "bytes", "media_type",

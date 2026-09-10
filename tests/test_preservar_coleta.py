@@ -49,6 +49,9 @@ BYTES_B = b"o conteudo B"
 def _art(nome, dados, nativo, usado_por=None, url=None):
     return {
         "COUNTRY": "IT", "SOURCE_SLUG": "fonte-de-teste",
+        # 026: a observacao diz DE QUEM e DE QUE ela e. Sem SOURCE_ID real o
+        # dono do RAW recusa — e nao ha estado de identidade para inventar.
+        "SOURCE_ID": "IT-T2-002", "DOCUMENT_ID": "ARPAV:Z07:%s" % nativo,
         "ARTIFACT_KIND": "DOCUMENT", "NAME": nome,
         "SOURCE_NATIVE_ID": nativo, "SHA256": sha256(dados),
         "BYTES": len(dados), "MEDIA_TYPE": "application/pdf",

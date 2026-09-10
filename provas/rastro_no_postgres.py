@@ -37,7 +37,7 @@ MIGRATIONS = ['001', '002', '003', '004', '005', '006', '007', '009', '010',
               # tem — e a prova morre com «relation does not exist».
               #
               #     UMA LISTA A MAO ENVELHECE CALADA, e esta envelheceu.
-              '025']
+              '025', '026']
 
 
 def aplicar(url):

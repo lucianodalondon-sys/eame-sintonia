@@ -233,6 +233,22 @@ def para_o_dono_do_raw(f: art.Artefato, item: dict) -> dict:
         "SOURCE_URL": f.SOURCE_URL,
         "USED_BY": item.get("USED_BY"),
         "ARTIFACT_ID": f.ARTIFACT_ID,
+        # ── B5B · A IDENTIDADE VIAJA INTEIRA, E NAO DERRETIDA ────────────
+        # `SOURCE_SLUG` acima e o ENDERECO — `it-t2-002`, e `it-t2-002` nao se
+        # reconverte em `IT-T2-002` sem adivinhar. O codigo canonico da fonte
+        # vai aqui, tal como o coletor o declarou.
+        #
+        #     A IDENTIDADE NAO ERA DESCONHECIDA. ELA NAO VIAJAVA.
+        #
+        # E quando o coletor nao a declarou, o que viaja e a confissao dele
+        # (`NAO SEI`) — nao um campo vazio que o dono do RAW leria como
+        # ausencia inocente. O dono do RAW recusa a confissao; recusar um
+        # branco seria recusar sem saber o que se recusa.
+        "SOURCE_ID": f.SOURCE_ID,
+        # O DOCUMENT_ID sai do ITEM ORIGINAL, e so existe quando o contrato da
+        # fonte o produziu. Nao se calcula aqui, nao se cai para o sha e nao se
+        # troca por `DOCUMENT_VERSION_ID`, que e outra pergunta.
+        "DOCUMENT_ID": item.get("DOCUMENT_ID"),
     }
 
 

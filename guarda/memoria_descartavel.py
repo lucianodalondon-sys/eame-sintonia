@@ -91,7 +91,12 @@ create table storage_object (
   -- dois produtos, e sao dois objetos com o mesmo sha.
   sha256        text not null,
   created_at    text not null default (datetime('now')),
-  constraint objeto_tem_endereco check (trim(storage_path) <> '')
+  constraint objeto_tem_endereco check (trim(storage_path) <> ''),
+  -- 026: o alvo da chave estrangeira COMPOSTA de raw_asset. Nao torna
+  -- `sha256` unico: torna o PAR (id, sha256) unico, que ja era verdade porque
+  -- `id` e chave primaria. Existe para o banco poder exigir que a observacao e
+  -- a copia falem do MESMO conteudo.
+  constraint objeto_id_e_sha_juntos unique (id, sha256)
 );
 create index storage_object_hash_idx on storage_object (sha256);
 
@@ -113,6 +118,20 @@ create table raw_asset (
   -- 025: QUAL COPIA esta observacao preservou. Anulavel, porque uma observacao
   -- NAO PRESERVADA nao tem copia para apontar.
   storage_object_id integer references storage_object(id),
+  -- ── TRADUCAO DA MIGRATION 026 ────────────────────────────────────────
+  -- NOT NULL e SEM DEFAULT. O default seria a porta de fuga: com ele, um
+  -- writer que esquecesse a coluna CLASSIFICARIA a linha em silencio. Aqui a
+  -- coluna ja nasce fechada porque este banco nasce vazio — no Postgres ela
+  -- passa por uma fase anulavel e fecha na fase 8, que e a metade que so
+  -- aquele lado prova.
+  identity_state      text not null,
+  source_id           text,
+  document_key        text,
+  document_key_basis  text,
+  -- TELEMETRIA, e fora da chave. Anulaveis de proposito: nao se escreve 1 so
+  -- porque houve sucesso.
+  attempts            integer,
+  last_attempt_at     text,
   constraint bruto_ausente_precisa_de_motivo
     check (preserved = 1 or not_preserved_reason is not null),
   -- 025: preservado E uma afirmacao, e uma afirmacao tem de poder ser
@@ -120,11 +139,51 @@ create table raw_asset (
   -- valida-se a seguir, que e a metade que so o Postgres prova.
   constraint preservado_aponta_para_a_copia
     check (preserved = 0 or storage_object_id is not null),
+  -- 026: os tres estados, e o banco recusa um quarto.
+  constraint estado_de_identidade_tem_vocabulario
+    check (identity_state in ('LEGACY_PRE_IDEMPOTENCY','FORWARD_IDENTIFIED',
+                              'FORWARD_IDENTITY_UNPROVEN')),
+  -- 026: escrito como «= LEGADO or fonte real», e nao como «<> FORWARD_*»:
+  -- assim qualquer estado que venha a nascer cai DENTRO da exigencia, e so o
+  -- legado fica de fora, por nome.
+  --     «nao sei qual documento»  !=  «nao sei que fonte pedi»
+  constraint fonte_real_em_qualquer_estado_forward
+    check (identity_state = 'LEGACY_PRE_IDEMPOTENCY'
+           or (source_id is not null and trim(source_id) <> ''
+               and upper(trim(source_id)) not in
+                   ('NAO SEI','NAO_SEI','NÃO SEI','NAO_SE_APLICA',
+                    'UNKNOWN','NOT_KNOWN'))),
+  constraint forward_identificado_exige_identidade
+    check (identity_state <> 'FORWARD_IDENTIFIED'
+           or (document_key is not null and trim(document_key) <> ''
+               and upper(trim(document_key)) not in
+                   ('NAO SEI','NAO_SEI','NÃO SEI','NAO_SE_APLICA',
+                    'UNKNOWN','NOT_KNOWN')
+               and document_key_basis is not null)),
+  constraint forward_sem_prova_nao_finge_chave
+    check (identity_state <> 'FORWARD_IDENTITY_UNPROVEN'
+           or (document_key is null and document_key_basis is null)),
+  -- 026: CONTENT_DERIVED foi REVOGADO. O vocabulario tem UM valor, e o check
+  -- nao olha para a chave — olhar sugeriria que ha uma forma certa de o
+  -- escrever.
+  constraint base_da_chave_tem_vocabulario
+    check (document_key_basis is null
+           or document_key_basis = 'SOURCE_DOCUMENT_ID'),
+  -- 026: a observacao e a copia falam do MESMO conteudo. Chave estrangeira
+  -- COMPOSTA — a simples deixava `sha256 = H1` apontar para um objeto de H2.
+  foreign key (storage_object_id, sha256)
+    references storage_object(id, sha256),
   -- 022: o alvo da chave estrangeira COMPOSTA de derived_artifact. Nao e regra
   -- nova — (id, sha256) ja era unico porque id e chave primaria — e sem ela o
   -- SQLite recusa a FK com «foreign key mismatch», tal como o Postgres.
   unique (id, sha256)
 );
+-- 026 · A CHAVE DE IDEMPOTENCIA, e ela exclui por ESTADO e nunca por «onde o
+-- campo e nulo». Excluir por nulo deixaria uma observacao forward escapar da
+-- protecao por esquecimento; excluir por estado obriga a linha a DECLARAR-SE.
+create unique index raw_identidade_forward_idx
+  on raw_asset (run_id, source_id, document_key, sha256)
+  where identity_state = 'FORWARD_IDENTIFIED';
 create index raw_storage_object_idx on raw_asset (storage_object_id);
 create index raw_hash_idx on raw_asset (sha256);
 create index raw_run_idx  on raw_asset (run_id);

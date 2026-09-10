@@ -84,7 +84,7 @@ MIGRATIONS = ['001', '002', '003', '004', '005', '006', '007', '009', '010',
               # tem — e a prova morre com «relation does not exist».
               #
               #     UMA LISTA A MAO ENVELHECE CALADA, e esta envelheceu.
-              '025']
+              '025', '026']
 
 MODELO = os.path.join(RAIZ, "system-map", "data", "estradas-it.model.json")
 # Onde a medicao desta corrida fica escrita, e o ledger que ela confere.
@@ -271,7 +271,7 @@ def main():
             "pdftotext ausente: sem ele o executor devolve FERRAMENTA_AUSENTE "
             "para tudo, e esta prova mediria a maquina, e nao a rota.")
 
-    print("MIGRATIONS — a cadeia canonica, ate a 025")
+    print("MIGRATIONS — a cadeia canonica, ate a 026")
     caso("A1_a_cadeia_aplica_num_postgres_real",
          aplicar_migrations(url) == len(MIGRATIONS),
          "%d migrations em PostgreSQL 16" % len(MIGRATIONS))
@@ -312,6 +312,7 @@ def main():
                "MISSION": "M2 rota forward", "STARTED_AT": "2026-09-08T00:00:00Z",
                "RULE_VERSION": "v1", "CAPTURE_METHOD": "HTTP_GET"}
     artefato = {"COUNTRY": "IT", "SOURCE_SLUG": fonte_provavel,
+                "SOURCE_ID": fonte_provavel, "DOCUMENT_ID": "M2:DOC:1",
                 "ARTIFACT_KIND": "DOCUMENT", "NAME": os.path.basename(pdf),
                 "SOURCE_NATIVE_ID": "M2-1", "SHA256": sha256(bytes_do_pdf),
                 "BYTES": len(bytes_do_pdf), "MEDIA_TYPE": "application/pdf",

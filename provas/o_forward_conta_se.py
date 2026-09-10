@@ -28,7 +28,7 @@ Aqui corre a estrada:
 
 OS NOVE CASOS
 -------------
-    F1  a cadeia canonica aplica-se num Postgres real, ate a 025
+    F1  a cadeia canonica aplica-se num Postgres real, ate a 026
     F2  a corrida e REAL: o `run_id` referencia `collection_run`, e o banco
         recusa um `run_id` que nao exista — a chave estrangeira nao se contorna
     F3  o `raw_asset_id` e REAL, lido do banco, e a linhagem fecha no filho
@@ -86,7 +86,7 @@ MIGRATIONS = ['001', '002', '003', '004', '005', '006', '007', '009', '010',
               # tem — e a prova morre com «relation does not exist».
               #
               #     UMA LISTA A MAO ENVELHECE CALADA, e esta envelheceu.
-              '025']
+              '025', '026']
 
 MODELO_DAS_ESTRADAS = os.path.join(RAIZ, "system-map", "data",
                                    "estradas-it.model.json")
@@ -199,6 +199,10 @@ def preservar_um_bruto(banco, run_id, caminho, nativo, source_id):
                "MISSION": "O9R forward", "STARTED_AT": "2026-09-08T00:00:00Z",
                "RULE_VERSION": "1", "CAPTURE_METHOD": "HTTP_GET"}
     artefato = {"COUNTRY": "IT", "SOURCE_SLUG": source_id or "NAO_SEI",
+                # 026: sem fonte real o dono do RAW recusa — e e assim que
+                # tem de ser. Esta prova declara a fonte que mediu.
+                "SOURCE_ID": source_id or "NAO_SEI",
+                "DOCUMENT_ID": "O9R:DOC:%s" % nativo,
                 "ARTIFACT_KIND": "DOCUMENT",
                 "NAME": os.path.basename(caminho), "SOURCE_NATIVE_ID": nativo,
                 "SHA256": sha256(dados), "BYTES": len(dados),
@@ -222,7 +226,7 @@ def main():
             "RECUSADO: '%s' nao parece um banco descartavel local. "
             "Esta prova nunca corre contra producao." % url)
 
-    print("MIGRATIONS — a cadeia canonica, ate a 025")
+    print("MIGRATIONS — a cadeia canonica, ate a 026")
     quantas = aplicar_migrations(url)
     caso("F1_a_cadeia_aplica_num_postgres_real", quantas == len(MIGRATIONS),
          "%d migrations aplicadas em PostgreSQL 16" % quantas)

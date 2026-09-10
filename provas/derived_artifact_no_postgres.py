@@ -49,6 +49,7 @@ MIGRACOES = [
     # prova escreve e uma linha de `raw_asset`. Aplicar a 022 sem a 025 provaria
     # o derivado contra um esquema que ja nao existe.
     "025_o_objeto_ganha_casa.sql",
+    "026_a_observacao_ganha_identidade.sql",
 ]
 
 SHA_PAI = "a" * 64
@@ -82,12 +83,16 @@ def _raw(banco, run_id, caminho, sha=SHA_PAI):
         "sha256) values ('%s','application/pdf',100,'%s') "
         "on conflict (storage_path) do nothing;" % (caminho, sha))
     banco.aplicar(
+        # 026: a observacao declara identidade. NOT NULL sem DEFAULT — nao ha
+        # caminho para escrever sem ela, e e essa a trava.
         "insert into public.raw_asset (run_id, storage_path, media_type, bytes, "
-        "sha256, captured_at, storage_object_id) "
-        "select '%s','%s','application/pdf',100,'%s','2026-09-08T00:00:00Z', o.id "
+        "sha256, captured_at, storage_object_id, identity_state, source_id, "
+        "document_key, document_key_basis) "
+        "select '%s','%s','application/pdf',100,'%s','2026-09-08T00:00:00Z', "
+        "o.id, 'FORWARD_IDENTIFIED','IT-T2-002','DOC:%s','SOURCE_DOCUMENT_ID' "
         "from public.storage_object o where o.storage_path = '%s' "
         "on conflict (storage_path) do nothing;"
-        % (run_id, caminho, sha, caminho))
+        % (run_id, caminho, sha, sha[:12], caminho))
     return int(banco._valor(
         "select id from public.raw_asset where storage_path = '%s'" % caminho))
 

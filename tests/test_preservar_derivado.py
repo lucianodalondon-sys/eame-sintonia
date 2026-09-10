@@ -65,11 +65,15 @@ class Base(unittest.TestCase):
             "bytes, sha256) values ('%s','application/pdf',100,'%s') "
             "on conflict (storage_path) do nothing;" % (caminho, sha))
         self.banco.aplicar(
+            # 026: a observacao declara identidade. NOT NULL sem DEFAULT — o
+            # banco recusa quem a omite, e e por isso que ela esta aqui.
             "insert into public.raw_asset (run_id, storage_path, media_type, "
-            "bytes, sha256, captured_at, storage_object_id) "
-            "select '%s','%s','application/pdf',100,'%s','%s', o.id "
+            "bytes, sha256, captured_at, storage_object_id, "
+            "identity_state, source_id, document_key, document_key_basis) "
+            "select '%s','%s','application/pdf',100,'%s','%s', o.id, "
+            "'FORWARD_IDENTIFIED','IT-T2-002','DOC:%s','SOURCE_DOCUMENT_ID' "
             "from public.storage_object o where o.storage_path = '%s';"
-            % (run_id, caminho, sha, CAPTURED_AT, caminho))
+            % (run_id, caminho, sha, CAPTURED_AT, sha[:12], caminho))
         return int(self.banco.con.execute(
             "select id from raw_asset where storage_path = ?",
             (caminho,)).fetchone()[0])

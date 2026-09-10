@@ -42,7 +42,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, RAIZ)
 
 from guarda.preservar_coleta import (  # noqa: E402
-    METADATA_CONFLICT, PRESERVED_AND_REGISTERED, RUN_ID_CONFLICT,
+    METADATA_CONFLICT, NEW_RUN_SAME_STORAGE_PATH, PRESERVED_AND_REGISTERED, RUN_ID_CONFLICT,
     UPLOAD_PENDING_METADATA, ArmazemDeMentira, Memoria,
     caminho_do_objeto, preservar, sha256)
 
@@ -51,8 +51,12 @@ MIGRACAO = os.path.join(RAIZ, "supabase", "migrations",
 # 025 acrescenta uma trava A `raw_asset`, e esta prova escreve linhas dessa
 # tabela. Prova-la sobre a 001 sozinha seria prova-la contra um esquema que
 # esta casa ja nao tem.
+# E a 026 acrescenta a IDENTIDADE da observacao, que o writer passou a
+# escrever: sem ela, o SQL deste dono nomeia colunas que nao existem.
 MIGRACAO_025 = os.path.join(RAIZ, "supabase", "migrations",
                             "025_o_objeto_ganha_casa.sql")
+MIGRACAO_026 = os.path.join(RAIZ, "supabase", "migrations",
+                            "026_a_observacao_ganha_identidade.sql")
 
 HOSTS_LOCAIS = ("localhost", "127.0.0.1", "::1", "[::1]")
 # Os UNICOS nomes de banco que esta casa aceita para uma prova. Sao os que os
@@ -195,8 +199,14 @@ class MemoriaPostgres(Memoria):
     COLS_RUN = ("run_id", "actor", "actor_version", "source_country",
                 "started_at", "rule_version", "capture_method", "status",
                 "finished_at")
+    # 026: a identidade da observacao entra na projecao. Sem ela o writer
+    # pergunta «ja ha linha neste caminho?» e recebe a linha SEM saber se ela e
+    # a mesma observacao — que e a pergunta que a chave de idempotencia
+    # responde. E a conferencia POS-ESCRITA leria `null` onde escreveu estado.
     COLS_OBJ = ("run_id", "storage_path", "media_type", "bytes", "sha256",
-                "captured_at", "source_url")
+                "captured_at", "source_url",
+                "identity_state", "source_id", "document_key",
+                "document_key_basis")
     # A leitura da corrida traz o `id`, porque e dela que sai o
     # `RAW_OBSERVATION_ID`. `objeto_em()` fica sem ele: aquela pergunta e «ja ha
     # linha neste caminho?», e a identidade nao acrescenta nada a ela.
@@ -286,8 +296,34 @@ def _corrida(run_id="IT-PG-0001", **extra):
     return d
 
 
+def _pousar_outro_conteudo(banco, caminho, sha, doc, bytes_=1,
+                           run_id="IT-PG-A"):
+    """Outro escritor poe OUTRO conteudo no mesmo endereco.
+
+    Troca a COPIA e a OBSERVACAO juntas, porque desde a 026 elas nao podem
+    discordar: a chave estrangeira composta recusa `raw_asset.sha256 = H1` a
+    apontar para um objeto de `H2`. Apagar e reescrever e o unico caminho que
+    respeita a trava — e o cenario continua a ser o mesmo.
+    """
+    banco.aplicar(
+        "delete from public.raw_asset where storage_path = '%s';\n"
+        "delete from public.storage_object where storage_path = '%s';\n"
+        "insert into public.storage_object (storage_path, media_type, bytes, "
+        "sha256) values ('%s','application/pdf',1,'%s');\n"
+        "insert into public.raw_asset (run_id, storage_path, media_type, bytes, "
+        "sha256, captured_at, storage_object_id, identity_state, source_id, "
+        "document_key, document_key_basis) select '%s','%s',"
+        "'application/pdf',%d,'%s','2026-09-08T00:00:00Z', o.id,"
+        "'FORWARD_IDENTIFIED','IT-T2-002','%s','SOURCE_DOCUMENT_ID' "
+        "from public.storage_object o where o.storage_path = '%s';"
+        % (caminho, caminho, caminho, sha, run_id, caminho, bytes_, sha,
+           doc, caminho))
+
+
 def _art(nome, dados, nativo):
     return {"COUNTRY": "IT", "SOURCE_SLUG": "fonte-de-teste",
+            # 026: SOURCE_ID canonico e DOCUMENT_ID provado pelo contrato.
+            "SOURCE_ID": "IT-T2-002", "DOCUMENT_ID": "ARPAV:Z07:%s" % nativo,
             "ARTIFACT_KIND": "DOCUMENT", "NAME": nome,
             "SOURCE_NATIVE_ID": nativo, "SHA256": sha256(dados),
             "BYTES": len(dados), "MEDIA_TYPE": "application/pdf",
@@ -360,22 +396,38 @@ def cenarios(banco):
          "reused=%s" % r2["JA_EXISTIA_NO_BANCO"]["REUSED_METADATA"])
 
     # ── F — mesmo caminho, outro sha256 ──────────────────────────────────
-    caminho = banco.objetos_da_corrida("IT-PG-A")[0]["storage_path"]
-    banco.aplicar("update public.raw_asset set sha256 = '%s' "
-                  "where storage_path = '%s';" % ("f" * 64, caminho))
+    # ⚠️ DESDE A 026 AS DUAS ESPECIES NAO PODEM DISCORDAR. A versao anterior
+    # deste caso mexia so no `sha256` da observacao — e isso agora e recusado
+    # pela chave estrangeira COMPOSTA, que e exactamente a trava que se queria.
+    # O cenario real («outro escritor pos outro conteudo neste endereco») troca
+    # as DUAS: a copia e a observacao. Trocar so uma nunca foi o cenario; era
+    # um atalho que o esquema antigo deixava passar.
+    antes_de_f = banco.objetos_da_corrida("IT-PG-A")[0]
+    caminho = antes_de_f["storage_path"]
+    _pousar_outro_conteudo(banco, caminho, "f" * 64, "DOC:OUTRO")
     r3 = _correr(banco, [_art("a.pdf", A, "11"), _art("b.pdf", B, "22")],
                  run=run_a, armazem=arm_a)
     caso("F_sha_divergente_e_METADATA_CONFLICT",
          r3["PENDENCIA"] == METADATA_CONFLICT and r3["RUN_STATE"] == "PARTIAL",
          "pendencia=%s" % r3["PENDENCIA"])
-    banco.aplicar("update public.raw_asset set sha256 = '%s' "
-                  "where storage_path = '%s';" % (sha256(A), caminho))
+    # E devolve-se a linha ORIGINAL — a dela, nao a de outro caminho. Repor
+    # com a identidade errada colidiria com o indice parcial da fase 9, que e
+    # exactamente o que ele existe para fazer.
+    _pousar_outro_conteudo(banco, caminho, antes_de_f["sha256"],
+                           antes_de_f["document_key"],
+                           int(antes_de_f["bytes"]))
 
     # ── G — mesmo caminho reclamado por OUTRA corrida ────────────────────
     r4 = _correr(banco, [_art("a.pdf", A, "11")],
                  run=_corrida("IT-PG-G"), armazem=arm_a)
-    caso("G_outra_corrida_no_mesmo_caminho_e_CONFLICT",
-         r4["PENDENCIA"] == METADATA_CONFLICT and r4["RUN_STATE"] == "PARTIAL",
+    # 026: divergir SO na corrida ganhou nome proprio. Nao e «duas verdades no
+    # mesmo endereco»: e a MESMA verdade observada noutra corrida, e o que a
+    # impede de entrar e a trava fisica antiga — a FASE 10, que nao existe.
+    caso("G_outra_corrida_no_mesmo_caminho_e_NEW_RUN_SAME_STORAGE_PATH",
+         r4["PENDENCIA"] == NEW_RUN_SAME_STORAGE_PATH
+         and r4["RUN_STATE"] == "PARTIAL"
+         and r4["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"][0]["TIPO"]
+             == NEW_RUN_SAME_STORAGE_PATH,
          "pendencia=%s" % r4["PENDENCIA"])
 
     # ── J — mesmo run_id, identidade congelada diferente ─────────────────
@@ -476,10 +528,16 @@ def cenarios(banco):
                      "('%s','application/pdf',999,'%s') "
                      "on conflict (storage_path) do nothing;"
                      % (caminho_r, "e" * 64))
+            # 026: o intruso tambem declara identidade — nao ha caminho para
+            # escrever sem ela, e e por isso que a encenacao continua a valer.
             original("insert into public.raw_asset (run_id, storage_path, "
                      "media_type, bytes, sha256, captured_at, "
-                     "storage_object_id) select 'IT-PG-INTRUSA','%s',"
-                     "'application/pdf',999,'%s','2026-01-01T00:00:00Z', o.id "
+                     "storage_object_id, identity_state, source_id, "
+                     "document_key, document_key_basis) "
+                     "select 'IT-PG-INTRUSA','%s',"
+                     "'application/pdf',999,'%s','2026-01-01T00:00:00Z', o.id,"
+                     "'FORWARD_IDENTIFIED','IT-INTRUSA','DOC:INTRUSA',"
+                     "'SOURCE_DOCUMENT_ID' "
                      "from public.storage_object o where o.storage_path = '%s';"
                      % (caminho_r, "e" * 64, caminho_r))
         original(sql)
@@ -561,7 +619,7 @@ def main():
         # `provas/a_autoridade_da_fonte.py` ja usa. Uma casa, um vocabulario.
         return 2
     banco = MemoriaPostgres(url)
-    for caminho in (MIGRACAO, MIGRACAO_025):
+    for caminho in (MIGRACAO, MIGRACAO_025, MIGRACAO_026):
         with open(caminho, encoding="utf-8") as f:
             banco.aplicar(f.read())
     print("migrations 001 e 025 ORIGINAIS aplicadas num Postgres 16 descartavel.")

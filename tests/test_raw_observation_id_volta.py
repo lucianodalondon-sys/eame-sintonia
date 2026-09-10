@@ -204,9 +204,11 @@ class AsPortasFalamAMesmaLingua(unittest.TestCase):
             "insert into public.storage_object (storage_path, media_type, "
             "bytes, sha256) values ('c/x.pdf','application/pdf',1,'%s');\n"
             "insert into public.raw_asset (run_id, storage_path, media_type, "
-            "bytes, sha256, captured_at, source_url, storage_object_id) "
+            "bytes, sha256, captured_at, source_url, storage_object_id, "
+            "identity_state, source_id, document_key, document_key_basis) "
             "select 'R','c/x.pdf','application/pdf',1,'%s',"
-            "'2026-09-10T00:00:00Z','https://a.it', o.id "
+            "'2026-09-10T00:00:00Z','https://a.it', o.id, "
+            "'FORWARD_IDENTIFIED','IT-T2-002','DOC:X','SOURCE_DOCUMENT_ID' "
             "from public.storage_object o where o.storage_path = 'c/x.pdf';"
             % ("ab" * 32, "ab" * 32))
         linhas = banco.objetos_da_corrida("R")

@@ -74,17 +74,60 @@ METADATA_CONFLICT = "METADATA_CONFLICT"
 RUN_ID_CONFLICT = "RUN_ID_CONFLICT"
 RUN_NOT_CLOSED_IN_DB = "RUN_NOT_CLOSED_IN_DB"
 PRESERVED_AND_REGISTERED = "PRESERVED_AND_REGISTERED"
+SEM_IDENTIDADE_DE_FONTE = "SEM_IDENTIDADE_DE_FONTE"
+NEW_RUN_SAME_STORAGE_PATH = "NEW_RUN_SAME_STORAGE_PATH"
+
+# ─────────────────────────────────────────────────────────────────────────
+# B5B · A IDENTIDADE DA OBSERVAÇÃO (migration 026)
+# ─────────────────────────────────────────────────────────────────────────
+# Três estados no banco, e ele recusa qualquer quarto. O terceiro — o do
+# legado — NÃO TEM NOME NESTE FICHEIRO, e a ausência é a trava:
+#
+#     LEGADO É UM FACTO SOBRE QUEM JÁ LÁ ESTAVA NO CORTE DA FASE 8.
+#     UM WRITER DE HOJE QUE O DECLARASSE MENTIRIA SOBRE QUANDO NASCEU.
+#
+# Não se escreve o que não se sabe nomear aqui — e o corte pelo surrogate
+# recusaria a linha de qualquer maneira.
+FORWARD_IDENTIFIED = "FORWARD_IDENTIFIED"
+FORWARD_IDENTITY_UNPROVEN = "FORWARD_IDENTITY_UNPROVEN"
+SOURCE_DOCUMENT_ID = "SOURCE_DOCUMENT_ID"
+
+# As seis palavras que esta casa usa para confessar. Contadas no repositório,
+# não inventadas aqui. Uma confissão preenchida é PIOR do que um campo vazio
+# quando há índice em cima: `source_id = 'NAO SEI'` juntaria observações de
+# fontes diferentes debaixo de uma palavra que quer dizer «não sei qual».
+SENTINELAS = frozenset(("NAO SEI", "NAO_SEI", "NÃO SEI", "NAO_SE_APLICA",
+                        "UNKNOWN", "NOT_KNOWN"))
 
 # Os campos que fazem de uma linha de `raw_asset` a MESMA linha. `source_url`
 # entra porque duas publicações do mesmo byte são dois factos sobre o mundo —
 # foi o que os 195 objetos italianos provaram.
 IDENTIDADE_DO_OBJETO = ("run_id", "sha256", "bytes", "captured_at", "source_url")
 
+# E A CHAVE DE IDEMPOTÊNCIA, para a observação que TEM identidade (026).
+# `captured_at` e `source_url` saem: um retry da mesma corrida pode trazer
+# outra hora e outra URL — um espelho, um redirecionamento, um parâmetro que a
+# fonte acrescentou — e continua a ser a MESMA observação. O que mudou foi por
+# onde a tentativa passou, e a COL-LAW-206 já diz que a URL não é identidade.
+#
+#     RETRY DA MESMA CORRIDA  !=  OBSERVAÇÃO NOVA
+#
+# `run_id` FICA: corrida nova é observação nova, e é isso que a fase 10 vai
+# deixar coexistir fisicamente. Até lá, uma corrida nova sobre o mesmo endereço
+# continua a bater na trava antiga — de propósito, e com nome próprio.
+IDENTIDADE_FORWARD = ("run_id", "source_id", "document_key", "sha256")
+
 # A linha inteira, para a conferência DEPOIS da escrita. Inclui `media_type` e
 # `storage_path`, que a comparação prévia não precisava de olhar — ali o
 # caminho era a chave da busca, aqui é uma coisa a confirmar.
 CAMPOS_DA_LINHA = ("run_id", "storage_path", "media_type", "bytes", "sha256",
-                   "captured_at", "source_url")
+                   "captured_at", "source_url",
+                   # 026: a conferência DEPOIS de escrever também lê a
+                   # identidade. Escrever o estado certo e ler outro de volta é
+                   # a mesma classe de erro que escrever o sha certo e ler
+                   # outro — e essa já era conferida.
+                   "identity_state", "source_id", "document_key",
+                   "document_key_basis")
 
 # A identidade congelada da corrida (COL-LAW-211). Se ela mudar, não é a mesma
 # execução — e aceitar em silêncio deixaria duas corridas partilharem um nome.
@@ -228,6 +271,60 @@ def caminho_do_objeto(artefato: dict) -> str:
         artefato["SHA256"][:16], artefato["SOURCE_NATIVE_ID"], artefato["NAME"])
 
 
+def _identifica(v) -> bool:
+    """Um valor que IDENTIFICA — e não uma confissão preenchida.
+
+    Três coisas diferentes, e nenhuma serve de identidade:
+
+        None            o campo não veio
+        "   "           veio vazio, com espaço a fingir conteúdo
+        "NAO SEI"       veio uma confissão, e ela é honesta — mas é sobre a
+                        ausência da resposta, não é a resposta
+
+    O banco recusa as três (migration 026). Aqui recusa-se antes, para que a
+    corrida saiba porque parou em vez de morrer com um erro de constraint.
+    """
+    if v is None:
+        return False
+    t = str(v).strip()
+    return bool(t) and t.upper() not in SENTINELAS
+
+
+def identidade_da_observacao(artefato: dict) -> dict:
+    """Quem e o QUÊ a observação diz ser. LIDO do artefato, nunca deduzido.
+
+    ⚠️ A FONTE E O DOCUMENTO NÃO FALHAM JUNTOS, e essa é a decisão inteira:
+
+        sem SOURCE_ID real    → não há estado nenhum. A Collection SEMPRE soube
+                                a que fonte pediu; não saber isso não é uma
+                                identidade incompleta, é um pedido sem origem.
+        com SOURCE_ID, sem
+        DOCUMENT_ID provado   → FORWARD_IDENTITY_UNPROVEN. Os bytes ficam, a
+                                chave não se inventa.
+        com os dois           → FORWARD_IDENTIFIED, e `basis` diz de onde a
+                                chave veio.
+
+    O QUE NUNCA ACONTECE AQUI: cair para o `sha256`, para o `SOURCE_NATIVE_ID`,
+    para a URL, para o `storage_path` ou para o nome do ficheiro. Bytes iguais
+    não provam unidade documental igual — a ADAMA publicou o mesmo PDF sob
+    `media/731` e `media/6321`, e uma chave derivada do conteúdo teria juntado
+    duas publicações numa só.
+    """
+    fonte = artefato.get("SOURCE_ID")
+    if not _identifica(fonte):
+        return {"IDENTITY_STATE": None, "SOURCE_ID": None,
+                "DOCUMENT_KEY": None, "DOCUMENT_KEY_BASIS": None}
+    documento = artefato.get("DOCUMENT_ID")
+    if _identifica(documento):
+        return {"IDENTITY_STATE": FORWARD_IDENTIFIED,
+                "SOURCE_ID": str(fonte).strip(),
+                "DOCUMENT_KEY": str(documento).strip(),
+                "DOCUMENT_KEY_BASIS": SOURCE_DOCUMENT_ID}
+    return {"IDENTITY_STATE": FORWARD_IDENTITY_UNPROVEN,
+            "SOURCE_ID": str(fonte).strip(),
+            "DOCUMENT_KEY": None, "DOCUMENT_KEY_BASIS": None}
+
+
 def planear(artefatos: list) -> dict:
     """Decide, ANTES de enviar, quantos objetos deviam existir.
 
@@ -250,7 +347,8 @@ def planear(artefatos: list) -> dict:
             por_caminho[caminho]["USADO_POR"].append(a.get("USED_BY"))
             continue
         por_caminho[caminho] = dict(a, STORAGE_PATH=caminho,
-                                    USADO_POR=[a.get("USED_BY")])
+                                    USADO_POR=[a.get("USED_BY")],
+                                    **identidade_da_observacao(a))
     return {
         "REGISTOS_DE_ENTRADA": len(artefatos),
         "CONTEUDOS_UNICOS": len(conteudos),
@@ -328,7 +426,11 @@ def _linha_esperada(run_id: str, obj: dict) -> dict:
     return {"run_id": run_id, "storage_path": obj["STORAGE_PATH"],
             "media_type": obj["MEDIA_TYPE"], "bytes": obj["BYTES"],
             "sha256": obj["SHA256"], "captured_at": obj["CAPTURED_AT"],
-            "source_url": obj.get("SOURCE_URL")}
+            "source_url": obj.get("SOURCE_URL"),
+            "identity_state": obj.get("IDENTITY_STATE"),
+            "source_id": obj.get("SOURCE_ID"),
+            "document_key": obj.get("DOCUMENT_KEY"),
+            "document_key_basis": obj.get("DOCUMENT_KEY_BASIS")}
 
 
 def conferir_o_que_ja_existe(run: dict, plano: dict, memoria: Memoria) -> dict:
@@ -344,14 +446,39 @@ def conferir_o_que_ja_existe(run: dict, plano: dict, memoria: Memoria) -> dict:
         existente = memoria.objeto_em(obj["STORAGE_PATH"])
         if not existente:
             continue
-        fora = _difere(existente, _linha_esperada(run["RUN_ID"], obj),
-                       IDENTIDADE_DO_OBJETO)
-        if fora:
-            conflitos.append({"TIPO": METADATA_CONFLICT,
-                              "STORAGE_PATH": obj["STORAGE_PATH"],
-                              "DIVERGENCIAS": fora})
-        else:
+        esperada = _linha_esperada(run["RUN_ID"], obj)
+        # ── QUAL CHAVE DECIDE «É A MESMA OBSERVAÇÃO?» ────────────────────
+        # Quando as duas linhas TÊM identidade provada, quem decide é a chave
+        # de idempotência — a mesma que o índice parcial da fase 9 protege. Aí
+        # `captured_at` e `source_url` deixam de decidir: um retry da mesma
+        # corrida pode trazer outra hora e outra URL e continua a ser a mesma
+        # observação. Sem identidade dos dois lados, vale a regra antiga, que
+        # é mais estrita — e ser mais estrito na ausência de prova é o certo.
+        forward = (existente.get("identity_state") == FORWARD_IDENTIFIED
+                   and esperada["identity_state"] == FORWARD_IDENTIFIED)
+        campos = IDENTIDADE_FORWARD if forward else IDENTIDADE_DO_OBJETO
+        fora = _difere(existente, esperada, campos)
+        if not fora:
             reusados.append(obj["STORAGE_PATH"])
+            continue
+        # ── E O CONFLITO GANHA O NOME CERTO ──────────────────────────────
+        # Divergir SÓ na corrida não é «duas verdades no mesmo endereço»: é a
+        # MESMA verdade observada outra vez, e a segunda observação não entra
+        # porque `unique (raw_asset.storage_path)` continua de pé. Isso é a
+        # FASE 10, que não foi autorizada — e chamar-lhe METADATA_CONFLICT
+        # esconderia a fase por trás de um diagnóstico errado.
+        so_a_corrida = [d["CAMPO"] for d in fora] == ["run_id"]
+        conflitos.append({
+            "TIPO": NEW_RUN_SAME_STORAGE_PATH if so_a_corrida
+                    else METADATA_CONFLICT,
+            "STORAGE_PATH": obj["STORAGE_PATH"],
+            "DIVERGENCIAS": fora,
+            **({"PORQUE": (
+                "corrida nova sobre o mesmo endereco. A observacao e NOVA e a "
+                "chave de idempotencia sabe disso; o que a impede de entrar e "
+                "a trava fisica antiga, que so cai na fase 10.")}
+               if so_a_corrida else {}),
+        })
 
     corrida = memoria.corrida(run["RUN_ID"])
     conflito_de_corrida = None
@@ -436,15 +563,37 @@ def sql_da_memoria(run: dict, conferidos: list, plano: dict) -> str:
         # E A LIGACAO SAI DO BANCO, NAO DA NOSSA CABECA. O `id` da copia e lido
         # de la por endereco — nunca por `sha256`, que dois objetos podem
         # partilhar, e nunca por um numero que este processo tenha guardado.
+        # ── E A OBSERVACAO DIZ QUEM E O QUE ELA E (026) ─────────────────
+        # O `on conflict` MUDOU, e a mudanca e a metade que interessa:
+        #
+        #     ANTES  on conflict (storage_path) do nothing
+        #     AGORA  on conflict (run_id, source_id, document_key, sha256)
+        #            where identity_state = 'FORWARD_IDENTIFIED' do nothing
+        #
+        # O alvo antigo engolia QUALQUER colisao de endereco — inclusive a de
+        # uma corrida NOVA, que nao e retry nenhum. O novo alvo e o indice
+        # parcial da fase 9: ele absorve o retry da mesma observacao e mais
+        # nada. Uma colisao de `storage_path` deixa de ser calada e REBENTA,
+        # que e o comportamento certo enquanto a fase 10 nao existir.
+        #
+        #     `DO NOTHING` NAO PODE SER O SITIO ONDE A FASE 10 SE ESCONDE.
+        #
+        # Uma linha que nao satisfaz o predicado (UNPROVEN) nao pode colidir
+        # neste indice — logo, para ela, nao ha `do nothing` nenhum.
         linhas.append(
             "insert into public.raw_asset (run_id, storage_path, media_type, "
-            "bytes, sha256, captured_at, source_url, storage_object_id) "
-            "select %s, %s, %s, %d, %s, %s, %s, o.id "
+            "bytes, sha256, captured_at, source_url, storage_object_id, "
+            "identity_state, source_id, document_key, document_key_basis) "
+            "select %s, %s, %s, %d, %s, %s, %s, o.id, %s, %s, %s, %s "
             "from public.storage_object o where o.storage_path = %s "
-            "on conflict (storage_path) do nothing;" % (
+            "on conflict (run_id, source_id, document_key, sha256) "
+            "where identity_state = 'FORWARD_IDENTIFIED' do nothing;" % (
                 _texto(run["RUN_ID"]), _texto(caminho), _texto(o["MEDIA_TYPE"]),
                 o["BYTES"], _texto(o["SHA256"]), _texto(o["CAPTURED_AT"]),
-                _texto(o.get("SOURCE_URL")), _texto(caminho)))
+                _texto(o.get("SOURCE_URL")),
+                _texto(o.get("IDENTITY_STATE")), _texto(o.get("SOURCE_ID")),
+                _texto(o.get("DOCUMENT_KEY")), _texto(o.get("DOCUMENT_KEY_BASIS")),
+                _texto(caminho)))
     linhas.append("commit;")
     return "\n".join(linhas) + "\n"
 
@@ -625,6 +774,22 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
         # o buraco. Corrida que nao existiu nao se inventa.
         raise ValueError("artefato sem corrida nao entra: nao ha RUN generica")
 
+    # ── B5B · SEM FONTE NAO HA OBSERVACAO FORWARD ───────────────────────
+    # Desde a 026 `identity_state` e NOT NULL e SEM DEFAULT, e os dois estados
+    # forward exigem uma fonte REAL. Um artefato que nao a traga nao tem estado
+    # possivel:
+    #
+    #     LEGACY_PRE_IDEMPOTENCY   nao — legado e quem ja la estava no corte,
+    #                              e o corte pelo surrogate recusaria a linha
+    #     FORWARD_*                nao — os dois exigem fonte real
+    #
+    # Entao ele nao entra, e a corrida NAO fecha. Recusar aqui da o nome antes
+    # de o banco dar um erro de constraint; inventar-lhe um SOURCE_ID daria
+    # uma fonte que a casa nunca registou.
+    recusados = [a for a in artefatos
+                 if not _identifica(a.get("SOURCE_ID"))]
+    artefatos = [a for a in artefatos if _identifica(a.get("SOURCE_ID"))]
+
     plano = planear(artefatos)
     envio = enviar_os_bytes(plano, armazem, bytes_de)
     prova = conferir_os_bytes(plano, armazem)
@@ -718,6 +883,7 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
         fecho["STATUS_NO_BANCO"] = corrida.get("status")
 
     condicoes = {
+        "toda_observacao_tem_fonte": not recusados,
         "plano_feito": esperados > 0 or not artefatos,
         "bytes_no_armazem": not prova["AUSENTES"],
         "bytes_conferidos": not prova["DIVERGENTES"] and conferidos == esperados,
@@ -735,10 +901,23 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
     faltou = sorted(k for k, v in condicoes.items() if not v)
 
     pendencia = None
-    if ja_la["CONFLITO_DE_CORRIDA"]:
+    if recusados:
+        # Vem PRIMEIRO na fila: uma observacao sem fonte nao chega a ter
+        # conflito de metadata, e diagnosticar-lhe outra coisa mandaria o
+        # operador repetir o passo errado.
+        pendencia = SEM_IDENTIDADE_DE_FONTE
+    elif ja_la["CONFLITO_DE_CORRIDA"]:
         pendencia = RUN_ID_CONFLICT
     elif ja_la["CONFLITOS_DE_OBJETO"]:
-        pendencia = METADATA_CONFLICT
+        # E A PENDENCIA HERDA O NOME DO CONFLITO. Se TODOS forem corrida nova
+        # sobre o mesmo endereco, o diagnostico e esse — e nao «duas verdades
+        # no mesmo endereco», que mandaria o operador procurar uma divergencia
+        # de conteudo que nao existe. Basta um conflito real para o nome voltar
+        # a ser METADATA_CONFLICT: o pior dos dois manda.
+        pendencia = (NEW_RUN_SAME_STORAGE_PATH
+                     if all(c["TIPO"] == NEW_RUN_SAME_STORAGE_PATH
+                            for c in ja_la["CONFLITOS_DE_OBJETO"])
+                     else METADATA_CONFLICT)
     # Divergencia encontrada DEPOIS de escrever tambem e conflito, e tem de vir
     # antes de UPLOAD_PENDING_METADATA na fila. Senao o caso de corrida —
     # contagem certa, conteudo errado — sairia rotulado como «falta escrever»,
@@ -756,6 +935,12 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
 
     return {
         "RUN_ID": run["RUN_ID"],
+        "RECUSADOS_SEM_IDENTIDADE": [
+            {"SHA256": a.get("SHA256"), "NAME": a.get("NAME"),
+             "SOURCE_ID_RECEBIDO": a.get("SOURCE_ID"),
+             "PORQUE": ("sem SOURCE_ID real nao ha estado de identidade "
+                        "possivel, e nenhum se inventa")}
+            for a in recusados],
         "PLANO": {k: v for k, v in plano.items() if k != "OBJETOS"},
         "ENVIO": {"NOVOS": len(envio["NOVOS"]),
                   "REAPROVEITADOS": len(envio["REAPROVEITADOS"]),
