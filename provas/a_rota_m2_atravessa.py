@@ -77,7 +77,14 @@ from guarda import preservar_derivado as pd   # noqa: E402
 
 MIGRATIONS = ['001', '002', '003', '004', '005', '006', '007', '009', '010',
               '011', '012', '013', '014', '015', '016', '017', '018', '019',
-              '020', '021', '022', '023', '024']
+              '020', '021', '022', '023', '024',
+              # 025 acrescenta uma TRAVA a `raw_asset`, e esta prova escreve
+              # nessa tabela pelo dono canonico. Sem ela, o writer emite um
+              # insert em `storage_object` sobre um esquema que ainda nao a
+              # tem — e a prova morre com «relation does not exist».
+              #
+              #     UMA LISTA A MAO ENVELHECE CALADA, e esta envelheceu.
+              '025']
 
 MODELO = os.path.join(RAIZ, "system-map", "data", "estradas-it.model.json")
 # Onde a medicao desta corrida fica escrita, e o ledger que ela confere.
@@ -264,7 +271,7 @@ def main():
             "pdftotext ausente: sem ele o executor devolve FERRAMENTA_AUSENTE "
             "para tudo, e esta prova mediria a maquina, e nao a rota.")
 
-    print("MIGRATIONS — a cadeia canonica, ate a 024")
+    print("MIGRATIONS — a cadeia canonica, ate a 025")
     caso("A1_a_cadeia_aplica_num_postgres_real",
          aplicar_migrations(url) == len(MIGRATIONS),
          "%d migrations em PostgreSQL 16" % len(MIGRATIONS))

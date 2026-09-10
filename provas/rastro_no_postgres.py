@@ -4,7 +4,7 @@
 
 DESIGNED nao e DB_TESTED. Esta prova percorre essa distancia com uma maquina.
 
-Aplica a cadeia canonica mais a migration 024 e corre
+Aplica a cadeia canonica mais as migrations 024 e 025 e corre
 `tests/test_rastro_pg.py`. Sem banco a suite e PULADA, e teste pulado nao prova
 nada — por isso o CI a corre aqui, e recusa a corrida se algum for pulado.
 
@@ -30,7 +30,14 @@ from preservar_coleta_no_postgres import _e_descartavel   # noqa: E402
 # A 008 e CONFERENCIA e nao criacao: ela corre no fim, pelo chamador.
 MIGRATIONS = ['001', '002', '003', '004', '005', '006', '007', '009', '010',
               '011', '012', '013', '014', '015', '016', '017', '018', '019',
-              '020', '021', '022', '023', '024']
+              '020', '021', '022', '023', '024',
+              # 025 acrescenta uma TRAVA a `raw_asset`, e esta prova escreve
+              # nessa tabela pelo dono canonico. Sem ela, o writer emite um
+              # insert em `storage_object` sobre um esquema que ainda nao a
+              # tem — e a prova morre com «relation does not exist».
+              #
+              #     UMA LISTA A MAO ENVELHECE CALADA, e esta envelheceu.
+              '025']
 
 
 def aplicar(url):

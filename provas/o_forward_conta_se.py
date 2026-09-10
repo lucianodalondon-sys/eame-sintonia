@@ -28,7 +28,7 @@ Aqui corre a estrada:
 
 OS NOVE CASOS
 -------------
-    F1  a cadeia canonica aplica-se num Postgres real, ate a 024
+    F1  a cadeia canonica aplica-se num Postgres real, ate a 025
     F2  a corrida e REAL: o `run_id` referencia `collection_run`, e o banco
         recusa um `run_id` que nao exista — a chave estrangeira nao se contorna
     F3  o `raw_asset_id` e REAL, lido do banco, e a linhagem fecha no filho
@@ -79,7 +79,14 @@ from guarda import preservar_derivado as pd    # noqa: E402
 # `provas/rastro_no_postgres.py` — duas listas divergiriam.
 MIGRATIONS = ['001', '002', '003', '004', '005', '006', '007', '009', '010',
               '011', '012', '013', '014', '015', '016', '017', '018', '019',
-              '020', '021', '022', '023', '024']
+              '020', '021', '022', '023', '024',
+              # 025 acrescenta uma TRAVA a `raw_asset`, e esta prova escreve
+              # nessa tabela pelo dono canonico. Sem ela, o writer emite um
+              # insert em `storage_object` sobre um esquema que ainda nao a
+              # tem — e a prova morre com «relation does not exist».
+              #
+              #     UMA LISTA A MAO ENVELHECE CALADA, e esta envelheceu.
+              '025']
 
 MODELO_DAS_ESTRADAS = os.path.join(RAIZ, "system-map", "data",
                                    "estradas-it.model.json")
@@ -215,7 +222,7 @@ def main():
             "RECUSADO: '%s' nao parece um banco descartavel local. "
             "Esta prova nunca corre contra producao." % url)
 
-    print("MIGRATIONS — a cadeia canonica, ate a 024")
+    print("MIGRATIONS — a cadeia canonica, ate a 025")
     quantas = aplicar_migrations(url)
     caso("F1_a_cadeia_aplica_num_postgres_real", quantas == len(MIGRATIONS),
          "%d migrations aplicadas em PostgreSQL 16" % quantas)

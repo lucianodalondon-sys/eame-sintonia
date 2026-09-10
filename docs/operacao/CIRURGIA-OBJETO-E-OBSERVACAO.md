@@ -727,3 +727,255 @@ HISTORICAL_STORAGE_WITHOUT_OPERATIONAL_RUN   continua em aberto
 
 O B5 trata o schema existente e o caminho forward. A dívida histórica tem nome próprio e
 espera a sua própria missão.
+
+---
+
+## Q · C-PLAN-B5B — PRÉ-CONDIÇÕES DAS FASES 7-9
+
+**C-MAP-B5A + C-PLAN-B5B** · decisão, zero implementação · a partir de `49b1b983`
+
+> Zero migration, zero runtime, zero escrita em banco. As medições abaixo saíram
+> do código versionado desta árvore e correm outra vez com o mesmo resultado.
+
+### Q.1 · A CORRIDA
+
+```
+RUN_ID_AUTHORITY = orquestrador/orquestrador.py::correr  (T-04)
+```
+
+Medido, e já com teste que o segura: `run_id = novo_run_id(p)` corre **antes**
+do `subprocess.run` que chama o executor, e o teste
+`test_4_o_run_id_e_cunhado_ANTES_de_o_executor_correr` compara os números de
+linha na própria árvore sintática — prova de ORDEM, não de resultado.
+
+O executor recebe `--run-id=`, a observação sai com `RUN_ID`, e
+`pela_entrada` entrega a corrida ao dono do RAW dentro de `corrida=recibo`.
+
+```
+FORWARD_RUN_ID_ALREADY_AVAILABLE_TO_RAW_WRITER = YES
+```
+
+**Nunca se cunha um segundo `RUN_ID` no writer**, e nunca se reconstrói a
+corrida depois do facto. Proveniência decidida a posteriori não é registada:
+é reconstruída.
+
+### Q.2 · A FONTE
+
+```
+SOURCE_ID_AUTHORITY = o SOURCE_ID TEXTUAL da Collection   (ex.: IT-T2-002)
+SOURCE_ID_DB_SURROGATE_IS_NOT_CANONICAL_SOURCE_ID = fonte_externa.id NÃO é ele
+```
+
+`public.fonte_externa` tem `id bigserial` e `unique (url_base)`, e **nenhuma
+coluna para o código textual**. O código da coleta fala `IT-T2-002`; o banco
+fala `1`, `2`, `3`, indexado por URL. Não existe mapa entre os dois, e o site
+que possui 138 das linhas vivas não é fonte nenhuma no atlas das 77.
+
+```
+NÃO se cria FK para fonte_externa(id) nesta fase.
+NÃO se infere SOURCE_ID de SOURCE_SLUG, storage_path, URL, owner ou publisher.
+```
+
+### Q.3 · O BURACO É DE FIO, NÃO DE DEFINIÇÃO
+
+```
+SOURCE_ID_EXISTS_UPSTREAM           = YES
+SOURCE_ID_REACHES_RAW_WRITER_TODAY  = NO
+```
+
+Medido nos dois pontos:
+
+```
+coleta/ingresso.py::DO_COLETOR      13 campos, e o primeiro é SOURCE_ID
+coleta/ingresso.py::para_o_dono_do_raw()
+    devolve 12 chaves — COUNTRY · SOURCE_SLUG · ARTIFACT_KIND · NAME ·
+    SOURCE_NATIVE_ID · SHA256 · BYTES · MEDIA_TYPE · CAPTURED_AT ·
+    SOURCE_URL · USED_BY · ARTIFACT_ID
+    e SOURCE_ID NÃO está entre elas.
+```
+
+Ele só sobrevive **derretido** em `SOURCE_SLUG = _slug(f.SOURCE_ID)`, que é
+endereço e nunca identidade. `it-t2-002` não se reconverte em `IT-T2-002` sem
+adivinhar, e um slug não distingue duas fontes cujos códigos colapsem no mesmo
+texto.
+
+```
+SOURCE_ID_WIRING_GAP = YES — e é isto que a implementação B5B tem de ligar.
+```
+
+**A identidade não é desconhecida; ela é conhecida e não viaja.** São coisas
+diferentes, e confundi-las transformaria trabalho de fio em bloqueio de
+arquitetura.
+
+### Q.4 · A CHAVE DO DOCUMENTO
+
+Já fechada na C-PLAN-0, e aqui apenas confirmada contra
+`docs/operacao/IDENTIDADE-DA-OBSERVACAO-RAW.md`:
+
+```
+DOCUMENT_KEY       = DOCUMENT_ID      quando a fonte dá identidade semântica
+                   = CONTENT_SHA256   quando não dá — o hash INTEIRO, 64 dígitos
+DOCUMENT_KEY_BASIS = SOURCE_DOCUMENT_ID | CONTENT_DERIVED
+```
+
+```
+NUNCA são DOCUMENT_ID válido:  UNKNOWN · NAO_SEI · NÃO SEI · "" · null
+NUNCA substituem a chave:      DOCUMENT_VERSION_ID · SOURCE_NATIVE_ID ·
+                               slug · storage_path · URL · nome do ficheiro
+NUNCA se usa prefixo de 16:    o `CONTENT_DERIVED` é o sha256 completo
+```
+
+```
+DOCUMENT_KEY_INPUT_AVAILABLE = YES
+```
+
+Medido: `receber()` chama `para_o_dono_do_raw(f, item)` com o **item original**,
+e a observação italiana traz `DOCUMENT_ID` desde o coletor — o adapter leva a
+observação inteira e nunca a mutila. O dado está no sítio certo, no instante
+certo. O que falta é a tradução escolher levá-lo.
+
+O fallback é **contratual, e não inferência**: quando não há `DOCUMENT_ID`
+válido, `DOCUMENT_KEY = sha256` com `BASIS = CONTENT_DERIVED` escrito ao lado.
+Substituição declarada não é campo preenchido a fingir.
+
+### Q.5 · LEGADO NÃO É FORWARD
+
+```
+LEGACY_IDENTITY_POLICY
+
+  LEGACY_PRE_IDEMPOTENCY   as linhas anteriores ao contrato. Ficam
+                           EXPLICITAMENTE fora da proteção forward.
+  FORWARD_IDENTIFIED       a observação que chega com SOURCE_ID e DOCUMENT_KEY
+                           comprovados.
+
+IDENTITY_NOT_BACKFILLED_BY_GUESS = YES
+```
+
+Não se descobre `SOURCE_ID` histórico por `storage_path`. `adama-website` é uma
+ORGANIZAÇÃO e não um código de fonte. `media/<n>` não é `DOCUMENT_ID` sem
+contrato que o prove, e a A5.1a mediu o mesmo PDF sob dois desses números.
+
+**O terceiro estado não nasce por antecipação.** `FORWARD_IDENTITY_UNPROVEN` só
+existirá se aparecer um emissor forward real que precise continuar a escrever
+durante as fases 7-9 sem conseguir provar identidade. Hoje há **um** writer
+canónico, e ele terá os dois campos assim que o fio da Q.3 for ligado.
+
+```
+NULL SILENCIOSO  !=  LEGADO DECLARADO  !=  IDENTIDADE FORWARD COMPROVADA
+```
+
+### Q.6 · QUEM O ÍNDICE PARCIAL PROTEGE
+
+```
+PARTIAL_INDEX_SCOPE
+
+  semanticamente   UNIQUE (run_id, source_id, document_key, sha256)
+
+  INCLUÍDO   a observação forward com identidade comprovada
+  EXCLUÍDO   a linha anterior ao contrato, marcada com o estado explícito
+  PORQUÊ     proteger o histórico exigiria inventar-lhe identidade, e um
+             índice construído sobre valores fabricados protege uma ficção
+  COMO       pela cláusula do índice parcial, que nomeia o estado —
+             e NÃO por «onde o campo é nulo»
+```
+
+⚠️ **A diferença entre as duas exclusões é a missão inteira desta secção.**
+Excluir «onde o campo é nulo» deixaria uma observação forward escapar da
+proteção só porque alguém esqueceu de a preencher. Excluir «onde o estado diz
+LEGACY» obriga a linha a **declarar-se** legado para sair — e nenhum
+esquecimento declara nada.
+
+```
+FORWARD_NULL_ESCAPE_PREVENTED_BY_DESIGN = YES
+```
+
+O writer forward escreve o estado, e o `check` que a fase 7 instala recusa uma
+linha forward sem `source_id` ou sem `document_key`. Uma coleta nova não escapa
+por campo vazio: ela é recusada.
+
+### Q.7 · RETRY NÃO É REOBSERVAÇÃO
+
+```
+IDEMPOTENCY_KEY = (RUN_ID, SOURCE_ID, DOCUMENT_KEY, CONTENT_SHA256)
+
+CASO A   RUN A · X · Y · H, tentado outra vez   → mesma chave → REUSED
+CASO B   RUN B · X · Y · H                      → chave diferente → NOVA
+```
+
+```
+CURRENT_WRITER_DISTINGUISHES_RETRY_FROM_REOBSERVATION = NO
+```
+
+Medido: hoje o writer reencontra por `storage_path` e compara
+`IDENTIDADE_DO_OBJETO = (run_id, sha256, bytes, captured_at, source_url)`. O
+endereço é do conteúdo, logo a corrida seguinte cai no mesmo endereço com outro
+`run_id` — e sai `METADATA_CONFLICT`.
+
+Mas a pergunta certa não é «isto já está implementado?». É:
+
+```
+TEMOS OS DADOS E O CONTRATO PARA IMPLEMENTAR A DISTINÇÃO?   SIM
+PHASES_7_9_CAN_DISTINGUISH_THE_KEYS = YES
+```
+
+E com todas as letras, porque as duas frases parecem a mesma e não são:
+
+```
+PHASES_7_9_CAN_DISTINGUISH_THE_KEYS      = YES
+PHASES_7_9_CAN_PERSIST_BOTH_OBSERVATIONS = NO
+NEW_RUN_SAME_CONTENT_RESOLVED            = NO
+```
+
+`unique (raw_asset.storage_path)` continua de pé depois das fases 7-9. A
+segunda observação só coexiste fisicamente depois da **fase 10**, com todas as
+pré-condições dela cumpridas.
+
+### Q.8 · A TELEMETRIA QUE NÃO ENTRA NA CHAVE
+
+```
+ATTEMPTS_FORWARD_PROVABLE = PARTIAL
+```
+
+Medido em `coleta/italy_pilot_collect.mjs`: `baixar()` devolve `tentativas: i`
+**também no sucesso**, mas a observação bem-sucedida não o regista — só a de
+`TRANSPORT_OR_EMPTY` guarda `retries`. O número existe no instante do sucesso e
+é deitado fora ali.
+
+```
+attempts · last_attempt_at   NULLABLE, e TELEMETRIA
+                             NÃO fazem parte da chave de idempotência
+```
+
+**Não se escreve `1` só porque houve sucesso**: pode ter havido retry antes. A
+ausência deles não bloqueia o B5B, porque nenhuma lei desta casa exige
+telemetria completa para instalar identidade. Fica dívida separada, e não se
+fabrica.
+
+### Q.9 · A AUTORIZAÇÃO
+
+```
+RUN_ID_SOURCE                 = PROVEN      T-04, antes do executor, com teste de ordem
+SOURCE_ID_CANONICAL_AUTHORITY = PROVEN      o código textual da Collection
+SOURCE_ID_FORWARD_INPUT       = AVAILABLE   está em DO_COLETOR, não na tradução
+DOCUMENT_KEY_RULE             = CLOSED      C-PLAN-0, confirmada aqui
+DOCUMENT_KEY_INPUT/FALLBACK   = AVAILABLE   o item original chega à tradução
+LEGACY_VS_FORWARD_STATE       = EXPLICIT    dois estados, e o terceiro só se aparecer
+PARTIAL_INDEX_SCOPE           = EXPLICIT    exclui por ESTADO, nunca por NULL
+FORWARD_NULL_ESCAPE           = BLOCKED BY DESIGN
+RETRY_VS_NEW_RUN              = DISTINGUISHABLE BY KEY
+PHASE_10_STILL_REQUIRED       = YES
+```
+
+```
+READY_FOR_B5B_IMPLEMENTATION = YES
+B5B_BLOCKERS = nenhum bloqueio de arquitetura
+```
+
+O único trabalho por fazer é o fio da Q.3: `SOURCE_ID` e `DOCUMENT_KEY` ainda
+não chegam nem persistem no dono do RAW. Isso é **implementação do B5B**, e não
+razão para dizer que a arquitetura é desconhecida.
+
+```
+NEXT_STEP = B5B · implementar SOMENTE as fases 7, 8 e 9
+            e continuar a NÃO tocar nas fases 10 e 11
+```
