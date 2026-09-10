@@ -1398,6 +1398,7 @@
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/test_adama_relevance.py",
+      "tests/test_alvo_estruturado_resolvido.py",
       "tests/test_aprender_com_a_fonte.py",
       "tests/test_arestas.py",
       "tests/test_armazem_italiano.py",
@@ -1852,9 +1853,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "33bd5fad6f9b09c42dfc0034004056ee6cb4c359",
-    "GENERATED_AT": "2026-09-10T16:03:55+00:00",
-    "SOURCE_TREE_FINGERPRINT": "ba6c6fdd666a22919cb2a62535c980801e529e281fa959d06f04f9597e72f604"
+    "HEAD": "07ec43fbc16f14d4b92ce3648bcf1a79f46dad0f",
+    "GENERATED_AT": "2026-09-10T16:31:38+00:00",
+    "SOURCE_TREE_FINGERPRINT": "033be568b7889736c50d00cfe8631646f5eb3a338333856227a4b3814db02f0d"
   },
   "FAMILIES": [
     {
@@ -9224,7 +9225,7 @@
       "name": "Colher as fontes italianas",
       "territory": "Z-ACOES",
       "kind": "engine",
-      "what": "Mede a porta de cada fonte, acha o documento do dia, colhe e volta amanha reconhecendo o que ja viu.",
+      "what": "Mede a porta de cada fonte, acha o documento do dia, colhe, volta amanha reconhecendo o que ja viu, entrega a colheita na porta canonica do RAW e declara que conceito materializou quando ha identidade documental.",
       "why_here": "Bate a porta antes de entrar: medir custa zero e evita gastar maquina onde nao ha ninguem. E `ACCESS_OK` no curl e sinal FORTE, mas `BLOCKED` e sinal FRACO — muitos sites recusam curl e aceitam navegador. Confundir os dois faz um endereco nosso errado virar «o pais bloqueia».",
       "departments": [
         "INTELIGENCIA",
@@ -9391,7 +9392,8 @@
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
-        "C-PROVA-AUTORIDADE-FONTE"
+        "C-PROVA-AUTORIDADE-FONTE",
+        "C-TESTES"
       ],
       "paises": {
         "ITALIA": 6
@@ -15043,6 +15045,7 @@
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
         "tests/test_adama_relevance.py",
+        "tests/test_alvo_estruturado_resolvido.py",
         "tests/test_aprender_com_a_fonte.py",
         "tests/test_arestas.py",
         "tests/test_armazem_italiano.py",
@@ -15116,7 +15119,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 75,
+      "file_count": 76,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 7 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15176,6 +15179,7 @@
         "C-INGRESSO",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
+        "C-IT-CONTRATOS",
         "C-IT-PRESERVAR",
         "C-LASTMILE",
         "C-LUGAR-COLETA",
@@ -15234,13 +15238,14 @@
       },
       "paises_dado": {
         "ESPANHA": 42,
-        "ITALIA": 14,
+        "ITALIA": 19,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "ANTES_DO_B2",
           "BINDINGS",
           "CAMINHOS_DE_INTELIGENCIA",
           "CAMPOS_DA_REGRA",
@@ -15268,11 +15273,11 @@
           "SINAL_VENETO",
           "_GAVETA_DE"
         ],
-        "palavras": 370,
+        "palavras": 395,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 368,
+        "sem_marca_de_lingua": 393,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -23142,8 +23147,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_alvo_estruturado_resolvido.py",
+          "line": 249,
+          "snippet": "import ingresso as ing"
+        },
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 50,
@@ -23455,8 +23465,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_alvo_estruturado_resolvido.py",
+          "line": 42,
+          "snippet": "import italy_executor as adapter                            # noqa: E402"
+        },
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 51,
@@ -23473,8 +23488,23 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_alvo_estruturado_resolvido.py",
+          "line": 47,
+          "snippet": "COLETOR = os.path.join(RAIZ, \"coleta\", \"italy_pilot_collect.mjs\")"
+        },
+        {
+          "file": "tests/test_alvo_estruturado_resolvido.py",
+          "line": 185,
+          "snippet": "fonte = io.open(os.path.join(RAIZ, \"coleta\", \"italy_executor.py\"),"
+        },
+        {
+          "file": "tests/test_alvo_estruturado_resolvido.py",
+          "line": 200,
+          "snippet": "fonte = io.open(os.path.join(RAIZ, \"coleta\", \"italy_recurrent_collect.mjs\"),"
+        },
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 132,
@@ -23615,6 +23645,24 @@
         }
       ],
       "categoria": "RULE"
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_alvo_estruturado_resolvido.py",
+          "line": 233,
+          "snippet": "fonte = io.open(os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\"),"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-IT-PDF-BRUTO",
@@ -30372,12 +30420,12 @@
     "components_pending": 90,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 617,
-    "edges_proven": 615,
+    "edges": 618,
+    "edges_proven": 616,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1404,
-    "files_covered": 683,
+    "files_tracked": 1405,
+    "files_covered": 684,
     "files_code_unclaimed": 0
   }
 }

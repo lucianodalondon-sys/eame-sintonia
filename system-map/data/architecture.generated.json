@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "33bd5fad6f9b09c42dfc0034004056ee6cb4c359",
-    "GENERATED_AT": "2026-09-10T16:03:55+00:00",
-    "SOURCE_TREE_FINGERPRINT": "ba6c6fdd666a22919cb2a62535c980801e529e281fa959d06f04f9597e72f604"
+    "HEAD": "07ec43fbc16f14d4b92ce3648bcf1a79f46dad0f",
+    "GENERATED_AT": "2026-09-10T16:31:38+00:00",
+    "SOURCE_TREE_FINGERPRINT": "033be568b7889736c50d00cfe8631646f5eb3a338333856227a4b3814db02f0d"
   },
   "FILES": [
     {
@@ -1298,7 +1298,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "a06e9d845cbc5d71691f03034c8d165584383abb",
+      "sha": "e9980f36313c236dd2faa676a3b0ad7701994df8",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -8991,7 +8991,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "7d802c1cdb76be53d414a167c2243bbadf384cc0",
+      "sha": "53f263a28b99fb93ed3c550450dd488f0a913615",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9321,6 +9321,13 @@
     {
       "path": "tests/test_adama_relevance.py",
       "sha": "4337978c67cf52681f3eddbcaeb2423eca2291e8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_alvo_estruturado_resolvido.py",
+      "sha": "19f32dd70f64d702f7b765b1852de3601066253b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11957,7 +11964,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 118,
+        "line": 130,
         "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
       }
     },
@@ -28429,6 +28436,94 @@
       }
     },
     {
+      "from_file": "tests/test_alvo_estruturado_resolvido.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_alvo_estruturado_resolvido.py",
+        "line": 40,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_alvo_estruturado_resolvido.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_alvo_estruturado_resolvido.py",
+        "line": 249,
+        "snippet": "import ingresso as ing"
+      }
+    },
+    {
+      "from_file": "tests/test_alvo_estruturado_resolvido.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_alvo_estruturado_resolvido.py",
+        "line": 42,
+        "snippet": "import italy_executor as adapter                            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_alvo_estruturado_resolvido.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_alvo_estruturado_resolvido.py",
+        "line": 185,
+        "snippet": "fonte = io.open(os.path.join(RAIZ, \"coleta\", \"italy_executor.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_alvo_estruturado_resolvido.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_alvo_estruturado_resolvido.py",
+        "line": 47,
+        "snippet": "COLETOR = os.path.join(RAIZ, \"coleta\", \"italy_pilot_collect.mjs\")"
+      }
+    },
+    {
+      "from_file": "tests/test_alvo_estruturado_resolvido.py",
+      "to_file": "coleta/italy_recurrent_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_alvo_estruturado_resolvido.py",
+        "line": 200,
+        "snippet": "fonte = io.open(os.path.join(RAIZ, \"coleta\", \"italy_recurrent_collect.mjs\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_alvo_estruturado_resolvido.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_alvo_estruturado_resolvido.py",
+        "line": 233,
+        "snippet": "fonte = io.open(os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_alvo_estruturado_resolvido.py",
+      "to_file": "tests/test_italia_na_porta_canonica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_alvo_estruturado_resolvido.py",
+        "line": 43,
+        "snippet": "from test_italia_na_porta_canonica import CasoB1, FONTE     # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_aprender_com_a_fonte.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -34072,10 +34167,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1404,
-    "files_readable": 525,
-    "files_code_dir": 572,
-    "file_edges": 2162,
+    "files_tracked": 1405,
+    "files_readable": 526,
+    "files_code_dir": 573,
+    "file_edges": 2170,
     "escritas_em_pasta": 66,
     "declared_missing_here": 0
   },
