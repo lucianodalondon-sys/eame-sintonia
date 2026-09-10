@@ -287,11 +287,24 @@ class ContarNaoEConferir(CasoBase):
                     "insert into public.collection_run "
                     "(run_id, platform, started_at, rule_version) values "
                     "('INTRUSA','x','2026-01-01T00:00:00Z','1');")
+                # 025: o intruso escreve as DUAS especies, porque no esquema
+                # novo nao ha como escrever so uma. A encenacao fica mais
+                # realista, nao menos: quem chega primeiro ao endereco fica com
+                # a copia, e a nossa observacao vai apontar para a DELE.
+                original(
+                    "insert into public.storage_object (storage_path, "
+                    "media_type, bytes, sha256) values "
+                    "('%s', 'application/pdf', 999, '%s') "
+                    "on conflict (storage_path) do nothing;"
+                    % (caminho, "e" * 64))
                 original(
                     "insert into public.raw_asset (run_id, storage_path, "
-                    "media_type, bytes, sha256, captured_at) values "
-                    "('INTRUSA', '%s', 'application/pdf', 999, '%s', "
-                    "'2026-01-01T00:00:00Z');" % (caminho, "e" * 64))
+                    "media_type, bytes, sha256, captured_at, "
+                    "storage_object_id) select 'INTRUSA', '%s', "
+                    "'application/pdf', 999, '%s', '2026-01-01T00:00:00Z', "
+                    "o.id from public.storage_object o "
+                    "where o.storage_path = '%s';"
+                    % (caminho, "e" * 64, caminho))
                 self.banco.aplicar = original
             original(sql)
 
@@ -558,7 +571,16 @@ class AProvaEmPostgresEACuaTranca(unittest.TestCase):
         self.assertTrue(self.pg.HOSTS_LOCAIS)
         # A lista e curta de proposito: acrescentar um nome tem de ser uma
         # decisao consciente, e doer um bocadinho.
-        self.assertLessEqual(len(self.pg.BANCOS_PERMITIDOS), 3)
+        #
+        # ⚠️ SUBIU DE 3 PARA 4 EM 2026-09-10, e a dor cumpriu-se: este caso
+        # reprovou primeiro. `objeto` entrou para a prova da migration 025, que
+        # separa a copia da observacao — e ela precisa mesmo de banco proprio,
+        # porque assere CONTAGENS EXATAS (`objetos=3 enderecos=3`) e herdar
+        # linhas de outra prova faria um caso passar por estado alheio.
+        #
+        # O numero continua colado ao que existe HOJE. O quinto nome volta a
+        # reprovar aqui, que e o ponto.
+        self.assertLessEqual(len(self.pg.BANCOS_PERMITIDOS), 4)
         self.assertIn("descartavel", self.pg.BANCOS_PERMITIDOS)
         for proibido in ("producao", "prod", "postgres", "eame-sintonia"):
             self.assertNotIn(proibido, self.pg.BANCOS_PERMITIDOS)
@@ -611,13 +633,24 @@ class AsTravasDoEsquemaSaoReais(CasoBase):
     """O banco descartável tem de reproduzir as travas que interessam."""
 
     def test_run_id_e_obrigatorio_e_tem_chave_estrangeira(self):
-        """A trava que NÃO se relaxa para caber o legado italiano."""
+        """A trava que NÃO se relaxa para caber o legado italiano.
+
+        ⚠️ A COPIA E CRIADA E LIGADA DE PROPOSITO. Desde a 025 uma linha sem
+        `storage_object_id` tambem seria recusada — e entao este caso passaria
+        pelo motivo errado, provando a trava nova em vez da que tem no nome.
+        Aqui só falta a corrida, e por isso só a chave estrangeira dela pode
+        reprovar.
+        """
         import sqlite3
+        self.banco.con.execute(
+            "insert into storage_object (storage_path, media_type, bytes, "
+            "sha256) values ('x','application/pdf',1,'a')")
         with self.assertRaises(sqlite3.IntegrityError):
             self.banco.con.execute(
                 "insert into raw_asset (run_id, storage_path, media_type, "
-                "bytes, sha256, captured_at) values "
-                "('CORRIDA-QUE-NAO-EXISTE','x','application/pdf',1,'a','t')")
+                "bytes, sha256, captured_at, storage_object_id) "
+                "select 'CORRIDA-QUE-NAO-EXISTE','x','application/pdf',1,'a',"
+                "'t', o.id from storage_object o where o.storage_path = 'x'")
 
     def test_storage_path_e_unico_e_sha256_nao_e(self):
         """O mesmo conteúdo em dois endereços continua a caber — foi o que os

@@ -57,10 +57,19 @@ class Base(unittest.TestCase):
             "rule_version, source_country) values ('%s','t','%s','1','%s') "
             "on conflict (run_id) do nothing;"
             % (run_id, CAPTURED_AT, pais))
+        # 025: SAO DUAS ESPECIES. Uma observacao que se diz preservada tem de
+        # dizer QUAL copia preservou, e a trava do banco recusa se ela nao
+        # disser. A fixture escreve as duas, como a producao passou a escrever.
+        self.banco.aplicar(
+            "insert into public.storage_object (storage_path, media_type, "
+            "bytes, sha256) values ('%s','application/pdf',100,'%s') "
+            "on conflict (storage_path) do nothing;" % (caminho, sha))
         self.banco.aplicar(
             "insert into public.raw_asset (run_id, storage_path, media_type, "
-            "bytes, sha256, captured_at) values ('%s','%s','application/pdf',"
-            "100,'%s','%s');" % (run_id, caminho, sha, CAPTURED_AT))
+            "bytes, sha256, captured_at, storage_object_id) "
+            "select '%s','%s','application/pdf',100,'%s','%s', o.id "
+            "from public.storage_object o where o.storage_path = '%s';"
+            % (run_id, caminho, sha, CAPTURED_AT, caminho))
         return int(self.banco.con.execute(
             "select id from raw_asset where storage_path = ?",
             (caminho,)).fetchone()[0])

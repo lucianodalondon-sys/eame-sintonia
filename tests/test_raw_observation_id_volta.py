@@ -201,10 +201,14 @@ class AsPortasFalamAMesmaLingua(unittest.TestCase):
             "actor_version, mission, source_country, started_at, rule_version, "
             "capture_method, status) values ('R','p','a','1','m','IT',"
             "'2026-09-10T00:00:00Z','1','HTTP_GET','rodando');\n"
+            "insert into public.storage_object (storage_path, media_type, "
+            "bytes, sha256) values ('c/x.pdf','application/pdf',1,'%s');\n"
             "insert into public.raw_asset (run_id, storage_path, media_type, "
-            "bytes, sha256, captured_at, source_url) values ('R','c/x.pdf',"
-            "'application/pdf',1,'%s','2026-09-10T00:00:00Z','https://a.it');"
-            % ("ab" * 32))
+            "bytes, sha256, captured_at, source_url, storage_object_id) "
+            "select 'R','c/x.pdf','application/pdf',1,'%s',"
+            "'2026-09-10T00:00:00Z','https://a.it', o.id "
+            "from public.storage_object o where o.storage_path = 'c/x.pdf';"
+            % ("ab" * 32, "ab" * 32))
         linhas = banco.objetos_da_corrida("R")
         self.assertEqual(len(linhas), 1)
         self.assertIn("id", linhas[0])

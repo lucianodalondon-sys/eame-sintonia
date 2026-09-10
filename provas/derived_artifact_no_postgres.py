@@ -45,6 +45,10 @@ _spec.loader.exec_module(_pg)
 MIGRACOES = [
     "001_fundacao_geografia_e_proveniencia.sql",
     "022_o_derivado_ganha_casa.sql",
+    # 025 entra porque ela acrescenta uma trava A `raw_asset`, e o pai que esta
+    # prova escreve e uma linha de `raw_asset`. Aplicar a 022 sem a 025 provaria
+    # o derivado contra um esquema que ja nao existe.
+    "025_o_objeto_ganha_casa.sql",
 ]
 
 SHA_PAI = "a" * 64
@@ -71,11 +75,19 @@ def _raw(banco, run_id, caminho, sha=SHA_PAI):
         "rule_version, source_country) values "
         "('%s','teste','2026-09-08T00:00:00Z','1','IT') "
         "on conflict (run_id) do nothing;" % run_id)
+    # 025: a copia primeiro, a observacao depois. Sem isto a trava
+    # `preservado_aponta_para_a_copia` recusa — e recusa com razao.
+    banco.aplicar(
+        "insert into public.storage_object (storage_path, media_type, bytes, "
+        "sha256) values ('%s','application/pdf',100,'%s') "
+        "on conflict (storage_path) do nothing;" % (caminho, sha))
     banco.aplicar(
         "insert into public.raw_asset (run_id, storage_path, media_type, bytes, "
-        "sha256, captured_at) values ('%s','%s','application/pdf',100,'%s',"
-        "'2026-09-08T00:00:00Z') on conflict (storage_path) do nothing;"
-        % (run_id, caminho, sha))
+        "sha256, captured_at, storage_object_id) "
+        "select '%s','%s','application/pdf',100,'%s','2026-09-08T00:00:00Z', o.id "
+        "from public.storage_object o where o.storage_path = '%s' "
+        "on conflict (storage_path) do nothing;"
+        % (run_id, caminho, sha, caminho))
     return int(banco._valor(
         "select id from public.raw_asset where storage_path = '%s'" % caminho))
 

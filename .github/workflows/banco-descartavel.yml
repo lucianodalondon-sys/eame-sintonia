@@ -38,6 +38,8 @@ on:
       - 'supabase/migrations/022_*.sql'
       - 'supabase/migrations/023_*.sql'
       - 'supabase/migrations/024_*.sql'
+      - 'supabase/migrations/025_*.sql'
+      - 'provas/objeto_e_observacao_no_postgres.py'
       - 'medidas/rastro_da_coleta.py'
       - 'provas/rastro_no_postgres.py'
       - 'provas/social_persistencia_no_postgres.py'
@@ -129,6 +131,21 @@ jobs:
         env:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/derivado
+
+      # A migration 025 separa a COPIA da OBSERVACAO, e essa cirurgia so vale
+      # se separar dado que JA ESTAVA JUNTO. Por isso a prova escreve o acervo
+      # com o esquema antigo e so entao aplica a 025 — correr a migration sobre
+      # uma tabela vazia provaria o SQL e nada mais.
+      #
+      # Banco proprio (`objeto`): herdar linhas de outra prova faria um caso
+      # passar por causa do estado alheio.
+      - name: 2b2 · a copia separa-se da observacao, sobre dado que ja existia
+        run: |
+          psql "$ADMIN_URL" -c 'create database objeto;'
+          python3 provas/objeto_e_observacao_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/objeto
 
       # SKIP CEGO E PROIBIDO. Reproduz o defeito antigo e prova o conserto:
       # migration aplicada e depois editada tem de fazer o aplicador falhar

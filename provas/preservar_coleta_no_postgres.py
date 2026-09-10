@@ -48,6 +48,11 @@ from guarda.preservar_coleta import (  # noqa: E402
 
 MIGRACAO = os.path.join(RAIZ, "supabase", "migrations",
                         "001_fundacao_geografia_e_proveniencia.sql")
+# 025 acrescenta uma trava A `raw_asset`, e esta prova escreve linhas dessa
+# tabela. Prova-la sobre a 001 sozinha seria prova-la contra um esquema que
+# esta casa ja nao tem.
+MIGRACAO_025 = os.path.join(RAIZ, "supabase", "migrations",
+                            "025_o_objeto_ganha_casa.sql")
 
 HOSTS_LOCAIS = ("localhost", "127.0.0.1", "::1", "[::1]")
 # Os UNICOS nomes de banco que esta casa aceita para uma prova. Sao os que os
@@ -57,7 +62,10 @@ HOSTS_LOCAIS = ("localhost", "127.0.0.1", "::1", "[::1]")
 # `social` entrou em 2026-09-08 para a prova do contrato de persistencia
 # social. Banco proprio de proposito: herdar linhas de outra prova faria um
 # caso passar por causa do estado alheio.
-BANCOS_PERMITIDOS = ("descartavel", "derivado", "social")
+# `objeto` entrou em 2026-09-10 para a prova da migration 025, que separa a
+# copia da observacao. Banco proprio de proposito: herdar linhas de outra prova
+# faria um caso passar por causa do estado alheio.
+BANCOS_PERMITIDOS = ("descartavel", "derivado", "social", "objeto")
 
 
 def _e_descartavel(url: str) -> bool:
@@ -460,10 +468,20 @@ def cenarios(banco):
                      "(run_id, platform, started_at, rule_version) values "
                      "('IT-PG-INTRUSA','x','2026-01-01T00:00:00Z','1') "
                      "on conflict (run_id) do nothing;")
+            # 025: o intruso escreve as DUAS especies. No esquema novo nao
+            # ha como escrever so uma — e a encenacao fica mais realista, nao
+            # menos: quem chega primeiro ao endereco fica com a copia.
+            original("insert into public.storage_object (storage_path, "
+                     "media_type, bytes, sha256) values "
+                     "('%s','application/pdf',999,'%s') "
+                     "on conflict (storage_path) do nothing;"
+                     % (caminho_r, "e" * 64))
             original("insert into public.raw_asset (run_id, storage_path, "
-                     "media_type, bytes, sha256, captured_at) values "
-                     "('IT-PG-INTRUSA','%s','application/pdf',999,'%s',"
-                     "'2026-01-01T00:00:00Z');" % (caminho_r, "e" * 64))
+                     "media_type, bytes, sha256, captured_at, "
+                     "storage_object_id) select 'IT-PG-INTRUSA','%s',"
+                     "'application/pdf',999,'%s','2026-01-01T00:00:00Z', o.id "
+                     "from public.storage_object o where o.storage_path = '%s';"
+                     % (caminho_r, "e" * 64, caminho_r))
         original(sql)
 
     banco.aplicar = intruso_entra_no_meio
@@ -491,10 +509,19 @@ def cenarios(banco):
 
     # ── AS TRAVAS DO ESQUEMA REAL ────────────────────────────────────────
     try:
+        # A COPIA E CRIADA E LIGADA DE PROPOSITO: sem ela, a 025 tambem
+        # recusaria, e este caso passaria pelo motivo errado — provando a trava
+        # nova em vez da que tem no nome. Aqui so falta a corrida.
+        banco.aplicar(
+            "insert into public.storage_object (storage_path, media_type, "
+            "bytes, sha256) values ('x/y','application/pdf',1,'%s') "
+            "on conflict (storage_path) do nothing;" % ("a" * 64))
         banco.aplicar(
             "insert into public.raw_asset (run_id, storage_path, media_type, "
-            "bytes, sha256, captured_at) values ('NAO-EXISTE','x/y',"
-            "'application/pdf',1,'%s','2026-09-08T00:00:00Z');" % ("a" * 64))
+            "bytes, sha256, captured_at, storage_object_id) "
+            "select 'NAO-EXISTE','x/y','application/pdf',1,'%s',"
+            "'2026-09-08T00:00:00Z', o.id from public.storage_object o "
+            "where o.storage_path = 'x/y';" % ("a" * 64))
         caso("run_id_obrigatorio_com_chave_estrangeira", False,
              "o banco ACEITOU byte sem corrida")
     except Exception as erro:                          # noqa: BLE001
@@ -534,11 +561,12 @@ def main():
         # `provas/a_autoridade_da_fonte.py` ja usa. Uma casa, um vocabulario.
         return 2
     banco = MemoriaPostgres(url)
-    with open(MIGRACAO, encoding="utf-8") as f:
-        banco.aplicar(f.read())
-    print("migration 001 ORIGINAL aplicada num Postgres 16 descartavel.")
-    print("ESCOPO DA PROVA: POSTGRES16_FOUNDATION_SCHEMA_TESTED — so a 001.")
-    print("Isto NAO e o esquema LIVE inteiro: as migrations 002-021 nao foram")
+    for caminho in (MIGRACAO, MIGRACAO_025):
+        with open(caminho, encoding="utf-8") as f:
+            banco.aplicar(f.read())
+    print("migrations 001 e 025 ORIGINAIS aplicadas num Postgres 16 descartavel.")
+    print("ESCOPO DA PROVA: POSTGRES16_FOUNDATION_SCHEMA_TESTED — 001 + 025.")
+    print("Isto NAO e o esquema LIVE inteiro: as migrations 002-024 nao foram")
     print("aplicadas aqui, e alargar isso nao e o assunto desta correcao.")
 
     resultados = cenarios(banco)

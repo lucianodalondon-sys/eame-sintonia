@@ -42,7 +42,8 @@ import sqlite3
 
 from guarda.preservar_derivado import MemoriaDoDerivado
 
-# TRADUÇÃO da migration 001 — as duas tabelas que a garantia forward toca.
+# TRADUÇÃO das migrations 001, 022 e 025 — as tabelas que a garantia forward
+# toca.
 # Cada trava aqui existe na original, e está anotada com o que ela prova.
 ESQUEMA = """
 create table collection_run (
@@ -76,6 +77,24 @@ create table collection_run (
     check (cost_usd is null or cost_method is not null)
 );
 
+-- TRADUCAO da migration 025. A COPIA FISICA, separada da observacao. Sem
+-- `~` (o CHECK de formato do hash fica para o Postgres, no CI) e sem `btrim`
+-- no check — SQLite tem `trim`, e a diferenca de dialeto nao muda a trava que
+-- importa aqui: `storage_path` unico, `sha256` NAO unico.
+create table storage_object (
+  id            integer primary key autoincrement,
+  -- 025: a IDENTIDADE da copia e o ENDERECO dela.
+  storage_path  text not null unique,
+  media_type    text not null,
+  bytes         integer not null,
+  -- 025: SEM unique, e medido — a ADAMA publicou a mesma ficha como ficha de
+  -- dois produtos, e sao dois objetos com o mesmo sha.
+  sha256        text not null,
+  created_at    text not null default (datetime('now')),
+  constraint objeto_tem_endereco check (trim(storage_path) <> '')
+);
+create index storage_object_hash_idx on storage_object (sha256);
+
 create table raw_asset (
   id            integer primary key autoincrement,
   -- 001: NOT NULL com chave estrangeira. E a trava que impede byte sem corrida —
@@ -91,13 +110,22 @@ create table raw_asset (
   source_url    text,
   preserved     integer not null default 1,
   not_preserved_reason text,
+  -- 025: QUAL COPIA esta observacao preservou. Anulavel, porque uma observacao
+  -- NAO PRESERVADA nao tem copia para apontar.
+  storage_object_id integer references storage_object(id),
   constraint bruto_ausente_precisa_de_motivo
     check (preserved = 1 or not_preserved_reason is not null),
+  -- 025: preservado E uma afirmacao, e uma afirmacao tem de poder ser
+  -- conferida. Aqui ela ja nasce validada; no Postgres instala-se NOT VALID e
+  -- valida-se a seguir, que e a metade que so o Postgres prova.
+  constraint preservado_aponta_para_a_copia
+    check (preserved = 0 or storage_object_id is not null),
   -- 022: o alvo da chave estrangeira COMPOSTA de derived_artifact. Nao e regra
   -- nova — (id, sha256) ja era unico porque id e chave primaria — e sem ela o
   -- SQLite recusa a FK com «foreign key mismatch», tal como o Postgres.
   unique (id, sha256)
 );
+create index raw_storage_object_idx on raw_asset (storage_object_id);
 create index raw_hash_idx on raw_asset (sha256);
 create index raw_run_idx  on raw_asset (run_id);
 

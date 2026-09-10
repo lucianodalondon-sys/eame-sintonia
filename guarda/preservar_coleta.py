@@ -384,6 +384,11 @@ def _texto(v):
 def sql_da_memoria(run: dict, conferidos: list, plano: dict) -> str:
     """A corrida abre `rodando`, e os objetos conferidos entram.
 
+    DESDE A MIGRATION 025 SAO DUAS ESPECIES, e cada linha conferida produz
+    duas escritas: a COPIA em `storage_object`, endereçada pelo caminho, e a
+    OBSERVACAO em `raw_asset`, que aponta para ela. O `id` da copia nunca e
+    calculado aqui — e lido do banco, por endereço, dentro do proprio insert.
+
     DUAS TRAVAS, E NENHUMA É DECORATIVA:
 
     1. **Só entra o que foi CONFERIDO** — lido de volta do armazém e com o hash
@@ -412,14 +417,34 @@ def sql_da_memoria(run: dict, conferidos: list, plano: dict) -> str:
     ]
     for caminho in conferidos:
         o = por_caminho[caminho]
+        # ── A COPIA PRIMEIRO, A OBSERVACAO DEPOIS ───────────────────────────
+        # Sao duas especies desde a migration 025, e a ordem nao e arbitraria:
+        # a observacao aponta para a copia, logo a copia tem de existir antes.
+        #
+        #     GARANTIR A COPIA  ->  GARANTIR A OBSERVACAO  ->  LIGAR
+        #
+        # `do nothing` no objeto e o que torna a segunda corrida do mesmo
+        # endereco barata: a copia ja la esta, e reusa-se. Isto NAO cura o
+        # conflito da observacao — `unique (raw_asset.storage_path)` continua
+        # de pe, e cai so na fase 10 do plano.
+        linhas.append(
+            "insert into public.storage_object (storage_path, media_type, "
+            "bytes, sha256) values (%s, %s, %d, %s) "
+            "on conflict (storage_path) do nothing;" % (
+                _texto(caminho), _texto(o["MEDIA_TYPE"]),
+                o["BYTES"], _texto(o["SHA256"])))
+        # E A LIGACAO SAI DO BANCO, NAO DA NOSSA CABECA. O `id` da copia e lido
+        # de la por endereco — nunca por `sha256`, que dois objetos podem
+        # partilhar, e nunca por um numero que este processo tenha guardado.
         linhas.append(
             "insert into public.raw_asset (run_id, storage_path, media_type, "
-            "bytes, sha256, captured_at, source_url) values "
-            "(%s, %s, %s, %d, %s, %s, %s) "
+            "bytes, sha256, captured_at, source_url, storage_object_id) "
+            "select %s, %s, %s, %d, %s, %s, %s, o.id "
+            "from public.storage_object o where o.storage_path = %s "
             "on conflict (storage_path) do nothing;" % (
                 _texto(run["RUN_ID"]), _texto(caminho), _texto(o["MEDIA_TYPE"]),
                 o["BYTES"], _texto(o["SHA256"]), _texto(o["CAPTURED_AT"]),
-                _texto(o.get("SOURCE_URL"))))
+                _texto(o.get("SOURCE_URL")), _texto(caminho)))
     linhas.append("commit;")
     return "\n".join(linhas) + "\n"
 
