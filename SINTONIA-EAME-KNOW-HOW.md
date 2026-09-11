@@ -3667,3 +3667,122 @@ E UMA BARRA DE PROGRESSO QUE ANDA SOZINHA.
 Nenhum teste de string apanharia isto. Apanhou-se num Chromium de verdade, e é
 a segunda missão seguida em que o navegador encontra o que a leitura do HTML
 não encontra.
+
+---
+
+# §56 · T3 PASSOU DE `D` A `B` — E O QUE O NÚMERO 36 ESCONDIA
+
+**Missão:** `C-FECHA-GABARITO-T3-E-RECALCULA-CENSO-V1` · HEAD final `357697c1`
+**Artefactos:** `provas/fechar_ground_truth_t3.py` ·
+`data/samples/T3-GROUND-TRUTH-EVAL-V1.json` ·
+`docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md` §8
+
+## 56.1 · O QUÊ
+
+```
+T3_OLD_VERDICT = D        T3_NEW_VERDICT = B
+SANITY YES · EVALUATION YES · TRAINING NO
+```
+
+T3 tem agora gabarito humano independente. É a **primeira** origem de rótulo
+desta árvore que não é herdada da ficha da fonte nem derivada das palavras que a
+Admission usa hoje — e portanto a primeira que pode avaliar um substituto delas.
+
+## 56.2 · POR QUÊ
+
+Duas leituras da mesma pessoa, e um fecho que só produz rótulo onde as duas
+concordam:
+
+```
+EVAL_ELIGIBLE   36     CONFIRMED_SIM 14 · CONFIRMED_NAO 22
+UNRESOLVED      11     EVIDENCE_GAP 6 · AMBIGUOUS 0
+```
+
+Os 11 divergentes não viraram rótulo de lado nenhum, e os 6 buracos de evidência
+não viraram negativo. Isso não é perda: é o dataset a dizer a verdade sobre si.
+
+```
+A != A2  ->  UNRESOLVED, E MAIS NADA.
+EVIDENCIA_INSUFICIENTE != NAO
+```
+
+## 56.3 · O DEFEITO QUE O NÚMERO 36 ESCONDIA
+
+Quatro dos 14 positivos são edições seguidas do mesmo boletim regional e
+partilham a abertura quase inteira. Contados como quatro, o gabarito parecia ter
+mais evidência do que tem.
+
+```
+QUATRO COPIAS DO MESMO BOLETIM NAO SAO QUATRO PROVAS.
+```
+
+A correcção **não** foi mexer no limiar — foi mudar o que conta como **um**:
+
+```
+36 ficheiros  ->  31 observações
+14 positivos  ->  11 observações      (o critério pede 10)
+```
+
+A margem passou a ser de um. Um item que se descubra mal rotulado derruba o
+veredicto, e isso está escrito no censo, no artefacto e no commit.
+
+**A distinção que isto ensina:** baixar um limiar depois de ver a contagem é
+desenhar o alvo à volta da flecha; corrigir a UNIDADE de contagem é medir a
+coisa certa. A primeira muda a régua, a segunda muda o que se põe em cima dela.
+
+## 56.4 · UMA SONDA QUE NÃO PODE FALHAR NÃO É UMA SONDA
+
+O red team desta missão tinha dez sondas. **Três nasceram incapazes de ceder:**
+
+- uma comparava o número de grupos consigo próprio;
+- outra perguntava se um dicionário estava vazio;
+- a terceira tinha um `or` que a fazia passar sempre.
+
+As três reportavam `AGUENTA` sem terem olhado para nada.
+
+```
+UMA SONDA QUE NAO PODE FALHAR NAO ESTA A MEDIR NADA:
+ESTA A DIZER QUE SIM.
+```
+
+A correcção foi dupla: reescrever a condição para apontar ao que interessa (o
+veredicto assenta nos grupos? cada item está contado numa caixa de idioma? a
+ressalva de escopo está escrita no texto?) e **acrescentar, para cada sonda, um
+teste que a derruba**. Uma verificação sem prova de falsificabilidade é
+decoração.
+
+É a mesma família de defeito de §55.5 — o teste que refaz a conta e concorda
+consigo — a aparecer numa camada acima: agora no verificador, não no teste.
+
+## 56.5 · O IDIOMA NÃO ERA O QUE SE PRESUMIA
+
+Três missões falaram de «corpus italiano» como facto assente. Ao medir:
+
+```
+resolvido como italiano   18 de 36
+LANGUAGE não resolvido    17
+em inglês                  1   (ISMEA)
+COUNTRY = IT              36 de 36
+```
+
+O país é uniforme; o idioma nunca foi medido. Por isso o escopo afirma o que foi
+visto e só isso:
+
+```
+EVALUATION_SCOPE = ITALIAN_AGRO_INSTITUTIONAL_CORPUS
+```
+
+Não autoriza afirmar França, Espanha nem EAME.
+
+## 56.6 · CONSEQUÊNCIA
+
+T3 pode finalmente participar de uma comparação entre mecanismos de
+classificação — como **teste**, não como treino, e dentro do escopo declarado.
+Continua sem chão para treinar: 100 por classe é o critério, e há 11 e 20.
+
+O que o gabarito não resolve é a independência: quem ajustar um mecanismo
+olhando para estes 36 deixa de poder avaliá-lo com eles.
+
+```
+UM CONJUNTO SO E INDEPENDENTE DE QUEM NAO OLHOU PARA ELE.
+```
