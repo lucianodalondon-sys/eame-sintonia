@@ -202,10 +202,8 @@ class T6NaoSegundoCerebro(unittest.TestCase):
     """O SCRAP nao cria pedido, nao admite e nao substitui o orquestrador."""
 
     FICHEIROS = ('coleta/scrap_executor.py', 'coleta/scrap_registo.py',
-                 'coleta/scrap_capacidades.py' if os.path.exists(
-                     os.path.join(RAIZ, 'coleta/scrap_capacidades.py'))
-                 else 'leis/scrap_capacidades.py',
-                 'coleta/scrap_fornecedores.py', 'coleta/social_rotas.py')
+                 'coleta/scrap_capacidades.py', 'coleta/scrap_fornecedores.py',
+                 'coleta/social_rotas.py')
 
     def test_nao_fabrica_collection_request(self):
         for rel in self.FICHEIROS:
@@ -381,7 +379,7 @@ class T11ImportDeterministico(unittest.TestCase):
             self.assertEqual(len(nomes.get(novo, [])), 1, novo)
 
     def test_todo_ficheiro_novo_compila(self):
-        for rel in ('leis/scrap_capacidades.py', 'coleta/scrap_registo.py',
+        for rel in ('coleta/scrap_capacidades.py', 'coleta/scrap_registo.py',
                     'coleta/scrap_fornecedores.py', 'coleta/scrap_executor.py',
                     'coleta/scrap_http.py', 'coleta/social_rotas.py'):
             ast.parse(_fonte(rel))

@@ -178,6 +178,12 @@
       "candidatas/italy_write_matrix.mjs"
     ],
     "coleta": [
+      "coleta/adaptador_aberto.py",
+      "coleta/adaptador_facebook.py",
+      "coleta/adaptador_instagram.py",
+      "coleta/adaptador_linkedin.py",
+      "coleta/adaptador_x.py",
+      "coleta/adaptador_youtube.py",
       "coleta/agrifood_ue.py",
       "coleta/cellar.sh",
       "coleta/coleta_checkpoint.py",
@@ -215,6 +221,10 @@
       "coleta/rota_forward_documento.py",
       "coleta/rotulos_baixar.py",
       "coleta/rotulos_ler.py",
+      "coleta/scrap_executor.py",
+      "coleta/scrap_fornecedores.py",
+      "coleta/scrap_http.py",
+      "coleta/scrap_registo.py",
       "coleta/sensor_canal_identidade.py",
       "coleta/social_envelope.py",
       "coleta/social_persistencia.py",
@@ -1054,6 +1064,7 @@
       "leis/lugar_do_fato.py",
       "leis/politica_da_coleta.py",
       "leis/regua_italia.py",
+      "leis/scrap_capacidades.py",
       "leis/social_matriz.py",
       "leis/telemetria.py",
       "leis/v21_carimbar_origem.py",
@@ -1478,6 +1489,7 @@
       "tests/test_reel_transcricao.py",
       "tests/test_relatorio_do_fluxo.py",
       "tests/test_route_membership.py",
+      "tests/test_scrap_convergencia.py",
       "tests/test_security_drift_db.py",
       "tests/test_security_ratchet.py",
       "tests/test_security_secret_shapes.py",
@@ -1554,7 +1566,7 @@
     {
       "id": "coleta-sem-data-nem-lugar",
       "titulo": "17 coletores gravam registo sem data nem lugar.",
-      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · italy_executor.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · social_rotas.py · texto_fonte.py",
+      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · italy_executor.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/coletor.py",
@@ -1876,10 +1888,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/jolly-archimedes-lqpvlf",
-    "HEAD": "ba85d9e2d09d7d97dd15bac0e5fdb7fb60af3d82",
-    "GENERATED_AT": "2026-09-11T01:05:36+00:00",
-    "SOURCE_TREE_FINGERPRINT": "65b92ccd5e45e5e9c8b9f15bfb48bc99531cebf9ef699fca9cf9d97f988f8ac6"
+    "BRANCH": "claude/sintonia-scrap-convergence-c1",
+    "HEAD": "a74934db61da46b024b62d1b5c22b719c19ea24c",
+    "GENERATED_AT": "2026-09-11T01:48:19+00:00",
+    "SOURCE_TREE_FINGERPRINT": "d8969317b1eaf74ed1185f85c8cd2782da69e29395366b36333e39d95b637689"
   },
   "FAMILIES": [
     {
@@ -5068,6 +5080,15 @@
           "regista_descarte": []
         },
         {
+          "ficheiro": "coleta/scrap_http.py",
+          "como_se_chama": "",
+          "carimba_data": [],
+          "carimba_lugar": [],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
           "ficheiro": "coleta/sensor_canal_identidade.py",
           "como_se_chama": "coleta/sensor_canal_identidade.py",
           "carimba_data": [],
@@ -5087,17 +5108,6 @@
           "carimba_lugar": [
             "COUNTRY",
             "SOURCE_LOCATION"
-          ],
-          "separa_fonte_do_fato": false,
-          "leis_que_obedece": [],
-          "regista_descarte": []
-        },
-        {
-          "ficheiro": "coleta/social_rotas.py",
-          "como_se_chama": "",
-          "carimba_data": [],
-          "carimba_lugar": [
-            "COUNTRY"
           ],
           "separa_fonte_do_fato": false,
           "leis_que_obedece": [],
@@ -7393,6 +7403,7 @@
         "C-INGRESSO",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
+        "C-SCRAP-SOCIAL",
         "C-TESTES",
         "C-TRANSCRICAO"
       ],
@@ -13559,11 +13570,11 @@
     },
     {
       "id": "C-SCRAP-SOCIAL",
-      "name": "Executor do SCRAP · a aquisicao social",
+      "name": "SINTONIA SCRAP · o executor da aquisicao social",
       "territory": "Z-ACOES",
       "kind": "engine",
-      "what": "O executor composto da aquisicao social. Quem chama diz PLATAFORMA + CAPABILITY e nunca escolhe ferramenta; a rota e decisao da casa. Reune o CLI das fases (censo, portao, video, gap, piloto, ledger, sessao, politica, guarda, youtube, youtube-piloto, youtube-piloto-oneshot), o adaptador oficial do YouTube Data API v3, as rotas gratuitas (Mastodon, Bluesky, Telegram) e o envelope que grava o RAW antes de qualquer normalizacao. Inclui o dono da PERSISTENCIA SOCIAL (conteudo, comentario, reobservacao), que recebe um canal ja resolvido e RECUSA com CHANNEL_IDENTITY_NOT_RESOLVED em vez de criar pessoa ou organizacao por conta propria.",
-      "why_here": "A rota vivia espalhada por if de script: cada chamador redescobria por conta propria se uma plataforma podia ser lida, e a redescoberta nunca saia igual. Aqui o chamador declara a intencao e a casa resolve a rota na ordem PERMITIDA -> BARATA -> CAPAZ, com a permissao decidida ANTES do preco. Duas leis que o codigo carrega em teste: OFFICIAL_API EXISTS NAO E THIS CAPABILITY EXISTS, e CHECKOUT NAO E COLETA — o inventario da prova bruta conta o que ESTE processo escreveu, nunca o que o clone trouxe. E a terceira lei, medida num Postgres 16 real antes de virar migration: COMMENT_ID NAO E COMMENT_TEXT — dois «Grazie!» de pessoas diferentes davam UMA linha no banco, porque a identidade estava travada no hash do texto.",
+      "what": "O EXECUTOR unico da aquisicao social, hibrido ONLINE/LOCAL. Declara os seis verbos de COL-LAW-013 — CAPABILITIES, CHECK, COLLECT, STATE, OUTPUT, TRACE — em scrap_executor.py. Por dentro tem um SCRAP ADAPTER ROUTER, nao um segundo cerebro: social_rotas.py escolhe a porta, mede o portao de robots e executa; scrap_registo.py e o dono unico do mapa PLATAFORMA/CAPACIDADE -> ADAPTADOR; scrap_capacidades.py declara as 34 capacidades com estado medido (PROVEN, PARTIAL, BLOCKED, UNKNOWN, NOT_EXECUTED), ambiente de execucao (ONLINE, LOCAL, EITHER, HYBRID, UNKNOWN) e o documento que provou cada uma; scrap_fornecedores.py guarda PROVIDER_REQUESTED, PROVIDER_USED, WHY_FALLBACK e RESULT, e RECUSA fallback silencioso; scrap_http.py e o portao e a busca, fora do roteador para que adaptador e despacho nao se importem um ao outro. Seis adaptadores, um modulo cada: Instagram, LinkedIn, YouTube, X, Facebook e a social aberta (Mastodon, Bluesky, Telegram). Quem chama diz PLATAFORMA + CAPACIDADE e NUNCA escolhe ferramenta nem ambiente.",
+      "why_here": "Havia duas linhagens de SCRAP que nao se conheciam, e o roteador guardava um dict literal com o nome de todas as plataformas — acrescentar uma obrigava a edita-lo, que e a definicao do monolito. Agora o mapa vive no registo e cada adaptador escreve-se nele. E o executor NAO compete com C-ORQUESTRADOR pela pergunta global: ele nao cria COLLECTION_REQUEST, nao admite e nao julga. COLETAR != ADMITIR != JULGAR, e COL-LAW-011 continua a ter um dono so.",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -13578,23 +13589,35 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "coleta/adaptador_aberto.py",
+        "coleta/adaptador_facebook.py",
+        "coleta/adaptador_instagram.py",
+        "coleta/adaptador_linkedin.py",
+        "coleta/adaptador_x.py",
+        "coleta/adaptador_youtube.py",
+        "coleta/scrap_executor.py",
+        "coleta/scrap_fornecedores.py",
+        "coleta/scrap_http.py",
+        "coleta/scrap_registo.py",
         "coleta/social_envelope.py",
         "coleta/social_persistencia.py",
         "coleta/social_rotas.py",
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py"
       ],
-      "file_count": 5,
+      "file_count": 15,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 15 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
+        "C-CONTRATO-ARTEFATO",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
         "C-SCRAP-ROTA",
+        "C-TRANSCRICAO",
         "V-HTTP",
         "V-YOUTUBE"
       ],
@@ -13611,7 +13634,6 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "ADAPTADORES",
           "ALVOS",
           "ALVOS_YOUTUBE_IT",
           "CONTENT_TYPES",
@@ -13620,9 +13642,9 @@
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 118,
+        "palavras": 100,
         "por_lingua": {},
-        "sem_marca_de_lingua": 118,
+        "sem_marca_de_lingua": 100,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15216,6 +15238,7 @@
         "tests/test_reel_transcricao.py",
         "tests/test_relatorio_do_fluxo.py",
         "tests/test_route_membership.py",
+        "tests/test_scrap_convergencia.py",
         "tests/test_security_drift_db.py",
         "tests/test_security_ratchet.py",
         "tests/test_security_secret_shapes.py",
@@ -15234,7 +15257,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 78,
+      "file_count": 79,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15377,6 +15400,7 @@
           "ESTADOS",
           "EV",
           "EXECUTAVEIS",
+          "FICHEIROS",
           "FORTE",
           "FORWARD",
           "HISTORICOS",
@@ -15391,11 +15415,11 @@
           "SINAL_VENETO",
           "_GAVETA_DE"
         ],
-        "palavras": 395,
+        "palavras": 400,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 393,
+        "sem_marca_de_lingua": 398,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15494,6 +15518,7 @@
         "C-CENSO-DERIVACOES",
         "C-COLETA-PUBLICA",
         "C-SCRAP-LEIS",
+        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "paises": {},
@@ -16735,7 +16760,7 @@
         "acoes da coleta que nomeiam este canal: 3",
         "prova: coleta/youtube_janela.py:70",
         "prova: coleta/comunicacao_coleta.py:83",
-        "prova: coleta/social_rotas.py:298"
+        "prova: coleta/youtube_oficial.py:104"
       ],
       "status_reason": "3 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
@@ -16807,7 +16832,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/jolly-archimedes-lqpvlf"
+        "branch claude/sintonia-scrap-convergence-c1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -20569,7 +20594,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Executor do SCRAP · a aquisicao social. Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "coleta/youtube_oficial.py",
@@ -20578,6 +20603,24 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/scrap_executor.py",
+          "line": 200,
+          "snippet": "'CHECKPOINT_BACKEND': 'coleta/coleta_checkpoint.py',"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-COLETA-BASE",
@@ -20712,7 +20755,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram tem o seu codigo importado por Executor do SCRAP · a aquisicao social. Provado por 1 linha de codigo.",
+      "reason": "Colher o Instagram tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "coleta/social_persistencia.py",
@@ -20785,7 +20828,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_comunicacao.py",
@@ -20801,6 +20844,11 @@
           "file": "tests/test_reel_transcricao.py",
           "line": 464,
           "snippet": "import comunicacao_coleta as cco"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 292,
+          "snippet": "import comunicacao_classificar as cc"
         }
       ],
       "categoria": "PROOF"
@@ -20945,6 +20993,24 @@
           "file": "provas/o_encanamento_tem_uma_porta.py",
           "line": 29,
           "snippet": "import artefato as art          # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/scrap_executor.py",
+          "line": 213,
+          "snippet": "'ARTIFACT_CONTRACT': 'leis/artefato.py',"
         }
       ],
       "categoria": "RULE"
@@ -25126,6 +25192,16 @@
     },
     {
       "from": "C-ORQUESTRADOR",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "ALIMENTA",
+      "reason": "O orquestrador canonico escolhe o executor; o SINTONIA SCRAP e um deles, e esta ABAIXO dele. COL-LAW-011: um unico dono da orquestracao. A ligacao esta DECLARADA e nao provada de proposito — a convergencia C1 desenhou o contrato de executor e NAO encanou a Collection. Enquanto nao houver linha de codigo que a prove, ela vale NAO SEI, que e o estado certo para o que ainda nao foi ligado.  ⚪ NAO SEI: isto foi declarado por gente, e o scanner nao achou nenhuma linha de codigo que prove.",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "categoria": "DATA"
+    },
+    {
+      "from": "C-ORQUESTRADOR",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -27692,12 +27768,12 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A guarda de credencial e de sessao do SCRAP tem o seu codigo importado por Executor do SCRAP · a aquisicao social. Provado por 3 linhas de codigo.",
+      "reason": "A guarda de credencial e de sessao do SCRAP tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/social_rotas.py",
-          "line": 58,
-          "snippet": "import social_sessao as ss         # noqa: E402  — LOCAL_SESSION é rota, não motor"
+          "line": 57,
+          "snippet": "import social_sessao as ss         # noqa: E402  — LOCAL_SESSION e rota, nao motor"
         },
         {
           "file": "coleta/social_scrap.py",
@@ -27738,12 +27814,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A guarda de credencial e de sessao do SCRAP tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A guarda de credencial e de sessao do SCRAP tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_falhas.py",
           "line": 21,
           "snippet": "import social_sessao as ss         # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 323,
+          "snippet": "import social_sessao as ss"
         },
         {
           "file": "tests/test_social_sessao.py",
@@ -27771,8 +27852,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A guarda de credencial e de sessao do SCRAP alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A guarda de credencial e de sessao do SCRAP alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 348,
+          "snippet": "_fonte('guarda/social_sessao.py'))"
+        },
         {
           "file": "tests/test_security_secret_shapes.py",
           "line": 22,
@@ -28084,16 +28170,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Executor do SCRAP · a aquisicao social. Provado por 6 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/social_rotas.py",
-          "line": 56,
+          "line": 55,
           "snippet": "import social_matriz as mz         # noqa: E402"
         },
         {
           "file": "coleta/social_rotas.py",
-          "line": 57,
+          "line": 56,
           "snippet": "import falhas                      # noqa: E402  — a lingua unica do erro"
         },
         {
@@ -28256,7 +28342,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar Executor do SCRAP · a aquisicao social. Provado por 2 linhas de codigo.",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
@@ -28302,7 +28388,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor do SCRAP · a aquisicao social tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por A prova de que a rota da M2 atravessa. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
@@ -28320,7 +28406,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor do SCRAP · a aquisicao social tem o seu codigo importado por A rota forward do documento (M2). Provado por 1 linha de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por A rota forward do documento (M2). Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
@@ -28338,7 +28424,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor do SCRAP · a aquisicao social tem o seu codigo importado por Suite de testes. Provado por 18 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 24 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -28361,6 +28447,36 @@
           "snippet": "import social_envelope as se"
         },
         {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 22,
+          "snippet": "import scrap_registo as reg        # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 23,
+          "snippet": "import scrap_fornecedores as forn  # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 24,
+          "snippet": "import scrap_executor as scrap     # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 25,
+          "snippet": "import social_rotas as sr          # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 399,
+          "snippet": "import scrap_http as http"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 405,
+          "snippet": "import adaptador_youtube as ay"
+        },
+        {
           "file": "tests/test_social_persistencia_pg.py",
           "line": 23,
           "snippet": "import social_persistencia as sp        # noqa: E402"
@@ -28369,36 +28485,6 @@
           "file": "tests/test_social_sessao.py",
           "line": 250,
           "snippet": "import social_rotas"
-        },
-        {
-          "file": "tests/test_thread_parcial.py",
-          "line": 29,
-          "snippet": "import youtube_oficial as yt      # noqa: E402"
-        },
-        {
-          "file": "tests/test_thread_parcial.py",
-          "line": 31,
-          "snippet": "import social_envelope as env      # noqa: E402"
-        },
-        {
-          "file": "tests/test_youtube_antidrift.py",
-          "line": 22,
-          "snippet": "import youtube_oficial as yt      # noqa: E402"
-        },
-        {
-          "file": "tests/test_youtube_antidrift.py",
-          "line": 333,
-          "snippet": "import social_envelope as env"
-        },
-        {
-          "file": "tests/test_youtube_antidrift.py",
-          "line": 362,
-          "snippet": "import social_scrap as sc"
-        },
-        {
-          "file": "tests/test_youtube_checkpoint_pg.py",
-          "line": 21,
-          "snippet": "import youtube_oficial as yt        # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -28411,7 +28497,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor do SCRAP · a aquisicao social alimenta Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 16 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -28422,6 +28508,36 @@
           "file": "tests/test_politica_da_coleta.py",
           "line": 210,
           "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'social_persistencia.py'),"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 66,
+          "snippet": "fonte = _fonte('coleta/social_rotas.py')"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 114,
+          "snippet": "fonte = _fonte('coleta/adaptador_instagram.py')"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 204,
+          "snippet": "FICHEIROS = ('coleta/scrap_executor.py', 'coleta/scrap_registo.py',"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 204,
+          "snippet": "FICHEIROS = ('coleta/scrap_executor.py', 'coleta/scrap_registo.py',"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 208,
+          "snippet": "'coleta/scrap_fornecedores.py', 'coleta/social_rotas.py')"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 386,
+          "snippet": "'coleta/scrap_http.py', 'coleta/social_rotas.py'):"
         },
         {
           "file": "tests/test_social_sessao.py",
@@ -28442,26 +28558,6 @@
           "file": "tests/test_social_sessao.py",
           "line": 29,
           "snippet": "'youtube_oficial.py': 'coleta/youtube_oficial.py',"
-        },
-        {
-          "file": "tests/test_youtube_antidrift.py",
-          "line": 215,
-          "snippet": "txt = io.open(os.path.join(ROOT, 'coleta', 'youtube_oficial.py'),"
-        },
-        {
-          "file": "tests/test_youtube_antidrift.py",
-          "line": 298,
-          "snippet": "txt = self._fonte('coleta', 'social_scrap.py')"
-        },
-        {
-          "file": "tests/test_youtube_piloto.py",
-          "line": 397,
-          "snippet": "for f in ('coleta/social_scrap.py', 'guarda/social_guarda.py',"
-        },
-        {
-          "file": "tests/test_youtube_piloto.py",
-          "line": 398,
-          "snippet": "'coleta/youtube_oficial.py'):"
         }
       ],
       "categoria": "PROOF"
@@ -29622,13 +29718,51 @@
     },
     {
       "from": "C-TRANSCRICAO",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/adaptador_instagram.py",
+          "line": 61,
+          "snippet": "import reel_transcricao as rt"
+        }
+      ],
+      "categoria": "DATA",
+      "passa_pelo_preparo": true
+    },
+    {
+      "from": "C-TRANSCRICAO",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/adaptador_instagram.py",
+          "line": 76,
+          "snippet": "trace['ASR_OWNER'] = 'ferramentas/fala_local.py'"
+        }
+      ],
+      "categoria": "DATA",
+      "passa_pelo_preparo": true
+    },
+    {
+      "from": "C-TRANSCRICAO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_reel_transcricao.py",
@@ -29649,6 +29783,11 @@
           "file": "tests/test_reel_transcricao.py",
           "line": 421,
           "snippet": "import youtube_transcrever as yt"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 281,
+          "snippet": "import reel_transcricao as rt"
         }
       ],
       "categoria": "PROOF"
@@ -29661,12 +29800,22 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_reel_transcricao.py",
           "line": 55,
           "snippet": "'ASR_MODEL': 'small', 'TRANSCRIBER_ID': 'ferramentas/fala_local.py',"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 83,
+          "snippet": "DONO = 'ferramentas/fala_local.py'"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 284,
+          "snippet": "self.assertNotIn('WhisperModel(', _fonte('ferramentas/reel_transcricao.py'))"
         }
       ],
       "categoria": "PROOF"
@@ -30430,11 +30579,11 @@
       "payload": "coleta",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «Executor do SCRAP · a aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
+      "reason": "O que sai deste canal entra em «SINTONIA SCRAP · o executor da aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/social_rotas.py",
-          "line": 48,
+          "file": "coleta/scrap_http.py",
+          "line": 46,
           "snippet": "import urllib.request"
         }
       ],
@@ -30532,12 +30681,12 @@
       "payload": "coleta",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «Executor do SCRAP · a aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
+      "reason": "O que sai deste canal entra em «SINTONIA SCRAP · o executor da aquisicao social», que e quem o chama e quem guarda o que ele devolve.",
       "evidence": [
         {
-          "file": "coleta/social_rotas.py",
-          "line": 298,
-          "snippet": "def youtube_buscar(*, termo, run_id, country_scope, limit=25, **_):"
+          "file": "coleta/youtube_oficial.py",
+          "line": 104,
+          "snippet": "PLATAFORMA = 'YOUTUBE'"
         }
       ],
       "categoria": "DATA"
@@ -30653,8 +30802,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 736,
+  "UNCLAIMED_CODE_FILES": [
+    "leis/scrap_capacidades.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 737,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30822,12 +30973,12 @@
     "components_pending": 93,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 625,
-    "edges_proven": 623,
-    "edges_unknown": 2,
+    "edges": 630,
+    "edges_proven": 627,
+    "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1429,
-    "files_covered": 693,
-    "files_code_unclaimed": 0
+    "files_tracked": 1441,
+    "files_covered": 704,
+    "files_code_unclaimed": 1
   }
 }

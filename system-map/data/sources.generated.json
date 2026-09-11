@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "ba85d9e2d09d7d97dd15bac0e5fdb7fb60af3d82",
+    "HEAD": "a74934db61da46b024b62d1b5c22b719c19ea24c",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3227,6 +3227,15 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/scrap_http.py",
+      "como_se_chama": "",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
       "ficheiro": "coleta/sensor_canal_identidade.py",
       "como_se_chama": "coleta/sensor_canal_identidade.py",
       "carimba_data": [],
@@ -3246,17 +3255,6 @@
       "carimba_lugar": [
         "COUNTRY",
         "SOURCE_LOCATION"
-      ],
-      "separa_fonte_do_fato": false,
-      "leis_que_obedece": [],
-      "regista_descarte": []
-    },
-    {
-      "ficheiro": "coleta/social_rotas.py",
-      "como_se_chama": "",
-      "carimba_data": [],
-      "carimba_lugar": [
-        "COUNTRY"
       ],
       "separa_fonte_do_fato": false,
       "leis_que_obedece": [],
@@ -4539,6 +4537,51 @@
       ]
     },
     {
+      "endpoint": "https://%s/api",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_aberto.py",
+          "line": 46
+        }
+      ]
+    },
+    {
+      "endpoint": "https://public.api.bsky.app/xrpc",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_aberto.py",
+          "line": 105
+        }
+      ]
+    },
+    {
+      "endpoint": "https://bsky.app/profile",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_aberto.py",
+          "line": 113
+        }
+      ]
+    },
+    {
+      "endpoint": "https://t.me/s",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_aberto.py",
+          "line": 148
+        }
+      ]
+    },
+    {
+      "endpoint": "https://t.me/%s'",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_aberto.py",
+          "line": 157
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.instagram.com/exemplo",
       "usado_por": [
         {
@@ -4602,56 +4645,11 @@
       ]
     },
     {
-      "endpoint": "https://%s/api",
+      "endpoint": "https://exemplo.tld/caminho')",
       "usado_por": [
         {
-          "file": "coleta/social_rotas.py",
-          "line": 150
-        }
-      ]
-    },
-    {
-      "endpoint": "https://public.api.bsky.app/xrpc",
-      "usado_por": [
-        {
-          "file": "coleta/social_rotas.py",
-          "line": 209
-        }
-      ]
-    },
-    {
-      "endpoint": "https://bsky.app/profile",
-      "usado_por": [
-        {
-          "file": "coleta/social_rotas.py",
-          "line": 217
-        }
-      ]
-    },
-    {
-      "endpoint": "https://t.me/s",
-      "usado_por": [
-        {
-          "file": "coleta/social_rotas.py",
-          "line": 252
-        }
-      ]
-    },
-    {
-      "endpoint": "https://t.me/%s'",
-      "usado_por": [
-        {
-          "file": "coleta/social_rotas.py",
-          "line": 261
-        }
-      ]
-    },
-    {
-      "endpoint": "https://orcid.org/0000-...'.",
-      "usado_por": [
-        {
-          "file": "coleta/speaker_identidade.py",
-          "line": 128
+          "file": "coleta/scrap_http.py",
+          "line": 7
         }
       ]
     }
@@ -4676,7 +4674,7 @@
     "candidates": 0,
     "coletores": 47,
     "coletores_com_data": 14,
-    "coletores_com_lugar": 31,
+    "coletores_com_lugar": 30,
     "coletores_que_separam_fonte_do_fato": 20,
     "coletores_que_registam_descarte": 10,
     "corridas_registadas": 26,

@@ -2108,25 +2108,36 @@
   },
   {
    "id": "C-SCRAP-SOCIAL",
-   "name": "Executor do SCRAP · a aquisicao social",
+   "name": "SINTONIA SCRAP · o executor da aquisicao social",
    "territory": "Z-ACOES",
    "kind": "engine",
    "icon": "◉",
    "views": [
     "acervo"
    ],
-   "what": "O executor composto da aquisicao social. Quem chama diz PLATAFORMA + CAPABILITY e nunca escolhe ferramenta; a rota e decisao da casa. Reune o CLI das fases (censo, portao, video, gap, piloto, ledger, sessao, politica, guarda, youtube, youtube-piloto, youtube-piloto-oneshot), o adaptador oficial do YouTube Data API v3, as rotas gratuitas (Mastodon, Bluesky, Telegram) e o envelope que grava o RAW antes de qualquer normalizacao. Inclui o dono da PERSISTENCIA SOCIAL (conteudo, comentario, reobservacao), que recebe um canal ja resolvido e RECUSA com CHANNEL_IDENTITY_NOT_RESOLVED em vez de criar pessoa ou organizacao por conta propria.",
-   "why_here": "A rota vivia espalhada por if de script: cada chamador redescobria por conta propria se uma plataforma podia ser lida, e a redescoberta nunca saia igual. Aqui o chamador declara a intencao e a casa resolve a rota na ordem PERMITIDA -> BARATA -> CAPAZ, com a permissao decidida ANTES do preco. Duas leis que o codigo carrega em teste: OFFICIAL_API EXISTS NAO E THIS CAPABILITY EXISTS, e CHECKOUT NAO E COLETA — o inventario da prova bruta conta o que ESTE processo escreveu, nunca o que o clone trouxe. E a terceira lei, medida num Postgres 16 real antes de virar migration: COMMENT_ID NAO E COMMENT_TEXT — dois «Grazie!» de pessoas diferentes davam UMA linha no banco, porque a identidade estava travada no hash do texto.",
+   "what": "O EXECUTOR unico da aquisicao social, hibrido ONLINE/LOCAL. Declara os seis verbos de COL-LAW-013 — CAPABILITIES, CHECK, COLLECT, STATE, OUTPUT, TRACE — em scrap_executor.py. Por dentro tem um SCRAP ADAPTER ROUTER, nao um segundo cerebro: social_rotas.py escolhe a porta, mede o portao de robots e executa; scrap_registo.py e o dono unico do mapa PLATAFORMA/CAPACIDADE -> ADAPTADOR; scrap_capacidades.py declara as 34 capacidades com estado medido (PROVEN, PARTIAL, BLOCKED, UNKNOWN, NOT_EXECUTED), ambiente de execucao (ONLINE, LOCAL, EITHER, HYBRID, UNKNOWN) e o documento que provou cada uma; scrap_fornecedores.py guarda PROVIDER_REQUESTED, PROVIDER_USED, WHY_FALLBACK e RESULT, e RECUSA fallback silencioso; scrap_http.py e o portao e a busca, fora do roteador para que adaptador e despacho nao se importem um ao outro. Seis adaptadores, um modulo cada: Instagram, LinkedIn, YouTube, X, Facebook e a social aberta (Mastodon, Bluesky, Telegram). Quem chama diz PLATAFORMA + CAPACIDADE e NUNCA escolhe ferramenta nem ambiente.",
+   "why_here": "Havia duas linhagens de SCRAP que nao se conheciam, e o roteador guardava um dict literal com o nome de todas as plataformas — acrescentar uma obrigava a edita-lo, que e a definicao do monolito. Agora o mapa vive no registo e cada adaptador escreve-se nele. E o executor NAO compete com C-ORQUESTRADOR pela pergunta global: ele nao cria COLLECTION_REQUEST, nao admite e nao julga. COLETAR != ADMITIR != JULGAR, e COL-LAW-011 continua a ter um dono so.",
    "departments": [
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
    "files": [
-    "coleta/social_scrap.py",
-    "coleta/social_rotas.py",
+    "coleta/adaptador_aberto.py",
+    "coleta/adaptador_facebook.py",
+    "coleta/adaptador_instagram.py",
+    "coleta/adaptador_linkedin.py",
+    "coleta/adaptador_x.py",
+    "coleta/adaptador_youtube.py",
+    "coleta/scrap_capacidades.py",
+    "coleta/scrap_executor.py",
+    "coleta/scrap_fornecedores.py",
+    "coleta/scrap_http.py",
+    "coleta/scrap_registo.py",
     "coleta/social_envelope.py",
-    "coleta/youtube_oficial.py",
-    "coleta/social_persistencia.py"
+    "coleta/social_persistencia.py",
+    "coleta/social_rotas.py",
+    "coleta/social_scrap.py",
+    "coleta/youtube_oficial.py"
    ]
   },
   {
@@ -2898,6 +2909,12 @@
    "source": "system-map/data/recall-porta-it.generated.json",
    "declared_by": "missao system-map-canonical-v1, etapa 2.6",
    "declared_at": "2026-09-07"
+  },
+  {
+   "from": "C-ORQUESTRADOR",
+   "to": "C-SCRAP-SOCIAL",
+   "type": "ALIMENTA",
+   "reason": "O orquestrador canonico escolhe o executor; o SINTONIA SCRAP e um deles, e esta ABAIXO dele. COL-LAW-011: um unico dono da orquestracao. A ligacao esta DECLARADA e nao provada de proposito — a convergencia C1 desenhou o contrato de executor e NAO encanou a Collection. Enquanto nao houver linha de codigo que a prove, ela vale NAO SEI, que e o estado certo para o que ainda nao foi ligado."
   }
  ],
  "DECLARED_BLOBS": {
