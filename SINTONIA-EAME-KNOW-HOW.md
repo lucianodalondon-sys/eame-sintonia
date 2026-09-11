@@ -3428,3 +3428,139 @@ foram provadas **por mutação**, não por afirmação.
 
 O que falta é o que nenhuma missão pode fazer sozinha: **uma pessoa a ler 46
 documentos e a escrever a razão de cada decisão.**
+
+---
+
+# 54 · UM CORPUS CURADO PARA UMA PERGUNTA NÃO É A POPULAÇÃO DE OUTRA
+
+## 54.1 · O QUÊ
+
+A §53 corrigiu o viés da **pré-seleção**: os 27 candidatos deixaram de ser
+mostrados sozinhos. Ficou por examinar o degrau de baixo — **de onde veio a
+lista inteira**.
+
+Veio de `censo._gabarito_t2()`. Lido do código, não assumido:
+
+```
+CURRENT_PACKET_POPULATION_SOURCE   censo._gabarito_t2()
+UNIVERSOS_QUE_O_GABARITO_ROTULA    ['T2']
+CURRENT_46_SELECTED_FOR_T2         YES
+CURRENT_46_SELECTED_FOR_T3         NO
+```
+
+```
+T2-CURATED CORPUS != GENERAL T3 EVALUATION FRAME.
+```
+
+A hierarquia completa, que agora tem três degraus:
+
+```
+LEAKAGE NO ROTULADOR   quem decide o rotulo                 §52
+LEAKAGE NO AMOSTRADOR  quem decide quem entra na lista      §53
+LEAKAGE NA POPULACAO   de que PERGUNTA nasceu a lista       §54
+```
+
+Corrigir os dois primeiros e deixar o terceiro dá um pacote perfeitamente
+neutro **sobre a população errada**.
+
+## 54.2 · POR QUÊ — o viés não estava na contagem, estava na forma
+
+```
+CURRENT_PACKET 46 · TOTAL_REVIEWABLE 53 · COBERTURA 86%
+```
+
+86% parece bom, e **é a métrica errada**. Contada por publicador a cobertura é
+**14/17**, e três publicadores estão **inteiramente ausentes**: ISTAT
+(estatística), AGEA (subsídio), ISMEA (preço).
+
+Não é acaso. O gabarito de T2 procurava *«documentos sobre tempo»* e
+*«documentos que claramente não são tempo»*, e na prática os negativos dele
+saíram **todos da mesma prateleira: boletins**. O que ficou de fora é o material
+**tabular e administrativo** — que é exatamente o negativo de que T3 precisa.
+
+```
+UMA COBERTURA ALTA EM DOCUMENTOS PODE ESCONDER
+UM BURACO INTEIRO EM PUBLICADORES.
+CONTE PELO GRUPO, NAO PELA LINHA.
+```
+
+## 54.3 · A CORREÇÃO NÃO É AMOSTRAR MELHOR
+
+```
+TOTAL_REVIEWABLE = 53
+SELECTION_METHOD = CENSO, NAO AMOSTRA
+ADDITIONAL_ITEMS_NEEDED = 7
+```
+
+Com 53 documentos revisáveis no total, escolher um subconjunto **introduz viés
+sem poupar trabalho nenhum**.
+
+```
+ABAIXO DE CERTA ESCALA, A AMOSTRAGEM MAIS NEUTRA E NAO AMOSTRAR.
+SEM REGRA DE AMOSTRAGEM NAO HA REGRA DE AMOSTRAGEM PARA ENVIESAR.
+```
+
+E as 46 **não se apagam**: são subconjunto do frame completo, e a revisão delas
+continua válida quando os outros 7 entrarem. `CURRENT_46_ROLE =
+B. PARTIAL_T3_EVAL_SLICE`.
+
+## 54.4 · DUAS MEDIDAS QUE MUDAM A LEITURA DE QUALQUER CORPUS
+
+**A unidade é o documento, não o caminho.** Nove documentos desta árvore vivem
+em dois sítios — a captura e a amostra. Contados por caminho seriam 63; por
+bytes são 54.
+
+**Edições não são evidências independentes.** Os 46 documentos são **34 séries
+de publicação**: quatro zonas do mesmo boletim ARPAV, quatro edições do mesmo
+boletim da Fondazione Edmund Mach.
+
+```
+QUATRO ZONAS DO MESMO BOLETIM SAO QUATRO DOCUMENTOS
+E QUASE UMA SO EVIDENCIA.
+```
+
+## 54.5 · ESTRUTURA NÃO É COBERTURA
+
+O red team produziu uma frase que faltava a esta casa. Dezassete de dezassete
+publicadores podem ser retidos por inteiro deixando ≥ 10 documentos — portanto
+`PUBLISHER_HOLDOUT_POSSIBLE = YES`.
+
+Mas se reter um publicador deixa **positivos e negativos de T3 dos dois lados**
+é **desconhecido, e continua desconhecido até haver rótulos**.
+
+```
+PODER PARTIR NAO E TER O QUE PARTIR.
+ESTRUTURA NAO E COBERTURA.
+```
+
+## 54.6 · O DEFEITO DESTA PRÓPRIA PROVA, E QUASE PASSOU
+
+A primeira versão respondeu `CURRENT_46_SELECTED_FOR_T2 = NO` — o **contrário**
+da verdade. Ela procurava uma frase dentro do ficheiro de T2, e a frase que eu
+procurava não era a frase que lá estava.
+
+```
+PROCURAR UMA FRASE QUE EU IMAGINEI NAO E LER O CODIGO.
+```
+
+Foi apanhado por o `NO` não bater com o que o resto da prova mostrava.
+Corrigido: a resposta vem agora dos **rótulos que o gabarito produz** — se todos
+falam de um universo, foi para esse universo que a população foi montada. É a
+mesma disciplina de §52.4, e é a terceira missão seguida em que uma prova minha
+deu verde por olhar para o sítio errado.
+
+```
+QUANDO UMA PROVA RESPONDE O CONTRARIO DO QUE O RESTO DELA MOSTRA,
+O DEFEITO ESTA NA PROVA — NAO NO MUNDO.
+```
+
+## 54.7 · O LIMITE QUE NEM O CENSO COMPLETO RESOLVE
+
+```
+53 documentos · 34 series · 17 publicadores · 1 pais · 1 lingua
+```
+
+O atlas declara 54 fontes italianas, e a Admission encontrará também França e
+Espanha. Mesmo completo, este frame avalia T3 **dentro de material
+agro-institucional italiano**, e não autoriza afirmar generalização para fora
+disso. Fica escrito para ninguém se enganar depois.
