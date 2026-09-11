@@ -10,8 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-11 — o corte de CR-1, medido (secção 45; secção 43.8 marcada RESPONDIDO).  
-**Próxima missão autorizada:** `C-PROVA-CR1` está FECHADA. A próxima é decisão de arquitetura: escrever o contrato do que um executor pode largar em `larga_em`.
+**Última atualização material:** 2026-09-11 — o contrato de retorno do executor (secção 46; `COL-LAW-505`; Bíblia V1.4).  
+**Próxima missão autorizada:** ligar o contrato ao runtime — `a_colheita()` passa a ler a espécie declarada em vez de adivinhar. Três famílias medidas.
 
 ---
 
@@ -2291,3 +2291,133 @@ confirmar que a medida o percebe. Se ela não percebe, o zero não é do sistema
   CR-1, e fechar uma não fecha a outra.
 
 ---
+
+
+---
+
+# 46. O CONTRATO DE RETORNO DO EXECUTOR — `COL-LAW-505`
+
+```
+MISSAO   = C-PREP-EXECUTOR-RETURN-CONTRACT-V1, 2026-09-11
+BRANCH   = claude/executor-return-contract-v1
+HEAD     = 5524c512d4046364bba601e2b64b84f9d19cbdf5
+LEI      = COL-LAW-505 · Biblia V1.3 -> V1.4
+CONTRATO = leis/retorno_da_coleta.py
+MEDICAO  = docs/operacao/CONTRATO-DE-RETORNO-DO-EXECUTOR-V1.md
+```
+
+## 46.1 · O QUÊ
+
+O retorno de uma corrida passa a separar, **por declaração de quem correu**, a
+**COLHEITA** dos **artefactos de suporte**. Seis espécies, vocabulário fechado:
+
+```
+COLHEITA · MANIFEST · CATALOG · RUN_RECEIPT · PLAN · UNKNOWN
+```
+
+**Só a COLHEITA entra no ingresso.** A espécie é **declarada, nunca inferida** de
+nome de ficheiro, de pasta, de extensão, de presença de um campo, nem de «a
+primeira lista do JSON».
+
+## 46.2 · POR QUÊ — a lei já tinha feito a pergunta
+
+`COL-LAW-013` exige `OUTPUT = onde larguei, E EM QUE FORMA`. O **onde** tem campo
+desde a `COL-LAW-012` (`larga_em`). O **em que forma** nunca teve campo, enum nem
+guarda: vivia em prosa livre no `o_que_traz`, que nenhum código lê. A
+`COL-LAW-014` já nomeava os campos em falta — `artifact_types` e `produces` — e
+declarava que não existiam.
+
+```
+UMA PERGUNTA ESCRITA NA LEI E NUNCA RESPONDIDA
+NAO E UMA LACUNA: E UMA DIVIDA COM JUROS.
+```
+
+A 505 responde às duas e **cita-as**. Uma lei nova que as ignorasse teria dado à
+casa duas autoridades sobre a mesma pergunta.
+
+## 46.3 · PROVA
+
+```
+ITEMS_EMITTED        253
+REAL_HARVEST_ITEMS     0
+FALSE_HARVEST_TOTAL  253
+```
+
+Cento por cento de falsa colheita, sobre os cinco executores canónicos. E o
+contraexemplo que fecha o assunto: `CLASSIFICADO-V1.json` **declara** um
+contentor `ITEMS` com `ITEM_COUNT = 0`, e a heurística genérica **salta-o por
+estar vazio** e agarra a lista de catálogo ao lado.
+
+```
+UMA HEURISTICA QUE PREFERE UMA LISTA CHEIA A UMA LISTA CERTA
+NAO ESTA A LER O RETORNO: ESTA A ADIVINHAR.
+```
+
+O executor tinha declarado. Ninguém leu a declaração.
+
+## 46.4 · A ESCOLHA DO DESENHO, E PORQUE NÃO FOI A ÓBVIA
+
+Escolhido o **envelope de execução** em vez de declarar a espécie no registry.
+
+O desenho do registry **já existe**: chama-se `larga_em`, e é uma declaração de
+**intenção**. Duas das cinco receitas apontam para pastas que não existem e nada
+o detecta.
+
+```
+UMA DECLARACAO FEITA ANTES DA CORRIDA APODRECE EM SILENCIO.
+UM ENVELOPE E EMITIDO POR QUEM ACABOU DE CORRER.
+```
+
+E o envelope **não é invenção**: `coleta/italy_executor.py :: traduzir()` já
+produz esta unidade campo a campo, com `STORAGE_LOCATION` ausente quando
+desconhecido e `FACT_TIME` a recusar prosa. A forma já existia nesta casa. Não
+tinha nome nem validador.
+
+**Dono:** `leis/retorno_da_coleta.py`, **irmão** de `leis/artefato.py` e não
+substituto — aquele governa a ficha de uma coisa **entregue**, este governa o
+que a **corrida devolveu**.
+
+## 46.5 · O QUE SE RECUSOU DISTINGUIR
+
+`INDEX` e `MANIFEST` não são espécies diferentes. Procurou-se a diferença e ela
+não existe: as duas são uma listagem de payloads, e o que varia é **onde** o
+payload está e **se** está — que já é o campo `PAYLOAD`, com estado próprio.
+
+E `AUSENTE` teve de ser um terceiro estado, ao lado de `PRESENTE` e
+`NAO_SE_APLICA`: o manifesto declara 163 ficheiros e há zero ao lado. Chamar-lhe
+erro faria a corrida falhar; calar faria o índice passar por colheita.
+
+## 46.6 · CONSEQUÊNCIA
+
+**O runtime não mudou.** `a_colheita()` continua com a heurística antiga e nenhum
+executor foi adaptado. Impacto medido para quem ligar isto:
+
+```
+EXECUTORS_TOTAL    5      ALREADY_CONFORMING 0
+NEED_ADAPTER       3      MISSING_PAYLOAD    4
+NEED_RECOLLECTION  4      UNKNOWN            0
+
+F1 forma ja certa, nunca correu        T2         so falta correr (precisa de rede)
+F2 nunca correu, saida por definir     T3
+F3 devolve suporte em vez de colheita  T4 T7 T9   declarar especie + apontar payload
+```
+
+Três famílias, não cinco missões.
+
+## 46.7 · A LIÇÃO QUE VALE PARA ALÉM DESTE CASO
+
+Três buracos das travas foram encontrados **pela mutação**, não pela leitura: o
+filtro de entrada sem trava, a unidade sem payload, e o estado da corrida sem
+vocabulário. Nenhum deles aparecia numa suíte verde.
+
+```
+UMA MUTACAO QUE NAO MATA NENHUM TESTE NAO PROVA QUE O CODIGO ESTA CERTO:
+PROVA QUE NINGUEM O ESTAVA A OLHAR.
+```
+
+E duas travas de **contagem congelada** (a `VERSION` da Bíblia e o total do bloco
+5xx) barraram esta emenda. A saída certa não foi afrouxá-las: a `VERSION` passou
+a ser **derivada** da última linha do histórico constitucional, e as leis que
+nunca podem desaparecer são agora nomeadas uma a uma. Um literal cravado num
+teste convida a ser editado para o teste ficar verde — que é o contrário do que
+a `COL-LAW-069` quer.
