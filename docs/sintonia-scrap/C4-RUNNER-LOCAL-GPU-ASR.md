@@ -1104,8 +1104,15 @@ C4    INITIAL_HEAD  5836cc23   (medido, nao herdado)   seccao 12
 C4B   INITIAL_HEAD  0c45e64f   (medido de novo)        seccao 16
       FINAL_HEAD    6158d34e329b00ce26ece86a7617d34fbad27b52
 
-PUSHED = YES, sem force, nas duas
+C4C   INITIAL_HEAD  6158d34e   (medido de novo)        seccao 17
+      FINAL_HEAD    599bf645a0e09f2285d72f971a5d096c6a56663e
+
+PUSHED = YES, sem force, nas tres
 ```
+
+A secção **17** traz duas lições, e nenhuma delas é um número de benchmark: onde
+o bruto preservado vive e como se pergunta por ele, e o facto de o corpus e a
+placa estarem em máquinas diferentes.
 
 A secção **16** traz seis lições, e a última é sobre mim: a sentinela de
 credenciais da casa apanhou-me a escrever o perfil pessoal do utilizador dentro
