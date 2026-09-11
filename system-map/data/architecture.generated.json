@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/t3-human-review-ptbr-ui-v1",
-    "HEAD": "bd21b73db92fce070973c08bf150d97955120360",
-    "GENERATED_AT": "2026-09-11T16:17:45+00:00",
-    "SOURCE_TREE_FINGERPRINT": "9c22d4d5c04faa0b78e2e7a696838fe7d433bad864b55607b5395656d05352e6"
+    "BRANCH": "claude/t3-review-a-adjudication-v1",
+    "HEAD": "dfd9b4015092d81ba6d744f9b470483c93392ff6",
+    "GENERATED_AT": "2026-09-11T16:39:50+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ed0891a31bfaca2c1612acc292c01c75a24499ee5b0b1d84e48a121a0336bcb7"
   },
   "FILES": [
     {
@@ -1831,6 +1831,34 @@
     {
       "path": "data/raw/IT-ROTULOS/_MANIFESTO.json",
       "sha": "2ab06a043ee708416269a55094f0ddacb441281f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/review/inbox/T3-HUMAN-REVIEW-RESULTS-V1.json",
+      "sha": "b173f308958e50041fa1f6b4528677e0e7789a21",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/review/t3/T3-CONTEXTO-CEGO-PTBR-V1.json",
+      "sha": "4ff81d6b660ffd4e38945e6a13a930da4f817859",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/review/t3/T3-HUMAN-REVIEW-A-V1.json",
+      "sha": "b46b2d14b3b05fdb52808678d5122b2bf87523d1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/review/t3/T3-TRADUCAO-CONTEXTO-CEGO-PTBR-V1.json",
+      "sha": "9b333d76e25424e8d6ed8b70f68cf8b131311726",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4759,6 +4787,13 @@
       "sha": "f3421f45cff6357a4c7f7bd63381acb866bba063",
       "ext": ".md",
       "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "sha": "52563e577c75310e6634d44ef5a5dce36292fd3e",
+      "ext": ".html",
+      "readable": true,
       "code_dir": false
     },
     {
@@ -7898,6 +7933,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/qualidade_t3.py",
+      "sha": "9c9993cdb346f32f9ab61cc47a51a4872564d82a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/rastro_no_postgres.py",
       "sha": "bc8b870edcea8114ef3cf35092151401dca4bbb3",
       "ext": ".py",
@@ -9173,7 +9215,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "920c246cc5226fd55594622f2fc8598938cce9cb",
+      "sha": "9950d42490a336096889b0a38701d5ad41af54f1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9930,6 +9972,13 @@
     {
       "path": "tests/test_proveniencia.py",
       "sha": "8fbd8182bac2783d806b77607fcfa5eaf58bc51e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_qualidade_t3.py",
+      "sha": "9bd38faaa9aab770f69be801dac3019290806bb2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13041,6 +13090,545 @@
       }
     },
     {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-024abdb692be926a.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-0c2723e66201f966.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-144fdb152b1a6ae4.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-178ebe9e0ea7dd83.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-221ab4a8d6ebec30.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-223510588786a4de.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-2a12cb316622a9a5.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-392840d3e13d1b15.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-3d3c1bc0e96332e8.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-3e941738599367d7.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-3ef48aaa830edf3b.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-420e08ef15bec6e4.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-445e41701f737d73.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-48e76a696be6831d.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-4e12affad7fedd91.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-59da05274359eff6.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-5dcfb75ac38390c3.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-6377ac2f8419d905.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-699a073ace4361ea.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-6d12bcb5fa2b0905.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-7a51732e87f0f319.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-823e18ebb232eb36.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-8c13500d43502e64.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-924aabd94168c53a.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-9488589cfc657b95.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-99cb44a67f6b4e9a.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-9a01cc17889e1f40.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-a6515948880d173a.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-a927e846ba8e78b0.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-b631f6eecfbc1db0.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-c6377f6951bfeb2e.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-ccd8ea9c8e9c4caf.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-ded546686d61dc91.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-df4adcb5d78929e1.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-e5176df66216dfd0.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-e612807928b5ada9.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-e6ec962a8a730ee4.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-e9395a7ea894c1d2.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-ec3108a2ed424702.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-fd5b5e465457e4d6.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-fe3c922bfdfd7999.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/review/t3/T3-HUMAN-REVIEW-A-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 470,
+        "snippet": "SOURCE_REVIEW_A:\"T3-HUMAN-REVIEW-A-V1.json\","
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T1-001/ISTAT_101_1015_COLTIVAZIONI_2_2025.csv",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0500_00.html",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/samples/PIEMONTE-FD/bacheca.html",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 141,
+        "snippet": "<script id=\"cega\" type=\"application/json\">[{\"DOC_SHA256\": \"b6612054a71e20499cf57da04bb8b42d3ceee26b54e663c0ce7fce518d86daec\", \"ITEM_ID\": \"ISTAT_101_1015_COLTIVA"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "to_file": "data/samples/PIEMONTE-FD/pagina.html",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+        "line": 140,
+        "snippet": "<script id=\"conf\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"PUBLISHER\": \""
+      }
+    },
+    {
       "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
       "to_file": "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
       "type": "WRITES",
@@ -13544,6 +14132,17 @@
         "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
         "line": 111,
         "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/review/inbox/T3-HUMAN-REVIEW-RESULTS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 277,
+        "snippet": "a.download = 'T3-HUMAN-REVIEW-RESULTS-V1.json';"
       }
     },
     {
@@ -27506,6 +28105,105 @@
       }
     },
     {
+      "from_file": "provas/qualidade_t3.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/qualidade_t3.py",
+        "line": 41,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/qualidade_t3.py",
+      "to_file": "data/review/inbox/T3-HUMAN-REVIEW-RESULTS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/qualidade_t3.py",
+        "line": 56,
+        "snippet": "ENTRADA = \"data/review/inbox/T3-HUMAN-REVIEW-RESULTS-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/qualidade_t3.py",
+      "to_file": "data/review/t3/T3-CONTEXTO-CEGO-PTBR-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/qualidade_t3.py",
+        "line": 58,
+        "snippet": "CONTEXTO = \"data/review/t3/T3-CONTEXTO-CEGO-PTBR-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/qualidade_t3.py",
+      "to_file": "data/review/t3/T3-HUMAN-REVIEW-A-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/qualidade_t3.py",
+        "line": 57,
+        "snippet": "PRESERVADO = \"data/review/t3/T3-HUMAN-REVIEW-A-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/qualidade_t3.py",
+      "to_file": "data/review/t3/T3-TRADUCAO-CONTEXTO-CEGO-PTBR-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/qualidade_t3.py",
+        "line": 177,
+        "snippet": "TRADUCAO = \"data/review/t3/T3-TRADUCAO-CONTEXTO-CEGO-PTBR-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/qualidade_t3.py",
+      "to_file": "data/samples/T3-DISPLAY-TRANSLATION-PTBR-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/qualidade_t3.py",
+        "line": 304,
+        "snippet": "DISPLAY = \"data/samples/T3-DISPLAY-TRANSLATION-PTBR-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/qualidade_t3.py",
+      "to_file": "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/qualidade_t3.py",
+        "line": 59,
+        "snippet": "PENDENTE = \"data/samples/T3-HUMAN-REVIEW-PENDING-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/qualidade_t3.py",
+      "to_file": "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/qualidade_t3.py",
+        "line": 60,
+        "snippet": "HTML = \"docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html\""
+      }
+    },
+    {
+      "from_file": "provas/qualidade_t3.py",
+      "to_file": "provas/pacote_de_revisao_t3.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/qualidade_t3.py",
+        "line": 54,
+        "snippet": "pacote_t3 = _modulo(\"_pacote_t3\", \"pacote_de_revisao_t3.py\")"
+      }
+    },
+    {
       "from_file": "provas/rastro_no_postgres.py",
       "to_file": "provas/preservar_coleta_no_postgres.py",
       "type": "IMPORTS",
@@ -27855,6 +28553,17 @@
         "file": "provas/ui_revisao_t3_ptbr.py",
         "line": 44,
         "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/ui_revisao_t3_ptbr.py",
+      "to_file": "data/review/inbox/T3-HUMAN-REVIEW-RESULTS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ui_revisao_t3_ptbr.py",
+        "line": 388,
+        "snippet": "a.download = 'T3-HUMAN-REVIEW-RESULTS-V1.json';"
       }
     },
     {
@@ -35063,6 +35772,28 @@
       }
     },
     {
+      "from_file": "tests/test_qualidade_t3.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_qualidade_t3.py",
+        "line": 33,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_qualidade_t3.py",
+      "to_file": "provas/qualidade_t3.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_qualidade_t3.py",
+        "line": 36,
+        "snippet": "\"qualidade_t3\", os.path.join(RAIZ, \"provas\", \"qualidade_t3.py\"))"
+      }
+    },
+    {
       "from_file": "tests/test_radar_futuro.py",
       "to_file": "data/samples/DESIGN-DATA-CONTRACT-V1.json",
       "type": "READS",
@@ -36072,6 +36803,17 @@
         "file": "tests/test_ui_revisao_t3_ptbr.py",
         "line": 280,
         "snippet": "import admissao as adm"
+      }
+    },
+    {
+      "from_file": "tests/test_ui_revisao_t3_ptbr.py",
+      "to_file": "data/review/inbox/T3-HUMAN-REVIEW-RESULTS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_ui_revisao_t3_ptbr.py",
+        "line": 169,
+        "snippet": "self.assertIn(\"T3-HUMAN-REVIEW-RESULTS-V1.json\", self.html)"
       }
     },
     {
@@ -37141,10 +37883,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1445,
-    "files_readable": 550,
-    "files_code_dir": 596,
-    "file_edges": 2413,
+    "files_tracked": 1452,
+    "files_readable": 553,
+    "files_code_dir": 598,
+    "file_edges": 2476,
     "escritas_em_pasta": 69,
     "declared_missing_here": 0
   },

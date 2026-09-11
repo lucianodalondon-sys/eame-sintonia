@@ -283,6 +283,10 @@
       "data/normalized/.gitkeep",
       "data/raw/.gitkeep",
       "data/raw/IT-ROTULOS/_MANIFESTO.json",
+      "data/review/inbox/T3-HUMAN-REVIEW-RESULTS-V1.json",
+      "data/review/t3/T3-CONTEXTO-CEGO-PTBR-V1.json",
+      "data/review/t3/T3-HUMAN-REVIEW-A-V1.json",
+      "data/review/t3/T3-TRADUCAO-CONTEXTO-CEGO-PTBR-V1.json",
       "data/samples/.gitattributes",
       "data/samples/.gitkeep",
       "data/samples/ADAMA-ES-CONFIRMACAO-REGULATORIA-DO-PAR.json",
@@ -703,6 +707,7 @@
       "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
       "docs/operacao/SOURCE-DOCUMENT-DONO-STORE-CONTRATO.md",
       "docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md",
+      "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
       "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
       "docs/operacao/T3-REVIEW-PACKET-V1.md",
       "docs/operacao/T3-SAMPLING-FRAME-V1.md",
@@ -1178,6 +1183,7 @@
       "provas/paridade_da_lingua.py",
       "provas/preflight_022_live.sh",
       "provas/preservar_coleta_no_postgres.py",
+      "provas/qualidade_t3.py",
       "provas/rastro_no_postgres.py",
       "provas/readback_022_live.sh",
       "provas/rls_censo_metadados.sql",
@@ -1485,6 +1491,7 @@
       "tests/test_preservar_derivado.py",
       "tests/test_prioridade_comercial.py",
       "tests/test_proveniencia.py",
+      "tests/test_qualidade_t3.py",
       "tests/test_radar_futuro.py",
       "tests/test_rastro_pg.py",
       "tests/test_raw_observation_id_volta.py",
@@ -1892,10 +1899,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/t3-human-review-ptbr-ui-v1",
-    "HEAD": "bd21b73db92fce070973c08bf150d97955120360",
-    "GENERATED_AT": "2026-09-11T16:17:45+00:00",
-    "SOURCE_TREE_FINGERPRINT": "9c22d4d5c04faa0b78e2e7a696838fe7d433bad864b55607b5395656d05352e6"
+    "BRANCH": "claude/t3-review-a-adjudication-v1",
+    "HEAD": "dfd9b4015092d81ba6d744f9b470483c93392ff6",
+    "GENERATED_AT": "2026-09-11T16:39:50+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ed0891a31bfaca2c1612acc292c01c75a24499ee5b0b1d84e48a121a0336bcb7"
   },
   "FAMILIES": [
     {
@@ -11914,6 +11921,7 @@
         "provas/paridade_da_lingua.py",
         "provas/preflight_022_live.sh",
         "provas/preservar_coleta_no_postgres.py",
+        "provas/qualidade_t3.py",
         "provas/rastro_no_postgres.py",
         "provas/readback_022_live.sh",
         "provas/so_a_colheita_atravessa.py",
@@ -11923,7 +11931,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 21,
+      "file_count": 22,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11991,9 +11999,11 @@
           "CROMO",
           "FONTE_DO_POSITIVO",
           "MIGRATIONS",
+          "PROIBIDOS_NA_FILA_CEGA",
           "PROIBIDOS_NO_HTML",
           "PUBLICADOR",
           "PUBLICADOR_POR_CAMINHO",
+          "RAZOES",
           "SENTINELAS_MEDIDAS",
           "SE_DECLARAM",
           "_GAVETAS_IT",
@@ -12001,11 +12011,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 268,
+        "palavras": 313,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 266,
+        "sem_marca_de_lingua": 311,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15310,6 +15320,7 @@
         "tests/test_preservar_derivado.py",
         "tests/test_prioridade_comercial.py",
         "tests/test_proveniencia.py",
+        "tests/test_qualidade_t3.py",
         "tests/test_radar_futuro.py",
         "tests/test_rastro_pg.py",
         "tests/test_raw_observation_id_volta.py",
@@ -15337,7 +15348,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 89,
+      "file_count": 90,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -16910,7 +16921,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/t3-human-review-ptbr-ui-v1"
+        "branch claude/t3-review-a-adjudication-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -27268,7 +27279,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -27319,6 +27330,11 @@
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 543,
           "snippet": "caminho = os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\")"
+        },
+        {
+          "file": "tests/test_qualidade_t3.py",
+          "line": 36,
+          "snippet": "\"qualidade_t3\", os.path.join(RAIZ, \"provas\", \"qualidade_t3.py\"))"
         },
         {
           "file": "tests/test_ui_revisao_t3_ptbr.py",
@@ -31256,7 +31272,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 734,
+  "UNCLAIMED_FILES_COUNT": 739,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31428,8 +31444,8 @@
     "edges_proven": 638,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1445,
-    "files_covered": 711,
+    "files_tracked": 1452,
+    "files_covered": 713,
     "files_code_unclaimed": 0
   }
 }
