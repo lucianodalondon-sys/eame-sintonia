@@ -86,7 +86,7 @@ def montar():
     # Uma corrida sem a marca `PAID` vinda de artefato ANTIGO e paga: naquele
     # tempo nao havia outra. Presumir o contrario reescreveria a historia.
     runs, pagas, custo, coletadas = [], [], 0.0, set()
-    quota = 0
+    quota, quota_parcial = 0, False
     for p in PLATAFORMAS:
         d = _ler('POSTS-%s.json' % p)
         if not d:
@@ -96,6 +96,8 @@ def montar():
         pagas.extend([m for m in deste if m.get('PAID', True)])
         custo += d.get('COST_USD') or 0
         quota += d.get('OFFICIAL_API_QUOTA_USED') or 0
+        if d.get('OFFICIAL_API_QUOTA_STATE') == 'PARTIAL':
+            quota_parcial = True
         coletadas.add(p)
 
     pronto = 'READY' if itens else 'NOT_READY'
@@ -177,6 +179,11 @@ def montar():
         'Q_COLLECTION_RUNS': len(runs),
         'Q_APIFY_RUNS': len(pagas),
         'Q_OFFICIAL_API_QUOTA_USED': quota,
+        # PISO, nao total, enquanto as rotas nao declararem unidades. O numero
+        # publicado tem de dizer qual dos dois e — a casa ja o faz com o custo
+        # historico, que se le «>= US$ 12,81» e nunca «12,81».
+        'Q_OFFICIAL_API_QUOTA_STATE': ('PARTIAL' if quota_parcial
+                                       else ('MEASURED' if quota else 'NOT_APPLICABLE')),
         'Q_QUOTA_NAO_E_DOLAR': (
             'quota da API oficial e gratuita e NAO e infinita. Ela nao se converte '
             'em dolar, e somar as duas daria um numero que nao existe.'),
@@ -212,8 +219,8 @@ if __name__ == '__main__':
     print('  execucoes totais ................ %d' % m['Q_COLLECTION_RUNS'])
     print('  execucoes pagas / custo ......... %d / %.6f USD'
           % (m['Q_APIFY_RUNS'], m['Q_COST_USD']))
-    print('  quota de API oficial usada ...... %d unidades (nao e dolar)'
-          % m['Q_OFFICIAL_API_QUOTA_USED'])
+    print('  quota de API oficial usada ...... %d unidades (%s, nao e dolar)'
+          % (m['Q_OFFICIAL_API_QUOTA_USED'], m['Q_OFFICIAL_API_QUOTA_STATE']))
     print('')
     print('  autorizadas por empresa: %s' % m['G_AUTHORIZED_BY_COMPETITOR'])
     print('  autorizadas por pais:    %s' % m['G_AUTHORIZED_BY_COUNTRY'])

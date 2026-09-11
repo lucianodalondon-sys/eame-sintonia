@@ -503,5 +503,126 @@ class T20UmContratoDeProvenienciaSo(unittest.TestCase):
         self.assertEqual(corpo['OFFICIAL_API_QUOTA_USED'], 2)
 
 
+# ══════════════════════════════════════════════════════════════════════════
+class T21AQuotaNaoSeInventa(_Base):
+    """O numero de quota publicado e MEDIDO, ou declara-se PISO. Nunca suposto.
+
+    Estas provas nasceram de um defeito MEU, nesta mesma missao. O primeiro
+    corte escrevia `+= 1` para o passo da colheita e `= 1` para o do sensor,
+    com o raciocinio «uma pagina custa uma unidade». Medido com transporte
+    injetado, o passo da colheita custa DUAS:
+
+        channels.list      1 unidade   (achar a playlist de uploads)
+        playlistItems.list 1 unidade   (le-la)
+
+    O artefato saia com metade do gasto real, com cara de medida.
+    """
+
+    def _transporte(self):
+        def dentro(url):
+            from urllib.parse import urlparse, parse_qs
+            q = urlparse(url)
+            metodo = q.path.rsplit('/', 1)[-1]
+            if metodo == 'channels':
+                parte = (parse_qs(q.query).get('part') or [''])[0]
+                if 'contentDetails' in parte:
+                    return {'items': [{'id': 'UCteste', 'snippet': {'title': 'T'},
+                                       'contentDetails': {'relatedPlaylists':
+                                                          {'uploads': 'UUteste'}}}]}
+                return {'items': [{'id': 'UCteste', 'snippet': {'title': 'T'}}]}
+            if metodo == 'playlistItems':
+                return {'items': []}
+            return {'items': []}
+        return dentro
+
+    def test_a_colheita_custa_mais_do_que_uma_unidade(self):
+        """A medida que prova que o literal `1` estava errado."""
+        s = yt.Sessao(transporte=self._transporte())
+        antes = dict(s.usado)
+        scrap.COLLECT(platform='YOUTUBE', capability='youtube.channel.discovery',
+                      run_id='T21', country_scope='IT', sessao=s,
+                      channel_id='UCteste', limit=50)
+        gasto = s.usado[yt.GENERAL] - antes[yt.GENERAL]
+        self.assertGreater(gasto, 1,
+                           'se a colheita passasse a custar 1 unidade, o literal '
+                           'antigo estaria certo e esta prova pode sair')
+
+    def test_nenhum_caller_atribui_quota_por_literal(self):
+        """A sentinela. Um digito escrito a mao neste campo reprova."""
+        import ast as _ast
+        maus = []
+        for rel in CALLERS:
+            arvore = _ast.parse(_fonte(rel))
+            for no in _ast.walk(arvore):
+                alvos = []
+                if isinstance(no, _ast.Assign):
+                    alvos = no.targets
+                elif isinstance(no, _ast.AugAssign):
+                    alvos = [no.target]
+                nomeia = False
+                for a in alvos:
+                    if (isinstance(a, _ast.Subscript)
+                            and isinstance(a.slice, _ast.Constant)
+                            and a.slice.value == 'OFFICIAL_API_QUOTA_USED'):
+                        nomeia = True
+                if not nomeia:
+                    continue
+                v = no.value
+                if isinstance(v, _ast.Constant) and isinstance(v.value, int) and v.value:
+                    maus.append('%s:%d' % (rel, no.lineno))
+        self.assertEqual(maus, [], 'quota atribuida por literal: %s' % maus)
+
+    def test_a_rota_que_nao_declara_unidades_sai_parcial(self):
+        import sensor_coleta as sc
+        _it, man, _p = sc._rodar_scrap('youtube.search', run_id='T21',
+                                       platform='YOUTUBE', country='IT',
+                                       query='x', lote='T21', termo='x', limit=1,
+                                       sessao=yt.Sessao(transporte=self._transporte()))
+        self.assertEqual(man['OFFICIAL_API_QUOTA_STATE'], 'PARTIAL')
+        self.assertEqual(man['OFFICIAL_API_QUOTA_USED'], 0,
+                         'o piso e o que foi declarado, e nada foi declarado')
+
+    def test_parcial_contamina_o_lote(self):
+        import sensor_coleta as sc
+        man = {'OFFICIAL_API_QUOTA_USED': 3, 'OFFICIAL_API_QUOTA_STATE': 'MEASURED'}
+        sc._juntar_quota(man, {'OFFICIAL_API_QUOTA_USED': 0,
+                               'OFFICIAL_API_QUOTA_STATE': 'PARTIAL'})
+        self.assertEqual(man['OFFICIAL_API_QUOTA_STATE'], 'PARTIAL',
+                         'um lote meio medido nao e um lote medido')
+        self.assertEqual(man['OFFICIAL_API_QUOTA_USED'], 3)
+
+    def test_o_artefato_declara_se_a_soma_esta_completa(self):
+        import comunicacao_coleta as cc
+        r = {'ITEMS': [], 'UNITS_DONE': [], 'UNITS_PENDING': [], 'STATE': 'DONE',
+             'DUPLICATES_REMOVED': 0}
+        tmp = tempfile.mkdtemp(prefix='c3-posts-')
+        antes = cc.SAIDA
+        cc.SAIDA = tmp
+        try:
+            parcial = cc._gravar_posts(
+                'TESTE', [], {'DIAS': 30}, r,
+                [{'PAID': False, 'OFFICIAL_API_QUOTA_USED': 1,
+                  'OFFICIAL_API_QUOTA_STATE': 'PARTIAL'}], 'NO')
+            medido = cc._gravar_posts(
+                'TESTE', [], {'DIAS': 30}, r,
+                [{'PAID': False, 'OFFICIAL_API_QUOTA_USED': 3,
+                  'OFFICIAL_API_QUOTA_STATE': 'MEASURED'}], 'NO')
+            paga = cc._gravar_posts(
+                'TESTE', [], {'DIAS': 30}, r, [{'PAID': True, 'COST_USD': 1.5}], 'NO')
+        finally:
+            cc.SAIDA = antes
+            shutil.rmtree(tmp, ignore_errors=True)
+        self.assertEqual(parcial['OFFICIAL_API_QUOTA_STATE'], 'PARTIAL')
+        self.assertEqual(medido['OFFICIAL_API_QUOTA_STATE'], 'MEASURED')
+        self.assertEqual(paga['OFFICIAL_API_QUOTA_STATE'], 'NOT_APPLICABLE',
+                         'rota paga nao gasta quota oficial — isso nao e zero medido')
+
+    def test_quota_e_estado_viajam_juntos_ate_a_medicao(self):
+        """Publicar o piso sem a palavra que diz que e piso e publicar um total."""
+        t = _fonte('coleta/comunicacao_medir.py')
+        self.assertIn('Q_OFFICIAL_API_QUOTA_USED', t)
+        self.assertIn('Q_OFFICIAL_API_QUOTA_STATE', t)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -1036,6 +1036,8 @@ def youtube_oficial_prova():
     print('    fonte: %s' % yt.QUOTA_FONTE)
 
     print('\n  COST_USD 0.00 (%s) · APIFY_CALLS 0' % yt.COST_BASIS)
+    print('  quota: o inteiro e PISO enquanto o estado disser PARTIAL — as rotas')
+    print('         da matriz ainda nao declaram unidades, e supor seria mentir.')
     print('  TODAS PELA API OFICIAL: %s' % ('SIM' if tudo_oficial else 'NAO'))
     if not tudo_oficial:
         print('  Uma das quatro saiu por outra porta. Isto reprova de proposito.')
@@ -1092,9 +1094,10 @@ def cutover_prova():
     print('\n  1 · COMUNICACAO PUBLICA  (%d contas, prova limitada)' % len(contas))
     colheu = None
     for m in mans:
-        print('      %-46s %-26s quota=%s itens~%s'
+        print('      %-46s %-26s quota=%s/%s itens~%s'
               % (str(m.get('ACCOUNT_URL'))[:46], m.get('STATUS'),
-                 m.get('OFFICIAL_API_QUOTA_USED'), m.get('CHANNEL_ID') or '-'))
+                 m.get('OFFICIAL_API_QUOTA_USED'),
+                 m.get('OFFICIAL_API_QUOTA_STATE'), m.get('CHANNEL_ID') or '-'))
         if m.get('STATUS') == 'OK':
             colheu = m
     m = colheu or (mans[0] if mans else {})
@@ -1116,9 +1119,10 @@ def cutover_prova():
                                   query='fusariosi grano', lote='C3',
                                   termo='fusariosi grano', limit=3)
     print('\n  2 · SENSOR BUSCA')
-    print('      provider=%-14s pago=%-6s quota=%-3s itens=%-4d estado=%s'
+    print('      provider=%-14s pago=%-6s quota=%s/%s itens=%-4d estado=%s'
           % (m2.get('COLLECTION_PROVIDER'), m2.get('PAID'),
-             m2.get('OFFICIAL_API_QUOTA_USED'), len(it2), m2.get('STATUS')))
+             m2.get('OFFICIAL_API_QUOTA_USED'),
+             m2.get('OFFICIAL_API_QUOTA_STATE'), len(it2), m2.get('STATUS')))
     prov2 = sc._proveniencia(m2, None, 'C3', 'BATCH-C3')
     print('      APIFY_ACTOR = %r  ·  PAID = %r'
           % (prov2['APIFY_ACTOR'], prov2['PAID']))
@@ -1152,9 +1156,10 @@ def cutover_prova():
                                       country='MULTI', query=alvo, lote='C3',
                                       video_id=alvo, limite_threads=5)
         print('\n  3 · SENSOR COMENTARIOS  video=%s' % alvo)
-        print('      provider=%-14s pago=%-6s quota=%-3s itens=%-4d estado=%s'
+        print('      provider=%-14s pago=%-6s quota=%s/%s itens=%-4d estado=%s'
               % (m3.get('COLLECTION_PROVIDER'), m3.get('PAID'),
-                 m3.get('OFFICIAL_API_QUOTA_USED'), len(it3), m3.get('STATUS')))
+                 m3.get('OFFICIAL_API_QUOTA_USED'),
+                 m3.get('OFFICIAL_API_QUOTA_STATE'), len(it3), m3.get('STATUS')))
         if it3:
             rc = it3[0].get('RAW') or {}
             print('      campos do comentario: DATE=%s UPDATED=%s IS_REPLY=%s'

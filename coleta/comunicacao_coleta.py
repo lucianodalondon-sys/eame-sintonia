@@ -342,6 +342,45 @@ def normalizar(bruto, conta, plataforma, dias, man=None):
     }
 
 
+# ── QUOTA: SOMAR SO O QUE A ROTA DECLAROU ───────────────────────────────────
+# O primeiro corte desta missao escrevia `+= 1` para o passo da colheita, porque
+# «uma pagina de `playlistItems` custa uma unidade». MEDIDO com transporte
+# injetado, o passo custa DUAS: `channels.list` para achar a playlist de uploads
+# e `playlistItems.list` para a ler. O numero publicado ficava abaixo do real.
+#
+#     UM NUMERO SUPOSTO COM CARA DE MEDIDO E PIOR QUE NENHUM NUMERO: ninguem
+#     volta a perguntar a um campo que ja tem digito.
+#
+# A correcao NAO e adivinhar melhor. E somar so o que a rota declarou, e dizer
+# em voz alta quando a soma esta incompleta. `PARTIAL` significa PISO — o mesmo
+# que a casa ja faz com o custo historico («>= US$ 12,81», nunca «12,81»).
+#
+# Enquanto as rotas da matriz nao declararem unidades, toda corrida oficial sai
+# `PARTIAL`. Isso e a medida da divida, e ela fica visivel no artefato.
+QUOTA_MEDIDA = 'MEASURED'
+QUOTA_PARCIAL = 'PARTIAL'
+QUOTA_NAO_SE_APLICA = 'NOT_APPLICABLE'
+
+
+def _somar_quota(man, trace):
+    """Acrescenta ao manifesto as unidades que o trace DECLAROU. Nunca inventa."""
+    unidades = trace.get('QUOTA_UNITS')
+    if unidades is None:
+        man['OFFICIAL_API_QUOTA_STATE'] = QUOTA_PARCIAL
+        return man
+    man['OFFICIAL_API_QUOTA_USED'] += unidades
+    return man
+
+
+def _estado_da_quota(mans):
+    """O estado do LOTE: parcial se qualquer corrida dele for parcial."""
+    estados = [m.get('OFFICIAL_API_QUOTA_STATE') for m in mans
+               if m.get('OFFICIAL_API_QUOTA_STATE')]
+    if not estados:
+        return QUOTA_NAO_SE_APLICA
+    return QUOTA_PARCIAL if QUOTA_PARCIAL in estados else QUOTA_MEDIDA
+
+
 def _gravar_posts(plataforma, contas, janela, r, mans, ampliou):
     """O artefato da fase. UM formato so, venha o item de que rota vier.
 
@@ -350,6 +389,7 @@ def _gravar_posts(plataforma, contas, janela, r, mans, ampliou):
     """
     pagas = [m for m in mans if m.get('PAID')]
     quota = sum(m.get('OFFICIAL_API_QUOTA_USED') or 0 for m in mans)
+    quota_estado = _estado_da_quota(mans)
     corpo = {
         'SOURCE_ID': 'COMPETITOR-PUBLIC-COMM/POSTS-%s' % plataforma,
         'DATASET_OWNER': DATASET_OWNER,
@@ -380,6 +420,8 @@ def _gravar_posts(plataforma, contas, janela, r, mans, ampliou):
         'COLLECTION_RUNS': len(mans),
         'APIFY_RUNS': len(pagas),
         'OFFICIAL_API_QUOTA_USED': quota,
+        # `PARTIAL` = PISO, nao total. Ver `_somar_quota`.
+        'OFFICIAL_API_QUOTA_STATE': quota_estado,
         'COLLECTION_PROVIDERS': sorted({m.get('COLLECTION_PROVIDER') for m in mans
                                         if m.get('COLLECTION_PROVIDER')}),
         'COST_USD': sum(m.get('COST_USD') or 0 for m in mans
@@ -414,13 +456,15 @@ def _colher_pelo_scrap(plataforma, contas, dias):
         rid = '%s-%s-%s-%s' % (MISSION, plataforma, conta['COMPANY'], conta['COUNTRY'])
         man = {'RUN_ID': rid, 'PLATFORM': plataforma, 'ACTOR': None,
                'COLLECTION_PROVIDER': None, 'PAID': False, 'COST_USD': 0.0,
-               'OFFICIAL_API_QUOTA_USED': 0, 'ACCOUNT_URL': conta['ACCOUNT_URL'],
+               'OFFICIAL_API_QUOTA_USED': 0,
+               'OFFICIAL_API_QUOTA_STATE': QUOTA_MEDIDA,
+               'ACCOUNT_URL': conta['ACCOUNT_URL'],
                'STATUS': None, 'CAPTURED_AT': coletor.agora()}
 
         alvo, trace_r = scrap.COLLECT(platform=plataforma, capability=caps['RESOLVER'],
                                       run_id=rid, country_scope=conta['COUNTRY'],
                                       account_url=conta['ACCOUNT_URL'])
-        man['OFFICIAL_API_QUOTA_USED'] += trace_r.get('QUOTA_UNITS') or 0
+        _somar_quota(man, trace_r)
         man['COLLECTION_PROVIDER'] = trace_r.get('PROVIDER_USED')
         if not alvo:
             # NAO RESOLVER NAO E COLETAR ZERO. O estado sobe inteiro para que
@@ -438,7 +482,7 @@ def _colher_pelo_scrap(plataforma, contas, dias):
         man['STATUS'] = trace_c.get('RESULT')
         man['COLLECTION_PROVIDER'] = trace_c.get('PROVIDER_USED') or man['COLLECTION_PROVIDER']
         man['PAID'] = bool(trace_c.get('PAID_PROVIDER_USED'))
-        man['OFFICIAL_API_QUOTA_USED'] += 1
+        _somar_quota(man, trace_c)
         man['CHANNEL_ID'] = alvo[0]['CHANNEL_ID']
         man['TRACE'] = trace_c
         mans.append(man)

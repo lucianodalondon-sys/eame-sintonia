@@ -461,6 +461,19 @@ def _proveniencia(man, actor, lote, batch_id):
     }
 
 
+def _juntar_quota(man, parte):
+    """Funde a quota de UMA corrida no manifesto do lote. Parcial contamina.
+
+    Um lote em que uma corrida declarou unidades e outra nao, TEM de sair
+    `PARTIAL`: a soma nao esta completa, e dizer `MEASURED` por maioria seria
+    dar ao piso a cara de total.
+    """
+    man['OFFICIAL_API_QUOTA_USED'] += parte.get('OFFICIAL_API_QUOTA_USED') or 0
+    if parte.get('OFFICIAL_API_QUOTA_STATE') == 'PARTIAL':
+        man['OFFICIAL_API_QUOTA_STATE'] = 'PARTIAL'
+    return man
+
+
 def _rodar_scrap(capacidade, *, run_id, platform, country, query, lote, **pedido):
     """A rota canonica. → (itens, manifesto, 0).
 
@@ -484,7 +497,21 @@ def _rodar_scrap(capacidade, *, run_id, platform, country, query, lote, **pedido
         'COLLECTION_PROVIDER': trace.get('PROVIDER_USED'),
         'PAID': bool(trace.get('PAID_PROVIDER_USED')),
         'COST_USD': trace.get('COST_USD') or 0.0,
-        'OFFICIAL_API_QUOTA_USED': 1,
+        # ── SO O QUE A ROTA DECLAROU ─────────────────────────────────────────
+        # Aqui estava `1`, fixo. Uma busca gasta mesmo 1 chamada do balde
+        # SEARCH — mas `commentThreads` com 100 threads pagina, e `videos.list`
+        # com 120 ids custa 3. O literal acertava por coincidencia do tamanho
+        # que esta prova usa, e erraria em producao.
+        #
+        #     ACERTAR POR COINCIDENCIA NAO E MEDIR.
+        #
+        # E os dois baldes nao sao a mesma moeda: SEARCH conta CHAMADAS (100 por
+        # dia) e GENERAL conta UNIDADES (10.000 por dia). Somar os dois daria um
+        # numero que nao existe. Enquanto a rota nao declarar qual balde mexeu,
+        # o estado diz PARCIAL e o inteiro vale como PISO.
+        'OFFICIAL_API_QUOTA_USED': trace.get('QUOTA_UNITS') or 0,
+        'OFFICIAL_API_QUOTA_STATE': ('MEASURED' if trace.get('QUOTA_UNITS') is not None
+                                     else 'PARTIAL'),
         'ITEM_COUNT_RAW': len(itens),
         'RUNNER_NAME': RUNNER,
         'CAPTURED_AT': coletor.agora(),
@@ -784,7 +811,7 @@ def videos(lote='A'):
                 man = man_t
             else:
                 man['ITEM_COUNT_RAW'] += man_t['ITEM_COUNT_RAW']
-                man['OFFICIAL_API_QUOTA_USED'] += man_t['OFFICIAL_API_QUOTA_USED']
+                _juntar_quota(man, man_t)
                 if man_t['STATUS'] != 'OK':
                     man['STATUS'] = man_t['STATUS']
         if not man:
@@ -1000,7 +1027,7 @@ def comentarios(lote='A'):
                 man = man_c
             else:
                 man['ITEM_COUNT_RAW'] += man_c['ITEM_COUNT_RAW']
-                man['OFFICIAL_API_QUOTA_USED'] += man_c['OFFICIAL_API_QUOTA_USED']
+                _juntar_quota(man, man_c)
                 # COMENTARIO DESLIGADO NAO CONTAMINA O LOTE: e um facto sobre
                 # aquele video, e o estado do lote so muda se nenhum responder.
                 if man_c['STATUS'] not in ('OK', 'ZERO_RESULTS', 'FEATURE_DISABLED'):
