@@ -18,10 +18,18 @@ if RAIZ not in sys.path:
 import _gavetas  # noqa: E402,F401
 import admissao as adm  # noqa: E402
 
-_spec = importlib.util.spec_from_file_location(
-    "impl_c", os.path.join(RAIZ, "provas", "implementacoes_candidatas.py"))
-I = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(I)
+def _carrega(apelido, ficheiro):
+    spec = importlib.util.spec_from_file_location(
+        apelido, os.path.join(RAIZ, "provas", ficheiro))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+I = _carrega("impl_c", "implementacoes_candidatas.py")
+# A lista de campos de caminho tem UM dono: a ficha congelada. Copiar a lista
+# para aqui era criar um segundo dono que se desactualiza em silencio.
+FICHA = _carrega("cand_t", "candidatos_tematicos.py")
 
 # ── FIXTURES SINTETICOS ───────────────────────────────────────────────────
 # Escritos a mao, com nomes cientificos publicos. Nenhum e um documento real
@@ -260,15 +268,80 @@ class NenhumCandidatoToccaNoCorpusDeAvaliacao(unittest.TestCase):
                     self.assertNotIn(mau, no.value)
 
     def test_nenhum_candidato_le_caminho_nem_fonte(self):
-        """O caminho embute o universo declarado: 78 de 78 no atlas."""
-        item = {"id": "x", "texto": "Lobesia botrana e Plasmopara viticola",
-                "source_id": "IT-T3-999", "BODY_PATH": "data/IT-T3-999/x.txt",
-                "PUBLISHER": "QUALQUER"}
-        sem = {"id": "x", "texto": "Lobesia botrana e Plasmopara viticola"}
-        for cid, c in _vivos().items():
-            self.assertEqual(c.classificar(item).resultado,
-                             c.classificar(sem).resultado,
-                             "%s mudou de resposta com metadados de fonte" % cid)
+        """O caminho embute o universo declarado: 78 de 78 no atlas.
+
+        ⚠️ ESTE TESTE JA EXISTIU NUMA FORMA QUE NAO MORDIA. A primeira versao
+        punha os conceitos no TEXTO e tambem no caminho: o candidato respondia
+        SIM pelos dois lados, e um mecanismo que lesse o caminho passava na
+        mesma. Uma mutacao que fazia C2 concatenar `BODY_PATH` ao texto
+        SOBREVIVEU a suite inteira.
+
+            APRESENTAR A PROVA PROIBIDA AO LADO DA PERMITIDA
+            NAO TESTA QUAL DELAS FOI USADA.
+
+        Agora o texto e neutro e os conceitos vivem SO nos metadados. Quem os
+        ler muda de resposta, e a mudanca e a falha.
+        """
+        neutro = ("Relazione trimestrale sui prezzi medi al dettaglio "
+                  "e sul mercato all ingrosso, con allegato statistico.")
+        envenenado = "data/corpus/aphis-fabae/aphis-gossypii/doc-999.json"
+        sem = {"id": "x", "texto": neutro}
+        for campo in FICHA.CAMPOS_DE_CAMINHO + ("source_id", "PUBLISHER"):
+            item = {"id": "x", "texto": neutro, campo: envenenado}
+            for cid, c in _vivos().items():
+                self.assertEqual(
+                    c.classificar(item).resultado,
+                    c.classificar(sem).resultado,
+                    "%s mudou de resposta quando o conceito estava so em %s"
+                    % (cid, campo))
+
+    def test_um_conceito_so_nao_chega_ao_limiar_de_c2(self):
+        """O limiar de C2 vale 2, e o teste tem de sentir a diferenca.
+
+        Uma mutacao que baixava LIMIAR_DE_CONCEITOS para 1 sobreviveu: todos
+        os sinteticos tinham zero conceitos ou dois. O limiar nunca foi
+        interrogado no unico ponto onde ele decide — o meio.
+
+            UM LIMIAR SO ESTA TESTADO
+            SE ALGUM CASO CAIR EXACTAMENTE POR BAIXO DELE.
+
+        Uma mencao unica e uma mencao. Nao e o assunto do documento, e C2 nao
+        tem licenca para dizer SIM a partir dela. Diz NAO_SEI — que e o que
+        um inventario de cobertura medida e incompleta pode honestamente dizer.
+        """
+        item = {"id": "u1", "texto":
+                "Rilevata Aphis fabae nel campione di ieri, senza altro."}
+        c2 = _vivos()["C2-TAXONOMY-CONCEPT"]
+        self.assertEqual(len(c2._conceitos(I._normal(item["texto"]), c2.alvos)), 1,
+                         "o fixture deixou de ter exactamente um conceito")
+        self.assertEqual(I.LIMIAR_DE_CONCEITOS, 2,
+                         "o limiar congelado mudou sem passar pelo diario")
+        self.assertEqual(c2.classificar(item).resultado, adm.NAO_SEI)
+
+    def test_o_indice_exige_que_o_binomio_esteja_junto(self):
+        """Duas palavras separadas por uma negacao nao sao um binomio.
+
+        Mutacao sobrevivente: trocar a comparacao de contiguidade por `True`,
+        isto e, dar por encontrado qualquer conceito cuja PRIMEIRA palavra
+        aparecesse. Sobreviveu porque o genero sozinho ja conta quando tem 6
+        ou mais letras — e todos os sinteticos usavam generos longos, onde o
+        ramo do genero tapava o da contiguidade.
+
+            DOIS CAMINHOS QUE DAO A MESMA RESPOSTA EM TODOS OS EXEMPLOS
+            SAO UM CAMINHO TESTADO E OUTRO POR TESTAR.
+
+        `aphis` tem cinco letras: o ramo do genero nao dispara, e so a
+        contiguidade pode decidir. O texto abaixo contem `aphis` e `gossypii`
+        e NAO contem `Aphis gossypii`.
+        """
+        c2 = _vivos()["C2-TAXONOMY-CONCEPT"]
+        junto = "Rilevata Aphis gossypii e Aphis fabae nel campione."
+        partido = "Aphis non risulta, gossypii nemmeno, nel rapporto di ieri."
+        self.assertEqual(c2.classificar({"id": "j", "texto": junto}).resultado,
+                         adm.SIM)
+        self.assertEqual(c2.classificar({"id": "p", "texto": partido}).resultado,
+                         adm.NAO_SEI,
+                         "o indice deu por encontrado um binomio desfeito")
 
 
 if __name__ == "__main__":
