@@ -2937,6 +2937,26 @@
    "files": [
     "provas/gpu_asr_smoke.py"
    ]
+  },
+  {
+   "id": "C-PROVA-AUDIO-ONLY",
+   "name": "A cadeia de Reel pede so audio?",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "♫",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "what": "Corre a cadeia de Reel ponta a ponta numa gaveta vazia e confere nos BYTES o que chegou: `ffprobe` tem de ver zero fluxos de imagem e pelo menos um de som, e nenhum ficheiro da gaveta pode trazer video. Mede tambem o seletor que a cadeia monta, interceptando o argv sem sair da maquina. Nao faz descoberta: usa uma escada de enderecos que o repositorio ja conhece.",
+   "why_here": "A C8 escreveu `TRANSCRIPTION NEED != VIDEO DOWNLOAD` e a C9 mediu que a lei tinha zero implementacoes. Esta prova e o que impede a lei de voltar a ser so uma frase. E ela recusa tres coisas como evidencia: a bandeira `-f bestaudio` diz o que foi PEDIDO, a extensao `.m4a` diz o que alguem escreveu no nome, e o nome do fornecedor nao diz nada porque o yt-dlp traz as duas coisas. PEDIR AUDIO != TER RECEBIDO SO AUDIO. Corre em gaveta vazia de proposito: com os MP4 historicos ao alcance a cadeia reusava-os e a prova passava sem nunca ter adquirido nada — REUSAR != ADQUIRIR.",
+   "departments": [
+    "ENGENHARIA",
+    "TECNICO_CIENCIA"
+   ],
+   "files": [
+    "provas/instagram_audio_only.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

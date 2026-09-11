@@ -286,6 +286,13 @@ claro que aquilo é um endereço a fazer as vezes de um id, não um id atribuíd
 URL != SOURCE_ID. Nada foi fabricado, e agora nada é silencioso.
 ```
 
+> **ATUALIZAÇÃO 2026-09-11 · C10.1.** A fotografia acima fica como foi tirada, e
+> o que ela descreve já não é o código. A etiqueta não chegava: uma URL em
+> `SOURCE_ID` **passa** em `preservar_coleta._identifica()` e o sentinela não —
+> ou seja, o endereço comprava identidade no portão. A
+> [C10.1](C10-1-SOURCE-ID.md) tirou o endereço do campo e removeu o
+> `SOURCE_ID_KIND`, que ninguém lia. `C10_1_SOURCE_ID = PASS`.
+
 `RAW_OBSERVATION_ID` continua `NOT_KNOWN` — é `raw_asset.id`, e só existe quando
 a Collection o criar. O `SHA256` identifica bytes e nunca observação.
 

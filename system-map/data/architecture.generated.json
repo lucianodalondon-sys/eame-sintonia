@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-instagram-audio-only-c10",
-    "HEAD": "d298a6dbb09f70b2a2212ae5f60ad391f8d3a329",
-    "GENERATED_AT": "2026-09-11T18:50:08+00:00",
-    "SOURCE_TREE_FINGERPRINT": "76e331ab042d563901eef704d0cde147c8fcc9ca16416e2dae08f2d277e14618"
+    "BRANCH": "claude/sintonia-scrap-source-id-c10-1",
+    "HEAD": "552aab44a5395652913bb0ab69daf5d022122707",
+    "GENERATED_AT": "2026-09-11T19:19:04+00:00",
+    "SOURCE_TREE_FINGERPRINT": "55d5271d2f7d88b9d40a22088e2f98d6f7a2bdbede75d8f9225358bc8cecd07b"
   },
   "FILES": [
     {
@@ -5154,6 +5154,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
+      "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
       "sha": "64bddd19dcf58606aab5afdaa1c41229407348b4",
       "ext": ".md",
@@ -5309,7 +5316,7 @@
     },
     {
       "path": "ferramentas/reel_transcricao.py",
-      "sha": "b0a601c983b9d1584869e798a512ca4cbc74327b",
+      "sha": "9d5a000052cd7766020cf205df95e5bdea59eaca",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7975,6 +7982,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/instagram_audio_only.py",
+      "sha": "61ee6a89288408ab154f001e029f5c18c944ee16",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/inventario_esperado.py",
       "sha": "7d07107a62d3c545d7566923b085b44b0ea18c1c",
       "ext": ".py",
@@ -9320,7 +9334,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e256eb3a6affda76b251ca267678deb43b259691",
+      "sha": "390f77a4e4642259cc6f1eafb9a5e2c8c82f3da0",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9692,6 +9706,13 @@
     {
       "path": "tests/test_biblia.py",
       "sha": "c90a38af1344b763db9a42c9fedd43a69ae7f232",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_audio_only.py",
+      "sha": "d18f856d2f1f8a6dcd9dfe71aea56656b7165847",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13745,7 +13766,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/reel_transcricao.py",
-        "line": 996,
+        "line": 1024,
         "snippet": "def gravar_lote(registos, nome='TRANSCRICOES-REEL.json'):"
       }
     },
@@ -13767,7 +13788,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/reel_transcricao.py",
-        "line": 869,
+        "line": 897,
         "snippet": "executor='ferramentas/fala_local.py',"
       }
     },
@@ -26136,6 +26157,28 @@
       }
     },
     {
+      "from_file": "provas/instagram_audio_only.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/instagram_audio_only.py",
+        "line": 51,
+        "snippet": "import fala_local as fl          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/instagram_audio_only.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/instagram_audio_only.py",
+        "line": 52,
+        "snippet": "import reel_transcricao as rt    # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/italy_accounting.mjs",
       "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "type": "READS",
@@ -30071,6 +30114,50 @@
         "file": "tests/test_biblia.py",
         "line": 360,
         "snippet": "cls.emenda2 = ler(os.path.join(RAIZ, 'docs', 'biblia', 'EMENDA-V1-2.md'))"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_audio_only.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_audio_only.py",
+        "line": 39,
+        "snippet": "import fala_local as fl          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_audio_only.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_audio_only.py",
+        "line": 321,
+        "snippet": "self.assertEqual(donos, {os.path.join('ferramentas', 'fala_local.py')}, donos)"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_audio_only.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_audio_only.py",
+        "line": 40,
+        "snippet": "import reel_transcricao as rt    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_audio_only.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_audio_only.py",
+        "line": 326,
+        "snippet": "with io.open(os.path.join(RAIZ, 'ferramentas', 'reel_transcricao.py'),"
       }
     },
     {
@@ -36709,7 +36796,7 @@
     "ferramentas/reel_transcricao.py": [
       {
         "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
-        "line": 1037,
+        "line": 1065,
         "constante": "caminho"
       }
     ],
@@ -37121,10 +37208,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1463,
-    "files_readable": 556,
-    "files_code_dir": 603,
-    "file_edges": 2401,
+    "files_tracked": 1466,
+    "files_readable": 558,
+    "files_code_dir": 605,
+    "file_edges": 2407,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

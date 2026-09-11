@@ -759,6 +759,7 @@
       "docs/sintonia-scrap/AP-DISCOVERY-VS-CAPTURA-V1.md",
       "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md",
       "docs/sintonia-scrap/C1-CONVERGENCIA-ESTRUTURAL.md",
+      "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
       "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
       "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
@@ -1189,6 +1190,7 @@
       "provas/fluxo_no_seco.py",
       "provas/gpu_asr_smoke.py",
       "provas/hardware_local.py",
+      "provas/instagram_audio_only.py",
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
@@ -1451,6 +1453,7 @@
       "tests/test_armazem_italiano.py",
       "tests/test_autoridade_da_fonte.py",
       "tests/test_biblia.py",
+      "tests/test_c10_audio_only.py",
       "tests/test_c2_youtube_oficial.py",
       "tests/test_c3_youtube_cutover.py",
       "tests/test_c4_gpu_local.py",
@@ -1910,10 +1913,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-instagram-audio-only-c10",
-    "HEAD": "d298a6dbb09f70b2a2212ae5f60ad391f8d3a329",
-    "GENERATED_AT": "2026-09-11T18:50:08+00:00",
-    "SOURCE_TREE_FINGERPRINT": "76e331ab042d563901eef704d0cde147c8fcc9ca16416e2dae08f2d277e14618"
+    "BRANCH": "claude/sintonia-scrap-source-id-c10-1",
+    "HEAD": "552aab44a5395652913bb0ab69daf5d022122707",
+    "GENERATED_AT": "2026-09-11T19:19:04+00:00",
+    "SOURCE_TREE_FINGERPRINT": "55d5271d2f7d88b9d40a22088e2f98d6f7a2bdbede75d8f9225358bc8cecd07b"
   },
   "FAMILIES": [
     {
@@ -1982,7 +1985,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 59
+      "count": 60
     },
     {
       "id": "F-ENTREGA",
@@ -2352,7 +2355,7 @@
       "y": 190,
       "w": 1235,
       "h": 5192,
-      "count": 46
+      "count": 47
     }
   ],
   "DEPARTMENTS": {
@@ -11834,6 +11837,49 @@
       "y": 3258
     },
     {
+      "id": "C-PROVA-AUDIO-ONLY",
+      "name": "A cadeia de Reel pede so audio?",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Corre a cadeia de Reel ponta a ponta numa gaveta vazia e confere nos BYTES o que chegou: `ffprobe` tem de ver zero fluxos de imagem e pelo menos um de som, e nenhum ficheiro da gaveta pode trazer video. Mede tambem o seletor que a cadeia monta, interceptando o argv sem sair da maquina. Nao faz descoberta: usa uma escada de enderecos que o repositorio ja conhece.",
+      "why_here": "A C8 escreveu `TRANSCRIPTION NEED != VIDEO DOWNLOAD` e a C9 mediu que a lei tinha zero implementacoes. Esta prova e o que impede a lei de voltar a ser so uma frase. E ela recusa tres coisas como evidencia: a bandeira `-f bestaudio` diz o que foi PEDIDO, a extensao `.m4a` diz o que alguem escreveu no nome, e o nome do fornecedor nao diz nada porque o yt-dlp traz as duas coisas. PEDIR AUDIO != TER RECEBIDO SO AUDIO. Corre em gaveta vazia de proposito: com os MP4 historicos ao alcance a cadeia reusava-os e a prova passava sem nunca ter adquirido nada — REUSAR != ADQUIRIR.",
+      "departments": [
+        "ENGENHARIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "♫",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/instagram_audio_only.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-TRANSCRICAO"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20435,
+      "y": 3258
+    },
+    {
       "id": "C-PROVA-AUTORIDADE-FONTE",
       "name": "A medição da autoridade da fonte",
       "territory": "Z-PROVA",
@@ -11881,7 +11927,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3258
     },
     {
@@ -11949,8 +11995,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 3258
+      "x": 20020,
+      "y": 3580
     },
     {
       "id": "C-PROVA-COLETA",
@@ -12058,7 +12104,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 3580
     },
     {
@@ -12114,7 +12160,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3580
     },
     {
@@ -12160,8 +12206,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3580
+      "x": 20020,
+      "y": 3902
     },
     {
       "id": "C-PROVA-EXECUTOR-CONTA",
@@ -12207,7 +12253,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 3902
     },
     {
@@ -12283,7 +12329,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 3902
     },
     {
@@ -12349,8 +12395,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3902
+      "x": 20020,
+      "y": 4224
     },
     {
       "id": "C-PROVA-FRONTEIRA",
@@ -12406,7 +12452,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4224
     },
     {
@@ -12496,7 +12542,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 4224
     },
     {
@@ -12567,8 +12613,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4224
+      "x": 20020,
+      "y": 4546
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -12620,7 +12666,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4546
     },
     {
@@ -12869,7 +12915,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4546
     },
     {
@@ -13015,8 +13061,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4546
+      "x": 20020,
+      "y": 4868
     },
     {
       "id": "C-REGRA-COLETA",
@@ -13157,7 +13203,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4868
     },
     {
@@ -13935,7 +13981,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 4868
     },
     {
@@ -14228,8 +14274,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4868
+      "x": 20020,
+      "y": 5190
     },
     {
       "id": "C-SUPABASE",
@@ -15434,6 +15480,7 @@
         "tests/test_armazem_italiano.py",
         "tests/test_autoridade_da_fonte.py",
         "tests/test_biblia.py",
+        "tests/test_c10_audio_only.py",
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c3_youtube_cutover.py",
         "tests/test_c4_gpu_local.py",
@@ -15513,7 +15560,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 87,
+      "file_count": 88,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15741,7 +15788,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 5190
     },
     {
@@ -15788,6 +15835,7 @@
         "C-CENSO-DERIVACOES",
         "C-COLETA-PUBLICA",
         "C-PROVA-ASR-LOCAL",
+        "C-PROVA-AUDIO-ONLY",
         "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL",
         "C-SMOKE-GPU-ASR",
@@ -15818,7 +15866,7 @@
           "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
           "prova": {
             "file": "ferramentas/reel_transcricao.py",
-            "line": 1037,
+            "line": 1065,
             "snippet": "escreve em caminho"
           }
         }
@@ -17103,7 +17151,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-instagram-audio-only-c10"
+        "branch claude/sintonia-scrap-source-id-c10-1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -30484,6 +30532,29 @@
     },
     {
       "from": "C-TRANSCRICAO",
+      "to": "C-PROVA-AUDIO-ONLY",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por A cadeia de Reel pede so audio?. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/instagram_audio_only.py",
+          "line": 51,
+          "snippet": "import fala_local as fl          # noqa: E402"
+        },
+        {
+          "file": "provas/instagram_audio_only.py",
+          "line": 52,
+          "snippet": "import reel_transcricao as rt    # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-TRANSCRICAO",
       "to": "C-SCRAP-LEIS",
       "type": "READS",
       "payload": "artefacto",
@@ -30582,8 +30653,18 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c10_audio_only.py",
+          "line": 39,
+          "snippet": "import fala_local as fl          # noqa: E402"
+        },
+        {
+          "file": "tests/test_c10_audio_only.py",
+          "line": 40,
+          "snippet": "import reel_transcricao as rt    # noqa: E402"
+        },
         {
           "file": "tests/test_c4_gpu_local.py",
           "line": 27,
@@ -30645,8 +30726,18 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 13 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c10_audio_only.py",
+          "line": 321,
+          "snippet": "self.assertEqual(donos, {os.path.join('ferramentas', 'fala_local.py')}, donos)"
+        },
+        {
+          "file": "tests/test_c10_audio_only.py",
+          "line": 326,
+          "snippet": "with io.open(os.path.join(RAIZ, 'ferramentas', 'reel_transcricao.py'),"
+        },
         {
           "file": "tests/test_c4_gpu_local.py",
           "line": 30,
@@ -30696,16 +30787,6 @@
           "file": "tests/test_c8_convergencia.py",
           "line": 33,
           "snippet": "DONO_DO_ASR = 'ferramentas/fala_local.py'"
-        },
-        {
-          "file": "tests/test_reel_transcricao.py",
-          "line": 55,
-          "snippet": "'ASR_MODEL': 'small', 'TRANSCRIBER_ID': 'ferramentas/fala_local.py',"
-        },
-        {
-          "file": "tests/test_scrap_convergencia.py",
-          "line": 83,
-          "snippet": "DONO = 'ferramentas/fala_local.py'"
         }
       ],
       "categoria": "PROOF"
@@ -31694,7 +31775,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 745,
+  "UNCLAIMED_FILES_COUNT": 746,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31857,17 +31938,17 @@
     ]
   },
   "COUNTS": {
-    "components": 162,
+    "components": 163,
     "components_proven": 56,
-    "components_pending": 100,
+    "components_pending": 101,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 653,
-    "edges_proven": 650,
+    "edges": 654,
+    "edges_proven": 651,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1463,
-    "files_covered": 718,
+    "files_tracked": 1466,
+    "files_covered": 720,
     "files_code_unclaimed": 0
   }
 }

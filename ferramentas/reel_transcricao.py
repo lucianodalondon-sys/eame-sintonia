@@ -660,10 +660,43 @@ def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
 # ══════════════════════════════════════════════════════════════════ A CADEIA
 def _ficha_raw(caminho, ident, *, run_id, capture_provider, media_kind=NOT_KNOWN):
     """A ficha do byte bruto. O `ARTIFACT_ID` sai do CONTEÚDO, e é por isso que
-    correr duas vezes sobre o mesmo vídeo não cria dois artefatos."""
+    correr duas vezes sobre o mesmo vídeo não cria dois artefatos.
+
+    `SOURCE_ID` E `SOURCE_URL` SÃO DOIS CAMPOS PORQUE SÃO DUAS COISAS
+    -------------------------------------------------------------------
+        SOURCE_ID    a identidade canônica da fonte, atribuída por quem a tem
+        SOURCE_URL   o endereço por onde se chegou a ela
+
+    Até à C10 esta função punha o endereço nos dois. A C10 pôs ao lado uma
+    etiqueta a dizer que era um substituto — e uma etiqueta não transforma um
+    URL em identidade. O que ela fazia era pedir desculpa pela mentira sem a
+    desfazer.
+
+    E o dano não era teórico. `guarda/preservar_coleta._identifica()` recusa as
+    confissões — `NAO SEI`, `UNKNOWN`, vazio — e aceita tudo o resto. Medido:
+
+        _identifica('https://www.instagram.com/reel/ABC')  →  True
+        _identifica('NAO SEI')                             →  False
+
+    Ou seja: o endereço COMPRAVA um `IDENTITY_STATE` que ninguém tinha provado,
+    e comprava-o precisamente no sítio onde a casa põe a trava.
+
+        CAN ENTER NÃO SE COMPRA COM IDENTIDADE FALSA.
+
+    Agora `SOURCE_ID` só chega aqui se vier provado em `ident`. Não vindo, o
+    campo fica no sentinela do contrato — que `_identifica()` reconhece e
+    recusa, e que a Collection traduz para ausência quando escreve.
+
+        NÃO SABER QUAL É A FONTE != NÃO HAVER OBSERVAÇÃO.
+
+    Tudo o resto continua a fechar: RUN, endereço, POST_ID, bytes, SHA256,
+    caminho, fornecedor, espécie de mídia e o texto derivado com pai declarado.
+    """
     return art.raw_do_disco(
         os.path.abspath(caminho), ROOT,
-        SOURCE_ID=ident.get('SOURCE_URL', NAO_SEI),
+        # NUNCA `ident.get('SOURCE_URL')`. Ver a docstring: o endereço passa no
+        # `_identifica()` e o sentinela não, e é essa a diferença inteira.
+        SOURCE_ID=ident.get('SOURCE_ID', NAO_SEI),
         SOURCE_URL=ident.get('SOURCE_URL', NAO_SEI),
         PUBLISHER=ident.get('ACCOUNT_ID', NAO_SEI),
         COUNTRY_SCOPE=ident.get('COUNTRY_SCOPE', NAO_SEI),
@@ -689,22 +722,17 @@ def _ficha_raw(caminho, ident, *, run_id, capture_provider, media_kind=NOT_KNOWN
                    'RAW_OBSERVATION_ID e raw_asset.id. O SHA256 identifica os BYTES, '
                    'nao a observacao — dois RUNs que tragam o mesmo video tem o mesmo '
                    'SHA256 e sao duas observacoes.'),
-               # ── O QUE ESTE CAMPO E, E O QUE ELE NAO E ────────────────────
-               # `SOURCE_ID` aqui em cima leva o ENDERECO da publicacao, porque
-               # e o unico identificador que esta cadeia tem em maos. Isso e
-               # anterior a esta missao e continua a ser assim: fabricar um
-               # SOURCE_ID canonico a partir de um URL seria inventar
-               # identidade, e a Biblia proibe.
+               # `SOURCE_ID_KIND = URL_AS_PLACEHOLDER` viveu aqui entre a C10
+               # e a C10.1, e foi removido em vez de renomeado: depois de o
+               # endereco sair do campo, nao ha substituto nenhum a descrever, e
+               # um campo que descreve um arranjo que deixou de existir e a
+               # proxima pessoa a acreditar que ele ainda existe.
                #
-               #     URL != SOURCE_ID. Enquanto a Collection nao atribuir o
-               #     verdadeiro, o que esta ali e um ENDERECO a fazer as vezes
-               #     de um — e quem ler tem de o saber pelo registo, nao por
-               #     adivinhacao.
-               'SOURCE_ID_KIND': 'URL_AS_PLACEHOLDER',
+               #     UMA ETIQUETA NAO TRANSFORMA UM URL EM IDENTIDADE.
                'SOURCE_ID_LEI': (
-                   'o SOURCE_ID desta ficha e o URL da publicacao, nao um id '
-                   'canonico de fonte. Nao foi fabricado e nao deve ser tratado '
-                   'como se fosse atribuido pela Collection.')})
+                   'SOURCE_ID e a identidade canonica da fonte e SOURCE_URL e o '
+                   'endereco. Este campo nunca nasce do endereco: sem prova fica '
+                   'no sentinela, que `_identifica()` recusa.')})
 
 
 def _ou(v, alt):
