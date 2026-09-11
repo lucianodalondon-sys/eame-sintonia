@@ -761,6 +761,7 @@
       "docs/sintonia-scrap/C1-CONVERGENCIA-ESTRUTURAL.md",
       "docs/sintonia-scrap/C10-1-SOURCE-ID.md",
       "docs/sintonia-scrap/C10-2-ORIGEM-NA-ADMISSION.md",
+      "docs/sintonia-scrap/C10-3-PLATAFORMA-NAO-E-LOCALIZACAO.md",
       "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
       "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
@@ -1457,6 +1458,7 @@
       "tests/test_biblia.py",
       "tests/test_c10_1_source_id.py",
       "tests/test_c10_2_origin_gate.py",
+      "tests/test_c10_3_location.py",
       "tests/test_c10_audio_only.py",
       "tests/test_c2_youtube_oficial.py",
       "tests/test_c3_youtube_cutover.py",
@@ -1918,9 +1920,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-location-contract-c10-3",
-    "HEAD": "231ffa2c07fd500ae663d2f1a8e38417976370e1",
-    "GENERATED_AT": "2026-09-11T20:02:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "c3a112629bc6f152eef589c8ccf84f3649de3af1a0a4749ff369ad222922db73"
+    "HEAD": "a1a1c8e0b6abad06329d28514532eca0644c40ed",
+    "GENERATED_AT": "2026-09-11T20:52:49+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3b8ab3a98c77606c908810823d5f2c353aaebcc9ad19169338627c035e5f2491"
   },
   "FAMILIES": [
     {
@@ -15489,6 +15491,7 @@
         "tests/test_biblia.py",
         "tests/test_c10_1_source_id.py",
         "tests/test_c10_2_origin_gate.py",
+        "tests/test_c10_3_location.py",
         "tests/test_c10_audio_only.py",
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c3_youtube_cutover.py",
@@ -15569,7 +15572,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 90,
+      "file_count": 91,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -21437,11 +21440,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
           "line": 40,
+          "snippet": "import artefato as art            # noqa: E402"
+        },
+        {
+          "file": "tests/test_c10_3_location.py",
+          "line": 34,
           "snippet": "import artefato as art            # noqa: E402"
         },
         {
@@ -30720,11 +30728,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 13 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
           "line": 42,
+          "snippet": "import reel_transcricao as rt     # noqa: E402"
+        },
+        {
+          "file": "tests/test_c10_3_location.py",
+          "line": 35,
           "snippet": "import reel_transcricao as rt     # noqa: E402"
         },
         {
@@ -30776,11 +30789,6 @@
           "file": "tests/test_reel_transcricao.py",
           "line": 420,
           "snippet": "import instagram_transcrever as it"
-        },
-        {
-          "file": "tests/test_reel_transcricao.py",
-          "line": 421,
-          "snippet": "import youtube_transcrever as yt"
         }
       ],
       "categoria": "PROOF"
@@ -31842,7 +31850,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 748,
+  "UNCLAIMED_FILES_COUNT": 749,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -32014,8 +32022,8 @@
     "edges_proven": 653,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1470,
-    "files_covered": 722,
+    "files_tracked": 1472,
+    "files_covered": 723,
     "files_code_unclaimed": 0
   }
 }

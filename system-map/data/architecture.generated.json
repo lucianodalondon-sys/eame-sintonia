@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-location-contract-c10-3",
-    "HEAD": "231ffa2c07fd500ae663d2f1a8e38417976370e1",
-    "GENERATED_AT": "2026-09-11T20:02:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "c3a112629bc6f152eef589c8ccf84f3649de3af1a0a4749ff369ad222922db73"
+    "HEAD": "a1a1c8e0b6abad06329d28514532eca0644c40ed",
+    "GENERATED_AT": "2026-09-11T20:52:49+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3b8ab3a98c77606c908810823d5f2c353aaebcc9ad19169338627c035e5f2491"
   },
   "FILES": [
     {
@@ -5168,6 +5168,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-3-PLATAFORMA-NAO-E-LOCALIZACAO.md",
+      "sha": "34c19258b462f97568e68648bf85e13b4dd90f58",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -9734,6 +9741,13 @@
     {
       "path": "tests/test_c10_2_origin_gate.py",
       "sha": "1dbfed4c5ef99b57367388490c00c7ce47de8ab5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_3_location.py",
+      "sha": "12a2f9adaa470708867659dca2dd4704e6d9ac58",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30233,6 +30247,28 @@
       }
     },
     {
+      "from_file": "tests/test_c10_3_location.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_3_location.py",
+        "line": 35,
+        "snippet": "import reel_transcricao as rt     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_3_location.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_3_location.py",
+        "line": 34,
+        "snippet": "import artefato as art            # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_c10_audio_only.py",
       "to_file": "ferramentas/fala_local.py",
       "type": "IMPORTS",
@@ -37324,10 +37360,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1470,
-    "files_readable": 560,
-    "files_code_dir": 607,
-    "file_edges": 2415,
+    "files_tracked": 1472,
+    "files_readable": 561,
+    "files_code_dir": 608,
+    "file_edges": 2417,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
