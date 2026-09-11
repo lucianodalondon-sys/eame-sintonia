@@ -1,0 +1,4926 @@
+{
+  "SCHEMA": "sintonia.thematic-benchmark/1",
+  "O_QUE_ISTO_E": "Uma corrida cega: a porta de hoje como CONTROLO e os candidatos congelados, sobre o mesmo gabarito, contra o mesmo gate ja congelado. Nenhum limiar foi tocado para este resultado.",
+  "UNIVERSE": "T3",
+  "EVALUATION_EXPOSED": "YES",
+  "O_QUE_EXPOSED_SIGNIFICA": "O conjunto de avaliacao foi aberto e os resultados individuais foram vistos. A partir daqui nenhum parametro de nenhum candidato pode mudar com base neles: seria treinar no conjunto de avaliacao com outro nome.",
+  "CANDIDATE_SET_VERSION": "V1",
+  "CANDIDATE_SET_SHA256": "3fda8edc39ecedbbb9314f195a697d131b7cab8ca24c3dec16aaac41116988a4",
+  "GATE_SHA256": "1728f95a63c88e93d4cc32f6418affba75c59e1adacc1e52455b110bc2a55b20",
+  "IMPLEMENTATIONS_SHA256": "413fb2e7ad126c4ea49056a5d4cd13749472c8f69c8e89690b0f57d3974bc1da",
+  "GROUND_TRUTH_SHA256": "f66ce19525defccd9b4949f9e04a573df39d9b86156ac850fee25d44c562bfbc",
+  "GATE_THRESHOLD_CHANGED": "NO",
+  "GROUND_TRUTH_CHANGED": "NO",
+  "TRAINING_ON_EVALUATION_SET": "NO",
+  "ADMISSION_CHANGED": "NO",
+  "O_QUE_ISTO_NAO_AUTORIZA": "Nada entra em producao por causa deste ficheiro. Um PASS aqui e um PASS de AVALIACAO; a porta continua a ser a de hoje ate uma decisao explicita, escrita no diario.",
+  "RUN_ORDER": [
+    "BASELINE-ADMISSION-ACTUAL",
+    "C1-LEXICAL-STRUCTURED",
+    "C2-TAXONOMY-CONCEPT",
+    "C3-LLM-STRUCTURED",
+    "C4-HYBRID-CASCADE"
+  ],
+  "A_ORDEM_E_ALFABETICA": "e nao de preferencia — o runner nao carrega um favorito.",
+  "WINNER": "NONE",
+  "WINNERS": [],
+  "NONE_E_RESULTADO": "Se nenhum candidato passa, o resultado e NONE e nao «o melhor dos que correram». O gate nao tem segundo lugar.",
+  "BLOCKED": [
+    "C3-LLM-STRUCTURED"
+  ],
+  "BLOCKED_NAO_E_FAIL": "Um candidato que nao pode correr neste ambiente fica por testar. Nao reprovou: nao foi medido.",
+  "RESULTS": [
+    {
+      "CANDIDATE_ID": "BASELINE-ADMISSION-ACTUAL",
+      "PAPEL": "CONTROL",
+      "RUNNABLE_HERE": "YES",
+      "VEREDITO": "FAIL",
+      "GATE": {
+        "GATE_VERSION": "V1",
+        "GATE_OWNER": "provas/gate_de_aceitacao_tematica.py",
+        "PRIMARY_UNIT": "INDEPENDENT_OBSERVATION",
+        "THEMATIC_GATE_PASS": false,
+        "VEREDICTO": "FAIL",
+        "FAILED_CONDITIONS": [
+          "POSITIVE_CAPTURE_RATE",
+          "SPECIFICITY",
+          "PRECISION_T3",
+          "DECISION_COVERAGE",
+          "GROUP_PASS_RATE",
+          "FALSE_SUBSTRING_OUTCOME_DEPENDENCY"
+        ],
+        "LINHAS": [
+          {
+            "CONDICAO": "POSITIVE_CAPTURE_RATE",
+            "OPERADOR": ">=",
+            "LIMIAR": "10/11",
+            "LIMIAR_DECIMAL": 0.9091,
+            "MEDIDO": 0.1818,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O positivo perdido e o erro caro e invisivel. Tolera-se UM — porque exigir 11/11 num conjunto de 11 transforma qualquer caso de fronteira em reprovacao automatica, e um gate que so passa com perfeicao nao separa mecanismos: rejeita todos. UM e o maximo que ainda deixa o gate discriminar."
+          },
+          {
+            "CONDICAO": "EXPLICIT_FALSE_NEGATIVE",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 0,
+            "PASSA": true,
+            "PORQUE_O_LIMIAR": "Afirmar «isto nao e T3» sobre algo que E T3 e a unica saida que fecha o assunto com ar de decisao. Ninguem reabre. E diferente de abster-se, e por isso tem limiar proprio e zero."
+          },
+          {
+            "CONDICAO": "SPECIFICITY",
+            "OPERADOR": ">=",
+            "LIMIAR": "9/10",
+            "LIMIAR_DECIMAL": 0.9,
+            "MEDIDO": 0.2,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O negativo errado custa menos, mas custa: cada um inunda a Inteligencia com material que ela tera de descartar a mao. Dois em vinte e o que a operacao absorve sem a fila deixar de ser util."
+          },
+          {
+            "CONDICAO": "PRECISION_T3",
+            "OPERADOR": ">=",
+            "LIMIAR": "4/5",
+            "LIMIAR_DECIMAL": 0.8,
+            "MEDIDO": 0.2857,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "Quando o mecanismo AFIRMA, quem recebe tem de poder confiar. Abaixo de 4/5, um em cada quatro itens da fila e ruido e a fila deixa de ser lida — e uma fila que ninguem le e pior do que fila nenhuma, porque parece que o trabalho esta a ser feito."
+          },
+          {
+            "CONDICAO": "DECISION_COVERAGE",
+            "OPERADOR": ">=",
+            "LIMIAR": "28/31",
+            "LIMIAR_DECIMAL": 0.9032,
+            "MEDIDO": 0.3548,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "ABSTAIN e melhor do que errar, e por isso e permitido. Mas um mecanismo que se abstem em muitos casos empurra o trabalho todo para a pessoa e nao substitui nada. Tres em trinta e uma e a fila de revisao que uma pessoa despacha sem a fila crescer."
+          },
+          {
+            "CONDICAO": "GROUP_PASS_RATE",
+            "OPERADOR": ">=",
+            "LIMIAR": "28/31",
+            "LIMIAR_DECIMAL": 0.9032,
+            "MEDIDO": 0.1935,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O resultado efetivo, e nao o condicional. Acuracia condicional alta com cobertura baixa mede so os casos em que o mecanismo se atreveu — e e exactamente assim que um mecanismo fraco parece forte."
+          },
+          {
+            "CONDICAO": "ERROR",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 0,
+            "PASSA": true,
+            "PORQUE_O_LIMIAR": "ERRO nao e rejeicao e nao e duvida: e «ninguem chegou a olhar». Um mecanismo que rebenta sobre o corpus de avaliacao nao foi avaliado nesses casos, e contar isso como qualquer outra coisa seria inventar uma medicao que nao houve."
+          },
+          {
+            "CONDICAO": "FALSE_SUBSTRING_OUTCOME_DEPENDENCY",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 1,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "A baseline mostrou `lancio` a acender dentro de `bilancio` e a PRODUZIR uma das negativas «certas». Um acerto desses nao e o mecanismo a funcionar: e a sorte a alinhar-se, e ela desalinha-se no proximo corpus.\nISTO NAO PROIBE substring matching. Proibe que um RESULTADO dependa de um casamento nao pretendido."
+          }
+        ],
+        "NENHUMA_MEDIA_COMPENSA": "basta uma condicao em falha para o veredicto ser FAIL. Precisao excelente nao compensa captura positiva ruim."
+      },
+      "METRICAS": {
+        "POSITIVE_CAPTURE_RATE": {
+          "FRACAO": "2/11",
+          "DECIMAL": 0.1818
+        },
+        "EXPLICIT_FALSE_NEGATIVE": 0,
+        "SPECIFICITY": {
+          "FRACAO": "1/5",
+          "DECIMAL": 0.2
+        },
+        "PRECISION_T3": {
+          "FRACAO": "2/7",
+          "DECIMAL": 0.2857
+        },
+        "DECISION_COVERAGE": {
+          "FRACAO": "11/31",
+          "DECIMAL": 0.3548
+        },
+        "GROUP_PASS_RATE": {
+          "FRACAO": "6/31",
+          "DECIMAL": 0.1935
+        },
+        "ERROR": 0,
+        "FALSE_SUBSTRING_OUTCOME_DEPENDENCY": 1
+      },
+      "DIAGNOSTICO": {
+        "TP": 2,
+        "FN": 0,
+        "TN": 4,
+        "FP": 5,
+        "GRUPOS": 31,
+        "POSITIVOS": 11,
+        "NEGATIVOS": 20,
+        "BINARIAS": 11,
+        "SEM_BINARIA": 20,
+        "PASSA": 6,
+        "SAIDAS": {
+          "NAO_SEI": 25,
+          "NAO": 4,
+          "SIM": 7
+        },
+        "DECISOES_SO_EM_CASAMENTO_FALSO": [
+          {
+            "ITEM_ID": "DERIVED-TEXT_EXTRACTION-5db70211615e3241",
+            "SAIDA": "NAO",
+            "TERMOS": [
+              "lancio"
+            ]
+          }
+        ]
+      },
+      "GRUPOS": [
+        {
+          "GRUPO": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-8426787584c8abbb"
+          ]
+        },
+        {
+          "GRUPO": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+          "TAMANHO": 2,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-0d31ed36e585e4a0",
+            "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03"
+          ]
+        },
+        {
+          "GRUPO": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "91515"
+          ]
+        },
+        {
+          "GRUPO": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c6b11b78702553bd"
+          ]
+        },
+        {
+          "GRUPO": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-e4d11e52d1b85ff3"
+          ]
+        },
+        {
+          "GRUPO": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-bbbe2c550d394c82"
+          ]
+        },
+        {
+          "GRUPO": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a8a5d190e0a4823b"
+          ]
+        },
+        {
+          "GRUPO": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "monitoraggio.html"
+          ]
+        },
+        {
+          "GRUPO": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-53beb6feda1d211a"
+          ]
+        },
+        {
+          "GRUPO": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-edcfceaf564a7865"
+          ]
+        },
+        {
+          "GRUPO": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-5db70211615e3241"
+          ]
+        },
+        {
+          "GRUPO": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "46647"
+          ]
+        },
+        {
+          "GRUPO": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917"
+          ]
+        },
+        {
+          "GRUPO": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a"
+          ]
+        },
+        {
+          "GRUPO": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-d7812ff6143677f2"
+          ]
+        },
+        {
+          "GRUPO": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a"
+          ]
+        },
+        {
+          "GRUPO": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a752940f32c23381"
+          ]
+        },
+        {
+          "GRUPO": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c8520805241ce9fc"
+          ]
+        },
+        {
+          "GRUPO": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "46622"
+          ]
+        },
+        {
+          "GRUPO": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+          "TAMANHO": 2,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
+            "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af"
+          ]
+        },
+        {
+          "GRUPO": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-f539ce89f9222220"
+          ]
+        },
+        {
+          "GRUPO": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-7847e001fcc98641"
+          ]
+        },
+        {
+          "GRUPO": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c"
+          ]
+        },
+        {
+          "GRUPO": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+          "TAMANHO": 4,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-0178d26bdf3ca31c",
+            "DERIVED-TEXT_EXTRACTION-0327e96fd436fd8d",
+            "DERIVED-TEXT_EXTRACTION-3f8e78a0d0a68ccd",
+            "DERIVED-TEXT_EXTRACTION-bc6e879a8737feff"
+          ]
+        },
+        {
+          "GRUPO": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c03e078b81b78a8d"
+          ]
+        },
+        {
+          "GRUPO": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "pagina.html"
+          ]
+        },
+        {
+          "GRUPO": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a0f3b2d856e9b907"
+          ]
+        },
+        {
+          "GRUPO": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-928378580755ec26"
+          ]
+        },
+        {
+          "GRUPO": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-6ae171af811bef3b"
+          ]
+        },
+        {
+          "GRUPO": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada"
+          ]
+        },
+        {
+          "GRUPO": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "NHEOWL0500_00.html"
+          ]
+        }
+      ]
+    },
+    {
+      "CANDIDATE_ID": "C1-LEXICAL-STRUCTURED",
+      "PAPEL": "CANDIDATE",
+      "RUNNABLE_HERE": "YES",
+      "VEREDITO": "FAIL",
+      "GATE": {
+        "GATE_VERSION": "V1",
+        "GATE_OWNER": "provas/gate_de_aceitacao_tematica.py",
+        "PRIMARY_UNIT": "INDEPENDENT_OBSERVATION",
+        "THEMATIC_GATE_PASS": false,
+        "VEREDICTO": "FAIL",
+        "FAILED_CONDITIONS": [
+          "POSITIVE_CAPTURE_RATE",
+          "EXPLICIT_FALSE_NEGATIVE",
+          "SPECIFICITY",
+          "PRECISION_T3",
+          "DECISION_COVERAGE",
+          "GROUP_PASS_RATE"
+        ],
+        "LINHAS": [
+          {
+            "CONDICAO": "POSITIVE_CAPTURE_RATE",
+            "OPERADOR": ">=",
+            "LIMIAR": "10/11",
+            "LIMIAR_DECIMAL": 0.9091,
+            "MEDIDO": 0.5455,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O positivo perdido e o erro caro e invisivel. Tolera-se UM — porque exigir 11/11 num conjunto de 11 transforma qualquer caso de fronteira em reprovacao automatica, e um gate que so passa com perfeicao nao separa mecanismos: rejeita todos. UM e o maximo que ainda deixa o gate discriminar."
+          },
+          {
+            "CONDICAO": "EXPLICIT_FALSE_NEGATIVE",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 1,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "Afirmar «isto nao e T3» sobre algo que E T3 e a unica saida que fecha o assunto com ar de decisao. Ninguem reabre. E diferente de abster-se, e por isso tem limiar proprio e zero."
+          },
+          {
+            "CONDICAO": "SPECIFICITY",
+            "OPERADOR": ">=",
+            "LIMIAR": "9/10",
+            "LIMIAR_DECIMAL": 0.9,
+            "MEDIDO": 0.15,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O negativo errado custa menos, mas custa: cada um inunda a Inteligencia com material que ela tera de descartar a mao. Dois em vinte e o que a operacao absorve sem a fila deixar de ser util."
+          },
+          {
+            "CONDICAO": "PRECISION_T3",
+            "OPERADOR": ">=",
+            "LIMIAR": "4/5",
+            "LIMIAR_DECIMAL": 0.8,
+            "MEDIDO": 0.4286,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "Quando o mecanismo AFIRMA, quem recebe tem de poder confiar. Abaixo de 4/5, um em cada quatro itens da fila e ruido e a fila deixa de ser lida — e uma fila que ninguem le e pior do que fila nenhuma, porque parece que o trabalho esta a ser feito."
+          },
+          {
+            "CONDICAO": "DECISION_COVERAGE",
+            "OPERADOR": ">=",
+            "LIMIAR": "28/31",
+            "LIMIAR_DECIMAL": 0.9032,
+            "MEDIDO": 0.5806,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "ABSTAIN e melhor do que errar, e por isso e permitido. Mas um mecanismo que se abstem em muitos casos empurra o trabalho todo para a pessoa e nao substitui nada. Tres em trinta e uma e a fila de revisao que uma pessoa despacha sem a fila crescer."
+          },
+          {
+            "CONDICAO": "GROUP_PASS_RATE",
+            "OPERADOR": ">=",
+            "LIMIAR": "28/31",
+            "LIMIAR_DECIMAL": 0.9032,
+            "MEDIDO": 0.2903,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O resultado efetivo, e nao o condicional. Acuracia condicional alta com cobertura baixa mede so os casos em que o mecanismo se atreveu — e e exactamente assim que um mecanismo fraco parece forte."
+          },
+          {
+            "CONDICAO": "ERROR",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 0,
+            "PASSA": true,
+            "PORQUE_O_LIMIAR": "ERRO nao e rejeicao e nao e duvida: e «ninguem chegou a olhar». Um mecanismo que rebenta sobre o corpus de avaliacao nao foi avaliado nesses casos, e contar isso como qualquer outra coisa seria inventar uma medicao que nao houve."
+          },
+          {
+            "CONDICAO": "FALSE_SUBSTRING_OUTCOME_DEPENDENCY",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 0,
+            "PASSA": true,
+            "PORQUE_O_LIMIAR": "A baseline mostrou `lancio` a acender dentro de `bilancio` e a PRODUZIR uma das negativas «certas». Um acerto desses nao e o mecanismo a funcionar: e a sorte a alinhar-se, e ela desalinha-se no proximo corpus.\nISTO NAO PROIBE substring matching. Proibe que um RESULTADO dependa de um casamento nao pretendido."
+          }
+        ],
+        "NENHUMA_MEDIA_COMPENSA": "basta uma condicao em falha para o veredicto ser FAIL. Precisao excelente nao compensa captura positiva ruim."
+      },
+      "METRICAS": {
+        "POSITIVE_CAPTURE_RATE": {
+          "FRACAO": "6/11",
+          "DECIMAL": 0.5455
+        },
+        "EXPLICIT_FALSE_NEGATIVE": 1,
+        "SPECIFICITY": {
+          "FRACAO": "3/20",
+          "DECIMAL": 0.15
+        },
+        "PRECISION_T3": {
+          "FRACAO": "3/7",
+          "DECIMAL": 0.4286
+        },
+        "DECISION_COVERAGE": {
+          "FRACAO": "18/31",
+          "DECIMAL": 0.5806
+        },
+        "GROUP_PASS_RATE": {
+          "FRACAO": "9/31",
+          "DECIMAL": 0.2903
+        },
+        "ERROR": 0,
+        "FALSE_SUBSTRING_OUTCOME_DEPENDENCY": 0
+      },
+      "DIAGNOSTICO": {
+        "TP": 6,
+        "FN": 1,
+        "TN": 3,
+        "FP": 8,
+        "GRUPOS": 31,
+        "POSITIVOS": 11,
+        "NEGATIVOS": 20,
+        "BINARIAS": 18,
+        "SEM_BINARIA": 13,
+        "PASSA": 9,
+        "SAIDAS": {
+          "NAO": 4,
+          "NAO_SEI": 15,
+          "SIM": 17
+        },
+        "DECISOES_SO_EM_CASAMENTO_FALSO": []
+      },
+      "GRUPOS": [
+        {
+          "GRUPO": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-8426787584c8abbb"
+          ]
+        },
+        {
+          "GRUPO": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+          "TAMANHO": 2,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-0d31ed36e585e4a0",
+            "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03"
+          ]
+        },
+        {
+          "GRUPO": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO"
+          ],
+          "ITEM_IDS": [
+            "91515"
+          ]
+        },
+        {
+          "GRUPO": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c6b11b78702553bd"
+          ]
+        },
+        {
+          "GRUPO": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-e4d11e52d1b85ff3"
+          ]
+        },
+        {
+          "GRUPO": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-bbbe2c550d394c82"
+          ]
+        },
+        {
+          "GRUPO": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a8a5d190e0a4823b"
+          ]
+        },
+        {
+          "GRUPO": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "monitoraggio.html"
+          ]
+        },
+        {
+          "GRUPO": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-53beb6feda1d211a"
+          ]
+        },
+        {
+          "GRUPO": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-edcfceaf564a7865"
+          ]
+        },
+        {
+          "GRUPO": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-5db70211615e3241"
+          ]
+        },
+        {
+          "GRUPO": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO"
+          ],
+          "ITEM_IDS": [
+            "46647"
+          ]
+        },
+        {
+          "GRUPO": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917"
+          ]
+        },
+        {
+          "GRUPO": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a"
+          ]
+        },
+        {
+          "GRUPO": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-d7812ff6143677f2"
+          ]
+        },
+        {
+          "GRUPO": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a"
+          ]
+        },
+        {
+          "GRUPO": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a752940f32c23381"
+          ]
+        },
+        {
+          "GRUPO": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c8520805241ce9fc"
+          ]
+        },
+        {
+          "GRUPO": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO"
+          ],
+          "ITEM_IDS": [
+            "46622"
+          ]
+        },
+        {
+          "GRUPO": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+          "TAMANHO": 2,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
+            "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af"
+          ]
+        },
+        {
+          "GRUPO": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-f539ce89f9222220"
+          ]
+        },
+        {
+          "GRUPO": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-7847e001fcc98641"
+          ]
+        },
+        {
+          "GRUPO": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c"
+          ]
+        },
+        {
+          "GRUPO": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+          "TAMANHO": 4,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-0178d26bdf3ca31c",
+            "DERIVED-TEXT_EXTRACTION-0327e96fd436fd8d",
+            "DERIVED-TEXT_EXTRACTION-3f8e78a0d0a68ccd",
+            "DERIVED-TEXT_EXTRACTION-bc6e879a8737feff"
+          ]
+        },
+        {
+          "GRUPO": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c03e078b81b78a8d"
+          ]
+        },
+        {
+          "GRUPO": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "pagina.html"
+          ]
+        },
+        {
+          "GRUPO": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a0f3b2d856e9b907"
+          ]
+        },
+        {
+          "GRUPO": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-928378580755ec26"
+          ]
+        },
+        {
+          "GRUPO": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-6ae171af811bef3b"
+          ]
+        },
+        {
+          "GRUPO": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada"
+          ]
+        },
+        {
+          "GRUPO": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "NHEOWL0500_00.html"
+          ]
+        }
+      ]
+    },
+    {
+      "CANDIDATE_ID": "C2-TAXONOMY-CONCEPT",
+      "PAPEL": "CANDIDATE",
+      "RUNNABLE_HERE": "YES",
+      "VEREDITO": "FAIL",
+      "GATE": {
+        "GATE_VERSION": "V1",
+        "GATE_OWNER": "provas/gate_de_aceitacao_tematica.py",
+        "PRIMARY_UNIT": "INDEPENDENT_OBSERVATION",
+        "THEMATIC_GATE_PASS": false,
+        "VEREDICTO": "FAIL",
+        "FAILED_CONDITIONS": [
+          "POSITIVE_CAPTURE_RATE",
+          "SPECIFICITY",
+          "PRECISION_T3",
+          "DECISION_COVERAGE",
+          "GROUP_PASS_RATE"
+        ],
+        "LINHAS": [
+          {
+            "CONDICAO": "POSITIVE_CAPTURE_RATE",
+            "OPERADOR": ">=",
+            "LIMIAR": "10/11",
+            "LIMIAR_DECIMAL": 0.9091,
+            "MEDIDO": 0.7273,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O positivo perdido e o erro caro e invisivel. Tolera-se UM — porque exigir 11/11 num conjunto de 11 transforma qualquer caso de fronteira em reprovacao automatica, e um gate que so passa com perfeicao nao separa mecanismos: rejeita todos. UM e o maximo que ainda deixa o gate discriminar."
+          },
+          {
+            "CONDICAO": "EXPLICIT_FALSE_NEGATIVE",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 0,
+            "PASSA": true,
+            "PORQUE_O_LIMIAR": "Afirmar «isto nao e T3» sobre algo que E T3 e a unica saida que fecha o assunto com ar de decisao. Ninguem reabre. E diferente de abster-se, e por isso tem limiar proprio e zero."
+          },
+          {
+            "CONDICAO": "SPECIFICITY",
+            "OPERADOR": ">=",
+            "LIMIAR": "9/10",
+            "LIMIAR_DECIMAL": 0.9,
+            "MEDIDO": 0.0,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O negativo errado custa menos, mas custa: cada um inunda a Inteligencia com material que ela tera de descartar a mao. Dois em vinte e o que a operacao absorve sem a fila deixar de ser util."
+          },
+          {
+            "CONDICAO": "PRECISION_T3",
+            "OPERADOR": ">=",
+            "LIMIAR": "4/5",
+            "LIMIAR_DECIMAL": 0.8,
+            "MEDIDO": 0.4444,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "Quando o mecanismo AFIRMA, quem recebe tem de poder confiar. Abaixo de 4/5, um em cada quatro itens da fila e ruido e a fila deixa de ser lida — e uma fila que ninguem le e pior do que fila nenhuma, porque parece que o trabalho esta a ser feito."
+          },
+          {
+            "CONDICAO": "DECISION_COVERAGE",
+            "OPERADOR": ">=",
+            "LIMIAR": "28/31",
+            "LIMIAR_DECIMAL": 0.9032,
+            "MEDIDO": 0.5806,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "ABSTAIN e melhor do que errar, e por isso e permitido. Mas um mecanismo que se abstem em muitos casos empurra o trabalho todo para a pessoa e nao substitui nada. Tres em trinta e uma e a fila de revisao que uma pessoa despacha sem a fila crescer."
+          },
+          {
+            "CONDICAO": "GROUP_PASS_RATE",
+            "OPERADOR": ">=",
+            "LIMIAR": "28/31",
+            "LIMIAR_DECIMAL": 0.9032,
+            "MEDIDO": 0.2581,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O resultado efetivo, e nao o condicional. Acuracia condicional alta com cobertura baixa mede so os casos em que o mecanismo se atreveu — e e exactamente assim que um mecanismo fraco parece forte."
+          },
+          {
+            "CONDICAO": "ERROR",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 0,
+            "PASSA": true,
+            "PORQUE_O_LIMIAR": "ERRO nao e rejeicao e nao e duvida: e «ninguem chegou a olhar». Um mecanismo que rebenta sobre o corpus de avaliacao nao foi avaliado nesses casos, e contar isso como qualquer outra coisa seria inventar uma medicao que nao houve."
+          },
+          {
+            "CONDICAO": "FALSE_SUBSTRING_OUTCOME_DEPENDENCY",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 0,
+            "PASSA": true,
+            "PORQUE_O_LIMIAR": "A baseline mostrou `lancio` a acender dentro de `bilancio` e a PRODUZIR uma das negativas «certas». Um acerto desses nao e o mecanismo a funcionar: e a sorte a alinhar-se, e ela desalinha-se no proximo corpus.\nISTO NAO PROIBE substring matching. Proibe que um RESULTADO dependa de um casamento nao pretendido."
+          }
+        ],
+        "NENHUMA_MEDIA_COMPENSA": "basta uma condicao em falha para o veredicto ser FAIL. Precisao excelente nao compensa captura positiva ruim."
+      },
+      "METRICAS": {
+        "POSITIVE_CAPTURE_RATE": {
+          "FRACAO": "8/11",
+          "DECIMAL": 0.7273
+        },
+        "EXPLICIT_FALSE_NEGATIVE": 0,
+        "SPECIFICITY": {
+          "FRACAO": "0/1",
+          "DECIMAL": 0.0
+        },
+        "PRECISION_T3": {
+          "FRACAO": "4/9",
+          "DECIMAL": 0.4444
+        },
+        "DECISION_COVERAGE": {
+          "FRACAO": "18/31",
+          "DECIMAL": 0.5806
+        },
+        "GROUP_PASS_RATE": {
+          "FRACAO": "8/31",
+          "DECIMAL": 0.2581
+        },
+        "ERROR": 0,
+        "FALSE_SUBSTRING_OUTCOME_DEPENDENCY": 0
+      },
+      "DIAGNOSTICO": {
+        "TP": 8,
+        "FN": 0,
+        "TN": 0,
+        "FP": 10,
+        "GRUPOS": 31,
+        "POSITIVOS": 11,
+        "NEGATIVOS": 20,
+        "BINARIAS": 18,
+        "SEM_BINARIA": 13,
+        "PASSA": 8,
+        "SAIDAS": {
+          "NAO_SEI": 13,
+          "SIM": 23
+        },
+        "DECISOES_SO_EM_CASAMENTO_FALSO": []
+      },
+      "GRUPOS": [
+        {
+          "GRUPO": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-8426787584c8abbb"
+          ]
+        },
+        {
+          "GRUPO": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+          "TAMANHO": 2,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-0d31ed36e585e4a0",
+            "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03"
+          ]
+        },
+        {
+          "GRUPO": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "91515"
+          ]
+        },
+        {
+          "GRUPO": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c6b11b78702553bd"
+          ]
+        },
+        {
+          "GRUPO": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-e4d11e52d1b85ff3"
+          ]
+        },
+        {
+          "GRUPO": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-bbbe2c550d394c82"
+          ]
+        },
+        {
+          "GRUPO": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a8a5d190e0a4823b"
+          ]
+        },
+        {
+          "GRUPO": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "monitoraggio.html"
+          ]
+        },
+        {
+          "GRUPO": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-53beb6feda1d211a"
+          ]
+        },
+        {
+          "GRUPO": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-edcfceaf564a7865"
+          ]
+        },
+        {
+          "GRUPO": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-5db70211615e3241"
+          ]
+        },
+        {
+          "GRUPO": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "46647"
+          ]
+        },
+        {
+          "GRUPO": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917"
+          ]
+        },
+        {
+          "GRUPO": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a"
+          ]
+        },
+        {
+          "GRUPO": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-d7812ff6143677f2"
+          ]
+        },
+        {
+          "GRUPO": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a"
+          ]
+        },
+        {
+          "GRUPO": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a752940f32c23381"
+          ]
+        },
+        {
+          "GRUPO": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c8520805241ce9fc"
+          ]
+        },
+        {
+          "GRUPO": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "46622"
+          ]
+        },
+        {
+          "GRUPO": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+          "TAMANHO": 2,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
+            "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af"
+          ]
+        },
+        {
+          "GRUPO": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-f539ce89f9222220"
+          ]
+        },
+        {
+          "GRUPO": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-7847e001fcc98641"
+          ]
+        },
+        {
+          "GRUPO": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c"
+          ]
+        },
+        {
+          "GRUPO": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+          "TAMANHO": 4,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-0178d26bdf3ca31c",
+            "DERIVED-TEXT_EXTRACTION-0327e96fd436fd8d",
+            "DERIVED-TEXT_EXTRACTION-3f8e78a0d0a68ccd",
+            "DERIVED-TEXT_EXTRACTION-bc6e879a8737feff"
+          ]
+        },
+        {
+          "GRUPO": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c03e078b81b78a8d"
+          ]
+        },
+        {
+          "GRUPO": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "pagina.html"
+          ]
+        },
+        {
+          "GRUPO": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a0f3b2d856e9b907"
+          ]
+        },
+        {
+          "GRUPO": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-928378580755ec26"
+          ]
+        },
+        {
+          "GRUPO": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-6ae171af811bef3b"
+          ]
+        },
+        {
+          "GRUPO": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada"
+          ]
+        },
+        {
+          "GRUPO": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "NAO_SEI"
+          ],
+          "ITEM_IDS": [
+            "NHEOWL0500_00.html"
+          ]
+        }
+      ]
+    },
+    {
+      "CANDIDATE_ID": "C3-LLM-STRUCTURED",
+      "PAPEL": "CANDIDATE",
+      "RUNNABLE_HERE": "NO",
+      "VEREDITO": "BLOCKED_NOT_RUNNABLE_IN_THIS_ENVIRONMENT",
+      "GATE": {
+        "GATE_VERSION": "V1",
+        "GATE_OWNER": "provas/gate_de_aceitacao_tematica.py",
+        "PRIMARY_UNIT": "INDEPENDENT_OBSERVATION",
+        "THEMATIC_GATE_PASS": false,
+        "VEREDICTO": "FAIL",
+        "FAILED_CONDITIONS": [
+          "POSITIVE_CAPTURE_RATE",
+          "SPECIFICITY",
+          "PRECISION_T3",
+          "DECISION_COVERAGE",
+          "GROUP_PASS_RATE",
+          "ERROR"
+        ],
+        "LINHAS": [
+          {
+            "CONDICAO": "POSITIVE_CAPTURE_RATE",
+            "OPERADOR": ">=",
+            "LIMIAR": "10/11",
+            "LIMIAR_DECIMAL": 0.9091,
+            "MEDIDO": 0.0,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O positivo perdido e o erro caro e invisivel. Tolera-se UM — porque exigir 11/11 num conjunto de 11 transforma qualquer caso de fronteira em reprovacao automatica, e um gate que so passa com perfeicao nao separa mecanismos: rejeita todos. UM e o maximo que ainda deixa o gate discriminar."
+          },
+          {
+            "CONDICAO": "EXPLICIT_FALSE_NEGATIVE",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 0,
+            "PASSA": true,
+            "PORQUE_O_LIMIAR": "Afirmar «isto nao e T3» sobre algo que E T3 e a unica saida que fecha o assunto com ar de decisao. Ninguem reabre. E diferente de abster-se, e por isso tem limiar proprio e zero."
+          },
+          {
+            "CONDICAO": "SPECIFICITY",
+            "OPERADOR": ">=",
+            "LIMIAR": "9/10",
+            "LIMIAR_DECIMAL": 0.9,
+            "MEDIDO": 0.0,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O negativo errado custa menos, mas custa: cada um inunda a Inteligencia com material que ela tera de descartar a mao. Dois em vinte e o que a operacao absorve sem a fila deixar de ser util."
+          },
+          {
+            "CONDICAO": "PRECISION_T3",
+            "OPERADOR": ">=",
+            "LIMIAR": "4/5",
+            "LIMIAR_DECIMAL": 0.8,
+            "MEDIDO": 0.0,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "Quando o mecanismo AFIRMA, quem recebe tem de poder confiar. Abaixo de 4/5, um em cada quatro itens da fila e ruido e a fila deixa de ser lida — e uma fila que ninguem le e pior do que fila nenhuma, porque parece que o trabalho esta a ser feito."
+          },
+          {
+            "CONDICAO": "DECISION_COVERAGE",
+            "OPERADOR": ">=",
+            "LIMIAR": "28/31",
+            "LIMIAR_DECIMAL": 0.9032,
+            "MEDIDO": 0.0,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "ABSTAIN e melhor do que errar, e por isso e permitido. Mas um mecanismo que se abstem em muitos casos empurra o trabalho todo para a pessoa e nao substitui nada. Tres em trinta e uma e a fila de revisao que uma pessoa despacha sem a fila crescer."
+          },
+          {
+            "CONDICAO": "GROUP_PASS_RATE",
+            "OPERADOR": ">=",
+            "LIMIAR": "28/31",
+            "LIMIAR_DECIMAL": 0.9032,
+            "MEDIDO": 0.0,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O resultado efetivo, e nao o condicional. Acuracia condicional alta com cobertura baixa mede so os casos em que o mecanismo se atreveu — e e exactamente assim que um mecanismo fraco parece forte."
+          },
+          {
+            "CONDICAO": "ERROR",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 31,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "ERRO nao e rejeicao e nao e duvida: e «ninguem chegou a olhar». Um mecanismo que rebenta sobre o corpus de avaliacao nao foi avaliado nesses casos, e contar isso como qualquer outra coisa seria inventar uma medicao que nao houve."
+          },
+          {
+            "CONDICAO": "FALSE_SUBSTRING_OUTCOME_DEPENDENCY",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 0,
+            "PASSA": true,
+            "PORQUE_O_LIMIAR": "A baseline mostrou `lancio` a acender dentro de `bilancio` e a PRODUZIR uma das negativas «certas». Um acerto desses nao e o mecanismo a funcionar: e a sorte a alinhar-se, e ela desalinha-se no proximo corpus.\nISTO NAO PROIBE substring matching. Proibe que um RESULTADO dependa de um casamento nao pretendido."
+          }
+        ],
+        "NENHUMA_MEDIA_COMPENSA": "basta uma condicao em falha para o veredicto ser FAIL. Precisao excelente nao compensa captura positiva ruim."
+      },
+      "METRICAS": {
+        "POSITIVE_CAPTURE_RATE": {
+          "FRACAO": "0/1",
+          "DECIMAL": 0.0
+        },
+        "EXPLICIT_FALSE_NEGATIVE": 0,
+        "SPECIFICITY": {
+          "FRACAO": "0/1",
+          "DECIMAL": 0.0
+        },
+        "PRECISION_T3": {
+          "FRACAO": "0/1",
+          "DECIMAL": 0.0
+        },
+        "DECISION_COVERAGE": {
+          "FRACAO": "0/1",
+          "DECIMAL": 0.0
+        },
+        "GROUP_PASS_RATE": {
+          "FRACAO": "0/1",
+          "DECIMAL": 0.0
+        },
+        "ERROR": 31,
+        "FALSE_SUBSTRING_OUTCOME_DEPENDENCY": 0
+      },
+      "DIAGNOSTICO": {
+        "TP": 0,
+        "FN": 0,
+        "TN": 0,
+        "FP": 0,
+        "GRUPOS": 31,
+        "POSITIVOS": 11,
+        "NEGATIVOS": 20,
+        "BINARIAS": 0,
+        "SEM_BINARIA": 31,
+        "PASSA": 0,
+        "SAIDAS": {
+          "ERRO": 36
+        },
+        "DECISOES_SO_EM_CASAMENTO_FALSO": []
+      },
+      "GRUPOS": [
+        {
+          "GRUPO": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-8426787584c8abbb"
+          ]
+        },
+        {
+          "GRUPO": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+          "TAMANHO": 2,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-0d31ed36e585e4a0",
+            "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03"
+          ]
+        },
+        {
+          "GRUPO": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "91515"
+          ]
+        },
+        {
+          "GRUPO": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c6b11b78702553bd"
+          ]
+        },
+        {
+          "GRUPO": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-e4d11e52d1b85ff3"
+          ]
+        },
+        {
+          "GRUPO": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-bbbe2c550d394c82"
+          ]
+        },
+        {
+          "GRUPO": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a8a5d190e0a4823b"
+          ]
+        },
+        {
+          "GRUPO": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "monitoraggio.html"
+          ]
+        },
+        {
+          "GRUPO": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-53beb6feda1d211a"
+          ]
+        },
+        {
+          "GRUPO": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-edcfceaf564a7865"
+          ]
+        },
+        {
+          "GRUPO": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-5db70211615e3241"
+          ]
+        },
+        {
+          "GRUPO": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "46647"
+          ]
+        },
+        {
+          "GRUPO": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917"
+          ]
+        },
+        {
+          "GRUPO": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a"
+          ]
+        },
+        {
+          "GRUPO": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-d7812ff6143677f2"
+          ]
+        },
+        {
+          "GRUPO": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a"
+          ]
+        },
+        {
+          "GRUPO": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a752940f32c23381"
+          ]
+        },
+        {
+          "GRUPO": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c8520805241ce9fc"
+          ]
+        },
+        {
+          "GRUPO": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "46622"
+          ]
+        },
+        {
+          "GRUPO": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+          "TAMANHO": 2,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
+            "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af"
+          ]
+        },
+        {
+          "GRUPO": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-f539ce89f9222220"
+          ]
+        },
+        {
+          "GRUPO": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-7847e001fcc98641"
+          ]
+        },
+        {
+          "GRUPO": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c"
+          ]
+        },
+        {
+          "GRUPO": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+          "TAMANHO": 4,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-0178d26bdf3ca31c",
+            "DERIVED-TEXT_EXTRACTION-0327e96fd436fd8d",
+            "DERIVED-TEXT_EXTRACTION-3f8e78a0d0a68ccd",
+            "DERIVED-TEXT_EXTRACTION-bc6e879a8737feff"
+          ]
+        },
+        {
+          "GRUPO": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c03e078b81b78a8d"
+          ]
+        },
+        {
+          "GRUPO": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "pagina.html"
+          ]
+        },
+        {
+          "GRUPO": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a0f3b2d856e9b907"
+          ]
+        },
+        {
+          "GRUPO": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-928378580755ec26"
+          ]
+        },
+        {
+          "GRUPO": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-6ae171af811bef3b"
+          ]
+        },
+        {
+          "GRUPO": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada"
+          ]
+        },
+        {
+          "GRUPO": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "NHEOWL0500_00.html"
+          ]
+        }
+      ]
+    },
+    {
+      "CANDIDATE_ID": "C4-HYBRID-CASCADE",
+      "PAPEL": "CANDIDATE",
+      "RUNNABLE_HERE": "YES",
+      "VEREDITO": "FAIL",
+      "GATE": {
+        "GATE_VERSION": "V1",
+        "GATE_OWNER": "provas/gate_de_aceitacao_tematica.py",
+        "PRIMARY_UNIT": "INDEPENDENT_OBSERVATION",
+        "THEMATIC_GATE_PASS": false,
+        "VEREDICTO": "FAIL",
+        "FAILED_CONDITIONS": [
+          "POSITIVE_CAPTURE_RATE",
+          "SPECIFICITY",
+          "PRECISION_T3",
+          "DECISION_COVERAGE",
+          "GROUP_PASS_RATE",
+          "ERROR"
+        ],
+        "LINHAS": [
+          {
+            "CONDICAO": "POSITIVE_CAPTURE_RATE",
+            "OPERADOR": ">=",
+            "LIMIAR": "10/11",
+            "LIMIAR_DECIMAL": 0.9091,
+            "MEDIDO": 0.7273,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O positivo perdido e o erro caro e invisivel. Tolera-se UM — porque exigir 11/11 num conjunto de 11 transforma qualquer caso de fronteira em reprovacao automatica, e um gate que so passa com perfeicao nao separa mecanismos: rejeita todos. UM e o maximo que ainda deixa o gate discriminar."
+          },
+          {
+            "CONDICAO": "EXPLICIT_FALSE_NEGATIVE",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 0,
+            "PASSA": true,
+            "PORQUE_O_LIMIAR": "Afirmar «isto nao e T3» sobre algo que E T3 e a unica saida que fecha o assunto com ar de decisao. Ninguem reabre. E diferente de abster-se, e por isso tem limiar proprio e zero."
+          },
+          {
+            "CONDICAO": "SPECIFICITY",
+            "OPERADOR": ">=",
+            "LIMIAR": "9/10",
+            "LIMIAR_DECIMAL": 0.9,
+            "MEDIDO": 0.0,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O negativo errado custa menos, mas custa: cada um inunda a Inteligencia com material que ela tera de descartar a mao. Dois em vinte e o que a operacao absorve sem a fila deixar de ser util."
+          },
+          {
+            "CONDICAO": "PRECISION_T3",
+            "OPERADOR": ">=",
+            "LIMIAR": "4/5",
+            "LIMIAR_DECIMAL": 0.8,
+            "MEDIDO": 0.4444,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "Quando o mecanismo AFIRMA, quem recebe tem de poder confiar. Abaixo de 4/5, um em cada quatro itens da fila e ruido e a fila deixa de ser lida — e uma fila que ninguem le e pior do que fila nenhuma, porque parece que o trabalho esta a ser feito."
+          },
+          {
+            "CONDICAO": "DECISION_COVERAGE",
+            "OPERADOR": ">=",
+            "LIMIAR": "28/31",
+            "LIMIAR_DECIMAL": 0.9032,
+            "MEDIDO": 0.5806,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "ABSTAIN e melhor do que errar, e por isso e permitido. Mas um mecanismo que se abstem em muitos casos empurra o trabalho todo para a pessoa e nao substitui nada. Tres em trinta e uma e a fila de revisao que uma pessoa despacha sem a fila crescer."
+          },
+          {
+            "CONDICAO": "GROUP_PASS_RATE",
+            "OPERADOR": ">=",
+            "LIMIAR": "28/31",
+            "LIMIAR_DECIMAL": 0.9032,
+            "MEDIDO": 0.2581,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "O resultado efetivo, e nao o condicional. Acuracia condicional alta com cobertura baixa mede so os casos em que o mecanismo se atreveu — e e exactamente assim que um mecanismo fraco parece forte."
+          },
+          {
+            "CONDICAO": "ERROR",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 13,
+            "PASSA": false,
+            "PORQUE_O_LIMIAR": "ERRO nao e rejeicao e nao e duvida: e «ninguem chegou a olhar». Um mecanismo que rebenta sobre o corpus de avaliacao nao foi avaliado nesses casos, e contar isso como qualquer outra coisa seria inventar uma medicao que nao houve."
+          },
+          {
+            "CONDICAO": "FALSE_SUBSTRING_OUTCOME_DEPENDENCY",
+            "OPERADOR": "<=",
+            "LIMIAR": "0",
+            "LIMIAR_DECIMAL": 0,
+            "MEDIDO": 0,
+            "PASSA": true,
+            "PORQUE_O_LIMIAR": "A baseline mostrou `lancio` a acender dentro de `bilancio` e a PRODUZIR uma das negativas «certas». Um acerto desses nao e o mecanismo a funcionar: e a sorte a alinhar-se, e ela desalinha-se no proximo corpus.\nISTO NAO PROIBE substring matching. Proibe que um RESULTADO dependa de um casamento nao pretendido."
+          }
+        ],
+        "NENHUMA_MEDIA_COMPENSA": "basta uma condicao em falha para o veredicto ser FAIL. Precisao excelente nao compensa captura positiva ruim."
+      },
+      "METRICAS": {
+        "POSITIVE_CAPTURE_RATE": {
+          "FRACAO": "8/11",
+          "DECIMAL": 0.7273
+        },
+        "EXPLICIT_FALSE_NEGATIVE": 0,
+        "SPECIFICITY": {
+          "FRACAO": "0/1",
+          "DECIMAL": 0.0
+        },
+        "PRECISION_T3": {
+          "FRACAO": "4/9",
+          "DECIMAL": 0.4444
+        },
+        "DECISION_COVERAGE": {
+          "FRACAO": "18/31",
+          "DECIMAL": 0.5806
+        },
+        "GROUP_PASS_RATE": {
+          "FRACAO": "8/31",
+          "DECIMAL": 0.2581
+        },
+        "ERROR": 13,
+        "FALSE_SUBSTRING_OUTCOME_DEPENDENCY": 0
+      },
+      "DIAGNOSTICO": {
+        "TP": 8,
+        "FN": 0,
+        "TN": 0,
+        "FP": 10,
+        "GRUPOS": 31,
+        "POSITIVOS": 11,
+        "NEGATIVOS": 20,
+        "BINARIAS": 18,
+        "SEM_BINARIA": 13,
+        "PASSA": 8,
+        "SAIDAS": {
+          "ERRO": 13,
+          "SIM": 23
+        },
+        "DECISOES_SO_EM_CASAMENTO_FALSO": []
+      },
+      "GRUPOS": [
+        {
+          "GRUPO": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-8426787584c8abbb"
+          ]
+        },
+        {
+          "GRUPO": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+          "TAMANHO": 2,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-0d31ed36e585e4a0",
+            "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03"
+          ]
+        },
+        {
+          "GRUPO": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "91515"
+          ]
+        },
+        {
+          "GRUPO": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c6b11b78702553bd"
+          ]
+        },
+        {
+          "GRUPO": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-e4d11e52d1b85ff3"
+          ]
+        },
+        {
+          "GRUPO": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-bbbe2c550d394c82"
+          ]
+        },
+        {
+          "GRUPO": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a8a5d190e0a4823b"
+          ]
+        },
+        {
+          "GRUPO": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "monitoraggio.html"
+          ]
+        },
+        {
+          "GRUPO": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-53beb6feda1d211a"
+          ]
+        },
+        {
+          "GRUPO": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-edcfceaf564a7865"
+          ]
+        },
+        {
+          "GRUPO": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-5db70211615e3241"
+          ]
+        },
+        {
+          "GRUPO": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "46647"
+          ]
+        },
+        {
+          "GRUPO": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917"
+          ]
+        },
+        {
+          "GRUPO": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a"
+          ]
+        },
+        {
+          "GRUPO": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-d7812ff6143677f2"
+          ]
+        },
+        {
+          "GRUPO": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a"
+          ]
+        },
+        {
+          "GRUPO": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a752940f32c23381"
+          ]
+        },
+        {
+          "GRUPO": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c8520805241ce9fc"
+          ]
+        },
+        {
+          "GRUPO": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "46622"
+          ]
+        },
+        {
+          "GRUPO": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+          "TAMANHO": 2,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
+            "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af"
+          ]
+        },
+        {
+          "GRUPO": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-f539ce89f9222220"
+          ]
+        },
+        {
+          "GRUPO": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-7847e001fcc98641"
+          ]
+        },
+        {
+          "GRUPO": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c"
+          ]
+        },
+        {
+          "GRUPO": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+          "TAMANHO": 4,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-0178d26bdf3ca31c",
+            "DERIVED-TEXT_EXTRACTION-0327e96fd436fd8d",
+            "DERIVED-TEXT_EXTRACTION-3f8e78a0d0a68ccd",
+            "DERIVED-TEXT_EXTRACTION-bc6e879a8737feff"
+          ]
+        },
+        {
+          "GRUPO": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-c03e078b81b78a8d"
+          ]
+        },
+        {
+          "GRUPO": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "pagina.html"
+          ]
+        },
+        {
+          "GRUPO": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-a0f3b2d856e9b907"
+          ]
+        },
+        {
+          "GRUPO": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_SIM",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-928378580755ec26"
+          ]
+        },
+        {
+          "GRUPO": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-6ae171af811bef3b"
+          ]
+        },
+        {
+          "GRUPO": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "SIM"
+          ],
+          "ITEM_IDS": [
+            "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada"
+          ]
+        },
+        {
+          "GRUPO": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+          "TAMANHO": 1,
+          "HUMAN_LABEL": "T3_NAO",
+          "PREVISOES": [
+            "ERRO"
+          ],
+          "ITEM_IDS": [
+            "NHEOWL0500_00.html"
+          ]
+        }
+      ]
+    }
+  ],
+  "RAW_LINES": {
+    "BASELINE-ADMISSION-ACTUAL": [
+      {
+        "DOC_SHA256": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+        "ITEM_ID": "46622",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
+        "EVIDENCIA": {
+          "estagio": "ESTAGIO_DESCONHECIDO"
+        }
+      },
+      {
+        "DOC_SHA256": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+        "ITEM_ID": "46647",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
+        "EVIDENCIA": {
+          "estagio": "ESTAGIO_DESCONHECIDO"
+        }
+      },
+      {
+        "DOC_SHA256": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+        "ITEM_ID": "91515",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
+        "EVIDENCIA": {
+          "estagio": "ESTAGIO_DESCONHECIDO"
+        }
+      },
+      {
+        "DOC_SHA256": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+        "ITEM_ID": "NHEOWL0500_00.html",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
+        "EVIDENCIA": {
+          "estagio": "ESTAGIO_DESCONHECIDO"
+        }
+      },
+      {
+        "DOC_SHA256": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-8426787584c8abbb",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0d31ed36e585e4a0",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao encontrei nada de «T3» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c6b11b78702553bd",
+        "RAW_OUTPUT": "NAO",
+        "MOTIVO": "nao fala de «T3», e fala claramente de outro universo (T9: evento, lancio). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+        "EVIDENCIA": {
+          "achado_noutro": {
+            "T9": [
+              "evento",
+              "lancio"
+            ]
+          },
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-e4d11e52d1b85ff3",
+        "RAW_OUTPUT": "NAO",
+        "MOTIVO": "nao fala de «T3», e fala claramente de outro universo (T4: autorizzazione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+        "EVIDENCIA": {
+          "achado_noutro": {
+            "T4": [
+              "autorizzazione"
+            ]
+          },
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-bbbe2c550d394c82",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a8a5d190e0a4823b",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "fala de parassita, malattia — que e do que «T3» trata",
+        "EVIDENCIA": {
+          "palavras": [
+            "parassita",
+            "malattia"
+          ],
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "392840d3e13d1b1506f7aab01f10fdf30799c22b29468314173279c46f2c3d55",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0327e96fd436fd8d",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao encontrei nada de «T3» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-53beb6feda1d211a",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "fala de parassita, malattia, insetto, infestazione — que e do que «T3» trata",
+        "EVIDENCIA": {
+          "palavras": [
+            "parassita",
+            "malattia",
+            "insetto",
+            "infestazione",
+            "avversita"
+          ],
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-edcfceaf564a7865",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "fala de fungo, sintoma, parassita, malattia — que e do que «T3» trata",
+        "EVIDENCIA": {
+          "palavras": [
+            "fungo",
+            "sintoma",
+            "parassita",
+            "malattia",
+            "insetto",
+            "infestazione"
+          ],
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-5db70211615e3241",
+        "RAW_OUTPUT": "NAO",
+        "MOTIVO": "nao fala de «T3», e fala claramente de outro universo (T9: lancio). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+        "EVIDENCIA": {
+          "achado_noutro": {
+            "T9": [
+              "lancio"
+            ]
+          },
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "fala de malattia, insetto, avversita — que e do que «T3» trata",
+        "EVIDENCIA": {
+          "palavras": [
+            "malattia",
+            "insetto",
+            "avversita"
+          ],
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-d7812ff6143677f2",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a752940f32c23381",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c8520805241ce9fc",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "823e18ebb232eb36d6c14bec05e155487933be80d9082169f8fb197b57e551c9",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-3f8e78a0d0a68ccd",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao encontrei nada de «T3» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-f539ce89f9222220",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "fala de fungo, malattia, insetto, infestazione — que e do que «T3» trata",
+        "EVIDENCIA": {
+          "palavras": [
+            "fungo",
+            "malattia",
+            "insetto",
+            "infestazione",
+            "patogeno"
+          ],
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-7847e001fcc98641",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0178d26bdf3ca31c",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c03e078b81b78a8d",
+        "RAW_OUTPUT": "NAO",
+        "MOTIVO": "nao fala de «T3», e fala claramente de outro universo (T9: prodotto; T4: decreto, autorizzazione, registrazione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+        "EVIDENCIA": {
+          "achado_noutro": {
+            "T9": [
+              "prodotto"
+            ],
+            "T4": [
+              "decreto",
+              "autorizzazione",
+              "registrazione"
+            ]
+          },
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a0f3b2d856e9b907",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-928378580755ec26",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-6ae171af811bef3b",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "fala de parassita, insetto, infestazione — que e do que «T3» trata",
+        "EVIDENCIA": {
+          "palavras": [
+            "parassita",
+            "insetto",
+            "infestazione"
+          ],
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "fala de fungo, sintoma, parassita, malattia — que e do que «T3» trata",
+        "EVIDENCIA": {
+          "palavras": [
+            "fungo",
+            "sintoma",
+            "parassita",
+            "malattia",
+            "insetto",
+            "infestazione"
+          ],
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "e6ec962a8a730ee4923ff68455f95b007d9e5b3b44ee0862882a2ddb41a8f412",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-bc6e879a8737feff",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao encontrei nada de «T3» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+        "EVIDENCIA": {
+          "estagio": "DOCUMENTO"
+        }
+      },
+      {
+        "DOC_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+        "ITEM_ID": "monitoraggio.html",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
+        "EVIDENCIA": {
+          "estagio": "ESTAGIO_DESCONHECIDO"
+        }
+      },
+      {
+        "DOC_SHA256": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+        "ITEM_ID": "pagina.html",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+        "EVIDENCIA": {
+          "estagio": "ESTAGIO_DESCONHECIDO"
+        }
+      }
+    ],
+    "C1-LEXICAL-STRUCTURED": [
+      {
+        "DOC_SHA256": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+        "ITEM_ID": "46622",
+        "RAW_OUTPUT": "NAO",
+        "MOTIVO": "nao fala deste universo e fala de outro com peso: T7, T9",
+        "EVIDENCIA": {
+          "achado_noutro": {
+            "T7": [
+              "ricerca",
+              "articolo",
+              "pubblicazione"
+            ],
+            "T9": [
+              "evento",
+              "novita"
+            ]
+          }
+        }
+      },
+      {
+        "DOC_SHA256": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+        "ITEM_ID": "46647",
+        "RAW_OUTPUT": "NAO",
+        "MOTIVO": "nao fala deste universo e fala de outro com peso: T7, T9",
+        "EVIDENCIA": {
+          "achado_noutro": {
+            "T7": [
+              "ricerca",
+              "articolo",
+              "pubblicazione"
+            ],
+            "T9": [
+              "evento",
+              "novita"
+            ]
+          }
+        }
+      },
+      {
+        "DOC_SHA256": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+        "ITEM_ID": "91515",
+        "RAW_OUTPUT": "NAO",
+        "MOTIVO": "nao fala deste universo e fala de outro com peso: T7",
+        "EVIDENCIA": {
+          "achado_noutro": {
+            "T7": [
+              "doi",
+              "orcid",
+              "ricerca",
+              "rivista",
+              "articolo",
+              "universita"
+            ]
+          }
+        }
+      },
+      {
+        "DOC_SHA256": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+        "ITEM_ID": "NHEOWL0500_00.html",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-8426787584c8abbb",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "3 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "infestazione",
+            "avversita",
+            "patogeno"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0d31ed36e585e4a0",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c6b11b78702553bd",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-e4d11e52d1b85ff3",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-bbbe2c550d394c82",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "3 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "insetto",
+            "infestazione",
+            "avversita"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a8a5d190e0a4823b",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "malattia",
+            "avversita"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "392840d3e13d1b1506f7aab01f10fdf30799c22b29468314173279c46f2c3d55",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0327e96fd436fd8d",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "infestazione",
+            "avversita"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-53beb6feda1d211a",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "5 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "parassita",
+            "malattia",
+            "insetto",
+            "infestazione",
+            "avversita"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-edcfceaf564a7865",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "5 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "fungo",
+            "parassita",
+            "malattia",
+            "insetto",
+            "infestazione"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-5db70211615e3241",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "3 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "malattia",
+            "insetto",
+            "avversita"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-d7812ff6143677f2",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "malattia",
+            "insetto"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a752940f32c23381",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c8520805241ce9fc",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "insetto",
+            "infestazione"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "823e18ebb232eb36d6c14bec05e155487933be80d9082169f8fb197b57e551c9",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-3f8e78a0d0a68ccd",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "infestazione",
+            "avversita"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-f539ce89f9222220",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "6 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "fungo",
+            "malattia",
+            "insetto",
+            "infestazione",
+            "avversita",
+            "patogeno"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-7847e001fcc98641",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (1 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": [
+            "insetto"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0178d26bdf3ca31c",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "infestazione",
+            "avversita"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c03e078b81b78a8d",
+        "RAW_OUTPUT": "NAO",
+        "MOTIVO": "nao fala deste universo e fala de outro com peso: T4",
+        "EVIDENCIA": {
+          "achado_noutro": {
+            "T4": [
+              "decreto",
+              "autorizzazione",
+              "registrazione"
+            ]
+          }
+        }
+      },
+      {
+        "DOC_SHA256": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a0f3b2d856e9b907",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "infestazione",
+            "avversita"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-928378580755ec26",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-6ae171af811bef3b",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "4 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "parassita",
+            "insetto",
+            "infestazione",
+            "avversita"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "5 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "fungo",
+            "parassita",
+            "malattia",
+            "insetto",
+            "infestazione"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "e6ec962a8a730ee4923ff68455f95b007d9e5b3b44ee0862882a2ddb41a8f412",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-bc6e879a8737feff",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "infestazione",
+            "avversita"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (0 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": []
+        }
+      },
+      {
+        "DOC_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+        "ITEM_ID": "monitoraggio.html",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "evidencia abaixo do limiar (1 de 2 termos necessarios). Ausencia de evidencia nao e evidencia de ausencia.",
+        "EVIDENCIA": {
+          "termos": [
+            "infestazione"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+        "ITEM_ID": "pagina.html",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "4 termos deste universo, cada um como palavra inteira e fora de escopo de negacao",
+        "EVIDENCIA": {
+          "termos": [
+            "malattia",
+            "insetto",
+            "sintomo",
+            "avversita"
+          ]
+        }
+      }
+    ],
+    "C2-TAXONOMY-CONCEPT": [
+      {
+        "DOC_SHA256": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+        "ITEM_ID": "46622",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      },
+      {
+        "DOC_SHA256": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+        "ITEM_ID": "46647",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      },
+      {
+        "DOC_SHA256": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+        "ITEM_ID": "91515",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "4 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DROSU",
+            "1DIPTO",
+            "1DROSF",
+            "1HYMEO"
+          ],
+          "nomes": [
+            "drosophila suzukii",
+            "diptera",
+            "drosophilidae",
+            "hymenoptera"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+        "ITEM_ID": "NHEOWL0500_00.html",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      },
+      {
+        "DOC_SHA256": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-8426787584c8abbb",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "37 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1AGRIG",
+            "VASALY",
+            "1PEROG",
+            "PEROBE",
+            "PERODE",
+            "PEROFA",
+            "PEROTA",
+            "PEROMA"
+          ],
+          "nomes": [
+            "agriotes",
+            "aculops lycopersici",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0d31ed36e585e4a0",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "16 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "HALYHA",
+            "NEZAVI",
+            "EUZOBI",
+            "EUZOPI",
+            "PALPUN",
+            "1COLLG"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "halyomorpha halys",
+            "nezara viridula",
+            "euzophera",
+            "euzophera pinguis",
+            "margaronia",
+            "colletotrichum"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c6b11b78702553bd",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      },
+      {
+        "DOC_SHA256": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-e4d11e52d1b85ff3",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      },
+      {
+        "DOC_SHA256": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-bbbe2c550d394c82",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "20 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1PEROG",
+            "PEROBE",
+            "PERODE",
+            "PEROFA",
+            "PEROTA",
+            "PEROMA",
+            "PSPESR",
+            "PEROTR"
+          ],
+          "nomes": [
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a8a5d190e0a4823b",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "8 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "PRAYOL",
+            "SAISOL",
+            "PHLBOL",
+            "PALPUN",
+            "1XYLEG",
+            "XYLEFA"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "prays oleae",
+            "saissetia oleae",
+            "phloeotribus",
+            "margaronia",
+            "xylella",
+            "xylella fastidiosa"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "392840d3e13d1b1506f7aab01f10fdf30799c22b29468314173279c46f2c3d55",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0327e96fd436fd8d",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "16 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "HALYHA",
+            "NEZAVI",
+            "EUZOBI",
+            "EUZOPI",
+            "PALPUN",
+            "1COLLG"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "halyomorpha halys",
+            "nezara viridula",
+            "euzophera",
+            "euzophera pinguis",
+            "margaronia",
+            "colletotrichum"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-53beb6feda1d211a",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "33 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1COLLG",
+            "COLLAC",
+            "COLLCI",
+            "COLLCC",
+            "COLLGL",
+            "COLLGR",
+            "COLLLD",
+            "COLLMU"
+          ],
+          "nomes": [
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum gloeosporioides",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-edcfceaf564a7865",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "41 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "OTIOCR",
+            "DACUDO",
+            "DACUOL",
+            "1XYLEG",
+            "XYLEFA",
+            "1PEROG",
+            "PEROBE",
+            "PERODE"
+          ],
+          "nomes": [
+            "otiorhynchus cribricollis",
+            "bactrocera",
+            "bactrocera oleae",
+            "xylella",
+            "xylella fastidiosa",
+            "peronospora",
+            "peronospora",
+            "peronospora"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-5db70211615e3241",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      },
+      {
+        "DOC_SHA256": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "4 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "PALPUN",
+            "HALYHA"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "margaronia",
+            "halyomorpha halys"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "33 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1COLLG",
+            "COLLAC",
+            "COLLCI",
+            "COLLCC",
+            "COLLGL",
+            "COLLGR",
+            "COLLLD",
+            "COLLMU"
+          ],
+          "nomes": [
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum gloeosporioides",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-d7812ff6143677f2",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      },
+      {
+        "DOC_SHA256": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      },
+      {
+        "DOC_SHA256": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a752940f32c23381",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      },
+      {
+        "DOC_SHA256": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c8520805241ce9fc",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "24 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1PEROG",
+            "PEROBE",
+            "PERODE",
+            "PEROFA",
+            "PEROTA",
+            "PEROMA",
+            "PSPESR",
+            "PEROTR"
+          ],
+          "nomes": [
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "823e18ebb232eb36d6c14bec05e155487933be80d9082169f8fb197b57e551c9",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-3f8e78a0d0a68ccd",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "7 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "HALYHA",
+            "NEZAVI",
+            "EUZOBI",
+            "EUZOPI",
+            "PALPUN"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "halyomorpha halys",
+            "nezara viridula",
+            "euzophera",
+            "euzophera pinguis",
+            "margaronia"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-f539ce89f9222220",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "32 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1COLLG",
+            "COLLAC",
+            "COLLCI",
+            "COLLCC",
+            "COLLGL",
+            "COLLGR",
+            "COLLLD",
+            "COLLMU"
+          ],
+          "nomes": [
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum gloeosporioides",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-7847e001fcc98641",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "CARPPO",
+            "CERTCA"
+          ],
+          "nomes": [
+            "cydia pomonella",
+            "ceratitis capitata"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      },
+      {
+        "DOC_SHA256": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0178d26bdf3ca31c",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c03e078b81b78a8d",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      },
+      {
+        "DOC_SHA256": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a0f3b2d856e9b907",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-928378580755ec26",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "16 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "HALYHA",
+            "NEZAVI",
+            "EUZOBI",
+            "EUZOPI",
+            "PALPUN",
+            "1COLLG"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "halyomorpha halys",
+            "nezara viridula",
+            "euzophera",
+            "euzophera pinguis",
+            "margaronia",
+            "colletotrichum"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-6ae171af811bef3b",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "83 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1ERWIG",
+            "ERWIAM",
+            "ERWIPE",
+            "1ALTEG",
+            "ALTEAL",
+            "ALTEAC",
+            "ALTEBA",
+            "ALTECU"
+          ],
+          "nomes": [
+            "erwinia",
+            "erwinia amylovora",
+            "erwinia",
+            "alternaria",
+            "alternaria",
+            "alternaria",
+            "alternaria",
+            "alternaria"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "44 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "ANMLVT",
+            "OTIOCR",
+            "DACUDO",
+            "DACUOL",
+            "1XYLEG",
+            "XYLEFA",
+            "1PEROG",
+            "PEROBE"
+          ],
+          "nomes": [
+            "anomala",
+            "otiorhynchus cribricollis",
+            "bactrocera",
+            "bactrocera oleae",
+            "xylella",
+            "xylella fastidiosa",
+            "peronospora",
+            "peronospora"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "e6ec962a8a730ee4923ff68455f95b007d9e5b3b44ee0862882a2ddb41a8f412",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-bc6e879a8737feff",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "7 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "HALYHA",
+            "NEZAVI",
+            "EUZOBI",
+            "EUZOPI",
+            "PALPUN"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "halyomorpha halys",
+            "nezara viridula",
+            "euzophera",
+            "euzophera pinguis",
+            "margaronia"
+          ]
+        }
+      },
+      {
+        "DOC_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+        "ITEM_ID": "monitoraggio.html",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      },
+      {
+        "DOC_SHA256": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+        "ITEM_ID": "pagina.html",
+        "RAW_OUTPUT": "NAO_SEI",
+        "MOTIVO": "nenhum conceito de alvo acima do limiar (0 de 2). O vocabulario local e de origem espanhola e a sua cobertura em generos so italianos esta medida como incompleta — ausencia de conceito e confissao do ",
+        "EVIDENCIA": {
+          "conceitos": []
+        }
+      }
+    ],
+    "C3-LLM-STRUCTURED": [
+      {
+        "DOC_SHA256": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+        "ITEM_ID": "46622",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+        "ITEM_ID": "46647",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+        "ITEM_ID": "91515",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+        "ITEM_ID": "NHEOWL0500_00.html",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-8426787584c8abbb",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0d31ed36e585e4a0",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c6b11b78702553bd",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-e4d11e52d1b85ff3",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-bbbe2c550d394c82",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a8a5d190e0a4823b",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "392840d3e13d1b1506f7aab01f10fdf30799c22b29468314173279c46f2c3d55",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0327e96fd436fd8d",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-53beb6feda1d211a",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-edcfceaf564a7865",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-5db70211615e3241",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-d7812ff6143677f2",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a752940f32c23381",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c8520805241ce9fc",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "823e18ebb232eb36d6c14bec05e155487933be80d9082169f8fb197b57e551c9",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-3f8e78a0d0a68ccd",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-f539ce89f9222220",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-7847e001fcc98641",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0178d26bdf3ca31c",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c03e078b81b78a8d",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a0f3b2d856e9b907",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-928378580755ec26",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-6ae171af811bef3b",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "e6ec962a8a730ee4923ff68455f95b007d9e5b3b44ee0862882a2ddb41a8f412",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-bc6e879a8737feff",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+        "ITEM_ID": "monitoraggio.html",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      },
+      {
+        "DOC_SHA256": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+        "ITEM_ID": "pagina.html",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {}
+      }
+    ],
+    "C4-HYBRID-CASCADE": [
+      {
+        "DOC_SHA256": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+        "ITEM_ID": "46622",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      },
+      {
+        "DOC_SHA256": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+        "ITEM_ID": "46647",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      },
+      {
+        "DOC_SHA256": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+        "ITEM_ID": "91515",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "4 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DROSU",
+            "1DIPTO",
+            "1DROSF",
+            "1HYMEO"
+          ],
+          "nomes": [
+            "drosophila suzukii",
+            "diptera",
+            "drosophilidae",
+            "hymenoptera"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+        "ITEM_ID": "NHEOWL0500_00.html",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      },
+      {
+        "DOC_SHA256": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-8426787584c8abbb",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "37 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1AGRIG",
+            "VASALY",
+            "1PEROG",
+            "PEROBE",
+            "PERODE",
+            "PEROFA",
+            "PEROTA",
+            "PEROMA"
+          ],
+          "nomes": [
+            "agriotes",
+            "aculops lycopersici",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0d31ed36e585e4a0",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "16 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "HALYHA",
+            "NEZAVI",
+            "EUZOBI",
+            "EUZOPI",
+            "PALPUN",
+            "1COLLG"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "halyomorpha halys",
+            "nezara viridula",
+            "euzophera",
+            "euzophera pinguis",
+            "margaronia",
+            "colletotrichum"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c6b11b78702553bd",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      },
+      {
+        "DOC_SHA256": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-e4d11e52d1b85ff3",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      },
+      {
+        "DOC_SHA256": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-bbbe2c550d394c82",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "20 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1PEROG",
+            "PEROBE",
+            "PERODE",
+            "PEROFA",
+            "PEROTA",
+            "PEROMA",
+            "PSPESR",
+            "PEROTR"
+          ],
+          "nomes": [
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a8a5d190e0a4823b",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "8 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "PRAYOL",
+            "SAISOL",
+            "PHLBOL",
+            "PALPUN",
+            "1XYLEG",
+            "XYLEFA"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "prays oleae",
+            "saissetia oleae",
+            "phloeotribus",
+            "margaronia",
+            "xylella",
+            "xylella fastidiosa"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "392840d3e13d1b1506f7aab01f10fdf30799c22b29468314173279c46f2c3d55",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0327e96fd436fd8d",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "16 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "HALYHA",
+            "NEZAVI",
+            "EUZOBI",
+            "EUZOPI",
+            "PALPUN",
+            "1COLLG"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "halyomorpha halys",
+            "nezara viridula",
+            "euzophera",
+            "euzophera pinguis",
+            "margaronia",
+            "colletotrichum"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-53beb6feda1d211a",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "33 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1COLLG",
+            "COLLAC",
+            "COLLCI",
+            "COLLCC",
+            "COLLGL",
+            "COLLGR",
+            "COLLLD",
+            "COLLMU"
+          ],
+          "nomes": [
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum gloeosporioides",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-edcfceaf564a7865",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "41 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "OTIOCR",
+            "DACUDO",
+            "DACUOL",
+            "1XYLEG",
+            "XYLEFA",
+            "1PEROG",
+            "PEROBE",
+            "PERODE"
+          ],
+          "nomes": [
+            "otiorhynchus cribricollis",
+            "bactrocera",
+            "bactrocera oleae",
+            "xylella",
+            "xylella fastidiosa",
+            "peronospora",
+            "peronospora",
+            "peronospora"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-5db70211615e3241",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      },
+      {
+        "DOC_SHA256": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "4 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "PALPUN",
+            "HALYHA"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "margaronia",
+            "halyomorpha halys"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "33 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1COLLG",
+            "COLLAC",
+            "COLLCI",
+            "COLLCC",
+            "COLLGL",
+            "COLLGR",
+            "COLLLD",
+            "COLLMU"
+          ],
+          "nomes": [
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum gloeosporioides",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-d7812ff6143677f2",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      },
+      {
+        "DOC_SHA256": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      },
+      {
+        "DOC_SHA256": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a752940f32c23381",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      },
+      {
+        "DOC_SHA256": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c8520805241ce9fc",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "24 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1PEROG",
+            "PEROBE",
+            "PERODE",
+            "PEROFA",
+            "PEROTA",
+            "PEROMA",
+            "PSPESR",
+            "PEROTR"
+          ],
+          "nomes": [
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora",
+            "peronospora"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "823e18ebb232eb36d6c14bec05e155487933be80d9082169f8fb197b57e551c9",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-3f8e78a0d0a68ccd",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "7 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "HALYHA",
+            "NEZAVI",
+            "EUZOBI",
+            "EUZOPI",
+            "PALPUN"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "halyomorpha halys",
+            "nezara viridula",
+            "euzophera",
+            "euzophera pinguis",
+            "margaronia"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-f539ce89f9222220",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "32 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1COLLG",
+            "COLLAC",
+            "COLLCI",
+            "COLLCC",
+            "COLLGL",
+            "COLLGR",
+            "COLLLD",
+            "COLLMU"
+          ],
+          "nomes": [
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum gloeosporioides",
+            "colletotrichum",
+            "colletotrichum",
+            "colletotrichum"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-7847e001fcc98641",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "CARPPO",
+            "CERTCA"
+          ],
+          "nomes": [
+            "cydia pomonella",
+            "ceratitis capitata"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      },
+      {
+        "DOC_SHA256": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-0178d26bdf3ca31c",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-c03e078b81b78a8d",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      },
+      {
+        "DOC_SHA256": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-a0f3b2d856e9b907",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-928378580755ec26",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "16 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "HALYHA",
+            "NEZAVI",
+            "EUZOBI",
+            "EUZOPI",
+            "PALPUN",
+            "1COLLG"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "halyomorpha halys",
+            "nezara viridula",
+            "euzophera",
+            "euzophera pinguis",
+            "margaronia",
+            "colletotrichum"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-6ae171af811bef3b",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "83 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "1ERWIG",
+            "ERWIAM",
+            "ERWIPE",
+            "1ALTEG",
+            "ALTEAL",
+            "ALTEAC",
+            "ALTEBA",
+            "ALTECU"
+          ],
+          "nomes": [
+            "erwinia",
+            "erwinia amylovora",
+            "erwinia",
+            "alternaria",
+            "alternaria",
+            "alternaria",
+            "alternaria",
+            "alternaria"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "44 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "ANMLVT",
+            "OTIOCR",
+            "DACUDO",
+            "DACUOL",
+            "1XYLEG",
+            "XYLEFA",
+            "1PEROG",
+            "PEROBE"
+          ],
+          "nomes": [
+            "anomala",
+            "otiorhynchus cribricollis",
+            "bactrocera",
+            "bactrocera oleae",
+            "xylella",
+            "xylella fastidiosa",
+            "peronospora",
+            "peronospora"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "e6ec962a8a730ee4923ff68455f95b007d9e5b3b44ee0862882a2ddb41a8f412",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-bc6e879a8737feff",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "2 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+        "ITEM_ID": "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
+        "RAW_OUTPUT": "SIM",
+        "MOTIVO": "7 conceitos de alvo do vocabulario controlado, pelo nome cientifico",
+        "EVIDENCIA": {
+          "conceitos": [
+            "DACUDO",
+            "DACUOL",
+            "HALYHA",
+            "NEZAVI",
+            "EUZOBI",
+            "EUZOPI",
+            "PALPUN"
+          ],
+          "nomes": [
+            "bactrocera",
+            "bactrocera oleae",
+            "halyomorpha halys",
+            "nezara viridula",
+            "euzophera",
+            "euzophera pinguis",
+            "margaronia"
+          ],
+          "andar": "1-TAXONOMIA"
+        }
+      },
+      {
+        "DOC_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+        "ITEM_ID": "monitoraggio.html",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      },
+      {
+        "DOC_SHA256": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+        "ITEM_ID": "pagina.html",
+        "RAW_OUTPUT": "ERRO",
+        "MOTIVO": "sem credencial de modelo neste ambiente: ninguem chegou a olhar para este documento",
+        "EVIDENCIA": {
+          "andar": "2-ESCALADO"
+        }
+      }
+    ]
+  },
+  "GENERATED_BY": "provas/benchmark_tematico.py --avaliar"
+}
