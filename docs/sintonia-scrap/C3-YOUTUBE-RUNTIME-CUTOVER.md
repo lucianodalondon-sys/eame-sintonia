@@ -567,7 +567,30 @@ py system-map/scripts/validate_system_map.py
 primeiro deixaria o censo das estradas velho e o validador a comparar com um
 retrato que já não existe. Os três correm, nesta ordem.
 
-**Resultado: `PASS`.**
+### E há um quarto passo, que se aprende a perder um ciclo
+
+O gerador **não re-escaneia o repositório** no caminho normal: ele lê o
+inventário que `scan_repo.py` deixou. Um ficheiro novo ou alterado desde o
+último scan entra no mapa com o **SHA antigo**, o gerador diz `MAPA=OK`, `git
+status` fica limpo — e o validador reprova por drift num ficheiro que ninguém
+mexeu depois de gerar.
+
+```
+UM GERADOR QUE DIZ «OK» A LER UM INVENTÁRIO VELHO NÃO ESTÁ A MEDIR O REPO.
+ESTÁ A REPETIR A MEDIÇÃO DE ONTEM.
+```
+
+A ordem que fecha, medida nesta missão:
+
+```bash
+py system-map/scripts/scan_repo.py          # o inventário, do disco
+py system-map/scripts/scan_sources.py       # as fontes
+py system-map/scripts/generate_system_map.py
+py system-map/scripts/censo_das_estradas_it.py
+py system-map/scripts/validate_system_map.py
+```
+
+**Resultado: `PASS`, com árvore limpa.**
 
 ---
 
