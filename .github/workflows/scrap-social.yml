@@ -66,11 +66,17 @@ on:
         type: choice
         options: [censo, portao, video, gap, piloto, ledger, sessao, politica, guarda,
                   youtube, youtube-oficial, cutover, youtube-piloto,
-                  youtube-piloto-oneshot]
+                  youtube-piloto-oneshot, hardware]
       url:
         description: 'só para a fase `portao`: a URL a testar'
         required: false
         default: 'https://www.youtube.com/feeds/videos.xml?channel_id=X'
+      runner:
+        description: 'só para `hardware` — qual máquina local medir. São DUAS, e não se somam.'
+        required: false
+        default: '2'
+        type: choice
+        options: ['1', '2']
       auth_mode:
         description: 'AUTO deixa a política escolher. Os outros FORÇAM e podem recusar.'
         required: false
@@ -84,7 +90,71 @@ permissions:
   contents: write
 
 jobs:
+  # ══════════════════════════════════════════════════════════════════════
+  # O CENSO DA MÁQUINA — job próprio, e a razão é o SHELL
+  # ══════════════════════════════════════════════════════════════════════
+  # Este job não podia ser um passo do `scrap`. Três razões medidas, e nenhuma
+  # é estética:
+  #
+  #   1. o `scrap` declara `shell: bash`, e em 2026-09-09 o runner local 2
+  #      respondeu `bash: command not found` a um job inteiro. Numa máquina
+  #      Windows o shell garantido é o PowerShell, e não o bash do Git;
+  #   2. o passo do guarda chama `python3`, que nessa máquina é o atalho da
+  #      Microsoft Store e falha. Ali o interpretador chama-se `py`;
+  #   3. o `setup-python` instala um Python que NÃO é o da máquina — e medir a
+  #      máquina com um Python que não é o dela mediria a coisa errada.
+  #
+  #     MEDIR A MÁQUINA COM AS FERRAMENTAS DE OUTRA MÁQUINA NÃO É MEDIR.
+  #
+  # E ele NÃO instala, NÃO atualiza driver, NÃO mexe em PATH global e NÃO pede
+  # admin. Só pergunta. Uma prova que altera a máquina que mede deixou de medir.
+  hardware:
+    if: inputs.fase == 'hardware'
+    runs-on: ${{ inputs.runner == '1'
+      && fromJSON('["self-hosted","Windows","X64","eame-sintonia-local"]')
+      || fromJSON('["self-hosted","Windows","X64","eame-sintonia-local-2"]') }}
+    # 15 minutos. O censo real leva segundos; este tecto existe para que um
+    # runner OFFLINE não prenda a missão 24 horas à espera — foi o que
+    # aconteceu com as três corridas do `sintonia-scrap` em setembro.
+    #
+    #     RUNNER QUE NÃO ATENDE É UMA MEDIÇÃO, NÃO UMA ESPERA.
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: 0 · quem atendeu, e com que interpretador
+        run: |
+          Write-Host "RUNNER_NAME=$env:RUNNER_NAME"
+          Write-Host "RUNNER_OS=$env:RUNNER_OS  RUNNER_ARCH=$env:RUNNER_ARCH"
+          $achado = $null
+          foreach ($c in @('py','python','python3')) {
+            $cmd = Get-Command $c -ErrorAction SilentlyContinue
+            if ($cmd) {
+              $v = & $c --version 2>&1
+              # O atalho da Microsoft Store responde ao `Get-Command` e falha ao
+              # correr. Só conta quem devolve uma versão de verdade.
+              if ($LASTEXITCODE -eq 0 -and "$v" -match '\d+\.\d+') {
+                $achado = $c; Write-Host "INTERPRETADOR=$c ($v)"; break
+              }
+            }
+          }
+          if (-not $achado) { Write-Host 'INTERPRETADOR=NENHUM'; exit 1 }
+          "PY=$achado" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: 1 · o que esta máquina tem
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          & $env:PY provas/hardware_local.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
   scrap:
+    if: inputs.fase != 'hardware'
     # A fase que fala com o navegador PRECISA da máquina onde o perfil vive. As
     # outras não — e mandar tudo para o runner local só ocuparia a máquina que
     # faz a coleta paga.
