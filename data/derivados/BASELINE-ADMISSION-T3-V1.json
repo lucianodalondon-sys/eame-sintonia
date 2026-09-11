@@ -1,0 +1,3004 @@
+{
+  "SCHEMA": "sintonia.baseline-admission-t3/1",
+  "O_QUE_ISTO_E": "Uma BASELINE: o mecanismo tematico de hoje, medido contra o primeiro gabarito humano de T3. Nao corrige nada, nao propoe substituto e nao aprova nem reprova o mecanismo.",
+  "MEASURE_NOT_FIX": true,
+  "SOURCE_HEAD": "357697c19f8e54098f1cccae4b4950e28aec3dfb",
+  "UNIVERSE": "T3",
+  "ADMISSION_OWNER_FILE": "admissao/admissao.py",
+  "ADMISSION_OWNER_FUNCTION": "_do_universo (via decidir)",
+  "T3_RULE_LOCATION": "admissao/admissao.py :: PERGUNTAS_DO_UNIVERSO['T3']",
+  "ADMISSION_CALL_CHAIN": [
+    {
+      "FILE": "admissao/admissao.py",
+      "MARCA": "PERGUNTAS_DO_UNIVERSO = {",
+      "LINE": 319,
+      "PORQUE": "a lista de palavras, por universo"
+    },
+    {
+      "FILE": "admissao/admissao.py",
+      "MARCA": "def _do_universo(",
+      "LINE": 241,
+      "PORQUE": "a funcao que decide o tema"
+    },
+    {
+      "FILE": "admissao/admissao.py",
+      "MARCA": "def decidir(",
+      "LINE": 345,
+      "PORQUE": "a porta: prontidao primeiro, tema depois"
+    },
+    {
+      "FILE": "orquestrador/orquestrador.py",
+      "MARCA": "adm.decidir(x, universo, corrida=run_id)",
+      "LINE": 228,
+      "PORQUE": "o orquestrador corre a porta sobre a colheita"
+    },
+    {
+      "FILE": "coleta/rota_forward_documento.py",
+      "MARCA": "admissao.decidir(item, universo, corrida=run_id)",
+      "LINE": 206,
+      "PORQUE": "a rota de documento corre a porta"
+    },
+    {
+      "FILE": "coleta/ingresso.py",
+      "MARCA": "def para_a_porta(",
+      "LINE": 143,
+      "PORQUE": "o unico tradutor do contrato para a lingua da porta"
+    }
+  ],
+  "THEMATIC_DECISION_OWNERS": 1,
+  "PRODUCTION_MECHANISM_CALLABLE": "YES",
+  "COPIED_KEYWORD_IMPLEMENTATION": "NO",
+  "THIN_ADAPTER_HAS_SEMANTIC_LOGIC": "NO",
+  "ADMISSION_RULE_VERSION": "3",
+  "RUNTIME_OUTPUT_STATES": [
+    "SIM",
+    "NAO",
+    "NAO_SEI",
+    "NAO_SE_APLICA",
+    "ERRO"
+  ],
+  "EVAL_BUCKET_MAP": {
+    "SIM": "PRED_POSITIVE",
+    "NAO": "PRED_NEGATIVE",
+    "NAO_SEI": "ABSTAIN",
+    "NAO_SE_APLICA": "NOT_APPLICABLE",
+    "ERRO": "ERROR"
+  },
+  "GROUND_TRUTH": {
+    "PATH": "data/samples/T3-GROUND-TRUTH-EVAL-V1.json",
+    "SHA256": "f66ce19525defccd9b4949f9e04a573df39d9b86156ac850fee25d44c562bfbc",
+    "AUTHORITY": "HUMAN_VERIFIED",
+    "DOCUMENTS": 36,
+    "POSITIVE": 14,
+    "NEGATIVE": 22,
+    "EXCLUIDOS_NAO_ENTRAM_NO_SCORE": 17,
+    "EVALUATION_SCOPE": "ITALIAN_AGRO_INSTITUTIONAL_CORPUS"
+  },
+  "OS_DOIS_PLANOS_DE_ENTRADA": {
+    "BASELINE_TEMATICA": "LINHAGEM",
+    "PORQUE": "CONTRATO e o que a producao ve hoje: o registo de artefatos diz SOURCE_ID = «NAO SEI» e a porta para na prontidao, antes do tema. LINHAGEM acrescenta so o SOURCE_ID que o gabarito ja declara, e e o unico plano que exercita a regra tematica. A escolha de qual e a baseline foi fixada ANTES de correr.",
+    "CONTRATO": {
+      "DOCUMENT_PLANE": {
+        "TOTAL": 36,
+        "TP": 0,
+        "TN": 0,
+        "FP": 0,
+        "FN": 0,
+        "ABSTAIN": 36,
+        "NOT_APPLICABLE": 0,
+        "ERROR": 0,
+        "BINARY_DECISIONS": 0,
+        "CORRECT_BINARY": 0,
+        "WRONG_BINARY": 0,
+        "DECISION_COVERAGE": 0.0,
+        "EFFECTIVE_ACCURACY": 0.0,
+        "CONDITIONAL_ACCURACY": "NAO SEI",
+        "PRECISION_T3": "NAO SEI",
+        "RECALL_T3": "NAO SEI",
+        "SPECIFICITY": "NAO SEI",
+        "F1_T3": "NAO SEI",
+        "AS_FORMULAS": {
+          "DECISION_COVERAGE": "BINARY_DECISIONS / TOTAL",
+          "EFFECTIVE_ACCURACY": "(TP+TN) / TOTAL",
+          "CONDITIONAL_ACCURACY": "(TP+TN) / BINARY_DECISIONS",
+          "PORQUE_AS_DUAS": "Cobertura baixa com CONDITIONAL_ACCURACY alta parece bom e nao e: mede so os casos em que a porta se atreveu. As duas ficam lado a lado, sempre."
+        }
+      },
+      "OBSERVATION_PLANE": {
+        "GROUP_TOTAL": 31,
+        "GROUP_POSITIVE": 11,
+        "GROUP_NEGATIVE": 20,
+        "GROUP_PASS": 0,
+        "GROUP_FAIL": 0,
+        "GROUP_NOT_DECIDED": 31,
+        "GROUP_EFFECTIVE_ACCURACY": 0.0,
+        "MIXED_GROUND_TRUTH_GROUP": [],
+        "GRUPOS_COM_MAIS_DE_UM": 3,
+        "SAME_GROUP_SAME_PREDICTION": 3,
+        "SAME_GROUP_MIXED_PREDICTIONS": 0,
+        "LINHAS": [
+          {
+            "GRUPO": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-024abdb692be926a.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+            "TAMANHO": 2,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-0be2d204c98ad1b1.txt",
+              "RAW-3d3c1bc0e96332e8.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "91515"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-144fdb152b1a6ae4.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-178ebe9e0ea7dd83.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-223510588786a4de.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-2a12cb316622a9a5.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "monitoraggio.html"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-3e941738599367d7.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-3ef48aaa830edf3b.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-445e41701f737d73.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "46647"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-4e12affad7fedd91.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-59da05274359eff6.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-5dcfb75ac38390c3.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-6377ac2f8419d905.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-699a073ace4361ea.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-6d12bcb5fa2b0905.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "46622"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+            "TAMANHO": 2,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-8c13500d43502e64.txt",
+              "RAW-f88c89d73d6a132a.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-924aabd94168c53a.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-9488589cfc657b95.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-9a01cc17889e1f40.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+            "TAMANHO": 4,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-392840d3e13d1b15.txt",
+              "RAW-823e18ebb232eb36.txt",
+              "RAW-a6515948880d173a.txt",
+              "RAW-e6ec962a8a730ee4.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-a927e846ba8e78b0.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "pagina.html"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-b631f6eecfbc1db0.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-c6377f6951bfeb2e.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-e5176df66216dfd0.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-e612807928b5ada9.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "NHEOWL0500_00.html"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          }
+        ]
+      }
+    },
+    "LINHAGEM": {
+      "DOCUMENT_PLANE": {
+        "TOTAL": 36,
+        "TP": 2,
+        "TN": 4,
+        "FP": 5,
+        "FN": 0,
+        "ABSTAIN": 25,
+        "NOT_APPLICABLE": 0,
+        "ERROR": 0,
+        "BINARY_DECISIONS": 11,
+        "CORRECT_BINARY": 6,
+        "WRONG_BINARY": 5,
+        "DECISION_COVERAGE": 0.3056,
+        "EFFECTIVE_ACCURACY": 0.1667,
+        "CONDITIONAL_ACCURACY": 0.5455,
+        "PRECISION_T3": 0.2857,
+        "RECALL_T3": 1.0,
+        "SPECIFICITY": 0.4444,
+        "F1_T3": 0.4444,
+        "AS_FORMULAS": {
+          "DECISION_COVERAGE": "BINARY_DECISIONS / TOTAL",
+          "EFFECTIVE_ACCURACY": "(TP+TN) / TOTAL",
+          "CONDITIONAL_ACCURACY": "(TP+TN) / BINARY_DECISIONS",
+          "PORQUE_AS_DUAS": "Cobertura baixa com CONDITIONAL_ACCURACY alta parece bom e nao e: mede so os casos em que a porta se atreveu. As duas ficam lado a lado, sempre."
+        }
+      },
+      "OBSERVATION_PLANE": {
+        "GROUP_TOTAL": 31,
+        "GROUP_POSITIVE": 11,
+        "GROUP_NEGATIVE": 20,
+        "GROUP_PASS": 6,
+        "GROUP_FAIL": 5,
+        "GROUP_NOT_DECIDED": 20,
+        "GROUP_EFFECTIVE_ACCURACY": 0.1935,
+        "MIXED_GROUND_TRUTH_GROUP": [],
+        "GRUPOS_COM_MAIS_DE_UM": 3,
+        "SAME_GROUP_SAME_PREDICTION": 3,
+        "SAME_GROUP_MIXED_PREDICTIONS": 0,
+        "LINHAS": [
+          {
+            "GRUPO": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-024abdb692be926a.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+            "TAMANHO": 2,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-0be2d204c98ad1b1.txt",
+              "RAW-3d3c1bc0e96332e8.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "91515"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-144fdb152b1a6ae4.txt"
+            ],
+            "PREVISOES": [
+              "NAO"
+            ],
+            "ESTADO": "GROUP_PASS"
+          },
+          {
+            "GRUPO": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-178ebe9e0ea7dd83.txt"
+            ],
+            "PREVISOES": [
+              "NAO"
+            ],
+            "ESTADO": "GROUP_PASS"
+          },
+          {
+            "GRUPO": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-223510588786a4de.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-2a12cb316622a9a5.txt"
+            ],
+            "PREVISOES": [
+              "SIM"
+            ],
+            "ESTADO": "GROUP_FAIL"
+          },
+          {
+            "GRUPO": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "monitoraggio.html"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-3e941738599367d7.txt"
+            ],
+            "PREVISOES": [
+              "SIM"
+            ],
+            "ESTADO": "GROUP_PASS"
+          },
+          {
+            "GRUPO": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-3ef48aaa830edf3b.txt"
+            ],
+            "PREVISOES": [
+              "SIM"
+            ],
+            "ESTADO": "GROUP_FAIL"
+          },
+          {
+            "GRUPO": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-445e41701f737d73.txt"
+            ],
+            "PREVISOES": [
+              "NAO"
+            ],
+            "ESTADO": "GROUP_PASS"
+          },
+          {
+            "GRUPO": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "46647"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-4e12affad7fedd91.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-59da05274359eff6.txt"
+            ],
+            "PREVISOES": [
+              "SIM"
+            ],
+            "ESTADO": "GROUP_PASS"
+          },
+          {
+            "GRUPO": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-5dcfb75ac38390c3.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-6377ac2f8419d905.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-699a073ace4361ea.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-6d12bcb5fa2b0905.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "46622"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+            "TAMANHO": 2,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-8c13500d43502e64.txt",
+              "RAW-f88c89d73d6a132a.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-924aabd94168c53a.txt"
+            ],
+            "PREVISOES": [
+              "SIM"
+            ],
+            "ESTADO": "GROUP_FAIL"
+          },
+          {
+            "GRUPO": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-9488589cfc657b95.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-9a01cc17889e1f40.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+            "TAMANHO": 4,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-392840d3e13d1b15.txt",
+              "RAW-823e18ebb232eb36.txt",
+              "RAW-a6515948880d173a.txt",
+              "RAW-e6ec962a8a730ee4.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-a927e846ba8e78b0.txt"
+            ],
+            "PREVISOES": [
+              "NAO"
+            ],
+            "ESTADO": "GROUP_PASS"
+          },
+          {
+            "GRUPO": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "pagina.html"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-b631f6eecfbc1db0.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_SIM",
+            "ITEM_IDS": [
+              "RAW-c6377f6951bfeb2e.txt"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          },
+          {
+            "GRUPO": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-e5176df66216dfd0.txt"
+            ],
+            "PREVISOES": [
+              "SIM"
+            ],
+            "ESTADO": "GROUP_FAIL"
+          },
+          {
+            "GRUPO": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "RAW-e612807928b5ada9.txt"
+            ],
+            "PREVISOES": [
+              "SIM"
+            ],
+            "ESTADO": "GROUP_FAIL"
+          },
+          {
+            "GRUPO": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+            "TAMANHO": 1,
+            "HUMAN_LABEL": "T3_NAO",
+            "ITEM_IDS": [
+              "NHEOWL0500_00.html"
+            ],
+            "PREVISOES": [
+              "NAO_SEI"
+            ],
+            "ESTADO": "GROUP_NOT_DECIDED"
+          }
+        ]
+      }
+    }
+  },
+  "DOCUMENT_PLANE": {
+    "TOTAL": 36,
+    "TP": 2,
+    "TN": 4,
+    "FP": 5,
+    "FN": 0,
+    "ABSTAIN": 25,
+    "NOT_APPLICABLE": 0,
+    "ERROR": 0,
+    "BINARY_DECISIONS": 11,
+    "CORRECT_BINARY": 6,
+    "WRONG_BINARY": 5,
+    "DECISION_COVERAGE": 0.3056,
+    "EFFECTIVE_ACCURACY": 0.1667,
+    "CONDITIONAL_ACCURACY": 0.5455,
+    "PRECISION_T3": 0.2857,
+    "RECALL_T3": 1.0,
+    "SPECIFICITY": 0.4444,
+    "F1_T3": 0.4444,
+    "AS_FORMULAS": {
+      "DECISION_COVERAGE": "BINARY_DECISIONS / TOTAL",
+      "EFFECTIVE_ACCURACY": "(TP+TN) / TOTAL",
+      "CONDITIONAL_ACCURACY": "(TP+TN) / BINARY_DECISIONS",
+      "PORQUE_AS_DUAS": "Cobertura baixa com CONDITIONAL_ACCURACY alta parece bom e nao e: mede so os casos em que a porta se atreveu. As duas ficam lado a lado, sempre."
+    }
+  },
+  "OBSERVATION_PLANE": {
+    "GROUP_TOTAL": 31,
+    "GROUP_POSITIVE": 11,
+    "GROUP_NEGATIVE": 20,
+    "GROUP_PASS": 6,
+    "GROUP_FAIL": 5,
+    "GROUP_NOT_DECIDED": 20,
+    "GROUP_EFFECTIVE_ACCURACY": 0.1935,
+    "MIXED_GROUND_TRUTH_GROUP": [],
+    "GRUPOS_COM_MAIS_DE_UM": 3,
+    "SAME_GROUP_SAME_PREDICTION": 3,
+    "SAME_GROUP_MIXED_PREDICTIONS": 0
+  },
+  "GROUPING_SOURCE": "data/samples/T3-GROUND-TRUTH-EVAL-V1.json :: NEAR_DUPLICATES.PARES (medido no fecho do gabarito, antes desta missao)",
+  "CANONICAL_OBSERVATION_GROUPING_FOUND": "YES",
+  "GROUPS": [
+    {
+      "GRUPO": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-024abdb692be926a.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+      "TAMANHO": 2,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-0be2d204c98ad1b1.txt",
+        "RAW-3d3c1bc0e96332e8.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_SIM",
+      "ITEM_IDS": [
+        "91515"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-144fdb152b1a6ae4.txt"
+      ],
+      "PREVISOES": [
+        "NAO"
+      ],
+      "ESTADO": "GROUP_PASS"
+    },
+    {
+      "GRUPO": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-178ebe9e0ea7dd83.txt"
+      ],
+      "PREVISOES": [
+        "NAO"
+      ],
+      "ESTADO": "GROUP_PASS"
+    },
+    {
+      "GRUPO": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-223510588786a4de.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-2a12cb316622a9a5.txt"
+      ],
+      "PREVISOES": [
+        "SIM"
+      ],
+      "ESTADO": "GROUP_FAIL"
+    },
+    {
+      "GRUPO": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_SIM",
+      "ITEM_IDS": [
+        "monitoraggio.html"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_SIM",
+      "ITEM_IDS": [
+        "RAW-3e941738599367d7.txt"
+      ],
+      "PREVISOES": [
+        "SIM"
+      ],
+      "ESTADO": "GROUP_PASS"
+    },
+    {
+      "GRUPO": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-3ef48aaa830edf3b.txt"
+      ],
+      "PREVISOES": [
+        "SIM"
+      ],
+      "ESTADO": "GROUP_FAIL"
+    },
+    {
+      "GRUPO": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-445e41701f737d73.txt"
+      ],
+      "PREVISOES": [
+        "NAO"
+      ],
+      "ESTADO": "GROUP_PASS"
+    },
+    {
+      "GRUPO": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "46647"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_SIM",
+      "ITEM_IDS": [
+        "RAW-4e12affad7fedd91.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_SIM",
+      "ITEM_IDS": [
+        "RAW-59da05274359eff6.txt"
+      ],
+      "PREVISOES": [
+        "SIM"
+      ],
+      "ESTADO": "GROUP_PASS"
+    },
+    {
+      "GRUPO": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_SIM",
+      "ITEM_IDS": [
+        "RAW-5dcfb75ac38390c3.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-6377ac2f8419d905.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-699a073ace4361ea.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-6d12bcb5fa2b0905.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "46622"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+      "TAMANHO": 2,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-8c13500d43502e64.txt",
+        "RAW-f88c89d73d6a132a.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-924aabd94168c53a.txt"
+      ],
+      "PREVISOES": [
+        "SIM"
+      ],
+      "ESTADO": "GROUP_FAIL"
+    },
+    {
+      "GRUPO": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_SIM",
+      "ITEM_IDS": [
+        "RAW-9488589cfc657b95.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-9a01cc17889e1f40.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+      "TAMANHO": 4,
+      "HUMAN_LABEL": "T3_SIM",
+      "ITEM_IDS": [
+        "RAW-392840d3e13d1b15.txt",
+        "RAW-823e18ebb232eb36.txt",
+        "RAW-a6515948880d173a.txt",
+        "RAW-e6ec962a8a730ee4.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-a927e846ba8e78b0.txt"
+      ],
+      "PREVISOES": [
+        "NAO"
+      ],
+      "ESTADO": "GROUP_PASS"
+    },
+    {
+      "GRUPO": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_SIM",
+      "ITEM_IDS": [
+        "pagina.html"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_SIM",
+      "ITEM_IDS": [
+        "RAW-b631f6eecfbc1db0.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_SIM",
+      "ITEM_IDS": [
+        "RAW-c6377f6951bfeb2e.txt"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    },
+    {
+      "GRUPO": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-e5176df66216dfd0.txt"
+      ],
+      "PREVISOES": [
+        "SIM"
+      ],
+      "ESTADO": "GROUP_FAIL"
+    },
+    {
+      "GRUPO": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "RAW-e612807928b5ada9.txt"
+      ],
+      "PREVISOES": [
+        "SIM"
+      ],
+      "ESTADO": "GROUP_FAIL"
+    },
+    {
+      "GRUPO": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+      "TAMANHO": 1,
+      "HUMAN_LABEL": "T3_NAO",
+      "ITEM_IDS": [
+        "NHEOWL0500_00.html"
+      ],
+      "PREVISOES": [
+        "NAO_SEI"
+      ],
+      "ESTADO": "GROUP_NOT_DECIDED"
+    }
+  ],
+  "DECISIONS_RESTING_ONLY_ON_FALSE_MATCH": [
+    {
+      "ITEM_ID": "RAW-445e41701f737d73.txt",
+      "DOC_SHA256": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO",
+      "CORRECT": "YES",
+      "TERMOS": [
+        "lancio"
+      ]
+    }
+  ],
+  "CORRECT_BY_ACCIDENT": 1,
+  "SUBSTRING_FALSE_MATCH_STILL_EXISTS": "YES",
+  "SUBSTRING_FALSE_MATCHES": [
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "doi",
+      "ITEM_ID": "RAW-3e941738599367d7.txt",
+      "DENTRO_DE": "ndoi"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "doi",
+      "ITEM_ID": "RAW-59da05274359eff6.txt",
+      "DENTRO_DE": "ndoi"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "revista",
+      "ITEM_ID": "RAW-024abdb692be926a.txt",
+      "DENTRO_DE": "prevista"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "revista",
+      "ITEM_ID": "RAW-223510588786a4de.txt",
+      "DENTRO_DE": "prevista"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "revista",
+      "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
+      "DENTRO_DE": "prevista"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "revista",
+      "ITEM_ID": "RAW-e5176df66216dfd0.txt",
+      "DENTRO_DE": "prevista"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "revista",
+      "ITEM_ID": "RAW-e612807928b5ada9.txt",
+      "DENTRO_DE": "prevista"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "revista",
+      "ITEM_ID": "monitoraggio.html",
+      "DENTRO_DE": "prevista"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "prova",
+      "ITEM_ID": "RAW-024abdb692be926a.txt",
+      "DENTRO_DE": "approvati"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "prova",
+      "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
+      "DENTRO_DE": "approvazione"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "prova",
+      "ITEM_ID": "RAW-e612807928b5ada9.txt",
+      "DENTRO_DE": "approvazione"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "prova",
+      "ITEM_ID": "monitoraggio.html",
+      "DENTRO_DE": "riprovare"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "prova",
+      "ITEM_ID": "pagina.html",
+      "DENTRO_DE": "provata"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "universita",
+      "ITEM_ID": "pagina.html",
+      "DENTRO_DE": "universitario"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "tesi",
+      "ITEM_ID": "RAW-699a073ace4361ea.txt",
+      "DENTRO_DE": "sintesi"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "tesi",
+      "ITEM_ID": "RAW-c6377f6951bfeb2e.txt",
+      "DENTRO_DE": "fotosintesi"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "tesi",
+      "ITEM_ID": "RAW-e5176df66216dfd0.txt",
+      "DENTRO_DE": "sintesi"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "tesi",
+      "ITEM_ID": "pagina.html",
+      "DENTRO_DE": "sintesi"
+    },
+    {
+      "UNIVERSO": "T9",
+      "TERMO": "lancio",
+      "ITEM_ID": "RAW-144fdb152b1a6ae4.txt",
+      "DENTRO_DE": "bilancio"
+    },
+    {
+      "UNIVERSO": "T9",
+      "TERMO": "lancio",
+      "ITEM_ID": "RAW-2a12cb316622a9a5.txt",
+      "DENTRO_DE": "bilancio"
+    },
+    {
+      "UNIVERSO": "T9",
+      "TERMO": "lancio",
+      "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
+      "DENTRO_DE": "bilancio"
+    },
+    {
+      "UNIVERSO": "T9",
+      "TERMO": "lancio",
+      "ITEM_ID": "RAW-445e41701f737d73.txt",
+      "DENTRO_DE": "bilancio"
+    },
+    {
+      "UNIVERSO": "T9",
+      "TERMO": "lancio",
+      "ITEM_ID": "RAW-699a073ace4361ea.txt",
+      "DENTRO_DE": "bilancio"
+    },
+    {
+      "UNIVERSO": "T9",
+      "TERMO": "lancio",
+      "ITEM_ID": "RAW-924aabd94168c53a.txt",
+      "DENTRO_DE": "bilancio"
+    },
+    {
+      "UNIVERSO": "T9",
+      "TERMO": "lancio",
+      "ITEM_ID": "RAW-e612807928b5ada9.txt",
+      "DENTRO_DE": "bilancio"
+    },
+    {
+      "UNIVERSO": "T9",
+      "TERMO": "lancio",
+      "ITEM_ID": "monitoraggio.html",
+      "DENTRO_DE": "bilancio"
+    },
+    {
+      "UNIVERSO": "T9",
+      "TERMO": "lancio",
+      "ITEM_ID": "pagina.html",
+      "DENTRO_DE": "bilancio"
+    },
+    {
+      "UNIVERSO": "T3",
+      "TERMO": "sintoma",
+      "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
+      "DENTRO_DE": "sintomatologia"
+    },
+    {
+      "UNIVERSO": "T3",
+      "TERMO": "sintoma",
+      "ITEM_ID": "RAW-5dcfb75ac38390c3.txt",
+      "DENTRO_DE": "sintomatica"
+    },
+    {
+      "UNIVERSO": "T3",
+      "TERMO": "sintoma",
+      "ITEM_ID": "RAW-e612807928b5ada9.txt",
+      "DENTRO_DE": "sintomatologia"
+    },
+    {
+      "UNIVERSO": "T3",
+      "TERMO": "sintoma",
+      "ITEM_ID": "pagina.html",
+      "DENTRO_DE": "sintomatologia"
+    },
+    {
+      "UNIVERSO": "T3",
+      "TERMO": "parassita",
+      "ITEM_ID": "RAW-223510588786a4de.txt",
+      "DENTRO_DE": "parassitario"
+    },
+    {
+      "UNIVERSO": "T3",
+      "TERMO": "parassita",
+      "ITEM_ID": "RAW-2a12cb316622a9a5.txt",
+      "DENTRO_DE": "parassitarie"
+    },
+    {
+      "UNIVERSO": "T3",
+      "TERMO": "parassita",
+      "ITEM_ID": "RAW-6d12bcb5fa2b0905.txt",
+      "DENTRO_DE": "parassitario"
+    }
+  ],
+  "RED_TEAM": [
+    {
+      "SONDA": "1 · mesmo publicador com universos diferentes",
+      "MEDIDO": "1 publicadores com SIM e NAO: ['ARPAV']"
+    },
+    {
+      "SONDA": "2 · ARPAV com meteorologia e fitossanidade",
+      "MEDIDO": "ARPAV: ['T3_NAO->NAO_SEI', 'T3_SIM->NAO_SEI']"
+    },
+    {
+      "SONDA": "3 · documento T3 com muito vocabulario climatico",
+      "MEDIDO": "positivos humanos que a porta nao chamou SIM: ['91515', 'RAW-392840d3e13d1b15.txt', 'RAW-4e12affad7fedd91.txt', 'RAW-5dcfb75ac38390c3.txt', 'RAW-823e18ebb232eb36.txt', 'RAW-9488589cfc657b95.txt', 'RAW-a6515948880d173a.txt', 'RAW-b631f6eecfbc1db0.txt', 'RAW-c6377f6951bfeb2e.txt', 'RAW-e6ec962a8a730ee4.txt', 'monitoraggio.html', 'pagina.html']"
+    },
+    {
+      "SONDA": "4 · documento NAO que contem «fitosanitario»",
+      "MEDIDO": "27 documentos contem a palavra; destes, humanos NAO: ['RAW-024abdb692be926a.txt', 'RAW-0be2d204c98ad1b1.txt', 'RAW-178ebe9e0ea7dd83.txt', 'RAW-223510588786a4de.txt', 'RAW-2a12cb316622a9a5.txt', 'RAW-3d3c1bc0e96332e8.txt', 'RAW-3ef48aaa830edf3b.txt', 'RAW-6d12bcb5fa2b0905.txt', 'RAW-8c13500d43502e64.txt', 'RAW-924aabd94168c53a.txt', 'RAW-9a01cc17889e1f40.txt', 'RAW-a927e846ba8e78b0.txt', 'RAW-e5176df66216dfd0.txt', 'RAW-e612807928b5ada9.txt', 'RAW-f88c89d73d6a132a.txt']"
+    },
+    {
+      "SONDA": "5 · «Bilancio Fitosanitario»",
+      "MEDIDO": "['RAW-2a12cb316622a9a5.txt: humano T3_NAO, porta SIM', 'RAW-924aabd94168c53a.txt: humano T3_NAO, porta SIM']"
+    },
+    {
+      "SONDA": "6 · registo administrativo de produtos fitossanitarios",
+      "MEDIDO": "[]"
+    },
+    {
+      "SONDA": "7 · varias edicoes da mesma serie",
+      "MEDIDO": "3 grupos com mais de um documento · mesma previsao 3 · previsoes mistas 0"
+    },
+    {
+      "SONDA": "8 · SOURCE_ID = NAO SEI",
+      "MEDIDO": "16 sem fonte resolvida; saidas: {'NAO_SEI': 16}"
+    },
+    {
+      "SONDA": "9 · idioma nao resolvido ou ingles",
+      "MEDIDO": "['91515 (en): humano T3_SIM, porta NAO_SEI', 'RAW-024abdb692be926a.txt (NAO SEI): humano T3_NAO, porta NAO_SEI', 'RAW-223510588786a4de.txt (NAO SEI): humano T3_NAO, porta NAO_SEI', 'RAW-392840d3e13d1b15.txt (NAO SEI): humano T3_SIM, porta NAO_SEI', 'RAW-4e12affad7fedd91.txt (NAO SEI): humano T3_SIM, porta NAO_SEI', 'RAW-5dcfb75ac38390c3.txt (NAO SEI): humano T3_SIM, porta NAO_SEI']"
+    },
+    {
+      "SONDA": "10 · os estados da porta continuam separados",
+      "MEDIDO": "estados vistos: {'NAO_SEI': 25, 'NAO': 4, 'SIM': 7} · vocabulario do runtime: ['SIM', 'NAO', 'NAO_SEI', 'NAO_SE_APLICA', 'ERRO']"
+    },
+    {
+      "SONDA": "11 · substring dentro de outra palavra",
+      "MEDIDO": "34 casamentos so-substring: [{'UNIVERSO': 'T7', 'TERMO': 'doi', 'ITEM_ID': 'RAW-3e941738599367d7.txt', 'DENTRO_DE': 'ndoi'}, {'UNIVERSO': 'T7', 'TERMO': 'doi', 'ITEM_ID': 'RAW-59da05274359eff6.txt', 'DENTRO_DE': 'ndoi'}, {'UNIVERSO': 'T7', 'TERMO': 'revista', 'ITEM_ID': 'RAW-024abdb692be926a.txt', 'DENTRO_DE': 'prevista'}, {'UNIVERSO': 'T7', 'TERMO': 'revista', 'ITEM_ID': 'RAW-223510588786a4de.txt', 'DENTRO_DE': 'prevista'}]"
+    },
+    {
+      "SONDA": "12 · decisoes que assentam SO num casamento falso",
+      "MEDIDO": "1 de 11 decisoes binarias · [('RAW-445e41701f737d73.txt', 'NAO', 'YES', ['lancio'])]"
+    }
+  ],
+  "PERFORMANCE_GATE_PREDEFINED": "NO",
+  "PERFORMANCE_GATE_PROCURADO_EM": [
+    "BIBLIA-CANONICA-DA-COLETA.md",
+    "README.md",
+    "AGENTS.md",
+    "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md"
+  ],
+  "CURRENT_MECHANISM_ACCEPTABLE": "NOT_DECIDED",
+  "PORQUE_NOT_DECIDED": "Nao existe limiar canonico de aprovacao para um mecanismo de classificacao nesta arvore. Sem gate previo, medir nao aprova nem reprova — e inventar o gate agora seria desenhar o alvo a volta da flecha.",
+  "CLASSIFIER_BUILT": "NO",
+  "ADMISSION_CHANGED": "NO",
+  "KEYWORDS_CHANGED": "NO",
+  "REPLACEMENT_PROPOSED": "NO",
+  "CASES": [
+    {
+      "DOC_SHA256": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+      "ITEM_ID": "46622",
+      "PUBLISHER": "AGEA",
+      "SOURCE_ID": "IT-T10-002",
+      "PUBLICATION_SERIES": "AGEA · (sem nome)",
+      "DOCUMENT_TYPE": "OUTRO",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "tempo do fato",
+      "ADMISSION_REASON": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "ESTAGIO_DESCONHECIDO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+      "ITEM_ID": "46647",
+      "PUBLISHER": "AGEA",
+      "SOURCE_ID": "IT-T10-002",
+      "PUBLICATION_SERIES": "AGEA · (sem nome)",
+      "DOCUMENT_TYPE": "OUTRO",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "tempo do fato",
+      "ADMISSION_REASON": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "ESTAGIO_DESCONHECIDO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+      "ITEM_ID": "91515",
+      "PUBLISHER": "ISMEA",
+      "SOURCE_ID": "IT-T5-002",
+      "PUBLICATION_SERIES": "ISMEA · (sem nome)",
+      "DOCUMENT_TYPE": "OUTRO",
+      "LANGUAGE": "en",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "tempo do fato",
+      "ADMISSION_REASON": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "ESTAGIO_DESCONHECIDO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+      "ITEM_ID": "NHEOWL0500_00.html",
+      "PUBLISHER": "SIAS",
+      "SOURCE_ID": "IT-T2-004",
+      "PUBLICATION_SERIES": "SIAS · nheowl",
+      "DOCUMENT_TYPE": "HTML",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "tempo do fato",
+      "ADMISSION_REASON": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "ESTAGIO_DESCONHECIDO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+      "ITEM_ID": "RAW-024abdb692be926a.txt",
+      "PUBLISHER": "REGIONE MOLISE",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE MOLISE · molise-comunicato",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+      "ITEM_ID": "RAW-0be2d204c98ad1b1.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "IT-T2-002",
+      "PUBLICATION_SERIES": "ARPAV · agro",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "nao encontrei nada de «T3» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+      "ITEM_ID": "RAW-144fdb152b1a6ae4.txt",
+      "PUBLISHER": "ARPAE",
+      "SOURCE_ID": "IT-T2-001",
+      "PUBLICATION_SERIES": "ARPAE · boll-agro",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "nao fala de «T3», e fala claramente de outro universo (T9: evento, lancio). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "ADMISSION_EVIDENCE": {
+        "achado_noutro": {
+          "T9": [
+            "evento",
+            "lancio"
+          ]
+        },
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "PRED_NEGATIVE",
+      "CORRECT": "YES"
+    },
+    {
+      "DOC_SHA256": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+      "ITEM_ID": "RAW-178ebe9e0ea7dd83.txt",
+      "PUBLISHER": "ARIF PUGLIA",
+      "SOURCE_ID": "IT-T3-008",
+      "PUBLICATION_SERIES": "ARIF PUGLIA · giornaliero-meteorologico-n",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "nao fala de «T3», e fala claramente de outro universo (T4: autorizzazione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "ADMISSION_EVIDENCE": {
+        "achado_noutro": {
+          "T4": [
+            "autorizzazione"
+          ]
+        },
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "PRED_NEGATIVE",
+      "CORRECT": "YES"
+    },
+    {
+      "DOC_SHA256": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+      "ITEM_ID": "RAW-223510588786a4de.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · vite",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+      "ITEM_ID": "RAW-2a12cb316622a9a5.txt",
+      "PUBLISHER": "GIORNATE FITOPATOLOGICHE",
+      "SOURCE_ID": "IT-T5-003",
+      "PUBLICATION_SERIES": "GIORNATE FITOPATOLOGICHE · altieri-bilancio-fitosanitario-olivo-basilicata",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "SIM",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "fala de parassita, malattia — que e do que «T3» trata",
+      "ADMISSION_EVIDENCE": {
+        "palavras": [
+          "parassita",
+          "malattia"
+        ],
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "PRED_POSITIVE",
+      "CORRECT": "NO"
+    },
+    {
+      "DOC_SHA256": "392840d3e13d1b1506f7aab01f10fdf30799c22b29468314173279c46f2c3d55",
+      "ITEM_ID": "RAW-392840d3e13d1b15.txt",
+      "PUBLISHER": "REGIONE LAZIO",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-bolsena",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+      "ITEM_ID": "RAW-3d3c1bc0e96332e8.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "IT-T2-002",
+      "PUBLICATION_SERIES": "ARPAV · agro",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "nao encontrei nada de «T3» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+      "ITEM_ID": "RAW-3e941738599367d7.txt",
+      "PUBLISHER": "APOL LECCE",
+      "SOURCE_ID": "IT-T3-010",
+      "PUBLICATION_SERIES": "APOL LECCE · bollettino-mosca-dellolivo-n-del",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "SIM",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "fala de parassita, malattia, insetto, infestazione — que e do que «T3» trata",
+      "ADMISSION_EVIDENCE": {
+        "palavras": [
+          "parassita",
+          "malattia",
+          "insetto",
+          "infestazione",
+          "avversita"
+        ],
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "PRED_POSITIVE",
+      "CORRECT": "YES"
+    },
+    {
+      "DOC_SHA256": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+      "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
+      "PUBLISHER": "ARIF PUGLIA",
+      "SOURCE_ID": "IT-T3-008",
+      "PUBLICATION_SERIES": "ARIF PUGLIA · notiziario-agrometeorologico-n",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "SIM",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "fala de fungo, sintoma, parassita, malattia — que e do que «T3» trata",
+      "ADMISSION_EVIDENCE": {
+        "palavras": [
+          "fungo",
+          "sintoma",
+          "parassita",
+          "malattia",
+          "insetto",
+          "infestazione"
+        ],
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "PRED_POSITIVE",
+      "CORRECT": "NO"
+    },
+    {
+      "DOC_SHA256": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+      "ITEM_ID": "RAW-445e41701f737d73.txt",
+      "PUBLISHER": "ARPAE",
+      "SOURCE_ID": "IT-T2-001",
+      "PUBLICATION_SERIES": "ARPAE · boll-agro",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "nao fala de «T3», e fala claramente de outro universo (T9: lancio). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "ADMISSION_EVIDENCE": {
+        "achado_noutro": {
+          "T9": [
+            "lancio"
+          ]
+        },
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "PRED_NEGATIVE",
+      "CORRECT": "YES"
+    },
+    {
+      "DOC_SHA256": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+      "ITEM_ID": "RAW-4e12affad7fedd91.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · olivicolo",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+      "ITEM_ID": "RAW-59da05274359eff6.txt",
+      "PUBLISHER": "APOL LECCE",
+      "SOURCE_ID": "IT-T3-010",
+      "PUBLICATION_SERIES": "APOL LECCE · bollettino-mosca-dellolivo-n-del",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "SIM",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "fala de malattia, insetto, avversita — que e do que «T3» trata",
+      "ADMISSION_EVIDENCE": {
+        "palavras": [
+          "malattia",
+          "insetto",
+          "avversita"
+        ],
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "PRED_POSITIVE",
+      "CORRECT": "YES"
+    },
+    {
+      "DOC_SHA256": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+      "ITEM_ID": "RAW-5dcfb75ac38390c3.txt",
+      "PUBLISHER": "REGIONE PIEMONTE",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE PIEMONTE · piano-operativo",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+      "ITEM_ID": "RAW-6377ac2f8419d905.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · fineestate",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+      "ITEM_ID": "RAW-699a073ace4361ea.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · lug",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+      "ITEM_ID": "RAW-6d12bcb5fa2b0905.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · vite",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "823e18ebb232eb36d6c14bec05e155487933be80d9082169f8fb197b57e551c9",
+      "ITEM_ID": "RAW-823e18ebb232eb36.txt",
+      "PUBLISHER": "REGIONE LAZIO",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-entroterra-tuscia",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+      "ITEM_ID": "RAW-8c13500d43502e64.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "IT-T2-002",
+      "PUBLICATION_SERIES": "ARPAV · agro",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "nao encontrei nada de «T3» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+      "ITEM_ID": "RAW-924aabd94168c53a.txt",
+      "PUBLISHER": "GIORNATE FITOPATOLOGICHE",
+      "SOURCE_ID": "IT-T5-003",
+      "PUBLICATION_SERIES": "GIORNATE FITOPATOLOGICHE · alesi-olivo-bilancio-fitosanitario-marche",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "SIM",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "fala de fungo, malattia, insetto, infestazione — que e do que «T3» trata",
+      "ADMISSION_EVIDENCE": {
+        "palavras": [
+          "fungo",
+          "malattia",
+          "insetto",
+          "infestazione",
+          "patogeno"
+        ],
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "PRED_POSITIVE",
+      "CORRECT": "NO"
+    },
+    {
+      "DOC_SHA256": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+      "ITEM_ID": "RAW-9488589cfc657b95.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · frutticolo",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+      "ITEM_ID": "RAW-9a01cc17889e1f40.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · boll-agro-settimanale",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+      "ITEM_ID": "RAW-a6515948880d173a.txt",
+      "PUBLISHER": "REGIONE LAZIO",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-sabina",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+      "ITEM_ID": "RAW-a927e846ba8e78b0.txt",
+      "PUBLISHER": "MINISTERO DELLA SALUTE",
+      "SOURCE_ID": "IT-T4-001",
+      "PUBLICATION_SERIES": "MINISTERO DELLA SALUTE · id-dataset-fitosanitari-v",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "nao fala de «T3», e fala claramente de outro universo (T9: prodotto; T4: decreto, autorizzazione, registrazione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "ADMISSION_EVIDENCE": {
+        "achado_noutro": {
+          "T9": [
+            "prodotto"
+          ],
+          "T4": [
+            "decreto",
+            "autorizzazione",
+            "registrazione"
+          ]
+        },
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "PRED_NEGATIVE",
+      "CORRECT": "YES"
+    },
+    {
+      "DOC_SHA256": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+      "ITEM_ID": "RAW-b631f6eecfbc1db0.txt",
+      "PUBLISHER": "REGIONE LAZIO",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-pianura-interna-viterbese",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+      "ITEM_ID": "RAW-c6377f6951bfeb2e.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · olivicolo",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+      "ITEM_ID": "RAW-e5176df66216dfd0.txt",
+      "PUBLISHER": "AGRIOS",
+      "SOURCE_ID": "IT-T3-011",
+      "PUBLICATION_SERIES": "AGRIOS · agrios-broschuere-richtlinien-integrierte-kernobstbau-it-web",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it (o mesmo documento existe em de)",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "SIM",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "fala de parassita, insetto, infestazione — que e do que «T3» trata",
+      "ADMISSION_EVIDENCE": {
+        "palavras": [
+          "parassita",
+          "insetto",
+          "infestazione"
+        ],
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "PRED_POSITIVE",
+      "CORRECT": "NO"
+    },
+    {
+      "DOC_SHA256": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+      "ITEM_ID": "RAW-e612807928b5ada9.txt",
+      "PUBLISHER": "ARIF PUGLIA",
+      "SOURCE_ID": "IT-T3-008",
+      "PUBLICATION_SERIES": "ARIF PUGLIA · notiziario-agrometeorologico-n",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "SIM",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "fala de fungo, sintoma, parassita, malattia — que e do que «T3» trata",
+      "ADMISSION_EVIDENCE": {
+        "palavras": [
+          "fungo",
+          "sintoma",
+          "parassita",
+          "malattia",
+          "insetto",
+          "infestazione"
+        ],
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "PRED_POSITIVE",
+      "CORRECT": "NO"
+    },
+    {
+      "DOC_SHA256": "e6ec962a8a730ee4923ff68455f95b007d9e5b3b44ee0862882a2ddb41a8f412",
+      "ITEM_ID": "RAW-e6ec962a8a730ee4.txt",
+      "PUBLISHER": "REGIONE LAZIO",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-litorale-viterbese",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+      "ITEM_ID": "RAW-f88c89d73d6a132a.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "IT-T2-002",
+      "PUBLICATION_SERIES": "ARPAV · agro",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "pertence ao universo",
+      "ADMISSION_REASON": "nao encontrei nada de «T3» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+      "ITEM_ID": "monitoraggio.html",
+      "PUBLISHER": "TERRE DELL'ETRURIA",
+      "SOURCE_ID": "IT-T3-005",
+      "PUBLICATION_SERIES": "TERRE DELL'ETRURIA · monitoraggio",
+      "DOCUMENT_TYPE": "HTML",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "tempo do fato",
+      "ADMISSION_REASON": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "ESTAGIO_DESCONHECIDO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+      "ITEM_ID": "pagina.html",
+      "PUBLISHER": "REGIONE PIEMONTE",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE PIEMONTE · pagina",
+      "DOCUMENT_TYPE": "HTML",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "ESTAGIO_DESCONHECIDO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    }
+  ],
+  "CASES_CONTRATO": [
+    {
+      "DOC_SHA256": "7810538e3e7676b5c5be55856fd961c1dad56ae5c1ced48f17dc3e5376fa67e7",
+      "ITEM_ID": "46622",
+      "PUBLISHER": "AGEA",
+      "SOURCE_ID": "IT-T10-002",
+      "PUBLICATION_SERIES": "AGEA · (sem nome)",
+      "DOCUMENT_TYPE": "OUTRO",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "ESTAGIO_DESCONHECIDO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517",
+      "ITEM_ID": "46647",
+      "PUBLISHER": "AGEA",
+      "SOURCE_ID": "IT-T10-002",
+      "PUBLICATION_SERIES": "AGEA · (sem nome)",
+      "DOCUMENT_TYPE": "OUTRO",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "ESTAGIO_DESCONHECIDO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
+      "ITEM_ID": "91515",
+      "PUBLISHER": "ISMEA",
+      "SOURCE_ID": "IT-T5-002",
+      "PUBLICATION_SERIES": "ISMEA · (sem nome)",
+      "DOCUMENT_TYPE": "OUTRO",
+      "LANGUAGE": "en",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "ESTAGIO_DESCONHECIDO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "ee75dcef2551500dff82e79e5a57b38bdf6d26fd60df2c30fd46a47a5d44c568",
+      "ITEM_ID": "NHEOWL0500_00.html",
+      "PUBLISHER": "SIAS",
+      "SOURCE_ID": "IT-T2-004",
+      "PUBLICATION_SERIES": "SIAS · nheowl",
+      "DOCUMENT_TYPE": "HTML",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "ESTAGIO_DESCONHECIDO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "024abdb692be926ad0a558120bd3baa0c83bc70b32f3e3093db416eaab5578fd",
+      "ITEM_ID": "RAW-024abdb692be926a.txt",
+      "PUBLISHER": "REGIONE MOLISE",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE MOLISE · molise-comunicato",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+      "ITEM_ID": "RAW-0be2d204c98ad1b1.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "IT-T2-002",
+      "PUBLICATION_SERIES": "ARPAV · agro",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+      "ITEM_ID": "RAW-144fdb152b1a6ae4.txt",
+      "PUBLISHER": "ARPAE",
+      "SOURCE_ID": "IT-T2-001",
+      "PUBLICATION_SERIES": "ARPAE · boll-agro",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "178ebe9e0ea7dd834724cfc2edc47932454d785255e409658a67bc92e5622da2",
+      "ITEM_ID": "RAW-178ebe9e0ea7dd83.txt",
+      "PUBLISHER": "ARIF PUGLIA",
+      "SOURCE_ID": "IT-T3-008",
+      "PUBLICATION_SERIES": "ARIF PUGLIA · giornaliero-meteorologico-n",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
+      "ITEM_ID": "RAW-223510588786a4de.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · vite",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e",
+      "ITEM_ID": "RAW-2a12cb316622a9a5.txt",
+      "PUBLISHER": "GIORNATE FITOPATOLOGICHE",
+      "SOURCE_ID": "IT-T5-003",
+      "PUBLICATION_SERIES": "GIORNATE FITOPATOLOGICHE · altieri-bilancio-fitosanitario-olivo-basilicata",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "392840d3e13d1b1506f7aab01f10fdf30799c22b29468314173279c46f2c3d55",
+      "ITEM_ID": "RAW-392840d3e13d1b15.txt",
+      "PUBLISHER": "REGIONE LAZIO",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-bolsena",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+      "ITEM_ID": "RAW-3d3c1bc0e96332e8.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "IT-T2-002",
+      "PUBLICATION_SERIES": "ARPAV · agro",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
+      "ITEM_ID": "RAW-3e941738599367d7.txt",
+      "PUBLISHER": "APOL LECCE",
+      "SOURCE_ID": "IT-T3-010",
+      "PUBLICATION_SERIES": "APOL LECCE · bollettino-mosca-dellolivo-n-del",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "3ef48aaa830edf3be99df5882143664b35c6daa4289e7c3474a463c7b81b233f",
+      "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
+      "PUBLISHER": "ARIF PUGLIA",
+      "SOURCE_ID": "IT-T3-008",
+      "PUBLICATION_SERIES": "ARIF PUGLIA · notiziario-agrometeorologico-n",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "445e41701f737d73e28c49c3dd3d5c2bbf417a4361a0fdb660165b4d12a04f62",
+      "ITEM_ID": "RAW-445e41701f737d73.txt",
+      "PUBLISHER": "ARPAE",
+      "SOURCE_ID": "IT-T2-001",
+      "PUBLICATION_SERIES": "ARPAE · boll-agro",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "4e12affad7fedd91fb720c436676c3696fd40b873198cfe6cd2a0ff744e573b5",
+      "ITEM_ID": "RAW-4e12affad7fedd91.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · olivicolo",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+      "ITEM_ID": "RAW-59da05274359eff6.txt",
+      "PUBLISHER": "APOL LECCE",
+      "SOURCE_ID": "IT-T3-010",
+      "PUBLICATION_SERIES": "APOL LECCE · bollettino-mosca-dellolivo-n-del",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "5dcfb75ac38390c3de870a95771f0aad05d20aabb9aaa8a7313a733aec9bd981",
+      "ITEM_ID": "RAW-5dcfb75ac38390c3.txt",
+      "PUBLISHER": "REGIONE PIEMONTE",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE PIEMONTE · piano-operativo",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "6377ac2f8419d905d9acb70302478de8802b17b84d4b9bea16918c92ee24308f",
+      "ITEM_ID": "RAW-6377ac2f8419d905.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · fineestate",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "699a073ace4361ea726bf318c58b4d0ccf749f20274dd217af6e273372a59460",
+      "ITEM_ID": "RAW-699a073ace4361ea.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · lug",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+      "ITEM_ID": "RAW-6d12bcb5fa2b0905.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · vite",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "823e18ebb232eb36d6c14bec05e155487933be80d9082169f8fb197b57e551c9",
+      "ITEM_ID": "RAW-823e18ebb232eb36.txt",
+      "PUBLISHER": "REGIONE LAZIO",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-entroterra-tuscia",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+      "ITEM_ID": "RAW-8c13500d43502e64.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "IT-T2-002",
+      "PUBLICATION_SERIES": "ARPAV · agro",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
+      "ITEM_ID": "RAW-924aabd94168c53a.txt",
+      "PUBLISHER": "GIORNATE FITOPATOLOGICHE",
+      "SOURCE_ID": "IT-T5-003",
+      "PUBLICATION_SERIES": "GIORNATE FITOPATOLOGICHE · alesi-olivo-bilancio-fitosanitario-marche",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+      "ITEM_ID": "RAW-9488589cfc657b95.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · frutticolo",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "9a01cc17889e1f40649f79685c5ad8289fd1ff2985f082a6c00c362775a43de9",
+      "ITEM_ID": "RAW-9a01cc17889e1f40.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · boll-agro-settimanale",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "a6515948880d173ab82fb16b57035abe70e906032eadf03032972b2be03e6b3a",
+      "ITEM_ID": "RAW-a6515948880d173a.txt",
+      "PUBLISHER": "REGIONE LAZIO",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-sabina",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "a927e846ba8e78b04c184cda32376fa9f7d317beeb34e74c78975f7fed027c48",
+      "ITEM_ID": "RAW-a927e846ba8e78b0.txt",
+      "PUBLISHER": "MINISTERO DELLA SALUTE",
+      "SOURCE_ID": "IT-T4-001",
+      "PUBLICATION_SERIES": "MINISTERO DELLA SALUTE · id-dataset-fitosanitari-v",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
+      "ITEM_ID": "RAW-b631f6eecfbc1db0.txt",
+      "PUBLISHER": "REGIONE LAZIO",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-pianura-interna-viterbese",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "c6377f6951bfeb2e9ad0469f5dfb32cd06b1aa6fd8b81099cc4e0175016481b1",
+      "ITEM_ID": "RAW-c6377f6951bfeb2e.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "ARPAV · olivicolo",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "e5176df66216dfd0dd3bcc4af0508e16a55afba8c1eccdd545fa003804a0de09",
+      "ITEM_ID": "RAW-e5176df66216dfd0.txt",
+      "PUBLISHER": "AGRIOS",
+      "SOURCE_ID": "IT-T3-011",
+      "PUBLICATION_SERIES": "AGRIOS · agrios-broschuere-richtlinien-integrierte-kernobstbau-it-web",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it (o mesmo documento existe em de)",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+      "ITEM_ID": "RAW-e612807928b5ada9.txt",
+      "PUBLISHER": "ARIF PUGLIA",
+      "SOURCE_ID": "IT-T3-008",
+      "PUBLICATION_SERIES": "ARIF PUGLIA · notiziario-agrometeorologico-n",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "e6ec962a8a730ee4923ff68455f95b007d9e5b3b44ee0862882a2ddb41a8f412",
+      "ITEM_ID": "RAW-e6ec962a8a730ee4.txt",
+      "PUBLISHER": "REGIONE LAZIO",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE LAZIO · lazio-litorale-viterbese",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+      "ITEM_ID": "RAW-f88c89d73d6a132a.txt",
+      "PUBLISHER": "ARPAV",
+      "SOURCE_ID": "IT-T2-002",
+      "PUBLICATION_SERIES": "ARPAV · agro",
+      "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
+      "LANGUAGE": "it",
+      "HUMAN_LABEL": "T3_NAO",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "DOCUMENTO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+      "ITEM_ID": "monitoraggio.html",
+      "PUBLISHER": "TERRE DELL'ETRURIA",
+      "SOURCE_ID": "IT-T3-005",
+      "PUBLICATION_SERIES": "TERRE DELL'ETRURIA · monitoraggio",
+      "DOCUMENT_TYPE": "HTML",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "ESTAGIO_DESCONHECIDO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    },
+    {
+      "DOC_SHA256": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
+      "ITEM_ID": "pagina.html",
+      "PUBLISHER": "REGIONE PIEMONTE",
+      "SOURCE_ID": "NAO SEI",
+      "PUBLICATION_SERIES": "REGIONE PIEMONTE · pagina",
+      "DOCUMENT_TYPE": "HTML",
+      "LANGUAGE": "NAO SEI",
+      "HUMAN_LABEL": "T3_SIM",
+      "RAW_OUTPUT": "NAO_SEI",
+      "ADMISSION_RULE": "origem",
+      "ADMISSION_REASON": "nao da para dizer de onde este item veio. Um item sem origem nao se consegue conferir depois, e um numero que nao se confere e um palpite bem vestido.",
+      "ADMISSION_EVIDENCE": {
+        "estagio": "ESTAGIO_DESCONHECIDO"
+      },
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
+    }
+  ],
+  "LEAKAGE_AUDIT": {
+    "GROUND_TRUTH_AUTHORITY": "HUMAN_VERIFIED",
+    "MECANISMO_NASCEU_EM": "2026-09-07",
+    "MECANISMO_MEXIDO_PELA_ULTIMA_VEZ_EM": "2026-09-09",
+    "REVISAO_HUMANA_FECHOU_EM": "2026-09-11",
+    "GABARITO_COMMITADO_EM": "2026-09-11",
+    "CURRENT_ADMISSION_NEVER_SAW_GROUND_TRUTH_DURING_ITS_DESIGN": "YES",
+    "PROVA": "o ficheiro do mecanismo nao e tocado desde 2026-09-09, e o gabarito so existe desde 2026-09-11 — nenhuma palavra pode ter sido escolhida a olhar para rotulos que ainda nao existiam"
+  },
+  "FIRST_VALID_BASELINE_FINGERPRINT": "f24eceedd1235a1c1909a0d941aea4b87bdf8cba6547be762c5785e9ff635a85"
+}

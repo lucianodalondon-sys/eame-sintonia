@@ -233,6 +233,7 @@
       "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
       "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
+      "data/derivados/BASELINE-ADMISSION-T3-V1.json",
       "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "data/derivados/texto/RAW-024abdb692be926a.txt",
@@ -672,6 +673,7 @@
       "docs/operacao/ALLOWED-STRUCTURED-TARGETS-POR-FONTE.md",
       "docs/operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md",
       "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
+      "docs/operacao/BASELINE-ADMISSION-T3-V1.md",
       "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
       "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
       "docs/operacao/CENSO-DA-COLETA.md",
@@ -1175,6 +1177,7 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/medir_admission_t3_atual.py",
       "provas/o_corte_de_cr1.py",
       "provas/o_dedupe_tem_constraint.py",
       "provas/o_encanamento_tem_uma_porta.py",
@@ -1476,6 +1479,7 @@
       "tests/test_m2_aresta_observada.py",
       "tests/test_m2_rota_forward.py",
       "tests/test_mapa_nao_mente.py",
+      "tests/test_medir_admission_t3_atual.py",
       "tests/test_metricas.py",
       "tests/test_migrations.py",
       "tests/test_navegador.py",
@@ -1903,10 +1907,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/t3-ground-truth-close-v1",
-    "HEAD": "d560ad69658486411ac498af8bc81d601a46a1c3",
-    "GENERATED_AT": "2026-09-11T17:44:12+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b8c95d315dedbd65e15070e987496b88e2d058bf64876a6477ba666a8ecf9f3d"
+    "BRANCH": "claude/t3-current-admission-baseline-v1",
+    "HEAD": "357697c19f8e54098f1cccae4b4950e28aec3dfb",
+    "GENERATED_AT": "2026-09-11T18:34:28+00:00",
+    "SOURCE_TREE_FINGERPRINT": "15ec1df0a180855bf33aff2195efde10fa084ae3dd488480618cdc10ae234bf1"
   },
   "FAMILIES": [
     {
@@ -2601,7 +2605,8 @@
         "data/samples/LIVRO-DE-DECISOES.json"
       ],
       "inbound": [
-        "C-IT-TEXTO-DERIVADO"
+        "C-IT-TEXTO-DERIVADO",
+        "C-TESTES"
       ],
       "outbound": [
         "C-CENSO-DERIVACOES",
@@ -5936,6 +5941,7 @@
       "outbound": [
         "C-ESTRADA-PDF",
         "C-PROVA-BIBLIA",
+        "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
         "C-TESTES"
       ],
@@ -11920,6 +11926,7 @@
         "provas/censo_corpus_rotulado_admission.py",
         "provas/derived_artifact_no_postgres.py",
         "provas/fechar_ground_truth_t3.py",
+        "provas/medir_admission_t3_atual.py",
         "provas/o_corte_de_cr1.py",
         "provas/objeto_e_observacao_no_postgres.py",
         "provas/pacote_de_revisao_t3.py",
@@ -11936,7 +11943,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 23,
+      "file_count": 24,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11949,6 +11956,7 @@
       "inbound": [
         "C-ADAMA-ES",
         "C-ADMISSAO",
+        "C-BIBLIA",
         "C-CADEIA-V21",
         "C-CENSO-CARDS-SENSORES",
         "C-CENSO-OBSERVABILIDADE",
@@ -11970,6 +11978,7 @@
         "C-PEDIDO",
         "C-RASTRO",
         "C-RECEITAS",
+        "C-ROTA-M2",
         "C-SCRAP-LEIS",
         "C-SENSOR-COLETA",
         "C-SUPABASE",
@@ -11995,6 +12004,7 @@
         "listas": [
           "AFIRMACOES_PROIBIDAS",
           "BOTOES",
+          "CADEIA",
           "CANDIDATAS_A",
           "COLS_DER",
           "COLS_OBJ",
@@ -12018,11 +12028,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 325,
+        "palavras": 338,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 323,
+        "sem_marca_de_lingua": 336,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13268,6 +13278,7 @@
         "C-SCRAP-SOCIAL"
       ],
       "outbound": [
+        "C-PROVA-COLETA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
@@ -15309,6 +15320,7 @@
         "tests/test_m2_aresta_observada.py",
         "tests/test_m2_rota_forward.py",
         "tests/test_mapa_nao_mente.py",
+        "tests/test_medir_admission_t3_atual.py",
         "tests/test_metricas.py",
         "tests/test_migrations.py",
         "tests/test_navegador.py",
@@ -15356,7 +15368,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 91,
+      "file_count": 92,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15464,6 +15476,7 @@
         "C-V21-OPORTUNIDADE"
       ],
       "outbound": [
+        "C-ADMISSAO",
         "C-ASK-SINTONIA",
         "C-AUDIT-GERAL",
         "C-CENSO-CONGELAMENTO",
@@ -15574,13 +15587,13 @@
         },
         {
           "onde": "GIT",
-          "file": "data/samples/SPAIN-HERO-CASES-V1.json",
+          "file": "admissao/admissao.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
         {
           "onde": "GIT",
-          "file": "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
+          "file": "data/samples/SPAIN-HERO-CASES-V1.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -16929,7 +16942,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/t3-ground-truth-close-v1"
+        "branch claude/t3-current-admission-baseline-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17283,7 +17296,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 6 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_regra_de_t2.py",
@@ -17293,6 +17306,11 @@
         {
           "file": "provas/censo_corpus_rotulado_admission.py",
           "line": 39,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "provas/medir_admission_t3_atual.py",
+          "line": 56,
           "snippet": "import admissao as adm  # noqa: E402"
         },
         {
@@ -17326,12 +17344,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/censo_corpus_rotulado_admission.py",
           "line": 120,
           "snippet": "livro = _json(\"data/samples/LIVRO-DE-DECISOES.json\")[\"DECISOES\"]"
+        },
+        {
+          "file": "provas/medir_admission_t3_atual.py",
+          "line": 68,
+          "snippet": "(\"admissao/admissao.py\", \"PERGUNTAS_DO_UNIVERSO = {\","
         },
         {
           "file": "provas/pacote_de_revisao_t3.py",
@@ -17456,7 +17479,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -17494,6 +17517,11 @@
           "snippet": "import admissao                       # noqa: E402"
         },
         {
+          "file": "tests/test_medir_admission_t3_atual.py",
+          "line": 26,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
           "file": "tests/test_pacote_de_revisao_t3.py",
           "line": 194,
           "snippet": "import admissao as adm"
@@ -17519,12 +17547,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_censo_corpus_rotulado_admission.py",
           "line": 169,
           "snippet": "livro = censo._json(\"data/samples/LIVRO-DE-DECISOES.json\")[\"DECISOES\"]"
+        },
+        {
+          "file": "tests/test_medir_admission_t3_atual.py",
+          "line": 63,
+          "snippet": "(\"admissao/admissao.py\", \"def funcao_que_nao_existe(\", \"x\")]"
         },
         {
           "file": "tests/test_observabilidade_estrada.py",
@@ -18966,6 +18999,24 @@
           "file": "provas/valida_biblia.py",
           "line": 58,
           "snippet": "os.path.join(PASTA, 'RECONCILIACAO-INTEGRACAO.md'))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-BIBLIA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Bíblia canônica da coleta alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/medir_admission_t3_atual.py",
+          "line": 699,
+          "snippet": "\"BIBLIA-CANONICA-DA-COLETA.md\", \"README.md\", \"AGENTS.md\","
         }
       ],
       "categoria": "PROOF"
@@ -23075,7 +23126,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_regra_de_t2.py",
@@ -23091,6 +23142,11 @@
           "file": "provas/censo_corpus_rotulado_admission.py",
           "line": 187,
           "snippet": "reg = _json(\"data/derivados/REGISTO-DE-ARTEFATOS.json\")[\"ARTEFATOS\"]"
+        },
+        {
+          "file": "provas/medir_admission_t3_atual.py",
+          "line": 60,
+          "snippet": "REGISTO = \"data/derivados/REGISTO-DE-ARTEFATOS.json\""
         },
         {
           "file": "provas/testa_golden_path_pdf.py",
@@ -23829,6 +23885,24 @@
           "file": "provas/so_a_colheita_atravessa.py",
           "line": 38,
           "snippet": "import ingresso as ing  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-INGRESSO",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/medir_admission_t3_atual.py",
+          "line": 79,
+          "snippet": "(\"coleta/ingresso.py\", \"def para_a_porta(\","
         }
       ],
       "categoria": "PROOF"
@@ -25328,8 +25402,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Testes do System Map alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "Testes do System Map alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/medir_admission_t3_atual.py",
+          "line": 699,
+          "snippet": "\"BIBLIA-CANONICA-DA-COLETA.md\", \"README.md\", \"AGENTS.md\","
+        },
         {
           "file": "provas/testa_coleta_canonica.py",
           "line": 146,
@@ -25686,8 +25765,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "O orquestrador alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/medir_admission_t3_atual.py",
+          "line": 74,
+          "snippet": "(\"orquestrador/orquestrador.py\", \"adm.decidir(x, universo, corrida=run_id)\","
+        },
         {
           "file": "provas/testa_golden_path_pdf.py",
           "line": 211,
@@ -25760,7 +25844,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
@@ -25776,6 +25860,11 @@
           "file": "tests/test_lingua_da_porta.py",
           "line": 202,
           "snippet": "ROTAS = (\"orquestrador/orquestrador.py\", \"coleta/golden_path_pdf.py\","
+        },
+        {
+          "file": "tests/test_medir_admission_t3_atual.py",
+          "line": 56,
+          "snippet": "self.assertIn(\"orquestrador/orquestrador.py\", ficheiros)"
         },
         {
           "file": "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -27287,7 +27376,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 14 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -27330,6 +27419,11 @@
           "snippet": "'prova_pg', os.path.join(RAIZ, 'provas', 'preservar_coleta_no_postgres.py'))"
         },
         {
+          "file": "tests/test_medir_admission_t3_atual.py",
+          "line": 29,
+          "snippet": "\"medir_t3\", os.path.join(RAIZ, \"provas\", \"medir_admission_t3_atual.py\"))"
+        },
+        {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
           "line": 554,
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
@@ -27343,11 +27437,6 @@
           "file": "tests/test_pacote_de_revisao_t3.py",
           "line": 29,
           "snippet": "\"pacote_t3\", os.path.join(RAIZ, \"provas\", \"pacote_de_revisao_t3.py\"))"
-        },
-        {
-          "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 543,
-          "snippet": "caminho = os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\")"
         }
       ],
       "categoria": "PROOF"
@@ -28069,6 +28158,24 @@
     },
     {
       "from": "C-ROTA-M2",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A rota forward do documento (M2) alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/medir_admission_t3_atual.py",
+          "line": 76,
+          "snippet": "(\"coleta/rota_forward_documento.py\","
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-ROTA-M2",
       "to": "C-PROVA-ROTA-M2-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -28129,7 +28236,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_lingua_da_porta.py",
@@ -28145,6 +28252,11 @@
           "file": "tests/test_m2_rota_forward.py",
           "line": 643,
           "snippet": "r = led['PROVADOS']['coleta/rota_forward_documento.py']"
+        },
+        {
+          "file": "tests/test_medir_admission_t3_atual.py",
+          "line": 57,
+          "snippet": "self.assertIn(\"coleta/rota_forward_documento.py\", ficheiros)"
         }
       ],
       "categoria": "PROOF"
@@ -29991,6 +30103,24 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-ADMISSAO",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em A porta de admissao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_medir_admission_t3_atual.py",
+          "line": 443,
+          "snippet": "with open(os.path.join(RAIZ, \"admissao\", \"admissao.py\"),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-ASK-SINTONIA",
       "type": "WRITES",
       "payload": "artefacto",
@@ -31280,7 +31410,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 741,
+  "UNCLAIMED_FILES_COUNT": 743,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31448,12 +31578,12 @@
     "components_pending": 94,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 640,
-    "edges_proven": 638,
+    "edges": 644,
+    "edges_proven": 642,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1456,
-    "files_covered": 715,
+    "files_tracked": 1460,
+    "files_covered": 717,
     "files_code_unclaimed": 0
   }
 }

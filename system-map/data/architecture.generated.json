@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/t3-ground-truth-close-v1",
-    "HEAD": "d560ad69658486411ac498af8bc81d601a46a1c3",
-    "GENERATED_AT": "2026-09-11T17:44:12+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b8c95d315dedbd65e15070e987496b88e2d058bf64876a6477ba666a8ecf9f3d"
+    "BRANCH": "claude/t3-current-admission-baseline-v1",
+    "HEAD": "357697c19f8e54098f1cccae4b4950e28aec3dfb",
+    "GENERATED_AT": "2026-09-11T18:34:28+00:00",
+    "SOURCE_TREE_FINGERPRINT": "15ec1df0a180855bf33aff2195efde10fa084ae3dd488480618cdc10ae234bf1"
   },
   "FILES": [
     {
@@ -1482,6 +1482,13 @@
       "path": "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
       "sha": "def6ea8a531859318fb7c325b6130cfea34d3afc",
       "ext": ".csv",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/BASELINE-ADMISSION-T3-V1.json",
+      "sha": "d97ce3334a3fd641fd80dd47aaadbcb8d56670ef",
+      "ext": ".json",
       "readable": false,
       "code_dir": false
     },
@@ -4540,6 +4547,13 @@
     {
       "path": "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
       "sha": "11b6213cc3ae5342137564a5a0d4298d3f002a9c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/BASELINE-ADMISSION-T3-V1.md",
+      "sha": "c38405af17b6aaf24aeed8094d540403ece341aa",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7877,6 +7891,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/medir_admission_t3_atual.py",
+      "sha": "045289a75bada48ce5bf46ce217e3b673cd2dd7c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/o_corte_de_cr1.py",
       "sha": "fec4673393cb68fd3d22000b0a6513063268983d",
       "ext": ".py",
@@ -9236,7 +9257,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "1161ea4b25e43236b79e258ef5e4cdcfb163474b",
+      "sha": "f8b6907e7cce6ddc588ba3f0be2ded24dc162f27",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9867,6 +9888,13 @@
     {
       "path": "tests/test_mapa_nao_mente.py",
       "sha": "b6236d0cc3abee9b259375435de20b15b730450e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_medir_admission_t3_atual.py",
+      "sha": "403e34f2496219b93605c2a2b1f5f04d6a0a70a9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27539,6 +27567,149 @@
       }
     },
     {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "AGENTS.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 699,
+        "snippet": "\"BIBLIA-CANONICA-DA-COLETA.md\", \"README.md\", \"AGENTS.md\","
+      }
+    },
+    {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 699,
+        "snippet": "\"BIBLIA-CANONICA-DA-COLETA.md\", \"README.md\", \"AGENTS.md\","
+      }
+    },
+    {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "README.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 699,
+        "snippet": "\"BIBLIA-CANONICA-DA-COLETA.md\", \"README.md\", \"AGENTS.md\","
+      }
+    },
+    {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 55,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 56,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 68,
+        "snippet": "(\"admissao/admissao.py\", \"PERGUNTAS_DO_UNIVERSO = {\","
+      }
+    },
+    {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 79,
+        "snippet": "(\"coleta/ingresso.py\", \"def para_a_porta(\","
+      }
+    },
+    {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 76,
+        "snippet": "(\"coleta/rota_forward_documento.py\","
+      }
+    },
+    {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "data/derivados/BASELINE-ADMISSION-T3-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 61,
+        "snippet": "SAIDA = \"data/derivados/BASELINE-ADMISSION-T3-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 60,
+        "snippet": "REGISTO = \"data/derivados/REGISTO-DE-ARTEFATOS.json\""
+      }
+    },
+    {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "data/samples/T3-GROUND-TRUTH-EVAL-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 59,
+        "snippet": "GABARITO = \"data/samples/T3-GROUND-TRUTH-EVAL-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 700,
+        "snippet": "\"docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md\"],"
+      }
+    },
+    {
+      "from_file": "provas/medir_admission_t3_atual.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_admission_t3_atual.py",
+        "line": 74,
+        "snippet": "(\"orquestrador/orquestrador.py\", \"adm.decidir(x, universo, corrida=run_id)\","
+      }
+    },
+    {
       "from_file": "provas/o_corte_de_cr1.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -34337,6 +34508,83 @@
       }
     },
     {
+      "from_file": "tests/test_medir_admission_t3_atual.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_medir_admission_t3_atual.py",
+        "line": 25,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_medir_admission_t3_atual.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_medir_admission_t3_atual.py",
+        "line": 26,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_medir_admission_t3_atual.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_admission_t3_atual.py",
+        "line": 63,
+        "snippet": "(\"admissao/admissao.py\", \"def funcao_que_nao_existe(\", \"x\")]"
+      }
+    },
+    {
+      "from_file": "tests/test_medir_admission_t3_atual.py",
+      "to_file": "admissao/admissao.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_admission_t3_atual.py",
+        "line": 443,
+        "snippet": "with open(os.path.join(RAIZ, \"admissao\", \"admissao.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_medir_admission_t3_atual.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_admission_t3_atual.py",
+        "line": 57,
+        "snippet": "self.assertIn(\"coleta/rota_forward_documento.py\", ficheiros)"
+      }
+    },
+    {
+      "from_file": "tests/test_medir_admission_t3_atual.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_admission_t3_atual.py",
+        "line": 56,
+        "snippet": "self.assertIn(\"orquestrador/orquestrador.py\", ficheiros)"
+      }
+    },
+    {
+      "from_file": "tests/test_medir_admission_t3_atual.py",
+      "to_file": "provas/medir_admission_t3_atual.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_medir_admission_t3_atual.py",
+        "line": 29,
+        "snippet": "\"medir_t3\", os.path.join(RAIZ, \"provas\", \"medir_admission_t3_atual.py\"))"
+      }
+    },
+    {
       "from_file": "tests/test_metricas.py",
       "to_file": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
       "type": "READS",
@@ -38054,10 +38302,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1456,
-    "files_readable": 555,
-    "files_code_dir": 600,
-    "file_edges": 2489,
+    "files_tracked": 1460,
+    "files_readable": 557,
+    "files_code_dir": 602,
+    "file_edges": 2509,
     "escritas_em_pasta": 69,
     "declared_missing_here": 0
   },
