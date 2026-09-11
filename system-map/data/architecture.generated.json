@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-collection-flow-c10-5",
-    "HEAD": "d9caeeb4ebe3a2ec7004f7549e25573317ef2363",
-    "GENERATED_AT": "2026-09-11T21:43:54+00:00",
-    "SOURCE_TREE_FINGERPRINT": "0e5fe81d224df394c270bcc78d26d8d3140667baad895d56e63971c99ee1295f"
+    "BRANCH": "claude/sintonia-scrap-x-deep-census-c12",
+    "HEAD": "6d2519021704bf24104b7978a46e57a8530a24e2",
+    "GENERATED_AT": "2026-09-11T21:52:47+00:00",
+    "SOURCE_TREE_FINGERPRINT": "f91dc58f420b2a23002caab4587a3be3f353d25289354387552fee1de35ee3ce"
   },
   "FILES": [
     {
@@ -5196,6 +5196,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C12-X-CAPABILITY-DEEP-CENSUS.md",
+      "sha": "6d4a94391de31f28693c074f6d780635682bfcc6",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
       "sha": "64bddd19dcf58606aab5afdaa1c41229407348b4",
       "ext": ".md",
@@ -9783,6 +9790,13 @@
     {
       "path": "tests/test_c10_audio_only.py",
       "sha": "e414062ced528a519a1e90abf39d0896068477e0",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c12_x_censo.py",
+      "sha": "bfec41cc1069da956c2299abe16636e9080ab481",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30594,6 +30608,72 @@
       }
     },
     {
+      "from_file": "tests/test_c12_x_censo.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c12_x_censo.py",
+        "line": 27,
+        "snippet": "import scrap_capacidades as cap     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c12_x_censo.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c12_x_censo.py",
+        "line": 29,
+        "snippet": "import scrap_executor as scrap      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c12_x_censo.py",
+      "to_file": "coleta/scrap_fornecedores.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c12_x_censo.py",
+        "line": 30,
+        "snippet": "import scrap_fornecedores as forn   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c12_x_censo.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c12_x_censo.py",
+        "line": 28,
+        "snippet": "import scrap_registo as reg         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c12_x_censo.py",
+      "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c12_x_censo.py",
+        "line": 87,
+        "snippet": "'CONTAS-V1.json')"
+      }
+    },
+    {
+      "from_file": "tests/test_c12_x_censo.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c12_x_censo.py",
+        "line": 26,
+        "snippet": "import social_matriz as mz          # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_c2_youtube_oficial.py",
       "to_file": ".github/workflows/scrap-social.yml",
       "type": "READS",
@@ -37641,10 +37721,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1476,
-    "files_readable": 563,
-    "files_code_dir": 610,
-    "file_edges": 2440,
+    "files_tracked": 1478,
+    "files_readable": 564,
+    "files_code_dir": 611,
+    "file_edges": 2446,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
