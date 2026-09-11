@@ -27,8 +27,8 @@ CAN DO != DID DO, E «NÃO CHAMOU HOJE» != «NÃO PODE CHAMAR».
 | **SOURCE_BRANCH** | `claude/sintonia-scrap-youtube-official-c2` |
 | **SOURCE_HEAD** (referência do coordenador) | `493b694981391fde6ea876e2ec7e79284c633b3c` |
 | **ACTUAL_INITIAL_HEAD** (medido, `git rev-parse`) | `493b694981391fde6ea876e2ec7e79284c633b3c` |
-| **FINAL_HEAD** | o commit que traz este documento |
-| **PUSH_STATE** | `PUSHED`, sem `force`, em cinco empurrões |
+| **FINAL_HEAD** | `27ccff55` + o commit que traz esta correção |
+| **PUSH_STATE** | `PUSHED` · nenhum `force`, em nenhum empurrão, em nenhuma branch |
 | **WORKTREE** | `/home/user/eame-sintonia`, única e limpa |
 | **DRIFT** | **NENHUM** — local e `origin` no mesmo commit, árvore sem resto |
 
@@ -46,6 +46,9 @@ fundida — nem a do know-how, que viveu em worktree separada e voltou.
 1ded2b87  C3.3  o cutover fez rebentar um campo que o lote congelado nunca teve
 3ba7c3df  C3.4  a quota que eu publiquei era suposta, e o numero real era o dobro
 5b8442c1  C3.5  quem gasta e quem sabe quanto — o roteador carrega a medida
+2a7fb6b9  C3    a entrega — dois actors saem do runtime, e nenhuma capacidade
+583c2f8c        System Map: a entrega da C3 entra na contagem
+27ccff55        System Map: regeneracao mecanica depois de a entrega entrar no indice
 ```
 
 ---
@@ -709,7 +712,7 @@ arredondamento que esta casa recusa.
 | `KNOW_HOW_BRANCH` | `claude/sintonia-eame-know-how-v1` |
 | `KNOW_HOW_INITIAL_HEAD` (medido) | `9c706b04` |
 | base real depois do `fetch` | `be86aa63` |
-| `KNOW_HOW_FINAL_HEAD` | `77cc173a` |
+| `KNOW_HOW_FINAL_HEAD` | `9ca2474d` |
 | `KNOW_HOW_PUSHED` | **`YES`**, sem `force` |
 
 Feito em **worktree separada**, em ficheiro que já existia
@@ -725,29 +728,33 @@ UM PUSH RECUSADO É UMA MEDIÇÃO, NÃO UM OBSTÁCULO. Forçá-lo teria apagado
 trabalho de outra frente que eu nem tinha lido.
 ```
 
+**Duas escritas, não uma.** A primeira (`77cc173a`) registou C1, C2 e o cutover.
+A segunda (`9ca2474d`) registou o contrato do medidor, que só nasceu depois —
+nas C3.4 e C3.5. Escrever a segunda no mesmo commit teria exigido adivinhar o
+que a missão ainda não tinha descoberto.
+
 ---
 
 # X · KNOW_HOW_DELTA
 
 ```
-KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA
+KNOW_HOW_DELTA = NENHUM
 ```
 
-**Não `NENHUM`.** A secção 11 do handoff foi escrita **antes** das C3.4 e C3.5, e
-elas produziram conhecimento durável que ainda não está lá:
+A secção 11 do handoff canônico cobre C1, C2 e o cutover. A secção **11.8**,
+escrita depois das C3.4 e C3.5, cobre o contrato do medidor:
 
-- **o contrato do medidor** — `social_rotas` carrega um balde genérico
-  (`MEDIDA`) que vai para a rota e volta no registo; o eixo da quota passou a ter
-  campo, como o do dólar já tinha;
+- **o balde genérico** — `social_rotas` carrega `MEDIDA` no registo de cada
+  execução; o eixo da quota passou a ter campo, como o do dólar já tinha;
 - **dois baldes, dois campos** — `SEARCH` conta chamadas, `GENERAL` conta
   unidades, e somá-los produziria um número que não existe;
-- **a medida sobrevive à recusa** — `finally`, não `else`;
-- **a lição de método** — um número suposto com cara de medido é pior que nenhum
-  número, e a sentinela certa não é «o valor está certo», é «ninguém pode
-  escrevê-lo à mão».
+- **a medida sobrevive à recusa** — `finally`, nunca `else`;
+- **balde vazio não vira zero** — «não declarou» e «gastou zero» são estados
+  diferentes, e o segundo é `PARTIAL` com o inteiro a valer como piso;
+- **a lição de método** — a sentinela certa não é «o valor está correto», é
+  «ninguém pode escrevê-lo à mão».
 
-Isto é matéria da próxima escrita de know-how, e fica declarado aqui em vez de
-ser empurrado à pressa no fim desta missão.
+Nada de durável ficou por registar.
 
 ---
 
