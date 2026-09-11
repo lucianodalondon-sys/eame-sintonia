@@ -759,6 +759,7 @@
       "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md",
       "docs/sintonia-scrap/C1-CONVERGENCIA-ESTRUTURAL.md",
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
+      "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
       "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md"
@@ -1893,9 +1894,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-youtube-cutover-c3",
-    "HEAD": "211e8db72ee1d661724963ea427d2e280ef7c4be",
-    "GENERATED_AT": "2026-09-11T04:36:13+00:00",
-    "SOURCE_TREE_FINGERPRINT": "eec5a6f85b75c5fa1b63e0c53a44ddfd19aa213e84c5423bf356771aa598a3f5"
+    "HEAD": "2a7fb6b9ea503eef4f50b3d52f6547e4da2dd830",
+    "GENERATED_AT": "2026-09-11T05:10:36+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6435fcee5c999093e4b0372c9946307948a68d2a505e7539abaf66df27c03a2d"
   },
   "FAMILIES": [
     {
@@ -20845,7 +20846,7 @@
       "evidence": [
         {
           "file": "coleta/social_scrap.py",
-          "line": 1065,
+          "line": 1068,
           "snippet": "import comunicacao_coleta as cc"
         }
       ],
@@ -20897,12 +20898,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c3_youtube_cutover.py",
           "line": 41,
           "snippet": "CALLERS = ('coleta/comunicacao_coleta.py', 'regras/sensor_coleta.py')"
+        },
+        {
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 658,
+          "snippet": "t = _fonte('coleta/comunicacao_medir.py')"
         },
         {
           "file": "tests/test_reel_transcricao.py",
@@ -27833,7 +27839,7 @@
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1213,
+          "line": 1221,
           "snippet": "import social_guarda"
         }
       ],
@@ -27874,7 +27880,7 @@
         },
         {
           "file": "tests/test_c3_youtube_cutover.py",
-          "line": 421,
+          "line": 450,
           "snippet": "import social_sessao as ss"
         },
         {
@@ -28476,7 +28482,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 397,
+          "line": 460,
           "snippet": "import scrap_executor as scrap"
         }
       ],
@@ -28530,7 +28536,7 @@
       "evidence": [
         {
           "file": "regras/sensor_coleta.py",
-          "line": 477,
+          "line": 492,
           "snippet": "import scrap_executor as scrap"
         }
       ],
@@ -28544,7 +28550,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 40 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 41 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -28666,12 +28672,12 @@
         },
         {
           "file": "tests/test_c3_youtube_cutover.py",
-          "line": 408,
+          "line": 437,
           "snippet": "FICHEIROS = CALLERS + ('coleta/adaptador_youtube.py', 'coleta/scrap_executor.py')"
         },
         {
           "file": "tests/test_c3_youtube_cutover.py",
-          "line": 442,
+          "line": 471,
           "snippet": "self.assertEqual(donos, ['coleta/scrap_fornecedores.py'], donos)"
         },
         {
@@ -28794,7 +28800,7 @@
       "evidence": [
         {
           "file": "coleta/social_scrap.py",
-          "line": 1066,
+          "line": 1069,
           "snippet": "import sensor_coleta as sc"
         }
       ],
@@ -29865,7 +29871,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 543,
+          "line": 609,
           "snippet": "import reel_transcricao as rt"
         }
       ],
@@ -30960,7 +30966,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 738,
+  "UNCLAIMED_FILES_COUNT": 739,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31132,7 +31138,7 @@
     "edges_proven": 633,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1445,
+    "files_tracked": 1446,
     "files_covered": 707,
     "files_code_unclaimed": 0
   }

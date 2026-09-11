@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-youtube-cutover-c3",
-    "HEAD": "211e8db72ee1d661724963ea427d2e280ef7c4be",
-    "GENERATED_AT": "2026-09-11T04:36:13+00:00",
-    "SOURCE_TREE_FINGERPRINT": "eec5a6f85b75c5fa1b63e0c53a44ddfd19aa213e84c5423bf356771aa598a3f5"
+    "HEAD": "2a7fb6b9ea503eef4f50b3d52f6547e4da2dd830",
+    "GENERATED_AT": "2026-09-11T05:10:36+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6435fcee5c999093e4b0372c9946307948a68d2a505e7539abaf66df27c03a2d"
   },
   "FILES": [
     {
@@ -1116,7 +1116,7 @@
     },
     {
       "path": "coleta/adaptador_aberto.py",
-      "sha": "3433bc232f9e8f8ff2789181db2cf2f1bf1ca6d5",
+      "sha": "9d4994f0453920ddd3c31209a88573d9b0c6358d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1151,7 +1151,7 @@
     },
     {
       "path": "coleta/adaptador_youtube.py",
-      "sha": "69e36cc9e4c232216db2786ea61fca13e1b4e867",
+      "sha": "4ae1d06703564bb44508ff478c10c3873a68d8f6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1193,14 +1193,14 @@
     },
     {
       "path": "coleta/comunicacao_coleta.py",
-      "sha": "44e83505d393aadb1ef2a92df6d2b64908840f43",
+      "sha": "968ebb7477c9223be624d6f7b362bc5024f9dfba",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "coleta/comunicacao_medir.py",
-      "sha": "7d68f95bbb98611a696d7354d70f807cd51c791f",
+      "sha": "fb13942aa0c9100357092673a32c9e53017d4993",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1431,7 +1431,7 @@
     },
     {
       "path": "coleta/scrap_fornecedores.py",
-      "sha": "fff0044e5ef6b90e7e306a38d350e4ffb56a882a",
+      "sha": "478ba02c1ccb0776b197ded1c789093c7cb51e7f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1473,14 +1473,14 @@
     },
     {
       "path": "coleta/social_rotas.py",
-      "sha": "2faf1e00e94bc1c1229c252ec8df816b15ecd2c6",
+      "sha": "439ce7e9004616697f44c7ed093a6c0ab7728530",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "coleta/social_scrap.py",
-      "sha": "6dbe0f7735101b9c0081dfa1c48853ad6b4dee17",
+      "sha": "80a432ee8290cc06c281d2992f4a8c77215c7363",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5154,6 +5154,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
+      "sha": "c5dd13c1313effabf950cf574061ff6068486264",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "sha": "a4f6774ac3a21e3361b5a18ea86743914eec9cd4",
       "ext": ".md",
@@ -8137,7 +8144,7 @@
     },
     {
       "path": "regras/sensor_coleta.py",
-      "sha": "8f8164a8359d8d24af744cda2ba7749ee0a7e166",
+      "sha": "5020a79c2c6df8d25139b2c74194043139e8fced",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9621,7 +9628,7 @@
     },
     {
       "path": "tests/test_c3_youtube_cutover.py",
-      "sha": "ca457fea41b8ab6e448ce6a1746c3e4f84796f60",
+      "sha": "9795d01237944ff829abec619111d6e91884f64c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11815,7 +11822,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/comunicacao_coleta.py",
-        "line": 397,
+        "line": 460,
         "snippet": "import scrap_executor as scrap"
       }
     },
@@ -11859,7 +11866,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/comunicacao_coleta.py",
-        "line": 543,
+        "line": 609,
         "snippet": "import reel_transcricao as rt"
       }
     },
@@ -11892,7 +11899,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/comunicacao_medir.py",
-        "line": 200,
+        "line": 207,
         "snippet": "with open(os.path.join(SAIDA, 'MEDICAO-PRIMEIRO-LOTE-V1.json'), 'w',"
       }
     },
@@ -12866,6 +12873,17 @@
     },
     {
       "from_file": "coleta/scrap_capacidades.py",
+      "to_file": "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_capacidades.py",
+        "line": 127,
+        "snippet": "_C3 = 'docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md'"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_capacidades.py",
       "to_file": "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "type": "READS",
       "payload": "artefacto",
@@ -13157,7 +13175,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1065,
+        "line": 1068,
         "snippet": "import comunicacao_coleta as cc"
       }
     },
@@ -13234,7 +13252,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1213,
+        "line": 1221,
         "snippet": "import social_guarda"
       }
     },
@@ -13278,7 +13296,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1066,
+        "line": 1069,
         "snippet": "import sensor_coleta as sc"
       }
     },
@@ -27259,7 +27277,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "regras/sensor_coleta.py",
-        "line": 477,
+        "line": 492,
         "snippet": "import scrap_executor as scrap"
       }
     },
@@ -30038,11 +30056,22 @@
     {
       "from_file": "tests/test_c3_youtube_cutover.py",
       "to_file": "coleta/adaptador_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c3_youtube_cutover.py",
+        "line": 613,
+        "snippet": "import adaptador_youtube as ay"
+      }
+    },
+    {
+      "from_file": "tests/test_c3_youtube_cutover.py",
+      "to_file": "coleta/adaptador_youtube.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c3_youtube_cutover.py",
-        "line": 408,
+        "line": 437,
         "snippet": "FICHEIROS = CALLERS + ('coleta/adaptador_youtube.py', 'coleta/scrap_executor.py')"
       }
     },
@@ -30066,6 +30095,17 @@
         "file": "tests/test_c3_youtube_cutover.py",
         "line": 41,
         "snippet": "CALLERS = ('coleta/comunicacao_coleta.py', 'regras/sensor_coleta.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c3_youtube_cutover.py",
+      "to_file": "coleta/comunicacao_medir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c3_youtube_cutover.py",
+        "line": 658,
+        "snippet": "t = _fonte('coleta/comunicacao_medir.py')"
       }
     },
     {
@@ -30119,7 +30159,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c3_youtube_cutover.py",
-        "line": 442,
+        "line": 471,
         "snippet": "self.assertEqual(donos, ['coleta/scrap_fornecedores.py'], donos)"
       }
     },
@@ -30251,7 +30291,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c3_youtube_cutover.py",
-        "line": 421,
+        "line": 450,
         "snippet": "import social_sessao as ss"
       }
     },
@@ -35774,7 +35814,7 @@
     "coleta/comunicacao_medir.py": [
       {
         "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
-        "line": 200,
+        "line": 207,
         "constante": "SAIDA"
       }
     ],
@@ -36214,10 +36254,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1445,
+    "files_tracked": 1446,
     "files_readable": 546,
     "files_code_dir": 593,
-    "file_edges": 2330,
+    "file_edges": 2333,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
