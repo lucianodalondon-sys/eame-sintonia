@@ -196,6 +196,15 @@ class T5NaoHaSegundoDonoNemDownloadNovo(unittest.TestCase):
         t = _fonte(SMOKE)
         self.assertIn('local_files_only=True', t,
                       'a pergunta ao cache tem de recusar ir a rede')
+        # ⚠️ E tem de ser feita a QUEM CARREGA. A primeira versao perguntava ao
+        # `huggingface_hub` generico, que exige o repositorio inteiro, e dizia
+        # «nao esta ca» sobre um modelo presente e utilizavel — apanhado na
+        # segunda corrida real no runner.
+        self.assertIn('from faster_whisper.utils import download_model', t,
+                      'quem responde tem de ser o dono do carregamento')
+        self.assertNotIn('snapshot_download', t,
+                         'a pergunta generica da a resposta errada: o '
+                         'faster-whisper guarda copia PARCIAL de proposito')
         d = __import__('gpu_asr_smoke').medir(device=fl.CPU, modelo='modelo-que-nao-existe-c4b')
         self.assertEqual(d['RESULT'], 'MODEL_NOT_PRESENT')
         self.assertEqual(d['MODEL_PRESENT'], 'NO')

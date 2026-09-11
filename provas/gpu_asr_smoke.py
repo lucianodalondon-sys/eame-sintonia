@@ -72,18 +72,36 @@ def modelo_esta_local(nome):
     de descarregamento saíram carimbados como `TRANSCRIPTION_TIMEOUT` do áudio.
     """
     fl._caminho_das_libs()
-    try:
-        from huggingface_hub import snapshot_download            # noqa: PLC0415
-    except ImportError as e:                                     # noqa: BLE001
-        return False, 'sem huggingface_hub para perguntar ao cache (%s)' % type(e).__name__
     if os.path.isdir(nome):
         return True, 'modelo em pasta local: %s' % nome
-    for repo in ('Systran/faster-whisper-%s' % nome, nome):
-        try:
-            p = snapshot_download(repo, local_files_only=True)
-            return True, 'ja em cache: %s' % p
-        except Exception:                                        # noqa: BLE001
-            continue
+    # ── PERGUNTA-SE A QUEM VAI CARREGAR, E NAO A UM INTERMEDIARIO ────────
+    # ⚠️ Correcao vinda da SEGUNDA corrida no runner. A primeira versao chamava
+    # `huggingface_hub.snapshot_download(local_files_only=True)` e respondia
+    # `MODEL_NOT_PRESENT` — com o modelo ALI, na cache que ela propria imprimiu:
+    #
+    #     cache: C:\Users\London1\.cache\huggingface\hub
+    #     visiveis: models--Systran--faster-whisper-small   <- estava la
+    #
+    # `snapshot_download` exige o repositorio INTEIRO. O `faster-whisper` baixa
+    # so os ficheiros de que precisa (`model.bin`, `config.json`, tokenizer), e
+    # por isso a copia local e legitimamente PARCIAL. A pergunta generica dava
+    # a resposta errada sobre um modelo perfeitamente utilizavel.
+    #
+    #     PERGUNTAR A BIBLIOTECA ERRADA DA UMA RESPOSTA VERDADEIRA
+    #     SOBRE OUTRA PERGUNTA.
+    #
+    # Agora pergunta-se ao dono: `faster_whisper.utils.download_model` e a mesma
+    # funcao que o carregador usa, com os mesmos `allow_patterns`. Com
+    # `local_files_only=True` ela NAO vai a rede — resolve ou levanta.
+    try:
+        from faster_whisper.utils import download_model          # noqa: PLC0415
+    except ImportError as e:                                     # noqa: BLE001
+        return False, 'sem faster_whisper para perguntar ao cache (%s)' % type(e).__name__
+    try:
+        caminho = download_model(nome, local_files_only=True)
+        return True, 'ja em cache, resolvido pelo proprio faster-whisper: %s' % caminho
+    except Exception as e:                                       # noqa: BLE001
+        detalhe = '%s: %s' % (type(e).__name__, str(e)[:120])
     # ── E ONDE E QUE ELE PROCUROU? ───────────────────────────────────────
     # «Nao esta ca» sem dizer ONDE se procurou nao e diagnostico: e um beco.
     # Medido na primeira corrida real desta prova — a inferencia manual passou
@@ -99,11 +117,11 @@ def modelo_esta_local(nome):
     vizinhos = []
     if cache != fl.NAO_SEI and os.path.isdir(cache):
         vizinhos = sorted(d for d in os.listdir(cache) if 'whisper' in d.lower())
-    return False, ('o modelo %r nao esta onde ESTE processo procura. '
+    return False, ('o modelo %r nao esta onde ESTE processo procura (%s). '
                    'cache consultada: %s | HF_HOME=%s | USERPROFILE=%s | '
                    'modelos whisper visiveis ali: %s. Esta prova NAO o descarrega: '
                    'um banco que baixa 1,5 GB mede a rede, nao a placa.'
-                   % (nome, cache, os.environ.get('HF_HOME') or '(nao definido)',
+                   % (nome, detalhe, cache, os.environ.get('HF_HOME') or '(nao definido)',
                       os.environ.get('USERPROFILE') or '(nao definido)',
                       vizinhos or 'nenhum'))
 
