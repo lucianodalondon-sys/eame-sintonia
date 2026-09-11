@@ -2735,6 +2735,9 @@ morreria para salvar a metadata.
 
 `PERGUNTAS_DO_UNIVERSO` tem T3, T4, T7 e T9. **Não tem T2**, e não foi criada.
 
+> **ESTADO ATUALIZADO (secção 50).** O bloqueio foi medido, e continua aberto —
+> **por decisão, não por omissão**. Ver `50 · A REGRA DE T2 NÃO FOI ESCRITA`.
+
 ## 49.6 · A LIÇÃO DE MÉTODO — quatro mutações sobreviveram
 
 ```
@@ -2763,3 +2766,215 @@ ingresso. Não é — uma observação sem ficheiro **é** o próprio item.
 ```
 SUPOR QUE UM ITEM E RECUSADO NAO E O MESMO QUE O VER RECUSADO.
 ```
+
+---
+
+# 50 · A REGRA DE T2 NÃO FOI ESCRITA — E ISSO É O RESULTADO
+
+## 50.1 · O QUÊ
+
+A pergunta era: *o que um documento precisa provar para a Admission dizer que
+ele pertence a «T2 — Clima e tempo»?* A ordem era **medir primeiro**, e só
+escrever a regra se a medição desse resposta clara.
+
+```
+T2_RULE_IMPLEMENTED = NO
+```
+
+`PERGUNTAS_DO_UNIVERSO` ficou com T3, T4, T7 e T9 — **exactamente como estava**.
+Nem uma palavra acrescentada. Nenhuma lei mudou; a Bíblia não subiu de versão.
+
+O que ficou foi a **prova do não**: `provas/a_regra_de_t2.py`,
+`tests/test_a_regra_de_t2.py`, `docs/operacao/MEDICAO-DA-REGRA-T2.md`.
+
+    UMA DECISÃO DE NÃO IMPLEMENTAR NÃO DEIXA CÓDIGO.
+    SE NÃO DEIXAR PROVA, DAQUI A TRÊS MESES ALGUÉM REFAZ O ERRO
+    «PORQUE NINGUÉM TINHA TENTADO».
+
+## 50.2 · POR QUÊ — as palavras de clima vivem fora de T2
+
+Gabarito de **46 documentos reais** desta árvore: 10 positivos, 33 negativos,
+3 ambíguos. O rótulo de cada um vem do que **o próprio documento declara nas
+primeiras linhas** — não do que dava jeito.
+
+| termo | T2 (10) | NÃO-T2 (33) |
+|---|---:|---:|
+| `evapotraspirazione` | 6 | 0 |
+| `agrometeo` | 8 | 8 |
+| `meteo` | 9 | 25 |
+| `vento` | 7 | **30** |
+| `previsione` | 0 | 11 |
+
+**Nenhum termo** aparece nos 10 positivos e em zero negativos. E o resultado que
+vira a intuição do avesso: as palavras óbvias de clima aparecem **mais fora de
+T2 do que dentro**.
+
+Não é acidente. É o que um boletim de praga **é**: a praga responde ao tempo,
+por isso todo o boletim fitossanitário fala de tempo.
+
+```
+DOCUMENTO SOBRE CLIMA != DOCUMENTO QUE APENAS MENCIONA CLIMA,
+E O VOCABULARIO SOZINHO NAO VE A DIFERENCA.
+```
+
+E os dois termos que **pareciam** salvar a regra traem-se quando se lê onde
+estão: `climatologia` está nos boletins de VITE porque eles creditam o
+*«Servizio Meteorologia e Climatologia di Arpav»* — **é o nome de quem
+colaborou**; `bagnatura fogliare` está nos boletins da Campânia como **condição
+de risco de infecção** — é vocabulário de defesa da cultura.
+
+```
+UMA PALAVRA NAO TRAZ O SEU ASSUNTO COLADA.
+ONDE ELA ESTA DECIDE O QUE ELA PROVA.
+```
+
+## 50.3 · O CONTRAEXEMPLO QUE FUNDA TUDO
+
+A **ARPAV** está dos dois lados do gabarito. A mesma agência publica:
+
+- `Meteo Veneto: luglio 2026 molto caldo, poche piogge` → **T2**
+- `U.O. Fitosanitario — Bollettino n. 20 VITE` → **T3**
+
+```
+O PUBLICADOR NAO DECIDE O TERRITORIO.
+```
+
+Sem esses seis negativos da ARPAV no gabarito, classificar pela fonte
+**pareceria funcionar** — e estaria errado em silêncio. Um gabarito onde cada
+publicador cai todo do mesmo lado não testa a regra: testa a lista de
+publicadores.
+
+```
+UM GABARITO SEM O MESMO PUBLICADOR DOS DOIS LADOS
+NAO MEDE A REGRA. MEDE QUEM IMPRIMIU.
+```
+
+## 50.4 · O ATAQUE QUE DECIDIU — e a lição de método desta missão
+
+Comparar candidatas que **eu** escolhi só responde *«estas não servem»*. Isso
+não fecha nada: sobra sempre a suspeita de que faltou imaginação.
+
+Então deixou de haver candidatas minhas. O **corpus** propôs 6.582 termos e
+bigramas dos positivos; ficaram 4.942 que não aparecem em negativo nenhum; e
+todos os 10 positivos são alcançáveis por algum deles. **Uma lista perfeita
+existe.** A pergunta seguinte é a única que importa — **de que é que ela é
+feita?**
+
+```
+7/10  'venerdì'              7/10  'pomeriggio'
+7/10  'unità organizzativa'  7/10  'dipartimento'
+```
+
+Dias da semana. Horas do dia. O nome do departamento que imprime.
+
+E a prova final — treinar num publicador, testar no que ficou de fora:
+
+```
+sem SIAS   cobre o treino 9/9  ·  acerta no retido 0/1
+sem ARPAE  cobre o treino 8/8  ·  acerta no retido 0/2
+sem ARPAV  cobre o treino 3/3  ·  acerta no retido 0/7
+
+GENERALIZACAO = 0/10
+```
+
+Cobre o treino **sempre**. Acerta no retido **nunca**.
+
+```
+UMA REGRA QUE SO ACERTA EM QUEM JA VIU NAO E UMA REGRA:
+E A LISTA DOS DOCUMENTOS QUE JA TINHAMOS.
+```
+
+**A lição de método**, e é a que vale para todas as missões seguintes:
+
+```
+NAO PERGUNTE «ESTA CANDIDATA SERVE?».
+PERGUNTE «EXISTE ALGUMA QUE SIRVA, E DE QUE E FEITA A MELHOR?»
+E DEPOIS TREINE NUM E TESTE NOUTRO.
+```
+
+Uma métrica medida **no material em que a regra foi ajustada** não é uma
+medição: é um espelho.
+
+## 50.5 · O QUE SE RECUSOU
+
+**Recusou-se escrever `A5-titulo-do-documento`**, e ela tinha `FP = 0` e
+`FN = 0`. Parece exactamente a regra certa. Não é uma regra de clima: é a lista
+dos **nomes comerciais** de três publicações — `agrometeo… informa`,
+`meteo veneto`, `bollettino agrometeorologico`. E mesmo assim responde
+`NAO_SEI` ao **SIAS**, uma fonte T2 declarada cuja página é uma tabela de
+precipitação sem uma linha de prosa.
+
+**Recusou-se arredondar os três ambíguos.** Os boletins da ARIF Puglia abrem com
+duas páginas de análise sinóptica e só depois trazem *Bactrocera*. A ficha
+`IT-T3-008` declara `T3` — e declara, nos próprios tópicos, `agrometeorologia`.
+São as duas coisas num PDF. Ficaram `AMBIGUO`.
+
+**Recusou-se o desenho C** (classificar pela `source_id` → `territory` da
+ficha). Além de a Admission nunca ler `source_id`, ele quebraria
+`DECLARADO ≠ OBSERVADO`: a porta passaria a dizer *«é T2 porque a ARPAV
+publicou»*, nunca *«é T2 porque o documento prova»*.
+
+## 50.6 · O QUE ISTO TERIA CUSTADO
+
+O caminho fácil estava a um `commit` de distância:
+
+```python
+"T2": ["clima", "tempo", "meteo", "temperatura", "pioggia", "vento"],
+```
+
+`TP = 9/10`. Número bonito. E, medido:
+
+```
+FALSE_POSITIVE = 32 dos 33 negativos
+```
+
+Todos os boletins fitossanitários de Campânia, Lazio, Trentino, Molise,
+Piemonte, Puglia e Veneto passariam a ser **clima** — e, como a Admission
+escreve no `LIVRO-DE-DECISOES.json`, cada um ficaria lá **com justificação**:
+*«fala de clima, tempo, meteo, temperatura — que é do que «T2» trata»*.
+Verdade palavra a palavra, falsa como julgamento.
+
+```
+O PIOR DEFEITO NAO E O QUE FALHA ALTO.
+E O QUE ACERTA NA METRICA E ERRA NO MUNDO,
+COM A PROVA ESCRITA AO LADO.
+```
+
+## 50.7 · O QUE FICOU ABERTO, MEDIDO E NÃO TOCADO
+
+Descobertas por acidente, **nenhuma corrigida** — o brief mandou não atacar o
+próximo bloqueio.
+
+- **`lancio` casa dentro de `bilancio`.** As listas de `PERGUNTAS_DO_UNIVERSO`
+  procuram subcadeias, sem fronteira de palavra. Por isso o `Bilancio
+  Fitosanitario` é reclamado por **T9**, e `eventi intensi` — um evento
+  meteorológico — também. Documentos T2 legítimos recebem `NAO` com uma
+  justificação falsa.
+- **Um documento pode pertencer a dois territórios.** `decidir(item, universo)`
+  é por par, portanto o modelo aguenta — mas as fichas das fontes assumem **um
+  território por fonte**, e a ARIF Puglia prova que isso não é verdade do
+  documento.
+- **Território é propriedade da FONTE; universo é pergunta ao DOCUMENTO.** Duas
+  coisas diferentes com o mesmo nome. A ARPAV mostra-as a divergir.
+
+```
+DUAS COISAS DIFERENTES COM O MESMO NOME
+SAO UM DEFEITO A ESPERA DE UMA MISSAO QUE AS CONFUNDA.
+```
+
+## 50.8 · O ESTADO, PARA A PRÓXIMA MISSÃO
+
+```
+T2 na Admission                 SEM REGRA, por decisão medida
+resposta da porta a T2          NAO_SE_APLICA — e é verdade
+T3 · T4 · T7 · T9               intactos, listas não tocadas
+Admission (lógica)              intacta
+runtime                         intacto
+NEW_FAILURES                    0   (21 falhas, as mesmas 21 do baseline)
+SYSTEM_MAP_CHECK                PASS
+```
+
+Se um dia aparecer material novo — mais publicadores T2, ou uma lei que diga o
+que é ser *sobre* um assunto — o portão **reabre-se refazendo a medição**, não
+contornando-a. `tests/test_a_regra_de_t2.py` cai alto no dia em que alguém
+escrever T2 sem refazer a conta.
