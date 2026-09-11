@@ -248,7 +248,16 @@ class T7AProvaEDuravelEPassaPeloWorkflow(unittest.TestCase):
 
     def test_a_fase_existe_e_corre_no_runner_local(self):
         wf = _fonte('.github/workflows/scrap-social.yml')
-        self.assertIn('gpu-asr]', wf, 'a fase tem de estar nas opcoes do despacho')
+        # ⚠️ Esta prova dizia `assertIn('gpu-asr]', wf)` — e isso exigia que a
+        # fase fosse a ULTIMA da lista. Reprovou no dia em que nasceu uma fase a
+        # seguir a ela, que e precisamente o que se espera que aconteca.
+        #
+        #     ANCORAR NA POSICAO E MEDIR A ORDEM, NAO A PERTENCA.
+        opcoes = wf[wf.index('options: ['):]
+        opcoes = opcoes[:opcoes.index(']') + 1]
+        self.assertIn('gpu-asr', [o.strip() for o in
+                                  opcoes.strip('options: []').replace('\n', ' ').split(',')],
+                      'a fase tem de estar nas opcoes do despacho')
         i = wf.index('\n  gpu-asr:')
         corpo = wf[i:wf.index('\n  scrap:', i)]
         self.assertIn('eame-sintonia-local', corpo)
