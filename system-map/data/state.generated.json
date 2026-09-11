@@ -761,6 +761,7 @@
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
       "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
       "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
+      "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
       "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md"
@@ -1446,6 +1447,7 @@
       "tests/test_c2_youtube_oficial.py",
       "tests/test_c3_youtube_cutover.py",
       "tests/test_c4_gpu_local.py",
+      "tests/test_c5_transcript_gate.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canonico.py",
       "tests/test_censo_dos_donos.py",
@@ -1897,10 +1899,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-local-gpu-c4",
-    "HEAD": "8b13a0e8b1b9ffd8ce43083cd6189e37983623ea",
-    "GENERATED_AT": "2026-09-11T10:07:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a2f211572b1062d353fe8e3055b166ad6d2baae1c5e8d633664e8cd1e5928d86"
+    "BRANCH": "claude/sintonia-scrap-youtube-transcript-c5",
+    "HEAD": "2eaf0f7385f41f92bc1140a279350e3ded802875",
+    "GENERATED_AT": "2026-09-11T10:41:46+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6ae9f57a9db64111e9e7996a08f5dd416432b42270ea447cab1599da07e3dc87"
   },
   "FAMILIES": [
     {
@@ -13610,9 +13612,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 475,
+        "palavras": 481,
         "por_lingua": {},
-        "sem_marca_de_lingua": 475,
+        "sem_marca_de_lingua": 481,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15309,6 +15311,7 @@
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c3_youtube_cutover.py",
         "tests/test_c4_gpu_local.py",
+        "tests/test_c5_transcript_gate.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canonico.py",
         "tests/test_censo_dos_donos.py",
@@ -15380,7 +15383,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 82,
+      "file_count": 83,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -16958,7 +16961,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-local-gpu-c4"
+        "branch claude/sintonia-scrap-youtube-transcript-c5"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -20903,7 +20906,7 @@
       "evidence": [
         {
           "file": "leis/social_matriz.py",
-          "line": 337,
+          "line": 390,
           "snippet": "'scripts/instagram_janela.py'),"
         }
       ],
@@ -21046,7 +21049,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c3_youtube_cutover.py",
@@ -21057,6 +21060,11 @@
           "file": "tests/test_c3_youtube_cutover.py",
           "line": 658,
           "snippet": "t = _fonte('coleta/comunicacao_medir.py')"
+        },
+        {
+          "file": "tests/test_c5_transcript_gate.py",
+          "line": 353,
+          "snippet": "for rel in ('regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
           "file": "tests/test_reel_transcricao.py",
@@ -28482,12 +28490,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 20 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c2_youtube_oficial.py",
           "line": 241,
           "snippet": "import social_matriz as mz"
+        },
+        {
+          "file": "tests/test_c5_transcript_gate.py",
+          "line": 31,
+          "snippet": "import social_matriz as mz   # noqa: E402"
         },
         {
           "file": "tests/test_falhas.py",
@@ -28538,11 +28551,6 @@
           "file": "tests/test_rastro_pg.py",
           "line": 21,
           "snippet": "import falhas                       # noqa: E402"
-        },
-        {
-          "file": "tests/test_social_sessao.py",
-          "line": 36,
-          "snippet": "import social_matriz as mz          # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -28752,7 +28760,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 41 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 42 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -28825,7 +28833,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 27 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 30 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -28883,9 +28891,9 @@
           "snippet": "self.assertEqual(donos, ['coleta/scrap_fornecedores.py'], donos)"
         },
         {
-          "file": "tests/test_politica_da_coleta.py",
-          "line": 210,
-          "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'social_persistencia.py'),"
+          "file": "tests/test_c5_transcript_gate.py",
+          "line": 112,
+          "snippet": "t = _fonte('coleta/youtube_oficial.py')"
         }
       ],
       "categoria": "PROOF"
@@ -29016,12 +29024,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c3_youtube_cutover.py",
           "line": 123,
           "snippet": "import sensor_coleta as sc"
+        },
+        {
+          "file": "tests/test_c5_transcript_gate.py",
+          "line": 239,
+          "snippet": "import sensor_coleta as sc                              # noqa: PLC0415"
         }
       ],
       "categoria": "PROOF"
@@ -29034,7 +29047,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c3_youtube_cutover.py",
@@ -29045,6 +29058,11 @@
           "file": "tests/test_c4_gpu_local.py",
           "line": 437,
           "snippet": "t = _fonte('regras/sensor_coleta.py')"
+        },
+        {
+          "file": "tests/test_c5_transcript_gate.py",
+          "line": 180,
+          "snippet": "arvore = ast.parse(_fonte('regras/sensor_coleta.py'))"
         }
       ],
       "categoria": "PROOF"
@@ -30115,7 +30133,7 @@
       "evidence": [
         {
           "file": "leis/social_matriz.py",
-          "line": 353,
+          "line": 406,
           "snippet": "'scripts/instagram_transcrever.py'),"
         }
       ],
@@ -30167,12 +30185,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
           "line": 27,
           "snippet": "import fala_local as fl                                        # noqa: E402"
+        },
+        {
+          "file": "tests/test_c5_transcript_gate.py",
+          "line": 358,
+          "snippet": "import fala_local as fl                                 # noqa: PLC0415"
         },
         {
           "file": "tests/test_reel_transcricao.py",
@@ -30210,7 +30233,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
@@ -30231,6 +30254,11 @@
           "file": "tests/test_c4_gpu_local.py",
           "line": 35,
           "snippet": "'ferramentas/reel_transcricao.py')"
+        },
+        {
+          "file": "tests/test_c5_transcript_gate.py",
+          "line": 382,
+          "snippet": "t = _fonte('ferramentas/fala_local.py')"
         },
         {
           "file": "tests/test_reel_transcricao.py",
@@ -31216,7 +31244,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 740,
+  "UNCLAIMED_FILES_COUNT": 741,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31388,8 +31416,8 @@
     "edges_proven": 639,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1450,
-    "files_covered": 710,
+    "files_tracked": 1452,
+    "files_covered": 711,
     "files_code_unclaimed": 0
   }
 }

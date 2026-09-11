@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-local-gpu-c4",
-    "HEAD": "8b13a0e8b1b9ffd8ce43083cd6189e37983623ea",
-    "GENERATED_AT": "2026-09-11T10:07:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a2f211572b1062d353fe8e3055b166ad6d2baae1c5e8d633664e8cd1e5928d86"
+    "BRANCH": "claude/sintonia-scrap-youtube-transcript-c5",
+    "HEAD": "2eaf0f7385f41f92bc1140a279350e3ded802875",
+    "GENERATED_AT": "2026-09-11T10:41:46+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6ae9f57a9db64111e9e7996a08f5dd416432b42270ea447cab1599da07e3dc87"
   },
   "FILES": [
     {
@@ -5168,6 +5168,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
+      "sha": "d6809451ecb6c8586f0ffd6b4782c35c78b0d50c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "sha": "a4f6774ac3a21e3361b5a18ea86743914eec9cd4",
       "ext": ".md",
@@ -7241,7 +7248,7 @@
     },
     {
       "path": "leis/social_matriz.py",
-      "sha": "4e9117a783e6ea9ce7a214fd5573d1d089d0964a",
+      "sha": "0aa0835052618edbedd2cb3352ab261867335b51",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8165,7 +8172,7 @@
     },
     {
       "path": "regras/sensor_coleta.py",
-      "sha": "5020a79c2c6df8d25139b2c74194043139e8fced",
+      "sha": "8c52b4eb2bfcf20607f42c5fb86322769a3263cf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9657,6 +9664,13 @@
     {
       "path": "tests/test_c4_gpu_local.py",
       "sha": "93c1f2a8b3718df3648988107faa748397cf2c52",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c5_transcript_gate.py",
+      "sha": "a5e6beb154b627baaf7b9043ce755b59501ada1a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19671,7 +19685,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 337,
+        "line": 390,
         "snippet": "'scripts/instagram_janela.py'),"
       }
     },
@@ -19682,7 +19696,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 353,
+        "line": 406,
         "snippet": "'scripts/instagram_transcrever.py'),"
       }
     },
@@ -30489,6 +30503,127 @@
       }
     },
     {
+      "from_file": "tests/test_c5_transcript_gate.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c5_transcript_gate.py",
+        "line": 30,
+        "snippet": "import _gavetas          # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_c5_transcript_gate.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c5_transcript_gate.py",
+        "line": 164,
+        "snippet": "t = _fonte('coleta/adaptador_youtube.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c5_transcript_gate.py",
+      "to_file": "coleta/comunicacao_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c5_transcript_gate.py",
+        "line": 353,
+        "snippet": "for rel in ('regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_c5_transcript_gate.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c5_transcript_gate.py",
+        "line": 376,
+        "snippet": "import scrap_capacidades as cap                         # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "tests/test_c5_transcript_gate.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c5_transcript_gate.py",
+        "line": 196,
+        "snippet": "arvore = ast.parse(_fonte('coleta/social_rotas.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_c5_transcript_gate.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c5_transcript_gate.py",
+        "line": 112,
+        "snippet": "t = _fonte('coleta/youtube_oficial.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c5_transcript_gate.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c5_transcript_gate.py",
+        "line": 358,
+        "snippet": "import fala_local as fl                                 # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "tests/test_c5_transcript_gate.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c5_transcript_gate.py",
+        "line": 382,
+        "snippet": "t = _fonte('ferramentas/fala_local.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c5_transcript_gate.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c5_transcript_gate.py",
+        "line": 31,
+        "snippet": "import social_matriz as mz   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c5_transcript_gate.py",
+      "to_file": "regras/sensor_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c5_transcript_gate.py",
+        "line": 239,
+        "snippet": "import sensor_coleta as sc                              # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "tests/test_c5_transcript_gate.py",
+      "to_file": "regras/sensor_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c5_transcript_gate.py",
+        "line": 180,
+        "snippet": "arvore = ast.parse(_fonte('regras/sensor_coleta.py'))"
+      }
+    },
+    {
       "from_file": "tests/test_calendario_temporal.py",
       "to_file": "data/samples/AGRONOMIC-CALENDAR-DESIGN-DATA-CONTRACT-V1.json",
       "type": "READS",
@@ -36414,10 +36549,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1450,
-    "files_readable": 549,
-    "files_code_dir": 596,
-    "file_edges": 2345,
+    "files_tracked": 1452,
+    "files_readable": 550,
+    "files_code_dir": 597,
+    "file_edges": 2356,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
