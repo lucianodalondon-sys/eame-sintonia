@@ -2860,6 +2860,44 @@
    "files": [
     "provas/reel_fala_qualidade.py"
    ]
+  },
+  {
+   "id": "C-CENSO-DA-MAQUINA",
+   "name": "O que esta máquina tem, perguntado em vez de lembrado",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⚙",
+   "what": "Mede CPU, RAM, disco, placa, driver, CUDA, CTranslate2 e ffmpeg do runner onde corre. Não instala, não muda driver nem PATH, não pede admin — só pergunta. E distingue três ausências que não se misturam: NOT_MEASURED, UNKNOWN e NOT_APPLICABLE.",
+   "why_here": "O estado do hardware desta casa era uma frase — LOCAL_HARDWARE_STATUS = NOT_MEASURED — honesta e inútil para decidir. A FICHA DO FABRICANTE DIZ O QUE A PEÇA PODE FAZER; ELA NÃO DIZ O QUE ESTA MÁQUINA, HOJE, COM ESTES DRIVERS, FAZ. E a pergunta da GPU tem três degraus: existe placa, o driver expõe CUDA, e a biblioteca VÊ a placa — o terceiro é o que decide e o que mais falha sozinho.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/hardware_local.py"
+   ],
+   "views": [
+    "audit",
+    "infra"
+   ]
+  },
+  {
+   "id": "C-PROVA-ASR-LOCAL",
+   "name": "O banco de prova do reconhecedor, ferro a ferro",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "♪",
+   "what": "Mede o mesmo corpus já preservado em cada configuração de modelo e dispositivo: tempo, fator de tempo real, RAM, VRAM, termos agronômicos, nome de marca e estabilidade de língua. Chama o dono único do reconhecedor — nunca instancia modelo próprio.",
+   "why_here": "MAIS RÁPIDO NÃO É MELHOR E MAIOR NÃO É MELHOR: o que conta neste corpus é o nome da cultura, da marca e da doença, e é exatamente aí que o modelo barato falha. A verdade de referência vem de QUALIDADE-DA-FALA-V1.json, que declara cada termo com a origem — inventar uma segunda lista faria duas verdades sobre a mesma pergunta.",
+   "departments": [
+    "ENGENHARIA",
+    "TECNICO_CIENCIA"
+   ],
+   "files": [
+    "provas/asr_banco.py"
+   ],
+   "views": [
+    "audit"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
