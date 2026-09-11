@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-x-deep-census-c12",
-    "HEAD": "6d2519021704bf24104b7978a46e57a8530a24e2",
-    "GENERATED_AT": "2026-09-11T21:52:47+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f91dc58f420b2a23002caab4587a3be3f353d25289354387552fee1de35ee3ce"
+    "BRANCH": "claude/sintonia-scrap-instagram-policy-decision-c10-5d",
+    "HEAD": "707437c4bb3e4a0a73d089d9a752126470ba8e74",
+    "GENERATED_AT": "2026-09-11T23:27:49+00:00",
+    "SOURCE_TREE_FINGERPRINT": "9dce6c2125625561e01238695bae2eb11d20146bcaad864b0110e36165463f3c"
   },
   "FILES": [
     {
@@ -1130,7 +1130,7 @@
     },
     {
       "path": "coleta/adaptador_instagram.py",
-      "sha": "41f9841d1933a4fe17c299f31438d19f4947bc73",
+      "sha": "f11c15d7d7dc480c1bd2b306ac8807fdc8893156",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5189,6 +5189,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-5D-DECISAO-DO-INSTAGRAM.md",
+      "sha": "73dc79b6b315ed1d7f1f4f834f60528a8679d907",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -7332,7 +7339,7 @@
     },
     {
       "path": "leis/social_matriz.py",
-      "sha": "bd055720e3a1738d642b041edaef3ee0474875a0",
+      "sha": "eb14d17bfd38edaacf9fda3998559d76039b4d6c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9775,21 +9782,28 @@
     },
     {
       "path": "tests/test_c10_4_route_gate.py",
-      "sha": "fb1e7476f3505461a6f0c5e3f5e6df93b68663c7",
+      "sha": "1c8936ddabda6f58bdcb8500bc6e2f2f286ffb12",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "tests/test_c10_5_collection_flow.py",
-      "sha": "8582b2ae387de130b26513f74e1d1f1354af91ed",
+      "sha": "dcc219201ab038948e4bfc8319301b40e06e2ae6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_5d_decisao_instagram.py",
+      "sha": "de1e012d1ec4b0dd222f53b61224e5809cc2ab62",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "tests/test_c10_audio_only.py",
-      "sha": "e414062ced528a519a1e90abf39d0896068477e0",
+      "sha": "11c339e7476d89bf7c828e647d9068ebf9875925",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11881,7 +11895,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 128,
+        "line": 151,
         "snippet": "trace['ASR_OWNER'] = 'ferramentas/fala_local.py'"
       }
     },
@@ -11892,7 +11906,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 113,
+        "line": 136,
         "snippet": "import reel_transcricao as rt"
       }
     },
@@ -11903,7 +11917,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 152,
+        "line": 179,
         "snippet": "medida['IMPLEMENTACAO'] = 'ferramentas/reel_transcricao.py'"
       }
     },
@@ -11925,8 +11939,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 86,
-        "snippet": "trace['POLICY_OWNER'] = 'leis/social_matriz.py'"
+        "line": 84,
+        "snippet": "return {'POLICY_OWNER': 'leis/social_matriz.py',"
       }
     },
     {
@@ -19939,13 +19953,13 @@
     },
     {
       "from_file": "leis/social_matriz.py",
-      "to_file": "ferramentas/instagram_transcrever.py",
+      "to_file": "docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 406,
-        "snippet": "'scripts/instagram_transcrever.py'),"
+        "line": 437,
+        "snippet": "'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md'),"
       }
     },
     {
@@ -30372,7 +30386,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_4_route_gate.py",
-        "line": 271,
+        "line": 301,
         "snippet": "arvore = ast.parse(_fonte('coleta/adaptador_instagram.py'))"
       }
     },
@@ -30427,7 +30441,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_4_route_gate.py",
-        "line": 415,
+        "line": 491,
         "snippet": "self.assertEqual(medida.get('ASR_OWNER'), 'ferramentas/fala_local.py')"
       }
     },
@@ -30449,7 +30463,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_4_route_gate.py",
-        "line": 414,
+        "line": 490,
         "snippet": "'ferramentas/reel_transcricao.py')"
       }
     },
@@ -30471,7 +30485,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_4_route_gate.py",
-        "line": 235,
+        "line": 265,
         "snippet": "self.assertIn('leis/social_matriz.py', donos,"
       }
     },
@@ -30482,7 +30496,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c10_5_collection_flow.py",
-        "line": 293,
+        "line": 312,
         "snippet": "import adaptador_instagram as ai"
       }
     },
@@ -30493,7 +30507,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_5_collection_flow.py",
-        "line": 270,
+        "line": 289,
         "snippet": "self.assertTrue(any(rel == 'coleta/adaptador_instagram.py'"
       }
     },
@@ -30526,7 +30540,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_5_collection_flow.py",
-        "line": 317,
+        "line": 336,
         "snippet": "self.assertEqual(leitores, ['coleta/scrap_http.py'],"
       }
     },
@@ -30548,7 +30562,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_5_collection_flow.py",
-        "line": 252,
+        "line": 271,
         "snippet": "if rel in ('ferramentas/reel_transcricao.py',):"
       }
     },
@@ -30561,6 +30575,127 @@
         "file": "tests/test_c10_5_collection_flow.py",
         "line": 50,
         "snippet": "import social_matriz as mz          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5d_decisao_instagram.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_5d_decisao_instagram.py",
+        "line": 52,
+        "snippet": "import adaptador_instagram as ai    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5d_decisao_instagram.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_5d_decisao_instagram.py",
+        "line": 348,
+        "snippet": "for ficheiro in ('coleta/adaptador_instagram.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5d_decisao_instagram.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_5d_decisao_instagram.py",
+        "line": 48,
+        "snippet": "import scrap_capacidades as cap     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5d_decisao_instagram.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_5d_decisao_instagram.py",
+        "line": 248,
+        "snippet": "self.assertNotEqual('coleta/scrap_capacidades.py', 'leis/social_matriz.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5d_decisao_instagram.py",
+      "to_file": "coleta/scrap_fornecedores.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_5d_decisao_instagram.py",
+        "line": 49,
+        "snippet": "import scrap_fornecedores as forn   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5d_decisao_instagram.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_5d_decisao_instagram.py",
+        "line": 50,
+        "snippet": "import fala_local as fl             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5d_decisao_instagram.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_5d_decisao_instagram.py",
+        "line": 264,
+        "snippet": "self.assertEqual(donos, ['ferramentas/fala_local.py'])"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5d_decisao_instagram.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_5d_decisao_instagram.py",
+        "line": 51,
+        "snippet": "import reel_transcricao as rt       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5d_decisao_instagram.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_5d_decisao_instagram.py",
+        "line": 349,
+        "snippet": "'ferramentas/reel_transcricao.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5d_decisao_instagram.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_5d_decisao_instagram.py",
+        "line": 47,
+        "snippet": "import social_matriz as mz          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5d_decisao_instagram.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_5d_decisao_instagram.py",
+        "line": 220,
+        "snippet": "self.assertEqual(trace['POLICY_OWNER'], 'leis/social_matriz.py')"
       }
     },
     {
@@ -30581,7 +30716,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_audio_only.py",
-        "line": 328,
+        "line": 362,
         "snippet": "self.assertEqual(donos, {os.path.join('ferramentas', 'fala_local.py')}, donos)"
       }
     },
@@ -30603,8 +30738,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_audio_only.py",
-        "line": 333,
+        "line": 367,
         "snippet": "with io.open(os.path.join(RAIZ, 'ferramentas', 'reel_transcricao.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_audio_only.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_audio_only.py",
+        "line": 83,
+        "snippet": "import social_matriz as mz"
       }
     },
     {
@@ -37721,10 +37867,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1478,
-    "files_readable": 564,
-    "files_code_dir": 611,
-    "file_edges": 2446,
+    "files_tracked": 1480,
+    "files_readable": 565,
+    "files_code_dir": 612,
+    "file_edges": 2458,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
