@@ -8,7 +8,7 @@
 > bastante para **avaliar** — e eventualmente **treinar** — um classificador
 > semântico da Admission?
 >
-> **A resposta medida:**
+> **A resposta medida** (setembro de 2026, na fotografia original):
 >
 > ```
 > T2  = B   serve para AVALIAR · não serve para treinar
@@ -16,6 +16,10 @@
 > T1 · T5 · T10 · T11 · T12 · T13 = D
 > OVERALL_VERDICT = B
 > ```
+>
+> **T3 mudou depois.** A revisão humana fechou e T3 passou de `D` a `B`. A
+> fotografia acima fica como estava — ela é o que se via naquele dia. O que
+> mudou está na [secção 8](#8--atualização-t3--11092026), no fim.
 >
 > Nenhum classificador foi construído. `PERGUNTAS_DO_UNIVERSO` não foi tocado.
 
@@ -274,3 +278,143 @@ prompt-classifier. Nenhum *benchmark* de fornecedor. A Admission não mudou,
 
     AINDA NÃO SABÍAMOS SE HAVIA CHÃO PARA MEDIR UM.
     AGORA SABEMOS: HÁ PARA UM UNIVERSO, E SÓ PARA AVALIAR.
+
+
+---
+
+## 8 · ATUALIZAÇÃO T3 — 11/09/2026
+
+> **Isto não apaga nada acima.** A secção 1 continua a dizer que, naquele dia,
+> T3 não tinha um único rótulo independente com corpo. Isso era verdade. Deixou
+> de ser, e a diferença entre as duas coisas é o trabalho de quatro missões.
+>
+> Missão: `C-FECHA-GABARITO-T3-E-RECALCULA-CENSO-V1`
+
+### O que mudou
+
+```
+T3_OLD_VERDICT = D
+T3_NEW_VERDICT = B
+
+T3_SANITY_SUFFICIENT      = YES
+T3_EVALUATION_SUFFICIENT  = YES
+T3_TRAINING_SUFFICIENT    = NO
+```
+
+### De onde veio o rótulo
+
+Uma pessoa leu 53 documentos e respondeu. Depois leu outra vez: 32 em modo de
+confirmação, com a resposta à vista e a razão por escrever, e 21 **às cegas**,
+sem ver a primeira resposta e com o documento inteiro disponível.
+
+```
+REVIEW_A              53 respostas
+QUALITY_GATE (A2)     53 respostas · 32 confirmações + 21 releituras cegas
+```
+
+Não houve segundo revisor independente, e o gabarito diz isso de si mesmo. É a
+mesma pessoa em segunda passagem.
+
+### O fecho
+
+```
+EVAL_ELIGIBLE   36     CONFIRMED_SIM 14 · CONFIRMED_NAO 22
+UNRESOLVED      11     as duas leituras não bateram
+EVIDENCE_GAP     6     as duas disseram «não dá para saber»
+AMBIGUOUS        0
+```
+
+Onde as duas leituras divergiram, **não há rótulo**. Não se escolheu A, não se
+escolheu A2, não se tirou maioria de duas respostas.
+
+```
+A != A2  ->  UNRESOLVED, E MAIS NADA.
+EVIDÊNCIA INSUFICIENTE  !=  NÃO
+```
+
+Os 17 que ficaram de fora estão guardados no mesmo artefato, em
+`EXCLUDED_FROM_EVALUATION`, com as duas respostas e a razão. Não são gabarito,
+e o ficheiro diz isso na cara.
+
+### O gabarito
+
+```
+data/samples/T3-GROUND-TRUTH-EVAL-V1.json
+sintonia.t3-ground-truth-eval/1
+LABEL_AUTHORITY = HUMAN_VERIFIED   ·   AUTO_LABELS_ASSIGNED = 0
+gerado por provas/fechar_ground_truth_t3.py
+```
+
+É a primeira origem de rótulo desta árvore que não é herdada da ficha da fonte
+nem derivada das palavras que a Admission usa hoje.
+
+### O portão, critério a critério
+
+Os limiares são os da secção 2 desta fotografia, escritos antes de qualquer
+contagem e **não mexidos** nesta missão.
+
+| critério | medido | |
+|---|---|---|
+| positivos ≥ 10 | 11 | passa |
+| negativos ≥ 10 | 20 | passa |
+| publicadores no lado positivo ≥ 3 | 6 | passa |
+| holdout de publicador com as duas classes | YES | passa |
+| corpo recuperável | 31/31 | passa |
+| razão estruturada | 31/31 | passa |
+| evidência atestada | 31/31 | passa |
+
+### As três ressalvas
+
+**1 · A margem é de um.** O critério pede 10 positivos independentes e há 11.
+Um item que se descubra mal rotulado derruba o veredicto.
+
+**2 · Os 14 positivos são 11 observações.** Quatro deles são edições seguidas do
+mesmo boletim regional e partilham a abertura quase inteira.
+
+```
+QUATRO CÓPIAS DO MESMO BOLETIM NÃO SÃO QUATRO PROVAS.
+```
+
+O portão conta **grupos**, não ficheiros. Os limiares não mudaram; mudou o que
+conta como um. Nenhum par quase-duplicado atravessa publicadores, portanto uma
+divisão por publicador nunca põe duas cópias do mesmo boletim em lados opostos.
+
+**3 · O idioma não foi medido em todos.** 17 dos 36 não resolvem `LANGUAGE` e um
+está em inglês. O país é `IT` em 36/36, e é isso — e só isso — que o escopo
+afirma.
+
+```
+EVALUATION_SCOPE = ITALIAN_AGRO_INSTITUTIONAL_CORPUS
+```
+
+Não autoriza afirmar França, Espanha nem EAME.
+
+### Diversidade e holdout, medidos
+
+```
+DOCUMENTS            36   ->  GRUPOS INDEPENDENTES 31
+PUBLICATION_SERIES   27       PUBLISHERS 14       SOURCES 11
+POSITIVE_PUBLISHERS   6       NEGATIVE_PUBLISHERS  9
+
+PUBLISHER_HOLDOUT_WITH_BOTH_CLASSES_POSSIBLE = YES
+SOURCE_HOLDOUT_WITH_BOTH_CLASSES_POSSIBLE    = YES
+COUNTRY_HOLDOUT_POSSIBLE                     = NO
+LANGUAGE_HOLDOUT_POSSIBLE                    = NO
+```
+
+`NAO SEI` não conta como fonte: 16 dos 36 não resolvem `SOURCE_ID` e ficam fora
+de toda a contagem de diversidade.
+
+### O que esta atualização não fez
+
+Nenhum classificador construído. Nenhum modelo escolhido. Nenhum *benchmark*.
+Nenhum *embedding*. A Admission não mudou, `PERGUNTAS_DO_UNIVERSO` não mudou,
+nenhuma regra de T3 entrou em runtime. Nada foi recoletado.
+
+```
+CLASSIFIER_BUILT = NO   ·   ADMISSION_CHANGED = NO   ·   RECOLLECTION = NO
+```
+
+    ANTES: T3 NÃO TINHA UM ÚNICO RÓTULO INDEPENDENTE COM CORPO.
+    AGORA: TEM 36, E 11 DELES SÃO POSITIVOS INDEPENDENTES.
+    CONTINUA SEM CHÃO PARA TREINAR.

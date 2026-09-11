@@ -95,6 +95,10 @@ DESCONHECIDA = "UNKNOWN"
 # definicao — e a saida do mecanismo que se quer substituir.
 SERVEM_DE_GABARITO = (HUMAN_VERIFIED, DOCUMENT_SELF_DECLARED)
 
+# O gabarito humano de T3. Ate existir, T3 estava em D por falta de qualquer
+# rotulo independente com corpo.
+GABARITO_T3 = "data/samples/T3-GROUND-TRUTH-EVAL-V1.json"
+
 
 def _ler(caminho):
     with open(os.path.join(RAIZ, caminho), "rb") as f:
@@ -194,6 +198,34 @@ def origens_de_rotulo():
         "AUTORIDADE": DESCONHECIDA,
         "_dados": reg,
     })
+
+    # ── O GABARITO DE T3 — o primeiro rotulo HUMANO desta arvore ───────────
+    # Ate a missao de fecho, toda a origem acima era herdada da ficha da
+    # fonte, derivada das palavras da Admission, ou nao tinha universo nenhum.
+    # Nenhuma delas podia servir de gabarito do substituto das keywords.
+    #
+    #     UM CLASSIFICADOR TREINADO NAS RESPOSTAS DO ANTERIOR
+    #     NAO O SUBSTITUI: CONFIRMA-O.
+    #
+    # Esta e a primeira que escapa disso: uma PESSOA leu o documento e
+    # respondeu, em duas passagens, e onde as duas nao fecharam NAO ha rotulo.
+    if os.path.isfile(os.path.join(RAIZ, GABARITO_T3)):
+        gt3 = _json(GABARITO_T3)
+        fora.append({
+            "PATH": GABARITO_T3,
+            "FORMAT": "JSON · GROUND_TRUTH[] + EXCLUDED_FROM_EVALUATION[]",
+            "ITEMS": len(gt3["GROUND_TRUTH"]),
+            "WHO_ASSIGNED": "uma PESSOA, em duas passagens (A e A2); a segunda "
+                            "cega nos itens de releitura. NAO houve segundo "
+                            "revisor independente.",
+            "WHEN": gt3["GENERATED_AT"][:10],
+            "LABELS": sorted({x["LABEL"] for x in gt3["GROUND_TRUTH"]}),
+            "MULTILABEL": "NAO",
+            "EVIDENCE": "SIM · corpo no disco, evidencia exibida e atestada",
+            "REPRODUCIBLE": "SIM · " + gt3["GENERATOR"],
+            "AUTORIDADE": HUMAN_VERIFIED,
+            "_dados": gt3,
+        })
 
     return fora
 
@@ -335,8 +367,56 @@ def familia_de(caminho):
             ".ods": "PLANILHA", ".txt": "TEXTO"}.get(ext, "OUTRO")
 
 
+def corpus_t3():
+    """Os itens de T3 com rotulo HUMANO, corpo e razao estruturada.
+
+    ⚠️ A UNIDADE DE CONTAGEM E O GRUPO, NAO O FICHEIRO. Quatro edicoes
+    seguidas do mesmo boletim regional sao quatro ficheiros e uma observacao;
+    conta-las como quatro enche o censo sem acrescentar evidencia.
+    O agrupamento vem medido do proprio gabarito.
+    """
+    if not os.path.isfile(os.path.join(RAIZ, GABARITO_T3)):
+        return [], []
+    d = _json(GABARITO_T3)
+    pares = [(x["A"], x["B"]) for x in d["NEAR_DUPLICATES"]["PARES"]]
+    pai = {x["DOC_SHA256"]: x["DOC_SHA256"] for x in d["GROUND_TRUTH"]}
+
+    def raiz(x):
+        while pai[x] != x:
+            x = pai[x]
+        return x
+    for a, b in pares:
+        ra, rb = raiz(a), raiz(b)
+        if ra != rb:
+            pai[ra] = rb
+
+    todos, visto = [], set()
+    for x in sorted(d["GROUND_TRUTH"], key=lambda y: y["ITEM_ID"]):
+        item = {
+            "ITEM_ID": x["ITEM_ID"],
+            "SOURCE_ID": x["SOURCE_ID"],
+            "CONTENT_PATH": x["CONTENT_PATH"],
+            "LABEL": "T3:%s" % ("SIM" if x["LABEL"] == "T3_SIM" else "NAO"),
+            "LABEL_AUTHORITY": HUMAN_VERIFIED,
+            "LABEL_REASON": x["HUMAN_REASON_CODE"],
+            "PUBLICADOR": x["PUBLISHER"],
+            "FAMILIA": familia_de(x["CONTENT_PATH"]),
+            "GRUPO": raiz(x["DOC_SHA256"]),
+        }
+        todos.append(item)
+        if item["GRUPO"] not in visto:
+            visto.add(item["GRUPO"])
+    independentes = []
+    visto = set()
+    for item in todos:
+        if item["GRUPO"] not in visto:
+            visto.add(item["GRUPO"])
+            independentes.append(item)
+    return todos, independentes
+
+
 def corpus_com_corpo(gabarito):
-    """So o gabarito de T2 tem, hoje, rotulo E corpo E razao escrita."""
+    """O gabarito de T2 — rotulo E corpo E razao escrita."""
     fora = []
     for caminho, rotulo, porque in gabarito:
         fora.append({
@@ -460,6 +540,7 @@ def main():
     print("\n4 · O CORPUS COM CORPO VERIFICAVEL")
     print("-" * 74)
     corpo = corpus_com_corpo(gab)
+    t3_todos, t3_ind = corpus_t3()
     pos = [c for c in corpo if c["LABEL"] == "T2:SIM"]
     neg = [c for c in corpo if c["LABEL"] == "T2:NAO"]
     amb = [c for c in corpo if c["LABEL"] == "T2:AMBIGUO"]
@@ -481,6 +562,11 @@ def main():
     for u in ("T2", "T3", "T4", "T7", "T9"):
         if u == "T2":
             p, n, a = pos, neg, amb
+        elif u == "T3":
+            # O portao conta as observacoes INDEPENDENTES, nao os ficheiros.
+            p = [c for c in t3_ind if c["LABEL"] == "T3:SIM"]
+            n = [c for c in t3_ind if c["LABEL"] == "T3:NAO"]
+            a = []
         else:
             # Nenhuma outra origem produz positivo/negativo com corpo e razao.
             p, n, a = [], [], []
@@ -489,6 +575,8 @@ def main():
         g = portao(u, p, n, publ, fam)
         vereditos[u] = g
         porque = ("gabarito de T2" if u == "T2"
+                  else "gabarito HUMANO de T3 (%d ficheiros -> %d grupos)"
+                       % (len(t3_todos), len(t3_ind)) if u == "T3"
                   else "zero itens com rotulo independente E corpo")
         print(f"  {u:<6}{len(p):>5}{len(n):>5}{len(a):>5}{len(publ):>6}"
               f"{len(fam):>5}  {g['VEREDICTO']:<10} {porque}")
@@ -508,6 +596,29 @@ def main():
           f"{'YES' if len(src_pos) >= 3 else 'NO'}   fontes: {src_pos}")
     print(f"  COUNTRY_HOLDOUT_POSSIBLE   = NO   (todo o corpus e IT)")
     print(f"  LANGUAGE_HOLDOUT_POSSIBLE  = NO   (todo o corpus e it)")
+
+    if t3_ind:
+        gt3 = _json(GABARITO_T3)
+        h3, ind3 = gt3["HOLDOUT"], gt3["INDEPENDENCIA"]
+        t3p = [c for c in t3_ind if c["LABEL"] == "T3:SIM"]
+        print(f"\n  T3 · publicadores do lado positivo: "
+              f"{sorted({c['PUBLICADOR'] for c in t3p})}")
+        print(f"  PUBLISHER_HOLDOUT_WITH_BOTH_CLASSES_POSSIBLE = "
+              f"{ind3['PUBLISHER_HOLDOUT_APOS_FUNDIR']}")
+        print(f"  SOURCE_HOLDOUT_WITH_BOTH_CLASSES_POSSIBLE    = "
+              f"{ind3['SOURCE_HOLDOUT_APOS_FUNDIR']}")
+        print(f"  COUNTRY_HOLDOUT_POSSIBLE                     = "
+              f"{h3['COUNTRY_HOLDOUT_POSSIBLE']}")
+        print(f"  LANGUAGE_HOLDOUT_POSSIBLE                    = "
+              f"{h3['LANGUAGE_HOLDOUT_POSSIBLE']}")
+        print(f"\n  T3 · DOCUMENTS {ind3['DOCUMENTS']} · "
+              f"PUBLICATION_SERIES {len(gt3['DIVERSITY']['PUBLICATION_SERIES'])} · "
+              f"PUBLISHERS {len(set(gt3['DIVERSITY']['POSITIVE_PUBLISHERS']) | set(gt3['DIVERSITY']['NEGATIVE_PUBLISHERS']))} · "
+              f"SOURCES {len(set(gt3['DIVERSITY']['POSITIVE_SOURCE_IDS']) | set(gt3['DIVERSITY']['NEGATIVE_SOURCE_IDS']))}")
+        print(f"  T3 · ficheiros {ind3['DOCUMENTS']} -> grupos independentes "
+              f"{ind3['GRUPOS_INDEPENDENTES']}  "
+              f"(positivos {ind3['POSITIVOS_DOCUMENTOS']} -> "
+              f"{ind3['POSITIVOS_INDEPENDENTES']})")
 
     print("\n7 · O VEREDICTO")
     print("-" * 74)
@@ -532,6 +643,32 @@ def main():
     print()
     print("  Para essas candidatas o gabarito e treino, nao teste. Para um")
     print("  mecanismo que ninguem ajustou aqui, continua a servir de teste.")
+
+    if t3_ind:
+        gt3 = _json(GABARITO_T3)
+        ind3, idi3 = gt3["INDEPENDENCIA"], gt3["IDIOMA_MEDIDO"]
+        print()
+        print("  `T3 = B` tem tres ressalvas, e nenhuma delas aparece no 11.")
+        print()
+        print(f"  1 · A MARGEM E DE UM. O criterio pede 10 positivos e ha "
+              f"{ind3['POSITIVOS_INDEPENDENTES']}.")
+        print("      Um item que se descubra mal rotulado derruba o veredicto.")
+        print()
+        print(f"  2 · OS 14 POSITIVOS SAO {ind3['POSITIVOS_INDEPENDENTES']} "
+              f"OBSERVACOES. Quatro deles sao edicoes")
+        print("      seguidas do mesmo boletim regional, e partilham a abertura")
+        print("      quase inteira.")
+        print()
+        print("          QUATRO COPIAS DO MESMO BOLETIM NAO SAO QUATRO PROVAS.")
+        print()
+        print(f"  3 · O IDIOMA NAO FOI MEDIDO EM TODOS. "
+              f"{idi3['NAO_RESOLVIDO']} dos {ind3['DOCUMENTS']} nao")
+        print(f"      resolvem LANGUAGE, e {len(idi3['NAO_ITALIANO'])} esta em "
+              f"ingles. O pais e IT em todos,")
+        print("      e e isso — e so isso — que EVALUATION_SCOPE afirma.")
+        print()
+        print(f"      EVALUATION_SCOPE = {gt3['EVALUATION_SCOPE']}")
+        print("      Nao autoriza afirmar Franca, Espanha nem EAME.")
 
     print("\n9 · A LACUNA, MEDIDA — de onde poderia vir, sem coletar nada agora")
     print("-" * 74)

@@ -283,6 +283,7 @@
       "data/normalized/.gitkeep",
       "data/raw/.gitkeep",
       "data/raw/IT-ROTULOS/_MANIFESTO.json",
+      "data/review/inbox/T3-HUMAN-QUALITY-GATE-RESULTS-V1.json",
       "data/review/inbox/T3-HUMAN-REVIEW-RESULTS-V1.json",
       "data/review/t3/T3-CONTEXTO-CEGO-PTBR-V1.json",
       "data/review/t3/T3-HUMAN-REVIEW-A-V1.json",
@@ -604,6 +605,7 @@
       "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
       "data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json",
       "data/samples/T3-DISPLAY-TRANSLATION-PTBR-V1.json",
+      "data/samples/T3-GROUND-TRUTH-EVAL-V1.json",
       "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
       "data/samples/T3-SAMPLING-FRAME-V1.json",
       "data/samples/VERIFICACAO-ADVERSARIAL-PORTOES.json",
@@ -1168,6 +1170,7 @@
       "provas/coverage.py",
       "provas/derived_artifact_no_postgres.py",
       "provas/es/freeze_es.py",
+      "provas/fechar_ground_truth_t3.py",
       "provas/fluxo_no_seco.py",
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
@@ -1456,6 +1459,7 @@
       "tests/test_evolucao.py",
       "tests/test_execucao_standalone.py",
       "tests/test_falhas.py",
+      "tests/test_fechar_ground_truth_t3.py",
       "tests/test_forward_instrumentado.py",
       "tests/test_fronteira_mede_producao.py",
       "tests/test_fundacao_da_coleta.py",
@@ -1899,10 +1903,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/t3-review-a-adjudication-v1",
-    "HEAD": "dfd9b4015092d81ba6d744f9b470483c93392ff6",
-    "GENERATED_AT": "2026-09-11T16:39:50+00:00",
-    "SOURCE_TREE_FINGERPRINT": "ed0891a31bfaca2c1612acc292c01c75a24499ee5b0b1d84e48a121a0336bcb7"
+    "BRANCH": "claude/t3-ground-truth-close-v1",
+    "HEAD": "d560ad69658486411ac498af8bc81d601a46a1c3",
+    "GENERATED_AT": "2026-09-11T17:44:12+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b8c95d315dedbd65e15070e987496b88e2d058bf64876a6477ba666a8ecf9f3d"
   },
   "FAMILIES": [
     {
@@ -11915,6 +11919,7 @@
         "provas/auditoria_live.sh",
         "provas/censo_corpus_rotulado_admission.py",
         "provas/derived_artifact_no_postgres.py",
+        "provas/fechar_ground_truth_t3.py",
         "provas/o_corte_de_cr1.py",
         "provas/objeto_e_observacao_no_postgres.py",
         "provas/pacote_de_revisao_t3.py",
@@ -11931,7 +11936,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 22,
+      "file_count": 23,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11988,6 +11993,7 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "AFIRMACOES_PROIBIDAS",
           "BOTOES",
           "CANDIDATAS_A",
           "COLS_DER",
@@ -11997,6 +12003,7 @@
           "COLUNA_DO_DESTINO",
           "CRITERIOS",
           "CROMO",
+          "EDICAO",
           "FONTE_DO_POSITIVO",
           "MIGRATIONS",
           "PROIBIDOS_NA_FILA_CEGA",
@@ -12011,11 +12018,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 313,
+        "palavras": 325,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 311,
+        "sem_marca_de_lingua": 323,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15285,6 +15292,7 @@
         "tests/test_evolucao.py",
         "tests/test_execucao_standalone.py",
         "tests/test_falhas.py",
+        "tests/test_fechar_ground_truth_t3.py",
         "tests/test_forward_instrumentado.py",
         "tests/test_fronteira_mede_producao.py",
         "tests/test_fundacao_da_coleta.py",
@@ -15348,7 +15356,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 90,
+      "file_count": 91,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -16921,7 +16929,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/t3-review-a-adjudication-v1"
+        "branch claude/t3-ground-truth-close-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17322,7 +17330,7 @@
       "evidence": [
         {
           "file": "provas/censo_corpus_rotulado_admission.py",
-          "line": 116,
+          "line": 120,
           "snippet": "livro = _json(\"data/samples/LIVRO-DE-DECISOES.json\")[\"DECISOES\"]"
         },
         {
@@ -23081,7 +23089,7 @@
         },
         {
           "file": "provas/censo_corpus_rotulado_admission.py",
-          "line": 183,
+          "line": 187,
           "snippet": "reg = _json(\"data/derivados/REGISTO-DE-ARTEFATOS.json\")[\"ARTEFATOS\"]"
         },
         {
@@ -27279,7 +27287,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -27300,6 +27308,16 @@
           "file": "tests/test_execucao_standalone.py",
           "line": 32,
           "snippet": "'provas/paridade_da_lingua.py',"
+        },
+        {
+          "file": "tests/test_fechar_ground_truth_t3.py",
+          "line": 31,
+          "snippet": "\"fechar_gt_t3\", os.path.join(RAIZ, \"provas\", \"fechar_ground_truth_t3.py\"))"
+        },
+        {
+          "file": "tests/test_fechar_ground_truth_t3.py",
+          "line": 357,
+          "snippet": "\"censo_corpus_rotulado_admission.py\"))"
         },
         {
           "file": "tests/test_lingua_unica.py",
@@ -27330,16 +27348,6 @@
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 543,
           "snippet": "caminho = os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\")"
-        },
-        {
-          "file": "tests/test_qualidade_t3.py",
-          "line": 36,
-          "snippet": "\"qualidade_t3\", os.path.join(RAIZ, \"provas\", \"qualidade_t3.py\"))"
-        },
-        {
-          "file": "tests/test_ui_revisao_t3_ptbr.py",
-          "line": 29,
-          "snippet": "\"ui_t3\", os.path.join(RAIZ, \"provas\", \"ui_revisao_t3_ptbr.py\"))"
         }
       ],
       "categoria": "PROOF"
@@ -31272,7 +31280,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 739,
+  "UNCLAIMED_FILES_COUNT": 741,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31444,8 +31452,8 @@
     "edges_proven": 638,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1452,
-    "files_covered": 713,
+    "files_tracked": 1456,
+    "files_covered": 715,
     "files_code_unclaimed": 0
   }
 }
