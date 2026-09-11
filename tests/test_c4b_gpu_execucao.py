@@ -200,9 +200,21 @@ class T5NaoHaSegundoDonoNemDownloadNovo(unittest.TestCase):
         # `huggingface_hub` generico, que exige o repositorio inteiro, e dizia
         # «nao esta ca» sobre um modelo presente e utilizavel — apanhado na
         # segunda corrida real no runner.
-        self.assertIn('from faster_whisper.utils import download_model', t,
+        # ⚠️ E lida da ARVORE, nao do texto. A primeira versao desta sentinela
+        # procurava a palavra `snapshot_download` no ficheiro — e encontrava-a
+        # no COMENTARIO que explica porque ela saiu. Reprovou o conserto.
+        #
+        #     UMA SENTINELA ANCORADA NO TEXTO MEDE O TEXTO, NAO A LEI.
+        arv = ast.parse(t)
+        importados = set()
+        for no in ast.walk(arv):
+            if isinstance(no, ast.ImportFrom):
+                importados.update('%s.%s' % (no.module or '', a.name) for a in no.names)
+            elif isinstance(no, ast.Import):
+                importados.update(a.name for a in no.names)
+        self.assertIn('faster_whisper.utils.download_model', importados,
                       'quem responde tem de ser o dono do carregamento')
-        self.assertNotIn('snapshot_download', t,
+        self.assertNotIn('huggingface_hub.snapshot_download', importados,
                          'a pergunta generica da a resposta errada: o '
                          'faster-whisper guarda copia PARCIAL de proposito')
         d = __import__('gpu_asr_smoke').medir(device=fl.CPU, modelo='modelo-que-nao-existe-c4b')
