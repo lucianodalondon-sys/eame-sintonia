@@ -207,6 +207,17 @@ class T7e8OConsumidorQuePrecisaDoOriginal(unittest.TestCase):
             UM TESTE QUE USA UM CASO JÁ CONTAMINADO NÃO MEDE A TRAVA.
 
         Este título não dispara nada sozinho, e por isso isola o que interessa.
+
+        ⚠️ Segunda correção, na C7. O texto inglês desta prova era *«in the prior
+        period… superior… various… scenarios»* — palavras que mudavam o país
+        porque a raiz truncada `rio` casava dentro delas. A C7 consertou isso, e
+        ao consertá-lo tirou o chão desta prova: ela passou a não reproduzir.
+
+            UMA PROVA QUE SE APOIA NUM DEFEITO MORRE QUANDO O DEFEITO MORRE.
+
+        O texto passou a NOMEAR um lugar, que é o que um texto original faria.
+        Agora a prova mede só o que lhe compete: se a ESPÉCIE do texto decide se
+        ele entra — e não se o casador de lugar é bom.
         """
         import sensor_medir as sm                               # noqa: PLC0415
         titulo = 'CONTRASTO ALLA FLAVESCENZA DORATA DELLA VITE'
@@ -214,8 +225,8 @@ class T7e8OConsumidorQuePrecisaDoOriginal(unittest.TestCase):
         self.assertEqual(so_fonte, 'NOT_KNOWN',
                          'o titulo escolhido deixou de ser neutro — troque-o')
 
-        ingles = ('In the prior period we saw superior results in various areas '
-                  'of the trial across several scenarios.')
+        ingles = ('In La Rioja the trial showed superior results across '
+                  'several scenarios during the prior period.')
         com_texto, _ = sm.lugar_do_fato('%s %s' % (titulo, ingles))
         self.assertNotEqual(com_texto, so_fonte,
                             'o caso que motivou a trava deixou de reproduzir — '
