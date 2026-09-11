@@ -134,9 +134,9 @@ class T4DetecaoNaoInventa(unittest.TestCase):
         n, _porque = fl.cuda_disponivel()
         _dev, _ct, trace = fl.resolver_dispositivo('AUTO')
         if n > 0:
-            self.assertEqual(trace['DEVICE_USED'], fl.GPU)
+            self.assertEqual(trace['DEVICE_SELECTED'], fl.GPU)
         else:
-            self.assertEqual(trace['DEVICE_USED'], fl.CPU,
+            self.assertEqual(trace['DEVICE_SELECTED'], fl.CPU,
                              'AUTO prometeu placa com zero dispositivos CUDA')
             self.assertEqual(trace['WHY_FALLBACK'], fl.GPU_INDISPONIVEL)
 
@@ -168,7 +168,7 @@ class T7e8AQuedaEExplicita(unittest.TestCase):
     def test_os_tres_campos_existem_sempre(self):
         for pedido in fl.DISPOSITIVOS:
             _d, _c, trace = fl.resolver_dispositivo(pedido)
-            for campo in ('DEVICE_REQUESTED', 'DEVICE_USED', 'WHY_FALLBACK'):
+            for campo in ('DEVICE_REQUESTED', 'DEVICE_SELECTED', 'WHY_FALLBACK'):
                 self.assertIn(campo, trace, '%s sem %s' % (pedido, campo))
 
     def test_sem_queda_o_motivo_e_None_e_nunca_NOT_KNOWN(self):
@@ -183,7 +183,7 @@ class T7e8AQuedaEExplicita(unittest.TestCase):
             self.skipTest('esta maquina tem placa — o caso da queda nao se reproduz aqui')
         _d, _c, trace = fl.resolver_dispositivo('GPU')
         self.assertEqual(trace['DEVICE_REQUESTED'], fl.GPU)
-        self.assertEqual(trace['DEVICE_USED'], fl.CPU)
+        self.assertEqual(trace['DEVICE_SELECTED'], fl.CPU)
         self.assertEqual(trace['WHY_FALLBACK'], fl.GPU_INDISPONIVEL)
         self.assertTrue(trace.get('WHY_FALLBACK_DETAIL'))
 
@@ -452,11 +452,28 @@ class T16OCarimboNaoMente(unittest.TestCase):
     """O campo que diz o ferro tem de vir do que CORREU, nunca de um literal."""
 
     def test_o_ferro_do_carimbo_vem_do_trace(self):
+        """⚠️ Corrigido na C4B: `ASR_DEVICE_USED` exigia um ESTADO.
+
+        Esta prova afirmava `USED == CPU` com um carimbo pedido sem estado —
+        e passava, porque o campo se enchia na escolha. Era a prova a ratificar
+        o defeito: o resolvedor corre antes de existir uma amostra transcrita.
+        """
         _d, _c, cpu = fl.resolver_dispositivo('CPU')
-        c = fl.carimbo('small', cpu)
+        c = fl.carimbo('small', cpu, fl.OK)
         self.assertEqual(c['ASR_DEVICE_USED'], fl.CPU)
+        self.assertEqual(c['ASR_DEVICE_EXECUTION'], fl.EXECUCAO_PROVADA)
         self.assertIn('cpu', c['ASR_DEVICE'])
         self.assertEqual(c['ASR_RUNTIME'], 'CTranslate2')
+
+    def test_sem_estado_o_carimbo_nao_promove_ninguem(self):
+        """Escolher o ferro nao e ter corrido nele."""
+        _d, _c, cpu = fl.resolver_dispositivo('CPU')
+        c = fl.carimbo('small', cpu)
+        self.assertEqual(c['ASR_DEVICE_SELECTED'], fl.CPU,
+                         'a ESCOLHA e conhecida, e continua a ser dita')
+        self.assertEqual(c['ASR_DEVICE_EXECUTION'], fl.EXECUCAO_NAO_CORREU)
+        self.assertEqual(c['ASR_DEVICE_USED'], fl.NAO_SEI,
+                         'ninguem viu correr — «USED» nao pode nomear ferro')
 
     def test_sem_trace_o_carimbo_confessa_em_vez_de_adivinhar(self):
         c = fl.carimbo('small')
@@ -596,7 +613,7 @@ class T19RedTeamPorInjecao(unittest.TestCase):
     def test_rt4_tipo_de_calculo_incompativel_nao_vira_erro_mudo(self):
         """A placa aceita `float16`; a que não aceitar tem de dizer o nome."""
         _d, _c, trace = fl.resolver_dispositivo('CPU')
-        self.assertEqual(trace['DEVICE_USED'], fl.CPU)
+        self.assertEqual(trace['DEVICE_SELECTED'], fl.CPU)
         # No processador o tipo medido desta casa é `int8`. Trocá-lo por um que
         # o CTranslate2 não suporta em CPU tem de falhar ALTO, na carga, e não
         # produzir texto pior em silêncio.
@@ -629,7 +646,7 @@ class T19RedTeamPorInjecao(unittest.TestCase):
             fl.cuda_disponivel = real_conta
         self.assertEqual(chamadas[0], 'cuda', 'nem tentou a placa')
         self.assertEqual(trace['DEVICE_REQUESTED'], fl.GPU)
-        self.assertEqual(trace['DEVICE_USED'], fl.CPU)
+        self.assertEqual(trace['DEVICE_SELECTED'], fl.CPU)
         self.assertEqual(trace['WHY_FALLBACK'], fl.GPU_SEM_MEMORIA,
                          'memoria cheia caiu como indisponibilidade generica')
         self.assertIn('cpu', chamadas[1:], 'nao recuperou para o processador')

@@ -66,7 +66,7 @@ on:
         type: choice
         options: [censo, portao, video, gap, piloto, ledger, sessao, politica, guarda,
                   youtube, youtube-oficial, cutover, youtube-piloto,
-                  youtube-piloto-oneshot, hardware]
+                  youtube-piloto-oneshot, hardware, gpu-asr]
       url:
         description: 'só para a fase `portao`: a URL a testar'
         required: false
@@ -158,6 +158,64 @@ jobs:
           PYTHONIOENCODING: utf-8
         run: |
           & $env:PY provas/hardware_local.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+  # ── A PROVA DA PLACA, E POR QUE ELA PRECISA DE FASE PRÓPRIA ─────────────
+  # A primeira prova de que a GTX 1080 levava uma inferência até ao fim foi
+  # feita à mão, num PowerShell, e passou. Uma prova que só existe no histórico
+  # de um terminal não se repete e morre com a janela.
+  #
+  #     O QUE NAO CORRE OUTRA VEZ NAO E PROVA. E UMA LEMBRANCA.
+  #
+  # Fase separada do `hardware` de propósito: aquele PERGUNTA à máquina e leva
+  # segundos; este CORRE o reconhecedor e leva minutos. Juntá-los faria o censo
+  # barato herdar o custo e o risco do caro.
+  #
+  # E ele NÃO instala CUDA, cuBLAS nem cuDNN. Esses foram postos na máquina à
+  # mão, e uma prova que instala o que vai medir deixou de medir.
+  gpu-asr:
+    if: inputs.fase == 'gpu-asr'
+    runs-on: ${{ inputs.runner == '1'
+      && fromJSON('["self-hosted","Windows","X64","eame-sintonia-local"]')
+      || fromJSON('["self-hosted","Windows","X64","eame-sintonia-local-2"]') }}
+    # Mesma advertência da fase `hardware`: este tecto NÃO limita a espera na
+    # fila. Runner que não atende em poucos minutos está OFFLINE — cancele e
+    # registe `RUNNER_OFFLINE`, que é uma medição e não uma falha da prova.
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: powershell
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: 0 · quem atendeu, e com que interpretador
+        run: |
+          Write-Host "RUNNER_NAME=$env:RUNNER_NAME"
+          $achado = $null
+          foreach ($c in @('py','python','python3')) {
+            $cmd = Get-Command $c -ErrorAction SilentlyContinue
+            if ($cmd) {
+              $v = & $c --version 2>&1
+              if ($LASTEXITCODE -eq 0 -and "$v" -match '\d+\.\d+') {
+                $achado = $c; Write-Host "INTERPRETADOR=$c ($v)"; break
+              }
+            }
+          }
+          if (-not $achado) { Write-Host 'INTERPRETADOR=NENHUM'; exit 1 }
+          "PY=$achado" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      # O tipo de cálculo NÃO está no código como padrão, e isso é decisão:
+      # a GTX 1080 não faz `float16` útil, mas uma política global tirada de UMA
+      # placa seria uma regra universal escrita a partir de uma amostra de um.
+      # Aqui ele é override EXPLÍCITO da prova, e fica escrito no artefato.
+      - name: 1 · a placa leva uma inferência até ao fim?
+        env:
+          PYTHONIOENCODING: utf-8
+          SINTONIA_ASR_COMPUTE: int8_float32
+        run: |
+          & $env:PY provas/gpu_asr_smoke.py --device GPU --json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
   scrap:
