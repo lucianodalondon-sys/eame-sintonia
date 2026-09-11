@@ -219,7 +219,17 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
   scrap:
-    if: inputs.fase != 'hardware'
+    # ⚠️ ESTA CONDICAO E UMA LISTA DE EXCLUSAO, E ISSO TEM CUSTO.
+    # Ela dizia so `!= 'hardware'`. Ao nascer a fase `gpu-asr`, este job passou
+    # a disparar TAMBEM para ela — e foi apanhado na primeira corrida real:
+    # dois jobs a arrancar, e o `scrap` a receber uma fase que o seu despacho
+    # nao conhece.
+    #
+    #     UMA LISTA DE EXCLUSAO NAO SABE O QUE AINDA NAO NASCEU.
+    #
+    # Cada fase nova de MAQUINA tem de entrar aqui. Ha prova que reprova se
+    # uma fase do runner local ficar de fora.
+    if: inputs.fase != 'hardware' && inputs.fase != 'gpu-asr'
     # A fase que fala com o navegador PRECISA da máquina onde o perfil vive. As
     # outras não — e mandar tudo para o runner local só ocuparia a máquina que
     # faz a coleta paga.

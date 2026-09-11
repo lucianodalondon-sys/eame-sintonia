@@ -84,8 +84,28 @@ def modelo_esta_local(nome):
             return True, 'ja em cache: %s' % p
         except Exception:                                        # noqa: BLE001
             continue
-    return False, ('o modelo %r nao esta nesta maquina. Esta prova NAO o descarrega: '
-                   'um banco que baixa 1,5 GB mede a rede, nao a placa.' % nome)
+    # ── E ONDE E QUE ELE PROCUROU? ───────────────────────────────────────
+    # «Nao esta ca» sem dizer ONDE se procurou nao e diagnostico: e um beco.
+    # Medido na primeira corrida real desta prova — a inferencia manual passou
+    # nesta mesma maquina, e o job do Actions nao encontrou o modelo. A pergunta
+    # util nao e «existe?», e «a que cache e que ESTE processo esta a olhar?».
+    #
+    #     DIZER «NAO ENCONTREI» SEM DIZER ONDE PROCUREI NAO AJUDA NINGUEM.
+    try:
+        from huggingface_hub import constants                    # noqa: PLC0415
+        cache = getattr(constants, 'HF_HUB_CACHE', None) or fl.NAO_SEI
+    except Exception:                                            # noqa: BLE001
+        cache = fl.NAO_SEI
+    vizinhos = []
+    if cache != fl.NAO_SEI and os.path.isdir(cache):
+        vizinhos = sorted(d for d in os.listdir(cache) if 'whisper' in d.lower())
+    return False, ('o modelo %r nao esta onde ESTE processo procura. '
+                   'cache consultada: %s | HF_HOME=%s | USERPROFILE=%s | '
+                   'modelos whisper visiveis ali: %s. Esta prova NAO o descarrega: '
+                   'um banco que baixa 1,5 GB mede a rede, nao a placa.'
+                   % (nome, cache, os.environ.get('HF_HOME') or '(nao definido)',
+                      os.environ.get('USERPROFILE') or '(nao definido)',
+                      vizinhos or 'nenhum'))
 
 
 def audio_local(destino):

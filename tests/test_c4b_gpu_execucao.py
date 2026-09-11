@@ -233,6 +233,52 @@ class T7AProvaEDuravelEPassaPeloWorkflow(unittest.TestCase):
         self.assertIn('eame-sintonia-local', corpo)
         self.assertIn('provas/gpu_asr_smoke.py', corpo)
 
+    def test_as_fases_de_maquina_nao_disparam_o_job_do_scrap(self):
+        """⚠️ Apanhado na PRIMEIRA corrida real, e por isso existe.
+
+        O job `scrap` decidia por exclusao — `fase != 'hardware'`. Ao nascer
+        `gpu-asr`, ele passou a disparar tambem para ela: dois jobs a arrancar, e
+        o `scrap` a receber uma fase que o seu despacho nao conhece.
+
+            UMA LISTA DE EXCLUSAO NAO SABE O QUE AINDA NAO NASCEU.
+
+        Esta prova varre os jobs que correm no runner local e exige que cada um
+        esteja excluido do `scrap`.
+        """
+        wf = _fonte('.github/workflows/scrap-social.yml')
+        # ⚠️ A primeira versao desta prova lia TODAS as linhas `if: inputs.fase ==`
+        # e apanhava condicoes de PASSO dentro do proprio `scrap`. Media linhas,
+        # nao jobs — e reprovava o ficheiro certo.
+        #
+        #     UM DETECTOR QUE NAO SABE ONDE ESTA MEDE OUTRA COISA.
+        #
+        # Agora percorre os JOBS (chave a dois espacos) e le o `if:` de cada um.
+        jobs, atual = {}, None
+        for linha in wf.splitlines():
+            if linha.startswith('  ') and not linha.startswith('   ') and linha.rstrip().endswith(':'):
+                atual = linha.strip().rstrip(':')
+                jobs.setdefault(atual, [])
+            elif atual is not None and linha.startswith('    '):
+                jobs[atual].append(linha)
+        fases_de_maquina = []
+        for job, linhas in jobs.items():
+            if job == 'scrap':
+                continue
+            for ln in linhas:
+                t = ln.strip()
+                if t.startswith('if: inputs.fase == ') and "'" in t:
+                    fases_de_maquina.append(t.split("'")[1])
+        self.assertIn('gpu-asr', fases_de_maquina,
+                      'a fase da placa tem de ser um JOB proprio')
+        self.assertIn('hardware', fases_de_maquina)
+        i = wf.index('\n  scrap:')
+        guarda = wf[i:wf.index('steps:', i)]
+        for fase in fases_de_maquina:
+            with self.subTest(fase=fase):
+                self.assertIn("inputs.fase != '%s'" % fase, guarda,
+                              'a fase %r corre no runner local e o job `scrap` '
+                              'nao a exclui — os dois vao disparar' % fase)
+
     def test_a_fase_nao_instala_nada_na_maquina(self):
         """CUDA/cuBLAS/cuDNN foram postos à mão. A prova só mede."""
         wf = _fonte('.github/workflows/scrap-social.yml')
