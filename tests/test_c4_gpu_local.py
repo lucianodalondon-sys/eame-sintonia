@@ -428,5 +428,110 @@ class T18OCensoDaMaquinaNaoInventa(unittest.TestCase):
         self.assertIn('biblioteca sem CUDA, nao maquina sem placa', t)
 
 
+# ══════════════════════════════════════════════════════════════════════════
+class T19RedTeamPorInjecao(unittest.TestCase):
+    """RT4 · RT6 · RT7 — o que não se reproduz nesta máquina, injeta-se.
+
+    Nenhuma destas falhas acontece num contentor sem placa. Esperar pela máquina
+    certa para as exercer seria o mesmo que não as exercer: elas só aparecem no
+    dia mau, e no dia mau ninguém está a olhar.
+
+        UMA FALHA QUE SÓ SE TESTA QUANDO ACONTECE NÃO ESTÁ TESTADA.
+    """
+
+    def setUp(self):
+        self._cache = dict(fl._CACHE)
+        fl._CACHE.clear()
+
+    def tearDown(self):
+        fl._CACHE.clear()
+        fl._CACHE.update(self._cache)
+
+    def test_rt4_tipo_de_calculo_incompativel_nao_vira_erro_mudo(self):
+        """A placa aceita `float16`; a que não aceitar tem de dizer o nome."""
+        _d, _c, trace = fl.resolver_dispositivo('CPU')
+        self.assertEqual(trace['DEVICE_USED'], fl.CPU)
+        # No processador o tipo medido desta casa é `int8`. Trocá-lo por um que
+        # o CTranslate2 não suporta em CPU tem de falhar ALTO, na carga, e não
+        # produzir texto pior em silêncio.
+        self.assertEqual(fl.COMPUTE_CPU, 'int8')
+        self.assertEqual(fl.COMPUTE_GPU, 'float16')
+        self.assertNotEqual(fl.COMPUTE_CPU, fl.COMPUTE_GPU,
+                            'o mesmo tipo de calculo nos dois ferros apagaria a '
+                            'razao de haver dois campos')
+
+    def test_rt6_a_placa_que_cai_na_carga_cai_para_o_processador_com_nome(self):
+        """A biblioteca contou a placa e o carregamento rebentou a seguir."""
+        import faster_whisper                                   # noqa: PLC0415
+        chamadas = []
+        real = faster_whisper.WhisperModel
+
+        def _falha_na_placa(nome, **kw):
+            chamadas.append(kw.get('device'))
+            if kw.get('device') == 'cuda':
+                raise RuntimeError('CUDA failed with error out of memory')
+            return real(nome, **kw)
+
+        faster_whisper.WhisperModel = _falha_na_placa
+        contou = [1]
+        real_conta = fl.cuda_disponivel
+        fl.cuda_disponivel = lambda: (contou[0], '')
+        try:
+            _pipe, trace = fl.modelo('tiny', 'GPU')
+        finally:
+            faster_whisper.WhisperModel = real
+            fl.cuda_disponivel = real_conta
+        self.assertEqual(chamadas[0], 'cuda', 'nem tentou a placa')
+        self.assertEqual(trace['DEVICE_REQUESTED'], fl.GPU)
+        self.assertEqual(trace['DEVICE_USED'], fl.CPU)
+        self.assertEqual(trace['WHY_FALLBACK'], fl.GPU_SEM_MEMORIA,
+                         'memoria cheia caiu como indisponibilidade generica')
+        self.assertIn('cpu', chamadas[1:], 'nao recuperou para o processador')
+
+    def test_rt6b_falha_que_nao_e_memoria_cai_como_indisponivel(self):
+        """Nem toda queda da placa é OOM. Classificar de mais também mente."""
+        import faster_whisper                                   # noqa: PLC0415
+        real = faster_whisper.WhisperModel
+
+        def _dll_em_falta(nome, **kw):
+            if kw.get('device') == 'cuda':
+                raise OSError('cublas64_12.dll nao encontrada')
+            return real(nome, **kw)
+
+        faster_whisper.WhisperModel = _dll_em_falta
+        real_conta = fl.cuda_disponivel
+        fl.cuda_disponivel = lambda: (1, '')
+        try:
+            _pipe, trace = fl.modelo('tiny', 'GPU')
+        finally:
+            faster_whisper.WhisperModel = real
+            fl.cuda_disponivel = real_conta
+        self.assertEqual(trace['WHY_FALLBACK'], fl.GPU_INDISPONIVEL)
+        self.assertNotEqual(trace['WHY_FALLBACK'], fl.GPU_SEM_MEMORIA)
+        self.assertIn('dll', trace['WHY_FALLBACK_DETAIL'].lower())
+
+    def test_rt7_audio_invalido_nao_e_audio_sem_fala(self):
+        """RT7 · um ficheiro que não é áudio dá `ASR_FALHOU`, nunca `REQUESTED_EMPTY`."""
+        ha, _ = fl.disponivel()
+        if not ha:
+            self.skipTest('reconhecedor ausente neste ambiente')
+        with tempfile.TemporaryDirectory(prefix='c4-rt7-') as tmp:
+            ruim = os.path.join(tmp, 'nao-e-audio.wav')
+            with open(ruim, 'wb') as f:
+                f.write(b'isto nao e um wav, e nunca foi')
+            r = fl.transcrever(ruim, idioma='it', modelo_nome='tiny')
+        self.assertEqual(r['TRANSCRIPT_STATE'], fl.ASR_FALHOU)
+        self.assertNotEqual(r['TRANSCRIPT_STATE'], fl.REQUESTED_EMPTY,
+                            'ficheiro partido passou por «audio sem fala»')
+        self.assertIn('NAO_SIGNIFICA', r)
+
+    def test_rt7b_o_ficheiro_partido_nao_deixou_nada_no_acervo(self):
+        """O temporário morre com o `with`. O acervo não vê teste nenhum."""
+        r = subprocess.run(['git', 'status', '--short'], cwd=RAIZ,
+                           capture_output=True, text=True)
+        self.assertEqual([ln for ln in r.stdout.splitlines()
+                          if 'data/' in ln and ln.startswith('??')], [])
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
