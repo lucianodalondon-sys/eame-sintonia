@@ -654,3 +654,332 @@ C6. E a geografia deixou de fabricar país por substring.
 
 O que fica aberto no YouTube não se resolve com mais engenharia: resolve-se com
 autorização que a casa não tem.
+
+---
+
+# W · SCRAP × COLLECTION CANÔNICA
+
+Secção de **fechamento**, e só de leitura. Nada aqui foi integrado, mergeado ou
+corrigido: o contrato da frente paralela foi lido no checkpoint
+`07fcafbb2d162f36931f3bce83dc1cba705c7e51`, com `git show`, sem tocar na
+Collection.
+
+O que o contrato diz, confirmado **por leitura** e não por expectativa:
+
+```
+COLHEITA · MANIFEST · CATALOG · RUN_RECEIPT · PLAN · UNKNOWN
+ENTRAM_NO_INGRESSO = (COLHEITA,)     <- so a colheita atravessa. As outras leem-se.
+
+SOURCE_ID     obrigatorio e provado — «NAO SEI» nao serve para colheita
+DOCUMENT_ID   pode faltar; nao pode ser fabricado. sha256, cara de hash e
+              endereco do ficheiro sao recusados por nome
+RUN_ID        pertence ao envelope — RUN_MISMATCH se a unidade disser outro
+PAYLOAD       estado explicito: PRESENTE · AUSENTE · NAO_SE_APLICA
+```
+
+**Primeiro facto, e ele governa a secção inteira:**
+
+```
+leis/retorno_da_coleta.py NAO EXISTE nesta branch.
+Existe so em 07fcafbb, na frente paralela.
+```
+
+Nesta árvore, quem decide o que é colheita é `orquestrador/orquestrador.py::a_colheita`
+— a heurística genérica que o próprio contrato novo foi escrito para substituir,
+e cujo preço a frente paralela já mediu em `FALSE_HARVEST_TOTAL = 253`.
+
+---
+
+## W.1 · COL-LAW-505
+
+```
+C7_USES_RETURN_ENVELOPE_AT_RUNTIME  = NOT_APPLICABLE_TO_C7
+COL_LAW_505_STATUS                  = NOT_APPLICABLE_TO_C7_RUNTIME
+```
+
+**Prova.** Os cinco ficheiros que a C7 tocou são `regras/sensor_medir.py`,
+`tests/test_c6_especie_do_texto.py`, `tests/test_c7_lugar_do_fato.py`,
+`data/samples/SENSOR-PILOT/MEDICAO.json` e este documento. Nenhum importa
+`retorno_da_coleta`, `ingresso` ou `orquestrador` — medido na árvore sintática,
+contagem **0**. E o módulo do envelope nem sequer está nesta branch.
+
+E a distinção que o briefing pediu para não colapsar:
+
+```
+SCRAP_EXECUTOR_COL_LAW_505_COMPATIBILITY = UNKNOWN
+```
+
+Não `PROVEN` e não `PARTIAL`. Com o módulo ausente desta árvore, não há contra o
+quê medir compatibilidade aqui. O que **se** pode dizer, medido pelo censo do
+próprio mapa, é que nenhum executor de YouTube usa contrato de artefacto:
+
+```
+coleta/adaptador_youtube.py     USA_CONTRATO_ARTEFATO = false
+coleta/youtube_janela.py        USA_CONTRATO_ARTEFATO = false
+coleta/youtube_oficial.py       USA_CONTRATO_ARTEFATO = false
+coleta/youtube_relevancia.py    USA_CONTRATO_ARTEFATO = false
+
+POR_ESTADO: NOT_INSTRUMENTED 57 · NOT_APPLICABLE 11 · INSTRUMENTED 2 · PARTIAL 1
+```
+
+```
+C7 NAO ATRAVESSAR O ENVELOPE NAO PROVA QUE O SCRAP O CUMPRE.
+UMA MISSAO DERIVED NAO E CREDENCIAL DO EXECUTOR.
+```
+
+Nenhum adapter foi implementado nesta missão.
+
+---
+
+## W.2 · COLHEITA ≠ SUPORTE
+
+```
+C7_PRODUCES_EXECUTOR_HARVEST = NO
+C7_PRODUCES_DERIVED          = YES
+```
+
+**Prova.** O único artefacto que a C7 escreveu declara-se, no próprio ficheiro:
+
+```
+EVIDENCE_CLASS  = DERIVED_MEASUREMENT
+ARTIFACT_KIND   = DERIVED
+source          = derivado do material ja coletado — nenhuma execucao nova
+APIFY_RUNS      = 0
+COST_USD        = 0
+```
+
+Nenhum `MANIFEST`, `CATALOG`, `RUN_RECEIPT` ou `PLAN` foi promovido a observação
+por esta missão. A C7 não emitiu envelope de retorno nenhum.
+
+E uma verificação que valia a pena fazer, porque o risco era real: **`SENSOR-PILOT`
+não é `larga_em` de receita nenhuma.** As cinco declaradas largam em
+`data/colheita/italia/`, `data/raw/IT-ROTULOS`, `data/samples/COMPETITOR-PUBLIC-COMM`,
+`data/samples/IT-PRAGAS`, `data/samples/REEL-TRANSCRICOES` e
+`RESEARCHER-CORPUS-EAME-V1.json`. O artefacto regenerado pela C7 não pode ser
+varrido pela heurística de colheita, porque ela nunca olha para aquela pasta.
+
+---
+
+## W.3 · RUN_ID
+
+```
+WHERE_RUN_ID_IS_BORN_FOR_SCRAP =
+    orquestrador/orquestrador.py::novo_run_id(pedido)   — para a rota canonica
+    regras/proveniencia.py::novo_run(run_id, ...)       — quem o REGISTA
+    regras/sensor_coleta.py                             — a frente do sensor
+                                                          carrega RUN_ID vindo
+                                                          do manifesto, nao o cria
+
+C7_RUN_ID = NOT_APPLICABLE
+```
+
+**Prova.** `regras/sensor_medir.py` — o módulo que a C7 alterou — não nomeia
+`RUN_ID` em lado nenhum. A C7 não abre corrida, não fecha corrida e não escreve
+no manifesto.
+
+Separando os três níveis, que era o que o briefing pedia:
+
+| | estado | evidência |
+|---|---|---|
+| `MODULE EXISTS` | **YES** | `novo_run_id` e `novo_run` existem e têm dono |
+| `EDGE EXISTS` | **YES** | `orquestrador` importa `proveniencia` e `ingresso` |
+| `FLOW EXISTS` | **PARCIAL** | ver W.9 — há 20 corridas no manifesto, mas a fronteira nunca foi atravessada |
+
+```
+NAO SE INVENTA PROVA GLOBAL DO SCRAP A PARTIR DE UMA MISSAO DERIVED.
+```
+
+---
+
+## W.4 · RAW
+
+```
+C7_TOUCHES_RAW = NO
+```
+
+**Prova.** `git diff --stat dab574b9 HEAD -- data/raw` sai **vazio**, e
+`git status --short -- data/raw` sai vazio. Há ainda prova na suíte que reprova
+se `data/raw` se mexer.
+
+```
+SCRAP_RAW_PRESERVATION_CONTRACT = PARTIAL
+```
+
+Não `PROVEN`. O que está provado é que há manifesto de preservação com sha256
+por ficheiro e que o bruto pago sobrevive — e há prova disso na suíte. O que
+**não** está provado é a cadeia inteira `captura → RAW original → DERIVED` para
+o SCRAP, porque a parte de cima dela nunca foi exercida por aqui. A lei está
+respeitada; a cadeia completa não está medida.
+
+---
+
+## W.5 · SOURCE_ID
+
+```
+C7_FABRICATES_SOURCE_ID = NO
+```
+
+**Prova.** O diff da C7 em `regras/sensor_medir.py` não contém uma única linha
+adicionada com `SOURCE_ID` — contagem **0**. O `SOURCE_ID` do artefacto
+(`SENSOR-PILOT/MEDICAO`) é o que já lá estava, herdado, e não foi tocado.
+
+Para o SCRAP, a lei lida no contrato: `SOURCE_ID` vem da identidade canônica da
+fonte, e nunca de URL, slug, hash ou caminho. A C7 não tem opinião sobre isso
+porque não cria fontes.
+
+---
+
+## W.6 · DOCUMENT_ID
+
+```
+FABRICATED_DOCUMENT_ID = NO
+```
+
+**Prova.** Mesma contagem: **0** linhas adicionadas com `DOCUMENT_ID`. A C7 não
+escreve identidade documental nenhuma.
+
+A lei, lida no contrato e transcrita aqui para não se perder:
+
+```
+SHA256 NAO E IDENTIDADE DOCUMENTAL.
+storage_path NAO E IDENTIDADE.
+```
+
+Nenhum de `SHA` · `URL` · `filename` · `timestamp` · `slug` · `storage_path`
+pode virar `DOCUMENT_ID`. E a razão está medida do outro lado: 35 valores de
+`sha256` aparecem em observações **distintas** — um `DOCUMENT_ID` tirado do sha
+colaria duas observações legítimas numa só.
+
+---
+
+## W.7 · MODELO PARALELO
+
+```
+PARALLEL_RUN_MODEL      = NO
+PARALLEL_RAW_MODEL      = NO
+PARALLEL_IDENTITY_MODEL = NO
+PARALLEL_WAITING_ROOM   = NO
+```
+
+**Prova.** A C7 não criou modelo nenhum: alterou uma função de casamento de
+texto, regenerou um derivado com o dono que já existia (`regras/sensor_medir.py`,
+o mesmo script que sempre escreveu aquele ficheiro) e acrescentou-lhe campos de
+linhagem. Não há segunda corrida, segundo bruto, segunda identidade nem sala de
+espera nova.
+
+Os campos de linhagem acrescentados (`ARTIFACT_KIND`, `PARENT_ARTIFACTS`,
+`CAPTURED_AT`, `DERIVED_AT`, `GEOGRAPHY_RULER`) seguem o padrão que a C6 já tinha
+usado no artefacto irmão da mesma pasta. Reaproveitar o padrão da casa é o
+contrário de criar um modelo paralelo.
+
+---
+
+## W.8 · CLASSIFICAÇÃO TEMÁTICA
+
+```
+SCRAP_THEMATIC_CLASSIFIER_CREATED = NO
+T2_T3_T7_T9_DECISION_IN_SCRAP     = NO
+```
+
+**Prova.** `classificar_conteudo` e `classificar_comentario` estão **byte a byte**
+iguais ao head da C6 — comparados por árvore sintática — e medida a sua saída em
+todo o acervo, deu **zero divergência** em 1115 vídeos e 3737 comentários.
+
+E a distinção que o briefing pediu, que é a única coisa que importa aqui:
+
+```
+FACT_LOCATION extraction  !=  thematic admission
+```
+
+A C7 extrai evidência geográfica: «este texto escreve o nome deste lugar». Não
+decide universo temático, não admite nada e não julga relevância. Aliás, o efeito
+da missão foi **reduzir** o que se afirma, não alargar.
+
+---
+
+## W.9 · O CAMINHO ATÉ À COLLECTION
+
+Cada seta com o seu estado. Nada promovido de desejado a observado.
+
+| seta | estado | evidência |
+|---|---|---|
+| `COLLECTION_REQUEST → ORCHESTRATOR` | **OBSERVED** | `pedido/receitas.py` declara 5 executores; `orquestrador::novo_run_id(p: Pedido)` |
+| `ORCHESTRATOR → SCRAP EXECUTOR` | **OBSERVED, parcial** | corrida `XX-T9-2026-09-07-193647`, ator `coleta/comunicacao_coleta.py`, `STATUS OK`, 78 itens |
+| `ORCHESTRATOR → SCRAP EXECUTOR (YouTube)` | **UNKNOWN** | **não há receita de YouTube**. As 5 declaradas não o incluem |
+| `SCRAP EXECUTOR → ADAPTER` | **OBSERVED** | 6 adapters em `coleta/adaptador_*.py` |
+| `ADAPTER → PROVIDER` | **OBSERVED** | 3 corridas Apify de YouTube no manifesto, 252 · 346 · 20 itens |
+| `→ executor return envelope` | **UNKNOWN** | o módulo não existe nesta branch |
+| `→ canonical Collection flow` | **DECLARED, não observado** | ver abaixo |
+
+A última seta é a que não fecha, e a medição é da própria casa, em
+`system-map/data/fronteira.observada.json`:
+
+```
+DONO                   admissao/admissao.py :: pronto_para_inteligencia()
+PRODUTORES_EM_RUNTIME  ['orquestrador/orquestrador.py']
+CONSUMIDORES           []
+DESTINO                data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json
+DESTINO_EXISTE         False
+GAP                    READY_SEM_CONSUMIDOR
+```
+
+A pasta de destino **não existe**. Nada atravessou.
+
+**E a frente do YouTube que as missões C3 a C7 construíram não tem receita.**
+Ela é alcançável por quem a chama à mão; não é alcançável pelo orquestrador.
+
+```
+UM EXECUTOR SEM RECEITA NAO ESTA LIGADO AO ORQUESTRADOR.
+ESTA AO LADO DELE.
+```
+
+---
+
+## W.10 · OS TRÊS NÍVEIS DE PROVA
+
+| prova | estado | evidência |
+|---|---|---|
+| `SCRAP MODULE EXISTS` | **YES** | 6 adapters, 4 executores de YouTube, `comunicacao_coleta.py`, `social_matriz.py`; 71 executores no censo |
+| `SCRAP → Collection EDGE EXISTS` | **PARTIAL** | `orquestrador` é o **único** módulo que importa `ingresso`. Nenhum módulo do SCRAP lá chega por importação — medido por travessia do grafo. A ligação é por **pasta declarada** (`larga_em`), lida por `a_colheita()`, não por chamada |
+| `SCRAP → Collection FLOW EXISTS` | **NO** | `DESTINO_EXISTE = False`, `CONSUMIDORES = []`, `GAP = READY_SEM_CONSUMIDOR` |
+
+```
+MODULE EXISTS != EDGE EXISTS != FLOW EXISTS
+```
+
+Dito sem arredondar: **o módulo existe, a aresta existe por pasta e não por
+chamada, e o fluxo não existe.** A porta está construída e continua sem ninguém
+a atravessá-la — que é, palavra por palavra, o que o próprio orquestrador já
+tinha escrito sobre si mesmo:
+
+```
+UMA PORTA POR ONDE NINGUEM PASSA NAO E UMA PORTA.
+E UMA PAREDE COM MACANETA.
+```
+
+---
+
+## W.11 · CONFLITO
+
+```
+CONFLICT = NONE
+```
+
+A C7 não introduz incompatibilidade com o contrato canônico. É uma missão
+`DERIVED`: não emite colheita, não abre corrida, não fabrica identidade, não
+toca no bruto e não atravessa a porta.
+
+Duas coisas **medidas** que não são conflito da C7 e ficam registadas porque
+foram vistas, não porque sejam desta missão:
+
+1. **esta branch tem a heurística antiga de colheita.**
+   `orquestrador::a_colheita` continua a ler `larga_em` e a adivinhar o que é
+   colheita. É exactamente o que `leis/retorno_da_coleta.py` foi escrito para
+   substituir, e a frente paralela já mediu o preço: `FALSE_HARVEST_TOTAL = 253`,
+   `REAL_HARVEST_ITEMS = 0`. Não é da C7 e não foi tocado.
+2. **a frente do YouTube não tem receita.** Sem ela, o orquestrador não a alcança.
+
+```
+RECOMMENDED_NEXT_STEP  não é desta missão declarar. As duas ficam como
+                       estado medido, para quem decidir a ordem das frentes.
+```
