@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-local-gpu-c4",
-    "HEAD": "e157a9be60918b6407b4f9ff6d98ef71f3fae6c2",
-    "GENERATED_AT": "2026-09-11T16:26:20+00:00",
-    "SOURCE_TREE_FINGERPRINT": "2050105512516673f80468f5d496dd63cb626ff3e0ed7e0f1a49c292a3bd2c81"
+    "BRANCH": "claude/sintonia-scrap-gpu-quality-c4c",
+    "HEAD": "85f1af793530f4afa8b4b98b010eb346f0398832",
+    "GENERATED_AT": "2026-09-11T16:56:20+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6ae511da50c4e8cf848cce2fbaa94215142d994468f19a3395d9d586747a4fb4"
   },
   "FILES": [
     {
@@ -101,7 +101,7 @@
     },
     {
       "path": ".github/workflows/scrap-social.yml",
-      "sha": "f1f0e91e58c83773d59e0e61c91a3b75fcc7e417",
+      "sha": "9baaed8e72b4cfdbd45cfdab22a937574eb88457",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -5162,7 +5162,7 @@
     },
     {
       "path": "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
-      "sha": "e1357f308927265e2fc887cc3c02fdf0f41561cd",
+      "sha": "b326838f44a8b945652f376a4aa85d21ccc2c2ef",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7877,6 +7877,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/corpus_recuperar.py",
+      "sha": "92259d1f7f1a98a63ae642f84fb1e0a6083adcb8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/corrigir_custo.py",
       "sha": "b68fed443f41d88e003d2ba4d853a9a5927c0ae9",
       "ext": ".py",
@@ -9271,7 +9278,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "8990252633eb06b3f66e4a4c2362302e4d00b99d",
+      "sha": "033c4e497a8cbc4df856fb55eff4b0ef83c7f9db",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9670,7 +9677,14 @@
     },
     {
       "path": "tests/test_c4b_gpu_execucao.py",
-      "sha": "d29e4295905914436e5c46d3eda9515e0a461278",
+      "sha": "eac35b9cec75e459ddcf6ca12a8ef372de54f305",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c4c_corpus.py",
+      "sha": "90ea9cefff807b4bc801186517bae767aa5901cd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10676,7 +10690,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 267,
+        "line": 350,
         "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
       }
     },
@@ -10687,7 +10701,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 268,
+        "line": 351,
         "snippet": "coleta/youtube_oficial.py; do"
       }
     },
@@ -10698,7 +10712,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 349,
+        "line": 432,
         "snippet": "rel = env.ler('YOUTUBE-PILOTO-IT.json') or {}"
       }
     },
@@ -10709,8 +10723,30 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 267,
+        "line": 350,
         "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
+      }
+    },
+    {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "provas/asr_banco.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 281,
+        "snippet": "& $env:PY provas/asr_banco.py --device CPU --modelos medium"
+      }
+    },
+    {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "provas/corpus_recuperar.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 273,
+        "snippet": "& $env:PY provas/corpus_recuperar.py --json"
       }
     },
     {
@@ -25850,6 +25886,39 @@
       }
     },
     {
+      "from_file": "provas/corpus_recuperar.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/corpus_recuperar.py",
+        "line": 46,
+        "snippet": "import _gavetas                      # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/corpus_recuperar.py",
+      "to_file": "data/samples/REEL-TRANSCRICOES/QUALIDADE-DA-FALA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/corpus_recuperar.py",
+        "line": 51,
+        "snippet": "'QUALIDADE-DA-FALA-V1.json')"
+      }
+    },
+    {
+      "from_file": "provas/corpus_recuperar.py",
+      "to_file": "data/samples/REEL-TRANSCRICOES/TRANSCRICOES-REEL.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/corpus_recuperar.py",
+        "line": 49,
+        "snippet": "'TRANSCRICOES-REEL.json')"
+      }
+    },
+    {
       "from_file": "provas/derived_artifact_no_postgres.py",
       "to_file": "guarda/preservar_coleta.py",
       "type": "IMPORTS",
@@ -30597,7 +30666,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4b_gpu_execucao.py",
-        "line": 343,
+        "line": 352,
         "snippet": "'ferramentas/instagram_transcrever.py'):"
       }
     },
@@ -30608,7 +30677,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4b_gpu_execucao.py",
-        "line": 342,
+        "line": 351,
         "snippet": "for rel in ('ferramentas/youtube_transcrever.py',"
       }
     },
@@ -30621,6 +30690,83 @@
         "file": "tests/test_c4b_gpu_execucao.py",
         "line": 35,
         "snippet": "SMOKE = 'provas/gpu_asr_smoke.py'"
+      }
+    },
+    {
+      "from_file": "tests/test_c4c_corpus.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4c_corpus.py",
+        "line": 30,
+        "snippet": "import _gavetas                      # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_c4c_corpus.py",
+      "to_file": "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4c_corpus.py",
+        "line": 180,
+        "snippet": "DOC = 'docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md'"
+      }
+    },
+    {
+      "from_file": "tests/test_c4c_corpus.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4c_corpus.py",
+        "line": 31,
+        "snippet": "import fala_local as fl              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4c_corpus.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4c_corpus.py",
+        "line": 165,
+        "snippet": "t = _fonte('ferramentas/fala_local.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c4c_corpus.py",
+      "to_file": "provas/asr_banco.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4c_corpus.py",
+        "line": 160,
+        "snippet": "t = _fonte('provas/asr_banco.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c4c_corpus.py",
+      "to_file": "provas/corpus_recuperar.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4c_corpus.py",
+        "line": 32,
+        "snippet": "import corpus_recuperar as cr        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4c_corpus.py",
+      "to_file": "provas/corpus_recuperar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4c_corpus.py",
+        "line": 34,
+        "snippet": "CENSO = 'provas/corpus_recuperar.py'"
       }
     },
     {
@@ -36549,10 +36695,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1452,
-    "files_readable": 551,
-    "files_code_dir": 598,
-    "file_edges": 2356,
+    "files_tracked": 1454,
+    "files_readable": 553,
+    "files_code_dir": 600,
+    "file_edges": 2368,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

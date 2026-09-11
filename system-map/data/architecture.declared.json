@@ -2918,6 +2918,26 @@
    "files": [
     "provas/gpu_asr_smoke.py"
    ]
+  },
+  {
+   "id": "C-RECUPERAR-CORPUS",
+   "name": "Onde esta o bruto que a casa ja preservou",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⚙",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "what": "Le o manifesto que ja existe — ARTIFACT_ID, STORAGE_LOCATION, SHA256, BYTES — e pergunta a ESTA maquina se os bytes estao la e se sao os mesmos. Cruza com a verdade de referencia para dizer quais amostras servem para medir qualidade. Nao vai a rede.",
+   "why_here": "A C4B concluiu SEM_CORPUS depois de procurar um `.wav` que e DERIVADO; quem esta preservado com hash e o `.mp4`, e o manifesto sempre o disse. PROCURAR O ARTEFATO ERRADO DA UMA RESPOSTA VERDADEIRA SOBRE OUTRA COISA. E a lei que esta peca carrega dentro da propria resposta: PATH != IDENTIDADE, SHA != OBSERVACAO, e AUSENCIA DE CORPUS NAO E AUTORIZACAO DE RECOLHER.",
+   "departments": [
+    "ENGENHARIA",
+    "TECNICO_CIENCIA"
+   ],
+   "files": [
+    "provas/corpus_recuperar.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

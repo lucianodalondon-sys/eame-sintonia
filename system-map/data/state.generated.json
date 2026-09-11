@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 21495,
-    "h": 5360
+    "h": 5682
   },
   "INVENTORY": {
     ".claude": [
@@ -1175,6 +1175,7 @@
       "provas/auditoria.py",
       "provas/auditoria_live.sh",
       "provas/chain.py",
+      "provas/corpus_recuperar.py",
       "provas/corrigir_custo.py",
       "provas/coverage.py",
       "provas/derived_artifact_no_postgres.py",
@@ -1448,6 +1449,7 @@
       "tests/test_c3_youtube_cutover.py",
       "tests/test_c4_gpu_local.py",
       "tests/test_c4b_gpu_execucao.py",
+      "tests/test_c4c_corpus.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canonico.py",
       "tests/test_censo_dos_donos.py",
@@ -1899,10 +1901,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-local-gpu-c4",
-    "HEAD": "e157a9be60918b6407b4f9ff6d98ef71f3fae6c2",
-    "GENERATED_AT": "2026-09-11T16:26:20+00:00",
-    "SOURCE_TREE_FINGERPRINT": "2050105512516673f80468f5d496dd63cb626ff3e0ed7e0f1a49c292a3bd2c81"
+    "BRANCH": "claude/sintonia-scrap-gpu-quality-c4c",
+    "HEAD": "85f1af793530f4afa8b4b98b010eb346f0398832",
+    "GENERATED_AT": "2026-09-11T16:56:20+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6ae511da50c4e8cf848cce2fbaa94215142d994468f19a3395d9d586747a4fb4"
   },
   "FAMILIES": [
     {
@@ -1912,7 +1914,7 @@
       "x": 260,
       "y": 60,
       "w": 11725,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -1938,7 +1940,7 @@
       "x": 12205,
       "y": 60,
       "w": 485,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-ESPERA"
       ],
@@ -1951,7 +1953,7 @@
       "x": 12910,
       "y": 60,
       "w": 1605,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-MOTOR",
         "Z-LINEAGE"
@@ -1966,12 +1968,12 @@
       "x": 18385,
       "y": 60,
       "w": 2850,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 58
+      "count": 59
     },
     {
       "id": "F-ENTREGA",
@@ -1980,7 +1982,7 @@
       "x": 14735,
       "y": 60,
       "w": 3430,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -2002,7 +2004,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2016,7 +2018,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2031,7 +2033,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2046,7 +2048,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2061,7 +2063,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2076,7 +2078,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2090,7 +2092,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2104,7 +2106,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 5
     },
     {
@@ -2120,7 +2122,7 @@
       "x": 5940,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 4
     },
     {
@@ -2136,7 +2138,7 @@
       "x": 6645,
       "y": 190,
       "w": 1235,
-      "h": 4870,
+      "h": 5192,
       "count": 14
     },
     {
@@ -2152,7 +2154,7 @@
       "x": 8180,
       "y": 190,
       "w": 1235,
-      "h": 4870,
+      "h": 5192,
       "count": 13
     },
     {
@@ -2168,7 +2170,7 @@
       "x": 9715,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 5
     },
     {
@@ -2183,7 +2185,7 @@
       "x": 10420,
       "y": 190,
       "w": 820,
-      "h": 4870,
+      "h": 5192,
       "count": 11
     },
     {
@@ -2198,7 +2200,7 @@
       "x": 11540,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2213,7 +2215,7 @@
       "x": 12245,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2229,7 +2231,7 @@
       "x": 12950,
       "y": 190,
       "w": 820,
-      "h": 4870,
+      "h": 5192,
       "count": 8
     },
     {
@@ -2245,7 +2247,7 @@
       "x": 14070,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 4
     },
     {
@@ -2261,7 +2263,7 @@
       "x": 14775,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 3
     },
     {
@@ -2277,7 +2279,7 @@
       "x": 15480,
       "y": 190,
       "w": 820,
-      "h": 4870,
+      "h": 5192,
       "count": 7
     },
     {
@@ -2293,7 +2295,7 @@
       "x": 16600,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 5
     },
     {
@@ -2308,7 +2310,7 @@
       "x": 17305,
       "y": 190,
       "w": 820,
-      "h": 4870,
+      "h": 5192,
       "count": 11
     },
     {
@@ -2324,7 +2326,7 @@
       "x": 18425,
       "y": 190,
       "w": 1235,
-      "h": 4870,
+      "h": 5192,
       "count": 13
     },
     {
@@ -2340,8 +2342,8 @@
       "x": 19960,
       "y": 190,
       "w": 1235,
-      "h": 4870,
-      "count": 45
+      "h": 5192,
+      "count": 46
     }
   ],
   "DEPARTMENTS": {
@@ -11733,11 +11735,12 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-PROVA-FALA-QUALIDADE",
+        "C-SCRAP-ROTA",
         "C-TRANSCRICAO"
       ],
       "outbound": [
@@ -12163,7 +12166,8 @@
       ],
       "inbound": [],
       "outbound": [
-        "C-PROVA-ASR-LOCAL"
+        "C-PROVA-ASR-LOCAL",
+        "C-RECUPERAR-CORPUS"
       ],
       "paises": {},
       "paises_dado": {},
@@ -12940,6 +12944,52 @@
       "y": 4546
     },
     {
+      "id": "C-RECUPERAR-CORPUS",
+      "name": "Onde esta o bruto que a casa ja preservou",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Le o manifesto que ja existe — ARTIFACT_ID, STORAGE_LOCATION, SHA256, BYTES — e pergunta a ESTA maquina se os bytes estao la e se sao os mesmos. Cruza com a verdade de referencia para dizer quais amostras servem para medir qualidade. Nao vai a rede.",
+      "why_here": "A C4B concluiu SEM_CORPUS depois de procurar um `.wav` que e DERIVADO; quem esta preservado com hash e o `.mp4`, e o manifesto sempre o disse. PROCURAR O ARTEFATO ERRADO DA UMA RESPOSTA VERDADEIRA SOBRE OUTRA COISA. E a lei que esta peca carrega dentro da propria resposta: PATH != IDENTIDADE, SHA != OBSERVACAO, e AUSENCIA DE CORPUS NAO E AUTORIZACAO DE RECOLHER.",
+      "departments": [
+        "ENGENHARIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/corpus_recuperar.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-PROVA-FALA-QUALIDADE",
+        "C-SCRAP-ROTA"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20850,
+      "y": 4546
+    },
+    {
       "id": "C-REGRA-COLETA",
       "name": "A regra de coleta externa",
       "territory": "Z-MEDIDAS",
@@ -13078,8 +13128,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4546
+      "x": 20020,
+      "y": 4868
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -13660,6 +13710,8 @@
       ],
       "outbound": [
         "C-CENSO-DA-MAQUINA",
+        "C-PROVA-ASR-LOCAL",
+        "C-RECUPERAR-CORPUS",
         "C-SCRAP-GUARDA",
         "C-SCRAP-SOCIAL",
         "C-SMOKE-GPU-ASR",
@@ -13856,7 +13908,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 4868
     },
     {
@@ -14149,7 +14201,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4868
     },
     {
@@ -15359,6 +15411,7 @@
         "tests/test_c3_youtube_cutover.py",
         "tests/test_c4_gpu_local.py",
         "tests/test_c4b_gpu_execucao.py",
+        "tests/test_c4c_corpus.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canonico.py",
         "tests/test_censo_dos_donos.py",
@@ -15430,7 +15483,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 83,
+      "file_count": 84,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15516,6 +15569,7 @@
         "C-RASTRO",
         "C-RECEITAS",
         "C-RECORRENCIA",
+        "C-RECUPERAR-CORPUS",
         "C-REGRA-COLETA",
         "C-RELEVANCIA",
         "C-ROTA-M2",
@@ -15650,8 +15704,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 4868
+      "x": 20020,
+      "y": 5190
     },
     {
       "id": "C-TRANSCRICAO",
@@ -17011,7 +17065,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-local-gpu-c4"
+        "branch claude/sintonia-scrap-gpu-quality-c4c"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -26834,11 +26888,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco de prova do reconhecedor, ferro a ferro alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O banco de prova do reconhecedor, ferro a ferro alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
           "line": 80,
+          "snippet": "t = _fonte('provas/asr_banco.py')"
+        },
+        {
+          "file": "tests/test_c4c_corpus.py",
+          "line": 160,
           "snippet": "t = _fonte('provas/asr_banco.py')"
         }
       ],
@@ -27086,6 +27145,24 @@
           "file": "provas/asr_banco.py",
           "line": 92,
           "snippet": "with open(VERDADE, encoding='utf-8') as f:"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-FALA-QUALIDADE",
+      "to": "C-RECUPERAR-CORPUS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que a fala escrita bate com a fala dita alimenta Onde esta o bruto que a casa ja preservou. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/corpus_recuperar.py",
+          "line": 51,
+          "snippet": "'QUALIDADE-DA-FALA-V1.json')"
         }
       ],
       "categoria": "READ"
@@ -27565,6 +27642,42 @@
           "file": "tests/test_operacao.py",
           "line": 350,
           "snippet": "import chain"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RECUPERAR-CORPUS",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Onde esta o bruto que a casa ja preservou tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c4c_corpus.py",
+          "line": 32,
+          "snippet": "import corpus_recuperar as cr        # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RECUPERAR-CORPUS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Onde esta o bruto que a casa ja preservou alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c4c_corpus.py",
+          "line": 34,
+          "snippet": "CENSO = 'provas/corpus_recuperar.py'"
         }
       ],
       "categoria": "PROOF"
@@ -28658,6 +28771,42 @@
     },
     {
       "from": "C-SCRAP-ROTA",
+      "to": "C-PROVA-ASR-LOCAL",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar O banco de prova do reconhecedor, ferro a ferro. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 281,
+          "snippet": "& $env:PY provas/asr_banco.py --device CPU --modelos medium"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-SCRAP-ROTA",
+      "to": "C-RECUPERAR-CORPUS",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar Onde esta o bruto que a casa ja preservou. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 273,
+          "snippet": "& $env:PY provas/corpus_recuperar.py --json"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-SCRAP-ROTA",
       "to": "C-SCRAP-GUARDA",
       "type": "RUNS",
       "payload": "execucao",
@@ -28668,7 +28817,7 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 267,
+          "line": 350,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
         }
       ],
@@ -28686,12 +28835,12 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 267,
+          "line": 350,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
         },
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 268,
+          "line": 351,
           "snippet": "coleta/youtube_oficial.py; do"
         }
       ],
@@ -30297,7 +30446,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
@@ -30308,6 +30457,11 @@
           "file": "tests/test_c4b_gpu_execucao.py",
           "line": 32,
           "snippet": "import fala_local as fl             # noqa: E402"
+        },
+        {
+          "file": "tests/test_c4c_corpus.py",
+          "line": 31,
+          "snippet": "import fala_local as fl              # noqa: E402"
         },
         {
           "file": "tests/test_reel_transcricao.py",
@@ -30345,7 +30499,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
@@ -30374,13 +30528,18 @@
         },
         {
           "file": "tests/test_c4b_gpu_execucao.py",
-          "line": 342,
+          "line": 351,
           "snippet": "for rel in ('ferramentas/youtube_transcrever.py',"
         },
         {
           "file": "tests/test_c4b_gpu_execucao.py",
-          "line": 343,
+          "line": 352,
           "snippet": "'ferramentas/instagram_transcrever.py'):"
+        },
+        {
+          "file": "tests/test_c4c_corpus.py",
+          "line": 165,
+          "snippet": "t = _fonte('ferramentas/fala_local.py')"
         },
         {
           "file": "tests/test_reel_transcricao.py",
@@ -31529,17 +31688,17 @@
     ]
   },
   "COUNTS": {
-    "components": 161,
+    "components": 162,
     "components_proven": 57,
-    "components_pending": 98,
+    "components_pending": 99,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 646,
-    "edges_proven": 643,
+    "edges": 651,
+    "edges_proven": 648,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1452,
-    "files_covered": 712,
+    "files_tracked": 1454,
+    "files_covered": 714,
     "files_code_unclaimed": 0
   }
 }
