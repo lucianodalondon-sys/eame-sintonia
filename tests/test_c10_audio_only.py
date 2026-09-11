@@ -65,6 +65,33 @@ class _Espia:
         return _R
 
 
+class _PoliticaPermissiva:
+    """Injecta `PERMITIDA=SIM` em memoria; o ficheiro continua a dizer NAO.
+
+    A C10.5D fechou a decisao humana — a aquisicao remota do Instagram esta
+    recusada — e o portao passou a viver no ponto onde o socket abre. Estes
+    testes medem O SELETOR e A ESPECIE DOS BYTES, que sao capacidade tecnica e
+    nao politica.
+
+        UM TESTE QUE DEIXA DE CORRER PORQUE A POLITICA MUDOU MEDE A POLITICA,
+        QUE JA TEM DONO.
+
+    Por isso a lei e injectada aqui, em memoria, e o disco fica como esta.
+    """
+
+    def __enter__(self):
+        import social_matriz as mz
+        self._mz = mz
+        self._orig = mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT']
+        mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT'] = [
+            dict(r, PERMITIDA='SIM', ESTADO='PROVED') for r in self._orig]
+        return self
+
+    def __exit__(self, *_):
+        self._mz.MATRIZ['INSTAGRAM']['FETCH_TRANSCRIPT'] = self._orig
+        return False
+
+
 class OSeletorDeAudioEObrigatorio(unittest.TestCase):
     """O pedido de fala tem de pedir audio. Sem isto, a lei nao existe."""
 
@@ -85,9 +112,10 @@ class OSeletorDeAudioEObrigatorio(unittest.TestCase):
         # plataforma: sem a declarar, a resposta certa e NOT_DECLARED e nenhum
         # comando chega a ser montado. Estes testes medem o SELETOR, e para o
         # medir tem de dizer de que plataforma falam.
-        rt.midia_por_ytdlp('https://www.instagram.com/reel/XXXX',
-                           os.path.join(self.tmp, 'x.m4a'), tentativas=1, kind=kind,
-                           plataforma='INSTAGRAM')
+        with _PoliticaPermissiva():
+            rt.midia_por_ytdlp('https://www.instagram.com/reel/XXXX',
+                               os.path.join(self.tmp, 'x.m4a'), tentativas=1, kind=kind,
+                               plataforma='INSTAGRAM')
         return self.espia.chamadas[0]
 
     def test_pedir_fala_poe_o_seletor_de_audio_no_comando(self):
@@ -123,10 +151,11 @@ class NaoHaQuedaParaVideo(unittest.TestCase):
         shutil.rmtree(self.tmp, ignore_errors=True)
 
     def test_sem_formato_de_audio_o_estado_diz_isso_e_nao_baixa_video(self):
-        p, motivo = rt.midia_por_ytdlp('https://x/reel/Y',
-                                       os.path.join(self.tmp, 'y.m4a'),
-                                       tentativas=1, kind=rt.MIDIA_AUDIO,
-                                       plataforma='INSTAGRAM')
+        with _PoliticaPermissiva():
+            p, motivo = rt.midia_por_ytdlp('https://x/reel/Y',
+                                           os.path.join(self.tmp, 'y.m4a'),
+                                           tentativas=1, kind=rt.MIDIA_AUDIO,
+                                           plataforma='INSTAGRAM')
         self.assertIsNone(p)
         self.assertTrue(motivo.startswith('AUDIO_ONLY_UNAVAILABLE'), motivo)
         for argv in self.espia.chamadas:
@@ -225,9 +254,10 @@ class OProvedorNaoDecideSozinho(unittest.TestCase):
         shutil.rmtree(self.tmp, ignore_errors=True)
 
     def test_bytes_com_imagem_sao_recusados_mesmo_com_o_seletor_certo(self):
-        caminho, motivo = rt.midia_por_ytdlp(
-            'https://x/reel/ZZZ', os.path.join(self.tmp, 'ZZZ.m4a'),
-            tentativas=1, kind=rt.MIDIA_AUDIO, plataforma='INSTAGRAM')
+        with _PoliticaPermissiva():
+            caminho, motivo = rt.midia_por_ytdlp(
+                'https://x/reel/ZZZ', os.path.join(self.tmp, 'ZZZ.m4a'),
+                tentativas=1, kind=rt.MIDIA_AUDIO, plataforma='INSTAGRAM')
         self.assertIsNone(caminho,
                           'a cadeia aceitou um ficheiro com imagem numa rota '
                           'que jurou pedir so audio')
@@ -267,7 +297,11 @@ class AEscadaObedeceAoPedido(unittest.TestCase):
 
     def test_o_embed_e_saltado_quando_o_pedido_e_fala(self):
         ident = {'POST_ID': 'ABC', 'PLATFORM': 'INSTAGRAM'}
-        _c, _p, estado, _m, degraus = rt.obter_midia(ident, kind=rt.MIDIA_AUDIO)
+        # A ESCADA E CAPACIDADE, NAO LEI. Com a politica em NAO (que e o estado
+        # decidido na C10.5D) a escada nem chega aos degraus de rede — e isso e
+        # o portao a funcionar, nao a escada a mudar.
+        with _PoliticaPermissiva():
+            _c, _p, estado, _m, degraus = rt.obter_midia(ident, kind=rt.MIDIA_AUDIO)
         embed = [d for d in degraus if d['PROVIDER'] == rt.CAPTURA_EMBED]
         self.assertTrue(embed, 'o degrau do embed desapareceu do registo')
         self.assertEqual(embed[0]['RESULT'], rt.MEDIA_SEM_AUDIO_SO)
@@ -357,9 +391,10 @@ class NadaDeApify(unittest.TestCase):
         rt._ytdlp = espia
         tmp = tempfile.mkdtemp(prefix='c10-rota-paga-')
         try:
-            rt.midia_por_ytdlp('https://x/reel/Y', os.path.join(tmp, 'y.m4a'),
-                               tentativas=1, kind=rt.MIDIA_AUDIO,
-                               plataforma='INSTAGRAM')
+            with _PoliticaPermissiva():
+                rt.midia_por_ytdlp('https://x/reel/Y', os.path.join(tmp, 'y.m4a'),
+                                   tentativas=1, kind=rt.MIDIA_AUDIO,
+                                   plataforma='INSTAGRAM')
         finally:
             rt._ytdlp = orig
             shutil.rmtree(tmp, ignore_errors=True)

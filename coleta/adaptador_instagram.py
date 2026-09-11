@@ -79,13 +79,23 @@ def politica():
     return mz.decisao(PLATAFORMA, CAPACIDADE_NA_MATRIZ)
 
 
+def _politica_no_trace(decisao):
+    """Os campos que dizem QUEM decidiu e O QUE decidiu. Sobem sempre."""
+    return {'POLICY_OWNER': 'leis/social_matriz.py',
+            'POLICY_CAPABILITY': '%s/%s' % (PLATAFORMA, CAPACIDADE_NA_MATRIZ),
+            'POLICY_DECISION': decisao['DECISAO'],
+            'POLICY_WHY': decisao['PORQUE'],
+            'REMOTE_ACQUISITION_ALLOWED': decisao['DECISAO'] == mz.PERMITIDA_SIM}
+
+
 def _recusa(decisao):
-    """O trace de quem NAO saiu. Recusa e resultado medido, nao ausencia dele."""
+    """O trace de quem nem chegou a ter pedido. Usado quando falta o endereco.
+
+    Recusa e resultado medido, nao ausencia dele.
+    """
     trace = forn.Percurso('instagram.reel.transcribe').selar(
         resultado=decisao['DECISAO'])
-    trace['POLICY_OWNER'] = 'leis/social_matriz.py'
-    trace['POLICY_CAPABILITY'] = '%s/%s' % (PLATAFORMA, CAPACIDADE_NA_MATRIZ)
-    trace['POLICY_WHY'] = decisao['PORQUE']
+    trace.update(_politica_no_trace(decisao))
     trace['NETWORK_TOUCHED'] = False
     trace['ASR_RUN'] = False
     return trace
@@ -99,17 +109,30 @@ def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
     oito Reels reais no disco, e reescrever isso aqui seria criar a terceira
     cadeia numa missao que existe para acabar com a segunda.
     """
-    # O PORTAO VEM PRIMEIRO — ANTES DO IMPORT DA CADEIA.
+    # ── O PORTAO NAO VIVE AQUI, E ISSO E UMA CORRECAO DA C10.4 ──────────────
     #
-    # Nao e zelo: `reel_transcricao` traz `yt_dlp` e o reconhecedor atras dele, e
-    # perguntar «posso?» depois de carregar a ferramenta ja e ter decidido que
-    # sim. Aqui a recusa custa uma leitura de dicionario e nao abre socket
-    # nenhum.
+    # A C10.4 recusava aqui, antes do import da cadeia, e a intencao era boa:
+    # `reel_transcricao` traz o `yt_dlp` atras dele, e perguntar «posso?» depois
+    # de carregar a ferramenta ja e ter decidido que sim.
     #
-    #     O PORTAO QUE CORRE DEPOIS DA REDE NAO E UM PORTAO. E UM RELATORIO.
-    decisao = politica()
-    if decisao['DECISAO'] != mz.PERMITIDA_SIM:
-        return [], _recusa(decisao)
+    # A C10.5D mediu o preco disso. Um pedido que TRAZ os proprios bytes — ou
+    # cujos bytes ja estao preservados nesta casa — nao precisa de autorizacao
+    # nenhuma para ser reprocessado, e era recusado na mesma:
+    #
+    #     objectos = 0 · RESULT = ROUTE_NOT_ALLOWED · rede = 0 · e nada corria.
+    #
+    #     O PORTAO QUE RECUSA ANTES DE SABER SE VAI SAIR RECUSA TAMBEM QUEM
+    #     NAO IA SAIR.
+    #
+    # Quem decide e o portao que vive no ponto onde o socket abre — dentro da
+    # cadeia, em `midia_por_ytdlp` e `metadados_ytdlp`. Ele recusa a aquisicao e
+    # deixa passar o reprocessamento, que e exactamente a distincao que a
+    # decisao humana desta missao precisa que o sistema saiba dizer.
+    #
+    #     REUSAR != ADQUIRIR.
+    #
+    # `politica()` continua aqui — nao para barrar, mas para que o trace diga
+    # quem decidiu e porque, mesmo quando a recusa nasce la dentro.
     import reel_transcricao as rt
     if ident is None:
         if not url:
@@ -126,6 +149,10 @@ def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
                             resultado=registo.get('MEDIA_STATE'))
     trace['ASR_MODEL_HINT'] = model_hint
     trace['ASR_OWNER'] = 'ferramentas/fala_local.py'
+    # A DECISAO SOBE SEMPRE, TENHA ELA BARRADO OU NAO. Quem le o trace precisa
+    # de saber que politica estava em vigor quando aquilo correu — um artefato
+    # que so menciona a lei quando ela recusa nao deixa auditar o que passou.
+    trace.update(_politica_no_trace(politica()))
     return [registo], trace
 
 

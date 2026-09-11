@@ -121,6 +121,32 @@ class _PoliticaNegativa:
         return False
 
 
+class _PoliticaPermissiva:
+    """Poe a decisao em SIM sem escrever politica no disco.
+
+    A C10.5D fechou a decisao humana: a aquisicao remota do Instagram esta
+    RECUSADA. Os testes que medem o CAMINHO PERMITIDO nao deixaram de valer por
+    isso — o que eles medem e se a capacidade tecnica continua inteira quando a
+    lei diz sim.
+
+        UM TESTE QUE DEIXA DE CORRER PORQUE A POLITICA MUDOU NAO MEDE A
+        CAPACIDADE. MEDE A POLITICA, QUE JA TEM DONO.
+
+    Por isso injectam SIM aqui, em memoria, e o ficheiro de politica continua a
+    dizer NAO.
+    """
+
+    def __enter__(self):
+        self._orig = mz.MATRIZ['INSTAGRAM'][GROSSA]
+        mz.MATRIZ['INSTAGRAM'][GROSSA] = [
+            dict(r, PERMITIDA='SIM', ESTADO='PROVED') for r in self._orig]
+        return self
+
+    def __exit__(self, *_):
+        mz.MATRIZ['INSTAGRAM'][GROSSA] = self._orig
+        return False
+
+
 class _EspiaYtdlp:
     """Regista cada argv e nunca chama coisa nenhuma."""
 
@@ -176,21 +202,24 @@ def _quem_escreve_permitida():
 # ══════════════════════════════════════════════════════════════════════════
 class ODonoDaPoliticaEUmSo(unittest.TestCase):
 
-    def test_a_decisao_do_instagram_e_permitida_e_esta_medida(self):
+    def test_a_decisao_do_instagram_esta_tomada_e_e_nao(self):
+        # C10.5D · decisao humana. Ate aqui esta linha dizia SIM, e o teste
+        # media isso. O que mudou nao foi a capacidade: foi a leitura do
+        # `robots.txt` vivo de instagram.com.
         d = mz.decisao('INSTAGRAM', GROSSA)
-        self.assertEqual(d['DECISAO'], mz.PERMITIDA_SIM)
-        self.assertEqual(d['PERMITIDA'], 'SIM')
-        self.assertEqual(d['CLASSE'], 'LOCAL_EXECUTOR')
-        self.assertEqual(d['AUTH_MODE'], 'PUBLIC')
-
-    def test_a_c10_4_nao_alargou_a_autorizacao(self):
-        # A missao ligou o encanamento. Se tivesse mexido no valor da decisao
-        # para caber, este teste e o que apanha.
+        self.assertEqual(d['DECISAO'], mz.NAO_PERMITIDA)
         rotas = mz.MATRIZ['INSTAGRAM'][GROSSA]
         self.assertEqual(len(rotas), 1, 'nasceu rota nova em FETCH_TRANSCRIPT')
-        self.assertEqual(rotas[0]['PERMITIDA'], 'SIM')
-        self.assertEqual(rotas[0]['ESTADO'], 'PROVED')
+        self.assertEqual(rotas[0]['PERMITIDA'], 'NAO')
+        self.assertEqual(rotas[0]['ESTADO'], 'ROUTE_NOT_ALLOWED')
         self.assertEqual(rotas[0]['CLASSE'], 'LOCAL_EXECUTOR')
+
+    def test_a_decisao_e_de_rota_e_nao_rebaixa_a_capacidade(self):
+        # O erro que esta casa nao pode cometer: transformar «nao podes sair»
+        # em «nao sabes fazer». Sao donos diferentes e ficheiros diferentes.
+        self.assertEqual(cap.estado('instagram.reel.transcribe'), 'PROVEN')
+        self.assertTrue(cap.promete_resultado('instagram.reel.transcribe'))
+        self.assertEqual(mz.decisao('INSTAGRAM', GROSSA)['DECISAO'], mz.NAO_PERMITIDA)
 
     def test_buscar_bytes_de_video_continua_por_declarar(self):
         # A cadeia mediu VIDEO_BYTES_DOWNLOADED = 0. Pedir autorizacao para o
@@ -208,8 +237,9 @@ class ODonoDaPoliticaEUmSo(unittest.TestCase):
                          mz.NAO_DECLARADA)
         self.assertEqual(mz.decisao('LINKEDIN', 'FETCH_POST')['DECISAO'],
                          mz.NAO_PERMITIDA)
-        self.assertEqual(mz.decisao('INSTAGRAM', GROSSA)['DECISAO'],
-                         mz.PERMITIDA_SIM)
+        with _PoliticaPermissiva():
+            self.assertEqual(mz.decisao('INSTAGRAM', GROSSA)['DECISAO'],
+                             mz.PERMITIDA_SIM)
 
     def test_ler_a_decisao_nao_escreve_decisao(self):
         antes = [dict(r) for r in mz.MATRIZ['INSTAGRAM'][GROSSA]]
@@ -290,6 +320,15 @@ class OCaminhoCanonico(unittest.TestCase):
 # A PROVA NEGATIVA — POLITICA DIZ NAO, E NADA SE MOVE
 # ══════════════════════════════════════════════════════════════════════════
 class PoliticaNegativaParaTudo(unittest.TestCase):
+    """A recusa so morde quem ia mesmo sair.
+
+    ESTES TESTES USAM `REEL_SEM_BYTES`, E ISSO NAO E DETALHE. Com a sentinela
+    preservada, o degrau 0 encontra os bytes no disco e devolve `MEDIA_OK` sem
+    tocar em rede nenhuma — o que e o comportamento CERTO e o que faria estes
+    testes medirem a gaveta em vez do portao.
+
+        UMA PROVA DE RECUSA QUE NUNCA CHEGA A PEDIR NAO MEDE A RECUSA.
+    """
 
     def setUp(self):
         self.espia = _EspiaYtdlp()
@@ -321,24 +360,34 @@ class PoliticaNegativaParaTudo(unittest.TestCase):
     def test_chamar_o_adaptador_direto_tambem_bate_no_portao(self):
         # A porta de tras. Se so o roteador perguntasse, bastava nao usar o
         # roteador para a politica deixar de existir.
+        #
+        # O QUE MUDOU NA C10.5D: o adaptador deixou de PRE-RECUSAR. Ele delega,
+        # e quem recusa e o portao que vive no ponto onde o socket abre. O
+        # resultado observavel e o mesmo — zero rede, zero yt-dlp, a palavra
+        # certa no trace — e o que se ganhou foi deixar de recusar quem trazia
+        # os proprios bytes e nao ia sair.
         with _PoliticaNegativa(), _SemRede() as rede:
-            objetos, trace = ai.capturar_reel(url=REEL, run_id='C10-4-DIRETO')
-        self.assertEqual(objetos, [])
+            objetos, trace = ai.capturar_reel(url=REEL_SEM_BYTES, run_id='C10-4-DIRETO',
+                                              guardar=False)
         self.assertEqual(trace['RESULT'], mz.NAO_PERMITIDA)
-        self.assertFalse(trace['NETWORK_TOUCHED'])
-        self.assertFalse(trace['ASR_RUN'])
+        self.assertEqual(trace['POLICY_DECISION'], mz.NAO_PERMITIDA)
+        self.assertFalse(trace['REMOTE_ACQUISITION_ALLOWED'])
         self.assertEqual(trace['POLICY_OWNER'], 'leis/social_matriz.py')
         self.assertEqual(rede.tentativas, [])
         self.assertEqual(self.espia.chamadas, [])
+        # e a recusa nao veio disfarcada de transcricao vazia
+        for o in objetos:
+            self.assertEqual(o.get('MEDIA_STATE'), mz.NAO_PERMITIDA)
+            self.assertIsNone(o.get('TRANSCRIPT_TEXT'))
 
     def test_a_recusa_diz_qual_das_tres_palavras_foi(self):
         with _PoliticaNegativa(), _SemRede():
-            _o, t1 = ai.capturar_reel(url=REEL, run_id='C10-4-P1')
+            _o, t1 = ai.capturar_reel(url=REEL_SEM_BYTES, run_id='C10-4-P1')
         self.assertEqual(t1['RESULT'], mz.NAO_PERMITIDA)
         guardado = mz.MATRIZ['INSTAGRAM'].pop(GROSSA)
         try:
             with _SemRede():
-                _o, t2 = ai.capturar_reel(url=REEL, run_id='C10-4-P2')
+                _o, t2 = ai.capturar_reel(url=REEL_SEM_BYTES, run_id='C10-4-P2')
         finally:
             mz.MATRIZ['INSTAGRAM'][GROSSA] = guardado
         self.assertEqual(t2['RESULT'], mz.NAO_DECLARADA)
@@ -346,7 +395,34 @@ class PoliticaNegativaParaTudo(unittest.TestCase):
                             'a casa passou a dizer a mesma palavra para «nao '
                             'pode» e para «ninguem mediu»')
 
-    def test_o_portao_corre_antes_de_a_cadeia_sequer_ser_carregada(self):
+    def test_o_adaptador_nao_pre_recusa_quem_talvez_nao_va_sair(self):
+        # A C10.4 recusava aqui, antes do import da cadeia. A C10.5D mediu o
+        # preco: um pedido que TRAZ os proprios bytes era recusado na mesma.
+        #
+        #     O PORTAO QUE RECUSA ANTES DE SABER SE VAI SAIR RECUSA TAMBEM
+        #     QUEM NAO IA SAIR.
+        #
+        # Este teste fixa a correccao: com a politica em NAO, um pedido que
+        # traz ficheiro proprio atravessa, sem rede nenhuma.
+        tmp = tempfile.mkdtemp(prefix='c10-4-bytes-')
+        try:
+            proprio = os.path.join(tmp, 'proprio.m4a')
+            io.open(proprio, 'wb').write(b'\x00' * 64)
+            with _PoliticaNegativa(), _SemRede() as rede:
+                objetos, trace = ai.capturar_reel(
+                    ident={'PLATFORM': 'INSTAGRAM', 'POST_ID': 'PROPRIO',
+                           'SOURCE_URL': 'https://www.instagram.com/reel/PROPRIO/'},
+                    run_id='C10-4-BYTES', midia_ficheiro=proprio, guardar=False)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+        self.assertEqual(len(objetos), 1,
+                         'a politica de ROTA recusou trabalho que nao usa rota')
+        self.assertEqual(objetos[0]['MEDIA_STATE'], 'MEDIA_OK')
+        self.assertEqual(rede.tentativas, [])
+        self.assertEqual(self.espia.chamadas, [])
+        self.assertEqual(trace['POLICY_DECISION'], mz.NAO_PERMITIDA)
+
+    def _retirado_test_o_portao_corre_antes_de_a_cadeia_sequer_ser_carregada(self):
         # Um portao que corre depois da rede nao e um portao: e um relatorio.
         # `reel_transcricao` traz o yt-dlp e o reconhecedor atras dele, logo o
         # proprio import ja e um compromisso — e por isso o que se mede aqui e
@@ -400,7 +476,7 @@ class RotaPermitidaChegaAoAdaptador(unittest.TestCase):
         shutil.rmtree(self.tmp, ignore_errors=True)
 
     def test_a_rota_permitida_atravessa_e_o_registo_nomeia_quem_correu(self):
-        with _SemRede():
+        with _PoliticaPermissiva(), _SemRede():
             objetos, trace = scrap.COLLECT(
                 platform='INSTAGRAM', capability=CAPACIDADE, run_id='C10-4-POS',
                 url=REEL, midia_ficheiro=os.path.join(self.tmp, 'nao-existe.m4a'),
@@ -418,7 +494,7 @@ class RotaPermitidaChegaAoAdaptador(unittest.TestCase):
         self.assertEqual(len(objetos), 1)
 
     def test_depois_do_portao_o_pedido_continua_a_ser_so_de_som(self):
-        with _SemRede():
+        with _PoliticaPermissiva(), _SemRede():
             scrap.COLLECT(platform='INSTAGRAM', capability=CAPACIDADE,
                           run_id='C10-4-AUDIO', url=REEL_SEM_BYTES, guardar=False)
         # `-J` e o pedido de METADADOS e nao traz byte de media nenhum. O que
@@ -432,7 +508,7 @@ class RotaPermitidaChegaAoAdaptador(unittest.TestCase):
             self.assertNotIn('bestvideo', ' '.join(argv))
 
     def test_falhar_o_audio_nao_autoriza_pedir_video(self):
-        with _SemRede():
+        with _PoliticaPermissiva(), _SemRede():
             scrap.COLLECT(platform='INSTAGRAM', capability=CAPACIDADE,
                           run_id='C10-4-SEM-QUEDA', url=REEL_SEM_BYTES, guardar=False)
         for argv in [a for a in self.espia.chamadas if '-o' in a]:
@@ -485,12 +561,15 @@ class OPortaoNaoMudaOsOutrosContratos(unittest.TestCase):
         self.assertIsNone(cap.da_matriz('instagram.reel.audio'))
 
     def test_mas_elas_tambem_batem_no_portao(self):
-        with _PoliticaNegativa(), _SemRede():
+        with _PoliticaNegativa(), _SemRede() as rede:
             objetos, trace = scrap.COLLECT(platform='INSTAGRAM',
                                            capability='instagram.reel.capture',
-                                           run_id='C10-4-CAPTURE', url=REEL)
-        self.assertEqual(objetos, [])
+                                           run_id='C10-4-CAPTURE', url=REEL_SEM_BYTES,
+                                           guardar=False)
         self.assertEqual(trace['RESULT'], mz.NAO_PERMITIDA)
+        self.assertEqual(rede.tentativas, [])
+        for o in objetos:
+            self.assertEqual(o.get('MEDIA_STATE'), mz.NAO_PERMITIDA)
 
 
 if __name__ == '__main__':

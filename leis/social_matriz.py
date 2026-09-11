@@ -400,10 +400,41 @@ MATRIZ = {
               'em reel, visualizações e duração', 'scripts/instagram_janela.py'),
         ],
         'FETCH_TRANSCRIPT': [
-            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'SIM', 'PROVED',
+            # ── DECISÃO HUMANA, C10.5D · 2026-09-11 ──────────────────────────
+            # Esta linha deixou de ser `SIM`. O que mudou NÃO foi a capacidade:
+            # foi a leitura do `robots.txt` VIVO de `instagram.com`, medida pelo
+            # portão desta casa e confirmada lendo o ficheiro — 6.256 bytes, e o
+            # bloco que nos serve é `User-agent: *` / `Disallow: /`. O agente
+            # desta coleta não aparece nomeado em lado nenhum.
+            #
+            #     ROTA QUE FUNCIONA NÃO É ROTA PERMITIDA.
+            #
+            # E a rota que esta linha nomeia NÃO é um motor local: ela baixa o
+            # MP4 INTEIRO da CDN da Meta antes de reconhecer a fala. É por isso
+            # que o `NAO` lhe pertence — não por causa do `faster-whisper`.
+            #
+            # O QUE ESTE `NAO` **NÃO** DIZ:
+            #     · não diz que o reconhecedor local está proibido;
+            #     · não diz que os bytes já preservados nesta casa não podem
+            #       voltar a ser processados;
+            #     · não rebaixa a capacidade medida — `instagram.reel.transcribe`
+            #       continua `PROVEN` em `scrap_capacidades.py`, e tem de
+            #       continuar.
+            #
+            #     CAN DO != MAY DO != DID DO.   REUSAR != ADQUIRIR.
+            #
+            # Quem faz valer esta decisão é o portão que vive no ponto onde o
+            # socket abre (`ferramentas/reel_transcricao.py`), e é por viver lá
+            # que ele recusa a aquisição sem recusar o reprocessamento.
+            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'NAO',
+              'ROUTE_NOT_ALLOWED',
               'zero dólar, ~6 h/1.000 vídeos no modelo small',
-              'já medido nesta casa; reusar, não recriar',
-              'scripts/instagram_transcrever.py'),
+              'A ROTA SAI PARA A PLATAFORMA: baixa o MP4 inteiro da CDN da Meta e '
+              'só depois transcreve. O `robots.txt` vivo de instagram.com responde '
+              '`Disallow: /` ao agente desta casa — medido na C10.5. O motor local '
+              'continua provado e os bytes já preservados continuam reprocessáveis; '
+              'o que está recusado é SAIR para buscar mídia nova.',
+              'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md'),
         ],
         'FETCH_COMMENTS': [
             r('apify:comments', 'APIFY', 'CONDICIONAL', 'PROVED', 'por item',

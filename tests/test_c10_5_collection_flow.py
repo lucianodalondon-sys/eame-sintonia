@@ -90,6 +90,25 @@ class _PoliticaNegativa:
         return False
 
 
+class _PoliticaPermissiva:
+    """Injecta SIM em memoria. O ficheiro de politica continua a dizer NAO.
+
+    A C10.5D fechou a decisao humana: a aquisicao remota esta recusada. O que
+    estes testes de caminho permitido medem nao e a lei — e se a capacidade
+    tecnica continua inteira quando a lei disser sim.
+    """
+
+    def __enter__(self):
+        self._orig = mz.MATRIZ['INSTAGRAM'][GROSSA]
+        mz.MATRIZ['INSTAGRAM'][GROSSA] = [
+            dict(r, PERMITIDA='SIM', ESTADO='PROVED') for r in self._orig]
+        return self
+
+    def __exit__(self, *_):
+        mz.MATRIZ['INSTAGRAM'][GROSSA] = self._orig
+        return False
+
+
 class _EspiaYtdlp:
     def __init__(self):
         self.chamadas = []
@@ -151,7 +170,7 @@ class OPortaoVivePercisamenteOndeOSocketAbre(unittest.TestCase):
     def test_a_politica_permitida_deixa_o_seletor_de_audio_passar(self):
         # O contraponto. Sem ele o teste de cima passaria com o portao sempre
         # fechado, e um portao que recusa tudo nao mede politica nenhuma.
-        with _SemRede():
+        with _PoliticaPermissiva(), _SemRede():
             rt.midia_por_ytdlp('https://www.instagram.com/reel/X',
                                os.path.join(self.tmp, 'z.m4a'),
                                tentativas=1, kind=rt.MIDIA_AUDIO,
