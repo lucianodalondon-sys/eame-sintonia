@@ -763,6 +763,7 @@
       "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
       "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
       "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
+      "docs/sintonia-scrap/C6-ESPECIE-DO-TEXTO.md",
       "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md"
@@ -1451,6 +1452,7 @@
       "tests/test_c4_gpu_local.py",
       "tests/test_c5_transcript_gate.py",
       "tests/test_c6_especie_do_texto.py",
+      "tests/test_c7_lugar_do_fato.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canonico.py",
       "tests/test_censo_dos_donos.py",
@@ -1902,10 +1904,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-text-provenance-c6",
-    "HEAD": "0032cc0246d55c853ad4ec9d54dd612caa1bf229",
-    "GENERATED_AT": "2026-09-11T12:12:35+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f32921339096ab5cac01367961ca2647540144e54af43ba5a8adb5007dfc5216"
+    "BRANCH": "claude/sintonia-fact-location-c7",
+    "HEAD": "7fe6f4895d5b07fabe2f6f98be492926e5256440",
+    "GENERATED_AT": "2026-09-11T12:59:35+00:00",
+    "SOURCE_TREE_FINGERPRINT": "cfd3d102ce7c9f07168584f60ad6350ce644000e0c5a91c17c9a445498924e07"
   },
   "FAMILIES": [
     {
@@ -5331,7 +5333,9 @@
         {
           "ficheiro": "regras/sensor_medir.py",
           "como_se_chama": "regras/sensor_medir.py",
-          "carimba_data": [],
+          "carimba_data": [
+            "CAPTURED_AT"
+          ],
           "carimba_lugar": [
             "COUNTRY",
             "FACT_LOCATION",
@@ -11142,7 +11146,7 @@
           "pasta": "data/samples/SENSOR-PILOT",
           "prova": {
             "file": "regras/sensor_medir.py",
-            "line": 583,
+            "line": 669,
             "snippet": "escreve em PILOT"
           }
         }
@@ -15382,6 +15386,7 @@
         "tests/test_c4_gpu_local.py",
         "tests/test_c5_transcript_gate.py",
         "tests/test_c6_especie_do_texto.py",
+        "tests/test_c7_lugar_do_fato.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canonico.py",
         "tests/test_censo_dos_donos.py",
@@ -15453,7 +15458,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 84,
+      "file_count": 85,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15601,12 +15606,14 @@
           "ESTADOS",
           "EV",
           "EXECUTAVEIS",
+          "FALSOS",
           "FICHEIROS",
           "FORTE",
           "FORWARD",
           "HISTORICOS",
           "LINHA_BOA",
           "PEDIDOS",
+          "POSITIVOS",
           "PROIBIDO",
           "PRONTO",
           "ROTA_M2",
@@ -15617,13 +15624,16 @@
           "SINAL_VENETO",
           "_GAVETA_DE"
         ],
-        "palavras": 411,
+        "palavras": 464,
         "por_lingua": {
+          "FR": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 409,
-        "de_outro_pais": 0,
-        "de_outro_pais_quais": {}
+        "sem_marca_de_lingua": 460,
+        "de_outro_pais": 2,
+        "de_outro_pais_quais": {
+          "FR": 2
+        }
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [
@@ -17033,7 +17043,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-text-provenance-c6"
+        "branch claude/sintonia-fact-location-c7"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -21121,7 +21131,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c3_youtube_cutover.py",
@@ -21137,6 +21147,11 @@
           "file": "tests/test_c5_transcript_gate.py",
           "line": 353,
           "snippet": "for rel in ('regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
+        },
+        {
+          "file": "tests/test_c7_lugar_do_fato.py",
+          "line": 283,
+          "snippet": "'coleta/comunicacao_classificar.py',"
         },
         {
           "file": "tests/test_reel_transcricao.py",
@@ -21650,7 +21665,7 @@
       "evidence": [
         {
           "file": "regras/sensor_medir.py",
-          "line": 533,
+          "line": 595,
           "snippet": "canal = _ler('CANAL-IDENTIDADE.json') or {'ITEMS': []}"
         }
       ],
@@ -24755,6 +24770,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-LUGAR-COLETA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O lugar do fato — a lei escrita, e ainda nao aplicada alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c7_lugar_do_fato.py",
+          "line": 225,
+          "snippet": "dele = _fonte('leis/fato_local.py')"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-MAPA-APP",
       "to": "C-MAPA-TESTES",
       "type": "READS",
@@ -25660,12 +25693,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As palavras que a busca digita tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "As palavras que a busca digita tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c6_especie_do_texto.py",
-          "line": 211,
+          "line": 222,
           "snippet": "import sensor_medir as sm                               # noqa: PLC0415"
+        },
+        {
+          "file": "tests/test_c7_lugar_do_fato.py",
+          "line": 37,
+          "snippet": "import sensor_medir as sm    # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -25678,12 +25716,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As palavras que a busca digita alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "As palavras que a busca digita alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c6_especie_do_texto.py",
           "line": 193,
           "snippet": "t = _fonte('regras/sensor_medir.py')"
+        },
+        {
+          "file": "tests/test_c7_lugar_do_fato.py",
+          "line": 199,
+          "snippet": "fn = _func('regras/sensor_medir.py', 'lugar_do_fato')"
         }
       ],
       "categoria": "PROOF"
@@ -26799,7 +26842,7 @@
       "evidence": [
         {
           "file": "regras/sensor_medir.py",
-          "line": 43,
+          "line": 44,
           "snippet": "import proveniencia as pv  # noqa: E402"
         }
       ],
@@ -26890,11 +26933,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c6_especie_do_texto.py",
           "line": 30,
+          "snippet": "import proveniencia as pv    # noqa: E402"
+        },
+        {
+          "file": "tests/test_c7_lugar_do_fato.py",
+          "line": 36,
           "snippet": "import proveniencia as pv    # noqa: E402"
         },
         {
@@ -28676,7 +28724,7 @@
         },
         {
           "file": "tests/test_c6_especie_do_texto.py",
-          "line": 408,
+          "line": 419,
           "snippet": "import social_matriz as mz                              # noqa: PLC0415"
         },
         {
@@ -30672,6 +30720,24 @@
     },
     {
       "from": "C-V21-CONTRATO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato do pacote alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c7_lugar_do_fato.py",
+          "line": 284,
+          "snippet": "'motor/v21_traducao_trava.py'],"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-V21-CONTRATO",
       "to": "C-V21-COMERCIAL",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -31436,7 +31502,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 741,
+  "UNCLAIMED_FILES_COUNT": 742,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31604,12 +31670,12 @@
     "components_pending": 99,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 647,
-    "edges_proven": 644,
+    "edges": 649,
+    "edges_proven": 646,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1455,
-    "files_covered": 714,
+    "files_tracked": 1457,
+    "files_covered": 715,
     "files_code_unclaimed": 0
   }
 }

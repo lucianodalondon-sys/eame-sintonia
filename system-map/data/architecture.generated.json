@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-text-provenance-c6",
-    "HEAD": "0032cc0246d55c853ad4ec9d54dd612caa1bf229",
-    "GENERATED_AT": "2026-09-11T12:12:35+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f32921339096ab5cac01367961ca2647540144e54af43ba5a8adb5007dfc5216"
+    "BRANCH": "claude/sintonia-fact-location-c7",
+    "HEAD": "7fe6f4895d5b07fabe2f6f98be492926e5256440",
+    "GENERATED_AT": "2026-09-11T12:59:35+00:00",
+    "SOURCE_TREE_FINGERPRINT": "cfd3d102ce7c9f07168584f60ad6350ce644000e0c5a91c17c9a445498924e07"
   },
   "FILES": [
     {
@@ -4035,7 +4035,7 @@
     },
     {
       "path": "data/samples/SENSOR-PILOT/MEDICAO.json",
-      "sha": "cd93b32b132cde78d2ba2224fa6c380c89b9ecc2",
+      "sha": "36ca5d7b9a4091cf95ef42fab8cd04801259d1b6",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -5177,6 +5177,13 @@
     {
       "path": "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
       "sha": "718a799e5f1ceeb28ff5c01dbb455b7537b1b777",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/sintonia-scrap/C6-ESPECIE-DO-TEXTO.md",
+      "sha": "9d601e56adc911df4f5f3b02659e5d8014b70657",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8193,7 +8200,7 @@
     },
     {
       "path": "regras/sensor_medir.py",
-      "sha": "3627a746f7efe6b6e94b66ed56cb8dce77d4b325",
+      "sha": "66e673f32b1481489fe2614bb02b0a36f9b3ece5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9691,7 +9698,14 @@
     },
     {
       "path": "tests/test_c6_especie_do_texto.py",
-      "sha": "5a461bcd3ea0888d23daf84485e3bb9787d33a7e",
+      "sha": "9b26542b94447cea0dea74fa6afb6fd9e9214087",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c7_lugar_do_fato.py",
+      "sha": "42112b070bf28a7176c13aff8fba24798f94337e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27461,7 +27475,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "regras/sensor_medir.py",
-        "line": 40,
+        "line": 41,
         "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
       }
     },
@@ -27472,7 +27486,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/sensor_medir.py",
-        "line": 533,
+        "line": 595,
         "snippet": "canal = _ler('CANAL-IDENTIDADE.json') or {'ITEMS': []}"
       }
     },
@@ -27483,7 +27497,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/sensor_medir.py",
-        "line": 583,
+        "line": 669,
         "snippet": "with open(os.path.join(PILOT, 'MEDICAO.json'), 'w', encoding='utf-8') as f:"
       }
     },
@@ -27494,7 +27508,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "regras/sensor_medir.py",
-        "line": 43,
+        "line": 44,
         "snippet": "import proveniencia as pv  # noqa: E402"
       }
     },
@@ -30761,7 +30775,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c6_especie_do_texto.py",
-        "line": 408,
+        "line": 419,
         "snippet": "import social_matriz as mz                              # noqa: PLC0415"
       }
     },
@@ -30816,7 +30830,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c6_especie_do_texto.py",
-        "line": 211,
+        "line": 222,
         "snippet": "import sensor_medir as sm                               # noqa: PLC0415"
       }
     },
@@ -30829,6 +30843,94 @@
         "file": "tests/test_c6_especie_do_texto.py",
         "line": 193,
         "snippet": "t = _fonte('regras/sensor_medir.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c7_lugar_do_fato.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c7_lugar_do_fato.py",
+        "line": 35,
+        "snippet": "import _gavetas              # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_c7_lugar_do_fato.py",
+      "to_file": "coleta/comunicacao_classificar.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c7_lugar_do_fato.py",
+        "line": 283,
+        "snippet": "'coleta/comunicacao_classificar.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_c7_lugar_do_fato.py",
+      "to_file": "data/samples/SENSOR-PILOT/MEDICAO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c7_lugar_do_fato.py",
+        "line": 296,
+        "snippet": "MEDICAO = os.path.join(RAIZ, 'data', 'samples', 'SENSOR-PILOT', 'MEDICAO.json')"
+      }
+    },
+    {
+      "from_file": "tests/test_c7_lugar_do_fato.py",
+      "to_file": "leis/fato_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c7_lugar_do_fato.py",
+        "line": 225,
+        "snippet": "dele = _fonte('leis/fato_local.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c7_lugar_do_fato.py",
+      "to_file": "motor/v21_traducao_trava.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c7_lugar_do_fato.py",
+        "line": 284,
+        "snippet": "'motor/v21_traducao_trava.py'],"
+      }
+    },
+    {
+      "from_file": "tests/test_c7_lugar_do_fato.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c7_lugar_do_fato.py",
+        "line": 36,
+        "snippet": "import proveniencia as pv    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c7_lugar_do_fato.py",
+      "to_file": "regras/sensor_medir.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c7_lugar_do_fato.py",
+        "line": 37,
+        "snippet": "import sensor_medir as sm    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c7_lugar_do_fato.py",
+      "to_file": "regras/sensor_medir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c7_lugar_do_fato.py",
+        "line": 199,
+        "snippet": "fn = _func('regras/sensor_medir.py', 'lugar_do_fato')"
       }
     },
     {
@@ -36674,7 +36776,7 @@
     "regras/sensor_medir.py": [
       {
         "pasta": "data/samples/SENSOR-PILOT",
-        "line": 583,
+        "line": 669,
         "constante": "PILOT"
       }
     ],
@@ -36757,10 +36859,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1455,
-    "files_readable": 552,
-    "files_code_dir": 599,
-    "file_edges": 2373,
+    "files_tracked": 1457,
+    "files_readable": 553,
+    "files_code_dir": 600,
+    "file_edges": 2381,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
