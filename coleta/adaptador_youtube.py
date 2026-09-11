@@ -24,6 +24,7 @@ nome das plataformas. O corpo e o mesmo, linha por linha.
 """
 import os
 import sys
+import urllib.error
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
@@ -79,42 +80,68 @@ def _traduzido(fn):
             raise _EstadoDaApi({'STATE': 'BUDGET_EXHAUSTED',
                                 'NATIVE_REASON': 'teto desta execucao, posto por nos',
                                 'RECOVERY_ACTION': 'NO_RETRY'}) from e
+        except urllib.error.HTTPError as e:
+            # A API DIZ A RAZAO NO CORPO, E O CODIGO HTTP E O ULTIMO RECURSO.
+            # `403` sozinho e tres coisas ao mesmo tempo: quota acabada,
+            # comentario desligado e chave barrada por IP. O corpo distingue-as,
+            # `youtube_oficial.estado_do_erro` ja sabe le-lo, e quem subia por
+            # aqui perdia isso pelo caminho — o roteador via um HTTPError nu e
+            # classificava so pelo numero.
+            #
+            #     PERDER A RAZAO DECLARADA E ESCOLHER ADIVINHAR TENDO A RESPOSTA.
+            estado, razao = yt.estado_do_erro(e)
+            raise _EstadoDaApi({'STATE': estado, 'NATIVE_REASON': razao}) from e
     dentro.__name__ = fn.__name__
     dentro.__doc__ = fn.__doc__
     return dentro
 
 
+# ── POR QUE A SESSAO ATRAVESSA ────────────────────────────────────────────
+# `youtube_oficial.Sessao` aceita transporte injetado, e o ficheiro dele diz
+# porque: «um teste que depende da internet nao roda quando mais se precisa».
+# Mas a sessao morria AQUI — as quatro rotas engoliam-na em `**_` e abriam uma
+# nova por dentro. O resultado e que quota estourada, video apagado e
+# comentario desativado so podiam ser exercidos contra a API de verdade, que e
+# exatamente quando nao se quer exercer nenhum dos tres.
+#
+#     UMA COSTURA QUE PARA A MEIO DO CAMINHO NAO E UMA COSTURA.
+#
+# A sessao passa a atravessar ate ao dono. Em producao ninguem a passa, e cada
+# chamada abre a sua — o comportamento nao mudou.
 @_traduzido
-def youtube_buscar(*, termo, run_id, country_scope, limit=25, **_):
+def youtube_buscar(*, termo, run_id, country_scope, limit=25, sessao=None, **_):
     import youtube_oficial as yt
     objs, _s = yt.buscar(termo=termo, run_id=run_id, country_scope=country_scope,
-                         limit=limit, regiao=country_scope, idioma='it')
+                         limit=limit, regiao=country_scope, idioma='it',
+                         sessao=sessao)
     return objs
 
 
 @_traduzido
-def youtube_uploads(*, channel_id, run_id, country_scope, limit=25, conhecidos=(), **_):
+def youtube_uploads(*, channel_id, run_id, country_scope, limit=25, conhecidos=(),
+                    sessao=None, **_):
     import youtube_oficial as yt
     objs, _s, _rel = yt.uploads_recentes(
         channel_id=channel_id, run_id=run_id, country_scope=country_scope,
-        limit=limit, conhecidos=conhecidos)
+        limit=limit, conhecidos=conhecidos, sessao=sessao)
     return objs
 
 
 @_traduzido
-def youtube_metadata(*, video_ids, run_id, country_scope, **_):
+def youtube_metadata(*, video_ids, run_id, country_scope, sessao=None, **_):
     import youtube_oficial as yt
     objs, _s, _rel = yt.metadata(video_ids=video_ids, run_id=run_id,
-                                 country_scope=country_scope)
+                                 country_scope=country_scope, sessao=sessao)
     return objs
 
 
 @_traduzido
-def youtube_comentarios(*, video_id, run_id, country_scope, limite_threads=100, **_):
+def youtube_comentarios(*, video_id, run_id, country_scope, limite_threads=100,
+                        sessao=None, **_):
     import youtube_oficial as yt
     objs, _s, rel = yt.comentarios(video_id=video_id, run_id=run_id,
                                    country_scope=country_scope,
-                                   limite_threads=limite_threads)
+                                   limite_threads=limite_threads, sessao=sessao)
     # Comentário desativado NÃO é coleta vazia: é um fato sobre o vídeo, e sobe
     # como estado próprio para não virar ZERO_RESULTS no registro.
     if rel.get('STATE') not in (None, 'OK', 'ZERO_RESULTS'):

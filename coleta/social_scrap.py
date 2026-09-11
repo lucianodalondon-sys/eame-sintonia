@@ -903,7 +903,7 @@ def youtube_oficial_prova():
     }
     print('\n  CAPABILITY                   API_METHOD              ITENS  RESULT')
     print('  ' + '-' * 70)
-    linhas, tudo_oficial = [], True
+    linhas, tudo_oficial, amostras = [], True, {}
     for c in QUATRO:
         if c not in prontas:
             linhas.append({'CAPABILITY': c, 'RESULT': 'NOT_RUN',
@@ -913,8 +913,28 @@ def youtube_oficial_prova():
         objetos, trace = scrap.COLLECT(platform='YOUTUBE', capability=c,
                                        run_id=run_id, country_scope='IT',
                                        **pedidos[c])
+        # ── COMENTARIO: ZERO NAO E DESLIGADO, E UM VIDEO SO NAO PROVA NENHUM ──
+        # Um video sem comentario devolve ZERO_RESULTS legitimo, e isso nao
+        # prova a capacidade. Um video com comentario DESLIGADO devolve
+        # FEATURE_DISABLED, e isso e um fato sobre o video — nao uma coleta
+        # vazia. Sao tres coisas, e colapsa-las apagaria a diferenca para
+        # sempre.
+        #
+        #     ZERO_RESULTS != FEATURE_DISABLED != ERROR.
+        if c == 'youtube.comments':
+            for extra in ALVO_OFICIAL['VIDEOS'][1:]:
+                if objetos or trace.get('RESULT') not in ('ZERO_RESULTS',):
+                    break
+                print('      %s deu ZERO_RESULTS; tentando o proximo video'
+                      % pedidos[c]['video_id'])
+                pedidos[c] = dict(video_id=extra, limite_threads=5)
+                objetos, trace = scrap.COLLECT(platform='YOUTUBE', capability=c,
+                                               run_id=run_id, country_scope='IT',
+                                               **pedidos[c])
         t = scrap.TRACE(trace)
         metodo = (trace.get('ROUTE') or '').split(':')[-1] or '-'
+        if objetos:
+            amostras[c] = objetos[0]
         print('  %-28s %-22s %5d  %s' % (c, metodo, len(objetos), t['RESULT']))
         if t['PROVIDER_USED'] not in (None, forn.API_OFICIAL):
             tudo_oficial = False
@@ -939,6 +959,30 @@ def youtube_oficial_prova():
     # ninguem mediu.
     #
     #     US$ 0,00 NAO QUER DIZER «A VONTADE».
+    # ── BATCHING · UMA CHAMADA PARA N IDENTIFICADORES ────────────────────
+    # `videos.list` aceita ate 50 ids por chamada e custa 1 unidade seja qual
+    # for o numero. Fazer N chamadas para N videos gasta N vezes a mesma coisa
+    # e devolve o mesmo — e a diferenca entre 1 e 50 e o dia inteiro de quota.
+    lote = [l for l in linhas if l['CAPABILITY'] == 'youtube.video.metadata']
+    if lote and lote[0]['RESULT'] == 'OK':
+        n = len(ALVO_OFICIAL['VIDEOS'])
+        print('\n  BATCHING — %d identificadores, 1 chamada, 1 unidade de quota' % n)
+        print('    MAX_IDS_PER_CALL   50 (limite da API)')
+        print('    QUOTA_PER_CALL     1 unidade, independente de quantos ids')
+        print('    objetos devolvidos %d' % lote[0]['ITEM_COUNT'])
+
+    # ── OUTPUT COMPATIBILITY · o que o objeto realmente carrega ──────────
+    # Nenhum campo que alguem consome pode desaparecer em silencio. Aqui sai a
+    # lista, para que a diferenca seja vista e nao suposta.
+    if amostras:
+        print('\n  CAMPOS DO OBJETO NORMALIZADO, por capacidade')
+        for c, obj in sorted(amostras.items()):
+            campos = sorted(obj) if isinstance(obj, dict) else []
+            bruto = sorted((obj or {}).get('RAW') or {}) if isinstance(obj, dict) else []
+            print('    %-28s envelope=%d campos' % (c, len(campos)))
+            if bruto:
+                print('      RAW: %s' % ', '.join(bruto))
+
     print('\n  QUOTA — modelo oficial, dois baldes que nao se somam')
     for c in linhas:
         m = c.get('API_METHOD')
