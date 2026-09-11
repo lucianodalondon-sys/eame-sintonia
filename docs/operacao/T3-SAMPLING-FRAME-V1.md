@@ -19,6 +19,12 @@
 > HUMAN_LABELS_ADDED = 0     MACHINE_LABELS_ADDED = 0
 > ```
 
+> **ESTADO POSTERIOR.** O pacote foi regenerado sobre esta população: já tem as
+> **53** fichas, as 46 reaproveitadas e as 7 acrescentadas, e `ISTAT`, `AGEA` e
+> `ISMEA` deixaram de estar ausentes. Ver
+> [`T3-REVIEW-PACKET-V1.md`](T3-REVIEW-PACKET-V1.md). O que está escrito abaixo é
+> a **medição que motivou** essa regeneração, e fica como estava.
+
 Para refazer:
 
 ```bash

@@ -54,10 +54,17 @@ import _gavetas  # noqa: E402,F401
 
 import importlib.util  # noqa: E402
 
-_spec = importlib.util.spec_from_file_location(
-    "_censo", os.path.join(RAIZ, "provas", "censo_corpus_rotulado_admission.py"))
-censo = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(censo)
+
+def _modulo(nome, ficheiro):
+    spec = importlib.util.spec_from_file_location(
+        nome, os.path.join(RAIZ, "provas", ficheiro))
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+censo = _modulo("_censo", "censo_corpus_rotulado_admission.py")
+amostra = _modulo("_amostra", "amostragem_neutra_t3.py")
 
 PACOTE = "docs/operacao/T3-REVIEW-PACKET-V1.md"
 PENDENTE = "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json"
@@ -154,58 +161,141 @@ def _linhagem_pai(caminho):
 
 
 # ── A ORDEM · NEUTRA E REPRODUZIVEL ────────────────────────────────────────
-# Nao por «mais provavel T3», nao por pasta (que agruparia publicadores), nao
-# pela ordem em que eu os encontrei. Por hash do caminho: estavel entre
-# corridas e sem relacao nenhuma com o conteudo.
-def _ordem(caminho):
-    return hashlib.sha256(caminho.encode()).hexdigest()
+# Nao por «mais provavel T3», nao por publicador, nao por pasta, nao pela ordem
+# em que os encontrei. Por hash do SHA256 do documento.
+#
+# Antes era o hash do CAMINHO, e o caminho carrega o nome da pasta. O hash da
+# identidade dos bytes nao carrega sinal nenhum — nem semantico, nem de origem.
+def _ordem(doc_sha):
+    return hashlib.sha256(doc_sha.encode()).hexdigest()
+
+
+# ── A POPULACAO · O FRAME NEUTRO, E NAO O GABARITO DE T2 ───────────────────
+# ⚠️ ESTE FICHEIRO JA NASCEU DE `censo._gabarito_t2()`, e isso era um defeito
+# medido: a populacao inteira vinha de um corpus curado para responder «este
+# documento e T2?». Ver `docs/operacao/T3-SAMPLING-FRAME-V1.md` e o know-how §54.
+#
+#     T2-CURATED CORPUS != GENERAL T3 EVALUATION FRAME.
+#
+# Agora a populacao e o `sampling frame` neutro — inclusao por existencia,
+# extensao e legibilidade, e por mais nada.
+def _frame():
+    return [d for d in amostra.sampling_frame() if d["REVIEWABLE"]]
+
+
+def _revisoes_anteriores():
+    """O que uma pessoa ja escreveu NAO PODE ser apagado por uma regeneracao.
+
+        UMA REGENERACAO QUE DEITA FORA DECISAO HUMANA
+        E UM APAGADOR COM CARA DE FERRAMENTA.
+
+    Hoje estao todas em NOT_RUN e este carregamento nao muda nada. Existe para
+    o dia em que nao estiverem.
+    """
+    caminho = os.path.join(RAIZ, PENDENTE)
+    if not os.path.isfile(caminho):
+        return {}
+    with open(caminho, encoding="utf-8") as f:
+        antigo = json.load(f)
+    fora = {}
+    for i in antigo.get("ITENS", []):
+        chave = i.get("DOC_SHA256") or i.get("CONTENT_PATH")
+        fora[chave] = {
+            "REVIEWER_A": i.get("REVIEWER_A"),
+            "REVIEWER_B": i.get("REVIEWER_B"),
+            "AGREEMENT": i.get("AGREEMENT", NAO_CORRIDO),
+            "FINAL_LABEL": i.get("FINAL_LABEL", NAO_CORRIDO),
+        }
+    return fora
+
+
+def _vazio():
+    return {
+        "REVIEWER_A": {"LABEL": NAO_CORRIDO, "REASON": None, "EVIDENCE": None},
+        "REVIEWER_B": {"LABEL": NAO_CORRIDO, "REASON": None, "EVIDENCE": None},
+        "AGREEMENT": NAO_CORRIDO,
+        "FINAL_LABEL": NAO_CORRIDO,
+    }
 
 
 def construir():
     """Puro: nao escreve nada. Devolve as fichas e a auditoria."""
-    gabarito = censo._gabarito_t2()
-    caminhos = sorted((c for c, _e, _w in gabarito), key=_ordem)
-    varridos = set(censo.material_que_se_declara(gabarito)["T3"])
+    documentos = sorted(_frame(), key=lambda d: _ordem(d["DOC_SHA256"]))
+    anteriores = _revisoes_anteriores()
 
     fichas, auditoria = [], []
-    for caminho in caminhos:
-        absoluto = os.path.join(RAIZ, caminho)
-        revisavel = os.path.isfile(absoluto)
-        texto = censo._ler(caminho) if revisavel else ""
-        source_id = censo.fonte_de(caminho)
+    for d in documentos:
+        corpo = d["BODY_PATH"]
+        texto = censo._ler(corpo)
+        source_id = d["SOURCE_ID"]
+        anterior = (anteriores.get(d["DOC_SHA256"])
+                    or anteriores.get(corpo) or _vazio())
         ficha = {
-            "ITEM_ID": caminho.split("/")[-1],
+            "DOC_SHA256": d["DOC_SHA256"],
+            "ITEM_ID": corpo.split("/")[-1],
             "SOURCE_ID": source_id,
-            "PUBLISHER": censo.publicador_de(caminho),
-            "CONTENT_PATH": caminho,
-            "PARENT_ARTIFACT": _linhagem_pai(caminho),
-            "DOCUMENT_TYPE": familia(caminho),
+            "PUBLISHER": d["PUBLISHER"],
+            "CONTENT_PATH": corpo,
+            "CANONICAL_PATH": d["CANONICAL_PATH"],
+            "BODY_PATH": corpo,
+            "ALL_PATHS": d["ALL_PATHS"],
+            "PARENT_ARTIFACT": _linhagem_pai(corpo),
+            "DOCUMENT_TYPE": familia(corpo),
+            "RAW_FORMAT": d["RAW_FORMAT"],
             "LANGUAGE": lingua_declarada(source_id),
-            "REVIEWABLE": "YES" if revisavel else "NO",
-            "BYTES": os.path.getsize(absoluto) if revisavel else 0,
+            "REVIEWABLE": "YES",
+            "BYTES": os.path.getsize(os.path.join(RAIZ, corpo)),
             "EVIDENCE": {
-                "TITLE": titulo(caminho, texto) if revisavel else "",
-                "OPENING": abertura(caminho, texto) if revisavel else "",
-                "SELF_DESCRIPTION": autodescricao(texto) if revisavel else [],
-                "SECTION_HEADERS": cabecalhos(texto) if revisavel else [],
+                "TITLE": titulo(corpo, texto),
+                "OPENING": abertura(corpo, texto),
+                "SELF_DESCRIPTION": autodescricao(texto),
+                "SECTION_HEADERS": cabecalhos(texto),
             },
-            "REVIEWER_A": {"LABEL": NAO_CORRIDO, "REASON": None,
-                           "EVIDENCE": None},
-            "REVIEWER_B": {"LABEL": NAO_CORRIDO, "REASON": None,
-                           "EVIDENCE": None},
-            "AGREEMENT": NAO_CORRIDO,
-            "FINAL_LABEL": NAO_CORRIDO,
+            "REVIEWER_A": anterior["REVIEWER_A"],
+            "REVIEWER_B": anterior["REVIEWER_B"],
+            "AGREEMENT": anterior["AGREEMENT"],
+            "FINAL_LABEL": anterior["FINAL_LABEL"],
         }
         fichas.append(ficha)
         # Tudo o que nao pode ser visto antes da decisao vive so aqui.
         auditoria.append({
             "ITEM_ID": ficha["ITEM_ID"],
-            "CASOU_A_VARREDURA_DO_CENSO": caminho in varridos,
+            "CASOU_A_VARREDURA_DO_CENSO": _casa_a_varredura(texto),
             "TERRITORIO_DA_FICHA_DA_FONTE": _territorio(source_id),
             "DECISAO_ATUAL_DA_PORTA_PARA_T3": _decisao_no_livro(
                 ficha["ITEM_ID"]),
+            "JA_ESTAVA_NO_PACOTE_DE_46": d["DOC_SHA256"] in _pacote_de_46(),
         })
     return fichas, auditoria
+
+
+_46 = None
+
+
+def _pacote_de_46():
+    """Quais documentos estavam no pacote ANTERIOR — e so para auditoria.
+
+    ⚠️ A primeira versao respondia isto lendo o proprio ficheiro pendente. Como
+    a regeneracao REESCREVE esse ficheiro, na corrida seguinte os 53 passariam
+    todos a «ja estavam», e `NEW_ITEMS_ADDED` cairia para zero sozinho.
+
+        UMA MEDIDA QUE LE O QUE ELA PROPRIA ACABOU DE ESCREVER
+        MEDE-SE A SI MESMA.
+
+    Agora vem de `amostra.pacote_atual()`, que deriva do gabarito de T2 e nao
+    muda. ISTO NAO E A POPULACAO: a populacao e `_frame()`, e nenhum item entra
+    ou sai por causa desta funcao. E um campo de `AUDIT_AFTER_REVIEW`.
+    """
+    global _46
+    if _46 is None:
+        _46 = set(amostra.pacote_atual())
+    return _46
+
+
+def _casa_a_varredura(texto):
+    """A varredura do censo, sobre a abertura. E AUDITORIA, nunca selecao."""
+    abertura_ = " ".join(_linhas(texto))[:600].lower()
+    return any(f in abertura_ for f in VARREDURA_DO_CENSO)
 
 
 def _territorio(source_id):
@@ -312,13 +402,35 @@ def markdown(fichas, auditoria):
     A("as primeiras linhas apenas. Se isso nao chegar, a resposta e")
     A("`EVIDENCIA_INSUFICIENTE` — nao um palpite.")
     A("")
-    A("**E por isso que sao %d fichas e nao 27.** O censo achou 27 documentos"
+    A("## DE ONDE VEM ESTA LISTA")
+    A("")
+    A("São **%d fichas**, e são a POPULAÇÃO INTEIRA de documentos revisáveis"
       % total)
-    A("que se auto-declaram fitossanitarios, e achou-os com seis frases")
-    A("literais. Se este pacote levasse so esses 27, todo positivo do gabarito")
-    A("conteria uma dessas frases — e qualquer classificador baseado nelas")
-    A("tiraria nota perfeita num gabarito que elas escolheram. Os 27 estao aqui")
-    A("dentro, **sem marca nenhuma**, no meio dos outros.")
+    A("desta árvore — não uma amostra dela. Isso foi decidido depois de duas")
+    A("correcções, e as duas valem a pena saber porque explicam o formato:")
+    A("")
+    A("**Primeira.** O censo tinha encontrado 27 documentos que se auto-declaram")
+    A("fitossanitários, com uma varredura de seis frases literais. Se este")
+    A("pacote levasse só esses 27, todo positivo do gabarito conteria uma dessas")
+    A("frases — e qualquer classificador baseado nelas tiraria nota perfeita num")
+    A("gabarito que elas próprias escolheram. Os 27 estão aqui dentro, **sem")
+    A("marca nenhuma**, no meio dos outros.")
+    A("")
+    A("**Segunda, e mais funda.** A lista anterior tinha 46 fichas, e essas 46")
+    A("vinham do corpus que fora montado para responder a uma pergunta")
+    A("**diferente** — «este documento é sobre clima?». Os negativos daquele")
+    A("corpus eram todos boletins, e por isso faltavam por inteiro os")
+    A("publicadores de estatística, subsídio e preço. Agora a população vem do")
+    A("`sampling frame` neutro: entra tudo o que existe, tem corpo legível e")
+    A("linhagem — e nada mais decide.")
+    A("")
+    A("```")
+    A("T2-CURATED CORPUS != GENERAL T3 EVALUATION FRAME")
+    A("```")
+    A("")
+    A("Com %d documentos no total, escolher um subconjunto introduziria viés" % total)
+    A("sem poupar trabalho nenhum. **Sem regra de amostragem não há regra de")
+    A("amostragem para enviesar.**")
     A("")
     A("---")
     A("")
@@ -424,10 +536,20 @@ def main():
                  or f["REVIEWER_B"]["LABEL"] != NAO_CORRIDO
                  or f["FINAL_LABEL"] != NAO_CORRIDO]
 
+    reaproveitadas = [a for a in auditoria if a["JA_ESTAVA_NO_PACOTE_DE_46"]]
+    novas = [a for a in auditoria if not a["JA_ESTAVA_NO_PACOTE_DE_46"]]
     print("PACOTE DE REVISAO DE T3")
     print("=" * 74)
-    print(f"  T3_CANDIDATES (varredura do censo)   {varridos}")
+    print(f"  POPULATION_SOURCE                    T3-SAMPLING-FRAME "
+          f"(amostragem_neutra_t3.sampling_frame)")
+    print(f"  T2_GABARITO_USADO_COMO_POPULACAO     NO")
     print(f"  FICHAS NO PACOTE                     {len(fichas)}")
+    print(f"  OLD_ITEMS_REUSED                     {len(reaproveitadas)}")
+    print(f"  NEW_ITEMS_ADDED                      {len(novas)}")
+    for a, f in zip(auditoria, fichas):
+        if not a["JA_ESTAVA_NO_PACOTE_DE_46"]:
+            print(f"      + {f['PUBLISHER']:<24} {f['CANONICAL_PATH']}")
+    print(f"  T3_CANDIDATES (varredura do censo)   {varridos}")
     print(f"  REVIEWABLE = YES                     {len(revisaveis)}")
     print(f"  REVIEWABLE = NO                      {len(fichas) - len(revisaveis)}")
     print(f"  PUBLISHERS                           {len(publ)}")

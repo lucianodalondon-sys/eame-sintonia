@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/t3-neutral-sampling-frame-v1",
-    "HEAD": "df0a8d0e0ed6e8f7bd784c0be4472730ac85305d",
-    "GENERATED_AT": "2026-09-11T14:24:55+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1872837c76b6dc32d42167bc0fe706671c49eccc7cd3d8a4455ad3cab807daed"
+    "BRANCH": "claude/t3-review-pack-53-v1",
+    "HEAD": "ae62c83a4c28cfd7f97d4811e88a7b217e69abe3",
+    "GENERATED_AT": "2026-09-11T14:41:30+00:00",
+    "SOURCE_TREE_FINGERPRINT": "178606eb470f72af14c2b5313742714e740f725c52da6afb662c628015717006"
   },
   "FILES": [
     {
@@ -4049,7 +4049,7 @@
     },
     {
       "path": "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
-      "sha": "6a1a10922747046fb9e6c3d20f49b40c4cf7f153",
+      "sha": "7051b85980aa18e609fce420687a25ac9a16ca58",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4756,14 +4756,14 @@
     },
     {
       "path": "docs/operacao/T3-REVIEW-PACKET-V1.md",
-      "sha": "d063f36ece135473c48d87b4a279b3f9d92f2bcf",
+      "sha": "5762fdf69b2e31f850e840a74fd2a71f73a9b125",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/operacao/T3-SAMPLING-FRAME-V1.md",
-      "sha": "28b63cef4b526a89e8549d9d4eecf59520057813",
+      "sha": "1b47e67b53da9f1b14e26424d01a191132f60a44",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7857,7 +7857,7 @@
     },
     {
       "path": "provas/pacote_de_revisao_t3.py",
-      "sha": "8ae88009a8a4117bd546e7ef6f47ddecfa43af7d",
+      "sha": "31f9749d25898ada8a05246d0ecea94f599be6ec",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9838,7 +9838,7 @@
     },
     {
       "path": "tests/test_pacote_de_revisao_t3.py",
-      "sha": "def7f14789a6ae1b0f600bd4ee0ed3d4d97e659b",
+      "sha": "fdc3c52419ebc28bc13982f1277192079792ba6b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26736,7 +26736,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/pacote_de_revisao_t3.py",
-        "line": 223,
+        "line": 313,
         "snippet": "_LIVRO = censo._json(\"data/samples/LIVRO-DE-DECISOES.json\")[\"DECISOES\"]"
       }
     },
@@ -26747,7 +26747,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/pacote_de_revisao_t3.py",
-        "line": 63,
+        "line": 70,
         "snippet": "PENDENTE = \"data/samples/T3-HUMAN-REVIEW-PENDING-V1.json\""
       }
     },
@@ -26758,8 +26758,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/pacote_de_revisao_t3.py",
-        "line": 62,
+        "line": 69,
         "snippet": "PACOTE = \"docs/operacao/T3-REVIEW-PACKET-V1.md\""
+      }
+    },
+    {
+      "from_file": "provas/pacote_de_revisao_t3.py",
+      "to_file": "provas/amostragem_neutra_t3.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/pacote_de_revisao_t3.py",
+        "line": 67,
+        "snippet": "amostra = _modulo(\"_amostra\", \"amostragem_neutra_t3.py\")"
       }
     },
     {
@@ -26769,8 +26780,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/pacote_de_revisao_t3.py",
-        "line": 58,
-        "snippet": "\"_censo\", os.path.join(RAIZ, \"provas\", \"censo_corpus_rotulado_admission.py\"))"
+        "line": 66,
+        "snippet": "censo = _modulo(\"_censo\", \"censo_corpus_rotulado_admission.py\")"
       }
     },
     {
@@ -33666,7 +33677,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_pacote_de_revisao_t3.py",
-        "line": 24,
+        "line": 26,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -33677,7 +33688,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_pacote_de_revisao_t3.py",
-        "line": 169,
+        "line": 194,
         "snippet": "import admissao as adm"
       }
     },
@@ -33688,7 +33699,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_pacote_de_revisao_t3.py",
-        "line": 27,
+        "line": 29,
         "snippet": "\"pacote_t3\", os.path.join(RAIZ, \"provas\", \"pacote_de_revisao_t3.py\"))"
       }
     },
@@ -36456,7 +36467,7 @@
     "files_tracked": 1441,
     "files_readable": 547,
     "files_code_dir": 594,
-    "file_edges": 2353,
+    "file_edges": 2354,
     "escritas_em_pasta": 69,
     "declared_missing_here": 0
   },
