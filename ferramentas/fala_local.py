@@ -125,6 +125,60 @@ DISPOSITIVOS = (DISPOSITIVO, CPU, GPU)
 
 DISPOSITIVO_PADRAO = (os.environ.get('SINTONIA_ASR_DEVICE') or CPU).upper()
 
+# ── A POLITICA DE MODELO — QUATRO SITIOS DECIDIAM A MESMA COISA ─────────────
+# Censo medido em 2026-09-11, no HEAD da C3. Quatro constantes, quatro nomes de
+# variavel, para UMA pergunta:
+#
+#     fala_local            SINTONIA_ASR_MODELO   -> small
+#     reel_transcricao      SINTONIA_REEL_MODELO  -> medium
+#     instagram_transcrever IG_MODELO             -> small
+#     youtube_transcrever   YT_MODELO             -> small
+#
+# Tres literais fora do dono. Nenhum deles esta ERRADO hoje — e esse e o
+# problema: eles concordam por coincidencia, e no dia em que o dono aprender
+# alguma coisa, os tres continuam a nao saber.
+#
+#     UMA POLITICA ESCRITA EM QUATRO SITIOS E QUATRO POLITICAS
+#     A FINGIR QUE SAO UMA.
+#
+# A TABELA VEM PARA CA, E OS VALORES NAO MUDAM
+# ---------------------------------------------
+# `reel` continua `medium`, e continua por MEDICAO, nao por gosto: sobre tres
+# Reels reais o `small` escreveu «MICE» onde se disse «mais», «Singentha» onde
+# se disse «Syngenta», «Discovery Seats» onde se disse «Discovery Seeds».
+#
+#     BARATO QUE PERDE O SINAL NAO E BARATO.
+#
+# Os dois programas de lote continuam `small` porque foram ORCADOS nele. Mudar
+# o orcamento deles nao e desta missao — e centralizar a politica nao autoriza
+# mudar os valores dela por baixo de quem os pediu.
+#
+# As variaveis de ambiente antigas continuam a valer, cada uma para o seu
+# chamador. Quebrar `IG_MODELO` para «arrumar» seria pagar a arrumacao com um
+# entrypoint que alguem usa.
+MODELOS_POR_CHAMADOR = {
+    'reel': ('SINTONIA_REEL_MODELO', 'medium'),
+    'instagram': ('IG_MODELO', 'small'),
+    'youtube': ('YT_MODELO', 'small'),
+}
+
+
+def modelo_de(chamador=None):
+    """→ o nome do modelo para aquele chamador. A politica vive AQUI.
+
+    Quem chama diz QUEM E, nunca QUAL MODELO. A diferenca e a mesma que entre
+    pedir texto e escolher o ferro: um e o pedido, o outro e a decisao da casa.
+    """
+    if chamador is None:
+        return MODELO_PADRAO
+    var, padrao = MODELOS_POR_CHAMADOR.get(chamador, (None, None))
+    if var is None:
+        raise ValueError('chamador sem politica de modelo declarada: %r. '
+                         'Os declarados sao %s'
+                         % (chamador, ', '.join(sorted(MODELOS_POR_CHAMADOR))))
+    return os.environ.get(var) or padrao
+
+
 #: O tipo de calculo. `None` = o dono escolhe pelo dispositivo que saiu.
 #: Na placa o padrao medido e `float16`; no processador continua `int8`.
 COMPUTE_PADRAO = os.environ.get('SINTONIA_ASR_COMPUTE') or None
@@ -454,10 +508,38 @@ def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None,
     teto = max(TETO_MINIMO_S,
                int(duracao_s * TETO_FATOR) if isinstance(duracao_s, (int, float))
                else TETO_MINIMO_S)
-    t0 = time.time()
+    # ── O RELOGIO COMECA DEPOIS DE O MODELO ESTAR PRONTO ────────────────────
+    # ⚠️ ATE AQUI ELE COMECAVA ANTES, E ISSO PRODUZIA UMA MENTIRA SOBRE O AUDIO.
+    #
+    # Medido nesta missao, no banco de prova: o Reel italiano de 34 s saiu
+    # `TRANSCRIPTION_TIMEOUT` com `medium`. O teto era 204 s. Repetido com o
+    # modelo ja carregado, o MESMO audio, o MESMO modelo: 6,4 s, estado OK,
+    # RTF 5,35, e o texto certo — «appassionati di mais», «Discovery Seeds».
+    #
+    # O que consumiu os 204 s foi o DESCARREGAMENTO do modelo, 1,5 GB, na
+    # primeira vez que aquela maquina o usou.
+    #
+    #     O ESTADO DIZIA «o que saiu pode estar em laco», que e uma afirmacao
+    #     SOBRE O AUDIO. A verdade era «estavamos a baixar um modelo», que e
+    #     uma afirmacao sobre a MAQUINA. Sao coisas diferentes, e trocar uma
+    #     pela outra e o defeito que esta casa mais persegue.
+    #
+    # Agora: o modelo fica pronto PRIMEIRO, e so entao o relogio arranca. O
+    # tempo de preparar sai em campo proprio — ele existe, custa, e nao e
+    # tempo de reconhecer fala.
     trace_do_ferro = {}
+    t_prep = time.time()
     try:
         pipe, trace_do_ferro = modelo(modelo_nome, dispositivo)
+    except Exception as e:                                     # noqa: BLE001
+        return _resposta(ASR_FALHOU, modelo_nome,
+                         erro='%s: %s' % (type(e).__name__, str(e)[:200]),
+                         trace_do_ferro=trace_do_ferro,
+                         nao_significa='que o áudio não tem fala. O modelo é que '
+                                       'não ficou pronto nesta máquina.')
+    preparo = round(time.time() - t_prep, 2)
+    t0 = time.time()
+    try:
         segs, info = pipe.transcribe(
             wav, batch_size=LOTE, beam_size=BEAM, vad_filter=True,
             language=idioma,
@@ -538,6 +620,7 @@ def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None,
     fora = _resposta(
         OK if texto else REQUESTED_EMPTY, modelo_nome,
         trace_do_ferro=trace_do_ferro,
+        preparo_s=preparo,
         texto=texto or None,
         maquina_s=round(dt, 2),
         audio_s=round(float(info.duration), 2),
@@ -622,7 +705,7 @@ def _resposta(estado, modelo_nome, *, texto=None, maquina_s=NAO_SEI,
               audio_s=NAO_SEI, segmentos=None, idioma_pedido=None,
               idioma_detectado=NAO_SEI, confianca=NAO_SEI, voiced=NAO_SEI,
               no_speech=NAO_SEI, erro='', nao_significa='',
-              trace_do_ferro=None):
+              trace_do_ferro=None, preparo_s=NAO_SEI):
     if estado not in ESTADOS:                                  # pragma: no cover
         raise ValueError('estado fora do vocabulário: %s' % estado)
     rtf = NAO_SEI
@@ -643,7 +726,11 @@ def _resposta(estado, modelo_nome, *, texto=None, maquina_s=NAO_SEI,
         'LANGUAGE_STATE': _estado_da_lingua(idioma_pedido, confianca),
         # OS TEMPOS DA MÁQUINA — não são o tempo do fato, e por isso têm nome próprio.
         'AUDIO_SECONDS': audio_s,
+        # SO O RECONHECIMENTO. Preparar o modelo tem campo proprio, porque e
+        # tempo de maquina que NAO e tempo de ouvir — e somar os dois faria o
+        # RTF de um lote de mil parecer o de um lote de um.
         'MACHINE_SECONDS': maquina_s,
+        'MODEL_PREPARE_SECONDS': preparo_s,
         'REALTIME_FACTOR': rtf,
         # OS TEMPOS DENTRO DO ÁUDIO. Sem eles, uma citação não se confere contra
         # o segundo exato do vídeo — e citação que não se confere não é evidência.

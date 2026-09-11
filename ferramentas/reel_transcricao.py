@@ -132,7 +132,11 @@ SAIDA = os.path.join(ROOT, 'data', 'samples', 'REEL-TRANSCRICOES')
 # DESTA cadeia sobe, enquanto `fala_local.MODELO_PADRAO` fica em `small` — os
 # dois programas de lote que ja existem foram orcados nele, e mudar o orcamento
 # deles nao e desta missao.
-MODELO_PADRAO = os.environ.get('SINTONIA_REEL_MODELO') or 'medium'
+# A POLITICA VIVE NO DONO. Este ficheiro diz QUEM E, nunca QUAL MODELO — a
+# tabela, a medicao que a justifica e a variavel de ambiente estao todas em
+# `fala_local.MODELOS_POR_CHAMADOR`. O valor nao mudou: continua `medium`,
+# e continua por medicao.
+MODELO_PADRAO = fl.modelo_de('reel')
 
 MISSION = os.environ.get('SINTONIA_MISSION') or '14-COMUNICACAO-PUBLICA-DO-CONCORRENTE'
 RUNNER = os.environ.get('RUNNER_NAME') or NOT_KNOWN

@@ -57,6 +57,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.dirname(HERE))   # a raiz
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
+# O DONO DO RECONHECEDOR. Importado AQUI, ao nivel do modulo, porque a
+# politica de modelo se le antes de qualquer funcao correr. `fala_local`
+# so importa `os`, `re` e `time` no topo — a biblioteca pesada continua a
+# entrar tarde, dentro das funcoes dele.
+import fala_local as fl  # noqa: E402
 
 LIBS = os.environ.get('SINTONIA_LIBS') or os.path.join(
     os.path.expanduser('~'), '.sintonia-libs')
@@ -72,7 +77,9 @@ MISSION = '14-COMUNICACAO-PUBLICA-DO-CONCORRENTE'
 RUNNER = os.environ.get('RUNNER_NAME') or 'NOT_KNOWN'
 NAO_SEI = 'NOT_KNOWN'
 
-MODELO_PADRAO = os.environ.get('YT_MODELO') or 'small'
+# A politica vive no dono; `YT_MODELO` continua a valer. Ver
+# `fala_local.MODELOS_POR_CHAMADOR`.
+MODELO_PADRAO = fl.modelo_de('youtube')
 BEAM = int(os.environ.get('YT_BEAM') or 1)
 LOTE = int(os.environ.get('YT_LOTE') or 8)
 
@@ -180,7 +187,6 @@ def fase_rodar(modelo=None, teto=None):
     # que os parâmetros «vêm de instagram_transcrever.py» — o que é outra forma de
     # dizer que a lógica estava copiada. Agora os dois chamam o mesmo dono,
     # `ferramentas/fala_local.py`, e a medição vive num sítio só.
-    import fala_local as fl
     ha, porque = fl.disponivel()
     if not ha:
         print(porque + '\n(e `yt-dlp` para o áudio)')

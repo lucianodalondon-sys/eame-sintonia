@@ -55,6 +55,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.dirname(HERE))   # a raiz
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
+# O DONO DO RECONHECEDOR. Importado AQUI, ao nivel do modulo, porque a
+# politica de modelo se le antes de qualquer funcao correr. `fala_local`
+# so importa `os`, `re` e `time` no topo — a biblioteca pesada continua a
+# entrar tarde, dentro das funcoes dele.
+import fala_local as fl  # noqa: E402
 
 # As bibliotecas pesadas vivem FORA do repositório. A memória desta casa registra o
 # acidente: `pip` sem `--target` criou `C:\eame-sintonia\Scripts`, e apagar `Scripts`
@@ -73,7 +78,9 @@ MISSION = '14-COMUNICACAO-PUBLICA-DO-CONCORRENTE'
 RUNNER = os.environ.get('RUNNER_NAME') or 'NOT_KNOWN'
 NAO_SEI = 'NOT_KNOWN'
 
-MODELO_PADRAO = os.environ.get('IG_MODELO') or 'small'
+# A politica vive no dono; `IG_MODELO` continua a valer. Ver
+# `fala_local.MODELOS_POR_CHAMADOR`.
+MODELO_PADRAO = fl.modelo_de('instagram')
 # Medido: 5 custa o dobro do tempo e devolve o mesmo texto.
 BEAM = int(os.environ.get('IG_BEAM') or 1)
 # Medido com aquecimento e 3 repetições: sequencial 2,49x · lote 8 → 4,13x · lote 16 → 4,03x.
@@ -236,7 +243,6 @@ def fase_rodar(modelo=None, teto=None):
     # que é agora o dono único — este ficheiro e o do YouTube tinham a MESMA lógica
     # copiada, e duas cópias da mesma lei são duas leis. Os parâmetros medidos aqui
     # em 2026-09-02 foram para lá inteiros, com a medição junto.
-    import fala_local as fl
     ha, porque = fl.disponivel()
     if not ha:
         print(porque)

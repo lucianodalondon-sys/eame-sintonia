@@ -210,13 +210,60 @@ class T9MemoriaDaPlacaTemNomeProprio(unittest.TestCase):
         self.assertFalse(fl._parece_sem_memoria(ValueError('ficheiro invalido')))
         self.assertFalse(fl._parece_sem_memoria(OSError('disco cheio')))
 
-    def test_oom_nao_e_ASR_FALHOU_generico(self):
-        t = _fonte(DONO_DO_ASR)
-        self.assertIn('_parece_sem_memoria', t)
-        i = t.index('except Exception as e:', t.index('def transcrever'))
-        bloco = t[i:i + 1400]
-        self.assertIn('GPU_SEM_MEMORIA', bloco,
-                      'memoria cheia da placa sobe como ASR_FALHOU generico')
+    def test_oom_durante_o_reconhecimento_sobe_com_nome(self):
+        """Pelo COMPORTAMENTO, não pela posição do texto.
+
+        ⚠️ Correção a mim próprio: a primeira versão desta prova procurava
+        `GPU_SEM_MEMORIA` no primeiro `except Exception` depois de
+        `def transcrever`. Quando o tratamento do carregamento passou a existir,
+        ele ficou em primeiro e a sentinela passou a ler o bloco errado.
+
+            UMA SENTINELA ANCORADA NA POSIÇÃO DO TEXTO MEDE O TEXTO, NÃO A LEI.
+
+        Agora injecta a memória cheia DURANTE o reconhecimento e lê o resultado.
+        """
+        ha, _ = fl.disponivel()
+        if not ha:
+            self.skipTest('reconhecedor ausente neste ambiente')
+        guardado = dict(fl._CACHE)
+
+        class _PipeQueRebenta:
+            def transcribe(self, *a, **k):
+                raise RuntimeError('CUDA failed with error out of memory')
+
+        fl._CACHE[('tiny', 'cpu', 'int8')] = _PipeQueRebenta()
+        try:
+            r = fl.transcrever('qualquer.wav', idioma='it', modelo_nome='tiny',
+                               dispositivo='CPU')
+        finally:
+            fl._CACHE.clear()
+            fl._CACHE.update(guardado)
+        self.assertEqual(r['TRANSCRIPT_STATE'], fl.ASR_FALHOU)
+        self.assertEqual(r['ASR_WHY_FALLBACK'], fl.GPU_SEM_MEMORIA,
+                         'memoria cheia da placa subiu como falha generica')
+        self.assertIn('não coube nesta placa', r['NAO_SIGNIFICA'])
+
+    def test_uma_falha_qualquer_no_reconhecimento_nao_vira_oom(self):
+        """Classificar de mais é tão mau como classificar de menos."""
+        ha, _ = fl.disponivel()
+        if not ha:
+            self.skipTest('reconhecedor ausente neste ambiente')
+        guardado = dict(fl._CACHE)
+
+        class _PipeQualquer:
+            def transcribe(self, *a, **k):
+                raise ValueError('cabecalho de wav invalido')
+
+        fl._CACHE[('tiny', 'cpu', 'int8')] = _PipeQualquer()
+        try:
+            r = fl.transcrever('qualquer.wav', idioma='it', modelo_nome='tiny',
+                               dispositivo='CPU')
+        finally:
+            fl._CACHE.clear()
+            fl._CACHE.update(guardado)
+        self.assertEqual(r['TRANSCRIPT_STATE'], fl.ASR_FALHOU)
+        self.assertIsNone(r['ASR_WHY_FALLBACK'],
+                          'um wav partido foi classificado como memoria de placa')
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -249,6 +296,61 @@ class T10e11TranscriptELingua(unittest.TestCase):
         r = fl.transcrever(wav, idioma='en', modelo_nome='tiny')
         self.assertEqual(r['TRANSCRIPT_STATE'], fl.REQUESTED_EMPTY,
                          'a alucinacao sobre musica voltou a passar por texto')
+
+
+# ══════════════════════════════════════════════════════════════════════════
+class T20PrepararNaoEOuvir(unittest.TestCase):
+    """O relógio do áudio não pode contar o tempo de preparar a máquina.
+
+    Nasceu de um defeito real, apanhado pelo banco de prova desta missão: o Reel
+    italiano de 34 s saiu `TRANSCRIPTION_TIMEOUT` com `medium`, tecto de 204 s.
+    O mesmo áudio com o modelo já pronto: 6,4 s e estado OK.
+
+        O QUE CONSUMIU OS 204 s FOI O DESCARREGAMENTO DO MODELO.
+
+    E o estado dizia «o que saiu pode estar em laço» — uma afirmação sobre o
+    ÁUDIO, quando a verdade era sobre a MÁQUINA.
+    """
+
+    def test_os_dois_tempos_tem_campos_diferentes(self):
+        ha, _ = fl.disponivel()
+        if not ha:
+            self.skipTest('reconhecedor ausente neste ambiente')
+        wav = os.path.join(RAIZ, 'data', 'raw', 'REEL-MIDIA', 'C6TiLBCCBz8.wav')
+        if not os.path.exists(wav):
+            self.skipTest('corpus preservado ausente')
+        r = fl.transcrever(wav, idioma='en', modelo_nome='tiny')
+        self.assertIn('MODEL_PREPARE_SECONDS', r)
+        self.assertIn('MACHINE_SECONDS', r)
+        self.assertNotEqual(r['MODEL_PREPARE_SECONDS'], r['MACHINE_SECONDS'])
+
+    def test_o_relogio_arranca_depois_do_modelo(self):
+        """A sentinela na árvore: `t0` não pode voltar para antes da carga."""
+        t = _fonte(DONO_DO_ASR)
+        i = t.index('def transcrever')
+        corpo = t[i:i + 4000]
+        pos_modelo = corpo.index('pipe, trace_do_ferro = modelo(')
+        pos_t0 = corpo.index('t0 = time.time()')
+        self.assertGreater(pos_t0, pos_modelo,
+                           'o relogio voltou a contar o carregamento do modelo, '
+                           'e um download vai outra vez sair como TIMEOUT do audio')
+
+    def test_modelo_que_nao_carrega_nao_e_audio_sem_fala(self):
+        """Preparar falhou é `ASR_FALHOU`, e a frase diz de quem é a culpa."""
+        import faster_whisper                                   # noqa: PLC0415
+        real = faster_whisper.WhisperModel
+        guardado = dict(fl._CACHE)
+        fl._CACHE.clear()
+        faster_whisper.WhisperModel = lambda *a, **k: (_ for _ in ()).throw(
+            OSError('modelo nao encontrado no disco nem na rede'))
+        try:
+            r = fl.transcrever('qualquer.wav', idioma='it', modelo_nome='tiny')
+        finally:
+            faster_whisper.WhisperModel = real
+            fl._CACHE.clear()
+            fl._CACHE.update(guardado)
+        self.assertEqual(r['TRANSCRIPT_STATE'], fl.ASR_FALHOU)
+        self.assertIn('não ficou pronto', r['NAO_SIGNIFICA'])
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -391,6 +493,50 @@ class T17OPadraoNaoMudouSemProva(unittest.TestCase):
         if os.environ.get('SINTONIA_ASR_MODELO'):
             self.skipTest('ambiente forca o modelo')
         self.assertEqual(fl.MODELO_PADRAO, 'small')
+
+    def test_a_politica_de_modelo_vive_num_sitio_so(self):
+        """§24 · quatro constantes decidiam a mesma coisa. Agora decide uma."""
+        self.assertEqual(fl.modelo_de('reel'), 'medium',
+                         'o Reel foi despromovido — `small` escreve «MICE» onde '
+                         'se diz «mais», e isso foi MEDIDO')
+        self.assertEqual(fl.modelo_de('instagram'), 'small')
+        self.assertEqual(fl.modelo_de('youtube'), 'small')
+        with self.assertRaises(ValueError):
+            fl.modelo_de('chamador-que-nao-declarou-politica')
+
+    def test_nenhum_chamador_guarda_o_proprio_literal_de_modelo(self):
+        """A sentinela: um `or 'small'` de volta num caller seria a divergencia a voltar."""
+        maus = []
+        for rel in CHAMADORES:
+            for no in ast.walk(ast.parse(_fonte(rel))):
+                if not isinstance(no, ast.Assign):
+                    continue
+                nomes = [t.id for t in no.targets if isinstance(t, ast.Name)]
+                if 'MODELO_PADRAO' not in nomes:
+                    continue
+                # O valor tem de vir do dono, e nao de um literal nem de um
+                # `os.environ` proprio.
+                v = no.value
+                chamada_ao_dono = (isinstance(v, ast.Call)
+                                   and getattr(v.func, 'attr', None) == 'modelo_de')
+                if not chamada_ao_dono:
+                    maus.append('%s:%d' % (rel, no.lineno))
+        self.assertEqual(maus, [],
+                         'chamador voltou a decidir o proprio modelo: %s' % maus)
+
+    def test_as_variaveis_antigas_continuam_a_valer(self):
+        """Centralizar não autoriza partir um entrypoint que alguém usa."""
+        for chamador, (var, _padrao) in fl.MODELOS_POR_CHAMADOR.items():
+            antes = os.environ.get(var)
+            os.environ[var] = 'tiny'
+            try:
+                self.assertEqual(fl.modelo_de(chamador), 'tiny',
+                                 '%s deixou de respeitar %s' % (chamador, var))
+            finally:
+                if antes is None:
+                    os.environ.pop(var, None)
+                else:
+                    os.environ[var] = antes
 
     def test_a_politica_e_do_dono_e_nao_de_um_ficheiro_novo(self):
         """§21 — reutilizar o mecanismo que já existia, não inventar outro."""
