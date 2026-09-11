@@ -886,6 +886,168 @@ ja escreveu e pagar hora de maquina por texto que estava a mao.
 
 ---
 
+---
+
+## 13. C5 — QUEM PEGA NA CHAVE PEGA NO CONTRATO
+
+```
+MISSAO   = C5 · YOUTUBE TRANSCRIPT ROUTE GATE, 2026-09-11
+BRANCH   = claude/sintonia-scrap-youtube-transcript-c5
+ENTREGA  = docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md
+DECISAO  = D · BLOCKED_NEEDS_AUTHORIZATION
+```
+
+### 13.1 · Usar a API oficial prende a casa a muito mais do que ao `robots.txt`
+
+**O QUE.** O SINTONIA usa a YouTube Data API com `YOUTUBE_DATA_API_KEY`. Isso
+faz dele um **API Client**, e API Clients estão presos às *YouTube API Services
+Developer Policies* — que são muito mais largas que o `robots.txt` e que os
+Termos gerais.
+
+**POR QUÊ.** Até aqui a casa media política olhando o `robots.txt`. Ele responde
+«que caminhos um motor de busca pode percorrer». Não responde «quem pode
+percorrê-los» nem «o que se pode fazer com o que se trouxe».
+
+**PROVA.** Cinco secções, lidas na fonte viva em 2026-09-11:
+
+```text
+III.D.7    nao usar API nao documentada sem permissao expressa
+III.E.6    nao fazer scraping — NEM «encourage, enable, or require others to,
+           directly or indirectly» faze-lo
+III.I.14   nao usar outra tecnologia para obter API Data, incluindo qualquer
+           porcao do conteudo audiovisual
+III.I.7    nao separar, isolar ou modificar as componentes de audio ou video
+III.E.1.a  nao descarregar, importar, copiar ou armazenar copias do conteudo
+           audiovisual sem aprovacao escrita
+```
+
+**CONSEQUÊNCIA.** Três rotas que a casa discutia como problema **técnico** são,
+na verdade, problema de **política**:
+
+| rota | o que a casa pensava | o que a lei diz |
+|---|---|---|
+| `timedtext` | «não documentado» | III.D.7 + III.E.6 |
+| `yt-dlp` | «403 deste IP» | III.I.14 + III.E.6 |
+| `YouTube → áudio → ASR local` | «403 de datacenter» | **III.E.1.a + III.I.7** |
+
+```text
+UM BLOQUEIO TECNICO CONVIDA A PROCURAR OUTRO IP.
+UM BLOQUEIO DE POLITICA NAO SE RESOLVE MUDANDO DE REDE.
+```
+
+A terceira linha é a que muda planeamento: o reconhecedor local que a C4 provou
+**não tem como ser alimentado a partir do YouTube**, e isso não depende de
+hardware, de runner residencial nem de navegador real.
+
+```text
+LOCAL / ONLINE E AMBIENTE. NAVEGADOR REAL E AMBIENTE.
+RUNNER RESIDENCIAL E AMBIENTE. NENHUM DOS TRES E AUTORIZACAO.
+```
+
+---
+
+### 13.2 · Tradução não é transcrição, e o campo tem de dizer qual é
+
+**O QUE.** A saída de transcrição do sensor passou a declarar a **espécie** do
+texto, com vocabulário fechado de quatro: `NATIVE_CAPTION_ORIGINAL`,
+`NATIVE_CAPTION_TRANSLATED`, `ASR_LOCAL` e `NÃO SEI`.
+
+**POR QUÊ.** Porque as três primeiras estavam a ser guardadas no mesmo campo, com
+o mesmo nome, sem nada que as distinguisse.
+
+**PROVA.** Medido sobre os 48 itens já preservados e pagos:
+
+```text
+TRANSCRIPT_LANGUAGE = «NAO SEI»   em 48 de 48
+ONZE dos 28 com texto sao INGLES vindo de video NAO-INGLES
+```
+
+O caso que fecha o assunto: vídeo `RisRARQSFAg`, canal **AIPO Verona**, título
+**«Periodico olivo 1° Maggio 2026»**, descrição em italiano. O que ficou no campo
+`TRANSCRIPT` foi:
+
+> «Olive growers, welcome back to issue 18 of the May 1, 2026 periodical.»
+
+```text
+TRADUCAO ROTULADA COMO TRANSCRICAO ORIGINAL E O PIOR DEFEITO POSSIVEL NUM
+CORPUS QUE EXISTE PARA SABER DE QUE CULTURA E DE QUE PRODUTO O CONCORRENTE
+FALA, E EM QUE PAIS.
+```
+
+Um termo agronómico italiano traduzido para inglês deixa de bater com o léxico
+italiano. A peneira que procura «granella» nunca mais a encontra — e o vídeo está
+lá, legendado, a falar de granella.
+
+**CONSEQUÊNCIA.** A espécie é **declarada pelo provedor, nunca inferida do
+conteúdo**. Ler o texto para adivinhar seria adivinhar duas vezes: primeiro a
+língua, depois a intenção. Enquanto o provedor não declarar, a resposta é
+`NÃO SEI` — e aqui isso é medição, não desculpa.
+
+E a lição que vale para qualquer fornecedor:
+
+```text
+NAO INFERIR A CAPACIDADE PELO NOME COMERCIAL DO PRODUTO.
+Medir o que ele DEVOLVEU, no artefato que ele ja produziu.
+```
+
+---
+
+### 13.3 · «Eu não quis» e «não me deixam» não se escrevem com a mesma palavra
+
+**O QUE.** `social_matriz.ESTADOS` ganhou dois estados:
+`REQUIRES_OWNER_PERMISSION` e `REQUIRES_AUTHORIZATION`.
+
+**POR QUÊ.** `captions.download` e `captions.list` estavam os dois como
+`ROUTE_NOT_ALLOWED` — que nesta casa significa «ela permitiria tecnicamente, e eu
+escolhi não fazer». Não é o caso de nenhum dos dois.
+
+```text
+ROUTE_NOT_ALLOWED          eu podia, e decidi nao fazer.
+REQUIRES_OWNER_PERMISSION  o dono do video teria de me autorizar.
+REQUIRES_AUTHORIZATION     falta-me credencial mais forte, nao decisao.
+```
+
+**PROVA.** `captions.download` exige, na documentação viva, «permission to edit
+the video». `captions.list` exige OAuth — a chave de API não autentica — e a
+resposta **não contém o texto da legenda**.
+
+```text
+LISTAR UMA FAIXA NUNCA FOI O MESMO QUE PODER LE-LA.
+```
+
+**CONSEQUÊNCIA.** A diferença é **quem tem a chave da porta**. Colapsá-los faria a
+casa carregar a culpa de uma recusa que não é dela — e esconderia que um deles
+abre com autorização enquanto o outro depende de terceiros.
+
+---
+
+### 13.4 · Uma lista fechada que ninguém confere é uma lista aberta com outro nome
+
+**O QUE.** `ESTADOS` era uma tupla fechada **sem ninguém a fazê-la valer**.
+
+**PROVA.** Escrevi dois estados novos na matriz e a suíte inteira — mais de dois
+mil testes — passou sem reparar. O defeito foi encontrado por eu próprio o ter
+cometido e ter ido conferir.
+
+**CONSEQUÊNCIA.** Há agora uma prova que varre a matriz inteira, plataforma por
+plataforma, e reprova qualquer estado fora do vocabulário.
+
+```text
+DECLARAR UM VOCABULARIO FECHADO E METADE DO TRABALHO.
+A OUTRA METADE E A TRAVA QUE O FAZ VALER.
+```
+
+E a lição irmã, das sentinelas desta missão: duas provas minhas liam **texto
+cru** e reprovavam a coisa errada — uma reprovou o comentário que explica o
+defeito, outra encontrou-se a si própria na lista do que procurava.
+
+```text
+UMA SENTINELA ANCORADA NO TEXTO MEDE O TEXTO, NAO A LEI.
+Ler a arvore sintatica e a diferenca entre medir e adivinhar.
+```
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
