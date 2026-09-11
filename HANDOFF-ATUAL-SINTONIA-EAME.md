@@ -1476,6 +1476,206 @@ ficheiro de saída, o código de saída. Nunca o nome que ele próprio carrega.
 
 ---
 
+## 16. C4B — ESCOLHER O FERRO NÃO É TER CORRIDO NELE
+
+```
+MISSAO   = C4B · FECHAR GPU ASR COM PROVA DURAVEL, 2026-09-11
+BRANCH   = claude/sintonia-scrap-local-gpu-c4
+ENTREGA  = docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md (seccoes B2·B3·B4·G2·H2·R2)
+DECISAO  = C4_GPU_ASR = PROVEN · GPU_QUALITY_BENCHMARK = NOT_RUN
+```
+
+### 16.1 · Um campo chamado «USED» que se enchia antes de alguém usar
+
+**O QUE.** `resolver_dispositivo()` devolvia `DEVICE_USED` — e devolvia-o antes
+de existir uma única amostra transcrita. Quando a inferência caía, o artefato
+saía a dizer que a placa tinha corrido.
+
+**PROVA.** Medido na máquina local, com a GTX 1080 a responder e o cuBLAS em
+falta:
+
+```text
+TRANSCRIPT_STATE   ASR_FALHOU
+ASR_DEVICE_USED    GPU          <- e nada correu na placa
+ASR_ACCELERATOR    CUDA
+ERROR              RuntimeError: Library cublas64_12.dll is not found
+```
+
+**CONSEQUÊNCIA.** Três momentos, três campos, e cada um sabido na sua hora:
+`REQUESTED` (antes), `SELECTED` (na resolução), `EXECUTION` (depois da
+inferência: `PROVEN` · `FAILED` · `NOT_RUN`). `USED` foi preservado porque tem
+consumidores — o que mudou é que fora de `PROVEN` ele é `NOT_KNOWN`.
+
+```text
+DEVICE SELECTED != DEVICE EXECUTION PROVEN.
+QUEM DECIDE ANTES NAO PODE TESTEMUNHAR DEPOIS.
+```
+
+E a escolha continua dita de propósito: é no caso que falha que se precisa de
+saber onde se estava. Apagá-la seria o defeito oposto — perder o diagnóstico.
+
+---
+
+### 16.2 · Contar a placa não é poder multiplicar nela
+
+**O QUE.** `cuda_disponivel()` devolvia `1` e a inferência caía a seguir por
+falta de `cublas64_12.dll`. Não é contradição: são duas perguntas.
+
+**PROVA.** `get_cuda_device_count()` só precisa do driver. O cuBLAS só é chamado
+na **primeira multiplicação de matrizes**, já dentro da inferência. Entre uma
+coisa e a outra cabia o defeito inteiro.
+
+A terceira corrida no runner disse onde:
+
+```text
+PATH_TEM_CUDA  false
+...NVIDIA GPU Computing Toolkit\CUDA\v12.8\bin   existe no disco
+```
+
+A DLL estava lá. O PATH do **serviço** do runner é que não a continha — ele
+arrancou antes de o toolkit ser instalado, e serviços não apanham mudança de
+PATH sem reiniciar.
+
+**CONSEQUÊNCIA.** `_caminho_das_libs()` só mexia no `sys.path`, e isso chega para
+**importar** e não chega para **carregar**. Passou a registar as pastas de DLL.
+E `os.add_dll_directory` sozinho **não bastou** — medido:
+
+```text
+REGISTAR A PASTA E DIZE-LO A QUEM USA A API NOVA.
+QUEM USA A ANTIGA CONTINUA A LER O PATH.
+```
+
+Fazem-se as duas coisas, e as duas no **processo**: morrem com ele, e não tocam
+na máquina.
+
+```text
+PLACA PRESENTE != DRIVER COM CUDA != BIBLIOTECA A CONTAR A PLACA
+                                  != BIBLIOTECA A PODER USAR A PLACA.
+```
+
+---
+
+### 16.3 · Perguntar à biblioteca errada dá uma resposta verdadeira sobre outra pergunta
+
+**O QUE.** A prova parava com `MODEL_NOT_PRESENT` sobre um modelo que **estava**
+na máquina.
+
+**PROVA.** Ela chamava `huggingface_hub.snapshot_download(local_files_only=True)`,
+que exige o repositório **inteiro**. O `faster-whisper` baixa só os ficheiros de
+que precisa — `model.bin`, `config.json`, tokenizer — e por isso a cópia local é
+legitimamente **parcial**.
+
+Quem revelou isto foi o diagnóstico acrescentado na corrida anterior: ele
+imprimiu a cache consultada e os modelos visíveis nela, e o modelo estava na
+lista.
+
+**CONSEQUÊNCIA.** Pergunta-se a `faster_whisper.utils.download_model` — a mesma
+função que o carregador usa, com os mesmos `allow_patterns`.
+
+```text
+DIZER «NAO ENCONTREI» SEM DIZER ONDE PROCUREI NAO AJUDA NINGUEM.
+PERGUNTAR A BIBLIOTECA ERRADA DA UMA RESPOSTA VERDADEIRA SOBRE OUTRA PERGUNTA.
+```
+
+---
+
+### 16.4 · A prova que se vê apanhar o caso que a motivou
+
+**O QUE.** Quatro corridas no runner real até ao verde. Nenhuma foi «tentar
+outra vez»: cada uma mediu o que a anterior não sabia.
+
+**PROVA.**
+
+```text
+1  MODEL_NOT_PRESENT  a fase nova disparava DOIS jobs
+2  MODEL_NOT_PRESENT  a pergunta estava errada — o modelo estava la
+3  FAIL · cuBLAS      a inferencia caiu, e o contrato novo DISSE A VERDADE
+4  PASS               as DLL estavam no disco; o processo e que nao as via
+```
+
+A terceira vale por si. O defeito que motivou a missão reproduziu-se no runner
+real e o contrato novo apanhou-o:
+
+```text
+ASR_DEVICE_SELECTED   GPU
+ASR_DEVICE_EXECUTION  FAILED       <- o campo novo
+ASR_DEVICE_USED       NOT_KNOWN    <- antes dizia GPU
+```
+
+**CONSEQUÊNCIA.** É a única forma de saber que um conserto serve: vê-lo apanhar
+o caso que o produziu, no sítio onde o caso acontece.
+
+```text
+UM CONSERTO SO ESTA PROVADO QUANDO SE VE APANHAR O DEFEITO ORIGINAL.
+O QUE NAO CORRE OUTRA VEZ NAO E PROVA. E UMA LEMBRANCA.
+```
+
+E a corrida final, com nome e número:
+
+```text
+RUN 34621682770 · JOB 103336938609 · commit 2df00244 · SINTONIA-EAME-LOCAL
+RESULT PASS · TRANSCRIPT_STATE OK · 55 caracteres
+ASR_DEVICE_EXECUTION PROVEN · ASR_DEVICE_USED GPU · cuda/int8_float32
+```
+
+---
+
+### 16.5 · A capacidade entrou. A política não.
+
+**O QUE.** A placa declara `int8_float32`, `int8` e `float32` — e **não**
+`float16`, que era o padrão do código. A prova passou com `int8_float32`. O
+padrão **não** mudou.
+
+**POR QUÊ.** Três razões, e a terceira manda: `float16` falhar numa Pascal não é
+`float16` falhar; não há benchmark de qualidade no corpus real; e a lei da C4
+continua a valer — a capacidade entra, a decisão não.
+
+**CONSEQUÊNCIA.** `int8_float32` vive como override **explícito e declarado**, na
+fase do workflow, à vista de quem lê.
+
+```text
+UMA POLITICA TIRADA DE UMA AMOSTRA DE UM
+NAO E POLITICA. E UMA COINCIDENCIA PROMOVIDA.
+
+GPU TECHNICAL SMOKE != GPU QUALITY BENCHMARK.
+CAN DO != DID DO != DOES IT WELL.
+```
+
+O banco de qualidade continua `NOT_RUN`, e por uma razão que **mudou**: antes era
+a máquina que não atendia; agora é o corpus com verdade de referência que não
+está nela.
+
+---
+
+### 16.6 · A casa apanhou-me a mim
+
+**O QUE.** Escrevi o perfil pessoal real do utilizador dentro de um comentário
+commitado, ao citar um log do runner.
+
+**PROVA.** A sentinela de credenciais da casa reprovou, pelo nome, na regressão:
+
+```text
+RASTREADO  provas/gpu_asr_smoke.py:82  caminho pessoal Windows
+```
+
+**CONSEQUÊNCIA.** Saiu do código e passou a sair mascarado também em tempo de
+execução. O diagnóstico precisa de saber QUE pasta foi consultada — nunca DE QUEM
+ela é.
+
+```text
+O CAMINHO E DIAGNOSTICO. O DONO DO PERFIL NAO E.
+```
+
+E a cicatriz irmã, pela terceira vez nesta casa: uma sentinela minha procurava
+`snapshot_download` no **texto** do ficheiro e encontrava-o no comentário que
+explicava por que essa chamada tinha saído — reprovou o próprio conserto.
+
+```text
+UMA SENTINELA ANCORADA NO TEXTO MEDE O TEXTO, NAO A LEI.
+```
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
