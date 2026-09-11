@@ -1503,135 +1503,17 @@
       "RUNNABLE_HERE": "NO",
       "VEREDITO": "BLOCKED_NOT_RUNNABLE_IN_THIS_ENVIRONMENT",
       "GATE": {
-        "GATE_VERSION": "V1",
-        "GATE_OWNER": "provas/gate_de_aceitacao_tematica.py",
-        "PRIMARY_UNIT": "INDEPENDENT_OBSERVATION",
+        "NOT_MEASURED": "YES",
+        "PORQUE": "o mecanismo nao corre neste ambiente; qualquer metrica aqui seria um retrato da credencial em falta e nao do mecanismo",
         "THEMATIC_GATE_PASS": false,
-        "VEREDICTO": "FAIL",
-        "FAILED_CONDITIONS": [
-          "POSITIVE_CAPTURE_RATE",
-          "SPECIFICITY",
-          "PRECISION_T3",
-          "DECISION_COVERAGE",
-          "GROUP_PASS_RATE",
-          "ERROR"
-        ],
-        "LINHAS": [
-          {
-            "CONDICAO": "POSITIVE_CAPTURE_RATE",
-            "OPERADOR": ">=",
-            "LIMIAR": "10/11",
-            "LIMIAR_DECIMAL": 0.9091,
-            "MEDIDO": 0.0,
-            "PASSA": false,
-            "PORQUE_O_LIMIAR": "O positivo perdido e o erro caro e invisivel. Tolera-se UM — porque exigir 11/11 num conjunto de 11 transforma qualquer caso de fronteira em reprovacao automatica, e um gate que so passa com perfeicao nao separa mecanismos: rejeita todos. UM e o maximo que ainda deixa o gate discriminar."
-          },
-          {
-            "CONDICAO": "EXPLICIT_FALSE_NEGATIVE",
-            "OPERADOR": "<=",
-            "LIMIAR": "0",
-            "LIMIAR_DECIMAL": 0,
-            "MEDIDO": 0,
-            "PASSA": true,
-            "PORQUE_O_LIMIAR": "Afirmar «isto nao e T3» sobre algo que E T3 e a unica saida que fecha o assunto com ar de decisao. Ninguem reabre. E diferente de abster-se, e por isso tem limiar proprio e zero."
-          },
-          {
-            "CONDICAO": "SPECIFICITY",
-            "OPERADOR": ">=",
-            "LIMIAR": "9/10",
-            "LIMIAR_DECIMAL": 0.9,
-            "MEDIDO": 0.0,
-            "PASSA": false,
-            "PORQUE_O_LIMIAR": "O negativo errado custa menos, mas custa: cada um inunda a Inteligencia com material que ela tera de descartar a mao. Dois em vinte e o que a operacao absorve sem a fila deixar de ser util."
-          },
-          {
-            "CONDICAO": "PRECISION_T3",
-            "OPERADOR": ">=",
-            "LIMIAR": "4/5",
-            "LIMIAR_DECIMAL": 0.8,
-            "MEDIDO": 0.0,
-            "PASSA": false,
-            "PORQUE_O_LIMIAR": "Quando o mecanismo AFIRMA, quem recebe tem de poder confiar. Abaixo de 4/5, um em cada quatro itens da fila e ruido e a fila deixa de ser lida — e uma fila que ninguem le e pior do que fila nenhuma, porque parece que o trabalho esta a ser feito."
-          },
-          {
-            "CONDICAO": "DECISION_COVERAGE",
-            "OPERADOR": ">=",
-            "LIMIAR": "28/31",
-            "LIMIAR_DECIMAL": 0.9032,
-            "MEDIDO": 0.0,
-            "PASSA": false,
-            "PORQUE_O_LIMIAR": "ABSTAIN e melhor do que errar, e por isso e permitido. Mas um mecanismo que se abstem em muitos casos empurra o trabalho todo para a pessoa e nao substitui nada. Tres em trinta e uma e a fila de revisao que uma pessoa despacha sem a fila crescer."
-          },
-          {
-            "CONDICAO": "GROUP_PASS_RATE",
-            "OPERADOR": ">=",
-            "LIMIAR": "28/31",
-            "LIMIAR_DECIMAL": 0.9032,
-            "MEDIDO": 0.0,
-            "PASSA": false,
-            "PORQUE_O_LIMIAR": "O resultado efetivo, e nao o condicional. Acuracia condicional alta com cobertura baixa mede so os casos em que o mecanismo se atreveu — e e exactamente assim que um mecanismo fraco parece forte."
-          },
-          {
-            "CONDICAO": "ERROR",
-            "OPERADOR": "<=",
-            "LIMIAR": "0",
-            "LIMIAR_DECIMAL": 0,
-            "MEDIDO": 31,
-            "PASSA": false,
-            "PORQUE_O_LIMIAR": "ERRO nao e rejeicao e nao e duvida: e «ninguem chegou a olhar». Um mecanismo que rebenta sobre o corpus de avaliacao nao foi avaliado nesses casos, e contar isso como qualquer outra coisa seria inventar uma medicao que nao houve."
-          },
-          {
-            "CONDICAO": "FALSE_SUBSTRING_OUTCOME_DEPENDENCY",
-            "OPERADOR": "<=",
-            "LIMIAR": "0",
-            "LIMIAR_DECIMAL": 0,
-            "MEDIDO": 0,
-            "PASSA": true,
-            "PORQUE_O_LIMIAR": "A baseline mostrou `lancio` a acender dentro de `bilancio` e a PRODUZIR uma das negativas «certas». Um acerto desses nao e o mecanismo a funcionar: e a sorte a alinhar-se, e ela desalinha-se no proximo corpus.\nISTO NAO PROIBE substring matching. Proibe que um RESULTADO dependa de um casamento nao pretendido."
-          }
-        ],
-        "NENHUMA_MEDIA_COMPENSA": "basta uma condicao em falha para o veredicto ser FAIL. Precisao excelente nao compensa captura positiva ruim."
+        "GATE_NAO_FOI_APLICADO": "e nao foi aplicado de proposito: aplicar um gate a uma corrida que nao aconteceu produz um FAIL com cara de julgamento"
       },
-      "METRICAS": {
-        "POSITIVE_CAPTURE_RATE": {
-          "FRACAO": "0/1",
-          "DECIMAL": 0.0
-        },
-        "EXPLICIT_FALSE_NEGATIVE": 0,
-        "SPECIFICITY": {
-          "FRACAO": "0/1",
-          "DECIMAL": 0.0
-        },
-        "PRECISION_T3": {
-          "FRACAO": "0/1",
-          "DECIMAL": 0.0
-        },
-        "DECISION_COVERAGE": {
-          "FRACAO": "0/1",
-          "DECIMAL": 0.0
-        },
-        "GROUP_PASS_RATE": {
-          "FRACAO": "0/1",
-          "DECIMAL": 0.0
-        },
-        "ERROR": 31,
-        "FALSE_SUBSTRING_OUTCOME_DEPENDENCY": 0
-      },
+      "METRICAS": "NOT_MEASURED",
       "DIAGNOSTICO": {
-        "TP": 0,
-        "FN": 0,
-        "TN": 0,
-        "FP": 0,
-        "GRUPOS": 31,
-        "POSITIVOS": 11,
-        "NEGATIVOS": 20,
-        "BINARIAS": 0,
-        "SEM_BINARIA": 31,
-        "PASSA": 0,
+        "NOT_MEASURED": "YES",
         "SAIDAS": {
           "ERRO": 36
-        },
-        "DECISOES_SO_EM_CASAMENTO_FALSO": []
+        }
       },
       "GRUPOS": [
         {

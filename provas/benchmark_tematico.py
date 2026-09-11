@@ -422,6 +422,30 @@ def avaliar():
         met = metricas(gl, linhas, dep)
         resultado = gate.avaliar_gate({k: v for k, v in met.items()
                                        if not k.startswith("_")})
+        if not disponivel:
+            # ⚠️ UM MECANISMO QUE NAO CORREU NAO TEM METRICAS — TEM SINTOMAS
+            # DO AMBIENTE. Sem credencial, C3 devolve 36 ERRO, e o gate
+            # calcula obedientemente «6 de 8 condicoes em falha». Esse numero
+            # nao mede a hipotese: mede a falta da chave.
+            #
+            #     GUARDAR O NUMERO AO LADO DA PALAVRA «BLOCKED»
+            #     E DEIXAR A PALAVRA PARA QUEM LER O RODAPE.
+            #
+            # Este defeito apareceu ao ESCREVER O RELATO — a tabela pos C3 a
+            # reprovar em seis condicoes e a dizer-lhe BLOCKED na mesma linha.
+            resultado = {
+                "NOT_MEASURED": "YES",
+                "PORQUE": ("o mecanismo nao corre neste ambiente; qualquer "
+                           "metrica aqui seria um retrato da credencial em "
+                           "falta e nao do mecanismo"),
+                "THEMATIC_GATE_PASS": False,
+                "GATE_NAO_FOI_APLICADO": (
+                    "e nao foi aplicado de proposito: aplicar um gate a uma "
+                    "corrida que nao aconteceu produz um FAIL com cara de "
+                    "julgamento"),
+            }
+            met = {"_DIAG": {"NOT_MEASURED": "YES",
+                             "SAIDAS": met["_DIAG"]["SAIDAS"]}}
         fora.append({
             "CANDIDATE_ID": cid,
             "PAPEL": ("CONTROL" if cid == Baseline.CANDIDATE_ID
@@ -430,7 +454,7 @@ def avaliar():
             "VEREDITO": _veredito(cid, met, resultado, disponivel),
             "GATE": resultado,
             "METRICAS": {k: _leg(v) for k, v in met.items()
-                         if not k.startswith("_")},
+                         if not k.startswith("_")} or "NOT_MEASURED",
             "DIAGNOSTICO": met["_DIAG"],
             "LINHAS": linhas,
             "GRUPOS": gl,
@@ -518,6 +542,7 @@ def relatar(art):
                                       r["VEREDITO"]))
         if r["RUNNABLE_HERE"] == "NO":
             print("      nao corre neste ambiente — por testar, nao reprovado")
+            print("      gate NAO aplicado: sem corrida nao ha o que medir")
             continue
         print("      TP %-3d FN %-3d TN %-3d FP %-3d   sem previsao binaria: %d"
               % (d["TP"], d["FN"], d["TN"], d["FP"], d["SEM_BINARIA"]))
