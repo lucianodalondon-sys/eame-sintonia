@@ -922,19 +922,40 @@ def youtube_oficial_prova():
         #
         #     ZERO_RESULTS != FEATURE_DISABLED != ERROR.
         if c == 'youtube.comments':
-            for extra in ALVO_OFICIAL['VIDEOS'][1:]:
-                if objetos or trace.get('RESULT') not in ('ZERO_RESULTS',):
-                    break
-                print('      %s deu ZERO_RESULTS; tentando o proximo video'
-                      % pedidos[c]['video_id'])
-                pedidos[c] = dict(video_id=extra, limite_threads=5)
-                objetos, trace = scrap.COLLECT(platform='YOUTUBE', capability=c,
-                                               run_id=run_id, country_scope='IT',
-                                               **pedidos[c])
+            # A CADEIA ESCOLHE O PROPRIO ALVO, e isso e mais do que conveniencia.
+            # `videos.list` ja devolveu COMMENT_COUNT por video. Perguntar
+            # comentarios a um video que a propria API diz ter zero produziria um
+            # ZERO_RESULTS verdadeiro e uma prova falsa: provaria que a chamada
+            # atravessa, nao que a capacidade traz comentario.
+            #
+            #     ZERO LEGITIMO NAO PROVA CAPACIDADE. Prova que aquele video esta
+            #     calado.
+            candidatos = []
+            for o in (amostras.get('_metadata_todos') or []):
+                n = ((o.get('RAW') or {}).get('COMMENT_COUNT') or 0)
+                try:
+                    n = int(n)
+                except (TypeError, ValueError):
+                    n = 0
+                if n > 0:
+                    candidatos.append((n, (o.get('RAW') or {}).get('VIDEO_ID')
+                                       or o.get('NATIVE_ID')))
+            candidatos.sort(reverse=True)
+            if candidatos:
+                print('      videos com comentario, segundo a propria API: %s'
+                      % ', '.join('%s(%d)' % (v, n) for n, v in candidatos[:3]))
+                pedidos[c] = dict(video_id=candidatos[0][1], limite_threads=5)
+            else:
+                print('      a API diz COMMENT_COUNT=0 em todos os videos deste lote')
+            objetos, trace = scrap.COLLECT(platform='YOUTUBE', capability=c,
+                                           run_id=run_id, country_scope='IT',
+                                           **pedidos[c])
         t = scrap.TRACE(trace)
         metodo = (trace.get('ROUTE') or '').split(':')[-1] or '-'
         if objetos:
             amostras[c] = objetos[0]
+            if c == 'youtube.video.metadata':
+                amostras['_metadata_todos'] = objetos
         print('  %-28s %-22s %5d  %s' % (c, metodo, len(objetos), t['RESULT']))
         if t['PROVIDER_USED'] not in (None, forn.API_OFICIAL):
             tudo_oficial = False
@@ -970,6 +991,11 @@ def youtube_oficial_prova():
         print('    MAX_IDS_PER_CALL   50 (limite da API)')
         print('    QUOTA_PER_CALL     1 unidade, independente de quantos ids')
         print('    objetos devolvidos %d' % lote[0]['ITEM_COUNT'])
+        for o in (amostras.get('_metadata_todos') or []):
+            r = o.get('RAW') or {}
+            print('      %-13s views=%-9s likes=%-6s comentarios=%s'
+                  % (r.get('VIDEO_ID') or o.get('NATIVE_ID'), r.get('VIEW_COUNT'),
+                     r.get('LIKE_COUNT'), r.get('COMMENT_COUNT')))
 
     # ── OUTPUT COMPATIBILITY · o que o objeto realmente carrega ──────────
     # Nenhum campo que alguem consome pode desaparecer em silencio. Aqui sai a
@@ -977,6 +1003,8 @@ def youtube_oficial_prova():
     if amostras:
         print('\n  CAMPOS DO OBJETO NORMALIZADO, por capacidade')
         for c, obj in sorted(amostras.items()):
+            if c.startswith('_'):
+                continue
             campos = sorted(obj) if isinstance(obj, dict) else []
             bruto = sorted((obj or {}).get('RAW') or {}) if isinstance(obj, dict) else []
             print('    %-28s envelope=%d campos' % (c, len(campos)))
