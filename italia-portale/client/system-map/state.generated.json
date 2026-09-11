@@ -1427,6 +1427,7 @@
       "tests/test_competitor_layer.py",
       "tests/test_completude_oportunidade.py",
       "tests/test_comunicacao.py",
+      "tests/test_estagio_atravessa_a_fronteira.py",
       "tests/test_estradas_it.py",
       "tests/test_evidence.py",
       "tests/test_evolucao.py",
@@ -1872,10 +1873,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/ingresso-admission-seam-v1",
-    "HEAD": "bf1ad7aa1bb4daddb67464ee99852d107efa934b",
-    "GENERATED_AT": "2026-09-11T09:49:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "dfe0fef2cd6febcb08802d1cc1c311a5ad3c4658b5708650a78fd3badbfc178a"
+    "BRANCH": "claude/ingresso-admission-handoff-v1",
+    "HEAD": "43fa06107fdb8012330d46a459de4ec1c09ab99b",
+    "GENERATED_AT": "2026-09-11T10:38:13+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3f8540dd3409a086cf25987a63542cf638aa537efdb8c85f0a8d6a17fdc9f5d8"
   },
   "FAMILIES": [
     {
@@ -15230,6 +15231,7 @@
         "tests/test_competitor_layer.py",
         "tests/test_completude_oportunidade.py",
         "tests/test_comunicacao.py",
+        "tests/test_estagio_atravessa_a_fronteira.py",
         "tests/test_estradas_it.py",
         "tests/test_evidence.py",
         "tests/test_evolucao.py",
@@ -15295,7 +15297,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 83,
+      "file_count": 84,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15423,7 +15425,7 @@
       },
       "paises_dado": {
         "ESPANHA": 42,
-        "ITALIA": 23,
+        "ITALIA": 25,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -15460,11 +15462,11 @@
           "SINAL_VENETO",
           "_GAVETA_DE"
         ],
-        "palavras": 408,
+        "palavras": 419,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 406,
+        "sem_marca_de_lingua": 417,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -16867,7 +16869,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/ingresso-admission-seam-v1"
+        "branch claude/ingresso-admission-handoff-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17361,8 +17363,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_estagio_atravessa_a_fronteira.py",
+          "line": 46,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
         {
           "file": "tests/test_fronteira_mede_producao.py",
           "line": 138,
@@ -21114,8 +21121,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_estagio_atravessa_a_fronteira.py",
+          "line": 47,
+          "snippet": "import artefato as art  # noqa: E402"
+        },
         {
           "file": "tests/test_forward_instrumentado.py",
           "line": 128,
@@ -23745,12 +23757,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
           "line": 249,
           "snippet": "import ingresso as ing"
+        },
+        {
+          "file": "tests/test_estagio_atravessa_a_fronteira.py",
+          "line": 48,
+          "snippet": "import ingresso as ing  # noqa: E402"
         },
         {
           "file": "tests/test_italia_na_porta_canonica.py",
@@ -24119,12 +24136,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
           "line": 42,
           "snippet": "import italy_executor as adapter                            # noqa: E402"
+        },
+        {
+          "file": "tests/test_estagio_atravessa_a_fronteira.py",
+          "line": 351,
+          "snippet": "import italy_executor as adapter"
         },
         {
           "file": "tests/test_italia_na_porta_canonica.py",
@@ -24147,7 +24169,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -24163,6 +24185,11 @@
           "file": "tests/test_alvo_estruturado_resolvido.py",
           "line": 200,
           "snippet": "fonte = io.open(os.path.join(RAIZ, \"coleta\", \"italy_recurrent_collect.mjs\"),"
+        },
+        {
+          "file": "tests/test_estagio_atravessa_a_fronteira.py",
+          "line": 51,
+          "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"adapter-v1\","
         },
         {
           "file": "tests/test_italia_na_porta_canonica.py",
@@ -25557,8 +25584,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_estagio_atravessa_a_fronteira.py",
+          "line": 295,
+          "snippet": "import orquestrador as orq"
+        },
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 52,
@@ -25590,8 +25622,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_estagio_atravessa_a_fronteira.py",
+          "line": 239,
+          "snippet": "with open(os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\"),"
+        },
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 163,
@@ -25808,8 +25845,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_estagio_atravessa_a_fronteira.py",
+          "line": 353,
+          "snippet": "from pedido import de_uma_frase"
+        },
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 54,
@@ -31242,8 +31284,8 @@
     "edges_proven": 637,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1425,
-    "files_covered": 700,
+    "files_tracked": 1426,
+    "files_covered": 701,
     "files_code_unclaimed": 0
   }
 }

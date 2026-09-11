@@ -134,7 +134,18 @@ def a_cadeia_com_um_item_real():
         # isso saltava a traducao que a rota canonica faz em `pela_porta`.
         # Uma prova que salta um degrau da cadeia nao esta a provar a cadeia:
         # esta a provar o degrau seguinte com o anterior fingido.
-        na_lingua_da_porta = ing.para_a_porta(itens[0])
+        # ⚠️ E JA SALTOU OUTRO: usava `para_a_porta(itens[0])`, o item
+        # ORIGINAL traduzido — e nao a unidade que a FRONTEIRA aceitou, que e a
+        # unica que traz o estagio apurado pelo contrato. A porta, sem estagio,
+        # cobrava o tempo de um FATO a um DOCUMENTO.
+        #
+        #     PROVAR COM O QUE ENTROU NA FRONTEIRA NAO E PROVAR O QUE SAIU DELA.
+        na_lingua_da_porta = (r.get("PARA_A_PORTA") or [None])[0]
+        caso("A7b_a_fronteira_devolveu_a_unidade_canonica",
+             na_lingua_da_porta is not None,
+             "o ingresso nao entregou unidade para a porta")
+        if na_lingua_da_porta is None:
+            na_lingua_da_porta = ing.para_a_porta(itens[0])
         d = adm.decidir(na_lingua_da_porta, "T2", corrida=run)
         caso("A8_a_admissao_julgou_o_MESMO_item",
              d.resultado in adm.RESULTADOS, d.resultado)
@@ -155,6 +166,13 @@ def a_cadeia_com_um_item_real():
         # com nome, para a missao que o for fechar.
         caso("A11_a_unidade_declara_a_fonte", bool(itens[0].get("SOURCE_ID")),
              "a unidade nao traz SOURCE_ID nenhum")
+        caso("A11b_o_estagio_atravessou_a_fronteira",
+             na_lingua_da_porta.get("artifact_type") == "RAW",
+             "estagio que chegou a porta: %r"
+             % na_lingua_da_porta.get("artifact_type"))
+        caso("A11c_um_DOCUMENTO_nao_e_medido_pela_regua_do_FATO",
+             "quando o fato aconteceu" not in d.motivo,
+             "a porta cobrou o tempo do fato a um documento")
         caso("A12_a_traducao_preserva_o_valor",
              na_lingua_da_porta.get("source_id") == itens[0].get("SOURCE_ID"),
              "o valor mudou ao atravessar a fronteira")

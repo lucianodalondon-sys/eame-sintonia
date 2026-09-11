@@ -168,6 +168,56 @@ def para_a_porta(item: dict) -> dict:
     return fora
 
 
+# ── O QUE O CONTRATO APUROU, E QUE TEM DE CHEGAR A QUEM JULGA ──────────────
+#
+#     COL-LAW-502 · DOCUMENTO PRONTO NAO E FATO PRONTO.
+#
+# A porta ja sabe aplicar essa lei: `admissao.estagio()` le `artifact_type`, e a
+# um RAW nao se pergunta o tempo do FATO. So que o estagio nunca lhe chegava.
+# `orquestrador.pela_entrada` devolvia `len(r["ACEITES"])` e entregava a porta o
+# item ORIGINAL — de seis campos, sem estagio nenhum.
+#
+#     CONTAR UMA COISA NAO E GUARDA-LA.
+#
+# O bloqueio da unidade italiana nunca foi `FACT_TIME`: era a perda do estagio.
+# Medido — o mesmo item, com `ARTIFACT_TYPE = RAW` preservado, deixa de ouvir
+# «o item nao diz quando o fato aconteceu».
+#
+# ⚠️ E HA UMA ARMADILHA AQUI, medida antes de escrever isto. A ficha preenche
+# com `NAO SEI` o que o coletor nao disse. Junta-la ao item sem cuidado poria
+# `fact_time = "NAO SEI"` — e `_tem_quando` le isso como VALOR:
+#
+#     fact_time=''          -> NAO_SEI  «o item nao diz quando»
+#     fact_time='NAO SEI'   -> passa, como se fosse uma data
+#
+#     A CONFISSAO DE IGNORANCIA NAO E UM VALOR.
+#     JUNTA-LA COMO SE FOSSE E MENTIR COM A PALAVRA CERTA.
+#
+# Por isso so atravessam AFIRMACOES. O que o contrato nao sabe fica ausente do
+# lado de la, que e exactamente o que ele e.
+NAO_E_AFIRMACAO = (art.NAO_SEI, "NAO_SE_APLICA", "", None)
+
+# O que o CONTRATO sabe melhor do que o item: a especie e a linhagem. O resto
+# do item e dele, e nao se toca — o conteudo vive no item, nao na ficha.
+DA_FICHA_PARA_A_PORTA = ("ARTIFACT_TYPE", "PARENT_ARTIFACT_ID", "PARENT_SHA256")
+
+
+def unidade_para_a_porta(item: dict, ficha) -> dict:
+    """O conteudo original MAIS o que o contrato apurou, na lingua de quem julga.
+
+    O item manda no conteudo — `texto` vive nele e nao na ficha. A ficha manda
+    no estagio, porque foi ela que o apurou. Nada e reescrito: um campo que o
+    item ja afirma nao e tocado.
+    """
+    fora = dict(item)
+    for campo in DA_FICHA_PARA_A_PORTA:
+        valor = getattr(ficha, campo, None)
+        if valor in NAO_E_AFIRMACAO:
+            continue
+        fora.setdefault(campo, valor)
+    return para_a_porta(fora)
+
+
 def _bytes_do_item(item: dict) -> bytes:
     """A observacao, como bytes, sem normalizar nada.
 
@@ -414,6 +464,7 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
                 "RAW": None}
 
     aceites, recusas, bytes_por_caminho, para_o_raw = [], [], {}, []
+    para_a_porta_ = []
     for i, item in enumerate(itens):
         if not isinstance(item, dict) or not item:
             recusas.append({"INDICE": i, "PORQUE": SEM_CONTEUDO,
@@ -430,6 +481,7 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
             open(caminho, "rb").read() if os.path.isfile(caminho)
             else _bytes_do_item(item))
         aceites.append(f)
+        para_a_porta_.append(unidade_para_a_porta(item, f))
         para_o_raw.append(para_o_dono_do_raw(f, item))
 
     recibo = None
@@ -437,4 +489,8 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
         recibo = preservar(_corrida_completa(corrida), para_o_raw, armazem,
                            lambda o: bytes_por_caminho[o["SHA256"]],
                            memoria=memoria)
-    return {"ACEITES": aceites, "RECUSAS": recusas, "RAW": recibo}
+    # `PARA_A_PORTA` sao os MESMOS aceites, com o conteudo intacto e o estagio
+    # preservado. Nao e um terceiro objecto: e a unidade aceite, na lingua de
+    # quem a vai julgar. Quem foi recusado nao aparece aqui.
+    return {"ACEITES": aceites, "RECUSAS": recusas, "RAW": recibo,
+            "PARA_A_PORTA": para_a_porta_}

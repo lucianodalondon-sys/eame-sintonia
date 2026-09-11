@@ -178,6 +178,17 @@ def pela_entrada(itens: list, recibo: dict, memoria=None) -> dict:
                     raiz=str(RAIZ))
     bruto = r.get("RAW") or {}
     return {
+        # ⚠️ ISTO DEVOLVIA SO A CONTAGEM, e a unidade canonica morria aqui.
+        # `len(r["ACEITES"])` contava o que o contrato tinha acabado de apurar
+        # — `ARTIFACT_TYPE = RAW` incluido — e a linha seguinte entregava a
+        # porta o item ORIGINAL, sem estagio nenhum. A porta, sem saber que
+        # julgava um documento, cobrava-lhe o tempo de um FATO (COL-LAW-502).
+        #
+        #     CONTAR UMA COISA NAO E GUARDA-LA.
+        #
+        # A unidade vai junto agora. Quem a monta continua a ser o dono da
+        # fronteira: `coleta/ingresso.py::unidade_para_a_porta`.
+        "PARA_A_PORTA": r.get("PARA_A_PORTA") or [],
         "PRESERVADOS": len(r["ACEITES"]),
         "RECUSADOS": len(r["RECUSAS"]),
         "PORQUE_RECUSADOS": [x["PORQUE"] for x in r["RECUSAS"]],
@@ -420,7 +431,11 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     if itens and (so_a_porta or not seco):
         recibo["INGRESSO"] = pela_entrada(itens, recibo, memoria=memoria)
     if itens and (so_a_porta or not seco):
-        r = pela_porta(itens, p.alvo, recibo["RUN_ID"])
+        # A PORTA JULGA O QUE A FRONTEIRA ACEITOU, e nao o que o executor
+        # largou. Sao a mesma observacao — mas so uma delas traz o estagio que
+        # o contrato apurou, e so quem passou a fronteira chega aqui.
+        julgar = recibo["INGRESSO"].get("PARA_A_PORTA") or []
+        r = pela_porta(julgar, p.alvo, recibo["RUN_ID"])
         recibo["ADMISSAO"] = r
         recibo["ITEM_COUNT_RAW"] = r["itens"]
         recibo["ITEM_COUNT_NORMALIZED"] = r["prontos"]
