@@ -1048,6 +1048,175 @@ Ler a arvore sintatica e a diferenca entre medir e adivinhar.
 
 ---
 
+---
+
+## 14. C6 — O TEXTO DECIDIA O LUGAR DO FACTO SEM DIZER DE ONDE VINHA
+
+```
+MISSAO   = C6 · TEXT SPECIES / TRANSCRIPT PROVENANCE GATE, 2026-09-11
+BRANCH   = claude/sintonia-scrap-text-provenance-c6
+ENTREGA  = docs/sintonia-scrap/C6-ESPECIE-DO-TEXTO.md
+DECISAO  = GATE FECHADO · ORIGINAL_PROVEN = 0
+```
+
+### 14.1 · A C5 nomeou a espécie; ninguém a jusante perguntava por ela
+
+**O QUE.** A C5 fechou o vocabulário da espécie do texto e carimbou o campo. Mas
+carimbar um campo não obriga ninguém a lê-lo. O censo dos consumidores — a peça
+central desta missão — encontrou um leitor que usava `TRANSCRIPT` como se fosse
+texto original **sem nunca olhar para `TRANSCRIPT_KIND`**.
+
+```text
+CARIMBAR O CAMPO E METADE. A OUTRA METADE E O CONSUMIDOR PERGUNTAR POR ELE.
+```
+
+**PROVA.** `regras/sensor_medir.py::medir()` juntava título, descrição e
+transcrição numa só corda e entregava-a a `lugar_do_fato`, que decide
+`COUNTRY_OF_FACT`. Isolando a transcrição nos 28 vídeos que têm texto:
+
+```text
+EM 15 DOS 28, O TEXTO MUDOU O PAIS DO FACTO
+EM 14 DESSES 15, MUDOU-O PARA «ES»
+```
+
+Títulos italianos inequívocos — `CONTRASTO ALLA FLAVESCENZA DORATA DELLA VITE`,
+`Diserbo in post-emergenza` — e um francês, `Protection de la vigne en
+Champagne`, todos acabavam em Espanha depois de lhes juntar um texto cuja espécie
+a casa não conhecia.
+
+**CONSEQUÊNCIA.** O lugar do facto sai das palavras ditas, e por isso só aceita
+texto de espécie que sustente original. O tipo de conteúdo **não** foi fechado:
+ele sobrevive à tradução.
+
+```text
+O QUE O VIDEO E SOBREVIVE A TRADUCAO.
+ONDE O FACTO ACONTECEU NAO SOBREVIVE.
+PORTAO PEQUENO, NO SITIO CERTO — NAO PORTAO GRANDE A APANHAR TUDO.
+```
+
+---
+
+### 14.2 · Um conceito, um dono — e a mudança só se faz quando aparece o segundo
+
+**O QUE.** O vocabulário da espécie vivia em `regras/sensor_coleta.py`, onde
+nasceu. Passou para `regras/proveniencia.py`, que já era o dono de `NÃO SEI`,
+`NOT_PRESERVED` e das listas fechadas da casa.
+
+**POR QUÊ.** Não por arrumação. Porque apareceu um **segundo** consumidor — o
+medidor — e um conceito transversal com dois leitores e nenhum dono acaba com
+duas cópias que divergem em silêncio.
+
+```text
+MOVER CEDO DEMAIS E INVENTAR CAMADA. MOVER TARDE DEMAIS E TER DUAS VERDADES.
+O GATILHO E O SEGUNDO CONSUMIDOR, NAO O GOSTO.
+```
+
+**CONSEQUÊNCIA.** A decisão canónica depende **só da declaração do provedor** —
+sem detecção de língua, sem comparar com o título, sem regex, sem LLM. Quem
+infere pode suspeitar; quem infere não carimba.
+
+---
+
+### 14.3 · A auditoria que suspeita não pode ser a identidade que se guarda
+
+**O QUE.** A C5 observou onze textos ingleses vindos de vídeo não-inglês. Isso é
+verdadeiro e útil, e **não** é a espécie daqueles textos. A observação foi para
+uma camada derivada separada, com campos de prefixo próprio.
+
+**PROVA.** `data/samples/SENSOR-PILOT/ESPECIE-DO-TEXTO-AUDITORIA-V1.json`
+declara `ARTIFACT_KIND = DERIVED`, nomeia os cinco artefatos-pai, e o seu
+`TRANSCRIPT_KIND_CANONICAL` sai `NÃO SEI` em todos os 48 — mesmo nos sete em que
+a peneira tem quase a certeza.
+
+```text
+AUDIT_CLASSIFICATION != TRANSCRIPT_KIND
+```
+
+A peneira é de palavra funcional — `della`, `para`, `pour`, `the` — porque
+palavra funcional fala de gramática, não de assunto: um texto agronómico
+italiano e um espanhol partilham `fusariosi/fusariosis`, não partilham `della` e
+`para`. Tem três estados, e abaixo de três marcadores devolve `UNKNOWN`.
+
+```text
+UMA PENEIRA QUE CONFESSA O BURACO VALE MAIS DO QUE UM DETECTOR QUE NAO O CONFESSA.
+```
+
+**CONSEQUÊNCIA.** Nada desta camada alimenta o contrato de procedência, e há
+prova que reprova quem os ligar. Os 48 artefatos históricos não foram tocados:
+o que ficou gravado continua a dizer o que a casa sabia quando os gravou.
+
+```text
+HISTORICAL_EVIDENCE != REWRITTEN_HISTORY
+```
+
+---
+
+### 14.4 · O estado real do corpus, dito como é
+
+```text
+ORIGINAL_PROVEN     0
+TRANSLATED_PROVEN   0
+ASR_LOCAL           0
+KIND_UNKNOWN       28
+NO_TEXT            20
+TOTAL              48
+```
+
+Zero textos com origem provada. Não é «quase original», não é «provavelmente
+original»: é zero provado e 28 por saber, e as duas coisas escrevem-se com
+palavras diferentes.
+
+```text
+0 != NAO SEI != NOT_PRESERVED
+ARREDONDAR «NAO SEI» PARA «ORIGINAL» E A UNICA MANEIRA DE PERDER O CORPUS INTEIRO.
+```
+
+E a tradução **não** foi banida: um texto traduzido continua a servir para saber
+de que cultura e de que praga o concorrente fala.
+
+```text
+FIT_FOR_PURPOSE PERTENCE AO CONSUMIDOR. PROCEDENCIA PERTENCE A COLETA.
+```
+
+---
+
+### 14.5 · Um defeito maior, encontrado e deixado por corrigir de propósito
+
+**O QUE.** Ao isolar porque é que os textos mandavam tudo para Espanha, apareceu
+o mecanismo — e é muito maior do que a questão da procedência. `lugar_do_fato`
+casa nomes de lugar por **raiz truncada**: `'la rioja'` vira `['rio']`, e `'rio'`
+casa com qualquer palavra que o contenha.
+
+**PROVA.** Nos 28 textos: `period` 54 vezes, `prior` 16, `various` 14. Em
+italiano e espanhol, `periodico`, `calendario`, `fitosanitario`.
+
+```text
+lugar_do_fato('calendario fitosanitario')  ->  ('ES', 'la rioja')
+
+230 DOS 1071 VIDEOS — 21% — JA DISPARAM ISTO SO PELO TITULO E DESCRICAO,
+SEM TRANSCRICAO NENHUMA.
+```
+
+**CONSEQUÊNCIA.** Não foi corrigido aqui, e a razão que manda é a terceira:
+consertá-lo mudaria 230 registos publicados de `COUNTRY_OF_FACT`. Isso é decisão
+da casa, não efeito colateral de uma missão sobre espécie de texto.
+
+```text
+UM CONSERTO GRANDE ESCONDIDO DENTRO DE UMA MISSAO PEQUENA
+E UMA MUDANCA QUE NINGUEM REVISOU.
+```
+
+Fica registado com o mecanismo, o alcance medido e o comando que o reproduz. O
+próximo a fechar é `leis/regua_italia.py`, que tem o mesmo padrão sem filtro e
+é o casador léxico italiano — hoje nunca dispara, porque nenhum dos 1071 itens
+da medição carrega `TRANSCRIPT`, mas dispararia no dia em que carregasse.
+
+```text
+UM CONSUMIDOR QUE NAO DISPARA HOJE E UM CONSUMIDOR, NAO UMA AUSENCIA.
+```
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
