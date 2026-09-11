@@ -69,6 +69,26 @@ class Banco(_pg.MemoriaPostgres):
         return r.returncode, (r.stderr or "").strip()
 
 
+def _a_unica_observacao_em(banco, caminho):
+    """A observação naquele endereço — **provando** que é uma só.
+
+    ⚠️ ISTO ERA `banco.objeto_em(caminho)`, e aquilo devolvia `linhas[0]`.
+    Numa prova com uma observação por endereço acertava sempre, e era
+    exactamente por isso que o defeito era invisível: o teste que devia
+    apanhá-lo tinha o mesmo hábito do código.
+
+    Aqui a lista vem inteira, e se vier com mais de uma a prova REBENTA em vez
+    de escolher. Ler «a primeira» é uma decisão, e uma decisão escondida numa
+    leitura não é uma leitura.
+    """
+    linhas = banco.observacoes_em(caminho)
+    if len(linhas) > 1:
+        raise AssertionError(
+            "%d observacoes em %s — esta prova conta com uma, e escolher a "
+            "primeira seria escolher ao acaso" % (len(linhas), caminho))
+    return linhas[0] if linhas else None
+
+
 def _raw(banco, run_id, caminho, sha=SHA_PAI):
     """Cria a corrida e o bruto de que o derivado vai nascer."""
     banco.aplicar(
@@ -228,10 +248,10 @@ def cenarios(banco):
          erro.splitlines()[0][:110] if erro else "ACEITOU EM SILENCIO")
 
     # ── G · o bruto fica imutável ───────────────────────────────────────
-    antes = banco.objeto_em("IT/x/DOCUMENT/pai.pdf")
+    antes = _a_unica_observacao_em(banco, "IT/x/DOCUMENT/pai.pdf")
     banco.executar(_derivado(raw_id, "IT/x/OCR/a.txt", kind="OCR",
                              producer="tesseract", sha256=SHA_OUTRO))
-    depois = banco.objeto_em("IT/x/DOCUMENT/pai.pdf")
+    depois = _a_unica_observacao_em(banco, "IT/x/DOCUMENT/pai.pdf")
     caso("G_criar_derivado_nao_altera_o_bruto", antes == depois,
          "antes==depois" if antes == depois else "O BRUTO MUDOU")
 

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "1b1487f0184903770df358e5b03ce179ba2112cc",
+    "HEAD": "e35d9b15ed1405182cea4fcd6f06202604ab0812",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -926,7 +926,7 @@
     {
       "ficheiro": "coleta/ingresso.py",
       "gaveta": "coleta",
-      "linhas": 296,
+      "linhas": 367,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -938,6 +938,7 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/italy_executor.py",
+        "guarda/catalogo_importar.py",
         "pedido/receitas.py"
       ],
       "no_ci": false
@@ -1802,7 +1803,7 @@
     {
       "ficheiro": "guarda/catalogo_importar.py",
       "gaveta": "guarda",
-      "linhas": 680,
+      "linhas": 693,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1810,7 +1811,7 @@
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
-      "grava_no_banco": true,
+      "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/social_envelope.py"
@@ -1888,7 +1889,7 @@
     {
       "ficheiro": "guarda/memoria_descartavel.py",
       "gaveta": "guarda",
-      "linhas": 325,
+      "linhas": 359,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1906,7 +1907,7 @@
     {
       "ficheiro": "guarda/portas_live.py",
       "gaveta": "guarda",
-      "linhas": 261,
+      "linhas": 319,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -1914,7 +1915,7 @@
       ],
       "ferramentas": [],
       "descarta": true,
-      "escreve_o_motivo_do_descarte": false,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": true,
       "escreve_ficheiro": false,
@@ -1924,7 +1925,7 @@
     {
       "ficheiro": "guarda/preservar_coleta.py",
       "gaveta": "guarda",
-      "linhas": 993,
+      "linhas": 1292,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1939,6 +1940,7 @@
         "coleta/ingresso.py",
         "coleta/rota_forward_documento.py",
         "coleta/social_envelope.py",
+        "guarda/catalogo_importar.py",
         "guarda/portas_live.py",
         "guarda/preservar_derivado.py"
       ],
@@ -2031,33 +2033,17 @@
       "escreve_ficheiro": false,
       "chamado_por": [],
       "no_ci": false
-    },
-    {
-      "ficheiro": "guarda/trava_do_escritor_antigo.sh",
-      "gaveta": "guarda",
-      "linhas": 72,
-      "e_ponto_de_entrada": false,
-      "sai_para_fora": false,
-      "veiculos": [],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
-      "decisoes_escondidas": [],
-      "grava_no_banco": false,
-      "escreve_ficheiro": false,
-      "chamado_por": [],
-      "no_ci": true
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 103,
+    "ficheiros_de_codigo": 102,
     "pontos_de_entrada": 83,
     "executores_que_saem_para_fora": 21,
     "sem_chamador_e_fora_do_ci": 42,
-    "gravam_no_banco": 2,
+    "gravam_no_banco": 1,
     "escrevem_ficheiro": 66,
     "deitam_fora_alguma_coisa": 26,
-    "deitam_fora_SEM_escrever_o_motivo": 2,
+    "deitam_fora_SEM_escrever_o_motivo": 1,
     "ficheiros_com_decisao_escondida": 2,
     "decisoes_escondidas_ao_todo": 2
   },
@@ -2215,8 +2201,7 @@
       "guarda/sql_conferir.py"
     ],
     "deitam_fora_sem_motivo": [
-      "coleta/ropf_pre_requisito.py",
-      "guarda/portas_live.py"
+      "coleta/ropf_pre_requisito.py"
     ],
     "decisoes_escondidas": [
       {

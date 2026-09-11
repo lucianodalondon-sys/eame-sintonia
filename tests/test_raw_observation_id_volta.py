@@ -154,9 +154,27 @@ class ASegundaCorridaNaoHERDANOME(Bancada):
         id_a = a["RAW_OBSERVATIONS"][0]["RAW_OBSERVATION_ID"]
         b = self.observar("IT-B4-RUN-B", quando="2026-09-11T00:00:00Z")["RAW"]
 
-        # o estado de hoje, medido no B3 e NÃO corrigido aqui
+        # ⚠️ O NOME DISTO MUDOU, E A MUDANCA E A CORRECCAO INTEIRA.
+        #
+        # Antes esta linha cobrava `CONFLITOS_DE_OBJETO`: o escritor recusava
+        # a corrida nova por SUA CONTA, em Python, antes de o banco ter uma
+        # palavra a dizer. Ele carregava a trava física dentro de si, e por
+        # isso continuaria a recusar mesmo DEPOIS de a fase 10 a retirar.
+        #
+        #     UMA TRAVA DO ESQUEMA NAO SE REESCREVE EM PYTHON.
+        #
+        # Agora é uma NOTA, a escrita é tentada, e quem decide é o banco.
+        # Enquanto `unique (raw_asset.storage_path)` estiver de pé ele recusa
+        # — e a corrida fecha `PARTIAL` com o motivo DELE, não com o nosso.
         self.assertEqual(b["RUN_STATE"], "PARTIAL")
-        self.assertTrue(b["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"])
+        self.assertEqual(b["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"], [])
+        notas = b["JA_EXISTIA_NO_BANCO"]["OBSERVACOES_NOVAS_EM_ENDERECO_OCUPADO"]
+        self.assertTrue(notas)
+        self.assertEqual(notas[0]["TIPO"], "NEW_RUN_SAME_STORAGE_PATH")
+        self.assertEqual(notas[0]["CORRIDAS_QUE_JA_LA_ESTAO"], ["IT-B4-RUN-A"])
+        # E O BANCO TEM DE TER SIDO OUVIDO: a escrita foi tentada e recusada.
+        self.assertFalse(b["MEMORIA"]["APLICADA"])
+        self.assertIsNotNone(b["MEMORIA"]["ERRO"])
 
         # e o que o B4 tem de garantir mesmo assim
         self.assertEqual(b["RAW_OBSERVATIONS"], [])
@@ -312,9 +330,16 @@ class ACorridaItalianaInteira(CasoB1):
         self.assertTrue(all(isinstance(i, int) and i > 0 for i in ids))
         for o in obs:
             self.assertEqual(o["RUN_ID"], "IT-B4-ITALIA")
-            linha = self.banco.objeto_em(o["STORAGE_PATH"])
-            self.assertIsNotNone(linha)
-            self.assertEqual(linha["sha256"], o["SHA256"])
+            # A PERGUNTA AQUI E SOBRE A COPIA — «o byte ficou guardado neste
+            # endereco?» — e por isso vai a `storage_object`, que e de quem o
+            # endereco e. `objeto_em` prometia isto e respondia com uma
+            # observacao; o nome mentia, e agora nao ha nome que minta.
+            copia = self.banco.copia_em(o["STORAGE_PATH"])
+            self.assertIsNotNone(copia)
+            self.assertEqual(copia["sha256"], o["SHA256"])
+            # E a OBSERVACAO e uma so neste endereco, nesta corrida.
+            self.assertEqual(
+                len(self.banco.observacoes_em(o["STORAGE_PATH"])), 1)
 
     def test_14_o_recibo_que_a_porta_devolve_transporta_as_observacoes(self):
         """A porta não consulta o banco: ela transporta o que o dono devolveu."""

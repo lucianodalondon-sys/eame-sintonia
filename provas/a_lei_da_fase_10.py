@@ -63,6 +63,13 @@ MIGRACOES = ["001_fundacao_geografia_e_proveniencia.sql",
              "025_o_objeto_ganha_casa.sql",
              "026_a_observacao_ganha_identidade.sql"]
 
+# O PROTOTIPO NAO E UMA MIGRATION, e por isso vive fora daquela lista e entra
+# por um caminho proprio — nas partes que perguntam «e DEPOIS da fase 10?».
+# Aplicá-lo pela mesma porta das migrations faria esta prova tratá-lo como uma,
+# que é exactamente o que ele não é.
+PROTOTIPO = os.path.join("supabase", "ensaios",
+                         "PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql")
+
 
 # ─────────────────────────────────────────────────────────────────────────
 # 0 · a porta do banco
@@ -249,6 +256,14 @@ def parte_E(url):
         ("K3_FONTE_SHA", "(source_id, sha256)"),
         ("K4_RUN_FONTE_ENDERECO_SHA",
          "(run_id, source_id, storage_path, sha256)"),
+        # ── AS DUAS QUE OLHAM PARA O OBJECTO, E NAO PARA O ENDERECO ─────
+        # A fase 11 retira `raw_asset.storage_path`. Uma chave construída
+        # sobre ele passaria todos os cenários de hoje e nasceria com dívida
+        # marcada para essa fase — e escolher assim seria escolher por
+        # elegância, que é o que esta parte existe para não fazer.
+        ("K5_RUN_FONTE_OBJETO", "(run_id, source_id, storage_object_id)"),
+        ("K6_RUN_FONTE_OBJETO_SHA",
+         "(run_id, source_id, storage_object_id, sha256) nulls not distinct"),
     ]
     # (nome, linhas que DEVEM ficar, escritas)
     cenarios = [
@@ -262,6 +277,15 @@ def parte_E(url):
          [("RA", "731", SHA_X, "a"), ("RA", "731", SHA_X, "b")]),
         ("S5_BYTES_DIFERENTES", 2,
          [("RA", "731", SHA_X, "a"), ("RA", "731", SHA_Y, "a")]),
+        # S6/S7 · a MESMA cópia física, dentro e fora da corrida.
+        ("S6_MESMO_OBJETO_MESMA_CORRIDA", 1,
+         [("RA", "731", SHA_X, "a"), ("RA", "731", SHA_X, "a")]),
+        ("S7_MESMO_OBJETO_CORRIDA_NOVA", 2,
+         [("RA", "731", SHA_X, "a"), ("RB", "731", SHA_X, "a")]),
+        # S9 · a observação SEM cópia. `preserved = false` é um estado legítimo
+        # — o byte pode não ter voltado — e `storage_object_id` fica nulo.
+        ("S9_SEM_COPIA_FISICA", 1,
+         [("RA", "731", SHA_X, "a", False), ("RA", "731", SHA_X, "a", False)]),
     ]
     aprovadas, tabela = [], []
     for nome, expr in candidatas:
@@ -277,11 +301,22 @@ def parte_E(url):
                     erros.append(cen + "(indice nao instala)")
                     contagens.append("--")
                     continue
-            for run, disc, sha, nom in escritas:
+            for escrita in escritas:
+                run, disc, sha, nom = escrita[:4]
+                preservado = escrita[4] if len(escrita) > 4 else True
                 corrida(url, run)
                 p = "IT/f/OBSERVATION/%s-p%s-%s.pdf" % (sha[:16], disc, nom)
-                observa(url, run, p, sha, "ARPAV", None,
-                        "FORWARD_IDENTITY_UNPROVEN")
+                if preservado:
+                    observa(url, run, p, sha, "ARPAV", None,
+                            "FORWARD_IDENTITY_UNPROVEN")
+                else:
+                    psql(url, "insert into public.raw_asset (run_id, "
+                              "storage_path, media_type, bytes, sha256, "
+                              "captured_at, storage_object_id, source_id, "
+                              "identity_state, preserved, not_preserved_reason)"
+                              " values ('%s','%s','application/pdf',10,'%s',"
+                              "now(),null,'ARPAV','FORWARD_IDENTITY_UNPROVEN',"
+                              "false,'BYTE_NAO_VOLTOU')" % (run, p, sha))
             n = um(url, "select count(*) from public.raw_asset")
             contagens.append(n if int(n) == esperado else n + "!")
             if int(n) != esperado:
@@ -294,11 +329,20 @@ def parte_E(url):
             nome, " ".join("%-3s" % c for c in contagens),
             "APROVADA" if not erros else "REPROVADA em " + ",".join(erros)))
     print("    %-28s %s" % ("(cenarios)",
-                            " ".join("S%d " % i for i in range(1, 6))))
-    # As duas que sobrevivem à ADAMA são as duas que NÃO derivam a identidade
-    # do conteúdo. Se um dia isto mudar, é porque a lei mudou — e tem de doer.
+                            " ".join("%-3s" % c[0].split("_")[0]
+                                     for c in cenarios)))
+    # AS QUE SOBREVIVEM SAO AS QUE NAO DERIVAM A IDENTIDADE DO CONTEUDO.
+    # Entre elas decide a fase 11: `K5`/`K6` não tocam em `storage_path`.
+    # `K5` sozinha reprova em `S9` — sem cópia, `storage_object_id` é nulo, e
+    # em Postgres dois nulos são distintos num índice único: a chave deixaria
+    # passar TODAS as tentativas não preservadas, em silêncio.
     _e(fora, "E_CANDIDATAS_APROVADAS", ",".join(aprovadas),
-       "K2_RUN_FONTE_ENDERECO,K4_RUN_FONTE_ENDERECO_SHA")
+       "K2_RUN_FONTE_ENDERECO,K4_RUN_FONTE_ENDERECO_SHA,"
+       "K6_RUN_FONTE_OBJETO_SHA")
+    _e(fora, "E_ESCOLHIDA", "K6_RUN_FONTE_OBJETO_SHA" if
+       "K6_RUN_FONTE_OBJETO_SHA" in aprovadas else "NENHUMA",
+       "K6_RUN_FONTE_OBJETO_SHA")
+    _e(fora, "E_A_ESCOLHIDA_SOBREVIVE_A_FASE_11", "SIM", "SIM")
     return fora
 
 
@@ -626,6 +670,314 @@ def parte_J(url):
     return fora
 
 
+# ═════════════════════════════════════════════════════════════════════════
+# I · O ESCRITOR CANÓNICO, DEPOIS DA FASE 10 — e a correr a sério
+#
+# As partes acima medem o ESQUEMA. Esta mede o CÓDIGO: `preservar()` a sério,
+# com a porta Postgres a sério, contra um banco onde o protótipo já entrou.
+#
+#     ESQUEMA CERTO COM CODIGO QUE NAO O SABE SERVIR NAO E FASE 10.
+# ═════════════════════════════════════════════════════════════════════════
+def _art(nome, dados, nativo, doc="D", fonte="IT-T2-002", url=None):
+    from guarda.preservar_coleta import sha256 as _sha
+    return {"COUNTRY": "IT", "SOURCE_SLUG": "fonte-de-teste",
+            "SOURCE_ID": fonte, "DOCUMENT_ID": doc,
+            "ARTIFACT_KIND": "DOCUMENT", "NAME": nome,
+            "SOURCE_NATIVE_ID": nativo, "SHA256": _sha(dados),
+            "BYTES": len(dados), "MEDIA_TYPE": "application/pdf",
+            "CAPTURED_AT": "2026-09-08T00:00:00Z",
+            "SOURCE_URL": url or "https://exemplo.it/%s" % nativo}
+
+
+def _corrida(run_id):
+    return {"RUN_ID": run_id, "PLATFORM": "local", "ACTOR": "prova",
+            "ACTOR_VERSION": "1", "SOURCE_COUNTRY": "IT", "MISSION": "fase10",
+            "STARTED_AT": "2026-09-08T00:00:00Z", "RULE_VERSION": "1",
+            "CAPTURE_METHOD": "HTTP_GET"}
+
+
+def parte_I(url):
+    """I1–I11 · o que o escritor final tem de saber fazer."""
+    from guarda.preservar_coleta import ArmazemDeMentira, preservar
+    fora = []
+    banco = _pg.MemoriaPostgres(url)
+    armazem = ArmazemDeMentira()
+    A, B = b"conteudo-A", b"conteudo-B"
+    de = {}
+
+    def bytes_de(o):
+        return de[o["SHA256"]]
+
+    def correr(run_id, artefatos):
+        for a in artefatos:
+            de[a["SHA256"]] = A if a["SHA256"] == __import__(
+                "hashlib").sha256(A).hexdigest() else B
+        return preservar(_corrida(run_id), artefatos, armazem, bytes_de,
+                         memoria=banco, terminou_em="2026-09-08T01:00:00Z")
+
+    def linhas():
+        return int(um(url, "select count(*) from public.raw_asset"))
+
+    def objetos():
+        return int(um(url, "select count(*) from public.storage_object"))
+
+    # I1 · a primeira observação: um objecto, uma observação.
+    limpa(url)
+    correr("R-I1", [_art("a.pdf", A, "731")])
+    _e(fora, "I1_UM_OBJETO", objetos(), 1)
+    _e(fora, "I1_UMA_OBSERVACAO", linhas(), 1)
+    _e(fora, "I1_ATTEMPTS_COMECA_EM_1",
+       um(url, "select attempts from public.raw_asset"), 1)
+
+    # I2 · retry da MESMA corrida: a mesma linha, e a tentativa conta-se.
+    antes = um(url, "select id from public.raw_asset")
+    correr("R-I1", [_art("a.pdf", A, "731")])
+    _e(fora, "I2_CONTINUA_UMA_OBSERVACAO", linhas(), 1)
+    _e(fora, "I2_O_MESMO_RAW_ASSET_ID",
+       um(url, "select id from public.raw_asset"), antes)
+    _e(fora, "I2_ATTEMPTS_SUBIU",
+       um(url, "select attempts from public.raw_asset"), 2)
+    _e(fora, "I2_LAST_ATTEMPT_AT_PREENCHIDO",
+       um(url, "select (last_attempt_at is not null)::text "
+               "from public.raw_asset"), "true")
+
+    # I3 · corrida NOVA, mesmo documento, mesmos bytes: observação nova, e o
+    # objecto é REUTILIZADO. É este caso que a fase 10 existe para abrir.
+    correr("R-I3", [_art("a.pdf", A, "731")])
+    _e(fora, "I3_DUAS_OBSERVACOES", linhas(), 2)
+    _e(fora, "I3_UM_SO_OBJETO", objetos(), 1)
+    _e(fora, "I3_IDS_DIFERENTES",
+       um(url, "select count(distinct id) from public.raw_asset"), 2)
+    _e(fora, "I3_ATTEMPTS_DA_NOVA_COMECA_EM_1",
+       um(url, "select attempts from public.raw_asset where run_id='R-I3'"), 1)
+
+    # I4 · o mesmo documento com conteúdo NOVO. Duas observações, dois
+    # objectos: o endereço carrega o sha16, e bytes novos são cópia nova.
+    limpa(url)
+    correr("R-I4", [_art("a.pdf", A, "731")])
+    correr("R-I4b", [_art("a.pdf", B, "731")])
+    _e(fora, "I4_DUAS_OBSERVACOES", linhas(), 2)
+    _e(fora, "I4_DOIS_OBJETOS", objetos(), 2)
+    _e(fora, "I4_O_DOCUMENTO_E_O_MESMO",
+       um(url, "select count(distinct document_key) from public.raw_asset"), 1)
+
+    # I5 · publicações diferentes, MESMOS bytes. O caso ADAMA. Não fundir.
+    limpa(url)
+    correr("R-I5", [_art("a.pdf", A, "731", doc="D-731"),
+                    _art("a.pdf", A, "6321", doc="D-6321")])
+    _e(fora, "I5_DUAS_OBSERVACOES", linhas(), 2)
+    _e(fora, "I5_DOIS_OBJETOS_PARA_UM_SHA", objetos(), 2)
+
+    # I6 · o mesmo conteúdo vindo de FONTES diferentes. Não fundir.
+    limpa(url)
+    correr("R-I6", [_art("a.pdf", A, "731", fonte="ARPAV"),
+                    _art("a.pdf", A, "731", fonte="REGIONE")])
+    _e(fora, "I6_DUAS_FONTES_DUAS_OBSERVACOES", linhas(), 2)
+
+    # I7 · retry SEM PROVA. Não duplica — e quem o impede é a chave nova.
+    limpa(url)
+    sem = dict(_art("u.pdf", A, "731")); sem.pop("DOCUMENT_ID")
+    correr("R-I7", [sem])
+    correr("R-I7", [sem])
+    _e(fora, "I7_UNPROVEN_NAO_DUPLICA", linhas(), 1)
+    _e(fora, "I7_E_ESTA_SEM_PROVA",
+       um(url, "select identity_state from public.raw_asset"),
+       "FORWARD_IDENTITY_UNPROVEN")
+    _e(fora, "I7_ATTEMPTS_SUBIU",
+       um(url, "select attempts from public.raw_asset"), 2)
+
+    # I8 · SEM PROVA numa corrida NOVA: observação nova.
+    correr("R-I8", [sem])
+    _e(fora, "I8_CORRIDA_NOVA_CRIA_OBSERVACAO", linhas(), 2)
+
+    # I11 · o objecto já existe e a observação não. O objecto reutiliza-se, e
+    # a observação nasce a apontar-lhe — sem confundir as duas espécies.
+    limpa(url)
+    correr("R-I11", [_art("a.pdf", A, "731")])
+    psql(url, "delete from public.raw_asset")
+    _e(fora, "I11_O_OBJETO_FICOU_ORFAO", objetos(), 1)
+    correr("R-I11b", [_art("a.pdf", A, "731")])
+    _e(fora, "I11_O_OBJETO_FOI_REUTILIZADO", objetos(), 1)
+    _e(fora, "I11_A_OBSERVACAO_NASCEU", linhas(), 1)
+    _e(fora, "I11_ELA_APONTA_PARA_O_OBJETO_QUE_JA_LA_ESTAVA",
+       um(url, "select (r.storage_object_id = o.id)::text from "
+               "public.raw_asset r, public.storage_object o"), "true")
+    return fora
+
+
+def parte_I_concorrencia(url):
+    """I9 · I10 — duas sessões a escrever a MESMA observação."""
+    fora = []
+    for nome, estado, doc in (("I9_IDENTIFIED", "FORWARD_IDENTIFIED", "D-C"),
+                              ("I10_UNPROVEN", "FORWARD_IDENTITY_UNPROVEN",
+                               None)):
+        limpa(url)
+        corrida(url, "RA")
+        sha = hashlib.sha256(nome.encode()).hexdigest()
+        p = "IT/f/DOCUMENT/%s-p1-a.pdf" % sha[:16]
+        oid = objeto(url, p, sha)
+        dk = "null" if doc is None else "'%s'" % doc
+        ba = "null" if doc is None else "'SOURCE_DOCUMENT_ID'"
+        ins = ("insert into public.raw_asset (run_id, storage_path, "
+               "media_type, bytes, sha256, captured_at, storage_object_id, "
+               "source_id, document_key, document_key_basis, identity_state, "
+               "attempts) values ('RA','%s','application/pdf',10,'%s',now(),"
+               "%s,'ARPAV',%s,%s,'%s',1);" % (p, sha, oid, dk, ba, estado))
+        a, b = sessao(url), sessao(url)
+        fala(a, "begin;")
+        fala(b, "begin;")
+        fala(a, ins)
+        time.sleep(1)
+        fala(b, ins)
+        time.sleep(1)
+        fala(a, "commit;")
+        fecha(a)
+        time.sleep(1)
+        fala(b, "commit;")
+        sb = fecha(b)
+        _e(fora, nome + "_UMA_LINHA_SO",
+           um(url, "select count(*) from public.raw_asset"), 1)
+        _e(fora, nome + "_A_SEGUNDA_FOI_RECUSADA",
+           "SIM" if "duplicate key" in sb else "NAO", "SIM")
+    return fora
+
+
+def parte_J_crash(url):
+    """J · a máquina morre, e o retry tem de curar sem apagar evidência."""
+    from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256
+    fora = []
+    banco = _pg.MemoriaPostgres(url)
+    A = b"conteudo-J"
+    limpa(url)
+
+    # J1 · o objecto entra, o processo morre antes da observação.
+    #
+    # O endereço é o QUE O ESCRITOR CALCULA, e não um parecido escrito à mão:
+    # um caminho inventado faria o escritor criar a sua própria cópia, e o
+    # cenário do órfão nunca chegaria a acontecer.
+    from guarda.preservar_coleta import caminho_do_objeto
+    # A CORRIDA NAO SE SEMEIA A MAO AQUI. `preservar()` abre-a com a identidade
+    # que ela declara, e um esboco escrito por esta prova divergiria dela —
+    # `RUN_ID_CONFLICT`, que e a trava certa a morder pelo motivo errado.
+    a0 = _art("a.pdf", A, "731")
+    p = caminho_do_objeto(a0)
+    objeto(url, p, sha256(A), bytes_=len(A))
+    _e(fora, "J1_OBJETO_ORFAO_SOBREVIVE",
+       um(url, "select count(*) from public.storage_object"), 1)
+    _e(fora, "J1_NENHUMA_OBSERVACAO",
+       um(url, "select count(*) from public.raw_asset"), 0)
+
+    # J2 · o retry reencontra a cópia e não cria uma segunda.
+    a = a0
+    r = preservar(_corrida("R-J"), [a], ArmazemDeMentira(), lambda o: A,
+                  memoria=banco, terminou_em="2026-09-08T01:00:00Z")
+    _e(fora, "J2_CONTINUA_UM_OBJETO",
+       um(url, "select count(*) from public.storage_object"), 1)
+    _e(fora, "J2_A_OBSERVACAO_NASCEU",
+       um(url, "select count(*) from public.raw_asset"), 1)
+    _e(fora, "J2_A_CORRIDA_FECHA", r["RUN_STATE"], "COMPLETE")
+
+    # J3 · metadados incompatíveis: OUTROS bytes no mesmo endereço.
+    #
+    # ⚠️ MONTAR ESTE CENARIO ENSINOU MAIS DO QUE ELE MEDE. A primeira versao
+    # desligava a observacao da copia (`storage_object_id = null`) para poder
+    # mexer no `sha256` dela — e o GATILHO DA FASE 10 RECUSOU, porque
+    # `storage_object_id` e um dos sete campos congelados. A prova ficou com o
+    # cenario por montar, e o caso passou a reprovar pelo motivo errado.
+    #
+    #     UMA OBSERVACAO NAO SE DESLIGA DA COPIA QUE ELA DIZ TER VISTO.
+    #
+    # A unica montagem honesta e a que o outro escritor faria de verdade:
+    # apagar as duas linhas e pousar OUTRO conteudo naquele endereco.
+    ok, _, e = psql(url, "update public.raw_asset set storage_object_id = null")
+    _e(fora, "J3_DESLIGAR_A_COPIA_E_RECUSADO",
+       "SIM" if not ok else "NAO", "SIM")
+    psql(url, "delete from public.raw_asset")
+    psql(url, "delete from public.storage_object")
+    objeto(url, p, hashlib.sha256(b"outro").hexdigest(), bytes_=len(A))
+    antes = um(url, "select count(*) from public.raw_asset")
+    r = preservar(_corrida("R-J3"), [a], ArmazemDeMentira(), lambda o: A,
+                  memoria=banco, terminou_em="2026-09-08T01:00:00Z")
+    tipos = [c["TIPO"] for c in r["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"]]
+    _e(fora, "J3_CONFLITO_TEM_NOME",
+       tipos[0] if tipos else "NENHUM", "METADATA_CONFLICT")
+    _e(fora, "J3_A_CORRIDA_NAO_FECHA",
+       "SIM" if r["RUN_STATE"] != "COMPLETE" else "NAO", "SIM")
+    _e(fora, "J3_NADA_FOI_ESCRITO_POR_CIMA",
+       um(url, "select count(*) from public.raw_asset"), antes)
+    limpa(url)
+    return fora
+
+
+def parte_K(url):
+    """K · a derivação é por CONTEÚDO, e continua a ser depois da fase 10.
+
+    Duas observações dos mesmos bytes partilham o derivado. Isso NÃO é defeito:
+    derivar duas vezes o mesmo byte com a mesma régua daria o mesmo ficheiro, e
+    `derivacao_e_unica_por_regua` tem `parent_sha256` na chave, não
+    `raw_asset_id`.
+
+    O que tem de ficar provado é que ninguém lê «segunda observação sem
+    derivado próprio» como perda. A conta da casa é entre ESPÉCIES
+    COMPARÁVEIS — conteúdos contra derivados — e não observações contra
+    derivados.
+
+        CONTAR DERIVADOS POR OBSERVACAO DARIA UMA PERDA QUE NAO EXISTE.
+    """
+    fora = []
+    limpa(url)
+    psql(url, "delete from public.derived_artifact")
+    corrida(url, "RA")
+    corrida(url, "RB")
+    sha = hashlib.sha256(b"K-derivado").hexdigest()
+    p = "IT/f/DOCUMENT/%s-731-a.pdf" % sha[:16]
+    oid = objeto(url, p, sha)
+    ids = []
+    for run in ("RA", "RB"):
+        ok, i = observa(url, run, p, sha, "ARPAV", "D-K", "FORWARD_IDENTIFIED",
+                        oid=oid)
+        ids.append(i if ok else None)
+    _e(fora, "K_DUAS_OBSERVACOES_DO_MESMO_CONTEUDO",
+       um(url, "select count(*) from public.raw_asset"), 2)
+
+    filho = hashlib.sha256(b"K-filho").hexdigest()
+    param = hashlib.sha256(b"K-param").hexdigest()
+    def derivar(raw_id, nome):
+        return psql(url,
+                    "insert into public.derived_artifact (raw_asset_id, "
+                    "parent_sha256, kind, producer, producer_version, "
+                    "parameters_hash, sha256, bytes, media_type, storage_path, "
+                    "derived_at) values (%s,'%s','TEXT_EXTRACTION','x','1','%s',"
+                    "'%s',10,'text/plain','IT/y/TEXT/%s.txt',now())"
+                    % (raw_id, sha, param, filho, nome))
+    ok1, _, _ = derivar(ids[0], "k1")
+    ok2, _, e2 = derivar(ids[1], "k2")
+    _e(fora, "K_O_PRIMEIRO_DERIVADO_ENTRA", "SIM" if ok1 else "NAO", "SIM")
+    _e(fora, "K_O_SEGUNDO_E_RECUSADO", "SIM" if not ok2 else "NAO", "SIM")
+    _e(fora, "K_QUEM_O_RECUSA",
+       "derivacao_e_unica_por_regua"
+       if "derivacao_e_unica_por_regua" in e2 else motivo(e2),
+       "derivacao_e_unica_por_regua")
+
+    # E A CONTA DA CASA, que é por conteúdo, continua a fechar.
+    _e(fora, "K_CONTEUDOS_UNICOS",
+       um(url, "select count(distinct sha256) from public.raw_asset"), 1)
+    _e(fora, "K_DERIVADOS_PRESENTES",
+       um(url, "select count(distinct parent_sha256) from "
+               "public.derived_artifact"), 1)
+    _e(fora, "K_PERDA_POR_CONTEUDO",
+       int(um(url, "select count(distinct sha256) from public.raw_asset"))
+       - int(um(url, "select count(distinct parent_sha256) from "
+                     "public.derived_artifact")), 0)
+    # A conta ERRADA, dita em voz alta para que ninguém a faça por engano.
+    _e(fora, "K_A_CONTA_POR_OBSERVACAO_DARIA_PERDA_FALSA",
+       int(um(url, "select count(*) from public.raw_asset"))
+       - int(um(url, "select count(*) from public.derived_artifact")), 1)
+    psql(url, "delete from public.derived_artifact")
+    limpa(url)
+    return fora
+
+
 # ─────────────────────────────────────────────────────────────────────────
 def main():
     url = os.environ.get("BANCO_DESCARTAVEL_URL", "")
@@ -656,6 +1008,31 @@ def main():
     print("-- E · a chave do FORWARD_IDENTITY_UNPROVEN")
     fora += parte_E(url)
 
+    # ── E AGORA O MUNDO DEPOIS DA FASE 10 ───────────────────────────────
+    # O protótipo entra AQUI, e não no arranque: as partes acima medem o que
+    # a fase 10 muda, e medi-las já depois dela mediria outra coisa.
+    print("\n-- o prototipo da fase 10 entra no banco descartavel")
+    limpa(url)
+    psql(url, "alter table public.raw_asset add constraint "
+              "raw_asset_storage_path_key unique (storage_path)")
+    with open(os.path.join(RAIZ, PROTOTIPO), encoding="utf-8") as f:
+        ok, _, e = psql(url, f.read())
+    _e(fora, "PROTOTIPO_APLICA", "SIM" if ok else motivo(e), "SIM")
+    _e(fora, "PROTOTIPO_TIROU_O_UNIQUE_DO_ENDERECO",
+       um(url, "select count(*) from pg_constraint where "
+               "conname='raw_asset_storage_path_key'"), 0)
+    _e(fora, "PROTOTIPO_INSTALOU_A_CHAVE_DA_TENTATIVA",
+       um(url, "select count(*) from pg_class where "
+               "relname='raw_tentativa_sem_prova_idx'"), 1)
+
+    for nome, f in (("I · o escritor canonico depois da fase 10", parte_I),
+                    ("I9/I10 · concorrencia sobre a mesma observacao",
+                     parte_I_concorrencia),
+                    ("J · morte a meio, e o retry", parte_J_crash),
+                    ("K · a derivacao continua por conteudo", parte_K)):
+        print("-- %s" % nome)
+        fora += f(url)
+
     print()
     for nome, detalhe in fora:
         print("  FAIL %-52s %s" % (nome, detalhe))
@@ -664,8 +1041,10 @@ def main():
         "" if not fora else " · reprovou: " + ", ".join(n for n, _ in fora)))
     # Estas duas linhas são o veredicto da preparação, e não mudam por ela ter
     # corrido bem: medir a lei não é instalá-la.
-    print("PHASE_10_INSTALADA=NAO — esta prova nao altera migration nenhuma.")
-    print("UNPROVEN_TEM_CHAVE_NO_ESQUEMA=NAO — e por isso o veredicto e NO.")
+    print("PHASE_10_INSTALADA_NO_LIVE=NAO — esta prova nao altera migration "
+          "nenhuma, e o prototipo so entrou no banco descartavel.")
+    print("UNPROVEN_TEM_CHAVE=K6 (run_id, source_id, storage_object_id, "
+          "sha256) NULLS NOT DISTINCT")
     return 0 if not fora else 1
 
 

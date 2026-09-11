@@ -2766,3 +2766,280 @@ READY_FOR_PHASE_10_LIVE           = NO
 A lei existe e está medida. O escritor ainda não a sabe falar, e instalar um
 esquema que o código não sabe servir seria trocar uma trava honesta por um
 silêncio.
+
+---
+
+## X · C-CLOSE-PHASE-10-BLOCKERS — O RUNTIME APRENDE A LEI
+
+A `C-PREP-PHASE-10` mediu a lei e parou em `READY_FOR_PHASE_10_IMPLEMENTATION = NO`,
+por seis bloqueios que nenhum `alter table` cura. Esta missão fecha-os. Continua
+sem tocar em produção:
+
+    LIVE_DB_DDL = 0 · LIVE_DB_WRITES = 0 · LIVE_COLLECTION = 0 · LIVE_IMPORT = 0
+    027_CREATED = NO · 027_LIVE = NO
+
+### X.1 · O censo, refeito e fechado
+
+Não se assumiu que eram seis. A varredura cobriu Python, SQL, YAML, heredocs,
+shell, workflows, SQL gerado, testes e provas.
+
+```
+DEPENDENTES_DO_UNIQUE_STORAGE_PATH_TOTAL = 17 ficheiros
+WRITERS_DEPENDENTES = 6      READERS_DEPENDENTES = 11
+BLOCKERS_FOUND_TOTAL = 9     (os 6 da preparação + 3 novos)
+```
+
+Os três que a preparação não tinha visto:
+
+1. **`guarda/portas_live.py`** — a porta de PRODUÇÃO tinha o mesmo
+   `objeto_em(storage_path)` com `linhas[0]`. A preparação mediu as portas de
+   prova e a de SQLite, e passou ao lado da que fala com o banco vivo.
+2. **`planear()` colapsava observações em Python.** O dicionário do plano era
+   indexado só pelo caminho: duas FONTES a observar o mesmo endereço davam UMA
+   entrada, e a segunda era contada como «relação sem byte novo». A mesma
+   doença do `unique`, mas em código — e portanto invisível a qualquer
+   migration.
+3. **O escritor carregava a trava física dentro de si.** `conferir_o_que_ja_existe`
+   devolvia `NEW_RUN_SAME_STORAGE_PATH` como **conflito**, e conflito PARA a
+   escrita. Com a fase 10 instalada, o escritor continuaria a recusar sozinho
+   o caso que ela existe para abrir.
+
+```
+UMA TRAVA DO ESQUEMA NAO SE REESCREVE EM PYTHON.
+QUEM SABE SE A LINHA CABE E O BANCO.
+```
+
+### X.2 · A porta do banco, partida em perguntas determinísticas
+
+`objeto_em(storage_path)` **saiu**, e o nome já dizia o erro: prometia um
+OBJETO e ia buscá-lo a `raw_asset`, que guarda OBSERVAÇÕES.
+
+| pergunta | onde | determinística porque |
+|---|---|---|
+| `copia_em(endereço)` | `storage_object` | `unique (storage_object.storage_path)` — e a fase 10 não lhe toca |
+| `observacao_identificada(run, fonte, doc, sha)` | `raw_asset` | índice parcial da fase 9 |
+| `tentativa_sem_prova(run, fonte, objeto, sha)` | `raw_asset` | índice da fase 10 |
+| `observacoes_em(endereço)` | `raw_asset` | devolve **lista**, sempre |
+
+As três implementações — Supabase, Postgres de prova, SQLite — foram mudadas
+juntas. Nenhuma delas voltou a escolher a primeira linha.
+
+### X.3 · A chave do `FORWARD_IDENTITY_UNPROVEN`, agora fechada
+
+A preparação aprovou `K2`/`K4`, ambas construídas sobre `storage_path`. A fase
+11 retira essa coluna de `raw_asset` — uma chave assim nasceria com dívida
+marcada. Entraram duas candidatas sobre o OBJETO, e dez cenários:
+
+```
+                                  S1 S2 S3 S4 S5 S6 S7 S9
+K1 (run, fonte, sha256)            1  2  1! 1! 2  1  2  1    REPROVADA
+K3 (fonte, sha256)                 1  1! 1! 1! 2  1  1! 1    REPROVADA
+K2 (run, fonte, endereço)          1  2  2  2  2  1  2  1    passa, morre na fase 11
+K4 (run, fonte, endereço, sha)     1  2  2  2  2  1  2  1    passa, morre na fase 11
+K5 (run, fonte, objeto)            1  2  2  2  2  1  2  2!   REPROVADA
+K6 (run, fonte, objeto, sha)       1  2  2  2  2  1  2  1    APROVADA
+```
+
+```
+UNPROVEN_KEY_FINAL = (run_id, source_id, storage_object_id, sha256)
+                     NULLS NOT DISTINCT
+                     where identity_state = 'FORWARD_IDENTITY_UNPROVEN'
+PHASE_11_COMPATIBLE = YES
+```
+
+`K5` reprova em `S9` e a razão é fina: uma observação **não preservada** não tem
+cópia, e `storage_object_id` fica nulo. Em Postgres dois nulos são distintos num
+índice único — a chave deixaria passar TODAS as tentativas não preservadas, em
+silêncio. `NULLS NOT DISTINCT` não é afinação: é o que faz a chave existir para
+essas linhas.
+
+### X.4 · A identidade não se reescreve — sete campos, e a regra que os escolhe
+
+```
+IDENTITY_IMMUTABLE_FIELDS = identity_state · source_id · document_key ·
+                            document_key_basis · run_id · sha256 ·
+                            storage_object_id
+```
+
+A regra cabe numa frase: **a afirmação de identidade, mais tudo o que as duas
+chaves de idempotência usam.** Nada mais, porque congelar por medo fecharia o
+que tem de mudar.
+
+E `storage_path` **não** está na lista. Essa ausência é a prova de coerência do
+desenho: ele é ENDEREÇO, e um endereço muda sem que o facto mude — se estivesse
+congelado, a fase 11 teria de o descongelar.
+
+```
+IDENTITY_REWRITE_CURRENTLY_POSSIBLE = YES   (medido: o UPDATE passava)
+IDENTITY_REWRITE_AFTER_FIX          = NO    (9 transições, todas recusadas)
+```
+
+O que continua a poder mudar, e foi medido a poder: `attempts`,
+`last_attempt_at`, `preserved`, `not_preserved_reason`, `source_url`,
+`captured_at`, `storage_path`.
+
+### X.5 · `attempts` e `last_attempt_at` ganham dono
+
+```
+ATTEMPTS_OWNER = guarda/preservar_coleta.py, e mais ninguem
+```
+
+O SQL do escritor passou a ser `update` **e depois** `insert ... where not
+exists`. O `update` vem primeiro de propósito: se a observação já existe,
+incrementa; se não existe, afeta zero linhas e o `insert` põe `attempts = 1`.
+Duas ordens, uma semântica, e nenhuma condição em Python a decidir qual correr.
+
+```
+LER-SOMAR-ESCREVER EM PYTHON PERDERIA INCREMENTOS.
+```
+
+`attempts = coalesce(attempts,0) + 1` acontece DENTRO do banco, debaixo do lock
+da linha: dois retries simultâneos serializam e os dois contam.
+
+E `where not exists` — em vez de um segundo `on conflict` — porque ele funciona
+**antes e depois** da fase 10. Não inventa trava nenhuma: quem arbitra a corrida
+entre duas sessões continua a ser um índice, e há sempre um.
+
+```
+HOJE      unique (raw_asset.storage_path)
+FASE 10   raw_identidade_forward_idx + raw_tentativa_sem_prova_idx
+```
+
+Em nenhum momento há zero travas — e é isso que permite ao escritor mudar
+**antes** da migration.
+
+### X.6 · O endereço deixa de ser fabricado a partir do conteúdo
+
+`coleta/ingresso.py` tinha um `or` de quatro pernas cuja última era o próprio
+`sha256`. Medido pelo código de produção, com dois ficheiros distintos de
+conteúdo igual e o mesmo nome: **um endereço só**, e a segunda publicação nunca
+chegava a existir.
+
+A escada passou a ser, da prova mais forte para a mais fraca:
+
+```
+1. o identificador que a FONTE deu                `media/731`
+2. a URL que esta casa PEDIU, sem o fragmento     `u<sha16 da url>`
+3. o proprio conteudo                             `<sha16 dos bytes>`
+```
+
+Oito casos, todos medidos pelo código real: duas publicações com id nativo,
+duas sem, a mesma repetida, querystring a distinguir documentos, só o fragmento
+a diferir, sem id e sem URL, id nativo `NAO SEI`, e mesmos bytes em URLs
+distintas. `8/8`.
+
+A querystring **fica**: `?id=731` e `?id=6321` são dois documentos na mesma
+fonte. Limpá-la não arrumaria nada — apagaria um facto.
+
+O degrau 3 continua a colapsar, e de propósito: sem identificador e sem URL não
+há **nenhuma** evidência de que sejam duas coisas.
+
+```
+STORAGE_ADDRESS_FALLBACK_BEFORE = sha16 do conteudo
+STORAGE_ADDRESS_FALLBACK_AFTER  = id nativo > URL pedida > sha16
+REAL_COLLISION_FIXED = YES
+DOCUMENT_ID_FABRICATED = NO   — o degrau 2 e ENDERECO, e nunca `DOCUMENT_KEY`
+```
+
+### X.7 · Os escritores antigos: aposentados, não bloqueados
+
+`OLD_WRITER_BUT_BLOCKED` não era um estado final. Cada um recebeu espécie.
+
+| caminho | espécie | porquê |
+|---|---|---|
+| `guarda/preservar_coleta.py` | **o escritor canónico** | sabe falar identidade |
+| `guarda/catalogo_importar.py --aplicar` | REMOVED | não há `SOURCE_ID` para dar |
+| `supabase/importacoes/ADAMA-ES-CATALOGO-…sql` | ARCHIVED AS DEAD | sai da cadeia |
+| `.github/workflows/supabase-raw-roundtrip.yml` | REMOVED | escrevia pré-026 |
+| `.github/workflows/supabase-fichas-adama.yml` | REMOVED | escrevia pré-026 |
+| `guarda/trava_do_escritor_antigo.sh` | REMOVED | sem porta para guardar |
+
+A razão do importador não é de calendário e está no próprio código: **`adama-website`
+é uma ORGANIZAÇÃO, não um código de fonte do atlas.** Sem `SOURCE_ID` real não há
+estado forward possível para aquelas linhas, e nunca houve. Medido contra um
+Postgres com a 026: o import falha na PRIMEIRA linha, em `identity_state` NOT
+NULL, antes de haver conflito para o `on conflict` resolver.
+
+E a trava teve de sair **com** ele. Dos três ficheiros da etapa `importacoes`,
+nenhum dos outros dois toca `raw_asset`. Mantida, ela deixaria de proteger o que
+quer que fosse e passaria a recusar TODA importação futura contra qualquer banco
+pós-026 — ou seja, contra o único banco que existe.
+
+```
+UMA TRAVA QUE SO TRAVA O QUE E LEGITIMO NAO E UMA TRAVA.
+ONE_OPERATIONAL_FORWARD_WRITER = YES
+```
+
+O teste que cobrava «cada caminho antigo chama a trava» foi virado do avesso:
+agora cobra que eles **não existem**, e que o inventário de quem sequer menciona
+`insert into raw_asset` está fechado em três ficheiros com espécie declarada —
+um que ESCREVE, um que GERA, um que LÊ.
+
+### X.8 · Os casos, medidos contra Postgres 16 descartável
+
+`provas/a_lei_da_fase_10.py` — `A_LEI_DA_FASE_10_DB_TESTED = PASS`. Aplica
+`001 + 022 + 025 + 026`, mede o mundo de hoje, **depois** aplica o protótipo e
+mede o mundo de amanhã com o escritor a sério.
+
+| caso | o que ficou provado |
+|---|---|
+| I1 | primeira observação: um objecto, uma observação, `attempts = 1` |
+| I2 | retry da mesma corrida: **o mesmo `raw_asset.id`**, `attempts = 2` |
+| I3 | corrida nova: observação nova, ids diferentes, **um só objecto** |
+| I4 | conteúdo novo do mesmo documento: duas observações, dois objectos |
+| I5 | publicações diferentes, mesmos bytes: não funde |
+| I6 | fontes diferentes, mesmo conteúdo: não funde |
+| I7 | retry sem prova: não duplica, e `attempts` sobe |
+| I8 | sem prova em corrida nova: observação nova |
+| I9 · I10 | duas sessões, mesma observação: uma linha, a segunda recusada |
+| I11 | objecto órfão reutilizado, observação nasce a apontar-lhe |
+| J1–J3 | morte a meio, retry, e metadados incompatíveis com nome próprio |
+| K | derivação por conteúdo, e a conta da casa continua a fechar |
+
+Montar `J3` ensinou mais do que ele mede: a primeira versão desligava a
+observação da cópia para poder mexer no `sha256` dela, e **o gatilho recusou** —
+`storage_object_id` é um dos sete campos congelados.
+
+```
+UMA OBSERVACAO NAO SE DESLIGA DA COPIA QUE ELA DIZ TER VISTO.
+```
+
+### X.9 · A derivação, dita em voz alta para ninguém a ler mal
+
+```
+DERIVED_IDENTITY = CONTENT_BASED
+```
+
+Duas observações dos mesmos bytes partilham o derivado, e o segundo `insert` é
+recusado por `derivacao_e_unica_por_regua`. Isso está certo. Medido também que a
+conta da casa é entre espécies comparáveis — **conteúdos** contra derivados, e
+não observações contra derivados:
+
+```
+K_CONTEUDOS_UNICOS = 1   K_DERIVADOS_PRESENTES = 1   K_PERDA_POR_CONTEUDO = 0
+K_A_CONTA_POR_OBSERVACAO_DARIA_PERDA_FALSA = 1
+```
+
+A última linha está lá de propósito: é a conta errada, escrita para que ninguém
+a faça por engano.
+
+### X.10 · Os leitores, com duas observações num objecto
+
+`tests/test_leitores_depois_da_fase_10.py` monta a bancada que só existe depois
+da fase 10 — um `storage_object`, duas `raw_asset` — e prova que nenhuma
+pergunta responde «a primeira». Dez casos, incluindo o que cobra que
+`objeto_em` não volta por outra porta.
+
+### X.11 · Veredicto
+
+```
+BLOCKERS_FOUND_TOTAL  = 9
+BLOCKERS_CLOSED_TOTAL = 9
+BLOCKERS_OPEN_TOTAL   = 0
+
+READY_FOR_PHASE_10_IMPLEMENTATION = YES
+READY_FOR_PHASE_10_LIVE           = NO
+027_CREATED = NO
+```
+
+O escritor sabe falar a lei. A migration que abre a porta é da missão seguinte.

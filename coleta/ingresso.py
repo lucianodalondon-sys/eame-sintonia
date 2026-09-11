@@ -186,9 +186,81 @@ def _corrida_completa(corrida: dict) -> dict:
     return fora
 
 
+# As confissoes que NAO identificam nada. Uma fonte que responde «NAO SEI» ao
+# identificador nativo nao deu identificador nenhum, e tratar a confissao como
+# discriminante poria a mesma palavra no endereco de tudo o que ela nao soube.
+_SENTINELAS = frozenset(("NAO SEI", "NAO_SEI", "NÃO SEI", "NAO_SE_APLICA",
+                         "UNKNOWN", "NOT_KNOWN"))
+
+
 def _slug(v: str) -> str:
     """`IT-T2-002` -> `it-t2-002`. Endereco, nunca identidade."""
     return "".join(c if c.isalnum() else "-" for c in str(v).lower()).strip("-") or "sem-fonte"
+
+
+def _sem_fragmento(url: str) -> str:
+    """A URL sem o `#pedaco`, e sem mais nada tirado.
+
+    O fragmento NUNCA chega ao servidor — ele e do browser. Duas URLs que so
+    diferem nele pediram o MESMO recurso, e trata-las como duas guardaria o
+    mesmo byte em dois enderecos.
+
+    ⚠️ E A QUERYSTRING FICA. A tentacao e limpa-la tambem — «parametros sao
+    ruido» — e ela esta errada nesta casa: `?id=731` e `?id=6321` sao dois
+    DOCUMENTOS na mesma fonte, medido nos 195 objectos italianos. Uma limpeza
+    que junta esses dois nao arruma nada: apaga um facto.
+    """
+    return str(url).split("#", 1)[0]
+
+
+def _discriminante_do_endereco(f: art.Artefato, item: dict) -> str:
+    """O que SEPARA duas publicacoes no endereco do armazem.
+
+    ⚠️ ISTO ERA UM `or` COM QUATRO PERNAS E A ULTIMA ERA O PROPRIO CONTEUDO:
+
+        nativo = SOURCE_NATIVE_ID or ID or id or f.SHA256[:16]
+
+    E a ultima perna colapsava factos. Medido pelo codigo de producao, com dois
+    ficheiros distintos, conteudo identico e o MESMO nome de base:
+
+        XX/…/0b5c068c31e225fe-0b5c068c31e225fe-FDS.pdf
+        XX/…/0b5c068c31e225fe-0b5c068c31e225fe-FDS.pdf     UM ENDERECO SO
+
+    Duas publicacoes espremidas numa. E como o caminho e unico em
+    `storage_object`, a segunda nunca chegava a existir.
+
+    A ESCADA, DA PROVA MAIS FORTE PARA A MAIS FRACA:
+
+        1. o identificador que a FONTE deu             `media/731`
+        2. a URL que esta casa PEDIU, sem o fragmento  `u<sha16 da url>`
+        3. o proprio conteudo                          `<sha16 dos bytes>`
+
+    O degrau 2 e um ENDERECO, e nunca uma identidade de documento: ele nao vira
+    `DOCUMENT_KEY`, nao entra em `identidade_da_observacao()` e nao promove
+    ninguem a `FORWARD_IDENTIFIED`. Duas ideias diferentes, e e por isso que
+    esta funcao vive aqui e nao la.
+
+        ENDERECO FISICO  !=  IDENTIDADE DO DOCUMENTO
+
+    A URL vai HASHADA e nao inteira: um caminho de armazem com uma querystring
+    dentro fica ilegivel e comprido, e o que se precisa dela e que SEPARE — nao
+    que se leia. O prefixo `u` diz de que degrau o discriminante veio, e isso
+    e legivel no proprio caminho.
+
+    E O DEGRAU 3 CONTINUA A COLAPSAR, DE PROPOSITO. Sem identificador e sem
+    URL nao ha NENHUMA evidencia de que sejam duas coisas — e inventar uma
+    seria fabricar a distincao em vez de a medir. Colapsar aqui e a resposta
+    honesta; o que era defeito era colapsar quando a evidencia existia.
+    """
+    for chave in ("SOURCE_NATIVE_ID", "ID", "id"):
+        v = item.get(chave)
+        if v and str(v).strip() and str(v).strip().upper() not in _SENTINELAS:
+            return str(v).strip()
+    url = item.get("SOURCE_URL") or f.SOURCE_URL
+    if url and str(url).strip() and str(url).strip().upper() not in _SENTINELAS:
+        return "u" + art.hashlib.sha256(
+            _sem_fragmento(url).encode("utf-8")).hexdigest()[:16]
+    return f.SHA256[:16]
 
 
 def para_o_dono_do_raw(f: art.Artefato, item: dict) -> dict:
@@ -212,8 +284,7 @@ def para_o_dono_do_raw(f: art.Artefato, item: dict) -> dict:
     identificador nativo, quando a fonte nao o deu, e o proprio sha — que e
     verdade sobre os bytes, e nao um nome escolhido por nos.
     """
-    nativo = (item.get("SOURCE_NATIVE_ID") or item.get("ID")
-              or item.get("id") or f.SHA256[:16])
+    nativo = _discriminante_do_endereco(f, item)
     nome = os.path.basename(f.STORAGE_LOCATION)
     return {
         "COUNTRY": f.COUNTRY_SCOPE if f.COUNTRY_SCOPE != art.NAO_SEI else "XX",

@@ -25,6 +25,7 @@ foi exatamente aí que a entrega anterior errou.
 """
 import hashlib
 import os
+import re
 import subprocess
 import unittest
 
@@ -150,43 +151,128 @@ class OMigradorNaoPulaCego(unittest.TestCase):
         self.assertIn('cat "$f"', antes)
         self.assertIn("insert into public.schema_migracao", antes)
 
-    def test_o_caminho_antigo_de_importacao_passa_pela_trava(self):
-        """O catálogo histórico escreve `raw_asset` sem identidade. Contra um
-        banco com a 026 ele é recusado — e recusar cedo, com o motivo, não é a
-        mesma coisa que rebentar a meio com um erro de constraint."""
-        self.assertIn("trava_do_escritor_antigo.sh", self.fonte)
+    def test_a_etapa_de_importacoes_nao_carrega_mais_uma_trava(self):
+        """A trava saiu, e saiu junto com o que ela guardava.
+
+        Ela existia por UM ficheiro — o catálogo ADAMA, com 138 `insert` em
+        `raw_asset` sem identidade — e esse ficheiro saiu da cadeia. Medido:
+        dos que restam, NENHUM toca `raw_asset`.
+
+        Deixá-la aqui seria pior do que inútil. Ela pergunta «este banco já
+        conhece a 026?» e recusa se sim — o que, sem nada antigo por trás,
+        recusaria TODA importação futura contra o único banco que existe.
+
+            UMA TRAVA QUE SO TRAVA O QUE E LEGITIMO NAO E UMA TRAVA.
+        """
+        self.assertNotIn("trava_do_escritor_antigo", self.fonte)
+        self.assertNotIn("ADAMA-ES-CATALOGO", self.fonte)
 
 
-class ATravaDoEscritorAntigoSoLe(unittest.TestCase):
-    """Ela recusa, e é só isso que faz."""
+class NenhumEscritorAntigoSobrou(unittest.TestCase):
+    """A trava foi retirada porque o que ela guardava deixou de existir.
 
-    def setUp(self):
-        with open(os.path.join(RAIZ, "guarda", "trava_do_escritor_antigo.sh"),
+    ⚠️ A VERSÃO ANTERIOR DESTE TESTE COBRAVA O OPOSTO: que cada caminho antigo
+    CHAMASSE `trava_do_escritor_antigo.sh` antes de escrever. Era o teste certo
+    para o estado errado — ele consagrava que os caminhos antigos continuavam
+    lá, atrás de um guarda.
+
+        UM CAMINHO BLOQUEADO AINDA E UM CAMINHO.
+        E UM GUARDA E UMA COISA QUE ALGUEM PODE TIRAR.
+
+    Agora a invariante é mais forte e não precisa de guarda nenhum: eles não
+    existem. E a razão não é de calendário — `adama-website` é uma ORGANIZAÇÃO,
+    não um código de fonte do atlas, e sem `SOURCE_ID` real não há estado
+    forward possível para aquelas linhas. Nunca houve.
+    """
+
+    APOSENTADOS = (("`.github`", "workflows", "supabase-raw-roundtrip.yml"),
+                   ("`.github`", "workflows", "supabase-fichas-adama.yml"),
+                   ("guarda", "trava_do_escritor_antigo.sh"))
+
+    def test_os_caminhos_antigos_nao_existem(self):
+        for caminho in (os.path.join(WORKFLOWS, "supabase-raw-roundtrip.yml"),
+                        os.path.join(WORKFLOWS, "supabase-fichas-adama.yml"),
+                        os.path.join(RAIZ, "guarda",
+                                     "trava_do_escritor_antigo.sh")):
+            self.assertFalse(os.path.exists(caminho), caminho)
+
+    def test_nenhum_workflow_chama_a_trava(self):
+        for nome in os.listdir(WORKFLOWS):
+            with open(os.path.join(WORKFLOWS, nome), encoding="utf-8") as f:
+                self.assertNotIn("trava_do_escritor_antigo",
+                                 sem_comentarios(f.read()), nome)
+
+    def test_o_importador_nao_aplica_mais(self):
+        with open(os.path.join(RAIZ, "guarda", "catalogo_importar.py"),
                   encoding="utf-8") as f:
-            self.corpo = "\n".join(l for l in f if not l.strip().startswith("#"))
+            corpo = f.read()
+        self.assertIn("APOSENTADO", corpo)
+        # E o que ele deixou de fazer: chamar `psql` sobre o SQL gerado.
+        self.assertNotIn("'-f', SQL_OUT", corpo)
 
-    def test_nao_escreve(self):
-        for verbo in ("insert into", "update ", "delete from", "drop ",
-                      "alter table", "create table"):
-            self.assertNotIn(verbo, self.corpo.lower(), verbo)
+    def test_a_cadeia_nao_importa_mais_o_catalogo_sem_identidade(self):
+        """O catálogo ADAMA sai da etapa `importacoes`.
 
-    def test_pergunta_pela_coluna_da_026(self):
-        self.assertIn("identity_state", self.corpo)
+        Medido contra um Postgres com a 026: ele falha na PRIMEIRA linha, em
+        `identity_state` NOT NULL. Mantê-lo na cadeia declarava uma capacidade
+        que não existe.
+        """
+        with open(os.path.join(RAIZ, "motor", "cadeia_canonica.sh"),
+                  encoding="utf-8") as f:
+            corpo = "\n".join(l for l in f if not l.strip().startswith("#"))
+        self.assertNotIn("ADAMA-ES-CATALOGO", corpo)
 
-    def test_nao_ecoa_a_url(self):
-        self.assertIn("sanitiza", self.corpo)
+    # O INVENTÁRIO, E NÃO UM `grep` COM ESPERANÇA. Três ficheiros de código
+    # operacional contêm o texto `insert into public.raw_asset`, e os três têm
+    # espécie declarada. Um quarto reprova este teste — que é o ponto.
+    #
+    #     ESCREVE    monta a linha E aplica-a a um banco
+    #     GERA       monta o texto e entrega-o a quem o leia
+    #     LE         reconhece o texto que outro montou
+    QUEM_FALA_DE_RAW_ASSET = {
+        # O ÚNICO ESCRITOR FORWARD. Sabe falar identidade, e é chamado por
+        # `coleta/ingresso.py::receber`.
+        "guarda/preservar_coleta.py": "ESCREVE",
+        # GERA SQL para o Git. `--aplicar` foi aposentado: não há `SOURCE_ID`
+        # real para aquelas linhas, e nunca houve.
+        "guarda/catalogo_importar.py": "GERA",
+        # LÊ o SQL que o escritor gerou, para simular `do nothing` a engolir
+        # linhas. Porta de memória em SQLite; não é caminho de produção.
+        "guarda/memoria_descartavel.py": "LE",
+    }
 
-    def test_todo_caminho_antigo_conhecido_a_chama(self):
-        """Três caminhos escrevem `raw_asset` no formato anterior à 026, e os
-        três têm de bater na trava antes de tentar."""
-        for caminho in (os.path.join(RAIZ, ".github", "workflows",
-                                     "supabase-raw-roundtrip.yml"),
-                        os.path.join(RAIZ, ".github", "workflows",
-                                     "supabase-fichas-adama.yml"),
-                        os.path.join(RAIZ, "guarda", "catalogo_importar.py")):
-            with open(caminho, encoding="utf-8") as f:
-                self.assertIn("trava_do_escritor_antigo", f.read(),
-                              os.path.basename(caminho))
+    def test_o_inventario_de_quem_fala_de_raw_asset_esta_fechado(self):
+        achados = {}
+        for pasta in ("guarda", "coleta", "admissao", "motor", "orquestrador"):
+            raiz = os.path.join(RAIZ, pasta)
+            if not os.path.isdir(raiz):
+                continue
+            for base, _, ficheiros in os.walk(raiz):
+                if "__pycache__" in base:
+                    continue
+                for nome in ficheiros:
+                    if not nome.endswith((".py", ".sh")):
+                        continue
+                    caminho = os.path.join(base, nome)
+                    with open(caminho, encoding="utf-8", errors="ignore") as f:
+                        corpo = sem_comentarios(f.read())
+                    if re.search(r"insert\s+into\s+(public\.)?raw_asset",
+                                 corpo, re.I):
+                        achados[os.path.relpath(caminho, RAIZ)] = True
+        self.assertEqual(sorted(achados),
+                         sorted(self.QUEM_FALA_DE_RAW_ASSET), sorted(achados))
+
+    def test_o_unico_que_ESCREVE_e_o_escritor_canonico(self):
+        escritores = [f for f, e in self.QUEM_FALA_DE_RAW_ASSET.items()
+                      if e == "ESCREVE"]
+        self.assertEqual(escritores, ["guarda/preservar_coleta.py"])
+
+    def test_o_gerador_nao_aplica(self):
+        """`catalogo_importar.py` GERA, e a diferença tem de estar no código."""
+        with open(os.path.join(RAIZ, "guarda", "catalogo_importar.py"),
+                  encoding="utf-8") as f:
+            corpo = sem_comentarios(f.read())
+        self.assertNotIn("'-f', SQL_OUT", corpo)
 
 
 class APortaOneShotFoiAposentada(unittest.TestCase):

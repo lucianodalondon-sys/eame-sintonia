@@ -96,6 +96,26 @@ class Banco(_pg.MemoriaPostgres):
         return self._valor(sql)
 
 
+def _a_unica_observacao_em(banco, caminho):
+    """A observação naquele endereço — **provando** que é uma só.
+
+    ⚠️ ISTO ERA `banco.objeto_em(caminho)`, e aquilo devolvia `linhas[0]`.
+    Numa prova com uma observação por endereço acertava sempre, e era
+    exactamente por isso que o defeito era invisível: o teste que devia
+    apanhá-lo tinha o mesmo hábito do código.
+
+    Aqui a lista vem inteira, e se vier com mais de uma a prova REBENTA em vez
+    de escolher. Ler «a primeira» é uma decisão, e uma decisão escondida numa
+    leitura não é uma leitura.
+    """
+    linhas = banco.observacoes_em(caminho)
+    if len(linhas) > 1:
+        raise AssertionError(
+            "%d observacoes em %s — esta prova conta com uma, e escolher a "
+            "primeira seria escolher ao acaso" % (len(linhas), caminho))
+    return linhas[0] if linhas else None
+
+
 def _sql(banco, nome):
     with open(os.path.join(RAIZ, "supabase", "migrations", nome),
               encoding="utf-8") as f:
@@ -614,7 +634,7 @@ def _casos_do_writer(banco):
     r = preservar(corrida, [art], armazem, lambda o: dados, memoria=banco,
                   terminou_em="2026-09-11T02:05:00Z")
     caminho = caminho_do_objeto(art)
-    linha = banco.objeto_em(caminho) or {}
+    linha = _a_unica_observacao_em(banco, caminho) or {}
 
     caso("B5B_writer_escreve_FORWARD_IDENTIFIED",
          r["RUN_STATE"] == "COMPLETE"
@@ -709,7 +729,7 @@ def _casos_do_writer(banco):
                         STARTED_AT="2026-09-14T02:00:00Z"),
                    [art_u], armazem, lambda o: dados_u, memoria=banco,
                    terminou_em="2026-09-14T02:05:00Z")
-    linha_u = banco.objeto_em(caminho_do_objeto(art_u)) or {}
+    linha_u = _a_unica_observacao_em(banco, caminho_do_objeto(art_u)) or {}
     caso("B5B_sem_DOCUMENT_ID_entra_como_UNPROVEN_e_a_chave_fica_NULL",
          r7["RUN_STATE"] == "COMPLETE"
          and linha_u.get("identity_state") == "FORWARD_IDENTITY_UNPROVEN"

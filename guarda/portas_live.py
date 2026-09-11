@@ -82,6 +82,21 @@ class ArmazemSupabase(Armazem):
         return self._pedir("GET", caminho).read()
 
 
+def _lit(v):
+    """Um valor como literal SQL. `None` vira `null`, e nunca a palavra 'None'.
+
+    ⚠️ ISTO NAO E DECORACAO. As chaves de identidade tem campos que PODEM ser
+    nulos — `document_key` na tentativa sem prova, `storage_object_id` numa
+    linha nao preservada. Interpolar `None` faria a consulta procurar a
+    STRING 'None', encontrar nada, e o escritor concluir que a observacao nao
+    existe. Um retry entraria outra vez, e a duplicata teria vindo de uma
+    conversao de tipo.
+    """
+    if v is None:
+        return "null"
+    return "'" + str(v).replace("'", "''") + "'"
+
+
 class MemoriaSupabase(MemoriaDoDerivado):
     """O Postgres de produção, falado por `psql`.
 
@@ -164,8 +179,15 @@ class MemoriaSupabase(MemoriaDoDerivado):
     # ⚠️ `objetos_da_corrida()` LIA SEM O `id`, e por isso a identidade da
     # observacao nao tinha por onde voltar desta porta: a coluna existe na
     # tabela desde a migration 001, e era a PROJECAO que a deixava de fora.
-    # `objeto_em()` continua com `COLS_OBJ` — ele responde «ja ha linha neste
-    # caminho?», e para essa pergunta o id nao acrescenta nada.
+    # `COLS_OBJ` sobrevive como projeccao base; quem lhe acrescenta `id` e
+    # `storage_object_id` e `COLS_OBS`, porque quem encontra uma linha pela
+    # chave precisa de poder dizer QUAL linha achou.
+    # A COPIA tem as colunas DELA, e `id` esta la porque e ele que a chave da
+    # tentativa sem prova usa. A OBSERVACAO traz `id` pela mesma razao: quem
+    # encontra uma linha pela chave precisa de poder dizer QUAL linha achou.
+    COLS_COPIA = ("id", "storage_path", "media_type", "bytes", "sha256")
+    COLS_OBS = ("id", "storage_object_id", "attempts") + COLS_OBJ
+
     COLS_OBJ_DA_CORRIDA = ("id",) + COLS_OBJ
     COLS_RAW = ("id", "run_id", "storage_path", "media_type", "bytes",
                 "sha256", "captured_at", "source_url",
@@ -185,12 +207,48 @@ class MemoriaSupabase(MemoriaDoDerivado):
                          % (self._select(self.COLS_RUN), run_id), self.COLS_RUN)
         return l[0] if l else None
 
-    def objeto_em(self, storage_path):
-        l = self._linhas(
-            "select %s from public.raw_asset where storage_path='%s'"
-            % (self._select(self.COLS_OBJ), storage_path.replace("'", "''")),
-            self.COLS_OBJ)
-        return l[0] if l else None
+    # ── AS TRES PERGUNTAS, CADA UMA COM A SUA CHAVE ─────────────────────
+    # `objeto_em(storage_path)` foi retirado: ele perguntava pela COPIA e
+    # respondia com a primeira OBSERVACAO do endereco. Com o endereco unico
+    # isso acertava por acidente; depois da fase 10 devolveria uma linha ao
+    # acaso com cara de determinismo.
+    def copia_em(self, storage_path):
+        linhas = self._linhas(
+            "select %s from public.storage_object where storage_path = '%s'"
+            % (self._select(self.COLS_COPIA), storage_path.replace("'", "''")),
+            self.COLS_COPIA)
+        return linhas[0] if linhas else None
+
+    def observacao_identificada(self, run_id, source_id, document_key, sha256):
+        linhas = self._linhas(
+            "select %s from public.raw_asset where identity_state = '%s'"
+            " and run_id = %s and source_id = %s and document_key = %s"
+            " and sha256 = %s"
+            % (self._select(self.COLS_OBS), "FORWARD_IDENTIFIED",
+               _lit(run_id), _lit(source_id), _lit(document_key),
+               _lit(sha256)), self.COLS_OBS)
+        return linhas[0] if linhas else None
+
+    def tentativa_sem_prova(self, run_id, source_id, storage_object_id, sha256):
+        # `is not distinct from`, e nao `=`: sem copia o id e nulo dos dois
+        # lados, e `null = null` nao e verdade. A linha nao preservada ficaria
+        # invisivel a propria chave que devia encontra-la.
+        linhas = self._linhas(
+            "select %s from public.raw_asset where identity_state = '%s'"
+            " and run_id = %s and source_id = %s"
+            " and storage_object_id is not distinct from %s and sha256 = %s"
+            % (self._select(self.COLS_OBS), "FORWARD_IDENTITY_UNPROVEN",
+               _lit(run_id), _lit(source_id), _lit(storage_object_id),
+               _lit(sha256)), self.COLS_OBS)
+        return linhas[0] if linhas else None
+
+    def observacoes_em(self, storage_path):
+        """TODAS. Devolve lista para que ninguem lhe chame uma linha."""
+        return self._linhas(
+            "select %s from public.raw_asset where storage_path = '%s'"
+            " order by id"
+            % (self._select(self.COLS_OBS), storage_path.replace("'", "''")),
+            self.COLS_OBS)
 
     def objetos_da_corrida(self, run_id):
         return self._linhas(

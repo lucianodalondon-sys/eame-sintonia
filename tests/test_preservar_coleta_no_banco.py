@@ -178,10 +178,25 @@ class OConflitoNaoEEngolido(CasoBase):
         r = self.correr([art], run=outra)
         self.assertEqual(r["PENDENCIA"], NEW_RUN_SAME_STORAGE_PATH)
         self.assertEqual(r["RUN_STATE"], "PARTIAL")
-        conflito = r["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"][0]
-        self.assertEqual(conflito["TIPO"], NEW_RUN_SAME_STORAGE_PATH)
-        self.assertEqual([d["CAMPO"] for d in conflito["DIVERGENCIAS"]],
-                         ["run_id"])
+        # ⚠️ E DEIXOU DE SER CONFLITO. Era o último nó do runtime: o escritor
+        # recusava a corrida nova por SUA CONTA, em Python, e continuaria a
+        # recusá-la depois de a fase 10 retirar a trava. O código levava a
+        # trava física dentro de si.
+        #
+        #     UMA TRAVA DO ESQUEMA NAO SE REESCREVE EM PYTHON.
+        #
+        # Agora é uma NOTA, a escrita é TENTADA, e quem recusa é o banco. A
+        # `PENDENCIA` continua a dizer o nome certo — porque o que mordeu foi
+        # mesmo a trava física, e não «falta escrever».
+        self.assertEqual(r["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"], [])
+        nota = r["JA_EXISTIA_NO_BANCO"][
+            "OBSERVACOES_NOVAS_EM_ENDERECO_OCUPADO"][0]
+        self.assertEqual(nota["TIPO"], NEW_RUN_SAME_STORAGE_PATH)
+        self.assertEqual(nota["CORRIDAS_QUE_JA_LA_ESTAO"], [CORRIDA["RUN_ID"]])
+        self.assertEqual(nota["OCUPANTES"], 1)
+        # E O BANCO FOI OUVIDO: a escrita foi tentada e ele recusou-a.
+        self.assertFalse(r["MEMORIA"]["APLICADA"])
+        self.assertIsNotNone(r["MEMORIA"]["ERRO"])
 
     def test_J_mesmo_run_id_com_outra_identidade_e_RUN_ID_CONFLICT(self):
         """A configuração da corrida é congelada (COL-LAW-211). Se ela mudar,
@@ -230,7 +245,16 @@ class OBancoGravaMenosDoQueSePediu(CasoBase):
 
         def aplicar_e_recusar_o_fecho(sql):
             estado["n"] += 1
-            if "update" in sql:
+            # ⚠️ ERA `if "update" in sql`, E ISSO DEIXOU DE SER O FECHO.
+            # O SQL de memória passou a trazer um `update` proprio — o que
+            # conta a tentativa — e a armadilha apanhava-o tambem: a escrita
+            # inteira era recusada, e o caso media a morte errada.
+            #
+            #     UM TESTE QUE APANHA A INSTRUCAO CERTA PELO VERBO
+            #     APANHA QUALQUER OUTRA QUE USE O MESMO VERBO.
+            #
+            # O fecho tem nome: e o `update` da CORRIDA.
+            if "update public.collection_run" in sql:
                 raise IOError("o banco recusou o fecho")
             original(sql)
 
@@ -268,7 +292,16 @@ class QuandoOProcessoMorre(CasoBase):
         original = self.banco.aplicar
 
         def recusar_o_fecho(sql):
-            if "update" in sql:
+            # ⚠️ ERA `if "update" in sql`, E ISSO DEIXOU DE SER O FECHO.
+            # O SQL de memória passou a trazer um `update` proprio — o que
+            # conta a tentativa — e a armadilha apanhava-o tambem: a escrita
+            # inteira era recusada, e o caso media a morte errada.
+            #
+            #     UM TESTE QUE APANHA A INSTRUCAO CERTA PELO VERBO
+            #     APANHA QUALQUER OUTRA QUE USE O MESMO VERBO.
+            #
+            # O fecho tem nome: e o `update` da CORRIDA.
+            if "update public.collection_run" in sql:
                 raise IOError("morreu antes de fechar")
             original(sql)
 

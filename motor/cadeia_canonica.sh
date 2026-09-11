@@ -162,13 +162,19 @@ case "$ETAPA" in
     done
     ;;
   importacoes)
-    # ── A TRAVA DO ESCRITOR ANTIGO, ANTES DE QUALQUER IMPORT ──────────
-    # O catalogo ADAMA traz 138 `insert` em `raw_asset` sem identidade. Contra
-    # um banco com a 026 eles sao recusados — e o `on conflict` NAO salva: o
-    # NOT NULL e cobrado ao formar a linha, antes de haver conflito para
-    # resolver. Recusar aqui e recusar com o motivo.
-    bash "$RAIZ/motor/../guarda/trava_do_escritor_antigo.sh" "cadeia_canonica importacoes" \
-      || { echo "IMPORTACOES=RECUSADAS pela trava do escritor antigo"; exit 1; }
+    # ── A TRAVA SAIU DAQUI, E COM ELA O QUE ELA GUARDAVA ──────────────
+    # Ela existia por UM ficheiro: o catalogo ADAMA, com 138 `insert` em
+    # `raw_asset` no formato anterior a 026. Esse ficheiro saiu desta lista —
+    # nao esta bloqueado, esta APOSENTADO, e a razao e medida: contra um banco
+    # com a 026 ele falha na PRIMEIRA linha, em `identity_state` NOT NULL,
+    # antes de haver conflito para o `on conflict` resolver.
+    #
+    # E A TRAVA TINHA DE SAIR COM ELE. Medido: dos tres ficheiros desta lista,
+    # NENHUM dos outros dois toca `raw_asset`. Mantida aqui, a trava deixaria
+    # de proteger fosse o que fosse e passaria a recusar TODA importacao futura
+    # contra qualquer banco pos-026 — ou seja, contra o unico banco que existe.
+    #
+    #     UMA TRAVA QUE SO TRAVA O QUE E LEGITIMO NAO E UMA TRAVA.
 
     # A ordem É a lei. Regulatório primeiro.
     #
@@ -178,7 +184,6 @@ case "$ETAPA" in
     # mas a regra da casa e uma ordem so, escrita num lugar so, e quem chega
     # depois entra no fim.
     for f in supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql \
-             supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql \
              supabase/importacoes/IT-LASTMILE-2026-09-02.sql; do
       # ── CONFERENCIA DE SINTAXE, ANTES DE TOCAR O BANCO ──────────────
       # O arquivo da last-mile tem 2,8 MB e 3.798 inserts gerados por

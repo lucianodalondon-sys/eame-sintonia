@@ -44,9 +44,7 @@
       ".github/workflows/security-check.yml",
       ".github/workflows/sintonia-scrap.yml",
       ".github/workflows/supabase-conexao.yml",
-      ".github/workflows/supabase-fichas-adama.yml",
       ".github/workflows/supabase-migrate.yml",
-      ".github/workflows/supabase-raw-roundtrip.yml",
       ".github/workflows/supabase-storage.yml",
       ".github/workflows/system-map-deploy-verify.yml",
       ".github/workflows/system-map.yml"
@@ -774,8 +772,7 @@
       "guarda/preservar_derivado.py",
       "guarda/social_guarda.py",
       "guarda/social_sessao.py",
-      "guarda/sql_conferir.py",
-      "guarda/trava_do_escritor_antigo.sh"
+      "guarda/sql_conferir.py"
     ],
     "handoff": [
       "handoff/S2A-R-RECONCILIACAO.md",
@@ -1140,6 +1137,7 @@
     "provas": [
       "provas/a_autoridade_da_fonte.py",
       "provas/a_fronteira_da_coleta.py",
+      "provas/a_lei_da_fase_10.py",
       "provas/a_rota_m2_atravessa.py",
       "provas/auditoria.py",
       "provas/auditoria_live.sh",
@@ -1298,6 +1296,7 @@
       "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql",
       "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",
       "supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql",
+      "supabase/ensaios/PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql",
       "supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql",
       "supabase/fixtures/es_calendario_mvp.sql",
       "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
@@ -1432,6 +1431,7 @@
       "tests/test_identidade_do_artefato.py",
       "tests/test_integracao_biblia.py",
       "tests/test_italia_na_porta_canonica.py",
+      "tests/test_leitores_depois_da_fase_10.py",
       "tests/test_lingua_unica.py",
       "tests/test_lugar_do_fato.py",
       "tests/test_m2_aresta_observada.py",
@@ -1860,9 +1860,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "1b1487f0184903770df358e5b03ce179ba2112cc",
-    "GENERATED_AT": "2026-09-10T22:35:49+00:00",
-    "SOURCE_TREE_FINGERPRINT": "69b2ab7713c9cc834a2568ccec2e6c3a272776bcbc4da7c2cfb3919c0a8ddd81"
+    "HEAD": "e35d9b15ed1405182cea4fcd6f06202604ab0812",
+    "GENERATED_AT": "2026-09-10T23:16:21+00:00",
+    "SOURCE_TREE_FINGERPRINT": "aad18ec5057ca41a850b35377bf94da2df0193385a242889ca9d830c02b8cbba"
   },
   "FAMILIES": [
     {
@@ -5958,7 +5958,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ESPANHA": 2,
+        "ESPANHA": 1,
         "ITALIA": 1
       },
       "pais": "TRANSVERSAL",
@@ -6851,18 +6851,14 @@
         ".github/workflows/auditoria-live.yml",
         ".github/workflows/banco-descartavel.yml",
         ".github/workflows/supabase-conexao.yml",
-        ".github/workflows/supabase-fichas-adama.yml",
         ".github/workflows/supabase-migrate.yml",
-        ".github/workflows/supabase-raw-roundtrip.yml",
         ".github/workflows/supabase-storage.yml"
       ],
-      "file_count": 7,
+      "file_count": 5,
       "status": "PENDING",
-      "status_reason": "este workflow manda rodar script do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
-        ".github/workflows/banco-descartavel.yml",
-        ".github/workflows/supabase-fichas-adama.yml",
-        ".github/workflows/supabase-raw-roundtrip.yml"
+        ".github/workflows/banco-descartavel.yml"
       ],
       "produces": [],
       "inbound": [
@@ -6871,7 +6867,6 @@
       ],
       "outbound": [
         "C-CADEIA-V21",
-        "C-DONO-DA-ESCRITA",
         "C-MEDICAO",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
@@ -8031,12 +8026,11 @@
       "files": [
         "guarda/memoria_descartavel.py",
         "guarda/portas_live.py",
-        "guarda/preservar_coleta.py",
-        "guarda/trava_do_escritor_antigo.sh"
+        "guarda/preservar_coleta.py"
       ],
-      "file_count": 4,
+      "file_count": 3,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "guarda/memoria_descartavel.py",
         "guarda/portas_live.py",
@@ -8044,12 +8038,10 @@
       ],
       "produces": [],
       "inbound": [
-        "C-CI-PERSIST",
         "C-DONO-DO-DERIVADO"
       ],
       "outbound": [
         "C-DONO-DO-DERIVADO",
-        "C-IMPORTAR",
         "C-INGRESSO",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
@@ -8072,11 +8064,12 @@
           "COLS_RUN",
           "IDENTIDADE_DA_CORRIDA",
           "IDENTIDADE_DO_OBJETO",
+          "IDENTIDADE_IMUTAVEL",
           "SENTINELAS"
         ],
-        "palavras": 72,
+        "palavras": 79,
         "por_lingua": {},
-        "sem_marca_de_lingua": 72,
+        "sem_marca_de_lingua": 79,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -9004,7 +8997,6 @@
       "produces": [],
       "inbound": [
         "C-CI-REGRESSAO",
-        "C-DONO-DA-ESCRITA",
         "C-FONTES-EU",
         "C-SUPABASE"
       ],
@@ -9027,7 +9019,7 @@
           "pasta": "data/normalized",
           "prova": {
             "file": "guarda/catalogo_importar.py",
-            "line": 627,
+            "line": 647,
             "snippet": "escreve em LINHAS_OUT"
           }
         },
@@ -9035,22 +9027,15 @@
           "pasta": "supabase/importacoes",
           "prova": {
             "file": "guarda/catalogo_importar.py",
-            "line": 637,
+            "line": 657,
             "snippet": "escreve em SQL_OUT"
           }
         }
       ],
       "destino": [
-        "SUPABASE",
         "GIT"
       ],
       "destino_prova": [
-        {
-          "onde": "SUPABASE",
-          "file": "guarda/catalogo_importar.py",
-          "line": 643,
-          "snippet": "db = (os.environ.get('SUPABASE_DB_URL') or '').strip()"
-        },
         {
           "onde": "GIT",
           "file": "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
@@ -9058,7 +9043,7 @@
           "snippet": "ficheiro versionado que esta peca escreve"
         }
       ],
-      "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 8240,
       "y": 1004
     },
@@ -9152,11 +9137,12 @@
         "papel": "NAO SEI",
         "listas": [
           "CORRIDA_PARA_O_RAW",
-          "DO_COLETOR"
+          "DO_COLETOR",
+          "_SENTINELAS"
         ],
-        "palavras": 20,
+        "palavras": 26,
         "por_lingua": {},
-        "sem_marca_de_lingua": 20,
+        "sem_marca_de_lingua": 26,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11764,6 +11750,7 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "provas/a_lei_da_fase_10.py",
         "provas/auditoria_live.sh",
         "provas/derived_artifact_no_postgres.py",
         "provas/objeto_e_observacao_no_postgres.py",
@@ -11777,7 +11764,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 12,
+      "file_count": 13,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -13903,6 +13890,7 @@
         "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql",
         "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",
         "supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql",
+        "supabase/ensaios/PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql",
         "supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql",
         "supabase/fixtures/es_calendario_mvp.sql",
         "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
@@ -13946,9 +13934,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 48,
+      "file_count": 49,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -15102,6 +15090,7 @@
         "tests/test_identidade_do_artefato.py",
         "tests/test_integracao_biblia.py",
         "tests/test_italia_na_porta_canonica.py",
+        "tests/test_leitores_depois_da_fase_10.py",
         "tests/test_lingua_unica.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_m2_aresta_observada.py",
@@ -15149,7 +15138,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 77,
+      "file_count": 78,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 10 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15280,6 +15269,7 @@
         "papel": "NAO SEI",
         "listas": [
           "ANTES_DO_B2",
+          "APOSENTADOS",
           "BINDINGS",
           "CAMINHOS_DE_INTELIGENCIA",
           "CAMPOS_DA_REGRA",
@@ -15299,6 +15289,7 @@
           "LINHA_BOA",
           "PROIBIDO",
           "PRONTO",
+          "QUEM_FALA_DE_RAW_ASSET",
           "ROTA_M2",
           "ROTULO_ITALIA",
           "SEIS",
@@ -15307,11 +15298,11 @@
           "SINAL_VENETO",
           "_GAVETA_DE"
         ],
-        "palavras": 395,
+        "palavras": 408,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 393,
+        "sem_marca_de_lingua": 406,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15334,7 +15325,7 @@
         {
           "onde": "SUPABASE",
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 711,
+          "line": 744,
           "snippet": "for proibido in (\"os.environ\", \"getenv\", \"SUPABASE_URL =\"):"
         },
         {
@@ -18778,7 +18769,7 @@
       "evidence": [
         {
           "file": "provas/objeto_e_observacao_no_postgres.py",
-          "line": 898,
+          "line": 918,
           "snippet": "[\"bash\", os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),"
         }
       ],
@@ -18842,7 +18833,7 @@
       "evidence": [
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 190,
+          "line": 195,
           "snippet": "if ! python3 \"$RAIZ/guarda/sql_conferir.py\" \"$RAIZ/$f\"; then"
         }
       ],
@@ -18860,7 +18851,7 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 99,
+          "line": 100,
           "snippet": "with open(os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),"
         }
       ],
@@ -20027,29 +20018,6 @@
     },
     {
       "from": "C-CI-PERSIST",
-      "to": "C-DONO-DA-ESCRITA",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar O dono canônico da escrita do bruto (OBSERVED). Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/supabase-fichas-adama.yml",
-          "line": 20,
-          "snippet": "run: bash guarda/trava_do_escritor_antigo.sh supabase-fichas-adama"
-        },
-        {
-          "file": ".github/workflows/supabase-raw-roundtrip.yml",
-          "line": 19,
-          "snippet": "run: bash guarda/trava_do_escritor_antigo.sh supabase-raw-roundtrip"
-        }
-      ],
-      "categoria": "CONTROL"
-    },
-    {
-      "from": "C-CI-PERSIST",
       "to": "C-MEDICAO",
       "type": "RUNS",
       "payload": "execucao",
@@ -20212,7 +20180,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_armazem_italiano.py",
@@ -20226,32 +20194,22 @@
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 183,
-          "snippet": "\"supabase-raw-roundtrip.yml\"),"
-        },
-        {
-          "file": "tests/test_porta_de_producao.py",
-          "line": 185,
-          "snippet": "\"supabase-fichas-adama.yml\"),"
-        },
-        {
-          "file": "tests/test_porta_de_producao.py",
-          "line": 253,
+          "line": 339,
           "snippet": "ESCRITORES = {\"supabase-migrate.yml\", \"supabase-fichas-adama.yml\","
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 254,
+          "line": 340,
           "snippet": "\"supabase-raw-roundtrip.yml\", \"supabase-storage.yml\","
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 255,
+          "line": 341,
           "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}"
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 270,
+          "line": 356,
           "snippet": "self.assertNotIn(\"auditoria-live.yml\", achados)"
         },
         {
@@ -20328,7 +20286,7 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 255,
+          "line": 341,
           "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}"
         }
       ],
@@ -21724,24 +21682,6 @@
     },
     {
       "from": "C-DONO-DA-ESCRITA",
-      "to": "C-IMPORTAR",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Levar o dado para o banco. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "guarda/catalogo_importar.py",
-          "line": 665,
-          "snippet": "['bash', os.path.join(ROOT, 'guarda', 'trava_do_escritor_antigo.sh'),"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-DONO-DA-ESCRITA",
       "to": "C-INGRESSO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21766,11 +21706,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
+          "file": "provas/a_lei_da_fase_10.py",
+          "line": 682,
+          "snippet": "from guarda.preservar_coleta import sha256 as _sha"
+        },
+        {
           "file": "provas/derived_artifact_no_postgres.py",
-          "line": 329,
+          "line": 349,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira"
         },
         {
@@ -21798,7 +21743,7 @@
       "evidence": [
         {
           "file": "provas/objeto_e_observacao_no_postgres.py",
-          "line": 722,
+          "line": 742,
           "snippet": "fonte_do_writer = open(os.path.join(RAIZ, \"guarda\", \"preservar_coleta.py\"),"
         }
       ],
@@ -21871,7 +21816,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
@@ -21882,6 +21827,16 @@
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 53,
           "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402"
+        },
+        {
+          "file": "tests/test_leitores_depois_da_fase_10.py",
+          "line": 37,
+          "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402"
+        },
+        {
+          "file": "tests/test_leitores_depois_da_fase_10.py",
+          "line": 38,
+          "snippet": "from guarda.preservar_coleta import Memoria  # noqa: E402"
         },
         {
           "file": "tests/test_m2_rota_forward.py",
@@ -21920,7 +21875,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 226,
+          "line": 244,
           "snippet": "from guarda.portas_live import MemoriaSupabase"
         }
       ],
@@ -21934,12 +21889,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 157,
-          "snippet": "self.assertIn(\"trava_do_escritor_antigo.sh\", self.fonte)"
+          "line": 235,
+          "snippet": "\"guarda/preservar_coleta.py\": \"ESCREVE\","
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 241,
+          "snippet": "\"guarda/memoria_descartavel.py\": \"LE\","
         },
         {
           "file": "tests/test_preservar_coleta.py",
@@ -21948,22 +21908,22 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 483,
+          "line": 516,
           "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 483,
+          "line": 516,
           "snippet": "if caminho.endswith((\"preservar_coleta.py\", \"memoria_descartavel.py\")):"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 336,
+          "line": 361,
           "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 336,
+          "line": 361,
           "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
         }
       ],
@@ -22022,7 +21982,7 @@
       "evidence": [
         {
           "file": "provas/derived_artifact_no_postgres.py",
-          "line": 330,
+          "line": 350,
           "snippet": "from guarda.preservar_derivado import ("
         }
       ],
@@ -22758,7 +22718,7 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 412,
+          "line": 445,
           "snippet": "with open(caminho, encoding=\"utf-8\") as f:"
         },
         {
@@ -23207,7 +23167,7 @@
       "evidence": [
         {
           "file": "guarda/catalogo_importar.py",
-          "line": 637,
+          "line": 657,
           "snippet": "with open(SQL_OUT, 'w', encoding='utf-8') as f:"
         }
       ],
@@ -23225,8 +23185,8 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 186,
-          "snippet": "os.path.join(RAIZ, \"guarda\", \"catalogo_importar.py\")):"
+          "line": 206,
+          "snippet": "with open(os.path.join(RAIZ, \"guarda\", \"catalogo_importar.py\"),"
         }
       ],
       "categoria": "PROOF"
@@ -23343,12 +23303,12 @@
       "evidence": [
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 494,
+          "line": 527,
           "snippet": "chamadores, [\"coleta/ingresso.py\"],"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 329,
+          "line": 354,
           "snippet": "self.assertNotIn(\"RAW_OBSERVATIONS\", _codigo(\"coleta/ingresso.py\"))"
         }
       ],
@@ -25071,7 +25031,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 292,
+          "line": 310,
           "snippet": "import orquestrador as orq"
         }
       ],
@@ -26578,7 +26538,7 @@
       "evidence": [
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 251,
+          "line": 269,
           "snippet": "import preservar_coleta_no_postgres as pg"
         }
       ],
@@ -26621,7 +26581,7 @@
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 510,
+          "line": 543,
           "snippet": "caminho = os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\")"
         }
       ],
@@ -27095,7 +27055,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 293,
+          "line": 311,
           "snippet": "from receitas import EXECUTORES"
         }
       ],
@@ -28721,21 +28681,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Cadeia canonica V2.1. Provado por 3 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Cadeia canonica V2.1. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 180,
+          "line": 186,
           "snippet": "for f in supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql \\"
         },
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 181,
-          "snippet": "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql \\"
-        },
-        {
-          "file": "motor/cadeia_canonica.sh",
-          "line": 182,
+          "line": 187,
           "snippet": "supabase/importacoes/IT-LASTMILE-2026-09-02.sql; do"
         }
       ],
@@ -28910,7 +28865,7 @@
       "evidence": [
         {
           "file": "guarda/catalogo_importar.py",
-          "line": 49,
+          "line": 55,
           "snippet": "'ADAMA-ES-CATALOGO-2026-08-30.sql')"
         }
       ],
@@ -28960,8 +28915,33 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 12 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 17 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_lei_da_fase_10.py",
+          "line": 61,
+          "snippet": "MIGRACOES = [\"001_fundacao_geografia_e_proveniencia.sql\","
+        },
+        {
+          "file": "provas/a_lei_da_fase_10.py",
+          "line": 62,
+          "snippet": "\"022_o_derivado_ganha_casa.sql\","
+        },
+        {
+          "file": "provas/a_lei_da_fase_10.py",
+          "line": 63,
+          "snippet": "\"025_o_objeto_ganha_casa.sql\","
+        },
+        {
+          "file": "provas/a_lei_da_fase_10.py",
+          "line": 64,
+          "snippet": "\"026_a_observacao_ganha_identidade.sql\"]"
+        },
+        {
+          "file": "provas/a_lei_da_fase_10.py",
+          "line": 71,
+          "snippet": "\"PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql\")"
+        },
         {
           "file": "provas/derived_artifact_no_postgres.py",
           "line": 46,
@@ -28996,31 +28976,6 @@
           "file": "provas/objeto_e_observacao_no_postgres.py",
           "line": 59,
           "snippet": "M025 = \"025_o_objeto_ganha_casa.sql\""
-        },
-        {
-          "file": "provas/objeto_e_observacao_no_postgres.py",
-          "line": 60,
-          "snippet": "M026 = \"026_a_observacao_ganha_identidade.sql\""
-        },
-        {
-          "file": "provas/paridade_da_lingua.py",
-          "line": 60,
-          "snippet": "return open(MIGRATION, encoding='utf-8').read()"
-        },
-        {
-          "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 50,
-          "snippet": "\"001_fundacao_geografia_e_proveniencia.sql\")"
-        },
-        {
-          "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 57,
-          "snippet": "\"025_o_objeto_ganha_casa.sql\")"
-        },
-        {
-          "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 59,
-          "snippet": "\"026_a_observacao_ganha_identidade.sql\")"
         }
       ],
       "categoria": "PROOF"
@@ -29289,7 +29244,7 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 214,
+          "line": 300,
           "snippet": "with open(os.path.join(WORKFLOWS, \"auditoria-live.yml\"),"
         }
       ],
@@ -29402,7 +29357,7 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 231,
+          "line": 317,
           "snippet": "with open(os.path.join(RAIZ, \"provas\", \"auditoria_live.sh\"),"
         }
       ],
@@ -30672,8 +30627,8 @@
     "components_pending": 92,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 624,
-    "edges_proven": 622,
+    "edges": 622,
+    "edges_proven": 620,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1412,
