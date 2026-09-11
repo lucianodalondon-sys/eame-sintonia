@@ -1297,3 +1297,103 @@ num PDF. Ficaram `AMBIGUO`, e não viraram número.
 
     UMA REGRA QUE SÓ ACERTA EM QUEM JÁ VIU NÃO É UMA REGRA:
     É A LISTA DOS DOCUMENTOS QUE JÁ TÍNHAMOS.
+
+---
+
+## D-0xx · A ADMISSION CONTINUA DONA DO PAR `(ITEM, UNIVERSO)` — e o mecanismo não chega
+
+```
+LAW_ID    nenhuma. NENHUMA LEI MUDOU. A Bíblia não subiu de versão.
+          COL-LAW-005, 042 e 043 saíram desta missão CONFIRMADAS, não emendadas.
+BEFORE    depois de a regra de T2 falhar, ficou no ar se a responsabilidade
+          estava na camada errada — se o par (item, universo) devia sair da
+          Admission para a Intelligence.
+AFTER     fica onde está. E separou-se, pela primeira vez por escrito, o DONO
+          da IMPLEMENTAÇÃO:
+
+              ADMISSION_REMAINS_UNIVERSE_OWNER              YES
+              THEMATIC_CLASSIFICATION_MOVES_TO_INTELLIGENCE NO
+              CURRENT_KEYWORD_IMPLEMENTATION_SUFFICIENT     NO
+              MULTI_UNIVERSE_REQUIRES_ARCH_CHANGE           NO  (provado)
+
+WHY       COL-LAW-005 já diz «ADMITIR decide se a evidência entra num universo»
+          e «JULGAR combina e interpreta depois» — são atos diferentes com donos
+          diferentes. COL-LAW-043 põe `UNIVERSO` entre os 11 campos que a
+          Intelligence RECEBE. Mover a decisão para lá faria o consumidor
+          produzir o que ele consome — e AGENTS.md já legisla contra isso, na
+          lista de leis que o mapa não pode violar: «consumidor não vira dono do
+          gerador».
+EVIDENCE  docs/operacao/ESTUDO-FRONTEIRA-ADMISSION-INTELLIGENCE-V1.md
+          seis sistemas, três famílias tecnológicas independentes:
+          Databricks Medallion · AWS data lake layers · OCCRP Aleph/FollowTheMoney
+          · OpenCTI · Azure AI Document Intelligence · Google Document AI.
+          Os seis põem a classificação semântica num COMPONENTE PRÓPRIO, entre a
+          validação e o consumo. Nenhum a põe dentro do leitor, e nenhum a põe
+          no consumidor. Zero conflitos com lei desta casa.
+IMPACT    runtime intacto · Admission intacta · T2 intacto · NEW_FAILURES = 0.
+VERSION   nenhuma.
+```
+
+**A ARMADILHA DE VOCABULÁRIO, porque ela quase respondeu à pergunta errada.** A
+pergunta chegou como *«o julgamento (item, universo)»*. Nesta casa `JULGAR` é
+outro ato: COL-LAW-005 separa `COLETAR` · `ADMITIR` · `JULGAR`. O par (item,
+universo) é **ADMITIR**. Traduzida para a língua da casa, a pergunta já tinha lei.
+
+    RESPONDER DEPRESSA A UMA PERGUNTA MAL TRADUZIDA
+    É MUDAR A ARQUITETURA POR CAUSA DE UMA PALAVRA.
+
+**O QUE O ESTUDO EXTERNO ACRESCENTOU, e não era o esperado.** Não mudou o dono —
+confirmou-o. O que ele trouxe de novo foi o **diagnóstico do mecanismo**: em
+Azure Document Intelligence, *«custom classifiers identify document types before
+invoking an extraction model»*; em Google Document AI, classificar vive numa
+categoria de processador separada da extração. Decidir «que tipo de documento é
+este» é, em toda a indústria madura, **um problema com dono, corpus e avaliação
+próprios** — nunca uma lista de palavras dentro do leitor.
+
+**O QUE SE RECUSOU.** Trocar o mecanismo agora. O estudo diz de que **família** a
+solução é (regra estruturada + abstenção + revisão, o `doubt` do Aleph casado com
+o `NAO_SEI` desta casa), não qual é. Construir um classificador exige corpus
+rotulado com held-out honesto, e a medição de T2 provou que esta árvore ainda não
+o tem.
+
+**MULTIPERTENÇA, PROVADA E NÃO SUPOSTA.** `decidir()` devolveu `SIM` para
+`(item, T3)` **e** `SIM` para `(item, T4)` no mesmo item, cada um com o seu motivo.
+O livro real já tem 44 itens com mais de uma decisão. Com a ressalva medida: o
+orquestrador pergunta **um** universo por corrida — o que é implementação, não
+arquitetura.
+
+---
+
+## D-0xx · DÚVIDA ESTRUTURAL → ESTUDO EXTERNO ANTES DE IMPLEMENTAR
+
+```
+LAW_ID    nenhuma lei da Bíblia. É REGRA DE MÉTODO, e método tem outro dono.
+OWNER     README.md — «dono canônico do método», confirmado: CLAUDE.md diz
+          «Método … continuam em README.md. Este arquivo não os repete.»
+BEFORE    a prática JÁ EXISTIA, mas só como acontecimento histórico: a Parte XVII
+          da Bíblia («AS LEIS ROUBADAS», emenda V1.1) registra um estudo de
+          sistemas maduros que gerou 30 leis. O que NÃO existia era a regra que
+          diz QUANDO fazer esse estudo outra vez.
+AFTER     README.md, secção «DÚVIDA ESTRUTURAL → ESTUDO EXTERNO ANTES DE
+          IMPLEMENTAR», irmã arquitetural do item 7 («trabalho visual consulta o
+          Design System antes de inventar»).
+WHY       porque um precedente não é uma regra. Ninguém repete um acontecimento
+          por ele ter acontecido.
+EVIDENCE  esta própria missão: o estudo confirmou o dono e diagnosticou o
+          mecanismo, com zero linhas de runtime alteradas.
+IMPACT    UMA regra, UM dono. NÃO foi duplicada em CLAUDE.md, AGENTS.md nem na
+          Bíblia — `grep` confirma ocorrência única.
+VERSION   nenhuma.
+```
+
+**O QUE SE RECUSOU CRIAR.** Uma lei `COL-LAW-5xx`. A Bíblia legisla sobre a
+**coleta**; isto legisla sobre **como se decide**, que é método — e método vive no
+README desde o início. Criar a lei teria dado à casa dois donos para «como se
+trabalha aqui», e a partir daí nenhum dos dois valeria.
+
+**A TRAVA CONTRA O ABUSO.** A regra diz onde PARAR: três sistemas maduros, duas
+famílias, e ou converge ou contradiz explicitamente. Sem isso, «estude antes» vira
+desculpa para não entregar.
+
+    UMA REGRA DE PESQUISA SEM LIMITE DE PESQUISA
+    É UMA LICENÇA PARA ADIAR.
