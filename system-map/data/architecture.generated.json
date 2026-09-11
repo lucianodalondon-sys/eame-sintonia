@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "e35d9b15ed1405182cea4fcd6f06202604ab0812",
-    "GENERATED_AT": "2026-09-10T23:16:21+00:00",
-    "SOURCE_TREE_FINGERPRINT": "aad18ec5057ca41a850b35377bf94da2df0193385a242889ca9d830c02b8cbba"
+    "HEAD": "ea9b0d8d578305d2b514fd42eb783edb6232cbf4",
+    "GENERATED_AT": "2026-09-11T00:40:59+00:00",
+    "SOURCE_TREE_FINGERPRINT": "044a3e22681f600904d89bf74010a4bb693ee64c246b290f8503a32e7b9c8dda"
   },
   "FILES": [
     {
@@ -66,7 +66,7 @@
     },
     {
       "path": ".github/workflows/banco-descartavel.yml",
-      "sha": "60ad1d539814ed7db01c9191c14204207eff8820",
+      "sha": "116e375cc371761f536e77bf8c77c9b18762f8c0",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -4490,7 +4490,7 @@
     },
     {
       "path": "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
-      "sha": "db3f129eeb0b7c6ea7e07aaded1c0d9e8066b8c6",
+      "sha": "5c85744aa266625e9f02fb2ee52613b04f8cad88",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7604,6 +7604,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/a_fase_10_entra_no_acervo.py",
+      "sha": "c658ef03c0b66b6e022b08d4f01265f07c9c54c6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/a_fronteira_da_coleta.py",
       "sha": "a09fc46739fdc32b86b62f0b84dbdf37ef52f913",
       "ext": ".py",
@@ -7612,7 +7619,7 @@
     },
     {
       "path": "provas/a_lei_da_fase_10.py",
-      "sha": "02e652651e4f8524f1cfa1c39e6fc56acc7888f3",
+      "sha": "8b0bd1d02554fc6d7cfed2064c7baa41e71c1264",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8654,13 +8661,6 @@
       "code_dir": false
     },
     {
-      "path": "supabase/ensaios/PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql",
-      "sha": "b4a1e5a009c34ae96946c8f6ead79aa16ad1b6eb",
-      "ext": ".sql",
-      "readable": false,
-      "code_dir": false
-    },
-    {
       "path": "supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql",
       "sha": "f17c4976e1453dfd0ee4026addfb3efd7bec5c28",
       "ext": ".sql",
@@ -8885,6 +8885,13 @@
       "code_dir": false
     },
     {
+      "path": "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
+      "sha": "239a48126809c288e1e103539753f42cc2e9dcae",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "supabase/tests/mutacao_cicatrizes.sql",
       "sha": "10b5bffa23e178553e7dad5b0baf7b1701d1ced7",
       "ext": ".sql",
@@ -9026,7 +9033,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "13e33cb44a5cba7f9633f6cd6e2f17ca564cbef0",
+      "sha": "ff8755d8748ddb243aca623906d1e1ab02a330c0",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9607,7 +9614,7 @@
     },
     {
       "path": "tests/test_migrations.py",
-      "sha": "ceef67c1049ea8bf33488a0ef62271a709178c3f",
+      "sha": "f6d3457ff85b14e4aed4ee4a5e957916147d6ed1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9945,8 +9952,30 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 261,
+        "line": 290,
         "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "provas/a_fase_10_entra_no_acervo.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 175,
+        "snippet": "run: python3 provas/a_fase_10_entra_no_acervo.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "provas/a_lei_da_fase_10.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 162,
+        "snippet": "run: python3 provas/a_lei_da_fase_10.py"
       }
     },
     {
@@ -9956,7 +9985,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 245,
+        "line": 274,
         "snippet": "python3 provas/a_rota_m2_atravessa.py"
       }
     },
@@ -9967,7 +9996,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 130,
+        "line": 134,
         "snippet": "python3 provas/derived_artifact_no_postgres.py"
       }
     },
@@ -9978,7 +10007,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 270,
+        "line": 299,
         "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
       }
     },
@@ -9989,7 +10018,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 236,
+        "line": 265,
         "snippet": "python3 provas/o_forward_conta_se.py"
       }
     },
@@ -10000,7 +10029,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 145,
+        "line": 149,
         "snippet": "python3 provas/objeto_e_observacao_no_postgres.py"
       }
     },
@@ -10011,7 +10040,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 117,
+        "line": 121,
         "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
       }
     },
@@ -10022,7 +10051,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 210,
+        "line": 239,
         "snippet": "python3 provas/rastro_no_postgres.py"
       }
     },
@@ -10033,7 +10062,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 186,
+        "line": 215,
         "snippet": "python3 provas/social_persistencia_no_postgres.py"
       }
     },
@@ -10044,7 +10073,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 154,
+        "line": 183,
         "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
       }
     },
@@ -24646,6 +24675,61 @@
       }
     },
     {
+      "from_file": "provas/a_fase_10_entra_no_acervo.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_fase_10_entra_no_acervo.py",
+        "line": 504,
+        "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256"
+      }
+    },
+    {
+      "from_file": "provas/a_fase_10_entra_no_acervo.py",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_fase_10_entra_no_acervo.py",
+        "line": 64,
+        "snippet": "CADEIA = os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\")"
+      }
+    },
+    {
+      "from_file": "provas/a_fase_10_entra_no_acervo.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_fase_10_entra_no_acervo.py",
+        "line": 58,
+        "snippet": "\"prova_pg\", os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\"))"
+      }
+    },
+    {
+      "from_file": "provas/a_fase_10_entra_no_acervo.py",
+      "to_file": "supabase/migrations/026_a_observacao_ganha_identidade.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_fase_10_entra_no_acervo.py",
+        "line": 179,
+        "snippet": "ok, e = ficheiro(url, os.path.join(MIGRACOES, \"026_a_observacao_ganha_identidade.sql\"))"
+      }
+    },
+    {
+      "from_file": "provas/a_fase_10_entra_no_acervo.py",
+      "to_file": "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_fase_10_entra_no_acervo.py",
+        "line": 62,
+        "snippet": "M027 = \"027_a_observacao_deixa_de_ser_o_endereco.sql\""
+      }
+    },
+    {
       "from_file": "provas/a_fronteira_da_coleta.py",
       "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
       "type": "READS",
@@ -24707,7 +24791,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/a_lei_da_fase_10.py",
-        "line": 682,
+        "line": 689,
         "snippet": "from guarda.preservar_coleta import sha256 as _sha"
       }
     },
@@ -24720,17 +24804,6 @@
         "file": "provas/a_lei_da_fase_10.py",
         "line": 50,
         "snippet": "\"prova_pg\", os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\"))"
-      }
-    },
-    {
-      "from_file": "provas/a_lei_da_fase_10.py",
-      "to_file": "supabase/ensaios/PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "provas/a_lei_da_fase_10.py",
-        "line": 71,
-        "snippet": "\"PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql\")"
       }
     },
     {
@@ -24775,6 +24848,17 @@
         "file": "provas/a_lei_da_fase_10.py",
         "line": 64,
         "snippet": "\"026_a_observacao_ganha_identidade.sql\"]"
+      }
+    },
+    {
+      "from_file": "provas/a_lei_da_fase_10.py",
+      "to_file": "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_lei_da_fase_10.py",
+        "line": 78,
+        "snippet": "\"027_a_observacao_deixa_de_ser_o_endereco.sql\")"
       }
     },
     {
@@ -31395,7 +31479,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_migrations.py",
-        "line": 293,
+        "line": 432,
         "snippet": "with open(caminho, encoding='utf-8') as f:"
       }
     },
@@ -34468,6 +34552,13 @@
         "constante": "OUT"
       }
     ],
+    "provas/a_fase_10_entra_no_acervo.py": [
+      {
+        "pasta": "supabase/migrations",
+        "line": 373,
+        "constante": "alvo"
+      }
+    ],
     "provas/o_mapa_nao_mente.py": [
       {
         "pasta": "system-map",
@@ -34601,11 +34692,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1412,
-    "files_readable": 528,
-    "files_code_dir": 575,
-    "file_edges": 2205,
-    "escritas_em_pasta": 66,
+    "files_tracked": 1413,
+    "files_readable": 529,
+    "files_code_dir": 576,
+    "file_edges": 2212,
+    "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

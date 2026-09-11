@@ -3059,3 +3059,166 @@ READY_FOR_PHASE_10_LIVE           = NO
 ```
 
 O escritor sabe falar a lei. A migration que abre a porta é da missão seguinte.
+
+---
+
+## Y · C-IMPL-PHASE-10 — A LEI VIRA MIGRATION
+
+A `C-PREP-PHASE-10` mediu a lei. A `C-CLOSE-PHASE-10-BLOCKERS` ensinou-a ao
+runtime. Esta escreve-a em SQL versionado — e não a aplica em lado nenhum.
+
+```
+LIVE_DB_DDL = 0 · LIVE_DB_WRITES = 0 · LIVE_COLLECTION = 0 · LIVE_IMPORT = 0
+PHASE10_LIVE = NO
+```
+
+### Y.0 · O estado, medido antes de escrever
+
+```
+CURRENT_BRANCH = claude/raw-observation-identity-3jbwco
+INITIAL_HEAD   = ea9b0d8d578305d2b514fd42eb783edb6232cbf4   (== remoto, sem drift)
+WORKTREE       = limpa, uma só
+NEXT_MIGRATION_NUMBER      = 027   (maior em 104 branches remotas: 026)
+LIVE_LAST_APPLIED_MIGRATION = 026  (auditoria 34548511070, MIGRATIONS_PENDENTES=nenhuma)
+```
+
+### Y.1 · O protótipo foi aposentado no mesmo movimento
+
+`supabase/ensaios/PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql` existia porque
+a fase 10 era lei sem migration. Com a `027` escrita passariam a existir **dois**
+ficheiros a dizer a mesma lei.
+
+```
+UMA LEI EM DOIS SITIOS DIVERGE,
+E A PARTIR DAI NENHUMA DAS DUAS VALE.
+```
+
+Saiu. `provas/a_lei_da_fase_10.py` deixou de aplicar o protótipo e passou a
+aplicar a **migration a sério** — o que também torna aquela prova mais forte do
+que era: ela mede agora o ficheiro que vai para produção.
+
+### Y.2 · A migration
+
+```
+MIGRATION_FILE   = supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql
+MIGRATION_SHA256 = 67c8fa932d66afad2852fb4a10e903267cb31638742a3abfad1f2cb855ac9163
+```
+
+Três movimentos, uma transacção:
+
+| fase | o quê | porquê |
+|---|---|---|
+| 10a | `drop constraint raw_asset_storage_path_key` | o endereço deixa de ser identidade da observação |
+| 10b | `raw_tentativa_sem_prova_idx`, parcial, `nulls not distinct` | sem isto, 10a abriria um buraco em vez de uma porta |
+| 10c | gatilho que congela sete campos | a afirmação de identidade não se reescreve |
+
+E o que ela **não** faz: retirar a coluna `storage_path`. Isso é a fase 11, e a
+chave de 10b foi escolhida sobre `storage_object_id` exactamente para que essa
+fase não tenha de a desfazer.
+
+### Y.3 · A passagem, e não só a lei
+
+`provas/a_fase_10_entra_no_acervo.py` — `A_FASE_10_ENTRA_NO_ACERVO = PASS`.
+
+A fixture tem a **forma** do vivo: 252 observações legadas, `id` esparsos até
+757, corte da fase 8 instalado, 252 cópias ligadas uma a uma, um derivado com
+chave estrangeira composta, e o livro-razão já a registar `001`–`026`. O
+aplicador vê o que veria em produção: **uma** migration pendente.
+
+```
+AS_ANTERIORES_FORAM_SALTADAS_COM_HASH_A_BATER = 25
+A_027_FOI_APLICADA          = MIGRATION_027=PASS
+NENHUMA_OUTRA_FOI_APLICADA  = 1
+NENHUMA_FOI_PULADA          = 26
+LEDGER_TEM_A_027            = APLICADA
+LEDGER_GUARDOU_O_SHA        = 67c8fa93…  (igual ao do ficheiro)
+```
+
+E as catorze medidas do acervo, ANTES e DEPOIS, todas idênticas: contagens,
+`md5` do conjunto de ids, `md5` do conjunto de shas, `md5` dos caminhos, `md5`
+das ligações observação→cópia, legado, forward, derivados e as ligações deles,
+órfãos e divergentes.
+
+```
+MIGRATION SO PROVADA EM BANCO NOVO E MIGRATION POR PROVAR.
+```
+
+### Y.4 · A falha a meio
+
+Uma cópia da `027` com um erro deliberado no fim, pela **mesma cadeia**, numa
+raiz temporária — porque pôr um ficheiro estragado na pasta a sério seria
+encenar a falha no sítio onde ela não pode acontecer.
+
+```
+A_CADEIA_REPROVOU                      = SIM · MIGRATION_027=FAIL
+PARTIAL_PHASE10_AFTER_FAILED_MIGRATION = 0
+O_UNIQUE_DO_ENDERECO_CONTINUA_LA       = 1
+O_LIVRO_RAZAO_NAO_REGISTOU_A_027       = 0
+A_027_BOA_ENTRA_A_SEGUIR_SEM_LIMPEZA   = MIGRATION_027=PASS
+```
+
+### Y.5 · A janela da transição
+
+O ponto crítico não é o esquema novo nem o writer novo — é o **intervalo** entre
+os dois. Medido nos dois sentidos:
+
+| | esquema velho | esquema novo |
+|---|---|---|
+| **writer novo** | `E1` · a 2ª corrida não entra, `PARTIAL`, `NEW_RUN_SAME_STORAGE_PATH`, erro do banco guardado | `E3`/`E4` · entra, 1 objecto, 2 ids; o retry não duplica e conta a tentativa |
+| **writer antigo** | (era o mundo de antes) | `E2` · falha ALTO, e a **planear**: `no unique or exclusion constraint` |
+
+Não há quadrante em que a escrita não aconteça e ninguém saiba.
+
+```
+SILENCIO INCORRECTO E O UNICO RESULTADO INACEITAVEL.
+```
+
+Mais: `E5` a tentativa sem cópia continua travada (`storage_object_id` nulo dos
+dois lados), `E6` dois documentos com o mesmo `sha256` continuam dois,
+`E7`/`E8` duas sessões simultâneas nas duas famílias dão uma linha e uma recusa.
+
+### Y.6 · Imutabilidade, no banco já migrado
+
+```
+IDENTITY_MUTATIONS_REJECTED   = 10/10
+OPERATIONAL_MUTATIONS_ALLOWED = 6/6
+```
+
+Entre as dez recusadas está `desligar storage_object_id`, que não é óbvia: uma
+observação não se desliga da cópia que ela diz ter visto. Entre as seis
+permitidas está `storage_path`, e essa ausência da lista de congelados é a prova
+de coerência do desenho — a fase 11 não vai ter de descongelar nada.
+
+### Y.7 · O ratchet que faltava
+
+O caso `test_unique_com_coluna_nulavel_usa_nulls_not_distinct` varria blocos
+`create table`. A fase 10 não trouxe uma coluna — trouxe um `create unique
+index`, e a lei era a mesma.
+
+```
+UMA LEI QUE SO SE COBRA NUM DOS SITIOS ONDE ELA VALE
+E UMA LEI COM UM BURACO DO TAMANHO DO OUTRO SITIO.
+```
+
+O caso novo varre os índices. Ele encontrou **três** casos antigos, e dois deles
+são legítimos por razões diferentes: dois índices de `origem` cujo predicado já
+exclui o NULL (derivável, tratado em código), e o índice forward da `026`, cuja
+não-nulidade vem de duas travas noutra migration (não derivável, e por isso uma
+isenção **nomeada**). E há um caso que confere que essas duas travas continuam
+a existir — uma isenção cuja justificação some deixa de valer.
+
+Os dois ratchets foram testados por mutação: tirar `nulls not distinct` da `027`
+reprova; construir a chave sobre `storage_path` reprova.
+
+### Y.8 · Veredicto
+
+```
+READY_FOR_PHASE_10_LIVE = YES
+```
+
+Significa exactamente uma coisa: **a migration está pronta para ser aplicada**.
+Não foi. O livro-razão do banco canónico continua a terminar na `026`, e a
+próxima auditoria vai passar a dizer `MIGRATIONS_PENDENTES= 027` — que é a
+frase certa para o estado certo.
+
+A aplicação é a `C-LIVE-PHASE-10`, com autorização própria.

@@ -40,6 +40,10 @@ on:
       - 'supabase/migrations/024_*.sql'
       - 'supabase/migrations/025_*.sql'
       - 'provas/objeto_e_observacao_no_postgres.py'
+      - 'provas/a_lei_da_fase_10.py'
+      - 'provas/a_fase_10_entra_no_acervo.py'
+      - 'supabase/migrations/026_*.sql'
+      - 'supabase/migrations/027_*.sql'
       - 'medidas/rastro_da_coleta.py'
       - 'provas/rastro_no_postgres.py'
       - 'provas/social_persistencia_no_postgres.py'
@@ -146,6 +150,31 @@ jobs:
         env:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/objeto
+
+      # ── A FASE 10, NAS DUAS PERGUNTAS QUE ELA TEM ──────────────────────
+      # A LEI: o que o esquema novo PERMITE — a corrida nova que reencontra o
+      # mesmo documento, a chave da tentativa sem prova, a identidade que nao
+      # se reescreve, e o escritor canonico a atravessar tudo isso.
+      #
+      # Corre no banco `descartavel`, que a esta altura ja tem schema de outras
+      # provas: a primeira coisa que ela faz e deita-lo fora e reconstruir.
+      - name: 2b3 · a lei da fase 10, medida contra a migration 027
+        run: python3 provas/a_lei_da_fase_10.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # A PASSAGEM: o que acontece ao acervo QUE JA LA ESTAVA quando a 027
+      # chega. Sao perguntas diferentes, e uma migration pode responder bem a
+      # primeira e mal a segunda.
+      #
+      #     MIGRATION SO PROVADA EM BANCO NOVO E MIGRATION POR PROVAR.
+      #
+      # Aplica pela cadeia canonica, sobre uma fixture com a FORMA do vivo, e
+      # encena uma falha a meio numa raiz temporaria para medir o que sobrou.
+      - name: 2b4 · a fase 10 entra num acervo que ja existe
+        run: python3 provas/a_fase_10_entra_no_acervo.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
 
       # SKIP CEGO E PROIBIDO. Reproduz o defeito antigo e prova o conserto:
       # migration aplicada e depois editada tem de fazer o aplicador falhar

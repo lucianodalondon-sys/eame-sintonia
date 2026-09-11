@@ -135,6 +135,32 @@ class TestMigrationsCoerentes(unittest.TestCase):
             with self.subTest(tabela=tabela):
                 self.assertIn('rule_version', bloco, f'{tabela} sem rule_version')
 
+    def test_a_fase_10_retira_a_identidade_do_endereco(self):
+        """A `027` faz as três coisas, e NÃO faz a quarta.
+
+        A quarta é retirar a COLUNA `storage_path`, que é a fase 11. Uma
+        migration que fizesse as duas fases de uma vez seria impossível de
+        reverter por metades — e a metade que interessa reverter é sempre a
+        última.
+        """
+        f = [x for x in self.arqs if x.startswith('027_')]
+        self.assertEqual(len(f), 1, 'a fase 10 tem de ser UMA migration')
+        s = open(os.path.join(MIG, f[0]), encoding='utf-8').read().lower()
+        self.assertIn('drop constraint if exists raw_asset_storage_path_key', s)
+        self.assertIn('raw_tentativa_sem_prova_idx', s)
+        self.assertIn('nulls not distinct', s)
+        self.assertIn('storage_object_id', s)
+        self.assertIn('a_identidade_da_observacao_nao_se_reescreve', s)
+        # A FASE 11 NAO ENTRA. `drop column storage_path` em qualquer forma.
+        self.assertNotIn('drop column storage_path', s)
+        self.assertNotIn('drop column if exists storage_path', s)
+        # E a chave da tentativa NAO se constroi sobre o endereco: se o fizesse
+        # passaria hoje e teria de ser desfeita na fase 11.
+        i = s.index('raw_tentativa_sem_prova_idx')
+        corpo = s[i:s.index(';', i)]
+        self.assertNotIn('storage_path', corpo,
+                         'a chave da tentativa nao pode depender do endereco')
+
     def test_nenhuma_migration_foi_executada(self):
         """Esta missao PROPOE. Se aparecer codigo de conexao aqui, alguem executou."""
         # ⚠️ AS DUAS GRAFIAS VALEM, e nao por preguica.
@@ -214,6 +240,119 @@ class TestLicoesDoBrasilNoSchema(unittest.TestCase):
                         self.assertIn('NULLS NOT DISTINCT', trecho,
                                       f'{tabela}: chave ({u}) tem coluna nulável '
                                       f'{cols & nulaveis} e destranca com NULL')
+
+    # AS ÚNICAS ISENÇÕES, CADA UMA COM A SUA RAZÃO ESCRITA.
+    #
+    # Uma isenção existe quando o índice NÃO PODE ver um NULL naquela coluna —
+    # e aí `nulls not distinct` não protegeria nada, protegeria o vazio.
+    #
+    #     1. o predicado exclui o NULL         `where col is not null`
+    #        derivável do próprio índice, e tratada em código.
+    #
+    #     2. um CHECK noutra migration garante o NOT NULL sob o predicado
+    #        NÃO derivável de uma varredura de texto, e por isso nomeada aqui —
+    #        com a trava que a justifica, que este mesmo caso confere que
+    #        existe. Uma isenção cuja justificação some deixa de valer.
+    ISENTOS = {
+        "raw_identidade_forward_idx": (
+            ("forward_identificado_exige_identidade",
+             "fonte_real_em_qualquer_estado_forward"),
+            "sob `identity_state = FORWARD_IDENTIFIED` as duas travas da 026 "
+            "exigem `document_key` e `source_id` reais — nao so nao nulos: "
+            "nao vazios e nao sentinela. O indice nunca ve um NULL ali."),
+    }
+
+    def test_indice_unico_com_coluna_nulavel_usa_nulls_not_distinct(self):
+        """A MESMA lei do caso acima, para os índices que nascem FORA do
+        `create table`.
+
+        ⚠️ O caso anterior varre blocos `create table` — e a fase 10 não trouxe
+        uma coluna, trouxe um `create unique index`. A lei era a mesma e a
+        varredura não chegava lá: uma chave parcial sobre `storage_object_id`,
+        que é anulável, teria passado sem `nulls not distinct` e destrancado
+        sozinha para cada observação NÃO preservada.
+
+            UMA LEI QUE SO SE COBRA NUM DOS SITIOS ONDE ELA VALE
+            E UMA LEI COM UM BURACO DO TAMANHO DO OUTRO SITIO.
+
+        As colunas anuláveis são lidas das próprias migrations, e não de uma
+        lista escrita à mão: uma lista envelheceria em silêncio.
+        """
+        nulaveis = self._colunas_nulaveis()
+        achou, isentados = 0, 0
+        for nome, tabela, cols, trecho in self._indices_unicos():
+            alvo = cols & nulaveis.get(tabela, set())
+            # ISENÇÃO 1 · o predicado exclui o NULL, e isso lê-se do índice.
+            alvo = {c for c in alvo
+                    if not re.search(r'\b%s\s+is\s+not\s+null\b' % re.escape(c),
+                                     trecho, re.I)}
+            if not alvo:
+                continue
+            if nome in self.ISENTOS:
+                isentados += 1
+                continue
+            achou += 1
+            with self.subTest(indice=nome, chave=", ".join(sorted(cols))):
+                self.assertIn("nulls not distinct", trecho.lower(),
+                              f"{nome}: coluna nulavel {sorted(alvo)} e "
+                              f"destranca com NULL")
+        # E o caso tem de ter mesmo olhado para alguma coisa. Um `for` que não
+        # itera passa sempre, e passaria calado se a varredura se partisse.
+        self.assertGreater(achou + isentados, 0,
+                           "nenhum indice unico com coluna nulavel foi "
+                           "examinado — a varredura partiu-se")
+
+    def test_toda_isencao_do_nulls_not_distinct_tem_a_trava_que_a_justifica(self):
+        """Uma isenção é uma dívida, e esta paga-se sozinha.
+
+        A isenção do índice forward apoia-se em duas travas da `026`. Se
+        alguém as retirar, a isenção deixa de ter fundamento — e é ESTE caso
+        que reprova, e não o índice a destrancar em produção meses depois.
+
+            UMA LISTA DE EXCECOES QUE NINGUEM CONFERE
+            E UMA PORTA DAS TRASEIRAS COM UM COMENTARIO BONITO POR CIMA.
+        """
+        nomes = {n for n, _, _, _ in self._indices_unicos()}
+        for indice, (travas, porque) in self.ISENTOS.items():
+            with self.subTest(indice=indice):
+                self.assertIn(indice, nomes,
+                              "isencao para um indice que ja nao existe")
+                self.assertTrue(porque.strip(), "isencao sem razao escrita")
+                for trava in travas:
+                    self.assertIn(trava, self.todo,
+                                  f"a trava {trava} sumiu e a isencao de "
+                                  f"{indice} ficou sem fundamento")
+
+    def _colunas_nulaveis(self):
+        """`{tabela: {colunas sem NOT NULL}}`, lido das migrations."""
+        fora = {}
+        padrao = r'create table (?:if not exists )?public\.(\w+)\s*\((.*?)\n\);'
+        for tabela, corpo in re.findall(padrao, self.todo, re.S):
+            for linha in corpo.splitlines():
+                m = re.match(r'\s*(\w+)\s+[\w()\[\], ]+', linha)
+                if m and 'not null' not in linha.lower() and \
+                   not linha.strip().lower().startswith(
+                       ('unique', 'constraint', 'primary key', 'check', '--')):
+                    fora.setdefault(tabela, set()).add(m.group(1))
+        # `add column` tambem cria coluna, e as seis da 026 entraram por ai.
+        for bloco in re.findall(
+                r'alter table public\.(\w+)(.*?);', self.todo, re.S):
+            tabela, corpo = bloco
+            for col in re.findall(
+                    r'add column(?: if not exists)?\s+(\w+)([^,\n]*)', corpo):
+                nome, resto = col
+                if 'not null' not in resto.lower():
+                    fora.setdefault(tabela, set()).add(nome)
+        return fora
+
+    def _indices_unicos(self):
+        """`(nome, tabela, {colunas}, trecho)` de cada `create unique index`."""
+        padrao = (r'create unique index (?:if not exists )?(\w+)\s*'
+                  r'on public\.(\w+)\s*\(([^)]*)\)([^;]*);')
+        for nome, tabela, cols, resto in re.findall(padrao, self.todo,
+                                                    re.S | re.I):
+            limpas = {c.strip() for c in cols.split(',') if c.strip()}
+            yield nome, tabela, limpas, cols + resto
 
     def test_duplicata_se_marca_e_nao_se_apaga(self):
         """A lei "um vídeo, uma transcrição" foi RECUSADA pelo banco no Brasil:

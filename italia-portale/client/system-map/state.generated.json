@@ -1136,6 +1136,7 @@
     ],
     "provas": [
       "provas/a_autoridade_da_fonte.py",
+      "provas/a_fase_10_entra_no_acervo.py",
       "provas/a_fronteira_da_coleta.py",
       "provas/a_lei_da_fase_10.py",
       "provas/a_rota_m2_atravessa.py",
@@ -1296,7 +1297,6 @@
       "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql",
       "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",
       "supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql",
-      "supabase/ensaios/PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql",
       "supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql",
       "supabase/fixtures/es_calendario_mvp.sql",
       "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
@@ -1329,6 +1329,7 @@
       "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
       "supabase/migrations/025_o_objeto_ganha_casa.sql",
       "supabase/migrations/026_a_observacao_ganha_identidade.sql",
+      "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -1860,9 +1861,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "e35d9b15ed1405182cea4fcd6f06202604ab0812",
-    "GENERATED_AT": "2026-09-10T23:16:21+00:00",
-    "SOURCE_TREE_FINGERPRINT": "aad18ec5057ca41a850b35377bf94da2df0193385a242889ca9d830c02b8cbba"
+    "HEAD": "ea9b0d8d578305d2b514fd42eb783edb6232cbf4",
+    "GENERATED_AT": "2026-09-11T00:40:59+00:00",
+    "SOURCE_TREE_FINGERPRINT": "044a3e22681f600904d89bf74010a4bb693ee64c246b290f8503a32e7b9c8dda"
   },
   "FAMILIES": [
     {
@@ -11750,6 +11751,7 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "provas/a_fase_10_entra_no_acervo.py",
         "provas/a_lei_da_fase_10.py",
         "provas/auditoria_live.sh",
         "provas/derived_artifact_no_postgres.py",
@@ -11764,7 +11766,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 13,
+      "file_count": 14,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11835,7 +11837,16 @@
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
-      "escreve_na_pasta": [],
+      "escreve_na_pasta": [
+        {
+          "pasta": "supabase/migrations",
+          "prova": {
+            "file": "provas/a_fase_10_entra_no_acervo.py",
+            "line": 373,
+            "snippet": "escreve em alvo"
+          }
+        }
+      ],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -13890,7 +13901,6 @@
         "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql",
         "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",
         "supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql",
-        "supabase/ensaios/PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql",
         "supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql",
         "supabase/fixtures/es_calendario_mvp.sql",
         "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
@@ -13923,6 +13933,7 @@
         "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
         "supabase/migrations/025_o_objeto_ganha_casa.sql",
         "supabase/migrations/026_a_observacao_ganha_identidade.sql",
+        "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -18765,8 +18776,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "Cadeia canonica V2.1 alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_fase_10_entra_no_acervo.py",
+          "line": 64,
+          "snippet": "CADEIA = os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\")"
+        },
         {
           "file": "provas/objeto_e_observacao_no_postgres.py",
           "line": 918,
@@ -20046,7 +20062,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 261,
+          "line": 290,
           "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
         }
       ],
@@ -20060,7 +20076,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 7 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/auditoria-live.yml",
@@ -20069,32 +20085,42 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 117,
+          "line": 121,
           "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 130,
+          "line": 134,
           "snippet": "python3 provas/derived_artifact_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 145,
+          "line": 149,
           "snippet": "python3 provas/objeto_e_observacao_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 154,
+          "line": 162,
+          "snippet": "run: python3 provas/a_lei_da_fase_10.py"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 175,
+          "snippet": "run: python3 provas/a_fase_10_entra_no_acervo.py"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 183,
           "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 186,
+          "line": 215,
           "snippet": "python3 provas/social_persistencia_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 210,
+          "line": 239,
           "snippet": "python3 provas/rastro_no_postgres.py"
         }
       ],
@@ -20112,7 +20138,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 270,
+          "line": 299,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
         }
       ],
@@ -20130,7 +20156,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 236,
+          "line": 265,
           "snippet": "python3 provas/o_forward_conta_se.py"
         }
       ],
@@ -20148,7 +20174,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 245,
+          "line": 274,
           "snippet": "python3 provas/a_rota_m2_atravessa.py"
         }
       ],
@@ -21706,11 +21732,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
         {
+          "file": "provas/a_fase_10_entra_no_acervo.py",
+          "line": 504,
+          "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256"
+        },
+        {
           "file": "provas/a_lei_da_fase_10.py",
-          "line": 682,
+          "line": 689,
           "snippet": "from guarda.preservar_coleta import sha256 as _sha"
         },
         {
@@ -28915,8 +28946,18 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 17 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 19 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_fase_10_entra_no_acervo.py",
+          "line": 62,
+          "snippet": "M027 = \"027_a_observacao_deixa_de_ser_o_endereco.sql\""
+        },
+        {
+          "file": "provas/a_fase_10_entra_no_acervo.py",
+          "line": 179,
+          "snippet": "ok, e = ficheiro(url, os.path.join(MIGRACOES, \"026_a_observacao_ganha_identidade.sql\"))"
+        },
         {
           "file": "provas/a_lei_da_fase_10.py",
           "line": 61,
@@ -28939,8 +28980,8 @@
         },
         {
           "file": "provas/a_lei_da_fase_10.py",
-          "line": 71,
-          "snippet": "\"PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql\")"
+          "line": 78,
+          "snippet": "\"027_a_observacao_deixa_de_ser_o_endereco.sql\")"
         },
         {
           "file": "provas/derived_artifact_no_postgres.py",
@@ -28966,16 +29007,6 @@
           "file": "provas/objeto_e_observacao_no_postgres.py",
           "line": 57,
           "snippet": "MIGRACOES = [\"001_fundacao_geografia_e_proveniencia.sql\","
-        },
-        {
-          "file": "provas/objeto_e_observacao_no_postgres.py",
-          "line": 58,
-          "snippet": "\"022_o_derivado_ganha_casa.sql\"]"
-        },
-        {
-          "file": "provas/objeto_e_observacao_no_postgres.py",
-          "line": 59,
-          "snippet": "M025 = \"025_o_objeto_ganha_casa.sql\""
         }
       ],
       "categoria": "PROOF"
@@ -30631,8 +30662,8 @@
     "edges_proven": 620,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1412,
-    "files_covered": 689,
+    "files_tracked": 1413,
+    "files_covered": 690,
     "files_code_unclaimed": 0
   }
 }

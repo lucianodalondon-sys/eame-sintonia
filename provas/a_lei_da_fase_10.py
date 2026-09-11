@@ -63,12 +63,19 @@ MIGRACOES = ["001_fundacao_geografia_e_proveniencia.sql",
              "025_o_objeto_ganha_casa.sql",
              "026_a_observacao_ganha_identidade.sql"]
 
-# O PROTOTIPO NAO E UMA MIGRATION, e por isso vive fora daquela lista e entra
-# por um caminho proprio — nas partes que perguntam «e DEPOIS da fase 10?».
-# Aplicá-lo pela mesma porta das migrations faria esta prova tratá-lo como uma,
-# que é exactamente o que ele não é.
-PROTOTIPO = os.path.join("supabase", "ensaios",
-                         "PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql")
+# ⚠️ AQUI ESTAVA UM PROTOTIPO, E ELE FOI APOSENTADO.
+# Enquanto a fase 10 era lei sem migration, o prototipo em `supabase/ensaios/`
+# era o unico sitio onde ela existia em SQL. A `027` nasceu, e a partir desse
+# momento havia DOIS ficheiros a dizer a mesma lei.
+#
+#     UMA LEI EM DOIS SITIOS DIVERGE,
+#     E A PARTIR DAI NENHUMA DAS DUAS VALE.
+#
+# Esta prova passou a aplicar a MIGRATION. Ela entra por um caminho proprio, e
+# nao na lista de cima, porque as partes anteriores medem o mundo ANTES da fase
+# 10 — aplica-la no arranque mediria outra coisa com o nome certo.
+FASE_10 = os.path.join("supabase", "migrations",
+                       "027_a_observacao_deixa_de_ser_o_endereco.sql")
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -1011,17 +1018,17 @@ def main():
     # ── E AGORA O MUNDO DEPOIS DA FASE 10 ───────────────────────────────
     # O protótipo entra AQUI, e não no arranque: as partes acima medem o que
     # a fase 10 muda, e medi-las já depois dela mediria outra coisa.
-    print("\n-- o prototipo da fase 10 entra no banco descartavel")
+    print("\n-- a migration 027 entra no banco descartavel")
     limpa(url)
     psql(url, "alter table public.raw_asset add constraint "
               "raw_asset_storage_path_key unique (storage_path)")
-    with open(os.path.join(RAIZ, PROTOTIPO), encoding="utf-8") as f:
+    with open(os.path.join(RAIZ, FASE_10), encoding="utf-8") as f:
         ok, _, e = psql(url, f.read())
-    _e(fora, "PROTOTIPO_APLICA", "SIM" if ok else motivo(e), "SIM")
-    _e(fora, "PROTOTIPO_TIROU_O_UNIQUE_DO_ENDERECO",
+    _e(fora, "M027_APLICA", "SIM" if ok else motivo(e), "SIM")
+    _e(fora, "M027_TIROU_O_UNIQUE_DO_ENDERECO",
        um(url, "select count(*) from pg_constraint where "
                "conname='raw_asset_storage_path_key'"), 0)
-    _e(fora, "PROTOTIPO_INSTALOU_A_CHAVE_DA_TENTATIVA",
+    _e(fora, "M027_INSTALOU_A_CHAVE_DA_TENTATIVA",
        um(url, "select count(*) from pg_class where "
                "relname='raw_tentativa_sem_prova_idx'"), 1)
 
@@ -1041,8 +1048,8 @@ def main():
         "" if not fora else " · reprovou: " + ", ".join(n for n, _ in fora)))
     # Estas duas linhas são o veredicto da preparação, e não mudam por ela ter
     # corrido bem: medir a lei não é instalá-la.
-    print("PHASE_10_INSTALADA_NO_LIVE=NAO — esta prova nao altera migration "
-          "nenhuma, e o prototipo so entrou no banco descartavel.")
+    print("PHASE_10_INSTALADA_NO_LIVE=NAO — a 027 so entrou no banco "
+          "descartavel desta prova.")
     print("UNPROVEN_TEM_CHAVE=K6 (run_id, source_id, storage_object_id, "
           "sha256) NULLS NOT DISTINCT")
     return 0 if not fora else 1
