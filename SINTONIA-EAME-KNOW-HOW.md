@@ -3564,3 +3564,106 @@ O atlas declara 54 fontes italianas, e a Admission encontrará também França e
 Espanha. Mesmo completo, este frame avalia T3 **dentro de material
 agro-institucional italiano**, e não autoriza afirmar generalização para fora
 disso. Fica escrito para ninguém se enganar depois.
+
+---
+
+# §55 · RECEBER UMA REVISÃO HUMANA SEM LHE TOCAR
+
+**Missão:** `C-INGEST-REVIEW-A-E-ADJUDICACAO-T3-V1` · HEAD final `d560ad69`
+**Artefactos:** `provas/qualidade_t3.py` · `data/review/t3/` ·
+`docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html`
+
+## 55.1 · O QUÊ
+
+As 53 respostas humanas chegaram. Entraram como evidência imutável
+(`INPUT_SHA256` registado antes de qualquer leitura), foram provadas contra o
+pacote que as gerou, e partiram-se em duas filas:
+
+```
+CONFIRMACAO      32   a resposta está dada; falta a RAZÃO e a atestação
+SEGUNDA LEITURA  21   incerteza 11 + tensão 10, e a resposta não aparece
+```
+
+A **tensão** é um `T3_NAO` num documento que se auto-declara fitossanitário nos
+~900 caracteres que a pessoa viu. Isso não classifica nada e não troca rótulo
+nenhum. Diz uma coisa só: vale a pena olhar outra vez, com mais contexto.
+
+## 55.2 · ZERO RAZÕES EM 53 RESPOSTAS
+
+`HUMAN_REASON` veio nulo nas 53 — porque a primeira interface nunca perguntou.
+
+```
+CAN DO != DID DO.
+UM CAMPO QUE EXISTE E UM CAMPO QUE NINGUEM PREENCHEU
+SAO A MESMA COLUNA VAZIA.
+```
+
+O portão **pergunta** a razão, com vocabulário fechado por rótulo, e `OUTRO`
+exige o texto da pessoa. E pergunta também a atestação — porque a página sabe
+o que **mostrou**, e só a pessoa sabe o que **usou**:
+
+```
+EVIDENCE_PRESENTED != EVIDENCE_USED
+```
+
+## 55.3 · CEGO NÃO É ESCONDIDO NA INTERFACE
+
+Um item da segunda leitura não leva rótulo, nota, motivo de fila ou gatilho —
+nem no ecrã **nem dentro do JSON que viaja na página**.
+
+```
+ESCONDER NA INTERFACE E DEIXAR NO PAYLOAD
+NAO E CEGAR: E ESPERAR QUE NINGUEM OLHE.
+```
+
+E o contexto extra tem de ser escolhido por regra **estrutural**: o documento
+do princípio, em páginas de tamanho fixo. Mostrar o pedaço que contém a
+expressão do gatilho seria entregar a resposta com cara de pergunta.
+
+## 55.4 · CONFIRMAR NÃO É LER OUTRA VEZ
+
+Um item confirmado sai com `CONFIRMED`, **sem** `LABEL_A2`. Fabricar um A2
+igual ao A transformaria «não mudei de ideias» em «li duas vezes e bateu».
+
+E quando a pessoa reabre um item que já viu respondido, essa leitura deixa de
+ser cega — o ficheiro diz isso: `REOPENED_BY_HUMAN=YES`, `BLIND=false`.
+
+```
+REVIEW_A != REVIEW_A2
+E NENHUM DOS DOIS E UM SEGUNDO REVISOR INDEPENDENTE:
+E A MESMA PESSOA, EM SEGUNDA PASSAGEM.
+```
+
+Onde A != A2 o item fica **em aberto**. Ninguém escolhe A, A2, maioria ou a
+última resposta por conta própria.
+
+## 55.5 · O TESTE QUE REFAZ A CONTA CONCORDA CONSIGO MESMO
+
+Duas mutações sobreviveram à primeira suite: apagar `raise RevisaoInvalida`
+para rótulo fora do vocabulário, e apagar o `raise` para evidência divergente.
+Os testes continuaram verdes — porque **refaziam a conta dentro do próprio
+teste** e comparavam com ela própria. Nunca chamavam `carregar_a()`.
+
+```
+REFAZER A LOGICA NO TESTE NAO E TESTAR A LOGICA:
+E ESCREVE-LA DUAS VEZES E CONCORDAR CONSIGO.
+```
+
+Corrigido: os testes escrevem um ficheiro estragado, apontam `ENTRADA` para
+ele, e exigem que a função levante. Com isso, 11 mutações, 0 sobreviventes.
+
+## 55.6 · O NAVEGADOR APANHOU O QUE O TEXTO NÃO APANHA
+
+Virar a página do contexto acendia o item na grelha e movia a barra de
+progresso. O contador lia a **existência** da linha em `respostas` — que a
+paginação também escreve, para não se perder onde a pessoa ia — em vez de ler
+a **decisão**.
+
+```
+CONTAR A EXISTENCIA DA LINHA EM VEZ DA DECISAO
+E UMA BARRA DE PROGRESSO QUE ANDA SOZINHA.
+```
+
+Nenhum teste de string apanharia isto. Apanhou-se num Chromium de verdade, e é
+a segunda missão seguida em que o navegador encontra o que a leitura do HTML
+não encontra.
