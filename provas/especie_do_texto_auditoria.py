@@ -183,6 +183,11 @@ def corpo():
         'PARENT_ARTIFACTS': pais,
         'source': 'leitura DERIVADA dos artefatos de transcricao ja preservados',
         'SOURCE_LOCATION': 'derivado — nenhuma coleta nova',
+        # Quem declara o lugar da FONTE tem de declarar o lugar do FACTO — é
+        # contrato da casa, e esta leitura não tem um. Ela olha para os textos
+        # que já estão guardados, não para o campo onde a doença apareceu. O
+        # lugar do facto de cada vídeo continua a viver no artefato-pai.
+        'FACT_LOCATION': 'n/a — descreve os textos preservados, nao o mundo',
         'EVIDENCE_CLASS': 'DERIVED_AUDIT',
         # A HORA EM QUE ESTA LEITURA FOI FEITA — e nao a da coleta. Uma
         # auditoria que herdasse a data do pai diria que observou em 2026-09-02
