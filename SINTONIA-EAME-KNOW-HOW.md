@@ -10,8 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-11 — um só tradutor na fronteira (secção 48; 10 seams de vocabulário, um dono).  
-**Próxima missão autorizada:** os dois degraus que a escada revelou — `FACT_TIME` ausente nas unidades italianas, e `T2` sem regra escrita em `PERGUNTAS_DO_UNIVERSO`.
+**Última atualização material:** 2026-09-11 — o estágio deixou de se perder entre a fronteira e a porta (secção 49; `FACT_TIME` não era o bloqueio).  
+**Próxima missão autorizada:** `T2` não tem regra escrita em `PERGUNTAS_DO_UNIVERSO` — medir antes de escrever.
 
 ---
 
@@ -2646,4 +2646,120 @@ E a prova da cadeia chamava `adm.decidir` directamente, saltando a tradução.
 ```
 UMA PROVA QUE SALTA UM DEGRAU NAO PROVA A CADEIA:
 PROVA O DEGRAU SEGUINTE COM O ANTERIOR FINGIDO.
+```
+
+
+---
+
+# 49. O ESTÁGIO PERDIA-SE ENTRE A FRONTEIRA E A PORTA
+
+```
+MISSAO = C-PROVA-SEAM-INGRESSO-ADMISSAO-V2, 2026-09-11
+BRANCH = claude/ingresso-admission-handoff-v1
+HEAD   = b2bc02b6e1b6ea3a9911d8f92c40b7fb173e893a
+DONO   = coleta/ingresso.py :: unidade_para_a_porta()
+PROVA  = tests/test_estagio_atravessa_a_fronteira.py (27 travas, 9 mutações)
+```
+
+## 49.1 · O QUÊ
+
+O ingresso produz um `Artefato` de **29 campos**, com `ARTIFACT_TYPE = RAW`. A
+porta recebia o item **original, de 6 campos**, sem estágio nenhum.
+
+```
+INGRESS_CANONICAL_UNIT_USED_BY_ADMISSION = NO
+```
+
+A linha exacta: `orquestrador.pela_entrada` devolvia `len(r["ACEITES"])`.
+
+```
+CONTAR UMA COISA NAO E GUARDA-LA.
+```
+
+## 49.2 · POR QUÊ — `FACT_TIME` nunca foi o bloqueio
+
+Mesma unidade, mesmo dado, **nada alterado** — só o estágio preservado:
+
+| | regra que falha primeiro |
+|---|---|
+| como estava | `tempo do fato` |
+| com o estágio preservado | `pertence ao universo` |
+
+```
+FACT_TIME_WAS_REAL_BLOCKER  = NO
+STAGE_LOSS_WAS_REAL_BLOCKER = YES
+```
+
+A `COL-LAW-502` existia, e a porta **já a implementava** — `estagio()` lê
+`artifact_type`, e a um DOCUMENTO não se pergunta o tempo do FATO. O runtime é
+que perdia o estágio antes de ela poder aplicá-la.
+
+```
+UMA LEI QUE O RUNTIME NAO DEIXA CHEGAR A QUEM A APLICA
+E UMA LEI QUE NAO EXISTE NAQUELE CAMINHO.
+```
+
+## 49.3 · A ARMADILHA, MEDIDA ANTES DE ESCREVER
+
+A ficha preenche com `NAO SEI` o que o coletor não disse. E a porta lê isso como
+**valor**:
+
+```
+fact_time=''         ->  NAO_SEI, «o item nao diz quando»
+fact_time='NAO SEI'  ->  passa, como se fosse uma data
+```
+
+```
+A CONFISSAO DE IGNORANCIA NAO E UM VALOR.
+JUNTA-LA COMO SE FOSSE E MENTIR COM A PALAVRA CERTA.
+```
+
+Por isso só atravessam **afirmações**. Juntar a ficha ao item sem esse cuidado
+teria feito a porta achar que sabia quando o facto aconteceu.
+
+## 49.4 · O DONO, E O QUE SE RECUSOU
+
+`coleta/ingresso.py :: unidade_para_a_porta`, ao lado do `para_a_porta` que já
+era dele. **Não é um terceiro objecto**: são os mesmos aceites, com o conteúdo
+intacto e o estágio preservado. O item manda no conteúdo; a ficha manda no
+estágio; um campo que o item já afirma não é tocado.
+
+Recusou-se entregar o `Artefato` à porta: ele **não tem `texto`**. O conteúdo
+morreria para salvar a metadata.
+
+## 49.5 · CONSEQUÊNCIA — o próximo bloqueio, medido e não tocado
+
+```
+«nao ha regra escrita do que conta como T2»
+```
+
+`PERGUNTAS_DO_UNIVERSO` tem T3, T4, T7 e T9. **Não tem T2**, e não foi criada.
+
+## 49.6 · A LIÇÃO DE MÉTODO — quatro mutações sobreviveram
+
+```
+UMA MUTACAO QUE SOBREVIVE NAO DIZ QUE O CODIGO ESTA CERTO:
+DIZ QUE NINGUEM ESTAVA A OLHAR PARA AQUELA LINHA.
+```
+
+A última só morreu quando uma trava passou a **correr `correr()` inteiro**.
+Provar `pela_entrada` e `pela_porta` em separado não prova que a rota os liga na
+ordem certa.
+
+```
+PROVAR AS PECAS EM SEPARADO NAO PROVA A MONTAGEM.
+```
+
+E, pela terceira missão seguida, uma prova saltava um degrau — usava o item
+original em vez da unidade que a fronteira aceitou.
+
+```
+PROVAR COM O QUE ENTROU NA FRONTEIRA NAO E PROVAR O QUE SAIU DELA.
+```
+
+E um defeito do próprio teste: assumi que `{"id": "mau"}` seria recusado pelo
+ingresso. Não é — uma observação sem ficheiro **é** o próprio item.
+
+```
+SUPOR QUE UM ITEM E RECUSADO NAO E O MESMO QUE O VER RECUSADO.
 ```
