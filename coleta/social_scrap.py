@@ -956,6 +956,21 @@ def youtube_oficial_prova():
             amostras[c] = objetos[0]
             if c == 'youtube.video.metadata':
                 amostras['_metadata_todos'] = objetos
+            # A DESCOBERTA ALIMENTA O RESTO, que e como a coleta de verdade anda:
+            # descobrir, medir, e so entao perguntar comentario. Usar uma lista
+            # fixa provaria que a chamada atravessa, e nao que a cadeia funciona.
+            if c in ('youtube.search', 'youtube.channel.discovery'):
+                ids = [o.get('NATIVE_ID') for o in objetos
+                       if (o.get('CONTENT_TYPE') or '').upper() == 'VIDEO'
+                       and o.get('NATIVE_ID')]
+                if ids:
+                    achados = amostras.setdefault('_ids_descobertos', [])
+                    for i in ids:
+                        if i not in achados:
+                            achados.append(i)
+                    pedidos['youtube.video.metadata'] = dict(
+                        video_ids=achados[:5])
+                    print('      %d video(s) descobertos alimentam o metadata' % len(ids))
         print('  %-28s %-22s %5d  %s' % (c, metodo, len(objetos), t['RESULT']))
         if t['PROVIDER_USED'] not in (None, forn.API_OFICIAL):
             tudo_oficial = False
@@ -986,7 +1001,7 @@ def youtube_oficial_prova():
     # e devolve o mesmo — e a diferenca entre 1 e 50 e o dia inteiro de quota.
     lote = [l for l in linhas if l['CAPABILITY'] == 'youtube.video.metadata']
     if lote and lote[0]['RESULT'] == 'OK':
-        n = len(ALVO_OFICIAL['VIDEOS'])
+        n = len(pedidos['youtube.video.metadata']['video_ids'])
         print('\n  BATCHING — %d identificadores, 1 chamada, 1 unidade de quota' % n)
         print('    MAX_IDS_PER_CALL   50 (limite da API)')
         print('    QUOTA_PER_CALL     1 unidade, independente de quantos ids')
