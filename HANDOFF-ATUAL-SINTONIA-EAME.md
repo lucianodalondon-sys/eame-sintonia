@@ -706,6 +706,186 @@ sobre elas.
 
 ---
 
+---
+
+## 12. C4 — A PLACA É AMBIENTE, E A MÁQUINA NÃO ATENDEU
+
+```
+MISSAO  = C4 · RUNNER LOCAL + GPU ASR, 2026-09-11
+BRANCH  = claude/sintonia-scrap-local-gpu-c4
+ENTREGA = docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md
+VEREDITO = PARTIAL
+```
+
+### 12.1 · O relógio contava o download, e o áudio levava a culpa
+
+**O QUE.** Em `ferramentas/fala_local.py`, o relógio da transcrição arrancava
+**antes** de o modelo estar pronto. Agora arranca depois, e o tempo de preparar
+sai em `MODEL_PREPARE_SECONDS`, campo próprio.
+
+**POR QUÊ.** O tecto de tempo existe para apanhar áudio em laço — o caso real de
+2026-09-02 em que um decodificador se alimentava do próprio texto e não
+terminava. Mas o tecto contava desde antes da carga.
+
+**PROVA.** O banco de prova desta missão deu `TRANSCRIPTION_TIMEOUT` num Reel
+italiano de **34 s** com `medium`, tecto de 204 s. Repetido com o modelo já
+pronto: **6,4 s**, estado `OK`, RTF 5,35, e o texto certo — «appassionati di
+mais», «Discovery Seeds». O que consumiu os 204 s foi o **descarregamento** do
+modelo, 1,5 GB, na primeira vez que aquela máquina o usou.
+
+```text
+O ESTADO DIZIA «o que saiu pode estar em laco» — uma afirmacao SOBRE O AUDIO.
+A VERDADE ERA «estavamos a baixar um modelo» — uma afirmacao sobre a MAQUINA.
+
+TROCAR UMA PELA OUTRA E O DEFEITO QUE ESTA CASA MAIS PERSEGUE.
+```
+
+**CONSEQUÊNCIA.** `MACHINE_SECONDS` passa a ser só reconhecimento, e o RTF
+passa a significar o que diz. Preparar falhar tem frase própria: «o modelo é que
+não ficou pronto nesta máquina», nunca «o áudio não tem fala».
+
+---
+
+### 12.2 · Cinco eixos, cinco campos — a placa não é o motor
+
+**O QUE.** `ENGINE != MODEL != RUNTIME != DEVICE != ACCELERATOR`. O carimbo do
+reconhecedor passou a ter os cinco, com `ASR_DEVICE_REQUESTED`,
+`ASR_DEVICE_USED`, `ASR_ACCELERATOR` e `ASR_WHY_FALLBACK`.
+
+**POR QUÊ.** `ASR_DEVICE` era o literal `cpu/int8/N threads`, escrito à mão ao
+lado de uma chamada que também tinha `cpu` escrito à mão.
+
+```text
+AS DUAS CONCORDAVAM POR COINCIDENCIA DE TECLADO, NAO POR CONSTRUCAO.
+No dia em que uma mudasse, a outra continuaria a jurar o contrario —
+e o artefato levaria a assinatura da errada.
+```
+
+**PROVA.** O campo vem agora do trace que o resolvedor devolve. Sem trace, ele
+**confessa** `NOT_KNOWN` em vez de adivinhar. E `faster-whisper` continua a ser
+o motor e o `CTranslate2` o runtime **nos dois ferros** — a placa é acelerador,
+nunca motor.
+
+**CONSEQUÊNCIA.** Três valores no dono: `CPU`, `GPU`, `AUTO`. O `AUTO` pergunta
+ao `CTranslate2` quantos dispositivos CUDA ele **vê**, e uma prova reprova se a
+detecção passar a sair de `os.environ`.
+
+```text
+UM «AUTO» QUE ASSUME GPU NAO E DETECAO: E UM PALPITE COM CARA DE POLITICA.
+```
+
+E a queda é sempre explícita — `None` em `WHY_FALLBACK` quer dizer «não houve
+queda», e **nunca** «não sei».
+
+---
+
+### 12.3 · Uma política escrita em quatro sítios é quatro políticas
+
+**O QUE.** A tabela de modelo saiu de `reel_transcricao`, `instagram_transcrever`
+e `youtube_transcrever` e passou a viver em `fala_local.MODELOS_POR_CHAMADOR`.
+
+**POR QUÊ.** Quatro constantes, quatro nomes de variável, para uma pergunta —
+e nenhuma estava errada, que era o problema.
+
+```text
+ELAS CONCORDAM POR COINCIDENCIA, E NO DIA EM QUE O DONO APRENDER ALGUMA
+COISA, OS OUTROS TRES CONTINUAM A NAO SABER.
+```
+
+**PROVA.** Os três valores não mudaram: `reel` continua `medium`, os dois
+programas de lote continuam `small`. As variáveis antigas — `SINTONIA_REEL_MODELO`,
+`IG_MODELO`, `YT_MODELO` — continuam todas a valer.
+
+**CONSEQUÊNCIA.** Os chamadores dizem **quem são**; o dono responde **qual
+modelo**. Uma prova reprova se um deles voltar a guardar o próprio literal.
+
+```text
+CENTRALIZAR A POLITICA NAO AUTORIZA MUDAR OS VALORES DELA
+POR BAIXO DE QUEM OS PEDIU.
+```
+
+---
+
+### 12.4 · `timeout-minutes` não limita a fila, e runner offline é medição
+
+**O QUE.** No GitHub Actions, `timeout-minutes` só começa a contar quando um
+runner **aceita** o job. Um job à espera de máquina que não atende fica `queued`
+até às 24 horas.
+
+**PROVA.** Três corridas do `sintonia-scrap` em setembro morreram exactamente às
+24 h sem nunca terem corrido. E nesta missão, três despachos para as **duas**
+máquinas locais somaram ~80 minutos de fila com **zero** atendimentos — foram
+canceladas à mão.
+
+```text
+UM TECTO QUE SO CONTA DEPOIS DE COMECAR NAO PROTEGE DE NUNCA COMECAR.
+```
+
+**CONSEQUÊNCIA.** Quem despacha para runner local tem de saber: alguns minutos
+sem atendimento **é** a resposta. Cancelar e registar, nunca esperar.
+
+E o vocabulário que isso obriga:
+
+```text
+RUNNER QUE NAO ATENDE != RUNNER QUE NAO EXISTE != MAQUINA SEM PLACA.
+```
+
+Por isso a C4 fecha com `LOCAL_GPU_AVAILABLE = NOT_MEASURED`, e **não** `NO`.
+Escrever `NO` mandaria alguém comprar hardware que pode já estar na máquina.
+
+---
+
+### 12.5 · A qualidade já cabe no processador — a placa é vazão
+
+**O QUE.** Medido sobre o corpus já preservado, com verdade de referência
+declarada termo a termo:
+
+| língua | `small` | `medium` |
+|---|---|---|
+| IT | **0/2** termos · RTF 11,6 | **2/2** · RTF 4,7 |
+| ES | **2/3** termos · RTF 15,1 | **3/3** · RTF 6,2 |
+| FR · EN | empatam em termos | RTF 3,0 e 4,8 |
+
+**POR QUÊ.** `small` acerta a frase e erra **exactamente o que interessa**: o
+nome da cultura e o nome da marca.
+
+**CONSEQUÊNCIA.** `medium` custa ~2,5x e corre ainda **3x a 6x mais depressa do
+que o tempo real, sem placa nenhuma**.
+
+```text
+A QUALIDADE QUE ESTA CASA PRECISA JA CABE NO PROCESSADOR.
+A PLACA, SE VIER, E QUESTAO DE VAZAO — NAO DE QUALIDADE.
+```
+
+Isto muda a ordem das missões seguintes: a GPU deixa de ser pré-requisito de
+qualidade e passa a ser optimização de custo de tempo.
+
+---
+
+### 12.6 · O que a C4 **não** mexeu, e uma distinção que fica
+
+```text
+CAN TRANSCRIBE != CAN ACQUIRE MEDIA.
+
+GPU ASR resolve  AUDIO -> TRANSCRICAO.
+Ela NAO resolve  YOUTUBE -> AUDIO.
+```
+
+`youtube.media` continua `BLOCKED` com `403` de IP de datacenter, e **não existe
+capacidade de mídia declarada na matriz** para o YouTube — só o TikTok tem
+`FETCH_VIDEO_BYTES`. Os dois Actors de legenda continuam ligados, com prova que
+reprova se saírem.
+
+E fica registado o caminho que a medição abre, e que é **mais barato** do que a
+placa: `youtube.native_caption` já está **`PROVED`**.
+
+```text
+NO YOUTUBE A LEGENDA JA EXISTE. Transcrever com ASR o que a plataforma
+ja escreveu e pagar hora de maquina por texto que estava a mao.
+```
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
