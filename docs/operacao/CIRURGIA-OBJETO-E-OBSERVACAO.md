@@ -2784,10 +2784,26 @@ Não se assumiu que eram seis. A varredura cobriu Python, SQL, YAML, heredocs,
 shell, workflows, SQL gerado, testes e provas.
 
 ```
-DEPENDENTES_DO_UNIQUE_STORAGE_PATH_TOTAL = 17 ficheiros
-WRITERS_DEPENDENTES = 6      READERS_DEPENDENTES = 11
+DEPENDENTES_DO_UNIQUE_STORAGE_PATH_TOTAL = 21 ficheiros
+WRITERS_DEPENDENTES = 17     READERS_DEPENDENTES = 17   (sobrepõem-se)
+FALSOS_POSITIVOS = 1         `pacote/ler_saida_leque.py` tem um `objeto_em`
+                             que equilibra chavetas de JSON. Homónimo, e o
+                             censo diz isso em vez de o contar.
+OPERACIONAIS (fora de `tests/` e `provas/`) = 7
 BLOCKERS_FOUND_TOTAL = 9     (os 6 da preparação + 3 novos)
 ```
+
+Os sete operacionais, com espécie:
+
+| ficheiro | escreve | lê | espécie |
+|---|:-:|:-:|---|
+| `guarda/preservar_coleta.py` | ✔ | ✔ | o escritor canónico |
+| `guarda/portas_live.py` |  | ✔ | porta do banco vivo |
+| `guarda/memoria_descartavel.py` | ✔ | ✔ | porta SQLite, só provas |
+| `guarda/preservar_derivado.py` |  | ✔ | dono do derivado |
+| `guarda/catalogo_importar.py` | ✔ | ✔ | GERA; `--aplicar` aposentado |
+| `supabase/importacoes/ADAMA-ES-CATALOGO-…` | ✔ | ✔ | registo histórico, fora da cadeia |
+| `supabase/migrations/025_…sql` |  | ✔ | a migration que separou as espécies |
 
 Os três que a preparação não tinha visto:
 
