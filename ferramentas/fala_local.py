@@ -970,6 +970,56 @@ def duracao(caminho):
         return NAO_SEI
 
 
+def fluxos(caminho):
+    """Quantos fluxos de imagem e de som ha DENTRO do ficheiro. → (video, audio, motivo).
+
+    Existe porque uma bandeira na linha de comando nao e prova de nada sobre os
+    bytes que chegaram. `-f bestaudio` diz o que foi PEDIDO; `.m4a` diz o que
+    alguem escreveu no nome. Nenhum dos dois abre o ficheiro.
+
+        PEDIR AUDIO != TER RECEBIDO SO AUDIO.
+
+    E aqui do lado do dono do `ffprobe` de propósito: quem ja sabe medir a
+    duracao de um ficheiro de media e quem deve saber dizer o que ha dentro
+    dele. Um segundo sitio a chamar `ffprobe` seria um segundo dono da mesma
+    pergunta.
+
+    Devolve `(NAO_SEI, NAO_SEI, motivo)` quando nao consegue medir — porque
+    «nao consegui abrir» e «nao tem imagem» sao coisas diferentes, e colapsar
+    as duas deixaria um ficheiro ilegivel passar por audio limpo.
+    """
+    import subprocess
+    try:
+        r = subprocess.run(['ffprobe', '-v', 'error', '-show_entries',
+                            'stream=codec_type', '-of', 'csv=p=0', caminho],
+                           capture_output=True, text=True, timeout=120)
+    except Exception as e:                                     # noqa: BLE001
+        return NAO_SEI, NAO_SEI, '%s ao chamar ffprobe' % type(e).__name__
+    if r.returncode != 0:
+        return NAO_SEI, NAO_SEI, (r.stderr or '').strip()[:200] or 'ffprobe recusou'
+    tipos = [l.strip() for l in (r.stdout or '').splitlines() if l.strip()]
+    if not tipos:
+        return NAO_SEI, NAO_SEI, 'ffprobe nao encontrou fluxo nenhum'
+    return tipos.count('video'), tipos.count('audio'), None
+
+
+def so_audio(caminho):
+    """Este ficheiro tem som e NAO tem imagem? → (bool, motivo).
+
+    `False` com motivo escrito, sempre. Um `False` mudo nao distingue «tem
+    imagem» de «nao consegui ver», e a diferenca decide se a rota mentiu ou se
+    a medicao falhou.
+    """
+    v, a, porque = fluxos(caminho)
+    if porque:
+        return False, porque
+    if v:
+        return False, 'o ficheiro traz %d fluxo(s) de imagem' % v
+    if not a:
+        return False, 'o ficheiro nao traz fluxo de som nenhum'
+    return True, None
+
+
 if __name__ == '__main__':
     import json
     import sys

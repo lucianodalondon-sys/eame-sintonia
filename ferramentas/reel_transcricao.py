@@ -180,8 +180,53 @@ MEDIA_SEM_ENDERECO = 'MEDIA_URL_ABSENT'
 MEDIA_VENCIDA = 'MEDIA_URL_EXPIRED'
 MEDIA_FALHOU = 'MEDIA_DOWNLOAD_FAILED'
 MEDIA_NAO_E_VIDEO = 'NOT_A_VIDEO'
+MEDIA_SEM_AUDIO_SO = 'AUDIO_ONLY_UNAVAILABLE'
+# Os bytes vieram e traziam imagem quando ninguem pediu imagem. NAO e falha de
+# rede e NAO e ausencia de fala: e a rota a entregar mais do que foi pedido.
+MEDIA_KIND_DIVERGE = 'MEDIA_KIND_MISMATCH'
 ESTADOS_DE_MIDIA = (MEDIA_OK, MEDIA_SEM_ENDERECO, MEDIA_VENCIDA, MEDIA_FALHOU,
-                    MEDIA_NAO_E_VIDEO)
+                    MEDIA_NAO_E_VIDEO, MEDIA_SEM_AUDIO_SO, MEDIA_KIND_DIVERGE)
+
+# ── O QUE SE PEDE A ROTA, QUE NAO E O MESMO QUE COM QUE FERRAMENTA ──────────
+# A C8 fechou a lei e a C9 mediu que ninguem a cumpria:
+#
+#     TRANSCRIPTION NEED != VIDEO DOWNLOAD.
+#
+# Ate aqui esta cadeia pedia ao `yt-dlp` o formato PADRAO — que e o melhor video
+# MAIS o melhor audio — e so depois deitava fora a imagem com `ffmpeg -vn`. O
+# resultado era verdadeiro e o nome estava errado:
+#
+#     AQUISICAO DE VIDEO + DERIVACAO DE AUDIO  !=  AQUISICAO SO DE AUDIO.
+#
+# Medido nesta casa em 2026-09-11, no Reel `C-63RfHoJTU`: o formato padrao pede
+# DOIS fluxos (`...v` a 2218,712 kbps e `...a` a 75,941 kbps); pedir so audio
+# pede UM, e esse um e exatamente o segundo dos dois que ja eram pedidos.
+#
+#     A ROTA NOVA E UM SUBCONJUNTO ESTRITO DA ROTA VELHA. Ela nao alcanca
+#     endereco novo, nao alcanca host novo e nao alarga superficie nenhuma:
+#     deixa de pedir uma das duas coisas que ja pedia.
+#
+# `MEDIA_KIND` e um eixo PROPRIO, e nao se deduz do fornecedor. O `yt-dlp` traz
+# video e traz audio; dizer `LOCAL_YTDLP` nao diz o que veio. Por isso o
+# fornecedor continua a ser o que era — inventar `LOCAL_YTDLP_AUDIO` seria
+# fundir FERRAMENTA com CARGA, que e o erro que `scrap_fornecedores` existe
+# para impedir.
+MIDIA_AUDIO = 'AUDIO'
+MIDIA_VIDEO = 'VIDEO'
+MIDIA_KINDS = (MIDIA_AUDIO, MIDIA_VIDEO)
+
+#: O seletor que pede SOMENTE a faixa de audio. Na lingua do `yt-dlp`,
+#: `bestaudio` e «o melhor formato SEM video» — e quando nao existir nenhum ele
+#: FALHA, que e o comportamento certo: cair para o video inteiro seria a
+#: mentira que esta missao veio acabar.
+SELETOR_SO_AUDIO = 'bestaudio'
+
+#: A bandeira nao e a prova. Um seletor pode mudar de significado numa versao
+#: nova do `yt-dlp`, e uma extensao `.m4a` nao garante que dentro nao venha
+#: imagem. Por isso os bytes sao SEMPRE conferidos depois de chegarem, e e essa
+#: conferencia — nao a bandeira — que decide se houve aquisicao so de audio.
+#:
+#:     PEDIR AUDIO != TER RECEBIDO SO AUDIO.
 
 UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
       '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
@@ -416,8 +461,8 @@ def _iso_de_data(d):
     return '%s-%s-%s' % (d[:4], d[4:6], d[6:])
 
 
-def midia_por_ytdlp(url, alvo, tentativas=None):
-    """Baixa o vídeo público pelo endereço DIRETO. → (caminho, motivo).
+def midia_por_ytdlp(url, alvo, tentativas=None, *, kind=MIDIA_AUDIO):
+    """Baixa a mídia pública pelo endereço DIRETO. → (caminho, motivo).
 
     A rota do PERFIL está fechada a esta máquina (302 para login, 429 no extractor).
     A rota da PUBLICAÇÃO DIRETA não está. São duas rotas diferentes e medem coisas
@@ -425,35 +470,87 @@ def midia_por_ytdlp(url, alvo, tentativas=None):
     está bloqueado é a listagem.
 
         DESCOBRIR != BUSCAR. O que falha aqui é o descobrir.
+
+    E `kind` decide O QUE se pede, não com que ferramenta. Com `MIDIA_AUDIO`
+    entra `-f bestaudio` e a imagem nunca é pedida; sem ele o `yt-dlp` escolhe
+    o padrão, que é o melhor vídeo MAIS o melhor áudio.
+
+        NÃO HÁ QUEDA DE AUDIO PARA VIDEO AQUI. Se `bestaudio` não existir, o
+        `yt-dlp` falha e o estado sai `AUDIO_ONLY_UNAVAILABLE`. Tentar o vídeo
+        inteiro a seguir seria transformar falha de rota em autorização para
+        pedir mais — que é exatamente o que a lei da C8 proíbe.
     """
     modelo_saida = os.path.splitext(alvo)[0] + '.%(ext)s'
     os.makedirs(os.path.dirname(os.path.abspath(alvo)) or '.', exist_ok=True)
+    seletor = ['-f', SELETOR_SO_AUDIO] if kind == MIDIA_AUDIO else []
+    erro = ['']
     for _ in range(tentativas or YTDLP_TENTATIVAS):
-        r = _ytdlp(['-o', modelo_saida, url], timeout=600)
-        achado = _achar_saida(alvo)
+        r = _ytdlp(seletor + ['-o', modelo_saida, url], timeout=600)
+        achado = _achar_saida(alvo, kind=kind)
         if achado:
+            if kind == MIDIA_AUDIO:
+                # A CONFERENCIA E QUE DECIDE, NAO A BANDEIRA. Ver `SELETOR_SO_AUDIO`.
+                limpo, porque = fl.so_audio(achado)
+                if not limpo:
+                    return None, 'MEDIA_KIND_MISMATCH: pediu-se audio e %s' % porque
             return achado, None
         erro = (r.stderr or '').strip().splitlines()[-1:] or ['']
-    return None, 'YTDLP_SEM_MIDIA: %s' % (erro[0][:200] if erro else NOT_KNOWN)
+    fim = erro[0][:200] if erro and erro[0] else NOT_KNOWN
+    if kind == MIDIA_AUDIO and 'format is not available' in fim.lower():
+        return None, 'AUDIO_ONLY_UNAVAILABLE: %s' % fim
+    return None, 'YTDLP_SEM_MIDIA: %s' % fim
 
 
-def _achar_saida(alvo):
+#: As extensoes por ordem de PREFERENCIA, e a ordem depende do que se pediu.
+#: Quando se pede audio, um `.m4a` ao lado de um `.mp4` e a escolha certa — e a
+#: ordem antiga, que punha `.mp4` primeiro, devolveria o video.
+EXT_AUDIO = ('.m4a', '.opus', '.webm', '.mp3', '.aac', '.ogg')
+EXT_VIDEO = ('.mp4', '.mkv', '.webm')
+
+
+def _achar_saida(alvo, *, kind=None):
     base = os.path.splitext(alvo)[0]
-    for ext in ('.mp4', '.mkv', '.webm', '.m4a', '.mp3'):
+    if kind == MIDIA_AUDIO:
+        ordem = EXT_AUDIO + tuple(e for e in EXT_VIDEO if e not in EXT_AUDIO)
+    elif kind == MIDIA_VIDEO:
+        ordem = EXT_VIDEO + tuple(e for e in EXT_AUDIO if e not in EXT_VIDEO)
+    else:
+        ordem = EXT_VIDEO + EXT_AUDIO
+    vistos = []
+    for ext in ordem:
+        if ext in vistos:
+            continue
+        vistos.append(ext)
         p = base + ext
         if os.path.exists(p) and os.path.getsize(p) > 10000:
             return p
     return None
 
 
-def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None):
-    """Põe os bytes do vídeo no disco. → (caminho, provedor, estado, motivo, degraus).
+def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
+                kind=MIDIA_AUDIO, midia_url_kind=None):
+    """Põe os bytes no disco. → (caminho, provedor, estado, motivo, degraus).
 
     A ORDEM É DECLARADA, E CADA DEGRAU DIZ O SEU NOME. Nada de cair para a rota
     seguinte sem registar que caiu.
+
+    `kind` diz O QUE se quer, e a escada inteira obedece. Com `MIDIA_AUDIO`:
+
+        · o degrau do `yt-dlp` pede `-f bestaudio` e confere os bytes;
+        · um endereço entregue por quem chama só é usado se ele DECLARAR que
+          é áudio — `midia_url_kind`. Sem declaração, não se baixa;
+        · o embed é saltado, porque o que ele serve é o MP4 inteiro.
+
+    Os dois últimos não são zelo a mais. Um endereço de vídeo baixado em
+    silêncio dentro de uma cadeia de transcrição faria `VIDEO_BYTES > 0` numa
+    rota que jurou não pedir imagem — e a jura passaria no teste do seletor.
+
+        FALHA DE ROTA NÃO É AUTORIZAÇÃO PARA PEDIR MAIS.
     """
     post_id = ident.get('POST_ID') or NOT_KNOWN
-    alvo = os.path.join(MIDIA, '%s.mp4' % re.sub(r'[^A-Za-z0-9_.-]', '_', post_id))
+    seguro = re.sub(r'[^A-Za-z0-9_.-]', '_', post_id)
+    ext_alvo = '.m4a' if kind == MIDIA_AUDIO else '.mp4'
+    alvo = os.path.join(MIDIA, '%s%s' % (seguro, ext_alvo))
     degraus = []
 
     if midia_ficheiro:
@@ -466,31 +563,58 @@ def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None):
                         'WHY': 'ficheiro entregue por quem chamou'})
         return midia_ficheiro, CAPTURA_FORNECIDA, MEDIA_OK, None, degraus
 
-    ja = _achar_saida(alvo)
+    ja = _achar_saida(alvo, kind=kind)
     if ja:
         # Já cá está. Rebaixar seria pagar duas vezes pelo mesmo byte — e, na rota
         # paga, pagar mesmo.
+        #
+        # MAS REUSAR NÃO É ADQUIRIR. Se o que está no disco é o MP4 de uma
+        # corrida antiga, isto é `REUSED_VIDEO + AUDIO_DERIVATION` — continua a
+        # servir, e continua a NÃO ser aquisição só de áudio. O degrau diz qual
+        # dos dois foi, e quem lê decide; nenhuma prova de audio-only pode
+        # apoiar-se neste caminho.
+        limpo, _porque = fl.so_audio(ja) if kind == MIDIA_AUDIO else (False, None)
         degraus.append({'PROVIDER': CAPTURA_JA_PRESERVADA, 'RESULT': MEDIA_OK,
-                        'WHY': 'os bytes já estavam no disco desta casa'})
+                        'MEDIA_KIND': MIDIA_AUDIO if limpo else MIDIA_VIDEO,
+                        'WHY': 'os bytes já estavam no disco desta casa (%s)'
+                               % ('áudio' if limpo else 'reuso de vídeo antigo')})
         return (ja, CAPTURA_JA_PRESERVADA, MEDIA_OK,
                 'já preservado numa corrida anterior', degraus)
 
     ultimo = NOT_KNOWN
     # DEGRAU 1 · o endereço que alguém já pagou para descobrir
     if midia_url and midia_url != NOT_KNOWN:
-        n, motivo = baixar(midia_url, alvo)
-        degraus.append({'PROVIDER': CAPTURA_FORNECIDA,
-                        'RESULT': MEDIA_OK if not motivo else MEDIA_VENCIDA,
-                        'WHY': motivo or 'baixou %d bytes' % n})
-        if not motivo:
-            return alvo, CAPTURA_FORNECIDA, MEDIA_OK, None, degraus
-        ultimo = motivo
+        if kind == MIDIA_AUDIO and midia_url_kind != MIDIA_AUDIO:
+            porque = ('endereço entregue sem declarar `MEDIA_KIND=AUDIO`. Pedido é '
+                      'de fala; baixar sem saber o que vem lá dentro seria adquirir '
+                      'vídeo em silêncio.')
+            degraus.append({'PROVIDER': CAPTURA_FORNECIDA,
+                            'RESULT': MEDIA_KIND_DIVERGE, 'WHY': porque})
+            ultimo = porque
+        else:
+            n, motivo = baixar(midia_url, alvo)
+            if not motivo and kind == MIDIA_AUDIO:
+                limpo, mau = fl.so_audio(alvo)
+                if not limpo:
+                    motivo = 'MEDIA_KIND_MISMATCH: declarou áudio e %s' % mau
+            degraus.append({'PROVIDER': CAPTURA_FORNECIDA,
+                            'RESULT': MEDIA_OK if not motivo else MEDIA_VENCIDA,
+                            'WHY': motivo or 'baixou %d bytes' % n})
+            if not motivo:
+                return alvo, CAPTURA_FORNECIDA, MEDIA_OK, None, degraus
+            ultimo = motivo
 
     # DEGRAU 2 · o endereço DIRETO da publicação, grátis
     if ident.get('SOURCE_URL') not in (None, '', NOT_KNOWN) and ytdlp_disponivel():
-        p, motivo = midia_por_ytdlp(ident['SOURCE_URL'], alvo, tentativas)
+        p, motivo = midia_por_ytdlp(ident['SOURCE_URL'], alvo, tentativas, kind=kind)
         degraus.append({'PROVIDER': CAPTURA_YTDLP,
-                        'RESULT': MEDIA_OK if p else MEDIA_FALHOU,
+                        'RESULT': MEDIA_OK if p else (
+                            MEDIA_SEM_AUDIO_SO
+                            if str(motivo).startswith('AUDIO_ONLY_UNAVAILABLE')
+                            else MEDIA_KIND_DIVERGE
+                            if str(motivo).startswith('MEDIA_KIND_MISMATCH')
+                            else MEDIA_FALHOU),
+                        'MEDIA_KIND': kind,
                         'WHY': motivo or 'baixou %d bytes' % os.path.getsize(p)})
         if p:
             return p, CAPTURA_YTDLP, MEDIA_OK, None, degraus
@@ -498,31 +622,43 @@ def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None):
 
     # DEGRAU 3 · o embed público por HTTP puro, grátis
     if post_id != NOT_KNOWN and ident.get('PLATFORM') == 'INSTAGRAM':
-        nova, porque = midia_do_embed(post_id)
-        if nova:
-            n, motivo = baixar(nova, alvo)
+        if kind == MIDIA_AUDIO:
+            # O embed serve o MP4 inteiro. Usá-lo aqui seria a queda silenciosa
+            # para vídeo que esta cadeia deixou de fazer.
+            porque = ('o embed só serve o MP4 inteiro; pedido é de áudio e não '
+                      'há queda para vídeo.')
             degraus.append({'PROVIDER': CAPTURA_EMBED,
-                            'RESULT': MEDIA_OK if not motivo else MEDIA_FALHOU,
-                            'WHY': motivo or 'baixou %d bytes' % n})
-            if not motivo:
-                return alvo, CAPTURA_EMBED, MEDIA_OK, None, degraus
-            ultimo = motivo
-        else:
-            degraus.append({'PROVIDER': CAPTURA_EMBED, 'RESULT': MEDIA_SEM_ENDERECO,
-                            'WHY': porque})
+                            'RESULT': MEDIA_SEM_AUDIO_SO, 'WHY': porque})
             ultimo = porque
+        else:
+            nova, porque = midia_do_embed(post_id)
+            if nova:
+                n, motivo = baixar(nova, alvo)
+                degraus.append({'PROVIDER': CAPTURA_EMBED,
+                                'RESULT': MEDIA_OK if not motivo else MEDIA_FALHOU,
+                                'WHY': motivo or 'baixou %d bytes' % n})
+                if not motivo:
+                    return alvo, CAPTURA_EMBED, MEDIA_OK, None, degraus
+                ultimo = motivo
+            else:
+                degraus.append({'PROVIDER': CAPTURA_EMBED,
+                                'RESULT': MEDIA_SEM_ENDERECO, 'WHY': porque})
+                ultimo = porque
 
     if not degraus:
         return None, CAPTURA_FORNECIDA, MEDIA_SEM_ENDERECO, (
-            'nenhum endereço de vídeo foi dado e não há rota grátis para esta '
-            'plataforma. Isto é ausência de ENDEREÇO, não ausência de vídeo.'), degraus
-    return None, degraus[-1]['PROVIDER'], MEDIA_FALHOU, (
+            'nenhum endereço foi dado e não há rota grátis para esta '
+            'plataforma. Isto é ausência de ENDEREÇO, não ausência de mídia.'), degraus
+    estado = MEDIA_FALHOU
+    if any(d.get('RESULT') == MEDIA_SEM_AUDIO_SO for d in degraus):
+        estado = MEDIA_SEM_AUDIO_SO
+    return None, degraus[-1]['PROVIDER'], estado, (
         'todos os degraus falharam. Ultimo: %s. Isto NÃO prova que o vídeo deixou '
         'de existir nem que não tem fala.' % ultimo), degraus
 
 
 # ══════════════════════════════════════════════════════════════════ A CADEIA
-def _ficha_raw(caminho, ident, *, run_id, capture_provider):
+def _ficha_raw(caminho, ident, *, run_id, capture_provider, media_kind=NOT_KNOWN):
     """A ficha do byte bruto. O `ARTIFACT_ID` sai do CONTEÚDO, e é por isso que
     correr duas vezes sobre o mesmo vídeo não cria dois artefatos."""
     return art.raw_do_disco(
@@ -543,12 +679,32 @@ def _ficha_raw(caminho, ident, *, run_id, capture_provider):
         PIPELINE_VERSION=PIPELINE,
         STATE=MEDIA_OK,
         NOTES={'CAPTURE_PROVIDER': capture_provider,
+               # QUE ESPECIE DE BYTES ESTE SHA RESUME. Sem este campo, um SHA de
+               # audio e um SHA de video sao indistinguiveis na ficha, e quem ler
+               # assume video porque a cadeia se chama «reel».
+               'MEDIA_KIND': media_kind,
                'POST_ID': ident.get('POST_ID', NAO_SEI),
                'RAW_OBSERVATION_ID': ident.get('RAW_OBSERVATION_ID', NOT_KNOWN),
                'RAW_OBSERVATION_ID_LEI': (
                    'RAW_OBSERVATION_ID e raw_asset.id. O SHA256 identifica os BYTES, '
                    'nao a observacao — dois RUNs que tragam o mesmo video tem o mesmo '
-                   'SHA256 e sao duas observacoes.')})
+                   'SHA256 e sao duas observacoes.'),
+               # ── O QUE ESTE CAMPO E, E O QUE ELE NAO E ────────────────────
+               # `SOURCE_ID` aqui em cima leva o ENDERECO da publicacao, porque
+               # e o unico identificador que esta cadeia tem em maos. Isso e
+               # anterior a esta missao e continua a ser assim: fabricar um
+               # SOURCE_ID canonico a partir de um URL seria inventar
+               # identidade, e a Biblia proibe.
+               #
+               #     URL != SOURCE_ID. Enquanto a Collection nao atribuir o
+               #     verdadeiro, o que esta ali e um ENDERECO a fazer as vezes
+               #     de um — e quem ler tem de o saber pelo registo, nao por
+               #     adivinhacao.
+               'SOURCE_ID_KIND': 'URL_AS_PLACEHOLDER',
+               'SOURCE_ID_LEI': (
+                   'o SOURCE_ID desta ficha e o URL da publicacao, nao um id '
+                   'canonico de fonte. Nao foi fabricado e nao deve ser tratado '
+                   'como se fosse atribuido pela Collection.')})
 
 
 def _ou(v, alt):
@@ -557,7 +713,7 @@ def _ou(v, alt):
 
 def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
                      idioma=None, modelo=None, transcript_da_fonte=None,
-                     guardar=True):
+                     guardar=True, midia_url_kind=None):
     """A cadeia inteira, para UMA publicação. → o registo, sempre.
 
     Devolve registo mesmo quando falha — porque «não tentei», «tentei e o endereço
@@ -621,10 +777,17 @@ def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
                              'NAO_SE_APLICA em vez de fingirem uma medicao.'))
 
     # ── DEGRAU 2 · OS BYTES ─────────────────────────────────────────────────
+    # A NECESSIDADE DECLARADA DESTA CADEIA E FALA, E SO FALA. Por isso ela pede
+    # `MIDIA_AUDIO` — nao por economia, mas porque pedir a imagem de um video que
+    # ninguem vai olhar e adquirir o que nao se precisa.
+    #
+    #     PIXELS_NEEDED = NO  ->  VIDEO_DOWNLOAD = PROIBIDO.
     caminho, capture, estado, motivo, degraus = obter_midia(
         ident, midia_url=midia_url or ident.get('MEDIA_URL'),
-        midia_ficheiro=midia_ficheiro)
+        midia_ficheiro=midia_ficheiro,
+        kind=MIDIA_AUDIO, midia_url_kind=midia_url_kind)
     base['CAPTURE_ATTEMPTS'] = degraus
+    base['MEDIA_KIND_REQUESTED'] = MIDIA_AUDIO
     if not caminho:
         base.update({
             'CAPTURE_PROVIDER': capture,
@@ -633,14 +796,38 @@ def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
             'TRANSCRIPT_PROVIDER': NAO_PEDIDO,
             'TRANSCRIPT_TEXT': None,
             'TRANSCRIPT_STATE': NAO_PEDIDO,
+            'MEDIA_KIND_USED': NOT_KNOWN,
+            'AUDIO_ONLY_ACQUISITION': 'NOT_ATTEMPTED',
             'NAO_SIGNIFICA': ('que o video nao tem fala. Significa que ninguem '
                               'chegou a ouvi-lo.'),
             'RAW': None, 'DERIVED': None,
         })
         return base
 
+    # ── DEGRAU 2.5 · QUE ESPECIE DE BYTES CHEGARAM, MEDIDA NOS BYTES ────────
+    # Nao no seletor, nao na extensao, nao no nome do fornecedor. Aqui abre-se o
+    # ficheiro. E o resultado e um FACTO sobre a aquisicao, que sobe ate ao
+    # transcript — porque quem ler `MEDIA_SHA256` daqui a um ano tem o direito
+    # de saber de que e que aquele SHA e o resumo.
+    #
+    #     RAW != VIDEO. RAW e a observacao bruta ADQUIRIDA NESTA ROTA.
+    e_so_audio, porque_kind = fl.so_audio(caminho)
+    kind_usado = MIDIA_AUDIO if e_so_audio else MIDIA_VIDEO
+    reusado = capture == CAPTURA_JA_PRESERVADA
+    base['MEDIA_KIND_USED'] = kind_usado
+    base['MEDIA_KIND_WHY'] = porque_kind or 'bytes conferidos: som sem imagem'
+    base['AUDIO_ONLY_ACQUISITION'] = (
+        'PROVEN' if (e_so_audio and not reusado) else
+        'REUSED_NOT_ACQUIRED' if reusado else 'NO')
+    if reusado:
+        # REUSAR MP4 ANTIGO E COMPATIBILIDADE HISTORICA, NAO ROTA NOVA.
+        base['AUDIO_ONLY_WHY'] = (
+            'os bytes vieram do disco desta casa; reuso nao prova aquisicao. '
+            'REUSED_VIDEO + AUDIO_DERIVATION != AUDIO_ONLY_ACQUISITION.')
+
     # ── DEGRAU 3 · O RAW GANHA FICHA ────────────────────────────────────────
-    raw = _ficha_raw(caminho, ident, run_id=run_id, capture_provider=capture)
+    raw = _ficha_raw(caminho, ident, run_id=run_id, capture_provider=capture,
+                     media_kind=kind_usado)
 
     # ── DEGRAU 4 · O ÁUDIO (meio de trabalho, não artefato) ─────────────────
     wav = os.path.join(MIDIA, os.path.splitext(os.path.basename(caminho))[0] + '.wav')
@@ -697,6 +884,12 @@ def _fechar(base, ident, *, run_id, capture, midia, raw, fala, provider,
                 'SEGMENTS': len(fala.get('SEGMENTS') or []),
                 'CAPTURE_PROVIDER': capture,
                 'MEDIA_SHA256': raw.SHA256,
+                # O SHA nao diz de que e. Este campo diz, e por isso viaja
+                # colado a ele: `MEDIA_SHA256` de uma rota audio-only e o
+                # resumo do AUDIO, e nunca de um video que nao foi adquirido.
+                'MEDIA_KIND': base.get('MEDIA_KIND_USED', NOT_KNOWN),
+                'AUDIO_ONLY_ACQUISITION': base.get('AUDIO_ONLY_ACQUISITION',
+                                                   NOT_KNOWN),
                 'MEDIA_STORAGE': raw.STORAGE_LOCATION,
                 'RAW_OBSERVATION_ID': ident.get('RAW_OBSERVATION_ID', NOT_KNOWN),
                 # A LEI, dentro do artefato e não só no cabeçalho do ficheiro.
