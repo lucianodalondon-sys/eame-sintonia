@@ -4046,3 +4046,68 @@ o HEAD antigo sem se queixar.
 
     A CADEIA CANÓNICA DO MAPA COMEÇA EM `scan_repo.py`.
     O GERADOR SOZINHO CONFIRMA O PASSADO E CHAMA-LHE OK.
+
+## 58.9 · A SEGUNDA PASSAGEM: MEDIR A SUITE, E IR VER A FONTE
+
+A missão foi corrida outra vez. **Nenhum limiar mudou** — e essa é a primeira
+coisa a registar, porque uma segunda passagem que mexe nos números depois de já
+ter visto o resultado é exactamente a fraude que o gate existe para impedir.
+Fecharam-se duas coisas que faltavam à *prova* dele.
+
+**Uma suite verde não prova que ela morde.** Prova que, com o código como está,
+nada rebentou. São coisas diferentes, e a diferença só aparece quando se mexe no
+código de propósito. `provas/mutacao_do_gate.py` altera o ficheiro do dono — um
+limiar de cada vez — corre a suite real e exige que ela reprove.
+
+```
+MUTANTES  13
+SURVIVORS 0
+```
+
+O risco concreto deste gate nunca foi um bug: é alguém mexer num número depois
+de ver um resultado de que não gostou.
+
+```
+UMA SUITE QUE NÃO REPROVA UM LIMIAR ALTERADO
+NÃO ESTÁ A GUARDAR LIMIAR NENHUM.
+```
+
+**A armadilha da prova de mutação, e ela morde na primeira tentativa.** Os
+testes que guardam a própria mutação (âncora única, ficheiro por mutar) falham
+enquanto a árvore *está* mutada — e matariam todos os mutantes por
+contabilidade, dando `SURVIVORS = 0` sem provar nada sobre o gate. Ficam
+marcados com `SINTONIA_MUTACAO_EM_CURSO`: defendem a árvore commitada, não a
+árvore sob mutação.
+
+```
+UM MUTANTE QUE NÃO SE APLICA
+É INDISTINGUÍVEL DE UM MUTANTE QUE MORREU.
+```
+
+**A afirmação estava certa e a fonte apontava ao lado.** O único número que o
+estudo externo inteiro encontrou — o *«It's best to target a score of 80% or
+higher»* da Azure — não vive na *transparency note* nem na página de threshold,
+que eram as duas citadas. Vive na `accuracy-confidence`, que também diz contra o
+que ele é medido: *«running a few different combinations of the training data»*
+— treino, não holdout. A leitura estava certa; só não havia como ir confirmá-la.
+
+```
+UMA CITAÇÃO QUE NÃO SE CONFIRMA
+VALE O MESMO QUE NENHUMA.
+```
+
+E as quatro fontes foram relidas de origem nesta passagem: `NO` continua `NO`.
+
+**A cadeia do mapa tem sete passos, e o §58.8 parou no primeiro.** A lição
+anterior estava certa e incompleta: `generate_system_map.py` corre sozinho
+`scan_repo.py` e `scan_sources.py`, mas a lista canónica em
+`system-map/scripts/CADEIA-DO-MAPA.json` tem **sete**. Correr só o gerador
+deixou três censos com o `HEAD` de um ramo anterior. A lista existe para não
+haver duas cadeias — e quem não a lê inventa a sua.
+
+    A CADEIA NÃO É O QUE O GERADOR CHAMA. É O QUE `CADEIA-DO-MAPA.json` LISTA.
+
+**Ficheiro novo é invisível ao mapa até ser rastreado pelo git.** O censo lista
+com `git ls-files`; um `provas/` novo e por adicionar não existe para ele, e
+`P9_CODIGO_DECLARADO` só o vê depois do `git add` — e depois exige a declaração
+em `architecture.declared.json`. São dois passos, e nesta ordem.
