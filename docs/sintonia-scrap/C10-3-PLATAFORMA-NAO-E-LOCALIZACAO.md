@@ -141,7 +141,58 @@ NENHUMA GEOGRAFIA É PASS, NÃO É FALHA.
 
 ---
 
-## G · RED TEAM — sete mutações, sete quedas
+## F-bis · QUEM É A SOURCE? A CADEIA NÃO ADIVINHA
+
+A frente paralela confirmou leis que já eram canônicas, e uma delas alcança
+esta cadeia diretamente: em social não se colapsa
+
+```
+SOURCE · ACCOUNT/CHANNEL · ORIGINAL_AUTHOR · ORIGINAL_POST · REPOSTER · REPOST
+```
+
+### O que foi medido nesta árvore
+
+```
+ORIGINAL_AUTHOR   0 ficheiros
+ORIGINAL_POST     0 ficheiros
+REPOSTER          0 ficheiros
+```
+
+Zero. **Esta casa não tem modelo de repost nenhum.** Os dois únicos usos da
+palavra `REPOST` são outra coisa: `NEWS_REPOST` é categoria de léxico no sensor
+de texto, e «REPOSTO» em `speaker_identidade.py` é o particípio de repor.
+
+```
+NÃO TER MODELO != PODER ESCOLHER UM DOS DOIS.
+```
+
+### E a cadeia já não escolhia — agora está provado
+
+`ACCOUNT_ID` vai para `PUBLISHER`, que é um campo **diferente** de `SOURCE_ID`
+no contrato do artefato. Levar a conta para ali não é promovê-la a fonte: é o
+único sítio onde ela cabe sem mentir.
+
+| caso | SOURCE_ID | SOURCE_LOCATION | FACT_LOCATION |
+|---|---|---|---|
+| conta declarada | `NAO SEI` | `NAO SEI` | `NAO SEI` |
+| **F · repost: conta A publicou, autor original B** | `NAO SEI` | `NAO SEI` | `NAO SEI` |
+| autor original nomeado «Bayer Italia» | `NAO SEI` | `NAO SEI` | `NAO SEI` |
+
+No caso F nem A nem B foram escolhidos, e há teste que verifica que **nenhum dos
+dois nomes aparece** no campo de identidade.
+
+```
+SOCIAL_PROVENANCE_MODEL_GAP = CONFIRMED
+```
+
+Registado e **não resolvido**: criar o esquema de autoria social é outra missão,
+com outro dono. Há uma sentinela de escopo na suíte que reprova se
+`ORIGINAL_AUTHOR`, `ORIGINAL_POST` ou `REPOSTER` nascerem em qualquer módulo —
+não para os proibir, mas para obrigar a olhar para esta cadeia quando nascerem.
+
+---
+
+## G · RED TEAM — dez mutações, dez quedas
 
 | # | mutação | resultado |
 |---|---|---|
@@ -152,6 +203,9 @@ NENHUMA GEOGRAFIA É PASS, NÃO É FALHA.
 | 5 | o nome da conta vira localização | **FAILED** |
 | 6 | o idioma vira localização do facto | **FAILED** |
 | 7 | a plataforma desaparece das notas | **FAILED** (2) |
+| 8 | **`SOURCE_LOCATION = COUNTRY_SCOPE`** (obrigatória) | **FAILED** (4) |
+| 9 | o repostador vira `SOURCE_ID` | **FAILED** (3) |
+| 10 | o autor original vira `SOURCE_ID` | **FAILED** (2) |
 
 A sétima existe porque corrigir não pode custar informação: se `PLATFORM`
 sumisse da ficha, a correção teria trocado uma mentira por um buraco.
@@ -239,6 +293,8 @@ INSTAGRAM_AUDIO_ONLY = PROVEN
 NEW_FAILURES         = 0
 SYSTEM_MAP_CHECK     = PASS
 PARENT_GATE_DEBT     = CONFIRMED (registada, não corrigida)
+SOCIAL_SOURCE_ASSUMED    = NO
+SOCIAL_PROVENANCE_MODEL_GAP = CONFIRMED (registado, não resolvido)
 KNOW_HOW_DELTA       = NENHUM
 BÍBLIA/CONTRATO      = NÃO precisa mudar
 
