@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/thematic-acceptance-gate-v1",
-    "HEAD": "71de3214d2f8f401034a9a7ca1733fa2d7ad770c",
-    "GENERATED_AT": "2026-09-11T19:40:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "6fb8b7a2c7914ba31fa26d9234c8c20728b02c56befa5f6dc1e6e9cabcea929d"
+    "BRANCH": "claude/thematic-candidates-v1",
+    "HEAD": "da33016b0bc2cc8c18b7b4fc907dbffe1b90aa8b",
+    "GENERATED_AT": "2026-09-11T20:44:39+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1b40996ef2b68e8bcd7d5a91edafb37e6eafd4dba811e6770b1a49fccb7145bb"
   },
   "FILES": [
     {
@@ -1488,6 +1488,13 @@
     {
       "path": "data/derivados/BASELINE-ADMISSION-T3-V1.json",
       "sha": "d97ce3334a3fd641fd80dd47aaadbcb8d56670ef",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/CANDIDATOS-TEMATICOS-V1.json",
+      "sha": "be8d103ed28a87259d2cf50f32efbadbb41721a6",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4561,6 +4568,13 @@
     {
       "path": "docs/operacao/BASELINE-ADMISSION-T3-V1.md",
       "sha": "c38405af17b6aaf24aeed8094d540403ece341aa",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
+      "sha": "ea487359937b737177d9b888c52609078bc592b4",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7828,6 +7842,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/candidatos_tematicos.py",
+      "sha": "af59736a246110751ff40c000d3141cacf7e26a8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/censo_corpus_rotulado_admission.py",
       "sha": "1ec7a93a18b2eb9eb889d31485d5ba0fbe978ac4",
       "ext": ".py",
@@ -9285,7 +9306,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "4d2ac061aa459516f847883c57f0bdff75ed2cc8",
+      "sha": "dae2ee0d13129433c569f499c46cbe87e569c35a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9685,6 +9706,13 @@
     {
       "path": "tests/test_calendario_temporal.py",
       "sha": "7f05aa45f2ae319f5eefebbf7654a09ed05b2d40",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_candidatos_tematicos.py",
+      "sha": "f466486500727d1f9edbed62b9fc7299acc22ddc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27239,6 +27267,116 @@
       }
     },
     {
+      "from_file": "provas/candidatos_tematicos.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/candidatos_tematicos.py",
+        "line": 37,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/candidatos_tematicos.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/candidatos_tematicos.py",
+        "line": 146,
+        "snippet": "import admissao as adm"
+      }
+    },
+    {
+      "from_file": "provas/candidatos_tematicos.py",
+      "to_file": "data/derivados/BASELINE-ADMISSION-T3-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/candidatos_tematicos.py",
+        "line": 53,
+        "snippet": "\"data/derivados/BASELINE-ADMISSION-T3-V1.json\","
+      }
+    },
+    {
+      "from_file": "provas/candidatos_tematicos.py",
+      "to_file": "data/derivados/CANDIDATOS-TEMATICOS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/candidatos_tematicos.py",
+        "line": 39,
+        "snippet": "MANIFESTO = \"data/derivados/CANDIDATOS-TEMATICOS-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/candidatos_tematicos.py",
+      "to_file": "data/review/inbox/T3-HUMAN-QUALITY-GATE-RESULTS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/candidatos_tematicos.py",
+        "line": 55,
+        "snippet": "\"data/review/inbox/T3-HUMAN-QUALITY-GATE-RESULTS-V1.json\","
+      }
+    },
+    {
+      "from_file": "provas/candidatos_tematicos.py",
+      "to_file": "data/review/t3/T3-CONTEXTO-CEGO-PTBR-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/candidatos_tematicos.py",
+        "line": 56,
+        "snippet": "\"data/review/t3/T3-CONTEXTO-CEGO-PTBR-V1.json\","
+      }
+    },
+    {
+      "from_file": "provas/candidatos_tematicos.py",
+      "to_file": "data/review/t3/T3-HUMAN-REVIEW-A-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/candidatos_tematicos.py",
+        "line": 54,
+        "snippet": "\"data/review/t3/T3-HUMAN-REVIEW-A-V1.json\","
+      }
+    },
+    {
+      "from_file": "provas/candidatos_tematicos.py",
+      "to_file": "data/review/t3/T3-TRADUCAO-CONTEXTO-CEGO-PTBR-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/candidatos_tematicos.py",
+        "line": 57,
+        "snippet": "\"data/review/t3/T3-TRADUCAO-CONTEXTO-CEGO-PTBR-V1.json\","
+      }
+    },
+    {
+      "from_file": "provas/candidatos_tematicos.py",
+      "to_file": "data/samples/T3-GROUND-TRUTH-EVAL-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/candidatos_tematicos.py",
+        "line": 52,
+        "snippet": "\"data/samples/T3-GROUND-TRUTH-EVAL-V1.json\","
+      }
+    },
+    {
+      "from_file": "provas/candidatos_tematicos.py",
+      "to_file": "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/candidatos_tematicos.py",
+        "line": 40,
+        "snippet": "DOCUMENTO = \"docs/operacao/CANDIDATOS-TEMATICOS-V1.md\""
+      }
+    },
+    {
       "from_file": "provas/censo_corpus_rotulado_admission.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -32263,6 +32401,72 @@
         "file": "tests/test_calendario_temporal.py",
         "line": 343,
         "snippet": "with open(p, encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_candidatos_tematicos.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_candidatos_tematicos.py",
+        "line": 23,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_candidatos_tematicos.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_candidatos_tematicos.py",
+        "line": 185,
+        "snippet": "import admissao as adm"
+      }
+    },
+    {
+      "from_file": "tests/test_candidatos_tematicos.py",
+      "to_file": "data/derivados/BASELINE-ADMISSION-T3-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_candidatos_tematicos.py",
+        "line": 109,
+        "snippet": "[\"data/derivados/BASELINE-ADMISSION-T3-V1.json\"]))"
+      }
+    },
+    {
+      "from_file": "tests/test_candidatos_tematicos.py",
+      "to_file": "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_candidatos_tematicos.py",
+        "line": 240,
+        "snippet": "\"CANDIDATOS-TEMATICOS-V1.md\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_candidatos_tematicos.py",
+      "to_file": "provas/candidatos_tematicos.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_candidatos_tematicos.py",
+        "line": 26,
+        "snippet": "\"cand_t\", os.path.join(RAIZ, \"provas\", \"candidatos_tematicos.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_candidatos_tematicos.py",
+      "to_file": "provas/gate_de_aceitacao_tematica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_candidatos_tematicos.py",
+        "line": 298,
+        "snippet": "for caminho in (\"admissao/\", \"provas/gate_de_aceitacao_tematica.py\"):"
       }
     },
     {
@@ -38476,10 +38680,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1465,
-    "files_readable": 560,
-    "files_code_dir": 605,
-    "file_edges": 2521,
+    "files_tracked": 1469,
+    "files_readable": 562,
+    "files_code_dir": 607,
+    "file_edges": 2537,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },
