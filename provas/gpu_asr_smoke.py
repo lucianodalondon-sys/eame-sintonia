@@ -126,6 +126,54 @@ def modelo_esta_local(nome):
                       vizinhos or 'nenhum'))
 
 
+def dlls_do_cuda():
+    """Onde estão as DLL que a inferência precisa, e o processo vê-as? → dict.
+
+    ⚠️ Terceira correcção vinda do runner real, e a mais informativa.
+    `cuda_disponivel()` devolveu 1 e a inferência caiu com
+    `cublas64_12.dll is not found or cannot be loaded`.
+
+    Não é contradição: `get_cuda_device_count()` só precisa do driver. O cuBLAS
+    só é chamado na PRIMEIRA multiplicação de matrizes — ou seja, dentro da
+    inferência. Entre uma coisa e a outra cabe exactamente este defeito.
+
+        CONTAR A PLACA NAO E PODER MULTIPLICAR NELA.
+
+    Por isso esta função não pergunta «há placa?»: pergunta se os ficheiros que
+    a inferência vai abrir estão ao alcance DESTE processo. Ela não instala,
+    não copia e não altera o PATH — só olha.
+    """
+    alvos = ('cublas64_12.dll', 'cublasLt64_12.dll', 'cudnn64_9.dll')
+    caminhos = [d for d in (os.environ.get('PATH') or '').split(os.pathsep) if d]
+    # Os sitios canonicos do toolkit, se lá estiverem. Nenhum e assumido: cada um
+    # e conferido no disco antes de entrar no relatorio.
+    extra = []
+    base = r'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA'
+    if os.path.isdir(base):
+        for v in sorted(os.listdir(base)):
+            b = os.path.join(base, v, 'bin')
+            if os.path.isdir(b):
+                extra.append(b)
+    perfil = os.environ.get('USERPROFILE') or os.path.expanduser('~')
+    for c in (os.path.join(perfil, '.sintonia-libs', 'ctranslate2'),
+              fl.LIBS, os.path.join(fl.LIBS, 'ctranslate2')):
+        if c and os.path.isdir(c):
+            extra.append(c)
+
+    fora = {'NO_PATH': {}, 'NO_DISCO_FORA_DO_PATH': {}, 'PATH_TEM_CUDA': False}
+    for nome in alvos:
+        achado = next((os.path.join(d, nome) for d in caminhos
+                       if os.path.exists(os.path.join(d, nome))), None)
+        fora['NO_PATH'][nome] = achado or 'NAO'
+        if not achado:
+            f = next((os.path.join(d, nome) for d in extra
+                      if os.path.exists(os.path.join(d, nome))), None)
+            fora['NO_DISCO_FORA_DO_PATH'][nome] = f or 'NAO ENCONTRADO'
+    fora['PATH_TEM_CUDA'] = any('CUDA' in d.upper() for d in caminhos)
+    fora['DIRETORIOS_CONFERIDOS_FORA_DO_PATH'] = extra
+    return fora
+
+
 def audio_local(destino):
     """Uma frase falada, sintetizada NESTA máquina. → (caminho, como) ou (None, porquê).
 
@@ -185,6 +233,9 @@ def medir(*, device, modelo, audio=None):
         fora['CTRANSLATE2_VERSION'] = fl.NAO_SEI
         fora['COMPUTE_TYPES_CUDA'] = []
         fora['CTRANSLATE2_WHY'] = type(e).__name__
+    # Contar a placa nao e poder multiplicar nela — e entre as duas coisas cabe
+    # o defeito que esta prova apanhou no runner.
+    fora['CUDA_DLLS'] = dlls_do_cuda()
 
     ok, porque_modelo = modelo_esta_local(modelo)
     fora['MODEL_PRESENT'] = 'YES' if ok else 'NO'
