@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "1eac7254c46cc9cab4731e3ad8f5878a6fb57114",
+    "HEAD": "e157a9be60918b6407b4f9ff6d98ef71f3fae6c2",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -407,7 +407,7 @@
     {
       "ficheiro": "ferramentas/fala_local.py",
       "gaveta": "ferramentas",
-      "linhas": 529,
+      "linhas": 995,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -425,6 +425,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/adaptador_instagram.py",
         "coleta/comunicacao_coleta.py",
         "ferramentas/instagram_transcrever.py",
         "ferramentas/reel_transcricao.py",
@@ -453,7 +454,7 @@
     {
       "ficheiro": "ferramentas/instagram_transcrever.py",
       "gaveta": "ferramentas",
-      "linhas": 362,
+      "linhas": 395,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -550,7 +551,7 @@
     {
       "ficheiro": "ferramentas/reel_transcricao.py",
       "gaveta": "ferramentas",
-      "linhas": 1001,
+      "linhas": 1005,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -568,6 +569,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/adaptador_instagram.py",
         "coleta/comunicacao_coleta.py"
       ],
       "no_ci": false
@@ -575,7 +577,7 @@
     {
       "ficheiro": "ferramentas/youtube_transcrever.py",
       "gaveta": "ferramentas",
-      "linhas": 309,
+      "linhas": 342,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -595,6 +597,123 @@
         "ferramentas/fala_local.py"
       ],
       "no_ci": true
+    },
+    {
+      "ficheiro": "coleta/adaptador_aberto.py",
+      "gaveta": "coleta",
+      "linhas": 207,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/adaptador_facebook.py",
+      "gaveta": "coleta",
+      "linhas": 38,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/adaptador_instagram.py",
+      "gaveta": "coleta",
+      "linhas": 107,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/adaptador_linkedin.py",
+      "gaveta": "coleta",
+      "linhas": 61,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/adaptador_x.py",
+      "gaveta": "coleta",
+      "linhas": 58,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/adaptador_youtube.py",
+      "gaveta": "coleta",
+      "linhas": 367,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
     },
     {
       "ficheiro": "coleta/agrifood_ue.py",
@@ -650,6 +769,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/scrap_executor.py",
         "coleta/social_persistencia.py",
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py"
@@ -710,7 +830,7 @@
     {
       "ficheiro": "coleta/comunicacao_coleta.py",
       "gaveta": "coleta",
-      "linhas": 408,
+      "linhas": 636,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -729,6 +849,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/social_scrap.py",
         "ferramentas/contrato_ator.py",
         "ferramentas/reel_transcricao.py",
         "pedido/receitas.py"
@@ -738,7 +859,7 @@
     {
       "ficheiro": "coleta/comunicacao_medir.py",
       "gaveta": "coleta",
-      "linhas": 202,
+      "linhas": 231,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1324,6 +1445,139 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/scrap_capacidades.py",
+      "gaveta": "coleta",
+      "linhas": 308,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/adaptador_instagram.py",
+        "coleta/scrap_executor.py",
+        "coleta/scrap_registo.py",
+        "coleta/social_rotas.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/scrap_executor.py",
+      "gaveta": "coleta",
+      "linhas": 280,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/comunicacao_coleta.py",
+        "coleta/social_scrap.py",
+        "regras/sensor_coleta.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/scrap_fornecedores.py",
+      "gaveta": "coleta",
+      "linhas": 213,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/adaptador_instagram.py",
+        "coleta/adaptador_youtube.py",
+        "coleta/scrap_executor.py",
+        "coleta/social_scrap.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/scrap_http.py",
+      "gaveta": "coleta",
+      "linhas": 157,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO",
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/adaptador_aberto.py",
+        "coleta/adaptador_youtube.py",
+        "coleta/social_rotas.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "coleta/scrap_registo.py",
+      "gaveta": "coleta",
+      "linhas": 194,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/adaptador_aberto.py",
+        "coleta/adaptador_facebook.py",
+        "coleta/adaptador_instagram.py",
+        "coleta/adaptador_linkedin.py",
+        "coleta/adaptador_x.py",
+        "coleta/adaptador_youtube.py",
+        "coleta/scrap_executor.py",
+        "coleta/social_rotas.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/sensor_canal_identidade.py",
       "gaveta": "coleta",
       "linhas": 246,
@@ -1360,6 +1614,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/adaptador_aberto.py",
         "coleta/social_rotas.py",
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py"
@@ -1393,14 +1648,10 @@
     {
       "ficheiro": "coleta/social_rotas.py",
       "gaveta": "coleta",
-      "linhas": 510,
+      "linhas": 277,
       "e_ponto_de_entrada": false,
-      "sai_para_fora": true,
-      "veiculos": [
-        "HTTP DIRETO",
-        "INSTAGRAM",
-        "YOUTUBE"
-      ],
+      "sai_para_fora": false,
+      "veiculos": [],
       "ferramentas": [
         "APIFY (rota paga)"
       ],
@@ -1410,6 +1661,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/scrap_executor.py",
         "coleta/social_scrap.py"
       ],
       "no_ci": false
@@ -1417,7 +1669,7 @@
     {
       "ficheiro": "coleta/social_scrap.py",
       "gaveta": "coleta",
-      "linhas": 865,
+      "linhas": 1230,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1561,7 +1813,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
-        "coleta/social_rotas.py",
+        "coleta/adaptador_youtube.py",
         "coleta/social_scrap.py"
       ],
       "no_ci": true
@@ -1659,7 +1911,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/comunicacao_coleta.py"
+      ],
       "no_ci": false
     },
     {
@@ -1795,7 +2049,7 @@
     {
       "ficheiro": "regras/sensor_coleta.py",
       "gaveta": "regras",
-      "linhas": 966,
+      "linhas": 1134,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -1812,7 +2066,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/social_scrap.py"
+      ],
       "no_ci": true
     },
     {
@@ -2057,7 +2313,7 @@
     {
       "ficheiro": "guarda/social_sessao.py",
       "gaveta": "guarda",
-      "linhas": 560,
+      "linhas": 577,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2100,10 +2356,10 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 104,
+    "ficheiros_de_codigo": 115,
     "pontos_de_entrada": 85,
     "executores_que_saem_para_fora": 22,
-    "sem_chamador_e_fora_do_ci": 42,
+    "sem_chamador_e_fora_do_ci": 47,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 67,
     "deitam_fora_alguma_coisa": 29,
@@ -2213,7 +2469,7 @@
       "coleta/instagram_janela.py",
       "coleta/mapa_regfi.py",
       "coleta/rotulos_baixar.py",
-      "coleta/social_rotas.py",
+      "coleta/scrap_http.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",
       "coleta/texto_fonte.py",
@@ -2240,6 +2496,12 @@
       "ferramentas/html_text.mjs",
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
+      "coleta/adaptador_aberto.py",
+      "coleta/adaptador_facebook.py",
+      "coleta/adaptador_instagram.py",
+      "coleta/adaptador_linkedin.py",
+      "coleta/adaptador_x.py",
+      "coleta/adaptador_youtube.py",
       "coleta/agrifood_ue.py",
       "coleta/cruzar_regua_rotulo.py",
       "coleta/ephy.sh",
@@ -2258,7 +2520,6 @@
       "coleta/speaker_universo.py",
       "coleta/texto_fonte.py",
       "coleta/universo_ciencia_it.py",
-      "regras/comunicacao_universo.py",
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
       "regras/rotulos_censo.py",

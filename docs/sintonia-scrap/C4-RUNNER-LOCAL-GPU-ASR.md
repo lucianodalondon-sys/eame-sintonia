@@ -919,13 +919,28 @@ Collection é outra pergunta, de outra missão, e continua sem resposta aqui.
 # S · KNOW_HOW_DELTA
 
 ```
-KNOW_HOW_DELTA = NENHUM
-
-KNOW_HOW_BRANCH       = claude/sintonia-eame-know-how-v1
-KNOW_HOW_INITIAL_HEAD = 5836cc23   (medido, nao herdado)
-KNOW_HOW_FINAL_HEAD   = 21652176
-KNOW_HOW_PUSHED       = YES, sem force
+KNOW_HOW_DELTA = ATUALIZADO (C4B)
 ```
+
+Dois pares de heads, porque foram duas escritas em dias de trabalho diferentes,
+e a branch andou muito entre elas por outras frentes.
+
+```
+KNOW_HOW_BRANCH  = claude/sintonia-eame-know-how-v1
+FICHEIRO         = HANDOFF-ATUAL-SINTONIA-EAME.md
+
+C4    INITIAL_HEAD  5836cc23   (medido, nao herdado)   seccao 12
+      FINAL_HEAD    21652176
+
+C4B   INITIAL_HEAD  0c45e64f   (medido de novo)        seccao 16
+      FINAL_HEAD    6158d34e329b00ce26ece86a7617d34fbad27b52
+
+PUSHED = YES, sem force, nas duas
+```
+
+A secção **16** traz seis lições, e a última é sobre mim: a sentinela de
+credenciais da casa apanhou-me a escrever o perfil pessoal do utilizador dentro
+de um comentário commitado. Ela tinha razão.
 
 A secção **12** do handoff canônico foi escrita nesta missão, em worktree
 separada, no ficheiro que já existia. Cinco coisas duráveis nasceram aqui, e

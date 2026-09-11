@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-local-gpu-c4",
-    "HEAD": "8b13a0e8b1b9ffd8ce43083cd6189e37983623ea",
-    "GENERATED_AT": "2026-09-11T10:07:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a2f211572b1062d353fe8e3055b166ad6d2baae1c5e8d633664e8cd1e5928d86"
+    "HEAD": "e157a9be60918b6407b4f9ff6d98ef71f3fae6c2",
+    "GENERATED_AT": "2026-09-11T16:26:20+00:00",
+    "SOURCE_TREE_FINGERPRINT": "2050105512516673f80468f5d496dd63cb626ff3e0ed7e0f1a49c292a3bd2c81"
   },
   "FILES": [
     {
@@ -101,7 +101,7 @@
     },
     {
       "path": ".github/workflows/scrap-social.yml",
-      "sha": "ece88edcf367118076b62fb05fdfcf975befd57d",
+      "sha": "f1f0e91e58c83773d59e0e61c91a3b75fcc7e417",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -5162,7 +5162,7 @@
     },
     {
       "path": "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
-      "sha": "996f065af2e8886efb996a88dcc6866b2b46817d",
+      "sha": "e1357f308927265e2fc887cc3c02fdf0f41561cd",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5211,7 +5211,7 @@
     },
     {
       "path": "ferramentas/fala_local.py",
-      "sha": "fbab5c2f446fc765b65fbf26d4071ac234462f7e",
+      "sha": "73ed7fd9b2ccd596d499a2452b5079fe5bc64e7a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5225,7 +5225,7 @@
     },
     {
       "path": "ferramentas/instagram_transcrever.py",
-      "sha": "c94e9d0e9393edaf0ce815e2731c742fe1c289d3",
+      "sha": "8c6656427b15aad27e81bc3d3e26a55764514dc2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5274,7 +5274,7 @@
     },
     {
       "path": "ferramentas/youtube_transcrever.py",
-      "sha": "2179857c96a1a2cfa028f08db665c4aa235969f0",
+      "sha": "7bd25e8262b71709e587d7541735d2bee0ae1418",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7850,7 +7850,7 @@
     },
     {
       "path": "provas/asr_banco.py",
-      "sha": "5059de5db7c33b87fd2b9d6e387cc93766f1dc96",
+      "sha": "414dc5effd336ecfaa53811afc75f9c975bd1233",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7907,6 +7907,13 @@
     {
       "path": "provas/fluxo_no_seco.py",
       "sha": "a03d4f52a608121e08c3038675c36d258dc09647",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/gpu_asr_smoke.py",
+      "sha": "a6dd7cc0969f41326a3c989be82906756f1a3c34",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9264,7 +9271,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "b53b62b8c01f543035021d0fa5ab32860129fc4d",
+      "sha": "8990252633eb06b3f66e4a4c2362302e4d00b99d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9656,7 +9663,14 @@
     },
     {
       "path": "tests/test_c4_gpu_local.py",
-      "sha": "93c1f2a8b3718df3648988107faa748397cf2c52",
+      "sha": "5c65efbe2342949e1b0fba38e48f2b3e2cf15703",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c4b_gpu_execucao.py",
+      "sha": "d29e4295905914436e5c46d3eda9515e0a461278",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10662,7 +10676,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 199,
+        "line": 267,
         "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
       }
     },
@@ -10673,7 +10687,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 200,
+        "line": 268,
         "snippet": "coleta/youtube_oficial.py; do"
       }
     },
@@ -10684,7 +10698,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 281,
+        "line": 349,
         "snippet": "rel = env.ler('YOUTUBE-PILOTO-IT.json') or {}"
       }
     },
@@ -10695,8 +10709,19 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 199,
+        "line": 267,
         "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
+      }
+    },
+    {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "provas/gpu_asr_smoke.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 218,
+        "snippet": "& $env:PY provas/gpu_asr_smoke.py --device GPU --json"
       }
     },
     {
@@ -25957,6 +25982,39 @@
       }
     },
     {
+      "from_file": "provas/gpu_asr_smoke.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/gpu_asr_smoke.py",
+        "line": 54,
+        "snippet": "import _gavetas                      # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/gpu_asr_smoke.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/gpu_asr_smoke.py",
+        "line": 55,
+        "snippet": "import fala_local as fl              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/gpu_asr_smoke.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/gpu_asr_smoke.py",
+        "line": 239,
+        "snippet": "'ASR_OWNER': 'ferramentas/fala_local.py',"
+      }
+    },
+    {
       "from_file": "provas/italy_accounting.mjs",
       "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "type": "READS",
@@ -30462,7 +30520,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c4_gpu_local.py",
-        "line": 554,
+        "line": 571,
         "snippet": "import hardware_local as hw                             # noqa: PLC0415"
       }
     },
@@ -30486,6 +30544,83 @@
         "file": "tests/test_c4_gpu_local.py",
         "line": 437,
         "snippet": "t = _fonte('regras/sensor_coleta.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": ".github/workflows/scrap-social.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 241,
+        "snippet": "wf = _fonte('.github/workflows/scrap-social.yml')"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 31,
+        "snippet": "import _gavetas                     # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 32,
+        "snippet": "import fala_local as fl             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 34,
+        "snippet": "DONO_DO_ASR = 'ferramentas/fala_local.py'"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": "ferramentas/instagram_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 343,
+        "snippet": "'ferramentas/instagram_transcrever.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": "ferramentas/youtube_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 342,
+        "snippet": "for rel in ('ferramentas/youtube_transcrever.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": "provas/gpu_asr_smoke.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 35,
+        "snippet": "SMOKE = 'provas/gpu_asr_smoke.py'"
       }
     },
     {
@@ -36414,10 +36549,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1450,
-    "files_readable": 549,
-    "files_code_dir": 596,
-    "file_edges": 2345,
+    "files_tracked": 1452,
+    "files_readable": 551,
+    "files_code_dir": 598,
+    "file_edges": 2356,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

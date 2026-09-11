@@ -1180,6 +1180,7 @@
       "provas/derived_artifact_no_postgres.py",
       "provas/es/freeze_es.py",
       "provas/fluxo_no_seco.py",
+      "provas/gpu_asr_smoke.py",
       "provas/hardware_local.py",
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
@@ -1446,6 +1447,7 @@
       "tests/test_c2_youtube_oficial.py",
       "tests/test_c3_youtube_cutover.py",
       "tests/test_c4_gpu_local.py",
+      "tests/test_c4b_gpu_execucao.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canonico.py",
       "tests/test_censo_dos_donos.py",
@@ -1898,9 +1900,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-local-gpu-c4",
-    "HEAD": "8b13a0e8b1b9ffd8ce43083cd6189e37983623ea",
-    "GENERATED_AT": "2026-09-11T10:07:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a2f211572b1062d353fe8e3055b166ad6d2baae1c5e8d633664e8cd1e5928d86"
+    "HEAD": "e157a9be60918b6407b4f9ff6d98ef71f3fae6c2",
+    "GENERATED_AT": "2026-09-11T16:26:20+00:00",
+    "SOURCE_TREE_FINGERPRINT": "2050105512516673f80468f5d496dd63cb626ff3e0ed7e0f1a49c292a3bd2c81"
   },
   "FAMILIES": [
     {
@@ -1969,7 +1971,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 57
+      "count": 58
     },
     {
       "id": "F-ENTREGA",
@@ -2339,7 +2341,7 @@
       "y": 190,
       "w": 1235,
       "h": 4870,
-      "count": 44
+      "count": 45
     }
   ],
   "DEPARTMENTS": {
@@ -13660,6 +13662,7 @@
         "C-CENSO-DA-MAQUINA",
         "C-SCRAP-GUARDA",
         "C-SCRAP-SOCIAL",
+        "C-SMOKE-GPU-ASR",
         "C-TESTES"
       ],
       "paises": {},
@@ -14102,6 +14105,52 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 15540,
       "y": 1326
+    },
+    {
+      "id": "C-SMOKE-GPU-ASR",
+      "name": "A placa leva uma inferencia ate ao fim?",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Corre UMA transcricao no runner local, com audio sintetizado na propria maquina, e devolve o trace inteiro: dispositivo pedido, escolhido e provado, acelerador, tipo de calculo, estado do texto e as DLL do CUDA ao alcance do processo. Nao baixa modelo — para com MODEL_NOT_PRESENT — nao adquire midia e nao instancia reconhecedor proprio.",
+      "why_here": "A primeira prova de que a GTX 1080 levava uma inferencia ate ao fim foi feita a mao, num PowerShell, e passou. O QUE NAO CORRE OUTRA VEZ NAO E PROVA: E UMA LEMBRANCA. E ela e TECNICA, nunca de qualidade — o audio e uma frase sintetizada sem verdade de referencia, e por isso o artefato carrega QUALITY_BENCHMARK = NOT_RUN escrito por dentro. GPU TECHNICAL SMOKE != GPU QUALITY BENCHMARK.",
+      "departments": [
+        "ENGENHARIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/gpu_asr_smoke.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-SCRAP-ROTA",
+        "C-TRANSCRICAO"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20435,
+      "y": 4868
     },
     {
       "id": "C-SUPABASE",
@@ -15309,6 +15358,7 @@
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c3_youtube_cutover.py",
         "tests/test_c4_gpu_local.py",
+        "tests/test_c4b_gpu_execucao.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canonico.py",
         "tests/test_censo_dos_donos.py",
@@ -15380,7 +15430,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 82,
+      "file_count": 83,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15477,6 +15527,7 @@
         "C-SCRAP-SOCIAL",
         "C-SECURITY-CHECK",
         "C-SENSOR-COLETA",
+        "C-SMOKE-GPU-ASR",
         "C-SUPABASE",
         "C-TRANSCRICAO",
         "C-V21-COMERCIAL",
@@ -15540,13 +15591,14 @@
           "SINAIS",
           "SINAL_LOMBARDIA",
           "SINAL_VENETO",
+          "TRACE_GPU",
           "_GAVETA_DE"
         ],
-        "palavras": 411,
+        "palavras": 419,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 409,
+        "sem_marca_de_lingua": 417,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15598,7 +15650,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 4868
     },
     {
@@ -15647,6 +15699,7 @@
         "C-PROVA-ASR-LOCAL",
         "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL",
+        "C-SMOKE-GPU-ASR",
         "C-TESTES"
       ],
       "paises": {},
@@ -19314,7 +19367,7 @@
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
-          "line": 554,
+          "line": 571,
           "snippet": "import hardware_local as hw                             # noqa: PLC0415"
         }
       ],
@@ -28615,7 +28668,7 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 199,
+          "line": 267,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
         }
       ],
@@ -28633,13 +28686,31 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 199,
+          "line": 267,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
         },
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 200,
+          "line": 268,
           "snippet": "coleta/youtube_oficial.py; do"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-SCRAP-ROTA",
+      "to": "C-SMOKE-GPU-ASR",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar A placa leva uma inferencia ate ao fim?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 218,
+          "snippet": "& $env:PY provas/gpu_asr_smoke.py --device GPU --json"
         }
       ],
       "categoria": "CONTROL"
@@ -28652,11 +28723,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP rota e sessao · o despachador (auth_mode) alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c2_youtube_oficial.py",
           "line": 139,
+          "snippet": "wf = _fonte('.github/workflows/scrap-social.yml')"
+        },
+        {
+          "file": "tests/test_c4b_gpu_execucao.py",
+          "line": 241,
           "snippet": "wf = _fonte('.github/workflows/scrap-social.yml')"
         },
         {
@@ -29204,6 +29280,24 @@
         }
       ],
       "categoria": "WRITE"
+    },
+    {
+      "from": "C-SMOKE-GPU-ASR",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A placa leva uma inferencia ate ao fim? alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c4b_gpu_execucao.py",
+          "line": 35,
+          "snippet": "SMOKE = 'provas/gpu_asr_smoke.py'"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-SUPABASE",
@@ -30161,18 +30255,59 @@
     },
     {
       "from": "C-TRANSCRICAO",
+      "to": "C-SMOKE-GPU-ASR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por A placa leva uma inferencia ate ao fim?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/gpu_asr_smoke.py",
+          "line": 55,
+          "snippet": "import fala_local as fl              # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-TRANSCRICAO",
+      "to": "C-SMOKE-GPU-ASR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura alimenta A placa leva uma inferencia ate ao fim?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/gpu_asr_smoke.py",
+          "line": 239,
+          "snippet": "'ASR_OWNER': 'ferramentas/fala_local.py',"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-TRANSCRICAO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
           "line": 27,
           "snippet": "import fala_local as fl                                        # noqa: E402"
+        },
+        {
+          "file": "tests/test_c4b_gpu_execucao.py",
+          "line": 32,
+          "snippet": "import fala_local as fl             # noqa: E402"
         },
         {
           "file": "tests/test_reel_transcricao.py",
@@ -30210,7 +30345,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
@@ -30231,6 +30366,21 @@
           "file": "tests/test_c4_gpu_local.py",
           "line": 35,
           "snippet": "'ferramentas/reel_transcricao.py')"
+        },
+        {
+          "file": "tests/test_c4b_gpu_execucao.py",
+          "line": 34,
+          "snippet": "DONO_DO_ASR = 'ferramentas/fala_local.py'"
+        },
+        {
+          "file": "tests/test_c4b_gpu_execucao.py",
+          "line": 342,
+          "snippet": "for rel in ('ferramentas/youtube_transcrever.py',"
+        },
+        {
+          "file": "tests/test_c4b_gpu_execucao.py",
+          "line": 343,
+          "snippet": "'ferramentas/instagram_transcrever.py'):"
         },
         {
           "file": "tests/test_reel_transcricao.py",
@@ -31379,17 +31529,17 @@
     ]
   },
   "COUNTS": {
-    "components": 160,
+    "components": 161,
     "components_proven": 57,
-    "components_pending": 97,
+    "components_pending": 98,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 642,
-    "edges_proven": 639,
+    "edges": 646,
+    "edges_proven": 643,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1450,
-    "files_covered": 710,
+    "files_tracked": 1452,
+    "files_covered": 712,
     "files_code_unclaimed": 0
   }
 }
