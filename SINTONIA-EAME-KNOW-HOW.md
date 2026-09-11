@@ -3786,3 +3786,135 @@ olhando para estes 36 deixa de poder avaliá-lo com eles.
 ```
 UM CONJUNTO SO E INDEPENDENTE DE QUEM NAO OLHOU PARA ELE.
 ```
+
+---
+
+# §57 · A BASELINE DA ADMISSION EM T3 — E O ACERTO QUE VEIO DA SORTE
+
+**Missão:** `C-MEDE-ADMISSION-ATUAL-CONTRA-GABARITO-T3-V1` · HEAD final `d43126e3`
+**Artefactos:** `provas/medir_admission_t3_atual.py` ·
+`data/derivados/BASELINE-ADMISSION-T3-V1.json` ·
+`docs/operacao/BASELINE-ADMISSION-T3-V1.md`
+
+## 57.1 · O QUÊ
+
+Primeira medição do mecanismo temático de hoje contra rótulo humano
+independente. Nada foi corrigido.
+
+```
+FIRST_VALID_BASELINE_FINGERPRINT
+f24eceedd1235a1c1909a0d941aea4b87bdf8cba6547be762c5785e9ff635a85
+```
+
+## 57.2 · A PORTA NÃO CHEGA À PERGUNTA — E ISSO É METADE DO ACHADO
+
+Com o item a levar só o que o próprio contrato declara:
+
+```
+DECISION_COVERAGE = 0.0      36 de 36 param na pergunta da ORIGEM
+```
+
+O registo de artefactos diz `SOURCE_ID = "NAO SEI"` nos 30 textos derivados, e
+`coleta/ingresso.py` é explícito: *a confissão de ignorância não é um valor*.
+Logo o item chega sem origem e a porta para antes do tema — como manda
+`COL-LAW-042`.
+
+```
+MEDIR O MECANISMO TEMÁTICO E MEDIR A LINHAGEM
+SÃO DUAS PERGUNTAS, E A PRIMEIRA NÃO CHEGA A SER FEITA.
+```
+
+Por isso a medição tem **dois planos de entrada**, com a regra de qual é a
+baseline fixada antes de correr: `CONTRATO` (o que a produção vê) e `LINHAGEM`
+(mais o `SOURCE_ID` que o gabarito já resolveu). A baseline temática é o
+segundo — é o único que exercita a regra.
+
+## 57.3 · A BASELINE TEMÁTICA
+
+```
+TP 2 · TN 4 · FP 5 · FN 0 · ABSTAIN 25 · NOT_APPLICABLE 0 · ERROR 0 = 36
+
+DECISION_COVERAGE     0.3056
+EFFECTIVE_ACCURACY    0.1667      CONDITIONAL_ACCURACY  0.5455
+PRECISION 0.2857 · RECALL 1.0 · F1 0.4444
+```
+
+`RECALL = 1.0` parece perfeito e não é: a porta deu decisão binária a **dois**
+dos 14 positivos humanos e absteve-se nos outros doze. **As duas acurácias
+ficam sempre lado a lado** — uma taxa sem o seu denominador é propaganda.
+
+Por observação independente (31 grupos, agrupamento vindo do gabarito e nunca
+das previsões): `PASS 6 · FAIL 5 · NOT_DECIDED 20`.
+
+## 57.4 · O BUG DO SUBSTRING NÃO SÓ SOBREVIVEU: ELE PRODUZ RESULTADO
+
+```
+SUBSTRING_FALSE_MATCH_STILL_EXISTS = YES
+```
+
+34 casamentos nos 36 documentos em que a palavra **nunca aparece sozinha** —
+`lancio` dentro de `bilancio` nove vezes, `revista` dentro de `prevista` seis,
+`sintoma` dentro de `sintomatologia` três.
+
+E uma das quatro negativas correctas assenta **inteiramente** nisso:
+
+```
+RAW-445e41701f737d73.txt   humano T3_NAO · porta NAO · termo: ['lancio']
+```
+
+A porta disse «não é T3, fala de lançamento de produto». O documento fala de
+**balanço fitossanitário**. Acertou pelo motivo errado.
+
+```
+UM ACERTO QUE VEM DE UM CASAMENTO FALSO
+NÃO É O MECANISMO A FUNCIONAR: É A SORTE A ALINHAR-SE.
+```
+
+**Dos 6 acertos binários, 5 são do mecanismo e 1 é da sorte.** Medir acerto sem
+medir *de onde ele veio* teria dado 6.
+
+## 57.5 · O PADRÃO DOS CINCO FALSOS POSITIVOS
+
+Todos têm vocabulário de praga denso no texto e todos são `NÃO` humano:
+balanços anuais, boletins agrometeorológicos com secção fitossanitária,
+directrizes de produção integrada.
+
+```
+MENCIONAR NÃO É TRATAR DE.
+UMA LISTA DE PALAVRAS NÃO CONSEGUE VER A DIFERENÇA.
+```
+
+Isto liga-se a §50: a regra de T2 também não se deixou escrever como lista de
+palavras. O mesmo limite, agora medido noutro universo e com rótulo humano.
+
+## 57.6 · DUAS MUTAÇÕES QUE APANHARAM TESTES MEUS
+
+- **Esconder os erros do relatório impresso** sobreviveu porque eu procurava o
+  `ITEM_ID` no ecrã *inteiro* — e ele aparece também nas sondas de red team.
+  Procurar no sítio errado e encontrar é pior do que não procurar.
+- **Publicar só a acurácia condicional** sobreviveu porque eu exigia
+  `EFFECTIVE <= CONDITIONAL`, e a mutação satisfazia a relação ao calcular as
+  duas sobre o mesmo denominador.
+
+```
+UMA RELAÇÃO QUE A MUTAÇÃO TAMBÉM SATISFAZ
+NÃO DISTINGUE O CERTO DO ERRADO.
+```
+
+A correcção foi exigir a **fórmula** (cada acurácia contra o seu denominador) e
+olhar para a **secção** certa do relatório, não para a página.
+
+## 57.7 · CONSEQUÊNCIA
+
+Há baseline reprodutível para T3, com impressão digital e com a independência
+histórica provada por datas do Git (o mecanismo não é tocado desde 09-09; o
+gabarito só existe desde 09-11).
+
+```
+PERFORMANCE_GATE_PREDEFINED  = NO
+CURRENT_MECHANISM_ACCEPTABLE = NOT_DECIDED
+```
+
+Não existe limiar canónico de aprovação para um mecanismo de classificação
+nesta árvore. Sem gate prévio, medir não aprova nem reprova — e inventar o gate
+depois de ver o resultado seria desenhar o alvo à volta da flecha.
