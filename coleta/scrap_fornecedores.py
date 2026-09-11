@@ -1,0 +1,153 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+FORNECEDORES — o degrau que caiu tem de dizer o nome, e por que caiu.
+
+    import scrap_fornecedores as forn
+    p = forn.Percurso('instagram.reel.capture', pedido=forn.YTDLP)
+    p.degrau(forn.YTDLP, 'MEDIA_DOWNLOAD_FAILED', 'HTTP 403 do CDN')
+    p.degrau(forn.EMBED, 'MEDIA_OK', 'baixou 3.257.414 bytes')
+    trace = p.selar()
+
+ADAPTER != PROVIDER != EXECUTION ENVIRONMENT
+---------------------------------------------
+    ADAPTER     a semantica da plataforma        «como se fala com o Instagram»
+    PROVIDER    a ferramenta que cumpre          «com yt-dlp, ou com Instaloader»
+    AMBIENTE    onde aquilo corre                «aqui, ou no computador da casa»
+
+Sao tres eixos. Fundir dois deles num conceito so parece simplificacao e custa
+a verdade: `yt-dlp` traz metadados do YouTube e leva 403 nos bytes do mesmo
+YouTube, do mesmo IP, no mesmo minuto. Quem so guardasse o fornecedor escreveria
+«yt-dlp nao serve para YouTube», que e falso.
+
+O QUE ESTE FICHEIRO EXISTE PARA IMPEDIR
+----------------------------------------
+    FALLBACK SILENCIOSO E MENTIRA COM OUTRO NOME.
+
+Uma cadeia que pede `yt-dlp`, recebe do `embed`, e devolve so o objeto, produz
+um resultado verdadeiro e uma historia falsa: quem le acredita que a primeira
+rota funcionou. No dia em que a primeira rota morrer de vez, ninguem repara,
+porque nunca reparou que ela ja tinha morrido.
+
+Por isso quatro campos, e o validador recusa a falta do quarto:
+
+    PROVIDER_REQUESTED   qual foi pedido
+    PROVIDER_USED        qual entregou
+    WHY_FALLBACK         por que o pedido nao serviu
+    RESULT               o que saiu
+
+    TROCAR DE FORNECEDOR SEM `WHY_FALLBACK` REPROVA. Nao e aviso: e recusa.
+"""
+
+# ── OS FORNECEDORES CONHECIDOS ────────────────────────────────────────────
+# Os cinco primeiros sao os degraus que a cadeia de Reels ja usa hoje, com os
+# nomes que ela ja grava. Nao foram renomeados: renomear e reescrever historia
+# de artefatos que ja estao no disco.
+FORNECIDO = 'MEDIA_FORNECIDA'
+JA_PRESERVADO = 'MEDIA_JA_PRESERVADA'
+YTDLP = 'LOCAL_YTDLP'
+EMBED = 'LOCAL_EMBED'
+APIFY = 'APIFY'
+
+# Medidos no benchmark, ainda sem rota ligada.
+INSTALOADER = 'LOCAL_INSTALOADER'
+GALLERY_DL = 'LOCAL_GALLERY_DL'
+HTTP_PROPRIO = 'LOCAL_HTTP'
+API_OFICIAL = 'OFFICIAL_API'
+BROWSER = 'LOCAL_BROWSER'
+
+CONHECIDOS = (FORNECIDO, JA_PRESERVADO, YTDLP, EMBED, APIFY,
+              INSTALOADER, GALLERY_DL, HTTP_PROPRIO, API_OFICIAL, BROWSER)
+
+#: Os que custam dinheiro. `COL-LAW-019`: rota paga e escalada, nao padrao.
+PAGOS = (APIFY,)
+
+
+class TraceIncompleto(RuntimeError):
+    """Houve troca de fornecedor e ninguem escreveu por que."""
+
+
+class FornecedorDesconhecido(ValueError):
+    """Nome de fornecedor fora da lista. Inventar nome e perder o rasto."""
+
+
+class Percurso:
+    """Os degraus de uma capacidade, na ordem em que foram tentados."""
+
+    def __init__(self, capacidade, *, pedido=None):
+        if pedido is not None and pedido not in CONHECIDOS:
+            raise FornecedorDesconhecido(pedido)
+        self.capacidade = capacidade
+        self.pedido = pedido
+        self.degraus = []
+
+    def degrau(self, fornecedor, resultado, porque=None):
+        """Regista uma tentativa. `porque` vale tanto para o que falhou como
+        para o que serviu — e o campo que conta a historia."""
+        if fornecedor not in CONHECIDOS:
+            raise FornecedorDesconhecido(fornecedor)
+        self.degraus.append({'PROVIDER': fornecedor, 'RESULT': resultado,
+                             'WHY': porque})
+        return self
+
+    def selar(self, *, resultado=None):
+        """→ o trace, sempre. Mesmo sem nenhum degrau."""
+        usado = None
+        for d in self.degraus:
+            if str(d.get('RESULT', '')).endswith('_OK') or d.get('RESULT') == 'OK':
+                usado = d['PROVIDER']
+        pedido = self.pedido
+        if pedido is None and self.degraus:
+            pedido = self.degraus[0]['PROVIDER']
+        porque = None
+        if usado and pedido and usado != pedido:
+            # o motivo e o do PRIMEIRO degrau que nao serviu
+            for d in self.degraus:
+                if d['PROVIDER'] == pedido:
+                    porque = d.get('WHY') or d.get('RESULT')
+                    break
+            porque = porque or 'o fornecedor pedido nao entregou'
+        trace = {
+            'CAPABILITY': self.capacidade,
+            'PROVIDER_REQUESTED': pedido,
+            'PROVIDER_USED': usado,
+            'WHY_FALLBACK': porque,
+            'RESULT': resultado if resultado is not None else (
+                self.degraus[-1]['RESULT'] if self.degraus else 'NOT_ATTEMPTED'),
+            'PROVIDER_STEPS': list(self.degraus),
+            'PAID_PROVIDER_USED': usado in PAGOS if usado else False,
+        }
+        conferir(trace)
+        return trace
+
+
+def de_degraus(capacidade, degraus, *, pedido=None, resultado=None):
+    """Traduz os `degraus` que a cadeia de Reels ja produz para o trace canonico.
+
+    A cadeia de Reels ja escrevia PROVIDER, RESULT e WHY por degrau desde que
+    nasceu. O que faltava nao era medicao — era a leitura de cima: qual foi
+    pedido, qual serviu, e por que houve troca.
+    """
+    p = Percurso(capacidade, pedido=pedido)
+    for d in (degraus or ()):
+        p.degrau(d.get('PROVIDER'), d.get('RESULT'), d.get('WHY'))
+    return p.selar(resultado=resultado)
+
+
+def conferir(trace):
+    """Levanta `TraceIncompleto` se houve troca de fornecedor sem motivo escrito."""
+    pedido = trace.get('PROVIDER_REQUESTED')
+    usado = trace.get('PROVIDER_USED')
+    if usado and pedido and usado != pedido and not trace.get('WHY_FALLBACK'):
+        raise TraceIncompleto(
+            '%s: pediu %s, usou %s, e nao disse por que. Fallback silencioso '
+            'nao passa.' % (trace.get('CAPABILITY'), pedido, usado))
+    for d in trace.get('PROVIDER_STEPS') or ():
+        if d.get('PROVIDER') not in CONHECIDOS:
+            raise FornecedorDesconhecido(d.get('PROVIDER'))
+    return True
+
+
+def houve_fallback(trace):
+    pedido, usado = trace.get('PROVIDER_REQUESTED'), trace.get('PROVIDER_USED')
+    return bool(usado and pedido and usado != pedido)
