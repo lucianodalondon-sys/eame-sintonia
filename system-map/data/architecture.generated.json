@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/thematic-candidates-v1",
-    "HEAD": "da33016b0bc2cc8c18b7b4fc907dbffe1b90aa8b",
-    "GENERATED_AT": "2026-09-11T20:44:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1b40996ef2b68e8bcd7d5a91edafb37e6eafd4dba811e6770b1a49fccb7145bb"
+    "HEAD": "49903e0e35c99a718e0159244ec6d8e43b868621",
+    "GENERATED_AT": "2026-09-11T21:30:39+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1875cd70cbdbebf3ada228179e478f0474b9c3ff45e8c7ace4be11b881f7f827"
   },
   "FILES": [
     {
@@ -1486,8 +1486,22 @@
       "code_dir": false
     },
     {
+      "path": "data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json",
+      "sha": "0cf028c2b37839dce6e717b061b69d2decc60957",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/derivados/BASELINE-ADMISSION-T3-V1.json",
       "sha": "d97ce3334a3fd641fd80dd47aaadbcb8d56670ef",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/BENCHMARK-TEMATICO-V1.json",
+      "sha": "6fe2e9a67d6438f49bef6d839100852c29f4fc74",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4895,6 +4909,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/VEREDITO-TEMATICO-T3-V1.md",
+      "sha": "6c71f632142abe16112736dd8604ac7520346a26",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/YOUTUBE-CHECKPOINT-E-RAW.md",
       "sha": "5921b565853916d6857b5f034f5827e948c319d1",
       "ext": ".md",
@@ -7821,6 +7842,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/alcance_da_pergunta_tematica.py",
+      "sha": "344c11e485dfb616792090d92b25ea39ae38b7ca",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/amostragem_neutra_t3.py",
       "sha": "b083b5ff41fa87e1474fea58acd969baf3c5013b",
       "ext": ".py",
@@ -7838,6 +7866,13 @@
       "path": "provas/auditoria_live.sh",
       "sha": "a6e7b6440ee1dbb8fc29395a7f5ded955052605b",
       "ext": ".sh",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/benchmark_tematico.py",
+      "sha": "afe53f330acb0cce27293f6acc38d8ee5b982477",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -7907,6 +7942,13 @@
     {
       "path": "provas/gate_de_aceitacao_tematica.py",
       "sha": "c59029795e40610a1fa9c50e9eaf75530fdf1e43",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/implementacoes_candidatas.py",
+      "sha": "a2f5a7419752751aca3ec1124b46c12aa1f359b5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9306,7 +9348,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "dae2ee0d13129433c569f499c46cbe87e569c35a",
+      "sha": "f8902efecf45d590a793c34052ffce9d0b472668",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9446,7 +9488,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "2674d9e3a167172b735481a2deba95a6e07f4531",
+      "sha": "41c780f6dd8673cb026b0294d3eb6bc8cb376c89",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9650,6 +9692,13 @@
     {
       "path": "tests/test_adama_relevance.py",
       "sha": "4337978c67cf52681f3eddbcaeb2423eca2291e8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_alcance_tematico.py",
+      "sha": "28c063fd9f3471535a0afc884f8a0a0e6810a747",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9888,6 +9937,13 @@
     {
       "path": "tests/test_identidade_do_artefato.py",
       "sha": "6855dee111d814d69254a0c1b039ea698925a1d7",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_implementacoes_candidatas.py",
+      "sha": "576b309cbf2e8dafd84e8ff54ff80b43546bd7db",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27212,6 +27268,72 @@
       }
     },
     {
+      "from_file": "provas/alcance_da_pergunta_tematica.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/alcance_da_pergunta_tematica.py",
+        "line": 34,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/alcance_da_pergunta_tematica.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/alcance_da_pergunta_tematica.py",
+        "line": 35,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/alcance_da_pergunta_tematica.py",
+      "to_file": "data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/alcance_da_pergunta_tematica.py",
+        "line": 45,
+        "snippet": "SAIDA = \"data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/alcance_da_pergunta_tematica.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/alcance_da_pergunta_tematica.py",
+        "line": 44,
+        "snippet": "REGISTO = \"data/derivados/REGISTO-DE-ARTEFATOS.json\""
+      }
+    },
+    {
+      "from_file": "provas/alcance_da_pergunta_tematica.py",
+      "to_file": "data/samples/T3-GROUND-TRUTH-EVAL-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/alcance_da_pergunta_tematica.py",
+        "line": 43,
+        "snippet": "GABARITO = \"data/samples/T3-GROUND-TRUTH-EVAL-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/alcance_da_pergunta_tematica.py",
+      "to_file": "provas/gate_de_aceitacao_tematica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/alcance_da_pergunta_tematica.py",
+        "line": 39,
+        "snippet": "\"_gate_alc\", os.path.join(RAIZ, \"provas\", \"gate_de_aceitacao_tematica.py\"))"
+      }
+    },
+    {
       "from_file": "provas/amostragem_neutra_t3.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -27264,6 +27386,94 @@
         "file": "provas/amostragem_neutra_t3.py",
         "line": 150,
         "snippet": "with open(os.path.join(RAIZ, \"provas\", \"pacote_de_revisao_t3.py\"),"
+      }
+    },
+    {
+      "from_file": "provas/benchmark_tematico.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/benchmark_tematico.py",
+        "line": 30,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/benchmark_tematico.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/benchmark_tematico.py",
+        "line": 31,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/benchmark_tematico.py",
+      "to_file": "data/derivados/BENCHMARK-TEMATICO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/benchmark_tematico.py",
+        "line": 49,
+        "snippet": "SAIDA = \"data/derivados/BENCHMARK-TEMATICO-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/benchmark_tematico.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/benchmark_tematico.py",
+        "line": 48,
+        "snippet": "REGISTO = \"data/derivados/REGISTO-DE-ARTEFATOS.json\""
+      }
+    },
+    {
+      "from_file": "provas/benchmark_tematico.py",
+      "to_file": "data/samples/T3-GROUND-TRUTH-EVAL-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/benchmark_tematico.py",
+        "line": 47,
+        "snippet": "GABARITO = \"data/samples/T3-GROUND-TRUTH-EVAL-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/benchmark_tematico.py",
+      "to_file": "provas/candidatos_tematicos.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/benchmark_tematico.py",
+        "line": 45,
+        "snippet": "espec = _mod(\"_espec_bm\", \"candidatos_tematicos.py\")"
+      }
+    },
+    {
+      "from_file": "provas/benchmark_tematico.py",
+      "to_file": "provas/gate_de_aceitacao_tematica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/benchmark_tematico.py",
+        "line": 43,
+        "snippet": "gate = _mod(\"_gate_bm\", \"gate_de_aceitacao_tematica.py\")"
+      }
+    },
+    {
+      "from_file": "provas/benchmark_tematico.py",
+      "to_file": "provas/implementacoes_candidatas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/benchmark_tematico.py",
+        "line": 44,
+        "snippet": "impl = _mod(\"_impl_bm\", \"implementacoes_candidatas.py\")"
       }
     },
     {
@@ -27737,6 +27947,39 @@
         "file": "provas/gate_de_aceitacao_tematica.py",
         "line": 53,
         "snippet": "GABARITO = \"data/samples/T3-GROUND-TRUTH-EVAL-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/implementacoes_candidatas.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/implementacoes_candidatas.py",
+        "line": 24,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/implementacoes_candidatas.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/implementacoes_candidatas.py",
+        "line": 25,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/implementacoes_candidatas.py",
+      "to_file": "data/samples/ES-T4-001/eppo-dictionary.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/implementacoes_candidatas.py",
+        "line": 27,
+        "snippet": "DICIONARIO_EPPO = \"data/samples/ES-T4-001/eppo-dictionary.json\""
       }
     },
     {
@@ -30837,7 +31080,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2986,
+        "line": 3000,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -30892,7 +31135,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2964,
+        "line": 2978,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -30903,7 +31146,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2745,
+        "line": 2759,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -30914,7 +31157,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2747,
+        "line": 2761,
         "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
       }
     },
@@ -30958,7 +31201,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3165,
+        "line": 3179,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -30969,7 +31212,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3167,
+        "line": 3181,
         "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
       }
     },
@@ -31002,7 +31245,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3828,
+        "line": 3842,
         "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -31024,7 +31267,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3206,
+        "line": 3220,
         "snippet": "cadeia = json.loads((Path(__file__).with_name(\"CADEIA-DO-MAPA.json\"))"
       }
     },
@@ -31035,7 +31278,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3841,
+        "line": 3855,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -31046,7 +31289,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3841,
+        "line": 3855,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -31057,7 +31300,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2926,
+        "line": 2940,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -31939,6 +32182,50 @@
         "file": "tests/test_adama_relevance.py",
         "line": 22,
         "snippet": "from adama_relevance import (classificar, contar, produto_que_prova,   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_alcance_tematico.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_alcance_tematico.py",
+        "line": 17,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_alcance_tematico.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_alcance_tematico.py",
+        "line": 18,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_alcance_tematico.py",
+      "to_file": "provas/alcance_da_pergunta_tematica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_alcance_tematico.py",
+        "line": 29,
+        "snippet": "A = _carrega(\"alcance_t\", \"alcance_da_pergunta_tematica.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_alcance_tematico.py",
+      "to_file": "provas/gate_de_aceitacao_tematica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_alcance_tematico.py",
+        "line": 119,
+        "snippet": "gate = _carrega(\"gate_alc_t\", \"gate_de_aceitacao_tematica.py\")"
       }
     },
     {
@@ -34194,6 +34481,50 @@
         "file": "tests/test_identidade_do_artefato.py",
         "line": 202,
         "snippet": "\"generate_system_map.py\"), encoding=\"utf-8\").read()"
+      }
+    },
+    {
+      "from_file": "tests/test_implementacoes_candidatas.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_implementacoes_candidatas.py",
+        "line": 18,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_implementacoes_candidatas.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_implementacoes_candidatas.py",
+        "line": 19,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_implementacoes_candidatas.py",
+      "to_file": "provas/candidatos_tematicos.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_implementacoes_candidatas.py",
+        "line": 32,
+        "snippet": "FICHA = _carrega(\"cand_t\", \"candidatos_tematicos.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_implementacoes_candidatas.py",
+      "to_file": "provas/implementacoes_candidatas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_implementacoes_candidatas.py",
+        "line": 29,
+        "snippet": "I = _carrega(\"impl_c\", \"implementacoes_candidatas.py\")"
       }
     },
     {
@@ -38680,10 +39011,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1469,
-    "files_readable": 562,
-    "files_code_dir": 607,
-    "file_edges": 2537,
+    "files_tracked": 1477,
+    "files_readable": 567,
+    "files_code_dir": 612,
+    "file_edges": 2562,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

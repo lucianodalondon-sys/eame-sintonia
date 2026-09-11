@@ -233,7 +233,9 @@
       "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
       "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
+      "data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json",
       "data/derivados/BASELINE-ADMISSION-T3-V1.json",
+      "data/derivados/BENCHMARK-TEMATICO-V1.json",
       "data/derivados/CANDIDATOS-TEMATICOS-V1.json",
       "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
       "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
@@ -722,6 +724,7 @@
       "docs/operacao/TOPOLOGIA-DA-COLETA.md",
       "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
       "docs/operacao/TRAVESSIA-GENERICA-DA-UNIDADE.md",
+      "docs/operacao/VEREDITO-TEMATICO-T3-V1.md",
       "docs/operacao/YOUTUBE-CHECKPOINT-E-RAW.md",
       "docs/operacao/YOUTUBE-OFICIAL.md",
       "docs/operacao/YOUTUBE-PILOTO-ONESHOT.md",
@@ -1167,9 +1170,11 @@
       "provas/a_lei_da_fase_10.py",
       "provas/a_regra_de_t2.py",
       "provas/a_rota_m2_atravessa.py",
+      "provas/alcance_da_pergunta_tematica.py",
       "provas/amostragem_neutra_t3.py",
       "provas/auditoria.py",
       "provas/auditoria_live.sh",
+      "provas/benchmark_tematico.py",
       "provas/candidatos_tematicos.py",
       "provas/censo_corpus_rotulado_admission.py",
       "provas/chain.py",
@@ -1180,6 +1185,7 @@
       "provas/fechar_ground_truth_t3.py",
       "provas/fluxo_no_seco.py",
       "provas/gate_de_aceitacao_tematica.py",
+      "provas/implementacoes_candidatas.py",
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
@@ -1445,6 +1451,7 @@
       "tests/fixtures/yt-raw-minimo.json",
       "tests/test_a_regra_de_t2.py",
       "tests/test_adama_relevance.py",
+      "tests/test_alcance_tematico.py",
       "tests/test_alvo_estruturado_resolvido.py",
       "tests/test_amostragem_neutra_t3.py",
       "tests/test_aprender_com_a_fonte.py",
@@ -1479,6 +1486,7 @@
       "tests/test_handoff.py",
       "tests/test_hero_cases_v1.py",
       "tests/test_identidade_do_artefato.py",
+      "tests/test_implementacoes_candidatas.py",
       "tests/test_integracao_biblia.py",
       "tests/test_italia_na_porta_canonica.py",
       "tests/test_leitores_depois_da_fase_10.py",
@@ -1917,9 +1925,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/thematic-candidates-v1",
-    "HEAD": "da33016b0bc2cc8c18b7b4fc907dbffe1b90aa8b",
-    "GENERATED_AT": "2026-09-11T20:44:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1b40996ef2b68e8bcd7d5a91edafb37e6eafd4dba811e6770b1a49fccb7145bb"
+    "HEAD": "49903e0e35c99a718e0159244ec6d8e43b868621",
+    "GENERATED_AT": "2026-09-11T21:30:39+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1875cd70cbdbebf3ada228179e478f0474b9c3ff45e8c7ace4be11b881f7f827"
   },
   "FAMILIES": [
     {
@@ -11930,13 +11938,16 @@
         "provas/a_fase_10_entra_no_acervo.py",
         "provas/a_lei_da_fase_10.py",
         "provas/a_regra_de_t2.py",
+        "provas/alcance_da_pergunta_tematica.py",
         "provas/amostragem_neutra_t3.py",
         "provas/auditoria_live.sh",
+        "provas/benchmark_tematico.py",
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
         "provas/derived_artifact_no_postgres.py",
         "provas/fechar_ground_truth_t3.py",
         "provas/gate_de_aceitacao_tematica.py",
+        "provas/implementacoes_candidatas.py",
         "provas/medir_admission_t3_atual.py",
         "provas/mutacao_do_gate.py",
         "provas/o_corte_de_cr1.py",
@@ -11955,7 +11966,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 27,
+      "file_count": 30,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12008,7 +12019,7 @@
       "paises": {},
       "paises_dado": {
         "ITALIA": 3,
-        "ESPANHA": 1
+        "ESPANHA": 2
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
@@ -12034,14 +12045,18 @@
           "CRITERIOS",
           "CROMO",
           "EDICAO",
+          "ENSAIO",
           "ENTRADAS_PERMITIDAS",
           "ENTRADAS_PROIBIDAS",
           "ESTUDO_EXTERNO",
+          "EVIDENCIA_QUE_VIAJA",
           "FAMILIAS_EXCLUIDAS",
           "FONTE_DO_POSITIVO",
+          "GRUPOS_DE_ALVO",
           "LIMIARES",
           "MIGRATIONS",
           "MUTACOES",
+          "NEGACOES",
           "PROIBIDOS_NA_FILA_CEGA",
           "PROIBIDOS_NO_HTML",
           "PUBLICADOR",
@@ -12056,11 +12071,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 828,
+        "palavras": 864,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 826,
+        "sem_marca_de_lingua": 862,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15324,6 +15339,7 @@
         "tests/es/test_adama_es_import_rules.py",
         "tests/test_a_regra_de_t2.py",
         "tests/test_adama_relevance.py",
+        "tests/test_alcance_tematico.py",
         "tests/test_alvo_estruturado_resolvido.py",
         "tests/test_amostragem_neutra_t3.py",
         "tests/test_aprender_com_a_fonte.py",
@@ -15358,6 +15374,7 @@
         "tests/test_handoff.py",
         "tests/test_hero_cases_v1.py",
         "tests/test_identidade_do_artefato.py",
+        "tests/test_implementacoes_candidatas.py",
         "tests/test_integracao_biblia.py",
         "tests/test_italia_na_porta_canonica.py",
         "tests/test_leitores_depois_da_fase_10.py",
@@ -15415,7 +15432,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 94,
+      "file_count": 96,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15580,13 +15597,14 @@
           "SINAIS",
           "SINAL_LOMBARDIA",
           "SINAL_VENETO",
+          "SINTETICOS",
           "_GAVETA_DE"
         ],
-        "palavras": 439,
+        "palavras": 461,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 437,
+        "sem_marca_de_lingua": 459,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -17343,11 +17361,21 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 8 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_regra_de_t2.py",
           "line": 39,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "provas/alcance_da_pergunta_tematica.py",
+          "line": 35,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "provas/benchmark_tematico.py",
+          "line": 31,
           "snippet": "import admissao as adm  # noqa: E402"
         },
         {
@@ -17358,6 +17386,11 @@
         {
           "file": "provas/censo_corpus_rotulado_admission.py",
           "line": 39,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "provas/implementacoes_candidatas.py",
+          "line": 25,
           "snippet": "import admissao as adm  # noqa: E402"
         },
         {
@@ -17531,11 +17564,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
           "line": 22,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "tests/test_alcance_tematico.py",
+          "line": 18,
           "snippet": "import admissao as adm  # noqa: E402"
         },
         {
@@ -17564,6 +17602,11 @@
           "snippet": "import admissao"
         },
         {
+          "file": "tests/test_implementacoes_candidatas.py",
+          "line": 19,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
           "file": "tests/test_lingua_da_porta.py",
           "line": 39,
           "snippet": "import admissao as adm  # noqa: E402"
@@ -17581,16 +17624,6 @@
         {
           "file": "tests/test_pacote_de_revisao_t3.py",
           "line": 194,
-          "snippet": "import admissao as adm"
-        },
-        {
-          "file": "tests/test_red_team_estrada.py",
-          "line": 28,
-          "snippet": "import admissao as adm  # noqa: E402"
-        },
-        {
-          "file": "tests/test_ui_revisao_t3_ptbr.py",
-          "line": 280,
           "snippet": "import admissao as adm"
         }
       ],
@@ -18134,7 +18167,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2964,
+          "line": 2978,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -23183,7 +23216,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF alimenta Provas da coleta canonica. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_regra_de_t2.py",
@@ -23191,9 +23224,19 @@
           "snippet": "REGISTO = os.path.join(RAIZ, \"data\", \"derivados\", \"REGISTO-DE-ARTEFATOS.json\")"
         },
         {
+          "file": "provas/alcance_da_pergunta_tematica.py",
+          "line": 44,
+          "snippet": "REGISTO = \"data/derivados/REGISTO-DE-ARTEFATOS.json\""
+        },
+        {
           "file": "provas/amostragem_neutra_t3.py",
           "line": 90,
           "snippet": "for a in censo._json(\"data/derivados/REGISTO-DE-ARTEFATOS.json\")[\"ARTEFATOS\"]:"
+        },
+        {
+          "file": "provas/benchmark_tematico.py",
+          "line": 48,
+          "snippet": "REGISTO = \"data/derivados/REGISTO-DE-ARTEFATOS.json\""
         },
         {
           "file": "provas/censo_corpus_rotulado_admission.py",
@@ -24196,7 +24239,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2986,
+          "line": 3000,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -25210,7 +25253,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3206,
+          "line": 3220,
           "snippet": "cadeia = json.loads((Path(__file__).with_name(\"CADEIA-DO-MAPA.json\"))"
         }
       ],
@@ -25343,7 +25386,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3828,
+          "line": 3842,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
         },
         {
@@ -25394,12 +25437,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3841,
+          "line": 3855,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3841,
+          "line": 3855,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -27433,12 +27476,22 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 19 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 23 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
           "line": 27,
           "snippet": "\"prova_regra_t2\", os.path.join(RAIZ, \"provas\", \"a_regra_de_t2.py\"))"
+        },
+        {
+          "file": "tests/test_alcance_tematico.py",
+          "line": 29,
+          "snippet": "A = _carrega(\"alcance_t\", \"alcance_da_pergunta_tematica.py\")"
+        },
+        {
+          "file": "tests/test_alcance_tematico.py",
+          "line": 119,
+          "snippet": "gate = _carrega(\"gate_alc_t\", \"gate_de_aceitacao_tematica.py\")"
         },
         {
           "file": "tests/test_amostragem_neutra_t3.py",
@@ -27484,16 +27537,6 @@
           "file": "tests/test_gate_de_aceitacao_tematica.py",
           "line": 534,
           "snippet": "\"mut_t\", os.path.join(RAIZ, \"provas\", \"mutacao_do_gate.py\"))"
-        },
-        {
-          "file": "tests/test_lingua_unica.py",
-          "line": 244,
-          "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
-        },
-        {
-          "file": "tests/test_m2_rota_forward.py",
-          "line": 31,
-          "snippet": "'prova_pg', os.path.join(RAIZ, 'provas', 'preservar_coleta_no_postgres.py'))"
         }
       ],
       "categoria": "PROOF"
@@ -30306,7 +30349,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2926,
+          "line": 2940,
           "snippet": "vj = RAIZ / \"vercel.json\""
         }
       ],
@@ -31467,7 +31510,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 747,
+  "UNCLAIMED_FILES_COUNT": 750,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31639,8 +31682,8 @@
     "edges_proven": 642,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1469,
-    "files_covered": 722,
+    "files_tracked": 1477,
+    "files_covered": 727,
     "files_code_unclaimed": 0
   }
 }

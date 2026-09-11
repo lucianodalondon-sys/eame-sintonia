@@ -2469,8 +2469,22 @@ def vocabulario_das_pecas(nos: list) -> None:
         todas = [w for v in listas.values() for w in v]
         por_lingua = {}
         for w in todas:
+            # ⚠️ `w.split()[0]` rebentava com uma string so de espacos: ela
+            # passa o filtro de comprimento, contem " ", e parte-se em lista
+            # VAZIA. Um fixture de teste com "   \n\t  " derrubava o mapa
+            # inteiro — o gerador morria e a lei do System Map ficava por
+            # cumprir por causa de tres espacos.
+            #
+            #     UMA STRING VAZIA NAO E UMA PALAVRA CURTA:
+            #     E A AUSENCIA DE PALAVRA, E PARTE-SE NOUTRO SITIO.
+            #
+            # Sem marca de lingua ela ja era contada em `sem_marca_de_lingua`;
+            # agora chega la em vez de rebentar pelo caminho.
+            fichas = w.split()
+            if not fichas:
+                continue
             for k, rx in compilados.items():
-                if rx.match(w.split()[0] if " " in w else w):
+                if rx.match(fichas[0]):
                     por_lingua[k] = por_lingua.get(k, 0) + 1
                     break
         # a rota desta peca e a Italia; PT/ES/FR aqui sao de fora
