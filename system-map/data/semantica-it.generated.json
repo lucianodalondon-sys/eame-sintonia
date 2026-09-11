@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "243cd25712bbc38108c26105bca7dfc46109deb9"
+    "HEAD": "0032cc0246d55c853ad4ec9d54dd612caa1bf229"
   },
   "VOCABULARIOS": [
     {
@@ -25,8 +25,14 @@
       "FOREIGN_ONLY": 11,
       "CONSUMERS": [
         ".github/workflows/apify-sensores.yml",
+        "coleta/social_scrap.py",
         "provas/testa_coleta_canonica.py",
         "system-map/scripts/censo_semantico_it.py",
+        "system-map/scripts/generate_system_map.py",
+        "tests/test_c3_youtube_cutover.py",
+        "tests/test_c4_gpu_local.py",
+        "tests/test_c5_transcript_gate.py",
+        "tests/test_c6_especie_do_texto.py",
         "tests/test_trava_da_inteligencia.py"
       ],
       "TERMOS": [
@@ -486,7 +492,8 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py"
       ],
       "TERMOS": [
         {
@@ -592,7 +599,8 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py"
       ],
       "TERMOS": [
         {
@@ -682,7 +690,8 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py"
       ],
       "TERMOS": [
         {
@@ -776,7 +785,8 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py"
       ],
       "TERMOS": [
         {
@@ -1006,7 +1016,8 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py"
       ],
       "TERMOS": [
         {
@@ -1088,7 +1099,8 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py"
       ],
       "TERMOS": [
         {
@@ -1162,7 +1174,8 @@
         "coleta/youtube_relevancia.py",
         "leis/regua_italia.py",
         "provas/testa_coleta_canonica.py",
-        "system-map/scripts/censo_semantico_it.py"
+        "system-map/scripts/censo_semantico_it.py",
+        "tests/test_c6_especie_do_texto.py"
       ],
       "TERMOS": [
         {
@@ -1237,6 +1250,7 @@
         "system-map/scripts/generate_system_map.py",
         "system-map/scripts/recall_da_porta_it.py",
         "system-map/scripts/scan_repo.py",
+        "system-map/scripts/validate_system_map.py",
         "system-map/tests/test_system_map.py",
         "tests/test_m2_rota_forward.py",
         "tests/test_red_team_estrada.py"

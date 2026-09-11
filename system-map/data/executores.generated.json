@@ -1,94 +1,94 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "243cd25712bbc38108c26105bca7dfc46109deb9",
+  "HEAD": "0032cc0246d55c853ad4ec9d54dd612caa1bf229",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 58,
- "TOTAL_CAMINHOS_RELEVANTES": 56,
+ "TOTAL_FICHEIROS": 71,
+ "TOTAL_CAMINHOS_RELEVANTES": 60,
  "POR_ESTADO": {
-  "NOT_INSTRUMENTED": 53,
+  "NOT_APPLICABLE": 11,
+  "NOT_INSTRUMENTED": 57,
   "PARTIAL": 1,
-  "INSTRUMENTED": 2,
-  "NOT_APPLICABLE": 2
+  "INSTRUMENTED": 2
  },
  "PROXIMO_MAIS_BARATO": [
+  "coleta/italy_executor.py",
   "guarda/preservar_derivado.py",
   "coleta/social_scrap.py",
   "coleta/golden_path_pdf.py",
-  "coleta/comunicacao_medir.py",
-  "coleta/coletor.py"
+  "coleta/comunicacao_medir.py"
  ],
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   },
   "STAGES": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   },
   "EDGE_PASSAGE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   },
   "ACCOUNTING": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   },
   "GRAIN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_STATE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   },
   "DIAGNOSTIC_CODE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_SNAPSHOT": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   },
   "LAST_GOOD": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   },
   "RESUME": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   },
   "DURATION": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   },
   "COST": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   },
   "CHECKPOINT": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 1
   },
   "REUSED": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 54,
+   "NOT_INSTRUMENTED": 58,
    "NOT_APPLICABLE": 0
   }
  },
@@ -206,20 +206,164 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 58,
-  "TOTAL_RELEVANT_PATHS": 56,
+  "TOTAL_FILES_SCANNED": 71,
+  "TOTAL_RELEVANT_PATHS": 60,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 10,
-  "TOTAL_ORCHESTRATORS": 3,
+  "TOTAL_ORCHESTRATORS": 5,
   "TOTAL_ADAPTERS": 8,
-  "TOTAL_PRESERVATION_OWNERS": 3,
+  "TOTAL_PRESERVATION_OWNERS": 4,
   "TOTAL_CHECKPOINT_OWNERS": 1,
   "TOTAL_TELEMETRY_EMITTERS": 3,
-  "TOTAL_UNKNOWN": 30,
+  "TOTAL_UNKNOWN": 32,
   "A_LEI": "CAMINHO RELEVANTE != EXECUTOR PROVADO. O numero grande e de caminhos varridos; o pequeno e do que foi provado a correr."
  },
  "PORQUE_ESSE": "corre sem rede, sem API paga e sem producao, e ja fala a lingua das falhas — instrumenta-lo custa o writer, e nao um ambiente.",
  "EXECUTORES": [
+  {
+   "EXECUTOR_ID": "coleta/adaptador_aberto.py",
+   "GAVETA": "coleta",
+   "LINHAS": 207,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": true,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": false,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
+   "EXECUTOR_ID": "coleta/adaptador_facebook.py",
+   "GAVETA": "coleta",
+   "LINHAS": 38,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
+   "EXECUTOR_ID": "coleta/adaptador_instagram.py",
+   "GAVETA": "coleta",
+   "LINHAS": 107,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
+   "EXECUTOR_ID": "coleta/adaptador_linkedin.py",
+   "GAVETA": "coleta",
+   "LINHAS": 61,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
+   "EXECUTOR_ID": "coleta/adaptador_x.py",
+   "GAVETA": "coleta",
+   "LINHAS": 58,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
+   "EXECUTOR_ID": "coleta/adaptador_youtube.py",
+   "GAVETA": "coleta",
+   "LINHAS": 367,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": true,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": false,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
   {
    "EXECUTOR_ID": "coleta/agrifood_ue.py",
    "GAVETA": "coleta",
@@ -298,7 +442,7 @@
   {
    "EXECUTOR_ID": "coleta/comunicacao_classificar.py",
    "GAVETA": "coleta",
-   "LINHAS": 260,
+   "LINHAS": 330,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -322,7 +466,7 @@
   {
    "EXECUTOR_ID": "coleta/comunicacao_coleta.py",
    "GAVETA": "coleta",
-   "LINHAS": 356,
+   "LINHAS": 636,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW"
@@ -348,7 +492,7 @@
   {
    "EXECUTOR_ID": "coleta/comunicacao_medir.py",
    "GAVETA": "coleta",
-   "LINHAS": 202,
+   "LINHAS": 231,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "DERIVED",
@@ -606,7 +750,7 @@
   {
    "EXECUTOR_ID": "coleta/golden_path_pdf.py",
    "GAVETA": "coleta",
-   "LINHAS": 479,
+   "LINHAS": 482,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -625,6 +769,32 @@
    "USA_CHECKPOINT": false,
    "PAPEIS": [
     "EXECUTOR"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
+   "EXECUTOR_ID": "coleta/ingresso.py",
+   "GAVETA": "coleta",
+   "LINHAS": 296,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [
+    "RAW"
+   ],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": true,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
    ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
@@ -727,6 +897,32 @@
    "USA_CHECKPOINT": false,
    "PAPEIS": [
     "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
+   "EXECUTOR_ID": "coleta/italy_executor.py",
+   "GAVETA": "coleta",
+   "LINHAS": 264,
+   "TEM_PORTA": true,
+   "ETAPAS_NOMEADAS": [
+    "RAW"
+   ],
+   "HAS_PRESERVED_INPUT": true,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "EXECUTOR"
    ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
@@ -931,6 +1127,132 @@
    "STATE": "NOT_INSTRUMENTED"
   },
   {
+   "EXECUTOR_ID": "coleta/scrap_capacidades.py",
+   "GAVETA": "coleta",
+   "LINHAS": 308,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [
+    "DISCOVER",
+    "FETCH"
+   ],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
+   "EXECUTOR_ID": "coleta/scrap_executor.py",
+   "GAVETA": "coleta",
+   "LINHAS": 280,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [
+    "RAW",
+    "CHECK"
+   ],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ORCHESTRATOR"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
+   "EXECUTOR_ID": "coleta/scrap_fornecedores.py",
+   "GAVETA": "coleta",
+   "LINHAS": 213,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
+   "EXECUTOR_ID": "coleta/scrap_http.py",
+   "GAVETA": "coleta",
+   "LINHAS": 157,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": true,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": false,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
+   "EXECUTOR_ID": "coleta/scrap_registo.py",
+   "GAVETA": "coleta",
+   "LINHAS": 194,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
    "EXECUTOR_ID": "coleta/sensor_canal_identidade.py",
    "GAVETA": "coleta",
    "LINHAS": 246,
@@ -1011,12 +1333,9 @@
   {
    "EXECUTOR_ID": "coleta/social_rotas.py",
    "GAVETA": "coleta",
-   "LINHAS": 510,
+   "LINHAS": 277,
    "TEM_PORTA": false,
-   "ETAPAS_NOMEADAS": [
-    "DISCOVER",
-    "FETCH"
-   ],
+   "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
    "NETWORK_REQUIRED": true,
@@ -1028,23 +1347,24 @@
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
    "PAPEIS": [
-    "EXECUTOR"
+    "UNKNOWN"
    ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
-   "STATE": "NOT_INSTRUMENTED"
+   "STATE": "NOT_APPLICABLE"
   },
   {
    "EXECUTOR_ID": "coleta/social_scrap.py",
    "GAVETA": "coleta",
-   "LINHAS": 865,
+   "LINHAS": 1230,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "DISCOVER",
     "FETCH",
     "RAW",
-    "DERIVED"
+    "DERIVED",
+    "CHECK"
    ],
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
@@ -1294,7 +1614,7 @@
   {
    "EXECUTOR_ID": "guarda/memoria_descartavel.py",
    "GAVETA": "guarda",
-   "LINHAS": 238,
+   "LINHAS": 325,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1318,7 +1638,7 @@
   {
    "EXECUTOR_ID": "guarda/portas_live.py",
    "GAVETA": "guarda",
-   "LINHAS": 229,
+   "LINHAS": 261,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1342,9 +1662,11 @@
   {
    "EXECUTOR_ID": "guarda/preservar_coleta.py",
    "GAVETA": "guarda",
-   "LINHAS": 646,
+   "LINHAS": 993,
    "TEM_PORTA": false,
-   "ETAPAS_NOMEADAS": [],
+   "ETAPAS_NOMEADAS": [
+    "RAW"
+   ],
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
    "NETWORK_REQUIRED": false,
@@ -1361,7 +1683,7 @@
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
-   "STATE": "NOT_APPLICABLE"
+   "STATE": "NOT_INSTRUMENTED"
   },
   {
    "EXECUTOR_ID": "guarda/preservar_derivado.py",
@@ -1392,7 +1714,7 @@
   {
    "EXECUTOR_ID": "guarda/social_guarda.py",
    "GAVETA": "guarda",
-   "LINHAS": 231,
+   "LINHAS": 290,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1416,7 +1738,7 @@
   {
    "EXECUTOR_ID": "guarda/social_sessao.py",
    "GAVETA": "guarda",
-   "LINHAS": 560,
+   "LINHAS": 577,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1462,33 +1784,6 @@
    "STATE": "NOT_INSTRUMENTED"
   },
   {
-   "EXECUTOR_ID": "ferramentas/apify_contrato.py",
-   "GAVETA": "ferramentas",
-   "LINHAS": 211,
-   "TEM_PORTA": true,
-   "ETAPAS_NOMEADAS": [
-    "DERIVED",
-    "READY"
-   ],
-   "HAS_PRESERVED_INPUT": false,
-   "USA_CONTRATO_ARTEFATO": false,
-   "NETWORK_REQUIRED": false,
-   "PAID": true,
-   "PRODUCTION_REQUIRED": false,
-   "CAN_RUN_OFFLINE": false,
-   "USA_TELEMETRIA": false,
-   "USA_FALHAS": false,
-   "USA_DIAGNOSTICO": false,
-   "USA_CHECKPOINT": false,
-   "PAPEIS": [
-    "ADAPTER"
-   ],
-   "GOOD_PATH_PROVED": false,
-   "FAULT_PATH_PROVED": false,
-   "PROVA": null,
-   "STATE": "NOT_INSTRUMENTED"
-  },
-  {
    "EXECUTOR_ID": "ferramentas/apify_pool.py",
    "GAVETA": "ferramentas",
    "LINHAS": 311,
@@ -1502,33 +1797,6 @@
    "CAN_RUN_OFFLINE": false,
    "USA_TELEMETRIA": false,
    "USA_FALHAS": true,
-   "USA_DIAGNOSTICO": false,
-   "USA_CHECKPOINT": false,
-   "PAPEIS": [
-    "ADAPTER"
-   ],
-   "GOOD_PATH_PROVED": false,
-   "FAULT_PATH_PROVED": false,
-   "PROVA": null,
-   "STATE": "NOT_INSTRUMENTED"
-  },
-  {
-   "EXECUTOR_ID": "ferramentas/apify_recuperar.py",
-   "GAVETA": "ferramentas",
-   "LINHAS": 229,
-   "TEM_PORTA": true,
-   "ETAPAS_NOMEADAS": [
-    "RAW",
-    "DERIVED"
-   ],
-   "HAS_PRESERVED_INPUT": false,
-   "USA_CONTRATO_ARTEFATO": false,
-   "NETWORK_REQUIRED": false,
-   "PAID": true,
-   "PRODUCTION_REQUIRED": false,
-   "CAN_RUN_OFFLINE": false,
-   "USA_TELEMETRIA": false,
-   "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
    "PAPEIS": [
@@ -1572,7 +1840,7 @@
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
    "NETWORK_REQUIRED": true,
-   "PAID": false,
+   "PAID": true,
    "PRODUCTION_REQUIRED": false,
    "CAN_RUN_OFFLINE": false,
    "USA_TELEMETRIA": false,
@@ -1588,9 +1856,33 @@
    "STATE": "NOT_INSTRUMENTED"
   },
   {
+   "EXECUTOR_ID": "ferramentas/fala_local.py",
+   "GAVETA": "ferramentas",
+   "LINHAS": 836,
+   "TEM_PORTA": true,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ADAPTER"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
    "EXECUTOR_ID": "ferramentas/instagram_transcrever.py",
    "GAVETA": "ferramentas",
-   "LINHAS": 396,
+   "LINHAS": 372,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1636,9 +1928,37 @@
    "STATE": "NOT_INSTRUMENTED"
   },
   {
+   "EXECUTOR_ID": "ferramentas/reel_transcricao.py",
+   "GAVETA": "ferramentas",
+   "LINHAS": 1005,
+   "TEM_PORTA": true,
+   "ETAPAS_NOMEADAS": [
+    "RAW",
+    "DERIVED"
+   ],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": true,
+   "NETWORK_REQUIRED": true,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": false,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "ORCHESTRATOR",
+    "ADAPTER"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
    "EXECUTOR_ID": "ferramentas/youtube_transcrever.py",
    "GAVETA": "ferramentas",
-   "LINHAS": 305,
+   "LINHAS": 319,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1662,9 +1982,11 @@
   {
    "EXECUTOR_ID": "orquestrador/orquestrador.py",
    "GAVETA": "orquestrador",
-   "LINHAS": 322,
+   "LINHAS": 411,
    "TEM_PORTA": true,
-   "ETAPAS_NOMEADAS": [],
+   "ETAPAS_NOMEADAS": [
+    "RAW"
+   ],
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
    "NETWORK_REQUIRED": false,

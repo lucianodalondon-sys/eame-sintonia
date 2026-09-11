@@ -596,6 +596,7 @@
       "data/samples/SENSOR-PILOT/COMENTARIOS-C.json",
       "data/samples/SENSOR-PILOT/COMENTARIOS-D.json",
       "data/samples/SENSOR-PILOT/COMENTARIOS-E.json",
+      "data/samples/SENSOR-PILOT/ESPECIE-DO-TEXTO-AUDITORIA-V1.json",
       "data/samples/SENSOR-PILOT/MEDICAO.json",
       "data/samples/SENSOR-PILOT/RUNS-A.json",
       "data/samples/SENSOR-PILOT/RUNS-B.json",
@@ -1180,6 +1181,7 @@
       "provas/coverage.py",
       "provas/derived_artifact_no_postgres.py",
       "provas/es/freeze_es.py",
+      "provas/especie_do_texto_auditoria.py",
       "provas/fluxo_no_seco.py",
       "provas/hardware_local.py",
       "provas/inventario_esperado.py",
@@ -1448,6 +1450,7 @@
       "tests/test_c3_youtube_cutover.py",
       "tests/test_c4_gpu_local.py",
       "tests/test_c5_transcript_gate.py",
+      "tests/test_c6_especie_do_texto.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canonico.py",
       "tests/test_censo_dos_donos.py",
@@ -1899,10 +1902,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-youtube-transcript-c5",
-    "HEAD": "3d0f61f5d1814583af7259d5abca833c2dd27332",
-    "GENERATED_AT": "2026-09-11T10:43:50+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a93bf7f78c6dfe78b5b3d6de843865f7316a5d4d407be89392f346a9a5bddb93"
+    "BRANCH": "claude/sintonia-scrap-text-provenance-c6",
+    "HEAD": "0032cc0246d55c853ad4ec9d54dd612caa1bf229",
+    "GENERATED_AT": "2026-09-11T12:12:35+00:00",
+    "SOURCE_TREE_FINGERPRINT": "f32921339096ab5cac01367961ca2647540144e54af43ba5a8adb5007dfc5216"
   },
   "FAMILIES": [
     {
@@ -1971,7 +1974,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 57
+      "count": 58
     },
     {
       "id": "F-ENTREGA",
@@ -2341,7 +2344,7 @@
       "y": 190,
       "w": 1235,
       "h": 4870,
-      "count": 44
+      "count": 45
     }
   ],
   "DEPARTMENTS": {
@@ -5335,8 +5338,12 @@
             "SOURCE_LOCATION"
           ],
           "separa_fonte_do_fato": true,
-          "leis_que_obedece": [],
-          "regista_descarte": []
+          "leis_que_obedece": [
+            "proveniencia"
+          ],
+          "regista_descarte": [
+            "REJEIT"
+          ]
         }
       ],
       "intake": {
@@ -8310,6 +8317,62 @@
       "y": 682
     },
     {
+      "id": "C-ESPECIE-DO-TEXTO",
+      "name": "A auditoria da especie do texto — o que se suspeita, ao lado do que se sabe",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Le os textos de video ja preservados e publica, numa camada DERIVADA, a suspeita de traducao por peneira de palavra funcional — com tres estados e piso de marcadores declarados. O campo canonico da especie sai sempre do registo, nunca desta leitura.",
+      "why_here": "AUDIT_CLASSIFICATION != TRANSCRIPT_KIND. A especie do texto e declarada pelo provedor; inferi-la do conteudo seria adivinhar duas vezes, primeiro a lingua e depois a intencao. Esta peca existe para que a observacao util da C5 — onze textos ingleses vindos de video nao-ingles — possa ser guardada sem virar facto no corpus. Quem infere pode suspeitar; quem infere nao carimba.",
+      "departments": [
+        "ENGENHARIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "♪",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/especie_do_texto_auditoria.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [
+        "data/samples/SENSOR-PILOT/ESPECIE-DO-TEXTO-AUDITORIA-V1.json"
+      ],
+      "inbound": [
+        "C-PROCEDENCIA"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/SENSOR-PILOT/ESPECIE-DO-TEXTO-AUDITORIA-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "x": 20850,
+      "y": 1648
+    },
+    {
       "id": "C-ESTRADA-PDF",
       "name": "A primeira estrada · PDF até à porta",
       "territory": "Z-ACOES",
@@ -8442,8 +8505,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 1648
+      "x": 20020,
+      "y": 1970
     },
     {
       "id": "C-EVOLUCAO",
@@ -8649,7 +8712,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 1970
     },
     {
@@ -8956,7 +9019,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 1970
     },
     {
@@ -9187,8 +9250,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 1970
+      "x": 20020,
+      "y": 2292
     },
     {
       "id": "C-INGRESSO",
@@ -9451,7 +9514,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 2292
     },
     {
@@ -10136,7 +10199,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 2292
     },
     {
@@ -10197,8 +10260,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 2292
+      "x": 20020,
+      "y": 2614
     },
     {
       "id": "C-MAPA-GERADOR",
@@ -10308,7 +10371,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 2614
     },
     {
@@ -10392,7 +10455,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 2614
     },
     {
@@ -10477,8 +10540,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 2614
+      "x": 20020,
+      "y": 2936
     },
     {
       "id": "C-MAPA-VALIDADOR",
@@ -10529,7 +10592,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 2936
     },
     {
@@ -10603,7 +10666,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 2936
     },
     {
@@ -10997,7 +11060,7 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "“",
       "views": [
         "acervo",
@@ -11010,14 +11073,17 @@
         "regras/sensor_medir.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-YOUTUBE, C-RELEVANCIA.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-YOUTUBE, C-RELEVANCIA.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "regras/sensor_medir.py"
+      ],
       "produces": [
         "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json"
       ],
       "inbound": [
         "C-CORPUS",
+        "C-PROCEDENCIA",
         "C-ROTULOS"
       ],
       "outbound": [
@@ -11025,6 +11091,7 @@
         "C-COLETA-YOUTUBE",
         "C-PROVA-COLETA",
         "C-RELEVANCIA",
+        "C-TESTES",
         "C-V21-CRUZAMENTO"
       ],
       "paises": {},
@@ -11075,7 +11142,7 @@
           "pasta": "data/samples/SENSOR-PILOT",
           "prova": {
             "file": "regras/sensor_medir.py",
-            "line": 541,
+            "line": 583,
             "snippet": "escreve em PILOT"
           }
         }
@@ -11644,11 +11711,13 @@
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-DATA-CLOCK",
+        "C-ESPECIE-DO-TEXTO",
         "C-ESTRADA-PDF",
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
         "C-ORQUESTRADOR",
         "C-PADRAO-COLETA",
+        "C-PALAVRAS",
         "C-RECEITAS",
         "C-REGRA-COLETA",
         "C-SENSOR-COLETA",
@@ -11751,8 +11820,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 2936
+      "x": 20020,
+      "y": 3258
     },
     {
       "id": "C-PROVA-AUTORIDADE-FONTE",
@@ -11802,7 +11871,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 3258
     },
     {
@@ -11870,7 +11939,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 3258
     },
     {
@@ -11979,8 +12048,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3258
+      "x": 20020,
+      "y": 3580
     },
     {
       "id": "C-PROVA-DEDUPE",
@@ -12035,7 +12104,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 3580
     },
     {
@@ -12081,7 +12150,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3580
     },
     {
@@ -12128,8 +12197,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3580
+      "x": 20020,
+      "y": 3902
     },
     {
       "id": "C-PROVA-FALA-QUALIDADE",
@@ -12204,7 +12273,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 3902
     },
     {
@@ -12270,7 +12339,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3902
     },
     {
@@ -12327,8 +12396,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3902
+      "x": 20020,
+      "y": 4224
     },
     {
       "id": "C-PROVA-MAPA-NAO-MENTE",
@@ -12417,7 +12486,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 4224
     },
     {
@@ -12488,7 +12557,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4224
     },
     {
@@ -12541,8 +12610,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4224
+      "x": 20020,
+      "y": 4546
     },
     {
       "id": "C-PROVENIENCIA",
@@ -12790,7 +12859,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4546
     },
     {
@@ -12936,7 +13005,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4546
     },
     {
@@ -13078,8 +13147,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4546
+      "x": 20020,
+      "y": 4868
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -13855,7 +13924,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 4868
     },
     {
@@ -15312,6 +15381,7 @@
         "tests/test_c3_youtube_cutover.py",
         "tests/test_c4_gpu_local.py",
         "tests/test_c5_transcript_gate.py",
+        "tests/test_c6_especie_do_texto.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canonico.py",
         "tests/test_censo_dos_donos.py",
@@ -15383,7 +15453,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 83,
+      "file_count": 84,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15434,6 +15504,7 @@
         "C-DIAGNOSTICO",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
+        "C-ESPECIE-DO-TEXTO",
         "C-ESTRADA-PDF",
         "C-ESTRADAS-IT",
         "C-EVOLUCAO",
@@ -15457,6 +15528,7 @@
         "C-NAVEGADOR",
         "C-ORQUESTRADOR",
         "C-PACOTE-CAMADAS",
+        "C-PALAVRAS",
         "C-PEDIDO",
         "C-POLITICA-COLETA",
         "C-PORTAL-MODELO",
@@ -15601,7 +15673,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 4868
     },
     {
@@ -16961,7 +17033,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-youtube-transcript-c5"
+        "branch claude/sintonia-scrap-text-provenance-c6"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -21578,7 +21650,7 @@
       "evidence": [
         {
           "file": "regras/sensor_medir.py",
-          "line": 491,
+          "line": 533,
           "snippet": "canal = _ler('CANAL-IDENTIDADE.json') or {'ITEMS': []}"
         }
       ],
@@ -22491,6 +22563,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-ESPECIE-DO-TEXTO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A auditoria da especie do texto — o que se suspeita, ao lado do que se sabe alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c6_especie_do_texto.py",
+          "line": 36,
+          "snippet": "AUDITORIA = os.path.join(PILOTO, 'ESPECIE-DO-TEXTO-AUDITORIA-V1.json')"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-ESTRADA-PDF",
@@ -25564,6 +25654,42 @@
     },
     {
       "from": "C-PALAVRAS",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As palavras que a busca digita tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c6_especie_do_texto.py",
+          "line": 211,
+          "snippet": "import sensor_medir as sm                               # noqa: PLC0415"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PALAVRAS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As palavras que a busca digita alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c6_especie_do_texto.py",
+          "line": 193,
+          "snippet": "t = _fonte('regras/sensor_medir.py')"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PALAVRAS",
       "to": "C-V21-CRUZAMENTO",
       "type": "READS",
       "payload": "artefacto",
@@ -26550,6 +26676,24 @@
     },
     {
       "from": "C-PROCEDENCIA",
+      "to": "C-ESPECIE-DO-TEXTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por A auditoria da especie do texto — o que se suspeita, ao lado do que se sabe. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/especie_do_texto_auditoria.py",
+          "line": 49,
+          "snippet": "import proveniencia as pv            # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PROCEDENCIA",
       "to": "C-ESTRADA-PDF",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -26645,6 +26789,24 @@
     },
     {
       "from": "C-PROCEDENCIA",
+      "to": "C-PALAVRAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por As palavras que a busca digita. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/sensor_medir.py",
+          "line": 43,
+          "snippet": "import proveniencia as pv  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PROCEDENCIA",
       "to": "C-RECEITAS",
       "type": "READS",
       "payload": "artefacto",
@@ -26728,8 +26890,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c6_especie_do_texto.py",
+          "line": 30,
+          "snippet": "import proveniencia as pv    # noqa: E402"
+        },
         {
           "file": "tests/test_handoff.py",
           "line": 157,
@@ -26756,7 +26923,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c2_youtube_oficial.py",
@@ -26767,6 +26934,11 @@
           "file": "tests/test_c3_youtube_cutover.py",
           "line": 351,
           "snippet": "for rel in ('data/samples/RUN-MANIFEST.json',"
+        },
+        {
+          "file": "tests/test_c6_especie_do_texto.py",
+          "line": 33,
+          "snippet": "DONO_DA_ESPECIE = 'regras/proveniencia.py'"
         },
         {
           "file": "tests/test_portao.py",
@@ -28490,7 +28662,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 21 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 22 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c2_youtube_oficial.py",
@@ -28501,6 +28673,11 @@
           "file": "tests/test_c5_transcript_gate.py",
           "line": 31,
           "snippet": "import social_matriz as mz   # noqa: E402"
+        },
+        {
+          "file": "tests/test_c6_especie_do_texto.py",
+          "line": 408,
+          "snippet": "import social_matriz as mz                              # noqa: PLC0415"
         },
         {
           "file": "tests/test_falhas.py",
@@ -28546,11 +28723,6 @@
           "file": "tests/test_politica_da_coleta.py",
           "line": 19,
           "snippet": "import fundacao_da_coleta as f  # noqa: E402"
-        },
-        {
-          "file": "tests/test_rastro_pg.py",
-          "line": 21,
-          "snippet": "import falhas                       # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -29024,7 +29196,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c3_youtube_cutover.py",
@@ -29034,6 +29206,11 @@
         {
           "file": "tests/test_c5_transcript_gate.py",
           "line": 239,
+          "snippet": "import sensor_coleta as sc                              # noqa: PLC0415"
+        },
+        {
+          "file": "tests/test_c6_especie_do_texto.py",
+          "line": 109,
           "snippet": "import sensor_coleta as sc                              # noqa: PLC0415"
         }
       ],
@@ -29047,7 +29224,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c3_youtube_cutover.py",
@@ -29062,6 +29239,11 @@
         {
           "file": "tests/test_c5_transcript_gate.py",
           "line": 180,
+          "snippet": "arvore = ast.parse(_fonte('regras/sensor_coleta.py'))"
+        },
+        {
+          "file": "tests/test_c6_especie_do_texto.py",
+          "line": 72,
           "snippet": "arvore = ast.parse(_fonte('regras/sensor_coleta.py'))"
         }
       ],
@@ -30185,7 +30367,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
@@ -30195,6 +30377,11 @@
         {
           "file": "tests/test_c5_transcript_gate.py",
           "line": 358,
+          "snippet": "import fala_local as fl                                 # noqa: PLC0415"
+        },
+        {
+          "file": "tests/test_c6_especie_do_texto.py",
+          "line": 164,
           "snippet": "import fala_local as fl                                 # noqa: PLC0415"
         },
         {
@@ -30233,7 +30420,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
@@ -30258,6 +30445,11 @@
         {
           "file": "tests/test_c5_transcript_gate.py",
           "line": 382,
+          "snippet": "t = _fonte('ferramentas/fala_local.py')"
+        },
+        {
+          "file": "tests/test_c6_especie_do_texto.py",
+          "line": 159,
           "snippet": "t = _fonte('ferramentas/fala_local.py')"
         },
         {
@@ -31407,17 +31599,17 @@
     ]
   },
   "COUNTS": {
-    "components": 160,
-    "components_proven": 57,
-    "components_pending": 97,
+    "components": 161,
+    "components_proven": 56,
+    "components_pending": 99,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 642,
-    "edges_proven": 639,
+    "edges": 647,
+    "edges_proven": 644,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1452,
-    "files_covered": 711,
+    "files_tracked": 1455,
+    "files_covered": 714,
     "files_code_unclaimed": 0
   }
 }

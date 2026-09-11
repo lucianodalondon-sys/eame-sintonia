@@ -1,16 +1,16 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "243cd25712bbc38108c26105bca7dfc46109deb9",
+  "FROZEN_AT_HEAD": "0032cc0246d55c853ad4ec9d54dd612caa1bf229",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 222,
+  "ARTEFATOS": 225,
   "POR_ESPECIE": {
-    "DATA_SAMPLE": 80,
+    "DATA_SAMPLE": 82,
     "GENERATED_OUTPUT": 25,
     "IMPLEMENTATION": 10,
     "INSTRUMENT": 4,
-    "MENCAO_FRACA_APENAS": 32,
-    "PORTAL_UI": 63,
+    "MENCAO_FRACA_APENAS": 34,
+    "PORTAL_UI": 62,
     "TEST": 8
   },
   "O_QUE_A_TRAVA_SEGURA": [
@@ -298,12 +298,6 @@
       "MARCAS_FORTES": []
     },
     {
-      "PATH": "italia-portale/client/adama-relevance.js",
-      "SPECIES": "PORTAL_UI",
-      "GIT_BLOB_SHA": "bb1c6670f652d9076e0f356b2baeaeba759a35d0",
-      "MARCAS_FORTES": []
-    },
-    {
       "PATH": "italia-portale/client/italy-app-model.js",
       "SPECIES": "PORTAL_UI",
       "GIT_BLOB_SHA": "ea1a40c8750dfdedbb4016875829f046f654dcc2",
@@ -316,7 +310,7 @@
     {
       "PATH": "italia-portale/client/italy-casa.js",
       "SPECIES": "PORTAL_UI",
-      "GIT_BLOB_SHA": "3c87fcb0198f69e9c907671e084544d921b3400d",
+      "GIT_BLOB_SHA": "47add30c221becb18049474b271d2f21697f7656",
       "MARCAS_FORTES": [
         "RECOMMENDATION"
       ]
@@ -511,7 +505,7 @@
     {
       "PATH": "regras/sensor_coleta.py",
       "SPECIES": "IMPLEMENTATION",
-      "GIT_BLOB_SHA": "6267585dda56bda9ff2c8b4e443e0d2386b82ccc",
+      "GIT_BLOB_SHA": "22351a5ba7687b876be6e43799737924e3c406a6",
       "MARCAS_FORTES": [
         "FIELD_VOICE"
       ]
@@ -519,7 +513,7 @@
     {
       "PATH": "regras/sensor_medir.py",
       "SPECIES": "IMPLEMENTATION",
-      "GIT_BLOB_SHA": "78a08f1ac8d8d832df55ae53a667d28792f0b307",
+      "GIT_BLOB_SHA": "3627a746f7efe6b6e94b66ed56cb8dce77d4b325",
       "MARCAS_FORTES": [
         "FIELD_VOICE"
       ]
@@ -527,7 +521,7 @@
     {
       "PATH": "superficie/it_casa_dados.py",
       "SPECIES": "PORTAL_UI",
-      "GIT_BLOB_SHA": "ea4ef19118f35b42dba189b3a7b134a7eab8ba25",
+      "GIT_BLOB_SHA": "50ff87ff872ae2d1b6e0699e0bf091085ba7a662",
       "MARCAS_FORTES": [
         "RECOMMENDATION"
       ]
@@ -799,6 +793,10 @@
       "SPECIES": "DATA_SAMPLE"
     },
     {
+      "PATH": "data/samples/SENSOR-PILOT/ESPECIE-DO-TEXTO-AUDITORIA-V1.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
       "PATH": "data/samples/SENSOR-PILOT/MEDICAO.json",
       "SPECIES": "DATA_SAMPLE"
     },
@@ -1023,6 +1021,10 @@
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
+      "PATH": "provas/especie_do_texto_auditoria.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
       "PATH": "provas/trava_da_inteligencia_morde.py",
       "SPECIES": "INSTRUMENT"
     },
@@ -1037,6 +1039,14 @@
     {
       "PATH": "research/italy-demo-reality/ITALY-EXISTING-REALITY-INVENTORY.json",
       "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "security/projeccao-baseline.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "security/ratchet.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
       "PATH": "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",

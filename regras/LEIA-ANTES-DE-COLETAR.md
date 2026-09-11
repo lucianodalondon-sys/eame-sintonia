@@ -45,7 +45,7 @@ Os termos de busca, agrupados por cultura-problema, na lingua de quem trabalha n
 
 | | |
 |---|---|
-| estado | PROVEN — o sistema importa esta lei em runtime para decidir: C-COLETA-YOUTUBE, C-RELEVANCIA. |
+| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-COLETA-YOUTUBE, C-RELEVANCIA.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `regras/rotulos_censo.py` |
 | onde vive | `regras/sensor_medir.py` |
 

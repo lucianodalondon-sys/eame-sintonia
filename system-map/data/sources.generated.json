@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "3d0f61f5d1814583af7259d5abca833c2dd27332",
+    "HEAD": "0032cc0246d55c853ad4ec9d54dd612caa1bf229",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3471,8 +3471,12 @@
         "SOURCE_LOCATION"
       ],
       "separa_fonte_do_fato": true,
-      "leis_que_obedece": [],
-      "regista_descarte": []
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": [
+        "REJEIT"
+      ]
     }
   ],
   "COLETAS_FEITAS": {
@@ -4686,7 +4690,7 @@
     "coletores_com_data": 15,
     "coletores_com_lugar": 30,
     "coletores_que_separam_fonte_do_fato": 20,
-    "coletores_que_registam_descarte": 10,
+    "coletores_que_registam_descarte": 11,
     "corridas_registadas": 26,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,
