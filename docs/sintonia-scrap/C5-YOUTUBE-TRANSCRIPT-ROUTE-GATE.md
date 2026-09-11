@@ -621,17 +621,28 @@ C5 = PASS. O gate fecha, e fecha com a prova na mão.
 # S · KNOW_HOW_DELTA
 
 ```
-KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA
+KNOW_HOW_DELTA = NENHUM
+
+KNOW_HOW_BRANCH       = claude/sintonia-eame-know-how-v1
+KNOW_HOW_INITIAL_HEAD = 211b5b3a   (medido, nao herdado)
+KNOW_HOW_FINAL_HEAD   = 858d811c
+KNOW_HOW_PUSHED       = YES, sem force
 ```
 
-Três coisas duráveis, e nenhuma é sobre YouTube em particular:
+A secção **13** do handoff canônico foi escrita nesta missão, em worktree
+separada, no ficheiro que já existia. Quatro coisas duráveis, e nenhuma é sobre
+YouTube em particular:
 
 1. **quem pega na chave pega no contrato** — usar a Data API prende a casa às
    Developer Policies, que são mais largas que o `robots.txt` e alcançam
    terceiros que agem por nossa conta;
 2. **tradução não é transcrição**, e um campo sem espécie declarada acaba por
    guardar as três como se fossem uma;
-3. **uma lista fechada que ninguém confere é uma lista aberta com outro nome.**
+3. **«eu não quis» e «não me deixam» não se escrevem com a mesma palavra** — a
+   diferença é quem tem a chave da porta;
+4. **uma lista fechada que ninguém confere é uma lista aberta com outro nome** —
+   declarar o vocabulário é metade do trabalho; a trava que o faz valer é a
+   outra metade.
 
 ---
 
