@@ -1766,6 +1766,115 @@ METADE MEDIDA E DECLARADA VALE MAIS DO QUE UM NUMERO INTEIRO INVENTADO.
 
 ---
 
+## 18. C8 — CONVERGIR NÃO É ESCOLHER A BRANCH VENCEDORA
+
+```
+MISSAO   = C8 · CONVERGIR GPU/TRACE NA LINHA SCRAP, 2026-09-11
+BRANCH   = claude/sintonia-scrap-convergence-c8   (base: C7)
+ENTREGA  = docs/sintonia-scrap/C8-CONVERGENCIA.md
+DECISAO  = C8_CONVERGENCE = PASS
+```
+
+### 18.1 · Duas frentes, e nenhuma delas é «o estado mais novo»
+
+**O QUE.** A linha GPU (C4B/C4C) e a linha do corpus (C5/C6/C7) cresceram da
+mesma base e nunca se cruzaram. A tentação é pegar na branch com o head mais
+recente e chamar-lhe estado actual.
+
+```text
+HEAD MAIS NOVO NUMA FRENTE != ESTADO GLOBAL MAIS NOVO.
+```
+
+**PROVA.** Medido **antes** de tocar em nada, e é o que tornou a integração
+segura:
+
+```text
+ficheiros so da linha GPU   11
+ficheiros so da linha C7    14
+INTERSECAO                   0
+
+e os 5 ficheiros que a linha GPU alterou estao IDENTICOS
+entre a base comum e a C7
+```
+
+**CONSEQUÊNCIA.** Com essas duas medições, tomar a versão da linha GPU introduz
+**exactamente** os deltas dela e nada mais — e isso é uma propriedade
+verificável, não uma esperança.
+
+```text
+COMPARAR PRIMEIRO NAO E BUROCRACIA:
+E O QUE TRANSFORMA UMA COPIA NUMA DECISAO.
+```
+
+O único ficheiro onde as duas fases da linha GPU se misturavam — o workflow —
+foi **recortado**, não copiado: entrou `gpu-asr`, ficou `gpu-bench`.
+
+---
+
+### 18.2 · A pergunta que decide o que atravessa
+
+**O QUE.** Nem tudo o que existe numa branch deve entrar na linha operacional.
+
+**PROVA.** Três coisas ficaram para trás, e cada uma por uma razão que se
+escreve:
+
+```text
+provas/corpus_recuperar.py   le o manifesto dos 8 Reels LEGADOS
+tests/test_c4c_corpus.py     segue o anterior
+fase `gpu-bench`             depende de um corpus que nao esta na
+                             maquina da placa
+```
+
+**CONSEQUÊNCIA.** A pergunta que decidiu cada linha, e que serve para a próxima
+convergência:
+
+```text
+ISTO E CAPACIDADE OPERACIONAL, OU TESTEMUNHA HISTORICA DE UMA INVESTIGACAO?
+```
+
+Uma fase que hoje não pode passar não é capacidade: é uma promessa vermelha.
+E nada foi apagado — a investigação vive na sua branch, com o head escrito num
+ponteiro dentro do documento.
+
+---
+
+### 18.3 · TRANSCRIPTION NEED ≠ VIDEO DOWNLOAD
+
+**O QUE.** Quando o objectivo é ASR, o artefato de aquisição desejado é
+**áudio**, não vídeo.
+
+**POR QUÊ.** Vídeo completo gasta banda, armazenamento e processamento que a
+transcrição não precisa. O fluxo desejado é
+
+```text
+SOURCE -> AUDIO-ONLY ACQUISITION -> RAW AUDIO -> ASR -> TRANSCRIPT
+```
+
+e nunca
+
+```text
+VIDEO DOWNLOAD -> EXTRACT AUDIO -> DISCARD VIDEO
+```
+
+**PROVA.** A capacidade GPU está provada e não toca nos pixels. E o extractor da
+própria casa já pede `-vn` ao `ffmpeg`: o vídeo é descartado no primeiro passo,
+o que mostra que ele nunca foi requisito — foi efeito colateral de **como** se
+adquiriu. Os oito RAW legados são `.mp4` de 0,7 a 12,9 MB para transcrever
+segundos de fala.
+
+**CONSEQUÊNCIA.** Onde uma plataforma não oferecer rota audio-only permitida, o
+estado é `AUDIO_ONLY_ROUTE = BLOCKED` ou `REQUIRES_AUTHORIZATION`.
+
+```text
+AUSENCIA DE ROTA AUDIO-ONLY NAO E AUTORIZACAO PARA BAIXAR O VIDEO INTEIRO.
+```
+
+A C8 **não** implementa a rota. Regista a lei, que é o que ela pode fazer
+honestamente — e a próxima missão de aquisição procura e prova as rotas por
+plataforma, em vez de assumir o download completo como fallback.
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
