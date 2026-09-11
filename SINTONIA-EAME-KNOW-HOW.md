@@ -4111,3 +4111,133 @@ haver duas cadeias — e quem não a lê inventa a sua.
 com `git ls-files`; um `provas/` novo e por adicionar não existe para ele, e
 `P9_CODIGO_DECLARADO` só o vê depois do `git add` — e depois exige a declaração
 em `architecture.declared.json`. São dois passos, e nesta ordem.
+
+---
+
+# §59 · A CORRIDA CEGA DEU `NONE` — E O ACHADO ESTAVA NOUTRO SÍTIO
+
+**Missão:** `C-DEFINE-CANDIDATOS-TEMATICOS-V1` + janela autónoma
+**HEAD final:** `102c171a`
+**Donos novos:** `provas/candidatos_tematicos.py` · `provas/implementacoes_candidatas.py` · `provas/benchmark_tematico.py` · `provas/alcance_da_pergunta_tematica.py`
+
+## 59.1 · O QUÊ
+
+Quatro mecanismos candidatos definidos e congelados **antes** de verem o corpus,
+implementados, submetidos a mutação, e corridos **uma vez** contra o gabarito de
+T3 com o portão do §58 intacto.
+
+```
+WINNER  = NONE
+BLOCKED = C3-LLM-STRUCTURED
+EVALUATION_EXPOSED = YES
+ADMISSION_CHANGED  = NO
+```
+
+## 59.2 · `NONE` É UM RESULTADO
+
+O portão não tem segundo lugar. Nenhum dos quatro resolve T3, e a baseline
+também não. A tentação de escrever «o melhor dos que correram» existe e é
+exactamente o que o gate foi congelado para impedir.
+
+```
+«QUASE PASSOU» NÃO É UM ESTADO.
+```
+
+## 59.3 · O ACHADO QUE VALE MAIS DO QUE O VEREDITO
+
+Cinco missões a afinar a pergunta temática, e a medição de alcance diz:
+
+```
+plano CONTRATO (o que a produção vê hoje) ...  0 de 36
+plano LINHAGEM (com o SOURCE_ID já escrito) .. 15 de 36
+```
+
+    UM CLASSIFICADOR PERFEITO NUMA PERGUNTA QUE NINGUÉM FAZ
+    MELHORA EXACTAMENTE ZERO DOCUMENTOS.
+
+Trocar hoje o mecanismo temático mudaria a resposta de **nenhum** documento em
+produção. O gargalo é identidade, não conteúdo — e nenhuma das cinco missões
+anteriores o teria visto, porque todas mediam o classificador.
+
+As classes de paragem nasceram da medição, não de uma taxonomia escrita antes:
+vinte documentos param porque o registo confessa `NÃO SEI` e a linhagem **sabe**
+(encanamento perdido), dezasseis porque ninguém sabe (fonte por descobrir), e
+cinco porque não declaram o que são e apanham a régua antiga.
+
+    NÃO_SEI DE TEMA E NÃO_SEI DE PRONTIDÃO SÃO A MESMA PALAVRA
+    E NÃO SÃO A MESMA COISA.
+
+## 59.4 · TRÊS HIPÓTESES A ERRAR NO MESMO LADO
+
+Negativos certos, de 20 grupos: baseline 4, C1 3, C2 zero, C4 zero. Inventários
+diferentes, o mesmo lado a falhar.
+
+    TRÊS HIPÓTESES A ERRAR NO MESMO LADO
+    NÃO SÃO TRÊS ERROS: SÃO UMA PERGUNTA MAL FEITA.
+
+## 59.5 · QUATRO DEFEITOS QUE SÓ A MEDIÇÃO APANHOU
+
+**Um número escrito à mão não é uma medição.** `FALSE_SUBSTRING_OUTCOME_DEPENDENCY`
+estava fixado em `0` com a justificação — verdadeira — de que C1 e C2 casam por
+palavra inteira por construção. A constante passava pelo mesmo caminho para a
+baseline, que tem o defeito vivo.
+
+    UM NÚMERO QUE NÃO OLHOU PARA O DOCUMENTO
+    NÃO É UMA MEDIÇÃO: É UMA OPINIÃO COM CARA DE MÉTRICA.
+
+**Apresentar a prova proibida ao lado da permitida não testa qual foi usada.**
+O teste de «nenhum candidato lê o caminho» punha os conceitos no texto **e** no
+caminho. Uma mutação que fazia C2 concatenar `BODY_PATH` sobreviveu à suíte
+inteira. Agora o texto é neutro e os conceitos vivem só nos metadados.
+
+**Um limiar só está testado se algum caso cair exactamente por baixo dele.**
+Baixar o limiar de conceitos de 2 para 1 sobreviveu porque todos os sintéticos
+tinham zero conceitos ou dois. Nenhum caía no meio, que é o único sítio onde um
+limiar decide.
+
+**Dois caminhos que dão a mesma resposta em todos os exemplos são um caminho
+testado e outro por testar.** Desligar a exigência de contiguidade do índice
+sobreviveu porque o ramo do género dispara sozinho a partir de seis letras, e
+todos os sintéticos usavam géneros longos. `aphis` tem cinco.
+
+## 59.6 · UM GATE APLICADO A UMA CORRIDA QUE NÃO ACONTECEU
+
+C3 não corre sem credencial: devolve 36 `ERRO`, e o portão calculava
+obedientemente «6 de 8 condições em falha». A tabela ficava com `BLOCKED` e seis
+reprovações na mesma linha.
+
+    GUARDAR O NÚMERO AO LADO DA PALAVRA «BLOCKED»
+    E DEIXAR A PALAVRA PARA QUEM LER O RODAPÉ.
+
+Aquele seis media a falta da chave, não a hipótese. O defeito apareceu ao
+**escrever o relato** — passar números para uma tabela é um teste que o código
+não faz.
+
+## 59.7 · A CADEIA DO MAPA, OUTRA VEZ
+
+O §58.9 já dizia que a cadeia tem sete passos. Corri dois. Os outros cinco
+censos ficaram com o `HEAD` de um commit anterior e ninguém reclamou, porque
+cada script corre sem erro sozinho.
+
+    A CADEIA NÃO É O QUE EU ME LEMBRO DELA. É O QUE `CADEIA-DO-MAPA.json` LISTA.
+
+E o gerador rebentava com `IndexError` numa string feita só de espaços —
+`w.split()[0]` numa lista vazia. O gatilho foi um fixture de teste com
+`"   \n\t  "`; o defeito esperava por ele desde sempre.
+
+    UMA STRING VAZIA NÃO É UMA PALAVRA CURTA:
+    É A AUSÊNCIA DE PALAVRA, E PARTE-SE NOUTRO SÍTIO.
+
+## 59.8 · O QUE NÃO MUDOU
+
+```
+ADMISSION_CHANGED          = NO
+GATE_THRESHOLD_CHANGED     = NO
+GROUND_TRUTH_CHANGED       = NO
+TRAINING_ON_EVALUATION_SET = NO
+INTEGRAÇÃO                 = NOT_READY
+NEW_FAILURES               = 0   (2334 testes, 93 módulos)
+```
+
+`CLASSIFIER_BAD + LINEAGE_BROKEN`: consertar só um dos dois lados não entrega
+documento nenhum.
