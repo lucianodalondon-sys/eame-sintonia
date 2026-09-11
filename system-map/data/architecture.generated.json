@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/thematic-acceptance-gate-v1",
-    "HEAD": "65ecc922a3a2cc778c162f0d433fe96a2c14f147",
-    "GENERATED_AT": "2026-09-11T19:35:55+00:00",
-    "SOURCE_TREE_FINGERPRINT": "c23d4d8a3da0c758f9fadd7e6ef4244a3aa62a3a8a070127381d4427a1fb2e00"
+    "HEAD": "71de3214d2f8f401034a9a7ca1733fa2d7ad770c",
+    "GENERATED_AT": "2026-09-11T19:40:48+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6fb8b7a2c7914ba31fa26d9234c8c20728b02c56befa5f6dc1e6e9cabcea929d"
   },
   "FILES": [
     {
@@ -1494,7 +1494,7 @@
     },
     {
       "path": "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
-      "sha": "f06acd975ee59e617552be462cc77bbb80e99b1b",
+      "sha": "57bc674d3fc6b6ff962db00c4cc4af91127fe679",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4357,7 +4357,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "3e961850c68f29bd76e72814a9521cc30d05d4f6",
+      "sha": "66ee36ef2859e404e7e95284fa1e70e83bb5d9e7",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4665,7 +4665,7 @@
     },
     {
       "path": "docs/operacao/GATE-DE-ACEITACAO-TEMATICA-V1.md",
-      "sha": "cfdde8aeb2f47486a19685f780764bed86fc9384",
+      "sha": "de479d316b95cfd9553345818a2ba8c09ab8cc84",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7885,7 +7885,7 @@
     },
     {
       "path": "provas/gate_de_aceitacao_tematica.py",
-      "sha": "80d6432806d3eea00b532f29b9b641dc0830e6d4",
+      "sha": "c59029795e40610a1fa9c50e9eaf75530fdf1e43",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7914,6 +7914,13 @@
     {
       "path": "provas/medir_admission_t3_atual.py",
       "sha": "045289a75bada48ce5bf46ce217e3b673cd2dd7c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/mutacao_do_gate.py",
+      "sha": "59820eddeda377bf803cbdbf159a077bb6a3ab9f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9278,7 +9285,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "4894001415077790d86757eebb294ae3d67073d4",
+      "sha": "4d2ac061aa459516f847883c57f0bdff75ed2cc8",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9824,7 +9831,7 @@
     },
     {
       "path": "tests/test_gate_de_aceitacao_tematica.py",
-      "sha": "af9d85e3fe708c77d8ddf35b3525e5b5b0b85b29",
+      "sha": "9b99045a516be0c360dbae07556bc4282daeb6a0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27782,6 +27789,39 @@
       }
     },
     {
+      "from_file": "provas/mutacao_do_gate.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/mutacao_do_gate.py",
+        "line": 46,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_do_gate.py",
+      "to_file": "provas/gate_de_aceitacao_tematica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_do_gate.py",
+        "line": 170,
+        "snippet": "with open(DONO, encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_do_gate.py",
+      "to_file": "provas/gate_de_aceitacao_tematica.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_do_gate.py",
+        "line": 196,
+        "snippet": "with open(DONO, \"w\", encoding=\"utf-8\") as f:"
+      }
+    },
+    {
       "from_file": "provas/o_corte_de_cr1.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -33673,7 +33713,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_gate_de_aceitacao_tematica.py",
-        "line": 479,
+        "line": 501,
         "snippet": "\"DIARIO-DE-DECISOES.md\"), encoding=\"utf-8\") as f:"
       }
     },
@@ -33684,7 +33724,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_gate_de_aceitacao_tematica.py",
-        "line": 447,
+        "line": 469,
         "snippet": "\"GATE-DE-ACEITACAO-TEMATICA-V1.md\"),"
       }
     },
@@ -33697,6 +33737,17 @@
         "file": "tests/test_gate_de_aceitacao_tematica.py",
         "line": 29,
         "snippet": "\"gate_t\", os.path.join(RAIZ, \"provas\", \"gate_de_aceitacao_tematica.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_gate_de_aceitacao_tematica.py",
+      "to_file": "provas/mutacao_do_gate.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_gate_de_aceitacao_tematica.py",
+        "line": 534,
+        "snippet": "\"mut_t\", os.path.join(RAIZ, \"provas\", \"mutacao_do_gate.py\"))"
       }
     },
     {
@@ -38271,6 +38322,13 @@
         "constante": "alvo"
       }
     ],
+    "provas/mutacao_do_gate.py": [
+      {
+        "pasta": "provas",
+        "line": 196,
+        "constante": "DONO"
+      }
+    ],
     "provas/o_mapa_nao_mente.py": [
       {
         "pasta": "system-map",
@@ -38418,11 +38476,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1464,
-    "files_readable": 559,
-    "files_code_dir": 604,
-    "file_edges": 2517,
-    "escritas_em_pasta": 69,
+    "files_tracked": 1465,
+    "files_readable": 560,
+    "files_code_dir": 605,
+    "file_edges": 2521,
+    "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

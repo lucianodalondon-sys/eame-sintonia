@@ -33,8 +33,10 @@
         "O_QUE_DIZ": "«To set the threshold for your application, use the confidence score from the response». Tres cenarios com custos diferentes produzem limiares diferentes.",
         "FONTES": [
           "https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/train/custom-classifier",
-          "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/document-intelligence/transparency-note"
-        ]
+          "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/document-intelligence/transparency-note",
+          "https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept/accuracy-confidence"
+        ],
+        "FONTE_DO_UNICO_NUMERO": "https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept/accuracy-confidence"
       },
       {
         "NOME": "scikit-learn",
@@ -62,7 +64,7 @@
       "e · criterio de implantacao reflete o contexto real e o risco": "3 de 4 — a doc da Google e um manual de MEDICAO, nao de DECISAO de implantacao"
     },
     "ONDE_A_CONVERGENCIA_E_MAIS_FRACA_DO_QUE_PARECE": [
-      "A Azure e a UNICA fonte que nomeia um numero («target 80% or higher») — e nomeia-o contra uma estimativa de TREINO, nao contra holdout. E exactamente o tipo de numero de que a scikit-learn e o NIST avisam. Nao serve de barra portavel.",
+      "A Azure e a UNICA fonte que nomeia um numero: «It's best to target a score of 80% or higher». E a propria pagina diz contra o que esse numero e medido: «The estimated accuracy is calculated by running a few different combinations of the TRAINING DATA to predict the labeled values» — treino, nao holdout. E exactamente o tipo de numero de que a scikit-learn e o NIST avisam. Nao serve de barra portavel.",
       "Maximizar F1 (Google) e maximizar utilidade sob custo assimetrico (scikit-learn) escolhem limiares DIFERENTES no mesmo modelo. Nao sao duas expressoes do mesmo principio.",
       "O NIST esta noutra altitude: manda DOCUMENTAR a tolerancia, nao diz qual ela e. Concorda com os outros por se recusar a prescrever — o que e acordo sobre a AUSENCIA de regra, nao uma regra partilhada.",
       "O proprio NIST avisa que o problema esta por resolver: «The current lack of consensus on robust and verifiable measurement methods for risk and trustworthiness … is an AI risk measurement challenge». Nenhuma das tres fontes de fornecedor reconhece isto."

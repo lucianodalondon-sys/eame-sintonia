@@ -1181,6 +1181,7 @@
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
       "provas/medir_admission_t3_atual.py",
+      "provas/mutacao_do_gate.py",
       "provas/o_corte_de_cr1.py",
       "provas/o_dedupe_tem_constraint.py",
       "provas/o_encanamento_tem_uma_porta.py",
@@ -1912,9 +1913,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/thematic-acceptance-gate-v1",
-    "HEAD": "65ecc922a3a2cc778c162f0d433fe96a2c14f147",
-    "GENERATED_AT": "2026-09-11T19:35:55+00:00",
-    "SOURCE_TREE_FINGERPRINT": "c23d4d8a3da0c758f9fadd7e6ef4244a3aa62a3a8a070127381d4427a1fb2e00"
+    "HEAD": "71de3214d2f8f401034a9a7ca1733fa2d7ad770c",
+    "GENERATED_AT": "2026-09-11T19:40:48+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6fb8b7a2c7914ba31fa26d9234c8c20728b02c56befa5f6dc1e6e9cabcea929d"
   },
   "FAMILIES": [
     {
@@ -11932,6 +11933,7 @@
         "provas/fechar_ground_truth_t3.py",
         "provas/gate_de_aceitacao_tematica.py",
         "provas/medir_admission_t3_atual.py",
+        "provas/mutacao_do_gate.py",
         "provas/o_corte_de_cr1.py",
         "provas/objeto_e_observacao_no_postgres.py",
         "provas/pacote_de_revisao_t3.py",
@@ -11948,7 +11950,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 25,
+      "file_count": 26,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12025,6 +12027,7 @@
           "FONTE_DO_POSITIVO",
           "LIMIARES",
           "MIGRATIONS",
+          "MUTACOES",
           "PROIBIDOS_NA_FILA_CEGA",
           "PROIBIDOS_NO_HTML",
           "PUBLICADOR",
@@ -12037,11 +12040,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 426,
+        "palavras": 499,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 424,
+        "sem_marca_de_lingua": 497,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12054,11 +12057,28 @@
             "line": 373,
             "snippet": "escreve em alvo"
           }
+        },
+        {
+          "pasta": "provas",
+          "prova": {
+            "file": "provas/mutacao_do_gate.py",
+            "line": 196,
+            "snippet": "escreve em DONO"
+          }
         }
       ],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/gate_de_aceitacao_tematica.py",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 20435,
       "y": 3258
     },
@@ -27386,7 +27406,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 16 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 17 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -27424,6 +27444,11 @@
           "snippet": "\"gate_t\", os.path.join(RAIZ, \"provas\", \"gate_de_aceitacao_tematica.py\"))"
         },
         {
+          "file": "tests/test_gate_de_aceitacao_tematica.py",
+          "line": 534,
+          "snippet": "\"mut_t\", os.path.join(RAIZ, \"provas\", \"mutacao_do_gate.py\"))"
+        },
+        {
           "file": "tests/test_lingua_unica.py",
           "line": 244,
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
@@ -27441,11 +27466,6 @@
         {
           "file": "tests/test_o10r_a_verdade_dos_nomes.py",
           "line": 554,
-          "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
-        },
-        {
-          "file": "tests/test_o9_caminho_instrumentado.py",
-          "line": 662,
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
         }
       ],
@@ -31592,8 +31612,8 @@
     "edges_proven": 642,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1464,
-    "files_covered": 719,
+    "files_tracked": 1465,
+    "files_covered": 720,
     "files_code_unclaimed": 0
   }
 }

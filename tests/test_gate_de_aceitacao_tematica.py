@@ -177,6 +177,28 @@ class OEstudoExternoFoiFeitoEHonesto(unittest.TestCase):
         self.assertIn("80%", fracos, "o unico numero encontrado tem de constar")
         self.assertIn("NIST", fracos)
 
+    def test_o_unico_numero_do_estudo_diz_de_que_pagina_veio(self):
+        """Uma citacao presa a pagina errada nao e verificavel.
+
+        O «80%» nao esta na pagina de threshold nem na transparency note: esta
+        na accuracy-confidence. Enquanto a fonte do numero nao estiver citada,
+        quem vier a seguir nao tem como ir la confirmar — e uma afirmacao que
+        nao se confirma vale o mesmo que nenhuma.
+        """
+        azure = [s for s in g.ESTUDO_EXTERNO["SISTEMAS"]
+                 if "Azure" in s["NOME"]][0]
+        fonte = azure["FONTE_DO_UNICO_NUMERO"]
+        self.assertIn("accuracy-confidence", fonte)
+        self.assertIn(fonte, azure["FONTES"],
+                      "a fonte do numero tem de estar na lista de fontes")
+
+    def test_o_numero_da_azure_vem_declarado_como_estimativa_de_treino(self):
+        """O numero so se desqualifica se ficar dito contra o que foi medido."""
+        fracos = " ".join(
+            g.ESTUDO_EXTERNO["ONDE_A_CONVERGENCIA_E_MAIS_FRACA_DO_QUE_PARECE"])
+        self.assertIn("TRAINING DATA", fracos.upper())
+        self.assertIn("holdout", fracos)
+
 
 class NenhumaMediaCompensa(unittest.TestCase):
     """Um hard gate que se compensa nao e um gate."""
@@ -481,6 +503,63 @@ class ODocumentoNaoDivergeDoCodigo(unittest.TestCase):
         self.assertIn("D-040", diario)
         self.assertIn("BIBLE_CHANGE_REQUIRED    = NO", diario)
         self.assertIn("CONTRACT_CHANGE_REQUIRED = YES", diario)
+
+
+class AProvaDeMutacaoMordeMesmo(unittest.TestCase):
+    """Quem guarda o guarda.
+
+    A prova de mutacao anuncia SURVIVORS = 0. Esse numero so vale se cada
+    mutante tiver mesmo sido aplicado — e uma ancora que deixou de existir num
+    refactor produz exactamente o oposto: nenhuma mutacao acontece, nada falha,
+    e o relatorio diz zero sobreviventes com toda a confianca.
+
+        UM MUTANTE QUE NAO SE APLICA
+        E INDISTINGUIVEL DE UM MUTANTE QUE MORREU.
+
+    Esta suite nao corre a mutacao (isso demora e seria recursivo): verifica o
+    que a mutacao precisa para ser verdadeira.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        # Enquanto a prova de mutacao corre, o ficheiro do dono ESTA alterado
+        # de proposito. Estas verificacoes falhariam todas — e matariam todos
+        # os mutantes por contabilidade, e nao por o gate ter mudado. Isso
+        # daria SURVIVORS = 0 sem provar nada sobre o gate.
+        if os.environ.get("SINTONIA_MUTACAO_EM_CURSO"):
+            raise unittest.SkipTest(
+                "a arvore esta mutada de proposito; estas guardas defendem a "
+                "arvore commitada")
+        _s = importlib.util.spec_from_file_location(
+            "mut_t", os.path.join(RAIZ, "provas", "mutacao_do_gate.py"))
+        cls.m = importlib.util.module_from_spec(_s)
+        _s.loader.exec_module(cls.m)
+        with open(os.path.join(RAIZ, "provas",
+                               "gate_de_aceitacao_tematica.py"),
+                  encoding="utf-8") as f:
+            cls.fonte = f.read()
+
+    def test_cada_ancora_existe_e_e_unica_no_dono(self):
+        for mut in self.m.MUTACOES:
+            n = self.fonte.count(mut["ONDE"])
+            self.assertEqual(n, 1,
+                             "ancora de «%s» aparece %d vezes" % (mut["NOME"], n))
+
+    def test_cada_mutacao_muda_mesmo_alguma_coisa(self):
+        for mut in self.m.MUTACOES:
+            self.assertNotEqual(mut["ONDE"], mut["PARA"], mut["NOME"])
+            self.assertNotIn(mut["PARA"], self.fonte, mut["NOME"])
+
+    def test_a_missao_pediu_estes_pontos_e_todos_estao_mutados(self):
+        nomes = " ".join(mut["NOME"] for mut in self.m.MUTACOES)
+        for pedido in ("positive capture", "false-negative max", "specificity",
+                       "precision", "coverage", "group-pass", "error max",
+                       "substring dependency", "reachability", "group count"):
+            self.assertIn(pedido, nomes, pedido)
+
+    def test_a_prova_de_mutacao_julga_a_suite_do_gate(self):
+        self.assertEqual(self.m.SUITE, "tests.test_gate_de_aceitacao_tematica")
+        self.assertTrue(self.m.DONO.endswith(g.GATE_OWNER))
 
 
 class OQueEstaMissaoNaoFaz(unittest.TestCase):

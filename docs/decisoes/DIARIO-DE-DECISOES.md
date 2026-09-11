@@ -1443,3 +1443,21 @@ CONTRACT_CHANGE_REQUIRED = YES   (contrato novo, dono único)
 que os dois dizem a mesma coisa. Uma lei em dois sítios diverge.
 
     UM GATE QUE SE COMPENSA É UMA MÉDIA COM NOME DE REGRA.
+
+**O QUE A SEGUNDA PASSAGEM ACRESCENTOU.** Nenhum limiar mudou — a decisão acima
+está intacta. Fecharam-se duas coisas que faltavam à prova dela:
+
+- **A suite do gate foi medida por mutação.** `provas/mutacao_do_gate.py` altera
+  o ficheiro do dono, corre a suite real e exige que ela reprove: 13 mutantes,
+  `SURVIVORS = 0`. Uma suite verde prova que nada rebentou, não que ela morde —
+  e o risco deste gate nunca foi um bug, foi alguém mexer num número depois de
+  ver um resultado.
+- **O único número que o estudo externo encontrou passou a citar a página onde
+  está.** O «target a score of 80% or higher» não vive na *transparency note*
+  nem na página de threshold, mas na `accuracy-confidence` — que também diz
+  contra o que ele é medido: *training data*, não holdout. A afirmação estava
+  certa; a fonte apontava ao lado, e uma citação que não se confirma vale o
+  mesmo que nenhuma.
+
+    UMA SUITE QUE NÃO REPROVA UM LIMIAR ALTERADO
+    NÃO ESTÁ A GUARDAR LIMIAR NENHUM.

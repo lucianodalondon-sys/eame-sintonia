@@ -51,7 +51,7 @@ THERE_IS_A_UNIVERSAL_CLASSIFIER_ACCEPTANCE_THRESHOLD = NO
 | sistema | prescreve número universal? | o que diz |
 |---|---|---|
 | [Google Cloud Document AI](https://docs.cloud.google.com/document-ai/docs/evaluate) | NÃO | calcula o limiar que maximiza F1 e devolve a escolha: *«You are free to choose your own confidence threshold»*. Recusa publicar *accuracy*: *«less meaningful»* |
-| [Azure AI Document Intelligence](https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/document-intelligence/transparency-note) | NÃO | *«To set the threshold for your application, use the confidence score from the response»* |
+| [Azure AI Document Intelligence](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/train/custom-classifier) | NÃO | *«To set the threshold for your application, use the confidence score from the response»* |
 | [scikit-learn](https://scikit-learn.org/stable/modules/classification_threshold.html) | NÃO | sobre o 0.5: *«most certainly not ideal for most use cases»*. O limiar sai de *«a utility metric defined by the business»* |
 | [NIST AI RMF 1.0](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf) | NÃO | *«it does not prescribe risk tolerance … highly contextual»*; *«Human judgment should be employed when deciding … the precise threshold values»* |
 
@@ -63,10 +63,14 @@ Registar só a concordância seria fabricar consenso.
   manual de **medição**, não de **decisão de implantação**. E o seu default de
   maximizar F1 assume que um falso positivo e um falso negativo custam o mesmo
   — que é exactamente a suposição que este gate rejeita.
-- **A Azure é a única fonte que nomeia um número** (*«target a score of 80% or
-  higher»*) — e nomeia-o contra uma estimativa de **treino**, não contra
-  holdout. É o tipo de número de que a scikit-learn e o NIST avisam. Não serve
-  de barra portável.
+- **A Azure é a única fonte que nomeia um número** — e ele não está na página
+  citada acima. Está numa terceira,
+  [accuracy-confidence](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept/accuracy-confidence):
+  *«It's best to target a score of 80% or higher»*. A mesma página diz contra o
+  que esse número é medido: *«The estimated accuracy is calculated by running a
+  few different combinations of the training data to predict the labeled
+  values»* — **treino**, não holdout. É o tipo de número de que a scikit-learn
+  e o NIST avisam. Não serve de barra portável.
 - **Maximizar F1 e maximizar utilidade sob custo assimétrico escolhem limiares
   diferentes** no mesmo modelo. Não são duas expressões do mesmo princípio.
 - **O NIST está noutra altitude:** manda documentar a tolerância, não diz qual
@@ -235,7 +239,29 @@ UM CONJUNTO SÓ É INDEPENDENTE DE QUEM NÃO OLHOU PARA ELE.
 
 ---
 
-## 8 · O QUE ESTE GATE NÃO É
+## 8 · AS PROVAS QUE O DEFENDEM
+
+```
+provas/gate_de_aceitacao_tematica.py    o dono dos números
+tests/test_gate_de_aceitacao_tematica.py   red team (10) + doc-vs-código
+provas/mutacao_do_gate.py               13 mutantes · SURVIVORS = 0
+```
+
+A suite verde prova que nada rebentou. **Não** prova que ela morde. E o risco
+deste gate nunca foi um bug: é alguém mexer num número depois de ver um
+resultado de que não gostou. Por isso a prova de mutação altera o ficheiro do
+dono de propósito — um limiar de cada vez — e exige que a suite reprove.
+
+```
+UMA SUITE QUE NÃO REPROVA UM LIMIAR ALTERADO
+NÃO ESTÁ A GUARDAR LIMIAR NENHUM.
+```
+
+Um mutante que sobrevive é um limiar sem guarda.
+
+---
+
+## 9 · O QUE ESTE GATE NÃO É
 
 ```
 EVALUATION_SCOPE = ITALIAN_AGRO_INSTITUTIONAL_CORPUS

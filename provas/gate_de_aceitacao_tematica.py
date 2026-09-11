@@ -260,7 +260,14 @@ ESTUDO_EXTERNO = {
                 "confidence score from the response». Tres cenarios com custos "
                 "diferentes produzem limiares diferentes."),
             "FONTES": ["https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/train/custom-classifier",
-                       "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/document-intelligence/transparency-note"],
+                       "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/document-intelligence/transparency-note",
+                       "https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept/accuracy-confidence"],
+            # O unico numero que o estudo inteiro encontrou nao esta na pagina
+            # de threshold nem na transparency note: esta nesta terceira. Um
+            # numero citado da pagina errada nao e verificavel, e um estudo que
+            # nao se verifica nao e um estudo.
+            "FONTE_DO_UNICO_NUMERO":
+                "https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/concept/accuracy-confidence",
         },
         {
             "NOME": "scikit-learn",
@@ -296,10 +303,13 @@ ESTUDO_EXTERNO = {
             "de implantacao"),
     },
     "ONDE_A_CONVERGENCIA_E_MAIS_FRACA_DO_QUE_PARECE": [
-        ("A Azure e a UNICA fonte que nomeia um numero («target 80% or "
-         "higher») — e nomeia-o contra uma estimativa de TREINO, nao contra "
-         "holdout. E exactamente o tipo de numero de que a scikit-learn e o "
-         "NIST avisam. Nao serve de barra portavel."),
+        ("A Azure e a UNICA fonte que nomeia um numero: «It's best to target "
+         "a score of 80% or higher». E a propria pagina diz contra o que esse "
+         "numero e medido: «The estimated accuracy is calculated by running a "
+         "few different combinations of the TRAINING DATA to predict the "
+         "labeled values» — treino, nao holdout. E exactamente o tipo de "
+         "numero de que a scikit-learn e o NIST avisam. Nao serve de barra "
+         "portavel."),
         ("Maximizar F1 (Google) e maximizar utilidade sob custo assimetrico "
          "(scikit-learn) escolhem limiares DIFERENTES no mesmo modelo. Nao "
          "sao duas expressoes do mesmo principio."),
