@@ -1,0 +1,1842 @@
+{
+  "SCHEMA": "sintonia.censo-cards-sensores/1",
+  "O_QUE_ISTO_E": "A matriz CARD x SENSOR do SINTONIA, montada a partir dos censos que ja existem. Nenhum numero e medido aqui: cada um tem dono noutro ficheiro, e este junta-os para fazer a pergunta que nenhum deles fazia sozinho.",
+  "PROVENANCE": {
+    "HEAD": "9a40e5068c48e215cc4ac0d6aea25ee651a70b01",
+    "LIDO_DE": [
+      "casco.generated.json",
+      "executores.generated.json",
+      "sources.generated.json",
+      "fluxo.generated.json",
+      "fronteira.observada.json",
+      "congelamento.generated.json",
+      "provas-de-execucao.json",
+      "SYSTEM-MAP-COLLECTION-ISSUES.json"
+    ]
+  },
+  "CONTAGENS": {
+    "CARDS_TOTAL": 11,
+    "CARDS_POR_ESTADO": {
+      "ALIMENTADO_POR_REAL": 1,
+      "MISTURA_REAL_E_FIXTURE": 6,
+      "SEM_FONTE_DECLARADA": 4
+    },
+    "CARDS_POR_ORIGEM": {
+      "MISTURA": 6,
+      "NAO SEI": 4,
+      "REAL": 1
+    },
+    "SENSORES_TOTAL": 58,
+    "SENSORES_POR_INSTRUMENTACAO": {
+      "NOT_INSTRUMENTED": 53,
+      "PARTIAL": 1,
+      "INSTRUMENTED": 2,
+      "NOT_APPLICABLE": 2
+    },
+    "SENSORES_COM_CORRIDA_PROVADA": 2,
+    "SENSORES_QUE_CORREM_OFFLINE": 32,
+    "FONTES_NO_ATLAS": 23,
+    "FONTES_COM_CONTRATO": 5,
+    "FONTES_JA_COLETADAS": 4,
+    "FONTES_NUNCA_COLETADAS": 22,
+    "FONTES_POR_PAIS": {
+      "ESPANHA": 6,
+      "EUROPA": 11,
+      "FRANCA": 4,
+      "ITALIA": 2
+    },
+    "CORRIDAS_NO_LEDGER": 6,
+    "OBSERVACOES_NO_LEDGER": 144,
+    "OBSERVACOES_POR_FONTE": {
+      "IT-T2-002": 124,
+      "IT-T2-004": 6,
+      "IT-T3-002": 2,
+      "IT-T3-005": 6,
+      "IT-T3-008": 2,
+      "IT-T3-010": 2,
+      "IT-T4-001": 2
+    },
+    "ARTEFATOS_DE_INTELIGENCIA_CONGELADOS": 73,
+    "CAMADAS_DO_PORTAL": 15,
+    "CAMADAS_COM_GERADOR": 5,
+    "ARESTAS_POR_CLASSE": {
+      "BROKEN": 21,
+      "MISSING": 4,
+      "PROVEN": 1
+    },
+    "ISSUES_DA_COLETA": {
+      "abertos": 23,
+      "fechados": 7,
+      "total": 30
+    }
+  },
+  "AS_CINCO_PROVAS": [
+    {
+      "PROVA": "EXISTE",
+      "PERGUNTA": "ha ficheiro?",
+      "SENSORES": 58,
+      "MEDIDO_POR": "system-map/data/executores.generated.json"
+    },
+    {
+      "PROVA": "CORRE",
+      "PERGUNTA": "e chamavel sem rede, sem pago, sem producao?",
+      "SENSORES": 32,
+      "MEDIDO_POR": "system-map/data/executores.generated.json"
+    },
+    {
+      "PROVA": "RODOU",
+      "PERGUNTA": "deixou rastro de execucao?",
+      "SENSORES": 2,
+      "MEDIDO_POR": "system-map/data/provas-de-execucao.json"
+    },
+    {
+      "PROVA": "PRODUZIU",
+      "PERGUNTA": "o rastro tem saida com etapa observada?",
+      "SENSORES": 2,
+      "MEDIDO_POR": "system-map/data/provas-de-execucao.json"
+    },
+    {
+      "PROVA": "ENTROU",
+      "PERGUNTA": "a saida atravessou a fronteira canonica?",
+      "SENSORES": 0,
+      "MEDIDO_POR": "system-map/data/fronteira.observada.json"
+    }
+  ],
+  "A_FRONTEIRA": {
+    "CONTRATO": "COL-LAW-043",
+    "DONO": "admissao/admissao.py :: pronto_para_inteligencia()",
+    "PRODUTORES_EM_RUNTIME": [
+      "orquestrador/orquestrador.py"
+    ],
+    "CONSUMIDORES": [],
+    "DESTINO_EXISTE": false,
+    "GAP": "READY_SEM_CONSUMIDOR"
+  },
+  "CARDS": [
+    {
+      "CARD_ID": "meeting",
+      "NOME": "Radar delle Opportunità",
+      "ESPECIE": "INTELLIGENCE_OUTPUT",
+      "DE_ONDE_VEM": "MISTURA",
+      "CAMADAS": [
+        "ITALY_CANONICAL",
+        "ITALY_INGEST",
+        "ITALY_LABEL_VERDICTS",
+        "italy-demo-data.js"
+      ],
+      "TIPOS_DE_CAMADA": [
+        "CANONICO",
+        "FIXTURE",
+        "REAL"
+      ],
+      "REGISTOS_CITADOS": [
+        3
+      ],
+      "FICHEIROS": [
+        "italia-portale/audit/blocks/case.spec.json"
+      ],
+      "RISCOS": 12,
+      "PERGUNTAS_ABERTAS": 7,
+      "CONFISSOES": 4,
+      "ESTADO": "MISTURA_REAL_E_FIXTURE"
+    },
+    {
+      "CARD_ID": "future",
+      "NOME": "Archivio segnali",
+      "ESPECIE": "UNKNOWN",
+      "DE_ONDE_VEM": "NAO SEI",
+      "CAMADAS": [],
+      "TIPOS_DE_CAMADA": [],
+      "REGISTOS_CITADOS": [],
+      "FICHEIROS": [],
+      "RISCOS": 0,
+      "PERGUNTAS_ABERTAS": 0,
+      "CONFISSOES": 0,
+      "ESTADO": "SEM_FONTE_DECLARADA"
+    },
+    {
+      "CARD_ID": "windows",
+      "NOME": "Finestre Colturali",
+      "ESPECIE": "COLLECTION_CONTRACT",
+      "DE_ONDE_VEM": "REAL",
+      "CAMADAS": [
+        "ITALY_CANONICAL",
+        "ITALY_INGEST",
+        "ITALY_LABEL_VERDICTS"
+      ],
+      "TIPOS_DE_CAMADA": [
+        "CANONICO",
+        "REAL"
+      ],
+      "REGISTOS_CITADOS": [
+        29,
+        7
+      ],
+      "FICHEIROS": [
+        "italia-portale/audit/blocks/calendar.spec.json",
+        "italia-portale/audit/blocks/windows.spec.json"
+      ],
+      "RISCOS": 12,
+      "PERGUNTAS_ABERTAS": 12,
+      "CONFISSOES": 0,
+      "ESTADO": "ALIMENTADO_POR_REAL"
+    },
+    {
+      "CARD_ID": "market",
+      "NOME": "Polso di Mercato",
+      "ESPECIE": "INTELLIGENCE_OUTPUT",
+      "DE_ONDE_VEM": "MISTURA",
+      "CAMADAS": [
+        "ITALY_MARKET"
+      ],
+      "TIPOS_DE_CAMADA": [
+        "NAO SEI"
+      ],
+      "REGISTOS_CITADOS": [
+        77,
+        1
+      ],
+      "FICHEIROS": [
+        "italia-portale/audit/blocks/market.spec.json"
+      ],
+      "RISCOS": 9,
+      "PERGUNTAS_ABERTAS": 6,
+      "CONFISSOES": 1,
+      "ESTADO": "MISTURA_REAL_E_FIXTURE"
+    },
+    {
+      "CARD_ID": "voices",
+      "NOME": "Voci dal Campo",
+      "ESPECIE": "UNKNOWN",
+      "DE_ONDE_VEM": "NAO SEI",
+      "CAMADAS": [],
+      "TIPOS_DE_CAMADA": [],
+      "REGISTOS_CITADOS": [],
+      "FICHEIROS": [],
+      "RISCOS": 0,
+      "PERGUNTAS_ABERTAS": 0,
+      "CONFISSOES": 0,
+      "ESTADO": "SEM_FONTE_DECLARADA"
+    },
+    {
+      "CARD_ID": "competitors",
+      "NOME": "Concorrenza",
+      "ESPECIE": "INTELLIGENCE_OUTPUT",
+      "DE_ONDE_VEM": "MISTURA",
+      "CAMADAS": [
+        "ITALY_DEMO",
+        "ITALY_LABEL_VERDICTS"
+      ],
+      "TIPOS_DE_CAMADA": [
+        "CANONICO",
+        "FIXTURE"
+      ],
+      "REGISTOS_CITADOS": [
+        503
+      ],
+      "FICHEIROS": [
+        "italia-portale/audit/blocks/competitor.spec.json"
+      ],
+      "RISCOS": 9,
+      "PERGUNTAS_ABERTAS": 6,
+      "CONFISSOES": 0,
+      "ESTADO": "MISTURA_REAL_E_FIXTURE"
+    },
+    {
+      "CARD_ID": "science",
+      "NOME": "Intelligence Scientifica",
+      "ESPECIE": "INTELLIGENCE_OUTPUT",
+      "DE_ONDE_VEM": "MISTURA",
+      "CAMADAS": [
+        "ITALY_INGEST",
+        "ITALY_REAL",
+        "ITALY_SCIENCE",
+        "italy-demo-data.js"
+      ],
+      "TIPOS_DE_CAMADA": [
+        "FIXTURE",
+        "NAO SEI",
+        "REAL"
+      ],
+      "REGISTOS_CITADOS": [
+        88
+      ],
+      "FICHEIROS": [
+        "italia-portale/audit/blocks/science.spec.json"
+      ],
+      "RISCOS": 11,
+      "PERGUNTAS_ABERTAS": 7,
+      "CONFISSOES": 0,
+      "ESTADO": "MISTURA_REAL_E_FIXTURE"
+    },
+    {
+      "CARD_ID": "portfolio",
+      "NOME": "Portafoglio",
+      "ESPECIE": "INTELLIGENCE_OUTPUT",
+      "DE_ONDE_VEM": "MISTURA",
+      "CAMADAS": [
+        "ITALY_CANONICAL",
+        "ITALY_CATALOG",
+        "ITALY_LABEL_VERDICTS",
+        "italy-demo-data.js"
+      ],
+      "TIPOS_DE_CAMADA": [
+        "CANONICO",
+        "FIXTURE",
+        "REAL"
+      ],
+      "REGISTOS_CITADOS": [],
+      "FICHEIROS": [
+        "italia-portale/audit/blocks/portfolio.spec.json",
+        "italia-portale/audit/blocks/product.spec.json"
+      ],
+      "RISCOS": 12,
+      "PERGUNTAS_ABERTAS": 12,
+      "CONFISSOES": 0,
+      "ESTADO": "MISTURA_REAL_E_FIXTURE"
+    },
+    {
+      "CARD_ID": "archive",
+      "NOME": "Archivio",
+      "ESPECIE": "INTELLIGENCE_OUTPUT",
+      "DE_ONDE_VEM": "MISTURA",
+      "CAMADAS": [
+        "ITALY_APP_MODEL",
+        "ITALY_CANONICAL",
+        "ITALY_DEMO",
+        "italy-demo-data.js"
+      ],
+      "TIPOS_DE_CAMADA": [
+        "CANONICO",
+        "FIXTURE",
+        "NAO SEI"
+      ],
+      "REGISTOS_CITADOS": [
+        740
+      ],
+      "FICHEIROS": [
+        "italia-portale/audit/blocks/archive.spec.json"
+      ],
+      "RISCOS": 9,
+      "PERGUNTAS_ABERTAS": 6,
+      "CONFISSOES": 0,
+      "ESTADO": "MISTURA_REAL_E_FIXTURE"
+    },
+    {
+      "CARD_ID": "sources",
+      "NOME": "Registro delle fonti",
+      "ESPECIE": "UNKNOWN",
+      "DE_ONDE_VEM": "NAO SEI",
+      "CAMADAS": [],
+      "TIPOS_DE_CAMADA": [],
+      "REGISTOS_CITADOS": [],
+      "FICHEIROS": [],
+      "RISCOS": 0,
+      "PERGUNTAS_ABERTAS": 0,
+      "CONFISSOES": 0,
+      "ESTADO": "SEM_FONTE_DECLARADA"
+    },
+    {
+      "CARD_ID": "field",
+      "NOME": "Rete Commerciale di Campo",
+      "ESPECIE": "UNKNOWN",
+      "DE_ONDE_VEM": "NAO SEI",
+      "CAMADAS": [],
+      "TIPOS_DE_CAMADA": [],
+      "REGISTOS_CITADOS": [],
+      "FICHEIROS": [],
+      "RISCOS": 0,
+      "PERGUNTAS_ABERTAS": 0,
+      "CONFISSOES": 0,
+      "ESTADO": "SEM_FONTE_DECLARADA"
+    }
+  ],
+  "SENSORES": [
+    {
+      "SENSOR_ID": "coleta/agrifood_ue.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/coleta_checkpoint.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": false,
+      "PAGO": true,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/coletor.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/comunicacao_classificar.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/comunicacao_coleta.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": false,
+      "PAGO": true,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/comunicacao_medir.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/corpus_pesquisador.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/cruzar_regua_rotulo.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/denominaciones.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/derivacao_forward.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "TELEMETRY_EMITTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "PARTIAL",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": true,
+      "USA_TELEMETRIA": true,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/eppo_gd.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/eu_substancia_adama_it.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/executor_texto_de_pdf.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "TELEMETRY_EMITTER",
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": true,
+      "PRODUZIU": [
+        "RAW",
+        "DERIVED"
+      ],
+      "PROVA": "tests/test_o9_caminho_instrumentado.py",
+      "MODO": "LEGACY_REPLAY",
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": true,
+      "USA_TELEMETRIA": true,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/filas.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/gire_mapas.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/golden_path_pdf.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": true,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/instagram_coleta.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "ORCHESTRATOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": false,
+      "PAGO": true,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/instagram_diario.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/instagram_janela.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/instagram_pessoal.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/mapa_regfi.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/pdf_text.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/preservar_pdf.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/regulatorio_importar.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/ropf_pre_requisito.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/rota_forward_documento.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "TELEMETRY_EMITTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": true,
+      "PRODUZIU": [
+        "DERIVED",
+        "STRUCTURED",
+        "ADMISSION"
+      ],
+      "PROVA": "tests/test_m2_rota_forward.py",
+      "MODO": "FORWARD",
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": true,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/rotulos_baixar.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/rotulos_ler.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/sensor_canal_identidade.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/social_envelope.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/social_persistencia.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/social_rotas.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/social_scrap.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "ORCHESTRATOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/speaker_identidade.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/speaker_universo.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/texto_fonte.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/universo_ciencia_it.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/youtube_janela.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/youtube_oficial.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "CHECKPOINT_OWNER",
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "coleta/youtube_relevancia.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "guarda/catalogo_importar.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "PRESERVATION_OWNER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "guarda/importar_italia.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "guarda/memoria_descartavel.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "PRESERVATION_OWNER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "guarda/portas_live.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "PRESERVATION_OWNER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": true,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "guarda/preservar_coleta.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "PRESERVATION_OWNER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "guarda/preservar_derivado.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "PRESERVATION_OWNER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "guarda/social_guarda.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "guarda/social_sessao.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "guarda/sql_conferir.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "ferramentas/apify_contrato.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": false,
+      "PAGO": true,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "ferramentas/apify_pool.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": false,
+      "PAGO": true,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "ferramentas/apify_recuperar.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": false,
+      "PAGO": true,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "ferramentas/cdp.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "ferramentas/contrato_ator.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "ferramentas/instagram_transcrever.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "ferramentas/navegador.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "ferramentas/youtube_transcrever.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    },
+    {
+      "SENSOR_ID": "orquestrador/orquestrador.py",
+      "GAVETA": "orquestrador",
+      "PAPEIS": [
+        "ORCHESTRATOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+    }
+  ],
+  "MATRIZ": [
+    {
+      "CARD_ID": "meeting",
+      "CAMADA": "ITALY_CANONICAL",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "meeting",
+      "CAMADA": "ITALY_INGEST",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "meeting",
+      "CAMADA": "ITALY_LABEL_VERDICTS",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "meeting",
+      "CAMADA": "italy-demo-data.js",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "future",
+      "CAMADA": "(nenhuma)",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "MISSING",
+      "PORQUE": "o card nao declara camada nenhuma"
+    },
+    {
+      "CARD_ID": "windows",
+      "CAMADA": "ITALY_CANONICAL",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "windows",
+      "CAMADA": "ITALY_INGEST",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "windows",
+      "CAMADA": "ITALY_LABEL_VERDICTS",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "market",
+      "CAMADA": "ITALY_MARKET",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "voices",
+      "CAMADA": "(nenhuma)",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "MISSING",
+      "PORQUE": "o card nao declara camada nenhuma"
+    },
+    {
+      "CARD_ID": "competitors",
+      "CAMADA": "ITALY_DEMO",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "competitors",
+      "CAMADA": "ITALY_LABEL_VERDICTS",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "science",
+      "CAMADA": "ITALY_INGEST",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "science",
+      "CAMADA": "ITALY_REAL",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "science",
+      "CAMADA": "ITALY_SCIENCE",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "science",
+      "CAMADA": "italy-demo-data.js",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "portfolio",
+      "CAMADA": "ITALY_CANONICAL",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "portfolio",
+      "CAMADA": "ITALY_CATALOG",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "portfolio",
+      "CAMADA": "ITALY_LABEL_VERDICTS",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "portfolio",
+      "CAMADA": "italy-demo-data.js",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "archive",
+      "CAMADA": "ITALY_APP_MODEL",
+      "GERADOR_NO_REPO": "superficie/it_casa_dados.py",
+      "ARESTA": "PROVEN",
+      "PORQUE": "a camada tem gerador versionado nesta arvore"
+    },
+    {
+      "CARD_ID": "archive",
+      "CAMADA": "ITALY_CANONICAL",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "archive",
+      "CAMADA": "ITALY_DEMO",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "archive",
+      "CAMADA": "italy-demo-data.js",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "BROKEN",
+      "PORQUE": "a camada e um ficheiro COMMITADO sem gerador nesta arvore: nenhum sensor a reescreve"
+    },
+    {
+      "CARD_ID": "sources",
+      "CAMADA": "(nenhuma)",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "MISSING",
+      "PORQUE": "o card nao declara camada nenhuma"
+    },
+    {
+      "CARD_ID": "field",
+      "CAMADA": "(nenhuma)",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "MISSING",
+      "PORQUE": "o card nao declara camada nenhuma"
+    }
+  ],
+  "GERADORES_DAS_CAMADAS": {
+    "ITALY_APP_MODEL": "superficie/it_casa_dados.py",
+    "ITALY_BRIEFS": null,
+    "ITALY_CANONICAL": null,
+    "ITALY_CASA": "superficie/it_casa_dados.py",
+    "ITALY_CATALOG": null,
+    "ITALY_DEMO": null,
+    "ITALY_INGEST": null,
+    "ITALY_LABEL_VERDICTS": null,
+    "ITALY_MARKET": null,
+    "ITALY_PDF": null,
+    "ITALY_REAL": null,
+    "ITALY_SCIENCE": null,
+    "MEETING_INTELLIGENCE": "superficie/it_casa_dados.py",
+    "MEETING_LABELS": "superficie/it_casa_dados.py",
+    "MEETING_SURFACE": "superficie/it_casa_dados.py"
+  }
+}

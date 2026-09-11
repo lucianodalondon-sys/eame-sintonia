@@ -2728,6 +2728,24 @@
    "icon": "◌"
   },
   {
+   "id": "C-CENSO-CARDS-SENSORES",
+   "name": "Censo dos cards e dos sensores",
+   "territory": "Z-PROVA",
+   "kind": "scanner",
+   "icon": "▦",
+   "what": "Junta oito censos que ja existiam e faz a pergunta que nenhum deles fazia sozinho: que card precisa de que sensor, e ate onde o dado chega. Separa as CINCO provas que nao se emprestam — EXISTE, CORRE, RODOU, PRODUZIU, ENTROU — e classifica cada aresta card->camada como PROVEN, BROKEN ou MISSING conforme exista, nesta arvore, quem ESCREVA a camada.",
+   "why_here": "Cada numero desta matriz ja tinha dono noutro sitio. Escreve-los a mao num documento criaria um SEGUNDO dono de cada contagem, e dois donos divergem no dia em que um deles medir outra vez — por isso isto e um gerador e nao um documento. A descoberta que ele existe para mostrar e que a matriz card x sensor e PEQUENA: nao ha uma unica aresta card->sensor, porque a corrente parte na camada do portal. Desenhar as 638 celulas daria a sensacao de um mapa e seria falsa.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "system-map/scripts/censo_cards_sensores.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
    "id": "C-DERIVA-DA-BASE",
    "name": "A deriva entre o repositorio e a base viva",
    "territory": "Z-PROVA",

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/raw-observation-identity-3jbwco",
-    "HEAD": "ea9b0d8d578305d2b514fd42eb783edb6232cbf4",
-    "GENERATED_AT": "2026-09-11T00:40:59+00:00",
-    "SOURCE_TREE_FINGERPRINT": "044a3e22681f600904d89bf74010a4bb693ee64c246b290f8503a32e7b9c8dda"
+    "BRANCH": "claude/cards-sensors-census-v1",
+    "HEAD": "9a40e5068c48e215cc4ac0d6aea25ee651a70b01",
+    "GENERATED_AT": "2026-09-11T01:27:00+00:00",
+    "SOURCE_TREE_FINGERPRINT": "31d296155831144b2d904389684206f14440c210990459b9cb9361502503dfe9"
   },
   "FILES": [
     {
@@ -1482,6 +1482,13 @@
       "path": "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
       "sha": "def6ea8a531859318fb7c325b6130cfea34d3afc",
       "ext": ".csv",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+      "sha": "86c74e4911dda2a50aed45be233bd45ce0b176bf",
+      "ext": ".json",
       "readable": false,
       "code_dir": false
     },
@@ -4475,6 +4482,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
+      "sha": "2feee6c4cdb3b2607dd2d3fb153ee6de567ccd82",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/CENSO-DA-COLETA.md",
       "sha": "086ba4402624999b45c090b4ac1919916a5369c5",
       "ext": ".md",
@@ -4490,7 +4504,7 @@
     },
     {
       "path": "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
-      "sha": "5c85744aa266625e9f02fb2ee52613b04f8cad88",
+      "sha": "f49a940e8f3a939390e84ccb8117bc87946745a1",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7640,7 +7654,7 @@
     },
     {
       "path": "provas/auditoria_live.sh",
-      "sha": "d18dfd67dea244d4528430d68f1b5cf24c46bc01",
+      "sha": "a6e7b6440ee1dbb8fc29395a7f5ded955052605b",
       "ext": ".sh",
       "readable": true,
       "code_dir": true
@@ -9033,7 +9047,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "ff8755d8748ddb243aca623906d1e1ab02a330c0",
+      "sha": "be9d71f70e9bdbbdd43dd7c8c1d4a85a89015fb3",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9071,6 +9085,13 @@
       "sha": "a69cf62f6b5d045b2c55244269740df6e8106d2a",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/censo_cards_sensores.py",
+      "sha": "96f5cc3ebd88a61a56c4d84d4b13eeefe33b9a95",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -9419,6 +9440,13 @@
     {
       "path": "tests/test_canonico.py",
       "sha": "b8896c0990b63e9610055df7b8b10dcd588d8f11",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_censo_cards_sensores.py",
+      "sha": "c8a11bbf11d3dc6c7a6b54d5e6ee2381d584d95d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27128,6 +27156,61 @@
       }
     },
     {
+      "from_file": "system-map/scripts/censo_cards_sensores.py",
+      "to_file": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_cards_sensores.py",
+        "line": 43,
+        "snippet": "SAIDA = os.path.join(RAIZ, \"data\", \"derivados\", \"MATRIZ-CARDS-SENSORES-V1.json\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_cards_sensores.py",
+      "to_file": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_cards_sensores.py",
+        "line": 342,
+        "snippet": "with open(SAIDA, \"w\", encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_cards_sensores.py",
+      "to_file": "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_cards_sensores.py",
+        "line": 262,
+        "snippet": "issues = ler(\"SYSTEM-MAP-COLLECTION-ISSUES.json\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_cards_sensores.py",
+      "to_file": "system-map/data/fronteira.observada.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_cards_sensores.py",
+        "line": 260,
+        "snippet": "fronteira = ler(\"fronteira.observada.json\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_cards_sensores.py",
+      "to_file": "system-map/data/provas-de-execucao.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_cards_sensores.py",
+        "line": 138,
+        "snippet": "provas = ler(\"provas-de-execucao.json\")[\"PROVADOS\"]"
+      }
+    },
+    {
       "from_file": "system-map/scripts/censo_da_observabilidade.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -29402,6 +29485,28 @@
         "file": "tests/test_canonico.py",
         "line": 187,
         "snippet": "'change': rd('regras', 'REGUA-DE-CHANGE-EVENT-EAME.md'),"
+      }
+    },
+    {
+      "from_file": "tests/test_censo_cards_sensores.py",
+      "to_file": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_censo_cards_sensores.py",
+        "line": 30,
+        "snippet": "JSON = RAIZ / \"data\" / \"derivados\" / \"MATRIZ-CARDS-SENSORES-V1.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_censo_cards_sensores.py",
+      "to_file": "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_censo_cards_sensores.py",
+        "line": 29,
+        "snippet": "DOC = RAIZ / \"docs\" / \"operacao\" / \"CENSO-CARDS-SENSORES-V1.md\""
       }
     },
     {
@@ -34620,6 +34725,13 @@
         "constante": "dest"
       }
     ],
+    "system-map/scripts/censo_cards_sensores.py": [
+      {
+        "pasta": "data/derivados",
+        "line": 342,
+        "constante": "SAIDA"
+      }
+    ],
     "system-map/scripts/censo_da_observabilidade.py": [
       {
         "pasta": "system-map",
@@ -34692,11 +34804,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1413,
-    "files_readable": 529,
-    "files_code_dir": 576,
-    "file_edges": 2212,
-    "escritas_em_pasta": 67,
+    "files_tracked": 1417,
+    "files_readable": 531,
+    "files_code_dir": 578,
+    "file_edges": 2219,
+    "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}
