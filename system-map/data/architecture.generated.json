@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/admission-intelligence-boundary-study-v1",
-    "HEAD": "07fcafbb2d162f36931f3bce83dc1cba705c7e51",
-    "GENERATED_AT": "2026-09-11T12:27:24+00:00",
-    "SOURCE_TREE_FINGERPRINT": "e475aaaf715226f100b9f7d98a6e8aff8b18239618cd97e6f96bb55934583789"
+    "BRANCH": "claude/admission-labeled-corpus-census-v1",
+    "HEAD": "4eb2276d9b3ea6b48aaebfffe76ed62857812f81",
+    "GENERATED_AT": "2026-09-11T13:15:39+00:00",
+    "SOURCE_TREE_FINGERPRINT": "5f331c44a2a45faa41e5338a01da61d154d35bdec96907ac75e67daa25d67a44"
   },
   "FILES": [
     {
@@ -4489,6 +4489,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
+      "sha": "aa3cff51f5a4165b09f0f61f7e8e78dca2a90dd2",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/CENSO-DA-COLETA.md",
       "sha": "086ba4402624999b45c090b4ac1919916a5369c5",
       "ext": ".md",
@@ -7695,6 +7702,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/censo_corpus_rotulado_admission.py",
+      "sha": "509363bbfa7539f6853a263d43ee52a42f750c08",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/chain.py",
       "sha": "d5c07eec3c026b3e2fad7b2013db9da49a3fba90",
       "ext": ".py",
@@ -9096,7 +9110,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "693a175fa0c1511b84a3080caffb781c4f8957e2",
+      "sha": "7e7bc1ac382ed8eef77928c028e079d10a706628",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9503,6 +9517,13 @@
     {
       "path": "tests/test_censo_cards_sensores.py",
       "sha": "c8a11bbf11d3dc6c7a6b54d5e6ee2381d584d95d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_censo_corpus_rotulado_admission.py",
+      "sha": "edf207f361e7a2a062a23b0745d2cc0ff8815c74",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25817,6 +25838,61 @@
       }
     },
     {
+      "from_file": "provas/censo_corpus_rotulado_admission.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/censo_corpus_rotulado_admission.py",
+        "line": 38,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/censo_corpus_rotulado_admission.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/censo_corpus_rotulado_admission.py",
+        "line": 39,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/censo_corpus_rotulado_admission.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/censo_corpus_rotulado_admission.py",
+        "line": 183,
+        "snippet": "reg = _json(\"data/derivados/REGISTO-DE-ARTEFATOS.json\")[\"ARTEFATOS\"]"
+      }
+    },
+    {
+      "from_file": "provas/censo_corpus_rotulado_admission.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/censo_corpus_rotulado_admission.py",
+        "line": 116,
+        "snippet": "livro = _json(\"data/samples/LIVRO-DE-DECISOES.json\")[\"DECISOES\"]"
+      }
+    },
+    {
+      "from_file": "provas/censo_corpus_rotulado_admission.py",
+      "to_file": "provas/a_regra_de_t2.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/censo_corpus_rotulado_admission.py",
+        "line": 209,
+        "snippet": "\"_t2\", os.path.join(RAIZ, \"provas\", \"a_regra_de_t2.py\"))"
+      }
+    },
+    {
       "from_file": "provas/chain.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -30445,6 +30521,61 @@
         "file": "tests/test_censo_cards_sensores.py",
         "line": 29,
         "snippet": "DOC = RAIZ / \"docs\" / \"operacao\" / \"CENSO-CARDS-SENSORES-V1.md\""
+      }
+    },
+    {
+      "from_file": "tests/test_censo_corpus_rotulado_admission.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_censo_corpus_rotulado_admission.py",
+        "line": 22,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_censo_corpus_rotulado_admission.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_censo_corpus_rotulado_admission.py",
+        "line": 23,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_censo_corpus_rotulado_admission.py",
+      "to_file": "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_censo_corpus_rotulado_admission.py",
+        "line": 107,
+        "snippet": "p = censo.publicador_de(\"data/derivados/texto/RAW-f88c89d73d6a132a.txt\")"
+      }
+    },
+    {
+      "from_file": "tests/test_censo_corpus_rotulado_admission.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_censo_corpus_rotulado_admission.py",
+        "line": 169,
+        "snippet": "livro = censo._json(\"data/samples/LIVRO-DE-DECISOES.json\")[\"DECISOES\"]"
+      }
+    },
+    {
+      "from_file": "tests/test_censo_corpus_rotulado_admission.py",
+      "to_file": "provas/censo_corpus_rotulado_admission.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_censo_corpus_rotulado_admission.py",
+        "line": 27,
+        "snippet": "\"censo_corpus_rotulado_admission.py\"))"
       }
     },
     {
@@ -36079,10 +36210,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1430,
-    "files_readable": 541,
-    "files_code_dir": 588,
-    "file_edges": 2326,
+    "files_tracked": 1433,
+    "files_readable": 543,
+    "files_code_dir": 590,
+    "file_edges": 2336,
     "escritas_em_pasta": 69,
     "declared_missing_here": 0
   },
