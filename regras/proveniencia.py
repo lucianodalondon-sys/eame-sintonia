@@ -319,6 +319,81 @@ def ordem(run_a, run_b):
 #
 # A partir daqui o DONO da população é este módulo, e o inventário é DERIVADO do diretório.
 
+
+# ══════════════════════════════════════════════════════════════════════════
+# A ESPÉCIE DO TEXTO — porque «tem texto» nunca provou «é a fala do vídeo»
+# ══════════════════════════════════════════════════════════════════════════
+# A C5 mediu, no corpus já pago: dos 28 textos com conteúdo, ONZE são inglês
+# vindo de vídeo NÃO-inglês. O vídeo `RisRARQSFAg` — canal AIPO Verona, título
+# «Periodico olivo 1° Maggio 2026» — guardou «Olive growers, welcome back to
+# issue 18 of the May 1, 2026 periodical».
+#
+#     TEXT EXISTS != ORIGINAL TEXT PROVEN.
+#
+# Isto vive AQUI, e não no primeiro consumidor que precisou dele, porque a
+# pergunta não é do sensor: é da proveniência. Qualquer texto derivado de mídia,
+# de qualquer plataforma, tem espécie — e este ficheiro já é o dono do
+# vocabulário da ausência (`NAO_SEI`, `NOT_PRESERVED`) e das listas fechadas que
+# governam o que uma corrida pode declarar.
+#
+# QUATRO ESPÉCIES, E A QUARTA É A HONESTA
+# ----------------------------------------
+#     NATIVE_CAPTION_ORIGINAL    a legenda na língua falada no vídeo
+#     NATIVE_CAPTION_TRANSLATED  legenda traduzida pela própria plataforma
+#     ASR_LOCAL                  texto que ESTA casa produziu a partir do áudio
+#     NÃO SEI                    quem trouxe não declarou
+#
+# E QUATRO NÃO SÃO QUATRO QUALIDADES. Uma tradução pode ser excelente e uma
+# legenda original pode estar cheia de erro. Espécie é PROCEDÊNCIA; qualidade é
+# outro eixo, com outro dono.
+NATIVE_CAPTION_ORIGINAL = 'NATIVE_CAPTION_ORIGINAL'
+NATIVE_CAPTION_TRANSLATED = 'NATIVE_CAPTION_TRANSLATED'
+ASR_LOCAL = 'ASR_LOCAL'
+ESPECIES_DO_TEXTO = (NATIVE_CAPTION_ORIGINAL, NATIVE_CAPTION_TRANSLATED,
+                     ASR_LOCAL, NAO_SEI)
+
+# De onde a espécie veio. `INFERRED_FROM_TEXT` NÃO está aqui, e a ausência é a
+# decisão: ler o texto para adivinhar a espécie seria adivinhar duas vezes —
+# primeiro a língua, depois a intenção de quem legendou.
+DECLARED_BY_PROVIDER = 'DECLARED_BY_PROVIDER'
+PRODUCED_BY_LOCAL_ASR = 'PRODUCED_BY_LOCAL_ASR'
+NOT_DECLARED = 'NOT_DECLARED'
+BASES_DA_ESPECIE = (DECLARED_BY_PROVIDER, PRODUCED_BY_LOCAL_ASR, NOT_DECLARED)
+
+#: As espécies que sustentam uma afirmação sobre O QUE FOI DITO, na língua em
+#: que foi dito. Uma tradução não sustenta: as palavras são de quem traduziu.
+SERVEM_PARA_ORIGINAL = (NATIVE_CAPTION_ORIGINAL, ASR_LOCAL)
+
+
+def especie_declarada(item):
+    """→ (espécie, base). Do que o PROVEDOR declarou. Nunca do conteúdo.
+
+    O silêncio do provedor é `NÃO SEI` com base `NOT_DECLARED` — e isso é uma
+    medição sobre ele, não uma dúvida nossa.
+    """
+    item = item or {}
+    if item.get('trackKind') == 'asr' or item.get('kind') == 'asr':
+        return NATIVE_CAPTION_ORIGINAL, DECLARED_BY_PROVIDER
+    if item.get('isTranslated') or item.get('translatedFrom'):
+        return NATIVE_CAPTION_TRANSLATED, DECLARED_BY_PROVIDER
+    return NAO_SEI, NOT_DECLARED
+
+
+def serve_para_original(especie):
+    """O texto sustenta afirmação sobre a fala original? → True/False.
+
+    `NÃO SEI` devolve False, e é o ponto inteiro desta função:
+
+        AUSÊNCIA DE PROVA NÃO É PROVA DE ORIGINAL.
+
+    Quem precisa da fala na língua falada — casamento léxico italiano, nome de
+    molécula, marca, lugar do facto — pergunta aqui. Quem NÃO precisa não é
+    obrigado a perguntar: uma tradução continua útil para muita coisa, e barrá-la
+    em todo o lado seria perder capacidade para arrumar um campo.
+    """
+    return especie in SERVEM_PARA_ORIGINAL
+
+
 RAW_PAID_REL = 'data/samples/raw-paid'
 
 # Duas populações vivem no mesmo diretório e NÃO têm a mesma obrigação. Sem distinguir,

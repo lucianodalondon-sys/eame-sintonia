@@ -32,9 +32,15 @@ Agrociencia. Nacionalidade da pessoa também não é lugar do fato.
 import json
 import os
 import re
+import sys
 import unicodedata
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, ROOT)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
+# O DONO DA PROCEDENCIA. A especie de um texto derivado e pergunta dele, e este
+# ficheiro so a faz — nao a responde.
+import proveniencia as pv  # noqa: E402
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
 PILOT = os.path.join(SAMPLES, 'SENSOR-PILOT')
 
@@ -385,14 +391,45 @@ def lugar_do_fato(texto):
     return NAO_SEI, None
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# O TEXTO ENTRA COM A ESPÉCIE, OU NÃO ENTRA ONDE A ESPÉCIE IMPORTA
+# ══════════════════════════════════════════════════════════════════════════
+# Medido na C6, sobre este próprio corpus: o texto da transcrição mudou o
+# `COUNTRY_OF_FACT` de QUINZE dos 28 vídeos que tocou — e em CATORZE deles
+# mudou-o para `ES`.
+#
+#     EAkcA_2FDN8  «CONTRASTO ALLA FLAVESCENZA DORATA DELLA VITE»  -> ES
+#     Ea-AcNeRDMU  «Diserbo in post-emergenza»                     -> ES
+#     G0oPuGlDkkU  «Diserbo del mais in pre-emergenza»             -> ES
+#     -oMxkCI1ERc  «Protection de la vigne en Champagne»   FR      -> ES
+#     rTOS8t1j174  já estava                               IT      -> ES
+#
+# Vídeos italianos e franceses a declarar facto em Espanha. E o texto que os
+# levou lá é INGLÊS — a C5 mediu que onze dos 28 são tradução.
+#
+#     UM TEXTO DE ESPÉCIE DESCONHECIDA ESTAVA A DECIDIR ONDE O FACTO ACONTECEU.
+#
+# A TRAVA É A MENOR POSSÍVEL, E ISSO É DELIBERADO
+# ------------------------------------------------
+# `classificar_conteudo` CONTINUA a receber o texto. Saber que um vídeo é webinar
+# ou pesquisa sobrevive à tradução, e barrar isso perderia capacidade para
+# arrumar um campo. Só `lugar_do_fato` passa a exigir espécie que sustente a
+# fala original — porque o nome de um lugar numa tradução é escolha de quem
+# traduziu, não do que foi dito.
+#
+#     FIT FOR PURPOSE E DO CONSUMIDOR. PROCEDENCIA E DA COLETA.
+#     Por isso a resposta nao e «rejeitar traducao», e «perguntar a especie».
 def medir():
     videos, vistos = [], set()
-    trans = {}
+    trans, especies = {}, {}
     for L in ('A', 'B', 'C', 'D', 'E'):
         d = _ler('TRANSCRICOES-%s.json' % L) or {'ITEMS': []}
         for t in d['ITEMS']:
             if t.get('TRANSCRIPT'):
                 trans[t['SOURCE_URL']] = t['TRANSCRIPT']
+                # A espécie vem do REGISTO, e o registo antigo não a tem — o que
+                # devolve `NÃO SEI`. Ausência de campo NUNCA vira ORIGINAL.
+                especies[t['SOURCE_URL']] = t.get('TRANSCRIPT_KIND') or pv.NAO_SEI
     dups = 0
     for L in ('A', 'B', 'C', 'D', 'E'):
         d = _ler('VIDEOS-%s.json' % L) or {'ITEMS': []}
@@ -403,9 +440,14 @@ def medir():
                 continue
             vistos.add(chave)
             tr = trans.get(v['SOURCE_URL'])
+            especie = especies.get(v['SOURCE_URL'], pv.NAO_SEI) if tr else None
+            # Tolerante à tradução: o tipo de conteúdo sobrevive a ela.
             tipo, ev = classificar_conteudo(v.get('TITLE'), v.get('DESCRIPTION'), tr)
+            # NÃO tolerante: o lugar do facto sai das palavras ditas, e uma
+            # tradução tem as palavras de quem traduziu.
+            tr_para_lugar = tr if (tr and pv.serve_para_original(especie)) else ''
             pais_fato, nome = lugar_do_fato(
-                '%s %s %s' % (v.get('TITLE'), v.get('DESCRIPTION'), tr or ''))
+                '%s %s %s' % (v.get('TITLE'), v.get('DESCRIPTION'), tr_para_lugar))
             videos.append(dict(v, **{
                 'CONTENT_TYPE': tipo, 'CONTENT_TYPE_EVIDENCE': ev,
                 'TRANSCRIPT_AVAILABLE': 'YES' if tr else 'NO',

@@ -930,6 +930,7 @@ def transcricao(lote='A'):
                 'TRANSCRIPT_LANGUAGE': pv.NAO_SEI,
                 'TRANSCRIPT_LANGUAGE_BASIS': 'NOT_DECLARED_BY_PROVIDER',
                 'TRANSCRIPT_KIND': pv.NAO_SEI,
+                'TRANSCRIPT_KIND_BASIS': pv.NOT_DECLARED,
                 'CAPTION_SOURCE': actor,
                 'WHY_EMPTY': str(man.get('ERROR'))[:200]}))
         for t in (itens or []):
@@ -947,7 +948,8 @@ def transcricao(lote='A'):
                 'TRANSCRIPT_LANGUAGE_BASIS': ('DECLARED_BY_PROVIDER'
                                               if t.get('language')
                                               else 'NOT_DECLARED_BY_PROVIDER'),
-                'TRANSCRIPT_KIND': especie_do_texto(t),
+                'TRANSCRIPT_KIND': pv.especie_declarada(t)[0],
+                'TRANSCRIPT_KIND_BASIS': pv.especie_declarada(t)[1],
                 'CAPTION_SOURCE': actor,
             }))
         print('      %d/%d %s: %d itens (pos %d, %s)'
@@ -972,63 +974,27 @@ def transcricao(lote='A'):
     return 0
 
 
-# ══════════════════════════════════════════════════════════════════════════
-# TRÊS ESPÉCIES DE TEXTO, E ELAS NÃO SE MISTURAM
-# ══════════════════════════════════════════════════════════════════════════
-# Medido na C5 sobre os 48 itens de transcrição já preservados:
+# ── A ESPÉCIE DO TEXTO VIVE NO DONO DA PROVENIÊNCIA ─────────────────────────
+# A C5 declarou este vocabulário AQUI porque este ficheiro foi o primeiro a
+# precisar dele. Na C6 apareceu o segundo consumidor — `sensor_medir.py`, que
+# alimenta o lugar do facto com o mesmo texto — e dois consumidores fazem a
+# pergunta deixar de ser deste ficheiro.
 #
-#     TRANSCRIPT_LANGUAGE = NÃO SEI    em 48 de 48
-#     onze dos 28 com texto sao INGLES vindo de video NAO-INGLES
+#     ONE CONCEPT -> ONE OWNER. E o dono da procedencia de um texto derivado
+#     nao e quem o colheu primeiro: e quem governa procedencia.
 #
-# O vídeo `RisRARQSFAg` é o caso que fecha o assunto. Canal AIPO Verona, título
-# «Periodico olivo 1° Maggio 2026», descrição em italiano. O que ficou gravado no
-# campo `TRANSCRIPT` foi:
-#
-#     «Olive growers, welcome back to issue 18 of the May 1, 2026 periodical.»
-#
-# Isso não é a fala do vídeo. É uma TRADUÇÃO automática dela, guardada num campo
-# que diz `TRANSCRIPT` e ao lado de um idioma que diz `NÃO SEI`.
-#
-#     TRADUÇÃO ROTULADA COMO TRANSCRIÇÃO ORIGINAL É O PIOR DEFEITO POSSÍVEL
-#     NUM CORPUS QUE EXISTE PARA SABER DE QUE CULTURA E DE QUE PRODUTO O
-#     CONCORRENTE FALA, E EM QUE PAÍS.
-#
-# Um termo agronómico italiano traduzido para inglês deixa de bater com o léxico
-# italiano — e a peneira que procura «granella» nunca mais a encontra.
-#
-# Por isso quatro espécies, vocabulário fechado, e a quarta é a honesta:
-#
-#     NATIVE_CAPTION_ORIGINAL  a legenda na língua falada no vídeo
-#     NATIVE_CAPTION_TRANSLATED  legenda traduzida pela plataforma
-#     ASR_LOCAL                texto que ESTA casa produziu do áudio
-#     NOT_KNOWN                quem trouxe não declarou, e não se adivinha
-#
-# O ator da Apify NÃO declara qual das três entregou. Enquanto não declarar, a
-# resposta desta casa é `NOT_KNOWN` — e `NOT_KNOWN` aqui é uma medição, não uma
-# desculpa: ele diz exactamente o que se sabe sobre aquele texto.
-NATIVE_CAPTION_ORIGINAL = 'NATIVE_CAPTION_ORIGINAL'
-NATIVE_CAPTION_TRANSLATED = 'NATIVE_CAPTION_TRANSLATED'
-ASR_LOCAL = 'ASR_LOCAL'
-#: A quarta espécie é o `NÃO SEI` que o resto deste ficheiro já usa — e é o MESMO
-#: objeto, de propósito. Escrever `'NOT_KNOWN'` aqui criaria duas grafias da mesma
-#: ausência, e a tupla deixaria de reconhecer o valor que a função devolve.
-ESPECIES_DE_TEXTO = (NATIVE_CAPTION_ORIGINAL, NATIVE_CAPTION_TRANSLATED,
-                     ASR_LOCAL, pv.NAO_SEI)
+# Mudou de sítio, não de significado. Os nomes continuam a resolver aqui para
+# que nenhum chamador existente se parta.
+NATIVE_CAPTION_ORIGINAL = pv.NATIVE_CAPTION_ORIGINAL
+NATIVE_CAPTION_TRANSLATED = pv.NATIVE_CAPTION_TRANSLATED
+ASR_LOCAL = pv.ASR_LOCAL
+ESPECIES_DE_TEXTO = pv.ESPECIES_DO_TEXTO
 
 
 def especie_do_texto(item):
-    """→ qual das quatro espécies o provedor DECLAROU. Nunca infere do conteúdo.
-
-    Inferir a espécie lendo o texto seria adivinhar duas vezes: primeiro a língua,
-    depois a intenção. O campo existe para guardar o que o provedor disse — e o
-    silêncio dele é `NOT_KNOWN`, que é informação verdadeira.
-    """
-    item = item or {}
-    if item.get('trackKind') == 'asr' or item.get('kind') == 'asr':
-        return NATIVE_CAPTION_ORIGINAL
-    if item.get('isTranslated') or item.get('translatedFrom'):
-        return NATIVE_CAPTION_TRANSLATED
-    return pv.NAO_SEI
+    """→ a espécie que o provedor DECLAROU. O dono decide; aqui só se pergunta."""
+    especie, _base = pv.especie_declarada(item)
+    return especie
 
 
 def _texto_transcricao(t):
