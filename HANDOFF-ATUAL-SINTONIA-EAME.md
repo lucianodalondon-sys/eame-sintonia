@@ -1676,6 +1676,96 @@ UMA SENTINELA ANCORADA NO TEXTO MEDE O TEXTO, NAO A LEI.
 
 ---
 
+## 17. C4C — O CORPUS ESTAVA PRESERVADO; ERA A PERGUNTA QUE ESTAVA ERRADA
+
+```
+MISSAO   = C4C · RECUPERAR 1 AMOSTRA REAL E MEDIR CPU x GPU, 2026-09-11
+BRANCH   = claude/sintonia-scrap-gpu-quality-c4c
+ENTREGA  = docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md (seccao C4C)
+DECISAO  = CPU_SAMPLE_BENCHMARK = PROVEN
+           GPU_SAMPLE_BENCHMARK = BLOCKED_CORPUS_NOT_ON_GPU_MACHINE
+```
+
+### 17.1 · Onde o bruto preservado vive, e como se pergunta por ele
+
+**O QUE.** A C4B concluiu `SEM_CORPUS` e a conclusão estava errada. O corpus
+estava inteiro, e o manifesto da casa já dizia onde.
+
+**POR QUÊ.** Ela procurou `C-FanW_CYMz.wav`. O `.wav` é **derivado** — nasce de
+`extrair_audio` e pode ser refeito a qualquer momento. Quem está preservado, com
+hash, é o **`.mp4`**.
+
+**PROVA.** `data/samples/REEL-TRANSCRICOES/TRANSCRICOES-REEL.json` carrega, por
+item, um bloco `RAW` completo:
+
+```text
+ARTIFACT_ID       RAW-a44827ebd61f0e0b
+STORAGE_LOCATION  data/raw/REEL-MIDIA/C-FanW_CYMz.mp4
+SHA256            a44827ebd61f0e0b5a8878ffed10ac0da4477f5139c6c3835542ae88734031d4
+BYTES             1788869
+RUN_ID · EXECUTOR_ID · COLLECTED_AT · STATE
+```
+
+Perguntando ao manifesto em vez de procurar um nome de ficheiro: **8 de 8**
+artefatos recuperados e provados por hash, quatro deles com verdade de
+referência declarada.
+
+**CONSEQUÊNCIA.** `provas/corpus_recuperar.py` faz essa pergunta e não vai à
+rede. E a regra que ele carrega dentro da própria resposta:
+
+```text
+PROCURAR O ARTEFATO ERRADO DA UMA RESPOSTA VERDADEIRA SOBRE OUTRA COISA.
+PATH != IDENTIDADE. SHA != OBSERVACAO.
+AUSENCIA DE CORPUS NAO E AUTORIZACAO DE RECOLHER.
+```
+
+O `SHA256` identifica os BYTES. Não é `DOCUMENT_ID`, e o próprio manifesto
+explica: dois RUNs que tragam o mesmo vídeo têm o mesmo hash e são **duas
+observações**.
+
+---
+
+### 17.2 · O corpus e a placa estão em máquinas diferentes
+
+**O QUE.** A pergunta «CPU contra GPU sobre a mesma amostra» não se pode
+responder hoje, e o motivo não é técnico nem de autorização.
+
+**PROVA.** Medido nos dois lados, não suposto:
+
+```text
+contentor Linux desta sessao     corpus 8/8, hash confere    placa: NAO
+runner SINTONIA-EAME-LOCAL       corpus 0/8                  placa: SIM
+```
+
+O lado do runner é a corrida `34623490650`: o censo respondeu `NOT_FOUND`, o
+banco não correu, e o job disse porquê.
+
+E não há canal para lá levar o byte sem quebrar uma regra: o Git está fora
+(`data/raw` é ignorado de propósito), recolher outra vez seria aquisição, não há
+artefato de corrida anterior (`total_count = 0`) e a casa não declara storage
+remoto para RAW.
+
+**CONSEQUÊNCIA.** O bloqueio ficou escrito com o nome exacto —
+`BLOCKED_CORPUS_NOT_ON_GPU_MACHINE` — e não como `SEM_CORPUS`, que já tinha
+enganado uma vez.
+
+```text
+O CORPUS EXISTE E ESTA PROVADO. ELE SO NAO ESTA ONDE A PLACA ESTA.
+UMA AUSENCIA DE CANAL NAO E UMA AUTORIZACAO DE ATALHO.
+```
+
+A metade que se podia medir foi medida: `medium` em CPU sobre as quatro amostras
+reais, todas `OK`, língua estável, e o sentinela italiano a reproduzir
+exactamente o `PARTIAL` que já estava registado — `2/2` nos termos do CAPTION e
+`0/1` na marca, porque `syngenta` vem da identidade da conta e não é dito na
+fala.
+
+```text
+METADE MEDIDA E DECLARADA VALE MAIS DO QUE UM NUMERO INTEIRO INVENTADO.
+```
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
