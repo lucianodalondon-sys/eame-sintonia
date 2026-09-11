@@ -916,6 +916,175 @@ MODULE EXISTS != EDGE EXISTS != FLOW EXISTS
 O reconhecedor **existe** e agora **corre na placa**. Que ele esteja ligado à
 Collection é outra pergunta, de outra missão, e continua sem resposta aqui.
 
+---
+
+# C4C · UMA AMOSTRA REAL, E A METADE QUE NÃO SE PODE MEDIR AQUI
+
+```
+CORPUS_RECOVERY       = RECOVERED   (8/8, provados por hash)
+SAMPLE_ELIGIBLE       = YES
+CPU_SAMPLE_BENCHMARK  = PROVEN
+GPU_SAMPLE_BENCHMARK  = BLOCKED_CORPUS_NOT_ON_GPU_MACHINE
+GPU_QUALITY_BENCHMARK = NOT_RUN
+```
+
+## C4C.1 · Recuperar não é recolher — e a C4B procurou o artefato errado
+
+A C4B escreveu `SEM_CORPUS` depois de procurar `C-FanW_CYMz.wav` na máquina
+local. O `.wav` é **derivado**. Quem está preservado, com hash, no manifesto da
+casa é o **`.mp4`**.
+
+```
+PROCURAR O ARTEFATO ERRADO DA UMA RESPOSTA VERDADEIRA SOBRE OUTRA COISA.
+```
+
+`data/samples/REEL-TRANSCRICOES/TRANSCRICOES-REEL.json` carrega, por item, um
+bloco `RAW` completo: `ARTIFACT_ID`, `STORAGE_LOCATION`, `SHA256`, `BYTES`,
+`RUN_ID`, `EXECUTOR_ID`. Era só perguntar.
+
+`provas/corpus_recuperar.py` pergunta — e não vai à rede. Resultado neste
+contentor:
+
+```
+8 de 8 artefatos RAW recuperados e provados por hash
+4 deles com verdade de referencia declarada e termos > 0
+```
+
+```
+PATH != IDENTIDADE. SHA != OBSERVACAO.
+AUSENCIA DE CORPUS NAO E AUTORIZACAO DE RECOLHER.
+```
+
+Nenhum byte novo foi adquirido. Sem YouTube, sem Apify, sem `yt-dlp`, sem tocar
+em `YOUTUBE_DATA_API_KEY`.
+
+## C4C.2 · A amostra
+
+```
+SAMPLE_ID     C-FanW_CYMz                    (@syngentaitalia, IT)
+ARTIFACT_ID   RAW-a44827ebd61f0e0b
+SAMPLE_PATH   data/raw/REEL-MIDIA/C-FanW_CYMz.mp4     (fora do Git, ignorado)
+SAMPLE_SHA256 a44827ebd61f0e0b5a8878ffed10ac0da4477f5139c6c3835542ae88734031d4
+SAMPLE_BYTES  1788869
+AUDIO_S       34,11
+GROUND_TRUTH  3 termos declarados, com origem:
+                mais            CAPTION   «appassionato di 🌽 Mais»
+                discovery seeds CAPTION   «DISCOVERY SEEDS»
+                syngenta        ACCOUNT   a conta e a da Syngenta Italia
+```
+
+O `SHA256` identifica **os bytes**. Não é `DOCUMENT_ID`, e o próprio manifesto
+diz porquê: dois RUNs que tragam o mesmo vídeo têm o mesmo hash e são **duas
+observações**.
+
+## C4C.3 · O bloqueio, medido nas duas máquinas
+
+A pergunta da missão pede o mesmo áudio em CPU e GPU. As duas metades não se
+encontram, e isso não é suposição:
+
+| | corpus preservado | GPU |
+|---|---|---|
+| contentor Linux desta sessão | **8/8, hash confere** | não tem |
+| runner `SINTONIA-EAME-LOCAL` | **0/8** | **sim, provada na C4B** |
+
+A medição no runner é a corrida `34623490650`, job `103342866603`, passo
+«o bruto preservado está nesta máquina?» — `CORPUS_RECOVERY = NOT_FOUND`, os
+oito com `BYTES_NO_DISCO = null`. O banco **não correu**, e o job disse porquê.
+
+E não há canal para lá levar o byte sem quebrar uma regra:
+
+- **Git está fora** — `data/raw/*` é ignorado de propósito, e §6 proíbe;
+- **recolher de novo está fora** — seria aquisição, e §4 proíbe;
+- **artefato de corrida anterior** — procurado, `total_count = 0`;
+- **storage remoto declarado** — procurado, a casa não declara nenhum para RAW.
+
+```
+O CORPUS EXISTE E ESTA PROVADO. ELE SO NAO ESTA ONDE A PLACA ESTA.
+UMA AUSENCIA DE CANAL NAO E UMA AUTORIZACAO DE ATALHO.
+```
+
+## C4C.4 · O que **foi** medido: a metade CPU, sobre corpus real
+
+Modelo `medium`, dispositivo CPU, as quatro amostras com verdade declarada.
+Corrido neste contentor, onde o corpus está.
+
+```
+                     C-FanW_CYMz   C2b0GJrIJ8t   DW6X5lZkU41   Db5QG2Dk3sF
+IDIOMA               it            fr            en            es
+MODEL                medium        medium        medium        medium
+COMPUTE              cpu/int8/4 th cpu/int8/4 th cpu/int8/4 th cpu/int8/4 th
+STATE                OK            OK            OK            OK
+EXECUTION            PROVEN        PROVEN        PROVEN        PROVEN
+DEVICE_USED          CPU           CPU           CPU           CPU
+AUDIO_S              34.11         78.37         145.43        112.62
+MACHINE_S            21.08         54.12         67.85         36.57
+RTF                  2.5           1.45          2.14          3.08
+TERM_ACCURACY        2/2           2/2           2/2           3/3
+BRAND_ACCURACY       0/1           n/a           n/a           n/a
+LANGUAGE             STABLE        STABLE        STABLE        STABLE
+PEAK_RAM_MB          1996.9        3041.0        3967.7        3967.7
+ERROR                —             —             —             —
+
+GPU                  BLOCKED — o corpus nao esta na maquina que tem a placa
+GPU_SPEEDUP_VS_CPU   NOT_MEASURED
+```
+
+Medido no contentor desta sessão: 4 núcleos, `cpu/int8`, sem placa. Uma segunda
+corrida do mesmo banco deu `RTF 2.34` para o sentinela contra os `2.5` acima —
+variação normal de máquina partilhada, e é por isso que a tabela traz a corrida
+com registo completo em vez de uma média que esconderia a dispersão.
+
+E os três campos que a C4B acrescentou aparecem aqui a funcionar sobre corpus
+real: `DEVICE_SELECTED = CPU`, `DEVICE_EXECUTION = PROVEN`, `DEVICE_USED = CPU`.
+Nas quatro amostras, `EXECUTION` só diz `PROVEN` porque as quatro acabaram.
+
+A leitura do sentinela italiano, que é a razão de ele ser o sentinela:
+
+```
+C-FanW_CYMz   TERMOS 2/2   MARCA 0/1   -> bate exactamente com o PARTIAL
+                                          ja registado na verdade de referencia
+```
+
+`mais` e `discovery seeds` saem do CAPTION e são encontrados. `syngenta` sai da
+**identidade da conta** e não é dito na fala — e por isso a marca dá `0/1`. Isso
+não é regressão: é a mesma leitura de 2026-09-10, reproduzida.
+
+## C4C.5 · Limites, ditos por extenso
+
+```
+GPU_SPEEDUP_VS_CPU = NOT_MEASURED
+```
+
+Sem a metade GPU não há razão, e inventar uma a partir do smoke técnico seria
+comparar uma frase sintetizada de 3 segundos com um Reel de 34 — duas coisas
+diferentes, com dois modelos diferentes.
+
+```
+UMA AMOSTRA E UMA AMOSTRA.
+QUATRO AMOSTRAS EM CPU NAO SAO O CORPUS, E NAO SAO A EAME.
+```
+
+`GPU_QUALITY_BENCHMARK` continua `NOT_RUN`, e agora por uma razão mais precisa
+do que na C4B: não é que o corpus não exista — é que ele não está na máquina que
+tem a placa.
+
+## C4C.6 · O passo mínimo seguinte
+
+Um ficheiro, uma pasta, uma acção humana:
+
+```
+copiar  data/raw/REEL-MIDIA/C-FanW_CYMz.mp4   (1 788 869 bytes)
+para    a maquina do runner, FORA do worktree do Actions
+        (`actions/checkout` faz clean — dentro do worktree ele morre)
+conferir  SHA256 = a44827ebd61f0e0b5a8878ffed10ac0da4477f5139c6c3835542ae88734031d4
+depois    despachar a fase `gpu-bench`
+```
+
+A fase já existe e já sabe parar sozinha: ela pergunta primeiro se o bruto está
+lá, e só corre o banco se estiver.
+
+---
+
 # S · KNOW_HOW_DELTA
 
 ```
