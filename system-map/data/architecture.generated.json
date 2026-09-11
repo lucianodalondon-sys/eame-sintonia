@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-admission-origin-contract-c10-2",
-    "HEAD": "31af9f63d9e77d39889cac2633c00e392aa1b9bf",
-    "GENERATED_AT": "2026-09-11T19:42:28+00:00",
-    "SOURCE_TREE_FINGERPRINT": "76e6c28f2d5a55e9e8ef82927986008010a60caa8276ad5c9053dfb46f8eac01"
+    "BRANCH": "claude/sintonia-scrap-linkedin-deep-census-c11",
+    "HEAD": "92f7590ccf0ccc0e81edaed748e7d96042242d33",
+    "GENERATED_AT": "2026-09-11T20:21:54+00:00",
+    "SOURCE_TREE_FINGERPRINT": "f1632a42bb1a42c74fe42e46d8f47aa1e704bf7b5ddb0a4093e3de9b9e3ff6ca"
   },
   "FILES": [
     {
@@ -5161,8 +5161,22 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-2-ORIGEM-NA-ADMISSION.md",
+      "sha": "a79dd97fa418a37d6c9bc597864152a462f8a609",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/sintonia-scrap/C11-LINKEDIN-CAPABILITY-DEEP-CENSUS.md",
+      "sha": "3ccf1942616b2c799a32a37788cfcfc97b09388f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -9720,6 +9734,13 @@
     {
       "path": "tests/test_c10_1_source_id.py",
       "sha": "509fe712bc2286c08a985eff06c1805b8389a306",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_2_origin_gate.py",
+      "sha": "1dbfed4c5ef99b57367388490c00c7ce47de8ab5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30186,6 +30207,39 @@
       }
     },
     {
+      "from_file": "tests/test_c10_2_origin_gate.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_2_origin_gate.py",
+        "line": 34,
+        "snippet": "import admissao as ad            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_2_origin_gate.py",
+      "to_file": "admissao/admissao.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_2_origin_gate.py",
+        "line": 190,
+        "snippet": "with io.open(os.path.join(RAIZ, 'admissao', 'admissao.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_2_origin_gate.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_2_origin_gate.py",
+        "line": 35,
+        "snippet": "import preservar_coleta as pc    # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_c10_audio_only.py",
       "to_file": "ferramentas/fala_local.py",
       "type": "IMPORTS",
@@ -37277,10 +37331,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1468,
-    "files_readable": 559,
-    "files_code_dir": 606,
-    "file_edges": 2412,
+    "files_tracked": 1471,
+    "files_readable": 560,
+    "files_code_dir": 607,
+    "file_edges": 2415,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
