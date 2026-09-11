@@ -196,7 +196,26 @@ def pela_porta(itens: list, universo: str, run_id: str) -> dict:
     duas vezes — perde-se o item e perde-se a informacao de que aquela fonte
     entrega lixo.
     """
-    decisoes = [adm.decidir(x, universo, corrida=run_id) for x in itens]
+    # ── A TRAVESSIA DE LINGUA, UMA VEZ, PELO DONO DELA ─────────────────────
+    # A unidade chega na lingua do contrato comum (`SOURCE_ID`) e a admissao le
+    # a dela (`source_id`). Esta rota NAO traduzia — e por isso a primeira
+    # unidade italiana a chegar aqui ouviu «nao da para dizer de onde veio»
+    # com a origem declarada no proprio item.
+    #
+    # A traducao nao se escreve aqui: `coleta/ingresso.py::para_a_porta` e o
+    # unico dono, e este e um dos tres sitios que passaram a usa-lo.
+    prontos, decisoes = [], []
+    for x in itens:
+        try:
+            prontos.append(ing.para_a_porta(x))
+        except ing.AliasEmConflito as ex:
+            # DOIS NOMES, DOIS VALORES. Nao se escolhe em silencio e nao se
+            # rebenta a corrida: o item vai a porta declarado como ilegivel, e
+            # ela responde ERRO — que NAO e rejeicao. `erro_de_leitura` e o
+            # campo que a propria admissao ja usa para isto.
+            prontos.append(dict(x, erro_de_leitura=str(ex)))
+    decisoes = [adm.decidir(x, universo, corrida=run_id) for x in prontos]
+    itens = prontos
     if decisoes:
         adm.escrever(decisoes)
 

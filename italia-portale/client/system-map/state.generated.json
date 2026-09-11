@@ -1442,6 +1442,7 @@
       "tests/test_integracao_biblia.py",
       "tests/test_italia_na_porta_canonica.py",
       "tests/test_leitores_depois_da_fase_10.py",
+      "tests/test_lingua_da_porta.py",
       "tests/test_lingua_unica.py",
       "tests/test_lugar_do_fato.py",
       "tests/test_m2_aresta_observada.py",
@@ -1871,10 +1872,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/executor-return-runtime-v1",
-    "HEAD": "5524c512d4046364bba601e2b64b84f9d19cbdf5",
-    "GENERATED_AT": "2026-09-11T04:38:03+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b3840b175ceeb6214dbc7e318ba9cd6abafb01e2423b3115651dbdfca195e10e"
+    "BRANCH": "claude/ingresso-admission-seam-v1",
+    "HEAD": "bf1ad7aa1bb4daddb67464ee99852d107efa934b",
+    "GENERATED_AT": "2026-09-11T09:49:48+00:00",
+    "SOURCE_TREE_FINGERPRINT": "dfe0fef2cd6febcb08802d1cc1c311a5ad3c4658b5708650a78fd3badbfc178a"
   },
   "FAMILIES": [
     {
@@ -8382,6 +8383,7 @@
         "C-BIBLIA",
         "C-CONTRATO-ARTEFATO",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-INGRESSO",
         "C-PROCEDENCIA"
       ],
       "outbound": [
@@ -9257,9 +9259,11 @@
         "C-DONO-DA-ESCRITA"
       ],
       "outbound": [
+        "C-ESTRADA-PDF",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
+        "C-ROTA-M2",
         "C-TESTES"
       ],
       "paises": {},
@@ -9272,11 +9276,12 @@
         "listas": [
           "CORRIDA_PARA_O_RAW",
           "DO_COLETOR",
+          "PARA_A_PORTA",
           "_SENTINELAS"
         ],
-        "palavras": 26,
+        "palavras": 46,
         "por_lingua": {},
-        "sem_marca_de_lingua": 26,
+        "sem_marca_de_lingua": 46,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -9420,17 +9425,6 @@
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "vocabulario": {
-        "papel": "NAO SEI",
-        "listas": [
-          "DA_OBSERVACAO_PARA_A_PORTA"
-        ],
-        "palavras": 6,
-        "por_lingua": {},
-        "sem_marca_de_lingua": 6,
-        "de_outro_pais": 0,
-        "de_outro_pais_quais": {}
-      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -13215,6 +13209,7 @@
         "C-ADMISSAO",
         "C-DERIVACAO-FORWARD",
         "C-DIAGNOSTICO",
+        "C-INGRESSO",
         "C-RASTRO",
         "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL"
@@ -15250,6 +15245,7 @@
         "tests/test_integracao_biblia.py",
         "tests/test_italia_na_porta_canonica.py",
         "tests/test_leitores_depois_da_fase_10.py",
+        "tests/test_lingua_da_porta.py",
         "tests/test_lingua_unica.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_m2_aresta_observada.py",
@@ -15299,7 +15295,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 82,
+      "file_count": 83,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -16871,7 +16867,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/executor-return-runtime-v1"
+        "branch claude/ingresso-admission-seam-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17176,7 +17172,7 @@
         {
           "file": "coleta/golden_path_pdf.py",
           "line": 50,
-          "snippet": "import admissao as adm  # noqa: E402"
+          "snippet": "import admissao as adm"
         }
       ],
       "categoria": "CODE"
@@ -17365,12 +17361,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_fronteira_mede_producao.py",
           "line": 138,
           "snippet": "import admissao"
+        },
+        {
+          "file": "tests/test_lingua_da_porta.py",
+          "line": 39,
+          "snippet": "import admissao as adm  # noqa: E402"
         },
         {
           "file": "tests/test_m2_rota_forward.py",
@@ -18775,7 +18776,7 @@
       "evidence": [
         {
           "file": "coleta/golden_path_pdf.py",
-          "line": 201,
+          "line": 211,
           "snippet": "biblia = json.loads((RAIZ / \"docs\" / \"biblia\" / \"leis.json\")"
         }
       ],
@@ -21791,7 +21792,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 51,
+          "line": 52,
           "snippet": "import derivacao_forward as deriv     # noqa: E402"
         }
       ],
@@ -21981,7 +21982,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 52,
+          "line": 53,
           "snippet": "import diagnostico as dg             # noqa: E402"
         }
       ],
@@ -22566,12 +22567,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A primeira estrada · PDF até à porta alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A primeira estrada · PDF até à porta alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_integracao_biblia.py",
           "line": 158,
           "snippet": "os.path.join(RAIZ, 'coleta', 'golden_path_pdf.py'),"
+        },
+        {
+          "file": "tests/test_lingua_da_porta.py",
+          "line": 202,
+          "snippet": "ROTAS = (\"orquestrador/orquestrador.py\", \"coleta/golden_path_pdf.py\","
         },
         {
           "file": "tests/test_red_team_estrada.py",
@@ -22826,7 +22832,7 @@
       "evidence": [
         {
           "file": "coleta/golden_path_pdf.py",
-          "line": 52,
+          "line": 53,
           "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
         }
       ],
@@ -23625,6 +23631,24 @@
     },
     {
       "from": "C-INGRESSO",
+      "to": "C-ESTRADA-PDF",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por A primeira estrada · PDF até à porta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/golden_path_pdf.py",
+          "line": 51,
+          "snippet": "import ingresso as ing  # noqa: E402 — o dono da lingua da porta  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-INGRESSO",
       "to": "C-ORQUESTRADOR",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -23697,13 +23721,31 @@
     },
     {
       "from": "C-INGRESSO",
+      "to": "C-ROTA-M2",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por A rota forward do documento (M2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/rota_forward_documento.py",
+          "line": 51,
+          "snippet": "import ingresso                      # noqa: E402 — o dono da lingua da porta"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-INGRESSO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -23714,6 +23756,11 @@
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 50,
           "snippet": "import ingresso as ing                     # noqa: E402"
+        },
+        {
+          "file": "tests/test_lingua_da_porta.py",
+          "line": 40,
+          "snippet": "import ingresso as ing  # noqa: E402"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
@@ -23731,8 +23778,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_lingua_da_porta.py",
+          "line": 254,
+          "snippet": "self.assertEqual(donos, [\"coleta/ingresso.py\"],"
+        },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 527,
@@ -25505,12 +25557,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 52,
           "snippet": "import orquestrador as orq                 # noqa: E402"
+        },
+        {
+          "file": "tests/test_lingua_da_porta.py",
+          "line": 270,
+          "snippet": "import orquestrador as orq"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
@@ -25533,12 +25590,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 163,
           "snippet": "fonte = io.open(os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\"),"
+        },
+        {
+          "file": "tests/test_lingua_da_porta.py",
+          "line": 202,
+          "snippet": "ROTAS = (\"orquestrador/orquestrador.py\", \"coleta/golden_path_pdf.py\","
         },
         {
           "file": "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -26659,7 +26721,7 @@
       "evidence": [
         {
           "file": "coleta/golden_path_pdf.py",
-          "line": 51,
+          "line": 52,
           "snippet": "import proveniencia as pv  # noqa: E402"
         }
       ],
@@ -27426,7 +27488,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 54,
+          "line": 55,
           "snippet": "import rastro_da_coleta as rastro    # noqa: E402"
         }
       ],
@@ -27857,8 +27919,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_lingua_da_porta.py",
+          "line": 203,
+          "snippet": "\"coleta/rota_forward_documento.py\")"
+        },
         {
           "file": "tests/test_m2_aresta_observada.py",
           "line": 121,
@@ -28476,7 +28543,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 53,
+          "line": 54,
           "snippet": "import falhas                        # noqa: E402"
         }
       ],
@@ -28748,7 +28815,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 55,
+          "line": 56,
           "snippet": "import social_persistencia as sp     # noqa: E402"
         }
       ],
@@ -31171,12 +31238,12 @@
     "components_pending": 94,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 637,
-    "edges_proven": 635,
+    "edges": 639,
+    "edges_proven": 637,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1424,
-    "files_covered": 699,
+    "files_tracked": 1425,
+    "files_covered": 700,
     "files_code_unclaimed": 0
   }
 }

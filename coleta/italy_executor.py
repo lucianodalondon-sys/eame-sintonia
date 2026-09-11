@@ -95,7 +95,18 @@ EXECUTOR_VERSION = "adapter-v1"
 # responde a tres deles, e responde-lhes com o mesmo nome. Os outros dez nao se
 # preenchem: `DOCUMENT_ID` e `DOCUMENT_VERSION_ID`, que a observacao TEM, nao
 # cabem em nenhum — isso esta medido e registado, e e pergunta do B4, nao desta.
-DA_OBSERVACAO_PARA_A_PORTA = {
+# ⚠️ O NOME DESTA CONSTANTE MENTE, e a trava do tradutor apanhou-o em
+# 2026-09-11. Ela nao leva «a porta»: leva ao CONTRATO COMUM, e por isso
+# mapeia MAIUSCULA para MAIUSCULA. Quem traduz para a lingua de quem julga e
+# `coleta/ingresso.py::para_a_porta`, e so ele.
+#
+#     UM NOME QUE DIZ O DESTINO ERRADO FAZ O PROXIMO LEITOR PROCURAR
+#     A TRADUCAO NO SITIO ERRADO.
+#
+# O nome fica registado como divida e nao se renomeia aqui: renomear uma
+# constante publica no meio de uma missao de fronteira e mexer no que nao se
+# veio medir.
+DA_OBSERVACAO_PARA_O_CONTRATO = DA_OBSERVACAO_PARA_A_PORTA = {
     "SOURCE_ID": "SOURCE_ID",
     "SOURCE_URL": "SOURCE_URL",
     "FACT_TIME": "FACT_TIME",

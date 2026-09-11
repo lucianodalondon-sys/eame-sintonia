@@ -94,6 +94,80 @@ DO_COLETOR = ("SOURCE_ID", "SOURCE_URL", "PUBLISHER", "COUNTRY_SCOPE",
               "EXECUTOR_ID", "EXECUTOR_VERSION", "PIPELINE_VERSION")
 
 
+# ── A LINGUA DA PORTA — UM SO TRADUTOR, NA FRONTEIRA ───────────────────────
+#
+#     O COLETOR OBSERVA. A PORTA PRESERVA. A ADMISSAO JULGA.
+#
+# O contrato comum (`leis/artefato.py`) fala em MAIUSCULAS. A admissao le
+# minusculas. Sao dez conceitos com dois nomes cada, e o defeito NAO era «a
+# admissao le minusculas»: era que a traducao JA EXISTIA, escrita a mao, em
+# dois sitios diferentes e com subconjuntos diferentes —
+# `coleta/golden_path_pdf.py` e `coleta/rota_forward_documento.py` — enquanto a
+# rota canonica (o orquestrador) nao traduzia de todo.
+#
+#     UMA TRADUCAO SEM DONO NAO E UMA TRADUCAO: SAO TRES.
+#
+# E o remendo obvio seria o pior de todos:
+#
+#     item.get("SOURCE_ID") or item.get("source_id") or item.get("fonte")
+#
+# espalhado por cada leitor. Isso nao da um dono a traducao — da-lhe um por
+# ficheiro, e eles divergem no dia em que alguem acrescentar um alias a um so.
+#
+# Vive AQUI porque aqui e a fronteira: esta peca ja «transforma o que o coletor
+# largou numa ficha do contrato comum». Traduzir para a lingua de quem julga e
+# a mesma travessia, no mesmo sitio, uma vez.
+PARA_A_PORTA = {
+    "SOURCE_ID": "source_id",
+    "SOURCE_URL": "url",
+    "FACT_TIME": "fact_time",
+    "PUBLISHED_AT": "published_at",
+    "FACT_LOCATION": "fact_location",
+    "SOURCE_LOCATION": "source_location",
+    "ARTIFACT_TYPE": "artifact_type",
+    "PARENT_ARTIFACT_ID": "parent_artifact_id",
+    "PARENT_SHA256": "parent_sha256",
+    "COLLECTED_AT": "captured_at",
+}
+
+
+class AliasEmConflito(ValueError):
+    """Dois nomes do mesmo conceito, com valores diferentes.
+
+    NAO SE ESCOLHE EM SILENCIO. Escolher o maiusculo seria arbitrario; escolher
+    o minusculo tambem. Um item que se contradiz sobre a propria origem nao e um
+    item com um campo a mais: e um item que nao se consegue ler.
+    """
+
+
+def para_a_porta(item: dict) -> dict:
+    """O item na lingua de quem julga. Muda o NOME; nunca o VALOR.
+
+    O que ja vem na lingua da porta fica. O que nao esta no mapa viaja intacto —
+    `DOCUMENT_ID` nao tem par do outro lado, e cala-lo aqui seria esta peca a
+    decidir o que a casa pode vir a saber.
+
+    Ausencia continua ausencia: `NAO SEI` nao se fabrica nesta funcao, e um
+    campo que o coletor nao deu nao aparece do lado de la como string vazia.
+    """
+    fora = dict(item)
+    for de, para in PARA_A_PORTA.items():
+        if de not in item:
+            continue
+        valor = item[de]
+        if para in item and item[para] != valor:
+            raise AliasEmConflito(
+                "«%s» e «%s» sao o mesmo conceito e trazem valores diferentes: "
+                "%r contra %r. Nao se escolhe um em silencio."
+                % (de, para, valor, item[para]))
+        fora[para] = valor
+        # RENOMEIA, NAO DUPLICA. Deixar os dois nomes na saida seria entregar a
+        # quem julga exactamente a doenca que esta funcao veio curar: um item a
+        # falar duas linguas ao mesmo tempo, e o proximo leitor a escolher uma.
+        fora.pop(de, None)
+    return fora
+
+
 def _bytes_do_item(item: dict) -> bytes:
     """A observacao, como bytes, sem normalizar nada.
 

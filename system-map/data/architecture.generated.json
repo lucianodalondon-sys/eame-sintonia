@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/executor-return-runtime-v1",
-    "HEAD": "5524c512d4046364bba601e2b64b84f9d19cbdf5",
-    "GENERATED_AT": "2026-09-11T04:38:03+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b3840b175ceeb6214dbc7e318ba9cd6abafb01e2423b3115651dbdfca195e10e"
+    "BRANCH": "claude/ingresso-admission-seam-v1",
+    "HEAD": "bf1ad7aa1bb4daddb67464ee99852d107efa934b",
+    "GENERATED_AT": "2026-09-11T09:49:48+00:00",
+    "SOURCE_TREE_FINGERPRINT": "dfe0fef2cd6febcb08802d1cc1c311a5ad3c4658b5708650a78fd3badbfc178a"
   },
   "FILES": [
     {
@@ -1228,14 +1228,14 @@
     },
     {
       "path": "coleta/golden_path_pdf.py",
-      "sha": "7c6dab13386790b5933aa36289c16d3b375a5d4e",
+      "sha": "5000ead3427aca2bdc1c418ce05b5d51acc01aaf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "coleta/ingresso.py",
-      "sha": "1ae54b61085bddf0f9682416566387ff7ae4d428",
+      "sha": "5908f8cae134a24d97e8b6c01d8b1e545464a73b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1270,7 +1270,7 @@
     },
     {
       "path": "coleta/italy_executor.py",
-      "sha": "48790198531faec3d5e32c28ce23effef304f8ed",
+      "sha": "4b0e6b22838dc59bb41dc65c77d7d59660730562",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1340,7 +1340,7 @@
     },
     {
       "path": "coleta/rota_forward_documento.py",
-      "sha": "4343ce48ee0559c6dd35514b9dedff389cf68a87",
+      "sha": "9be59bb4388d6f9d65bdbb563e3144adc07fab60",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7444,7 +7444,7 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "3d6bf4572c2be5c9c516f59e57886941d9ef193a",
+      "sha": "d93e4c5e81b98019048d39527d19260d34c42822",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7836,7 +7836,7 @@
     },
     {
       "path": "provas/so_a_colheita_atravessa.py",
-      "sha": "1d2ed1b913469975d6a30acf7520f222296fed6d",
+      "sha": "cddc02ed300d03324ce5f920e7a9cdb77d0936f1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9629,6 +9629,13 @@
     {
       "path": "tests/test_leitores_depois_da_fase_10.py",
       "sha": "1b42a9935a480644011863e36c9f8125cb2d7abb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_lingua_da_porta.py",
+      "sha": "56a997e982c16c31d811c3565d07581a91323cdf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11845,7 +11852,7 @@
       "evidence": {
         "file": "coleta/golden_path_pdf.py",
         "line": 50,
-        "snippet": "import admissao as adm  # noqa: E402"
+        "snippet": "import admissao as adm"
       }
     },
     {
@@ -11855,8 +11862,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/golden_path_pdf.py",
-        "line": 52,
+        "line": 53,
         "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 51,
+        "snippet": "import ingresso as ing  # noqa: E402 — o dono da lingua da porta  # noqa: E402"
       }
     },
     {
@@ -11866,7 +11884,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/golden_path_pdf.py",
-        "line": 201,
+        "line": 211,
         "snippet": "biblia = json.loads((RAIZ / \"docs\" / \"biblia\" / \"leis.json\")"
       }
     },
@@ -11888,7 +11906,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/golden_path_pdf.py",
-        "line": 51,
+        "line": 52,
         "snippet": "import proveniencia as pv  # noqa: E402"
       }
     },
@@ -12350,8 +12368,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/rota_forward_documento.py",
-        "line": 51,
+        "line": 52,
         "snippet": "import derivacao_forward as deriv     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/rota_forward_documento.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/rota_forward_documento.py",
+        "line": 51,
+        "snippet": "import ingresso                      # noqa: E402 — o dono da lingua da porta"
       }
     },
     {
@@ -12361,7 +12390,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/rota_forward_documento.py",
-        "line": 55,
+        "line": 56,
         "snippet": "import social_persistencia as sp     # noqa: E402"
       }
     },
@@ -12372,7 +12401,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/rota_forward_documento.py",
-        "line": 52,
+        "line": 53,
         "snippet": "import diagnostico as dg             # noqa: E402"
       }
     },
@@ -12383,7 +12412,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/rota_forward_documento.py",
-        "line": 53,
+        "line": 54,
         "snippet": "import falhas                        # noqa: E402"
       }
     },
@@ -12394,7 +12423,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/rota_forward_documento.py",
-        "line": 54,
+        "line": 55,
         "snippet": "import rastro_da_coleta as rastro    # noqa: E402"
       }
     },
@@ -31275,6 +31304,94 @@
       }
     },
     {
+      "from_file": "tests/test_lingua_da_porta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_lingua_da_porta.py",
+        "line": 38,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_da_porta.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_lingua_da_porta.py",
+        "line": 39,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_da_porta.py",
+      "to_file": "coleta/golden_path_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_lingua_da_porta.py",
+        "line": 202,
+        "snippet": "ROTAS = (\"orquestrador/orquestrador.py\", \"coleta/golden_path_pdf.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_da_porta.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_lingua_da_porta.py",
+        "line": 40,
+        "snippet": "import ingresso as ing  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_da_porta.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_lingua_da_porta.py",
+        "line": 254,
+        "snippet": "self.assertEqual(donos, [\"coleta/ingresso.py\"],"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_da_porta.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_lingua_da_porta.py",
+        "line": 203,
+        "snippet": "\"coleta/rota_forward_documento.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_da_porta.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_lingua_da_porta.py",
+        "line": 270,
+        "snippet": "import orquestrador as orq"
+      }
+    },
+    {
+      "from_file": "tests/test_lingua_da_porta.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_lingua_da_porta.py",
+        "line": 202,
+        "snippet": "ROTAS = (\"orquestrador/orquestrador.py\", \"coleta/golden_path_pdf.py\","
+      }
+    },
+    {
       "from_file": "tests/test_lingua_unica.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -35278,10 +35395,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1424,
-    "files_readable": 537,
-    "files_code_dir": 584,
-    "file_edges": 2257,
+    "files_tracked": 1425,
+    "files_readable": 538,
+    "files_code_dir": 585,
+    "file_edges": 2267,
     "escritas_em_pasta": 69,
     "declared_missing_here": 0
   },

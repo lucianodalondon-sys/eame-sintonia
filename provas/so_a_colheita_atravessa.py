@@ -129,8 +129,13 @@ def a_cadeia_com_um_item_real():
              "aceites=%d recusas=%s" % (len(r["ACEITES"]),
                                         [x["PORQUE"] for x in r["RECUSAS"]][:2]))
 
-        # ── 5 · A ADMISSAO JULGA ───────────────────────────────────────────
-        d = adm.decidir(itens[0], "T2", corrida=run)
+        # ── 5 · A TRAVESSIA DE LINGUA, E DEPOIS A ADMISSAO JULGA ───────────
+        # ⚠️ ESTA PROVA JA CHAMOU `adm.decidir(itens[0])` DIRECTAMENTE, e por
+        # isso saltava a traducao que a rota canonica faz em `pela_porta`.
+        # Uma prova que salta um degrau da cadeia nao esta a provar a cadeia:
+        # esta a provar o degrau seguinte com o anterior fingido.
+        na_lingua_da_porta = ing.para_a_porta(itens[0])
+        d = adm.decidir(na_lingua_da_porta, "T2", corrida=run)
         caso("A8_a_admissao_julgou_o_MESMO_item",
              d.resultado in adm.RESULTADOS, d.resultado)
         caso("A9_a_decisao_carrega_a_corrida_certa", d.corrida == run, str(d.corrida))
@@ -148,15 +153,15 @@ def a_cadeia_com_um_item_real():
         # NAO se conserta aqui. Mexer na admissao para conseguir verde e
         # exactamente o que esta missao esta proibida de fazer. Fica medido,
         # com nome, para a missao que o for fechar.
-        tem_maiuscula = bool(itens[0].get("SOURCE_ID"))
-        tem_minuscula = bool(itens[0].get("source_id"))
-        caso("A11_a_unidade_declara_a_fonte", tem_maiuscula,
+        caso("A11_a_unidade_declara_a_fonte", bool(itens[0].get("SOURCE_ID")),
              "a unidade nao traz SOURCE_ID nenhum")
-        if tem_maiuscula and not tem_minuscula and d.resultado == adm.NAO_SEI:
-            print("    ! ACHADO: a unidade traz SOURCE_ID e a porta procura "
-                  "source_id.")
-            print("      DO_COLETOR fala maiusculo; _tem_origem le minusculo.")
-            print("      Pre-existente, e so visivel agora que a cadeia liga.")
+        caso("A12_a_traducao_preserva_o_valor",
+             na_lingua_da_porta.get("source_id") == itens[0].get("SOURCE_ID"),
+             "o valor mudou ao atravessar a fronteira")
+        caso("A13_a_origem_deixou_de_parecer_ausente",
+             "de onde este item veio" not in d.motivo,
+             "a porta continua a dizer que nao sabe de onde o item veio")
+        print("    > A PROXIMA PERGUNTA DA PORTA: %s" % d.motivo[:72])
         if d.resultado == adm.SIM:
             saida = adm.pronto_para_inteligencia(itens[0], d)
             caso("A10_SIM_produz_READY",

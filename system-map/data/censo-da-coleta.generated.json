@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "5524c512d4046364bba601e2b64b84f9d19cbdf5",
+    "HEAD": "bf1ad7aa1bb4daddb67464ee99852d107efa934b",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -906,7 +906,7 @@
     {
       "ficheiro": "coleta/golden_path_pdf.py",
       "gaveta": "coleta",
-      "linhas": 482,
+      "linhas": 492,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -919,6 +919,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/ingresso.py",
         "regras/proveniencia.py"
       ],
       "no_ci": false
@@ -926,7 +927,7 @@
     {
       "ficheiro": "coleta/ingresso.py",
       "gaveta": "coleta",
-      "linhas": 367,
+      "linhas": 441,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -937,7 +938,9 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/golden_path_pdf.py",
         "coleta/italy_executor.py",
+        "coleta/rota_forward_documento.py",
         "guarda/catalogo_importar.py",
         "pedido/receitas.py"
       ],
@@ -1037,7 +1040,7 @@
     {
       "ficheiro": "coleta/italy_executor.py",
       "gaveta": "coleta",
-      "linhas": 329,
+      "linhas": 340,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1207,7 +1210,7 @@
     {
       "ficheiro": "coleta/rota_forward_documento.py",
       "gaveta": "coleta",
-      "linhas": 355,
+      "linhas": 370,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1217,7 +1220,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/ingresso.py"
+      ],
       "no_ci": true
     },
     {

@@ -48,6 +48,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, RAIZ)
 import _gavetas                      # noqa: E402,F401
 import admissao                      # noqa: E402
+import ingresso                      # noqa: E402 — o dono da lingua da porta
 import derivacao_forward as deriv     # noqa: E402
 import diagnostico as dg             # noqa: E402
 import falhas                        # noqa: E402
@@ -179,14 +180,28 @@ def admitir(banco, *, unidade, run_id, conteudo_id, universo=UNIVERSO_PADRAO,
                  policy_version=POLICY_VERSION)
     tentativa = _tentativa(banco, run_id, 'ADMISSION') if tentativa is None \
         else tentativa
-    item = {
+    # ── A TRAVESSIA DE LINGUA, PELO DONO DELA ──────────────────────────────
+    # `SOURCE_ID` e nome do contrato comum, e quem o traduz e
+    # `coleta/ingresso.py::para_a_porta` — aqui nao se reescreve o mapa.
+    item = ingresso.para_a_porta({'SOURCE_ID': unidade.get('SOURCE_ID')}
+                                 if unidade.get('SOURCE_ID') else {})
+    # ⚠️ E AQUI FICA UM ACHADO, E NAO UMA SOLUCAO. A unidade STRUCTURED tem
+    # vocabulario PROPRIO — `CONTENT_ID`, `TEXTO`, `URL`, `CAPTURED_AT` — que
+    # NAO e o do contrato comum (`SOURCE_URL`, `COLLECTED_AT`). Sao TRES
+    # linguas nesta casa, e nao duas.
+    #
+    #     MEDIU-SE A SEGUNDA E FECHOU-SE. A TERCEIRA FICA MEDIDA E COM NOME.
+    #
+    # Meter `URL` e `CAPTURED_AT` no mapa canonico faria o tradutor do contrato
+    # comum passar a conhecer o vocabulario do STRUCTURED — e um tradutor que
+    # aceita tudo deixa de dizer o que e o que.
+    item.update({
         'id': unidade['CONTENT_ID'],
         'texto': unidade['TEXTO'],
         'url': unidade.get('URL'),
-        'source_id': unidade.get('SOURCE_ID'),
         'captured_at': unidade.get('CAPTURED_AT'),
         'raw_asset_id': unidade.get('RAW_ASSET_ID'),
-    }
+    })
     try:
         decisao = admissao.decidir(item, universo, corrida=run_id)
     except Exception as erro:
