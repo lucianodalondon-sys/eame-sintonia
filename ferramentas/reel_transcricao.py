@@ -88,6 +88,7 @@ import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 
 import artefato as art          # noqa: E402 — o contrato de artefato, dono único
 import fala_local as fl         # noqa: E402 — o reconhecedor, dono único
+import social_matriz as mz      # noqa: E402 — a política de rota, dono único
 
 VERSAO = '1.0.0'
 PIPELINE = 'REEL-TRANSCRICAO-V1'
@@ -403,7 +404,7 @@ def _ytdlp(args, timeout=300):
         return _R()
 
 
-def metadados_ytdlp(url, tentativas=None):
+def metadados_ytdlp(url, tentativas=None, *, plataforma=NOT_KNOWN):
     """Os METADADOS da publicação, de graça, sem baixar o vídeo. → (dict, motivo).
 
     Isto é a segunda perna do pedido — «coletar metadados» — e ela é separada do
@@ -414,7 +415,16 @@ def metadados_ytdlp(url, tentativas=None):
     Medido em 2026-09-10: o mesmo endereço devolveu «Instagram sent an empty media
     response» à primeira e metadados completos à segunda, sem nada ter mudado.
     Tratar a primeira resposta como veredito apagaria publicações reais do corpus.
+
+    E ELA TAMBÉM BATE AO PORTÃO. Pedir metadados é tocar a plataforma: abre
+    socket, gasta pedido e aparece no log do host. Gatear só o download deixaria
+    a casa a bater à porta de quem disse que não, e a jurar que não entrou.
+
+        QUEM PERGUNTA AS HORAS JÁ ENTROU NO PÁTIO.
     """
+    decisao = politica_da_aquisicao(plataforma)
+    if decisao['DECISAO'] != mz.PERMITIDA_SIM:
+        return None, '%s: %s' % (decisao['DECISAO'], decisao['PORQUE'])
     for _ in range(tentativas or YTDLP_TENTATIVAS):
         r = _ytdlp(['-J', url])
         if r.returncode == 0 and (r.stdout or '').strip() not in ('', 'null'):
@@ -461,7 +471,42 @@ def _iso_de_data(d):
     return '%s-%s-%s' % (d[:4], d[4:6], d[6:])
 
 
-def midia_por_ytdlp(url, alvo, tentativas=None, *, kind=MIDIA_AUDIO):
+#: O ACTO QUE ESTA CADEIA EXECUTA, NA LINGUA DA MATRIZ.
+#
+# Nao e FETCH_VIDEO_BYTES: esta cadeia mede `VIDEO_BYTES_DOWNLOADED = 0` desde a
+# C10. E o nome e generico de proposito — a pergunta e da matriz, e a matriz
+# responde por plataforma.
+CAPACIDADE_NA_MATRIZ = 'FETCH_TRANSCRIPT'
+
+
+def politica_da_aquisicao(plataforma):
+    """A lei responde ANTES de o socket abrir. → o veredicto de `social_matriz`.
+
+    POR QUE AQUI, E NAO SO NO ADAPTADOR
+    -------------------------------------
+    A C10.4 pos o portao no adaptador, e ali ele cobre quem entra pelo executor
+    canonico. A C10.5 mediu quem mais entra: `comunicacao_coleta.fase_transcrever`
+    — a fase de fala da Collection — chama esta cadeia DIRECTAMENTE, sem tocar no
+    adaptador. Um portao que uma porta de producao contorna nao decide nada.
+
+        UM PORTAO QUE SE PODE CONTORNAR NAO E UM PORTAO. E UMA SUGESTAO.
+
+    E ele vive EXACTAMENTE no ponto onde o socket abre — nao no lote, nao na fase.
+    Reprocessar bytes ja preservados nao e adquirir, e continua a correr mesmo
+    quando a politica disser NAO: `REUSAR != ADQUIRIR`, e uma recusa de aquisicao
+    que tambem apagasse o reprocessamento estaria a castigar o que ja esta em casa.
+
+        O PORTAO PERTENCE AO PONTO ONDE O SOCKET ABRE.
+
+    `plataforma` vem de `ident['PLATFORM']` — dado medido, nunca adivinhado do
+    endereco. Plataforma por declarar devolve NOT_DECLARED, e nao declarado nao
+    e permitido.
+    """
+    return mz.decisao(plataforma, CAPACIDADE_NA_MATRIZ)
+
+
+def midia_por_ytdlp(url, alvo, tentativas=None, *, kind=MIDIA_AUDIO,
+                    plataforma=NOT_KNOWN):
     """Baixa a mídia pública pelo endereço DIRETO. → (caminho, motivo).
 
     A rota do PERFIL está fechada a esta máquina (302 para login, 429 no extractor).
@@ -480,6 +525,11 @@ def midia_por_ytdlp(url, alvo, tentativas=None, *, kind=MIDIA_AUDIO):
         inteiro a seguir seria transformar falha de rota em autorização para
         pedir mais — que é exatamente o que a lei da C8 proíbe.
     """
+    # ── O PORTAO, ANTES DE QUALQUER COISA ───────────────────────────────────
+    # Antes de criar pasta, antes de montar comando, antes do socket.
+    decisao = politica_da_aquisicao(plataforma)
+    if decisao['DECISAO'] != mz.PERMITIDA_SIM:
+        return None, '%s: %s' % (decisao['DECISAO'], decisao['PORQUE'])
     modelo_saida = os.path.splitext(alvo)[0] + '.%(ext)s'
     os.makedirs(os.path.dirname(os.path.abspath(alvo)) or '.', exist_ok=True)
     seletor = ['-f', SELETOR_SO_AUDIO] if kind == MIDIA_AUDIO else []
@@ -604,15 +654,36 @@ def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
                 return alvo, CAPTURA_FORNECIDA, MEDIA_OK, None, degraus
             ultimo = motivo
 
+    # ── A PERGUNTA, UMA VEZ, ANTES DOS DEGRAUS QUE TOCAM A PLATAFORMA ───────
+    # Os degraus 0 e 1 leem bytes que ja estao em casa e continuam a correr
+    # aconteca o que acontecer: `REUSAR != ADQUIRIR`. Os degraus 2 e 3 saem para
+    # a rede, e esses so correm com a lei do lado deles.
+    #
+    #     UMA RECUSA DE AQUISICAO QUE APAGASSE O REPROCESSAMENTO ESTARIA A
+    #     CASTIGAR O QUE JA ESTA PRESERVADO.
+    decisao_aq = politica_da_aquisicao(ident.get('PLATFORM', NOT_KNOWN))
+    pode_adquirir = decisao_aq['DECISAO'] == mz.PERMITIDA_SIM
+
     # DEGRAU 2 · o endereço DIRETO da publicação, grátis
+    if not pode_adquirir:
+        # A RECUSA SOBE COM O NOME DELA. «AUDIO_ONLY_UNAVAILABLE» aqui seria uma
+        # mentira precisa: o audio esta disponivel — o que falta e autorizacao.
+        degraus.append({'PROVIDER': CAPTURA_YTDLP, 'RESULT': decisao_aq['DECISAO'],
+                        'MEDIA_KIND': kind, 'WHY': decisao_aq['PORQUE']})
+        return None, CAPTURA_YTDLP, decisao_aq['DECISAO'], decisao_aq['PORQUE'], degraus
     if ident.get('SOURCE_URL') not in (None, '', NOT_KNOWN) and ytdlp_disponivel():
-        p, motivo = midia_por_ytdlp(ident['SOURCE_URL'], alvo, tentativas, kind=kind)
+        p, motivo = midia_por_ytdlp(ident['SOURCE_URL'], alvo, tentativas, kind=kind,
+                                    plataforma=ident.get('PLATFORM', NOT_KNOWN))
         degraus.append({'PROVIDER': CAPTURA_YTDLP,
                         'RESULT': MEDIA_OK if p else (
                             MEDIA_SEM_AUDIO_SO
                             if str(motivo).startswith('AUDIO_ONLY_UNAVAILABLE')
                             else MEDIA_KIND_DIVERGE
                             if str(motivo).startswith('MEDIA_KIND_MISMATCH')
+                            else mz.NAO_PERMITIDA
+                            if str(motivo).startswith(mz.NAO_PERMITIDA)
+                            else mz.NAO_DECLARADA
+                            if str(motivo).startswith(mz.NAO_DECLARADA)
                             else MEDIA_FALHOU),
                         'MEDIA_KIND': kind,
                         'WHY': motivo or 'baixou %d bytes' % os.path.getsize(p)})
@@ -797,7 +868,8 @@ def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
     if (ident.get('CAPTION_TEXT') in (None, '', NOT_KNOWN)
             and ident.get('SOURCE_URL') not in (None, '', NOT_KNOWN)
             and ytdlp_disponivel()):
-        meta, meta_why = metadados_ytdlp(ident['SOURCE_URL'])
+        meta, meta_why = metadados_ytdlp(
+            ident['SOURCE_URL'], plataforma=ident.get('PLATFORM', NOT_KNOWN))
         if meta:
             for k, v in meta.items():
                 if ident.get(k) in (None, '', NOT_KNOWN):

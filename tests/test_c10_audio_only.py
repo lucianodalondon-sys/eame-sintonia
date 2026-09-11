@@ -80,8 +80,14 @@ class OSeletorDeAudioEObrigatorio(unittest.TestCase):
 
     def _argv(self, kind):
         self.espia.chamadas.clear()
+        # A PLATAFORMA E PARTE DA PERGUNTA DESDE A C10.5. O portao de politica
+        # passou a viver no ponto onde o socket abre, e ele responde por
+        # plataforma: sem a declarar, a resposta certa e NOT_DECLARED e nenhum
+        # comando chega a ser montado. Estes testes medem o SELETOR, e para o
+        # medir tem de dizer de que plataforma falam.
         rt.midia_por_ytdlp('https://www.instagram.com/reel/XXXX',
-                           os.path.join(self.tmp, 'x.m4a'), tentativas=1, kind=kind)
+                           os.path.join(self.tmp, 'x.m4a'), tentativas=1, kind=kind,
+                           plataforma='INSTAGRAM')
         return self.espia.chamadas[0]
 
     def test_pedir_fala_poe_o_seletor_de_audio_no_comando(self):
@@ -119,7 +125,8 @@ class NaoHaQuedaParaVideo(unittest.TestCase):
     def test_sem_formato_de_audio_o_estado_diz_isso_e_nao_baixa_video(self):
         p, motivo = rt.midia_por_ytdlp('https://x/reel/Y',
                                        os.path.join(self.tmp, 'y.m4a'),
-                                       tentativas=1, kind=rt.MIDIA_AUDIO)
+                                       tentativas=1, kind=rt.MIDIA_AUDIO,
+                                       plataforma='INSTAGRAM')
         self.assertIsNone(p)
         self.assertTrue(motivo.startswith('AUDIO_ONLY_UNAVAILABLE'), motivo)
         for argv in self.espia.chamadas:
@@ -220,7 +227,7 @@ class OProvedorNaoDecideSozinho(unittest.TestCase):
     def test_bytes_com_imagem_sao_recusados_mesmo_com_o_seletor_certo(self):
         caminho, motivo = rt.midia_por_ytdlp(
             'https://x/reel/ZZZ', os.path.join(self.tmp, 'ZZZ.m4a'),
-            tentativas=1, kind=rt.MIDIA_AUDIO)
+            tentativas=1, kind=rt.MIDIA_AUDIO, plataforma='INSTAGRAM')
         self.assertIsNone(caminho,
                           'a cadeia aceitou um ficheiro com imagem numa rota '
                           'que jurou pedir so audio')
@@ -351,7 +358,8 @@ class NadaDeApify(unittest.TestCase):
         tmp = tempfile.mkdtemp(prefix='c10-rota-paga-')
         try:
             rt.midia_por_ytdlp('https://x/reel/Y', os.path.join(tmp, 'y.m4a'),
-                               tentativas=1, kind=rt.MIDIA_AUDIO)
+                               tentativas=1, kind=rt.MIDIA_AUDIO,
+                               plataforma='INSTAGRAM')
         finally:
             rt._ytdlp = orig
             shutil.rmtree(tmp, ignore_errors=True)

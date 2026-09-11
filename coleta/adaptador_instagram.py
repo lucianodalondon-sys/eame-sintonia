@@ -62,7 +62,11 @@ PLATAFORMA = 'INSTAGRAM'
 #
 # NAO e FETCH_VIDEO_BYTES. A C10 mediu `VIDEO_BYTES_DOWNLOADED = 0` nesta cadeia,
 # e pedir autorizacao para o que nao se faz seria alargar a superficie no papel.
-CAPACIDADE_NA_MATRIZ = 'FETCH_TRANSCRIPT'
+#
+# E O NOME NAO SE ESCREVE AQUI. Quem traduz `instagram.reel.transcribe` para a
+# lingua da matriz e `scrap_capacidades`, e escrever a traducao uma segunda vez
+# faria duas verdades que so um teste manteria iguais.
+CAPACIDADE_NA_MATRIZ = cap.da_matriz('instagram.reel.transcribe')
 
 
 def politica():
