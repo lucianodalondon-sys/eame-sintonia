@@ -140,9 +140,21 @@ h1{font-size:17px;margin:0 0 8px;letter-spacing:.02em}
   border-radius:14px;padding:18px;margin:16px 0}
 .proc{font-size:13px;color:var(--tinta-fraca);text-transform:uppercase;
   letter-spacing:.06em;margin-bottom:10px}
-h2{font-size:20px;line-height:1.3;margin:0 0 14px}
+h2{font-size:20px;line-height:1.3;margin:0 0 14px;overflow-wrap:anywhere}
+/* O titulo de um CSV e a linha de cabecalho: 200 caracteres sem um unico
+   espaco. Sem isto, o h2 empurra a PAGINA INTEIRA para o lado — e, mesmo
+   contido, gritado a 20px e uma parede. Quando a primeira linha nao tem
+   forma de titulo, mostra-se com a cara que ela tem: texto cru.
+   Isto e presentacao. Nao muda uma letra do conteudo. */
+h2.cru{font-size:14px;font-weight:500;line-height:1.45;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color:var(--tinta-fraca)}
 .trecho{background:#fbfbf9;border:1px solid var(--linha);border-radius:10px;
-  padding:14px;white-space:pre-wrap;word-break:break-word;font-size:15px}
+  padding:14px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:15px}
+/* Documento com linhas (CSV): as colunas so se leem se as linhas ficarem
+   linhas. A CAIXA rola para o lado; a pagina nunca. */
+.trecho.tabela{white-space:pre;overflow-x:auto;font-family:ui-monospace,
+  SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.5}
 .rot{font-size:13px;font-weight:600;color:var(--tinta-fraca);
   text-transform:uppercase;letter-spacing:.05em;margin:18px 0 8px}
 ul.sinais{margin:0;padding-left:20px;font-size:15px}
@@ -183,7 +195,9 @@ button.baixar{padding:18px 24px;border-radius:12px;border:0;background:var(--ace
   color:#fff;font:600 17px/1 inherit;cursor:pointer;min-height:60px;width:100%}
 button.baixar.rascunho{background:var(--sem)}
 .nota{font-size:14px;color:var(--tinta-fraca);margin-top:16px}
-.tec{font-size:13px;color:var(--tinta-fraca);word-break:break-all}
+.tec{font-size:13px;color:var(--tinta-fraca);overflow-wrap:anywhere}
+ul.sinais li{overflow-wrap:anywhere}
+html,body{overflow-x:clip}
 .tec div{margin:3px 0}
 @media (max-width:520px){.envolve{padding:12px}h2{font-size:18px}}
 @media (prefers-color-scheme:dark){
@@ -227,6 +241,12 @@ function alerta(){
 function feitas(){ return Object.keys(respostas).length; }
 function esc(s){ const d=document.createElement('div'); d.textContent=s??'';
                  return d.innerHTML; }
+// Documento com LINHAS e um documento de tabela. E uma pergunta sobre a FORMA
+// do texto — nao sobre o assunto dele, e nao muda uma letra do conteudo.
+function tabela(t){ return (t||'').indexOf('\n') >= 0; }
+// Uma linha sem espacos por 40 caracteres nao e um titulo: e um cabecalho
+// de tabela, um caminho, um identificador. Outra vez: FORMA, nao assunto.
+function cru(t){ return (t||'').split(/\s+/).some(w=>w.length>40); }
 function lista(a){ return (a&&a.length)
   ? '<ul class="sinais">'+a.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'
   : '<p class="tec">— nenhum —</p>'; }
@@ -251,16 +271,16 @@ function ficha(d){
     +'pelo texto.</div>' : '';
   return primeira + '<div class="cartao">'
    + '<div class="proc">'+esc(d.PUBLISHER)+' · '+esc(d.DOCUMENT_TYPE)+'</div>'
-   + '<h2>'+esc(p.TITLE)+'</h2>'
+   + '<h2'+(cru(p.TITLE)?' class="cru"':'')+'>'+esc(p.TITLE)+'</h2>'
    + '<div class="rot">Trecho principal (traduzido)</div>'
-   + '<div class="trecho">'+esc(p.OPENING)+'</div>'
+   + '<div class="trecho'+(tabela(p.OPENING)?' tabela':'')+'">'+esc(p.OPENING)+'</div>'
    + '<div class="rot">Como o documento se descreve</div>'+lista(p.SELF_DESCRIPTION)
    + '<div class="rot">Outros títulos visíveis</div>'+lista(p.SECTION_HEADERS)
    + '<details><summary>Mostrar original em italiano</summary>'
    + '<div class="orig"><div class="rot">Título original</div>'
    + '<div class="trecho">'+esc(o.TITLE)+'</div>'
    + '<div class="rot">Trecho original</div>'
-   + '<div class="trecho">'+esc(o.OPENING)+'</div>'
+   + '<div class="trecho'+(tabela(o.OPENING)?' tabela':'')+'">'+esc(o.OPENING)+'</div>'
    + '<div class="rot">Auto-descrição original</div>'+lista(o.SELF_DESCRIPTION)
    + '<div class="rot">Títulos originais</div>'+lista(o.SECTION_HEADERS)
    + '</div></details>'

@@ -33,6 +33,15 @@ _spec.loader.exec_module(ui)
 PAGINA = os.path.join(RAIZ, ui.HTML)
 
 
+def _sem_espaco(t):
+    """Compara o CSS e o JS sem espacos NEM quebras de linha.
+
+    A primeira versao tirava so os espacos, e falhava em toda a
+    regra que ocupa duas linhas — reprovando codigo certo.
+    """
+    return re.sub(r"\s+", "", t)
+
+
 class OsDadosDaPagina(unittest.TestCase):
 
     @classmethod
@@ -211,6 +220,46 @@ class OHtmlNaoAdiantaAResposta(unittest.TestCase):
     def test_serve_em_ecra_pequeno(self):
         self.assertIn('name="viewport"', self.html)
         self.assertIn("min-height:60px", self.html.replace(" ", ""))
+
+    def test_nada_empurra_a_pagina_para_o_lado(self):
+        """O titulo de um CSV e a linha de cabecalho: 200 caracteres sem um
+        unico espaco. Sem isto o `h2` arrasta a PAGINA INTEIRA para a direita,
+        e foi assim que a primeira versao chegou ao revisor.
+
+            UM TITULO QUE NAO QUEBRA NAO E UM PROBLEMA DE ESTILO.
+            E UMA PAGINA QUE NAO SE LE.
+        """
+        css = _sem_espaco(self.html.split("</style>", 1)[0])
+        self.assertIn("h2{font-size:20px;line-height:1.3;margin:0014px;"
+                      "overflow-wrap:anywhere}", css)
+        self.assertIn("overflow-wrap:anywhere;font-size:15px}", css)
+        self.assertIn("html,body{overflow-x:clip}", css)
+        self.assertIn("ul.sinaisli{overflow-wrap:anywhere}", css)
+
+    def test_documento_com_linhas_rola_por_dentro(self):
+        css = _sem_espaco(self.html.split("</style>", 1)[0])
+        self.assertIn(".trecho.tabela{white-space:pre;overflow-x:auto", css)
+        # e a decisao e pela FORMA do texto, nao pelo assunto
+        self.assertIn(r"functiontabela(t){return(t||'').indexOf('\n')>=0;}",
+                      _sem_espaco(self.html))
+
+    def test_primeira_linha_sem_forma_de_titulo_nao_e_gritada(self):
+        self.assertIn("h2.cru{font-size:14px",
+                      _sem_espaco(self.html.split("</style>", 1)[0]))
+        self.assertIn(r"functioncru(t){return(t||'').split(/\s+/)"
+                      r".some(w=>w.length>40);}", _sem_espaco(self.html))
+
+    def test_os_dois_csv_sao_os_que_disparam_as_duas_regras(self):
+        """Medido, nao suposto: quais fichas caem em cada regra de forma."""
+        d = ui.dados()
+        crus = [x for x in d
+                if any(len(w) > 40 for w in
+                       x["DISPLAY_TRANSLATION_PTBR"]["TITLE"].split())]
+        tabelas = [x for x in d
+                   if "\n" in x["DISPLAY_TRANSLATION_PTBR"]["OPENING"]]
+        self.assertEqual(sorted(x["DOCUMENT_TYPE"] for x in crus), ["CSV", "CSV"])
+        self.assertEqual(sorted(x["DOCUMENT_TYPE"] for x in tabelas),
+                         ["CSV", "CSV"])
 
 
 class NadaFoiRotuladoNemAlterado(unittest.TestCase):
