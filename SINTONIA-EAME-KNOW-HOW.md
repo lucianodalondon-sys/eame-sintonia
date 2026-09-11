@@ -3918,3 +3918,131 @@ CURRENT_MECHANISM_ACCEPTABLE = NOT_DECIDED
 Não existe limiar canónico de aprovação para um mecanismo de classificação
 nesta árvore. Sem gate prévio, medir não aprova nem reprova — e inventar o gate
 depois de ver o resultado seria desenhar o alvo à volta da flecha.
+
+---
+
+# §58 · O GATE DE ACEITAÇÃO TEMÁTICA — O ALVO, DESENHADO ANTES DA FLECHA
+
+**Missão:** `C-FECHA-GATE-ACEITACAO-TEMATICA-V1` · HEAD final `71de3214`
+**Dono único:** `provas/gate_de_aceitacao_tematica.py` · decisão em `D-040`
+
+## 58.1 · O QUÊ
+
+O primeiro critério canónico de aceitação de um mecanismo temático da Admission.
+Oito condições duras no plano da **observação independente**, mais um gate
+separado de **alcance**, mais a regra de integração que exige os dois.
+
+```
+GATE_VERSION = V1
+THIS_IS      = THEMATIC_MECHANISM_EVALUATION_GATE_V1
+THIS_IS_NOT  = FULL_EAME_PRODUCTION_RELEASE_GATE
+```
+
+## 58.2 · POR QUÊ
+
+A baseline de T3 (§57) mediu e não pôde concluir: `CURRENT_MECHANISM_ACCEPTABLE
+= NOT_DECIDED`, porque não existia critério em lado nenhum.
+
+```
+SEM ALVO DESENHADO ANTES,
+A FLECHA ATERRA SEMPRE NO CENTRO DE ALGUMA COISA.
+```
+
+E o inverso é a mesma fraude com o sinal trocado: escolher os números para o
+mecanismo de hoje passar — ou falhar.
+
+## 58.3 · O ESTUDO EXTERNO DEU UMA AUSÊNCIA, E ISSO É UM RESULTADO
+
+```
+THERE_IS_A_UNIVERSAL_CLASSIFIER_ACCEPTANCE_THRESHOLD = NO
+```
+
+Google Document AI, Azure Document Intelligence, scikit-learn e NIST AI RMF, nas
+fontes oficiais: **quatro em quatro recusam-se a prescrever um número.** Todos
+dizem, por palavras diferentes, que ele sai da função de custo de quem opera.
+
+**Registou-se também onde NÃO convergem** — só a concordância seria consenso
+fabricado:
+
+- a Google **cala-se** sobre assimetria de custo, e o seu default de maximizar
+  F1 assume que falso positivo e falso negativo custam o mesmo;
+- a Azure é a única que nomeia um número (80%) e nomeia-o contra uma estimativa
+  de **treino**, não holdout — o tipo de número de que as outras avisam;
+- o NIST está noutra altitude: manda **documentar** a tolerância, não diz qual é,
+  e avisa que o problema de medição está por resolver.
+
+```
+CONVERGÊNCIA FABRICADA É PIOR DO QUE DISCORDÂNCIA REGISTADA.
+```
+
+## 58.4 · A ASSIMETRIA QUE PRODUZ TODOS OS NÚMEROS
+
+```
+FALSE_NEGATIVE_COST > FALSE_POSITIVE_COST
+```
+
+Um falso positivo custa **trabalho** e fica visível: a Inteligência ainda julga.
+Um falso negativo custa **conhecimento**, e em silêncio — ninguém volta a olhar.
+
+Daí a ordem de dureza: falso negativo explícito com zero tolerância, captura de
+positivos quase total, precisão exigente mas não absoluta. E daí `ABSTAIN` ser
+preferível a um `NÃO` errado — **mas abster-se sempre também reprova**, e por
+isso há limiar de cobertura.
+
+## 58.5 · A REGRA ESTRUTURAL QUE SOBREVIVE A ESTE GATE
+
+Duas coisas ficam, independentemente dos números escolhidos:
+
+**Um gate que se compensa é uma média com nome de regra.** Nenhuma condição
+compensa outra. Precisão excelente não compensa captura positiva ruim.
+
+**A acurácia condicional não aprova.** Ela mede só os casos em que o mecanismo
+se atreveu — é assim que um mecanismo fraco parece forte.
+
+E a unidade: `DOCUMENT != INDEPENDENT_OBSERVATION`. Pontuar por ficheiro dá
+quatro créditos por resolver um boletim que aparece em quatro edições.
+
+## 58.6 · O RESULTADO, APLICADO MECANICAMENTE
+
+```
+CURRENT_ADMISSION_GATE_RESULT = FAIL
+```
+
+O mecanismo de hoje cumpre **duas das oito**: não comete falso negativo
+explícito e não rebenta. Falha as outras seis, e falha o alcance (15/36).
+
+Nada foi consertado. `ADMISSION_CHANGED = NO`, zero linhas de runtime.
+
+## 58.7 · ONDE A LEI FICOU, E POR QUÊ NÃO NA BÍBLIA
+
+```
+BIBLE_CHANGE_REQUIRED    = NO
+CONTRACT_CHANGE_REQUIRED = YES
+```
+
+A Bíblia é a constituição da **coleta**. Este gate legisla sobre a **qualidade de
+um mecanismo de decisão** — outro conceito. `COL-LAW-042` já governa a *forma* de
+uma decisão da Admissão; enxertar-lhe um limiar de qualidade daria dois donos ao
+mesmo assunto. É o mesmo raciocínio da `D-039`, e a mesma conclusão.
+
+Os números vivem no código e só lá; o documento explica e cita, e **um teste
+prova que os dois dizem a mesma coisa**.
+
+## 58.8 · DOIS DEFEITOS DE PROCESSO APANHADOS AQUI
+
+**Um marcador que não distingue a definição do valor reprova o texto que explica
+a regra.** Um teste meu procurava a string `THEMATIC_GATE_PASS` dentro do
+contrato para provar que ele não carregava veredicto — e acendia na frase que
+*define* a regra de integração. Passou a varrer a **estrutura**: nenhuma chave de
+aplicação, nenhum booleano de PASS, nenhum número do baseline. É a terceira vez
+nesta sessão que um marcador de string reprova código certo.
+
+**Correr o passo que lê e não o que escreve é regenerar nada, com mensagem de
+sucesso.** `P1_SEM_DRIFT` reprovou com o SHA de um ficheiro desatualizado. A
+causa não era o gerador: `generate_system_map.py` **lê**
+`architecture.generated.json`, e quem o **escreve** é `scan_repo.py`. Correr só o
+gerador deixava o censo do repositório parado no commit anterior — e ele repetia
+o HEAD antigo sem se queixar.
+
+    A CADEIA CANÓNICA DO MAPA COMEÇA EM `scan_repo.py`.
+    O GERADOR SOZINHO CONFIRMA O PASSADO E CHAMA-LHE OK.
