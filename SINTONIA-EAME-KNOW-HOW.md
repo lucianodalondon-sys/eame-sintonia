@@ -10,6 +10,9 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
+**Última atualização material:** 2026-09-11 — censo dos cards e dos sensores (secções 43 e 44; secções 18 e 26 marcadas SUPERSEDED).  
+**Próxima missão autorizada:** `C-PROVA-CR1` — medir onde está, executavelmente, o corte que faz `ENTROU = 0`.
+
 ---
 
 # 0. PARA QUE ESTE ARQUIVO EXISTE
@@ -875,6 +878,25 @@ UNKNOWN
 
 # 18. CENSO DA COLLECTION — SNAPSHOT 2026-09-09
 
+> **ESTADO = SUPERSEDED em 2026-09-11.** Esta fotografia continua aqui inteira,
+> e continua verdadeira sobre a data dela. O que deixou de valer é o `30 / 62`
+> como estado corrente e o «próximo passo = manifesto nominal» como próximo
+> passo. Ver **secção 43**.
+>
+> Duas coisas a superaram, e são diferentes:
+>
+> 1. o **censo determinístico** fechou o universo do System Map em `64 / 64`
+>    (`know-how/census/SYNTHETIC-CENSUS-FINAL-CLOSURE.md`), e mostrou que `62`
+>    era expectativa histórica: o medido foi `64` nós, dos quais `54` declarados
+>    e `10` sintéticos;
+> 2. o **censo dos cards e dos sensores** (2026-09-11) mostrou que «card» tem
+>    TRÊS espécies, e que a espécie contada aqui — peça do System Map — não é a
+>    espécie operacional.
+>
+> ⚠️ `11` **NÃO É** `62` corrigido. São espécies diferentes, contadas por censos
+> diferentes, e somá-las ou trocá-las é o erro que a secção 43 existe para
+> impedir.
+
 Fotografia:
 
 ```text
@@ -1233,6 +1255,13 @@ UNKNOWN
 ---
 
 # 26. MANIFESTO CANÔNICO DOS CARDS — PRÓXIMO CONTROLE
+
+> **ESTADO = SUPERSEDED em 2026-09-11 — ENTREGUE, não abandonado.** O controlo
+> que esta secção pedia foi feito: o censo determinístico fechou
+> `DECLARED_COLLECTION_COMPONENTS = 54`, `SYNTHETIC = 10`,
+> `COLLECTION_MAP_NODES = 64`, com `REMAINING = 0`. O número medido não foi
+> `62`, e a secção já dizia para usar o medido. Deixa de ser «próximo
+> controlo». Ver **secção 43** para o próximo.
 
 Antes de Lote 06, congelar a lista nominal do universo da Collection.
 
@@ -1688,6 +1717,86 @@ SYSTEM MAP SCANNER COVERAGE = PARTIAL
 - forma final de lineage de READY;
 - quais cards serão KEEP/MERGE/MOVE/SPLIT/RETIRED depois da consolidação total.
 
+## 2026-09-11
+
+### CHECKPOINT
+
+```text
+REPO = lucianodalondon-sys/eame-sintonia
+CENSUS_BRANCH = claude/cards-sensors-census-v1
+CENSUS_HEAD = 4feb581f3a02cf53317cdbad4a269493a3936ce9
+MEDIDO_SOBRE = 9a40e5068c48e215cc4ac0d6aea25ee651a70b01
+KNOW_HOW_BRANCH = claude/sintonia-eame-know-how-v1
+```
+
+### O QUE FOI MEDIDO
+
+- Fase 10 aplicada no banco canónico: `PHASE10_LIVE = YES`, migration `027 = APLICADA`.
+- `PHASE11_REQUIRED_BEFORE_COLLECTION_CLOSE = NO` — a coluna `storage_path` é peso morto, não risco activo.
+- Censo dos cards e sensores fechado. A escada das cinco provas: `58 / 32 / 2 / 2 / 0`.
+- 11 cards operacionais: 1 alimentado por real, 6 mistura, 4 sem fonte declarada.
+- `CARD_SENSOR_EDGE_REAL = 0`. Arestas: 1 PROVEN, 21 BROKEN, 4 MISSING.
+- 15 camadas do portal, 5 com gerador nesta árvore; as outras são ficheiros commitados.
+- 23 defeitos abertos agrupam-se em `ROOT_CAUSES = 9`.
+- A fronteira READY tem contrato e um produtor em runtime; o destino da Sala de Espera nunca foi escrito.
+- **Medido no código, contra o veredito do mapa:** `orquestrador.py::correr()` chama executor → ingresso → admissão numa só função, e `pela_porta()` escreve a Sala de Espera. O código da cadeia existe inteiro.
+
+### O QUE APRENDEMOS
+
+- «card» tem três espécies e só uma é operacional: a ferramenta do portal, com contrato, consumidor e pergunta de negócio;
+- «sensor» operacional é o executor que vai à fonte e traz evidência, não o ficheiro com `sensor` no nome;
+- `EXISTE != CORRE != RODOU != PRODUZIU != ENTROU` — cinco provas, e nenhuma empresta o seu `YES` à seguinte;
+- uma matriz 11 × 58 sem arestas reais fabricaria certeza: a matriz pequena é a descoberta, não a falha;
+- ao medir quem produz uma camada, procura-se quem ESCREVE e não quem MENCIONA — senão o auditor pinta tudo de verde;
+- um `else` no fim de uma escada de prova inventa a prova que falta;
+- um número copiado à mão é um número que vai envelhecer em silêncio — a saída é a trava, não a proibição (secção 44).
+
+### DECISÕES
+
+- não corrigir nada nesta fase: primeiro o mapa verdadeiro;
+- o portal NÃO é prioridade de correção agora;
+- a Phase 11 não entra antes do fecho da Collection;
+- a ordem de ataque é por impacto sistémico: CR-1, CR-2, CR-8, CR-5, CR-6, CR-3, CR-7, CR-4, CR-9.
+
+### COISAS QUE DEIXARAM DE SER VERDADE
+
+- `CARDS AUDITADOS = 30 / 62` como estado corrente — superseded (secção 18);
+- «próximo passo = manifesto nominal dos cards» — entregue, `64 / 64` (secção 26);
+- `62` como universo — o medido foi `64` nós, `54` declarados e `10` sintéticos;
+- ler `READY_SEM_CONSUMIDOR` como «falta quem consuma»: `READY CONSUMER = 0` é o **alvo** declarado na secção 24. O defeito é `READY REAL PRODUCTION = MISSING`.
+
+### GAPS ABERTOS
+
+```text
+CANONICAL CHAIN RUNTIME     = CORTE NAO EXPLICADO (CR-1)
+WAITING ROOM PRODUCED       = NEVER
+LEDGER EXECUTOR ATTRIBUTION = NOT_INSTRUMENTED (CR-5)
+PORTAL LAYER GENERATORS     = 5 / 15 (CR-3)
+CARDS SEM CONTRATO          = 4 (CR-4)
+FONTES NUNCA COLETADAS      = 22 / 23 (CR-7)
+FACT_TIME NOS DERIVADOS     = 0 / 43 (CR-8, COL-027)
+FORWARD WRITER EM PRODUCAO  = NUNCA ESCREVEU
+```
+
+### PRÓXIMO PASSO AUTORIZADO
+
+```text
+C-PROVA-CR1
+
+Pergunta unica:
+«Onde esta, executavelmente, o corte que faz ENTROU = 0,
+ considerando que partes da cadeia ja existem em codigo?»
+
+Missao de MEDICAO antes de implementacao. Nao implementar.
+```
+
+### NÃO SEI / PRECISA MEDIR
+
+- o corte de CR-1 é runtime real, entrypoint/bypass, route registry/policy, falta de execução observada, ou defeito da representação do mapa? Ver secção 43.8;
+- se a Sala de Espera fica vazia por falta de ligação ou por falta de **admissibilidade** (`aceites` só enche com `adm.SIM`, e `COL-027` mediu 43 `NÃO SEI` por falta de `FACT_TIME`) — hipótese, não facto;
+- se o escritor forward se comporta em produção como se comporta na bancada: nunca escreveu no banco vivo;
+- a que corresponde cada uma das 144 observações do ledger: o ledger não guarda o executor.
+
 ---
 
 # 41. COMO USAR ESTE ARQUIVO COM NOVOS CHATS / AGENTES
@@ -1741,3 +1850,270 @@ quem pode consumir?
 Se uma dessas respostas desaparece no caminho, ainda existe trabalho de arquitetura.
 
 **Este arquivo existe para que nunca precisemos reaprender isso do zero.**
+
+---
+
+# 43. CENSO DOS CARDS E DOS SENSORES — ESPÉCIES, PROVAS E ESTADO (2026-09-11)
+
+```text
+CENSUS_BRANCH = claude/cards-sensors-census-v1
+CENSUS_HEAD   = 4feb581f3a02cf53317cdbad4a269493a3936ce9
+MATRIZ        = data/derivados/MATRIZ-CARDS-SENSORES-V1.json   (dona dos números)
+LEITURA       = docs/operacao/CENSO-CARDS-SENSORES-V1.md       (dona dos julgamentos)
+MEDIDO SOBRE  = 9a40e5068c48e215cc4ac0d6aea25ee651a70b01
+```
+
+O JSON é o dono dos números e o relatório é o dono das causas-raiz. Este
+capítulo **aponta** para os dois. Os números abaixo estão aqui porque um
+know-how sem números não se lê — mas quem discorda deles vai ao JSON, não a
+esta secção.
+
+## 43.1 · «CARD» TEM TRÊS ESPÉCIES
+
+Este foi o primeiro risco da missão, e confundi-las já tinha custado
+contagens erradas antes.
+
+```text
+1. PEÇA DO SYSTEM MAP      módulo de arquitetura; `censo_da_topologia.py`
+                           chama-lhe CARD_ID. Universo fechado: 64 nós.
+2. FERRAMENTA DO PORTAL    tela com contrato de bloco, consumidor e pergunta
+                           de negócio. Universo: 11.
+3. BLOCO VISUAL            marcação sem contrato de dados. Não promete dado
+                           a ninguém, e está certo assim.
+```
+
+**A espécie operacional é a 2** — é a única com contrato, consumidor e
+pergunta de negócio. A 1 é o mapa do código e tem censo próprio. A 3 é
+marcação.
+
+> **Nem todo elemento visual chamado «card» é uma unidade operacional.**
+> E `11` não é `64` corrigido: são universos diferentes.
+
+## 43.2 · «SENSOR» NÃO É O QUE TEM `sensor` NO NOME
+
+Havia dois ficheiros `regras/sensor_*.py`. Responder «dois» seria uma resposta
+errada a uma pergunta certa.
+
+**Sensor operacional = EXECUTOR: quem vai à fonte e traz evidência.** É essa a
+espécie que se conta, e o censo dos executores já a enumera.
+
+## 43.3 · AS CINCO PROVAS, QUE NÃO SE EMPRESTAM
+
+```text
+EXISTE     58    há ficheiro
+CORRE      32    é chamável sem rede, sem pago, sem produção
+RODOU       2    deixou rastro de execução
+PRODUZIU    2    o rastro tem saída com etapa observada
+ENTROU      0    a saída atravessou a fronteira canónica
+```
+
+```text
+EXISTE != CORRE != RODOU != PRODUZIU != ENTROU
+```
+
+Um `YES` num degrau não empresta `YES` ao seguinte. A queda de 58 para 32 é
+**ambiente**; a de 32 para 2 é **instrumentação**; a de 2 para 0 é
+**arquitetura** — e só essa impede a Collection de fechar.
+
+Os dois que rodaram: `coleta/executor_texto_de_pdf.py` (`LEGACY_REPLAY`,
+`RAW → DERIVED`) e `coleta/rota_forward_documento.py` (`FORWARD`,
+`DERIVED → STRUCTURED → ADMISSION`). Ambos provados por **teste**, não por
+corrida de produção.
+
+A quinta prova não se mede por sensor, e isso é um facto e não um limite do
+método: o ledger de fluxo declara `POR_EXECUTOR = NOT_INSTRUMENTED` — guarda a
+observação e não quem a produziu. O que se mede é o degrau.
+
+## 43.4 · OS CARDS OPERACIONAIS
+
+```text
+CARDS_OPERACIONAIS      = 11
+ALIMENTADO_POR_REAL     =  1    (windows · Finestre Colturali)
+MISTURA_REAL_E_FIXTURE  =  6
+SEM_FONTE_DECLARADA     =  4    (future · voices · sources · field)
+```
+
+Um card fala de dado com procedência. Seis ilustram e medem ao mesmo tempo sem
+dizer qual é qual. Quatro não declaram fonte nenhuma.
+
+## 43.5 · NÃO EXISTE UMA ÚNICA ARESTA CARD → SENSOR
+
+```text
+CARD_SENSOR_EDGE_REAL = 0
+
+ARESTAS_POR_CLASSE   PROVEN = 1 · BROKEN = 21 · MISSING = 4
+CAMADAS_DO_PORTAL    15,  das quais 5 com gerador nesta árvore
+```
+
+As arestas que existem apontam para **camadas do portal**, nunca para um
+executor. E 21 dessas camadas são ficheiros **commitados sem gerador**:
+nenhum sensor as reescreve.
+
+```text
+CARD -> CAMADA DO PORTAL -> (quem a produz?) -> SENSOR
+                             ^
+                             aqui a corrente parte
+```
+
+> **Uma matriz 11 × 58 daria 638 células e a sensação de um mapa. Seria falsa.**
+> Desenhar células vazias para não entregar uma matriz pequena é fabricar
+> certeza. A matriz é pequena porque o sistema é assim, e essa é a descoberta.
+
+Ao medir quem produz uma camada, procura-se quem **escreve**, não quem
+**menciona**: os auditores (`harness.mjs`, `checks.mjs`) citam todas as camadas
+porque as auditam. Contar auditoria como geração pintaria a matriz de verde
+por causa do auditor.
+
+## 43.6 · AS CAUSAS-RAIZ
+
+```text
+ROOT_CAUSES = 9
+```
+
+Vinte e três defeitos abertos não são vinte e três problemas. As três que
+mandam:
+
+**CR-1 — A CADEIA CANÓNICA ESTÁ CORTADA EM DUAS JUNTAS.**
+
+```text
+ENTRADA -> ORQUESTRADOR -> EXECUCAO -> PORTA
+   ok            ok          CORTE      CORTE
+```
+
+Quatro estações, duas ligações observadas. É a causa do degrau `ENTROU = 0`.
+Ver 43.8 antes de agir sobre isto.
+
+**CR-2 — A FRONTEIRA READY TEM CONTRATO E PRODUTOR; A SALA DE ESPERA NUNCA FOI
+PRODUZIDA.** Contrato `COL-LAW-043`, dono
+`admissao/admissao.py :: pronto_para_inteligencia()`, um produtor em runtime
+(`orquestrador/orquestrador.py`, só por linha de comando — nenhum workflow o
+chama). Destino `data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json`: não
+existe.
+
+> ⚠️ **CORREÇÃO DE LEITURA, e ela importa.** O censo etiqueta este gap como
+> `READY_SEM_CONSUMIDOR`. **Zero consumidores NÃO é o defeito — é o alvo.** A
+> secção 24 deste ficheiro declara `READY CONSUMER = 0` e
+> `FINAL STATE = WAITING FOR INTELLIGENCE` como estado desejado. O defeito é o
+> outro lado: `READY REAL PRODUCTION = MISSING` e `WAITING ROOM = MISSING`.
+> Ler a etiqueta como «falta quem consuma» faria a próxima missão construir
+> exactamente o que a arquitetura proíbe.
+
+**CR-5 — O LEDGER NÃO ATRIBUI CORRIDA A EXECUTOR NEM A ETAPA.**
+`POR_EXECUTOR`, `POR_ETAPA` e `CUSTO` = `NOT_INSTRUMENTED`. 144 observações no
+ledger, nenhuma atribuível. Limita a prova operacional de tudo o resto: sem
+isto, nenhuma correcção das outras oito se consegue **provar** em produção.
+
+As outras seis: rota com vários donos (CR-6), camadas sem gerador (CR-3),
+atlas por abrir (CR-7), cards sem contrato (CR-4), peças declaradas que
+ninguém chama (CR-9), dívida de procedência no acervo (CR-8). A leitura
+completa, com dono e camada de cada uma, está em
+`docs/operacao/CENSO-CARDS-SENSORES-V1.md`, secção 8.
+
+**O portal NÃO é prioridade de correção agora.** Consertá-lo primeiro daria a
+aparência de um sistema a funcionar sobre uma cadeia que continua cortada.
+
+## 43.7 · ESTADO DO BANCO — FASE 10 E FASE 11
+
+```text
+PHASE10_LIVE = YES
+027          = APLICADA no banco canónico
+PHASE11_REQUIRED_BEFORE_COLLECTION_CLOSE = NO
+```
+
+Provas: `provas/a_lei_da_fase_10.py`, `provas/a_fase_10_entra_no_acervo.py`,
+`provas/auditoria_live.sh` (secção G cobra o contrato da 027 a cada corrida).
+Leitura em `docs/operacao/CENSO-CARDS-SENSORES-V1.md`, secção 10.
+
+A Phase 11 é a retirada da coluna `raw_asset.storage_path`. Ela é hoje **peso
+morto, não risco activo**: o endereço já não é identidade, nenhum escritor
+vivo o usa como chave, nenhum leitor devolve «a primeira linha do endereço», e
+o único SQL que ainda o trata como chave não se aplica a banco nenhum desde a
+026. Nenhuma das nove causas-raiz depende de a retirar.
+
+**O limite desta resposta, dito em voz alta:** o escritor forward nunca
+escreveu no banco vivo — 252 linhas legadas, zero forward. A prova é do
+**código** e da bancada local, não de tráfego de produção.
+
+## 43.8 · NÃO SEI / PRECISA MEDIR — O CORTE DE CR-1
+
+Este é o ponto onde o censo **não** deve ser lido como resposta final, e onde
+`CAN DO != DID DO` pode estar a morder nos dois sentidos.
+
+O censo classifica `ORQUESTRADOR → EXECUÇÃO` e `EXECUÇÃO → PORTA` como
+cortados. Mas medido no código, em 2026-09-11, na branch do censo:
+
+- `orquestrador/orquestrador.py :: correr()` chama o executor por
+  `subprocess`, depois `a_colheita(e)`, depois `pela_entrada(...)` (ingresso)
+  e depois `pela_porta(...)` (admissão), numa só função;
+- `pela_porta()` **escreve a Sala de Espera**:
+  `PRONTOS.mkdir(...)` e `(PRONTOS / f"{run_id}.json").write_text(...)`,
+  guardado por `if aceites:`.
+
+Ou seja: **o código da cadeia inteira existe, incluindo o escritor da Sala de
+Espera.** A pasta não existe porque nenhuma corrida real produziu um `aceite`,
+e não porque ninguém a escreva.
+
+```text
+CAN DO != DID DO — nos dois sentidos.
+O mapa diz CORTADO. O codigo diz LIGADO. Um dos dois esta a medir
+outra coisa, e nao se sabe qual ate alguem correr.
+```
+
+**Antes de corrigir CR-1 é obrigatório medir, e nesta ordem:**
+
+```text
+1. o corte e RUNTIME REAL?      correr a cadeia e ver onde para
+2. e ENTRYPOINT / BYPASS?       ninguem chama `correr()` num workflow
+3. e ROUTE REGISTRY / POLICY?   a receita nunca resolve para este caminho
+4. e FALTA DE EXECUCAO?         o caminho serve, nunca foi corrido
+5. ou e DEFEITO/LIMITE DA REPRESENTACAO DO MAPA?
+```
+
+Hipótese a testar, **não** conclusão: `aceites` só enche com `adm.SIM`, e
+`COL-027` mediu que a porta viu 43 textos derivados e devolveu **43 `NÃO SEI`**
+por falta de `FACT_TIME`. Se isso se confirmar, a Sala de Espera fica vazia
+mesmo com a cadeia inteira a correr — e o corte seria de **admissibilidade**,
+não de ligação. Não foi provado nesta missão e não pode ser registado como
+facto.
+
+## 43.9 · O ERRO QUE ESTE CENSO COMETEU E CORRIGIU EM SI PRÓPRIO
+
+A escada de estado do gerador terminava em `else ALIMENTADO_POR_REAL`. Com
+isso o card `market` saía «real» porque a sua única camada não é fixture — mas
+também não é classificada, e o contrato dela confessa por escrito que ali há
+dado escrito à mão.
+
+```text
+UM `else` NO FIM DE UMA ESCADA DE PROVA INVENTA A PROVA QUE FALTA.
+```
+
+Vale para qualquer classificador desta casa: o degrau «não sei» tem de existir
+por escrito, ou o caso mais favorável absorve a ausência de prova em silêncio.
+
+---
+
+# 44. LEI DO NÚMERO CITADO NUM DOCUMENTO HUMANO
+
+Aprendida a construir o censo, e vale para todo relatório desta casa.
+
+```text
+UM NUMERO COPIADO A MAO E UM NUMERO QUE VAI ENVELHECER EM SILENCIO.
+```
+
+Um documento sem números não se lê. Um documento que reescreve números de que
+não é dono cria um **segundo dono de cada contagem**, e dois donos divergem no
+dia em que um deles medir outra vez.
+
+A saída **não** é proibir a citação — é tornar a divergência barulhenta:
+
+1. o gerador escreve o JSON, e o JSON é o dono;
+2. a leitura humana cita dentro de blocos com forma fixa;
+3. um teste compara cada número citado com o JSON e recusa uma chave que viva
+   em dois sítios com valores diferentes.
+
+Implementado em `tests/test_censo_cards_sensores.py`, testado por mutação em
+quatro frentes: número errado, chave inventada, escada que sobe, estado
+inventado. As quatro foram apanhadas.
+
+> Uma trava verde que nunca apanhou nada é decoração. Mutação antes de
+> confiar.
