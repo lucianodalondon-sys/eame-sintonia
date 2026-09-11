@@ -1217,6 +1217,189 @@ UM CONSUMIDOR QUE NAO DISPARA HOJE E UM CONSUMIDOR, NAO UMA AUSENCIA.
 
 ---
 
+---
+
+## 15. C7 — A BETERRABA VIRAVA TOLEDO
+
+```
+MISSAO   = C7 · FACT_LOCATION MATCHER REPAIR, 2026-09-11
+BRANCH   = claude/sintonia-fact-location-c7
+ENTREGA  = docs/sintonia-scrap/C7-LUGAR-DO-FATO.md
+DECISAO  = FACT_LOCATION_MATCHER = PASS · derivado regenerado apos o portao
+```
+
+### 15.1 · A peneira que serve o assunto destrói o nome próprio
+
+**O QUE.** `lugar_do_fato` usava `_tem`, a peneira de ASSUNTO da casa. Ela
+trunca a palavra de propósito — é assim que `diserbo` apanha `diserbato` — e
+procura a raiz **dentro** de qualquer palavra.
+
+**POR QUÊ.** Para assunto, truncar é virtude: a ideia sobrevive à conjugação.
+Para nome próprio é ruína, porque nome truncado não vira o mesmo nome — vira
+outro.
+
+```text
+_raizes('la rioja')  ->  ['rio']
+```
+
+**PROVA.** Contado nos 4.759 textos do acervo, e não só em «la rioja»:
+
+```text
+la rioja  <- septoriose (48x), fusariosi (17x)   o nome da DOENCA
+toledo    <- barbabietole, bietole               a BETERRABA
+france    <- francesco, francesca                o NOME DA PESSOA
+beauce    <- beaucoup (43x)                      «muito»
+verona    <- davvero (37x), vero (36x)           «deveras»
+cordoba   <- ricordo (27x), accordo              «recordo»
+italia    <- italiana, italiano, digitale        e IDIOMA != LUGAR DO FATO
+```
+
+Não era um lugar infeliz: **37 dos 59 lugares declarados** casavam assim.
+
+**CONSEQUÊNCIA.** A geografia tem matcher próprio, e ele não trunca nada. A
+regra de fronteira foi **copiada, não inventada**: veio de
+`leis/fato_local.py::mencoes`, que já a tinha escrito com a razão ao lado —
+«substring acidental foi um dos falsos positivos medidos no Brasil».
+
+```text
+PENEIRA DE ASSUNTO TRUNCA PORQUE A IDEIA SOBREVIVE A CONJUGACAO.
+NOME PROPRIO NAO SOBREVIVE A TRUNCAGEM — ELE VIRA OUTRO NOME.
+
+NORMALIZAR != STEMMING.
+```
+
+E a lição de método que a acompanha: o defeito foi encontrado numa entrada e
+consertado nas cinquenta e nove. Red-teamar só o caso que doeu deixaria as
+outras trinta e seis bombas no sítio.
+
+---
+
+### 15.2 · Um artefato derivado sem hora de derivação envelhece em segredo
+
+**O QUE.** O `MEDICAO.json` publicado era de **2026-09-06**. A régua por baixo
+dele mudou três vezes desde então e ninguém o refez.
+
+**POR QUÊ.** Porque nada no artefato dizia de quando ele era. Ele não declarava
+`CAPTURED_AT`, nem os pais, nem a régua — e por isso parecia ter a idade da
+coleta.
+
+**PROVA.** A decomposição que só apareceu por se ter medido em três pontos, em
+vez de comparar o artefato antigo com o novo:
+
+```text
+publicado, codigo de 2026-09-06        236 videos com pais
+codigo de HOJE, geografia ANTIGA       510      <- 5 dias de deriva
+codigo de HOJE, geografia NOVA         184      <- o efeito da C7
+```
+
+Comparar 236 com 184 diria «a C7 tirou 52». O efeito da C7 é **510 → 184**, e o
+`236 → 510` é de missões anteriores que mexeram na isca e nunca refizeram o
+derivado. Na mesma regeneração, `RESEARCH_COMMUNICATION` salta de 11 para 284 —
+e **nada disso é da C7**: medida zero divergência em `classificar_conteudo`
+(1115 itens) e `classificar_comentario` (3737).
+
+**CONSEQUÊNCIA.** O artefato passou a declarar `ARTIFACT_KIND`, os quinze
+artefatos-pai, a hora da derivação e a **régua** que produziu os números.
+
+```text
+ARTEFATO DERIVADO SEM HORA DE DERIVACAO ENVELHECE EM SEGREDO.
+A REGUA MUDA O NUMERO — ENTAO O NUMERO TEM DE DIZER QUE REGUA O FEZ.
+```
+
+---
+
+### 15.3 · «Afetados» não é «errados», e a diferença mede-se
+
+**O QUE.** A C6 registou «230 dos 1071» e escreveu que consertar mudaria **230
+registos publicados**. A C7 foi verificar e a frase estava errada.
+
+**PROVA.** Os 230 reproduzem exactamente — mas **no código**, não no artefato. A
+lista tinha `la rioja` desde 2026-09-06; o casamento por raiz só chegou a
+2026-09-07, e ninguém regenerou depois disso. O artefato publicado tinha **zero**
+evidências de «la rioja».
+
+Decompondo os 230 no código: `EXACT_PHRASE_MATCH` **0**, `TOKEN_MATCH` **0**,
+`FUZZY_ROOT_MATCH` **230**. Nenhum deles era um lugar escrito.
+
+E o artefato publicado tinha erro seu, de outra espécie — substring simples, que
+é anterior à raiz truncada:
+
+```text
+videos   236 com pais, dos quais  61 com evidencia FALSA
+coments  131 com pais, dos quais  56 com evidencia FALSA
+```
+
+«Evidência falsa» é o campo dizer «o texto nomeia X» sem que o texto escreva X:
+`aragon` vindo de `paragonabile`, `jaen` de um handle `canalsurjaen`, `italia`
+de `italiano`.
+
+**CONSEQUÊNCIA.** O número certo de registos publicados errados era **117**, não
+230 — e nem sequer pela mesma causa.
+
+```text
+AFETADOS NO CODIGO != ERRADOS NO ARTEFATO.
+UM DEFEITO LATENTE E O QUE ESTOURA NA PROXIMA REGERACAO,
+E POR ISSO O CONSERTO TEM DE VIR ANTES DELA.
+```
+
+---
+
+### 15.4 · Cair de 510 para 184 não é perder capacidade
+
+**O QUE.** Depois do conserto, o acervo conhece o país do facto em muito menos
+itens.
+
+**PROVA.** Dos 71 vídeos que mudaram de um país para outro, **todos** foram para
+o país certo: vídeos italianos sobre flavescência dourada que diziam Espanha
+passaram a dizer Itália; vídeos franceses sobre míldio que diziam Espanha
+passaram a dizer França. E `UNKNOWN_TO_KNOWN = 0`: nenhum país novo apareceu do
+nada. Os dois lugares que só existem depois — `gironde` e `chianti` — estavam
+escritos no texto e estavam tapados por um falso positivo que casava primeiro.
+
+**CONSEQUÊNCIA.** O que caiu era conhecimento falso.
+
+```text
+UNKNOWN CORRECTO VALE MAIS DO QUE PAIS FABRICADO.
+```
+
+E a perda real foi medida, não assumida: das 793 quedas, o nome só aparece
+escrito em 75, e dessas **55 são gentílicos** (`italiano`, `siciliano`) e **16
+são handles ou domínios** (`canalsurjaen`, `francetvinfo`). Gentílico fala da
+pessoa e handle fala da fonte:
+
+```text
+COUNTRY_OF_PERSON != COUNTRY_OF_FACT
+SOURCE_LOCATION   != FACT_LOCATION
+```
+
+Sobram três menções genuínas em 4.759 textos, duas delas saudações («un caro
+saluto dalle Marche»), que também são da pessoa. A lista declara `le marche` e
+não `dalle marche`; ampliá-la é decisão de quem declara a lista, e fica
+registada por decidir — não feita em silêncio.
+
+---
+
+### 15.5 · Uma prova que se apoia num defeito morre quando o defeito morre
+
+**O QUE.** A prova viva do portão de espécie da C6 usava texto inglês com
+«prior period», «superior», «various» e «scenarios».
+
+**PROVA.** Aquelas palavras mudavam o país **porque a raiz `rio` casava dentro
+delas**. Consertado o casador, a prova deixou de reproduzir e passou a não medir
+nada — e foi a suíte que o disse.
+
+**CONSEQUÊNCIA.** Não foi apagada: o texto passou a nomear um lugar, que é o que
+um texto original faria. A prova voltou a medir o que lhe compete — se a
+**espécie** decide a entrada do texto — em vez de depender de o casador de lugar
+ser mau.
+
+```text
+UMA PROVA QUE SE APOIA NUM DEFEITO MORRE QUANDO O DEFEITO MORRE.
+A PERGUNTA CERTA E SE ELA AINDA MEDE A LEI, NAO SE ELA AINDA PASSA.
+```
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
