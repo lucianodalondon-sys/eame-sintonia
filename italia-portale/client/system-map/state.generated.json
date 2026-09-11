@@ -1153,6 +1153,7 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/o_corte_de_cr1.py",
       "provas/o_dedupe_tem_constraint.py",
       "provas/o_encanamento_tem_uma_porta.py",
       "provas/o_executor_conta_se.py",
@@ -1429,6 +1430,7 @@
       "tests/test_execucao_standalone.py",
       "tests/test_falhas.py",
       "tests/test_forward_instrumentado.py",
+      "tests/test_fronteira_mede_producao.py",
       "tests/test_fundacao_da_coleta.py",
       "tests/test_gestao_da_coleta.py",
       "tests/test_handoff.py",
@@ -1864,10 +1866,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/cards-sensors-census-v1",
-    "HEAD": "13cd8d2b05b5dd1855f14cbbc17df8dd0f602477",
-    "GENERATED_AT": "2026-09-11T02:14:12+00:00",
-    "SOURCE_TREE_FINGERPRINT": "31d296155831144b2d904389684206f14440c210990459b9cb9361502503dfe9"
+    "BRANCH": "claude/overnight-cr1-v1",
+    "HEAD": "8de92df365e9d453c68789c10bb5cd3b871a8675",
+    "GENERATED_AT": "2026-09-11T03:25:17+00:00",
+    "SOURCE_TREE_FINGERPRINT": "4b3c38bdc1e180554c651439f703678f977d200282a1e2a05924873fae4143fd"
   },
   "FAMILIES": [
     {
@@ -6076,6 +6078,7 @@
         "C-CENSO-EXECUTORES"
       ],
       "outbound": [
+        "C-PROVA-COLETA",
         "C-TESTES"
       ],
       "paises": {},
@@ -6087,7 +6090,7 @@
           "pasta": "data/derivados",
           "prova": {
             "file": "system-map/scripts/censo_cards_sensores.py",
-            "line": 342,
+            "line": 358,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -11824,6 +11827,7 @@
         "provas/a_lei_da_fase_10.py",
         "provas/auditoria_live.sh",
         "provas/derived_artifact_no_postgres.py",
+        "provas/o_corte_de_cr1.py",
         "provas/objeto_e_observacao_no_postgres.py",
         "provas/paridade_da_lingua.py",
         "provas/preflight_022_live.sh",
@@ -11835,7 +11839,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 14,
+      "file_count": 15,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11849,6 +11853,7 @@
         "C-ADAMA-ES",
         "C-ADMISSAO",
         "C-CADEIA-V21",
+        "C-CENSO-CARDS-SENSORES",
         "C-CENSO-OBSERVABILIDADE",
         "C-CI-MAPA",
         "C-CI-PERSIST",
@@ -12170,7 +12175,8 @@
         "C-CI-MAPA"
       ],
       "outbound": [
-        "C-MAPA-GERADOR"
+        "C-MAPA-GERADOR",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -12589,8 +12595,8 @@
         "consumidores: NENHUM",
         "destino declarado data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json existe: NAO"
       ],
-      "status_reason": "o contrato existe, tem dono e o codigo devolve exactamente os campos da lei — e ninguem le a saida. UMA PORTA POR ONDE NINGUEM PASSA NAO E UMA PORTA.",
-      "gap": "READY_SEM_CONSUMIDOR",
+      "status_reason": "o contrato existe, tem dono e o codigo devolve exactamente os campos da lei — e NUNCA foi produzido um READY. O destino declarado nao existe nesta arvore. UMA PORTA POR ONDE NINGUEM PASSOU AINDA NAO E UMA PORTA.",
+      "gap": "READY_NUNCA_PRODUZIDO",
       "produces": [],
       "paises": {},
       "paises_dado": {},
@@ -15164,6 +15170,7 @@
         "tests/test_execucao_standalone.py",
         "tests/test_falhas.py",
         "tests/test_forward_instrumentado.py",
+        "tests/test_fronteira_mede_producao.py",
         "tests/test_fundacao_da_coleta.py",
         "tests/test_gestao_da_coleta.py",
         "tests/test_handoff.py",
@@ -15219,7 +15226,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 79,
+      "file_count": 80,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 10 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15301,6 +15308,7 @@
         "C-PROCEDENCIA",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
+        "C-PROVA-FRONTEIRA",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
@@ -16779,7 +16787,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/cards-sensors-census-v1"
+        "branch claude/overnight-cr1-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17101,7 +17109,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1054,
+          "line": 1059,
           "snippet": "\"evidence\": [_onde_esta(\"admissao/admissao.py\","
         }
       ],
@@ -17133,8 +17141,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/o_corte_de_cr1.py",
+          "line": 61,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
         {
           "file": "provas/testa_coleta_canonica.py",
           "line": 34,
@@ -17178,7 +17191,7 @@
       "evidence": [
         {
           "file": "provas/a_fronteira_da_coleta.py",
-          "line": 201,
+          "line": 255,
           "snippet": "if not l.startswith('admissao/admissao.py')]"
         }
       ],
@@ -17263,8 +17276,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_fronteira_mede_producao.py",
+          "line": 138,
+          "snippet": "import admissao"
+        },
         {
           "file": "tests/test_m2_rota_forward.py",
           "line": 18,
@@ -17806,7 +17824,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2959,
+          "line": 2964,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -19094,18 +19112,41 @@
     },
     {
       "from": "C-CENSO-CARDS-SENSORES",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo dos cards e dos sensores alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_corte_de_cr1.py",
+          "line": 93,
+          "snippet": "\"censo_cards_sensores.py\"), encoding=\"utf-8\")"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CENSO-CARDS-SENSORES",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo dos cards e dos sensores alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Censo dos cards e dos sensores alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_censo_cards_sensores.py",
           "line": 30,
           "snippet": "JSON = RAIZ / \"data\" / \"derivados\" / \"MATRIZ-CARDS-SENSORES-V1.json\""
+        },
+        {
+          "file": "tests/test_fronteira_mede_producao.py",
+          "line": 98,
+          "snippet": "with open(caminho, encoding=\"utf-8\") as f:"
         }
       ],
       "categoria": "PROOF"
@@ -22245,7 +22286,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1422,
+          "line": 1427,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
         }
       ],
@@ -22644,12 +22685,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1404,
+          "line": 1409,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1415,
+          "line": 1420,
           "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\","
         }
       ],
@@ -23564,7 +23605,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2981,
+          "line": 2986,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -24527,7 +24568,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3201,
+          "line": 3206,
           "snippet": "cadeia = json.loads((Path(__file__).with_name(\"CADEIA-DO-MAPA.json\"))"
         }
       ],
@@ -24660,7 +24701,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3823,
+          "line": 3828,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
         },
         {
@@ -24711,12 +24752,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3836,
+          "line": 3841,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3836,
+          "line": 3841,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -25106,8 +25147,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/o_corte_de_cr1.py",
+          "line": 60,
+          "snippet": "import orquestrador as orq  # noqa: E402"
+        },
         {
           "file": "provas/testa_coleta_canonica.py",
           "line": 33,
@@ -26762,6 +26808,24 @@
       "categoria": "READ"
     },
     {
+      "from": "C-PROVA-FRONTEIRA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A medição da fronteira com a Inteligência alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_fronteira_mede_producao.py",
+          "line": 40,
+          "snippet": "\"_fronteira_medidor\", os.path.join(RAIZ, \"provas\", \"a_fronteira_da_coleta.py\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-PROVA-MAPA-NAO-MENTE",
       "to": "C-MAPA-GERADOR",
       "type": "READS",
@@ -27166,8 +27230,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/o_corte_de_cr1.py",
+          "line": 59,
+          "snippet": "import receitas  # noqa: E402"
+        },
         {
           "file": "provas/testa_coleta_canonica.py",
           "line": 32,
@@ -29021,7 +29090,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1089,
+          "line": 1094,
           "snippet": "migracao = \"supabase/migrations/022_o_derivado_ganha_casa.sql\""
         }
       ],
@@ -29436,7 +29505,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2921,
+          "line": 2926,
           "snippet": "vj = RAIZ / \"vercel.json\""
         }
       ],
@@ -30765,12 +30834,12 @@
     "components_pending": 93,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 624,
-    "edges_proven": 622,
+    "edges": 626,
+    "edges_proven": 624,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1417,
-    "files_covered": 693,
+    "files_tracked": 1419,
+    "files_covered": 695,
     "files_code_unclaimed": 0
   }
 }

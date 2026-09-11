@@ -174,10 +174,10 @@ ARESTAS_POR_CLASSE.MISSING = 4
 
 ```
 MEDIDO
-A_FRONTEIRA.CONTRATO       = COL-LAW-043
-A_FRONTEIRA.DESTINO_EXISTE = false
-A_FRONTEIRA.CONSUMIDORES   = 0
-A_FRONTEIRA.GAP            = READY_SEM_CONSUMIDOR
+A_FRONTEIRA.CONTRATO        = COL-LAW-043
+A_FRONTEIRA.READY_PRODUZIDO = false
+A_FRONTEIRA.CONSUMIDORES    = 0
+A_FRONTEIRA.GAP             = READY_NUNCA_PRODUZIDO
 ```
 
 O contrato existe e tem dono (`admissao/admissao.py :: pronto_para_inteligencia()`).
@@ -185,9 +185,21 @@ Tem **um** produtor em runtime (`orquestrador/orquestrador.py`, só por linha de
 comando — nenhum workflow o chama). O destino
 `data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json` **não existe**. Consumidores: **zero**.
 
+> **CORRIGIDO EM 2026-09-11 (C-MADRUGADA-CR1).** Este gap chamava-se
+> `READY_SEM_CONSUMIDOR`, e esse nome estava errado por inteiro. O medidor
+> derivava o diagnóstico **do consumidor**, quando `READY CONSUMER = 0` é o
+> alvo de fechamento declarado. Red team com o medidor real: o estado-alvo
+> (READY produzido, zero consumidores) saía com o **mesmo** diagnóstico de nada
+> ter sido produzido, e um consumidor artificial **sem produção nenhuma**
+> limpava o gap.
+>
+> Zero consumidores nunca foi o defeito. O defeito é que **nunca foi produzido
+> um READY**, e é esse que o gap nomeia agora. Prova em
+> `provas/o_corte_de_cr1.py` e `tests/test_fronteira_mede_producao.py`.
+
 ```
 COLLECTION TERMINA NA SALA DE ESPERA.
-A SALA DE ESPERA NAO TEM PORTA DO OUTRO LADO.
+E A SALA DE ESPERA NUNCA RECEBEU NINGUEM.
 ```
 
 ---
@@ -204,24 +216,65 @@ ISSUES_DA_COLETA.abertos = 23
 ISSUES_DA_COLETA.total   = 30
 ```
 
-### CR-1 · A CADEIA CANÓNICA ESTÁ CORTADA EM DUAS JUNTAS
+### CR-1 · O QUE CHEGA À PORTA É O ÍNDICE DA COLHEITA, NÃO A COLHEITA
 `COL-015` · `COL-003` · `COL-004` · `COL-013`
 
-`ENTRADA → ORQUESTRADOR → EXECUÇÃO → PORTA` tem quatro estações e **duas**
-ligações. `ORQUESTRADOR → EXECUÇÃO` está cortado; `EXECUÇÃO → PORTA` está
-cortado. As acções largam ficheiro numa pasta e param ali.
+> **REESCRITO EM 2026-09-11 (C-MADRUGADA-CR1). A versão anterior desta causa
+> dizia «a cadeia canónica está cortada em duas juntas», e isso foi MEDIDO E
+> REFUTADO.** Ficou aqui o que a medição mostrou.
 
-- **Dono:** `orquestrador/orquestrador.py`
+A cadeia **corre inteira**. Numa única corrida real, sem rede e sem banco
+(`orq.correr(pedido, so_a_porta=True)`), oito estações ficaram provadas por
+execução controlada: pedido, plano, escolha de executor, saída encontrada,
+ingresso, RAW preservado, item na porta, decisão da porta. Nada está cortado.
+
+O que corta é outra coisa, e é mais precisa:
+
+```
+larga_em  ->  _MANIFESTO.json     o INDICE dos documentos descarregados
+              CORPUS-*.json       o CATALOGO de pessoas
+              CONTAS-V1.json      a ficha de ONDE se pode coletar
+```
+
+`a_colheita()` tem uma heurística genérica — «uma lista, ou o primeiro campo do
+ficheiro que seja lista de fichas» — e ela transforma **linhas de um índice** em
+pseudo-itens. A porta recusa-os, e recusa-os **bem**, com o vocabulário certo.
+
+```
+O INDICE DE UMA COLHEITA NAO E A COLHEITA.
+E UM RECIBO — E UM RECIBO NAO SE ADMITE, LE-SE.
+```
+
+Medido sobre todo o material que as receitas alcançam hoje:
+
+| resultado da porta | itens |
+|---|---|
+| `NAO_SEI` («o item veio sem texto nenhum») | 182 |
+| `NAO_SE_APLICA` («é ficha de conta ou de catálogo») | 71 |
+| `SIM` | **0** |
+
+Duas das cinco receitas apontam `larga_em` para pastas que **não existem**
+nesta árvore. E `data/raw/IT-ROTULOS/` contém **só** `_MANIFESTO.json`: os 163
+PDF que ele indexa não estão cá.
+
+- **Dono:** `orquestrador/orquestrador.py :: a_colheita()` + o `larga_em` das receitas
 - **Camada:** COLETA
-- **Cards afectados:** 0 directamente — e é esse o ponto: nenhum card pode ser afectado por uma cadeia que não chega.
-- **Sensores afectados:** 58 (é a causa do degrau `ENTROU = 0`)
-- **Risco:** um sensor novo nasce já desligado.
+- **Sensores afectados:** 58
+- **Não corrigido, e porquê:** separar «índice» de «colheita» exige um contrato
+  declarado do que um executor pode largar. Isso é **lei nova**, e lei nova não
+  se escreve dentro de uma missão de medição.
+- **Prova:** `provas/o_corte_de_cr1.py`
 
-### CR-2 · A FRONTEIRA NÃO TEM O OUTRO LADO
-fronteira `READY_SEM_CONSUMIDOR`
+### CR-2 · A FRONTEIRA NUNCA PRODUZIU UM READY
+fronteira `READY_NUNCA_PRODUZIDO`
 
 Ver secção 7. É a razão literal pela qual a Collection não fecha: fechar a
-Collection é entregar na Sala de Espera, e não há Sala de Espera.
+Collection é entregar na Sala de Espera, e nunca ninguém entregou.
+
+> **Medido em 2026-09-11:** a cadeia `EXECUTOR → INGRESSO → ADMISSÃO` **corre
+> inteira** — não está cortada. 253 itens reais atravessaram-na e a porta
+> julgou todos. Nenhum foi admitido, porque o que lhe chega não é colheita: é
+> o **índice** da colheita. Ver `provas/o_corte_de_cr1.py`.
 
 - **Dono:** `admissao/admissao.py`
 - **Camada:** FRONTEIRA

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/cards-sensors-census-v1",
-    "HEAD": "13cd8d2b05b5dd1855f14cbbc17df8dd0f602477",
-    "GENERATED_AT": "2026-09-11T02:14:12+00:00",
-    "SOURCE_TREE_FINGERPRINT": "31d296155831144b2d904389684206f14440c210990459b9cb9361502503dfe9"
+    "BRANCH": "claude/overnight-cr1-v1",
+    "HEAD": "8de92df365e9d453c68789c10bb5cd3b871a8675",
+    "GENERATED_AT": "2026-09-11T03:25:17+00:00",
+    "SOURCE_TREE_FINGERPRINT": "4b3c38bdc1e180554c651439f703678f977d200282a1e2a05924873fae4143fd"
   },
   "FILES": [
     {
@@ -1487,7 +1487,7 @@
     },
     {
       "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
-      "sha": "86c74e4911dda2a50aed45be233bd45ce0b176bf",
+      "sha": "c10cf2f087cfa3252bb0643270dad16fad342710",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -7626,7 +7626,7 @@
     },
     {
       "path": "provas/a_fronteira_da_coleta.py",
-      "sha": "a09fc46739fdc32b86b62f0b84dbdf37ef52f913",
+      "sha": "dfa5e2acdc51a12a2e23946d1837bbc77c09e7a4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7719,6 +7719,13 @@
       "path": "provas/italy_pilot_negativos.mjs",
       "sha": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/o_corte_de_cr1.py",
+      "sha": "e0c58558a4fc6d44041ead1b42d9ab2312456f26",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -9047,7 +9054,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "be9d71f70e9bdbbdd43dd7c8c1d4a85a89015fb3",
+      "sha": "d8689129535a2bc14f0735900b976bfd1e5fadc5",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9061,7 +9068,7 @@
     },
     {
       "path": "system-map/data/fronteira.observada.json",
-      "sha": "82a2dc7664c7a6917163d44a676d6ac4e47c257e",
+      "sha": "cac31446df16d82befbbea4af560d310635379a0",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9089,7 +9096,7 @@
     },
     {
       "path": "system-map/scripts/censo_cards_sensores.py",
-      "sha": "96f5cc3ebd88a61a56c4d84d4b13eeefe33b9a95",
+      "sha": "9eb1e256e7af78939115bdc98577f1591194548a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9187,7 +9194,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "13fc830cf3410e9288963937f03e1849d3d2b618",
+      "sha": "2674d9e3a167172b735481a2deba95a6e07f4531",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9538,6 +9545,13 @@
     {
       "path": "tests/test_forward_instrumentado.py",
       "sha": "238288bdf0f24fff84c7bee3f6e211c251e8d49c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fronteira_mede_producao.py",
+      "sha": "3607c62c729f1baa138cd40809116d1f21f0dcf9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24797,7 +24811,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_fronteira_da_coleta.py",
-        "line": 201,
+        "line": 255,
         "snippet": "if not l.startswith('admissao/admissao.py')]"
       }
     },
@@ -25305,6 +25319,72 @@
         "file": "provas/italy_pilot_negativos.mjs",
         "line": 8,
         "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/o_corte_de_cr1.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_corte_de_cr1.py",
+        "line": 58,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/o_corte_de_cr1.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_corte_de_cr1.py",
+        "line": 61,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_corte_de_cr1.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_corte_de_cr1.py",
+        "line": 60,
+        "snippet": "import orquestrador as orq  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_corte_de_cr1.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_corte_de_cr1.py",
+        "line": 59,
+        "snippet": "import receitas  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_corte_de_cr1.py",
+      "to_file": "system-map/data/fronteira.observada.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_corte_de_cr1.py",
+        "line": 73,
+        "snippet": "\"fronteira.observada.json\"), encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "provas/o_corte_de_cr1.py",
+      "to_file": "system-map/scripts/censo_cards_sensores.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_corte_de_cr1.py",
+        "line": 93,
+        "snippet": "\"censo_cards_sensores.py\"), encoding=\"utf-8\")"
       }
     },
     {
@@ -27173,7 +27253,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_cards_sensores.py",
-        "line": 342,
+        "line": 358,
         "snippet": "with open(SAIDA, \"w\", encoding=\"utf-8\") as f:"
       }
     },
@@ -27184,7 +27264,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_cards_sensores.py",
-        "line": 262,
+        "line": 277,
         "snippet": "issues = ler(\"SYSTEM-MAP-COLLECTION-ISSUES.json\")"
       }
     },
@@ -27195,7 +27275,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/censo_cards_sensores.py",
-        "line": 260,
+        "line": 275,
         "snippet": "fronteira = ler(\"fronteira.observada.json\")"
       }
     },
@@ -27778,7 +27858,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1054,
+        "line": 1059,
         "snippet": "\"evidence\": [_onde_esta(\"admissao/admissao.py\","
       }
     },
@@ -27789,7 +27869,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2981,
+        "line": 2986,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -27800,7 +27880,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1404,
+        "line": 1409,
         "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
       }
     },
@@ -27811,7 +27891,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1422,
+        "line": 1427,
         "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
       }
     },
@@ -27822,7 +27902,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1415,
+        "line": 1420,
         "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\","
       }
     },
@@ -27844,7 +27924,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2959,
+        "line": 2964,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -27855,7 +27935,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2740,
+        "line": 2745,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -27866,7 +27946,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2742,
+        "line": 2747,
         "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
       }
     },
@@ -27910,7 +27990,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3160,
+        "line": 3165,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -27921,7 +28001,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3162,
+        "line": 3167,
         "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
       }
     },
@@ -27932,7 +28012,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1089,
+        "line": 1094,
         "snippet": "migracao = \"supabase/migrations/022_o_derivado_ganha_casa.sql\""
       }
     },
@@ -27954,7 +28034,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3823,
+        "line": 3828,
         "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -27976,7 +28056,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3201,
+        "line": 3206,
         "snippet": "cadeia = json.loads((Path(__file__).with_name(\"CADEIA-DO-MAPA.json\"))"
       }
     },
@@ -27987,7 +28067,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3836,
+        "line": 3841,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -27998,7 +28078,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3836,
+        "line": 3841,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -28009,7 +28089,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2921,
+        "line": 2926,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -30453,6 +30533,50 @@
         "file": "tests/test_forward_instrumentado.py",
         "line": 211,
         "snippet": "\"provas-de-execucao.json\"), encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_fronteira_mede_producao.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_fronteira_mede_producao.py",
+        "line": 137,
+        "snippet": "import _gavetas  # noqa: F401"
+      }
+    },
+    {
+      "from_file": "tests/test_fronteira_mede_producao.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_fronteira_mede_producao.py",
+        "line": 138,
+        "snippet": "import admissao"
+      }
+    },
+    {
+      "from_file": "tests/test_fronteira_mede_producao.py",
+      "to_file": "provas/a_fronteira_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fronteira_mede_producao.py",
+        "line": 40,
+        "snippet": "\"_fronteira_medidor\", os.path.join(RAIZ, \"provas\", \"a_fronteira_da_coleta.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_fronteira_mede_producao.py",
+      "to_file": "system-map/scripts/censo_cards_sensores.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fronteira_mede_producao.py",
+        "line": 98,
+        "snippet": "with open(caminho, encoding=\"utf-8\") as f:"
       }
     },
     {
@@ -34728,7 +34852,7 @@
     "system-map/scripts/censo_cards_sensores.py": [
       {
         "pasta": "data/derivados",
-        "line": 342,
+        "line": 358,
         "constante": "SAIDA"
       }
     ],
@@ -34804,10 +34928,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1417,
-    "files_readable": 531,
-    "files_code_dir": 578,
-    "file_edges": 2219,
+    "files_tracked": 1419,
+    "files_readable": 533,
+    "files_code_dir": 580,
+    "file_edges": 2229,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

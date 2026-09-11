@@ -99,11 +99,18 @@ class OCensoNaoMedeEntradaPeloConsumidor(unittest.TestCase):
             self.fonte = f.read()
 
     def test_a_formula_de_entrou_nao_depende_de_consumidores(self):
+        # Lê a LINHA DE ATRIBUIÇÃO, não o ficheiro: o comentário logo acima
+        # cita a fórmula antiga de propósito, e procurar texto no ficheiro
+        # inteiro faria a explicação do conserto acusar o defeito.
+        atribuicoes = [l.strip() for l in self.fonte.splitlines()
+                       if l.strip().startswith("atravessou =")]
+        self.assertEqual(len(atribuicoes), 1,
+                         "esperava uma única atribuição de `atravessou`")
         self.assertNotIn(
-            'bool(fronteira["DESTINO_EXISTE"]) and bool(fronteira["CONSUMIDORES"])',
-            self.fonte,
+            "CONSUMIDORES", atribuicoes[0],
             "`ENTROU` não pode exigir consumidor: com `READY CONSUMER = 0` como "
-            "alvo, essa fórmula nunca consegue reportar sucesso.")
+            "alvo, essa fórmula nunca consegue reportar sucesso. Linha: "
+            + atribuicoes[0])
 
     def test_entrou_mede_producao(self):
         self.assertIn("READY_PRODUZIDO", self.fonte,
@@ -112,3 +119,63 @@ class OCensoNaoMedeEntradaPeloConsumidor(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class OQueAtravessaAFronteiraEOQueNaoAtravessa(unittest.TestCase):
+    """RED TEAM da fronteira, do lado da porta.
+
+    A correcção desta missão foi no MEDIDOR, e um medidor consertado é fácil de
+    consertar demais: bastaria a porta ficar mais generosa para `ENTROU` subir
+    sem nada ter melhorado. Estas travas prendem o outro lado.
+
+        NUNCA RELAXAR A ADMISSAO PARA FAZER DADO PASSAR.
+    """
+
+    def setUp(self):
+        import sys
+        sys.path.insert(0, RAIZ)
+        import _gavetas  # noqa: F401
+        import admissao
+        self.adm = admissao
+        self.bom = {"id": "rt", "texto": "Ensaio de campo com DOI publicado",
+                    "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
+
+    def test_so_o_SIM_produz_ready(self):
+        d = self.adm.decidir(self.bom, "T7", corrida="RT")
+        self.assertEqual(d.resultado, self.adm.SIM)
+        self.assertEqual(self.adm.pronto_para_inteligencia(self.bom, d)["ESTADO"],
+                         "PRONTO_PARA_INTELIGENCIA")
+
+    def test_NAO_SEI_nao_produz_ready(self):
+        sem = {"id": "rt", "texto": "Ensaio com DOI", "source_id": "IT-T7-002"}
+        d = self.adm.decidir(sem, "T7", corrida="RT")
+        self.assertEqual(d.resultado, self.adm.NAO_SEI)
+        with self.assertRaises(Exception):
+            self.adm.pronto_para_inteligencia(sem, d)
+
+    def test_ERRO_nao_vira_rejeicao(self):
+        d = self.adm.decidir({"id": "rt", "erro_de_leitura": "TimeoutError",
+                              "source_id": "IT-T7-003", "fact_time": "2026-01-01"}, "T7")
+        self.assertEqual(d.resultado, self.adm.ERRO)
+        self.assertNotEqual(d.resultado, self.adm.NAO)
+
+    def test_ficha_de_catalogo_nunca_vira_ready(self):
+        """O INDICE DE UMA COLHEITA NAO E A COLHEITA — e é por aqui que hoje
+        entra tudo o que as receitas alcançam (ver provas/o_corte_de_cr1.py)."""
+        cat = {"PERSON_ID": "p1", "MATERIALS_FOUND": 3, "ORCID_WORKS_DECLARED": 9}
+        d = self.adm.decidir(cat, "T7", corrida="RT")
+        self.assertEqual(d.resultado, self.adm.NAO_SE_APLICA)
+        with self.assertRaises(Exception):
+            self.adm.pronto_para_inteligencia(cat, d)
+
+    def test_duas_corridas_nao_se_confundem(self):
+        a = self.adm.decidir(dict(self.bom), "T7", corrida="RUN-A")
+        b = self.adm.decidir(dict(self.bom), "T7", corrida="RUN-B")
+        self.assertNotEqual(a.corrida, b.corrida)
+
+    def test_a_saida_carrega_a_corrida_que_a_produziu(self):
+        """Saída antiga numa pasta não pode ser atribuída à corrida nova."""
+        d = self.adm.decidir(dict(self.bom), "T7", corrida="RUN-VELHA")
+        self.assertEqual(
+            self.adm.pronto_para_inteligencia(dict(self.bom), d)["CORRIDA"],
+            "RUN-VELHA")
