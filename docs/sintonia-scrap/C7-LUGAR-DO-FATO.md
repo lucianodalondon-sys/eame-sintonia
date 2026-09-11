@@ -619,16 +619,28 @@ porque é isso que ela tem de fazer.
 KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA → registrada no know-how canônico
 ```
 
+Duas escritas, e a branch mexeu-se entre elas — por isso são dois pares de heads
+medidos, não um herdado.
+
 ```
 BRANCH        claude/sintonia-eame-know-how-v1
 FICHEIRO      HANDOFF-ATUAL-SINTONIA-EAME.md
-INITIAL_HEAD  506f5edf6c6aac09fdb6f2032ed76ddfae833044
-FINAL_HEAD    5a819a13b1365b93ea5b5bf0fa10aa24ee9d1c11
+
+a missao      INITIAL_HEAD  506f5edf6c6aac09fdb6f2032ed76ddfae833044
+              FINAL_HEAD    5a819a13b1365b93ea5b5bf0fa10aa24ee9d1c11
+
+o fechamento  INITIAL_HEAD  a198a6877366ae8d9211f5ce1931e05b0afc2ba0
+              FINAL_HEAD    834a920614b1c4d003a66bebd8f8570a71b5281a
 ```
 
-Secção 15, cinco lições. A branch tinha avançado desde a C6 por outra frente — o
-commit `506f5edf`, noutro ficheiro — e por isso foi relida antes de escrever, e
-nada foi sobrescrito.
+Secção 15: cinco lições da missão (15.1–15.5), mais duas do fechamento —
+**15.6**, a frente sem receita que o orquestrador não alcança, e **15.7**, o laço
+que se procura a si próprio.
+
+Entre a escrita da missão e a do fechamento, a branch andou **três commits** por
+outras frentes (`f6725b1e`, `ae47a506`, `a198a687`), todos noutro ficheiro. Foi
+relida antes de cada escrita. Nada foi sobrescrito, e a secção 15 chegou intacta
+ao fim.
 
 ---
 
