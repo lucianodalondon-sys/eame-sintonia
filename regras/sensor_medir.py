@@ -29,6 +29,7 @@ Agrociencia. Nacionalidade da pessoa também não é lugar do fato.
 
     COUNTRY_OF_PERSON != COUNTRY_OF_FACT. IDIOMA != LUGAR.
 """
+import datetime
 import json
 import os
 import re
@@ -620,6 +621,30 @@ if __name__ == '__main__':
         'SOURCE_LOCATION': 'derivado', 'FACT_LOCATION': 'ver por item',
         'ORIGINAL_LANGUAGE': 'pt', 'EVIDENCE_CLASS': 'DERIVED_MEASUREMENT',
         'APIFY_RUNS': 0, 'COST_USD': 0,
+        # ── DE ONDE ISTO VEM, E DE QUANDO ─────────────────────────────────
+        # Este artefato é uma FUNÇÃO dos pais mais a régua do dia. Sem dizer
+        # quando a derivação correu, ele parece ter a idade da coleta — e uma
+        # medição de 2026-09-06 ficou cinco dias a ser lida como se fosse de
+        # hoje, enquanto a régua por baixo dela já tinha mudado três vezes.
+        #
+        #     ARTEFATO DERIVADO SEM HORA DE DERIVACAO ENVELHECE EM SEGREDO.
+        'ARTIFACT_KIND': 'DERIVED',
+        'PARENT_ARTIFACTS': sorted(
+            'data/samples/SENSOR-PILOT/%s-%s.json' % (n, L)
+            for n in ('VIDEOS', 'COMENTARIOS', 'TRANSCRICOES')
+            for L in ('A', 'B', 'C', 'D', 'E')
+            if os.path.exists(os.path.join(PILOT, '%s-%s.json' % (n, L)))),
+        'CAPTURED_AT': datetime.datetime.now(datetime.timezone.utc)
+                               .strftime('%Y-%m-%d'),
+        'DERIVED_AT': datetime.datetime.now(datetime.timezone.utc)
+                              .strftime('%Y-%m-%dT%H:%M:%SZ'),
+        # A régua muda o número. Quem lê daqui a um mês precisa saber qual delas
+        # produziu estas contagens.
+        'GEOGRAPHY_RULER': (
+            'COUNTRY_OF_FACT exige o nome do lugar ESCRITO, como token inteiro '
+            '(frase inteira, para nome de várias palavras). Sem raiz truncada e '
+            'sem substring: «italiano» não é «italia», «barbabietole» não é '
+            '«toledo». Idioma e gentílico não são lugar do facto.'),
         'LIMITE_DO_CLASSIFICADOR': (
             'lexical. Polissemia produz falso positivo e nenhum portão automático detecta '
             'isso. Todo item carrega CONTENT_TYPE_EVIDENCE; a verificação é humana.'),
