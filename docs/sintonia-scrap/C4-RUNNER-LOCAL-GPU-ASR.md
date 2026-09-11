@@ -618,10 +618,17 @@ NENHUM DELES FOI FINGIDO.
 # S · KNOW_HOW_DELTA
 
 ```
-KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA
+KNOW_HOW_DELTA = NENHUM
+
+KNOW_HOW_BRANCH       = claude/sintonia-eame-know-how-v1
+KNOW_HOW_INITIAL_HEAD = 5836cc23   (medido, nao herdado)
+KNOW_HOW_FINAL_HEAD   = 21652176
+KNOW_HOW_PUSHED       = YES, sem force
 ```
 
-Quatro coisas duráveis nasceram aqui, e nenhuma depende da GPU ter funcionado:
+A secção **12** do handoff canônico foi escrita nesta missão, em worktree
+separada, no ficheiro que já existia. Cinco coisas duráveis nasceram aqui, e
+nenhuma depende da GPU ter funcionado:
 
 1. **o relógio do áudio não conta o tempo de preparar a máquina** — um download
    de modelo saía como `TRANSCRIPTION_TIMEOUT`, que é uma afirmação sobre o
@@ -631,7 +638,10 @@ Quatro coisas duráveis nasceram aqui, e nenhuma depende da GPU ter funcionado:
 3. **política em quatro sítios é quatro políticas** — a tabela de modelo passou
    para o dono, sem mudar um valor;
 4. **`timeout-minutes` não limita a fila** do GitHub Actions, e um runner que
-   não atende é uma medição, não uma espera.
+   não atende é uma medição, não uma espera;
+5. **a qualidade já cabe no processador** — o que muda a ordem das missões
+   seguintes: a GPU deixa de ser pré-requisito de qualidade e passa a ser
+   optimização de custo de tempo.
 
 ---
 
