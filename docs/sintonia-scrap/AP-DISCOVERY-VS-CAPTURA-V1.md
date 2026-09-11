@@ -141,3 +141,42 @@ Chrome real ou sessão própria — e os dois últimos esbarram em
 | paginação além dos 11 | LinkedIn | «Show more» não expõe URL |
 
 **Nenhum foi mascarado. Todos são `NOT_EXECUTED` com o comando escrito.**
+
+---
+
+## REFINAMENTO · o «zero posts» que não era bloqueio
+
+O benchmark mediu quatro company pages do LinkedIn e duas devolveram **zero** activity ids.
+Parecia sinal de bloqueio seletivo. **Não era.**
+
+Verificado a partir da prova guardada, sem novas chamadas: os dois ficheiros de zero têm
+**o mesmo `md5` byte a byte** (`632a4feb…`, 319.687 bytes) e contêm `Page not found` mais
+74 ocorrências de `404`. São a **página de 404 do LinkedIn** — os slugs estavam errados.
+
+| company page | bytes | activity ids | leitura |
+|---|---|---|---|
+| `syngenta` | 395.126 | **11** | existe |
+| `basf` | 410.954 | **13** | existe |
+| `corteva` | 369.848 | **10** | existe |
+| `bayercropscience` | 319.687 | 0 | **404** |
+| `syngenta-group` | 319.687 | 0 | **404** |
+
+E confirmei o código de estado com um slug deliberadamente inexistente:
+
+```
+GET /company/estaempresanaoexiste-zzz9/  →  HTTP 404 · 319.687 bytes · 0 activity ids
+```
+
+**Duas conclusões, e a segunda é uma armadilha que a casa já nomeou:**
+
+1. A descoberta funcionou em **todos os slugs que existem**. `LINKEDIN_DISCOVERY_RECENT`
+   fica mais forte, não mais fraco.
+2. O LinkedIn devolve **404 honesto**, e por isso um coletor que leia o estado está seguro.
+   Mas um coletor que conte apenas objetos leria «esta empresa não publica nada» onde a
+   verdade é «este endereço não existe» — que é exatamente
+   `SOURCE FAILURE != ZERO`, lei já escrita nesta casa.
+
+```
+SLUG ERRADO NÃO É EMPRESA SILENCIOSA. E as duas coisas contam-se igual
+se ninguém olhar para o código de estado.
+```
