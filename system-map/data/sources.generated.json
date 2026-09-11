@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "a1c9d049e35e111146bb7218fbce2681d1d9d780",
+    "HEAD": "52ca1ce115b0f5719656a76f869612edefa570ca",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -2723,7 +2723,7 @@
     },
     {
       "file": "regras/sensor_coleta.py",
-      "line": 198,
+      "line": 213,
       "variavel": "TERMOS",
       "grupos": [
         {
@@ -2937,7 +2937,9 @@
     {
       "ficheiro": "coleta/comunicacao_coleta.py",
       "como_se_chama": "coleta/comunicacao_coleta.py contratos",
-      "carimba_data": [],
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
       "carimba_lugar": [
         "COUNTRY",
         "FACT_LOCATION",
@@ -4180,7 +4182,7 @@
       "usado_por": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 129
+          "line": 168
         },
         {
           "file": "ferramentas/contrato_ator.py",
@@ -4381,6 +4383,19 @@
         {
           "file": "ferramentas/youtube_transcrever.py",
           "line": 151
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/channel",
+      "usado_por": [
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 449
+        },
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 713
         }
       ]
     },
@@ -4590,7 +4605,7 @@
       "usado_por": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 146
+          "line": 185
         }
       ]
     },
@@ -4647,15 +4662,6 @@
           "line": 59
         }
       ]
-    },
-    {
-      "endpoint": "https://exemplo.tld/caminho')",
-      "usado_por": [
-        {
-          "file": "coleta/scrap_http.py",
-          "line": 7
-        }
-      ]
     }
   ],
   "COUNTS": {
@@ -4677,7 +4683,7 @@
     "endpoints": 40,
     "candidates": 0,
     "coletores": 47,
-    "coletores_com_data": 14,
+    "coletores_com_data": 15,
     "coletores_com_lugar": 30,
     "coletores_que_separam_fonte_do_fato": 20,
     "coletores_que_registam_descarte": 10,

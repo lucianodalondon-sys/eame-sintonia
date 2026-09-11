@@ -1440,6 +1440,7 @@
       "tests/test_autoridade_da_fonte.py",
       "tests/test_biblia.py",
       "tests/test_c2_youtube_oficial.py",
+      "tests/test_c3_youtube_cutover.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canonico.py",
       "tests/test_censo_dos_donos.py",
@@ -1729,7 +1730,7 @@
     },
     {
       "file": "regras/sensor_coleta.py",
-      "line": 198,
+      "line": 213,
       "variavel": "TERMOS",
       "grupos": [
         {
@@ -1891,10 +1892,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-youtube-official-c2",
-    "HEAD": "a1c9d049e35e111146bb7218fbce2681d1d9d780",
-    "GENERATED_AT": "2026-09-11T03:37:54+00:00",
-    "SOURCE_TREE_FINGERPRINT": "9cab113b9121497eb55fbd9a47c283ba8b81cfc12298c57146d80826acc3ad6f"
+    "BRANCH": "claude/sintonia-scrap-youtube-cutover-c3",
+    "HEAD": "52ca1ce115b0f5719656a76f869612edefa570ca",
+    "GENERATED_AT": "2026-09-11T04:35:25+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1cdf53a3503e82ab65bcc47630c5082f03d0983ca36a8f299783f0780acbd0e3"
   },
   "FAMILIES": [
     {
@@ -4793,7 +4794,9 @@
         {
           "ficheiro": "coleta/comunicacao_coleta.py",
           "como_se_chama": "coleta/comunicacao_coleta.py contratos",
-          "carimba_data": [],
+          "carimba_data": [
+            "CAPTURED_AT"
+          ],
           "carimba_lugar": [
             "COUNTRY",
             "FACT_LOCATION",
@@ -7236,10 +7239,11 @@
       ],
       "file_count": 3,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "coleta/comunicacao_classificar.py",
-        "coleta/comunicacao_coleta.py"
+        "coleta/comunicacao_coleta.py",
+        "coleta/comunicacao_medir.py"
       ],
       "produces": [],
       "inbound": [
@@ -7248,15 +7252,16 @@
         "C-CI-COLETA",
         "C-COLETA-BASE",
         "C-IDENTIDADE",
+        "C-SCRAP-SOCIAL",
         "C-TRANSCRICAO",
         "V-FACEBOOK",
         "V-INSTAGRAM",
-        "V-LINKEDIN",
-        "V-YOUTUBE"
+        "V-LINKEDIN"
       ],
       "outbound": [
         "C-MAPA-TESTES",
         "C-RECEITAS",
+        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "paises": {},
@@ -7268,19 +7273,20 @@
         "papel": "NAO SEI",
         "listas": [
           "ATORES",
+          "CAPACIDADES_SCRAP",
           "CULTURAS",
           "FONTES_DE_TEXTO",
           "LUGARES",
           "PROBLEMAS",
           "TIPOS"
         ],
-        "palavras": 211,
+        "palavras": 213,
         "por_lingua": {
           "IT": 10,
           "ES": 7,
           "FR": 5
         },
-        "sem_marca_de_lingua": 189,
+        "sem_marca_de_lingua": 191,
         "de_outro_pais": 12,
         "de_outro_pais_quais": {
           "ES": 7,
@@ -13617,17 +13623,21 @@
       "inbound": [
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
+        "C-COLETA-PUBLICA",
         "C-CONTRATO-ARTEFATO",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
         "C-SCRAP-ROTA",
+        "C-SENSOR-COLETA",
         "C-TRANSCRICAO",
         "V-HTTP",
         "V-YOUTUBE"
       ],
       "outbound": [
+        "C-COLETA-PUBLICA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
+        "C-SENSOR-COLETA",
         "C-TESTES"
       ],
       "paises": {},
@@ -13649,9 +13659,9 @@
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 196,
+        "palavras": 198,
         "por_lingua": {},
-        "sem_marca_de_lingua": 196,
+        "sem_marca_de_lingua": 198,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13760,7 +13770,7 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "◎",
       "views": [
         "acervo",
@@ -13773,20 +13783,25 @@
         "regras/sensor_coleta.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "regras/sensor_coleta.py"
+      ],
       "produces": [],
       "inbound": [
         "C-APIFY-POOL",
         "C-CI-COLETA",
         "C-COLETA-BASE",
         "C-CORPUS",
-        "C-PROCEDENCIA"
+        "C-PROCEDENCIA",
+        "C-SCRAP-SOCIAL"
       ],
       "outbound": [
         "C-CENSO-SEMANTICO-IT",
-        "C-PROVA-COLETA"
+        "C-PROVA-COLETA",
+        "C-SCRAP-SOCIAL",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -13800,13 +13815,13 @@
           "LOTES",
           "TERMOS"
         ],
-        "palavras": 117,
+        "palavras": 113,
         "por_lingua": {
           "IT": 25,
           "FR": 6,
           "ES": 5
         },
-        "sem_marca_de_lingua": 81,
+        "sem_marca_de_lingua": 77,
         "de_outro_pais": 11,
         "de_outro_pais_quais": {
           "ES": 5,
@@ -13819,7 +13834,7 @@
           "pasta": "data/samples/SENSOR-PILOT",
           "prova": {
             "file": "regras/sensor_coleta.py",
-            "line": 355,
+            "line": 370,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -15194,6 +15209,7 @@
         "tests/test_autoridade_da_fonte.py",
         "tests/test_biblia.py",
         "tests/test_c2_youtube_oficial.py",
+        "tests/test_c3_youtube_cutover.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canonico.py",
         "tests/test_censo_dos_donos.py",
@@ -15265,7 +15281,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 80,
+      "file_count": 81,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15359,6 +15375,7 @@
         "C-SCRAP-ROTA",
         "C-SCRAP-SOCIAL",
         "C-SECURITY-CHECK",
+        "C-SENSOR-COLETA",
         "C-SUPABASE",
         "C-TRANSCRICAO",
         "C-V21-COMERCIAL",
@@ -16314,7 +16331,7 @@
         "contas publicas mapeadas neste canal: 17",
         "dessas, autorizadas a coletar: 10",
         "acoes da coleta que nomeiam este canal: 1",
-        "prova: coleta/comunicacao_coleta.py:192"
+        "prova: coleta/comunicacao_coleta.py:238"
       ],
       "status_reason": "1 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
@@ -16614,7 +16631,7 @@
         "contas publicas mapeadas neste canal: 7",
         "dessas, autorizadas a coletar: 5",
         "acoes da coleta que nomeiam este canal: 2",
-        "prova: coleta/comunicacao_coleta.py:146",
+        "prova: coleta/comunicacao_coleta.py:185",
         "prova: coleta/instagram_coleta.py:73"
       ],
       "status_reason": "2 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
@@ -16696,7 +16713,7 @@
         "contas publicas mapeadas neste canal: 6",
         "dessas, autorizadas a coletar: 0",
         "acoes da coleta que nomeiam este canal: 1",
-        "prova: coleta/comunicacao_coleta.py:86"
+        "prova: coleta/comunicacao_coleta.py:91"
       ],
       "status_reason": "1 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
@@ -16760,18 +16777,17 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "Video publico: o que o canal do concorrente e o do sector poem no ar. Hoje 3 acao(oes) da coleta passam por aqui.",
+      "what": "Video publico: o que o canal do concorrente e o do sector poem no ar. Hoje 2 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 14",
         "dessas, autorizadas a coletar: 7",
-        "acoes da coleta que nomeiam este canal: 3",
+        "acoes da coleta que nomeiam este canal: 2",
         "prova: coleta/youtube_janela.py:70",
-        "prova: coleta/comunicacao_coleta.py:83",
-        "prova: coleta/adaptador_youtube.py:36"
+        "prova: coleta/adaptador_youtube.py:38"
       ],
-      "status_reason": "3 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
+      "status_reason": "2 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -16786,7 +16802,6 @@
         "C-NAVEGADOR"
       ],
       "outbound": [
-        "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
         "C-SCRAP-SOCIAL"
       ],
@@ -16804,24 +16819,13 @@
           "SyngentaES"
         ]
       },
-      "o_que_entra_vai_para": [
-        {
-          "_chave": "data/samples/COMPETITOR-PUBLIC-COMM",
-          "acao": "C-COLETA-PUBLICA",
-          "ficheiro": "data/samples/COMPETITOR-PUBLIC-COMM/  (pasta inteira)",
-          "prova": {
-            "file": "coleta/comunicacao_classificar.py",
-            "line": 319,
-            "snippet": "escreve em SAIDA"
-          }
-        }
-      ],
+      "o_que_entra_vai_para": [],
       "saem_daqui_sem_destino": [
         "C-COLETA-YOUTUBE",
         "C-SCRAP-SOCIAL"
       ],
       "precisa_de_ferramenta": true,
-      "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
+      "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. E NAO SEI onde acaba o que entra por aqui: nenhuma das acoes que o usam declara, no codigo, um ficheiro onde escreve o que trouxe.",
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -16841,7 +16845,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-youtube-official-c2"
+        "branch claude/sintonia-scrap-youtube-cutover-c3"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17421,7 +17425,7 @@
         },
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 142,
+          "line": 181,
           "snippet": "import contrato_ator as ca"
         }
       ],
@@ -20831,14 +20835,37 @@
     },
     {
       "from": "C-COLETA-PUBLICA",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o que o concorrente publica tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/social_scrap.py",
+          "line": 1065,
+          "snippet": "import comunicacao_coleta as cc"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-PUBLICA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 117,
+          "snippet": "import comunicacao_coleta as cc"
+        },
         {
           "file": "tests/test_comunicacao.py",
           "line": 27,
@@ -20870,8 +20897,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 41,
+          "snippet": "CALLERS = ('coleta/comunicacao_coleta.py', 'regras/sensor_coleta.py')"
+        },
         {
           "file": "tests/test_reel_transcricao.py",
           "line": 460,
@@ -21425,7 +21457,7 @@
       "evidence": [
         {
           "file": "regras/sensor_coleta.py",
-          "line": 345,
+          "line": 360,
           "snippet": "with open(UNIVERSO, encoding='utf-8') as f:"
         }
       ],
@@ -23252,7 +23284,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 96,
+          "line": 125,
           "snippet": "with open(LOTE, encoding='utf-8') as f:"
         },
         {
@@ -26562,12 +26594,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c2_youtube_oficial.py",
           "line": 434,
           "snippet": "HISTORICOS = ('data/samples/RUN-MANIFEST.json',"
+        },
+        {
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 351,
+          "snippet": "for rel in ('data/samples/RUN-MANIFEST.json',"
         },
         {
           "file": "tests/test_portao.py",
@@ -27796,7 +27833,7 @@
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1077,
+          "line": 1213,
           "snippet": "import social_guarda"
         }
       ],
@@ -27828,11 +27865,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A guarda de credencial e de sessao do SCRAP tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "A guarda de credencial e de sessao do SCRAP tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c2_youtube_oficial.py",
           "line": 124,
+          "snippet": "import social_sessao as ss"
+        },
+        {
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 421,
           "snippet": "import social_sessao as ss"
         },
         {
@@ -28365,7 +28407,7 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 120,
+          "line": 122,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
         }
       ],
@@ -28383,12 +28425,12 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 120,
+          "line": 122,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
         },
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 121,
+          "line": 123,
           "snippet": "coleta/youtube_oficial.py; do"
         }
       ],
@@ -28421,6 +28463,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-COLETA-PUBLICA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Colher o que o concorrente publica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 397,
+          "snippet": "import scrap_executor as scrap"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-SCRAP-SOCIAL",
@@ -28460,13 +28520,31 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-SENSOR-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Coletor dos sensores tecnicos · canal, video e fala. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 477,
+          "snippet": "import scrap_executor as scrap"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 33 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 40 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -28514,19 +28592,19 @@
           "snippet": "import adaptador_youtube as ay"
         },
         {
-          "file": "tests/test_falhas.py",
-          "line": 20,
-          "snippet": "import social_rotas as sr          # noqa: E402"
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 27,
+          "snippet": "import scrap_capacidades as cap    # noqa: E402"
         },
         {
-          "file": "tests/test_m2_rota_forward.py",
-          "line": 24,
-          "snippet": "import social_persistencia as sp      # noqa: E402"
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 28,
+          "snippet": "import scrap_executor as scrap     # noqa: E402"
         },
         {
-          "file": "tests/test_politica_da_coleta.py",
-          "line": 200,
-          "snippet": "import social_envelope as se"
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 29,
+          "snippet": "import scrap_fornecedores as forn  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -28539,7 +28617,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 22 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 27 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -28572,34 +28650,34 @@
           "snippet": "'coleta/social_rotas.py')"
         },
         {
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 234,
+          "snippet": "self.assertIn('REQUEST_REGION_CODE', _fonte('coleta/youtube_oficial.py'))"
+        },
+        {
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 312,
+          "snippet": "corpo = _corpo('coleta/social_rotas.py')"
+        },
+        {
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 344,
+          "snippet": "self.assertEqual(donos, ['coleta/scrap_executor.py'])"
+        },
+        {
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 408,
+          "snippet": "FICHEIROS = CALLERS + ('coleta/adaptador_youtube.py', 'coleta/scrap_executor.py')"
+        },
+        {
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 442,
+          "snippet": "self.assertEqual(donos, ['coleta/scrap_fornecedores.py'], donos)"
+        },
+        {
           "file": "tests/test_politica_da_coleta.py",
           "line": 210,
           "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'social_persistencia.py'),"
-        },
-        {
-          "file": "tests/test_scrap_convergencia.py",
-          "line": 66,
-          "snippet": "fonte = _fonte('coleta/social_rotas.py')"
-        },
-        {
-          "file": "tests/test_scrap_convergencia.py",
-          "line": 114,
-          "snippet": "fonte = _fonte('coleta/adaptador_instagram.py')"
-        },
-        {
-          "file": "tests/test_scrap_convergencia.py",
-          "line": 204,
-          "snippet": "FICHEIROS = ('coleta/scrap_executor.py', 'coleta/scrap_registo.py',"
-        },
-        {
-          "file": "tests/test_scrap_convergencia.py",
-          "line": 204,
-          "snippet": "FICHEIROS = ('coleta/scrap_executor.py', 'coleta/scrap_registo.py',"
-        },
-        {
-          "file": "tests/test_scrap_convergencia.py",
-          "line": 205,
-          "snippet": "'coleta/scrap_capacidades.py', 'coleta/scrap_fornecedores.py',"
         }
       ],
       "categoria": "PROOF"
@@ -28700,6 +28778,60 @@
           "file": "provas/testa_coleta_canonica.py",
           "line": 409,
           "snippet": "_PERMITIDO = ('regras/sensor_coleta.py', 'provas/testa_coleta_canonica.py')"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SENSOR-COLETA",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/social_scrap.py",
+          "line": 1066,
+          "snippet": "import sensor_coleta as sc"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SENSOR-COLETA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 123,
+          "snippet": "import sensor_coleta as sc"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SENSOR-COLETA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c3_youtube_cutover.py",
+          "line": 41,
+          "snippet": "CALLERS = ('coleta/comunicacao_coleta.py', 'regras/sensor_coleta.py')"
         }
       ],
       "categoria": "PROOF"
@@ -29733,7 +29865,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 382,
+          "line": 543,
           "snippet": "import reel_transcricao as rt"
         }
       ],
@@ -30523,7 +30655,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 192,
+          "line": 238,
           "snippet": "if plataforma == 'FACEBOOK':"
         }
       ],
@@ -30659,7 +30791,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 146,
+          "line": 185,
           "snippet": "exemplo = {'ACCOUNT_URL': 'https://www.instagram.com/exemplo/',"
         }
       ],
@@ -30676,25 +30808,8 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 86,
+          "line": 91,
           "snippet": "'LINKEDIN': ('harvestapi~linkedin-post-search', 'JA_RODOU_NESTA_CASA'),"
-        }
-      ],
-      "categoria": "DATA"
-    },
-    {
-      "from": "V-YOUTUBE",
-      "to": "C-COLETA-PUBLICA",
-      "type": "VIAJA_POR",
-      "payload": "coleta",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "O que sai deste canal entra em «Colher o que o concorrente publica», que e quem o chama e quem guarda o que ele devolve.",
-      "evidence": [
-        {
-          "file": "coleta/comunicacao_coleta.py",
-          "line": 83,
-          "snippet": "'YOUTUBE': ('streamers~youtube-scraper', 'JA_RODOU_NESTA_CASA'),"
         }
       ],
       "categoria": "DATA"
@@ -30727,7 +30842,7 @@
       "evidence": [
         {
           "file": "coleta/adaptador_youtube.py",
-          "line": 36,
+          "line": 38,
           "snippet": "PLATAFORMA = 'YOUTUBE'"
         }
       ],
@@ -31009,16 +31124,16 @@
   },
   "COUNTS": {
     "components": 158,
-    "components_proven": 58,
-    "components_pending": 93,
+    "components_proven": 57,
+    "components_pending": 94,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 631,
-    "edges_proven": 628,
+    "edges": 636,
+    "edges_proven": 633,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1444,
-    "files_covered": 706,
+    "files_tracked": 1445,
+    "files_covered": 707,
     "files_code_unclaimed": 0
   }
 }
