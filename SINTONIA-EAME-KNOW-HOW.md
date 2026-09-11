@@ -10,8 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-11 — censo dos cards e dos sensores (secções 43 e 44; secções 18 e 26 marcadas SUPERSEDED).  
-**Próxima missão autorizada:** `C-PROVA-CR1` — medir onde está, executavelmente, o corte que faz `ENTROU = 0`.
+**Última atualização material:** 2026-09-11 — o corte de CR-1, medido (secção 45; secção 43.8 marcada RESPONDIDO).  
+**Próxima missão autorizada:** `C-PROVA-CR1` está FECHADA. A próxima é decisão de arquitetura: escrever o contrato do que um executor pode largar em `larga_em`.
 
 ---
 
@@ -2036,6 +2036,13 @@ escreveu no banco vivo — 252 linhas legadas, zero forward. A prova é do
 
 ## 43.8 · NÃO SEI / PRECISA MEDIR — O CORTE DE CR-1
 
+> **ESTADO = RESPONDIDO em 2026-09-11 (C-MADRUGADA-CR1). Texto original
+> mantido por baixo, porque a pergunta estava bem posta e é ela que explica o
+> que se foi medir.** A resposta está na **secção 45**, e não é nenhuma das
+> cinco hipóteses listadas aqui em baixo: não há corte. A cadeia corre
+> inteira, e o que chega à porta é o índice da colheita.
+
+
 Este é o ponto onde o censo **não** deve ser lido como resposta final, e onde
 `CAN DO != DID DO` pode estar a morder nos dois sentidos.
 
@@ -2117,3 +2124,170 @@ inventado. As quatro foram apanhadas.
 
 > Uma trava verde que nunca apanhou nada é decoração. Mutação antes de
 > confiar.
+
+
+---
+
+# 45. O CORTE DE CR-1, MEDIDO — E A MEDIDA QUE NÃO PODIA GANHAR
+
+```
+MISSAO      = C-MADRUGADA-CR1, 2026-09-11
+BRANCH      = claude/overnight-cr1-v1
+HEAD        = 9a6cbeed9504dc91a7132f53e3d8d43247058a46
+PROVAS      = provas/o_corte_de_cr1.py
+              tests/test_fronteira_mede_producao.py
+SUPERSEDE   = seccao 43.8 (a pergunta) e a redaccao anterior de CR-1
+```
+
+A pergunta da secção 43.8 era: «o mapa diz CORTADO, o código diz LIGADO — qual
+dos dois mede outra coisa?». **Mediram-se os dois, e os dois estavam a dizer
+meia verdade.** São duas descobertas independentes.
+
+## 45.1 · O QUÊ — a cadeia não está cortada
+
+Numa única corrida real, sem rede e sem banco
+(`orq.correr(pedido, so_a_porta=True)`), oito estações ficaram provadas por
+execução controlada **no mesmo item e na mesma corrida**:
+
+```
+P0 pedido · P1 plano · P2 executor escolhido · P4 saida encontrada
+P5 ingresso · P6 RAW preservado · P7 item na porta · P8 porta decidiu
+```
+
+`P9` e `P10` não foram alcançados porque **zero itens** tiveram `SIM`.
+`P3` (executor realmente invocado) ficou `NOT_APPLICABLE`, e isso é um facto
+sobre a casa e não um buraco da prova:
+
+```
+NENHUM EXECUTOR DE RECEITA CORRE OFFLINE.
+Todos pedem rede ou sao pagos.
+```
+
+**PORQUÊ:** `MODULE EXISTS != EDGE EXISTS != FLOW EXISTS` foi aplicada uma vez
+só, e ao módulo. Ninguém tinha corrido o fluxo. O censo classificou a aresta
+pelo mapa; o mapa mede declaração, não execução.
+
+**PROVA:** `provas/o_corte_de_cr1.py`, read-only e reprodutível.
+
+**CONSEQUÊNCIA:** a redacção anterior de CR-1 («a cadeia canónica está cortada
+em duas juntas») está **REFUTADA** e foi reescrita em
+`docs/operacao/CENSO-CARDS-SENSORES-V1.md`.
+
+## 45.2 · O QUÊ — o que chega à porta é o índice da colheita
+
+253 itens reais atravessaram a cadeia. A porta julgou todos:
+
+```
+NAO_SEI        182    «o item veio sem texto nenhum»
+NAO_SE_APLICA   71    «e ficha de conta ou de catalogo»
+SIM              0
+```
+
+O `larga_em` das receitas aponta para o **índice**, não para a colheita:
+
+```
+_MANIFESTO.json     o indice dos documentos descarregados
+CORPUS-*.json       o catalogo de pessoas
+CONTAS-V1.json      a ficha de ONDE se pode coletar
+```
+
+E `a_colheita()` tem uma heurística genérica — «uma lista, ou o primeiro campo
+do ficheiro que seja lista de fichas» — que transforma **linhas de um índice**
+em pseudo-itens.
+
+```
+O INDICE DE UMA COLHEITA NAO E A COLHEITA.
+E UM RECIBO — E UM RECIBO NAO SE ADMITE, LE-SE.
+```
+
+`data/raw/IT-ROTULOS/` contém **só** `_MANIFESTO.json`: os 163 PDF que ele
+indexa não estão nesta árvore. Duas das cinco receitas apontam `larga_em` para
+pastas que não existem.
+
+**A ADMISSÃO NÃO É O PROBLEMA.** Ela faz exactamente o seu trabalho, e com o
+vocabulário certo para cada caso. Quem quiser `ENTROU > 0` a mexer na porta
+está a atacar a peça sã.
+
+**CONSEQUÊNCIA:** fica por escrever o contrato do que um executor pode largar.
+Isso é **lei nova**, e por isso não foi corrigido nesta missão.
+
+## 45.3 · O QUÊ — a medida de `ENTROU` não conseguia reportar sucesso
+
+Segunda descoberta, independente da primeira:
+
+```
+GAP        = None if consumidores else "READY_SEM_CONSUMIDOR"
+atravessou = bool(DESTINO_EXISTE) and bool(CONSUMIDORES)
+```
+
+Red team com o medidor **real**, quatro mundos montados:
+
+| mundo montado | GAP que saía | ENTROU |
+|---|---|---|
+| nada produzido, 0 consumidores | `READY_SEM_CONSUMIDOR` | 0 |
+| **READY PRODUZIDO, 0 consumidores** (o ALVO) | `READY_SEM_CONSUMIDOR` | 0 |
+| **nada produzido, 1 consumidor falso** | `None` («são») | 0 |
+| READY produzido + consumidor | `None` | >0 |
+
+Duas leituras erradas numa linha só. O **alvo** da arquitetura saía com o
+diagnóstico do **defeito**, e um consumidor sem produção nenhuma **limpava** o
+gap.
+
+**PORQUÊ:** a secção 24 declara `READY CONSUMER = 0` como estado desejado. Com
+o `and`, `ENTROU` só subia acima de zero no dia em que alguém violasse a
+fronteira.
+
+```
+UMA MEDIDA QUE NAO CONSEGUE REPORTAR SUCESSO QUANDO O SISTEMA ESTA
+CORRECTO ESTA PARTIDA, INDEPENDENTEMENTE DO SISTEMA.
+```
+
+O detalhe mais desconfortável: o docstring da própria prova já dizia
+«DECLARADO != IMPLEMENTADO != PRODUZIDO != CONSUMIDO — são quatro perguntas, e
+achatá-las é como se perdeu a conta». O printout respeitava isso. O JSON
+exportado não.
+
+```
+A PROVA DIZIA A LEI QUE O SEU PROPRIO JSON QUEBRAVA.
+```
+
+**PROVA / CONSEQUÊNCIA:** corrigido. `o_estado_da_fronteira(produzido,
+consumidores)` é agora função pura com dois eixos e quatro respostas:
+`READY_NUNCA_PRODUZIDO` · `None` (o alvo) · `CONSUMIDOR_ANTES_DA_INTELIGENCIA`.
+`ENTROU` lê `READY_PRODUZIDO`. Teste escrito a falhar primeiro (7 falhas), 13
+travas depois, 3 mutações apanhadas. Nenhum runtime da Collection foi tocado.
+
+```
+ENTROU = 0 antes.   ENTROU = 0 depois.
+```
+
+E esse é o ponto. O número não se mexeu; o que ele **quer dizer** mudou de
+«ninguém lê» para «nunca foi produzido». O primeiro não era accionável e
+culpava a peça errada. O segundo é a verdade.
+
+## 45.4 · A LIÇÃO QUE VALE PARA ALÉM DESTE CASO
+
+```
+UMA MEDIDA QUE SO PODE FICAR VERDE QUANDO A ARQUITETURA ESTIVER
+ERRADA NAO ESTA A MEDIR A ARQUITETURA: ESTA A MEDIR OUTRA COISA.
+```
+
+Antes de acreditar num zero, montar o mundo em que ele deveria ser diferente e
+confirmar que a medida o percebe. Se ela não percebe, o zero não é do sistema:
+é do medidor. Foi isso que separou `READY_SEM_CONSUMIDOR` de
+`READY_NUNCA_PRODUZIDO`, e as duas leituras mandavam a casa para lados opostos.
+
+## 45.5 · O QUE CONTINUA NÃO SEI
+
+- se alguma rota que **precisa de rede** se comporta de outra maneira: essas
+  não correram, e não podiam correr;
+- a hipótese `COL-027` («43 derivados sem `FACT_TIME`») — **não se confirma
+  nesta rota** (zero das 253 decisões fala de tempo), mas o corpus dos 43
+  derivados é outro e continua por replayar;
+- `RUN -> EXECUTOR` continua impossível no ledger (`POR_EXECUTOR =
+  NOT_INSTRUMENTED`). A atribuição perde-se em `coleta/ingresso.py`, onde o
+  recibo já traz `ACTOR` e o campo de destino `EXECUTOR_ID` já existe em
+  `leis/artefato.py` — e as duas pontas nunca se tocam. É dívida separada de
+  CR-1, e fechar uma não fecha a outra.
+
+---
