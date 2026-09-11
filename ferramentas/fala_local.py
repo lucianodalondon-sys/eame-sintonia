@@ -364,12 +364,30 @@ def _caminho_das_libs():
         sys.path.insert(0, LIBS)
     if _DLLS_REGISTADAS or not hasattr(os, 'add_dll_directory'):
         return                                    # so existe no Windows
+    # ⚠️ `add_dll_directory` SOZINHO NAO CHEGOU, e isso foi medido.
+    # Com ele registado, a inferencia continuou a cair no mesmo
+    # `cublas64_12.dll is not found or cannot be loaded`. Ele so vale para quem
+    # carrega com `LoadLibraryEx` e as flags de procura novas; a extensao nativa
+    # do CTranslate2 pede a DLL por um caminho que ainda passa pelo PATH.
+    #
+    #     REGISTAR A PASTA E DIZE-LO A QUEM USA A API NOVA.
+    #     QUEM USA A ANTIGA CONTINUA A LER O PATH.
+    #
+    # Entao faz-se as duas coisas. O PATH alterado aqui e o do PROCESSO: morre
+    # com ele, e nao toca no PATH da maquina nem no do utilizador.
+    novas = []
     for d in _pastas_de_dll():
         try:
             os.add_dll_directory(d)
-            _DLLS_REGISTADAS.append(d)
         except OSError:                           # noqa: PERF203
             continue
+        novas.append(d)
+    if novas:
+        atual = os.environ.get('PATH') or ''
+        faltam = [d for d in novas if d not in atual.split(os.pathsep)]
+        if faltam:
+            os.environ['PATH'] = os.pathsep.join(faltam + ([atual] if atual else []))
+        _DLLS_REGISTADAS.extend(novas)
 
 
 def disponivel():
