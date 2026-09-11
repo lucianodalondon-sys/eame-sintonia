@@ -599,6 +599,7 @@
       "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
       "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
       "data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json",
+      "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
       "data/samples/VERIFICACAO-ADVERSARIAL-PORTOES.json",
       "data/samples/X-001-completo-mildiu-vs-clima.json",
       "data/samples/X-001-nuts2-heat-vs-wheat.json",
@@ -700,6 +701,7 @@
       "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
       "docs/operacao/SOURCE-DOCUMENT-DONO-STORE-CONTRATO.md",
       "docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md",
+      "docs/operacao/T3-REVIEW-PACKET-V1.md",
       "docs/operacao/TOPOLOGIA-DA-COLETA.md",
       "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
       "docs/operacao/TRAVESSIA-GENERICA-DA-UNIDADE.md",
@@ -1167,6 +1169,7 @@
       "provas/o_forward_conta_se.py",
       "provas/o_mapa_nao_mente.py",
       "provas/objeto_e_observacao_no_postgres.py",
+      "provas/pacote_de_revisao_t3.py",
       "provas/paridade_da_lingua.py",
       "provas/preflight_022_live.sh",
       "provas/preservar_coleta_no_postgres.py",
@@ -1464,6 +1467,7 @@
       "tests/test_observabilidade.py",
       "tests/test_observabilidade_estrada.py",
       "tests/test_operacao.py",
+      "tests/test_pacote_de_revisao_t3.py",
       "tests/test_pipeline.py",
       "tests/test_politica_da_coleta.py",
       "tests/test_porta_de_producao.py",
@@ -1880,10 +1884,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/admission-labeled-corpus-census-v1",
-    "HEAD": "4eb2276d9b3ea6b48aaebfffe76ed62857812f81",
-    "GENERATED_AT": "2026-09-11T13:15:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5f331c44a2a45faa41e5338a01da61d154d35bdec96907ac75e67daa25d67a44"
+    "BRANCH": "claude/t3-human-review-pack-v1",
+    "HEAD": "dfa159db6da775d097c4ed0275220c8e0b854022",
+    "GENERATED_AT": "2026-09-11T13:46:42+00:00",
+    "SOURCE_TREE_FINGERPRINT": "51ec2964806d0b0590f433ce29a6e02f85d24678e04dcfbdc155bbd36889629e"
   },
   "FAMILIES": [
     {
@@ -11897,6 +11901,7 @@
         "provas/derived_artifact_no_postgres.py",
         "provas/o_corte_de_cr1.py",
         "provas/objeto_e_observacao_no_postgres.py",
+        "provas/pacote_de_revisao_t3.py",
         "provas/paridade_da_lingua.py",
         "provas/preflight_022_live.sh",
         "provas/preservar_coleta_no_postgres.py",
@@ -11908,7 +11913,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 18,
+      "file_count": 19,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15280,6 +15285,7 @@
         "tests/test_observabilidade.py",
         "tests/test_observabilidade_estrada.py",
         "tests/test_operacao.py",
+        "tests/test_pacote_de_revisao_t3.py",
         "tests/test_pipeline.py",
         "tests/test_politica_da_coleta.py",
         "tests/test_porta_de_producao.py",
@@ -15316,7 +15322,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 86,
+      "file_count": 87,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -16889,7 +16895,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/admission-labeled-corpus-census-v1"
+        "branch claude/t3-human-review-pack-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17286,12 +17292,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/censo_corpus_rotulado_admission.py",
           "line": 116,
           "snippet": "livro = _json(\"data/samples/LIVRO-DE-DECISOES.json\")[\"DECISOES\"]"
+        },
+        {
+          "file": "provas/pacote_de_revisao_t3.py",
+          "line": 223,
+          "snippet": "_LIVRO = censo._json(\"data/samples/LIVRO-DE-DECISOES.json\")[\"DECISOES\"]"
         }
       ],
       "categoria": "PROOF"
@@ -17411,7 +17422,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -17442,6 +17453,11 @@
           "file": "tests/test_m2_rota_forward.py",
           "line": 18,
           "snippet": "import admissao                       # noqa: E402"
+        },
+        {
+          "file": "tests/test_pacote_de_revisao_t3.py",
+          "line": 169,
+          "snippet": "import admissao as adm"
         },
         {
           "file": "tests/test_red_team_estrada.py",
@@ -27222,7 +27238,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -27258,6 +27274,11 @@
           "file": "tests/test_o9_caminho_instrumentado.py",
           "line": 662,
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
+        },
+        {
+          "file": "tests/test_pacote_de_revisao_t3.py",
+          "line": 27,
+          "snippet": "\"pacote_t3\", os.path.join(RAIZ, \"provas\", \"pacote_de_revisao_t3.py\"))"
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
@@ -31195,7 +31216,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 728,
+  "UNCLAIMED_FILES_COUNT": 730,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31367,8 +31388,8 @@
     "edges_proven": 638,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1433,
-    "files_covered": 705,
+    "files_tracked": 1437,
+    "files_covered": 707,
     "files_code_unclaimed": 0
   }
 }

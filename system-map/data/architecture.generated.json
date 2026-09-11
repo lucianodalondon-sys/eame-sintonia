@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/admission-labeled-corpus-census-v1",
-    "HEAD": "4eb2276d9b3ea6b48aaebfffe76ed62857812f81",
-    "GENERATED_AT": "2026-09-11T13:15:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5f331c44a2a45faa41e5338a01da61d154d35bdec96907ac75e67daa25d67a44"
+    "BRANCH": "claude/t3-human-review-pack-v1",
+    "HEAD": "dfa159db6da775d097c4ed0275220c8e0b854022",
+    "GENERATED_AT": "2026-09-11T13:46:42+00:00",
+    "SOURCE_TREE_FINGERPRINT": "51ec2964806d0b0590f433ce29a6e02f85d24678e04dcfbdc155bbd36889629e"
   },
   "FILES": [
     {
@@ -4048,6 +4048,13 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
+      "sha": "6a1a10922747046fb9e6c3d20f49b40c4cf7f153",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/VERIFICACAO-ADVERSARIAL-PORTOES.json",
       "sha": "22df917f2a2e5379e4c45e38c9802661f06f61de",
       "ext": ".json",
@@ -4736,6 +4743,13 @@
     {
       "path": "docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md",
       "sha": "f3421f45cff6357a4c7f7bd63381acb866bba063",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/T3-REVIEW-PACKET-V1.md",
+      "sha": "d063f36ece135473c48d87b4a279b3f9d92f2bcf",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7821,6 +7835,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/pacote_de_revisao_t3.py",
+      "sha": "8ae88009a8a4117bd546e7ef6f47ddecfa43af7d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/paridade_da_lingua.py",
       "sha": "b7981bd0bed0577312a0b8d031e60cb25525e2f4",
       "ext": ".py",
@@ -9110,7 +9131,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "7e7bc1ac382ed8eef77928c028e079d10a706628",
+      "sha": "ff999261f87b261af64201361f3446bb41d42a97",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9783,6 +9804,13 @@
     {
       "path": "tests/test_operacao.py",
       "sha": "5ea75fb6c76062f21484df7da28073be23fc69a6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_pacote_de_revisao_t3.py",
+      "sha": "def7f14789a6ae1b0f600bd4ee0ed3d4d97e659b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26608,6 +26636,61 @@
       }
     },
     {
+      "from_file": "provas/pacote_de_revisao_t3.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/pacote_de_revisao_t3.py",
+        "line": 53,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/pacote_de_revisao_t3.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/pacote_de_revisao_t3.py",
+        "line": 223,
+        "snippet": "_LIVRO = censo._json(\"data/samples/LIVRO-DE-DECISOES.json\")[\"DECISOES\"]"
+      }
+    },
+    {
+      "from_file": "provas/pacote_de_revisao_t3.py",
+      "to_file": "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/pacote_de_revisao_t3.py",
+        "line": 63,
+        "snippet": "PENDENTE = \"data/samples/T3-HUMAN-REVIEW-PENDING-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/pacote_de_revisao_t3.py",
+      "to_file": "docs/operacao/T3-REVIEW-PACKET-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/pacote_de_revisao_t3.py",
+        "line": 62,
+        "snippet": "PACOTE = \"docs/operacao/T3-REVIEW-PACKET-V1.md\""
+      }
+    },
+    {
+      "from_file": "provas/pacote_de_revisao_t3.py",
+      "to_file": "provas/censo_corpus_rotulado_admission.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/pacote_de_revisao_t3.py",
+        "line": 58,
+        "snippet": "\"_censo\", os.path.join(RAIZ, \"provas\", \"censo_corpus_rotulado_admission.py\"))"
+      }
+    },
+    {
       "from_file": "provas/paridade_da_lingua.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -33450,6 +33533,39 @@
       }
     },
     {
+      "from_file": "tests/test_pacote_de_revisao_t3.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_pacote_de_revisao_t3.py",
+        "line": 24,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_pacote_de_revisao_t3.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_pacote_de_revisao_t3.py",
+        "line": 169,
+        "snippet": "import admissao as adm"
+      }
+    },
+    {
+      "from_file": "tests/test_pacote_de_revisao_t3.py",
+      "to_file": "provas/pacote_de_revisao_t3.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_pacote_de_revisao_t3.py",
+        "line": 27,
+        "snippet": "\"pacote_t3\", os.path.join(RAIZ, \"provas\", \"pacote_de_revisao_t3.py\"))"
+      }
+    },
+    {
       "from_file": "tests/test_pipeline.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -36210,10 +36326,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1433,
-    "files_readable": 543,
-    "files_code_dir": 590,
-    "file_edges": 2336,
+    "files_tracked": 1437,
+    "files_readable": 545,
+    "files_code_dir": 592,
+    "file_edges": 2344,
     "escritas_em_pasta": 69,
     "declared_missing_here": 0
   },
