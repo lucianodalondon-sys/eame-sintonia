@@ -381,13 +381,74 @@ def classificar_comentario(texto):
     return 'OPINION', 'texto com conteúdo, sem marcador de campo nem de técnica'
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# O LUGAR TEM DE ESTAR ESCRITO — E `_tem` NUNCA SOUBE EXIGIR ISSO
+# ══════════════════════════════════════════════════════════════════════════
+# `_tem`/`_raizes`/`_perto` são a peneira de ASSUNTO: ela trunca a palavra de
+# propósito, para que `diserbo` apanhe `diserbato` e `diserbante`. Para assunto
+# isso é virtude — a mesma ideia sobrevive à conjugação.
+#
+# Para NOME DE LUGAR é ruína, e a ruína foi medida neste corpus:
+#
+#     _raizes('la rioja')  ->  ['rio']     «la» é palavra de função e sai;
+#                                          «rioja» tem 5 letras e perde 2.
+#
+# e `_perto` procura a raiz DENTRO de qualquer palavra. O resultado, contado nos
+# 4.759 textos do acervo:
+#
+#     la rioja  <- septoriose (48x), fusariosi (17x), periodo, fitosanitario
+#     toledo    <- barbabietole, bietole            a beterraba virou província
+#     france    <- francesco, francesca             o nome da pessoa virou país
+#     beauce    <- beaucoup (43x)                   «muito» virou departamento
+#     verona    <- davvero, vero                    «deveras» virou cidade
+#     cordoba   <- ricordo, accordo                 «recordo» virou Andaluzia
+#     italia    <- italiana, italiano, digitale     e IDIOMA != LUGAR DO FATO
+#
+# Não é o caso de um lugar infeliz: 37 dos 59 lugares declarados casavam assim.
+#
+#     PENEIRA DE ASSUNTO TRUNCA PORQUE A IDEIA SOBREVIVE A CONJUGACAO.
+#     NOME PROPRIO NAO SOBREVIVE A TRUNCAGEM — ELE VIRA OUTRO NOME.
+#
+# Por isso a geografia ganha matcher PRÓPRIO, e ele não trunca nada. A regra de
+# fronteira é COPIADA, não inventada: vem de `leis/fato_local.py::mencoes`, que
+# já a escreveu com a razão ao lado — «substring acidental foi um dos falsos
+# positivos medidos no Brasil». Uma casa, uma regra.
+#
+# `_raizes`, `_perto` e `_tem` continuam INTACTOS e a servir o assunto. O que
+# muda é quem a geografia chama.
+_FRONTEIRA = r'(?<![0-9a-z])%s(?![0-9a-z])'
+
+
+def _nomeia_lugar(texto, nome):
+    """O texto ESCREVE este lugar? → True/False. Sem raiz, sem substring.
+
+    Nome de uma palavra casa como token inteiro. Nome de várias exige a frase
+    declarada, com os tokens na ordem — só o espaço entre eles é elástico, para
+    que uma quebra de linha não apague `la\nrioja`.
+
+        NORMALIZAR != STEMMING.
+
+    Acento e caixa são grafia da mesma palavra e caem na normalização. Cortar a
+    palavra para aumentar recall é outra coisa: é aceitar outra palavra.
+    """
+    partes = [re.escape(p) for p in _n(nome).split()]
+    if not partes:
+        return False
+    return re.search(_FRONTEIRA % r'\s+'.join(partes), texto) is not None
+
+
 def lugar_do_fato(texto):
-    """Só quando o texto NOMEIA. Idioma não é lugar."""
+    """Só quando o texto NOMEIA. Idioma não é lugar.
+
+    A ordem de desempate é a de sempre — primeiro país da tabela, primeiro nome
+    da lista — e a C7 não a mexeu de propósito: corrigir o casamento e mudar a
+    precedência na mesma missão faria dois efeitos num delta só.
+    """
     t = _n(texto)
     for pais, nomes in LUGARES.items():
-        achou = _tem(t, nomes)
-        if achou:
-            return pais, achou
+        for nome in nomes:
+            if _nomeia_lugar(t, nome):
+                return pais, nome
     return NAO_SEI, None
 
 
