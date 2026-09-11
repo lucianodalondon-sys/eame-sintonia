@@ -16,6 +16,7 @@
 # E uma que custa QUOTA, e é a prova da cadeia inteira:
 #
 #     youtube-oficial   as quatro capacidades pelo EXECUTOR, não pela API direta
+#     cutover           os três callers antigos atravessando o SCRAP
 #
 # A fase `youtube` chama `youtube_oficial` direto e mede a API. A
 # `youtube-oficial` entra pelo `scrap_executor`, atravessa o roteador com os
@@ -64,7 +65,8 @@ on:
         default: censo
         type: choice
         options: [censo, portao, video, gap, piloto, ledger, sessao, politica, guarda,
-                  youtube, youtube-oficial, youtube-piloto, youtube-piloto-oneshot]
+                  youtube, youtube-oficial, cutover, youtube-piloto,
+                  youtube-piloto-oneshot]
       url:
         description: 'só para a fase `portao`: a URL a testar'
         required: false

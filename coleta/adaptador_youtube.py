@@ -23,6 +23,7 @@ reescritas: foram MUDADAS DE SITIO, para que o roteador deixe de conhecer o
 nome das plataformas. O corpo e o mesmo, linha por linha.
 """
 import os
+import re
 import sys
 import urllib.error
 
@@ -30,6 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
 import _gavetas  # noqa: E402,F401
 import scrap_http as http     # noqa: E402
+import scrap_fornecedores as forn  # noqa: E402
 import scrap_registo as reg   # noqa: E402
 
 NOME = 'adaptador_youtube'
@@ -151,6 +153,110 @@ def youtube_comentarios(*, video_id, run_id, country_scope, limite_threads=100,
 
 
 
+
+# ══════════════════════════════════════════════════════════════════════════
+# RESOLVER A CONTA — o degrau que faltava para a comunicacao publica
+# ══════════════════════════════════════════════════════════════════════════
+# O lote congelado guarda ENDERECO de conta, e `playlistItems.list` precisa de
+# `channelId`. Enquanto a rota era paga, o ator engolia a URL e resolvia por
+# dentro. A rota oficial nao engole: ela pergunta pelo id.
+#
+# Medido nas sete contas de YouTube do lote, e sao QUATRO formas de endereco:
+#
+#     /@handle          resolve por `channels.list?forHandle`     1 unidade
+#     /user/NOME        resolve por `channels.list?forUsername`   1 unidade
+#     /channel/UC...    o id ESTA na URL                          0 unidades
+#     /c/NOME e /NOME   NAO TEM ROTA OFICIAL GRATUITA
+#
+# A quarta forma e a que importa declarar bem. O caminho «facil» seria mandar o
+# nome para `search.list` e ficar com o primeiro resultado. Duas coisas erradas
+# nisso, e a segunda e pior que a primeira:
+#
+#     1. custa uma das 100 buscas do dia para resolver UM canal;
+#     2. o primeiro resultado da busca NAO E o canal — e o mais bem ranqueado
+#        para aquele texto. Aceita-lo seria FABRICAR IDENTIDADE.
+#
+#     UM PALPITE COM ID VALIDO E PIOR QUE UM ESTADO HONESTO: o palpite entra no
+#     acervo com a cara de facto e ninguem volta a perguntar.
+#
+# Por isso a quarta forma sai `CHANNEL_IDENTITY_UNRESOLVED`, e a capacidade
+# inteira esta declarada PARTIAL — nao PROVEN. Ela resolve tres das quatro.
+URL_CANAL = re.compile(
+    r'youtube\.com/(?:(?P<tipo>channel|user|c)/)?(?P<nome>@?[^/?#]+)', re.I)
+
+RESOLVIDO = 'OK'
+NAO_RESOLVIDO = 'CHANNEL_IDENTITY_UNRESOLVED'
+
+
+@_traduzido
+def youtube_resolver_canal(*, account_url, run_id, country_scope='IT',
+                           sessao=None, cache=None, **_):
+    """Endereco de conta -> (objetos, trace). Um objeto, ou nenhum com estado.
+
+    NUNCA levanta por endereco que nao resolve: nao resolver e um facto sobre a
+    forma do endereco, nao uma falha da rota.
+    """
+    import youtube_oficial as yt
+    m = URL_CANAL.search(account_url or '')
+    if not m:
+        return [], {'STATE': NAO_RESOLVIDO, 'WHY': 'nao parece um endereco de canal',
+                    'ACCOUNT_URL': account_url}
+    tipo = (m.group('tipo') or '').lower()
+    nome = m.group('nome')
+    s = sessao or yt.Sessao()
+
+    if tipo == 'channel' and nome.startswith('UC'):
+        # O id esta na propria URL. Zero unidades, e zero duvida.
+        return [{'CHANNEL_ID': nome, 'ACCOUNT_URL': account_url,
+                 'RESOLVED_BY': 'URL', 'QUOTA_UNITS': 0}], {'STATE': RESOLVIDO}
+
+    if nome.startswith('@') or tipo == '':
+        # Um nome nu depois do dominio pode ser handle sem o arroba. Tentar como
+        # handle custa 1 unidade e NAO inventa nada: ou o handle existe, ou nao.
+        try:
+            cid, _pl, proc = yt.resolver_handle(handle=nome, sessao=s, cache=cache)
+            return [{'CHANNEL_ID': cid, 'ACCOUNT_URL': account_url,
+                     'RESOLVED_BY': 'forHandle', 'QUOTA_UNITS': 1,
+                     'CHANNEL_TITLE': proc.get('CHANNEL_TITLE')}], {'STATE': RESOLVIDO}
+        except yt.CanalNaoEncontrado:
+            return [], {'STATE': NAO_RESOLVIDO,
+                        'WHY': 'nao e handle; e /c/ ou nome antigo sem rota oficial',
+                        'ACCOUNT_URL': account_url}
+
+    if tipo == 'user':
+        d = s.chamar('channels.list', {'part': 'contentDetails,snippet',
+                                       'forUsername': nome})
+        itens = d.get('items') or []
+        if itens and itens[0].get('id'):
+            return [{'CHANNEL_ID': itens[0]['id'], 'ACCOUNT_URL': account_url,
+                     'RESOLVED_BY': 'forUsername', 'QUOTA_UNITS': 1,
+                     'CHANNEL_TITLE': (itens[0].get('snippet') or {}).get('title')}], {
+                        'STATE': RESOLVIDO}
+        return [], {'STATE': NAO_RESOLVIDO,
+                    'WHY': 'forUsername nao devolveu nada — nome legado aposentado',
+                    'ACCOUNT_URL': account_url}
+
+    # `/c/NOME`: nao ha rota oficial gratuita, e a busca nao e resolucao.
+    return [], {'STATE': NAO_RESOLVIDO,
+                'WHY': 'endereco /c/ nao tem resolvedor oficial; search.list daria '
+                       'ranking, nao identidade',
+                'ACCOUNT_URL': account_url}
+
+
+def resolver_canal(*, account_url, run_id, country_scope='IT', **kw):
+    """O papel `executa`: devolve (objetos, trace) ja no vocabulario do SCRAP."""
+    objetos, estado = youtube_resolver_canal(
+        account_url=account_url, run_id=run_id, country_scope=country_scope, **kw)
+    p = forn.Percurso('youtube.channel.resolve', pedido=forn.API_OFICIAL)
+    p.degrau(forn.API_OFICIAL, estado.get('STATE'),
+             estado.get('WHY') or (objetos[0].get('RESOLVED_BY') if objetos else None))
+    trace = p.selar(resultado=estado.get('STATE'))
+    trace['ACCOUNT_URL'] = account_url
+    trace['QUOTA_UNITS'] = sum(o.get('QUOTA_UNITS', 0) for o in objetos)
+    trace['COST_USD'] = 0.0
+    return objetos, trace
+
+
 # ══════════════════════════════════════════════════════════════════════════
 # A SONDA — de graca, e sem nunca tocar no valor
 # ══════════════════════════════════════════════════════════════════════════
@@ -181,6 +287,9 @@ def pronto_para_api(**_):
 # ══════════════════════════════════════════════════════════════════════════
 # O QUE ESTE ADAPTADOR DECLARA
 # ══════════════════════════════════════════════════════════════════════════
+reg.registar(PLATAFORMA, 'youtube.channel.resolve', adaptador=NOME,
+             pronto=pronto_para_api, executa=resolver_canal,
+             nota='tres das quatro formas de endereco; /c/ nao tem rota oficial')
 reg.registar(PLATAFORMA, 'youtube.search', adaptador=NOME,
              pronto=pronto_para_api, rota=youtube_buscar,
              nota='API oficial search.list; `ytsearch` do yt-dlp esta ROUTE_NOT_ALLOWED na matriz')

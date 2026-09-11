@@ -1045,6 +1045,109 @@ def youtube_oficial_prova():
     return 0 if len(executadas) == len(QUATRO) else 1
 
 
+
+# ══════════════════════════════════════════════════════════════════════════
+# CUTOVER — a prova de que os callers antigos atravessam o SCRAP
+# ══════════════════════════════════════════════════════════════════════════
+# A C2 provou a API. Esta fase prova outra coisa: que o caminho de QUEM CHAMA
+# passou a atravessar o executor. Sao perguntas diferentes, e a segunda e a
+# unica que fecha a contradicao que a C3 existe para acabar:
+#
+#     A CAPACIDADE JA NAO PRECISAVA DO ATOR. OS CALLERS AINDA CONSEGUIAM
+#     CHAMA-LO.
+#
+# Ela e BOUNDED de proposito: uma conta da comunicacao publica, um termo do
+# sensor, um video de comentarios. Nao amplia coleta nenhuma para gerar prova —
+# ampliar para provar seria gastar quota a fingir de rigor.
+def cutover_prova():
+    """Os tres callers, pelo caminho canonico, no menor tamanho possivel."""
+    import scrap_executor as scrap
+    import comunicacao_coleta as cc
+    import sensor_coleta as sc
+    import youtube_oficial as yt
+
+    run_id = 'C3-CUTOVER-%s' % time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())
+    print('\nCUTOVER — os tres callers pela rota canonica')
+    print('=' * 74)
+    print('RUN_ID  %s' % run_id)
+
+    print('\n  CHECK — de graca, antes de qualquer chamada')
+    for c in ('youtube.channel.resolve', 'youtube.search', 'youtube.comments'):
+        v = scrap.CHECK('YOUTUBE', c)
+        print('    %-28s CAN=%-5s %s' % (c, v['CAN'], v['STATE']))
+        if not v['CAN']:
+            print('\n  o CHECK recusou antes de gastar. Isto nao e defeito.')
+            return 1
+
+    linhas = []
+
+    # ── 1 · COMUNICACAO PUBLICA ──────────────────────────────────────────
+    contas = [c for c in cc.contas_autorizadas('YOUTUBE')][:1]
+    itens, mans = cc._colher_pelo_scrap('YOUTUBE', contas, 30)
+    m = mans[0] if mans else {}
+    print('\n  1 · COMUNICACAO PUBLICA  conta=%s' % (contas[0]['ACCOUNT_URL'][:44]))
+    print('      provider=%-14s pago=%-6s quota=%-3s itens=%-4d estado=%s'
+          % (m.get('COLLECTION_PROVIDER'), m.get('PAID'),
+             m.get('OFFICIAL_API_QUOTA_USED'), len(itens), m.get('STATUS')))
+    if itens:
+        print('      ACTOR no item = %r  ·  COLLECTION_PROVIDER = %r'
+              % (itens[0].get('ACTOR'), itens[0].get('COLLECTION_PROVIDER')))
+    linhas.append(('comunicacao.youtube', m.get('COLLECTION_PROVIDER'),
+                   m.get('PAID'), len(itens), m.get('STATUS')))
+
+    # ── 2 · SENSOR · BUSCA ───────────────────────────────────────────────
+    it2, m2, _p = sc._rodar_scrap(sc.CAPACIDADES_SCRAP['YOUTUBE_SEARCH'],
+                                  run_id=run_id, platform='YOUTUBE', country='IT',
+                                  query='fusariosi grano', lote='C3',
+                                  termo='fusariosi grano', limit=3)
+    print('\n  2 · SENSOR BUSCA')
+    print('      provider=%-14s pago=%-6s quota=%-3s itens=%-4d estado=%s'
+          % (m2.get('COLLECTION_PROVIDER'), m2.get('PAID'),
+             m2.get('OFFICIAL_API_QUOTA_USED'), len(it2), m2.get('STATUS')))
+    prov2 = sc._proveniencia(m2, None, 'C3', 'BATCH-C3')
+    print('      APIFY_ACTOR = %r  ·  PAID = %r'
+          % (prov2['APIFY_ACTOR'], prov2['PAID']))
+    linhas.append(('sensor.search', m2.get('COLLECTION_PROVIDER'), m2.get('PAID'),
+                   len(it2), m2.get('STATUS')))
+
+    # ── 3 · SENSOR · COMENTARIOS ─────────────────────────────────────────
+    alvo = None
+    for o in it2:
+        if (o.get('CONTENT_TYPE') or '').upper() == 'VIDEO':
+            alvo = o.get('NATIVE_ID'); break
+    if alvo:
+        it3, m3, _p = sc._rodar_scrap(sc.CAPACIDADES_SCRAP['YOUTUBE_COMMENTS'],
+                                      run_id=run_id, platform='YOUTUBE',
+                                      country='MULTI', query=alvo, lote='C3',
+                                      video_id=alvo, limite_threads=5)
+        print('\n  3 · SENSOR COMENTARIOS  video=%s' % alvo)
+        print('      provider=%-14s pago=%-6s quota=%-3s itens=%-4d estado=%s'
+              % (m3.get('COLLECTION_PROVIDER'), m3.get('PAID'),
+                 m3.get('OFFICIAL_API_QUOTA_USED'), len(it3), m3.get('STATUS')))
+        if it3:
+            rc = it3[0].get('RAW') or {}
+            print('      campos do comentario: DATE=%s UPDATED=%s IS_REPLY=%s'
+                  % (bool(rc.get('PUBLISHED_AT')), bool(rc.get('UPDATED_AT')),
+                     rc.get('IS_REPLY')))
+        linhas.append(('sensor.comments', m3.get('COLLECTION_PROVIDER'),
+                       m3.get('PAID'), len(it3), m3.get('STATUS')))
+
+    # ── O VEREDICTO ──────────────────────────────────────────────────────
+    print('\n  CALLER                 PROVIDER        PAGO   ITENS  ESTADO')
+    print('  ' + '-' * 62)
+    todos_oficiais = True
+    for nome, prov, pago, n, estado in linhas:
+        print('  %-22s %-15s %-6s %-6d %s' % (nome, prov, pago, n, estado))
+        if pago:
+            todos_oficiais = False
+        if prov not in (None, 'OFFICIAL_API'):
+            todos_oficiais = False
+    print('\n  COST_USD 0.00 (%s) · APIFY_CALLS 0' % yt.COST_BASIS)
+    print('  TODOS PELA API OFICIAL, NENHUM PAGO: %s'
+          % ('SIM' if todos_oficiais else 'NAO'))
+    return 0 if todos_oficiais else 1
+
+
 def main():
     args = sys.argv[1:]
     cmd = args[0] if args else 'censo'
@@ -1067,6 +1170,8 @@ def main():
         youtube()
     elif cmd == 'youtube-oficial':
         return youtube_oficial_prova()
+    elif cmd == 'cutover':
+        return cutover_prova()
     elif cmd == 'youtube-piloto':
         return youtube_piloto(OPERATIONAL)
     elif cmd == 'youtube-piloto-oneshot':

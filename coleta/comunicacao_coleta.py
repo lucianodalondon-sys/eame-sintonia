@@ -71,6 +71,10 @@ MISSION = '14-COMUNICACAO-PUBLICA-DO-CONCORRENTE'
 DATASET_OWNER = 'COMPETITOR_PUBLIC_COMMUNICATION_EAME'
 RUNNER = os.environ.get('RUNNER_NAME') or 'NOT_KNOWN'
 NAO_SEI = 'NOT_KNOWN'
+# A casa ja tem esta palavra em `leis/artefato.py`, e ela quer dizer outra
+# coisa: o campo nao se aplica a este objeto. Nao e ignorancia — e ausencia
+# de pergunta.
+NAO_SE_APLICA = 'NAO_SE_APLICA'
 
 JANELA_INICIAL_DIAS = 30
 JANELA_AMPLIADA_DIAS = 90
@@ -80,11 +84,36 @@ CORPUS_BAIXO = 5               # itens por conta abaixo disto autorizam ampliar 
 # troca esta marca por evidência. O YouTube reusa o ator que a Espanha já rodou com
 # sucesso; os outros dois são candidatos e estão declarados como tal.
 ATORES = {
-    'YOUTUBE': ('streamers~youtube-scraper', 'JA_RODOU_NESTA_CASA'),
+    # O YouTube SAIU daqui na C3. Ele agora pede CAPACIDADE ao SINTONIA SCRAP, e
+    # quem escolhe adaptador e fornecedor e o SCRAP — nao este ficheiro.
     'INSTAGRAM': ('apify~instagram-scraper', 'NAO_VERIFICADO'),
     'FACEBOOK': ('apify~facebook-posts-scraper', 'NAO_VERIFICADO'),
     'LINKEDIN': ('harvestapi~linkedin-post-search', 'JA_RODOU_NESTA_CASA'),
 }
+
+# ── A TABELA QUE SUBSTITUI O ATOR, E POR QUE ELA E DE CAPACIDADE ─────────────
+# Uma plataforma que esta aqui NAO passa pela porta paga. Ela pede uma
+# capacidade ao executor do SCRAP, e o SCRAP resolve a rota.
+#
+#     QUEM PEDE DIZ O QUE QUER. NUNCA DIZ COM QUE FERRAMENTA.
+#
+# Acrescentar o LinkedIn amanha e acrescentar uma LINHA aqui — nao e escrever um
+# `if plataforma ==` neste ficheiro. Este ficheiro nao pode virar um segundo
+# roteador, e a diferenca entre as duas coisas e exatamente esta tabela.
+CAPACIDADES_SCRAP = {
+    'YOUTUBE': {'RESOLVER': 'youtube.channel.resolve',
+                'COLHER': 'youtube.channel.discovery'},
+}
+
+
+def _PLATAFORMAS():
+    """As plataformas que esta fase atende, venham de que rota vierem.
+
+    Duas tabelas, uma pergunta. Enquanto so havia `ATORES`, ela respondia
+    sozinha; depois da C3 ha plataformas sem ator nenhum, e continuar a
+    perguntar so a `ATORES` faria o YouTube desaparecer do proprio CLI.
+    """
+    return set(ATORES) | set(CAPACIDADES_SCRAP)
 
 
 def contas_autorizadas(plataforma=None):
@@ -102,10 +131,20 @@ def contas_autorizadas(plataforma=None):
 
 
 def _gravar(nome, corpo):
+    """Escreve, e devolve o caminho REAL — nao um caminho decorado.
+
+    Ele devolvia sempre `data/samples/COMPETITOR-PUBLIC-COMM/<nome>`, mesmo
+    quando `SAIDA` apontava para outro sitio. A mensagem dizia uma coisa e o
+    disco fazia outra, e quem lesse o log procuraria o ficheiro onde ele nao
+    estava.
+
+        UM CAMINHO IMPRESSO QUE NAO E O CAMINHO ESCRITO E UMA PISTA FALSA.
+    """
     os.makedirs(SAIDA, exist_ok=True)
-    with open(os.path.join(SAIDA, nome), 'w', encoding='utf-8') as f:
+    destino = os.path.join(SAIDA, nome)
+    with open(destino, 'w', encoding='utf-8') as f:
         json.dump(corpo, f, ensure_ascii=False, indent=1)
-    return 'data/samples/COMPETITOR-PUBLIC-COMM/' + nome
+    return os.path.relpath(destino, ROOT) if destino.startswith(ROOT) else destino
 
 
 def _hoje():
@@ -183,9 +222,16 @@ def entrada(plataforma, conta, dias):
     """A entrada do ator, por plataforma. Uma função, para o contrato ser legível."""
     desde = _desde(dias)
     url = conta['ACCOUNT_URL']
-    if plataforma == 'YOUTUBE':
-        return {'startUrls': [{'url': url}], 'maxResults': 50,
-                'dateFilter': desde, 'sortVideosBy': 'NEWEST'}
+    # O YouTube SAIU daqui na C3, e a ausencia e a prova. Esta funcao monta a
+    # ENTRADA DE UM ATOR; o YouTube deixou de ter ator, entao deixou de ter
+    # entrada. Manter o bloco «por via das duvidas» deixaria codigo morto com
+    # cara de rota viva, e daqui a tres meses alguem o ligaria de volta sem
+    # perceber que a rota paga tinha sido aposentada.
+    #
+    #     CODIGO MORTO COM CARA DE ROTA VIVA E PIOR QUE CODIGO APAGADO.
+    #
+    # Pedir entrada de ator para o YouTube agora levanta, e a mensagem diz
+    # exatamente onde ir buscar a rota certa.
     if plataforma == 'INSTAGRAM':
         return {'directUrls': [url], 'resultsType': 'posts', 'resultsLimit': 50,
                 'onlyPostsNewerThan': desde}
@@ -194,6 +240,11 @@ def entrada(plataforma, conta, dias):
                 'onlyPostsNewerThan': desde}
     if plataforma == 'LINKEDIN':
         return {'companyUrls': [url], 'maxItems': 50, 'postedLimit': '%dd' % dias}
+    if plataforma in CAPACIDADES_SCRAP:
+        raise ValueError(
+            '%s nao tem entrada de ator: ela pede CAPACIDADE ao SINTONIA SCRAP '
+            '(%s). Ver `_colher_pelo_scrap`.'
+            % (plataforma, ', '.join(sorted(CAPACIDADES_SCRAP[plataforma].values()))))
     raise ValueError('plataforma sem contrato de entrada: %s' % plataforma)
 
 
@@ -215,25 +266,30 @@ def normalizar(bruto, conta, plataforma, dias, man=None):
         return NAO_SEI
 
     return {
-        'POST_ID': g('id', 'videoId', 'postId', 'shortCode', 'url'),
+        # Os nomes em MAIUSCULA sao os do envelope do SCRAP; os minusculos,
+        # os do ator pago. Os dois convivem de proposito: a mesma coleta pode
+        # vir de uma rota ou da outra, e o item nao muda de forma por causa
+        # disso. Converter um no outro antes de normalizar seria disfarcar a
+        # origem — e a origem e exatamente o que tem de ficar legivel.
+        'POST_ID': g('NATIVE_ID', 'id', 'videoId', 'postId', 'shortCode', 'url'),
         'ACCOUNT_ID': conta['ACCOUNT_HANDLE'],
         'ACCOUNT_URL': conta['ACCOUNT_URL'],
         'COMPANY': conta['COMPANY'],
         'COUNTRY_SCOPE': conta['COUNTRY'],
         'ACCOUNT_SCOPE': conta['ACCOUNT_SCOPE'],
         'PLATFORM': plataforma,
-        'PUBLISHED_AT': g('date', 'publishedAt', 'timestamp', 'time'),
+        'PUBLISHED_AT': g('PUBLISHED_AT', 'date', 'publishedAt', 'timestamp', 'time'),
         'FIRST_OBSERVED': _hoje().isoformat(),
         'LAST_OBSERVED': _hoje().isoformat(),
-        'URL': g('url', 'postUrl', 'link'),
-        'TITLE': g('title', 'headline'),
+        'URL': g('URL', 'url', 'postUrl', 'link'),
+        'TITLE': g('TITLE', 'title', 'headline'),
         # `TEXT` E A LEGENDA — o que o autor escreveu. Fica dito aqui porque, a
         # partir de 2026-09-10, existe um segundo texto no mesmo item: a FALA.
         # Somar os dois neste campo apagaria qual deles sustentou o que vier
         # depois. A fala entra em `TRANSCRIPT_TEXT`, e nunca aqui.
-        'TEXT': g('text', 'caption', 'description', 'content'),
+        'TEXT': g('TEXT', 'text', 'caption', 'description', 'content'),
         'TEXT_KIND': 'CAPTION',
-        'MEDIA_TYPE': g('type', 'mediaType', 'productType'),
+        'MEDIA_TYPE': g('CONTENT_TYPE', 'type', 'mediaType', 'productType'),
         # ── O ENDERECO DO VIDEO, QUE ATE AQUI SE PERDIA ─────────────────────
         # A normalizacao deitava fora o endereco da midia. Sem ele, um Reel
         # coletado (e pago) nao podia ser ouvido depois sem se coletar outra
@@ -244,7 +300,8 @@ def normalizar(bruto, conta, plataforma, dias, man=None):
         'MEDIA_URL_TEMPORARY': g('videoUrl', 'video_url', 'videoUrlBackup',
                                  'displayUrl', 'mediaUrl'),
         'MEDIA_DURATION_S': g('videoDuration', 'duration', 'durationSeconds'),
-        'IS_VIDEO': ('YES' if str(g('type', 'mediaType', 'productType')).upper()
+        'IS_VIDEO': ('YES' if str(g('CONTENT_TYPE', 'type', 'mediaType',
+                                    'productType')).upper()
                      in ('VIDEO', 'REEL', 'CLIPS', 'IGTV') else NAO_SEI),
         # A FALA AINDA NAO FOI PEDIDA. Nascer NOT_REQUESTED, e nao vazio, e o
         # que impede «ninguem transcreveu» de se ler como «nao havia fala».
@@ -255,16 +312,128 @@ def normalizar(bruto, conta, plataforma, dias, man=None):
         'DATASET_OWNER': DATASET_OWNER,
         # A cadeia CONTENT -> RUN_ID -> MANIFEST -> RAW fecha aqui, no item.
         'COLLECTION_RUN_ID': man.get('RUN_ID', NAO_SEI),
-        'RAW_REFERENCE': man.get('RAW_EVIDENCE_PATH', NAO_SEI),
+        'RAW_REFERENCE': man.get('RAW_EVIDENCE_PATH',
+                                 bruto.get('RAW_REFERENCE', NAO_SEI)),
         'RAW_COMPLETENESS': man.get('RAW_COMPLETENESS', NAO_SEI),
-        'ACTOR': man.get('ACTOR', NAO_SEI),
+        # ── QUEM TROUXE ISTO, E A VERDADE NAO E SEMPRE «UM ATOR» ────────
+        # Enquanto so havia rota paga, `ACTOR` respondia a pergunta inteira.
+        # Agora ha itens que vieram da API oficial, e para esses nao existe
+        # ator nenhum. Escrever `NOT_KNOWN` seria dizer «nao sei qual ator»,
+        # que e falso: sei que nao houve.
+        #
+        #     NAO_SE_APLICA E NAO_SEI SAO RESPOSTAS DIFERENTES.
+        'ACTOR': man.get('ACTOR') or NAO_SE_APLICA,
+        'COLLECTION_PROVIDER': man.get('COLLECTION_PROVIDER', NAO_SEI),
         'MISSION': MISSION,
         'RUNNER_NAME': RUNNER,
     }
 
 
+def _gravar_posts(plataforma, contas, janela, r, mans, ampliou):
+    """O artefato da fase. UM formato so, venha o item de que rota vier.
+
+    Duas funcoes a escrever o mesmo ficheiro divergiriam no terceiro mes, e a
+    divergencia apareceria como «o YouTube tem campos a menos».
+    """
+    pagas = [m for m in mans if m.get('PAID')]
+    quota = sum(m.get('OFFICIAL_API_QUOTA_USED') or 0 for m in mans)
+    corpo = {
+        'SOURCE_ID': 'COMPETITOR-PUBLIC-COMM/POSTS-%s' % plataforma,
+        'DATASET_OWNER': DATASET_OWNER,
+        'source': 'contas oficiais LOCAIS provadas, coletadas por rota pública',
+        'SOURCE_LOCATION': plataforma,
+        'FACT_LOCATION': 'NOT_KNOWN — o §6 decide item a item, depois, de graça',
+        'EVIDENCE_CLASS': 'COMPETITOR_PUBLIC_COMMUNICATION_OBSERVED',
+        'COLLECTION_WINDOW_DAYS': janela['DIAS'],
+        'WINDOW_WIDENED': ampliou,
+        'WINDOW_WIDENED_WHY': (
+            'menos de %d itens por conta na janela de %d dias'
+            % (CORPUS_BAIXO, JANELA_INICIAL_DIAS)) if ampliou == 'YES' else 'n/a',
+        'ACCOUNTS_ATTEMPTED': len(contas),
+        'ACCOUNTS_DONE': len(r['UNITS_DONE']),
+        'ACCOUNTS_PENDING': len(r['UNITS_PENDING']),
+        'POOL_STATE': r['STATE'],
+        'DUPLICATES_REMOVED': r['DUPLICATES_REMOVED'],
+        # ── TRES NUMEROS, E ELES NAO SAO O MESMO NUMERO ──────────────────────
+        # `APIFY_RUNS` contava TODA corrida enquanto toda corrida era paga.
+        # Agora ha corridas gratuitas, e manter a conta antiga faria a rota
+        # oficial aparecer como gasto no relatorio de custo.
+        #
+        #     APIFY_RUNS = NUMERO DE CHAMADAS DA API OFICIAL SERIA FALSO.
+        #
+        # O campo legado sobrevive porque ha leitor real — `comunicacao_medir`
+        # — e passa a contar so o que foi PAGO. Para uma fase inteiramente
+        # oficial ele vale 0, e o zero e verdadeiro.
+        'COLLECTION_RUNS': len(mans),
+        'APIFY_RUNS': len(pagas),
+        'OFFICIAL_API_QUOTA_USED': quota,
+        'COLLECTION_PROVIDERS': sorted({m.get('COLLECTION_PROVIDER') for m in mans
+                                        if m.get('COLLECTION_PROVIDER')}),
+        'COST_USD': sum(m.get('COST_USD') or 0 for m in mans
+                        if isinstance(m.get('COST_USD'), (int, float))),
+        'ITEM_COUNT': len(r['ITEMS']),
+        'ITEMS': r['ITEMS'],
+        'RUNS': mans,
+    }
+    print('%s · %d contas · %d itens · janela %d dias'
+          % (plataforma, len(contas), len(r['ITEMS']), janela['DIAS']))
+    print('gravado em %s' % _gravar('POSTS-%s.json' % plataforma, corpo))
+    return corpo
+
+
+def _colher_pelo_scrap(plataforma, contas, dias):
+    """A colheita pela rota canonica. → (itens, manifestos).
+
+    Sem pool de chaves, sem token, sem rotacao: nao ha chave paga para rodar. O
+    que ha e uma capacidade pedida ao executor, e o executor escolhe a rota.
+
+        ESTE FICHEIRO NAO SABE O QUE E `yt-dlp`, `channels.list` OU APIFY.
+        Ele sabe que quer a comunicacao publica de uma conta. Mais nada.
+
+    Cada conta produz UM registo de corrida, e esse registo diz quem trouxe. Um
+    manifesto que nao diz o fornecedor obriga quem le a adivinhar — e quem
+    adivinha escreve «Apify» por habito.
+    """
+    import scrap_executor as scrap
+    caps = CAPACIDADES_SCRAP[plataforma]
+    itens, mans = [], []
+    for conta in contas:
+        rid = '%s-%s-%s-%s' % (MISSION, plataforma, conta['COMPANY'], conta['COUNTRY'])
+        man = {'RUN_ID': rid, 'PLATFORM': plataforma, 'ACTOR': None,
+               'COLLECTION_PROVIDER': None, 'PAID': False, 'COST_USD': 0.0,
+               'OFFICIAL_API_QUOTA_USED': 0, 'ACCOUNT_URL': conta['ACCOUNT_URL'],
+               'STATUS': None, 'CAPTURED_AT': coletor.agora()}
+
+        alvo, trace_r = scrap.COLLECT(platform=plataforma, capability=caps['RESOLVER'],
+                                      run_id=rid, country_scope=conta['COUNTRY'],
+                                      account_url=conta['ACCOUNT_URL'])
+        man['OFFICIAL_API_QUOTA_USED'] += trace_r.get('QUOTA_UNITS') or 0
+        man['COLLECTION_PROVIDER'] = trace_r.get('PROVIDER_USED')
+        if not alvo:
+            # NAO RESOLVER NAO E COLETAR ZERO. O estado sobe inteiro para que
+            # ninguem leia «esta empresa nao publica» onde a verdade e «este
+            # endereco nao tem resolvedor oficial».
+            man['STATUS'] = trace_r.get('RESULT')
+            man['TRACE'] = trace_r
+            mans.append(man)
+            continue
+
+        objetos, trace_c = scrap.COLLECT(
+            platform=plataforma, capability=caps['COLHER'], run_id=rid,
+            country_scope=conta['COUNTRY'], channel_id=alvo[0]['CHANNEL_ID'],
+            limit=50)
+        man['STATUS'] = trace_c.get('RESULT')
+        man['COLLECTION_PROVIDER'] = trace_c.get('PROVIDER_USED') or man['COLLECTION_PROVIDER']
+        man['PAID'] = bool(trace_c.get('PAID_PROVIDER_USED'))
+        man['OFFICIAL_API_QUOTA_USED'] += 1
+        man['CHANNEL_ID'] = alvo[0]['CHANNEL_ID']
+        man['TRACE'] = trace_c
+        mans.append(man)
+        itens.extend(normalizar(o, conta, plataforma, dias, man) for o in objetos)
+    return itens, mans
+
+
 def fase_posts(plataforma):
-    ator, _ = ATORES[plataforma]
     contas = contas_autorizadas(plataforma)
     if not contas:
         print('nenhuma conta AUTORIZADA em %s. Isto é ausência de conta provada '
@@ -273,6 +442,20 @@ def fase_posts(plataforma):
 
     janela = {'DIAS': JANELA_INICIAL_DIAS}
     mans = []
+
+    # ── A BIFURCACAO E POR TABELA, NAO POR NOME DE PLATAFORMA ────────────────
+    # Um `if plataforma == 'YOUTUBE'` aqui faria deste ficheiro um segundo
+    # roteador, e o proximo a migrar acrescentaria o segundo `elif`. A pergunta
+    # certa nao e «qual plataforma e esta» — e «esta plataforma ja tem
+    # capacidade canonica?».
+    if plataforma in CAPACIDADES_SCRAP:
+        itens, mans = _colher_pelo_scrap(plataforma, contas, janela['DIAS'])
+        r = {'ITEMS': itens, 'UNITS_DONE': [c['ACCOUNT_URL'] for c in contas],
+             'UNITS_PENDING': [], 'STATE': 'DONE', 'DUPLICATES_REMOVED': 0}
+        ampliou = 'NO'
+        return _gravar_posts(plataforma, contas, janela, r, mans, ampliou)
+
+    ator, _ = ATORES[plataforma]
 
     def trabalho(conta, token):
         """A chamada da porta paga. QUATRO defeitos consertados aqui em 2026-09-02.
@@ -312,6 +495,11 @@ def fase_posts(plataforma):
             query=conta['ACCOUNT_URL'],
             source_version='captura de %s' % coletor.agora()[:10],
             evidence_path=evidencia)
+        # A rota paga DECLARA que foi paga. Antes ninguem precisava: tudo era
+        # pago. Agora que ha duas, quem nao se declara obriga o contador a
+        # adivinhar — e adivinhar aqui e escrever «Apify» por habito.
+        man['PAID'] = True
+        man.setdefault('COLLECTION_PROVIDER', 'APIFY')
         mans.append(man)
         estado = ap.classificar(status=man.get('PLATFORM_STATUS'),
                                 status_message=str(man.get('ERROR') or ''),
@@ -332,34 +520,7 @@ def fase_posts(plataforma):
                                   identidade=lambda i: (i['PLATFORM'], i['POST_ID']))
         r = r2 if len(r2['ITEMS']) > len(r['ITEMS']) else r
 
-    corpo = {
-        'SOURCE_ID': 'COMPETITOR-PUBLIC-COMM/POSTS-%s' % plataforma,
-        'DATASET_OWNER': DATASET_OWNER,
-        'source': 'contas oficiais LOCAIS provadas, coletadas por rota pública',
-        'SOURCE_LOCATION': plataforma,
-        'FACT_LOCATION': 'NOT_KNOWN — o §6 decide item a item, depois, de graça',
-        'EVIDENCE_CLASS': 'COMPETITOR_PUBLIC_COMMUNICATION_OBSERVED',
-        'COLLECTION_WINDOW_DAYS': janela['DIAS'],
-        'WINDOW_WIDENED': ampliou,
-        'WINDOW_WIDENED_WHY': (
-            'menos de %d itens por conta na janela de %d dias'
-            % (CORPUS_BAIXO, JANELA_INICIAL_DIAS)) if ampliou == 'YES' else 'n/a',
-        'ACCOUNTS_ATTEMPTED': len(contas),
-        'ACCOUNTS_DONE': len(r['UNITS_DONE']),
-        'ACCOUNTS_PENDING': len(r['UNITS_PENDING']),
-        'POOL_STATE': r['STATE'],
-        'DUPLICATES_REMOVED': r['DUPLICATES_REMOVED'],
-        'APIFY_RUNS': len(mans),
-        'COST_USD': sum(m.get('COST_USD') or 0 for m in mans
-                        if isinstance(m.get('COST_USD'), (int, float))),
-        'ITEM_COUNT': len(r['ITEMS']),
-        'ITEMS': r['ITEMS'],
-        'RUNS': mans,
-    }
-    print('%s · %d contas · %d itens · janela %d dias'
-          % (plataforma, len(contas), len(r['ITEMS']), janela['DIAS']))
-    print('gravado em %s' % _gravar('POSTS-%s.json' % plataforma, corpo))
-    return corpo
+    return _gravar_posts(plataforma, contas, janela, r, mans, ampliou)
 
 
 def fase_transcrever(plataforma, run_id=None, teto=None):
@@ -391,14 +552,15 @@ if __name__ == '__main__':
     if fase == 'contratos':
         fase_contratos()
     elif fase == 'posts':
-        if not resto or resto[0] not in ATORES:
-            print('uso: comunicacao_coleta.py posts {%s}' % '|'.join(sorted(ATORES)))
+        if not resto or resto[0] not in _PLATAFORMAS():
+            print('uso: comunicacao_coleta.py posts {%s}'
+                  % '|'.join(sorted(_PLATAFORMAS())))
             raise SystemExit(2)
         fase_posts(resto[0])
     elif fase == 'transcrever':
-        if not resto or resto[0] not in ATORES:
+        if not resto or resto[0] not in _PLATAFORMAS():
             print('uso: comunicacao_coleta.py transcrever {%s}'
-                  % '|'.join(sorted(ATORES)))
+                  % '|'.join(sorted(_PLATAFORMAS())))
             raise SystemExit(2)
         raise SystemExit(fase_transcrever(resto[0], run_id=op.get('run-id'),
                                           teto=op.get('teto')))

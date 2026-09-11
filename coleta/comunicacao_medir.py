@@ -75,13 +75,27 @@ def montar():
     oficiais_fora = [c for c in provadas if c['COLLECTION_AUTHORIZED'] == 'NO']
 
     itens = classificado.get('ITEMS') or []
-    runs, custo, coletadas = [], 0.0, set()
+    # ── CORRIDA != CORRIDA PAGA, DESDE A C3 ──────────────────────────────────
+    # Ate aqui `runs` e «execucoes pagas» eram a mesma lista, porque toda rota
+    # era paga. O YouTube passou a sair pela API oficial, e contar as duas
+    # juntas faria o relatorio de custo dizer que uma rota de US$ 0,00 foi uma
+    # execucao paga.
+    #
+    #     UM CONTADOR QUE NAO DISTINGUE QUEM PAGOU NAO E UM CONTADOR DE CUSTO.
+    #
+    # Uma corrida sem a marca `PAID` vinda de artefato ANTIGO e paga: naquele
+    # tempo nao havia outra. Presumir o contrario reescreveria a historia.
+    runs, pagas, custo, coletadas = [], [], 0.0, set()
+    quota = 0
     for p in PLATAFORMAS:
         d = _ler('POSTS-%s.json' % p)
         if not d:
             continue
-        runs.extend(d.get('RUNS') or [])
+        deste = d.get('RUNS') or []
+        runs.extend(deste)
+        pagas.extend([m for m in deste if m.get('PAID', True)])
         custo += d.get('COST_USD') or 0
+        quota += d.get('OFFICIAL_API_QUOTA_USED') or 0
         coletadas.add(p)
 
     pronto = 'READY' if itens else 'NOT_READY'
@@ -160,7 +174,12 @@ def montar():
             classificado.get('BY_COUNTRY_OF_FACT') or {}),
         'O_TOP_EVIDENCE': [i.get('URL') for i in itens[:10]],
         'P_RAW_PRESERVED': 'YES' if runs else 'n/a — nada foi coletado',
-        'Q_APIFY_RUNS': len(runs),
+        'Q_COLLECTION_RUNS': len(runs),
+        'Q_APIFY_RUNS': len(pagas),
+        'Q_OFFICIAL_API_QUOTA_USED': quota,
+        'Q_QUOTA_NAO_E_DOLAR': (
+            'quota da API oficial e gratuita e NAO e infinita. Ela nao se converte '
+            'em dolar, e somar as duas daria um numero que nao existe.'),
         'Q_ITEMS': len(itens),
         'Q_COST_USD': round(custo, 6),
 
@@ -190,8 +209,11 @@ if __name__ == '__main__':
           % (m['C_PROVED_BUT_NOT_ELIGIBLE'], m['C_EXCLUDED_BY_PRIMARY_REASON']))
     print('  URLs que nem eram conta ......... %d' % m['C_REJECTED_NOT_AN_ACCOUNT'])
     print('  itens coletados ................. %d' % m['E_TOTAL_ITEMS'])
+    print('  execucoes totais ................ %d' % m['Q_COLLECTION_RUNS'])
     print('  execucoes pagas / custo ......... %d / %.6f USD'
           % (m['Q_APIFY_RUNS'], m['Q_COST_USD']))
+    print('  quota de API oficial usada ...... %d unidades (nao e dolar)'
+          % m['Q_OFFICIAL_API_QUOTA_USED'])
     print('')
     print('  autorizadas por empresa: %s' % m['G_AUTHORIZED_BY_COMPETITOR'])
     print('  autorizadas por pais:    %s' % m['G_AUTHORIZED_BY_COUNTRY'])

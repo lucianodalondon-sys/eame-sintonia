@@ -75,12 +75,27 @@ ATORES = {
     'LINKEDIN_PROFILE_SEARCH': 'harvestapi~linkedin-profile-search',
     'LINKEDIN_PROFILE': 'harvestapi~linkedin-profile-scraper',
     'LINKEDIN_POSTS': 'harvestapi~linkedin-post-search',
-    'YOUTUBE_SEARCH': 'streamers~youtube-scraper',
     'YOUTUBE_TRANSCRIPT': 'pintostudio~youtube-transcript-scraper',
     # Reserva com 100% de sucesso em 333 mil execucoes nos ultimos 30 dias, contrato
     # proprio. Existe porque rota que falha por CONTRATO nao e rota morta.
     'YOUTUBE_TRANSCRIPT_ALT': 'starvibe~youtube-video-transcript',
-    'YOUTUBE_COMMENTS': 'streamers~youtube-comments-scraper',
+}
+
+# ── O QUE SAIU DAQUI NA C3, E POR QUE NAO FOI APAGADO DA HISTORIA ───────────
+# `YOUTUBE_SEARCH` e `YOUTUBE_COMMENTS` apontavam para dois atores pagos. As
+# duas capacidades foram provadas ao vivo pela API oficial na C2, e os atores
+# deixaram de ser necessarios — entao sairam da CONFIGURACAO ATIVA.
+#
+#     APOSENTAR NAO E APAGAR. O RUN-MANIFEST, os RUNS-*.json e o censo de custo
+#     continuam a dizer que esta casa os usou e pagou. O sistema precisa de se
+#     lembrar disso.
+#
+# `YOUTUBE_TRANSCRIPT` FICA. A legenda de canal de terceiro nao tem rota oficial
+# gratuita — `captions.download` exige ser dono do video — e retirar o ator sem
+# substituto trocaria um gasto por um buraco.
+CAPACIDADES_SCRAP = {
+    'YOUTUBE_SEARCH': 'youtube.search',
+    'YOUTUBE_COMMENTS': 'youtube.comments',
 }
 
 # ── LOTES ────────────────────────────────────────────────────────────────────────
@@ -425,15 +440,57 @@ def _registrar_lote(lote, mans):
 
 
 def _proveniencia(man, actor, lote, batch_id):
-    """Os campos que todo item carrega. Runner é proveniência técnica, não qualidade."""
+    """Os campos que todo item carrega. Runner é proveniência técnica, não qualidade.
+
+    `APIFY_ACTOR` sobrevive porque ha artefato historico que o carrega e leitor
+    que o espera. O que muda e o VALOR quando nao houve ator: `NAO_SE_APLICA`,
+    que nao e `NOT_KNOWN`.
+
+        «NAO SEI QUAL ATOR» E «NAO HOUVE ATOR» SAO RESPOSTAS DIFERENTES, e so
+        uma delas e verdadeira aqui.
+    """
     return {
         'COLLECTION_RUN_ID': man['RUN_ID'],
         'BATCH_ID': batch_id,
         'LOTE': lote,
         'RUNNER_NAME': RUNNER,
-        'APIFY_ACTOR': actor,
+        'APIFY_ACTOR': actor or 'NAO_SE_APLICA',
+        'COLLECTION_PROVIDER': man.get('COLLECTION_PROVIDER') or 'APIFY',
+        'PAID': man.get('PAID', True),
         'CAPTURED_AT': coletor.agora(),
     }
+
+
+def _rodar_scrap(capacidade, *, run_id, platform, country, query, lote, **pedido):
+    """A rota canonica. → (itens, manifesto, 0).
+
+    Devolve a mesma tripla que `_rodar` para que quem chama nao precise de saber
+    por onde foi. A terceira posicao e SEMPRE 0: ela e a posicao da chave no
+    pool, e aqui nao ha pool nem chave paga.
+
+        O SENSOR DIZ O QUE PESQUISAR. O SCRAP DIZ COMO OBTER DA PLATAFORMA.
+
+    Essa fronteira e o ponto inteiro desta funcao. Se o sensor voltar a escolher
+    ferramenta, ele vira um segundo roteador — e o segundo roteador e sempre o
+    que ninguem mede.
+    """
+    import scrap_executor as scrap
+    itens, trace = scrap.COLLECT(platform=platform, capability=capacidade,
+                                 run_id=run_id, country_scope=country, **pedido)
+    man = {
+        'RUN_ID': run_id, 'PLATFORM': platform, 'COUNTRY': country,
+        'QUERY': query, 'LOTE': lote, 'STATUS': trace.get('RESULT'),
+        'ACTOR': None,
+        'COLLECTION_PROVIDER': trace.get('PROVIDER_USED'),
+        'PAID': bool(trace.get('PAID_PROVIDER_USED')),
+        'COST_USD': trace.get('COST_USD') or 0.0,
+        'OFFICIAL_API_QUOTA_USED': 1,
+        'ITEM_COUNT_RAW': len(itens),
+        'RUNNER_NAME': RUNNER,
+        'CAPTURED_AT': coletor.agora(),
+        'TRACE': trace,
+    }
+    return itens, man, 0
 
 
 def _rodar(actor, entrada, *, run_id, platform, country, query, evidence_path, lote):
@@ -562,16 +619,13 @@ def canais(lote='A'):
 
         # --- YouTube: onde a pessoa aparece. Pode ser canal dela OU de instituição.
         termo = '%s %s' % (nome, (p['INSTITUTION'] or '').split(',')[0])
-        entrada = {'searchQueries': [termo], 'maxResults': 10, 'maxResultsShorts': 0,
-                   'maxResultStreams': 0, 'videoType': 'video'}
-        itens, man, pos = _rodar(
-            ATORES['YOUTUBE_SEARCH'], entrada,
+        itens, man, pos = _rodar_scrap(
+            CAPACIDADES_SCRAP['YOUTUBE_SEARCH'],
             run_id='SENSOR-YT-%s-%s' % (lote, _slug(nome)), platform='YOUTUBE',
-            country=pais, query=termo,
-            evidence_path='data/samples/SENSOR-PILOT/CANAIS-%s.json' % lote, lote=lote)
+            country=pais, query=termo, lote=lote, termo=termo, limit=10)
         if man:
             mans.append(man); custo += _usd(man)
-            prov = _proveniencia(man, ATORES['YOUTUBE_SEARCH'], lote, batch)
+            prov = _proveniencia(man, None, lote, batch)
             for v in (itens or []):
                 achados.append(_cand_video(v, p, termo, prov, rota='PERSON_NAME_SEARCH'))
             print('      YouTube : %d itens (pos %d, %s)'
@@ -634,10 +688,16 @@ def _cand_linkedin(it, p, prov):
 
 
 def _cand_video(v, p, termo, prov, rota):
-    canal = v.get('channelName') or v.get('channelTitle') or pv.NAO_SEI
+    # ── DOIS VOCABULARIOS, UMA FUNCAO ────────────────────────────────────────
+    # Os nomes em MAIUSCULA vem do envelope do SCRAP; os minusculos, do ator
+    # pago. Os dois convivem porque o mesmo recorte pode ter itens antigos e
+    # novos, e converter um no outro antes de mapear disfarcaria a origem.
+    r = v.get('RAW') or {}
+    canal = (v.get('channelName') or v.get('channelTitle')
+             or r.get('CHANNEL_TITLE') or pv.NAO_SEI)
     sobren = ((p or {}).get('NAME') or '').split()[-1].lower() if p else ''
     parece_dela = bool(sobren) and sobren in str(canal).lower()
-    vid = v.get('id') or v.get('videoId') or pv.NAO_SEI
+    vid = v.get('id') or v.get('videoId') or v.get('NATIVE_ID') or pv.NAO_SEI
     return dict(prov, **{
         'PERSON_ID': (p or {}).get('PERSON_ID', pv.NAO_SEI),
         'NAME': (p or {}).get('NAME', pv.NAO_SEI),
@@ -645,18 +705,27 @@ def _cand_video(v, p, termo, prov, rota):
         'COUNTRY_OF_PERSON': (p or {}).get('COUNTRY', pv.NAO_SEI),
         'INSTITUTION': (p or {}).get('INSTITUTION', pv.NAO_SEI),
         'SOURCE_PLATFORM': 'YOUTUBE',
-        'SOURCE_URL': v.get('url') or v.get('link') or pv.NAO_SEI,
+        'SOURCE_URL': v.get('url') or v.get('link') or v.get('URL') or pv.NAO_SEI,
         'EXTERNAL_ID': vid,
-        'TITLE': v.get('title') or pv.NAO_SEI,
+        'TITLE': v.get('title') or v.get('TITLE') or pv.NAO_SEI,
         'CHANNEL': canal,
-        'CHANNEL_URL': v.get('channelUrl') or pv.NAO_SEI,
+        'CHANNEL_URL': (v.get('channelUrl')
+                        or ('https://www.youtube.com/channel/%s' % r['CHANNEL_ID']
+                            if r.get('CHANNEL_ID') else None) or pv.NAO_SEI),
         'SOURCE_ENTITY': canal,
-        'PUBLISHED_AT': v.get('date') or v.get('publishedAt') or pv.NAO_SEI,
-        'DURATION': v.get('duration') or pv.NAO_SEI,
-        'VIEWS': v.get('viewCount') if v.get('viewCount') is not None else pv.NAO_SEI,
+        'PUBLISHED_AT': (v.get('date') or v.get('publishedAt')
+                         or v.get('PUBLISHED_AT') or pv.NAO_SEI),
+        'DURATION': v.get('duration') or r.get('DURATION') or pv.NAO_SEI,
+        'VIEWS': (v.get('viewCount') if v.get('viewCount') is not None
+                  else (r.get('VIEW_COUNT') if r.get('VIEW_COUNT') is not None
+                        else pv.NAO_SEI)),
         'COMMENTS_COUNT': (v.get('commentsCount')
-                           if v.get('commentsCount') is not None else pv.NAO_SEI),
-        'DESCRIPTION': (v.get('text') or v.get('description') or '')[:6000] or pv.NAO_SEI,
+                           if v.get('commentsCount') is not None
+                           else (r.get('COMMENT_COUNT')
+                                 if r.get('COMMENT_COUNT') is not None
+                                 else pv.NAO_SEI)),
+        'DESCRIPTION': ((v.get('text') or v.get('description')
+                         or v.get('TEXT') or '')[:6000] or pv.NAO_SEI),
         'TRANSCRIPT': None,
         'TRANSCRIPT_AVAILABLE': 'NOT_TESTED',
         'CHANNEL_KIND': ('PERSON_OWN_CHANNEL_CANDIDATE' if parece_dela
@@ -693,17 +762,37 @@ def videos(lote='A'):
         crop, issue = caso.split('-', 1)[1].rsplit('-', 1)
         termos = TERMOS[caso]
         print('  %s · %d termos' % (caso, len(termos)))
-        entrada = {'searchQueries': termos, 'maxResults': 25, 'maxResultsShorts': 0,
-                   'maxResultStreams': 0, 'videoType': 'video'}
-        itens, man, pos = _rodar(
-            ATORES['YOUTUBE_SEARCH'], entrada,
-            run_id='SENSOR-VID-%s-%s' % (lote, caso), platform='YOUTUBE',
-            country=pais, query=' | '.join(termos),
-            evidence_path='data/samples/SENSOR-PILOT/VIDEOS-%s.json' % lote, lote=lote)
+        # ── UM TERMO POR CHAMADA, E ISSO MUDA A CONTA DA QUOTA ──────────────
+        # O ator pago engolia a lista inteira de termos numa corrida. O
+        # `search.list` oficial aceita UMA consulta por chamada, e a busca e o
+        # balde escasso: 100 por dia, nao 10.000.
+        #
+        #     N TERMOS = N CHAMADAS DE BUSCA. Escondido, isto queimaria o dia
+        #     sem ninguem perceber; declarado, e uma decisao de quem manda
+        #     correr.
+        #
+        # Nada foi ampliado para compensar: `limit` continua 25 por termo, como
+        # o ator pedia.
+        itens, man, pos = [], None, 0
+        for termo_t in termos:
+            it_t, man_t, _p = _rodar_scrap(
+                CAPACIDADES_SCRAP['YOUTUBE_SEARCH'],
+                run_id='SENSOR-VID-%s-%s' % (lote, caso), platform='YOUTUBE',
+                country=pais, query=termo_t, lote=lote, termo=termo_t, limit=25)
+            itens.extend(it_t or [])
+            if man is None:
+                man = man_t
+            else:
+                man['ITEM_COUNT_RAW'] += man_t['ITEM_COUNT_RAW']
+                man['OFFICIAL_API_QUOTA_USED'] += man_t['OFFICIAL_API_QUOTA_USED']
+                if man_t['STATUS'] != 'OK':
+                    man['STATUS'] = man_t['STATUS']
         if not man:
             continue
+        man['QUERY'] = ' | '.join(termos)
+        man['SEARCH_CALLS'] = len(termos)
         mans.append(man); custo += _usd(man)
-        prov = _proveniencia(man, ATORES['YOUTUBE_SEARCH'], lote, batch)
+        prov = _proveniencia(man, None, lote, batch)
         for v in (itens or []):
             r = _cand_video(v, None, ' | '.join(termos), prov, rota='CASE_TERM_SEARCH')
             # CROP e ISSUE vêm da CONSULTA que trouxe o item, nunca do título.
@@ -890,25 +979,48 @@ def comentarios(lote='A'):
         # [0..19] do not contain valid URLs". O RUN-MANIFEST espanhol guardava a entrada
         # como a FRASE "48 vídeos on-topic", não a estrutura, então a forma real nunca
         # esteve preservada. Entrada descrita em prosa não é entrada reproduzível.
-        itens, man, pos = _rodar(
-            ATORES['YOUTUBE_COMMENTS'],
-            {'startUrls': [{'url': u} for u in pedaco],
-             'maxComments': 50, 'sortCommentsBy': 'TOP_COMMENTS'},
-            run_id='SENSOR-CM-%s-%d' % (lote, i // 20), platform='YOUTUBE',
-            country='MULTI', query='%d videos' % len(pedaco),
-            evidence_path='data/samples/SENSOR-PILOT/COMENTARIOS-%s.json' % lote,
-            lote=lote)
+        # ── UM VIDEO POR CHAMADA ────────────────────────────────────────────
+        # O ator recebia vinte URLs de uma vez. `commentThreads.list` pergunta
+        # por UM video, e custa 1 unidade do balde GERAL — o largo, de 10.000.
+        # Vinte videos custam vinte unidades, e nao vinte buscas.
+        itens, man, pos = [], None, 0
+        for u in pedaco:
+            vid = (por_url.get(u) or {}).get('EXTERNAL_ID')
+            if not vid:
+                continue
+            it_c, man_c, _p = _rodar_scrap(
+                CAPACIDADES_SCRAP['YOUTUBE_COMMENTS'],
+                run_id='SENSOR-CM-%s-%d' % (lote, i // 20), platform='YOUTUBE',
+                country='MULTI', query=u, lote=lote,
+                video_id=vid, limite_threads=50)
+            for c in (it_c or []):
+                c.setdefault('_SOURCE_VIDEO_URL', u)
+            itens.extend(it_c or [])
+            if man is None:
+                man = man_c
+            else:
+                man['ITEM_COUNT_RAW'] += man_c['ITEM_COUNT_RAW']
+                man['OFFICIAL_API_QUOTA_USED'] += man_c['OFFICIAL_API_QUOTA_USED']
+                # COMENTARIO DESLIGADO NAO CONTAMINA O LOTE: e um facto sobre
+                # aquele video, e o estado do lote so muda se nenhum responder.
+                if man_c['STATUS'] not in ('OK', 'ZERO_RESULTS', 'FEATURE_DISABLED'):
+                    man['STATUS'] = man_c['STATUS']
         if not man:
             continue
+        man['QUERY'] = '%d videos' % len(pedaco)
         mans.append(man); custo += _usd(man)
-        prov = _proveniencia(man, ATORES['YOUTUBE_COMMENTS'], lote,
+        prov = _proveniencia(man, None, lote,
                              'BATCH-%s-COMENTARIOS' % lote)
         for c in (itens or []):
-            u = c.get('videoUrl') or c.get('url') or ''
+            rc = c.get('RAW') or {}
+            u = (c.get('videoUrl') or c.get('_SOURCE_VIDEO_URL')
+                 or c.get('url') or '')
             v = por_url.get(u) or {}
             achados.append(dict(prov, **{
-                'COMMENT_ID': c.get('cid') or c.get('commentId') or pv.NAO_SEI,
-                'VIDEO_ID': v.get('EXTERNAL_ID') or c.get('videoId') or pv.NAO_SEI,
+                'COMMENT_ID': (c.get('cid') or c.get('commentId')
+                               or rc.get('COMMENT_ID') or pv.NAO_SEI),
+                'VIDEO_ID': (v.get('EXTERNAL_ID') or c.get('videoId')
+                             or rc.get('VIDEO_ID') or pv.NAO_SEI),
                 'SOURCE_URL': u or v.get('SOURCE_URL') or pv.NAO_SEI,
                 'SOURCE_PLATFORM': 'YOUTUBE',
                 'SOURCE_ENTITY': v.get('CHANNEL') or pv.NAO_SEI,
@@ -916,20 +1028,43 @@ def comentarios(lote='A'):
                 'CROP': v.get('CROP') or pv.NAO_SEI,
                 'ISSUE': v.get('ISSUE') or pv.NAO_SEI,
                 # O texto ORIGINAL fica. Resumir e jogar fora a frase mata a evidência.
-                'COMMENT_TEXT_RAW': c.get('comment') or c.get('text') or '',
-                'COMMENTER_NAME': c.get('author') or c.get('authorName') or pv.NAO_SEI,
-                'COMMENTER_PROFILE_URL': (c.get('authorChannelUrl')
-                                          or c.get('authorUrl') or pv.NAO_SEI),
-                'COMMENTER_ID': c.get('authorChannelId') or pv.NAO_SEI,
+                'COMMENT_TEXT_RAW': (c.get('comment') or c.get('text')
+                                    or rc.get('TEXT_ORIGINAL') or ''),
+                'COMMENTER_NAME': (c.get('author') or c.get('authorName')
+                                   or rc.get('AUTHOR_DISPLAY_NAME') or pv.NAO_SEI),
+                'COMMENTER_PROFILE_URL': (
+                    c.get('authorChannelUrl') or c.get('authorUrl')
+                    or ('https://www.youtube.com/channel/%s'
+                        % rc['AUTHOR_CHANNEL_ID'] if rc.get('AUTHOR_CHANNEL_ID')
+                        else None) or pv.NAO_SEI),
+                'COMMENTER_ID': (c.get('authorChannelId')
+                                 or rc.get('AUTHOR_CHANNEL_ID') or pv.NAO_SEI),
                 # Handle não é pessoa. Todo autor entra sem papel resolvido.
                 'COMMENTER_ENTITY_KIND': 'UNKNOWN',
                 'COMMENTER_IDENTITY_STATE': 'UNVERIFIED',
-                'LIKE_COUNT': c.get('voteCount') if c.get('voteCount') is not None
-                              else pv.NAO_SEI,
-                # A rota devolve tempo relativo ("hace 2 años"), não data. Converter um no
-                # outro inventaria precisão que a fonte não deu.
-                'DATE': pv.NAO_SEI,
-                'DATE_RELATIVE': c.get('publishedTimeText') or c.get('date') or pv.NAO_SEI,
+                'LIKE_COUNT': (c.get('voteCount')
+                               if c.get('voteCount') is not None
+                               else (rc.get('LIKE_COUNT')
+                                     if rc.get('LIKE_COUNT') is not None
+                                     else pv.NAO_SEI)),
+                # ── A ROTA OFICIAL DA A HORA. A PAGA SO DAVA «HA 2 ANOS» ────
+                # O ator devolvia tempo relativo, e converte-lo em data teria
+                # inventado precisao — por isso `DATE` nascia NOT_KNOWN. A API
+                # oficial devolve o instante, e recusa-lo para «manter a forma
+                # antiga» seria preservar um defeito em nome da compatibilidade.
+                #
+                #     COMPATIBILIDADE E «NENHUM DADO NECESSARIO DESAPARECE».
+                #     Nao e «reproduzir o que a rota velha nao sabia».
+                #
+                # `DATE_RELATIVE` sobrevive, vazio quando a fonte da a data: ele
+                # deriva-se do instante, e nunca o contrario.
+                'DATE': (c.get('publishedAt') or rc.get('PUBLISHED_AT')
+                         or pv.NAO_SEI),
+                'DATE_UPDATED': rc.get('UPDATED_AT') or pv.NAO_SEI,
+                'IS_REPLY': rc.get('IS_REPLY', pv.NAO_SEI),
+                'PARENT_ID': rc.get('PARENT_ID') or pv.NAO_SEI,
+                'DATE_RELATIVE': (c.get('publishedTimeText') or c.get('date')
+                                  or pv.NAO_SEI),
                 'COUNTRY_OF_FACT': 'NOT_KNOWN',
                 'REGION_OF_FACT': 'NOT_KNOWN',
                 'SPEECH_TYPE': 'NOT_CLASSIFIED',

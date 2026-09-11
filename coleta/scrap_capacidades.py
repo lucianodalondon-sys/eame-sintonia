@@ -124,6 +124,7 @@ _ER = 'docs/sintonia-scrap/ESTADO-REAL-V1.md'
 _CE = 'docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md'
 _RE = 'docs/operacao/O-REEL-DEIXA-DE-SER-MUDO.md'
 _MZ = 'leis/social_matriz.py'
+_C3 = 'docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md'
 
 DECLARADAS = {
     # ── INSTAGRAM ─────────────────────────────────────────────────────────
@@ -148,6 +149,12 @@ DECLARADAS = {
     'linkedin.documents': ('LINKEDIN', NOT_EXECUTED, AMBIENTE_DESCONHECIDO, None, _B, None),
 
     # ── YOUTUBE ───────────────────────────────────────────────────────────
+    # Resolver o endereco de uma conta ate ao `channelId` e o degrau que faltava
+    # para a comunicacao publica largar a rota paga: o lote congelado guarda
+    # URLs, e `playlistItems.list` precisa de id. Nao ha capacidade grossa na
+    # matriz para isto, entao ela vive como `executa` — que e exatamente o caso
+    # que a C2 declarou para esse papel.
+    'youtube.channel.resolve': ('YOUTUBE', PARTIAL, ONLINE, None, _C3, None),
     'youtube.channel.discovery': ('YOUTUBE', PROVEN, ONLINE, None, _CE, 'INCREMENTAL'),
     'youtube.search': ('YOUTUBE', PROVEN, ONLINE, None, _CE, 'SEARCH_KEYWORD'),
     'youtube.video.metadata': ('YOUTUBE', PROVEN, ONLINE, None, _CE, 'FETCH_VIDEO_METADATA'),
