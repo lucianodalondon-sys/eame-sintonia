@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-convergence-c1",
-    "HEAD": "a74934db61da46b024b62d1b5c22b719c19ea24c",
-    "GENERATED_AT": "2026-09-11T01:48:19+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d8969317b1eaf74ed1185f85c8cd2782da69e29395366b36333e39d95b637689"
+    "HEAD": "aca1d7d774dd888856f9596bc6769155a3323e36",
+    "GENERATED_AT": "2026-09-11T01:50:06+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1d989ff22c1e00bb82556326c4f3873ef491ba251452924763ae8b33ce81e706"
   },
   "FILES": [
     {
@@ -1411,6 +1411,13 @@
     {
       "path": "coleta/rotulos_ler.py",
       "sha": "55336ae99e341e8b2f89b7a48a63cee2e309c11d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/scrap_capacidades.py",
+      "sha": "884c24bc9eb3f67cd0395e3ca9c7b77cf8bef16c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7205,13 +7212,6 @@
       "code_dir": true
     },
     {
-      "path": "leis/scrap_capacidades.py",
-      "sha": "884c24bc9eb3f67cd0395e3ca9c7b77cf8bef16c",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
       "path": "leis/social_matriz.py",
       "sha": "4e9117a783e6ea9ce7a214fd5573d1d089d0964a",
       "ext": ".py",
@@ -9222,7 +9222,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "1cffbb3c5a882cc2f05de09398af45cdcfc8444f",
+      "sha": "e24284420f54fbd276faa60f87b2475ef544e634",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9964,7 +9964,7 @@
     },
     {
       "path": "tests/test_scrap_convergencia.py",
-      "sha": "b866ca2bae2bab42a9f1840a5c62bcbc095d81c2",
+      "sha": "159a57de9909fd2017ccc236c573a16f288bbc90",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11551,6 +11551,17 @@
     },
     {
       "from_file": "coleta/adaptador_instagram.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_instagram.py",
+        "line": 47,
+        "snippet": "import scrap_capacidades as cap      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_instagram.py",
       "to_file": "coleta/scrap_fornecedores.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -11591,17 +11602,6 @@
         "file": "coleta/adaptador_instagram.py",
         "line": 61,
         "snippet": "import reel_transcricao as rt"
-      }
-    },
-    {
-      "from_file": "coleta/adaptador_instagram.py",
-      "to_file": "leis/scrap_capacidades.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "coleta/adaptador_instagram.py",
-        "line": 47,
-        "snippet": "import scrap_capacidades as cap      # noqa: E402"
       }
     },
     {
@@ -12782,6 +12782,72 @@
       }
     },
     {
+      "from_file": "coleta/scrap_capacidades.py",
+      "to_file": "docs/operacao/O-REEL-DEIXA-DE-SER-MUDO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_capacidades.py",
+        "line": 125,
+        "snippet": "_RE = 'docs/operacao/O-REEL-DEIXA-DE-SER-MUDO.md'"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_capacidades.py",
+      "to_file": "docs/sintonia-scrap/AP-DISCOVERY-VS-CAPTURA-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_capacidades.py",
+        "line": 122,
+        "snippet": "_AP = 'docs/sintonia-scrap/AP-DISCOVERY-VS-CAPTURA-V1.md'"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_capacidades.py",
+      "to_file": "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_capacidades.py",
+        "line": 121,
+        "snippet": "_B = 'docs/sintonia-scrap/BENCHMARK-V1-FINAL.md'"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_capacidades.py",
+      "to_file": "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_capacidades.py",
+        "line": 124,
+        "snippet": "_CE = 'docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md'"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_capacidades.py",
+      "to_file": "docs/sintonia-scrap/ESTADO-REAL-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_capacidades.py",
+        "line": 123,
+        "snippet": "_ER = 'docs/sintonia-scrap/ESTADO-REAL-V1.md'"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_capacidades.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_capacidades.py",
+        "line": 126,
+        "snippet": "_MZ = 'leis/social_matriz.py'"
+      }
+    },
+    {
       "from_file": "coleta/scrap_executor.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -12801,6 +12867,17 @@
         "file": "coleta/scrap_executor.py",
         "line": 200,
         "snippet": "'CHECKPOINT_BACKEND': 'coleta/coleta_checkpoint.py',"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_executor.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/scrap_executor.py",
+        "line": 59,
+        "snippet": "import scrap_capacidades as cap    # noqa: E402"
       }
     },
     {
@@ -12837,17 +12914,6 @@
       }
     },
     {
-      "from_file": "coleta/scrap_executor.py",
-      "to_file": "leis/scrap_capacidades.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "coleta/scrap_executor.py",
-        "line": 59,
-        "snippet": "import scrap_capacidades as cap    # noqa: E402"
-      }
-    },
-    {
       "from_file": "coleta/scrap_registo.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -12860,7 +12926,7 @@
     },
     {
       "from_file": "coleta/scrap_registo.py",
-      "to_file": "leis/scrap_capacidades.py",
+      "to_file": "coleta/scrap_capacidades.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
@@ -12937,6 +13003,17 @@
     },
     {
       "from_file": "coleta/social_rotas.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_rotas.py",
+        "line": 60,
+        "snippet": "import scrap_capacidades as cap    # noqa: E402  — a declaracao"
+      }
+    },
+    {
+      "from_file": "coleta/social_rotas.py",
       "to_file": "coleta/scrap_http.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -12988,17 +13065,6 @@
         "file": "coleta/social_rotas.py",
         "line": 56,
         "snippet": "import falhas                      # noqa: E402  — a lingua unica do erro"
-      }
-    },
-    {
-      "from_file": "coleta/social_rotas.py",
-      "to_file": "leis/scrap_capacidades.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "coleta/social_rotas.py",
-        "line": 60,
-        "snippet": "import scrap_capacidades as cap    # noqa: E402  — a declaracao"
       }
     },
     {
@@ -19434,72 +19500,6 @@
         "file": "leis/regua_italia.py",
         "line": 57,
         "snippet": "from sensor_medir import plateia_do_canal as _pdc"
-      }
-    },
-    {
-      "from_file": "leis/scrap_capacidades.py",
-      "to_file": "docs/operacao/O-REEL-DEIXA-DE-SER-MUDO.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "leis/scrap_capacidades.py",
-        "line": 125,
-        "snippet": "_RE = 'docs/operacao/O-REEL-DEIXA-DE-SER-MUDO.md'"
-      }
-    },
-    {
-      "from_file": "leis/scrap_capacidades.py",
-      "to_file": "docs/sintonia-scrap/AP-DISCOVERY-VS-CAPTURA-V1.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "leis/scrap_capacidades.py",
-        "line": 122,
-        "snippet": "_AP = 'docs/sintonia-scrap/AP-DISCOVERY-VS-CAPTURA-V1.md'"
-      }
-    },
-    {
-      "from_file": "leis/scrap_capacidades.py",
-      "to_file": "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "leis/scrap_capacidades.py",
-        "line": 121,
-        "snippet": "_B = 'docs/sintonia-scrap/BENCHMARK-V1-FINAL.md'"
-      }
-    },
-    {
-      "from_file": "leis/scrap_capacidades.py",
-      "to_file": "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "leis/scrap_capacidades.py",
-        "line": 124,
-        "snippet": "_CE = 'docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md'"
-      }
-    },
-    {
-      "from_file": "leis/scrap_capacidades.py",
-      "to_file": "docs/sintonia-scrap/ESTADO-REAL-V1.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "leis/scrap_capacidades.py",
-        "line": 123,
-        "snippet": "_ER = 'docs/sintonia-scrap/ESTADO-REAL-V1.md'"
-      }
-    },
-    {
-      "from_file": "leis/scrap_capacidades.py",
-      "to_file": "leis/social_matriz.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "leis/scrap_capacidades.py",
-        "line": 126,
-        "snippet": "_MZ = 'leis/social_matriz.py'"
       }
     },
     {
@@ -33886,7 +33886,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 405,
+        "line": 403,
         "snippet": "import adaptador_youtube as ay"
       }
     },
@@ -33897,8 +33897,30 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 292,
+        "line": 290,
         "snippet": "import comunicacao_classificar as cc"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_convergencia.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_scrap_convergencia.py",
+        "line": 21,
+        "snippet": "import scrap_capacidades as cap    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_convergencia.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_scrap_convergencia.py",
+        "line": 205,
+        "snippet": "'coleta/scrap_capacidades.py', 'coleta/scrap_fornecedores.py',"
       }
     },
     {
@@ -33941,8 +33963,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 208,
-        "snippet": "'coleta/scrap_fornecedores.py', 'coleta/social_rotas.py')"
+        "line": 205,
+        "snippet": "'coleta/scrap_capacidades.py', 'coleta/scrap_fornecedores.py',"
       }
     },
     {
@@ -33952,7 +33974,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 399,
+        "line": 397,
         "snippet": "import scrap_http as http"
       }
     },
@@ -33963,7 +33985,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 386,
+        "line": 384,
         "snippet": "'coleta/scrap_http.py', 'coleta/social_rotas.py'):"
       }
     },
@@ -34029,7 +34051,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 281,
+        "line": 279,
         "snippet": "import reel_transcricao as rt"
       }
     },
@@ -34040,7 +34062,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 284,
+        "line": 282,
         "snippet": "self.assertNotIn('WhisperModel(', _fonte('ferramentas/reel_transcricao.py'))"
       }
     },
@@ -34051,7 +34073,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 323,
+        "line": 321,
         "snippet": "import social_sessao as ss"
       }
     },
@@ -34062,30 +34084,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 348,
+        "line": 346,
         "snippet": "_fonte('guarda/social_sessao.py'))"
-      }
-    },
-    {
-      "from_file": "tests/test_scrap_convergencia.py",
-      "to_file": "leis/scrap_capacidades.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "tests/test_scrap_convergencia.py",
-        "line": 21,
-        "snippet": "import scrap_capacidades as cap    # noqa: E402"
-      }
-    },
-    {
-      "from_file": "tests/test_scrap_convergencia.py",
-      "to_file": "leis/scrap_capacidades.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_scrap_convergencia.py",
-        "line": 205,
-        "snippet": "'coleta/scrap_capacidades.py' if os.path.exists("
       }
     },
     {

@@ -221,6 +221,7 @@
       "coleta/rota_forward_documento.py",
       "coleta/rotulos_baixar.py",
       "coleta/rotulos_ler.py",
+      "coleta/scrap_capacidades.py",
       "coleta/scrap_executor.py",
       "coleta/scrap_fornecedores.py",
       "coleta/scrap_http.py",
@@ -1064,7 +1065,6 @@
       "leis/lugar_do_fato.py",
       "leis/politica_da_coleta.py",
       "leis/regua_italia.py",
-      "leis/scrap_capacidades.py",
       "leis/social_matriz.py",
       "leis/telemetria.py",
       "leis/v21_carimbar_origem.py",
@@ -1889,9 +1889,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-convergence-c1",
-    "HEAD": "a74934db61da46b024b62d1b5c22b719c19ea24c",
-    "GENERATED_AT": "2026-09-11T01:48:19+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d8969317b1eaf74ed1185f85c8cd2782da69e29395366b36333e39d95b637689"
+    "HEAD": "aca1d7d774dd888856f9596bc6769155a3323e36",
+    "GENERATED_AT": "2026-09-11T01:50:06+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1d989ff22c1e00bb82556326c4f3873ef491ba251452924763ae8b33ce81e706"
   },
   "FAMILIES": [
     {
@@ -13595,6 +13595,7 @@
         "coleta/adaptador_linkedin.py",
         "coleta/adaptador_x.py",
         "coleta/adaptador_youtube.py",
+        "coleta/scrap_capacidades.py",
         "coleta/scrap_executor.py",
         "coleta/scrap_fornecedores.py",
         "coleta/scrap_http.py",
@@ -13605,9 +13606,9 @@
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py"
       ],
-      "file_count": 15,
+      "file_count": 16,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 15 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 16 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -13637,14 +13638,15 @@
           "ALVOS",
           "ALVOS_YOUTUBE_IT",
           "CONTENT_TYPES",
+          "DECLARADAS",
           "PLATAFORMA_NO_BANCO",
           "RAZOES",
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 100,
+        "palavras": 181,
         "por_lingua": {},
-        "sem_marca_de_lingua": 100,
+        "sem_marca_de_lingua": 181,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -20847,7 +20849,7 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 292,
+          "line": 290,
           "snippet": "import comunicacao_classificar as cc"
         }
       ],
@@ -27823,7 +27825,7 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 323,
+          "line": 321,
           "snippet": "import social_sessao as ss"
         },
         {
@@ -27856,7 +27858,7 @@
       "evidence": [
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 348,
+          "line": 346,
           "snippet": "_fonte('guarda/social_sessao.py'))"
         },
         {
@@ -28207,6 +28209,24 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/scrap_capacidades.py",
+          "line": 126,
+          "snippet": "_MZ = 'leis/social_matriz.py'"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -28424,7 +28444,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 24 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 25 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -28448,6 +28468,11 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
+          "line": 21,
+          "snippet": "import scrap_capacidades as cap    # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
           "line": 22,
           "snippet": "import scrap_registo as reg        # noqa: E402"
         },
@@ -28468,23 +28493,18 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 399,
+          "line": 397,
           "snippet": "import scrap_http as http"
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 405,
+          "line": 403,
           "snippet": "import adaptador_youtube as ay"
         },
         {
           "file": "tests/test_social_persistencia_pg.py",
           "line": 23,
           "snippet": "import social_persistencia as sp        # noqa: E402"
-        },
-        {
-          "file": "tests/test_social_sessao.py",
-          "line": 250,
-          "snippet": "import social_rotas"
         }
       ],
       "categoria": "PROOF"
@@ -28497,7 +28517,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 16 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 17 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -28531,12 +28551,17 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 208,
-          "snippet": "'coleta/scrap_fornecedores.py', 'coleta/social_rotas.py')"
+          "line": 205,
+          "snippet": "'coleta/scrap_capacidades.py', 'coleta/scrap_fornecedores.py',"
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 386,
+          "line": 205,
+          "snippet": "'coleta/scrap_capacidades.py', 'coleta/scrap_fornecedores.py',"
+        },
+        {
+          "file": "tests/test_scrap_convergencia.py",
+          "line": 384,
           "snippet": "'coleta/scrap_http.py', 'coleta/social_rotas.py'):"
         },
         {
@@ -28553,11 +28578,6 @@
           "file": "tests/test_social_sessao.py",
           "line": 28,
           "snippet": "'social_envelope.py': 'coleta/social_envelope.py',"
-        },
-        {
-          "file": "tests/test_social_sessao.py",
-          "line": 29,
-          "snippet": "'youtube_oficial.py': 'coleta/youtube_oficial.py',"
         }
       ],
       "categoria": "PROOF"
@@ -29786,7 +29806,7 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 281,
+          "line": 279,
           "snippet": "import reel_transcricao as rt"
         }
       ],
@@ -29814,7 +29834,7 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 284,
+          "line": 282,
           "snippet": "self.assertNotIn('WhisperModel(', _fonte('ferramentas/reel_transcricao.py'))"
         }
       ],
@@ -30802,10 +30822,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "leis/scrap_capacidades.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 737,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 736,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30973,12 +30991,12 @@
     "components_pending": 93,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 630,
-    "edges_proven": 627,
+    "edges": 631,
+    "edges_proven": 628,
     "edges_unknown": 3,
     "business_edges": 4,
     "files_tracked": 1441,
-    "files_covered": 704,
-    "files_code_unclaimed": 1
+    "files_covered": 705,
+    "files_code_unclaimed": 0
   }
 }
