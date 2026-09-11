@@ -143,7 +143,7 @@ def CHECK(plataforma, capacidade, *, ambiente=None):
                             'transforma em sucesso.' % cap.estado(capacidade))
         return veredicto
     r = reg.adaptador_de(plat, capacidade)
-    if not r or not r['EXECUTA']:
+    if not reg.tem_caminho(plat, capacidade):
         veredicto['STATE'] = SEM_ROTA
         veredicto['WHY'] = ('declarada e sem rota ligada nesta linhagem. '
                             'Declarar sem executar e honesto; executar sem '
@@ -151,14 +151,34 @@ def CHECK(plataforma, capacidade, *, ambiente=None):
         veredicto['ADAPTER'] = r['ADAPTADOR'] if r else None
         return veredicto
     veredicto['ADAPTER'] = r['ADAPTADOR']
+    veredicto['MATRIZ_CAPABILITY'] = cap.da_matriz(capacidade)
     if ambiente and alvo not in (ambiente, cap.EITHER):
         veredicto['STATE'] = AMBIENTE_ERRADO
         veredicto['WHY'] = ('esta capacidade corre em %s e foi pedida em %s%s'
                             % (alvo, ambiente, ' — %s' % porque if porque else ''))
         return veredicto
+    # ── A SONDA GRATUITA ──────────────────────────────────────────────────
+    # `CHECK` responde «consigo chegar la AGORA», e uma rota oficial sem
+    # credencial no ambiente nao chega a lado nenhum. Ler uma variavel de
+    # ambiente custa zero — e e exatamente por custar zero que esta pergunta
+    # pertence ao CHECK e nao ao COLLECT.
+    #
+    #     DESCOBRIR QUE FALTA A CHAVE DEPOIS DE CHAMAR A API E DESCOBRIR
+    #     TARDE. O `CHECK` existe para que `COL-LAW-018` — a rota mais barata
+    #     capaz vem primeiro — seja decidivel ANTES de gastar.
+    #
+    # A sonda NUNCA devolve o valor do segredo. Devolve (bool, estado), e o
+    # estado e escrito pelo adaptador, nunca derivado da credencial.
+    sonda = reg.sonda_de(plat, capacidade)
+    if sonda is not None:
+        ok, porque_nao = sonda()
+        if not ok:
+            veredicto['STATE'] = porque_nao or 'CREDENTIAL_MISSING'
+            veredicto['WHY'] = ('a rota existe e a configuracao dela nao esta completa neste ambiente')
+            return veredicto
     veredicto['CAN'] = True
     veredicto['STATE'] = PODE
-    veredicto['WHY'] = 'declarada, com rota, e o estado medido promete resultado'
+    veredicto['WHY'] = ('declarada, com rota, configurada, e o estado medido promete resultado')
     return veredicto
 
 
@@ -178,8 +198,23 @@ def COLLECT(*, platform, capability, run_id, scope='PONTUAL', **kwargs):
         trace.update({'EXECUTOR_ID': EXECUTOR_ID, 'RUN_ID': run_id,
                       'SCOPE': scope, 'CHECK': pronto})
         return [], trace
-    executa = reg.executor_de((platform or '').upper(), capability)
-    objetos, trace = executa(run_id=run_id, **kwargs)
+    plat = (platform or '').upper()
+    executa = reg.executor_de(plat, capability)
+    if executa is not None:
+        # Capacidade que a matriz de rotas nao conhece — a cadeia de Reel e a
+        # unica hoje. Ela monta o proprio trace porque nao ha porta a medir.
+        objetos, trace = executa(run_id=run_id, **kwargs)
+    else:
+        # O CAMINHO CANONICO. Passa pelo roteador, e o roteador mede o portao
+        # do `robots`, a trava da sessao e a trava do gasto ANTES de chamar
+        # qualquer coisa. Saltar isto para «ir direto a API» seria mais curto
+        # e seria uma segunda porta — e a segunda porta e sempre a que ninguem
+        # mede.
+        import social_rotas as sr
+        grossa = cap.da_matriz(capability)
+        objetos, registo = sr.executar(platform=plat, capability=grossa,
+                                       run_id=run_id, **kwargs)
+        trace = forn.do_registo(capability, registo)
     trace.update({'EXECUTOR_ID': EXECUTOR_ID, 'EXECUTOR_VERSION': EXECUTOR_VERSION,
                   'RUN_ID': run_id, 'SCOPE': scope, 'CHECK': pronto})
     forn.conferir(trace)

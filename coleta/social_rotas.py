@@ -95,7 +95,7 @@ def _rota_executavel(plat, cap_grossa):
         return ADAPTADORES[(plat, cap_grossa)]
     reg.carregar_adaptadores()
     nome = cap.pela_matriz(plat, cap_grossa)
-    return reg.executor_de(plat, nome) if nome else None
+    return reg.rota_de(plat, nome) if nome else None
 
 
 def _executar(*, platform, capability, run_id, country_scope='IT',
@@ -113,7 +113,8 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
     registro = {
         'PLATFORM': plat, 'CAPABILITY': cap, 'RUN_ID': run_id,
         'COUNTRY_SCOPE': country_scope, 'QUANDO': env.agora(),
-        'ROTA_ESCOLHIDA': None, 'AUTH_MODE': None, 'ESTADO': None, 'OBJETOS': 0,
+        'ROTA_ESCOLHIDA': None, 'CLASSE_DA_ROTA': None,
+        'AUTH_MODE': None, 'ESTADO': None, 'OBJETOS': 0,
         'COST_USD': 0.0, 'ERRO': None, 'MOTIVO_PAGO': None,
     }
     if not rotas:
@@ -127,6 +128,10 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         registro['ERRO'] = 'nenhuma rota permitida para %s/%s' % (plat, cap)
         return [], registro
     registro['ROTA_ESCOLHIDA'] = escolhida['ROTA']
+    # A CLASSE sobe junto com a rota. Sem ela, quem le o registo teria de
+    # adivinhar pelo NOME da rota se aquilo foi API oficial, Apify ou HTTP —
+    # e adivinhar pelo nome e como se escreve a primeira mentira do trace.
+    registro['CLASSE_DA_ROTA'] = escolhida['CLASSE']
 
     registro['AUTH_MODE'] = mz.auth_mode(escolhida)
 

@@ -39,6 +39,52 @@ PLATAFORMA = 'YOUTUBE'
 _EstadoDaApi = http.EstadoDaApi
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# O TRADUTOR — porque «nao tenho chave» nao pode chegar como «erro desconhecido»
+# ══════════════════════════════════════════════════════════════════════════
+# Medido nesta missao, antes de mexer: com a chave ausente, `social_rotas`
+# devolvia `UNKNOWN_ERROR` para `SEARCH_KEYWORD`. A mensagem dizia, por extenso,
+# «Isto e CREDENTIAL_MISSING» — e o ESTADO dizia outra coisa.
+#
+#     UMA MENSAGEM QUE SABE E UM ESTADO QUE NAO SABE VALEM MENOS QUE NENHUM
+#     DOS DOIS: quem le por maquina le o estado.
+#
+# O roteador nao pode aprender as excecoes do YouTube — ele deixou de conhecer
+# plataformas na C1 e nao volta atras. Entao a traducao acontece AQUI, no dono
+# da semantica, e sobe pelo carregador de estado que o transporte ja tem.
+#
+# As tres sao coisas diferentes e nao se colapsam:
+#
+#     CREDENTIAL_MISSING   nao ha chave no ambiente
+#     QUOTA_EXHAUSTED      a quota DELES acabou
+#     BUDGET_EXHAUSTED     o teto NOSSO desta execucao acabou
+#
+# A terceira e nossa decisao, nao limite da plataforma. Chamar-lhe quota seria
+# culpar o Google por uma trava que esta casa pos.
+def _traduzido(fn):
+    """Chama a rota e converte a recusa em estado canonico, nunca em surpresa."""
+    def dentro(**kw):
+        import youtube_oficial as yt
+        try:
+            return fn(**kw)
+        except yt.SemCredencial as e:
+            raise _EstadoDaApi({'STATE': 'CREDENTIAL_MISSING',
+                                'NATIVE_REASON': 'YOUTUBE_DATA_API_KEY ausente',
+                                'RECOVERY_ACTION': 'HUMAN_PROVISION_CREDENTIAL'}) from e
+        except yt.QuotaEstourada as e:
+            raise _EstadoDaApi({'STATE': 'QUOTA_EXHAUSTED',
+                                'NATIVE_REASON': 'quota do projeto no YouTube',
+                                'RECOVERY_ACTION': 'WAIT'}) from e
+        except yt.TetoDaExecucao as e:
+            raise _EstadoDaApi({'STATE': 'BUDGET_EXHAUSTED',
+                                'NATIVE_REASON': 'teto desta execucao, posto por nos',
+                                'RECOVERY_ACTION': 'NO_RETRY'}) from e
+    dentro.__name__ = fn.__name__
+    dentro.__doc__ = fn.__doc__
+    return dentro
+
+
+@_traduzido
 def youtube_buscar(*, termo, run_id, country_scope, limit=25, **_):
     import youtube_oficial as yt
     objs, _s = yt.buscar(termo=termo, run_id=run_id, country_scope=country_scope,
@@ -46,6 +92,7 @@ def youtube_buscar(*, termo, run_id, country_scope, limit=25, **_):
     return objs
 
 
+@_traduzido
 def youtube_uploads(*, channel_id, run_id, country_scope, limit=25, conhecidos=(), **_):
     import youtube_oficial as yt
     objs, _s, _rel = yt.uploads_recentes(
@@ -54,6 +101,7 @@ def youtube_uploads(*, channel_id, run_id, country_scope, limit=25, conhecidos=(
     return objs
 
 
+@_traduzido
 def youtube_metadata(*, video_ids, run_id, country_scope, **_):
     import youtube_oficial as yt
     objs, _s, _rel = yt.metadata(video_ids=video_ids, run_id=run_id,
@@ -61,6 +109,7 @@ def youtube_metadata(*, video_ids, run_id, country_scope, **_):
     return objs
 
 
+@_traduzido
 def youtube_comentarios(*, video_id, run_id, country_scope, limite_threads=100, **_):
     import youtube_oficial as yt
     objs, _s, rel = yt.comentarios(video_id=video_id, run_id=run_id,
@@ -74,16 +123,48 @@ def youtube_comentarios(*, video_id, run_id, country_scope, limite_threads=100, 
     return objs
 
 
+
+# ══════════════════════════════════════════════════════════════════════════
+# A SONDA — de graca, e sem nunca tocar no valor
+# ══════════════════════════════════════════════════════════════════════════
+# `CHECK` pergunta «consigo chegar la agora, sem gastar?». Para uma rota oficial
+# a resposta depende de uma coisa que se le em memoria: a credencial esta no
+# ambiente?
+#
+#     LER UMA VARIAVEL DE AMBIENTE NAO E COLETAR. Nao chama a API, nao gasta
+#     quota, nao abre navegador e nao acorda a Apify.
+#
+# E o que sai daqui e um BOOLEANO e um ESTADO. Nunca o valor, nunca o tamanho,
+# nunca um prefixo, nunca um hash. Um comprimento com prefixo e meio segredo, e
+# meio segredo num log e um segredo num log.
+#
+#     A PROVA DE QUE A CHAVE SERVE E A CHAMADA FUNCIONAR. Nao e a impressao dela.
+#
+# E a distincao que o coordenador pediu, e ela importa: a chave EXISTE nos
+# Secrets do GitHub. Se ela nao chegar ao processo, isso e `SECRET_WIRING_GAP` —
+# um defeito de ligacao — e nao «nao temos credencial». Deste lado do processo
+# as duas parecem iguais, entao esta sonda diz o que consegue provar:
+# CREDENTIAL_MISSING NESTE AMBIENTE. Quem distingue e o workflow.
+def pronto_para_api(**_):
+    """→ (consigo?, estado). Zero chamadas, zero quota, zero dolar."""
+    import youtube_oficial as yt
+    return (bool(yt.chave()), 'CREDENTIAL_MISSING')
+
+
 # ══════════════════════════════════════════════════════════════════════════
 # O QUE ESTE ADAPTADOR DECLARA
 # ══════════════════════════════════════════════════════════════════════════
-reg.registar(PLATAFORMA, 'youtube.search', adaptador=NOME, executa=youtube_buscar,
+reg.registar(PLATAFORMA, 'youtube.search', adaptador=NOME,
+             pronto=pronto_para_api, rota=youtube_buscar,
              nota='API oficial search.list; `ytsearch` do yt-dlp esta ROUTE_NOT_ALLOWED na matriz')
-reg.registar(PLATAFORMA, 'youtube.channel.discovery', adaptador=NOME, executa=youtube_uploads,
+reg.registar(PLATAFORMA, 'youtube.channel.discovery', adaptador=NOME,
+             pronto=pronto_para_api, rota=youtube_uploads,
              nota='playlistItems.list; o feeds/videos.xml foi reprovado pelo portao')
-reg.registar(PLATAFORMA, 'youtube.video.metadata', adaptador=NOME, executa=youtube_metadata,
+reg.registar(PLATAFORMA, 'youtube.video.metadata', adaptador=NOME,
+             pronto=pronto_para_api, rota=youtube_metadata,
              nota='videos.list custa 1 unidade de quota; oembed esta PROVED na matriz')
-reg.registar(PLATAFORMA, 'youtube.comments', adaptador=NOME, executa=youtube_comentarios,
+reg.registar(PLATAFORMA, 'youtube.comments', adaptador=NOME,
+             pronto=pronto_para_api, rota=youtube_comentarios,
              nota='comentario desativado sobe como estado proprio, nunca como ZERO_RESULTS')
 reg.registar(PLATAFORMA, 'youtube.native_caption', adaptador=NOME,
              nota='captions.download exige ser dono do video; a rota grata do yt-dlp nao esta classificada na matriz')

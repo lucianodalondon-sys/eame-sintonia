@@ -13,6 +13,19 @@
 #     piloto   GRÁTIS · a prova pequena, ao vivo, contra alvo real
 #     ledger   GRÁTIS · o que REALMENTE rodou (can do != did do)
 #
+# E uma que custa QUOTA, e é a prova da cadeia inteira:
+#
+#     youtube-oficial   as quatro capacidades pelo EXECUTOR, não pela API direta
+#
+# A fase `youtube` chama `youtube_oficial` direto e mede a API. A
+# `youtube-oficial` entra pelo `scrap_executor`, atravessa o roteador com os
+# portões e só então chega à API. São perguntas diferentes:
+#
+#     MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+#
+# O secret entra no MESMO passo que já o recebia. Nenhum job novo, nenhum
+# arquivo novo: um segundo workflow de YouTube seria um segundo produto.
+#
 # TODAS as fases custam zero DÓLAR. A partir de 2026-09-08 uma delas custa QUOTA:
 # `youtube` fala com a YouTube Data API v3 pela chave `YOUTUBE_DATA_API_KEY`.
 #
@@ -51,7 +64,7 @@ on:
         default: censo
         type: choice
         options: [censo, portao, video, gap, piloto, ledger, sessao, politica, guarda,
-                  youtube, youtube-piloto, youtube-piloto-oneshot]
+                  youtube, youtube-oficial, youtube-piloto, youtube-piloto-oneshot]
       url:
         description: 'só para a fase `portao`: a URL a testar'
         required: false

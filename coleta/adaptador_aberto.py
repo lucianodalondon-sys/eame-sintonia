@@ -196,11 +196,11 @@ def _sem_tags(html):
 # ══════════════════════════════════════════════════════════════════════════
 # O QUE ESTE ADAPTADOR DECLARA
 # ══════════════════════════════════════════════════════════════════════════
-reg.registar('MASTODON', 'mastodon.hashtag.search', adaptador=NOME, executa=mastodon_tag)
+reg.registar('MASTODON', 'mastodon.hashtag.search', adaptador=NOME, rota=mastodon_tag)
 reg.registar('MASTODON', 'mastodon.account.incremental', adaptador=NOME,
-             executa=mastodon_conta_statuses)
+             rota=mastodon_conta_statuses)
 reg.registar('BLUESKY', 'bluesky.account.discovery', adaptador=NOME,
-             executa=bluesky_buscar_contas)
+             rota=bluesky_buscar_contas)
 reg.registar('BLUESKY', 'bluesky.author.incremental', adaptador=NOME,
-             executa=bluesky_feed_autor)
-reg.registar('TELEGRAM', 'telegram.channel.incremental', adaptador=NOME, executa=telegram_canal)
+             rota=bluesky_feed_autor)
+reg.registar('TELEGRAM', 'telegram.channel.incremental', adaptador=NOME, rota=telegram_canal)

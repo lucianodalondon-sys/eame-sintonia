@@ -62,6 +62,57 @@ CONHECIDOS = (FORNECIDO, JA_PRESERVADO, YTDLP, EMBED, APIFY,
 #: Os que custam dinheiro. `COL-LAW-019`: rota paga e escalada, nao padrao.
 PAGOS = (APIFY,)
 
+#: A CLASSE da rota, como `social_matriz` a declara, traduzida para o
+#: fornecedor. Existe porque a matriz fala de CLASSE DE PORTA e o trace fala
+#: de FERRAMENTA, e sao perguntas diferentes: `OFFICIAL_API_FREE` e
+#: `OFFICIAL_API_PAID` sao a mesma ferramenta com contas diferentes.
+#:
+#:     QUEM PAGA NAO SE LE NO NOME DO FORNECEDOR. Le-se em `PAID_PROVIDER_USED`
+#:     e no `COST_USD` da corrida.
+POR_CLASSE = {
+    'OFFICIAL_API_FREE': API_OFICIAL,
+    'OFFICIAL_API_PAID': API_OFICIAL,
+    'APIFY': APIFY,
+    'PUBLIC_NATIVE': HTTP_PROPRIO,
+    'DIRECT_HTTP': HTTP_PROPRIO,
+    'LOCAL_SESSION': BROWSER,
+    'LOCAL_EXECUTOR': YTDLP,
+}
+
+
+def da_classe(classe):
+    """→ o fornecedor daquela classe de rota, ou None se ninguem a declarou."""
+    return POR_CLASSE.get(classe)
+
+
+def do_registo(capacidade, registo):
+    """Traduz o registo selado por `social_rotas` para o trace canonico.
+
+    O roteador ja media tudo o que este trace precisa: a rota escolhida, a
+    classe dela, o estado final e o custo. O que faltava era a leitura de
+    cima — qual fornecedor foi pedido, qual entregou, e se houve troca.
+
+    Nao ha troca aqui, e isso e o ponto: `social_rotas` escolhe UMA rota e
+    executa. Se ela recusar, o resultado e o estado da recusa — nunca uma
+    segunda tentativa por outra porta que ninguem pediu.
+    """
+    classe = (registo or {}).get('CLASSE_DA_ROTA')
+    fornecedor = da_classe(classe)
+    estado = (registo or {}).get('ESTADO')
+    p = Percurso(capacidade, pedido=fornecedor)
+    if fornecedor:
+        p.degrau(fornecedor, estado, registo.get('ROTA_ESCOLHIDA'))
+    trace = p.selar(resultado=estado)
+    trace['ROUTE'] = (registo or {}).get('ROTA_ESCOLHIDA')
+    trace['ROUTE_CLASS'] = classe
+    trace['AUTH_MODE'] = (registo or {}).get('AUTH_MODE')
+    trace['COST_USD'] = (registo or {}).get('COST_USD')
+    trace['NATIVE_REASON'] = (registo or {}).get('NATIVE_REASON')
+    trace['RECOVERY_ACTION'] = (registo or {}).get('RECOVERY_ACTION')
+    trace['FAILURE_LAYER'] = (registo or {}).get('FAILURE_LAYER')
+    trace['ROUTER_RECORD'] = registo
+    return trace
+
 
 class TraceIncompleto(RuntimeError):
     """Houve troca de fornecedor e ninguem escreveu por que."""

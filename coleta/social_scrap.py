@@ -41,6 +41,7 @@ só passa não mediu nada — ela só confirmou o caminho feliz.
 import json
 import os
 import sys
+import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(HERE)
@@ -826,6 +827,137 @@ def ledger():
         print('    %-11s execuções=%-3d objetos=%-5d %s' % (k, v['exec'], v['obj'], marca))
 
 
+
+# ══════════════════════════════════════════════════════════════════════════
+# YOUTUBE OFICIAL — a prova de que a rota canonica atravessa, ponta a ponta
+# ══════════════════════════════════════════════════════════════════════════
+# Esta fase NAO e um segundo motor de YouTube. Ela nao chama `youtube_oficial`
+# e nao chama `social_rotas`. Ela chama o EXECUTOR, e deixa o caminho acontecer:
+#
+#     scrap_executor.COLLECT
+#             -> social_rotas (portao do robots, trava de sessao, trava do gasto)
+#                     -> adaptador_youtube (a rota crua)
+#                             -> youtube_oficial (a API v3, contando quota)
+#
+# A fase `youtube` que ja existia chama `youtube_oficial` DIRETO. Ela continua a
+# servir — mede a API sem atravessar o resto. Esta prova a cadeia inteira, que e
+# outra pergunta:
+#
+#     MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+#
+# A C1 declarou as quatro capacidades e registou os executores. Medido nesta
+# missao, antes de mexer: `COLLECT` NAO conseguia chamar nenhuma delas —
+# faltava `country_scope` e a forma do retorno era outra. A declaracao estava
+# certa e o fluxo nunca tinha corrido. Esta fase existe para que isso nao volte
+# a ser possivel sem alguem reparar.
+#
+# O QUE ELA NAO FAZ
+# ------------------
+# Nao imprime a chave. Nao imprime tamanho, prefixo nem hash da chave. Nao faz
+# coleta ampla: uma busca, um canal, um lote de metadata e uma pagina de
+# comentarios. E nao cai para a Apify se a API recusar — a recusa E o resultado.
+ALVO_OFICIAL = {
+    # Vindos do acervo desta casa, nao inventados: `YOUTUBE-PILOTO-IT.json`
+    # guardou-os numa corrida autenticada anterior.
+    'TERMO': 'agricoltura di precisione',
+    'CANAL': 'UCUs2Mg7jvUTRt7_MSOFYM5Q',      # @agronotizietv
+    'VIDEOS': ['MCnd9c2pzd8', '7Ps4g3juOIU', 'GpmfcN5huug'],
+}
+
+#: As quatro desta missao, na ordem em que uma alimenta a seguinte.
+QUATRO = ('youtube.search', 'youtube.channel.discovery',
+          'youtube.video.metadata', 'youtube.comments')
+
+
+def youtube_oficial_prova():
+    """As quatro capacidades pela rota canonica. → 0 se todas usarem a API oficial."""
+    import scrap_executor as scrap
+    import scrap_fornecedores as forn
+    import youtube_oficial as yt
+
+    run_id = 'C2-YT-OFICIAL-%s' % time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())
+    print('\nYOUTUBE OFICIAL — a rota canonica, ponta a ponta')
+    print('=' * 74)
+    print('RUN_ID  %s' % run_id)
+
+    # ── 1 · O CHECK, QUE NAO GASTA ────────────────────────────────────────
+    print('\n  CHECK — de graca, antes de qualquer chamada')
+    prontas = []
+    for c in QUATRO:
+        v = scrap.CHECK('YOUTUBE', c)
+        print('    %-28s CAN=%-5s %-22s alvo=%s' % (c, v['CAN'], v['STATE'],
+                                                    v['EXECUTION_TARGET']))
+        if v['CAN']:
+            prontas.append(c)
+    if not prontas:
+        print('\n  NENHUMA capacidade pronta neste ambiente.')
+        print('  Isto NAO e defeito: e o CHECK a fazer o trabalho dele antes de gastar.')
+        return 1
+
+    # ── 2 · O COLLECT, PELO CAMINHO CANONICO ──────────────────────────────
+    pedidos = {
+        'youtube.search': dict(termo=ALVO_OFICIAL['TERMO'], limit=5),
+        'youtube.channel.discovery': dict(channel_id=ALVO_OFICIAL['CANAL'], limit=5),
+        'youtube.video.metadata': dict(video_ids=ALVO_OFICIAL['VIDEOS']),
+        'youtube.comments': dict(video_id=ALVO_OFICIAL['VIDEOS'][0], limite_threads=5),
+    }
+    print('\n  CAPABILITY                   API_METHOD              ITENS  RESULT')
+    print('  ' + '-' * 70)
+    linhas, tudo_oficial = [], True
+    for c in QUATRO:
+        if c not in prontas:
+            linhas.append({'CAPABILITY': c, 'RESULT': 'NOT_RUN',
+                           'WHY': 'CHECK recusou antes de gastar'})
+            print('  %-28s %-22s %5s  NOT_RUN' % (c, '-', '-'))
+            continue
+        objetos, trace = scrap.COLLECT(platform='YOUTUBE', capability=c,
+                                       run_id=run_id, country_scope='IT',
+                                       **pedidos[c])
+        t = scrap.TRACE(trace)
+        metodo = (trace.get('ROUTE') or '').split(':')[-1] or '-'
+        print('  %-28s %-22s %5d  %s' % (c, metodo, len(objetos), t['RESULT']))
+        if t['PROVIDER_USED'] not in (None, forn.API_OFICIAL):
+            tudo_oficial = False
+            print('      FORNECEDOR INESPERADO: %s' % t['PROVIDER_USED'])
+        if t['PAID_PROVIDER_USED']:
+            tudo_oficial = False
+            print('      ROTA PAGA USADA — isto reprova esta fase')
+        linhas.append({'CAPABILITY': c, 'API_METHOD': metodo,
+                       'RESULT': t['RESULT'], 'ITEM_COUNT': len(objetos),
+                       'PROVIDER_REQUESTED': t['PROVIDER_REQUESTED'],
+                       'PROVIDER_USED': t['PROVIDER_USED'],
+                       'WHY_FALLBACK': t['WHY_FALLBACK'],
+                       'PAID_PROVIDER_USED': t['PAID_PROVIDER_USED'],
+                       'COST_USD': trace.get('COST_USD'),
+                       'ROUTE': trace.get('ROUTE'),
+                       'ROUTE_CLASS': trace.get('ROUTE_CLASS'),
+                       'NATIVE_REASON': trace.get('NATIVE_REASON')})
+
+    # ── 3 · A QUOTA, QUE E GRATIS E NAO E INFINITA ────────────────────────
+    # O contador vive na sessao, e cada chamada abriu a sua. Entao o que se pode
+    # dizer aqui e o MODELO e o custo POR METODO — nao o gasto somado, que
+    # ninguem mediu.
+    #
+    #     US$ 0,00 NAO QUER DIZER «A VONTADE».
+    print('\n  QUOTA — modelo oficial, dois baldes que nao se somam')
+    for c in linhas:
+        m = c.get('API_METHOD')
+        if m and m in yt.QUOTA:
+            balde, custo = yt.QUOTA[m]
+            print('    %-22s balde=%-8s %s unidade(s) por chamada' % (m, balde, custo))
+    print('    limite do projeto: %s' % yt.LIMITE_PADRAO)
+    print('    fonte: %s' % yt.QUOTA_FONTE)
+
+    print('\n  COST_USD 0.00 (%s) · APIFY_CALLS 0' % yt.COST_BASIS)
+    print('  TODAS PELA API OFICIAL: %s' % ('SIM' if tudo_oficial else 'NAO'))
+    if not tudo_oficial:
+        print('  Uma das quatro saiu por outra porta. Isto reprova de proposito.')
+        return 1
+    executadas = [l for l in linhas if l['RESULT'] != 'NOT_RUN']
+    print('  capacidades executadas: %d de %d' % (len(executadas), len(QUATRO)))
+    return 0 if len(executadas) == len(QUATRO) else 1
+
+
 def main():
     args = sys.argv[1:]
     cmd = args[0] if args else 'censo'
@@ -846,6 +978,8 @@ def main():
         ss.main()
     elif cmd == 'youtube':
         youtube()
+    elif cmd == 'youtube-oficial':
+        return youtube_oficial_prova()
     elif cmd == 'youtube-piloto':
         return youtube_piloto(OPERATIONAL)
     elif cmd == 'youtube-piloto-oneshot':

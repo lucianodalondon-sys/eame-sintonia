@@ -67,12 +67,33 @@ class CapacidadeNaoDeclarada(RuntimeError):
 _MAPA = {}
 
 
-def registar(plataforma, capacidade, *, adaptador, executa=None, nota=None):
-    """Poe um adaptador no mapa. `executa=None` e uma declaracao honesta.
+def registar(plataforma, capacidade, *, adaptador, executa=None, rota=None,
+             pronto=None, nota=None):
+    """Poe um adaptador no mapa. Sem `executa` nem `rota` e uma declaracao honesta.
 
     Um adaptador que declara a capacidade e nao tem rota devolve o estado
     medido — nunca um sucesso vazio.
+
+    DOIS PAPEIS, UMA ENTRADA SO
+    ----------------------------
+        rota      a funcao CRUA, que `social_rotas` despacha depois de medir
+                  o portao, a sessao e o gasto. Devolve a lista de objetos.
+        executa   a funcao de NIVEL DE ADAPTADOR, que devolve (objetos, trace).
+                  So para capacidade que a matriz de rotas nao conhece.
+
+    Sao papeis diferentes da mesma capacidade, nao dois donos dela. Quem tem
+    `rota` e coletado pelo caminho canonico — executor, roteador, portoes —
+    e o trace nasce do registo que o roteador ja sela. Quem tem `executa`
+    monta o proprio trace, porque nao ha porta para atravessar.
+
+        A CADEIA DE REEL TEM `executa`. AS QUATRO DO YOUTUBE TEM `rota`.
+        Nenhuma tem as duas: isso seria dois caminhos para o mesmo pedido,
+        e o segundo caminho e sempre o que ninguem mede.
     """
+    if executa is not None and rota is not None:
+        raise RegistoDuplicado(
+            '%s/%s: `executa` e `rota` ao mesmo tempo sao dois caminhos para o '
+            'mesmo pedido.' % (plataforma, capacidade))
     plat = (plataforma or '').upper()
     if not cap.existe(capacidade):
         raise CapacidadeNaoDeclarada(
@@ -94,6 +115,11 @@ def registar(plataforma, capacidade, *, adaptador, executa=None, nota=None):
         'CAPABILITY': capacidade,
         'ADAPTADOR': adaptador,
         'EXECUTA': executa,
+        'ROTA': rota,
+        # A SONDA GRATUITA. Responde «consigo chegar la agora?» sem gastar
+        # nada: le configuracao, nunca chama rota. E do adaptador porque so
+        # ele sabe o que a sua plataforma precisa ter em maos.
+        'PRONTO': pronto,
         'CAPABILITY_STATE': cap.estado(capacidade),
         'EXECUTION_TARGET': alvo,
         'WHY_LOCAL': porque,
@@ -109,9 +135,27 @@ def adaptador_de(plataforma, capacidade):
 
 
 def executor_de(plataforma, capacidade):
-    """→ a funcao que executa, ou None se a capacidade so esta declarada."""
+    """→ a funcao de nivel de adaptador, ou None."""
     r = adaptador_de(plataforma, capacidade)
     return r['EXECUTA'] if r else None
+
+
+def sonda_de(plataforma, capacidade):
+    """→ a sonda gratuita de prontidao do adaptador, ou None."""
+    r = adaptador_de(plataforma, capacidade)
+    return r.get('PRONTO') if r else None
+
+
+def rota_de(plataforma, capacidade):
+    """→ a funcao crua que `social_rotas` despacha, ou None."""
+    r = adaptador_de(plataforma, capacidade)
+    return r.get('ROTA') if r else None
+
+
+def tem_caminho(plataforma, capacidade):
+    """Ha por onde coletar isto? Qualquer um dos dois papeis serve."""
+    r = adaptador_de(plataforma, capacidade)
+    return bool(r and (r['EXECUTA'] or r.get('ROTA')))
 
 
 def registados():
@@ -128,9 +172,10 @@ def do_adaptador(nome):
 
 
 def executaveis():
-    """So as capacidades que tem rota E prometem resultado."""
+    """So as capacidades que tem caminho E prometem resultado."""
     return {k: v for k, v in sorted(_MAPA.items())
-            if v['EXECUTA'] is not None and cap.promete_resultado(v['CAPABILITY'])}
+            if (v['EXECUTA'] is not None or v.get('ROTA') is not None)
+            and cap.promete_resultado(v['CAPABILITY'])}
 
 
 def carregar_adaptadores():
