@@ -81,6 +81,58 @@ ASR_INDISPONIVEL = 'ASR_INDISPONIVEL'
 
 ESTADOS = (OK, REQUESTED_EMPTY, ASR_FALHOU, TRANSCRIPTION_TIMEOUT, ASR_INDISPONIVEL)
 
+# ══════════════════════════════════════════════════════════════════════════
+# ESCOLHER O FERRO NAO E TER CORRIDO NELE
+# ══════════════════════════════════════════════════════════════════════════
+# Medido na maquina local a 2026-09-11, com `SINTONIA_ASR_COMPUTE=int8_float32`
+# e a GTX 1080 a responder ao `get_cuda_device_count()`:
+#
+#     TRANSCRIPT_STATE   = ASR_FALHOU
+#     ASR_DEVICE_USED    = GPU          <- e nada correu na placa
+#     ASR_ACCELERATOR    = CUDA
+#     ERROR              = RuntimeError: Library cublas64_12.dll is not found
+#
+# O modelo CARREGOU na placa; foi a inferencia que caiu, por faltar a DLL do
+# cuBLAS. O campo dizia `GPU` porque o RESOLVEDOR tinha escolhido GPU — e o
+# resolvedor corre antes de existir uma unica amostra transcrita.
+#
+#     DEVICE SELECTED != DEVICE EXECUTION PROVEN.
+#
+# Um campo chamado «USED» que se enche antes de qualquer coisa ser usada nao e
+# um campo impreciso: e uma afirmacao falsa, e sai dentro do artefato com a
+# mesma cara de todas as verdadeiras.
+EXECUCAO_PROVADA = 'PROVEN'      # a inferencia completou NESTE dispositivo
+EXECUCAO_FALHOU = 'FAILED'       # foi tentada neste dispositivo e nao completou
+EXECUCAO_NAO_CORREU = 'NOT_RUN'  # nunca chegou a ser tentada
+EXECUCOES = (EXECUCAO_PROVADA, EXECUCAO_FALHOU, EXECUCAO_NAO_CORREU)
+
+
+def execucao_do_estado(estado, trace=None):
+    """→ PROVEN | FAILED | NOT_RUN. Do estado E do que o resolvedor escolheu.
+
+    So o estado nao basta, e o contraexemplo esta no proprio ficheiro: as duas
+    saidas `ASR_FALHOU` sao coisas diferentes. Uma e o modelo que nao ficou
+    pronto — e ai nao ha dispositivo escolhido, porque `modelo()` rebentou antes
+    de devolver o trace. A outra e a inferencia que caiu a meio, com a placa ja
+    escolhida e o modelo ja carregado.
+
+        SEM DISPOSITIVO ESCOLHIDO NAO HOUVE TENTATIVA — E `NOT_RUN`.
+        COM DISPOSITIVO ESCOLHIDO E ESTADO DE QUEDA, HOUVE — E E `FAILED`.
+
+    `REQUESTED_EMPTY` e `TRANSCRIPTION_TIMEOUT` sao `PROVEN` de proposito: nos
+    dois a inferencia CORREU no dispositivo e devolveu trechos. Que o audio nao
+    tivesse fala, ou que os trechos passassem do tecto, e afirmacao sobre o
+    AUDIO — nunca sobre o ferro.
+    """
+    escolhido = (trace or {}).get('DEVICE_SELECTED')
+    if not escolhido:
+        return EXECUCAO_NAO_CORREU
+    if estado == ASR_INDISPONIVEL:
+        return EXECUCAO_NAO_CORREU
+    if estado == ASR_FALHOU:
+        return EXECUCAO_FALHOU
+    return EXECUCAO_PROVADA
+
 # ── OS PADRÕES MEDIDOS ──────────────────────────────────────────────────────
 MODELO_PADRAO = os.environ.get('SINTONIA_ASR_MODELO') or 'small'
 BEAM = int(os.environ.get('SINTONIA_ASR_BEAM') or 1)
@@ -252,10 +304,90 @@ LIBS = os.environ.get('SINTONIA_LIBS') or os.path.join(
 _CACHE = {}
 
 
+#: onde o toolkit da NVIDIA se instala, se e quando alguem o instalar. Nenhum
+#: destes e assumido: cada um e conferido no disco antes de entrar em jogo.
+CUDA_BIN_DECLARADO = os.environ.get('SINTONIA_CUDA_BIN') or ''
+_DLLS_REGISTADAS = []
+
+
+def _pastas_de_dll():
+    """As pastas com as DLL do CUDA que EXISTEM nesta maquina. → lista.
+
+    Ordem deterministica: o que o chamador declarou primeiro, depois as versoes
+    do toolkit por ordem de nome, depois as libs da casa. Nada e adivinhado —
+    `os.path.isdir` decide cada uma.
+    """
+    fora = []
+    for d in CUDA_BIN_DECLARADO.split(os.pathsep):
+        if d and os.path.isdir(d):
+            fora.append(d)
+    base = os.path.join('C:\\', 'Program Files', 'NVIDIA GPU Computing Toolkit', 'CUDA')
+    if os.path.isdir(base):
+        for v in sorted(os.listdir(base), reverse=True):
+            b = os.path.join(base, v, 'bin')
+            if os.path.isdir(b):
+                fora.append(b)
+    for c in (os.path.join(LIBS, 'ctranslate2'), LIBS):
+        if os.path.isdir(c):
+            fora.append(c)
+    vistos, limpo = set(), []
+    for d in fora:
+        if d not in vistos:
+            vistos.add(d)
+            limpo.append(d)
+    return limpo
+
+
 def _caminho_das_libs():
+    """Poe as libs ao alcance deste PROCESSO — imports e DLL.
+
+    ⚠️ ATE A C4B ISTO SO MEXIA NO `sys.path`, E ISSO CHEGA PARA IMPORTAR E NAO
+    CHEGA PARA CARREGAR.
+
+    Medido no runner real, tres corridas seguidas: `cuda_disponivel()` devolveu
+    1 e a inferencia caiu com `cublas64_12.dll is not found or cannot be
+    loaded`. A DLL estava no disco — em
+    `.../NVIDIA GPU Computing Toolkit/CUDA/v12.8/bin` — e o PATH do servico do
+    runner nao a continha (`PATH_TEM_CUDA = false`).
+
+        CONTAR A PLACA NAO E PODER MULTIPLICAR NELA.
+
+    `get_cuda_device_count()` so precisa do driver; o cuBLAS so e chamado na
+    primeira multiplicacao de matrizes, ja dentro da inferencia. Entre as duas
+    coisas cabia exactamente este defeito.
+
+    Isto NAO altera a maquina: nao instala, nao copia e nao escreve PATH
+    nenhum. `os.add_dll_directory` vale para este processo e morre com ele.
+    """
     import sys
     if os.path.isdir(LIBS) and LIBS not in sys.path:
         sys.path.insert(0, LIBS)
+    if _DLLS_REGISTADAS or not hasattr(os, 'add_dll_directory'):
+        return                                    # so existe no Windows
+    # ⚠️ `add_dll_directory` SOZINHO NAO CHEGOU, e isso foi medido.
+    # Com ele registado, a inferencia continuou a cair no mesmo
+    # `cublas64_12.dll is not found or cannot be loaded`. Ele so vale para quem
+    # carrega com `LoadLibraryEx` e as flags de procura novas; a extensao nativa
+    # do CTranslate2 pede a DLL por um caminho que ainda passa pelo PATH.
+    #
+    #     REGISTAR A PASTA E DIZE-LO A QUEM USA A API NOVA.
+    #     QUEM USA A ANTIGA CONTINUA A LER O PATH.
+    #
+    # Entao faz-se as duas coisas. O PATH alterado aqui e o do PROCESSO: morre
+    # com ele, e nao toca no PATH da maquina nem no do utilizador.
+    novas = []
+    for d in _pastas_de_dll():
+        try:
+            os.add_dll_directory(d)
+        except OSError:                           # noqa: PERF203
+            continue
+        novas.append(d)
+    if novas:
+        atual = os.environ.get('PATH') or ''
+        faltam = [d for d in novas if d not in atual.split(os.pathsep)]
+        if faltam:
+            os.environ['PATH'] = os.pathsep.join(faltam + ([atual] if atual else []))
+        _DLLS_REGISTADAS.extend(novas)
 
 
 def disponivel():
@@ -317,23 +449,32 @@ def resolver_dispositivo(pedido=None):
     Por isso tres campos, sempre, mesmo quando nao houve queda:
 
         DEVICE_REQUESTED   o que se pediu
-        DEVICE_USED        o que correu
+        DEVICE_SELECTED    o que ESTE resolvedor escolheu
         WHY_FALLBACK       por que o pedido nao serviu (None se serviu)
+
+    ⚠️ O CAMPO CHAMAVA-SE `DEVICE_USED`, E O NOME ERA UMA PROMESSA FALSA.
+    Este resolvedor corre ANTES de existir uma unica amostra transcrita: ele nao
+    tem como saber o que correu. Dizia-o na mesma, e o artefato levava-o.
+
+        QUEM DECIDE ANTES NAO PODE TESTEMUNHAR DEPOIS.
+
+    Agora ele declara o que de facto sabe — a ESCOLHA — e quem vê a inferencia
+    acabar e que carimba a EXECUCAO.
     """
     pedido = (pedido or DISPOSITIVO_PADRAO or CPU).upper()
     if pedido not in DISPOSITIVOS:
         raise ValueError('dispositivo fora do vocabulario: %r. Os tres sao %s'
                          % (pedido, ', '.join(DISPOSITIVOS)))
-    trace = {'DEVICE_REQUESTED': pedido, 'DEVICE_USED': None,
+    trace = {'DEVICE_REQUESTED': pedido, 'DEVICE_SELECTED': None,
              'WHY_FALLBACK': None, 'ACCELERATOR': None}
 
     if pedido == CPU:
-        trace.update({'DEVICE_USED': CPU, 'ACCELERATOR': 'NONE'})
+        trace.update({'DEVICE_SELECTED': CPU, 'ACCELERATOR': 'NONE'})
         return 'cpu', COMPUTE_PADRAO or COMPUTE_CPU, trace
 
     n, porque = cuda_disponivel()
     if n > 0:
-        trace.update({'DEVICE_USED': GPU, 'ACCELERATOR': 'CUDA',
+        trace.update({'DEVICE_SELECTED': GPU, 'ACCELERATOR': 'CUDA',
                       'CUDA_DEVICE_COUNT': n})
         return 'cuda', COMPUTE_PADRAO or COMPUTE_GPU, trace
 
@@ -344,13 +485,13 @@ def resolver_dispositivo(pedido=None):
     #
     # Nenhum dos dois vira `ASR_FALHOU`: o reconhecedor nao caiu, o audio esta
     # bom, e a fonte nao tem culpa nenhuma disto.
-    trace.update({'DEVICE_USED': CPU, 'ACCELERATOR': 'NONE',
+    trace.update({'DEVICE_SELECTED': CPU, 'ACCELERATOR': 'NONE',
                   'WHY_FALLBACK': GPU_INDISPONIVEL,
                   'WHY_FALLBACK_DETAIL': porque})
     return 'cpu', COMPUTE_PADRAO or COMPUTE_CPU, trace
 
 
-def carimbo(modelo=None, trace=None):
+def carimbo(modelo=None, trace=None, estado=None):
     """A ficha do reconhecedor, para ir dentro do artefato derivado.
 
     Um texto sem isto não se explica: dois textos diferentes do mesmo áudio, um
@@ -369,15 +510,21 @@ def carimbo(modelo=None, trace=None):
     CORREU, e nao o que alguem esperava que corresse.
     """
     t = trace or {}
-    usado = t.get('DEVICE_USED')
-    if usado == GPU:
+    escolhido = t.get('DEVICE_SELECTED')
+    if escolhido == GPU:
         ferro = 'cuda/%s' % (COMPUTE_PADRAO or COMPUTE_GPU)
-    elif usado == CPU:
+    elif escolhido == CPU:
         ferro = 'cpu/%s/%d threads' % (COMPUTE_PADRAO or COMPUTE_CPU, nucleos())
     else:
         # Sem trace nao se inventa: um carimbo que adivinha o ferro e pior do
         # que um carimbo que confessa nao saber.
         ferro = NAO_SEI
+
+    # ── E AQUI E QUE SE SABE SE AQUILO CHEGOU A CORRER ───────────────────
+    # `estado` e o unico argumento que vem DEPOIS da inferencia. Sem ele nao se
+    # promove nada: um carimbo pedido sem estado nao pode afirmar execucao.
+    execucao = execucao_do_estado(estado, t) if estado else EXECUCAO_NAO_CORREU
+    provado = execucao == EXECUCAO_PROVADA
     return {
         'ASR_ENGINE': MOTOR,
         'ASR_ENGINE_VERSION': _versao_do_motor(),
@@ -390,10 +537,22 @@ def carimbo(modelo=None, trace=None):
         # cinco num «GPU» parece simplificacao e apaga a distincao que permite
         # explicar dois textos diferentes do mesmo audio.
         'ASR_RUNTIME': 'CTranslate2',
+        # A CONFIGURACAO ESCOLHIDA. Diagnostico, nao testemunho: ela diz com que
+        # ferro se TENTOU, e continua a valer quando a tentativa falha — e nessa
+        # hora e ela que explica porque falhou.
         'ASR_DEVICE': ferro,
+        # ── OS TRES TEMPOS DE UMA DECISAO DE FERRO ───────────────────────
+        # Pedir, escolher e correr sao tres momentos, e ate esta missao os tres
+        # cabiam num campo so — que se enchia no primeiro e era lido como se
+        # falasse do terceiro.
         'ASR_DEVICE_REQUESTED': t.get('DEVICE_REQUESTED', NAO_SEI),
-        'ASR_DEVICE_USED': usado or NAO_SEI,
-        'ASR_ACCELERATOR': t.get('ACCELERATOR', NAO_SEI),
+        'ASR_DEVICE_SELECTED': escolhido or NAO_SEI,
+        'ASR_DEVICE_EXECUTION': execucao,
+        # `USED` so nomeia um ferro quando a inferencia acabou nele. Fora disso
+        # e `NAO SEI` — que e medicao, e nao evasiva: ninguem viu correr.
+        'ASR_DEVICE_USED': (escolhido or NAO_SEI) if provado else NAO_SEI,
+        'ASR_ACCELERATOR': (t.get('ACCELERATOR', NAO_SEI) if provado else NAO_SEI),
+        'ASR_ACCELERATOR_SELECTED': t.get('ACCELERATOR', NAO_SEI),
         # `None` aqui quer dizer «nao houve queda», e NUNCA «nao sei». Os dois
         # colapsados fariam uma queda silenciosa parecer ausencia de queda.
         'ASR_WHY_FALLBACK': t.get('WHY_FALLBACK'),
@@ -456,7 +615,7 @@ def modelo(nome=None, dispositivo=None):
         if device != 'cuda' or trace['DEVICE_REQUESTED'] == GPU_SEM_MEMORIA:
             raise
         porque = GPU_SEM_MEMORIA if _parece_sem_memoria(e) else GPU_INDISPONIVEL
-        trace.update({'DEVICE_USED': CPU, 'ACCELERATOR': 'NONE',
+        trace.update({'DEVICE_SELECTED': CPU, 'ACCELERATOR': 'NONE',
                       'WHY_FALLBACK': porque,
                       'WHY_FALLBACK_DETAIL': '%s: %s' % (type(e).__name__,
                                                          str(e)[:200])})
@@ -716,7 +875,7 @@ def _resposta(estado, modelo_nome, *, texto=None, maquina_s=NAO_SEI,
         'TRANSCRIPT_STATE': estado,
         'TRANSCRIPT_CHARS': len(texto) if texto else 0,
         # QUEM OUVIU, e com quê. Sem isto o texto não se explica.
-        **carimbo(modelo_nome, trace_do_ferro),
+        **carimbo(modelo_nome, trace_do_ferro, estado),
         # A LÍNGUA. `LANGUAGE_SOURCE` é o campo que impede a confusão entre
         # «eu declarei» e «a máquina achou» — são graus de prova diferentes.
         'LANGUAGE': idioma_pedido or (idioma_detectado if idioma_detectado != NAO_SEI else NAO_SEI),

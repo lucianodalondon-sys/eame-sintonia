@@ -285,7 +285,19 @@ def fase_rodar(modelo=None, teto=None):
             'AUDIO_NAME': o.get('AUDIO_NAME', NAO_SEI),
             'ASR_ENGINE': 'faster-whisper',
             'ASR_MODEL': modelo, 'ASR_BEAM': BEAM, 'ASR_BATCH': LOTE,
-            'ASR_DEVICE': 'cpu/int8/%d threads' % nucleos,
+            # ⚠️ AQUI ESTAVA O MESMO DEFEITO DA C4B, NOUTRO CAMPO.
+            # Esta ficha e a BASE de todos os registos deste lote, e os
+            # que nunca chegam ao reconhecedor — `AUDIO_NAO_OBTIDO`,
+            # `ASR_FALHOU` — levavam-na inteira. Um registo onde NADA
+            # correu saia a jurar `cpu/int8/16 threads`.
+            #
+            #     NOT_RUN NAO PODE TER FICHA DE EXECUCAO.
+            #
+            # A ficha do ferro passa a nascer so quando ha resultado, e
+            # vem do dono — `fala_local.carimbo`, que a preenche com o
+            # estado ao lado.
+            'ASR_DEVICE': fl.NAO_SEI,
+            'ASR_DEVICE_EXECUTION': fl.EXECUCAO_NAO_CORREU,
             'CAPTURED_AT': agora(), 'MISSION': MISSION, 'RUNNER_NAME': RUNNER,
             'COST_USD': 0,
         }
@@ -305,8 +317,19 @@ def fase_rodar(modelo=None, teto=None):
         r = fl.transcrever(wav, idioma=idioma, modelo_nome=modelo,
                            duracao_s=dur if isinstance(dur, (int, float)) else None)
         if r['TRANSCRIPT_STATE'] in (fl.ASR_FALHOU, fl.ASR_INDISPONIVEL):
+            # A QUEDA TAMBEM TEM FICHA, e ela vem do reconhecedor — nao da base.
+            # Antes este ramo guardava `base` intacta e deitava fora o trace de
+            # `r`: perdia-se qual ferro tinha sido escolhido justamente no caso
+            # em que essa e a pergunta.
+            #
+            #     QUEM FALHA E QUEM MAIS PRECISA DE DIZER ONDE ESTAVA.
             itens.append(dict(base, **{
                 'TRANSCRIPT': None, 'TRANSCRIPT_STATE': r['TRANSCRIPT_STATE'],
+                'ASR_DEVICE': r.get('ASR_DEVICE', fl.NAO_SEI),
+                'ASR_DEVICE_SELECTED': r.get('ASR_DEVICE_SELECTED', fl.NAO_SEI),
+                'ASR_DEVICE_EXECUTION': r.get('ASR_DEVICE_EXECUTION',
+                                              fl.EXECUCAO_NAO_CORREU),
+                'ASR_WHY_FALLBACK': r.get('ASR_WHY_FALLBACK'),
                 'WHY': r.get('ERROR', ''),
                 'NAO_SIGNIFICA': r.get('NAO_SIGNIFICA', '')}))
             print('  %3d/%d %-13s ASR FALHOU' % (n, len(dentro), sc))

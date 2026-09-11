@@ -203,6 +203,13 @@ def uma(amostra, *, modelo, dispositivo):
         'LANGUAGE_STABILITY': estabilidade,
         'ASR_MODEL': r.get('ASR_MODEL'),
         'DEVICE_REQUESTED': r.get('ASR_DEVICE_REQUESTED'),
+        # ── TRES CAMPOS ONDE ANTES IA UM ────────────────────────────────
+        # O banco publicava `DEVICE_USED` sozinho, e ele enchia-se na ESCOLHA.
+        # Uma linha com `DEVICE_USED=GPU` e `TRANSCRIPT_STATE=ASR_FALHOU` lia-se
+        # como «a placa correu e o resultado foi mau» — quando a verdade era
+        # «a placa foi escolhida e a inferencia nunca acabou».
+        'DEVICE_SELECTED': r.get('ASR_DEVICE_SELECTED'),
+        'DEVICE_EXECUTION': r.get('ASR_DEVICE_EXECUTION'),
         'DEVICE_USED': r.get('ASR_DEVICE_USED'),
         'WHY_FALLBACK': r.get('ASR_WHY_FALLBACK'),
         'COMPUTE_TYPE': r.get('ASR_DEVICE'),
@@ -247,7 +254,7 @@ def _tabela(linhas):
     print('  ' + '-' * 86)
     for l in linhas:
         print('  %-14s %-7s %-4s %-9s %-7s %-7s %-6s %-6s %s'
-              % (l['REEL'], l['ASR_MODEL'], l['DEVICE_USED'],
+              % (l['REEL'], l['ASR_MODEL'], l['DEVICE_EXECUTION'],
                  l['TRANSCRIPT_STATE'], l['REALTIME_FACTOR'],
                  l['TERM_ACCURACY'], l['BRAND_ACCURACY'],
                  l['LANGUAGE_STABILITY'][:6], l['AUDIO_DURATION_S']))
