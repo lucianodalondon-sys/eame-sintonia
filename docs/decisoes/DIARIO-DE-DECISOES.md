@@ -1204,3 +1204,45 @@ nenhuma.
 **SUPOSIÇÃO NÃO ASSUMIDA:** não se decide aqui que a política determinística é
 suficiente para sempre. Decide-se que ela **basta para fechar**, desde que
 produza os dados que uma política melhor precisaria para ser comparada com ela.
+
+---
+
+## D-0xx · O EXECUTOR DECLARA O QUE É COLHEITA — `COL-LAW-505`
+
+```
+LAW_ID    COL-LAW-505 (nova)
+BEFORE    nenhuma lei separava COLHEITA de SUPORTE. COL-LAW-013 exigia
+          «OUTPUT = onde larguei, e em que forma» e o «em que forma» não tinha
+          campo, enum nem guarda. COL-LAW-014 já nomeava `artifact_types` e
+          `produces` e declarava que não existiam.
+AFTER     seis espécies declaradas, vocabulário fechado, validador executável
+          em `leis/retorno_da_coleta.py`. SÓ A COLHEITA ENTRA NO INGRESSO.
+WHY       a espécie era inferida por «a primeira lista do JSON que tenha fichas».
+EVIDENCE  2026-09-11, os cinco executores de pedido/receitas.py:
+              ITEMS_EMITTED        253
+              REAL_HARVEST_ITEMS     0
+              FALSE_HARVEST_TOTAL  253
+          `CLASSIFICADO-V1.json` declara um contentor `ITEMS` com ITEM_COUNT=0;
+          a heurística SALTA-O por estar vazio e agarra o catálogo ao lado.
+IMPACT    runtime NÃO mudou. `a_colheita()` continua como estava e nenhum
+          executor foi adaptado. 3 famílias medidas para a adaptação futura.
+VERSION   V1.3 -> V1.4
+```
+
+**O que se recusou fazer.** Criar uma lei nova que ignorasse `COL-LAW-013` e
+`COL-LAW-014` teria dado à casa duas autoridades sobre a mesma pergunta. A
+`COL-LAW-505` cita as duas e declara-se como a resposta que faltava a elas — não
+como uma terceira pergunta.
+
+**O que se recusou distinguir.** `INDEX` e `MANIFEST` não são espécies
+diferentes. Procurou-se a diferença e ela não existe: as duas são uma listagem
+de payloads, e o que muda é onde o payload está e se está — que é o campo
+`PAYLOAD`, com estado próprio.
+
+    NAO COMPRIMIR ESPECIES DISTINTAS PARA SIMPLIFICAR SCHEMA.
+    NAO INVENTAR DISTINCOES QUE A REALIDADE NAO PEDIU.
+
+**Dono.** `leis/retorno_da_coleta.py`, irmão de `leis/artefato.py`. Não
+`pedido/receitas.py`, que declara INTENÇÃO e cuja declaração pode apodrecer sem
+ninguém notar; não `coleta/ingresso.py`, onde decidir a espécie seria decidir
+por cheiro, depois do facto — que é o defeito que esta lei veio fechar.

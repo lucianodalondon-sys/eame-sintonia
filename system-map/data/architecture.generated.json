@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/overnight-cr1-v1",
-    "HEAD": "8de92df365e9d453c68789c10bb5cd3b871a8675",
-    "GENERATED_AT": "2026-09-11T03:25:17+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4b3c38bdc1e180554c651439f703678f977d200282a1e2a05924873fae4143fd"
+    "BRANCH": "claude/executor-return-contract-v1",
+    "HEAD": "9a6cbeed9504dc91a7132f53e3d8d43247058a46",
+    "GENERATED_AT": "2026-09-11T03:34:59+00:00",
+    "SOURCE_TREE_FINGERPRINT": "775cc2d33de8a6f114d99c94f26cb23ce385006bc5b81426ef14cd891b9bb50d"
   },
   "FILES": [
     {
@@ -178,7 +178,7 @@
     },
     {
       "path": "BIBLIA-CANONICA-DA-COLETA.md",
-      "sha": "b1a91b187f30adb4189d3ff14a6e65786cf0cbb2",
+      "sha": "5a3ce7b1d62d17b2d8c1cbb9f5e0d5f2aa3f5a2b",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1487,7 +1487,7 @@
     },
     {
       "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
-      "sha": "c10cf2f087cfa3252bb0643270dad16fad342710",
+      "sha": "24b45073263f180de1278e1e1c4d9d4f45695e92",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4196,7 +4196,7 @@
     },
     {
       "path": "docs/biblia/CONFORMIDADE-ITALIA.md",
-      "sha": "48c33d6cb09187fa2c638deb5e31d07bd465de0c",
+      "sha": "381fa5d7b3575ad709a1965f0a29f0ebf7ffcbcb",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4231,7 +4231,7 @@
     },
     {
       "path": "docs/biblia/leis.json",
-      "sha": "0ac5ca55d26f3c7759e89ed8978c5770859b22ae",
+      "sha": "9df06259c5f165efc1e6a095c8f3101c1585182c",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4280,7 +4280,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "463ab7d6e47d62b200d7e3c8f13cf17f76b8d6a4",
+      "sha": "f73d9371ce1b68a91f4d10b31f36e6f10ac97b88",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4483,7 +4483,7 @@
     },
     {
       "path": "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
-      "sha": "2feee6c4cdb3b2607dd2d3fb153ee6de567ccd82",
+      "sha": "dcece67df864161b549745e4b9542c045fbafb80",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4512,6 +4512,13 @@
     {
       "path": "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "sha": "40f0c5907b9bda776466ca0712361817f56cde30",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/CONTRATO-DE-RETORNO-DO-EXECUTOR-V1.md",
+      "sha": "47b1be14b91ba5c2d9e3e5dd4b336e5814379bb3",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7023,6 +7030,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/retorno_da_coleta.py",
+      "sha": "cc8988ffcb1ec7e4aed04e4fc90cfa7c7986072e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/social_matriz.py",
       "sha": "4e9117a783e6ea9ce7a214fd5573d1d089d0964a",
       "ext": ".py",
@@ -9054,7 +9068,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "d8689129535a2bc14f0735900b976bfd1e5fadc5",
+      "sha": "68c90f481f829b9160c577cbd10ddd1cf033c293",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9432,7 +9446,7 @@
     },
     {
       "path": "tests/test_biblia.py",
-      "sha": "c90a38af1344b763db9a42c9fedd43a69ae7f232",
+      "sha": "b79a8285bcfc35a245937924e53e576caa505425",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9804,6 +9818,13 @@
     {
       "path": "tests/test_relatorio_do_fluxo.py",
       "sha": "6ce0032ae5798cbb37aee401db51f905d370af92",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_retorno_da_coleta.py",
+      "sha": "507a94ffa7b2f68f6fb3946e64b19d8c08246c77",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -33363,6 +33384,61 @@
       }
     },
     {
+      "from_file": "tests/test_retorno_da_coleta.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_retorno_da_coleta.py",
+        "line": 27,
+        "snippet": "base = dict(RUN_ID=\"XX-T2-2026-09-11-000001\", EXECUTOR_ID=\"coleta/italy_executor.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_retorno_da_coleta.py",
+      "to_file": "data/raw/IT-ROTULOS/_MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_retorno_da_coleta.py",
+        "line": 59,
+        "snippet": "\"ONDE\": \"data/raw/IT-ROTULOS/_MANIFESTO.json\"}])"
+      }
+    },
+    {
+      "from_file": "tests/test_retorno_da_coleta.py",
+      "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_retorno_da_coleta.py",
+        "line": 71,
+        "snippet": "\"ONDE\": \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\"}])"
+      }
+    },
+    {
+      "from_file": "tests/test_retorno_da_coleta.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_retorno_da_coleta.py",
+        "line": 23,
+        "snippet": "import retorno_da_coleta as r  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_retorno_da_coleta.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_retorno_da_coleta.py",
+        "line": 244,
+        "snippet": "with open(os.path.join(RAIZ, \"leis\", \"retorno_da_coleta.py\"), encoding=\"utf-8\") as f:"
+      }
+    },
+    {
       "from_file": "tests/test_route_membership.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -34928,10 +35004,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1419,
-    "files_readable": 533,
-    "files_code_dir": 580,
-    "file_edges": 2229,
+    "files_tracked": 1422,
+    "files_readable": 535,
+    "files_code_dir": 582,
+    "file_edges": 2234,
     "escritas_em_pasta": 68,
     "declared_missing_here": 0
   },

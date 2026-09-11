@@ -2033,6 +2033,25 @@
    ]
   },
   {
+   "id": "C-CONTRATO-DE-RETORNO",
+   "name": "O contrato de retorno da coleta",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "⊟",
+   "what": "O envelope de UMA corrida: que parte do retorno e COLHEITA e que parte e SUPORTE — manifesto, catalogo, recibo de execucao ou plano. Vocabulario fechado de seis especies, estado proprio para o payload (PRESENTE/AUSENTE/NAO_SE_APLICA, medido na arvore e nao afirmado) e a unica porta por onde algo entra no ingresso: so a COLHEITA atravessa.",
+   "why_here": "COL-LAW-013 exigia «OUTPUT = onde larguei, E EM QUE FORMA» e o «em que forma» nunca teve campo, enum nem guarda — vivia em prosa livre que nenhum codigo lia. O preco foi medido: 253 itens emitidos, ZERO colheita real. Um manifesto de 163 descargas e 74 fichas de conta entraram na cadeia como material observado. Isto e IRMAO de C-CONTRATO-ARTEFATO e nao substituto: aquele governa a ficha de uma coisa ENTREGUE, este governa o que a CORRIDA devolveu. E nao vive em receitas.py porque `larga_em` ja e uma declaracao de intencao — e duas das cinco apontam para pastas que nao existem sem ninguem notar.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "leis/retorno_da_coleta.py"
+   ],
+   "views": [
+    "infra",
+    "audit"
+   ]
+  },
+  {
    "id": "C-EXECUTOR-TEXTO-PDF",
    "name": "Executor · texto a partir de PDF",
    "territory": "Z-ACOES",

@@ -2,7 +2,7 @@
 
 ```
 BIBLE_ID          SINTONIA-COLLECTION-BIBLE
-VERSION           V1.3
+VERSION           V1.4
 STATUS            CANONICAL
 EFFECTIVE_FROM    2026-09-07
 CURRENT_PROFILE   ITALY_PROFILE_V1
@@ -21,6 +21,7 @@ Nenhuma lei muda em silêncio — é a COL-LAW-069. Toda emenda entra aqui e no
 | **V1.1** | 2026-09-07 | **duas emendas**: a lei da observabilidade (PARTE XVI — o System Map é a placa de vídeo do SINTONIA, e tudo tem de ser renderizável) e as leis roubadas de sistemas maduros de coleta (PARTE XVII — artefato ≠ fato, watermark, run completa, reparo, três eixos de confiança) | **78** (+30) |
 | **V1.2** | 2026-09-08 | **a infraestrutura entra na lei**: o papel canônico do GitHub e do Supabase (PARTE XVIII — infraestrutura não é autoridade semântica) e o Plano de Referência (PARTE XIX — dado de referência não é configuração, e tem história) | **100** (+22) |
 | **V1.3** | 2026-09-08 | **a integração**: a Bíblia e a engenharia italiana passam a viver no mesmo HEAD, e a primeira estrada real (PDF → texto → porta) foi medida contra a lei. Quatro leis novas (PARTE XX) para os quatro pontos onde a lei não bastava; as outras três questões já estavam resolvidas | **104** (+4) |
+| **V1.4** | 2026-09-11 | **o retorno do executor entra na lei**: `COL-LAW-505` responde a pergunta que `COL-LAW-013` fez e nunca respondeu — «`OUTPUT` = onde larguei, e **em que forma**». Medido antes de escrita: `FALSE_HARVEST_TOTAL = 253` sobre os cinco executores canónicos | **105** (+1) |
 
 **Nenhuma lei foi apagada em nenhuma emenda.** Emendas absorvidas por leis existentes, em vez
 de virarem lei nova, estão registradas em
@@ -2698,6 +2699,72 @@ que não muda quando o commit muda de nome. O `MAP_ARTIFACT_COMMIT` é opcional 
 Gap **G-35**.
 
 **ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `ABSENT`
+
+---
+
+## COL-LAW-505 · O EXECUTOR DECLARA O QUE É COLHEITA E O QUE É SUPORTE
+
+**REGRA.** O retorno de uma corrida **DEVE** separar, por declaração de quem correu,
+a **COLHEITA** dos **ARTEFATOS DE SUPORTE**. **SÓ A COLHEITA ENTRA NO INGRESSO.**
+
+```
+COLHEITA      unidade observada na fonte
+MANIFEST      listagem de payloads (indice, manifesto, recibo de descarga)
+CATALOG       inventario de entidades ou de onde se PODE coletar
+RUN_RECEIPT   prova da execucao
+PLAN          o que se tenciona fazer
+UNKNOWN       declarado e nao classificavel — nunca entra
+```
+
+Espécie **NÃO DEVE** ser inferida de nome de ficheiro, nome de pasta, extensão, presença
+de um campo, nem de «a primeira lista do JSON». **DECLARADA, nunca adivinhada.**
+
+Cada unidade de colheita **DEVE** trazer `SOURCE_ID` provado e **DEVE** declarar
+`DOCUMENT_ID` — que **PODE** ser `NAO SEI`, e **NÃO DEVE** ser derivado do `sha256` nem do
+endereço do ficheiro. O `PAYLOAD` **DEVE** ter estado próprio — `PRESENTE` · `AUSENTE` ·
+`NAO_SE_APLICA` — **medido na árvore**, e não afirmado por quem declarou o caminho.
+
+Uma corrida que termina sem colheita **NÃO É** uma falha: `EMPTY_SUCCESS ≠ ERROR`.
+
+**POR QUÊ.** `COL-LAW-013` já exigia `OUTPUT = onde larguei, e em que forma`. O **onde** tem
+campo desde `COL-LAW-012` (`larga_em`); o **em que forma** nunca teve campo, enum nem guarda,
+e vivia em prosa livre que nenhum código lê. `COL-LAW-014` já nomeava os campos em falta
+(`artifact_types` · `produces`) e declarava que não existiam. Esta lei responde a pergunta que
+as duas fizeram — não abre uma terceira.
+
+**MEDIDO.** 2026-09-11, sobre os cinco executores de `pedido/receitas.py`:
+
+```
+ITEMS_EMITTED        253
+REAL_HARVEST_ITEMS     0
+FALSE_HARVEST_TOTAL  253
+```
+
+Um manifesto de 163 descargas, um catálogo de 12 pessoas, 74 fichas de conta e 4 passos de
+plano entraram na cadeia como material observado. A admissão recusou todos — **e recusou bem**
+(`COL-LAW-042`), mas depois do facto e por cheiro de campos.
+
+**VIOLAÇÃO.** `CLASSIFICADO-V1.json` declara um contentor `ITEMS` com `ITEM_COUNT = 0`. A
+heurística genérica **salta-o por estar vazio** e agarra a lista de catálogo ao lado.
+
+```
+UMA HEURISTICA QUE PREFERE UMA LISTA CHEIA A UMA LISTA CERTA
+NAO ESTA A LER O RETORNO: ESTA A ADIVINHAR.
+```
+
+**CONTRATOS.** `leis/retorno_da_coleta.py` — vocabulário, validador e `so_o_que_entra()`.
+
+**COMO PROVAR.** `py -m unittest tests.test_retorno_da_coleta` · `py provas/o_corte_de_cr1.py`
+
+**LIGA-SE A** `COL-LAW-012` (onde larga) · `COL-LAW-013` (em que forma — a pergunta) ·
+`COL-LAW-014` (`artifact_types`/`produces` — os campos) · `COL-LAW-042` (a porta recusa
+ficha de catálogo) · `COL-LAW-207` (`DISCOVER` produz índice por natureza) ·
+`COL-LAW-501` (espécies de bytes — outro eixo, não este).
+
+**NÃO IMPLEMENTADO NESTA MISSÃO.** A lei e o validador existem; `a_colheita()` continua com a
+heurística antiga, e nenhum executor foi adaptado. Ligar o runtime é outra missão.
+
+**ORIGEM.** `ARCHITECTURAL_DECISION` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
 
 ---
 

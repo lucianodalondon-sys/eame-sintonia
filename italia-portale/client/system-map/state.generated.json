@@ -668,6 +668,7 @@
       "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
       "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
+      "docs/operacao/CONTRATO-DE-RETORNO-DO-EXECUTOR-V1.md",
       "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
       "docs/operacao/ENCANAMENTO-DA-COLETA.md",
@@ -1038,6 +1039,7 @@
       "leis/lugar_do_fato.py",
       "leis/politica_da_coleta.py",
       "leis/regua_italia.py",
+      "leis/retorno_da_coleta.py",
       "leis/social_matriz.py",
       "leis/telemetria.py",
       "leis/v21_carimbar_origem.py",
@@ -1467,6 +1469,7 @@
       "tests/test_raw_observation_id_volta.py",
       "tests/test_red_team_estrada.py",
       "tests/test_relatorio_do_fluxo.py",
+      "tests/test_retorno_da_coleta.py",
       "tests/test_route_membership.py",
       "tests/test_security_drift_db.py",
       "tests/test_security_ratchet.py",
@@ -1866,10 +1869,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/overnight-cr1-v1",
-    "HEAD": "8de92df365e9d453c68789c10bb5cd3b871a8675",
-    "GENERATED_AT": "2026-09-11T03:25:17+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4b3c38bdc1e180554c651439f703678f977d200282a1e2a05924873fae4143fd"
+    "BRANCH": "claude/executor-return-contract-v1",
+    "HEAD": "9a6cbeed9504dc91a7132f53e3d8d43247058a46",
+    "GENERATED_AT": "2026-09-11T03:34:59+00:00",
+    "SOURCE_TREE_FINGERPRINT": "775cc2d33de8a6f114d99c94f26cb23ce385006bc5b81426ef14cd891b9bb50d"
   },
   "FAMILIES": [
     {
@@ -1938,7 +1941,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 55
+      "count": 56
     },
     {
       "id": "F-ENTREGA",
@@ -2292,7 +2295,7 @@
       "y": 190,
       "w": 1235,
       "h": 4548,
-      "count": 13
+      "count": 14
     },
     {
       "id": "Z-PROVA",
@@ -5887,7 +5890,9 @@
       "changed_since_declared": [
         "BIBLIA-CANONICA-DA-COLETA.md",
         "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
-        "docs/biblia/MATRIZ-DE-CONFLITOS.md"
+        "docs/biblia/CONFORMIDADE-ITALIA.md",
+        "docs/biblia/MATRIZ-DE-CONFLITOS.md",
+        "docs/biblia/leis.json"
       ],
       "produces": [],
       "inbound": [
@@ -7529,6 +7534,52 @@
       "y": 1004
     },
     {
+      "id": "C-CONTRATO-DE-RETORNO",
+      "name": "O contrato de retorno da coleta",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "O envelope de UMA corrida: que parte do retorno e COLHEITA e que parte e SUPORTE — manifesto, catalogo, recibo de execucao ou plano. Vocabulario fechado de seis especies, estado proprio para o payload (PRESENTE/AUSENTE/NAO_SE_APLICA, medido na arvore e nao afirmado) e a unica porta por onde algo entra no ingresso: so a COLHEITA atravessa.",
+      "why_here": "COL-LAW-013 exigia «OUTPUT = onde larguei, E EM QUE FORMA» e o «em que forma» nunca teve campo, enum nem guarda — vivia em prosa livre que nenhum codigo lia. O preco foi medido: 253 itens emitidos, ZERO colheita real. Um manifesto de 163 descargas e 74 fichas de conta entraram na cadeia como material observado. Isto e IRMAO de C-CONTRATO-ARTEFATO e nao substituto: aquele governa a ficha de uma coisa ENTREGUE, este governa o que a CORRIDA devolveu. E nao vive em receitas.py porque `larga_em` ja e uma declaracao de intencao — e duas das cinco apontam para pastas que nao existem sem ninguem notar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊟",
+      "views": [
+        "audit",
+        "infra",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "leis/retorno_da_coleta.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 19315,
+      "y": 360
+    },
+    {
       "id": "C-CONTRATO-TELEMETRIA",
       "name": "Contrato da telemetria — a forma do fluxo",
       "territory": "Z-REGUAS",
@@ -7600,8 +7651,8 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
-      "y": 360
+      "x": 18485,
+      "y": 682
     },
     {
       "id": "C-CORPUS",
@@ -7826,7 +7877,7 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "escreve data/samples/DATA-CLOCK-manifest.json, e quem le nao esta na esteira: C-REGRA-COLETA, C-SAUDE-FONTE, C-TESTES",
-      "x": 18485,
+      "x": 18900,
       "y": 682
     },
     {
@@ -8073,7 +8124,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19315,
       "y": 682
     },
     {
@@ -8482,8 +8533,8 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
-      "y": 682
+      "x": 18485,
+      "y": 1004
     },
     {
       "id": "C-EXECUTOR-TEXTO-PDF",
@@ -8864,7 +8915,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18485,
+      "x": 18900,
       "y": 1004
     },
     {
@@ -9995,7 +10046,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19315,
       "y": 1004
     },
     {
@@ -10061,8 +10112,8 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
-      "y": 1004
+      "x": 18485,
+      "y": 1326
     },
     {
       "id": "C-MAPA-APP",
@@ -11206,7 +11257,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18485,
+      "x": 18900,
       "y": 1326
     },
     {
@@ -12486,7 +12537,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
-      "x": 18900,
+      "x": 19315,
       "y": 1326
     },
     {
@@ -13107,8 +13158,8 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "STAMPS",
       "rule_role_evidence": "escreve data/samples/AUDITORIA-SOMBRA/AUDITORIA-REGUA-COMERCIAL-37.json, e C-ROTULOS — peca da esteira — le isso",
-      "x": 19315,
-      "y": 1326
+      "x": 18485,
+      "y": 1648
     },
     {
       "id": "C-ROTA-M2",
@@ -13495,7 +13546,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
-      "x": 18485,
+      "x": 18900,
       "y": 1648
     },
     {
@@ -15207,6 +15258,7 @@
         "tests/test_raw_observation_id_volta.py",
         "tests/test_red_team_estrada.py",
         "tests/test_relatorio_do_fluxo.py",
+        "tests/test_retorno_da_coleta.py",
         "tests/test_route_membership.py",
         "tests/test_security_drift_db.py",
         "tests/test_security_ratchet.py",
@@ -15226,10 +15278,11 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 80,
+      "file_count": 81,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 10 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 11 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
+        "tests/test_biblia.py",
         "tests/test_coleta_externa.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_metricas.py",
@@ -15271,6 +15324,7 @@
         "C-COLETA-PUBLICA",
         "C-CONTRATO-ARTEFATO",
         "C-CONTRATO-CAMPOS",
+        "C-CONTRATO-DE-RETORNO",
         "C-CONTRATO-TELEMETRIA",
         "C-DATA-CLOCK",
         "C-DERIVA-DA-BASE",
@@ -15351,7 +15405,7 @@
       },
       "paises_dado": {
         "ESPANHA": 42,
-        "ITALIA": 21,
+        "ITALIA": 23,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -16787,7 +16841,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/overnight-cr1-v1"
+        "branch claude/executor-return-contract-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17966,7 +18020,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "AS FONTES alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "AS FONTES alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_canonico.py",
@@ -17977,6 +18031,11 @@
           "file": "tests/test_competitor_layer.py",
           "line": 334,
           "snippet": "t = doc('fontes', 'ATLAS-DE-FONTES-EAME.md')"
+        },
+        {
+          "file": "tests/test_retorno_da_coleta.py",
+          "line": 71,
+          "snippet": "\"ONDE\": \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\"}])"
         }
       ],
       "categoria": "PROOF"
@@ -21063,6 +21122,42 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-CONTRATO-DE-RETORNO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_retorno_da_coleta.py",
+          "line": 23,
+          "snippet": "import retorno_da_coleta as r  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CONTRATO-DE-RETORNO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de retorno da coleta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_retorno_da_coleta.py",
+          "line": 244,
+          "snippet": "with open(os.path.join(RAIZ, \"leis\", \"retorno_da_coleta.py\"), encoding=\"utf-8\") as f:"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-CONTRATO-TELEMETRIA",
       "to": "C-CENSO-OBSERVABILIDADE",
       "type": "IMPORTS",
@@ -23806,7 +23901,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -23842,6 +23937,11 @@
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 90,
           "snippet": "\"ACTOR\": \"coleta/italy_executor.py\","
+        },
+        {
+          "file": "tests/test_retorno_da_coleta.py",
+          "line": 27,
+          "snippet": "base = dict(RUN_ID=\"XX-T2-2026-09-11-000001\", EXECUTOR_ID=\"coleta/italy_executor.py\","
         }
       ],
       "categoria": "PROOF"
@@ -27686,6 +27786,24 @@
     },
     {
       "from": "C-ROTULOS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Baixar e ler os rotulos oficiais alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_retorno_da_coleta.py",
+          "line": 59,
+          "snippet": "\"ONDE\": \"data/raw/IT-ROTULOS/_MANIFESTO.json\"}])"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-ROTULOS",
       "to": "C-V21-CRUZAMENTO",
       "type": "READS",
       "payload": "artefacto",
@@ -30666,7 +30784,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 724,
+  "UNCLAIMED_FILES_COUNT": 725,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30829,17 +30947,17 @@
     ]
   },
   "COUNTS": {
-    "components": 158,
+    "components": 159,
     "components_proven": 59,
-    "components_pending": 93,
+    "components_pending": 94,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 626,
-    "edges_proven": 624,
+    "edges": 629,
+    "edges_proven": 627,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1419,
-    "files_covered": 695,
+    "files_tracked": 1422,
+    "files_covered": 697,
     "files_code_unclaimed": 0
   }
 }

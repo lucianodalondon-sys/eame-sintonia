@@ -191,6 +191,7 @@ o lado que parece rigoroso.
 | `COL-LAW-502` documento pronto ≠ fato pronto | SIM | `IMPLEMENTED` | a porta lê o ESTÁGIO e pergunta o que se aplica; 43 → 18 SIM · 19 NÃO · 6 NÃO_SEI, sem data inventada | — | — |
 | `COL-LAW-503` ferramenta ausente ≠ documento quebrado | SIM | `IMPLEMENTED` | pré-voo no passo 0: sem a ferramenta a corrida para com `FAILED_PRECONDITION`, zero documentos tocados | — | — |
 | `COL-LAW-504` árvore escaneada ≠ commit do mapa | SIM | `ABSENT` | ⚠️ um campo só (`PROVENANCE.HEAD`) para duas perguntas; 3 commits de «carimbo do HEAD» na história do ramo | `SOURCE_TREE_FINGERPRINT` e `MAP_ARTIFACT_COMMIT` separados | **G-35** |
+| `COL-LAW-505` o executor declara colheita vs suporte | SIM | `PARTIAL` | contrato, vocabulário fechado e validador em `leis/retorno_da_coleta.py`; 34 travas e 12 mutações apanhadas em `tests/test_retorno_da_coleta.py`; medido `FALSE_HARVEST_TOTAL = 253` sobre os 5 executores | `a_colheita()` ainda usa a heurística genérica e nenhum executor declara espécie — 3 famílias a adaptar (T2 · T3 · T4/T7/T9) | **G-41** |
 
 
 ---
