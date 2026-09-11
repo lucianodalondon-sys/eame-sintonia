@@ -4,6 +4,7 @@
 CENSO_DATADO_EM     = 2026-09-11
 HEAD_MEDIDO         = 231ffa2c07fd500ae663d2f1a8e38417976370e1
 C11_LINKEDIN_CENSUS = PASS
+LINKEDIN_SPEECH_COVERAGE = EXACT_BLOCKER_KNOWN
 ```
 
 > Fotografia datada. Não é Bíblia, não é Master, não é Final, não é contrato.
@@ -363,6 +364,230 @@ passagem, herdava o ficheiro do site anterior e inventava dois acertos.
 
 ---
 
+## M-bis · LINKEDIN VIDEO / SPEECH COVERAGE
+
+Medido em 2026-09-11, em continuação da mesma missão. Aqui a pergunta é uma só:
+
+> quando uma publicação do LinkedIn tem vídeo, o SINTONIA consegue preservar o
+> que foi **falado**, sem baixar o vídeo inteiro?
+
+```
+LINKEDIN_SPEECH_COVERAGE = EXACT_BLOCKER_KNOWN
+```
+
+### Por que isto não é detalhe
+
+Um post pode dizer «veja a nossa nova solução» e o vídeo explicar três minutos
+de doença, molécula, lançamento e manejo. Guardar texto, likes e comentários
+guarda a moldura e perde o quadro.
+
+```
+POST_CAPTURED != SPEECH_CAPTURED.
+```
+
+### O achado que fecha a pergunta antes de ela chegar à rede
+
+Os 372 posts que esta casa preservou por `harvestapi~linkedin-post-search` têm
+**dezanove campos**, e nenhum deles é de mídia:
+
+```
+AUTHOR_URL · CAPTURE_DATE · COMMENTS_COUNT · CONTENT_ID · DECLARED_AUTHOR
+DISCOVERY_QUERY · EXTERNAL_ID · FACT_LOCATION · LIKES · ORIGINALITY
+ORIGIN_ID · PLATFORM · PUBLICATION_DATE · RUN_ID · SHARES · SOURCE_ID
+SOURCE_LOCATION · TEXT · URL
+```
+
+Zero `video`. Zero `media`. Zero `caption`. Zero `thumbnail`. Zero `duration`.
+Zero URN de asset.
+
+E **onze desses posts falam de vídeo no próprio texto**. O registo deles é
+idêntico ao dos outros: só texto.
+
+```
+O PROVIDER QUE ESTA CASA REALMENTE RODOU NÃO DETECTA VÍDEO — QUANTO MAIS FALA.
+```
+
+Isto não é leitura da documentação do provider. É o payload que ele devolveu,
+preservado no disco, contado campo a campo.
+
+```
+PROVIDER_DOCS != CURRENT_PROVEN.  E aqui o PROVEN mediu-se, e deu vazio.
+```
+
+### A API oficial de vídeo, medida contra a documentação corrente
+
+`Videos API`, `li-lms-2026-08`, doc atualizada em 2026-03-02.
+
+| pergunta | resposta medida |
+|---|---|
+| `OFFICIAL_VIDEO_METADATA` | **SIM** — `duration`, `aspectRatio`, `thumbnail`, `status` |
+| `OFFICIAL_VIDEO_DOWNLOAD` | **SIM** — `downloadUrl` assinado, com `downloadUrlExpiresAt`; a amostra é `dms.licdn.com/playlist/…/mp4-720p-30fp-crf28/…` |
+| `OFFICIAL_CAPTION` | **PARCIAL, e não o que parece** |
+| `OFFICIAL_AUDIO_ONLY` | **NÃO EXISTE** |
+| `THIRD_PARTY_ORG_ACCESS` | **NÃO** |
+
+Três coisas que só se veem lendo a tabela de permissões inteira:
+
+**1. A Videos API é de ESCRITA.** As permissões listadas são
+`w_organization_social`, `w_member_social`, `rw_ads` e `r_ads`. **`r_organization_social`
+não aparece.** E a regra de acesso é explícita: *«For videos with company URN
+owners, the caller needs to have ADMIN or DSC permissions for the company page»*,
+com 403 caso contrário.
+
+**2. O campo `captions` é a legenda QUE VOCÊ SUBIU.** A própria definição:
+*«Present if `initializeUploadRequest.uploadCaptions` was true and a caption was
+successfully uploaded and processed»*. O formato é SRT, `source: USER_PROVIDED`,
+`transcriptType: CLOSED_CAPTION`, e **só inglês**. Não é a legenda automática de
+um post de terceiro — é o eco do ficheiro que o próprio parceiro enviou.
+
+**3. Não há representação de áudio em lado nenhum.** O `downloadUrl` é uma
+rendição de vídeo. Não existe faixa, manifesto ou variante de áudio.
+
+```
+MESMO COM ACESSO TOTAL DE PARCEIRO, A API OFICIAL DÁ:
+  · vídeo inteiro da organização que a casa administra
+  · a legenda que a casa mesma subiu
+NENHUMA DAS DUAS SERVE PARA OBSERVAR UM CONCORRENTE.
+```
+
+A rota oficial é inútil aqui por **dois** motivos independentes, e corrigir um
+não corrige o outro: dono errado **e** sem áudio separado.
+
+### A árvore de decisão, percorrida até onde a política deixa
+
+```
+VIDEO POST
+   ↓
+CAPTION NATIVA EXISTE E TEM ROTA PERMITIDA?
+   └─ NÃO há rota permitida para nenhum conteúdo do linkedin.com
+      ↓
+ROTA AUDIO-ONLY EXISTE E É PERMITIDA?
+   └─ NÃO
+      ↓
+   REQUIRES_AUTHORIZATION
+```
+
+A árvore não chega ao segundo nó por falta de técnica. Chega por falta de porta.
+
+### A MATRIZ VIDEO / SPEECH
+
+| capability | MODULE | EDGE | FLOW | ROUTE | PROVIDER | AUTH | POLICY | CAPTION_STATE | CAPTION_KIND | AUDIO_STREAM_AVAILABLE | AUDIO_ONLY_REQUESTABLE | AUDIO_ONLY_OBSERVED | ASR_REQUIRED | VERDICT | FIRST_BREAK |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `LINKEDIN_VIDEO_POST_DISCOVERY` | ✘ | ✘ | **✘** | busca paga | HarvestAPI | token | `ROUTE_NOT_ALLOWED` | n/a | n/a | n/a | n/a | n/a | n/a | **`BLOCKED`** | o provider não devolve campo de mídia nenhum — medido em 372 registos |
+| `LINKEDIN_VIDEO_ASSET_RESOLUTION` | ✔ decl. | ✘ | ✘ | web pública / API oficial | HTTP próprio / oficial | nenhuma / ADMIN | `DISALLOW_ALL` / restrita | n/a | n/a | `UNKNOWN` | `UNKNOWN` | **NÃO** | n/a | **`NOT_RUN`** | web: `ROUTE_NOT_ALLOWED`. oficial: exige ser dono |
+| `LINKEDIN_NATIVE_CAPTION` | ✔ decl. | ✘ | ✘ | web pública | HTTP próprio | nenhuma | `DISALLOW_ALL` | histórico: existia | **`AUTOMATIC`** por evidência de URL (`video-auto-caption-srt-acs-singleton`) | n/a | n/a | ✘ | **NO** se resolver | **`NOT_RUN`** | `ROUTE_NOT_ALLOWED` |
+| `LINKEDIN_CAPTION_KIND` | — | — | — | — | — | — | — | — | `AUTOMATIC` histórico · `UNKNOWN` hoje | — | — | — | — | **`PARTIAL`** | a prova de tipo é do endereço, não de um campo declarado |
+| `LINKEDIN_AUDIO_ONLY_STREAM` | ✘ | ✘ | ✘ | — | — | — | — | n/a | n/a | **`UNKNOWN` na web · `NÃO` no oficial** | `UNKNOWN` | ✘ | n/a | **`UNKNOWN`** | não sondado: `ROUTE_NOT_ALLOWED`. Oficial não expõe áudio |
+| `LINKEDIN_AUDIO_ONLY_ACQUISITION` | ✘ | ✘ | ✘ | — | — | — | — | n/a | n/a | — | — | **✘** | n/a | **`REQUIRES_AUTHORIZATION`** | nenhuma rota permitida alcança mídia do LinkedIn |
+| `LINKEDIN_LOCAL_ASR` | ✔ | n/a | n/a | `fala_local` | local | nenhuma | n/a | n/a | n/a | n/a | n/a | n/a | — | **`CAN_RECEIVE_AUDIO = YES`** | não é o gargalo |
+| `LINKEDIN_TRANSCRIPT_LINEAGE` | ✔ (desenho) | ✘ | ✘ | — | — | — | — | — | — | — | — | — | — | **`COMPATIBLE, NOT WIRED`** | sem áudio não há pai para o transcript |
+
+### Os três casos obrigatórios
+
+```
+CASO A · vídeo COM caption nativa   → NOT_FOUND nesta missão
+CASO B · vídeo SEM caption nativa   → NOT_FOUND nesta missão
+CASO C · fala bloqueada/autorização → ENCONTRADO, e é o caso de TODOS
+```
+
+Não se fabricou A nem B. Para os encontrar seria preciso abrir um post de vídeo
+no `linkedin.com` — que é exatamente a rota que a política declara fora. O
+caso C não precisou de sentinela: ele é o estado da plataforma inteira para esta
+casa.
+
+```
+WHAT_WAS_TRIED          os 372 posts preservados (sem mídia); a documentação
+                        oficial de Videos, Posts e Community Management; o
+                        robots.txt; o ecossistema de bibliotecas não oficiais
+FIRST_BREAK             nenhuma rota permitida alcança mídia do linkedin.com
+WHAT_IS_REQUIRED        uma decisão de autorização do coordenador — e, mesmo
+                        com ela, um provider que devolva ASSET ou CAPTION,
+                        que o atual não devolve
+```
+
+### O ecossistema não oficial, estudado e não executado
+
+As bibliotecas conhecidas do género `tomquirk/linkedin-api` e derivadas operam
+sobre o **Voyager**, a API interna que o site usa, e todas exigem **sessão
+autenticada**. Estudá-las como tecnologia é permitido; usá-las não é —
+§23 proíbe login e cookie para contornar a política da casa.
+
+```
+AUTH_MODEL        = LOGIN_SESSION
+MAINTENANCE_RISK  = alto (API interna, sem contrato)
+VIDEO_SUPPORT     = UNKNOWN — a busca desta missão não achou prova específica
+CAPTION_SUPPORT   = UNKNOWN — idem
+```
+
+Este é um `UNKNOWN` honesto e não um `BLOCKED`: a procura foi feita e não
+devolveu evidência específica de vídeo/legenda. Não se completa com hipótese.
+
+### RED TEAM DE VÍDEO — 16 tentativas
+
+| # | ataque | resultado |
+|---|---|---|
+| 1 | thumbnail chamada de video asset | resistiu — o provider não devolve nem thumbnail |
+| 2 | URL de vídeo chamada de audio-only | resistiu — `downloadUrl` é rendição `mp4-720p` |
+| 3 | caption chamada de transcript | resistiu |
+| 4 | auto-caption chamada de manual | **apanhado** — o campo oficial `captions` é `USER_PROVIDED`; a automática vinha do endereço da web |
+| 5 | `yt-dlp -x` chamado audio-only sem medir bytes | n/a — nada foi baixado |
+| 6 | MP4 baixado e convertido chamado audio-only | n/a — `VIDEO_BYTES_DOWNLOADED = 0` |
+| 7 | docs do provider chamadas de PROVEN atual | **apanhado** — mediu-se o payload, não o folheto |
+| 8 | signed URL expirada chamada capability BLOCKED | resistiu — nenhuma URL foi pedida |
+| 9 | uma sentinela muda chamada plataforma bloqueada | resistiu — o bloqueio é de política, não de sentinela |
+| 10 | vídeo sem fala chamado download failure | resistiu — os quatro estados ficam separados |
+| 11 | caption ausente chamado audio unavailable | resistiu — linhas próprias na matriz |
+| 12 | audio stream no manifesto chamado adquirido | resistiu — `AUDIO_ONLY_OBSERVED = ✘` |
+| 13 | browser toca = download permitido | resistiu — tocar não é adquirir, e nem se tocou |
+| 14 | acesso oficial a vídeo de página própria extrapolado para concorrentes | **apanhado** — é o erro central que esta secção existe para impedir |
+| 15 | rota de metadata chamada de rota de mídia | **apanhado** — a Videos API dá metadata de ASSET PRÓPRIO |
+| 16 | ASR local PROVEN a esconder aquisição BLOCKED | **apanhado** — `ASR_BLOCKED_BY_ACQUISITION = YES` |
+
+O 16 é o mais perigoso desta casa, porque o ASR **funciona**. Ter um motor bom
+não move a fala do LinkedIn um milímetro para perto.
+
+```
+ASR LOCAL PROVEN + AQUISIÇÃO BLOQUEADA = FALA NÃO CAPTURADA.
+O motor não é o gargalo. A porta é.
+```
+
+### O QUE ISTO MUDA NO RANKING
+
+O gap escolhido antes desta continuação era **resolver o conflito de política**.
+Ele continua a ser o próximo passo — mas por um motivo agora maior, e com uma
+condição nova que o censo anterior não sabia:
+
+```
+AUTORIZAR A ROTA PAGA QUE JÁ EXISTE NÃO COMPRA FALA.
+```
+
+O `harvestapi~linkedin-post-search`, como esta casa o rodou, devolve texto e
+métricas e **nada de mídia**. Se amanhã o coordenador autorizasse aquela rota,
+o SINTONIA continuaria sem saber o que foi dito nos vídeos.
+
+Por isso a decisão de política deixa de ser «ligar ou não ligar o que já existe»
+e passa a ser duas perguntas separadas:
+
+1. autorizamos alguma rota para conteúdo do LinkedIn?
+2. se sim, **qual rota devolve ASSET ou CAPTION** — porque a que temos não devolve?
+
+Isso não troca o vencedor por inércia. Redefine-o, e o redefinir veio da medição
+de vídeo.
+
+```
+SPEECH_CAPABILITY = CRITICAL
+```
+
+### CUSTO E POLÍTICA DESTA CONTINUAÇÃO
+
+```
+PAID_RUNS = 0 · APIFY_RUNS = 0 · HARVESTAPI_PAID_RUNS = 0 · COST_USD = 0,00
+FULL_VIDEO_DOWNLOAD_FOR_ASR_TEST = NÃO EXECUTADO (proibido, e não se contornou)
+VIDEO_POLICY_STATE = ROUTE_NOT_ALLOWED para toda mídia do linkedin.com
+```
+
+---
+
 ## M · RANKING DOS GAPS DO LINKEDIN
 
 Escala 0–5; esforço, risco e dependências invertidos.
@@ -405,14 +630,30 @@ LINKEDIN_BIGGEST_BLOCKER            = autorização, e não técnica.
                                       robots.txt `Disallow: /` para o nosso
                                       agente, e a API oficial estruturalmente
                                       incapaz de ler terceiros
-ONE_NEXT_LINKEDIN_GAP               = resolver o conflito de política
+LINKEDIN_SPEECH_COVERAGE            = EXACT_BLOCKER_KNOWN
+ONE_NEXT_LINKEDIN_GAP               = resolver o conflito de política — e agora
+                                      com a pergunta partida em duas, porque
+                                      autorizar a rota que já existe NÃO compra fala
 LINKEDIN_NEEDS_ASR_NOW              = NO
+ASR_BLOCKED_BY_ACQUISITION          = YES
 LINKEDIN_PAID_PROVIDER_REQUIRED_NOW = YES para conteúdo — e a rota paga
                                       está declarada ROUTE_NOT_ALLOWED,
                                       então na prática: nenhuma rota
 ```
 
 O LinkedIn é útil hoje para **saber quem é**, não para **saber o que disse**.
+
+E a frase que a §32 pede, numa linha:
+
+> **Hoje o SINTONIA NÃO consegue recuperar a fala de vídeos do LinkedIn, em
+> condição nenhuma: não há rota permitida que alcance mídia da plataforma; o
+> provider pago que esta casa já rodou devolve texto e métricas e nenhum campo
+> de mídia, medido em 372 registos preservados; e a API oficial, mesmo com
+> acesso total de parceiro, só entrega vídeo de página que a casa administra e
+> legenda que a casa mesma subiu, sem qualquer representação de áudio separada.**
+
+`LINKEDIN_CURRENTLY_USEFUL = PARTIAL` e não `YES` exatamente por isso: texto e
+identidade têm caminho, fala não tem nenhum.
 
 ---
 
