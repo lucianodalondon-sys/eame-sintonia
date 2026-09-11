@@ -84,7 +84,7 @@ O commit funcional mais recente, `cb8e096`, foi uma correção da especificaçã
 
 ### Bloqueio 1 — forward sem fonte real
 
-Um estado forward não pode escapar carregando `source_id` sentinela como `NAO SEI`.
+Um estado forward não pode escapar carregando `source_id` sentinela como `NAO_SEI`.
 
 Regra corrigida: **todo estado que não seja `LEGACY_PRE_IDEMPOTENCY` precisa de fonte real**, usando o vocabulário de sentinelas já medido no repositório.
 
@@ -247,6 +247,232 @@ Pontos de revisão prioritários nesta linha:
 
 ---
 
+## 10. SINTONIA SCRAP — FRONTEIRA CANÔNICA PARA NÃO CRIAR UM SEGUNDO CÉREBRO
+
+Esta seção registra o caminho arquitetural que deve ser preservado nos próximos prompts e implementações do **SINTONIA SCRAP**.
+
+### Autoridade superior
+
+A autoridade continua sendo a `BIBLIA-CANONICA-DA-COLETA.md`, especialmente o princípio de **um único dono da orquestração**.
+
+O SINTONIA SCRAP **NÃO É** o orquestrador geral da coleta e **NÃO DEVE** competir com `orquestrador/orquestrador.py` pela pergunta global:
+
+> `COMO ATENDER ESTE COLLECTION_REQUEST?`
+
+Essa pergunta pertence ao **ORQUESTRADOR CANÔNICO DA COLETA**.
+
+O SINTONIA SCRAP entra **abaixo dele**, como executor/família especializada em aquisição social, web e mídia.
+
+### Caminho obrigatório
+
+```text
+SINTONIA — COLETA
+        │
+        ▼
+COLLECTION_REQUEST
+        │
+        ▼
+ORQUESTRADOR CANÔNICO DA COLETA
+orquestrador/orquestrador.py
+        │
+        ├── outros executores
+        │
+        └── SINTONIA SCRAP EXECUTOR
+                 │
+                 ▼
+        SCRAP ADAPTER ROUTER / DISPATCHER
+                 │
+                 ├── Instagram Adapter
+                 ├── Facebook Adapter
+                 ├── LinkedIn Adapter
+                 ├── X / Twitter Adapter
+                 ├── YouTube Adapter
+                 ├── Web Adapter
+                 ├── TikTok Adapter, se comprovado útil
+                 ├── Podcast / Audio Adapter, se comprovado pertinente
+                 └── outros adapters que fizer sentido absorver
+                         │
+                         ▼
+                    PROVIDERS
+                         │
+                         ▼
+              RAW + DERIVAÇÕES + TRACE
+```
+
+### Nome da peça interna
+
+Evitar chamar a peça interna do SCRAP de `orquestrador`, para não criar semanticamente um segundo dono.
+
+Preferir:
+
+- `SCRAP ADAPTER ROUTER`, ou
+- `SCRAP DISPATCHER`.
+
+Ela responde uma pergunta **local e menor**:
+
+> `Dado que o orquestrador geral já escolheu o SINTONIA SCRAP e uma capacidade, qual adapter/provider interno deve executar?`
+
+Ela **NÃO DEVE** decidir:
+
+- qual missão global executar;
+- quais domínios gerais da Collection coletar;
+- admissão;
+- julgamento;
+- prioridade global entre Ciência, Regulatório, Social etc.;
+- identidade canônica da Collection;
+- política global do `COLLECTION_REQUEST`.
+
+### Um produto, vários adapters
+
+O conceito é **um único produto interno chamado SINTONIA SCRAP**, com adapters especializados.
+
+NÃO criar vários produtos separados por plataforma.
+
+NÃO criar um arquivo monolítico cheio de condicionais `if/elif` por rede.
+
+Os adapters são módulos internos do mesmo executor:
+
+```text
+SINTONIA SCRAP
+│
+├── Instagram Adapter
+├── Facebook Adapter
+├── LinkedIn Adapter
+├── X / Twitter Adapter
+├── YouTube Adapter
+├── Web Adapter
+├── TikTok Adapter, se comprovado útil
+├── Podcast / Audio Adapter, se comprovado pertinente
+└── outros adapters quando houver razão comprovada
+```
+
+### Adapter ≠ Provider
+
+O **adapter** é dono da semântica da plataforma.
+
+O **provider** é a tecnologia substituível usada para cumprir uma capacidade.
+
+Exemplo conceitual:
+
+```text
+LinkedIn Adapter
+├── Discovery Provider
+├── Direct Post Provider
+└── Media Provider
+```
+
+Um provider pode ser API oficial, `yt-dlp`, HTTP, browser, CDP, serviço externo ou outra rota comprovada. Fallback deve ser explícito e observável, nunca silencioso.
+
+### Serviços transversais não pertencem aos adapters
+
+Não criar um Whisper por plataforma nem fazer cada adapter traduzir por conta própria.
+
+Devem existir responsabilidades compartilhadas, com **um dono por conceito**, por exemplo:
+
+```text
+SINTONIA SCRAP EXECUTOR
+│
+├── SCRAP ADAPTER ROUTER / DISPATCHER
+│   └── adapters por plataforma
+├── MEDIA RESOLVER / DOWNLOADER
+├── ASR OWNER
+├── TRANSLATION OWNER
+├── PROVENANCE / EVIDENCE
+├── OBSERVABILITY / TRACE
+└── OUTPUT CONTRACT
+```
+
+Portanto:
+
+- `Instagram Adapter` não é dono de ASR;
+- `LinkedIn Adapter` não é dono de tradução;
+- `YouTube Adapter` não deve criar seu próprio Whisper;
+- mídia, ASR, tradução, provenance e observabilidade são serviços transversais quando a responsabilidade for a mesma.
+
+### Contrato externo do SCRAP com o orquestrador geral
+
+O SINTONIA SCRAP deve comportar-se como executor compatível com a Bíblia da coleta e declarar, quando aplicável:
+
+```text
+CAPABILITIES   o que o SCRAP sabe fazer
+CHECK          se consegue executar a capacidade agora sem iniciar gasto indevido
+COLLECT        executa pelo adapter/provider apropriado
+STATE          checkpoint interno das fontes sociais/web
+OUTPUT         onde largou RAW e derivados, em que forma
+TRACE          provider, fallback, custo, duração, erros e resultado
+```
+
+O `COLLECTION_REQUEST` não conhece `yt-dlp`, browser, Apify, nomes de script nem detalhe interno do SCRAP.
+
+### Checkpoint
+
+Checkpoint específico de fonte/plataforma pertence ao executor/adapters, não ao orquestrador geral.
+
+Exemplos:
+
+- cursor de paginação;
+- último post observado;
+- page token;
+- continuation token;
+- timestamp/cursor próprio da plataforma.
+
+O orquestrador geral conhece o escopo (`PONTUAL`, `INCREMENTAL`, `TOTAL`); o SCRAP conhece a semântica do checkpoint de cada adapter.
+
+### Rota e custo
+
+A escolha interna de provider deve respeitar a lei canônica da **rota de menor custo capaz de cumprir o contrato**, sem transformar Apify em default.
+
+Meta da frente SCRAP:
+
+> `ZERO APIFY` quando houver substituição própria/OSS comprovadamente funcional, sustentável e compatível com a política da fonte.
+
+Mas `ZERO APIFY` não autoriza rota tecnicamente frágil, sem provenance ou fora da política apenas para eliminar custo.
+
+### Fronteira com a Collection
+
+SINTONIA SCRAP **coleta**; ele não admite nem julga.
+
+Preservar sempre:
+
+```text
+COLETAR != ADMITIR != JULGAR
+RAW != DERIVED != STRUCTURED != ADMISSION != READY
+RUN != OBSERVATION != CONTENT != STORAGE OBJECT
+SOURCE_LOCATION != FACT_LOCATION
+FACT_TIME != PUBLICATION_TIME != OBSERVED_TIME != COLLECTED_TIME
+```
+
+Para mídia:
+
+```text
+POST OBSERVATION
+└── VIDEO / AUDIO RAW OU STORAGE OBJECT, conforme contrato canônico
+    └── AUDIO DERIVED, quando derivado de vídeo
+        └── TRANSCRIPT DERIVED
+            └── TRANSLATION DERIVED
+```
+
+Caption, transcript, tradução, vídeo e áudio são objetos/artefatos distintos e não se sobrescrevem.
+
+### Regra para a convergência das linhagens SCRAP atuais
+
+O benchmark de SINTONIA SCRAP encontrou patrimônio em linhagens que ainda não convergiram. A futura convergência **NÃO DEVE** ser resolvida simplesmente por merge cego.
+
+A convergência deve preservar esta topologia:
+
+1. **um único executor SINTONIA SCRAP** visto pelo orquestrador geral;
+2. **um router/dispatcher interno**, não um segundo cérebro;
+3. **adapters independentes por plataforma**;
+4. **providers substituíveis dentro dos adapters**;
+5. **serviços transversais com dono único** para mídia, ASR, tradução, provenance e trace;
+6. nenhum monólito de condicionais;
+7. nenhum conjunto de produtos independentes por rede;
+8. nenhuma invasão da responsabilidade de `orquestrador/orquestrador.py`.
+
+Se código existente contrariar esta fronteira, classificar como conflito arquitetural a resolver — não transformar o desvio em nova arquitetura canônica.
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
@@ -256,3 +482,5 @@ A casa já aprendeu que **o arquivo guardado e o momento em que vimos esse arqui
 A especificação das fases 7–9 acabou de passar por uma correção importante: não usar relógio para separar passado/futuro, não aceitar fonte falsa e não transformar hash em identidade documental por conveniência.
 
 O próximo passo é **revisar isso no GitHub e, se estiver realmente fechado, implementar só as fases 7–9**. A trava antiga de `storage_path` continua no lugar. Tirar essa trava é fase 10 e ainda não está autorizada.
+
+Para o SINTONIA SCRAP, a regra simples é: **ele é um executor especializado dentro da coleta, não o cérebro da coleta inteira**. O cérebro continua sendo o orquestrador canônico. Dentro do SCRAP existe apenas um dispatcher/router local que escolhe o adapter e o provider certos para Instagram, Facebook, LinkedIn, X, YouTube, Web e outras fontes absorvidas.
