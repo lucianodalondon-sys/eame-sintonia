@@ -304,10 +304,72 @@ LIBS = os.environ.get('SINTONIA_LIBS') or os.path.join(
 _CACHE = {}
 
 
+#: onde o toolkit da NVIDIA se instala, se e quando alguem o instalar. Nenhum
+#: destes e assumido: cada um e conferido no disco antes de entrar em jogo.
+CUDA_BIN_DECLARADO = os.environ.get('SINTONIA_CUDA_BIN') or ''
+_DLLS_REGISTADAS = []
+
+
+def _pastas_de_dll():
+    """As pastas com as DLL do CUDA que EXISTEM nesta maquina. → lista.
+
+    Ordem deterministica: o que o chamador declarou primeiro, depois as versoes
+    do toolkit por ordem de nome, depois as libs da casa. Nada e adivinhado —
+    `os.path.isdir` decide cada uma.
+    """
+    fora = []
+    for d in CUDA_BIN_DECLARADO.split(os.pathsep):
+        if d and os.path.isdir(d):
+            fora.append(d)
+    base = os.path.join('C:\\', 'Program Files', 'NVIDIA GPU Computing Toolkit', 'CUDA')
+    if os.path.isdir(base):
+        for v in sorted(os.listdir(base), reverse=True):
+            b = os.path.join(base, v, 'bin')
+            if os.path.isdir(b):
+                fora.append(b)
+    for c in (os.path.join(LIBS, 'ctranslate2'), LIBS):
+        if os.path.isdir(c):
+            fora.append(c)
+    vistos, limpo = set(), []
+    for d in fora:
+        if d not in vistos:
+            vistos.add(d)
+            limpo.append(d)
+    return limpo
+
+
 def _caminho_das_libs():
+    """Poe as libs ao alcance deste PROCESSO — imports e DLL.
+
+    ⚠️ ATE A C4B ISTO SO MEXIA NO `sys.path`, E ISSO CHEGA PARA IMPORTAR E NAO
+    CHEGA PARA CARREGAR.
+
+    Medido no runner real, tres corridas seguidas: `cuda_disponivel()` devolveu
+    1 e a inferencia caiu com `cublas64_12.dll is not found or cannot be
+    loaded`. A DLL estava no disco — em
+    `.../NVIDIA GPU Computing Toolkit/CUDA/v12.8/bin` — e o PATH do servico do
+    runner nao a continha (`PATH_TEM_CUDA = false`).
+
+        CONTAR A PLACA NAO E PODER MULTIPLICAR NELA.
+
+    `get_cuda_device_count()` so precisa do driver; o cuBLAS so e chamado na
+    primeira multiplicacao de matrizes, ja dentro da inferencia. Entre as duas
+    coisas cabia exactamente este defeito.
+
+    Isto NAO altera a maquina: nao instala, nao copia e nao escreve PATH
+    nenhum. `os.add_dll_directory` vale para este processo e morre com ele.
+    """
     import sys
     if os.path.isdir(LIBS) and LIBS not in sys.path:
         sys.path.insert(0, LIBS)
+    if _DLLS_REGISTADAS or not hasattr(os, 'add_dll_directory'):
+        return                                    # so existe no Windows
+    for d in _pastas_de_dll():
+        try:
+            os.add_dll_directory(d)
+            _DLLS_REGISTADAS.append(d)
+        except OSError:                           # noqa: PERF203
+            continue
 
 
 def disponivel():

@@ -43,6 +43,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -63,6 +64,25 @@ SEM_AUDIO = 'NO_LOCAL_AUDIO_SOURCE'
 SEM_ASR = 'ASR_UNAVAILABLE'
 
 
+def _sem_o_dono(caminho):
+    """O caminho sem o nome de quem usa a máquina.
+
+    A lei da C4 é explícita sobre o que não se recolhe: username pessoal, home
+    completo, série de disco. Um diagnóstico precisa de saber QUE pasta foi
+    consultada — nunca DE QUEM ela é.
+
+        O CAMINHO E DIAGNOSTICO. O DONO DO PERFIL NAO E.
+
+    ⚠️ Isto nasceu de a sentinela da casa ter reprovado um COMENTARIO meu com o
+    perfil real lá dentro. Ela apanhou-me, e tinha razão.
+    """
+    t = str(caminho or '')
+    perfil = os.environ.get('USERPROFILE') or os.path.expanduser('~')
+    if perfil and perfil in t:
+        t = t.replace(perfil, '<perfil>')
+    return re.sub(r'(?i)([A-Z]:\\Users\\)[^\\/]+', r'\1<perfil>', t)
+
+
 def modelo_esta_local(nome):
     """→ (bool, porquê). Pergunta ao cache, NUNCA à rede.
 
@@ -73,13 +93,13 @@ def modelo_esta_local(nome):
     """
     fl._caminho_das_libs()
     if os.path.isdir(nome):
-        return True, 'modelo em pasta local: %s' % nome
+        return True, 'modelo em pasta local: %s' % _sem_o_dono(nome)
     # ── PERGUNTA-SE A QUEM VAI CARREGAR, E NAO A UM INTERMEDIARIO ────────
     # ⚠️ Correcao vinda da SEGUNDA corrida no runner. A primeira versao chamava
     # `huggingface_hub.snapshot_download(local_files_only=True)` e respondia
     # `MODEL_NOT_PRESENT` — com o modelo ALI, na cache que ela propria imprimiu:
     #
-    #     cache: C:\Users\London1\.cache\huggingface\hub
+    #     cache: <perfil>\.cache\huggingface\hub
     #     visiveis: models--Systran--faster-whisper-small   <- estava la
     #
     # `snapshot_download` exige o repositorio INTEIRO. O `faster-whisper` baixa
@@ -99,7 +119,8 @@ def modelo_esta_local(nome):
         return False, 'sem faster_whisper para perguntar ao cache (%s)' % type(e).__name__
     try:
         caminho = download_model(nome, local_files_only=True)
-        return True, 'ja em cache, resolvido pelo proprio faster-whisper: %s' % caminho
+        return True, ('ja em cache, resolvido pelo proprio faster-whisper: %s'
+                      % _sem_o_dono(caminho))
     except Exception as e:                                       # noqa: BLE001
         detalhe = '%s: %s' % (type(e).__name__, str(e)[:120])
     # ── E ONDE E QUE ELE PROCUROU? ───────────────────────────────────────
@@ -121,8 +142,9 @@ def modelo_esta_local(nome):
                    'cache consultada: %s | HF_HOME=%s | USERPROFILE=%s | '
                    'modelos whisper visiveis ali: %s. Esta prova NAO o descarrega: '
                    'um banco que baixa 1,5 GB mede a rede, nao a placa.'
-                   % (nome, detalhe, cache, os.environ.get('HF_HOME') or '(nao definido)',
-                      os.environ.get('USERPROFILE') or '(nao definido)',
+                   % (nome, detalhe, _sem_o_dono(cache),
+                      _sem_o_dono(os.environ.get('HF_HOME') or '(nao definido)'),
+                      '(omitido de proposito — o dono do perfil nao e diagnostico)',
                       vizinhos or 'nenhum'))
 
 
@@ -164,13 +186,13 @@ def dlls_do_cuda():
     for nome in alvos:
         achado = next((os.path.join(d, nome) for d in caminhos
                        if os.path.exists(os.path.join(d, nome))), None)
-        fora['NO_PATH'][nome] = achado or 'NAO'
+        fora['NO_PATH'][nome] = _sem_o_dono(achado) if achado else 'NAO'
         if not achado:
             f = next((os.path.join(d, nome) for d in extra
                       if os.path.exists(os.path.join(d, nome))), None)
-            fora['NO_DISCO_FORA_DO_PATH'][nome] = f or 'NAO ENCONTRADO'
+            fora['NO_DISCO_FORA_DO_PATH'][nome] = _sem_o_dono(f) if f else 'NAO ENCONTRADO'
     fora['PATH_TEM_CUDA'] = any('CUDA' in d.upper() for d in caminhos)
-    fora['DIRETORIOS_CONFERIDOS_FORA_DO_PATH'] = extra
+    fora['DIRETORIOS_CONFERIDOS_FORA_DO_PATH'] = [_sem_o_dono(d) for d in extra]
     return fora
 
 
