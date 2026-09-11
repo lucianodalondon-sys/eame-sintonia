@@ -645,7 +645,87 @@ já estavam preservados. Só COLHEITA cruza o Ingresso, e não houve nenhuma.
 
 ---
 
-## Q · VEREDITO
+## Q · REGRESSÃO
+
+A C9 não mudou ficheiro operacional nenhum, então a pergunta da regressão é
+estreita: **algum teste que passava deixou de passar?**
+
+### O baseline, e de onde ele vem
+
+A suíte completa correu nesta casa em **2026-09-11 16:54:31 UTC**, antes do
+commit desta missão, e deixou a saída no disco:
+
+```
+TESTES   2018
+FALHAS     22
+ERROS       1
+SKIPS     178
+```
+
+Essas 22 falhas e 1 erro são **entulho conhecido e anterior**. Não pertencem à
+C9 e não são contadas como regressão dela.
+
+### O que esta missão mediu
+
+Primeiro, três conjuntos limitados, todos verdes: 294 testes da linha C1–C8,
+107 de mapa e política, e a suíte do System Map.
+
+Depois — e é este o número que fecha a §23 — os **10 módulos que já falhavam no
+baseline**, reexecutados no HEAD da C9 e comparados um a um:
+
+| módulo | baseline | HEAD da C9 |
+|---|---:|---:|
+| `test_proveniencia` | 5 | 5 |
+| `test_metricas` | 5 | 5 |
+| `test_evidence` | 5 | 5 |
+| `test_handoff` | 2 | 2 |
+| `test_trava_da_inteligencia` | 1 | 1 |
+| `test_operacao` | 1 | 1 |
+| `test_fundacao_da_coleta` | 1 | 1 |
+| `test_canonico` | 1 | 1 |
+| `test_portao` | 1 | **0** |
+| `test_c3_youtube_cutover` | 1 | **0** |
+| **total** | **23** | **21** |
+
+```
+NEW_FAILURES = 0
+```
+
+**Nenhum módulo ganhou falha.** Dois perderam uma cada, e correm `OK` isolados.
+Não credito isso à C9: o `test_portao` é sensível à branch por desenho, e o
+baseline correu na branch da C8. Fica medido, não fica reclamado.
+
+    DUAS FALHAS A MENOS SEM CAUSA PROVADA NAO E UM CONSERTO.
+    E uma diferenca medida, e o nome dela e esse.
+
+### O esperador que mentiu sobre a corrida
+
+Ao medir isto encontrei um processo vivo há 1h51 com **zero segundos de CPU**,
+a dormir num laço:
+
+```
+until [ -s .../base_c4c.txt ] && ! pgrep -f "contar_base_c4c"; do sleep 20; done
+```
+
+A primeira metade já era verdadeira. A segunda nunca seria: a string
+`contar_base_c4c` está dentro da linha de comando do próprio laço, então
+`pgrep -f` encontra sempre a si mesmo e a negação é sempre falsa.
+
+```
+WAITER_BUG    = pgrep -f casava com o proprio comando
+WAITER_RESULT = FALSE_WAIT_AFTER_SUITE_COMPLETED
+```
+
+O defeito já tem dono desde o fechamento da C7 e **não ganha lei nova aqui** —
+seria a segunda cópia da mesma lei, que é como nenhuma das duas passa a valer. O
+que não estava registado é a consequência: a suíte tinha terminado às 16:54, e
+o esperador manteve por quase duas horas a aparência de uma corrida em voo.
+
+    TEMPO DE ESPERADOR NAO E TEMPO DE SUITE.
+
+---
+
+## R · VEREDITO
 
 ```
 C9_CAPABILITY_CENSUS = PASS
