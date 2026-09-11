@@ -1082,16 +1082,31 @@ def cutover_prova():
     linhas = []
 
     # ── 1 · COMUNICACAO PUBLICA ──────────────────────────────────────────
-    contas = [c for c in cc.contas_autorizadas('YOUTUBE')][:1]
+    # DUAS coisas precisam de prova, nao uma: que uma conta resolvivel COLHE, e
+    # que uma conta `/c/` RECUSA com estado proprio. Provar so a primeira
+    # esconderia o teto; provar so a segunda esconderia a capacidade.
+    #
+    # Vai por TRES contas no maximo. Isto e prova, nao coleta.
+    contas = list(cc.contas_autorizadas('YOUTUBE'))[:3]
     itens, mans = cc._colher_pelo_scrap('YOUTUBE', contas, 30)
-    m = mans[0] if mans else {}
-    print('\n  1 · COMUNICACAO PUBLICA  conta=%s' % (contas[0]['ACCOUNT_URL'][:44]))
-    print('      provider=%-14s pago=%-6s quota=%-3s itens=%-4d estado=%s'
-          % (m.get('COLLECTION_PROVIDER'), m.get('PAID'),
-             m.get('OFFICIAL_API_QUOTA_USED'), len(itens), m.get('STATUS')))
+    print('\n  1 · COMUNICACAO PUBLICA  (%d contas, prova limitada)' % len(contas))
+    colheu = None
+    for m in mans:
+        print('      %-46s %-26s quota=%s itens~%s'
+              % (str(m.get('ACCOUNT_URL'))[:46], m.get('STATUS'),
+                 m.get('OFFICIAL_API_QUOTA_USED'), m.get('CHANNEL_ID') or '-'))
+        if m.get('STATUS') == 'OK':
+            colheu = m
+    m = colheu or (mans[0] if mans else {})
+    print('      provider=%-14s pago=%-6s itens no total=%d'
+          % (m.get('COLLECTION_PROVIDER'), m.get('PAID'), len(itens)))
     if itens:
         print('      ACTOR no item = %r  ·  COLLECTION_PROVIDER = %r'
               % (itens[0].get('ACTOR'), itens[0].get('COLLECTION_PROVIDER')))
+    nao_resolvidas = [x for x in mans if x.get('STATUS') == 'CHANNEL_IDENTITY_UNRESOLVED']
+    if nao_resolvidas:
+        print('      %d conta(s) sem resolvedor oficial — estado proprio, nao zero'
+              % len(nao_resolvidas))
     linhas.append(('comunicacao.youtube', m.get('COLLECTION_PROVIDER'),
                    m.get('PAID'), len(itens), m.get('STATUS')))
 
@@ -1111,10 +1126,26 @@ def cutover_prova():
                    len(it2), m2.get('STATUS')))
 
     # ── 3 · SENSOR · COMENTARIOS ─────────────────────────────────────────
+    # O MESMO CUIDADO DA C2: perguntar comentario a um video que a API diz ter
+    # zero produz um ZERO_RESULTS verdadeiro e uma prova falsa.
     alvo = None
-    for o in it2:
-        if (o.get('CONTENT_TYPE') or '').upper() == 'VIDEO':
-            alvo = o.get('NATIVE_ID'); break
+    ids = [o.get('NATIVE_ID') for o in it2
+           if (o.get('CONTENT_TYPE') or '').upper() == 'VIDEO' and o.get('NATIVE_ID')]
+    if ids:
+        meta, _t = scrap.COLLECT(platform='YOUTUBE',
+                                 capability='youtube.video.metadata',
+                                 run_id=run_id, country_scope='IT', video_ids=ids)
+        com = sorted(((int((o.get('RAW') or {}).get('COMMENT_COUNT') or 0),
+                       (o.get('RAW') or {}).get('VIDEO_ID') or o.get('NATIVE_ID'))
+                      for o in meta), reverse=True)
+        if com and com[0][0] > 0:
+            alvo = com[0][1]
+            print('\n      video escolhido pela propria API: %s (%d comentarios)'
+                  % (alvo, com[0][0]))
+        else:
+            print('\n      a API diz COMMENT_COUNT=0 em todos os videos da busca')
+    if alvo is None and ids:
+        alvo = ids[0]
     if alvo:
         it3, m3, _p = sc._rodar_scrap(sc.CAPACIDADES_SCRAP['YOUTUBE_COMMENTS'],
                                       run_id=run_id, platform='YOUTUBE',
