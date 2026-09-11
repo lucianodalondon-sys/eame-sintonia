@@ -45,9 +45,18 @@ INTEGRATION_BRANCH  claude/sintonia-scrap-convergence-c8
 # E · ESTADO FINAL
 
 ```
-FINAL_HEAD   ver rodapé
-PUSH_STATE   PUSHED, sem force
+FINAL_HEAD   o commit que traz este documento
+PUSH_STATE   PUSHED, sem force, sem reescrita de história
 WORKTREE     uma, limpa
+```
+
+Os commits da missão:
+
+```
+5b569935  C8: a linha GPU entra na linha C7 por delta semantico, nao por merge
+85a46efb  C8: a entrega, e o documento da C4 passa a dizer o que esta nesta linha
+<mapa>    System Map: regenerado da arvore integrada, nao copiado de nenhuma branch
+<este>    C8: os numeros medidos
 ```
 
 ---
@@ -190,11 +199,17 @@ tests/test_c8_convergencia.py    21 provas   verdes
 # O · REGRESSÃO GLOBAL
 
 ```
-BASE_TOTAL     2079      FINAL_TOTAL     ver rodapé
-BASE_FAILURES    20      FINAL_FAILURES  ver rodapé
-BASE_ERRORS       1      FINAL_ERRORS    ver rodapé
-NEW_FAILURES              ver rodapé
+BASE_TOTAL     2079      FINAL_TOTAL     2127
+BASE_FAILURES    20      FINAL_FAILURES    20
+BASE_ERRORS       1      FINAL_ERRORS       1
+BASE_SKIPS      175      FINAL_SKIPS      175
+BASE_MODULES     82      FINAL_MODULES     84
+
+NEW_FAILURES      0
 ```
+
+**48 provas novas.** As 21 vermelhas finais são as mesmas 21 da base, nos mesmos
+testes. Baseline medida na C7 intacta, antes de qualquer alteração.
 
 ---
 
@@ -217,6 +232,30 @@ linhas e apanhava condições de passo dentro do próprio `scrap`.
 
 A fase não instala nada, não adquire mídia, não usa YouTube nem Apify, não
 escreve RAW e para com `MODEL_NOT_PRESENT` se o modelo não estiver em cache.
+
+# P2 · SYSTEM MAP
+
+```
+CADEIA      22 passos, extraidos do workflow
+RESULTADO   SYSTEM_MAP_CHECK = PASS · 22 de 22
+PECAS       161 -> 162
+```
+
+Nenhum `.generated.json` foi trazido da linha GPU. O que veio foi a **declaração**
+da peça `C-SMOKE-GPU-ASR` — declarada, não gerada — e só ela:
+`C-RECUPERAR-CORPUS` não veio porque o ficheiro dela não veio.
+
+A peça nova nasce `PENDING`, porque ninguém a leu. `C-PALAVRAS` continua
+`PENDING` desde a C6 e **não foi recarimbada**.
+
+```
+MODULE EXISTS != EDGE EXISTS != FLOW EXISTS
+```
+
+O módulo da prova da placa existe e o workflow chama-o — a **aresta** existe. Não
+há fluxo operacional de coleta a usar GPU hoje, e nenhum foi publicado.
+
+---
 
 # Q · SCRAP × COLLECTION CANÓNICA
 
@@ -310,3 +349,53 @@ A fase `gpu-asr` depende de o toolkit CUDA estar onde `_pastas_de_dll()` procura
 Se mudar de sítio, ela falha **com diagnóstico** — não em silêncio. E a linha
 C4C fica viva noutra branch: quem precisar da investigação do corpus tem de lá
 ir, o que é intencional e está escrito no ponteiro.
+
+---
+
+# W · VEREDITO
+
+```
+C8_CONVERGENCE = PASS
+```
+
+| | critério | |
+|---|---|---|
+| 1 | base real = C7 actual | ✅ `95f097a9`, medida |
+| 2 | deltas identificados por semântica | ✅ disjunção e identidade provadas antes de tocar |
+| 3 | C5/C6/C7 preservados | ✅ 88 provas verdes, invariantes exercidos |
+| 4 | trace verdadeiro integrado | ✅ seis campos, `EXECUTION` gatilha `USED` |
+| 5 | ASR owner único | ✅ varrido por sintaxe |
+| 6 | testes GPU verdes | ✅ 77 + 21 |
+| 7 | `NEW_FAILURES = 0` | ✅ |
+| 8 | workflow sem caminho paralelo | ✅ `scrap` exclui cada fase de máquina |
+| 9 | RAW/storage/Collection intocados | ✅ diff vazio |
+| 10 | System Map regenerado da árvore integrada | ✅ 22 de 22 |
+| 11 | branch pushed sem force | ✅ |
+| 12 | nenhuma rota de transcrição depende de vídeo completo | ✅ a lei ficou registada |
+
+```
+X. KNOW_HOW_DELTA = ATUALIZADO
+   branch  claude/sintonia-eame-know-how-v1
+   seccao  18, tres licoes
+   INITIAL_HEAD  599bf645a0e09f2285d72f971a5d096c6a56663e
+   FINAL_HEAD    7f08b004fb6c2fee7e0b92b311f76d9d12ad5c70
+```
+
+# Y · PRÓXIMO PASSO MÍNIMO — apenas declarado
+
+```
+REMEDIR O MAPA DE CAPACIDADES DE AQUISICAO DO SCRAP
+  Instagram · Facebook · LinkedIn · X · YouTube · outras necessidades
+e escolher UM gap de maior valor.
+```
+
+Com uma prioridade que esta missão deixa escrita:
+
+```
+AUDIO-ONLY FIRST, para qualquer plataforma onde o objectivo seja transcricao.
+Onde nao houver rota permitida: BLOCKED ou REQUIRES_AUTHORIZATION.
+Nunca baixar o video inteiro para obter o audio.
+```
+
+Não voltar automaticamente para GPU: a capacidade está provada e o que falta não
+é hardware.
