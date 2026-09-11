@@ -649,6 +649,63 @@ SAVINGS_REALIZED = ainda não. O futuro ainda precisa rodar.
 
 ---
 
+### 11.8 · O contrato do medidor — quem gasta é quem sabe quanto
+
+**O QUE mudou.** `coleta/social_rotas.py` passou a carregar um balde genérico,
+`MEDIDA`, no registro de cada execução. Ele vai **para** a rota e volta **dentro**
+do registro; `scrap_fornecedores.do_registo` sobe para o trace só o que existir
+lá. As quatro rotas do YouTube enchem-no com o que a sessão contou.
+
+**POR QUÊ.** A casa já tinha campo para o eixo do dinheiro — `COST_USD`, desde
+sempre. O eixo da **quota** não tinha nenhum. Os callers preenchiam-no à mão.
+
+```text
+UM EIXO SEM CAMPO É MEDIDO POR PALPITE DE QUEM LÊ.
+```
+
+**PROVA.** O primeiro corte da C3 escrevia `+= 1` para o passo da colheita,
+com o raciocínio «uma página de `playlistItems` custa uma unidade». Medido com
+transporte injetado, o passo custa **duas**: `channels.list` para achar a
+playlist de uploads, `playlistItems.list` para a ler. O artefato publicava
+metade do gasto real, com cara de medida. Depois do conserto, a corrida ao vivo
+`34564613643` publica `geral=3/MEASURED` por conta — que é exatamente o que a
+sessão contou.
+
+**CONSEQUÊNCIA.** Quatro regras duráveis, e nenhuma é sobre YouTube:
+
+1. **O balde é genérico.** Não há nome de plataforma no roteador, e não vai
+   haver. Quem sabe o preço da chamada é o dono da chamada.
+2. **Dois baldes não são um.** `SEARCH` conta **chamadas** (100/dia), `GENERAL`
+   conta **unidades** (10.000/dia). Viajam em campos separados até ao artefato:
+   `OFFICIAL_API_SEARCH_CALLS` e `OFFICIAL_API_QUOTA_USED`. Somá-los daria um
+   número que não existe.
+3. **A medida sobrevive à recusa.** Escrita em `finally`, nunca em `else`: quem
+   gastou quota e só depois levou `403` gastou na mesma, e apagar isso faria a
+   execução parecer de graça.
+4. **Balde vazio não vira zero.** «A rota não declarou» e «a rota gastou zero»
+   são coisas diferentes. Quando alguma etapa não declara, o artefato sai
+   `OFFICIAL_API_QUOTA_STATE = PARTIAL`, e o inteiro vale como **piso** — a
+   mesma palavra que a casa já usa para o custo histórico, que se lê
+   «≥ US$ 12,81» e nunca «12,81».
+
+**E a lição de método, que é a parte que se repete.** A sentinela certa não é «o
+valor está correto» — um valor certo hoje fica errado quando a API muda de
+preço. A sentinela certa lê a árvore sintática dos callers e reprova **qualquer
+dígito escrito à mão** naquele campo. Há também uma prova que **mede** que a
+colheita custa mais de uma unidade: se um dia passar a custar uma, ela reprova, e
+aí sim a discussão se reabre com número novo.
+
+```text
+UM NÚMERO SUPOSTO COM CARA DE MEDIDO É PIOR QUE NENHUM NÚMERO:
+NINGUÉM VOLTA A PERGUNTAR A UM CAMPO QUE JÁ TEM DÍGITO.
+```
+
+As cinco rotas abertas — Mastodon, Bluesky, Telegram — passaram a **tolerar** o
+balde e não o enchem. Não medem, e por isso não declaram, o que é a verdade
+sobre elas.
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
