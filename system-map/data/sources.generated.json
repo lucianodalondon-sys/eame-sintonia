@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "3bfdf697c33ce3af43c788398efa63e653fb1f8b",
+    "HEAD": "a1c9d049e35e111146bb7218fbce2681d1d9d780",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4269,6 +4269,23 @@
       ]
     },
     {
+      "endpoint": "https://www.googleapis.com/youtube",
+      "usado_por": [
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 87
+        },
+        {
+          "file": "tests/test_c2_youtube_oficial.py",
+          "line": 55
+        },
+        {
+          "file": "tests/test_youtube_oficial.py",
+          "line": 528
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.hracglobal.com/tools",
       "usado_por": [
         {
@@ -4364,19 +4381,6 @@
         {
           "file": "ferramentas/youtube_transcrever.py",
           "line": 151
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.googleapis.com/youtube",
-      "usado_por": [
-        {
-          "file": "coleta/youtube_oficial.py",
-          "line": 87
-        },
-        {
-          "file": "tests/test_youtube_oficial.py",
-          "line": 528
         }
       ]
     },
