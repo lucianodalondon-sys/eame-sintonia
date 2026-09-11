@@ -10,8 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-11 — a lei do retorno entrou no runtime (secção 47; 253 falsos passaram a zero).  
-**Próxima missão autorizada:** o seam que a ligação revelou — `SOURCE_ID` maiúsculo do contrato do coletor contra `source_id` minúsculo da porta de admissão.
+**Última atualização material:** 2026-09-11 — um só tradutor na fronteira (secção 48; 10 seams de vocabulário, um dono).  
+**Próxima missão autorizada:** os dois degraus que a escada revelou — `FACT_TIME` ausente nas unidades italianas, e `T2` sem regra escrita em `PERGUNTAS_DO_UNIVERSO`.
 
 ---
 
@@ -2549,3 +2549,101 @@ não texto**: a primeira versão procurava a expressão no ficheiro e acusava o
 docstring que a CITA para explicar o conserto. Agora percorre a árvore
 sintáctica, e comentário e docstring ficam de fora — que é onde a história deve
 poder viver.
+
+
+---
+
+# 48. UM SÓ TRADUTOR ENTRE O QUE SE COLHE E O QUE SE JULGA
+
+```
+MISSAO = C-PROVA-SEAM-INGRESSO-ADMISSION-V1, 2026-09-11
+BRANCH = claude/ingresso-admission-seam-v1
+HEAD   = 43fa06107fdb8012330d46a459de4ec1c09ab99b
+DONO   = coleta/ingresso.py :: para_a_porta() + PARA_A_PORTA
+PROVA  = tests/test_lingua_da_porta.py (29 travas, 9 mutações)
+```
+
+## 48.1 · O QUÊ
+
+O contrato comum fala `SOURCE_ID`; a admissão lê `source_id`. Medidos **12
+conceitos, 10 com dois nomes**. Agora há **um** tradutor, na fronteira, e as
+três rotas que julgam passam por ele.
+
+## 48.2 · POR QUÊ — o defeito não era o que parecia
+
+Não era «a admissão lê minúsculas». Era que a tradução **já existia, escrita à
+mão, em dois sítios com subconjuntos diferentes** — e a rota canónica não
+traduzia de todo.
+
+```
+UMA TRADUCAO SEM DONO NAO E UMA TRADUCAO: SAO TRES.
+```
+
+E o remendo óbvio era o pior de todos:
+
+```
+item.get("SOURCE_ID") or item.get("source_id") or item.get("fonte")
+```
+
+espalhado por cada leitor. Isso não dá um dono à tradução — dá-lhe **um por
+ficheiro**, e eles divergem no dia em que alguém acrescentar um alias a um só.
+
+O dono é a **fronteira**, porque é lá que a travessia já acontece: o ingresso já
+«transforma o que o coletor largou numa ficha do contrato comum».
+
+## 48.3 · AS TRÊS REGRAS DO TRADUTOR
+
+**Renomeia, não duplica.** Deixar os dois nomes na saída seria entregar a quem
+julga a própria doença que a função veio curar.
+
+**O valor atravessa intacto.** `IT-T2-002` sai `IT-T2-002`. Ausência continua
+ausência; `NAO SEI` continua `NAO SEI`.
+
+**Dois nomes com dois valores não se escolhem em silêncio.** Levanta
+`AliasEmConflito`, e a rota marca o item `erro_de_leitura` — a porta responde
+`ERRO`, que **não é rejeição**, e as outras unidades da corrida seguem.
+
+## 48.4 · PROVA — e a escada que ela revelou
+
+```
+sem SOURCE_ID   NAO_SEI        «nao da para dizer de onde este item veio»
++SOURCE_ID      NAO_SEI        «o item nao diz quando o fato aconteceu»
++FACT_TIME      NAO_SE_APLICA  «nao ha regra escrita do que conta como T2»
+```
+
+A origem deixou de parecer ausente, e a porta passou à pergunta seguinte —
+**sem nenhuma regra ter sido relaxada**. Os dois degraus à frente são reais:
+falta `FACT_TIME` nas unidades italianas, e `PERGUNTAS_DO_UNIVERSO` tem T3, T4,
+T7 e T9 — **não tem T2**.
+
+## 48.5 · CONSEQUÊNCIA — há uma TERCEIRA língua
+
+A unidade `STRUCTURED` fala `CONTENT_ID`, `TEXTO`, `URL`, `CAPTURED_AT`, que não
+é o contrato comum (`SOURCE_URL`, `COLLECTED_AT`). Mediu-se a segunda língua e
+fechou-se; a terceira fica medida e com nome.
+
+```
+UM TRADUTOR QUE ACEITA TUDO DEIXA DE DIZER O QUE E O QUE.
+```
+
+Meter `URL` no mapa canónico faria o tradutor do contrato comum conhecer o
+vocabulário do STRUCTURED. E `NEM TODO MAPA DE NOMES E O MESMO MAPA`: a
+telemetria também mapeia `SOURCE_ID → source_id`, e isso é legítimo, porque o
+destino é outro.
+
+## 48.6 · DOIS DEFEITOS MEUS, APANHADOS PELAS PRÓPRIAS TRAVAS
+
+A trava do conflito chamava `pela_porta`, que chama `adm.escrever` — e despejou
+417 linhas de decisões de teste dentro do `LIVRO-DE-DECISOES.json`, que é
+versionado.
+
+```
+UM TESTE QUE ESCREVE NO ACERVO NAO ESTA A TESTAR O SISTEMA: ESTA A ALTERA-LO.
+```
+
+E a prova da cadeia chamava `adm.decidir` directamente, saltando a tradução.
+
+```
+UMA PROVA QUE SALTA UM DEGRAU NAO PROVA A CADEIA:
+PROVA O DEGRAU SEGUINTE COM O ANTERIOR FINGIDO.
+```
