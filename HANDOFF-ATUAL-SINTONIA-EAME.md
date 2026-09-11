@@ -1398,6 +1398,82 @@ UMA PROVA QUE SE APOIA NUM DEFEITO MORRE QUANDO O DEFEITO MORRE.
 A PERGUNTA CERTA E SE ELA AINDA MEDE A LEI, NAO SE ELA AINDA PASSA.
 ```
 
+### 15.6 · Cinco missões construíram uma frente que o orquestrador não alcança
+
+**O QUE.** No fechamento da C7, ao ler o contrato canônico de retorno da coleta
+sem o integrar, mediu-se o caminho do SCRAP até à porta da Collection. Ele não
+fecha — e a parte que falta não é a que se supunha.
+
+**PROVA.** Três medições, nenhuma delas opinião:
+
+```text
+quem importa `ingresso` em toda a arvore:  ['orquestrador']
+nenhum modulo do SCRAP la chega por importacao — medido por travessia do grafo
+
+pedido/receitas.py declara 5 executores:
+  corpus-pesquisador · rotulos-oficiais · eppo · italia-recorrente
+  comunicacao-publica
+NENHUMA e do YouTube.
+
+system-map/data/fronteira.observada.json:
+  DESTINO_EXISTE  False
+  CONSUMIDORES    []
+  GAP             READY_SEM_CONSUMIDOR
+```
+
+A ligação SCRAP → Collection existe por **pasta declarada** (`larga_em`, lida por
+`a_colheita()`), não por chamada. E a frente de YouTube que as missões C3 a C7
+construíram — rota oficial, portão de política, procedência do texto, geografia —
+não tem receita nenhuma. O orquestrador não sabe pedi-la.
+
+**CONSEQUÊNCIA.** Os três níveis, ditos sem arredondar:
+
+```text
+SCRAP MODULE EXISTS          YES
+SCRAP -> Collection EDGE     PARTIAL — por pasta, nao por chamada
+SCRAP -> Collection FLOW     NO
+```
+
+```text
+UM EXECUTOR SEM RECEITA NAO ESTA LIGADO AO ORQUESTRADOR. ESTA AO LADO DELE.
+MODULE EXISTS != EDGE EXISTS != FLOW EXISTS — e cinco missoes de capacidade
+nao movem o terceiro nivel sozinhas.
+```
+
+E a lição de método que a acompanha, porque foi ela que evitou a conclusão
+errada: uma missão `DERIVED` não atravessar o envelope **não prova** que o
+executor o cumpre. A resposta certa para a compatibilidade do SCRAP era
+`UNKNOWN`, e escrevê-la custou menos do que teria custado descobri-la depois.
+
+```text
+UMA MISSAO DERIVED NAO E CREDENCIAL DO EXECUTOR.
+```
+
+---
+
+### 15.7 · Um laço que procura por si próprio nunca sai
+
+**O QUE.** Duas tarefas de fundo ficaram indefinidamente em «Em execução». Não
+era a suíte: era o esperador.
+
+**PROVA.** O laço era `until ! pgrep -f PADRAO; do sleep N; done`. A linha de
+comando do próprio laço **contém** o padrão, e por isso `pgrep -f` encontra-se a
+si mesmo — a condição nunca fica falsa. As suítes reais tinham terminado há
+muito, com código de saída 0, e os ficheiros de saída dos esperadores tinham
+zero bytes: eles nunca chegaram a emitir nada.
+
+**CONSEQUÊNCIA.** É a cicatriz da C5 noutra forma. Lá era uma sentinela que se
+procurava a si própria no texto do ficheiro; aqui é um laço que se procura a si
+próprio na tabela de processos.
+
+```text
+UMA SENTINELA QUE SE LE A SI PROPRIA ENCONTRA-SE SEMPRE —
+E ISSO VALE PARA `grep` NO FICHEIRO E PARA `pgrep` NO PROCESSO.
+```
+
+Esperar por um processo pede uma âncora que o esperador não possa ter: o PID, o
+ficheiro de saída, o código de saída. Nunca o nome que ele próprio carrega.
+
 ---
 
 ## EM PALAVRAS FÁCEIS
