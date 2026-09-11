@@ -107,6 +107,14 @@ def do_registo(capacidade, registo):
     trace['ROUTE_CLASS'] = classe
     trace['AUTH_MODE'] = (registo or {}).get('AUTH_MODE')
     trace['COST_USD'] = (registo or {}).get('COST_USD')
+    # ── A MEDIDA SOBE, E SO SOBE SE EXISTIR ──────────────────────────────────
+    # Balde vazio nao vira `0`: «a rota nao declarou» e «a rota gastou zero» sao
+    # coisas diferentes, e colapsa-las e a forma mais barata de publicar um
+    # palpite com cara de medida.
+    medida = (registo or {}).get('MEDIDA') or {}
+    for campo in ('QUOTA_UNITS', 'QUOTA_SEARCH_CALLS'):
+        if campo in medida:
+            trace[campo] = medida[campo]
     trace['NATIVE_REASON'] = (registo or {}).get('NATIVE_REASON')
     trace['RECOVERY_ACTION'] = (registo or {}).get('RECOVERY_ACTION')
     trace['FAILURE_LAYER'] = (registo or {}).get('FAILURE_LAYER')

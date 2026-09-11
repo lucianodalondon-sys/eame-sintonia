@@ -469,6 +469,8 @@ def _juntar_quota(man, parte):
     dar ao piso a cara de total.
     """
     man['OFFICIAL_API_QUOTA_USED'] += parte.get('OFFICIAL_API_QUOTA_USED') or 0
+    man['OFFICIAL_API_SEARCH_CALLS'] = (man.get('OFFICIAL_API_SEARCH_CALLS') or 0) \
+        + (parte.get('OFFICIAL_API_SEARCH_CALLS') or 0)
     if parte.get('OFFICIAL_API_QUOTA_STATE') == 'PARTIAL':
         man['OFFICIAL_API_QUOTA_STATE'] = 'PARTIAL'
     return man
@@ -507,9 +509,13 @@ def _rodar_scrap(capacidade, *, run_id, platform, country, query, lote, **pedido
         #
         # E os dois baldes nao sao a mesma moeda: SEARCH conta CHAMADAS (100 por
         # dia) e GENERAL conta UNIDADES (10.000 por dia). Somar os dois daria um
-        # numero que nao existe. Enquanto a rota nao declarar qual balde mexeu,
-        # o estado diz PARCIAL e o inteiro vale como PISO.
+        # numero que nao existe, por isso sao DOIS campos ate ao fim.
+        #
+        # A rota declara os dois desde a C3. Se um dia uma rota nova nao
+        # declarar, o estado diz PARCIAL e o inteiro vale como PISO — nunca se
+        # preenche o buraco com um palpite.
         'OFFICIAL_API_QUOTA_USED': trace.get('QUOTA_UNITS') or 0,
+        'OFFICIAL_API_SEARCH_CALLS': trace.get('QUOTA_SEARCH_CALLS') or 0,
         'OFFICIAL_API_QUOTA_STATE': ('MEASURED' if trace.get('QUOTA_UNITS') is not None
                                      else 'PARTIAL'),
         'ITEM_COUNT_RAW': len(itens),

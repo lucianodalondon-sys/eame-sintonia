@@ -110,40 +110,98 @@ def _traduzido(fn):
 #
 # A sessao passa a atravessar ate ao dono. Em producao ninguem a passa, e cada
 # chamada abre a sua — o comportamento nao mudou.
-@_traduzido
-def youtube_buscar(*, termo, run_id, country_scope, limit=25, sessao=None, **_):
+# ── O MEDIDOR — dois baldes, e eles NAO se somam ──────────────────────────
+# `youtube_oficial.Sessao` ja conta o que gastou, e o ficheiro dele diz porque
+# sao dois contadores e nao um: «um contador unico faria a busca comer o
+# orcamento de comentarios — e, pior, faria o relatorio somar dois numeros que
+# nao se somam».
+#
+#     SEARCH  conta CHAMADAS   ·  100 por dia
+#     GENERAL conta UNIDADES   ·  10.000 por dia
+#
+# A conta morria aqui: a sessao era local a chamada e o numero ia com ela. Quem
+# lia o artefato via um campo de quota escrito a mao pelo caller — e escrito a
+# mao e suposto, por melhor que seja o palpite.
+#
+#     QUEM GASTA E QUEM SABE QUANTO. O CALLER SO PODE COPIAR OU INVENTAR.
+#
+# O balde `medida` vem do roteador e e generico: ele nao sabe o nome «YouTube»
+# nem o nome «unidade». Quem o enche e o dono da chamada.
+def _medir(medida, sessao, antes):
+    """Escreve no balde o que ESTA chamada gastou. Nunca o acumulado da sessao."""
+    if medida is None or sessao is None:
+        return
+    usado = getattr(sessao, 'usado', None)
+    if not usado:
+        return
     import youtube_oficial as yt
-    objs, _s = yt.buscar(termo=termo, run_id=run_id, country_scope=country_scope,
-                         limit=limit, regiao=country_scope, idioma='it',
-                         sessao=sessao)
+    antes = antes or {}
+    geral = usado.get(yt.GENERAL, 0) - antes.get(yt.GENERAL, 0)
+    busca = usado.get(yt.SEARCH, 0) - antes.get(yt.SEARCH, 0)
+    # O campo historico `QUOTA_UNITS` E o balde GENERAL, e continua a se-lo.
+    # A busca ganha campo PROPRIO: somar as duas daria um numero que nao existe.
+    medida['QUOTA_UNITS'] = geral
+    medida['QUOTA_SEARCH_CALLS'] = busca
+
+
+def _antes(sessao):
+    return dict(getattr(sessao, 'usado', {}) or {}) if sessao is not None else {}
+
+
+@_traduzido
+def youtube_buscar(*, termo, run_id, country_scope, limit=25, sessao=None,
+                   medida=None, **_):
+    import youtube_oficial as yt
+    antes, s = _antes(sessao), sessao
+    try:
+        objs, s = yt.buscar(termo=termo, run_id=run_id, country_scope=country_scope,
+                            limit=limit, regiao=country_scope, idioma='it',
+                            sessao=sessao)
+    finally:
+        # `finally` porque QUEM GASTOU E LEVOU 403 GASTOU NA MESMA. Apagar a
+        # medida na recusa faria a execucao parecer de graca.
+        _medir(medida, s, antes)
     return objs
 
 
 @_traduzido
 def youtube_uploads(*, channel_id, run_id, country_scope, limit=25, conhecidos=(),
-                    sessao=None, **_):
+                    sessao=None, medida=None, **_):
     import youtube_oficial as yt
-    objs, _s, _rel = yt.uploads_recentes(
-        channel_id=channel_id, run_id=run_id, country_scope=country_scope,
-        limit=limit, conhecidos=conhecidos, sessao=sessao)
+    antes, s = _antes(sessao), sessao
+    try:
+        objs, s, _rel = yt.uploads_recentes(
+            channel_id=channel_id, run_id=run_id, country_scope=country_scope,
+            limit=limit, conhecidos=conhecidos, sessao=sessao)
+    finally:
+        _medir(medida, s, antes)
     return objs
 
 
 @_traduzido
-def youtube_metadata(*, video_ids, run_id, country_scope, sessao=None, **_):
+def youtube_metadata(*, video_ids, run_id, country_scope, sessao=None,
+                     medida=None, **_):
     import youtube_oficial as yt
-    objs, _s, _rel = yt.metadata(video_ids=video_ids, run_id=run_id,
-                                 country_scope=country_scope, sessao=sessao)
+    antes, s = _antes(sessao), sessao
+    try:
+        objs, s, _rel = yt.metadata(video_ids=video_ids, run_id=run_id,
+                                    country_scope=country_scope, sessao=sessao)
+    finally:
+        _medir(medida, s, antes)
     return objs
 
 
 @_traduzido
 def youtube_comentarios(*, video_id, run_id, country_scope, limite_threads=100,
-                        sessao=None, **_):
+                        sessao=None, medida=None, **_):
     import youtube_oficial as yt
-    objs, _s, rel = yt.comentarios(video_id=video_id, run_id=run_id,
-                                   country_scope=country_scope,
-                                   limite_threads=limite_threads, sessao=sessao)
+    antes, s = _antes(sessao), sessao
+    try:
+        objs, s, rel = yt.comentarios(video_id=video_id, run_id=run_id,
+                                      country_scope=country_scope,
+                                      limite_threads=limite_threads, sessao=sessao)
+    finally:
+        _medir(medida, s, antes)
     # Comentário desativado NÃO é coleta vazia: é um fato sobre o vídeo, e sobe
     # como estado próprio para não virar ZERO_RESULTS no registro.
     if rel.get('STATE') not in (None, 'OK', 'ZERO_RESULTS'):

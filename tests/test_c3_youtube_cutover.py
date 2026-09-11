@@ -572,15 +572,51 @@ class T21AQuotaNaoSeInventa(_Base):
                     maus.append('%s:%d' % (rel, no.lineno))
         self.assertEqual(maus, [], 'quota atribuida por literal: %s' % maus)
 
-    def test_a_rota_que_nao_declara_unidades_sai_parcial(self):
+    def test_a_rota_declara_o_que_gastou_e_em_que_balde(self):
+        """A busca mexe no balde SEARCH e nao no GENERAL. Os dois nao se somam."""
         import sensor_coleta as sc
         _it, man, _p = sc._rodar_scrap('youtube.search', run_id='T21',
                                        platform='YOUTUBE', country='IT',
                                        query='x', lote='T21', termo='x', limit=1,
                                        sessao=yt.Sessao(transporte=self._transporte()))
-        self.assertEqual(man['OFFICIAL_API_QUOTA_STATE'], 'PARTIAL')
+        self.assertEqual(man['OFFICIAL_API_QUOTA_STATE'], 'MEASURED')
+        self.assertEqual(man['OFFICIAL_API_SEARCH_CALLS'], 1)
         self.assertEqual(man['OFFICIAL_API_QUOTA_USED'], 0,
-                         'o piso e o que foi declarado, e nada foi declarado')
+                         'uma busca NAO gasta unidades do balde GENERAL')
+
+    def test_a_colheita_publica_as_duas_unidades_que_gastou(self):
+        """O numero que o artefato publica e o mesmo que a sessao contou."""
+        import comunicacao_coleta as cc
+        s = yt.Sessao(transporte=self._transporte())
+        _objs, trace = scrap.COLLECT(platform='YOUTUBE',
+                                     capability='youtube.channel.discovery',
+                                     run_id='T21', country_scope='IT', sessao=s,
+                                     channel_id='UCteste', limit=50)
+        man = {'OFFICIAL_API_QUOTA_USED': 0,
+               'OFFICIAL_API_QUOTA_STATE': cc.QUOTA_MEDIDA}
+        cc._somar_quota(man, trace)
+        self.assertEqual(man['OFFICIAL_API_QUOTA_USED'], s.usado[yt.GENERAL])
+        self.assertEqual(man['OFFICIAL_API_QUOTA_STATE'], cc.QUOTA_MEDIDA)
+
+    def test_rota_muda_sem_declarar_derruba_o_estado(self):
+        """A sentinela do futuro: rota nova que nao mede faz o lote sair PARCIAL."""
+        import comunicacao_coleta as cc
+        man = {'OFFICIAL_API_QUOTA_USED': 0,
+               'OFFICIAL_API_QUOTA_STATE': cc.QUOTA_MEDIDA}
+        cc._somar_quota(man, {'RESULT': 'OK'})   # trace sem `QUOTA_UNITS`
+        self.assertEqual(man['OFFICIAL_API_QUOTA_STATE'], cc.QUOTA_PARCIAL)
+        self.assertEqual(man['OFFICIAL_API_QUOTA_USED'], 0,
+                         'nao declarado nunca vira digito inventado')
+
+    def test_a_medida_sobrevive_a_recusa(self):
+        """Quem gastou e levou 403 gastou na mesma. Apagar isso seria gratis mentir."""
+        import adaptador_youtube as ay
+        s = yt.Sessao(transporte=self._transporte())
+        s.usado[yt.GENERAL] = 7
+        medida = {}
+        ay._medir(medida, s, {yt.GENERAL: 4, yt.SEARCH: 0})
+        self.assertEqual(medida['QUOTA_UNITS'], 3,
+                         'a medida e o gasto DESTA chamada, nao o acumulado')
 
     def test_parcial_contamina_o_lote(self):
         import sensor_coleta as sc

@@ -116,6 +116,21 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         'ROTA_ESCOLHIDA': None, 'CLASSE_DA_ROTA': None,
         'AUTH_MODE': None, 'ESTADO': None, 'OBJETOS': 0,
         'COST_USD': 0.0, 'ERRO': None, 'MOTIVO_PAGO': None,
+        # ── O BALDE DA MEDIDA ────────────────────────────────────────────────
+        # `COST_USD` ja era o eixo do gasto em dolar. Falta o eixo da QUOTA: uma
+        # API oficial e gratuita e NAO e infinita, e quem gasta unidades e a
+        # rota — o roteador nao tem como saber quantas.
+        #
+        #     UM EIXO SEM CAMPO E MEDIDO POR PALPITE DE QUEM LE.
+        #
+        # Este dicionario vai PARA a rota, e e o MESMO objeto que volta dentro
+        # do registo. Por isso a medida sobrevive a recusa e ao erro: uma rota
+        # que gastou quota e so depois levou 403 gastou na mesma, e apagar isso
+        # faria o relatorio dizer que a execucao foi de graca.
+        #
+        # Generico de proposito. Nao ha nome de plataforma aqui, e nao vai
+        # haver: quem sabe o preco da chamada e o dono da chamada.
+        'MEDIDA': {},
     }
     if not rotas:
         registro['ESTADO'] = 'NOT_APPLICABLE'
@@ -180,7 +195,8 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         return [], registro
 
     try:
-        objetos = fn(run_id=run_id, country_scope=country_scope, **kwargs)
+        objetos = fn(run_id=run_id, country_scope=country_scope,
+                     medida=registro['MEDIDA'], **kwargs)
     except RotaNaoPermitida as e:
         registro['ESTADO'] = 'ROUTE_NOT_ALLOWED'
         registro['ERRO'] = ss.redigir(str(e))

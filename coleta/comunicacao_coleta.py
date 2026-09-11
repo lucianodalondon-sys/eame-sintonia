@@ -355,20 +355,26 @@ def normalizar(bruto, conta, plataforma, dias, man=None):
 # em voz alta quando a soma esta incompleta. `PARTIAL` significa PISO — o mesmo
 # que a casa ja faz com o custo historico («>= US$ 12,81», nunca «12,81»).
 #
-# Enquanto as rotas da matriz nao declararem unidades, toda corrida oficial sai
-# `PARTIAL`. Isso e a medida da divida, e ela fica visivel no artefato.
+# Uma rota que nao declara unidades faz o lote inteiro sair `PARTIAL`. Hoje as
+# quatro do YouTube declaram — quem entrar a seguir e que decide se continua.
+#
+# E DOIS BALDES, NAO UM: `SEARCH` conta CHAMADAS (100 por dia) e `GENERAL` conta
+# UNIDADES (10.000 por dia). Soma-los daria um numero que nao existe, por isso
+# viajam em campos separados ate ao artefato.
 QUOTA_MEDIDA = 'MEASURED'
 QUOTA_PARCIAL = 'PARTIAL'
 QUOTA_NAO_SE_APLICA = 'NOT_APPLICABLE'
 
 
 def _somar_quota(man, trace):
-    """Acrescenta ao manifesto as unidades que o trace DECLAROU. Nunca inventa."""
+    """Acrescenta ao manifesto o que o trace DECLAROU. Nunca inventa."""
     unidades = trace.get('QUOTA_UNITS')
     if unidades is None:
         man['OFFICIAL_API_QUOTA_STATE'] = QUOTA_PARCIAL
         return man
     man['OFFICIAL_API_QUOTA_USED'] += unidades
+    man['OFFICIAL_API_SEARCH_CALLS'] = (man.get('OFFICIAL_API_SEARCH_CALLS') or 0) \
+        + (trace.get('QUOTA_SEARCH_CALLS') or 0)
     return man
 
 
@@ -389,6 +395,7 @@ def _gravar_posts(plataforma, contas, janela, r, mans, ampliou):
     """
     pagas = [m for m in mans if m.get('PAID')]
     quota = sum(m.get('OFFICIAL_API_QUOTA_USED') or 0 for m in mans)
+    buscas = sum(m.get('OFFICIAL_API_SEARCH_CALLS') or 0 for m in mans)
     quota_estado = _estado_da_quota(mans)
     corpo = {
         'SOURCE_ID': 'COMPETITOR-PUBLIC-COMM/POSTS-%s' % plataforma,
@@ -419,8 +426,9 @@ def _gravar_posts(plataforma, contas, janela, r, mans, ampliou):
         # oficial ele vale 0, e o zero e verdadeiro.
         'COLLECTION_RUNS': len(mans),
         'APIFY_RUNS': len(pagas),
+        # Dois baldes, dois campos. `PARTIAL` = PISO, nao total — ver `_somar_quota`.
         'OFFICIAL_API_QUOTA_USED': quota,
-        # `PARTIAL` = PISO, nao total. Ver `_somar_quota`.
+        'OFFICIAL_API_SEARCH_CALLS': buscas,
         'OFFICIAL_API_QUOTA_STATE': quota_estado,
         'COLLECTION_PROVIDERS': sorted({m.get('COLLECTION_PROVIDER') for m in mans
                                         if m.get('COLLECTION_PROVIDER')}),
@@ -457,6 +465,7 @@ def _colher_pelo_scrap(plataforma, contas, dias):
         man = {'RUN_ID': rid, 'PLATFORM': plataforma, 'ACTOR': None,
                'COLLECTION_PROVIDER': None, 'PAID': False, 'COST_USD': 0.0,
                'OFFICIAL_API_QUOTA_USED': 0,
+               'OFFICIAL_API_SEARCH_CALLS': 0,
                'OFFICIAL_API_QUOTA_STATE': QUOTA_MEDIDA,
                'ACCOUNT_URL': conta['ACCOUNT_URL'],
                'STATUS': None, 'CAPTURED_AT': coletor.agora()}

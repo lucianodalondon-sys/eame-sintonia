@@ -41,7 +41,7 @@ import social_envelope as env  # noqa: E402
 NOME = 'adaptador_aberto'
 
 
-def mastodon_tag(*, instancia, tag, limit, run_id, country_scope):
+def mastodon_tag(*, instancia, tag, limit, run_id, country_scope, **_):
     """Timeline pública de uma hashtag numa instância Mastodon."""
     url = 'https://%s/api/v1/timelines/tag/%s?limit=%d' % (
         instancia, urllib.parse.quote(tag), min(int(limit), 40))
@@ -79,7 +79,7 @@ def mastodon_tag(*, instancia, tag, limit, run_id, country_scope):
     return saida
 
 
-def mastodon_conta_statuses(*, instancia, acct_id, limit, run_id, country_scope):
+def mastodon_conta_statuses(*, instancia, acct_id, limit, run_id, country_scope, **_):
     """Posts recentes de uma conta conhecida — a rota de MONITORAMENTO."""
     url = 'https://%s/api/v1/accounts/%s/statuses?limit=%d&exclude_replies=true' % (
         instancia, urllib.parse.quote(str(acct_id)), min(int(limit), 40))
@@ -100,7 +100,7 @@ def mastodon_conta_statuses(*, instancia, acct_id, limit, run_id, country_scope)
     return saida
 
 
-def bluesky_buscar_contas(*, termo, limit, run_id, country_scope):
+def bluesky_buscar_contas(*, termo, limit, run_id, country_scope, **_):
     """Descoberta de contas na AppView pública do Bluesky."""
     url = ('https://public.api.bsky.app/xrpc/app.bsky.actor.searchActors'
            '?q=%s&limit=%d' % (urllib.parse.quote(termo), min(int(limit), 50)))
@@ -119,7 +119,7 @@ def bluesky_buscar_contas(*, termo, limit, run_id, country_scope):
     return saida
 
 
-def bluesky_feed_autor(*, handle, limit, run_id, country_scope):
+def bluesky_feed_autor(*, handle, limit, run_id, country_scope, **_):
     url = ('https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed'
            '?actor=%s&limit=%d' % (urllib.parse.quote(handle), min(int(limit), 50)))
     corpo = http.buscar(url)
@@ -142,7 +142,7 @@ def bluesky_feed_autor(*, handle, limit, run_id, country_scope):
     return saida
 
 
-def telegram_canal(*, canal, run_id, country_scope):
+def telegram_canal(*, canal, run_id, country_scope, **_):
     """Prévia pública de canal do Telegram — página, não API."""
     import re
     url = 'https://t.me/s/%s' % urllib.parse.quote(canal)
