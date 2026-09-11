@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/t3-human-review-pack-v1",
-    "HEAD": "dfa159db6da775d097c4ed0275220c8e0b854022",
-    "GENERATED_AT": "2026-09-11T13:46:42+00:00",
-    "SOURCE_TREE_FINGERPRINT": "51ec2964806d0b0590f433ce29a6e02f85d24678e04dcfbdc155bbd36889629e"
+    "BRANCH": "claude/t3-neutral-sampling-frame-v1",
+    "HEAD": "df0a8d0e0ed6e8f7bd784c0be4472730ac85305d",
+    "GENERATED_AT": "2026-09-11T14:24:55+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1872837c76b6dc32d42167bc0fe706671c49eccc7cd3d8a4455ad3cab807daed"
   },
   "FILES": [
     {
@@ -4055,6 +4055,13 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/T3-SAMPLING-FRAME-V1.json",
+      "sha": "69d5bd7d535bb2c543530dc5f9e70cd49421bb11",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/VERIFICACAO-ADVERSARIAL-PORTOES.json",
       "sha": "22df917f2a2e5379e4c45e38c9802661f06f61de",
       "ext": ".json",
@@ -4750,6 +4757,13 @@
     {
       "path": "docs/operacao/T3-REVIEW-PACKET-V1.md",
       "sha": "d063f36ece135473c48d87b4a279b3f9d92f2bcf",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/T3-SAMPLING-FRAME-V1.md",
+      "sha": "28b63cef4b526a89e8549d9d4eecf59520057813",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7702,6 +7716,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/amostragem_neutra_t3.py",
+      "sha": "b083b5ff41fa87e1474fea58acd969baf3c5013b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/auditoria.py",
       "sha": "5b0375fdf9f334142d56f869dae339c7cf010868",
       "ext": ".py",
@@ -9131,7 +9152,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "ff999261f87b261af64201361f3446bb41d42a97",
+      "sha": "9863541ecd775b9ad29f240f0c181f93a547159d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9482,6 +9503,13 @@
     {
       "path": "tests/test_alvo_estruturado_resolvido.py",
       "sha": "19f32dd70f64d702f7b765b1852de3601066253b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_amostragem_neutra_t3.py",
+      "sha": "2affa10cae30d412bd83e6446506b21144624e0d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -25866,6 +25894,61 @@
       }
     },
     {
+      "from_file": "provas/amostragem_neutra_t3.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/amostragem_neutra_t3.py",
+        "line": 53,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/amostragem_neutra_t3.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/amostragem_neutra_t3.py",
+        "line": 90,
+        "snippet": "for a in censo._json(\"data/derivados/REGISTO-DE-ARTEFATOS.json\")[\"ARTEFATOS\"]:"
+      }
+    },
+    {
+      "from_file": "provas/amostragem_neutra_t3.py",
+      "to_file": "data/samples/T3-SAMPLING-FRAME-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/amostragem_neutra_t3.py",
+        "line": 62,
+        "snippet": "FRAME = \"data/samples/T3-SAMPLING-FRAME-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/amostragem_neutra_t3.py",
+      "to_file": "provas/censo_corpus_rotulado_admission.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/amostragem_neutra_t3.py",
+        "line": 58,
+        "snippet": "\"_censo\", os.path.join(RAIZ, \"provas\", \"censo_corpus_rotulado_admission.py\"))"
+      }
+    },
+    {
+      "from_file": "provas/amostragem_neutra_t3.py",
+      "to_file": "provas/pacote_de_revisao_t3.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/amostragem_neutra_t3.py",
+        "line": 150,
+        "snippet": "with open(os.path.join(RAIZ, \"provas\", \"pacote_de_revisao_t3.py\"),"
+      }
+    },
+    {
       "from_file": "provas/censo_corpus_rotulado_admission.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -30043,6 +30126,50 @@
         "file": "tests/test_alvo_estruturado_resolvido.py",
         "line": 43,
         "snippet": "from test_italia_na_porta_canonica import CasoB1, FONTE     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_amostragem_neutra_t3.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_amostragem_neutra_t3.py",
+        "line": 23,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_amostragem_neutra_t3.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_amostragem_neutra_t3.py",
+        "line": 179,
+        "snippet": "import admissao as adm"
+      }
+    },
+    {
+      "from_file": "tests/test_amostragem_neutra_t3.py",
+      "to_file": "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_amostragem_neutra_t3.py",
+        "line": 185,
+        "snippet": "\"T3-HUMAN-REVIEW-PENDING-V1.json\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_amostragem_neutra_t3.py",
+      "to_file": "provas/amostragem_neutra_t3.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_amostragem_neutra_t3.py",
+        "line": 26,
+        "snippet": "\"amostra_t3\", os.path.join(RAIZ, \"provas\", \"amostragem_neutra_t3.py\"))"
       }
     },
     {
@@ -36326,10 +36453,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1437,
-    "files_readable": 545,
-    "files_code_dir": 592,
-    "file_edges": 2344,
+    "files_tracked": 1441,
+    "files_readable": 547,
+    "files_code_dir": 594,
+    "file_edges": 2353,
     "escritas_em_pasta": 69,
     "declared_missing_here": 0
   },

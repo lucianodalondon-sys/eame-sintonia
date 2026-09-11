@@ -600,6 +600,7 @@
       "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
       "data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json",
       "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
+      "data/samples/T3-SAMPLING-FRAME-V1.json",
       "data/samples/VERIFICACAO-ADVERSARIAL-PORTOES.json",
       "data/samples/X-001-completo-mildiu-vs-clima.json",
       "data/samples/X-001-nuts2-heat-vs-wheat.json",
@@ -702,6 +703,7 @@
       "docs/operacao/SOURCE-DOCUMENT-DONO-STORE-CONTRATO.md",
       "docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md",
       "docs/operacao/T3-REVIEW-PACKET-V1.md",
+      "docs/operacao/T3-SAMPLING-FRAME-V1.md",
       "docs/operacao/TOPOLOGIA-DA-COLETA.md",
       "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
       "docs/operacao/TRAVESSIA-GENERICA-DA-UNIDADE.md",
@@ -1150,6 +1152,7 @@
       "provas/a_lei_da_fase_10.py",
       "provas/a_regra_de_t2.py",
       "provas/a_rota_m2_atravessa.py",
+      "provas/amostragem_neutra_t3.py",
       "provas/auditoria.py",
       "provas/auditoria_live.sh",
       "provas/censo_corpus_rotulado_admission.py",
@@ -1421,6 +1424,7 @@
       "tests/test_a_regra_de_t2.py",
       "tests/test_adama_relevance.py",
       "tests/test_alvo_estruturado_resolvido.py",
+      "tests/test_amostragem_neutra_t3.py",
       "tests/test_aprender_com_a_fonte.py",
       "tests/test_arestas.py",
       "tests/test_armazem_italiano.py",
@@ -1884,10 +1888,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/t3-human-review-pack-v1",
-    "HEAD": "dfa159db6da775d097c4ed0275220c8e0b854022",
-    "GENERATED_AT": "2026-09-11T13:46:42+00:00",
-    "SOURCE_TREE_FINGERPRINT": "51ec2964806d0b0590f433ce29a6e02f85d24678e04dcfbdc155bbd36889629e"
+    "BRANCH": "claude/t3-neutral-sampling-frame-v1",
+    "HEAD": "df0a8d0e0ed6e8f7bd784c0be4472730ac85305d",
+    "GENERATED_AT": "2026-09-11T14:24:55+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1872837c76b6dc32d42167bc0fe706671c49eccc7cd3d8a4455ad3cab807daed"
   },
   "FAMILIES": [
     {
@@ -11896,6 +11900,7 @@
         "provas/a_fase_10_entra_no_acervo.py",
         "provas/a_lei_da_fase_10.py",
         "provas/a_regra_de_t2.py",
+        "provas/amostragem_neutra_t3.py",
         "provas/auditoria_live.sh",
         "provas/censo_corpus_rotulado_admission.py",
         "provas/derived_artifact_no_postgres.py",
@@ -11913,7 +11918,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 19,
+      "file_count": 20,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11988,11 +11993,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 228,
+        "palavras": 237,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 226,
+        "sem_marca_de_lingua": 235,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15239,6 +15244,7 @@
         "tests/test_a_regra_de_t2.py",
         "tests/test_adama_relevance.py",
         "tests/test_alvo_estruturado_resolvido.py",
+        "tests/test_amostragem_neutra_t3.py",
         "tests/test_aprender_com_a_fonte.py",
         "tests/test_arestas.py",
         "tests/test_armazem_italiano.py",
@@ -15322,7 +15328,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 87,
+      "file_count": 88,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -16895,7 +16901,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/t3-human-review-pack-v1"
+        "branch claude/t3-neutral-sampling-frame-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17422,12 +17428,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
           "line": 22,
           "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "tests/test_amostragem_neutra_t3.py",
+          "line": 179,
+          "snippet": "import admissao as adm"
         },
         {
           "file": "tests/test_censo_corpus_rotulado_admission.py",
@@ -23031,12 +23042,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_regra_de_t2.py",
           "line": 41,
           "snippet": "REGISTO = os.path.join(RAIZ, \"data\", \"derivados\", \"REGISTO-DE-ARTEFATOS.json\")"
+        },
+        {
+          "file": "provas/amostragem_neutra_t3.py",
+          "line": 90,
+          "snippet": "for a in censo._json(\"data/derivados/REGISTO-DE-ARTEFATOS.json\")[\"ARTEFATOS\"]:"
         },
         {
           "file": "provas/censo_corpus_rotulado_admission.py",
@@ -27238,12 +27254,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
           "line": 27,
           "snippet": "\"prova_regra_t2\", os.path.join(RAIZ, \"provas\", \"a_regra_de_t2.py\"))"
+        },
+        {
+          "file": "tests/test_amostragem_neutra_t3.py",
+          "line": 26,
+          "snippet": "\"amostra_t3\", os.path.join(RAIZ, \"provas\", \"amostragem_neutra_t3.py\"))"
         },
         {
           "file": "tests/test_censo_corpus_rotulado_admission.py",
@@ -31216,7 +31237,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 730,
+  "UNCLAIMED_FILES_COUNT": 732,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31388,8 +31409,8 @@
     "edges_proven": 638,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1437,
-    "files_covered": 707,
+    "files_tracked": 1441,
+    "files_covered": 709,
     "files_code_unclaimed": 0
   }
 }
