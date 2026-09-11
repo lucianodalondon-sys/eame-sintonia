@@ -402,6 +402,35 @@ class T18RawDeTesteNuncaNoAcervo(unittest.TestCase):
             shutil.rmtree(tmp, ignore_errors=True)
 
 
+class T18bOBugQueOCutoverDescobriu(unittest.TestCase):
+    """`normalizar` lia um campo que o lote congelado nunca teve.
+
+    Nenhuma das 22 contas carrega `ACCOUNT_SCOPE`. O acesso direto levantava
+    `KeyError` na PRIMEIRA conta, de qualquer plataforma — a prova de que esta
+    normalizacao nunca correu ate ao fim desde que o lote foi congelado.
+    """
+
+    def test_conta_sem_o_campo_nao_rebenta(self):
+        import comunicacao_coleta as cc
+        conta = {'ACCOUNT_HANDLE': 'h', 'ACCOUNT_URL': 'u', 'COMPANY': 'C',
+                 'COUNTRY': 'IT'}
+        item = cc.normalizar({'NATIVE_ID': 'x'}, conta, 'YOUTUBE', 30, {})
+        self.assertEqual(item['ACCOUNT_SCOPE'], 'NOT_KNOWN')
+
+    def test_nenhuma_conta_do_lote_tem_o_campo(self):
+        import comunicacao_coleta as cc
+        contas = cc.contas_autorizadas()
+        semear = [c for c in contas if 'ACCOUNT_SCOPE' in c]
+        self.assertEqual(semear, [],
+                         'o lote ganhou o campo — reveja o valor honesto')
+
+    def test_toda_conta_do_lote_normaliza(self):
+        import comunicacao_coleta as cc
+        for conta in cc.contas_autorizadas():
+            with self.subTest(conta.get('ACCOUNT_URL')):
+                cc.normalizar({'NATIVE_ID': 'x'}, conta, conta['PLATFORM'], 30, {})
+
+
 class T19SegredoNuncaNoLog(unittest.TestCase):
     """Nada do caminho novo imprime, mede ou resume a chave."""
 

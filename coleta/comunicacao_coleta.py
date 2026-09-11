@@ -276,7 +276,20 @@ def normalizar(bruto, conta, plataforma, dias, man=None):
         'ACCOUNT_URL': conta['ACCOUNT_URL'],
         'COMPANY': conta['COMPANY'],
         'COUNTRY_SCOPE': conta['COUNTRY'],
-        'ACCOUNT_SCOPE': conta['ACCOUNT_SCOPE'],
+        # ── UM CAMPO QUE O LOTE NUNCA TEVE ──────────────────────────────
+        # Medido ao migrar: NENHUMA das 22 contas do lote congelado carrega
+        # `ACCOUNT_SCOPE`. Nem uma. O acesso direto levantava `KeyError` na
+        # PRIMEIRA conta, de qualquer plataforma — o que diz, sozinho, que esta
+        # normalizacao nunca correu ate ao fim desde que o lote foi congelado.
+        #
+        #     UM `KeyError` NA PRIMEIRA CONTA NAO E UM CASO RARO. E a prova de
+        #     que o caminho nunca passou por aqui.
+        #
+        # `regras/comunicacao_universo.py` escreve o campo com `NOT_KNOWN` no
+        # ficheiro do universo, entao o valor honesto e esse mesmo. Trocar por
+        # `PAGE_ROLE` seria mais bonito e seria outra coisa: papel da pagina nao
+        # e alcance da conta.
+        'ACCOUNT_SCOPE': conta.get('ACCOUNT_SCOPE', NAO_SEI),
         'PLATFORM': plataforma,
         'PUBLISHED_AT': g('PUBLISHED_AT', 'date', 'publishedAt', 'timestamp', 'time'),
         'FIRST_OBSERVED': _hoje().isoformat(),
