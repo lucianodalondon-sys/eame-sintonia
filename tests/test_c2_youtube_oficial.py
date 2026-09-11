@@ -13,8 +13,10 @@ estourada podem ser exercidos num portatil sem internet.
 import io
 import json
 import os
+import shutil
 import socket
 import sys
+import tempfile
 import unittest
 import urllib.error
 
@@ -25,6 +27,7 @@ import scrap_capacidades as cap    # noqa: E402
 import scrap_executor as scrap     # noqa: E402
 import scrap_fornecedores as forn  # noqa: E402
 import scrap_registo as reg        # noqa: E402
+import social_envelope as env      # noqa: E402
 import social_rotas as sr          # noqa: E402
 import youtube_oficial as yt       # noqa: E402
 
@@ -152,13 +155,34 @@ class _Base(unittest.TestCase):
     A chave falsa entra no ambiente porque o `CHECK` a exige ANTES de deixar o
     `COLLECT` correr — e isso e o comportamento certo, nao um estorvo. O valor
     nunca chega a rede: o transporte injetado nunca abre socket.
+
+    E O BRUTO VAI PARA UMA PASTA DESCARTAVEL, POR UM MOTIVO MEDIDO
+    ---------------------------------------------------------------
+    `social_envelope.guardar_raw` grava o corpo da resposta ANTES de normalizar,
+    e faz muito bem: se o normalizador quebrar, a coleta nao precisa ser
+    refeita. Mas num TESTE o corpo e inventado — `abc12345678`, `aaaaaaaaaaa` —
+    e ele caia em `data/samples/SOCIAL-IT/raw-free/YOUTUBE/`, ao lado do bruto
+    de coletas verdadeiras.
+
+    Seis desses ficheiros chegaram a entrar num commit desta missao antes de
+    alguem reparar.
+
+        BRUTO DE TESTE AO LADO DE BRUTO DE COLETA E PIOR QUE LIXO: e uma prova
+        de uma coleta que nunca aconteceu, com o nome certo e a pasta certa.
+
+    Cada teste desta base escreve numa pasta temporaria que morre com ele.
     """
 
     def setUp(self):
         self._antes = os.environ.get(yt.ENV_CHAVE)
         os.environ[yt.ENV_CHAVE] = CHAVE_FALSA
+        self._tmp = tempfile.mkdtemp(prefix='c2-raw-')
+        self._raw_antes = env.RAW_DIR
+        env.RAW_DIR = self._tmp
 
     def tearDown(self):
+        env.RAW_DIR = self._raw_antes
+        shutil.rmtree(self._tmp, ignore_errors=True)
         if self._antes is None:
             os.environ.pop(yt.ENV_CHAVE, None)
         else:
@@ -312,7 +336,7 @@ class T10ComentarioDesativado(_Base):
         self.assertEqual(yt.RAZOES['commentsDisabled'], 'FEATURE_DISABLED')
 
 
-class T11BatchingDeMetadata(unittest.TestCase):
+class T11BatchingDeMetadata(_Base):
     """N identificadores numa chamada. Uma unidade, nao N."""
 
     def test_uma_chamada_para_varios_ids(self):
@@ -329,7 +353,7 @@ class T11BatchingDeMetadata(unittest.TestCase):
         self.assertEqual(um.usado[yt.GENERAL], dez.usado[yt.GENERAL])
 
 
-class T12BuscaNaoEIncremental(unittest.TestCase):
+class T12BuscaNaoEIncremental(_Base):
     """Descobrir e vigiar sao capacidades diferentes, e ate a quota o sabe."""
 
     def test_sao_capacidades_declaradas_separadas(self):

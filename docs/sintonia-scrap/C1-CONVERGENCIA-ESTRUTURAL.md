@@ -48,8 +48,16 @@ segundo dono já no vocabulário, antes de existir uma linha de código.
 
 ## C · FINAL_HEAD
 
-O commit que traz este documento. Oito commits de convergência, do `C1.1` ao
-`C1.6`.
+`6c95260e`. **Onze** commits de convergência, do `C1.1` ao `C1.6` mais as
+regenerações mecânicas do System Map.
+
+> **Correção factual, feita na C2 e só ela.** Este campo dizia «oito
+> commits». Contado com `git rev-list --count 0e999fa1..6c95260e`, são
+> **onze**. Eu tinha contado os que nomeei `C1.x` e esquecido as três
+> regenerações do mapa, que são commits como os outros.
+>
+> Nada mais deste documento foi reescrito: uma missão nova não serve para
+> melhorar o relatório da anterior.
 
 ## D · PUSH_STATE
 
