@@ -44,8 +44,25 @@ frente (`claude/executor-return-contract-v1`). **Não foi lida nem fundida.**
 
 # B · LOCAL RUNNER
 
+> ## ⚠️ ESTA SECÇÃO FOI SUPERADA PELA C4B, EM 2026-09-11
+>
+> A máquina acordou, foi medida, e uma transcrição correu **na placa**. Tudo o
+> que está escrito abaixo continua verdadeiro **sobre o dia em que foi escrito**
+> — a fila de 80 minutos aconteceu, e é por isso que não foi apagada.
+>
+> ```
+> ANTES   runner offline · hardware NOT_MEASURED · matriz GPU nao executada
+> AGORA   hardware MEASURED · GPU ASR tecnico PROVEN pelo caminho duravel
+> ```
+>
+> O estado novo está em **B2**, logo a seguir. O que **não** mudou:
+> `GPU_QUALITY_BENCHMARK = NOT_RUN`, porque o corpus com verdade de referência
+> não está nesta máquina.
+>
+> **Registo histórico do bloqueio, tal como foi medido:**
+
 ```
-LOCAL_HARDWARE_STATUS = NOT_MEASURED
+LOCAL_HARDWARE_STATUS = NOT_MEASURED      (em 2026-09-11, de manhã)
 MOTIVO                = RUNNER_OFFLINE
 ```
 
@@ -94,6 +111,132 @@ A fase `hardware` do workflow canônico leva-o à máquina. **A medição está 
 despacho de distância no dia em que o runner acordar.**
 
 ---
+
+---
+
+# B2 · LOCAL RUNNER — MEDIDO (C4B, 2026-09-11)
+
+```
+LOCAL_HARDWARE_STATUS = MEASURED
+LOCAL_GPU_AVAILABLE   = YES
+```
+
+A máquina atendeu. Os campos que a secção B dava por medir deixaram de o estar,
+e nenhum deles veio de especificação de fabricante — todos saíram de
+`provas/hardware_local.py` a correr **na** máquina.
+
+| campo | valor medido |
+|---|---|
+| `RUNNER_NAME` | `SINTONIA-EAME-LOCAL` |
+| `OS` · `ARCH` · `PYTHON` | Windows 11 · AMD64 · 3.12.10 |
+| `CPU_LOGICAL_CORES` · `RAM_TOTAL_GB` | 16 · 31,9 |
+| `GPU_VENDOR` · `GPU_MODEL` · `GPU_COUNT` | NVIDIA · GeForce GTX 1080 · 1 |
+| `VRAM_TOTAL_MB` · `GPU_DRIVER` | 8192 · 581.57 |
+| `CUDA_DRIVER_SUPPORT` | 13.0 |
+| `FASTER_WHISPER_VERSION` · `CTRANSLATE2_VERSION` | 1.2.1 · 4.8.2 |
+| `CTRANSLATE2_CUDA_DEVICE_COUNT` | 1 |
+| `CTRANSLATE2_COMPUTE_TYPES_CUDA` | `int8_float32` · `int8` · `float32` |
+| `FFMPEG_VERSION` | 9.0 |
+
+**Prova.** Corrida `34613401647`, fase `hardware`, runner `SINTONIA-EAME-LOCAL`,
+`conclusion = success` — lida na API do GitHub, não relatada de memória.
+
+E note-se o que a placa **não** oferece: `float16` não está na lista. O padrão
+produtivo do código era `float16`, e essa é a razão do primeiro smoke ter caído
+para o processador. Ver **G2**.
+
+---
+
+# B3 · GPU ASR — A PROVA DURÁVEL
+
+```
+C4_GPU_ASR = PROVEN
+```
+
+Não pela lembrança de um terminal: por uma fase do workflow canónico que
+qualquer pessoa volta a correr.
+
+```
+WORKFLOW   .github/workflows/scrap-social.yml · fase `gpu-asr`
+RUN        34621682770          JOB     103336938609
+COMMIT     2df002448ce8a40a2f93405e23d9b6bfa93ee1c9
+RUNNER     SINTONIA-EAME-LOCAL  QUANDO  2026-09-11T16:23:41Z
+```
+
+O que a corrida devolveu, campo a campo:
+
+```
+RESULT                    PASS
+TRANSCRIPT_STATE          OK
+TRANSCRIPT                «Sintonia prova técnica de transcrição ao local por GPU.»
+TRANSCRIPT_CHARS          55
+ASR_DEVICE_REQUESTED      GPU
+ASR_DEVICE_SELECTED       GPU
+ASR_DEVICE_EXECUTION      PROVEN
+ASR_DEVICE_USED           GPU
+ASR_ACCELERATOR           CUDA
+ASR_DEVICE                cuda/int8_float32
+ASR_WHY_FALLBACK          null
+ERROR                     null
+MACHINE_SECONDS           0,55
+MODEL_PREPARE_SECONDS     2,27
+CUDA_DEVICE_COUNT         1
+CTRANSLATE2_VERSION       4.8.2
+MODEL_PRESENT             YES   (nenhum descarregamento: a prova para se faltar)
+AUDIO_SOURCE              System.Speech (Windows, offline)
+```
+
+### E o que esta prova **não** é
+
+```
+GPU_QUALITY_BENCHMARK = NOT_RUN
+```
+
+O áudio é **sintetizado na própria máquina** e é uma frase só. Ele mostra que a
+cadeia `CUDA → cuBLAS → CTranslate2 → faster-whisper` fecha. Não diz nada sobre
+acerto de termo agronómico, nome de marca ou estabilidade de língua.
+
+```
+GPU TECHNICAL SMOKE != GPU QUALITY BENCHMARK.
+```
+
+O banco de qualidade é `provas/asr_banco.py`, e ele parou — correctamente — com
+`SEM_CORPUS`: nenhum `.wav` preservado com verdade de referência declarada está
+nesta máquina. O sentinela `C-FanW_CYMz.wav` foi procurado e não existe aqui.
+
+```
+CAN TRANSCRIBE ON GPU != GPU QUALITY BENCHMARK.
+```
+
+---
+
+# B4 · QUATRO CORRIDAS ATÉ AO VERDE, E O QUE CADA UMA ENSINOU
+
+Nenhuma delas foi «tentar outra vez»: cada uma mediu uma coisa que a anterior
+não sabia.
+
+| # | resultado | o que se aprendeu |
+|---|---|---|
+| 1 | `MODEL_NOT_PRESENT` | a fase nova disparava **dois** jobs: `scrap` decidia por exclusão |
+| 2 | `MODEL_NOT_PRESENT` | a pergunta estava errada — o modelo **estava** na cache |
+| 3 | `FAIL` · cuBLAS | a inferência caiu, e o contrato novo **disse a verdade** |
+| 4 | **`PASS`** | as DLL estavam no disco; o processo é que não as via |
+
+A terceira é a mais importante das quatro, e vale por si:
+
+```
+TRANSCRIPT_STATE          ASR_FALHOU
+ASR_DEVICE_SELECTED       GPU
+ASR_DEVICE_EXECUTION      FAILED       <- o campo novo
+ASR_DEVICE_USED           NOT_KNOWN    <- antes desta missao dizia «GPU»
+ASR_ACCELERATOR           NOT_KNOWN    <- antes dizia «CUDA»
+ERROR  RuntimeError: Library cublas64_12.dll is not found or cannot be loaded
+```
+
+**O defeito que motivou a C4B reproduziu-se no runner real, e o contrato novo
+passou o exame.** É a única forma de saber que o conserto serve: vê-lo apanhar
+o caso que o produziu.
+
 
 # C · ASR BEFORE
 
@@ -183,12 +326,24 @@ A PLACA, SE VIER, É QUESTÃO DE VAZÃO — NÃO DE QUALIDADE.
 # E · GPU MATRIX
 
 ```
-NÃO EXECUTADA.
+NÃO EXECUTADA — e, depois da C4B, por uma razão diferente.
 ```
 
-Nenhuma linha. `faster-whisper + GPU` com `small`, `medium` e `large-v3-turbo`,
-em `float16` e `int8_float16`, continua por medir — porque **a máquina não
-atendeu**, e não porque a combinação falhou.
+Nenhuma linha. `faster-whisper + GPU` com `small`, `medium` e `large-v3-turbo`
+continua por medir. **A razão mudou, e a mudança importa:**
+
+```
+ANTES (C4)   a maquina nao atendeu
+AGORA (C4B)  a maquina atende e a placa transcreve — falta o CORPUS
+```
+
+`provas/asr_banco.py --device GPU` foi corrido na máquina e parou com
+`SEM_CORPUS`: nenhum `.wav` preservado com verdade de referência declarada está
+lá. O sentinela `C-FanW_CYMz.wav` foi procurado no disco, no perfil do
+utilizador e nos dois runners, e não existe.
+
+E `float16` sai da lista de candidatos por medição, não por gosto: a placa
+declara `int8_float32`, `int8` e `float32`, e **não** `float16`.
 
 ```
 UMA TABELA VAZIA É HONESTA. UMA TABELA PREENCHIDA COM O QUE A PLACA
@@ -315,6 +470,108 @@ Esta missão trouxe a **capacidade** de usar a placa. Ela não trouxe a
 reprova se o padrão mudar sem ela.
 
 ---
+
+---
+
+# H2 · O CONTRATO DO FERRO — ANTES E DEPOIS DA C4B
+
+O defeito que a C4B existiu para fechar não era de hardware: era de **semântica**.
+
+### Antes
+
+`resolver_dispositivo()` devolvia `DEVICE_USED` — e devolvia-o **antes de haver
+uma única amostra transcrita**. O nome prometia execução; o momento não a podia
+conhecer. Quando a inferência caía, o artefato saía assim:
+
+```
+TRANSCRIPT_STATE   ASR_FALHOU
+ASR_DEVICE_USED    GPU          <- e nada correu na placa
+ASR_ACCELERATOR    CUDA
+```
+
+```
+QUEM DECIDE ANTES NAO PODE TESTEMUNHAR DEPOIS.
+```
+
+### Depois
+
+| campo | o que diz | quando se sabe |
+|---|---|---|
+| `ASR_DEVICE_REQUESTED` | o que se pediu | antes de tudo |
+| `ASR_DEVICE_SELECTED` | o que o resolvedor escolheu | na resolução |
+| `ASR_ACCELERATOR_SELECTED` | o acelerador da escolha | idem |
+| `ASR_DEVICE` | a configuração tentada (`cuda/int8_float32`) | idem |
+| `ASR_DEVICE_EXECUTION` | `PROVEN` · `FAILED` · `NOT_RUN` | **depois da inferência** |
+| `ASR_DEVICE_USED` | o ferro, **só** quando `EXECUTION = PROVEN` | idem |
+| `ASR_ACCELERATOR` | idem | idem |
+
+`ASR_DEVICE_USED` foi **preservado** — tem consumidores. O que mudou é que
+deixou de mentir: fora de `PROVEN` ele é `NOT_KNOWN`, que é medição e não
+evasiva. E a **escolha** continua dita de propósito: é no caso que falha que se
+precisa de saber onde se estava.
+
+### As duas quedas que pareciam uma
+
+`ASR_FALHOU` sai de dois sítios diferentes, e o vocabulário novo separa-os:
+
+```
+modelo() rebentou          -> sem DEVICE_SELECTED -> NOT_RUN
+pipe.transcribe() rebentou -> com DEVICE_SELECTED -> FAILED
+```
+
+### O mesmo defeito, noutro campo
+
+O censo de consumidores encontrou-o outra vez, em dois transcritores:
+`youtube_transcrever.py` e `instagram_transcrever.py` escreviam
+`'cpu/int8/16 threads'` **à mão** na ficha base de todos os registos — incluindo
+os que nunca chegam ao reconhecedor (`AUDIO_NAO_OBTIDO`, `ASR_FALHOU`).
+
+```
+NOT_RUN NAO PODE TER FICHA DE EXECUCAO.
+```
+
+E o ramo da queda deitava fora o trace de `r`, perdendo qual ferro tinha sido
+escolhido justamente no caso em que essa é a pergunta.
+
+---
+
+# G2 · POLÍTICA DE COMPUTE — O QUE **NÃO** MUDOU, E PORQUÊ
+
+```
+COMPUTE_GPU        continua 'float16'
+COMPUTE_CPU        continua 'int8'
+DISPOSITIVO_PADRAO continua CPU
+```
+
+A tentação era óbvia: a placa declara `int8_float32`, a prova passou com
+`int8_float32`, logo `int8_float32` deveria ser o padrão. **Não foi feito.**
+
+Três razões, e a terceira manda:
+
+1. **`float16` falhar nesta placa não é `float16` falhar.** A GTX 1080 é Pascal;
+   placas posteriores fazem `float16` bem. Uma amostra de **uma** placa não
+   escreve regra universal para todo hardware futuro;
+2. **não há benchmark de qualidade** que compare os tipos de cálculo no corpus
+   real — e o corpus não está nesta máquina;
+3. **§25 da C4 continua a valer:** a capacidade entra, a decisão não.
+
+`int8_float32` vive como **override explícito e declarado**, na fase do
+workflow, à vista:
+
+```yaml
+env:
+  SINTONIA_ASR_COMPUTE: int8_float32
+```
+
+```
+UMA POLITICA TIRADA DE UMA AMOSTRA DE UM
+NAO E POLITICA. E UMA COINCIDENCIA PROMOVIDA.
+```
+
+O que mudou de facto foi outra coisa, e essa é de **visibilidade**, não de
+política: `_caminho_das_libs()` passou a pôr as pastas de DLL do CUDA ao alcance
+do processo. Isso não escolhe tipo de cálculo nem dispositivo — só faz com que a
+escolha que já existia possa ser executada.
 
 # I · ASR OWNER AFTER
 
@@ -564,17 +821,32 @@ E mais, que não estava proibido e mesmo assim não mudou:
 
 # R · VEREDITOS
 
+**Actualizados pela C4B em 2026-09-11.** Os valores da C4 ficam ao lado, porque
+apagá-los apagaria a razão de a missão ter existido.
+
 ```
-LOCAL_HARDWARE_STATUS             = NOT_MEASURED  (bloqueio: RUNNER_OFFLINE)
-LOCAL_GPU_AVAILABLE               = NOT_MEASURED
-LOCAL_GPU_ASR_TECHNICALLY_PROVEN  = NO
-LOCAL_GPU_ASR_PRODUCTION_READY    = NO
+                                    C4 (manha)      C4B (tarde)
+LOCAL_HARDWARE_STATUS             = NOT_MEASURED -> MEASURED
+LOCAL_GPU_AVAILABLE               = NOT_MEASURED -> YES
+LOCAL_GPU_ASR_TECHNICALLY_PROVEN  = NO           -> YES
+LOCAL_GPU_ASR_PRODUCTION_READY    = NO           -> NO       (sem benchmark)
+GPU_QUALITY_BENCHMARK             = NOT_RUN      -> NOT_RUN  (sem corpus)
 
-CPU_FALLBACK_PROVEN               = YES
+CPU_FALLBACK_PROVEN               = YES          -> YES
 
-YOUTUBE_MEDIA_ZERO_APIFY          = NO
-YOUTUBE_TRANSCRIPT_ZERO_APIFY     = NO
-YOUTUBE_ZERO_APIFY_TOTAL          = PARTIAL
+YOUTUBE_MEDIA_ZERO_APIFY          = NO           -> NO
+YOUTUBE_TRANSCRIPT_ZERO_APIFY     = NO           -> NO
+YOUTUBE_ZERO_APIFY_TOTAL          = PARTIAL      -> PARTIAL
+```
+
+**`TECHNICALLY_PROVEN = YES` e `PRODUCTION_READY = NO` não se contradizem.** A
+placa leva uma inferência até ao fim — isso está provado e repete-se. O que
+*não* está medido é se o texto que ela produz presta no corpus real, em quatro
+línguas, com nomes de cultura e de marca. Promover a primeira coisa à segunda
+seria inventar o benchmark que falta.
+
+```
+CAN DO != DID DO != DOES IT WELL.
 ```
 
 **`NOT_MEASURED` e `NO` não são a mesma palavra, e a diferença aqui é toda.**
@@ -590,12 +862,12 @@ muda política de acesso nenhuma.
 
 | | critério | |
 |---|---|---|
-| P1 | hardware local realmente medido | ❌ `RUNNER_OFFLINE` |
-| P2 | disponibilidade de GPU realmente medida | ❌ idem |
-| P3 | GPU ASR no self-hosted, ou impossibilidade provada | ❌ idem |
+| P1 | hardware local realmente medido | ~~❌ `RUNNER_OFFLINE`~~ → ✅ **C4B**, corrida `34613401647` |
+| P2 | disponibilidade de GPU realmente medida | ~~❌ idem~~ → ✅ **C4B**, `CUDA_DEVICE_COUNT = 1` |
+| P3 | GPU ASR no self-hosted, ou impossibilidade provada | ~~❌ idem~~ → ✅ **C4B**, corrida `34621682770` |
 | P4 | CPU baseline existe | ✅ (no contentor) |
-| P5 | comparação GPU × CPU | ❌ sem GPU |
-| P6 | qualidade medida, não só velocidade | ✅ |
+| P5 | comparação GPU × CPU | ❌ **continua** — sem corpus não há matriz |
+| P6 | qualidade medida, não só velocidade | ✅ no contentor · ❌ na placa |
 | P7 | italiano incluído | ✅ |
 | P8 | um único dono de ASR | ✅ |
 | P9 | adaptadores não controlam ferro nem modelo | ✅ |
@@ -615,16 +887,105 @@ NENHUM DELES FOI FINGIDO.
 
 ---
 
+---
+
+# R2 · SCRAP × COLLECTION CANÓNICA (C4B)
+
+```
+COL_LAW_505 = NOT_APPLICABLE_TO_THIS_GPU_RUNTIME_PROOF
+```
+
+A C4B mede **hardware e trace de execução**. Não colhe, não admite, não preserva
+e não atravessa a porta da Collection. O contrato de retorno foi lido, não
+tocado.
+
+| pergunta | resposta | prova |
+|---|---|---|
+| segundo modelo de `RUN`? | **NÃO** | a prova não abre nem fecha corrida; não escreve no manifesto |
+| segundo `RAW`? | **NÃO** | o `.wav` é sintetizado em `tempfile` e morre com o processo |
+| `SOURCE_ID` fabricado? | **NÃO** | a prova não emite `SOURCE_ID` nenhum |
+| `DOCUMENT_ID` fabricado? | **NÃO** | idem |
+| classificador temático no scraper? | **NÃO** | nenhum léxico foi tocado |
+| caminho paralelo de Admission? | **NÃO** | nada importa `ingresso` |
+| novo orquestrador? | **NÃO** | a fase corre no workflow que já existia |
+
+```
+MODULE EXISTS != EDGE EXISTS != FLOW EXISTS
+```
+
+O reconhecedor **existe** e agora **corre na placa**. Que ele esteja ligado à
+Collection é outra pergunta, de outra missão, e continua sem resposta aqui.
+
+---
+
+---
+
+# C4C · A INVESTIGAÇÃO DO CORPUS — **vive noutra branch**
+
+A missão C4C recuperou os oito artefatos RAW legados, provou-os por hash e
+mediu a metade CPU do banco sobre corpus real. Ela também provou que o corpus e
+a placa estão em **máquinas diferentes**, e por isso a metade GPU ficou
+`BLOCKED_CORPUS_NOT_ON_GPU_MACHINE`.
+
+**Nada disso foi portado para esta linha, e a decisão é deliberada.**
+
+```
+branch   claude/sintonia-scrap-gpu-quality-c4c
+head     06b5055d2acefe6e462cf9ac170a2a24eccdf018
+```
+
+O que lá ficou, e porquê:
+
+| o que | porque não veio |
+|---|---|
+| `provas/corpus_recuperar.py` | lê o manifesto dos **oito Reels legados**. É testemunha de uma investigação, não capacidade desta linha |
+| `tests/test_c4c_corpus.py` | segue o anterior |
+| fase `gpu-bench` | depende de um corpus que não está na máquina da placa — uma fase que hoje não pode passar |
+| o benchmark CPU sobre os 4 Reels | resultado de uma corrida, não código operacional |
+
+```
+ISTO E CAPACIDADE OPERACIONAL, OU TESTEMUNHA HISTORICA DE UMA INVESTIGACAO?
+A SEGUNDA FICA ONDE NASCEU. INCHAR A LINHA OPERACIONAL COM ELA TEM CUSTO
+E NAO TEM BENEFICIO.
+```
+
+O que **veio** foi o delta durável que a C4B produziu e a C4C exercitou: o trace
+verdadeiro do dispositivo, o runtime CUDA process-local, a prova técnica da
+placa e os consumidores corrigidos. Esses estão nas secções **B2**, **B3**,
+**B4**, **H2** e **G2** acima.
+
 # S · KNOW_HOW_DELTA
 
 ```
-KNOW_HOW_DELTA = NENHUM
-
-KNOW_HOW_BRANCH       = claude/sintonia-eame-know-how-v1
-KNOW_HOW_INITIAL_HEAD = 5836cc23   (medido, nao herdado)
-KNOW_HOW_FINAL_HEAD   = 21652176
-KNOW_HOW_PUSHED       = YES, sem force
+KNOW_HOW_DELTA = ATUALIZADO (C4B)
 ```
+
+Dois pares de heads, porque foram duas escritas em dias de trabalho diferentes,
+e a branch andou muito entre elas por outras frentes.
+
+```
+KNOW_HOW_BRANCH  = claude/sintonia-eame-know-how-v1
+FICHEIRO         = HANDOFF-ATUAL-SINTONIA-EAME.md
+
+C4    INITIAL_HEAD  5836cc23   (medido, nao herdado)   seccao 12
+      FINAL_HEAD    21652176
+
+C4B   INITIAL_HEAD  0c45e64f   (medido de novo)        seccao 16
+      FINAL_HEAD    6158d34e329b00ce26ece86a7617d34fbad27b52
+
+C4C   INITIAL_HEAD  6158d34e   (medido de novo)        seccao 17
+      FINAL_HEAD    599bf645a0e09f2285d72f971a5d096c6a56663e
+
+PUSHED = YES, sem force, nas tres
+```
+
+A secção **17** traz duas lições, e nenhuma delas é um número de benchmark: onde
+o bruto preservado vive e como se pergunta por ele, e o facto de o corpus e a
+placa estarem em máquinas diferentes.
+
+A secção **16** traz seis lições, e a última é sobre mim: a sentinela de
+credenciais da casa apanhou-me a escrever o perfil pessoal do utilizador dentro
+de um comentário commitado. Ela tinha razão.
 
 A secção **12** do handoff canônico foi escrita nesta missão, em worktree
 separada, no ficheiro que já existia. Cinco coisas duráveis nasceram aqui, e
