@@ -109,8 +109,24 @@ def auth_mode(rota):
 # Estados de capacidade. `ROUTE_NOT_ALLOWED` é diferente de `BLOCKED`:
 # BLOCKED = a plataforma me impediu tecnicamente.
 # ROUTE_NOT_ALLOWED = ela permitiria tecnicamente, e eu escolhi não fazer.
+#
+# ── DOIS ESTADOS NOVOS NA C5, E ELES NÃO SÃO SINÓNIMOS DOS OUTROS ──────────
+# `captions.download` e `captions.list` estavam os dois como `ROUTE_NOT_ALLOWED`,
+# e isso dizia uma coisa falsa sobre eles: que a casa PODIA e ESCOLHEU não. Não
+# é o caso de nenhum dos dois.
+#
+#     ROUTE_NOT_ALLOWED         eu podia, e decidi não fazer.
+#     REQUIRES_OWNER_PERMISSION o dono do vídeo teria de me autorizar.
+#     REQUIRES_AUTHORIZATION    falta-me credencial mais forte (OAuth), não decisão.
+#
+# A diferença é quem tem a chave da porta. Colapsá-los faria a casa carregar a
+# culpa de uma recusa que não é dela — e, pior, esconderia que UM DELES ABRE se
+# alguém der uma autorização, enquanto o outro depende de terceiros.
+#
+#     «EU NÃO QUIS» E «NÃO ME DEIXAM» NÃO SE ESCREVEM COM A MESMA PALAVRA.
 ESTADOS = ('PROVED', 'POSSIBLE_NOT_PROVED', 'BLOCKED',
-           'ROUTE_NOT_ALLOWED', 'CREDENTIAL_MISSING', 'NOT_APPLICABLE', 'UNKNOWN')
+           'ROUTE_NOT_ALLOWED', 'REQUIRES_OWNER_PERMISSION', 'REQUIRES_AUTHORIZATION',
+           'CREDENTIAL_MISSING', 'NOT_APPLICABLE', 'UNKNOWN')
 
 # Vocabulário fechado do fallback pago. "porque a Apify já estava configurada"
 # não está aqui, e é justamente por isso que a lista é fechada.
@@ -183,14 +199,51 @@ MATRIZ = {
               'https://developers.google.com/youtube/v3/determine_quota_cost'),
         ],
         'FETCH_TRANSCRIPT': [
+            # Reconferido na C5 contra a documentação VIVA, 2026-09-11. A frase
+            # continua lá, palavra por palavra: «This method is requires the user to
+            # have permission to edit the video.»
             r('youtube-data-api-v3:captions.download', 'OFFICIAL_API_FREE', 'NAO',
-              'ROUTE_NOT_ALLOWED', '200 unidades',
-              'SÓ O DONO DO VÍDEO. A doc exige "permission to edit the video". Para canal '
-              'de terceiro devolve 403. Não existe rota oficial de legenda pública.',
+              'REQUIRES_OWNER_PERMISSION', '200 unidades',
+              'SÓ O DONO DO VÍDEO. A doc exige "permission to edit the video", e devolve '
+              '403 `forbidden` sem ela. Para canal de terceiro NÃO HÁ rota oficial de '
+              'legenda — e isto não é limite de chave, é limite de PERMISSÃO.',
               'https://developers.google.com/youtube/v3/docs/captions/download'),
+            # Listar não é baixar, e por isso tem linha própria. Medido na C5: exige
+            # OAuth (a chave de API sozinha NÃO serve) e custa 50 unidades. Mesmo que
+            # listasse, o conteúdo continuaria atrás da `captions.download`.
+            r('youtube-data-api-v3:captions.list', 'OFFICIAL_API_FREE', 'NAO',
+              'REQUIRES_AUTHORIZATION', '50 unidades',
+              'PRECISA DE OAUTH — `YOUTUBE_DATA_API_KEY` não autentica este método. E a '
+              'resposta NÃO traz o texto da legenda: só a ficha da faixa. Listar uma '
+              'faixa nunca foi o mesmo que poder lê-la.',
+              'https://developers.google.com/youtube/v3/docs/captions/list'),
+            # ⚠️ A NOTA ANTIGA CITAVA O DISALLOW ERRADO — corrigido na C5, 2026-09-11.
+            # Ela dizia «`/timedtext_video` está em Disallow», e está — mas NÃO é esse
+            # o caminho que o código chamaria. A `baseUrl` que sai de `captionTracks`
+            # aponta para `/api/timedtext`, e quem a cobre é o `Disallow: /api/`.
+            #
+            #     O VEREDITO ESTAVA CERTO E A PROVA ESTAVA TROCADA.
+            #     Uma citação errada cai no dia em que alguém a confere.
+            #
+            # E há duas autoridades ACIMA do robots.txt, medidas na C5:
+            #
+            #   ToS §Permissions and Restrictions: proíbe «access the Service using any
+            #   automated means (such as robots, botnets or scrapers)» salvo motor de
+            #   busca público conforme robots.txt, ou permissão escrita prévia. Esta
+            #   casa não é motor de busca e não tem permissão escrita.
+            #
+            #   Developer Policies III.D.7 e III.E.6: quem usa a API «must not use
+            #   undocumented APIs without express permission» e «must not ... scrape
+            #   YouTube Applications». O SINTONIA usa a Data API — logo está preso a
+            #   estas, e não só ao robots.txt.
             r('timedtext', 'DIRECT_HTTP', 'NAO', 'ROUTE_NOT_ALLOWED', 'zero',
-              'não documentado pelo Google e `/timedtext_video` está em Disallow',
-              'https://www.youtube.com/robots.txt'),
+              'ToS proíbe meio automatizado sem permissão escrita; `Disallow: /api/` '
+              'cobre a `baseUrl` real; Developer Policies III.D.7 (API não documentada) '
+              'e III.E.6 (scraping). Tecnicamente também não fecha: a página /watch '
+              'devolveu 429+CAPTCHA de IP de datacenter em 2026-09-03, e timedtext sem '
+              'assinatura devolve corpo vazio.',
+              'https://www.youtube.com/t/terms · https://www.youtube.com/robots.txt · '
+              'https://developers.google.com/youtube/terms/developer-policies'),
             r('apify:transcricao', 'APIFY', 'CONDICIONAL', 'POSSIBLE_NOT_PROVED', 'por minuto',
               'ÚNICA rota restante para legenda de canal de terceiro. Motivo canônico: '
               'ROUTE_NOT_ALLOWED nas rotas livres.', None),

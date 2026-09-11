@@ -927,7 +927,10 @@ def transcricao(lote='A'):
             achados.append(dict(prov, **{
                 'SOURCE_URL': u['url'], 'EXTERNAL_ID': pv.NAO_SEI, 'TRANSCRIPT': None,
                 'TRANSCRIPT_AVAILABLE': 'REQUESTED_EMPTY',
-                'TRANSCRIPT_LANGUAGE': pv.NAO_SEI, 'CAPTION_SOURCE': actor,
+                'TRANSCRIPT_LANGUAGE': pv.NAO_SEI,
+                'TRANSCRIPT_LANGUAGE_BASIS': 'NOT_DECLARED_BY_PROVIDER',
+                'TRANSCRIPT_KIND': pv.NAO_SEI,
+                'CAPTION_SOURCE': actor,
                 'WHY_EMPTY': str(man.get('ERROR'))[:200]}))
         for t in (itens or []):
             texto = _texto_transcricao(t)
@@ -937,6 +940,14 @@ def transcricao(lote='A'):
                 'TRANSCRIPT': texto,
                 'TRANSCRIPT_AVAILABLE': 'YES' if texto else 'REQUESTED_EMPTY',
                 'TRANSCRIPT_LANGUAGE': t.get('language') or pv.NAO_SEI,
+                # DECLARADO != DETECTADO != AUSENTE. O ator não declarou a língua
+                # em nenhuma das 48 corridas preservadas; dizer «não declarou» é
+                # mais honesto do que deixar o `NÃO SEI` sozinho a parecer dúvida
+                # nossa quando a lacuna é dele.
+                'TRANSCRIPT_LANGUAGE_BASIS': ('DECLARED_BY_PROVIDER'
+                                              if t.get('language')
+                                              else 'NOT_DECLARED_BY_PROVIDER'),
+                'TRANSCRIPT_KIND': especie_do_texto(t),
                 'CAPTION_SOURCE': actor,
             }))
         print('      %d/%d %s: %d itens (pos %d, %s)'
@@ -959,6 +970,65 @@ def transcricao(lote='A'):
     print('\ngravado: %s · com texto=%d/%d · custo=%.4f USD'
           % (caminho, com, len(achados), custo))
     return 0
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# TRÊS ESPÉCIES DE TEXTO, E ELAS NÃO SE MISTURAM
+# ══════════════════════════════════════════════════════════════════════════
+# Medido na C5 sobre os 48 itens de transcrição já preservados:
+#
+#     TRANSCRIPT_LANGUAGE = NÃO SEI    em 48 de 48
+#     onze dos 28 com texto sao INGLES vindo de video NAO-INGLES
+#
+# O vídeo `RisRARQSFAg` é o caso que fecha o assunto. Canal AIPO Verona, título
+# «Periodico olivo 1° Maggio 2026», descrição em italiano. O que ficou gravado no
+# campo `TRANSCRIPT` foi:
+#
+#     «Olive growers, welcome back to issue 18 of the May 1, 2026 periodical.»
+#
+# Isso não é a fala do vídeo. É uma TRADUÇÃO automática dela, guardada num campo
+# que diz `TRANSCRIPT` e ao lado de um idioma que diz `NÃO SEI`.
+#
+#     TRADUÇÃO ROTULADA COMO TRANSCRIÇÃO ORIGINAL É O PIOR DEFEITO POSSÍVEL
+#     NUM CORPUS QUE EXISTE PARA SABER DE QUE CULTURA E DE QUE PRODUTO O
+#     CONCORRENTE FALA, E EM QUE PAÍS.
+#
+# Um termo agronómico italiano traduzido para inglês deixa de bater com o léxico
+# italiano — e a peneira que procura «granella» nunca mais a encontra.
+#
+# Por isso quatro espécies, vocabulário fechado, e a quarta é a honesta:
+#
+#     NATIVE_CAPTION_ORIGINAL  a legenda na língua falada no vídeo
+#     NATIVE_CAPTION_TRANSLATED  legenda traduzida pela plataforma
+#     ASR_LOCAL                texto que ESTA casa produziu do áudio
+#     NOT_KNOWN                quem trouxe não declarou, e não se adivinha
+#
+# O ator da Apify NÃO declara qual das três entregou. Enquanto não declarar, a
+# resposta desta casa é `NOT_KNOWN` — e `NOT_KNOWN` aqui é uma medição, não uma
+# desculpa: ele diz exactamente o que se sabe sobre aquele texto.
+NATIVE_CAPTION_ORIGINAL = 'NATIVE_CAPTION_ORIGINAL'
+NATIVE_CAPTION_TRANSLATED = 'NATIVE_CAPTION_TRANSLATED'
+ASR_LOCAL = 'ASR_LOCAL'
+#: A quarta espécie é o `NÃO SEI` que o resto deste ficheiro já usa — e é o MESMO
+#: objeto, de propósito. Escrever `'NOT_KNOWN'` aqui criaria duas grafias da mesma
+#: ausência, e a tupla deixaria de reconhecer o valor que a função devolve.
+ESPECIES_DE_TEXTO = (NATIVE_CAPTION_ORIGINAL, NATIVE_CAPTION_TRANSLATED,
+                     ASR_LOCAL, pv.NAO_SEI)
+
+
+def especie_do_texto(item):
+    """→ qual das quatro espécies o provedor DECLAROU. Nunca infere do conteúdo.
+
+    Inferir a espécie lendo o texto seria adivinhar duas vezes: primeiro a língua,
+    depois a intenção. O campo existe para guardar o que o provedor disse — e o
+    silêncio dele é `NOT_KNOWN`, que é informação verdadeira.
+    """
+    item = item or {}
+    if item.get('trackKind') == 'asr' or item.get('kind') == 'asr':
+        return NATIVE_CAPTION_ORIGINAL
+    if item.get('isTranslated') or item.get('translatedFrom'):
+        return NATIVE_CAPTION_TRANSLATED
+    return pv.NAO_SEI
 
 
 def _texto_transcricao(t):
