@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/ingresso-admission-handoff-v1",
-    "HEAD": "43fa06107fdb8012330d46a459de4ec1c09ab99b",
-    "GENERATED_AT": "2026-09-11T10:38:13+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3f8540dd3409a086cf25987a63542cf638aa537efdb8c85f0a8d6a17fdc9f5d8"
+    "BRANCH": "claude/t2-admission-rule-v1",
+    "HEAD": "b2bc02b6e1b6ea3a9911d8f92c40b7fb173e893a",
+    "GENERATED_AT": "2026-09-11T11:24:04+00:00",
+    "SOURCE_TREE_FINGERPRINT": "2231b6b236dc259c88a1adfe3da1e3c6a73bd2fca16d6f7527abaab490db46cc"
   },
   "FILES": [
     {
@@ -4280,7 +4280,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "f73d9371ce1b68a91f4d10b31f36e6f10ac97b88",
+      "sha": "2f0dab6fbc2abd92badaa70f78ee14d73a255451",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4624,6 +4624,13 @@
     {
       "path": "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
       "sha": "1ec8d96ac0238fd8d0d4c49af25c00028635e4a8",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/MEDICAO-DA-REGRA-T2.md",
+      "sha": "1b28a6785766ae87d90c6b70b9d746ddd7cefe97",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7653,6 +7660,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/a_regra_de_t2.py",
+      "sha": "f4dc9895386deebab83e7a1dbd456d0bda5e7d50",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/a_rota_m2_atravessa.py",
       "sha": "bdf852c3e31a7f29cff77f8fc772cf80717bc17b",
       "ext": ".py",
@@ -9075,7 +9089,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "9803ede1afa07410c56b2506765d709faa088722",
+      "sha": "693a175fa0c1511b84a3080caffb781c4f8957e2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9407,6 +9421,13 @@
       "sha": "19c5f7fb716ae3199e5e04b5e6eaf29129e3157f",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_a_regra_de_t2.py",
+      "sha": "ae1a388ac4e9b2b8866c965e816e1d2b72f98b12",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -25085,6 +25106,523 @@
       }
     },
     {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 38,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 39,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 181,
+        "snippet": "\"TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 41,
+        "snippet": "REGISTO = os.path.join(RAIZ, \"data\", \"derivados\", \"REGISTO-DE-ARTEFATOS.json\")"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-024abdb692be926a.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 159,
+        "snippet": "(\"data/derivados/texto/RAW-024abdb692be926a.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 77,
+        "snippet": "(\"data/derivados/texto/RAW-0be2d204c98ad1b1.txt\", SIM,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-0c2723e66201f966.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 121,
+        "snippet": "(\"data/derivados/texto/RAW-0c2723e66201f966.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-144fdb152b1a6ae4.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 79,
+        "snippet": "(\"data/derivados/texto/RAW-144fdb152b1a6ae4.txt\", SIM,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-178ebe9e0ea7dd83.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 201,
+        "snippet": "(\"data/derivados/texto/RAW-178ebe9e0ea7dd83.txt\", AMBIGUO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-221ab4a8d6ebec30.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 151,
+        "snippet": "(\"data/derivados/texto/RAW-221ab4a8d6ebec30.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-223510588786a4de.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 101,
+        "snippet": "(\"data/derivados/texto/RAW-223510588786a4de.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-2a12cb316622a9a5.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 174,
+        "snippet": "(\"data/derivados/texto/RAW-2a12cb316622a9a5.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-392840d3e13d1b15.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 139,
+        "snippet": "(\"data/derivados/texto/RAW-392840d3e13d1b15.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-3d3c1bc0e96332e8.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 73,
+        "snippet": "(\"data/derivados/texto/RAW-3d3c1bc0e96332e8.txt\", SIM,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-3e941738599367d7.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 169,
+        "snippet": "(\"data/derivados/texto/RAW-3e941738599367d7.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-3ef48aaa830edf3b.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 198,
+        "snippet": "(\"data/derivados/texto/RAW-3ef48aaa830edf3b.txt\", AMBIGUO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-420e08ef15bec6e4.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 123,
+        "snippet": "(\"data/derivados/texto/RAW-420e08ef15bec6e4.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-445e41701f737d73.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 82,
+        "snippet": "(\"data/derivados/texto/RAW-445e41701f737d73.txt\", SIM,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-48e76a696be6831d.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 125,
+        "snippet": "(\"data/derivados/texto/RAW-48e76a696be6831d.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-4e12affad7fedd91.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 109,
+        "snippet": "(\"data/derivados/texto/RAW-4e12affad7fedd91.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-59da05274359eff6.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 167,
+        "snippet": "(\"data/derivados/texto/RAW-59da05274359eff6.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-5dcfb75ac38390c3.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 161,
+        "snippet": "(\"data/derivados/texto/RAW-5dcfb75ac38390c3.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-6377ac2f8419d905.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 88,
+        "snippet": "(\"data/derivados/texto/RAW-6377ac2f8419d905.txt\", SIM,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-699a073ace4361ea.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 91,
+        "snippet": "(\"data/derivados/texto/RAW-699a073ace4361ea.txt\", SIM,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-6d12bcb5fa2b0905.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 106,
+        "snippet": "(\"data/derivados/texto/RAW-6d12bcb5fa2b0905.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-7a51732e87f0f319.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 131,
+        "snippet": "(\"data/derivados/texto/RAW-7a51732e87f0f319.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-823e18ebb232eb36.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 141,
+        "snippet": "(\"data/derivados/texto/RAW-823e18ebb232eb36.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-8c13500d43502e64.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 75,
+        "snippet": "(\"data/derivados/texto/RAW-8c13500d43502e64.txt\", SIM,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-924aabd94168c53a.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 176,
+        "snippet": "(\"data/derivados/texto/RAW-924aabd94168c53a.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-9488589cfc657b95.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 113,
+        "snippet": "(\"data/derivados/texto/RAW-9488589cfc657b95.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-99cb44a67f6b4e9a.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 128,
+        "snippet": "(\"data/derivados/texto/RAW-99cb44a67f6b4e9a.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-9a01cc17889e1f40.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 85,
+        "snippet": "(\"data/derivados/texto/RAW-9a01cc17889e1f40.txt\", SIM,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-a6515948880d173a.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 143,
+        "snippet": "(\"data/derivados/texto/RAW-a6515948880d173a.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-a927e846ba8e78b0.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 178,
+        "snippet": "(\"data/derivados/texto/RAW-a927e846ba8e78b0.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-b631f6eecfbc1db0.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 145,
+        "snippet": "(\"data/derivados/texto/RAW-b631f6eecfbc1db0.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-c6377f6951bfeb2e.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 111,
+        "snippet": "(\"data/derivados/texto/RAW-c6377f6951bfeb2e.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-ccd8ea9c8e9c4caf.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 153,
+        "snippet": "(\"data/derivados/texto/RAW-ccd8ea9c8e9c4caf.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-ded546686d61dc91.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 163,
+        "snippet": "(\"data/derivados/texto/RAW-ded546686d61dc91.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-df4adcb5d78929e1.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 133,
+        "snippet": "(\"data/derivados/texto/RAW-df4adcb5d78929e1.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-e5176df66216dfd0.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 172,
+        "snippet": "(\"data/derivados/texto/RAW-e5176df66216dfd0.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-e612807928b5ada9.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 191,
+        "snippet": "(\"data/derivados/texto/RAW-e612807928b5ada9.txt\", AMBIGUO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-e6ec962a8a730ee4.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 147,
+        "snippet": "(\"data/derivados/texto/RAW-e6ec962a8a730ee4.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-e9395a7ea894c1d2.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 135,
+        "snippet": "(\"data/derivados/texto/RAW-e9395a7ea894c1d2.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-ec3108a2ed424702.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 155,
+        "snippet": "(\"data/derivados/texto/RAW-ec3108a2ed424702.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 71,
+        "snippet": "(\"data/derivados/texto/RAW-f88c89d73d6a132a.txt\", SIM,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-fd5b5e465457e4d6.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 157,
+        "snippet": "(\"data/derivados/texto/RAW-fd5b5e465457e4d6.txt\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/texto/RAW-fe3c922bfdfd7999.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 116,
+        "snippet": "(\"data/derivados/texto/RAW-fe3c922bfdfd7999.txt\", NAO,"
+      }
+    },
+    {
       "from_file": "provas/a_rota_m2_atravessa.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -29185,6 +29723,39 @@
         "file": "tests/fixtures/ARESTAS/owner_indireto.py",
         "line": 2,
         "snippet": "from ajudante import persistir"
+      }
+    },
+    {
+      "from_file": "tests/test_a_regra_de_t2.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_regra_de_t2.py",
+        "line": 21,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_a_regra_de_t2.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_regra_de_t2.py",
+        "line": 22,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_regra_de_t2.py",
+      "to_file": "provas/a_regra_de_t2.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_regra_de_t2.py",
+        "line": 27,
+        "snippet": "\"prova_regra_t2\", os.path.join(RAIZ, \"provas\", \"a_regra_de_t2.py\"))"
       }
     },
     {
@@ -35501,10 +36072,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1426,
-    "files_readable": 539,
-    "files_code_dir": 586,
-    "file_edges": 2276,
+    "files_tracked": 1429,
+    "files_readable": 541,
+    "files_code_dir": 588,
+    "file_edges": 2326,
     "escritas_em_pasta": 69,
     "declared_missing_here": 0
   },

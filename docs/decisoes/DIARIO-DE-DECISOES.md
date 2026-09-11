@@ -1246,3 +1246,54 @@ de payloads, e o que muda é onde o payload está e se está — que é o campo
 `pedido/receitas.py`, que declara INTENÇÃO e cuja declaração pode apodrecer sem
 ninguém notar; não `coleta/ingresso.py`, onde decidir a espécie seria decidir
 por cheiro, depois do facto — que é o defeito que esta lei veio fechar.
+
+---
+
+## D-0xx · A REGRA DE T2 NÃO FOI ESCRITA — e o NÃO tem prova
+
+```
+LAW_ID    nenhuma. NENHUMA LEI MUDOU NESTA MISSÃO.
+          Esta entrada existe porque uma decisão de NÃO IMPLEMENTAR é a que
+          mais facilmente se perde: não deixa código, e daqui a três meses
+          alguém escreve a lista óbvia «porque ninguém tinha tentado».
+BEFORE    `PERGUNTAS_DO_UNIVERSO` tem T3, T4, T7, T9 — e não tem T2. Perguntada
+          sobre T2, a porta responde NAO_SE_APLICA: «não há regra escrita do
+          que conta como «T2». Sem regra, esta porta não inventa uma.»
+AFTER     exactamente o mesmo. Nem uma palavra acrescentada.
+WHY       mediu-se, e a medição fechou o portão na quarta das seis condições
+          que o brief exigia.
+EVIDENCE  `provas/a_regra_de_t2.py` · `docs/operacao/MEDICAO-DA-REGRA-T2.md`
+          gabarito de 46 documentos reais: 10 positivos · 33 negativos ·
+          3 ambíguos (não arredondados).
+
+              nenhum termo aparece nos 10 positivos e em ZERO negativos
+              `vento`  aparece em 30 dos 33 NEGATIVOS e em 7 dos 10 positivos
+              A1-obvia -> FALSE_POSITIVE = 32 dos 33 negativos
+
+          E o ataque que decidiu: existe uma lista que separa o gabarito na
+          perfeição, e ela é feita de `venerdì`, `pomeriggio`, `dipartimento`,
+          `unità organizzativa`. Treinada num publicador:
+
+              GENERALIZACAO = 0/10
+
+IMPACT    Admission intacta. T3, T4, T7, T9 intactos. Runtime intacto.
+          NEW_FAILURES = 0. SYSTEM_MAP_CHECK = PASS.
+VERSION   nenhuma. A Bíblia não mudou porque nenhuma lei mudou.
+```
+
+**O contraexemplo que fundou tudo.** A ARPAV publica `Meteo Veneto` (T2) **e**
+`U.O. Fitosanitario — VITE` (T3). O publicador não decide o território. Sem os
+seis negativos da ARPAV no gabarito, classificar pela fonte **pareceria
+funcionar**.
+
+**O que se recusou fazer.** Escrever `A5-titulo-do-documento`, que tem
+`FP = 0` e `FN = 0` e parece a regra certa. Não é uma regra de clima: é a lista
+dos **nomes comerciais** de três publicações. E ainda assim responde `NAO_SEI`
+ao SIAS — uma fonte T2 declarada.
+
+**O que se recusou arredondar.** Os três boletins da ARIF Puglia abrem com duas
+páginas de análise sinóptica e só depois trazem *Bactrocera*. São as duas coisas
+num PDF. Ficaram `AMBIGUO`, e não viraram número.
+
+    UMA REGRA QUE SÓ ACERTA EM QUEM JÁ VIU NÃO É UMA REGRA:
+    É A LISTA DOS DOCUMENTOS QUE JÁ TÍNHAMOS.
