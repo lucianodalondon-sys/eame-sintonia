@@ -86,6 +86,56 @@ MODELO_PADRAO = os.environ.get('SINTONIA_ASR_MODELO') or 'small'
 BEAM = int(os.environ.get('SINTONIA_ASR_BEAM') or 1)
 LOTE = int(os.environ.get('SINTONIA_ASR_LOTE') or 8)
 
+# ── ONDE ISTO CORRE, E QUEM DECIDE ──────────────────────────────────────────
+# `device` e `compute_type` viviam CRAVADOS na chamada da biblioteca, uma linha,
+# dois literais. Enquanto so havia uma resposta possivel isso era honesto. Deixa
+# de ser no dia em que a maquina tem placa: um literal nao se pergunta nada.
+#
+# A decisao e DESTA GAVETA. Nao e do adaptador do Instagram, nao e do adaptador
+# do YouTube, nao e de quem chama. Quem chama pede TEXTO; com que ferro o texto
+# se faz e politica do dono.
+#
+#     ENGINE != MODEL != RUNTIME != DEVICE != ACCELERATOR.
+#
+# Cinco eixos, cinco campos. Fundi-los num so — «GPU» — parece simplificacao e
+# custa a verdade: `faster-whisper` continua a ser o motor e `CTranslate2` o
+# runtime tanto no processador como na placa. A placa e ACELERADOR, nao motor.
+#
+# TRES VALORES, E O DO MEIO E O PERIGOSO
+# ---------------------------------------
+#     CPU    corre no processador. Sempre possivel.
+#     GPU    corre na placa. PEDIDO, nao promessa — pode nao haver placa.
+#     AUTO   pergunta a biblioteca e usa a placa SE ela existir de verdade.
+#
+# `AUTO` nao pode fingir. Ele nao le a ficha do fabricante nem a variavel de
+# ambiente de ninguem: pergunta ao `CTranslate2` quantos dispositivos CUDA ele
+# VE, que e a unica resposta que conta.
+#
+#     UM «AUTO» QUE ASSUME GPU NAO E DETECAO: E UM PALPITE COM CARA DE POLITICA.
+#
+# O PADRAO CONTINUA `CPU`, E ISSO E DELIBERADO
+# ---------------------------------------------
+# Este ficheiro ganha a CAPACIDADE de usar a placa nesta missao; ele nao ganha a
+# DECISAO de a usar. Trocar o padrao antes de a prova existir seria exatamente o
+# que esta casa nao faz — medir depois de decidir.
+DISPOSITIVO = 'AUTO'
+CPU = 'CPU'
+GPU = 'GPU'
+DISPOSITIVOS = (DISPOSITIVO, CPU, GPU)
+
+DISPOSITIVO_PADRAO = (os.environ.get('SINTONIA_ASR_DEVICE') or CPU).upper()
+
+#: O tipo de calculo. `None` = o dono escolhe pelo dispositivo que saiu.
+#: Na placa o padrao medido e `float16`; no processador continua `int8`.
+COMPUTE_PADRAO = os.environ.get('SINTONIA_ASR_COMPUTE') or None
+COMPUTE_CPU = 'int8'
+COMPUTE_GPU = 'float16'
+
+#: Por que a placa nao foi usada. Vocabulario fechado — `None` quer dizer «nao
+#: houve queda», e nunca «nao sei».
+GPU_INDISPONIVEL = 'GPU_UNAVAILABLE'
+GPU_SEM_MEMORIA = 'GPU_OOM'
+
 # Teto de tempo por peça. Áudio repetitivo faz o decodificador entrar em laço e
 # um lote noturno morre sem ninguém saber. 6x a duração é folga larga sobre os
 # ~4x medidos.
@@ -174,19 +224,125 @@ def nucleos():
     return os.cpu_count() or 4
 
 
-def carimbo(modelo=None):
+def cuda_disponivel():
+    """→ (n_dispositivos, porque). PERGUNTA a biblioteca. Nao le ficha nem palpite.
+
+    Quem responde e o `CTranslate2`, e nao o `nvidia-smi`: no Windows a placa
+    pode estar perfeita, o driver a declarar CUDA, e a biblioteca a ver ZERO
+    porque lhe faltam as DLL de cuBLAS/cuDNN ao lado.
+
+        PLACA PRESENTE != DRIVER COM CUDA != BIBLIOTECA A VER A PLACA.
+
+    Confundir os tres produz o pior diagnostico que existe: «nao da», sem dizer
+    porque — e alguem vai comprar hardware que ja esta na maquina.
+    """
+    _caminho_das_libs()
+    try:
+        import ctranslate2                                      # noqa: PLC0415
+    except ImportError as e:                                    # noqa: BLE001
+        return 0, 'sem ctranslate2 neste ambiente (%s)' % type(e).__name__
+    try:
+        n = int(ctranslate2.get_cuda_device_count())
+    except Exception as e:                                      # noqa: BLE001
+        return 0, 'o ctranslate2 nao soube responder: %s' % type(e).__name__
+    if n > 0:
+        return n, ''
+    return 0, ('o ctranslate2 ve zero dispositivos CUDA — placa ausente, ou '
+               'biblioteca sem as DLL de CUDA ao lado dela')
+
+
+def resolver_dispositivo(pedido=None):
+    """→ (device, compute_type, trace). A politica inteira, num sitio so.
+
+    O TRACE NAO E ENFEITE. Sem ele, «pedi GPU e correu no processador» fica
+    indistinguivel de «pedi processador» — e o texto sai igual nos dois casos,
+    so que tres vezes mais devagar sem ninguem perceber.
+
+        QUEDA SILENCIOSA E MENTIRA COM OUTRO NOME.
+
+    Por isso tres campos, sempre, mesmo quando nao houve queda:
+
+        DEVICE_REQUESTED   o que se pediu
+        DEVICE_USED        o que correu
+        WHY_FALLBACK       por que o pedido nao serviu (None se serviu)
+    """
+    pedido = (pedido or DISPOSITIVO_PADRAO or CPU).upper()
+    if pedido not in DISPOSITIVOS:
+        raise ValueError('dispositivo fora do vocabulario: %r. Os tres sao %s'
+                         % (pedido, ', '.join(DISPOSITIVOS)))
+    trace = {'DEVICE_REQUESTED': pedido, 'DEVICE_USED': None,
+             'WHY_FALLBACK': None, 'ACCELERATOR': None}
+
+    if pedido == CPU:
+        trace.update({'DEVICE_USED': CPU, 'ACCELERATOR': 'NONE'})
+        return 'cpu', COMPUTE_PADRAO or COMPUTE_CPU, trace
+
+    n, porque = cuda_disponivel()
+    if n > 0:
+        trace.update({'DEVICE_USED': GPU, 'ACCELERATOR': 'CUDA',
+                      'CUDA_DEVICE_COUNT': n})
+        return 'cuda', COMPUTE_PADRAO or COMPUTE_GPU, trace
+
+    # ── A PLACA NAO ESTA LA. E ISSO NAO E ERRO DA FONTE ──────────────────
+    # `AUTO` cai para o processador porque foi isso que se pediu: «usa a placa
+    # se houver». `GPU` explicito tambem cai — mas o trace grava o pedido, e
+    # por isso a queda aparece no artefato em vez de desaparecer nele.
+    #
+    # Nenhum dos dois vira `ASR_FALHOU`: o reconhecedor nao caiu, o audio esta
+    # bom, e a fonte nao tem culpa nenhuma disto.
+    trace.update({'DEVICE_USED': CPU, 'ACCELERATOR': 'NONE',
+                  'WHY_FALLBACK': GPU_INDISPONIVEL,
+                  'WHY_FALLBACK_DETAIL': porque})
+    return 'cpu', COMPUTE_PADRAO or COMPUTE_CPU, trace
+
+
+def carimbo(modelo=None, trace=None):
     """A ficha do reconhecedor, para ir dentro do artefato derivado.
 
     Um texto sem isto não se explica: dois textos diferentes do mesmo áudio, um
     de `tiny` e outro de `small`, ficariam indistinguíveis.
+
+    ⚠️ `ASR_DEVICE` ERA UM LITERAL, E O LITERAL IA MENTIR
+    -----------------------------------------------------
+    Ate esta missao este campo dizia, sempre, `cpu/int8/N threads` — escrito a
+    mao, ao lado de uma chamada que tambem tinha `cpu` escrito a mao. As duas
+    concordavam por coincidencia de teclado, nao por construcao.
+
+        NO DIA EM QUE UMA MUDASSE, A OUTRA CONTINUARIA A JURAR O CONTRARIO,
+        E O ARTEFATO LEVARIA A ASSINATURA DA ERRADA.
+
+    Agora o campo vem do `trace` que o resolvedor devolveu: ele diz o que
+    CORREU, e nao o que alguem esperava que corresse.
     """
+    t = trace or {}
+    usado = t.get('DEVICE_USED')
+    if usado == GPU:
+        ferro = 'cuda/%s' % (COMPUTE_PADRAO or COMPUTE_GPU)
+    elif usado == CPU:
+        ferro = 'cpu/%s/%d threads' % (COMPUTE_PADRAO or COMPUTE_CPU, nucleos())
+    else:
+        # Sem trace nao se inventa: um carimbo que adivinha o ferro e pior do
+        # que um carimbo que confessa nao saber.
+        ferro = NAO_SEI
     return {
         'ASR_ENGINE': MOTOR,
         'ASR_ENGINE_VERSION': _versao_do_motor(),
         'ASR_MODEL': modelo or MODELO_PADRAO,
         'ASR_BEAM': BEAM,
         'ASR_BATCH': LOTE,
-        'ASR_DEVICE': 'cpu/int8/%d threads' % nucleos(),
+        # ── CINCO EIXOS, CINCO CAMPOS ────────────────────────────────────
+        # `faster-whisper` continua a ser o MOTOR e o `CTranslate2` o RUNTIME
+        # tanto no processador como na placa. A placa e ACELERADOR. Fundir os
+        # cinco num «GPU» parece simplificacao e apaga a distincao que permite
+        # explicar dois textos diferentes do mesmo audio.
+        'ASR_RUNTIME': 'CTranslate2',
+        'ASR_DEVICE': ferro,
+        'ASR_DEVICE_REQUESTED': t.get('DEVICE_REQUESTED', NAO_SEI),
+        'ASR_DEVICE_USED': usado or NAO_SEI,
+        'ASR_ACCELERATOR': t.get('ACCELERATOR', NAO_SEI),
+        # `None` aqui quer dizer «nao houve queda», e NUNCA «nao sei». Os dois
+        # colapsados fariam uma queda silenciosa parecer ausencia de queda.
+        'ASR_WHY_FALLBACK': t.get('WHY_FALLBACK'),
         'ASR_VAD': 'YES',
         # Em modo lote a biblioteca FIXA isto em False por dentro; declaramos na
         # mesma, porque o carimbo tem de dizer com que regra o texto nasceu.
@@ -209,22 +365,72 @@ def _versao_do_motor():
         return NAO_SEI
 
 
-def modelo(nome=None):
-    """O modelo carregado, uma vez por processo.
+def modelo(nome=None, dispositivo=None):
+    """O modelo carregado, uma vez por processo e POR DISPOSITIVO. → (pipe, trace).
 
     Carregar custa segundos; num lote de mil, carregar mil vezes custaria horas.
+
+    A CHAVE DO CACHE LEVA O DISPOSITIVO, E ISSO NAO E DETALHE
+    ---------------------------------------------------------
+    Antes a chave era so o nome do modelo. Num processo que medisse `small` no
+    processador e depois `small` na placa, a segunda medicao receberia o objeto
+    da primeira — e o benchmark publicaria o tempo do processador com a etiqueta
+    da placa, sem erro nenhum a apitar.
+
+        UM CACHE QUE IGNORA UMA DIMENSAO DA CHAVE NAO ACELERA: FALSIFICA.
+
+    E o `WhisperModel` continua a nascer AQUI, e so aqui. Este ficheiro e o dono
+    do reconhecedor desta casa; um segundo sitio a instanciar seria um segundo
+    dono, e dois donos da mesma pergunta divergem no terceiro mes.
     """
     nome = nome or MODELO_PADRAO
-    if nome in _CACHE:
-        return _CACHE[nome]
+    device, compute, trace = resolver_dispositivo(dispositivo)
+    chave = (nome, device, compute)
+    if chave in _CACHE:
+        return _CACHE[chave], trace
     _caminho_das_libs()
     from faster_whisper import BatchedInferencePipeline, WhisperModel
-    m = WhisperModel(nome, device='cpu', compute_type='int8', cpu_threads=nucleos())
-    _CACHE[nome] = BatchedInferencePipeline(model=m)
-    return _CACHE[nome]
+    extra = {'cpu_threads': nucleos()} if device == 'cpu' else {}
+    try:
+        m = WhisperModel(nome, device=device, compute_type=compute, **extra)
+    except Exception as e:                                      # noqa: BLE001
+        # ── A PLACA RECUSOU DEPOIS DE DIZER QUE EXISTIA ──────────────────
+        # `get_cuda_device_count()` pode contar a placa e o carregamento cair a
+        # seguir: memoria cheia, DLL em falta, driver a meio de uma atualizacao.
+        # Sao coisas diferentes e tem nomes diferentes — e nenhuma e culpa do
+        # audio nem da fonte.
+        if device != 'cuda' or trace['DEVICE_REQUESTED'] == GPU_SEM_MEMORIA:
+            raise
+        porque = GPU_SEM_MEMORIA if _parece_sem_memoria(e) else GPU_INDISPONIVEL
+        trace.update({'DEVICE_USED': CPU, 'ACCELERATOR': 'NONE',
+                      'WHY_FALLBACK': porque,
+                      'WHY_FALLBACK_DETAIL': '%s: %s' % (type(e).__name__,
+                                                         str(e)[:200])})
+        device, compute = 'cpu', COMPUTE_PADRAO or COMPUTE_CPU
+        chave = (nome, device, compute)
+        if chave in _CACHE:
+            return _CACHE[chave], trace
+        m = WhisperModel(nome, device=device, compute_type=compute,
+                         cpu_threads=nucleos())
+    _CACHE[chave] = BatchedInferencePipeline(model=m)
+    return _CACHE[chave], trace
 
 
-def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None):
+def _parece_sem_memoria(e):
+    """Memoria da placa cheia tem nome proprio, e nao e «o reconhecedor caiu».
+
+    A biblioteca nao levanta um tipo dedicado: ela deixa subir o erro do CUDA
+    com o texto dentro. Ler o texto e feio e e o que ha — e e MUITO melhor do
+    que deixar `GPU_OOM` sair como erro opaco, que foi o defeito que o red team
+    desta missao atacou.
+    """
+    t = ('%s %s' % (type(e).__name__, e)).lower()
+    return any(p in t for p in ('out of memory', 'oom', 'cuda_error_out_of_memory',
+                                'cublas_status_alloc_failed'))
+
+
+def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None,
+                dispositivo=None):
     """O áudio vira texto. → dict com o texto, o estado, os tempos e a evidência.
 
     `idioma` É DECLARADO QUANDO SE SABE, NUNCA ADIVINHADO POR VÍDEO
@@ -249,8 +455,9 @@ def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None):
                int(duracao_s * TETO_FATOR) if isinstance(duracao_s, (int, float))
                else TETO_MINIMO_S)
     t0 = time.time()
+    trace_do_ferro = {}
     try:
-        pipe = modelo(modelo_nome)
+        pipe, trace_do_ferro = modelo(modelo_nome, dispositivo)
         segs, info = pipe.transcribe(
             wav, batch_size=LOTE, beam_size=BEAM, vad_filter=True,
             language=idioma,
@@ -278,11 +485,22 @@ def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None):
                 break
         segs = trechos
     except Exception as e:                                     # noqa: BLE001
-        return _resposta(ASR_FALHOU, modelo_nome,
+        # ── SEM PLACA != ERRO DO RECONHECEDOR != ERRO DA FONTE ───────────
+        # Um `GPU_OOM` que chega aqui como `ASR_FALHOU` generico apaga a unica
+        # informacao que permitiria consertar: era o modelo grande demais para
+        # esta placa, e o modelo menor passaria.
+        estado, porque = ASR_FALHOU, ('que o áudio não tem fala. O reconhecedor '
+                                      'é que caiu.')
+        if _parece_sem_memoria(e):
+            trace_do_ferro = dict(trace_do_ferro or {})
+            trace_do_ferro['WHY_FALLBACK'] = GPU_SEM_MEMORIA
+            porque = ('que o áudio não tem fala, nem que a placa não serve. '
+                      'Este modelo é que não coube nesta placa.')
+        return _resposta(estado, modelo_nome,
                          erro='%s: %s' % (type(e).__name__, str(e)[:200]),
                          maquina_s=round(time.time() - t0, 2),
-                         nao_significa='que o áudio não tem fala. O reconhecedor '
-                                       'é que caiu.')
+                         trace_do_ferro=trace_do_ferro,
+                         nao_significa=porque)
     dt = time.time() - t0
 
     # O descarte que o modo em lote não faz. Cada trecho descartado fica
@@ -319,6 +537,7 @@ def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None):
              if getattr(s, 'avg_logprob', None) is not None]
     fora = _resposta(
         OK if texto else REQUESTED_EMPTY, modelo_nome,
+        trace_do_ferro=trace_do_ferro,
         texto=texto or None,
         maquina_s=round(dt, 2),
         audio_s=round(float(info.duration), 2),
@@ -402,7 +621,8 @@ def _sem_os_mudos(segs):
 def _resposta(estado, modelo_nome, *, texto=None, maquina_s=NAO_SEI,
               audio_s=NAO_SEI, segmentos=None, idioma_pedido=None,
               idioma_detectado=NAO_SEI, confianca=NAO_SEI, voiced=NAO_SEI,
-              no_speech=NAO_SEI, erro='', nao_significa=''):
+              no_speech=NAO_SEI, erro='', nao_significa='',
+              trace_do_ferro=None):
     if estado not in ESTADOS:                                  # pragma: no cover
         raise ValueError('estado fora do vocabulário: %s' % estado)
     rtf = NAO_SEI
@@ -413,7 +633,7 @@ def _resposta(estado, modelo_nome, *, texto=None, maquina_s=NAO_SEI,
         'TRANSCRIPT_STATE': estado,
         'TRANSCRIPT_CHARS': len(texto) if texto else 0,
         # QUEM OUVIU, e com quê. Sem isto o texto não se explica.
-        **carimbo(modelo_nome),
+        **carimbo(modelo_nome, trace_do_ferro),
         # A LÍNGUA. `LANGUAGE_SOURCE` é o campo que impede a confusão entre
         # «eu declarei» e «a máquina achou» — são graus de prova diferentes.
         'LANGUAGE': idioma_pedido or (idioma_detectado if idioma_detectado != NAO_SEI else NAO_SEI),

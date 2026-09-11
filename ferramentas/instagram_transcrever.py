@@ -246,7 +246,11 @@ def fase_rodar(modelo=None, teto=None):
     print('modelo %s · %d núcleos · lote %d · beam %d'
           % (modelo, nucleos, fl.LOTE, fl.BEAM))
     t0 = time.time()
-    fl.modelo(modelo)
+    # O DONO DECIDE O FERRO; ESTE PROGRAMA SO REPORTA O QUE ELE DECIDIU.
+    # O `trace` volta do dono e vai INTEIRO para o carimbo do artefato. Sem
+    # ele o carimbo diria `NOT_KNOWN` onde a resposta existe — e um campo que
+    # confessa nao saber o que o processo ao lado sabe e um campo partido.
+    _pipe, ferro = fl.modelo(modelo)
     print('carregado em %.1f s' % (time.time() - t0))
 
     # Retomar de onde parou: transcrição é cara em TEMPO, e refazer o que já está pronto
@@ -330,7 +334,7 @@ def fase_rodar(modelo=None, teto=None):
         'APIFY_RUNS': 0, 'COST_USD': 0,
         'COST_NOTE': ('custo em dólar é zero: o reconhecimento roda nesta máquina. '
                       'O custo real é TEMPO DE MÁQUINA, e está medido abaixo.'),
-        **fl.carimbo(modelo),
+        **fl.carimbo(modelo, ferro),
         'OBJECTS_IN_QUEUE': len(dentro),
         'OBJECTS_EXCLUDED': len(fora),
         'EXCLUSION_REASONS': sorted({m.split(':')[0] for _o, m in fora}),

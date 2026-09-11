@@ -113,11 +113,18 @@ jobs:
     runs-on: ${{ inputs.runner == '1'
       && fromJSON('["self-hosted","Windows","X64","eame-sintonia-local"]')
       || fromJSON('["self-hosted","Windows","X64","eame-sintonia-local-2"]') }}
-    # 15 minutos. O censo real leva segundos; este tecto existe para que um
-    # runner OFFLINE não prenda a missão 24 horas à espera — foi o que
-    # aconteceu com as três corridas do `sintonia-scrap` em setembro.
+    # ⚠️ `timeout-minutes` NÃO limita a espera na FILA — correção a mim próprio.
+    # Escrevi este tecto a pensar que ele protegia contra runner offline. NÃO
+    # protege: o relógio do GitHub só começa quando um runner ACEITA o job. Um
+    # job à espera de máquina que não atende fica `queued` até às 24 horas, e
+    # foi exatamente isso que aconteceu às três corridas do `sintonia-scrap` em
+    # setembro — e de novo às duas desta missão, canceladas à mão aos 23 min.
     #
-    #     RUNNER QUE NÃO ATENDE É UMA MEDIÇÃO, NÃO UMA ESPERA.
+    #     UM TECTO QUE SÓ CONTA DEPOIS DE COMEÇAR NÃO PROTEGE DE NUNCA COMEÇAR.
+    #
+    # Ele fica, porque limita o censo em si (que leva segundos) se a máquina
+    # travar a meio. Quem despacha é que tem de saber: runner que não atende em
+    # poucos minutos está OFFLINE, e isso é uma medição — cancele e registe.
     timeout-minutes: 15
     defaults:
       run:

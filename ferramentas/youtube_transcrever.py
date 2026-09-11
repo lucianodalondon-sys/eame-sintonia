@@ -190,7 +190,11 @@ def fase_rodar(modelo=None, teto=None):
     print('modelo %s · %d núcleos · lote %d · beam %d'
           % (modelo, nucleos, fl.LOTE, fl.BEAM))
     t0 = time.time()
-    fl.modelo(modelo)
+    # O DONO DECIDE O FERRO; ESTE PROGRAMA SO REPORTA O QUE ELE DECIDIU.
+    # O `trace` volta do dono e vai INTEIRO para o carimbo do artefato. Sem
+    # ele o carimbo diria `NOT_KNOWN` onde a resposta existe — e um campo que
+    # confessa nao saber o que o processo ao lado sabe e um campo partido.
+    _pipe, ferro = fl.modelo(modelo)
     print('carregado em %.1f s' % (time.time() - t0))
 
     # Retomar: transcrição é cara em TEMPO, e refazer o pronto é o mesmo desperdício
@@ -285,7 +289,7 @@ def fase_rodar(modelo=None, teto=None):
         'CUSTO_E_TEMPO_NAO_FATURA': ('zero dólar. O custo é %.0f s de máquina para '
                                      '%.0f s de áudio.' % (seg_maquina, seg_audio)),
         'VELOCIDADE_MEDIDA_AGORA': round(vel, 2),
-        **fl.carimbo(modelo),
+        **fl.carimbo(modelo, ferro),
         'A_FILA_QUE_MANDOU': 'data/samples/YOUTUBE-RELEVANCIA/FILA-WHISPER.json',
         'O_QUE_NAO_ESTA_AQUI': ('todo vídeo que já tinha legenda pública. Ele não foi '
                                 'esquecido: está em YOUTUBE-JANELA/LEGENDAS.json, de '
