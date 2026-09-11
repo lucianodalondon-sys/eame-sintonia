@@ -3341,3 +3341,90 @@ SYSTEM_MAP_CHECK             PASS
 A decisão que fica para quem vier: **rotular o que há, coletar material novo,
 pedir revisão humana, ou combinar os três.** O censo dá a conta; não dá a
 escolha.
+
+---
+
+# 53 · O VAZAMENTO NÃO ESTÁ SÓ EM QUEM ROTULA. ESTÁ EM QUEM ESCOLHE.
+
+## 53.1 · O QUÊ
+
+A secção 52 fechou a regra de que um rótulo produzido pelo mecanismo antigo não
+pode ser gabarito do novo. Ao preparar a rotulagem humana de T3 apareceu o
+mesmo defeito **um degrau acima**, e este não estava escrito.
+
+Os 27 candidatos T3 do censo não foram escolhidos por uma pessoa: foram
+encontrados por uma varredura de **seis frases literais**.
+
+```
+'difesa integrata' 16 · 'servizio fitosanitario' 13 ·
+'bollettino fitosanitario' 12 · 'monitoraggio' 10 ·
+'difesa delle colture' 7 · 'u.o. fitosanitario' 6
+```
+
+Se o pacote de revisão levasse **só esses 27**, e uma pessoa — uma pessoa de
+verdade, sem máquina nenhuma — os marcasse `SIM`, o gabarito resultante teria a
+propriedade de que **todo positivo contém uma daquelas seis frases**. E então
+qualquer classificador baseado nelas tiraria nota perfeita.
+
+```
+UM GABARITO CUJOS POSITIVOS FORAM SELECIONADOS POR UMA FRASE
+NAO MEDE UM CLASSIFICADOR: DEVOLVE-LHE A PROPRIA FRASE.
+```
+
+## 53.2 · POR QUÊ É DIFERENTE DA §52
+
+A §52 fala do **rotulador**: quem atribui o rótulo não pode ser o mecanismo que
+se quer substituir. Isto é do **amostrador**: mesmo com o rotulador perfeito —
+uma pessoa, a ler, com a razão escrita — o conjunto continua contaminado se a
+**entrada** dele foi escolhida pelo sinal que se vai avaliar.
+
+```
+LEAKAGE NO ROTULADOR   quem decide o rotulo  (§52)
+LEAKAGE NO AMOSTRADOR  quem decide QUEM entra na lista  (§53)
+```
+
+Os dois produzem o mesmo número bonito, e nenhum dos dois aparece na métrica.
+
+    ROTULADOR HUMANO NAO SALVA UM CORPUS ESCOLHIDO POR MAQUINA.
+
+## 53.3 · A CORREÇÃO, E É BARATA
+
+O pacote leva **os 46 documentos do corpus**, os 27 lá dentro **sem marca
+nenhuma**, em ordem por hash do caminho — não por publicador, não por pasta, não
+por «mais parecido com T3». O revisor olha para documentos, não para uma
+pré-selecção. Os negativos saem da mesma passagem que os positivos, e por isso
+não são definidos por ausência de frase.
+
+E o que a máquina já «sabia» fica escondido até a decisão — a saída de
+`PERGUNTAS_DO_UNIVERSO`, o território da ficha da fonte, e quais casaram a
+varredura — numa secção `AUDIT_AFTER_REVIEW`, no fim.
+
+```
+HUMAN_LABEL NAO PODE NASCER A OLHAR PARA CURRENT_CLASSIFIER_OUTPUT.
+```
+
+## 53.4 · UMA ARMADILHA MEDIDA, QUE NÃO ERA HIPÓTESE
+
+O nome do ficheiro tem de aparecer na ficha, porque procedência faz parte do
+registo. Mas neste corpus, **seis** documentos têm no nome `Fitosanitari`,
+`Agrometeorologico` ou `Meteorologico` e **cinco deles não dizem nada disso na
+abertura**.
+
+```
+O NOME DO FICHEIRO NAO E PROVA SOBRE O CONTEUDO.
+MOSTRAR PROCEDENCIA E OBRIGATORIO; TRATA-LA COMO EVIDENCIA SEMANTICA E ERRO.
+```
+
+Por isso o aviso vai no topo do pacote, antes da primeira ficha.
+
+## 53.5 · CONSEQUÊNCIA
+
+O pacote existe e está vazio: `AUTO_LABELS_ASSIGNED = 0`, `REVIEWER_A`,
+`REVIEWER_B` e `FINAL_LABEL` todos em `NOT_RUN`, e `SECOND_REVIEW = NOT_RUN`
+porque copiar A para B e chamar-lhe dupla revisão seria uma mentira barata.
+
+As duas travas — não vazar o que a máquina sabe, e não pré-preencher rótulo —
+foram provadas **por mutação**, não por afirmação.
+
+O que falta é o que nenhuma missão pode fazer sozinha: **uma pessoa a ler 46
+documentos e a escrever a razão de cada decisão.**
