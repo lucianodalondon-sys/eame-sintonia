@@ -54,49 +54,96 @@ from receitas import resolver, Plano  # noqa: E402
 import admissao as adm  # noqa: E402
 import proveniencia as pv  # noqa: E402
 import ingresso as ing  # noqa: E402  — a porta de entrada da coleta
+import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)
 
 PRONTOS = RAIZ / "data" / "samples" / "PRONTO-PARA-INTELIGENCIA"
 
 
-def a_colheita(e: dict) -> tuple[list, str]:
-    """O que o executor largou — e, quando nao largou nada, PORQUE.
+def o_envelope(e: dict, run_id: str = "") -> tuple[dict, str]:
+    """O QUE A CORRIDA DEVOLVEU, LIDO DA DECLARACAO — e nunca adivinhado.
 
-    Esta funcao existe por causa de uma pergunta simples que nao tinha resposta:
-    «o que o YouTube colhe vai para onde?». Ia para uma pasta que ninguem lia, e
-    o caminho acabava ali. A porta de admissao estava construida e NINGUEM
-    entregava nela — so o teste.
+        SO COLHEITA ENTRA NO INGRESSO.  (COL-LAW-505)
 
-        UMA PORTA POR ONDE NINGUEM PASSA NAO E UMA PORTA.
-        E UMA PAREDE COM MACANETA.
+    ⚠️ AQUI VIVIA A HEURISTICA, E ELA CUSTOU 253 FALSOS POSITIVOS:
 
-    Aqui a colheita e lida e levada a porta. Quando o sitio declarado nao existe,
-    isso nao e um erro a esconder: e o facto mais util que a corrida produziu, e
-    sai escrito no recibo.
+        lista = d if isinstance(d, list) else next(
+            (v for v in d.values() if isinstance(v, list) and v
+             and isinstance(v[0], dict)), [])
+
+    «uma lista, ou o primeiro campo do ficheiro que seja lista de fichas». Com
+    isso, 163 linhas de um manifesto de descarga, 74 fichas de conta, 12 fichas
+    de pessoa e 4 passos de um plano entraram na cadeia como material observado.
+    E o contraexemplo que fecha o assunto: o `CLASSIFICADO-V1.json` DECLARA um
+    contentor `ITEMS` com `ITEM_COUNT = 0`, e a heuristica SALTAVA-O por estar
+    vazio para agarrar a lista de catalogo ao lado.
+
+        UMA HEURISTICA QUE PREFERE UMA LISTA CHEIA A UMA LISTA CERTA
+        NAO ESTA A LER O RETORNO: ESTA A ADIVINHAR.
+
+    Esta funcao deixou de classificar. O que sobra dela e legitimo e continua a
+    ser dela: ENCONTRAR a declaracao, e dizer alto quando o sitio declarado nao
+    existe. Quem classifica e `leis/retorno_da_coleta.py`, e a lei nao esta
+    copiada aqui — esta importada.
     """
-    itens, notas = [], []
-    for onde in e.get("larga_em") or []:
-        alvo = RAIZ / onde
-        if not alvo.exists():
-            notas.append(f"«{onde}» nao existe nesta arvore: o executor declara que "
-                         f"larga ai, e nao ha nada. Ou nunca correu aqui, ou o que "
-                         f"ele escreveu nunca foi guardado.")
-            continue
-        ficheiros = sorted(alvo.glob("*.json")) if alvo.is_dir() else [alvo]
-        for f in ficheiros:
+    ident = e.get("id") or "NAO SEI"
+    versao = versao_do_executor((e.get("roda") or [""])[0])
+    retorno = e.get("retorno") or {}
+    notas = []
+
+    # ── 1 · A CORRIDA DECLAROU? Essa e a unica origem de COLHEITA ──────────
+    caminho = retorno.get("ENVELOPE")
+    if caminho:
+        alvo = RAIZ / caminho
+        if alvo.is_file():
             try:
-                d = json.loads(f.read_text(encoding="utf-8"))
+                envelope = json.loads(alvo.read_text(encoding="utf-8"))
             except (json.JSONDecodeError, OSError) as ex:
-                notas.append(f"«{f.name}» nao deu para ler: {type(ex).__name__}")
-                continue
-            # uma lista, ou o primeiro campo do ficheiro que seja lista de fichas
-            lista = d if isinstance(d, list) else next(
-                (v for v in d.values() if isinstance(v, list) and v
-                 and isinstance(v[0], dict)), [])
-            for x in lista:
-                if isinstance(x, dict):
-                    x.setdefault("_de", f.relative_to(RAIZ).as_posix())
-                    itens.append(x)
-    return itens, " · ".join(notas)
+                notas.append(f"«{caminho}» nao deu para ler: {type(ex).__name__}")
+            else:
+                if run_id and not str(envelope.get("RUN_ID") or "").strip():
+                    envelope["RUN_ID"] = run_id
+                return envelope, " · ".join(notas)
+        notas.append(f"«{caminho}» e o envelope declarado e nao existe: ou a "
+                     f"corrida nao correu aqui, ou ela nao declarou o que fez.")
+
+    # ── 2 · O LEGADO, QUE SO PODE DECLARAR SUPORTE ─────────────────────────
+    legado = retorno.get("LEGADO")
+    if legado:
+        for onde in legado:
+            if not (RAIZ / onde).exists():
+                notas.append(f"«{onde}» esta declarado e nao existe nesta arvore.")
+        return rdc.envelope_do_legado(run_id or "NAO SEI", ident, versao,
+                                      legado, str(RAIZ)), " · ".join(notas)
+
+    # ── 3 · NINGUEM DECLAROU NADA ──────────────────────────────────────────
+    #     UM RETORNO SEM DECLARACAO NAO E UM RETORNO VAZIO:
+    #     E UM RETORNO QUE NAO SE DECLAROU.
+    for onde in e.get("larga_em") or []:
+        if not (RAIZ / onde).exists():
+            notas.append(f"«{onde}» nao existe nesta arvore: o executor declara "
+                         f"que larga ai, e nao ha nada.")
+    return rdc.envelope_de_quem_nao_declarou(
+        run_id or "NAO SEI", ident, versao,
+        "este executor nao declara o que devolve (sem ENVELOPE nem LEGADO em "
+        "`retorno`). Antes, era aqui que a heuristica adivinhava."), \
+        " · ".join(notas)
+
+
+def a_colheita(e: dict, run_id: str = "") -> tuple[list, str]:
+    """So o que a lei deixa atravessar. Mesma assinatura de sempre, outra fonte.
+
+    Quem chama isto continua a receber `(itens, notas)`. O que mudou e de onde
+    vem a lista: era um palpite sobre a forma do JSON, e agora e o resultado de
+    `conferir()` + `so_o_que_entra()` sobre um envelope declarado.
+    """
+    envelope, notas = o_envelope(e, run_id)
+    mal = rdc.conferir(envelope, str(RAIZ))
+    if mal:
+        # UM ENVELOPE QUE QUEBRA O CONTRATO NAO ENTREGA NADA. Recusar item a
+        # item deixaria passar metade de um retorno que ja se sabe mal formado.
+        return [], " · ".join(filter(None, [notas] + ["ENVELOPE_INVALIDO: " + m
+                                                     for m in mal]))
+    return rdc.so_o_que_entra(envelope), notas
 
 
 def pela_entrada(itens: list, recibo: dict, memoria=None) -> dict:
@@ -326,9 +373,19 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     # O caminho so esta fechado aqui. Antes desta parte, o executor corria,
     # largava o que trouxe numa pasta, e ninguem ia buscar: a peneira existia e
     # nada passava por ela.
-    itens, notas = a_colheita(e)
+    envelope, notas = o_envelope(e, run_id)
+    itens, notas = a_colheita(e, run_id)
     recibo["COLHEITA_ENCONTRADA"] = len(itens)
     recibo["COLHEITA_NAO_ENCONTRADA"] = notas
+    # O RETORNO FICA ESCRITO NO RECIBO, e nao so a contagem: quem audita
+    # precisa de saber que ESPECIE veio, e nao apenas quantas linhas.
+    recibo["RETORNO"] = {
+        "ESTADO": envelope.get("ESTADO"),
+        "COLHEITA": len(envelope.get("COLHEITA") or []),
+        "SUPORTE": [x.get("ESPECIE") for x in (envelope.get("SUPORTE") or [])],
+        "ERROS": envelope.get("ERROS") or [],
+        "PORQUE_ZERO_COLHEITA": envelope.get("PORQUE_ZERO_COLHEITA"),
+    }
 
     # ── E A COLHEITA ENTRA PELA PORTA, ANTES DE ALGUEM A JULGAR ─────────────
     # ⚠️ ATE AQUI, O QUE O EXECUTOR LARGAVA IA DIRECTO A ADMISSAO. A etapa RAW

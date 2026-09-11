@@ -250,3 +250,88 @@ def so_o_que_entra(envelope: dict) -> list:
     """O que pode atravessar a porta. Nunca deduz: lê a espécie declarada."""
     return [u for u in (envelope.get("COLHEITA") or [])
             if u.get("ESPECIE") in ENTRAM_NO_INGRESSO]
+
+
+# ── O QUE JÁ ESTÁ EM DISCO, E NUNCA FOI DECLARADO POR NINGUÉM ───────────────
+#
+# Há executores que largaram ficheiros muito antes desta lei existir, e que não
+# correm offline para os voltar a declarar. Eles precisam de uma ponte — e a
+# ponte tem de ser segura por construção, não por boa vontade.
+#
+#     O LEGADO SO PODE DECLARAR SUPORTE.
+#     COLHEITA VEM DE UMA CORRIDA, E DE MAIS NADA.
+#
+# Porquê: uma declaração escrita na receita é feita ANTES da corrida, e envelhece
+# sozinha — `larga_em` prova isso, com dois caminhos apontando para pastas que
+# não existem sem ninguém notar. Se essa declaração pudesse dizer «aqui há
+# colheita», uma linha desactualizada mandaria suporte para o ingresso outra
+# vez, e teríamos trocado uma heurística por um literal.
+#
+# Declarar suporte é inofensivo mesmo quando errado: suporte nunca atravessa.
+# Declarar colheita não é — e por isso não se pode.
+LEGADO_SO_DECLARA_SUPORTE = tuple(e for e in ESPECIES if e != COLHEITA)
+
+
+def envelope_do_legado(run_id: str, executor_id: str, executor_version: str,
+                       declarado: dict, raiz: str) -> dict:
+    """Um envelope para o que já está em disco. COLHEITA sai sempre vazia.
+
+    `declarado` é `{caminho: ESPECIE}` — a espécie que alguém declarou para
+    aquele sítio, na receita. Uma espécie fora de `LEGADO_SO_DECLARA_SUPORTE`
+    entra como `UNKNOWN` e o motivo fica escrito: não se cala, e também não se
+    obedece.
+    """
+    suporte, erros = [], []
+    for onde in sorted(declarado or {}):
+        especie = declarado[onde]
+        if especie == COLHEITA:
+            erros.append(
+                "«%s» foi declarado como COLHEITA no legado, e o legado so pode "
+                "declarar suporte. Colheita vem de uma corrida. Registado como "
+                "%s." % (onde, ESPECIE_DESCONHECIDA))
+            especie = ESPECIE_DESCONHECIDA
+        elif especie not in ESPECIES:
+            erros.append("«%s» declara a especie %r, que nao existe. Registado "
+                         "como %s." % (onde, especie, ESPECIE_DESCONHECIDA))
+            especie = ESPECIE_DESCONHECIDA
+        suporte.append({"ESPECIE": especie, "ONDE": onde,
+                        "PAYLOAD": {"ONDE": onde,
+                                    "ESTADO": estado_do_payload(onde, raiz)}})
+    return {
+        "RUN_ID": run_id,
+        "EXECUTOR_ID": executor_id,
+        "EXECUTOR_VERSION": executor_version or NAO_SEI,
+        # PARCIAL e nao FAILED: o executor nao falhou — ele nunca declarou.
+        # E nao e SUCCESS, porque dizer «correu bem» a um retorno que ninguem
+        # declarou seria a casa a dar-se por satisfeita com o silencio.
+        "ESTADO": PARTIAL if erros else SUCCESS,
+        "COLHEITA": [],
+        "SUPORTE": suporte,
+        "ERROS": erros,
+        "PORQUE_ZERO_COLHEITA": (
+            "o retorno deste executor e legado: esta declarado como suporte e "
+            "nao como colheita. ZERO COLHEITA AQUI E A RESPOSTA CERTA."),
+    }
+
+
+def envelope_de_quem_nao_declarou(run_id: str, executor_id: str,
+                                  executor_version: str, porque: str) -> dict:
+    """Nem envelope, nem legado declarado. Isto NÃO é uma corrida vazia.
+
+        UM RETORNO SEM DECLARACAO NAO E UM RETORNO VAZIO:
+        E UM RETORNO QUE NAO SE DECLAROU — E O QUE NAO SE DECLAROU NAO ENTRA.
+
+    Antes, era exactamente aqui que a heurística entrava a adivinhar. Agora o
+    silêncio tem nome e sai no recibo.
+    """
+    return {
+        "RUN_ID": run_id,
+        "EXECUTOR_ID": executor_id,
+        "EXECUTOR_VERSION": executor_version or NAO_SEI,
+        "ESTADO": PARTIAL,
+        "COLHEITA": [],
+        "SUPORTE": [],
+        "ERROS": [],
+        "RETORNO_NAO_DECLARADO": True,
+        "PORQUE_ZERO_COLHEITA": porque,
+    }

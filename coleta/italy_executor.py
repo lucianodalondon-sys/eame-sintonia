@@ -68,6 +68,10 @@ import subprocess
 import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, RAIZ)
+import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho
+
+import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno, COL-LAW-505
 
 # ONDE O COLETOR ESCREVE O LIVRO. Nao e configuracao nova: `ITALY_OPS_ROOT` ja
 # e a raiz que o coletor italiano le ha muito, e ler o livro noutro sitio que
@@ -79,6 +83,9 @@ COLETOR = os.path.join("coleta", "italy_pilot_collect.mjs")
 LIVRO = os.path.join("data", "collection-ledger", "italy", "observations.ndjson")
 BALCAO = os.path.join("data", "colheita", "italia")
 COLHEITA = os.path.join(BALCAO, "colheita.json")
+# ONDE A CORRIDA DECLARA O QUE PRODUZIU (COL-LAW-505). Nao substitui o
+# `colheita.json`: aquele carrega as unidades, este diz O QUE ELAS SAO.
+RETORNO = os.path.join(BALCAO, "RETORNO.json")
 
 EXECUTOR_ID = "italia-recorrente"
 EXECUTOR_VERSION = "adapter-v1"
@@ -203,6 +210,62 @@ def largar(itens: list, raiz: str = RAIZ) -> str:
     return COLHEITA.replace("\\", "/")
 
 
+def declarar(itens: list, run_id: str, raiz: str = RAIZ) -> str:
+    """O ENVELOPE — a corrida diz o que produziu, em vez de deixar adivinhar.
+
+        DECLARADO, NAO ADIVINHADO.  (COL-LAW-505)
+
+    Antes, o orquestrador abria o `colheita.json` e escolhia uma lista por
+    heuristica. A lista deste adapter estava certa POR SORTE: e uma lista de
+    topo, e a heuristica gostava dela. Os outros executores nao tiveram a mesma
+    sorte — 253 linhas de indice e de catalogo entraram como material colhido.
+
+        ESTAR CERTO POR SORTE NAO E ESTAR CERTO.
+        E ESTAR ERRADO AINDA SEM CONSEQUENCIA.
+    """
+    unidades = []
+    for x in itens:
+        onde = x.get("STORAGE_LOCATION") or ""
+        # ⚠️ A UNIDADE VAI INTEIRA, e nao mutilada. A primeira versao desta
+        # funcao construia um dicionario NOVO com seis campos do contrato — e
+        # deitava fora o `texto`, o `SOURCE_URL`, o `STORAGE_LOCATION` e tudo o
+        # mais que `traduzir()` tinha acabado de preparar. A prova apanhou-o:
+        # a admissao devolvia `NAO_SEI — o item veio sem texto nenhum`, e a
+        # culpa era desta funcao, nao do dado.
+        #
+        #     DECLARAR O QUE UMA COISA E NAO E SUBSTITUI-LA PELA ETIQUETA.
+        #
+        # O contrato acrescenta-se POR CIMA do item; nunca no lugar dele.
+        unidades.append({
+            **x,
+            "ESPECIE": rdc.COLHEITA,
+            "SOURCE_ID": x.get("SOURCE_ID") or "",
+            # `NAO SEI` ESCRITO E LEGITIMO; calado nao e. E nunca se deriva o
+            # DOCUMENT_ID do sha nem do caminho — a lei recusa, e com razao.
+            "DOCUMENT_ID": x.get("DOCUMENT_ID") or rdc.NAO_SEI,
+            "SHA256": x.get("RAW_SHA256") or "",
+            "RUN_ID": run_id,
+            "PAYLOAD": {"ONDE": onde,
+                        "ESTADO": rdc.estado_do_payload(onde, raiz)},
+        })
+    envelope = {
+        "RUN_ID": run_id,
+        "EXECUTOR_ID": EXECUTOR_ID,
+        "EXECUTOR_VERSION": EXECUTOR_VERSION,
+        # ZERO OBSERVACOES NAO E FALHA. Uma corrida que foi a fonte e nao
+        # encontrou nada correu bem — `EMPTY_SUCCESS != ERROR`.
+        "ESTADO": rdc.SUCCESS,
+        "COLHEITA": unidades,
+        "SUPORTE": [],
+        "ERROS": [],
+    }
+    destino = os.path.join(raiz, RETORNO)
+    os.makedirs(os.path.dirname(destino), exist_ok=True)
+    with open(destino, "w", encoding="utf-8") as fh:
+        json.dump(envelope, fh, ensure_ascii=False, indent=1)
+    return RETORNO.replace(os.sep, "/")
+
+
 def colher(run_id: str, ops_root: str = None, raiz: str = RAIZ) -> dict:
     """Traducoes 2, 3 e 4 — sem correr o coletor.
 
@@ -213,11 +276,13 @@ def colher(run_id: str, ops_root: str = None, raiz: str = RAIZ) -> dict:
     brutas = observacoes_da_corrida(run_id, ops_root or OPS_ROOT)
     itens = [traduzir(o) for o in brutas]
     onde = largar(itens, raiz)
+    envelope = declarar(itens, run_id, raiz)
     return {
         "RUN_ID": run_id,
         "OBSERVACOES_DESTA_CORRIDA": len(itens),
         "COM_BYTES_NO_ARMAZEM": sum(1 for x in itens if x.get("STORAGE_LOCATION")),
         "LARGOU_EM": onde,
+        "DECLAROU_EM": envelope,
     }
 
 

@@ -260,10 +260,45 @@ PDF que ele indexa não estão cá.
 - **Dono:** `orquestrador/orquestrador.py :: a_colheita()` + o `larga_em` das receitas
 - **Camada:** COLETA
 - **Sensores afectados:** 58
-- **Não corrigido, e porquê:** separar «índice» de «colheita» exige um contrato
-  declarado do que um executor pode largar. Isso é **lei nova**, e lei nova não
-  se escreve dentro de uma missão de medição.
-- **Prova:** `provas/o_corte_de_cr1.py`
+- **Prova:** `provas/o_corte_de_cr1.py` · `provas/so_a_colheita_atravessa.py`
+
+### CR-1 — OS CINCO DEGRAUS, E ONDE ELA ESTÁ HOJE
+
+> **FECHADO EM 2026-09-11 (C-IMPL-EXECUTOR-RETURN-RUNTIME-V1) o degrau 2, e
+> mais nenhum.** «O runtime respeita o contrato» não é «a Collection fechou»,
+> e juntar as duas frases seria repetir o erro que este censo existe para não
+> cometer.
+
+| degrau | estado | prova |
+|---|---|---|
+| `CONTRACT_DEFINED` | **SIM** | `COL-LAW-505` · `leis/retorno_da_coleta.py` |
+| `RUNTIME_CONNECTED` | **SIM** | a heurística saiu do orquestrador; `so_o_que_entra()` decide |
+| `PAYLOAD_AVAILABLE` | **NÃO** | 4 de 5 executores sem payload nesta árvore |
+| `REAL_HARVEST_OBSERVED` | **NÃO** | nenhuma corrida real declarou colheita |
+| `READY_PRODUCED` | **NÃO** | zero |
+
+```
+FALSE_HARVEST_ANTES   253
+FALSE_HARVEST_DEPOIS    0
+SUPPORT_ITEMS_BLOCKED   8
+```
+
+O número caiu de 253 para zero **sem se perder um único item real** — porque
+não havia nenhum. O que havia era índice, catálogo, plano e recibo a viajar com
+cara de observação.
+
+```
+DEIXAR DE CONTAR O QUE NAO EXISTIA NAO E PERDER DADO.
+E PARAR DE MENTIR SOBRE ELE.
+```
+
+**O que a ligação tornou visível, e não criou:** a unidade italiana chega à
+porta com `SOURCE_ID` maiúsculo, que é o nome do contrato em
+`coleta/ingresso.py :: DO_COLETOR`. E `admissao/admissao.py :: _tem_origem`
+procura `source_id` minúsculo. Dois nomes para o mesmo campo, invisíveis até
+hoje porque nenhuma unidade italiana tinha chegado à porta. **Não foi
+corrigido**: mexer na admissão para conseguir verde é o que esta missão estava
+proibida de fazer.
 
 ### CR-2 · A FRONTEIRA NUNCA PRODUZIU UM READY
 fronteira `READY_NUNCA_PRODUZIDO`

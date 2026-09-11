@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/executor-return-contract-v1",
-    "HEAD": "9a6cbeed9504dc91a7132f53e3d8d43247058a46",
-    "GENERATED_AT": "2026-09-11T03:34:59+00:00",
-    "SOURCE_TREE_FINGERPRINT": "775cc2d33de8a6f114d99c94f26cb23ce385006bc5b81426ef14cd891b9bb50d"
+    "BRANCH": "claude/executor-return-runtime-v1",
+    "HEAD": "5524c512d4046364bba601e2b64b84f9d19cbdf5",
+    "GENERATED_AT": "2026-09-11T04:38:03+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b3840b175ceeb6214dbc7e318ba9cd6abafb01e2423b3115651dbdfca195e10e"
   },
   "FILES": [
     {
@@ -1270,7 +1270,7 @@
     },
     {
       "path": "coleta/italy_executor.py",
-      "sha": "003913c114c4a8af59135550932f2b2573dc9c37",
+      "sha": "48790198531faec3d5e32c28ce23effef304f8ed",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4483,7 +4483,7 @@
     },
     {
       "path": "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
-      "sha": "dcece67df864161b549745e4b9542c045fbafb80",
+      "sha": "37778a34f3d25c786e9397a2ab1a06c65e8e2937",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7031,7 +7031,7 @@
     },
     {
       "path": "leis/retorno_da_coleta.py",
-      "sha": "cc8988ffcb1ec7e4aed04e4fc90cfa7c7986072e",
+      "sha": "4453b738a918b0677dfff5b00d3068a90ad4b2ef",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7444,7 +7444,7 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "79d03d7dbee721d785333d3b6e057e34fce92b61",
+      "sha": "3d6bf4572c2be5c9c516f59e57886941d9ef193a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7584,7 +7584,7 @@
     },
     {
       "path": "pedido/receitas.py",
-      "sha": "7ae6f301f34226e0efa5398cc4c2d705e0cdca4d",
+      "sha": "7f40bfcb43d4c71c20cc568bedbce97ecc4207e6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7738,7 +7738,7 @@
     },
     {
       "path": "provas/o_corte_de_cr1.py",
-      "sha": "e0c58558a4fc6d44041ead1b42d9ab2312456f26",
+      "sha": "fec4673393cb68fd3d22000b0a6513063268983d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7830,6 +7830,13 @@
     {
       "path": "provas/rls_censo_portao.py",
       "sha": "4c3c9b2eddb5730884b9ce16748fb255e14884f0",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/so_a_colheita_atravessa.py",
+      "sha": "1d2ed1b913469975d6a30acf7520f222296fed6d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9068,7 +9075,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "68c90f481f829b9160c577cbd10ddd1cf033c293",
+      "sha": "9803ede1afa07410c56b2506765d709faa088722",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9607,7 +9614,7 @@
     },
     {
       "path": "tests/test_integracao_biblia.py",
-      "sha": "afa04d0c8652610adbc7aef32fd1c1f35835737f",
+      "sha": "bc0c573aabcd1feaf33d52506cddd858461a2887",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9832,6 +9839,13 @@
     {
       "path": "tests/test_route_membership.py",
       "sha": "9a911b48c08323080c6ac5f47213fb96bd6440fd",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_runtime_so_deixa_passar_colheita.py",
+      "sha": "e9390463d9afc9c74d6abef4f922004afb667f8d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12089,12 +12103,23 @@
     },
     {
       "from_file": "coleta/italy_executor.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/italy_executor.py",
+        "line": 72,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho"
+      }
+    },
+    {
+      "from_file": "coleta/italy_executor.py",
       "to_file": "coleta/italy_pilot_collect.mjs",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_executor.py",
-        "line": 78,
+        "line": 82,
         "snippet": "COLETOR = os.path.join(\"coleta\", \"italy_pilot_collect.mjs\")"
       }
     },
@@ -12105,8 +12130,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_executor.py",
-        "line": 79,
+        "line": 83,
         "snippet": "LIVRO = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
+      }
+    },
+    {
+      "from_file": "coleta/italy_executor.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/italy_executor.py",
+        "line": 74,
+        "snippet": "import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno, COL-LAW-505"
       }
     },
     {
@@ -22154,6 +22190,17 @@
     },
     {
       "from_file": "orquestrador/orquestrador.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 57,
+        "snippet": "import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
       "to_file": "pedido/pedido.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24227,7 +24274,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 117,
+        "line": 166,
         "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],"
       }
     },
@@ -24238,7 +24285,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 61,
+        "line": 86,
         "snippet": "\"roda\": [\"coleta/corpus_pesquisador.py\", \"coletar\"],"
       }
     },
@@ -24249,7 +24296,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 83,
+        "line": 117,
         "snippet": "\"roda\": [\"coleta/eppo_gd.py\"],"
       }
     },
@@ -24260,7 +24307,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 98,
+        "line": 135,
         "snippet": "\"roda\": [\"coleta/italy_executor.py\"],"
       }
     },
@@ -24271,8 +24318,85 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 74,
+        "line": 104,
         "snippet": "\"roda\": [\"coleta/rotulos_baixar.py\"],"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "data/raw/IT-ROTULOS/_MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 103,
+        "snippet": "\"data/raw/IT-ROTULOS/_MANIFESTO.json\": \"MANIFEST\"}},"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 160,
+        "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json\": \"CATALOG\","
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/CLASSIFICADO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 165,
+        "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/CLASSIFICADO-V1.json\": \"RUN_RECEIPT\"}},"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 161,
+        "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\": \"CATALOG\","
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/MEDICAO-PRIMEIRO-LOTE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 164,
+        "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/MEDICAO-PRIMEIRO-LOTE-V1.json\": \"RUN_RECEIPT\","
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 163,
+        "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json\": \"PLAN\","
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 162,
+        "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json\": \"CATALOG\","
       }
     },
     {
@@ -24282,8 +24406,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 66,
-        "snippet": "\"larga_em\": [\"data/samples/RESEARCHER-CORPUS-EAME-V1.json\"],"
+        "line": 85,
+        "snippet": "\"data/samples/RESEARCHER-CORPUS-EAME-V1.json\": \"CATALOG\"}},"
       }
     },
     {
@@ -24293,7 +24417,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 142,
+        "line": 191,
         "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
       }
     },
@@ -24304,7 +24428,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 138,
+        "line": 187,
         "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
       }
     },
@@ -24315,7 +24439,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 140,
+        "line": 189,
         "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
       }
     },
@@ -24337,7 +24461,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 136,
+        "line": 185,
         "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
       }
     },
@@ -25366,6 +25490,17 @@
     },
     {
       "from_file": "provas/o_corte_de_cr1.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_corte_de_cr1.py",
+        "line": 62,
+        "snippet": "import retorno_da_coleta as rdc  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_corte_de_cr1.py",
       "to_file": "orquestrador/orquestrador.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -25393,7 +25528,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_corte_de_cr1.py",
-        "line": 73,
+        "line": 74,
         "snippet": "\"fronteira.observada.json\"), encoding=\"utf-8\") as f:"
       }
     },
@@ -25404,7 +25539,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_corte_de_cr1.py",
-        "line": 93,
+        "line": 94,
         "snippet": "\"censo_cards_sensores.py\"), encoding=\"utf-8\")"
       }
     },
@@ -25956,6 +26091,94 @@
         "file": "provas/rastro_no_postgres.py",
         "line": 28,
         "snippet": "from preservar_coleta_no_postgres import _e_descartavel   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/so_a_colheita_atravessa.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/so_a_colheita_atravessa.py",
+        "line": 36,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/so_a_colheita_atravessa.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/so_a_colheita_atravessa.py",
+        "line": 37,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/so_a_colheita_atravessa.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/so_a_colheita_atravessa.py",
+        "line": 38,
+        "snippet": "import ingresso as ing  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/so_a_colheita_atravessa.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/so_a_colheita_atravessa.py",
+        "line": 39,
+        "snippet": "import italy_executor as adapter  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/so_a_colheita_atravessa.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/so_a_colheita_atravessa.py",
+        "line": 124,
+        "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"adapter-v1\","
+      }
+    },
+    {
+      "from_file": "provas/so_a_colheita_atravessa.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/so_a_colheita_atravessa.py",
+        "line": 42,
+        "snippet": "import retorno_da_coleta as rdc  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/so_a_colheita_atravessa.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/so_a_colheita_atravessa.py",
+        "line": 40,
+        "snippet": "import orquestrador as orq  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/so_a_colheita_atravessa.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/so_a_colheita_atravessa.py",
+        "line": 41,
+        "snippet": "import receitas  # noqa: E402"
       }
     },
     {
@@ -33483,6 +33706,50 @@
       }
     },
     {
+      "from_file": "tests/test_runtime_so_deixa_passar_colheita.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_runtime_so_deixa_passar_colheita.py",
+        "line": 23,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_runtime_so_deixa_passar_colheita.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_runtime_so_deixa_passar_colheita.py",
+        "line": 25,
+        "snippet": "import retorno_da_coleta as rdc  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_runtime_so_deixa_passar_colheita.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_runtime_so_deixa_passar_colheita.py",
+        "line": 24,
+        "snippet": "import orquestrador as orq  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_runtime_so_deixa_passar_colheita.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_runtime_so_deixa_passar_colheita.py",
+        "line": 229,
+        "snippet": "with open(caminho, encoding=\"utf-8\") as f:"
+      }
+    },
+    {
       "from_file": "tests/test_security_drift_db.py",
       "to_file": "security/drift_db.py",
       "type": "READS",
@@ -35001,14 +35268,21 @@
         "line": 54,
         "constante": "MODELO"
       }
+    ],
+    "tests/test_runtime_so_deixa_passar_colheita.py": [
+      {
+        "pasta": "orquestrador",
+        "line": 38,
+        "constante": "caminho"
+      }
     ]
   },
   "COUNTS": {
-    "files_tracked": 1422,
-    "files_readable": 535,
-    "files_code_dir": 582,
-    "file_edges": 2234,
-    "escritas_em_pasta": 68,
+    "files_tracked": 1424,
+    "files_readable": 537,
+    "files_code_dir": 584,
+    "file_edges": 2257,
+    "escritas_em_pasta": 69,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

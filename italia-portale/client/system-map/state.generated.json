@@ -1169,6 +1169,7 @@
       "provas/readback_022_live.sh",
       "provas/rls_censo_metadados.sql",
       "provas/rls_censo_portao.py",
+      "provas/so_a_colheita_atravessa.py",
       "provas/social_persistencia_no_postgres.py",
       "provas/testa_coleta_canonica.py",
       "provas/testa_golden_path_pdf.py",
@@ -1471,6 +1472,7 @@
       "tests/test_relatorio_do_fluxo.py",
       "tests/test_retorno_da_coleta.py",
       "tests/test_route_membership.py",
+      "tests/test_runtime_so_deixa_passar_colheita.py",
       "tests/test_security_drift_db.py",
       "tests/test_security_ratchet.py",
       "tests/test_security_secret_shapes.py",
@@ -1869,10 +1871,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/executor-return-contract-v1",
-    "HEAD": "9a6cbeed9504dc91a7132f53e3d8d43247058a46",
-    "GENERATED_AT": "2026-09-11T03:34:59+00:00",
-    "SOURCE_TREE_FINGERPRINT": "775cc2d33de8a6f114d99c94f26cb23ce385006bc5b81426ef14cd891b9bb50d"
+    "BRANCH": "claude/executor-return-runtime-v1",
+    "HEAD": "5524c512d4046364bba601e2b64b84f9d19cbdf5",
+    "GENERATED_AT": "2026-09-11T04:38:03+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b3840b175ceeb6214dbc7e318ba9cd6abafb01e2423b3115651dbdfca195e10e"
   },
   "FAMILIES": [
     {
@@ -2928,6 +2930,7 @@
         "C-PACOTE-CAMADAS",
         "C-PADRAO-COLETA",
         "C-PROVA-AUTORIDADE-FONTE",
+        "C-RECEITAS",
         "C-SITE-INGEST",
         "C-TESTES",
         "V-FACEBOOK",
@@ -7559,15 +7562,20 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-IT-COLETA, C-ORQUESTRADOR.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-IT-COLETA",
+        "C-ORQUESTRADOR",
+        "C-PROVA-COLETA",
         "C-TESTES"
       ],
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
@@ -9031,6 +9039,7 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
+        "C-RECEITAS",
         "C-SINTONIA-SCRAP",
         "C-TESTES"
       ],
@@ -9249,6 +9258,7 @@
       ],
       "outbound": [
         "C-ORQUESTRADOR",
+        "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
         "C-TESTES"
       ],
@@ -9389,6 +9399,7 @@
       ],
       "produces": [],
       "inbound": [
+        "C-CONTRATO-DE-RETORNO",
         "C-IT-CATALOGO",
         "C-IT-CONTRATOS",
         "C-IT-PRESERVAR"
@@ -9396,6 +9407,7 @@
       "outbound": [
         "C-IT-CONTAS",
         "C-IT-CONTRATOS",
+        "C-PROVA-COLETA",
         "C-RECEITAS",
         "C-TESTES"
       ],
@@ -10731,6 +10743,7 @@
       "inbound": [
         "C-ADMISSAO",
         "C-CI-COLETA",
+        "C-CONTRATO-DE-RETORNO",
         "C-INGRESSO",
         "C-PEDIDO",
         "C-PROCEDENCIA",
@@ -11885,12 +11898,13 @@
         "provas/preservar_coleta_no_postgres.py",
         "provas/rastro_no_postgres.py",
         "provas/readback_022_live.sh",
+        "provas/so_a_colheita_atravessa.py",
         "provas/social_persistencia_no_postgres.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 15,
+      "file_count": 16,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11909,12 +11923,15 @@
         "C-CI-MAPA",
         "C-CI-PERSIST",
         "C-CONTRATO-ARTEFATO",
+        "C-CONTRATO-DE-RETORNO",
         "C-CONTRATO-TELEMETRIA",
         "C-DIAGNOSTICO",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-INGRESSO",
+        "C-IT-COLETA",
         "C-MAPA-TESTES",
         "C-ORQUESTRADOR",
         "C-PALAVRAS",
@@ -11937,6 +11954,7 @@
       ],
       "paises": {},
       "paises_dado": {
+        "ITALIA": 2,
         "ESPANHA": 1
       },
       "pais": "TRANSVERSAL",
@@ -12743,10 +12761,12 @@
       ],
       "produces": [],
       "inbound": [
+        "C-AS-FONTES",
         "C-COLETA-PUBLICA",
         "C-CORPUS",
         "C-DATA-CLOCK",
         "C-FONTES-EU",
+        "C-IDENTIDADE",
         "C-IT-COLETA",
         "C-LUGAR-COLETA",
         "C-PEDIDO",
@@ -12761,7 +12781,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 1
+        "ITALIA": 2
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -12785,9 +12805,9 @@
           "CONTRATOS_OBRIGATORIOS",
           "EXECUTORES"
         ],
-        "palavras": 74,
+        "palavras": 92,
         "por_lingua": {},
-        "sem_marca_de_lingua": 74,
+        "sem_marca_de_lingua": 92,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15260,6 +15280,7 @@
         "tests/test_relatorio_do_fluxo.py",
         "tests/test_retorno_da_coleta.py",
         "tests/test_route_membership.py",
+        "tests/test_runtime_so_deixa_passar_colheita.py",
         "tests/test_security_drift_db.py",
         "tests/test_security_ratchet.py",
         "tests/test_security_secret_shapes.py",
@@ -15278,12 +15299,13 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 81,
+      "file_count": 82,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 11 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "tests/test_biblia.py",
         "tests/test_coleta_externa.py",
+        "tests/test_integracao_biblia.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_metricas.py",
         "tests/test_migrations.py",
@@ -15458,6 +15480,14 @@
             "file": "tests/test_estradas_it.py",
             "line": 54,
             "snippet": "escreve em MODELO"
+          }
+        },
+        {
+          "pasta": "orquestrador",
+          "prova": {
+            "file": "tests/test_runtime_so_deixa_passar_colheita.py",
+            "line": 38,
+            "snippet": "escreve em caminho"
           }
         }
       ],
@@ -16841,7 +16871,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/executor-return-contract-v1"
+        "branch claude/executor-return-runtime-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17195,11 +17225,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_corte_de_cr1.py",
           "line": 61,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "provas/so_a_colheita_atravessa.py",
+          "line": 37,
           "snippet": "import admissao as adm  # noqa: E402"
         },
         {
@@ -17990,6 +18025,24 @@
           "file": "provas/a_autoridade_da_fonte.py",
           "line": 59,
           "snippet": "CONTRATOS = os.path.join(RAIZ, \"docs\", \"operacao\", \"CONTRATOS-DAS-FONTES-EAME.md\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "C-RECEITAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES alimenta A receita da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 161,
+          "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\": \"CATALOG\","
         }
       ],
       "categoria": "READ"
@@ -19181,7 +19234,7 @@
       "evidence": [
         {
           "file": "provas/o_corte_de_cr1.py",
-          "line": 93,
+          "line": 94,
           "snippet": "\"censo_cards_sensores.py\"), encoding=\"utf-8\")"
         }
       ],
@@ -20902,7 +20955,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 117,
+          "line": 166,
           "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],"
         }
       ],
@@ -21123,18 +21176,82 @@
     },
     {
       "from": "C-CONTRATO-DE-RETORNO",
+      "to": "C-IT-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Colher as fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/italy_executor.py",
+          "line": 74,
+          "snippet": "import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno, COL-LAW-505"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-DE-RETORNO",
+      "to": "C-ORQUESTRADOR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de retorno da coleta tem o seu codigo importado por O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 57,
+          "snippet": "import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-DE-RETORNO",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_corte_de_cr1.py",
+          "line": 62,
+          "snippet": "import retorno_da_coleta as rdc  # noqa: E402"
+        },
+        {
+          "file": "provas/so_a_colheita_atravessa.py",
+          "line": 42,
+          "snippet": "import retorno_da_coleta as rdc  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CONTRATO-DE-RETORNO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_retorno_da_coleta.py",
           "line": 23,
           "snippet": "import retorno_da_coleta as r  # noqa: E402"
+        },
+        {
+          "file": "tests/test_runtime_so_deixa_passar_colheita.py",
+          "line": 25,
+          "snippet": "import retorno_da_coleta as rdc  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -21443,13 +21560,13 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 61,
-          "snippet": "\"roda\": [\"coleta/corpus_pesquisador.py\", \"coletar\"],"
+          "line": 85,
+          "snippet": "\"data/samples/RESEARCHER-CORPUS-EAME-V1.json\": \"CATALOG\"}},"
         },
         {
           "file": "pedido/receitas.py",
-          "line": 66,
-          "snippet": "\"larga_em\": [\"data/samples/RESEARCHER-CORPUS-EAME-V1.json\"],"
+          "line": 86,
+          "snippet": "\"roda\": [\"coleta/corpus_pesquisador.py\", \"coletar\"],"
         }
       ],
       "categoria": "READ"
@@ -21484,7 +21601,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 138,
+          "line": 187,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
         }
       ],
@@ -23056,7 +23173,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 83,
+          "line": 117,
           "snippet": "\"roda\": [\"coleta/eppo_gd.py\"],"
         }
       ],
@@ -23354,6 +23471,29 @@
     },
     {
       "from": "C-IDENTIDADE",
+      "to": "C-RECEITAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Quem esta autorizado a ser coletado alimenta A receita da coleta. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 162,
+          "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json\": \"CATALOG\","
+        },
+        {
+          "file": "pedido/receitas.py",
+          "line": 163,
+          "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json\": \"PLAN\","
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-IDENTIDADE",
       "to": "C-SINTONIA-SCRAP",
       "type": "READS",
       "payload": "artefacto",
@@ -23500,6 +23640,24 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-INGRESSO",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/so_a_colheita_atravessa.py",
+          "line": 38,
+          "snippet": "import ingresso as ing  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-INGRESSO",
@@ -23849,6 +24007,42 @@
     },
     {
       "from": "C-IT-COLETA",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/so_a_colheita_atravessa.py",
+          "line": 39,
+          "snippet": "import italy_executor as adapter  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-IT-COLETA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/so_a_colheita_atravessa.py",
+          "line": 124,
+          "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"adapter-v1\","
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-IT-COLETA",
       "to": "C-RECEITAS",
       "type": "READS",
       "payload": "artefacto",
@@ -23859,7 +24053,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 98,
+          "line": 135,
           "snippet": "\"roda\": [\"coleta/italy_executor.py\"],"
         }
       ],
@@ -24164,7 +24358,7 @@
       "evidence": [
         {
           "file": "coleta/italy_executor.py",
-          "line": 79,
+          "line": 83,
           "snippet": "LIVRO = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
         }
       ],
@@ -24535,7 +24729,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 140,
+          "line": 189,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
         }
       ],
@@ -25247,11 +25441,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_corte_de_cr1.py",
           "line": 60,
+          "snippet": "import orquestrador as orq  # noqa: E402"
+        },
+        {
+          "file": "provas/so_a_colheita_atravessa.py",
+          "line": 40,
           "snippet": "import orquestrador as orq  # noqa: E402"
         },
         {
@@ -25306,7 +25505,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_italia_na_porta_canonica.py",
@@ -25317,6 +25516,11 @@
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 310,
           "snippet": "import orquestrador as orq"
+        },
+        {
+          "file": "tests/test_runtime_so_deixa_passar_colheita.py",
+          "line": 24,
+          "snippet": "import orquestrador as orq  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -25329,12 +25533,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 163,
           "snippet": "fonte = io.open(os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\"),"
+        },
+        {
+          "file": "tests/test_runtime_so_deixa_passar_colheita.py",
+          "line": 229,
+          "snippet": "with open(caminho, encoding=\"utf-8\") as f:"
         }
       ],
       "categoria": "PROOF"
@@ -26545,12 +26754,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 136,
+          "line": 185,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
         },
         {
           "file": "pedido/receitas.py",
-          "line": 142,
+          "line": 191,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
         }
       ],
@@ -27330,11 +27539,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_corte_de_cr1.py",
           "line": 59,
+          "snippet": "import receitas  # noqa: E402"
+        },
+        {
+          "file": "provas/so_a_colheita_atravessa.py",
+          "line": 41,
           "snippet": "import receitas  # noqa: E402"
         },
         {
@@ -27720,11 +27934,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Baixar e ler os rotulos oficiais alimenta A receita da coleta. Provado por 1 linha de codigo.",
+      "reason": "Baixar e ler os rotulos oficiais alimenta A receita da coleta. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 74,
+          "line": 103,
+          "snippet": "\"data/raw/IT-ROTULOS/_MANIFESTO.json\": \"MANIFEST\"}},"
+        },
+        {
+          "file": "pedido/receitas.py",
+          "line": 104,
           "snippet": "\"roda\": [\"coleta/rotulos_baixar.py\"],"
         }
       ],
@@ -30952,12 +31171,12 @@
     "components_pending": 94,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 629,
-    "edges_proven": 627,
+    "edges": 637,
+    "edges_proven": 635,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1422,
-    "files_covered": 697,
+    "files_tracked": 1424,
+    "files_covered": 699,
     "files_code_unclaimed": 0
   }
 }

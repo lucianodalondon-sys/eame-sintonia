@@ -55,9 +55,34 @@ FONTES_MEDIDAS = RAIZ / "system-map" / "data" / "sources.generated.json"
 #
 # Um executor entra aqui quando prova que percorre a rota; sai quando deixa de
 # a percorrer. Nao ha «talvez».
+# ── O QUE CADA EXECUTOR DEVOLVE, E O QUE ISSO E ─────────────────────────────
+# `larga_em` diz ONDE. A chave `retorno` diz O QUE — e e a COL-LAW-505 a entrar
+# no runtime.
+#
+#     ENVELOPE   o ficheiro onde a CORRIDA declara o que produziu.
+#                E a unica origem possivel de COLHEITA.
+#
+#     LEGADO     {caminho: ESPECIE} para o que ja esta em disco e cujo produtor
+#                nao corre offline. SO PODE DECLARAR SUPORTE: manifesto,
+#                catalogo, recibo de execucao ou plano.
+#
+# ⚠️ POR QUE O LEGADO NAO PODE DECLARAR COLHEITA. Uma declaracao escrita aqui e
+# feita ANTES da corrida e envelhece sozinha — o proprio `larga_em` prova isso,
+# com dois caminhos a apontar para pastas que nao existem sem ninguem notar. Se
+# esta chave pudesse dizer «aqui ha colheita», uma linha desactualizada mandava
+# suporte para o ingresso outra vez, e teriamos trocado uma heuristica por um
+# literal. `leis/retorno_da_coleta.py::envelope_do_legado` recusa, e escreve o
+# motivo no recibo.
+#
+#     DECLARAR SUPORTE E INOFENSIVO MESMO QUANDO ERRADO: SUPORTE NAO ATRAVESSA.
+#     DECLARAR COLHEITA NAO E — E POR ISSO NAO SE PODE.
 EXECUTORES = {
     "T7": [{
         "id": "corpus-pesquisador",
+        # F3 · o retorno e o CATALOGO das pessoas de quem se PODE colher
+        # obra — nao as obras. Medido: 12 fichas de pessoa, zero unidades.
+        "retorno": {"LEGADO": {
+            "data/samples/RESEARCHER-CORPUS-EAME-V1.json": "CATALOG"}},
         "roda": ["coleta/corpus_pesquisador.py", "coletar"],
         # ONDE ELE LARGA o que traz. Sem isto declarado, o orquestrador corre o
         # executor e fica sem saber o que procurar — e a colheita nunca chega a
@@ -71,6 +96,11 @@ EXECUTORES = {
     }],
     "T4": [{
         "id": "rotulos-oficiais",
+        # F3 · o retorno e o MANIFESTO de 163 descargas. Os 163 PDF que ele
+        # indexa nao estao nesta arvore: `PAYLOAD = AUSENTE`, e ausencia
+        # nao e erro nem e item.
+        "retorno": {"LEGADO": {
+            "data/raw/IT-ROTULOS/_MANIFESTO.json": "MANIFEST"}},
         "roda": ["coleta/rotulos_baixar.py"],
         "larga_em": ["data/raw/IT-ROTULOS"],
         "rotas": ["registro oficial (HTTP)"],
@@ -80,6 +110,10 @@ EXECUTORES = {
     }],
     "T3": [{
         "id": "eppo",
+        # F2 · nunca correu, e o sitio declarado nao existe. Nao ha nada a
+        # declarar, e inventar uma especie para um ficheiro inexistente
+        # seria a casa a fingir que sabe. Fica sem `retorno`, e o recibo
+        # diz porque.
         "roda": ["coleta/eppo_gd.py"],
         "larga_em": ["data/samples/IT-PRAGAS"],
         "rotas": ["EPPO Global Database"],
@@ -89,6 +123,9 @@ EXECUTORES = {
     }],
     "T2": [{
         "id": "italia-recorrente",
+        # F1 · a corrida DECLARA o que produziu. E a unica origem legitima
+        # de COLHEITA nesta casa.
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
         # O COLETOR ITALIANO E NODE, e a rota canonica corre executores com
         # `sys.executable`. Quem entra aqui e o ADAPTER em Python — ele e que
         # sabe chamar o Node, ler o livro append-only e largar a colheita DESTA
@@ -114,6 +151,18 @@ EXECUTORES = {
     }],
     "T9": [{
         "id": "comunicacao-publica",
+        # F3 · seis ficheiros, quatro especies, zero colheita. O
+        # `CLASSIFICADO-V1.json` DECLARA um contentor `ITEMS` com
+        # `ITEM_COUNT = 0`: e o recibo de uma coleta que nao trouxe nada,
+        # e a heuristica antiga saltava-o por estar vazio para agarrar a
+        # lista de contas ao lado.
+        "retorno": {"LEGADO": {
+            "data/samples/COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json": "CATALOG",
+            "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json": "CATALOG",
+            "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json": "CATALOG",
+            "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json": "PLAN",
+            "data/samples/COMPETITOR-PUBLIC-COMM/MEDICAO-PRIMEIRO-LOTE-V1.json": "RUN_RECEIPT",
+            "data/samples/COMPETITOR-PUBLIC-COMM/CLASSIFICADO-V1.json": "RUN_RECEIPT"}},
         "roda": ["coleta/comunicacao_coleta.py"],
         # O executor precisa de saber a fase e a plataforma, e essas vem do
         # pedido — nao de quem o chama. Declarar aqui QUE filtros viram

@@ -59,6 +59,7 @@ import _gavetas  # noqa: E402,F401
 import receitas  # noqa: E402
 import orquestrador as orq  # noqa: E402
 import admissao as adm  # noqa: E402
+import retorno_da_coleta as rdc  # noqa: E402
 
 fora = []
 
@@ -102,50 +103,63 @@ def a_formula_de_entrou():
 
 
 def a_cadeia_corre():
-    """B/C — o material real, pela cadeia real, agrupado pela causa."""
+    """B/C — o que o runtime entrega a porta, e o que ele BLOQUEIA.
+
+    ⚠️ ESTA SECCAO MUDOU DE RESPOSTA, E NAO DE PERGUNTA. A pergunta e a mesma
+    desde que esta prova nasceu: «o que chega a porta, e porque?». Em
+    2026-09-11 a resposta era 253 pseudo-itens vindos de indices e catalogos.
+    Depois de a COL-LAW-505 entrar no runtime, a resposta e ZERO — e o zero
+    esta certo, porque nenhum desses ficheiros era colheita.
+
+        O NUMERO CAIU DE 253 PARA 0 SEM NINGUEM PERDER UM UNICO ITEM REAL:
+        NAO HAVIA NENHUM.
+    """
     print()
-    print("  B · TODO O MATERIAL QUE AS RECEITAS ALCANCAM, PELA PORTA REAL")
+    print("  B · O QUE O RUNTIME ENTREGA A PORTA, POR ESPECIE DECLARADA")
     print("  " + "-" * 68)
-    print("    %-5s %-24s %6s  %s" % ("UNIV", "EXECUTOR", "ITENS", "POR RESULTADO"))
+    print("    %-5s %-22s %8s %9s  %s" % ("UNIV", "EXECUTOR", "COLHEITA",
+                                          "BLOQUEADO", "SUPORTE DECLARADO"))
     total = collections.Counter()
     motivos = collections.Counter()
-    sem_pasta = []
+    bloqueado = 0
+    falsos = 0
     for universo, exes in receitas.EXECUTORES.items():
         for e in exes:
-            itens, notas = orq.a_colheita(e)
-            if not itens:
-                if e.get("larga_em"):
-                    sem_pasta.append((universo, e["id"], e["larga_em"]))
-                continue
-            c = collections.Counter()
+            envelope, _ = orq.o_envelope(e, "O-CORTE-DE-CR1")
+            itens, _ = orq.a_colheita(e, "O-CORTE-DE-CR1")
+            suporte = [x.get("ESPECIE") for x in (envelope.get("SUPORTE") or [])]
+            bloqueado += len(suporte)
+            print("    %-5s %-22s %8d %9d  %s" % (
+                universo, e["id"], len(itens), len(suporte),
+                ", ".join(suporte) or "—"))
             for x in itens:
+                # FALSA COLHEITA: algo que atravessou sem ser especie COLHEITA.
+                if x.get("ESPECIE") != rdc.COLHEITA:
+                    falsos += 1
                 d = adm.decidir(x, universo, corrida="O-CORTE-DE-CR1")
-                c[d.resultado] += 1
                 total[d.resultado] += 1
                 motivos[d.motivo[:64]] += 1
-            print("    %-5s %-24s %6d  %s" % (
-                universo, e["id"], len(itens), json.dumps(c, ensure_ascii=False)))
-    for universo, eid, larga in sem_pasta:
-        print("    %-5s %-24s %6s  larga_em nao existe: %s" % (
-            universo, eid, "—", ", ".join(larga)))
 
     print()
-    print("  C · A CAUSA, AGRUPADA — e nao a suposta")
+    print("  C · A CONTA")
     print("  " + "-" * 68)
+    print("    FALSE_HARVEST_ANTES      253   (medido em 2026-09-11, heuristica)")
+    print("    FALSE_HARVEST_AGORA      %d" % falsos)
+    print("    SUPPORT_ITEMS_BLOCKED    %d" % bloqueado)
+    print("    INGRESS_ITEMS            %d" % sum(total.values()))
     for m, n in motivos.most_common():
         print("    %3d x  %s" % (n, m))
-    print()
     for k in ("SIM", "NAO", "NAO_SEI", "NAO_SE_APLICA", "ERRO"):
         print("    ADMISSION_%-14s %d" % (k, total.get(k, 0)))
     print("    READY_PRODUCED         %d" % total.get("SIM", 0))
 
-    itens_totais = sum(total.values())
-    caso("B1_a_porta_julgou_material_real", itens_totais > 0,
-         "nenhum item real chegou a porta — a cadeia nao correu")
-    caso("B2_a_porta_nunca_devolveu_ERRO", total.get("ERRO", 0) == 0,
+    caso("B1_nenhuma_falsa_colheita_atravessa", falsos == 0,
+         "%d itens atravessaram sem serem especie COLHEITA" % falsos)
+    caso("B2_o_suporte_foi_visto_e_bloqueado", bloqueado > 0,
+         "nenhum artefacto de suporte foi sequer reconhecido — o runtime "
+         "deixou de ver o que existe, em vez de o classificar")
+    caso("B3_a_porta_nunca_devolveu_ERRO", total.get("ERRO", 0) == 0,
          "houve ERRO: a porta nao conseguiu olhar, e isso NAO e rejeicao")
-    caso("B3_nenhum_item_colhido_chegou_a_porta", total.get("SIM", 0) == 0,
-         "houve SIM — o corte mudou de sitio, remedir")
     # A hipotese que se veio testar, e que NAO se confirma.
     fala_de_tempo = sum(n for m, n in motivos.items()
                         if "fact_time" in m.lower() or "quando" in m.lower())
@@ -172,12 +186,15 @@ def main():
     print("O_CORTE_DE_CR1=%s" % ("PASS" if not mal else "FAIL"))
     print()
     print("  O QUE ISTO PROVA:")
-    print("    a cadeia CORRE. A porta JULGA. E o que lhe chega nao e colheita:")
-    print("    e o INDICE da colheita. `larga_em` entrega um recibo, e um recibo")
-    print("    nao se admite.")
+    print("    a cadeia CORRE, a porta JULGA, e o runtime deixou de adivinhar:")
+    print("    a especie vem DECLARADA e so a COLHEITA atravessa. O indice, o")
+    print("    catalogo, o plano e o recibo ficam do lado de fora — vistos,")
+    print("    nomeados e bloqueados.")
     print()
     print("  O QUE ISTO NAO PROVA:")
-    print("    nada sobre rotas que precisam de rede — essas nao correram.")
+    print("    que exista colheita real. Nao existe, e ZERO e a resposta certa")
+    print("    enquanto nenhum payload puder ser provado. Nada aqui diz respeito")
+    print("    a rotas que precisam de rede — essas nao correram.")
     return 1 if mal else 0
 
 
