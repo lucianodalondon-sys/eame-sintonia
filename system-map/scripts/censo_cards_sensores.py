@@ -149,9 +149,24 @@ def sensores(fronteira):
     # O que SE mede e o degrau em si: o destino da fronteira nao existe e
     # nao tem consumidor. Logo nenhuma saida atravessou — e isso vale para
     # os 58 de uma vez, por medicao da fronteira e nao por cada sensor.
-    atravessou = bool(fronteira["DESTINO_EXISTE"]) and bool(fronteira["CONSUMIDORES"])
-    porque = ("a fronteira %s nao tem destino escrito nem consumidor: "
-              "nenhuma saida a atravessou" % fronteira["LEI"]) if not atravessou else None
+    #
+    # ⚠️ ESTA LINHA JA EXIGIU CONSUMIDOR, e isso tornava a prova impossivel de
+    # passar enquanto a arquitetura estivesse CERTA:
+    #
+    #     atravessou = bool(DESTINO_EXISTE) and bool(CONSUMIDORES)
+    #
+    # `READY CONSUMER = 0` e o alvo de fechamento declarado (know-how, seccao
+    # 24). Com o `and`, `ENTROU` so subia acima de zero no dia em que alguem
+    # violasse a fronteira.
+    #
+    #     UMA MEDIDA QUE NAO CONSEGUE REPORTAR SUCESSO QUANDO O SISTEMA ESTA
+    #     CORRECTO ESTA PARTIDA, INDEPENDENTEMENTE DO SISTEMA.
+    #
+    # ENTROU pergunta «a saida ATRAVESSOU a fronteira», e atravessar e sair —
+    # nao e ser apanhada do outro lado. Mede-se producao.
+    atravessou = bool(fronteira["READY_PRODUZIDO"])
+    porque = ("a fronteira %s nunca produziu um READY: o destino declarado nao "
+              "existe nesta arvore" % fronteira["LEI"]) if not atravessou else None
     fora = []
     for e in ex["EXECUTORES"]:
         cam = e.get("EXECUTOR_ID") or ""
@@ -331,6 +346,7 @@ def main():
             "PRODUTORES_EM_RUNTIME": fronteira["PRODUTORES_EM_RUNTIME"],
             "CONSUMIDORES": fronteira["CONSUMIDORES"],
             "DESTINO_EXISTE": fronteira["DESTINO_EXISTE"],
+            "READY_PRODUZIDO": fronteira["READY_PRODUZIDO"],
             "GAP": fronteira["GAP"],
         },
         "CARDS": cs,

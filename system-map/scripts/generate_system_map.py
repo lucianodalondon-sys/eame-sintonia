@@ -1031,7 +1031,12 @@ def a_sala_de_espera() -> tuple[list, list]:
             f"destino declarado {F.get('DESTINO')} existe: "
             f"{'SIM' if F.get('DESTINO_EXISTE') else 'NAO'}",
         ],
-        "status_reason": (F.get("GAP_PORQUE") or "a fronteira tem consumidor."),
+        # SEM GAP nao quer dizer «tem consumidor»: quer dizer READY PRODUZIDO
+        # e ninguem a atravessar antes de a Inteligencia comecar — que e o
+        # alvo de fechamento, e nao a sua excepcao.
+        "status_reason": (F.get("GAP_PORQUE")
+                          or "ha READY produzido e ninguem o atravessa ainda: "
+                             "e o estado desejado ate a Inteligencia comecar."),
         "gap": F.get("GAP"),
         "produces": [],
     }

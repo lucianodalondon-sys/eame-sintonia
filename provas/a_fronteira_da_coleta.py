@@ -140,6 +140,60 @@ def _grep(padrao, pastas):
     return [l for l in r.stdout.splitlines() if l.strip()]
 
 
+# ── PRODUZIR NAO E CONSUMIR ─────────────────────────────────────────────────
+#
+# Este diagnostico vivia numa linha dentro de `main()`:
+#
+#     GAP = None if consumidores else "READY_SEM_CONSUMIDOR"
+#
+# e essa linha tinha o eixo errado. O docstring la em cima ja dizia
+# «DECLARADO != IMPLEMENTADO != PRODUZIDO != CONSUMIDO — sao quatro perguntas,
+# e achata-las e como se perdeu a conta». O printout respeitava isso. O JEXPORT
+# JSON nao: achatava PRODUZIDO e CONSUMIDO num so campo, e pelo eixo errado.
+#
+#     A PROVA DIZIA A LEI QUE O SEU PROPRIO JSON QUEBRAVA.
+#
+# O que o red team de 2026-09-11 (C-MADRUGADA-CR1) mediu, com o medidor real:
+#
+#     mundo montado                          GAP que saia
+#     nada produzido, 0 consumidores         READY_SEM_CONSUMIDOR
+#     READY PRODUZIDO, 0 consumidores        READY_SEM_CONSUMIDOR   <- o ALVO
+#     nada produzido, 1 consumidor falso     None                   <- «sao»
+#     READY produzido + consumidor           None
+#
+# Duas leituras erradas de uma so linha: o ALVO da arquitetura saia com o
+# diagnostico do defeito, e um consumidor SEM producao nenhuma limpava o gap.
+# `READY CONSUMER = 0` e estado desejado enquanto a Inteligencia nao comecou —
+# esta escrito na seccao 24 do know-how. Um consumidor HOJE nao e saude: e um
+# bypass da fronteira.
+#
+#     UM MEDIDOR QUE NAO DISTINGUE O ALVO DO DEFEITO NAO MEDE: OPINA.
+#
+# Agora sao dois eixos e quatro respostas. A funcao e pura de proposito: o
+# diagnostico passa a ser testavel sem escrever um unico ficheiro no
+# repositorio — ver tests/test_fronteira_mede_producao.py.
+def o_estado_da_fronteira(produzido: bool, consumidores) -> tuple:
+    """(GAP, PORQUE) para os quatro estados de PRODUZIDO x CONSUMIDO."""
+    consumidores = list(consumidores or [])
+    if not produzido:
+        # Vale com ou sem quem leia: zero producao continua a ser zero.
+        return "READY_NUNCA_PRODUZIDO", (
+            "o contrato existe, tem dono e o codigo devolve exactamente os "
+            "campos da lei — e NUNCA foi produzido um READY. O destino "
+            "declarado nao existe nesta arvore. "
+            + ("E ja ha quem leia uma saida que ninguem escreve: %s."
+               % ", ".join(consumidores) if consumidores else
+               "UMA PORTA POR ONDE NINGUEM PASSOU AINDA NAO E UMA PORTA."))
+    if consumidores:
+        return "CONSUMIDOR_ANTES_DA_INTELIGENCIA", (
+            "ha READY produzido E ha quem o leia (%s). Enquanto a Inteligencia "
+            "nao comecou, READY CONSUMER = 0 e o estado desejado: quem le hoje "
+            "esta a atravessar a fronteira antes de ela abrir."
+            % ", ".join(consumidores))
+    # READY produzido, ninguem le: e EXACTAMENTE o alvo de fechamento.
+    return None, None
+
+
 def main():
     print("A FRONTEIRA DA COLETA — declarada, implementada, produzida, consumida")
     print("=" * 70)
@@ -262,6 +316,8 @@ def main():
     print("  DESTINO EXISTE?   %s" % ("SIM" if os.path.isdir(destino) else "NAO"))
     lê = sorted({c.split(':')[0] for c in consumidores
                  if not c.startswith(('orquestrador/', 'provas/a_fronteira'))})
+    produzido = os.path.isdir(destino)
+    gap, porque = o_estado_da_fronteira(produzido, lê)
     print("  CONSUMIDORES      %d  %s" % (len(lê), lê or "— ninguem le esta saida"))
     # ── A MEDICAO FICA ESCRITA, PARA O MAPA A PODER DESENHAR ─────────────
     #
@@ -293,13 +349,14 @@ def main():
         "PRODUTORES_EM_RUNTIME": runtime,
         "CONSUMIDORES": lê,
         "DESTINO": "data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json",
-        "DESTINO_EXISTE": os.path.isdir(destino),
-        "GAP": (None if lê else "READY_SEM_CONSUMIDOR"),
-        "GAP_PORQUE": (
-            None if lê else
-            "o contrato existe, tem dono e o codigo devolve exactamente os "
-            "campos da lei — e ninguem le a saida. UMA PORTA POR ONDE NINGUEM "
-            "PASSA NAO E UMA PORTA."),
+        "DESTINO_EXISTE": produzido,
+        # O MESMO FACTO, COM O NOME DA PERGUNTA QUE ELE RESPONDE.
+        # `DESTINO_EXISTE` diz onde se olhou; `READY_PRODUZIDO` diz o que se
+        # concluiu. Quem consome isto quer a segunda, e ler «existe a pasta?»
+        # como «foi produzido?» foi exactamente o atalho que se pagou caro.
+        "READY_PRODUZIDO": produzido,
+        "GAP": gap,
+        "GAP_PORQUE": porque,
     }, ensure_ascii=False, indent=1) + "\n")
 
     print()

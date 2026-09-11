@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.censo-cards-sensores/1",
   "O_QUE_ISTO_E": "A matriz CARD x SENSOR do SINTONIA, montada a partir dos censos que ja existem. Nenhum numero e medido aqui: cada um tem dono noutro ficheiro, e este junta-os para fazer a pergunta que nenhum deles fazia sozinho.",
   "PROVENANCE": {
-    "HEAD": "9a40e5068c48e215cc4ac0d6aea25ee651a70b01",
+    "HEAD": "4feb581f3a02cf53317cdbad4a269493a3936ce9",
     "LIDO_DE": [
       "casco.generated.json",
       "executores.generated.json",
@@ -110,7 +110,8 @@
     ],
     "CONSUMIDORES": [],
     "DESTINO_EXISTE": false,
-    "GAP": "READY_SEM_CONSUMIDOR"
+    "READY_PRODUZIDO": false,
+    "GAP": "READY_NUNCA_PRODUZIDO"
   },
   "CARDS": [
     {
@@ -372,7 +373,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/coleta_checkpoint.py",
@@ -394,7 +395,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/coletor.py",
@@ -416,7 +417,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/comunicacao_classificar.py",
@@ -438,7 +439,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/comunicacao_coleta.py",
@@ -460,7 +461,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/comunicacao_medir.py",
@@ -482,7 +483,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/corpus_pesquisador.py",
@@ -504,7 +505,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/cruzar_regua_rotulo.py",
@@ -526,7 +527,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/denominaciones.py",
@@ -548,7 +549,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/derivacao_forward.py",
@@ -570,7 +571,7 @@
       "USA_CONTRATO_ARTEFATO": true,
       "USA_TELEMETRIA": true,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/eppo_gd.py",
@@ -592,7 +593,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/eu_substancia_adama_it.py",
@@ -614,7 +615,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/executor_texto_de_pdf.py",
@@ -640,7 +641,7 @@
       "USA_CONTRATO_ARTEFATO": true,
       "USA_TELEMETRIA": true,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/filas.py",
@@ -662,7 +663,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/gire_mapas.py",
@@ -684,7 +685,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/golden_path_pdf.py",
@@ -706,7 +707,7 @@
       "USA_CONTRATO_ARTEFATO": true,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/instagram_coleta.py",
@@ -728,7 +729,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/instagram_diario.py",
@@ -750,7 +751,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/instagram_janela.py",
@@ -772,7 +773,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/instagram_pessoal.py",
@@ -794,7 +795,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/mapa_regfi.py",
@@ -816,7 +817,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/pdf_text.py",
@@ -838,7 +839,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/preservar_pdf.py",
@@ -860,7 +861,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/regulatorio_importar.py",
@@ -882,7 +883,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/ropf_pre_requisito.py",
@@ -904,7 +905,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/rota_forward_documento.py",
@@ -930,7 +931,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": true,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/rotulos_baixar.py",
@@ -952,7 +953,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/rotulos_ler.py",
@@ -974,7 +975,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/sensor_canal_identidade.py",
@@ -996,7 +997,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/social_envelope.py",
@@ -1018,7 +1019,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/social_persistencia.py",
@@ -1040,7 +1041,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/social_rotas.py",
@@ -1062,7 +1063,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/social_scrap.py",
@@ -1084,7 +1085,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/speaker_identidade.py",
@@ -1106,7 +1107,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/speaker_universo.py",
@@ -1128,7 +1129,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/texto_fonte.py",
@@ -1150,7 +1151,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/universo_ciencia_it.py",
@@ -1172,7 +1173,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/youtube_janela.py",
@@ -1194,7 +1195,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/youtube_oficial.py",
@@ -1217,7 +1218,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "coleta/youtube_relevancia.py",
@@ -1239,7 +1240,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "guarda/catalogo_importar.py",
@@ -1261,7 +1262,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "guarda/importar_italia.py",
@@ -1283,7 +1284,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "guarda/memoria_descartavel.py",
@@ -1305,7 +1306,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "guarda/portas_live.py",
@@ -1327,7 +1328,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "guarda/preservar_coleta.py",
@@ -1349,7 +1350,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "guarda/preservar_derivado.py",
@@ -1371,7 +1372,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "guarda/social_guarda.py",
@@ -1393,7 +1394,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "guarda/social_sessao.py",
@@ -1415,7 +1416,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "guarda/sql_conferir.py",
@@ -1437,7 +1438,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "ferramentas/apify_contrato.py",
@@ -1459,7 +1460,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "ferramentas/apify_pool.py",
@@ -1481,7 +1482,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "ferramentas/apify_recuperar.py",
@@ -1503,7 +1504,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "ferramentas/cdp.py",
@@ -1525,7 +1526,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "ferramentas/contrato_ator.py",
@@ -1547,7 +1548,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "ferramentas/instagram_transcrever.py",
@@ -1569,7 +1570,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "ferramentas/navegador.py",
@@ -1591,7 +1592,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "ferramentas/youtube_transcrever.py",
@@ -1613,7 +1614,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
       "SENSOR_ID": "orquestrador/orquestrador.py",
@@ -1635,7 +1636,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nao tem destino escrito nem consumidor: nenhuma saida a atravessou"
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     }
   ],
   "MATRIZ": [
