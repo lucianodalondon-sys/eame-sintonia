@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/t3-current-admission-baseline-v1",
-    "HEAD": "357697c19f8e54098f1cccae4b4950e28aec3dfb",
-    "GENERATED_AT": "2026-09-11T18:34:28+00:00",
-    "SOURCE_TREE_FINGERPRINT": "15ec1df0a180855bf33aff2195efde10fa084ae3dd488480618cdc10ae234bf1"
+    "BRANCH": "claude/thematic-acceptance-gate-v1",
+    "HEAD": "d43126e32525e7f95696869f5726ed16c457131d",
+    "GENERATED_AT": "2026-09-11T19:09:14+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6e1e73215ade8045aebd97491a16f91072b49b0bc79396557f9c7438e58a6d61"
   },
   "FILES": [
     {
@@ -1488,6 +1488,13 @@
     {
       "path": "data/derivados/BASELINE-ADMISSION-T3-V1.json",
       "sha": "d97ce3334a3fd641fd80dd47aaadbcb8d56670ef",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
+      "sha": "f06acd975ee59e617552be462cc77bbb80e99b1b",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4350,7 +4357,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "21355461c492a90891244b0b0fae8e87901c79f7",
+      "sha": "3e961850c68f29bd76e72814a9521cc30d05d4f6",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4652,6 +4659,13 @@
     {
       "path": "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
       "sha": "18a3de75a5211318974934fc0d8e290bf1de8f61",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/GATE-DE-ACEITACAO-TEMATICA-V1.md",
+      "sha": "cfdde8aeb2f47486a19685f780764bed86fc9384",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7870,6 +7884,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/gate_de_aceitacao_tematica.py",
+      "sha": "80d6432806d3eea00b532f29b9b641dc0830e6d4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/inventario_esperado.py",
       "sha": "7d07107a62d3c545d7566923b085b44b0ea18c1c",
       "ext": ".py",
@@ -9257,7 +9278,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "f8b6907e7cce6ddc588ba3f0be2ded24dc162f27",
+      "sha": "4894001415077790d86757eebb294ae3d67073d4",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9797,6 +9818,13 @@
     {
       "path": "tests/test_fundacao_da_coleta.py",
       "sha": "96b20ae3de22362c156141deeb1c84ee15eb1c25",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_gate_de_aceitacao_tematica.py",
+      "sha": "3449dcefb3ef26fcd99d79f95232d33ea8af7ec0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27523,6 +27551,50 @@
       }
     },
     {
+      "from_file": "provas/gate_de_aceitacao_tematica.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/gate_de_aceitacao_tematica.py",
+        "line": 50,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/gate_de_aceitacao_tematica.py",
+      "to_file": "data/derivados/BASELINE-ADMISSION-T3-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/gate_de_aceitacao_tematica.py",
+        "line": 52,
+        "snippet": "BASELINE = \"data/derivados/BASELINE-ADMISSION-T3-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/gate_de_aceitacao_tematica.py",
+      "to_file": "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/gate_de_aceitacao_tematica.py",
+        "line": 54,
+        "snippet": "SAIDA = \"data/derivados/GATE-ACEITACAO-TEMATICA-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/gate_de_aceitacao_tematica.py",
+      "to_file": "data/samples/T3-GROUND-TRUTH-EVAL-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/gate_de_aceitacao_tematica.py",
+        "line": 53,
+        "snippet": "GABARITO = \"data/samples/T3-GROUND-TRUTH-EVAL-V1.json\""
+      }
+    },
+    {
       "from_file": "provas/italy_accounting.mjs",
       "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "type": "READS",
@@ -33584,6 +33656,50 @@
       }
     },
     {
+      "from_file": "tests/test_gate_de_aceitacao_tematica.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_gate_de_aceitacao_tematica.py",
+        "line": 26,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_gate_de_aceitacao_tematica.py",
+      "to_file": "docs/decisoes/DIARIO-DE-DECISOES.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_gate_de_aceitacao_tematica.py",
+        "line": 472,
+        "snippet": "\"DIARIO-DE-DECISOES.md\"), encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_gate_de_aceitacao_tematica.py",
+      "to_file": "docs/operacao/GATE-DE-ACEITACAO-TEMATICA-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_gate_de_aceitacao_tematica.py",
+        "line": 440,
+        "snippet": "\"GATE-DE-ACEITACAO-TEMATICA-V1.md\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_gate_de_aceitacao_tematica.py",
+      "to_file": "provas/gate_de_aceitacao_tematica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_gate_de_aceitacao_tematica.py",
+        "line": 29,
+        "snippet": "\"gate_t\", os.path.join(RAIZ, \"provas\", \"gate_de_aceitacao_tematica.py\"))"
+      }
+    },
+    {
       "from_file": "tests/test_gestao_da_coleta.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -38302,10 +38418,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1460,
-    "files_readable": 557,
-    "files_code_dir": 602,
-    "file_edges": 2509,
+    "files_tracked": 1464,
+    "files_readable": 559,
+    "files_code_dir": 604,
+    "file_edges": 2517,
     "escritas_em_pasta": 69,
     "declared_missing_here": 0
   },

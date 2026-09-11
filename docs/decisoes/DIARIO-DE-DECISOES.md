@@ -1397,3 +1397,49 @@ desculpa para não entregar.
 
     UMA REGRA DE PESQUISA SEM LIMITE DE PESQUISA
     É UMA LICENÇA PARA ADIAR.
+
+---
+
+### D-040 — O gate de aceitação de mecanismo temático, escrito antes dos candidatos
+- **Data:** 2026-09-11
+- **Estado:** DECIDIDO
+- **Contexto:** a baseline de T3 (`C-MEDE-ADMISSION-ATUAL-CONTRA-GABARITO-T3-V1`)
+  mediu o mecanismo de hoje e fechou com `CURRENT_MECHANISM_ACCEPTABLE = NOT_DECIDED`,
+  porque não existia critério de aceitação em lado nenhum da árvore. Procurado na
+  Bíblia, no README, no AGENTS e no censo: não havia.
+- **Decisão:** criar **um** contrato canónico de aceitação de mecanismo temático,
+  com dono único em `provas/gate_de_aceitacao_tematica.py`. Oito condições duras
+  no plano da observação independente, mais um gate separado de alcance, mais a
+  regra de integração que exige os dois.
+- **Motivo:** sem alvo desenhado antes, a flecha aterra sempre no centro de alguma
+  coisa — e escolher os números depois de ver o resultado é a mesma fraude com o
+  sinal trocado. Estudo externo obrigatório (Google Document AI, Azure Document
+  Intelligence, scikit-learn, NIST AI RMF) devolveu
+  `THERE_IS_A_UNIVERSAL_CLASSIFIER_ACCEPTANCE_THRESHOLD = NO`: nenhum prescreve
+  número, todos dizem que ele sai da função de custo de quem opera. Logo o número
+  tinha de ser escolhido aqui, e a assimetria `FALSE_NEGATIVE_COST >
+  FALSE_POSITIVE_COST` é a razão de cada um.
+- **Consequência:** comparações futuras passam a ter PASS/FAIL predefinido.
+  Aplicado mecanicamente ao baseline congelado:
+  `CURRENT_ADMISSION_GATE_RESULT = FAIL` (6 de 8 condições falham, mais o alcance).
+  Nada foi consertado: `ADMISSION_CHANGED = NO`.
+  E fica fixado `T3_GROUND_TRUTH_ROLE = EVALUATION` — quem afinar olhando para os
+  36 não os pode usar depois como prova independente.
+- **Quem decidiu:** Luciano, na missão `C-FECHA-GATE-ACEITACAO-TEMATICA-V1`.
+
+**O QUE SE RECUSOU CRIAR.** Uma lei `COL-LAW-5xx`. A Bíblia é a constituição da
+**coleta**; este gate legisla sobre a **qualidade de um mecanismo de decisão**, que
+é outro conceito. `COL-LAW-042` já governa a *forma* de uma decisão da Admissão —
+enxertar-lhe um limiar de qualidade daria dois donos ao mesmo assunto. É o mesmo
+raciocínio da D-039, e a mesma conclusão.
+
+```
+BIBLE_CHANGE_REQUIRED    = NO
+CONTRACT_CHANGE_REQUIRED = YES   (contrato novo, dono único)
+```
+
+**ONDE OS NÚMEROS VIVEM.** No código, e só lá.
+`docs/operacao/GATE-DE-ACEITACAO-TEMATICA-V1.md` explica e cita; um teste prova
+que os dois dizem a mesma coisa. Uma lei em dois sítios diverge.
+
+    UM GATE QUE SE COMPENSA É UMA MÉDIA COM NOME DE REGRA.

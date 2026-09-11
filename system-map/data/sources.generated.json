@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "357697c19f8e54098f1cccae4b4950e28aec3dfb",
+    "HEAD": "d43126e32525e7f95696869f5726ed16c457131d",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4474,6 +4474,19 @@
       ]
     },
     {
+      "endpoint": "https://learn.microsoft.com/en-us",
+      "usado_por": [
+        {
+          "file": "leis/social_matriz.py",
+          "line": 398
+        },
+        {
+          "file": "provas/gate_de_aceitacao_tematica.py",
+          "line": 262
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.adama.com/italia",
       "usado_por": [
         {
@@ -4639,15 +4652,6 @@
         {
           "file": "coleta/speaker_identidade.py",
           "line": 128
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/'",
-      "usado_por": [
-        {
-          "file": "coleta/youtube_janela.py",
-          "line": 169
         }
       ]
     }

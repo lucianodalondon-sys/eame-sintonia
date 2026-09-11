@@ -1,0 +1,318 @@
+{
+  "SCHEMA": "sintonia.thematic-acceptance-gate/1",
+  "THIS_IS": "THEMATIC_MECHANISM_EVALUATION_GATE_V1",
+  "THIS_IS_NOT": "FULL_EAME_PRODUCTION_RELEASE_GATE",
+  "GATE_OWNER": "provas/gate_de_aceitacao_tematica.py",
+  "GATE_VERSION": "V1",
+  "O_QUE_ISTO_E": "As condicoes que um mecanismo tematico tem de cumprir para ser considerado suficientemente bom para AVALIACAO no SINTONIA. Escrito ANTES de qualquer candidato existir.",
+  "PRIMARY_UNIT": "INDEPENDENT_OBSERVATION",
+  "DIAGNOSTIC_UNIT": "DOCUMENT",
+  "PORQUE_A_UNIDADE": "DOCUMENT != INDEPENDENT_OBSERVATION. Quatro edicoes do mesmo boletim sao quatro ficheiros e uma observacao. O plano de documentos continua obrigatorio como diagnostico; o PASS/FAIL usa observacoes.",
+  "ASSIMETRIA_DO_ERRO": {
+    "FALSE_NEGATIVE_COST_VS_FALSE_POSITIVE_COST": "GREATER",
+    "PORQUE_FP": "material a mais chega ao universo; a Inteligencia ainda julga, e o erro fica visivel",
+    "PORQUE_FN": "material que pertencia ao universo pode nao chegar la, e ninguem volta a olhar — o erro e invisivel",
+    "ABSTAIN_VS_NEGATIVO_ERRADO": "ABSTAIN e preferivel",
+    "MAS": "abstencao excessiva tambem reprova: um mecanismo que nunca decide nao e cauteloso, e inutil"
+  },
+  "ESTUDO_EXTERNO": {
+    "THERE_IS_A_UNIVERSAL_CLASSIFIER_ACCEPTANCE_THRESHOLD": "NO",
+    "SISTEMAS": [
+      {
+        "NOME": "Google Cloud Document AI",
+        "PRESCREVE_LIMIAR_UNIVERSAL": "NO",
+        "O_QUE_DIZ": "calcula o limiar que maximiza F1 e entrega a escolha ao utilizador («You are free to choose your own confidence threshold»). RECUSA publicar «accuracy»: «less meaningful».",
+        "FONTES": [
+          "https://docs.cloud.google.com/document-ai/docs/evaluate",
+          "https://docs.cloud.google.com/document-ai/docs/custom-classifier"
+        ]
+      },
+      {
+        "NOME": "Microsoft Azure AI Document Intelligence",
+        "PRESCREVE_LIMIAR_UNIVERSAL": "NO",
+        "O_QUE_DIZ": "«To set the threshold for your application, use the confidence score from the response». Tres cenarios com custos diferentes produzem limiares diferentes.",
+        "FONTES": [
+          "https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/train/custom-classifier",
+          "https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/document-intelligence/transparency-note"
+        ]
+      },
+      {
+        "NOME": "scikit-learn",
+        "PRESCREVE_LIMIAR_UNIVERSAL": "NO",
+        "O_QUE_DIZ": "sobre o 0.5 por omissao: «most certainly not ideal for most use cases». O limiar sai de «a utility metric defined by the business», com matriz de custo explicita.",
+        "FONTES": [
+          "https://scikit-learn.org/stable/modules/classification_threshold.html",
+          "https://scikit-learn.org/stable/auto_examples/model_selection/plot_cost_sensitive_learning.html"
+        ]
+      },
+      {
+        "NOME": "NIST AI Risk Management Framework 1.0",
+        "PRESCREVE_LIMIAR_UNIVERSAL": "NO",
+        "O_QUE_DIZ": "«it does not prescribe risk tolerance … highly contextual and application and use-case specific». E: «Human judgment should be employed when deciding … the precise threshold values».",
+        "FONTES": [
+          "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+        ]
+      }
+    ],
+    "CONVERGENCIA": {
+      "a · o compromisso precisao/recall exige uma escolha": "4 de 4",
+      "b · o limiar sai da funcao de custo": "3 de 4 — a Google CALA-SE sobre assimetria de custo, e o seu default de maximizar F1 assume que FP e FN custam o mesmo",
+      "c · confianca pode encaminhar para abstencao/revisao humana": "3 de 4 — a Google nao: o produto Human-in-the-Loop esta descontinuado e a doc atual nao descreve encaminhamento",
+      "d · avaliar com gabarito separado do que ajustou o modelo": "4 de 4",
+      "e · criterio de implantacao reflete o contexto real e o risco": "3 de 4 — a doc da Google e um manual de MEDICAO, nao de DECISAO de implantacao"
+    },
+    "ONDE_A_CONVERGENCIA_E_MAIS_FRACA_DO_QUE_PARECE": [
+      "A Azure e a UNICA fonte que nomeia um numero («target 80% or higher») — e nomeia-o contra uma estimativa de TREINO, nao contra holdout. E exactamente o tipo de numero de que a scikit-learn e o NIST avisam. Nao serve de barra portavel.",
+      "Maximizar F1 (Google) e maximizar utilidade sob custo assimetrico (scikit-learn) escolhem limiares DIFERENTES no mesmo modelo. Nao sao duas expressoes do mesmo principio.",
+      "O NIST esta noutra altitude: manda DOCUMENTAR a tolerancia, nao diz qual ela e. Concorda com os outros por se recusar a prescrever — o que e acordo sobre a AUSENCIA de regra, nao uma regra partilhada.",
+      "O proprio NIST avisa que o problema esta por resolver: «The current lack of consensus on robust and verifiable measurement methods for risk and trustworthiness … is an AI risk measurement challenge». Nenhuma das tres fontes de fornecedor reconhece isto."
+    ],
+    "O_QUE_ISTO_OBRIGA": "Se ninguem prescreve o numero, ele tem de ser escolhido AQUI e justificado AQUI pela funcao de custo desta casa. Foi o que a seccao da ASSIMETRIA faz. O padrao externo nao revoga lei canonica e tambem nao dispensa a casa de escolher o proprio custo."
+  },
+  "LIMIARES": {
+    "POSITIVE_CAPTURE_MINIMUM": {
+      "VALOR": "10/11",
+      "DECIMAL": 0.9091,
+      "COMO_SE_LE": "10 de 11 observacoes positivas capturadas",
+      "PORQUE": "O positivo perdido e o erro caro e invisivel. Tolera-se UM — porque exigir 11/11 num conjunto de 11 transforma qualquer caso de fronteira em reprovacao automatica, e um gate que so passa com perfeicao nao separa mecanismos: rejeita todos. UM e o maximo que ainda deixa o gate discriminar.",
+      "ABSTENCAO_CONTA": "NAO — abster-se num positivo nao e captura-lo"
+    },
+    "EXPLICIT_FALSE_NEGATIVE_MAX": {
+      "VALOR": "0",
+      "DECIMAL": 0,
+      "COMO_SE_LE": "nenhum NAO explicito sobre observacao positiva",
+      "PORQUE": "Afirmar «isto nao e T3» sobre algo que E T3 e a unica saida que fecha o assunto com ar de decisao. Ninguem reabre. E diferente de abster-se, e por isso tem limiar proprio e zero.",
+      "ABSTENCAO_CONTA": "NAO — abstencao nao e falso negativo explicito"
+    },
+    "SPECIFICITY_MINIMUM": {
+      "VALOR": "9/10",
+      "DECIMAL": 0.9,
+      "COMO_SE_LE": "18 de 20 observacoes negativas resolvidas certas",
+      "PORQUE": "O negativo errado custa menos, mas custa: cada um inunda a Inteligencia com material que ela tera de descartar a mao. Dois em vinte e o que a operacao absorve sem a fila deixar de ser util.",
+      "ABSTENCAO_CONTA": "NAO — abstencao nao e negativo resolvido"
+    },
+    "PRECISION_T3_MINIMUM": {
+      "VALOR": "4/5",
+      "DECIMAL": 0.8,
+      "COMO_SE_LE": "4 em cada 5 «isto e T3» estao certos",
+      "PORQUE": "Quando o mecanismo AFIRMA, quem recebe tem de poder confiar. Abaixo de 4/5, um em cada quatro itens da fila e ruido e a fila deixa de ser lida — e uma fila que ninguem le e pior do que fila nenhuma, porque parece que o trabalho esta a ser feito."
+    },
+    "DECISION_COVERAGE_MINIMUM": {
+      "VALOR": "28/31",
+      "DECIMAL": 0.9032,
+      "COMO_SE_LE": "no maximo 3 observacoes sem decisao binaria",
+      "PORQUE": "ABSTAIN e melhor do que errar, e por isso e permitido. Mas um mecanismo que se abstem em muitos casos empurra o trabalho todo para a pessoa e nao substitui nada. Tres em trinta e uma e a fila de revisao que uma pessoa despacha sem a fila crescer."
+    },
+    "GROUP_PASS_MINIMUM": {
+      "VALOR": "28/31",
+      "DECIMAL": 0.9032,
+      "COMO_SE_LE": "28 de 31 observacoes resolvidas e certas",
+      "PORQUE": "O resultado efetivo, e nao o condicional. Acuracia condicional alta com cobertura baixa mede so os casos em que o mecanismo se atreveu — e e exactamente assim que um mecanismo fraco parece forte.",
+      "NAO_SE_USA": "CONDITIONAL_ACCURACY para aprovar"
+    },
+    "ERROR_MAX": {
+      "VALOR": "0",
+      "DECIMAL": 0,
+      "COMO_SE_LE": "nenhuma falha de execucao",
+      "PORQUE": "ERRO nao e rejeicao e nao e duvida: e «ninguem chegou a olhar». Um mecanismo que rebenta sobre o corpus de avaliacao nao foi avaliado nesses casos, e contar isso como qualquer outra coisa seria inventar uma medicao que nao houve.",
+      "NUNCA_VIRA": [
+        "NAO",
+        "ABSTAIN",
+        "UNKNOWN"
+      ]
+    },
+    "KNOWN_FALSE_SUBSTRING_OUTCOME_DEPENDENCY_MAX": {
+      "VALOR": "0",
+      "DECIMAL": 0,
+      "COMO_SE_LE": "nenhum resultado depende de um casamento que a propria regra nao pretendia representar",
+      "PORQUE": "A baseline mostrou `lancio` a acender dentro de `bilancio` e a PRODUZIR uma das negativas «certas». Um acerto desses nao e o mecanismo a funcionar: e a sorte a alinhar-se, e ela desalinha-se no proximo corpus.\nISTO NAO PROIBE substring matching. Proibe que um RESULTADO dependa de um casamento nao pretendido."
+    }
+  },
+  "REACHABILITY_REQUIRED": "1",
+  "REACHABILITY_DENOMINADOR_T3": 36,
+  "CONDICOES": [
+    {
+      "METRICA": "POSITIVE_CAPTURE_RATE",
+      "OPERADOR": ">=",
+      "LIMIAR": "POSITIVE_CAPTURE_MINIMUM"
+    },
+    {
+      "METRICA": "EXPLICIT_FALSE_NEGATIVE",
+      "OPERADOR": "<=",
+      "LIMIAR": "EXPLICIT_FALSE_NEGATIVE_MAX"
+    },
+    {
+      "METRICA": "SPECIFICITY",
+      "OPERADOR": ">=",
+      "LIMIAR": "SPECIFICITY_MINIMUM"
+    },
+    {
+      "METRICA": "PRECISION_T3",
+      "OPERADOR": ">=",
+      "LIMIAR": "PRECISION_T3_MINIMUM"
+    },
+    {
+      "METRICA": "DECISION_COVERAGE",
+      "OPERADOR": ">=",
+      "LIMIAR": "DECISION_COVERAGE_MINIMUM"
+    },
+    {
+      "METRICA": "GROUP_PASS_RATE",
+      "OPERADOR": ">=",
+      "LIMIAR": "GROUP_PASS_MINIMUM"
+    },
+    {
+      "METRICA": "ERROR",
+      "OPERADOR": "<=",
+      "LIMIAR": "ERROR_MAX"
+    },
+    {
+      "METRICA": "FALSE_SUBSTRING_OUTCOME_DEPENDENCY",
+      "OPERADOR": "<=",
+      "LIMIAR": "KNOWN_FALSE_SUBSTRING_OUTCOME_DEPENDENCY_MAX"
+    }
+  ],
+  "INTEGRATION_GATE": "INTEGRATION_GATE_PASS = REACHABILITY_GATE_PASS AND THEMATIC_GATE_PASS. Aprovado offline nao e pronto para runtime.",
+  "EVALUATION_SCOPE": "ITALIAN_AGRO_INSTITUTIONAL_CORPUS",
+  "NAO_AUTORIZA": [
+    "FRANCE",
+    "SPAIN",
+    "EAME"
+  ],
+  "T3_GROUND_TRUTH_ROLE": "EVALUATION",
+  "INDEPENDENCIA": "A partir deste commit, um mecanismo ajustado a olhar para T3-GROUND-TRUTH-EVAL-V1 NAO pode depois usar os mesmos 36 como prova final independente. Candidatos futuros tem de ser definidos ANTES de receberem os seus resultados; havendo afinacao posterior, e preciso holdout novo.\nUM CONJUNTO SO E INDEPENDENTE DE QUEM NAO OLHOU PARA ELE.",
+  "PRODUCAO_AINDA_EXIGE": [
+    "validacao fresca e trancada",
+    "prova de integracao",
+    "prova de runtime",
+    "regressao",
+    "auditoria em live"
+  ],
+  "NAO_DERIVADO_DO_BASELINE": "Nenhum limiar foi escolhido para o mecanismo de hoje passar nem para ele falhar. Cada um nasce da funcao de custo declarada na ASSIMETRIA_DO_ERRO, e a razao esta ao lado do numero.",
+  "APLICACAO_AO_BASELINE_CONGELADO": {
+    "BASELINE": "data/derivados/BASELINE-ADMISSION-T3-V1.json",
+    "BASELINE_FINGERPRINT": "f24eceedd1235a1c1909a0d941aea4b87bdf8cba6547be762c5785e9ff635a85",
+    "DIAGNOSTICO": {
+      "GROUP_TOTAL": 31,
+      "GROUP_POSITIVE": 11,
+      "GROUP_NEGATIVE": 20,
+      "TP": 2,
+      "FN": 0,
+      "TN": 4,
+      "FP": 5,
+      "GRUPOS_SEM_PREVISAO_BINARIA": 20,
+      "GROUP_PASS": 6,
+      "GROUP_FAIL": 5,
+      "GROUP_NOT_DECIDED": 20,
+      "PRECISION_SEM_AFIRMACOES": false
+    },
+    "REACHABILITY": {
+      "REACHABILITY": "5/12",
+      "REACHABILITY_DECIMAL": 0.4167,
+      "REQUIRED": "1",
+      "REACHABILITY_GATE_PASS": false,
+      "ALCANCADOS": 15,
+      "COMPROVADOS": 36,
+      "NAO_AUTORIZA": "fabricar SOURCE_ID para engrossar o numerador"
+    },
+    "THEMATIC": {
+      "GATE_VERSION": "V1",
+      "GATE_OWNER": "provas/gate_de_aceitacao_tematica.py",
+      "PRIMARY_UNIT": "INDEPENDENT_OBSERVATION",
+      "THEMATIC_GATE_PASS": false,
+      "VEREDICTO": "FAIL",
+      "FAILED_CONDITIONS": [
+        "POSITIVE_CAPTURE_RATE",
+        "SPECIFICITY",
+        "PRECISION_T3",
+        "DECISION_COVERAGE",
+        "GROUP_PASS_RATE",
+        "FALSE_SUBSTRING_OUTCOME_DEPENDENCY"
+      ],
+      "LINHAS": [
+        {
+          "CONDICAO": "POSITIVE_CAPTURE_RATE",
+          "OPERADOR": ">=",
+          "LIMIAR": "10/11",
+          "LIMIAR_DECIMAL": 0.9091,
+          "MEDIDO": 0.1818,
+          "PASSA": false,
+          "PORQUE_O_LIMIAR": "O positivo perdido e o erro caro e invisivel. Tolera-se UM — porque exigir 11/11 num conjunto de 11 transforma qualquer caso de fronteira em reprovacao automatica, e um gate que so passa com perfeicao nao separa mecanismos: rejeita todos. UM e o maximo que ainda deixa o gate discriminar."
+        },
+        {
+          "CONDICAO": "EXPLICIT_FALSE_NEGATIVE",
+          "OPERADOR": "<=",
+          "LIMIAR": "0",
+          "LIMIAR_DECIMAL": 0,
+          "MEDIDO": 0,
+          "PASSA": true,
+          "PORQUE_O_LIMIAR": "Afirmar «isto nao e T3» sobre algo que E T3 e a unica saida que fecha o assunto com ar de decisao. Ninguem reabre. E diferente de abster-se, e por isso tem limiar proprio e zero."
+        },
+        {
+          "CONDICAO": "SPECIFICITY",
+          "OPERADOR": ">=",
+          "LIMIAR": "9/10",
+          "LIMIAR_DECIMAL": 0.9,
+          "MEDIDO": 0.2,
+          "PASSA": false,
+          "PORQUE_O_LIMIAR": "O negativo errado custa menos, mas custa: cada um inunda a Inteligencia com material que ela tera de descartar a mao. Dois em vinte e o que a operacao absorve sem a fila deixar de ser util."
+        },
+        {
+          "CONDICAO": "PRECISION_T3",
+          "OPERADOR": ">=",
+          "LIMIAR": "4/5",
+          "LIMIAR_DECIMAL": 0.8,
+          "MEDIDO": 0.2857,
+          "PASSA": false,
+          "PORQUE_O_LIMIAR": "Quando o mecanismo AFIRMA, quem recebe tem de poder confiar. Abaixo de 4/5, um em cada quatro itens da fila e ruido e a fila deixa de ser lida — e uma fila que ninguem le e pior do que fila nenhuma, porque parece que o trabalho esta a ser feito."
+        },
+        {
+          "CONDICAO": "DECISION_COVERAGE",
+          "OPERADOR": ">=",
+          "LIMIAR": "28/31",
+          "LIMIAR_DECIMAL": 0.9032,
+          "MEDIDO": 0.3548,
+          "PASSA": false,
+          "PORQUE_O_LIMIAR": "ABSTAIN e melhor do que errar, e por isso e permitido. Mas um mecanismo que se abstem em muitos casos empurra o trabalho todo para a pessoa e nao substitui nada. Tres em trinta e uma e a fila de revisao que uma pessoa despacha sem a fila crescer."
+        },
+        {
+          "CONDICAO": "GROUP_PASS_RATE",
+          "OPERADOR": ">=",
+          "LIMIAR": "28/31",
+          "LIMIAR_DECIMAL": 0.9032,
+          "MEDIDO": 0.1935,
+          "PASSA": false,
+          "PORQUE_O_LIMIAR": "O resultado efetivo, e nao o condicional. Acuracia condicional alta com cobertura baixa mede so os casos em que o mecanismo se atreveu — e e exactamente assim que um mecanismo fraco parece forte."
+        },
+        {
+          "CONDICAO": "ERROR",
+          "OPERADOR": "<=",
+          "LIMIAR": "0",
+          "LIMIAR_DECIMAL": 0,
+          "MEDIDO": 0,
+          "PASSA": true,
+          "PORQUE_O_LIMIAR": "ERRO nao e rejeicao e nao e duvida: e «ninguem chegou a olhar». Um mecanismo que rebenta sobre o corpus de avaliacao nao foi avaliado nesses casos, e contar isso como qualquer outra coisa seria inventar uma medicao que nao houve."
+        },
+        {
+          "CONDICAO": "FALSE_SUBSTRING_OUTCOME_DEPENDENCY",
+          "OPERADOR": "<=",
+          "LIMIAR": "0",
+          "LIMIAR_DECIMAL": 0,
+          "MEDIDO": 1,
+          "PASSA": false,
+          "PORQUE_O_LIMIAR": "A baseline mostrou `lancio` a acender dentro de `bilancio` e a PRODUZIR uma das negativas «certas». Um acerto desses nao e o mecanismo a funcionar: e a sorte a alinhar-se, e ela desalinha-se no proximo corpus.\nISTO NAO PROIBE substring matching. Proibe que um RESULTADO dependa de um casamento nao pretendido."
+        }
+      ],
+      "NENHUMA_MEDIA_COMPENSA": "basta uma condicao em falha para o veredicto ser FAIL. Precisao excelente nao compensa captura positiva ruim."
+    },
+    "INTEGRATION": {
+      "INTEGRATION_GATE_PASS": false,
+      "VEREDICTO": "NOT_READY",
+      "REACHABILITY_GATE_PASS": false,
+      "THEMATIC_GATE_PASS": false,
+      "PORQUE": "um mecanismo bom com linhagem partida nao decide nada em runtime; uma linhagem boa com mecanismo mau decide errado"
+    },
+    "CURRENT_ADMISSION_GATE_RESULT": "FAIL",
+    "O_QUE_ISTO_NAO_AUTORIZA": "consertar. Mesmo com FAIL: ADMISSION_CHANGED = NO, KEYWORDS_CHANGED = NO, CLASSIFIER_BUILT = NO."
+  }
+}

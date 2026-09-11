@@ -234,6 +234,7 @@
       "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
       "data/derivados/BASELINE-ADMISSION-T3-V1.json",
+      "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
       "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "data/derivados/texto/RAW-024abdb692be926a.txt",
@@ -688,6 +689,7 @@
       "docs/operacao/ESTUDO-FRONTEIRA-ADMISSION-INTELLIGENCE-V1.md",
       "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
       "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
+      "docs/operacao/GATE-DE-ACEITACAO-TEMATICA-V1.md",
       "docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md",
       "docs/operacao/IDEIAS-E-PENDENCIAS.md",
       "docs/operacao/IDENTIDADE-DA-OBSERVACAO-RAW.md",
@@ -1174,6 +1176,7 @@
       "provas/es/freeze_es.py",
       "provas/fechar_ground_truth_t3.py",
       "provas/fluxo_no_seco.py",
+      "provas/gate_de_aceitacao_tematica.py",
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
@@ -1466,6 +1469,7 @@
       "tests/test_forward_instrumentado.py",
       "tests/test_fronteira_mede_producao.py",
       "tests/test_fundacao_da_coleta.py",
+      "tests/test_gate_de_aceitacao_tematica.py",
       "tests/test_gestao_da_coleta.py",
       "tests/test_handoff.py",
       "tests/test_hero_cases_v1.py",
@@ -1907,10 +1911,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/t3-current-admission-baseline-v1",
-    "HEAD": "357697c19f8e54098f1cccae4b4950e28aec3dfb",
-    "GENERATED_AT": "2026-09-11T18:34:28+00:00",
-    "SOURCE_TREE_FINGERPRINT": "15ec1df0a180855bf33aff2195efde10fa084ae3dd488480618cdc10ae234bf1"
+    "BRANCH": "claude/thematic-acceptance-gate-v1",
+    "HEAD": "d43126e32525e7f95696869f5726ed16c457131d",
+    "GENERATED_AT": "2026-09-11T19:09:14+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6e1e73215ade8045aebd97491a16f91072b49b0bc79396557f9c7438e58a6d61"
   },
   "FAMILIES": [
     {
@@ -11926,6 +11930,7 @@
         "provas/censo_corpus_rotulado_admission.py",
         "provas/derived_artifact_no_postgres.py",
         "provas/fechar_ground_truth_t3.py",
+        "provas/gate_de_aceitacao_tematica.py",
         "provas/medir_admission_t3_atual.py",
         "provas/o_corte_de_cr1.py",
         "provas/objeto_e_observacao_no_postgres.py",
@@ -11943,7 +11948,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 24,
+      "file_count": 25,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12003,6 +12008,7 @@
         "papel": "NAO SEI",
         "listas": [
           "AFIRMACOES_PROIBIDAS",
+          "ASSIMETRIA",
           "BOTOES",
           "CADEIA",
           "CANDIDATAS_A",
@@ -12011,10 +12017,13 @@
           "COLS_RAW",
           "COLS_RUN",
           "COLUNA_DO_DESTINO",
+          "CONDICOES",
           "CRITERIOS",
           "CROMO",
           "EDICAO",
+          "ESTUDO_EXTERNO",
           "FONTE_DO_POSITIVO",
+          "LIMIARES",
           "MIGRATIONS",
           "PROIBIDOS_NA_FILA_CEGA",
           "PROIBIDOS_NO_HTML",
@@ -12028,11 +12037,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 338,
+        "palavras": 426,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 336,
+        "sem_marca_de_lingua": 424,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15307,6 +15316,7 @@
         "tests/test_forward_instrumentado.py",
         "tests/test_fronteira_mede_producao.py",
         "tests/test_fundacao_da_coleta.py",
+        "tests/test_gate_de_aceitacao_tematica.py",
         "tests/test_gestao_da_coleta.py",
         "tests/test_handoff.py",
         "tests/test_hero_cases_v1.py",
@@ -15368,7 +15378,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 92,
+      "file_count": 93,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -16942,7 +16952,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/t3-current-admission-baseline-v1"
+        "branch claude/thematic-acceptance-gate-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -27376,7 +27386,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 15 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 16 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -27409,6 +27419,11 @@
           "snippet": "\"censo_corpus_rotulado_admission.py\"))"
         },
         {
+          "file": "tests/test_gate_de_aceitacao_tematica.py",
+          "line": 29,
+          "snippet": "\"gate_t\", os.path.join(RAIZ, \"provas\", \"gate_de_aceitacao_tematica.py\"))"
+        },
+        {
           "file": "tests/test_lingua_unica.py",
           "line": 244,
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
@@ -27432,11 +27447,6 @@
           "file": "tests/test_o9_caminho_instrumentado.py",
           "line": 662,
           "snippet": "os.path.join(RAIZ, 'provas', 'paridade_da_lingua.py')],"
-        },
-        {
-          "file": "tests/test_pacote_de_revisao_t3.py",
-          "line": 29,
-          "snippet": "\"pacote_t3\", os.path.join(RAIZ, \"provas\", \"pacote_de_revisao_t3.py\"))"
         }
       ],
       "categoria": "PROOF"
@@ -31410,7 +31420,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 743,
+  "UNCLAIMED_FILES_COUNT": 745,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31582,8 +31592,8 @@
     "edges_proven": 642,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1460,
-    "files_covered": 717,
+    "files_tracked": 1464,
+    "files_covered": 719,
     "files_code_unclaimed": 0
   }
 }
