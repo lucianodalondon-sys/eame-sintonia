@@ -1987,6 +1987,180 @@ plataforma, em vez de assumir o download completo como fallback.
 
 ---
 
+## 19. C10.5 · C10.5D · C12 — ONDE O PORTÃO VIVE, E O QUE ELE NÃO PODE RECUSAR
+
+```
+MISSOES  = C10.5 · C10.5D · C12, 2026-09-11
+BRANCHES = claude/sintonia-scrap-collection-flow-c10-5
+           claude/sintonia-scrap-instagram-policy-decision-c10-5d
+           claude/sintonia-scrap-x-deep-census-c12
+ENTREGAS = docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md
+           docs/sintonia-scrap/C10-5D-DECISAO-DO-INSTAGRAM.md
+           docs/sintonia-scrap/C12-X-CAPABILITY-DEEP-CENSUS.md
+```
+
+### 19.1 · O portão de política pertence ao ponto onde o socket abre
+
+**O QUE.** A verificação de «posso ir buscar isto?» não vive no adaptador nem na
+fase nem no lote. Vive na função que abre a ligação.
+
+**POR QUÊ.** Um portão numa camada de cima é contornável por qualquer porta que
+não passe por essa camada — e a casa tinha uma.
+
+**PROVA.** A C10.4 pôs o portão no adaptador do Instagram e mediu que ninguém
+atravessava a aquisição sem ele. A C10.5 perguntou quem mais entra e encontrou
+`coleta/comunicacao_coleta.py::fase_transcrever` — a fase de fala da Collection —
+a chamar a cadeia de Reel **directamente**, sem tocar no adaptador. Não era um
+atalho de laboratório: era a porta por onde a casa transcreve.
+
+```text
+UM PORTAO QUE UMA PORTA DE PRODUCAO CONTORNA NAO DECIDE NADA. E UMA SUGESTAO.
+```
+
+**CONSEQUÊNCIA.** Toda aquisição real atravessa o dono da política
+imediatamente antes do transporte. E há um ganho que só aparece nesse sítio: os
+degraus que leem bytes já preservados ficam de fora do portão, e continuam a
+correr mesmo quando a política diz não.
+
+```text
+REUSAR != ADQUIRIR.
+```
+
+### 19.2 · Quem pergunta as horas já entrou no pátio
+
+**O QUE.** `METADATA REQUEST = PLATFORM ACCESS`. O portão precede os metadados,
+não só os bytes.
+
+**PROVA.** Com o portão só no download, uma execução com a política em `NAO`
+ainda fazia **quatro** pedidos ao `yt-dlp` — todos `-J`, o pedido de metadados.
+Depois de gatear os dois pontos: zero chamadas, zero sockets.
+
+**CONSEQUÊNCIA.** Pedir metadados abre socket, gasta pedido e aparece no log do
+host. Gatear só o download deixa a casa a bater à porta de quem disse que não, e
+a jurar que não entrou.
+
+### 19.3 · O portão que recusa antes de saber se vai sair recusa quem não ia sair
+
+**O QUE.** Uma correcção da C10.4, feita na C10.5D. O portão do adaptador corria
+**antes** de saber se o pedido precisava sequer de rede.
+
+**PROVA.** Com a decisão do Instagram em `NAO`, medido nos quatro caminhos:
+
+```text
+aquisicao remota            0 objectos · ROUTE_NOT_ALLOWED   (correcto)
+reuso pela cadeia           1 objecto  · MEDIA_OK            (correcto)
+reuso pelo adaptador        0 objectos · ROUTE_NOT_ALLOWED   (FALSO)
+reuso pelo executor         0 objectos · ROUTE_NOT_ALLOWED   (ver 19.6)
+```
+
+Um pedido que traz os próprios bytes não precisa de autorização nenhuma, e era
+recusado na mesma.
+
+**CONSEQUÊNCIA.** O portão desceu para o ponto do socket. O adaptador continua a
+ler a decisão — não para barrar, mas para que o trace diga quem decidiu, mesmo
+quando a recusa nasce lá dentro. Uma política de **rota** nunca pode recusar
+trabalho que não usa rota.
+
+### 19.4 · Uma metade permitida que só se alcança pela metade proibida não é capacidade
+
+**O QUE.** Avaliar a cadeia inteira, nunca um endpoint isolado.
+
+**PROVA.** C12, no X. O `robots.txt` do X são **três hosts**, não um:
+
+```text
+x.com                       2678 bytes   User-agent: * / Disallow: /
+cdn.syndication.twimg.com     26 bytes   User-agent: * / Disallow: /
+pbs.twimg.com                 43 bytes   User-agent: * / Disallow:   (vazio)
+```
+
+O host que serve os **bytes de média permite**. Mas o endereço desses bytes só
+existe dentro do objecto que vive no host que barra.
+
+**CONSEQUÊNCIA.** É o inverso exacto do LinkedIn, onde a metade permitida é a
+DESCOBERTA e ela sozinha já serve ao negócio. No X a metade permitida é a busca,
+e ela sozinha não serve a nada.
+
+### 19.5 · A DECISÃO HUMANA DO INSTAGRAM — três estados, não um
+
+**Decidido em 2026-09-11, e não se escreve de outra maneira:**
+
+```text
+INSTAGRAM REMOTE ACQUISITION   = NOT_ALLOWED   no estado actual medido
+INSTAGRAM LOCAL REPROCESSING   = ALLOWED
+INSTAGRAM ASR CAPABILITY       = PROVEN
+```
+
+**BASE.** O `robots.txt` vivo de `instagram.com`, 6 256 bytes, bloco
+`User-agent: *` / `Disallow: /`. O agente desta casa não aparece nomeado.
+
+```text
+ROTA QUE FUNCIONA NAO E ROTA PERMITIDA.
+```
+
+**ONDE ESTÁ ESCRITA.** Uma linha, em `leis/social_matriz.py`:
+`INSTAGRAM/FETCH_TRANSCRIPT` passou de `SIM/PROVED` a `NAO/ROUTE_NOT_ALLOWED`.
+O `NAO` pertence àquela rota porque **aquela rota sai**: ela baixa o MP4 inteiro
+da CDN da Meta antes de transcrever, apesar de a classe lhe chamar
+`LOCAL_EXECUTOR`.
+
+**O ESTADO É `ROUTE_NOT_ALLOWED`, NÃO `BLOCKED`.** Escrever `BLOCKED` poria na
+plataforma a culpa de uma decisão desta casa.
+
+**E `scrap_capacidades.py` NÃO MUDOU:** `instagram.reel.transcribe` continua
+`PROVEN`, e tem de continuar.
+
+```text
+NUNCA ESCREVER «INSTAGRAM = BLOQUEADO».
+Isso colapsa tres estados diferentes em um, e perde dois.
+PROVEN != AUTHORIZED_REMOTE_ROUTE != DID ACQUIRE.
+```
+
+**PROVADO.** Com a matriz real: aquisição → 0 sockets, 0 metadados,
+`MEDIA_STATE = ROUTE_NOT_ALLOWED`. Reuso de 968 697 bytes preservados → 0 rede,
+ASR local corre, 2 374 caracteres de transcrição.
+
+### 19.6 · O conflito estrutural que ficou aberto
+
+**O QUE.** O vocabulário de `CLASSE` não distingue «motor local» de «ferramenta
+local que sai à rede».
+
+**PROVA.** As quatro rotas `LOCAL_EXECUTOR` da matriz, medidas uma a uma —
+`yt-dlp:ytsearch`, `yt-dlp:extract_info`, `telegram:MTProto/TDLib` e
+`instagram_transcrever.py` — **todas saem**. Nenhuma é um motor puro sobre bytes
+já em casa, e o comentário da classe dá como exemplo justamente o
+`faster-whisper`, que é a única coisa que não sai. `AUTH_MODE` também não
+separa: `LOCAL_EXECUTOR` é `PUBLIC`, igual a `DIRECT_HTTP`.
+
+**CONSEQUÊNCIA.** Enquanto não existir classe para «motor local sem acesso à
+plataforma», o roteador canônico recusa a capacidade inteira quando a rota é
+recusada — e essa recusa é **correcta**, porque a matriz nunca declarou uma rota
+local-only. Criar a classe é decisão de gente, e não foi tomada aqui.
+
+### 19.7 · Cicatrizes de sonda destas missões
+
+```text
+UMA SONDA QUE ENCONTRA ZERO E DIZ «LIMPO» MEDE A SONDA.
+    a busca por quem escreve PERMITIDA procurava atribuicao e argumento
+    nomeado; na matriz e CHAVE DE DICIONARIO. Encontrou zero — incluindo o
+    proprio dono — e chamou a isso um passe. O teste passou a EXIGIR o dono
+    na lista.
+
+UMA PROVA DE RECUSA QUE NUNCA CHEGA A PEDIR NAO MEDE A RECUSA.
+    tres provas usaram a sentinela ja preservada; o degrau 0 encontrou os
+    bytes no disco e devolveu MEDIA_OK sem tocar em rede. Mediram a gaveta.
+    Passaram a usar um Reel sem bytes nesta casa.
+
+UMA SONDA QUE SE ENCONTRA A SI PROPRIA MEDE A SONDA.
+    o teste do «sem actor de Apify no X» encontrou o padrao no seu proprio
+    ficheiro. Irma da cicatriz do `c10-apify-` da C10.
+
+`guardar=False` COBRE O ARTEFATO. NAO COBRE A OFICINA.
+    o WAV intermedio e sempre escrito em data/raw/REEL-MIDIA/, mesmo com
+    guardar=False. Divida registada, nao corrigida.
+```
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
