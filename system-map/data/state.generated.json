@@ -1919,10 +1919,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-location-contract-c10-3",
-    "HEAD": "a1a1c8e0b6abad06329d28514532eca0644c40ed",
-    "GENERATED_AT": "2026-09-11T20:52:49+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3b8ab3a98c77606c908810823d5f2c353aaebcc9ad19169338627c035e5f2491"
+    "BRANCH": "claude/sintonia-scrap-instagram-route-gate-c10-4",
+    "HEAD": "5c195afe7284f4016ce49a938001941a85a0455c",
+    "GENERATED_AT": "2026-09-11T20:56:45+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e0c1fac8714e0ea6de997a60fd633590e0eb8b92a7736d26bda1b1ff43c9e655"
   },
   "FAMILIES": [
     {
@@ -13894,9 +13894,9 @@
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 198,
+        "palavras": 199,
         "por_lingua": {},
-        "sem_marca_de_lingua": 198,
+        "sem_marca_de_lingua": 199,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -17165,7 +17165,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-location-contract-c10-3"
+        "branch claude/sintonia-scrap-instagram-route-gate-c10-4"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -21244,7 +21244,7 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 290,
+          "line": 295,
           "snippet": "import comunicacao_classificar as cc"
         }
       ],
@@ -28487,7 +28487,7 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 321,
+          "line": 326,
           "snippet": "import social_sessao as ss"
         },
         {
@@ -28520,7 +28520,7 @@
       "evidence": [
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 349,
+          "line": 354,
           "snippet": "_fonte('guarda/social_sessao.py'))"
         },
         {
@@ -28834,8 +28834,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 6 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 7 linhas de codigo.",
       "evidence": [
+        {
+          "file": "coleta/adaptador_instagram.py",
+          "line": 48,
+          "snippet": "import social_matriz as mz           # noqa: E402 — DONO da decisao de rota"
+        },
         {
           "file": "coleta/social_rotas.py",
           "line": 55,
@@ -28877,8 +28882,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "coleta/adaptador_instagram.py",
+          "line": 82,
+          "snippet": "trace['POLICY_OWNER'] = 'leis/social_matriz.py'"
+        },
         {
           "file": "coleta/scrap_capacidades.py",
           "line": 126,
@@ -30658,7 +30668,7 @@
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
-          "line": 61,
+          "line": 109,
           "snippet": "import reel_transcricao as rt"
         }
       ],
@@ -30673,12 +30683,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
-          "line": 76,
+          "line": 124,
           "snippet": "trace['ASR_OWNER'] = 'ferramentas/fala_local.py'"
+        },
+        {
+          "file": "coleta/adaptador_instagram.py",
+          "line": 148,
+          "snippet": "medida['IMPLEMENTACAO'] = 'ferramentas/reel_transcricao.py'"
         }
       ],
       "categoria": "DATA",

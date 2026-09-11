@@ -130,7 +130,12 @@ DECLARADAS = {
     # ── INSTAGRAM ─────────────────────────────────────────────────────────
     'instagram.reel.capture': ('INSTAGRAM', PROVEN, EITHER, None, _RE, None),
     'instagram.reel.audio': ('INSTAGRAM', PROVEN, EITHER, None, _RE, None),
-    'instagram.reel.transcribe': ('INSTAGRAM', PROVEN, EITHER, None, _RE, None),
+    # A UNICA DAS TRES QUE A MATRIZ CONHECE. O acto que ela executa — ir
+    # buscar a media e reconhecer a fala aqui — e o que `social_matriz`
+    # chama FETCH_TRANSCRIPT, e ali ele esta PERMITIDA=SIM, PROVED. Sem
+    # esta traducao o roteador nunca encontrava a cadeia, e a cadeia
+    # entrava pelo `executa` — que e a porta de quem NAO tem portao.
+    'instagram.reel.transcribe': ('INSTAGRAM', PROVEN, EITHER, None, _RE, 'FETCH_TRANSCRIPT'),
     'instagram.profile.discovery': ('INSTAGRAM', PARTIAL, LOCAL, DATACENTER_BLOCKED, _AP, 'INCREMENTAL'),
     'instagram.post.comments': ('INSTAGRAM', BLOCKED, AMBIENTE_DESCONHECIDO, None, _AP, 'FETCH_COMMENTS'),
     'instagram.story.capture': ('INSTAGRAM', UNKNOWN, LOCAL, AUTHORIZED_LOCAL_SESSION, _ER, None),

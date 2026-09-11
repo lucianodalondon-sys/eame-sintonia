@@ -45,9 +45,46 @@ import _gavetas  # noqa: E402,F401
 import scrap_registo as reg          # noqa: E402
 import scrap_fornecedores as forn    # noqa: E402
 import scrap_capacidades as cap      # noqa: E402
+import social_matriz as mz           # noqa: E402 — DONO da decisao de rota
 
 NOME = 'adaptador_instagram'
 PLATAFORMA = 'INSTAGRAM'
+
+
+#: A PERGUNTA QUE AS TRES CAPACIDADES DE REEL FAZEM, E E UMA SO.
+#
+# `instagram.reel.capture`, `instagram.reel.audio` e `instagram.reel.transcribe`
+# nao sao tres actos: sao tres nomes do mesmo acto — ir buscar a media do Reel e
+# reconhecer a fala aqui na maquina. Na lingua da matriz esse acto chama-se
+# FETCH_TRANSCRIPT, e e essa a unica pergunta que este adaptador faz a politica.
+#
+#     TRES NOMES PARA UM ACTO NAO SAO TRES AUTORIZACOES.
+#
+# NAO e FETCH_VIDEO_BYTES. A C10 mediu `VIDEO_BYTES_DOWNLOADED = 0` nesta cadeia,
+# e pedir autorizacao para o que nao se faz seria alargar a superficie no papel.
+CAPACIDADE_NA_MATRIZ = 'FETCH_TRANSCRIPT'
+
+
+def politica():
+    """A decisao do dono da politica para esta plataforma. Zero rede, zero custo.
+
+    Le `social_matriz` — nao mantem tabela propria e nao reinterpreta. Um
+    segundo lugar a responder «pode?» seria um segundo portao, e o segundo
+    portao e sempre o que ninguem mede.
+    """
+    return mz.decisao(PLATAFORMA, CAPACIDADE_NA_MATRIZ)
+
+
+def _recusa(decisao):
+    """O trace de quem NAO saiu. Recusa e resultado medido, nao ausencia dele."""
+    trace = forn.Percurso('instagram.reel.transcribe').selar(
+        resultado=decisao['DECISAO'])
+    trace['POLICY_OWNER'] = 'leis/social_matriz.py'
+    trace['POLICY_CAPABILITY'] = '%s/%s' % (PLATAFORMA, CAPACIDADE_NA_MATRIZ)
+    trace['POLICY_WHY'] = decisao['PORQUE']
+    trace['NETWORK_TOUCHED'] = False
+    trace['ASR_RUN'] = False
+    return trace
 
 
 def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
@@ -58,6 +95,17 @@ def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
     oito Reels reais no disco, e reescrever isso aqui seria criar a terceira
     cadeia numa missao que existe para acabar com a segunda.
     """
+    # O PORTAO VEM PRIMEIRO — ANTES DO IMPORT DA CADEIA.
+    #
+    # Nao e zelo: `reel_transcricao` traz `yt_dlp` e o reconhecedor atras dele, e
+    # perguntar «posso?» depois de carregar a ferramenta ja e ter decidido que
+    # sim. Aqui a recusa custa uma leitura de dicionario e nao abre socket
+    # nenhum.
+    #
+    #     O PORTAO QUE CORRE DEPOIS DA REDE NAO E UM PORTAO. E UM RELATORIO.
+    decisao = politica()
+    if decisao['DECISAO'] != mz.PERMITIDA_SIM:
+        return [], _recusa(decisao)
     import reel_transcricao as rt
     if ident is None:
         if not url:
@@ -77,6 +125,37 @@ def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
     return [registo], trace
 
 
+def reel_transcrever(*, run_id, country_scope=None, medida=None, **kw):
+    """A rota CRUA, que `social_rotas` despacha depois de medir o portao.
+
+    Devolve a lista de objetos — o trace nasce do registo que o roteador sela.
+    O que sobe daqui e MEDIDA, nao narrativa: quem executou de facto, quem fez o
+    reconhecimento, e se a aquisicao foi mesmo so de som.
+
+    POR QUE A IMPLEMENTACAO VAI NA MEDIDA E NAO NA MATRIZ
+    ------------------------------------------------------
+    A matriz chama esta rota `instagram_transcrever.py:faster-whisper`. Quem
+    corre aqui e `ferramentas/reel_transcricao.py`. Sao dois ficheiros vivos da
+    MESMA classe permitida (LOCAL_EXECUTOR, faster-whisper pelo mesmo dono de
+    ASR), e escolher qual deles a matriz deve nomear e decisao de politica —
+    logo, de gente. Ate la o registo diz as duas coisas: que rota a politica
+    escolheu, e que ficheiro de facto correu.
+
+        O TRACE QUE NOMEIA O FICHEIRO ERRADO MENTE COM PRECISAO DE RELOJOEIRO.
+    """
+    objetos, trace = capturar_reel(run_id=run_id, **kw)
+    if medida is not None:
+        medida['IMPLEMENTACAO'] = 'ferramentas/reel_transcricao.py'
+        medida['ASR_OWNER'] = 'ferramentas/fala_local.py'
+        medida['POLICY_OWNER'] = 'leis/social_matriz.py'
+        medida['PROVIDER_STEPS'] = trace.get('PROVIDER_STEPS')
+        primeiro = (objetos or [None])[0] or {}
+        for k in ('MEDIA_KIND_REQUESTED', 'MEDIA_KIND_USED',
+                  'AUDIO_ONLY_ACQUISITION', 'MEDIA_STATE'):
+            medida[k] = primeiro.get(k, 'NAO SEI')
+    return objetos
+
+
 # ══════════════════════════════════════════════════════════════════════════
 # O QUE ESTE ADAPTADOR DECLARA
 # ══════════════════════════════════════════════════════════════════════════
@@ -88,9 +167,20 @@ reg.registar(PLATAFORMA, 'instagram.reel.capture', adaptador=NOME,
 reg.registar(PLATAFORMA, 'instagram.reel.audio', adaptador=NOME,
              executa=capturar_reel,
              nota='FFmpeg extrai do video ja preservado; faixa m4a poupa 7,58x de banda')
+# A UNICA DAS TRES COM `rota`, E E DE PROPOSITO.
+#
+# `rota` significa: quem colhe isto entra pelo caminho canonico — executor,
+# roteador, portao — e o trace nasce do registo que o roteador sela. `executa`
+# significa o contrario: nao ha porta a atravessar, por isso monta-se o proprio
+# trace. Ate a C10.4 as tres tinham `executa`, e a nota que justificava isso era
+# verdadeira — a matriz nao conhecia nenhuma delas.
+#
+# Agora conhece esta. Deixar `executa` aqui seria manter aberta, ao lado do
+# portao, a porta que existia por nao haver portao.
 reg.registar(PLATAFORMA, 'instagram.reel.transcribe', adaptador=NOME,
-             executa=capturar_reel,
-             nota='o unico caminho onde o ASR proprio e indispensavel')
+             rota=reel_transcrever,
+             nota='o unico caminho onde o ASR proprio e indispensavel; '
+                  'atravessa INSTAGRAM/FETCH_TRANSCRIPT no dono da politica')
 
 reg.registar(PLATAFORMA, 'instagram.profile.discovery', adaptador=NOME,
              nota='302/429 deste IP; a janela esgota em ~8-10 respostas')

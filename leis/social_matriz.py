@@ -610,6 +610,63 @@ def rota_declarada(platform, capability, auth_mode):
     return None
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# A DECISÃO, PARA QUEM PRECISA DELA ANTES DE TOCAR A REDE
+# ══════════════════════════════════════════════════════════════════════════
+#: O que a política responde. Três palavras, e nenhuma cobre a outra.
+NAO_DECLARADA = 'NOT_DECLARED'
+NAO_PERMITIDA = 'ROUTE_NOT_ALLOWED'
+PERMITIDA_SIM = 'ALLOWED'
+
+
+def decisao(platform, capability):
+    """A decisão desta matriz para (plataforma, capacidade). LÊ — não decide.
+
+    Existe porque quem adquire precisa perguntar ANTES de sair para a rede, e
+    até aqui só o roteador sabia perguntar. Quem não passava pelo roteador não
+    tinha a quem perguntar, e uma pergunta que não tem dono é uma pergunta que
+    não se faz.
+
+        PERGUNTAR DEPOIS DE BAIXAR É CONFERIR O BILHETE DEPOIS DA VIAGEM.
+
+    Esta função não escreve `PERMITIDA` nenhuma. Ela devolve o que já está
+    escrito na `MATRIZ`, traduzido para três palavras que NÃO são sinónimos:
+
+        NOT_DECLARED       ninguém mediu esta capacidade nesta plataforma.
+        ROUTE_NOT_ALLOWED  mediram, e nenhuma rota viável sobrou.
+        ALLOWED            há rota declarada, permitida e viável.
+
+    Colapsar a primeira na segunda faria a casa dizer «não pode» onde a
+    verdade é «ninguém sabe», e é assim que uma ausência de medição vira uma
+    proibição que ninguém decidiu — ou, virando ao contrário, uma autorização
+    que ninguém deu.
+
+        NÃO DECLARADO NÃO É PROIBIDO, E MUITO MENOS É PERMITIDO.
+    """
+    plat, capac = (platform or '').upper(), (capability or '').upper()
+    veredicto = {'PLATFORM': plat, 'CAPABILITY': capac, 'DECISAO': NAO_DECLARADA,
+                 'ROTA': None, 'CLASSE': None, 'PERMITIDA': None, 'ESTADO': None,
+                 'AUTH_MODE': None, 'PORQUE': None}
+    rotas = (MATRIZ.get(plat) or {}).get(capac)
+    if not rotas:
+        veredicto['PORQUE'] = ('a matriz nao declara %s para %s. Ninguem mediu '
+                               'esta porta.' % (capac, plat))
+        return veredicto
+    escolhida = _rota_padrao(rotas)
+    if escolhida is None:
+        veredicto['DECISAO'] = NAO_PERMITIDA
+        veredicto['PORQUE'] = ('%s/%s tem %d rota(s) declarada(s) e nenhuma '
+                               'viavel' % (plat, capac, len(rotas)))
+        return veredicto
+    veredicto.update({'DECISAO': PERMITIDA_SIM, 'ROTA': escolhida['ROTA'],
+                      'CLASSE': escolhida['CLASSE'],
+                      'PERMITIDA': escolhida['PERMITIDA'],
+                      'ESTADO': escolhida['ESTADO'],
+                      'AUTH_MODE': auth_mode(escolhida),
+                      'PORQUE': escolhida['NOTA']})
+    return veredicto
+
+
 def _rota_padrao(rotas):
     """A rota DEFAULT: PERMITIDA primeiro, BARATA depois, PROVADA por último.
 

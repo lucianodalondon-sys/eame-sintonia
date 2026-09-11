@@ -272,7 +272,12 @@ class T8Reels(unittest.TestCase):
     """A cadeia ja provada continua a funcionar, e entra pelo adaptador."""
 
     def test_o_adaptador_alcanca_a_cadeia(self):
-        self.assertIsNotNone(reg.executor_de('INSTAGRAM', 'instagram.reel.transcribe'))
+        # `tem_caminho` e a pergunta que este teste sempre quis fazer: HA por
+        # onde colher isto? Ate a C10.4 a resposta vinha por `executa`, que e a
+        # porta de quem nao tem portao; desde a C10.4 vem por `rota`, que e a
+        # porta que o roteador abre depois de medir a politica. Pinar `executa`
+        # aqui seria exigir a porta de servico em nome de alcancar a cadeia.
+        self.assertTrue(reg.tem_caminho('INSTAGRAM', 'instagram.reel.transcribe'))
         self.assertTrue(scrap.CHECK('INSTAGRAM', 'instagram.reel.transcribe')['CAN'])
 
     def test_a_cadeia_continua_a_ser_o_modulo_especializado(self):
