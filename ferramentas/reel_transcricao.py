@@ -699,11 +699,44 @@ def _ficha_raw(caminho, ident, *, run_id, capture_provider, media_kind=NOT_KNOWN
         SOURCE_ID=ident.get('SOURCE_ID', NAO_SEI),
         SOURCE_URL=ident.get('SOURCE_URL', NAO_SEI),
         PUBLISHER=ident.get('ACCOUNT_ID', NAO_SEI),
+        # O RECORTE DE TRABALHO, E SÓ ISSO. `COUNTRY_SCOPE=IT` quer dizer «isto
+        # está a ser trabalhado na frente Itália» — não «a fonte está em
+        # Itália» e muito menos «o facto aconteceu em Itália».
+        #
+        #     COUNTRY_SCOPE É O QUE EU PEDI. NÃO É O QUE EU PROVEI.
         COUNTRY_SCOPE=ident.get('COUNTRY_SCOPE', NAO_SEI),
-        # ONDE A FONTE ESTÁ != ONDE O FATO ACONTECEU. A primeira é conhecida; a
-        # segunda não sai daqui, e não se enche com a primeira.
-        SOURCE_LOCATION=ident.get('PLATFORM', NAO_SEI),
-        FACT_LOCATION=NAO_SEI,
+        # ── QUATRO EIXOS, E NENHUM ENCHE O OUTRO ────────────────────────────
+        #   PLATFORM         o sistema onde a publicação existe     INSTAGRAM
+        #   COUNTRY_SCOPE    a frente de trabalho desta casa        IT
+        #   SOURCE_LOCATION  onde a fonte está, quando provado
+        #   FACT_LOCATION    onde o facto aconteceu, quando provado
+        #
+        # Até aqui a linha de baixo dizia `SOURCE_LOCATION=ident.get('PLATFORM')`
+        # — e produzia `SOURCE_LOCATION = INSTAGRAM`, que é semanticamente
+        # impossível: o Instagram é um sistema, não um sítio no mundo. O
+        # comentário que estava aqui já dizia a lei certa e a linha abaixo dele
+        # fazia o contrário.
+        #
+        #     CONTRACT_TEXT != IMPLEMENTATION. O comentário não corrige o código.
+        #
+        # E esta casa já tinha decidido isto, em quatro sítios vizinhos:
+        # `youtube_oficial.buscar` recusa-se a derivar país do `regionCode`;
+        # `social_envelope` diz que língua italiana não prova Itália;
+        # `golden_path_pdf` diz que `fact_location` não sai de `COUNTRY_SCOPE`;
+        # e `social_scrap` escreve «COUNTRY_SCOPE=IT É O QUE EU PEDI, NÃO É O
+        # QUE EU PROVEI». A cadeia de Reel era a única que não obedecia.
+        #
+        # Agora cada eixo só transporta a SUA evidência. Sem ela, o sentinela —
+        # que é um dado, não um buraco.
+        #
+        #     UNKNOWN É MAIS BARATO QUE ERRADO.
+        SOURCE_LOCATION=_ou(ident.get('SOURCE_LOCATION'), NAO_SEI),
+        # E provar onde a fonte está NUNCA prova onde o facto aconteceu: uma
+        # revista italiana noticia uma praga espanhola sem deixar de ser
+        # italiana. Este campo só se enche com prova sua — e esta cadeia não
+        # produz nenhuma, porque extrair geografia do conteúdo é outra missão,
+        # com outro dono.
+        FACT_LOCATION=_ou(ident.get('FACT_LOCATION'), NAO_SEI),
         PUBLISHED_AT=_ou(ident.get('PUBLISHED_AT'), NAO_SEI),
         COLLECTED_AT=art.agora(),
         RUN_ID=run_id,
@@ -716,6 +749,12 @@ def _ficha_raw(caminho, ident, *, run_id, capture_provider, media_kind=NOT_KNOWN
                # audio e um SHA de video sao indistinguiveis na ficha, e quem ler
                # assume video porque a cadeia se chama «reel».
                'MEDIA_KIND': media_kind,
+               # A PLATAFORMA CONTINUA RESPONDIDA — no campo dela, ao lado do
+               # outro metadado de plataforma. Ela só saiu de `SOURCE_LOCATION`,
+               # onde nunca devia ter estado; não foi apagada. Quem dedupla
+               # objectos sociais por `PLATFORM + NATIVE_ID` é
+               # `coleta/social_envelope.py`, e o conceito continua com ele.
+               'PLATFORM': ident.get('PLATFORM', NAO_SEI),
                'POST_ID': ident.get('POST_ID', NAO_SEI),
                'RAW_OBSERVATION_ID': ident.get('RAW_OBSERVATION_ID', NOT_KNOWN),
                'RAW_OBSERVATION_ID_LEI': (

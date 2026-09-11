@@ -760,6 +760,7 @@
       "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md",
       "docs/sintonia-scrap/C1-CONVERGENCIA-ESTRUTURAL.md",
       "docs/sintonia-scrap/C10-1-SOURCE-ID.md",
+      "docs/sintonia-scrap/C10-2-ORIGEM-NA-ADMISSION.md",
       "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
       "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
@@ -1455,6 +1456,7 @@
       "tests/test_autoridade_da_fonte.py",
       "tests/test_biblia.py",
       "tests/test_c10_1_source_id.py",
+      "tests/test_c10_2_origin_gate.py",
       "tests/test_c10_audio_only.py",
       "tests/test_c2_youtube_oficial.py",
       "tests/test_c3_youtube_cutover.py",
@@ -1915,10 +1917,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-admission-origin-contract-c10-2",
-    "HEAD": "31af9f63d9e77d39889cac2633c00e392aa1b9bf",
-    "GENERATED_AT": "2026-09-11T19:42:28+00:00",
-    "SOURCE_TREE_FINGERPRINT": "76e6c28f2d5a55e9e8ef82927986008010a60caa8276ad5c9053dfb46f8eac01"
+    "BRANCH": "claude/sintonia-scrap-location-contract-c10-3",
+    "HEAD": "231ffa2c07fd500ae663d2f1a8e38417976370e1",
+    "GENERATED_AT": "2026-09-11T20:02:48+00:00",
+    "SOURCE_TREE_FINGERPRINT": "c3a112629bc6f152eef589c8ccf84f3649de3af1a0a4749ff369ad222922db73"
   },
   "FAMILIES": [
     {
@@ -2614,7 +2616,8 @@
       ],
       "inbound": [
         "C-DONO-DA-ESCRITA",
-        "C-IT-TEXTO-DERIVADO"
+        "C-IT-TEXTO-DERIVADO",
+        "C-TESTES"
       ],
       "outbound": [
         "C-CENSO-DERIVACOES",
@@ -15485,6 +15488,7 @@
         "tests/test_autoridade_da_fonte.py",
         "tests/test_biblia.py",
         "tests/test_c10_1_source_id.py",
+        "tests/test_c10_2_origin_gate.py",
         "tests/test_c10_audio_only.py",
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c3_youtube_cutover.py",
@@ -15565,7 +15569,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 89,
+      "file_count": 90,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15673,6 +15677,7 @@
         "C-V21-OPORTUNIDADE"
       ],
       "outbound": [
+        "C-ADMISSAO",
         "C-ASK-SINTONIA",
         "C-AUDIT-GERAL",
         "C-CENSO-CONGELAMENTO",
@@ -15720,6 +15725,7 @@
           "FORWARD",
           "HISTORICOS",
           "INSTALADORES",
+          "ITEM",
           "LINHA_BOA",
           "PEDIDOS",
           "POSITIVOS",
@@ -15734,12 +15740,12 @@
           "TRACE_GPU",
           "_GAVETA_DE"
         ],
-        "palavras": 483,
+        "palavras": 493,
         "por_lingua": {
           "FR": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 479,
+        "sem_marca_de_lingua": 489,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -15781,13 +15787,13 @@
         },
         {
           "onde": "GIT",
-          "file": "data/samples/SPAIN-HERO-CASES-V1.json",
+          "file": "admissao/admissao.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
         {
           "onde": "GIT",
-          "file": "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
+          "file": "data/samples/SPAIN-HERO-CASES-V1.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -15871,7 +15877,7 @@
           "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
           "prova": {
             "file": "ferramentas/reel_transcricao.py",
-            "line": 1065,
+            "line": 1104,
             "snippet": "escreve em caminho"
           }
         }
@@ -17156,7 +17162,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-admission-origin-contract-c10-2"
+        "branch claude/sintonia-scrap-location-contract-c10-3"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17640,8 +17646,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c10_2_origin_gate.py",
+          "line": 34,
+          "snippet": "import admissao as ad            # noqa: E402"
+        },
         {
           "file": "tests/test_m2_rota_forward.py",
           "line": 18,
@@ -22456,12 +22467,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
           "line": 41,
           "snippet": "import preservar_coleta as pc     # noqa: E402"
+        },
+        {
+          "file": "tests/test_c10_2_origin_gate.py",
+          "line": 35,
+          "snippet": "import preservar_coleta as pc    # noqa: E402"
         },
         {
           "file": "tests/test_forward_instrumentado.py",
@@ -30238,6 +30254,24 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-ADMISSAO",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em A porta de admissao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c10_2_origin_gate.py",
+          "line": 190,
+          "snippet": "with io.open(os.path.join(RAIZ, 'admissao', 'admissao.py'),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-ASK-SINTONIA",
       "type": "WRITES",
       "payload": "artefacto",
@@ -31808,7 +31842,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 747,
+  "UNCLAIMED_FILES_COUNT": 748,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31976,12 +32010,12 @@
     "components_pending": 101,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 655,
-    "edges_proven": 652,
+    "edges": 656,
+    "edges_proven": 653,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1468,
-    "files_covered": 721,
+    "files_tracked": 1470,
+    "files_covered": 722,
     "files_code_unclaimed": 0
   }
 }

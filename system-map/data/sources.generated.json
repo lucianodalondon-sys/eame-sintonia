@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "31af9f63d9e77d39889cac2633c00e392aa1b9bf",
+    "HEAD": "231ffa2c07fd500ae663d2f1a8e38417976370e1",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4134,6 +4134,35 @@
   },
   "ENDPOINTS": [
     {
+      "endpoint": "https://www.instagram.com/reel",
+      "usado_por": [
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 7
+        },
+        {
+          "file": "provas/instagram_audio_only.py",
+          "line": 7
+        },
+        {
+          "file": "tests/test_c10_1_source_id.py",
+          "line": 18
+        },
+        {
+          "file": "tests/test_c10_2_origin_gate.py",
+          "line": 37
+        },
+        {
+          "file": "tests/test_c10_audio_only.py",
+          "line": 83
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 116
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.instagram.com/p",
       "usado_por": [
         {
@@ -4155,31 +4184,6 @@
         {
           "file": "ferramentas/reel_transcricao.py",
           "line": 331
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.instagram.com/reel",
-      "usado_por": [
-        {
-          "file": "ferramentas/reel_transcricao.py",
-          "line": 7
-        },
-        {
-          "file": "provas/instagram_audio_only.py",
-          "line": 7
-        },
-        {
-          "file": "tests/test_c10_1_source_id.py",
-          "line": 18
-        },
-        {
-          "file": "tests/test_c10_audio_only.py",
-          "line": 83
-        },
-        {
-          "file": "tests/test_reel_transcricao.py",
-          "line": 116
         }
       ]
     },
