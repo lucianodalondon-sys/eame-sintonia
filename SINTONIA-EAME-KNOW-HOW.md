@@ -3160,3 +3160,184 @@ O que ficou por saber, e não se resolve navegando mais — resolve-se com mater
 se existe nesta árvore corpus rotulado suficiente para treinar **ou sequer
 avaliar** um classificador; e se *«documento SOBRE X»* merece lei própria ou é
 consequência de leis que já existem.
+
+---
+
+# 52 · HÁ CHÃO PARA AVALIAR UM UNIVERSO, E PARA MAIS NENHUM
+
+## 52.1 · O QUÊ
+
+A secção 51 fechou o dono e declarou o mecanismo insuficiente, e deixou uma
+pergunta por responder: existe nesta árvore corpus rotulado para **avaliar** — e
+eventualmente **treinar** — o substituto? Contou-se.
+
+```
+T2 = B    serve para AVALIAR · não serve para treinar
+T3 = D    T4 = D    T7 = D    T9 = D
+T1 · T5 · T10 · T11 · T12 · T13 = D
+OVERALL_VERDICT = B
+```
+
+Nenhum classificador construído. Nenhum rótulo gerado. `PERGUNTAS_DO_UNIVERSO`
+intacto.
+
+## 52.2 · A REGRA QUE GOVERNOU A CONTAGEM INTEIRA
+
+```
+ROTULO EXISTE  !=  ROTULO E VERDADE CONFIAVEL
+```
+
+e o caso particular que decidiu a missão:
+
+```
+DECISAO GERADA POR `PERGUNTAS_DO_UNIVERSO`  !=  GABARITO
+```
+
+O livro de decisões tem **813 linhas** e **zero gabarito**. Todas as 813 saíram
+da lista de palavras que se quer substituir, e as 36 que dizem `SIM` trazem, na
+evidência, **as palavras que as produziram**.
+
+```
+UM CLASSIFICADOR TREINADO NAS RESPOSTAS DO ANTERIOR
+NAO O SUBSTITUI: CONFIRMA-O.
+```
+
+O livro continua útil — para comparação, diagnóstico e *hard-negative mining*:
+os 597 `NAO_SEI` são exatamente onde o vocabulário não chegou, e isso é uma lista
+de casos difíceis pronta a usar. **Útil não é o mesmo que gabarito.**
+
+## 52.3 · QUE MATERIAL PODE SER GABARITO, E QUE MATERIAL NÃO PODE
+
+| origem | autoridade | gabarito? |
+|---|---|---|
+| gabarito de T2 (46 documentos) | `DOCUMENT_SELF_DECLARED` | **SIM** |
+| livro de decisões (813) | `KEYWORD_DERIVED` | **NÃO** |
+| ficha da fonte / `MASTER_ITALIANO` | `SOURCE_CONTRACT_DECLARED` | **NÃO** |
+| manifestos de amostra | `SOURCE_CONTRACT_DECLARED` | **NÃO** |
+| registo de artefatos | `UNKNOWN` — não tem campo de universo | **NÃO** |
+
+A ficha da fonte está fora por **três contraexemplos medidos**, não por gosto:
+a ARPAV publica T2 **e** T3; a `IT-T5-003` declara *«Preço e mercado»* e entrega
+*«Bilancio Fitosanitario»*; a `IT-T7-002` declara *«Ciência e ensaio»* e entrega
+uma lista administrativa de organizações de produtores.
+
+```
+TERRITORIO DA FONTE != UNIVERSO DO DOCUMENTO,
+E JA HA TRES PROVAS DISSO NESTA ARVORE.
+```
+
+## 52.4 · O DEFEITO QUE ESTA PRÓPRIA PROVA TEVE — e é a lição de método
+
+A primeira versão do censo procurava o `SOURCE_ID` no **caminho**. Os 43 textos
+derivados chamam-se `RAW-<sha>.txt` e não carregam fonte no nome. Resultado: 43
+dos 46 itens caíram num balde chamado `NAO SEI`, e a prova respondeu
+
+```
+PUBLISHER_HOLDOUT_POSSIBLE = YES
+```
+
+porque o balde contava como **um publicador**.
+
+```
+UM BALDE DE DESCONHECIDOS CONTADO COMO CATEGORIA
+E DIVERSIDADE FABRICADA.
+```
+
+Foi apanhado por olhar para a linha `publicadores: {'NAO SEI': 43, ...}` em vez
+de olhar só para o `YES`. Corrigido pela **linhagem** — o registo de artefatos
+diz de que pai cada derivado nasceu, e o caminho do pai diz a fonte — e agora
+`NAO SEI` não conta como publicador em lado nenhum. 13 publicadores reais.
+
+E a mesma armadilha apareceu num segundo sítio: `IT-BOLLETTINI-VPN-2026` é uma
+**pasta** com boletins de quatro regiões, e estava a contar como um publicador.
+
+```
+UMA PASTA NAO E UMA INSTITUICAO.
+O NOME DO DIRETORIO NAO E UM FACTO SOBRE O MUNDO.
+```
+
+## 52.5 · OS CRITÉRIOS FORAM ESCRITOS ANTES DA CONTAGEM
+
+Estão em código (`CRITERIOS`), cada um com a razão ao lado, e presos um a um
+pelos testes — não como soma. Subir um limiar passa; **baixar cai alto**.
+
+| uso | positivos | negativos | publicadores | mais |
+|---|---:|---:|---:|---|
+| SANITY | ≥ 3 | ≥ 3 | ≥ 2 | — |
+| EVALUATION | ≥ 10 | ≥ 10 | ≥ 3 | holdout de publicador obrigatório |
+| TRAINING | ≥ 100 | ≥ 100 | ≥ 5 | ≥ 2 famílias, e cumprir EVALUATION |
+
+Três publicadores para avaliar porque é o mínimo em que **tirar um ainda deixa
+dois**. Com dois, tirar um deixa um, e um publicador não é uma distribuição.
+
+```
+UM CRITERIO ESCRITO DEPOIS DA CONTAGEM
+E O ALVO DESENHADO A VOLTA DA FLECHA.
+```
+
+## 52.6 · MULTIRRÓTULO — permitido não é exercido
+
+```
+ITEMS_WITH_2_PLUS_UNIVERSES   1
+MULTILABEL_CONFIRMED          0
+```
+
+A secção 51 provou que a arquitetura **permite** multirrótulo. O corpus real
+ainda **não o exerce**: o único item com três decisões tem três `NAO_SEI` e
+`NAO_SE_APLICA`, que não são rótulos.
+
+```
+TER TRES DECISOES REGISTADAS NAO PROVA QUE TRES ESTAO CERTAS.
+PERMITIDO != EXERCIDO.
+```
+
+## 52.7 · A RESSALVA QUE A LETRA `B` NÃO MOSTRA
+
+As candidatas `A3` e `A5` da missão de T2 **nasceram de olhar para este corpus**.
+Para elas o gabarito é treino, não teste.
+
+```
+UM CONJUNTO SO E INDEPENDENTE DE QUEM NAO OLHOU PARA ELE.
+```
+
+Para um mecanismo que ninguém ajustou aqui, continua a servir de avaliação. E a
+regra de partição fica escrita para quem avaliar: o **TEST** é um publicador
+retido por inteiro, nunca «outros documentos dos mesmos publicadores».
+
+## 52.8 · CONSEQUÊNCIA — a lacuna é alcançável, e sem coletar
+
+Documentos **já nesta árvore** que abrem declarando o seu próprio género:
+
+```
+T3    27 documentos · 9 publicadores
+T2     9 documentos · 2 publicadores
+T4     1 documento  · 1 publicador
+```
+
+**T3 é alcançável sem coletar nada.** O que falta é a passagem de rotulagem — e
+isso é trabalho de uma pessoa a ler, não de uma máquina a adivinhar. Rotular com
+LLM o corpus inteiro reintroduziria exatamente o defeito da secção 52.2, com
+outro nome.
+
+Para levar um universo de `D` a `B`: 10 positivos, 10 negativos, 3 publicadores
+no lado positivo, todos com corpo e razão escrita. Para levar T2 de `B` a `A`:
+mais 90 positivos, mais 67 negativos, mais 2 publicadores, e pelo menos uma
+língua além do italiano — o corpus é hoje **100% IT**.
+
+## 52.9 · O ESTADO, PARA A PRÓXIMA MISSÃO
+
+```
+corpus de avaliacao          existe para T2, e so para T2
+corpus de treino             nao existe para universo nenhum
+gabarito legitimo            1 origem em 5
+livro de decisoes            813 linhas, 0 ground truth, util como hard negatives
+T3                           alcancavel por rotulagem do que ja esta ca
+diversidade de lingua e pais 1 e 1 — o ponto mais fraco do corpus
+Admission · T2 · Biblia      intactos
+NEW_FAILURES                 0
+SYSTEM_MAP_CHECK             PASS
+```
+
+A decisão que fica para quem vier: **rotular o que há, coletar material novo,
+pedir revisão humana, ou combinar os três.** O censo dá a conta; não dá a
+escolha.
