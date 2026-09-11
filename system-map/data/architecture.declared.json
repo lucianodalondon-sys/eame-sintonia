@@ -2917,6 +2917,26 @@
    "views": [
     "audit"
    ]
+  },
+  {
+   "id": "C-SMOKE-GPU-ASR",
+   "name": "A placa leva uma inferencia ate ao fim?",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⚙",
+   "views": [
+    "audit",
+    "infra"
+   ],
+   "what": "Corre UMA transcricao no runner local, com audio sintetizado na propria maquina, e devolve o trace inteiro: dispositivo pedido, escolhido e provado, acelerador, tipo de calculo, estado do texto e as DLL do CUDA ao alcance do processo. Nao baixa modelo — para com MODEL_NOT_PRESENT — nao adquire midia e nao instancia reconhecedor proprio.",
+   "why_here": "A primeira prova de que a GTX 1080 levava uma inferencia ate ao fim foi feita a mao, num PowerShell, e passou. O QUE NAO CORRE OUTRA VEZ NAO E PROVA: E UMA LEMBRANCA. E ela e TECNICA, nunca de qualidade — o audio e uma frase sintetizada sem verdade de referencia, e por isso o artefato carrega QUALITY_BENCHMARK = NOT_RUN escrito por dentro. GPU TECHNICAL SMOKE != GPU QUALITY BENCHMARK.",
+   "departments": [
+    "ENGENHARIA",
+    "TECNICO_CIENCIA"
+   ],
+   "files": [
+    "provas/gpu_asr_smoke.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

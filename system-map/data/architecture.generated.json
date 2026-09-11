@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-fact-location-c7",
-    "HEAD": "51894669f3114f2ad3141115fbafe0b2fa16a0cd",
-    "GENERATED_AT": "2026-09-11T14:33:58+00:00",
-    "SOURCE_TREE_FINGERPRINT": "06762ec8b4041b04d9c3e699e34ec62c7de6791c1fdf5786a1bd1fc115760df3"
+    "BRANCH": "claude/sintonia-scrap-convergence-c8",
+    "HEAD": "85a46efbfae8e99b25a47a7caff5353da9e3e333",
+    "GENERATED_AT": "2026-09-11T17:22:46+00:00",
+    "SOURCE_TREE_FINGERPRINT": "873e98f8a23879053f69eb2056c05bba07a9faf5c38f8aecb9114f47874f6f0e"
   },
   "FILES": [
     {
@@ -101,7 +101,7 @@
     },
     {
       "path": ".github/workflows/scrap-social.yml",
-      "sha": "ece88edcf367118076b62fb05fdfcf975befd57d",
+      "sha": "bbbb1cd8972fec84c11c1fa9a4cce4dd75993a9e",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -5169,7 +5169,7 @@
     },
     {
       "path": "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
-      "sha": "996f065af2e8886efb996a88dcc6866b2b46817d",
+      "sha": "548daac2e21d90e81961dace4be0ac2432d2fe67",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5191,6 +5191,13 @@
     {
       "path": "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
       "sha": "65641a9b5b5bd1855d3ceb33082fb575b08136ab",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/sintonia-scrap/C8-CONVERGENCIA.md",
+      "sha": "c1f1cc37e829ee751b3aae4e4b29abbcaf371904",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5239,7 +5246,7 @@
     },
     {
       "path": "ferramentas/fala_local.py",
-      "sha": "fbab5c2f446fc765b65fbf26d4071ac234462f7e",
+      "sha": "73ed7fd9b2ccd596d499a2452b5079fe5bc64e7a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5253,7 +5260,7 @@
     },
     {
       "path": "ferramentas/instagram_transcrever.py",
-      "sha": "c94e9d0e9393edaf0ce815e2731c742fe1c289d3",
+      "sha": "8c6656427b15aad27e81bc3d3e26a55764514dc2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5302,7 +5309,7 @@
     },
     {
       "path": "ferramentas/youtube_transcrever.py",
-      "sha": "2179857c96a1a2cfa028f08db665c4aa235969f0",
+      "sha": "7bd25e8262b71709e587d7541735d2bee0ae1418",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7878,7 +7885,7 @@
     },
     {
       "path": "provas/asr_banco.py",
-      "sha": "5059de5db7c33b87fd2b9d6e387cc93766f1dc96",
+      "sha": "414dc5effd336ecfaa53811afc75f9c975bd1233",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7942,6 +7949,13 @@
     {
       "path": "provas/fluxo_no_seco.py",
       "sha": "a03d4f52a608121e08c3038675c36d258dc09647",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/gpu_asr_smoke.py",
+      "sha": "a6dd7cc0969f41326a3c989be82906756f1a3c34",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9299,7 +9313,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "aec57ec57ee508e5d5322284e172ee1ca1830e37",
+      "sha": "e256eb3a6affda76b251ca267678deb43b259691",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9691,7 +9705,14 @@
     },
     {
       "path": "tests/test_c4_gpu_local.py",
-      "sha": "93c1f2a8b3718df3648988107faa748397cf2c52",
+      "sha": "5c65efbe2342949e1b0fba38e48f2b3e2cf15703",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c4b_gpu_execucao.py",
+      "sha": "eac35b9cec75e459ddcf6ca12a8ef372de54f305",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9713,6 +9734,13 @@
     {
       "path": "tests/test_c7_lugar_do_fato.py",
       "sha": "42112b070bf28a7176c13aff8fba24798f94337e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c8_convergencia.py",
+      "sha": "e53946ffa606358b01d37636c1f8d0f2596600f1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10718,7 +10746,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 199,
+        "line": 267,
         "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
       }
     },
@@ -10729,7 +10757,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 200,
+        "line": 268,
         "snippet": "coleta/youtube_oficial.py; do"
       }
     },
@@ -10740,7 +10768,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 281,
+        "line": 349,
         "snippet": "rel = env.ler('YOUTUBE-PILOTO-IT.json') or {}"
       }
     },
@@ -10751,8 +10779,19 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 199,
+        "line": 267,
         "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
+      }
+    },
+    {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "provas/gpu_asr_smoke.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 218,
+        "snippet": "& $env:PY provas/gpu_asr_smoke.py --device GPU --json"
       }
     },
     {
@@ -26057,6 +26096,39 @@
       }
     },
     {
+      "from_file": "provas/gpu_asr_smoke.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/gpu_asr_smoke.py",
+        "line": 54,
+        "snippet": "import _gavetas                      # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/gpu_asr_smoke.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/gpu_asr_smoke.py",
+        "line": 55,
+        "snippet": "import fala_local as fl              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/gpu_asr_smoke.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/gpu_asr_smoke.py",
+        "line": 239,
+        "snippet": "'ASR_OWNER': 'ferramentas/fala_local.py',"
+      }
+    },
+    {
       "from_file": "provas/italy_accounting.mjs",
       "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "type": "READS",
@@ -30584,7 +30656,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c4_gpu_local.py",
-        "line": 554,
+        "line": 571,
         "snippet": "import hardware_local as hw                             # noqa: PLC0415"
       }
     },
@@ -30608,6 +30680,83 @@
         "file": "tests/test_c4_gpu_local.py",
         "line": 437,
         "snippet": "t = _fonte('regras/sensor_coleta.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": ".github/workflows/scrap-social.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 241,
+        "snippet": "wf = _fonte('.github/workflows/scrap-social.yml')"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 31,
+        "snippet": "import _gavetas                     # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 32,
+        "snippet": "import fala_local as fl             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 34,
+        "snippet": "DONO_DO_ASR = 'ferramentas/fala_local.py'"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": "ferramentas/instagram_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 352,
+        "snippet": "'ferramentas/instagram_transcrever.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": "ferramentas/youtube_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 351,
+        "snippet": "for rel in ('ferramentas/youtube_transcrever.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_c4b_gpu_execucao.py",
+      "to_file": "provas/gpu_asr_smoke.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4b_gpu_execucao.py",
+        "line": 35,
+        "snippet": "SMOKE = 'provas/gpu_asr_smoke.py'"
       }
     },
     {
@@ -30938,6 +31087,105 @@
         "file": "tests/test_c7_lugar_do_fato.py",
         "line": 199,
         "snippet": "fn = _func('regras/sensor_medir.py', 'lugar_do_fato')"
+      }
+    },
+    {
+      "from_file": "tests/test_c8_convergencia.py",
+      "to_file": ".github/workflows/scrap-social.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c8_convergencia.py",
+        "line": 34,
+        "snippet": "WORKFLOW = '.github/workflows/scrap-social.yml'"
+      }
+    },
+    {
+      "from_file": "tests/test_c8_convergencia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c8_convergencia.py",
+        "line": 28,
+        "snippet": "import _gavetas                      # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_c8_convergencia.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c8_convergencia.py",
+        "line": 261,
+        "snippet": "'coleta/ingresso.py', 'orquestrador/', 'supabase/',"
+      }
+    },
+    {
+      "from_file": "tests/test_c8_convergencia.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c8_convergencia.py",
+        "line": 31,
+        "snippet": "import fala_local as fl              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c8_convergencia.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c8_convergencia.py",
+        "line": 33,
+        "snippet": "DONO_DO_ASR = 'ferramentas/fala_local.py'"
+      }
+    },
+    {
+      "from_file": "tests/test_c8_convergencia.py",
+      "to_file": "provas/gpu_asr_smoke.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c8_convergencia.py",
+        "line": 254,
+        "snippet": "t = _fonte('provas/gpu_asr_smoke.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c8_convergencia.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c8_convergencia.py",
+        "line": 29,
+        "snippet": "import proveniencia as pv            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c8_convergencia.py",
+      "to_file": "regras/sensor_medir.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c8_convergencia.py",
+        "line": 30,
+        "snippet": "import sensor_medir as sm            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c8_convergencia.py",
+      "to_file": "regras/sensor_medir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c8_convergencia.py",
+        "line": 59,
+        "snippet": "arv = ast.parse(_fonte('regras/sensor_medir.py'))"
       }
     },
     {
@@ -36866,10 +37114,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1458,
-    "files_readable": 553,
-    "files_code_dir": 600,
-    "file_edges": 2381,
+    "files_tracked": 1462,
+    "files_readable": 556,
+    "files_code_dir": 603,
+    "file_edges": 2401,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

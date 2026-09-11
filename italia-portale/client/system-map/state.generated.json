@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 21495,
-    "h": 5360
+    "h": 5682
   },
   "INVENTORY": {
     ".claude": [
@@ -765,6 +765,7 @@
       "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
       "docs/sintonia-scrap/C6-ESPECIE-DO-TEXTO.md",
       "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
+      "docs/sintonia-scrap/C8-CONVERGENCIA.md",
       "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md"
@@ -1185,6 +1186,7 @@
       "provas/es/freeze_es.py",
       "provas/especie_do_texto_auditoria.py",
       "provas/fluxo_no_seco.py",
+      "provas/gpu_asr_smoke.py",
       "provas/hardware_local.py",
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
@@ -1451,9 +1453,11 @@
       "tests/test_c2_youtube_oficial.py",
       "tests/test_c3_youtube_cutover.py",
       "tests/test_c4_gpu_local.py",
+      "tests/test_c4b_gpu_execucao.py",
       "tests/test_c5_transcript_gate.py",
       "tests/test_c6_especie_do_texto.py",
       "tests/test_c7_lugar_do_fato.py",
+      "tests/test_c8_convergencia.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canonico.py",
       "tests/test_censo_dos_donos.py",
@@ -1905,10 +1909,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-fact-location-c7",
-    "HEAD": "51894669f3114f2ad3141115fbafe0b2fa16a0cd",
-    "GENERATED_AT": "2026-09-11T14:33:58+00:00",
-    "SOURCE_TREE_FINGERPRINT": "06762ec8b4041b04d9c3e699e34ec62c7de6791c1fdf5786a1bd1fc115760df3"
+    "BRANCH": "claude/sintonia-scrap-convergence-c8",
+    "HEAD": "85a46efbfae8e99b25a47a7caff5353da9e3e333",
+    "GENERATED_AT": "2026-09-11T17:22:46+00:00",
+    "SOURCE_TREE_FINGERPRINT": "873e98f8a23879053f69eb2056c05bba07a9faf5c38f8aecb9114f47874f6f0e"
   },
   "FAMILIES": [
     {
@@ -1918,7 +1922,7 @@
       "x": 260,
       "y": 60,
       "w": 11725,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -1944,7 +1948,7 @@
       "x": 12205,
       "y": 60,
       "w": 485,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-ESPERA"
       ],
@@ -1957,7 +1961,7 @@
       "x": 12910,
       "y": 60,
       "w": 1605,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-MOTOR",
         "Z-LINEAGE"
@@ -1972,12 +1976,12 @@
       "x": 18385,
       "y": 60,
       "w": 2850,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 58
+      "count": 59
     },
     {
       "id": "F-ENTREGA",
@@ -1986,7 +1990,7 @@
       "x": 14735,
       "y": 60,
       "w": 3430,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -2008,7 +2012,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2022,7 +2026,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2037,7 +2041,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2052,7 +2056,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2067,7 +2071,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2082,7 +2086,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2096,7 +2100,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2110,7 +2114,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 5
     },
     {
@@ -2126,7 +2130,7 @@
       "x": 5940,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 4
     },
     {
@@ -2142,7 +2146,7 @@
       "x": 6645,
       "y": 190,
       "w": 1235,
-      "h": 4870,
+      "h": 5192,
       "count": 14
     },
     {
@@ -2158,7 +2162,7 @@
       "x": 8180,
       "y": 190,
       "w": 1235,
-      "h": 4870,
+      "h": 5192,
       "count": 13
     },
     {
@@ -2174,7 +2178,7 @@
       "x": 9715,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 5
     },
     {
@@ -2189,7 +2193,7 @@
       "x": 10420,
       "y": 190,
       "w": 820,
-      "h": 4870,
+      "h": 5192,
       "count": 11
     },
     {
@@ -2204,7 +2208,7 @@
       "x": 11540,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2219,7 +2223,7 @@
       "x": 12245,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2235,7 +2239,7 @@
       "x": 12950,
       "y": 190,
       "w": 820,
-      "h": 4870,
+      "h": 5192,
       "count": 8
     },
     {
@@ -2251,7 +2255,7 @@
       "x": 14070,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 4
     },
     {
@@ -2267,7 +2271,7 @@
       "x": 14775,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 3
     },
     {
@@ -2283,7 +2287,7 @@
       "x": 15480,
       "y": 190,
       "w": 820,
-      "h": 4870,
+      "h": 5192,
       "count": 7
     },
     {
@@ -2299,7 +2303,7 @@
       "x": 16600,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 5
     },
     {
@@ -2314,7 +2318,7 @@
       "x": 17305,
       "y": 190,
       "w": 820,
-      "h": 4870,
+      "h": 5192,
       "count": 11
     },
     {
@@ -2330,7 +2334,7 @@
       "x": 18425,
       "y": 190,
       "w": 1235,
-      "h": 4870,
+      "h": 5192,
       "count": 13
     },
     {
@@ -2346,8 +2350,8 @@
       "x": 19960,
       "y": 190,
       "w": 1235,
-      "h": 4870,
-      "count": 45
+      "h": 5192,
+      "count": 46
     }
   ],
   "DEPARTMENTS": {
@@ -13736,6 +13740,7 @@
         "C-CENSO-DA-MAQUINA",
         "C-SCRAP-GUARDA",
         "C-SCRAP-SOCIAL",
+        "C-SMOKE-GPU-ASR",
         "C-TESTES"
       ],
       "paises": {},
@@ -14178,6 +14183,52 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 15540,
       "y": 1326
+    },
+    {
+      "id": "C-SMOKE-GPU-ASR",
+      "name": "A placa leva uma inferencia ate ao fim?",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Corre UMA transcricao no runner local, com audio sintetizado na propria maquina, e devolve o trace inteiro: dispositivo pedido, escolhido e provado, acelerador, tipo de calculo, estado do texto e as DLL do CUDA ao alcance do processo. Nao baixa modelo — para com MODEL_NOT_PRESENT — nao adquire midia e nao instancia reconhecedor proprio.",
+      "why_here": "A primeira prova de que a GTX 1080 levava uma inferencia ate ao fim foi feita a mao, num PowerShell, e passou. O QUE NAO CORRE OUTRA VEZ NAO E PROVA: E UMA LEMBRANCA. E ela e TECNICA, nunca de qualidade — o audio e uma frase sintetizada sem verdade de referencia, e por isso o artefato carrega QUALITY_BENCHMARK = NOT_RUN escrito por dentro. GPU TECHNICAL SMOKE != GPU QUALITY BENCHMARK.",
+      "departments": [
+        "ENGENHARIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/gpu_asr_smoke.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-SCRAP-ROTA",
+        "C-TRANSCRICAO"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20850,
+      "y": 4868
     },
     {
       "id": "C-SUPABASE",
@@ -15385,9 +15436,11 @@
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c3_youtube_cutover.py",
         "tests/test_c4_gpu_local.py",
+        "tests/test_c4b_gpu_execucao.py",
         "tests/test_c5_transcript_gate.py",
         "tests/test_c6_especie_do_texto.py",
         "tests/test_c7_lugar_do_fato.py",
+        "tests/test_c8_convergencia.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canonico.py",
         "tests/test_censo_dos_donos.py",
@@ -15459,7 +15512,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 85,
+      "file_count": 87,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15558,6 +15611,7 @@
         "C-SCRAP-SOCIAL",
         "C-SECURITY-CHECK",
         "C-SENSOR-COLETA",
+        "C-SMOKE-GPU-ASR",
         "C-SUPABASE",
         "C-TRANSCRICAO",
         "C-V21-COMERCIAL",
@@ -15612,6 +15666,7 @@
           "FORTE",
           "FORWARD",
           "HISTORICOS",
+          "INSTALADORES",
           "LINHA_BOA",
           "PEDIDOS",
           "POSITIVOS",
@@ -15623,14 +15678,15 @@
           "SINAIS",
           "SINAL_LOMBARDIA",
           "SINAL_VENETO",
+          "TRACE_GPU",
           "_GAVETA_DE"
         ],
-        "palavras": 464,
+        "palavras": 483,
         "por_lingua": {
           "FR": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 460,
+        "sem_marca_de_lingua": 479,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -15684,8 +15740,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 4868
+      "x": 20020,
+      "y": 5190
     },
     {
       "id": "C-TRANSCRICAO",
@@ -15733,6 +15789,7 @@
         "C-PROVA-ASR-LOCAL",
         "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL",
+        "C-SMOKE-GPU-ASR",
         "C-TESTES"
       ],
       "paises": {},
@@ -17044,7 +17101,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-fact-location-c7"
+        "branch claude/sintonia-scrap-convergence-c8"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -19400,7 +19457,7 @@
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
-          "line": 554,
+          "line": 571,
           "snippet": "import hardware_local as hw                             # noqa: PLC0415"
         }
       ],
@@ -23784,8 +23841,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c8_convergencia.py",
+          "line": 261,
+          "snippet": "'coleta/ingresso.py', 'orquestrador/', 'supabase/',"
+        },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 494,
@@ -25694,7 +25756,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As palavras que a busca digita tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "As palavras que a busca digita tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c6_especie_do_texto.py",
@@ -25705,6 +25767,11 @@
           "file": "tests/test_c7_lugar_do_fato.py",
           "line": 37,
           "snippet": "import sensor_medir as sm    # noqa: E402"
+        },
+        {
+          "file": "tests/test_c8_convergencia.py",
+          "line": 30,
+          "snippet": "import sensor_medir as sm            # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -25717,7 +25784,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As palavras que a busca digita alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "As palavras que a busca digita alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c6_especie_do_texto.py",
@@ -25728,6 +25795,11 @@
           "file": "tests/test_c7_lugar_do_fato.py",
           "line": 199,
           "snippet": "fn = _func('regras/sensor_medir.py', 'lugar_do_fato')"
+        },
+        {
+          "file": "tests/test_c8_convergencia.py",
+          "line": 59,
+          "snippet": "arv = ast.parse(_fonte('regras/sensor_medir.py'))"
         }
       ],
       "categoria": "PROOF"
@@ -26934,7 +27006,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c6_especie_do_texto.py",
@@ -26945,6 +27017,11 @@
           "file": "tests/test_c7_lugar_do_fato.py",
           "line": 36,
           "snippet": "import proveniencia as pv    # noqa: E402"
+        },
+        {
+          "file": "tests/test_c8_convergencia.py",
+          "line": 29,
+          "snippet": "import proveniencia as pv            # noqa: E402"
         },
         {
           "file": "tests/test_handoff.py",
@@ -28844,7 +28921,7 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 199,
+          "line": 267,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
         }
       ],
@@ -28862,13 +28939,31 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 199,
+          "line": 267,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
         },
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 200,
+          "line": 268,
           "snippet": "coleta/youtube_oficial.py; do"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-SCRAP-ROTA",
+      "to": "C-SMOKE-GPU-ASR",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) manda rodar A placa leva uma inferencia ate ao fim?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 218,
+          "snippet": "& $env:PY provas/gpu_asr_smoke.py --device GPU --json"
         }
       ],
       "categoria": "CONTROL"
@@ -28881,12 +28976,22 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP rota e sessao · o despachador (auth_mode) alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c2_youtube_oficial.py",
           "line": 139,
           "snippet": "wf = _fonte('.github/workflows/scrap-social.yml')"
+        },
+        {
+          "file": "tests/test_c4b_gpu_execucao.py",
+          "line": 241,
+          "snippet": "wf = _fonte('.github/workflows/scrap-social.yml')"
+        },
+        {
+          "file": "tests/test_c8_convergencia.py",
+          "line": 34,
+          "snippet": "WORKFLOW = '.github/workflows/scrap-social.yml'"
         },
         {
           "file": "tests/test_youtube_antidrift.py",
@@ -29453,6 +29558,29 @@
         }
       ],
       "categoria": "WRITE"
+    },
+    {
+      "from": "C-SMOKE-GPU-ASR",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A placa leva uma inferencia ate ao fim? alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c4b_gpu_execucao.py",
+          "line": 35,
+          "snippet": "SMOKE = 'provas/gpu_asr_smoke.py'"
+        },
+        {
+          "file": "tests/test_c8_convergencia.py",
+          "line": 254,
+          "snippet": "t = _fonte('provas/gpu_asr_smoke.py')"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-SUPABASE",
@@ -30410,18 +30538,59 @@
     },
     {
       "from": "C-TRANSCRICAO",
+      "to": "C-SMOKE-GPU-ASR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por A placa leva uma inferencia ate ao fim?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/gpu_asr_smoke.py",
+          "line": 55,
+          "snippet": "import fala_local as fl              # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-TRANSCRICAO",
+      "to": "C-SMOKE-GPU-ASR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura alimenta A placa leva uma inferencia ate ao fim?. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/gpu_asr_smoke.py",
+          "line": 239,
+          "snippet": "'ASR_OWNER': 'ferramentas/fala_local.py',"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-TRANSCRICAO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
           "line": 27,
           "snippet": "import fala_local as fl                                        # noqa: E402"
+        },
+        {
+          "file": "tests/test_c4b_gpu_execucao.py",
+          "line": 32,
+          "snippet": "import fala_local as fl             # noqa: E402"
         },
         {
           "file": "tests/test_c5_transcript_gate.py",
@@ -30432,6 +30601,11 @@
           "file": "tests/test_c6_especie_do_texto.py",
           "line": 164,
           "snippet": "import fala_local as fl                                 # noqa: PLC0415"
+        },
+        {
+          "file": "tests/test_c8_convergencia.py",
+          "line": 31,
+          "snippet": "import fala_local as fl              # noqa: E402"
         },
         {
           "file": "tests/test_reel_transcricao.py",
@@ -30469,7 +30643,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
@@ -30492,6 +30666,21 @@
           "snippet": "'ferramentas/reel_transcricao.py')"
         },
         {
+          "file": "tests/test_c4b_gpu_execucao.py",
+          "line": 34,
+          "snippet": "DONO_DO_ASR = 'ferramentas/fala_local.py'"
+        },
+        {
+          "file": "tests/test_c4b_gpu_execucao.py",
+          "line": 351,
+          "snippet": "for rel in ('ferramentas/youtube_transcrever.py',"
+        },
+        {
+          "file": "tests/test_c4b_gpu_execucao.py",
+          "line": 352,
+          "snippet": "'ferramentas/instagram_transcrever.py'):"
+        },
+        {
           "file": "tests/test_c5_transcript_gate.py",
           "line": 382,
           "snippet": "t = _fonte('ferramentas/fala_local.py')"
@@ -30502,6 +30691,11 @@
           "snippet": "t = _fonte('ferramentas/fala_local.py')"
         },
         {
+          "file": "tests/test_c8_convergencia.py",
+          "line": 33,
+          "snippet": "DONO_DO_ASR = 'ferramentas/fala_local.py'"
+        },
+        {
           "file": "tests/test_reel_transcricao.py",
           "line": 55,
           "snippet": "'ASR_MODEL': 'small', 'TRANSCRIBER_ID': 'ferramentas/fala_local.py',"
@@ -30510,11 +30704,6 @@
           "file": "tests/test_scrap_convergencia.py",
           "line": 83,
           "snippet": "DONO = 'ferramentas/fala_local.py'"
-        },
-        {
-          "file": "tests/test_scrap_convergencia.py",
-          "line": 282,
-          "snippet": "self.assertNotIn('WhisperModel(', _fonte('ferramentas/reel_transcricao.py'))"
         }
       ],
       "categoria": "PROOF"
@@ -31503,7 +31692,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 743,
+  "UNCLAIMED_FILES_COUNT": 744,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31666,17 +31855,17 @@
     ]
   },
   "COUNTS": {
-    "components": 161,
+    "components": 162,
     "components_proven": 56,
-    "components_pending": 99,
+    "components_pending": 100,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 649,
-    "edges_proven": 646,
+    "edges": 653,
+    "edges_proven": 650,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1458,
-    "files_covered": 715,
+    "files_tracked": 1462,
+    "files_covered": 718,
     "files_code_unclaimed": 0
   }
 }
