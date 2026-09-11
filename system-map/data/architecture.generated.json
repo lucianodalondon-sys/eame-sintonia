@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-source-id-c10-1",
-    "HEAD": "552aab44a5395652913bb0ab69daf5d022122707",
-    "GENERATED_AT": "2026-09-11T19:19:04+00:00",
-    "SOURCE_TREE_FINGERPRINT": "55d5271d2f7d88b9d40a22088e2f98d6f7a2bdbede75d8f9225358bc8cecd07b"
+    "BRANCH": "claude/sintonia-admission-origin-contract-c10-2",
+    "HEAD": "31af9f63d9e77d39889cac2633c00e392aa1b9bf",
+    "GENERATED_AT": "2026-09-11T19:42:28+00:00",
+    "SOURCE_TREE_FINGERPRINT": "76e6c28f2d5a55e9e8ef82927986008010a60caa8276ad5c9053dfb46f8eac01"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "5fc2df96604c7bbbb6d113d59ade4b8497e63e9d",
+      "sha": "5054e1c8e2a5ea765993131fc9e52d81447e97bc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5154,6 +5154,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-1-SOURCE-ID.md",
+      "sha": "557f63aabc8046c03cb3f683eecc5a2bb581624c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -9711,6 +9718,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_c10_1_source_id.py",
+      "sha": "509fe712bc2286c08a985eff06c1805b8389a306",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_c10_audio_only.py",
       "sha": "d18f856d2f1f8a6dcd9dfe71aea56656b7165847",
       "ext": ".py",
@@ -11577,7 +11591,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 69,
+        "line": 73,
         "snippet": "LIVRO = RAIZ / \"data\" / \"samples\" / \"LIVRO-DE-DECISOES.json\""
       }
     },
@@ -11588,8 +11602,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "admissao/admissao.py",
-        "line": 420,
+        "line": 501,
         "snippet": "LIVRO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "admissao/admissao.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/admissao.py",
+        "line": 71,
+        "snippet": "from preservar_coleta import _identifica  # noqa: E402"
       }
     },
     {
@@ -30117,6 +30142,50 @@
       }
     },
     {
+      "from_file": "tests/test_c10_1_source_id.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_1_source_id.py",
+        "line": 42,
+        "snippet": "import reel_transcricao as rt     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_1_source_id.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_1_source_id.py",
+        "line": 182,
+        "snippet": "with io.open(os.path.join(RAIZ, 'ferramentas', 'reel_transcricao.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_1_source_id.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_1_source_id.py",
+        "line": 41,
+        "snippet": "import preservar_coleta as pc     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_1_source_id.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_1_source_id.py",
+        "line": 40,
+        "snippet": "import artefato as art            # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_c10_audio_only.py",
       "to_file": "ferramentas/fala_local.py",
       "type": "IMPORTS",
@@ -37208,10 +37277,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1466,
-    "files_readable": 558,
-    "files_code_dir": 605,
-    "file_edges": 2407,
+    "files_tracked": 1468,
+    "files_readable": 559,
+    "files_code_dir": 606,
+    "file_edges": 2412,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

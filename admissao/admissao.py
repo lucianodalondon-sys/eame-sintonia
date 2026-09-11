@@ -65,6 +65,10 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ))
 import _gavetas  # noqa: E402,F401
+# O dono do vocabulario das confissoes. Importado, e nao copiado: as seis
+# palavras foram CONTADAS no repositorio por quem preserva, e uma segunda copia
+# divergiria no dia em que aparecesse a setima.
+from preservar_coleta import _identifica  # noqa: E402
 
 LIVRO = RAIZ / "data" / "samples" / "LIVRO-DE-DECISOES.json"
 
@@ -163,13 +167,90 @@ def _legivel(item: dict) -> tuple:
     return SIM, "tem conteudo legivel", {"caracteres": len(str(t))}
 
 
+# ── O QUE ESTA PORTA CHAMA DE «ORIGEM», E O QUE ELA NAO CHAMA ──────────────
+# Esta pergunta e de PROCEDENCIA CONFERIVEL, e nao de identidade canonica. Nao
+# e opiniao: le-se no contrato, em tres sitios independentes.
+#
+#   1. o motivo que ela propria escreve quando falha — «nao se consegue
+#      CONFERIR DEPOIS»;
+#   2. a companhia em que vive — `perguntas_do_estagio` chama-lhe «Prontidao
+#      DOCUMENTAL: da para ler, sabe de onde veio, sabe de que original nasceu»;
+#   3. e a prova que fecha o assunto: `pronto_para_inteligencia` monta o
+#      `SOURCE_ID` de saida a partir de `source_id` ou `fonte` — e DEIXA `url`
+#      DE FORA, de proposito. Se esta porta fosse um portao de identidade, a
+#      saida partilharia a cadeia dela. Nao partilha.
+#
+#     ORIGIN_GATE = PROCEDENCIA.  IDENTITY_GATE = OUTRO, E NAO VIVE AQUI.
+#
+# Por isso um endereco PODE responder a esta pergunta. O que ele nao pode e
+# virar identidade — e nao vira: `SOURCE_ID` nunca sai daqui, e a especie do
+# que respondeu fica escrita na evidencia para ninguem confundir as duas.
+#
+#     UMA URL PROVA UM ENDERECO. UMA URL NAO CRIA SOURCE_ID.
+IDENTIDADE_DA_FONTE = ("source_id", "SOURCE_ID", "fonte")
+#: O endereco, na grafia do item e na do contrato do coletor (`DO_COLETOR`).
+ENDERECO_DA_OBSERVACAO = ("url", "source_url", "SOURCE_URL")
+
+
+def _declarado(item: dict, campos: tuple):
+    """O primeiro campo que IDENTIFICA de verdade. → (valor, campo) ou (None, None).
+
+    «Identifica de verdade» nao e «e truthy». O dono desse vocabulario e
+    `guarda/preservar_coleta._identifica`, e e ele que se usa — repetir a lista
+    das seis confissoes aqui seria criar um segundo dono da mesma pergunta, e
+    dois donos divergem no dia em que alguem acrescentar a setima.
+    """
+    for c in campos:
+        v = item.get(c)
+        if _identifica(v):
+            return v, c
+    return None, None
+
+
 def _tem_origem(item: dict) -> tuple:
-    fonte = item.get("source_id") or item.get("fonte") or item.get("url")
-    if not fonte:
-        return NAO_SEI, ("nao da para dizer de onde este item veio. Um item sem "
-                         "origem nao se consegue conferir depois, e um numero que "
-                         "nao se confere e um palpite bem vestido."), {}
-    return SIM, "a origem esta declarada", {"origem": str(fonte)[:160]}
+    """Da para conferir depois de onde isto veio? → (resultado, motivo, evidencia).
+
+    A ORDEM E DELIBERADA: identidade primeiro, endereco depois. As duas
+    respondem a pergunta, e a primeira responde melhor — mas a segunda so entra
+    quando a primeira nao existe, NUNCA por cima dela.
+
+    TRES COISAS QUE ESTA FUNCAO FAZIA E DEIXOU DE FAZER
+    ----------------------------------------------------
+    Ela era `source_id or fonte or url`, e uma cadeia de `or` mede se o valor e
+    truthy — nao se ele responde. Medido nesta casa:
+
+        `source_id = "NAO SEI"` + url  ->  SIM, com evidencia «NAO SEI»
+        `source_id = "NAO SEI"` SEM url ->  SIM, com evidencia «NAO SEI»
+
+    O segundo caso e o que mostra o tamanho do buraco: um item sem endereco
+    nenhum passava a dizer que a origem estava declarada. Nao havia NADA para
+    conferir depois, que e exatamente o que esta pergunta existe para garantir.
+
+        UMA CONFISSAO NAO E UMA ORIGEM. «Nao sei de onde veio» e a resposta
+        NAO_SEI a esta pergunta — nao e o valor dela.
+
+    E, no primeiro caso, a confissao AINDA ofuscava o endereco real: o `or`
+    parava nela e o URL — que respondia — nunca chegava ao livro de decisoes.
+
+    A terceira: a evidencia dizia so `origem`, sem dizer de que especie. Quem
+    lesse o livro nao conseguia distinguir uma identidade de um endereco, e a
+    leitura natural de «origem» e a primeira.
+    """
+    ident, campo = _declarado(item, IDENTIDADE_DA_FONTE)
+    if ident:
+        return SIM, "a origem esta declarada por identidade de fonte", {
+            "origem": str(ident)[:160], "origem_especie": "SOURCE_ID",
+            "origem_campo": campo}
+    endereco, campo = _declarado(item, ENDERECO_DA_OBSERVACAO)
+    if endereco:
+        return SIM, ("a origem esta declarada por endereco conferivel. A fonte "
+                     "canonica continua por identificar, e isto NAO e "
+                     "IDENTITY_STATE."), {
+            "origem": str(endereco)[:160], "origem_especie": "SOURCE_URL",
+            "origem_campo": campo}
+    return NAO_SEI, ("nao da para dizer de onde este item veio. Um item sem "
+                     "origem nao se consegue conferir depois, e um numero que "
+                     "nao se confere e um palpite bem vestido."), {}
 
 
 def _tem_quando(item: dict) -> tuple:

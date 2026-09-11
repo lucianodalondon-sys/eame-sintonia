@@ -759,6 +759,7 @@
       "docs/sintonia-scrap/AP-DISCOVERY-VS-CAPTURA-V1.md",
       "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md",
       "docs/sintonia-scrap/C1-CONVERGENCIA-ESTRUTURAL.md",
+      "docs/sintonia-scrap/C10-1-SOURCE-ID.md",
       "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
       "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
@@ -1453,6 +1454,7 @@
       "tests/test_armazem_italiano.py",
       "tests/test_autoridade_da_fonte.py",
       "tests/test_biblia.py",
+      "tests/test_c10_1_source_id.py",
       "tests/test_c10_audio_only.py",
       "tests/test_c2_youtube_oficial.py",
       "tests/test_c3_youtube_cutover.py",
@@ -1913,10 +1915,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-source-id-c10-1",
-    "HEAD": "552aab44a5395652913bb0ab69daf5d022122707",
-    "GENERATED_AT": "2026-09-11T19:19:04+00:00",
-    "SOURCE_TREE_FINGERPRINT": "55d5271d2f7d88b9d40a22088e2f98d6f7a2bdbede75d8f9225358bc8cecd07b"
+    "BRANCH": "claude/sintonia-admission-origin-contract-c10-2",
+    "HEAD": "31af9f63d9e77d39889cac2633c00e392aa1b9bf",
+    "GENERATED_AT": "2026-09-11T19:42:28+00:00",
+    "SOURCE_TREE_FINGERPRINT": "76e6c28f2d5a55e9e8ef82927986008010a60caa8276ad5c9053dfb46f8eac01"
   },
   "FAMILIES": [
     {
@@ -2611,6 +2613,7 @@
         "data/samples/LIVRO-DE-DECISOES.json"
       ],
       "inbound": [
+        "C-DONO-DA-ESCRITA",
         "C-IT-TEXTO-DERIVADO"
       ],
       "outbound": [
@@ -8156,6 +8159,7 @@
         "C-DONO-DO-DERIVADO"
       ],
       "outbound": [
+        "C-ADMISSAO",
         "C-DONO-DO-DERIVADO",
         "C-INGRESSO",
         "C-PROVA-COLETA",
@@ -15480,6 +15484,7 @@
         "tests/test_armazem_italiano.py",
         "tests/test_autoridade_da_fonte.py",
         "tests/test_biblia.py",
+        "tests/test_c10_1_source_id.py",
         "tests/test_c10_audio_only.py",
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c3_youtube_cutover.py",
@@ -15560,7 +15565,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 88,
+      "file_count": 89,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17151,7 +17156,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-source-id-c10-1"
+        "branch claude/sintonia-admission-origin-contract-c10-2"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17586,7 +17591,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 426,
+          "line": 507,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:"
         }
       ]
@@ -21421,8 +21426,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c10_1_source_id.py",
+          "line": 40,
+          "snippet": "import artefato as art            # noqa: E402"
+        },
         {
           "file": "tests/test_forward_instrumentado.py",
           "line": 128,
@@ -22281,6 +22291,24 @@
     },
     {
       "from": "C-DONO-DA-ESCRITA",
+      "to": "C-ADMISSAO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A porta de admissao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "admissao/admissao.py",
+          "line": 71,
+          "snippet": "from preservar_coleta import _identifica  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
       "to": "C-DONO-DO-DERIVADO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -22428,8 +22456,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c10_1_source_id.py",
+          "line": 41,
+          "snippet": "import preservar_coleta as pc     # noqa: E402"
+        },
         {
           "file": "tests/test_forward_instrumentado.py",
           "line": 34,
@@ -30653,8 +30686,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c10_1_source_id.py",
+          "line": 42,
+          "snippet": "import reel_transcricao as rt     # noqa: E402"
+        },
         {
           "file": "tests/test_c10_audio_only.py",
           "line": 39,
@@ -30709,11 +30747,6 @@
           "file": "tests/test_reel_transcricao.py",
           "line": 421,
           "snippet": "import youtube_transcrever as yt"
-        },
-        {
-          "file": "tests/test_scrap_convergencia.py",
-          "line": 279,
-          "snippet": "import reel_transcricao as rt"
         }
       ],
       "categoria": "PROOF"
@@ -30726,8 +30759,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 15 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 16 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c10_1_source_id.py",
+          "line": 182,
+          "snippet": "with io.open(os.path.join(RAIZ, 'ferramentas', 'reel_transcricao.py'),"
+        },
         {
           "file": "tests/test_c10_audio_only.py",
           "line": 321,
@@ -30782,11 +30820,6 @@
           "file": "tests/test_c6_especie_do_texto.py",
           "line": 159,
           "snippet": "t = _fonte('ferramentas/fala_local.py')"
-        },
-        {
-          "file": "tests/test_c8_convergencia.py",
-          "line": 33,
-          "snippet": "DONO_DO_ASR = 'ferramentas/fala_local.py'"
         }
       ],
       "categoria": "PROOF"
@@ -31775,7 +31808,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 746,
+  "UNCLAIMED_FILES_COUNT": 747,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31943,12 +31976,12 @@
     "components_pending": 101,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 654,
-    "edges_proven": 651,
+    "edges": 655,
+    "edges_proven": 652,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1466,
-    "files_covered": 720,
+    "files_tracked": 1468,
+    "files_covered": 721,
     "files_code_unclaimed": 0
   }
 }
