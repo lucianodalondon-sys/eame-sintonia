@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-instagram-route-gate-c10-4",
-    "HEAD": "5c195afe7284f4016ce49a938001941a85a0455c",
-    "GENERATED_AT": "2026-09-11T20:56:45+00:00",
+    "HEAD": "740c1eda4d9440ec4def3d2da1eadab75b9d129f",
+    "GENERATED_AT": "2026-09-11T21:25:46+00:00",
     "SOURCE_TREE_FINGERPRINT": "e0c1fac8714e0ea6de997a60fd633590e0eb8b92a7736d26bda1b1ff43c9e655"
   },
   "FILES": [
@@ -5175,6 +5175,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-4-INSTAGRAM-ROUTE-GATE.md",
+      "sha": "922c7599f6836faee3553151075ef5a590cbce83",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -9748,6 +9755,13 @@
     {
       "path": "tests/test_c10_3_location.py",
       "sha": "12a2f9adaa470708867659dca2dd4704e6d9ac58",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_4_route_gate.py",
+      "sha": "fb1e7476f3505461a6f0c5e3f5e6df93b68663c7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30302,6 +30316,127 @@
       }
     },
     {
+      "from_file": "tests/test_c10_4_route_gate.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_4_route_gate.py",
+        "line": 61,
+        "snippet": "import adaptador_instagram as ai    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4_route_gate.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_4_route_gate.py",
+        "line": 271,
+        "snippet": "arvore = ast.parse(_fonte('coleta/adaptador_instagram.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4_route_gate.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_4_route_gate.py",
+        "line": 57,
+        "snippet": "import scrap_capacidades as cap     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4_route_gate.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_4_route_gate.py",
+        "line": 59,
+        "snippet": "import scrap_executor as scrap      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4_route_gate.py",
+      "to_file": "coleta/scrap_fornecedores.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_4_route_gate.py",
+        "line": 60,
+        "snippet": "import scrap_fornecedores as forn   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4_route_gate.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_4_route_gate.py",
+        "line": 58,
+        "snippet": "import scrap_registo as reg         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4_route_gate.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_4_route_gate.py",
+        "line": 415,
+        "snippet": "self.assertEqual(medida.get('ASR_OWNER'), 'ferramentas/fala_local.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4_route_gate.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_4_route_gate.py",
+        "line": 62,
+        "snippet": "import reel_transcricao as rt       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4_route_gate.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_4_route_gate.py",
+        "line": 414,
+        "snippet": "'ferramentas/reel_transcricao.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4_route_gate.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_4_route_gate.py",
+        "line": 56,
+        "snippet": "import social_matriz as mz          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4_route_gate.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_4_route_gate.py",
+        "line": 235,
+        "snippet": "self.assertIn('leis/social_matriz.py', donos,"
+      }
+    },
+    {
       "from_file": "tests/test_c10_audio_only.py",
       "to_file": "ferramentas/fala_local.py",
       "type": "IMPORTS",
@@ -37393,10 +37528,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1472,
-    "files_readable": 561,
-    "files_code_dir": 608,
-    "file_edges": 2420,
+    "files_tracked": 1474,
+    "files_readable": 562,
+    "files_code_dir": 609,
+    "file_edges": 2431,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
