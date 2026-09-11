@@ -10,8 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-11 — o contrato de retorno do executor (secção 46; `COL-LAW-505`; Bíblia V1.4).  
-**Próxima missão autorizada:** ligar o contrato ao runtime — `a_colheita()` passa a ler a espécie declarada em vez de adivinhar. Três famílias medidas.
+**Última atualização material:** 2026-09-11 — a lei do retorno entrou no runtime (secção 47; 253 falsos passaram a zero).  
+**Próxima missão autorizada:** o seam que a ligação revelou — `SOURCE_ID` maiúsculo do contrato do coletor contra `source_id` minúsculo da porta de admissão.
 
 ---
 
@@ -2421,3 +2421,131 @@ a ser **derivada** da última linha do histórico constitucional, e as leis que
 nunca podem desaparecer são agora nomeadas uma a uma. Um literal cravado num
 teste convida a ser editado para o teste ficar verde — que é o contrário do que
 a `COL-LAW-069` quer.
+
+
+---
+
+# 47. A LEI DO RETORNO ENTROU NO RUNTIME — 253 FALSOS PASSARAM A ZERO
+
+```
+MISSAO = C-IMPL-EXECUTOR-RETURN-RUNTIME-V1, 2026-09-11
+BRANCH = claude/executor-return-runtime-v1
+HEAD   = bf1ad7aa1bb4daddb67464ee99852d107efa934b
+PROVAS = provas/so_a_colheita_atravessa.py
+         provas/o_corte_de_cr1.py
+         tests/test_runtime_so_deixa_passar_colheita.py
+```
+
+## 47.1 · O QUÊ
+
+A `COL-LAW-505` deixou de ser lei escrita e passou a decidir. A heurística que
+escolhia «a primeira lista de fichas do JSON» **saiu do orquestrador**, e a
+espécie passa a vir declarada:
+
+```
+EXECUTOR -> ENVELOPE -> conferir() -> so_o_que_entra() -> COLHEITA[] -> Ingresso
+```
+
+```
+FALSE_HARVEST_ANTES   253
+FALSE_HARVEST_DEPOIS    0
+SUPPORT_ITEMS_BLOCKED   8
+REAL_HARVEST            0
+READY_PRODUCED          0
+```
+
+Três famílias, tratadas como três e não como cinco: **F1** (T2) declara o que
+produziu; **F2** (T3) não declara nada e o recibo diz porquê; **F3** (T4, T7,
+T9) declara o legado como suporte.
+
+## 47.2 · POR QUÊ — o legado só pode declarar suporte
+
+A tentação óbvia era deixar a receita declarar a espécie de tudo, incluindo
+colheita. Recusou-se, e a razão é medida: `larga_em` **já é** uma declaração
+feita antes da corrida, e duas das cinco apontam para pastas que não existem
+sem ninguém notar.
+
+```
+DECLARAR SUPORTE E INOFENSIVO MESMO QUANDO ERRADO: SUPORTE NAO ATRAVESSA.
+DECLARAR COLHEITA NAO E — E POR ISSO NAO SE PODE.
+```
+
+Colheita vem de uma corrida, e de mais nada. Uma declaração que pudesse dizer
+«aqui há colheita» teria trocado uma heurística por um literal desactualizável.
+
+E o silêncio ganhou nome próprio:
+
+```
+UM RETORNO SEM DECLARACAO NAO E UM RETORNO VAZIO:
+E UM RETORNO QUE NAO SE DECLAROU — E O QUE NAO SE DECLAROU NAO ENTRA.
+```
+
+## 47.3 · PROVA
+
+Cadeia inteira, **mesma corrida e mesmo item**, offline, sem banco e sem rede:
+adapter → envelope → contrato → `so_o_que_entra()` → ingresso → RAW preservado
+→ admissão. Doze ataques, oito mutações, todas apanhadas.
+
+### O que a prova apanhou no código desta própria missão
+
+A primeira versão de `declarar()` construía um dicionário **novo** com seis
+campos do contrato — e deitava fora o `texto`, o `SOURCE_URL` e o
+`STORAGE_LOCATION` que `traduzir()` acabara de preparar. A admissão respondia
+«NAO_SEI — veio sem texto nenhum», e a culpa era do código novo, não do dado.
+
+```
+DECLARAR O QUE UMA COISA E NAO E SUBSTITUI-LA PELA ETIQUETA.
+```
+
+O contrato acrescenta-se **por cima** do item; nunca no lugar dele.
+
+## 47.4 · CONSEQUÊNCIA — o que a ligação tornou visível, e não criou
+
+A unidade italiana chega à porta com `SOURCE_ID` **maiúsculo**, que é o nome do
+contrato em `coleta/ingresso.py :: DO_COLETOR`. E
+`admissao/admissao.py :: _tem_origem` procura `source_id` **minúsculo**. Dois
+nomes para o mesmo campo, invisíveis até hoje porque **nenhuma unidade italiana
+tinha chegado à porta antes**.
+
+```
+LIGAR UMA CADEIA NAO CRIA OS DEFEITOS DELA: MOSTRA-OS.
+```
+
+Não foi corrigido: mexer na admissão para conseguir verde era proibido, e com
+razão. Fica medido, com nome, na prova.
+
+## 47.5 · O QUE CONTINUA ABERTO
+
+Os cinco degraus de CR-1, e só dois fecharam:
+
+```
+CONTRACT_DEFINED       SIM
+RUNTIME_CONNECTED      SIM
+PAYLOAD_AVAILABLE      NAO   4 de 5 executores sem payload nesta arvore
+REAL_HARVEST_OBSERVED  NAO   nenhuma corrida real declarou colheita
+READY_PRODUCED         NAO   zero
+```
+
+**«O runtime respeita o contrato» não é «a Collection fechou».** Juntar as duas
+frases seria repetir exactamente o erro que o censo existe para não cometer.
+
+Continuam a depender de corrida ou de recoleta: T2 (precisa de rede para o
+coletor Node), T3 (nunca correu e a saída está por definir), T4 (os 163 PDF que
+o manifesto indexa não estão nesta árvore), T7 e T9 (o retorno descreve onde
+colher, nunca colheu).
+
+## 47.6 · A LIÇÃO DE MÉTODO
+
+O número caiu de 253 para zero **sem se perder um único item real** — porque não
+havia nenhum.
+
+```
+DEIXAR DE CONTAR O QUE NAO EXISTIA NAO E PERDER DADO.
+E PARAR DE MENTIR SOBRE ELE.
+```
+
+E a trava que impede a heurística de voltar teve de aprender a ler **código, e
+não texto**: a primeira versão procurava a expressão no ficheiro e acusava o
+docstring que a CITA para explicar o conserto. Agora percorre a árvore
+sintáctica, e comentário e docstring ficam de fora — que é onde a história deve
+poder viver.
