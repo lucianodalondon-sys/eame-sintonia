@@ -473,6 +473,182 @@ Se código existente contrariar esta fronteira, classificar como conflito arquit
 
 ---
 
+---
+
+## 11. SINTONIA SCRAP — O QUE FOI CONSTRUÍDO E PROVADO (C1 · C2 · C3)
+
+> A seção 10 fixou a **fronteira**. Esta registra o que passou a **existir**, e
+> com que prova. Cada bloco segue: **O QUE mudou → POR QUÊ → PROVA →
+> CONSEQUÊNCIA**.
+
+### 11.1 · C1 — o executor único existe
+
+**O QUE.** O SINTONIA SCRAP deixou de ser um conjunto de linhagens que não se
+conheciam e passou a ser **um executor**, com os seis verbos de `COL-LAW-013`
+em `coleta/scrap_executor.py`. Por dentro:
+
+```text
+coleta/social_rotas.py        o SCRAP ADAPTER ROUTER canônico
+coleta/scrap_registo.py       dono único de PLATAFORMA/CAPACIDADE -> ADAPTADOR
+coleta/scrap_capacidades.py   as capacidades declaradas, com estado medido
+coleta/scrap_fornecedores.py  PROVIDER_REQUESTED / USED / WHY_FALLBACK / RESULT
+coleta/scrap_http.py          o portão do robots e a busca
+coleta/adaptador_*.py         seis adaptadores, um módulo cada
+```
+
+**POR QUÊ.** O roteador guardava um `dict` literal com o nome de todas as
+plataformas: acrescentar uma obrigava a editá-lo. Isso é o monólito, e o nome
+dele não é «arquivo grande» — é «o despachante sabe todas as plataformas».
+
+**PROVA.** `tests/test_scrap_convergencia.py`, 49 provas. Uma delas exige que
+acrescentar uma plataforma **não altere um byte** do roteador.
+
+**CONSEQUÊNCIA.** `ADAPTER ≠ PROVIDER ≠ EXECUTION_ENVIRONMENT` são três eixos, e
+`ONLINE`/`LOCAL`/`EITHER`/`HYBRID`/`UNKNOWN` é eixo do SCRAP, com `WHY_LOCAL`
+obrigatório. O dono único de ASR continua sendo `ferramentas/fala_local.py`, e
+há prova que varre as 16 gavetas para o garantir.
+
+### 11.2 · C2 — a API oficial do YouTube atende, e está provada ao vivo
+
+**O QUE.** `YOUTUBE_DATA_API_KEY` **já existia** nos GitHub Secrets, ligada ao
+passo `1 · rodar a fase` de `.github/workflows/scrap-social.yml` e lida por
+`coleta/youtube_oficial.py`. Quatro capacidades passaram a atravessar a cadeia
+inteira até ela.
+
+> **O valor da chave nunca é registrado.** Nem inteiro, nem em pedaços, nem em
+> hash. Um comprimento com prefixo é meio segredo, e meio segredo num log é um
+> segredo num log. **A prova de que a chave serve é a chamada funcionar.**
+
+**PROVA.** Corrida real no runner hospedado:
+
+| capacidade | método | resultado |
+|---|---|---|
+| `youtube.search` | `search.list` | 5 itens |
+| `youtube.channel.discovery` | `playlistItems.list` | 5 itens |
+| `youtube.video.metadata` | `videos.list` | 5 numa chamada |
+| `youtube.comments` | `commentThreads.list` | 25 comentários |
+
+**CONSEQUÊNCIA.** `youtube.transcript` e `youtube.media` **continuam fora**:
+`captions.download` exige ser dono do vídeo, e os bytes dão 403 de IP de
+datacenter. Portanto **`YOUTUBE_ZERO_APIFY_TOTAL = PARTIAL`**, e o total não se
+calcula por maioria.
+
+### 11.3 · C3 — os callers antigos largaram os dois Actors
+
+**O QUE.** Três caminhos de runtime paravam de precisar do Actor e continuavam
+capazes de chamá-lo. Deixaram de ser capazes:
+
+```text
+comunicacao_coleta.ATORES['YOUTUBE']        -> CAPACIDADES_SCRAP
+sensor_coleta.ATORES['YOUTUBE_SEARCH']      -> youtube.search
+sensor_coleta.ATORES['YOUTUBE_COMMENTS']    -> youtube.comments
+```
+
+**POR QUÊ.** «A capacidade já não precisa do Actor» e «o código ainda chama» são
+duas frases verdadeiras ao mesmo tempo, e escrever só a primeira declararia uma
+economia que ninguém realizou.
+
+**PROVA.** Corrida real: os três callers saíram por `OFFICIAL_API`, nenhum pago,
+zero chamadas de Apify. A comunicação pública trouxe 100 itens com
+`ACTOR = NAO_SE_APLICA`.
+
+**CONSEQUÊNCIA.** `streamers~youtube-scraper` e
+`streamers~youtube-comments-scraper` não têm mais **nenhum caller de runtime**.
+`pintostudio~youtube-transcript-scraper` **fica**: legenda de terceiro não tem
+rota oficial gratuita, e retirar sem substituto trocaria um gasto por um buraco.
+
+### 11.4 · A distinção do registro: `rota` ≠ `executa`
+
+Uma capacidade entra no registro por **um** de dois papéis, nunca os dois — o
+registro levanta se alguém tentar:
+
+```text
+rota       a função CRUA, que `social_rotas` despacha DEPOIS dos portões
+           (robots, sessão, gasto). Devolve a lista de objetos.
+           Para capacidade que a matriz de rotas CONHECE.
+
+executa    a função de NÍVEL DE ADAPTADOR, que devolve (objetos, trace).
+           Para capacidade que a matriz NÃO conhece, e por isso não tem
+           porta a atravessar.
+```
+
+**Exemplos reais:** as quatro do YouTube têm `rota`. A cadeia de Reel e
+`youtube.channel.resolve` têm `executa`.
+
+```text
+NENHUMA CAPACIDADE TEM OS DOIS. Isso seria dois caminhos para o mesmo pedido,
+e o segundo caminho é sempre o que ninguém mede.
+```
+
+E há um terceiro papel, opcional: `pronto` — a **sonda gratuita** que responde
+«consigo chegar lá agora?» lendo configuração, sem chamar rota nenhuma. É ela
+que faz o `CHECK` recusar antes de gastar.
+
+### 11.5 · Lei nova da casa: RAW de teste nunca entra no acervo
+
+**O QUE.** Todo teste que exerce gravação de bruto redireciona
+`social_envelope.RAW_DIR` para uma pasta temporária que morre com ele.
+
+**POR QUÊ.** Na C2, seis ficheiros de bruto **inventado** entraram num commit,
+na pasta do bruto verdadeiro, com nomes como `videos-aaaaaaaaaaa`.
+
+```text
+BRUTO DE TESTE AO LADO DE BRUTO DE COLETA É PIOR QUE LIXO: é a prova de uma
+coleta que nunca aconteceu, com o nome certo e na pasta certa.
+```
+
+**PROVA.** Sentinela em `tests/test_c3_youtube_cutover.py`: exige o
+redirecionamento nos testes que gravam, e reprova se `git status` mostrar bruto
+novo no acervo depois da suíte.
+
+**CONSEQUÊNCIA.** Depois de correr a suíte, `git status --short` sobre `data/`
+tem de vir vazio. Se não vier, alguém escreveu no acervo real.
+
+### 11.6 · Três coisas que o cutover ensinou, e valem para a próxima migração
+
+**Resolver endereço de conta é um degrau, não um detalhe.** O lote congelado
+guarda URLs; a API oficial pede `channelId`. Enquanto a rota era paga, o Actor
+engolia a URL. Das sete contas de YouTube, seis resolvem por `forHandle` ou
+`forUsername` a 1 unidade; a sétima, `/c/NOME`, **não tem rota oficial
+gratuita** e sai `CHANNEL_IDENTITY_UNRESOLVED`.
+
+```text
+UM PALPITE COM ID VÁLIDO É PIOR QUE UM ESTADO HONESTO: o palpite entra no
+acervo com cara de fato e ninguém volta a perguntar.
+```
+
+**A conta da quota muda de forma.** O Actor engolia N termos numa corrida; a API
+oficial aceita um por chamada, e busca é o balde escasso — 100 por dia, não
+10.000. **N termos = N chamadas**, e isso fica declarado, não escondido.
+
+**Contador que não distingue quem pagou não é contador de custo.**
+`APIFY_RUNS` contava toda corrida enquanto toda corrida era paga. Agora conta só
+as **pagas**, e ao lado dele vivem `COLLECTION_RUNS` e
+`OFFICIAL_API_QUOTA_USED`. Quota não se converte em dólar.
+
+E no item: `ACTOR = NAO_SE_APLICA` quando não houve Actor.
+
+```text
+«NÃO SEI QUAL ATOR» E «NÃO HOUVE ATOR» SÃO RESPOSTAS DIFERENTES.
+```
+
+### 11.7 · O gasto, e a palavra que ainda não se pode usar
+
+| medida | valor |
+|---|---|
+| gasto histórico medido, total | US$ 12,8140 |
+| do YouTube | US$ 12,3300 — 96,2% |
+| dos dois Actors agora sem caller | **US$ 12,2000** |
+| ainda associado ao Actor de legenda | US$ 0,1300 |
+| corridas que gastaram sem registrar quanto | **25** |
+
+```text
+RUNTIME_PAID_DEPENDENCY_REMOVED_FOR_A_D = YES
+SAVINGS_REALIZED = ainda não. O futuro ainda precisa rodar.
+```
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
