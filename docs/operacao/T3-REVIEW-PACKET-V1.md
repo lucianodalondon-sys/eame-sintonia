@@ -120,7 +120,7 @@ REVIEWABLE     YES
 **ABERTURA DO DOCUMENTO**
 
 ```text
-Olio di Oliva: Prezzi ancora in calo a giugno. - BMTI --> --> &#8942; ITA ENG X Facebook LinkedIn Instagram Youtube Ricerca per: Menu Chi siamo La nostra società La nostra storia Struttura e governance Sostenibilità Con le istituzioni Per le imprese Per i Consumatori Con chi lavoriamo Comunicazione Notizie Eventi e fiere Comunicati stampa Dicono di noi Cartella stampa BMTI sui social La Borsa della spesa &#9679; In evidenza , Notizie , Olio d'oliva - Prezzi e analisi di mercato , Prezzi e analisi in evidenza --> 25/08/2026 | dorrico --> Olio di Oliva: Prezzi ancora in calo a giugno. Home Prezzi e analisi in evidenza Olio d'oliva - Prezzi e analisi di mercato Notizie In evidenza Olio di Oliva: Prezzi ancora in calo a giugno. Sempre in calo i prezzi dell'extravergine nazionale. Stabile il sansa di oliva raffinato. Olio di oliva giugno 2026 Vai all'archivio Mercato cerealicolo, mais e grano
+Olio di Oliva: Prezzi ancora in calo a giugno. - BMTI Sempre in calo i prezzi dell'extravergine nazionale. Stabile il sansa di oliva raffinato. Olio di oliva giugno 2026 Vai all'archivio
 ```
 
 **AUTO-DESCRICAO ENCONTRADA** (trecho literal · nao e um rotulo)
@@ -129,8 +129,7 @@ Olio di Oliva: Prezzi ancora in calo a giugno. - BMTI --> --> &#8942; ITA ENG X 
 
 **OUTROS SINAIS VISIVEIS** (linhas do documento, sem interpretacao)
 
-- `&#8942; ITA`
-- `ENG`
+- NONE
 
 **DECISAO HUMANA**
 
@@ -463,7 +462,7 @@ REVIEWABLE     YES
 **ABERTURA DO DOCUMENTO**
 
 ```text
-Establishment and parasitism levels of Ganaspis kimorum on Drosophila suzukii in Northeastern Italy: insights from a 4-yr release program Attenzione: i dati modificati non sono ancora stati salvati. Per confermare inserimenti o cancellazioni di voci è necessario confermare con il tasto SALVA/INSERISCI in fondo alla pagina Home Sfoglia Macrotipologie & tipologie Autore Titolo Riviste Tipologia Settore Scientifico Disciplinare IT Italiano English LOGIN CINECA IRIS Institutional Research Information System IRIS 01 Pubblicazioni FEM 1 - Contributi in rivista 1.01 Articolo in rivista The management of the invasive fruit fly Drosophila suzukii (Diptera: Drosophilidae) still relies on chemical control, despite concerns about pesticide resistance and environmental impact. Integrated pest management strategies are being explored, but current options remain limited and often insufficient. In invad
+Establishment and parasitism levels of Ganaspis kimorum on Drosophila suzukii in Northeastern Italy: insights from a 4-yr release program Attenzione: i dati modificati non sono ancora stati salvati. Per confermare inserimenti o cancellazioni di voci è necessario confermare con il tasto SALVA/INSERISCI in fondo alla pagina CINECA IRIS Institutional Research Information System The management of the invasive fruit fly Drosophila suzukii (Diptera: Drosophilidae) still relies on chemical control, despite concerns about pesticide resistance and environmental impact. Integrated pest management strategies are being explored, but current options remain limited and often insufficient. In invaded regions, local natural enemies are mostly generalist pupal parasitoids, which have proven inadequate for controlling this rapidly spreading pest. Conversely, in its native range, D. suzukii is host to more
 ```
 
 **AUTO-DESCRICAO ENCONTRADA** (trecho literal · nao e um rotulo)
@@ -472,8 +471,7 @@ Establishment and parasitism levels of Ganaspis kimorum on Drosophila suzukii in
 
 **OUTROS SINAIS VISIVEIS** (linhas do documento, sem interpretacao)
 
-- `LOGIN`
-- `IRIS`
+- NONE
 
 **DECISAO HUMANA**
 
@@ -694,16 +692,15 @@ REVIEWABLE     YES
 **ABERTURA DO DOCUMENTO**
 
 ```text
-Lotte obbligatorie - Flavescenza dorata | Regione Piemonte Salta al contenuto principale Istituzione di appartenenza Governo italiano seguici su Twitter Facebook Youtube Linkedin Instagram Whatsapp Avvia la ricerca Parole più cercate negli ultimi 30 giorni ritiro referti 138 bollo auto 135 voucher scuola 112 bandi 69 prevenzione serena 64 Menu principale L&#039;Amministrazione Pagina indice di Amministrazione Organi Presidente Giunta regionale Consiglio Regionale Consulte e commissioni Agenda della Giunta Piemonteinforma Notizie sull&#039;attività della Giunta Regionale Organizzazione Direzioni e settori regionali Gabinetto del Presidente della Giunta regionale Ufficio Transizione al Digitale Organismo regionale per il controllo collaborativo - ORECOL La Regione Piemonte a Bruxelles Relazioni internazionali La Regione Piemonte a Roma Grattacielo Piemonte Amministrazione trasparente Conco
+Lotte obbligatorie - Flavescenza dorata | Regione Piemonte Salta al contenuto principale Tema: Agricoltura Tipologia di contenuto Scheda informativa Lotte obbligatorie - Flavescenza dorata Rivolto a Cittadini Imprese e liberi professionisti NEWS Campagna 2026: massima attenzione! La bacheca dei bollettini Eliminare la fonte principale della malattia! Il Servizio Fitosanitario Nazionale ha pubblicato il documento tecnico “Linee guida per i viticoltori ai fini del contrasto della flavescenza dorata sul territorio nazionale” Speciale flavescenza dorata sulla RIVISTA "AGRICOLTURA" Il Ministero dell'agricoltura, della sovranità alimentare e delle foreste ha ridefinito le misure fitosanitarie di emergenza e ha emanato la nuova Ordinanza Ministeriale 22/06/2023, n. 4 , “Misure fitosanitarie d'emergenza per il contrasto di Grapevine flavescence doree phytoplasma atte ad impedirne la diffusione n
 ```
 
 **AUTO-DESCRICAO ENCONTRADA** (trecho literal · nao e um rotulo)
 
-- NONE
+- «…la fonte principale della malattia! Il Servizio Fitosanitario Nazionale ha pubblicato il documento tecnico “Linee guida p…»
 
 **OUTROS SINAIS VISIVEIS** (linhas do documento, sem interpretacao)
 
-- `PNRR`
 - `NEWS`
 
 **DECISAO HUMANA**
@@ -916,12 +913,12 @@ REVIEWABLE     YES
 **ABERTURA DO DOCUMENTO**
 
 ```text
---> Monitoraggio mosca dell'olivo toscana --> Navigazione Veloce --> --> Chiudi Navigazione Home Negozio Online Contatti News Area Riservata CdA --> Soci --> Area Riservata Soci/Clienti Applicazioni Interne Assistenza --> --> Shop Contatti Comunicazioni Lavora con noi Tradizione | Innovazione | Rispetto | Memoria Prendiamo il meglio della tradizione e la rinnoviamo, sempre guidati dal rispetto per il nostro territorio. Vogliamo vivere il presente e preparare il nostro futuro con una importante consapevolezza: il domani sarà migliore se innoveremo, proteggendo la tradizione. --> --> Home Monitoraggio --> Mostra Menu Home La Cooperativa Chi Siamo La Storia Storia per immagini Sede / Contatti Punti Vendita e Magazzini Lavora con noi Bilancio di Sostenibilità Settori Produttivi Olio Vino Ortofrutta Cereali Trasformati Agroforniture Tracciabilità MediaRoom Eventi / News La Cooperativa Informa
+Monitoraggio mosca dell'olivo toscana Navigazione Veloce Chiudi Navigazione Home Negozio Online Contatti News Comunicazioni Riunioni pre-campagna con olivicoltori Orario estivo 2026 Monitoraggio della mosca dell'olivo a cura del Servizio Agronomico Bollettino del periodo dal 31-08-2026 al 06-09-2026 Per visualizzare la mappa occorre accettare i Cookie di questo sito Cookie Policy ACCETTA TUTTI I COOKIE FASE FENOLOGICA: accrescimento frutto fase II CLIMA: Le elevate temperature che si sono verificate in modo continuativo hanno contribuito a mantenere sotto controllo i voli e l'infestazione attiva in molti dei punti monitorati, ma hanno comportanto anche fenomeni di cascola importanti dove non è stato fatto caolino e/o adacquamenti. Raccomandiamo, per chi ancora non lo avesse fatto, di effettuare un intervento con prodotti corroboranti quali caolino, successivamente alla perturbazione prev
 ```
 
 **AUTO-DESCRICAO ENCONTRADA** (trecho literal · nao e um rotulo)
 
-- «…--> Monitoraggio mosca dell'olivo toscana --> Navigazione Veloce --> --> Chi…»
+- «…Monitoraggio mosca dell'olivo toscana Navigazione Veloce Chiudi Navigazi…»
 
 **OUTROS SINAIS VISIVEIS** (linhas do documento, sem interpretacao)
 
@@ -1969,7 +1966,7 @@ REVIEWABLE     YES
 **ABERTURA DO DOCUMENTO**
 
 ```text
-Consultazione per grandezza Home &gt; Dati &gt; Consultazione per grandezza &gt; Tutta la regione > Precipitazioni giornaliere Metadati Precipitazioni giornaliere (mm) dal 26/08/2026 al 05/09/2026 Le ore di rilevazione sono espresse secondo l'orario di Greenwich (U.T.C.) L'ora italiana solare (o legale) � l'ora di Greenwich +1 (o +2) Stazioni 26 Ago 2026 27 Ago 2026 28 Ago 2026 29 Ago 2026 30 Ago 2026 31 Ago 2026 01 Set 2026 02 Set 2026 03 Set 2026 04 Set 2026 05 Set 2026 Ultimo giorno piovoso * Precipitazioni cumulate dal 1 gen ** Calatafimi 0 0 0 0 0 0 0 0 0 0 -- 16/08/2026 -- Castellammare del Golfo 0 0 0 0 0 0 0 0 0 0 -- 15/08/2026 -- Castelvetrano 0 0 0 0 0 0 0 0 0 0 -- 15/08/2026 -- Erice 0 0 0 0 0 0 0 0 0 0 -- 03/07/2026 -- Marsala 0 0 0 0 0 0 0 0.2 0 0 -- 25/08/2026 -- Mazara del Vallo 0 0 0 0 0 0 0 0 0 0 -- 15/08/2026 -- Pantelleria 0 0 0 0 0 0 0 0 0 0 -- 27/07/2026 -- Salemi 0 
+Consultazione per grandezza Home > Dati > Consultazione per grandezza > Tutta la regione > Precipitazioni giornaliere Metadati Precipitazioni giornaliere (mm) dal 26/08/2026 al 05/09/2026 Le ore di rilevazione sono espresse secondo l'orario di Greenwich (U.T.C.) L'ora italiana solare (o legale) è l'ora di Greenwich +1 (o +2) Stazioni 26 Ago 2026 27 Ago 2026 28 Ago 2026 29 Ago 2026 30 Ago 2026 31 Ago 2026 01 Set 2026 02 Set 2026 03 Set 2026 04 Set 2026 05 Set 2026 Ultimo giorno piovoso * Precipitazioni cumulate dal 1 gen ** Calatafimi 0 0 0 0 0 0 0 0 0 0 -- 16/08/2026 -- Castellammare del Golfo 0 0 0 0 0 0 0 0 0 0 -- 15/08/2026 -- Castelvetrano 0 0 0 0 0 0 0 0 0 0 -- 15/08/2026 -- Erice 0 0 0 0 0 0 0 0 0 0 -- 03/07/2026 -- Marsala 0 0 0 0 0 0 0 0.2 0 0 -- 25/08/2026 -- Mazara del Vallo 0 0 0 0 0 0 0 0 0 0 -- 15/08/2026 -- Pantelleria 0 0 0 0 0 0 0 0 0 0 -- 27/07/2026 -- Salemi 0 0 0 0 0 0
 ```
 
 **AUTO-DESCRICAO ENCONTRADA** (trecho literal · nao e um rotulo)
@@ -2469,7 +2466,7 @@ REVIEWABLE     YES
 **ABERTURA DO DOCUMENTO**
 
 ```text
-Mercato cerealicolo, mais e grano tenero in rialzo tra clima avverso e tensioni nel Mar Nero - BMTI --> --> &#8942; ITA ENG X Facebook LinkedIn Instagram Youtube Ricerca per: Menu Chi siamo La nostra società La nostra storia Struttura e governance Sostenibilità Con le istituzioni Per le imprese Per i Consumatori Con chi lavoriamo Comunicazione Notizie Eventi e fiere Comunicati stampa Dicono di noi Cartella stampa BMTI sui social La Borsa della spesa &#9679; Cereali - Prezzi e analisi di mercato , In evidenza , Notizie , Prezzi e analisi in evidenza --> 24/08/2026 | dorrico --> Mercato cerealicolo, mais e grano tenero in rialzo tra clima avverso e tensioni nel Mar Nero Home Prezzi e analisi in evidenza Notizie In evidenza Cereali - Prezzi e analisi di mercato Mercato cerealicolo, mais e grano tenero in rialzo tra clima avverso e tensioni nel Mar Nero Il mercato cerealicolo arriva alla pau
+Mercato cerealicolo, mais e grano tenero in rialzo tra clima avverso e tensioni nel Mar Nero - BMTI Il mercato cerealicolo arriva alla pausa estiva in un contesto caratterizzato dalle incognite causate dalle condizioni climatiche avverse e dal riacutizzarsi delle tensioni nel Mar Nero. A luglio, i prezzi del mais sono aumentati dell’1,7% su base mensile nei listini delle principali Borse Merci nazionali. Il rialzo è stato sostenuto dall’ondata di calore che ha interessato i principali areali produttivi europei e dalle conseguenti attese di una riduzione delle rese medie per ettaro. Lo stress idrico desta preoccupazione anche in Italia: l’International Grains Council stima una produzione di circa 5 milioni di tonnellate, in calo di 500 mila tonnellate rispetto al 2025. Le quotazioni restano tuttavia inferiori a quelle dello scorso anno, con una flessione del 6,6%. Le rinnovate tensioni ne
 ```
 
 **AUTO-DESCRICAO ENCONTRADA** (trecho literal · nao e um rotulo)
@@ -2478,8 +2475,7 @@ Mercato cerealicolo, mais e grano tenero in rialzo tra clima avverso e tensioni 
 
 **OUTROS SINAIS VISIVEIS** (linhas do documento, sem interpretacao)
 
-- `&#8942; ITA`
-- `ENG`
+- NONE
 
 **DECISAO HUMANA**
 
@@ -3106,7 +3102,7 @@ REVIEWABLE     YES
 **ABERTURA DO DOCUMENTO**
 
 ```text
-grandezze Home &gt; Dati &gt; Consultazione per grandezza &gt; Tutta la regione > Temperatura aria minima giornaliera (�C) Temperatura aria minima giornaliera (�C) dal 26/08/2026 al 05/09/2026 Le ore di rilevazione sono espresse secondo l'orario di Greenwich (U.T.C.) L'ora italiana solare (o legale) � l'ora di Greenwich +1 (o +2) Temperatura inferiore ai valori normali del periodo Temperatura superiore ai valori normali del periodo (*) Intervallo 25� - 75� percentile Stazioni Valori normali (*) 26 ago 2026 27 ago 2026 28 ago 2026 29 ago 2026 30 ago 2026 31 ago 2026 01 set 2026 02 set 2026 03 set 2026 04 set 2026 05 set 2026 Calatafimi 17.7 - 23.5 24.2 25.7 22.7 20.6 23.9 21.5 22.7 19.9 20.4 21.6 -- Castellammare del Golfo 19.9 - 24.6 27 27.2 27 24.5 26.2 25.8 26 21.8 20 23.2 -- Castelvetrano 19.2 - 21.2 25.3 23.9 22.7 22.9 22.5 22.7 22.9 21.8 19.6 19.2 -- Erice 16.4 - 21.1 24.3 25.4 22.7
+grandezze Home > Dati > Consultazione per grandezza > Tutta la regione > Temperatura aria minima giornaliera (°C) Temperatura aria minima giornaliera (°C) dal 26/08/2026 al 05/09/2026 Le ore di rilevazione sono espresse secondo l'orario di Greenwich (U.T.C.) L'ora italiana solare (o legale) è l'ora di Greenwich +1 (o +2) Temperatura inferiore ai valori normali del periodo Temperatura superiore ai valori normali del periodo (*) Intervallo 25° - 75° percentile Stazioni Valori normali (*) 26 ago 2026 27 ago 2026 28 ago 2026 29 ago 2026 30 ago 2026 31 ago 2026 01 set 2026 02 set 2026 03 set 2026 04 set 2026 05 set 2026 Calatafimi 17.7 - 23.5 24.2 25.7 22.7 20.6 23.9 21.5 22.7 19.9 20.4 21.6 -- Castellammare del Golfo 19.9 - 24.6 27 27.2 27 24.5 26.2 25.8 26 21.8 20 23.2 -- Castelvetrano 19.2 - 21.2 25.3 23.9 22.7 22.9 22.5 22.7 22.9 21.8 19.6 19.2 -- Erice 16.4 - 21.1 24.3 25.4 22.7 25.7 23.
 ```
 
 **AUTO-DESCRICAO ENCONTRADA** (trecho literal · nao e um rotulo)
@@ -3157,7 +3153,7 @@ FINAL_LABEL  ____________________  (UNRESOLVED se A != B)
 | `RAW-ec3108a2ed424702.txt` | SIM | NAO SEI | NENHUMA — nao ha decisao de T3 no livro para este item |
 | `RAW-3d3c1bc0e96332e8.txt` | nao | T2 | NENHUMA — nao ha decisao de T3 no livro para este item |
 | `RAW-ccd8ea9c8e9c4caf.txt` | SIM | NAO SEI | NENHUMA — nao ha decisao de T3 no livro para este item |
-| `pagina.html` | nao | NAO SEI | NENHUMA — nao ha decisao de T3 no livro para este item |
+| `pagina.html` | SIM | NAO SEI | NENHUMA — nao ha decisao de T3 no livro para este item |
 | `RAW-a927e846ba8e78b0.txt` | nao | T4 | NENHUMA — nao ha decisao de T3 no livro para este item |
 | `RAW-c6377f6951bfeb2e.txt` | SIM | NAO SEI | NENHUMA — nao ha decisao de T3 no livro para este item |
 | `RAW-4e12affad7fedd91.txt` | SIM | NAO SEI | NENHUMA — nao ha decisao de T3 no livro para este item |

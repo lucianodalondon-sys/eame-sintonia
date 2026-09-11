@@ -599,6 +599,7 @@
       "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
       "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
       "data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json",
+      "data/samples/T3-DISPLAY-TRANSLATION-PTBR-V1.json",
       "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
       "data/samples/T3-SAMPLING-FRAME-V1.json",
       "data/samples/VERIFICACAO-ADVERSARIAL-PORTOES.json",
@@ -702,6 +703,7 @@
       "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
       "docs/operacao/SOURCE-DOCUMENT-DONO-STORE-CONTRATO.md",
       "docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md",
+      "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
       "docs/operacao/T3-REVIEW-PACKET-V1.md",
       "docs/operacao/T3-SAMPLING-FRAME-V1.md",
       "docs/operacao/TOPOLOGIA-DA-COLETA.md",
@@ -1187,6 +1189,7 @@
       "provas/testa_rota_italia.py",
       "provas/trava_da_inteligencia_morde.py",
       "provas/trava_de_drift_de_migration.sh",
+      "provas/ui_revisao_t3_ptbr.py",
       "provas/valida_biblia.py"
     ],
     "regras": [
@@ -1498,6 +1501,7 @@
       "tests/test_telemetria.py",
       "tests/test_thread_parcial.py",
       "tests/test_trava_da_inteligencia.py",
+      "tests/test_ui_revisao_t3_ptbr.py",
       "tests/test_v21_datas.py",
       "tests/test_v21_geografia.py",
       "tests/test_v21_mercado.py",
@@ -1888,10 +1892,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/t3-review-pack-53-v1",
-    "HEAD": "ae62c83a4c28cfd7f97d4811e88a7b217e69abe3",
-    "GENERATED_AT": "2026-09-11T14:41:30+00:00",
-    "SOURCE_TREE_FINGERPRINT": "178606eb470f72af14c2b5313742714e740f725c52da6afb662c628015717006"
+    "BRANCH": "claude/t3-human-review-ptbr-ui-v1",
+    "HEAD": "89109506c723a8b0e5640dd31325609d223b97b7",
+    "GENERATED_AT": "2026-09-11T15:14:08+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e2ed657691fb4427a0f8bec28cbf9c7ed9bf28312313df8868441b9c9e907c28"
   },
   "FAMILIES": [
     {
@@ -11916,9 +11920,10 @@
         "provas/social_persistencia_no_postgres.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
-        "provas/trava_de_drift_de_migration.sh"
+        "provas/trava_de_drift_de_migration.sh",
+        "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 20,
+      "file_count": 21,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11975,6 +11980,7 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "BOTOES",
           "CANDIDATAS_A",
           "COLS_DER",
           "COLS_OBJ",
@@ -11982,8 +11988,10 @@
           "COLS_RUN",
           "COLUNA_DO_DESTINO",
           "CRITERIOS",
+          "CROMO",
           "FONTE_DO_POSITIVO",
           "MIGRATIONS",
+          "PROIBIDOS_NO_HTML",
           "PUBLICADOR",
           "PUBLICADOR_POR_CAMINHO",
           "SENTINELAS_MEDIDAS",
@@ -11993,11 +12001,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 237,
+        "palavras": 268,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 235,
+        "sem_marca_de_lingua": 266,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15318,6 +15326,7 @@
         "tests/test_telemetria.py",
         "tests/test_thread_parcial.py",
         "tests/test_trava_da_inteligencia.py",
+        "tests/test_ui_revisao_t3_ptbr.py",
         "tests/test_v21_datas.py",
         "tests/test_v21_geografia.py",
         "tests/test_v21_mercado.py",
@@ -15328,7 +15337,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 88,
+      "file_count": 89,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -16901,7 +16910,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/t3-review-pack-53-v1"
+        "branch claude/t3-human-review-ptbr-ui-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17307,7 +17316,7 @@
         },
         {
           "file": "provas/pacote_de_revisao_t3.py",
-          "line": 313,
+          "line": 354,
           "snippet": "_LIVRO = censo._json(\"data/samples/LIVRO-DE-DECISOES.json\")[\"DECISOES\"]"
         }
       ],
@@ -17428,7 +17437,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -17474,6 +17483,11 @@
           "file": "tests/test_red_team_estrada.py",
           "line": 28,
           "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "tests/test_ui_revisao_t3_ptbr.py",
+          "line": 231,
+          "snippet": "import admissao as adm"
         }
       ],
       "categoria": "PROOF"
@@ -27254,7 +27268,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -27305,6 +27319,11 @@
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 543,
           "snippet": "caminho = os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\")"
+        },
+        {
+          "file": "tests/test_ui_revisao_t3_ptbr.py",
+          "line": 29,
+          "snippet": "\"ui_t3\", os.path.join(RAIZ, \"provas\", \"ui_revisao_t3_ptbr.py\"))"
         }
       ],
       "categoria": "PROOF"
@@ -31237,7 +31256,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 732,
+  "UNCLAIMED_FILES_COUNT": 734,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31409,8 +31428,8 @@
     "edges_proven": 638,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1441,
-    "files_covered": 709,
+    "files_tracked": 1445,
+    "files_covered": 711,
     "files_code_unclaimed": 0
   }
 }

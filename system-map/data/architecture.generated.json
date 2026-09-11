@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/t3-review-pack-53-v1",
-    "HEAD": "ae62c83a4c28cfd7f97d4811e88a7b217e69abe3",
-    "GENERATED_AT": "2026-09-11T14:41:30+00:00",
-    "SOURCE_TREE_FINGERPRINT": "178606eb470f72af14c2b5313742714e740f725c52da6afb662c628015717006"
+    "BRANCH": "claude/t3-human-review-ptbr-ui-v1",
+    "HEAD": "89109506c723a8b0e5640dd31325609d223b97b7",
+    "GENERATED_AT": "2026-09-11T15:14:08+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e2ed657691fb4427a0f8bec28cbf9c7ed9bf28312313df8868441b9c9e907c28"
   },
   "FILES": [
     {
@@ -4048,8 +4048,15 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/T3-DISPLAY-TRANSLATION-PTBR-V1.json",
+      "sha": "2a81d26083fca9d648e5caa9a0078d1c46ccbacc",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
-      "sha": "7051b85980aa18e609fce420687a25ac9a16ca58",
+      "sha": "bf6b287f93431ccab9a9598e3a976cd65a99ab45",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4755,8 +4762,15 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "sha": "c3b53b61b92c43236ee93d2fd1128e6711ed4ed9",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/T3-REVIEW-PACKET-V1.md",
-      "sha": "5762fdf69b2e31f850e840a74fd2a71f73a9b125",
+      "sha": "7e0bf30d1a6bb37c11c9fb1bbefa57d1fb39bf69",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7857,7 +7871,7 @@
     },
     {
       "path": "provas/pacote_de_revisao_t3.py",
-      "sha": "31f9749d25898ada8a05246d0ecea94f599be6ec",
+      "sha": "b20c4b87c9a09eb22f7fced8f02eb036bbca6c48",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7957,6 +7971,13 @@
       "path": "provas/trava_de_drift_de_migration.sh",
       "sha": "2ff146072eb65377be534e5a0cf3cfbfca76a3a8",
       "ext": ".sh",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/ui_revisao_t3_ptbr.py",
+      "sha": "2f4b42fd3c6e673310a7544341420fdf887d600e",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -9152,7 +9173,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "9863541ecd775b9ad29f240f0c181f93a547159d",
+      "sha": "920c246cc5226fd55594622f2fc8598938cce9cb",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10021,6 +10042,13 @@
     {
       "path": "tests/test_trava_da_inteligencia.py",
       "sha": "dfa2663131e60c56364c384aaa97e3acee2ae827",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_ui_revisao_t3_ptbr.py",
+      "sha": "c53df66f2d66c5275d2402af1145b71de1e056a8",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13010,6 +13038,567 @@
         "file": "data/samples/ITALY-T3-005-MONITORAGGIO/extract-points.js",
         "line": 5,
         "snippet": "const src = process.argv[2] || \"monitoraggio-2026-09-07.html\";"
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-024abdb692be926a.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-0c2723e66201f966.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-144fdb152b1a6ae4.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-178ebe9e0ea7dd83.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-221ab4a8d6ebec30.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-223510588786a4de.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-2a12cb316622a9a5.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-392840d3e13d1b15.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-3d3c1bc0e96332e8.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-3e941738599367d7.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-3ef48aaa830edf3b.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-420e08ef15bec6e4.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-445e41701f737d73.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-48e76a696be6831d.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-4e12affad7fedd91.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-59da05274359eff6.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-5dcfb75ac38390c3.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-6377ac2f8419d905.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-699a073ace4361ea.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-6d12bcb5fa2b0905.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-7a51732e87f0f319.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-823e18ebb232eb36.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-8c13500d43502e64.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-924aabd94168c53a.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-9488589cfc657b95.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-99cb44a67f6b4e9a.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-9a01cc17889e1f40.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-a6515948880d173a.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-a927e846ba8e78b0.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-b631f6eecfbc1db0.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-c6377f6951bfeb2e.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-ccd8ea9c8e9c4caf.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-ded546686d61dc91.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-df4adcb5d78929e1.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-e5176df66216dfd0.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-e612807928b5ada9.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-e6ec962a8a730ee4.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-e9395a7ea894c1d2.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-ec3108a2ed424702.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-fd5b5e465457e4d6.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/derivados/texto/RAW-fe3c922bfdfd7999.txt",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T1-001/ISTAT_101_1015_COLTIVAZIONI_2_2025.csv",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0500_00.html",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/samples/PIEMONTE-FD/bacheca.html",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/samples/PIEMONTE-FD/pagina.html",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 97,
+        "snippet": "<script id=\"dados\" type=\"application/json\">[{\"DOC_SHA256\": \"4d4f729d7087843056435989537a13ad08f180c226449d6429c59a6363efb517\", \"ITEM_ID\": \"46647\", \"SOURCE_ID\": "
+      }
+    },
+    {
+      "from_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "to_file": "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+        "line": 241,
+        "snippet": "SOURCE_PACKET:\"T3-HUMAN-REVIEW-PENDING-V1.json\","
       }
     },
     {
@@ -26725,7 +27314,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/pacote_de_revisao_t3.py",
-        "line": 53,
+        "line": 54,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -26736,7 +27325,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/pacote_de_revisao_t3.py",
-        "line": 313,
+        "line": 354,
         "snippet": "_LIVRO = censo._json(\"data/samples/LIVRO-DE-DECISOES.json\")[\"DECISOES\"]"
       }
     },
@@ -26747,7 +27336,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/pacote_de_revisao_t3.py",
-        "line": 70,
+        "line": 71,
         "snippet": "PENDENTE = \"data/samples/T3-HUMAN-REVIEW-PENDING-V1.json\""
       }
     },
@@ -26758,7 +27347,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/pacote_de_revisao_t3.py",
-        "line": 69,
+        "line": 70,
         "snippet": "PACOTE = \"docs/operacao/T3-REVIEW-PACKET-V1.md\""
       }
     },
@@ -26769,7 +27358,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/pacote_de_revisao_t3.py",
-        "line": 67,
+        "line": 68,
         "snippet": "amostra = _modulo(\"_amostra\", \"amostragem_neutra_t3.py\")"
       }
     },
@@ -26780,7 +27369,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/pacote_de_revisao_t3.py",
-        "line": 66,
+        "line": 67,
         "snippet": "censo = _modulo(\"_censo\", \"censo_corpus_rotulado_admission.py\")"
       }
     },
@@ -27255,6 +27844,50 @@
         "file": "provas/trava_de_drift_de_migration.sh",
         "line": 95,
         "snippet": "saida=$(bash \"$RAIZ/motor/cadeia_canonica.sh\" migrations \"$URL\" 2>&1) && rc=0 || rc=$?"
+      }
+    },
+    {
+      "from_file": "provas/ui_revisao_t3_ptbr.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ui_revisao_t3_ptbr.py",
+        "line": 44,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/ui_revisao_t3_ptbr.py",
+      "to_file": "data/samples/T3-DISPLAY-TRANSLATION-PTBR-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ui_revisao_t3_ptbr.py",
+        "line": 47,
+        "snippet": "TRADUCAO = \"data/samples/T3-DISPLAY-TRANSLATION-PTBR-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/ui_revisao_t3_ptbr.py",
+      "to_file": "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ui_revisao_t3_ptbr.py",
+        "line": 46,
+        "snippet": "PENDENTE = \"data/samples/T3-HUMAN-REVIEW-PENDING-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/ui_revisao_t3_ptbr.py",
+      "to_file": "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ui_revisao_t3_ptbr.py",
+        "line": 48,
+        "snippet": "HTML = \"docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html\""
       }
     },
     {
@@ -35420,6 +36053,50 @@
       }
     },
     {
+      "from_file": "tests/test_ui_revisao_t3_ptbr.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_ui_revisao_t3_ptbr.py",
+        "line": 26,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_ui_revisao_t3_ptbr.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_ui_revisao_t3_ptbr.py",
+        "line": 231,
+        "snippet": "import admissao as adm"
+      }
+    },
+    {
+      "from_file": "tests/test_ui_revisao_t3_ptbr.py",
+      "to_file": "data/samples/T3-HUMAN-REVIEW-PENDING-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_ui_revisao_t3_ptbr.py",
+        "line": 195,
+        "snippet": "for proibido in (\"T3-HUMAN-REVIEW-PENDING-V1.json\","
+      }
+    },
+    {
+      "from_file": "tests/test_ui_revisao_t3_ptbr.py",
+      "to_file": "provas/ui_revisao_t3_ptbr.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_ui_revisao_t3_ptbr.py",
+        "line": 29,
+        "snippet": "\"ui_t3\", os.path.join(RAIZ, \"provas\", \"ui_revisao_t3_ptbr.py\"))"
+      }
+    },
+    {
       "from_file": "tests/test_v21_datas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -36464,10 +37141,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1441,
-    "files_readable": 547,
-    "files_code_dir": 594,
-    "file_edges": 2354,
+    "files_tracked": 1445,
+    "files_readable": 550,
+    "files_code_dir": 596,
+    "file_edges": 2413,
     "escritas_em_pasta": 69,
     "declared_missing_here": 0
   },

@@ -43,6 +43,7 @@ Tudo isso vive numa seccao `AUDIT_AFTER_REVIEW`, no fim, para comparar DEPOIS.
     HUMAN_LABEL NAO PODE NASCER A OLHAR PARA CURRENT_CLASSIFIER_OUTPUT.
 """
 import hashlib
+import html
 import json
 import os
 import re
@@ -76,13 +77,53 @@ NAO_CORRIDO = "NOT_RUN"
 
 
 # ── EXTRACAO · COPIAR, NUNCA INTERPRETAR ───────────────────────────────────
+# ⚠️ DEFEITO MEDIDO, E CORRIGIDO AQUI.
+# A primeira versao desta limpeza devolvia, para os documentos cujo BRUTO e
+# HTML, o MENU DO SITIO em vez do documento:
+#
+#     «Olio di Oliva: Prezzi ancora in calo — &#8942; ITA ENG X Facebook
+#      LinkedIn Instagram Youtube Ricerca per: Menu Chi siamo …»
+#
+# e a pagina do SIAS vinha com «�C» porque o ficheiro e `iso-8859-1` e estava a
+# ser lido como utf-8.
+#
+#     UM REVISOR A QUEM SE MOSTRA O MENU DO SITIO
+#     NAO ESTA A JULGAR O DOCUMENTO. ESTA A JULGAR O RODAPE.
+#
+# A limpeza e ESTRUTURAL, e tem de continuar a ser: tira `nav`, `header`,
+# `footer`, `aside`, `form` e `select` porque sao cromo de navegacao — nunca
+# porque falam de um assunto.
+CROMO = ("script", "style", "nav", "header", "footer", "aside", "form",
+         "select", "noscript", "svg", "button")
+
+
+def _decodificar(bruto):
+    """Respeita o charset declarado. Supor utf-8 sempre parte os acentos."""
+    cabeca = bruto[:4096].decode("ascii", "replace").lower()
+    m = re.search(r'charset=["\']?([a-z0-9\-]+)', cabeca)
+    for codec in ([m.group(1)] if m else []) + ["utf-8", "iso-8859-1"]:
+        try:
+            return bruto.decode(codec)
+        except (UnicodeDecodeError, LookupError):
+            continue
+    return bruto.decode("utf-8", "replace")
+
+
+def _ler_documento(caminho):
+    with open(os.path.join(RAIZ, caminho), "rb") as f:
+        return _decodificar(f.read())
+
+
 def _limpo(texto):
-    texto = re.sub(r"<script[^>]*>.*?</script>", " ", texto,
-                   flags=re.S | re.I)
-    texto = re.sub(r"<style[^>]*>.*?</style>", " ", texto, flags=re.S | re.I)
+    texto = re.sub(r"<!--.*?-->", " ", texto, flags=re.S)
+    for tag in CROMO:
+        texto = re.sub(r"<%s\b[^>]*>.*?</%s>" % (tag, tag), " ", texto,
+                       flags=re.S | re.I)
+        texto = re.sub(r"<%s\b[^>]*/?>" % tag, " ", texto, flags=re.I)
     texto = re.sub(r"<[^>]+>", " ", texto)
-    texto = texto.replace("&nbsp;", " ").replace("&amp;", "&")
-    return re.sub(r"[ \t ]+", " ", texto)
+    texto = html.unescape(texto)
+    texto = texto.replace("-->", " ")
+    return re.sub("[ \t ]+", " ", texto)
 
 
 def _linhas(texto):
@@ -226,7 +267,7 @@ def construir():
     fichas, auditoria = [], []
     for d in documentos:
         corpo = d["BODY_PATH"]
-        texto = censo._ler(corpo)
+        texto = _ler_documento(corpo)
         source_id = d["SOURCE_ID"]
         anterior = (anteriores.get(d["DOC_SHA256"])
                     or anteriores.get(corpo) or _vazio())
