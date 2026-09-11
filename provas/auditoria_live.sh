@@ -177,11 +177,21 @@ echo "  CONSTRAINTS_DE_RAW_ASSET:"
 q "select '    '||conname||' | '||contype::text||' | convalidated='||convalidated::text
    from pg_constraint where conrelid='public.raw_asset'::regclass order by conname"
 
-# ⚠️ SENTINELA DA FASE 10. Enquanto ela nao for resolvida, esta trava fica — e
-# se um dia desaparecer sem missao que o declare, a auditoria grita.
+# ⚠️ A SENTINELA DA FASE 10 VIROU-SE AO CONTRARIO, E ESSE E O PONTO DELA.
+#
+# Ela dizia: «esta trava fica — e se um dia desaparecer sem missao que o
+# declare, a auditoria grita». A `027` e a missao que o declarou, e a trava
+# saiu. A sentinela nao se apaga: inverte-se.
+#
+#     UMA SENTINELA APAGADA NAO GUARDA NADA.
+#     UMA SENTINELA INVERTIDA GUARDA O LADO NOVO.
+#
+# A partir daqui, o que a auditoria grita e a trava VOLTAR — porque volta-la
+# seria juntar outra vez as duas especies que a 025 separou, e nenhuma
+# migration desta casa a recria.
 uniq_path=$(q "select count(*) from pg_indexes where schemaname='public' and tablename='raw_asset' and indexdef ilike '%unique%' and indexdef ilike '%storage_path%'")
-[ "$uniq_path" -ge 1 ] 2>/dev/null && ok "unique (raw_asset.storage_path) continua de pe" \
-                                   || mal "UNIQUE(storage_path) DESAPARECEU" "fase 10 nao foi autorizada"
+[ "$uniq_path" = "0" ] && ok "o endereco ja nao e identidade da observacao (fase 10)" \
+                       || mal "UNIQUE(storage_path) VOLTOU" "duas observacoes no mesmo endereco voltariam a ser uma"
 
 # ── F · A IDENTIDADE DA OBSERVACAO, DEPOIS DA 026 ─────────────────────
 # A 026 dá identidade à observação. O contrato dela é cobrado aqui, e não
@@ -228,6 +238,53 @@ if [ "$tem_estado" = "1" ]; then
                    || mal "TRAVA DA 026 AUSENTE OU NAO VALIDADA" "$faltam"
 else
   echo "  (a 026 ainda nao esta neste banco — nada a conferir aqui)"
+fi
+
+# ── G · A FASE 10, DEPOIS DA 027 ──────────────────────────────────────
+# A 026 deu identidade a observacao; a 027 tirou-lhe o endereco de cima. O
+# contrato dela e cobrado aqui — e nao apenas impresso.
+echo
+echo "-- G · a fase 10"
+tem_027=$(q "select count(*) from public.schema_migracao where versao='027'")
+echo "  LEDGER_TEM_A_027=$tem_027"
+if [ "$tem_027" = "1" ]; then
+  # A CHAVE DA TENTATIVA SEM PROVA. Sem ela, a fase 10a teria aberto um buraco
+  # em vez de uma porta: o indice da fase 9 tem predicado FORWARD_IDENTIFIED, e
+  # uma linha sem prova nao o satisfaz. Enquanto o endereco foi unico era ELE
+  # que a segurava por acidente.
+  idxu=$(q "select count(*) from pg_index i join pg_class c on c.oid=i.indexrelid where c.relname='raw_tentativa_sem_prova_idx' and i.indisvalid and i.indisunique")
+  echo "  UNPROVEN_INDEX_VALID=$idxu"
+  defu=$(q "select coalesce(max(indexdef),'-') from pg_indexes where indexname='raw_tentativa_sem_prova_idx'")
+  echo "  UNPROVEN_INDEXDEF=$defu"
+  # ⚠️ `NULLS NOT DISTINCT` NAO E AFINACAO. Uma observacao NAO preservada tem
+  # `storage_object_id` nulo, e em Postgres dois nulos sao DISTINTOS num indice
+  # unico: sem esta clausula a chave deixaria passar todas as tentativas nao
+  # preservadas, em silencio.
+  nnd=$(q "select count(*) from pg_indexes where indexname='raw_tentativa_sem_prova_idx' and upper(indexdef) like '%NULLS NOT DISTINCT%'")
+  echo "  UNPROVEN_NULLS_NOT_DISTINCT=$nnd"
+  # E ela e sobre o OBJETO, e nao sobre o endereco: a fase 11 retira a coluna
+  # `storage_path`, e uma chave construida sobre ela nasceria com divida.
+  sobre_objeto=$(q "select count(*) from pg_indexes where indexname='raw_tentativa_sem_prova_idx' and indexdef like '%storage_object_id%' and indexdef not like '%storage_path%'")
+  echo "  UNPROVEN_SOBRE_O_OBJETO=$sobre_objeto"
+  trig=$(q "select count(*) from pg_trigger where tgname='a_identidade_da_observacao_nao_se_reescreve' and not tgisinternal")
+  echo "  IDENTITY_IMMUTABILITY_TRIGGER=$trig"
+  # ⚠️ SENTINELA DA FASE 11. A COLUNA fica; so a UNICIDADE dela saiu. Se a
+  # coluna desaparecer sem missao que o declare, a auditoria grita — que e o
+  # mesmo servico que a sentinela anterior prestou a fase 10.
+  col=$(q "select count(*) from information_schema.columns where table_schema='public' and table_name='raw_asset' and column_name='storage_path'")
+  echo "  COLUNA_STORAGE_PATH_AINDA_EXISTE=$col"
+  [ "$idxu" = "1" ] && ok "indice da tentativa sem prova valido" \
+                    || mal "indice da tentativa sem prova" "ausente ou invalido"
+  [ "$nnd" = "1" ] && ok "a chave da tentativa trata dois nulos como iguais" \
+                   || mal "UNPROVEN SEM NULLS NOT DISTINCT" "destranca para toda observacao nao preservada"
+  [ "$sobre_objeto" = "1" ] && ok "a chave da tentativa fala do objeto, nao do endereco" \
+                            || mal "CHAVE DA TENTATIVA SOBRE O ENDERECO" "nasceria com divida para a fase 11"
+  [ "$trig" = "1" ] && ok "a identidade da observacao nao se reescreve" \
+                    || mal "TRAVA DE IMUTABILIDADE AUSENTE" "a identidade voltaria a poder ser reescrita"
+  [ "$col" = "1" ] && ok "a coluna do endereco fica (a fase 11 e que a retira)" \
+                   || mal "COLUNA storage_path DESAPARECEU" "fase 11 nao foi autorizada"
+else
+  echo "  (a 027 ainda nao esta neste banco — nada a conferir aqui)"
 fi
 
 # ── G · O QUE A CADEIA VERIA COMO PENDENTE ────────────────────────────

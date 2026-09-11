@@ -3222,3 +3222,107 @@ próxima auditoria vai passar a dizer `MIGRATIONS_PENDENTES= 027` — que é a
 frase certa para o estado certo.
 
 A aplicação é a `C-LIVE-PHASE-10`, com autorização própria.
+
+---
+
+## Z · C-LIVE-PHASE-10 — A FASE 10 ENTROU NO BANCO VIVO
+
+Aplicada ao banco canónico pelo aplicador da casa, por `workflow_dispatch` de
+`supabase-migrate.yml` em `claude/raw-observation-identity-3jbwco` @ `57780b8a`,
+com `importar=false`. Run **`34550502265`**.
+
+```
+MIGRATION_FILE   027_a_observacao_deixa_de_ser_o_endereco.sql
+MIGRATION_SHA256 67c8fa932d66afad2852fb4a10e903267cb31638742a3abfad1f2cb855ac9163
+```
+
+### Z.1 · O pré-voo, e o alvo confirmado por derivação
+
+```
+DB_CONNECTION=PASS
+TABLES_IN_PUBLIC=68
+SAME_PROJECT_CONFIRMED=YES
+ESTADO_ACEITO=68 tabelas, nenhuma fora do que o Git cria
+TABELAS_DECLARADAS_NAS_MIGRATIONS=68
+```
+
+`SAME_PROJECT_CONFIRMED` não é uma afirmação: o workflow deriva o `ref` do
+projeto das DUAS variáveis — `SUPABASE_URL` e `SUPABASE_DB_URL` — e exige que
+coincidam. Escrever no banco errado exigiria que os dois segredos estivessem
+errados do mesmo modo.
+
+### Z.2 · O estado congelado ANTES (auditoria `34550386346`)
+
+```
+RAW_ASSET_COUNT=252          STORAGE_OBJECT_COUNT=252
+LEGACY_ROWS=252              FORWARD_IDENTIFIED=0   FORWARD_UNPROVEN=0
+RAW_ASSET_MIN_ID=1           RAW_ASSET_MAX_ID=890
+RAW_ASSET_ID_SET_MD5=bf54cf470e59a3c512e017a967cd86ce
+LINKED_RAW_ASSETS=252        PRESERVED_WITHOUT_OBJECT=0
+RAW_STORAGE_PATH_MISMATCHES=0  RAW_STORAGE_SHA_MISMATCHES=0
+OBJETOS_SEM_OBSERVACAO=0     derived_artifact=1 (raw_asset_id=890)
+LEGACY_CUTOFF_VALUE=890      FORWARD_IDEMPOTENCY_INDEX_VALID=1
+unique(raw_asset.storage_path) = PRESENTE
+025=APLICADA  026=APLICADA  027=ausente   MIGRATIONS_PENDENTES= 027
+```
+
+Idêntico ao baseline conhecido, incluindo o `md5` do conjunto de ids.
+
+### Z.3 · A aplicação
+
+```
+MIGRATION_001..026 = SKIP (ja no livro-razao) HASH=MATCH
+MIGRATION_027      = PASS
+POST_APPLY_VERIFICATION (008) = PASS
+passos de importacao = skipped
+```
+
+Vinte e seis migrations vistas, uma aplicada, nenhuma pulada. Quarenta e dois
+segundos.
+
+E o inventário medido do banco real diz a mesma coisa por outro caminho:
+
+```
+PUBLIC_TABLE_COUNT=68     (68 antes)
+CHECK_CONSTRAINTS=135     (135 antes — a 027 nao traz CHECK nenhum)
+UNIQUE_INDEXES=137        (137 antes — sai um unique, entra um indice)
+ROWS_TOTAL=2208
+```
+
+`UNIQUE_INDEXES` não mudar é a confirmação independente de que a `027` fez
+exactamente duas coisas com índices: tirou `raw_asset_storage_path_key` e pôs
+`raw_tentativa_sem_prova_idx`. Menos um, mais um.
+
+### Z.4 · A sentinela da fase 10 virou-se ao contrário
+
+A auditoria dizia, desde a `C-LIVE-025`:
+
+> ⚠️ SENTINELA DA FASE 10. Enquanto ela nao for resolvida, esta trava fica — e
+> se um dia desaparecer sem missao que o declare, a auditoria grita.
+
+A `027` é a missão que o declarou. A sentinela **não se apaga** — inverte-se.
+
+```
+UMA SENTINELA APAGADA NAO GUARDA NADA.
+UMA SENTINELA INVERTIDA GUARDA O LADO NOVO.
+```
+
+A partir daqui o que a auditoria grita é a trava **voltar**. E nasce a sentinela
+seguinte, no mesmo sítio e pela mesma razão: a COLUNA `storage_path` fica, e se
+desaparecer sem missão que o declare, a auditoria grita — essa é a fase 11.
+
+### Z.5 · O contrato da 027, agora cobrado pela auditoria
+
+A secção `G` é nova e não imprime: reprova.
+
+```
+UNPROVEN_INDEX_VALID              o indice da tentativa existe e e valido
+UNPROVEN_NULLS_NOT_DISTINCT       dois nulos contam como iguais
+UNPROVEN_SOBRE_O_OBJETO           fala de storage_object_id, e nao do endereco
+IDENTITY_IMMUTABILITY_TRIGGER     a identidade nao se reescreve
+COLUNA_STORAGE_PATH_AINDA_EXISTE  a fase 11 e que a retira
+```
+
+A terceira é a que menos se espera num auditor e a que mais importa: ela cobra
+que a chave **não** foi construída sobre o endereço. Uma chave assim passaria
+hoje e teria de ser desfeita na fase 11.
