@@ -1,6 +1,6 @@
 # HANDOFF ATUAL — SINTONIA EAME
 
-**Atualizado em 2026-09-10.**
+**Atualizado em 2026-09-11.**
 
 Este arquivo é o handoff operacional curto para retomar o trabalho sem reabrir decisões já fechadas. O repositório continua sendo a autoridade final: se este texto divergir do código, migrations, provas ou documentos canônicos, **o repositório vence** e a divergência deve ser reportada.
 
@@ -8,27 +8,43 @@ Este arquivo é o handoff operacional curto para retomar o trabalho sem reabrir 
 
 ## 1. ONDE ESTAMOS AGORA
 
+> ⚠️ **ESTE ARQUIVO JÁ MANDOU UMA ABA PARA A MISSÃO ERRADA.** Até 2026-09-11
+> ele apontava `HEAD = 09277bf` e mandava implementar B5B fases 7–9 — que já
+> tinham aterrado na migration `026`, e a fase 10 na `027`. Quem o lesse ia
+> refazer trabalho feito.
+>
+>     UM HANDOFF DESATUALIZADO NÃO É UM HANDOFF INCOMPLETO.
+>     É UMA ORDEM ERRADA COM CARA DE ORDEM.
+>
+> Confira sempre HEAD e `git log` antes de agir sobre a secção 8.
+
 ### Linha de trabalho ativa
 
 - **Branch funcional:** `claude/raw-observation-identity-3jbwco`
-- **HEAD observado no GitHub ao gerar este handoff:** `09277bf89c0d9a28324fa7681e437b5e5e094b67`
-- **Último commit funcional antes da regeneração do mapa:** `cb8e0968c27ba48aeb88d9ee5151c0c852bc7c3d`
-- `09277bf` é uma **regeneração mecânica da cadeia canônica do System Map** após `cb8e096`; não representa nova decisão arquitetural.
+- **HEAD observado no GitHub ao gerar este handoff:** `102c171a`
+- **Branch de missão da última janela:** `claude/thematic-candidates-v1`, fundida
+  por fast-forward na funcional. As duas apontam para o mesmo HEAD.
+- São **47 commits** desde o `09277bf` que este arquivo declarava.
 
 ### Linha de know-how
 
 - **Branch:** `claude/sintonia-eame-know-how-v1`
-- Esta branch existe para preservar handoffs e know-how. **Não é a branch de implementação.**
+- Esta branch existe para preservar handoffs e know-how. **Não é a branch de
+  implementação.** Este arquivo vive **só aqui**, ao lado do
+  `SINTONIA-EAME-KNOW-HOW.md`.
 
 ### Foco atual
 
-Estamos fechando a **fundação canônica da Collection**, especificamente a identidade entre:
+A **fundação canônica da Collection** continua sendo a linha, e a ordem
+permanece **réguas → coleta → ferramentas → casco por último**. O portal/casco
+não é o foco.
 
 `RUN → RAW OBSERVATION → STORAGE OBJECT → DERIVED → STRUCTURED → ADMISSION → READY`
 
-O portal/casco não é o foco. A ordem permanece:
-
-**réguas → coleta → ferramentas → casco por último**.
+O que mudou é **onde**, dentro dessa cadeia, o gargalo foi medido. Não é mais
+na identidade física da observação, que está implementada. É na travessia da
+identidade **até quem decide prontidão**: hoje, zero documentos chegam à
+pergunta temática da Admission.
 
 ---
 
@@ -76,11 +92,20 @@ O que ficou estabelecido:
 
 ---
 
-## 4. B5B — fases 7–9: ESTADO ATUAL
+## 4. B5B — fases 7–9: IMPLEMENTADAS · E A FASE 10 TAMBÉM
 
-**Ainda não foram implementadas em migration/runtime.**
+> ⚠️ **CORRIGIDO EM 2026-09-11.** Esta secção dizia «ainda não foram
+> implementadas em migration/runtime». Era falso desde `06cade36`.
 
-O commit funcional mais recente, `cb8e096`, foi uma correção da especificação contra PostgreSQL 16 descartável. Ele fechou três bloqueios que tinham aparecido na revisão:
+| fase | migration | commit |
+|---|---|---|
+| 7, 8 e 9 | `026_a_observacao_ganha_identidade.sql` | `06cade36` |
+| 10 | `027_a_observacao_deixa_de_ser_o_endereco.sql` | `57780b8a` |
+
+O que segue abaixo é o **histórico** de como a especificação lá chegou, e
+continua válido como tal.
+
+O commit `cb8e096` foi uma correção da especificação contra PostgreSQL 16 descartável. Ele fechou três bloqueios que tinham aparecido na revisão:
 
 ### Bloqueio 1 — forward sem fonte real
 
@@ -108,14 +133,24 @@ O commit reporta dois cenários concorrentes reproduzidos em PostgreSQL 16.13 e 
 
 ### Estado que continua aberto
 
-`PHASE_10_UNPROVEN_GATE` continua **não resolvido**.
+> ⚠️ **CORRIGIDO EM 2026-09-11.** O `PHASE_10_UNPROVEN_GATE` **foi resolvido**,
+> e não contornado.
 
-O índice parcial da fase 9 não protege observações `FORWARD_IDENTITY_UNPROVEN`. Hoje isso ainda não abre duplicação física porque `unique(raw_asset.storage_path)` permanece. Portanto:
+A fase 9 deixava `FORWARD_IDENTITY_UNPROVEN` sem chave nenhuma: enquanto o
+endereço foi único, era ele que a segurava por acidente. Medido antes de
+mexer: `H_O_UNPROVEN_DUPLICA_SEM_LIMITE = SIM`.
 
-- isso **não bloqueia automaticamente fases 7–9**;
-- isso **bloqueia autorizar fase 10 sem uma decisão/prova adicional**.
+A `027` fechou-o na fase 10b com `raw_tentativa_sem_prova_idx`, escolhido entre
+**seis candidatas sobre dez cenários**, cada uma instalada como índice a sério.
+`K1 (run, fonte, sha256)` — a que qualquer um escreveria primeiro — reprovou no
+contraexemplo medido nos 195 objetos italianos: a ADAMA publicou o mesmo PDF em
+dois endereços.
 
-Nunca confundir “B5B pronto para ser implementado” com “fase 10 autorizada”.
+    O CONTEÚDO NÃO É O DOCUMENTO. NUNCA FOI.
+
+**O que continua aberto é a FASE 11**, e ela ficou de fora de propósito: retirar
+a coluna `raw_asset.storage_path`. A chave aprovada usa `storage_object_id`
+justamente para não nascer com dívida que a fase 11 tivesse de desfazer.
 
 ---
 
@@ -170,11 +205,22 @@ Lei permanente:
 - nunca usar `--stamp` para mascarar árvore desatualizada;
 - qualquer source tracked que altere a árvore exige regeneração pela cadeia canônica quando aplicável.
 
-O HEAD `09277bf` regenerou a cadeia na ordem declarada:
+A cadeia canônica tem **sete passos**, e a lista vive num sítio só:
+`system-map/scripts/CADEIA-DO-MAPA.json`. Leia-a de lá, não de memória.
 
 `scan_repo → scan_sources → scan_casco → censo_da_coleta → pente_fino_da_coleta → censo_dos_buracos → generate_system_map`
 
-O commit registra que alguns artefatos gerados carregavam provenance antiga porque rodadas anteriores haviam executado apenas parte da cadeia. O conteúdo semântico não mudou; a provenance foi atualizada mecanicamente.
+    A CADEIA NÃO É O QUE VOCÊ SE LEMBRA DELA. É O QUE O FICHEIRO LISTA.
+
+Este defeito já se repetiu **três vezes** em missões diferentes: correr só o
+gerador, ou só scanner + gerador, deixa os outros censos com o `HEAD` de um
+commit anterior — e nenhum script reclama, porque cada um corre bem sozinho.
+Em `102c171a` seis dos sete ficheiros gerados estavam nesse estado.
+
+No HEAD `102c171a` a cadeia foi corrida por inteiro e
+`SYSTEM_MAP_CHECK = PASS`. Ficheiro novo só é visível ao mapa depois do
+`git add` **e** da declaração em `architecture.declared.json`. São dois passos,
+nesta ordem.
 
 Não herdar o estado dos checks de memória. **Remeça os checks no HEAD atual.**
 
@@ -203,24 +249,90 @@ Não herdar o estado dos checks de memória. **Remeça os checks no HEAD atual.*
 
 ## 8. PRÓXIMO PASSO EXATO
 
-A próxima aba **não deve começar implementando fase 10**.
+### 8.1 · O QUE ESTA SECÇÃO MANDAVA FAZER, E JÁ ESTAVA FEITO
 
-Primeiro deve revisar criticamente o estado final de `cb8e096` + regeneração `09277bf` e responder:
+A versão anterior mandava implementar **B5B fases 7–9** e proibia começar a
+fase 10. As duas coisas já tinham acontecido:
 
-1. os três bloqueios realmente ficaram fechados no documento canônico sem ordem contraditória sobrevivente?
-2. o estado forward não consegue escapar silenciosamente por `NULL`/sentinela?
-3. a fronteira de legado por surrogate + lock está especificada de forma implementável e compatível com os writers reais?
-4. `CONTENT_DERIVED` está realmente revogado em todos os trechos executáveis da especificação?
-5. o `PHASE_10_UNPROVEN_GATE` está explicitamente preservado como bloqueio futuro, sem ser resolvido por suposição?
-6. quais checks estão verdes/vermelhos no HEAD atual, separando falhas preexistentes de regressões desta linha?
+| o que | onde | commit |
+|---|---|---|
+| fases 7, 8 e 9 | `supabase/migrations/026_a_observacao_ganha_identidade.sql` | `06cade36` |
+| fase 10 | `supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql` | `57780b8a` |
 
-Se e somente se não houver bloqueio real, a próxima missão bounded é:
+Fica registado como o defeito que foi, e não apagado.
 
-**`C-IMPL-B5B — implementar apenas fases 7–9`**
+### 8.2 · O QUE ACONTECEU DEPOIS: A LINHA T3
 
-Ainda sem fase 10, sem remoção de `unique(raw_asset.storage_path)`, sem fase 11, sem portal.
+Cinco missões, todas sobre o mecanismo temático da Admission em T3. O detalhe
+vive no know-how `§55` a `§59`; aqui fica só o suficiente para não recomeçar.
 
-Depois da implementação B5B deve existir uma rodada separada de prova/revisão antes de qualquer autorização destrutiva.
+| missão | resultado | HEAD |
+|---|---|---|
+| `C-INGEST-REVIEW-A-E-ADJUDICACAO-T3-V1` | revisão humana ingerida sem lhe tocar | `d560ad69` |
+| `C-FECHA-GABARITO-T3-E-RECALCULA-CENSO-V1` | gabarito fechado; T3 passa de `D` a `B` | `357697c1` |
+| `C-MEDE-ADMISSION-ATUAL-CONTRA-GABARITO-T3-V1` | baseline medida | `d43126e3` |
+| `C-FECHA-GATE-ACEITACAO-TEMATICA-V1` | portão congelado antes de existir candidato | `f53231bb` |
+| `C-DEFINE-CANDIDATOS-TEMATICOS-V1` + janela autónoma | quatro candidatos medidos, `WINNER = NONE` | `102c171a` |
+
+O gabarito de T3 tem **36 documentos = 31 observações independentes**, e é
+**EVALUATION**, nunca treino. `EVALUATION_EXPOSED = YES` desde `f360ccbc`:
+nenhum parâmetro de nenhum candidato pode mudar com base nesses 36.
+
+### 8.3 · O GARGALO MEDIDO, QUE MUDA A ORDEM DO TRABALHO
+
+```
+plano CONTRATO (o que a produção vê hoje) ...  0 de 36
+plano LINHAGEM (com o SOURCE_ID já escrito) .. 15 de 36
+```
+
+    UM CLASSIFICADOR PERFEITO NUMA PERGUNTA QUE NINGUÉM FAZ
+    MELHORA EXACTAMENTE ZERO DOCUMENTOS.
+
+Onde os 36 param, medido e não presumido:
+
+| classe | documentos |
+|---|---|
+| `origem` · o registo confessa `NÃO SEI` e a linhagem **sabe** | 20 |
+| `origem` · ninguém sabe, nem o registo nem a linhagem | 16 |
+
+Os números vivem em `data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json` e o
+relato em `docs/operacao/VEREDITO-TEMATICO-T3-V1.md`.
+
+### 8.4 · A PRÓXIMA MISSÃO
+
+Decidida na revisão de `102c171a`: **não** criar um quinto candidato e **não**
+continuar a afinar o classificador temático.
+
+**`C-MEASURE-SOURCE-ID-WIRING-GAP-V1` — read-only.**
+
+Seguir os **20 casos** desde a evidência onde o `SOURCE_ID` existe até ao ponto
+onde vira `NÃO SEI`, e parar no **primeiro edge perdido**.
+
+O que a missão tem de responder, e nada além:
+
+1. em que edge exacto a informação se perde;
+2. quem devia ser o dono desse edge;
+3. se o defeito é do writer, da transformação, do structured, da leitura da
+   Admission, ou de um contrato intermediário.
+
+**Ainda não é consertar `SOURCE_ID`.** Primeiro localizar.
+
+    MEASURE ≠ FIX.
+    E `DECLARED EDGE ≠ OBSERVED EDGE`: um edge que existe no contrato e não
+    passa dado nenhum continua a contar como edge no papel.
+
+Proibido nesta missão: inventar `SOURCE_ID` ou `DOCUMENT_ID`, usar hash como
+identidade, remover constraint estrutural, aplicar migration live, mexer na
+Admission, no portal, no casco ou no SCRAP.
+
+### 8.5 · O QUE NÃO SE DECIDE AINDA
+
+A Bíblia e o contrato **não mudam agora**. Só depois de a medição provar que o
+contrato actual omite uma passagem que devia existir é que se decide se o que
+muda é o contrato ou apenas a implementação.
+
+`INTEGRAÇÃO = NOT_READY`, com `CLASSIFIER_BAD + LINEAGE_BROKEN`: consertar só
+um dos dois lados não entrega documento nenhum.
 
 ---
 
@@ -1881,8 +1993,25 @@ Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
 
 A casa já aprendeu que **o arquivo guardado e o momento em que vimos esse arquivo são duas coisas diferentes**. Agora falta dar uma identidade segura para as observações novas, sem mentir sobre as antigas.
 
-A especificação das fases 7–9 acabou de passar por uma correção importante: não usar relógio para separar passado/futuro, não aceitar fonte falsa e não transformar hash em identidade documental por conveniência.
+Essa identidade **já foi dada**: as fases 7 a 10 estão implementadas em
+migration. A trava antiga de `storage_path` saiu, e no lugar dela ficou uma
+chave que foi escolhida depois de reprovar cinco alternativas em cenários
+reais. Falta a fase 11, que é só arrumação: apagar a coluna velha.
 
-O próximo passo é **revisar isso no GitHub e, se estiver realmente fechado, implementar só as fases 7–9**. A trava antiga de `storage_path` continua no lugar. Tirar essa trava é fase 10 e ainda não está autorizada.
+Depois disso passámos cinco missões a melhorar o «detector de assunto» da
+coleta, aquilo que decide se um documento fala de praga ou doença. Medimos
+quatro versões novas contra 36 documentos revistos por gente. Nenhuma passou.
+
+E então medimos uma coisa que ninguém tinha medido, e ela mudou a ordem do
+trabalho: **dos 36 documentos, zero chegam a ser perguntados sobre o assunto**.
+Todos param antes, numa pergunta mais simples: «de onde é que isto veio?».
+
+É como melhorar muito o médico de uma clínica quando os pacientes estão presos
+na recepção porque perderam a ficha com o nome deles. Agora não precisamos de
+um médico melhor. Precisamos descobrir em que balcão a ficha está a sumir.
+
+O alvo é concreto: **20 documentos em que o sistema já sabe de onde vieram, e
+essa informação não chega à etapa seguinte**. A próxima missão é só ir ver onde
+se perde. Ainda não é consertar.
 
 Para o SINTONIA SCRAP, a regra simples é: **ele é um executor especializado dentro da coleta, não o cérebro da coleta inteira**. O cérebro continua sendo o orquestrador canônico. Dentro do SCRAP existe apenas um dispatcher/router local que escolhe o adapter e o provider certos para Instagram, Facebook, LinkedIn, X, YouTube, Web e outras fontes absorvidas.
