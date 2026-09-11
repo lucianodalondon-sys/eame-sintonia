@@ -2978,3 +2978,185 @@ Se um dia aparecer material novo — mais publicadores T2, ou uma lei que diga o
 que é ser *sobre* um assunto — o portão **reabre-se refazendo a medição**, não
 contornando-a. `tests/test_a_regra_de_t2.py` cai alto no dia em que alguém
 escrever T2 sem refazer a conta.
+
+---
+
+# 51 · A FRONTEIRA ESTAVA CERTA. O MECANISMO É QUE NÃO.
+
+## 51.1 · O QUÊ
+
+Depois de a regra de T2 falhar, ficou no ar uma dúvida maior do que ela: se o
+mecanismo não consegue dizer a que universo um documento pertence, talvez a
+**responsabilidade** esteja na camada errada. A pergunta foi posta assim:
+
+> *«O julgamento `(item, universo)` deve continuar na Admission, ou deve ser
+> movido para Intelligence?»*
+
+Resposta, depois de ler as leis e estudar seis sistemas maduros:
+
+```
+ADMISSION_REMAINS_UNIVERSE_OWNER               YES
+THEMATIC_CLASSIFICATION_MOVES_TO_INTELLIGENCE  NO
+CURRENT_KEYWORD_IMPLEMENTATION_SUFFICIENT      NO
+MULTI_UNIVERSE_REQUIRES_ARCH_CHANGE            NO   (provado)
+BIBLE_CHANGE_REQUIRED                          NO
+```
+
+Zero linhas de runtime alteradas. `PERGUNTAS_DO_UNIVERSO` intacto.
+
+## 51.2 · A ARMADILHA DE VOCABULÁRIO — a lição mais barata desta missão
+
+A pergunta chegou com a palavra **"julgamento"**. Nesta casa essa palavra já tem
+dono, e é outro:
+
+> **COL-LAW-005** — *«`COLETAR` adquire evidência. `ADMITIR` decide se a evidência
+> entra num universo. `JULGAR` combina e interpreta depois.»*
+
+O par `(item, universo)` **não é julgar**. É **admitir**. Traduzida para a língua
+da casa, a pergunta era *«ADMITIR deve continuar separado de JULGAR?»* — e assim
+escrita **já tinha lei**, escrita há missões.
+
+```
+RESPONDER DEPRESSA A UMA PERGUNTA MAL TRADUZIDA
+E MUDAR A ARQUITETURA POR CAUSA DE UMA PALAVRA.
+```
+
+Por isso a primeira coisa que se faz numa dúvida estrutural é **citar a
+autoridade antes de a reinterpretar**. Metade da resposta estava lá.
+
+## 51.3 · POR QUÊ — o que os seis sistemas dizem, e onde discordam
+
+Databricks Medallion · AWS data lake layers · OCCRP Aleph/FollowTheMoney ·
+OpenCTI · Azure AI Document Intelligence · Google Document AI. Três famílias
+tecnológicas independentes, e **concordam em cinco pontos**:
+
+1. **Ingestão não interpreta.** Bronze: *«no data cleanup or validation is
+   performed here»*. Raw na AWS: *«the immutable copy of the data»*.
+2. **Validação é estrutural, não semântica.** Silver pergunta *dá para ler, está
+   completo, está conforme* — nunca *é sobre o quê*.
+3. **Classificação semântica é um componente com dono próprio.** Nenhum dos seis
+   a põe dentro do leitor; nenhum a põe no consumidor.
+4. **Um item pode ter vários significados e vários destinos.**
+5. **A incerteza tem forma própria e sobrevive** — `doubt`, confidence,
+   quarentena, revisão humana.
+
+**Onde divergem** — e a divergência ensinou mais do que a convergência: no
+**quando**. Document AI e Document Intelligence classificam **antes** de extrair,
+para escolher o extrator. Medallion e AWS classificam **depois** de validar, para
+servir o consumidor. Aleph e OpenCTI fazem as duas: tipam à entrada e
+**reinterpretam depois**.
+
+```
+A DIVERGENCIA NAO E SOBRE QUEM DECIDE. E SOBRE QUANDO.
+QUE SEJA UM COMPONENTE PROPRIO, NISSO OS SEIS CONCORDAM.
+```
+
+E isso resolveu a pergunta: `COL-LAW-043` põe `UNIVERSO` entre os **11 campos que
+a Intelligence RECEBE**. Mover a decisão para lá faria o consumidor produzir
+aquilo que ele consome.
+
+```
+QUEM CONSOME O CAMPO NAO PODE SER QUEM O DECIDE.
+```
+
+## 51.4 · O QUE O ESTUDO MUDOU — não o dono, o diagnóstico
+
+Esperava-se que o estudo mexesse na fronteira. Não mexeu: **confirmou-a**. O que
+ele trouxe de novo foi outra coisa, e mais útil —
+
+> **Azure AI Document Intelligence:** *«Custom classifiers identify document types
+> **before invoking an extraction model**.»*
+> **Google Document AI:** classificar vive numa categoria de processador
+> **separada** da extração.
+
+Decidir *«que tipo de documento é este»* é, em toda a indústria madura, **um
+problema com dono, corpus e avaliação próprios**. Não é uma condição dentro do
+leitor, e muito menos uma lista de palavras.
+
+```
+UMA LISTA DE PALAVRAS DENTRO DA PORTA
+NAO E UMA IMPLEMENTACAO POBRE DE CLASSIFICADOR.
+E OUTRA COISA A FINGIR QUE E UM.
+```
+
+`CURRENT_MECHANISM_FIT_FOR_PURPOSE = NO` — e isto **não autoriza** trocá-lo já.
+O estudo diz de que **família** a solução é (regra estruturada + abstenção +
+revisão: o `doubt` do Aleph casado com o `NAO_SEI` desta casa), não qual é.
+Construir um classificador exige corpus rotulado com held-out honesto, e o T2
+provou que esta árvore ainda não o tem.
+
+## 51.5 · DONO NÃO É IMPLEMENTAÇÃO — e a prova da multipertença
+
+A missão foi obrigada a separar duas perguntas que soam a uma só:
+
+```
+A. QUEM E DONO DA DECISAO ITEM x UNIVERSO?     -> a Admission. Fechado.
+B. O MECANISMO DELA CHEGA?                     -> nao. Aberto.
+```
+
+Confundi-las é o erro que teria movido meia arquitetura para corrigir uma lista
+de palavras.
+
+```
+UM MECANISMO MAU NAO PROVA QUE O DONO ESTA ERRADO.
+PROVA QUE O DONO ESTA MAL EQUIPADO.
+```
+
+E a multipertença, **provada, não suposta**:
+
+```
+(PROVA-MULTI, T3) = SIM   fala de fungo, malattia
+(PROVA-MULTI, T4) = SIM   fala de ministero, decreto, autorizzazione
+(PROVA-MULTI, T7) = NAO   fala claramente de outro universo
+```
+
+Um item, três decisões independentes, cada uma com o seu motivo e a sua
+`rule_version`. O livro real já tem **44 itens com mais de uma decisão**.
+`MULTI_UNIVERSE_REQUIRES_ARCH_CHANGE = NO`.
+
+**A ressalva, porque sem ela isto seria meia verdade:** o orquestrador pergunta
+**um** universo por corrida (`pela_porta(itens, universo, run_id)`, o `alvo` do
+pedido). O modelo suporta; o runtime não exercita. Implementação, não
+arquitetura.
+
+## 51.6 · CONSEQUÊNCIA — uma regra de método nova, e onde ela vive
+
+Esta missão instalou uma regra permanente:
+
+> **`DÚVIDA ESTRUTURAL → ESTUDO EXTERNO ANTES DE IMPLEMENTAR`**
+> [`README.md`](README.md), secção própria, irmã arquitetural do item 7
+> («trabalho visual consulta o Design System antes de inventar»).
+
+**A regra inteira não se repete aqui** — tem um dono, e é lá. O que fica registado
+é **por que ela precisou de existir**: a prática já existia como
+**acontecimento** (Parte XVII da Bíblia, «AS LEIS ROUBADAS», emenda V1.1, 30 leis
+vindas de um estudo de sistemas maduros) e **não existia como regra**.
+
+```
+UM PRECEDENTE NAO E UMA REGRA.
+NINGUEM REPETE UM ACONTECIMENTO POR ELE TER ACONTECIDO.
+```
+
+E ela carrega o próprio travão, porque uma regra de pesquisa sem limite de
+pesquisa é uma licença para adiar: para-se em **≥ 3 sistemas maduros** e **≥ 2
+famílias tecnológicas**, quando a resposta converge ou contradiz explicitamente.
+Se nem assim fechar, o resultado é `NÃO SEI / PRECISA ESTUDO MAIOR` — que é um
+resultado.
+
+## 51.7 · O ESTADO, PARA A PRÓXIMA MISSÃO
+
+```
+fronteira Admission/Intelligence   FECHADA, e confirmada por fora
+mecanismo de PERGUNTAS_DO_UNIVERSO INSUFICIENTE, declarado
+multipertenca                      permitida e provada; runtime so exercita um
+T2                                 T2_RULE_IMPLEMENTED = NO, intacto
+Biblia                             nao mudou. COL-LAW-005/042/043 confirmadas
+runtime                            nao mudou
+NEW_FAILURES                       0
+SYSTEM_MAP_CHECK                   PASS
+```
+
+O que ficou por saber, e não se resolve navegando mais — resolve-se com material:
+se existe nesta árvore corpus rotulado suficiente para treinar **ou sequer
+avaliar** um classificador; e se *«documento SOBRE X»* merece lei própria ou é
+consequência de leis que já existem.
