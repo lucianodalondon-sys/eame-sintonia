@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-instagram-route-gate-c10-4",
-    "HEAD": "740c1eda4d9440ec4def3d2da1eadab75b9d129f",
-    "GENERATED_AT": "2026-09-11T21:25:46+00:00",
-    "SOURCE_TREE_FINGERPRINT": "e0c1fac8714e0ea6de997a60fd633590e0eb8b92a7736d26bda1b1ff43c9e655"
+    "BRANCH": "claude/sintonia-scrap-collection-flow-c10-5",
+    "HEAD": "d9caeeb4ebe3a2ec7004f7549e25573317ef2363",
+    "GENERATED_AT": "2026-09-11T21:43:54+00:00",
+    "SOURCE_TREE_FINGERPRINT": "0e5fe81d224df394c270bcc78d26d8d3140667baad895d56e63971c99ee1295f"
   },
   "FILES": [
     {
@@ -1130,7 +1130,7 @@
     },
     {
       "path": "coleta/adaptador_instagram.py",
-      "sha": "65bac7d1bad3d2586bf8d4f455edc4ef9e79537a",
+      "sha": "41f9841d1933a4fe17c299f31438d19f4947bc73",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5182,6 +5182,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md",
+      "sha": "90fcbc7a1e5d5b33c070d34bdb780a759485ca79",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -5344,7 +5351,7 @@
     },
     {
       "path": "ferramentas/reel_transcricao.py",
-      "sha": "c101090ff36d5b9ab2a87c5fd850cd1812a29752",
+      "sha": "9742a80dc430bcf58f55ba41674993af8e41801f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9767,8 +9774,15 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_c10_5_collection_flow.py",
+      "sha": "8582b2ae387de130b26513f74e1d1f1354af91ed",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_c10_audio_only.py",
-      "sha": "d18f856d2f1f8a6dcd9dfe71aea56656b7165847",
+      "sha": "e414062ced528a519a1e90abf39d0896068477e0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11853,7 +11867,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 124,
+        "line": 128,
         "snippet": "trace['ASR_OWNER'] = 'ferramentas/fala_local.py'"
       }
     },
@@ -11864,7 +11878,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 109,
+        "line": 113,
         "snippet": "import reel_transcricao as rt"
       }
     },
@@ -11875,7 +11889,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 148,
+        "line": 152,
         "snippet": "medida['IMPLEMENTACAO'] = 'ferramentas/reel_transcricao.py'"
       }
     },
@@ -11897,7 +11911,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 82,
+        "line": 86,
         "snippet": "trace['POLICY_OWNER'] = 'leis/social_matriz.py'"
       }
     },
@@ -13866,7 +13880,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/reel_transcricao.py",
-        "line": 1063,
+        "line": 1135,
         "snippet": "def gravar_lote(registos, nome='TRANSCRICOES-REEL.json'):"
       }
     },
@@ -13888,7 +13902,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/reel_transcricao.py",
-        "line": 936,
+        "line": 1008,
         "snippet": "executor='ferramentas/fala_local.py',"
       }
     },
@@ -13901,6 +13915,17 @@
         "file": "ferramentas/reel_transcricao.py",
         "line": 89,
         "snippet": "import artefato as art          # noqa: E402 — o contrato de artefato, dono único"
+      }
+    },
+    {
+      "from_file": "ferramentas/reel_transcricao.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/reel_transcricao.py",
+        "line": 91,
+        "snippet": "import social_matriz as mz      # noqa: E402 — a política de rota, dono único"
       }
     },
     {
@@ -30437,6 +30462,94 @@
       }
     },
     {
+      "from_file": "tests/test_c10_5_collection_flow.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_5_collection_flow.py",
+        "line": 293,
+        "snippet": "import adaptador_instagram as ai"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5_collection_flow.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_5_collection_flow.py",
+        "line": 270,
+        "snippet": "self.assertTrue(any(rel == 'coleta/adaptador_instagram.py'"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5_collection_flow.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_5_collection_flow.py",
+        "line": 51,
+        "snippet": "import scrap_capacidades as cap     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5_collection_flow.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_5_collection_flow.py",
+        "line": 52,
+        "snippet": "import scrap_http as http           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5_collection_flow.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_5_collection_flow.py",
+        "line": 317,
+        "snippet": "self.assertEqual(leitores, ['coleta/scrap_http.py'],"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5_collection_flow.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_5_collection_flow.py",
+        "line": 53,
+        "snippet": "import reel_transcricao as rt       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5_collection_flow.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_5_collection_flow.py",
+        "line": 252,
+        "snippet": "if rel in ('ferramentas/reel_transcricao.py',):"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_5_collection_flow.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_5_collection_flow.py",
+        "line": 50,
+        "snippet": "import social_matriz as mz          # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_c10_audio_only.py",
       "to_file": "ferramentas/fala_local.py",
       "type": "IMPORTS",
@@ -30454,7 +30567,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_audio_only.py",
-        "line": 321,
+        "line": 328,
         "snippet": "self.assertEqual(donos, {os.path.join('ferramentas', 'fala_local.py')}, donos)"
       }
     },
@@ -30476,7 +30589,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_audio_only.py",
-        "line": 326,
+        "line": 333,
         "snippet": "with io.open(os.path.join(RAIZ, 'ferramentas', 'reel_transcricao.py'),"
       }
     },
@@ -37116,7 +37229,7 @@
     "ferramentas/reel_transcricao.py": [
       {
         "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
-        "line": 1104,
+        "line": 1176,
         "constante": "caminho"
       }
     ],
@@ -37528,10 +37641,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1474,
-    "files_readable": 562,
-    "files_code_dir": 609,
-    "file_edges": 2431,
+    "files_tracked": 1476,
+    "files_readable": 563,
+    "files_code_dir": 610,
+    "file_edges": 2440,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
