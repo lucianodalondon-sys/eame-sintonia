@@ -760,6 +760,7 @@
       "docs/sintonia-scrap/C1-CONVERGENCIA-ESTRUTURAL.md",
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
       "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
+      "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
       "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md"
@@ -1170,6 +1171,7 @@
       "provas/a_autoridade_da_fonte.py",
       "provas/a_fronteira_da_coleta.py",
       "provas/a_rota_m2_atravessa.py",
+      "provas/asr_banco.py",
       "provas/auditoria.py",
       "provas/auditoria_live.sh",
       "provas/chain.py",
@@ -1178,6 +1180,7 @@
       "provas/derived_artifact_no_postgres.py",
       "provas/es/freeze_es.py",
       "provas/fluxo_no_seco.py",
+      "provas/hardware_local.py",
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
@@ -1442,6 +1445,7 @@
       "tests/test_biblia.py",
       "tests/test_c2_youtube_oficial.py",
       "tests/test_c3_youtube_cutover.py",
+      "tests/test_c4_gpu_local.py",
       "tests/test_calendario_temporal.py",
       "tests/test_canonico.py",
       "tests/test_censo_dos_donos.py",
@@ -1893,10 +1897,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-youtube-cutover-c3",
-    "HEAD": "e7360f7d4cadbaa1252c18b8872b153e4e3c4231",
-    "GENERATED_AT": "2026-09-11T05:21:21+00:00",
-    "SOURCE_TREE_FINGERPRINT": "420580fe59a6fdb54c9be995cc567a411526c1a833c60333e09dd4fac0cc04a7"
+    "BRANCH": "claude/sintonia-scrap-local-gpu-c4",
+    "HEAD": "31bca5dd7362b49d9dcffc5a7993fa6e8581c163",
+    "GENERATED_AT": "2026-09-11T10:03:30+00:00",
+    "SOURCE_TREE_FINGERPRINT": "213d9a279203c69ef7b89a5782332ebd54a24b498dc4b160bd0ed1bb0573451c"
   },
   "FAMILIES": [
     {
@@ -15211,6 +15215,7 @@
         "tests/test_biblia.py",
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c3_youtube_cutover.py",
+        "tests/test_c4_gpu_local.py",
         "tests/test_calendario_temporal.py",
         "tests/test_canonico.py",
         "tests/test_censo_dos_donos.py",
@@ -15282,7 +15287,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 81,
+      "file_count": 82,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15555,13 +15560,24 @@
       "parado_na_coleta": [],
       "momento": "PREPARO",
       "momento_texto": "depois da coleta, sobre o que voltou — antes da peneira",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "MODELOS_POR_CHAMADOR"
+        ],
+        "palavras": 9,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 9,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [
         {
           "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
           "prova": {
             "file": "ferramentas/reel_transcricao.py",
-            "line": 840,
+            "line": 844,
             "snippet": "escreve em caminho"
           }
         }
@@ -16846,7 +16862,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-youtube-cutover-c3"
+        "branch claude/sintonia-scrap-local-gpu-c4"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -20791,7 +20807,7 @@
       "evidence": [
         {
           "file": "ferramentas/instagram_transcrever.py",
-          "line": 184,
+          "line": 191,
           "snippet": "import instagram_janela as ij"
         }
       ],
@@ -25124,7 +25140,7 @@
       "evidence": [
         {
           "file": "ferramentas/instagram_transcrever.py",
-          "line": 183,
+          "line": 190,
           "snippet": "import cdp"
         }
       ],
@@ -28413,7 +28429,7 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 122,
+          "line": 199,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
         }
       ],
@@ -28431,12 +28447,12 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 122,
+          "line": 199,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
         },
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 123,
+          "line": 200,
           "snippet": "coleta/youtube_oficial.py; do"
         }
       ],
@@ -28832,12 +28848,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c3_youtube_cutover.py",
           "line": 41,
           "snippet": "CALLERS = ('coleta/comunicacao_coleta.py', 'regras/sensor_coleta.py')"
+        },
+        {
+          "file": "tests/test_c4_gpu_local.py",
+          "line": 437,
+          "snippet": "t = _fonte('regras/sensor_coleta.py')"
         }
       ],
       "categoria": "PROOF"
@@ -29942,8 +29963,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c4_gpu_local.py",
+          "line": 27,
+          "snippet": "import fala_local as fl                                        # noqa: E402"
+        },
         {
           "file": "tests/test_reel_transcricao.py",
           "line": 26,
@@ -29980,8 +30006,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c4_gpu_local.py",
+          "line": 30,
+          "snippet": "DONO_DO_ASR = 'ferramentas/fala_local.py'"
+        },
+        {
+          "file": "tests/test_c4_gpu_local.py",
+          "line": 33,
+          "snippet": "CHAMADORES = ('ferramentas/instagram_transcrever.py',"
+        },
+        {
+          "file": "tests/test_c4_gpu_local.py",
+          "line": 34,
+          "snippet": "'ferramentas/youtube_transcrever.py',"
+        },
+        {
+          "file": "tests/test_c4_gpu_local.py",
+          "line": 35,
+          "snippet": "'ferramentas/reel_transcricao.py')"
+        },
         {
           "file": "tests/test_reel_transcricao.py",
           "line": 55,
@@ -30965,8 +31011,11 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 739,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/asr_banco.py",
+    "provas/hardware_local.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 742,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31138,8 +31187,8 @@
     "edges_proven": 633,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1446,
-    "files_covered": 707,
-    "files_code_unclaimed": 0
+    "files_tracked": 1450,
+    "files_covered": 708,
+    "files_code_unclaimed": 2
   }
 }
