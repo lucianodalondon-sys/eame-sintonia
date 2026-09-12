@@ -1960,9 +1960,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/decide-derived-reuse-lineage-v1",
-    "HEAD": "2bbf25cd13e3f1a0a74df9178d2722a0e3b25d75",
-    "GENERATED_AT": "2026-09-12T16:45:51+00:00",
-    "SOURCE_TREE_FINGERPRINT": "9c24d21b38fde31dc2898c14c56bf62699a6432b1fe366122186bf726d205b16"
+    "HEAD": "0ec292a6cc305f1936e150feb5df8760581d6e7b",
+    "GENERATED_AT": "2026-09-12T17:15:13+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ad2d5b8cf904fce560d56e607f154281cf20a703b7896874dcb3319876d7ed33"
   },
   "FAMILIES": [
     {
@@ -2031,7 +2031,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 60
+      "count": 61
     },
     {
       "id": "F-ENTREGA",
@@ -2401,7 +2401,7 @@
       "y": 190,
       "w": 1235,
       "h": 5192,
-      "count": 46
+      "count": 47
     }
   ],
   "DEPARTMENTS": {
@@ -2668,6 +2668,7 @@
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
+        "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
@@ -7245,6 +7246,7 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -8084,6 +8086,7 @@
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
@@ -8283,6 +8286,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -8366,6 +8370,7 @@
         "C-DONO-DA-ESCRITA",
         "C-EXECUTOR-TEXTO-PDF",
         "C-PROVA-COLETA",
+        "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-TESTES"
       ],
       "paises": {},
@@ -10865,6 +10870,7 @@
         "C-ESTRADAS-IT",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
+        "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-TESTES"
@@ -11281,6 +11287,7 @@
       "outbound": [
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-RECEITAS",
         "C-TESTES"
@@ -12090,6 +12097,7 @@
         "C-CENSO-OBSERVABILIDADE",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -12480,6 +12488,59 @@
       "y": 3902
     },
     {
+      "id": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+      "name": "A prova da linhagem do reaproveitamento",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Constroi o estado pela rota REAL — duas corridas da mesma fonte, mesmos bytes, uma derivacao reaproveitada — e depois interroga SO o que ficou persistido: quem prova que a segunda observacao participou daquela derivacao. A busca da relacao e feita no catalogo do Postgres, e nao numa lista de tabelas escrita a mao.",
+      "why_here": "CAN INFER != OBSERVED EDGE. Encontrar as irmas pelo sha256 responde «que observacoes tem os mesmos bytes», e nao «que observacoes passaram por esta derivacao». E RUNTIME SABE != O SISTEMA GUARDA: o writer do derivado calcula os dois lados da aresta no reencontro e nao escreve nenhum.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊷",
+      "views": [
+        "audit",
+        "infra",
+        "trace"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/a_linhagem_do_reaproveitamento.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-COLETA-BASE",
+        "C-DERIVACAO-FORWARD",
+        "C-DONO-DA-ESCRITA",
+        "C-DONO-DO-DERIVADO",
+        "C-ORQUESTRADOR",
+        "C-PEDIDO",
+        "C-PROVA-COLETA",
+        "C-SALA-DE-ESPERA"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20435,
+      "y": 3902
+    },
+    {
       "id": "C-PROVA-MAPA-NAO-MENTE",
       "name": "A prova de que o mapa não mente sobre existência",
       "territory": "Z-PROVA",
@@ -12566,7 +12627,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 3902
     },
     {
@@ -12635,8 +12696,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3902
+      "x": 20020,
+      "y": 4224
     },
     {
       "id": "C-PROVA-O-RAW-FALA",
@@ -12687,7 +12748,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4224
     },
     {
@@ -12748,7 +12809,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4224
     },
     {
@@ -12807,8 +12868,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4224
+      "x": 20020,
+      "y": 4546
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -12860,7 +12921,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4546
     },
     {
@@ -12923,7 +12984,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4546
     },
     {
@@ -13174,8 +13235,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4546
+      "x": 20020,
+      "y": 4868
     },
     {
       "id": "C-RECEITAS",
@@ -13322,7 +13383,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4868
     },
     {
@@ -13464,7 +13525,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4868
     },
     {
@@ -13851,6 +13912,7 @@
       "outbound": [
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-ROTA-M2",
@@ -14280,8 +14342,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 4868
+      "x": 20020,
+      "y": 5190
     },
     {
       "id": "C-SENSOR-COLETA",
@@ -15916,6 +15978,7 @@
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
+        "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
@@ -16067,7 +16130,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 5190
     },
     {
@@ -17894,6 +17957,42 @@
           "file": "provas/a_fronteira_da_coleta.py",
           "line": 255,
           "snippet": "if not l.startswith('admissao/admissao.py')]"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por A prova da linhagem do reaproveitamento. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_reaproveitamento.py",
+          "line": 47,
+          "snippet": "import admissao                                     # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao alimenta A prova da linhagem do reaproveitamento. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_reaproveitamento.py",
+          "line": 143,
+          "snippet": "/ \"LIVRO-DE-DECISOES.json\")"
         }
       ],
       "categoria": "READ"
@@ -21547,6 +21646,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por A prova da linhagem do reaproveitamento. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_reaproveitamento.py",
+          "line": 48,
+          "snippet": "import coleta_checkpoint as cc                      # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -22781,6 +22898,24 @@
     },
     {
       "from": "C-DERIVACAO-FORWARD",
+      "to": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira forward da derivação tem o seu codigo importado por A prova da linhagem do reaproveitamento. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_reaproveitamento.py",
+          "line": 283,
+          "snippet": "import derivacao_forward as fwd"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DERIVACAO-FORWARD",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "READS",
       "payload": "artefacto",
@@ -23247,6 +23382,24 @@
     },
     {
       "from": "C-DONO-DA-ESCRITA",
+      "to": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A prova da linhagem do reaproveitamento. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_reaproveitamento.py",
+          "line": 284,
+          "snippet": "from guarda.preservar_coleta import ArmazemLocal"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -23514,6 +23667,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-DONO-DO-DERIVADO",
+      "to": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) alimenta A prova da linhagem do reaproveitamento. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_reaproveitamento.py",
+          "line": 323,
+          "snippet": "fonte_writer = io.open(os.path.join(RAIZ, \"guarda\", \"preservar_derivado.py\"),"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-DONO-DO-DERIVADO",
@@ -26930,6 +27101,24 @@
     },
     {
       "from": "C-ORQUESTRADOR",
+      "to": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador tem o seu codigo importado por A prova da linhagem do reaproveitamento. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_reaproveitamento.py",
+          "line": 152,
+          "snippet": "import orquestrador as orq"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ORQUESTRADOR",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -27254,6 +27443,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-PEDIDO",
+      "to": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pedido de coleta tem o seu codigo importado por A prova da linhagem do reaproveitamento. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_reaproveitamento.py",
+          "line": 50,
+          "snippet": "from pedido import Pedido                           # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-PEDIDO",
@@ -28561,6 +28768,24 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta A prova da linhagem do reaproveitamento. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_reaproveitamento.py",
+          "line": 83,
+          "snippet": "\"preservar_coleta_no_postgres.py\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "READS",
       "payload": "artefacto",
@@ -28772,6 +28997,24 @@
           "file": "tests/test_fronteira_mede_producao.py",
           "line": 40,
           "snippet": "\"_fronteira_medidor\", os.path.join(RAIZ, \"provas\", \"a_fronteira_da_coleta.py\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova da linhagem do reaproveitamento alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_a_linhagem_do_reaproveitamento.py",
+          "line": 25,
+          "snippet": "PROVA = os.path.join(RAIZ, \"provas\", \"a_linhagem_do_reaproveitamento.py\")"
         }
       ],
       "categoria": "PROOF"
@@ -29946,6 +30189,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por A prova da linhagem do reaproveitamento. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_reaproveitamento.py",
+          "line": 49,
+          "snippet": "import sala_de_espera as espera                     # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-SALA-DE-ESPERA",
@@ -33067,10 +33328,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/a_linhagem_do_reaproveitamento.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 763,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 762,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33225,17 +33484,17 @@
     ]
   },
   "COUNTS": {
-    "components": 164,
+    "components": 165,
     "components_proven": 59,
-    "components_pending": 99,
+    "components_pending": 100,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 699,
-    "edges_proven": 697,
+    "edges": 710,
+    "edges_proven": 708,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1512,
-    "files_covered": 749,
-    "files_code_unclaimed": 1
+    "files_covered": 750,
+    "files_code_unclaimed": 0
   }
 }
