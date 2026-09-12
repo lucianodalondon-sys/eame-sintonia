@@ -1852,7 +1852,32 @@
     "provas/testa_coleta_canonica.py",
     "provas/testa_golden_path_pdf.py",
     "provas/trava_de_drift_de_migration.sh",
-    "provas/paridade_da_lingua.py"
+    "provas/paridade_da_lingua.py",
+    "provas/a_fase_10_entra_no_acervo.py",
+    "provas/a_lei_da_fase_10.py",
+    "provas/o_corte_de_cr1.py",
+    "provas/a_regra_de_t2.py",
+    "provas/censo_corpus_rotulado_admission.py",
+    "provas/amostragem_neutra_t3.py",
+    "provas/ui_revisao_t3_ptbr.py",
+    "provas/pacote_de_revisao_t3.py",
+    "provas/qualidade_t3.py",
+    "provas/fechar_ground_truth_t3.py",
+    "provas/medir_admission_t3_atual.py",
+    "provas/gate_de_aceitacao_tematica.py",
+    "provas/candidatos_tematicos.py",
+    "provas/implementacoes_candidatas.py",
+    "provas/benchmark_tematico.py",
+    "provas/alcance_da_pergunta_tematica.py",
+    "provas/medir_source_id_wiring_gap.py",
+    "provas/a_fonte_atravessa_ate_a_porta.py",
+    "provas/o_legado_fora_do_fluxo.py",
+    "provas/os_portoes_da_collection.py",
+    "provas/mutacao_do_gate.py",
+    "provas/censo_de_relevancia_das_fontes.py",
+    "provas/red_team_da_relevancia_da_fonte.py",
+    "provas/mutacao_do_portao_de_relevancia.py",
+    "provas/so_a_colheita_atravessa.py"
    ],
    "views": [
     "audit"
@@ -3155,6 +3180,25 @@
    ],
    "what": "Olha para uma fonte SEM lhe fazer uma coleta: primeiro o acervo que esta casa ja guardou dela (zero rede, teto de 3 unidades), e so depois uma sonda limitada. Produz uma OBSERVACAO com DECISAO = NAO_TOMADA.",
    "why_here": "O portao recusa gasto sobre fonte nao avaliada, e avaliar exige olhar. Sem uma forma barata de olhar, o portao seria uma porta trancada com a chave do lado de dentro. E a prova NAO decide: transformar «a amostra que consegui apanhar» em «o que a fonte e» faria a primeira amostra magra condenar a fonte com ar de medicao. PROVA_BARATA_NUNCA_PAGA = True."
+  },
+  {
+   "id": "C-AUTORIZACAO-DO-GASTO",
+   "name": "A guarda do gasto — nenhuma compra sem autorizacao que se possa ler",
+   "territory": "Z-REGUAS",
+   "kind": "gate",
+   "icon": "$",
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "what": "Recebe uma autorizacao de gasto e responde se ELA autoriza AQUELA compra. Para colheita normal delega ao dono da relevancia e obedece; para probe de avaliacao e ensaio de capacidade exige mao humana, alvo e os quatro tectos.",
+   "why_here": "A compra nasce num unico sitio do repositorio — o POST do coletor — e ate aqui qualquer chamador que la chegasse comprava. Esta peca e a trava, e ela NAO julga fonte: SOURCE_RELEVANCE_OWNER != SPEND_ENFORCER. Ela tambem separa o que parece o mesmo e nao e: NORMAL_COLLECTION != SOURCE_EVALUATION_PROBE != CAPABILITY_TRIAL, e ter token ou orcamento nao e estar autorizado.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "leis/autorizacao_de_gasto.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
