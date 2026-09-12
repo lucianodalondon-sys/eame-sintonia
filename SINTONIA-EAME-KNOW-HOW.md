@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-12 — §94: foco e encerramento passam a ser requisito de engenharia; achado não bloqueante não abre frente automaticamente.
+**Última atualização material:** 2026-09-12 — §97: um limite conferido contra um ledger que muda não foi conferido; uma autorização vale por identidade, não por forma.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -10043,3 +10043,234 @@ E fica uma dívida nomeada: o `LIVRO-DE-RELEVANCIA` está **vazio** nesta
 linhagem, e por isso toda a coleta normal falha fechada. É a verdade — ninguém
 avaliou nenhuma fonte aqui ainda — e é a única resposta honesta enquanto o
 livro não existir.
+
+---
+
+# §97 · UM LIMITE CONFERIDO CONTRA UM LEDGER QUE MUDA NÃO FOI CONFERIDO
+
+**Missão:** `SCRAP-CV-02` — convergir o fluxo canónico do SINTONIA SCRAP com o
+controlo de gasto já provado.
+**Branch:** `claude/sintonia-scrap-paid-flow-convergence-cv02`
+**Data:** 2026-09-12
+
+O §91 registou a pergunta que faltava: quatro tectos respondiam «quanto» e
+nenhum respondia «quem disse que sim». Esta secção regista o que se descobriu ao
+pôr essa guarda a viver **na mesma linha** que o ledger — e não ao lado dele.
+
+## 97.1 · DUAS LEIS QUE FALAM DO MESMO DÓLAR PRECISAM DE UMA RELAÇÃO
+
+Duas linhas, cada uma verde sozinha:
+
+```
+FLOW-01    o fluxo canónico, com a guarda de autorização já dentro
+C10.8A-F   o orçamento financeiro, com os sete conceitos do dinheiro
+```
+
+Juntas, deixavam passar o dobro. Medido antes de mexer:
+
+```
+autorização: MAX_PROVIDER_RUNS = 2 · MAX_USD = 1.00
+duas execuções, cada uma a declarar orçamento de 1.00
+EXPOSIÇÃO REPRESENTADA = 2.00
+```
+
+O limite humano era conferido por **presença** e por **sinal** — existe? é maior
+que zero? — e nunca contra o que a execução declarava poder comprometer.
+
+    CADA COMPRA GANHAVA O LIMITE INTEIRO OUTRA VEZ.
+
+A convergência **não** é dar à primeira lei o que a segunda sabe. É escrever a
+**relação** e deixar cada uma com o seu trabalho:
+
+```
+FINANCIAL_BUDGET.AUTHORIZED  <=  AUTORIZACAO.MAX_USD
+```
+
+A guarda recebe um NÚMERO e compara. Nunca soma.
+
+    LIMITE HUMANO != LEDGER OPERACIONAL.
+    DUAS PEÇAS A CONTAR O MESMO DÓLAR DIVERGEM NA TERCEIRA CHAMADA.
+
+## 97.2 · E A RELAÇÃO SOZINHA NÃO CHEGA — ESTA É A PARTE NOVA
+
+Com a relação instalada, o red team voltou a rebentar o limite:
+
+```
+DUAS execuções, cada uma a abrir o SEU orçamento de 1.00
+cada compra custa 0.60  →  EXPOSIÇÃO TOTAL = 1.20
+```
+
+Cada orçamento sozinho cabia no limite humano. A **soma** não cabia. O defeito
+era o mesmo, um andar acima: em vez de cada POST ganhar o limite inteiro, era
+cada EXECUÇÃO.
+
+    UM LIMITE CONFERIDO CONTRA UM LEDGER QUE MUDA NÃO FOI CONFERIDO.
+
+A tentação é dar um saldo à guarda. Seria repor exactamente o problema que a
+§97.1 acabou de evitar. O que ela passou a guardar é um **nome**: a identidade
+do ledger contra o qual o limite foi conferido da primeira vez. Uma segunda
+execução sob outro ledger é recusada.
+
+    UM NOME NÃO É UMA SOMA.
+
+E a semântica que isto escreve é a que uma pessoa já entendia por autorizar: a
+autorização vale dentro de UMA execução; para outra, pede-se outra vez.
+
+## 97.3 · UM FORMULÁRIO PREENCHIDO NÃO É UMA AUTORIZAÇÃO
+
+A autorização era um `dict`. Medido:
+
+```
+AUTHORIZATION_COPY_ACCEPTED = 1
+```
+
+Um `copy.deepcopy` da autorização de outra compra passava inteiro, e um
+dicionário escrito à mão também.
+
+    UMA AUTORIZAÇÃO QUE O CHAMADOR ESCREVE É UM CAMPO DE FORMULÁRIO.
+    COPIAR UMA AUTORIZAÇÃO NÃO É RECEBER UMA AUTORIZAÇÃO.
+
+O que passa a valer não é a FORMA do objecto: é a **identidade** da instância que
+saiu da porta que concede. Um direito de gastar não é um valor, é um
+acontecimento — e dois acontecimentos com os mesmos campos não são o mesmo.
+
+**E o objecto sela-se.** Uma autorização mutável permite trazer um bilhete e
+entrar com outro:
+
+    UMA AUTORIZAÇÃO QUE MUDA DEPOIS DE CONFERIDA NÃO FOI CONFERIDA.
+
+Descoberta de implementação que vale a pena guardar: selar contra escrita mata
+`copy.copy` e `copy.deepcopy` **antes** de existir cópia nenhuma, porque as duas
+reconstroem o objecto escrevendo chave a chave. A defesa da identidade e a
+defesa da imutabilidade reforçam-se uma à outra.
+
+**E a identidade guarda-se por `id()`, não por hash.** Um `dict` (e as suas
+subclasses) não é *hashable*, porque a igualdade dele é por valor; forçar um
+`__hash__` de identidade poria a classe a violar o contrato hash/eq. O registo
+por `id()` com referência fraca é *fail-closed*: se o objecto morreu e o `id`
+foi reaproveitado, a consulta devolve outro objecto e a comparação por
+identidade recusa.
+
+## 97.4 · CONFERIR É DE GRAÇA. COMPRAR NÃO É
+
+```
+1 · conferir a autorização      não queima nada
+2 · reservar o dinheiro         compromete, e rebaixa o cap do fornecedor
+3 · consumir a unidade          a compra está comprometida
+4 · o POST                      e lá dentro, o tecto de ACESSOS
+```
+
+    UM GATE BARATO CORRE PRIMEIRO, E NÃO QUEIMA NADA AO RECUSAR.
+
+Gastar a unidade na conferência — que corre antes do dinheiro — queima uma
+execução autorizada por uma compra que o gate seguinte ainda pode recusar.
+
+E vale nos dois sentidos, que é onde está a subtileza:
+
+    POST QUE NÃO SAIU != POST QUE SAIU.
+    AUSÊNCIA DE NOTÍCIA NÃO É PROVA DE AUSÊNCIA DE COMPRA.
+
+O tecto de acessos recusa **dentro** do transporte, depois do passo 3: há prova
+de que nada foi comprado, e a unidade volta. O transporte que cai **no meio** do
+POST não dá prova nenhuma, e a unidade não volta.
+
+## 97.5 · UMA RECUSA SEM NOME CAI NO BALDE DO DESCONHECIDO
+
+`SemAutorizacaoDeGasto` já era um `RuntimeError` nesta linha — a armadilha do
+`OSError` não existia aqui. Mas nem a rota nem o executor a deixavam subir com
+nome, e o resultado medido foi:
+
+```
+compra sem autorização  →  RESULT = UNKNOWN_ERROR
+```
+
+O balde de «ninguém sabe o que houve», para a única recusa que sabe exactamente
+o que houve.
+
+    SALDO ESGOTADO != NINGUÉM AUTORIZOU.
+
+E os nomes não se achatam entre si: «ninguém autorizou», «não há ledger», «a
+fonte não serve» e «ninguém avaliou a fonte» pedem coisas diferentes de quem lê
+o rasto. O que partilham é a recuperação — `NO_RETRY`, porque repetir não
+resolve e trocar de chave menos ainda.
+
+## 97.6 · O QUE UMA SUITE PROMETE E O QUE ELA MEDE
+
+O §91.5 já registou que trocar o transporte leva com ele as leis que moravam no
+transporte. Esta missão encontrou a consequência seguinte, que é de MEDIÇÃO e
+não de produção: um harness que finge o `subprocess` deixa de estar no caminho
+quando o transporte passa a `urllib`.
+
+    UM FAKE QUE JÁ NÃO ESTÁ NO CAMINHO NÃO É UM FAKE. É UM ADORNO.
+
+E a promessa `NETWORK_REAL = 0` de três harnesses passava a depender de ninguém
+ter importado um certo ficheiro primeiro. A cura tem duas metades:
+
+- a porta guarda uma referência ao seu transporte original, e quem mede repõe-na;
+- **uma prova não deixa o processo pior do que o encontrou**: a suite que activa
+  a troca de propósito repõe a porta ao sair, para não contaminar as seguintes.
+
+E para medir que **carregar** o módulo troca a porta, não serve um `import`: o
+módulo já está carregado e o corpo dele não volta a correr. Serve `reload`.
+
+    MEDIR UM EFEITO DE IMPORT COM UM SEGUNDO IMPORT NÃO MEDE NADA.
+
+## 97.7 · UMA RECUSA PELO MOTIVO ERRADO NÃO É UMA DEFESA
+
+Ao apertar a guarda, dezenas de provas passaram a ser recusadas — mas pela
+**razão nova**, não pela razão que cada uma existia para medir. Uma prova que
+ataca «probe sem `MAX_USD`» e recebe «não foi concedida» deixou de medir o que
+dizia medir, e continuaria verde.
+
+    UMA RECUSA PELO MOTIVO ERRADO NÃO É UMA DEFESA. É UM ACIDENTE.
+
+Na prática: ao endurecer uma guarda, todo o harness que constrói entradas
+inválidas de propósito tem de passar a construí-las **válidas em tudo menos no
+campo atacado**. Foi a maior parte do trabalho desta missão, e é trabalho que
+não aparece no diff da lei.
+
+Dois casos concretos, guardados porque vão repetir-se:
+
+- um harness declarava orçamento de `1.00` contra um limite humano de `0.10`;
+  passava porque ninguém comparava os dois, e passou a ser recusado por isso;
+- «zero» num limite não é «sem tecto», é «não pode» — e a nova conferência
+  chegava primeiro e dava-lhe o nome errado. Ordem de checks é semântica.
+
+## 97.8 · UM MUTANTE QUE NÃO NASCEU NÃO PROVA DEFESA NENHUMA
+
+As provas de mutação desta casa ancoram-se em texto exacto. Mexer na assinatura
+de uma chamada guardada invalida silenciosamente as âncoras — e o corolário
+salvou esta missão duas vezes:
+
+    ÂNCORA QUE NÃO BATE CONTA COMO SOBREVIVEU, NUNCA COMO MORTO.
+
+E apareceu o caso irmão, que é mais fino: um mutante que apagava o `if` da
+presença da autorização **sobreviveu por não mudar comportamento nenhum**, porque
+a conferência de identidade logo a seguir recusava na mesma. A garantia que ele
+existia para partir já era guardada por outra linha.
+
+    UM MUTANTE QUE NÃO MUDA O COMPORTAMENTO NÃO MEDE SENTINELA NENHUMA.
+
+## 97.9 · DUAS LINHAS PARCIALMENTE CORRECTAS NÃO SÃO UM FLUXO
+
+Ao escolher a base, mediu-se o *dependency closure* nos dois sentidos: a linha do
+fluxo trazia dezoito commits (orquestrador, colheita, contrato de retorno,
+ingresso, receitas, workflow) e a linha do gasto trazia um. Porta-se o delta
+pequeno para a base grande, nunca o contrário.
+
+E a base escolhida tinha **duas provas do controlo de gasto vermelhas**, pela
+mesma razão: a guarda tinha chegado àquela linha e aqueles ficheiros continuavam
+a chamar a porta paga sem trazer autorização nenhuma. Ninguém as tinha visto
+porque cada metade, sozinha, passava.
+
+    UMA CONVERGÊNCIA QUE DEIXA UMA DAS METADES VERMELHA NÃO CONVERGIU.
+
+## 97.10 · O QUE FICA POR SABER
+
+- Quatro dos cinco workflows pagos continuam a chamar a porta paga pelo próprio
+  pé, passando ao lado do orquestrador. Medido, não migrado.
+- A troca de transporte do sensor continua a existir e continua a ser mitigada,
+  não desfeita. A razão original dela mantém-se válida; a forma — reescrever a
+  porta de todos no corpo de um import — é que não.
+- A relevância de fonte continua a viver noutra linhagem. Esta linha recebe o
+  veredito dela e obedece; nenhuma das 77 fontes foi avaliada.
