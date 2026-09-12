@@ -403,11 +403,11 @@ def youtube_legenda_paga(*, run_id, country_scope='IT', video_url=None,
                          proposito=None, **_):
     """A rota paga da legenda. → lista de envelopes canonicos.
 
-    O `teto_usd` por omissao e `None` DE PROPOSITO: quem decide o teto do lado
-    do provider e o orcamento financeiro desta execucao, que o rebaixa ao saldo
-    que resta. Um numero escrito aqui seria um segundo dono do dinheiro.
+    O `teto_usd` por omissao e `None`, e quando o chamador nao o nomeia pede-se
+    o que a AUTORIZACAO permite — que e o maximo que se poderia pedir, e nao um
+    numero escrito aqui. O orcamento financeiro rebaixa-o depois ao saldo.
 
-        PROVIDER CAP <= EXECUTION REMAINING.
+        PROVIDER CAP <= AUTORIZADO <= EXECUTION REMAINING.
     """
     import apify_pool as ap
     import coletor as ct
@@ -439,7 +439,19 @@ def youtube_legenda_paga(*, run_id, country_scope='IT', video_url=None,
         # `modo=None` vira o default do `coletor` (NORMAL), que exige o «sim»
         # da relevancia. Nunca se inventa TRIAL aqui para atalhar.
         **({'modo': modo} if modo else {}),
-        autorizacao=autorizacao, source_id=source_id, proposito=proposito,
+        # O PROPOSITO vem da autorizacao quando o chamador nao o nomeia: e o
+        # mesmo objecto que autoriza, e ler dele nao e inventar.
+        autorizacao=autorizacao, source_id=source_id,
+        proposito=proposito or getattr(autorizacao, 'proposito', None),
+        # ── O TETO DO LADO DO FORNECEDOR, PEDIDO E NAO ASSUMIDO ───────────
+        # `teto_usd` nascia `None` aqui de proposito, para o orcamento
+        # financeiro decidir. Desde a SCRAP-OWNER-01 ha um numero anterior a
+        # ele: o que foi AUTORIZADO. Pedir esse e pedir o maximo que se
+        # poderia pedir — e o orcamento continua a rebaixa-lo ao saldo.
+        #
+        #     PROVIDER CAP <= AUTORIZADO <= EXECUTION REMAINING.
+        teto_usd=(teto_usd if teto_usd is not None
+                  else getattr(autorizacao, 'max_usd', None)),
         source_version='ator %s, captura de %s' % (ATOR_TRANSCRICAO,
                                                    ct.agora()[:10]),
         # A ROTA e o nome que a matriz lhe da. Mandar o caminho da evidencia
@@ -457,7 +469,7 @@ def youtube_legenda_paga(*, run_id, country_scope='IT', video_url=None,
         # cobrem o caso medido — e se nao cobrirem, o retrato sai marcado como
         # `PARTIAL_RUN_WAS_NOT_TERMINAL`, que e a verdade, e NAO se compra
         # outra vez.
-        wait=60, teto_usd=teto_usd)
+        wait=60)
 
     # ── A MEDIDA SOBE PELO BALDE, QUE E O CANAL QUE JA EXISTE ──────────────
     # O roteador nao sabe o preco de uma chamada; quem sabe e quem a fez. E o

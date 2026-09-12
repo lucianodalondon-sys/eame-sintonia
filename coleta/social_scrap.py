@@ -1588,18 +1588,47 @@ FASES_PAGAS = {
         'TETO_DE_REDE': 5,
         'AUTORIZACAO': ('C10.8B-LIVE · autorização humana explícita · US$0,10 no '
                         'total da missão · 1 provider run · 1 POST de criação'),
-        'AUTORIZACAO_DE_GASTO': {
-            'AUTORIZACAO_HUMANA': ('C10.8B-LIVE · autorização humana explícita, '
-                                   'registada no briefing da missão'),
-            'MAX_PROVIDER_RUNS': 1,
-            'MAX_START_POSTS': 1,
-            'MAX_USD': 0.10,
+        # ── O PEDIDO DE AUTORIZAÇÃO, E NÃO A AUTORIZAÇÃO ─────────────────
+        # ⚠️ AQUI VIVIA A PRÓPRIA AUTORIZAÇÃO, COMO DICIONÁRIO. Isso fazia
+        # desta tabela o sítio que CONCEDE o direito de gastar — e uma tabela
+        # que concede autorização é um campo de formulário com outro nome.
+        #
+        #     CAMPO PREENCHIDO PELO CHAMADOR != AUTORIZAÇÃO.
+        #
+        # Agora o que vive aqui é o PEDIDO: os números que uma pessoa
+        # autorizou, por escrito, num commit que se lê. Quem concede é
+        # `leis/autorizacao_de_gasto.autorizar()`, e o objecto que ele devolve
+        # é selado — ninguém o consegue escrever a mão.
+        'PEDIDO_DE_AUTORIZACAO': {
+            'motivo': 'TRIAL_DE_CAPACIDADE',
+            'proposito': 'T9',
+            'max_execucoes': 1,
+            'max_usd': 0.10,
+            'quem_autorizou': ('C10.8B-LIVE · autorização humana explícita, '
+                               'registada no briefing da missão'),
+            'porque': ('provar que a rota apify:transcricao chega ao provider '
+                       'e entrega — a capacidade, não a fonte'),
+            'condicao_de_paragem': 'uma execução paga, um POST de criação',
         },
         'ALVO_PORQUE': ('sentinela do acervo: SENSOR-TR-B-3-p3, mesmo ator, '
                         'transcrição histórica preservada em '
                         'data/samples/SENSOR-PILOT/TRANSCRICOES-B.json'),
     },
 }
+
+
+def _autorizacao_da_fase(paga):
+    """Pede a autorização ao dono dela. → `Autorizacao`, ou levanta.
+
+    Esta CLI não concede nada: ela traz o pedido que está escrito em
+    `FASES_PAGAS` e leva-o a `leis/autorizacao_de_gasto.autorizar()`, que é
+    quem faz as perguntas. Se faltar um teto ou um responsável, a autorização
+    NÃO nasce — e o que não nasce não compra.
+
+        QUEM PEDE A COMPRA NÃO É QUEM A AUTORIZA.
+    """
+    import autorizacao_de_gasto as ag
+    return ag.autorizar(**paga['PEDIDO_DE_AUTORIZACAO'])
 
 
 def _banco_se_houver():
@@ -1839,7 +1868,7 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
                    # A autorização desce pelo mesmo caminho de todo o resto —
                    # `COLLECT` -> roteador -> adaptador -> `coletor`. Ela não
                    # atalha, e é por isso que quem a salta não compra.
-                   'autorizacao': paga['AUTORIZACAO_DE_GASTO']})
+                   'autorizacao': _autorizacao_da_fase(paga)})
     # O `RUN_ID` vem do chamador canônico. Sem um, cunha-se aqui UM por execução
     # — e diz-se que foi aqui. Inventar um `run_id` em silêncio seria fabricar
     # proveniência; declará-lo é o contrário disso.
@@ -1854,8 +1883,8 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
         pronto = scrap.CHECK(plataforma, capacidade, modo=paga['MODO'])
         print('\nESTADO ANTES DO GASTO')
         print('  autorizacao        %s' % paga['AUTORIZACAO'])
-        for campo, valor in sorted(paga['AUTORIZACAO_DE_GASTO'].items()):
-            print('    %-16s %s' % (campo, valor))
+        for campo, valor in sorted(paga['PEDIDO_DE_AUTORIZACAO'].items()):
+            print('    %-20s %s' % (campo, valor))
         print('  alvo               %s' % fixos)
         print('  alvo porque        %s' % paga['ALVO_PORQUE'])
         print('  motivo pago        %s' % paga['MOTIVO_PAGO'])

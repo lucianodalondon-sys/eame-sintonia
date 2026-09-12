@@ -131,18 +131,30 @@ class _Cenario(object):
 #:
 #:     UM AJUDANTE DE TESTE QUE COMPRA SEM AUTORIZACAO
 #:     PROVA UM SISTEMA QUE NAO E ESTE.
-AUTORIZACAO = {'AUTORIZACAO_HUMANA': 'bateria C10.8B, provider falso',
-               'MAX_PROVIDER_RUNS': 1, 'MAX_START_POSTS': 1,
-               'MAX_USD': TETO_USD}
+#: ⚠️ ELA DEIXOU DE SER UM DICIONARIO NA SCRAP-OWNER-01, e a razao e a mesma
+#: pela qual a producao tambem deixou: uma autorizacao que o chamador escreve
+#: e um campo de formulario. O ajudante de teste pede-a ao dono, como toda a
+#: gente — e por isso esta bateria continua a medir o sistema, e nao um atalho.
+#:
+#:     CAMPO PREENCHIDO PELO CHAMADOR != AUTORIZACAO.
+def _autorizacao(n=1):
+    import autorizacao_de_gasto as ag
+    return ag.autorizar(
+        motivo=ag.TRIAL_DE_CAPACIDADE, proposito='T9', max_execucoes=n,
+        max_usd=TETO_USD, quem_autorizou='bateria C10.8B, provider falso',
+        porque='medir a rota paga contra um provider falso',
+        condicao_de_paragem='as execucoes autorizadas')
 
 
 def _colher(falso, *, gasto=TETO_USD, rede=TETO_REDE, com_chave=True,
             permitir_pago=True, motivo=MOTIVO, modo=sx.TRIAL, video=ALVO,
-            autorizacao=AUTORIZACAO):
+            autorizacao=None):
     with _Cenario(falso, com_chave=com_chave):
         pedido = dict(platform=PLAT, capability=CAPAC, run_id='t-c108b',
                       modo=modo, permitir_pago=permitir_pago, motivo_pago=motivo,
-                      video_id=video, autorizacao=autorizacao)
+                      video_id=video,
+                      autorizacao=(autorizacao if autorizacao is not None
+                                   else _autorizacao()))
         if rede is not None:
             pedido['teto_de_rede'] = rede
         if gasto is None:

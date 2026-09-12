@@ -576,7 +576,8 @@ def _rodar_scrap(capacidade, *, run_id, platform, country, query, lote, **pedido
     return itens, man, 0
 
 
-def _rodar(actor, entrada, *, run_id, platform, country, query, evidence_path, lote):
+def _rodar(actor, entrada, *, run_id, platform, country, query, evidence_path,
+           lote, autorizacao=None):
     """Roda pelo coletor, trocando de chave só quando a CHAVE é o problema.
 
     Começa na posição deslocada do lote para os dois runners não baterem juntos na mesma.
@@ -592,11 +593,20 @@ def _rodar(actor, entrada, *, run_id, platform, country, query, evidence_path, l
     ultimo = ([], None)
     for tentativa, idx in enumerate(ordem):
         pos = idx + 1
+        # ── A AUTORIZACAO DESCE, E A ROTACAO NAO A RENOVA ─────────────────
+        # Este laco percorre o pool inteiro: sem consumo, UMA autorizacao
+        # pagaria tantas execucoes quantas chaves houvesse no cofre. O consumo
+        # vive em `leis/autorizacao_de_gasto.conferir_e_consumir`, e por isso a
+        # volta seguinte encontra a autorizacao mais pobre — ou esgotada.
+        #
+        #     ROTACAO DE CHAVE NAO E NOVA AUTORIZACAO.
         itens, man = coletor.executar(
             actor, entrada, token=chaves[idx], run_id='%s-p%d' % (run_id, pos),
             platform=platform, country=country, mission=MISSION, query=query,
             source_version='captura de %s' % coletor.agora()[:10],
-            evidence_path=evidence_path)
+            evidence_path=evidence_path, autorizacao=autorizacao,
+            motivo_do_gasto=getattr(autorizacao, 'motivo', None),
+            teto_usd=getattr(autorizacao, 'max_usd', None))
         man['TOKEN_POSITION_USED'] = pos
         man['RUNNER_NAME'] = RUNNER
         estado = ap.classificar(

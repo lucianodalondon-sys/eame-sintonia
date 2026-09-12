@@ -94,17 +94,34 @@ class _Cenario(object):
     #:
     #: `TRIAL` e o modo certo: nada aqui colhe a serio, e nenhuma destas
     #: chamadas quer perguntar pela relevancia de fonte nenhuma.
-    AUTORIZACAO = {'AUTORIZACAO_HUMANA': 'bateria C10.8A-F, gasto falso',
-                   'MAX_PROVIDER_RUNS': 99, 'MAX_START_POSTS': 99,
-                   'MAX_USD': 99.0}
+    #: ⚠️ DEIXOU DE SER UM DICIONARIO NA SCRAP-OWNER-01: pede-se ao dono.
+    #: `max_execucoes` alto de proposito — esta bateria mede o TETO DE
+    #: DINHEIRO, e uma autorizacao que se esgotasse a meio mediria o esgotamento
+    #: em vez do teto. Sao dois eixos, e cada bateria mede o seu.
+    @property
+    def AUTORIZACAO(self):
+        import autorizacao_de_gasto as ag
+        return ag.autorizar(
+            motivo=ag.TRIAL_DE_CAPACIDADE, proposito='T9', max_execucoes=999,
+            max_usd=99.0, quem_autorizou='bateria C10.8A-F, gasto falso',
+            porque='medir o teto de dinheiro contra um provider falso',
+            condicao_de_paragem='o teto de dinheiro')
 
     def rota(self, *, run_id, country_scope='IT', medida=None, **k):
+        autorizacao = self.AUTORIZACAO
         itens, man = ct.executar(
             ATOR, {'q': 1}, token='TOKEN-FALSO', run_id=run_id, platform=PLAT,
             country=country_scope, mission='C10-8A-F', query='teste',
             source_version='teste', evidence_path='data/samples/t.json',
-            wait=60, salvar_raw=False, teto_usd=self.teto_da_rota,
-            modo=az.TRIAL, autorizacao=self.AUTORIZACAO)
+            wait=60, salvar_raw=False,
+            # ── O CAP DECLARA-SE, E NAO SE OMITE ──────────────────────────
+            # Quando esta bateria nao pede teto proprio, pede o AUTORIZADO —
+            # que e o maximo que poderia pedir. Omiti-lo faria a guarda
+            # recusar por `SEM_TETO_NO_FORNECEDOR`, e com razao: a nossa trava
+            # nao sobrevive a um bug nosso.
+            teto_usd=(self.teto_da_rota if self.teto_da_rota is not None
+                      else autorizacao.max_usd),
+            modo=az.TRIAL, autorizacao=autorizacao)
         if medida is not None:
             r = man.get('FINANCIAL_RESERVATION') or {}
             medida['COST_STATE'] = r.get('COST_STATE', 'UNKNOWN')
@@ -115,6 +132,15 @@ class _Cenario(object):
         return itens
 
     def __enter__(self):
+        # ⚠️ O TRANSPORTE E REPOSTO ANTES DE TUDO, e a razao e um achado da
+        # C10.8B-R: `regras/sensor_coleta.py` substitui `coletor._curl` NO
+        # IMPORT. Basta uma bateria anterior importa-lo para esta passar a
+        # falar urllib — e o falso, que finge `subprocess`, deixa de ser
+        # chamado. A bateria passava sozinha e reprovava na suite inteira.
+        #
+        #     UMA SONDA QUE NAO FIXA O TRANSPORTE MEDE QUEM IMPORTOU ANTES DELA.
+        self._curl = ct._curl
+        ct._curl = ct._CURL_DA_CASA
         self._run = ct.subprocess.run
         ct.subprocess.run = self.falso
         self._antes = dict(reg._MAPA[(PLAT, CAPAC)])
@@ -128,6 +154,7 @@ class _Cenario(object):
         return self
 
     def __exit__(self, *a):
+        ct._curl = self._curl
         ct.subprocess.run = self._run
         reg._MAPA[(PLAT, CAPAC)] = self._antes
         return False
@@ -439,11 +466,30 @@ class UmEnsaioPagoSemTetoNaoComeca(unittest.TestCase):
         saidas, falso, _o = _colher(gasto=1.00, guiao=(0.10,), modo=sx.TRIAL)
         self.assertEqual(len(falso.posts), 1)
 
-    def test_28_em_NORMAL_o_caminho_historico_nao_muda(self):
+    def test_28_em_NORMAL_sem_orcamento_o_teto_e_o_AUTORIZADO(self):
+        """⚠️ ESTA SENTINELA MUDOU DE LADO NA SCRAP-OWNER-01, E MELHOROU.
+
+        Ela dizia «sem teto declarado NAO vai `maxTotalChargeUsd`», e isso era
+        verdade de um mundo onde uma compra podia nascer sem autorizacao
+        nenhuma. Nesse mundo, nao haver orcamento queria mesmo dizer nao haver
+        numero nenhum para mandar.
+
+        Agora toda a compra traz autorizacao, e toda a autorizacao traz um
+        tecto de dolares. Nao mandar nada ao fornecedor seria deitar fora a
+        unica trava que sobrevive a um defeito NOSSO.
+
+            A NOSSA TRAVA NAO SOBREVIVE A UM BUG NOSSO.
+            PROVIDER CAP <= AUTORIZADO <= EXECUTION REMAINING.
+
+        O que se guarda hoje e o oposto do que se guardava: o cap NUNCA e
+        ausente, e ele nunca passa do autorizado.
+        """
         saidas, falso, _o = _colher(gasto=None, guiao=(0.10,), modo=sx.NORMAL)
         self.assertEqual(len(falso.posts), 1)
-        self.assertIsNone(falso.posts[0],
-                          'sem teto declarado passou a ir maxTotalChargeUsd')
+        self.assertIsNotNone(falso.posts[0],
+                             'uma compra autorizada saiu sem teto no fornecedor')
+        self.assertLessEqual(falso.posts[0], 99.0,
+                             'o teto que saiu passou do autorizado')
 
     def test_29_rota_gratuita_em_TRIAL_nao_exige_teto(self):
         with ct.orcamento_financeiro(0):

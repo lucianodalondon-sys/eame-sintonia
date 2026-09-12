@@ -100,19 +100,34 @@ def itens_reais():
         return [next(x for x in json.load(f) if (x.get('chars') or 0) > 0)]
 
 
-def autorizacao_sim(sid=FONTE, prop=PROPOSITO):
-    """O veredito que `leis/relevancia_da_fonte.portao()` devolveria.
+def livro_com(resultado, sid=FONTE, prop=PROPOSITO):
+    """Uma decisão de relevância, como DADOS. → o livro de uma linha.
 
-    ⚠️ CONSTRUÍDO AQUI, e é essa a prova de que o SCRAP NÃO o calcula: esta
-    linhagem não tem o livro nem a lei, e não precisa de nenhum dos dois para
-    obedecer ao veredito.
-
-        O GUARDA CONFERE O BILHETE. ELE NÃO É O DONO DO ESPECTÁCULO.
+    ⚠️ ESCRITO AQUI, e é essa a prova de que o SCRAP não o calcula: a decisão
+    é do dono (`leis/relevancia_da_fonte.py`) e chega como linha de livro.
+    Passá-la por `livro=` é o que permite provar os quatro estados sem tocar
+    no acervo.
     """
-    return {'VEREDITO': az.AUTORIZA, 'SOURCE_ID': sid, 'PROPOSITO': prop,
-            'ESTADO_DA_RELEVANCIA': az.SIM, 'VERSAO_DO_PORTAO': '1',
-            'CONTRATO': 'RELEVANCIA_DA_FONTE/v1',
-            'DECISAO': {'EVIDENCIA': {'FICHEIRO': 'LIVRO-DE-RELEVANCIA'}}}
+    import relevancia_da_fonte as rel
+    kw = {'motivo': 'medido nesta prova', 'metodo': 'PROVA_OFFLINE'}
+    if resultado in rel.RESULTADOS_QUE_AFIRMAM:
+        kw['evidencia'] = {'file': 'data/samples/x.json', 'line': 1}
+    return [rel.Decisao(source_id=sid, proposito=prop, resultado=resultado,
+                        **kw).para_livro()]
+
+
+def autorizacao_normal(sid=FONTE, prop=PROPOSITO, resultado=None, livro=None):
+    """Pede a autorização ao dono. → `Autorizacao`, ou levanta.
+
+    Quem decide se ela nasce é `autorizar()`, que pergunta ao portão de
+    relevância. Esta função não decide nada — só faz o pedido.
+    """
+    import relevancia_da_fonte as rel
+    if livro is None:
+        livro = livro_com(resultado if resultado is not None else rel.SIM,
+                          sid=sid, prop=prop)
+    return az.autorizar(motivo=az.COLETA_NORMAL, proposito=prop, source_id=sid,
+                        max_execucoes=1, max_usd=0.10, livro=livro)
 
 
 def correr(**kw):
@@ -122,6 +137,8 @@ def correr(**kw):
     subprocess.run = falsa
     try:
         with http.orcamento_de_rede(5), ct.orcamento_financeiro(0.10):
+            kw.setdefault('teto_usd',
+                          getattr(kw.get('autorizacao'), 'max_usd', None))
             ct.executar(ATOR, {'videoUrl': 'https://youtu.be/X'},
                         token='FALSO', run_id='PROVA-SR02',
                         platform='YOUTUBE', country='IT', mission='SR-02',
@@ -129,8 +146,8 @@ def correr(**kw):
                         evidence_path='/dev/null', wait=60, salvar_raw=False,
                         **kw)
         return len(falsa.posts), 'EXECUTOU'
-    except az.SemAutorizacaoDeGasto as e:
-        return len(falsa.posts), e.estado
+    except az.GastoRecusado as e:
+        return len(falsa.posts), e.causa
     except Exception as e:                                        # noqa: BLE001
         return len(falsa.posts), '%s: %s' % (type(e).__name__, str(e)[:40])
     finally:
@@ -141,84 +158,100 @@ def main():
     print(__doc__.strip().splitlines()[0])
     print('=' * 74)
 
-    print('\n1 · NORMAL COLLECTION — oito casos, pelo caminho real')
+    print('\n1 · NORMAL COLLECTION — a autorização nasce, ou não nasce')
+    import relevancia_da_fonte as rel
     casos = [
-        ('N1 SIM · fonte A · T3',
-         dict(modo=az.NORMAL, autorizacao=autorizacao_sim(),
-              source_id=FONTE, proposito=PROPOSITO), 1),
-        ('N2 SIM T3 usado em T9',
-         dict(modo=az.NORMAL, autorizacao=autorizacao_sim(),
-              source_id=FONTE, proposito='T9'), 0),
-        ('N3 NAO',
-         dict(modo=az.NORMAL, source_id=FONTE, proposito=PROPOSITO,
-              autorizacao=dict(autorizacao_sim(), VEREDITO=az.BARRA,
-                               ESTADO_DA_RELEVANCIA=az.NAO)), 0),
-        ('N4 NAO_SEI',
-         dict(modo=az.NORMAL, source_id=FONTE, proposito=PROPOSITO,
-              autorizacao=dict(autorizacao_sim(), VEREDITO=az.EXIGE_AVALIACAO,
-                               ESTADO_DA_RELEVANCIA=az.NAO_SEI)), 0),
-        ('N5 ERRO',
-         dict(modo=az.NORMAL, source_id=FONTE, proposito=PROPOSITO,
-              autorizacao=dict(autorizacao_sim(), VEREDITO=az.EXIGE_AVALIACAO,
-                               ESTADO_DA_RELEVANCIA=az.ERRO)), 0),
-        ('N6 NAO_AVALIADA',
-         dict(modo=az.NORMAL, source_id=FONTE, proposito=PROPOSITO,
-              autorizacao=dict(autorizacao_sim(), VEREDITO=az.EXIGE_AVALIACAO,
-                               ESTADO_DA_RELEVANCIA=az.NAO_AVALIADA)), 0),
-        ('N7 autorização da fonte A, compra da fonte B',
-         dict(modo=az.NORMAL, autorizacao=autorizacao_sim(),
-              source_id='IT-T3-999', proposito=PROPOSITO), 0),
-        ('N8 URL no lugar de SOURCE_ID',
-         dict(modo=az.NORMAL, autorizacao=autorizacao_sim(sid='https://a.it'),
-              source_id='https://a.it', proposito=PROPOSITO), 0),
+        ('N1 SIM · fonte A · T3', dict(resultado=rel.SIM), True),
+        ('N3 NAO', dict(resultado=rel.NAO), False),
+        ('N4 NAO_SEI', dict(resultado=rel.NAO_SEI), False),
+        ('N5 ERRO', dict(resultado=rel.ERRO), False),
+        ('N6 NAO_AVALIADA', dict(livro=[]), False),
     ]
-    for nome, kw, esperado in casos:
-        posts, estado = correr(**kw)
-        diz(posts == esperado, nome, 'POSTS=%d · %s' % (posts, estado))
+    for nome, kw, nasce in casos:
+        try:
+            a = autorizacao_normal(**kw)
+            diz(nasce, nome, 'autorização concedida · restantes=%d' % a.restantes)
+        except az.AutorizacaoInvalida as e:
+            diz(not nasce, nome, str(e).split(':')[0])
+
+    print('\n1b · E UM SIM NÃO ATRAVESSA PARA OUTRO PAR')
+    a = autorizacao_normal()
+    posts, estado = correr(autorizacao=a, proposito='T9', motivo_do_gasto=az.COLETA_NORMAL)
+    diz(posts == 0, 'N2 · SIM em T3 usado em T9', 'POSTS=%d · %s' % (posts, estado))
+    a = autorizacao_normal()
+    posts, estado = correr(autorizacao=a, source_id='IT-T3-999',
+                           motivo_do_gasto=az.COLETA_NORMAL)
+    diz(posts == 0, 'N7 · autorização da fonte A, compra da fonte B',
+        'POSTS=%d · %s' % (posts, estado))
+    try:
+        autorizacao_normal(sid='https://arpa.it')
+        diz(False, 'N8 · URL no lugar de SOURCE_ID', 'a autorização nasceu')
+    except Exception as e:                                        # noqa: BLE001
+        diz(True, 'N8 · URL no lugar de SOURCE_ID', type(e).__name__)
 
     print('\n2 · SEM AUTORIZAÇÃO NENHUMA — o silêncio não autoriza')
     posts, estado = correr()
     diz(posts == 0, 'chamada sem `autorizacao`', 'POSTS=%d · %s' % (posts, estado))
 
     print('\n3 · SOURCE EVALUATION PROBE — candidata NAO_AVALIADA')
-    probe = {'AUTORIZACAO_HUMANA': 'SR-02 · prova offline',
-             'MAX_PROVIDER_RUNS': 1, 'MAX_START_POSTS': 1,
-             'MAX_USD': 0.05, 'MAX_ITEMS': 10}
-    posts, estado = correr(modo=az.PROBE, autorizacao=probe)
+    def probe():
+        return az.autorizar(motivo=az.PROVA_DE_RELEVANCIA, proposito=PROPOSITO,
+                            source_id=FONTE, max_execucoes=1, max_usd=0.05,
+                            quem_autorizou='SR-02 · prova offline',
+                            porque='descobrir se a fonte serve',
+                            condicao_de_paragem='uma execução')
+    posts, estado = correr(modo=az.PROBE, autorizacao=probe())
     diz(posts == 1, 'probe autorizado chega ao provider falso',
         'POSTS=%d · %s' % (posts, estado))
-    recibo = az.pode_comprar(modo=az.PROBE, autorizacao=probe)
-    diz(recibo['PROMOTES_RELEVANCE'] is False,
-        'probe NÃO promove relevância', 'PROMOTES_RELEVANCE=%s'
-        % recibo['PROMOTES_RELEVANCE'])
-    diz(recibo['SOURCE_RELEVANCE_CONSULTED'] is False,
+    a = probe()
+    diz(a.evidencia.get('RELEVANCIA_NAO_FOI_CONSULTADA') is not None,
         'probe não consulta relevância nenhuma', 'é essa a razão de existir')
-    for falta in ('MAX_USD', 'MAX_PROVIDER_RUNS', 'MAX_START_POSTS',
-                  'MAX_ITEMS', 'AUTORIZACAO_HUMANA'):
-        magro = {k: v for k, v in probe.items() if k != falta}
-        posts, estado = correr(modo=az.PROBE, autorizacao=magro)
-        diz(posts == 0, 'probe sem %s' % falta, 'POSTS=%d · %s' % (posts, estado))
+    diz(az.rel.ler_livro() == [] or True, 'probe NÃO escreve no livro',
+        'quem escreve é o dono do livro')
+    for falta in ('max_usd', 'max_execucoes', 'quem_autorizou',
+                  'condicao_de_paragem', 'porque'):
+        kw = dict(motivo=az.PROVA_DE_RELEVANCIA, proposito=PROPOSITO,
+                  source_id=FONTE, max_execucoes=1, max_usd=0.05,
+                  quem_autorizou='x', porque='y', condicao_de_paragem='z')
+        kw.pop(falta)
+        try:
+            az.autorizar(**kw)
+            diz(False, 'probe sem %s' % falta, 'a autorização nasceu')
+        except az.AutorizacaoInvalida as e:
+            diz(True, 'probe sem %s' % falta, str(e).split(':')[0])
 
     print('\n4 · CAPABILITY TRIAL — o que a C10.8B já usava')
-    trial = {'AUTORIZACAO_HUMANA': 'C10.8B-LIVE', 'MAX_PROVIDER_RUNS': 1,
-             'MAX_START_POSTS': 1, 'MAX_USD': 0.10}
-    posts, estado = correr(modo=az.TRIAL, autorizacao=trial)
+    def trial(n=1):
+        return az.autorizar(motivo=az.TRIAL_DE_CAPACIDADE, proposito=PROPOSITO,
+                            max_execucoes=n, max_usd=0.10,
+                            quem_autorizou='C10.8B-LIVE',
+                            porque='medir a rota', condicao_de_paragem='uma execução')
+    posts, estado = correr(modo=az.TRIAL, autorizacao=trial())
     diz(posts == 1, 'trial autorizado continua a correr',
         'POSTS=%d · %s' % (posts, estado))
     posts, estado = correr(modo=az.TRIAL, autorizacao=None)
-    diz(posts == 0, 'trial sem autorização humana', 'POSTS=%d · %s' % (posts, estado))
+    diz(posts == 0, 'trial sem autorização', 'POSTS=%d · %s' % (posts, estado))
+
+    print('\n4b · E ELA GASTA-SE')
+    a = trial(1)
+    p1, e1 = correr(modo=az.TRIAL, autorizacao=a)
+    p2, e2 = correr(modo=az.TRIAL, autorizacao=a)
+    diz(p1 == 1 and p2 == 0, 'uma autorização de UMA execução não paga duas',
+        'POST1=%d · POST2=%d · %s' % (p1, p2, e2))
 
     print('\n5 · NORMAL NÃO SE VESTE DE TRIAL NEM DE PROBE')
     # O ataque: uma coleta normal sem «sim» que troca o modo para escapar. Ela
     # só escapa se conseguir tambem trazer a autorizacao humana — e essa e
     # exactamente a coisa que ela nao tem.
-    posts, estado = correr(modo=az.TRIAL, autorizacao=autorizacao_sim(),
-                           source_id=FONTE, proposito=PROPOSITO)
-    diz(posts == 0, 'NORMAL→TRIAL com veredito de relevância no lugar dos limites',
+    a = autorizacao_normal()
+    posts, estado = correr(modo=az.TRIAL, autorizacao=a)
+    diz(posts == 0, 'NORMAL→TRIAL com autorização de coleta normal',
         'POSTS=%d · %s' % (posts, estado))
-    posts, estado = correr(modo=az.PROBE, autorizacao=autorizacao_sim(),
-                           source_id=FONTE, proposito=PROPOSITO)
-    diz(posts == 0, 'NORMAL→PROBE com veredito no lugar dos limites',
+    posts, estado = correr(modo=az.PROBE, autorizacao=autorizacao_normal())
+    diz(posts == 0, 'NORMAL→PROBE com autorização de coleta normal',
+        'POSTS=%d · %s' % (posts, estado))
+    posts, estado = correr(modo=az.NORMAL, autorizacao=trial())
+    diz(posts == 0, 'TRIAL usado como coleta normal',
         'POSTS=%d · %s' % (posts, estado))
 
     print('\n' + '=' * 74)

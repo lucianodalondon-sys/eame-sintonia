@@ -1,5 +1,19 @@
 # -*- coding: utf-8 -*-
-"""SCRAP-SR-02 — nenhuma compra sem autorização.
+"""SCRAP-SR-02 — a topologia da compra, e quem não se autoriza a si próprio.
+
+⚠️ ESTA BATERIA ENCOLHEU NA SCRAP-OWNER-01, E A RAZÃO ESTÁ ESCRITA.
+
+Ela media um modelo de autorização que era um DICIONÁRIO validado. Esse modelo
+perdeu a convergência para o desta casa — selado, consumível, e a perguntar ao
+dono da relevância. As sentinelas que mediam a FORMA do dicionário mediriam
+hoje uma coisa que não existe, e por isso saíram; quem as substitui é
+`tests/test_autorizacao_de_gasto.py`, a bateria do dono único.
+
+    UMA SENTINELA QUE MEDE UM MODELO MORTO NÃO GUARDA NADA.
+    ELA SÓ FAZ A SUÍTE DEMORAR MAIS.
+
+O que fica aqui é o que NÃO dependia do modelo: a topologia (uma porta só),
+quem fabrica autorização (ninguém), e as leis que moram no transporte.
 
     CREDENTIAL_PRESENT != SPEND_AUTHORIZED
     ROUTE_ALLOWED      != SPEND_AUTHORIZED
@@ -47,18 +61,13 @@ def _funcao(rel, nome):
     raise AssertionError('%s não tem %s' % (rel, nome))
 
 
-def sim(sid=FONTE, prop=PROP):
-    """O veredito que o dono da relevância devolveria. Construído AQUI —
-    e é essa a prova de que esta linhagem não o calcula."""
-    return {'VEREDITO': az.AUTORIZA, 'SOURCE_ID': sid, 'PROPOSITO': prop,
-            'ESTADO_DA_RELEVANCIA': az.SIM, 'VERSAO_DO_PORTAO': '1',
-            'CONTRATO': 'RELEVANCIA_DA_FONTE/v1',
-            'DECISAO': {'EVIDENCIA': {'F': 'LIVRO'}}}
-
-
-LIMITES = {'AUTORIZACAO_HUMANA': 'bateria SR-02', 'MAX_PROVIDER_RUNS': 1,
-           'MAX_START_POSTS': 1, 'MAX_USD': 0.10}
-LIMITES_PROBE = dict(LIMITES, MAX_ITEMS=10)
+def _autorizacao(n=1):
+    """Pede-se ao dono, como toda a gente."""
+    return az.autorizar(
+        motivo=az.TRIAL_DE_CAPACIDADE, proposito=PROP, max_execucoes=n,
+        max_usd=0.10, quem_autorizou='bateria da topologia',
+        porque='medir a porta contra um provider falso',
+        condicao_de_paragem='as execucoes autorizadas')
 
 
 class _Resultado(object):
@@ -125,142 +134,6 @@ class _SemCompra(unittest.TestCase):
         if esperado:
             self.assertEqual(estado, esperado)
         return estado
-
-
-# ══════════════════════════════════════════════════════════════════════════
-# RT1–RT8 · TER NÃO É PODER
-# ══════════════════════════════════════════════════════════════════════════
-class TerNaoEPoder(_SemCompra):
-
-    def test_rt01_chamada_directa_sem_autorizacao(self):
-        """Um script que chama a primitiva não compra por chamar."""
-        self.nada(az.SEM_AUTORIZACAO)
-
-    def test_rt02_workflow_sem_autorizacao(self):
-        """Nenhum workflow constrói autorização no YAML.
-
-        Se construísse, o teto e a permissão viviam num campo de formulário —
-        e um teto que vive no disparador é um teto que quem dispara escolhe.
-
-        ⚠️ A primeira versão leu o ficheiro inteiro e acusou `system-map.yml`,
-        cujo comentário em português usa a palavra «veredito» a falar das
-        provas do mapa.
-
-            UMA SONDA QUE LÊ A PROSA ENCONTRA A PALAVRA ONDE ELA NÃO DECIDE NADA.
-
-        Lê-se o DOCUMENTO, sem comentários.
-        """
-        import glob
-        import re
-        for w in sorted(glob.glob(os.path.join(RAIZ, '.github/workflows/*.yml'))):
-            bruto = _fonte(os.path.relpath(w, RAIZ))
-            y = '\n'.join(re.sub(r'(?<!\$)#.*$', '', l) for l in bruto.splitlines())
-            for inventado in ('VEREDITO', 'ESTADO_DA_RELEVANCIA',
-                              'AUTORIZACAO_HUMANA', 'MAX_USD',
-                              'MAX_PROVIDER_RUNS'):
-                self.assertNotIn(inventado, y,
-                                 '%s fabrica autorização' % os.path.basename(w))
-
-    def test_rt03_token_presente_nao_autoriza(self):
-        """TOKEN_OWNER != SPEND_OWNER. Ter a chave não é ter licença."""
-        import apify_pool as ap
-        self.assertTrue(hasattr(ap, 'pool'))
-        self.nada(az.SEM_AUTORIZACAO)      # token existe; compra não nasce
-
-    def test_rt04_orcamento_presente_nao_autoriza(self):
-        """BUDGET_PRESENT != SPEND_AUTHORIZED. Os dois tetos estão abertos."""
-        estado = self.nada()
-        self.assertEqual(estado, az.SEM_AUTORIZACAO)
-
-    def test_rt05_politica_permitida_sem_relevancia(self):
-        """ROUTE_ALLOWED != SPEND_AUTHORIZED."""
-        self.nada(az.SEM_AUTORIZACAO, modo=az.NORMAL, source_id=FONTE,
-                  proposito=PROP)
-
-    def test_rt06_relevancia_sim_ainda_atravessa_os_outros_portoes(self):
-        """A autorização não substitui nada: ela vem ANTES de todos."""
-        falsa = _Falsa()
-        real, curl = subprocess.run, ct._curl
-        subprocess.run = falsa
-        ct._curl = ct._CURL_DA_CASA
-        try:
-            with http.orcamento_de_rede(0):
-                with self.assertRaises(http.SemOrcamentoDeRede):
-                    ct.executar(ATOR, {'q': 1}, token='F', run_id='t',
-                                platform='YOUTUBE', country='IT', mission='m',
-                                query='q', source_version='v',
-                                evidence_path='/dev/null', wait=60,
-                                salvar_raw=False, modo=az.NORMAL,
-                                autorizacao=sim(), source_id=FONTE,
-                                proposito=PROP)
-        finally:
-            subprocess.run, ct._curl = real, curl
-        self.assertEqual(len(falsa.posts), 0)
-
-    def test_rt07_sim_de_t3_usado_em_t9(self):
-        self.nada(az.PROPOSITO_ERRADO, modo=az.NORMAL, autorizacao=sim(),
-                  source_id=FONTE, proposito='T9')
-
-    def test_rt08_autorizacao_da_fonte_a_usada_na_fonte_b(self):
-        self.nada(az.FONTE_ERRADA, modo=az.NORMAL, autorizacao=sim(),
-                  source_id='IT-T3-999', proposito=PROP)
-
-
-# ══════════════════════════════════════════════════════════════════════════
-# RT9–RT16 · AS AUSÊNCIAS NÃO VIRAM «SIM», E NÃO VIRAM «NÃO»
-# ══════════════════════════════════════════════════════════════════════════
-class AsAusenciasNaoViramSim(_SemCompra):
-
-    def _com(self, estado_rel, veredito=az.EXIGE_AVALIACAO):
-        return dict(modo=az.NORMAL, source_id=FONTE, proposito=PROP,
-                    autorizacao=dict(sim(), VEREDITO=veredito,
-                                     ESTADO_DA_RELEVANCIA=estado_rel))
-
-    def test_rt09_autorizacao_sem_proposito_no_pedido(self):
-        self.nada(az.PROPOSITO_ERRADO, modo=az.NORMAL, autorizacao=sim(),
-                  source_id=FONTE, proposito=None)
-
-    def test_rt10_nao_sei_nao_vira_allowed(self):
-        self.nada(az.RELEVANCIA_INCERTA, **self._com(az.NAO_SEI))
-
-    def test_rt11_erro_nao_vira_allowed(self):
-        self.nada(az.RELEVANCIA_COM_ERRO, **self._com(az.ERRO))
-
-    def test_rt12_nao_avaliada_nao_vira_allowed(self):
-        self.nada(az.RELEVANCIA_POR_AVALIAR, **self._com(az.NAO_AVALIADA))
-
-    def test_rt12b_as_quatro_ausencias_nao_colapsam_num_nome_so(self):
-        """NOT_MEASURED != NOT_RELEVANT. Quatro confissões, quatro nomes."""
-        nomes = {self.nada(**self._com(e))
-                 for e in (az.NAO_SEI, az.ERRO, az.NAO_AVALIADA)}
-        nomes.add(self.nada(**self._com(az.NAO, veredito=az.BARRA)))
-        self.assertEqual(len(nomes), 4, 'duas ausências deram o mesmo nome')
-        self.assertIn(az.RELEVANCIA_BARRADA, nomes)
-
-    def test_rt13_url_vira_source_id(self):
-        self.nada(az.SOURCE_ID_E_URL, modo=az.NORMAL,
-                  autorizacao=sim(sid='https://arpa.it'),
-                  source_id='https://arpa.it', proposito=PROP)
-
-    def test_rt13b_source_id_ausente(self):
-        self.nada(az.SOURCE_ID_AUSENTE, modo=az.NORMAL, autorizacao=sim(),
-                  source_id=None, proposito=PROP)
-
-    def test_rt14_veredito_autoriza_com_estado_que_nao_e_sim(self):
-        """O ataque mais fino: carimbar AUTORIZA sobre NAO_AVALIADA."""
-        self.nada(az.RELEVANCIA_POR_AVALIAR, modo=az.NORMAL, source_id=FONTE,
-                  proposito=PROP,
-                  autorizacao=dict(sim(), ESTADO_DA_RELEVANCIA=az.NAO_AVALIADA))
-
-    def test_rt15_estado_sim_com_veredito_que_nao_autoriza(self):
-        self.nada(modo=az.NORMAL, source_id=FONTE, proposito=PROP,
-                  autorizacao=dict(sim(), VEREDITO=az.BARRA))
-
-    def test_rt16_autorizacao_sem_os_campos_do_contrato(self):
-        for campo in az.CAMPOS_DA_AUTORIZACAO:
-            magra = {k: v for k, v in sim().items() if k != campo}
-            self.nada(az.CONTRATO_ERRADO, modo=az.NORMAL, autorizacao=magra,
-                      source_id=FONTE, proposito=PROP)
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -336,107 +209,13 @@ class NinguemSeAutorizaASiProprio(unittest.TestCase):
             if isinstance(n, ast.Call):
                 nome = (n.func.attr if isinstance(n.func, ast.Attribute)
                         else getattr(n.func, 'id', None))
-                if nome == 'pode_comprar' and linha_guarda is None:
+                if nome == 'conferir_e_consumir' and linha_guarda is None:
                     linha_guarda = n.lineno
                 if nome == 'reservar' and linha_reserva is None:
                     linha_reserva = n.lineno
         self.assertIsNotNone(linha_guarda, 'a guarda desapareceu da primitiva')
         self.assertIsNotNone(linha_reserva)
         self.assertLess(linha_guarda, linha_reserva)
-
-
-# ══════════════════════════════════════════════════════════════════════════
-# RT23–RT30 · PROBE É LIMITADO, E NÃO PROMOVE NADA
-# ══════════════════════════════════════════════════════════════════════════
-class OProbeELimitado(_SemCompra):
-
-    def test_rt23_probe_autorizado_corre_uma_vez(self):
-        posts, estado = comprar(modo=az.PROBE, autorizacao=LIMITES_PROBE)
-        self.assertEqual((posts, estado), (1, 'EXECUTOU'))
-
-    def test_rt24_probe_sem_autorizacao_humana(self):
-        magro = {k: v for k, v in LIMITES_PROBE.items()
-                 if k != 'AUTORIZACAO_HUMANA'}
-        self.nada(az.LIMITE_AUSENTE, modo=az.PROBE, autorizacao=magro)
-
-    def test_rt25_probe_sem_max_usd(self):
-        magro = {k: v for k, v in LIMITES_PROBE.items() if k != 'MAX_USD'}
-        self.nada(az.LIMITE_AUSENTE, modo=az.PROBE, autorizacao=magro)
-
-    def test_rt26_probe_sem_max_provider_runs(self):
-        magro = {k: v for k, v in LIMITES_PROBE.items()
-                 if k != 'MAX_PROVIDER_RUNS'}
-        self.nada(az.LIMITE_AUSENTE, modo=az.PROBE, autorizacao=magro)
-
-    def test_rt27_probe_sem_max_items(self):
-        magro = {k: v for k, v in LIMITES_PROBE.items() if k != 'MAX_ITEMS'}
-        self.nada(az.LIMITE_AUSENTE, modo=az.PROBE, autorizacao=magro)
-
-    def test_rt27b_probe_sem_max_start_posts(self):
-        magro = {k: v for k, v in LIMITES_PROBE.items()
-                 if k != 'MAX_START_POSTS'}
-        self.nada(az.LIMITE_AUSENTE, modo=az.PROBE, autorizacao=magro)
-
-    def test_rt28_limite_zero_nao_e_ilimitado(self):
-        """Zero não é «sem teto». É «não pode»."""
-        for campo in ('MAX_USD', 'MAX_PROVIDER_RUNS', 'MAX_ITEMS'):
-            self.nada(az.LIMITE_AUSENTE, modo=az.PROBE,
-                      autorizacao=dict(LIMITES_PROBE, **{campo: 0}))
-
-    def test_rt29_probe_nao_promove_relevancia(self):
-        """PROBE != DECISION. Quem escreve no livro é o dono do livro."""
-        recibo = az.pode_comprar(modo=az.PROBE, autorizacao=LIMITES_PROBE)
-        self.assertIs(recibo['PROMOTES_RELEVANCE'], False)
-        self.assertIs(recibo['SOURCE_RELEVANCE_CONSULTED'], False)
-        fonte = _fonte('leis/autorizacao_de_gasto.py')
-        for escrita in ('registar(', 'ler_livro(', 'open(LIVRO'):
-            self.assertNotIn(escrita, fonte, 'a guarda escreve no livro')
-
-    def test_rt30_a_guarda_nao_le_livro_nenhum(self):
-        """O spend boundary não abre o LIVRO-DE-RELEVANCIA."""
-        arv = ast.parse(_fonte('leis/autorizacao_de_gasto.py'))
-        for no in ast.walk(arv):
-            if isinstance(no, ast.Call):
-                nome = (no.func.attr if isinstance(no.func, ast.Attribute)
-                        else getattr(no.func, 'id', None))
-                self.assertNotIn(nome, ('open', 'load', 'loads', 'urlopen',
-                                        'run', 'listdir'),
-                                 'a guarda foi ler alguma coisa: %s' % nome)
-
-
-# ══════════════════════════════════════════════════════════════════════════
-# RT31–RT36 · NORMAL NÃO SE VESTE DE OUTRA COISA
-# ══════════════════════════════════════════════════════════════════════════
-class NormalNaoSeVesteDeOutraCoisa(_SemCompra):
-
-    def test_rt31_normal_muda_para_trial_sem_limites(self):
-        self.nada(az.LIMITE_AUSENTE, modo=az.TRIAL, autorizacao=sim(),
-                  source_id=FONTE, proposito=PROP)
-
-    def test_rt32_normal_muda_para_probe_sem_limites(self):
-        self.nada(az.LIMITE_AUSENTE, modo=az.PROBE, autorizacao=sim(),
-                  source_id=FONTE, proposito=PROP)
-
-    def test_rt33_modo_inventado_nao_passa(self):
-        self.nada(az.SEM_AUTORIZACAO, modo='LIVRE', autorizacao=LIMITES)
-
-    def test_rt34_trial_sem_autorizacao_humana(self):
-        self.nada(az.SEM_AUTORIZACAO, modo=az.TRIAL, autorizacao=None)
-
-    def test_rt35_trial_continua_a_nao_autorizar_gasto_sozinho(self):
-        """A lei antiga dizia TRIAL NÃO AUTORIZA GASTO. Continua a dizer."""
-        self.assertIn('TRIAL NÃO AUTORIZA GASTO',
-                      _fonte('coleta/scrap_executor.py'))
-
-    def test_rt36_os_tres_modos_sao_tres_e_tem_um_dono(self):
-        """ONE CONCEPT → ONE OWNER: uma lista, num sítio."""
-        self.assertEqual(az.MODOS, ('NORMAL', 'TRIAL', 'PROBE'))
-        self.assertIs(sx.MODOS, az.MODOS)
-        arv = ast.parse(_fonte('coleta/scrap_executor.py'))
-        literais = [n for n in ast.walk(arv)
-                    if isinstance(n, ast.Assign)
-                    and any(getattr(t, 'id', None) == 'MODOS' for t in n.targets)]
-        self.assertEqual(literais, [], 'o executor voltou a declarar MODOS')
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -472,29 +251,36 @@ class AsPortasTraseiras(unittest.TestCase):
 
     def test_rt38_um_ajudante_de_teste_nao_compra_sem_autorizacao(self):
         """Este próprio ficheiro não consegue comprar por ser um teste."""
-        posts, estado = comprar()
-        self.assertEqual((posts, estado), (0, az.SEM_AUTORIZACAO))
+        with self.assertRaises(az.GastoRecusado) as c:
+            ct.executar(ATOR, {'q': 1}, token='F', run_id='t',
+                        platform='YOUTUBE', country='IT', mission='m',
+                        query='q', source_version='v',
+                        evidence_path='/dev/null', salvar_raw=False)
+        self.assertEqual(c.exception.causa, 'AUTORIZACAO_AUSENTE')
 
-    def test_rt39_a_cli_directa_nao_compra_sem_autorizacao(self):
-        """A CLI canónica só carrega autorização para fases declaradas."""
+    def test_rt39_a_cli_directa_pede_a_autorizacao_ao_dono(self):
+        """A CLI não concede: ela traz o PEDIDO e leva-o a `autorizar()`."""
         import social_scrap as ss
         for fase, paga in ss.FASES_PAGAS.items():
-            self.assertIn('AUTORIZACAO_DE_GASTO', paga,
-                          'fase paga %s sem autorização' % fase)
-            for campo in az.CAMPOS_DO_LIMITE:
-                self.assertIn(campo, paga['AUTORIZACAO_DE_GASTO'],
-                              '%s sem %s' % (fase, campo))
+            self.assertIn('PEDIDO_DE_AUTORIZACAO', paga,
+                          'fase paga %s sem pedido de autorização' % fase)
+            pedido = paga['PEDIDO_DE_AUTORIZACAO']
+            for campo in ('motivo', 'max_execucoes', 'max_usd',
+                          'quem_autorizou', 'porque', 'condicao_de_paragem'):
+                self.assertIn(campo, pedido, '%s sem %s' % (fase, campo))
+            # e o que sai de lá é selado, não um dicionário
+            self.assertIsInstance(ss._autorizacao_da_fase(paga), az.Autorizacao)
 
     def test_rt40_o_subprocesso_curl_nao_salta_a_guarda(self):
         """O POST sai por `subprocess`, e a guarda está acima dele."""
         no = _funcao('coleta/coletor.py', 'executar')
         corpo = ast.unparse(no)
-        self.assertLess(corpo.index('pode_comprar'), corpo.index('_curl'),
+        self.assertLess(corpo.index('conferir_e_consumir'), corpo.index('_curl'),
                         'o curl passou a correr antes da guarda')
 
     def test_rt41_a_recusa_e_da_casa_e_nao_da_fonte(self):
         """Um teto que devolve FAILED faz o manifesto culpar a Apify."""
-        self.assertIn(az.SemAutorizacaoDeGasto, ct._recusas_nossas())
+        self.assertIn(az.GastoRecusado, ct._recusas_nossas())
 
     def test_rt42_o_recibo_viaja_no_manifesto(self):
         """CAN DO != DID DO — e quem audita não tem de acreditar."""
@@ -508,15 +294,21 @@ class AsPortasTraseiras(unittest.TestCase):
                     ATOR, {'q': 1}, token='F', run_id='t', platform='YOUTUBE',
                     country='IT', mission='m', query='q', source_version='v',
                     evidence_path='/dev/null', wait=60, salvar_raw=False,
-                    modo=az.NORMAL, autorizacao=sim(), source_id=FONTE,
-                    proposito=PROP)
+                    autorizacao=_autorizacao(), proposito=PROP,
+                    # O modo declara o MOTIVO, e a autorização é de TRIAL.
+                    # Declarar NORMAL aqui seria pedir uma compra que ninguém
+                    # autorizou — e a guarda recusa, que é o ponto.
+                    modo=az.TRIAL, teto_usd=0.10)
         finally:
             subprocess.run, ct._curl = real, curl
-        recibo = man.get('SPEND_AUTHORIZATION') or {}
-        self.assertEqual(recibo.get('BASIS'), 'SOURCE_RELEVANCE')
-        self.assertEqual(recibo.get('SOURCE_ID'), FONTE)
+        recibo = man.get('AUTORIZACAO_DE_GASTO') or {}
+        self.assertEqual(recibo.get('VEREDITO'), az.AUTORIZADO)
+        self.assertEqual(recibo.get('MOTIVO_DO_GASTO'), az.TRIAL_DE_CAPACIDADE)
         self.assertEqual(recibo.get('PROPOSITO'), PROP)
-        self.assertIs(recibo.get('PROMOTES_RELEVANCE'), False)
+        self.assertEqual(recibo.get('CONTRATO'), az.CONTRATO)
+        # E ele diz quantas execuções já se gastaram: o recibo de uma
+        # autorização que não se gasta não prova que ela foi usada.
+        self.assertEqual(recibo.get('EXECUCOES_GASTAS'), 1)
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -589,6 +381,122 @@ class QuemTrocaOTransporteLevaAsLeis(unittest.TestCase):
         # e o original continua a dizer o mesmo, com nome
         self.assertTrue(hasattr(ct, '_CURL_DA_CASA'),
                         'o coletor deixou de guardar o próprio transporte')
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# RT46–RT52 · O QUE A MUTAÇÃO ENCONTROU SEM GUARDA
+# ══════════════════════════════════════════════════════════════════════════
+class OQueAMutacaoEncontrou(unittest.TestCase):
+    """⚠️ ESTA CLASSE NASCEU DE CINCO MUTANTES QUE SOBREVIVERAM.
+
+    Trocar o mapa entre os dois eixos, deixar um dicionário passar por
+    autorização, voltar a chamar o contrato `v1` — nenhuma dessas mudanças
+    partia uma sentinela, e todas partiam uma lei.
+
+        UM MUTANTE QUE SOBREVIVE NÃO ACUSA O CÓDIGO: ACUSA A BATERIA.
+    """
+
+    def test_rt46_o_mapa_entre_os_dois_eixos_e_este_e_nao_outro(self):
+        """O único sítio onde o modo vira motivo. Trocar uma linha aqui faria
+        uma coleta normal comprar com autorização de ensaio."""
+        self.assertEqual(az.MOTIVO_DO_MODO, {
+            az.NORMAL: az.COLETA_NORMAL,
+            az.PROBE: az.PROVA_DE_RELEVANCIA,
+            az.TRIAL: az.TRIAL_DE_CAPACIDADE,
+        })
+        # e a tradução é bijectiva: dois modos com o mesmo motivo fariam um
+        # deles herdar as excepções do outro.
+        self.assertEqual(len(set(az.MOTIVO_DO_MODO.values())), len(az.MODOS))
+
+    def test_rt47_cada_modo_traduz_para_o_seu_e_so_o_seu(self):
+        for modo, motivo in az.MOTIVO_DO_MODO.items():
+            self.assertEqual(az.motivo_do_modo(modo), motivo)
+        with self.assertRaises(az.AutorizacaoInvalida):
+            az.motivo_do_modo('LIVRE')
+
+    def test_rt48_um_dicionario_nao_e_uma_autorizacao(self):
+        """CAMPO PREENCHIDO PELO CHAMADOR != AUTORIZACAO."""
+        forjada = {'MOTIVO_DO_GASTO': az.TRIAL_DE_CAPACIDADE, 'PROPOSITO': PROP,
+                   'SOURCE_ID': FONTE, 'MAX_EXECUCOES': 99, 'MAX_USD': 99.0,
+                   'VEREDITO': az.AUTORIZADO}
+        with self.assertRaises(az.GastoRecusado) as c:
+            az.conferir_e_consumir(forjada, motivo=az.TRIAL_DE_CAPACIDADE,
+                                   proposito=PROP, teto_usd=0.10)
+        self.assertEqual(c.exception.causa, 'AUTORIZACAO_FABRICADA')
+
+    def test_rt48b_e_a_PORTA_tambem_recusa_o_dicionario(self):
+        """⚠️ RT48 media a LEI. Este mede a PORTA.
+
+        O mutante que repunha a API antiga acrescentava um ramo em
+        `coletor.executar` — «se for dicionário, aceita» — e sobrevivia, porque
+        nenhuma sentinela atravessava a porta com um dicionário na mão.
+
+            MEDIR A LEI NÃO É MEDIR QUEM A CHAMA.
+        """
+        forjada = {'MOTIVO_DO_GASTO': az.TRIAL_DE_CAPACIDADE, 'PROPOSITO': PROP,
+                   'MAX_EXECUCOES': 99, 'MAX_USD': 99.0,
+                   'VEREDITO': az.AUTORIZADO}
+        with self.assertRaises(az.GastoRecusado) as c:
+            ct.executar(ATOR, {'q': 1}, token='F', run_id='t',
+                        platform='YOUTUBE', country='IT', mission='m',
+                        query='q', source_version='v', evidence_path='/dev/null',
+                        salvar_raw=False, autorizacao=forjada, proposito=PROP,
+                        modo=az.TRIAL, teto_usd=0.10)
+        self.assertEqual(c.exception.causa, 'AUTORIZACAO_FABRICADA')
+
+    def test_rt49_nem_um_objecto_com_a_mesma_forma(self):
+        """Um sósia com os mesmos campos também não passa."""
+        class Sosia(object):
+            motivo = az.TRIAL_DE_CAPACIDADE
+            proposito = PROP
+            source_id = None
+            max_usd = 99.0
+            restantes = 99
+            _selo = object()
+            _gastas = 0
+        with self.assertRaises(az.GastoRecusado) as c:
+            az.conferir_e_consumir(Sosia(), motivo=az.TRIAL_DE_CAPACIDADE,
+                                   proposito=PROP, teto_usd=0.10)
+        self.assertEqual(c.exception.causa, 'AUTORIZACAO_FABRICADA')
+
+    def test_rt50_nem_uma_copia_serializada(self):
+        """Passar por JSON tira-lhe o selo, e o selo é o que a torna dela."""
+        import copy
+        import json
+        a = _autorizacao()
+        plano = json.loads(json.dumps(a.para_o_manifesto()))
+        with self.assertRaises(az.GastoRecusado):
+            az.conferir_e_consumir(plano, motivo=az.TRIAL_DE_CAPACIDADE,
+                                   proposito=PROP, teto_usd=0.10)
+        # e uma cópia profunda CONTINUA a ser a mesma autorização — ela não
+        # multiplica execuções por ser copiada, porque o saldo vai com ela.
+        b = copy.deepcopy(a)
+        self.assertEqual(b.restantes, a.restantes)
+
+    def test_rt51_o_contrato_tem_UM_nome_e_ele_nao_e_o_ambiguo(self):
+        """`v1` nomeou dois comportamentos incompatíveis nesta casa."""
+        self.assertEqual(az.CONTRATO, 'AUTORIZACAO_DE_GASTO/v2')
+        self.assertNotEqual(az.CONTRATO, az.CONTRATO_AMBIGUO_ANTERIOR)
+        self.assertEqual(az.CONTRATO_AMBIGUO_ANTERIOR, 'AUTORIZACAO_DE_GASTO/v1')
+
+    def test_rt52_existe_um_so_dono_do_conceito(self):
+        """SPEND_AUTH_OWNER_COUNT = 1, medido na árvore."""
+        donos = []
+        for base, dirs, nomes in os.walk(RAIZ):
+            dirs[:] = [d for d in dirs
+                       if d not in {'.git', 'node_modules', 'italia-portale',
+                                    '__pycache__', '.tmp', 'build', 'data'}]
+            for n in nomes:
+                if not n.endswith('.py'):
+                    continue
+                rel_ = os.path.relpath(os.path.join(base, n), RAIZ)
+                if rel_.startswith(('tests/', 'provas/')):
+                    continue
+                t = _fonte(rel_)
+                if 'def conferir_e_consumir' in t or 'def pode_comprar' in t:
+                    donos.append(rel_.replace('\\', '/'))
+        self.assertEqual(donos, ['leis/autorizacao_de_gasto.py'],
+                         'SPEND_AUTH_OWNER_COUNT != 1: %s' % donos)
 
 
 if __name__ == '__main__':

@@ -96,6 +96,42 @@ def chamadores_da_primitiva():
     return fora
 
 
+def medir():
+    """O censo, como DADOS. → o dicionario que as sentinelas leem.
+
+    `main()` imprime; esta devolve. Duas funcoes a medir a mesma coisa seriam
+    dois censos, e por isso `main()` passou a chamar esta.
+
+        ONE CONCEPT -> ONE OWNER, ATE PARA UM CENSO.
+    """
+    criacoes = primitivas_de_criacao()
+    produtivas = sorted({f for f, _l in criacoes
+                         if not f.startswith(('tests/', 'provas/'))})
+    chamadores = chamadores_da_primitiva()
+    produtivos = [c for c in chamadores
+                  if not c['FICHEIRO'].startswith(('tests/', 'provas/'))]
+    tocam = []
+    for p_ in ficheiros():
+        r = rel(p_)
+        if r.startswith(('tests/', 'provas/')):
+            continue
+        t = fonte(p_)
+        if 'api.apify.com' in t or 'APIFY_TOKEN' in t or 'apify_pool' in t:
+            tocam.append(r)
+    return {
+        'PAID_CREATION_PRIMITIVES': produtivas,
+        'PODEM_CRIAR_EXECUCAO_PAGA': sorted({c['FICHEIRO'] for c in produtivos}
+                                            | set(produtivas)),
+        'MENCIONAM_APIFY': sorted(tocam),
+        'TOTAIS': {
+            'PAID_CREATION_PRIMITIVES': len(produtivas),
+            'PODEM_CRIAR_EXECUCAO_PAGA': len({c['FICHEIRO'] for c in produtivos}
+                                             | set(produtivas)),
+            'MENCIONAM_APIFY': len(tocam),
+        },
+    }
+
+
 def main():
     print(__doc__.strip().splitlines()[0])
     print('=' * 74)

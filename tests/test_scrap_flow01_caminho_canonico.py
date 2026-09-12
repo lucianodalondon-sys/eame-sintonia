@@ -238,8 +238,9 @@ class OsControlosContinuam(unittest.TestCase):
     def test_rt12_a_guarda_de_gasto_continua_na_primitiva(self):
         no = _funcao('coleta/coletor.py', 'executar')
         corpo = ast.unparse(no)
-        self.assertIn('pode_comprar', corpo)
-        self.assertLess(corpo.index('pode_comprar'), corpo.index('_curl'))
+        # A guarda passou a CONSUMIR, e nao so a validar — SCRAP-OWNER-01.
+        self.assertIn('conferir_e_consumir', corpo)
+        self.assertLess(corpo.index('conferir_e_consumir'), corpo.index('_curl'))
 
     def test_rt13_o_adapter_do_fluxo_nao_autoriza_gasto_nenhum(self):
         """Ele não constrói autorização, e a fase que corre é gratuita."""
@@ -254,7 +255,10 @@ class OsControlosContinuam(unittest.TestCase):
         import scrap_http as http
         self.assertTrue(hasattr(http, 'orcamento_de_rede'))
         self.assertTrue(hasattr(ct, 'orcamento_financeiro'))
-        self.assertIn(az.SemAutorizacaoDeGasto, ct._recusas_nossas())
+        # O nome da recusa convergiu na SCRAP-OWNER-01: `GastoRecusado`,
+        # do dono unico. `coletor` re-exporta o antigo apontando para ele.
+        self.assertIn(az.GastoRecusado, ct._recusas_nossas())
+        self.assertIs(ct.SemAutorizacaoDeGasto, az.GastoRecusado)
 
     def test_rt15_a_politica_da_rota_continua_a_decidir(self):
         """ROUTE_ALLOWED continua a ser pergunta do roteador, não do fluxo."""

@@ -81,7 +81,11 @@ import proveniencia as pv  # noqa: E402
 import autorizacao_de_gasto as az  # noqa: E402
 #: A recusa da guarda, re-exportada: quem apanha excecoes do coletor nao
 #: tem de saber em que ficheiro ela nasceu.
-SemAutorizacaoDeGasto = az.SemAutorizacaoDeGasto
+#: A recusa da guarda, re-exportada com o nome que esta linha ja usava. O
+#: objecto e o de `leis/autorizacao_de_gasto` — nao ha duas excecoes.
+SemAutorizacaoDeGasto = az.GastoRecusado
+GastoRecusado = az.GastoRecusado
+AutorizacaoInvalida = az.AutorizacaoInvalida
 
 RAW_DIR = os.path.join(ROOT, 'data', 'samples', 'raw-paid')
 API = 'https://api.apify.com/v2'
@@ -598,7 +602,7 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
              source_version, evidence_path, wait=280, salvar_raw=True,
              teto_usd=None, build=None, rota=None,
              modo=az.NORMAL, autorizacao=None, source_id=None,
-             proposito=None):
+             proposito=None, motivo_do_gasto=None):
     """Roda um ator e devolve (itens_crus, manifesto). Grava o RAW antes de devolver.
 
     `token` nunca entra no manifesto: ele só existe no cabeçalho da chamada.
@@ -635,9 +639,59 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     # E ela vem ANTES da reserva financeira de propósito. Reservar primeiro
     # comprometeria dinheiro por uma compra que nunca devia ter sido pensada —
     # e uma reserva que ninguém liquidou não volta ao bolso.
-    recibo = az.pode_comprar(modo=modo, autorizacao=autorizacao,
-                             source_id=source_id, proposito=proposito,
-                             ator=actor)
+    # ⚠️ E ELA CONSOME. A versao anterior desta linha VALIDAVA e seguia — e uma
+    # autorizacao que nao se gasta paga tantas execucoes quantas chaves houver
+    # no cofre, porque `ferramentas/apify_pool.py` rotaciona e retoma.
+    #
+    #     ROTACAO DE CHAVE NAO E NOVA AUTORIZACAO.
+    #
+    # `teto_usd` desce para ser conferido contra o autorizado: a trava do lado
+    # do fornecedor e a unica que sobrevive a um defeito deste ficheiro.
+    # ── A ESCADA DOS TETOS, E A ORDEM DELA ────────────────────────────────
+    # O chamador que nao pede teto nenhum passa a pedir O AUTORIZADO — que e o
+    # maximo que ele PODERIA pedir, e nao um numero inventado. A seguir, o
+    # orcamento financeiro rebaixa-o ao saldo que resta.
+    #
+    #     PROVIDER CAP <= AUTORIZADO <= EXECUTION REMAINING.
+    #
+    # Sem esta linha, a rota paga chegava aqui com `teto_usd=None` (de
+    # proposito: ela deixa o orcamento decidir) e a guarda recusava por falta
+    # de trava do lado do fornecedor — uma recusa correcta a uma pergunta que
+    # ninguem tinha feito ainda.
+    # ⚠️ O `teto_usd` NAO SE PREENCHE AQUI. A primeira versao desta linha
+    # punha-o a `autorizacao.max_usd` quando o chamador o omitia — e isso
+    # derrotava `SEM_TETO_NO_FORNECEDOR`, que existe para obrigar quem compra a
+    # DIZER quanto no maximo. Preencher por ele tira-lhe a pergunta.
+    #
+    #     UM TETO QUE A PORTA INVENTA PELO CHAMADOR
+    #     E UM TETO QUE NINGUEM ESCOLHEU.
+    #
+    # ── O QUE O CHAMADOR NAO NOMEIA, LE-SE DA AUTORIZACAO ─────────────────
+    # E nao e enfraquecer o vinculo: ler DA autorizacao e o oposto de o
+    # chamador escolher. Quem nomeia um proposito DIFERENTE continua a ser
+    # recusado — e e esse o ataque que este vinculo existe para matar.
+    #
+    #     UM SIM PARA T3 NAO E UM SIM PARA T9.
+    #
+    # `coleta/comunicacao_coleta.py` na outra linhagem ja fazia isto a mao, em
+    # cada chamador. Faze-lo aqui e ter UM sitio em vez de um por porta.
+    if proposito is None:
+        proposito = getattr(autorizacao, 'proposito', None)
+    if source_id is None:
+        source_id = getattr(autorizacao, 'source_id', None)
+    # ── UM EIXO, DUAS MANEIRAS DE O DIZER, UMA TRADUCAO ───────────────────
+    # `modo` e o eixo da EXECUCAO e desce pela cadeia inteira (`COLLECT` ->
+    # roteador -> adaptador). `motivo_do_gasto` nomeia directamente o eixo do
+    # GASTO, e e como a outra linhagem sempre chamou esta porta.
+    #
+    # Os dois convergem AQUI, e so aqui: `az.motivo_do_modo` e o unico sitio da
+    # casa onde um vira o outro. Duas traducoes seriam duas semanticas.
+    #
+    #     ONE CONCEPT -> ONE OWNER, E UM SO MAPA ENTRE OS DOIS EIXOS.
+    motivo = az.motivo_do_modo(motivo_do_gasto or modo)
+    recibo = az.conferir_e_consumir(
+        autorizacao, motivo=motivo, proposito=proposito,
+        source_id=source_id, teto_usd=teto_usd)
     # ── O GATE FINANCEIRO VEM ANTES DO POST ───────────────────────────────────
     # Cobrar depois do provider é contar o prejuízo. A reserva acontece aqui, e é
     # ela que decide o `maxTotalChargeUsd` que vai na query.
@@ -867,6 +921,7 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     #     CAN DO != DID DO — e um artefato que nao diz quem autorizou
     #     obriga quem audita a acreditar.
     manifesto['SPEND_AUTHORIZATION'] = dict(recibo)
+    manifesto['AUTORIZACAO_DE_GASTO'] = dict(recibo)
 
     pv.checar_token(manifesto)
     return itens, manifesto

@@ -1,428 +1,519 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""A AUTORIZAÇÃO DE GASTO — «alguém permitiu ESTA compra, e permitiu para ISTO?»
+"""A AUTORIZACAO DE GASTO — nenhuma compra sem quem responda por ela.
 
     py leis/autorizacao_de_gasto.py          # o contrato, dito em voz alta
 
-É a única pergunta deste ficheiro. Ele NÃO pergunta se a fonte serve, se a rota
-existe, quanto sobra no orçamento, nem quantas idas à rede restam. Essas quatro
-têm donos, e estão nomeadas no fim deste cabeçalho.
+    UMA CHAVE NO COFRE NAO E UMA CHAVE NO PROCESSO.
+    UMA CHAVE NO PROCESSO NAO E AUTORIZACAO PARA GASTAR.
 
 POR QUE ISTO EXISTE
 -------------------
-Medido nesta árvore, antes desta lei:
+Medido nesta arvore, e nao herdado:
 
-    PAID_CREATION_PRIMITIVES = 1      coleta/coletor.py::executar, o POST
-    CALLERS_DESSE_PRIMITIVE  = 4      e três deles saltam o roteador
-    CAN_SPEND_WITHOUT_AUTH   = 4
+    PAID_CREATION_PRIMITIVES  = 1    coleta/coletor.py :: executar
+    PODEM_CRIAR_EXECUCAO_PAGA = 5
+    DESTES, QUE PERGUNTAVAM SE A FONTE SERVIA = 0
 
-`coletor.executar()` é de facto a porta única por onde uma corrida paga nasce —
-mas quatro sítios chamam-na, e três não passam por `scrap_executor.COLLECT`.
-Havia teto de dinheiro, teto de rede, política de rota e cap do lado do
-provider. Não havia a pergunta anterior a todas elas:
+Havia exactamente UMA porta que acende execucao paga — o
+`POST /v2/acts/{ator}/runs` dentro de `coletor.executar` — e para a atravessar
+bastava ter um token na mao. Ter a credencial era, na pratica, ter a
+autorizacao; e nenhuma das duas dizia PARA QUE FONTE nem PARA QUE PROPOSITO o
+dinheiro estava a ser gasto.
 
-    ALGUÉM AUTORIZOU ESTA COMPRA?
+    CREDENTIAL != AUTHORIZATION.
+    TOKEN_PRESENT != SPEND_ALLOWED.
+    ALLOWED_ROUTE != AUTHORIZED_SPEND.
 
-Os quatro gates existentes respondem «cabe?», «é permitido pela rota?», «quanto
-no máximo?». Nenhum responde «quem disse que sim?». E um sistema que sabe
-exactamente quanto pode gastar sem saber se devia gastar é um sistema que gasta
-com precisão contabilística em coisas que ninguém pediu.
+⚠️ ESTE FICHEIRO NAO JULGA FONTE
+---------------------------------
+A relevancia de fonte tem dono, e nao e este: `leis/relevancia_da_fonte.py`.
+Aqui **pergunta-se** a ele e obedece-se a resposta. Nem o dono da credencial
+(`ferramentas/apify_pool.py`) nem o dono da execucao paga
+(`coleta/coletor.py`) abrem o livro de relevancia — se abrissem, nasceria um
+segundo dono da mesma verdade, e duas verdades divergem na terceira vez que
+alguem mexe numa.
 
-    CREDENTIAL_PRESENT != SPEND_AUTHORIZED
-    ROUTE_ALLOWED      != SPEND_AUTHORIZED
-    BUDGET_PRESENT     != SPEND_AUTHORIZED
-    PAID_PROVIDER      != POLICY_OVERRIDE
+    ONE CONCEPT -> ONE OWNER.
+    SOURCE RELEVANCE OWNER != SPEND ENFORCER.
 
-ESTE FICHEIRO NÃO ABRE O LIVRO
--------------------------------
-O dono de `SOURCE_RELEVANCE` é `leis/relevancia_da_fonte.py`, e ele vive na
-linhagem SR-01, fora desta. Esta lei **recebe** o veredito dele e valida-o.
-Nunca o calcula.
+TRES MOTIVOS DE GASTO, E NAO SAO A MESMA COISA
+-----------------------------------------------
+Tratar toda execucao paga como «coleta» fecharia a porta pela qual uma fonte
+nova poderia alguma vez ser avaliada, e abriria a porta a chamar coleta de
+«teste».
 
-    SOURCE_RELEVANCE_OWNER != SPEND_ENFORCER.
+    COLETA_NORMAL_DA_FONTE
+        colher de uma fonte para um proposito. EXIGE que a relevancia do par
+        (FONTE, PROPOSITO) esteja provada. E o caso comum.
 
-Concretamente, e por escrito: este ficheiro não lê `LIVRO-DE-RELEVANCIA`, não
-classifica fonte, não interpreta palavra-chave, não decide SIM/NÃO, não fabrica
-`SOURCE_ID` e não pergunta nada ao Atlas. Se um dia o fizesse, a casa passava a
-ter duas verdades sobre relevância e a segunda envelhecia calada.
+    PROVA_DE_RELEVANCIA_DA_FONTE
+        o probe pequeno que existe PARA DESCOBRIR se a fonte serve. NAO pode
+        exigir relevancia provada — exigi-la fecharia o ciclo:
 
-    O GUARDA CONFERE O BILHETE. ELE NÃO É O DONO DO ESPECTÁCULO.
+            para gastar e preciso ser relevante
+            -> para provar que e relevante e preciso observar
+            -> para observar e preciso gastar
 
-E O GUARDA NÃO REFAZ A TABELA DO PORTÃO
-----------------------------------------
-A tentação era ler `RESULTADO` e reaplicar `REGRA_DO_PORTAO`. Isso seria a
-mesma lei escrita duas vezes, e a cópia daria respostas antigas no dia em que o
-original mudasse. O que se faz é o oposto, e é fail-closed:
+        Exige outra coisa: autorizacao humana, teto de execucoes, teto de
+        dolares, amostra limitada e condicao de paragem.
 
-    EXIGE-SE A ÚNICA COMBINAÇÃO QUE NÃO TEM LEITURA DUPLA:
-    VEREDITO = AUTORIZA  **E**  ESTADO_DA_RELEVANCIA = SIM.
+    TRIAL_DE_CAPACIDADE
+        a prova tecnica de que uma ROTA funciona — a C10.7 e a C10.8B desta
+        casa. Nao pergunta se a fonte serve, porque nao esta a colher a fonte:
+        esta a medir o caminho. Exige alvo fixo, autorizacao humana e tetos.
 
-Qualquer outra combinação recusa — inclusive uma que uma versão futura do
-portão viesse a autorizar. Errar para o lado do «não compra» custa uma linha a
-alguém; errar para o outro lado custa dinheiro que ninguém pediu.
+    TRIAL != COLLECTION.  PROBE != RELEVANCE DECISION.
 
-AS QUATRO AUSÊNCIAS NÃO SÃO UM «NÃO»
--------------------------------------
-Vêm de `leis/relevancia_da_fonte.py`, e esta lei não as achata:
+E NENHUM DOS TRES SE DISFARCA DO OUTRO: o motivo entra na autorizacao, a
+autorizacao e verificada contra o que a corrida DECLARA fazer, e uma
+autorizacao de TRIAL nao serve para uma coleta normal.
 
-    NAO_AVALIADA   ninguém olhou
-    NAO_SEI        olhou-se e não se concluiu
-    ERRO           tentou-se olhar e a avaliação rebentou
-    NAO            olhou-se, concluiu-se, e a resposta é não
+A AUTORIZACAO NAO SE FABRICA
+-----------------------------
+Um chamador nao consegue construir uma `Autorizacao` valida sem passar por
+`autorizar()`, que e onde as perguntas sao feitas. Nao e cerimonia: a maneira
+mais provavel de este portao morrer e alguem, com pressa, montar o dicionario
+a mao e passa-lo adiante.
 
-As quatro dão zero POST. Mas a RECUSA tem nomes diferentes, e tem de ter: dizer
-`NOT_RELEVANT` a uma fonte que ninguém abriu é inventar um julgamento.
+    UMA AUTORIZACAO QUE O CHAMADOR CONSEGUE ESCREVER
+    E UM CAMPO DE FORMULARIO, NAO UMA AUTORIZACAO.
 
-    FALTA DE AUTORIZAÇÃO É FALTA DE AUTORIZAÇÃO.
+E ELA GASTA-SE
+--------------
+Cada execucao paga CONSOME uma unidade da autorizacao. Uma autorizacao de uma
+execucao nao paga duas — e isto nao e teoria: `ferramentas/apify_pool.py`
+rotaciona a chave e RETOMA a mesma unidade quando a chave esgota, e
+`regras/sensor_coleta.py` percorre o pool inteiro. Sem consumo, uma unica
+autorizacao pagaria tantas execucoes quantas chaves houvesse no cofre.
 
-TRÊS MODOS, E DOIS DELES PODEM GASTAR ANTES DE HAVER «SIM»
-------------------------------------------------------------
-    NORMAL   colher a sério                 exige SOURCE_RELEVANCE = SIM
-    PROBE    «esta candidata merece?»       exige autorização humana + limites
-    TRIAL    «esta ROTA consegue?»          exige autorização humana + limites
+    ROTACAO DE CHAVE NAO E NOVA AUTORIZACAO.
 
-O PROBE existe para não fechar o ciclo impossível:
+⚠️ ESTE FICHEIRO EXISTIU DUAS VEZES, E ISSO E O DEFEITO QUE A SCRAP-OWNER-01
+CONSERTOU
+-------------------------------------------------------------------------
+Duas linhagens desta casa escreveram, cada uma por si, um
+`leis/autorizacao_de_gasto.py` para responder a MESMA pergunta. Os dois
+declaravam `AUTORIZACAO_DE_GASTO/v1`. Media-se, e davam respostas OPOSTAS ao
+mesmo input:
 
-    PARA PROVAR QUE A FONTE SERVE É PRECISO OBSERVÁ-LA,
-    E PARA A OBSERVAR SERIA PRECISO ELA JÁ SERVIR.
+    um dicionario escrito a mao pelo chamador
+        linha SCRAP-FLOW      ACEITE
+        linha SR-02           RECUSADO
 
-Por isso ele arranca legitimamente de `NAO_AVALIADA`. O preço é que ele é
-limitado em tudo — corridas, POSTs, dólares, itens, rede — e não promove nada:
+    uma autorizacao de UMA execucao, usada duas vezes
+        linha SCRAP-FLOW      as duas passam (nao havia consumo)
+        linha SR-02           a segunda e recusada
 
-    PROBE != DECISION.  Quem escreve no livro é o dono do livro.
+    DUAS IMPLEMENTACOES DO MESMO CONTRATO
+    NAO SAO DUAS VERSOES DA VERDADE: SAO DUAS VERDADES.
 
-E o TRIAL é outra pergunta ainda: não mede a fonte, mede a ROTA. Nenhum dos
-dois é coleta, e uma `NORMAL_COLLECTION` não pode vestir-se de nenhum deles
-para saltar a relevância.
+E dois ficheiros com o mesmo nome de contrato sao piores do que dois nomes
+diferentes — quem le o campo `CONTRATO` num manifesto nao consegue saber qual
+dos dois comportamentos o produziu.
 
-O QUE ESTA LEI NÃO É — E QUEM É O DONO DE CADA UMA
----------------------------------------------------
-    SPEND_AUTHORIZATION != SOURCE_RELEVANCE  -> leis/relevancia_da_fonte.py (SR-01)
-    SPEND_AUTHORIZATION != ITEM_RELEVANCE    -> admissao/admissao.py
-    SPEND_AUTHORIZATION != FINANCIAL_BUDGET  -> coleta/coletor.py::OrcamentoFinanceiro
-    SPEND_AUTHORIZATION != NETWORK_BUDGET    -> coleta/scrap_http.py
-    SPEND_AUTHORIZATION != ROUTE_POLICY      -> leis/social_matriz.py · coleta/social_rotas.py
-    SPEND_AUTHORIZATION != PROVIDER_CAP      -> maxTotalChargeUsd, do lado do provider
-    SPEND_AUTHORIZATION != CREDENTIAL        -> ferramentas/apify_pool.py
+O QUE VENCEU, E PORQUE
+----------------------
+Venceu o modelo desta linhagem (SR-02), e nao por antiguidade: ele preserva
+propriedades que o outro nao tinha, e o outro nao preservava nenhuma que este
+nao tenha.
 
-        TOKEN_OWNER != SPEND_OWNER.
+    autorizacao SELADA        o chamador nao a consegue escrever
+    autorizacao CONSUMIVEL    uma execucao autorizada nao paga duas
+    teto do FORNECEDOR        `maxTotalChargeUsd` conferido contra o autorizado
+    pergunta ao DONO          `relevancia_da_fonte.portao` e chamado, nao imitado
 
-A ordem importa e é esta: a autorização vem ANTES de todos. Ela não substitui
-nenhum — passar aqui é ganhar o direito de ser perguntado a seguir.
+O outro modelo validava um dicionario que o chamador construia — e validar um
+campo que quem pede escreve e verificar a assinatura de quem assinou o cheque.
 
-    CAN DO != DID DO.  ONE CONCEPT -> ONE OWNER.
+    CAMPO PREENCHIDO PELO CHAMADOR != AUTORIZACAO.
+
+O CONTRATO SUBIU PARA v2, E A RAZAO E MEDIDA
+---------------------------------------------
+Nao se aumenta versao por cerimonia. Aumentou-se porque `v1` ja nomeava dois
+comportamentos incompativeis, e deixar o nome como estava criaria um TERCEIRO
+`v1`. `v2` e o primeiro nome desta casa que designa UM comportamento so.
+
+DOIS EIXOS, E ELES NAO SAO O MESMO — A DECISAO ESTA AQUI
+---------------------------------------------------------
+Este ficheiro e dono de dois vocabularios, e isso e deliberado:
+
+    MODO    (NORMAL · TRIAL · PROBE)
+            o eixo da EXECUCAO. Ele muda o portao epistemologico do `CHECK`
+            em `coleta/scrap_executor.py` — «promete resultado?» contra «da
+            para medir?» — e aplica-se tambem a rotas GRATUITAS, onde nao ha
+            gasto nenhum para autorizar.
+
+    MOTIVO  (COLETA_NORMAL_DA_FONTE · PROVA_DE_RELEVANCIA_DA_FONTE ·
+             TRIAL_DE_CAPACIDADE)
+            o eixo do GASTO. So existe quando ha dinheiro, e e o que a
+            autorizacao liga.
+
+Os tres nomes de cada lado correspondem um a um, e por isso a tentacao era
+fundi-los. Nao se fundiram porque uma coleta NORMAL de uma rota GRATUITA tem
+modo e NAO tem motivo de gasto — fundir daria motivo de gasto a quem nao gasta.
+
+    UMA ROTA QUE NAO GASTA NAO PRECISA DE AUTORIZACAO PARA GASTAR.
+
+O que NAO existe e duas traducoes: `MOTIVO_DO_MODO`, aqui em baixo, e o unico
+sitio onde um vira o outro. Os nomes curtos NAO sao um segundo vocabulario
+publico da autorizacao — sao o vocabulario do outro eixo, e o mapa entre os
+dois vive num sitio so.
 """
 
 from __future__ import annotations
 
 import os
 import sys
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
 
-_AQUI = os.path.dirname(os.path.abspath(__file__))
-RAIZ = os.path.dirname(_AQUI)
+_HERE = os.path.dirname(os.path.abspath(__file__))
+RAIZ = os.path.dirname(_HERE)
 sys.path.insert(0, RAIZ)
-import _gavetas  # noqa: E402,F401 — põe as gavetas no caminho de importação
+import _gavetas  # noqa: E402,F401
 
-CONTRATO = 'AUTORIZACAO_DE_GASTO/v1'
+import relevancia_da_fonte as rel  # noqa: E402 — PERGUNTA-SE; nao se decide aqui
+
+CONTRATO = 'AUTORIZACAO_DE_GASTO/v2'
+VERSAO_DA_GUARDA = '2'
+
+#: O nome que esta casa ja usou para DOIS comportamentos diferentes.
+#: Fica escrito para que um manifesto antigo se consiga ler.
+CONTRATO_AMBIGUO_ANTERIOR = 'AUTORIZACAO_DE_GASTO/v1'
+
+# ── OS TRES MOTIVOS ─────────────────────────────────────────────────────────
+COLETA_NORMAL = 'COLETA_NORMAL_DA_FONTE'
+PROVA_DE_RELEVANCIA = 'PROVA_DE_RELEVANCIA_DA_FONTE'
+TRIAL_DE_CAPACIDADE = 'TRIAL_DE_CAPACIDADE'
+MOTIVOS = (COLETA_NORMAL, PROVA_DE_RELEVANCIA, TRIAL_DE_CAPACIDADE)
+
+# Os dois que NAO sao coleta da fonte, e por isso nao passam pelo portao de
+# relevancia. Em troca, os dois exigem autorizacao humana e tetos.
+MOTIVOS_DE_EXCECAO = (PROVA_DE_RELEVANCIA, TRIAL_DE_CAPACIDADE)
 
 # ══════════════════════════════════════════════════════════════════════════
-# O EIXO DO MODO — TRÊS PALAVRAS, E O DONO DELAS É ESTE FICHEIRO
+# O EIXO DA EXECUCAO — outro eixo, e o dono e este ficheiro
 # ══════════════════════════════════════════════════════════════════════════
-# Viviam em `coleta/scrap_executor.py`, que tinha duas. A terceira obrigou a
-# escolher um dono, e o modo é uma pergunta de AUTORIZAÇÃO: ele existe para
-# dizer que prova é preciso trazer antes de comprar. `scrap_executor` importa
-# daqui, e não o contrário — ele importa `coletor`, e `coletor` importa esta
-# lei; declarar os modos lá criaria um ciclo.
+# `coleta/scrap_executor.py` importa daqui e nao ao contrario: ele importa
+# `coletor`, e `coletor` importa esta lei. Declarar os modos la faria um ciclo.
+#
+# O modo aplica-se a TUDO o que corre — pago ou gratuito. O motivo so existe
+# quando ha gasto. Ver o cabecalho: sao dois eixos, e nao se fundem.
 NORMAL = 'NORMAL'
 TRIAL = 'TRIAL'
 PROBE = 'PROBE'
 MODOS = (NORMAL, TRIAL, PROBE)
 
-#: Os modos que NÃO são coleta. Nenhum deles promete resultado, e nenhum deles
-#: promove estado nenhum ao passar.
+#: Os modos que NAO prometem resultado. Nenhum deles promove estado ao passar.
 MODOS_DE_MEDIDA = (TRIAL, PROBE)
 
-# ══════════════════════════════════════════════════════════════════════════
-# O VOCABULÁRIO VEM DO DONO DA RELEVÂNCIA — NÃO SE INVENTA AQUI
-# ══════════════════════════════════════════════════════════════════════════
-# São as palavras de `leis/relevancia_da_fonte.py` (SR-01). Estão escritas aqui
-# porque essa lei não vive nesta linhagem — e `tests/test_scrap_sr02_*` reprova
-# se alguém lhes mexer sem dizer porquê. Duas listas com as mesmas palavras são
-# duas verdades; uma lista copiada com o original nomeado é uma citação.
-SIM = 'SIM'
-NAO = 'NAO'
-NAO_SEI = 'NAO_SEI'
-NAO_SE_APLICA = 'NAO_SE_APLICA'
-ERRO = 'ERRO'
-NAO_AVALIADA = 'NAO_AVALIADA'
-
-#: Os vereditos do portão de relevância. Três, e nenhum é sinónimo de outro.
-AUTORIZA = 'AUTORIZA'
-BARRA = 'BARRA'
-EXIGE_AVALIACAO = 'EXIGE_AVALIACAO'
-VEREDITOS = (AUTORIZA, BARRA, EXIGE_AVALIACAO)
-
-#: Os campos que uma autorização de relevância tem de trazer. Os nomes são os
-#: do SR-01: `relevancia_da_fonte.portao()` devolve exactamente estes.
-CAMPOS_DA_AUTORIZACAO = ('VEREDITO', 'SOURCE_ID', 'PROPOSITO',
-                         'ESTADO_DA_RELEVANCIA', 'VERSAO_DO_PORTAO', 'CONTRATO')
-
-#: Os campos que uma autorização humana de PROBE ou TRIAL tem de trazer.
-#: Um limite em falta é um limite infinito, e um limite infinito não é limite.
-CAMPOS_DO_LIMITE = ('AUTORIZACAO_HUMANA', 'MAX_PROVIDER_RUNS',
-                    'MAX_START_POSTS', 'MAX_USD')
-#: E o PROBE traz ainda este: ele observa uma candidata, e uma observação sem
-#: fim é uma coleta com outro nome.
-CAMPO_SO_DO_PROBE = 'MAX_ITEMS'
+#: O UNICO sitio onde um eixo vira o outro. Duas traducoes seriam duas
+#: semanticas, e a segunda aprenderia a responder o que a primeira recusa.
+MOTIVO_DO_MODO = {
+    NORMAL: COLETA_NORMAL,
+    PROBE: PROVA_DE_RELEVANCIA,
+    TRIAL: TRIAL_DE_CAPACIDADE,
+}
+MODO_DO_MOTIVO = {v: k for k, v in MOTIVO_DO_MODO.items()}
 
 
-# ══════════════════════════════════════════════════════════════════════════
-# A RECUSA
-# ══════════════════════════════════════════════════════════════════════════
-class SemAutorizacaoDeGasto(RuntimeError):
-    """Ninguém autorizou esta compra. Ela NÃO nasce.
+def motivo_do_modo(modo):
+    """→ o motivo de gasto que este modo de execucao implica, ou levanta.
 
-    Levanta-se ANTES do POST, como `SemOrcamentoFinanceiro` e
-    `SemOrcamentoDeRede` — as três são recusas da casa, não falhas do provider,
-    e sobem como estado e não como exceção larga.
+    Traduzir NAO e autorizar: quem chama isto ainda nao tem autorizacao
+    nenhuma — so sabe que nome dar ao que vai pedir.
     """
+    if modo in MOTIVOS:
+        return modo               # ja veio no vocabulario do gasto
+    if modo not in MOTIVO_DO_MODO:
+        raise AutorizacaoInvalida(
+            'MOTIVO_DESCONHECIDO: modo %r nao existe. Os tres sao %s'
+            % (modo, ', '.join(MODOS)))
+    return MOTIVO_DO_MODO[modo]
 
-    def __init__(self, motivo, *, estado, modo=None, source_id=None,
-                 proposito=None):
-        super().__init__(motivo)
-        self.estado = estado
-        self.modo = modo
-        self.source_id = source_id
-        self.proposito = proposito
+# ── O VEREDITO ──────────────────────────────────────────────────────────────
+# A casa ja tem idioma para isto: `SEM_CHECKPOINT_NAO_GASTEI` (COL-LAW-017).
+# Segue-se o mesmo — recusar gasto diz-se na primeira pessoa e no passado.
+AUTORIZADO = 'AUTORIZADO'
+SEM_AUTORIZACAO_NAO_GASTEI = 'SEM_AUTORIZACAO_NAO_GASTEI'
+VEREDITOS = (AUTORIZADO, SEM_AUTORIZACAO_NAO_GASTEI)
 
-
-#: Os estados da recusa. Cada ausência mantém o seu nome — achatá-las todas em
-#: `NOT_RELEVANT` inventaria um julgamento que ninguém fez.
-SEM_AUTORIZACAO = 'SPEND_NOT_AUTHORIZED'
-RELEVANCIA_BARRADA = 'SOURCE_NOT_RELEVANT_FOR_PURPOSE'
-RELEVANCIA_POR_AVALIAR = 'SOURCE_RELEVANCE_NOT_EVALUATED'
-RELEVANCIA_INCERTA = 'SOURCE_RELEVANCE_UNKNOWN'
-RELEVANCIA_COM_ERRO = 'SOURCE_RELEVANCE_EVALUATION_ERROR'
-FONTE_ERRADA = 'AUTHORIZATION_FOR_ANOTHER_SOURCE'
-PROPOSITO_ERRADO = 'AUTHORIZATION_FOR_ANOTHER_PURPOSE'
-SOURCE_ID_AUSENTE = 'SOURCE_ID_MISSING'
-SOURCE_ID_E_URL = 'URL_IS_NOT_A_SOURCE_ID'
-LIMITE_AUSENTE = 'HUMAN_AUTHORIZATION_LIMIT_MISSING'
-CONTRATO_ERRADO = 'AUTHORIZATION_CONTRACT_MISMATCH'
-
-#: O que cada estado da relevância vira, quando barra. Um mapa de NOMES, não
-#: uma regra: a decisão de barrar já foi tomada acima.
-_NOME_DA_AUSENCIA = {
-    NAO: RELEVANCIA_BARRADA,
-    NAO_SE_APLICA: RELEVANCIA_BARRADA,
-    NAO_AVALIADA: RELEVANCIA_POR_AVALIAR,
-    NAO_SEI: RELEVANCIA_INCERTA,
-    ERRO: RELEVANCIA_COM_ERRO,
+# ── AS CAUSAS DA RECUSA, e nenhuma delas diz «a fonte nao serve» ────────────
+# ⚠️ ESTA DISTINCAO E O CORACAO DO FICHEIRO. Recusar gasto por falta de
+# autorizacao NAO e um juizo sobre a fonte. Um sistema que respondesse
+# `NOT_RELEVANT` a uma fonte que ninguem chegou a avaliar estaria a inventar
+# uma medicao que nao existe.
+#
+#     AUTHORIZATION_MISSING != NOT_RELEVANT.
+#     UNKNOWN != NO.
+CAUSAS = {
+    'AUTORIZACAO_AUSENTE': 'a corrida nao trouxe autorizacao nenhuma.',
+    'AUTORIZACAO_FABRICADA': 'o objecto nao saiu de autorizar(): nao vale.',
+    'MOTIVO_DESCONHECIDO': 'o motivo do gasto nao esta no vocabulario fechado.',
+    'FONTE_AUSENTE': 'coleta normal sem SOURCE_ID: nao ha par a autorizar.',
+    'PROPOSITO_AUSENTE': 'sem proposito, a autorizacao serviria a qualquer universo.',
+    'RELEVANCIA_NAO_AUTORIZA': ('o dono da relevancia nao autorizou este par '
+                                '(fonte, proposito). NAO e o mesmo que dizer '
+                                'que a fonte nao serve.'),
+    'SEM_AUTORIZACAO_HUMANA': ('probe e trial gastam por excecao, e excecao '
+                               'precisa de alguem que responda por ela.'),
+    'SEM_TETO_DE_EXECUCOES': 'gasto por excecao sem teto de execucoes e coleta.',
+    'SEM_TETO_DE_DOLARES': 'gasto por excecao sem teto de dolares e um cheque em branco.',
+    'SEM_CONDICAO_DE_PARAGEM': 'o que nao sabe parar nao sabe quanto vai custar.',
+    'SEM_TETO_NO_FORNECEDOR': ('sem `teto_usd` a trava fica so do nosso lado, e '
+                               'a nossa trava nao sobrevive a um bug nosso.'),
+    'AUTORIZACAO_NAO_COBRE_ESTA_FONTE': 'autorizada para outra fonte.',
+    'AUTORIZACAO_NAO_COBRE_ESTE_PROPOSITO': 'autorizada para outro proposito.',
+    'AUTORIZACAO_NAO_COBRE_ESTE_MOTIVO': 'autorizada para outro motivo de gasto.',
+    'AUTORIZACAO_ESGOTADA': ('as execucoes autorizadas ja foram usadas. Rotacao '
+                             'de chave nao e nova autorizacao.'),
 }
 
 
-# ══════════════════════════════════════════════════════════════════════════
-# A IDENTIDADE DA FONTE — CONFERIR NÃO É FABRICAR
-# ══════════════════════════════════════════════════════════════════════════
-_PREFIXOS_DE_URL = ('http://', 'https://', 'ftp://', 'www.', '//')
+class AutorizacaoInvalida(ValueError):
+    """Um pedido de autorizacao que nao se pode conceder. Para-se, e diz-se porque."""
 
 
-def conferir_source_id(source_id):
-    """→ o SOURCE_ID, ou levanta. NUNCA o inventa a partir de uma URL.
+class GastoRecusado(PermissionError):
+    """A porta paga recusou. NAO e falha de rede, e NAO e juizo sobre a fonte."""
 
-    COL-LAW-206, e é a mesma conferência de `relevancia_da_fonte`. Um endereço
-    é onde se bate; não é quem publica. Aceitar uma URL faria a mesma fonte
-    nascer duas vezes no dia em que mudasse de domínio, e a decisão antiga
-    ficava órfã sem ninguém reparar.
+    def __init__(self, causa, detalhe=''):
+        self.causa = causa
+        self.detalhe = detalhe
+        super().__init__('%s · %s%s' % (SEM_AUTORIZACAO_NAO_GASTEI, causa,
+                                        (' — ' + detalhe) if detalhe else ''))
 
-        URL NÃO É SOURCE_ID.
+
+# ⚠️ O SELO. Privado ao modulo, e e a unica coisa que separa uma autorizacao
+# de um dicionario que alguem escreveu. Sem ele, `Autorizacao(...)` levanta.
+_SELO = object()
+
+
+def agora() -> str:
+    return datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+
+
+@dataclass
+class Autorizacao:
+    """O direito de acender N execucoes pagas, para um fim declarado.
+
+    Nao se constroi a mao: `autorizar()` e a unica porta.
     """
-    if not isinstance(source_id, str) or not source_id.strip():
-        raise SemAutorizacaoDeGasto(
-            'SOURCE_ID ausente: não há par (fonte, propósito) para autorizar.',
-            estado=SOURCE_ID_AUSENTE)
-    s = source_id.strip()
-    if any(s.lower().startswith(p) for p in _PREFIXOS_DE_URL) or '/' in s:
-        raise SemAutorizacaoDeGasto(
-            'URL NÃO É SOURCE_ID (COL-LAW-206): «%s». O endereço muda e a '
-            'fonte fica.' % s[:80], estado=SOURCE_ID_E_URL, source_id=s)
-    return s
 
+    motivo: str
+    proposito: str
+    source_id: str | None
+    max_execucoes: int
+    max_usd: float
+    quem_autorizou: str
+    porque: str
+    condicao_de_paragem: str
+    evidencia: dict = field(default_factory=dict)
+    versao: str = VERSAO_DA_GUARDA
+    concedida_em: str = ''
+    _selo: object = None
+    _gastas: int = 0
 
-# ══════════════════════════════════════════════════════════════════════════
-# OS LIMITES DE UMA AUTORIZAÇÃO HUMANA
-# ══════════════════════════════════════════════════════════════════════════
-def _conferir_limites(autorizacao, modo):
-    """Levanta se faltar limite. → o dicionário dos limites conferidos.
+    def __post_init__(self):
+        if self._selo is not _SELO:
+            raise AutorizacaoInvalida(
+                'AUTORIZACAO_FABRICADA: %s Use leis/autorizacao_de_gasto.autorizar().'
+                % CAUSAS['AUTORIZACAO_FABRICADA'])
+        self.concedida_em = self.concedida_em or agora()
 
-        UM LIMITE EM FALTA É UM LIMITE INFINITO,
-        E UM LIMITE INFINITO NÃO É UM LIMITE.
-    """
-    campos = list(CAMPOS_DO_LIMITE)
-    if modo == PROBE:
-        campos.append(CAMPO_SO_DO_PROBE)
-    fora = {}
-    for campo in campos:
-        valor = autorizacao.get(campo)
-        if valor is None or valor is False or (isinstance(valor, str)
-                                               and not valor.strip()):
-            raise SemAutorizacaoDeGasto(
-                'autorização de %s sem «%s». %s' % (modo, campo,
-                                                    'Sem ele não há teto.'),
-                estado=LIMITE_AUSENTE, modo=modo)
-        if campo != 'AUTORIZACAO_HUMANA':
-            try:
-                numero = float(valor)
-            except (TypeError, ValueError):
-                raise SemAutorizacaoDeGasto(
-                    'o limite «%s» de %s não é um número: %r'
-                    % (campo, modo, valor), estado=LIMITE_AUSENTE, modo=modo)
-            if numero <= 0:
-                # Zero não é «sem limite»; é «não pode». E quem não pode não
-                # devia estar a pedir autorização para comprar.
-                raise SemAutorizacaoDeGasto(
-                    'o limite «%s» de %s é %s — isso não autoriza nada.'
-                    % (campo, modo, valor), estado=LIMITE_AUSENTE, modo=modo)
-            fora[campo] = numero
-        else:
-            fora[campo] = valor
-    return fora
+    @property
+    def restantes(self) -> int:
+        return max(0, self.max_execucoes - self._gastas)
 
-
-# ══════════════════════════════════════════════════════════════════════════
-# A GUARDA
-# ══════════════════════════════════════════════════════════════════════════
-def pode_comprar(*, modo, autorizacao, source_id=None, proposito=None,
-                 ator=None):
-    """A GUARDA COMUM. → o recibo da autorização, ou levanta.
-
-    Chamada IMEDIATAMENTE antes do POST que cria a execução paga, em
-    `coleta/coletor.py::executar` — o único sítio desta árvore onde uma corrida
-    paga nasce. Todos os caminhos convergem lá, e por isso a guarda está lá:
-
-        UMA GUARDA QUE VIVE NUM CAMINHO GUARDA UM CAMINHO.
-        UMA GUARDA QUE VIVE NA PRIMITIVA GUARDA TODOS.
-
-    `autorizacao = None` recusa. É o comportamento certo e é deliberado: um
-    chamador novo que não saiba desta lei não compra, em vez de comprar por
-    omissão.
-
-        FAIL CLOSED. O SILÊNCIO NÃO AUTORIZA.
-    """
-    if modo not in MODOS:
-        raise SemAutorizacaoDeGasto(
-            'modo de execução desconhecido: %r. Os três são %s'
-            % (modo, ', '.join(MODOS)), estado=SEM_AUTORIZACAO, modo=modo)
-    if not isinstance(autorizacao, dict) or not autorizacao:
-        raise SemAutorizacaoDeGasto(
-            'nenhuma autorização de gasto chegou a esta compra (modo %s, ator '
-            '%s). Ter chave, teto e rota permitida não é ter autorização.'
-            % (modo, ator), estado=SEM_AUTORIZACAO, modo=modo)
-
-    if modo in MODOS_DE_MEDIDA:
-        # ── PROBE e TRIAL: quem autoriza é GENTE, e traz os limites ────────
-        # Nenhum dos dois pergunta pela relevância — é essa a razão de
-        # existirem. O que se exige em troca é que sejam finitos.
-        limites = _conferir_limites(autorizacao, modo)
+    def para_o_manifesto(self) -> dict:
+        """O que fica escrito na corrida. Sem segredo, sem objecto."""
         return {
-            'CAN_START_PAID_EXECUTION': True,
-            'MODE': modo,
-            'BASIS': 'HUMAN_AUTHORIZATION',
-            'SOURCE_ID': autorizacao.get('SOURCE_ID'),
-            'PROPOSITO': autorizacao.get('PROPOSITO'),
-            'LIMITES': limites,
-            'SOURCE_RELEVANCE_CONSULTED': False,
-            'PROMOTES_RELEVANCE': False,      # PROBE != DECISION
+            'MOTIVO_DO_GASTO': self.motivo,
+            'PROPOSITO': self.proposito,
+            'SOURCE_ID': self.source_id,
+            'MAX_EXECUCOES': self.max_execucoes,
+            'EXECUCOES_GASTAS': self._gastas,
+            'MAX_USD': self.max_usd,
+            'QUEM_AUTORIZOU': self.quem_autorizou,
+            'PORQUE': self.porque,
+            'CONDICAO_DE_PARAGEM': self.condicao_de_paragem,
+            'EVIDENCIA': self.evidencia,
+            'VERSAO_DA_GUARDA': self.versao,
+            'CONCEDIDA_EM': self.concedida_em,
             'CONTRATO': CONTRATO,
         }
 
-    # ── NORMAL: exige o «sim» do dono da relevância, para ESTE par ─────────
-    for campo in CAMPOS_DA_AUTORIZACAO:
-        if campo not in autorizacao:
-            raise SemAutorizacaoDeGasto(
-                'a autorização não traz «%s» — não é um veredito do portão de '
-                'relevância.' % campo, estado=CONTRATO_ERRADO, modo=modo)
 
-    pedido_sid = conferir_source_id(source_id)
-    autorizado_sid = conferir_source_id(autorizacao.get('SOURCE_ID'))
-    if pedido_sid != autorizado_sid:
-        raise SemAutorizacaoDeGasto(
-            'a autorização é da fonte «%s» e a compra é da fonte «%s».'
-            % (autorizado_sid, pedido_sid), estado=FONTE_ERRADA, modo=modo,
-            source_id=pedido_sid)
+def autorizar(*, motivo, proposito, source_id=None, max_execucoes=None,
+              max_usd=None, quem_autorizou=None, porque=None,
+              condicao_de_paragem=None, livro=None, raiz=RAIZ) -> Autorizacao:
+    """A unica porta que concede o direito de gastar. → Autorizacao, ou levanta.
 
-    pedido_prop = str(proposito or '').strip()
-    autorizado_prop = str(autorizacao.get('PROPOSITO') or '').strip()
-    if not pedido_prop:
-        raise SemAutorizacaoDeGasto(
-            'a compra não diz para que propósito é. A relevância é do PAR '
-            '(fonte, propósito); sem propósito não há par.',
-            estado=PROPOSITO_ERRADO, modo=modo, source_id=pedido_sid)
-    if pedido_prop != autorizado_prop:
-        raise SemAutorizacaoDeGasto(
-            'a autorização é para «%s» e a compra é para «%s». Um SIM para um '
-            'propósito não é um SIM para outro.' % (autorizado_prop, pedido_prop),
-            estado=PROPOSITO_ERRADO, modo=modo, source_id=pedido_sid,
-            proposito=pedido_prop)
+    ⚠️ NAO DECIDE RELEVANCIA. Para `COLETA_NORMAL_DA_FONTE` pergunta ao dono
+    (`leis/relevancia_da_fonte.portao`) e obedece. Se ele nao autorizar, a
+    recusa carrega o ESTADO que ele devolveu — `NAO`, `NAO_SEI`, `ERRO` ou
+    `NAO_AVALIADA` — porque colapsar os quatro num «nao» seria transformar uma
+    confissao num juizo.
+    """
+    if motivo not in MOTIVOS:
+        raise AutorizacaoInvalida(
+            'MOTIVO_DESCONHECIDO: %r. Ha: %s' % (motivo, ', '.join(MOTIVOS)))
+    alvo = str(proposito or '').strip()
+    if not alvo:
+        raise AutorizacaoInvalida('PROPOSITO_AUSENTE: %s' % CAUSAS['PROPOSITO_AUSENTE'])
 
-    # ── A ÚNICA COMBINAÇÃO SEM LEITURA DUPLA ──────────────────────────────
-    veredito = autorizacao.get('VEREDITO')
-    estado_rel = autorizacao.get('ESTADO_DA_RELEVANCIA')
-    if veredito != AUTORIZA or estado_rel != SIM:
-        nome = _NOME_DA_AUSENCIA.get(estado_rel, SEM_AUTORIZACAO)
-        raise SemAutorizacaoDeGasto(
-            'o portão de relevância diz VEREDITO=%s com ESTADO=%s para (%s, %s). '
-            'Só AUTORIZA com SIM compra.' % (veredito, estado_rel, pedido_sid,
-                                             pedido_prop),
-            estado=nome, modo=modo, source_id=pedido_sid, proposito=pedido_prop)
+    # ── COLETA NORMAL: a relevancia do par tem de estar provada ─────────────
+    if motivo == COLETA_NORMAL:
+        if not str(source_id or '').strip():
+            raise AutorizacaoInvalida('FONTE_AUSENTE: %s' % CAUSAS['FONTE_AUSENTE'])
+        sid = rel.conferir_source_id(source_id)       # URL nunca e SOURCE_ID
+        if livro is None:
+            livro = rel.ler_livro(raiz)
+        # ⚠️ `custo` fixo como rota paga, de proposito: quem chega aqui vem da
+        # porta que gasta. Perguntar ao portao com `custo=gratuito` faria uma
+        # rota paga ser avaliada como se fosse de graca.
+        v = rel.portao(sid, alvo, livro, custo='rota paga (autorizacao_de_gasto)')
+        if v['VEREDITO'] != rel.AUTORIZA:
+            raise AutorizacaoInvalida(
+                'RELEVANCIA_NAO_AUTORIZA: %s Estado do par (%s, %s): %s. %s'
+                % (CAUSAS['RELEVANCIA_NAO_AUTORIZA'], sid, alvo,
+                   v['ESTADO_DA_RELEVANCIA'], v['PORQUE']))
+        evidencia = {'PORTAO_DE_RELEVANCIA': v['VEREDITO'],
+                     'ESTADO_DA_RELEVANCIA': v['ESTADO_DA_RELEVANCIA'],
+                     'DECISAO': v['DECISAO'],
+                     'VERSAO_DO_PORTAO': v['VERSAO_DO_PORTAO']}
+        n = int(max_execucoes) if max_execucoes else 1
+        usd = float(max_usd) if max_usd is not None else None
+        quem = quem_autorizou or 'PORTAO_DE_RELEVANCIA_DA_FONTE'
+        motivo_escrito = porque or (
+            'a fonte %s provou que serve para %s, e a decisao esta no livro '
+            'com evidencia apontavel' % (sid, alvo))
+        parar = condicao_de_paragem or 'as %d execucao(oes) autorizadas' % n
+        return Autorizacao(motivo=motivo, proposito=alvo, source_id=sid,
+                           max_execucoes=n, max_usd=usd, quem_autorizou=quem,
+                           porque=motivo_escrito, condicao_de_paragem=parar,
+                           evidencia=evidencia, _selo=_SELO)
 
-    return {
-        'CAN_START_PAID_EXECUTION': True,
-        'MODE': modo,
-        'BASIS': 'SOURCE_RELEVANCE',
-        'SOURCE_ID': pedido_sid,
-        'PROPOSITO': pedido_prop,
-        'ESTADO_DA_RELEVANCIA': estado_rel,
-        'VERSAO_DO_PORTAO': autorizacao.get('VERSAO_DO_PORTAO'),
-        'DECISAO': autorizacao.get('DECISAO'),
-        'EVIDENCE_REFERENCE': (autorizacao.get('DECISAO') or {}).get('EVIDENCIA')
-                              if isinstance(autorizacao.get('DECISAO'), dict)
-                              else None,
-        'SOURCE_RELEVANCE_CONSULTED': True,
-        'PROMOTES_RELEVANCE': False,
-        'CONTRATO': CONTRATO,
-    }
+    # ── PROBE E TRIAL: nao passam pela relevancia, e pagam por isso ─────────
+    #     QUEM NAO PRECISA DE PROVAR QUE A FONTE SERVE
+    #     PRECISA DE PROVAR QUEM RESPONDE PELA CONTA.
+    if not str(quem_autorizou or '').strip():
+        raise AutorizacaoInvalida(
+            'SEM_AUTORIZACAO_HUMANA: %s' % CAUSAS['SEM_AUTORIZACAO_HUMANA'])
+    if not str(porque or '').strip():
+        raise AutorizacaoInvalida(
+            'SEM_AUTORIZACAO_HUMANA: um gasto por excecao sem motivo escrito e '
+            'indistinguivel de um gasto por engano.')
+    if not max_execucoes or int(max_execucoes) < 1:
+        raise AutorizacaoInvalida(
+            'SEM_TETO_DE_EXECUCOES: %s' % CAUSAS['SEM_TETO_DE_EXECUCOES'])
+    if max_usd is None or float(max_usd) <= 0:
+        raise AutorizacaoInvalida(
+            'SEM_TETO_DE_DOLARES: %s' % CAUSAS['SEM_TETO_DE_DOLARES'])
+    if not str(condicao_de_paragem or '').strip():
+        raise AutorizacaoInvalida(
+            'SEM_CONDICAO_DE_PARAGEM: %s' % CAUSAS['SEM_CONDICAO_DE_PARAGEM'])
+
+    sid = rel.conferir_source_id(source_id) if source_id else None
+    if motivo == PROVA_DE_RELEVANCIA and sid is None:
+        raise AutorizacaoInvalida(
+            'FONTE_AUSENTE: um probe de relevancia sem fonte nomeada nao esta a '
+            'avaliar nada — e coleta com outro nome.')
+
+    return Autorizacao(motivo=motivo, proposito=alvo, source_id=sid,
+                       max_execucoes=int(max_execucoes), max_usd=float(max_usd),
+                       quem_autorizou=quem_autorizou, porque=porque,
+                       condicao_de_paragem=condicao_de_paragem,
+                       evidencia={'EXCECAO': motivo,
+                                  'RELEVANCIA_NAO_FOI_CONSULTADA':
+                                      'de proposito: ver o cabecalho do ficheiro'},
+                       _selo=_SELO)
 
 
-#: O que esta lei NUNCA cria. Escrito para a pressa do mês que vem.
-NAO_CRIAR = ('LIVRO_DE_RELEVANCIA_LOCAL', 'CLASSIFICADOR_DE_FONTE',
-             'SOURCE_ID_FABRICADO', 'AUTORIZACAO_POR_OMISSAO',
-             'MODO_QUE_DISPENSA_AUTORIZACAO')
+def conferir_e_consumir(autorizacao, *, motivo, proposito, source_id=None,
+                        teto_usd=None) -> dict:
+    """A PORTA. Chamada pelo dono da execucao paga, ANTES do POST.
+
+    → o recibo da autorizacao, ou levanta `GastoRecusado`. Consome uma
+    execucao: a mesma autorizacao nao paga duas vezes.
+
+    ⚠️ ELA NAO LE O LIVRO DE RELEVANCIA. A pergunta ja foi feita em
+    `autorizar()`; aqui so se confere que a autorizacao trazida cobre ESTA
+    compra. Reler aqui daria ao dono da execucao paga uma opiniao sobre a
+    fonte, que e exactamente o que nao pode ter.
+    """
+    if autorizacao is None:
+        raise GastoRecusado('AUTORIZACAO_AUSENTE', CAUSAS['AUTORIZACAO_AUSENTE'])
+    if not isinstance(autorizacao, Autorizacao) or autorizacao._selo is not _SELO:
+        raise GastoRecusado('AUTORIZACAO_FABRICADA', CAUSAS['AUTORIZACAO_FABRICADA'])
+    if autorizacao.motivo != motivo:
+        raise GastoRecusado(
+            'AUTORIZACAO_NAO_COBRE_ESTE_MOTIVO',
+            'autorizada para %s, a corrida declara %s' % (autorizacao.motivo, motivo))
+    if str(autorizacao.proposito) != str(proposito or '').strip():
+        raise GastoRecusado(
+            'AUTORIZACAO_NAO_COBRE_ESTE_PROPOSITO',
+            'autorizada para %s, pedida para %s' % (autorizacao.proposito, proposito))
+    if autorizacao.source_id is not None:
+        if str(source_id or '').strip() != autorizacao.source_id:
+            raise GastoRecusado(
+                'AUTORIZACAO_NAO_COBRE_ESTA_FONTE',
+                'autorizada para %s, pedida para %s'
+                % (autorizacao.source_id, source_id))
+    # ── A TRAVA DO LADO DO FORNECEDOR ───────────────────────────────────────
+    # `teto_usd` vira `maxTotalChargeUsd` na plataforma, e e a unica protecao
+    # que sobrevive a um defeito deste codigo (COL-LAW-019).
+    if autorizacao.max_usd is not None:
+        if teto_usd is None:
+            raise GastoRecusado('SEM_TETO_NO_FORNECEDOR', CAUSAS['SEM_TETO_NO_FORNECEDOR'])
+        if float(teto_usd) > float(autorizacao.max_usd) + 1e-9:
+            raise GastoRecusado(
+                'SEM_TETO_NO_FORNECEDOR',
+                'teto pedido %.4f acima do autorizado %.4f'
+                % (float(teto_usd), float(autorizacao.max_usd)))
+    if autorizacao.restantes <= 0:
+        raise GastoRecusado('AUTORIZACAO_ESGOTADA', CAUSAS['AUTORIZACAO_ESGOTADA'])
+
+    autorizacao._gastas += 1
+    recibo = autorizacao.para_o_manifesto()
+    recibo['VEREDITO'] = AUTORIZADO
+    recibo['TETO_USD_PEDIDO'] = teto_usd
+    return recibo
+
 
 LEIS = (
-    'CREDENTIAL_PRESENT != SPEND_AUTHORIZED',
-    'ROUTE_ALLOWED != SPEND_AUTHORIZED',
-    'BUDGET_PRESENT != SPEND_AUTHORIZED',
+    'CREDENTIAL != AUTHORIZATION',
+    'TOKEN_PRESENT != SPEND_ALLOWED',
+    'ALLOWED_ROUTE != AUTHORIZED_SPEND',
     'PAID_PROVIDER != POLICY_OVERRIDE',
-    'TOKEN_OWNER != SPEND_OWNER',
-    'SOURCE_RELEVANCE_OWNER != SPEND_ENFORCER',
-    'NORMAL_COLLECTION != SOURCE_EVALUATION_PROBE != CAPABILITY_TRIAL',
-    'PROBE != DECISION',
-    'UM LIMITE EM FALTA E UM LIMITE INFINITO',
-    'FAIL CLOSED — O SILENCIO NAO AUTORIZA',
+    'SOURCE RELEVANCE OWNER != SPEND ENFORCER',
+    'COLETA NORMAL != PROVA DE RELEVANCIA != TRIAL DE CAPACIDADE',
+    'AUTHORIZATION_MISSING != NOT_RELEVANT',
+    'ROTACAO DE CHAVE NAO E NOVA AUTORIZACAO',
+    'UMA AUTORIZACAO QUE O CHAMADOR ESCREVE NAO E UMA AUTORIZACAO',
+    'GASTO POR EXCECAO SEM TETO E COLETA COM OUTRO NOME',
 )
 
 
-def main():
-    print(__doc__.strip().splitlines()[0])
+def main() -> int:
+    print('CONTRATO %s · guarda v%s' % (CONTRATO, VERSAO_DA_GUARDA))
     print()
-    print('CONTRATO = %s' % CONTRATO)
-    print('MODOS    = %s' % ', '.join(MODOS))
+    print('OS TRES MOTIVOS DE GASTO:')
+    for m in MOTIVOS:
+        excecao = ' (excecao: nao passa pela relevancia)' if m in MOTIVOS_DE_EXCECAO else ''
+        print('    %-32s%s' % (m, excecao))
     print()
-    for lei in LEIS:
-        print('    %s' % lei)
+    print('VEREDITOS: %s' % ' · '.join(VEREDITOS))
+    print()
+    print('AS CAUSAS DA RECUSA, e nenhuma diz «a fonte nao serve»:')
+    for c in CAUSAS:
+        print('    %s' % c)
+    print()
+    for l in LEIS:
+        print('  · %s' % l)
     return 0
 
 
 if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(main())
