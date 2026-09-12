@@ -8588,7 +8588,37 @@ estão fixados na prova, o artefato tem de os declarar com motivo, o campo tem d
 continuar publicado, e adulterá-lo tem de continuar a reprovar. Acrescentar um
 quarto obriga a mexer na prova — e mexer na prova obriga a escrever porquê.
 
-## 88.8 · CONSEQUÊNCIA
+## 88.8 · A DÍVIDA FOI FECHADA, E O QUE FALTAVA ERA AO TESTE
+
+A `88.7` acaba em «declarar». A missão seguinte fechou a causa, e o caminho até
+lá vale uma linha que não está em mais lado nenhum.
+
+Para consertar era preciso primeiro **reproduzir**, e reproduzir não deu com dois
+clones: no mesmo `ext4` o `readdir` devolve os nomes pela mesma ordem, os dois
+clones concordavam, e a prova passava com o defeito na mão. O que separou os dois
+resultados foi o **sistema de ficheiros**: `tmpfs` devolve por ordem de criação.
+Mesma árvore git, outro disco, dez cartões diferentes.
+
+```
+    UMA PROVA DE DETERMINISMO QUE SÓ SE CORRE NUM DISCO MEDE O DISCO.
+```
+
+Isto é geral e barato: onde uma medição toca o sistema de ficheiros, a segunda
+árvore da prova tem de estar noutro sistema de ficheiros, e há sempre um à mão.
+
+A correcção em si não teve nada de esperto — teve de deixar de perguntar ao
+disco. A lista de documentos passou a vir de `git ls-files`, ordenada; o tecto
+das 20 linhas saiu; e a resposta passou a ser **todos** os documentos que casam,
+não o primeiro. Ler os 287 documentos inteiros custa 14 milissegundos e
+substitui 358 varreduras do repositório: o caminho determinístico era também o
+mais barato, e a única razão para não o ter feito antes era não ter perguntado.
+
+```
+    LER TUDO UMA VEZ BATE PROCURAR MUITAS — E AINDA POR CIMA DÁ SEMPRE
+    A MESMA RESPOSTA.
+```
+
+## 88.9 · CONSEQUÊNCIA
 
 Qualquer contagem de topologia publicada pode agora ser auditada depois: o número
 aponta para o artefato, o artefato enumera os membros, declara a regra, nomeia o
@@ -8729,3 +8759,427 @@ distinção entre não conseguir e não ter olhado.
 ```
     CAN DO ≠ MAY DO ≠ DID DO ≠ EVER ASKED.
 ```
+
+---
+
+# §89 · UMA TRADUÇÃO E UMA COMPRA DECIDEM AUTORIZAÇÃO, E NENHUMA DAS DUAS PARECE UMA DECISÃO
+
+**Missão:** `LINKEDIN-BUILD-01` + `LINKEDIN-POLICY-01`
+**Linha:** `claude/festive-fermi-1k2mf5` · **HEAD final:** `ab115d23`
+**Tocado:** `coleta/scrap_capacidades.py` · `coleta/adaptador_linkedin.py` ·
+`docs/sintonia-scrap/LINKEDIN-POLICY-01-ROTAS-AUTORIZAVEIS.md` ·
+`docs/sintonia-scrap/LINKEDIN-ROUTE-MATRIX-V1.json`
+
+A `§84.4` já tinha escrito `PROVIDER REACHED != CAPABILITY DELIVERED` — chegar
+ao fornecedor não é ele entregar. Esta secção acrescenta as duas perguntas que
+vêm **antes** dessa, e que são de autorização e não de capacidade: *quem decide
+qual permissão é consultada?* e *pagar muda a resposta?*
+
+As duas leis abaixo têm a mesma forma perigosa: a decisão acontece num sítio que
+ninguém lê como sítio de decisão. Uma vive num campo de tradução; a outra, numa
+fatura.
+
+## 89.1 · O QUE MUDOU — UM CAMPO DE TRADUÇÃO CONCEDIA UMA PERMISSÃO
+
+`coleta/scrap_capacidades.py` traduz o vocabulário fino das capacidades
+(`linkedin.recent.discovery`) para o vocabulário grosso da política
+(`DISCOVER_ACCOUNT`). O campo existe para que os dois vocabulários coexistam sem
+que um se imponha ao outro, e foi escrito como conveniência de nomenclatura.
+
+Medido: `linkedin.recent.discovery` — **as publicações recentes da página de
+empresa** — traduzia para `DISCOVER_ACCOUNT`. E
+`social_matriz.decisao('LINKEDIN','DISCOVER_ACCOUNT')` devolve **`ALLOWED`**.
+
+A única rota debaixo daquela permissão é
+`descoberta-indireta:site-da-organizacao`: ler o site **da própria organização**
+para lhe achar o endereço. A própria matriz escreve o limite ao lado — «Guarda
+`DISCOVERY_SOURCE`, `DISCOVERED_URL`, `TARGET_TYPE`, `DISCOVERED_AT`, e **nunca
+conteúdo de post fabricado**».
+
+```
+    «AS PUBLICAÇÕES DA PÁGINA» E «O ENDEREÇO DA CONTA» SÃO DOIS ACTOS, E A
+    TRADUÇÃO FAZIA O PRIMEIRO PEDIR EMPRESTADA A PERMISSÃO DO SEGUNDO.
+```
+
+## 89.2 · POR QUE ISTO NÃO REBENTOU, E POR QUE ISSO É O PIOR DA HISTÓRIA
+
+Nenhuma linha de código explorava o defeito, por uma razão acidental: nenhuma
+das sete capacidades de LinkedIn tinha rota ligada. A porta estava destrancada
+por dentro de uma casa vazia.
+
+Um erro de tipo rebenta. Um erro de nome rebenta. Um erro de **tradução de
+permissão** não rebenta — ele responde `ALLOWED` e a execução segue em frente.
+
+```
+    UMA TRADUÇÃO ERRADA NÃO FALHA. ELA AUTORIZA.
+    TRANSLATION IS AUTHORIZATION.
+```
+
+E há uma segunda propriedade que só se vê depois: enquanto duas capacidades
+apontassem para a mesma capacidade grossa, `cap.pela_matriz()` devolveria a
+primeira que encontrasse. **O dono de uma permissão seria decidido por ordem de
+dicionário.**
+
+## 89.3 · PROVA
+
+```
+ANTES   cap.pela_matriz('LINKEDIN','DISCOVER_ACCOUNT') -> linkedin.recent.discovery
+        mz.decisao('LINKEDIN','DISCOVER_ACCOUNT')       -> ALLOWED
+DEPOIS  cap.pela_matriz('LINKEDIN','DISCOVER_ACCOUNT') -> linkedin.identity.discovery
+        donos declarados de DISCOVER_ACCOUNT no LINKEDIN -> 1
+```
+
+Corrigido em `a418f040`. O desenho não é novo: o Facebook já tinha
+`facebook.identity.discovery` a apontar para `DISCOVER_ACCOUNT`, e o LinkedIn
+passou a ter o mesmo. A correcção **retira** uma permissão que estava concedida
+pelo nome errado — não abre nenhuma.
+
+## 89.4 · CONSEQUÊNCIA DA PRIMEIRA LEI
+
+O campo que traduz entre dois vocabulários de capacidade **é uma superfície de
+permissão**, não um apelido e não canalização neutra.
+
+```
+    TODA TRADUÇÃO QUE MUDA A POLÍTICA CONSULTADA É UMA DECISÃO DE AUTORIZAÇÃO,
+    E PRECISA DE PROVA E DE SENTINELA PRÓPRIAS.
+```
+
+Na prática, três obrigações:
+
+1. mudar o campo de tradução entra na revisão de **política**, não só na de código;
+2. cada capacidade grossa tem **um** dono declarado por plataforma, e isso
+   confere-se — um segundo dono é uma permissão decidida por ordem alfabética;
+3. um teste que leia a tradução e a decisão **juntas**, porque separadas as duas
+   estão sempre certas.
+
+## 89.5 · O QUE MUDOU — E A SEGUNDA PERGUNTA: PAGAR AUTORIZA?
+
+A `LINKEDIN_LOCAL_FIRST` terminou em `PARTIAL` com uma pergunta aberta: para
+conteúdo de terceiro no LinkedIn não há rota livre permitida — **comprar de um
+fornecedor pago torna a aquisição autorizada?**
+
+A resposta não veio da plataforma-alvo. Veio do contrato do próprio fornecedor.
+`docs.apify.com/legal/general-terms-and-conditions`, em vigor **2026-07-09**,
+lido em 2026-09-12:
+
+> **§6.2** — «You must use the Services to process only the Customer Data that
+> **you are authorized to access**…»
+
+> **§11.1** — «Should you use the Services or Actors to extract Customer Data
+> from **unauthorized sources**, **you shall be responsible** for compensating
+> any damages incurred by and/or any claims of the affected third parties.»
+
+> **§11.1** — «You agree to **indemnify, defend and hold us … harmless**…»
+
+```
+    O FORNECEDOR NÃO ASSUME A AUTORIZAÇÃO. DEVOLVE-A AO CLIENTE, POR ESCRITO,
+    NO CONTRATO QUE SE ASSINA AO PAGAR.
+```
+
+## 89.6 · POR QUÊ, E ONDE ESTÁ A TENTAÇÃO
+
+A tentação é estrutural e não é preguiça: o roteador escolhe a rota mais barata
+**capaz**, e um Actor pago é, quase sempre, capaz. Se «capaz» fosse o único
+eixo, uma rota directa recusada seria automaticamente substituída por uma rota
+paga que faz a mesma coisa — e o relatório diria `OK`.
+
+```
+    PAID PROVIDER IS NOT A POLICY OVERRIDE.
+    Preço e terceirização respondem CAPACIDADE. Nunca respondem PERMISSÃO.
+```
+
+E a pergunta certa sobre um fornecedor não é quanto custa nem quantos o usam. É
+**qual é o mecanismo dele e qual é a base contratual dele** — porque um
+fornecedor que apenas encapsula a técnica que a casa recusou é a mesma técnica
+com uma fatura à frente.
+
+## 89.7 · PROVA
+
+Da `LINKEDIN-POLICY-01`, oito rotas inventariadas e sete fornecedores censados:
+
+```
+CLASSE A · rota de fornecedor aceitável           0
+CLASSE B · contrato/mecanismo insuficientes       4   mecanismo = UNKNOWN
+CLASSE C · incompatível com a política            2
+```
+
+Os dois da classe C caíram **pelo que dizem de si próprios**, não pela loja onde
+vivem: um pede os **nossos** cookies de sessão — é a rota autenticada comprada,
+com a nossa credencial; o outro declara «Google-based search» — é a rota de
+índice comprada, e o §8.2(4) do User Agreement nomeia «search tools» ao lado de
+«data aggregators or brokers».
+
+```
+    ACTOR != LEGAL/POLICY STATUS. Nenhum caiu por ser Apify, e nenhum subiu por
+    ser barato.
+```
+
+E a sentinela, que corre nos **dois** sentidos:
+
+```
+    MECANISMO DESCONHECIDO NÃO É PROIBIDO AUTOMATICAMENTE,
+    E NÃO É PERMITIDO AUTOMATICAMENTE.  É `REQUIRES_HUMAN_DECISION`.
+```
+
+## 89.8 · CONSEQUÊNCIA DA SEGUNDA LEI
+
+Se uma rota directa está `NOT_ALLOWED`, o roteador **não pode** seleccionar
+sozinho um Actor pago que faça o mesmo. Um fornecedor só é rota distinta quando
+tem **contrato, mecanismo e procedência próprios** — e isso prova-se, não se
+presume por ele existir e aceitar dinheiro.
+
+```
+    SE O PROVIDER APENAS ENCAPSULA A TÉCNICA RECUSADA, SEM BASE CONTRATUAL
+    PRÓPRIA, ENTÃO  PAID_ROUTE != ALLOWED.
+```
+
+Três consequências operacionais:
+
+1. a decisão de rota paga precisa do **motivo canónico** e, agora, também da
+   **classe do fornecedor** — A, B ou C;
+2. quando o único caminho para um campo é uma rota que a política recusa, o
+   resultado é `BLOCKED_NO_PERMITTED_ROUTE`, **nunca** «precisa de dinheiro»;
+3. ler os termos do fornecedor é um passo **grátis** que vem antes do gasto —
+   irmão do `inputSchema` da `COL-LAW-018`. E ele pode falhar: o fornecedor cujos
+   dados esta casa possui devolveu **HTTP 403** aos seus próprios termos, deste
+   IP, nas duas tentativas. Isso é um `UNKNOWN` material, não um detalhe.
+
+## 89.9 · E A LEI QUE JÁ EXISTIA GANHOU UM IRMÃO MAIS VELHO
+
+A `§84.4` diz que chegar ao fornecedor não é ele entregar. A `§89` diz que pagar
+ao fornecedor não é ter permissão. Juntas, e na ordem em que se perguntam:
+
+```
+    PODEMOS?          →  política e procedência do fornecedor   (§89)
+    ELE CONSEGUE?     →  capacidade                             (§84.4)
+    ELE ENTREGOU?     →  o payload, contado campo a campo       (§84.4)
+```
+
+Três perguntas, três respostas independentes. Um relatório que colapse duas
+delas está a dizer a verdade sobre uma e a enganar sobre a outra — que foi
+exactamente o defeito que a `§84.4` nasceu para nomear.
+
+---
+
+# §90 · ESCOLHER A CHAVE ANTES DO CONCEITO É DECIDIR A FORMA SEM SABER O QUE SE GUARDA
+
+**Missão:** `C-DECIDE-DERIVED-PARTICIPATION-GRAIN-V1` (decisão, sem implementação)
+**HEAD final:** `0a2992c4`
+**Decisão:** [`docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md`](docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md)
+**Medição:** `provas/a_linhagem_do_reaproveitamento.py`
+
+A `§86` mediu o buraco e recomendou uma tabela. E a recomendação saiu
+contraditória: dizia que o grão era `(observação, derivado, passagem)` e que a
+identidade incluía `run_id` — e três parágrafos abaixo dizia que a entrada do
+`run_id` na chave estava **em aberto**.
+
+Escrevi as duas coisas no mesmo documento, no mesmo dia, sem dar por isso.
+
+```
+    O ERRO NÃO FOI DE REDAÇÃO.
+    FOI TER ESCOLHIDO A CHAVE ANTES DO CONCEITO.
+```
+
+Uma chave é uma resposta à pergunta «o que é que duas linhas iguais
+significariam?». Sem saber o que a tabela representa, essa pergunta não tem
+resposta — e o que sai é uma chave plausível com uma dúvida pendurada.
+
+## 90.1 · A PERGUNTA QUE SEPARA, E COMO SE MEDE
+
+Duas perguntas parecidas, e não são a mesma:
+
+```
+L · LINHAGEM   esta observação participou deste derivado?
+E · EXECUÇÃO   em que passagem isso aconteceu, e com que resultado?
+```
+
+> ⚠️ **CORRECÇÃO, E ELA É A LIÇÃO MAIOR DESTA SECÇÃO.**
+> A primeira versão desta `§90.1` dizia «contam-se as duas coisas nos mesmos
+> casos reais» e mostrava **1 aresta contra 6 eventos**. Os dois números não
+> mediam o mesmo conjunto: o `1` excluía o caso 3 — justamente o que cria a
+> segunda aresta — e o `6` incluía as passagens do arranque e do diagnóstico,
+> que não pertencem a caso nenhum.
+>
+> A conclusão estava certa. A prova que a sustentava, não.
+>
+> ```
+>     DOIS NÚMEROS SÓ SE COMPARAM SE MEDIREM O MESMO CONJUNTO.
+>     UM RACIOCÍNIO CERTO APOIADO NUM NÚMERO ERRADO
+>     É UM RACIOCÍNIO POR CONFIRMAR — E PARECE PROVADO.
+> ```
+>
+> Uma razão entre dois contadores é a forma mais convincente de errar, porque
+> o leitor confere a divisão e nunca as populações.
+
+Os quatro casos, cada um com o que ele próprio tocou:
+
+```
+caso 1  RUN A, raw 1 -> derivado 3        aresta 1→3   NOVA    PASSED
+caso 2  retry na MESMA corrida            aresta 1→3   a mesma REUSED
+caso 3  RUN B, raw 5, mesmos bytes        aresta 5→3   NOVA    REUSED
+caso 4  rederivar raw 1 noutra corrida    aresta 1→3   a mesma REUSED
+```
+
+E os contadores, **cada um com o universo no próprio nome**:
+
+```
+MATERIAL_EDGES_ALL_FOUR_CASES              2   as arestas distintas dos casos 1-4
+PASSAGES_TOUCHING_ORIGINAL_EDGE            3   casos 1, 2 e 4, todos sobre 1→3
+DERIVED_STAGE_PASSAGES_TOTAL_IN_SCENARIO   6   TODAS as passagens do cenário,
+                                               arranque e diagnóstico incluídos
+```
+
+A separação dos conceitos não sai de dividir um pelo outro. Sai de **duas
+propriedades**, cada uma medida dentro do seu próprio universo:
+
+```
+P1   a MESMA aresta 1→3 foi tocada por 3 passagens      → PASSAGEM ≠ ARESTA
+P2   o caso 3 criou a aresta 5→3 sobre o MESMO derivado,
+     e `derived_artifact` ficou em 4 → 4                 → ARESTA ≠ DERIVADO
+```
+
+Duas propriedades chegam. E a regra que fica é mais útil do que a conclusão:
+
+```
+    PARA SABER SE SÃO DOIS CONCEITOS, PROCURE UM CASO ONDE UM MUDA
+    E O OUTRO NÃO — E NÃO UMA RAZÃO ENTRE DOIS TOTAIS.
+
+    UM CONTADOR SEM UNIVERSO NO NOME É UM CONVITE À COMPARAÇÃO ERRADA.
+```
+
+## 90.2 · DOIS CONCEITOS NÃO SÃO DUAS TABELAS NOVAS
+
+O reflexo, depois de provar que são dois, é criar dois donos. Estava errado: o
+conceito de **passagem** já tem casa — `etapa_da_corrida`, uma linha por
+`(run_id, etapa, tentativa)`.
+
+```
+    DOIS CONCEITOS, DOIS DONOS — E SÓ UM DELES PRECISA DE NASCER.
+```
+
+⚠️ **E aqui escrevi uma segunda imprecição, corrigida depois:** dizer que «o
+evento de execução já tem dono» apaga uma distinção que a medição obriga a
+fazer. São **três** coisas, e não duas:
+
+```
+MATERIAL LINEAGE   dono NOVO, e é o que falta
+PASSAGE EVENT      dono EXISTENTE — etapa_da_corrida, em agregado
+ITEM EXECUTION     SEM dono de persistência — medido, e não suposto
+```
+
+O balde guarda **quantos** itens foram reaproveitados, e nunca **quais**. Numa
+passagem mista (`{ERROR: 1, REUSED: 1}`) nada no estado persistido separa as
+duas observações.
+
+```
+    CONTAGEM POR PASSAGEM ≠ RESULTADO POR ITEM.
+    NÃO SE CONSTRÓI POR ANTECIPAÇÃO —
+    E TAMBÉM NÃO SE DIZ QUE JÁ EXISTE O QUE NÃO EXISTE.
+```
+
+Continua a não se construir a tabela por item — mas por **outra razão**: não
+porque já exista, e sim porque nenhuma necessidade provada a exige. A pergunta
+que a motivava («esta observação foi processada?») passa a ter resposta pela
+**existência da aresta**, sem histórico por item.
+
+## 90.3 · A SENTINELA: A CORRIDA QUE DERIVA PODE NÃO SER A QUE CAPTUROU
+
+O caso 4 é o que fecha a decisão. Derivei outra vez uma observação da corrida A,
+numa passagem que pertence à corrida B — e **o banco aceitou**.
+`etapa_da_corrida.run_id` exige que a corrida exista, não que seja a que
+capturou.
+
+Com `run_id` na chave da aresta, o mesmo facto material teria duas linhas. E há
+uma pergunta que essa chave nem consegue formular:
+
+```
+    QUAL run? A QUE CAPTUROU, OU A DA PASSAGEM QUE DERIVOU?
+```
+
+```
+    UMA CHAVE QUE NÃO SABE RESPONDER «QUAL DOS DOIS?»
+    NÃO É UMA IDENTIDADE: É UMA AMBIGUIDADE COM ÍNDICE.
+```
+
+O `run_id` fica, mas como **proveniência**: a corrida da passagem em que a
+aresta foi vista pela primeira vez. E o nome tem de dizer isso, porque um
+`run_id` seco seria lido como «a corrida desta aresta», que não existe.
+
+## 90.4 · O QUE MUDA A CADA PASSAGEM NÃO PERTENCE À RELAÇÃO
+
+A mesma aresta teve `INSERTED` na primeira passagem e `REUSED` nas duas
+seguintes. O facto material não mudou; o resultado mudou três vezes.
+
+```
+    UMA RELAÇÃO QUE SE REESCREVE A CADA PASSAGEM NÃO É UMA RELAÇÃO.
+```
+
+E a casa já tinha a regra escrita, na `024`: `STAGE STATE != ITEM DESTINATION`.
+Uma etapa não é «reaproveitada» — um item é. O mesmo vale para o tempo: o
+carimbo da relação diz **primeira vez**, e os outros dois tempos já têm dono
+(`derived_at` do artefato, `comecou_em` da passagem).
+
+A regra geral, para o próximo desenho:
+
+```
+    ANTES DE PÔR UM CAMPO NUMA RELAÇÃO, PERGUNTE:
+    ELE MUDA SE A MESMA COISA ACONTECER OUTRA VEZ?
+    SE MUDA, ELE É DO EVENTO, E NÃO DA RELAÇÃO.
+```
+
+## 90.5 · AS CONVENÇÕES ESTAVAM NO ESQUEMA, E BASTOU MEDI-LAS
+
+Três respostas que eu ia justificar por preferência já estavam escritas, e
+mediram-se em vez de se argumentarem:
+
+```
+apagamento   material RESTRICT, telemetria CASCADE
+             (raw_asset→collection_run, derived_artifact→raw_asset: RESTRICT;
+              etapa_da_corrida→ambos: CASCADE)
+
+tentativa    fora da identidade — `raw_asset.attempts` já é «TELEMETRIA, e fora
+             da chave de idempotência»
+
+corrida      a `022` recusou uma RUN própria para a derivação, e a `024` recusou
+             um `flow_run` paralelo: «duas corridas divergem na primeira pressa»
+```
+
+```
+    UMA CONVENÇÃO MEDIDA NO ESQUEMA VALE MAIS
+    DO QUE UMA PREFERÊNCIA DEFENDIDA NUMA ADR.
+```
+
+## 90.6 · A TERCEIRA GUARDA DE TEXTO A MORDER A PRÓPRIA EXPLICAÇÃO
+
+Escrevi um teste que reprovava se a ADR contivesse «em aberto». Ele reprovou —
+na nota que **explica** que a pergunta *estava* em aberto e foi fechada.
+
+É a terceira vez nesta linha de missões (`§85`, e duas vezes aqui) — e houve uma
+**quarta** na correcção desta própria secção: um `assertNotIn` do nome de um
+contador removido reprovou no comentário que explica **que ele foi removido**.
+O padrão já não é acidente:
+
+```
+    UMA GUARDA DE TEXTO NÃO DISTINGUE A REGRA DO EXEMPLO DELA.
+    UMA GUARDA LÊ O QUE A DECISÃO **DIZ**, E NÃO O FICHEIRO INTEIRO.
+```
+
+A versão que ficou confere **campo a campo**, com vocabulário fechado:
+`PARTICIPATION_CONCEPT`, `RUN_ID_IN_MATERIAL_LINEAGE_KEY`, `ATTEMPT_IN_KEY`,
+`RUN_ID_AS_PROVENANCE`, `INSERTED_REUSED_BELONGS_TO`. Se um deles voltar a
+`UNKNOWN`, a guarda morde — e morde a coisa certa.
+
+E houve uma quarta, da espécie oposta: uma guarda que exigia o estado
+`RECOMENDADO` reprovou quando a ADR passou a `DECIDIDO`.
+
+```
+    UMA GUARDA QUE PRENDE O ESTADO ERRADO
+    REPROVA O PROGRESSO E DEIXA PASSAR O DEFEITO.
+```
+
+## 90.7 · O QUE FICA POR SABER
+
+Fica por saber se alguém vai precisar do histórico **por item** — quais
+observações foram reaproveitadas em qual passagem. Hoje não há necessidade
+provada, e por isso não se constrói. Se aparecer, o sítio já está escolhido: é
+ao lado da passagem, e não dentro da aresta.
