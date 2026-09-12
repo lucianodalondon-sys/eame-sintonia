@@ -583,12 +583,29 @@ class OQueEstaMissaoNaoFaz(unittest.TestCase):
                            text=True).stdout.strip()
         self.assertEqual(d, "", "admissao/ nao pode mudar nesta missao")
 
-    def test_nao_ha_segundo_gate_concorrente(self):
+    def test_nao_ha_segundo_gate_tematico_concorrente(self):
+        """UM CONCEITO, UM DONO — e o conceito aqui e o portao TEMATICO.
+
+        ⚠️ ESTA GUARDA RECUSOU UM FICHEIRO CERTO. Ela procurava a palavra
+        `GATE` em qualquer sitio do nome e reprovou
+        `COLLECTION-V1-CLOSE-GATES.json`, que mede outra coisa — o que falta
+        para fechar a Collection — e nao disputa dono nenhum com o portao
+        tematico.
+
+            UM MARCADOR QUE NAO DISTINGUE A PALAVRA DO CONCEITO
+            PROTEGE UM DONO E ATROPELA OS VIZINHOS.
+
+        Esta casa ja teve este defeito tres vezes. Agora a guarda nomeia o que
+        protege: um segundo artefato de ACEITACAO TEMATICA.
+        """
         base = os.path.join(RAIZ, "data", "derivados")
+        meu = os.path.basename(g.SAIDA)
         maus = [n for n in os.listdir(base)
-                if "GATE" in n.upper()
-                and n != os.path.basename(g.SAIDA)]
-        self.assertEqual(maus, [])
+                if n != meu
+                and "TEMATIC" in n.upper()
+                and ("GATE" in n.upper() or "ACEITACAO" in n.upper())]
+        self.assertEqual(maus, [],
+                         "nasceu um segundo dono do portao tematico")
 
 
 if __name__ == "__main__":
