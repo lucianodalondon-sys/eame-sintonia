@@ -40,6 +40,7 @@
       ".github/workflows/comunicacao-publica.yml",
       ".github/workflows/regressao-de-navegador.yml",
       ".github/workflows/rls-censo-metadados.yml",
+      ".github/workflows/scrap-evidencia.yml",
       ".github/workflows/scrap-social.yml",
       ".github/workflows/security-check.yml",
       ".github/workflows/sintonia-scrap.yml",
@@ -1972,9 +1973,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-first-paid-route-c10-8b",
-    "HEAD": "6a6ea4c0828818b5956695100f377921e9425175",
-    "GENERATED_AT": "2026-09-12T16:43:49+00:00",
-    "SOURCE_TREE_FINGERPRINT": "69b3256b1bd67e4d62a56f959cd7e137ca624e5f6e901cddc7b41bafd3663343"
+    "HEAD": "415c59cb9a734c3498b3eb5fb82b9b417f4779c0",
+    "GENERATED_AT": "2026-09-12T17:03:14+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ce8c002f2bfb0318dee0d1a2161c10197daa50dfa4cfc6d4ce301ef12e50dc48"
   },
   "FAMILIES": [
     {
@@ -2001,7 +2002,7 @@
         "Z-MEDIDAS",
         "Z-ADMISSAO"
       ],
-      "count": 64
+      "count": 65
     },
     {
       "id": "F-ESPERA",
@@ -2163,7 +2164,7 @@
       "y": 190,
       "w": 405,
       "h": 5192,
-      "count": 2
+      "count": 3
     },
     {
       "id": "Z-VEICULOS",
@@ -13714,6 +13715,50 @@
       "y": 1970
     },
     {
+      "id": "C-SCRAP-EVIDENCIA",
+      "name": "SCRAP evidencia entre jobs · o bruto pago atravessa, ou nao atravessa",
+      "territory": "Z-EXECUCAO",
+      "kind": "workflow",
+      "what": "Dois jobs em duas maquinas, com um artefato do Actions no meio. O job A escreve o RAW da corrida, rele-o, assina-o e publica o pacote; o job B, em checkout limpo que nunca viu o ficheiro, recupera pela identidade da corrida, RECALCULA o SHA-256 e reprocessa sem abrir rede. Zero provider, zero segredo, zero dolar.",
+      "why_here": "A C10.8B-LIVE pagou por 59.743 bytes de RAW e o job seguinte nao os encontrou: o `.gitignore` ignora `data/samples/**/*.gz` e o `actions/checkout` limpa o que o `.gitignore` ignora. O SHA sobreviveu a apontar para uma coisa que ja nao existia. RAW CAPTURADO NO PROCESSO != RAW QUE SOBREVIVE AO JOB != RAW DEVOLVIDO PARA INVESTIGACAO != PRESERVACAO FORWARD CANONICA — quatro estados que cabiam todos na palavra «preservado», e a casa so tinha o primeiro. O mecanismo de subida ja existia (`actions/upload-artifact` em `scrap-social.yml`); `download-artifact` nao aparecia em workflow nenhum. GUARDAR SEM NUNCA TER IDO BUSCAR NAO E GUARDAR: E ESPERAR. Este cartao e a METADE DA VOLTA que faltava, e ele diz de si proprio o que NAO e: WORKFLOW ARTIFACT != CANONICAL FORWARD STORAGE. Retencao de 30 dias, declarada em cada manifesto, e CANONICAL_FORWARD_PRESERVATION = NO. O dono forward (Storage + raw_asset) continua por fazer.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⇄",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        ".github/workflows/scrap-evidencia.yml"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-SCRAP-SOCIAL"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "PRINCIPAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 4590,
+      "y": 360
+    },
+    {
       "id": "C-SCRAP-GUARDA",
       "name": "A guarda de credencial e de sessao do SCRAP",
       "territory": "Z-GUARDA",
@@ -13916,7 +13961,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 4590,
-      "y": 360
+      "y": 682
     },
     {
       "id": "C-SCRAP-SOCIAL",
@@ -13967,6 +14012,7 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-CONTRATO-ARTEFATO",
+        "C-SCRAP-EVIDENCIA",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
         "C-SCRAP-ROTA",
@@ -14003,15 +14049,16 @@
           "FASES_QUE_NAO_ATRAVESSAM_O_BOUNDARY",
           "PLATAFORMA_NO_BANCO",
           "POR_CLASSE",
+          "PROIBIDO_NA_EVIDENCIA",
           "RAZOES",
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 233,
+        "palavras": 239,
         "por_lingua": {
           "PT": 1
         },
-        "sem_marca_de_lingua": 232,
+        "sem_marca_de_lingua": 238,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -14024,7 +14071,7 @@
         {
           "onde": "SUPABASE",
           "file": "coleta/social_scrap.py",
-          "line": 1272,
+          "line": 1597,
           "snippet": "dsn = (os.environ.get('SUPABASE_DB_URL') or '').strip()"
         }
       ],
@@ -14276,7 +14323,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 4590,
-      "y": 682
+      "y": 1004
     },
     {
       "id": "C-SITE-INGEST",
@@ -21292,12 +21339,12 @@
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1275,
+          "line": 1600,
           "snippet": "import coleta_checkpoint as ck"
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1309,
+          "line": 1634,
           "snippet": "import coletor as _ct"
         },
         {
@@ -21692,7 +21739,7 @@
       "evidence": [
         {
           "file": "coleta/social_scrap.py",
-          "line": 1070,
+          "line": 1395,
           "snippet": "import comunicacao_coleta as cc"
         }
       ],
@@ -29044,6 +29091,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-SCRAP-EVIDENCIA",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP evidencia entre jobs · o bruto pago atravessa, ou nao atravessa manda rodar SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-evidencia.yml",
+          "line": 82,
+          "snippet": "PYTHONIOENCODING=utf-8 python3 coleta/social_scrap.py \\"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
       "from": "C-SCRAP-GUARDA",
       "to": "C-RASTRO",
       "type": "IMPORTS",
@@ -29083,7 +29148,7 @@
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1640,
+          "line": 1978,
           "snippet": "import social_guarda"
         }
       ],
@@ -29879,12 +29944,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por O motor de buscar. Provado por 1 linha de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por O motor de buscar. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/coletor.py",
           "line": 367,
           "snippet": "import scrap_http as _http"
+        },
+        {
+          "file": "coleta/coletor.py",
+          "line": 747,
+          "snippet": "import social_envelope as _env"
         }
       ],
       "categoria": "CODE"
@@ -30355,7 +30425,7 @@
       "evidence": [
         {
           "file": "coleta/social_scrap.py",
-          "line": 1071,
+          "line": 1396,
           "snippet": "import sensor_coleta as sc"
         }
       ],
@@ -33014,7 +33084,7 @@
       {
         "NOME": "SCRAP_RAW_NAO_RECEBIDO",
         "ONDE": "coleta/social_envelope.py",
-        "LINHA": 114,
+        "LINHA": 132,
         "FORMA": "tuplo GAPS",
         "O_QUE_FALTA": "a aquisicao social preserva os bytes como artefacto do Actions (RETENTION_CLASS ACTIONS_ARTIFACT_30D) e escreve a estrutura em `conteudo`/`comentario`, mas o dono forward do RAW — Storage + `raw_asset` — nunca os recebe. A rota social NAO atravessa RAW. SCRAP SUCCESS != ADMITTED EVIDENCE."
       },
@@ -33042,17 +33112,17 @@
     ]
   },
   "COUNTS": {
-    "components": 163,
+    "components": 164,
     "components_proven": 53,
-    "components_pending": 104,
+    "components_pending": 105,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 677,
-    "edges_proven": 674,
+    "edges": 678,
+    "edges_proven": 675,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1524,
-    "files_covered": 752,
+    "files_tracked": 1525,
+    "files_covered": 753,
     "files_code_unclaimed": 0
   }
 }

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "6a6ea4c0828818b5956695100f377921e9425175",
+    "HEAD": "415c59cb9a734c3498b3eb5fb82b9b417f4779c0",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -839,7 +839,7 @@
     {
       "ficheiro": "coleta/coletor.py",
       "gaveta": "coleta",
-      "linhas": 826,
+      "linhas": 840,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -866,6 +866,7 @@
       "citado_por": [
         "coleta/adaptador_youtube.py",
         "coleta/scrap_executor.py",
+        "coleta/social_envelope.py",
         "ferramentas/reel_transcricao.py"
       ],
       "no_ci": true
@@ -1667,7 +1668,8 @@
         "coleta/adaptador_youtube.py",
         "coleta/coletor.py",
         "coleta/scrap_executor.py",
-        "coleta/social_rotas.py"
+        "coleta/social_rotas.py",
+        "coleta/social_scrap.py"
       ],
       "citado_por": [],
       "no_ci": false
@@ -1727,7 +1729,7 @@
     {
       "ficheiro": "coleta/social_envelope.py",
       "gaveta": "coleta",
-      "linhas": 266,
+      "linhas": 284,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1743,6 +1745,7 @@
       "chamado_por": [
         "coleta/adaptador_aberto.py",
         "coleta/adaptador_youtube.py",
+        "coleta/coletor.py",
         "coleta/social_rotas.py",
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py"
@@ -1750,7 +1753,7 @@
       "citado_por": [
         "ferramentas/reel_transcricao.py"
       ],
-      "no_ci": false
+      "no_ci": true
     },
     {
       "ficheiro": "coleta/social_persistencia.py",
@@ -1804,7 +1807,7 @@
     {
       "ficheiro": "coleta/social_scrap.py",
       "gaveta": "coleta",
-      "linhas": 1649,
+      "linhas": 1987,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [

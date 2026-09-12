@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-first-paid-route-c10-8b",
-    "HEAD": "6a6ea4c0828818b5956695100f377921e9425175",
-    "GENERATED_AT": "2026-09-12T16:43:49+00:00",
-    "SOURCE_TREE_FINGERPRINT": "69b3256b1bd67e4d62a56f959cd7e137ca624e5f6e901cddc7b41bafd3663343"
+    "HEAD": "415c59cb9a734c3498b3eb5fb82b9b417f4779c0",
+    "GENERATED_AT": "2026-09-12T17:03:14+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ce8c002f2bfb0318dee0d1a2161c10197daa50dfa4cfc6d4ce301ef12e50dc48"
   },
   "FILES": [
     {
@@ -95,6 +95,13 @@
     {
       "path": ".github/workflows/rls-censo-metadados.yml",
       "sha": "f7d6d3294902ba5127a653b296369bdf06e21933",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/scrap-evidencia.yml",
+      "sha": "bbf512189bae338badb51633625fb4a8127b8ad1",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -1179,7 +1186,7 @@
     },
     {
       "path": "coleta/coletor.py",
-      "sha": "b22081cb493a381fd037d793be71ed1304839507",
+      "sha": "e2b3cea5af56c95dc57802fd13774dcd6e1c6cf9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1459,7 +1466,7 @@
     },
     {
       "path": "coleta/social_envelope.py",
-      "sha": "196819855d39293a0d647cd5f563c92e24bb175f",
+      "sha": "4c3937427a426b3386d4330553695fb978c958cd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1480,7 +1487,7 @@
     },
     {
       "path": "coleta/social_scrap.py",
-      "sha": "cab18ab0e06cc47c3440675f613c0c2b889df9c5",
+      "sha": "ab30ef54f5ce9f962f24bc3972a6daa3130bd5ec",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9593,7 +9600,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "ee410c0363077251a19932f3ac289a264f813105",
+      "sha": "bcf7c4e9d808147d31d39642f1ad2a760d334e95",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -11196,6 +11203,17 @@
       }
     },
     {
+      "from_file": ".github/workflows/scrap-evidencia.yml",
+      "to_file": "coleta/social_scrap.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-evidencia.yml",
+        "line": 82,
+        "snippet": "PYTHONIOENCODING=utf-8 python3 coleta/social_scrap.py \\"
+      }
+    },
+    {
       "from_file": ".github/workflows/scrap-social.yml",
       "to_file": "coleta/social_scrap.py",
       "type": "RUNS",
@@ -12535,6 +12553,17 @@
         "file": "coleta/coletor.py",
         "line": 367,
         "snippet": "import scrap_http as _http"
+      }
+    },
+    {
+      "from_file": "coleta/coletor.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/coletor.py",
+        "line": 747,
+        "snippet": "import social_envelope as _env"
       }
     },
     {
@@ -14029,7 +14058,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1275,
+        "line": 1600,
         "snippet": "import coleta_checkpoint as ck"
       }
     },
@@ -14040,7 +14069,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1309,
+        "line": 1634,
         "snippet": "import coletor as _ct"
       }
     },
@@ -14051,7 +14080,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1070,
+        "line": 1395,
         "snippet": "import comunicacao_coleta as cc"
       }
     },
@@ -14062,7 +14091,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 876,
+        "line": 1201,
         "snippet": "import scrap_executor as scrap"
       }
     },
@@ -14073,8 +14102,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 877,
+        "line": 1202,
         "snippet": "import scrap_fornecedores as forn"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 874,
+        "snippet": "import scrap_http as http"
       }
     },
     {
@@ -14117,7 +14157,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1436,
+        "line": 1761,
         "snippet": "with open(registo, encoding='utf-8') as f:"
       }
     },
@@ -14128,7 +14168,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1258,
+        "line": 1583,
         "snippet": "'data/samples/SENSOR-PILOT/TRANSCRICOES-B.json'),"
       }
     },
@@ -14150,7 +14190,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1640,
+        "line": 1978,
         "snippet": "import social_guarda"
       }
     },
@@ -14163,6 +14203,17 @@
         "file": "coleta/social_scrap.py",
         "line": 53,
         "snippet": "import social_sessao as ss"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 775,
+        "snippet": "with open(caminho_man, encoding='utf-8') as f:"
       }
     },
     {
@@ -14194,7 +14245,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1071,
+        "line": 1396,
         "snippet": "import sensor_coleta as sc"
       }
     },
@@ -41079,10 +41130,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1524,
-    "files_readable": 590,
-    "files_code_dir": 639,
-    "file_edges": 2722,
+    "files_tracked": 1525,
+    "files_readable": 591,
+    "files_code_dir": 640,
+    "file_edges": 2726,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

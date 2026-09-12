@@ -657,14 +657,29 @@ def _tipo_do_ficheiro(nome):
 
 
 def _cheira_a_segredo(dados):
-    """→ o termo proibido encontrado, ou None. Lê os bytes, não a intenção."""
-    try:
-        texto = dados.decode('utf-8', 'ignore')
-    except Exception:                                             # noqa: BLE001
-        return None
-    for termo in PROIBIDO_NA_EVIDENCIA:
-        if termo in texto:
-            return termo
+    """→ o termo proibido encontrado, ou None. Lê os bytes, não a intenção.
+
+    O bruto pago nasce COMPRIMIDO: `coletor` grava `.json.gz`. Uma sonda que
+    lesse só os bytes do ficheiro nunca veria um token dentro do gzip — ela
+    daria verde sobre um pacote com credencial lá dentro.
+
+        UMA SONDA QUE NÃO DESCOMPRIME DÁ VERDE AO QUE NÃO CONSEGUE LER.
+
+    Por isso: descomprime quando é gzip, e olha as DUAS formas. Falhar a
+    descompressão não é «limpo» — é `GZIP_ILEGIVEL`, e quem chama decide.
+    """
+    formas = [dados]
+    if dados[:2] == b'\x1f\x8b':
+        import gzip
+        try:
+            formas.append(gzip.decompress(dados))
+        except Exception:                                         # noqa: BLE001
+            return 'GZIP_ILEGIVEL'
+    for forma in formas:
+        texto = forma.decode('utf-8', 'ignore')
+        for termo in PROIBIDO_NA_EVIDENCIA:
+            if termo in texto:
+                return termo
     return None
 
 
