@@ -514,6 +514,26 @@ jobs:
         with:
           python-version: '3.12'
 
+      # ⚠️ A MESMA HISTORIA DO `fetch-depth`, OUTRA VEZ, COM OUTRA FERRAMENTA.
+      #
+      # `provas/o_executor_conta_se.py` nunca tinha corrido aqui: o passo 3
+      # cortava antes dele. Ao pôr todos os passos a correr, ele correu e disse
+      # a verdade — «RECUSADO: pdftotext nao esta nesta maquina». E recusa-se de
+      # propósito: um red team mediu que, sem a ferramenta, o executor devolve
+      # REUSED para tudo o que já está na árvore e a prova passaria a medir a
+      # cache em vez da estrada.
+      #
+      #     PASSAR AQUI SEM A FERRAMENTA SERIA MENTIR.
+      #
+      # O conserto é o mesmo de sempre neste job: dar-lhe o que ela precisa
+      # para medir, nunca afrouxar a prova.
+      - name: 0 · a ferramenta de texto existe
+        if: '!cancelled()'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y poppler-utils
+          pdftotext -v
+
       - name: 3 · o padrão do departamento de coleta não piorou
         if: '!cancelled()'
         run: python3 medidas/padrao_da_coleta.py

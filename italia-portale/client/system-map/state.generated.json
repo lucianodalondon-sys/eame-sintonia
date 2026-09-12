@@ -1952,9 +1952,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-operational-close-v1",
-    "HEAD": "5955e1d17f564f59070e5337edafcfae1b9a2fb0",
-    "GENERATED_AT": "2026-09-12T22:26:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "031fd7a73ab2110c5f3d735f39342c69794c92399d542e23b23690b973692df4"
+    "HEAD": "9c87fb6401514fc0f62cb02d1f7124a75ac110df",
+    "GENERATED_AT": "2026-09-12T22:51:49+00:00",
+    "SOURCE_TREE_FINGERPRINT": "62717b5c4bc4dab2cd81f65165e3589f0d8b15e26dfdde9281ee45d761216086"
   },
   "FAMILIES": [
     {
@@ -25366,7 +25366,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 604,
+          "line": 624,
           "snippet": "run: python3 provas/fluxo_no_seco.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-FLUXO-NO-SECO",
@@ -25838,7 +25838,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 519,
+          "line": 539,
           "snippet": "run: python3 medidas/padrao_da_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PADRAO-COLETA",
@@ -25873,7 +25873,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 533,
+          "line": 553,
           "snippet": "run: python3 provas/valida_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-BIBLIA",
@@ -25908,7 +25908,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 526,
+          "line": 546,
           "snippet": "run: python3 provas/testa_coleta_canonica.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -25924,7 +25924,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 600,
+          "line": 620,
           "snippet": "run: python3 provas/paridade_da_lingua.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -25940,7 +25940,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 608,
+          "line": 628,
           "snippet": "run: python3 provas/testa_golden_path_pdf.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -25975,7 +25975,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 626,
+          "line": 646,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-DEDUPE",
@@ -26010,7 +26010,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 619,
+          "line": 639,
           "snippet": "run: python3 provas/o_encanamento_tem_uma_porta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-ENCANAMENTO",
@@ -26045,7 +26045,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 638,
+          "line": 658,
           "snippet": "run: python3 provas/o_executor_conta_se.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-EXECUTOR-CONTA",
@@ -26080,7 +26080,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 642,
+          "line": 662,
           "snippet": "run: python3 provas/a_fronteira_da_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-FRONTEIRA",
@@ -26115,7 +26115,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 612,
+          "line": 632,
           "snippet": "run: python3 provas/o_mapa_nao_mente.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-MAPA-NAO-MENTE",
@@ -26220,7 +26220,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 540,
+          "line": 560,
           "snippet": "python3 tests/test_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26236,7 +26236,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 541,
+          "line": 561,
           "snippet": "python3 tests/test_integracao_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26252,7 +26252,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 542,
+          "line": 562,
           "snippet": "python3 tests/test_observabilidade_estrada.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26268,7 +26268,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 543,
+          "line": 563,
           "snippet": "python3 tests/test_red_team_estrada.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26284,7 +26284,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 550,
+          "line": 570,
           "snippet": "run: python3 tests/test_identidade_do_artefato.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26300,7 +26300,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 557,
+          "line": 577,
           "snippet": "run: python3 tests/test_armazem_italiano.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26316,7 +26316,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 564,
+          "line": 584,
           "snippet": "run: python3 tests/test_preservar_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26332,7 +26332,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 572,
+          "line": 592,
           "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26348,7 +26348,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 579,
+          "line": 599,
           "snippet": "run: python3 tests/test_preservar_derivado.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26364,7 +26364,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 585,
+          "line": 605,
           "snippet": "run: python3 tests/test_porta_de_producao.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
