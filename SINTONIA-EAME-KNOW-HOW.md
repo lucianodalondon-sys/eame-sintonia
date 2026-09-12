@@ -4456,3 +4456,174 @@ O executor passou a contar as três respostas do livro no recibo.
 
 Sem backfill, sem migration, sem identidade inventada. `admissao.py`,
 `ingresso.py` e `leis/artefato.py` com zero linhas de diff.
+
+---
+
+# §62 · APOSENTAR NÃO É BLOQUEAR — E TRÊS SONDAS QUE MEDIRAM A SI PRÓPRIAS
+
+**Missão:** `C10.4C — RETIRE LEGACY INSTAGRAM TRANSCRIPTION`
+**HEAD final:** `5292be8a`
+**Tocado:** `ferramentas/instagram_transcrever.py` · `.github/workflows/sintonia-scrap.yml` ·
+`coleta/social_scrap.py` · `system-map/scripts/censo_das_derivacoes.py` ·
+`system-map/scripts/censo_da_coleta.py`
+
+## 62.1 · O QUÊ
+
+A C10.4B mediu duas implementações vivas de «obter a fala de um Reel» e travou a
+velha pela política. A C10.4C fechou-a.
+
+```
+OPERATIONAL_DOORS_BEFORE = 6
+OPERATIONAL_DOORS_AFTER  = 0
+TRANSCRIPTION_OWNERS     = 1
+POLICY_CHANGED           = NO
+```
+
+O `§`61 e os anteriores já tinham registado que workflows são portas e que uma
+decisão só vale onde é consultada. Isto é a consequência disso, executada. O que
+segue **não** é: são quatro coisas que nasceram aqui.
+
+## 62.2 · A SEXTA PORTA ERA UM `print()`
+
+A C10.4B contou cinco portas. Havia seis. A sexta não era `import`, nem
+`workflow_dispatch`, nem `__main__`:
+
+```python
+# coleta/social_scrap.py, no raio-x de transcrição
+print('    2. faster-whisper local   → scripts/instagram_transcrever.py, ...')
+```
+
+Um programa que **imprime** a um operador qual comando correr é uma porta, e o
+operador é o transporte. O caminho impresso nem existia — `scripts/` virou
+`ferramentas/` há muito. Uma instrução operacional errada continua a ser uma
+instrução.
+
+    DOCUMENTAÇÃO OPERACIONAL USADA COMO COMANDO É UMA PORTA.
+    E QUEM A IMPRIME É O DONO DELA.
+
+Corolário apanhado no fim da mesma missão, contra o **próprio documento de
+entrega**: a secção que demonstrava a recusa do CLI escrevia-a em forma de
+`$ py …`. O ataque 9 da missão marcou-a. Que o comando só produza recusa não
+muda a forma.
+
+    UMA DEMONSTRAÇÃO EM FORMA DE INSTRUÇÃO É UMA INSTRUÇÃO.
+
+## 62.3 · O QUE SAI DE UM APOSENTADO, ALÉM DAS PORTAS
+
+Fechar as portas não bastou. O ficheiro continuava a **parecer** um dono do
+conceito para todos os censos da casa, por três coisas que não eram portas:
+
+| saiu | porquê |
+|---|---|
+| `import fala_local` | um aposentado que carrega o reconhecedor é contado como transcritor por qualquer varredura de donos |
+| `politica_da_aquisicao` | quem não adquire não precisa de autorização para adquirir |
+| o docstring operacional | as três primeiras linhas eram comandos para copiar |
+
+A segunda é a menos óbvia e a mais útil:
+
+    UM PORTÃO À FRENTE DE UMA FUNÇÃO QUE LEVANTA É CERIMÔNIA.
+    E CERIMÔNIA PARECE CAPACIDADE.
+
+O que **fica** é a medição: o benchmark de velocidade de modelo que aquele
+ficheiro cronometrou está citado em seis documentos e em dois módulos vivos.
+Apagar o ficheiro apagaria a proveniência desses números.
+
+    APOSENTAR A ROTA NÃO PEDE APAGAR A PROVENIÊNCIA.
+    PEDE QUE ELA DEIXE DE SER UMA PORTA.
+
+E a fila que a rota velha usava (`alvos`) saiu com ela, com os critérios escritos
+no documento da missão — porque um deles, exigir `VIDEO_URL_TEMPORARY`, nem faz
+sentido para uma rota audio-only. Selecionar alvos **para** uma aquisição é parte
+dessa aquisição, não capacidade à parte.
+
+## 62.4 · O CENSO DO MAPA CONTAVA PROSA COMO ARESTA
+
+Regenerada a cadeia dos sete passos, o mapa declarou que o módulo **aposentado**
+chamava três módulos vivos, e que dois deles corriam no CI. O módulo importa
+`sys` e mais nada.
+
+A fonte de todas essas arestas era o docstring que explica a aposentadoria e o
+comentário do workflow que a anuncia. `system-map/scripts/censo_da_coleta.py`
+media com `if outro in texto` — o texto inteiro.
+
+    UM NOME DENTRO DE UMA FRASE NÃO É UM ARGV.
+
+A casa já tinha esta lei para os **testes** (`UMA SENTINELA ANCORADA NO TEXTO
+MEDE O TEXTO, NÃO A LEI`). O que é novo é que ela vale para o **mapa** — e que
+lá a correção não pode ser deitar a citação fora, porque uma citação *é* uma
+porta (62.2). A resposta foi nomear as duas:
+
+```
+chamado_por   import na árvore, OU caminho numa linha executável,
+              E só se o ficheiro chegar a lançar processo
+citado_por    o caminho aparece, mas em prosa — não é aresta, e fica registado
+no_ci         caminho numa linha NÃO-comentário de um workflow
+```
+
+O terceiro critério do `chamado_por` é o que resolve o caso geral:
+
+    UM FICHEIRO QUE NUNCA LANÇA PROCESSO NÃO ESTÁ A CORRER OUTRO
+    PELO CAMINHO, POR MAIS VEZES QUE O NOMEIE.
+
+`orfaos` manteve o significado antigo (ninguém o chama, ninguém o corre, ninguém
+o nomeia) porque `citado_por` entra na conta. Ao lado nasceu o número mais
+apertado, `sem_aresta_medida`. **Afinar uma medição não é mudar o que ela
+contava** — se muda, são duas medições e cada uma precisa do seu nome.
+
+## 62.5 · A SENTINELA QUE MEDE UM MUNDO QUE ACABOU
+
+Seis testes da C10.4B caíram com esta missão. Nenhum estava errado: mediam a
+porta **aberta** — exigiam a fase no workflow, o portão de política na rota
+velha, cobertura das suas saídas de rede. Um deles dizia-o no corpo: apagar a
+entrada operacional é decisão de gente, e o que o teste exige é que ela não mude
+em silêncio.
+
+A C10.4C é essa decisão. A sentinela disparou a fazer o seu trabalho.
+
+    UMA SENTINELA QUE CONTINUA A MEDIR UM MUNDO QUE ACABOU MEDE O PASSADO.
+
+Nenhuma foi apagada. Cada uma passou a medir que a porta **não voltou**, e o que
+media antes ficou escrito no seu próprio docstring. A de «cada saída de rede tem
+portão» virou a afirmação mais forte — **zero** saídas de rede — e ganhou
+controlo positivo sobre o dono canônico, onde a sonda *tem* de encontrar saída.
+
+    APAGAR UMA SENTINELA QUE DISPAROU É APAGAR A MEDIÇÃO.
+    MIGRÁ-LA É GUARDAR A LEI E TROCAR O MUNDO.
+
+## 62.6 · TRÊS ATAQUES QUE FALHARAM CONTRA A PRÓPRIA SONDA
+
+Dos vinte ataques do red team, três deram positivo e nenhum era a casa:
+
+| ataque | o que a sonda mediu | o que devia medir |
+|---|---|---|
+| `subprocess` | *nomes* do módulo em literais — achou a mensagem de recusa do próprio aposentado e o rótulo da rota na matriz | o literal **dentro** de uma chamada de subprocesso |
+| mapa esconde edge | o *texto* do censo — achou o comentário que explica a troca do PRODUTOR | as declarações |
+| código renomeado | qualquer ficheiro com `-vn` — achou o dono do ASR, que converte um ficheiro **já em disco** | trazer da rede **e** cortar, as duas metades |
+
+E a correção do terceiro trouxe o mesmo defeito outra vez: o filtro de rede
+aceitava `dict.get` e declarou que 171 ficheiros traziam mídia. O número era da
+sonda.
+
+    UMA SONDA QUE CONTA NOMES CONTA NOMES, NÃO CHAMADAS.
+    E UMA CORREÇÃO DE SONDA PRECISA DO MESMO CONTROLO POSITIVO
+    QUE A SONDA ORIGINAL NÃO TEVE.
+
+Por isso cada ataque passou a imprimir **o que mediu**, e não só o que não
+encontrou: «104 chamadas de subprocesso inspecionadas», «7 PRODUTORES
+declarados», «21 ficheiros trazem mídia da rede». Um zero sem denominador não é
+um resultado.
+
+## 62.7 · CONSEQUÊNCIA
+
+`ONE CONCEPT → ONE OWNER` satisfeito para transcrição de Reel. `ASR_OWNERS = 1`.
+`MUTATION_SURVIVORS = 0` em seis mutações, `RED_TEAM_RESULT = PASS` em vinte
+ataques, `NEW_FAILURES = 0` em 2321 testes, `SYSTEM_MAP_CHECK = PASS` com os sete
+passos da cadeia.
+
+A política **não** foi tocada: `INSTAGRAM/FETCH_TRANSCRIPT` continua
+`ROUTE_NOT_ALLOWED` pela decisão da C10.5D. Fica uma dívida declarada — a matriz
+ainda chama a rota `instagram_transcrever.py:faster-whisper`. O rótulo está
+velho; a decisão não. Mexer na matriz é missão da matriz.
+
+    O NOME DE UMA ROTA NA MATRIZ NÃO É A ROTA.
+    MAS UM NOME VELHO NUM DONO DE DECISÃO É DÍVIDA, NÃO DETALHE.
