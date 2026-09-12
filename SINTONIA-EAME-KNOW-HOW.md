@@ -8544,7 +8544,51 @@ lê. E o arnês de mutação tinha o seu próprio defeito: ao mutar uma fonte, e
 movia a árvore e deixava o relógio do ciclo aceso em todas as corridas. Um arnês
 que deixa um alarme sempre ligado não testa os outros.
 
-## 88.7 · CONSEQUÊNCIA
+## 88.7 · PERSISTIR UMA MEDIÇÃO É O QUE DESCOBRE QUE ELA NUNCA FOI REPRODUTÍVEL
+
+O passo novo do CI reprovou, e a razão não era do artefato: era do censo, e
+estava lá desde sempre. `DOCUMENTADO_COMO_CLI` divergiu em **seis cartões** entre
+a mesma árvore medida aqui e no GitHub Actions.
+
+```
+C-CADEIA-V21      CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md  ·  HANDOFF-V2-PAUSE.md
+C-IT-CONTRATOS    BIBLIA-CANONICA-DA-COLETA.md            ·  ITALY-SOURCE-CONTRACT-MATRIX-V1.md
+C-MAPA-GERADOR    system-map/README.md                    ·  regras/LEIA-ANTES-DE-COLETAR.md
+C-ORQUESTRADOR    BIBLIA-CANONICA-DA-COLETA.md            ·  (vazio)
+C-PACOTE-CAMADAS  HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md   ·  PROMPT-PARA-NOVA-CONTA-CLAUDE.md
+C-PROCEDENCIA     HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md   ·  PROMPT-PARA-NOVA-CONTA-CLAUDE.md
+```
+
+A função para no primeiro `.md` que casa e só vê as primeiras 20 linhas do
+`grep` — e a ordem do `grep` é do sistema de ficheiros, não do código. O caso
+`C-ORQUESTRADOR` é o mais duro: o tecto cortou as 31 linhas **antes** da que
+casava, e o campo saiu vazio. Ele nem sequer responde «está documentado?».
+
+Enquanto o número só passava pelo terminal, ninguém tinha como reparar. **Foi o
+artefato que o denunciou**, e foi preciso o CI — outra máquina, outra ordem — para
+ele aparecer. Duas árvores no mesmo disco tinham dado igual.
+
+```
+    UM CAMPO QUE NÃO SE CONSEGUE REPRODUZIR NÃO PODE SER PROVA DE DRIFT.
+```
+
+A saída não foi consertar a função — isso é mudar a semântica da medição, e era
+outro trabalho. Foi **declarar**: o campo sai do `MEASUREMENT_HASH` com o motivo
+carimbado ao lado, continua publicado cartão a cartão, e continua coberto pelo
+`SEMANTIC_HASH` contra adulteração. O que deixou de valer foi a promessa que ele
+nunca conseguiu cumprir.
+
+```
+    ESCONDER UM CAMPO INSTÁVEL DENTRO DE UM HASH ESTÁVEL
+    É TRANSFORMAR UMA MEDIÇÃO FRACA NUM VEREDITO FORTE.
+```
+
+E uma lista de exclusão que cresce sem prova é um silenciador: os três nomes
+estão fixados na prova, o artefato tem de os declarar com motivo, o campo tem de
+continuar publicado, e adulterá-lo tem de continuar a reprovar. Acrescentar um
+quarto obriga a mexer na prova — e mexer na prova obriga a escrever porquê.
+
+## 88.8 · CONSEQUÊNCIA
 
 Qualquer contagem de topologia publicada pode agora ser auditada depois: o número
 aponta para o artefato, o artefato enumera os membros, declara a regra, nomeia o
