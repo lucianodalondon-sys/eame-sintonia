@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-instagram-policy-decision-c10-5d",
-    "HEAD": "707437c4bb3e4a0a73d089d9a752126470ba8e74",
-    "GENERATED_AT": "2026-09-11T23:27:49+00:00",
-    "SOURCE_TREE_FINGERPRINT": "9dce6c2125625561e01238695bae2eb11d20146bcaad864b0110e36165463f3c"
+    "BRANCH": "claude/sintonia-scrap-crash-retry-c10-6",
+    "HEAD": "2d3464deb3bba7fca3bb1384f6f637fc1626516e",
+    "GENERATED_AT": "2026-09-12T00:33:33+00:00",
+    "SOURCE_TREE_FINGERPRINT": "80b3919396550b9a8727ade2499f827636ad5ad3002513769709d3444717536b"
   },
   "FILES": [
     {
@@ -1130,7 +1130,7 @@
     },
     {
       "path": "coleta/adaptador_instagram.py",
-      "sha": "f11c15d7d7dc480c1bd2b306ac8807fdc8893156",
+      "sha": "7d956f5f574f99e6b73b973181270fbcf4e6eb09",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5196,6 +5196,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-6-CRASH-RETRY-PERSISTENCIA.md",
+      "sha": "2c563001891eb895c51de035f69cfe67391583b3",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -5365,7 +5372,7 @@
     },
     {
       "path": "ferramentas/reel_transcricao.py",
-      "sha": "9742a80dc430bcf58f55ba41674993af8e41801f",
+      "sha": "977abc406ff37dee5e29b7c39a73a2ee5bc34b8d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9789,7 +9796,7 @@
     },
     {
       "path": "tests/test_c10_5_collection_flow.py",
-      "sha": "dcc219201ab038948e4bfc8319301b40e06e2ae6",
+      "sha": "175feae40a78b07e9626cddb7de246f0da350233",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9802,8 +9809,15 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_c10_6_crash_retry.py",
+      "sha": "663d18e02c28a4d727f046d97117e2fe1c44e228",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_c10_audio_only.py",
-      "sha": "11c339e7476d89bf7c828e647d9068ebf9875925",
+      "sha": "de8ac4e4337d78bcbb54564e6ade6883155c81a6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11895,7 +11909,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 151,
+        "line": 153,
         "snippet": "trace['ASR_OWNER'] = 'ferramentas/fala_local.py'"
       }
     },
@@ -11906,7 +11920,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 136,
+        "line": 137,
         "snippet": "import reel_transcricao as rt"
       }
     },
@@ -11917,7 +11931,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 179,
+        "line": 181,
         "snippet": "medida['IMPLEMENTACAO'] = 'ferramentas/reel_transcricao.py'"
       }
     },
@@ -13897,7 +13911,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/reel_transcricao.py",
-        "line": 87,
+        "line": 90,
         "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
       }
     },
@@ -13908,7 +13922,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/reel_transcricao.py",
-        "line": 1135,
+        "line": 1311,
         "snippet": "def gravar_lote(registos, nome='TRANSCRICOES-REEL.json'):"
       }
     },
@@ -13919,7 +13933,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/reel_transcricao.py",
-        "line": 90,
+        "line": 93,
         "snippet": "import fala_local as fl         # noqa: E402 — o reconhecedor, dono único"
       }
     },
@@ -13930,7 +13944,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/reel_transcricao.py",
-        "line": 1008,
+        "line": 1184,
         "snippet": "executor='ferramentas/fala_local.py',"
       }
     },
@@ -13941,8 +13955,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/reel_transcricao.py",
-        "line": 89,
+        "line": 92,
         "snippet": "import artefato as art          # noqa: E402 — o contrato de artefato, dono único"
+      }
+    },
+    {
+      "from_file": "ferramentas/reel_transcricao.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/reel_transcricao.py",
+        "line": 95,
+        "snippet": "import falhas as fx            # noqa: E402 — a língua única do erro, dono único"
       }
     },
     {
@@ -13952,7 +13977,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/reel_transcricao.py",
-        "line": 91,
+        "line": 94,
         "snippet": "import social_matriz as mz      # noqa: E402 — a política de rota, dono único"
       }
     },
@@ -30496,7 +30521,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c10_5_collection_flow.py",
-        "line": 312,
+        "line": 331,
         "snippet": "import adaptador_instagram as ai"
       }
     },
@@ -30540,7 +30565,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_5_collection_flow.py",
-        "line": 336,
+        "line": 355,
         "snippet": "self.assertEqual(leitores, ['coleta/scrap_http.py'],"
       }
     },
@@ -30699,6 +30724,83 @@
       }
     },
     {
+      "from_file": "tests/test_c10_6_crash_retry.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6_crash_retry.py",
+        "line": 61,
+        "snippet": "import adaptador_instagram as ai    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6_crash_retry.py",
+      "to_file": "data/samples/REEL-TRANSCRICOES/TRANSCRICOES-REEL.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6_crash_retry.py",
+        "line": 237,
+        "snippet": "self.assertNotIn('TRANSCRICOES-REEL.json', os.listdir(self.sa))"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6_crash_retry.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6_crash_retry.py",
+        "line": 58,
+        "snippet": "import fala_local as fl             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6_crash_retry.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6_crash_retry.py",
+        "line": 60,
+        "snippet": "import reel_transcricao as rt       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6_crash_retry.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6_crash_retry.py",
+        "line": 354,
+        "snippet": "'reel_transcricao.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6_crash_retry.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6_crash_retry.py",
+        "line": 57,
+        "snippet": "import falhas as fx                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6_crash_retry.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6_crash_retry.py",
+        "line": 59,
+        "snippet": "import social_matriz as mz          # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_c10_audio_only.py",
       "to_file": "ferramentas/fala_local.py",
       "type": "IMPORTS",
@@ -30738,7 +30840,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_audio_only.py",
-        "line": 367,
+        "line": 374,
         "snippet": "with io.open(os.path.join(RAIZ, 'ferramentas', 'reel_transcricao.py'),"
       }
     },
@@ -37455,7 +37557,7 @@
     "ferramentas/reel_transcricao.py": [
       {
         "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
-        "line": 1176,
+        "line": 1328,
         "constante": "caminho"
       }
     ],
@@ -37867,10 +37969,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1480,
-    "files_readable": 565,
-    "files_code_dir": 612,
-    "file_edges": 2458,
+    "files_tracked": 1482,
+    "files_readable": 566,
+    "files_code_dir": 613,
+    "file_edges": 2466,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
