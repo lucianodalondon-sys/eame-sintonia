@@ -8075,3 +8075,170 @@ E o derivado aterra em `NAO_SEI/derivados/...`, porque `raw_asset` não tem colu
 de país para o provar. O dono do derivado está certo em não inferir; o efeito é
 que toda medição canónica deixa uma pasta `NAO_SEI/` na árvore — agora ignorada,
 como o `XX/` que a `§78` pagou para descobrir.
+
+---
+
+# §86 · REUSO POR CONTEÚDO NÃO PRESERVA, SOZINHO, LINHAGEM POR OBSERVAÇÃO
+
+**Missão:** `C-DECIDE-DERIVED-REUSE-LINEAGE-V1` (medição + contrato)
+**HEAD final:** `397ee92a`
+**Decisão:** [`docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md`](docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md)
+**Medição:** `provas/a_linhagem_do_reaproveitamento.py`
+
+A `§85` ligou `STORAGE -> DERIVED` e, ao ligar, mostrou que duas observações dos
+mesmos bytes partilham **um** `derived_artifact`. Esta mediu até ao fim o que
+isso custa — e nada foi implementado.
+
+O grão do derivado está certo e não se reabre: a migration `022` decidiu
+`CONTEÚDO POR RECEITA` com a razão escrita. Duas capturas são dois factos sobre
+o mundo; a nossa ferramenta sobre estes bytes com esta régua dá **um** resultado.
+
+O que não se sustenta é a frase que ela deixou ao lado.
+
+## 86.1 · A CONSULTA QUE «RESOLVE» RESPONDE A OUTRA PERGUNTA
+
+A `022` escreveu que nenhuma procedência se perde, porque as irmãs se encontram
+com `select * from raw_asset where sha256 = <parent_sha256>`.
+
+```
+essa consulta responde   que observações TÊM os mesmos bytes
+a pergunta era           que observações PASSARAM por esta derivação
+```
+
+Medido: para o derivado `1` ela devolve `[3, 7]`, e as duas chegam **iguais**.
+Uma foi lida e derivada. A outra pode ter sido derivada e reaproveitada, ou pode
+nunca ter sido processada. A consulta não as separa — e não é defeito dela, é a
+pergunta que é outra.
+
+```
+    CAN INFER ≠ OBSERVED EDGE.
+    TER OS MESMOS BYTES NÃO É TER PARTICIPADO DA MESMA EXECUÇÃO.
+```
+
+A lição maior é sobre a forma do argumento, e não sobre esta tabela: **uma
+justificação de esquema que termina numa consulta possível está a provar
+alcançabilidade, não registo.** Vale a pena reler assim todas as outras.
+
+## 86.2 · PROCURAR O DONO NA MINHA MEMÓRIA NÃO É PROCURAR
+
+A primeira tentação foi responder «não existe owner» depois de olhar para três
+tabelas de que me lembrava. Isso mede a memória de quem procurou.
+
+Quem sabe que colunas apontam para cada tabela é o catálogo do Postgres:
+
+```sql
+select conrelid::regclass, confrelid::regclass
+  from pg_constraint
+ where contype = 'f'
+   and confrelid in ('public.raw_asset'::regclass,
+                     'public.derived_artifact'::regclass)
+```
+
+Resultado: **dez** tabelas apontam para `raw_asset`; **nenhuma tabela do esquema
+inteiro** aponta para `derived_artifact`. Não há ponte porque não há nada do
+outro lado da ponte — e isso é uma afirmação medida, não uma impressão.
+
+E apanhou um **falso amigo** que eu teria citado como resposta:
+`public.derivacao_observacao`, da migration `005`. O nome bate. A camada não:
+ela liga `derivacao` (uma *conclusão analítica*, com pergunta, resposta e
+limitação) a `observacao` (um *facto medido com denominador*). Nada disso é
+`raw_asset` nem `derived_artifact`.
+
+```
+    DOIS NOMES IGUAIS EM CAMADAS DIFERENTES SÃO DOIS CONCEITOS.
+    USAR UM PELO OUTRO PORQUE O NOME BATE É O PIOR TIPO DE REUSO.
+```
+
+## 86.3 · A ARITMÉTICA DA CORRIDA HOMOGÉNEA NÃO É UMA ARESTA
+
+O ledger da corrida B diz `input_count=4` e `reused=4`. Daí **deduz-se** que as
+quatro observações foram reaproveitadas — e a dedução parece prova.
+
+Ela funciona só porque todos os itens caíram no mesmo balde. Medido no caso
+misto: a mesma passagem devolveu `{ERROR: 1, REUSED: 1}` para duas observações,
+e a linha guarda os números, não os nomes. As duas leituras possíveis são
+simétricas.
+
+```
+    CONTAGEM POR ETAPA ≠ DESTINO POR ITEM.
+    UMA DEDUÇÃO QUE SÓ FUNCIONA NO CASO UNIFORME
+    NÃO É UM REGISTO: É UMA COINCIDÊNCIA DE FORMATO.
+```
+
+Para medir isto foi preciso **construir** a passagem mista chamando o runner
+directamente — a fonte real só entrega PDFs. E isso tem de vir com a razão
+escrita ao lado: a pergunta aqui não é sobre a estrada (essa começa no botão e
+mede-se noutra prova), é sobre **o que o ledger consegue exprimir**. Esperar que
+a fonte um dia varie seria não medir.
+
+## 86.4 · O ACHADO: O RUNTIME CALCULA A ARESTA E DEITA-A FORA
+
+`guarda/preservar_derivado.py`, no reencontro, devolve os **dois lados**:
+
+```
+TESTEMUNHA_NO_BANCO       o raw_asset que a linha existente nomeia   (A)
+TESTEMUNHA_DESTA_CHAMADA  o raw_asset que esta passagem trouxe        (B)
+```
+
+Distingue os dois casos de reencontro por escrito, em prosa, na explicação que
+devolve. E não persiste nenhum.
+
+```
+    RUNTIME SABE ≠ O SISTEMA GUARDA.
+    O QUE MORRE COM O PROCESSO NÃO É LINHAGEM.
+```
+
+Não faltava descobrir a aresta. Ela é calculada, nomeada, e perdida — que é uma
+categoria de defeito diferente de «não sabemos», e muito mais barata de
+consertar. Vale procurá-la noutros sítios: **onde é que este sistema já sabe
+alguma coisa e só não a escreve?**
+
+## 86.5 · A ASSIMETRIA DA LEI, VISTA AGORA COM NOME
+
+`COL-LAW-008` diz que todo derivado deve responder `DERIVED_FROM`. Singular, e
+cumprida: o derivado sabe de qual cópia nasceu, e o banco trava isso com uma
+chave estrangeira **composta** sobre `(raw_asset_id, parent_sha256)` — o pai por
+id e o pai por sha têm de ser o mesmo pai.
+
+A lei nunca exigiu a recíproca: que cada observação saiba em que derivação
+participou. Enquanto uma observação tinha no máximo um derivado, as duas
+perguntas tinham a mesma resposta por acidente. O reuso separou-as.
+
+```
+    UMA LEI CUMPRIDA NUM SENTIDO NÃO ESTÁ CUMPRIDA NOS DOIS.
+```
+
+## 86.6 · E O PASSADO NÃO SE PREENCHE
+
+A recomendação é aditiva — uma relação de **participação**, uma linha por
+(observação, derivado, passagem), com dono no writer que já decide o reencontro.
+Mas o histórico não tem cura:
+
+```
+    PREENCHER O PASSADO POR INFERÊNCIA
+    É FABRICAR A EVIDÊNCIA QUE FALTAVA.
+```
+
+Uma migration que populasse a tabela por `sha256` escreveria como facto
+exactamente aquilo que esta medição prova não ser sabido. O que se declara é o
+começo; o que é anterior fica `UNKNOWN`, que é a verdade.
+
+## 86.7 · «NÃO EXISTE» ERA LARGO DE MAIS — O CASO DO `canal_id`
+
+A `§85` escreveu que o dono da identidade de canal «não existe». A medição
+obriga a ser mais preciso, e a correcção é reutilizável:
+
+```
+SCHEMA OWNER                     EXISTE   origem · canal, migration 002
+RUNTIME RESOLVER (ler + recusar) EXISTE   social_persistencia.exigir_canal
+RUNTIME OWNER (decidir + criar)  NÃO      só testes e provas inserem
+```
+
+Três coisas diferentes debaixo da palavra «owner». Dizer que não existe owner
+quando duas das três existem manda a missão seguinte construir o que já está
+construído.
+
+```
+    ANTES DE DIZER QUE ALGO NÃO TEM DONO,
+    DIGA QUAL DOS DONOS É QUE FALTA.
+```
