@@ -124,11 +124,30 @@ class ACadeiaCorreSemInstrumento(unittest.TestCase):
         self.assertIsNone(sig.parameters['etapa'].default,
                           'o relator passou a ser obrigatório')
 
-    def test_7_o_adaptador_so_usa_banco_quando_lhe_dao_um(self):
+    def test_7_a_durabilidade_entra_pelo_executor_e_nao_pelo_adaptador(self):
+        """ACTUALIZADO NA C10.6C — era `capturar_reel(banco=...)`.
+
+        A C10.6B pôs a durabilidade no adaptador do Instagram, e ela funcionou.
+        A C10.6C mediu o que isso significava: as outras dez capacidades wired
+        da casa não tinham nada disso.
+
+            UMA INFRAESTRUTURA COMUM NÃO É PROVADA POR UM ÚNICO ADAPTER
+            USANDO-A.
+
+        O `banco` subiu para o executor; o adaptador ficou com o `etapa=`, que
+        é o que a cadeia dele precisa para relatar.
+        """
         import inspect
-        sig = inspect.signature(ad.capturar_reel)
-        self.assertIn('banco', sig.parameters)
-        self.assertIsNone(sig.parameters['banco'].default)
+        import scrap_executor as sx
+        sig_ex = inspect.signature(sx.COLLECT)
+        self.assertIn('banco', sig_ex.parameters)
+        self.assertIsNone(sig_ex.parameters['banco'].default,
+                          'o executor passou a EXIGIR banco')
+        sig_ad = inspect.signature(ad.capturar_reel)
+        self.assertIn('etapa', sig_ad.parameters)
+        self.assertIsNone(sig_ad.parameters['etapa'].default)
+        self.assertNotIn('banco', sig_ad.parameters,
+                         'o adaptador voltou a montar a propria durabilidade')
 
 
 class OContratoDaUnidadeDeTrabalho(unittest.TestCase):
@@ -219,21 +238,44 @@ class OQueACadeiaCHAMAAOSEUPROPRIOESTADO(unittest.TestCase):
                     and n.name == nome)
 
     def test_17_a_unidade_falha_quando_a_transcricao_falha(self):
-        """M5 — «DERIVED existe» não pode fechar a unidade como feita."""
-        fn = self._fn('coleta/adaptador_instagram.py', '_com_durabilidade')
-        texto = ast.dump(fn)
-        self.assertIn("'REQUESTED_EMPTY'", texto,
-                      'o adaptador deixou de distinguir «não havia fala»')
-        self.assertIn("'RAW'", texto,
-                      'o adaptador deixou de exigir pai preservado')
-        # e `falhou` tem de depender de alguma coisa — um literal fixo aqui
-        # seria a unidade a fechar-se sempre do mesmo jeito
-        atrib = [n for n in ast.walk(fn) if isinstance(n, ast.Assign)
-                 and any(getattr(t, 'id', None) == 'falhou' for t in n.targets)]
-        self.assertTrue(atrib, 'a decisão de falha sumiu do adaptador')
-        for a in atrib:
-            self.assertNotIsInstance(a.value, ast.Constant,
-                                     'a unidade passou a ter um veredito fixo')
+        """M5 — «DERIVED existe» não pode fechar a unidade como feita.
+
+        ACTUALIZADO NA C10.6C. O veredito vivia em `_com_durabilidade`, dentro
+        do adaptador. Agora sobe pelo trace, em `CANONICAL_STATE`, na língua do
+        dono do vocabulário — e é o executor que o lê.
+
+            QUEM SABE LER `TRANSCRIPT_STATE` É O ADAPTADOR.
+            QUEM DECIDE O ESTADO DA CORRIDA É O EXECUTOR.
+            ENTRE OS DOIS VAI UMA PALAVRA DE `leis/falhas.py`, NÃO UM PALPITE.
+        """
+        for (nome, tem_raw), esperado in ((('OK', True), 'OK'),
+                                          (('OK', False), 'PARTIAL_RESULTS'),
+                                          (('REQUESTED_EMPTY', True), 'ZERO_RESULTS'),
+                                          (('ASR_FALHOU', True), 'ITEM_ERROR'),
+                                          (('NAO_PEDIDO', False), 'NOT_APPLICABLE')):
+            with self.subTest(transcript=nome, raw=tem_raw):
+                v = ad._veredito_da_unidade(
+                    {'TRANSCRIPT_STATE': nome, 'RAW': {'x': 1} if tem_raw else None})
+                self.assertEqual(v, esperado)
+                self.assertIn(v, fx.ESTADOS,
+                              'o adaptador inventou um estado que o dono nao declara')
+
+    def test_17b_o_executor_recusa_um_estado_que_o_dono_nao_declara(self):
+        import scrap_executor as sx
+        import coleta_checkpoint as ck_
+        with self.assertRaises(ValueError):
+            sx._estado_da_corrida([1], {'CANONICAL_STATE': 'INVENTADO'}, ck_)
+        self.assertEqual(sx._estado_da_corrida([1], {'CANONICAL_STATE': 'OK'}, ck_),
+                         ck_.CORRIDA_CONCLUIDA)
+        self.assertEqual(
+            sx._estado_da_corrida([1], {'CANONICAL_STATE': 'ZERO_RESULTS'}, ck_),
+            ck_.CORRIDA_VAZIA)
+        self.assertEqual(
+            sx._estado_da_corrida([1], {'CANONICAL_STATE': 'ITEM_ERROR'}, ck_),
+            ck_.CORRIDA_PARCIAL)
+        self.assertEqual(
+            sx._estado_da_corrida([], {'CANONICAL_STATE': 'ITEM_ERROR'}, ck_),
+            ck_.CORRIDA_FALHOU)
 
     def test_18_o_403_do_ytdlp_nao_e_retentavel(self):
         """M9 — o dono do retry é `leis/falhas.py`, e o mapa respeita-o."""
