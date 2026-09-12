@@ -78,7 +78,12 @@ SAIDA = RAIZ / "data" / "derivados" / "SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.jso
 sys.path.insert(0, str(AQUI))
 import impressao_da_arvore as IMPRESSAO          # noqa: E402
 from pente_fino_da_coleta import ZONAS as PENTE_ZONAS   # noqa: E402
-from censo_da_topologia import LADO_DA_COLETA           # noqa: E402
+from censo_da_topologia import (                        # noqa: E402
+    LADO_DA_COLETA,
+    ESPECIE_DO_UNIVERSO as ESPECIE_DA_TOPOLOGIA,
+    SAIDA as ARTEFATO_DA_TOPOLOGIA,
+    frescura as frescura_da_topologia,
+)
 
 NAO_SEI = "NAO SEI"
 
@@ -115,7 +120,10 @@ ESPECIE_DA_SUPERFICIE = {
     # perguntas. Os membros sao os MESMOS objectos do universo pai, e a especie
     # e outra porque a pergunta e outra.
     "PENTE_FINO_UNIVERSE":                    "COLLECTION_INTERNAL_PIECE",
-    "TOPOLOGY_CENSUS_UNIVERSE":               "SYSTEM_MAP_VISUAL_CARD",
+    # ⚠️ NAO E A PALAVRA ESCRITA A MAO: e a que `censo_da_topologia.py` declara.
+    # A tabela continua a viver aqui; o VALOR desta linha e de quem conta. Escrever
+    # «SYSTEM_MAP_VISUAL_CARD» tambem la criava dois donos do mesmo facto.
+    "TOPOLOGY_CENSUS_UNIVERSE":               ESPECIE_DA_TOPOLOGIA,
     "CASCO_TOOL_CARD_UNIVERSE":               "PORTAL_TOOL_CARD",
     # ⚠️ ESTA CONTA FICHEIROS, E NAO CARTOES — e por isso e que ela obrigou o
     # contrato a declarar uma especie que nao e de cartao (§5.3). Dizer-lhe
@@ -125,7 +133,7 @@ ESPECIE_DA_SUPERFICIE = {
     "FRONTEND_FAMILY_COUNTER":                "SYSTEM_MAP_VISUAL_CARD",
     "FRONTEND_DEFAULT_VIEW_DRAWN":            "SYSTEM_MAP_VISUAL_CARD",
     "PENTE_FINO":                             "COLLECTION_INTERNAL_PIECE",
-    "CENSO_DA_TOPOLOGIA":                     "SYSTEM_MAP_VISUAL_CARD",
+    "CENSO_DA_TOPOLOGIA":                     ESPECIE_DA_TOPOLOGIA,
     "CENSO_DA_COLETA":                        "COLLECTION_CODE_FILE",
     "CENSO_CARDS_SENSORES":                   "PORTAL_TOOL_CARD",
     "STATE_COUNTS":                           "SYSTEM_MAP_VISUAL_CARD",
@@ -481,9 +489,20 @@ def medir(com_topologia: bool) -> dict:
     visual = sorted(i for i, n in nos.items() if n.get("family") in LADO_DA_COLETA)
     pente_ids = {p["id"] for p in (pente or {}).get("PECAS", [])}
 
+    # ⚠️ A ORDEM AQUI E LEI, E NAO ARRUMACAO.
+    #
+    #     UMA COPIA TIRADA DEPOIS DE CORRER O GERADOR NAO E O QUE ESTAVA LA:
+    #     E O QUE ACABOU DE SER ESCRITO.
+    #
+    # O censo agora PERSISTE. Correr o subprocesso reescreve o artefacto — logo
+    # le-lo depois nao responde «o que estava commitado bate com o que o censo
+    # produz agora?», responde «o ficheiro e igual a si mesmo». O commitado e
+    # lido AQUI, antes de o censo tocar no disco.
+    topologia_commitada = ler(Path(ARTEFATO_DA_TOPOLOGIA))
     topologia = None
     if com_topologia:
-        r = subprocess.run([sys.executable, str(AQUI / "censo_da_topologia.py"), "--json"],
+        r = subprocess.run([sys.executable, str(AQUI / "censo_da_topologia.py"),
+                            "--json", "--nao-escrever"],
                            capture_output=True, text=True, encoding="utf-8")
         if r.returncode == 0:
             topologia = json.loads(r.stdout)
@@ -609,6 +628,10 @@ def medir(com_topologia: bool) -> dict:
             "UNIVERSE_DEFINITION": "a coleta e a espera MAIS tudo o que lhes toca por "
                                    "aresta. E um fecho de vizinhanca, nao uma familia.",
             "OWNER": "system-map/scripts/censo_da_topologia.py",
+            # NUMBER -> ARTIFACT -> MEMBERS/RULE/PROVENANCE. Ate ao G2 esta
+            # contagem nao tinha para onde apontar: o censo so imprimia.
+            "SOURCE_ARTIFACT": "system-map/data/topologia.generated.json",
+            "SOURCE_ARTIFACT_FIELD": "EXPANDED.MEMBERS",
             "MEASURED_HEAD": cabeca["HEAD"],
             "MEASURED_TREE": impressao,
             "COUNT": len(topo_ids),
@@ -726,7 +749,7 @@ def medir(com_topologia: bool) -> dict:
             "INCLUSION_RULE": "family in LADO_DA_COLETA, ou vizinho por aresta.",
             "EXCLUSION_RULE": "sem aresta ate a coleta.",
             "WHO_COMPUTES": "system-map/scripts/censo_da_topologia.py",
-            "FROM_WHICH_FILE": "(nenhum — o censo so imprime; nao escreve artefato)",
+            "FROM_WHICH_FILE": "system-map/data/topologia.generated.json",
             "FROM_WHICH_FIELD": "RESUMO.CARTOES_NO_UNIVERSO",
             "FROM_WHICH_HEAD": cabeca["HEAD"],
             "WHERE_DISPLAYED": "docs/operacao/TOPOLOGIA-DA-COLETA.md (escrito a mao)",
@@ -787,15 +810,20 @@ def medir(com_topologia: bool) -> dict:
                 "CARIMBO_DO_MAPA": carimbo_do_mapa,
                 "MAPA_E_DESTA_ARVORE": carimbo_do_mapa == impressao,
                 "ARTEFATOS": [], "STALE": [], "NAO_VERIFICAVEL": []}
-    for nome, caminho in (
-            ("state.generated.json", DADOS / "state.generated.json"),
-            ("architecture.generated.json", DADOS / "architecture.generated.json"),
-            ("sources.generated.json", DADOS / "sources.generated.json"),
-            ("pente-fino.generated.json", DADOS / "pente-fino.generated.json"),
-            ("censo-da-coleta.generated.json", DADOS / "censo-da-coleta.generated.json"),
+    # ⚠️ O TERCEIRO ELEMENTO E O DOCUMENTO JA LIDO, QUANDO EXISTE UM.
+    # O censo da topologia foi corrido acima e reescreveu o proprio artefacto; ler
+    # o disco AQUI perguntaria a um ficheiro acabado de escrever se ele e recente.
+    # A resposta seria sempre sim, e nao queria dizer nada.
+    for nome, caminho, ja_lido in (
+            ("state.generated.json", DADOS / "state.generated.json", None),
+            ("architecture.generated.json", DADOS / "architecture.generated.json", None),
+            ("sources.generated.json", DADOS / "sources.generated.json", None),
+            ("pente-fino.generated.json", DADOS / "pente-fino.generated.json", None),
+            ("censo-da-coleta.generated.json", DADOS / "censo-da-coleta.generated.json", None),
+            ("topologia.generated.json", Path(ARTEFATO_DA_TOPOLOGIA), topologia_commitada),
             ("MATRIZ-CARDS-SENSORES-V1.json",
-             RAIZ / "data" / "derivados" / "MATRIZ-CARDS-SENSORES-V1.json")):
-        d = ler(caminho) or {}
+             RAIZ / "data" / "derivados" / "MATRIZ-CARDS-SENSORES-V1.json", None)):
+        d = (ja_lido if ja_lido is not None else ler(caminho)) or {}
         prov = d.get("PROVENANCE") or {}
         impressao_dele = prov.get("SOURCE_TREE_FINGERPRINT")
         head_dele = prov.get("HEAD", NAO_SEI)
@@ -820,6 +848,40 @@ def medir(com_topologia: bool) -> dict:
             frescura["STALE"].append(nome)
         elif estado == "UNVERIFIABLE":
             frescura["NAO_VERIFICAVEL"].append(nome)
+
+    # ── AUTO-OBSERVABILIDADE DA TOPOLOGIA (contrato §17) ─────────────────
+    # Estas tres perguntas nao podem ser respondidas pelo proprio artefacto:
+    # um ficheiro nao se declara actual a si mesmo (§13.1). Quem as responde e
+    # este ficheiro, que e outro processo, com outro dono, a ler o disco.
+    #
+    #     TOPOLOGY_COUNTS_REPRODUCIBLE compara o que ESTAVA commitado com o que
+    #     o censo produz AGORA. Por isso o commitado foi lido la em cima, antes
+    #     de o subprocesso correr: depois dele, o ficheiro ja e o novo.
+    # ⚠️ COMPARA-SE A MEDICAO, NAO O FICHEIRO INTEIRO. `SEMANTIC_HASH` carrega a
+    # proveniencia e muda em qualquer commit que toque a arvore; usa-lo aqui fazia
+    # «as contagens reproduzem?» responder NO por causa de um comentario editado.
+    def _hash(d):
+        return ((d or {}).get("PROVENANCE") or {}).get("MEASUREMENT_HASH")
+
+    frescura["TOPOLOGIA"] = {
+        "ARTEFATO": "system-map/data/topologia.generated.json",
+        "TOPOLOGY_CENSUS_PERSISTED": "YES" if topologia_commitada else "NO",
+        "TOPOLOGY_ARTIFACT_CURRENT": (
+            frescura_da_topologia(topologia_commitada)["VEREDITO"]
+            if topologia_commitada else "UNKNOWN"),
+        "TOPOLOGY_ARTIFACT_CURRENT_PORQUE": (
+            frescura_da_topologia(topologia_commitada)["PORQUE"]
+            if topologia_commitada else "nao ha artefacto para aferir"),
+        "TOPOLOGY_COUNTS_REPRODUCIBLE": (
+            NAO_SEI if (topologia is None or topologia_commitada is None)
+            else "YES" if _hash(topologia_commitada) == _hash(topologia) else "NO"),
+        "MEASUREMENT_HASH_COMMITADO": _hash(topologia_commitada) or NAO_SEI,
+        "MEASUREMENT_HASH_AGORA": _hash(topologia) or NAO_SEI,
+        "COMO_SE_COMPARA": ("PROVENANCE.MEASUREMENT_HASH — so os blocos medidos, "
+                            "os que o proprio artefacto lista em "
+                            "PROVENANCE.BLOCOS_DA_MEDICAO. A proveniencia fica de "
+                            "fora: ela muda a cada corrida sem que numero nenhum mude."),
+    }
 
     aritmetica = {
         "VISUAL_TOTAL": len(visual),
@@ -997,17 +1059,21 @@ def achar(S, terr, nos, visual, excluidos, frescura, aritmetica,
             "ESTA_MISSAO_CORRIGE": False,
         })
 
-    # ── 5 · A LENTE QUE NAO DEIXA RASTO ──────────────────────────────────
-    a.append({
-        "ACHADO": "CENSO_SEM_ARTEFATO",
-        "GRAVIDADE": "MEDIA",
-        "O_QUE": "censo_da_topologia.py nao escreve ficheiro nenhum: so imprime. "
-                 "A contagem dele so existe enquanto alguem olha para o terminal.",
-        "PORQUE_IMPORTA": "um numero sem artefato nao tem como ser comparado amanha, "
-                          "e por isso nao tem como envelhecer a vista de toda a gente.",
-        "OWNER": "system-map/scripts/censo_da_topologia.py",
-        "ESTA_MISSAO_CORRIGE": False,
-    })
+    # ── 5 · A LENTE QUE NAO DEIXAVA RASTO ────────────────────────────────
+    # ⚠️ ESTA QUEIXA E MEDIDA, NAO ESCRITA. Ela ficou aqui enquanto foi verdade e
+    # saiu sozinha quando deixou de ser — porque um achado que continua publicado
+    # depois de resolvido ensina a gente a nao ler os achados.
+    if not Path(ARTEFATO_DA_TOPOLOGIA).exists():
+        a.append({
+            "ACHADO": "CENSO_SEM_ARTEFATO",
+            "GRAVIDADE": "MEDIA",
+            "O_QUE": "censo_da_topologia.py nao escreve ficheiro nenhum: so imprime. "
+                     "A contagem dele so existe enquanto alguem olha para o terminal.",
+            "PORQUE_IMPORTA": "um numero sem artefato nao tem como ser comparado amanha, "
+                              "e por isso nao tem como envelhecer a vista de toda a gente.",
+            "OWNER": "system-map/scripts/censo_da_topologia.py",
+            "ESTA_MISSAO_CORRIGE": False,
+        })
 
     if not aritmetica["MATCH"] or aritmetica["MEMBROS_DO_PENTE_FORA_DA_VISTA"]:
         a.append({

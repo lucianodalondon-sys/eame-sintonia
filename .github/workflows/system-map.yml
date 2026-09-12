@@ -345,6 +345,26 @@ jobs:
         if: '!cancelled()'
         run: python3 system-map/tests/test_quatro_planos.py
 
+      # O CENSO DA TOPOLOGIA DEIXOU DE SÓ IMPRIMIR.
+      # Ele publicava 111, 65, 590 e mais catorze números, e não escrevia
+      # ficheiro nenhum. Um número que só existe enquanto alguém olha para o
+      # terminal não pode ser comparado amanhã — e por isso não consegue
+      # envelhecer à vista de ninguém.
+      #
+      #     STDOUT NÃO É MEMÓRIA DURÁVEL.
+      #
+      # Esta prova regenera o censo e compara com o artefacto commitado; morde
+      # cada guarda com o defeito que ela devia apanhar (contagem sem membros,
+      # vizinho contado como coleta, aresta duplicada, JSON mexido à mão); e
+      # confere que a frescura sabe dizer STALE quando uma entrada mudou.
+      #
+      # Ela vive aqui e não no portão do mapa de propósito: «o artefacto da
+      # topologia está actual?» não é «o mapa servido é o desta árvore?», e um
+      # veredito sobre duas perguntas não responde a nenhuma.
+      - name: 4o · o censo da topologia deixa artefacto, e ele confere-se
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_topologia_persistida.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         if: '!cancelled()'
         run: |

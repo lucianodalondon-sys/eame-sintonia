@@ -399,7 +399,7 @@ Medido nesta árvore: três números chamavam-se todos «os cartões da coleta»
 |---|---|---|---|
 | a faixa visual | 65 | `family` | `generate_system_map.desenhar()` |
 | o pente fino | 48 | `territory` | `pente_fino_da_coleta.ZONAS` |
-| o censo da topologia | 111 | `family` + fecho por aresta | `censo_da_topologia.py` |
+| o censo da topologia | 111 | `family` + fecho por aresta | `censo_da_topologia.py` → `system-map/data/topologia.generated.json` |
 
 Nenhum estava errado. Nenhum declarava o seu universo, e por isso **nenhum era
 comparável com o do lado**. A pergunta «quantos cartões tem a coleta?» tinha três

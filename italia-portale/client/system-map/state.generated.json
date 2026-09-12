@@ -1950,9 +1950,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/dazzling-cerf-27a7v2",
-    "HEAD": "07ac873b9b1c9fe14726a74b6514fb63407cec38",
-    "GENERATED_AT": "2026-09-12T14:43:24+00:00",
-    "SOURCE_TREE_FINGERPRINT": "05618ff444a801e32af59a9c5102a0b34427744a950c40ebfabbcce2dd546fa7"
+    "HEAD": "e50717e656d82411a8ecb609b68ed2d1b9e8d561",
+    "GENERATED_AT": "2026-09-12T15:55:43+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a4e45db1cfc3f59613d08062648a099b49e6cb6606c3dd8b4eb7917222983d5e"
   },
   "FAMILIES": [
     {
@@ -7025,7 +7025,8 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-MAPA"
+        "C-CI-MAPA",
+        "C-IMPRESSAO-DA-ARVORE"
       ],
       "outbound": [
         "C-RECONCILIACAO-UNIVERSO"
@@ -7033,6 +7034,17 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "BLOCOS_MEDIDOS"
+        ],
+        "palavras": 7,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 7,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -9699,6 +9711,7 @@
         "C-MAPA-DEPLOY"
       ],
       "outbound": [
+        "C-CENSO-TOPOLOGIA",
         "C-MAPA-SCAN",
         "C-RECONCILIACAO-UNIVERSO",
         "C-REVISAO-DA-EVIDENCIA"
@@ -13736,9 +13749,9 @@
           "ESPECIE_DA_SUPERFICIE",
           "MOTIVO_POR_TERRITORIO"
         ],
-        "palavras": 71,
+        "palavras": 69,
         "por_lingua": {},
-        "sem_marca_de_lingua": 71,
+        "sem_marca_de_lingua": 69,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -23621,7 +23634,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 464,
+          "line": 472,
           "snippet": "matriz = ler(RAIZ / \"data\" / \"derivados\" / \"MATRIZ-CARDS-SENSORES-V1.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-CARDS-SENSORES--READS-->C-RECONCILIACAO-UNIVERSO",
@@ -23637,7 +23650,7 @@
         },
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 628,
+          "line": 651,
           "snippet": "\"OWNER\": \"system-map/scripts/censo_cards_sensores.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-CARDS-SENSORES--READS-->C-RECONCILIACAO-UNIVERSO",
@@ -23723,7 +23736,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 435,
+          "line": 443,
           "snippet": "\"OWNER\": \"system-map/scripts/censo_da_coleta.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-COLETA--READS-->C-RECONCILIACAO-UNIVERSO",
@@ -24278,7 +24291,7 @@
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
           "line": 81,
-          "snippet": "from censo_da_topologia import LADO_DA_COLETA           # noqa: E402",
+          "snippet": "from censo_da_topologia import (                        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-TOPOLOGIA--IMPORTS-->C-RECONCILIACAO-UNIVERSO",
             "FROM": "C-CENSO-TOPOLOGIA",
@@ -24312,8 +24325,8 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 486,
-          "snippet": "r = subprocess.run([sys.executable, str(AQUI / \"censo_da_topologia.py\"), \"--json\"],",
+          "line": 504,
+          "snippet": "r = subprocess.run([sys.executable, str(AQUI / \"censo_da_topologia.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-TOPOLOGIA--READS-->C-RECONCILIACAO-UNIVERSO",
             "FROM": "C-CENSO-TOPOLOGIA",
@@ -25064,7 +25077,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 559,
+          "line": 579,
           "snippet": "run: python3 provas/fluxo_no_seco.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-FLUXO-NO-SECO",
@@ -25150,7 +25163,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 408,
+          "line": 428,
           "snippet": "node system-map/scripts/publicar_no_deploy.mjs",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-DEPLOY",
@@ -25488,7 +25501,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 476,
+          "line": 496,
           "snippet": "run: python3 medidas/padrao_da_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PADRAO-COLETA",
@@ -25523,7 +25536,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 490,
+          "line": 510,
           "snippet": "run: python3 provas/valida_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-BIBLIA",
@@ -25558,7 +25571,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 483,
+          "line": 503,
           "snippet": "run: python3 provas/testa_coleta_canonica.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -25574,7 +25587,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 556,
+          "line": 576,
           "snippet": "run: python3 provas/paridade_da_lingua.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -25590,7 +25603,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 562,
+          "line": 582,
           "snippet": "run: python3 provas/testa_golden_path_pdf.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -25625,7 +25638,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 577,
+          "line": 597,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-DEDUPE",
@@ -25660,7 +25673,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 571,
+          "line": 591,
           "snippet": "run: python3 provas/o_encanamento_tem_uma_porta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-ENCANAMENTO",
@@ -25695,7 +25708,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 588,
+          "line": 608,
           "snippet": "run: python3 provas/o_executor_conta_se.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-EXECUTOR-CONTA",
@@ -25730,7 +25743,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 591,
+          "line": 611,
           "snippet": "run: python3 provas/a_fronteira_da_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-FRONTEIRA",
@@ -25765,7 +25778,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 565,
+          "line": 585,
           "snippet": "run: python3 provas/o_mapa_nao_mente.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-MAPA-NAO-MENTE",
@@ -25870,7 +25883,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 497,
+          "line": 517,
           "snippet": "python3 tests/test_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -25886,7 +25899,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 498,
+          "line": 518,
           "snippet": "python3 tests/test_integracao_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -25902,7 +25915,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 499,
+          "line": 519,
           "snippet": "python3 tests/test_observabilidade_estrada.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -25918,7 +25931,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 500,
+          "line": 520,
           "snippet": "python3 tests/test_red_team_estrada.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -25934,7 +25947,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 507,
+          "line": 527,
           "snippet": "run: python3 tests/test_identidade_do_artefato.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -25950,7 +25963,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 514,
+          "line": 534,
           "snippet": "run: python3 tests/test_armazem_italiano.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -25966,7 +25979,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 521,
+          "line": 541,
           "snippet": "run: python3 tests/test_preservar_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -25982,7 +25995,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 529,
+          "line": 549,
           "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -25998,7 +26011,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 536,
+          "line": 556,
           "snippet": "run: python3 tests/test_preservar_derivado.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26014,7 +26027,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 542,
+          "line": 562,
           "snippet": "run: python3 tests/test_porta_de_producao.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -33438,6 +33451,41 @@
     },
     {
       "from": "C-IMPRESSAO-DA-ARVORE",
+      "to": "C-CENSO-TOPOLOGIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Impressao da arvore-fonte tem o seu codigo importado por Censo da topologia da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_da_topologia.py",
+          "line": 389,
+          "snippet": "import impressao_da_arvore as IMPRESSAO          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IMPRESSAO-DA-ARVORE--IMPORTS-->C-CENSO-TOPOLOGIA",
+            "FROM": "C-IMPRESSAO-DA-ARVORE",
+            "TO": "C-CENSO-TOPOLOGIA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IMPRESSAO-DA-ARVORE",
       "to": "C-MAPA-SCAN",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -36259,7 +36307,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 689,
+          "line": 712,
           "snippet": "\"FROM_WHICH_FILE\": \"system-map/app/map.js\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-APP--READS-->C-RECONCILIACAO-UNIVERSO",
@@ -36329,7 +36377,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 394,
+          "line": 414,
           "snippet": "A=$(python3 -c \"import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-CI-MAPA",
@@ -36740,7 +36788,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 384,
+          "line": 392,
           "snippet": "\"OWNER\": \"system-map/scripts/generate_system_map.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-GERADOR--READS-->C-RECONCILIACAO-UNIVERSO",
@@ -37065,7 +37113,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 399,
+          "line": 407,
           "snippet": "\"OWNER\": \"system-map/scripts/pente_fino_da_coleta.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-RECONCILIACAO-UNIVERSO",
@@ -41760,7 +41808,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 375,
+          "line": 383,
           "snippet": "\"OWNER\": \"system-map/data/architecture.declared.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-MAPA-NAO-MENTE--READS-->C-RECONCILIACAO-UNIVERSO",
@@ -50458,8 +50506,8 @@
     "components_pending": 96,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 665,
-    "edges_proven": 618,
+    "edges": 666,
+    "edges_proven": 619,
     "edges_unknown": 47,
     "business_edges": 4,
     "files_tracked": 1502,

@@ -16,6 +16,17 @@ VEREDITO    C-TOPOLOGY-1 = PASS
 > python3 system-map/scripts/validate_system_map.py
 > ```
 
+> **E desde o `G2` todo número aqui tem para onde apontar.** O censo deixou de
+> só imprimir: ele escreve
+> [`system-map/data/topologia.generated.json`](../../system-map/data/topologia.generated.json),
+> com os membros de cada população, a regra de entrada, a proveniência e a
+> versão de cada input que leu.
+>
+>     STDOUT NÃO É MEMÓRIA DURÁVEL.
+>
+> Este documento é leitura, e o artefacto é a fonte. Onde os dois divergirem,
+> o artefacto vence — ele é medido a cada corrida, e o texto é de 2026-09-09.
+
 ---
 
 ## 1 · O QUE O UTILIZADOR VIA, E O QUE ERA

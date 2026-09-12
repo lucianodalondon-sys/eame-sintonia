@@ -3,9 +3,10 @@
 ```
 MISSAO        C-DESIGN-SYSTEM-MAP-TRUST-CONTRACT-V1
 BRANCH        claude/dazzling-cerf-27a7v2
-BASE MEDIDA   07ac873b → G0 e G1 implementados
+BASE MEDIDA   07ac873b → G0, G1 e G2 implementados
 DATA          2026-09-12
-ESTADO        CONTRATO · G0 fechou C6; G1 fechou C4 e C4b
+ESTADO        CONTRATO · G0 fechou C6; G1 fechou C4 e C4b; G2 pagou a dívida
+              da topologia sem artefacto
 VEREDITO      CURRENT_SYSTEM_MAP_TRUST = DEGRADED  ·  nenhuma condição de FAIL
 ```
 
@@ -636,8 +637,27 @@ dois foi validado.
 Um número que só existe enquanto alguém olha para o terminal não pode envelhecer
 à vista de ninguém, e por isso não pode ser comparado amanhã.
 
-Medido em falta: `censo_da_topologia.py` publica 111 e não escreve artefacto. O
-número entra em documentação escrita à mão, que é a definição de segundo dono.
+~~Medido em falta: `censo_da_topologia.py` publica 111 e não escreve artefacto. O
+número entra em documentação escrita à mão, que é a definição de segundo dono.~~
+
+**Pago pelo `G2`.** O censo escreve
+[`system-map/data/topologia.generated.json`](../../system-map/data/topologia.generated.json)
+com `PROVENANCE`, `INPUTS` versionados, as três populações enumeradas e as arestas
+no modelo do `G1`. O número 111 passou a ter para onde apontar, e a contagem que o
+produziu passou a poder ser comparada amanhã.
+
+O artefacto **não** declara a própria frescura — isso seria auto-prova. Quem
+responde `CURRENT · STALE · UNVERIFIABLE · UNKNOWN` é `censo_da_topologia.frescura()`,
+corrido contra a árvore de agora, e a resposta aparece na reconciliação, que é
+outro processo. A medição fica com dois números, porque são duas perguntas:
+
+| número | pergunta | muda quando |
+|---|---|---|
+| `MEASUREMENT_HASH` | as contagens reproduzem-se? | o grafo medido muda |
+| `SEMANTIC_HASH` | o ficheiro é o que foi escrito? | qualquer campo não volátil muda |
+
+Usar um só para as duas responde mal às duas: o segundo move-se em cada commit
+que toque a árvore, e diria «as contagens mudaram» por causa de um comentário.
 
 ---
 
@@ -939,6 +959,13 @@ vizinhos de fronteira, e os 46 são enumerados.
 
 `ÓRFÃO NA VISTA != ÓRFÃO NO GRAFO` continua a valer nos dois sentidos.
 
+Desde o `G2` as três populações estão **enumeradas num artefacto**, cada uma com
+o seu `UNIVERSE_ID` e a sua `ENTITY_SPECIES`:
+[`system-map/data/topologia.generated.json`](../../system-map/data/topologia.generated.json)
+(`UNIVERSE` · `BOUNDARY_NEIGHBORS` · `EXPANDED`). Somar as duas primeiras é uma
+operação que o artefacto mostra em `ARITMETICA`; confundi-las deixou de ser
+possível em silêncio, porque a prova reprova quem o tente.
+
 ---
 
 ## 23 · DECISÕES EXPLÍCITAS
@@ -1193,7 +1220,7 @@ dívidas — e dívida rotulada é exatamente o que `DEGRADED` significa:
 |---|---|
 | exclusões com `INTENTIONAL=UNKNOWN` | 12 |
 | artefactos `UNVERIFIABLE` | 4 |
-| censos que publicam número sem persistir | 1 |
+| censos que publicam número sem persistir | 0 (era 1, fechado pelo `G2`) |
 | violação de `ONE CHAIN OWNER` | 13 scripts fora do manifesto |
 | entidades com `ROLE` atribuído | 0 de 160 |
 | cobertura de runtime | 2 de 57 |
@@ -1203,13 +1230,16 @@ dívidas — e dívida rotulada é exatamente o que `DEGRADED` significa:
 impressão são gaps reais e baratos, mas nenhum deles fecha uma condição de
 `FAIL` — fecham dívidas de `DEGRADED`. A versão anterior confundia as duas coisas.
 
+`G2` foi feito na mesma, e o veredito **não** se mexeu: continua `DEGRADED`. Um gap
+que fecha uma dívida não promove nada, e foi por isso que ele não entrou no mínimo.
+
 ### 26.4 · A DAG completa até `PASS`
 
 | # | gap | fecha | depende de |
 |---|---|---|---|
 | ~~**G0**~~ | `ENTITY_SPECIES` em cada universo e cada lente | **C6 · FAIL** | ✅ **FEITO** |
 | ~~**G1**~~ | quatro planos por afirmação **+** `ASSERTION_SUPPORTED` por evidência | **C4 e C4b · FAIL** | ✅ **FEITO** |
-| G2 | persistir o censo da topologia como artefacto | dívida | nada |
+| ~~**G2**~~ | persistir o censo da topologia como artefacto | dívida | ✅ **FEITO** |
 | G3 | carimbar a impressão da árvore nos 4 artefactos `UNVERIFIABLE` | dívida | nada |
 | G4 | declarar `INPUTS`/`OUTPUTS` por passo no manifesto | dívida | G3 |
 | G5 | unificar a cadeia: o manifesto declara os 21 passos | dívida | G4 |
@@ -1224,7 +1254,7 @@ impressão são gaps reais e baratos, mas nenhum deles fecha uma condição de
 
 ```
 SAIR DE FAIL      []                G0 e G1 feitos; o mapa já saiu
-CHEGAR A PASS     G2..G13, e só quando nenhuma dívida ficar por rotular
+CHEGAR A PASS     G3..G13, e só quando nenhuma dívida ficar por rotular
 ```
 
 A lista da §26.4 é a **DAG completa**, e mantém `G0` riscado em vez de o apagar:
