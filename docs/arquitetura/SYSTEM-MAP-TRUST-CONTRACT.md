@@ -3,9 +3,10 @@
 ```
 MISSAO        C-DESIGN-SYSTEM-MAP-TRUST-CONTRACT-V1
 BRANCH        claude/dazzling-cerf-27a7v2
-BASE MEDIDA   c828d1ac  (system-map, reconciliação)
+BASE MEDIDA   1f81eb6c  (system-map, reconciliação)
 DATA          2026-09-12
 ESTADO        CONTRATO — nenhuma implementação nesta missão
+VEREDITO      CURRENT_SYSTEM_MAP_TRUST = FAIL  ·  três causas, §25
 ```
 
 > Este documento é **contrato, não implementação**. Ele diz o que o System Map
@@ -20,7 +21,7 @@ aponta para ela sempre que ela já responde. Uma lei em dois sítios diverge.
 
 ## 0 · O QUE ESTE CONTRATO MEDE, E QUANDO
 
-Todo número citado aqui foi medido em `c828d1ac` com os comandos ao lado. Um
+Todo número citado aqui foi medido em `1f81eb6c` com os comandos ao lado. Um
 número sem comando não entrou.
 
 ```bash
@@ -39,6 +40,27 @@ python3 system-map/tests/test_reconciliacao_do_universo.py
 | arestas com `status = UNKNOWN` | 2 | `EDGES[].status` |
 | nós com `status = PROVEN` | 59 | `NODES[].status` |
 | executores com prova de execução | 2 de 57 | `provas-de-execucao.json · PROVADOS` |
+| linhas de evidência distintas | 1160 | `EDGES[].evidence[]` |
+| linhas emprestadas entre afirmações | 37, em 52 arestas | idem |
+| universos que declaram `ENTITY_SPECIES` | **0 de 6** | `SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json` |
+| lentes que declaram `ENTITY_SPECIES` | **0 de 7** | idem |
+
+E o CI real, lido da API do GitHub no mesmo HEAD (`run 34695710151`):
+
+| job | conclusão | passo vermelho |
+|---|---|---|
+| `SYSTEM MAP CHECK` | **success** | — |
+| `MAP RULES CHECK` | **failure** | `4l · a impressão mede a árvore` |
+| `COLETA CHECK` | **failure** | `3 · o padrão do departamento de coleta não piorou` |
+
+As duas falhas são **pré-existentes**, provadas contra o baseline `a93acfdf`
+(`run 34690772561`): mesmo job, mesmo passo, mesmo nome, antes de qualquer
+commit desta linha de trabalho. Nenhuma delas é do mapa: a primeira é a lista de
+`if: !cancelled()` do workflow, a segunda é do departamento de coleta e está
+vermelha desde antes, como `CADEIA-DO-MAPA.json` já escreve.
+
+> **`SYSTEM MAP CHECK` verde não é «o CI está verde».** Dois jobs continuam
+> vermelhos, nomeados, e este contrato não os pinta de outra cor.
 
 ---
 
@@ -705,6 +727,40 @@ cadeia não correu, o validador não correu, ou a reconciliação não existe.
 `PASS` é o **último** recurso, nunca o estado por omissão — a mesma ordem que
 `freshness.js` já prova por força bruta.
 
+### 16.5 · O QUE **NÃO** MOVE `TRUST`, E POR QUÊ
+
+`TRUST` mede **o que o mapa afirma**, não **como o mapa é construído**. Um risco
+de processo que ainda não produziu uma afirmação falsa não torna as afirmações
+menos verdadeiras. Confundir os dois transformaria `TRUST` num veredito sobre
+engenharia, e ele deixaria de responder à pergunta de quem lê a tela.
+
+| não move `TRUST` | move quando |
+|---|---|
+| violar `ONE CHAIN OWNER` | as duas cadeias produzirem mapas diferentes → C1 |
+| um censo não persistir o seu número | esse número for publicado e não puder ser reconciliado → C2 |
+| cobertura de runtime baixa | for apresentada como alta, ou com denominador indefensável → C6 |
+| um gap aberto na roadmap | ele corresponder a uma condição da §16.3 |
+
+Tudo o que está nesta coluna **tem** de aparecer na auto-observabilidade (§17).
+Não mover `TRUST` não é razão para desaparecer.
+
+> **UM RISCO QUE NÃO TEM ONDE APARECER É UM RISCO QUE NINGUÉM VAI VER.**
+
+### 16.6 · O LIMITE DO VALIDADOR, DECLARADO
+
+`P1_SEM_DRIFT` regenera e compara com o commitado. Isso prova que **o gerador é
+determinístico sobre esta árvore**. Não prova que o mapa está certo.
+
+```
+O MAPA CORRESPONDE AO REPOSITÓRIO  !=  O MAPA DIZ A VERDADE SOBRE O REPOSITÓRIO.
+```
+
+Se o gerador tiver um erro sistemático, `P1` passa para sempre e com razão: ele
+está a responder a outra pergunta. Isto **não é auto-prova** (§13.1) — o
+validador não afirma que o mapa é verdadeiro —, mas é uma `LIMITATION` que tem de
+viajar com o veredito, porque um `PASS` do validador lido como «o mapa está
+certo» é a leitura mais natural e a mais errada.
+
 ---
 
 ## 17 · AUTO-OBSERVABILIDADE
@@ -721,7 +777,14 @@ CONFLICTS                    conflitos OPEN
 STALE_CRITICAL_EVIDENCE      evidência crítica STALE
 UNKNOWN_CRITICAL_EVIDENCE    evidência crítica UNKNOWN ou UNVERIFIABLE
 RUNTIME_COVERAGE             §17.1
+CHAIN_SINGLE_OWNER           o manifesto declara todos os passos que correm?
+SPECIES_DECLARED_ON_COUNTS   toda contagem publicada diz de que espécie é?
 ```
+
+As duas últimas existem porque medem coisas que **não movem `TRUST`** (a
+primeira) ou que **o movem e ninguém veria** (a segunda). Uma métrica de
+auto-observabilidade que só repete o veredito não acrescenta nada; estas duas
+mostram o que o veredito sozinho esconde.
 
 ### 17.1 · `RUNTIME_COVERAGE` — o denominador tem de ser defensável
 
@@ -873,7 +936,7 @@ Vinte ataques. Cada um tem de produzir resultado inequívoco.
 | 8 | mesmo nome, identidades diferentes | nome é `PRESENTATION`. Legal, e obriga a rótulo desambiguador na tela |
 | 9 | fonte da evidência `UNKNOWN` | evidência sem `SOURCE` é inválida; a afirmação cai para `UNKNOWN` |
 | 10 | teste passa, produção desconhecida | `TEST` prova o teste. `LIVE=UNKNOWN`. `FAIL` se publicado como LIVE |
-| 11 | dois workflows geram mapas diferentes | viola `ONE CHAIN OWNER` → `FAIL` |
+| 11 | dois workflows geram mapas diferentes | `FAIL` por C1 — mas **medido: não acontece hoje**. Ver §24.1 |
 | 12 | contagem hardcoded no frontend | sem `WHO_COMPUTES`/`MEMBERS` → não publicável; `FAIL` |
 | 13 | scanner vê docstring e conclui aresta | `STATIC_CODE_ANALYSIS` sem `AST` tem `LIMITATIONS`; menção não é referência |
 | 14 | aresta inferida de nome de ficheiro | não é classe de evidência. Rejeitada |
@@ -887,106 +950,230 @@ Vinte ataques. Cada um tem de produzir resultado inequívoco.
 
 **Sobreviventes: 0.** Nenhum ataque produz resultado ambíguo sob o contrato.
 
+### 24.1 · O ataque 11, medido — e a correção que ele obrigou
+
+A primeira versão deste ataque dizia: *«viola `ONE CHAIN OWNER` → `FAIL`»*. Isso
+contradizia a §16.3, onde nenhuma das sete condições é «violar `ONE CHAIN OWNER`».
+O red team classificava `FAIL` uma coisa que o TRUST MODEL não classifica.
+
+Correr as duas cadeias em clones separados do mesmo commit resolveu a dúvida:
+
+| | cadeia de 7 (manifesto, e a build da Vercel) | cadeia de 21 (job `mapa`) |
+|---|---|---|
+| `architecture.generated.json` | — | **idêntico** |
+| `state.generated.json` | — | **idêntico** |
+| `sources.generated.json` | — | **idêntico** |
+| impressão da árvore | `d692478a…` | `8e6f06e4…` **difere** |
+
+**As duas cadeias produzem o mesmo mapa.** O que difere é a impressão da árvore,
+e difere porque os 13 censos extra reescrevem artefactos que carimbam SHA de
+commit — ou seja, pela mesma dívida `UNVERIFIABLE` já nomeada, e não pela divisão
+da cadeia.
+
+Logo:
+
+```
+VIOLAR ONE CHAIN OWNER        →  risco latente, não afirmação falsa  →  não move TRUST
+DUAS CADEIAS DAREM MAPAS DIFERENTES  →  contradição publicada (C1)   →  FAIL
+```
+
+A violação **existe hoje** e o sintoma **não**. O contrato passa a dizer as duas
+coisas em vez de as confundir — e põe `CHAIN_SINGLE_OWNER` na
+auto-observabilidade (§17), para que um risco que não move `TRUST` continue
+visível em vez de desaparecer por não ter onde aparecer.
+
 ---
 
 ## 25 · VEREDITO SOBRE O MAPA ATUAL
 
-Aplicando este contrato ao estado medido em `c828d1ac`, sem herdar veredito
+Aplicando este contrato ao estado medido em `1f81eb6c`, sem herdar veredito
 anterior:
 
 ```
 CURRENT_SYSTEM_MAP_TRUST = FAIL
 ```
 
-**São duas causas, ambas nomeáveis e limitadas.**
+### 25.1 · TODAS as condições de `FAIL`, percorridas uma a uma
 
-### Causa 1 · a palavra promete o plano seguinte
+A primeira versão desta secção narrava duas causas. Percorrer **literalmente** as
+sete condições da §16.3 encontrou uma terceira, e ela estava no artefacto que
+este contrato usa como exemplo de boa prática.
 
-> O mapa publica `status = PROVEN` em **658 arestas** e **59 nós** apoiado
-> exclusivamente em análise estática.
+> **NARRAR AS CAUSAS QUE SE CONHECE NÃO É PERCORRER AS CONDIÇÕES QUE SE ESCREVEU.**
 
-As razões que o próprio mapa escreve dizem-no: *«Provado por 1 linha de codigo»*,
-*«outra peca importa isto»*, *«algum workflow manda rodar isto»*. Todas provam
-`CODE`. Nenhuma prova `OBSERVED`. **Zero arestas e zero nós têm evidência de
-runtime.** Os únicos 2 caminhos com prova de execução vivem noutro ficheiro e não
-alimentam `status`.
+| # | condição da §16.3 | acionada? | prova medida em `1f81eb6c` | gap que a fecha |
+|---|---|---|---|---|
+| C1 | contradição publicada sem conflito declarado | **NÃO** | nenhum campo de conflito é publicado, e nenhuma afirmação contradiz outra. As 2 arestas não-`PROVEN` são `UNKNOWN` com razão escrita | — |
+| C2 | contagem irreconciliável | **NÃO** | `65 == 48 + 17`; `COUNT == len(MEMBERS)` em todos os universos; zero membros do pente fora da vista | — |
+| C3 | `STALE`/`UNVERIFIABLE` apresentado como `CURRENT` | **NÃO** | `STALE = []`; os 4 `UNVERIFIABLE` estão rotulados, e a prova `4m` reprova se algum disser `CURRENT` | — |
+| C4 | `OBSERVED`/`PROVEN` sem evidência da classe própria | **SIM** | 658 arestas e 59 nós dizem `PROVEN` sobre evidência estática; 0 têm evidência de runtime | G1 |
+| C5 | auto-prova | **NÃO** | o validador corre o gerador como subprocesso e compara com o que está no disco; não partilha estado. Ver a limitação em §16.6 | — |
+| C6 | contagem publicada sem espécie ou sem universo | **SIM** | **0 de 6 universos e 0 de 7 lentes publicam `ENTITY_SPECIES`.** A §12.1 exige-o e a §5.2 proíbe a contagem sem ele | G0 |
+| C7 | exclusão sem razão | **NÃO** | 17 de 17 têm `REASON`, `OWNER` e `INTENTIONAL` | — |
 
-Pior do que a promoção a partir de `CODE`: das 40 arestas **sem tipo medido** —
-rótulos narrativos de declaração — **38 também publicam `PROVEN`**. Aí a promoção
-parte de `DECLARED`, e salta dois planos de uma vez.
+E a causa da §7.1, que não é uma das sete mas aciona C4 por outro caminho:
+
+| | | | | |
+|---|---|---|---|---|
+| C4b | evidência que não sustenta a afirmação que lhe está ligada | **SIM** | 37 linhas sustentam `RELATION_TYPE` diferentes, em 52 arestas | G1 |
+
+### 25.2 · As três causas
+
+**CAUSA 0 · a contagem não diz de que espécie é.** Os seis universos e as sete
+lentes publicam `COUNT` e `MEMBERS` sem `ENTITY_SPECIES`. A prosa de
+`UNIVERSE_DEFINITION` descreve o que conta, mas nenhuma máquina consegue juntar a
+contagem à espécie. É a mais barata das três e é do próprio artefacto desta
+missão — o contrato apanhou-se a si mesmo.
+
+**CAUSA 1 · a palavra promete o plano seguinte.** 658 arestas e 59 nós publicam
+`status = PROVEN` apoiados só em análise estática. As razões que o mapa escreve
+dizem-no: *«Provado por 1 linha de codigo»*, *«outra peca importa isto»*. Todas
+provam `CODE`.
+
+Das 40 arestas **sem tipo medido**, **38 também dizem `PROVEN`**: aí a promoção
+parte de `DECLARED` e salta dois planos de uma vez.
 
 E `OBSERVED` não está apenas ausente: **é irrepresentável.** O esquema de aresta
-não tem campo de `RUN_ID`, `OBSERVED_AT` nem `ENVIRONMENT`. Não há onde escrever
-uma observação, mesmo que alguém a medisse.
+não tem `RUN_ID`, `OBSERVED_AT` nem `ENVIRONMENT`.
 
-### Causa 2 · uma linha de evidência sustenta afirmações que ela não prova
+**CAUSA 2 · a evidência está ligada à afirmação errada.** 37 linhas, 52 arestas.
+O caso literal está na §7.1.
 
-Medido: **37 linhas** sustentam `RELATION_TYPE` diferentes, em **52 arestas**. O
-caso literal está na §7.1 — um `import` a sustentar três afirmações de abertura
-de canal.
+### 25.3 · O TESTE CONCRETO — as quatro arestas, depois de G1 parcial
 
-Cada causa, sozinha, aciona a §16.3: *«`OBSERVED` ou `PROVEN` afirmado sem
-evidência da classe própria»*.
+Simulação literal, sobre as arestas reais medidas em `1f81eb6c`. Suponha-se feito
+**apenas** o rótulo dos quatro planos, e **não** o `ASSERTION_SUPPORTED`:
 
-**O que NÃO é a causa, e é preciso dizer:**
+| aresta | evidência ligada hoje | `DECLARED` | `CODE` | `OBSERVED` | `PROVEN` | `EVIDENCE_VALID_FOR_ASSERTION` |
+|---|---|---|---|---|---|---|
+| `C-APIFY-POOL → C-COLETA-PUBLICA` `IMPORTS` | `comunicacao_coleta.py:57` (`import apify_pool`) | YES | **YES** | UNKNOWN | NO | **SIM** |
+| `C-APIFY-POOL → V-FACEBOOK` `ABRE_O_CANAL` | a **mesma** linha 57 | YES | **YES** ⚠ | UNKNOWN | NO | **NÃO** |
+| `C-APIFY-POOL → V-INSTAGRAM` `ABRE_O_CANAL` | a **mesma** linha 57 | YES | **YES** ⚠ | UNKNOWN | NO | **NÃO** |
+| `C-APIFY-POOL → V-LINKEDIN` `ABRE_O_CANAL` | a **mesma** linha 57 | YES | **YES** ⚠ | UNKNOWN | NO | **NÃO** |
 
-- Nada foi falsificado. Todas as 1160 linhas de evidência apontam ficheiro e
-  linha reais, e o texto de cada `reason` descreve honestamente o que mediu.
-- As contagens reconciliam. `65 = 48 + 17`, `COUNT == len(MEMBERS)`, toda exclusão
-  tem razão e dono.
-- A frescura do servido é medida e não mente: `UNVERIFIABLE` nunca vira `CURRENT`.
-- O mapa não está a esconder nada. Está a **prometer de mais** sobre o que mostra.
+O rótulo dos planos pergunta **«de que classe é esta evidência?»**. A resposta é
+`STATIC_CODE_ANALYSIS`, que pela §8 prova `CODE` — e por isso as três arestas
+`ABRE_O_CANAL` sairiam com `CODE = YES`.
 
-**As duas causas têm preços diferentes, e isso importa para quem as vai fechar.**
+E `CODE = YES` ali é falso. A linha prova que `apify_pool` é importado. Não prova
+que a ferramenta abre o Facebook.
 
-A Causa 1 é uma colisão de vocabulário: as 658 medições estão certas, e só a
-palavra publicada sobre elas promete o plano seguinte. Renomear `status: PROVEN`
-→ `CODE` e abrir os quatro planos como campos separados fecha-a **sem medir uma
-única coisa nova**.
+> **A PERGUNTA «DE QUE CLASSE É ESTA EVIDÊNCIA?» NUNCA RESPONDE
+> «ESTA EVIDÊNCIA SUSTENTA ESTA AFIRMAÇÃO?».**
 
-A Causa 2 **não** é vocabulário: em 52 arestas a evidência está ligada à afirmação
-errada, e nenhum renomear conserta isso. Fechá-la exige rever, uma a uma, que
-afirmação cada linha sustenta — e aceitar que algumas ficarão sem evidência, ou
-seja, `UNKNOWN`. **São 52 de 660: caro por aresta, barato no total.**
+Não há mecanismo dentro do rótulo dos planos que rebaixe estas três a `UNKNOWN`.
+Quem as rebaixa é `ASSERTION_SUPPORTED`, e nada mais. **A dependência não pode
+ser escondida: ela é a mesma correção vista de dois lados.**
 
-Com as duas fechadas, o mapa fica em `DEGRADED` — não `PASS` — porque continuam
-declaradas estas dívidas:
+---
+
+## 26 · A DAG DOS GAPS — CORRIGIDA
+
+### 26.1 · A contradição que a revisão encontrou
+
+A primeira versão desta secção listava `8b` como gap separado e encerrava com:
+
+> *«Os gaps 1, 2 e 3 não dependem de nada e sozinhos tiram o mapa de `FAIL`.»*
+
+**Isso era falso**, e falso pela própria §16.3: com `8b` aberto, a Causa 2
+permanece, e a Causa 2 aciona C4 sozinha. A frase media o **custo** dos gaps e
+apresentava o resultado como se medisse o **estado de TRUST**.
+
+> **UMA ROADMAP QUE PROMETE UM ESTADO QUE O SEU PRÓPRIO CONTRATO NEGA
+> É PIOR DO QUE NÃO TER ROADMAP: ELA DIZ QUE SE PODE PARAR ANTES.**
+
+### 26.2 · `G1` absorve `8b` — e fica maior, não menor
+
+Testado nos dois sentidos:
+
+| tentativa | resultado |
+|---|---|
+| rotular planos **sem** `ASSERTION_SUPPORTED` | 52 arestas saem com `CODE=YES` falso → C4 continua → `FAIL` |
+| `ASSERTION_SUPPORTED` **sem** rotular planos | `status: PROVEN` continua → C4 continua → `FAIL` |
+
+Nenhum dos dois, sozinho, sai de `FAIL`. Os dois editam o **mesmo código** (a
+emissão de nós e arestas do gerador) e produzem os **mesmos campos**. Não se pode
+atribuir corretamente um plano sem ter decidido que afirmação a evidência
+sustenta: a segunda pergunta é **entrada** da primeira.
+
+```
+ONE CONCEPT → ONE OWNER — e isso vale também para a roadmap.
+```
+
+Por isso `8b` é **fundido** em `G1`. A fusão **aumenta** o âmbito de `G1`: ele
+deixa de ser «renomear um campo» e passa a incluir a revisão, uma a uma, das 52
+atribuições de evidência. Não é otimização para a lista ficar curta — é o nome
+honesto do trabalho que já era necessário.
+
+### 26.3 · `FAIL_CAUSE → REQUIRED_GAPS → TRUST_STATE_AFTER`
+
+```
+CAUSE_0  (C6)  contagem sem ENTITY_SPECIES
+  → REQUIRED_GAPS = [G0]
+  → TRUST_STATE_AFTER (só G0) = FAIL      C4 continua acionada
+
+CAUSE_1  (C4)  PROVEN/CODE afirmado sem evidência da classe própria
+CAUSE_2  (C4b) evidência ligada à afirmação errada
+  → REQUIRED_GAPS = [G1]                  (G1 já contém o antigo 8b)
+  → TRUST_STATE_AFTER (só G1) = FAIL      C6 continua acionada
+
+MINIMUM_GAPS_TO_LEAVE_FAIL = [G0, G1]
+TRUST_STATE_AFTER([G0, G1]) = DEGRADED
+```
+
+`DEGRADED` e não `PASS`, porque continuam declaradas, **rotuladas**, estas
+dívidas — e dívida rotulada é exatamente o que `DEGRADED` significa:
 
 | dívida | medida |
 |---|---|
 | exclusões com `INTENTIONAL=UNKNOWN` | 12 |
 | artefactos `UNVERIFIABLE` | 4 |
-| censos que publicam número sem persistir | 1 (`censo_da_topologia`) |
+| censos que publicam número sem persistir | 1 |
 | violação de `ONE CHAIN OWNER` | 13 scripts fora do manifesto |
 | entidades com `ROLE` atribuído | 0 de 160 |
 | cobertura de runtime | 2 de 57 |
-| arestas com evidência emprestada | 52 de 660 |
-| arestas onde `OBSERVED` é sequer representável | 0 de 660 |
+| arestas onde `OBSERVED` é representável | 0 de 660 |
 
----
+**Nem `G2` nem `G3` entram no mínimo.** Persistir a topologia e carimbar a
+impressão são gaps reais e baratos, mas nenhum deles fecha uma condição de
+`FAIL` — fecham dívidas de `DEGRADED`. A versão anterior confundia as duas coisas.
 
-## 26 · GAPS ORDENADOS ATÉ `PASS` — LISTA, NÃO EXECUÇÃO
+### 26.4 · A DAG completa até `PASS`
 
-Ordenados pela **menor dependência arquitetural**. Nenhum é executado nesta missão.
-
-| # | gap | depende de | custo |
+| # | gap | fecha | depende de |
 |---|---|---|---|
-| 1 | separar `status` em `DECLARED/CODE/OBSERVED/PROVEN` em nós e arestas | nada | gerador + tela |
-| 2 | persistir o censo da topologia como artefacto | nada | um `json.dump` |
-| 3 | carimbar `SOURCE_TREE_FINGERPRINT` nos 4 artefactos `UNVERIFIABLE` | nada | 4 geradores |
-| 4 | declarar `INPUTS`/`OUTPUTS` por passo no manifesto | 3 | manifesto |
-| 5 | unificar a cadeia: manifesto passa a declarar os 21 passos | 4 | manifesto + workflow + `SMF-13` |
-| 6 | ordenar a cadeia por `INPUTS` e fechar a lei do ciclo atrasado (§9.2) | 4, 5 | cadeia |
-| 7 | atribuir `ROLE` às 160 entidades | 1 | medição + decisão humana |
-| 8 | pente fino por `ROLE` em vez de tupla de territórios | 7 | pente fino + reconciliação |
-| 8b | `ASSERTION_SUPPORTED` por evidência, e desfazer os 37 empréstimos | 1 | gerador |
-| 9 | `LIMITATIONS` obrigatório em toda evidência publicada | 1 | gerador |
-| 10 | modelo de conflito publicado | 1, 9 | gerador + tela |
-| 11 | `RUNTIME_COVERAGE` com denominador por `ROLE` | 7 | censo |
-| 12 | ligar `provas-de-execucao.json` a `OBSERVED` de nós e arestas | 1, 10 | gerador |
-| 13 | painel de auto-observabilidade (§17) | 1–12 | tela |
+| **G0** | `ENTITY_SPECIES` em cada universo e cada lente | **C6 · FAIL** | nada |
+| **G1** | quatro planos por afirmação **+** `ASSERTION_SUPPORTED` por evidência | **C4 e C4b · FAIL** | nada |
+| G2 | persistir o censo da topologia como artefacto | dívida | nada |
+| G3 | carimbar a impressão da árvore nos 4 artefactos `UNVERIFIABLE` | dívida | nada |
+| G4 | declarar `INPUTS`/`OUTPUTS` por passo no manifesto | dívida | G3 |
+| G5 | unificar a cadeia: o manifesto declara os 21 passos | dívida | G4 |
+| G6 | ordenar a cadeia por `INPUTS`; fechar a lei do ciclo atrasado | dívida | G4, G5 |
+| G7 | atribuir `ROLE` às 160 entidades | dívida | G1 |
+| G8 | pente fino por `ROLE` em vez de tupla de territórios | dívida | G7 |
+| G9 | `LIMITATIONS` obrigatório em toda evidência publicada | dívida | G1 |
+| G10 | modelo de conflito publicado | dívida | G1, G9 |
+| G11 | `RUNTIME_COVERAGE` com denominador por `ROLE` | dívida | G7 |
+| G12 | ligar `provas-de-execucao.json` a `OBSERVED` de nós e arestas | dívida | G1, G10 |
+| G13 | painel de auto-observabilidade (§17) | dívida | G0–G12 |
 
-Os gaps **1, 2 e 3 não dependem de nada** e sozinhos tiram o mapa de `FAIL`.
+```
+SAIR DE FAIL      [G0, G1]
+CHEGAR A PASS     G0..G13, e só quando nenhuma dívida ficar por rotular
+```
+
+### 26.5 · RED TEAM DA ROADMAP
+
+| # | ataque | veredito |
+|---|---|---|
+| A | fazer só `G1` e deixar os 52 empréstimos | **impossível por construção.** `G1` contém-nos desde a fusão. Antes da fusão, o resultado era `FAIL` com C4b acionada |
+| B | fazer só `ASSERTION_SUPPORTED` e manter `PROVEN` estático | `FAIL`. C4 continua: 658 arestas continuam a dizer `PROVEN` sobre evidência de `CODE` |
+| C | fazer `G1 + G2 + G3` e verificar se sobra condição de `FAIL` | **`FAIL`.** C6 continua acionada — `G0` não está lá. Foi exatamente este ataque que encontrou a Causa 0 |
+| D | a roadmap afirma `DEGRADED` com uma condição de `FAIL` viva | a §16.4 avalia `FAIL` **antes** de `DEGRADED`. Uma roadmap que o contradiga é ela própria o defeito, e foi o que a §26.1 corrigiu |
+| E | dois gaps reclamam a mesma correção | `ONE CONCEPT → ONE OWNER` aplica-se à roadmap. Medido e corrigido: `8b` fundido em `G1` |
+
+**Sobreviventes: 0.** O ataque C produziu uma causa nova, que é o resultado
+correto de um red team a sério.
 
 ---
 
@@ -1006,6 +1193,16 @@ O ERRO MAIS CARO NÃO É MEDIR MAL. É MEDIR BEM E PUBLICAR A PALAVRA ERRADA:
 E A MEDIÇÃO ESTAVA CERTA EM TODAS.
 
 ANÁLISE ESTÁTICA PROVA CAN DO. SÓ TELEMETRIA PROVA DID DO.
+
+E UMA SEGUNDA LIÇÃO, QUE SÓ APARECEU NA REVISÃO:
+
+NARRAR AS CAUSAS QUE SE CONHECE NÃO É PERCORRER AS CONDIÇÕES QUE SE ESCREVEU.
+O CONTRATO TINHA SETE CONDIÇÕES DE FAIL E EU NARREI DUAS. PERCORRER AS SETE,
+UMA A UMA E COM MEDIÇÃO AO LADO, ENCONTROU UMA TERCEIRA — E ELA ESTAVA NO
+ARTEFATO QUE O PRÓPRIO CONTRATO USAVA COMO EXEMPLO DE BOA PRÁTICA.
+
+UMA ROADMAP QUE PROMETE UM ESTADO QUE O SEU PRÓPRIO CONTRATO NEGA É PIOR DO
+QUE NÃO TER ROADMAP: ELA DIZ QUE SE PODE PARAR ANTES.
 ```
 
 Local de integração sugerido: secção de leis do System Map, junto de
