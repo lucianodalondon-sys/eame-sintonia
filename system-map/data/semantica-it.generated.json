@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "243cd25712bbc38108c26105bca7dfc46109deb9"
+    "HEAD": "a93acfdff0f79f7c80d24888278eec7003387242"
   },
   "VOCABULARIOS": [
     {
@@ -27,6 +27,7 @@
         ".github/workflows/apify-sensores.yml",
         "provas/testa_coleta_canonica.py",
         "system-map/scripts/censo_semantico_it.py",
+        "system-map/scripts/generate_system_map.py",
         "tests/test_trava_da_inteligencia.py"
       ],
       "TERMOS": [
@@ -1228,8 +1229,20 @@
         "coleta/rota_forward_documento.py",
         "leis/artefato.py",
         "orquestrador/orquestrador.py",
+        "provas/a_fonte_atravessa_ate_a_porta.py",
         "provas/a_fronteira_da_coleta.py",
+        "provas/a_regra_de_t2.py",
         "provas/a_rota_m2_atravessa.py",
+        "provas/alcance_da_pergunta_tematica.py",
+        "provas/benchmark_tematico.py",
+        "provas/candidatos_tematicos.py",
+        "provas/censo_corpus_rotulado_admission.py",
+        "provas/implementacoes_candidatas.py",
+        "provas/medir_admission_t3_atual.py",
+        "provas/medir_source_id_wiring_gap.py",
+        "provas/o_corte_de_cr1.py",
+        "provas/os_portoes_da_collection.py",
+        "provas/so_a_colheita_atravessa.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
         "system-map/scripts/censo_das_derivacoes.py",
@@ -1237,9 +1250,24 @@
         "system-map/scripts/generate_system_map.py",
         "system-map/scripts/recall_da_porta_it.py",
         "system-map/scripts/scan_repo.py",
+        "system-map/scripts/validate_system_map.py",
         "system-map/tests/test_system_map.py",
+        "tests/test_a_regra_de_t2.py",
+        "tests/test_alcance_tematico.py",
+        "tests/test_amostragem_neutra_t3.py",
+        "tests/test_candidatos_tematicos.py",
+        "tests/test_censo_corpus_rotulado_admission.py",
+        "tests/test_estagio_atravessa_a_fronteira.py",
+        "tests/test_fonte_atravessa.py",
+        "tests/test_fronteira_mede_producao.py",
+        "tests/test_gate_de_aceitacao_tematica.py",
+        "tests/test_implementacoes_candidatas.py",
+        "tests/test_lingua_da_porta.py",
         "tests/test_m2_rota_forward.py",
-        "tests/test_red_team_estrada.py"
+        "tests/test_medir_admission_t3_atual.py",
+        "tests/test_pacote_de_revisao_t3.py",
+        "tests/test_red_team_estrada.py",
+        "tests/test_ui_revisao_t3_ptbr.py"
       ],
       "TERMOS": [
         {
