@@ -117,6 +117,12 @@ PROVIDER_CALLS=0
 
 Vinte itens relidos e reprocessados numa máquina que nunca falou com a Apify.
 
+E outra vez sobre o HEAD final, run
+[34707967716](https://github.com/lucianodalondon-sys/eame-sintonia/actions/runs/34707967716)
+— runners `1000003923` e `1000003927`, os dois jobs verdes. O `push` com filtro
+de caminhos faz o mecanismo voltar a provar-se sempre que muda, e foi isso que
+aconteceu quando a sonda de segredo aprendeu a descomprimir.
+
 ```
 RELER O QUE JÁ SE PAGOU NÃO É PAGAR OUTRA VEZ.
 ```
