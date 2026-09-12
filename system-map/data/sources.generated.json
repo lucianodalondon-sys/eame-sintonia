@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "509d2b59d38aa6b7e5707a6bdfc574ff2b9d812b",
+    "HEAD": "267a2faba9d46a064321ef70c1ea13e471dcc8d1",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4375,6 +4375,23 @@
       ]
     },
     {
+      "endpoint": "https://exemplo.tld/x')",
+      "usado_por": [
+        {
+          "file": "provas/orcamento_de_rede.py",
+          "line": 287
+        },
+        {
+          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+          "line": 96
+        },
+        {
+          "file": "tests/test_c10_8ar_orcamento_de_rede.py",
+          "line": 207
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.ec.europa.eu/agrifood",
       "usado_por": [
         {
@@ -4648,6 +4665,19 @@
       ]
     },
     {
+      "endpoint": "https://exemplo.tld/x'))",
+      "usado_por": [
+        {
+          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+          "line": 339
+        },
+        {
+          "file": "tests/test_c10_8ar_orcamento_de_rede.py",
+          "line": 222
+        }
+      ]
+    },
+    {
       "endpoint": "https://%s/api",
       "usado_por": [
         {
@@ -4698,24 +4728,6 @@
         {
           "file": "coleta/comunicacao_coleta.py",
           "line": 244
-        }
-      ]
-    },
-    {
-      "endpoint": "https://doi.org/',",
-      "usado_por": [
-        {
-          "file": "coleta/corpus_pesquisador.py",
-          "line": 390
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.data.gouv.fr/api",
-      "usado_por": [
-        {
-          "file": "coleta/ephy.sh",
-          "line": 30
         }
       ]
     }
