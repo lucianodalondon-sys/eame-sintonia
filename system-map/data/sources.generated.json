@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "91514740e5acbfdef02dea3175daac81bc11f049",
+    "HEAD": "e6940ea8e0c804523bf7fcaee90bd8be63984d38",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4526,6 +4526,19 @@
       ]
     },
     {
+      "endpoint": "https://www.w3.org/TR",
+      "usado_por": [
+        {
+          "file": "provas/candidatos_tematicos.py",
+          "line": 452
+        },
+        {
+          "file": "provas/o_legado_fora_do_fluxo.py",
+          "line": 450
+        }
+      ]
+    },
+    {
       "endpoint": "https://it.linkedin.com/company",
       "usado_por": [
         {
@@ -4643,15 +4656,6 @@
         {
           "file": "coleta/social_rotas.py",
           "line": 261
-        }
-      ]
-    },
-    {
-      "endpoint": "https://orcid.org/0000-...'.",
-      "usado_por": [
-        {
-          "file": "coleta/speaker_identidade.py",
-          "line": 128
         }
       ]
     }

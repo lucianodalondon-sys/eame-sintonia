@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/fix-source-id-reader-gap-v1",
-    "HEAD": "91514740e5acbfdef02dea3175daac81bc11f049",
-    "GENERATED_AT": "2026-09-12T01:59:08+00:00",
-    "SOURCE_TREE_FINGERPRINT": "778785d793b71600fd5c650024ceaa7fbdba83baab1a0181b1fc805f4f5873ac"
+    "BRANCH": "claude/out-of-flow-legacy-decision-v1",
+    "HEAD": "e6940ea8e0c804523bf7fcaee90bd8be63984d38",
+    "GENERATED_AT": "2026-09-12T02:40:23+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b43a5932be3a23186953da6d4a9c378ccd0aa34f9577b8038c14aa2c792180b9"
   },
   "FILES": [
     {
@@ -1530,6 +1530,13 @@
     {
       "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "sha": "24b45073263f180de1278e1e1c4d9d4f45695e92",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
+      "sha": "0a3de40749adb52995ca8bce32e0ae92acdcb030",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4804,6 +4811,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/OUT-OF-FLOW-LEGACY-DECISION-V1.md",
+      "sha": "8ed74391c54e883fb20665615887fcf1b799926b",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/P-011-DADO-OPERACIONAL-NO-GIT.md",
       "sha": "0d28c7f24987167c337da99c62e5916efa88e347",
       "ext": ".md",
@@ -8066,6 +8080,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/o_legado_fora_do_fluxo.py",
+      "sha": "4e2823f874b597a399035a6b6b326d027d09c4f4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/o_mapa_nao_mente.py",
       "sha": "c7648b353625cd280a7d2cf2df3f4c0e6f12fba8",
       "ext": ".py",
@@ -9390,7 +9411,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "b1ef7f6fb9c8f2e6249b454d43adeb26027b303c",
+      "sha": "35f38a5dea83c6bf38537d5d06a777ec93c8072f",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10007,6 +10028,13 @@
     {
       "path": "tests/test_italia_na_porta_canonica.py",
       "sha": "823ab145535195dfa37fee11a939bec11dc47576",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_legado_fora_do_fluxo.py",
+      "sha": "2e5ecac006f1d56d98d1f7a1165ad87cb0795496",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28743,6 +28771,50 @@
       }
     },
     {
+      "from_file": "provas/o_legado_fora_do_fluxo.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_legado_fora_do_fluxo.py",
+        "line": 45,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/o_legado_fora_do_fluxo.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_legado_fora_do_fluxo.py",
+        "line": 49,
+        "snippet": "LEDGER = \"data/collection-ledger/italy/observations.ndjson\""
+      }
+    },
+    {
+      "from_file": "provas/o_legado_fora_do_fluxo.py",
+      "to_file": "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_legado_fora_do_fluxo.py",
+        "line": 51,
+        "snippet": "SAIDA = \"data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/o_legado_fora_do_fluxo.py",
+      "to_file": "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_legado_fora_do_fluxo.py",
+        "line": 48,
+        "snippet": "MEDICAO = \"data/derivados/SOURCE-ID-WIRING-GAP-V1.json\""
+      }
+    },
+    {
       "from_file": "provas/o_mapa_nao_mente.py",
       "to_file": "system-map/data/architecture.declared.json",
       "type": "READS",
@@ -34914,6 +34986,28 @@
       }
     },
     {
+      "from_file": "tests/test_legado_fora_do_fluxo.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_legado_fora_do_fluxo.py",
+        "line": 17,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_legado_fora_do_fluxo.py",
+      "to_file": "provas/o_legado_fora_do_fluxo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_legado_fora_do_fluxo.py",
+        "line": 20,
+        "snippet": "\"legado_t\", os.path.join(RAIZ, \"provas\", \"o_legado_fora_do_fluxo.py\"))"
+      }
+    },
+    {
       "from_file": "tests/test_leitores_depois_da_fase_10.py",
       "to_file": "guarda/memoria_descartavel.py",
       "type": "IMPORTS",
@@ -39254,10 +39348,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1485,
-    "files_readable": 571,
-    "files_code_dir": 616,
-    "file_edges": 2579,
+    "files_tracked": 1489,
+    "files_readable": 573,
+    "files_code_dir": 618,
+    "file_edges": 2585,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },
