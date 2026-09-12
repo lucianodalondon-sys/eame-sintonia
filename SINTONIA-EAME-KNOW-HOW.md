@@ -5206,3 +5206,110 @@ e mudá-las muda a superfície operacional inteira da casa.
 
 Arredondar isso para `PASS` porque «o código está pronto» seria dizer que o
 sistema converge quando quinze portas dizem que não.
+
+---
+
+# §68 · A ESTRADA ESTAVA BOA E O RETRATO DELA ESTAVA VELHO
+
+**Missão:** `C-RESTORE-CANONICAL-E2E-PROOF-V1`
+**HEAD final:** `d8c21d4a`
+**Tocado:** `tests/test_m2_rota_forward.py` · `provas/a_rota_m2_atravessa.py`
+
+## 68.1 · O QUÊ
+
+`G-E2E-01` fechado. A prova da estrada canónica volta a correr: **25 de 25**
+contra PostgreSQL 16 com as migrations `001..027`, e `ROTA_M2_ATRAVESSA=PASS`
+sobre banco virgem.
+
+`RUNTIME_CHANGED = NO`. Nenhuma linha de produção mudou.
+
+## 68.2 · POR QUÊ — DUAS CÓPIAS DE UM CONTRATO
+
+O defeito não era um: eram dois do mesmo género, e os dois eram **cópias**.
+
+**O fixture escrevia à mão a língua do armazém.** Medido campo a campo, ele
+entregava menos do que a produção entrega, e o campo que faltava era
+`SOURCE_ID` — o que a B5B passou a exigir.
+
+    UM FIXTURE QUE ENTREGA MENOS DO QUE A PRODUÇÃO ENTREGA
+    REPROVA A ESTRADA POR UM DEFEITO QUE É DELE.
+
+**A lista de migrations parava na `026`.** A `027` — a que tirou a trava do
+endereço de `raw_asset` — nunca era aplicada. A prova atravessava um esquema
+uma migration atrás da realidade e dizia-se canónica. O comentário que lá
+estava já avisava: «uma lista à mão envelhece calada, e esta envelheceu».
+Envelheceu outra vez.
+
+    REMENDAR UMA LISTA QUE JÁ ENVELHECEU UMA VEZ
+    É MARCAR ENCONTRO COM O MESMO DEFEITO.
+
+## 68.3 · PROVA — SEGUIR, E NÃO IMITAR
+
+Os dois passaram a **derivar do dono** em vez de o copiar: o fixture fala pelo
+`ingresso.para_o_dono_do_raw`, e a cadeia de migrations é lida da pasta.
+
+    PRODUCTION CONTRACT → TEST FOLLOWS,
+    e nunca STALE TEST → PRODUCTION WEAKENED.
+
+A linhagem, lida do banco:
+
+```
+RUN_ID              RUN-M2-ATRAVESSA
+RAW_OBSERVATION_ID  raw_asset.id = 1 · FORWARD_IDENTIFIED
+SOURCE_ID           IT-T2-002
+STORAGE_OBJECT_ID   1
+DERIVED_ID          1  →  raw_asset_id 1
+STRUCTURED          conteudo id 1
+```
+
+## 68.4 · QUATRO MUTANTES, E TRÊS ERAM O MESMO
+
+Trocar a fonte pelo slug, pelo sha, ou por uma expressão que lê o **caminho**:
+a travessia completava-se na mesma, porque o escritor aceita qualquer texto que
+não seja sentinela.
+
+    ATRAVESSAR NÃO É ATRAVESSAR COM A IDENTIDADE CERTA.
+
+E o do caminho não se apanha por valor nenhum: ele dá **exactamente a mesma
+string**.
+
+    QUANDO O DEFEITO DÁ O VALOR CERTO,
+    SÓ A ESTRUTURA O DENUNCIA.
+
+Morreu com uma verificação `ast`: o `SOURCE_ID` do fixture tem de ser um
+literal, nunca uma expressão.
+
+O quarto sobrevivente era a minha própria guarda com agulha vazia. E a guarda
+que a apanha teve de ser estrutural também — a primeira versão usava expressão
+regular e apanhou o **exemplo** dentro da docstring que cita o padrão mau de
+propósito. É o `§60` outra vez, ao contrário.
+
+    UM TEXTO NÃO DISTINGUE O EXEMPLO DA OCORRÊNCIA.
+
+9 mutantes, 0 sobreviventes.
+
+## 68.5 · E DOIS TESTES QUE TIVERAM DE APRENDER QUE GAPS FECHAM
+
+Ao fechar `G-E2E-01` e `G-RUN-01`, dois testes meus do censo reprovaram uma
+fila correcta: um exigia que **todos** os sintomas de uma causa fossem blocker,
+o outro que a lista de dependências fosse vazia.
+
+    UM TESTE QUE SÓ ESTÁ CERTO ENQUANTO NADA AVANÇA
+    É UM TESTE QUE MEDE O PRIMEIRO DIA.
+
+Passaram a falar de blocker **aberto** e dependência **aberta**.
+
+## 68.6 · CONSEQUÊNCIA
+
+```
+BLOCKERS  5 → 3   G-READY-01 · G-READY-02 · G-RAW-01
+FILA      1. C-MAKE-RAW-OBSERVABLE-V1
+          2. C-CLOSE-THE-READY-EDGE-V1
+```
+
+Os gaps fechados **ficam** na lista com o estado novo. Um gap que some não
+deixa ver que existiu, nem por que deixou de existir.
+
+O que esta prova continua a **não** provar: produção, e READY. Ela começa no
+bruto já preservado e acaba na ADMISSION. `REQUEST`, `ORCHESTRATOR` e
+`EXECUTOR` continuam por observar.
