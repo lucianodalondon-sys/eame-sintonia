@@ -35,10 +35,10 @@ do estado de lei.
 
 | etapa | módulo | aresta | fluxo |
 |---|---|---|---|
-| `REQUEST` | YES | UNKNOWN | **NO** |
-| `ORCHESTRATOR` | YES | UNKNOWN | **NO** |
-| `EXECUTOR` | YES | UNKNOWN | **NO** |
-| `RUN` | YES | UNKNOWN | **NO** |
+| `REQUEST` | YES | YES | **YES** |
+| `ORCHESTRATOR` | YES | YES | **YES** |
+| `EXECUTOR` | YES | YES | **YES** |
+| `RUN` | YES | YES | **YES** |
 | `RAW_OBSERVATION` | YES | YES | **YES** |
 | `STORAGE_OBJECT` | YES | YES | **YES** |
 | `DERIVED` | YES | YES | **YES** |
@@ -49,27 +49,65 @@ do estado de lei.
 
 > MÓDULO EXISTE ≠ ARESTA EXISTE ≠ FLUXO EXECUTADO.
 
-A prova da estrada corre: **YES** contra banco descartável.
-25 de 25 contra PostgreSQL 16 com as migrations 001..027; `provas/a_rota_m2_atravessa.py` devolve ROTA_M2_ATRAVESSA=PASS sobre banco virgem
+Todas as onze etapas já atravessaram. **E isso não é a estrada.**
 
-Sem banco ela **salta**, e isso é honesto: `SKIP != PASS`.
+> **DUAS METADES PROVADAS NÃO SÃO UMA ESTRADA PROVADA.**
+> **ONZE ETAPAS QUE JÁ CORRERAM NÃO SÃO UMA HISTÓRIA.**
+
+Elas atravessam em **duas rotas diferentes**. A do pedido vai de RAW/STORAGE
+directo à ADMISSION; a rota forward faz DERIVED e STRUCTURED, mas entra pelo
+RAW e não pelo pedido. Por isso o portão deixou de somar `YES` e passou a
+exigir a **mesma história**, medida por quem aperta o botão no pedido.
+
+Sem ambiente descartável a medição **não corre**, e isso diz-se: `SKIP != PASS`
+e `NOT_MEASURED != PASS`.
 
 ## Os blockers
 
 **Nenhum.** E isso **não** quer dizer que o core fechou.
 
 ```
-COLLECTION_CORE_CLOSE = FAIL
-BLOQUEADO_POR         = []
-PORQUE                = CANONICAL_E2E não está provado
+COLLECTION_CORE_CLOSE     = FAIL
+BLOQUEADO_POR             = []
+CANONICAL_E2E             = NOT_PROVEN
+CANONICAL_E2E_SAME_STORY  = FAIL
 ```
 
 > **ZERO BLOCKERS ≠ CORE FECHADO.**
 
-O veredito vem das **propriedades**, e não da contagem de buracos. A que falta
-é a travessia inteira: `REQUEST`, `ORCHESTRATOR`, `EXECUTOR` e `RUN` continuam
-sem corrida observada. Não há gap declarado por tapar — há uma propriedade por
-provar, e a estrada continua a começar no bruto já preservado.
+A mesma história parou em `STORAGE -> DERIVED`, medido em
+[`provas/o_pedido_atravessa.py`](../../provas/o_pedido_atravessa.py).
+
+## Onde a estrada se parte, e são dois achados
+
+Um pedido real atravessou `REQUEST → ORCHESTRATOR → EXECUTOR → RUN → RAW →
+STORAGE` numa história só, com o executor a ir à fonte real. E parou.
+
+```
+LAST_PROVEN_STAGE   = STORAGE
+FIRST_LOST_EDGE     = STORAGE -> DERIVED
+NEXT_EXPECTED_STAGE = DERIVED
+```
+
+A ADMISSION corre **depois** do buraco e responde `NAO_SEI`, com razão: o
+documento chega sem texto porque ninguém o derivou. Uma etapa que corre depois
+do buraco não prova a estrada.
+
+Os dois achados são de **espécies diferentes**, e não se misturam — um
+resolve-se com código, o outro com uma decisão.
+
+| aresta | tipo | quem resolve |
+|---|---|---|
+| `STORAGE -> DERIVED` | `WIRING_GAP` | codigo — uma ligacao, no orquestrador |
+| `DERIVED -> STRUCTURED` | `CONTRACT_OWNER_GAP` | gente — e uma decisao de arquitetura |
+
+**`STORAGE -> DERIVED` — WIRING_GAP.**
+Porquê: a rota do orquestrador vai de RAW/STORAGE direto a ADMISSION: a chamada a derivacao nao esta ligada
+Prova: provas/o_pedido_atravessa.py::D1 — a MESMA observacao daquela corrida derivou com PASS quando `derivacao_forward` foi chamada explicitamente
+
+**`DERIVED -> STRUCTURED` — CONTRACT_OWNER_GAP.**
+Porquê: `public.conteudo` exige `canal_id`, e `social_persistencia.exigir_canal` recusa quando ele nao existe
+Prova: provas/o_pedido_atravessa.py::D2 — a recusa diz, por escrito, QUEM_RESOLVE = «um dono de identidade, fora do executor de coleta», e esse dono nao esta provado hoje
 
 ## Os que já fecharam
 
@@ -167,6 +205,25 @@ MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY  UNKNOWN
 ```
 
 `NOT_INSTRUMENTED` não é zero. Produção não é laboratório.
+
+## A frescura deste retrato
+
+> Um carimbo de commit num ficheiro commitado nasce sempre atrasado: ele nunca
+> pode nomear o commit que o contém.
+
+Por isso, ao lado do `MEASURED_HEAD`, o artefato guarda a impressão dos **donos
+da medição** — o `sha256` do conteúdo dos ficheiros que decidem este resultado.
+Se eles não mudaram, a medição continua a valer por mais commits que passem.
+Quem quer saber se este retrato ainda vale compara a impressão, e não o commit.
+
+Os dois números vivem no artefato, e **só lá** — copiados para aqui, envelhecem
+a cada medição e passam a mentir:
+
+```bash
+py -c "import json;d=json.load(open('data/derivados/COLLECTION-V1-CLOSE-GATES.json'));print(d['MEASURED_HEAD']);print(d['FRESCURA']['IMPRESSAO_DOS_DONOS'])"
+```
+
+> **O JSON é o dono. O Markdown explica.**
 
 ## Onde estão os números
 

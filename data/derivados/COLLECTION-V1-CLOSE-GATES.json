@@ -2,7 +2,17 @@
   "SCHEMA": "sintonia.collection-v1-close-gates/1",
   "O_QUE_ISTO_E": "O que ainda impede declarar COLLECTION V1 = FECHADA, medido no HEAD de agora e separado do que e divida que nao bloqueia.",
   "MEASURE_NOT_FIX": "nenhum blocker foi corrigido nesta missao",
-  "MEASURED_HEAD": "e1b166d0d880f6b24f71ab8e2137b4ecd351d882",
+  "MEASURED_HEAD": "cbdc8c03f266cc74b9c20a6977985b3c0015c569",
+  "FRESCURA": {
+    "IMPRESSAO_DOS_DONOS": "87b971dbac916752d3590d4d048b89b56805629b9cf45daae69f385b24a102fd",
+    "DONOS_DA_MEDICAO": [
+      "provas/os_portoes_da_collection.py",
+      "docs/biblia/leis.json",
+      "system-map/data/buracos.generated.json",
+      "system-map/data/pedido.observado.json"
+    ],
+    "O_QUE_O_CARIMBO_NAO_DIZ": "`MEASURED_HEAD` e o HEAD do instante da medicao, e o ficheiro que o guarda entra no commit SEGUINTE — nunca pode nomear o commit que o contem. Quem quer saber se esta medicao ainda vale compara a IMPRESSAO_DOS_DONOS, e nao o commit."
+  },
   "BIBLE_VERSION": "V1.4",
   "LAW_TOTAL": 105,
   "IMPLEMENTATION_STATE": {
@@ -106,6 +116,26 @@
       "CONSUMIDORES": "0 — e e o estado CERTO antes da Intelligence. PRODUTOR existe; consumidor e outra missao."
     }
   },
+  "ACHADOS_DA_ESTRADA": [
+    {
+      "EDGE": "STORAGE -> DERIVED",
+      "TIPO": "WIRING_GAP",
+      "O_QUE_FALTA": "a rota do orquestrador vai de RAW/STORAGE direto a ADMISSION: a chamada a derivacao nao esta ligada",
+      "A_CAPACIDADE_EXISTE": "YES",
+      "PROVA": "provas/o_pedido_atravessa.py::D1 — a MESMA observacao daquela corrida derivou com PASS quando `derivacao_forward` foi chamada explicitamente",
+      "QUEM_RESOLVE": "codigo — uma ligacao, no orquestrador",
+      "NAO_CORRIGIDO_NESTA_MISSAO": "ligar so esta move o buraco uma aresta para a frente: a seguinte nao tem dono"
+    },
+    {
+      "EDGE": "DERIVED -> STRUCTURED",
+      "TIPO": "CONTRACT_OWNER_GAP",
+      "O_QUE_FALTA": "`public.conteudo` exige `canal_id`, e `social_persistencia.exigir_canal` recusa quando ele nao existe",
+      "A_CAPACIDADE_EXISTE": "UNKNOWN — nao ha owner para medir",
+      "PROVA": "provas/o_pedido_atravessa.py::D2 — a recusa diz, por escrito, QUEM_RESOLVE = «um dono de identidade, fora do executor de coleta», e esse dono nao esta provado hoje",
+      "QUEM_RESOLVE": "gente — e uma decisao de arquitetura",
+      "NAO_CORRIGIDO_NESTA_MISSAO": "criar o owner aqui seria inventar identidade de canal sem ninguem ter decidido de quem ele e"
+    }
+  ],
   "PROVA_E2E_HOJE": {
     "PROVA": "tests/test_m2_rota_forward.py",
     "CORRE_SEM_BANCO": "NO",

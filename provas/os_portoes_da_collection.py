@@ -744,6 +744,41 @@ def portoes(cadeia, gs):
     return core, grande
 
 
+# ⚠️ UM CARIMBO DE COMMIT NUM FICHEIRO COMMITADO NASCE SEMPRE ATRASADO.
+# `MEASURED_HEAD` e o HEAD do instante em que a medicao correu — e o ficheiro
+# que o guarda entra no commit SEGUINTE. Ele nunca pode nomear o commit que o
+# contem: isso e impossivel por construcao, e ja custou oito desencontros ao
+# System Map, que o resolveu com a impressao das FONTES.
+#
+#     A PERGUNTA NAO E «QUE COMMIT?». E «QUE FONTES?».
+#
+# Entao ao lado do carimbo vai a IMPRESSAO DOS DONOS: o sha256 do conteudo dos
+# ficheiros que DECIDEM este resultado. Se eles nao mudaram, a medicao continua
+# a valer por mais commits que passem; se mudaram, ela esta velha mesmo que o
+# carimbo pareca recente.
+DONOS_DA_MEDICAO = (
+    "provas/os_portoes_da_collection.py",
+    "docs/biblia/leis.json",
+    "system-map/data/buracos.generated.json",
+    "system-map/data/pedido.observado.json",
+)
+
+
+def impressao_dos_donos():
+    """O sha256 do conteudo de quem decide este resultado."""
+    import hashlib
+    h = hashlib.sha256()
+    for rel in DONOS_DA_MEDICAO:
+        caminho = os.path.join(RAIZ, rel)
+        h.update(rel.encode("utf-8"))
+        if os.path.isfile(caminho):
+            with open(caminho, "rb") as f:
+                h.update(f.read())
+        else:
+            h.update(b"<AUSENTE>")
+    return h.hexdigest()
+
+
 def medir():
     d, L, total = leis()
     est = censo_declarado(L)
@@ -764,6 +799,15 @@ def medir():
         ("MEASURED_HEAD", subprocess.run(
             ["git", "rev-parse", "HEAD"], cwd=RAIZ, capture_output=True,
             text=True).stdout.strip()),
+        ("FRESCURA", OrderedDict([
+            ("IMPRESSAO_DOS_DONOS", impressao_dos_donos()),
+            ("DONOS_DA_MEDICAO", list(DONOS_DA_MEDICAO)),
+            ("O_QUE_O_CARIMBO_NAO_DIZ", (
+                "`MEASURED_HEAD` e o HEAD do instante da medicao, e o ficheiro "
+                "que o guarda entra no commit SEGUINTE — nunca pode nomear o "
+                "commit que o contem. Quem quer saber se esta medicao ainda "
+                "vale compara a IMPRESSAO_DOS_DONOS, e nao o commit.")),
+        ])),
         ("BIBLE_VERSION", d["VERSION"]),
         ("LAW_TOTAL", total),
         ("IMPLEMENTATION_STATE", OrderedDict([
@@ -783,6 +827,44 @@ def medir():
                 "pode bloquear tudo")),
         ])),
         ("CANONICAL_E2E", cadeia),
+        # DOIS ACHADOS, E SAO DE ESPECIES DIFERENTES.
+        # Junta-los daria uma so «coisa que falta» — e as duas nao se resolvem
+        # da mesma maneira, nem pela mesma pessoa. Misturar o que precisa de
+        # uma chamada com o que precisa de uma DECISAO faz a segunda parecer
+        # trabalho de codigo, e ela nao e.
+        ("ACHADOS_DA_ESTRADA", [
+            OrderedDict([
+                ("EDGE", "STORAGE -> DERIVED"),
+                ("TIPO", "WIRING_GAP"),
+                ("O_QUE_FALTA", "a rota do orquestrador vai de RAW/STORAGE "
+                                "direto a ADMISSION: a chamada a derivacao "
+                                "nao esta ligada"),
+                ("A_CAPACIDADE_EXISTE", "YES"),
+                ("PROVA", "provas/o_pedido_atravessa.py::D1 — a MESMA "
+                          "observacao daquela corrida derivou com PASS quando "
+                          "`derivacao_forward` foi chamada explicitamente"),
+                ("QUEM_RESOLVE", "codigo — uma ligacao, no orquestrador"),
+                ("NAO_CORRIGIDO_NESTA_MISSAO",
+                 "ligar so esta move o buraco uma aresta para a frente: a "
+                 "seguinte nao tem dono"),
+            ]),
+            OrderedDict([
+                ("EDGE", "DERIVED -> STRUCTURED"),
+                ("TIPO", "CONTRACT_OWNER_GAP"),
+                ("O_QUE_FALTA", "`public.conteudo` exige `canal_id`, e "
+                                "`social_persistencia.exigir_canal` recusa "
+                                "quando ele nao existe"),
+                ("A_CAPACIDADE_EXISTE", "UNKNOWN — nao ha owner para medir"),
+                ("PROVA", "provas/o_pedido_atravessa.py::D2 — a recusa diz, "
+                          "por escrito, QUEM_RESOLVE = «um dono de identidade, "
+                          "fora do executor de coleta», e esse dono nao esta "
+                          "provado hoje"),
+                ("QUEM_RESOLVE", "gente — e uma decisao de arquitetura"),
+                ("NAO_CORRIGIDO_NESTA_MISSAO",
+                 "criar o owner aqui seria inventar identidade de canal sem "
+                 "ninguem ter decidido de quem ele e"),
+            ]),
+        ]),
         ("PROVA_E2E_HOJE", prova_e2e_corre()),
         ("DB_SCHEMA_VS_LIVE", OrderedDict([
             ("MIGRATION_IN_GIT", 27),
