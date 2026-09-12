@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-paid-runtime-prep-c10-6e",
-    "HEAD": "1149e2b164dc6744ec8fbb08e6d89b92f0eb313a",
-    "GENERATED_AT": "2026-09-12T11:21:14+00:00",
+    "HEAD": "4eedd0f9d8686ec22a807185c14290f73400ce57",
+    "GENERATED_AT": "2026-09-12T11:51:17+00:00",
     "SOURCE_TREE_FINGERPRINT": "be74eaddf98372ccf451d19eacb67b7125bd5152c0a94a004c19cf937632c1c3"
   },
   "FILES": [
@@ -5238,6 +5238,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-6E-RUNTIME-PAGO-UM-SO.md",
+      "sha": "06645af56ed7925acd84195a1a7b0b2402b88977",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -8234,6 +8241,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/runtime_pago_no_postgres.py",
+      "sha": "2a78f6c70b9f0b25d30aef60e1156311e7168f61",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/social_persistencia_no_postgres.py",
       "sha": "02e92fa569ec6b294a30791542b500271230ef1d",
       "ext": ".py",
@@ -9923,6 +9937,13 @@
     {
       "path": "tests/test_c10_6d_portas_canonicas.py",
       "sha": "46a123229432d0f3b1af4b86cc3e2f8ccc046df6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_6e_runtime_pago.py",
+      "sha": "1f11972273c3a151b9c4b5e12d47534abff19de9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27437,6 +27458,83 @@
       }
     },
     {
+      "from_file": "provas/runtime_pago_no_postgres.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_pago_no_postgres.py",
+        "line": 53,
+        "snippet": "import coleta_checkpoint as ck      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/runtime_pago_no_postgres.py",
+      "to_file": "coleta/coletor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_pago_no_postgres.py",
+        "line": 105,
+        "snippet": "import coletor                                                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/runtime_pago_no_postgres.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_pago_no_postgres.py",
+        "line": 55,
+        "snippet": "import scrap_executor as sx         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/runtime_pago_no_postgres.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_pago_no_postgres.py",
+        "line": 56,
+        "snippet": "import scrap_registo as reg         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/runtime_pago_no_postgres.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_pago_no_postgres.py",
+        "line": 58,
+        "snippet": "import social_rotas as sr           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/runtime_pago_no_postgres.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_pago_no_postgres.py",
+        "line": 54,
+        "snippet": "import falhas as fx                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/runtime_pago_no_postgres.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_pago_no_postgres.py",
+        "line": 57,
+        "snippet": "import social_matriz as mz          # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/social_persistencia_no_postgres.py",
       "to_file": "provas/preservar_coleta_no_postgres.py",
       "type": "IMPORTS",
@@ -31966,6 +32064,127 @@
         "file": "tests/test_c10_6d_portas_canonicas.py",
         "line": 43,
         "snippet": "import social_matriz as mz        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6e_runtime_pago.py",
+      "to_file": "coleta/comunicacao_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6e_runtime_pago.py",
+        "line": 37,
+        "snippet": "import comunicacao_coleta as cc   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6e_runtime_pago.py",
+      "to_file": "coleta/comunicacao_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6e_runtime_pago.py",
+        "line": 175,
+        "snippet": "arv = ast.parse(_fonte('coleta/comunicacao_coleta.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6e_runtime_pago.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6e_runtime_pago.py",
+        "line": 216,
+        "snippet": "import scrap_capacidades as cap"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6e_runtime_pago.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6e_runtime_pago.py",
+        "line": 39,
+        "snippet": "import scrap_registo as reg       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6e_runtime_pago.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6e_runtime_pago.py",
+        "line": 41,
+        "snippet": "import social_rotas as sr         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6e_runtime_pago.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6e_runtime_pago.py",
+        "line": 131,
+        "snippet": "arv = ast.parse(_fonte('coleta/social_rotas.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6e_runtime_pago.py",
+      "to_file": "docs/sintonia-scrap/C10-6E-RUNTIME-PAGO-UM-SO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6e_runtime_pago.py",
+        "line": 255,
+        "snippet": "doc = _fonte('docs/sintonia-scrap/C10-6E-RUNTIME-PAGO-UM-SO.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6e_runtime_pago.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6e_runtime_pago.py",
+        "line": 38,
+        "snippet": "import falhas as fx               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6e_runtime_pago.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6e_runtime_pago.py",
+        "line": 40,
+        "snippet": "import social_matriz as mz        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6e_runtime_pago.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6e_runtime_pago.py",
+        "line": 125,
+        "snippet": "publicas = [n.name for n in ast.walk(ast.parse(_fonte('leis/social_matriz.py')))"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6e_runtime_pago.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6e_runtime_pago.py",
+        "line": 164,
+        "snippet": "t = _codigo('orquestrador/orquestrador.py')"
       }
     },
     {
@@ -39137,10 +39356,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1498,
-    "files_readable": 577,
-    "files_code_dir": 624,
-    "file_edges": 2562,
+    "files_tracked": 1501,
+    "files_readable": 579,
+    "files_code_dir": 626,
+    "file_edges": 2580,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

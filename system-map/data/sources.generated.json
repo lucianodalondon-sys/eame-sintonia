@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "1149e2b164dc6744ec8fbb08e6d89b92f0eb313a",
+    "HEAD": "4eedd0f9d8686ec22a807185c14290f73400ce57",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4633,6 +4633,19 @@
       ]
     },
     {
+      "endpoint": "https://exemplo/x',",
+      "usado_por": [
+        {
+          "file": "tests/test_c10_6d_portas_canonicas.py",
+          "line": 401
+        },
+        {
+          "file": "tests/test_c10_6e_runtime_pago.py",
+          "line": 309
+        }
+      ]
+    },
+    {
       "endpoint": "https://%s/api",
       "usado_por": [
         {
@@ -4701,15 +4714,6 @@
         {
           "file": "coleta/ephy.sh",
           "line": 30
-        }
-      ]
-    },
-    {
-      "endpoint": "https://gd.eppo.int/taxon",
-      "usado_por": [
-        {
-          "file": "coleta/eppo_gd.py",
-          "line": 28
         }
       ]
     }

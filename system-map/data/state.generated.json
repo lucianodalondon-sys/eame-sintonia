@@ -771,6 +771,7 @@
       "docs/sintonia-scrap/C10-6B-RUN-DURAVEL-CHECKPOINT.md",
       "docs/sintonia-scrap/C10-6C-RUNTIME-DURAVEL-COMUM.md",
       "docs/sintonia-scrap/C10-6D-PORTAS-OPERACIONAIS-CANONICAS.md",
+      "docs/sintonia-scrap/C10-6E-RUNTIME-PAGO-UM-SO.md",
       "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "docs/sintonia-scrap/C12-X-CAPABILITY-DEEP-CENSUS.md",
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
@@ -1226,6 +1227,7 @@
       "provas/rls_censo_portao.py",
       "provas/run_duravel_no_postgres.py",
       "provas/runtime_comum_no_postgres.py",
+      "provas/runtime_pago_no_postgres.py",
       "provas/social_persistencia_no_postgres.py",
       "provas/testa_coleta_canonica.py",
       "provas/testa_golden_path_pdf.py",
@@ -1484,6 +1486,7 @@
       "tests/test_c10_6b_run_duravel.py",
       "tests/test_c10_6c_runtime_comum.py",
       "tests/test_c10_6d_portas_canonicas.py",
+      "tests/test_c10_6e_runtime_pago.py",
       "tests/test_c10_audio_only.py",
       "tests/test_c12_x_censo.py",
       "tests/test_c2_youtube_oficial.py",
@@ -1946,8 +1949,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-paid-runtime-prep-c10-6e",
-    "HEAD": "1149e2b164dc6744ec8fbb08e6d89b92f0eb313a",
-    "GENERATED_AT": "2026-09-12T11:21:14+00:00",
+    "HEAD": "4eedd0f9d8686ec22a807185c14290f73400ce57",
+    "GENERATED_AT": "2026-09-12T11:51:17+00:00",
     "SOURCE_TREE_FINGERPRINT": "be74eaddf98372ccf451d19eacb67b7125bd5152c0a94a004c19cf937632c1c3"
   },
   "FAMILIES": [
@@ -12079,12 +12082,13 @@
         "provas/readback_022_live.sh",
         "provas/run_duravel_no_postgres.py",
         "provas/runtime_comum_no_postgres.py",
+        "provas/runtime_pago_no_postgres.py",
         "provas/social_persistencia_no_postgres.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 17,
+      "file_count": 18,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12142,6 +12146,7 @@
         "papel": "NAO SEI",
         "listas": [
           "BLOQUEADAS",
+          "CASOS",
           "COLS_DER",
           "COLS_OBJ",
           "COLS_RAW",
@@ -12158,9 +12163,9 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 173,
+        "palavras": 182,
         "por_lingua": {},
-        "sem_marca_de_lingua": 173,
+        "sem_marca_de_lingua": 182,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15577,6 +15582,7 @@
         "tests/test_c10_6b_run_duravel.py",
         "tests/test_c10_6c_runtime_comum.py",
         "tests/test_c10_6d_portas_canonicas.py",
+        "tests/test_c10_6e_runtime_pago.py",
         "tests/test_c10_audio_only.py",
         "tests/test_c12_x_censo.py",
         "tests/test_c2_youtube_oficial.py",
@@ -15658,7 +15664,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 102,
+      "file_count": 103,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -21024,7 +21030,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 5 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106b_filho.py",
@@ -21050,6 +21056,16 @@
           "file": "provas/runtime_comum_no_postgres.py",
           "line": 87,
           "snippet": "import coleta_checkpoint as ck"
+        },
+        {
+          "file": "provas/runtime_pago_no_postgres.py",
+          "line": 53,
+          "snippet": "import coleta_checkpoint as ck      # noqa: E402"
+        },
+        {
+          "file": "provas/runtime_pago_no_postgres.py",
+          "line": 105,
+          "snippet": "import coletor                                                    # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -21476,12 +21492,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
           "line": 396,
           "snippet": "import comunicacao_coleta as cc"
+        },
+        {
+          "file": "tests/test_c10_6e_runtime_pago.py",
+          "line": 37,
+          "snippet": "import comunicacao_coleta as cc   # noqa: E402"
         },
         {
           "file": "tests/test_c3_youtube_cutover.py",
@@ -21519,7 +21540,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4b_um_caminho_so.py",
@@ -21529,6 +21550,11 @@
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
           "line": 430,
+          "snippet": "arv = ast.parse(_fonte('coleta/comunicacao_coleta.py'))"
+        },
+        {
+          "file": "tests/test_c10_6e_runtime_pago.py",
+          "line": 175,
           "snippet": "arv = ast.parse(_fonte('coleta/comunicacao_coleta.py'))"
         },
         {
@@ -26053,8 +26079,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c10_6e_runtime_pago.py",
+          "line": 164,
+          "snippet": "t = _codigo('orquestrador/orquestrador.py')"
+        },
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 163,
@@ -29134,7 +29165,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/paridade_da_lingua.py",
@@ -29145,6 +29176,16 @@
           "file": "provas/run_duravel_no_postgres.py",
           "line": 58,
           "snippet": "import falhas as fx"
+        },
+        {
+          "file": "provas/runtime_pago_no_postgres.py",
+          "line": 54,
+          "snippet": "import falhas as fx                 # noqa: E402"
+        },
+        {
+          "file": "provas/runtime_pago_no_postgres.py",
+          "line": 57,
+          "snippet": "import social_matriz as mz          # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -29305,7 +29346,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 34 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 36 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -29358,14 +29399,14 @@
           "snippet": "import social_matriz as mz        # noqa: E402"
         },
         {
-          "file": "tests/test_c10_audio_only.py",
-          "line": 83,
-          "snippet": "import social_matriz as mz"
+          "file": "tests/test_c10_6e_runtime_pago.py",
+          "line": 38,
+          "snippet": "import falhas as fx               # noqa: E402"
         },
         {
-          "file": "tests/test_c12_x_censo.py",
-          "line": 26,
-          "snippet": "import social_matriz as mz          # noqa: E402"
+          "file": "tests/test_c10_6e_runtime_pago.py",
+          "line": 40,
+          "snippet": "import social_matriz as mz        # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -29378,7 +29419,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -29389,6 +29430,11 @@
           "file": "tests/test_c10_5d_decisao_instagram.py",
           "line": 220,
           "snippet": "self.assertEqual(trace['POLICY_OWNER'], 'leis/social_matriz.py')"
+        },
+        {
+          "file": "tests/test_c10_6e_runtime_pago.py",
+          "line": 125,
+          "snippet": "publicas = [n.name for n in ast.walk(ast.parse(_fonte('leis/social_matriz.py')))"
         },
         {
           "file": "tests/test_execucao_standalone.py",
@@ -29582,7 +29628,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 11 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106c_filho.py",
@@ -29638,6 +29684,11 @@
           "file": "provas/runtime_comum_no_postgres.py",
           "line": 180,
           "snippet": "import youtube_oficial as yt"
+        },
+        {
+          "file": "provas/runtime_pago_no_postgres.py",
+          "line": 55,
+          "snippet": "import scrap_executor as sx         # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -29727,7 +29778,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 70 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 73 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -29800,7 +29851,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 46 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 47 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -32430,7 +32481,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 759,
+  "UNCLAIMED_FILES_COUNT": 760,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -32602,8 +32653,8 @@
     "edges_proven": 667,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1498,
-    "files_covered": 739,
+    "files_tracked": 1501,
+    "files_covered": 741,
     "files_code_unclaimed": 0
   }
 }
