@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-retire-legacy-transcription-c10-4c",
-    "HEAD": "5292be8a8bfa1946f7f407d496176268918a817d",
-    "GENERATED_AT": "2026-09-12T02:35:14+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1152bfe13d0616cb47c76068b85b5449c946287e60c732517e42701839eecd94"
+    "BRANCH": "claude/sintonia-scrap-durable-run-checkpoint-c10-6b",
+    "HEAD": "f692720a5733f5a4d892b97baf973ff7ac8fb12a",
+    "GENERATED_AT": "2026-09-12T05:25:47+00:00",
+    "SOURCE_TREE_FINGERPRINT": "cf9ee4af170769cacadf11904828cea8c1c6816144bf5870bbba8440ba70fce5"
   },
   "FILES": [
     {
@@ -66,7 +66,7 @@
     },
     {
       "path": ".github/workflows/banco-descartavel.yml",
-      "sha": "60ad1d539814ed7db01c9191c14204207eff8820",
+      "sha": "8eeb3827fd04bbc30030d91b3b663754328c18f9",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -1130,7 +1130,7 @@
     },
     {
       "path": "coleta/adaptador_instagram.py",
-      "sha": "7d956f5f574f99e6b73b973181270fbcf4e6eb09",
+      "sha": "98bea2731ffdd331ac18d43579028ca64e159812",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1172,7 +1172,7 @@
     },
     {
       "path": "coleta/coleta_checkpoint.py",
-      "sha": "18217020ae76fb647651a1cd85cdb4469bd2c468",
+      "sha": "b65928c934f3566b0ba7f24907e5632d5e888e80",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5217,6 +5217,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-6B-RUN-DURAVEL-CHECKPOINT.md",
+      "sha": "7b6f4f204b67146617c8a54b91d51ce386a6801b",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -5386,7 +5393,7 @@
     },
     {
       "path": "ferramentas/reel_transcricao.py",
-      "sha": "977abc406ff37dee5e29b7c39a73a2ee5bc34b8d",
+      "sha": "52e8b62db28f982052802136c39ef11df947dd42",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7472,7 +7479,7 @@
     },
     {
       "path": "medidas/rastro_da_coleta.py",
-      "sha": "575c34270aacfb969efe86ff8e0ce2714129cbaf",
+      "sha": "4bba3ed792cc63f36f719a8068763f04e3de093f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7947,6 +7954,13 @@
       "code_dir": false
     },
     {
+      "path": "provas/_c106b_filho.py",
+      "sha": "20c80db99fda4284c77abac4c87df9747d8943ff",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/a_autoridade_da_fonte.py",
       "sha": "6eb469aae612e69fe43a9f02a094324b3a2516ff",
       "ext": ".py",
@@ -8173,6 +8187,13 @@
     {
       "path": "provas/rls_censo_portao.py",
       "sha": "4c3c9b2eddb5730884b9ce16748fb255e14884f0",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/run_duravel_no_postgres.py",
+      "sha": "7394d2e6a3e168d65454fa7337d7707793e907b6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9404,7 +9425,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "390f77a4e4642259cc6f1eafb9a5e2c8c82f3da0",
+      "sha": "8c6ce8c73fab1dadd275073d59268fbed919eccb",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9846,6 +9867,13 @@
     {
       "path": "tests/test_c10_6_crash_retry.py",
       "sha": "663d18e02c28a4d727f046d97117e2fe1c44e228",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_6b_run_duravel.py",
+      "sha": "7ccdaaab2e8ec326860d49d10e18e1c8750fc79d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10470,7 +10498,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 261,
+        "line": 264,
         "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
       }
     },
@@ -10481,7 +10509,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 245,
+        "line": 248,
         "snippet": "python3 provas/a_rota_m2_atravessa.py"
       }
     },
@@ -10492,7 +10520,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 130,
+        "line": 133,
         "snippet": "python3 provas/derived_artifact_no_postgres.py"
       }
     },
@@ -10503,7 +10531,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 270,
+        "line": 290,
         "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
       }
     },
@@ -10514,7 +10542,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 236,
+        "line": 239,
         "snippet": "python3 provas/o_forward_conta_se.py"
       }
     },
@@ -10525,7 +10553,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 145,
+        "line": 148,
         "snippet": "python3 provas/objeto_e_observacao_no_postgres.py"
       }
     },
@@ -10536,7 +10564,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 117,
+        "line": 120,
         "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
       }
     },
@@ -10547,8 +10575,19 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 210,
+        "line": 213,
         "snippet": "python3 provas/rastro_no_postgres.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "provas/run_duravel_no_postgres.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 281,
+        "snippet": "run: python3 provas/run_duravel_no_postgres.py"
       }
     },
     {
@@ -10558,7 +10597,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 186,
+        "line": 189,
         "snippet": "python3 provas/social_persistencia_no_postgres.py"
       }
     },
@@ -10569,7 +10608,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 154,
+        "line": 157,
         "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
       }
     },
@@ -11895,6 +11934,17 @@
     },
     {
       "from_file": "coleta/adaptador_instagram.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_instagram.py",
+        "line": 145,
+        "snippet": "import coleta_checkpoint as ck"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_instagram.py",
       "to_file": "coleta/scrap_capacidades.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -11933,7 +11983,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 153,
+        "line": 246,
         "snippet": "trace['ASR_OWNER'] = 'ferramentas/fala_local.py'"
       }
     },
@@ -11944,7 +11994,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 137,
+        "line": 224,
         "snippet": "import reel_transcricao as rt"
       }
     },
@@ -11955,7 +12005,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 181,
+        "line": 274,
         "snippet": "medida['IMPLEMENTACAO'] = 'ferramentas/reel_transcricao.py'"
       }
     },
@@ -12100,6 +12150,17 @@
         "file": "coleta/coleta_checkpoint.py",
         "line": 45,
         "snippet": "import apify_pool as ap  # noqa: E402  — dono único da rotação"
+      }
+    },
+    {
+      "from_file": "coleta/coleta_checkpoint.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/coleta_checkpoint.py",
+        "line": 501,
+        "snippet": "import rastro_da_coleta as rastro"
       }
     },
     {
@@ -13902,7 +13963,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/reel_transcricao.py",
-        "line": 1311,
+        "line": 1425,
         "snippet": "def gravar_lote(registos, nome='TRANSCRICOES-REEL.json'):"
       }
     },
@@ -13924,7 +13985,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/reel_transcricao.py",
-        "line": 1184,
+        "line": 1298,
         "snippet": "executor='ferramentas/fala_local.py',"
       }
     },
@@ -20535,7 +20596,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "medidas/rastro_da_coleta.py",
-        "line": 173,
+        "line": 179,
         "snippet": "import social_sessao as ss"
       }
     },
@@ -25710,6 +25771,17 @@
       }
     },
     {
+      "from_file": "provas/_c106b_filho.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_c106b_filho.py",
+        "line": 24,
+        "snippet": "import coleta_checkpoint as ck   # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/a_autoridade_da_fonte.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -26961,6 +27033,39 @@
         "file": "provas/reel_fala_qualidade.py",
         "line": 174,
         "snippet": "with open(CORPUS, encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "provas/run_duravel_no_postgres.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/run_duravel_no_postgres.py",
+        "line": 57,
+        "snippet": "import coleta_checkpoint as ck"
+      }
+    },
+    {
+      "from_file": "provas/run_duravel_no_postgres.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/run_duravel_no_postgres.py",
+        "line": 58,
+        "snippet": "import falhas as fx"
+      }
+    },
+    {
+      "from_file": "provas/run_duravel_no_postgres.py",
+      "to_file": "provas/_c106b_filho.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/run_duravel_no_postgres.py",
+        "line": 38,
+        "snippet": "FILHO = os.path.join(RAIZ, 'provas', '_c106b_filho.py')"
       }
     },
     {
@@ -31086,6 +31191,116 @@
         "file": "tests/test_c10_6_crash_retry.py",
         "line": 59,
         "snippet": "import social_matriz as mz          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6b_run_duravel.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6b_run_duravel.py",
+        "line": 51,
+        "snippet": "import adaptador_instagram as ad    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6b_run_duravel.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6b_run_duravel.py",
+        "line": 76,
+        "snippet": "for rel in ('ferramentas/reel_transcricao.py', 'coleta/adaptador_instagram.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6b_run_duravel.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6b_run_duravel.py",
+        "line": 46,
+        "snippet": "import coleta_checkpoint as ck      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6b_run_duravel.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6b_run_duravel.py",
+        "line": 63,
+        "snippet": "fonte = _fonte('coleta/coleta_checkpoint.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6b_run_duravel.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6b_run_duravel.py",
+        "line": 50,
+        "snippet": "import reel_transcricao as rt       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6b_run_duravel.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6b_run_duravel.py",
+        "line": 76,
+        "snippet": "for rel in ('ferramentas/reel_transcricao.py', 'coleta/adaptador_instagram.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6b_run_duravel.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6b_run_duravel.py",
+        "line": 49,
+        "snippet": "import falhas as fx                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6b_run_duravel.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6b_run_duravel.py",
+        "line": 48,
+        "snippet": "import telemetria as tel            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6b_run_duravel.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6b_run_duravel.py",
+        "line": 47,
+        "snippet": "import rastro_da_coleta as rastro   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6b_run_duravel.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6b_run_duravel.py",
+        "line": 73,
+        "snippet": "self.assertIn('public.etapa_da_corrida', _fonte('medidas/rastro_da_coleta.py'))"
       }
     },
     {
@@ -37845,7 +38060,7 @@
     "ferramentas/reel_transcricao.py": [
       {
         "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
-        "line": 1328,
+        "line": 1442,
         "constante": "caminho"
       }
     ],
@@ -38257,10 +38472,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1487,
-    "files_readable": 569,
-    "files_code_dir": 616,
-    "file_edges": 2489,
+    "files_tracked": 1491,
+    "files_readable": 572,
+    "files_code_dir": 619,
+    "file_edges": 2506,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
