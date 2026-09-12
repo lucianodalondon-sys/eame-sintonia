@@ -2604,6 +2604,24 @@
    ]
   },
   {
+   "id": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+   "name": "A medição de que a Sala de Espera não tem morada",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊢",
+   "what": "Mede o que falta para fechar `G-READY-01` e `G-READY-02`, e para antes de escolher. Prova que o contrato READY existe (COL-LAW-043, 11 campos), que tem UM construtor, que a rota forward já tem em mãos o `item` e a `Decisao` que o dono pede, que a morada declarada no mapa JÁ TEM escritor (o orquestrador), que a decisão de admissão não carrega identidade persistida, e que a lei aceita ficheiro E banco sem escolher entre os dois.",
+   "why_here": "DUAS SAÍDAS LEGÍTIMAS COM CONSEQUÊNCIAS DIFERENTES NÃO SÃO UM DETALHE DE IMPLEMENTAÇÃO: SÃO UMA DECISÃO. Fechar `G-READY-02` antes de a morada estar escolhida seria escolher em silêncio — e uma morada escolhida em silêncio é uma que ninguém pode discutir depois.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/a_sala_de_espera_nao_tem_morada.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
    "id": "C-PROVA-O-RAW-FALA",
    "name": "A prova de que a etapa RAW deixou de ser muda",
    "territory": "Z-PROVA",

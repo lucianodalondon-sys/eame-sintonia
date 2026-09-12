@@ -1179,6 +1179,7 @@
       "provas/a_lei_da_fase_10.py",
       "provas/a_regra_de_t2.py",
       "provas/a_rota_m2_atravessa.py",
+      "provas/a_sala_de_espera_nao_tem_morada.py",
       "provas/alcance_da_pergunta_tematica.py",
       "provas/amostragem_neutra_t3.py",
       "provas/auditoria.py",
@@ -1465,6 +1466,7 @@
       "tests/fixtures/yt-raw-minimo.json",
       "tests/test_a_prova_e2e_segue_a_producao.py",
       "tests/test_a_regra_de_t2.py",
+      "tests/test_a_sala_de_espera_nao_tem_morada.py",
       "tests/test_adama_relevance.py",
       "tests/test_alcance_tematico.py",
       "tests/test_alvo_estruturado_resolvido.py",
@@ -1945,10 +1947,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/make-raw-observable-v1",
-    "HEAD": "58178a28518dfb6b1c4ef290c8ce038f7959e61a",
-    "GENERATED_AT": "2026-09-12T11:53:22+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4de6b0c467479a8199393ad08d1225215638c6cba511ad72da3ccc3ee7629ce4"
+    "BRANCH": "claude/close-the-ready-edge-v1",
+    "HEAD": "94e27e2a24eb8587d0e8bcd72f56bed6ca1d5ab8",
+    "GENERATED_AT": "2026-09-12T12:10:04+00:00",
+    "SOURCE_TREE_FINGERPRINT": "2e288f42dd442b5f16ae0bc83b1d6e1ffb758da9eb67182e6c3c341f60843455"
   },
   "FAMILIES": [
     {
@@ -2017,7 +2019,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 57
+      "count": 58
     },
     {
       "id": "F-ENTREGA",
@@ -2387,7 +2389,7 @@
       "y": 190,
       "w": 1235,
       "h": 4870,
-      "count": 43
+      "count": 44
     }
   ],
   "DEPARTMENTS": {
@@ -2655,6 +2657,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-READY",
         "C-RECALL-PORTA-IT",
         "C-ROTA-M2",
@@ -5981,6 +5984,7 @@
         "C-PROVA-BIBLIA",
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
+        "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-TESTES"
       ],
       "paises": {},
@@ -7229,6 +7233,7 @@
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-RASTRO",
         "C-SCRAP-SOCIAL",
         "C-SENSOR-COLETA",
@@ -10832,6 +10837,7 @@
         "C-ESTRADAS-IT",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
+        "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-TESTES"
       ],
       "paises": {},
@@ -12634,6 +12640,65 @@
       "y": 4224
     },
     {
+      "id": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+      "name": "A medição de que a Sala de Espera não tem morada",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Mede o que falta para fechar `G-READY-01` e `G-READY-02`, e para antes de escolher. Prova que o contrato READY existe (COL-LAW-043, 11 campos), que tem UM construtor, que a rota forward já tem em mãos o `item` e a `Decisao` que o dono pede, que a morada declarada no mapa JÁ TEM escritor (o orquestrador), que a decisão de admissão não carrega identidade persistida, e que a lei aceita ficheiro E banco sem escolher entre os dois.",
+      "why_here": "DUAS SAÍDAS LEGÍTIMAS COM CONSEQUÊNCIAS DIFERENTES NÃO SÃO UM DETALHE DE IMPLEMENTAÇÃO: SÃO UMA DECISÃO. Fechar `G-READY-02` antes de a morada estar escolhida seria escolher em silêncio — e uma morada escolhida em silêncio é uma que ninguém pode discutir depois.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊢",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/a_sala_de_espera_nao_tem_morada.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-BIBLIA",
+        "C-COLETA-BASE",
+        "C-ORQUESTRADOR",
+        "C-ROTA-M2"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS_DA_LEI"
+        ],
+        "palavras": 11,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 11,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20435,
+      "y": 4224
+    },
+    {
       "id": "C-PROVA-TRAVA-MORDE",
       "name": "A prova de que a trava morde",
       "territory": "Z-PROVA",
@@ -12683,7 +12748,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4224
     },
     {
@@ -12934,8 +12999,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4224
+      "x": 20020,
+      "y": 4546
     },
     {
       "id": "C-RECEITAS",
@@ -13082,7 +13147,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4546
     },
     {
@@ -13224,7 +13289,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4546
     },
     {
@@ -13428,6 +13493,7 @@
       "outbound": [
         "C-PROVA-COLETA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-TESTES"
       ],
       "paises": {},
@@ -13983,8 +14049,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 4546
+      "x": 20020,
+      "y": 4868
     },
     {
       "id": "C-SENSOR-COLETA",
@@ -15428,6 +15494,7 @@
         "tests/es/test_adama_es_import_rules.py",
         "tests/test_a_prova_e2e_segue_a_producao.py",
         "tests/test_a_regra_de_t2.py",
+        "tests/test_a_sala_de_espera_nao_tem_morada.py",
         "tests/test_adama_relevance.py",
         "tests/test_alcance_tematico.py",
         "tests/test_alvo_estruturado_resolvido.py",
@@ -15528,7 +15595,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 103,
+      "file_count": 104,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15617,6 +15684,7 @@
         "C-PROVA-MAPA-NAO-MENTE",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-RASTRO",
         "C-RECEITAS",
         "C-RECORRENCIA",
@@ -15669,6 +15737,7 @@
           "APOSENTADOS",
           "BINDINGS",
           "CAMINHOS_DE_INTELIGENCIA",
+          "CAMPOS",
           "CAMPOS_DA_REGRA",
           "CAMPOS_DOC_DA_REGRA",
           "CATALOGO",
@@ -15697,11 +15766,11 @@
           "SINTETICOS",
           "_GAVETA_DE"
         ],
-        "palavras": 461,
+        "palavras": 472,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 459,
+        "sem_marca_de_lingua": 470,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15761,7 +15830,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 4868
     },
     {
@@ -17104,7 +17173,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/make-raw-observable-v1"
+        "branch claude/close-the-ready-edge-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17612,6 +17681,47 @@
     },
     {
       "from": "C-ADMISSAO",
+      "to": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por A medição de que a Sala de Espera não tem morada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+          "line": 55,
+          "snippet": "import admissao                                          # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao alimenta A medição de que a Sala de Espera não tem morada. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+          "line": 63,
+          "snippet": "\"LIVRO-DE-DECISOES.json\")"
+        },
+        {
+          "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+          "line": 140,
+          "snippet": "construtores == [\"admissao/admissao.py\"],"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ADMISSAO",
       "to": "C-READY",
       "type": "PRODUZ",
       "kind": "technical",
@@ -17671,12 +17781,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 16 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
           "line": 22,
           "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+          "line": 20,
+          "snippet": "import admissao                    # noqa: E402"
         },
         {
           "file": "tests/test_alcance_tematico.py",
@@ -17727,11 +17842,6 @@
           "file": "tests/test_m2_rota_forward.py",
           "line": 18,
           "snippet": "import admissao                       # noqa: E402"
-        },
-        {
-          "file": "tests/test_medir_admission_t3_atual.py",
-          "line": 26,
-          "snippet": "import admissao as adm  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -19248,14 +19358,37 @@
     },
     {
       "from": "C-BIBLIA",
+      "to": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Bíblia canônica da coleta alimenta A medição de que a Sala de Espera não tem morada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+          "line": 185,
+          "snippet": "biblia = _fonte(\"BIBLIA-CANONICA-DA-COLETA.md\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-BIBLIA",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+          "line": 193,
+          "snippet": "b = _fonte(os.path.join(RAIZ, \"BIBLIA-CANONICA-DA-COLETA.md\"))"
+        },
         {
           "file": "tests/test_biblia.py",
           "line": 41,
@@ -21153,6 +21286,24 @@
           "file": "provas/a_rota_m2_atravessa.py",
           "line": 68,
           "snippet": "import coleta_checkpoint as cc           # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por A medição de que a Sala de Espera não tem morada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+          "line": 56,
+          "snippet": "import coleta_checkpoint as cc                           # noqa: E402"
         }
       ],
       "categoria": "CODE"
@@ -26224,6 +26375,24 @@
     },
     {
       "from": "C-ORQUESTRADOR",
+      "to": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador alimenta A medição de que a Sala de Espera não tem morada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+          "line": 167,
+          "snippet": "escritor = _fonte(\"orquestrador/orquestrador.py\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ORQUESTRADOR",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -26268,8 +26437,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+          "line": 23,
+          "snippet": "ORQ = os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\")"
+        },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
           "line": 239,
@@ -28102,6 +28276,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A medição de que a Sala de Espera não tem morada alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+          "line": 22,
+          "snippet": "MEDICAO = os.path.join(RAIZ, \"provas\", \"a_sala_de_espera_nao_tem_morada.py\")"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-PROVA-TRAVA-MORDE",
       "to": "C-CENSO-CONGELAMENTO",
       "type": "READS",
@@ -28722,6 +28914,24 @@
           "file": "provas/a_rota_m2_atravessa.py",
           "line": 484,
           "snippet": ".get(\"coleta/rota_forward_documento.py\") or {}).get(\"FORWARD\") or {}"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ROTA-M2",
+      "to": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A rota forward do documento (M2) alimenta A medição de que a Sala de Espera não tem morada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+          "line": 146,
+          "snippet": "rota = _fonte(\"coleta/rota_forward_documento.py\")"
         }
       ],
       "categoria": "READ"
@@ -32099,17 +32309,17 @@
     ]
   },
   "COUNTS": {
-    "components": 160,
+    "components": 161,
     "components_proven": 59,
-    "components_pending": 95,
+    "components_pending": 96,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 658,
-    "edges_proven": 656,
+    "edges": 665,
+    "edges_proven": 663,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1498,
-    "files_covered": 740,
+    "files_tracked": 1500,
+    "files_covered": 742,
     "files_code_unclaimed": 0
   }
 }

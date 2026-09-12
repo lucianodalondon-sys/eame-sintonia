@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/make-raw-observable-v1",
-    "HEAD": "58178a28518dfb6b1c4ef290c8ce038f7959e61a",
-    "GENERATED_AT": "2026-09-12T11:53:22+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4de6b0c467479a8199393ad08d1225215638c6cba511ad72da3ccc3ee7629ce4"
+    "BRANCH": "claude/close-the-ready-edge-v1",
+    "HEAD": "94e27e2a24eb8587d0e8bcd72f56bed6ca1d5ab8",
+    "GENERATED_AT": "2026-09-12T12:10:04+00:00",
+    "SOURCE_TREE_FINGERPRINT": "2e288f42dd442b5f16ae0bc83b1d6e1ffb758da9eb67182e6c3c341f60843455"
   },
   "FILES": [
     {
@@ -1515,7 +1515,7 @@
     },
     {
       "path": "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
-      "sha": "4c89c900e67971da54495da6a592c91c247fcd91",
+      "sha": "6f56d21548ef10ba0c69b94111282f102c5a2d4a",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -7905,6 +7905,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/a_sala_de_espera_nao_tem_morada.py",
+      "sha": "c16bfaa755c465cbbb219ece681d4e7845da8590",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/alcance_da_pergunta_tematica.py",
       "sha": "344c11e485dfb616792090d92b25ea39ae38b7ca",
       "ext": ".py",
@@ -9446,7 +9453,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "35f9101eebcfd197dcde54cfb7caa94223960e11",
+      "sha": "ffebec6a03181a2f36c2bb7cc7d7348ee425aa00",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9460,7 +9467,7 @@
     },
     {
       "path": "system-map/data/fronteira.observada.json",
-      "sha": "cac31446df16d82befbbea4af560d310635379a0",
+      "sha": "0471d90472a1a5d8234d4ef5020cadcb1b9f4538",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9790,6 +9797,13 @@
     {
       "path": "tests/test_a_regra_de_t2.py",
       "sha": "ae1a388ac4e9b2b8866c965e816e1d2b72f98b12",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+      "sha": "daa6274210d7d61823aecf7c992536a398c82b71",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27470,6 +27484,94 @@
       }
     },
     {
+      "from_file": "provas/a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+        "line": 185,
+        "snippet": "biblia = _fonte(\"BIBLIA-CANONICA-DA-COLETA.md\")"
+      }
+    },
+    {
+      "from_file": "provas/a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+        "line": 53,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+        "line": 55,
+        "snippet": "import admissao                                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+        "line": 140,
+        "snippet": "construtores == [\"admissao/admissao.py\"],"
+      }
+    },
+    {
+      "from_file": "provas/a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+        "line": 56,
+        "snippet": "import coleta_checkpoint as cc                           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+        "line": 146,
+        "snippet": "rota = _fonte(\"coleta/rota_forward_documento.py\")"
+      }
+    },
+    {
+      "from_file": "provas/a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+        "line": 63,
+        "snippet": "\"LIVRO-DE-DECISOES.json\")"
+      }
+    },
+    {
+      "from_file": "provas/a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_sala_de_espera_nao_tem_morada.py",
+        "line": 167,
+        "snippet": "escritor = _fonte(\"orquestrador/orquestrador.py\")"
+      }
+    },
+    {
       "from_file": "provas/alcance_da_pergunta_tematica.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -32769,6 +32871,61 @@
         "file": "tests/test_a_regra_de_t2.py",
         "line": 27,
         "snippet": "\"prova_regra_t2\", os.path.join(RAIZ, \"provas\", \"a_regra_de_t2.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+        "line": 193,
+        "snippet": "b = _fonte(os.path.join(RAIZ, \"BIBLIA-CANONICA-DA-COLETA.md\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+        "line": 19,
+        "snippet": "import _gavetas                    # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+        "line": 20,
+        "snippet": "import admissao                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+        "line": 23,
+        "snippet": "ORQ = os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "provas/a_sala_de_espera_nao_tem_morada.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+        "line": 22,
+        "snippet": "MEDICAO = os.path.join(RAIZ, \"provas\", \"a_sala_de_espera_nao_tem_morada.py\")"
       }
     },
     {
@@ -39895,10 +40052,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1498,
-    "files_readable": 579,
-    "files_code_dir": 624,
-    "file_edges": 2629,
+    "files_tracked": 1500,
+    "files_readable": 581,
+    "files_code_dir": 626,
+    "file_edges": 2642,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },
