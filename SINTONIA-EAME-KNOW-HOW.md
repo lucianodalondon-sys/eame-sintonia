@@ -9875,3 +9875,171 @@ honesta.
     ANTES DE PEDIR UM VALOR A ALGUÉM,
     VERIFIQUE SE O QUE FALTA É O VALOR OU O CONCEITO.
 ```
+
+---
+
+# §96 · DUAS IMPLEMENTAÇÕES DO MESMO CONTRATO NÃO SÃO DUAS VERSÕES DA VERDADE
+
+**Missão:** `SCRAP-OWNER-01 — CONVERGIR A AUTORIZAÇÃO DE GASTO`
+**Tocado:** `leis/autorizacao_de_gasto.py` · `leis/relevancia_da_fonte.py`
+(portado) · `coleta/coletor.py` e os cinco consumidores
+**Gasto:** `REAL_NETWORK = 0 · APIFY_RUNS = 0 · COST_USD = 0`
+
+A `§92` fechou com a observação de que um repositório com ramos longos tem mais
+do que um presente. Esta secção é o que aconteceu quando os dois presentes se
+encontraram.
+
+## 96.1 · O SINAL NÃO É O CÓDIGO DIFERENTE. É O NOME IGUAL
+
+Duas linhagens escreveram, cada uma por si, um ficheiro com o mesmo caminho
+para a mesma pergunta. Isso, por si, é banal e recuperável. O que não é banal:
+**os dois declaravam `AUTORIZACAO_DE_GASTO/v1`**.
+
+Medido, com o mesmo input:
+
+```
+um dicionário escrito à mão pelo chamador
+    linha A     ACEITE
+    linha B     RECUSADO
+
+uma autorização de UMA execução, usada duas vezes
+    linha A     as duas passam
+    linha B     a segunda é recusada
+```
+
+```
+    DUAS IMPLEMENTAÇÕES DO MESMO CONTRATO
+    NÃO SÃO DUAS VERSÕES DA VERDADE: SÃO DUAS VERDADES.
+```
+
+E o dano tem uma forma concreta: um manifesto guarda `CONTRATO: …/v1`, e quem o
+lê daqui a um ano **não consegue saber qual dos dois comportamentos o
+produziu**. O campo que existe para identificar o contrato deixa de o
+identificar. Dois ficheiros com o mesmo nome de contrato são piores do que dois
+com nomes diferentes, porque os segundos pelo menos confessam.
+
+## 96.2 · COMO SE ESCOLHE ENTRE DOIS DONOS: POR PROPRIEDADES, NÃO POR IDADE
+
+A tentação é escolher pela linha «principal», pela mais recente, ou pela que
+tem mais consumidores. Nenhuma dessas responde à pergunta certa.
+
+A pergunta certa é: **cada modelo preserva alguma propriedade que o outro não
+preserva?** Se a resposta é «só um deles», não há decisão a tomar — há uma
+medição a aceitar.
+
+```
+    autorização SELADA        o chamador não a consegue escrever
+    autorização CONSUMÍVEL    uma execução autorizada não paga duas
+    teto do FORNECEDOR        conferido contra o autorizado
+    pergunta ao DONO          o portão de relevância é chamado, não imitado
+```
+
+Quatro propriedades num lado, zero no outro. O modelo que perdeu não tinha
+nada que o vencedor não tivesse — e por isso a convergência não teve de
+inventar um terceiro modelo, que era o risco real.
+
+```
+    QUANDO UM DOS DOIS É UM SUPERCONJUNTO,
+    CONVERGIR NÃO É NEGOCIAR: É ESCOLHER E MIGRAR.
+```
+
+## 96.3 · A VERSÃO SEGUE A COMPATIBILIDADE MEDIDA, E NADA MAIS
+
+`v2` não saiu de cerimónia nem de «é uma mudança grande». Saiu de uma medição:
+`v1` **já** nomeava dois comportamentos incompatíveis. Manter o nome criaria um
+terceiro `v1`.
+
+```
+    NÃO SE AUMENTA A VERSÃO PORQUE MUDOU MUITO.
+    AUMENTA-SE PORQUE O NOME ANTIGO JÁ NÃO DESIGNA UMA COISA SÓ.
+```
+
+E o nome ambíguo fica escrito no ficheiro (`CONTRATO_AMBIGUO_ANTERIOR`), porque
+os manifestos antigos existem e alguém os vai ler.
+
+## 96.4 · VALIDAR UM CAMPO QUE QUEM PEDE ESCREVEU
+
+O modelo que perdeu validava um dicionário: conferia que `VEREDITO` dizia
+`AUTORIZA`, que o `SOURCE_ID` batia, que o propósito batia. Tudo correcto — e
+tudo escrito pelo próprio chamador.
+
+```
+    VERIFICAR UM CAMPO QUE QUEM PEDE PREENCHEU
+    É CONFERIR A ASSINATURA DE QUEM ASSINOU O CHEQUE.
+    CAMPO PREENCHIDO PELO CHAMADOR != AUTORIZAÇÃO.
+```
+
+O conserto não precisou de criptografia: um objecto cujo construtor exige um
+selo privado ao módulo, e uma única função que o possui. Quem quiser autorização
+passa por lá e responde às perguntas; quem montar a estrutura à mão recebe
+`AUTORIZACAO_FABRICADA`. E o mesmo vale para um sósia com os mesmos campos, e
+para a própria autorização depois de passar por JSON — serializar tira-lhe o
+selo, que é precisamente o que a torna dela.
+
+## 96.5 · UMA AUTORIZAÇÃO QUE NÃO SE GASTA PAGA TANTAS VEZES QUANTAS CHAVES HOUVER
+
+A propriedade mais fácil de não ver. O dono das credenciais **roda a chave** e
+retoma a mesma unidade de trabalho quando uma esgota; o sensor percorre o pool
+inteiro. Com uma autorização que só valida, uma única concessão paga tantas
+execuções quantas chaves existam no cofre — e nenhuma delas parece irregular.
+
+```
+    ROTAÇÃO DE CHAVE NÃO É NOVA AUTORIZAÇÃO.
+    UMA AUTORIZAÇÃO QUE NÃO SE GASTA NÃO É UM TETO: É UMA PERMISSÃO.
+```
+
+Consumir na porta — e não no chamador — é o que faz a volta seguinte encontrar
+a autorização mais pobre, ou esgotada.
+
+## 96.6 · DOIS EIXOS QUE CORRESPONDEM UM A UM CONTINUAM A SER DOIS EIXOS
+
+As duas linhas tinham vocabulários diferentes para o que parecia a mesma coisa:
+`NORMAL / TRIAL / PROBE` de um lado, três nomes longos do outro. A correspondência
+é exacta, e a tentação de os fundir era grande.
+
+Não se fundiram, e a razão é um caso que a correspondência esconde: **uma
+coleta normal de uma rota gratuita tem modo e não tem motivo de gasto.** Fundir
+daria motivo de gasto a quem não gasta — e a seguir alguém exigiria autorização
+financeira a uma rota que não custa nada.
+
+```
+    UMA ROTA QUE NÃO GASTA NÃO PRECISA DE AUTORIZAÇÃO PARA GASTAR.
+    SPEND AUTHORIZATION != UNIVERSAL EXECUTION AUTHORIZATION.
+```
+
+O que não pode existir são **duas traduções**. Há uma tabela, num sítio, e é o
+único lugar onde um eixo vira o outro.
+
+## 96.7 · UM MUTANTE QUE SOBREVIVE ACUSA A BATERIA, NÃO O CÓDIGO
+
+Cinco dos vinte e quatro sobreviveram à primeira volta, e nenhum deles apontava
+para um buraco no código: apontavam para sentinelas que não existiam. Trocar o
+mapa entre os eixos, voltar a chamar o contrato `v1`, aceitar um dicionário —
+tudo isso partia uma lei e nenhuma prova.
+
+E um deles ensinou a distinção mais fina da missão. Havia uma sentinela a
+provar que a LEI recusa um dicionário. O mutante acrescentava o ramo permissivo
+na **porta** — em quem chama a lei — e sobrevivia inteiro.
+
+```
+    MEDIR A LEI NÃO É MEDIR QUEM A CHAMA.
+```
+
+A `§92` dizia que ler a árvore não prova a aresta. Esta acrescenta o andar de
+cima: provar a regra não prova o caminho até ela.
+
+## 96.8 · CONSEQUÊNCIA
+
+```
+SPEND_AUTH_OWNER_COUNT    2  ->  1
+CONTRATO                  dois «v1» incompatíveis  ->  um v2
+PAID_CREATION_PRIMITIVES  1 (intacto)
+CAN_SPEND_WITHOUT_AUTH    0 (intacto)
+FREE_ROUTE_REQUIRES_SPEND_AUTH   NO
+ATAQUES 65 · MUTANTES 24 · SOBREVIVENTES 0 · NEW_FAILURES 0
+```
+
+E fica uma dívida nomeada: o `LIVRO-DE-RELEVANCIA` está **vazio** nesta
+linhagem, e por isso toda a coleta normal falha fechada. É a verdade — ninguém
+avaliou nenhuma fonte aqui ainda — e é a única resposta honesta enquanto o
+livro não existir.
